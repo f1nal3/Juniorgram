@@ -136,11 +136,11 @@ namespace network
                   mIncomingMessagesQueueLink(incomingMessagesQueueLink) {
         }
         
-        const uint64_t &getID() const {
+        uint64_t getID() const {
             return mID;
         }
         
-        void connectToClient(const uint64_t &uid = uint64_t()) {
+        void connectToClient(const uint64_t uid = uint64_t()) {
             if (mOwner == OwnerType::SERVER) {
                 if (mSocket.is_open()) {
                     mID = uid;
