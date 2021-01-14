@@ -26,6 +26,6 @@ source_group("Network"        FILES ${HEADERS})
 
 target_include_directories(
 	client PUBLIC
-	$(CMAKE_CURRENT_SOURCE_DIR)/../common
-	$(CMAKE_CURRENT_SOURCE_DIR)/../libs/asio-1.18.0/include)
+	"$(CMAKE_CURRENT_SOURCE_DIR)/../common"
+	"$(CMAKE_CURRENT_SOURCE_DIR)/../libs/asio-1.18.0/include")
 
