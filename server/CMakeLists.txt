@@ -11,9 +11,14 @@ set(HEADERS
 	../common/message.h
 	../common/safeQueue.h
 	../common/network.h
-	../common/server.h)
+	../common/server.h
+	../common/asio.hpp)
 
 add_executable(server ${SOURCES} ${HEADERS})
+
+if(WIN32)
+	list(APPEND EXTRA_LIBS ws2_32 wsock32)
+endif()
 
 set_target_properties(server
     PROPERTIES
@@ -24,6 +29,8 @@ set_target_properties(server
 
 source_group("Server"         FILES ${SOURCES})
 source_group("Network"        FILES ${HEADERS})
+
+target_link_libraries(server PRIVATE ${EXTRA_LIBS})
 
 target_include_directories(
 	server PUBLIC
