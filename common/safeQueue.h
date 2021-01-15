@@ -69,7 +69,7 @@ namespace network
             return mRawQueue.empty();
         }
         
-        const size_t &size() {
+        size_t size() {
             std::scoped_lock scopedLock(mScopedMutex);
             return mRawQueue.size();
         }
