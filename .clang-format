@@ -1,0 +1,13 @@
+BasedOnStyle: Google
+IndentWidth: 4
+---
+Language: Cpp
+# Force pointers to the type for C++.
+DerivePointerAlignment: false
+PointerAlignment: Left
+ColumnLimit: 100
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: true
+AllowShortBlocksOnASingleLine: Always
+AlwaysBreakTemplateDeclarations: Yes
+AccessModifierOffset: -4

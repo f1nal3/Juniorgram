@@ -1,7 +1,7 @@
 #pragma once
 
-#include "common.h"
 #include "client.h"
+#include "common.h"
 #include "connection.h"
 #include "message.h"
 #include "safeQueue.h"
