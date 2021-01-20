@@ -11,3 +11,7 @@ AlignConsecutiveAssignments: true
 AllowShortBlocksOnASingleLine: Always
 AlwaysBreakTemplateDeclarations: Yes
 AccessModifierOffset: -4
+BreakBeforeBraces: Custom
+BraceWrapping:
+  BeforeElse: true
+  # AfterControlStatement: Always

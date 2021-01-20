@@ -50,7 +50,7 @@ class Server {
         }
     }
 
-   public:
+public:
     explicit Server(const uint16_t& port)
         : mAcceptor(mContext, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port)) {}
 
@@ -103,10 +103,12 @@ class Server {
 
                     std::cout << "[" << mConnectionsPointers.back()->getID()
                               << "] Connection Approved\n";
-                } else {
+                }
+                else {
                     std::cout << "[-----] Connection Denied\n";
                 }
-            } else {
+            }
+            else {
                 std::cout << "[SERVER] New Connection Error: " << error.message() << "\n";
             }
 
@@ -115,9 +117,8 @@ class Server {
     }
 
     void messageClient(std::shared_ptr<Connection> client, const Message& message) {
-        if (client != nullptr && client->isConnected()) {
-            client->send(message);
-        } else {
+        if (client != nullptr && client->isConnected()) { client->send(message); }
+        else {
             onClientDisconnect(client);
 
             client.reset();
@@ -135,7 +136,8 @@ class Server {
         for (auto& client : mConnectionsPointers) {
             if (client != nullptr && client->isConnected()) {
                 if (client != exceptionClient) { client->send(message); }
-            } else {
+            }
+            else {
                 onClientDisconnect(client);
 
                 client.reset();

@@ -49,9 +49,8 @@ public:
     }
 
     bool isConnected() const {
-        if (mConnection != nullptr) {
-            return mConnection->isConnected();
-        } else {
+        if (mConnection != nullptr) { return mConnection->isConnected(); }
+        else {
             return false;
         }
     }

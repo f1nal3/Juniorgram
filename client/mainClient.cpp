@@ -25,19 +25,23 @@ int main() {
             if (cmd == "p") {
                 client.pingServer();
                 cmd = "";
-            } else if (cmd == "m") {
+            }
+            else if (cmd == "m") {
                 client.messageAll();
                 cmd = "";
-            } else if (cmd == "s") {
+            }
+            else if (cmd == "s") {
                 network::Message message;
                 message << "{'msg':123,'id':777}";
                 client.send(message);
                 cmd = "";
-            } else if (cmd == "qs") {
+            }
+            else if (cmd == "qs") {
                 network::Message message;
                 message << "{'msg':0,'id':0,'cmd':True}";
                 client.send(message);
-            } else if (cmd == "q") {
+            }
+            else if (cmd == "q") {
                 quit = true;
                 client.disconnect();
                 continue;
@@ -76,7 +80,8 @@ int main() {
                     } break;
                 }
             }
-        } else {
+        }
+        else {
             client.disconnect();
             std::cout << "Server Down\n";
             quit = true;
