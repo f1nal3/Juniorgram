@@ -1,0 +1,5 @@
+[requires]
+asio/1.18.1
+
+[generators]
+cmake

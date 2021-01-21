@@ -2,7 +2,9 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-- script: choco install ninja
+- script: |
+    choco install ninja
+    pip install conan
   displayName: Install Ninja
 - script: mkdir build.debug
   displayName: 'Make build directory'

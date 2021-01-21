@@ -11,8 +11,7 @@ set(HEADERS
 	../common/message.h
 	../common/safeQueue.h
 	../common/network.h
-	../common/server.h
-	../common/asio.hpp)
+	../common/server.h)
 
 add_executable(server ${SOURCES} ${HEADERS})
 
@@ -24,15 +23,13 @@ set_target_properties(server
     PROPERTIES
     CXX_STANDARD 17
     CXX_STANDART_REQUIRED ON
-    CXX_EXTENSIONS off
-    )
+    CXX_EXTENSIONS off)
 
 source_group("Server"         FILES ${SOURCES})
 source_group("Network"        FILES ${HEADERS})
 
-target_link_libraries(server PRIVATE ${EXTRA_LIBS})
+target_link_libraries(${PROJECT_NAME} ${EXTRA_LIBS} CONAN_PKG::asio)
 
 target_include_directories(
 	server PUBLIC
-	${CMAKE_CURRENT_SOURCE_DIR}/../common
-	${CMAKE_CURRENT_SOURCE_DIR}/../libs/asio-1.18.0/include)
+	${CMAKE_CURRENT_SOURCE_DIR}/../common)
