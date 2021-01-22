@@ -1,15 +1,15 @@
 #pragma once
 
-#include <iostream>
-#include <cstdint>
+#include <algorithm>
 #include <chrono>
-#include <string>
+#include <cstdint>
+#include <deque>
+#include <iostream>
 #include <memory>
+#include <mutex>
+#include <string>
 #include <thread>
 #include <vector>
-#include <deque>
-#include <mutex>
-#include <algorithm>
 
 #ifdef _WIN32
 #define _WIN32_WINNT 0x0A00
