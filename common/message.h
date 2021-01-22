@@ -3,13 +3,22 @@
 #include "common.h"
 #include "connection.h"
 
-namespace network {
+namespace network
+{
 class Connection;
 
-struct Message {
-    enum class MessageType : uint32_t { ServerAccept, ServerPing, MessageAll, ServerMessage };
+struct Message
+{
+    enum class MessageType : uint32_t
+    {
+        ServerAccept,
+        ServerPing,
+        MessageAll,
+        ServerMessage
+    };
 
-    struct MessageHeader {
+    struct MessageHeader
+    {
         MessageType mID    = MessageType();
         uint32_t mBodySize = uint32_t();
     };
@@ -19,13 +28,15 @@ struct Message {
     MessageHeader mHeader;
     std::vector<uint8_t> mBody;
 
-    friend std::ostream& operator<<(std::ostream& os, const Message& message) {
+    friend std::ostream& operator<<(std::ostream& os, const Message& message)
+    {
         os << "ID:" << size_t(message.mHeader.mID) << " Size:" << message.mHeader.mBodySize;
         return os;
     }
 
     template <typename T>
-    friend Message& operator<<(Message& message, const T& data) {
+    friend Message& operator<<(Message& message, const T& data)
+    {
         static_assert(std::is_standard_layout<T>::value,
                       "Data is too complex to be pushed into vector");
 
@@ -37,7 +48,8 @@ struct Message {
     }
 
     template <typename T>
-    friend Message& operator>>(Message& message, T& data) {
+    friend Message& operator>>(Message& message, T& data)
+    {
         static_assert(std::is_standard_layout<T>::value,
                       "Data is too complex to be pulled from vector");
 

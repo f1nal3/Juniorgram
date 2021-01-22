@@ -15,3 +15,12 @@ BreakBeforeBraces: Custom
 BraceWrapping:
   BeforeElse: true
   AfterControlStatement: Always
+  AfterCaseLabel: true
+  AfterClass: true
+  AfterEnum: true
+  AfterExternBlock: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  AfterUnion: true
+  BeforeCatch: true

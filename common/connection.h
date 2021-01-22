@@ -4,10 +4,16 @@
 #include "message.h"
 #include "safeQueue.h"
 
-namespace network {
-class Connection : public std::enable_shared_from_this<Connection> {
+namespace network
+{
+class Connection : public std::enable_shared_from_this<Connection>
+{
 public:
-    enum class OwnerType { SERVER, CLIENT };
+    enum class OwnerType
+    {
+        SERVER,
+        CLIENT
+    };
 
 private:
     OwnerType mOwner = OwnerType::SERVER;
@@ -21,7 +27,8 @@ private:
 
     Message mMessageBuffer;
 
-    void writeHeader() {
+    void writeHeader()
+    {
         asio::async_write(
             mSocket,
             asio::buffer(&mOutcomingMessagesQueue.front().mHeader, sizeof(Message::MessageHeader)),
@@ -50,7 +57,8 @@ private:
             });
     }
 
-    void writeBody() {
+    void writeBody()
+    {
         asio::async_write(mSocket,
                           asio::buffer(mOutcomingMessagesQueue.front().mBody.data(),
                                        mOutcomingMessagesQueue.front().mBody.size()),
@@ -72,7 +80,8 @@ private:
                           });
     }
 
-    void readHeader() {
+    void readHeader()
+    {
         asio::async_read(mSocket,
                          asio::buffer(&mMessageBuffer.mHeader, sizeof(Message::MessageHeader)),
                          [this](std::error_code error, std::size_t length) {
@@ -84,7 +93,9 @@ private:
                                      readBody();
                                  }
                                  else
-                                 { addToIncomingMessageQueue(); }
+                                 {
+                                     addToIncomingMessageQueue();
+                                 }
                              }
                              else
                              {
@@ -94,7 +105,8 @@ private:
                          });
     }
 
-    void readBody() {
+    void readBody()
+    {
         asio::async_read(mSocket,
                          asio::buffer(mMessageBuffer.mBody.data(), mMessageBuffer.mBody.size()),
                          [this](std::error_code error, std::size_t length) {
@@ -110,14 +122,17 @@ private:
                          });
     }
 
-    void addToIncomingMessageQueue() {
+    void addToIncomingMessageQueue()
+    {
         if (mOwner == OwnerType::SERVER)
         {
             mMessageBuffer.mRemote = this->shared_from_this();
             mIncomingMessagesQueueLink.push_back(mMessageBuffer);
         }
         else
-        { mIncomingMessagesQueueLink.push_back(mMessageBuffer); }
+        {
+            mIncomingMessagesQueueLink.push_back(mMessageBuffer);
+        }
 
         readHeader();
     }
@@ -128,11 +143,14 @@ public:
         : mOwner(owner),
           mContextLink(contextLink),
           mSocket(std::move(socket)),
-          mIncomingMessagesQueueLink(incomingMessagesQueueLink) {}
+          mIncomingMessagesQueueLink(incomingMessagesQueueLink)
+    {
+    }
 
     uint64_t getID() const { return mID; }
 
-    void connectToClient(const uint64_t uid = uint64_t()) {
+    void connectToClient(const uint64_t uid = uint64_t())
+    {
         if (mOwner == OwnerType::SERVER)
         {
             if (mSocket.is_open())
@@ -143,7 +161,8 @@ public:
         }
     }
 
-    void connectToServer(const asio::ip::tcp::resolver::results_type& endpoint) {
+    void connectToServer(const asio::ip::tcp::resolver::results_type& endpoint)
+    {
         if (mOwner == OwnerType::CLIENT)
         {
             asio::async_connect(mSocket, endpoint,
@@ -156,7 +175,8 @@ public:
         }
     }
 
-    void disconnect() {
+    void disconnect()
+    {
         if (isConnected())
         {
             asio::post(mContextLink, [this]() { mSocket.close(); });
@@ -165,7 +185,8 @@ public:
 
     bool isConnected() const { return mSocket.is_open(); }
 
-    void send(const Message& message) {
+    void send(const Message& message)
+    {
         asio::post(mContextLink, [this, message]() {
             bool isMessageExist = !mOutcomingMessagesQueue.empty();
 

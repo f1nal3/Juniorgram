@@ -5,8 +5,10 @@
 #include "message.h"
 #include "safeQueue.h"
 
-namespace network {
-class Server {
+namespace network
+{
+class Server
+{
     uint64_t mIDCounter = 10000, mCriticalQueueSize = 100,
              mNewThreadsCount = std::thread::hardware_concurrency();
 
@@ -20,28 +22,33 @@ class Server {
 
     std::deque<std::thread> mThreads;
 
-    bool onClientConnect(const std::shared_ptr<Connection>& client) {
+    bool onClientConnect(const std::shared_ptr<Connection>& client)
+    {
         network::Message message;
         message.mHeader.mID = network::Message::MessageType::ServerAccept;
         client->send(message);
         return true;
     }
 
-    void onClientDisconnect(const std::shared_ptr<Connection>& client) {
+    void onClientDisconnect(const std::shared_ptr<Connection>& client)
+    {
         std::cout << "Removing client [" << client->getID() << "]\n";
     }
 
-    void onMessage(const std::shared_ptr<Connection>& client, Message& message) {
+    void onMessage(const std::shared_ptr<Connection>& client, Message& message)
+    {
         switch (message.mHeader.mID)
         {
-            case network::Message::MessageType::ServerPing: {
+            case network::Message::MessageType::ServerPing:
+            {
                 std::cout << "[" << client->getID() << "]: Server Ping\n";
 
                 client->send(message);
             }
             break;
 
-            case network::Message::MessageType::MessageAll: {
+            case network::Message::MessageType::MessageAll:
+            {
                 std::cout << "[" << client->getID() << "]: Message All\n";
 
                 network::Message message;
@@ -55,11 +62,14 @@ class Server {
 
 public:
     explicit Server(const uint16_t& port)
-        : mAcceptor(mContext, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port)) {}
+        : mAcceptor(mContext, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port))
+    {
+    }
 
     ~Server() { stop(); }
 
-    bool start() {
+    bool start()
+    {
         try
         {
             waitForClientConnection();
@@ -74,14 +84,16 @@ public:
 
             std::cout << "[SERVER] Started!\n";
             return true;
-        } catch (std::exception& exception)
+        }
+        catch (std::exception& exception)
         {
             std::cerr << "[SERVER] Exception: " << exception.what() << "\n";
             return false;
         }
     }
 
-    void stop() {
+    void stop()
+    {
         mContext.stop();
 
         for (std::thread& thread : mThreads)
@@ -97,7 +109,8 @@ public:
         std::cout << "[SERVER] Stopped!\n";
     }
 
-    void waitForClientConnection() {
+    void waitForClientConnection()
+    {
         mAcceptor.async_accept([this](std::error_code error, asio::ip::tcp::socket socket) {
             if (!error)
             {
@@ -117,16 +130,21 @@ public:
                               << "] Connection Approved\n";
                 }
                 else
-                { std::cout << "[-----] Connection Denied\n"; }
+                {
+                    std::cout << "[-----] Connection Denied\n";
+                }
             }
             else
-            { std::cout << "[SERVER] New Connection Error: " << error.message() << "\n"; }
+            {
+                std::cout << "[SERVER] New Connection Error: " << error.message() << "\n";
+            }
 
             waitForClientConnection();
         });
     }
 
-    void messageClient(std::shared_ptr<Connection> client, const Message& message) {
+    void messageClient(std::shared_ptr<Connection> client, const Message& message)
+    {
         if (client != nullptr && client->isConnected())
         {
             client->send(message);
@@ -144,7 +162,8 @@ public:
     }
 
     void messageAllClients(const Message& message,
-                           const std::shared_ptr<Connection>& exceptionClient = nullptr) {
+                           const std::shared_ptr<Connection>& exceptionClient = nullptr)
+    {
         bool deadConnectionExist = false;
 
         for (auto& client : mConnectionsPointers)
@@ -174,7 +193,8 @@ public:
         }
     }
 
-    void update(size_t maxMessages = MAXSIZE_T, bool wait = true) {
+    void update(size_t maxMessages = MAXSIZE_T, bool wait = true)
+    {
         if (wait)
         {
             mIncomingMessagesQueue.wait();

@@ -5,8 +5,10 @@
 #include "message.h"
 #include "safeQueue.h"
 
-namespace network {
-class Client {
+namespace network
+{
+class Client
+{
     asio::io_context mContext;
     std::thread mContextThread;
 
@@ -17,7 +19,8 @@ class Client {
 public:
     ~Client() { disconnect(); }
 
-    bool connect(const std::string& host, const uint16_t& port) {
+    bool connect(const std::string& host, const uint16_t& port)
+    {
         try
         {
             asio::ip::tcp::resolver resolver(mContext);
@@ -33,14 +36,16 @@ public:
             mContextThread = std::thread([this]() { mContext.run(); });
 
             return true;
-        } catch (std::exception& exception)
+        }
+        catch (std::exception& exception)
         {
             std::cerr << "Client Exception: " << exception.what() << "\n";
             return false;
         }
     }
 
-    void disconnect() {
+    void disconnect()
+    {
         if (isConnected())
         {
             mConnection->disconnect();
@@ -56,16 +61,20 @@ public:
         mConnection.release();
     }
 
-    bool isConnected() const {
+    bool isConnected() const
+    {
         if (mConnection != nullptr)
         {
             return mConnection->isConnected();
         }
         else
-        { return false; }
+        {
+            return false;
+        }
     }
 
-    void send(const Message& message) const {
+    void send(const Message& message) const
+    {
         if (isConnected())
         {
             mConnection->send(message);
@@ -74,7 +83,8 @@ public:
 
     SafeQueue<Message>& incoming() { return mIncomingMessagesQueue; }
 
-    void pingServer() const {
+    void pingServer() const
+    {
         network::Message message;
         message.mHeader.mID = network::Message::MessageType::ServerPing;
 
@@ -84,7 +94,8 @@ public:
         send(message);
     }
 
-    void messageAll() const {
+    void messageAll() const
+    {
         network::Message message;
         message.mHeader.mID = network::Message::MessageType::MessageAll;
         send(message);

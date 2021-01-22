@@ -1,6 +1,7 @@
 #include <network.h>
 
-int main() {
+int main()
+{
     network::Server server(60000);
     server.start();
 

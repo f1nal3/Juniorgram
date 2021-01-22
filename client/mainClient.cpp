@@ -5,13 +5,15 @@
 #include <iostream>
 #include <string>
 
-std::string GetLineFromCin() {
+std::string GetLineFromCin()
+{
     std::string line;
     std::getline(std::cin, line);
     return line;
 }
 
-int main() {
+int main()
+{
     network::Client client;
     client.connect("127.0.0.1", 60000);
 
@@ -69,12 +71,14 @@ int main() {
 
                 switch (message.mHeader.mID)
                 {
-                    case network::Message::MessageType::ServerAccept: {
+                    case network::Message::MessageType::ServerAccept:
+                    {
                         std::cout << "Server Accepted Connection\n";
                     }
                     break;
 
-                    case network::Message::MessageType::ServerPing: {
+                    case network::Message::MessageType::ServerPing:
+                    {
                         std::chrono::system_clock::time_point timeNow =
                             std::chrono::system_clock::now();
                         std::chrono::system_clock::time_point timeThen;
@@ -85,7 +89,8 @@ int main() {
                     }
                     break;
 
-                    case network::Message::MessageType::ServerMessage: {
+                    case network::Message::MessageType::ServerMessage:
+                    {
                         uint64_t clientID;
                         message >> clientID;
                         std::cout << "Hello from [" << clientID << "]\n";
