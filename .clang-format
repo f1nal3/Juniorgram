@@ -8,10 +8,10 @@ PointerAlignment: Left
 ColumnLimit: 100
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: true
-AllowShortBlocksOnASingleLine: Always
+AllowShortBlocksOnASingleLine: Never
 AlwaysBreakTemplateDeclarations: Yes
 AccessModifierOffset: -4
 BreakBeforeBraces: Custom
 BraceWrapping:
   BeforeElse: true
-  # AfterControlStatement: Always
+  AfterControlStatement: Always

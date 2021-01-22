@@ -18,30 +18,37 @@ int main() {
     bool quit   = false;
     auto future = std::async(std::launch::async, GetLineFromCin);
 
-    while (!quit) {
-        if (future.wait_for(std::chrono::seconds(0)) == std::future_status::ready) {
+    while (!quit)
+    {
+        if (future.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+        {
             static std::string cmd;
             cmd = future.get();
-            if (cmd == "p") {
+            if (cmd == "p")
+            {
                 client.pingServer();
                 cmd = "";
             }
-            else if (cmd == "m") {
+            else if (cmd == "m")
+            {
                 client.messageAll();
                 cmd = "";
             }
-            else if (cmd == "s") {
+            else if (cmd == "s")
+            {
                 network::Message message;
                 message << "{'msg':123,'id':777}";
                 client.send(message);
                 cmd = "";
             }
-            else if (cmd == "qs") {
+            else if (cmd == "qs")
+            {
                 network::Message message;
                 message << "{'msg':0,'id':0,'cmd':True}";
                 client.send(message);
             }
-            else if (cmd == "q") {
+            else if (cmd == "q")
+            {
                 quit = true;
                 client.disconnect();
                 continue;
@@ -54,14 +61,18 @@ int main() {
 
         // std::this_thread::sleep_for(std::chrono::seconds(1));
 
-        if (client.isConnected()) {
-            if (!client.incoming().empty()) {
+        if (client.isConnected())
+        {
+            if (!client.incoming().empty())
+            {
                 network::Message message = client.incoming().pop_front();
 
-                switch (message.mHeader.mID) {
+                switch (message.mHeader.mID)
+                {
                     case network::Message::MessageType::ServerAccept: {
                         std::cout << "Server Accepted Connection\n";
-                    } break;
+                    }
+                    break;
 
                     case network::Message::MessageType::ServerPing: {
                         std::chrono::system_clock::time_point timeNow =
@@ -71,17 +82,20 @@ int main() {
                         std::cout << "Ping: "
                                   << std::chrono::duration<double>(timeNow - timeThen).count()
                                   << "\n";
-                    } break;
+                    }
+                    break;
 
                     case network::Message::MessageType::ServerMessage: {
                         uint64_t clientID;
                         message >> clientID;
                         std::cout << "Hello from [" << clientID << "]\n";
-                    } break;
+                    }
+                    break;
                 }
             }
         }
-        else {
+        else
+        {
             client.disconnect();
             std::cout << "Server Down\n";
             quit = true;

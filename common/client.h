@@ -18,7 +18,8 @@ public:
     ~Client() { disconnect(); }
 
     bool connect(const std::string& host, const uint16_t& port) {
-        try {
+        try
+        {
             asio::ip::tcp::resolver resolver(mContext);
             asio::ip::tcp::resolver::results_type endpoints =
                 resolver.resolve(host, std::to_string(port));
@@ -32,31 +33,43 @@ public:
             mContextThread = std::thread([this]() { mContext.run(); });
 
             return true;
-        } catch (std::exception& exception) {
+        } catch (std::exception& exception)
+        {
             std::cerr << "Client Exception: " << exception.what() << "\n";
             return false;
         }
     }
 
     void disconnect() {
-        if (isConnected()) { mConnection->disconnect(); }
+        if (isConnected())
+        {
+            mConnection->disconnect();
+        }
 
         mContext.stop();
 
-        if (mContextThread.joinable()) { mContextThread.join(); }
+        if (mContextThread.joinable())
+        {
+            mContextThread.join();
+        }
 
         mConnection.release();
     }
 
     bool isConnected() const {
-        if (mConnection != nullptr) { return mConnection->isConnected(); }
-        else {
-            return false;
+        if (mConnection != nullptr)
+        {
+            return mConnection->isConnected();
         }
+        else
+        { return false; }
     }
 
     void send(const Message& message) const {
-        if (isConnected()) { mConnection->send(message); }
+        if (isConnected())
+        {
+            mConnection->send(message);
+        }
     }
 
     SafeQueue<Message>& incoming() { return mIncomingMessagesQueue; }

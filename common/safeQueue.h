@@ -72,7 +72,8 @@ public:
     }
 
     void wait() {
-        while (empty()) {
+        while (empty())
+        {
             std::unique_lock<std::mutex> uniqueLock(mUniqueMutex);
             mBlock.wait(uniqueLock);
         }
