@@ -9,7 +9,7 @@ class Connection;
 
 struct Message
 {
-    enum class MessageType : uint32_t
+    enum class MessageType : std::uint32_t
     {
         ServerAccept,
         ServerPing,
@@ -20,7 +20,7 @@ struct Message
     struct MessageHeader
     {
         MessageType mID    = MessageType();
-        uint32_t mBodySize = uint32_t();
+        std::uint32_t mBodySize = std::uint32_t();
     };
 
     std::shared_ptr<Connection> mRemote = nullptr;
@@ -43,7 +43,7 @@ struct Message
         size_t i = message.mBody.size();
         message.mBody.resize(message.mBody.size() + sizeof(T));
         std::memcpy(message.mBody.data() + i, &data, sizeof(T));
-        message.mHeader.mBodySize = message.mBody.size();
+        message.mHeader.mBodySize = static_cast<std::uint32_t>(message.mBody.size());
         return message;
     }
 
@@ -56,7 +56,7 @@ struct Message
         size_t i = message.mBody.size() - sizeof(T);
         std::memcpy(&data, message.mBody.data() + i, sizeof(T));
         message.mBody.resize(i);
-        message.mHeader.mBodySize = message.mBody.size();
+        message.mHeader.mBodySize = static_cast<std::uint32_t>(message.mBody.size());
         return message;
     }
 };

@@ -51,10 +51,10 @@ class Server
             {
                 std::cout << "[" << client->getID() << "]: Message All\n";
 
-                network::Message message;
-                message.mHeader.mID = network::Message::MessageType::ServerMessage;
-                message << client->getID();
-                messageAllClients(message, client);
+                network::Message msg; // TODO: Why is a new message needed here?
+                msg.mHeader.mID = network::Message::MessageType::ServerMessage;
+                msg << client->getID();
+                messageAllClients(msg, client);
             }
             break;
         }

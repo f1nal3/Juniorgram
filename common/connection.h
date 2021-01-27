@@ -32,7 +32,7 @@ private:
         asio::async_write(
             mSocket,
             asio::buffer(&mOutcomingMessagesQueue.front().mHeader, sizeof(Message::MessageHeader)),
-            [this](std::error_code error, std::size_t length) {
+            [this](std::error_code error, [[maybe_unused]] std::size_t length) {
                 if (!error)
                 {
                     if (!mOutcomingMessagesQueue.front().mBody.empty())
@@ -62,7 +62,7 @@ private:
         asio::async_write(mSocket,
                           asio::buffer(mOutcomingMessagesQueue.front().mBody.data(),
                                        mOutcomingMessagesQueue.front().mBody.size()),
-                          [this](std::error_code error, std::size_t length) {
+                          [this](std::error_code error, [[maybe_unused]] std::size_t length) {
                               if (!error)
                               {
                                   mOutcomingMessagesQueue.pop_front();
@@ -84,7 +84,7 @@ private:
     {
         asio::async_read(mSocket,
                          asio::buffer(&mMessageBuffer.mHeader, sizeof(Message::MessageHeader)),
-                         [this](std::error_code error, std::size_t length) {
+                         [this](std::error_code error, [[maybe_unused]] std::size_t length) {
                              if (!error)
                              {
                                  if (mMessageBuffer.mHeader.mBodySize > 0)
@@ -109,7 +109,7 @@ private:
     {
         asio::async_read(mSocket,
                          asio::buffer(mMessageBuffer.mBody.data(), mMessageBuffer.mBody.size()),
-                         [this](std::error_code error, std::size_t length) {
+                         [this](std::error_code error, [[maybe_unused]] std::size_t length) {
                              if (!error)
                              {
                                  addToIncomingMessageQueue();
@@ -160,7 +160,8 @@ public:
             }
         }
     }
-
+#pragma warning(push)
+#pragma warning(disable : 4100)
     void connectToServer(const asio::ip::tcp::resolver::results_type& endpoint)
     {
         if (mOwner == OwnerType::CLIENT)
@@ -174,7 +175,7 @@ public:
                                 });
         }
     }
-
+#pragma warning(pop)
     void disconnect()
     {
         if (isConnected())

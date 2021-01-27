@@ -19,12 +19,6 @@ if(WIN32)
 	list(APPEND EXTRA_LIBS ws2_32 wsock32)
 endif()
 
-set_target_properties(client
-	PROPERTIES
-    CXX_STANDARD 17
-    CXX_STANDART_REQUIRED ON
-    CXX_EXTENSIONS off)
-
 source_group("Client"         FILES ${SOURCES})
 source_group("Network"        FILES ${HEADERS})
 
