@@ -57,6 +57,10 @@ class Server
                 messageAllClients(msg, client);
             }
             break;
+            default:
+            {
+            break;
+            }
         }
     }
 
@@ -193,7 +197,7 @@ public:
         }
     }
 
-    void update(size_t maxMessages = MAXSIZE_T, bool wait = true)
+    void update(size_t maxMessages = std::numeric_limits<size_t>::max(), bool wait = true)
     {
         if (wait)
         {

@@ -96,6 +96,10 @@ int main()
                         std::cout << "Hello from [" << clientID << "]\n";
                     }
                     break;
+                    default:
+                    {
+                    break;
+                    }
                 }
             }
         }

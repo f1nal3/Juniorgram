@@ -141,8 +141,8 @@ public:
     Connection(const OwnerType& owner, asio::io_context& contextLink, asio::ip::tcp::socket socket,
                SafeQueue<Message>& incomingMessagesQueueLink)
         : mOwner(owner),
-          mContextLink(contextLink),
           mSocket(std::move(socket)),
+          mContextLink(contextLink),
           mIncomingMessagesQueueLink(incomingMessagesQueueLink)
     {
     }
@@ -160,14 +160,18 @@ public:
             }
         }
     }
+#ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable : 4100)
+#elif __GNUC__
+#define UNUSED(x) //in order to remove warning: unused-variables
+#endif
     void connectToServer(const asio::ip::tcp::resolver::results_type& endpoint)
     {
         if (mOwner == OwnerType::CLIENT)
         {
             asio::async_connect(mSocket, endpoint,
-                                [this](std::error_code ec, asio::ip::tcp::endpoint endpoint) {
+                                [this](std::error_code ec, asio::ip::tcp::endpoint UNUSED(endpoint)) {
                                     if (!ec)
                                     {
                                         readHeader();
@@ -175,7 +179,9 @@ public:
                                 });
         }
     }
+#ifdef _MSC_VER
 #pragma warning(pop)
+#endif
     void disconnect()
     {
         if (isConnected())

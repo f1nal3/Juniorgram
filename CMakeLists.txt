@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15.0)
+cmake_minimum_required(VERSION 3.10.0)
 
 project(Juniorgram)
 
@@ -9,9 +9,13 @@ set (CXX_EXTENSIONS off)
 
 # Set warnings level higher and force treating them as errors.
 # GCC TBD
-if (WIN32)
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX")
-endif ()
+if (MSVC)
+    # warning level 4 and all warnings as errors
+    add_compile_options(/W4 /WX)
+else()
+    # lots of warnings and all warnings as errors
+    add_compile_options(-Wall -Wextra -pedantic -Werror)
+endif()
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
