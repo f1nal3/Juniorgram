@@ -1,6 +1,13 @@
 pool:
   vmImage: 'windows-latest'
 
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    exclude:
+    - README.md
 steps:
 - script: |
     choco install ninja
