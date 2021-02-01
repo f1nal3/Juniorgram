@@ -27,3 +27,10 @@ target_link_libraries(${PROJECT_NAME} ${EXTRA_LIBS} CONAN_PKG::asio)
 target_include_directories(
 	server PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}/../common)
+
+install(TARGETS server
+        CONFIGURATIONS Debug
+        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Server/Debug)
+install(TARGETS server
+        CONFIGURATIONS Release
+        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Server/Release)
