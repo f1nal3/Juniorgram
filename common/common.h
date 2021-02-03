@@ -11,8 +11,9 @@
 #include <thread>
 #include <vector>
 
-#ifdef _MSC_VER
 #ifdef _WIN32
+#ifdef _WIN32_WINNT
+#undef _WIN32_WINNT
 #define _WIN32_WINNT 0x0A00
 #endif
 #endif

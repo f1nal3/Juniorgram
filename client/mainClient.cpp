@@ -75,7 +75,7 @@ int main()
                     {
                         std::cout << "Server Accepted Connection\n";
                     }
-                    break;
+                        break;
 
                     case network::Message::MessageType::ServerPing:
                     {
@@ -87,7 +87,7 @@ int main()
                                   << std::chrono::duration<double>(timeNow - timeThen).count()
                                   << "\n";
                     }
-                    break;
+                        break;
 
                     case network::Message::MessageType::ServerMessage:
                     {
@@ -95,10 +95,10 @@ int main()
                         message >> clientID;
                         std::cout << "Hello from [" << clientID << "]\n";
                     }
-                    break;
+                        break;
                     default:
                     {
-                    break;
+                        break;
                     }
                 }
             }
