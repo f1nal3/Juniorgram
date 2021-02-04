@@ -11,7 +11,8 @@ set(HEADERS
 	../common/message.h
 	../common/safeQueue.h
 	../common/network.h
-	../common/client.h)
+	../common/client.h
+	../common/WarningSuppressing.h)
 
 add_executable(client ${SOURCES} ${HEADERS})
 
