@@ -163,7 +163,7 @@ public:
         }
     }
 
-    suppressWarning(4100, -Werror=unused-parameter)
+    suppressWarning(4100, -Wunused-parameter)
     void connectToServer(const asio::ip::tcp::resolver::results_type& endpoint)
     {
         if (mOwner == OwnerType::CLIENT)
