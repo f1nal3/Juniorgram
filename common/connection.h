@@ -169,7 +169,7 @@ public:
         if (mOwner == OwnerType::CLIENT)
         {
             asio::async_connect(mSocket, endpoint,
-                                [this](std::error_code ec, asio::ip::tcp::endpoint UNUSED(endpoint)) {
+                                [this](std::error_code ec, asio::ip::tcp::endpoint endpoint) {
                                     if (!ec)
                                     {
                                         readHeader();
