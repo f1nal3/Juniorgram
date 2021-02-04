@@ -12,7 +12,7 @@ steps:
 - script: |
     choco install ninja
     pip install conan
-  displayName: Install Ninja
+  displayName: Install Ninja, Conan
 - script: mkdir build.debug
   displayName: 'Make build directory'
 - task: CMake@1

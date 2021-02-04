@@ -3,16 +3,15 @@ cmake_minimum_required(VERSION 3.10.0)
 project(client)
 
 set(SOURCES
-	mainClient.cpp)
+		mainClient.cpp)
 
 set(HEADERS
-	../common/common.h
-	../common/connection.h
-	../common/message.h
-	../common/safeQueue.h
-	../common/network.h
-	../common/client.h
-	../common/WarningSuppressing.h)
+		../common/common.h
+		../common/connection.h
+		../common/message.h
+		../common/safeQueue.h
+		../common/network.h
+		../common/client.h)
 
 add_executable(client ${SOURCES} ${HEADERS})
 
@@ -26,12 +25,12 @@ source_group("Network"        FILES ${HEADERS})
 target_link_libraries(${PROJECT_NAME} ${EXTRA_LIBS} CONAN_PKG::asio)
 
 target_include_directories(
-	client PUBLIC
-	"${CMAKE_CURRENT_SOURCE_DIR}/../common")
+		client PUBLIC
+		"${CMAKE_CURRENT_SOURCE_DIR}/../common")
 
 install(TARGETS client
-        CONFIGURATIONS Debug
-        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Client/Debug)
+		CONFIGURATIONS Debug
+		RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Client/Debug)
 install(TARGETS client
-        CONFIGURATIONS Release
-        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Client/Release)
+		CONFIGURATIONS Release
+		RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Client/Release)
