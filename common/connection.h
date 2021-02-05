@@ -4,6 +4,8 @@
 #include "message.h"
 #include "safeQueue.h"
 
+#include "WarningSuppressing.h"
+
 namespace network
 {
 class Connection : public std::enable_shared_from_this<Connection>
@@ -160,18 +162,14 @@ public:
             }
         }
     }
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable : 4100)
-#elif __GNUC__
-#define UNUSED(x) //in order to remove warning: unused-variables
-#endif
+
+    suppressWarning(4100, -Wunused-parameter)
     void connectToServer(const asio::ip::tcp::resolver::results_type& endpoint)
     {
         if (mOwner == OwnerType::CLIENT)
         {
             asio::async_connect(mSocket, endpoint,
-                                [this](std::error_code ec, asio::ip::tcp::endpoint UNUSED(endpoint)) {
+                                [this](std::error_code ec, asio::ip::tcp::endpoint endpoint) {
                                     if (!ec)
                                     {
                                         readHeader();
@@ -179,9 +177,8 @@ public:
                                 });
         }
     }
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
+    restoreWarning
+
     void disconnect()
     {
         if (isConnected())
