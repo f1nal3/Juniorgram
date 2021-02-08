@@ -10,7 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
   
 steps:
-- task: Docker@2
+- task: Docker@1
   inputs:
     containerRegistry: 'glaush-docker-repo'
     repository: 'glaush/juniorgram'

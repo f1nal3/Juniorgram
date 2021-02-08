@@ -19,7 +19,7 @@ struct Message
 
     struct MessageHeader
     {
-        MessageType mID    = MessageType();
+        MessageType mID         = MessageType();
         std::uint32_t mBodySize = std::uint32_t();
     };
 

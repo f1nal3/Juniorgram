@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-    - main
+    - frontend-dev
   paths:
     exclude:
     - README.md

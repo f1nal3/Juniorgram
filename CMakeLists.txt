@@ -31,7 +31,10 @@ conan_cmake_run(CONANFILE conanfile.txt
                 BASIC_SETUP CMAKE_TARGETS
                 BUILD missing)
 
+
 add_subdirectory(test)
-add_subdirectory(client)
+#add_subdirectory(client_core)
 add_subdirectory(server)
+#add_subdirectory(Gui_Qt)
+#add_subdirectory(serialization)
 	
