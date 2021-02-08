@@ -6,12 +6,13 @@ set(SOURCES
 		mainClient.cpp)
 
 set(HEADERS
-		../common/common.h
-		../common/connection.h
-		../common/message.h
-		../common/safeQueue.h
-		../common/network.h
-		../common/client.h)
+	../common/common.h
+	../common/connection.h
+	../common/message.h
+	../common/safeQueue.h
+	../common/network.h
+	../common/client.h
+	../common/WarningSuppressing.h)
 
 add_executable(client ${SOURCES} ${HEADERS})
 

@@ -11,7 +11,8 @@ set(HEADERS
 	../common/message.h
 	../common/safeQueue.h
 	../common/network.h
-	../common/server.h)
+	../common/server.h
+	../common/WarningSuppressing.h)
 
 add_executable(server ${SOURCES} ${HEADERS})
 
