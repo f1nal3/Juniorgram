@@ -25,6 +25,9 @@ if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
                  "${CMAKE_BINARY_DIR}/conan.cmake" TLS_VERIFY ON)
 endif()
 
+set(CMAKE_CXX_FLAGS "-pthread")
+
+
 include(${CMAKE_BINARY_DIR}/conan.cmake)
 
 conan_cmake_run(CONANFILE conanfile.txt
@@ -34,7 +37,7 @@ conan_cmake_run(CONANFILE conanfile.txt
 
 add_subdirectory(test)
 #add_subdirectory(client_core)
-add_subdirectory(server)
-#add_subdirectory(Gui_Qt)
-#add_subdirectory(serialization)
+#add_subdirectory(server)
+add_subdirectory(Gui_Qt)
+add_subdirectory(serialization)
 	

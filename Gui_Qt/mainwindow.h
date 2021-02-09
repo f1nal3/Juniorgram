@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QStringListModel>
+#include <Serialize.hpp>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,5 +25,6 @@ private:
     Ui::MainWindow *ui;
     QStringListModel *model;
     QStringList *messagesList;
+    Serialize *serialize;
 };
 #endif // MAINWINDOW_H

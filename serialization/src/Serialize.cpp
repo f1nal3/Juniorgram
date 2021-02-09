@@ -1,7 +1,43 @@
-#include "serialize.hpp"
+#include "Serialize.hpp"
 
-Serialize::Serialize(/* args */) {}
+Serialize::Serialize()
+{
+    QFile jsonFile("text.json");
+    if(!jsonFile.open(QIODevice::ReadOnly))
+    {
+           return;
+    }
+    QByteArray saveData = jsonFile.readAll();
+    QJsonDocument jsonDocument(QJsonDocument::fromJson(saveData));
+    m_messageData = jsonDocument.object();
+}
 
-Serialize::~Serialize() {}
+void Serialize::updateSerialize(QStringList &messagesList)
+{
+    QJsonArray jsonArray = m_messageData["texts"].toArray();
+    foreach(QJsonValue value, jsonArray)
+    {
+        QJsonObject obj = value.toObject();
+        messagesList.append(obj["Message"].toString());
+    }
+}
 
-long Serialize::getMagicNumber() { return magicNumber; }
+void Serialize::pushData(QStringList &messagesList)
+{
+    QJsonObject json;
+    json["Message"] = messagesList.back();
+    QJsonArray jsonArray = m_messageData["texts"].toArray();
+    jsonArray.append(json);
+    m_messageData["texts"] = jsonArray;
+}
+
+Serialize::~Serialize()
+{
+    QFile jsonFile("text.json");
+    if(!jsonFile.open(QIODevice::WriteOnly))
+         {
+            return;
+         }
+    jsonFile.write(QJsonDocument(m_messageData).toJson(QJsonDocument::Indented));
+    jsonFile.close();
+}
