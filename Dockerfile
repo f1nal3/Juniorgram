@@ -11,5 +11,3 @@ RUN wget -qO- https://bootstrap.pypa.io/get-pip.py | python3 \
 
 RUN cmake -DCMAKE_BUILD_TYPE=Release . \
 && cmake --build . 
-
-CMD ["./bin/server"]
