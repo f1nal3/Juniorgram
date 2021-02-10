@@ -28,4 +28,4 @@ jobs:
       - name: Build Docker image.
         run: |
           sudo docker build . -t juniorgram:1.0
-          docker run --rm --name juniorgram-container juniorgram:1.0
+       # docker run --rm --name juniorgram-container juniorgram:1.0
