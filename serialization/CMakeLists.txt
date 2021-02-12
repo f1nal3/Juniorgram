@@ -2,6 +2,9 @@ cmake_minimum_required( VERSION 3.10.0 )
 
 project(Seialize_lib VERSION 1.0)
 
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
+
 set(SOURCE
     "./src/Serialize.cpp")
 

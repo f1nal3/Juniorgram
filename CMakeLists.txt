@@ -7,10 +7,6 @@ set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CXX_EXTENSIONS off)
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
-
-
 # Set warnings level higher and force treating them as errors.
 # GCC TBD
 if (MSVC)
@@ -21,7 +17,7 @@ else()
     add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()
 
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pthread")
+
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 

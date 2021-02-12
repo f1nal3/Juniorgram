@@ -11,7 +11,7 @@ class Serialize
 private:
     QJsonObject m_messageData;
 public:
-    Serialize();
+    Serialize() = default;
     void pushData(QStringList &messagesList);
     void updateSerialize(QStringList &messagesList);
     ~Serialize();

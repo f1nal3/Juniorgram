@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QStringListModel>
-#include "Serialize.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

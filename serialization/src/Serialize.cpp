@@ -1,8 +1,5 @@
 #include "Serialize.h"
 
-Serialize::Serialize()
-{}
-
 void Serialize::updateSerialize(QStringList &messagesList)
 {
     QFile jsonFile("text.json");
