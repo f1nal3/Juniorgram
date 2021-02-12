@@ -1,4 +1,3 @@
-// TODO : add header guard
 #pragma once
 #include <QJsonArray>
 #include <QJsonDocument>

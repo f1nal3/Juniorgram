@@ -1,6 +1,9 @@
-#include "Serialize.hpp"
+#include "Serialize.h"
 
 Serialize::Serialize()
+{}
+
+void Serialize::updateSerialize(QStringList &messagesList)
 {
     QFile jsonFile("text.json");
     if(!jsonFile.open(QIODevice::ReadOnly))
@@ -10,10 +13,6 @@ Serialize::Serialize()
     QByteArray saveData = jsonFile.readAll();
     QJsonDocument jsonDocument(QJsonDocument::fromJson(saveData));
     m_messageData = jsonDocument.object();
-}
-
-void Serialize::updateSerialize(QStringList &messagesList)
-{
     QJsonArray jsonArray = m_messageData["texts"].toArray();
     foreach(QJsonValue value, jsonArray)
     {
