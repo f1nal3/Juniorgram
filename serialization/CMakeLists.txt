@@ -8,9 +8,6 @@ set(SOURCE
 set(HEADERS
     "./include/Serialize.h")
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
-
 # Add a library with the above sources
 add_library(${PROJECT_NAME} STATIC ${SOURCE} ${HEADERS})
 add_library(sub::lib_serialize ALIAS ${PROJECT_NAME})
