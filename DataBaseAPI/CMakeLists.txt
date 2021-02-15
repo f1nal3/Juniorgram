@@ -12,4 +12,4 @@ add_executable(DataBaseAPI ${SOURCES})
 
 find_package(PostgreSQL REQUIRED)
 
-target_link_libraries(${PROJECT_NAME} ${EXTRA_LIBS} CONAN_PKG::libpqxx)
+target_link_libraries(${PROJECT_NAME} ${EXTRA_LIBS} CONAN_PKG::libpqxx CONAN_PKG::libpq)

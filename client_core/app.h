@@ -6,7 +6,7 @@ class App
 {
 private:
     const std::string address = "127.0.0.1";
-    const int port            = 60000;
+    const std::uint16_t port            = 60000;
     network::Client client;
 
 public:

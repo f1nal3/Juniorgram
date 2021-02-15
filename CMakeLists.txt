@@ -37,6 +37,9 @@ conan_cmake_run(CONANFILE conanfile.txt
 add_subdirectory(test)
 add_subdirectory(client_core)
 add_subdirectory(server)
-add_subdirectory(Gui_Qt)
-##add_subdirectory(serialization)
-##add_subdirectory(DataBaseAPI)
+# These both demand Qt lib
+# Since there is not Qt in our build chain
+# Yeet they go
+#add_subdirectory(Gui_Qt)
+#add_subdirectory(serialization)
+add_subdirectory(DataBaseAPI)

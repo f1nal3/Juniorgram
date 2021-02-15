@@ -4,7 +4,7 @@
 
 #include <pqxx/pqxx>
 
-suppressWarning(4099, -winit-self)
+suppressWarning(4099, -Winit-self)
 int main()
 {   
     try
