@@ -5,6 +5,7 @@ project(unit_tests)
 file(GLOB UNIT_TESTS_SRC_FILES ${PROJECT_SOURCE_DIR}/*.cpp)
 set(CMAKE_BUILD_TYPE RELWITHDEBINFO)
 
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pthread")
 
 include_directories(${CONAN_INCLUDE_DIRS})
 

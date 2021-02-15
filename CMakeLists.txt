@@ -17,6 +17,8 @@ else()
     add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()
 
+
+
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")

@@ -47,6 +47,8 @@ bool App::loop()
                     std::cout << "Hello from [" << clientID << "]\n";
                 }
                 break;
+				default:
+				break;
             }
         }
     }
