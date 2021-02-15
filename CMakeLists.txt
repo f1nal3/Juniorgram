@@ -39,4 +39,4 @@ add_subdirectory(client_core)
 add_subdirectory(server)
 add_subdirectory(Gui_Qt)
 add_subdirectory(serialization)
-	
+add_subdirectory(DataBaseAPI)
