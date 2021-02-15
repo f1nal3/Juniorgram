@@ -23,17 +23,12 @@ set(PROJECT_SOURCES
         ${TS_FILES}
 )
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(Gui_Qt
-        ${PROJECT_SOURCES}
-    )
-
-    else()
-        add_executable(Gui_Qt
-            ${PROJECT_SOURCES}
-        )
-
-endif()
+## if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+##    qt_add_executable(Gui_Qt
+##      ${PROJECT_SOURCES})
+##    else()
+        add_executable(Gui_Qt ${PROJECT_SOURCES})
+##endif()
 
 target_link_libraries(Gui_Qt PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
