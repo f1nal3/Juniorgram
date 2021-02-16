@@ -11,4 +11,4 @@ jobs:
       - name: Build the image.
         run: docker build . -t juniorgram:${{ github.run_number }}
       - name: Publish the image to GitHub Packages. 
-        run: docker push docker.pkg.github.com/f1nal3/juniorgram/juniorgram:${{ github.run_number }}
+        run: docker image push docker.pkg.github.com/f1nal3/juniorgram/juniorgram:${{ github.run_number }}
