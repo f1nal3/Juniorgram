@@ -9,8 +9,8 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Set the tag for the image.
-        run: docker tag juniorgram f1nal3/juniorgram/juniorgram:${{ github.run_number }}
+        run: docker tag juniorgram f1nal3/juniorgram/juniorgram:latest
       - name: Build the image.
-        run: docker build -t docker.pkg.github.com/f1nal3/juniorgram/juniorgram:${{ github.run_number }}
+        run: docker build -t docker.pkg.github.com/f1nal3/juniorgram/juniorgram:latest
       - name: Publish the image to GitHub Packages. 
-        run: docker push docker.pkg.github.com/f1nal3/juniorgram/juniorgram:${{ github.run_number }}
+        run: docker push docker.pkg.github.com/f1nal3/juniorgram/juniorgram:latest
