@@ -6,6 +6,8 @@ jobs:
   build_and_push:
      runs-on: ubuntu-latest
      name: Build and Push Docker image to GitHub Packages
+     
+
      steps:
       - name: Log in ghcr.io.
       - run: echo $PAT | docker login ghcr.io --username phanatic --password-stdin
