@@ -6,9 +6,11 @@ jobs:
      runs-on: ubuntu-latest
      name: Build and Push Docker image to GitHub Packages
      steps:
+      - name: Log in ghcr.io.
+      - run: echo $PAT | docker login ghcr.io --username phanatic --password-stdin
       - name: Check out the repo.
         uses: actions/checkout@v2
       - name: Build the image.
-        run: docker build -t docker.pkg.github.com/f1nal3/juniorgram/juniorgram:${{github.run_number}} .
+        run: docker build -t ghcr.io/f1nal3/juniorgram:${{github.run_number}} .
       - name: Publish the image to GitHub Packages. 
-        run: docker push docker.pkg.github.com/f1nal3/juniorgram/juniorgram:${{github.run_number}}
+        run: docker push ghcr.io/f1nal3/juniorgram:${{github.run_number}}
