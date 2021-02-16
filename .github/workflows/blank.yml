@@ -2,18 +2,15 @@ name: CI
 on:
   workflow_dispatch:
 jobs:
-  build:
+  build_and_push:
      runs-on: ubuntu-latest
      name: Build and Push Docker image to GitHub Packages
      steps:
       - name: Check out the repo
         uses: actions/checkout@v2
-      - name: Push to GitHub Packages
-        uses: docker/build-push-action@v2
-        with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
-          repository: f1nal3/juniorgram/juniorgram
-          tag_with_ref: true
-  
+      - name: Set the tag for the image.
+        run: docker tag juniorgram f1nal3/juniorgram/juniorgram:${{ github.run_number }}
+      - name: Build the image.
+        run: docker build -t docker.pkg.github.com/f1nal3/juniorgram/juniorgram:${{ github.run_number }}
+      - name: Publish the image to GitHub Packages. 
+        run: docker push docker.pkg.github.com/f1nal3/juniorgram/juniorgram:${{ github.run_number }}
