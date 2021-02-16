@@ -1,18 +1,18 @@
 name: CI
-
 on:
   workflow_dispatch:
 jobs:
-  build_and_push:
+  build:
      runs-on: ubuntu-latest
-     name: Build and Push Docker image to GitHub Packages
-     
+     name: Push Docker image to GitHub Packages
      steps:
-      - name: Log in ghcr.io.
-      - run: echo $PAT | docker login ghcr.io --username phanatic --password-stdin
-      - name: Check out the repo.
+      - name: Check out the repo
         uses: actions/checkout@v2
-      - name: Build the image.
-        run: docker build -t ghcr.io/f1nal3/juniorgram:${{github.run_number}} .
-      - name: Publish the image to GitHub Packages. 
-        run: docker push ghcr.io/f1nal3/juniorgram:${{github.run_number}}
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v2
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: f1nal3/juniorgram/juniorgram
+          tags: ${{ github.run_number}}
