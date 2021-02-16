@@ -7,7 +7,7 @@ jobs:
      name: Build and Push Docker image to GitHub Packages
      steps:
       - name: Build the image.
-        run: docker build -t docker.pkg.github.com/f1nal3/juniorgram/juniorgram:latest
+        run: docker build -t juniorgram docker.pkg.github.com/f1nal3/juniorgram/juniorgram:latest
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Publish the image to GitHub Packages. 
