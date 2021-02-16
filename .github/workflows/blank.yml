@@ -9,4 +9,4 @@ jobs:
       - name: Build Docker image.
         run: sudo docker build . -t juniorgram:${{github.run_number}}
       - name: Push Docker image.
-        run: docker push docker.pkg.github.com/f1nal3/Juniorgram/juniorgram:${{github.run_number}}
+        run: docker push docker.pkg.github.com/f1nal3/juniorgram/juniorgram:${{github.run_number}}
