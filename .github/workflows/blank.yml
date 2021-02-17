@@ -15,4 +15,4 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
           repository: f1nal3/juniorgram/juniorgram
-          tags: ${{ github.run_number }}
+          tag_with_ref: true
