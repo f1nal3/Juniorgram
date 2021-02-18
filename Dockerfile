@@ -8,5 +8,4 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y make bash git pyt
 RUN wget -qO- https://bootstrap.pypa.io/get-pip.py | python3 \
 && pip3 install conan cmake
 
-RUN cmake -DCMAKE_BUILD_TYPE=None -DCONAN_SETUP=None . \
-&& cmake --build . 
+RUN /usr/local/bin/conan install /usr/src/build/conanfile.txt -s build_type=None -s compiler=gcc -s compiler.version=10 -s compiler.libcxx=libstdc++11 -g=cmake --build=missing
