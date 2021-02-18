@@ -1,4 +1,4 @@
-FROM gcc-latest
+FROM gcc:latest as build
 
 COPY . /usr/src/build
 
