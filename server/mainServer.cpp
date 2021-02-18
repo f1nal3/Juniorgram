@@ -1,8 +1,20 @@
 #include <network.h>
 
-int main()
+
+class foo
 {
-    network::Server server(60000);
+    foo(int argc, char** argv) {
+    //Count check
+
+    // if (dictionary.find(first_argument))
+    _portNumber = parse.SecondParam();
+    }
+
+};
+int main(int argc, char** argv)
+{
+    foo(argc, argv);
+    network::Server server(foo.getPortNumber());
     server.start();
 
     while (true)

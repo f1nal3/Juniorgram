@@ -1,6 +1,8 @@
 [requires]
 asio/1.18.1
 catch2/2.13.4
+libtool/2.4.6
+libpqxx/7.3.1
 
 [generators]
 cmake
