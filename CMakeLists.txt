@@ -33,7 +33,7 @@ conan_cmake_run(CONANFILE conanfile.txt
                 BASIC_SETUP CMAKE_TARGETS
                 BUILD missing)
 
-if(NOT ${CMAKE_BUILD_TYPE} EQUAL Setup)
+if(NOT ${CMAKE_BUILD_TYPE} EQUAL None)
     add_subdirectory(test)
     add_subdirectory(DataBaseAPI)
     add_subdirectory(client_core)
