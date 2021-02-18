@@ -40,6 +40,6 @@ add_subdirectory(server)
 # These both demand Qt lib
 # Since there is not Qt in our build chain
 # Yeet they go
-##add_subdirectory(Gui_Qt)
+add_subdirectory(Gui_Qt)
 ##add_subdirectory(serialization)
 ##add_subdirectory(DataBaseAPI)
