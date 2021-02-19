@@ -1,6 +1,6 @@
 FROM gcc:latest as build
 
-COPY ../. /usr/src/build
+COPY /home/runner/work/Juniorgram/Juniorgram /usr/src/build
 
 WORKDIR /usr/src/build
 
