@@ -20,9 +20,8 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS }}
           
       - name: Pull docker image
-        run: |
-            pwd
-            docker pull docker.pkg.github.com/f1nal3/juniorgram/juniorgram:stable
-
+        run: docker pull docker.pkg.github.com/f1nal3/juniorgram/juniorgram:stable
+      - name: Ls
+        run: ls
       - name: Run Docker
         run: docker run juniorgram:stable --rm -v "$PWD:/home/runner/work/Juniorgram/Juniorgram -w /usr/src/Juniorgram cmake --build . "
