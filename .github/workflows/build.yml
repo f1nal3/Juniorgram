@@ -24,4 +24,4 @@ jobs:
       - name: Ls
         run: ls
       - name: Run Docker
-        run: docker run docker.pkg.github.com/f1nal3/juniorgram/juniorgram:stable -v /home/runner/work/Juniorgram/Juniorgram:/usr/src/Juniorgram
+        run: docker run docker.pkg.github.com/f1nal3/juniorgram/juniorgram:stable -v "/home/runner/work/Juniorgram/Juniorgram":/usr/src
