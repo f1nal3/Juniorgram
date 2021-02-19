@@ -19,6 +19,4 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS }}
           
       - name: Pull docker image
-        run: |
-          sudo docker pull docker.pkg.github.com/f1nal3/juniorgram/juniorgram:9
-          docker run --rm --name juniorgram-container juniorgram:9
+        run: docker pull docker.pkg.github.com/f1nal3/juniorgram/juniorgram:9
