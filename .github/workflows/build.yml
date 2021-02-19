@@ -16,7 +16,7 @@ jobs:
         with:
           registry: docker.pkg.github.com
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.DOCKER_ACCESS }}
           
       - name: Pull docker image
         run: |
