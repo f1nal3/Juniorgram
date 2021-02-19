@@ -10,5 +10,3 @@ RUN wget -qO- https://bootstrap.pypa.io/get-pip.py | python3 \
 
 RUN cmake -DCMAKE_BUILD_TYPE=Release -DCONAN_SETUP=None . \
 && cmake --build . 
-
-ENTRYPOINT 
