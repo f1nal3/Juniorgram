@@ -4,9 +4,9 @@ COPY . /usr/src/build
 
 WORKDIR /usr/src/build
 
-RUN apk update && apk upgrade && apk add --no-cache cmake make linux-headers bash git python3 
+RUN apt-get update && apt-get upgrade -y && apt-get install -y make bash git python3 
 RUN wget -qO- https://bootstrap.pypa.io/get-pip.py | python3 \
-&& pip3 install conan
+&& pip3 install conan cmake
 
-RUN cmake -DCMAKE_BUILD_TYPE=Setup -DCONAN_SETUP=True . \
+RUN cmake -DCMAKE_BUILD_TYPE=Release -DCONAN_SETUP=None . \
 && cmake --build . 
