@@ -21,8 +21,8 @@ jobs:
       - name: Pull docker image
         run: docker pull docker.pkg.github.com/f1nal3/juniorgram/juniorgram:stable
         
+      - uses: actions/checkout@v2  
       - name: Checkout code
-      - uses: actions/checkout@v2
         run: cd ..
 
       - name: Run Docker
