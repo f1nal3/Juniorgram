@@ -23,5 +23,5 @@ jobs:
         run: docker pull docker.pkg.github.com/f1nal3/juniorgram/juniorgram:stable
         
       - name: Run Docker
-        run: docker run -v "/home/runner/work/Juniorgram/Juniorgram":/Juniorgram docker.pkg.github.com/f1nal3/juniorgram/juniorgram:stable |
+        run: docker run -v "/home/runner/work/Juniorgram/Juniorgram":/Juniorgram docker.pkg.github.com/f1nal3/juniorgram/juniorgram:stable \
               /bin/sh -c "cd /Juniorgram && cmake --build . -DCMAKE_BUILD_TYPE=Release"
