@@ -1,6 +1,6 @@
 #include <network.h>
 
-int main(int argc, char** argv)
+int main()
 {
     network::Server server(6969);
     server.start();

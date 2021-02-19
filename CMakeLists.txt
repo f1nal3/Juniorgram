@@ -33,7 +33,7 @@ conan_cmake_run(CONANFILE conanfile.txt
                 BASIC_SETUP CMAKE_TARGETS
                 BUILD missing)
 
-
+if(NOT ${CONAN_STUP} EQUAL "None")
 add_subdirectory(test)
 add_subdirectory(DataBaseAPI)
 add_subdirectory(client_core)
@@ -43,4 +43,4 @@ add_subdirectory(server)
 # Yeet they go
 #add_subdirectory(Gui_Qt)
 ##add_subdirectory(serialization)
-
+endif()
