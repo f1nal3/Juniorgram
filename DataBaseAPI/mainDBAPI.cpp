@@ -2,28 +2,33 @@
 
 #include "../common/WarningSuppressing.h"
 
-#include <pqxx/pqxx>
+#include "Headers/DataBasePostgreSQL.hpp"
 
 suppressWarning(4099, -Winit-self)
 int main()
 {   
+    using namespace std::literals::string_view_literals;
+
     try
     {
-        pqxx::connection c("dbname=test user=postgres password=123 hostaddr=127.0.0.1 port=5432");
 
-        pqxx::work w(c);
+        auto psql = DBPostgre::PostgreSQL::getPostgre(
+            "dbname=postgres user=postgres password=Asw789654 hostaddr=127.0.0.1 port=5432");
 
-        pqxx::row r = w.exec1("SELECT 1");
+        std::cout << "Count: " << psql.use_count() << std::endl;
 
-        w.commit();
+        DBPostgre::PostgreTableOperations tb(psql);
 
-        std::cout << r[0].as<int>() << std::endl;
+        std::cout << "Count: " << psql.use_count() << std::endl;
     }
     catch (std::exception const &e)
     {
         std::cerr << e.what() << '\n';
+        std::cin.get();
         return 1;
     }
+    
+    std::cin.get();
     return 0;
 }
 restoreWarning

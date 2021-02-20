@@ -6,7 +6,7 @@ set(SOURCES
 	mainDBAPI.cpp)
 	
 set(HEADERS
-	*.h)
+	*.hpp)
 	
 add_executable(DataBaseAPI ${SOURCES})
 

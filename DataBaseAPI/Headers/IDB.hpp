@@ -4,26 +4,35 @@
 
 namespace DataBases
 {
-    template<class result>
-    class IDataBaseFieldOperations
+    class IDataBaseFieldOperations 
     {
-        virtual result       select (const std::string_view& quary) = 0;
-        virtual void         insert (const std::string_view& quary) = 0;
-        virtual void         update (const std::string_view& quary) = 0;
-        virtual void         del    (const std::string_view& quary) = 0;
-        virtual bool         isExist(const std::string_view& quary) = 0;
+    public:
+
+        //virtual result       select (const std::string_view& quary) const = 0;
+        virtual void         insert (const std::string_view& tableName, 
+                                     const std::string_view& data,
+                                     const std::string_view& columnsNames = {},
+                                     const std::string_view& additional   = {}) const = 0;
+        virtual void         update (const std::string_view& quary)             const = 0;
+        virtual void         del    (const std::string_view& quary)             const = 0;
+        virtual bool         isExist(const std::string_view& quary)             const = 0;
     };
 
     class IDataBaseTableOperations
     {
-        virtual void    createTable (const std::string_view& quary) = 0;
-        virtual void    deleteTable (const std::string_view& quary) = 0;
+    public:
+
+        virtual void    createTable (const std::string_view& tableName,
+                                     const std::string_view& tableField) const = 0;
+        virtual void    deleteTable (const std::string_view& tableName)  const = 0;
     };
 
-    class IDataBaseColumnOperations
+    class IDataBaseColumnOperations 
     {
-        virtual void    addNewColumn(const std::string_view& quary) = 0;
-        virtual void    deleteColumn(const std::string_view& quary) = 0;
+    public:
+
+        virtual void    addNewColumn(const std::string_view& quary) const = 0;
+        virtual void    deleteColumn(const std::string_view& quary) const = 0;
         // Changing the states of columns.
     };
 }
