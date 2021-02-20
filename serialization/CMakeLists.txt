@@ -1,26 +1,18 @@
-cmake_minimum_required( VERSION 3.10.0 )
-
+cmake_minimum_required( VERSION 3.16 )
+ 
 project(Seialize_lib VERSION 1.0)
-
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
-
-set(SOURCE
-    "./src/Serialize.cpp")
-
-set(HEADERS
-    "./include/Serialize.h")
-
+ 
+set(SOURCE 
+    ./src/serialize.cpp)
+ 
+set(HEADERS 
+    ./include/serialize.h)
+ 
 # Add a library with the above sources
 add_library(${PROJECT_NAME} STATIC ${SOURCE} ${HEADERS})
-add_library(sub::lib_serialize ALIAS ${PROJECT_NAME})
-
+add_library(Utility::serialize ALIAS ${PROJECT_NAME})
+ 
 target_include_directories( ${PROJECT_NAME}
     PUBLIC ${PROJECT_SOURCE_DIR}/include/
+    PRIVATE ${CONAN_INCLUDE_DIRS_QT}
 )
-
-target_link_libraries(Seialize_lib PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
-
-target_include_directories(
-        ${PROJECT_NAME} PUBLIC
-        "${CMAKE_CURRENT_SOURCE_DIR}/../Gui_Qt")

@@ -28,6 +28,8 @@ if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
 endif()
 
 include(${CMAKE_BINARY_DIR}/conan.cmake)
+conan_add_remote(NAME bincrafters URL
+                 https://api.bintray.com/conan/bincrafters/public-conan)
 
 conan_cmake_run(CONANFILE conanfile.txt
                 BASIC_SETUP CMAKE_TARGETS
@@ -37,8 +39,5 @@ add_subdirectory(test)
 add_subdirectory(DataBaseAPI)
 add_subdirectory(client_core)
 add_subdirectory(server)
-# These both demand Qt lib
-# Since there is not Qt in our build chain
-# Yeet they go
-#add_subdirectory(Gui_Qt)
-##add_subdirectory(serialization)
+add_subdirectory(Gui_Qt)
+add_subdirectory(serialization)

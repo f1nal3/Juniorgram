@@ -2,7 +2,9 @@
 asio/1.18.1
 catch2/2.13.4
 libtool/2.4.6
+libpq/12.2
 libpqxx/7.3.1
+qt/5.14.1@bincrafters/stable
 
 [generators]
 cmake
