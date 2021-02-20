@@ -23,7 +23,7 @@ public:
 
         if (argc % 2 == 0 || argc <= 1)
         {
-            throw std::exception("Bad arguments amount");
+            throw std::runtime_error("Bad arguments amount");
         }
 
         for (int i = 1; i < argc; i += 2)
@@ -34,7 +34,7 @@ public:
             }
             else
             {
-                throw std::exception("Arguments have identical keys or keys are unvalid");
+                throw std::runtime_error("Arguments have identical keys or keys are unvalid");
             }
         }
     }
@@ -45,7 +45,7 @@ public:
 
         if (port <= 0 || port > UINT16_MAX)
         {
-            throw std::exception("Port value is unvalid");
+            throw std::runtime_error("Port value is unvalid");
         }
 
         return (uint16_t)port;
