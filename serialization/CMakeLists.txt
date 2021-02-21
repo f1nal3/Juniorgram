@@ -16,4 +16,4 @@ target_include_directories( ${PROJECT_NAME}
     PUBLIC ${PROJECT_SOURCE_DIR}/include/
     PRIVATE ${CONAN_INCLUDE_DIRS_QT})
     
-target_link_options(${PROJECT_NAME} PUBLIC "-fPIC")
+target_compile_options(${PROJECT_NAME} PRIVATE "-fPIC")
