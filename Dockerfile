@@ -11,5 +11,5 @@ libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-xkb-dev xkb-data xorg-dev
 RUN wget -qO- https://bootstrap.pypa.io/get-pip.py | python3 \
 && pip3 install conan cmake mako
 
-RUN cmake -DCMAKE_BUILD_TYPE=Release -DCONAN_SETUP=None . \
-&& cmake --build . 
+RUN /usr/local/bin/conan install /usr/src/build/conanfile.txt -s build_type=Release \
+-s compiler=gcc -s compiler.version=10 -s compiler.libcxx=libstdc++11 -g=cmake --build=missing 
