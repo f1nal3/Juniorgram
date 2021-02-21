@@ -1,6 +1,5 @@
 #pragma once
 #include <mutex>
-#include <tuple>
 #include <memory>
 #include <optional>
 
@@ -121,21 +120,15 @@ namespace DBPostgre
         void createTable(const std::string_view& tableName,
                          const std::string_view& tableFields) const override
         {
-            m_work.exec0("CREATE TABLE IF NOT EXISTS " + 
-                         m_work.esc(std::string{ tableName }) + 
-                         "( " +
-                         m_work.esc(std::string{ tableFields } + " );")
-                        );
+            m_work.exec0("CREATE TABLE IF NOT EXISTS " + m_work.esc(tableName) + 
+                         "( " + m_work.esc(tableFields) + " );");
 
             m_work.commit();
         }
 
         void deleteTable(const std::string_view& tableName) const override
         {
-            m_work.exec0("DROP TABLE IF EXISTS " + 
-                         m_work.esc(std::string{ tableName }) + 
-                         ";"
-                        );
+            m_work.exec0("DROP TABLE IF EXISTS " + m_work.esc(tableName) + ';');
 
             m_work.commit();
         }
@@ -166,13 +159,13 @@ namespace DBPostgre
         // additional => "WHERE", "ORDER BY", ...
         // If you don't need 'additional', but need 'numberOfTheColumns' use = "".
         // numberOfTheColumns = "columnName1, columnName2, ..."
-        pqxx::result select(const std::string_view& tableName,
-                            const std::string_view& columnsNames,
-                            const std::string_view& additional,
-                            const pqxx::result::size_type numberOfTheRows = -1) const 
+        [[nodiscard]] pqxx::result select(const std::string_view& tableName,
+                                          const std::string_view& columnsNames,
+                                          const std::string_view& additional = {},
+                                          const pqxx::result::size_type numberOfTheRows = -1) const 
         { 
             const std::string_view quary = "SELECT " + this->m_work.esc(columnsNames) + " FROM " +
-                                     this->m_work.esc(tableName) + this->m_work.esc(additional) + ";";
+                                     this->m_work.esc(tableName) + this->m_work.esc(additional) + ';';
             pqxx::result res{};
 
             if (numberOfTheRows == -1) 
@@ -200,19 +193,35 @@ namespace DBPostgre
             m_work.commit();
         }
 
-        void update(const std::string_view& quary) const override
+        void update(const std::string_view& tableName,
+                    const std::string_view& columnsNamesAndNewData,
+                    const std::string_view& additional = {}) const override
         {
-            m_work.exec0(pqxx::zview(quary));
+            m_work.exec0("UPDATE " + m_work.esc(tableName) + " SET " +
+                m_work.esc(columnsNamesAndNewData) + m_work.esc(additional) + ';');
+
+            m_work.commit();
         }
 
-        void del(const std::string_view& quary) const override
+        // !!! IF YOU DON'T USE 'additional' YOU MAY CLEAR ALL TABLE !!!
+        void del(const std::string_view& tableName,
+                 const std::string_view& additional = {}) const override
         {
-            m_work.exec0(pqxx::zview(quary));
+            m_work.exec0("DELETE FROM " + m_work.esc(tableName) + m_work.esc(additional) + ';');
+
+            m_work.commit();
         }
 
-        bool isExist(const std::string_view& quary) const override
+        // SELECT * FROM 'tableName' WHERE 'column' = 'data'
+        bool isExist(const std::string_view& tableName,
+                     const std::string_view& column,
+                     const std::string_view& data) const override
         {
-            pqxx::row res = m_work.exec1(pqxx::zview(quary));
+            pqxx::row res = m_work.exec1("SELECT * FROM " +
+                m_work.esc(tableName) + " WHERE " + m_work.esc(column) + 
+                " = " + m_work.esc(data) + ';');
+
+            m_work.commit();
 
             if (!res.empty())
                 return true;
@@ -237,16 +246,21 @@ namespace DBPostgre
 
     public:
 
-        void addNewColumn(const std::string_view& quary) const override
+        void addNewColumn(const std::string_view& tableName,
+                          const std::string_view& newColumn,
+                          const std::string_view& columnType) const override
         {
-            m_work.exec0(pqxx::zview(quary));
+            m_work.exec0("ALTER TABLE " + m_work.esc(tableName) + " ADD COLUMN " + 
+                m_work.esc(newColumn) + ' ' + m_work.esc(columnType) + ';');
 
             m_work.commit();
         }
 
-        void deleteColumn(const std::string_view& quary) const override
+        void deleteColumn(const std::string_view& tableName,
+                          const std::string_view& columnName) const override
         {
-            m_work.exec0(pqxx::zview(quary));
+            m_work.exec0("ALTER TABLE " + m_work.esc(tableName) + " DROP COLUMN " + 
+                m_work.esc(columnName) + ';');
             
             m_work.commit();
         }
