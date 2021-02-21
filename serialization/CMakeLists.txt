@@ -3,10 +3,10 @@ cmake_minimum_required( VERSION 3.16 )
 project(Seialize_lib VERSION 1.0)
  
 set(SOURCES 
-    /src/serialize.cpp)
+    ./src/Serialize.cpp)
  
 set(HEADERS 
-    /include/serialize.h)
+    ./include/Serialize.h)
  
 # Add a library with the above sources
 add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADERS})
