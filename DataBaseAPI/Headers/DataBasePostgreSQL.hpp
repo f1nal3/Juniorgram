@@ -12,6 +12,9 @@ namespace DBPostgre
     // Thread safe singleton.
     class PostgreSQL
     {
+        template <class _Ty, class... _Types>
+        friend void std::_Construct_in_place(_Ty& _Obj, _Types&&... _Args);
+
     private:
 
         static std::mutex sm_static_mutex;
@@ -48,9 +51,9 @@ namespace DBPostgre
                         "Instance didn't create because options are incorrect!");
                 }
 
-#ifdef _DEBUG || !NDEBUG
-                std::cout << "[DEBUG]: Instance (Postgre) was created succesfully!" << std::endl;
-#endif
+//#ifdef _DEBUG || !NDEBUG
+//                std::cout << "[DEBUG]: Instance (Postgre) was created succesfully!" << std::endl;
+//#endif
 
                 spm_instance = std::make_shared<PostgreSQL>(options);
             }
@@ -178,17 +181,18 @@ namespace DBPostgre
            return res;
         }
 
-        // INSERT INTO 'tableName'(columnsNames) VALUES ...
+        // INSERT INTO 'tableName'(columnsNames) VALUES (...)
         // columnsNames = 'columnName1, columnName2, ...'
         void insert(const std::string_view& tableName,
-                    const std::string_view& data,
+                    const std::string& data,
                     const std::string_view& columnsNames = {},
                     const std::string_view& additional = {}) const override
         {
-            const std::string_view columns = (columnsNames == "" ? "(" + m_work.esc(columnsNames) + ")" : ""); 
+            std::string columns{};
+            if (!columnsNames.empty()) columns = '(' + m_work.esc(columnsNames) + ')';
 
-            m_work.exec0("INSERT INTO " + m_work.esc(tableName)
-                + m_work.esc(columns) + " VALUES " + m_work.esc(data) + ' ' + m_work.esc(additional) + ';');
+            m_work.exec0("INSERT INTO " + m_work.esc(tableName) + columns + " VALUES (" +
+                         data + ") " + m_work.esc(additional) + ';');
 
             m_work.commit();
         }
@@ -212,6 +216,7 @@ namespace DBPostgre
             m_work.commit();
         }
 
+        // BUGS!!!!!!!!!!!!!!!!!!!
         // SELECT * FROM 'tableName' WHERE 'column' = 'data'
         bool isExist(const std::string_view& tableName,
                      const std::string_view& column,

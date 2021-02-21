@@ -10,7 +10,7 @@ namespace DataBases
 
         //virtual result       select (const std::string_view& quary) const = 0;
         virtual void         insert (const std::string_view& tableName, 
-                                     const std::string_view& data,
+                                     const std::string& data,
                                      const std::string_view& columnsNames = {},
                                      const std::string_view& additional   = {}) const = 0;
         virtual void         update (const std::string_view& tableName,
