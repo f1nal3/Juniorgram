@@ -5,7 +5,7 @@
 class ArgumentParser
 {
 private:
-    std::map<std::string, std::int32_t> arguments;
+    std::map<std::string, int32_t> arguments;
     const std::array<std::string, 1> validKeys = {"-p"};
 
 public:
@@ -14,13 +14,6 @@ public:
 
     explicit ArgumentParser(int argc, char** argv)
     {
-        /*
-        if (argv[0] != path_to_project)
-        {
-                throw std::exception("First argument must be a project's path");
-        }
-        */
-
         if (argc % 2 == 0 || argc <= 1)
         {
             throw std::runtime_error("Bad arguments amount");
@@ -43,26 +36,27 @@ public:
     {
         auto port = arguments.find("-p")->second;
 
-        if (port <= 0 || port > UINT16_MAX)
+        if (port < std::numeric_limits<uint16_t>::min() ||
+            port > std::numeric_limits<uint16_t>::max())
         {
             throw std::runtime_error("Port value is unvalid");
         }
 
-        return (uint16_t)port;
+        return static_cast<uint16_t>(port);
     }
 
 private:
-    bool isKeyValid(const std::string& incomingArg) const noexcept
+    bool isKeyValid(const std::string& incomingKey) const noexcept
     {
         return std::any_of(validKeys.cbegin(), validKeys.cend(),
-                           [&](const std::string& validKey) { return incomingArg == validKey; });
+                           [&](const std::string& validKey) { return incomingKey == validKey; });
     }
 
-    bool isMapContainingKey(const std::string& incomingArg) const noexcept
+    bool isMapContainingKey(const std::string& incomingKey) const noexcept
     {
         return std::any_of(arguments.cbegin(), arguments.cend(),
                            [&](const std::pair<std::string, std::int32_t>& existingArg) {
-                               return incomingArg == existingArg.first;
+                               return incomingKey == existingArg.first;
                            });
     }
 };
