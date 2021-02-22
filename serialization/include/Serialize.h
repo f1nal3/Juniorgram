@@ -1,10 +1,10 @@
 #pragma once
-#include <QJsonArray>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QByteArray>
-#include <QFileDialog>
-#include <QStringList>
+#include <QtCore/QJsonArray>
+#include <QtCore/QJsonDocument>
+#include <QtCore/QJsonObject>
+#include <QtCore/QByteArray>
+#include <QtWidgets/qfiledialog.h>
+#include <QtCore/QStringList>
 
 class Serialize
 {

@@ -45,14 +45,14 @@ Install CMake:
 <font size="4">Windows:<font size/>
 
 <font size="4">Visual Studio 2019: <font size/>
- 1. Clone this repository or download as Zip from Azure.
+ 1. Clone this repository or download as Zip from Github.
  2. Run Visual Studio and open this repository as folder. It will automatically detect the root CMakeLists.txt and execute it, after which you can start/debug the server and client sides.
 
 <font size="4">Linux:<font size/>
 
 Qt Creator:
 
- 1. Clone this repository or download as Zip from Azure.
+ 1. Clone this repository or download as Zip from Github.
  2. Run Qt Creator and open the root CMakeLists.txt. It will automatically detect the root CMakeLists.txt and execute it, after which you can start/debug the server and client sides.
 
  
