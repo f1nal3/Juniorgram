@@ -11,7 +11,7 @@ namespace utility
     #if defined(_MSC_VER)
         localtime_s(&formatted_time, &time);
     #elif defined(__unix__)
-        localtime_r(&formated_time, &time);
+        localtime_r(&formatted_time, &time);
     #else
         static std::mutex mu;
         std::lock_guard<std::mutex> lock(mu);
