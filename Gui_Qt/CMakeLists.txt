@@ -31,3 +31,5 @@ target_link_libraries(Gui_Qt
                      PRIVATE Utility::serialize)
 target_include_directories(Gui_Qt 
                                 PRIVATE ${CONAN_INCLUDE_DIRS_QT})
+                                
+target_link_options(${PROJECT_NAME} PRIVATE "-lxcb")
