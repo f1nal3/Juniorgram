@@ -37,6 +37,18 @@ class Server
 
     void onMessage(const std::shared_ptr<Connection>& client, Message& message)
     {
+        const auto maxDelay    = std::chrono::milliseconds(300);
+        const auto currentTime = std::chrono::system_clock::now();
+        const auto delay = 
+            std::chrono::milliseconds(
+                std::abs(std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - message.mHeader.mTimestamp).count())
+            );
+
+        if (delay > maxDelay)
+        {
+            message.mHeader.mTimestamp = currentTime;
+        }
+
         switch (message.mHeader.mID)
         {
             case network::Message::MessageType::ServerPing:

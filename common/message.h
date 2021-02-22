@@ -5,6 +5,11 @@
 
 namespace network
 {
+    namespace
+    {
+        std::tm safe_localtime(const std::time_t& time);
+    }
+
 class Connection;
 
 struct Message
@@ -21,6 +26,7 @@ struct Message
     {
         MessageType mID         = MessageType();
         std::uint32_t mBodySize = std::uint32_t();
+        std::chrono::time_point<std::chrono::system_clock> mTimestamp = std::chrono::system_clock::now();
     };
 
     std::shared_ptr<Connection> mRemote = nullptr;
@@ -30,7 +36,11 @@ struct Message
 
     friend std::ostream& operator<<(std::ostream& os, const Message& message)
     {
-        os << "ID:" << size_t(message.mHeader.mID) << " Size:" << message.mHeader.mBodySize;
+        std::tm formattedTimestamp =
+            safe_localtime(std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
+
+        os << "ID:" << size_t(message.mHeader.mID) << " Size:" << message.mHeader.mBodySize
+           << "Timestamp:" << std::put_time(&formattedTimestamp, "%F %T");
         return os;
     }
 
@@ -59,5 +69,54 @@ struct Message
         message.mHeader.mBodySize = static_cast<std::uint32_t>(message.mBody.size());
         return message;
     }
+
+    friend bool operator<(const Message& lhs, const Message& rhs)
+    {
+        return lhs.mHeader.mTimestamp < rhs.mHeader.mTimestamp;
+    }
+
+    friend bool operator>(const Message& lhs, const Message& rhs)
+    {
+        return lhs.mHeader.mTimestamp > rhs.mHeader.mTimestamp;
+    }
+
+    friend bool operator==(const Message& lhs, const Message& rhs)
+    {
+        return lhs.mHeader.mTimestamp == rhs.mHeader.mTimestamp;
+    }
+
+    friend bool operator<=(const Message& lhs, const Message& rhs)
+    {
+        return lhs.mHeader.mTimestamp < rhs.mHeader.mTimestamp ||
+               lhs.mHeader.mTimestamp == rhs.mHeader.mTimestamp;
+    }
+
+    friend bool operator>=(const Message& lhs, const Message& rhs)
+    {
+        return lhs.mHeader.mTimestamp > rhs.mHeader.mTimestamp ||
+               lhs.mHeader.mTimestamp == rhs.mHeader.mTimestamp;
+    }
 };
+    namespace
+    {
+        std::tm safe_localtime(const std::time_t& time)
+        {
+            // std::localtime is not thread safe, so we use platform-dependant versions
+        
+            std::tm formatted_time{};
+        
+        #if defined(_MSC_VER)
+            localtime_s(&formatted_time, &time);
+        #elif defined(__unix__)
+            localtime_r(&formated_time, &time);
+        #else
+            static std::mutex mu;
+            std::lock_guard<std::mutex> lock(mu);
+        
+            formatted_time = *std::localtime(&time);
+        #endif
+        
+            return formatted_time;
+        }
+    }  // unnamed namespace
 }  // namespace network

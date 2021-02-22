@@ -10,6 +10,7 @@
 #include <string>
 #include <thread>
 #include <vector>
+#include <iomanip>
 
 #ifdef _WIN32
 #define _WIN32_WINNT 0x0601
