@@ -12,6 +12,8 @@
 #include <vector>
 #include <iomanip>
 
+#include "utility.h"
+
 #ifdef _WIN32
 #define _WIN32_WINNT 0x0601
 #endif

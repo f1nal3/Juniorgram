@@ -5,11 +5,6 @@
 
 namespace network
 {
-    namespace
-    {
-        std::tm safe_localtime(const std::time_t& time);
-    }
-
 class Connection;
 
 struct Message
@@ -37,7 +32,7 @@ struct Message
     friend std::ostream& operator<<(std::ostream& os, const Message& message)
     {
         std::tm formattedTimestamp =
-            safe_localtime(std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
+            utility::safe_localtime(std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
 
         os << "ID:" << size_t(message.mHeader.mID) << " Size:" << message.mHeader.mBodySize
            << "Timestamp:" << std::put_time(&formattedTimestamp, "%F %T");
@@ -97,26 +92,4 @@ struct Message
                lhs.mHeader.mTimestamp == rhs.mHeader.mTimestamp;
     }
 };
-    namespace
-    {
-        std::tm safe_localtime(const std::time_t& time)
-        {
-            // std::localtime is not thread safe, so we use platform-dependant versions
-        
-            std::tm formatted_time{};
-        
-        #if defined(_MSC_VER)
-            localtime_s(&formatted_time, &time);
-        #elif defined(__unix__)
-            localtime_r(&formated_time, &time);
-        #else
-            static std::mutex mu;
-            std::lock_guard<std::mutex> lock(mu);
-        
-            formatted_time = *std::localtime(&time);
-        #endif
-        
-            return formatted_time;
-        }
-    }  // unnamed namespace
 }  // namespace network

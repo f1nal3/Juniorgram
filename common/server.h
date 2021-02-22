@@ -53,7 +53,11 @@ class Server
         {
             case network::Message::MessageType::ServerPing:
             {
-                std::cout << "[" << client->getID() << "]: Server Ping\n";
+                std::tm formattedTimestamp = utility::safe_localtime(
+                    std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
+
+                std::cout << "[" << std::put_time(&formattedTimestamp, "%F %T")<< "][" <<
+                    client->getID() << "]: Server Ping\n";
 
                 client->send(message);
             }
@@ -61,7 +65,11 @@ class Server
 
             case network::Message::MessageType::MessageAll:
             {
-                std::cout << "[" << client->getID() << "]: Message All\n";
+               std::tm formattedTimestamp = utility::safe_localtime(
+                    std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
+
+                std::cout << "[" << std::put_time(&formattedTimestamp, "%F %T")<< "][" <<
+                    client->getID() << "]: Message All\n";
 
                 network::Message msg; // TODO: Why is a new message needed here?
                 msg.mHeader.mID = network::Message::MessageType::ServerMessage;
