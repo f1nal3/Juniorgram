@@ -12,9 +12,6 @@ namespace DBPostgre
     // Thread safe singleton.
     class PostgreSQL
     {
-        template <class _Ty, class... _Types>
-        friend void std::_Construct_in_place(_Ty& _Obj, _Types&&... _Args);
-
     private:
 
         static std::mutex sm_static_mutex;
@@ -24,7 +21,7 @@ namespace DBPostgre
 
         pqxx::connection m_con;
 
-    private:
+    protected:
 
         PostgreSQL(const std::string_view& options)
             : m_con{ pqxx::zview(options) } {}
@@ -51,7 +48,9 @@ namespace DBPostgre
                         "Instance didn't create because options are incorrect!");
                 }
 
-                spm_instance = std::make_shared<PostgreSQL>(options);
+                struct SharedEnable : public PostgreSQL {};
+
+                spm_instance = std::make_shared<SharedEnable>(options);
             }
 
             return spm_instance;
