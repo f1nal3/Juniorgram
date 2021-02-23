@@ -18,7 +18,6 @@ namespace DBPostgre
         static std::shared_ptr<PostgreSQL> spm_instance;
 
         std::mutex m_quary_mutex{};
-
         pqxx::connection m_con;
 
     protected:
@@ -48,9 +47,7 @@ namespace DBPostgre
                         "Instance didn't create because options are incorrect!");
                 }
 
-                struct SharedEnable : public PostgreSQL {};
-
-                spm_instance = std::make_shared<SharedEnable>(options);
+                spm_instance = std::shared_ptr<PostgreSQL>(new PostgreSQL(options));
             }
 
             return spm_instance;
@@ -173,7 +170,7 @@ namespace DBPostgre
             if (numberOfTheRows == -1) 
                 res = work.exec(quary);
 
-           res = work.exec_n(numberOfTheRows, pqxx::zview(quary));
+           res = work.exec_n(numberOfTheRows, quary);
 
            return res;
         }
