@@ -51,10 +51,6 @@ namespace DBPostgre
                         "Instance didn't create because options are incorrect!");
                 }
 
-//#ifdef _DEBUG || !NDEBUG
-//                std::cout << "[DEBUG]: Instance (Postgre) was created succesfully!" << std::endl;
-//#endif
-
                 spm_instance = std::make_shared<PostgreSQL>(options);
             }
 
@@ -162,21 +158,21 @@ namespace DBPostgre
         // additional => "WHERE", "ORDER BY", ...
         // If you don't need 'additional', but need 'numberOfTheColumns' use = "".
         // numberOfTheColumns = "columnName1, columnName2, ..."
-        [[nodiscard]] pqxx::result select(const std::string_view& tableName,
-                                          const std::string_view& columnsNames,
-                                          const std::string_view& additional = {},
+        [[nodiscard]] pqxx::result select(const std::string& tableName,
+                                          const std::string& columnsNames,
+                                          const std::string& additional = {},
                                           const pqxx::result::size_type numberOfTheRows = -1) const 
         { 
-            const std::string_view quary = "SELECT " + this->m_work.esc(columnsNames) + " FROM " +
-                                     this->m_work.esc(tableName) + this->m_work.esc(additional) + ';';
+            const std::string quary = "SELECT " + m_work.esc(columnsNames) + " FROM " +
+                                     m_work.esc(tableName) + ' ' + m_work.esc(additional) + ';';
             pqxx::result res{};
 
             if (numberOfTheRows == -1) 
-                res = this->m_work.exec(quary);
+                res = m_work.exec(quary);
 
-           res = this->m_work.exec_n(numberOfTheRows, pqxx::zview(quary));
+           res = m_work.exec_n(numberOfTheRows, pqxx::zview(quary));
 
-           this->m_work.commit();
+           m_work.commit();
 
            return res;
         }
@@ -216,22 +212,28 @@ namespace DBPostgre
             m_work.commit();
         }
 
-        // BUGS!!!!!!!!!!!!!!!!!!!
+        // KOSTIL. NADO ISPRAVIT'!!!!
         // SELECT * FROM 'tableName' WHERE 'column' = 'data'
         bool isExist(const std::string_view& tableName,
                      const std::string_view& column,
-                     const std::string_view& data) const override
+                     const std::string& data) const override
         {
-            pqxx::row res = m_work.exec1("SELECT * FROM " +
-                m_work.esc(tableName) + " WHERE " + m_work.esc(column) + 
-                " = " + m_work.esc(data) + ';');
+            try
+            {
+                pqxx::row res = m_work.exec1("SELECT * FROM " +
+                    m_work.esc(tableName) + " WHERE " + m_work.esc(column) + 
+                    " = " + m_work.esc(data) + ';');
 
-            m_work.commit();
+                m_work.commit();
 
-            if (!res.empty())
-                return true;
+                if (!res.empty()) return true;
+            }
+            catch (...)
+            {
+                return false; 
+            }
 
-            return false;            
+            return false;   
         }
 
     };

@@ -20,7 +20,7 @@ namespace DataBases
                                      const std::string_view& additional = {})   const = 0;
         virtual bool         isExist(const std::string_view& tableName, 
                                      const std::string_view& column,
-                                     const std::string_view& data)              const = 0;
+                                     const std::string& data)              const = 0;
     };
 
     class IDataBaseTableOperations
