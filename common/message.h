@@ -21,6 +21,7 @@ struct Message
     {
         MessageType mID         = MessageType();
         std::uint32_t mBodySize = std::uint32_t();
+        std::chrono::time_point<std::chrono::system_clock> mTimestamp = std::chrono::system_clock::now();
     };
 
     std::shared_ptr<Connection> mRemote = nullptr;
@@ -30,7 +31,11 @@ struct Message
 
     friend std::ostream& operator<<(std::ostream& os, const Message& message)
     {
-        os << "ID:" << size_t(message.mHeader.mID) << " Size:" << message.mHeader.mBodySize;
+        std::tm formattedTimestamp =
+            utility::safe_localtime(std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
+
+        os << "ID:" << size_t(message.mHeader.mID) << " Size:" << message.mHeader.mBodySize
+           << "Timestamp:" << std::put_time(&formattedTimestamp, "%F %T");
         return os;
     }
 
@@ -58,6 +63,33 @@ struct Message
         message.mBody.resize(i);
         message.mHeader.mBodySize = static_cast<std::uint32_t>(message.mBody.size());
         return message;
+    }
+
+    friend bool operator<(const Message& lhs, const Message& rhs)
+    {
+        return lhs.mHeader.mTimestamp < rhs.mHeader.mTimestamp;
+    }
+
+    friend bool operator>(const Message& lhs, const Message& rhs)
+    {
+        return lhs.mHeader.mTimestamp > rhs.mHeader.mTimestamp;
+    }
+
+    friend bool operator==(const Message& lhs, const Message& rhs)
+    {
+        return lhs.mHeader.mTimestamp == rhs.mHeader.mTimestamp;
+    }
+
+    friend bool operator<=(const Message& lhs, const Message& rhs)
+    {
+        return lhs.mHeader.mTimestamp < rhs.mHeader.mTimestamp ||
+               lhs.mHeader.mTimestamp == rhs.mHeader.mTimestamp;
+    }
+
+    friend bool operator>=(const Message& lhs, const Message& rhs)
+    {
+        return lhs.mHeader.mTimestamp > rhs.mHeader.mTimestamp ||
+               lhs.mHeader.mTimestamp == rhs.mHeader.mTimestamp;
     }
 };
 }  // namespace network
