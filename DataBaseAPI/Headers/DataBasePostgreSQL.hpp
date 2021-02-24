@@ -165,14 +165,10 @@ namespace DBPostgre
 
             const std::string quary = "SELECT " + work.esc(columnsNames) + " FROM " +
                                      work.esc(tableName) + ' ' + work.esc(additional) + ';';
-            pqxx::result res{};
-
             if (numberOfTheRows == -1) 
-                res = work.exec(quary);
+                return work.exec(quary);
 
-           res = work.exec_n(numberOfTheRows, quary);
-
-           return res;
+            return work.exec_n(numberOfTheRows, quary);
         }
 
         // INSERT INTO 'tableName'(columnsNames) VALUES (...)
