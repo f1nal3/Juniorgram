@@ -69,7 +69,7 @@ namespace DBPostgre
 
             pqxx::work work{ this->m_connecton };
 
-            auto res = work.exec(quary);
+            auto res = work.exec(query);
 
             work.commit();
 
@@ -163,12 +163,12 @@ namespace DBPostgre
         { 
             pqxx::nontransaction work{ this->m_dbInstanse->getConnection() };
 
-            const std::string quary = "SELECT " + work.esc(columnsNames) + " FROM " +
+            const std::string query = "SELECT " + work.esc(columnsNames) + " FROM " +
                                      work.esc(tableName) + ' ' + work.esc(additional) + ';';
             if (numberOfTheRows == -1) 
-                return work.exec(quary);
+                return work.exec(query);
 
-            return work.exec_n(numberOfTheRows, quary);
+            return work.exec_n(numberOfTheRows, query);
         }
 
         // INSERT INTO 'tableName'(columnsNames) VALUES (...)
