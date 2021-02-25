@@ -67,7 +67,7 @@ namespace DBPostgre
         {
             std::lock_guard<std::mutex> lock(this->m_query_mutex);
 
-            pqxx::work work{ this->m_connecton };
+            pqxx::work work{ this->m_connection };
 
             auto res = work.exec(query);
 
