@@ -17,13 +17,13 @@ namespace DBPostgre
         static std::mutex sm_static_mutex;
         static std::shared_ptr<PostgreSQL> spm_instance;
 
-        std::mutex m_quary_mutex{};
-        pqxx::connection m_con;
+        std::mutex m_query_mutex;
+        pqxx::connection m_connection;
 
     protected:
 
         PostgreSQL(const std::string_view& options)
-            : m_con{ pqxx::zview(options) } {}
+            : m_connection{ pqxx::zview(options) } {}
 
     public:
 
@@ -55,19 +55,19 @@ namespace DBPostgre
 
         pqxx::connection& getConnection()
         {
-            return this->m_con;
+            return this->m_connection;
         }
 
         bool isConnected() const
         {
-            return this->m_con.is_open();
+            return this->m_connection.is_open();
         }
 
-        std::optional<pqxx::result> quary(const std::string_view& quary)
+        std::optional<pqxx::result> query(const std::string_view& query)
         {
-            std::lock_guard<std::mutex> lock(this->m_quary_mutex);
+            std::lock_guard<std::mutex> lock(this->m_query_mutex);
 
-            pqxx::work work{ this->m_con };
+            pqxx::work work{ this->m_connecton };
 
             auto res = work.exec(quary);
 
@@ -90,12 +90,12 @@ namespace DBPostgre
     {
     private:
 
-        std::shared_ptr<PostgreSQL> m_db{};
+        std::shared_ptr<PostgreSQL> m_dbInstanse;
 
     public:
 
         PostgreTableOperations(const std::shared_ptr<PostgreSQL> postgre)
-            : m_db{ postgre } {}
+            : m_dbInstanse{ postgre } {}
 
 
         PostgreTableOperations(const PostgreTableOperations& other) = delete;
@@ -114,7 +114,7 @@ namespace DBPostgre
         void createTable(const std::string_view& tableName,
                          const std::string_view& tableFields) const override
         {
-            pqxx::work work{ this->m_db->getConnection() };
+            pqxx::work work{ this->m_dbInstanse->getConnection() };
 
             work.exec0("CREATE TABLE IF NOT EXISTS " + work.esc(tableName) + 
                          "( " + work.esc(tableFields) + " );");
@@ -124,7 +124,7 @@ namespace DBPostgre
 
         void deleteTable(const std::string_view& tableName) const override
         {
-            pqxx::work work{ this->m_db->getConnection() };
+            pqxx::work work{ this->m_dbInstanse->getConnection() };
 
             work.exec0("DROP TABLE IF EXISTS " + work.esc(tableName) + ';');
 
@@ -137,12 +137,12 @@ namespace DBPostgre
     {
     private:
 
-        std::shared_ptr<PostgreSQL> m_db{};
+        std::shared_ptr<PostgreSQL> m_dbInstanse;
 
     public:
 
         PostgreFieldOperations(const std::shared_ptr<PostgreSQL> postgre)
-            : m_db{ postgre } {} 
+            : m_dbInstanse{ postgre } {} 
 
 
         PostgreFieldOperations(const PostgreFieldOperations& other) = delete;
@@ -161,7 +161,7 @@ namespace DBPostgre
                                           const std::string& additional = {},
                                           const pqxx::result::size_type numberOfTheRows = -1) const 
         { 
-            pqxx::nontransaction work{ this->m_db->getConnection() };
+            pqxx::nontransaction work{ this->m_dbInstanse->getConnection() };
 
             const std::string quary = "SELECT " + work.esc(columnsNames) + " FROM " +
                                      work.esc(tableName) + ' ' + work.esc(additional) + ';';
@@ -178,10 +178,11 @@ namespace DBPostgre
                     const std::string_view& columnsNames = {},
                     const std::string_view& additional = {}) const override
         {
-            pqxx::work work{ this->m_db->getConnection() };
+            pqxx::work work{ this->m_dbInstanse->getConnection() };
 
             std::string columns{};
-            if (!columnsNames.empty()) columns = '(' + work.esc(columnsNames) + ')';
+            if (!columnsNames.empty())
+			   	columns = '(' + work.esc(columnsNames) + ')';
 
             work.exec0("INSERT INTO " + work.esc(tableName) + columns + " VALUES (" +
                          data + ") " + work.esc(additional) + ';');
@@ -193,7 +194,7 @@ namespace DBPostgre
                     const std::string_view& columnsNamesAndNewData,
                     const std::string_view& additional = {}) const override
         {
-            pqxx::work work{ this->m_db->getConnection() };
+            pqxx::work work{ this->m_dbInstanse->getConnection() };
 
             work.exec0("UPDATE " + work.esc(tableName) + " SET " +
                 work.esc(columnsNamesAndNewData) + work.esc(additional) + ';');
@@ -205,20 +206,19 @@ namespace DBPostgre
         void del(const std::string_view& tableName,
                  const std::string_view& additional = {}) const override
         {
-            pqxx::work work{this->m_db->getConnection()};
+            pqxx::work work{this->m_dbInstanse->getConnection()};
 
             work.exec0("DELETE FROM " + work.esc(tableName) + work.esc(additional) + ';');
 
             work.commit();
         }
 
-        // KOSTIL. NADO ISPRAVIT'!!!!
         // SELECT * FROM 'tableName' WHERE 'column' = 'data'
         bool isExist(const std::string_view& tableName,
                      const std::string_view& column,
                      const std::string& data) const override
         {
-            pqxx::nontransaction work{this->m_db->getConnection()};
+            pqxx::nontransaction work{this->m_dbInstanse->getConnection()};
 
             try
             {
@@ -226,7 +226,8 @@ namespace DBPostgre
                     work.esc(tableName) + " WHERE " + work.esc(column) + 
                     " = " + work.esc(data) + ';');
 
-                if (!res.empty()) return true;
+                if (!res.empty())
+				   	return true;
             }
             catch (...)
             {
@@ -242,12 +243,12 @@ namespace DBPostgre
     {
     private:
 
-        std::shared_ptr<PostgreSQL> m_db{};
+        std::shared_ptr<PostgreSQL> m_dbInstanse;
 
     public:
 
         PostgreColumnOperations(const std::shared_ptr<PostgreSQL> postgre)
-            : m_db{ postgre } {}
+            : m_dbInstanse{ postgre } {}
         
 
     public:
@@ -256,7 +257,7 @@ namespace DBPostgre
                           const std::string_view& newColumn,
                           const std::string_view& columnType) const override
         {
-            pqxx::work work{ this->m_db->getConnection() };
+            pqxx::work work{ this->m_dbInstanse->getConnection() };
 
             work.exec0("ALTER TABLE " + work.esc(tableName) + " ADD COLUMN " + 
                 work.esc(newColumn) + ' ' + work.esc(columnType) + ';');
@@ -267,7 +268,7 @@ namespace DBPostgre
         void deleteColumn(const std::string_view& tableName,
                           const std::string_view& columnName) const override
         {
-            pqxx::work work{this->m_db->getConnection()};
+            pqxx::work work{this->m_dbInstanse->getConnection()};
 
             work.exec0("ALTER TABLE " + work.esc(tableName) + " DROP COLUMN " + 
                 work.esc(columnName) + ';');
@@ -277,3 +278,4 @@ namespace DBPostgre
 
     };
 }
+
