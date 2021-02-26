@@ -14,4 +14,4 @@ RUN wget -qO- https://bootstrap.pypa.io/get-pip.py | python3 \
 
 RUN conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan && /usr/local/bin/conan install /usr/src/build/conanfile.txt  \
 -s build_type=Release \
--s compiler=gcc -s compiler.version=10 -s compiler.libcxx=libstdc++11 -g=cmake --build=missing 
+-s compiler=gcc -s compiler.version=10 -s compiler.libcxx=libstdc++11 -g=cmake --build=missing

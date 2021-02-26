@@ -4,6 +4,7 @@
 
 namespace DataBases
 {
+
     class IDataBaseFieldOperations 
     {
     public:
@@ -43,4 +44,5 @@ namespace DataBases
                                      const std::string_view& columnName)       const = 0;
         // Changing the states of columns.
     };
+
 }
