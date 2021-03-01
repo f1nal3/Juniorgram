@@ -36,10 +36,7 @@ public:
             }
         }
 
-        if (arguments.find("-d") != arguments.end())
-            realBD = false;
-        else
-            realBD = true;
+        realBD = !isMapContainingKey("-d");
     }
 
     uint16_t getPort() const
@@ -47,7 +44,7 @@ public:
         short indexValidKey = 0;
         for (short i = 0; i < validKeys.size(); i++)
         {
-            if (arguments.find(validKeys[i])!=arguments.end())
+            if (isMapContainingKey(validKeys[i]))
             {
                 indexValidKey = i;
                 break;
