@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10.0)
+cmake_minimum_required(VERSION 3.17.0)
 
 project(Juniorgram)
 
@@ -27,24 +27,24 @@ if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
                  "${CMAKE_BINARY_DIR}/conan.cmake" TLS_VERIFY ON)
 endif()
 
-#include(${CMAKE_BINARY_DIR}/conan.cmake)
-#conan_add_remote(NAME bincrafters URL
-#                 https://api.bintray.com/conan/bincrafters/public-conan)
+include(${CMAKE_BINARY_DIR}/conan.cmake)
+conan_add_remote(NAME bincrafters URL
+                 https://api.bintray.com/conan/bincrafters/public-conan)
 
-#if(WIN32)
-#conan_cmake_run(CONANFILE conanfile_win.txt
-#                BASIC_SETUP CMAKE_TARGETS
-#                BUILD missing)
-#else()
-#conan_cmake_run(CONANFILE conanfile.txt
-#                BASIC_SETUP CMAKE_TARGETS
-#                BUILD missing)
-#endif()
+if(WIN32)
+conan_cmake_run(CONANFILE conanfile_win.txt
+                BASIC_SETUP CMAKE_TARGETS
+                BUILD missing)
+else()
+conan_cmake_run(CONANFILE conanfile.txt
+                BASIC_SETUP CMAKE_TARGETS
+                BUILD missing)
+endif()
 
-add_subdirectory(test)
-add_subdirectory(DataBaseAPI)
-add_subdirectory(client_core)
-add_subdirectory(server)
-add_subdirectory(Gui_Qt)
-add_subdirectory(serialization)
+add_subdirectory(Client.Core)
+add_subdirectory(Client.GUI)
+add_subdirectory(DataAccess)
+add_subdirectory(Network)
+add_subdirectory(Server)
+add_subdirectory(Utility)
 
