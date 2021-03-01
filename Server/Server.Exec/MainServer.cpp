@@ -41,17 +41,17 @@ public:
 
     uint16_t getPort() const
     {
-        size_t indexValidKey = 0;
-        for (size_t i = 0; i < validKeys.size(); i++)
+        std::string indexValidKey;
+        for (auto&& validKey : validKeys)
         {
-            if (isMapContainingKey(validKeys[i]))
+            if (isMapContainingKey(validKey))
             {
-                indexValidKey = i;
+                indexValidKey = validKey;
                 break;
             }
         }
 
-        auto port = arguments.find(validKeys[indexValidKey])->second;
+        auto port = arguments.find(indexValidKey)->second;
 
         if (port < std::numeric_limits<uint16_t>::min() ||
             port > std::numeric_limits<uint16_t>::max())
