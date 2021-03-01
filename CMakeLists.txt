@@ -31,9 +31,15 @@ include(${CMAKE_BINARY_DIR}/conan.cmake)
 conan_add_remote(NAME bincrafters URL
                  https://api.bintray.com/conan/bincrafters/public-conan)
 
+if(WIN32)
+conan_cmake_run(CONANFILE conanfile_win.txt
+                BASIC_SETUP CMAKE_TARGETS
+                BUILD missing)
+else()
 conan_cmake_run(CONANFILE conanfile.txt
                 BASIC_SETUP CMAKE_TARGETS
                 BUILD missing)
+endif()
 
 add_subdirectory(test)
 add_subdirectory(DataBaseAPI)
