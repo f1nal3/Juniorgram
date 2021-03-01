@@ -36,8 +36,8 @@ public:
 
     uint16_t getPort() const
     {
-        short indexValidKey = 0;
-        for (short i = 0; i < validKeys.size(); i++)
+        size_t indexValidKey = 0;
+        for (size_t i = 0; i < validKeys.size(); i++)
         {
             if (isMapContainingKey(validKeys[i]))
             {
