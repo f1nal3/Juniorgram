@@ -5,7 +5,4 @@ add_subdirectory(Client.Core.Test)
 
 set(TARGET Client.Core)
 
-add_library(TARGET INTERFACE)
-set(SOURCES
-    ./app.cpp
-    ./mainClient.cpp)
+add_library(${TARGET} INTERFACE)
