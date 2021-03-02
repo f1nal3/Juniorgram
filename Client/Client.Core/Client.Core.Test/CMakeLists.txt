@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.10.0)
-
 project(unit_tests)
 
 file(GLOB UNIT_TESTS_SRC_FILES ${PROJECT_SOURCE_DIR}/*.cpp)
