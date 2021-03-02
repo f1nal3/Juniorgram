@@ -1,5 +1,7 @@
 #pragma once
 
+#include <ctime>
+
 namespace utility
 {
     inline std::tm safe_localtime(const std::time_t& time)

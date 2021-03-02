@@ -1,6 +1,8 @@
 #pragma once
 
-#include "common.h"
+#include <condition_variable>
+#include <deque>
+#include <thread>
 
 namespace network
 {

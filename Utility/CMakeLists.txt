@@ -1,19 +1,8 @@
-cmake_minimum_required( VERSION 3.16 )
- 
-project(Seialize_lib VERSION 1.0)
+project(Utility LANGUAGES CXX)
 
-set(SOURCES 
-    ./src/Serialize.cpp)
- 
-set(HEADERS 
-    ./include/Serialize.h)
- 
-# Add a library with the above sources
-add_library(${PROJECT_NAME} STATIC ${SOURCES} ${HEADERS})
-add_library(Utility::serialize ALIAS ${PROJECT_NAME})
- 
-target_include_directories( ${PROJECT_NAME}
-    PUBLIC ${PROJECT_SOURCE_DIR}/include/
-    PRIVATE ${CONAN_INCLUDE_DIRS_QT})
-    
-target_compile_options(${PROJECT_NAME} PRIVATE "-fPIC")
+add_subdirectory(Utility.Public)
+add_subdirectory(Utility.Static)
+
+set(TARGET Utility)
+
+add_library(${TARGET} INTERFACE)

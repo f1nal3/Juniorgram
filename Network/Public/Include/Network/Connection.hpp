@@ -1,10 +1,12 @@
 #pragma once
 
-#include "common.h"
-#include "message.h"
-#include "safeQueue.h"
+#include "Message.hpp"
+#include "SafeQueue.hpp"
+#include "Utility/Utility.hpp"
 
-#include "WarningSuppressing.h"
+#include <asio.hpp>
+
+#include <iostream>
 
 namespace network
 {

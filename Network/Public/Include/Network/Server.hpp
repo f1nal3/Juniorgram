@@ -1,9 +1,15 @@
 #pragma once
 
-#include "common.h"
-#include "connection.h"
-#include "message.h"
-#include "safeQueue.h"
+#include "Connection.hpp"
+#include "Message.hpp"
+#include "SafeQueue.hpp"
+
+#include <asio.hpp>
+
+#include <chrono>
+#include <deque>
+#include <iostream>
+#include <thread>
 
 namespace network
 {

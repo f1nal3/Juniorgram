@@ -1,7 +1,13 @@
 #pragma once
 
-#include "common.h"
-#include "connection.h"
+#include "Connection.hpp"
+#include "Utility/Utility.hpp"
+#include "Utility/WarningSuppression.hpp"
+
+#include <chrono>
+#include <cstdlib>
+#include <iomanip>
+#include <vector>
 
 namespace network
 {

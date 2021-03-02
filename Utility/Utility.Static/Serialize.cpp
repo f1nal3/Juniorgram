@@ -1,4 +1,4 @@
-#include "Serialize.h"
+#include "Serialize.hpp"
 
 void Serialize::updateSerialize(QStringList &messagesList)
 {
