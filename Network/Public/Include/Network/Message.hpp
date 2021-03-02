@@ -7,6 +7,7 @@
 #include <chrono>
 #include <cstdlib>
 #include <iomanip>
+#include <memory>
 #include <vector>
 
 namespace network
