@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include <memory>
+#include <cstring>
 #include <vector>
 
 namespace network
