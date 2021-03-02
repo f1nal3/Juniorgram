@@ -1,4 +1,4 @@
-#include <network.h>
+#include <Network/Client.hpp>
 
 #include <string>
 

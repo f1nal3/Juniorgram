@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include "app.h"
+#include "App.hpp"
 
 std::string GetLineFromCin()
 {

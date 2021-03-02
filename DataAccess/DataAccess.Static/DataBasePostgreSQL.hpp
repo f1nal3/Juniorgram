@@ -5,7 +5,7 @@
 
 #include <pqxx/pqxx>
 
-#include "IDB.hpp"
+#include "DataAccess/IDB.hpp"
 
 namespace DBPostgre
 {

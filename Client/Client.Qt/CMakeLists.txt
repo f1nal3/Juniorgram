@@ -28,7 +28,7 @@ add_executable(Gui_Qt ${PROJECT_SOURCES} )
  
 target_link_libraries(Gui_Qt 
                      PRIVATE Qt5::Widgets
-                     PRIVATE Utility::serialize)
+                     PRIVATE Utility.Static)
 target_include_directories(Gui_Qt 
                                 PRIVATE ${CONAN_INCLUDE_DIRS_QT})
                                 

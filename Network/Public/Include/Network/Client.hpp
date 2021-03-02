@@ -1,9 +1,8 @@
 #pragma once
 
-#include "common.h"
-#include "connection.h"
-#include "message.h"
-#include "safeQueue.h"
+#include "Network/Connection.hpp"
+#include "Network/Message.hpp"
+#include "Network/SafeQueue.hpp"
 
 namespace network
 {

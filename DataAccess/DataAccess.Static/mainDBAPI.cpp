@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "../common/WarningSuppressing.h"
+#include "Utility/WarningSuppression.hpp"
 
-#include "Headers/DataBasePostgreSQL.hpp"
+#include "DataBasePostgreSQL.hpp"
 
 suppressWarning(4099, -Winit-self)
 int main()
