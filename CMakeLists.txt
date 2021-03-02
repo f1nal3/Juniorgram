@@ -17,8 +17,6 @@ else()
     add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()
 
-
-
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
@@ -33,6 +31,10 @@ conan_add_remote(NAME bincrafters URL
 
 if(WIN32)
 conan_cmake_run(CONANFILE conanfile_win.txt
+                BASIC_SETUP CMAKE_TARGETS
+                BUILD missing)
+elseif(APPLE)
+conan_cmake_run(CONANFILE conanfile_mac.txt
                 BASIC_SETUP CMAKE_TARGETS
                 BUILD missing)
 else()
