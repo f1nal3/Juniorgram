@@ -1,5 +1,4 @@
-project(Gui_Qt LANGUAGES CXX)
- 
+set(TARGET Client.Qt)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
  
 set(CMAKE_AUTOUIC ON)
@@ -15,19 +14,18 @@ endif()
 
 
  
-set(PROJECT_SOURCES
-        ./main.cpp
-        ./mainwindow.cpp
-        ./mainwindow.h
-        ./mainwindow.ui
-)
+set(SOURCE_FILES
+    main.cpp
+    mainwindow.cpp
+    mainwindow.h
+    mainwindow.ui)
  
-add_executable(Gui_Qt ${PROJECT_SOURCES} )
+add_executable(${TARGET} ${SOURCE_FILES})
  
-target_link_libraries(Gui_Qt 
-                     PRIVATE Qt5::Widgets
-                     PRIVATE Utility.Static)
-target_include_directories(Gui_Qt 
-                                PRIVATE ${CONAN_INCLUDE_DIRS_QT})
+target_link_libraries(${TARGET} 
+    PRIVATE Qt5::Widgets)
+
+target_include_directories(${TARGET}
+    PRIVATE ${CONAN_INCLUDE_DIRS_QT})
                                 
-target_link_options(${PROJECT_NAME} PRIVATE "-lxcb")
+target_link_options(${TARGET} PRIVATE "-lxcb")
