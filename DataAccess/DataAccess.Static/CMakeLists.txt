@@ -10,8 +10,9 @@ find_package(PostgreSQL REQUIRED)
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
 target_link_libraries(${TARGET} PRIVATE
-    CONAN_PKG::libpqxx
-    CONAN_PKG::libpq)
+    CONAN_PKG::libpq
+    CONAN_PKG::libpqxx)
+    
 target_link_libraries(${TARGET} PUBLIC
     Utility.Public
     DataAccess.Public)
