@@ -1,14 +1,14 @@
-set(TARGET Client.Core.Test)
-set(OUTPUT_NAME Client.Core.Test)
+set(TARGET Network.Test)
+set(OUTPUT_NAME Network.Test)
 
 set(SOURCE_FILES
-    ClientCoreTest.cpp)
+    NetworkTest.cpp)
 
 set(CMAKE_BUILD_TYPE RELWITHDEBINFO)
 
 add_executable(${TARGET} ${SOURCE_FILES})
 
-target_link_libraries(${TARGET} PUBLIC Client.Core CONAN_PKG::catch2)
+target_link_libraries(${TARGET} PUBLIC Network.Public CONAN_PKG::catch2)
 
 enable_testing()
 add_test(NAME ${OUTPUT_NAME} COMMAND ${TARGET})
