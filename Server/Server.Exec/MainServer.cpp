@@ -11,7 +11,7 @@ class ArgumentParser
 {
 private:
     std::map<std::string, int32_t> arguments;
-    const std::array<std::string, 1> validKeys = {"-p"};
+    const std::array<std::string, 2> validKeys = {"-p", "-d"};
 
 public:
     ArgumentParser()                      = delete;
@@ -35,11 +35,23 @@ public:
                 throw std::runtime_error("Arguments have identical keys or keys are unvalid");
             }
         }
+
+        realBD = !isMapContainingKey("-d");
     }
 
     uint16_t getPort() const
     {
-        auto port = arguments.find("-p")->second;
+        std::string indexValidKey;
+        for (auto&& validKey : validKeys)
+        {
+            if (isMapContainingKey(validKey))
+            {
+                indexValidKey = validKey;
+                break;
+            }
+        }
+
+        auto port = arguments.find(indexValidKey)->second;
 
         if (port < std::numeric_limits<uint16_t>::min() ||
             port > std::numeric_limits<uint16_t>::max())
@@ -50,7 +62,11 @@ public:
         return static_cast<uint16_t>(port);
     }
 
+    bool getInd() const noexcept { return realBD; }
+
 private:
+    bool realBD;
+
     bool isKeyValid(const std::string& incomingKey) const noexcept
     {
         return std::any_of(validKeys.cbegin(), validKeys.cend(),
