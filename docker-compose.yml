@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+
+  shell:
+    image: docker.pkg.github.com/f1nal3/juniorgram/juniorgram:stable
+    volumes:
+      - ./:/usr/src/build
+    tty: true
+    stdin_open: true
