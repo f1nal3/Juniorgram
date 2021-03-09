@@ -87,14 +87,6 @@ private:
                 return false;
         }
         return true;
-
-        /*bool firstElementIsChecked = false;
-        for (auto i : s)
-        {
-            if (((i < '0') || (i > '9')) && ((i == '-') && firstElementIsChecked)) return false;
-            firstElementIsChecked = true;
-        }
-        return true;*/
     }
 
     std::string trim(const char* row)
