@@ -79,8 +79,12 @@ private:
 
     bool isInteger(const std::string& s)
     {
+        bool firstElementIsChecked = false;
         for (auto i : s)
-            if ((i < '0') || (i > '9')) return false;
+        {
+            if (((i < '0') || (i > '9')) && ((i == '-') && firstElementIsChecked)) return false;
+            firstElementIsChecked = true;
+        }
         return true;
     }
 
