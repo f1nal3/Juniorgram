@@ -1,11 +1,11 @@
-#include "Network/Server.hpp"
-
 #include <algorithm>
 #include <array>
 #include <iostream>
-#include <stdexcept>
 #include <map>
+#include <stdexcept>
 #include <string>
+
+#include "Network/Server.hpp"
 
 class ArgumentParser
 {
@@ -26,7 +26,7 @@ public:
 
         for (int i = 1; i < argc; i += 2)
         {
-            if (isKeyValid(argv[i]) && !isMapContainingKey(argv[i]))
+            if (isKeyValid(argv[i]) && !doMapContainKey(argv[i]))
             {
                 arguments.emplace(argv[i], atoi(argv[i + 1]));
             }
@@ -36,7 +36,7 @@ public:
             }
         }
 
-        realBD = !isMapContainingKey("-d");
+        realBD = !doMapContainKey("-d");
     }
 
     uint16_t getPort() const
@@ -44,7 +44,7 @@ public:
         std::string indexValidKey;
         for (auto&& validKey : validKeys)
         {
-            if (isMapContainingKey(validKey))
+            if (doMapContainKey(validKey))
             {
                 indexValidKey = validKey;
                 break;
@@ -69,16 +69,33 @@ private:
 
     bool isKeyValid(const std::string& incomingKey) const noexcept
     {
-        return std::any_of(validKeys.cbegin(), validKeys.cend(),
-                           [&](const std::string& validKey) { return incomingKey == validKey; });
+        return std::find(validKeys.begin(), validKeys.end(), incomingKey) != validKeys.end();
     }
 
-    bool isMapContainingKey(const std::string& incomingKey) const noexcept
+    bool doMapContainKey(const std::string& incomingKey) const noexcept
     {
-        return std::any_of(arguments.cbegin(), arguments.cend(),
-                           [&](const std::pair<std::string, std::int32_t>& existingArg) {
-                               return incomingKey == existingArg.first;
-                           });
+        return arguments.find(incomingKey) != arguments.end();
+    }
+
+    bool isInteger(const std::string& str)
+    {
+        auto numberElement = str.begin();
+        if (str[0] == '-') numberElement++;
+        while (numberElement != str.end())
+        {
+            if ((*numberElement < '0') || (*numberElement > '9')) 
+                return false;
+            numberElement++;
+        }
+        return true;
+    }
+
+    std::string trim(const char* row)
+    {
+        std::string newRow = row;
+        while (newRow[0] == ' ') newRow.erase(newRow.begin());
+        while (newRow[newRow.size() - 1] == ' ') newRow.erase(newRow.end() - 1);
+        return newRow;
     }
 };
 
