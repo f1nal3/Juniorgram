@@ -77,15 +77,24 @@ private:
         return arguments.find(incomingKey) != arguments.end();
     }
 
-    bool isInteger(const std::string& s)
+    bool isInteger(const std::string& str)
     {
-        bool firstElementIsChecked = false;
+        auto numberElement = str.begin();
+        if (str[0] == '-') numberElement++;
+        while (numberElement != str.end())
+        {
+            if ((*numberElement < '0') || (*numberElement > '9'))
+                return false;
+        }
+        return true;
+
+        /*bool firstElementIsChecked = false;
         for (auto i : s)
         {
             if (((i < '0') || (i > '9')) && ((i == '-') && firstElementIsChecked)) return false;
             firstElementIsChecked = true;
         }
-        return true;
+        return true;*/
     }
 
     std::string trim(const char* row)
