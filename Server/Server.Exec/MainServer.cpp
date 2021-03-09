@@ -77,12 +77,18 @@ private:
         return arguments.find(incomingKey) != arguments.end();
     }
 
-    std::string trim(const char* row) {
-        std::string newRow=row;
-        while (row[0] == ' ') 
-            newRow.erase(newRow.begin());
-        while (newRow[newRow.size() - 1] == ' ') 
-            newRow.erase(newRow.end() - 1);
+    bool isInteger(const std::string& s)
+    {
+        for (auto& i : s)
+            if ((i < '0') || (i > '9')) return false;
+        return true;
+    }
+
+    std::string trim(const char* row)
+    {
+        std::string newRow = row;
+        while (row[0] == ' ') newRow.erase(newRow.begin());
+        while (newRow[newRow.size() - 1] == ' ') newRow.erase(newRow.end() - 1);
         return newRow;
     }
 };
