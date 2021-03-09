@@ -79,7 +79,7 @@ private:
 
     bool isInteger(const std::string& s)
     {
-        for (auto& i : s)
+        for (auto i : s)
             if ((i < '0') || (i > '9')) return false;
         return true;
     }
@@ -87,7 +87,7 @@ private:
     std::string trim(const char* row)
     {
         std::string newRow = row;
-        while (row[0] == ' ') newRow.erase(newRow.begin());
+        while (newRow[0] == ' ') newRow.erase(newRow.begin());
         while (newRow[newRow.size() - 1] == ' ') newRow.erase(newRow.end() - 1);
         return newRow;
     }
