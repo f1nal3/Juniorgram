@@ -83,8 +83,9 @@ private:
         if (str[0] == '-') numberElement++;
         while (numberElement != str.end())
         {
-            if ((*numberElement < '0') || (*numberElement > '9'))
+            if ((*numberElement < '0') || (*numberElement > '9')) 
                 return false;
+            numberElement++;
         }
         return true;
     }
