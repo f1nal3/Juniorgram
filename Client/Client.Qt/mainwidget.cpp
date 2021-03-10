@@ -187,7 +187,7 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
     grid->setSpacing(0);
     this->setLayout(grid);
     layout()->setMargin(9);
-    auto pBodyLayout = new QVBoxLayout(body);
+    auto pBodyLayout = new QGridLayout(body);
     body->setLayout(pBodyLayout);
     pBodyLayout->setSpacing(0);
     pBodyLayout->setMargin(0);

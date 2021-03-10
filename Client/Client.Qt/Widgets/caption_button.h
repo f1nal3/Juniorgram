@@ -1,7 +1,3 @@
-//
-// Created by Stanislav on 17.02.2021.
-//
-
 #ifndef JUNIORGRAMUI_CAPTION_BUTTON_H
 #define JUNIORGRAMUI_CAPTION_BUTTON_H
 
