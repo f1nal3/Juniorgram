@@ -25,12 +25,8 @@ void drawShadow(QPainter& _p, qint16 _margin, qreal _r, const QColor& _start, co
     gradient.setFinalStop(right1);
     _p.setBrush(QBrush(gradient));
     _p.drawRoundedRect(
-<<<<<<< HEAD
         QRectF(QPointF(_width - _margin * _r, _margin), QPointF(_width, _height - _margin)), 0.0,
         0.0);
-=======
-            QRectF(QPointF(_width - _margin * _r, _margin), QPointF(_width, _height - _margin)), 0.0, 0.0);
->>>>>>> CustomBorder
     // Left
     QPointF left0(_margin, _height / 2);
     QPointF left1(0, _height / 2);
