@@ -5,13 +5,14 @@
 #ifndef JUNIORGRAMUI_SHADOW_H
 #define JUNIORGRAMUI_SHADOW_H
 
+#include <QPainter>
 #include <QPointF>
 #include <QRectF>
-#include <QPainter>
 
-void drawShadow(QPainter &_p, qint16 _margin, qreal _r,
-                const QColor &_start, const QColor &_end, qreal _startPosition, qreal _endPosition0,
-                qreal _endPosition1, qreal _width, qreal _height) {
+void drawShadow(QPainter& _p, qint16 _margin, qreal _r, const QColor& _start, const QColor& _end,
+                qreal _startPosition, qreal _endPosition0, qreal _endPosition1, qreal _width,
+                qreal _height)
+{
     _p.setPen(Qt::NoPen);
 
     QLinearGradient gradient;
@@ -24,14 +25,16 @@ void drawShadow(QPainter &_p, qint16 _margin, qreal _r,
     gradient.setFinalStop(right1);
     _p.setBrush(QBrush(gradient));
     _p.drawRoundedRect(
-            QRectF(QPointF(_width - _margin * _r, _margin), QPointF(_width, _height - _margin)), 0.0, 0.0);
+        QRectF(QPointF(_width - _margin * _r, _margin), QPointF(_width, _height - _margin)), 0.0,
+        0.0);
     // Left
     QPointF left0(_margin, _height / 2);
     QPointF left1(0, _height / 2);
     gradient.setStart(left0);
     gradient.setFinalStop(left1);
     _p.setBrush(QBrush(gradient));
-    _p.drawRoundedRect(QRectF(QPointF(_margin * _r, _margin), QPointF(0, _height - _margin)), 0.0, 0.0);
+    _p.drawRoundedRect(QRectF(QPointF(_margin * _r, _margin), QPointF(0, _height - _margin)), 0.0,
+                       0.0);
     // Top
     QPointF top0(_width / 2, _margin);
     QPointF top1(_width / 2, 0);
@@ -45,8 +48,8 @@ void drawShadow(QPainter &_p, qint16 _margin, qreal _r,
     gradient.setStart(bottom0);
     gradient.setFinalStop(bottom1);
     _p.setBrush(QBrush(gradient));
-    _p.drawRoundedRect(QRectF(QPointF(_margin, _height - _margin), QPointF(_width - _margin, _height)), 0.0,
-                       0.0);
+    _p.drawRoundedRect(
+        QRectF(QPointF(_margin, _height - _margin), QPointF(_width - _margin, _height)), 0.0, 0.0);
     // BottomRight
     QPointF bottomright0(_width - _margin, _height - _margin);
     QPointF bottomright1(_width, _height);
@@ -80,9 +83,8 @@ void drawShadow(QPainter &_p, qint16 _margin, qreal _r,
     _p.setBrush(QBrush(gradient));
     _p.drawRoundedRect(QRectF(topright0, topright1), 0.0, 0.0);
 }
-class shadow {
-
+class shadow
+{
 };
 
-
-#endif //JUNIORGRAMUI_SHADOW_H
+#endif  // JUNIORGRAMUI_SHADOW_H
