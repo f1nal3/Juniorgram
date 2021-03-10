@@ -4,12 +4,9 @@
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
-    int id = QFontDatabase::addApplicationFont(":fonts/NotoSans-Regular.ttf");
+    QFontDatabase::addApplicationFont(":fonts/NotoSans-Regular.ttf");
     auto w = std::make_unique<MainWidget>();
     w->show();
-    w->windowHandle()->handle();
-    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
-    std::cout << family.toStdString() << std::endl;
 #if _WIN32
     HWND handle = reinterpret_cast<HWND>(w->winId());
     LONG style  = ::GetWindowLong(handle, GWL_STYLE);
