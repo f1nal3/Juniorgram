@@ -1,17 +1,14 @@
 #include "mainwidget.h"
-
 #include <QBitmap>
-
-#include "Style/shadow.h"
 #include "Style/style.h"
+#include "Style/shadow.h"
 
-MainWidget::MouseType MainWidget::checkResizableField(QMouseEvent* event)
-{
+MainWidget::MouseType MainWidget::checkResizableField(QMouseEvent *event) {
     QPointF position = event->screenPos();
-    qreal x          = this->x();
-    qreal y          = this->y();
-    qreal width      = this->width();
-    qreal height     = this->height();
+    qreal x = this->x();
+    qreal y = this->y();
+    qreal width = this->width();
+    qreal height = this->height();
 
     QRectF rectTop(x, y, width + 9, 7);
     QRectF rectBottom(x, y + height - 7, width + 9, 7);
@@ -19,94 +16,63 @@ MainWidget::MouseType MainWidget::checkResizableField(QMouseEvent* event)
     QRectF rectRight(x + width - 7, y, 7, height + 9);
     QRectF rectInterface(x + 9, y + 9, width - 18, 38);
 
-    if (rectTop.contains(position))
-    {
-        if (rectLeft.contains(position))
-        {
+    if (rectTop.contains(position)) {
+        if (rectLeft.contains(position)) {
             setCursor(Qt::SizeFDiagCursor);
             return TopLeft;
         }
-        if (rectRight.contains(position))
-        {
+        if (rectRight.contains(position)) {
             setCursor(Qt::SizeBDiagCursor);
             return TopRight;
         }
         setCursor(Qt::SizeVerCursor);
         return Top;
-    }
-    else if (rectBottom.contains(position))
-    {
-        if (rectLeft.contains(position))
-        {
+    } else if (rectBottom.contains(position)) {
+
+        if (rectLeft.contains(position)) {
             setCursor(Qt::SizeBDiagCursor);
             return BottomLeft;
         }
-        if (rectRight.contains(position))
-        {
+        if (rectRight.contains(position)) {
             setCursor(Qt::SizeFDiagCursor);
             return BottomRight;
         }
         setCursor(Qt::SizeVerCursor);
         return Bottom;
-    }
-    else if (rectLeft.contains(position))
-    {
+    } else if (rectLeft.contains(position)) {
         setCursor(Qt::SizeHorCursor);
         return Left;
-    }
-    else if (rectRight.contains(position))
-    {
+    } else if (rectRight.contains(position)) {
         setCursor(Qt::SizeHorCursor);
         return Right;
-    }
-    else if (rectInterface.contains(position))
-    {
+    } else if (rectInterface.contains(position)) {
         setCursor(QCursor());
         return Move;
-    }
-    else
-    {
+    } else {
         setCursor(QCursor());
         return None;
     }
 }
 
-void MainWidget::mousePressEvent(QMouseEvent* event)
-{
-    if (event->button() == Qt::LeftButton)
-    {
-        _mousePressed            = true;
+void MainWidget::mousePressEvent(QMouseEvent *event) {
+    if (event->button() == Qt::LeftButton) {
+        _mousePressed=true;
         m_leftMouseButtonPressed = checkResizableField(event);
-        if (m_leftMouseButtonPressed == Top)
-        {
+        if (m_leftMouseButtonPressed == Top) {
             this->windowHandle()->startSystemResize(Qt::TopEdge);
-        }
-        else if (m_leftMouseButtonPressed == TopLeft)
-        {
+        } else if (m_leftMouseButtonPressed == TopLeft) {
             this->windowHandle()->startSystemResize(Qt::TopEdge | Qt::LeftEdge);
-        }
-        else if (m_leftMouseButtonPressed == TopRight)
-        {
+        } else if (m_leftMouseButtonPressed == TopRight) {
             this->windowHandle()->startSystemResize(Qt::TopEdge | Qt::RightEdge);
-        }
-        else if (m_leftMouseButtonPressed == Bottom)
-        {
+        } else if (m_leftMouseButtonPressed == Bottom) {
             this->windowHandle()->startSystemResize(Qt::BottomEdge);
-        }
-        else if (m_leftMouseButtonPressed == BottomLeft)
-        {
+        } else if (m_leftMouseButtonPressed == BottomLeft) {
             this->windowHandle()->startSystemResize(Qt::BottomEdge | Qt::LeftEdge);
-        }
-        else if (m_leftMouseButtonPressed == BottomRight)
-        {
+        } else if (m_leftMouseButtonPressed == BottomRight) {
             this->windowHandle()->startSystemResize(Qt::BottomEdge | Qt::RightEdge);
-        }
-        else if (m_leftMouseButtonPressed == Left)
-        {
+        } else if (m_leftMouseButtonPressed == Left) {
             this->windowHandle()->startSystemResize(Qt::LeftEdge);
-        }
-        else if (m_leftMouseButtonPressed == Right)
-        {
+        } else if (m_leftMouseButtonPressed == Right) {
             this->windowHandle()->startSystemResize(Qt::RightEdge);
         }
     }
@@ -114,28 +80,23 @@ void MainWidget::mousePressEvent(QMouseEvent* event)
     return QWidget::mousePressEvent(event);
 }
 
-void MainWidget::mouseMoveEvent(QMouseEvent* event)
-{
+void MainWidget::mouseMoveEvent(QMouseEvent *event) {
     checkResizableField(event);
-    switch (m_leftMouseButtonPressed)
-    {
-        case Move:
-        {
-            if (_mousePressed)
-            {
-                if (isMaximized())
-                {
+    switch (m_leftMouseButtonPressed) {
+        case Move: {
+            if (_mousePressed) {
+                if (isMaximized()) {
                     this->layout()->setMargin(9);
                     auto part = event->screenPos().x() / width();
                     this->showNormal();
-                    // update();
-                    QCoreApplication::processEvents(
-                        QEventLoop::ProcessEventsFlag::ExcludeUserInputEvents);
+                    //update();
+                    QCoreApplication::processEvents(QEventLoop::ProcessEventsFlag::ExcludeUserInputEvents);
                     auto offsetX = width() * part;
                     setGeometry(event->screenPos().x() - offsetX, 0, width(), height());
+
                 }
 
-                _mousePressed = false;
+                _mousePressed=false;
                 this->windowHandle()->startSystemMove();
             }
             break;
@@ -143,10 +104,9 @@ void MainWidget::mouseMoveEvent(QMouseEvent* event)
         case Top:
         case Bottom:
         case Left:
-        case Right:
-        {
-            if (!isMaximized())
-            {
+        case Right: {
+            if (!isMaximized()) {
+
             }
             break;
         }
@@ -157,30 +117,26 @@ void MainWidget::mouseMoveEvent(QMouseEvent* event)
     return QWidget::mouseMoveEvent(event);
 }
 
-void MainWidget::mouseReleaseEvent(QMouseEvent* event)
-{
-    if (event->button() == Qt::LeftButton)
-    {
+void MainWidget::mouseReleaseEvent(QMouseEvent *event) {
+    if (event->button() == Qt::LeftButton) {
         m_leftMouseButtonPressed = None;
-        _mousePressed            = false;
+        _mousePressed=false;
     }
     return QWidget::mouseReleaseEvent(event);
 }
 
-MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
-{
-    Style::setDpiScale(logicalDpiX() * 100 / 96);
+MainWidget::MainWidget(QWidget *parent) : QWidget(parent) {
+    Style::setDpiScale(logicalDpiX()*100/96);
     this->setWindowFlags(Qt::FramelessWindowHint);
     this->setWindowIcon(QIcon(":/images/0.bmp"));
-    this->setStyleSheet(
-        "QWidget { "
-        "background-color: #2f3241; "
-        //"border: 1px solid black; "
-        "}");
+    this->setStyleSheet("QWidget { "
+                        "background-color: #2f3241; "
+                        //"border: 1px solid black; "
+                        "}");
     this->setMinimumSize(630, 450);
 
-    auto* grid = new QGridLayout(this);
-    body       = new QWidget();
+    auto *grid = new QGridLayout(this);
+    body = new QWidget();
     auto title = new QWidget();
     title->setFixedHeight(Style::WindowsScaleDPIValue(30));
     grid->addWidget(body, 1, 0);
@@ -192,12 +148,11 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
     body->setLayout(pBodyLayout);
     pBodyLayout->setSpacing(0);
     pBodyLayout->setMargin(0);
-    body->setStyleSheet(
-        "* {"
-        "background-color: white;"
-        "}");
-    std::cout << QGuiApplication::platformName().toStdString();
-    QImage mask(512, 512, QImage::Format_RGB32);
+    body->setStyleSheet("* {"
+                        "background-color: white;"
+                        "}");
+    std::cout<<QGuiApplication::platformName().toStdString();
+    QImage mask(512,512,QImage::Format_RGB32);
     pTitleLayout = new QHBoxLayout(title);
     pTitleLayout->setSpacing(0);
     pTitleLayout->setMargin(0);
@@ -213,15 +168,12 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
     pTitleLayout->addWidget(close_btn);
 
     connect(maximize_btn, &CaptionButton::mouseRelease, [this]() {
-        if (this->isMaximized())
-        {
+        if (this->isMaximized()) {
             this->layout()->setMargin(9);
             this->setAttribute(Qt::WA_TranslucentBackground);
             this->showNormal();
             this->m_leftMouseButtonPressed = None;
-        }
-        else
-        {
+        } else {
             this->layout()->setMargin(0);
             this->setAttribute(Qt::WA_TranslucentBackground, false);
             this->showMaximized();
@@ -235,74 +187,61 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
     body->setMouseTracking(true);
     this->setMouseTracking(true);
 
-    // We don't have any eventFilter so this have no effect
+
+    //We don't have any eventFilter so this have no effect
     QApplication::instance()->installEventFilter(this);
 }
 
-void MainWidget::paintEvent(QPaintEvent* event)
-{
+void MainWidget::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event);
     QPainter p(this);
     p.setPen(Qt::NoPen);
-    // Shadow is ugly on corners
-    drawShadow(p, 10, 2.0, QColor(0, 0, 0, 0x18), QColor(0, 0, 0, 0), 0.0, 1.0, 0.6, width(),
-               height());
+    //Shadow is ugly on corners
+    drawShadow(p, 10, 2.0, QColor(0, 0, 0, 0x18), QColor(0, 0, 0, 0), 0.0, 1.0, 0.6, width(), height());
 }
 
 #ifdef _WIN32
-bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* result)
-{
+bool MainWidget::nativeEvent(const QByteArray &eventType, void *message, long *result) {
     Q_UNUSED(eventType);
-    MSG* msg = static_cast<MSG*>(message);
+    MSG *msg = static_cast<MSG *>(message);
     WINBOOL isit;
-    if (msg->message == WM_NCACTIVATE)
-    {
-        if (::DwmIsCompositionEnabled(&isit))
-        {
+    if (msg->message == WM_NCACTIVATE) {
+        if (::DwmIsCompositionEnabled(&isit)) {
             const auto res = DefWindowProc(msg->hwnd, msg->message, msg->wParam, -1);
             if (result) *result = res;
-        }
-        else
-        {
+        } else {
             if (result) *result = 1;
         }
         return true;
-    }
-    else if (msg->message == WM_NCCALCSIZE)
-    {
-        NCCALCSIZE_PARAMS& params = *reinterpret_cast<NCCALCSIZE_PARAMS*>(msg->lParam);
-        if (this->isMaximized() && msg->wParam == TRUE)
-        {
+    } else if (msg->message == WM_NCCALCSIZE) {
+        NCCALCSIZE_PARAMS &params = *reinterpret_cast<NCCALCSIZE_PARAMS *>(msg->lParam);
+        if (this->isMaximized() && msg->wParam == TRUE) {
             const auto monitor = ::MonitorFromWindow(msg->hwnd, MONITOR_DEFAULTTONULL);
-            if (!monitor) return false;
+            if (!monitor)
+                return false;
             MONITORINFO monitor_info{};
             monitor_info.cbSize = sizeof(MONITORINFO);
-            if (!::GetMonitorInfoW(monitor, &monitor_info)) return false;
+            if (!::GetMonitorInfoW(monitor, &monitor_info))
+                return false;
             params.rgrc[0] = monitor_info.rcWork;
         }
 
         if (result) *result = 0;
         return true;
-    }
-    else if (msg->message == WM_SIZE)
-    {
+    } else if (msg->message == WM_SIZE) {
         WINDOWPLACEMENT wp;
         wp.length = sizeof(WINDOWPLACEMENT);
         ::GetWindowPlacement(reinterpret_cast<HWND>(winId()), &wp);
         Qt::WindowState state;
-        if (msg->wParam == SIZE_MAXIMIZED)
-        {
+        if (msg->wParam == SIZE_MAXIMIZED) {
             state = Qt::WindowMaximized;
             this->layout()->setMargin(0);
             this->setAttribute(Qt::WA_TranslucentBackground, false);
-        }
-        else if (msg->wParam == SIZE_MINIMIZED)
-        {
+
+        } else if (msg->wParam == SIZE_MINIMIZED) {
             state = Qt::WindowMinimized;
             this->setAttribute(Qt::WA_TranslucentBackground, false);
-        }
-        else
-        {
+        } else {
             state = Qt::WindowNoState;
             this->setAttribute(Qt::WA_TranslucentBackground);
         }
