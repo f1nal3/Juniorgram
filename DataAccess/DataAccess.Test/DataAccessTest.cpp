@@ -8,7 +8,7 @@
 TEST_CASE("Tested the main object", "[PostgreSQL]")
 {
     auto psql = DBPostgre::PostgreSQL::getPostgre(
-        "dbname=postgres user=postgres password=Asw789654 hostaddr=127.0.0.1 port=5432");
+        "dbname=postgres user=postgres password= hostaddr=127.0.0.1 port=5432");
 
     REQUIRE(psql->isConnected() == true);
     REQUIRE(psql->query("select 1;").value().at(0).at(0).as<int>() == 1);
