@@ -16,5 +16,6 @@ int main(int argc, char* argv[])
     ::DwmExtendFrameIntoClientArea(handle,&shadow);
     // w.showNormal();
 #endif
+
     return app.exec();
 }

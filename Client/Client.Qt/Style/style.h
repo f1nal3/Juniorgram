@@ -7,18 +7,17 @@
 
 #include <cmath>
 
-namespace Style
-{
-inline constexpr auto minDPI = 75;
-inline constexpr auto maxDPI = 300;
-inline constexpr auto defDPI = 100;
+namespace Style {
+    inline constexpr auto minDPI = 75;
+    inline constexpr auto maxDPI = 300;
+    inline constexpr auto defDPI = 100;
 
-[[nodiscard]] int getDpiScale();
+    [[nodiscard]] int getDpiScale();
 
-void setDpiScale(int factor);
+    void setDpiScale(int factor);
 
-int WindowsScaleDPIValue(int value);
+    int WindowsScaleDPIValue(int value);
 
-}  // namespace Style
+}
 
-#endif  // JUNIORGRAMUI_STYLE_H
+#endif //JUNIORGRAMUI_STYLE_H
