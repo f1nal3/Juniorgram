@@ -27,5 +27,7 @@ target_link_libraries(${TARGET}
 
 target_include_directories(${TARGET}
     PRIVATE ${CONAN_INCLUDE_DIRS_QT})
-                                
-target_link_options(${TARGET} PRIVATE "-lxcb")
+
+if(NOT APPLE)
+    target_link_options(${TARGET} PRIVATE "-lxcb")
+endif()

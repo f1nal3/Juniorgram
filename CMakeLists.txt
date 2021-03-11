@@ -43,9 +43,10 @@ conan_cmake_run(CONANFILE conanfile.txt
                 BUILD missing)
 endif()
 
+enable_testing()
+
 add_subdirectory(Client)
 add_subdirectory(DataAccess)
 add_subdirectory(Network)
 add_subdirectory(Server)
 add_subdirectory(Utility)
-

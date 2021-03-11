@@ -12,5 +12,4 @@ target_link_libraries(${TARGET} PUBLIC Utility.Public Utility.Static CONAN_PKG::
 target_include_directories(${TARGET}
     PRIVATE ${CONAN_INCLUDE_DIRS_QT})
 
-enable_testing()
 add_test(NAME ${OUTPUT_NAME} COMMAND ${TARGET})
