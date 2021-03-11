@@ -1,5 +1,4 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QMainWindow>
 #include <QStringListModel>
@@ -13,7 +12,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
 public slots:
@@ -25,4 +24,3 @@ private:
     QStringListModel *model;
     QStringList *messagesList;
 };
-#endif // MAINWINDOW_H
