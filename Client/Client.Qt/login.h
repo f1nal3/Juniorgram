@@ -1,32 +1,34 @@
-#ifndef LOGIN_H
-#define LOGIN_H
+#pragma once
 
-#include <QDialog>
-#include "mainwindow.h"
+#include <QWidget>
+#include <QPushButton>
+#include <QLabel>
+#include <QString>
+#include <QFormLayout>
+#include <QGridLayout>
+#include <QLineEdit>
+#include <QAction>
+#include <QGridLayout>
+#include <memory>
 #include "registration.h"
-#include <QMessageBox>
+#include "mainwindow.h"
 
-namespace Ui {
-class login;
-}
-
-class login : public QDialog
+class Login : public QWidget
 {
     Q_OBJECT
-
 public:
-    explicit login(QWidget *parent = nullptr);
-    ~login();
-
-private slots:
-    void on_pushButton_login_clicked();
-
-    void on_pushButton_registration_clicked();
-
+    explicit Login(QWidget* parent = nullptr);
+public slots:
+    void displayRegistrationWindow();
+    void displayMainWindow();
 private:
-    Ui::login *ui;
-    MainWindow *m_mainWindow;
-    registration *m_registration;
+    std::unique_ptr<QGridLayout>  gridLayout;
+    std::unique_ptr<QLabel>       usernameLabel;
+    std::unique_ptr<QLabel>       passwordLabel;
+    std::unique_ptr<QLineEdit>    usernameLineEdit;
+    std::unique_ptr<QLineEdit>    passwordLineEdit;
+    std::unique_ptr<QPushButton>  buttonSignin;
+    std::unique_ptr<QPushButton>  buttonRegistration;
+    std::unique_ptr<Registration> registrationWindow;
+    std::unique_ptr<MainWindow>   mainWindow;
 };
-
-#endif // LOGIN_H
