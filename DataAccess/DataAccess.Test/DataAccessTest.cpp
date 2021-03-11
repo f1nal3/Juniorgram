@@ -1,8 +1,8 @@
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
 
-#include "../DataAccess.Static/DataBasePostgreSQL.hpp"
-#include "../DataAccess.Static/DataBasePostgreSQLOperations.hpp"
+#include "DataAccess.Static/DataBasePostgreSQL.hpp"
+#include "DataAccess.Static/DataBasePostgreSQLOperations.hpp"
 
 
 TEST_CASE("Tested the main object", "[PostgreSQL]")

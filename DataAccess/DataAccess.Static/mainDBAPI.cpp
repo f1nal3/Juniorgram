@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../../Utility/Utility.Public/Include/Utility/WarningSuppression.hpp"
+#include "Utility/WarningSuppression.hpp"
 
 #include "DataBasePostgreSQLOperations.hpp"
 
