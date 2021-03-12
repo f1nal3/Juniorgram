@@ -14,5 +14,4 @@ target_link_libraries(${TARGET} PUBLIC
     CONAN_PKG::libpq
     CONAN_PKG::libpqxx)
 
-enable_testing()
 add_test(NAME ${OUTPUT_NAME} COMMAND ${TARGET})

@@ -7,6 +7,13 @@ set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CXX_EXTENSIONS off)
 
+find_package(Qt5 COMPONENTS Widgets Core REQUIRED)
+if (Qt5_FOUND)
+        message( "Qt5 = ${Qt5_FOUND}" )
+else()
+        message(FATAL_ERROR "Qt not found!")
+endif()
+
 # Set warnings level higher and force treating them as errors.
 # GCC TBD
 if (MSVC)
@@ -43,9 +50,10 @@ conan_cmake_run(CONANFILE conanfile.txt
                 BUILD missing)
 endif()
 
+enable_testing()
+
 add_subdirectory(Client)
 add_subdirectory(DataAccess)
 add_subdirectory(Network)
 add_subdirectory(Server)
 add_subdirectory(Utility)
-
