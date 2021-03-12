@@ -1,5 +1,6 @@
 ![build](https://github.com/f1nal3/Juniorgram/workflows/build/badge.svg?branch=master)  
 
+![](https://i.ibb.co/sC8WJQs/logo2.png)
 
 # Introduction 
 A C++ messenger for learning purposes in EPAM Brest C++ R&D Lab
