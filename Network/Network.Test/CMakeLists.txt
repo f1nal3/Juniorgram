@@ -10,5 +10,4 @@ add_executable(${TARGET} ${SOURCE_FILES})
 
 target_link_libraries(${TARGET} PUBLIC Network.Public CONAN_PKG::catch2)
 
-enable_testing()
 add_test(NAME ${OUTPUT_NAME} COMMAND ${TARGET})

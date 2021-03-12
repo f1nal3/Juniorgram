@@ -8,7 +8,7 @@ set(SOURCE_FILES
 # Add a library with the above sources
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
-target_include_directories(${TARGET}
-    PRIVATE ${CONAN_INCLUDE_DIRS_QT})
+target_link_libraries(${TARGET} 
+    PRIVATE Qt5::Core)
 
 target_compile_options(${TARGET} PRIVATE "-fPIC")
