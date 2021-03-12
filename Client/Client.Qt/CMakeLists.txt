@@ -6,25 +6,18 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 set(SOURCE_FILES
-    main.cpp
-    mainWindow.cpp
-    mainWindow.h
-    login.cpp
-    login.h
-    registration.cpp
-    registration.h
-    textEdit.cpp
-    textEdit.h
-    )
- 
-add_executable(${TARGET} ${SOURCE_FILES})
- 
-target_link_libraries(${TARGET} 
-    PRIVATE Qt5::Widgets)
+        main.cpp
+        Widgets/caption_button.h
+        Widgets/caption_button.cpp
+        mainwidget.cpp
+        mainwidget.h
+        Style/style.h
+        Style/style.cpp
+        Style/shadow.cpp
+        Style/shadow.h)
 
-if(NOT APPLE)
-    target_link_options(${TARGET} PRIVATE "-lxcb")
-endif()
+add_executable(${TARGET} ${SOURCE_FILES}
+        resources/resources.qrc)
 
 if(WIN32)
 if(CMAKE_BUILD_TYPE MATCHES Debug)
