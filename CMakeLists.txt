@@ -7,13 +7,6 @@ set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CXX_EXTENSIONS off)
 
-find_package(Qt5 COMPONENTS Widgets Core REQUIRED)
-if (Qt5_FOUND)
-        message( "Qt5 = ${Qt5_FOUND}" )
-else()
-        message(FATAL_ERROR "Qt not found!")
-endif()
-
 # Set warnings level higher and force treating them as errors.
 # GCC TBD
 if (MSVC)

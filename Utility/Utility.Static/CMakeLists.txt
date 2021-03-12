@@ -9,6 +9,6 @@ set(SOURCE_FILES
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
 target_link_libraries(${TARGET} 
-    PRIVATE Qt5::Core)
+    PRIVATE CONAN_PKG::Qt)
 
 target_compile_options(${TARGET} PRIVATE "-fPIC")
