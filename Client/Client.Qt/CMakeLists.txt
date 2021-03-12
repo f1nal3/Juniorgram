@@ -4,10 +4,6 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-
-
-
-
  
 set(SOURCE_FILES
     main.cpp
@@ -18,7 +14,7 @@ set(SOURCE_FILES
 add_executable(${TARGET} ${SOURCE_FILES})
  
 target_link_libraries(${TARGET} 
-    PRIVATE Qt5::Widgets)
+    PRIVATE CONAN_PKG::Qt)
 
 if(NOT APPLE)
     target_link_options(${TARGET} PRIVATE "-lxcb")
