@@ -8,7 +8,7 @@ if(WIN32)
     set(EXTRA_LIBS ws2_32 wsock32)
 endif()
 
-add_executable(${TARGET} ${SOURCE_FILES})
+add_executable(${TARGET} ${SOURCE_FILES} "ArgumentParser.h" "KeysValidator.h")
 
 target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio)
 
