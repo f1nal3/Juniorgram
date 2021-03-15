@@ -3,7 +3,8 @@ set(OUTPUT_NAME DataAccess.Static)
 
 set(SOURCE_FILES
     mainDBAPI.cpp
-    DataBasePostgreSQL.hpp)
+    DataBasePostgreSQL.hpp
+    DataBasePostgreSQLOperations.hpp)
 
 find_package(PostgreSQL REQUIRED)
 

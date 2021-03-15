@@ -14,4 +14,7 @@ target_link_libraries(${TARGET} PUBLIC
     CONAN_PKG::libpq
     CONAN_PKG::libpqxx)
 
+target_include_directories(${TARGET} PRIVATE
+    $<TARGET_PROPERTY:DataAccess.Static,SOURCE_DIR>/..)
+
 add_test(NAME ${OUTPUT_NAME} COMMAND ${TARGET})
