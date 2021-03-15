@@ -1,33 +1,29 @@
 #include <QApplication>
-#include <QFontDatabase>
-#include <QWidget>
-#include <QLineEdit>
-#include <QPainter>
-#include <QStyle>
-#include <QValidator>
-
 #include <QBrush>
+#include <QCoreApplication>
+#include <QFontDatabase>
 #include <QGraphicsItem>
+#include <QHBoxLayout>
 #include <QImage>
+#include <QLineEdit>
 #include <QMainWindow>
 #include <QOpenGLWidget>
+#include <QPaintEvent>
 #include <QPainter>
 #include <QPainterPath>
 #include <QPen>
 #include <QPropertyAnimation>
-#include <QCoreApplication>
-#include <QPaintEvent>
+#include <QStyle>
+#include <QStyleOption>
 #include <QThread>
 #include <QTimer>
-#include <QStyleOption>
-#include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QValidator>
+#include <QWidget>
 #include <QWindow>
-
+#include <cmath>
 #include <iostream>
 #include <memory>
-#include <cmath>
-
 
 #ifdef _WIN32
 
