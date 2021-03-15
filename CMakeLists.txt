@@ -43,6 +43,13 @@ conan_cmake_run(CONANFILE conanfile.txt
                 BUILD missing)
 endif()
 
+find_package(Qt5 COMPONENTS Widgets Core REQUIRED)
+if (Qt5_FOUND)
+     message( "Qt5 = ${Qt5_FOUND}" )
+else()
+     message(FATAL_ERROR "Qt not found!")
+endif()
+
 enable_testing()
 
 add_subdirectory(Client)
