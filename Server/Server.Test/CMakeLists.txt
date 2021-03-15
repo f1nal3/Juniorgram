@@ -2,7 +2,8 @@ set(TARGET Server.Test)
 set(OUTPUT_NAME Server.Test)
 
 set(SOURCE_FILES
-    ServerTest.cpp)
+    ServerTest.cpp
+    ArgumentParserTests.cpp)
 
 set(CMAKE_BUILD_TYPE RELWITHDEBINFO)
 
