@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>images/0.bmp</file>
+        <file>images/logo.png</file>
         <file>icons/close-w-10.png</file>
         <file>icons/close-w-12.png</file>
         <file>icons/close-w-15.png</file>
@@ -25,5 +26,7 @@
         <file>icons/restore-w-20.png</file>
         <file>icons/restore-w-24.png</file>
         <file>icons/restore-w-30.png</file>
+        <file>fonts/NotoSans-Regular.ttf</file>
+        <file>fonts/JetBrainsMono-Medium.ttf</file>
     </qresource>
 </RCC>

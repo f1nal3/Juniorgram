@@ -48,7 +48,7 @@ QString CaptionButton::Lg2str(CaptionButton::CaptionLogo logo) {
         return "close";
 }
 
-CaptionButton::CaptionButton(QWidget *parent, CaptionButton::CaptionLogo logo, const QColor &end_color)
+CaptionButton::CaptionButton(CaptionButton::CaptionLogo logo, const QColor &end_color,QWidget *parent)
         : QWidget(parent) {
     setFixedWidth(Style::WindowsScaleDPIValue(46));
     setFixedHeight(Style::WindowsScaleDPIValue(30));
