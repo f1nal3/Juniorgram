@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
     ::SetWindowLong(handle, GWL_STYLE, style | WS_CAPTION | WS_MAXIMIZEBOX | WS_THICKFRAME);
     ::SetWindowPos(handle, nullptr, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE);
     const MARGINS shadow{9, 9, 9, 9};
-    //::DwmExtendFrameIntoClientArea(handle,&shadow);
+    ::DwmExtendFrameIntoClientArea(handle,&shadow);
     // w.showNormal();
 #endif
     return app.exec();
