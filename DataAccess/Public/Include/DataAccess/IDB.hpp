@@ -8,7 +8,6 @@ namespace DataBases
     {
     public:
 
-        //template<class result = pqxx::result>
         //virtual result       select (const std::string_view& quary) const = 0;
         virtual void         insert (const std::string_view& tableName, 
                                      const std::string& data,
