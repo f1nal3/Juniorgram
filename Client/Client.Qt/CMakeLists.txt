@@ -9,7 +9,11 @@ set(SOURCE_FILES
     main.cpp
     mainwindow.cpp
     mainwindow.h
-    mainwindow.ui)
+    login.cpp
+    login.h
+    registration.cpp
+    registration.h
+    )
  
 add_executable(${TARGET} ${SOURCE_FILES})
  
