@@ -6,8 +6,6 @@ set(SOURCE_FILES
     DataBasePostgreSQL.hpp
     DataBasePostgreSQLOperations.hpp)
 
-find_package(PostgreSQL REQUIRED)
-
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
 target_link_libraries(${TARGET} PRIVATE
