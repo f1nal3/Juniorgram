@@ -36,7 +36,7 @@ private:
 };
 
 ArgumentParser::ArgumentParser(int argc, const char** argv,
-                               const KeysValidator& validator = KeysValidator())
+                               const KeysValidator& validator)
 {
     this->validator = validator;
     std::vector<std::string> tempParams(&argv[0], &argv[argc]);
@@ -49,7 +49,7 @@ ArgumentParser::ArgumentParser(int argc, const char** argv,
     checkOnBadAmount(tempParams);
 
     // path to project don't need for us, so we start from i = 1.
-    int i = 1;
+    size_t i = 1;
     while (i < tempParams.size())
     {
         std::string key = tempParams[i];
