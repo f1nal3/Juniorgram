@@ -14,7 +14,7 @@ set(SOURCE_FILES
 add_executable(${TARGET} ${SOURCE_FILES})
  
 target_link_libraries(${TARGET} 
-    PRIVATE CONAN_PKG::Qt)
+    PRIVATE Qt5::Widgets)
 
 if(NOT APPLE)
     target_link_options(${TARGET} PRIVATE "-lxcb")
