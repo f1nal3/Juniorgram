@@ -2,7 +2,7 @@
 
 #include "Utility/WarningSuppression.hpp"
 
-#include "DataBasePostgreSQL.hpp"
+#include "DataBasePostgreSQLOperations.hpp"
 
 suppressWarning(4099, -Winit-self)
 int main()
