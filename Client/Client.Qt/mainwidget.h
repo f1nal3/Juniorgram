@@ -5,14 +5,8 @@
 #ifndef JUNIORGRAMUI_MAINWIDGET_H
 #define JUNIORGRAMUI_MAINWIDGET_H
 
-#include <QWidget>
-#include <QLayout>
-#include <QPushButton>
-#include <QWindow>
-#include <QApplication>
-#ifdef _WIN32
-#include <dwmapi.h>
-#endif
+#include "pch.h"
+
 #include "Widgets/caption_button.h"
 
 class MainWidget : public QWidget {
@@ -26,7 +20,9 @@ public:
 
 public:
 #ifdef _WIN32
+
     bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;
+
 #endif
 
     enum MouseType {
@@ -47,7 +43,6 @@ public:
 protected:
 
     void paintEvent(QPaintEvent *event) override;
-
 
 
     void mousePressEvent(QMouseEvent *event) override;
@@ -74,6 +69,7 @@ private:
     CaptionButton *close_btn;
     CaptionButton *maximize_btn;
     CaptionButton *minimize_btn;
+
 
     QWidget *body;
     QHBoxLayout *pTitleLayout;

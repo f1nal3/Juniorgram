@@ -5,27 +5,7 @@
 #ifndef JUNIORGRAMUI_CAPTION_BUTTON_H
 #define JUNIORGRAMUI_CAPTION_BUTTON_H
 
-#include <QWidget>
-
-#include <QBrush>
-#include <QGraphicsItem>
-#include <QImage>
-#include <QMainWindow>
-#include <QOpenGLWidget>
-#include <QPainter>
-#include <QPainterPath>
-#include <QPen>
-#include <QPropertyAnimation>
-#include <QStringListModel>
-#include <QCoreApplication>
-#include <QApplication>
-#include <cmath>
-#include <QPaintEvent>
-#include <iostream>
-#include <QThread>
-#include <memory>
-#include <QTimer>
-#include <QStyleOption>
+#include "../pch.h"
 
 class CaptionButton : public QWidget {
 Q_OBJECT
@@ -43,8 +23,8 @@ public:
 
     static QString dpi2str(int scale);
 
-    explicit CaptionButton(QWidget *parent = nullptr, CaptionLogo logo = CaptionLogo::Restore,
-                           const QColor &end_color = QColor(255, 255, 255, 76));
+    explicit CaptionButton(CaptionLogo logo,
+                           const QColor &end_color = QColor(255, 255, 255, 76),QWidget *parent = nullptr);
 
 
     void enterEvent(QEvent *event) override;
