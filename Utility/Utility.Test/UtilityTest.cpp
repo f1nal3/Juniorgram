@@ -20,6 +20,11 @@ TEST_CASE("Test serialize object(open file text.json)", "[Serialize]")
            REQUIRE(jsonFile.isOpen() == false);
         }
     }
+    SECTION("Remove text.json")
+    {
+       QFile jsonFile("text.json");
+       jsonFile.remove();
+    }
 }
 
 
@@ -32,6 +37,12 @@ TEST_CASE("Test serialize method updateSerialize", "[SerializeUpdateSerialize]")
         a.updateSerialize(someList);
         REQUIRE(someList.isEmpty() == true);
     }
+    SECTION("Remove text.json")
+    {
+        QFile jsonFile("text.json");
+        jsonFile.remove();
+    }
+
 }
 
 TEST_CASE("Test serialize method pushData", "[SerializePushData]")
@@ -40,7 +51,11 @@ TEST_CASE("Test serialize method pushData", "[SerializePushData]")
         {
             Serialize b;
             QStringList someList;
-            someList.append("Test");
+            someList.append("Test1");
+            b.pushData(someList);
+            someList.append("Test2");
+            b.pushData(someList);
+            someList.append("Test3");
             b.pushData(someList);
         }
         SECTION("Check test message")
@@ -48,7 +63,15 @@ TEST_CASE("Test serialize method pushData", "[SerializePushData]")
             Serialize c;
             QStringList someList;
             c.updateSerialize(someList);
-            REQUIRE(someList.back() == "Test");
+            if(someList.size() == 3)
+            {
+                REQUIRE(someList.front() == "Test1");
+                REQUIRE(someList.back() == "Test3");
+            }
+            else
+            {
+                REQUIRE(false);
+            }
         }    
         SECTION("Remove text.json")
         {
