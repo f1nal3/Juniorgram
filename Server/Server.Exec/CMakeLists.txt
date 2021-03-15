@@ -2,13 +2,15 @@ set(TARGET Server.Exec)
 set(OUTPUT_NAME Juniorgram.Server.Exec)
 
 set(SOURCE_FILES
-    MainServer.cpp)
+    MainServer.cpp
+    ArgumentParser.h
+    KeysValidator.h)
 
 if(WIN32)
     set(EXTRA_LIBS ws2_32 wsock32)
 endif()
 
-add_executable(${TARGET} ${SOURCE_FILES} "ArgumentParser.h" "KeysValidator.h")
+add_executable(${TARGET} ${SOURCE_FILES})
 
 target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio)
 
