@@ -9,6 +9,8 @@ set(SOURCE_FILES
         main.cpp
         Widgets/caption_button.h
         Widgets/caption_button.cpp
+        Widgets/input_fields.h
+        Widgets/input_fields.cpp
         mainwidget.cpp
         mainwidget.h
         Style/style.h

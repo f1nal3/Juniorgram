@@ -7,12 +7,13 @@
 
 #include "../pch.h"
 
-class CaptionButton : public QWidget {
-Q_OBJECT
+class CaptionButton : public QWidget
+{
+    Q_OBJECT
     Q_PROPERTY(QColor close_button MEMBER close_button NOTIFY animation)
 public:
-
-    enum class CaptionLogo {
+    enum class CaptionLogo
+    {
         Maximize,
         Minimize,
         Restore,
@@ -23,21 +24,18 @@ public:
 
     static QString dpi2str(int scale);
 
-    explicit CaptionButton(CaptionLogo logo,
-                           const QColor &end_color = QColor(255, 255, 255, 76),QWidget *parent = nullptr);
+    explicit CaptionButton(CaptionLogo logo, const QColor& end_color = QColor(255, 255, 255, 76),
+                           QWidget* parent = nullptr);
 
-
-    void enterEvent(QEvent *event) override;
-    void leaveEvent(QEvent *event) override;
-    void mouseReleaseEvent(QMouseEvent *event) override;
-    void paintEvent(QPaintEvent *event) override;
+    void enterEvent(QEvent* event) override;
+    void leaveEvent(QEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
+    void paintEvent(QPaintEvent* event) override;
     ~CaptionButton() override = default;
 
 public slots:
 
-    void animation() {
-        repaint();
-    }
+    void animation() { repaint(); }
 
 signals:
 
@@ -45,9 +43,8 @@ signals:
 
 private:
     QColor close_button;
-    QPropertyAnimation *fadein_anim;
-    QPixmap *pixmap;
+    QPropertyAnimation* fadein_anim;
+    QPixmap* pixmap;
 };
 
-
-#endif //JUNIORGRAMUI_CAPTION_BUTTON_H
+#endif  // JUNIORGRAMUI_CAPTION_BUTTON_H
