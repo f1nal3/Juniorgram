@@ -35,7 +35,8 @@ private:
     void tryPushToMap(const std::string& keys, const std::string& value);
 };
 
-ArgumentParser::ArgumentParser(int argc, const char** argv, const KeysValidator& validator)
+ArgumentParser::ArgumentParser(int argc, const char** argv,
+                               const KeysValidator& validator = KeysValidator())
 {
     this->validator = validator;
     std::vector<std::string> tempParams(&argv[0], &argv[argc]);
