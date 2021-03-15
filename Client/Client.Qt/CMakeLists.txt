@@ -5,10 +5,6 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-
-
-
-
 set(SOURCE_FILES
         main.cpp
         Widgets/caption_button.h
