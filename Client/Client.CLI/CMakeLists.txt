@@ -18,7 +18,7 @@ target_link_libraries(${TARGET} PUBLIC Client.Core)
  
 install(TARGETS ${TARGET}
         CONFIGURATIONS Debug
-        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Client/Debug)
+        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin)
 install(TARGETS ${TARGET}
         CONFIGURATIONS Release
-        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Client/Release)
+        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin)
