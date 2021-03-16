@@ -2,9 +2,7 @@ set(TARGET Client.Core.Static)
 set(OUTPUT_NAME Client.Core.Static)
 
 set(SOURCE_FILES
-    App.cpp
-    App.hpp
-    MainClient.cpp)
+    Client.hpp)
 
 if(WIN32)
 	list(APPEND EXTRA_LIBS ws2_32 wsock32)
