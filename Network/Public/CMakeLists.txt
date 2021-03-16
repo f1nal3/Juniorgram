@@ -2,7 +2,6 @@ set(TARGET Network.Public)
 set(OUTPUT_NAME Juniorgram.Network.Public)
 
 set(SOURCE_FILES
-    Include/Network/Client.hpp
     Include/Network/Connection.hpp
     Include/Network/Message.hpp
     Include/Network/SafeQueue.hpp
