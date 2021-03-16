@@ -8,6 +8,8 @@ if(WIN32)
 	list(APPEND EXTRA_LIBS ws2_32 wsock32)
 endif()
 
+set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)
+
 source_group("Client"         FILES ${SOURCES})
 source_group("Network"        FILES ${HEADERS})
 
