@@ -14,7 +14,7 @@ set(SOURCE_FILES
 add_executable(${TARGET} ${SOURCE_FILES})
  
 target_link_libraries(${TARGET} PUBLIC Network.Public)
-target_link_libraries(${TARGET} PUBLIC Client.Core.Static)
+target_link_libraries(${TARGET} PUBLIC Client.Core)
  
 install(TARGETS ${TARGET}
         CONFIGURATIONS Debug
