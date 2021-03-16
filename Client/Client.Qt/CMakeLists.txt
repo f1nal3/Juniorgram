@@ -16,8 +16,11 @@ set(SOURCE_FILES
         Style/style.h
         Style/style.cpp
         Style/shadow.cpp
-        Style/shadow.h)
-
+        Style/shadow.h
+        login.cpp
+        login.h
+        registration.cpp
+        registration.h)
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)
 
