@@ -7,6 +7,8 @@ set(CMAKE_AUTORCC ON)
  
 set(SOURCE_FILES
    MainClient.cpp
+   App.hpp
+   App.cpp
     )
  
 add_executable(${TARGET} ${SOURCE_FILES})
