@@ -18,6 +18,7 @@ class IRepository
     virtual std::vector<std::string> getMessageHistoryForUser(std::string) = 0;
     // Draft method for writing several messages to a repository 
     virtual void storeMessages(std::vector<std::string>) = 0;
+    
     virtual ~IRepository() = default;
 };
 }

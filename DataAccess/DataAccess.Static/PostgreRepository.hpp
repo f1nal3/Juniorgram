@@ -7,7 +7,7 @@ namespace DataAccess
 class PostgreRepository : public IRepository
 {
     public:
-    PostgreRepository() = default;
+    PostgreRepository();
     virtual ~PostgreRepository() = default;
 
     virtual std::vector<std::string> getAllChannelsList() override final;
