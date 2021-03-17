@@ -2,7 +2,9 @@ set(TARGET Utility.Test)
 set(OUTPUT_NAME Utility.Test)
 
 set(SOURCE_FILES
-    UtilityTest.cpp)
+    UtilityTest.cpp
+    SerializeTest.cpp
+    ExceptionTest.cpp)
 
 #set(CMAKE_BUILD_TYPE RELWITHDEBINFO)
 
