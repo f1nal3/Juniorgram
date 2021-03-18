@@ -6,8 +6,6 @@ TEST_CASE("Message comparison operators")
 	network::Message early;
     network::Message late;
 
-	std::chrono::time_point<std::chrono::system_clock> timePoint = std::chrono::system_clock::now();
-
 	early.mHeader.mTimestamp = std::chrono::system_clock::now();
 	late.mHeader.mTimestamp = early.mHeader.mTimestamp + std::chrono::milliseconds(10);
 
