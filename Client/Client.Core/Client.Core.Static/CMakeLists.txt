@@ -2,7 +2,8 @@ set(TARGET Client.Core.Static)
 set(OUTPUT_NAME Client.Core.Static)
 
 set(SOURCE_FILES
-    Client.hpp)
+    Client.hpp
+	Client.cpp)
 
 if(WIN32)
 	list(APPEND EXTRA_LIBS ws2_32 wsock32)
@@ -15,12 +16,5 @@ target_include_directories(${TARGET}
 
 target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio)
 target_link_libraries(${TARGET} PUBLIC Network.Public)
-
-install(TARGETS ${TARGET}
-		CONFIGURATIONS Debug
-		RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Client/Debug)
-install(TARGETS ${TARGET}
-		CONFIGURATIONS Release
-		RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Client/Release)
 
 set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)
