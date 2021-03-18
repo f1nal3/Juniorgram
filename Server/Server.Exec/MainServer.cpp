@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "Network/Server.hpp"
+#include <Server.hpp>
 #include "ArgumentParser.h"
 
 int main(int argc, const char** argv)

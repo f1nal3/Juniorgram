@@ -1,34 +1,8 @@
-#pragma once
-
-#include "Connection.hpp"
-#include "Message.hpp"
-#include "SafeQueue.hpp"
-
-#include <asio.hpp>
-
-#include <chrono>
-#include <deque>
-#include <iostream>
-#include <thread>
+#include "Server.hpp"
 
 namespace network
 {
-class Server
-{
-    uint64_t mIDCounter = 10000, mCriticalQueueSize = 100,
-             mNewThreadsCount = std::thread::hardware_concurrency();
-
-    asio::io_context mContext;
-
-    asio::ip::tcp::acceptor mAcceptor;
-
-    std::deque<std::shared_ptr<Connection>> mConnectionsPointers;
-
-    SafeQueue<Message> mIncomingMessagesQueue;
-
-    std::deque<std::thread> mThreads;
-
-    bool onClientConnect(const std::shared_ptr<Connection>& client)
+    bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
     {
         network::Message message;
         message.mHeader.mID = network::Message::MessageType::ServerAccept;
@@ -36,19 +10,19 @@ class Server
         return true;
     }
 
-    void onClientDisconnect(const std::shared_ptr<Connection>& client)
+    void Server::onClientDisconnect(const std::shared_ptr<Connection>& client) 
     {
         std::cout << "Removing client [" << client->getID() << "]\n";
     }
 
-    void onMessage(const std::shared_ptr<Connection>& client, Message& message)
+    void Server::onMessage(const std::shared_ptr<Connection>& client, Message& message)
     {
         const auto maxDelay    = std::chrono::milliseconds(300);
         const auto currentTime = std::chrono::system_clock::now();
-        const auto delay = 
-            std::chrono::milliseconds(
-                std::abs(std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - message.mHeader.mTimestamp).count())
-            );
+        const auto delay       = std::chrono::milliseconds(
+            std::abs(std::chrono::duration_cast<std::chrono::milliseconds>(
+                         currentTime - message.mHeader.mTimestamp)
+                         .count()));
 
         if (delay > maxDelay)
         {
@@ -62,8 +36,8 @@ class Server
                 std::tm formattedTimestamp = utility::safe_localtime(
                     std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
 
-                std::cout << "[" << std::put_time(&formattedTimestamp, "%F %T")<< "][" <<
-                    client->getID() << "]: Server Ping\n";
+                std::cout << "[" << std::put_time(&formattedTimestamp, "%F %T") << "]["
+                          << client->getID() << "]: Server Ping\n";
 
                 client->send(message);
             }
@@ -71,13 +45,13 @@ class Server
 
             case network::Message::MessageType::MessageAll:
             {
-               std::tm formattedTimestamp = utility::safe_localtime(
+                std::tm formattedTimestamp = utility::safe_localtime(
                     std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
 
-                std::cout << "[" << std::put_time(&formattedTimestamp, "%F %T")<< "][" <<
-                    client->getID() << "]: Message All\n";
+                std::cout << "[" << std::put_time(&formattedTimestamp, "%F %T") << "]["
+                          << client->getID() << "]: Message All\n";
 
-                network::Message msg; // TODO: Why is a new message needed here?
+                network::Message msg;  // TODO: Why is a new message needed here?
                 msg.mHeader.mID = network::Message::MessageType::ServerMessage;
                 msg << client->getID();
                 messageAllClients(msg, client);
@@ -85,26 +59,28 @@ class Server
             break;
             default:
             {
-            break;
+                break;
             }
         }
     }
 
-public:
-    explicit Server(const uint16_t& port)
+    Server::Server(const uint16_t& port) 
         : mAcceptor(mContext, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port))
     {
     }
 
-    ~Server() { stop(); }
-
-    bool start()
+    Server::~Server()
     {
-        try
+        stop();        
+    }
+
+    bool Server::start() 
+    { 
+      try
         {
             waitForClientConnection();
 
-            size_t threadsCount                              = std::thread::hardware_concurrency();
+            size_t threadsCount = std::thread::hardware_concurrency();
             threadsCount > 1 ? --threadsCount : threadsCount = 1;
 
             for (size_t i = 0; i < threadsCount; ++i)
@@ -122,7 +98,7 @@ public:
         }
     }
 
-    void stop()
+    void Server::stop() 
     {
         mContext.stop();
 
@@ -139,7 +115,7 @@ public:
         std::cout << "[SERVER] Stopped!\n";
     }
 
-    void waitForClientConnection()
+    void Server::waitForClientConnection() 
     {
         mAcceptor.async_accept([this](std::error_code error, asio::ip::tcp::socket socket) {
             if (!error)
@@ -173,7 +149,7 @@ public:
         });
     }
 
-    void messageClient(std::shared_ptr<Connection> client, const Message& message)
+    void Server::messageClient(std::shared_ptr<Connection> client, const Message& message)
     {
         if (client != nullptr && client->isConnected())
         {
@@ -191,8 +167,8 @@ public:
         }
     }
 
-    void messageAllClients(const Message& message,
-                           const std::shared_ptr<Connection>& exceptionClient = nullptr)
+    void Server::messageAllClients(const Message& message,
+                                   const std::shared_ptr<Connection>& exceptionClient)
     {
         bool deadConnectionExist = false;
 
@@ -223,7 +199,7 @@ public:
         }
     }
 
-    void update(size_t maxMessages = std::numeric_limits<size_t>::max(), bool wait = true)
+    void Server::update(size_t maxMessages, bool wait)
     {
         if (wait)
         {
@@ -249,5 +225,5 @@ public:
             messagesCount++;
         }
     }
-};
+
 }  // namespace network
