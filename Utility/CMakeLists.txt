@@ -1,4 +1,4 @@
-project(Utility LANGUAGES CXX)
+project(Utility)
 
 add_subdirectory(Utility.Public)
 add_subdirectory(Utility.Static)
