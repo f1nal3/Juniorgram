@@ -4,45 +4,23 @@
 TEST_CASE("Message comparison operators")
 {
 	network::Message early;
-    network::Message sameOne;
-	network::Message sameTwo;
     network::Message late;
 
 	std::chrono::time_point<std::chrono::system_clock> timePoint = std::chrono::system_clock::now();
 
-	early.mHeader.mTimestamp = timePoint - std::chrono::milliseconds(10);
-	sameOne.mHeader.mTimestamp = timePoint;
-	sameTwo.mHeader.mTimestamp = timePoint;
-	late.mHeader.mTimestamp = timePoint + std::chrono::milliseconds(10);
-
-	SECTION("Operator ==")
-	{
-		REQUIRE((early == late) == false);
-		REQUIRE((sameOne == sameTwo) == true);
-	}
+	early.mHeader.mTimestamp = std::chrono::system_clock::now();
+	late.mHeader.mTimestamp = early.mHeader.mTimestamp + std::chrono::milliseconds(10);
 
 	SECTION("Operator <")
 	{
 		REQUIRE((early < late) == true);
-		REQUIRE((sameOne < sameTwo) == false);
+		REQUIRE((late < early) == false);
 	}
 
 	SECTION("Operator >")
     {
         REQUIRE((late > early) == true);
-        REQUIRE((sameOne > sameTwo) == false);
-    }
-
-	SECTION("Operator <=")
-    {
-        REQUIRE((early <= late) == true);
-        REQUIRE((sameOne <= sameTwo) == true);
-    }
-
-	SECTION("Operator >=")
-    {
-        REQUIRE((late >= early) == true);
-        REQUIRE((sameOne >= sameTwo) == true);
+        REQUIRE((early > late) == false);
     }
 }
 
