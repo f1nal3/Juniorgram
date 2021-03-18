@@ -2,11 +2,18 @@ set(TARGET Network.Test)
 set(OUTPUT_NAME Network.Test)
 
 set(SOURCE_FILES
-    NetworkTest.cpp)
+    NetworkTest.cpp
+    TimestampTest.cpp)
 
 set(CMAKE_BUILD_TYPE RELWITHDEBINFO)
 
+if(WIN32)
+    set(EXTRA_LIBS ws2_32 wsock32)
+endif()
+
 add_executable(${TARGET} ${SOURCE_FILES})
+
+target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio)
 
 target_link_libraries(${TARGET} PUBLIC Network.Public CONAN_PKG::catch2)
 
