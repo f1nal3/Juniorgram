@@ -12,4 +12,5 @@ void ExceptionThrowerMock()
 TEST_CASE("Test NotImplementedException format", "[Utility.Exception]")
 {
     REQUIRE_THROWS_WITH(ExceptionThrowerMock(), Contains("Not implemented") && Contains("ExceptionTest.cpp"));
+
 }
