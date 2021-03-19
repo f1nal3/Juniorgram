@@ -5,8 +5,8 @@
 #include <stdexcept>
 #include <string>
 
-#include "Network/Server.hpp"
-#include "ArgumentParser.h"
+#include <Server.hpp>
+#include <ArgumentParser.hpp>
 
 int main(int argc, const char** argv)
 {
@@ -14,7 +14,7 @@ int main(int argc, const char** argv)
     {
         ArgumentParser parser(argc, argv);
 
-        network::Server server(parser.getPort());
+        server::Server server(parser.getPort());
         server.start();
 
         while (true)

@@ -6,7 +6,7 @@ set(SOURCE_FILES
     SerializeTest.cpp
     ExceptionTest.cpp)
 
-#set(CMAKE_BUILD_TYPE RELWITHDEBINFO)
+set(CMAKE_BUILD_TYPE RELWITHDEBINFO)
 
 add_executable(${TARGET} ${SOURCE_FILES})
 

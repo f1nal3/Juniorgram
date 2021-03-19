@@ -10,5 +10,6 @@ set(CMAKE_BUILD_TYPE RELWITHDEBINFO)
 add_executable(${TARGET} ${SOURCE_FILES})
 
 target_link_libraries(${TARGET} PUBLIC Network.Public CONAN_PKG::catch2)
+target_link_libraries(${TARGET} PUBLIC Server.Core.Static)
 
 add_test(NAME ${OUTPUT_NAME} COMMAND ${TARGET})

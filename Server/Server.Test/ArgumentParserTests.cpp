@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "../Server.Exec/ArgumentParser.h"
+#include <ArgumentParser.hpp>
 
 TEST_CASE("Constructor argument parser")
 {
