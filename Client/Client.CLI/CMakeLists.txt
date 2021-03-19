@@ -13,7 +13,7 @@ target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio)
  
 install(TARGETS ${TARGET}
         CONFIGURATIONS Debug
-        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Cleint)
+        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Client/Debug)
 install(TARGETS ${TARGET}
         CONFIGURATIONS Release
-        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Cleint)
+        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Client/Release)
