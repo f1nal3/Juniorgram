@@ -3,7 +3,9 @@ set(OUTPUT_NAME Server.Core.Static)
 
 set(SOURCE_FILES
     Server.hpp
-	Server.cpp)
+	Server.cpp
+	ArgumentParser.h
+	KeysValidator.h)
 
 if(WIN32)
 	list(APPEND EXTRA_LIBS ws2_32 wsock32)
