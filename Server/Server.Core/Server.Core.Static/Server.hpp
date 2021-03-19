@@ -11,7 +11,7 @@
 #include <iostream>
 #include <thread>
 
-namespace network
+namespace server
 {
 class Server
 {

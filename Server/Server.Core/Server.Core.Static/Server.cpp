@@ -1,6 +1,6 @@
 #include "Server.hpp"
 
-namespace network
+namespace server
 {
     bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
     {
@@ -226,4 +226,4 @@ namespace network
         }
     }
 
-}  // namespace network
+}  // namespace server
