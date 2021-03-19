@@ -13,6 +13,7 @@
 
 namespace server
 {
+
 class Server
 {
     uint64_t mIDCounter = 10000, mCriticalQueueSize = 100,
@@ -22,17 +23,17 @@ class Server
 
     asio::ip::tcp::acceptor mAcceptor;
 
-    std::deque<std::shared_ptr<Connection>> mConnectionsPointers;
+    std::deque<std::shared_ptr<network::Connection>> mConnectionsPointers;
 
-    SafeQueue<Message> mIncomingMessagesQueue;
+    network::SafeQueue<network::Message> mIncomingMessagesQueue;
 
     std::deque<std::thread> mThreads;
 
-    bool onClientConnect(const std::shared_ptr<Connection>& client);
+    bool onClientConnect(const std::shared_ptr<network::Connection>& client);
 
-    void onClientDisconnect(const std::shared_ptr<Connection>& client);
+    void onClientDisconnect(const std::shared_ptr<network::Connection>& client);
 
-    void onMessage(const std::shared_ptr<Connection>& client, Message& message);
+    void onMessage(const std::shared_ptr<network::Connection>& client, network::Message& message);
 
 public:
     explicit Server(const uint16_t& port);
@@ -45,11 +46,12 @@ public:
 
     void waitForClientConnection();
 
-    void messageClient(std::shared_ptr<Connection> client, const Message& message);
+    void messageClient(std::shared_ptr<network::Connection> client,
+                       const network::Message& message);
 
-    void messageAllClients(const Message& message,
-                           const std::shared_ptr<Connection>& exceptionClient = nullptr);
+    void messageAllClients(const network::Message& message,
+                           const std::shared_ptr<network::Connection>& exceptionClient = nullptr);
     
-    void update(size_t maxMessages = std::numeric_limits<size_t>::max(), bool wait = true);
+    void update(std::size_t maxMessages = std::numeric_limits<size_t>::max(), bool wait = true);
 };
 }  // namespace network
