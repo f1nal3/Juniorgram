@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "Message.hpp"
+#include "PriorityQueue.hpp"
 
 class TasksManager
 {
@@ -15,7 +16,7 @@ private:
         }
     };
 
-    std::priority_queue<network::Message, std::vector<network::Message>, TasksComporator> tasks;
+    PriorityQueue<network::Message, TasksComporator> tasks;
 
 public:
     TasksManager()
@@ -23,6 +24,9 @@ public:
         if (!tasks.empty())
         {
             network::Message message = tasks.top();
+            // process task ... (send to server/client)
+
+            tasks.pop();
         }
     }
 
