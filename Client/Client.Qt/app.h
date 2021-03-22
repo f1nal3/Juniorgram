@@ -1,10 +1,7 @@
 #ifndef JUNIORGRAM_APP_H
 #define JUNIORGRAM_APP_H
 
-#include "login.h"
-#include "mainwidget.h"
 #include "pch.h"
-#include "registration.h"
 
 enum class AppState
 {
