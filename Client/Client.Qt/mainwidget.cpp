@@ -161,20 +161,22 @@ void MainWidget::mouseReleaseEvent(QMouseEvent* event)
     if (event->button() == Qt::LeftButton)
     {
         m_leftMouseButtonPressed = None;
-        _mousePressed=false;
+        _mousePressed            = false;
     }
     return QWidget::mouseReleaseEvent(event);
 }
 
-MainWidget::MainWidget(QWidget *parent) : QWidget(parent) {
-    Style::setDpiScale(logicalDpiX()*100/96);
-    this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setWindowIcon(QIcon(":/images/0.bmp"));
-    this->setStyleSheet("QWidget { "
-                        "background-color: #2f3241; "
-                        //"border: 1px solid black; "
-                        "}");
-    this->setMinimumSize(630, 450);
+MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
+{
+    Style::setDpiScale(logicalDpiX() * 100 / 96);
+    this->setWindowFlag(Qt::FramelessWindowHint);
+    this->setWindowFlag(Qt::Window);
+    this->setWindowIcon(QIcon(":/images/logo.png"));
+    this->setStyleSheet(
+        "QWidget { "
+        "background-color: #424140; "
+        "}");
+    this->setMinimumSize(Style::WindowsScaleDPIValue(630), 450);
 
     auto* grid = new QGridLayout(this);
     body       = new QWidget();
@@ -185,24 +187,29 @@ MainWidget::MainWidget(QWidget *parent) : QWidget(parent) {
     grid->setSpacing(0);
     this->setLayout(grid);
     layout()->setMargin(9);
-    auto pBodyLayout = new QGridLayout(body);
+    auto pBodyLayout = new QVBoxLayout(body);
     body->setLayout(pBodyLayout);
     pBodyLayout->setSpacing(0);
     pBodyLayout->setMargin(0);
-    body->setStyleSheet("* {"
-                        "background-color: white;"
-                        "}");
-    std::cout<<QGuiApplication::platformName().toStdString();
-    QImage mask(512,512,QImage::Format_RGB32);
+    pBodyLayout->setContentsMargins(0, 0, 0, 0);
+    body->setStyleSheet(
+        "QWidget {"
+        "background-color: #323232;"
+        "}");
+
+    pBodyLayout->setMargin(5);
+
+    std::cout << QGuiApplication::platformName().toStdString() << std::endl;
+
     pTitleLayout = new QHBoxLayout(title);
     pTitleLayout->setSpacing(0);
     pTitleLayout->setMargin(0);
     pTitleLayout->setAlignment(Qt::AlignTop);
     title->setLayout(pTitleLayout);
 
-    close_btn = new CaptionButton(nullptr, CaptionButton::CaptionLogo::Close, QColor(232, 17, 35));
-    maximize_btn = new CaptionButton(nullptr, CaptionButton::CaptionLogo::Maximize);
-    minimize_btn = new CaptionButton(nullptr, CaptionButton::CaptionLogo::Minimize);
+    close_btn    = new CaptionButton(CaptionButton::CaptionLogo::Close, QColor(232, 17, 35));
+    maximize_btn = new CaptionButton(CaptionButton::CaptionLogo::Maximize);
+    minimize_btn = new CaptionButton(CaptionButton::CaptionLogo::Minimize);
 
     pTitleLayout->addWidget(minimize_btn, 0, Qt::AlignRight);
     pTitleLayout->addWidget(maximize_btn, 5);
@@ -211,14 +218,14 @@ MainWidget::MainWidget(QWidget *parent) : QWidget(parent) {
     connect(maximize_btn, &CaptionButton::mouseRelease, [this]() {
         if (this->isMaximized())
         {
-            this->layout()->setMargin(9);
+            this->layout()->setMargin(0);
             this->setAttribute(Qt::WA_TranslucentBackground);
             this->showNormal();
             this->m_leftMouseButtonPressed = None;
         }
         else
         {
-            this->layout()->setMargin(0);
+            this->layout()->setMargin(9);
             this->setAttribute(Qt::WA_TranslucentBackground, false);
             this->showMaximized();
             this->m_leftMouseButtonPressed = None;
@@ -240,12 +247,15 @@ void MainWidget::paintEvent(QPaintEvent* event)
     Q_UNUSED(event);
     QPainter p(this);
     p.setPen(Qt::NoPen);
-    //Shadow is ugly on corners
-    drawShadow(p, 10, 2.0, QColor(0, 0, 0, 0x18), QColor(0, 0, 0, 0), 0.0, 1.0, 0.6, width(), height());
+    // Shadow is ugly on corners
+    drawShadow(p, 10, 3.0, QColor(0, 0, 0, 0x18), QColor(0, 0, 0, 0), 0.0, 1.0, 0.6, width(),
+               height());
 }
 
 #ifdef _WIN32
-bool MainWidget::nativeEvent(const QByteArray &eventType, void *message, long *result) {
+
+bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* result)
+{
     Q_UNUSED(eventType);
     MSG* msg = static_cast<MSG*>(message);
     WINBOOL isit;
@@ -277,7 +287,23 @@ bool MainWidget::nativeEvent(const QByteArray &eventType, void *message, long *r
 
         if (result) *result = 0;
         return true;
-    } else if (msg->message == WM_SIZE) {
+    }
+    else if (msg->message == WM_NCPAINT)
+    {
+        *result = 0;
+        return true;
+    }
+    else if (msg->message == WM_NCHITTEST)
+    {
+        const auto p = MAKEPOINTS(msg->lParam);
+        if (p.x <= 9)
+        {
+            *result = HTLEFT;
+            return true;
+        }
+    }
+    else if (msg->message == WM_SIZE)
+    {
         WINDOWPLACEMENT wp;
         wp.length = sizeof(WINDOWPLACEMENT);
         ::GetWindowPlacement(reinterpret_cast<HWND>(winId()), &wp);
@@ -301,6 +327,16 @@ bool MainWidget::nativeEvent(const QByteArray &eventType, void *message, long *r
         emit window()->windowHandle()->windowStateChanged(state);
     }
     return false;
+}
+void MainWidget::setCentralWidget(QWidget* widget)
+{
+    static QWidget* current = nullptr;
+    if (current)
+    {
+        delete current;
+    }
+    current = widget;
+    body->layout()->addWidget(current);
 }
 
 #endif

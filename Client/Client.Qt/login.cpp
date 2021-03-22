@@ -1,42 +1,25 @@
 #include "login.h"
-#include "registration.h"
-#include "mainwindow.h"
 
-Login::Login(QWidget *parent) : QWidget(parent)
+#include "app.h"
+
+Login::Login(QWidget* parent) : QWidget(parent)
 {
-    passwordLineEdit = std::make_unique<QLineEdit>();
-    usernameLineEdit = std::make_unique<QLineEdit>();
-    usernameLabel = std::make_unique<QLabel>("&Username:");
-    passwordLabel = std::make_unique<QLabel>("&Password:");
-    usernameLabel->setBuddy(&*usernameLineEdit);
-    passwordLabel->setBuddy(&*passwordLineEdit);
+    passwordLineEdit = std::make_unique<FlatInput>("Password", true);
+    usernameLineEdit = std::make_unique<FlatInput>("Username");
 
-    buttonSignin = std::make_unique<QPushButton>("&Signin");
-    buttonRegistration = std::make_unique<QPushButton>("&Registration");
+    buttonSignin       = std::make_unique<FlatButton>("Login");
+    buttonRegistration = std::make_unique<FlatButton>("Registration");
 
-    QObject::connect(&*buttonSignin, SIGNAL(clicked()), this, SLOT(hide()));
-    QObject::connect(&*buttonSignin, SIGNAL(clicked()), this, SLOT(displayMainWindow()));
-    QObject::connect(&*buttonRegistration, SIGNAL(clicked()), this, SLOT(hide()));
-    QObject::connect(&*buttonRegistration, SIGNAL(clicked()), this, SLOT(displayRegistrationWindow()));
+    QObject::connect(buttonSignin.get(), &FlatButton::pressed, []() {
+        QDesktopServices::openUrl(QUrl("https://www.youtube.com/watch?v=zwBIll-YX-E"));
+    });
+    QObject::connect(buttonRegistration.get(), &FlatButton::pressed,
+                     []() { App::setAppState(AppState::RegistrationForm); });
 
     gridLayout = std::make_unique<QGridLayout>();
-    gridLayout->addWidget(&*usernameLabel, 0, 0);
-    gridLayout->addWidget(&*usernameLineEdit, 0, 1);
-    gridLayout->addWidget(&*passwordLabel, 1, 0);
-    gridLayout->addWidget(&*passwordLineEdit, 1, 1);
-    gridLayout->addWidget(&*buttonSignin, 2, 0);
-    gridLayout->addWidget(&*buttonRegistration, 3, 0);
-    this->setLayout(&*gridLayout);
-}
-
-void Login::displayRegistrationWindow()
-{
-    registrationWindow = std::make_unique<Registration>();
-    registrationWindow->show();
-}
-
-void Login::displayMainWindow()
-{
-    mainWindow = std::make_unique<MainWindow>();
-    mainWindow->show();
+    gridLayout->addWidget(usernameLineEdit.get(), 0, 0);
+    gridLayout->addWidget(passwordLineEdit.get(), 1, 0);
+    gridLayout->addWidget(buttonSignin.get(), 2, 0);
+    gridLayout->addWidget(buttonRegistration.get(), 3, 0);
+    this->setLayout(gridLayout.get());
 }

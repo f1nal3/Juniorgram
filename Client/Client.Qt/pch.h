@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <QBrush>
 #include <QCoreApplication>
+#include <QDesktopServices>
 #include <QFontDatabase>
 #include <QGraphicsItem>
 #include <QHBoxLayout>
@@ -13,6 +14,7 @@
 #include <QPainterPath>
 #include <QPen>
 #include <QPropertyAnimation>
+#include <QPushButton>
 #include <QStyle>
 #include <QStyleOption>
 #include <QThread>
