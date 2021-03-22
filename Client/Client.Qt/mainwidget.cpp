@@ -328,6 +328,8 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
     }
     return false;
 }
+#endif
+
 namespace
 {
 QWidget* current = nullptr;
@@ -339,4 +341,3 @@ void MainWidget::setCentralWidget(QWidget* widget)
     current = widget;
     body->layout()->addWidget(current);
 }
-#endif
