@@ -6,26 +6,46 @@
 
 FlatInput::FlatInput(QWidget* parent) : QLineEdit(parent)
 {
-    setFont(QFont("Noto Sans", Style::WindowsScaleDPIValue(13)));
-    // This is not not good
-    QColor qg(0x2f, 0x32, 0x41);
-    auto gg               = qg.lighter(175);
+    setFont(QFont("JetBrains Mono", Style::WindowsScaleDPIValue(12)));
+    QColor inputField(0x32, 0x32, 0x32);
+    inputField            = inputField.lighter(175);
+    auto selectedText     = inputField.lighter(175);
     auto* regexpvalidator = new QRegExpValidator;
-    regexpvalidator->setRegExp(QRegExp("[a-zA-Z0-9]{32}"));
+    regexpvalidator->setRegExp(QRegExp("[a-zA-Z0-9._]+@[a-zA-Z0-9]+.[a-zA-Z]+"));
     setValidator(regexpvalidator);
+    // TODO: This part is stupid, implement it paintEvent
     setStyleSheet(QString("QLineEdit { "
                           "border: 0px;"
-                          "border-radius: %7px;"
                           "selection-background-color: rgb(%1, %2, %3);"
-                          "background: rgb(%4,%5,%6);"
-                          "padding:%7px;"
+                          "background-color: rgba(0,0,0,0);"
                           "color:white;"
                           "}")
-                      .arg(gg.red())
-                      .arg(gg.green())
-                      .arg(gg.blue())
-                      .arg(qg.red())
-                      .arg(qg.green())
-                      .arg(qg.blue())
-                      .arg(Style::WindowsScaleDPIValue(5)));
+                      .arg(selectedText.red())
+                      .arg(selectedText.green())
+                      .arg(selectedText.blue()));
+
+    setAttribute(Qt::WA_AcceptTouchEvents);
+
+    QLineEdit::setTextMargins(0, 0, 0, 0);
+    setContentsMargins(9, 9, 9, 9);
+}
+void FlatInput::paintEvent(QPaintEvent* event)
+{
+    Q_UNUSED(event)
+
+    QColor inputField(0x32, 0x32, 0x32);
+    inputField = inputField.lighter(175);
+    QPainter p(this);
+    p.setRenderHint(QPainter::Antialiasing);
+    p.setBrush(inputField);
+    p.setPen(Qt::NoPen);
+    p.drawRoundedRect(QRectF(0, 0, width(), height()).marginsRemoved(QMarginsF(2, 2, 2, 2)),
+                      Style::WindowsScaleDPIValue(5), Style::WindowsScaleDPIValue(5));
+
+    QLineEdit::paintEvent(event);
+}
+FlatInput::FlatInput(const QString& placeholder,bool password, QWidget* parent) : FlatInput(parent)
+{
+    setPlaceholderText(placeholder);
+    setEchoMode(password?Password:Normal);
 }

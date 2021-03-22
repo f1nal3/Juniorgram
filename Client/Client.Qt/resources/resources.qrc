@@ -27,6 +27,6 @@
         <file>icons/restore-w-24.png</file>
         <file>icons/restore-w-30.png</file>
         <file>fonts/NotoSans-Regular.ttf</file>
-        <file>fonts/JetBrainsMono-Medium.ttf</file>
+        <file>fonts/JetBrainsMono-Regular.ttf</file>
     </qresource>
 </RCC>
