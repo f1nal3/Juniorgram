@@ -330,12 +330,9 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
 }
 #endif
 
-namespace
-{
-QWidget* current = nullptr;
-}
 void MainWidget::setCentralWidget(QWidget* widget)
 {
+    static QWidget* current = nullptr;
     delete current;
 
     current = widget;
