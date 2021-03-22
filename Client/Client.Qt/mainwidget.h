@@ -15,6 +15,7 @@ class MainWidget : public QWidget
     Q_PROPERTY(QPoint previousPosition MEMBER m_previousPosition)
 public:
     explicit MainWidget(QWidget* parent = nullptr);
+    void setCentralWidget(QWidget* widget = nullptr);
 #ifdef _WIN32
 
     bool nativeEvent(const QByteArray& eventType, void* message, long* result) override;
@@ -56,7 +57,6 @@ public:
         delete body;
     }
 
-    void setCentralWidget(QWidget* widget = nullptr);
 
 private:
     MouseType m_leftMouseButtonPressed;
