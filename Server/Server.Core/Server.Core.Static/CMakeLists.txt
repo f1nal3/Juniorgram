@@ -1,9 +1,11 @@
-set(TARGET Client.Core.Static)
-set(OUTPUT_NAME Client.Core.Static)
+set(TARGET Server.Core.Static)
+set(OUTPUT_NAME Server.Core.Static)
 
 set(SOURCE_FILES
-    Client.hpp
-	Client.cpp)
+    Server.hpp
+	Server.cpp
+	ArgumentParser.hpp
+	KeysValidator.hpp)
 
 if(WIN32)
 	list(APPEND EXTRA_LIBS ws2_32 wsock32)

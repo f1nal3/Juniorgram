@@ -2,7 +2,8 @@ set(TARGET DataAccess.Public)
 set(OUTPUT_NAME Juniorgram.DataAccess.Public)
 
 set(SOURCE_FILES
-    Include/DataAccess/IDB.hpp)
+    Include/DataAccess/IDB.hpp
+    Include/DataAccess/IRepository.hpp)
 
 add_library(${TARGET} INTERFACE)
 

@@ -1,5 +1,4 @@
-#include <Network/Client.hpp>
-
+#include <Client.hpp>
 #include <string>
 
 class App

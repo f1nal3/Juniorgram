@@ -4,7 +4,9 @@ set(OUTPUT_NAME DataAccess.Static)
 set(SOURCE_FILES
     mainDBAPI.cpp
     DataBasePostgreSQL.hpp
-    DataBasePostgreSQLOperations.hpp)
+    DataBasePostgreSQLOperations.hpp
+    PostgreRepository.hpp
+    PostgreRepository.cpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 

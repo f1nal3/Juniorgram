@@ -1,24 +1,10 @@
-#pragma once
-
-#include "Network/Connection.hpp"
-#include "Network/Message.hpp"
-#include "Network/SafeQueue.hpp"
+#include "Client.hpp"
 
 namespace network
 {
-class Client
-{
-    asio::io_context mContext;
-    std::thread mContextThread;
+    Client::~Client() { disconnect(); }
 
-    std::unique_ptr<Connection> mConnection;
-
-    SafeQueue<Message> mIncomingMessagesQueue;
-
-public:
-    ~Client() { disconnect(); }
-
-    bool connect(const std::string& host, const uint16_t& port)
+    bool Client::connect(const std::string& host, const uint16_t& port)
     {
         try
         {
@@ -26,9 +12,9 @@ public:
             asio::ip::tcp::resolver::results_type endpoints =
                 resolver.resolve(host, std::to_string(port));
 
-            mConnection = std::make_unique<Connection>(Connection::OwnerType::CLIENT, mContext,
-                                                       asio::ip::tcp::socket(mContext),
-                                                       mIncomingMessagesQueue);
+            mConnection =
+                std::make_unique<Connection>(Connection::OwnerType::CLIENT, mContext,
+                                             asio::ip::tcp::socket(mContext), mIncomingMessagesQueue);
 
             mConnection->connectToServer(endpoints);
 
@@ -43,7 +29,7 @@ public:
         }
     }
 
-    void disconnect()
+    void Client::disconnect()
     {
         if (isConnected())
         {
@@ -60,7 +46,7 @@ public:
         mConnection.release();
     }
 
-    bool isConnected() const
+    bool Client::isConnected() const 
     {
         if (mConnection != nullptr)
         {
@@ -72,7 +58,7 @@ public:
         }
     }
 
-    void send(const Message& message) const
+    void Client::send(const Message& message) const
     {
         if (isConnected())
         {
@@ -80,9 +66,7 @@ public:
         }
     }
 
-    SafeQueue<Message>& incoming() { return mIncomingMessagesQueue; }
-
-    void pingServer() const
+    void Client::pingServer() const 
     {
         network::Message message;
         message.mHeader.mID = network::Message::MessageType::ServerPing;
@@ -93,11 +77,10 @@ public:
         send(message);
     }
 
-    void messageAll() const
+    void Client::messageAll() const 
     {
         network::Message message;
         message.mHeader.mID = network::Message::MessageType::MessageAll;
         send(message);
     }
-};
-}  // namespace network
+}

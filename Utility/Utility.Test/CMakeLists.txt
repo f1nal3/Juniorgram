@@ -2,9 +2,11 @@ set(TARGET Utility.Test)
 set(OUTPUT_NAME Utility.Test)
 
 set(SOURCE_FILES
-    UtilityTest.cpp)
+    UtilityTest.cpp
+    SerializeTest.cpp
+    ExceptionTest.cpp)
 
-#set(CMAKE_BUILD_TYPE RELWITHDEBINFO)
+set(CMAKE_BUILD_TYPE RELWITHDEBINFO)
 
 add_executable(${TARGET} ${SOURCE_FILES})
 
