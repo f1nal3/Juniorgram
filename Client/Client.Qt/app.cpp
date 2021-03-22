@@ -3,6 +3,10 @@
 //
 
 #include "app.h"
+
+#include "login.h"
+#include "mainwidget.h"
+#include "registration.h"
 namespace App
 {
 namespace
