@@ -13,6 +13,8 @@ set(SOURCE_FILES
     login.h
     registration.cpp
     registration.h
+	textedit.cpp
+	textedit.h
     )
  
 add_executable(${TARGET} ${SOURCE_FILES})

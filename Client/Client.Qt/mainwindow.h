@@ -1,13 +1,18 @@
 #pragma once
 
-#include <QMainWindow>
+#include <QWidget>
 #include <QStringListModel>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QListView>
+#include <QGridLayout>
+#include <textedit.h>
 
-QT_BEGIN_NAMESPACE
+/*QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+QT_END_NAMESPACE*/
 
-class MainWindow : public QMainWindow
+class MainWindow : public QWidget
 {
     Q_OBJECT
 
@@ -20,7 +25,12 @@ public slots:
     void updateMessagesList_User();
     void updateMessagesList_Bot();
 private:
-    Ui::MainWindow *ui;
+    //Ui::MainWindow *ui;
+    QPushButton* sendButton;
+    QPushButton* randomButton;
+    TextEdit* textEdit;
+    //QLineEdit* lineEdit;
+    QListView* chatView;
     QStringListModel *model;
     QStringList *messagesList;
 };
