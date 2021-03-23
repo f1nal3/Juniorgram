@@ -1,3 +1,4 @@
+#pragma once
 #ifndef JUNIORGRAMUI_STYLE_H
 #define JUNIORGRAMUI_STYLE_H
 
@@ -13,7 +14,7 @@ inline constexpr auto defDPI = 100;
 
 void setDpiScale(int factor);
 
-int WindowsScaleDPIValue(int value);
+int valueDPIScale(int value);
 
 }  // namespace Style
 

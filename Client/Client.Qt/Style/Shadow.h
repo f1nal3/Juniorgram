@@ -1,13 +1,8 @@
-//
-// Created by Stanislav on 10.03.2021.
-//
-
+#pragma once
 #ifndef JUNIORGRAMUI_SHADOW_H
 #define JUNIORGRAMUI_SHADOW_H
 
-#include <QPainter>
-#include <QPointF>
-#include <QRectF>
+#include "pch.h"
 
 void drawShadow(QPainter& _p, qint16 _margin, qreal _r, const QColor& _start, const QColor& _end,
                 qreal _startPosition, qreal _endPosition0, qreal _endPosition1, qreal _width,

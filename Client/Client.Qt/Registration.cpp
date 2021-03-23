@@ -1,6 +1,4 @@
-#include "registration.h"
-
-#include <QDesktopServices>
+#include "Registration.h"
 
 #include "app.h"
 

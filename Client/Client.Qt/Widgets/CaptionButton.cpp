@@ -1,6 +1,6 @@
-#include "caption_button.h"
+#include "CaptionButton.h"
 
-#include "../Style/style.h"
+#include "Style/Style.h"
 
 void CaptionButton::enterEvent(QEvent* event)
 {
@@ -24,7 +24,15 @@ void CaptionButton::mouseReleaseEvent(QMouseEvent* event)
         emit mouseRelease();
     }
 }
-
+bool CaptionButton::eventFilter(QObject* watched, QEvent* event)
+{
+    if (event->type() == QEvent::HoverEnter && this != watched)
+    {
+        repaint();
+        return true;
+    }
+    return false;
+}
 QString CaptionButton::dpi2str(int scale)
 {
     if (scale <= 100)
@@ -58,8 +66,8 @@ CaptionButton::CaptionButton(CaptionButton::CaptionLogo logo, const QColor& end_
                              QWidget* parent)
     : QWidget(parent)
 {
-    setFixedWidth(Style::WindowsScaleDPIValue(46));
-    setFixedHeight(Style::WindowsScaleDPIValue(30));
+    setFixedWidth(Style::valueDPIScale(46));
+    setFixedHeight(Style::valueDPIScale(30));
     int scale    = Style::getDpiScale();
     QString icon = ":icons/" + Lg2str(logo) + "-w" + dpi2str(scale);
     pixmap       = new QPixmap(icon);
@@ -71,6 +79,7 @@ CaptionButton::CaptionButton(CaptionButton::CaptionLogo logo, const QColor& end_
     fadein_anim->setStartValue(QColor(end_color.red(), end_color.green(), end_color.blue(), 0));
     fadein_anim->setEndValue(end_color);
     close_button = fadein_anim->startValue().value<QColor>();
+    setAttribute(Qt::WA_Hover);
 }
 
 void CaptionButton::paintEvent(QPaintEvent* event)

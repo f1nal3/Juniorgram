@@ -1,12 +1,8 @@
-//
-// Created by Stanislav on 22.03.2021.
-//
-
 #include "app.h"
 
-#include "login.h"
-#include "mainwidget.h"
-#include "registration.h"
+#include "Login.h"
+#include "MainWidget.h"
+#include "Registration.h"
 namespace App
 {
 namespace

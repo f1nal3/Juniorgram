@@ -1,11 +1,8 @@
-//
-// Created by Stanislav on 17.02.2021.
-//
-
+#pragma once
 #ifndef JUNIORGRAMUI_MAINWIDGET_H
 #define JUNIORGRAMUI_MAINWIDGET_H
 
-#include "Widgets/caption_button.h"
+#include "Widgets/CaptionButton.h"
 #include "pch.h"
 
 class MainWidget : public QWidget
@@ -56,7 +53,6 @@ public:
         delete pTitleLayout;
         delete body;
     }
-
 
 private:
     MouseType m_leftMouseButtonPressed;

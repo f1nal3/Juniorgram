@@ -1,8 +1,8 @@
-#include "mainwidget.h"
+#include "MainWidget.h"
 
-#include "Style/shadow.h"
-#include "Style/style.h"
-#include "Widgets/input_fields.h"
+#include "Style/Shadow.h"
+#include "Style/Style.h"
+#include "Widgets/InputFields.h"
 
 MainWidget::MouseType MainWidget::checkResizableField(QMouseEvent* event)
 {
@@ -12,11 +12,12 @@ MainWidget::MouseType MainWidget::checkResizableField(QMouseEvent* event)
     qreal width      = this->width();
     qreal height     = this->height();
 
-    QRectF rectTop(x, y, width + 9, 7);
-    QRectF rectBottom(x, y + height - 7, width + 9, 7);
-    QRectF rectLeft(x, y, 7, height + 9);
-    QRectF rectRight(x + width - 7, y, 7, height + 9);
-    QRectF rectInterface(x + 9, y + 9, width - 18, Style::WindowsScaleDPIValue(30));
+    QRectF rectTop(x, y, width + 9, 8);
+    QRectF rectBottom(x, y + height - 8, width + 9, 8);
+    QRectF rectLeft(x, y, 8, height + 9);
+    QRectF rectRight(x + width - 8, y, 8, height + 9);
+    QRectF rectInterface(x + 9, y + 9, width - 18 - Style::valueDPIScale(46) * 3,
+                         Style::valueDPIScale(30));
 
     if (rectTop.contains(position))
     {
@@ -176,12 +177,12 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
         "QWidget { "
         "background-color: #424140; "
         "}");
-    this->setMinimumSize(Style::WindowsScaleDPIValue(630), 450);
+    this->setMinimumSize(Style::valueDPIScale(630), 450);
 
     auto* grid = new QGridLayout(this);
     body       = new QWidget();
     auto title = new QWidget();
-    title->setFixedHeight(Style::WindowsScaleDPIValue(30));
+    title->setFixedHeight(Style::valueDPIScale(30));
     grid->addWidget(body, 1, 0);
     grid->addWidget(title, 0, 0);
     grid->setSpacing(0);
@@ -230,16 +231,13 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
             this->showMaximized();
             this->m_leftMouseButtonPressed = None;
         }
+        update();
     });
     connect(close_btn, &CaptionButton::mouseRelease, this, &MainWidget::close);
     connect(minimize_btn, &CaptionButton::mouseRelease, this, &MainWidget::showMinimized);
-
     title->setMouseTracking(true);
     body->setMouseTracking(true);
     this->setMouseTracking(true);
-
-    // We don't have any eventFilter so this have no effect
-    QApplication::instance()->installEventFilter(this);
 }
 
 void MainWidget::paintEvent(QPaintEvent* event)
@@ -322,6 +320,7 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
         else
         {
             state = Qt::WindowNoState;
+            this->layout()->setMargin(9);
             this->setAttribute(Qt::WA_TranslucentBackground);
         }
         emit window()->windowHandle()->windowStateChanged(state);

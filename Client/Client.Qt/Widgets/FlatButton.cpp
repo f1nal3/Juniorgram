@@ -1,14 +1,10 @@
-//
-// Created by Stanislav on 22.03.2021.
-//
+#include "FlatButton.h"
 
-#include "flat_button.h"
-
-#include "../Style/style.h"
+#include "Style/Style.h"
 
 FlatButton::FlatButton(const QString& text, QWidget* parent) : QPushButton(text, parent)
 {
-    setFont(QFont("JetBrains Mono", Style::WindowsScaleDPIValue(12)));
+    setFont(QFont("JetBrains Mono", Style::valueDPIScale(12)));
     setStyleSheet(
         QString("QPushButton { "
                 "border: 0px;"
@@ -17,7 +13,8 @@ FlatButton::FlatButton(const QString& text, QWidget* parent) : QPushButton(text,
                 "padding:9px;"
                 "}"));
     setAttribute(Qt::WA_AcceptTouchEvents);
-    // setFixedHeight(Style::WindowsScaleDPIValue(12));
+
+    this->setMouseTracking(true);
 }
 void FlatButton::paintEvent(QPaintEvent* event)
 {
@@ -30,6 +27,6 @@ void FlatButton::paintEvent(QPaintEvent* event)
     p.setBrush(inputField);
     p.setPen(Qt::NoPen);
     p.drawRoundedRect(QRectF(0, 0, width(), height()).marginsRemoved(QMarginsF(2, 1, 2, 1)),
-                      Style::WindowsScaleDPIValue(5), Style::WindowsScaleDPIValue(5));
+                      Style::valueDPIScale(5), Style::valueDPIScale(5));
     QPushButton::paintEvent(event);
 }

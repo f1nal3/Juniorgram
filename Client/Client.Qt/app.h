@@ -1,3 +1,4 @@
+#pragma once
 #ifndef JUNIORGRAM_APP_H
 #define JUNIORGRAM_APP_H
 
