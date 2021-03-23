@@ -16,7 +16,7 @@ MainWidget::MouseType MainWidget::checkResizableField(QMouseEvent* event)
     QRectF rectBottom(x, y + height - 7, width + 9, 7);
     QRectF rectLeft(x, y, 7, height + 9);
     QRectF rectRight(x + width - 7, y, 7, height + 9);
-    QRectF rectInterface(x + 9, y + 9, width - 18, 38);
+    QRectF rectInterface(x + 9, y + 9, width - 18, Style::WindowsScaleDPIValue(30));
 
     if (rectTop.contains(position))
     {
@@ -248,7 +248,7 @@ void MainWidget::paintEvent(QPaintEvent* event)
     QPainter p(this);
     p.setPen(Qt::NoPen);
     // Shadow is ugly on corners
-    drawShadow(p, 10, 3.0, QColor(0, 0, 0, 0x18), QColor(0, 0, 0, 0), 0.0, 1.0, 0.6, width(),
+    drawShadow(p, 10, 2.0, QColor(0, 0, 0, 0x18), QColor(0, 0, 0, 0), 0.0, 1.0, 0.6, width(),
                height());
 }
 
@@ -288,9 +288,9 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
         if (result) *result = 0;
         return true;
     }
-    else if (msg->message == WM_NCPAINT)
+    else if (msg->message == WM_ERASEBKGND)
     {
-        *result = 0;
+        if (result) *result = 1;
         return true;
     }
     else if (msg->message == WM_NCHITTEST)

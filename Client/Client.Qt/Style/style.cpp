@@ -1,7 +1,3 @@
-//
-// Created by Stanislav on 10.03.2021.
-//
-
 #include "style.h"
 
 namespace Style
