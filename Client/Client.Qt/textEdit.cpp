@@ -1,4 +1,4 @@
-#include "textedit.h"
+#include "textEdit.h"
 
 TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
 {
@@ -6,7 +6,6 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
     boldButton = new QPushButton("B");
     boldButton->adjustSize();
     
-
     QVBoxLayout* vLayout = new QVBoxLayout;
     QHBoxLayout* hLayout = new QHBoxLayout;
 

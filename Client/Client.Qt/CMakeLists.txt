@@ -7,14 +7,14 @@ set(CMAKE_AUTORCC ON)
  
 set(SOURCE_FILES
     main.cpp
-    mainwindow.cpp
-    mainwindow.h
+    mainWindow.cpp
+    mainWindow.h
     login.cpp
     login.h
     registration.cpp
     registration.h
-	textedit.cpp
-	textedit.h
+    textEdit.cpp
+    textEdit.h
     )
  
 add_executable(${TARGET} ${SOURCE_FILES})

@@ -82,22 +82,5 @@ struct Message
     {
         return lhs.mHeader.mTimestamp > rhs.mHeader.mTimestamp;
     }
-
-    friend bool operator==(const Message& lhs, const Message& rhs)
-    {
-        return lhs.mHeader.mTimestamp == rhs.mHeader.mTimestamp;
-    }
-
-    friend bool operator<=(const Message& lhs, const Message& rhs)
-    {
-        return lhs.mHeader.mTimestamp < rhs.mHeader.mTimestamp ||
-               lhs.mHeader.mTimestamp == rhs.mHeader.mTimestamp;
-    }
-
-    friend bool operator>=(const Message& lhs, const Message& rhs)
-    {
-        return lhs.mHeader.mTimestamp > rhs.mHeader.mTimestamp ||
-               lhs.mHeader.mTimestamp == rhs.mHeader.mTimestamp;
-    }
 };
 }  // namespace network

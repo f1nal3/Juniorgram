@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "mainWindow.h"
 #include "login.h"
 
 #include <QtWidgets/qapplication.h>

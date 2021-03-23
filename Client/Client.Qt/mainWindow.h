@@ -6,11 +6,7 @@
 #include <QLineEdit>
 #include <QListView>
 #include <QGridLayout>
-#include <textedit.h>
-
-/*QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE*/
+#include <textEdit.h>
 
 class MainWindow : public QWidget
 {
@@ -25,11 +21,9 @@ public slots:
     void updateMessagesList_User();
     void updateMessagesList_Bot();
 private:
-    //Ui::MainWindow *ui;
     QPushButton* sendButton;
     QPushButton* randomButton;
     TextEdit* textEdit;
-    //QLineEdit* lineEdit;
     QListView* chatView;
     QStringListModel *model;
     QStringList *messagesList;

@@ -1,12 +1,10 @@
 #pragma once
 
-#include <QVBoxLayout>
+#include <QLayout>
 #include <QPlainTextEdit>
 #include <QPushButton>
 #include <QString>
 #include <QWidget>
-#include <cstdlib>
-#include <iostream>
 class TextEdit : public QWidget
 {
     Q_OBJECT
@@ -14,7 +12,7 @@ public:
     TextEdit(QWidget* parent = nullptr);
     QString text() const;
     void clear();
-    //~TextEdit();
+    ~TextEdit();
 
 private:
     QPushButton* boldButton;

@@ -1,10 +1,9 @@
-#include "mainwindow.h"
+#include "mainWindow.h"
 
 MainWindow::MainWindow(QWidget* parent) : QWidget(parent)
 {
     QWidget* window = new QWidget;
     setWindowTitle("MainWindow");
-    setFixedSize(800,600);
 
     textEdit = new TextEdit(window);
     sendButton = new QPushButton("Send");
@@ -31,7 +30,7 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent)
     setLayout(layout);
 
     connect(sendButton, SIGNAL(clicked()), this, SLOT(updateMessagesList_User()));
-    connect(randomButton, SIGNAL(clicked()),this, SLOT(updateMessagesList_Bot()));
+    connect(randomButton, SIGNAL(clicked()), this, SLOT(updateMessagesList_Bot()));
     chatView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
@@ -49,7 +48,8 @@ void MainWindow::updateChat() { model->setStringList(*messagesList); }
 
 void MainWindow::updateMessagesList_User()
 {
-    if (textEdit->text() == "") return;
+    if (textEdit->text() == "") 
+    return;
     *messagesList << textEdit->text();  
     textEdit->clear();
     updateChat();
