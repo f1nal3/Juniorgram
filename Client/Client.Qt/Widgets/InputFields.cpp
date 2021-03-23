@@ -1,12 +1,8 @@
-//
-// Created by Stanislav on 11.03.2021.
-//
-
-#include "input_fields.h"
+#include "InputFields.h"
 
 FlatInput::FlatInput(QWidget* parent) : QLineEdit(parent)
 {
-    setFont(QFont("JetBrains Mono", Style::WindowsScaleDPIValue(12)));
+    setFont(QFont("JetBrains Mono", Style::valueDPIScale(12)));
     QColor inputField(0x32, 0x32, 0x32);
     inputField            = inputField.lighter(175);
     auto selectedText     = inputField.lighter(175);
@@ -40,12 +36,12 @@ void FlatInput::paintEvent(QPaintEvent* event)
     p.setBrush(inputField);
     p.setPen(Qt::NoPen);
     p.drawRoundedRect(QRectF(0, 0, width(), height()).marginsRemoved(QMarginsF(2, 2, 2, 2)),
-                      Style::WindowsScaleDPIValue(5), Style::WindowsScaleDPIValue(5));
+                      Style::valueDPIScale(5), Style::valueDPIScale(5));
 
     QLineEdit::paintEvent(event);
 }
-FlatInput::FlatInput(const QString& placeholder,bool password, QWidget* parent) : FlatInput(parent)
+FlatInput::FlatInput(const QString& placeholder, bool password, QWidget* parent) : FlatInput(parent)
 {
     setPlaceholderText(placeholder);
-    setEchoMode(password?Password:Normal);
+    setEchoMode(password ? Password : Normal);
 }

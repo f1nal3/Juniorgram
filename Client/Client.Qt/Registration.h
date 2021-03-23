@@ -1,9 +1,6 @@
 #pragma once
-
-#include <QPushButton>
-
-#include "Widgets/input_fields.h"
-#include "Widgets/flat_button.h"
+#include "Widgets/FlatButton.h"
+#include "Widgets/InputFields.h"
 #include "pch.h"
 
 class Registration : public QWidget

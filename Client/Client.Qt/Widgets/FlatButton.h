@@ -1,7 +1,8 @@
-#ifndef JUNIORGRAM_FLAT_BUTTON_H
-#define JUNIORGRAM_FLAT_BUTTON_H
+#pragma once
+#ifndef JUNIORGRAM_FLATBUTTON_H
+#define JUNIORGRAM_FLATBUTTON_H
 
-#include "../pch.h"
+#include "pch.h"
 
 class FlatButton : public QPushButton
 {
@@ -12,4 +13,4 @@ protected:
     void paintEvent(QPaintEvent* event) override;
 };
 
-#endif  // JUNIORGRAM_FLAT_BUTTON_H
+#endif  // JUNIORGRAM_FLATBUTTON_H

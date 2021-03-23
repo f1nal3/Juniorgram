@@ -6,22 +6,25 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 set(SOURCE_FILES
-        main.cpp
-        Widgets/caption_button.h
-        Widgets/caption_button.cpp
-        Widgets/input_fields.h
-        Widgets/input_fields.cpp
-        mainwidget.cpp
-        mainwidget.h
-        Style/style.h
-        Style/style.cpp
-        Style/shadow.cpp
-        Style/shadow.h
-        login.cpp
-        login.h
-        registration.cpp
-        registration.h
-        Widgets/flat_button.cpp Widgets/flat_button.h app.cpp app.h)
+        Widgets/CaptionButton.h
+        Widgets/CaptionButton.cpp
+        Widgets/InputFields.h
+        Widgets/InputFields.cpp
+        Widgets/FlatButton.cpp
+        Widgets/FlatButton.h
+        Style/Style.h
+        Style/Style.cpp
+        Style/Shadow.cpp
+        Style/Shadow.h
+        MainWidget.cpp
+        MainWidget.h
+        Login.cpp
+        Login.h
+        Registration.cpp
+        Registration.h
+        app.cpp
+        app.h
+        main.cpp)
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)

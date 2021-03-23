@@ -1,6 +1,6 @@
 #pragma once
-#include "Widgets/flat_button.h"
-#include "Widgets/input_fields.h"
+#include "Widgets/FlatButton.h"
+#include "Widgets/InputFields.h"
 #include "pch.h"
 
 class Login : public QWidget

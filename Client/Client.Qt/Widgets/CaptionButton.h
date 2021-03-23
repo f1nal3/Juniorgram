@@ -1,7 +1,8 @@
+#pragma once
 #ifndef JUNIORGRAMUI_CAPTION_BUTTON_H
 #define JUNIORGRAMUI_CAPTION_BUTTON_H
 
-#include "../pch.h"
+#include "pch.h"
 
 class CaptionButton : public QWidget
 {
@@ -36,6 +37,9 @@ public slots:
 signals:
 
     void mouseRelease();
+
+public:
+    bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
     QColor close_button;
