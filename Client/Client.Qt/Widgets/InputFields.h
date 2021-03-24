@@ -1,6 +1,4 @@
 #pragma once
-#ifndef JUNIORGRAMUI_INPUT_FIELDS_H
-#define JUNIORGRAMUI_INPUT_FIELDS_H
 
 #include "Style/Style.h"
 #include "pch.h"
@@ -16,5 +14,3 @@ public:
 private:
     void paintEvent(QPaintEvent* event) override;
 };
-
-#endif  // JUNIORGRAMUI_INPUT_FIELDS_H

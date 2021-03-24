@@ -1,6 +1,4 @@
 #pragma once
-#ifndef JUNIORGRAM_FLATBUTTON_H
-#define JUNIORGRAM_FLATBUTTON_H
 
 #include "pch.h"
 
@@ -12,5 +10,3 @@ public:
 protected:
     void paintEvent(QPaintEvent* event) override;
 };
-
-#endif  // JUNIORGRAM_FLATBUTTON_H

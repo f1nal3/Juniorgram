@@ -1,6 +1,4 @@
 #pragma once
-#ifndef JUNIORGRAMUI_CAPTION_BUTTON_H
-#define JUNIORGRAMUI_CAPTION_BUTTON_H
 
 #include "pch.h"
 
@@ -46,5 +44,3 @@ private:
     QPropertyAnimation* fadein_anim;
     QPixmap* pixmap;
 };
-
-#endif  // JUNIORGRAMUI_CAPTION_BUTTON_H

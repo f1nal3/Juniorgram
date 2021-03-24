@@ -221,14 +221,14 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
         {
             this->layout()->setMargin(0);
             this->setAttribute(Qt::WA_TranslucentBackground);
-            this->showNormal();
+            window()->setWindowState(Qt::WindowNoState);
             this->m_leftMouseButtonPressed = None;
         }
         else
         {
             this->layout()->setMargin(9);
             this->setAttribute(Qt::WA_TranslucentBackground, false);
-            this->showMaximized();
+            window()->setWindowState(Qt::WindowMaximized);
             this->m_leftMouseButtonPressed = None;
         }
         update();

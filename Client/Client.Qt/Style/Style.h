@@ -1,7 +1,4 @@
 #pragma once
-#ifndef JUNIORGRAMUI_STYLE_H
-#define JUNIORGRAMUI_STYLE_H
-
 #include <cmath>
 
 namespace Style
@@ -18,4 +15,3 @@ int valueDPIScale(int value);
 
 }  // namespace Style
 
-#endif  // JUNIORGRAMUI_STYLE_H
