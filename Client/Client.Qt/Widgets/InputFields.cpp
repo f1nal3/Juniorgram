@@ -2,7 +2,7 @@
 
 FlatInput::FlatInput(QWidget* parent) : QLineEdit(parent)
 {
-    setFont(QFont("JetBrains Mono", Style::valueDPIScale(12)));
+    setFont(QFont("Noto Sans", Style::valueDPIScale(12)));
     QColor inputField(0x32, 0x32, 0x32);
     inputField            = inputField.lighter(175);
     auto selectedText     = inputField.lighter(175);

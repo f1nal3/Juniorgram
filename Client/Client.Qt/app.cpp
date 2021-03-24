@@ -12,7 +12,10 @@ AppState m_app_state;
 }  // namespace
 void create()
 {
-    QFontDatabase::addApplicationFont(":fonts/JetBrainsMono-Regular.ttf");
+    QFontDatabase::addApplicationFont(":fonts/NotoSans-Regular.ttf");
+    QFontDatabase::addApplicationFont(":fonts/NotoSans-Bold.ttf");
+    QFontDatabase::addApplicationFont(":fonts/NotoSans-BoldItalic.ttf");
+    QFontDatabase::addApplicationFont(":fonts/NotoSans-Italic.ttf");
     widget = new MainWidget();
     widget->show();
     widget->hide();

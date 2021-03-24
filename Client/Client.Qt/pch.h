@@ -13,6 +13,7 @@
 #include <QPainter>
 #include <QPainterPath>
 #include <QPen>
+#include <QPlainTextEdit>
 #include <QPropertyAnimation>
 #include <QPushButton>
 #include <QStyle>

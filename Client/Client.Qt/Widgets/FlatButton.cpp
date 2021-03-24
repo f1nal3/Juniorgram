@@ -4,7 +4,7 @@
 
 FlatButton::FlatButton(const QString& text, QWidget* parent) : QPushButton(text, parent)
 {
-    setFont(QFont("JetBrains Mono", Style::valueDPIScale(12)));
+    setFont(QFont("Noto Sans", Style::valueDPIScale(12)));
     setStyleSheet(
         QString("QPushButton { "
                 "border: 0px;"
