@@ -12,6 +12,8 @@ set(SOURCE_FILES
         Widgets/InputFields.cpp
         Widgets/FlatButton.cpp
         Widgets/FlatButton.h
+        Widgets/TextEdit.cpp
+        Widgets/TextEdit.h
         Style/Style.h
         Style/Style.cpp
         Style/Shadow.cpp
