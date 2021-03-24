@@ -3,8 +3,10 @@ set(OUTPUT_NAME DataAccess.Static)
 
 set(SOURCE_FILES
     mainDBAPI.cpp
-    DataBasePostgreSQL.hpp
-    DataBasePostgreSQLOperations.hpp
+    PostgreAdapter.hpp
+    PostgreAdapter.cpp
+    PostgreOperations.hpp
+    PostgreOperations.cpp
     PostgreRepository.hpp
     PostgreRepository.cpp)
 
