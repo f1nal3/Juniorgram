@@ -1,6 +1,4 @@
 #pragma once
-#ifndef JUNIORGRAMUI_SHADOW_H
-#define JUNIORGRAMUI_SHADOW_H
 
 #include "pch.h"
 
@@ -78,5 +76,3 @@ void drawShadow(QPainter& _p, qint16 _margin, qreal _r, const QColor& _start, co
     _p.setBrush(QBrush(gradient));
     _p.drawRoundedRect(QRectF(topright0, topright1), 0.0, 0.0);
 }
-
-#endif  // JUNIORGRAMUI_SHADOW_H

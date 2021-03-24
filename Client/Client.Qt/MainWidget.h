@@ -1,6 +1,4 @@
 #pragma once
-#ifndef JUNIORGRAMUI_MAINWIDGET_H
-#define JUNIORGRAMUI_MAINWIDGET_H
 
 #include "Widgets/CaptionButton.h"
 #include "pch.h"
@@ -67,5 +65,3 @@ private:
     QWidget* body;
     QHBoxLayout* pTitleLayout;
 };
-
-#endif  // JUNIORGRAMUI_MAINWIDGET_H
