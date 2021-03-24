@@ -1,10 +1,6 @@
 #pragma once
 
-#include <QLayout>
-#include <QPlainTextEdit>
-#include <QPushButton>
-#include <QString>
-#include <QWidget>
+#include "pch.h"
 class TextEdit : public QWidget
 {
     Q_OBJECT

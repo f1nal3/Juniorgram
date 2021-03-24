@@ -1,14 +1,10 @@
-#include "mainWindow.h"
-#include "login.h"
+#include "app.h"
+#include "pch.h"
 
-#include <QtWidgets/qapplication.h>
-#include <QtCore/qdebug.h>
-
-
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
-    QApplication a(argc, argv);
-    Login login;
-    login.show();
-    return a.exec();
+    QApplication qapp(argc, argv);
+    App::create();
+    App::show();
+    return qapp.exec();
 }
