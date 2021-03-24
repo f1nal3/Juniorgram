@@ -11,7 +11,7 @@
 #include <QGridLayout>
 #include <memory>
 #include "registration.h"
-#include "mainwindow.h"
+#include "mainWindow.h"
 
 class Login : public QWidget
 {
