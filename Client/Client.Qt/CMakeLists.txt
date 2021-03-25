@@ -19,10 +19,10 @@ set(SOURCE_FILES
         Style/Shadow.h
         MainWidget.cpp
         MainWidget.h
-        Login.cpp
-        Login.h
-        Registration.cpp
-        Registration.h
+        login.cpp
+        login.hpp
+        registration.cpp
+        registration.hpp
         app.cpp
         app.h
         main.cpp)
@@ -32,7 +32,7 @@ add_executable(${TARGET} ${SOURCE_FILES}
 
 if (WIN32)
     list(APPEND EXTRA_LIBS ws2_32 wsock32 winmm dwmapi)
-elseif (UNIX)
+elseif (UNIX AND NOT APPLE)
     list(APPEND EXTRA_LIBS xcb)
 endif ()
 
