@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <sstream>
 
 #include <pqxx/pqxx>
 
@@ -9,7 +10,9 @@
 namespace DataAccess
 {
 
-    class PostgreTableOperations : public DataBases::IDataBaseTableOperations
+    std::string toSqlType(std::string& type, std::uint16_t length = {});
+
+    class PostgreTableOperations : public IDataBaseTableOperations
     {
     private:
 
@@ -34,14 +37,14 @@ namespace DataAccess
         ///  columaName2 type,
         ///  N-----------------N
         ///  columnNameN type
-        void createTable(const std::string_view& tableName,
-                         const std::string_view& tableFields) const override;
+        void createTable(const std::string&  tableName,
+                         const typeDataName& tableFields) const override;
 
-        void deleteTable(const std::string_view& tableName) const override;
+        void deleteTable(const std::string&  tableName) const override;
 
     };
 
-    class PostgreFieldOperations : public DataBases::IDataBaseFieldOperations
+    class PostgreFieldOperations : public IDataBaseFieldOperations
     {
     private:
 
@@ -71,12 +74,12 @@ namespace DataAccess
 
         /// INSERT INTO 'tableName'(columnsNames) VALUES (...)
         /// columnsNames = 'columnName1, columnName2, ...'
-        void insert(const std::string_view& tableName, const std::string& data,
-                    const std::string_view& columnsNames = {},
+        void insert(const std::string_view& tableName,
+                    const columnData& columnsAndData = {},
                     const std::string_view& additional   = {}) const override;
 
         void update(const std::string_view& tableName,
-                    const std::string_view& columnsNamesAndNewData,
+                    const columnData& columnsAndNewData,
                     const std::string_view& additional = {}) const override;
 
         /// !!! IF YOU DON'T USE 'additional' YOU MAY CLEAR ALL TABLE !!!
@@ -84,12 +87,13 @@ namespace DataAccess
                  const std::string_view& additional = {}) const override;
 
         /// SELECT * FROM 'tableName' WHERE 'column' = 'data'
-        bool isExist(const std::string_view& tableName, const std::string_view& column,
+        bool isExist(const std::string_view& tableName, 
+                     const std::string& column,
                      const std::string& data) const override;
 
     };
 
-    class PostgreColumnOperations : public DataBases::IDataBaseColumnOperations
+    class PostgreColumnOperations : public IDataBaseColumnOperations
     {
     private:
 

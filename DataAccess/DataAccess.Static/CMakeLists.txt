@@ -2,7 +2,6 @@ set(TARGET DataAccess.Static)
 set(OUTPUT_NAME DataAccess.Static)
 
 set(SOURCE_FILES
-    mainDBAPI.cpp
     PostgreAdapter.hpp
     PostgreAdapter.cpp
     PostgreOperations.hpp
