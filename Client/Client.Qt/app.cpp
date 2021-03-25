@@ -1,7 +1,7 @@
 #include "app.h"
 
-#include "login.hpp"
 #include "MainWidget.h"
+#include "login.hpp"
 #include "registration.hpp"
 namespace App
 {

@@ -1,4 +1,5 @@
 #include "login.hpp"
+
 #include "app.h"
 
 Login::Login(QWidget* parent) : QWidget(parent)
