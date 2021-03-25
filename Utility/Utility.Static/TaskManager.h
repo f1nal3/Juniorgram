@@ -1,10 +1,10 @@
 #pragma once
 #include <functional>
-#include <queue>
 #include <mutex>
+#include <queue>
 #include <vector>
 
-#include "SafePriorityQueue.hpp"
+#include "SafePriorityQueue.h"
 #include "Task.h"
 
 class TaskManager
@@ -50,16 +50,18 @@ public:
 private:
     void processTasks()
     {
-        std::unique_lock<std::mutex> lk(mMutex);
+        while (true)
+        {
+            std::unique_lock<std::mutex> lk(mMutex);
 
-        mBlock.wait(lk, [this] { return !mStopped && !mTasks.empty(); });
-        // std::cout << std::this_thread::get_id() << std::endl;
-        Task task = mTasks.pop();
-        task();
-        // std::cout << std::endl;
+            mBlock.wait(lk, [this] { return !mStopped && !mTasks.empty(); });
 
-        lk.unlock();
-        processTasks();
+            Task task = mTasks.pop();
+
+            lk.unlock();
+
+            task();
+        }
     }
 
 private:
