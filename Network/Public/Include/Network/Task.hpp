@@ -4,32 +4,32 @@
 class Task
 {
 public:
-    enum class Priority
+    enum class Priority : std::uint8_t
     {
         HIGH   = 0,
         MEDIUM = 1,
         LOW    = 2,
     };
 
-    Task(std::function<void()> task, const Priority importance) : task(task), importance(importance)
+    Task(std::function<void()> task, const Priority importance)
+        : mTask(task), mImportance(importance)
     {
-
     }
 
-    Priority getImportance() const { return importance; }
+    Priority getImportance() const { return mImportance; }
 
-    void operator()() { task(); }
+    void operator()() { mTask(); }
 
 public:
     struct Comporator
     {
         bool operator()(const Task& first, const Task& second) const
         {
-            return first.importance() > second.importance();
+            return first.getImportance() > second.getImportance();
         }
     };
 
 private:
-    std::function<void()> task;
-    Priority importance;
+    std::function<void()> mTask;
+    Priority mImportance;
 };

@@ -1,38 +1,39 @@
 #pragma once
+#include <mutex>
 #include <queue>
 
-template <typename T, typename Comp = std::less<>>
+template <typename T, typename Comp = std::less<T>>
 class SafePriorityQueue
 {
 private:
-    std::mutex mScopedMutex, mUniqueMutex;
+    std::mutex mGuardMutex, mUniqueMutex;
     std::condition_variable mBlock;
 
     std::priority_queue<T, std::vector<T>, Comp> mRawQueue;
 
 public:
-    SafePriorityQueue()                      = default;
-    SafePriorityQueue(const SafeQueue<T>& other) = delete;
+    SafePriorityQueue()                            = default;
+    SafePriorityQueue(const SafePriorityQueue<T>&) = delete;
 
     ~SafePriorityQueue() { clear(); }
 
     const T& top()
     {
-        std::scoped_lock scopedLock(mScopedMutex);
+        std::lock_guard<std::mutex> guardLock(mGuardMutex);
         return mRawQueue.top();
     }
 
     T pop()
     {
-        std::scoped_lock scopedLock(mScopedMutex);
-        T result = std::move(mRawQueue.pop());
+        std::lock_guard<std::mutex> guardLock(mGuardMutex);
+        T result = mRawQueue.top();
         mRawQueue.pop();
         return result;
     }
 
     void push(const T& item)
     {
-        std::scoped_lock scopedLock(mScopedMutex);
+        std::lock_guard<std::mutex> guardLock(mGuardMutex);
         mRawQueue.push(std::move(item));
 
         std::unique_lock<std::mutex> uniqueLock(mUniqueMutex);
@@ -41,14 +42,23 @@ public:
 
     bool empty()
     {
-        std::scoped_lock scopedLock(mScopedMutex);
+        std::lock_guard<std::mutex> guardLock(mGuardMutex);
         return mRawQueue.empty();
     }
 
     size_t size()
     {
-        std::scoped_lock scopedLock(mScopedMutex);
+        std::lock_guard<std::mutex> guardLock(mGuardMutex);
         return mRawQueue.size();
+    }
+
+    void clear()
+    {
+        std::lock_guard<std::mutex> guardLock(mGuardMutex);
+        while (!mRawQueue.empty())
+        {
+            mRawQueue.pop();
+        }
     }
 
     void wait()

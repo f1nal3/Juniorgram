@@ -1,54 +1,71 @@
 #pragma once
-#include <future>
+#include <functional>
 #include <queue>
+#include <mutex>
 #include <vector>
 
-#include "Message.hpp"
-#include "PriorityQueue.hpp"
-#include "Task.hpp"
-#include "ThreadPool.hpp"
-#include "SafeQueue.hpp"
+#include "SafePriorityQueue.hpp"
+#include "Task.h"
 
-class TasksManager
+class TaskManager
 {
 public:
-    TasksManager(const std::shared_ptr<ThreadPool>& threadpool, const size_t maxWorkers)
-        : _threadpool(std::move(threadpool)), _maxWorkers(maxWorkers){}
+    explicit TaskManager(const size_t threadCount)
     {
+        mWorkers.reserve(threadCount);
+
+        for (size_t i = 0; i < threadCount; ++i)
+        {
+            mWorkers.emplace_back(&TaskManager::processTasks, this);
+        }
     }
 
-    void addTask(std::future<void()>&& task)
+    void run()
     {
-        std::lock_guard<std::mutex> guard(_mutex);
+        mStopped = false;
+        mBlock.notify_all();
+    }
 
-        if (_stopped)
+    void stop() { mStopped = true; }
+
+    void addTask(Task&& task)
+    {
+        std::lock_guard<std::mutex> guard(mMutex);
+        mTasks.push(std::move(task));
+    }
+
+    ~TaskManager()
+    {
+        mBlock.notify_all();
+
+        for (auto& worker : mWorkers)
         {
-            return;
+            if (worker.joinable())
+            {
+                worker.join();
+            }
         }
-        _tasks.push(std::move(task));
-
-        this->processTasks();
     }
 
 private:
     void processTasks()
     {
-        if (_tasks.empty() || _workerCount == _maxWorkers)
-        {
-            return;
-        }
+        std::unique_lock<std::mutex> lk(mMutex);
 
-        auto task = std::move(_tasks.front());
-        _tasks.pop();
+        mBlock.wait(lk, [this] { return !mStopped && !mTasks.empty(); });
+        // std::cout << std::this_thread::get_id() << std::endl;
+        Task task = mTasks.pop();
+        task();
+        // std::cout << std::endl;
 
-        ++_workerCount;
-        _threadpool->execute(std::move(task));
+        lk.unlock();
+        processTasks();
     }
 
 private:
-    size_t _maxWorkers;
-    size_t _workerCount = 0;
-    std::mutex _mutex;
-    std::shared_ptr<ThreadPool> _threadpool;
-    std::queue<Task> _tasks;
+    bool mStopped = true;
+    std::condition_variable mBlock;
+    std::mutex mMutex;
+    std::vector<std::thread> mWorkers;
+    SafePriorityQueue<Task, Task::Comporator> mTasks;
 };
