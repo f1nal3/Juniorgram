@@ -37,7 +37,7 @@ namespace DataAccess
         ///  columaName2 type,
         ///  N-----------------N
         ///  columnNameN type
-        void createTable(const std::string&  tableName,
+        void createTable(const std::string&  tableName [[maybe_unused]],
                          const typeDataName& tableFields) const override;
 
         void deleteTable(const std::string&  tableName) const override;

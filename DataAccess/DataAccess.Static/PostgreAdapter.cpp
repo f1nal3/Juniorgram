@@ -3,7 +3,7 @@
 namespace DataAccess
 {
 
-	std::shared_ptr<PostgreAdapter> PostgreAdapter::getPostgre(const std::string_view& options = "")
+	std::shared_ptr<PostgreAdapter> PostgreAdapter::getPostgre(const std::string_view& options)
     {
         std::lock_guard<std::mutex> lock(ms_static_mutex);
 

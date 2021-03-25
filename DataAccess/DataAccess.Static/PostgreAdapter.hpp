@@ -29,7 +29,7 @@ public:
     PostgreAdapter& operator=(PostgreAdapter&& other) = delete;
 
 public:
-    static std::shared_ptr<PostgreAdapter> getPostgre(const std::string_view& options = "");
+    static std::shared_ptr<PostgreAdapter> getPostgre(const std::string_view& options);
 
     std::optional<pqxx::result> query(const std::string_view& query);
 

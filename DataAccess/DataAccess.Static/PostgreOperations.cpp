@@ -3,7 +3,7 @@
 namespace DataAccess
 {
 
-    std::string toSqlType(std::string& type, std::uint16_t length = {}) 
+    std::string toSqlType(std::string& type, std::uint16_t length) 
     { 
         if (type == "int")
         {
@@ -29,11 +29,11 @@ namespace DataAccess
             return "boolean";        
         }
 
-        throw std::runtime_error("Inccorect type!" + __LINE__);
+        throw std::runtime_error("Inccorect type!");
     }
 
-    void PostgreTableOperations::createTable(const std::string& tableName,
-                                             const typeDataName& tableFields) const noexcept
+    void PostgreTableOperations::createTable(const std::string& tableName [[maybe_unused]],
+                                             const typeDataName& tableFields) const
     {
         pqxx::work work{ m_dataBaseInstance->getConnection() };
     
@@ -48,7 +48,7 @@ namespace DataAccess
         work.commit();
     }
     
-    void PostgreTableOperations::deleteTable(const std::string& tableName) const noexcept
+    void PostgreTableOperations::deleteTable(const std::string& tableName) const
     {
         pqxx::work work{ m_dataBaseInstance->getConnection() };
     
@@ -62,8 +62,8 @@ namespace DataAccess
     [[nodiscard]] pqxx::result PostgreFieldOperations::select(
                                       const std::string& tableName, 
                                       const std::string& columnsNames,
-                                      const std::string& additional                 = {},
-                                      const pqxx::result::size_type numberOfTheRows = -1) const
+                                      const std::string& additional,
+                                      const pqxx::result::size_type numberOfTheRows) const
     {
         pqxx::nontransaction work{ m_dataBaseInstance->getConnection()};
 
@@ -77,8 +77,8 @@ namespace DataAccess
     }
 
     void PostgreFieldOperations::insert(const std::string_view& tableName,
-                                        const columnData& columnsNames = {},
-                                        const std::string_view& additional   = {}) const
+                                        const columnData& columnsNames,
+                                        const std::string_view& additional) const
     {
         pqxx::work work{ m_dataBaseInstance->getConnection() };
 
@@ -97,7 +97,7 @@ namespace DataAccess
 
     void PostgreFieldOperations::update(const std::string_view& tableName,
                                         const columnData& columnsAndNewData,
-                                        const std::string_view& additional = {}) const
+                                        const std::string_view& additional) const
     {
         pqxx::work work{ m_dataBaseInstance->getConnection() };
 
@@ -111,7 +111,7 @@ namespace DataAccess
     }
 
     void PostgreFieldOperations::del(const std::string_view& tableName,
-                                     const std::string_view& additional = {}) const
+                                     const std::string_view& additional) const
     {
         pqxx::work work{ m_dataBaseInstance->getConnection() };
         
