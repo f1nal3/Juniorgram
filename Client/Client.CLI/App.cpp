@@ -47,6 +47,12 @@ bool App::loop()
                     std::cout << "Hello from [" << clientID << "]\n";
                 }
                 break;
+
+                case network::Message::MessageType::ChannelListRequest:
+                {
+                    std::cout << "Channel list recieved: " << message;
+                }
+                break;
 				default:
 				break;
             }
