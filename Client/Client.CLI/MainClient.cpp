@@ -45,7 +45,6 @@ int main()
             else if (cmd == "cl")
             {
                 clientApp.shell()->askForChannelList();
-                continue;
             }
             else if (cmd == "q")
             {

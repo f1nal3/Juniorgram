@@ -4,7 +4,7 @@ set(OUTPUT_NAME DataAccess.Test)
 set(SOURCE_FILES
     DataAccessTest.cpp)
 
-#set(CMAKE_BUILD_TYPE RELWITHDEBINFO) this is not building atm.
+set(CMAKE_BUILD_TYPE RELWITHDEBINFO) 
 
 add_executable(${TARGET} ${SOURCE_FILES})
 

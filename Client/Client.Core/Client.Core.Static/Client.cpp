@@ -52,6 +52,7 @@ namespace network
         {
             return mConnection->isConnected();
         }
+
         else
         {
             return false;
@@ -80,7 +81,6 @@ namespace network
     {
         network::Message message;
         message.mHeader.mID = network::Message::MessageType::ChannelListRequest;
-
         send(message);
     }
     void Client::messageAll() const 

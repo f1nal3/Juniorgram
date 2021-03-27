@@ -68,7 +68,7 @@ namespace server
 
             case network::Message::MessageType::ChannelListRequest:
             {
-                auto future = std::async(&DataAccess::IRepository::getAllChannelsList, _postgreRepo.get());
+                auto future = std::async(std::launch::async,&DataAccess::IRepository::getAllChannelsList, _postgreRepo.get());
 
                 network::Message msg;
                 msg.mHeader.mID = network::Message::MessageType::ChannelListRequest;
@@ -77,7 +77,7 @@ namespace server
                 auto channelList = future.get();
                 for (const auto& channel : channelList)
                 {
-                    msg << channel;
+                    msg << channel.c_str();
                 }
 
                 client->send(msg);
@@ -93,6 +93,7 @@ namespace server
         : mAcceptor(mContext, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port)),
           _postgreRepo(new DataAccess::PostgreRepository)
     {
+
     }
 
     Server::~Server()

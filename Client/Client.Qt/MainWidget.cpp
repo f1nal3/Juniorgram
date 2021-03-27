@@ -256,7 +256,7 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
 {
     Q_UNUSED(eventType);
     MSG* msg = static_cast<MSG*>(message);
-    WINBOOL isit;
+    int isit;
     if (msg->message == WM_NCACTIVATE)
     {
         if (::DwmIsCompositionEnabled(&isit))
