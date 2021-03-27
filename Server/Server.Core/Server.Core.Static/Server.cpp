@@ -77,7 +77,8 @@ namespace server
                 auto channelList = future.get();
                 for (const auto& channel : channelList)
                 {
-                    msg << channel.c_str();
+                    msg << channel << '\n';
+                    std::cout << channel;
                 }
 
                 client->send(msg);

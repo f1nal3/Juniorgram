@@ -11,25 +11,23 @@ PostgreRepository::PostgreRepository()
 
 std::vector<std::string> PostgreRepository::getAllChannelsList()
 {
-    std::cout << "Get some error at getAllChannelList()";
-
-
     auto psql = mp_dataBaseInstance->getPostgre(
-        "dbname=postgres user=postgres password=2319 hostaddr=127.0.0.1 port=5432");
+        "dbname=postgres user=postgres hostaddr=127.0.0.1 port=5432");
 
+    std::vector<std::string> result;
     if (psql->getConnection().is_open())
     {
-        pqxx::row channeList =
-            psql->query("SELECT * FROM public.user_ids_n_channels;").value().at(0);
+        auto channelListRow =
+            psql->query("SELECT channel_name FROM channels;");
+        
+        for(auto item : channelListRow.value())
+        {
+            std::cout << item.at(0).c_str() <<'\n';
+            result.emplace_back(std::string(item.at(0).c_str()));
+        }
 
-        return {channeList["channels"].c_str()};
     }
-    else
-    {
-        std::cout << "Don't have connection to db!\n";
-    }
-
-    throw Utility::NotImplementedException("Not implemented.", __FILE__, __LINE__);
+    return result;
 }
 
 std::vector<std::string> PostgreRepository::getMessageHistoryForUser(std::string)

@@ -50,7 +50,11 @@ bool App::loop()
 
                 case network::Message::MessageType::ChannelListRequest:
                 {
-                    std::cout << "Channel list recieved: " << message;
+                    std::cout << "Channel list recieved: \n";
+                    std::vector<std::string> channelList;
+                    message >> channelList;
+                    for (auto& channel : channelList)
+                        std::cout << channel <<'\n';
                 }
                 break;
 				default:
