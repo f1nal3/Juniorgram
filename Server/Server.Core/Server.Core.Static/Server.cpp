@@ -1,6 +1,7 @@
 #include "Server.hpp"
-
 #include "DataAccess.Static/PostgreRepository.hpp"
+
+#include <future>
 
 using network::SafeQueue;
 using network::Connection;
@@ -67,7 +68,19 @@ namespace server
 
             case network::Message::MessageType::ChannelListRequest:
             {
-                _postgreRepo->getAllChannelsList(client->getID());
+                auto future = std::async(&DataAccess::IRepository::getAllChannelsList, _postgreRepo.get(), client->getID());
+
+                network::Message msg;
+                msg.mHeader.mID = network::Message::MessageType::ChannelListRequest;
+
+                future.wait();
+                auto channelList = future.get();
+                for (const auto& channel : channelList)
+                {
+                    msg << channel;
+                }
+
+                client->send(msg);
             }
             default:
             {
