@@ -68,7 +68,7 @@ namespace server
 
             case network::Message::MessageType::ChannelListRequest:
             {
-                auto future = std::async(&DataAccess::IRepository::getAllChannelsList, _postgreRepo.get(), client->getID());
+                auto future = std::async(&DataAccess::IRepository::getAllChannelsList, _postgreRepo.get());
 
                 network::Message msg;
                 msg.mHeader.mID = network::Message::MessageType::ChannelListRequest;

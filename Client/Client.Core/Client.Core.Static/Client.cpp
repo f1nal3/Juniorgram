@@ -80,7 +80,6 @@ namespace network
     {
         network::Message message;
         message.mHeader.mID = network::Message::MessageType::ChannelListRequest;
-        message << "USERID";
 
         send(message);
     }

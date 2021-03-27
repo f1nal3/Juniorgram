@@ -6,9 +6,9 @@ using namespace DataAccess;
 PostgreRepository::PostgreRepository()
 {}
 
-std::vector<std::string> PostgreRepository::getAllChannelsList(std::uint64_t userID)
+std::vector<std::string> PostgreRepository::getAllChannelsList()
 {
-    throw Utility::NotImplementedException("Not implemented.", __FILE__, userID);
+    throw Utility::NotImplementedException("Not implemented.", __FILE__, __LINE__);
 }
 
 std::vector<std::string> PostgreRepository::getMessageHistoryForUser(std::string)
