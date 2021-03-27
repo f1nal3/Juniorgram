@@ -30,6 +30,8 @@ public:
 
     void pingServer() const;
 
+    void askForChannelList() const;
+
     void messageAll() const;
 };
 }  // namespace network

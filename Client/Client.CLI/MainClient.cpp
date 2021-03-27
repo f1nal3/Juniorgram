@@ -42,6 +42,11 @@ int main()
                 message << "{'msg':0,'id':0,'cmd':True}";
                 clientApp.shell()->send(message);
             }
+            else if (cmd == "cl")
+            {
+                clientApp.shell()->askForChannelList();
+                continue;
+            }
             else if (cmd == "q")
             {
                 quit = true;

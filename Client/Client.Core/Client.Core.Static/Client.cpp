@@ -76,7 +76,14 @@ namespace network
         message << timeNow;
         send(message);
     }
+    void Client::askForChannelList() const
+    {
+        network::Message message;
+        message.mHeader.mID = network::Message::MessageType::ChannelListRequest;
+        message << "USERID";
 
+        send(message);
+    }
     void Client::messageAll() const 
     {
         network::Message message;
