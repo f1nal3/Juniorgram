@@ -11,7 +11,7 @@ set(SOURCE_FILES
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
-target_link_libraries(${TARGET} PRIVATE
+target_link_libraries(${TARGET} PUBLIC
     CONAN_PKG::libpq
     CONAN_PKG::libpqxx)
     

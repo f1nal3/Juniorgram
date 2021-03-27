@@ -1,5 +1,7 @@
 #include "Server.hpp"
 
+#include "DataAccess.Static/PostgreRepository.hpp"
+
 using network::SafeQueue;
 using network::Connection;
 using network::Message;
@@ -62,6 +64,11 @@ namespace server
                 messageAllClients(msg, client);
             }
             break;
+
+            case network::Message::MessageType::ChannelListRequest:
+            {
+                _postgreRepo->getAllChannelsList(client->getID());
+            }
             default:
             {
                 break;
@@ -70,7 +77,8 @@ namespace server
     }
 
     Server::Server(const uint16_t& port) 
-        : mAcceptor(mContext, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port))
+        : mAcceptor(mContext, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port)),
+          _postgreRepo(new DataAccess::PostgreRepository)
     {
     }
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "DataAccess/IRepository.hpp"
 #include "Network/Connection.hpp"
 #include "Network/SafeQueue.hpp"
 #include "Network/Message.hpp"
@@ -9,6 +10,7 @@
 #include <chrono>
 #include <deque>
 #include <iostream>
+#include <memory>
 #include <thread>
 
 namespace server
@@ -20,14 +22,11 @@ class Server
              mNewThreadsCount = std::thread::hardware_concurrency();
 
     asio::io_context mContext;
-
     asio::ip::tcp::acceptor mAcceptor;
-
     std::deque<std::shared_ptr<network::Connection>> mConnectionsPointers;
-
     network::SafeQueue<network::Message> mIncomingMessagesQueue;
-
     std::deque<std::thread> mThreads;
+    std::unique_ptr<DataAccess::IRepository> _postgreRepo;
 
     bool onClientConnect(const std::shared_ptr<network::Connection>& client);
 
