@@ -9,7 +9,7 @@ namespace DataAccess
     {
     private:
     
-        std::shared_ptr<PostgreAdapter> mp_dataBaseInstance;
+        std::shared_ptr<PostgreAdapter> _postgre;
 
     public:
 

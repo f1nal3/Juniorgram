@@ -7,18 +7,18 @@
 using namespace DataAccess;
 
 PostgreRepository::PostgreRepository()
-{}
+{
+        _postgre = PostgreAdapter::getPostgre(
+        "dbname=postgres user=postgres hostaddr=127.0.0.1 port=5432");
+}
 
 std::vector<std::string> PostgreRepository::getAllChannelsList()
 {
-    auto psql = mp_dataBaseInstance->getPostgre(
-        "dbname=postgres user=postgres hostaddr=127.0.0.1 port=5432");
-
     std::vector<std::string> result;
-    if (psql->getConnection().is_open())
+    if (_postgre->getConnection().is_open())
     {
         auto channelListRow =
-            psql->query("SELECT channel_name FROM channels;");
+            _postgre->query("SELECT channel_name FROM channels;");
         
         for(auto item : channelListRow.value())
         {
