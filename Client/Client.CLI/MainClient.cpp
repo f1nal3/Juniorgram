@@ -31,14 +31,14 @@ int main()
             }
             else if (cmd == "s")
             {
-                network::Message message;
+                Network::Message message;
                 message << "{'msg':123,'id':777}";
                 clientApp.shell()->send(message);
                 cmd = "";
             }
             else if (cmd == "qs")
             {
-                network::Message message;
+                Network::Message message;
                 message << "{'msg':0,'id':0,'cmd':True}";
                 clientApp.shell()->send(message);
             }

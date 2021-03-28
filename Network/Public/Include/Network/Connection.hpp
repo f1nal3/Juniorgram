@@ -8,7 +8,7 @@
 
 #include <iostream>
 
-namespace network
+namespace Network
 {
 class Connection : public std::enable_shared_from_this<Connection>
 {
@@ -203,4 +203,4 @@ restoreWarning
         });
     }
 };
-}  // namespace network
+}  // namespace Network

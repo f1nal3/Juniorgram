@@ -1,6 +1,6 @@
 #include "Client.hpp"
 
-namespace network
+namespace Network
 {
     Client::~Client() { disconnect(); }
 
@@ -69,8 +69,8 @@ namespace network
 
     void Client::pingServer() const 
     {
-        network::Message message;
-        message.mHeader.mID = network::Message::MessageType::ServerPing;
+        Network::Message message;
+        message.mHeader.mID = Network::Message::MessageType::ServerPing;
 
         std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
 
@@ -79,14 +79,14 @@ namespace network
     }
     void Client::askForChannelList() const
     {
-        network::Message message;
-        message.mHeader.mID = network::Message::MessageType::ChannelListRequest;
+        Network::Message message;
+        message.mHeader.mID = Network::Message::MessageType::ChannelListRequest;
         send(message);
     }
     void Client::messageAll() const 
     {
-        network::Message message;
-        message.mHeader.mID = network::Message::MessageType::MessageAll;
+        Network::Message message;
+        message.mHeader.mID = Network::Message::MessageType::MessageAll;
         send(message);
     }
 }

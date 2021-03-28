@@ -1,19 +1,20 @@
 #include "Server.hpp"
 #include "DataAccess.Static/PostgreRepository.hpp"
+#include "Network/Primitives.hpp"
 
 #include <future>
 
-using network::SafeQueue;
-using network::Connection;
-using network::Message;
+using Network::SafeQueue;
+using Network::Connection;
+using Network::Message;
 
 namespace server
 {
    
     bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
     {
-        network::Message message;
-        message.mHeader.mID = network::Message::MessageType::ServerAccept;
+        Network::Message message;
+        message.mHeader.mID = Network::Message::MessageType::ServerAccept;
         client->send(message);
         return true;
     }
@@ -39,7 +40,7 @@ namespace server
 
         switch (message.mHeader.mID)
         {
-            case network::Message::MessageType::ServerPing:
+            case Network::Message::MessageType::ServerPing:
             {
                 std::tm formattedTimestamp = utility::safe_localtime(
                     std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
@@ -51,7 +52,7 @@ namespace server
             }
             break;
 
-            case network::Message::MessageType::MessageAll:
+            case Network::Message::MessageType::MessageAll:
             {
                 std::tm formattedTimestamp = utility::safe_localtime(
                     std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
@@ -59,27 +60,32 @@ namespace server
                 std::cout << "[" << std::put_time(&formattedTimestamp, "%F %T") << "]["
                           << client->getID() << "]: Message All\n";
 
-                network::Message msg;  // TODO: Why is a new message needed here?
-                msg.mHeader.mID = network::Message::MessageType::ServerMessage;
+                Network::Message msg;  // TODO: Why is a new message needed here?
+                msg.mHeader.mID = Network::Message::MessageType::ServerMessage;
                 msg << client->getID();
                 messageAllClients(msg, client);
             }
             break;
 
-            case network::Message::MessageType::ChannelListRequest:
+            case Network::Message::MessageType::ChannelListRequest:
             {
                 auto future = std::async(std::launch::async,&DataAccess::IRepository::getAllChannelsList, _postgreRepo.get());
 
-                network::Message msg;
-                msg.mHeader.mID = network::Message::MessageType::ChannelListRequest;
+                Network::Message msg;
+                msg.mHeader.mID = Network::Message::MessageType::ChannelListRequest;
 
                 future.wait();
                 auto channelList = future.get();
-                for (const auto& channel : channelList)
+                for (auto& channel : channelList)
                 {
-                    msg << channel << '\n';
+                    Network::ChannelInfo info;
+                    info.channelID = 0;
+                    strcpy(info.channelName, channel.data());
+
+                    msg << info << '\n';
                     std::cout << channel;
                 }
+                msg << channelList.size();
 
                 client->send(msg);
             }
