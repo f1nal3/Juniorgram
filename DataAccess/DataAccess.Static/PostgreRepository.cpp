@@ -10,6 +10,7 @@ PostgreRepository::PostgreRepository()
 {
         _postgre = PostgreAdapter::getPostgre(
         "dbname=postgres user=postgres hostaddr=127.0.0.1 port=5432");
+        //TODO Import parameters from argument parser
 }
 
 std::vector<std::string> PostgreRepository::getAllChannelsList()
