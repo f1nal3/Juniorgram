@@ -11,7 +11,7 @@
 #include <cstring>
 #include <vector>
 
-namespace network
+namespace Network
 {
 class Connection;
 
@@ -22,7 +22,8 @@ struct Message
         ServerAccept,
         ServerPing,
         MessageAll,
-        ServerMessage
+        ServerMessage,
+        ChannelListRequest
     };
 
     struct MessageHeader
@@ -83,4 +84,4 @@ struct Message
         return lhs.mHeader.mTimestamp > rhs.mHeader.mTimestamp;
     }
 };
-}  // namespace network
+}  // namespace Network

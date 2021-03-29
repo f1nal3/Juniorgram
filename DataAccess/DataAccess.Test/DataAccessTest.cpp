@@ -3,13 +3,12 @@
 
 #include <iostream>
 
-#include "DataAccess.Static/DataBasePostgreSQL.hpp"
-#include "DataAccess.Static/DataBasePostgreSQLOperations.hpp"
+#include "DataAccess.Static/PostgreAdapter.hpp"
 
 
 TEST_CASE("Tested the main object", "[PostgreSQL]")
 {
-    auto psql = DBPostgre::PostgreSQL::getPostgre(
+    auto psql = DataAccess::PostgreAdapter::getPostgre(
         "dbname=postgres user=postgres password=123 hostaddr=127.0.0.1 port=5432");
 
     if (psql->getConnection().is_open())

@@ -5,13 +5,13 @@ class App
 {
 private:
     const std::string address = "127.0.0.1";
-    const std::uint16_t port            = 60000;
-    network::Client client;
+    const std::uint16_t port            = 65001;
+    Network::Client client;
 
 public:
     App(/* args */);
     ~App();
 
-    network::Client* shell();
+    Network::Client* shell();
     bool loop();
 };

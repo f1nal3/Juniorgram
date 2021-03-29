@@ -1,8 +1,8 @@
 #include "app.h"
 
-#include "Login.h"
 #include "MainWidget.h"
-#include "Registration.h"
+#include "login.hpp"
+#include "registration.hpp"
 namespace App
 {
 namespace
@@ -47,7 +47,11 @@ void setAppState(AppState app_state)
         }
         break;
         case AppState::Authorized:
-            break;
+        {
+            auto* wid = new MainWidget();
+            widget->setCentralWidget(wid);
+        }
+        break;
         case AppState::RegistrationForm:
         {
             auto* wid = new Registration();

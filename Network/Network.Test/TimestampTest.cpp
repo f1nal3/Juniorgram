@@ -3,8 +3,8 @@
 
 TEST_CASE("Message comparison operators")
 {
-	network::Message early;
-    network::Message late;
+	Network::Message early;
+    Network::Message late;
 
 	early.mHeader.mTimestamp = std::chrono::system_clock::now();
 	late.mHeader.mTimestamp = early.mHeader.mTimestamp + std::chrono::milliseconds(10);
@@ -26,7 +26,7 @@ TEST_CASE("Message default constructor")
 {
 	SECTION("Default constructor")
 	{
-		std::vector<network::Message> messages;
+		std::vector<Network::Message> messages;
 
 		for (int i = 0; i != 10; ++i)
 		{
