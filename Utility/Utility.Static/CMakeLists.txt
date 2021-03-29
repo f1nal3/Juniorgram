@@ -3,7 +3,10 @@ set(OUTPUT_NAME Utility.Static)
 
 set(SOURCE_FILES
     Serialize.hpp
-    Serialize.cpp)
+    Serialize.cpp
+    SafePriorityQueue.hpp
+    Task.hpp
+    TaskManager.hpp)
 
 find_package(Qt5 COMPONENTS Widgets Core REQUIRED)
 
