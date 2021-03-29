@@ -40,13 +40,13 @@ public:
         mBlock.notify_one();
     }
 
-    bool empty()
+    bool empty() const
     {
         std::lock_guard<std::mutex> guardLock(mGuardMutex);
         return mRawQueue.empty();
     }
 
-    size_t size()
+    size_t size() const
     {
         std::lock_guard<std::mutex> guardLock(mGuardMutex);
         return mRawQueue.size();

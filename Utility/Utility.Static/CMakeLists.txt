@@ -4,9 +4,9 @@ set(OUTPUT_NAME Utility.Static)
 set(SOURCE_FILES
     Serialize.hpp
     Serialize.cpp
-    SafePriorityQueue.h
-    Task.h
-    TaskManager.h)
+    SafePriorityQueue.hpp
+    Task.hpp
+    TaskManager.hpp)
 
 find_package(Qt5 COMPONENTS Widgets Core REQUIRED)
 

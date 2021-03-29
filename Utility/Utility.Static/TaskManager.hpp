@@ -3,8 +3,8 @@
 #include <queue>
 #include <vector>
 
-#include "SafePriorityQueue.h"
-#include "Task.h"
+#include "SafePriorityQueue.hpp"
+#include "Task.hpp"
 
 class TaskManager
 {

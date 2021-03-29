@@ -1,5 +1,6 @@
 #pragma once
 #include <functional>
+#include <iostream>
 
 class Task
 {
@@ -18,7 +19,17 @@ public:
 
     Priority getImportance() const { return mImportance; }
 
-    void operator()() { mTask(); }
+    void operator()() const 
+    {
+        try
+        {
+            mTask(); 
+        } 
+        catch (...)
+        {
+            std::cerr << "Unknown exception" << std::endl;
+        }
+    }
 
 public:
     struct Comporator
