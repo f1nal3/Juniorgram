@@ -11,7 +11,7 @@ Login::Login(QWidget* parent) : QWidget(parent)
     buttonRegistration = std::make_unique<FlatButton>("Registration");
 
     QObject::connect(buttonSignin.get(), &FlatButton::pressed, []() {
-        QDesktopServices::openUrl(QUrl("https://www.youtube.com/watch?v=zwBIll-YX-E"));
+        App::setAppState(AppState::Authorized);
     });
     QObject::connect(buttonRegistration.get(), &FlatButton::pressed,
                      []() { App::setAppState(AppState::RegistrationForm); });

@@ -7,6 +7,9 @@ set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CXX_EXTENSIONS off)
 
+# For those VSCode users
+set(EXPORT_COMPILE_COMMANDS TRUE)
+
 # Set warnings level higher and force treating them as errors.
 # GCC TBD
 if (MSVC)

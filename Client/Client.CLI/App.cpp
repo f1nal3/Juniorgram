@@ -1,4 +1,5 @@
 #include "App.hpp"
+#include "Network/Primitives.hpp"
 
 App::App(/* args */) { client.connect(address, port); }
 
@@ -11,7 +12,7 @@ App::~App()
     }
 }
 
-network::Client* App::shell() { return &client; }
+Network::Client* App::shell() { return &client; }
 
 bool App::loop()
 {
@@ -19,17 +20,17 @@ bool App::loop()
     {
         if (!client.incoming().empty())
         {
-            network::Message message = client.incoming().pop_front();
+            Network::Message message = client.incoming().pop_front();
 
             switch (message.mHeader.mID)
             {
-                case network::Message::MessageType::ServerAccept:
+                case Network::Message::MessageType::ServerAccept:
                 {
                     std::cout << "Server Accepted Connection\n";
                 }
                 break;
 
-                case network::Message::MessageType::ServerPing:
+                case Network::Message::MessageType::ServerPing:
                 {
                     std::chrono::system_clock::time_point timeNow =
                         std::chrono::system_clock::now();
@@ -40,11 +41,31 @@ bool App::loop()
                 }
                 break;
 
-                case network::Message::MessageType::ServerMessage:
+                case Network::Message::MessageType::ServerMessage:
                 {
                     uint64_t clientID;
                     message >> clientID;
                     std::cout << "Hello from [" << clientID << "]\n";
+                }
+                break;
+
+                case Network::Message::MessageType::ChannelListRequest:
+                {
+                    std::cout << "Channel list received: \n";
+                    std::vector<std::string> channelList;
+
+                    std::size_t channelListSize;
+                    message >> channelListSize;
+
+                    for (std::size_t i = 0; i < channelListSize; i++)
+                    {
+                        Network::ChannelInfo info;
+                        message >> info;
+                        channelList.emplace_back(info.channelName);
+                    }
+
+                    for(auto& item : channelList)
+                        std::cout << item;
                 }
                 break;
 				default:

@@ -47,7 +47,11 @@ void setAppState(AppState app_state)
         }
         break;
         case AppState::Authorized:
-            break;
+        {
+            auto* wid = new MainWidget();
+            widget->setCentralWidget(wid);
+        }
+        break;
         case AppState::RegistrationForm:
         {
             auto* wid = new Registration();
