@@ -3,7 +3,7 @@
 #include <ctime>
 #include <mutex>
 
-namespace utility
+namespace Utility
 {
     inline std::tm safe_localtime(const std::time_t& time)
     {
@@ -24,4 +24,4 @@ namespace utility
     
         return formatted_time;
     }
-}  // namespace utility
+}  // namespace Utility
