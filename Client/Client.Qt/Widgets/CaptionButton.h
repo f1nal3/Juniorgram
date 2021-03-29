@@ -34,7 +34,7 @@ public slots:
 
 signals:
 
-   /* void mouseRelease();*/
+   void mouseRelease();
 
 public:
     bool eventFilter(QObject* watched, QEvent* event) override;
