@@ -5,7 +5,7 @@
 #include <mutex>
 #include <thread>
 
-namespace network
+namespace Network
 {
 template <typename T>
 class SafeQueue
@@ -94,4 +94,4 @@ public:
         }
     }
 };
-}  // namespace network
+}  // namespace Network

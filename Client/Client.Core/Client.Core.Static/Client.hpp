@@ -4,7 +4,7 @@
 #include "Network/Message.hpp"
 #include "Network/SafeQueue.hpp"
 
-namespace network
+namespace Network
 {
 class Client
 {
@@ -30,6 +30,8 @@ public:
 
     void pingServer() const;
 
+    void askForChannelList() const;
+
     void messageAll() const;
 };
-}  // namespace network
+}  // namespace Network

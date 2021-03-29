@@ -261,6 +261,7 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
 {
     Q_UNUSED(eventType);
     MSG* msg = static_cast<MSG*>(message);
+
     if (msg->message == WM_NCACTIVATE)
     {
         if (IsCompositionEnabled())
