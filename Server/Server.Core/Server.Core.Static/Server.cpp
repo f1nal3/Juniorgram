@@ -80,15 +80,19 @@ namespace Server
                 {
                     Network::ChannelInfo info;
                     info.channelID = 0;
-                    strcpy(info.channelName, channel.data());
 
-                    msg << info << '\n';
-                    std::cout << channel;
+                    suppressWarning(4996, -Winit-self)
+                    strcpy(info.channelName, channel.data());
+                    restoreWarning
+
+                    msg << info;
+                    std::cout << channel << '\n';
                 }
                 msg << channelList.size();
 
                 client->send(msg);
             }
+            break;
             default:
             {
                 break;
