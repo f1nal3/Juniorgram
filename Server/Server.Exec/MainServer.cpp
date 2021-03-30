@@ -15,7 +15,7 @@ int main(int argc, const char** argv)
     {
         ArgumentParser parser(argc, argv);
 
-        server::Server server(parser.getPort());
+        Server::Server server(parser.getPort());
         server.start();
 
         while (true)

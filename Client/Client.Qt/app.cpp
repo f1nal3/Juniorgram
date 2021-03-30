@@ -48,7 +48,7 @@ void setAppState(AppState app_state)
         break;
         case AppState::Authorized:
         {
-            auto* wid = new MainWidget();
+            auto* wid = new QWidget();
             widget->setCentralWidget(wid);
         }
         break;
