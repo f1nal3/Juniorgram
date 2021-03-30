@@ -126,10 +126,11 @@ namespace Server
                 client->send(msg);
             }
             break;
+
             default:
             {
-                break;
             }
+            break;
         }
     }
 

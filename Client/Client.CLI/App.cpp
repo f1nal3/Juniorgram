@@ -68,6 +68,7 @@ bool App::loop()
                         std::cout << item << '\n';
                 }
                 break;
+                
                 case Network::Message::MessageType::MessageHistoryRequest:
                 {
                     std::cout << "Message history received: \n";
@@ -87,8 +88,8 @@ bool App::loop()
                         std::cout << item << '\n';
                 }
                 break;
-				default:
-				break;
+				        default:
+				        break;
             }
         }
     }
