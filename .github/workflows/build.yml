@@ -29,12 +29,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: juniorgram-server
-          path: /home/runner/work/Juniorgram/Juniorgram/build/bin/Server.Exec
-          
-      - name: find server exec
-        run: find . -name "Server.Exec"
-          
-          
-          
-          
-          
+          path: /bin/Server.Exec
