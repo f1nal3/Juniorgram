@@ -69,7 +69,9 @@ namespace Server
 
             case Network::Message::MessageType::ChannelListRequest:
             {
-                auto future = std::async(std::launch::async,&DataAccess::IRepository::getAllChannelsList, _postgreRepo.get());
+                auto future = std::async(std::launch::async,
+                                         &DataAccess::IRepository::getAllChannelsList,
+                                         _postgreRepo.get());
 
                 Network::Message msg;
                 msg.mHeader.mID = Network::Message::MessageType::ChannelListRequest;
@@ -82,13 +84,44 @@ namespace Server
                     info.channelID = 0;
 
                     suppressWarning(4996, -Winit-self)
-                    strcpy(info.channelName, channel.data());
+                        strcpy(info.channelName, channel.data());
                     restoreWarning
 
                     msg << info;
                     std::cout << channel << '\n';
                 }
                 msg << channelList.size();
+
+                client->send(msg);
+            }
+            break;
+
+            case Network::Message::MessageType::MessageHistoryRequest:
+            {
+                auto future = std::async(std::launch::async,
+                                         &DataAccess::IRepository::getMessageHistoryForUser,
+                                         _postgreRepo.get(),
+                                         std::to_string(client->getID()));
+
+                Network::Message msg;
+                msg.mHeader.mID = Network::Message::MessageType::MessageHistoryRequest;
+
+                future.wait();
+                auto messageHistory = future.get();
+
+                for (auto& msgFromHistory : messageHistory)
+                {
+                    Network::MessageInfo info;
+                    info.userID = client->getID();
+
+                    suppressWarning(4996, -Winit-self)
+                        strcpy(info.message, msgFromHistory.data());
+                    restoreWarning
+
+                    msg << info;
+                    std::cout << info.message << '\n';
+                }
+                msg << messageHistory.size();
 
                 client->send(msg);
             }
