@@ -8,8 +8,9 @@ using namespace DataAccess;
 
 PostgreRepository::PostgreRepository()
 {
+
     m_postgreInstance = PostgreAdapter::getPostgre(
-        "dbname=postgres user=postgres password=Asw789654 hostaddr=127.0.0.1 port=5432");
+        "dbname=postgres user=postgres hostaddr=127.0.0.1 port=5432");
     //TODO Import parameters from argument parser
 }
 

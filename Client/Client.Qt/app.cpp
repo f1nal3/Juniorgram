@@ -49,6 +49,7 @@ void setAppState(AppState app_state)
         case AppState::Authorized:
         {
             auto* wid = new MainWidget();
+
             widget->setCentralWidget(wid);
         }
         break;

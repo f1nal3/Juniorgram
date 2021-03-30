@@ -13,7 +13,7 @@
 #include <memory>
 #include <thread>
 
-namespace server
+namespace Server
 {
 
 class Server

@@ -251,15 +251,21 @@ void MainWidget::paintEvent(QPaintEvent* event)
 }
 
 #ifdef _WIN32
-
+bool IsCompositionEnabled()
+{
+    auto result        = BOOL(FALSE);
+    const auto success = (::DwmIsCompositionEnabled(&result) == S_OK);
+    return success && result;
+}
 bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* result)
 {
     Q_UNUSED(eventType);
     MSG* msg = static_cast<MSG*>(message);
+
     int isit;
     if (msg->message == WM_NCACTIVATE)
     {
-        if (::DwmIsCompositionEnabled(&isit))
+        if (IsCompositionEnabled())
         {
             const auto res = DefWindowProc(msg->hwnd, msg->message, msg->wParam, -1);
             if (result) *result = res;

@@ -8,14 +8,14 @@
 #include <Server.hpp>
 #include <ArgumentParser.hpp>
 
-int main(/*int argc, const char** argv*/)
+int main(int argc, const char** argv)
 {
 
     try
     {
-        //ArgumentParser parser(argc, argv);
+        ArgumentParser parser(argc, argv);
 
-        server::Server server(63455/*parser.getPort()*/);
+        Server::Server server(parser.getPort());
         server.start();
 
         while (true)

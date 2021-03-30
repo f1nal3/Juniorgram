@@ -8,7 +8,7 @@ using Network::SafeQueue;
 using Network::Connection;
 using Network::Message;
 
-namespace server
+namespace Server
 {
    
     bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
@@ -42,7 +42,7 @@ namespace server
         {
             case Network::Message::MessageType::ServerPing:
             {
-                std::tm formattedTimestamp = utility::safe_localtime(
+                std::tm formattedTimestamp = Utility::safe_localtime(
                     std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
 
                 std::cout << "[" << std::put_time(&formattedTimestamp, "%F %T") << "]["
@@ -54,7 +54,7 @@ namespace server
 
             case Network::Message::MessageType::MessageAll:
             {
-                std::tm formattedTimestamp = utility::safe_localtime(
+                std::tm formattedTimestamp = Utility::safe_localtime(
                     std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
 
                 std::cout << "[" << std::put_time(&formattedTimestamp, "%F %T") << "]["
@@ -83,9 +83,7 @@ namespace server
                     Network::ChannelInfo info;
                     info.channelID = 0;
 
-                    suppressWarning(4996, "")
                     std::strcpy(info.channelName, channel.data());
-                    restoreWarning
 
                     msg << info << '\n';
                     std::cout << channel;
@@ -288,4 +286,4 @@ namespace server
         }
     }
 
-}  // namespace server
+}  // namespace Server
