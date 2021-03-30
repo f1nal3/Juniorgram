@@ -65,7 +65,7 @@ bool App::loop()
                     }
 
                     for(auto& item : channelList)
-                        std::cout << item;
+                        std::cout << item << '\n';
                 }
                 break;
 				default:
