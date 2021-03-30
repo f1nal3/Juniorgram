@@ -23,7 +23,8 @@ struct Message
         ServerPing,
         MessageAll,
         ServerMessage,
-        ChannelListRequest
+        ChannelListRequest,
+        MessageHistoryRequest
     };
 
     struct MessageHeader

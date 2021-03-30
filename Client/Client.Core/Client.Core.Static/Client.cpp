@@ -83,6 +83,12 @@ namespace Network
         message.mHeader.mID = Network::Message::MessageType::ChannelListRequest;
         send(message);
     }
+    void Client::askForMessageHistory() const
+    { 
+        Network::Message message;
+        message.mHeader.mID = Network::Message::MessageType::MessageHistoryRequest;
+        send(message);
+    }
     void Client::messageAll() const 
     {
         Network::Message message;

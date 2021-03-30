@@ -32,6 +32,8 @@ public:
 
     void askForChannelList() const;
 
+    void askForMessageHistory() const;
+
     void messageAll() const;
 };
 }  // namespace Network

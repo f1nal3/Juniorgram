@@ -69,7 +69,9 @@ namespace server
 
             case Network::Message::MessageType::ChannelListRequest:
             {
-                auto future = std::async(std::launch::async,&DataAccess::IRepository::getAllChannelsList, _postgreRepo.get());
+                auto future = std::async(std::launch::async,
+                                         &DataAccess::IRepository::getAllChannelsList,
+                                         _postgreRepo.get());
 
                 Network::Message msg;
                 msg.mHeader.mID = Network::Message::MessageType::ChannelListRequest;
@@ -80,7 +82,10 @@ namespace server
                 {
                     Network::ChannelInfo info;
                     info.channelID = 0;
-                    strcpy(info.channelName, channel.data());
+
+                    suppressWarning(4996, "")
+                    std::strcpy(info.channelName, channel.data());
+                    restoreWarning
 
                     msg << info << '\n';
                     std::cout << channel;
@@ -89,6 +94,29 @@ namespace server
 
                 client->send(msg);
             }
+            break;
+
+            case Network::Message::MessageType::MessageHistoryRequest:
+            {
+                auto future = std::async(std::launch::async,
+                                         &DataAccess::IRepository::getMessageHistoryForUser,
+                                         _postgreRepo.get(), 
+                                         std::to_string(client->getID()));
+
+                Network::Message msg;
+                msg.mHeader.mID = Network::Message::MessageType::MessageHistoryRequest;
+
+                future.wait();
+                auto messageHistory = future.get();
+                for (auto& msgLine : messageHistory)
+                {
+                    msg << msgLine.c_str() << "\n";               
+                }
+                msg << messageHistory.size();
+
+                client->send(msg);
+            }
+            break;
             default:
             {
                 break;

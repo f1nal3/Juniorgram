@@ -8,14 +8,14 @@
 #include <Server.hpp>
 #include <ArgumentParser.hpp>
 
-int main(int argc, const char** argv)
+int main(/*int argc, const char** argv*/)
 {
 
     try
     {
-        ArgumentParser parser(argc, argv);
+        //ArgumentParser parser(argc, argv);
 
-        server::Server server(parser.getPort());
+        server::Server server(63455/*parser.getPort()*/);
         server.start();
 
         while (true)
@@ -28,5 +28,6 @@ int main(int argc, const char** argv)
         std::cerr << e.what() << std::endl;
     }
 
+    std::cin.get();
     return 0;
 }

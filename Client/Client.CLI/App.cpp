@@ -68,6 +68,32 @@ bool App::loop()
                         std::cout << item;
                 }
                 break;
+
+                case Network::Message::MessageType::MessageHistoryRequest:
+                {
+                    std::cout << "Message history received: \n";
+                    std::vector<std::string> messageHistory;
+
+                    std::size_t messageHistorySize;
+                    message >> messageHistorySize;
+
+                    char msg[256];
+                    for (std::size_t i = 0; i < messageHistorySize; i++)
+                    {
+                        message >> msg;
+                        if (auto is_there = std::find(msg, msg + 256, '\0'); is_there == msg + 256) 
+                        {
+                            msg[255] = '\0';
+                        }
+
+                        messageHistory.emplace_back(std::string(msg));
+                        std::memcpy(msg, "", 256);
+                    }
+
+                    for (auto& item : messageHistory)
+                        std::cout << item;
+                }
+                break;
 				default:
 				break;
             }
