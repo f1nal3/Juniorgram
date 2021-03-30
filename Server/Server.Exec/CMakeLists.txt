@@ -2,9 +2,7 @@ set(TARGET Server.Exec)
 set(OUTPUT_NAME Juniorgram.Server.Exec)
 
 set(SOURCE_FILES
-    MainServer.cpp
-    ArgumentParser.h
-    KeysValidator.h)
+    MainServer.cpp)
 
 if(WIN32)
     set(EXTRA_LIBS ws2_32 wsock32)
