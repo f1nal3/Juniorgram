@@ -68,8 +68,28 @@ bool App::loop()
                         std::cout << item << '\n';
                 }
                 break;
-				default:
-				break;
+                
+                case Network::Message::MessageType::MessageHistoryRequest:
+                {
+                    std::cout << "Message history received: \n";
+                    std::vector<std::string> messageList;
+
+                    std::size_t messageListSize;
+                    message >> messageListSize;
+                    
+                    for (std::size_t i = 0; i < messageListSize; i++)
+                    {
+                        Network::MessageInfo info;
+                        message >> info;
+                        messageList.emplace_back(std::string(info.message));
+                    }
+
+                    for (auto& item : messageList)
+                        std::cout << item << '\n';
+                }
+                break;
+				        default:
+				        break;
             }
         }
     }
