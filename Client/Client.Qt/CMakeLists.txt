@@ -16,7 +16,7 @@ set(SOURCE_FILES
         Widgets/TextEdit.h
         Style/Style.h
         Style/Style.cpp
-        Style/Shadow.h
+        Style/Shadow.hpp
         MainWidget.cpp
         MainWidget.h
         login.cpp

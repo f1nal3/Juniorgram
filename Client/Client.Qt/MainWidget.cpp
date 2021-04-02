@@ -1,6 +1,6 @@
 #include "MainWidget.h"
 
-#include "Style/Shadow.h"
+#include "Style/Shadow.hpp"
 #include "Style/Style.h"
 #include "Widgets/InputFields.h"
 

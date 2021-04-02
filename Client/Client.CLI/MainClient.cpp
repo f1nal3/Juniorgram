@@ -46,6 +46,10 @@ int main()
             {
                 clientApp.shell()->askForChannelList();
             }
+            else if (cmd == "mh")
+            {
+                clientApp.shell()->askForMessageHistory();
+            }
             else if (cmd == "q")
             {
                 quit = true;
