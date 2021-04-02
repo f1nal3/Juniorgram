@@ -1,12 +1,11 @@
 #pragma once
 
+#include <asio.hpp>
+#include <iostream>
+
 #include "Message.hpp"
 #include "SafeQueue.hpp"
 #include "Utility/Utility.hpp"
-
-#include <asio.hpp>
-
-#include <iostream>
 
 namespace Network
 {
@@ -31,99 +30,112 @@ private:
 
     Message mMessageBuffer;
 
+    typedef std::function<void(std::error_code)> handler;
+
     void writeHeader()
     {
-        asio::async_write(
-            mSocket,
-            asio::buffer(&mOutcomingMessagesQueue.front().mHeader, sizeof(Message::MessageHeader)),
-            [this](std::error_code error, [[maybe_unused]] std::size_t length) {
-                if (!error)
+        const handler writeHeaderHandler = [this](std::error_code error) {
+            if (!error)
+            {
+                if (!mOutcomingMessagesQueue.front().mBody.empty())
                 {
-                    if (!mOutcomingMessagesQueue.front().mBody.empty())
-                    {
-                        writeBody();
-                    }
-                    else
-                    {
-                        mOutcomingMessagesQueue.pop_front();
-
-                        if (!mOutcomingMessagesQueue.empty())
-                        {
-                            writeHeader();
-                        }
-                    }
+                    writeBody();
                 }
                 else
                 {
-                    std::cout << "[" << mID << "] Write Header Fail.\n";
-                    mSocket.close();
+                    mOutcomingMessagesQueue.pop_front();
+
+                    if (!mOutcomingMessagesQueue.empty())
+                    {
+                        writeHeader();
+                    }
                 }
-            });
+            }
+            else
+            {
+                std::cout << "[" << mID << "] Write Header Fail.\n";
+                mSocket.close();
+            }
+        };
+
+        asio::async_write(
+            mSocket,
+            asio::buffer(&mOutcomingMessagesQueue.front().mHeader, sizeof(Message::MessageHeader)),
+            asio::transfer_at_least(sizeof(&mOutcomingMessagesQueue.front().mHeader)),
+            bind(writeHeaderHandler, std::placeholders::_1));
     }
 
     void writeBody()
     {
+        const handler writeBodyHandler = [this](std::error_code error) {
+            if (!error)
+            {
+                mOutcomingMessagesQueue.pop_front();
+
+                if (!mOutcomingMessagesQueue.empty())
+                {
+                    writeHeader();
+                }
+            }
+            else
+            {
+                std::cout << "[" << mID << "] Write Body Fail.\n";
+                mSocket.close();
+            }
+        };
+
         asio::async_write(mSocket,
                           asio::buffer(mOutcomingMessagesQueue.front().mBody.data(),
                                        mOutcomingMessagesQueue.front().mBody.size()),
-                          [this](std::error_code error, [[maybe_unused]] std::size_t length) {
-                              if (!error)
-                              {
-                                  mOutcomingMessagesQueue.pop_front();
-
-                                  if (!mOutcomingMessagesQueue.empty())
-                                  {
-                                      writeHeader();
-                                  }
-                              }
-                              else
-                              {
-                                  std::cout << "[" << mID << "] Write Body Fail.\n";
-                                  mSocket.close();
-                              }
-                          });
+                          asio::transfer_at_least(mOutcomingMessagesQueue.front().mBody.size()),
+                          bind(writeBodyHandler, std::placeholders::_1));
     }
 
     void readHeader()
     {
+        const handler readHeaderHandler = [this](std::error_code error) {
+            if (!error)
+            {
+                if (mMessageBuffer.mHeader.mBodySize > 0)
+                {
+                    mMessageBuffer.mBody.resize(mMessageBuffer.mHeader.mBodySize);
+                    readBody();
+                }
+                else
+                {
+                    addToIncomingMessageQueue();
+                }
+            }
+            else
+            {
+                std::cout << "[" << mID << "] Read Header Fail.\n";
+                mSocket.close();
+            }
+        };
+
         asio::async_read(mSocket,
                          asio::buffer(&mMessageBuffer.mHeader, sizeof(Message::MessageHeader)),
-                         [this](std::error_code error, [[maybe_unused]] std::size_t length) {
-                             if (!error)
-                             {
-                                 if (mMessageBuffer.mHeader.mBodySize > 0)
-                                 {
-                                     mMessageBuffer.mBody.resize(mMessageBuffer.mHeader.mBodySize);
-                                     readBody();
-                                 }
-                                 else
-                                 {
-                                     addToIncomingMessageQueue();
-                                 }
-                             }
-                             else
-                             {
-                                 std::cout << "[" << mID << "] Read Header Fail.\n";
-                                 mSocket.close();
-                             }
-                         });
+                         bind(readHeaderHandler, std::placeholders::_1));
     }
 
     void readBody()
     {
+        const handler readBodyHandler = [this](std::error_code error) {
+            if (!error)
+            {
+                addToIncomingMessageQueue();
+            }
+            else
+            {
+                std::cout << "[" << mID << "] Read Body Fail.\n";
+                mSocket.close();
+            }
+        };
+
         asio::async_read(mSocket,
                          asio::buffer(mMessageBuffer.mBody.data(), mMessageBuffer.mBody.size()),
-                         [this](std::error_code error, [[maybe_unused]] std::size_t length) {
-                             if (!error)
-                             {
-                                 addToIncomingMessageQueue();
-                             }
-                             else
-                             {
-                                 std::cout << "[" << mID << "] Read Body Fail.\n";
-                                 mSocket.close();
-                             }
-                         });
+                         asio::transfer_at_least(mMessageBuffer.mBody.size()),
+                         bind(readBodyHandler, std::placeholders::_1));
     }
 
     void addToIncomingMessageQueue()
@@ -164,8 +176,8 @@ public:
             }
         }
     }
-suppressWarning(4100, -Wunused-parameter)
-    void connectToServer(const asio::ip::tcp::resolver::results_type& endpoint)
+    suppressWarning(4100, -Wunused - parameter) void connectToServer(
+        const asio::ip::tcp::resolver::results_type& endpoint)
     {
         if (mOwner == OwnerType::CLIENT)
         {
@@ -178,8 +190,7 @@ suppressWarning(4100, -Wunused-parameter)
                                 });
         }
     }
-restoreWarning
-    void disconnect()
+    restoreWarning void disconnect()
     {
         if (isConnected())
         {
