@@ -50,6 +50,10 @@ int main()
             {
                 clientApp.shell()->askForMessageHistory();
             }
+            else if (cmd == "sm")
+            {
+                clientApp.shell()->storeMessage();
+            }
             else if (cmd == "q")
             {
                 quit = true;

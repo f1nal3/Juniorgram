@@ -34,6 +34,8 @@ public:
 
     void askForMessageHistory() const;
 
+    void storeMessage() const;
+
     void messageAll() const;
 };
 }  // namespace Network

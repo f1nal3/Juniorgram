@@ -127,6 +127,14 @@ namespace Server
             }
             break;
 
+            case Network::Message::MessageType::MessageStoreRequest:
+            {
+                Network::Message message;
+                message.mHeader.mID = Network::Message::MessageType::MessageStoreRequest;
+                client->send(message);
+            }
+            break;
+
             default:
             {
             }

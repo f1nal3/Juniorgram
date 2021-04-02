@@ -88,6 +88,13 @@ bool App::loop()
                         std::cout << item << '\n';
                 }
                 break;
+
+                case Network::Message::MessageType::MessageStoreRequest:
+                {
+                    std::cout << "Message were stored" << std::endl;
+                }
+                break;
+
 				        default:
 				        break;
             }

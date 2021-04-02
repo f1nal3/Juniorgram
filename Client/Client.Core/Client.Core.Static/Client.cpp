@@ -89,6 +89,12 @@ namespace Network
         message.mHeader.mID = Network::Message::MessageType::MessageHistoryRequest;
         send(message);
     }
+    void Client::storeMessage() const
+    {
+        Network::Message message;
+        message.mHeader.mID = Network::Message::MessageType::MessageStoreRequest;
+        send(message);
+    }
     void Client::messageAll() const 
     {
         Network::Message message;
