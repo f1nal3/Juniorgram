@@ -1,4 +1,4 @@
-#include "MessageWidget.h"
+#include "MessageWidget.hpp"
 
 MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QWidget* parent)
     : QWidget(parent),

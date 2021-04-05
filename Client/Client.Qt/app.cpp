@@ -3,7 +3,7 @@
 #include "MainWidget.h"
 #include "login.hpp"
 #include "registration.hpp"
-#include "ChatWindow.h"
+#include "ChatWindow.hpp"
 namespace App
 {
 namespace

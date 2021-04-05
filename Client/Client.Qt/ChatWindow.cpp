@@ -1,4 +1,4 @@
-#include "ChatWindow.h"
+#include "ChatWindow.hpp"
 #include "app.h"
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)

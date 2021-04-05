@@ -24,12 +24,12 @@ set(SOURCE_FILES
         registration.cpp
         registration.hpp
         ChatWindow.cpp
-        ChatWindow.h
+        ChatWindow.hpp
         app.cpp
         app.h
         main.cpp
         MessageWidget.cpp
-        MessageWidget.h
+        MessageWidget.hpp
         )
 
 add_executable(${TARGET} ${SOURCE_FILES}

@@ -2,7 +2,7 @@
 #include "Widgets/TextEdit.h"
 #include "Widgets/InputFields.h"
 #include "pch.h"
-#include "MessageWidget.h"
+#include "MessageWidget.hpp"
 
 class ChatWindow : public QWidget
 {
