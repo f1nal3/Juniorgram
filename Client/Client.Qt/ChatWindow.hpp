@@ -29,4 +29,9 @@ private:
     void connectButton();
     void newMessage(QString textMessage, QString userNameMessage);
     void newMessage(QString textMessage);
+
+public slots:
+    void updateMessagesList_User();
+    void updateMessagesList_Bot();
+
 };
