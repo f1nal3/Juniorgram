@@ -1,6 +1,6 @@
 #include "MessageWidget.h"
 
-QMessageWidget::QMessageWidget(QString textMessage, QString nameOfUser, QWidget* parent)
+MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QWidget* parent)
     : QWidget(parent),
     messageText(textMessage),
     userName(nameOfUser),
@@ -13,36 +13,22 @@ QMessageWidget::QMessageWidget(QString textMessage, QString nameOfUser, QWidget*
     setLayout(mainLayout);
 }
 
-QMessageWidget::QMessageWidget() 
-    : QMessageWidget(EMPTY_MESSAGE, EMPTY_USER_NAME){}
+MessageWidget::MessageWidget() 
+    : MessageWidget(EMPTY_MESSAGE, EMPTY_USER_NAME){}
 
-QMessageWidget::QMessageWidget(QString textMessage)
-    : QMessageWidget(textMessage, EMPTY_USER_NAME){}
+MessageWidget::MessageWidget(QString textMessage)
+    : MessageWidget(textMessage, EMPTY_USER_NAME){}
 
 
-QMessageWidget::~QMessageWidget() 
-{
-    //delete messageTimeEdit;
-    //delete userNameLabel;
-    //delete reactionLabel;
-    //delete horizontalUpLeftSpacer;
-    //delete horizontalUpRightSpacer;
-    //delete messageTextEdit;
-    //delete reactionChoseBox;
-    //delete deleteButton;
-    //delete horizontalDownSpacer;
-    //delete UpLevelLayout;
-    //delete DownLevelLayout;
-    //delete mainLayout;
-}
+MessageWidget::~MessageWidget() {}
 
-void QMessageWidget::uiConnet() 
+void MessageWidget::uiConnet() 
 { 
     connect(reactionChoseBox, SIGNAL(currentIndexChanged(QString)), SLOT(reactionChange(QString)));
     connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteButtonClick()));
 }
 
-void QMessageWidget::initializationUi()
+void MessageWidget::initializationUi()
 {
     //Layouts
     mainLayout    = new QVBoxLayout(this);
@@ -112,18 +98,18 @@ void QMessageWidget::initializationUi()
     mainLayout->addLayout(DownLevelLayout);
 }
 
-void QMessageWidget::deleteButtonClick()
+void MessageWidget::deleteButtonClick()
 {
     QWidget::close(); }
 
-bool QMessageWidget::isReaction() { return (reactionMap["Like"] > 0) ? false : true; }
+bool MessageWidget::isReaction() { return (reactionMap["Like"] > 0) ? false : true; }
 
-QString QMessageWidget::getReaction()
+QString MessageWidget::getReaction()
 {
     return (isReaction()) ? NO_SELECTED_RETURN : reactionOnMessage;
 }
 
-void QMessageWidget::updateWidget()
+void MessageWidget::updateWidget()
 {
     messageTimeEdit->setTime(timeMessage);
     messageTextEdit->setText(messageText);
@@ -137,7 +123,7 @@ void QMessageWidget::updateWidget()
     }
 }
 
-void QMessageWidget::reactionChange(QString newReaction)
+void MessageWidget::reactionChange(QString newReaction)
 {
     if (newReaction != "Choose")
     {

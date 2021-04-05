@@ -49,7 +49,7 @@ void ChatWindow::updateMessagesList_Bot()
 
 void ChatWindow::newMessage(QString textMessage, QString userNameMessage)
 {
-    QMessageWidget* myItem = new QMessageWidget(textMessage, userNameMessage);
+    MessageWidget* myItem = new MessageWidget(textMessage, userNameMessage);
     QListWidgetItem* item  = new QListWidgetItem();
     item->setSizeHint(QSize(0, 120));
     chatWidget->addItem(item);
@@ -58,7 +58,7 @@ void ChatWindow::newMessage(QString textMessage, QString userNameMessage)
 
 void ChatWindow::newMessage(QString textMessage)
 {
-    QMessageWidget* myItem = new QMessageWidget(textMessage);
+    MessageWidget* myItem = new MessageWidget(textMessage);
     QListWidgetItem* item  = new QListWidgetItem();
     item->setSizeHint(QSize(0, 120));
     chatWidget->addItem(item);

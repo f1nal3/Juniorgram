@@ -16,12 +16,7 @@ constexpr auto EMPTY_USER_NAME    = "You";
 #include <QTextEdit>
 #include <QPushButton>
 
-QT_BEGIN_NAMESPACE
-namespace Ui
-{ class QMessageWidget; }
-QT_END_NAMESPACE
-
-class QMessageWidget : public QWidget
+class MessageWidget : public QWidget
 {
     Q_OBJECT
 
@@ -45,10 +40,10 @@ public:
 
 
 
-    explicit QMessageWidget();
-    explicit QMessageWidget(QString textMessage, QString nameOfUser, QWidget* parent = nullptr);
-    explicit QMessageWidget(QString textMessage);
-    ~QMessageWidget();
+    explicit MessageWidget();
+    explicit MessageWidget(QString textMessage, QString nameOfUser, QWidget* parent = nullptr);
+    explicit MessageWidget(QString textMessage);
+    ~MessageWidget();
 
 
 private slots:
