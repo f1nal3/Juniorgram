@@ -6,7 +6,7 @@
 
 class ChatWindow : public QWidget
 {
-    Q_OBJECT
+Q_OBJECT
 public:
     QVBoxLayout* mainLayout;
     QHBoxLayout* messageEditLayout;
