@@ -33,6 +33,8 @@ set(SOURCE_FILES
         registration.hpp
         ChatWindow.cpp
         ChatWindow.hpp
+        MessageWidget.cpp
+        MessageWidget.hpp
         app.cpp
         app.h
         pch.h

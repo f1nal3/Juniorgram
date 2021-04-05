@@ -1,7 +1,8 @@
 #pragma once
-#include "Widgets/InputFields.hpp"
-#include "Widgets/TextEdit.hpp"
 #include "pch.h"
+#include "Widgets/TextEdit.h"
+#include "Widgets/InputFields.h"
+#include "MessageWidget.hpp"
 
 class ChatWindow : public QWidget
 {
@@ -15,4 +16,12 @@ private:
     FlatButton* randomButton;
     TextEdit* textEdit;
     QListWidget* chatWidget;
+    void connectButton();
+    void newMessage(QString textMessage, QString userNameMessage);
+    void newMessage(QString textMessage);
+
+public slots:
+    void updateMessagesList_User();
+    void updateMessagesList_Bot();
+
 };
