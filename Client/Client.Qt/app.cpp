@@ -3,6 +3,7 @@
 #include "MainWidget.h"
 #include "login.hpp"
 #include "registration.hpp"
+#include "ChatWindow.h"
 namespace App
 {
 namespace
@@ -48,7 +49,7 @@ void setAppState(AppState app_state)
         break;
         case AppState::Authorized:
         {
-            auto* wid = new QWidget();
+            auto* wid = new ChatWindow();
             widget->setCentralWidget(wid);
         }
         break;
