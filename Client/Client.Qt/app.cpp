@@ -1,11 +1,12 @@
 #include "app.h"
 
-#include <Widgets/BioButton.h>
+#include <Widgets/BioButton.hpp>
 
+#include "ChatWindow.hpp"
 #include "MainWidget.h"
 #include "login.hpp"
 #include "registration.hpp"
-#include "ChatWindow.h"
+
 namespace App
 {
 namespace
@@ -34,11 +35,7 @@ void create()
 #endif
     setAppState(AppState::LoginForm);
 }
-void show()
-{
-    widget->show();
-    Q_UNUSED(widget);
-}
+void show() { widget->show(); }
 void setAppState(AppState app_state)
 {
     m_app_state = app_state;

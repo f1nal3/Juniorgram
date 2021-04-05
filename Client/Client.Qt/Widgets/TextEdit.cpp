@@ -1,12 +1,11 @@
-#include "TextEdit.h"
+#include "TextEdit.hpp"
 
-#include <Style/Style.h>
+#include <Style/Style.hpp>
 
 TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
 {
     textField  = new FlatPlainTextEdit();
     boldButton = new FlatButton("B");
-    boldButton->adjustSize();
 
     auto* vLayout = new QVBoxLayout;
     auto* hLayout = new QHBoxLayout;

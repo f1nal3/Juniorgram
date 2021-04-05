@@ -8,6 +8,7 @@
 #include <QHBoxLayout>
 #include <QImage>
 #include <QLineEdit>
+#include <QListWidget>
 #include <QMainWindow>
 #include <QMenu>
 #include <QOpenGLWidget>
@@ -29,7 +30,6 @@
 #include <cmath>
 #include <iostream>
 #include <memory>
-#include <QListWidget>
 
 #ifdef _WIN32
 

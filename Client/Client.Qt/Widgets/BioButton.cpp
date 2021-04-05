@@ -1,9 +1,9 @@
-#include "BioButton.h"
+#include "BioButton.hpp"
 
 #include <utility>
 
-#include "PopupWidget.h"
-#include "Style/Style.h"
+#include "PopupWidget.hpp"
+#include "Style/Style.hpp"
 #include "app.h"
 
 BioButton::BioButton(QImage bio_image, bool in_caption, QWidget* parent) : QWidget(parent)
@@ -49,7 +49,7 @@ bool BioButton::eventFilter(QObject* object, QEvent* event)
         {
             fadein_anim->stop();
             hover_color      = fadein_anim->startValue().value<QColor>();
-            auto ev          = static_cast<QMouseEvent*>(event);
+            auto ev          = dynamic_cast<QMouseEvent*>(event);
             auto beforepoint = this->geometry().bottomLeft();
             auto point       = mapToGlobal(this->geometry().bottomLeft());
             Menu* menu       = new Menu;

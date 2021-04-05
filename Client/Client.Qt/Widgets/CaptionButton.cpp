@@ -1,6 +1,6 @@
-#include "CaptionButton.h"
+#include "CaptionButton.hpp"
 
-#include "Style/Style.h"
+#include "Style/Style.hpp"
 
 void CaptionButton::enterEvent(QEvent* event)
 {

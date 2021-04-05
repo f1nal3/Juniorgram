@@ -1,4 +1,4 @@
-#include "Menu.h"
+#include "Menu.hpp"
 QAction* CreateAction(QWidget* actionparent, const QString& text, std::function<void()>&& callback)
 {
     const auto action = new QAction(text, actionparent);

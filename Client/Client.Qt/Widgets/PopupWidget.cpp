@@ -1,4 +1,4 @@
-#include "PopupWidget.h"
+#include "PopupWidget.hpp"
 
 void PopupWidget::paintEvent(QPaintEvent* event)
 {

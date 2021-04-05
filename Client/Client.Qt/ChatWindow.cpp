@@ -1,34 +1,35 @@
-#include "ChatWindow.h"
+#include "ChatWindow.hpp"
+
 #include "app.h"
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 {
-    QWidget* window = new QWidget;
+    // auto* window = new QWidget;
 
-    textEdit = new TextEdit(window);
-    sendButton = new QPushButton("Send");
-    randomButton = new QPushButton("Bot");
-    chatWidget = new QListWidget(window);
+    textEdit     = new TextEdit(this);
+    sendButton   = new FlatButton("Send");
+    randomButton = new FlatButton("Bot");
+    chatWidget   = new QListWidget(this);
 
-    QHBoxLayout *layout = new QHBoxLayout;
-    QVBoxLayout *textLayout = new QVBoxLayout;
-    QVBoxLayout *barLayout = new QVBoxLayout;
+    auto* layout     = new QVBoxLayout;
+    auto* textLayout = new QHBoxLayout;
+    auto* barLayout  = new QVBoxLayout;
 
     barLayout->addWidget(randomButton);
     barLayout->addWidget(sendButton);
-    barLayout->setAlignment(Qt::AlignBottom);
-    
+    barLayout->setAlignment(Qt::AlignRight);
 
-    textLayout->addWidget(chatWidget, 95);
-    textLayout->addWidget(textEdit, 5);
+    textLayout->addWidget(textEdit);
+    textLayout->addLayout(barLayout);
 
+    layout->addWidget(chatWidget);
     layout->addLayout(textLayout);
-    layout->addLayout(barLayout);
 
     setLayout(layout);
 }
 
-ChatWindow::~ChatWindow(){
+ChatWindow::~ChatWindow()
+{
     delete sendButton;
     delete randomButton;
     delete textEdit;

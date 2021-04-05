@@ -1,5 +1,5 @@
 #pragma once
-#include <Style/Style.h>
+#include <Style/Style.hpp>
 
 #include "pch.h"
 

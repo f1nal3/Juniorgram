@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Widgets/BioButton.h>
+#include <Widgets/BioButton.hpp>
 
-#include "Widgets/CaptionButton.h"
+#include "Widgets/CaptionButton.hpp"
 #include "pch.h"
 
 class MainWidget : public QWidget

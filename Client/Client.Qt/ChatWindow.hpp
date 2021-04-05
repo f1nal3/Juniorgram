@@ -1,6 +1,6 @@
 #pragma once
-#include "Widgets/TextEdit.h"
-#include "Widgets/InputFields.h"
+#include "Widgets/InputFields.hpp"
+#include "Widgets/TextEdit.hpp"
 #include "pch.h"
 
 class ChatWindow : public QWidget
@@ -8,11 +8,11 @@ class ChatWindow : public QWidget
     Q_OBJECT
 public:
     explicit ChatWindow(QWidget* parent = nullptr);
-    ~ChatWindow();
+    ~ChatWindow() override;
 
 private:
-    QPushButton* sendButton;
-    QPushButton* randomButton;
-    TextEdit* textEdit; 
+    FlatButton* sendButton;
+    FlatButton* randomButton;
+    TextEdit* textEdit;
     QListWidget* chatWidget;
 };

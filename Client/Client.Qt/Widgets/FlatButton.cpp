@@ -1,6 +1,6 @@
-#include "FlatButton.h"
+#include "FlatButton.hpp"
 
-#include "Style/Style.h"
+#include "Style/Style.hpp"
 
 FlatButton::FlatButton(const QString& text, QWidget* parent) : QPushButton(text, parent)
 {

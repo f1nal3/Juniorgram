@@ -1,4 +1,4 @@
-#include "InputFields.h"
+#include "InputFields.hpp"
 
 FlatInput::FlatInput(QWidget* parent) : QLineEdit(parent)
 {
@@ -73,7 +73,6 @@ FlatPlainTextEdit::FlatPlainTextEdit(QWidget* parent) : QPlainTextEdit(parent)
     viewport()->setAutoFillBackground(false);
     setContentsMargins(0, 0, 0, 0);
     document()->setDocumentMargin(9);
-
 }
 
 void FlatPlainTextEdit::paintEvent(QPaintEvent* event)

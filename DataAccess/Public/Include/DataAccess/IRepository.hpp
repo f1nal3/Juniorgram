@@ -5,34 +5,20 @@
 
 namespace DataAccess
 {
-    /** @class IRepository
-     *  @brief An interface for repository
-     *  @details see https://github.com/f1nal3/Juniorgram/wiki/IRepository-scheme for additional details
-     */
+// An interface for repository
+// see https://github.com/f1nal3/Juniorgram/wiki/IRepository-scheme
+// for additional details
 class IRepository
 {
     public:
-    /**
-     * @brief Draft method for getting all channel list from the server.
-     * @return channels list as vector of strings.
-     */ 
+    // Draft method for getting all channel list from the server.
     virtual std::vector<std::string> getAllChannelsList() = 0;
-    /**
-     * @brief Draft method for getting history for a specific user. \
-     * History is all messages that a marked as "non-delivered" for this user.
-     * @param UserID as a string
-     * @return List of messages as vector of strings.
-     */
-    virtual std::vector<std::string> getMessageHistoryForUser(std::string UserID) = 0;
-    /**
-     * @brief stores messages in repository
-     * @param MessagesList as vector of strings.
-     */
-    virtual void storeMessages(std::vector<std::string> MessagesList) = 0;
-
-    /**
-     * @brief Virtual dtor.
-     */    
+    // Draft method for getting history for a specific user.
+    // History is all messages that a marked as "non-delivered" for this user.
+    virtual std::vector<std::string> getMessageHistoryForUser(std::string) = 0;
+    // Draft method for writing several messages to a repository 
+    virtual void storeMessages(std::vector<std::string>) = 0;
+    
     virtual ~IRepository() = default;
 };
 }

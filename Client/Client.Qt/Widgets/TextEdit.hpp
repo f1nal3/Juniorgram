@@ -1,7 +1,7 @@
 #pragma once
 
-#include "FlatButton.h"
-#include "InputFields.h"
+#include "FlatButton.hpp"
+#include "InputFields.hpp"
 #include "pch.h"
 class TextEdit : public QWidget
 {

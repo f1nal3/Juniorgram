@@ -1,6 +1,6 @@
-#include "MenuItem.h"
+#include "MenuItem.hpp"
 
-#include "Style/Style.h"
+#include "Style/Style.hpp"
 MenuItem::MenuItem(const QString& text, QAction* action, QWidget* parent) : QWidget(parent)
 {
     _text   = text;

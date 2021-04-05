@@ -1,10 +1,10 @@
 #include "MainWidget.h"
 
-#include <Widgets/BioButton.h>
+#include <Widgets/BioButton.hpp>
 
 #include "Style/Shadow.hpp"
-#include "Style/Style.h"
-#include "Widgets/InputFields.h"
+#include "Style/Style.hpp"
+#include "Widgets/InputFields.hpp"
 
 #ifdef _WIN32
 bool IsCompositionEnabled()
