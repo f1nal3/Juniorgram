@@ -26,13 +26,15 @@ set(SOURCE_FILES
         Widgets/MenuItem.h
         Style/Style.h
         Style/Style.cpp
-        Style/Shadow.h
+        Style/Shadow.hpp
         MainWidget.cpp
         MainWidget.h
         login.cpp
         login.hpp
         registration.cpp
         registration.hpp
+        ChatWindow.cpp
+        ChatWindow.h
         app.cpp
         app.h
         pch.h

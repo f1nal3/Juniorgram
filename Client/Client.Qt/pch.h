@@ -29,6 +29,7 @@
 #include <cmath>
 #include <iostream>
 #include <memory>
+#include <QListWidget>
 
 #ifdef _WIN32
 

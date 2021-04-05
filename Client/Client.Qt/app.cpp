@@ -7,6 +7,7 @@
 #include "MainWidget.h"
 #include "login.hpp"
 #include "registration.hpp"
+#include "ChatWindow.h"
 namespace App
 {
 namespace
@@ -60,10 +61,10 @@ void setAppState(AppState app_state)
         break;
         case AppState::Authorized:
         {
-            auto* wid  = new ChatFrame();
             bio_Button = new BioButton(QImage(), true, widget);
             bio_Button->setImage(QImage(":/images/logo.png"));
             widget->refreshTitleBar(bio_Button);
+            auto* wid = new ChatWindow();
             widget->setCentralWidget(wid);
         }
         break;
