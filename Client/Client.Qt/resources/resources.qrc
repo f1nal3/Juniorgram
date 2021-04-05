@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/0.bmp</file>
         <file>images/logo.png</file>
         <file>icons/close-w-10.png</file>
         <file>icons/close-w-12.png</file>
