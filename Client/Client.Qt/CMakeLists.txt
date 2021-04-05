@@ -13,16 +13,8 @@ set(SOURCE_FILES
         Widgets/FlatButton.cpp
         Widgets/FlatButton.hpp
         Widgets/TextEdit.cpp
-        Widgets/TextEdit.hpp
-        Widgets/BioButton.cpp
-        Widgets/BioButton.hpp
-        Widgets/PopupWidget.cpp
-        Widgets/PopupWidget.hpp
-        Widgets/Menu.cpp
-        Widgets/Menu.hpp
-        Widgets/MenuItem.cpp
-        Widgets/MenuItem.hpp
-        Style/Style.hpp
+        Widgets/TextEdit.h
+        Style/Style.h
         Style/Style.cpp
         Style/Shadow.hpp
         MainWidget.cpp

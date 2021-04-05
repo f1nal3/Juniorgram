@@ -6,7 +6,6 @@
 #include "MainWidget.h"
 #include "login.hpp"
 #include "registration.hpp"
-#include "ChatWindow.hpp"
 namespace App
 {
 namespace
