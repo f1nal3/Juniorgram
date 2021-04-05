@@ -6,25 +6,23 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 set(SOURCE_FILES
-        Widgets/CaptionButton.h
+        Widgets/CaptionButton.hpp
         Widgets/CaptionButton.cpp
-        Widgets/InputFields.h
+        Widgets/InputFields.hpp
         Widgets/InputFields.cpp
         Widgets/FlatButton.cpp
-        Widgets/FlatButton.h
+        Widgets/FlatButton.hpp
         Widgets/TextEdit.cpp
-        Widgets/TextEdit.h
-        Widgets/ChatFrame.cpp
-        Widgets/ChatFrame.h
+        Widgets/TextEdit.hpp
         Widgets/BioButton.cpp
-        Widgets/BioButton.h
+        Widgets/BioButton.hpp
         Widgets/PopupWidget.cpp
-        Widgets/PopupWidget.h
+        Widgets/PopupWidget.hpp
         Widgets/Menu.cpp
-        Widgets/Menu.h
+        Widgets/Menu.hpp
         Widgets/MenuItem.cpp
-        Widgets/MenuItem.h
-        Style/Style.h
+        Widgets/MenuItem.hpp
+        Style/Style.hpp
         Style/Style.cpp
         Style/Shadow.hpp
         MainWidget.cpp
@@ -34,7 +32,7 @@ set(SOURCE_FILES
         registration.cpp
         registration.hpp
         ChatWindow.cpp
-        ChatWindow.h
+        ChatWindow.hpp
         app.cpp
         app.h
         pch.h
