@@ -1,8 +1,6 @@
 #include "app.h"
 
 #include <Widgets/BioButton.h>
-#include <Widgets/ChatFrame.h>
-#include <Widgets/TextEdit.h>
 
 #include "MainWidget.h"
 #include "login.hpp"
@@ -43,7 +41,6 @@ void show()
 }
 void setAppState(AppState app_state)
 {
-    if (m_app_state == app_state) return;
     m_app_state = app_state;
     widget->show();
     if (bio_Button)
@@ -61,10 +58,10 @@ void setAppState(AppState app_state)
         break;
         case AppState::Authorized:
         {
+            auto* wid  = new ChatWindow();
             bio_Button = new BioButton(QImage(), true, widget);
             bio_Button->setImage(QImage(":/images/logo.png"));
             widget->refreshTitleBar(bio_Button);
-            auto* wid = new ChatWindow();
             widget->setCentralWidget(wid);
         }
         break;
