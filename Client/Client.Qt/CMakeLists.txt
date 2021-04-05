@@ -24,10 +24,13 @@ set(SOURCE_FILES
         registration.cpp
         registration.hpp
         ChatWindow.cpp
-        ChatWindow.h
+        ChatWindow.hpp
         app.cpp
         app.h
-        main.cpp)
+        main.cpp
+        MessageWidget.cpp
+        MessageWidget.hpp
+        )
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)
