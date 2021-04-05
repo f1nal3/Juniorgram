@@ -1,6 +1,6 @@
 set(TARGET Client.Qt)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
- 
+
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -14,6 +14,16 @@ set(SOURCE_FILES
         Widgets/FlatButton.h
         Widgets/TextEdit.cpp
         Widgets/TextEdit.h
+        Widgets/ChatFrame.cpp
+        Widgets/ChatFrame.h
+        Widgets/BioButton.cpp
+        Widgets/BioButton.h
+        Widgets/PopupWidget.cpp
+        Widgets/PopupWidget.h
+        Widgets/Menu.cpp
+        Widgets/Menu.h
+        Widgets/MenuItem.cpp
+        Widgets/MenuItem.h
         Style/Style.h
         Style/Style.cpp
         Style/Shadow.h
@@ -25,6 +35,7 @@ set(SOURCE_FILES
         registration.hpp
         app.cpp
         app.h
+        pch.h
         main.cpp)
 
 add_executable(${TARGET} ${SOURCE_FILES}

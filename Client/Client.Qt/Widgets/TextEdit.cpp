@@ -1,16 +1,18 @@
 #include "TextEdit.h"
 
+#include <Style/Style.h>
+
 TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
 {
-    textField = new QPlainTextEdit(parent);
-    boldButton = new QPushButton("B");
+    textField  = new FlatPlainTextEdit();
+    boldButton = new FlatButton("B");
     boldButton->adjustSize();
-    
-    QVBoxLayout* vLayout = new QVBoxLayout;
-    QHBoxLayout* hLayout = new QHBoxLayout;
 
-    hLayout->addWidget(boldButton);
+    auto* vLayout = new QVBoxLayout;
+    auto* hLayout = new QHBoxLayout;
+
     hLayout->setAlignment(Qt::AlignLeft);
+    hLayout->addWidget(boldButton);
     vLayout->addWidget(textField);
     vLayout->addLayout(hLayout);
 
@@ -21,19 +23,19 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
 void TextEdit::boldButtonClicked()
 {
     QTextCursor cursor = textField->textCursor();
-    
+
     if (cursor.hasSelection())
     {
         int start = cursor.selectionStart();
-        int end = cursor.selectionEnd();
+        int end   = cursor.selectionEnd();
 
         cursor.setPosition(start);
         cursor.insertText(QString("**"));
 
         cursor.setPosition((end + 2));
         cursor.insertText(QString("**"));
-    }  
-} 
+    }
+}
 
 QString TextEdit::text() const
 {
@@ -41,7 +43,7 @@ QString TextEdit::text() const
     return message;
 }
 
-void TextEdit::clear()  { textField->clear(); }
+void TextEdit::clear() { textField->clear(); }
 
 TextEdit::~TextEdit()
 {

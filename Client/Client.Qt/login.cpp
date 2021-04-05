@@ -10,9 +10,8 @@ Login::Login(QWidget* parent) : QWidget(parent)
     buttonSignin       = std::make_unique<FlatButton>("Login");
     buttonRegistration = std::make_unique<FlatButton>("Registration");
 
-    QObject::connect(buttonSignin.get(), &FlatButton::pressed, []() {
-        App::setAppState(AppState::Authorized);
-    });
+    QObject::connect(buttonSignin.get(), &FlatButton::pressed,
+                     []() { App::setAppState(AppState::Authorized); });
     QObject::connect(buttonRegistration.get(), &FlatButton::pressed,
                      []() { App::setAppState(AppState::RegistrationForm); });
 

@@ -5,7 +5,7 @@
 class CaptionButton : public QWidget
 {
     Q_OBJECT
-    Q_PROPERTY(QColor close_button MEMBER close_button NOTIFY animation)
+    Q_PROPERTY(QColor hover_color MEMBER hover_color NOTIFY animation)
 public:
     enum class CaptionLogo
     {
@@ -40,7 +40,7 @@ public:
     bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
-    QColor close_button;
+    QColor hover_color;
     QPropertyAnimation* fadein_anim;
     QPixmap* pixmap;
 };

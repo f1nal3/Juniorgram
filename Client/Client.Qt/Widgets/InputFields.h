@@ -14,3 +14,13 @@ public:
 private:
     void paintEvent(QPaintEvent* event) override;
 };
+
+class FlatPlainTextEdit : public QPlainTextEdit
+{
+    Q_OBJECT
+public:
+    explicit FlatPlainTextEdit(QWidget* parent = nullptr);
+
+private:
+    void paintEvent(QPaintEvent* event) override;
+};

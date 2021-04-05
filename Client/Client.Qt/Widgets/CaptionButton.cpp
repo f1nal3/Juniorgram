@@ -12,7 +12,7 @@ void CaptionButton::leaveEvent(QEvent* event)
 {
     Q_UNUSED(event);
     fadein_anim->stop();
-    close_button = fadein_anim->startValue().value<QColor>();
+    hover_color = fadein_anim->startValue().value<QColor>();
 
     update();
 }
@@ -73,12 +73,12 @@ CaptionButton::CaptionButton(CaptionButton::CaptionLogo logo, const QColor& end_
     pixmap       = new QPixmap(icon);
 
     setMouseTracking(true);
-    fadein_anim = new QPropertyAnimation(this, "close_button");
+    fadein_anim = new QPropertyAnimation(this, "hover_color");
     fadein_anim->setDuration(150);
     fadein_anim->setEasingCurve(QEasingCurve::InCubic);
     fadein_anim->setStartValue(QColor(end_color.red(), end_color.green(), end_color.blue(), 0));
     fadein_anim->setEndValue(end_color);
-    close_button = fadein_anim->startValue().value<QColor>();
+    hover_color = fadein_anim->startValue().value<QColor>();
     setAttribute(Qt::WA_Hover);
 }
 
@@ -87,7 +87,7 @@ void CaptionButton::paintEvent(QPaintEvent* event)
     QPainter p(this);
 
     p.setPen(Qt::NoPen);
-    p.fillRect(0, 0, width(), height(), close_button);
+    p.fillRect(0, 0, width(), height(), hover_color);
 
     p.drawPixmap((width() - pixmap->width()) / 2, (height() - pixmap->height()) / 2, *pixmap);
     QWidget::paintEvent(event);

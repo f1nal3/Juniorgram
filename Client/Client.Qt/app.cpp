@@ -1,5 +1,9 @@
 #include "app.h"
 
+#include <Widgets/BioButton.h>
+#include <Widgets/ChatFrame.h>
+#include <Widgets/TextEdit.h>
+
 #include "MainWidget.h"
 #include "login.hpp"
 #include "registration.hpp"
@@ -8,7 +12,8 @@ namespace App
 namespace
 {
 MainWidget* widget;
-AppState m_app_state;
+BioButton* bio_Button;
+AppState m_app_state = AppState::RegistrationForm;
 }  // namespace
 void create()
 {
@@ -37,7 +42,14 @@ void show()
 }
 void setAppState(AppState app_state)
 {
+    if (m_app_state == app_state) return;
     m_app_state = app_state;
+    widget->show();
+    if (bio_Button)
+    {
+        delete bio_Button;
+        bio_Button = nullptr;
+    }
     switch (m_app_state)
     {
         case AppState::LoginForm:
@@ -48,7 +60,10 @@ void setAppState(AppState app_state)
         break;
         case AppState::Authorized:
         {
-            auto* wid = new QWidget();
+            auto* wid  = new ChatFrame();
+            bio_Button = new BioButton(QImage(), true, widget);
+            bio_Button->setImage(QImage(":/images/logo.png"));
+            widget->refreshTitleBar(bio_Button);
             widget->setCentralWidget(wid);
         }
         break;

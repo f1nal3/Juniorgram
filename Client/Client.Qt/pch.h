@@ -1,3 +1,4 @@
+#include <QAction>
 #include <QApplication>
 #include <QBrush>
 #include <QCoreApplication>
@@ -8,6 +9,7 @@
 #include <QImage>
 #include <QLineEdit>
 #include <QMainWindow>
+#include <QMenu>
 #include <QOpenGLWidget>
 #include <QPaintEvent>
 #include <QPainter>

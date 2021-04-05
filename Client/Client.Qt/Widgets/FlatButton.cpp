@@ -10,18 +10,18 @@ FlatButton::FlatButton(const QString& text, QWidget* parent) : QPushButton(text,
                 "border: 0px;"
                 "background-color: rgba(0,0,0,0);"
                 "color: white;"
-                "padding:9px;"
                 "}"));
     setAttribute(Qt::WA_AcceptTouchEvents);
 
     this->setMouseTracking(true);
+    inputField = inputField.lighter(175);
+    lastOne    = inputField;
 }
+
 void FlatButton::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event)
 
-    QColor inputField(0x32, 0x32, 0x32);
-    inputField = inputField.lighter(175);
     QPainter p(this);
     p.setRenderHint(QPainter::Antialiasing);
     p.setBrush(inputField);
@@ -29,4 +29,9 @@ void FlatButton::paintEvent(QPaintEvent* event)
     p.drawRoundedRect(QRectF(0, 0, width(), height()).marginsRemoved(QMarginsF(2, 1, 2, 1)),
                       Style::valueDPIScale(5), Style::valueDPIScale(5));
     QPushButton::paintEvent(event);
+}
+QSize FlatButton::sizeHint() const
+{
+    const auto parentHint = QPushButton::sizeHint();
+    return QSize(parentHint.width() + 18, parentHint.height() + 18);
 }
