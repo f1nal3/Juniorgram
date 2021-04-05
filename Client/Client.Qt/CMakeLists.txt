@@ -27,7 +27,10 @@ set(SOURCE_FILES
         ChatWindow.h
         app.cpp
         app.h
-        main.cpp)
+        main.cpp
+        qmessagewidget.cpp
+        qmessagewidget.h
+        )
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)

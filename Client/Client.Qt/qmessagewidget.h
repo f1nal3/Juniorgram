@@ -26,27 +26,46 @@ class QMessageWidget : public QWidget
     Q_OBJECT
 
 public:
+    // Layouts
     QVBoxLayout* mainLayout;
-
     QHBoxLayout* UpLevelLayout;
-    QTimeEdit* messageTimeEdit;
+    QHBoxLayout* DownLevelLayout;
+    // message
+    QTextEdit* messageTextEdit;
+    // UpLevelLayout
     QLabel* userNameLabel;
     QLabel* reactionLabel;
     QSpacerItem* horizontalUpLeftSpacer;
     QSpacerItem* horizontalUpRightSpacer;
-
-    QTextEdit* messageTextEdit;
-
-    QHBoxLayout* DownLevelLayout;
+    QTimeEdit* messageTimeEdit;
+    // DownLevelLayout
     QComboBox* reactionChoseBox;
     QPushButton* deleteButton;
     QSpacerItem* horizontalDownSpacer;
 
 
-    explicit QMessageWidget(QWidget* parent = nullptr);
+
+    explicit QMessageWidget();
+    explicit QMessageWidget(QString textMessage, QString nameOfUser, QWidget* parent = nullptr);
+    explicit QMessageWidget(QString textMessage);
+    ~QMessageWidget();
+
+
+private slots:
+    void deleteButtonClick();
+    void reactionChange(QString newReaction);
 
 private:
+    QString messageText;
+    QString userName;
+    QTime timeMessage;
+    QString reactionOnMessage;
+    std::map<std::string, int> reactionMap{{"Like", 0}};
     void initializationUi();
+    bool isReaction();
+    QString getReaction();
+    void updateWidget();
+    void uiConnet();
 };
 
 #endif  // QMESSAGEWIDGET_H
