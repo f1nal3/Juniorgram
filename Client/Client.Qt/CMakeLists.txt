@@ -23,6 +23,8 @@ set(SOURCE_FILES
         login.hpp
         registration.cpp
         registration.hpp
+        ChatWindow.cpp
+        ChatWindow.h
         app.cpp
         app.h
         main.cpp)
