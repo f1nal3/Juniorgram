@@ -319,7 +319,6 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
     title->setMouseTracking(true);
     body->setMouseTracking(true);
     this->setMouseTracking(true);
-    installEventFilter(this);
 }
 
 void MainWidget::paintEvent(QPaintEvent* event)
