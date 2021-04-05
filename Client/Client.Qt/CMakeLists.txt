@@ -28,8 +28,8 @@ set(SOURCE_FILES
         app.cpp
         app.h
         main.cpp
-        qmessagewidget.cpp
-        qmessagewidget.h
+        MessageWidget.cpp
+        MessageWidget.h
         )
 
 add_executable(${TARGET} ${SOURCE_FILES}

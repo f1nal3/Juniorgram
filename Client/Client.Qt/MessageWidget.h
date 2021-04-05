@@ -6,7 +6,7 @@ constexpr auto EMPTY_MESSAGE      = "Empty message";
 constexpr auto EMPTY_USER_NAME    = "You";
 
 #include <QtWidgets/QMainWindow>
-#include <QCombobox>
+#include <QComboBox>
 #include <QGridLayout>
 #include <QTime>
 #include <QTimeEdit>
