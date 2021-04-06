@@ -40,7 +40,6 @@ PopupWidget::PopupWidget(QWidget* parent) : QWidget(parent), _menu(nullptr)
     setAttribute(Qt::WA_NoSystemBackground, true);
     setAttribute(Qt::WA_TranslucentBackground, true);
     setFixedSize(256, 256);
-    // show();
 
     installEventFilter(this);
 }
