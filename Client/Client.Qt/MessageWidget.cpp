@@ -118,7 +118,7 @@ void MessageWidget::updateWidget()
     if (!isReaction())
     {
         reactionOnMessage.clear();
-        reactionOnMessage += "Like " + reactionMap["Like"];
+        reactionOnMessage += "Like " + QString::number(reactionMap["Like"]);
         reactionLabel->setText(reactionOnMessage);
     }
 }
