@@ -3,7 +3,6 @@
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 {
-    // auto* window = new QWidget;
     textEdit     = new TextEdit(this);
     sendButton   = new FlatButton("Send");
     randomButton = new FlatButton("Bot");
