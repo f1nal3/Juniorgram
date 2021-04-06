@@ -5,40 +5,43 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 {
     QWidget* window = new QWidget;
 
-    textEdit     = new TextEdit(window);
-    sendButton   = new QPushButton("Send");
-    randomButton = new QPushButton("Bot");
-    chatWidget   = new QListWidget(window);
+    mainLayout          = new QVBoxLayout(window);
+    messageEditLayout   = new QHBoxLayout();
+    messageButtonLayout = new QVBoxLayout();
+    chatWidget          = new QListWidget(window);
+    sendButton          = new QPushButton("Send");
+    botButton           = new QPushButton("Bot");
+    textEdit            = new TextEdit(window);
+    verticalUpSpacer    = new QSpacerItem(0, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    verticalDownSpacer  = new QSpacerItem(0, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    
+    mainLayout->addWidget(chatWidget);
 
-    QHBoxLayout* layout     = new QHBoxLayout;
-    QVBoxLayout* textLayout = new QVBoxLayout;
-    QVBoxLayout* barLayout  = new QVBoxLayout;
+    messageButtonLayout->addItem(verticalUpSpacer);
+    messageButtonLayout->addWidget(sendButton);
+    messageButtonLayout->addWidget(botButton);
+    messageButtonLayout->addItem(verticalUpSpacer);
 
-    barLayout->addWidget(randomButton);
-    barLayout->addWidget(sendButton);
-    barLayout->setAlignment(Qt::AlignBottom);
+    messageEditLayout->addWidget(textEdit);
+    messageEditLayout->addLayout(messageButtonLayout);
 
-    textLayout->addWidget(chatWidget, 95);
-    textLayout->addWidget(textEdit, 5);
-
-    layout->addLayout(textLayout);
-    layout->addLayout(barLayout);
+    mainLayout->addLayout(messageEditLayout);
 
     connectButton();
-
-    setLayout(layout);
+    setLayout(mainLayout);
 }
 
 void ChatWindow::connectButton()
 {
     connect(sendButton, &QPushButton::released, this, &ChatWindow::updateMessagesList_User);
-    connect(randomButton, &QPushButton::released, this, &ChatWindow::updateMessagesList_Bot);
+    connect(botButton, &QPushButton::released, this, &ChatWindow::updateMessagesList_Bot);
 }
 
 
 void ChatWindow::updateMessagesList_User()
 {
-    newMessage(textEdit->text());
+    if (textEdit->text() != "") 
+        newMessage(textEdit->text());
     textEdit->clear();
 }
 
@@ -67,7 +70,7 @@ void ChatWindow::newMessage(QString textMessage)
 
 ChatWindow::~ChatWindow(){
     delete sendButton;
-    delete randomButton;
+    delete botButton;
     delete textEdit;
     delete chatWidget;
 }

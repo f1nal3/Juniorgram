@@ -8,6 +8,9 @@ class ChatWindow : public QWidget
 {
     Q_OBJECT
 public:
+    QVBoxLayout* mainLayout;
+    QHBoxLayout* messageEditLayout;
+    QVBoxLayout* messageButtonLayout;
     explicit ChatWindow(QWidget* parent = nullptr);
     ~ChatWindow();
 
@@ -17,9 +20,11 @@ public slots:
 
 private:
     QPushButton* sendButton;
-    QPushButton* randomButton;
+    QPushButton* botButton;
     TextEdit* textEdit; 
     QListWidget* chatWidget;
+    QSpacerItem* verticalUpSpacer;
+    QSpacerItem* verticalDownSpacer;
     void connectButton();
     void newMessage(QString textMessage, QString userNameMessage);
     void newMessage(QString textMessage);
