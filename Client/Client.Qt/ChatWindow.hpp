@@ -12,6 +12,7 @@ public:
     QHBoxLayout* messageEditLayout;
     QVBoxLayout* messageButtonLayout;
     explicit ChatWindow(QWidget* parent = nullptr);
+    void keyPressEvent(QKeyEvent* event);
     ~ChatWindow();
 
 public slots:
@@ -21,7 +22,7 @@ public slots:
 private:
     QPushButton* sendButton;
     QPushButton* botButton;
-    TextEdit* textEdit; 
+    TextEdit* textEdit;
     QListWidget* chatWidget;
     QSpacerItem* verticalUpSpacer;
     QSpacerItem* verticalDownSpacer;
