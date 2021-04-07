@@ -9,29 +9,56 @@
 
 namespace Network
 {
+/** @class Connection
+ *  @brief Connection managment class
+ *  @details see https://github.com/f1nal3/Juniorgram/wiki/Legacy-Frontend-network \
+ *  for additional details
+ */
 class Connection : public std::enable_shared_from_this<Connection>
 {
 public:
+    /** @enum OwnerType
+     *  @brief A connection is "owned" by either a server or a client. /
+        And its behaviour is slightly different bewteen the two.
+     */
     enum class OwnerType
     {
-        SERVER,
-        CLIENT
+        SERVER,  /// owner is server
+        CLIENT   /// owner is client
     };
 
 private:
+    /// Connection "owner"
     OwnerType mOwner = OwnerType::SERVER;
-    uint64_t mID     = uint64_t();
+    /// Connection id
+    uint64_t mID = uint64_t();
 
+    /// Unique socket to remote
     asio::ip::tcp::socket mSocket;
+    /// Overall context for the whole asio instance
     asio::io_context& mContextLink;
 
+    /// References to the incoming queue of the parent object
     SafeQueue<Message>& mIncomingMessagesQueueLink;
+    /// Queue all messages to be sent to the remote side of this connection
     SafeQueue<Message> mOutcomingMessagesQueue;
 
+    /// Buffer to store the part of incoming message while it is read
     Message mMessageBuffer;
 
+    /// Alias for the error handler functor
     typedef std::function<void(std::error_code)> handler;
 
+    /**
+     * @brief Method for sending message header.
+     * Function asio::async_write is used to write the header of the message to the socket.
+     * If the writing header to the socket is successful and the message body isn't empty, /
+     * the body of the message is written (method writeBody()). If it is empty, /
+     * the current message is removed from message queue to send and next message header /
+     * from the message queue is sent. /
+     * If the writing header to the socket failed, the error message - /
+     * "[connection id] Write Header Fail." is displayed.
+     */
     void writeHeader()
     {
         const handler writeHeaderHandler = [this](std::error_code error) {
@@ -64,6 +91,15 @@ private:
             bind(writeHeaderHandler, std::placeholders::_1));
     }
 
+    /**
+     * @brief Method for sending message body.
+     * Function asio::async_write is used to write the body of the message to the socket.
+     * If the writing header to the socket is successful, the body of the message is written /
+     * and the current message is removed from message queue to send. /
+     * Then next message header from the message queue is sent (method writeHeader()). /
+     * If the writing message body to the socket failed, the error message - /
+     * "[connection id] Write Body Fail." is displayed.
+     */
     void writeBody()
     {
         const handler writeBodyHandler = [this](std::error_code error) {
@@ -89,6 +125,17 @@ private:
                           bind(writeBodyHandler, std::placeholders::_1));
     }
 
+    /**
+     * @brief Method for getting message header.
+     * Function asio::async_read is used to read the header of the message from the socket.
+     * If the reading header from the socket is successful and the received size of /
+     * message body isn't null, the message body vector is resized according to /
+     * received body size and the body of the message is reading (methon readBody()). /
+     * If the received size of message body is null, this message is added to /
+     * the connection incoming message queue.
+     * If the reading message header from the socket failed, the error message - /
+     * "[connection id] Read Header Fail." is displayed.
+     */
     void readHeader()
     {
         const handler readHeaderHandler = [this](std::error_code error) {
@@ -116,6 +163,14 @@ private:
                          bind(readHeaderHandler, std::placeholders::_1));
     }
 
+    /**
+     * @brief Method for getting message body.
+     * Function asio::async_read is used to read the body of the message from the socket.
+     * If the reading body from the socket is successful, this message is added to /
+     * the connection incoming message queue.
+     * If the reading message body from the socket failed, the error message - /
+     * "[connection id] Read Body Fail." is displayed.
+     */
     void readBody()
     {
         const handler readBodyHandler = [this](std::error_code error) {
@@ -135,6 +190,14 @@ private:
                          bind(readBodyHandler, std::placeholders::_1));
     }
 
+    /**
+     * @brief Method for adding to the connection incoming message queue.
+     * When afull message is received, it is added to the incoming queue. /
+     * It is shoved in the queue, converting to an "owned message", by initializing with /
+     * the a shared pointer from this connection object for Server side /
+     * and without shared pointer from this for Client side. /
+     * Next method readHeader() is called to read other messages.
+     */
     void addToIncomingMessageQueue()
     {
         if (mOwner == OwnerType::SERVER)
@@ -151,6 +214,15 @@ private:
     }
 
 public:
+    /**
+     * @brief Constructor for class Connection
+     * It specifies owner, connects to context, transfers the socket and /
+     * provides reference to incoming message queue.
+     * @param owner - connection "owner"
+     * @param contextLink - context for the whole asio instance
+     * @param socket - unique socket to remote
+     * @param incomingMessagesQueueLink - reference to the incoming message queue
+     */
     Connection(const OwnerType& owner, asio::io_context& contextLink, asio::ip::tcp::socket socket,
                SafeQueue<Message>& incomingMessagesQueueLink)
         : mOwner(owner),
@@ -160,8 +232,18 @@ public:
     {
     }
 
+    /**
+     * @brief Method getting connection id.
+     * This id is used system wide - it is how clients will understand other clients whole system.
+     * @return mId - connection id.
+     */
     uint64_t getID() const { return mID; }
 
+    /**
+     * @brief Method for connection to clients from server side.
+     * Only server side is allowed to connect to other clients.
+     * @param uid - connection id
+     */
     void connectToClient(const uint64_t uid = uint64_t())
     {
         if (mOwner == OwnerType::SERVER)
@@ -173,8 +255,15 @@ public:
             }
         }
     }
-    suppressWarning(4100, -Wunused - parameter) void connectToServer(
-        const asio::ip::tcp::resolver::results_type& endpoint)
+
+    suppressWarning(4100, -Wunused - parameter)
+    /**
+     * @brief Method for connection to server from client side.
+     * Only clients can connect to servers and make a request asio attempts \
+     * to connect to an endpoint.
+     * @param endpoint - result type returned by resolver
+     */
+    void connectToServer(const asio::ip::tcp::resolver::results_type& endpoint)
     {
         if (mOwner == OwnerType::CLIENT)
         {
@@ -187,7 +276,16 @@ public:
                                 });
         }
     }
-    restoreWarning void disconnect()
+    restoreWarning
+
+    /**
+     * @brief Method for closing connection if it is opened.
+     * It checks if there is a connection with smb/smth. If the connection is present, \
+     * function asio::post is called, because the current context is holding locks and \
+     * the function should be called after they have been released. This would allow \
+     * the function to acquire those locks itself without causing a deadlock.
+     */
+    void disconnect()
     {
         if (isConnected())
         {
@@ -195,8 +293,18 @@ public:
         }
     }
 
+    /**
+     * @brief Method for checking if current socket is open.
+     * @return if current socket is open (true/false).
+     */
     bool isConnected() const { return mSocket.is_open(); }
 
+    /**
+     * @brief Method for sending messages.
+     * The message is added to the queue of outcoming messages. If there are no messages available /
+     * to be written, then the process of writing the message at the front of the queue is started.
+     * @param message - link on message for sending
+     */
     void send(const Message& message)
     {
         asio::post(mContextLink, [this, message]() {
