@@ -83,11 +83,11 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                 Network::ChannelInfo info;
                 info.channelID = 0;
 
-                suppressWarning(4996, -Winit - self) strcpy(info.channelName, channel.data());
+                suppressWarning(4996, -Winit - self) 
+                    strcpy(info.channelName, channel.data());
                 restoreWarning
 
-                        msg
-                    << info;
+                msg << info;
                 std::cout << channel << '\n';
             }
             msg << channelList.size();
@@ -113,7 +113,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                 Network::MessageInfo info;
                 info.userID = client->getID();
 
-                suppressWarning(4996, -Winit - self) 
+                suppressWarning(4996, -Werror = pragmas) 
                     strcpy(info.message, msgFromHistory.data());
                 restoreWarning
 
