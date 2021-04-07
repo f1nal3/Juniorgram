@@ -14,6 +14,7 @@ public:
     explicit ChatWindow(QWidget* parent = nullptr);
     ~ChatWindow() override;
 
+
 protected:
     void keyPressEvent(QKeyEvent* event) override;
 public slots:

@@ -3,26 +3,27 @@
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 {
-    QWidget* window = new QWidget;
+    mainLayout          = new QVBoxLayout(this);
+    messageEditLayout   = new QHBoxLayout();
+    messageButtonLayout = new QVBoxLayout();
+    chatWidget          = new QListWidget(this);
+    sendButton          = new QPushButton("Send");
+    botButton           = new QPushButton("Bot");
+    textEdit            = new TextEdit(this);
+    verticalUpSpacer    = new QSpacerItem(0, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    verticalDownSpacer  = new QSpacerItem(0, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    textEdit     = new TextEdit(window);
-    sendButton   = new QPushButton("Send");
-    randomButton = new QPushButton("Bot");
-    chatWidget   = new QListWidget(window);
+    mainLayout->addWidget(chatWidget, 70);
 
-    QHBoxLayout* layout     = new QHBoxLayout;
-    QVBoxLayout* textLayout = new QVBoxLayout;
-    QVBoxLayout* barLayout  = new QVBoxLayout;
+    messageButtonLayout->addItem(verticalUpSpacer);
+    messageButtonLayout->addWidget(sendButton);
+    messageButtonLayout->addWidget(botButton);
+    messageButtonLayout->addItem(verticalUpSpacer);
 
-    barLayout->addWidget(randomButton);
-    barLayout->addWidget(sendButton);
-    barLayout->setAlignment(Qt::AlignBottom);
+    messageEditLayout->addWidget(textEdit);
+    messageEditLayout->addLayout(messageButtonLayout);
 
-    textLayout->addWidget(chatWidget, 95);
-    textLayout->addWidget(textEdit, 5);
-
-    layout->addLayout(textLayout);
-    layout->addLayout(barLayout);
+    mainLayout->addLayout(messageEditLayout, 30);
 
     connectButton();
     setLayout(mainLayout);
