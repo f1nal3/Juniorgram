@@ -54,7 +54,6 @@ target_link_libraries(${TARGET}
 
 target_precompile_headers(${TARGET} PRIVATE pch.hpp)
 
-#[[
 if (WIN32)
     if (CMAKE_BUILD_TYPE MATCHES Debug)
         file(COPY "${CONAN_BIN_DIRS_QT}/Qt5Cored.dll" "${CONAN_BIN_DIRS_QT}/Qt5Guid.dll"
@@ -74,4 +73,3 @@ if (WIN32)
             "${CMAKE_BINARY_DIR}/bin/glib-2.0-0.dll"
             SHOW_PROGRESS)
 endif ()
-]]
