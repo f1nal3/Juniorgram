@@ -15,4 +15,5 @@ private:
     std::unique_ptr<FlatInput> passwordLineEdit;
     std::unique_ptr<QPushButton> buttonSignin;
     std::unique_ptr<QPushButton> buttonRegistration;
+    void keyPressEvent(QKeyEvent* event);
 };

@@ -100,7 +100,32 @@ void MessageWidget::initializationUi()
 
 void MessageWidget::deleteButtonClick()
 {
-    QWidget::close(); }
+    delete messageTextEdit;
+
+    UpLevelLayout->removeWidget(reactionLabel);
+    UpLevelLayout->removeItem(horizontalUpLeftSpacer);
+    UpLevelLayout->removeWidget(userNameLabel);
+    UpLevelLayout->removeItem(horizontalUpRightSpacer);
+    UpLevelLayout->removeWidget(messageTimeEdit);
+    DownLevelLayout->removeWidget(reactionChoseBox);
+    DownLevelLayout->removeItem(horizontalDownSpacer);
+    DownLevelLayout->removeWidget(deleteButton);
+
+    delete userNameLabel;
+    delete reactionLabel;
+    delete horizontalUpLeftSpacer;
+    delete horizontalUpRightSpacer;
+    delete messageTimeEdit;
+    delete reactionChoseBox;
+    delete deleteButton;
+    delete horizontalDownSpacer;
+
+    delete UpLevelLayout;
+    delete DownLevelLayout;
+    
+    QLabel* Del = new QLabel("Message was delete");
+    mainLayout->addWidget(Del);
+}
 
 bool MessageWidget::isReaction() { return (reactionMap["Like"] > 0) ? false : true; }
 

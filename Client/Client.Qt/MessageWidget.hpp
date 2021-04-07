@@ -39,7 +39,6 @@ public:
     QSpacerItem* horizontalDownSpacer;
 
 
-
     explicit MessageWidget();
     explicit MessageWidget(QString textMessage, QString nameOfUser, QWidget* parent = nullptr);
     explicit MessageWidget(QString textMessage);
@@ -49,6 +48,7 @@ public:
 private slots:
     void deleteButtonClick();
     void reactionChange(QString newReaction);
+
 
 private:
     QString messageText;
