@@ -51,13 +51,13 @@ private:
 
     /**
      * @brief Method for sending message header.
-     * Function asio::async_write is used to write the header of the message to the socket.
+     * @details Function asio::async_write is used to write the header of the message /
+     * to the socket. /
      * If the writing header to the socket is successful and the message body isn't empty, /
      * the body of the message is written (method writeBody()). If it is empty, /
      * the current message is removed from message queue to send and next message header /
-     * from the message queue is sent. /
-     * If the writing header to the socket failed, the error message - /
-     * "[connection id] Write Header Fail." is displayed.
+     * from the message queue is sent. If the writing header to the socket failed, the error /
+     * message - "[connection id] Write Header Fail." is displayed.
      */
     void writeHeader()
     {
@@ -93,9 +93,10 @@ private:
 
     /**
      * @brief Method for sending message body.
-     * Function asio::async_write is used to write the body of the message to the socket.
-     * If the writing header to the socket is successful, the body of the message is written /
-     * and the current message is removed from message queue to send. /
+     * @details Function asio::async_write is used to write the body of the message /
+     * to the socket. /
+     * If the writing header to the socket is successful, the body of the message /
+     * is written and the current message is removed from message queue to send. /
      * Then next message header from the message queue is sent (method writeHeader()). /
      * If the writing message body to the socket failed, the error message - /
      * "[connection id] Write Body Fail." is displayed.
@@ -127,9 +128,10 @@ private:
 
     /**
      * @brief Method for getting message header.
-     * Function asio::async_read is used to read the header of the message from the socket.
-     * If the reading header from the socket is successful and the received size of /
-     * message body isn't null, the message body vector is resized according to /
+     * @details Function asio::async_read is used to read the header of the message /
+     * from the socket. /
+     * If the reading header from the socket is successful and the received /
+     * size of message body isn't null, the message body vector is resized according to /
      * received body size and the body of the message is reading (methon readBody()). /
      * If the received size of message body is null, this message is added to /
      * the connection incoming message queue.
@@ -165,9 +167,10 @@ private:
 
     /**
      * @brief Method for getting message body.
-     * Function asio::async_read is used to read the body of the message from the socket.
-     * If the reading body from the socket is successful, this message is added to /
-     * the connection incoming message queue.
+     * @details Function asio::async_read is used to read the body of the message /
+     * from the socket. /
+     * If the reading body from the socket is successful, this message /
+     * is added to the connection incoming message queue.
      * If the reading message body from the socket failed, the error message - /
      * "[connection id] Read Body Fail." is displayed.
      */
@@ -192,7 +195,7 @@ private:
 
     /**
      * @brief Method for adding to the connection incoming message queue.
-     * When afull message is received, it is added to the incoming queue. /
+     * @details When afull message is received, it is added to the incoming queue. /
      * It is shoved in the queue, converting to an "owned message", by initializing with /
      * the a shared pointer from this connection object for Server side /
      * and without shared pointer from this for Client side. /
@@ -216,7 +219,7 @@ private:
 public:
     /**
      * @brief Constructor for class Connection
-     * It specifies owner, connects to context, transfers the socket and /
+     * @details It specifies owner, connects to context, transfers the socket and /
      * provides reference to incoming message queue.
      * @param owner - connection "owner"
      * @param contextLink - context for the whole asio instance
@@ -234,14 +237,15 @@ public:
 
     /**
      * @brief Method getting connection id.
-     * This id is used system wide - it is how clients will understand other clients whole system.
+     * @details This id is used system wide - it is how clients will understand other clients /
+     * whole system.
      * @return mId - connection id.
      */
     uint64_t getID() const { return mID; }
 
     /**
      * @brief Method for connection to clients from server side.
-     * Only server side is allowed to connect to other clients.
+     * @details Only server side is allowed to connect to other clients.
      * @param uid - connection id
      */
     void connectToClient(const uint64_t uid = uint64_t())
@@ -259,7 +263,7 @@ public:
     suppressWarning(4100, -Wunused - parameter)
     /**
      * @brief Method for connection to server from client side.
-     * Only clients can connect to servers and make a request asio attempts \
+     * @details Only clients can connect to servers and make a request asio attempts \
      * to connect to an endpoint.
      * @param endpoint - result type returned by resolver
      */
@@ -280,8 +284,9 @@ public:
 
     /**
      * @brief Method for closing connection if it is opened.
-     * It checks if there is a connection with smb/smth. If the connection is present, \
-     * function asio::post is called, because the current context is holding locks and \
+     * @details It checks if there is a connection with smb/smth. \
+     * If the connection is present, function asio::post is called, \
+     * because the current context is holding locks and \
      * the function should be called after they have been released. This would allow \
      * the function to acquire those locks itself without causing a deadlock.
      */
@@ -301,8 +306,9 @@ public:
 
     /**
      * @brief Method for sending messages.
-     * The message is added to the queue of outcoming messages. If there are no messages available /
-     * to be written, then the process of writing the message at the front of the queue is started.
+     * @details The message is added to the queue of outcoming messages. If there are no messages /
+     * available to be written, then the process of writing the message at the front of the queue /
+     * is started.
      * @param message - link on message for sending
      */
     void send(const Message& message)
