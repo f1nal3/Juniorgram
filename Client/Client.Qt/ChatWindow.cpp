@@ -3,54 +3,61 @@
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 {
-    textEdit     = new TextEdit(this);
-    sendButton   = new FlatButton("Send");
-    randomButton = new FlatButton("Bot");
-    chatWidget   = new QListWidget(this);
+    QWidget* window = new QWidget;
 
-    auto* layout     = new QVBoxLayout;
-    auto* textLayout = new QHBoxLayout;
-    auto* barLayout  = new QVBoxLayout;
+    textEdit     = new TextEdit(window);
+    sendButton   = new QPushButton("Send");
+    randomButton = new QPushButton("Bot");
+    chatWidget   = new QListWidget(window);
+
+    QHBoxLayout* layout     = new QHBoxLayout;
+    QVBoxLayout* textLayout = new QVBoxLayout;
+    QVBoxLayout* barLayout  = new QVBoxLayout;
 
     barLayout->addWidget(randomButton);
     barLayout->addWidget(sendButton);
-    barLayout->setAlignment(Qt::AlignRight);
+    barLayout->setAlignment(Qt::AlignBottom);
 
+    textLayout->addWidget(chatWidget, 95);
+    textLayout->addWidget(textEdit, 5);
 
-    textLayout->addWidget(textEdit);
-    textLayout->addLayout(barLayout);
-
-    layout->addWidget(chatWidget);
     layout->addLayout(textLayout);
+    layout->addLayout(barLayout);
 
     connectButton();
-
-    setLayout(layout);
+    setLayout(mainLayout);
 }
 
+void ChatWindow::keyPressEvent(QKeyEvent* event)
+{
+    if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) &&
+        (textEdit->text() != ""))
+    {
+        newMessage(textEdit->text());
+        textEdit->clear();
+    }
+}
 
 void ChatWindow::connectButton()
 {
     connect(sendButton, &QPushButton::released, this, &ChatWindow::updateMessagesList_User);
-    connect(randomButton, &QPushButton::released, this, &ChatWindow::updateMessagesList_Bot);
+    connect(botButton, &QPushButton::released, this, &ChatWindow::updateMessagesList_Bot);
 }
 
 
 void ChatWindow::updateMessagesList_User()
 {
-    newMessage(textEdit->text());
+    if (textEdit->text() != "")
+        newMessage(textEdit->text());
     textEdit->clear();
 }
 
-void ChatWindow::updateMessagesList_Bot()
-{
-    newMessage("This is message from bot!", "bot");
-}
+void ChatWindow::updateMessagesList_Bot() { newMessage("This is message from bot!", "bot"); }
 
 void ChatWindow::newMessage(QString textMessage, QString userNameMessage)
 {
     MessageWidget* myItem = new MessageWidget(textMessage, userNameMessage);
-    QListWidgetItem* item  = new QListWidgetItem();
+    QListWidgetItem* item = new QListWidgetItem();
     item->setSizeHint(QSize(0, 120));
     chatWidget->addItem(item);
     chatWidget->setItemWidget(item, myItem);
@@ -59,15 +66,21 @@ void ChatWindow::newMessage(QString textMessage, QString userNameMessage)
 void ChatWindow::newMessage(QString textMessage)
 {
     MessageWidget* myItem = new MessageWidget(textMessage);
-    QListWidgetItem* item  = new QListWidgetItem();
+    QListWidgetItem* item = new QListWidgetItem();
     item->setSizeHint(QSize(0, 120));
     chatWidget->addItem(item);
     chatWidget->setItemWidget(item, myItem);
 }
 
-ChatWindow::~ChatWindow(){
+ChatWindow::~ChatWindow()
+{
+    delete mainLayout;
+    delete messageEditLayout;
+    delete messageButtonLayout;
     delete sendButton;
-    delete randomButton;
+    delete botButton;
     delete textEdit;
     delete chatWidget;
+    delete verticalUpSpacer;
+    delete verticalDownSpacer;
 }
