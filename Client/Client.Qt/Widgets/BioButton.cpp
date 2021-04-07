@@ -87,4 +87,3 @@ void BioButton::paintEvent(QPaintEvent* event)
     QWidget::paintEvent(event);
 }
 
-void BioButton::animation() { repaint(); }

@@ -5,7 +5,7 @@
 class CaptionButton : public QWidget
 {
     Q_OBJECT
-    Q_PROPERTY(QColor hover_color MEMBER hoverColor NOTIFY animation)
+    Q_PROPERTY(QColor hoverColor MEMBER hoverColor NOTIFY repaint)
 public:
     enum class CaptionLogo
     {
@@ -27,8 +27,6 @@ public:
     void mouseReleaseEvent(QMouseEvent* event) override;
     void paintEvent(QPaintEvent* event) override;
     ~CaptionButton() override = default;
-    void animation() { repaint(); }
-
 signals:
 
     void mouseRelease();
