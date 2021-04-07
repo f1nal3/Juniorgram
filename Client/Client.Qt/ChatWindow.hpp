@@ -1,8 +1,8 @@
 #pragma once
-#include "Widgets/TextEdit.hpp"
-#include "Widgets/InputFields.hpp"
-#include "pch.h"
 #include "MessageWidget.hpp"
+#include "Widgets/InputFields.hpp"
+#include "Widgets/TextEdit.hpp"
+#include "pch.hpp"
 
 class ChatWindow : public QWidget
 {

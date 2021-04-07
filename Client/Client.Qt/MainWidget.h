@@ -3,7 +3,7 @@
 #include <Widgets/BioButton.hpp>
 
 #include "Widgets/CaptionButton.hpp"
-#include "pch.h"
+#include "pch.hpp"
 
 class MainWidget : public QWidget
 {

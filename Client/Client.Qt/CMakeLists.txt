@@ -37,7 +37,7 @@ set(SOURCE_FILES
         MessageWidget.hpp
         app.cpp
         app.h
-        pch.h
+        pch.hpp
         main.cpp)
 
 add_executable(${TARGET} ${SOURCE_FILES}
@@ -52,7 +52,7 @@ endif ()
 target_link_libraries(${TARGET}
         PRIVATE Qt5::Widgets ${EXTRA_LIBS})
 
-target_precompile_headers(${TARGET} PRIVATE pch.h)
+target_precompile_headers(${TARGET} PRIVATE pch.hpp)
 
 if (WIN32)
     if (CMAKE_BUILD_TYPE MATCHES Debug)

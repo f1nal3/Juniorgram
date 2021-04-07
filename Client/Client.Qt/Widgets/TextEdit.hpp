@@ -2,7 +2,7 @@
 
 #include "FlatButton.hpp"
 #include "InputFields.hpp"
-#include "pch.h"
+#include "pch.hpp"
 class TextEdit : public QWidget
 {
     Q_OBJECT

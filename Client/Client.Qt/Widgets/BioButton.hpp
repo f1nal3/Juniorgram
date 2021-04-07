@@ -1,7 +1,7 @@
 #pragma once
 #include <Style/Style.hpp>
 
-#include "pch.h"
+#include "pch.hpp"
 
 class BioButton : public QWidget
 {
