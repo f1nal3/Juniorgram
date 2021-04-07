@@ -11,9 +11,9 @@ namespace App
 {
 namespace
 {
-MainWidget* widget;
-BioButton* bio_button;
-AppState m_app_state = AppState::RegistrationForm;
+MainWidget* mMainWidget;
+BioButton* mBioButton;
+AppState mAppState = AppState::RegistrationForm;
 }  // namespace
 void create()
 {
@@ -21,12 +21,12 @@ void create()
     QFontDatabase::addApplicationFont(":fonts/NotoSans-Bold.ttf");
     QFontDatabase::addApplicationFont(":fonts/NotoSans-BoldItalic.ttf");
     QFontDatabase::addApplicationFont(":fonts/NotoSans-Italic.ttf");
-    widget = new MainWidget();
-    widget->show();
-    widget->hide();
+    mMainWidget = new MainWidget();
+    mMainWidget->show();
+    mMainWidget->hide();
 #if _WIN32
 
-    HWND handle = reinterpret_cast<HWND>(widget->winId());
+    HWND handle = reinterpret_cast<HWND>(mMainWidget->winId());
     LONG style  = ::GetWindowLong(handle, GWL_STYLE);
     ::SetWindowLong(handle, GWL_STYLE, style | WS_CAPTION | WS_MAXIMIZEBOX | WS_THICKFRAME);
     ::SetWindowPos(handle, nullptr, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE);
@@ -35,37 +35,37 @@ void create()
 #endif
     setAppState(AppState::LoginForm);
 }
-void show() { widget->show(); }
+void show() { mMainWidget->show(); }
 void setAppState(AppState app_state)
 {
-    m_app_state = app_state;
-    widget->show();
-    if (bio_button)
+    mAppState = app_state;
+    mMainWidget->show();
+    if (mBioButton)
     {
-        delete bio_button;
-        bio_button = nullptr;
+        delete mBioButton;
+        mBioButton = nullptr;
     }
-    switch (m_app_state)
+    switch (mAppState)
     {
         case AppState::LoginForm:
         {
             auto* wid = new Login();
-            widget->setCentralWidget(wid);
+            mMainWidget->setCentralWidget(wid);
         }
         break;
         case AppState::Authorized:
         {
             auto* wid = new ChatWindow();
-            bio_button = new BioButton(QImage(), true, widget);
-            bio_button->setImage(QImage(":/images/logo.png"));
-            widget->refreshTitleBar(bio_button);
-            widget->setCentralWidget(wid);
+            mBioButton = new BioButton(QImage(), true, mMainWidget);
+            mBioButton->setImage(QImage(":/images/logo.png"));
+            mMainWidget->refreshTitleBar(mBioButton);
+            mMainWidget->setCentralWidget(wid);
         }
         break;
         case AppState::RegistrationForm:
         {
             auto* wid = new Registration();
-            widget->setCentralWidget(wid);
+            mMainWidget->setCentralWidget(wid);
         }
         break;
     }

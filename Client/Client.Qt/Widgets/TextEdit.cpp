@@ -4,25 +4,25 @@
 
 TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
 {
-    textField  = new FlatPlainTextEdit();
-    boldButton = new FlatButton("B");
+    mTextField  = new FlatPlainTextEdit();
+    mBoldButton = new FlatButton("B");
 
     auto* vLayout = new QVBoxLayout;
     auto* hLayout = new QHBoxLayout;
 
     hLayout->setAlignment(Qt::AlignLeft);
-    hLayout->addWidget(boldButton);
+    hLayout->addWidget(mBoldButton);
 
-    vLayout->addWidget(textField);
+    vLayout->addWidget(mTextField);
     vLayout->addLayout(hLayout);
 
     setLayout(vLayout);
-    connect(boldButton, SIGNAL(clicked()), this, SLOT(boldButtonClicked()));
+    connect(mBoldButton, SIGNAL(clicked()), this, SLOT(boldButtonClicked()));
 }
 
 void TextEdit::boldButtonClicked()
 {
-    QTextCursor cursor = textField->textCursor();
+    QTextCursor cursor = mTextField->textCursor();
 
     if (cursor.hasSelection())
     {
@@ -39,14 +39,14 @@ void TextEdit::boldButtonClicked()
 
 QString TextEdit::text() const
 {
-    QString message = textField->toPlainText();
+    QString message = mTextField->toPlainText();
     return message;
 }
 
-void TextEdit::clear() { textField->clear(); }
+void TextEdit::clear() { mTextField->clear(); }
 
 TextEdit::~TextEdit()
 {
-    delete boldButton;
-    delete textField;
+    delete mBoldButton;
+    delete mTextField;
 }

@@ -62,7 +62,7 @@ QString CaptionButton::Lg2str(CaptionButton::CaptionLogo logo)
         return "close";
 }
 
-CaptionButton::CaptionButton(CaptionButton::CaptionLogo logo, const QColor& end_color,
+CaptionButton::CaptionButton(CaptionButton::CaptionLogo logo, const QColor& endColor,
                              QWidget* parent)
     : QWidget(parent)
 {
@@ -76,8 +76,8 @@ CaptionButton::CaptionButton(CaptionButton::CaptionLogo logo, const QColor& end_
     fadeinAnim = new QPropertyAnimation(this, "hoverColor");
     fadeinAnim->setDuration(150);
     fadeinAnim->setEasingCurve(QEasingCurve::InCubic);
-    fadeinAnim->setStartValue(QColor(end_color.red(), end_color.green(), end_color.blue(), 0));
-    fadeinAnim->setEndValue(end_color);
+    fadeinAnim->setStartValue(QColor(endColor.red(), endColor.green(), endColor.blue(), 0));
+    fadeinAnim->setEndValue(endColor);
     hoverColor = fadeinAnim->startValue().value<QColor>();
     setAttribute(Qt::WA_Hover);
 }

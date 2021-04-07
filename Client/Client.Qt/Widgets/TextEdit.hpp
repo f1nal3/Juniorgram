@@ -13,8 +13,8 @@ public:
     ~TextEdit() override;
 
 private:
-    FlatButton* boldButton;
-    FlatPlainTextEdit* textField;
+    FlatButton* mBoldButton;
+    FlatPlainTextEdit* mTextField;
 
 private slots:
     void boldButtonClicked();

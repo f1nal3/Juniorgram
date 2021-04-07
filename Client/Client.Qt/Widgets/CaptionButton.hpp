@@ -19,7 +19,7 @@ public:
 
     static QString dpi2str(int scale);
 
-    explicit CaptionButton(CaptionLogo logo, const QColor& end_color = QColor(255, 255, 255, 76),
+    explicit CaptionButton(CaptionLogo logo, const QColor& endColor = QColor(255, 255, 255, 76),
                            QWidget* parent = nullptr);
 
     void enterEvent(QEvent* event) override;

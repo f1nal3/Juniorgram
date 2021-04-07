@@ -15,7 +15,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent* e) override;
 
 private:
-    bool _hit{};
-    QString _text;
-    QAction* _action;
+    bool hit{};
+    QString innerText;
+    QAction* mAction;
 };

@@ -5,9 +5,9 @@
 #include "App.hpp"
 #include "PopupWidget.hpp"
 
-BioButton::BioButton(QImage bio_image, bool in_caption, QWidget* parent) : QWidget(parent)
+BioButton::BioButton(QImage bioImage, bool inCaption, QWidget* parent) : QWidget(parent)
 {
-    if (in_caption)
+    if (inCaption)
     {
         setFixedWidth(Style::valueDPIScale(46));
         setFixedHeight(Style::valueDPIScale(30));
@@ -21,13 +21,13 @@ BioButton::BioButton(QImage bio_image, bool in_caption, QWidget* parent) : QWidg
     fadeinAnim->setStartValue(QColor(255, 255, 255, 0));
     fadeinAnim->setEndValue(QColor(255, 255, 255, 76));
     hoverColor  = QColor(255, 255, 255, 0);
-    image       = std::move(bio_image);
+    image       = std::move(bioImage);
     installEventFilter(this);
     setAttribute(Qt::WA_Hover);
     // setMouseTracking(true);
 }
 
-void BioButton::setImage(QImage new_image) { image = std::move(new_image); }
+void BioButton::setImage(QImage newImage) { image = std::move(newImage); }
 
 bool BioButton::eventFilter(QObject* object, QEvent* event)
 {

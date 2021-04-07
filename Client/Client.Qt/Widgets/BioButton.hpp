@@ -8,9 +8,9 @@ class BioButton : public QWidget
     Q_OBJECT
     Q_PROPERTY(QColor hoverColor MEMBER hoverColor NOTIFY repaint)
 public:
-    explicit BioButton(QImage bio_image, bool in_caption = true, QWidget* parent = nullptr);
+    explicit BioButton(QImage bioImage, bool inCaption = true, QWidget* parent = nullptr);
 
-    void setImage(QImage new_image);
+    void setImage(QImage newImage);
 
 protected:
     bool eventFilter(QObject* object, QEvent* event) override;

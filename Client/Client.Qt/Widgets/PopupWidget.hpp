@@ -17,5 +17,5 @@ public:
     void popup(const QPoint& p);
 
 private:
-    Menu* _menu;
+    Menu* innerMenu;
 };

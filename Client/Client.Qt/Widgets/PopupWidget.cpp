@@ -17,20 +17,20 @@ void PopupWidget::hideEvent(QHideEvent* event)
 void PopupWidget::popup(const QPoint& p)
 {
     move(p);
-    if (_menu)
+    if (innerMenu)
     {
-        _menu->move(0, 10);
-        setFixedSize(256, _menu->height() + 20);
-        _menu->show();
+        innerMenu->move(0, 10);
+        setFixedSize(256, innerMenu->height() + 20);
+        innerMenu->show();
     }
     show();
 }
 void PopupWidget::setMenu(Menu* menu)
 {
-    _menu = menu;
-    _menu->setParent(this);
+    innerMenu = menu;
+    innerMenu->setParent(this);
 }
-PopupWidget::PopupWidget(QWidget* parent) : QWidget(parent), _menu(nullptr)
+PopupWidget::PopupWidget(QWidget* parent) : QWidget(parent), innerMenu(nullptr)
 {
     setWindowFlags(Qt::WindowFlags(Qt::FramelessWindowHint) | Qt::BypassWindowManagerHint |
                    Qt::Popup | Qt::NoDropShadowWindowHint);

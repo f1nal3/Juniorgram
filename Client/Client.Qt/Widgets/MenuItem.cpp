@@ -3,8 +3,8 @@
 #include "Style/Style.hpp"
 MenuItem::MenuItem(const QString& text, QAction* action, QWidget* parent) : QWidget(parent)
 {
-    _text   = text;
-    _action = action;
+    innerText = text;
+    mAction   = action;
     setFixedSize(parent->width() - 1, Style::valueDPIScale(30));
     setMouseTracking(true);
     setAttribute(Qt::WA_Hover);
@@ -15,7 +15,7 @@ void MenuItem::paintEvent(QPaintEvent* event)
     QPainter p(this);
     p.setPen(Qt::NoPen);
     QColor color = QColor(0x32, 0x32, 0x32);
-    if (_hit)
+    if (hit)
     {
         color = color.lighter(175);
     }
@@ -23,23 +23,23 @@ void MenuItem::paintEvent(QPaintEvent* event)
     p.drawRect(rect());
     p.setBrush(Qt::red);
     p.setPen(Qt::red);
-    p.drawText(5, 5, 245, 20, 0, _text);
+    p.drawText(5, 5, 245, 20, 0, innerText);
     QWidget::paintEvent(event);
 }
 void MenuItem::mouseMoveEvent(QMouseEvent* e)
 {
     Q_UNUSED(e);
-    if (underMouse()) _hit = true;
+    if (underMouse()) hit = true;
 }
 void MenuItem::leaveEvent(QEvent* e)
 {
     Q_UNUSED(e);
-    _hit = false;
+    hit = false;
 }
 void MenuItem::mouseReleaseEvent(QMouseEvent* e)
 {
     Q_UNUSED(e);
-    _action->trigger();
+    mAction->trigger();
     parentWidget()->hide();
     QWidget::mouseReleaseEvent(e);
 }
