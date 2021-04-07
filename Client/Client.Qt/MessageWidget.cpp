@@ -1,6 +1,7 @@
 #include "MessageWidget.hpp"
 
-MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QWidget* parent)
+MessageWidget::MessageWidget(QString textMessage, QString nameOfUser,
+                             QListWidgetItem* Item, QWidget* parent)
     : QWidget(parent),
     messageText(textMessage),
     userName(nameOfUser),
@@ -9,18 +10,23 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QWidget* p
     initializationUi();
     uiConnet();
     reactionOnMessage.append(NO_SELECTED);
+    messageItem = Item;
+    messageDel = false;
     updateWidget();
     setLayout(mainLayout);
 }
 
-MessageWidget::MessageWidget() 
-    : MessageWidget(EMPTY_MESSAGE, EMPTY_USER_NAME){}
+MessageWidget::MessageWidget(QString textMessage, QListWidgetItem* Item)
+    : MessageWidget(textMessage, EMPTY_USER_NAME, Item){}
 
-MessageWidget::MessageWidget(QString textMessage)
-    : MessageWidget(textMessage, EMPTY_USER_NAME){}
+MessageWidget::MessageWidget(QListWidgetItem* Item)
+    : MessageWidget(EMPTY_MESSAGE, EMPTY_USER_NAME, Item){}
 
-
-MessageWidget::~MessageWidget() {}
+MessageWidget::~MessageWidget()
+{
+    clearMessage();
+    delete mainLayout;
+}
 
 void MessageWidget::uiConnet() 
 { 
@@ -98,33 +104,46 @@ void MessageWidget::initializationUi()
     mainLayout->addLayout(DownLevelLayout);
 }
 
+void MessageWidget::clearMessage() {
+    if (messageDel)
+    {
+        mainLayout->removeWidget(delMessage);
+        delete delMessage;
+    }
+    else
+    {
+        UpLevelLayout->removeWidget(reactionLabel);
+        UpLevelLayout->removeItem(horizontalUpLeftSpacer);
+        UpLevelLayout->removeWidget(userNameLabel);
+        UpLevelLayout->removeItem(horizontalUpRightSpacer);
+        UpLevelLayout->removeWidget(messageTimeEdit);
+        DownLevelLayout->removeWidget(reactionChoseBox);
+        DownLevelLayout->removeItem(horizontalDownSpacer);
+        DownLevelLayout->removeWidget(deleteButton);
+
+        delete messageTextEdit;
+
+        delete userNameLabel;
+        delete reactionLabel;
+        delete horizontalUpLeftSpacer;
+        delete horizontalUpRightSpacer;
+        delete messageTimeEdit;
+        delete reactionChoseBox;
+        delete deleteButton;
+        delete horizontalDownSpacer;
+
+        delete UpLevelLayout;
+        delete DownLevelLayout;
+    }
+}
+
 void MessageWidget::deleteButtonClick()
 {
-    delete messageTextEdit;
-
-    UpLevelLayout->removeWidget(reactionLabel);
-    UpLevelLayout->removeItem(horizontalUpLeftSpacer);
-    UpLevelLayout->removeWidget(userNameLabel);
-    UpLevelLayout->removeItem(horizontalUpRightSpacer);
-    UpLevelLayout->removeWidget(messageTimeEdit);
-    DownLevelLayout->removeWidget(reactionChoseBox);
-    DownLevelLayout->removeItem(horizontalDownSpacer);
-    DownLevelLayout->removeWidget(deleteButton);
-
-    delete userNameLabel;
-    delete reactionLabel;
-    delete horizontalUpLeftSpacer;
-    delete horizontalUpRightSpacer;
-    delete messageTimeEdit;
-    delete reactionChoseBox;
-    delete deleteButton;
-    delete horizontalDownSpacer;
-
-    delete UpLevelLayout;
-    delete DownLevelLayout;
-    
-    QLabel* Del = new QLabel("Message was delete");
-    mainLayout->addWidget(Del);
+    clearMessage();
+    messageItem->setSizeHint(QSize(0, 30));
+    delMessage = new QLabel("Message was delete");
+    mainLayout->addWidget(delMessage);
+    messageDel = true;
 }
 
 bool MessageWidget::isReaction() { return (reactionMap["Like"] > 0) ? false : true; }
@@ -175,5 +194,28 @@ void MessageWidget::reactionChange(QString newReaction)
             reactionLabel->setText("");
             reactionLabel->setText(reactionOnMessage);
         }
+    }
+}
+
+void MessageWidget::setThisItem(QListWidgetItem* Item) 
+{ 
+    messageItem = Item; 
+};
+
+void MessageWidget::setMessageText(QString newMessage) 
+{ 
+    if (newMessage!="")
+    {
+        messageText = newMessage; 
+        updateWidget();
+    }
+}
+
+void MessageWidget::setUserName(QString newUserName)
+{
+    if (newUserName != "")
+    {
+        userName = newUserName;
+        updateWidget();
     }
 }

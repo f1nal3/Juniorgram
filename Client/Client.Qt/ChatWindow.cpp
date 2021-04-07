@@ -57,8 +57,9 @@ void ChatWindow::updateMessagesList_Bot() { newMessage("This is message from bot
 
 void ChatWindow::newMessage(QString textMessage, QString userNameMessage)
 {
-    MessageWidget* myItem = new MessageWidget(textMessage, userNameMessage);
     QListWidgetItem* item = new QListWidgetItem();
+    MessageWidget* myItem = new MessageWidget(textMessage, userNameMessage, item);
+    myItem->setThisItem(item);
     item->setSizeHint(QSize(0, 120));
     chatWidget->addItem(item);
     chatWidget->setItemWidget(item, myItem);
@@ -66,8 +67,9 @@ void ChatWindow::newMessage(QString textMessage, QString userNameMessage)
 
 void ChatWindow::newMessage(QString textMessage)
 {
-    MessageWidget* myItem = new MessageWidget(textMessage);
     QListWidgetItem* item = new QListWidgetItem();
+    MessageWidget* myItem = new MessageWidget(textMessage, item);
+    myItem->setThisItem(item);
     item->setSizeHint(QSize(0, 120));
     chatWidget->addItem(item);
     chatWidget->setItemWidget(item, myItem);
