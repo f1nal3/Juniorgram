@@ -200,7 +200,7 @@ void MessageWidget::reactionChange(QString newReaction)
 void MessageWidget::setThisItem(QListWidgetItem* Item) 
 { 
     messageItem = Item; 
-};
+}
 
 void MessageWidget::setMessageText(QString newMessage) 
 { 
