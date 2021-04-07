@@ -1,9 +1,9 @@
 #include "Server.hpp"
 
+#include <Network/Primitives.hpp>
 #include <future>
 
 #include "DataAccess.Static/PostgreRepository.hpp"
-#include <Network/Primitives.hpp>
 
 using Network::Connection;
 using Network::Message;
@@ -117,7 +117,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                     strcpy(info.message, msgFromHistory.data());
                 restoreWarning
 
-                msg << info;
+                        msg
+                    << info;
                 std::cout << info.message << '\n';
             }
             msg << messageHistory.size();

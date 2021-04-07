@@ -1,4 +1,5 @@
 #include "Client.hpp"
+#include <Network/Primitives.hpp>
 
 namespace Network
 {
@@ -89,11 +90,23 @@ namespace Network
         message.mHeader.mID = Network::Message::MessageType::MessageHistoryRequest;
         send(message);
     }
-    void Client::storeMessage() const
+    void Client::storeMessages(std::vector<std::string> messagesList) const
     {
-        Network::Message message;
-        message.mHeader.mID = Network::Message::MessageType::MessageStoreRequest;
-        send(message);
+        for (auto&& msg : messagesList)
+        {
+            Network::Message message;
+            message.mHeader.mID = Network::Message::MessageType::MessageStoreRequest;
+
+            Network::MessageInfo mi{};
+            mi.userID = mConnection->getID();
+            
+            suppressWarning(4996, -Winit - self) 
+                strcpy(mi.message, msg.data());
+            restoreWarning
+
+            message << mi;
+            send(message);
+        }
     }
     void Client::messageAll() const 
     {
