@@ -3,7 +3,7 @@
 #include <future>
 
 #include "DataAccess.Static/PostgreRepository.hpp"
-#include "Network/Primitives.hpp"
+#include <Network/Primitives.hpp>
 
 using Network::Connection;
 using Network::Message;
