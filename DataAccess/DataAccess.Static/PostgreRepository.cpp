@@ -1,5 +1,8 @@
 #include "PostgreRepository.hpp"
 
+#include <Network/Message.hpp>
+#include <Network/Primitives.hpp>
+#include <ctime>
 #include <iostream>
 
 #include "Utility/Exception.hpp"
@@ -46,19 +49,17 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(std::string
     return result;
 }
 
-void PostgreRepository::storeMessages(std::vector<std::string> messages)
+void PostgreRepository::storeMessage(Network::Message message)
 {
-    for (auto&& message : messages)
+    std::time_t t = std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp);
+
+    Network::MessageInfo messageInfo;
+    message >> messageInfo;
+
+    if (_postgre->isConnected())
     {
-        if (_postgre->isConnected())
-        {
-            auto messageInsert =
-                _postgre->query("INSERT INTO messages (message) VALUES ('" + message + "')");
-            
-        }
-        else
-        {
-            break;
-        }
+        _postgre->query("INSERT INTO messages (user_id, message, timestamp) VALUES(" +
+                        std::to_string(messageInfo.userID) + ",'" + messageInfo.message + "','" +
+                        std::ctime(&t) + "')");
     }
 }

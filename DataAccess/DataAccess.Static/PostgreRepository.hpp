@@ -2,6 +2,7 @@
 
 #include "PostgreAdapter.hpp"
 #include "DataAccess/IRepository.hpp"
+#include <Network/Message.hpp>
 
 namespace DataAccess
 {
@@ -18,7 +19,7 @@ namespace DataAccess
     
         virtual std::vector<std::string> getAllChannelsList() override final;
         virtual std::vector<std::string> getMessageHistoryForUser(std::string) override final;
-        virtual void storeMessages(std::vector<std::string>) override final;
+        virtual void storeMessage(Network::Message message) override final;
     
     };
 }

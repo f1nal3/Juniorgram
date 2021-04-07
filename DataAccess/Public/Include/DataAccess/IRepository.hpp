@@ -17,7 +17,7 @@ class IRepository
     // History is all messages that a marked as "non-delivered" for this user.
     virtual std::vector<std::string> getMessageHistoryForUser(std::string) = 0;
     // Draft method for writing several messages to a repository 
-    virtual void storeMessages(std::vector<std::string>) = 0;
+    virtual void storeMessage(Network::Message message) = 0;
     
     virtual ~IRepository() = default;
 };
