@@ -1,5 +1,6 @@
 #include "MessageWidget.hpp"
 #include <utility>
+
 MessageWidget::MessageWidget(QString textMessage, QString nameOfUser,
                              QListWidgetItem* Item, QWidget* parent)
     : QWidget(parent),
