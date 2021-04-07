@@ -22,3 +22,9 @@ Login::Login(QWidget* parent) : QWidget(parent)
     gridLayout->addWidget(buttonRegistration.get(), 3, 0);
     this->setLayout(gridLayout.get());
 }
+
+void Login::keyPressEvent(QKeyEvent* event)
+{
+    if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return))
+        App::setAppState(AppState::Authorized);
+}
