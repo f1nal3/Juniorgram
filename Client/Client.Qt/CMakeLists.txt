@@ -26,7 +26,7 @@ set(SOURCE_FILES
         Style/Style.cpp
         Style/Shadow.hpp
         MainWidget.cpp
-        MainWidget.h
+        MainWidget.hpp
         login.cpp
         login.hpp
         registration.cpp

@@ -1,4 +1,4 @@
-#include "MainWidget.h"
+#include "MainWidget.hpp"
 
 #include <Widgets/BioButton.hpp>
 

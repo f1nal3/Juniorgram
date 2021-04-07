@@ -3,7 +3,7 @@
 #include <Widgets/BioButton.hpp>
 
 #include "ChatWindow.hpp"
-#include "MainWidget.h"
+#include "MainWidget.hpp"
 #include "login.hpp"
 #include "registration.hpp"
 
