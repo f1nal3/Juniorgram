@@ -15,7 +15,7 @@ void MenuItem::paintEvent(QPaintEvent* event)
     QPainter p(this);
     p.setPen(Qt::NoPen);
     QColor color = QColor(0x32, 0x32, 0x32);
-    if (hit)
+    if (_hit)
     {
         color = color.lighter(175);
     }
@@ -29,12 +29,12 @@ void MenuItem::paintEvent(QPaintEvent* event)
 void MenuItem::mouseMoveEvent(QMouseEvent* e)
 {
     Q_UNUSED(e);
-    if (underMouse()) hit = true;
+    if (underMouse()) _hit = true;
 }
 void MenuItem::leaveEvent(QEvent* e)
 {
     Q_UNUSED(e);
-    hit = false;
+    _hit = false;
 }
 void MenuItem::mouseReleaseEvent(QMouseEvent* e)
 {

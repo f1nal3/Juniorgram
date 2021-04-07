@@ -6,7 +6,7 @@
 class BioButton : public QWidget
 {
     Q_OBJECT
-    Q_PROPERTY(QColor hover_color MEMBER hover_color NOTIFY animation)
+    Q_PROPERTY(QColor hover_color MEMBER hoverColor NOTIFY animation)
 public:
     explicit BioButton(QImage bio_image, bool in_caption = true, QWidget* parent = nullptr);
 
@@ -21,7 +21,7 @@ public slots:
     void animation();
 
 private:
-    QPropertyAnimation* fadein_anim;
-    QColor hover_color;
+    QPropertyAnimation* fadeinAnim;
+    QColor hoverColor;
     QImage image;
 };
