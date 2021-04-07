@@ -48,7 +48,8 @@ void ChatWindow::connectButton()
 
 void ChatWindow::updateMessagesList_User()
 {
-    if (textEdit->text() != "") newMessage(textEdit->text());
+    if (textEdit->text() != "")
+        newMessage(textEdit->text());
     textEdit->clear();
 }
 
