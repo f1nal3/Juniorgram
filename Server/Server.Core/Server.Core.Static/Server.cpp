@@ -117,8 +117,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                     strcpy(info.message, msgFromHistory.data());
                 restoreWarning
 
-                        msg
-                    << info;
+                msg << info;
                 std::cout << info.message << '\n';
             }
             msg << messageHistory.size();
