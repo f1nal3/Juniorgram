@@ -2,8 +2,8 @@
 
 #include <utility>
 
+#include "App.hpp"
 #include "PopupWidget.hpp"
-#include "app.h"
 
 BioButton::BioButton(QImage bio_image, bool in_caption, QWidget* parent) : QWidget(parent)
 {

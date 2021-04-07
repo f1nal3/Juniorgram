@@ -35,8 +35,8 @@ set(SOURCE_FILES
         ChatWindow.hpp
         MessageWidget.cpp
         MessageWidget.hpp
-        app.cpp
-        app.h
+        App.cpp
+        App.hpp
         pch.hpp
         main.cpp)
 
