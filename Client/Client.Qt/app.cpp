@@ -6,12 +6,13 @@
 #include "MainWidget.h"
 #include "login.hpp"
 #include "registration.hpp"
+
 namespace App
 {
 namespace
 {
 MainWidget* widget;
-BioButton* bio_Button;
+BioButton* bio_button;
 AppState m_app_state = AppState::RegistrationForm;
 }  // namespace
 void create()
@@ -39,10 +40,10 @@ void setAppState(AppState app_state)
 {
     m_app_state = app_state;
     widget->show();
-    if (bio_Button)
+    if (bio_button)
     {
-        delete bio_Button;
-        bio_Button = nullptr;
+        delete bio_button;
+        bio_button = nullptr;
     }
     switch (m_app_state)
     {
@@ -54,10 +55,10 @@ void setAppState(AppState app_state)
         break;
         case AppState::Authorized:
         {
-            auto* wid  = new ChatWindow();
-            bio_Button = new BioButton(QImage(), true, widget);
-            bio_Button->setImage(QImage(":/images/logo.png"));
-            widget->refreshTitleBar(bio_Button);
+            auto* wid = new ChatWindow();
+            bio_button = new BioButton(QImage(), true, widget);
+            bio_button->setImage(QImage(":/images/logo.png"));
+            widget->refreshTitleBar(bio_button);
             widget->setCentralWidget(wid);
         }
         break;

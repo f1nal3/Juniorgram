@@ -1,13 +1,15 @@
 #include "MessageWidget.hpp"
 
+#include <utility>
+
 MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QWidget* parent)
     : QWidget(parent),
-    messageText(textMessage),
-    userName(nameOfUser),
+    messageText(std::move(textMessage)),
+    userName(std::move(nameOfUser)),
     timeMessage(QTime::currentTime())
 {
     initializationUi();
-    uiConnet();
+    uiConnect();
     reactionOnMessage.append(NO_SELECTED);
     updateWidget();
     setLayout(mainLayout);
@@ -17,12 +19,12 @@ MessageWidget::MessageWidget()
     : MessageWidget(EMPTY_MESSAGE, EMPTY_USER_NAME){}
 
 MessageWidget::MessageWidget(QString textMessage)
-    : MessageWidget(textMessage, EMPTY_USER_NAME){}
+    : MessageWidget(std::move(textMessage), EMPTY_USER_NAME){}
 
 
-MessageWidget::~MessageWidget() {}
+MessageWidget::~MessageWidget() = default;
 
-void MessageWidget::uiConnet() 
+void MessageWidget::uiConnect()
 { 
     connect(reactionChoseBox, SIGNAL(currentIndexChanged(QString)), SLOT(reactionChange(QString)));
     connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteButtonClick()));

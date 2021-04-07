@@ -21,6 +21,9 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
 
     if (msg->message == WM_NCACTIVATE)
     {
+        /*
+         * https://github.com/melak47/BorderlessWindow
+         */
         if (IsCompositionEnabled())
         {
             const auto res = DefWindowProc(msg->hwnd, msg->message, msg->wParam, -1);
@@ -58,7 +61,7 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
         const auto p = MAKEPOINTS(msg->lParam);
         if (p.x <= 9)
         {
-            *result = HTLEFT;
+            if (result) *result = HTLEFT;
             return true;
         }
     }
@@ -85,7 +88,7 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
             this->layout()->setMargin(9);
             this->setAttribute(Qt::WA_TranslucentBackground);
         }
-        emit (window())->windowHandle()->windowStateChanged(state);
+        emit(window())->windowHandle()->windowStateChanged(state);
     }
     return false;
 }
@@ -367,4 +370,8 @@ bool MainWidget::eventFilter(QObject* watched, QEvent* event)
     }
     return QObject::eventFilter(watched, event);
 }
-void MainWidget::showEvent(QShowEvent* event) { QWidget::showEvent(event); update(); }
+void MainWidget::showEvent(QShowEvent* event)
+{
+    QWidget::showEvent(event);
+    update();
+}

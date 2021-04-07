@@ -12,6 +12,7 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
 
     hLayout->setAlignment(Qt::AlignLeft);
     hLayout->addWidget(boldButton);
+
     vLayout->addWidget(textField);
     vLayout->addLayout(hLayout);
 

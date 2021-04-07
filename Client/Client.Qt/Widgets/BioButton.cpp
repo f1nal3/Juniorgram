@@ -3,7 +3,6 @@
 #include <utility>
 
 #include "PopupWidget.hpp"
-#include "Style/Style.hpp"
 #include "app.h"
 
 BioButton::BioButton(QImage bio_image, bool in_caption, QWidget* parent) : QWidget(parent)
@@ -21,7 +20,7 @@ BioButton::BioButton(QImage bio_image, bool in_caption, QWidget* parent) : QWidg
     fadein_anim->setEasingCurve(QEasingCurve::InCubic);
     fadein_anim->setStartValue(QColor(255, 255, 255, 0));
     fadein_anim->setEndValue(QColor(255, 255, 255, 76));
-    hover_color = QColor(255, 255, 255, 15);
+    hover_color = QColor(255, 255, 255, 0);
     image       = std::move(bio_image);
     installEventFilter(this);
     setAttribute(Qt::WA_Hover);
