@@ -79,12 +79,8 @@ void ChatWindow::newMessage(QString textMessage)
 ChatWindow::~ChatWindow()
 {
     delete mainLayout;
-    delete messageEditLayout;
-    delete messageButtonLayout;
     delete sendButton;
     delete botButton;
     delete textEdit;
     delete chatWidget;
-    delete verticalUpSpacer;
-    delete verticalDownSpacer;
 }
