@@ -48,7 +48,7 @@ void MessageWidget::initializationUi()
     DownLevelLayout->setObjectName(QString::fromUtf8("DownLevelLayout"));
 
     //message
-    messageTextEdit = new QTextEdit();
+    messageTextEdit = new FlatPlainTextEdit();
     messageTextEdit->setObjectName(QString::fromUtf8("message"));
     messageTextEdit->setEnabled(true);
     messageTextEdit->setTabletTracking(false);
@@ -92,7 +92,7 @@ void MessageWidget::initializationUi()
 
     horizontalDownSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     
-    deleteButton = new QPushButton("Delete");
+    deleteButton = new FlatButton("Delete");
     deleteButton->setObjectName(QString::fromUtf8("deleteButton"));
 
     DownLevelLayout->addWidget(reactionChoseBox);
@@ -159,7 +159,7 @@ QString MessageWidget::getReaction()
 void MessageWidget::updateWidget()
 {
     messageTimeEdit->setTime(timeMessage);
-    messageTextEdit->setText(messageText);
+    messageTextEdit->setPlainText(messageText);
     userNameLabel->setText(userName);
     reactionLabel->setText("");
     if (!isReaction())
