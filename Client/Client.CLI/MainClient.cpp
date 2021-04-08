@@ -52,7 +52,8 @@ int main()
             }
             else if (cmd == "sm")
             {
-                clientApp.shell()->storeMessage();
+                std::vector<std::string> messagesList = {"hi, babe", "I'm comming today at 10 pm", "Expect"};
+                clientApp.shell()->storeMessages(messagesList);
             }
             else if (cmd == "q")
             {

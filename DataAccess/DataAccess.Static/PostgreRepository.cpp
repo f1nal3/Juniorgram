@@ -49,7 +49,7 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(std::string
     return result;
 }
 
-void PostgreRepository::storeMessage(Network::Message& message)
+void PostgreRepository::storeMessage(Network::Message message)
 {
     std::time_t t = std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp);
 

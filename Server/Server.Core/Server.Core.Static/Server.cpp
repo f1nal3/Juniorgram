@@ -113,7 +113,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                 Network::MessageInfo info;
                 info.userID = client->getID();
 
-                suppressWarning(4996, -Werror = pragmas) 
+                suppressWarning(4996, -Winit - self) 
                     strcpy(info.message, msgFromHistory.data());
                 restoreWarning
 

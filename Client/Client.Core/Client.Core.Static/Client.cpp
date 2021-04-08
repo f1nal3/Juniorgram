@@ -1,5 +1,6 @@
 #include "Client.hpp"
 #include <Network/Primitives.hpp>
+#include <Utility/WarningSuppression.hpp>
 
 namespace Network
 {

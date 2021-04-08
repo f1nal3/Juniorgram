@@ -29,7 +29,7 @@ class IRepository
      * @brief stores message in repository
      * @param message as Network::Message.
      */
-    virtual void storeMessage(Network::Message& message) = 0;
+    virtual void storeMessage(Network::Message message) = 0;
 
     /**
      * @brief Virtual dtor.
