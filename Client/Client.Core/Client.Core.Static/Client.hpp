@@ -34,7 +34,7 @@ public:
 
     void askForMessageHistory() const;
 
-    void storeMessages(std::vector<std::string> messagesList) const;
+    void storeMessages(const std::vector<std::string>& messagesList) const;
 
     void messageAll() const;
 };

@@ -91,7 +91,7 @@ namespace Network
         message.mHeader.mID = Network::Message::MessageType::MessageHistoryRequest;
         send(message);
     }
-    void Client::storeMessages(std::vector<std::string> messagesList) const
+    void Client::storeMessages(const std::vector<std::string>& messagesList) const
     {
         for (auto&& msg : messagesList)
         {
@@ -101,7 +101,7 @@ namespace Network
             Network::MessageInfo mi{};
             mi.userID = mConnection->getID();
             
-            suppressWarning(4996, -Winit - self) 
+            suppressWarning(4996, -Winit-self) 
                 strcpy(mi.message, msg.data());
             restoreWarning
 
