@@ -1,3 +1,4 @@
+#pragma once
 #include "pch.hpp"
 
 class CaptionButton : public QWidget
