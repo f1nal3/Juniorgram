@@ -1,11 +1,11 @@
 #pragma once
 
-#include "pch.h"
+#include "pch.hpp"
 
 class CaptionButton : public QWidget
 {
     Q_OBJECT
-    Q_PROPERTY(QColor close_button MEMBER close_button NOTIFY animation)
+    Q_PROPERTY(QColor hoverColor MEMBER hoverColor NOTIFY repaint)
 public:
     enum class CaptionLogo
     {
@@ -19,7 +19,7 @@ public:
 
     static QString dpi2str(int scale);
 
-    explicit CaptionButton(CaptionLogo logo, const QColor& end_color = QColor(255, 255, 255, 76),
+    explicit CaptionButton(CaptionLogo logo, const QColor& endColor = QColor(255, 255, 255, 76),
                            QWidget* parent = nullptr);
 
     void enterEvent(QEvent* event) override;
@@ -27,20 +27,15 @@ public:
     void mouseReleaseEvent(QMouseEvent* event) override;
     void paintEvent(QPaintEvent* event) override;
     ~CaptionButton() override = default;
-
-public slots:
-
-    void animation() { repaint(); }
-
 signals:
 
-   void mouseRelease();
+    void mouseRelease();
 
 public:
     bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
-    QColor close_button;
-    QPropertyAnimation* fadein_anim;
+    QColor hoverColor;
+    QPropertyAnimation* fadeinAnim;
     QPixmap* pixmap;
 };

@@ -15,7 +15,7 @@ class IRepository
     /**
      * @brief Draft method for getting all channel list from the server.
      * @return channels list as vector of strings.
-     */ 
+     */
     virtual std::vector<std::string> getAllChannelsList() = 0;
     /**
      * @brief Draft method for getting history for a specific user. \
@@ -32,7 +32,7 @@ class IRepository
 
     /**
      * @brief Virtual dtor.
-     */    
+     */
     virtual ~IRepository() = default;
 };
 }

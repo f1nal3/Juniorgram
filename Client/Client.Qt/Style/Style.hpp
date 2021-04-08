@@ -14,4 +14,3 @@ void setDpiScale(int factor);
 int valueDPIScale(int value);
 
 }  // namespace Style
-
