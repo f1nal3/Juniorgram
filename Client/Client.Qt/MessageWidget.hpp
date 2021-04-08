@@ -69,7 +69,7 @@ private:
     QComboBox* reactionChoseBox;
     QPushButton* deleteButton;
     QSpacerItem* horizontalDownSpacer;
-    // Del
+    // delMessage - shows that the message has been deleted
     QLabel* delMessage;
 
     QString messageText;
