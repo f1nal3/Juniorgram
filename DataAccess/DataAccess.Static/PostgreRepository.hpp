@@ -18,7 +18,7 @@ namespace DataAccess
     
         virtual std::vector<std::string> getAllChannelsList() override final;
         virtual std::vector<std::string> getMessageHistoryForUser(std::string) override final;
-        virtual void storeMessage(MessageWrapper&) override final;
+        virtual void storeMessage(const MessageWrapper&) override final;
     
     };
 }

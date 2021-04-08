@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#include <Network/Message.hpp>
+#include <DataAccess/MessageWrapper.hpp>
 
 namespace DataAccess
 {
@@ -29,7 +29,7 @@ class IRepository
      * @brief stores message in repository
      * @param message as MessageWrapper.
      */
-    virtual void storeMessage(MessageWrapper& message) = 0;
+    virtual void storeMessage(const MessageWrapper& message) = 0;
 
     /**
      * @brief Virtual dtor.

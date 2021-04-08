@@ -1,6 +1,6 @@
 #include "PostgreRepository.hpp"
 
-#include <Network/MessageWrapper.hpp>
+#include <DataAccess/MessageWrapper.hpp>
 #include <ctime>
 #include <iostream>
 
@@ -48,14 +48,16 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(std::string
     return result;
 }
 
-void PostgreRepository::storeMessage(MessageWrapper& message)
+void PostgreRepository::storeMessage(const MessageWrapper& message)
 {
-    std::time_t t = std::chrono::system_clock::to_time_t(message.timestamp);
+    std::time_t t = std::chrono::system_clock::to_time_t(message.getTimestamp());
+    std::string timeStr(30, '\0');
+    std::strftime(&timeStr[0], timeStr.size(), "%Y-%m-%d %H:%M:%S", std::localtime(&t));
 
     if (_postgre->isConnected())
     {
         _postgre->query("INSERT INTO messages (user_id, message, timestamp) VALUES(" +
-                        std::to_string(message.userID) + ",'" + message.messageText + "','" +
-                        std::ctime(&t) + "')");
+                        std::to_string(message.getUserID()) + ",'" + message.getMessageText() +
+                        "','" + timeStr + "')");
     }
 }

@@ -1,6 +1,6 @@
 #include "Server.hpp"
 
-#include <Network/MessageWrapper.hpp>
+#include <DataAccess/MessageWrapper.hpp>
 #include <Network/Primitives.hpp>
 #include <future>
 
