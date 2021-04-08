@@ -17,23 +17,45 @@ constexpr auto EMPTY_USER_NAME    = "You";
 #include <QtWidgets/QMainWindow>
 #include <Widgets/FlatButton.hpp>
 
+/** @class MessageWidget
+ *  @brief 
+ */
 class MessageWidget : public QWidget
 {
     Q_OBJECT
 
 public:
+    /**
+     * @brief Method for changing the object of the QListWidgetItem class in the MessageWidget.
+     * @param object reference of class QListWidgetItem.
+     */
     void setThisItem(QListWidgetItem* Item);
+    /**
+     * @brief Method for method for changing the message.
+     * @param new text message as string of QStrings.
+     */
     void setMessageText(QString newMessage);
+    /**
+     * @brief Method for method for changing the nickname of the message sender.
+     * @param new nickname as string of QStrings.
+     */
     void setUserName(QString newUserName);
 
-    explicit MessageWidget(QString textMessage, QString nameOfUser, QListWidgetItem* Item,
+    MessageWidget(QString textMessage, QString nameOfUser, QListWidgetItem* Item,
                            QWidget* parent = nullptr);
-    explicit MessageWidget(QString textMessage, QListWidgetItem* Item);
+    MessageWidget(QString textMessage, QListWidgetItem* Item);
     explicit MessageWidget(QListWidgetItem* Item);
     ~MessageWidget();
 
 private slots:
+    /**
+     * @brief
+     */
     void deleteButtonClick();
+    /**
+     * @brief 
+     * @param 
+     */
     void reactionChange(QString newReaction);
 
 private:
