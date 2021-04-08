@@ -2,18 +2,16 @@
 #include "MessageWidget.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/TextEdit.hpp"
-#include "pch.hpp"
 
 class ChatWindow : public QWidget
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     QVBoxLayout* mainLayout;
     QHBoxLayout* messageEditLayout;
     QVBoxLayout* messageButtonLayout;
     explicit ChatWindow(QWidget* parent = nullptr);
     ~ChatWindow() override;
-
 
 protected:
     void keyPressEvent(QKeyEvent* event) override;
@@ -31,5 +29,4 @@ private:
     void connectButton();
     void newMessage(QString textMessage, QString userNameMessage);
     void newMessage(QString textMessage);
-
 };
