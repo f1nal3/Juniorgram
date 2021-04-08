@@ -1,6 +1,6 @@
 #include "Client.hpp"
-#include <Network/Primitives.hpp>
 #include <Utility/WarningSuppression.hpp>
+#include <Network/MessageWrapper.hpp>
 
 namespace Network
 {
@@ -98,14 +98,13 @@ namespace Network
             Network::Message message;
             message.mHeader.mID = Network::Message::MessageType::MessageStoreRequest;
 
-            Network::MessageInfo mi{};
-            mi.userID = mConnection->getID();
+            MessageWrapper mw;
             
-            suppressWarning(4996, -Winit-self) 
-                strcpy(mi.message, msg.data());
-            restoreWarning
-
-            message << mi;
+            mw.userID = mConnection->getID();
+            mw.messageText = msg;
+            mw.timestamp = message.mHeader.mTimestamp;
+            
+            message << mw;
             send(message);
         }
     }

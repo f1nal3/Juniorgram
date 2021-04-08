@@ -1,5 +1,6 @@
 #include "Server.hpp"
 
+#include <Network/MessageWrapper.hpp>
 #include <Network/Primitives.hpp>
 #include <future>
 
@@ -83,7 +84,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                 Network::ChannelInfo info;
                 info.channelID = 0;
 
-                suppressWarning(4996, -Winit - self) 
+                suppressWarning(4996, -Winit-self) 
                     strcpy(info.channelName, channel.data());
                 restoreWarning
 
@@ -113,7 +114,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                 Network::MessageInfo info;
                 info.userID = client->getID();
 
-                suppressWarning(4996, -Winit - self) 
+                suppressWarning(4996, -Winit-self) 
                     strcpy(info.message, msgFromHistory.data());
                 restoreWarning
 
@@ -128,8 +129,10 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::MessageStoreRequest:
         {
+            MessageWrapper msg;
+            message >> msg;
             auto future = std::async(std::launch::async, &DataAccess::IRepository::storeMessage,
-                                     _postgreRepo.get(), message);
+                                     _postgreRepo.get(), msg);
 
             future.wait();
 

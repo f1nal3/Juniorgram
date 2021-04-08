@@ -27,9 +27,9 @@ class IRepository
     virtual std::vector<std::string> getMessageHistoryForUser(std::string UserID) = 0;
     /**
      * @brief stores message in repository
-     * @param message as Network::Message.
+     * @param message as MessageWrapper.
      */
-    virtual void storeMessage(Network::Message& message) = 0;
+    virtual void storeMessage(MessageWrapper& message) = 0;
 
     /**
      * @brief Virtual dtor.

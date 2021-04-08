@@ -1,7 +1,6 @@
 #include "PostgreRepository.hpp"
 
-#include <Network/Message.hpp>
-#include <Network/Primitives.hpp>
+#include <Network/MessageWrapper.hpp>
 #include <ctime>
 #include <iostream>
 
@@ -49,11 +48,11 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(std::string
     return result;
 }
 
-void PostgreRepository::storeMessage(Network::Message& message)
+void PostgreRepository::storeMessage(MessageWrapper& message)
 {
     std::time_t t = std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp);
 
-    Network::MessageInfo messageInfo;
+   
     message >> messageInfo;
 
     if (_postgre->isConnected())
