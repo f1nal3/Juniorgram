@@ -1,5 +1,7 @@
 #include "ChatWindow.hpp"
 
+#include <utility>
+
 #include "App.hpp"
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
@@ -19,7 +21,7 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     messageButtonLayout->addItem(verticalUpSpacer);
     messageButtonLayout->addWidget(sendButton);
     messageButtonLayout->addWidget(botButton);
-    messageButtonLayout->addItem(verticalUpSpacer);
+    messageButtonLayout->addItem(verticalDownSpacer);
 
     messageEditLayout->addWidget(textEdit);
     messageEditLayout->addLayout(messageButtonLayout);
@@ -46,11 +48,9 @@ void ChatWindow::connectButton()
     connect(botButton, &QPushButton::released, this, &ChatWindow::updateMessagesList_Bot);
 }
 
-
 void ChatWindow::updateMessagesList_User()
 {
-    if (textEdit->text() != "")
-        newMessage(textEdit->text());
+    if (textEdit->text() != "") newMessage(textEdit->text());
     textEdit->clear();
 }
 
@@ -58,8 +58,8 @@ void ChatWindow::updateMessagesList_Bot() { newMessage("This is message from bot
 
 void ChatWindow::newMessage(QString textMessage, QString userNameMessage)
 {
-    QListWidgetItem* item = new QListWidgetItem();
-    MessageWidget* myItem = new MessageWidget(textMessage, userNameMessage, item);
+    auto* item   = new QListWidgetItem();
+    auto* myItem = new MessageWidget(std::move(textMessage), std::move(userNameMessage), item);
     myItem->setThisItem(item);
     item->setSizeHint(QSize(0, 140));
     chatWidget->addItem(item);
@@ -68,8 +68,8 @@ void ChatWindow::newMessage(QString textMessage, QString userNameMessage)
 
 void ChatWindow::newMessage(QString textMessage)
 {
-    QListWidgetItem* item = new QListWidgetItem();
-    MessageWidget* myItem = new MessageWidget(textMessage, item);
+    auto* item   = new QListWidgetItem();
+    auto* myItem = new MessageWidget(std::move(textMessage), item);
     myItem->setThisItem(item);
     item->setSizeHint(QSize(0, 140));
     chatWidget->addItem(item);
@@ -79,12 +79,8 @@ void ChatWindow::newMessage(QString textMessage)
 ChatWindow::~ChatWindow()
 {
     delete mainLayout;
-    delete messageEditLayout;
-    delete messageButtonLayout;
     delete sendButton;
     delete botButton;
     delete textEdit;
     delete chatWidget;
-    delete verticalUpSpacer;
-    delete verticalDownSpacer;
 }
