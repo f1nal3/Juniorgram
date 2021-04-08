@@ -50,15 +50,12 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(std::string
 
 void PostgreRepository::storeMessage(MessageWrapper& message)
 {
-    std::time_t t = std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp);
-
-   
-    message >> messageInfo;
+    std::time_t t = std::chrono::system_clock::to_time_t(message.timestamp);
 
     if (_postgre->isConnected())
     {
         _postgre->query("INSERT INTO messages (user_id, message, timestamp) VALUES(" +
-                        std::to_string(messageInfo.userID) + ",'" + messageInfo.message + "','" +
+                        std::to_string(message.userID) + ",'" + message.messageText + "','" +
                         std::ctime(&t) + "')");
     }
 }
