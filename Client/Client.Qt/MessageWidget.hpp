@@ -5,16 +5,17 @@ constexpr auto NO_SELECTED_RETURN = "Null";
 constexpr auto EMPTY_MESSAGE      = "Empty message";
 constexpr auto EMPTY_USER_NAME    = "You";
 
-#include <QtWidgets/QMainWindow>
 #include <QComboBox>
 #include <QGridLayout>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QTextEdit>
 #include <QTime>
 #include <QTimeEdit>
 #include <QWidget>
-#include <QLabel>
-#include <QLineEdit>
-#include <QTextEdit>
-#include <QPushButton>
+#include <QtWidgets/QMainWindow>
+#include <Widgets/FlatButton.hpp>
 
 class MessageWidget : public QWidget
 {
@@ -43,7 +44,7 @@ public:
     explicit MessageWidget();
     explicit MessageWidget(QString textMessage, QString nameOfUser, QWidget* parent = nullptr);
     explicit MessageWidget(QString textMessage);
-    ~MessageWidget();
+    ~MessageWidget() override;
 
 
 private slots:
@@ -60,7 +61,7 @@ private:
     bool isReaction();
     QString getReaction();
     void updateWidget();
-    void uiConnet();
+    void uiConnect();
 };
 
 #endif  // QMESSAGEWIDGET_H

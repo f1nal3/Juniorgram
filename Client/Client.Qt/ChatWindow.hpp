@@ -1,20 +1,22 @@
 #pragma once
-#include "Widgets/TextEdit.h"
-#include "Widgets/InputFields.h"
-#include "pch.h"
 #include "MessageWidget.hpp"
+#include "Widgets/InputFields.hpp"
+#include "Widgets/TextEdit.hpp"
+#include "pch.hpp"
 
 class ChatWindow : public QWidget
 {
-    Q_OBJECT
+Q_OBJECT
 public:
     QVBoxLayout* mainLayout;
     QHBoxLayout* messageEditLayout;
     QVBoxLayout* messageButtonLayout;
     explicit ChatWindow(QWidget* parent = nullptr);
-    void keyPressEvent(QKeyEvent* event);
-    ~ChatWindow();
+    ~ChatWindow() override;
 
+
+protected:
+    void keyPressEvent(QKeyEvent* event) override;
 public slots:
     void updateMessagesList_User();
     void updateMessagesList_Bot();
@@ -29,4 +31,5 @@ private:
     void connectButton();
     void newMessage(QString textMessage, QString userNameMessage);
     void newMessage(QString textMessage);
+
 };

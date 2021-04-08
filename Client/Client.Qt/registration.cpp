@@ -1,6 +1,6 @@
 #include "registration.hpp"
 
-#include "app.h"
+#include "App.hpp"
 
 Registration::Registration(QWidget* parent) : QWidget(parent)
 {
