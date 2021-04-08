@@ -89,7 +89,7 @@ private:
     bool isReaction();
     QString getReaction();
     void updateWidget();
-    void uiConnet();
+    void uiConnect();
     void clearMessage();
 };
 

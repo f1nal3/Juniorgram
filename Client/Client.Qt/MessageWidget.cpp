@@ -29,7 +29,7 @@ MessageWidget::~MessageWidget()
     delete mainLayout;
 }
 
-void MessageWidget::uiConnet() 
+void MessageWidget::uiConnect()
 { 
     connect(reactionChoseBox, SIGNAL(currentIndexChanged(QString)), SLOT(reactionChange(QString)));
     connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteButtonClick()));
