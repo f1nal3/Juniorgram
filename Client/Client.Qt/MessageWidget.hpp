@@ -18,7 +18,7 @@ constexpr auto EMPTY_USER_NAME    = "You";
 #include <Widgets/FlatButton.hpp>
 
 /** @class MessageWidget
- *  @brief 
+ *  @brief message visual representation in chat
  */
 class MessageWidget : public QWidget
 {
@@ -48,14 +48,7 @@ public:
     ~MessageWidget();
 
 private slots:
-    /**
-     * @brief
-     */
     void deleteButtonClick();
-    /**
-     * @brief 
-     * @param 
-     */
     void reactionChange(QString newReaction);
 
 private:
