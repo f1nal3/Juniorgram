@@ -9,7 +9,7 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser,
     timeMessage(QTime::currentTime())
 {
     initializationUi();
-    uiConnect();
+    uiConnet();
     reactionOnMessage.append(NO_SELECTED);
     messageItem = Item;
     messageDel = false;
