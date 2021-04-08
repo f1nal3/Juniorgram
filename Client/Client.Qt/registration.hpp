@@ -16,4 +16,5 @@ private:
     std::unique_ptr<FlatButton> registrationButton;
     std::unique_ptr<FlatButton> back;
     std::unique_ptr<QGridLayout> gridLayout;
+    void keyPressEvent(QKeyEvent* event);
 };

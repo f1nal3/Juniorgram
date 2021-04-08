@@ -16,18 +16,50 @@ constexpr auto EMPTY_USER_NAME    = "You";
 #include <QWidget>
 #include <QtWidgets/QMainWindow>
 #include <Widgets/FlatButton.hpp>
+#include "Widgets/InputFields.hpp"
 
+/** @class MessageWidget
+ *  @brief message visual representation in chat
+ */
 class MessageWidget : public QWidget
 {
     Q_OBJECT
 
 public:
+    /**
+     * @brief Method for changing the object of the QListWidgetItem class in the MessageWidget.
+     * @param object reference of class QListWidgetItem.
+     */
+    void setThisItem(QListWidgetItem* Item);
+    /**
+     * @brief Method for method for changing the message.
+     * @param new text message as string of QStrings.
+     */
+    void setMessageText(QString newMessage);
+    /**
+     * @brief Method for method for changing the nickname of the message sender.
+     * @param new nickname as string of QStrings.
+     */
+    void setUserName(QString newUserName);
+
+    MessageWidget(QString textMessage, QString nameOfUser, QListWidgetItem* Item,
+                           QWidget* parent = nullptr);
+    MessageWidget(QString textMessage, QListWidgetItem* Item);
+    explicit MessageWidget(QListWidgetItem* Item);
+    ~MessageWidget();
+
+private slots:
+    void deleteButtonClick();
+    void reactionChange(QString newReaction);
+
+private:
+    QListWidgetItem* messageItem;
     // Layouts
     QVBoxLayout* mainLayout;
     QHBoxLayout* UpLevelLayout;
     QHBoxLayout* DownLevelLayout;
-    // message
-    QTextEdit* messageTextEdit;
+    // Message
+    FlatPlainTextEdit* messageTextEdit;
     // UpLevelLayout
     QLabel* userNameLabel;
     QLabel* reactionLabel;
@@ -36,32 +68,23 @@ public:
     QTimeEdit* messageTimeEdit;
     // DownLevelLayout
     QComboBox* reactionChoseBox;
-    QPushButton* deleteButton;
+    FlatButton* deleteButton;
     QSpacerItem* horizontalDownSpacer;
+    // delMessage - shows that the message has been deleted
+    QLabel* delMessage;
 
-
-
-    explicit MessageWidget();
-    explicit MessageWidget(QString textMessage, QString nameOfUser, QWidget* parent = nullptr);
-    explicit MessageWidget(QString textMessage);
-    ~MessageWidget() override;
-
-
-private slots:
-    void deleteButtonClick();
-    void reactionChange(QString newReaction);
-
-private:
     QString messageText;
     QString userName;
     QTime timeMessage;
     QString reactionOnMessage;
     std::map<std::string, int> reactionMap{{"Like", 0}};
+    bool messageDel;
     void initializationUi();
     bool isReaction();
     QString getReaction();
     void updateWidget();
     void uiConnect();
+    void clearMessage();
 };
 
 #endif  // QMESSAGEWIDGET_H

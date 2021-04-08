@@ -22,8 +22,8 @@ public slots:
     void updateMessagesList_Bot();
 
 private:
-    QPushButton* sendButton;
-    QPushButton* botButton;
+    FlatButton* sendButton;
+    FlatButton* botButton;
     TextEdit* textEdit;
     QListWidget* chatWidget;
     QSpacerItem* verticalUpSpacer;
