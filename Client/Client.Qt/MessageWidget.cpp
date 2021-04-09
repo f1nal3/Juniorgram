@@ -1,8 +1,8 @@
 #include "MessageWidget.hpp"
-
 #include <utility>
 
-MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QWidget* parent)
+MessageWidget::MessageWidget(QString textMessage, QString nameOfUser,
+                             QListWidgetItem* Item, QWidget* parent)
     : QWidget(parent),
     messageText(std::move(textMessage)),
     userName(std::move(nameOfUser)),
@@ -11,18 +11,23 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QWidget* p
     initializationUi();
     uiConnect();
     reactionOnMessage.append(NO_SELECTED);
+    messageItem = Item;
+    messageDel = false;
     updateWidget();
     setLayout(mainLayout);
 }
 
-MessageWidget::MessageWidget() 
-    : MessageWidget(EMPTY_MESSAGE, EMPTY_USER_NAME){}
+MessageWidget::MessageWidget(QString textMessage, QListWidgetItem* Item)
+    : MessageWidget(textMessage, EMPTY_USER_NAME, Item){}
 
-MessageWidget::MessageWidget(QString textMessage)
-    : MessageWidget(std::move(textMessage), EMPTY_USER_NAME){}
+MessageWidget::MessageWidget(QListWidgetItem* Item)
+    : MessageWidget(EMPTY_MESSAGE, EMPTY_USER_NAME, Item){}
 
-
-MessageWidget::~MessageWidget() = default;
+MessageWidget::~MessageWidget()
+{
+    clearMessage();
+    delete mainLayout;
+}
 
 void MessageWidget::uiConnect()
 { 
@@ -43,7 +48,7 @@ void MessageWidget::initializationUi()
     DownLevelLayout->setObjectName(QString::fromUtf8("DownLevelLayout"));
 
     //message
-    messageTextEdit = new QTextEdit();
+    messageTextEdit = new FlatPlainTextEdit();
     messageTextEdit->setObjectName(QString::fromUtf8("message"));
     messageTextEdit->setEnabled(true);
     messageTextEdit->setTabletTracking(false);
@@ -87,7 +92,7 @@ void MessageWidget::initializationUi()
 
     horizontalDownSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     
-    deleteButton = new QPushButton("Delete");
+    deleteButton = new FlatButton("Delete");
     deleteButton->setObjectName(QString::fromUtf8("deleteButton"));
 
     DownLevelLayout->addWidget(reactionChoseBox);
@@ -100,9 +105,49 @@ void MessageWidget::initializationUi()
     mainLayout->addLayout(DownLevelLayout);
 }
 
+void MessageWidget::clearMessage()
+{
+    if (messageDel)
+    {
+        mainLayout->removeWidget(delMessage);
+        delete delMessage;
+    }
+    else
+    {
+        UpLevelLayout->removeWidget(reactionLabel);
+        UpLevelLayout->removeItem(horizontalUpLeftSpacer);
+        UpLevelLayout->removeWidget(userNameLabel);
+        UpLevelLayout->removeItem(horizontalUpRightSpacer);
+        UpLevelLayout->removeWidget(messageTimeEdit);
+        DownLevelLayout->removeWidget(reactionChoseBox);
+        DownLevelLayout->removeItem(horizontalDownSpacer);
+        DownLevelLayout->removeWidget(deleteButton);
+
+        delete messageTextEdit;
+
+        delete userNameLabel;
+        delete reactionLabel;
+        delete horizontalUpLeftSpacer;
+        delete horizontalUpRightSpacer;
+        delete messageTimeEdit;
+        delete reactionChoseBox;
+        delete deleteButton;
+        delete horizontalDownSpacer;
+
+        delete UpLevelLayout;
+        delete DownLevelLayout;
+    }
+}
+
+
 void MessageWidget::deleteButtonClick()
 {
-    QWidget::close(); }
+    clearMessage();
+    messageItem->setSizeHint(QSize(0, 30));
+    delMessage = new QLabel("Message was delete");
+    mainLayout->addWidget(delMessage);
+    messageDel = true;
+}
 
 bool MessageWidget::isReaction() { return (reactionMap["Like"] > 0) ? false : true; }
 
@@ -114,7 +159,7 @@ QString MessageWidget::getReaction()
 void MessageWidget::updateWidget()
 {
     messageTimeEdit->setTime(timeMessage);
-    messageTextEdit->setText(messageText);
+    messageTextEdit->setPlainText(messageText);
     userNameLabel->setText(userName);
     reactionLabel->setText("");
     if (!isReaction())
@@ -152,5 +197,25 @@ void MessageWidget::reactionChange(QString newReaction)
             reactionLabel->setText("");
             reactionLabel->setText(reactionOnMessage);
         }
+    }
+}
+
+void MessageWidget::setThisItem(QListWidgetItem* Item) { messageItem = Item; }
+
+void MessageWidget::setMessageText(QString newMessage)
+{
+    if (newMessage != "")
+    {
+        messageText = newMessage;
+        updateWidget();
+    }
+}
+
+void MessageWidget::setUserName(QString newUserName)
+{
+    if (newUserName != "")
+    {
+        userName = newUserName;
+        updateWidget();
     }
 }
