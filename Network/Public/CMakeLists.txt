@@ -5,8 +5,7 @@ set(SOURCE_FILES
     Include/Network/Connection.hpp
     Include/Network/Message.hpp
     Include/Network/SafeQueue.hpp
-    Include/Network/Primitives.hpp
-    Include/Network/MessageWrapper.hpp)
+    Include/Network/Primitives.hpp)
 
 add_library(${TARGET} INTERFACE)
 
