@@ -15,7 +15,7 @@ nlohmann::ordered_json constructPropertiesJSON()
 }
 bool isValidIdentifier(const std::string& identifier)
 {
-    if (identifier.empty() || !(std::isalpha(identifier[0]) || identifier[0] == '_'))
+    if (identifier.empty() || std::isdigit(identifier[0]))
     {
         return false;
     }
@@ -304,7 +304,7 @@ void FileDB::update(const std::string& tableName, const std::vector<std::string>
     }
 }
 
-void FileDB::del(const std::string& tableName,
+void FileDB::remove(const std::string& tableName,
                  std::function<bool(const nlohmann::ordered_json&)> condition)
 {
     std::lock_guard<std::mutex> lock{ mutex };
@@ -444,7 +444,7 @@ void FileDB::createTable(const std::string& tableName, const std::vector<std::st
     tableProperties[tableName] = properties;
 }
 
-void FileDB::deleteTable(const std::string& tableName)
+void FileDB::removeTable(const std::string& tableName)
 {
     std::lock_guard<std::mutex> lock{ mutex };
 
@@ -499,7 +499,7 @@ void FileDB::addColumn(const std::string& tableName, const std::string& columnNa
     setJSONFieldType(tableRowTemplates[tableName], columnName, columnType);
 }
 
-void FileDB::deleteColumn(const std::string& tableName, const std::string columnName)
+void FileDB::removeColumn(const std::string& tableName, const std::string columnName)
 {
     std::lock_guard<std::mutex> lock{ mutex };
 

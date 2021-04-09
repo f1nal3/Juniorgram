@@ -1,18 +1,17 @@
 cmake_minimum_required(VERSION 3.15.0)
 
-project(FileDB)
-
 set(TARGET DataAccess.Debug)
 set(OUTPUT_NAME DataAccess.Debug)
 
 set(SOURCES
-	./mainFileDB.cpp
-	./FileDB.cpp)
+	./FileDB.cpp
+	./FileRepository.cpp)
 	
 set(HEADERS
-	./FileDB.hpp)
+	./FileDB.hpp
+	./FileRepository.hpp)
 
-add_executable(FileDB ${SOURCES} ${HEADERS})
+add_library(${TARGET} STATIC ${SOURCES} ${HEADERS})
 
 include(FetchContent)
 
@@ -31,8 +30,8 @@ if(NOT json_POPULATED)
   add_subdirectory(${json_SOURCE_DIR} ${json_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE nlohmann_json::nlohmann_json)
-target_link_libraries(${PROJECT_NAME} PUBLIC
+target_link_libraries(${TARGET} PUBLIC nlohmann_json::nlohmann_json)
+target_link_libraries(${TARGET} PUBLIC
     Utility.Public
     DataAccess.Public)
 
