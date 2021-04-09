@@ -16,9 +16,9 @@ namespace DataAccess
         PostgreRepository();
         virtual ~PostgreRepository() = default;
     
-        virtual std::vector<std::string> getAllChannelsList() override final;
-        virtual std::vector<std::string> getMessageHistoryForUser(std::string) override final;
-        virtual void storeMessages(std::vector<std::string>) override final;
+        virtual const std::vector<std::string> getAllChannelsList() override final;
+        virtual const std::vector<std::string> getMessageHistoryForUser(const std::string& UserID) override final;
+        virtual void storeMessages(const std::vector<std::string>&) override final;
     
     };
 }
