@@ -1,5 +1,5 @@
 #include "FileRepository.hpp"
-#include "DataAccess\Exception.hpp"
+#include "Utility\Exception.hpp"
 
 namespace DataAccess
 {
@@ -24,7 +24,7 @@ std::vector<std::string> FileRepository::getAllChannelsList()
 std::vector<std::string> FileRepository::getMessageHistoryForUser(std::string userID) 
 {
     auto rows = database->select("channels",
-        [](const nlohmann::ordered_json& row){ return row.at("user_id") == userID ? true : false; };
+        [userID](const nlohmann::ordered_json& row){ return row.at("user_id") == userID ? true : false; });
 
     std::vector<std::string> messages;
 
