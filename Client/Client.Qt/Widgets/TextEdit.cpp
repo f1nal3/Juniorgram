@@ -1,4 +1,5 @@
 #include "TextEdit.hpp"
+#include <iostream>
 
 #include <Style/Style.hpp>
 
@@ -28,12 +29,30 @@ void TextEdit::boldButtonClicked()
     {
         int start = cursor.selectionStart();
         int end   = cursor.selectionEnd();
+        QString mSelection = cursor.selectedText();
+        QString mFullText = text();
 
+        if(mSelection.endsWith("**") && mSelection.startsWith("**"))
+        {
+            mFullText.replace(end - 2, 2, QString(""));
+            mFullText.replace(start, 2, QString(""));
+            mTextField->setPlainText(mFullText);
+            mTextField->setTextCursor(cursor);
+        }
+        else
+        {
         cursor.setPosition(start);
         cursor.insertText(QString("**"));
+        end += boldSymbolSize;
 
-        cursor.setPosition((end + 2));
+        cursor.setPosition((end));
         cursor.insertText(QString("**"));
+        end += boldSymbolSize;
+
+        cursor.setPosition(start, QTextCursor::MoveAnchor);
+        cursor.setPosition(end, QTextCursor::KeepAnchor);
+        mTextField->setTextCursor(cursor);
+        }
     }
 }
 

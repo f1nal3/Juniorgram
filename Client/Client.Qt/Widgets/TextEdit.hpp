@@ -15,6 +15,8 @@ public:
 private:
     FlatButton* mBoldButton;
     FlatPlainTextEdit* mTextField;
+    
+    const int boldSymbolSize = 2;
 
 private slots:
     void boldButtonClicked();
