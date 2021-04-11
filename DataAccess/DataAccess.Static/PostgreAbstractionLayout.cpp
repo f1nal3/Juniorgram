@@ -2,7 +2,7 @@
 
 namespace DataAccess
 {
-	Table* Table::select(void) 
+    [[nodiscard]] Table* Table::select(void) 
 	{
         m_choosedOp = Operation::SELECT;
 
@@ -10,7 +10,7 @@ namespace DataAccess
 
 		return this;
 	}
-	Table* Table::insert(void) 
+    [[nodiscard]] Table* Table::insert(void) 
 	{
         m_choosedOp = Operation::INSERT;
 
@@ -18,7 +18,7 @@ namespace DataAccess
 
 		return this;
 	}
-    Table* Table::update(void) 
+    [[nodiscard]] Table* Table::update(void) 
 	{ 
         m_choosedOp = Operation::UPDATE;
 
@@ -26,7 +26,7 @@ namespace DataAccess
 
 		return this;
 	}
-    Table* Table::drop(void) 
+    [[nodiscard]] Table* Table::drop(void) 
 	{ 	
         m_choosedOp = Operation::DELETE;
 
@@ -36,7 +36,7 @@ namespace DataAccess
 	}
 
     template<typename ...Args>
-    Table* Table::columns(const std::pair<std::string, Args>&... columnList)
+    [[nodiscard]] Table* Table::columns(const std::pair<std::string, Args>&... columnList)
 	{
         constexpr std::size_t numberOfArgs = (sizeof(Args) + ...);
 
@@ -87,7 +87,7 @@ namespace DataAccess
 
 		return this;
 	}
-    Table* Table::columns(const std::initializer_list<std::string>& columnList)
+    [[nodiscard]] Table* Table::columns(const std::initializer_list<std::string>& columnList)
     {
         switch (m_choosedOp)
         {
@@ -128,13 +128,13 @@ namespace DataAccess
         return this;
     }
 
-    Table* Table::where(const std::string& condition)
+    [[nodiscard]] Table* Table::where(const std::string& condition)
     {  
         m_query << " where " << condition;
 
         return this;
     }
-    Table* Table::orderBy(const std::initializer_list<std::string>& columnList) 
+    [[nodiscard]] Table* Table::orderBy(const std::initializer_list<std::string>& columnList) 
     { 
         for (auto& column : columnList)
         {
@@ -144,7 +144,7 @@ namespace DataAccess
 
         return this;
     }
-    Table* Table::limit(std::uint32_t limit, std::uint32_t offset)
+    [[nodiscard]] Table* Table::limit(std::uint32_t limit, std::uint32_t offset)
     { 
         m_query << " limit " << limit << " offset " << offset;
 
@@ -156,7 +156,7 @@ namespace DataAccess
         m_query.str("");
         m_query.clear();
     }
-    std::optional<pqxx::result> Table::execute(void)
+    [[nodiscard]] std::optional<pqxx::result> Table::execute(void)
     {
         auto result = mp_postgre->query(m_query.str());
 

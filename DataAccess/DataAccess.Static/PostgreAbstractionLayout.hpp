@@ -31,25 +31,25 @@ namespace DataAccess
         Table& operator=(Table&&) = delete;
     
     public:
-        Table* select(void) noexcept;
-        Table* insert(void) noexcept;
-        Table* update(void) noexcept;
-        Table* drop(void) noexcept;
+        [[nodiscard]] Table* select(void) noexcept;
+        [[nodiscard]] Table* insert(void) noexcept;
+        [[nodiscard]] Table* update(void) noexcept;
+        [[nodiscard]] Table* drop(void) noexcept;
     
     public:
         template<typename ...Args>
-        Table* columns(const std::pair<std::string, Args>& ...columnList);
-        Table* columns(const std::initializer_list<std::string>& columnList);
+        [[nodiscard]] Table* columns(const std::pair<std::string, Args>&... columnList);
+        [[nodiscard]] Table* columns(const std::initializer_list<std::string>& columnList);
 
     public:
-        Table* where(const std::string& condition);
-        Table* orderBy(const std::initializer_list<std::string>& columnList);
-        Table* limit(std::uint32_t limit, std::uint32_t offset = {});
+        [[nodiscard]] Table* where(const std::string& condition);
+        [[nodiscard]] Table* orderBy(const std::initializer_list<std::string>& columnList);
+        [[nodiscard]] Table* limit(std::uint32_t limit, std::uint32_t offset = {});
     
         void rollback(void);
-        std::optional<pqxx::result> execute(void);
+        [[nodiscard]] std::optional<pqxx::result> execute(void);
     
-        const std::string& getQuery() const noexcept { return m_query.str(); }
+        [[nodiscard]] const std::string& getQuery() const noexcept { return m_query.str(); }
     
     private:
         enum class Operation : std::uint8_t
