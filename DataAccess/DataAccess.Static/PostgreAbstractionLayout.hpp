@@ -1,12 +1,5 @@
 #pragma once
 
-#include <tuple>
-#include <vector>
-#include <memory>
-#include <sstream>
-#include <optional>
-#include <stdexcept>
-
 #include "PostgreAdapter.hpp"
 
 #include <Utility/Exception.hpp>
@@ -38,10 +31,10 @@ namespace DataAccess
         Table& operator=(Table&&) = delete;
     
     public:
-        Table* select(void);
-        Table* insert(void);
-        Table* update(void);
-        Table* drop(void);
+        Table* select(void) noexcept;
+        Table* insert(void) noexcept;
+        Table* update(void) noexcept;
+        Table* drop(void) noexcept;
     
     public:
         template<typename ...Args>
@@ -68,8 +61,8 @@ namespace DataAccess
             DELETE
         } m_choosedOp;
 
-        std::stringstream m_query;
-        std::string m_tableName;
+        std::ostringstream m_query;
+        const std::string m_tableName;
         std::shared_ptr<PostgreAdapter> mp_postgre;
 
     };
@@ -82,5 +75,4 @@ namespace DataAccess
         Table("b").insert()->columns(std::pair{"'age'"s, 25},
                                      std::pair{"'sex'"s, "'m'"})->execute();
     }
-
 }

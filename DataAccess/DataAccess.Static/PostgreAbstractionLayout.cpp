@@ -130,15 +130,7 @@ namespace DataAccess
 
     Table* Table::where(const std::string& condition)
     {  
-        if (*std::find(std::begin(m_query.str()), std::end(m_query.str()), "where") ==
-            std::string::npos)
-        {
-            m_query << " where " << condition;
-        }
-        else
-        {
-            m_query << " and " << condition;
-        }
+        m_query << " where " << condition;
 
         return this;
     }
