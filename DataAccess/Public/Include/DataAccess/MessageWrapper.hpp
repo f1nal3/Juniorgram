@@ -1,6 +1,7 @@
 #pragma once
 #include <Utility/WarningSuppression.hpp>
 #include <chrono>
+#include <cstring>
 #include <string>
 
 class MessageWrapper
