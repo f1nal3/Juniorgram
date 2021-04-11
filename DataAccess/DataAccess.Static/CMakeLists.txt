@@ -5,7 +5,9 @@ set(SOURCE_FILES
     PostgreAdapter.hpp
     PostgreAdapter.cpp
     PostgreRepository.hpp
-    PostgreRepository.cpp)
+    PostgreRepository.cpp
+    PostgreAbstractionLayout.hpp
+    PostgreAbstractionLayout.cpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 

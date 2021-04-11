@@ -18,11 +18,11 @@ namespace Utility
     {
         public:
         explicit NotImplementedException(const char* msg, const char* file, std::uint8_t line)
-            : _msg(formatExceptionMessage(msg, file, line))
+            : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
         {}
 
         explicit NotImplementedException(const std::string& msg, const char* file, std::uint8_t line)
-            : _msg(formatExceptionMessage(msg, file, line))
+            : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
         {}
 
         virtual const char* what() const noexcept
@@ -32,6 +32,28 @@ namespace Utility
         virtual ~NotImplementedException() = default;
         
         protected:
+        std::string _msg;
+        std::string _file;
+        std::uint8_t _line;
+    };
+
+    class EncorrectOperationDBException : public std::exception
+    {
+    public:
+        explicit EncorrectOperationDBException(const char* msg, const char* file, std::uint8_t line)
+            : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
+        {
+        }
+
+        explicit EncorrectOperationDBException(const std::string& msg, const char* file, std::uint8_t line)
+            : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
+        {
+        }
+
+        virtual const char* what() const noexcept { return _msg.c_str(); }
+        virtual ~EncorrectOperationDBException() = default;
+
+    protected:
         std::string _msg;
         std::string _file;
         std::uint8_t _line;
