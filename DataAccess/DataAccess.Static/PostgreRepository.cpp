@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "Utility/Exception.hpp"
+#include "Utility/Utility.hpp"
 
 using namespace DataAccess;
 
@@ -50,9 +51,11 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(std::string
 
 void PostgreRepository::storeMessage(const MessageWrapper& message)
 {
-    std::time_t t = std::chrono::system_clock::to_time_t(message.getTimestamp());
     std::string timeStr(30, '\0');
-    std::strftime(&timeStr[0], timeStr.size(), "%Y-%m-%d %H:%M:%S", std::localtime(&t));
+
+    std::time_t t = std::chrono::system_clock::to_time_t(message.getTimestamp());
+    std::tm time = Utility::safe_localtime(t);
+    std::strftime(&timeStr[0], timeStr.size(), "%Y-%m-%d %H:%M:%S", &time);
 
     if (_postgre->isConnected())
     {

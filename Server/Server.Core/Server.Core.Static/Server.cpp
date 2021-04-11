@@ -135,7 +135,6 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                                      _postgreRepo.get(), msg);
 
             future.wait();
-
             client->send(message);
         }
         break;
