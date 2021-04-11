@@ -1,5 +1,7 @@
 #include "ChatWindow.hpp"
 
+#include <utility>
+
 #include "App.hpp"
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
@@ -8,23 +10,23 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     messageEditLayout   = new QHBoxLayout();
     messageButtonLayout = new QVBoxLayout();
     chatWidget          = new QListWidget(this);
-    sendButton          = new QPushButton("Send");
-    botButton           = new QPushButton("Bot");
+    sendButton          = new FlatButton("Send");
+    botButton           = new FlatButton("Bot");
     textEdit            = new TextEdit(this);
     verticalUpSpacer    = new QSpacerItem(0, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
     verticalDownSpacer  = new QSpacerItem(0, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-    mainLayout->addWidget(chatWidget, 70);
+    mainLayout->addWidget(chatWidget, 85);
 
     messageButtonLayout->addItem(verticalUpSpacer);
     messageButtonLayout->addWidget(sendButton);
     messageButtonLayout->addWidget(botButton);
-    messageButtonLayout->addItem(verticalUpSpacer);
+    messageButtonLayout->addItem(verticalDownSpacer);
 
     messageEditLayout->addWidget(textEdit);
     messageEditLayout->addLayout(messageButtonLayout);
 
-    mainLayout->addLayout(messageEditLayout, 30);
+    mainLayout->addLayout(messageEditLayout, 15);
 
     connectButton();
     setLayout(mainLayout);
@@ -46,11 +48,9 @@ void ChatWindow::connectButton()
     connect(botButton, &QPushButton::released, this, &ChatWindow::updateMessagesList_Bot);
 }
 
-
 void ChatWindow::updateMessagesList_User()
 {
-    if (textEdit->text() != "")
-        newMessage(textEdit->text());
+    if (textEdit->text() != "") newMessage(textEdit->text());
     textEdit->clear();
 }
 
@@ -58,18 +58,20 @@ void ChatWindow::updateMessagesList_Bot() { newMessage("This is message from bot
 
 void ChatWindow::newMessage(QString textMessage, QString userNameMessage)
 {
-    MessageWidget* myItem = new MessageWidget(textMessage, userNameMessage);
-    QListWidgetItem* item = new QListWidgetItem();
-    item->setSizeHint(QSize(0, 120));
+    auto* item   = new QListWidgetItem();
+    auto* myItem = new MessageWidget(std::move(textMessage), std::move(userNameMessage), item);
+    myItem->setThisItem(item);
+    item->setSizeHint(QSize(0, 140));
     chatWidget->addItem(item);
     chatWidget->setItemWidget(item, myItem);
 }
 
 void ChatWindow::newMessage(QString textMessage)
 {
-    MessageWidget* myItem = new MessageWidget(textMessage);
-    QListWidgetItem* item = new QListWidgetItem();
-    item->setSizeHint(QSize(0, 120));
+    auto* item   = new QListWidgetItem();
+    auto* myItem = new MessageWidget(std::move(textMessage), item);
+    myItem->setThisItem(item);
+    item->setSizeHint(QSize(0, 140));
     chatWidget->addItem(item);
     chatWidget->setItemWidget(item, myItem);
 }
@@ -77,12 +79,8 @@ void ChatWindow::newMessage(QString textMessage)
 ChatWindow::~ChatWindow()
 {
     delete mainLayout;
-    delete messageEditLayout;
-    delete messageButtonLayout;
     delete sendButton;
     delete botButton;
     delete textEdit;
     delete chatWidget;
-    delete verticalUpSpacer;
-    delete verticalDownSpacer;
 }

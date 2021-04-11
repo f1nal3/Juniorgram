@@ -16,7 +16,7 @@ PostgreRepository::PostgreRepository()
     // TODO Import parameters from argument parser
 }
 
-std::vector<std::string> PostgreRepository::getAllChannelsList()
+const std::vector<std::string> PostgreRepository::getAllChannelsList()
 {
     std::vector<std::string> result;
     if (_postgre->isConnected())
@@ -32,13 +32,13 @@ std::vector<std::string> PostgreRepository::getAllChannelsList()
     return result;
 }
 
-std::vector<std::string> PostgreRepository::getMessageHistoryForUser(std::string userId)
+const std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::string& UserId)
 {
     std::vector<std::string> result;
     if (_postgre->isConnected())
     {
-        auto messageHistory =
-            _postgre->query("SELECT message FROM messages WHERE user_id = " + userId);
+        auto messageHistory = 
+            _postgre->query("SELECT message FROM messages WHERE user_id = " + UserId);
 
         for (auto message : messageHistory.value())
         {
