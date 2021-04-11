@@ -4,7 +4,7 @@
 #include <cstring>
 #include <string>
 
-class MessageWrapper
+class UserMessage
 {
     using time_point = std::chrono::time_point<std::chrono::system_clock>;
 
@@ -14,9 +14,9 @@ private:
     time_point timestamp;
 
 public:
-    MessageWrapper() = default;
+    UserMessage() = default;
 
-    MessageWrapper(const std::uint64_t userID, const std::string& messageText,
+    UserMessage(const std::uint64_t userID, const std::string& messageText,
                    const time_point& timestamp)
         : userID(userID), timestamp(timestamp)
     {
@@ -25,7 +25,7 @@ public:
         restoreWarning
     }
 
-    MessageWrapper(const MessageWrapper&) = default;
+    UserMessage(const UserMessage&) = default;
 
     std::uint64_t getUserID() const { return userID; }
 

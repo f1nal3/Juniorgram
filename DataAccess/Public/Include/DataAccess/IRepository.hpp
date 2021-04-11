@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <DataAccess/MessageWrapper.hpp>
+#include <DataAccess/UserMessage.hpp>
 
 namespace DataAccess
 {
@@ -26,9 +26,9 @@ class IRepository
     virtual const std::vector<std::string> getMessageHistoryForUser(const std::string& UserID) = 0;
     /**
      * @brief stores message in repository
-     * @param message as MessageWrapper.
+     * @param message as UserMessage.
      */
-    virtual void storeMessage(const MessageWrapper& message) = 0;
+    virtual void storeMessage(const UserMessage& message) = 0;
     /**
      * @brief Virtual dtor.
      */

@@ -1,6 +1,6 @@
 #include "Server.hpp"
 
-#include <DataAccess/MessageWrapper.hpp>
+#include <DataAccess/UserMessage.hpp>
 #include <Network/Primitives.hpp>
 #include <future>
 
@@ -129,7 +129,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::MessageStoreRequest:
         {
-            MessageWrapper msg;
+            UserMessage msg;
             message >> msg;
             auto future = std::async(std::launch::async, &DataAccess::IRepository::storeMessage,
                                      _postgreRepo.get(), msg);

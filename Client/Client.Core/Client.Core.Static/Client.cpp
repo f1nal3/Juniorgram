@@ -1,6 +1,6 @@
 #include "Client.hpp"
 #include <Utility/WarningSuppression.hpp>
-#include <DataAccess/MessageWrapper.hpp>
+#include <DataAccess/UserMessage.hpp>
 
 namespace Network
 {
@@ -98,9 +98,9 @@ namespace Network
             Network::Message message;
             message.mHeader.mID = Network::Message::MessageType::MessageStoreRequest;
 
-            MessageWrapper mw(mConnection->getID(), msg, message.mHeader.mTimestamp );
+            UserMessage us(mConnection->getID(), msg, message.mHeader.mTimestamp );
             
-            message << mw;
+            message << us;
             send(message);
         }
     }

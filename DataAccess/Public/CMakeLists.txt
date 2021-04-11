@@ -3,7 +3,7 @@ set(OUTPUT_NAME Juniorgram.DataAccess.Public)
 
 set(SOURCE_FILES
     Include/DataAccess/IRepository.hpp
-    Include/DataAccess/MessageWrapper.hpp)
+    Include/DataAccess/UserMessage.hpp)
 
 add_library(${TARGET} INTERFACE)
 

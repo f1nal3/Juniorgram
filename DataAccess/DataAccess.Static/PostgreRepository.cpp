@@ -1,6 +1,6 @@
 #include "PostgreRepository.hpp"
 
-#include <DataAccess/MessageWrapper.hpp>
+#include <DataAccess/UserMessage.hpp>
 #include <ctime>
 #include <iostream>
 
@@ -11,8 +11,7 @@ using namespace DataAccess;
 
 PostgreRepository::PostgreRepository()
 {
-    _postgre =
-        PostgreAdapter::getPostgre("dbname=postgres user=postgres hostaddr=127.0.0.1 port=5432");
+    _postgre = PostgreAdapter::getPostgre("dbname=postgres user=postgres hostaddr=127.0.0.1 port=5432");
     // TODO Import parameters from argument parser
 }
 
@@ -37,7 +36,7 @@ const std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const
     std::vector<std::string> result;
     if (_postgre->isConnected())
     {
-        auto messageHistory = 
+        auto messageHistory =
             _postgre->query("SELECT message FROM messages WHERE user_id = " + UserId);
 
         for (auto message : messageHistory.value())
@@ -49,12 +48,12 @@ const std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const
     return result;
 }
 
-void PostgreRepository::storeMessage(const MessageWrapper& message)
+void PostgreRepository::storeMessage(const UserMessage& message)
 {
     std::string timeStr(30, '\0');
 
     std::time_t t = std::chrono::system_clock::to_time_t(message.getTimestamp());
-    std::tm time = Utility::safe_localtime(t);
+    std::tm time  = Utility::safe_localtime(t);
     std::strftime(&timeStr[0], timeStr.size(), "%Y-%m-%d %H:%M:%S", &time);
 
     if (_postgre->isConnected())
