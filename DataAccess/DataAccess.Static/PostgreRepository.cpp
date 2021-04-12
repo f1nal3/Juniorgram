@@ -1,6 +1,5 @@
 #include "PostgreRepository.hpp"
 
-#include <DataAccess/UserMessage.hpp>
 #include <ctime>
 #include <iostream>
 
@@ -48,7 +47,7 @@ const std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const
     return result;
 }
 
-void PostgreRepository::storeMessage(const UserMessage& message)
+void PostgreRepository::storeMessage(const Network::UserMessage& message)
 {
     std::string timeStr(30, '\0');
 

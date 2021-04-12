@@ -1,6 +1,5 @@
 #include "Server.hpp"
 
-#include <DataAccess/UserMessage.hpp>
 #include <Network/Primitives.hpp>
 #include <future>
 
@@ -114,7 +113,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                 Network::MessageInfo info;
                 info.userID = client->getID();
 
-                suppressWarning(4996, -Winit-self) 
+                suppressWarning(4996, -Winit-self)
                     strcpy(info.message, msgFromHistory.data());
                 restoreWarning
 
@@ -129,7 +128,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::MessageStoreRequest:
         {
-            UserMessage msg;
+            Network::UserMessage msg;
             message >> msg;
             auto future = std::async(std::launch::async, &DataAccess::IRepository::storeMessage,
                                      _postgreRepo.get(), msg);

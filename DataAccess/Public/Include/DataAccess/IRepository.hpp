@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <DataAccess/UserMessage.hpp>
+#include <Network/Primitives.hpp>
 
 namespace DataAccess
 {
@@ -25,10 +25,10 @@ class IRepository
      */
     virtual const std::vector<std::string> getMessageHistoryForUser(const std::string& UserID) = 0;
     /**
-     * @brief stores message in repository
-     * @param message as UserMessage.
+     * @brief Draft method for storing user's message in repository
+     * @param message as Network::UserMessage.
      */
-    virtual void storeMessage(const UserMessage& message) = 0;
+    virtual void storeMessage(const Network::UserMessage& message) = 0;
     /**
      * @brief Virtual dtor.
      */
