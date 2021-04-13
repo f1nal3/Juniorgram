@@ -1,6 +1,4 @@
 #include "TextEdit.hpp"
-#include <iostream>
-
 #include <Style/Style.hpp>
 
 TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
@@ -29,31 +27,57 @@ void TextEdit::boldButtonClicked()
     {
         int start = cursor.selectionStart();
         int end   = cursor.selectionEnd();
+
         QString mSelection = cursor.selectedText();
         QString mFullText = text();
 
-        if(mSelection.endsWith("**") && mSelection.startsWith("**"))
+        QString mBeforeSelection = mFullText.left(start);
+        QString mAfterSelection = mFullText.right(mFullText.size() - end);  
+
+        if(mSelection.endsWith(boldSymbol) && mSelection.startsWith(boldSymbol))
         {
-            mFullText.replace(end - 2, 2, QString(""));
-            mFullText.replace(start, 2, QString(""));
-            mTextField->setPlainText(mFullText);
+            delSymbolsInSelection(mFullText, start, end, boldSymbolSize);
+            mTextField->setTextCursor(cursor);
+        }
+        else if(mBeforeSelection.endsWith(boldSymbol) && mAfterSelection.startsWith(boldSymbol))
+        {
+            delSymbolsOutSelection(mFullText, start, end, boldSymbolSize);
             mTextField->setTextCursor(cursor);
         }
         else
         {
-        cursor.setPosition(start);
-        cursor.insertText(QString("**"));
-        end += boldSymbolSize;
-
-        cursor.setPosition((end));
-        cursor.insertText(QString("**"));
-        end += boldSymbolSize;
-
-        cursor.setPosition(start, QTextCursor::MoveAnchor);
-        cursor.setPosition(end, QTextCursor::KeepAnchor);
-        mTextField->setTextCursor(cursor);
+            insertSymbolsInSelection(cursor, start, end, boldSymbolSize, boldSymbol);
+            selectText(cursor, start, end);
         }
     }
+}
+
+void TextEdit::delSymbolsInSelection(QString &text, int &start, int &end, int symbolSize){
+    text.replace(end - symbolSize, symbolSize, "");
+    text.replace(start, symbolSize, "");
+    mTextField->setPlainText(text);
+}
+
+void TextEdit::delSymbolsOutSelection(QString &text, int &start, int &end, int symbolSize){
+    text.replace(end, symbolSize, "");
+    text.replace(start - symbolSize, symbolSize, "");
+    mTextField->setPlainText(text);
+}
+
+void TextEdit::insertSymbolsInSelection(QTextCursor &cursor, int &start, int &end, int symbolSize, const QString symbol){
+    cursor.setPosition(start);
+    cursor.insertText(symbol);
+    end += symbolSize;
+
+    cursor.setPosition((end));
+    cursor.insertText(symbol);
+    end += symbolSize;
+}
+
+void TextEdit::selectText(QTextCursor &cursor, int start, int end){
+    cursor.setPosition(start, QTextCursor::MoveAnchor);
+    cursor.setPosition(end, QTextCursor::KeepAnchor);
+    mTextField->setTextCursor(cursor);
 }
 
 QString TextEdit::text() const

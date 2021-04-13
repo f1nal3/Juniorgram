@@ -17,6 +17,12 @@ private:
     FlatPlainTextEdit* mTextField;
     
     const int boldSymbolSize = 2;
+    const QString boldSymbol = "**";
+
+    void delSymbolsInSelection(QString &text, int &start, int &end, int symbolSize);
+    void delSymbolsOutSelection(QString &text, int &start, int &end, int symbolSize);
+    void insertSymbolsInSelection(QTextCursor &cursor, int &start, int &end, int symbolSize, const QString symbol);
+    void selectText(QTextCursor &cursor, int start, int end);
 
 private slots:
     void boldButtonClicked();
