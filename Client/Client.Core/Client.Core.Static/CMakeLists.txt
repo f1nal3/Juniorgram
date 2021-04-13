@@ -15,6 +15,6 @@ target_include_directories(${TARGET}
     INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio)
-target_link_libraries(${TARGET} PUBLIC Network.Public)
+target_link_libraries(${TARGET} PUBLIC Network.Public DataAccess.Public)
 
 set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)
