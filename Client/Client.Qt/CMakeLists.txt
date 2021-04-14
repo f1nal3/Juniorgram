@@ -22,6 +22,8 @@ set(SOURCE_FILES
         Widgets/Menu.hpp
         Widgets/MenuItem.cpp
         Widgets/MenuItem.hpp
+        Widgets/MessageWidget.cpp
+        Widgets/MessageWidget.hpp
         Style/Style.hpp
         Style/Style.cpp
         Style/Shadow.hpp
@@ -33,8 +35,6 @@ set(SOURCE_FILES
         Registration.hpp
         ChatWindow.cpp
         ChatWindow.hpp
-        MessageWidget.cpp
-        MessageWidget.hpp
         App.cpp
         App.hpp
         pch.hpp
