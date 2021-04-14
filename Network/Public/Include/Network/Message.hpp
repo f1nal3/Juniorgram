@@ -24,9 +24,10 @@ struct Message
         MessageAll,
         ServerMessage,
         ChannelListRequest,
-        MessageHistoryRequest
+        MessageHistoryRequest,
+        MessageStoreRequest
     };
-
+    
     struct MessageHeader
     {
         MessageType mConnectionID = MessageType();

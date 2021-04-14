@@ -1,7 +1,7 @@
 #pragma once
-#include "Widgets/FlatButton.h"
-#include "Widgets/InputFields.h"
-#include "pch.h"
+#include "Widgets/FlatButton.hpp"
+#include "Widgets/InputFields.hpp"
+#include "pch.hpp"
 
 class Registration : public QWidget
 {
@@ -16,4 +16,5 @@ private:
     std::unique_ptr<FlatButton> registrationButton;
     std::unique_ptr<FlatButton> back;
     std::unique_ptr<QGridLayout> gridLayout;
+    void keyPressEvent(QKeyEvent* event);
 };

@@ -87,8 +87,15 @@ bool App::loop()
                     for (auto& item : messageList) std::cout << item << '\n';
                 }
                 break;
-                default:
-                    break;
+
+                case Network::Message::MessageType::MessageStoreRequest:
+                {
+                    std::cout << "Message were stored" << std::endl;
+                }
+                break;
+
+				        default:
+				        break;
             }
         }
     }

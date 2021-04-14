@@ -15,4 +15,5 @@ target_link_libraries(${TARGET} PUBLIC
     
 target_link_libraries(${TARGET} PUBLIC
     Utility.Public
-    DataAccess.Public)
+    DataAccess.Public
+    Network.Public)

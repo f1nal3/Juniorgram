@@ -1,6 +1,6 @@
 #include "registration.hpp"
 
-#include "app.h"
+#include "App.hpp"
 
 Registration::Registration(QWidget* parent) : QWidget(parent)
 {
@@ -20,4 +20,10 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
     gridLayout->addWidget(registrationButton.get(), 3, 0);
     gridLayout->addWidget(back.get(), 4, 0);
     this->setLayout(gridLayout.get());
+}
+
+void Registration::keyPressEvent(QKeyEvent* event)
+{
+    if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return))
+        App::setAppState(AppState::LoginForm);
 }

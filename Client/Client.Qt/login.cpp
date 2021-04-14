@@ -1,6 +1,6 @@
 #include "login.hpp"
 
-#include "app.h"
+#include "App.hpp"
 
 Login::Login(QWidget* parent) : QWidget(parent)
 {
@@ -10,9 +10,8 @@ Login::Login(QWidget* parent) : QWidget(parent)
     buttonSignin       = std::make_unique<FlatButton>("Login");
     buttonRegistration = std::make_unique<FlatButton>("Registration");
 
-    QObject::connect(buttonSignin.get(), &FlatButton::pressed, []() {
-        App::setAppState(AppState::Authorized);
-    });
+    QObject::connect(buttonSignin.get(), &FlatButton::pressed,
+                     []() { App::setAppState(AppState::Authorized); });
     QObject::connect(buttonRegistration.get(), &FlatButton::pressed,
                      []() { App::setAppState(AppState::RegistrationForm); });
 
@@ -22,4 +21,10 @@ Login::Login(QWidget* parent) : QWidget(parent)
     gridLayout->addWidget(buttonSignin.get(), 2, 0);
     gridLayout->addWidget(buttonRegistration.get(), 3, 0);
     this->setLayout(gridLayout.get());
+}
+
+void Login::keyPressEvent(QKeyEvent* event)
+{
+    if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return))
+        App::setAppState(AppState::Authorized);
 }
