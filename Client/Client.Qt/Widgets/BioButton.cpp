@@ -37,8 +37,6 @@ BioButton::BioButton(QImage bioImage, bool inCaption, QWidget* parent) : QWidget
 
     // For Hover messages
     setAttribute(Qt::WA_Hover);
-
-    // setMouseTracking(true);
 }
 
 void BioButton::setImage(QImage newImage) { image = std::move(newImage); }
