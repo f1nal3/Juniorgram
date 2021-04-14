@@ -1,4 +1,4 @@
-#include "registration.hpp"
+#include "Registration.hpp"
 
 #include "App.hpp"
 
