@@ -27,10 +27,10 @@ set(SOURCE_FILES
         Style/Shadow.hpp
         MainWidget.cpp
         MainWidget.hpp
-        login.cpp
-        login.hpp
-        registration.cpp
-        registration.hpp
+        Login.cpp
+        Login.hpp
+        Registration.cpp
+        Registration.hpp
         ChatWindow.cpp
         ChatWindow.hpp
         MessageWidget.cpp
