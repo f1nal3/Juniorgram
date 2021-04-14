@@ -9,8 +9,6 @@ BioButton::BioButton(QImage bioImage, bool inCaption, QWidget* parent) : QWidget
 {
     /*
      * This part set button sizes.
-     * P.S. We didn't have and don't have a designer
-     * so this was the take from Teams desktop :)
      */
     if (inCaption)
     {
@@ -22,8 +20,6 @@ BioButton::BioButton(QImage bioImage, bool inCaption, QWidget* parent) : QWidget
     }
 
     // Setting up hover animation
-    // P.S. why??
-    // P.S.S why not
     fadeinAnim = new QPropertyAnimation(this, "hoverColor");
     fadeinAnim->setDuration(150);
     fadeinAnim->setEasingCurve(QEasingCurve::InCubic);
@@ -39,7 +35,7 @@ BioButton::BioButton(QImage bioImage, bool inCaption, QWidget* parent) : QWidget
     // Now it's all up to eventFilter
     installEventFilter(this);
 
-    // For HoverXXX messages
+    // For Hover messages
     setAttribute(Qt::WA_Hover);
 
     // setMouseTracking(true);
@@ -58,7 +54,6 @@ bool BioButton::eventFilter(QObject* object, QEvent* event)
             return true;
         }
         // If leaves return background color
-        // P.S. there is no animation :(
         else if (event->type() == QEvent::HoverLeave)
         {
             fadeinAnim->stop();
@@ -83,14 +78,13 @@ bool BioButton::eventFilter(QObject* object, QEvent* event)
             auto globalPoint = mapToGlobal(localPoint);
 
             // Creating menu
-            // UVAHA: Do not set "this" as a parent
             Menu* menu = new Menu;
 
             // Adding options
             menu->addAction("Username: Add format here", []() {});
             menu->addAction("Quit", []() { App::setAppState(AppState::LoginForm); });
 
-            // We need this to happen on LMB
+            // We need this to happen on
             if (ev->button() == Qt::LeftButton)
             {
                 // Creating popup and setting

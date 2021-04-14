@@ -3,13 +3,17 @@
 
 #include "pch.hpp"
 
+/**
+ * @class IRepository
+ * @brief Class for Profile menu widget
+ */
 class BioButton : public QWidget
 {
     Q_OBJECT
     Q_PROPERTY(QColor hoverColor READ getHoverColor WRITE setHoverColor)
 public:
     /**
-     * Constructor of bio button
+     * @brief Constructor of bio button
      * @param bioImage Profile image
      * @param inCaption Must be set true for now.
      * @param parent Parent of widget
@@ -17,7 +21,7 @@ public:
     explicit BioButton(QImage bioImage, bool inCaption = true, QWidget* parent = nullptr);
 
     /**
-     * Changes profile image (locally)
+     * @brief Changes profile image (locally)
      * @param newImage
      */
     void setImage(QImage newImage);
@@ -28,7 +32,7 @@ protected:
 
 private:
     /**
-     * Changes button background color if in title bar
+     * @brief Changes button background color if in title bar
      * @param newColor New background color
      */
     void setHoverColor(QColor newColor)
@@ -37,7 +41,7 @@ private:
         repaint();
     }
     /**
-     * Returns current background color
+     * @brief Returns current background color
      * @return Current background color
      */
     QColor getHoverColor() { return hoverColor; }
