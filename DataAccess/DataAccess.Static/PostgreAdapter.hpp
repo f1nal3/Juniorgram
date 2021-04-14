@@ -19,7 +19,7 @@ private:
     pqxx::connection m_connection;
 
 protected:
-    PostgreAdapter(const std::string_view& options) : m_connection{pqxx::zview(options)} {}
+    PostgreAdapter(const std::string_view& options = {}) : m_connection{pqxx::zview(options)} {}
 
 public:
     PostgreAdapter(const PostgreAdapter& other) = delete;
