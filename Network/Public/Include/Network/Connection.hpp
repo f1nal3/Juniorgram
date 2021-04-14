@@ -31,7 +31,7 @@ private:
     /// Connection "owner"
     OwnerType mOwner = OwnerType::SERVER;
     /// Connection id
-    uint64_t mID = uint64_t();
+    uint64_t mConnectionID = uint64_t();
 
     /// Unique socket to remote
     asio::ip::tcp::socket mSocket;
@@ -80,7 +80,7 @@ private:
             }
             else
             {
-                std::cout << "[" << mID << "] Write Header Fail.\n";
+                std::cout << "[" << mConnectionID << "] Write Header Fail.\n";
                 mSocket.close();
             }
         };
@@ -115,7 +115,7 @@ private:
             }
             else
             {
-                std::cout << "[" << mID << "] Write Body Fail.\n";
+                std::cout << "[" << mConnectionID << "] Write Body Fail.\n";
                 mSocket.close();
             }
         };
@@ -155,7 +155,7 @@ private:
             }
             else
             {
-                std::cout << "[" << mID << "] Read Header Fail.\n";
+                std::cout << "[" << mConnectionID << "] Read Header Fail.\n";
                 mSocket.close();
             }
         };
@@ -183,7 +183,7 @@ private:
             }
             else
             {
-                std::cout << "[" << mID << "] Read Body Fail.\n";
+                std::cout << "[" << mConnectionID << "] Read Body Fail.\n";
                 mSocket.close();
             }
         };
@@ -241,7 +241,7 @@ public:
      * whole system.
      * @return mId - connection id.
      */
-    uint64_t getID() const { return mID; }
+    uint64_t getID() const { return mConnectionID; }
 
     /**
      * @brief Method for connection to clients from server side.
@@ -254,7 +254,7 @@ public:
         {
             if (mSocket.is_open())
             {
-                mID = uid;
+                mConnectionID = uid;
                 readHeader();
             }
         }
@@ -282,17 +282,18 @@ public:
         }
     }
     restoreWarning
-    // clang-format on
+        // clang-format on
 
-    /**
-    * @brief Method for closing connection if it is opened.
-    * @details It checks if there is a connection with smb/smth. \
-    * If the connection is present, function asio::post is called, \
-    * because the current context is holding locks and \
-    * the function should be called after they have been released. This would allow \
-    * the function to acquire those locks itself without causing a deadlock.
-    */
-    void disconnect()
+        /**
+         * @brief Method for closing connection if it is opened.
+         * @details It checks if there is a connection with smb/smth. \
+         * If the connection is present, function asio::post is called, \
+         * because the current context is holding locks and \
+         * the function should be called after they have been released. This would allow \
+         * the function to acquire those locks itself without causing a deadlock.
+         */
+        void
+        disconnect()
     {
         if (isConnected())
         {
