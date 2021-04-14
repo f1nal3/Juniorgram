@@ -47,7 +47,7 @@ private:
     Message mMessageBuffer;
 
     /// Alias for the error handler functor
-    typedef std::function<void(std::error_code)> handler;
+    using handler = std::function<void(std::error_code)>;
 
     /**
      * @brief Method for sending message header.
