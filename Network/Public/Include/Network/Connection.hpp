@@ -260,13 +260,14 @@ public:
         }
     }
 
-    suppressWarning(4100, -Wunused - parameter)
+    // clang-format off
+    suppressWarning(4100, -Wunused-parameter)
     /**
-     * @brief Method for connection to server from client side.
-     * @details Only clients can connect to servers and make a request asio attempts \
-     * to connect to an endpoint.
-     * @param endpoint - result type returned by resolver
-     */
+    * @brief Method for connection to server from client side.
+    * @details Only clients can connect to servers and make a request asio attempts \
+    * to connect to an endpoint.
+    * @param endpoint - result type returned by resolver
+    */
     void connectToServer(const asio::ip::tcp::resolver::results_type& endpoint)
     {
         if (mOwner == OwnerType::CLIENT)
@@ -281,15 +282,16 @@ public:
         }
     }
     restoreWarning
+    // clang-format on
 
     /**
-     * @brief Method for closing connection if it is opened.
-     * @details It checks if there is a connection with smb/smth. \
-     * If the connection is present, function asio::post is called, \
-     * because the current context is holding locks and \
-     * the function should be called after they have been released. This would allow \
-     * the function to acquire those locks itself without causing a deadlock.
-     */
+    * @brief Method for closing connection if it is opened.
+    * @details It checks if there is a connection with smb/smth. \
+    * If the connection is present, function asio::post is called, \
+    * because the current context is holding locks and \
+    * the function should be called after they have been released. This would allow \
+    * the function to acquire those locks itself without causing a deadlock.
+    */
     void disconnect()
     {
         if (isConnected())
