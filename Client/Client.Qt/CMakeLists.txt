@@ -22,6 +22,8 @@ set(SOURCE_FILES
         Widgets/Menu.hpp
         Widgets/MenuItem.cpp
         Widgets/MenuItem.hpp
+		Widgets/ChannelList.cpp
+		Widgets/ChannelList.hpp
         Style/Style.hpp
         Style/Style.cpp
         Style/Shadow.hpp
