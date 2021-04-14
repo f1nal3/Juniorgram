@@ -67,26 +67,30 @@ bool BioButton::eventFilter(QObject* object, QEvent* event)
             // Getting mouse event info
             auto ev = dynamic_cast<QMouseEvent*>(event);
 
-            /*
-             * Bottom left point of widget in application and on screen
-             * When I was writing this I've thought that screen position is enough
-             * but there was a shift on X
-             */
-            auto localPoint  = this->geometry().bottomLeft();
-            auto globalPoint = mapToGlobal(localPoint);
-
-            // Creating menu
-            Menu* menu = new Menu;
-
-            // Adding options
-            menu->addAction("Username: Add format here", []() {});
-            menu->addAction("Quit", []() { App::setAppState(AppState::LoginForm); });
-
             // We need this to happen on
             if (ev->button() == Qt::LeftButton)
             {
                 // Creating popup and setting
                 auto pop = new PopupWidget();
+
+                /*
+                 * We need to know where to place popup menu on screen
+                 * If we just use mapToGlobal(localPoint) we'll get shift on X
+                 * like globalPoint.x = screenPosition.x + localPoint.x
+                 * so we need localPoint and globalPoint
+                 * localPoint - position on window
+                 * globalPoint - position on screen(with shift on X)
+                 */
+                auto localPoint  = this->geometry().bottomLeft();
+                auto globalPoint = mapToGlobal(localPoint);
+
+                // Creating menu
+                Menu* menu = new Menu;
+
+                // Adding options
+                menu->addAction("Username: Add format here", []() {});
+                menu->addAction("Quit", []() { App::setAppState(AppState::LoginForm); });
+
                 pop->setMenu(menu);
 
                 // Now show the menu
