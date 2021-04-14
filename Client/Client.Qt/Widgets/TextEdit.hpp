@@ -3,12 +3,24 @@
 #include "FlatButton.hpp"
 #include "InputFields.hpp"
 #include "pch.hpp"
+
+/** @class TextEdit
+ *  @brief Widget with a text edit field and an edit bar.\
+ * The edit bar has a Bold button which makes selected text bold.
+ */
 class TextEdit : public QWidget
 {
     Q_OBJECT
 public:
     explicit TextEdit(QWidget* parent = nullptr);
+    /**
+     * @brief Method for getting text from the text edit field.
+     * @return text edit field content as QString.
+     */
     [[nodiscard]] QString text() const;
+    /**
+     * @brief Method for clearing text edit field.
+     */
     void clear();
     ~TextEdit() override;
 
