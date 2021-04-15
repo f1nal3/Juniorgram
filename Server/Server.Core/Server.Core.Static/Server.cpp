@@ -84,7 +84,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                 info.channelID = 0;
 
                 // clang-format off
-                suppressWarning(4996, -Winit - self) 
+                suppressWarning(4996, -Winit-self) 
                     strcpy(info.channelName, channel.data());
                 restoreWarning
 
@@ -117,7 +117,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                 info.userID = client->getID();
 
                 // clang-format off
-                suppressWarning(4996, -Winit - self) 
+                suppressWarning(4996, -Winit-self) 
                     strcpy(info.message, msgFromHistory.data());
                 restoreWarning
 
