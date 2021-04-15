@@ -47,9 +47,6 @@ private:
     /// Buffer to store the part of incoming message while it is read
     Message mMessageBuffer;
 
-    /// Alias for the error handler functor
-    using handler = std::function<void(std::error_code)>;
-
     /**
      * @brief Method for sending message header.
      * @details Function asio::async_write is used to write the header of the message /
@@ -62,7 +59,7 @@ private:
      */
     void writeHeader()
     {
-        const handler writeHeaderHandler = [this](std::error_code error) {
+        const auto writeHeaderHandler = [this](std::error_code error) {
             if (!error)
             {
                 if (!mOutcomingMessagesQueue.front().mBody.empty())
@@ -104,7 +101,7 @@ private:
      */
     void writeBody()
     {
-        const handler writeBodyHandler = [this](std::error_code error) {
+        const auto writeBodyHandler = [this](std::error_code error) {
             if (!error)
             {
                 mOutcomingMessagesQueue.pop_front();
@@ -141,7 +138,7 @@ private:
      */
     void readHeader()
     {
-        const handler readHeaderHandler = [this](std::error_code error) {
+        const auto readHeaderHandler = [this](std::error_code error) {
             if (!error)
             {
                 if (mMessageBuffer.mHeader.mBodySize > 0)
@@ -177,7 +174,7 @@ private:
      */
     void readBody()
     {
-        const handler readBodyHandler = [this](std::error_code error) {
+        const auto readBodyHandler = [this](std::error_code error) {
             if (!error)
             {
                 addToIncomingMessageQueue();
@@ -283,24 +280,23 @@ public:
         }
     }
     restoreWarning
-        // clang-format on
 
-        /**
-         * @brief Method for closing connection if it is opened.
-         * @details It checks if there is a connection with smb/smth. \
-         * If the connection is present, function asio::post is called, \
-         * because the current context is holding locks and \
-         * the function should be called after they have been released. This would allow \
-         * the function to acquire those locks itself without causing a deadlock.
-         */
-        void
-        disconnect()
+    /**
+    * @brief Method for closing connection if it is opened.
+    * @details It checks if there is a connection with smb/smth. \
+    * If the connection is present, function asio::post is called, \
+    * because the current context is holding locks and \
+    * the function should be called after they have been released. This would allow \
+    * the function to acquire those locks itself without causing a deadlock.
+    */
+    void disconnect()
     {
         if (isConnected())
         {
             asio::post(mContextLink, [this]() { mSocket.close(); });
         }
     }
+    // clang-format on
 
     /**
      * @brief Method for checking if current socket is open.
