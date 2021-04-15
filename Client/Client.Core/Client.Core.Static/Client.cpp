@@ -1,6 +1,7 @@
 #include "Client.hpp"
-#include <Utility/WarningSuppression.hpp>
+
 #include <Network/Primitives.hpp>
+#include <Utility/WarningSuppression.hpp>
 
 namespace Network
 {
@@ -79,18 +80,35 @@ void Client::pingServer() const
     message << timeNow;
     send(message);
 }
+
 void Client::askForChannelList() const
 {
     Network::Message message;
     message.mHeader.mConnectionID = Network::Message::MessageType::ChannelListRequest;
     send(message);
 }
+
 void Client::askForMessageHistory() const
 {
     Network::Message message;
     message.mHeader.mConnectionID = Network::Message::MessageType::MessageHistoryRequest;
     send(message);
 }
+
+void Client::storeMessages(const std::vector<std::string>& messagesList) const
+{
+    for (auto&& msg : messagesList)
+    {
+        Network::Message message;
+        message.mHeader.mConnectionID = Network::Message::MessageType::MessageStoreRequest;
+
+        Network::UserMessage us(mConnection->getID(), msg, message.mHeader.mTimestamp);
+
+        message << us;
+        send(message);
+    }
+}
+
 void Client::messageAll() const
 {
     Network::Message message;

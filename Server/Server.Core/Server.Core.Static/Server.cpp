@@ -88,7 +88,6 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                 restoreWarning
 
                 msg << info;
-
                 std::cout << channel << '\n';
             }
             msg << channelList.size();
@@ -119,7 +118,6 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                 restoreWarning
 
                 msg << info;
-
                 std::cout << info.message << '\n';
             }
             msg << messageHistory.size();
