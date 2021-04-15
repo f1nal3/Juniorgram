@@ -19,7 +19,7 @@ namespace DataAccess
         if (_insert == nullptr)
         {
             _insert = new SQLInsert(*this);
-            _insert->_queryStream << "insert into ";
+            _insert->_queryStream << "insert into " << _tableName;
         }
 
         return _insert;
@@ -88,7 +88,7 @@ namespace DataAccess
         _currentTable._clearS();
     }
    
-    SQLSelect*                  SQLSelect::fields(const std::initializer_list<std::string>& columnList)
+    SQLSelect*                  SQLSelect::columns(const std::initializer_list<std::string>& columnList)
     {
         for (auto& column : columnList)
         {
@@ -102,19 +102,28 @@ namespace DataAccess
 
     SQLSelect*                  SQLSelect::where(const std::string& condition)
     { 
-        _queryStream << " where " << condition;
+        if (*(_queryStream.str().end() - 1) != ' ')
+            _queryStream << " ";
+
+        _queryStream << "where " << condition;
 
         return this;
     }
     SQLSelect*                  SQLSelect::limit(std::uint32_t limit, std::uint32_t offset)
     {
-        _queryStream << " limit " << limit << " offset " << offset;
+        if (*(_queryStream.str().end() - 1) != ' ')
+            _queryStream << " ";
+
+        _queryStream << "limit " << limit << " offset " << offset;
 
         return this;
     }
     SQLSelect*                  SQLSelect::orderBy(const std::initializer_list<std::string>& columnList, bool desc)
     {
-        _queryStream << " order by ";
+        if (*(_queryStream.str().end() - 1) != ' ')
+            _queryStream << " ";
+
+        _queryStream << "order by ";
         for (auto& column : columnList)
         {
             _queryStream << column;
@@ -126,22 +135,87 @@ namespace DataAccess
 
         return this;
     }
-                                                
+    SQLSelect*                  SQLSelect::distinct(void)
+    { 
+        _queryStream << "distinct ";
+
+        return this;
+    }
+
+    SQLSelect*                  SQLSelect::groupBy(const std::initializer_list<std::string>& columnList)
+    {
+        if (*(_queryStream.str().end() - 1) != ' ')
+            _queryStream << " ";
+
+        _queryStream << "group by ";
+
+        for (auto& column : columnList)
+        {
+            _queryStream << column;
+            _queryStream << (column != *(columnList.end() - 1) ? ", " : "");
+        }
+
+        return this;
+    }
+    SQLSelect*                  SQLSelect::having(const std::string& condition)
+    { 
+        if (*(_queryStream.str().end() - 1) != ' ')
+            _queryStream << " ";
+
+        _queryStream << "having " << condition;
+
+        return this;
+    }
+
     SQLSelect*                  SQLSelect::And(const std::string& condition)
     {
-        _queryStream << " and " << condition;
+       if (*(_queryStream.str().end() - 1) != ' ')
+            _queryStream << " ";
+
+        _queryStream << "and " << condition;
 
         return this;
     }
     SQLSelect*                  SQLSelect::Or(const std::string& condition)
     {
-        _queryStream << " or " << condition;
+        if (*(_queryStream.str().end() - 1) != ' ')
+            _queryStream << " ";
+
+        _queryStream << "or " << condition;
 
         return this;
     }
     SQLSelect*                  SQLSelect::Not(const std::string& condition)
     {
-        _queryStream << "not " << (condition == "" ? "" : condition);
+        if (*(_queryStream.str().end() - 1) != ' ')
+            _queryStream << " ";
+
+        _queryStream << "not " << condition;
+
+        return this;
+    }
+    SQLSelect*                  SQLSelect::In(const std::string& anotherStatement)
+    {
+        if (*(_queryStream.str().end() - 1) != ' ')
+            _queryStream << " ";
+
+        _queryStream << "in (" << anotherStatement << ")";
+
+        return this;
+    }
+    SQLSelect*                  SQLSelect::In(const std::initializer_list<std::string>& valueList)
+    {
+        if (*(_queryStream.str().end() - 1) != ' ')
+            _queryStream << " ";
+        _queryStream << "in (";
+
+        for (auto& value : valueList)
+        {
+            _queryStream << value;
+            _queryStream << (value != *(valueList.end() - 1) ? ", " : "");
+        }
+
+        _queryStream << ")";
 
         return this;
     }
@@ -151,39 +225,13 @@ namespace DataAccess
     { 
         _currentTable._clearI();
     }
-    
-    template<typename ...DataType>
-    SQLInsert*                  SQLInsert::fields(const DataType&... data)
-    {
-        Utility::NotImplementedException("Not implemented.", __FILE__, __LINE__);
-
-        return this;
-    }
-    template<typename ...DataType>
-    SQLInsert*                  SQLInsert::fields(const std::tuple<DataType...>& dataList)
-    {
-        Utility::NotImplementedException("Not implemented.", __FILE__, __LINE__);
-    
-        return this;
-    }
-    template<typename ColumnType ,typename ...DataType>
-    SQLInsert*                  SQLInsert::fields(const std::pair<ColumnType, DataType>&... columnData)
-    {
-        Utility::NotImplementedException("Not implemented.", __FILE__, __LINE__);
-
-        return this;
-    }
-    template<typename ColumnType ,typename ...DataType>
-    SQLInsert*                  SQLInsert::fields(const std::tuple<std::pair<ColumnType, DataType>...>& columnDataList)
-    {
-        Utility::NotImplementedException("Not implemented.", __FILE__, __LINE__);
-    
-        return this;
-    }
 
     SQLInsert*                  SQLInsert::returning(const std::initializer_list<std::string>& columnList)
     {
-        _queryStream << " returning ";
+        if (*(_queryStream.str().end() - 1) != ' ')
+            _queryStream << " ";
+
+        _queryStream << "returning ";
         for (auto& column : columnList)
         {
             _queryStream << column;
@@ -191,5 +239,14 @@ namespace DataAccess
         }
 
         return this;
+    }
+
+    void                        SQLInsert::_correctFormating()
+    {
+        std::string queryBuffer = _queryStream.str();
+        queryBuffer.erase(queryBuffer.end() - 2, queryBuffer.end());
+
+        _queryStream.str(queryBuffer);
+        _queryStream.seekp(0, std::ios_base::end);
     }
 }

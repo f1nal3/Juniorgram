@@ -29,8 +29,8 @@ namespace DataAccess
 
         SQLBase(void) = delete;
 
-        SQLBase(const SQLBase&) = default;
-        SQLBase& operator=(const SQLBase&) = default;
+        SQLBase(const SQLBase&) = delete;
+        SQLBase& operator=(const SQLBase&) = delete;
 
         SQLBase(SQLBase&&) = delete;
         SQLBase& operator=(SQLBase&&) = delete;
@@ -67,8 +67,8 @@ namespace DataAccess
 
         SQLSelect(void) = delete;
 
-        SQLSelect(const SQLSelect&) = default;
-        SQLSelect& operator=(const SQLSelect&) = default;
+        SQLSelect(const SQLSelect&) = delete;
+        SQLSelect& operator=(const SQLSelect&) = delete;
 
         SQLSelect(SQLSelect&&) = delete;
         SQLSelect& operator=(SQLSelect&&) = delete;
@@ -77,22 +77,34 @@ namespace DataAccess
 
         void rollback(void) override;
 
-        SQLSelect* fields(const std::initializer_list<std::string>& columnList);
+        SQLSelect* columns(const std::initializer_list<std::string>& columnList);
 
     public:
 
         SQLSelect* where(const std::string& condition = {});
         SQLSelect* limit(std::uint32_t limit, std::uint32_t offset = {});
         SQLSelect* orderBy(const std::initializer_list<std::string>& columnList, bool desc = false);
-        //[[nodiscard]] SQLSelect* groupBy();
-        //[[nodiscard]] SQLSelect* join(joinType);
-        //[[nodiscard]] SQLSelect* having();
-        //[[nodiscard]] SQLSelect* between();
-        //[[nodiscard]] SQLSelect* distinct();
+        SQLSelect* distinct();
+        //SQLSelect* join(joinType);
+        
+        SQLSelect* groupBy(const std::initializer_list<std::string>& columnList);
+        SQLSelect* having(const std::string& condition);
 
         SQLSelect* And(const std::string& condition);
         SQLSelect* Or(const std::string& condition);
         SQLSelect* Not(const std::string& condition = {});
+        SQLSelect* In(const std::string& anotherStatement);
+        SQLSelect* In(const std::initializer_list<std::string>& valueList);
+        template<typename T>
+        SQLSelect* between(T left, T right)
+        {
+            if (*(_queryStream.str().end() - 1) != ' ')
+                _queryStream << " ";
+
+            _queryStream << "between " << left << " and " << right;
+            
+            return this;
+        }
     
     private:
 
@@ -111,8 +123,8 @@ namespace DataAccess
 
         SQLInsert(void) = delete;
 
-        SQLInsert(const SQLInsert&) = default;
-        SQLInsert& operator=(const SQLInsert&) = default;
+        SQLInsert(const SQLInsert&) = delete;
+        SQLInsert& operator=(const SQLInsert&) = delete;
     
         SQLInsert(SQLInsert&&) = delete;
         SQLInsert& operator=(SQLInsert&&) = delete;
@@ -122,17 +134,102 @@ namespace DataAccess
         void rollback(void) override;
 
         template<typename ...DataType>
-        SQLInsert* fields(const DataType&... data);
+        SQLInsert* field(const DataType&... data)
+        {
+            if (_queryStream.str().find("values") == std::string::npos)
+            {
+                _queryStream << " values(";
+            }
+            else
+            {
+                _queryStream << ", (";
+            }
+
+            ((_queryStream << data << ", "), ...);
+
+            this->_correctFormating();
+
+            _queryStream << ")";
+
+            return this;
+        }
         template<typename ...DataType>
-        SQLInsert* fields(const std::tuple<DataType...>& dataList);
-        template<typename ColumnType = const char* ,typename ...DataType>
-        SQLInsert* fields(const std::pair<ColumnType, DataType>&... columnData);
-        template<typename ColumnType = const char* ,typename ...DataType>
-        SQLInsert* fields(const std::tuple<std::pair<ColumnType, DataType>...>& columnDataList);
+        SQLInsert* field(const std::tuple<DataType...>& dataList)
+        {
+            if (_queryStream.str().find("values") == std::string::npos)
+            {
+                _queryStream << " values(";
+            }
+            else
+            {
+                _queryStream << ", (";
+            }
+
+            std::apply(
+                [this](const auto&... tupleArgs)
+                { 
+                    ((_queryStream << tupleArgs << ", "), ...); }
+                , dataList);
+
+            this->_correctFormating();
+
+            _queryStream << ")";
+
+            return this;
+        }
+        template<typename ColumnType = const char*, typename ...DataType>
+        SQLInsert* columns(const std::pair<ColumnType, DataType>&... columnData)
+        {
+            _queryStream << "(";
+            ((_queryStream << columnData.first << ", "), ...);
+
+            this->_correctFormating();
+
+            _queryStream << ")";
+
+            _queryStream << " values(";
+            ((_queryStream << columnData.second << ", "), ...);
+
+            this->_correctFormating();
+
+            _queryStream << ")";
+
+            return this;
+        }
+        template<typename ColumnType = const char*, typename ...DataType>
+        SQLInsert* columns(const std::tuple<std::pair<ColumnType, DataType>...>& columnDataList)
+        {
+            _queryStream << "(";
+            std::apply(
+                [this](const auto&... tupleArgs) 
+                {
+                    ((_queryStream << tupleArgs.first << ", "), ...); 
+                }, columnDataList);
+
+            this->_correctFormating();
+
+            _queryStream << ")";
+
+            _queryStream << " values(";
+            std::apply([this](const auto&... tupleArgs) 
+                {
+                     ((_queryStream << tupleArgs.second << ", "), ...);
+                }, columnDataList);
+
+            this->_correctFormating();
+
+            _queryStream << ")";
+
+            return this;
+        }
 
     public:
 
         SQLInsert* returning(const std::initializer_list<std::string>& columnList);
+
+    private:
+
+        void _correctFormating();
 
     private:
         friend class Table;
@@ -150,8 +247,8 @@ namespace DataAccess
 
         SQLUpdate(void) = delete;
 
-        SQLUpdate(const SQLUpdate&) = default;
-        SQLUpdate& operator=(const SQLUpdate&) = default;
+        SQLUpdate(const SQLUpdate&) = delete;
+        SQLUpdate& operator=(const SQLUpdate&) = delete;
 
         SQLUpdate(SQLUpdate&&) = delete;
         SQLUpdate& operator=(SQLUpdate&&) = delete;
@@ -189,8 +286,8 @@ namespace DataAccess
 
         SQLDelete(void) = delete;
 
-        SQLDelete(const SQLDelete&) = default;
-        SQLDelete& operator=(const SQLDelete&) = default;
+        SQLDelete(const SQLDelete&) = delete;
+        SQLDelete& operator=(const SQLDelete&) = delete;
 
         SQLDelete(SQLDelete&&) = delete;
         SQLDelete& operator=(SQLDelete&&) = delete;
