@@ -1,5 +1,6 @@
 #include "Server.hpp"
 
+#include <Network/Primitives.hpp>
 #include <future>
 
 #include "DataAccess.Static/PostgreRepository.hpp"
@@ -83,11 +84,11 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                 Network::ChannelInfo info;
                 info.channelID = 0;
 
-                suppressWarning(4996, -Winit - self) strcpy(info.channelName, channel.data());
+                suppressWarning(4996, -Winit-self) 
+                    strcpy(info.channelName, channel.data());
                 restoreWarning
 
-                        msg
-                    << info;
+                msg << info;
                 std::cout << channel << '\n';
             }
             msg << channelList.size();
@@ -113,16 +114,28 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                 Network::MessageInfo info;
                 info.userID = client->getID();
 
-                suppressWarning(4996, -Winit - self) strcpy(info.message, msgFromHistory.data());
+                suppressWarning(4996, -Winit-self)
+                    strcpy(info.message, msgFromHistory.data());
                 restoreWarning
 
-                        msg
-                    << info;
+                msg << info;
                 std::cout << info.message << '\n';
             }
             msg << messageHistory.size();
 
             client->send(msg);
+        }
+        break;
+
+        case Network::Message::MessageType::MessageStoreRequest:
+        {
+            Network::UserMessage msg;
+            message >> msg;
+            auto future = std::async(std::launch::async, &DataAccess::IRepository::storeMessage,
+                                     _postgreRepo.get(), msg);
+
+            future.wait();
+            client->send(message);
         }
         break;
 
@@ -147,7 +160,7 @@ bool Server::start()
     {
         waitForClientConnection();
 
-        size_t threadsCount                              = std::thread::hardware_concurrency();
+        size_t threadsCount = std::thread::hardware_concurrency();
         threadsCount > 1 ? --threadsCount : threadsCount = 1;
 
         for (size_t i = 0; i < threadsCount; ++i)

@@ -1,4 +1,4 @@
-#include "Style.h"
+#include "Style.hpp"
 
 namespace Style
 {

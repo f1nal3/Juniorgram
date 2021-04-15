@@ -34,6 +34,8 @@ public:
 
     void askForMessageHistory() const;
 
+    void storeMessages(const std::vector<std::string>& messagesList) const;
+
     void messageAll() const;
 };
 }  // namespace Network

@@ -1,30 +1,43 @@
 set(TARGET Client.Qt)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
- 
+
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 set(SOURCE_FILES
-        Widgets/CaptionButton.h
+        Widgets/CaptionButton.hpp
         Widgets/CaptionButton.cpp
-        Widgets/InputFields.h
+        Widgets/InputFields.hpp
         Widgets/InputFields.cpp
         Widgets/FlatButton.cpp
-        Widgets/FlatButton.h
+        Widgets/FlatButton.hpp
         Widgets/TextEdit.cpp
-        Widgets/TextEdit.h
-        Style/Style.h
+        Widgets/TextEdit.hpp
+        Widgets/BioButton.cpp
+        Widgets/BioButton.hpp
+        Widgets/PopupWidget.cpp
+        Widgets/PopupWidget.hpp
+        Widgets/Menu.cpp
+        Widgets/Menu.hpp
+        Widgets/MenuItem.cpp
+        Widgets/MenuItem.hpp
+        Style/Style.hpp
         Style/Style.cpp
         Style/Shadow.hpp
         MainWidget.cpp
-        MainWidget.h
+        MainWidget.hpp
         login.cpp
         login.hpp
         registration.cpp
         registration.hpp
-        app.cpp
-        app.h
+        ChatWindow.cpp
+        ChatWindow.hpp
+        MessageWidget.cpp
+        MessageWidget.hpp
+        App.cpp
+        App.hpp
+        pch.hpp
         main.cpp)
 
 add_executable(${TARGET} ${SOURCE_FILES}
@@ -39,7 +52,7 @@ endif ()
 target_link_libraries(${TARGET}
         PRIVATE Qt5::Widgets ${EXTRA_LIBS})
 
-target_precompile_headers(${TARGET} PRIVATE pch.h)
+target_precompile_headers(${TARGET} PRIVATE pch.hpp)
 
 if (WIN32)
     if (CMAKE_BUILD_TYPE MATCHES Debug)
