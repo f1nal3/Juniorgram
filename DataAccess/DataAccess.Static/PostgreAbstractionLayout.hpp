@@ -50,9 +50,9 @@ namespace DataAccess
 
     protected:
 
-        std::ostringstream _queryStream;
         SQLStatement _statement;
         Table& _currentTable;
+        std::ostringstream _queryStream;
     };
 
     class SQLSelect : public SQLBase
