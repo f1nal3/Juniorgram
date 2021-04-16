@@ -2,11 +2,13 @@
 #include "MessageWidget.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/TextEdit.hpp"
+#include "Widgets/ChannelListWidget.hpp"
 
 class ChatWindow : public QWidget
 {
     Q_OBJECT
 public:
+    QHBoxLayout* hBox;
     QVBoxLayout* mainLayout;
     QHBoxLayout* messageEditLayout;
     QVBoxLayout* messageButtonLayout;
@@ -19,7 +21,8 @@ public slots:
     void updateMessagesList_User();
     void updateMessagesList_Bot();
 
-private:
+private:   
+    std::unique_ptr<ChannelListWidget> channelListWidget;
     FlatButton* sendButton;
     FlatButton* botButton;
     TextEdit* textEdit;
