@@ -4,7 +4,7 @@ ChannelListWindow::ChannelListWindow(QWidget* parent, std::shared_ptr<QVBoxLayou
 {
     this->resize(500, 500);
     vBoxChannelListWidget = _vbox;
-    vBox                  = std::unique_ptr<QVBoxLayout>();
+    vBox                  = new QVBoxLayout;
     addChannelButton      = std::make_unique<FlatButton>("Add");
     channelList           = std::make_unique<QListWidget>(this);
     vBox->addWidget(channelList.get());
@@ -13,13 +13,21 @@ ChannelListWindow::ChannelListWindow(QWidget* parent, std::shared_ptr<QVBoxLayou
     connect(addChannelButton.get(), &QPushButton::clicked,
                      this, &ChannelListWindow::addChannelToMainChannelWidget);
 
-    setLayout(vBox.get());
+    setLayout(vBox);
 }
 
 //Then have to add a channel with the chat history
 void ChannelListWindow::addChannelToMainChannelWidget()
 {
-    ChannelList* newChannel = new ChannelList(channelList->currentItem()->text());
-    vBoxChannelListWidget->addWidget(newChannel);
+    if(channelList->currentItem())
+    {
+        ChannelList* newChannel = new ChannelList(channelList->currentItem()->text());
+        vBoxChannelListWidget->addWidget(newChannel);
+    }
     this->hide();
+}
+
+ChannelListWindow::~ChannelListWindow()
+{
+    delete vBox;
 }

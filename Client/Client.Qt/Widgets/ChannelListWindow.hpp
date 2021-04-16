@@ -10,11 +10,12 @@ class ChannelListWindow : public QWidget
 {
 public:
     ChannelListWindow(QWidget* parent, std::shared_ptr<QVBoxLayout> _vbox);
+    ~ChannelListWindow();
 public slots:
     void addChannelToMainChannelWidget();
 private:
     std::unique_ptr<QListWidget> channelList;
     std::unique_ptr<FlatButton>  addChannelButton;
-    std::unique_ptr<QVBoxLayout> vBox;
+    QVBoxLayout* vBox;
     std::shared_ptr<QVBoxLayout> vBoxChannelListWidget;
 };
