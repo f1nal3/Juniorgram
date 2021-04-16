@@ -34,11 +34,7 @@ set(SOURCE_FILES
         App.cpp
         App.hpp
         pch.hpp
-        main.cpp
-        Login.hpp
-        Login.cpp
-        Registration.cpp
-        Registration.hpp)
+        main.cpp)
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)
