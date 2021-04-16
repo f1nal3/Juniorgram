@@ -29,16 +29,16 @@ set(SOURCE_FILES
         Style/Shadow.hpp
         MainWidget.cpp
         MainWidget.hpp
-        Login.cpp
-        Login.hpp
-        Registration.cpp
-        Registration.hpp
         ChatWindow.cpp
         ChatWindow.hpp
         App.cpp
         App.hpp
         pch.hpp
-        main.cpp)
+        main.cpp
+        Login.hpp
+        Login.cpp
+        Registration.cpp
+        Registration.hpp)
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)
