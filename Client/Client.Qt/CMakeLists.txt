@@ -24,10 +24,12 @@ set(SOURCE_FILES
         Widgets/MenuItem.hpp
 		Widgets/ChannelList.cpp
 		Widgets/ChannelList.hpp
-        Widgets/ChannelListWidget.cpp
-        Widgets/ChannelListWidget.hpp
-		Widgets/ChannelListWindow.cpp	
+		Widgets/ChannelListWidget.cpp
+		Widgets/ChannelListWidget.hpp
+		Widgets/ChannelListWindow.cpp
 		Widgets/ChannelListWindow.hpp
+		Widgets/MessageWidget.cpp
+		Widgets/MessageWidget.hpp
         Style/Style.hpp
         Style/Style.cpp
         Style/Shadow.hpp
@@ -39,8 +41,6 @@ set(SOURCE_FILES
         registration.hpp
         ChatWindow.cpp
         ChatWindow.hpp
-        MessageWidget.cpp
-        MessageWidget.hpp
         App.cpp
         App.hpp
         pch.hpp
