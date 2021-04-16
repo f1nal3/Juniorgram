@@ -3,6 +3,7 @@
 #include "Message.hpp"
 #include "SafeQueue.hpp"
 #include "Utility/Utility.hpp"
+#include "Utility/WarningSuppression.hpp"
 
 #include <asio.hpp>
 
