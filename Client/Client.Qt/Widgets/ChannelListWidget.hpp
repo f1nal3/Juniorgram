@@ -20,4 +20,5 @@ private:
    std::unique_ptr<FlatButton> addChannelButton;
    std::unique_ptr<ChannelListWindow> listWidgetChannels;
    std::shared_ptr<QVBoxLayout> vBox;
+   std::unique_ptr<QVBoxLayout> vBoxFrame;
 };

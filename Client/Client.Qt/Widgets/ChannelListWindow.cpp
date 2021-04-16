@@ -7,6 +7,9 @@ ChannelListWindow::ChannelListWindow(QWidget* parent, std::shared_ptr<QVBoxLayou
     vBox                  = new QVBoxLayout;
     addChannelButton      = std::make_unique<FlatButton>("Add");
     channelList           = std::make_unique<QListWidget>(this);
+    channelList->addItem("Test1");
+    channelList->addItem("Test2");
+    channelList->addItem("Test3");
     vBox->addWidget(channelList.get());
     vBox->addWidget(addChannelButton.get());
 
