@@ -188,3 +188,45 @@ TEST_CASE("Insert[returning]", "[PostgreAbstractionLayout]")
         test.Insert()->rollback();
     }
 }
+
+TEST_CASE("Update[fields]", "[PostgreAbstractionLayout]")
+{
+    std::string query =
+        test.Update()->fields(std::pair{"A", 1}, std::pair{"B", 1.5}, std::pair{"C", "'a'"})->getQuery();
+
+    SECTION("Query string test")
+    {
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query == "update testing set A = 1, B = 1.5, C = 'a'");
+        test.Update()->rollback();
+    }
+}
+
+TEST_CASE("Update[fields where]", "[PostgreAbstractionLayout]")
+{
+    std::tuple testTuple{
+        std::pair{"A", 1},
+        std::pair{"B", 1.5},
+        std::pair{"C", "'a'"}
+    };
+    std::string query = test.Update()->fields(testTuple)->where("C <> 'a'")->getQuery();
+
+    SECTION("Query string test")
+    {
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query == "update testing set A = 1, B = 1.5, C = 'a' where C <> 'a'");
+        test.Update()->rollback();
+    }
+}
+
+TEST_CASE("Delete[where]", "[PostgreAbstractionLayout]")
+{
+    std::string query = test.Delete()->where("A = 1")->getQuery();
+
+    SECTION("Query string test")
+    {
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query == "delete from testing where A = 1");
+        test.Delete()->rollback();
+    }
+}

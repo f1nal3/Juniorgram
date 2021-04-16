@@ -303,7 +303,7 @@ namespace DataAccess
 
     private:
 
-        void _correctFormating();
+        void _correctFormating(void);
 
     private:
         friend class Table;
@@ -330,16 +330,45 @@ namespace DataAccess
     public:
 
         template<typename ColumnType = const char*, typename ...Args>
-        SQLUpdate* fields(const std::pair<ColumnType, Args>&... columnData);
+        SQLUpdate* fields(const std::pair<ColumnType, Args>&... columnData)
+        {
+            _queryStream << " set ";
+
+            ((_queryStream << columnData.first << " = " << columnData.second << ", "), ...);
+
+            this->_correctFormating();
+
+            return this;
+        }
         template <typename ColumnType = const char*, typename... Args>
-        SQLUpdate* fields(std::tuple<std::pair<ColumnType, Args> ...> columnData);
+        SQLUpdate* fields(const std::tuple<std::pair<ColumnType, Args> ...>& columnData)
+        {
+            _queryStream << " set ";
+
+            std::apply(
+                [this](const auto&... tupleArg) 
+                {
+                    ((_queryStream << tupleArg.first 
+                                   << " = " 
+                                   << tupleArg.second
+                                   << ", "), ...);
+                }, columnData);
+
+            this->_correctFormating();
+
+            return this;
+        }
+
+    private:
+
+        void _correctFormating(void);
 
     private:
         friend class Table;
-        friend class SQLWhereCondition<SQLInsert>;
+        friend class SQLWhereCondition<SQLUpdate>;
     };
 
-    class SQLDelete : public SQLBase, SQLWhereCondition<SQLDelete>
+    class SQLDelete : public SQLBase, public SQLWhereCondition<SQLDelete>
     {
     public:
 
@@ -357,13 +386,9 @@ namespace DataAccess
         SQLDelete(SQLDelete&&) = delete;
         SQLDelete& operator=(SQLDelete&&) = delete;
 
-    public:
-
-
-
     private:
         friend class Table;
-        friend class SQLWhereCondition<SQLUpdate>;
+        friend class SQLWhereCondition<SQLDelete>;
     };
 
 

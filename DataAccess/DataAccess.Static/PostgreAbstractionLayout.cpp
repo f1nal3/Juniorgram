@@ -4,7 +4,7 @@
 
 namespace DataAccess
 {
-    SQLSelect*  Table::Select(void)
+    SQLSelect*                  Table::Select(void)
     {
         if (_select == nullptr)
         {
@@ -14,7 +14,7 @@ namespace DataAccess
 
         return _select;
     }
-    SQLInsert*  Table::Insert(void)
+    SQLInsert*                  Table::Insert(void)
     {
         if (_insert == nullptr)
         {
@@ -24,22 +24,22 @@ namespace DataAccess
 
         return _insert;
     }
-    SQLUpdate*  Table::Update(void)
+    SQLUpdate*                  Table::Update(void)
     { 
         if (_update == nullptr)
         {
             _update = new SQLUpdate(*this);
-            _update->_queryStream << "insert into " << _tableName;
+            _update->_queryStream << "update " << _tableName;
         }
 
         return _update;
     }
-    SQLDelete*  Table::Delete(void)
+    SQLDelete*                  Table::Delete(void)
     {
         if (_delete == nullptr)
         {
             _delete = new SQLDelete(*this);
-            _delete->_queryStream << "insert into " << _tableName;
+            _delete->_queryStream << "delete from " << _tableName;
         }
 
         return _delete;
@@ -237,7 +237,7 @@ namespace DataAccess
         return this;
     }
 
-    void                        SQLInsert::_correctFormating()
+    void                        SQLInsert::_correctFormating(void)
     {
         std::string queryBuffer = _queryStream.str();
         queryBuffer.erase(queryBuffer.end() - 2, queryBuffer.end());
@@ -245,4 +245,14 @@ namespace DataAccess
         _queryStream.str(queryBuffer);
         _queryStream.seekp(0, std::ios_base::end);
     }
-}
+
+
+    void                        SQLUpdate::_correctFormating(void)
+    {
+        std::string queryBuffer = _queryStream.str();
+        queryBuffer.erase(queryBuffer.end() - 2, queryBuffer.end());
+
+        _queryStream.str(queryBuffer);
+        _queryStream.seekp(0, std::ios_base::end);
+    }
+    }
