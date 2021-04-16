@@ -26,10 +26,22 @@ namespace DataAccess
     }
     SQLUpdate*  Table::Update(void)
     { 
+        if (_update == nullptr)
+        {
+            _update = new SQLUpdate(*this);
+            _update->_queryStream << "insert into " << _tableName;
+        }
+
         return _update;
     }
     SQLDelete*  Table::Delete(void)
     {
+        if (_delete == nullptr)
+        {
+            _delete = new SQLDelete(*this);
+            _delete->_queryStream << "insert into " << _tableName;
+        }
+
         return _delete;
     }
 
@@ -47,7 +59,40 @@ namespace DataAccess
         changeTable(newTableName.c_str());
     }
     
-    Table::~Table()
+    void                        Table::_clear(SQLStatement statement)
+    {
+        switch (statement)
+        {
+            case SQLStatement::ST_SELECT:
+            {
+                delete _select;
+                _select = nullptr;
+            }
+            break;
+            case SQLStatement::ST_INSERT:
+            {
+                delete _insert;
+                _insert = nullptr;
+            }
+            break;
+            case SQLStatement::ST_UPDATE:
+            {
+                delete _update;
+                _update = nullptr;
+            }
+            break;
+            case SQLStatement::ST_DELETE:
+            {
+                delete _delete;
+                _delete = nullptr;
+            }
+            break;
+            default:
+                break;
+        }
+    }
+
+    Table::~Table(void)
     {
         delete _select;
         delete _insert;
@@ -82,12 +127,12 @@ namespace DataAccess
         return std::nullopt;
     }
 
-    
-    void                        SQLSelect::rollback(void) 
+    void                        SQLBase::rollback(void)
     { 
-        _currentTable._clearS();
+        _currentTable._clear(_statement);
     }
-   
+
+
     SQLSelect*                  SQLSelect::columns(const std::initializer_list<std::string>& columnList)
     {
         for (auto& column : columnList)
@@ -100,15 +145,6 @@ namespace DataAccess
         return this;
     }                            
 
-    SQLSelect*                  SQLSelect::where(const std::string& condition)
-    { 
-        if (*(_queryStream.str().end() - 1) != ' ')
-            _queryStream << " ";
-
-        _queryStream << "where " << condition;
-
-        return this;
-    }
     SQLSelect*                  SQLSelect::limit(std::uint32_t limit, std::uint32_t offset)
     {
         if (*(_queryStream.str().end() - 1) != ' ')
@@ -166,65 +202,25 @@ namespace DataAccess
 
         return this;
     }
-
-    SQLSelect*                  SQLSelect::And(const std::string& condition)
-    {
-       if (*(_queryStream.str().end() - 1) != ' ')
-            _queryStream << " ";
-
-        _queryStream << "and " << condition;
-
-        return this;
-    }
-    SQLSelect*                  SQLSelect::Or(const std::string& condition)
-    {
-        if (*(_queryStream.str().end() - 1) != ' ')
-            _queryStream << " ";
-
-        _queryStream << "or " << condition;
-
-        return this;
-    }
-    SQLSelect*                  SQLSelect::Not(const std::string& condition)
-    {
-        if (*(_queryStream.str().end() - 1) != ' ')
-            _queryStream << " ";
-
-        _queryStream << "not " << condition;
-
-        return this;
-    }
-    SQLSelect*                  SQLSelect::In(const std::string& anotherStatement)
-    {
-        if (*(_queryStream.str().end() - 1) != ' ')
-            _queryStream << " ";
-
-        _queryStream << "in (" << anotherStatement << ")";
-
-        return this;
-    }
-    SQLSelect*                  SQLSelect::In(const std::initializer_list<std::string>& valueList)
-    {
-        if (*(_queryStream.str().end() - 1) != ' ')
-            _queryStream << " ";
-        _queryStream << "in (";
-
-        for (auto& value : valueList)
-        {
-            _queryStream << value;
-            _queryStream << (value != *(valueList.end() - 1) ? ", " : "");
-        }
-
-        _queryStream << ")";
-
-        return this;
-    }
-
-
-    void                        SQLInsert::rollback(void) 
+    SQLSelect*                  SQLSelect::Any(const std::string& condition)
     { 
-        _currentTable._clearI();
+        if (*(_queryStream.str().end() - 1) != ' ') 
+            _queryStream << " ";
+
+        _queryStream << "any (" << condition << ")";
+
+        return this;
     }
+    SQLSelect*                  SQLSelect::All(const std::string& condition) 
+    { 
+        if (*(_queryStream.str().end() - 1) != ' ') 
+            _queryStream << " ";
+
+        _queryStream << "all (" << condition << ")";
+
+        return this;
+    }
+
 
     SQLInsert*                  SQLInsert::returning(const std::initializer_list<std::string>& columnList)
     {

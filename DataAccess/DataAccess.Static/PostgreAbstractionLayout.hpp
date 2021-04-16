@@ -7,6 +7,7 @@
 namespace DataAccess
 {
     class Table;
+    class SQLBase;
 
     enum class SQLStatement : std::uint8_t
     {
@@ -15,6 +16,93 @@ namespace DataAccess
         ST_INSERT,
         ST_UPDATE,
         ST_DELETE
+    };
+
+    template<class T>
+    class SQLWhereCondition
+    {
+    public:
+
+        SQLWhereCondition(T* statement) : _statement{statement} {}
+
+        virtual ~SQLWhereCondition(void) = default;
+
+    public:
+
+        T* where(const std::string& condition = {})
+        {
+            if (*(_statement->_queryStream.str().end() - 1) != ' ') 
+                _statement->_queryStream << " ";
+
+            _statement->_queryStream << "where " << condition;
+
+            return _statement;
+        }
+        T* And(const std::string& condition)
+        {
+            if (*(_statement->_queryStream.str().end() - 1) != ' ') 
+                _statement->_queryStream << " ";
+
+            _statement->_queryStream << "and " << condition;
+
+            return _statement;
+        }
+        T* Or(const std::string& condition)
+        {
+            if (*(_statement->_queryStream.str().end() - 1) != ' ') 
+                _statement->_queryStream << " ";
+
+            _statement->_queryStream << "or " << condition;
+
+            return _statement;
+        }
+        T* Not(const std::string& condition = {}) 
+        {
+            if (*(_statement->_queryStream.str().end() - 1) != ' ') 
+                _statement->_queryStream << " ";
+
+            _statement->_queryStream << "not " << condition;
+
+            return _statement;
+        }
+        T* In(const std::string& anotherStatement) 
+        {
+            if (*(_queryStream.str().end() - 1) != ' ') 
+                _queryStream << " ";
+
+            _queryStream << "in (" << anotherStatement << ")";
+
+            return _statement;
+        }
+        T* In(const std::initializer_list<std::string>& valueList)
+        {
+            if (*(_statement->_queryStream.str().end() - 1) != ' ') 
+                _statement->_queryStream << " ";
+
+            _statement->_queryStream << "in (";
+            for (auto& value : valueList)
+            {
+                _statement->_queryStream << value;
+                _statement->_queryStream << (value != *(valueList.end() - 1) ? ", " : "");
+            }
+
+            _statement->_queryStream << ")";
+
+            return _statement;
+        }
+        template <typename ValueType>
+        T* between(ValueType left, ValueType right)
+        {
+            if (*(_statement->_queryStream.str().end() - 1) != ' ')
+                _statement->_queryStream << " ";
+
+            _statement->_queryStream << "between " << left << " and " << right;
+
+            return _statement;
+        }
+
+    private:
+        T* _statement;
     };
 
 
@@ -46,20 +134,25 @@ namespace DataAccess
         virtual const std::string getQuery() const noexcept final;
         virtual std::optional<pqxx::result> execute(void) final;
 
-        virtual void rollback(void){}
-
+        virtual void rollback(void);
+        
     protected:
 
         std::ostringstream _queryStream;
         SQLStatement _statement;
         Table& _currentTable;
+
+    private:
+
+        friend class SQLWhereCondition<SQLBase>;
+
     };
 
-    class SQLSelect : public SQLBase
+    class SQLSelect : public SQLBase, public SQLWhereCondition<SQLSelect>
     {
     public:
 
-        SQLSelect(Table& table) : SQLBase(SQLStatement::ST_SELECT, table) {}
+        SQLSelect(Table& table) : SQLBase(SQLStatement::ST_SELECT, table), SQLWhereCondition(this) {}
 
         virtual ~SQLSelect(void) = default;
         
@@ -75,13 +168,10 @@ namespace DataAccess
     
     public:
 
-        void rollback(void) override;
-
         SQLSelect* columns(const std::initializer_list<std::string>& columnList);
 
     public:
 
-        SQLSelect* where(const std::string& condition = {});
         SQLSelect* limit(std::uint32_t limit, std::uint32_t offset = {});
         SQLSelect* orderBy(const std::initializer_list<std::string>& columnList, bool desc = false);
         SQLSelect* distinct();
@@ -89,26 +179,12 @@ namespace DataAccess
         
         SQLSelect* groupBy(const std::initializer_list<std::string>& columnList);
         SQLSelect* having(const std::string& condition);
-
-        SQLSelect* And(const std::string& condition);
-        SQLSelect* Or(const std::string& condition);
-        SQLSelect* Not(const std::string& condition = {});
-        SQLSelect* In(const std::string& anotherStatement);
-        SQLSelect* In(const std::initializer_list<std::string>& valueList);
-        template<typename T>
-        SQLSelect* between(T left, T right)
-        {
-            if (*(_queryStream.str().end() - 1) != ' ')
-                _queryStream << " ";
-
-            _queryStream << "between " << left << " and " << right;
-            
-            return this;
-        }
+        SQLSelect* Any(const std::string& condition);
+        SQLSelect* All(const std::string& condition); 
     
     private:
-
         friend class Table;
+        friend class SQLWhereCondition<SQLSelect>;
     };
 
     class SQLInsert : public SQLBase
@@ -130,8 +206,6 @@ namespace DataAccess
         SQLInsert& operator=(SQLInsert&&) = delete;
     
     public:
-
-        void rollback(void) override;
 
         template<typename ...DataType>
         SQLInsert* field(const DataType&... data)
@@ -235,13 +309,13 @@ namespace DataAccess
         friend class Table;
     };
     
-    class SQLUpdate : public SQLBase
+    class SQLUpdate : public SQLBase, public SQLWhereCondition<SQLUpdate>
     {
     public:
 
-        SQLUpdate(Table& table) : SQLBase(SQLStatement::ST_UPDATE, table) {}
+        SQLUpdate(Table& table) : SQLBase(SQLStatement::ST_UPDATE, table), SQLWhereCondition(this) {}
 
-        virtual ~SQLUpdate(void) {}
+        virtual ~SQLUpdate(void) = default;
 
     public:
 
@@ -256,31 +330,22 @@ namespace DataAccess
     public:
 
         template<typename ColumnType = const char*, typename ...Args>
-        SQLUpdate* field(const std::pair<ColumnType, Args>&... columnData);
+        SQLUpdate* fields(const std::pair<ColumnType, Args>&... columnData);
         template <typename ColumnType = const char*, typename... Args>
-        SQLUpdate* field(std::tuple<std::pair<ColumnType, Args> ...> columnData);
-
-        void rollback(void) override;
-
-    public:
-
-         SQLUpdate* where(const std::string& condition = {});
-
-         SQLUpdate* And(const std::string& condition);
-         SQLUpdate* Or(const std::string& condition);
-         SQLUpdate* Not(const std::string& condition = {});
+        SQLUpdate* fields(std::tuple<std::pair<ColumnType, Args> ...> columnData);
 
     private:
         friend class Table;
+        friend class SQLWhereCondition<SQLInsert>;
     };
 
-    class SQLDelete : public SQLBase
+    class SQLDelete : public SQLBase, SQLWhereCondition<SQLDelete>
     {
     public:
 
-        SQLDelete(Table& table) : SQLBase(SQLStatement::ST_UPDATE, table) {}
+        SQLDelete(Table& table) : SQLBase(SQLStatement::ST_UPDATE, table), SQLWhereCondition(this) {}
 
-        virtual ~SQLDelete(void) {}
+        virtual ~SQLDelete(void) = default;
 
     public:
 
@@ -294,14 +359,11 @@ namespace DataAccess
 
     public:
 
-        void rollback(void) override;
-
-    public:
-
 
 
     private:
         friend class Table;
+        friend class SQLWhereCondition<SQLUpdate>;
     };
 
 
@@ -322,7 +384,7 @@ namespace DataAccess
         Table(const std::string& tableName)
             : Table(tableName.c_str()) {}
 
-        virtual ~Table();
+        virtual ~Table(void);
     
     public:
 
@@ -348,26 +410,7 @@ namespace DataAccess
     
     private:
 
-        void _clearS(void)
-        {
-            delete _select;
-            _select = nullptr;
-        }
-        void _clearI(void)
-        {
-            delete _insert;
-            _insert = nullptr;
-        }
-        void _clearU(void)
-        {
-            delete _update;
-            _update = nullptr;
-        }
-        void _clearD(void)
-        {
-            delete _delete;
-            _delete = nullptr;
-        }
+        void _clear(SQLStatement statement);
 
     private:
 
