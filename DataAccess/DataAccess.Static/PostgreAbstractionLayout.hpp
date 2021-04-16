@@ -67,10 +67,10 @@ namespace DataAccess
         }
         T* In(const std::string& anotherStatement) 
         {
-            if (*(_queryStream.str().end() - 1) != ' ') 
-                _queryStream << " ";
+            if (*(_statement->_queryStream.str().end() - 1) != ' ') 
+                _statement->_queryStream << " ";
 
-            _queryStream << "in (" << anotherStatement << ")";
+            _statement->_queryStream << "in (" << anotherStatement << ")";
 
             return _statement;
         }
