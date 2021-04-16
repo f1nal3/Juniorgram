@@ -22,14 +22,14 @@ set(SOURCE_FILES
         Widgets/Menu.hpp
         Widgets/MenuItem.cpp
         Widgets/MenuItem.hpp
-		Widgets/ChannelList.cpp
-		Widgets/ChannelList.hpp
-		Widgets/ChannelListWidget.cpp
-		Widgets/ChannelListWidget.hpp
-		Widgets/ChannelListWindow.cpp
-		Widgets/ChannelListWindow.hpp
-		Widgets/MessageWidget.cpp
-		Widgets/MessageWidget.hpp
+        Widgets/ChannelList.cpp
+        Widgets/ChannelList.hpp
+        Widgets/ChannelListWidget.cpp
+        Widgets/ChannelListWidget.hpp
+        Widgets/ChannelListWindow.cpp
+        Widgets/ChannelListWindow.hpp
+        Widgets/MessageWidget.cpp
+        Widgets/MessageWidget.hpp
         Style/Style.hpp
         Style/Style.cpp
         Style/Shadow.hpp
