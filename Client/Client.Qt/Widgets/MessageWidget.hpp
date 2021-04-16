@@ -41,11 +41,29 @@ public:
      * @param new nickname as string of QStrings.
      */
     void setUserName(QString newUserName);
-
+    /**
+     * @brief constructor for displaying a message from a user on the screen.
+     * @param text of message as string of QStrings.
+     * @param nickname as string of QStrings.
+     * @param object of the QListWidgetItem type.
+     * @param object of the QWidget type.
+     */
     MessageWidget(QString textMessage, QString nameOfUser, QListWidgetItem* Item,
-                           QWidget* parent = nullptr);
+                  QWidget* parent = nullptr);
+    /**
+     * @brief constructor for displaying a message from a user on the screen.
+     * @param text of message as string of QStrings.
+     * @param object of the QListWidgetItem type.
+     */
     MessageWidget(QString textMessage, QListWidgetItem* Item);
+    /**
+     * @brief constructor for displaying a message from a user on the screen.
+     * @param object of the QListWidgetItem type.
+     */
     explicit MessageWidget(QListWidgetItem* Item);
+    /**
+     * @brief destructor for clearing memory.
+     */
     ~MessageWidget();
 
 private slots:
