@@ -28,8 +28,8 @@ set(SOURCE_FILES
         Widgets/ChannelListWidget.hpp
         Widgets/ChannelListWindow.cpp
         Widgets/ChannelListWindow.hpp
-        Widgets/MessageWidget.cpp
-        Widgets/MessageWidget.hpp
+        MessageWidget.cpp
+        MessageWidget.hpp
         Style/Style.hpp
         Style/Style.cpp
         Style/Shadow.hpp
