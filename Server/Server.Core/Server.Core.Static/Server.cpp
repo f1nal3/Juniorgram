@@ -14,7 +14,7 @@ namespace Server
 bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
 {
     Network::Message message;
-    message.mHeader.mID = Network::Message::MessageType::ServerAccept;
+    message.mHeader.mConnectionID = Network::Message::MessageType::ServerAccept;
     client->send(message);
     return true;
 }
@@ -38,7 +38,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         message.mHeader.mTimestamp = currentTime;
     }
 
-    switch (message.mHeader.mID)
+    switch (message.mHeader.mConnectionID)
     {
         case Network::Message::MessageType::ServerPing:
         {
@@ -61,7 +61,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                       << client->getID() << "]: Message All\n";
 
             Network::Message msg;  // TODO: Why is a new message needed here?
-            msg.mHeader.mID = Network::Message::MessageType::ServerMessage;
+            msg.mHeader.mConnectionID = Network::Message::MessageType::ServerMessage;
             msg << client->getID();
             messageAllClients(msg, client);
         }
@@ -74,7 +74,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                            _postgreRepo.get());
 
             Network::Message msg;
-            msg.mHeader.mID = Network::Message::MessageType::ChannelListRequest;
+            msg.mHeader.mConnectionID = Network::Message::MessageType::ChannelListRequest;
 
             future.wait();
             auto channelList = future.get();
@@ -106,7 +106,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                            _postgreRepo.get(), std::to_string(client->getID()));
 
             Network::Message msg;
-            msg.mHeader.mID = Network::Message::MessageType::MessageHistoryRequest;
+            msg.mHeader.mConnectionID = Network::Message::MessageType::MessageHistoryRequest;
 
             future.wait();
             auto messageHistory = future.get();

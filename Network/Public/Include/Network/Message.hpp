@@ -30,8 +30,8 @@ struct Message
     
     struct MessageHeader
     {
-        MessageType mID         = MessageType();
-        std::uint32_t mBodySize = std::uint32_t();
+        MessageType mConnectionID = MessageType();
+        std::uint32_t mBodySize   = std::uint32_t();
         std::chrono::time_point<std::chrono::system_clock> mTimestamp =
             std::chrono::system_clock::now();
     };
@@ -46,7 +46,8 @@ struct Message
         std::tm formattedTimestamp = Utility::safe_localtime(
             std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
 
-        os << "ID:" << size_t(message.mHeader.mID) << " Size:" << message.mHeader.mBodySize
+        os << "ID:" << size_t(message.mHeader.mConnectionID)
+           << " Size:" << message.mHeader.mBodySize
            << "Timestamp:" << std::put_time(&formattedTimestamp, "%F %T");
         return os;
     }

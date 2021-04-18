@@ -1,113 +1,118 @@
 #include "Client.hpp"
-#include <Utility/WarningSuppression.hpp>
+
 #include <Network/Primitives.hpp>
+#include <Utility/WarningSuppression.hpp>
 
 namespace Network
 {
-    Client::~Client() { disconnect(); }
+Client::~Client() { disconnect(); }
 
-    bool Client::connect(const std::string& host, const uint16_t& port)
+bool Client::connect(const std::string& host, const uint16_t& port)
+{
+    try
     {
-        try
-        {
-            asio::ip::tcp::resolver resolver(mContext);
-            asio::ip::tcp::resolver::results_type endpoints =
-                resolver.resolve(host, std::to_string(port));
+        asio::ip::tcp::resolver resolver(mContext);
+        asio::ip::tcp::resolver::results_type endpoints =
+            resolver.resolve(host, std::to_string(port));
 
-            mConnection =
-                std::make_unique<Connection>(Connection::OwnerType::CLIENT, mContext,
-                                             asio::ip::tcp::socket(mContext), mIncomingMessagesQueue);
+        mConnection =
+            std::make_unique<Connection>(Connection::OwnerType::CLIENT, mContext,
+                                         asio::ip::tcp::socket(mContext), mIncomingMessagesQueue);
 
-            mConnection->connectToServer(endpoints);
+        mConnection->connectToServer(endpoints);
 
-            mContextThread = std::thread([this]() { mContext.run(); });
+        mContextThread = std::thread([this]() { mContext.run(); });
 
-            return true;
-        }
-        catch (std::exception& exception)
-        {
-            std::cerr << "Client Exception: " << exception.what() << "\n";
-            return false;
-        }
+        return true;
     }
-
-    void Client::disconnect()
+    catch (std::exception& exception)
     {
-        if (isConnected())
-        {
-            mConnection->disconnect();
-        }
-
-        mContext.stop();
-
-        if (mContextThread.joinable())
-        {
-            mContextThread.join();
-        }
-
-        mConnection.release();
+        std::cerr << "Client Exception: " << exception.what() << "\n";
+        return false;
     }
+}
 
-    bool Client::isConnected() const 
+void Client::disconnect()
+{
+    if (isConnected())
     {
-        if (mConnection != nullptr)
-        {
-            return mConnection->isConnected();
-        }
-
-        else
-        {
-            return false;
-        }
+        mConnection->disconnect();
     }
 
-    void Client::send(const Message& message) const
+    mContext.stop();
+
+    if (mContextThread.joinable())
     {
-        if (isConnected())
-        {
-            mConnection->send(message);
-        }
+        mContextThread.join();
     }
 
-    void Client::pingServer() const 
+    mConnection.release();
+}
+
+bool Client::isConnected() const
+{
+    if (mConnection != nullptr)
     {
-        Network::Message message;
-        message.mHeader.mID = Network::Message::MessageType::ServerPing;
-
-        std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
-
-        message << timeNow;
-        send(message);
+        return mConnection->isConnected();
     }
-    void Client::askForChannelList() const
+
+    else
     {
-        Network::Message message;
-        message.mHeader.mID = Network::Message::MessageType::ChannelListRequest;
-        send(message);
+        return false;
     }
-    void Client::askForMessageHistory() const
-    { 
-        Network::Message message;
-        message.mHeader.mID = Network::Message::MessageType::MessageHistoryRequest;
-        send(message);
-    }
-    void Client::storeMessages(const std::vector<std::string>& messagesList) const
-    {
-        for (auto&& msg : messagesList)
-        {
-            Network::Message message;
-            message.mHeader.mID = Network::Message::MessageType::MessageStoreRequest;
+}
 
-            Network::UserMessage us(mConnection->getID(), msg, message.mHeader.mTimestamp );
-            
-            message << us;
-            send(message);
-        }
+void Client::send(const Message& message) const
+{
+    if (isConnected())
+    {
+        mConnection->send(message);
     }
-    void Client::messageAll() const 
+}
+
+void Client::pingServer() const
+{
+    Network::Message message;
+    message.mHeader.mConnectionID = Network::Message::MessageType::ServerPing;
+
+    std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
+
+    message << timeNow;
+    send(message);
+}
+
+void Client::askForChannelList() const
+{
+    Network::Message message;
+    message.mHeader.mConnectionID = Network::Message::MessageType::ChannelListRequest;
+    send(message);
+}
+
+void Client::askForMessageHistory() const
+{
+    Network::Message message;
+    message.mHeader.mConnectionID = Network::Message::MessageType::MessageHistoryRequest;
+    send(message);
+}
+
+void Client::storeMessages(const std::vector<std::string>& messagesList) const
+{
+    for (auto&& msg : messagesList)
     {
         Network::Message message;
-        message.mHeader.mID = Network::Message::MessageType::MessageAll;
+        message.mHeader.mConnectionID = Network::Message::MessageType::MessageStoreRequest;
+
+        Network::UserMessage us(mConnection->getID(), msg, message.mHeader.mTimestamp);
+
+        message << us;
         send(message);
     }
 }
+
+void Client::messageAll() const
+{
+    Network::Message message;
+    message.mHeader.mConnectionID = Network::Message::MessageType::MessageAll;
+    send(message);
+}
+}  // namespace Network
