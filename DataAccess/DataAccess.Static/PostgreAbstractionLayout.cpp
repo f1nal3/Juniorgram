@@ -177,6 +177,44 @@ namespace DataAccess
 
         return this;
     }
+    SQLSelect*                  SQLSelect::join(JoinType join, const std::string& tableName, const std::string& onCondition)
+    {
+        if (*(_queryStream.str().end() - 1) != ' ')
+            _queryStream << " ";
+
+        switch (join)
+        {
+            case DataAccess::JoinType::J_INNER:
+            {
+                _queryStream << "join " << tableName;
+            }
+            break;
+            case DataAccess::JoinType::J_LEFT:
+            {
+                _queryStream << "left join " << tableName;
+            }
+            break;
+            case DataAccess::JoinType::J_RIGHT:
+            {
+                _queryStream << "right join " << tableName;
+            }
+            break;
+            case DataAccess::JoinType::j_FULL:
+            {
+                _queryStream << "full join " << tableName;
+            }
+            break;
+            default:
+            {
+                throw Utility::OperationDBException("Unkown join type!", __FILE__, __LINE__);
+            }
+            break;
+        }
+
+        _queryStream << " on " << onCondition;
+
+        return this;
+    }
 
     SQLSelect*                  SQLSelect::groupBy(const std::initializer_list<std::string>& columnList)
     {
@@ -255,4 +293,4 @@ namespace DataAccess
         _queryStream.str(queryBuffer);
         _queryStream.seekp(0, std::ios_base::end);
     }
-    }
+}

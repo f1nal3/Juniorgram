@@ -17,6 +17,13 @@ namespace DataAccess
         ST_UPDATE,
         ST_DELETE
     };
+    enum class JoinType : std::uint8_t
+    {
+        J_INNER,
+        J_LEFT,
+        J_RIGHT,
+        j_FULL
+    };
 
     template<class T>
     class SQLWhereCondition
@@ -174,8 +181,8 @@ namespace DataAccess
 
         SQLSelect* limit(std::uint32_t limit, std::uint32_t offset = {});
         SQLSelect* orderBy(const std::initializer_list<std::string>& columnList, bool desc = false);
-        SQLSelect* distinct();
-        //SQLSelect* join(joinType);
+        SQLSelect* distinct(void);
+        SQLSelect* join(JoinType join, const std::string& tableName, const std::string& onCondition);
         
         SQLSelect* groupBy(const std::initializer_list<std::string>& columnList);
         SQLSelect* having(const std::string& condition);
