@@ -1,17 +1,17 @@
 #pragma once
+#include <Network/Primitives.hpp>
 #include <string>
 #include <vector>
-#include <Network/Primitives.hpp>
 
 namespace DataAccess
 {
-    /** @class IRepository
-     *  @brief An interface for repository
-     *  @details see https://github.com/f1nal3/Juniorgram/wiki/IRepository-scheme for additional details
-     */
+/** @class IRepository
+ *  @brief An interface for repository
+ *  @details see https://github.com/f1nal3/Juniorgram/wiki/IRepository-scheme for additional details
+ */
 class IRepository
 {
-    public:
+public:
     /**
      * @brief Draft method for getting all channel list from the server.
      * @return channels list as vector of strings.
@@ -34,4 +34,4 @@ class IRepository
      */
     virtual ~IRepository() = default;
 };
-}
+}  // namespace DataAccess

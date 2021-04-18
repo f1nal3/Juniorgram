@@ -4,7 +4,7 @@
 #include "pch.hpp"
 
 /**
- * @class IRepository
+ * @class BioButton
  * @brief Class for Profile menu widget
  */
 class BioButton : public QWidget
