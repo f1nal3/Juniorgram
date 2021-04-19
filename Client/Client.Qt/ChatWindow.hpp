@@ -22,7 +22,7 @@ public slots:
     void updateMessagesList_Bot();
 
 private:   
-    std::unique_ptr<ChannelListWidget> channelListWidget;
+    ChannelListWidget* channelListWidget;
     FlatButton* sendButton;
     FlatButton* botButton;
     TextEdit* textEdit;

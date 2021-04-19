@@ -27,6 +27,11 @@
 #include <QValidator>
 #include <QWidget>
 #include <QWindow>
+#include <QMouseEvent>
+#include <QEvent>
+#include <QFrame>
+#include <QGridLayout>
+#include <QLabel>
 #include <cmath>
 #include <iostream>
 #include <memory>

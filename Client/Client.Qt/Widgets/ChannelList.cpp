@@ -1,12 +1,13 @@
 #include "ChannelList.hpp"
+#include "Style/Style.hpp"
 
 ChannelList::ChannelList(QString _nameChannel)
 {
     hbox        = std::make_unique<QHBoxLayout>();
     nameChannel = std::make_unique<QLabel>(_nameChannel);
     hbox->addWidget(nameChannel.get());
-    this->setMinimumSize(200, 60);
-    this->setMaximumHeight(60);
+    setFixedWidth(Style::valueDPIScale(200));
+    setFixedHeight(Style::valueDPIScale(60));
     this->setFrameStyle(QFrame::Box);
     this->setCursor(Qt::PointingHandCursor);
     setLayout(hbox.get());

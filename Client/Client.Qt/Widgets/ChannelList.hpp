@@ -1,15 +1,6 @@
 #pragma once
 
-#include <QWidget>
-#include <QFrame>
-#include <QPushButton>
-#include <QEvent>
-#include <QMouseEvent>
-#include <QGridLayout>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QLabel>
-#include <memory>
+#include "pch.hpp"
 
 class ChannelList : public QFrame
 {

@@ -1,16 +1,18 @@
 #include "ChannelListWindow.hpp"
+#include "Style/Style.hpp"
 
-ChannelListWindow::ChannelListWindow(QWidget* parent, std::shared_ptr<QVBoxLayout> _vbox) : QWidget(parent)
+ChannelListWindow::ChannelListWindow(QWidget* parent, QVBoxLayout* vbox)
+    : QWidget(parent), vBoxChannelListWidget(vbox)
 {
-    this->resize(500, 500);
-    vBoxChannelListWidget = _vbox;
+    setFixedWidth(Style::valueDPIScale(500));
+    setFixedHeight(Style::valueDPIScale(500));
     vBox                  = new QVBoxLayout;
-    addChannelButton      = std::make_unique<FlatButton>("Add");
-    channelList           = std::make_unique<QListWidget>(this);
-    vBox->addWidget(channelList.get());
-    vBox->addWidget(addChannelButton.get());
+    addChannelButton      = new FlatButton("Add");
+    channelList           = new QListWidget(this);
+    vBox->addWidget(channelList);
+    vBox->addWidget(addChannelButton);
 
-    connect(addChannelButton.get(), &QPushButton::clicked,
+    connect(addChannelButton, &QPushButton::clicked,
                      this, &ChannelListWindow::addChannelToMainChannelWidget);
 
     setLayout(vBox);
@@ -30,4 +32,7 @@ void ChannelListWindow::addChannelToMainChannelWidget()
 ChannelListWindow::~ChannelListWindow()
 {
     delete vBox;
+    delete addChannelButton;
+    delete channelList;
+    delete vBoxChannelListWidget;
 }

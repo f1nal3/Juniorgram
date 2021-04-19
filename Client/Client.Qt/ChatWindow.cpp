@@ -7,10 +7,10 @@
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 {
     hBox                = new QHBoxLayout(this);
-    mainLayout          = new QVBoxLayout(this);
+    mainLayout          = new QVBoxLayout();
     messageEditLayout   = new QHBoxLayout();
     messageButtonLayout = new QVBoxLayout();
-    channelListWidget   = std::make_unique<ChannelListWidget>();
+    channelListWidget   = new ChannelListWidget();
     chatWidget          = new QListWidget(this);
     sendButton          = new FlatButton("Send");
     botButton           = new FlatButton("Bot");
@@ -30,7 +30,7 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 
     mainLayout->addLayout(messageEditLayout, 15);
 
-    hBox->addWidget(channelListWidget.get());
+    hBox->addWidget(channelListWidget);
     hBox->addLayout(mainLayout);
 
     connectButton();
@@ -89,4 +89,5 @@ ChatWindow::~ChatWindow()
     delete textEdit;
     delete chatWidget;
     delete hBox;
+    delete channelListWidget;
 }
