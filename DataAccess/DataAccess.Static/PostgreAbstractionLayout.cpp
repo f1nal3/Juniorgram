@@ -117,7 +117,19 @@ namespace DataAccess
     }
     std::optional<pqxx::result> SQLBase::execute(void) 
     {
-        auto result = _currentTable._postgre->query(_queryStream.str() + ";");
+        std::optional<pqxx::result> result;
+
+        try
+        {
+            result = _currentTable._postgre->query(_queryStream.str() + ";");
+        }
+        catch (const std::exception& err)
+        {
+            std::cerr << err.what() << '\n';
+            this->rollback();
+
+            return std::nullopt;
+        }
 
         this->rollback();
 
