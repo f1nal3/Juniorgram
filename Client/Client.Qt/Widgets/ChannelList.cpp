@@ -1,11 +1,11 @@
 #include "ChannelList.hpp"
 #include "Style/Style.hpp"
 
-ChannelList::ChannelList(QString _nameChannel)
+ChannelList::ChannelList(QString _channelName)
 {
     hbox        = std::make_unique<QHBoxLayout>();
-    nameChannel = std::make_unique<QLabel>(_nameChannel);
-    hbox->addWidget(nameChannel.get());
+    channelName = std::make_unique<QLabel>(_channelName);
+    hbox->addWidget(channelName.get());
     setFixedWidth(Style::valueDPIScale(200));
     setFixedHeight(Style::valueDPIScale(60));
     this->setFrameStyle(QFrame::Box);
@@ -13,7 +13,6 @@ ChannelList::ChannelList(QString _nameChannel)
     setLayout(hbox.get());
 }
 
-//Then it should show the chat history
 bool ChannelList::event(QEvent* event)
 {
    if(event->type() == QEvent::MouseButtonPress)

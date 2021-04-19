@@ -13,6 +13,7 @@ public:
     ChannelListWindow(QWidget* parent, QVBoxLayout* vbox);
     ~ChannelListWindow();
 public slots:
+//Then have to add a channel with the chat history
     void addChannelToMainChannelWidget();
 private:
     QListWidget* channelList;

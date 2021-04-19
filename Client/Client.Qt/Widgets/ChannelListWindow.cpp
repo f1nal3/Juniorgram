@@ -4,8 +4,8 @@
 ChannelListWindow::ChannelListWindow(QWidget* parent, QVBoxLayout* vbox)
     : QWidget(parent), vBoxChannelListWidget(vbox)
 {
-    setFixedWidth(Style::valueDPIScale(500));
-    setFixedHeight(Style::valueDPIScale(500));
+    setFixedWidth(Style::maxDPI);
+    setFixedHeight(Style::maxDPI);
     vBox                  = new QVBoxLayout;
     addChannelButton      = new FlatButton("Add");
     channelList           = new QListWidget(this);
@@ -18,7 +18,6 @@ ChannelListWindow::ChannelListWindow(QWidget* parent, QVBoxLayout* vbox)
     setLayout(vBox);
 }
 
-//Then have to add a channel with the chat history
 void ChannelListWindow::addChannelToMainChannelWidget()
 {
     if(channelList->currentItem())
