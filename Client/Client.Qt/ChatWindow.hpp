@@ -1,5 +1,5 @@
 #pragma once
-#include "MessageWidget.hpp"
+#include "Widgets/MessageWidget.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/TextEdit.hpp"
 #include "Widgets/ChannelListWidget.hpp"
