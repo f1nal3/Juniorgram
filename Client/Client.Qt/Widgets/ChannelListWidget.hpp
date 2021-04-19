@@ -5,6 +5,9 @@
 #include "FlatButton.hpp"
 #include "ChannelListWindow.hpp"
 
+/** @class ChannelListWidget
+ *  @brief This is the main channel list widget
+ */
 class ChannelListWidget : public QWidget
 {
     Q_OBJECT

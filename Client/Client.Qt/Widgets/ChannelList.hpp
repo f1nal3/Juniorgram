@@ -2,6 +2,9 @@
 
 #include "pch.hpp"
 
+/** @class ChannelList
+ *  @brief This is channel list frame
+ */
 class ChannelList : public QFrame
 {
 public:

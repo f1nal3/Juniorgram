@@ -4,10 +4,13 @@
 #include "ChannelList.hpp"
 #include "FlatButton.hpp"
 
+/** @class ChannelListWindow
+ *  @brief This is channel list
+ */
 class ChannelListWindow : public QWidget
 {
 public:
-    ChannelListWindow(QWidget* parent, QVBoxLayout* _vbox);
+    ChannelListWindow(QWidget* parent, QVBoxLayout* vbox);
     ~ChannelListWindow();
 public slots:
     void addChannelToMainChannelWidget();
