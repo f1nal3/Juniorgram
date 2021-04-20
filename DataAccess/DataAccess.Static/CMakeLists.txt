@@ -4,10 +4,10 @@ set(OUTPUT_NAME DataAccess.Static)
 set(SOURCE_FILES
     PostgreAdapter.hpp
     PostgreAdapter.cpp
-    PostgreRepository.hpp
-    PostgreRepository.cpp
     PostgreAbstractionLayout.hpp
-    PostgreAbstractionLayout.cpp)
+    PostgreAbstractionLayout.cpp
+    PostgreRepository.hpp
+    PostgreRepository.cpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 

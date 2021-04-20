@@ -59,7 +59,7 @@ namespace DataAccess
         changeTable(newTableName.c_str());
     }
     
-    void                        Table::_clear(SQLStatement statement)
+    void                        Table::privateClear(SQLStatement statement)
     {
         switch (statement)
         {
@@ -106,16 +106,16 @@ namespace DataAccess
     }
 
 
-    SQLStatement                SQLBase::type(void) const noexcept
+    SQLStatement                ISQLBase::type(void) const noexcept
     {
         return _statement; 
     }
     
-    const std::string           SQLBase::getQuery(void) const noexcept
+    const std::string           ISQLBase::getQuery(void) const noexcept
     {
         return _queryStream.str();
     }
-    std::optional<pqxx::result> SQLBase::execute(void) 
+    std::optional<pqxx::result> ISQLBase::execute(void) 
     {
         std::optional<pqxx::result> result;
 
@@ -139,9 +139,9 @@ namespace DataAccess
         return std::nullopt;
     }
 
-    void                        SQLBase::rollback(void)
+    void                        ISQLBase::rollback(void)
     { 
-        _currentTable._clear(_statement);
+        _currentTable.privateClear(_statement);
     }
 
 
@@ -189,31 +189,31 @@ namespace DataAccess
 
         return this;
     }
-    SQLSelect*                  SQLSelect::join(JoinType join, const std::string& tableName, const std::string& onCondition)
+    SQLSelect*                  SQLSelect::join(SQLJoinType join, const std::string& secondTableName, const std::string& onCondition)
     {
         if (*(_queryStream.str().end() - 1) != ' ')
             _queryStream << " ";
 
         switch (join)
         {
-            case DataAccess::JoinType::J_INNER:
+            case DataAccess::SQLJoinType::J_INNER:
             {
-                _queryStream << "join " << tableName;
+                _queryStream << "join " << secondTableName;
             }
             break;
-            case DataAccess::JoinType::J_LEFT:
+            case DataAccess::SQLJoinType::J_LEFT:
             {
-                _queryStream << "left join " << tableName;
+                _queryStream << "left join " << secondTableName;
             }
             break;
-            case DataAccess::JoinType::J_RIGHT:
+            case DataAccess::SQLJoinType::J_RIGHT:
             {
-                _queryStream << "right join " << tableName;
+                _queryStream << "right join " << secondTableName;
             }
             break;
-            case DataAccess::JoinType::j_FULL:
+            case DataAccess::SQLJoinType::J_FULL:
             {
-                _queryStream << "full join " << tableName;
+                _queryStream << "full join " << secondTableName;
             }
             break;
             default:
@@ -287,7 +287,7 @@ namespace DataAccess
         return this;
     }
 
-    void                        SQLInsert::_correctFormating(void)
+    void                        SQLInsert::privateCorrectFormating(void)
     {
         std::string queryBuffer = _queryStream.str();
         queryBuffer.erase(queryBuffer.end() - 2, queryBuffer.end());
@@ -297,7 +297,7 @@ namespace DataAccess
     }
 
 
-    void                        SQLUpdate::_correctFormating(void)
+    void                        SQLUpdate::privateCorrectFormating(void)
     {
         std::string queryBuffer = _queryStream.str();
         queryBuffer.erase(queryBuffer.end() - 2, queryBuffer.end());

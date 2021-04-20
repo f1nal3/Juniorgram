@@ -7,7 +7,7 @@
 namespace DataAccess
 {
     class Table;
-    class SQLBase;
+    class ISQLBase;
 
     enum class SQLStatement : std::uint8_t
     {
@@ -17,12 +17,12 @@ namespace DataAccess
         ST_UPDATE,
         ST_DELETE
     };
-    enum class JoinType : std::uint8_t
+    enum class SQLJoinType : std::uint8_t
     {
         J_INNER,
         J_LEFT,
         J_RIGHT,
-        j_FULL
+        J_FULL
     };
 
     template<class T>
@@ -113,24 +113,24 @@ namespace DataAccess
     };
 
 
-    class SQLBase
+    class ISQLBase
     {
     public:
 
-        SQLBase(SQLStatement statement, Table& table)
+        ISQLBase(SQLStatement statement, Table& table)
             : _statement{statement}, _currentTable{table}, _queryStream{} {}
 
     public:
 
-        SQLBase(void) = delete;
+        ISQLBase(void) = delete;
 
-        SQLBase(const SQLBase&) = delete;
-        SQLBase& operator=(const SQLBase&) = delete;
+        ISQLBase(const ISQLBase&) = delete;
+        ISQLBase& operator=(const ISQLBase&) = delete;
 
-        SQLBase(SQLBase&&) = delete;
-        SQLBase& operator=(SQLBase&&) = delete;
+        ISQLBase(ISQLBase&&) = delete;
+        ISQLBase& operator=(ISQLBase&&) = delete;
 
-        virtual ~SQLBase(void) = default;
+        virtual ~ISQLBase(void) = default;
 
     public:
 
@@ -151,15 +151,15 @@ namespace DataAccess
 
     private:
 
-        friend class SQLWhereCondition<SQLBase>;
+        friend class SQLWhereCondition<ISQLBase>;
 
     };
 
-    class SQLSelect : public SQLBase, public SQLWhereCondition<SQLSelect>
+    class SQLSelect : public ISQLBase, public SQLWhereCondition<SQLSelect>
     {
     public:
 
-        SQLSelect(Table& table) : SQLBase(SQLStatement::ST_SELECT, table), SQLWhereCondition(this) {}
+        SQLSelect(Table& table) : ISQLBase(SQLStatement::ST_SELECT, table), SQLWhereCondition(this) {}
 
         virtual ~SQLSelect(void) = default;
         
@@ -182,7 +182,7 @@ namespace DataAccess
         SQLSelect* limit(std::uint32_t limit, std::uint32_t offset = {});
         SQLSelect* orderBy(const std::initializer_list<std::string>& columnList, bool desc = false);
         SQLSelect* distinct(void);
-        SQLSelect* join(JoinType join, const std::string& tableName, const std::string& onCondition);
+        SQLSelect* join(SQLJoinType join, const std::string& secondTableName, const std::string& onCondition);
         
         SQLSelect* groupBy(const std::initializer_list<std::string>& columnList);
         SQLSelect* having(const std::string& condition);
@@ -194,11 +194,11 @@ namespace DataAccess
         friend class SQLWhereCondition<SQLSelect>;
     };
 
-    class SQLInsert : public SQLBase
+    class SQLInsert : public ISQLBase
     {
     public:
 
-        SQLInsert(Table& table) : SQLBase(SQLStatement::ST_INSERT, table) {}
+        SQLInsert(Table& table) : ISQLBase(SQLStatement::ST_INSERT, table) {}
 
         virtual ~SQLInsert(void) = default;
 
@@ -310,17 +310,17 @@ namespace DataAccess
 
     private:
 
-        void _correctFormating(void);
+        void privateCorrectFormating(void);
 
     private:
         friend class Table;
     };
     
-    class SQLUpdate : public SQLBase, public SQLWhereCondition<SQLUpdate>
+    class SQLUpdate : public ISQLBase, public SQLWhereCondition<SQLUpdate>
     {
     public:
 
-        SQLUpdate(Table& table) : SQLBase(SQLStatement::ST_UPDATE, table), SQLWhereCondition(this) {}
+        SQLUpdate(Table& table) : ISQLBase(SQLStatement::ST_UPDATE, table), SQLWhereCondition(this) {}
 
         virtual ~SQLUpdate(void) = default;
 
@@ -368,18 +368,18 @@ namespace DataAccess
 
     private:
 
-        void _correctFormating(void);
+        void privateCorrectFormating(void);
 
     private:
         friend class Table;
         friend class SQLWhereCondition<SQLUpdate>;
     };
 
-    class SQLDelete : public SQLBase, public SQLWhereCondition<SQLDelete>
+    class SQLDelete : public ISQLBase, public SQLWhereCondition<SQLDelete>
     {
     public:
 
-        SQLDelete(Table& table) : SQLBase(SQLStatement::ST_UPDATE, table), SQLWhereCondition(this) {}
+        SQLDelete(Table& table) : ISQLBase(SQLStatement::ST_UPDATE, table), SQLWhereCondition(this) {}
 
         virtual ~SQLDelete(void) = default;
 
@@ -442,7 +442,7 @@ namespace DataAccess
     
     private:
 
-        void _clear(SQLStatement statement);
+        void privateClear(SQLStatement statement);
 
     private:
 
@@ -457,7 +457,7 @@ namespace DataAccess
 
     private:
 
-        friend class SQLBase;
+        friend class ISQLBase;
         friend class SQLSelect;
         friend class SQLInsert;
         friend class SQLUpdate;
