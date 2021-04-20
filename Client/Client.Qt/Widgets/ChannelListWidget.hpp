@@ -20,6 +20,6 @@ public slots:
 private:
    FlatButton* addChannelButton;
    ChannelListWindow* listWidgetChannels;
-   QVBoxLayout* vBox;
+   QVBoxLayout* vBoxLayout;
    QVBoxLayout* vBoxFrame;
 };

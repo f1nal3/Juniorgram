@@ -8,11 +8,11 @@
 class ChannelList : public QFrame
 {
 public:
-    ChannelList(QString _channelName);
+    ChannelList(QString nameOfChannel);
 protected:
     //Then it should show the chat history
     bool event(QEvent* event) override;
 private: 
-    std::unique_ptr<QHBoxLayout> hbox;
+    std::unique_ptr<QHBoxLayout> hBoxLayout;
     std::unique_ptr<QLabel>      channelName;
 };

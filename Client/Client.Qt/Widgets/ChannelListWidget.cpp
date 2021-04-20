@@ -2,19 +2,19 @@
 
 ChannelListWidget::ChannelListWidget(QWidget *parent) : QWidget(parent)
 {
-    vBox               = new QVBoxLayout(this);
+    vBoxLayout         = new QVBoxLayout(this);
     vBoxFrame          = new QVBoxLayout();
-    listWidgetChannels = new ChannelListWindow(nullptr, vBox);
+    listWidgetChannels = new ChannelListWindow(nullptr, vBoxLayout);
     addChannelButton   = new FlatButton("+");
     addChannelButton->setMinimumWidth(200);
     vBoxFrame->addWidget(addChannelButton);
-    vBox->addLayout(vBoxFrame);
-    vBox->addStretch();
+    vBoxLayout->addLayout(vBoxFrame);
+    vBoxLayout->addStretch();
 
     connect(addChannelButton, &QPushButton::clicked,
            this, &ChannelListWidget::addChannel);
 
-    setLayout(vBox);
+    setLayout(vBoxLayout);
 }
 
 void ChannelListWidget::addChannel()
@@ -24,7 +24,7 @@ void ChannelListWidget::addChannel()
 
 ChannelListWidget::~ChannelListWidget()
 {
-    delete vBox;
+    delete vBoxLayout;
     delete vBoxFrame;
     delete listWidgetChannels;
     delete addChannelButton;

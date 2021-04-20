@@ -1,16 +1,16 @@
 #include "ChannelList.hpp"
 #include "Style/Style.hpp"
 
-ChannelList::ChannelList(QString _channelName)
+ChannelList::ChannelList(QString nameOfChannel)
 {
-    hbox        = std::make_unique<QHBoxLayout>();
-    channelName = std::make_unique<QLabel>(_channelName);
-    hbox->addWidget(channelName.get());
+    hBoxLayout        = std::make_unique<QHBoxLayout>();
+    channelName = std::make_unique<QLabel>(nameOfChannel);
+    hBoxLayout->addWidget(channelName.get());
     setFixedWidth(Style::valueDPIScale(200));
     setFixedHeight(Style::valueDPIScale(60));
     this->setFrameStyle(QFrame::Box);
     this->setCursor(Qt::PointingHandCursor);
-    setLayout(hbox.get());
+    setLayout(hBoxLayout.get());
 }
 
 bool ChannelList::event(QEvent* event)

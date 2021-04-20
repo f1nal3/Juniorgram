@@ -10,7 +10,7 @@
 class ChannelListWindow : public QWidget
 {
 public:
-    ChannelListWindow(QWidget* parent, QVBoxLayout* vbox);
+    ChannelListWindow(QWidget* parent, QVBoxLayout* vBoxAnotherLayout);
     ~ChannelListWindow();
 public slots:
 //Then have to add a channel with the chat history
@@ -18,6 +18,6 @@ public slots:
 private:
     QListWidget* channelList;
     FlatButton*  addChannelButton;
-    QVBoxLayout* vBox;
+    QVBoxLayout* vBoxLayout;
     QVBoxLayout* vBoxChannelListWidget;
 };
