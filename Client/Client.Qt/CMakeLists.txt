@@ -8,6 +8,12 @@ set(CMAKE_AUTORCC ON)
 set(SOURCE_FILES
         Widgets/CaptionButton.hpp
         Widgets/CaptionButton.cpp
+        Widgets/ChannelList.cpp
+        Widgets/ChannelList.hpp
+        Widgets/ChannelListWidget.cpp
+        Widgets/ChannelListWidget.hpp
+        Widgets/ChannelListWindow.cpp
+        Widgets/ChannelListWindow.hpp
         Widgets/InputFields.hpp
         Widgets/InputFields.cpp
         Widgets/FlatButton.cpp

@@ -7,9 +7,11 @@
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 {
-    mainLayout          = new QVBoxLayout(this);
+    hBoxLayout          = new QHBoxLayout(this);
+    mainLayout          = new QVBoxLayout();
     messageEditLayout   = new QHBoxLayout();
     messageButtonLayout = new QVBoxLayout();
+    channelListWidget   = new ChannelListWidget();
     chatWidget          = new QListWidget(this);
     sendButton          = new FlatButton("Send");
     botButton           = new FlatButton("Bot");
@@ -29,8 +31,11 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 
     mainLayout->addLayout(messageEditLayout, 15);
 
+    hBoxLayout->addWidget(channelListWidget);
+    hBoxLayout->addLayout(mainLayout);
+
     connectButton();
-    setLayout(mainLayout);
+    setLayout(hBoxLayout);
 }
 
 void ChatWindow::keyPressEvent(QKeyEvent* event)
@@ -84,4 +89,6 @@ ChatWindow::~ChatWindow()
     delete botButton;
     delete textEdit;
     delete chatWidget;
+    delete hBoxLayout;
+    delete channelListWidget;
 }
