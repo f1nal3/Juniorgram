@@ -3,121 +3,229 @@
 
 #include <iostream>
 
-#include "DataAccess.Static/PostgreAdapter.hpp"
+#include "DataAccess.Static/PostgreAbstractionLayout.hpp"
 
+DataAccess::Table test("testing");
 
-TEST_CASE("Tested the main object", "[PostgreSQL]")
+TEST_CASE("Select[where]", "[PostgreAbstractionLayout]")
+{ 
+	std::string query = test.Select()->columns({"*"})->where("id > 5")->getQuery();
+
+	SECTION("Query string test") 
+	{
+        std::cout << "[" << query << "]\n";
+		REQUIRE(query == "select * from testing where id > 5");
+        test.Select()->rollback();
+	};
+}
+
+TEST_CASE("Select[where not]", "[PostgreAbstractionLayout]")
 {
-    auto psql = DataAccess::PostgreAdapter::getPostgre(
-        "dbname=postgres user=postgres password=123 hostaddr=127.0.0.1 port=5432");
+    std::string query = test.Select()->columns({"*"})->where()->Not("name = 'Max'")->getQuery();
 
-    if (psql->getConnection().is_open())
+    SECTION("Query string test")
     {
-        REQUIRE(psql->isConnected() == true);
-        REQUIRE(psql->query("select 1;").value().at(0).at(0).as<int>() == 1);
-    }
-    else
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query == "select * from testing where not name = 'Max'");
+        test.Select()->rollback();
+    };
+}
+
+TEST_CASE("Select[where and]", "[PostgreAbstractionLayout]")
+{
+    std::string query =
+        test.Select()->columns({"*"})->where("name = 'Max'")->And("id > 10")->getQuery();
+
+    SECTION("Query string test")
     {
-        std::cout << "Don't have connection to db!\n";
-        REQUIRE(true);
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query == "select * from testing where name = 'Max' and id > 10");
+        test.Select()->rollback();
+    };
+}
+
+TEST_CASE("Select[where or]", "[PostgreAbstractionLayout]")
+{
+    std::string query =
+        test.Select()->columns({"*"})->where("name = 'Max'")->Or("id > 10")->getQuery();
+
+    SECTION("Query string test")
+    {
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query == "select * from testing where name = 'Max' or id > 10");
+        test.Select()->rollback();
+    };
+}
+
+TEST_CASE("Select[limit]", "[PostgreAbstractionLayout]")
+{
+    std::string query = test.Select()->columns({"*"})->limit(1)->getQuery();
+
+    SECTION("Query string test")
+    {
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query == "select * from testing limit 1 offset 0");
+        test.Select()->rollback();
+    };
+}
+
+TEST_CASE("Select[orderBy]", "[PostgreAbstractionLayout]")
+{
+    std::string query = test.Select()->columns({"*"})->orderBy({"name"})->getQuery();
+
+    SECTION("Query string test")
+    {
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query == "select * from testing order by name");
+        test.Select()->rollback();
+    };
+}
+
+TEST_CASE("Select[Extra][1]", "[PostgreAbstractionLayout]")
+{
+    std::string query = test.Select()->
+                             columns({"id", "name"})->
+                             where()->Not("name = 'A'")->
+                             And("(id < 0")->
+                             Or("id > 15)")->
+                             orderBy({"name", "id"})->
+                             limit(5, 25)->
+                             getQuery();
+
+    SECTION("Query string test")
+    {
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query == "select id, name from testing where not name = 'A' and (id < 0 or id > 15) order by name, id limit 5 offset 25");
+        test.Select()->rollback();
+    };
+}
+
+TEST_CASE("Select[Extra][2]", "[PostgreAbstractionLayout]")
+{
+    std::string query = test.Select()
+                            ->distinct()
+                            ->columns({"id, name"})
+                            ->where("id")
+                            ->Not()
+                            ->between(0, 15)
+                            ->And("name <> 'A'")
+                            ->getQuery();
+         
+    SECTION("Query string test")
+    {
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query ==
+                "select distinct id, name from testing where id not between 0 and 15 and name <> 'A'");
+        test.Select()->rollback();
+    };
+}
+
+
+TEST_CASE("Insert[fields][1]", "[PostgreAbstractionLayout]")
+{ 
+    std::string query = test.Insert()->field(1, 1.5, "'a'")->getQuery();
+
+    SECTION("Query string test")
+    {
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query == "insert into testing values(1, 1.5, 'a')");
+        test.Insert()->rollback();
     }
 }
 
-TEST_CASE("Tested postgre tables operations", "[PostgreTableOperations]")
+TEST_CASE("Insert[fields][2]", "[PostgreAbstractionLayout]")
 {
-    using namespace std::literals::string_view_literals;
+    std::tuple testTuple{1, 1.5, "'a'"};
+    std::string query = test.Insert()->field(testTuple)->getQuery();
 
-    auto psql = DBPostgre::PostgreSQL::getPostgre();
-    auto tblo = DBPostgre::PostgreTableOperations(psql);
-
-    if (psql->getConnection().is_open())
+    SECTION("Query string test") 
     {
-        SECTION("creating the table")
-        {
-            tblo.createTable("TestTable"sv, "id integer"sv);
-            REQUIRE(psql->query("select * from pg_tables where tablename = 'TestTable';"sv)
-                        .has_value() == true);
-        }
-
-        SECTION("droping the table")
-        {
-            tblo.deleteTable("TestTable"sv);
-            REQUIRE(psql->query("select * from pg_tables where tablename = 'TestTable';"sv)
-                        .has_value() == false);
-        }
-    }
-    else
-    {
-        std::cout << "Don't have connection to db!\n";
-        REQUIRE(true);
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query == "insert into testing values(1, 1.5, 'a')");
+        test.Insert()->rollback();
     }
 }
 
-TEST_CASE("Tested postgre fields operations", "[PostgreFieldOperations]")
+TEST_CASE("Insert[fields][3]", "[PostgreAbstractionLayout]")
 {
-    using namespace std::literals::string_view_literals;
+     std::string query = test.Insert()->columns(std::pair{"A", 1}, std::pair{"B", 1.5}, std::pair{"C", "'a'"})->getQuery();
 
-    auto psql = DBPostgre::PostgreSQL::getPostgre();
-    auto fldo = DBPostgre::PostgreFieldOperations(psql);
-
-    if (psql->getConnection().is_open())
+    SECTION("Query string test")
     {
-        SECTION("is data exist") 
-        {
-            REQUIRE(fldo.isExist("TestFields"sv, "id"sv, "0") == true);
-        }
-        SECTION("inserting the data")
-        {
-            fldo.insert("TestFields"sv, "1", "id"sv);
-            REQUIRE(fldo.isExist("TestFields"sv, "id"sv, "1") == true);
-        }
-        SECTION("selecting the data") 
-        {
-            REQUIRE(fldo.select("TestFields", "*").empty() == false); 
-        }
-        SECTION("updating the data")
-        {
-            fldo.update("TestFields"sv, "id = 10"sv, "where id = 0"sv);
-            REQUIRE(fldo.isExist("TestFields"sv, "id"sv, "10") == true);
-        }
-        SECTION("deleting the data")
-        {
-            fldo.del("TestFields"sv, "where id = 10"sv);
-            REQUIRE(fldo.isExist("TestFields"sv, "id"sv, "10") == false);
-        }
-    }
-    else
-    {
-        std::cout << "Don't have connection to db!\n";
-        REQUIRE(true);
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query == "insert into testing(A, B, C) values(1, 1.5, 'a')");
+        test.Insert()->rollback();
     }
 }
 
-TEST_CASE("Tested columns postgre operations", "[PostgreColumnOperations]")
+TEST_CASE("Insert[fields][4]", "[PostgreAbstractionLayout]")
 {
-    using namespace std::literals::string_view_literals;
-
-    auto psql = DBPostgre::PostgreSQL::getPostgre();
-    auto fldo = DBPostgre::PostgreFieldOperations(psql);
-    auto clnp = DBPostgre::PostgreColumnOperations(psql);
-
-    if (psql->getConnection().is_open())
+    std::tuple testTuple
     {
-        SECTION("adding new column")
-        {
-            clnp.addNewColumn("TestColumn"sv, "newId"sv, "integer"sv);
-            fldo.insert("TestColumn"sv, "0, 0", "id, newId"sv);
-            REQUIRE(fldo.isExist("TestColumn"sv, "newId"sv, "0") == true);
-        }
-        SECTION("deleting the column")
-        {
-            clnp.deleteColumn("TestColumn"sv, "newId");
-            REQUIRE(fldo.isExist("TestColumn"sv, "newId"sv, "0") == false);
-        }
+        std::pair{"A", 1},
+        std::pair{"B", 1.5},
+        std::pair{"C", "'a'"}
+    };
+    std::string query = test.Insert()->columns(testTuple)->getQuery();
+
+    SECTION("Query string test")
+    {
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query == "insert into testing(A, B, C) values(1, 1.5, 'a')");
+        test.Insert()->rollback();
     }
-    else
+}
+
+TEST_CASE("Insert[returning]", "[PostgreAbstractionLayout]")
+{
+    std::string query = test.Insert()->field(1, 1.5, "'a'")->field(1, 1.5, "'a'")->returning({"*"})->getQuery();
+
+    SECTION("Query string test")
     {
-        std::cout << "Don't have connection to db!\n";
-        REQUIRE(true);
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query == "insert into testing values(1, 1.5, 'a'), (1, 1.5, 'a') returning *");
+        test.Insert()->rollback();
+    }
+}
+
+TEST_CASE("Update[fields]", "[PostgreAbstractionLayout]")
+{
+    std::string query =
+        test.Update()->fields(std::pair{"A", 1}, std::pair{"B", 1.5}, std::pair{"C", "'a'"})->getQuery();
+
+    SECTION("Query string test")
+    {
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query == "update testing set A = 1, B = 1.5, C = 'a'");
+        test.Update()->rollback();
+    }
+}
+
+TEST_CASE("Update[fields where]", "[PostgreAbstractionLayout]")
+{
+    std::tuple testTuple{
+        std::pair{"A", 1},
+        std::pair{"B", 1.5},
+        std::pair{"C", "'a'"}
+    };
+    std::string query = test.Update()->fields(testTuple)->where("C <> 'a'")->getQuery();
+
+    SECTION("Query string test")
+    {
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query == "update testing set A = 1, B = 1.5, C = 'a' where C <> 'a'");
+        test.Update()->rollback();
+    }
+}
+
+TEST_CASE("Delete[where]", "[PostgreAbstractionLayout]")
+{
+    std::string query = test.Delete()->where("A = 1")->getQuery();
+
+    SECTION("Query string test")
+    {
+        std::cout << "[" << query << "]\n";
+        REQUIRE(query == "delete from testing where A = 1");
+        test.Delete()->rollback();
     }
 }

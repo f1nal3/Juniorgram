@@ -4,6 +4,8 @@ set(OUTPUT_NAME DataAccess.Static)
 set(SOURCE_FILES
     PostgreAdapter.hpp
     PostgreAdapter.cpp
+    PostgreAbstractionLayout.hpp
+    PostgreAbstractionLayout.cpp
     PostgreRepository.hpp
     PostgreRepository.cpp)
 

@@ -5,7 +5,7 @@ namespace DataAccess
 
 	std::shared_ptr<PostgreAdapter> PostgreAdapter::getPostgre(const std::string_view& options)
     {
-        std::lock_guard<std::mutex> lock(ms_static_mutex);
+        std::scoped_lock<std::mutex> lock(ms_static_mutex);
 
         if (msp_instance == nullptr)
         {
@@ -33,7 +33,7 @@ namespace DataAccess
 
     std::optional<pqxx::result> PostgreAdapter::query(const std::string_view& query)
     {
-        std::lock_guard<std::mutex> lock(m_query_mutex);
+        std::scoped_lock<std::mutex> lock(m_query_mutex);
 
         pqxx::work work{ m_connection };
 
