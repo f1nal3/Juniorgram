@@ -228,7 +228,7 @@ namespace DataAccess
 
             ((_queryStream << data << ", "), ...);
 
-            this->_correctFormating();
+            this->privateCorrectFormating();
 
             _queryStream << ")";
 
@@ -252,7 +252,7 @@ namespace DataAccess
                     ((_queryStream << tupleArgs << ", "), ...); }
                 , dataList);
 
-            this->_correctFormating();
+            this->privateCorrectFormating();
 
             _queryStream << ")";
 
@@ -264,14 +264,14 @@ namespace DataAccess
             _queryStream << "(";
             ((_queryStream << columnData.first << ", "), ...);
 
-            this->_correctFormating();
+            this->privateCorrectFormating();
 
             _queryStream << ")";
 
             _queryStream << " values(";
             ((_queryStream << columnData.second << ", "), ...);
 
-            this->_correctFormating();
+            this->privateCorrectFormating();
 
             _queryStream << ")";
 
@@ -287,7 +287,7 @@ namespace DataAccess
                     ((_queryStream << tupleArgs.first << ", "), ...); 
                 }, columnDataList);
 
-            this->_correctFormating();
+            this->privateCorrectFormating();
 
             _queryStream << ")";
 
@@ -297,7 +297,7 @@ namespace DataAccess
                      ((_queryStream << tupleArgs.second << ", "), ...);
                 }, columnDataList);
 
-            this->_correctFormating();
+            this->privateCorrectFormating();
 
             _queryStream << ")";
 
@@ -343,7 +343,7 @@ namespace DataAccess
 
             ((_queryStream << columnData.first << " = " << columnData.second << ", "), ...);
 
-            this->_correctFormating();
+            this->privateCorrectFormating();
 
             return this;
         }
@@ -361,7 +361,7 @@ namespace DataAccess
                                    << ", "), ...);
                 }, columnData);
 
-            this->_correctFormating();
+            this->privateCorrectFormating();
 
             return this;
         }
