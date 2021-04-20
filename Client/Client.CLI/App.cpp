@@ -1,4 +1,5 @@
 #include "App.hpp"
+
 #include "Network/Primitives.hpp"
 
 App::App(/* args */) { client.connect(address, port); }
@@ -22,7 +23,7 @@ bool App::loop()
         {
             Network::Message message = client.incoming().pop_front();
 
-            switch (message.mHeader.mID)
+            switch (message.mHeader.mConnectionID)
             {
                 case Network::Message::MessageType::ServerAccept:
                 {
@@ -64,11 +65,10 @@ bool App::loop()
                         channelList.emplace_back(info.channelName);
                     }
 
-                    for(auto& item : channelList)
-                        std::cout << item << '\n';
+                    for (auto& item : channelList) std::cout << item << '\n';
                 }
                 break;
-                
+
                 case Network::Message::MessageType::MessageHistoryRequest:
                 {
                     std::cout << "Message history received: \n";
@@ -76,7 +76,7 @@ bool App::loop()
 
                     std::size_t messageListSize;
                     message >> messageListSize;
-                    
+
                     for (std::size_t i = 0; i < messageListSize; i++)
                     {
                         Network::MessageInfo info;
@@ -84,10 +84,16 @@ bool App::loop()
                         messageList.emplace_back(std::string(info.message));
                     }
 
-                    for (auto& item : messageList)
-                        std::cout << item << '\n';
+                    for (auto& item : messageList) std::cout << item << '\n';
                 }
                 break;
+
+                case Network::Message::MessageType::MessageStoreRequest:
+                {
+                    std::cout << "Message were stored" << std::endl;
+                }
+                break;
+
 				        default:
 				        break;
             }

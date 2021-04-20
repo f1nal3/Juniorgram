@@ -27,7 +27,7 @@ set(SOURCE_FILES
         Widgets/Menu.cpp
         Widgets/Menu.hpp
         Widgets/MenuItem.cpp
-        Widgets/MenuItem.hpp 
+        Widgets/MenuItem.hpp
         Widgets/MessageWidget.cpp
         Widgets/MessageWidget.hpp
         Style/Style.hpp
@@ -35,16 +35,16 @@ set(SOURCE_FILES
         Style/Shadow.hpp
         MainWidget.cpp
         MainWidget.hpp
-        login.cpp
-        login.hpp
-        registration.cpp
-        registration.hpp
         ChatWindow.cpp
         ChatWindow.hpp
         App.cpp
         App.hpp
         pch.hpp
-        main.cpp)
+        main.cpp
+        Login.hpp
+        Login.cpp
+        Registration.hpp
+        Registration.cpp)
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)
