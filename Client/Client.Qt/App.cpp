@@ -1,11 +1,12 @@
-#include "App.hpp"
 
 #include <Widgets/BioButton.hpp>
 
+#include "App.hpp"
 #include "ChatWindow.hpp"
 #include "MainWidget.hpp"
 #include "Login.hpp"
 #include "Registration.hpp"
+#include <Client.hpp>
 
 namespace App
 {
@@ -14,6 +15,7 @@ namespace
 MainWidget* mMainWidget;
 BioButton* mBioButton;
 AppState mAppState = AppState::RegistrationForm;
+Network::Client client;
 }  // namespace
 void create()
 {
@@ -47,6 +49,14 @@ void setAppState(AppState app_state)
     }
     switch (mAppState)
     {
+        case AppState::ConnectToServer:
+        {
+            const std::string address = "104.40.239.183";
+            const std::uint16_t port  = 65001;
+
+            client.connect(address, port);
+        }
+        break;
         case AppState::LoginForm:
         {
             auto* wid = new Login();

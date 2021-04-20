@@ -5,7 +5,8 @@ enum class AppState
 {
     LoginForm,
     Authorized,
-    RegistrationForm
+    RegistrationForm,
+    ConnectToServer
 };
 
 namespace App
