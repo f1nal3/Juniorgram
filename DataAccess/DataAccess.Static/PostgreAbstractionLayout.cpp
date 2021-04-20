@@ -106,16 +106,16 @@ namespace DataAccess
     }
 
 
-    SQLStatement                ISQLBase::type(void) const noexcept
+    SQLStatement                SQLBase::type(void) const noexcept
     {
         return _statement; 
     }
     
-    const std::string           ISQLBase::getQuery(void) const noexcept
+    const std::string           SQLBase::getQuery(void) const noexcept
     {
         return _queryStream.str();
     }
-    std::optional<pqxx::result> ISQLBase::execute(void) 
+    std::optional<pqxx::result> SQLBase::execute(void) 
     {
         std::optional<pqxx::result> result;
 
@@ -139,7 +139,7 @@ namespace DataAccess
         return std::nullopt;
     }
 
-    void                        ISQLBase::rollback(void)
+    void                        SQLBase::rollback(void)
     { 
         _currentTable.privateClear(_statement);
     }

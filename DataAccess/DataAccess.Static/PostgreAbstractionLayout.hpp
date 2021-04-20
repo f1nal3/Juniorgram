@@ -7,7 +7,7 @@
 namespace DataAccess
 {
     class Table;
-    class ISQLBase;
+    class SQLBase;
 
     enum class SQLStatement : std::uint8_t
     {
@@ -113,24 +113,24 @@ namespace DataAccess
     };
 
 
-    class ISQLBase
+    class SQLBase
     {
     public:
 
-        ISQLBase(SQLStatement statement, Table& table)
+        SQLBase(SQLStatement statement, Table& table)
             : _statement{statement}, _currentTable{table}, _queryStream{} {}
 
     public:
 
-        ISQLBase(void) = delete;
+        SQLBase(void) = delete;
 
-        ISQLBase(const ISQLBase&) = delete;
-        ISQLBase& operator=(const ISQLBase&) = delete;
+        SQLBase(const SQLBase&) = delete;
+        SQLBase& operator=(const SQLBase&) = delete;
 
-        ISQLBase(ISQLBase&&) = delete;
-        ISQLBase& operator=(ISQLBase&&) = delete;
+        SQLBase(SQLBase&&) = delete;
+        SQLBase& operator=(SQLBase&&) = delete;
 
-        virtual ~ISQLBase(void) = default;
+        virtual ~SQLBase(void) = default;
 
     public:
 
@@ -151,15 +151,15 @@ namespace DataAccess
 
     private:
 
-        friend class SQLWhereCondition<ISQLBase>;
+        friend class SQLWhereCondition<SQLBase>;
 
     };
 
-    class SQLSelect : public ISQLBase, public SQLWhereCondition<SQLSelect>
+    class SQLSelect : public SQLBase, public SQLWhereCondition<SQLSelect>
     {
     public:
 
-        SQLSelect(Table& table) : ISQLBase(SQLStatement::ST_SELECT, table), SQLWhereCondition(this) {}
+        SQLSelect(Table& table) : SQLBase(SQLStatement::ST_SELECT, table), SQLWhereCondition(this) {}
 
         virtual ~SQLSelect(void) = default;
         
@@ -194,11 +194,11 @@ namespace DataAccess
         friend class SQLWhereCondition<SQLSelect>;
     };
 
-    class SQLInsert : public ISQLBase
+    class SQLInsert : public SQLBase
     {
     public:
 
-        SQLInsert(Table& table) : ISQLBase(SQLStatement::ST_INSERT, table) {}
+        SQLInsert(Table& table) : SQLBase(SQLStatement::ST_INSERT, table) {}
 
         virtual ~SQLInsert(void) = default;
 
@@ -316,11 +316,11 @@ namespace DataAccess
         friend class Table;
     };
     
-    class SQLUpdate : public ISQLBase, public SQLWhereCondition<SQLUpdate>
+    class SQLUpdate : public SQLBase, public SQLWhereCondition<SQLUpdate>
     {
     public:
 
-        SQLUpdate(Table& table) : ISQLBase(SQLStatement::ST_UPDATE, table), SQLWhereCondition(this) {}
+        SQLUpdate(Table& table) : SQLBase(SQLStatement::ST_UPDATE, table), SQLWhereCondition(this) {}
 
         virtual ~SQLUpdate(void) = default;
 
@@ -375,11 +375,11 @@ namespace DataAccess
         friend class SQLWhereCondition<SQLUpdate>;
     };
 
-    class SQLDelete : public ISQLBase, public SQLWhereCondition<SQLDelete>
+    class SQLDelete : public SQLBase, public SQLWhereCondition<SQLDelete>
     {
     public:
 
-        SQLDelete(Table& table) : ISQLBase(SQLStatement::ST_UPDATE, table), SQLWhereCondition(this) {}
+        SQLDelete(Table& table) : SQLBase(SQLStatement::ST_UPDATE, table), SQLWhereCondition(this) {}
 
         virtual ~SQLDelete(void) = default;
 
@@ -457,7 +457,7 @@ namespace DataAccess
 
     private:
 
-        friend class ISQLBase;
+        friend class SQLBase;
         friend class SQLSelect;
         friend class SQLInsert;
         friend class SQLUpdate;
