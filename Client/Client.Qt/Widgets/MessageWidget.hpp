@@ -17,6 +17,7 @@ constexpr auto EMPTY_USER_NAME    = "You";
 #include <QtWidgets/QMainWindow>
 #include <Widgets/FlatButton.hpp>
 #include "Widgets/InputFields.hpp"
+#include "Widgets/Label.hpp"
 #include "Widgets/TimeEdit.hpp"
 
 /** @class MessageWidget
@@ -80,8 +81,8 @@ private:
     // Message
     FlatPlainTextEdit* messageTextEdit;
     // UpLevelLayout
-    QLabel* userNameLabel;
-    QLabel* reactionLabel;
+    Label* userNameLabel;
+    Label* reactionLabel;
     QSpacerItem* horizontalUpLeftSpacer;
     QSpacerItem* horizontalUpRightSpacer;
     TimeEdit* messageTimeEdit;
@@ -90,7 +91,7 @@ private:
     FlatButton* deleteButton;
     QSpacerItem* horizontalDownSpacer;
     // delMessage - shows that the message has been deleted
-    QLabel* delMessage;
+    Label* delMessage;
 
     QString messageText;
     QString userName;
