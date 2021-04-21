@@ -6,8 +6,8 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
     mTextField  = new FlatPlainTextEdit();
     mBoldButton = new FlatButton("B");
 
-    auto* vLayout = new QVBoxLayout;
-    auto* hLayout = new QHBoxLayout;
+    vLayout = new QVBoxLayout;
+    hLayout = new QHBoxLayout;
 
     hLayout->setAlignment(Qt::AlignLeft);
     hLayout->addWidget(mBoldButton);
@@ -92,4 +92,6 @@ TextEdit::~TextEdit()
 {
     delete mBoldButton;
     delete mTextField;
+    delete hLayout;
+    delete vLayout;
 }

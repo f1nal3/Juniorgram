@@ -6,6 +6,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 set(SOURCE_FILES
+        Widgets/BioButton.cpp
+        Widgets/BioButton.hpp
         Widgets/CaptionButton.hpp
         Widgets/CaptionButton.cpp
         Widgets/ChannelList.cpp
@@ -14,39 +16,39 @@ set(SOURCE_FILES
         Widgets/ChannelListWidget.hpp
         Widgets/ChannelListWindow.cpp
         Widgets/ChannelListWindow.hpp
+        Widgets/ComboBox.hpp
+        Widgets/ComboBox.cpp
+        Widgets/FlatButton.cpp
+        Widgets/FlatButton.hpp
         Widgets/InputFields.hpp
         Widgets/InputFields.cpp
         Widgets/Label.cpp
         Widgets/Label.hpp
-        Widgets/FlatButton.cpp
-        Widgets/FlatButton.hpp
-        Widgets/TextEdit.cpp
-        Widgets/TextEdit.hpp
-        Widgets/TimeEdit.cpp
-        Widgets/TimeEdit.hpp
-        Widgets/BioButton.cpp
-        Widgets/BioButton.hpp
-        Widgets/PopupWidget.cpp
-        Widgets/PopupWidget.hpp
         Widgets/Menu.cpp
         Widgets/Menu.hpp
         Widgets/MenuItem.cpp
         Widgets/MenuItem.hpp
         Widgets/MessageWidget.cpp
         Widgets/MessageWidget.hpp
-        Style/Style.hpp
-        Style/Style.cpp
+        Widgets/PopupWidget.cpp
+        Widgets/PopupWidget.hpp
+        Widgets/TextEdit.cpp
+        Widgets/TextEdit.hpp
+        Widgets/TimeEdit.cpp
+        Widgets/TimeEdit.hpp
         Style/Shadow.hpp
-        MainWidget.cpp
-        MainWidget.hpp
-        ChatWindow.cpp
-        ChatWindow.hpp
+        Style/Style.cpp
+        Style/Style.hpp
         App.cpp
         App.hpp
-        pch.hpp
-        main.cpp
+        ChatWindow.cpp
+        ChatWindow.hpp
         Login.hpp
         Login.cpp
+        main.cpp
+        MainWidget.cpp
+        MainWidget.hpp
+        pch.hpp
         Registration.hpp
         Registration.cpp)
 
