@@ -16,6 +16,8 @@ set(SOURCE_FILES
         Widgets/ChannelListWidget.hpp
         Widgets/ChannelListWindow.cpp
         Widgets/ChannelListWindow.hpp
+        Widgets/ComboBox.h
+        Widgets/ComboBox.cpp
         Widgets/FlatButton.cpp
         Widgets/FlatButton.hpp
         Widgets/InputFields.hpp

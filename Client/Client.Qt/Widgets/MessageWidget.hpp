@@ -5,19 +5,13 @@ constexpr auto NO_SELECTED_RETURN = "Null";
 constexpr auto EMPTY_MESSAGE      = "Empty message";
 constexpr auto EMPTY_USER_NAME    = "You";
 
-#include <QComboBox>
-#include <QGridLayout>
-#include <QLabel>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QTextEdit>
-#include <QTime>
-#include <QTimeEdit>
-#include <QWidget>
-#include <QtWidgets/QMainWindow>
-#include <Widgets/FlatButton.hpp>
+
+#include "pch.hpp"
+
+#include "Widgets/FlatButton.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/TimeEdit.hpp"
+#include "Widgets/ComboBox.h"
 
 /** @class MessageWidget
  *  @brief message visual representation in chat
@@ -86,7 +80,7 @@ private:
     QSpacerItem* horizontalUpRightSpacer;
     TimeEdit* messageTimeEdit;
     // DownLevelLayout
-    QComboBox* reactionChoseBox;
+    ComboBox* reactionChoseBox;
     FlatButton* deleteButton;
     QSpacerItem* horizontalDownSpacer;
     // delMessage - shows that the message has been deleted
@@ -96,6 +90,7 @@ private:
     QString userName;
     QTime timeMessage;
     QString reactionOnMessage;
+    QStringList itemReactionList;
     std::map<std::string, int> reactionMap{{"Like", 0}};
     bool messageDel;
     void initializationUi();
