@@ -86,7 +86,7 @@ private:
         asio::async_write(
             mSocket,
             asio::buffer(&mOutcomingMessagesQueue.front().mHeader, sizeof(Message::MessageHeader)),
-            bind(writeHeaderHandler, std::placeholders::_1));
+            std::bind(writeHeaderHandler, std::placeholders::_1));
     }
 
     /**
@@ -121,7 +121,7 @@ private:
         asio::async_write(mSocket,
                           asio::buffer(mOutcomingMessagesQueue.front().mBody.data(),
                                        mOutcomingMessagesQueue.front().mBody.size()),
-                          bind(writeBodyHandler, std::placeholders::_1));
+                          std::bind(writeBodyHandler, std::placeholders::_1));
     }
 
     /**
@@ -160,7 +160,7 @@ private:
 
         asio::async_read(mSocket,
                          asio::buffer(&mMessageBuffer.mHeader, sizeof(Message::MessageHeader)),
-                         bind(readHeaderHandler, std::placeholders::_1));
+                         std::bind(readHeaderHandler, std::placeholders::_1));
     }
 
     /**
@@ -188,7 +188,7 @@ private:
 
         asio::async_read(mSocket,
                          asio::buffer(mMessageBuffer.mBody.data(), mMessageBuffer.mBody.size()),
-                         bind(readBodyHandler, std::placeholders::_1));
+                         std::bind(readBodyHandler, std::placeholders::_1));
     }
 
     /**
