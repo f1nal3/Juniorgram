@@ -5,6 +5,5 @@
 class Label : public QLabel
 {
 public:
-	Label();
-
+    Label(const QString &text = QString(), QWidget *parent = nullptr);
 };
