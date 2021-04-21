@@ -12,7 +12,7 @@ constexpr auto EMPTY_USER_NAME    = "You";
 #include "Widgets/InputFields.hpp"
 #include "Widgets/Label.hpp"
 #include "Widgets/TimeEdit.hpp"
-#include "Widgets/ComboBox.h"
+#include "Widgets/ComboBox.hpp"
 
 /** @class MessageWidget
  *  @brief message visual representation in chat
