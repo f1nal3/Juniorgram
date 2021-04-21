@@ -90,9 +90,6 @@ void TextEdit::clear() { mTextField->clear(); }
 
 TextEdit::~TextEdit()
 {
-    hLayout->removeWidget(mBoldButton);
-    vLayout->removeWidget(mTextField);
-    vLayout->removeItem(hLayout);
     delete mBoldButton;
     delete mTextField;
     delete hLayout;
