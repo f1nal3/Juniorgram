@@ -16,6 +16,8 @@ set(SOURCE_FILES
         Widgets/ChannelListWindow.hpp
         Widgets/InputFields.hpp
         Widgets/InputFields.cpp
+        Widgets/Label.cpp
+        Widgets/Label.hpp
         Widgets/FlatButton.cpp
         Widgets/FlatButton.hpp
         Widgets/TextEdit.cpp
