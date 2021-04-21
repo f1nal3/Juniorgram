@@ -45,10 +45,10 @@ set(SOURCE_FILES
         App.hpp
         pch.hpp
         main.cpp
-        Login.hpp
-        Login.cpp
-        Registration.hpp
-        Registration.cpp)
+        login.hpp
+        login.cpp
+        registration.hpp
+        registration.cpp)
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)

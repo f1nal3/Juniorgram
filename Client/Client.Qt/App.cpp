@@ -4,8 +4,8 @@
 
 #include "ChatWindow.hpp"
 #include "MainWidget.hpp"
-#include "Login.hpp"
-#include "Registration.hpp"
+#include "login.hpp"
+#include "registration.hpp"
 
 namespace App
 {
