@@ -19,7 +19,6 @@ namespace DataAccess
                     "Instance didn't create because options are incorrect!");
             }
 
-            ms_options   = options;
             msp_instance = std::shared_ptr<PostgreAdapter>(new PostgreAdapter(options));
         }
 
