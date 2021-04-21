@@ -15,6 +15,7 @@ ChannelListWindow::ChannelListWindow(QWidget* parent, QVBoxLayout* vBoxAnotherLa
     connect(addChannelButton, &QPushButton::clicked,
                      this, &ChannelListWindow::addChannelToMainChannelWidget);
 
+    setStyleSheet("QListWidget { background-color: grey; color:  }");
     setLayout(vBoxLayout);
 }
 
