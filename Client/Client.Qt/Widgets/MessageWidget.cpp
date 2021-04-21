@@ -60,7 +60,7 @@ void MessageWidget::initializationUi()
 
     //UpLevelLayout
 
-    reactionLabel = new QLabel;
+    reactionLabel = new Label;
     reactionLabel->setText("reaction");
 
     horizontalUpLeftSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -70,7 +70,7 @@ void MessageWidget::initializationUi()
 
     horizontalUpRightSpacer = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
     
-    userNameLabel = new QLabel;
+    userNameLabel = new Label;
     userNameLabel->setText("userName");
 
     UpLevelLayout->addWidget(reactionLabel);
@@ -140,7 +140,8 @@ void MessageWidget::deleteButtonClick()
 {
     clearMessage();
     messageItem->setSizeHint(QSize(0, 30));
-    delMessage = new QLabel("Message was delete");
+    delMessage = new Label("Message was delete");
+    delMessage->setFont(QFont("NotoSans", Style::valueDPIScale(8)));
     mainLayout->addWidget(delMessage);
     messageDel = true;
 }
