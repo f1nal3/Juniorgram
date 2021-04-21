@@ -20,6 +20,8 @@ set(SOURCE_FILES
         Widgets/FlatButton.hpp
         Widgets/TextEdit.cpp
         Widgets/TextEdit.hpp
+        Widgets/TimeEdit.cpp
+        Widgets/TimeEdit.hpp
         Widgets/BioButton.cpp
         Widgets/BioButton.hpp
         Widgets/PopupWidget.cpp

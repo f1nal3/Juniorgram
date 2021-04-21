@@ -65,12 +65,8 @@ void MessageWidget::initializationUi()
 
     horizontalUpLeftSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-    messageTimeEdit = new QTimeEdit(this);
+    messageTimeEdit = new TimeEdit(this);
     messageTimeEdit->setObjectName(QString::fromUtf8("messageTimeEdit"));
-    messageTimeEdit->setFrame(false);
-    messageTimeEdit->setReadOnly(true);
-    messageTimeEdit->setButtonSymbols(QAbstractSpinBox::NoButtons);
-    messageTimeEdit->setKeyboardTracking(true);
 
     horizontalUpRightSpacer = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
     

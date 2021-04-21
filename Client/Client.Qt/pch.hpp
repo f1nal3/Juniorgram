@@ -27,6 +27,7 @@
 #include <QStyle>
 #include <QStyleOption>
 #include <QThread>
+#include <QTimeEdit>
 #include <QTimer>
 #include <QValidator>
 #include <QVBoxLayout>

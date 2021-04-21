@@ -17,6 +17,7 @@ constexpr auto EMPTY_USER_NAME    = "You";
 #include <QtWidgets/QMainWindow>
 #include <Widgets/FlatButton.hpp>
 #include "Widgets/InputFields.hpp"
+#include "Widgets/TimeEdit.hpp"
 
 /** @class MessageWidget
  *  @brief message visual representation in chat
@@ -83,7 +84,7 @@ private:
     QLabel* reactionLabel;
     QSpacerItem* horizontalUpLeftSpacer;
     QSpacerItem* horizontalUpRightSpacer;
-    QTimeEdit* messageTimeEdit;
+    TimeEdit* messageTimeEdit;
     // DownLevelLayout
     QComboBox* reactionChoseBox;
     FlatButton* deleteButton;
