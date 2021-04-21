@@ -20,8 +20,9 @@ protected:
 public slots:
     void updateMessagesList_User();
     void updateMessagesList_Bot();
+    void deletingSelection(QListWidgetItem* item);
 
-private:   
+private:
     ChannelListWidget* channelListWidget;
     FlatButton* sendButton;
     FlatButton* botButton;

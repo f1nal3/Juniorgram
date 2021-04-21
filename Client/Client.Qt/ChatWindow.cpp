@@ -52,6 +52,12 @@ void ChatWindow::connectButton()
 {
     connect(sendButton, &QPushButton::released, this, &ChatWindow::updateMessagesList_User);
     connect(botButton, &QPushButton::released, this, &ChatWindow::updateMessagesList_Bot);
+    connect(chatWidget, SIGNAL(itemClicked(QListWidgetItem*)), this,
+            SLOT(deletingSelection(QListWidgetItem*)));
+}
+
+void ChatWindow::deletingSelection(QListWidgetItem* item) {
+    item->setSelected(false);
 }
 
 void ChatWindow::updateMessagesList_User()
