@@ -81,10 +81,11 @@ void MessageWidget::initializationUi()
 
     //DownLevelLayout
 
-    reactionChoseBox = new QComboBox();
+    reactionChoseBox = new ComboBox();
     reactionChoseBox->setObjectName(QString::fromUtf8("reactionChoseBox"));
-    reactionChoseBox->addItem(QString("Choose"));
-    reactionChoseBox->addItem(QString("Like"));
+    itemReactionList << "Choose"
+                     << "Like";
+    reactionChoseBox->addItems(itemReactionList);
 
     horizontalDownSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     

@@ -13,6 +13,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QListWidget>
+#include <QComboBox>
 #include <QMainWindow>
 #include <QMenu>
 #include <QMouseEvent>
