@@ -130,6 +130,14 @@ namespace DataAccess
                 throw Utility::OperationDBException("Database connection failure!", __FILE__, __LINE__);
             }
         }
+        catch (const pqxx::sql_error& err)
+        {
+            std::cerr << err.what() << '\n';
+            std::cerr << err.query() << '\n';
+            this->rollback();
+
+            return std::nullopt;
+        }
         catch (const std::exception& err)
         {
             std::cerr << err.what() << '\n';

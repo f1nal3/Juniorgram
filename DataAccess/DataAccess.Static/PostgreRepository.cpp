@@ -41,18 +41,20 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::
 
 void PostgreRepository::storeMessage(const Network::UserMessage& message /*, const unsigned channleID*/)
 {
-    std::string timeStr(30, '\0');
+    std::string timeStr;
 
-    std::time_t t = std::chrono::system_clock::to_time_t(message.getTimestamp());
-    std::tm time  = Utility::safe_localtime(t);
-    std::strftime(&timeStr[0], timeStr.size(), "%Y-%m-%d %H:%M:%S", &time);
+    timeStr = "'" + PostgreAdapter::getPostgre(
+                  "dbname=postgres user=postgres hostaddr=127.0.0.1 port=5432")
+                  ->query("select now()")
+                  .value()[0][0]
+                  .as<std::string>() + "'";
 
     std::tuple messageToDatabase
     {
         // std::pair{"ChannelID", channelID},
         std::pair{"SenderID", message.getUserID()},
         std::pair{"SendTime", timeStr}, 
-        std::pair{"Msg", message.getMessageText()}
+        std::pair{"Msg", "'" + message.getMessageText() + "'"}
     };
 
     Table("ChannelMsgs").Insert()->columns(messageToDatabase)->execute();

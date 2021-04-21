@@ -3,6 +3,10 @@
 namespace DataAccess
 {
 
+    std::shared_ptr<PostgreAdapter> PostgreAdapter::getPostgre() 
+    {
+        return getPostgre(ms_options);
+    }
 	std::shared_ptr<PostgreAdapter> PostgreAdapter::getPostgre(const std::string_view& options)
     {
         std::scoped_lock<std::mutex> lock(ms_static_mutex);
@@ -15,6 +19,7 @@ namespace DataAccess
                     "Instance didn't create because options are incorrect!");
             }
 
+            ms_options   = options;
             msp_instance = std::shared_ptr<PostgreAdapter>(new PostgreAdapter(options));
         }
 

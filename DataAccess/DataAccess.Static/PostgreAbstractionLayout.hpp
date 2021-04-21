@@ -411,7 +411,7 @@ namespace DataAccess
               _delete{nullptr} 
         {
             _postgre = PostgreAdapter::getPostgre(
-                "dbname=postgres user=postgres password=Asw789654 hostaddr=127.0.0.1 port=5432");
+                "dbname=postgres user=postgres hostaddr=127.0.0.1 port=5432");
         }
         Table(const std::string& tableName)
             : Table(tableName.c_str()) {}

@@ -14,12 +14,13 @@ class PostgreAdapter
 private:
     inline static std::mutex ms_static_mutex{};
     inline static std::shared_ptr<PostgreAdapter> msp_instance{};
+    inline static std::string ms_options{};
 
     std::mutex m_query_mutex;
     pqxx::connection m_connection;
 
 protected:
-    PostgreAdapter(const std::string_view& options = {}) : m_connection{pqxx::zview(options)} {}
+    PostgreAdapter(const std::string_view& options) : m_connection{pqxx::zview(options)} {}
 
 public:
     PostgreAdapter(const PostgreAdapter& other) = delete;
@@ -29,6 +30,7 @@ public:
     PostgreAdapter& operator=(PostgreAdapter&& other) = delete;
 
 public:
+    static std::shared_ptr<PostgreAdapter> getPostgre();
     static std::shared_ptr<PostgreAdapter> getPostgre(const std::string_view& options);
 
     std::optional<pqxx::result> query(const std::string_view& query);
