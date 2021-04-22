@@ -414,6 +414,17 @@ namespace DataAccess
         }
         Table(const std::string& tableName)
             : Table(tableName.c_str()) {}
+        explicit Table(const char* tableName, const std::string_view& options)
+            : _tableName{tableName},
+              _select{nullptr},
+              _insert{nullptr},
+              _update{nullptr},
+              _delete{nullptr}
+        {
+            _postgre = PostgreAdapter::getPostgre(options);
+        }
+        Table(const std::string& tableName, const std::string_view& options) 
+            : Table(tableName.c_str(), options) {}
 
         virtual ~Table(void);
     

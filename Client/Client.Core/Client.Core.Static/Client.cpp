@@ -102,9 +102,13 @@ void Client::storeMessages(const std::vector<std::string>& messagesList) const
         Network::Message message;
         message.mHeader.mConnectionID = Network::Message::MessageType::MessageStoreRequest;
 
-        Network::UserMessage us(mConnection->getID(), msg, message.mHeader.mTimestamp);
+        Network::MessageInfo info;
+        info.userID = mConnection->getID();
+        suppressWarning(4996, -Winit - self)
+            strcpy(info.message, msg.data());
+        restoreWarning
 
-        message << us;
+        message << info;
         send(message);
     }
 }

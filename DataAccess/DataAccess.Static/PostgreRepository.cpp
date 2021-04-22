@@ -6,7 +6,7 @@ std::vector<std::string> PostgreRepository::getAllChannelsList()
 {
     std::vector<std::string> result;
 
-    auto channelListRow = Table("Channels").Select()->columns({"ChannelName"})->execute();
+    auto channelListRow = Table("channels").Select()->columns({"channel_name"})->execute();
 
     if (channelListRow.has_value())
     {
@@ -20,12 +20,12 @@ std::vector<std::string> PostgreRepository::getAllChannelsList()
     return result;
 }
 
-std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::string& userID /*, const unsigned channleID*/)
+std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const unsigned channelID)
 {
     std::vector<std::string> result;
 
     auto messageHistoryRow = 
-        Table("ChannelMsgs").Select()->columns({"Msg"})->where("SenderID = " + userID)/*->And("ChannelID = " + channelID)*/->execute();
+        Table("channel_msgs").Select()->columns({"msg"})->where("channel_id = " + channelID)->execute();
 
 
     if (messageHistoryRow.has_value())
@@ -40,22 +40,20 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::
     return result;
 }
 
-void PostgreRepository::storeMessage(const Network::UserMessage& message /*, const unsigned channleID*/)
+void PostgreRepository::storeMessage(const Network::MessageInfo& message, const unsigned channelID)
 {
-    std::string timeStr;
-
-    timeStr = "'" + PostgreAdapter::getPostgre()
+    std::string timeStr = "'" + PostgreAdapter::getPostgre()
                   ->query("select now()")
                   .value()[0][0]
                   .as<std::string>() + "'";
 
     std::tuple messageToDatabase
     {
-        // std::pair{"ChannelID", channelID},
-        std::pair{"SenderID", message.getUserID()},
-        std::pair{"SendTime", timeStr}, 
-        std::pair{"Msg", "'" + message.getMessageText() + "'"}
+        std::pair{"channel_id", channelID},
+        std::pair{"sender_id", message.userID},
+        std::pair{"send_time", timeStr}, 
+        std::pair{"msg", "'" + std::string(message.message) + "'"}
     };
 
-    Table("ChannelMsgs").Insert()->columns(messageToDatabase)->execute();
+    Table("channel_msgs").Insert()->columns(messageToDatabase)->execute();
 }
