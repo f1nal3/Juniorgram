@@ -17,11 +17,12 @@ public:
 
 protected:
     void keyPressEvent(QKeyEvent* event) override;
-public slots:
+private slots:
     void updateMessagesList_User();
     void updateMessagesList_Bot();
+    void deletingSelection(QListWidgetItem* item);
 
-private:   
+private:
     ChannelListWidget* channelListWidget;
     FlatButton* sendButton;
     FlatButton* botButton;
