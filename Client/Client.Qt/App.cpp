@@ -34,6 +34,7 @@ void create()
     // const MARGINS shadow{9, 9, 9, 9};
     //::DwmExtendFrameIntoClientArea(handle, &shadow);
 #endif
+
     ConnectionManager::connect();
 
     suppressWarning(4834, -Wunused-result) 
