@@ -43,14 +43,14 @@ set(SOURCE_FILES
         App.hpp
         ChatWindow.cpp
         ChatWindow.hpp
-        Login.hpp
-        Login.cpp
+        login.hpp
+        login.cpp
         main.cpp
         MainWidget.cpp
         MainWidget.hpp
         pch.hpp
-        Registration.hpp
-        Registration.cpp)
+        registration.hpp
+        registration.cpp)
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)
