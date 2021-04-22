@@ -7,7 +7,6 @@
 #include "MainWidget.hpp"
 #include "Login.hpp"
 #include "Registration.hpp"
-#include "Utility/WarningSuppression.hpp"
 
 namespace App
 {
@@ -79,4 +78,3 @@ void setAppState(AppState app_state)
     }
 }
 }  // namespace App
-
