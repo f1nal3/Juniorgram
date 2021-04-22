@@ -7,6 +7,7 @@
 #include "MainWidget.hpp"
 #include "Login.hpp"
 #include "Registration.hpp"
+#include "Utility/WarningSuppression.hpp"
 
 namespace App
 {
@@ -35,6 +36,7 @@ void create()
     //::DwmExtendFrameIntoClientArea(handle, &shadow);
 #endif
     ConnectionManager::connect();
+
     suppressWarning(4834, -Wno-unused-variable) 
     std::async(std::launch::async, &ConnectionManager::loop);
     restoreWarning
