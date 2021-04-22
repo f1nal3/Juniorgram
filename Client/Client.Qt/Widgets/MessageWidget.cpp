@@ -60,21 +60,17 @@ void MessageWidget::initializationUi()
 
     //UpLevelLayout
 
-    reactionLabel = new QLabel;
+    reactionLabel = new Label;
     reactionLabel->setText("reaction");
 
     horizontalUpLeftSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-    messageTimeEdit = new QTimeEdit(this);
+    messageTimeEdit = new TimeEdit(this);
     messageTimeEdit->setObjectName(QString::fromUtf8("messageTimeEdit"));
-    messageTimeEdit->setFrame(false);
-    messageTimeEdit->setReadOnly(true);
-    messageTimeEdit->setButtonSymbols(QAbstractSpinBox::NoButtons);
-    messageTimeEdit->setKeyboardTracking(true);
 
     horizontalUpRightSpacer = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
     
-    userNameLabel = new QLabel;
+    userNameLabel = new Label;
     userNameLabel->setText("userName");
 
     UpLevelLayout->addWidget(reactionLabel);
@@ -85,10 +81,11 @@ void MessageWidget::initializationUi()
 
     //DownLevelLayout
 
-    reactionChoseBox = new QComboBox();
+    reactionChoseBox = new ComboBox();
     reactionChoseBox->setObjectName(QString::fromUtf8("reactionChoseBox"));
-    reactionChoseBox->addItem(QString("Choose"));
-    reactionChoseBox->addItem(QString("Like"));
+    itemReactionList << "Choose"
+                     << "Like";
+    reactionChoseBox->addItems(itemReactionList);
 
     horizontalDownSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     
@@ -144,7 +141,8 @@ void MessageWidget::deleteButtonClick()
 {
     clearMessage();
     messageItem->setSizeHint(QSize(0, 30));
-    delMessage = new QLabel("Message was delete");
+    delMessage = new Label("Message was delete");
+    delMessage->setFont(QFont("NotoSans", Style::valueDPIScale(8)));
     mainLayout->addWidget(delMessage);
     messageDel = true;
 }
