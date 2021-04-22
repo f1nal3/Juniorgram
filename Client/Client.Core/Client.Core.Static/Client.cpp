@@ -104,7 +104,7 @@ void Client::storeMessages(const std::vector<std::string>& messagesList) const
 
         Network::MessageInfo info;
         info.userID = mConnection->getID();
-        suppressWarning(4996, -Winit - self)
+        suppressWarning(4996, -Winit-self)
             strcpy(info.message, msg.data());
         restoreWarning
 
