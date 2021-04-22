@@ -4,6 +4,7 @@
 #include "ChannelList.hpp"
 #include "FlatButton.hpp"
 #include "ChannelListWindow.hpp"
+#include "ConnectionManager.hpp"
 
 /** @class ChannelListWidget
  *  @brief This is the main channel list widget
@@ -16,7 +17,7 @@ public:
     ~ChannelListWidget();
 
 public slots:
-    void addChannel();
+    void addChannels();
 private:
    FlatButton* addChannelButton;
    ChannelListWindow* listWidgetChannels;

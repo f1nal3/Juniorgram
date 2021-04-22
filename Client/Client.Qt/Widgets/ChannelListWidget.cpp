@@ -12,13 +12,16 @@ ChannelListWidget::ChannelListWidget(QWidget *parent) : QWidget(parent)
     vBoxLayout->addStretch();
 
     connect(addChannelButton, &QPushButton::clicked,
-           this, &ChannelListWidget::addChannel);
+           this, &ChannelListWidget::addChannels);
 
     setLayout(vBoxLayout);
 }
 
-void ChannelListWidget::addChannel()
-{
+void ChannelListWidget::addChannels() {
+    if (ConnectionManager::isConnected())
+    {
+        ConnectionManager::getClient().askForChannelList();
+    }
     listWidgetChannels->show();
 }
 

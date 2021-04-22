@@ -1,12 +1,12 @@
-
+#include <future>
 #include <Widgets/BioButton.hpp>
 
 #include "App.hpp"
+#include "ConnectionManager.hpp"
 #include "ChatWindow.hpp"
 #include "MainWidget.hpp"
 #include "Login.hpp"
 #include "Registration.hpp"
-#include <Client.hpp>
 
 namespace App
 {
@@ -15,7 +15,6 @@ namespace
 MainWidget* mMainWidget;
 BioButton* mBioButton;
 AppState mAppState = AppState::RegistrationForm;
-Network::Client client;
 }  // namespace
 void create()
 {
@@ -35,6 +34,11 @@ void create()
     // const MARGINS shadow{9, 9, 9, 9};
     //::DwmExtendFrameIntoClientArea(handle, &shadow);
 #endif
+    ConnectionManager::connect();
+    suppressWarning(4834, -Wno-unused-variable) 
+    std::async(std::launch::async, &ConnectionManager::loop);
+    restoreWarning
+
     setAppState(AppState::LoginForm);
 }
 void show() { mMainWidget->show(); }
@@ -49,14 +53,6 @@ void setAppState(AppState app_state)
     }
     switch (mAppState)
     {
-        case AppState::ConnectToServer:
-        {
-            const std::string address = "104.40.239.183";
-            const std::uint16_t port  = 65001;
-
-            client.connect(address, port);
-        }
-        break;
         case AppState::LoginForm:
         {
             auto* wid = new Login();
