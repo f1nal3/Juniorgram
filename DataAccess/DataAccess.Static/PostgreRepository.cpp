@@ -19,7 +19,7 @@ std::vector<std::string> PostgreRepository::getAllChannelsList()
     std::vector<std::string> result;
     if (_postgre->isConnected())
     {
-        auto channelListRow = _postgre->query("SELECT ChannelName FROM Channels;");
+        auto channelListRow = _postgre->query("SELECT channe_name FROM channels;");
 
         for (auto item : channelListRow.value())
         {

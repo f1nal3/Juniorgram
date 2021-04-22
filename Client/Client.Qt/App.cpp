@@ -78,3 +78,4 @@ void setAppState(AppState app_state)
     }
 }
 }  // namespace App
+
