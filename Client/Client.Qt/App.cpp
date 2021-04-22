@@ -37,7 +37,7 @@ void create()
 #endif
     ConnectionManager::connect();
 
-    suppressWarning(4834, -Wno-unused-variable) 
+    suppressWarning(4834, -Wunused-result) 
     std::async(std::launch::async, &ConnectionManager::loop);
     restoreWarning
 
