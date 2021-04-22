@@ -45,8 +45,7 @@ set(SOURCE_FILES
         Login.cpp
         Registration.hpp
         Registration.cpp
-		ConnectionManager.hpp
-		ConnectionManager.cpp)
+		ConnectionManager.hpp)
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)
