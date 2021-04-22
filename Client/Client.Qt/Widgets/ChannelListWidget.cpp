@@ -1,4 +1,5 @@
 #include "ChannelListWidget.hpp"
+#include "Style/Style.hpp"
 
 ChannelListWidget::ChannelListWidget(QWidget *parent) : QWidget(parent)
 {
@@ -6,7 +7,7 @@ ChannelListWidget::ChannelListWidget(QWidget *parent) : QWidget(parent)
     vBoxFrame          = new QVBoxLayout();
     listWidgetChannels = new ChannelListWindow(nullptr, vBoxLayout);
     addChannelButton   = new FlatButton("+");
-    addChannelButton->setMinimumWidth(200);
+    //addChannelButton->setMinimumWidth(Style::valueDPIScale(150));
     vBoxFrame->addWidget(addChannelButton);
     vBoxLayout->addLayout(vBoxFrame);
     vBoxLayout->addStretch();

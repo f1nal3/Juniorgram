@@ -19,8 +19,8 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     botButton         = new FlatButton("Bot");
     horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     
-    mainLayout->addWidget(channelListWidget);
-    mainLayout->addLayout(rightLayout);
+    mainLayout->addWidget(channelListWidget, 10);
+    mainLayout->addLayout(rightLayout, 90);
     rightLayout->addWidget(chatWidget, 85);
     rightLayout->addLayout(messageLayout, 15);
     messageLayout->addWidget(messageTextEdit);
