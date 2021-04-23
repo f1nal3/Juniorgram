@@ -138,6 +138,24 @@ FileDB::FileDB(const std::string& instanceName)
     }
 }
 
+FileDB::~FileDB()
+{
+    if (tableProperties.size() == 0)
+    {
+        fs::remove(path);
+    }
+}
+
+void FileDB::dropAllTables()
+{
+    auto propertiesCopy = tableProperties;
+
+    for (auto [tableName, properties] : propertiesCopy)
+    {
+        removeTable(tableName);    
+    }
+}
+
 void FileDB::insert(const std::string& tableName, const std::vector<std::string>& columnData,
             const std::vector<std::string>& columnNames)
 {
@@ -401,15 +419,12 @@ void FileDB::createTable(const std::string& tableName, const std::vector<std::st
 
     fs::path tablePath = path / tableName;
 
-    if (!fs::exists(tablePath))
-    {
-        fs::create_directory(tablePath);
-    }
 
     if (columnNames.size() != columnTypes.size())
     {
         throw std::invalid_argument("Number of columns/initializers mismatch");
     }
+
 
     nlohmann::ordered_json properties = constructPropertiesJSON();
 
@@ -418,21 +433,26 @@ void FileDB::createTable(const std::string& tableName, const std::vector<std::st
         if (isValidIdentifier(columnNames[i]) && isValidDatatype(columnTypes[i]))
         {
             properties["column_info"][columnNames[i]] = columnTypes[i];
-
-            nlohmann::ordered_json rowTemplate;
-
-            for (const auto& [columnName, columnType] : properties["column_info"].items())
-            {
-                setJSONFieldType(rowTemplate, columnName, columnType);
-            }
-
-            tableRowTemplates[tableName] = rowTemplate;
         }
         else
         {
             throw std::invalid_argument("Invalid identifier/type pair : \"" + columnNames[i] +
                                         ", " + columnTypes[i] + "\"");
         }
+    }
+
+    nlohmann::ordered_json rowTemplate;
+
+    for (const auto& [columnName, columnType] : properties["column_info"].items())
+    {
+        setJSONFieldType(rowTemplate, columnName, columnType);
+    }
+
+    tableRowTemplates[tableName] = rowTemplate;
+
+    if (!fs::exists(tablePath))
+    {
+        fs::create_directory(tablePath);
     }
 
     std::fstream fileStream;
@@ -468,7 +488,7 @@ void FileDB::addColumn(const std::string& tableName, const std::string& columnNa
 {
     std::lock_guard<std::mutex> lock{ mutex };
 
-    if (!isValidDatatype(columnType))
+    if (!isValidIdentifier(columnName) || !isValidDatatype(columnType))
     {
         throw std::invalid_argument("Invalid identifier/type pair : \"" + columnName +
                                     " : " + columnType + "\"");

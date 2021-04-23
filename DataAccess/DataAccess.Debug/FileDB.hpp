@@ -32,8 +32,12 @@ class FileDB
 public:
     FileDB(const std::string& instanceName);
 
+    ~FileDB();
+
     FileDB(const FileDB&) = delete;
     FileDB& operator=(const FileDB&) = delete;
+
+    void dropAllTables();
 
     // Field operations
     void insert(const std::string& tableName, const std::vector<std::string>& columnData,
