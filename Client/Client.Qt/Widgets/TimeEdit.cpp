@@ -4,7 +4,7 @@
 
 TimeEdit::TimeEdit(QWidget* parent) : QTimeEdit(parent)
 {
-    setFont(QFont("NotoSans", Style::valueDPIScale(12),50));
+    setFont(QFont("Noto Sans", Style::valueDPIScale(12), 50));
     setStyleSheet(
                 QString("QTimeEdit { "
                         "border: 0px;"
