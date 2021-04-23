@@ -18,9 +18,12 @@ ChannelListWidget::ChannelListWidget(QWidget *parent) : QWidget(parent)
 }
 
 void ChannelListWidget::addChannels() {
+
     if (ConnectionManager::isConnected())
     {
         ConnectionManager::getClient().askForChannelList();
+
+        //here should be code of adding channelList to our listWidgetChannels
     }
     listWidgetChannels->show();
 }

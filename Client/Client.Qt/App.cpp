@@ -37,9 +37,7 @@ void create()
 
     ConnectionManager::connect();
 
-    suppressWarning(4834, -Wunused-result) 
-    std::async(std::launch::async, &ConnectionManager::loop);
-    restoreWarning
+    std::thread(&ConnectionManager::loop).detach();
 
     setAppState(AppState::LoginForm);
 }

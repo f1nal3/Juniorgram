@@ -18,6 +18,7 @@ public:
 
 public slots:
     void addChannels();
+
 private:
    FlatButton* addChannelButton;
    ChannelListWindow* listWidgetChannels;

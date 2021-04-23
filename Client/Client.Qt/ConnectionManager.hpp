@@ -1,6 +1,7 @@
 #pragma once
 #include <Client.hpp>
 #include <Network/Primitives.hpp>
+#include "Widgets/ChannelListWidget.hpp"
 
 class ConnectionManager
 {
@@ -24,99 +25,100 @@ public:
         return client.isConnected();
     }
 
-    static bool loop() 
+    static void loop() 
     {
-        if (client.isConnected())
+        while(1)
         {
-            if (!client.incoming().empty())
+            if (client.isConnected())
             {
-                Network::Message message = client.incoming().pop_front();
-
-                switch (message.mHeader.mConnectionID)
+                if (!client.incoming().empty())
                 {
-                    case Network::Message::MessageType::ServerAccept:
+                    Network::Message message = client.incoming().pop_front();
+
+                    switch (message.mHeader.mConnectionID)
                     {
-                        std::cout << "Server Accepted Connection\n";
-                    }
-                    break;
-
-                    case Network::Message::MessageType::ServerPing:
-                    {
-                        std::chrono::system_clock::time_point timeNow =
-                            std::chrono::system_clock::now();
-                        std::chrono::system_clock::time_point timeThen;
-                        message >> timeThen;
-                        std::cout << "Ping: "
-                                  << std::chrono::duration<double>(timeNow - timeThen).count()
-                                  << "\n";
-                    }
-                    break;
-
-                    case Network::Message::MessageType::ServerMessage:
-                    {
-                        uint64_t clientID;
-                        message >> clientID;
-                        std::cout << "Hello from [" << clientID << "]\n";
-                    }
-                    break;
-
-                    case Network::Message::MessageType::ChannelListRequest:
-                    {
-                        std::cout << "Channel list received: \n";
-                        std::vector<std::string> channelList;
-
-                        std::size_t channelListSize;
-                        message >> channelListSize;
-
-                        for (std::size_t i = 0; i < channelListSize; i++)
+                        case Network::Message::MessageType::ServerAccept:
                         {
-                            Network::ChannelInfo info;
-                            message >> info;
-                            channelList.emplace_back(info.channelName);
+                            std::cout << "Server Accepted Connection\n";
                         }
-
-                        for (auto& item : channelList) std::cout << item << '\n';
-                    }
-                    break;
-
-                    case Network::Message::MessageType::MessageHistoryRequest:
-                    {
-                        std::cout << "Message history received: \n";
-                        std::vector<std::string> messageList;
-
-                        std::size_t messageListSize;
-                        message >> messageListSize;
-
-                        for (std::size_t i = 0; i < messageListSize; i++)
-                        {
-                            Network::MessageInfo info;
-                            message >> info;
-                            messageList.emplace_back(std::string(info.message));
-                        }
-
-                        for (auto& item : messageList) std::cout << item << '\n';
-                    }
-                    break;
-
-                    case Network::Message::MessageType::MessageStoreRequest:
-                    {
-                        std::cout << "Message were stored" << std::endl;
-                    }
-                    break;
-
-                    default:
                         break;
+
+                        case Network::Message::MessageType::ServerPing:
+                        {
+                            std::chrono::system_clock::time_point timeNow =
+                                std::chrono::system_clock::now();
+                            std::chrono::system_clock::time_point timeThen;
+                            message >> timeThen;
+                            std::cout << "Ping: "
+                                      << std::chrono::duration<double>(timeNow - timeThen).count()
+                                      << "\n";
+                        }
+                        break;
+
+                        case Network::Message::MessageType::ServerMessage:
+                        {
+                            uint64_t clientID;
+                            message >> clientID;
+                            std::cout << "Hello from [" << clientID << "]\n";
+                        }
+                        break;
+
+                        case Network::Message::MessageType::ChannelListRequest:
+                        {
+                            std::cout << "Channel list received: \n";
+                            std::vector<std::string> channelList;
+
+                            std::size_t channelListSize;
+                            message >> channelListSize;
+
+                            for (std::size_t i = 0; i < channelListSize; i++)
+                            {
+                                Network::ChannelInfo info;
+                                message >> info;
+                                channelList.emplace_back(info.channelName);
+                            }
+
+                            for (auto& item : channelList) std::cout << item << '\n';
+                        }
+                        break;
+
+                        case Network::Message::MessageType::MessageHistoryRequest:
+                        {
+                            std::cout << "Message history received: \n";
+                            std::vector<std::string> messageList;
+
+                            std::size_t messageListSize;
+                            message >> messageListSize;
+
+                            for (std::size_t i = 0; i < messageListSize; i++)
+                            {
+                                Network::MessageInfo info;
+                                message >> info;
+                                messageList.emplace_back(std::string(info.message));
+                            }
+
+                            for (auto& item : messageList) std::cout << item << '\n';
+                        }
+                        break;
+
+                        case Network::Message::MessageType::MessageStoreRequest:
+                        {
+                            std::cout << "Message were stored" << std::endl;
+                        }
+                        break;
+
+                        default:
+                            break;
+                    }
                 }
             }
+            else
+            {
+                client.disconnect();
+                std::cout << "Server Down\n";
+                return;
+            }
         }
-        else
-        {
-            client.disconnect();
-            std::cout << "Server Down\n";
-            return true;
-        }
-        return false;
-
     }
    
 private:
