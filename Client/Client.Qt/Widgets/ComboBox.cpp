@@ -4,7 +4,7 @@
 
 ComboBox::ComboBox(QWidget* parent) : QComboBox(parent)
 {
-    setFont(QFont("NotoSans", Style::valueDPIScale(12), 55));
+    setFont(QFont("Noto Sans", Style::valueDPIScale(12), 55));
     setStyleSheet(
         QString("QComboBox { "
                 "border: 0px;"

@@ -1,9 +1,9 @@
 #include "TextEdit.hpp"
 #include <Style/Style.hpp>
 
-TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
+TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(parent)
 {
-    mTextField  = new FlatPlainTextEdit();
+    mTextField  = std::move(messageText);
     mBoldButton = new FlatButton("B");
 
     vLayout = new QVBoxLayout;
@@ -12,7 +12,6 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
     hLayout->setAlignment(Qt::AlignLeft);
     hLayout->addWidget(mBoldButton);
 
-    vLayout->addWidget(mTextField);
     vLayout->addLayout(hLayout);
 
     setLayout(vLayout);
