@@ -7,7 +7,6 @@
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 {
-
     setContentsMargins(0, 0, 0, 0);
     mainLayout = new QHBoxLayout(this);
     rightLayout = new QVBoxLayout();
@@ -29,7 +28,6 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     messageButtonLayout->addWidget(textEdit);
     messageButtonLayout->addItem(horizontalButtonSpacer);
     messageButtonLayout->addWidget(sendButton);
-
     connectButton();
     setLayout(mainLayout);
 }
