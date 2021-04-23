@@ -1,18 +1,17 @@
 #include "TextEdit.hpp"
 #include <Style/Style.hpp>
 
-TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
+TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(parent)
 {
-    mTextField  = new FlatPlainTextEdit();
+    mTextField  = std::move(messageText);
     mBoldButton = new FlatButton("B");
 
-    auto* vLayout = new QVBoxLayout;
-    auto* hLayout = new QHBoxLayout;
+    vLayout = new QVBoxLayout;
+    hLayout = new QHBoxLayout;
 
     hLayout->setAlignment(Qt::AlignLeft);
     hLayout->addWidget(mBoldButton);
 
-    vLayout->addWidget(mTextField);
     vLayout->addLayout(hLayout);
 
     setLayout(vLayout);
@@ -92,4 +91,6 @@ TextEdit::~TextEdit()
 {
     delete mBoldButton;
     delete mTextField;
+    delete hLayout;
+    delete vLayout;
 }

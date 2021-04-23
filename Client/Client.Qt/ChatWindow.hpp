@@ -8,27 +8,28 @@ class ChatWindow : public QWidget
 {
     Q_OBJECT
 public:
-    QHBoxLayout* hBoxLayout;
-    QVBoxLayout* mainLayout;
-    QHBoxLayout* messageEditLayout;
-    QVBoxLayout* messageButtonLayout;
     explicit ChatWindow(QWidget* parent = nullptr);
     ~ChatWindow() override;
 
 protected:
     void keyPressEvent(QKeyEvent* event) override;
-public slots:
+private slots:
     void updateMessagesList_User();
     void updateMessagesList_Bot();
+    void deletingSelection(QListWidgetItem* item);
 
-private:   
+private:
+    QHBoxLayout* mainLayout;
+    QVBoxLayout* rightLayout;
+    QVBoxLayout* messageLayout;
+    QHBoxLayout* messageButtonLayout;
     ChannelListWidget* channelListWidget;
     FlatButton* sendButton;
     FlatButton* botButton;
+    FlatPlainTextEdit* messageTextEdit;
     TextEdit* textEdit;
     QListWidget* chatWidget;
-    QSpacerItem* verticalUpSpacer;
-    QSpacerItem* verticalDownSpacer;
+    QSpacerItem* horizontalButtonSpacer;
     void connectButton();
     void newMessage(QString textMessage, QString userNameMessage);
     void newMessage(QString textMessage);
