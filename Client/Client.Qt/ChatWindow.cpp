@@ -23,20 +23,30 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     mainLayout->addWidget(chatWidget, 85);
 
     messageButtonLayout->addItem(verticalUpSpacer);
+    mainLayout = new QHBoxLayout(this);
+    rightLayout = new QVBoxLayout();
+    messageLayout = new QVBoxLayout();
+    messageButtonLayout = new QHBoxLayout();
+    channelListWidget = new ChannelListWidget();
+    chatWidget        = new QListWidget();
+    messageTextEdit   = new FlatPlainTextEdit;
+    textEdit          = new TextEdit(messageTextEdit);
+    sendButton        = new FlatButton("Send");
+    botButton         = new FlatButton("Bot");
+    horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+    mainLayout->addWidget(channelListWidget, 10);
+    mainLayout->addLayout(rightLayout, 90);
+    rightLayout->addWidget(chatWidget, 85);
+    rightLayout->addLayout(messageLayout, 15);
+    messageLayout->addWidget(messageTextEdit);
+    messageLayout->addLayout(messageButtonLayout);
+    messageButtonLayout->addWidget(textEdit);
+    messageButtonLayout->addItem(horizontalButtonSpacer);
     messageButtonLayout->addWidget(sendButton);
     messageButtonLayout->addWidget(botButton);
-    messageButtonLayout->addItem(verticalDownSpacer);
-
-    messageEditLayout->addWidget(textEdit);
-    messageEditLayout->addLayout(messageButtonLayout);
-
-    mainLayout->addLayout(messageEditLayout, 15);
-
-    hBoxLayout->addWidget(channelListWidget);
-    hBoxLayout->addLayout(mainLayout);
-
     connectButton();
-    setLayout(hBoxLayout);
+    setLayout(mainLayout);
 }
 
 void ChatWindow::keyPressEvent(QKeyEvent* event)
@@ -57,7 +67,10 @@ void ChatWindow::connectButton()
             SLOT(deletingSelection(QListWidgetItem*)));
 }
 
-void ChatWindow::deletingSelection(QListWidgetItem* item) { item->setSelected(false); }
+void ChatWindow::deletingSelection(QListWidgetItem* item) 
+{ 
+    item->setSelected(false); 
+}
 
 void ChatWindow::updateMessagesList_User()
 {
@@ -89,11 +102,15 @@ void ChatWindow::newMessage(QString textMessage)
 
 ChatWindow::~ChatWindow()
 {
-    delete mainLayout;
+    delete messageButtonLayout;
+    delete channelListWidget;
     delete sendButton;
     delete botButton;
+    delete messageTextEdit;
     delete textEdit;
     delete chatWidget;
-    delete hBoxLayout;
-    delete channelListWidget;
+    delete horizontalButtonSpacer;
+    delete messageLayout;
+    delete rightLayout;
+    delete mainLayout;
 }

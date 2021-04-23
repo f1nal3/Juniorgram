@@ -5,7 +5,7 @@
 Label::Label(const QString &text, QWidget *parent)
     : QLabel(parent)
 {
-    setFont(QFont("NotoSans", Style::valueDPIScale(12),50));
+    setFont(QFont("Noto Sans", Style::valueDPIScale(12), 50));
     setStyleSheet(
                 QString("QLabel { "
                         "border: 0px;"
