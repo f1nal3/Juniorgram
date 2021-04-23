@@ -10,7 +10,6 @@ ChannelListWidget::ChannelListWidget(QWidget *parent) : QWidget(parent)
     vBoxFrame->addWidget(addChannelButton);
     vBoxLayout->addLayout(vBoxFrame);
     vBoxLayout->addStretch();
-
     connect(addChannelButton, &QPushButton::clicked,
            this, &ChannelListWidget::addChannel);
 

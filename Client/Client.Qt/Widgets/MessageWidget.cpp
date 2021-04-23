@@ -142,7 +142,7 @@ void MessageWidget::deleteButtonClick()
     clearMessage();
     messageItem->setSizeHint(QSize(0, Style::valueDPIScale(40)));
     delMessage = new Label("Message was deleted");
-    delMessage->setFont(QFont("NotoSans", Style::valueDPIScale(12)));
+    delMessage->setFont(QFont("Noto Sans", Style::valueDPIScale(12)));
     mainLayout->addWidget(delMessage);
     messageDel = true;
 }
