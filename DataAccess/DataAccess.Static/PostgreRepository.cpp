@@ -10,7 +10,7 @@ using namespace DataAccess;
 
 PostgreRepository::PostgreRepository()
 {
-    _postgre = PostgreAdapter::getPostgre("dbname=postgres user=postgres hostaddr=127.0.0.1 port=5432");
+    _postgre = PostgreAdapter::getPostgre("dbname=juniorgram user=postgres hostaddr=127.0.0.1 port=5432");
     // TODO Import parameters from argument parser
 }
 
