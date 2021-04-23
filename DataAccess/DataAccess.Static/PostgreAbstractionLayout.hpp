@@ -45,7 +45,7 @@ namespace DataAccess
 
             return _statement;
         }
-        T* And(const std::string& condition)
+        T* And(const std::string& condition = {})
         {
             if (*(_statement->_queryStream.str().end() - 1) != ' ') 
                 _statement->_queryStream << " ";
@@ -54,7 +54,7 @@ namespace DataAccess
 
             return _statement;
         }
-        T* Or(const std::string& condition)
+        T* Or(const std::string& condition = {})
         {
             if (*(_statement->_queryStream.str().end() - 1) != ' ') 
                 _statement->_queryStream << " ";
