@@ -37,7 +37,7 @@ set(SOURCE_FILES
         Widgets/TimeEdit.cpp
         Widgets/TimeEdit.hpp
         Widgets/LogoWidget.cpp
-        Widgets/LogoWidget.h
+        Widgets/LogoWidget.hpp
         Style/Shadow.hpp
         Style/Style.cpp
         Style/Style.hpp
