@@ -50,7 +50,7 @@ set(SOURCE_FILES
         MainWidget.hpp
         pch.hpp
         registration.hpp
-        registration.cpp)
+        registration.cpp Widgets/LogoWidget.cpp Widgets/LogoWidget.h)
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)
