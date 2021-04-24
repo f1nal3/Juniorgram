@@ -2,7 +2,7 @@
 
 #include "Style/Style.hpp"
 
-FlatButton::FlatButton(const QString& text, QWidget* parent) : QPushButton(text, parent), hit(false)
+FlatButton::FlatButton(const QString& text, QWidget* parent) : QPushButton(text, parent),hit(false)
 {
     auto font = QFont("Noto Sans", 12);
     font.setPixelSize(Style::valueDPIScale(15));

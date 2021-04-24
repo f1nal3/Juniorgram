@@ -250,6 +250,7 @@ void MainWidget::mouseReleaseEvent(QMouseEvent* event)
         m_leftMouseButtonPressed = None;
         _mousePressed            = false;
     }
+    update();
     return QWidget::mouseReleaseEvent(event);
 }
 
@@ -262,7 +263,6 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
     this->setMinimumWidth(Style::valueDPIScale(800));
 
     auto* grid = new QGridLayout(this);
-
     body = new QWidget();
     body->setMinimumHeight(Style::valueDPIScale(480));
 
@@ -316,7 +316,6 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
         }
         update();
     });
-    setAttribute(Qt::WA_Hover);
     connect(close_btn, &CaptionButton::mouseRelease, this, &MainWidget::close);
     connect(minimize_btn, &CaptionButton::mouseRelease, this, &MainWidget::showMinimized);
     title->setMouseTracking(true);

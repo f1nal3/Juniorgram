@@ -4,9 +4,8 @@
 
 Login::Login(QWidget* parent) : QWidget(parent)
 {
-    setContentsMargins(0, 0, 0, 0);
     passwordLineEdit = std::make_unique<FlatInput>("Password", true, this);
-    usernameLineEdit = std::make_unique<FlatInput>("Username", false, this);
+    usernameLineEdit = std::make_unique<FlatInput>("Username", this);
 
     buttonSignin       = std::make_unique<FlatButton>("Login", this);
     buttonRegistration = std::make_unique<FlatButton>("Registration", this);

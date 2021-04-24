@@ -15,14 +15,6 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
     QObject::connect(back.get(), &FlatButton::pressed,
                      []() { App::setAppState(AppState::LoginForm); });
 
-    gridLayout = std::make_unique<QGridLayout>();
-    /*gridLayout->addWidget(usernameLineEdit.get(), 0, 0);
-    gridLayout->addWidget(passwordLineEdit.get(), 1, 0);
-    gridLayout->addWidget(passwordRepeatLineEdit.get(), 2, 0);
-    gridLayout->addWidget(registrationButton.get(), 3, 0);
-    gridLayout->addWidget(back.get(), 4, 0);
-    this->setLayout(gridLayout.get());*/
-
     const int BLOCKWIDTH = Style::valueDPIScale(500);
 
     usernameLineEdit->setParent(this);
