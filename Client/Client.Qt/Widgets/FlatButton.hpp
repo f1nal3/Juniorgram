@@ -7,8 +7,9 @@ class FlatButton : public QPushButton
 public:
     explicit FlatButton(const QString& text, QWidget* parent = nullptr);
 
-protected:
     [[nodiscard]] QSize sizeHint() const override;
+
+protected:
     void paintEvent(QPaintEvent* event) override;
     void enterEvent(QEvent* e) override;
     void leaveEvent(QEvent* e) override;

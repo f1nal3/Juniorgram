@@ -8,6 +8,7 @@ class FlatInput : public QLineEdit
     Q_OBJECT
 public:
     explicit FlatInput(QWidget* parent = nullptr);
+    explicit FlatInput(const QString& placeholder, QWidget* parent = nullptr);
     explicit FlatInput(const QString& placeholder, bool password = false,
                        QWidget* parent = nullptr);
 

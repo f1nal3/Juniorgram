@@ -2,7 +2,9 @@
 
 FlatInput::FlatInput(QWidget* parent) : QLineEdit(parent)
 {
-    setFont(QFont("Noto Sans", Style::valueDPIScale(12)));
+    auto font = QFont("Noto Sans", 12);
+    font.setPixelSize(Style::valueDPIScale(15));
+    setFont(font);
     QColor inputField(0x32, 0x32, 0x32);
     inputField            = inputField.lighter(175);
     auto selectedText     = inputField.lighter(175);
@@ -48,9 +50,16 @@ FlatInput::FlatInput(const QString& placeholder, bool password, QWidget* parent)
     setEchoMode(password ? Password : Normal);
 }
 
+FlatInput::FlatInput(const QString& placeholder, QWidget* parent)
+    : FlatInput(placeholder, false, parent)
+{
+}
+
 FlatPlainTextEdit::FlatPlainTextEdit(QWidget* parent) : QPlainTextEdit(parent)
 {
-    setFont(QFont("Noto Sans", Style::valueDPIScale(12)));
+    auto font = QFont("Noto Sans", 12);
+    font.setPixelSize(Style::valueDPIScale(15));
+    setFont(font);
     QColor inputField(0x32, 0x32, 0x32);
     inputField        = inputField.lighter(175);
     auto selectedText = inputField.lighter(175);

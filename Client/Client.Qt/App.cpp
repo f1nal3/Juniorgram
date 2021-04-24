@@ -20,7 +20,6 @@ void create()
     QFontDatabase::addApplicationFont(":fonts/NotoSans-Regular.ttf");
     QFontDatabase::addApplicationFont(":fonts/NotoSans-Bold.ttf");
     QFontDatabase::addApplicationFont(":fonts/NotoSans-BoldItalic.ttf");
-    QFontDatabase::addApplicationFont(":fonts/NotoSans-Italic.ttf");
     mMainWidget = new MainWidget();
     mMainWidget->show();
     mMainWidget->hide();
@@ -34,6 +33,10 @@ void create()
     //::DwmExtendFrameIntoClientArea(handle, &shadow);
 #endif
     setAppState(AppState::LoginForm);
+    QFontDatabase::addApplicationFont(":fonts/NotoSans-Italic.ttf");
+    auto font = QFont("Noto Sans", 12);
+    font.setPixelSize(Style::valueDPIScale(15));
+    QApplication::setFont(font);
 }
 void show() { mMainWidget->show(); }
 void setAppState(AppState app_state)
@@ -55,7 +58,7 @@ void setAppState(AppState app_state)
         break;
         case AppState::Authorized:
         {
-            auto* wid = new ChatWindow();
+            auto* wid  = new ChatWindow();
             mBioButton = new BioButton(QImage(), true, mMainWidget);
             mBioButton->setImage(QImage(":/images/logo.png"));
             mMainWidget->refreshTitleBar(mBioButton);

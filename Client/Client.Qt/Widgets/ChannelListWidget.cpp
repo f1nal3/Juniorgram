@@ -24,8 +24,8 @@ void ChannelListWidget::addChannel()
 
 ChannelListWidget::~ChannelListWidget()
 {
-    delete vBoxLayout;
-    delete vBoxFrame;
+    //delete vBoxLayout;
+    //delete vBoxFrame;
     delete listWidgetChannels;
     delete addChannelButton;
 }
