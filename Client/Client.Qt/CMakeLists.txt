@@ -36,6 +36,8 @@ set(SOURCE_FILES
         Widgets/TextEdit.hpp
         Widgets/TimeEdit.cpp
         Widgets/TimeEdit.hpp
+        Widgets/LogoWidget.cpp
+        Widgets/LogoWidget.h
         Style/Shadow.hpp
         Style/Style.cpp
         Style/Style.hpp
@@ -50,7 +52,7 @@ set(SOURCE_FILES
         MainWidget.hpp
         pch.hpp
         registration.hpp
-        registration.cpp Widgets/LogoWidget.cpp Widgets/LogoWidget.h)
+        registration.cpp)
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)
