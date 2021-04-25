@@ -12,7 +12,7 @@ class TextEdit : public QWidget
 {
     Q_OBJECT
 public:
-    explicit TextEdit(FlatPlainTextEdit* messageText, FlatButton* sendButton, QWidget* parent = nullptr);
+    explicit TextEdit(FlatPlainTextEdit* messageText, QWidget* parent = nullptr);
     /**
      * @brief Method for getting text from the text edit field.
      * @return text edit field content as QString.
@@ -30,8 +30,6 @@ private:
 
     FlatButton* mBoldButton;
     FlatPlainTextEdit* mTextField;
-
-    QSpacerItem* spacerBetweenButton;
     
     const int boldSymbolSize = 2;
     const QString boldSymbol = "**";

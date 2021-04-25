@@ -15,7 +15,7 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     chatWidget        = new QListWidget();
     messageTextEdit   = new FlatPlainTextEdit;
     sendButton        = new FlatButton("Send");
-    textEdit          = new TextEdit(messageTextEdit, sendButton);
+    textEdit          = new TextEdit(messageTextEdit);
     horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     
     mainLayout->addWidget(channelListWidget, 10);
@@ -26,6 +26,7 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     messageLayout->addLayout(messageButtonLayout);
     messageButtonLayout->addWidget(textEdit);
     messageButtonLayout->addItem(horizontalButtonSpacer);
+    messageButtonLayout->addWidget(sendButton);
     connectButton();
     setLayout(mainLayout);
 }

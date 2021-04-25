@@ -1,7 +1,7 @@
 #include "TextEdit.hpp"
 #include <Style/Style.hpp>
 
-TextEdit::TextEdit(FlatPlainTextEdit* messageText, FlatButton* sendButton, QWidget* parent) : QWidget(parent)
+TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(parent)
 {
     mTextField  = std::move(messageText);
     mBoldButton = new FlatButton("B");
@@ -9,12 +9,8 @@ TextEdit::TextEdit(FlatPlainTextEdit* messageText, FlatButton* sendButton, QWidg
     vLayout = new QVBoxLayout;
     hLayout = new QHBoxLayout;
 
-    spacerBetweenButton = new QSpacerItem(Style::valueDPIScale(SHRT_MAX), 0, QSizePolicy::Maximum, QSizePolicy::Minimum);
-
     hLayout->setAlignment(Qt::AlignLeft);
     hLayout->addWidget(mBoldButton);
-    hLayout->addSpacerItem(spacerBetweenButton);
-    hLayout->addWidget(sendButton);
 
     vLayout->addLayout(hLayout);
 
@@ -93,7 +89,6 @@ void TextEdit::clear() { mTextField->clear(); }
 
 TextEdit::~TextEdit()
 {
-    delete spacerBetweenButton;
     delete mBoldButton;
     delete mTextField;
     delete hLayout;
