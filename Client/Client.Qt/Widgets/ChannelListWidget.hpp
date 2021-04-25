@@ -1,7 +1,7 @@
 #pragma once
 
 #include "pch.hpp"
-#include "ChannelList.hpp"
+#include "ListWidget.hpp"
 #include "FlatButton.hpp"
 #include "ChannelListWindow.hpp"
 
@@ -17,9 +17,11 @@ public:
 
 public slots:
     void addChannel();
+    //This slot should add chat history in the future
+    void addChatHistory();
 private:
    FlatButton* addChannelButton;
    ChannelListWindow* listWidgetChannels;
    QVBoxLayout* vBoxLayout;
-   QVBoxLayout* vBoxFrame;
+   ListWidget* channelList;
 };
