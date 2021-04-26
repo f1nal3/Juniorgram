@@ -22,6 +22,7 @@ class FlatPlainTextEdit : public QPlainTextEdit
 public:
     explicit FlatPlainTextEdit(QWidget* parent = nullptr);
 
-private:
+protected:
+    [[nodiscard]] QSize sizeHint() const override;
     void paintEvent(QPaintEvent* event) override;
 };

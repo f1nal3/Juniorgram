@@ -259,13 +259,12 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
     this->setWindowFlag(Qt::FramelessWindowHint);
     this->setWindowFlag(Qt::Window);
     this->setWindowIcon(QIcon(":/images/logo.png"));
-    this->setMinimumWidth(Style::valueDPIScale(630));
-
+    this->setMinimumWidth(Style::valueDPIScale(800));
 
     auto* grid = new QGridLayout(this);
 
-    body       = new QWidget();
-    body->setMinimumHeight(Style::valueDPIScale(400));
+    body = new QWidget();
+    body->setMinimumHeight(Style::valueDPIScale(480));
 
     auto title = new QWidget();
     title->setFixedHeight(Style::valueDPIScale(30));
@@ -317,11 +316,15 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
         }
         update();
     });
+    setAttribute(Qt::WA_Hover);
     connect(close_btn, &CaptionButton::mouseRelease, this, &MainWidget::close);
     connect(minimize_btn, &CaptionButton::mouseRelease, this, &MainWidget::showMinimized);
     title->setMouseTracking(true);
     body->setMouseTracking(true);
     this->setMouseTracking(true);
+    title->installEventFilter(this);
+    body->installEventFilter(this);
+    this->installEventFilter(this);
 }
 
 void MainWidget::paintEvent(QPaintEvent* event)
@@ -363,13 +366,13 @@ void MainWidget::refreshTitleBar(BioButton* bio_button)
 }
 bool MainWidget::eventFilter(QObject* watched, QEvent* event)
 {
-    if (event->type() == QEvent::FocusOut)
+    if (event->type() == QEvent::HoverMove)
     {
-        update();
-        QApplication::processEvents();
+        checkResizableField(static_cast<QMouseEvent*>(event));
     }
     return QObject::eventFilter(watched, event);
 }
+
 void MainWidget::showEvent(QShowEvent* event)
 {
     QWidget::showEvent(event);

@@ -7,6 +7,7 @@
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 {
+    setContentsMargins(0, 0, 0, 0);
     hBoxLayout          = new QHBoxLayout(this);
     mainLayout          = new QVBoxLayout();
     messageEditLayout   = new QHBoxLayout();
@@ -56,10 +57,7 @@ void ChatWindow::connectButton()
             SLOT(deletingSelection(QListWidgetItem*)));
 }
 
-void ChatWindow::deletingSelection(QListWidgetItem* item) 
-{ 
-    item->setSelected(false); 
-}
+void ChatWindow::deletingSelection(QListWidgetItem* item) { item->setSelected(false); }
 
 void ChatWindow::updateMessagesList_User()
 {

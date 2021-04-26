@@ -41,7 +41,7 @@ QSize FlatButton::sizeHint() const
 {
     const auto parentHint = QPushButton::sizeHint();
     return QSize(parentHint.width() + Style::valueDPIScale(8) * 2,
-                 parentHint.height() + Style::valueDPIScale(8) * 2);
+                 fontMetrics().height() + Style::valueDPIScale(8) * 2);
 }
 void FlatButton::leaveEvent(QEvent* e)
 {

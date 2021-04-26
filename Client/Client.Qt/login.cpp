@@ -46,9 +46,9 @@ void Login::resizeEvent(QResizeEvent* event)
 {
     const QSize SIZE        = event->size();
     const int HOR_SPACING   = Style::valueDPIScale(16);
-    const int MIN_TOP_SHIFT = SIZE.height() * 25 / 100;
+    const int MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
     const int LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
-    const int SPACE         = Style::valueDPIScale(5);
+    const int SPACE         = Style::valueDPIScale(10);
 
     const auto FIT_MAX = logoWidget->bestFit();
     // Aspect ratio;
@@ -66,6 +66,6 @@ void Login::resizeEvent(QResizeEvent* event)
 
     usernameLineEdit->move(LEFT_SHIFT, MIN_TOP_SHIFT);
     passwordLineEdit->move(LEFT_SHIFT, usernameLineEdit->geometry().bottom() + 1 + HOR_SPACING);
-    buttonSignin->move(LEFT_SHIFT, passwordLineEdit->geometry().bottom() + 1 + HOR_SPACING);
+    buttonSignin->move(LEFT_SHIFT, passwordLineEdit->geometry().bottom() + 1 + HOR_SPACING * 2);
     buttonRegistration->move(LEFT_SHIFT, buttonSignin->geometry().bottom() + 1 + HOR_SPACING);
 }

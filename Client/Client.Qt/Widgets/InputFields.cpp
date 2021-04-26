@@ -25,7 +25,8 @@ FlatInput::FlatInput(QWidget* parent) : QLineEdit(parent)
     setAttribute(Qt::WA_AcceptTouchEvents);
 
     QLineEdit::setTextMargins(0, 0, 0, 0);
-    setContentsMargins(9, 9, 9, 9);
+    const int DEFMARGIN = Style::valueDPIScale(8);
+    setContentsMargins(DEFMARGIN, DEFMARGIN, DEFMARGIN, DEFMARGIN);
 }
 
 void FlatInput::paintEvent(QPaintEvent* event)
@@ -38,7 +39,7 @@ void FlatInput::paintEvent(QPaintEvent* event)
     p.setRenderHint(QPainter::Antialiasing);
     p.setBrush(inputField);
     p.setPen(Qt::NoPen);
-    p.drawRoundedRect(QRectF(0, 0, width(), height()).marginsRemoved(QMarginsF(2, 2, 2, 2)),
+    p.drawRoundedRect(QRectF(0, 0, width(), height())/*.marginsRemoved(QMarginsF(2, 2, 2, 2))*/,
                       Style::valueDPIScale(5), Style::valueDPIScale(5));
 
     QLineEdit::paintEvent(event);
@@ -63,8 +64,8 @@ FlatPlainTextEdit::FlatPlainTextEdit(QWidget* parent) : QPlainTextEdit(parent)
     QColor inputField(0x32, 0x32, 0x32);
     inputField        = inputField.lighter(175);
     auto selectedText = inputField.lighter(175);
-    // TODO: This part is stupid, implement it paintEvent
 
+    // TODO: This part is stupid, implement it paintEvent
     setStyleSheet(QString("QPlainTextEdit { "
                           "border: 0px;"
                           "selection-background-color: rgb(%1, %2, %3);"
@@ -73,15 +74,18 @@ FlatPlainTextEdit::FlatPlainTextEdit(QWidget* parent) : QPlainTextEdit(parent)
                       .arg(selectedText.red())
                       .arg(selectedText.green())
                       .arg(selectedText.blue()));
+
     auto p = palette();
     p.setColor(QPalette::Text, Qt::white);
     p.setColor(QPalette::Highlight, inputField);
     p.setColor(QPalette::HighlightedText, Qt::white);
     setPalette(p);
+
     setAttribute(Qt::WA_AcceptTouchEvents);
     viewport()->setAutoFillBackground(false);
     setContentsMargins(0, 0, 0, 0);
-    document()->setDocumentMargin(9);
+    document()->setDocumentMargin(Style::valueDPIScale(8));
+    setMinimumHeight(fontMetrics().height() + Style::valueDPIScale(8) * 2);
 }
 
 void FlatPlainTextEdit::paintEvent(QPaintEvent* event)
@@ -96,4 +100,12 @@ void FlatPlainTextEdit::paintEvent(QPaintEvent* event)
     p.drawRect(QRectF(0, 0, width(), height()).marginsRemoved(QMarginsF(2, 2, 2, 2)));
 
     QPlainTextEdit::paintEvent(event);
+}
+
+QSize FlatPlainTextEdit::sizeHint() const
+{
+    auto sizeHint = QAbstractScrollArea::sizeHint();
+
+    sizeHint.setHeight(fontMetrics().height() + Style::valueDPIScale(8) * 2);
+    return sizeHint;
 }
