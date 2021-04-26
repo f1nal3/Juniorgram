@@ -71,7 +71,6 @@ target_link_libraries(${TARGET}
 
 target_precompile_headers(${TARGET} PRIVATE pch.hpp)
 
-#[[
 if (WIN32)
     if (CMAKE_BUILD_TYPE MATCHES Debug)
         file(COPY "${CONAN_BIN_DIRS_QT}/Qt5Cored.dll" "${CONAN_BIN_DIRS_QT}/Qt5Guid.dll"
