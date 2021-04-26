@@ -26,7 +26,7 @@ void ChannelListWidget::addChatHistory() {}
 
 ChannelListWidget::~ChannelListWidget()
 {
-    // delete channelList;
+    delete channelList;
     delete listWidgetChannels;
     delete addChannelButton;
     delete vBoxLayout;
