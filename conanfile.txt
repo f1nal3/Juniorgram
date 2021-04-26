@@ -6,6 +6,7 @@ catch2/2.13.4
 libtool/2.4.6
 libpq/11.5
 libpqxx/7.2.1
+cryptopp/5.6.5
 mesa/20.0.1@bincrafters/stable
 qt/5.15.1@bincrafters/stable
 
