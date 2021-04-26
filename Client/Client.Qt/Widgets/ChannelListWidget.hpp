@@ -1,7 +1,7 @@
 #pragma once
 
 #include "pch.hpp"
-#include "ChannelList.hpp"
+#include "ListWidget.hpp"
 #include "FlatButton.hpp"
 #include "ChannelListWindow.hpp"
 #include "ConnectionManager.hpp"
@@ -18,10 +18,9 @@ public:
 
 public slots:
     void addChannels();
-
 private:
    FlatButton* addChannelButton;
    ChannelListWindow* listWidgetChannels;
    QVBoxLayout* vBoxLayout;
-   QVBoxLayout* vBoxFrame;
+   ListWidget* channelList;
 };

@@ -7,35 +7,28 @@
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 {
-    hBoxLayout          = new QHBoxLayout(this);
-    mainLayout          = new QVBoxLayout();
-    messageEditLayout   = new QHBoxLayout();
-    messageButtonLayout = new QVBoxLayout();
-    channelListWidget   = new ChannelListWidget();
-    chatWidget          = new QListWidget(this);
-    sendButton          = new FlatButton("Send");
-    botButton           = new FlatButton("Bot");
-    textEdit            = new TextEdit(this);
-    verticalUpSpacer    = new QSpacerItem(0, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-    verticalDownSpacer  = new QSpacerItem(0, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-    mainLayout->addWidget(chatWidget, 85);
-
-    messageButtonLayout->addItem(verticalUpSpacer);
+    mainLayout = new QHBoxLayout(this);
+    rightLayout = new QVBoxLayout();
+    messageLayout = new QVBoxLayout();
+    messageButtonLayout = new QHBoxLayout();
+    channelListWidget = new ChannelListWidget();
+    chatWidget        = new QListWidget();
+    messageTextEdit   = new FlatPlainTextEdit;
+    sendButton        = new FlatButton("Send");
+    textEdit          = new TextEdit(messageTextEdit);
+    horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    
+    mainLayout->addWidget(channelListWidget, 10);
+    mainLayout->addLayout(rightLayout, 90);
+    rightLayout->addWidget(chatWidget, 85);
+    rightLayout->addLayout(messageLayout, 15);
+    messageLayout->addWidget(messageTextEdit);
+    messageLayout->addLayout(messageButtonLayout);
+    messageButtonLayout->addWidget(textEdit);
+    messageButtonLayout->addItem(horizontalButtonSpacer);
     messageButtonLayout->addWidget(sendButton);
-    messageButtonLayout->addWidget(botButton);
-    messageButtonLayout->addItem(verticalDownSpacer);
-
-    messageEditLayout->addWidget(textEdit);
-    messageEditLayout->addLayout(messageButtonLayout);
-
-    mainLayout->addLayout(messageEditLayout, 15);
-
-    hBoxLayout->addWidget(channelListWidget);
-    hBoxLayout->addLayout(mainLayout);
-
     connectButton();
-    setLayout(hBoxLayout);
+    setLayout(mainLayout);
 }
 
 void ChatWindow::keyPressEvent(QKeyEvent* event)
@@ -51,7 +44,6 @@ void ChatWindow::keyPressEvent(QKeyEvent* event)
 void ChatWindow::connectButton()
 {
     connect(sendButton, &QPushButton::released, this, &ChatWindow::updateMessagesList_User);
-    connect(botButton, &QPushButton::released, this, &ChatWindow::updateMessagesList_Bot);
     connect(chatWidget, SIGNAL(itemClicked(QListWidgetItem*)), this,
             SLOT(deletingSelection(QListWidgetItem*)));
 }
@@ -66,8 +58,6 @@ void ChatWindow::updateMessagesList_User()
     if (textEdit->text() != "") newMessage(textEdit->text());
     textEdit->clear();
 }
-
-void ChatWindow::updateMessagesList_Bot() { newMessage("This is message from bot!", "bot"); }
 
 void ChatWindow::newMessage(QString textMessage, QString userNameMessage)
 {
@@ -91,11 +81,14 @@ void ChatWindow::newMessage(QString textMessage)
 
 ChatWindow::~ChatWindow()
 {
-    delete mainLayout;
+    delete messageButtonLayout;
+    delete channelListWidget;
     delete sendButton;
-    delete botButton;
+    delete messageTextEdit;
     delete textEdit;
     delete chatWidget;
-    delete hBoxLayout;
-    delete channelListWidget;
+    delete horizontalButtonSpacer;
+    delete messageLayout;
+    delete rightLayout;
+    delete mainLayout;
 }
