@@ -66,10 +66,11 @@ elseif (UNIX AND NOT APPLE)
 endif ()
 
 target_link_libraries(${TARGET}
-        PRIVATE Qt5::Widgets ${EXTRA_LIBS} PUBLIC Network.Public Client.Core.Static)
+        PRIVATE Qt5::Widgets ${EXTRA_LIBS} PUBLIC Network.Public Client.Core.Static CONAN_PKG::asio)
 
 target_precompile_headers(${TARGET} PRIVATE pch.hpp)
 
+#[[
 if (WIN32)
     if (CMAKE_BUILD_TYPE MATCHES Debug)
         file(COPY "${CONAN_BIN_DIRS_QT}/Qt5Cored.dll" "${CONAN_BIN_DIRS_QT}/Qt5Guid.dll"
@@ -89,3 +90,4 @@ if (WIN32)
             "${CMAKE_BINARY_DIR}/bin/glib-2.0-0.dll"
             SHOW_PROGRESS)
 endif ()
+]]
