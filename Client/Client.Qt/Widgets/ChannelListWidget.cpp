@@ -13,8 +13,7 @@ ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
     vBoxLayout->addWidget(addChannelButton);
     vBoxLayout->addWidget(channelList, 10);
 
-    connect(addChannelButton, &QPushButton::clicked, this, &ChannelListWidget::addChannel);
-
+    connect(addChannelButton, &QPushButton::clicked, this, &ChannelListWidget::addChannels);
 
     connect(channelList, &QListWidget::itemClicked, this, &ChannelListWidget::addChatHistory);
 
@@ -36,7 +35,7 @@ void ChannelListWidget::addChatHistory() {}
 
 ChannelListWidget::~ChannelListWidget()
 {
-    delete channelList;
+    // delete channelList;
     delete listWidgetChannels;
     delete addChannelButton;
     delete vBoxLayout;
