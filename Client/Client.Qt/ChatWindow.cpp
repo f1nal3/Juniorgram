@@ -23,6 +23,7 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     mainLayout->addWidget(chatWidget, 85);
 
     messageButtonLayout->addItem(verticalUpSpacer);
+    setContentsMargins(0, 0, 0, 0);
     mainLayout = new QHBoxLayout(this);
     rightLayout = new QVBoxLayout();
     messageLayout = new QVBoxLayout();
