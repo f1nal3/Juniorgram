@@ -27,6 +27,7 @@ FlatInput::FlatInput(QWidget* parent) : QLineEdit(parent)
     QLineEdit::setTextMargins(0, 0, 0, 0);
     const int DEFMARGIN = Style::valueDPIScale(8);
     setContentsMargins(DEFMARGIN, DEFMARGIN, DEFMARGIN, DEFMARGIN);
+    setMinimumHeight(fontMetrics().height() + Style::valueDPIScale(8) * 2);
 }
 
 void FlatInput::paintEvent(QPaintEvent* event)
@@ -39,7 +40,7 @@ void FlatInput::paintEvent(QPaintEvent* event)
     p.setRenderHint(QPainter::Antialiasing);
     p.setBrush(inputField);
     p.setPen(Qt::NoPen);
-    p.drawRoundedRect(QRectF(0, 0, width(), height())/*.marginsRemoved(QMarginsF(2, 2, 2, 2))*/,
+    p.drawRoundedRect(QRectF(0, 0, width(), height()) /*.marginsRemoved(QMarginsF(2, 2, 2, 2))*/,
                       Style::valueDPIScale(5), Style::valueDPIScale(5));
 
     QLineEdit::paintEvent(event);
