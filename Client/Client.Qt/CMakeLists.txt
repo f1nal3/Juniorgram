@@ -90,4 +90,3 @@ if (WIN32)
             "${CMAKE_BINARY_DIR}/bin/glib-2.0-0.dll"
             SHOW_PROGRESS)
 endif ()
-]]
