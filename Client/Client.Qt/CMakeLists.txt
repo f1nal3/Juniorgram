@@ -46,7 +46,7 @@ set(SOURCE_FILES
         login.hpp
         login.cpp
         main.cpp
-		    ConnectionManager.hpp
+		ConnectionManager.hpp
         MainWidget.cpp
         MainWidget.hpp
         pch.hpp
@@ -63,11 +63,10 @@ elseif (UNIX AND NOT APPLE)
     list(APPEND EXTRA_LIBS xcb)
 endif ()
 
-target_link_libraries(${TARGET} PUBLIC Network.Public)
-target_link_libraries(${TARGET} PUBLIC Client.Core.Static)
-target_link_libraries(${TARGET} PRIVATE CONAN_PKG::asio)
-target_link_libraries(${TARGET}
-        PRIVATE Qt5::Widgets ${EXTRA_LIBS})
+target_link_libraries(${TARGET} PUBLIC Network.Public
+  PUBLIC Client.Core.Static 
+  PRIVATE CONAN_PKG::asio
+  PRIVATE Qt5::Widgets ${EXTRA_LIBS})
 
 target_precompile_headers(${TARGET} PRIVATE pch.hpp)
 
