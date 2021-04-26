@@ -108,6 +108,72 @@ public:
 bool registerUser(const std::string& email, const std::string& login, const std::string& password,
                   std::string& token, std::string& refreshToken)
 {
-
     return 0;
+}
+
+struct Crypto
+{
+    using namespace CryptoPP;
+
+    struct CipherKey
+    {
+        std::string key;
+        std::string iv;
+    };
+
+    CipherKey generateKey()
+    {
+        auto getRandomHexBy = [&](const std::int8_t aesEnumer) -> std::string {
+            AutoSeededRandomPool rnd;
+
+            SecByteBlock bytes(0x0, aesEnumer);
+            rnd.GenerateBlock(bytes, bytes.size());
+
+            std::string bytesHex{reinterpret_cast<const char*>(bytes.BytePtr()), bytes.size()};
+
+            return bytesHex;
+        };
+
+        CipherKey cipherKey;
+        cipherKey.key = getRandomHexBy(AES::DEFAULT_KEYLENGTH);
+        cipherKey.iv  = getRandomHexBy(AES::BLOCKSIZE);
+
+        return cipherKey;
+    }
+
+    std::string encrypt(const std::string& data, const CipherKey& cKey)
+    {
+        CFB_Mode<AES>::Encryption encryptor;
+
+        const byte* pKey = reinterpret_cast<const byte*>(&cKey.key[0]);
+        const byte* pIV  = reinterpret_cast<const byte*>(&cKey.iv[0]);
+
+        encryptor.SetKeyWithIV(pKey, cKey.key.size(), pIV);
+
+        std::string encryptedData;
+
+        StringSource(data, true,
+                     new StreamTransformationFilter(encryptor,
+                                                    new HexEncoder(new StringSink(encryptedData))));
+
+        return encryptedData;
+    }
+
+    std::string decrypt(const std::string& cipherData, const CipherKey& cKey)
+    {
+        CFB_Mode<AES>::Decryption decryptor;
+
+        const byte* pKey = reinterpret_cast<const byte*>(&cKey.key[0]);
+        const byte* pIV  = reinterpret_cast<const byte*>(&cKey.iv[0]);
+
+        decryptor.SetKeyWithIV(pKey, cKey.key.size(), pIV);
+
+        std::string decryptedData;
+
+        StringSource(cipherData, true,
+                     new HexDecoder(
+                         new StreamTransformationFilter(decryptor, new StringSink(decryptedData))));
+
+        return decryptedData;
+    }
 }
