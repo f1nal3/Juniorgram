@@ -13,9 +13,6 @@ ChannelListWidget::ChannelListWidget(QWidget *parent) : QWidget(parent)
     connect(addChannelButton, &QPushButton::clicked,
            this, &ChannelListWidget::addChannels);
 
-    connect(channelList, &QListWidget::itemClicked,
-            this, &ChannelListWidget::addChatHistory);
-
     setLayout(vBoxLayout);
 }
 
@@ -28,11 +25,6 @@ void ChannelListWidget::addChannels() {
         //here should be code of adding channelList to our listWidgetChannels
     }
     listWidgetChannels->show();
-}
-
-void ChannelListWidget::addChatHistory()
-{
-
 }
 
 ChannelListWidget::~ChannelListWidget()
