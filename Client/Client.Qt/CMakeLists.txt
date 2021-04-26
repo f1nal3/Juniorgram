@@ -48,11 +48,13 @@ set(SOURCE_FILES
         login.hpp
         login.cpp
         main.cpp
+		    ConnectionManager.hpp
         MainWidget.cpp
         MainWidget.hpp
         pch.hpp
         registration.hpp
         registration.cpp)
+
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)
@@ -63,6 +65,9 @@ elseif (UNIX AND NOT APPLE)
     list(APPEND EXTRA_LIBS xcb)
 endif ()
 
+target_link_libraries(${TARGET} PUBLIC Network.Public)
+target_link_libraries(${TARGET} PUBLIC Client.Core.Static)
+target_link_libraries(${TARGET} PRIVATE CONAN_PKG::asio)
 target_link_libraries(${TARGET}
         PRIVATE Qt5::Widgets ${EXTRA_LIBS})
 
