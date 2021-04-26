@@ -85,7 +85,6 @@ ChatWindow::~ChatWindow()
     delete messageTextEdit;
     delete textEdit;
     delete chatWidget;
-    //delete horizontalButtonSpacer;
     delete messageLayout;
     delete rightLayout;
     delete mainLayout;

@@ -40,8 +40,8 @@ void FlatInput::paintEvent(QPaintEvent* event)
     p.setRenderHint(QPainter::Antialiasing);
     p.setBrush(inputField);
     p.setPen(Qt::NoPen);
-    p.drawRoundedRect(QRectF(0, 0, width(), height()) /*.marginsRemoved(QMarginsF(2, 2, 2, 2))*/,
-                      Style::valueDPIScale(5), Style::valueDPIScale(5));
+    p.drawRoundedRect(QRectF(0, 0, width(), height()), Style::valueDPIScale(5),
+                      Style::valueDPIScale(5));
 
     QLineEdit::paintEvent(event);
 }

@@ -15,7 +15,6 @@ protected:
     void resizeEvent(QResizeEvent* event) override;
 
 private:
-    std::unique_ptr<QGridLayout> gridLayout;
     std::unique_ptr<FlatInput> usernameLineEdit;
     std::unique_ptr<FlatInput> passwordLineEdit;
     std::unique_ptr<FlatButton> buttonSignin;
