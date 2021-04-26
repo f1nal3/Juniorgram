@@ -15,7 +15,6 @@ protected:
     void keyPressEvent(QKeyEvent* event) override;
 private slots:
     void updateMessagesList_User();
-    void updateMessagesList_Bot();
     void deletingSelection(QListWidgetItem* item);
 
 private:
@@ -25,7 +24,6 @@ private:
     QHBoxLayout* messageButtonLayout;
     ChannelListWidget* channelListWidget;
     FlatButton* sendButton;
-    FlatButton* botButton;
     FlatPlainTextEdit* messageTextEdit;
     TextEdit* textEdit;
     QListWidget* chatWidget;

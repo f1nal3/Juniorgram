@@ -10,8 +10,6 @@ set(SOURCE_FILES
         Widgets/BioButton.hpp
         Widgets/CaptionButton.hpp
         Widgets/CaptionButton.cpp
-        Widgets/ChannelList.cpp
-        Widgets/ChannelList.hpp
         Widgets/ChannelListWidget.cpp
         Widgets/ChannelListWidget.hpp
         Widgets/ChannelListWindow.cpp
@@ -24,6 +22,8 @@ set(SOURCE_FILES
         Widgets/InputFields.cpp
         Widgets/Label.cpp
         Widgets/Label.hpp
+        Widgets/ListWidget.cpp
+        Widgets/ListWidget.hpp
         Widgets/Menu.cpp
         Widgets/Menu.hpp
         Widgets/MenuItem.cpp

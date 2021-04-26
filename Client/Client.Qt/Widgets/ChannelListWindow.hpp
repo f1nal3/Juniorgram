@@ -1,8 +1,8 @@
 #pragma once
 
 #include "pch.hpp"
-#include "ChannelList.hpp"
 #include "FlatButton.hpp"
+#include "ListWidget.hpp"
 
 /** @class ChannelListWindow
  *  @brief This is channel list
@@ -10,14 +10,14 @@
 class ChannelListWindow : public QWidget
 {
 public:
-    ChannelListWindow(QWidget* parent, QVBoxLayout* vBoxAnotherLayout);
+    ChannelListWindow(QWidget* parent, ListWidget* anotherChannelListWidget);
     ~ChannelListWindow();
 public slots:
-//Then have to add a channel with the chat history
+    //Then have to add a channel with the chat history
     void addChannelToMainChannelWidget();
 private:
-    QListWidget* channelList;
+    ListWidget*  channelList;
     FlatButton*  addChannelButton;
     QVBoxLayout* vBoxLayout;
-    QVBoxLayout* vBoxChannelListWidget;
+    ListWidget*  channelListMainWindow;
 };
