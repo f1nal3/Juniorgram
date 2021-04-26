@@ -90,7 +90,7 @@ void TextEdit::clear() { mTextField->clear(); }
 TextEdit::~TextEdit()
 {
     delete mBoldButton;
-    delete mTextField;
+    //delete mTextField;
     delete hLayout;
     delete vLayout;
 }

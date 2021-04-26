@@ -39,6 +39,7 @@ void create()
     QApplication::setFont(font);
 }
 void show() { mMainWidget->show(); }
+
 void setAppState(AppState app_state)
 {
     mAppState = app_state;
