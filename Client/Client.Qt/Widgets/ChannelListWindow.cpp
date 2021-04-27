@@ -36,7 +36,7 @@ void ChannelListWindow::addChannelToMainChannelWidget()
 ChannelListWindow::~ChannelListWindow()
 {
     delete addChannelButton;
-    delete channelList;
+    //delete channelList;
     delete channelListMainWindow;
     delete vBoxLayout;
 }
