@@ -8,6 +8,8 @@ ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
     channelList        = new ListWidget();
     listWidgetChannels = new ChannelListWindow(nullptr, channelList);
     addChannelButton   = new FlatButton("+");
+
+    addChannelButton->setMinimumWidth(Style::valueDPIScale(200));
     vBoxLayout->addWidget(addChannelButton);
     vBoxLayout->addWidget(channelList, 10);
 
