@@ -5,6 +5,11 @@ MenuItem::MenuItem(const QString& text, QAction* action, QWidget* parent) : QWid
 {
     innerText = text;
     mAction   = action;
+
+    auto font = QFont("Noto Sans", 12);
+    font.setPixelSize(Style::valueDPIScale(12));
+    setFont(font);
+
     setFixedSize(parent->width() - 1, Style::valueDPIScale(30));
     setMouseTracking(true);
     setAttribute(Qt::WA_Hover);
@@ -24,7 +29,9 @@ void MenuItem::paintEvent(QPaintEvent* event)
     p.setBrush(Qt::red);
     p.setPen(Qt::white);
 
-    p.drawText(5, 5, 245, 20, 0, innerText);
+    const int TOP_X = (height() - fontMetrics().height()) / 2;
+    const int SHIFT = (height() - 10);
+    p.drawText(10 + SHIFT, TOP_X, 245, fontMetrics().height(), 0, innerText);
     QWidget::paintEvent(event);
 }
 void MenuItem::mouseMoveEvent(QMouseEvent* e)
