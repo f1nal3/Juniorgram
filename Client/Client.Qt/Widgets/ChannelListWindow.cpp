@@ -1,4 +1,5 @@
 #include "ChannelListWindow.hpp"
+
 #include "Style/Style.hpp"
 
 ChannelListWindow::ChannelListWindow(QWidget* parent, ListWidget* anotherChannelList)
@@ -17,15 +18,15 @@ ChannelListWindow::ChannelListWindow(QWidget* parent, ListWidget* anotherChannel
     vBoxLayout->addWidget(channelList);
     vBoxLayout->addWidget(addChannelButton);
 
-    connect(addChannelButton, &QPushButton::clicked,
-                     this, &ChannelListWindow::addChannelToMainChannelWidget);
+    connect(addChannelButton, &QPushButton::clicked, this,
+            &ChannelListWindow::addChannelToMainChannelWidget);
 
     setLayout(vBoxLayout);
 }
 
 void ChannelListWindow::addChannelToMainChannelWidget()
 {
-    if(channelList->currentItem())
+    if (channelList->currentItem())
     {
         channelListMainWindow->addItem(channelList->currentItem()->text());
     }

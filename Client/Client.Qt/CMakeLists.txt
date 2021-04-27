@@ -36,6 +36,8 @@ set(SOURCE_FILES
         Widgets/TextEdit.hpp
         Widgets/TimeEdit.cpp
         Widgets/TimeEdit.hpp
+        Widgets/LogoWidget.cpp
+        Widgets/LogoWidget.hpp
         Style/Shadow.hpp
         Style/Style.cpp
         Style/Style.hpp
@@ -64,9 +66,9 @@ elseif (UNIX AND NOT APPLE)
 endif ()
 
 target_link_libraries(${TARGET} PUBLIC Network.Public
-  PUBLIC Client.Core.Static 
-  PRIVATE CONAN_PKG::asio
-  PRIVATE Qt5::Widgets ${EXTRA_LIBS})
+                                PUBLIC Client.Core.Static 
+                                PRIVATE CONAN_PKG::asio
+                                PRIVATE Qt5::Widgets ${EXTRA_LIBS})
 
 target_precompile_headers(${TARGET} PRIVATE pch.hpp)
 

@@ -7,6 +7,7 @@
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 {
+    setContentsMargins(0, 0, 0, 0);
     mainLayout = new QHBoxLayout(this);
     rightLayout = new QVBoxLayout();
     messageLayout = new QVBoxLayout();
@@ -17,7 +18,7 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     sendButton        = new FlatButton("Send");
     textEdit          = new TextEdit(messageTextEdit);
     horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
-    
+
     mainLayout->addWidget(channelListWidget, 10);
     mainLayout->addLayout(rightLayout, 90);
     rightLayout->addWidget(chatWidget, 85);
@@ -48,10 +49,7 @@ void ChatWindow::connectButton()
             SLOT(deletingSelection(QListWidgetItem*)));
 }
 
-void ChatWindow::deletingSelection(QListWidgetItem* item) 
-{ 
-    item->setSelected(false); 
-}
+void ChatWindow::deletingSelection(QListWidgetItem* item) { item->setSelected(false); }
 
 void ChatWindow::updateMessagesList_User()
 {
@@ -87,7 +85,6 @@ ChatWindow::~ChatWindow()
     delete messageTextEdit;
     delete textEdit;
     delete chatWidget;
-    delete horizontalButtonSpacer;
     delete messageLayout;
     delete rightLayout;
     delete mainLayout;
