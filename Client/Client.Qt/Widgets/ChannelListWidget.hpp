@@ -1,5 +1,8 @@
 #pragma once
 
+#include "pch.hpp"
+#include "ListWidget.hpp"
+#include "FlatButton.hpp"
 #include "ChannelListWindow.hpp"
 #include "ConnectionManager.hpp"
 #include "FlatButton.hpp"
@@ -17,12 +20,12 @@ public:
     ~ChannelListWidget();
 
 public slots:
-    void addChannels();
+    void addChannel();
     //This slot should add chat history in the future
     void addChatHistory();
 private:
-    FlatButton* addChannelButton;
-    ChannelListWindow* listWidgetChannels;
-    QVBoxLayout* vBoxLayout;
-    ListWidget* channelList;
+   FlatButton* addChannelButton;
+   ChannelListWindow* listWidgetChannels;
+   QVBoxLayout* vBoxLayout;
+   ListWidget* channelList;
 };

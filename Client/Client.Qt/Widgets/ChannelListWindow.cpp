@@ -37,5 +37,6 @@ ChannelListWindow::~ChannelListWindow()
 {
     delete addChannelButton;
     delete channelList;
+    delete channelListMainWindow;
     delete vBoxLayout;
 }
