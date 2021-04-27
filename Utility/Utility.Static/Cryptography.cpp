@@ -1,4 +1,3 @@
-#pragma once
 #include <cryptopp/hex.h>
 #include <cryptopp/modes.h>
 #include <cryptopp/osrng.h>
