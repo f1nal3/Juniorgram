@@ -6,7 +6,7 @@
 #include <memory>
 #include <string>
 
-namespace Symmetric
+namespace SymmetricCipher
 {
 using namespace CryptoPP;
 
@@ -73,4 +73,4 @@ struct AESFactory : ICiphersFactory
 {
     std::shared_ptr<ICipher> create() override { return std::make_shared<AESCipher>(); }
 };
-}  // namespace Symmetric
+}  // namespace SymmetricCipher
