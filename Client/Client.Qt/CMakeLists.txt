@@ -65,16 +65,10 @@ elseif (UNIX AND NOT APPLE)
     list(APPEND EXTRA_LIBS xcb)
 endif ()
 
-<<<<<<< HEAD
-target_link_libraries(${TARGET}
-        PRIVATE Qt5::Widgets ${EXTRA_LIBS} CONAN_PKG::asio
-        PUBLIC Network.Public Client.Core.Static )
-=======
 target_link_libraries(${TARGET} PUBLIC Network.Public
-  PUBLIC Client.Core.Static 
-  PRIVATE CONAN_PKG::asio
-  PRIVATE Qt5::Widgets ${EXTRA_LIBS})
->>>>>>> origin/back/fix_connection_manager
+                                PUBLIC Client.Core.Static 
+                                PRIVATE CONAN_PKG::asio
+                                PRIVATE Qt5::Widgets ${EXTRA_LIBS})
 
 target_precompile_headers(${TARGET} PRIVATE pch.hpp)
 
