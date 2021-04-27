@@ -11,22 +11,20 @@ ChannelListWidget::ChannelListWidget(QWidget *parent) : QWidget(parent)
     vBoxLayout->addWidget(channelList, 10);
 
     connect(addChannelButton, &QPushButton::clicked,
-           this, &ChannelListWidget::addChannel);
-
-    connect(channelList, &QListWidget::itemClicked,
-            this, &ChannelListWidget::addChatHistory);
+           this, &ChannelListWidget::addChannels);
 
     setLayout(vBoxLayout);
 }
 
-void ChannelListWidget::addChannel()
-{
+void ChannelListWidget::addChannels() {
+
+    if (ConnectionManager::isConnected())
+    {
+        ConnectionManager::getClient().askForChannelList();
+
+        //here should be code of adding channelList to our listWidgetChannels
+    }
     listWidgetChannels->show();
-}
-
-void ChannelListWidget::addChatHistory()
-{
-
 }
 
 ChannelListWidget::~ChannelListWidget()

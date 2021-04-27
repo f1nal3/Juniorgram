@@ -1,7 +1,8 @@
-#include "App.hpp"
-
+#include <future>
 #include <Widgets/BioButton.hpp>
 
+#include "App.hpp"
+#include "ConnectionManager.hpp"
 #include "ChatWindow.hpp"
 #include "MainWidget.hpp"
 #include "login.hpp"
@@ -33,6 +34,11 @@ void create()
     // const MARGINS shadow{9, 9, 9, 9};
     //::DwmExtendFrameIntoClientArea(handle, &shadow);
 #endif
+
+    ConnectionManager::connect();
+
+    std::thread(&ConnectionManager::loop).detach();
+
     setAppState(AppState::LoginForm);
 }
 void show() { mMainWidget->show(); }
@@ -71,3 +77,4 @@ void setAppState(AppState app_state)
     }
 }
 }  // namespace App
+

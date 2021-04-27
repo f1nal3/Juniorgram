@@ -4,6 +4,7 @@
 #include "ListWidget.hpp"
 #include "FlatButton.hpp"
 #include "ChannelListWindow.hpp"
+#include "ConnectionManager.hpp"
 
 /** @class ChannelListWidget
  *  @brief This is the main channel list widget
@@ -16,9 +17,7 @@ public:
     ~ChannelListWidget();
 
 public slots:
-    void addChannel();
-    //This slot should add chat history in the future
-    void addChatHistory();
+    void addChannels();
 private:
    FlatButton* addChannelButton;
    ChannelListWindow* listWidgetChannels;
