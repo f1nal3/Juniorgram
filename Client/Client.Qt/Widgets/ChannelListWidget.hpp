@@ -18,8 +18,7 @@ public:
 
 public slots:
     void addChannels();
-    //This slot should add chat history in the future
-    void addChatHistory();
+
 private:
     FlatButton* addChannelButton;
     ChannelListWindow* listWidgetChannels;
