@@ -6,23 +6,25 @@
 #include <memory>
 #include <string>
 
+namespace Symmetric
+{
 using namespace CryptoPP;
 
-struct ISymmetricCipher
+struct ICipher
 {
     virtual std::string generateKey()                                                        = 0;
     virtual std::string encrypt(const std::string& data, const std::string& cipherKey)       = 0;
     virtual std::string decrypt(const std::string& cipherData, const std::string& cipherKey) = 0;
-    virtual ~ISymmetricCipher() = default;
+    virtual ~ICipher() = default;
 };
 
-struct ISymmetricCipherFactory
+struct ICiphersFactory
 {
-    virtual std::shared_ptr<ISymmetricCipher> makeCipherWay() = 0;
-    virtual ~ISymmetricCipherFactory()                        = default;
+    virtual std::shared_ptr<ICipher> create() = 0;
+    virtual ~ICiphersFactory()                = default;
 };
 
-struct AESCipher : ISymmetricCipher
+struct AESCipher : ICipher
 {
     std::string generateKey()
     {
@@ -60,17 +62,15 @@ struct AESCipher : ISymmetricCipher
         std::string decryptedData;
 
         StringSource(cipherData, true,
-                     new HexDecoder(
-                         new StreamTransformationFilter(decryptor, new StringSink(decryptedData))));
+            new HexDecoder(
+                new StreamTransformationFilter(decryptor, new StringSink(decryptedData))));
 
         return decryptedData;
     }
 };
 
-struct AESFactory : ISymmetricCipherFactory
+struct AESFactory : ICiphersFactory
 {
-    std::shared_ptr<ISymmetricCipher> makeCipherWay() override
-    {
-        return std::make_shared<AESCipher>();
-    }
+    std::shared_ptr<ICipher> create() override { return std::make_shared<AESCipher>(); }
 };
+}  // namespace Symmetric
