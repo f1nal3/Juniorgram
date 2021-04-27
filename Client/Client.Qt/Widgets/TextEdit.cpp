@@ -3,7 +3,7 @@
 
 TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(parent)
 {
-    mTextField  = std::move(messageText);
+    mTextField  = messageText;
     mBoldButton = new FlatButton("B");
 
     vLayout = new QVBoxLayout;
@@ -90,7 +90,6 @@ void TextEdit::clear() { mTextField->clear(); }
 TextEdit::~TextEdit()
 {
     delete mBoldButton;
-    delete mTextField;
     delete hLayout;
     delete vLayout;
 }

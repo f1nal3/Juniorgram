@@ -1,22 +1,18 @@
 #include "MainWidget.hpp"
 
-#include <Widgets/BioButton.hpp>
-
 #include "Style/Shadow.hpp"
-#include "Style/Style.hpp"
-#include "Widgets/InputFields.hpp"
 
 #ifdef _WIN32
-bool IsCompositionEnabled()
+bool isCompositionEnabled()
 {
     auto result        = BOOL(FALSE);
-    const auto success = (::DwmIsCompositionEnabled(&result) == S_OK);
-    return success && result;
+    const auto SUCCESS = (::DwmIsCompositionEnabled(&result) == S_OK);
+    return SUCCESS && result;
 }
 
 bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* result)
 {
-    Q_UNUSED(eventType);
+    Q_UNUSED(eventType)
     MSG* msg = static_cast<MSG*>(message);
 
     if (msg->message == WM_NCACTIVATE)
@@ -24,10 +20,10 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
         /*
          * https://github.com/melak47/BorderlessWindow
          */
-        if (IsCompositionEnabled())
+        if (isCompositionEnabled())
         {
-            const auto res = DefWindowProc(msg->hwnd, msg->message, msg->wParam, -1);
-            if (result) *result = res;
+            const auto RES = DefWindowProc(msg->hwnd, msg->message, msg->wParam, -1);
+            if (result) *result = RES;
         }
         else
         {
@@ -40,12 +36,12 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
         NCCALCSIZE_PARAMS& params = *reinterpret_cast<NCCALCSIZE_PARAMS*>(msg->lParam);
         if (this->isMaximized() && msg->wParam == TRUE)
         {
-            const auto monitor = ::MonitorFromWindow(msg->hwnd, MONITOR_DEFAULTTONULL);
-            if (!monitor) return false;
-            MONITORINFO monitor_info{};
-            monitor_info.cbSize = sizeof(MONITORINFO);
-            if (!::GetMonitorInfoW(monitor, &monitor_info)) return false;
-            params.rgrc[0] = monitor_info.rcWork;
+            const auto MONITOR = ::MonitorFromWindow(msg->hwnd, MONITOR_DEFAULTTONULL);
+            if (!MONITOR) return false;
+            MONITORINFO monitorInfo{};
+            monitorInfo.cbSize = sizeof(MONITORINFO);
+            if (!::GetMonitorInfoW(MONITOR, &monitorInfo)) return false;
+            params.rgrc[0] = monitorInfo.rcWork;
         }
 
         if (result) *result = 0;
@@ -58,8 +54,8 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
     }
     else if (msg->message == WM_NCHITTEST)
     {
-        const auto p = MAKEPOINTS(msg->lParam);
-        if (p.x <= 9)
+        const auto P = MAKEPOINTS(msg->lParam);
+        if (P.x <= 9)
         {
             if (result) *result = HTLEFT;
             return true;
@@ -264,14 +260,13 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
     this->setWindowFlag(Qt::FramelessWindowHint);
     this->setWindowFlag(Qt::Window);
     this->setWindowIcon(QIcon(":/images/logo.png"));
-    this->setStyleSheet(
-        "QWidget { "
-        "background-color: #424140; "
-        "}");
-    this->setMinimumSize(Style::valueDPIScale(630), 450);
+    this->setMinimumWidth(Style::valueDPIScale(800));
 
     auto* grid = new QGridLayout(this);
-    body       = new QWidget();
+
+    body = new QWidget();
+    body->setMinimumHeight(Style::valueDPIScale(480));
+
     auto title = new QWidget();
     title->setFixedHeight(Style::valueDPIScale(30));
     grid->addWidget(body, 1, 0);
@@ -289,7 +284,12 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
         "background-color: #323232;"
         "}");
 
-    pBodyLayout->setMargin(5);
+    title->setStyleSheet(
+        "QWidget { "
+        "background-color: #424140; "
+        "}");
+
+    pBodyLayout->setMargin(0);
 
     std::cout << QGuiApplication::platformName().toStdString() << std::endl;
 
@@ -317,16 +317,20 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
         }
         update();
     });
+    setAttribute(Qt::WA_Hover);
     connect(close_btn, &CaptionButton::mouseRelease, this, &MainWidget::close);
     connect(minimize_btn, &CaptionButton::mouseRelease, this, &MainWidget::showMinimized);
     title->setMouseTracking(true);
     body->setMouseTracking(true);
     this->setMouseTracking(true);
+    title->installEventFilter(this);
+    body->installEventFilter(this);
+    this->installEventFilter(this);
 }
 
 void MainWidget::paintEvent(QPaintEvent* event)
 {
-    Q_UNUSED(event);
+    Q_UNUSED(event)
     QPainter p(this);
     p.setPen(Qt::NoPen);
     // Shadow is ugly on corners
@@ -363,13 +367,13 @@ void MainWidget::refreshTitleBar(BioButton* bio_button)
 }
 bool MainWidget::eventFilter(QObject* watched, QEvent* event)
 {
-    if (event->type() == QEvent::FocusOut)
+    if (event->type() == QEvent::HoverMove)
     {
-        update();
-        QApplication::processEvents();
+        checkResizableField(static_cast<QMouseEvent*>(event));
     }
     return QObject::eventFilter(watched, event);
 }
+
 void MainWidget::showEvent(QShowEvent* event)
 {
     QWidget::showEvent(event);

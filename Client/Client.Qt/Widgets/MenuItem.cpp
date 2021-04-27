@@ -22,23 +22,24 @@ void MenuItem::paintEvent(QPaintEvent* event)
     p.setBrush(color);
     p.drawRect(rect());
     p.setBrush(Qt::red);
-    p.setPen(Qt::red);
+    p.setPen(Qt::white);
+
     p.drawText(5, 5, 245, 20, 0, innerText);
     QWidget::paintEvent(event);
 }
 void MenuItem::mouseMoveEvent(QMouseEvent* e)
 {
-    Q_UNUSED(e);
+    Q_UNUSED(e)
     if (underMouse()) hit = true;
 }
 void MenuItem::leaveEvent(QEvent* e)
 {
-    Q_UNUSED(e);
+    Q_UNUSED(e)
     hit = false;
 }
 void MenuItem::mouseReleaseEvent(QMouseEvent* e)
 {
-    Q_UNUSED(e);
+    Q_UNUSED(e)
     mAction->trigger();
     parentWidget()->hide();
     QWidget::mouseReleaseEvent(e);
