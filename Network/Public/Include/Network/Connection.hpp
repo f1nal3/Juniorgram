@@ -11,6 +11,7 @@
 
 #include <asio.hpp>
 #include <iostream>
+#include <functional>
 
 #include "Message.hpp"
 #include "SafeQueue.hpp"
