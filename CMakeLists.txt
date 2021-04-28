@@ -44,7 +44,16 @@ conan_cmake_run(CONANFILE conanfile.txt
                 BUILD missing)
 endif()
 
+<<<<<<< HEAD
 find_package(Qt5 COMPONENTS Widgets Core REQUIRED)
+=======
+set(Qt5_DIR "${CONAN_LIB_DIRS_QT}/cmake/Qt5")
+set(Qt5Core_DIR "${Qt5_DIR}/Qt5Core")
+set(Qt5Widgets_DIR "${Qt5_DIR}/Qt5Widgets")
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Gui REQUIRED)
+find_package(Qt5Widgets REQUIRED)
+>>>>>>> Qt Dirs
 
 enable_testing()
 
