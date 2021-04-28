@@ -1,30 +1,37 @@
 #include "ChannelListWidget.hpp"
+
 #include "Style/Style.hpp"
 
-ChannelListWidget::ChannelListWidget(QWidget *parent) : QWidget(parent)
+ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
 {
     vBoxLayout         = new QVBoxLayout(this);
-    vBoxFrame          = new QVBoxLayout();
-    listWidgetChannels = new ChannelListWindow(nullptr, vBoxLayout);
+    channelList        = new ListWidget();
+    listWidgetChannels = new ChannelListWindow(nullptr, channelList);
     addChannelButton   = new FlatButton("+");
-    vBoxFrame->addWidget(addChannelButton);
-    vBoxLayout->addLayout(vBoxFrame);
-    vBoxLayout->addStretch();
-    connect(addChannelButton, &QPushButton::clicked,
-           this, &ChannelListWidget::addChannel);
+
+    addChannelButton->setMinimumWidth(Style::valueDPIScale(200));
+    vBoxLayout->addWidget(addChannelButton);
+    vBoxLayout->addWidget(channelList, 10);
+
+    connect(addChannelButton, &QPushButton::clicked, this, &ChannelListWidget::addChannels);
 
     setLayout(vBoxLayout);
 }
 
-void ChannelListWidget::addChannel()
+void ChannelListWidget::addChannels()
 {
+    if (ConnectionManager::isConnected())
+    {
+        ConnectionManager::getClient().askForChannelList();
+
+        // here should be code of adding channelList to our listWidgetChannels
+    }
     listWidgetChannels->show();
 }
 
 ChannelListWidget::~ChannelListWidget()
 {
-    delete vBoxLayout;
-    delete vBoxFrame;
     delete listWidgetChannels;
     delete addChannelButton;
+    delete vBoxLayout;
 }

@@ -1,7 +1,8 @@
-#include "App.hpp"
-
+#include <future>
 #include <Widgets/BioButton.hpp>
 
+#include "App.hpp"
+#include "ConnectionManager.hpp"
 #include "ChatWindow.hpp"
 #include "MainWidget.hpp"
 #include "login.hpp"
@@ -33,9 +34,18 @@ void create()
     // const MARGINS shadow{9, 9, 9, 9};
     //::DwmExtendFrameIntoClientArea(handle, &shadow);
 #endif
+
+    ConnectionManager::connect();
+
+    std::thread(&ConnectionManager::loop).detach();
+
     setAppState(AppState::LoginForm);
+    auto font = QFont("Noto Sans", 12);
+    font.setPixelSize(Style::valueDPIScale(15));
+    QApplication::setFont(font);
 }
 void show() { mMainWidget->show(); }
+
 void setAppState(AppState app_state)
 {
     mAppState = app_state;
@@ -55,7 +65,7 @@ void setAppState(AppState app_state)
         break;
         case AppState::Authorized:
         {
-            auto* wid = new ChatWindow();
+            auto* wid  = new ChatWindow();
             mBioButton = new BioButton(QImage(), true, mMainWidget);
             mBioButton->setImage(QImage(":/images/logo.png"));
             mMainWidget->refreshTitleBar(mBioButton);
@@ -71,3 +81,4 @@ void setAppState(AppState app_state)
     }
 }
 }  // namespace App
+

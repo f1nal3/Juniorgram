@@ -1,3 +1,11 @@
+#ifdef _WIN32
+
+#define WIN32_LEAN_AND_MEAN
+#include <dwmapi.h>
+
+#endif
+
+
 #include <QAction>
 #include <QApplication>
 #include <QBrush>
@@ -38,8 +46,3 @@
 #include <iostream>
 #include <memory>
 
-#ifdef _WIN32
-
-#include <dwmapi.h>
-
-#endif

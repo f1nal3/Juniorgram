@@ -1,5 +1,14 @@
 #pragma once
 
+#ifdef _WIN32
+#ifdef _WIN32_WINNT
+#undef _WIN32_WINNT
+#define _WIN32_WINNT 0x0601
+#endif
+#endif
+
+#define _WIN32_WINNT 0x0601
+
 #include <asio.hpp>
 #include <iostream>
 

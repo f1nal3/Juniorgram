@@ -8,6 +8,7 @@ class FlatInput : public QLineEdit
     Q_OBJECT
 public:
     explicit FlatInput(QWidget* parent = nullptr);
+    explicit FlatInput(const QString& placeholder, QWidget* parent = nullptr);
     explicit FlatInput(const QString& placeholder, bool password = false,
                        QWidget* parent = nullptr);
 
@@ -21,6 +22,7 @@ class FlatPlainTextEdit : public QPlainTextEdit
 public:
     explicit FlatPlainTextEdit(QWidget* parent = nullptr);
 
-private:
+protected:
+    [[nodiscard]] QSize sizeHint() const override;
     void paintEvent(QPaintEvent* event) override;
 };

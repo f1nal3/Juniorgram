@@ -10,8 +10,6 @@ set(SOURCE_FILES
         Widgets/BioButton.hpp
         Widgets/CaptionButton.hpp
         Widgets/CaptionButton.cpp
-        Widgets/ChannelList.cpp
-        Widgets/ChannelList.hpp
         Widgets/ChannelListWidget.cpp
         Widgets/ChannelListWidget.hpp
         Widgets/ChannelListWindow.cpp
@@ -24,6 +22,8 @@ set(SOURCE_FILES
         Widgets/InputFields.cpp
         Widgets/Label.cpp
         Widgets/Label.hpp
+        Widgets/ListWidget.cpp
+        Widgets/ListWidget.hpp
         Widgets/Menu.cpp
         Widgets/Menu.hpp
         Widgets/MenuItem.cpp
@@ -36,6 +36,8 @@ set(SOURCE_FILES
         Widgets/TextEdit.hpp
         Widgets/TimeEdit.cpp
         Widgets/TimeEdit.hpp
+        Widgets/LogoWidget.cpp
+        Widgets/LogoWidget.hpp
         Style/Shadow.hpp
         Style/Style.cpp
         Style/Style.hpp
@@ -46,11 +48,13 @@ set(SOURCE_FILES
         login.hpp
         login.cpp
         main.cpp
+	ConnectionManager.hpp
         MainWidget.cpp
         MainWidget.hpp
         pch.hpp
         registration.hpp
         registration.cpp)
+
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)
@@ -62,7 +66,8 @@ elseif (UNIX AND NOT APPLE)
 endif ()
 
 target_link_libraries(${TARGET}
-        PRIVATE Qt5::Widgets ${EXTRA_LIBS})
+        PRIVATE Qt5::Widgets ${EXTRA_LIBS} CONAN_PKG::asio
+        PUBLIC Network.Public Client.Core.Static)
 
 target_precompile_headers(${TARGET} PRIVATE pch.hpp)
 

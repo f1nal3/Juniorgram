@@ -7,6 +7,7 @@
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 {
+    setContentsMargins(0, 0, 0, 0);
     mainLayout = new QHBoxLayout(this);
     rightLayout = new QVBoxLayout();
     messageLayout = new QVBoxLayout();
@@ -14,11 +15,10 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     channelListWidget = new ChannelListWidget();
     chatWidget        = new QListWidget();
     messageTextEdit   = new FlatPlainTextEdit;
-    textEdit          = new TextEdit(messageTextEdit);
     sendButton        = new FlatButton("Send");
-    botButton         = new FlatButton("Bot");
+    textEdit          = new TextEdit(messageTextEdit);
     horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
-    
+
     mainLayout->addWidget(channelListWidget, 10);
     mainLayout->addLayout(rightLayout, 90);
     rightLayout->addWidget(chatWidget, 85);
@@ -28,7 +28,6 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     messageButtonLayout->addWidget(textEdit);
     messageButtonLayout->addItem(horizontalButtonSpacer);
     messageButtonLayout->addWidget(sendButton);
-    messageButtonLayout->addWidget(botButton);
     connectButton();
     setLayout(mainLayout);
 }
@@ -46,23 +45,17 @@ void ChatWindow::keyPressEvent(QKeyEvent* event)
 void ChatWindow::connectButton()
 {
     connect(sendButton, &QPushButton::released, this, &ChatWindow::updateMessagesList_User);
-    connect(botButton, &QPushButton::released, this, &ChatWindow::updateMessagesList_Bot);
     connect(chatWidget, SIGNAL(itemClicked(QListWidgetItem*)), this,
             SLOT(deletingSelection(QListWidgetItem*)));
 }
 
-void ChatWindow::deletingSelection(QListWidgetItem* item) 
-{ 
-    item->setSelected(false); 
-}
+void ChatWindow::deletingSelection(QListWidgetItem* item) { item->setSelected(false); }
 
 void ChatWindow::updateMessagesList_User()
 {
     if (textEdit->text() != "") newMessage(textEdit->text());
     textEdit->clear();
 }
-
-void ChatWindow::updateMessagesList_Bot() { newMessage("This is message from bot!", "bot"); }
 
 void ChatWindow::newMessage(QString textMessage, QString userNameMessage)
 {
@@ -89,11 +82,9 @@ ChatWindow::~ChatWindow()
     delete messageButtonLayout;
     delete channelListWidget;
     delete sendButton;
-    delete botButton;
     delete messageTextEdit;
     delete textEdit;
     delete chatWidget;
-    delete horizontalButtonSpacer;
     delete messageLayout;
     delete rightLayout;
     delete mainLayout;
