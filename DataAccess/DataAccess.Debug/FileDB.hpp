@@ -30,40 +30,88 @@ namespace DataAccess
 class FileDB
 {
 public:
+    /**
+     * @brief   FileDB constructor
+     * @details Constructor looks for "instanceName" folder and loads existing tables, creates new folder otherwise
+     * @param   Database instance name as string
+     */
     FileDB(const std::string& instanceName);
-
+    /**
+     * @brief   FileDb destructor
+     * @details Removes database folder if database has no tables
+     */
     ~FileDB();
 
     FileDB(const FileDB&) = delete;
     FileDB& operator=(const FileDB&) = delete;
 
+    /**
+     * @brief   Database cleanup method
+     * @details Removes all tables from database
+     */
     void dropAllTables();
-
-    // Field operations
+    /**
+     * @brief   Method for inserting new rows into tables
+     * @details Inserts "columnData" into "columnNames" of "tableName". If "columnNames" were not provided,
+     *          method tries to insert data in order of columns creation (oldest to newest)
+     * @param   Table name as "tableName" string, column data as vector of strings "columnData", 
+     *          column names as vector of strings "columnNames"
+     */
     void insert(const std::string& tableName, const std::vector<std::string>& columnData,
                 const std::vector<std::string>& columnNames = {});
-
+    /**
+     * @brief   Method for retrieving data that satisfies condition from a table
+     * @details Applies "condition" to all rows in "tableName" and returns rows for which "condition" returns true.
+     *          Default argument will result in returning all rows
+     * @params  Table name as "tableName" string, condition as function with bool(const nlohmann::json&) signature
+     */
     std::vector<nlohmann::ordered_json> select(const std::string& tableName,
         std::function<bool(const nlohmann::ordered_json&)> condition = [](const nlohmann::ordered_json&){ return true; }) const;
-
+    /**
+     * @brief   Method for updating rows that satisfy specified condition
+     * @details Applies "condition" to all rows in "tableName" and sets data to "columnData" in "columnNames"
+     *          if "condition" returns true
+     * @params  Table name as "tableName" string, column data as vector of strings "columnData", 
+     *          column names as vector of strings "columnNames", condition as function with bool(const nlohmann::json&) signature
+     */
     void update(const std::string& tableName, const std::vector<std::string>& columnData,
                 const std::vector<std::string>& columnNames,
                 std::function<bool(const nlohmann::ordered_json&)> condition = [](const nlohmann::ordered_json&){ return true; });
-
+    /**
+     * @brief   Method for removing rows that satisfy specified condition
+     * @details Applies "condition" to all rows in "tableName" and removes row for which "condition" returns true.
+     *          Renumerates row files afterwards.
+     * @params  Table name as "tableName" string, condition as function with bool(const nlohmann::json&) signature
+     */
     void remove(const std::string& tableName, 
         std::function<bool(const nlohmann::ordered_json&)> condition = [](const nlohmann::ordered_json&){ return true; });
-
-    bool exists(const std::string& tableName, const std::string& columnData,
-                const std::string& columnName) const;
-
-    // Column operations
+    /**
+     * @brief   Method for adding new columns to a table
+     * @details Creates new column with "columnName" name and "columnType" type
+     * @params  Table name as "tableName" string, column name as "columnName" string", column type as "columnType"
+     */
     void addColumn(const std::string& tableName, const std::string& columnName,
                    const std::string& columnType);
+    /**
+     * @brief   Method for removing columns from a table
+     * @details Removes column with "columnName" name from specified table
+     * @params  Table name as "tableName" string, column name as "columnName" string"
+     */
     void removeColumn(const std::string& tableName, const std::string columnName);
-
-    // Table operations
+    /**
+     * @brief   Method for creating new tables
+     * @details Creates a new table with a name specified in "tableName", column names specified in "columnNames",
+     *          column types specified in "columntypes"
+     * @params  Table name as "tableName" string, column names as vector of strings "columnNames",
+     *          column types as vector of strings "columnTypes"
+     */
     void createTable(const std::string& tableName, const std::vector<std::string>& columnNames,
                      const std::vector<std::string>& columnTypes);
+    /**
+     * @brief   Method for removing tables
+     * @details Removes table with a name specified in "tableName"
+     * @params  Table name as string
+     */
     void removeTable(const std::string& tableName);
 
 private:
@@ -75,6 +123,12 @@ private:
     std::map<std::string, nlohmann::ordered_json> tableProperties;
     std::map<std::string, nlohmann::ordered_json> tableRowTemplates;
 
+    /**
+     * @brief   Method for renumerating row files
+     * @details Renames row files, maintaining their order. 
+     *          Unsafe to call ouside non-locking methods since it doesn't lock any mutex
+     * @params  Table name as string
+     */
     void renumerateRowFiles(const std::string& tableName) const;
 };
 }

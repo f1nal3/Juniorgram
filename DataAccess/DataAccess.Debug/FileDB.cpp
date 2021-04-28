@@ -363,50 +363,6 @@ void FileDB::remove(const std::string& tableName,
     renumerateRowFiles(tableName);
 }
 
-bool FileDB::exists(const std::string& tableName, const std::string& columnData,
-            const std::string& columnName) const
-{
-    std::lock_guard<std::mutex> lock{ mutex };
-
-    if (tableProperties.find(tableName) == tableProperties.end())
-    {
-        throw std::invalid_argument("Table \"" + tableName + "\" does not exist.");
-    }
-
-    nlohmann::ordered_json properties = tableProperties.at(tableName);
-
-    fs::path tablePath = path / tableName;
-
-    if (properties["column_info"].find(columnName) == properties["column_info"].end())
-    {
-        throw std::invalid_argument("Table \"" + tableName + "\" has no column \"" + columnName + "\"");
-    }
-
-    std::fstream fileStream;
-    nlohmann::ordered_json row;
-    nlohmann::ordered_json compareRow = tableRowTemplates.at(tableName);
-
-    setJSONFieldType(compareRow, columnName, properties["column_info"][columnName], columnData);
-
-    for (fs::directory_entry directoryEntry : fs::directory_iterator(tablePath))
-    {
-        if (directoryEntry.path().filename().string().substr(0, 4) == "row_")
-        {
-            fileStream.open(directoryEntry.path(), std::ios::in);
-            row = nlohmann::ordered_json::parse((std::istreambuf_iterator<char>(fileStream)),
-                                        std::istreambuf_iterator<char>());
-            fileStream.close();
-
-            if (row[columnName] == compareRow[columnName])
-            {
-                return true;
-            }
-        }
-    }
-
-    return false;
-}
-
 void FileDB::createTable(const std::string& tableName, const std::vector<std::string>& columnNames,
                           const std::vector<std::string>& columnTypes)
 {
@@ -415,6 +371,11 @@ void FileDB::createTable(const std::string& tableName, const std::vector<std::st
     if (!isValidIdentifier(tableName))
     {
         throw std::invalid_argument("Invalid identifier : \"" + tableName + "\"");
+    }
+
+    if (tableProperties.find(tableName) != tableProperties.end())
+    {
+        throw std::invalid_argument("Table already exists.");
     }
 
     fs::path tablePath = path / tableName;
@@ -541,6 +502,23 @@ void FileDB::removeColumn(const std::string& tableName, const std::string column
         fileStream.open(tablePath / "properties.json", std::ios::out | std::ios::beg);
         fileStream << std::setw(4) << properties;
         fileStream.close();
+    }
+
+    for (fs::directory_entry directoryEntry : fs::directory_iterator(tablePath))
+    {
+        if (directoryEntry.path().filename().string().substr(0, 4) == "row_")
+        {
+            fileStream.open(directoryEntry.path(), std::ios::in);
+            nlohmann::ordered_json row = nlohmann::ordered_json::parse((std::istreambuf_iterator<char>(fileStream)),
+                                                std::istreambuf_iterator<char>());
+            fileStream.close();
+
+            row.erase(columnName);
+
+            fileStream.open(directoryEntry.path(), std::ios::out | std::ios::beg);
+            fileStream << row;
+            fileStream.close();
+        }
     }
 
     tableRowTemplates[tableName].erase(columnName);
