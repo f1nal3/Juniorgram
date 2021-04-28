@@ -84,7 +84,7 @@ TEST_CASE("Table operations")
         REQUIRE_THROWS(database->createTable("_abc", {"col"}, {"int", "float"}));
 		REQUIRE_THROWS(database->createTable("_abc", {"col", "col2"}, {"float"}));
 
-		database->createTable("users", {"id", "name", "age"}, {"int", "string", "float"});
+		REQUIRE_NOTHROW(database->createTable("users", {"id", "name", "age"}, {"int", "string", "float"}));
 
 		nlohmann::ordered_json resultJSON;
 		resultJSON["column_info"]["id"] = "int";
@@ -154,6 +154,8 @@ TEST_CASE("Column operations")
 
 	SECTION("Column removal")
 	{
+		database->insert("users", {"1"}, {"id"});
+		
 		REQUIRE_THROWS(database->removeColumn("badtable", "id"));
 		REQUIRE_NOTHROW(database->removeColumn("users", "badcolumn"));
 		REQUIRE_NOTHROW(database->removeColumn("users", "id"));
@@ -165,6 +167,13 @@ TEST_CASE("Column operations")
 		fileStream.close();
 
 		REQUIRE_THROWS(propertiesJSON.at("id"));
+
+		fileStream.open(testPath / "row_0.json", std::ios::in | std::ios::beg);
+		nlohmann::ordered_json rowJSON = nlohmann::ordered_json::parse((std::istreambuf_iterator<char>(fileStream)),
+			std::istreambuf_iterator<char>());
+		fileStream.close();
+
+		REQUIRE_THROWS(rowJSON.at("id"));
 
 		database->dropAllTables();
 	}
