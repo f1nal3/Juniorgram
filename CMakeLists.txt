@@ -47,7 +47,7 @@ endif()
 message(STATUS ${CONAN_LIB_DIRS_QT})
 set(Qt5_DIR "${CONAN_LIB_DIRS_QT}/cmake/Qt5/")
 message(STATUS ${Qt5_DIR})
-execute_process(COMMAND "ls ${CONAN_LIB_DIRS_QT}/cmake")
+execute_process(COMMAND "ls" "${CONAN_LIB_DIRS_QT}")
 
 find_package(Qt5 COMPONENTS Widgets Core REQUIRED)
 if (Qt5_FOUND)
