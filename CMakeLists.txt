@@ -45,7 +45,7 @@ conan_cmake_run(CONANFILE conanfile.txt
 endif()
 
 message(STATUS ${CONAN_LIB_DIRS_QT})
-set(Qt5_DIR "${CONAN_LIB_DIRS_QT}/cmake")
+set(Qt5_DIR "${CONAN_LIB_DIRS_QT}/cmake/Qt5")
 message(STATUS ${Qt5_DIR})
 
 find_package(Qt5 COMPONENTS Widgets Core REQUIRED)
