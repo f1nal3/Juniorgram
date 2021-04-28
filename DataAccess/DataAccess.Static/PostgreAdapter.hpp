@@ -55,8 +55,8 @@ public:
     *    low level accessing the database. Use it if you \
     *    want something specific from database, instead use \
     *    PostgreAbstractionLayout Table. \
-    *    If you want to insert some strings or big text \
-    *    you must wrap the string/text by single quotes. \
+    *    If you want to insert some strings, big text \
+    *    or a timestamp you must wrap the string/text by single quotes. \
     *    You don't have to put ';' at the end of query.
     *   @code 
     *   ...->query("SELECT * FROM table_name WHERE name = 'Alex'");

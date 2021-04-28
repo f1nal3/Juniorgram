@@ -9,22 +9,33 @@ namespace DataAccess
     class Table;
     class SQLBase;
 
+    /** @enum SQL statements enum.
+    */
     enum class SQLStatement : std::uint8_t
     {
-        ST_UNKNOWN,
-        ST_SELECT,
-        ST_INSERT,
-        ST_UPDATE,
-        ST_DELETE
+        ST_UNKNOWN, /// Unknown statement
+        ST_SELECT, /// SELECT statement
+        ST_INSERT, /// INSERT statement
+        ST_UPDATE, /// UPDATE statement
+        ST_DELETE  /// DELETE statement
     };
+    /** @enum SQL join types enum.
+    */
     enum class SQLJoinType : std::uint8_t
     {
-        J_INNER,
-        J_LEFT,
-        J_RIGHT,
-        J_FULL
+        J_INNER, /// Standart inner sql join
+        J_LEFT,  /// Left sql join
+        J_RIGHT, /// Right sql join
+        J_FULL   /// Full sql join
     };
 
+    /** @class SQLWhereCondition.
+    *   @brief SQLWhereCondition class.
+    *   @details This class is a secondary. It needs for \
+    *    SQLSelect, SQLUpdate and SQLUpdate. \
+    *    This CRTP class using for 'where' condition from SQL
+    *   @warning You shouldn't use it itself. Only from Table class.
+    */
     template<class T>
     class SQLWhereCondition
     {
@@ -36,6 +47,11 @@ namespace DataAccess
 
     public:
 
+        /** @brief Like common SQL where condition.
+        *   @params condition - SQL condition, but it is not required \
+        *    (for example for 'Not' condition).
+        *   @return Current SQLSTATEMENT pointer object to continue SQL query.
+        */
         T* where(const std::string& condition = {})
         {
             if (*(_statement->_queryStream.str().end() - 1) != ' ') 
@@ -45,6 +61,11 @@ namespace DataAccess
 
             return _statement;
         }
+        /** @brief Like common SQL and condition.
+         *  @params condition - SQL condition, but it is not required \
+         *   (for example for 'Not' condition).
+         *  @return Current SQLSTATEMENT pointer object to continue SQL query.
+         */
         T* And(const std::string& condition = {})
         {
             if (*(_statement->_queryStream.str().end() - 1) != ' ') 
@@ -54,6 +75,11 @@ namespace DataAccess
 
             return _statement;
         }
+        /** @brief Like common SQL or condition.
+         *  @params condition - SQL condition, but it is not required \
+         *   (for example for 'Not' condition).
+         *  @return Current SQLSTATEMENT pointer object to continue SQL query.
+         */
         T* Or(const std::string& condition = {})
         {
             if (*(_statement->_queryStream.str().end() - 1) != ' ') 
@@ -63,6 +89,10 @@ namespace DataAccess
 
             return _statement;
         }
+        /** @brief Like common SQL not condition.
+         *  @params condition - SQL condition, but it is not required.
+         *  @return Current SQLSTATEMENT pointer object to continue SQL query.
+         */
         T* Not(const std::string& condition = {}) 
         {
             if (*(_statement->_queryStream.str().end() - 1) != ' ') 
@@ -72,6 +102,11 @@ namespace DataAccess
 
             return _statement;
         }
+        /** @brief In condition.
+         *  @params anotherStatement - another SQL statement, \
+         *   that you can receive from 'getQuery()' method.
+         *  @return Current SQLSTATEMENT pointer object to continue SQL query.
+         */
         T* In(const std::string& anotherStatement) 
         {
             if (*(_statement->_queryStream.str().end() - 1) != ' ') 
@@ -81,6 +116,10 @@ namespace DataAccess
 
             return _statement;
         }
+        /** @brief In condition.
+         *   @params valueList - checking from list of values.
+         *   @return Current SQLSTATEMENT pointer object to continue SQL query.
+         */
         T* In(const std::initializer_list<std::string>& valueList)
         {
             if (*(_statement->_queryStream.str().end() - 1) != ' ') 
@@ -97,6 +136,11 @@ namespace DataAccess
 
             return _statement;
         }
+        /** @brief Beeween condition.
+         *   @params left - start of the range.
+         *    right - end of the range.
+         *   @return Current SQLSTATEMENT pointer object to continue SQL query.
+         */
         template <typename ValueType>
         T* between(ValueType left, ValueType right)
         {
@@ -113,6 +157,13 @@ namespace DataAccess
     };
 
 
+    /** @class SQLBase.
+    *   @brief SQLBase abstraction class.
+    *   @details This class has 4 non-overloaded \
+    *    inherited methods.
+    *   @warning Like a SQLWhereCondition \
+    *   you shouldn't use it itself.
+    */
     class SQLBase
     {
     public:
@@ -134,14 +185,41 @@ namespace DataAccess
 
     public:
 
+        /** @brief Return SQL statement type.
+        *   @return ST_SELECT, ST_INSERT, ST_UPDATE, ST_DELETE
+        */
         virtual SQLStatement type(void) const noexcept final;
 
     public:
 
-        virtual const std::string getQuery() const noexcept final;
+        /** @brief Method that returns current SQL query string. \
+        *    This method for subqueries basically.
+        *   @return SQL query string
+        *   @warning Don't clear SQL string if you use it. \
+        *    After getQuery you whatever can call method execute.
+        *   @code
+        *    Table table("tableName");
+        *    table.'SQLSTATEMENT'()->getQuery();
+        *    table.'SQLSTATEMENT'()->execute(); /// Here SQL query string will be clear.
+        *   @encode
+        */
+        virtual const std::string getQuery(void) const noexcept final;
+        /** @brief Method that executes SQL string.
+        *   @details This method clear SQL query string after call it.
+        *   @return Optional object pqxx::result \
+        *    For pqxx::result check here: \
+        *    https://libpqxx.readthedocs.io/en/6.4/a01127.html
+        */
         virtual std::optional<pqxx::result> execute(void) final;
 
-        virtual void rollback(void);
+        /** @brief Method that clear SQL query string.
+        *   @code
+        *    Table table("tableName");
+        *    table.'SQLSTATEMENT'()->qetQuery();
+        *    table.'SQLSTATEMENT'()->rollback();
+        *   @endcode
+        */
+        virtual void rollback(void) final;
         
     protected:
 
@@ -155,6 +233,14 @@ namespace DataAccess
 
     };
 
+    /** @class SQLSelect.
+    *   @brief SQLSelect class.
+    *   @details It likes common SQL select condition.
+    *   @warning After call it you must call the method 'columns' \
+    *    (BUT distinct is exception) \
+    *    and give it columns that you need to return. \
+    *    OR you can give '*'.
+    */
     class SQLSelect : public SQLBase, public SQLWhereCondition<SQLSelect>
     {
     public:
@@ -175,25 +261,96 @@ namespace DataAccess
     
     public:
 
+        /** @brief Columns that you need to return from database.
+        *   @details You must point columns that you need, like:
+        *   @code 
+        *    ...->columns({"column1", "column2", ...})->...;
+        *   @endcode
+        *   @details Or, for all columns from table use:
+        *   @code
+        *    ...->columns({"*"})->...;
+        *   @params Inintializer_list<string> of columns that you need.
+        *   @return Current SQLSelect pointer object to continue SQL query.
+        */
         SQLSelect* columns(const std::initializer_list<std::string>& columnList);
 
     public:
 
+        /** @brief Method for limiting returned SQL rows.
+        *   @details For example limit 5 offset 2 return: \
+        *    row3, row4, row5, row6, row7.
+        *   @params limit - how much rows that you need
+        *    offset - from what row start limit
+        *   @return Current SQLSelect pointer object to continue SQL query.
+        */
         SQLSelect* limit(std::uint32_t limit, std::uint32_t offset = {});
+        /** @brief Method for selecting rows by columns in alphabetic order.
+        *   @details Use desc = true, if you wanna select in reverse order.  
+        *   @params columnList - list of columns \
+        *    desc - reverse order
+        *   @code 
+        *    ...->orderBy({"column1", "column2", ...})->...;
+        *    ...->orderBy({"*"})->...;
+        *   @endcode
+        *   @retunrn Current SQLSelect pointer object to continue SQL query
+        */
         SQLSelect* orderBy(const std::initializer_list<std::string>& columnList, bool desc = false);
+        /** @brief Method that select only distinct(different) values.
+        *   @warning You must use it only before columns method!
+        *   @return Current SQLSelect pointer object to continue SQL query
+        */
         SQLSelect* distinct(void);
+        /** @brief Method that select join tables.
+        *   @params join - join type (Check SQLJoinType enum) \
+        *    secondTableName - table with which will be join select \
+        *    onCondition - important condition for join tables
+        *   @return Current SQLSelect pointer object to continue SQL query
+        */
         SQLSelect* join(SQLJoinType join, const std::string& secondTableName, const std::string& onCondition);
         
+        /** @brief Method for group result table.
+        *   @params columnList - list of the columns. \
+        *    Use ...({"*"})->... for all columns
+        *   @return Current SQLSelect pointer object to continue SQL query
+        */
         SQLSelect* groupBy(const std::initializer_list<std::string>& columnList);
+        /** @brief Method for using instead of where with aggregate functions.
+        *   @code 
+        *    SELECT Employees.LastName, COUNT(Orders.OrderID) AS NumberOfOrders
+             FROM Orders
+             INNER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+             WHERE LastName = 'Davolio' OR LastName = 'Fuller'
+             GROUP BY LastName
+             HAVING COUNT(Orders.OrderID) > 25;
+            @endcode
+        *   @param condition - string SQL condition
+        *   @return Current SQLSelect pointer object to continue SQL query
+        */
         SQLSelect* having(const std::string& condition);
-        SQLSelect* Any(const std::string& condition);
-        SQLSelect* All(const std::string& condition); 
+        /** @brief Method for a condition between a single column \
+        *    and a range of other values (any of the values).
+        *   @details It's equivolent of: \
+        *    x = ANY (a,b,c) -> x = a OR b OR c
+        *   @params SQL subQuery string
+        *   @return Current SQLSelect pointer object to continue SQL query
+        */
+        SQLSelect* Any(const std::string& subQuery);
+        /** @brief Method for a condition between a single column \
+        *    and a range of other values (a of the values).
+        *   @params SQL subQuery string
+        *   @return Current SQLSelect pointer object to continue SQL query
+        */
+        SQLSelect* All(const std::string& subQuery);
     
     private:
         friend class Table;
         friend class SQLWhereCondition<SQLSelect>;
     };
 
+    /** @class SQLInsert.
+    *   @brief SQLInsert class.
+    *   @details It likes common SQL insert condition.
+    */
     class SQLInsert : public SQLBase
     {
     public:
@@ -214,6 +371,14 @@ namespace DataAccess
     
     public:
 
+        /** @brief Insert one row into table.
+        *   @details Inserting all columns into a row.
+        *   @code
+        *    ...->field(1, "'a'", "'male'")->...;
+        *   @endcode
+        *   @params list of row's columns.
+        *   @return Current SQLInsert pointer object to continue SQL query.
+        */
         template<typename ...DataType>
         SQLInsert* field(const DataType&... data)
         {
@@ -234,6 +399,14 @@ namespace DataAccess
 
             return this;
         }
+        /** @brief Insert one row into table.
+         *  @details Inserting columns into a row as tuple. \
+         *  @code
+         *   ...->field(tupleName)->...;
+         *  @endcode
+         *  @params Taple with data.
+         *  @return Current SQLInsert pointer object to continue SQL query.
+         */
         template<typename ...DataType>
         SQLInsert* field(const std::tuple<DataType...>& dataList)
         {
@@ -258,6 +431,16 @@ namespace DataAccess
 
             return this;
         }
+        /** @brief Insert rows into table.
+         *  @details Inserting several columns into a row as pairs. \
+         *   You don't have to wrap columnName by quotes, \
+         *   BUT you must wrap data strings.
+         *  @code
+         *   ...->columns(pair{"Column1", 1}, pair{"Column2", "'data'"})->...;
+         *  @endcode
+         *  @params Pairs.
+         *  @return Current SQLInsert pointer object to continue SQL query.
+         */
         template<typename ColumnType = const char*, typename ...DataType>
         SQLInsert* columns(const std::pair<ColumnType, DataType>&... columnData)
         {
@@ -277,6 +460,16 @@ namespace DataAccess
 
             return this;
         }
+        /** @brief Insert rows into table.
+         *  @details Inserting several columns into a row as tuple of pairs. \
+         *   You don't have to wrap columnName by quotes, \
+         *   BUT you must wrap data strings.
+         *  @code
+         *   ...->columns(tupleName)->...;
+         *  @endcode
+         *  @params Tuple of pairs.
+         *  @return Current SQLInsert pointer object to continue SQL query.
+         */
         template<typename ColumnType = const char*, typename ...DataType>
         SQLInsert* columns(const std::tuple<std::pair<ColumnType, DataType>...>& columnDataList)
         {
@@ -306,6 +499,10 @@ namespace DataAccess
 
     public:
 
+        /** @brief Returning columns from table after insert.
+        *   @params columnList - list of columns that need to return.
+        *   @return Current SQLInsert pointer object to continue SQL query.
+        */
         SQLInsert* returning(const std::initializer_list<std::string>& columnList);
 
     private:
@@ -316,6 +513,10 @@ namespace DataAccess
         friend class Table;
     };
     
+    /** @class SQLUpdate.
+    *   @brief SQLUpdate class.
+    *   @details It likes common SQL update condition.
+    */
     class SQLUpdate : public SQLBase, public SQLWhereCondition<SQLUpdate>
     {
     public:
@@ -336,6 +537,12 @@ namespace DataAccess
 
     public:
 
+        /** @brief Updating fields with new data.
+        *   @params columnData - pairs with column names by first \
+        *    and the data by second.
+        *   @warning Data string must be wraped by single quotes.
+        *   @return Current SQLUpdate pointer object to continue SQL query.
+        */
         template<typename ColumnType = const char*, typename ...Args>
         SQLUpdate* fields(const std::pair<ColumnType, Args>&... columnData)
         {
@@ -347,6 +554,11 @@ namespace DataAccess
 
             return this;
         }
+        /** @brief Updating fields with new data.
+        *   @params columnData - tuple of pairs.
+        *   @warning Data string must be wraped by single quotes.
+        *   @return Current SQLUpdate pointer object to continue SQL query.
+        */
         template <typename ColumnType = const char*, typename... Args>
         SQLUpdate* fields(const std::tuple<std::pair<ColumnType, Args> ...>& columnData)
         {
@@ -375,6 +587,10 @@ namespace DataAccess
         friend class SQLWhereCondition<SQLUpdate>;
     };
 
+    /** @class SQLDelete.
+    *   @brief SQLDelete class.
+    *   @details It likes common SQL delete condition.
+    */
     class SQLDelete : public SQLBase, public SQLWhereCondition<SQLDelete>
     {
     public:
@@ -399,6 +615,17 @@ namespace DataAccess
     };
 
 
+    /* @class Table.
+    *  @brief Table class.
+    *  @warning Only this class you must use from PostgreAbstractionLayout.
+    *  @details You can see some examples below for how to use it.
+    *  @code
+    *   Table("tableName1").Select()->columns({"column1", "column2", ...})->where("condition")->...->execute()/OR/getQuery();
+    *   Table("tableName2").Insert()->field(1, "'a'")->field(...)->...->returning({"column1", "column2", ...})->execute()/OR/getQuery();
+    *   Table("tableName3").Update()->fields(pair{"column1", 1}, pair{"column2", "'strData'"})->where("condition")->...->execute()/OR/getQuery();
+    *   Table("tableName4").Delete()->where("condition")->...->execute()/OR/getQuery();  
+    *  @endcodegit 
+    */
     class Table
     {
     public:
@@ -440,14 +667,32 @@ namespace DataAccess
     
     public:
 
+        /** @brief SQL select query.
+        *   @return SQLSelect pointer.
+        */
         SQLSelect* Select(void);
+        /** @brief SQL insert query.
+        *   @return SQLInsert pointer.
+        */
         SQLInsert* Insert(void);
+        /** @brief SQL update query.
+        *   @return SQLUpdate pointer.
+        */
         SQLUpdate* Update(void);
+        /** @brief SQL delete query.
+        *   @return SQLDelete pointer.
+        */
         SQLDelete* Delete(void);
     
     public:
 
+        /** @brief Changing table.
+        *   @params newTableName - new name of the table.
+        */
         void changeTable(const char* newTableName) noexcept;
+        /** @brief Changing table.
+         *   @params newTableName - new name of the table.
+         */
         void changeTable(const std::string& newTableName) noexcept;
     
     private:
