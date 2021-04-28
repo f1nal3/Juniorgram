@@ -35,13 +35,13 @@ void FlatInput::paintEvent(QPaintEvent* event)
     Q_UNUSED(event)
 
     QColor inputField(0x32, 0x32, 0x32);
-    inputField = inputField.lighter(175);
+    inputField = inputField.darker(175);
     QPainter p(this);
     p.setRenderHint(QPainter::Antialiasing);
     p.setBrush(inputField);
     p.setPen(Qt::NoPen);
-    p.drawRoundedRect(QRectF(0, 0, width(), height()), Style::valueDPIScale(5),
-                      Style::valueDPIScale(5));
+    p.drawRoundedRect(QRectF(0, 0, width(), height()), Style::valueDPIScale(8),
+                      Style::valueDPIScale(8));
 
     QLineEdit::paintEvent(event);
 }
@@ -92,10 +92,9 @@ FlatPlainTextEdit::FlatPlainTextEdit(QWidget* parent) : QPlainTextEdit(parent)
 void FlatPlainTextEdit::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event)
-
     QPainter p(this->viewport());
     QColor inputField(0x32, 0x32, 0x32);
-    inputField = inputField.lighter(175);
+    inputField = inputField.darker(175);
     p.setBrush(inputField);
     p.setPen(Qt::NoPen);
     p.drawRect(QRectF(0, 0, width(), height()).marginsRemoved(QMarginsF(2, 2, 2, 2)));

@@ -11,7 +11,7 @@ libxcb-xfixes0-dev libxcb-xinerama0-dev libxcb-xkb-dev xkb-data xorg-dev libxcb-
 libgl1-mesa-dev
 
 RUN wget -qO- https://bootstrap.pypa.io/get-pip.py | python3 \
-&& pip3 install conan cmake mako
+&& pip3 install conan cmake mako aqt && python aqt install --outputdir /opt/Qt 5.12.2 linux desktop && export PATH=/opt/Qt/5.12.2/:$PATH
 
 RUN conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan && /usr/local/bin/conan install /usr/src/build/conanfile.txt  \
 -s build_type=Release \
