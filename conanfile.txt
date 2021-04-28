@@ -6,10 +6,7 @@ catch2/2.13.4
 libtool/2.4.6
 libpq/11.5
 libpqxx/7.2.1
-<<<<<<< HEAD
-=======
 qt/5.15.2
->>>>>>> Conanfile fixes
 
 [generators]
 cmake
