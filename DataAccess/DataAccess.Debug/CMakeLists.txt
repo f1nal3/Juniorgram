@@ -28,5 +28,6 @@ endif()
 target_link_libraries(${TARGET} PUBLIC nlohmann_json::nlohmann_json)
 target_link_libraries(${TARGET} PUBLIC
     Utility.Public
-    DataAccess.Public)
+    DataAccess.Public
+	Network.Public)
 
