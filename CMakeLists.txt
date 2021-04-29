@@ -44,7 +44,7 @@ conan_cmake_run(CONANFILE conanfile.txt
                 BUILD missing)
 endif()
 
-execute_process(COMMAND "ls" "/opt/Qt/5.12.2/gcc_64/lib/cmake/Qt")
+execute_process(COMMAND "ls" "/opt/Qt/5.12.2/gcc_64/lib/cmake/")
 
 find_package(Qt5 COMPONENTS Widgets Core REQUIRED)
 
