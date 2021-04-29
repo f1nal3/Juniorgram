@@ -8,7 +8,6 @@ LogoWidget::~LogoWidget() { delete logo; }
 void LogoWidget::paintEvent(QPaintEvent* event)
 {
     QPainter p(this);
-    p.setRenderHint(QPainter::LosslessImageRendering);
     p.setRenderHint(QPainter::SmoothPixmapTransform);
     p.setRenderHint(QPainter::Antialiasing);
     p.drawPixmap(0, 0, width(), height(), *logo);
