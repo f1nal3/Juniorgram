@@ -3,7 +3,7 @@ set(OUTPUT_NAME DataAccess.Test)
 
 set(SOURCE_FILES
     DataAccessTest.cpp
-    FileAdapterTest.cpp)
+    FileDBTest.cpp)
 
 set(CMAKE_BUILD_TYPE DEBUG) 
 

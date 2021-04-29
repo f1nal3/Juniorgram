@@ -21,7 +21,7 @@ TEST_CASE("Database constructor")
 		{																				
                 "{\n"
                 "    \"column_info\" : {\"id\": \"int\",\n \"name\": \"string\", \"age\": \"float\"},\n"
-                "    \"column_number\" : 0\n"
+                "    \"number_of_rows\" : 0\n"
                 "}"
 		};
 
@@ -87,7 +87,7 @@ TEST_CASE("Table operations")
 		resultJSON["column_info"]["id"] = "int";
 		resultJSON["column_info"]["name"] = "string";
 		resultJSON["column_info"]["age"] = "float";
-        resultJSON["column_number"] = 0;
+        resultJSON["number_of_rows"] = 0U;
 
 		std::filesystem::path tablePath = std::filesystem::current_path() / "test_filedb" / "users" / "properties.json";
 
@@ -208,7 +208,7 @@ TEST_CASE("Row operations")
 		fileStream.close();
 
 		REQUIRE(rowJSON.at("id") == 1);
-		REQUIRE(propertiesJSON.at("column_number") == 2);
+		REQUIRE(propertiesJSON.at("number_of_rows") == 2U);
 	}
 
 	SECTION("Select")
@@ -246,7 +246,7 @@ TEST_CASE("Row operations")
                                                        std::istreambuf_iterator<char>());
         fileStream.close();
 
-		REQUIRE(propertiesJSON.at("column_number") == 0);
+		REQUIRE(propertiesJSON.at("number_of_rows") == 0U);
 
 		database->dropAllTables();
 	}

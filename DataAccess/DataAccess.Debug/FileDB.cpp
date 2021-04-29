@@ -11,7 +11,7 @@ namespace fs = std::filesystem;
 
 nlohmann::ordered_json constructPropertiesJSON()
 {
-    return nlohmann::ordered_json{{"column_info", nlohmann::ordered_json()}, {"column_number", 0U}};
+    return nlohmann::ordered_json{{"column_info", nlohmann::ordered_json()}, {"number_of_rows", 0U}};
 }
 bool isValidIdentifier(const std::string& identifier)
 {
@@ -212,9 +212,9 @@ void FileDB::insert(const std::string& tableName, const std::vector<std::string>
     }
 
     std::string rowFilename =
-        "row_" + std::to_string(properties["column_number"].get<unsigned>()) + ".json";
+        "row_" + std::to_string(properties["number_of_rows"].get<unsigned>()) + ".json";
 
-    properties["column_number"] = properties["column_number"].get<unsigned>() + 1U;
+    properties["number_of_rows"] = properties["number_of_rows"].get<unsigned>() + 1U;
 
     std::fstream fileStream;
 
@@ -351,7 +351,7 @@ void FileDB::remove(const std::string& tableName,
             if (condition(row))
             {
                 fs::remove(directoryEntry.path());
-                properties["column_number"] = properties["column_number"].get<unsigned>() - 1U;
+                properties["number_of_rows"] = properties["number_of_rows"].get<unsigned>() - 1U;
             }
         }
     }
