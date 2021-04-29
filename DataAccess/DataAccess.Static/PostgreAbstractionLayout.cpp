@@ -121,7 +121,22 @@ namespace DataAccess
 
         try
         {
-            result = _currentTable._postgre->query(_queryStream.str() + ";");
+            if (_currentTable._postgre->isConnected())
+            {
+                result = _currentTable._postgre->query(_queryStream.str() + ";");
+            }
+            else
+            {
+                throw Utility::OperationDBException("Database connection failure!", __FILE__, __LINE__);
+            }
+        }
+        catch (const pqxx::sql_error& err)
+        {
+            std::cerr << err.what() << '\n';
+            std::cerr << err.query() << '\n';
+            this->rollback();
+
+            return std::nullopt;
         }
         catch (const std::exception& err)
         {

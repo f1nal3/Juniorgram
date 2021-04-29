@@ -1,64 +1,59 @@
 #include "PostgreRepository.hpp"
 
-#include <ctime>
-#include <iostream>
-
-#include "Utility/Exception.hpp"
-#include "Utility/Utility.hpp"
-
 using namespace DataAccess;
-
-PostgreRepository::PostgreRepository()
-{
-    _postgre = PostgreAdapter::getPostgre("dbname=juniorgram user=postgres hostaddr=127.0.0.1 port=5432");
-    // TODO Import parameters from argument parser
-}
 
 std::vector<std::string> PostgreRepository::getAllChannelsList()
 {
     std::vector<std::string> result;
-    if (_postgre->isConnected())
-    {
-        auto channelListRow = _postgre->query("SELECT channel_name FROM channels;");
 
+    auto channelListRow = Table("channels").Select()->columns({"channel_name"})->execute();
+
+    if (channelListRow.has_value())
+    {
         for (auto item : channelListRow.value())
         {
             std::cout << item.at(0).c_str() << '\n';
             result.emplace_back(std::string(item.at(0).c_str()));
         }
     }
+
     return result;
 }
 
-std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::string& UserId)
+std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const unsigned channelID)
 {
     std::vector<std::string> result;
-    if (_postgre->isConnected())
-    {
-        auto messageHistory =
-            _postgre->query("SELECT message FROM messages WHERE user_id = " + UserId);
 
-        for (auto message : messageHistory.value())
+    auto messageHistoryRow = 
+        Table("channel_msgs").Select()->columns({"msg"})->where("channel_id = " + channelID)->execute();
+
+
+    if (messageHistoryRow.has_value())
+    {
+        for (auto message : messageHistoryRow.value())
         {
             std::cout << message.at(0).c_str() << '\n';
             result.emplace_back(std::string(message.at(0).c_str()));
         }
     }
+
     return result;
 }
 
-void PostgreRepository::storeMessage(const Network::UserMessage& message)
+void PostgreRepository::storeMessage(const Network::MessageInfo& message, const unsigned channelID)
 {
-    std::string timeStr(30, '\0');
+    std::string timeStr = "'" + PostgreAdapter::getPostgre()
+                  ->query("select now()")
+                  .value()[0][0]
+                  .as<std::string>() + "'";
 
-    std::time_t t = std::chrono::system_clock::to_time_t(message.getTimestamp());
-    std::tm time  = Utility::safe_localtime(t);
-    std::strftime(&timeStr[0], timeStr.size(), "%Y-%m-%d %H:%M:%S", &time);
-
-    if (_postgre->isConnected())
+    std::tuple messageToDatabase
     {
-        _postgre->query("INSERT INTO messages (user_id, message, timestamp) VALUES(" +
-                        std::to_string(message.getUserID()) + ",'" + message.getMessageText() +
-                        "','" + timeStr + "')");
-    }
+        std::pair{"channel_id", channelID},
+        std::pair{"sender_id", message.userID},
+        std::pair{"send_time", timeStr}, 
+        std::pair{"msg", "'" + std::string(message.message) + "'"}
+    };
+
+    Table("channel_msgs").Insert()->columns(messageToDatabase)->execute();
 }

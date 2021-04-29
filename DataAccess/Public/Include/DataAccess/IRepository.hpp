@@ -23,12 +23,12 @@ public:
      * @param UserID as a string
      * @return List of messages as vector of strings.
      */
-    virtual std::vector<std::string> getMessageHistoryForUser(const std::string& UserID) = 0;
+    virtual std::vector<std::string> getMessageHistoryForUser(const unsigned channelID) = 0;
     /**
      * @brief Draft method for storing user's message in repository
      * @param message as Network::UserMessage.
      */
-    virtual void storeMessage(const Network::UserMessage& message) = 0;
+    virtual void storeMessage(const Network::MessageInfo& message, const unsigned channelID) = 0;
     /**
      * @brief Virtual dtor.
      */
