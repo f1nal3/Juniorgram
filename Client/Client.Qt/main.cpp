@@ -1,9 +1,13 @@
 #include "App.hpp"
+#include "Application.hpp"
 
 int main(int argc, char* argv[])
 {
-    QApplication qapp(argc, argv);
-    App::create();
-    App::show();
-    return qapp.exec();
+    Application* qa = new Application(argc, argv);
+    qa->create();
+    qa->show();
+    //QApplication qapp(argc, argv);
+    //App::create();
+    //App::show();
+    return qa->exec();//qapp.exec();
 }

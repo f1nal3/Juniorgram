@@ -53,7 +53,9 @@ set(SOURCE_FILES
         MainWidget.hpp
         pch.hpp
         registration.hpp
-        registration.cpp)
+        registration.cpp
+        Application.hpp
+        Application.cpp)
 
 
 add_executable(${TARGET} ${SOURCE_FILES}
