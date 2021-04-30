@@ -1,4 +1,5 @@
 #include "ChannelListWindow.hpp"
+#include "ConnectionManager.hpp"
 
 #include "Style/Style.hpp"
 
@@ -15,11 +16,31 @@ ChannelListWindow::ChannelListWindow(QWidget* parent, ListWidget* anotherChannel
     addChannelButton      = new FlatButton("Add");
     channelList           = new ListWidget();
 
+
+
     vBoxLayout->addWidget(channelList);
     vBoxLayout->addWidget(addChannelButton);
 
     connect(addChannelButton, &QPushButton::clicked, this,
             &ChannelListWindow::addChannelToMainChannelWidget);
+
+
+    if (ConnectionManager::isConnected())
+    {
+        ConnectionManager::getClient().askForChannelList();
+
+        /*
+         *  without this doesn't work, because thread where work ConnectionManager
+         *  add channel names immediately while main thread is working
+         *  so he doesn't have time to add channels to the list here
+        */
+        std::this_thread::sleep_for(std::chrono::milliseconds(150));
+
+        for(std::size_t i = 0; i < channelNames->size(); ++i)
+        {
+           channelList->addItem(QString::fromStdString(channelNames->at(i)));
+        }
+    }
 
     setLayout(vBoxLayout);
 }
@@ -32,6 +53,8 @@ void ChannelListWindow::addChannelToMainChannelWidget()
     }
     this->hide();
 }
+
+void ChannelListWindow::addChannelInfo(const std::string& nameOfChannels){ channelNames->push_back(nameOfChannels); }
 
 ChannelListWindow::~ChannelListWindow()
 {

@@ -1,7 +1,7 @@
 #pragma once
 #include <Client.hpp>
 #include <Network/Primitives.hpp>
-#include "Widgets/ChannelListWidget.hpp"
+#include "Widgets/ChannelListWindow.hpp"
 
 class ConnectionManager
 {
@@ -78,7 +78,11 @@ public:
                                 channelList.emplace_back(info.channelName);
                             }
 
-                            for (auto& item : channelList) std::cout << item << '\n';
+                            for (auto& item : channelList)
+                            {
+                                std::cout << item << '\n';
+                                ChannelListWindow::addChannelInfo(item);
+                            }
                         }
                         break;
 
