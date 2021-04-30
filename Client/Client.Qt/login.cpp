@@ -1,9 +1,8 @@
 #include "login.hpp"
 
 #include "App.hpp"
-#include "Application.hpp"
 
-Login::Login(QWidget* parent) : QWidget(parent)
+Login::Login(/*Application* ObjectApplication, */QWidget* parent) : QWidget(parent)
 {
     passwordLineEdit = std::make_unique<FlatInput>("Password", true, this);
     usernameLineEdit = std::make_unique<FlatInput>("Username", this);

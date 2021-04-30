@@ -25,7 +25,7 @@ private:
     MainWidget* mMainWidget;
     BioButton* mBioButton;
     AppS::AppStateS mAppState = AppS::AppStateS::RegistrationForm;
-    Application *mainObjectWidget;
+    Application* mainObjectApplication;
 
 public:
     Application(int& argc, char** argv);

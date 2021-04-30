@@ -3,12 +3,14 @@
 #include "Widgets/InputFields.hpp"
 #include "Widgets/LogoWidget.hpp"
 #include "pch.hpp"
+#include "Application.hpp"
 
 class Login : public QWidget
 {
     Q_OBJECT
 public:
     explicit Login(QWidget* parent = nullptr);
+    //Login(Application* ObjectApplication, QWidget* parent = nullptr);
 
 protected:
     void keyPressEvent(QKeyEvent* event) override;
