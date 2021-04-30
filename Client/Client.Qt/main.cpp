@@ -6,8 +6,10 @@ int main(int argc, char* argv[])
     Application* qa = new Application(argc, argv);
     qa->create();
     qa->show();
+    qa->setMain(qa);
     //QApplication qapp(argc, argv);
     //App::create();
     //App::show();
-    return qa->exec();//qapp.exec();
+    //qapp.exec();
+    return qa->exec();
 }

@@ -36,6 +36,13 @@ void Application::create()
 
 void Application::show() { mMainWidget->show(); }
 
+void Application::setObjectApplication(Application* generalWidget)
+{
+    mainObjectWidget = generalWidget;
+}
+
+Application& Application::getObjectApplication() { return *mainObjectWidget; }
+
 void Application::setAppState(AppState app_state)
 {
     mAppState = app_state;

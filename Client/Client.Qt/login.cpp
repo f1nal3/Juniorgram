@@ -1,6 +1,7 @@
 #include "login.hpp"
 
 #include "App.hpp"
+#include "Application.hpp"
 
 Login::Login(QWidget* parent) : QWidget(parent)
 {
@@ -33,7 +34,9 @@ Login::Login(QWidget* parent) : QWidget(parent)
 void Login::keyPressEvent(QKeyEvent* event)
 {
     if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return))
+    {
         App::setAppState(AppState::Authorized);
+    }
 }
 void Login::resizeEvent(QResizeEvent* event)
 {

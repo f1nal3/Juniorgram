@@ -44,6 +44,7 @@ void create()
     font.setPixelSize(Style::valueDPIScale(15));
     QApplication::setFont(font);
 }
+
 void show() { mMainWidget->show(); }
 
 void setAppState(AppState app_state)

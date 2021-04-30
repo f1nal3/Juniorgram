@@ -21,10 +21,14 @@ private:
     MainWidget* mMainWidget;
     BioButton* mBioButton;
     AppState mAppState = AppState::RegistrationForm;
+    Application *mainObjectWidget;
 
 public:
     Application(int& argc, char** argv);
     void create();
     void show();
     void setAppState(AppState app_state);
+    void setObjectApplication(Application* generalWidget);
+    Application& getObjectApplication();
+
 };
