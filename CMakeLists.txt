@@ -29,8 +29,6 @@ if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
 endif()
 
 include(${CMAKE_BINARY_DIR}/conan.cmake)
-conan_add_remote(NAME bincrafters URL
-                 https://api.bintray.com/conan/bincrafters/public-conan)
 
 if(WIN32)
 conan_cmake_run(CONANFILE conanfile_win.txt
@@ -46,12 +44,7 @@ conan_cmake_run(CONANFILE conanfile.txt
                 BUILD missing)
 endif()
 
-find_package(Qt5 COMPONENTS Widgets Core REQUIRED)
-if (Qt5_FOUND)
-     message( "Qt5 = ${Qt5_FOUND}" )
-else()
-     message(FATAL_ERROR "Qt not found!")
-endif()
+find_package(Qt5 COMPONENTS Widgets Core Gui REQUIRED HINTS "/opt/Qt/5.12.2/gcc_64/lib/cmake/Qt5/")
 
 enable_testing()
 

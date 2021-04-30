@@ -103,7 +103,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             auto future =
                 std::async(std::launch::async, &DataAccess::IRepository::getMessageHistoryForUser,
-                           _postgreRepo.get(), std::to_string(client->getID()));
+                           _postgreRepo.get(), 0); // There need to add channelID not 0.
 
             Network::Message msg;
             msg.mHeader.mConnectionID = Network::Message::MessageType::MessageHistoryRequest;
@@ -134,10 +134,10 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::MessageStoreRequest:
         {
-            Network::UserMessage msg;
+            Network::MessageInfo msg;
             message >> msg;
             auto future = std::async(std::launch::async, &DataAccess::IRepository::storeMessage,
-                                     _postgreRepo.get(), msg);
+                                     _postgreRepo.get(), msg, 0); // There need to add channelID not 0.
 
             future.wait();
             client->send(message);
