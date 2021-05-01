@@ -60,7 +60,7 @@ void Application::setAppState(AppS::AppStateS app_state)
         case AppS::AppStateS::LoginForm:
         {
             auto* wid  = new Login();
-            wid->setObjectApplication(mainObjectApplication);
+            wid->setObjectApplication(this);
             mMainWidget->setCentralWidget(wid);
             break;
         }

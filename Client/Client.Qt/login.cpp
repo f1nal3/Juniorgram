@@ -2,7 +2,7 @@
 
 #include "App.hpp"
 
-Login::Login(/*Application* ObjectApplication, */QWidget* parent) : QWidget(parent)
+Login::Login(QWidget* parent) : QWidget(parent)
 {
     passwordLineEdit = std::make_unique<FlatInput>("Password", true, this);
     usernameLineEdit = std::make_unique<FlatInput>("Username", this);
@@ -30,13 +30,20 @@ Login::Login(/*Application* ObjectApplication, */QWidget* parent) : QWidget(pare
     usernameLineEdit->show();
 }
 
+void Login::setObjectApplication(Application* objectApplication)
+{
+    mainObjectApplication = objectApplication;
+}
+
+
 void Login::keyPressEvent(QKeyEvent* event)
 {
     if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return))
     {
-        App::setAppState(AppState::Authorized);
+        mainObjectApplication->setAppState(AppS::AppStateS::ChatWindowForm);
     }
 }
+
 void Login::resizeEvent(QResizeEvent* event)
 {
     const QSize SIZE        = event->size();

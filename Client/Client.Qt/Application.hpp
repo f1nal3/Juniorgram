@@ -21,7 +21,7 @@ class Application: public QApplication
 private:
     MainWidget* mMainWidget;
     BioButton* mBioButton;
-    AppS::AppStateS mAppState = AppS::AppStateS::RegistrationForm;
+    AppS::AppStateS mAppState;
     Application* mainObjectApplication;
 
 public:
