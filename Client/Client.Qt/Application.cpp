@@ -68,19 +68,11 @@ void Application::setAppState(AppS::AppStateS app_state)
             mMainWidget->setCentralWidget(wid);
             break;
         }
-        case AppS::AppStateS::AuthorizedForm:
-        {
-            auto* wid  = new ChatWindow();
-            mBioButton = new BioButton(QImage(), true, mMainWidget);
-            mBioButton->setImage(QImage(":/images/logo.png"));
-            mMainWidget->refreshTitleBar(mBioButton);
-            mMainWidget->setCentralWidget(wid);
-            break;
-        }
         case AppS::AppStateS::ChatWindowForm:
         {
             auto* wid  = new ChatWindow();
             mBioButton = new BioButton(QImage(), true, mMainWidget);
+            mBioButton->setImage(QImage(":/images/logo.png"));
             mMainWidget->refreshTitleBar(mBioButton);
             mMainWidget->setCentralWidget(wid);
             break;

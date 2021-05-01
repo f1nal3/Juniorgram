@@ -12,7 +12,6 @@ namespace AppS
     enum class AppStateS
     {
         LoginForm,
-        AuthorizedForm,
         RegistrationForm,
         ChatWindowForm
     };
