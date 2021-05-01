@@ -66,13 +66,14 @@ void Application::setAppState(AppS::AppStateS app_state)
         }
         case AppS::AppStateS::RegistrationForm:
         {
-            auto* wid  = new Registration();
+            auto* wid = new Registration();
+            wid->setObjectApplication(this);
             mMainWidget->setCentralWidget(wid);
             break;
         }
         case AppS::AppStateS::ChatWindowForm:
         {
-            auto* wid  = new ChatWindow();
+            auto* wid = new ChatWindow();
             mBioButton = new BioButton(QImage(), true, mMainWidget);
             mBioButton->setImage(QImage(":/images/logo.png"));
             mMainWidget->refreshTitleBar(mBioButton);

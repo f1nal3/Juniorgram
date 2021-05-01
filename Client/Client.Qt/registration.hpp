@@ -3,12 +3,14 @@
 #include "Widgets/InputFields.hpp"
 #include "Widgets/LogoWidget.hpp"
 #include "pch.hpp"
+#include "Application.hpp"
 
 class Registration : public QWidget
 {
     Q_OBJECT
 public:
     explicit Registration(QWidget* parent = nullptr);
+    void setObjectApplication(Application* objectApplication);
 
 protected:
     void keyPressEvent(QKeyEvent* event) override;
@@ -21,4 +23,5 @@ private:
     std::unique_ptr<FlatButton> registrationButton;
     std::unique_ptr<FlatButton> back;
     std::unique_ptr<LogoWidget> logoWidget;
+    Application* mainObjectApplication;
 };

@@ -13,9 +13,12 @@ Login::Login(QWidget* parent) : QWidget(parent)
     logoWidget = std::make_unique<LogoWidget>(this);
 
     QObject::connect(buttonSignin.get(), &FlatButton::pressed,
-                     []() { App::setAppState(AppState::Authorized); });
-    QObject::connect(buttonRegistration.get(), &FlatButton::pressed,
-                     []() { App::setAppState(AppState::RegistrationForm); });
+                     [&]() { 
+            mainObjectApplication->setAppState(AppS::AppStateS::ChatWindowForm);
+        });
+    QObject::connect(buttonRegistration.get(), &FlatButton::pressed, [&]() {
+        mainObjectApplication->setAppState(AppS::AppStateS::RegistrationForm);
+    });
 
 
     const int BLOCKWIDTH = Style::valueDPIScale(500);
