@@ -83,6 +83,8 @@ public:
                                 std::cout << item << '\n';
                                 ChannelListWindow::addChannelInfo(item);
                             }
+
+                            ChannelListWindow::statusMainWidget.notify_one();
                         }
                         break;
 

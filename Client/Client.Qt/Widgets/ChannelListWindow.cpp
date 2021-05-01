@@ -33,8 +33,14 @@ ChannelListWindow::ChannelListWindow(QWidget* parent, ListWidget* anotherChannel
          *  without this doesn't work, because thread where work ConnectionManager
          *  add channel names immediately while main thread is working
          *  so he doesn't have time to add channels to the list here
-        */
-        std::this_thread::sleep_for(std::chrono::milliseconds(150));
+        */ 
+        // std::this_thread::sleep_for(std::chrono::milliseconds(150));
+
+       /*
+        * Another one way
+       */
+        std::unique_lock<std::mutex> lck(mtx);
+        statusMainWidget.wait(lck);
 
         for(std::size_t i = 0; i < channelNames->size(); ++i)
         {
@@ -49,7 +55,25 @@ void ChannelListWindow::addChannelToMainChannelWidget()
 {
     if (channelList->currentItem())
     {
-        channelListMainWindow->addItem(channelList->currentItem()->text());
+        if(channelListMainWindow->count() != 0)
+        {
+            int hitCount = 0;
+            for(int i = 0; i < channelListMainWindow->count(); ++i)
+            {
+                if(channelList->currentItem()->text() == channelListMainWindow->item(i)->text())
+                {
+                    hitCount++;
+                }
+            }
+            if(hitCount == 0)
+            {
+                channelListMainWindow->addItem(channelList->currentItem()->text());
+            }
+        }
+        else
+        {
+            channelListMainWindow->addItem(channelList->currentItem()->text());
+        }
     }
     this->hide();
 }

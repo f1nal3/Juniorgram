@@ -43,6 +43,8 @@
 #include <QWidget>
 #include <QWindow>
 #include <cmath>
+#include <condition_variable>
 #include <iostream>
 #include <memory>
-
+#include <mutex>
+#include <thread>

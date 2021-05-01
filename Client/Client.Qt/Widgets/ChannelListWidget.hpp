@@ -4,10 +4,6 @@
 #include "ListWidget.hpp"
 #include "FlatButton.hpp"
 #include "ChannelListWindow.hpp"
-#include "ConnectionManager.hpp"
-#include "FlatButton.hpp"
-#include "ListWidget.hpp"
-#include "pch.hpp"
 
 /** @class ChannelListWidget
  *  @brief This is the main channel list widget
