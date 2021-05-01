@@ -2,7 +2,6 @@
 
 #include <utility>
 
-#include "App.hpp"
 #include "Style/Style.hpp"
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
