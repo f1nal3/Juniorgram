@@ -38,10 +38,10 @@ void Application::show() { mMainWidget->show(); }
 
 void Application::setObjectApplication(Application* generalWidget)
 {
-    mainObjectWidget = generalWidget;
+    mainObjectApplication = generalWidget;
 }
 
-Application& Application::getObjectApplication() { return *mainObjectWidget; }
+Application& Application::getObjectApplication() { return *mainObjectApplication; }
 
 void Application::setAppState(AppS::AppStateS app_state)
 {
@@ -63,7 +63,7 @@ void Application::setAppState(AppS::AppStateS app_state)
         }
         case AppS::AppStateS::RegistrationForm:
         {
-            auto* wid = new Registration();
+            auto* wid  = new Registration();
             mBioButton = nullptr;
             mMainWidget->setCentralWidget(wid);
             break;

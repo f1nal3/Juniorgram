@@ -9,13 +9,13 @@
 
 namespace AppS
 {
-enum class AppStateS
-{
-    LoginForm,
-    AuthorizedForm,
-    RegistrationForm,
-    ChatWindowForm
-};
+    enum class AppStateS
+    {
+        LoginForm,
+        AuthorizedForm,
+        RegistrationForm,
+        ChatWindowForm
+    };
 }
 
 class Application: public QApplication
@@ -25,7 +25,7 @@ private:
     MainWidget* mMainWidget;
     BioButton* mBioButton;
     AppS::AppStateS mAppState = AppS::AppStateS::RegistrationForm;
-    Application *mainObjectWidget;
+    Application* mainObjectApplication;
 
 public:
     Application(int& argc, char** argv);
