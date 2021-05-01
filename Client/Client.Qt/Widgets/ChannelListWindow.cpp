@@ -46,6 +46,7 @@ ChannelListWindow::ChannelListWindow(QWidget* parent, ListWidget* anotherChannel
         {
            channelList->addItem(QString::fromStdString(channelNames->at(i)));
         }
+        lck.unlock();
     }
 
     setLayout(vBoxLayout);
