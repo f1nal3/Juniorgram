@@ -59,7 +59,7 @@ namespace Utility
     std::string& CheckingForInnerSingleQuotes(std::string& arg)
     {
         std::size_t pos = arg.find('\'');
-        while (static_cast<long unsigned int>(pos) != -1)
+        while (static_cast<int>(pos) != -1)
         {
             arg.insert(pos, "'");
 
