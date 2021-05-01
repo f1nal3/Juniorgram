@@ -28,7 +28,7 @@ void Application::create()
     ConnectionManager::connect();
     std::thread(&ConnectionManager::loop).detach();
 
-    setAppState(AppState::LoginForm);
+    setAppState(AppS::AppStateS::LoginForm);
     auto font = QFont("Noto Sans", 12);
     font.setPixelSize(Style::valueDPIScale(15));
     QApplication::setFont(font);
@@ -43,7 +43,7 @@ void Application::setObjectApplication(Application* generalWidget)
 
 Application& Application::getObjectApplication() { return *mainObjectWidget; }
 
-void Application::setAppState(AppState app_state)
+void Application::setAppState(AppS::AppStateS app_state)
 {
     mAppState = app_state;
     mMainWidget->show();
@@ -54,21 +54,21 @@ void Application::setAppState(AppState app_state)
     }
     switch (mAppState)
     {
-        case AppState::LoginForm:
+        case AppS::AppStateS::LoginForm:
         {
             auto* wid  = new Login();
             mBioButton = nullptr;
             mMainWidget->setCentralWidget(wid);
             break;
         }
-        case AppState::RegistrationForm:
+        case AppS::AppStateS::RegistrationForm:
         {
             auto* wid = new Registration();
             mBioButton = nullptr;
             mMainWidget->setCentralWidget(wid);
             break;
         }
-        case AppState::AuthorizedForm:
+        case AppS::AppStateS::AuthorizedForm:
         {
             auto* wid  = new ChatWindow();
             mBioButton = new BioButton(QImage(), true, mMainWidget);
@@ -77,7 +77,7 @@ void Application::setAppState(AppState app_state)
             mMainWidget->setCentralWidget(wid);
             break;
         }
-        case AppState::ChatWindowForm:
+        case AppS::AppStateS::ChatWindowForm:
         {
             auto* wid  = new ChatWindow();
             mBioButton = new BioButton(QImage(), true, mMainWidget);

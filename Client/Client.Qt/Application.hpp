@@ -7,27 +7,31 @@
 #include "login.hpp"
 #include "registration.hpp"
 
+namespace AppS
+{
+enum class AppStateS
+{
+    LoginForm,
+    AuthorizedForm,
+    RegistrationForm,
+    ChatWindowForm
+};
+}
+
 class Application: public QApplication
 {
 
 private:
-    enum class AppState
-    {
-        LoginForm,
-        AuthorizedForm,
-        RegistrationForm,
-        ChatWindowForm
-    };
     MainWidget* mMainWidget;
     BioButton* mBioButton;
-    AppState mAppState = AppState::RegistrationForm;
+    AppS::AppStateS mAppState = AppS::AppStateS::RegistrationForm;
     Application *mainObjectWidget;
 
 public:
     Application(int& argc, char** argv);
     void create();
     void show();
-    void setAppState(AppState app_state);
+    void setAppState(AppS::AppStateS app_state);
     void setObjectApplication(Application* generalWidget);
     Application& getObjectApplication();
 

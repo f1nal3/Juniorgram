@@ -3,13 +3,13 @@
 
 int main(int argc, char* argv[])
 {
-    Application* qa = new Application(argc, argv);
-    qa->create();
-    qa->show();
-    qa->setMain(qa);
+    Application* qapp = new Application(argc, argv);
+    qapp->create();
+    qapp->show();
+    qapp->setObjectApplication(qapp);
     //QApplication qapp(argc, argv);
     //App::create();
     //App::show();
     //qapp.exec();
-    return qa->exec();
+    return qapp->exec();
 }
