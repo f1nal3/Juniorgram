@@ -4,8 +4,6 @@
 #include "ConnectionManager.hpp"
 #include "ChatWindow.hpp"
 #include "MainWidget.hpp"
-#include "login.hpp"
-#include "registration.hpp"
 
 namespace AppS
 {

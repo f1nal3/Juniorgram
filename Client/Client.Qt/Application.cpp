@@ -1,5 +1,8 @@
 #include "Application.hpp"
 
+#include "login.hpp"
+#include "registration.hpp"
+
 Application::Application(int& argc, char** argv) : QApplication(argc, argv)
 {
     mBioButton = nullptr;
