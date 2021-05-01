@@ -50,7 +50,7 @@ void Application::setAppState(AppS::AppStateS app_state)
 {
     mAppState = app_state;
     mMainWidget->show();
-    if (mBioButton != nullptr)
+    if (mBioButton)
     {
         delete mBioButton;
         mBioButton = nullptr;
@@ -60,14 +60,13 @@ void Application::setAppState(AppS::AppStateS app_state)
         case AppS::AppStateS::LoginForm:
         {
             auto* wid  = new Login();
-            mBioButton = nullptr;
+            wid->setObjectApplication(mainObjectApplication);
             mMainWidget->setCentralWidget(wid);
             break;
         }
         case AppS::AppStateS::RegistrationForm:
         {
             auto* wid  = new Registration();
-            mBioButton = nullptr;
             mMainWidget->setCentralWidget(wid);
             break;
         }
