@@ -48,7 +48,7 @@ set(SOURCE_FILES
         login.hpp
         login.cpp
         main.cpp
-	    ConnectionManager.hpp
+        ConnectionManager.hpp
         MainWidget.cpp
         MainWidget.hpp
         pch.hpp
