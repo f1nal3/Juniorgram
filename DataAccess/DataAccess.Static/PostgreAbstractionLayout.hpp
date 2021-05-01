@@ -3,6 +3,7 @@
 #include "PostgreAdapter.hpp"
 
 #include <Utility/Exception.hpp>
+#include <Utility/Utility.hpp>
 
 namespace DataAccess
 {
@@ -33,7 +34,7 @@ namespace DataAccess
     *   @brief SQLWhereCondition class.
     *   @details This class is a secondary. It needs for \
     *    SQLSelect, SQLUpdate and SQLUpdate. \
-    *    This CRTP class using for 'where' condition from SQL
+    *    This class using for 'where' condition from SQL
     *   @warning You shouldn't use it itself. Only from Table class.
     */
     template<class T>
@@ -374,7 +375,7 @@ namespace DataAccess
         /** @brief Insert one row into table.
         *   @details Inserting all columns into a row.
         *   @code
-        *    ...->field(1, "'a'", "'male'")->...;
+        *    ...->field(1, "a", "male")->...;
         *   @endcode
         *   @params list of row's columns.
         *   @return Current SQLInsert pointer object to continue SQL query.
@@ -391,7 +392,7 @@ namespace DataAccess
                 _queryStream << ", (";
             }
 
-            ((_queryStream << data << ", "), ...);
+            ((_queryStream << Utility::CheckForSQLSingleQuotesProblem(data) << ", "), ...);
 
             this->privateCorrectFormating();
 
@@ -422,7 +423,8 @@ namespace DataAccess
             std::apply(
                 [this](const auto&... tupleArgs)
                 { 
-                    ((_queryStream << tupleArgs << ", "), ...); }
+                    ((_queryStream << Utility::CheckForSQLSingleQuotesProblem(tupleArgs) << ", "), ...);
+                }
                 , dataList);
 
             this->privateCorrectFormating();
@@ -436,7 +438,7 @@ namespace DataAccess
          *   You don't have to wrap columnName by quotes, \
          *   BUT you must wrap data strings.
          *  @code
-         *   ...->columns(pair{"Column1", 1}, pair{"Column2", "'data'"})->...;
+         *   ...->columns(pair{"Column1", 1}, pair{"Column2", "data"})->...;
          *  @endcode
          *  @params Pairs.
          *  @return Current SQLInsert pointer object to continue SQL query.
@@ -452,7 +454,7 @@ namespace DataAccess
             _queryStream << ")";
 
             _queryStream << " values(";
-            ((_queryStream << columnData.second << ", "), ...);
+            ((_queryStream << Utility::CheckForSQLSingleQuotesProblem(columnData.second) << ", "), ...);
 
             this->privateCorrectFormating();
 
@@ -462,8 +464,7 @@ namespace DataAccess
         }
         /** @brief Insert rows into table.
          *  @details Inserting several columns into a row as tuple of pairs. \
-         *   You don't have to wrap columnName by quotes, \
-         *   BUT you must wrap data strings.
+         *   You don't have to wrap columnName by quotes. \
          *  @code
          *   ...->columns(tupleName)->...;
          *  @endcode
@@ -487,7 +488,7 @@ namespace DataAccess
             _queryStream << " values(";
             std::apply([this](const auto&... tupleArgs) 
                 {
-                     ((_queryStream << tupleArgs.second << ", "), ...);
+                     ((_queryStream << Utility::CheckForSQLSingleQuotesProblem(tupleArgs.second) << ", "), ...);
                 }, columnDataList);
 
             this->privateCorrectFormating();
@@ -540,7 +541,6 @@ namespace DataAccess
         /** @brief Updating fields with new data.
         *   @params columnData - pairs with column names by first \
         *    and the data by second.
-        *   @warning Data string must be wraped by single quotes.
         *   @return Current SQLUpdate pointer object to continue SQL query.
         */
         template<typename ColumnType = const char*, typename ...Args>
@@ -548,7 +548,7 @@ namespace DataAccess
         {
             _queryStream << " set ";
 
-            ((_queryStream << columnData.first << " = " << columnData.second << ", "), ...);
+            ((_queryStream << columnData.first << " = " << Utility::CheckForSQLSingleQuotesProblem(columnData.second) << ", "), ...);
 
             this->privateCorrectFormating();
 
@@ -556,7 +556,6 @@ namespace DataAccess
         }
         /** @brief Updating fields with new data.
         *   @params columnData - tuple of pairs.
-        *   @warning Data string must be wraped by single quotes.
         *   @return Current SQLUpdate pointer object to continue SQL query.
         */
         template <typename ColumnType = const char*, typename... Args>
@@ -569,7 +568,7 @@ namespace DataAccess
                 {
                     ((_queryStream << tupleArg.first 
                                    << " = " 
-                                   << tupleArg.second
+                                   << Utility::CheckForSQLSingleQuotesProblem(tupleArg.second)
                                    << ", "), ...);
                 }, columnData);
 
@@ -617,12 +616,12 @@ namespace DataAccess
 
     /* @class Table.
     *  @brief Table class.
-    *  @warning Only this class you must use from PostgreAbstractionLayout.
+    *  @warning Only this class you must use.
     *  @details You can see some examples below for how to use it.
     *  @code
     *   Table("tableName1").Select()->columns({"column1", "column2", ...})->where("condition")->...->execute()/OR/getQuery();
-    *   Table("tableName2").Insert()->field(1, "'a'")->field(...)->...->returning({"column1", "column2", ...})->execute()/OR/getQuery();
-    *   Table("tableName3").Update()->fields(pair{"column1", 1}, pair{"column2", "'strData'"})->where("condition")->...->execute()/OR/getQuery();
+    *   Table("tableName2").Insert()->field(1, "a")->field(...)->...->returning({"column1", "column2", ...})->execute()/OR/getQuery();
+    *   Table("tableName3").Update()->fields(pair{"column1", 1}, pair{"column2", "strData"})->where("condition")->...->execute()/OR/getQuery();
     *   Table("tableName4").Delete()->where("condition")->...->execute()/OR/getQuery();  
     *  @endcodegit 
     */
