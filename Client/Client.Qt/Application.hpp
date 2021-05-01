@@ -7,32 +7,28 @@
 
 #define oApp (static_cast<Application*>(QCoreApplication::instance()))
 
-namespace AppS
+namespace App
 {
-    enum class AppStateS
-    {
-        LoginForm,
-        RegistrationForm,
-        ChatWindowForm
-    };
+enum class AppState
+{
+    LoginForm,
+    RegistrationForm,
+    ChatWindowForm
+};
 }
 
 
-class Application: public QApplication
+class Application : public QApplication
 {
-
 private:
     MainWidget* mMainWidget;
     BioButton* mBioButton;
-    AppS::AppStateS mAppState;
+    App::AppState mAppState;
     Application* mainObjectApplication;
 
 public:
     Application(int& argc, char** argv);
     void create();
     void show();
-    void setAppState(AppS::AppStateS app_state);
-    void setObjectApplication(Application* generalWidget);
-    Application& getObjectApplication();
-
+    void setAppState(App::AppState app_state);
 };
