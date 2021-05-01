@@ -13,12 +13,9 @@ Login::Login(QWidget* parent) : QWidget(parent)
     logoWidget = std::make_unique<LogoWidget>(this);
 
     QObject::connect(buttonSignin.get(), &FlatButton::pressed,
-                     [&]() { 
-            mainObjectApplication->setAppState(AppS::AppStateS::ChatWindowForm);
-        });
-    QObject::connect(buttonRegistration.get(), &FlatButton::pressed, [&]() {
-        mainObjectApplication->setAppState(AppS::AppStateS::RegistrationForm);
-    });
+                     []() { oApp->setAppState(AppS::AppStateS::ChatWindowForm); });
+    QObject::connect(buttonRegistration.get(), &FlatButton::pressed,
+                     []() { oApp->setAppState(AppS::AppStateS::RegistrationForm); });
 
 
     const int BLOCKWIDTH = Style::valueDPIScale(500);
@@ -42,9 +39,7 @@ void Login::setObjectApplication(Application* objectApplication)
 void Login::keyPressEvent(QKeyEvent* event)
 {
     if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return))
-    {
-        mainObjectApplication->setAppState(AppS::AppStateS::ChatWindowForm);
-    }
+        oApp->setAppState(AppS::AppStateS::ChatWindowForm);
 }
 
 void Login::resizeEvent(QResizeEvent* event)

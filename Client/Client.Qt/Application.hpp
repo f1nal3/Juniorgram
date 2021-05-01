@@ -5,6 +5,8 @@
 #include "ChatWindow.hpp"
 #include "MainWidget.hpp"
 
+#define oApp (static_cast<Application*>(QCoreApplication::instance()))
+
 namespace AppS
 {
     enum class AppStateS
@@ -14,6 +16,7 @@ namespace AppS
         ChatWindowForm
     };
 }
+
 
 class Application: public QApplication
 {
