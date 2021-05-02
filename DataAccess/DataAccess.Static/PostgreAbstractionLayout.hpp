@@ -548,7 +548,10 @@ namespace DataAccess
         {
             _queryStream << " set ";
 
-            ((_queryStream << columnData.first << " = " << Utility::CheckForSQLSingleQuotesProblem(columnData.second) << ", "), ...);
+            ((_queryStream << columnData.first 
+                           << " = " 
+                           << Utility::CheckForSQLSingleQuotesProblem(columnData.second)
+                           << ", "), ...);
 
             this->privateCorrectFormating();
 
