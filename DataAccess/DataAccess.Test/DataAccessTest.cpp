@@ -123,7 +123,7 @@ TEST_CASE("Select[Extra][2]", "[PostgreAbstractionLayout]")
 
 TEST_CASE("Insert[fields][1]", "[PostgreAbstractionLayout]")
 { 
-    std::string query = test.Insert()->field(1, 1.5, "'a'")->getQuery();
+    std::string query = test.Insert()->field(1, 1.5, "a")->getQuery();
 
     SECTION("Query string test")
     {
@@ -135,7 +135,7 @@ TEST_CASE("Insert[fields][1]", "[PostgreAbstractionLayout]")
 
 TEST_CASE("Insert[fields][2]", "[PostgreAbstractionLayout]")
 {
-    std::tuple testTuple{1, 1.5, "'a'"};
+    std::tuple testTuple{1, 1.5, "a"};
     std::string query = test.Insert()->field(testTuple)->getQuery();
 
     SECTION("Query string test") 
@@ -148,7 +148,7 @@ TEST_CASE("Insert[fields][2]", "[PostgreAbstractionLayout]")
 
 TEST_CASE("Insert[fields][3]", "[PostgreAbstractionLayout]")
 {
-     std::string query = test.Insert()->columns(std::pair{"A", 1}, std::pair{"B", 1.5}, std::pair{"C", "'a'"})->getQuery();
+     std::string query = test.Insert()->columns(std::pair{"A", 1}, std::pair{"B", 1.5}, std::pair{"C", "a"})->getQuery();
 
     SECTION("Query string test")
     {
@@ -164,7 +164,7 @@ TEST_CASE("Insert[fields][4]", "[PostgreAbstractionLayout]")
     {
         std::pair{"A", 1},
         std::pair{"B", 1.5},
-        std::pair{"C", "'a'"}
+        std::pair{"C", "a"}
     };
     std::string query = test.Insert()->columns(testTuple)->getQuery();
 
@@ -178,7 +178,7 @@ TEST_CASE("Insert[fields][4]", "[PostgreAbstractionLayout]")
 
 TEST_CASE("Insert[returning]", "[PostgreAbstractionLayout]")
 {
-    std::string query = test.Insert()->field(1, 1.5, "'a'")->field(1, 1.5, "'a'")->returning({"*"})->getQuery();
+    std::string query = test.Insert()->field(1, 1.5, "a")->field(1, 1.5, "a")->returning({"*"})->getQuery();
 
     SECTION("Query string test")
     {
@@ -191,7 +191,7 @@ TEST_CASE("Insert[returning]", "[PostgreAbstractionLayout]")
 TEST_CASE("Update[fields]", "[PostgreAbstractionLayout]")
 {
     std::string query =
-        test.Update()->fields(std::pair{"A", 1}, std::pair{"B", 1.5}, std::pair{"C", "'a'"})->getQuery();
+        test.Update()->fields(std::pair{"A", 1}, std::pair{"B", 1.5}, std::pair{"C", "a"})->getQuery();
 
     SECTION("Query string test")
     {
@@ -206,7 +206,7 @@ TEST_CASE("Update[fields where]", "[PostgreAbstractionLayout]")
     std::tuple testTuple{
         std::pair{"A", 1},
         std::pair{"B", 1.5},
-        std::pair{"C", "'a'"}
+        std::pair{"C", "a"}
     };
     std::string query = test.Update()->fields(testTuple)->where("C <> 'a'")->getQuery();
 
