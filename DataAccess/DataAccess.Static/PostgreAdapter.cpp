@@ -5,7 +5,7 @@ namespace DataAccess
 
     std::shared_ptr<PostgreAdapter> PostgreAdapter::getPostgre() 
     {
-        return getPostgre(ms_newOptions.empty() ? ms_defaultOptions : ms_newOptions);
+        return getPostgre(ms_newOptions == "" ? ms_defaultOptions : ms_newOptions);
     }
 	std::shared_ptr<PostgreAdapter> PostgreAdapter::getPostgre(const std::string_view& options)
     {
