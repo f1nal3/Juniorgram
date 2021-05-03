@@ -91,9 +91,12 @@ namespace Utility
             // Checking for inner quotes.
             std::size_t pos = tempStr.find('\'');
             while (pos != std::string::npos)
+            {
                 tempStr.insert(pos, "'");
 
                 pos = tempStr.find('\'');
+            }
+
 
             // Wrapping whole string with quotes.
             tempStr.insert(0, "'").push_back('\'');
