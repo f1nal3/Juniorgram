@@ -89,8 +89,11 @@ namespace Utility
             tempStr += std::forward<T>(arg);
 
             // Checking for inner quotes.
-            while (tempStr.find('\'') != std::string::npos)
+            std::size_t pos = tempStr.find('\'');
+            while (pos != std::string::npos)
                 tempStr.insert(pos, "'");
+
+                pos = tempStr.find('\'');
 
             // Wrapping whole string with quotes.
             tempStr.insert(0, "'").push_back('\'');
