@@ -22,32 +22,32 @@ std::vector<std::string> FileRepository::getAllChannelsList()
     return channels;
 }
 
-std::vector<std::string> FileRepository::getMessageHistoryForUser(const std::string& userID)
+std::vector<std::string> FileRepository::getMessageHistoryForUser(const unsigned channelID)
 {
-    auto rows = database->select("messages", [userID](const nlohmann::ordered_json& row) {
-        return row.at("user_id") == std::stoll(userID) ? true : false;
+    auto rows = database->select("channel_msgs", [channelID](const nlohmann::ordered_json& row) {
+        return row.at("channel_id") == channelID ? true : false;
     });
 
     std::vector<std::string> messages;
 
     for (const auto& row : rows)
     {
-        messages.emplace_back(row.at("message"));
+        messages.emplace_back(row.at("msg"));
     }
 
     return messages;
 }
 
-void FileRepository::storeMessage(const Network::UserMessage& message)
+void FileRepository::storeMessage(const Network::MessageInfo& messageInfo, const unsigned channelID)
 {
     std::string formattedTime = std::string{30, '\0'};
 
-    std::time_t timestamp = std::chrono::system_clock::to_time_t(message.getTimestamp());
-    std::tm localTime     = Utility::safe_localtime(timestamp);
+    std::time_t timestamp = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    std::tm localTime = Utility::safe_localtime(timestamp);
     std::strftime(formattedTime.data(), formattedTime.size(), "%Y-%m-%d %H:%M:%S", &localTime);
 
     database->insert("messages",
-                     {std::to_string(message.getUserID()), message.getMessageText(), formattedTime},
-                     {"user_id", "message", "timestamp"});
+                     {std::to_string(channelID), std::to_string(messageInfo.userID), formattedTime, messageInfo.message},
+                     {"channel_id", "sender_id", "send_time", "msg"});
 }
 }  // namespace DataAccess
