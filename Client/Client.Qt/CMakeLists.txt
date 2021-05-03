@@ -41,20 +41,19 @@ set(SOURCE_FILES
         Style/Shadow.hpp
         Style/Style.cpp
         Style/Style.hpp
-        App.cpp
-        App.hpp
+        Application.hpp
+        Application.cpp
         ChatWindow.cpp
         ChatWindow.hpp
         login.hpp
         login.cpp
         main.cpp
-	ConnectionManager.hpp
+        ConnectionManager.hpp
         MainWidget.cpp
         MainWidget.hpp
         pch.hpp
         registration.hpp
         registration.cpp)
-
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)

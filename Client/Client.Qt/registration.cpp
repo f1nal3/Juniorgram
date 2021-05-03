@@ -1,6 +1,5 @@
 #include "registration.hpp"
 
-#include "App.hpp"
 
 Registration::Registration(QWidget* parent) : QWidget(parent)
 {
@@ -13,7 +12,7 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
     logoWidget = std::make_unique<LogoWidget>(this);
 
     QObject::connect(back.get(), &FlatButton::pressed,
-                     []() { App::setAppState(AppState::LoginForm); });
+                     []() { oApp->setAppState(App::AppState::LoginForm); });
 
     const int BLOCKWIDTH = Style::valueDPIScale(500);
 
@@ -32,7 +31,7 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
 void Registration::keyPressEvent(QKeyEvent* event)
 {
     if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return))
-        App::setAppState(AppState::LoginForm);
+        oApp->setAppState(App::AppState::LoginForm);
 }
 
 void Registration::resizeEvent(QResizeEvent* event)

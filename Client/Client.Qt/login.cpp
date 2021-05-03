@@ -1,6 +1,5 @@
 #include "login.hpp"
 
-#include "App.hpp"
 
 Login::Login(QWidget* parent) : QWidget(parent)
 {
@@ -13,9 +12,9 @@ Login::Login(QWidget* parent) : QWidget(parent)
     logoWidget = std::make_unique<LogoWidget>(this);
 
     QObject::connect(buttonSignin.get(), &FlatButton::pressed,
-                     []() { App::setAppState(AppState::Authorized); });
+                     []() { oApp->setAppState(App::AppState::ChatWindowForm); });
     QObject::connect(buttonRegistration.get(), &FlatButton::pressed,
-                     []() { App::setAppState(AppState::RegistrationForm); });
+                     []() { oApp->setAppState(App::AppState::RegistrationForm); });
 
 
     const int BLOCKWIDTH = Style::valueDPIScale(500);
@@ -33,8 +32,9 @@ Login::Login(QWidget* parent) : QWidget(parent)
 void Login::keyPressEvent(QKeyEvent* event)
 {
     if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return))
-        App::setAppState(AppState::Authorized);
+        oApp->setAppState(App::AppState::ChatWindowForm);
 }
+
 void Login::resizeEvent(QResizeEvent* event)
 {
     const QSize SIZE        = event->size();
