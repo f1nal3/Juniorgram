@@ -193,7 +193,7 @@ void FileDB::insert(const std::string& tableName, const std::vector<std::string>
     }
     else
     {
-    for (int i = 0; i != columnNames.size(); ++i)
+    for (size_t i = 0; i != columnNames.size(); ++i)
         {
             if (!isValidIdentifier(columnNames[i]))
             {
@@ -219,7 +219,7 @@ void FileDB::insert(const std::string& tableName, const std::vector<std::string>
     std::fstream fileStream;
 
     fileStream.open(path / tableName / "properties.json",
-                    std::ios::out | std::ios::beg);
+                    std::ios::out);
     fileStream << std::setw(4) << properties;
     fileStream.close();
 
@@ -309,12 +309,12 @@ void FileDB::update(const std::string& tableName, const std::vector<std::string>
 
             if (condition(row))
             {
-                for (int i = 0; i != columnNames.size(); ++i)
+                for (size_t i = 0; i != columnNames.size(); ++i)
                 {
                     setJSONFieldType(row, columnNames[i], properties["column_info"][columnNames[i]], columnData[i]);
                 }
 
-                fileStream.open(directoryEntry.path(), std::ios::out | std::ios::beg);
+                fileStream.open(directoryEntry.path(), std::ios::out);
                 fileStream << std::setw(4) << row;
                 fileStream.close();
             }
@@ -356,7 +356,7 @@ void FileDB::remove(const std::string& tableName,
         }
     }
 
-    fileStream.open(path / tableName / "properties.json", std::ios::out | std::ios::beg);
+    fileStream.open(path / tableName / "properties.json", std::ios::out);
     fileStream << std::setw(4) << properties;
     fileStream.close();
 
@@ -389,7 +389,7 @@ void FileDB::createTable(const std::string& tableName, const std::vector<std::st
 
     nlohmann::ordered_json properties = constructPropertiesJSON();
 
-    for (int i = 0; i != columnNames.size(); ++i)
+    for (size_t i = 0; i != columnNames.size(); ++i)
     {
         if (isValidIdentifier(columnNames[i]) && isValidDatatype(columnTypes[i]))
         {
@@ -418,7 +418,7 @@ void FileDB::createTable(const std::string& tableName, const std::vector<std::st
 
     std::fstream fileStream;
 
-    fileStream.open(tablePath / "properties.json", std::ios::out | std::ios::beg);
+    fileStream.open(tablePath / "properties.json", std::ios::out);
     fileStream << std::setw(4) << properties;
     fileStream.close();
 
@@ -473,7 +473,7 @@ void FileDB::addColumn(const std::string& tableName, const std::string& columnNa
 
     properties["column_info"][columnName] = columnType;
 
-    fileStream.open(tablePath / "properties.json", std::ios::out | std::ios::beg);
+    fileStream.open(tablePath / "properties.json", std::ios::out);
     fileStream << std::setw(4) << properties;
     fileStream.close();
 
@@ -499,7 +499,7 @@ void FileDB::removeColumn(const std::string& tableName, const std::string column
     {
         properties["column_info"].erase(columnName);
 
-        fileStream.open(tablePath / "properties.json", std::ios::out | std::ios::beg);
+        fileStream.open(tablePath / "properties.json", std::ios::out);
         fileStream << std::setw(4) << properties;
         fileStream.close();
     }
@@ -515,7 +515,7 @@ void FileDB::removeColumn(const std::string& tableName, const std::string column
 
             row.erase(columnName);
 
-            fileStream.open(directoryEntry.path(), std::ios::out | std::ios::beg);
+            fileStream.open(directoryEntry.path(), std::ios::out);
             fileStream << row;
             fileStream.close();
         }
@@ -554,7 +554,7 @@ void FileDB::renumerateRowFiles(const std::string& tableName) const
         return std::stoul(lhs) < std::stoul(rhs);
     });
 
-    for (int i = 0; i != rowFilenames.size(); ++i)
+    for (size_t i = 0; i != rowFilenames.size(); ++i)
     {
         std::string newFilename = "row_" + std::to_string(i) + ".json";
         fs::rename(tablePath / rowFilenames[i], tablePath / newFilename);

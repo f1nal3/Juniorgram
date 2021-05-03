@@ -39,11 +39,11 @@ TEST_CASE("Database constructor")
 		std::filesystem::create_directory(testPath / "users");
 
 		std::fstream fileStream;
-        fileStream.open(testPath / "users" / "properties.json", std::ios::out | std::ios::beg);
+        fileStream.open(testPath / "users" / "properties.json", std::ios::out);
 		fileStream << rawPropertiesJSON;
         fileStream.close();
 
-        fileStream.open(testPath / "users" / "row_0.json", std::ios::out | std::ios::beg);
+        fileStream.open(testPath / "users" / "row_0.json", std::ios::out);
         fileStream << rawRowJSON;
         fileStream.close();
 
@@ -96,7 +96,7 @@ TEST_CASE("Table operations")
 		nlohmann::ordered_json generatedJSON;
 
 		std::fstream fileStream;
-		fileStream.open(tablePath, std::ios::beg | std::ios::in);
+		fileStream.open(tablePath, std::ios::in);
 		generatedJSON = nlohmann::ordered_json::parse((std::istreambuf_iterator<char>(fileStream)), std::istreambuf_iterator<char>());
 		fileStream.close();
 
@@ -134,7 +134,7 @@ TEST_CASE("Column operations")
 		nlohmann::ordered_json rowJSON;
 
 		std::fstream fileStream;
-		fileStream.open(testPath / "properties.json", std::ios::in | std::ios::beg);
+		fileStream.open(testPath / "properties.json", std::ios::in);
 		propertiesJSON = nlohmann::ordered_json::parse((std::istreambuf_iterator<char>(fileStream)), std::istreambuf_iterator<char>());
 		fileStream.close();
 
@@ -142,7 +142,7 @@ TEST_CASE("Column operations")
 
 		REQUIRE_NOTHROW(database->insert("users", {"2"}, {"id"}));
 
-		fileStream.open(testPath / "row_0.json", std::ios::in | std::ios::beg);
+		fileStream.open(testPath / "row_0.json", std::ios::in);
 		rowJSON = nlohmann::ordered_json::parse((std::istreambuf_iterator<char>(fileStream)), std::istreambuf_iterator<char>());
 		fileStream.close();
 
@@ -158,14 +158,14 @@ TEST_CASE("Column operations")
 		REQUIRE_NOTHROW(database->removeColumn("users", "id"));
 
 		std::fstream fileStream;
-		fileStream.open(testPath / "properties.json", std::ios::in | std::ios::beg);
+		fileStream.open(testPath / "properties.json", std::ios::in);
 		nlohmann::ordered_json propertiesJSON = nlohmann::ordered_json::parse((std::istreambuf_iterator<char>(fileStream)),
 			std::istreambuf_iterator<char>());
 		fileStream.close();
 
 		REQUIRE_THROWS(propertiesJSON.at("id"));
 
-		fileStream.open(testPath / "row_0.json", std::ios::in | std::ios::beg);
+		fileStream.open(testPath / "row_0.json", std::ios::in);
 		nlohmann::ordered_json rowJSON = nlohmann::ordered_json::parse((std::istreambuf_iterator<char>(fileStream)),
 			std::istreambuf_iterator<char>());
 		fileStream.close();
@@ -197,12 +197,12 @@ TEST_CASE("Row operations")
 		REQUIRE_NOTHROW(database->insert("users", {"2"}));
 
 		std::fstream fileStream;
-		fileStream.open(testPath / "properties.json", std::ios::in | std::ios::beg);
+		fileStream.open(testPath / "properties.json", std::ios::in);
 		nlohmann::ordered_json propertiesJSON = nlohmann::ordered_json::parse((std::istreambuf_iterator<char>(fileStream)),
 			std::istreambuf_iterator<char>());
 		fileStream.close();
 
-		fileStream.open(testPath / "row_0.json", std::ios::in | std::ios::beg);
+		fileStream.open(testPath / "row_0.json", std::ios::in);
 		nlohmann::ordered_json rowJSON = nlohmann::ordered_json::parse((std::istreambuf_iterator<char>(fileStream)),
 			std::istreambuf_iterator<char>());
 		fileStream.close();
@@ -241,7 +241,7 @@ TEST_CASE("Row operations")
         REQUIRE_NOTHROW(database->remove("users"));
 
 		std::fstream fileStream;
-        fileStream.open(testPath / "properties.json", std::ios::in | std::ios::beg);
+        fileStream.open(testPath / "properties.json", std::ios::in);
         nlohmann::ordered_json propertiesJSON = nlohmann::ordered_json::parse((std::istreambuf_iterator<char>(fileStream)),
                                                        std::istreambuf_iterator<char>());
         fileStream.close();
