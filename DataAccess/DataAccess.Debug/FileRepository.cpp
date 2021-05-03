@@ -1,6 +1,6 @@
 #include "FileRepository.hpp"
-#include "Utility\Exception.hpp"
-#include "Utility\Utility.hpp"
+#include "Utility/Exception.hpp"
+#include "Utility/Utility.hpp"
 
 namespace DataAccess
 {
