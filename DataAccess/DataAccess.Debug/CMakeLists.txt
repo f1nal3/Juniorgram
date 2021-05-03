@@ -25,9 +25,9 @@ if(NOT json_POPULATED)
   add_subdirectory(${json_SOURCE_DIR} ${json_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 
-target_link_libraries(${TARGET} PUBLIC nlohmann_json::nlohmann_json)
 target_link_libraries(${TARGET} PUBLIC
     Utility.Public
     DataAccess.Public
-	Network.Public)
+	Network.Public
+	nlohmann_json::nlohmann_json)
 

@@ -159,7 +159,7 @@ void FileDB::dropAllTables()
 void FileDB::insert(const std::string& tableName, const std::vector<std::string>& columnData,
             const std::vector<std::string>& columnNames)
 {
-    std::lock_guard<std::mutex> lock{ mutex };
+    std::scoped_lock<std::mutex> lock{ mutex };
 
     if (tableProperties.find(tableName) == tableProperties.end())
     {
@@ -232,7 +232,7 @@ void FileDB::insert(const std::string& tableName, const std::vector<std::string>
 
 std::vector<nlohmann::ordered_json> FileDB::select(const std::string& tableName, std::function<bool(const nlohmann::ordered_json&)> condition) const
 {
-    std::lock_guard<std::mutex> lock{ mutex };
+    std::scoped_lock<std::mutex> lock{mutex};
 
     if (tableProperties.find(tableName) == tableProperties.end())
     {
@@ -270,7 +270,7 @@ void FileDB::update(const std::string& tableName, const std::vector<std::string>
             const std::vector<std::string>& columnNames,
             std::function<bool(const nlohmann::ordered_json&)> condition)
 {
-    std::lock_guard<std::mutex> lock{ mutex };
+    std::scoped_lock<std::mutex> lock{ mutex };
 
     if (tableProperties.find(tableName) == tableProperties.end())
     {
@@ -325,7 +325,7 @@ void FileDB::update(const std::string& tableName, const std::vector<std::string>
 void FileDB::remove(const std::string& tableName,
                  std::function<bool(const nlohmann::ordered_json&)> condition)
 {
-    std::lock_guard<std::mutex> lock{ mutex };
+    std::scoped_lock<std::mutex> lock{mutex};
 
     if (tableProperties.find(tableName) == tableProperties.end())
     {
@@ -366,7 +366,7 @@ void FileDB::remove(const std::string& tableName,
 void FileDB::createTable(const std::string& tableName, const std::vector<std::string>& columnNames,
                           const std::vector<std::string>& columnTypes)
 {
-    std::lock_guard<std::mutex> lock{ mutex };
+    std::scoped_lock<std::mutex> lock{mutex};
 
     if (!isValidIdentifier(tableName))
     {
@@ -427,7 +427,7 @@ void FileDB::createTable(const std::string& tableName, const std::vector<std::st
 
 void FileDB::removeTable(const std::string& tableName)
 {
-    std::lock_guard<std::mutex> lock{ mutex };
+    std::scoped_lock<std::mutex> lock{mutex};
 
     if (tableProperties.find(tableName) == tableProperties.end())
     {
@@ -447,7 +447,7 @@ void FileDB::removeTable(const std::string& tableName)
 void FileDB::addColumn(const std::string& tableName, const std::string& columnName,
                const std::string& columnType)
 {
-    std::lock_guard<std::mutex> lock{ mutex };
+    std::scoped_lock<std::mutex> lock{mutex};
 
     if (!isValidIdentifier(columnName) || !isValidDatatype(columnType))
     {
@@ -482,7 +482,7 @@ void FileDB::addColumn(const std::string& tableName, const std::string& columnNa
 
 void FileDB::removeColumn(const std::string& tableName, const std::string columnName)
 {
-    std::lock_guard<std::mutex> lock{ mutex };
+    std::scoped_lock<std::mutex> lock{mutex};
 
     if (tableProperties.find(tableName) == tableProperties.end())
     {
