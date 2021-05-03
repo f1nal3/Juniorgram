@@ -29,6 +29,16 @@ Recommended install:
 
  - Windows/Linux: ``` $ pip install conan```
 
+3. Install Qt 5.15.2
+ - Recommended:
+   - install [aqtinstall](https://pypi.org/project/aqtinstall/): ``` $ pip install aqtinstall```
+   - using aqtinstall get Qt (see the link above for the reference)
+ 
+ - Set your CMAKE_PREFIX_PATH environment variable to the Qt 5 installation prefix.
+ Example: ``` C:\Qt5\ ```
+ 
+ - You may install Qt Desktop or other versions if you want so or already have one.
+
 ---
 
 <font size="4">[CMake](https://cmake.org)<font size/>
