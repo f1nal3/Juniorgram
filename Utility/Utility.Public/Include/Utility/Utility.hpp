@@ -48,7 +48,7 @@ namespace Utility
     {};
 
     template <typename T>
-    struct is_cpp_string
+    struct is_std_string
         : public std::disjunction<
             std::is_same<std::string,         typename std::decay_t<T>>,
             std::is_same<const std::string,   typename std::decay_t<T>>,
@@ -61,7 +61,7 @@ namespace Utility
     struct is_string 
         : public std::disjunction<
             is_c_string<T>,
-            is_cpp_string<T>
+            is_std_string<T>
         >
     {};
 
@@ -89,13 +89,8 @@ namespace Utility
             tempStr += std::forward<T>(arg);
 
             // Checking for inner quotes.
-            std::size_t pos = tempStr.find('\'');
-            while (static_cast<int>(pos) != -1)
-            {
+            while (tempStr.find('\'') != std::string::npos)
                 tempStr.insert(pos, "'");
-
-                pos = tempStr.find("'", pos + 2);
-            }
 
             // Wrapping whole string with quotes.
             tempStr.insert(0, "'").push_back('\'');
