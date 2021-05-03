@@ -5,7 +5,7 @@ namespace DataAccess
 
     std::shared_ptr<PostgreAdapter> PostgreAdapter::getPostgre() 
     {
-        return getPostgre(ms_standartOptions);
+        return getPostgre(ms_newOptions == "" ? ms_defaultOptions : ms_newOptions);
     }
 	std::shared_ptr<PostgreAdapter> PostgreAdapter::getPostgre(const std::string_view& options)
     {
@@ -19,7 +19,8 @@ namespace DataAccess
                     "Instance didn't create because options are incorrect!");
             }
 
-            msp_instance = std::shared_ptr<PostgreAdapter>(new PostgreAdapter(options));
+            ms_newOptions = options;
+            msp_instance = std::shared_ptr<PostgreAdapter>(new PostgreAdapter(ms_newOptions));
         }
 
         return msp_instance;
