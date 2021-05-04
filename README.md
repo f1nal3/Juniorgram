@@ -29,7 +29,7 @@ Recommended install:
 
  - Windows/Linux: ``` $ pip install conan```
 
-3. Install Qt 5.15.2
+3. Install Qt 5.12.2
  - Recommended:
    - install [aqtinstall](https://pypi.org/project/aqtinstall/): ``` $ pip install aqtinstall```
    - using aqtinstall get Qt (see the link above for the reference)
