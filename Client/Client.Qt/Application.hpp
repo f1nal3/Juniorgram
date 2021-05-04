@@ -24,7 +24,6 @@ private:
     MainWidget* mMainWidget;
     BioButton* mBioButton;
     App::AppState mAppState;
-    Application* mainObjectApplication;
 
 public:
     Application(int& argc, char** argv);
