@@ -33,8 +33,8 @@ Recommended install:
  
  - Set your CMAKE_PREFIX_PATH and QT_QPA_PLATFORM_PLUGIN_PATH environment variable to the Qt5 installation prefix.
  Example: 
- ![image](https://user-images.githubusercontent.com/57706182/117030531-6aea0f80-ad08-11eb-9e9e-efb595e0de5f.png)
- ![image](https://user-images.githubusercontent.com/57706182/117029479-5d805580-ad07-11eb-817d-f676728e584f.png)
+ ![image](https://user-images.githubusercontent.com/57706182/117032131-e8fae600-ad09-11eb-9123-edc3b3aa3289.png)
+ ![image](https://user-images.githubusercontent.com/57706182/117032195-f617d500-ad09-11eb-9f7f-d15c970d7b77.png)
  - You may install Qt Desktop or other versions.
 
 ---
