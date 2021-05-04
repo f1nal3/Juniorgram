@@ -35,7 +35,7 @@ Recommended install:
    - using aqtinstall get Qt (see the link above for the reference)
  
  - Set your CMAKE_PREFIX_PATH environment variable to the Qt 5 installation prefix.
- Example: ``` C:\Qt5\ ```
+ Example: ``` C:\Qt\5.12.2\msvs2017_64\ ```
  
  - You may install Qt Desktop or other versions if you want so or already have one.
 
