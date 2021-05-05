@@ -64,7 +64,7 @@ public:
 
 private slots:
     void deleteButtonClick();
-    void reactionChange(QString newReaction);
+    void reactionChange(int index);  // QString newReaction);
 
 private:
     QListWidgetItem* messageItem;
@@ -76,10 +76,12 @@ private:
     FlatPlainTextEdit* messageTextEdit;
     // UpLevelLayout
     Label* userNameLabel;
-    ComboBox* reactionLabel;
+    Label* reactionLabel;
+    Label* reactionLabelIcon;
     QSpacerItem* horizontalUpLeftSpacer;
     QSpacerItem* horizontalUpRightSpacer;
     TimeEdit* messageTimeEdit;
+    QPixmap *LikeIcon;
     // DownLevelLayout
     ComboBox* reactionChoseBox;
     FlatButton* deleteButton;
@@ -96,7 +98,6 @@ private:
     bool messageDel;
     void initializationUi();
     bool isReaction();
-    QString getReaction();
     void updateWidget();
     void uiConnect();
     void clearMessage();
