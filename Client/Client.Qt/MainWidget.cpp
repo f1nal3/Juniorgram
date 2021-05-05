@@ -159,43 +159,45 @@ MainWidget::MouseType MainWidget::checkResizableField(QMouseEvent* event)
 
 void MainWidget::mousePressEvent(QMouseEvent* event)
 {
-//    if (event->button() == Qt::LeftButton)
-//    {
-//        _mousePressed            = true;
-//        m_leftMouseButtonPressed = checkResizableField(event);
-//        if (m_leftMouseButtonPressed == Top)
-//        {
-//            this->windowHandle()->startSystemResize(Qt::TopEdge);
-//        }
-//        else if (m_leftMouseButtonPressed == TopLeft)
-//        {
-//            this->windowHandle()->startSystemResize(Qt::TopEdge | Qt::LeftEdge);
-//        }
-//        else if (m_leftMouseButtonPressed == TopRight)
-//        {
-//            this->windowHandle()->startSystemResize(Qt::TopEdge | Qt::RightEdge);
-//        }
-//        else if (m_leftMouseButtonPressed == Bottom)
-//        {
-//            this->windowHandle()->startSystemResize(Qt::BottomEdge);
-//        }
-//        else if (m_leftMouseButtonPressed == BottomLeft)
-//        {
-//            this->windowHandle()->startSystemResize(Qt::BottomEdge | Qt::LeftEdge);
-//        }
-//        else if (m_leftMouseButtonPressed == BottomRight)
-//        {
-//            this->windowHandle()->startSystemResize(Qt::BottomEdge | Qt::RightEdge);
-//        }
-//        else if (m_leftMouseButtonPressed == Left)
-//        {
-//            this->windowHandle()->startSystemResize(Qt::LeftEdge);
-//        }
-//        else if (m_leftMouseButtonPressed == Right)
-//        {
-//            this->windowHandle()->startSystemResize(Qt::RightEdge);
-//        }
-//    }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+    if (event->button() == Qt::LeftButton)
+    {
+        _mousePressed            = true;
+        m_leftMouseButtonPressed = checkResizableField(event);
+        if (m_leftMouseButtonPressed == Top)
+        {
+            this->windowHandle()->startSystemResize(Qt::TopEdge);
+        }
+        else if (m_leftMouseButtonPressed == TopLeft)
+        {
+            this->windowHandle()->startSystemResize(Qt::TopEdge | Qt::LeftEdge);
+        }
+        else if (m_leftMouseButtonPressed == TopRight)
+        {
+            this->windowHandle()->startSystemResize(Qt::TopEdge | Qt::RightEdge);
+        }
+        else if (m_leftMouseButtonPressed == Bottom)
+        {
+            this->windowHandle()->startSystemResize(Qt::BottomEdge);
+        }
+        else if (m_leftMouseButtonPressed == BottomLeft)
+        {
+            this->windowHandle()->startSystemResize(Qt::BottomEdge | Qt::LeftEdge);
+        }
+        else if (m_leftMouseButtonPressed == BottomRight)
+        {
+            this->windowHandle()->startSystemResize(Qt::BottomEdge | Qt::RightEdge);
+        }
+        else if (m_leftMouseButtonPressed == Left)
+        {
+            this->windowHandle()->startSystemResize(Qt::LeftEdge);
+        }
+        else if (m_leftMouseButtonPressed == Right)
+        {
+            this->windowHandle()->startSystemResize(Qt::RightEdge);
+        }
+    }
+#endif
 
     return QWidget::mousePressEvent(event);
 }
@@ -222,7 +224,9 @@ void MainWidget::mouseMoveEvent(QMouseEvent* event)
                 }
 
                 _mousePressed = false;
-//                this->windowHandle()->startSystemMove();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+                this->windowHandle()->startSystemMove();
+#endif
             }
             break;
         }
