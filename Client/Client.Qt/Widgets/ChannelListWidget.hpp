@@ -19,8 +19,8 @@ public slots:
     void addChannels();
 
 private:
-   FlatButton* addChannelButton;
+   FlatButton*        addChannelButton;
    ChannelListWindow* listWidgetChannels;
-   QVBoxLayout* vBoxLayout;
-   ListWidget* channelList;
+   QVBoxLayout*       vBoxLayout;
+   ListWidget*        channelList;
 };

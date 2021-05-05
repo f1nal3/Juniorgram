@@ -6,7 +6,7 @@
 class ConnectionManager
 {
 public:
-    
+
     static void disconnect()
     {
         if (client.isConnected())
@@ -83,8 +83,7 @@ public:
                                 std::cout << item << '\n';
                                 ChannelListWindow::addChannelInfo(item);
                             }
-
-                            ChannelListWindow::statusMainWidget.notify_one();
+                            ChannelListWindow::mainWidgetStatus.notify_one();
                         }
                         break;
 
@@ -126,7 +125,7 @@ public:
             }
         }
     }
-   
+
 private:
     inline static Network::Client client;
     inline static const std::string address = "104.40.239.183";

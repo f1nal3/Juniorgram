@@ -14,42 +14,61 @@ ChannelListWindow::ChannelListWindow(QWidget* parent, ListWidget* anotherChannel
     setFixedHeight(Style::maxDPI);
     vBoxLayout            = new QVBoxLayout;
     addChannelButton      = new FlatButton("Add");
+    updateChannelButton   = new FlatButton("Update");
     channelList           = new ListWidget();
 
 
 
     vBoxLayout->addWidget(channelList);
     vBoxLayout->addWidget(addChannelButton);
+    vBoxLayout->addWidget(updateChannelButton);
 
     connect(addChannelButton, &QPushButton::clicked, this,
             &ChannelListWindow::addChannelToMainChannelWidget);
+    connect(updateChannelButton, &QPushButton::clicked, this,
+            &ChannelListWindow::updateChannelListWindow);
 
-
-    if (ConnectionManager::isConnected())
-    {
-        ConnectionManager::getClient().askForChannelList();
-
-        /*
-         *  without this doesn't work, because thread where work ConnectionManager
-         *  add channel names immediately while main thread is working
-         *  so he doesn't have time to add channels to the list here
-        */ 
-        // std::this_thread::sleep_for(std::chrono::milliseconds(150));
-
-       /*
-        * Another one way
-       */
-        std::unique_lock<std::mutex> lck(mtx);
-        statusMainWidget.wait(lck);
-
-        for(std::size_t i = 0; i < channelNames->size(); ++i)
-        {
-           channelList->addItem(QString::fromStdString(channelNames->at(i)));
-        }
-        lck.unlock();
-    }
+    ConnectionManager::getClient().askForChannelList();
+    updateChannelList();
 
     setLayout(vBoxLayout);
+}
+
+void ChannelListWindow::updateChannelList()
+{
+    std::thread([&]()
+    {
+            if(ConnectionManager::isConnected())
+            {
+                std::mutex mtx;
+                std::unique_lock<std::mutex> lck(mtx);
+                mainWidgetStatus.wait(lck);
+
+                int numberOfCoincidences = 0;
+
+                for(auto it = channelNames.rbegin(); it != channelNames.rend() ; ++it)
+                {
+                    if(channelList->count() == 0)
+                    {
+                        channelList->addItem(QString::fromStdString(*it));
+                    }
+                    for(int i = 0; i < channelList->count(); ++i)
+                    {
+                       if(channelList->item(i)->text() == QString::fromStdString(*it))
+                       {
+                           numberOfCoincidences++;
+                       }
+                    }
+                    if(numberOfCoincidences == 0)
+                    {
+                        channelList->addItem(QString::fromStdString(*it));
+                    }
+                    numberOfCoincidences = 0;
+                }
+
+                lck.unlock();
+            }
+    }).detach();
 }
 
 void ChannelListWindow::addChannelToMainChannelWidget()
@@ -58,15 +77,15 @@ void ChannelListWindow::addChannelToMainChannelWidget()
     {
         if(channelListMainWindow->count() != 0)
         {
-            int hitCount = 0;
+            int numberOfCoincidences = 0;
             for(int i = 0; i < channelListMainWindow->count(); ++i)
             {
                 if(channelList->currentItem()->text() == channelListMainWindow->item(i)->text())
                 {
-                    hitCount++;
+                    numberOfCoincidences++;
                 }
             }
-            if(hitCount == 0)
+            if(numberOfCoincidences == 0)
             {
                 channelListMainWindow->addItem(channelList->currentItem()->text());
             }
@@ -79,7 +98,16 @@ void ChannelListWindow::addChannelToMainChannelWidget()
     this->hide();
 }
 
-void ChannelListWindow::addChannelInfo(const std::string& nameOfChannels){ channelNames->push_back(nameOfChannels); }
+void ChannelListWindow::addChannelInfo(const std::string& nameOfChannels){ channelNames.push_back(nameOfChannels); }
+
+void ChannelListWindow::updateChannelListWindow()
+{
+    if(ConnectionManager::isConnected())
+    {
+        ConnectionManager::getClient().askForChannelList();
+        updateChannelList();
+    }
+}
 
 ChannelListWindow::~ChannelListWindow()
 {
