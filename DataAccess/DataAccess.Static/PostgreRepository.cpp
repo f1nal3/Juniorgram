@@ -20,7 +20,7 @@ std::vector<std::string> PostgreRepository::getAllChannelsList()
     return result;
 }
 
-std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const unsigned channelID)
+std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::uint64_t channelID)
 {
     std::vector<std::string> result;
 
@@ -40,7 +40,7 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const unsig
     return result;
 }
 
-void PostgreRepository::storeMessage(const Network::MessageInfo& message, const unsigned channelID)
+void PostgreRepository::storeMessage(const Network::MessageInfo& message, const std::uint64_t channelID)
 {
     std::string timeStr = PostgreAdapter::getPostgre()
                   ->query("select now()")
