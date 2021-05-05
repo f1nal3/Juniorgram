@@ -31,5 +31,6 @@
         <file>fonts/NotoSans-BoldItalic.ttf</file>
         <file>fonts/NotoSans-Italic.ttf</file>
         <file>icons/like.png</file>
+        <file>icons/smile.png</file>
     </qresource>
 </RCC>

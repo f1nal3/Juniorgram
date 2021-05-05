@@ -61,7 +61,7 @@ void MessageWidget::initializationUi()
     //UpLevelLayout
 
     reactionLabel = new Label;
-    reactionLabel->setText("reaction");
+    reactionLabel->setText("");
 
     reactionLabelIcon = new Label;
     reactionLabelIcon->setText("");
@@ -88,7 +88,7 @@ void MessageWidget::initializationUi()
 
     reactionChoseBox = new ComboBox();
     reactionChoseBox->setObjectName(QString::fromUtf8("reactionChoseBox"));
-    reactionChoseBox->addItem("");
+    reactionChoseBox->addItem(QIcon(":/icons/smile.png"), "");
     reactionChoseBox->addItem(QIcon(":/icons/like.png"), "");
     reactionChoseBox->setMinimumWidth(Style::valueDPIScale(45));
 
