@@ -1,4 +1,5 @@
-#include "MessageWidget.hpp"
+﻿#include "MessageWidget.hpp"
+#include "Style/Style.hpp"
 #include <utility>
 
 MessageWidget::MessageWidget(QString textMessage, QString nameOfUser,
@@ -10,7 +11,6 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser,
 {
     initializationUi();
     uiConnect();
-    reactionOnMessage.append(NO_SELECTED);
     messageItem = Item;
     messageDel = false;
     updateWidget();
@@ -31,7 +31,7 @@ MessageWidget::~MessageWidget()
 
 void MessageWidget::uiConnect()
 { 
-    connect(reactionChoseBox, SIGNAL(currentIndexChanged(QString)), SLOT(reactionChange(QString)));
+    connect(reactionChoseBox, SIGNAL(currentIndexChanged(int)), SLOT(reactionChange(int)));
     connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteButtonClick()));
 }
 
@@ -61,7 +61,11 @@ void MessageWidget::initializationUi()
     //UpLevelLayout
 
     reactionLabel = new Label;
-    reactionLabel->setText("reaction");
+    reactionLabel->setText("");
+
+    reactionLabelIcon = new Label;
+    reactionLabelIcon->setText("");
+    LikeIcon = new QPixmap(":/reactions/like.png");
 
     horizontalUpLeftSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -73,6 +77,7 @@ void MessageWidget::initializationUi()
     userNameLabel = new Label;
     userNameLabel->setText("userName");
 
+    UpLevelLayout->addWidget(reactionLabelIcon);
     UpLevelLayout->addWidget(reactionLabel);
     UpLevelLayout->addItem(horizontalUpLeftSpacer);
     UpLevelLayout->addWidget(userNameLabel);
@@ -83,9 +88,9 @@ void MessageWidget::initializationUi()
 
     reactionChoseBox = new ComboBox();
     reactionChoseBox->setObjectName(QString::fromUtf8("reactionChoseBox"));
-    itemReactionList << "Choose"
-                     << "Like";
-    reactionChoseBox->addItems(itemReactionList);
+    reactionChoseBox->addItem(QIcon(":/reactions/smile.png"), "");
+    reactionChoseBox->addItem(QIcon(":/reactions/like.png"), "");
+    reactionChoseBox->setMinimumWidth(Style::valueDPIScale(45));
 
     horizontalDownSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     
@@ -116,10 +121,10 @@ void MessageWidget::clearMessage()
         UpLevelLayout->removeWidget(userNameLabel);
         UpLevelLayout->removeItem(horizontalUpRightSpacer);
         UpLevelLayout->removeWidget(messageTimeEdit);
+        UpLevelLayout->removeWidget(reactionLabelIcon);
         DownLevelLayout->removeWidget(reactionChoseBox);
         DownLevelLayout->removeItem(horizontalDownSpacer);
         DownLevelLayout->removeWidget(deleteButton);
-
         delete messageTextEdit;
 
         delete userNameLabel;
@@ -128,6 +133,7 @@ void MessageWidget::clearMessage()
         delete horizontalUpRightSpacer;
         delete messageTimeEdit;
         delete reactionChoseBox;
+        delete reactionLabelIcon;
         delete deleteButton;
         delete horizontalDownSpacer;
 
@@ -147,11 +153,9 @@ void MessageWidget::deleteButtonClick()
     messageDel = true;
 }
 
-bool MessageWidget::isReaction() { return (reactionMap["Like"] > 0) ? false : true; }
-
-QString MessageWidget::getReaction()
+bool MessageWidget::isReaction(QString reaction)
 {
-    return (isReaction()) ? NO_SELECTED_RETURN : reactionOnMessage;
+    return (reactionMap[reaction.toStdString()] > 0) ? false : true;
 }
 
 void MessageWidget::updateWidget()
@@ -160,40 +164,40 @@ void MessageWidget::updateWidget()
     messageTextEdit->setPlainText(messageText);
     userNameLabel->setText(userName);
     reactionLabel->setText("");
-    if (!isReaction())
+    if (!isReaction("Like"))
     {
         reactionOnMessage.clear();
-        reactionOnMessage += "Like " + QString::number(reactionMap["Like"]);
+        reactionOnMessage = QString::number(reactionMap["Like"]);
         reactionLabel->setText(reactionOnMessage);
+        reactionLabelIcon->setPixmap(LikeIcon[0]);
     }
 }
 
-void MessageWidget::reactionChange(QString newReaction)
+void MessageWidget::reactionChange(int index)
 {
-    if (newReaction != "Choose")
+    switch (index)
     {
-        ++reactionMap[newReaction.toStdString()];
-        newReaction += " " + (QString::number(reactionMap[newReaction.toStdString()]));
-        reactionOnMessage.clear();
-        reactionOnMessage.append(newReaction);
-        reactionLabel->setText(reactionOnMessage);
-    }
-    else
-    {
-        --reactionMap["Like"];
-        if (reactionMap[newReaction.toStdString()] > 0)
+        case 1:
         {
-            newReaction = "Like";
-            newReaction += " " + (QString::number(reactionMap[newReaction.toStdString()]));
-            reactionOnMessage.clear();
-            reactionOnMessage.append(newReaction);
-            reactionLabel->setText(reactionOnMessage);
+            ++reactionMap["Like"];
+            reactionLabelIcon->setPixmap(LikeIcon[0].scaled(
+                QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            reactionLabel->setText(QString::number(reactionMap["Like"]));
+            break;
         }
-        else
+        default:
         {
-            reactionOnMessage.clear();
-            reactionLabel->setText("");
-            reactionLabel->setText(reactionOnMessage);
+            --reactionMap["Like"];
+            if (reactionMap["Like"] < 1)
+            {
+                reactionLabelIcon->clear();
+                reactionLabel->clear();
+            }
+            else
+            {
+                reactionLabel->setText(QString::number(reactionMap["Like"]));
+            }
+            break;
         }
     }
 }

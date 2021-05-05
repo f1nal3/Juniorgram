@@ -30,5 +30,7 @@
         <file>fonts/NotoSans-Bold.ttf</file>
         <file>fonts/NotoSans-BoldItalic.ttf</file>
         <file>fonts/NotoSans-Italic.ttf</file>
+        <file>reactions/like.png</file>
+        <file>reactions/smile.png</file>
     </qresource>
 </RCC>

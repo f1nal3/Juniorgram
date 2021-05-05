@@ -1,7 +1,5 @@
 #ifndef QMESSAGEWIDGET_H
 #define QMESSAGEWIDGET_H
-constexpr auto NO_SELECTED        = "Choose";
-constexpr auto NO_SELECTED_RETURN = "Null";
 constexpr auto EMPTY_MESSAGE      = "Empty message";
 constexpr auto EMPTY_USER_NAME    = "You";
 
@@ -64,7 +62,7 @@ public:
 
 private slots:
     void deleteButtonClick();
-    void reactionChange(QString newReaction);
+    void reactionChange(int index);
 
 private:
     QListWidgetItem* messageItem;
@@ -77,9 +75,11 @@ private:
     // UpLevelLayout
     Label* userNameLabel;
     Label* reactionLabel;
+    Label* reactionLabelIcon;
     QSpacerItem* horizontalUpLeftSpacer;
     QSpacerItem* horizontalUpRightSpacer;
     TimeEdit* messageTimeEdit;
+    QPixmap *LikeIcon;
     // DownLevelLayout
     ComboBox* reactionChoseBox;
     FlatButton* deleteButton;
@@ -95,8 +95,7 @@ private:
     std::map<std::string, int> reactionMap{{"Like", 0}};
     bool messageDel;
     void initializationUi();
-    bool isReaction();
-    QString getReaction();
+    bool isReaction(QString reaction);
     void updateWidget();
     void uiConnect();
     void clearMessage();
