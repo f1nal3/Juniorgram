@@ -94,7 +94,7 @@ namespace Utility
             {
                 tempStr.insert(pos, "'");
 
-                pos = tempStr.find('\'');
+                pos = tempStr.find('\'', pos + 2);
             }
 
 
