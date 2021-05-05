@@ -65,7 +65,7 @@ void MessageWidget::initializationUi()
 
     reactionLabelIcon = new Label;
     reactionLabelIcon->setText("");
-    LikeIcon = new QPixmap(":icons/like.png");
+    LikeIcon = new QPixmap(":/reactions/like.png");
 
     horizontalUpLeftSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -88,8 +88,8 @@ void MessageWidget::initializationUi()
 
     reactionChoseBox = new ComboBox();
     reactionChoseBox->setObjectName(QString::fromUtf8("reactionChoseBox"));
-    reactionChoseBox->addItem(QIcon(":/icons/smile.png"), "");
-    reactionChoseBox->addItem(QIcon(":/icons/like.png"), "");
+    reactionChoseBox->addItem(QIcon(":/reactions/smile.png"), "");
+    reactionChoseBox->addItem(QIcon(":/reactions/like.png"), "");
     reactionChoseBox->setMinimumWidth(Style::valueDPIScale(45));
 
     horizontalDownSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -121,10 +121,10 @@ void MessageWidget::clearMessage()
         UpLevelLayout->removeWidget(userNameLabel);
         UpLevelLayout->removeItem(horizontalUpRightSpacer);
         UpLevelLayout->removeWidget(messageTimeEdit);
+        UpLevelLayout->removeWidget(reactionLabelIcon);
         DownLevelLayout->removeWidget(reactionChoseBox);
         DownLevelLayout->removeItem(horizontalDownSpacer);
         DownLevelLayout->removeWidget(deleteButton);
-
         delete messageTextEdit;
 
         delete userNameLabel;
@@ -133,6 +133,7 @@ void MessageWidget::clearMessage()
         delete horizontalUpRightSpacer;
         delete messageTimeEdit;
         delete reactionChoseBox;
+        delete reactionLabelIcon;
         delete deleteButton;
         delete horizontalDownSpacer;
 
