@@ -22,7 +22,7 @@ std::vector<std::string> FileRepository::getAllChannelsList()
     return channels;
 }
 
-std::vector<std::string> FileRepository::getMessageHistoryForUser(const unsigned channelID)
+std::vector<std::string> FileRepository::getMessageHistoryForUser(const std::uint64_t channelID)
 {
     auto rows = database->select("channel_msgs", [channelID](const nlohmann::ordered_json& row) {
         return row.at("channel_id") == channelID ? true : false;
@@ -38,7 +38,7 @@ std::vector<std::string> FileRepository::getMessageHistoryForUser(const unsigned
     return messages;
 }
 
-void FileRepository::storeMessage(const Network::MessageInfo& messageInfo, const unsigned channelID)
+void FileRepository::storeMessage(const Network::MessageInfo& messageInfo, const std::uint64_t channelID)
 {
     std::string formattedTime = std::string{30, '\0'};
 
