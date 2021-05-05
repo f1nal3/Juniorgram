@@ -19,7 +19,7 @@ private:
     inline static std::shared_ptr<PostgreAdapter> msp_instance{};
     inline static std::string_view ms_newOptions{};
     inline static constexpr std::string_view ms_defaultOptions =
-        "dbname=postgres user=postgres password=123 hostaddr=127.0.0.1 port=5432";
+        "dbname=juniorgram user=postgres hostaddr=127.0.0.1 port=5432";
 
     std::mutex m_query_mutex;
     pqxx::connection m_connection;
