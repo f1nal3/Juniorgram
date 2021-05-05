@@ -97,7 +97,7 @@ private:
     std::map<std::string, int> reactionMap{{"Like", 0}};
     bool messageDel;
     void initializationUi();
-    bool isReaction();
+    bool isReaction(QString reaction);
     void updateWidget();
     void uiConnect();
     void clearMessage();

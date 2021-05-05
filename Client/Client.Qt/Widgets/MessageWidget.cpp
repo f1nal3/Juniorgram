@@ -1,4 +1,5 @@
 ﻿#include "MessageWidget.hpp"
+#include "Style/Style.hpp"
 #include <utility>
 
 MessageWidget::MessageWidget(QString textMessage, QString nameOfUser,
@@ -10,7 +11,6 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser,
 {
     initializationUi();
     uiConnect();
-    //reactionOnMessage.append(NO_SELECTED);
     messageItem = Item;
     messageDel = false;
     updateWidget();
@@ -67,7 +67,6 @@ void MessageWidget::initializationUi()
     reactionLabelIcon->setText("");
     LikeIcon = new QPixmap(":icons/like.png");
 
-
     horizontalUpLeftSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     messageTimeEdit = new TimeEdit(this);
@@ -91,6 +90,7 @@ void MessageWidget::initializationUi()
     reactionChoseBox->setObjectName(QString::fromUtf8("reactionChoseBox"));
     reactionChoseBox->addItem("");
     reactionChoseBox->addItem(QIcon(":/icons/like.png"), "");
+    reactionChoseBox->setMinimumWidth(Style::valueDPIScale(45));
 
     horizontalDownSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     
@@ -152,7 +152,10 @@ void MessageWidget::deleteButtonClick()
     messageDel = true;
 }
 
-bool MessageWidget::isReaction() { return (reactionMap["Like"] > 0) ? false : true; }
+bool MessageWidget::isReaction(QString reaction)
+{
+    return (reactionMap[reaction.toStdString()] > 0) ? false : true;
+}
 
 void MessageWidget::updateWidget()
 {
@@ -160,7 +163,7 @@ void MessageWidget::updateWidget()
     messageTextEdit->setPlainText(messageText);
     userNameLabel->setText(userName);
     reactionLabel->setText("");
-    if (!isReaction())
+    if (!isReaction("Like"))
     {
         reactionOnMessage.clear();
         reactionOnMessage = QString::number(reactionMap["Like"]);
@@ -176,7 +179,8 @@ void MessageWidget::reactionChange(int index)
         case 1:
         {
             ++reactionMap["Like"];
-            reactionLabelIcon->setPixmap(LikeIcon[0]);
+            reactionLabelIcon->setPixmap(LikeIcon[0].scaled(
+                QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)), Qt::KeepAspectRatio, Qt::SmoothTransformation));
             reactionLabel->setText(QString::number(reactionMap["Like"]));
             break;
         }
