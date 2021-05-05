@@ -1,7 +1,5 @@
 #ifndef QMESSAGEWIDGET_H
 #define QMESSAGEWIDGET_H
-constexpr auto NO_SELECTED        = "Choose";
-constexpr auto NO_SELECTED_RETURN = "Null";
 constexpr auto EMPTY_MESSAGE      = "Empty message";
 constexpr auto EMPTY_USER_NAME    = "You";
 
@@ -64,7 +62,7 @@ public:
 
 private slots:
     void deleteButtonClick();
-    void reactionChange(int index);  // QString newReaction);
+    void reactionChange(int index);
 
 private:
     QListWidgetItem* messageItem;
