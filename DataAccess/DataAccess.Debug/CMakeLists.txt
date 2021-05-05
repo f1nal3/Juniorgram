@@ -14,6 +14,5 @@ set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)
 target_link_libraries(${TARGET} PUBLIC
     Utility.Public
     DataAccess.Public
-	Network.Public)
-
-target_link_libraries(${TARGET} PUBLIC CONAN_PKG::nlohmann_json)
+	Network.Public
+	CONAN_PKG::nlohmann_json)
