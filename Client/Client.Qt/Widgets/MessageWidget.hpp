@@ -76,7 +76,7 @@ private:
     FlatPlainTextEdit* messageTextEdit;
     // UpLevelLayout
     Label* userNameLabel;
-    Label* reactionLabel;
+    ComboBox* reactionLabel;
     QSpacerItem* horizontalUpLeftSpacer;
     QSpacerItem* horizontalUpRightSpacer;
     TimeEdit* messageTimeEdit;
