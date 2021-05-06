@@ -1,8 +1,8 @@
 #pragma once
 
-#include "pch.hpp"
 #include "FlatButton.hpp"
 #include "ListWidget.hpp"
+#include "pch.hpp"
 
 /** @class ChannelListWindow
  *  @brief This is channel list
@@ -10,7 +10,7 @@
 class ChannelListWindow : public QWidget
 {
 public:
-    ChannelListWindow(QWidget* parent, ListWidget* anotherChannelListWidget);
+    ChannelListWindow(ListWidget* anotherChannelListWidget, QWidget* parent = nullptr);
     ~ChannelListWindow();
     /**
      * @brief Method for update channel list window in another thread.
@@ -21,7 +21,6 @@ public:
      * @param Name of Channels as std::string
      */
     static void addChannelInfo(const std::string& nameOfChannels);
-    inline static std::condition_variable mainWidgetStatus;
 
 public slots:
     void addChannelToMainChannelWidget();
@@ -34,5 +33,5 @@ private:
     FlatButton*                            updateChannelButton;
     QVBoxLayout*                           vBoxLayout;
     ListWidget*                            channelListMainWindow;
+    inline static std::condition_variable  mainWidgetStatus;
 };
-

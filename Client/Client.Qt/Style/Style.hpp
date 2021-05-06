@@ -3,7 +3,7 @@
 
 namespace Style
 {
-inline constexpr auto minDPI = 75;
+inline constexpr auto minDPI = 100;
 inline constexpr auto maxDPI = 300;
 inline constexpr auto defDPI = 100;
 
