@@ -5,7 +5,8 @@
 #include "ListWidget.hpp"
 #include "pch.hpp"
 
-/** @class ChannelListWidget
+/**
+ *  @class ChannelListWidget
  *  @brief This is the main channel list widget
  */
 class ChannelListWidget : public QWidget
