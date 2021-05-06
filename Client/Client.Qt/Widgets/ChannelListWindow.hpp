@@ -2,7 +2,6 @@
 
 #include "FlatButton.hpp"
 #include "ListWidget.hpp"
-#include "MainWidget.hpp"
 #include "pch.hpp"
 
 /** @class ChannelListWindow
@@ -22,7 +21,6 @@ public:
      * @param Name of Channels as std::string
      */
     static void addChannelInfo(const std::string& nameOfChannels);
-    inline static std::condition_variable mainWidgetStatus;
 
 public slots:
     void addChannelToMainChannelWidget();
@@ -30,9 +28,10 @@ public slots:
 
 private:
     inline static std::vector<std::string> channelNames{};
-    ListWidget* channelList;
-    FlatButton* addChannelButton;
-    FlatButton* updateChannelButton;
-    QVBoxLayout* vBoxLayout;
-    ListWidget* channelListMainWindow;
+    ListWidget*                            channelList;
+    FlatButton*                            addChannelButton;
+    FlatButton*                            updateChannelButton;
+    QVBoxLayout*                           vBoxLayout;
+    ListWidget*                            channelListMainWindow;
+    inline static std::condition_variable  mainWidgetStatus;
 };

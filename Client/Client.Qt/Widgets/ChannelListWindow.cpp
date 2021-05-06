@@ -40,7 +40,7 @@ void ChannelListWindow::updateChannelList()
     std::thread([&]() {
         if (ConnectionManager::isConnected())
         {
-            std::mutex mtx;
+            std::mutex                   mtx;
             std::unique_lock<std::mutex> lck(mtx);
             mainWidgetStatus.wait(lck);
 
