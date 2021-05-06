@@ -22,7 +22,7 @@ void ChannelListWidget::addChannels() { listWidgetChannels->show(); }
 
 ChannelListWidget::~ChannelListWidget()
 {
-    delete listWidgetChannels;
     delete addChannelButton;
+    delete listWidgetChannels;
     delete vBoxLayout;
 }
