@@ -36,5 +36,4 @@ private:
     FlatButton*                            updateChannelButton;
     QVBoxLayout*                           vBoxLayout;
     ListWidget*                            channelListMainWindow;
-    inline static std::condition_variable  mainWidgetStatus;
 };
