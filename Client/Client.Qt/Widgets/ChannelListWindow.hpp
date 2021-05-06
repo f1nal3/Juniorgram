@@ -22,6 +22,9 @@ public:
      */
     static void addChannelInfo(const std::string& nameOfChannels);
 
+public:
+    inline static std::condition_variable mainWidgetStatus;
+
 public slots:
     void addChannelToMainChannelWidget();
     void updateChannelListWindow();
@@ -33,5 +36,4 @@ private:
     FlatButton*                            updateChannelButton;
     QVBoxLayout*                           vBoxLayout;
     ListWidget*                            channelListMainWindow;
-    inline static std::condition_variable  mainWidgetStatus;
 };
