@@ -4,10 +4,6 @@
 #include "ListWidget.hpp"
 #include "FlatButton.hpp"
 #include "ChannelListWindow.hpp"
-#include "ConnectionManager.hpp"
-#include "FlatButton.hpp"
-#include "ListWidget.hpp"
-#include "pch.hpp"
 
 /** @class ChannelListWidget
  *  @brief This is the main channel list widget
@@ -23,8 +19,8 @@ public slots:
     void addChannels();
 
 private:
-   FlatButton* addChannelButton;
+   FlatButton*        addChannelButton;
    ChannelListWindow* listWidgetChannels;
-   QVBoxLayout* vBoxLayout;
-   ListWidget* channelList;
+   QVBoxLayout*       vBoxLayout;
+   ListWidget*        channelList;
 };
