@@ -14,7 +14,6 @@ ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
     vBoxLayout->addWidget(channelList, 10);
 
     connect(addChannelButton, &QPushButton::clicked, this, &ChannelListWidget::addChannels);
-    connect(this, &QWidget::destroyed, listWidgetChannels, &QWidget::deleteLater);
 
     setLayout(vBoxLayout);
 }

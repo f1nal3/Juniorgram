@@ -322,7 +322,7 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
         update();
     });
     setAttribute(Qt::WA_Hover);
-    connect(close_btn, &CaptionButton::mouseRelease, this, &MainWidget::close);
+    connect(close_btn, &CaptionButton::mouseRelease, this, &MainWidget::deleteLater);
     connect(minimize_btn, &CaptionButton::mouseRelease, this, &MainWidget::showMinimized);
     title->setMouseTracking(true);
     body->setMouseTracking(true);
