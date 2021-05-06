@@ -1,8 +1,9 @@
 #pragma once
 
-#include "pch.hpp"
 #include "FlatButton.hpp"
 #include "ListWidget.hpp"
+#include "MainWidget.hpp"
+#include "pch.hpp"
 
 /** @class ChannelListWindow
  *  @brief This is channel list
@@ -10,7 +11,7 @@
 class ChannelListWindow : public QWidget
 {
 public:
-    ChannelListWindow(QWidget* parent, ListWidget* anotherChannelListWidget);
+    ChannelListWindow(ListWidget* anotherChannelListWidget, QWidget* parent = nullptr);
     ~ChannelListWindow();
     /**
      * @brief Method for update channel list window in another thread.
@@ -29,10 +30,9 @@ public slots:
 
 private:
     inline static std::vector<std::string> channelNames{};
-    ListWidget*                            channelList;
-    FlatButton*                            addChannelButton;
-    FlatButton*                            updateChannelButton;
-    QVBoxLayout*                           vBoxLayout;
-    ListWidget*                            channelListMainWindow;
+    ListWidget* channelList;
+    FlatButton* addChannelButton;
+    FlatButton* updateChannelButton;
+    QVBoxLayout* vBoxLayout;
+    ListWidget* channelListMainWindow;
 };
-
