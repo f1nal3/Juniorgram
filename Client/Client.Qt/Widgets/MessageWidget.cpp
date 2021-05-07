@@ -7,10 +7,10 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidge
     : QWidget(parent),
       messageText(std::move(textMessage)),
       userName(std::move(nameOfUser)),
-      dateTimeMessage(QDateTime::currentDateTime()),
-      messageItem(Item),
-      messageDeleted(deletedMessage)
+      dateTimeMessage(QDateTime::currentDateTime())
 {
+    messageItem = Item;
+    messageDeleted = deletedMessage;
     // Main layouts
     mainLayout = new QVBoxLayout(this);
     mainLayout->setObjectName(QString::fromUtf8("mainLayout"));
