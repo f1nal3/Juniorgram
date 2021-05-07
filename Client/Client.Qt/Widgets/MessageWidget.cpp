@@ -5,11 +5,11 @@
 MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidgetItem* Item,
                              bool deletedMessage, QWidget* parent)
     : QWidget(parent),
-    messageText(std::move(textMessage)),
-    userName(std::move(nameOfUser)),
-    dateTimeMessage(QDateTime::currentDateTime()),
-    messageDeleted(deletedMessage),
-    messageItem(Item)
+      messageText(std::move(textMessage)),
+      userName(std::move(nameOfUser)),
+      dateTimeMessage(QDateTime::currentDateTime()),
+      messageItem(Item),
+      messageDeleted(deletedMessage)
 {
     // Main layouts
     mainLayout = new QVBoxLayout(this);
