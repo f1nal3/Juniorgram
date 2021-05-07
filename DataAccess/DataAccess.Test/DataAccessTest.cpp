@@ -5,11 +5,11 @@
 
 #include "DataAccess.Static/PostgreAbstractionLayout.hpp"
 
-DataAccess::Table test("testing");
+DataAccess::Table test("testing", "dbname=test user=postgres hostaddr=127.0.0.1 port=5432");
 
-TEST_CASE("Select[where]", "[PostgreAbstractionLayout]")
+TEST_CASE("Select[Where]", "[PostgreAbstractionLayout]")
 { 
-	std::string query = test.Select()->columns({"*"})->where("id > 5")->getQuery();
+	std::string query = test.Select()->columns({"*"})->Where("id > 5")->getQuery();
 
 	SECTION("Query string test") 
 	{
@@ -19,9 +19,9 @@ TEST_CASE("Select[where]", "[PostgreAbstractionLayout]")
 	};
 }
 
-TEST_CASE("Select[where not]", "[PostgreAbstractionLayout]")
+TEST_CASE("Select[Where not]", "[PostgreAbstractionLayout]")
 {
-    std::string query = test.Select()->columns({"*"})->where()->Not("name = 'Max'")->getQuery();
+    std::string query = test.Select()->columns({"*"})->Where()->Not("name = 'Max'")->getQuery();
 
     SECTION("Query string test")
     {
@@ -31,10 +31,10 @@ TEST_CASE("Select[where not]", "[PostgreAbstractionLayout]")
     };
 }
 
-TEST_CASE("Select[where and]", "[PostgreAbstractionLayout]")
+TEST_CASE("Select[Where and]", "[PostgreAbstractionLayout]")
 {
     std::string query =
-        test.Select()->columns({"*"})->where("name = 'Max'")->And("id > 10")->getQuery();
+        test.Select()->columns({"*"})->Where("name = 'Max'")->And("id > 10")->getQuery();
 
     SECTION("Query string test")
     {
@@ -44,10 +44,10 @@ TEST_CASE("Select[where and]", "[PostgreAbstractionLayout]")
     };
 }
 
-TEST_CASE("Select[where or]", "[PostgreAbstractionLayout]")
+TEST_CASE("Select[Where or]", "[PostgreAbstractionLayout]")
 {
     std::string query =
-        test.Select()->columns({"*"})->where("name = 'Max'")->Or("id > 10")->getQuery();
+        test.Select()->columns({"*"})->Where("name = 'Max'")->Or("id > 10")->getQuery();
 
     SECTION("Query string test")
     {
@@ -85,7 +85,7 @@ TEST_CASE("Select[Extra][1]", "[PostgreAbstractionLayout]")
 {
     std::string query = test.Select()->
                              columns({"id", "name"})->
-                             where()->Not("name = 'A'")->
+                             Where()->Not("name = 'A'")->
                              And("(id < 0")->
                              Or("id > 15)")->
                              orderBy({"name", "id"})->
@@ -105,9 +105,9 @@ TEST_CASE("Select[Extra][2]", "[PostgreAbstractionLayout]")
     std::string query = test.Select()
                             ->distinct()
                             ->columns({"id, name"})
-                            ->where("id")
+                            ->Where("id")
                             ->Not()
-                            ->between(0, 15)
+                            ->Between(0, 15)
                             ->And("name <> 'A'")
                             ->getQuery();
          
@@ -201,14 +201,14 @@ TEST_CASE("Update[fields]", "[PostgreAbstractionLayout]")
     }
 }
 
-TEST_CASE("Update[fields where]", "[PostgreAbstractionLayout]")
+TEST_CASE("Update[fields Where]", "[PostgreAbstractionLayout]")
 {
     std::tuple testTuple{
         std::pair{"A", 1},
         std::pair{"B", 1.5},
         std::pair{"C", "a"}
     };
-    std::string query = test.Update()->fields(testTuple)->where("C <> 'a'")->getQuery();
+    std::string query = test.Update()->fields(testTuple)->Where("C <> 'a'")->getQuery();
 
     SECTION("Query string test")
     {
@@ -218,9 +218,9 @@ TEST_CASE("Update[fields where]", "[PostgreAbstractionLayout]")
     }
 }
 
-TEST_CASE("Delete[where]", "[PostgreAbstractionLayout]")
+TEST_CASE("Delete[Where]", "[PostgreAbstractionLayout]")
 {
-    std::string query = test.Delete()->where("A = 1")->getQuery();
+    std::string query = test.Delete()->Where("A = 1")->getQuery();
 
     SECTION("Query string test")
     {
@@ -228,4 +228,6 @@ TEST_CASE("Delete[where]", "[PostgreAbstractionLayout]")
         REQUIRE(query == "delete from testing where A = 1");
         test.Delete()->rollback();
     }
+
+    test.getPostgre()->closeConnection();
 }

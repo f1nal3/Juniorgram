@@ -59,6 +59,11 @@ namespace DataAccess
         changeTable(newTableName.c_str());
     }
     
+    std::shared_ptr<PostgreAdapter> Table::getPostgre(void) const noexcept
+    {
+        return _postgre;
+    }
+
     void                        Table::privateClear(SQLStatement statement)
     {
         switch (statement)

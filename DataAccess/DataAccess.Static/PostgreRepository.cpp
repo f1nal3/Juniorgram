@@ -25,7 +25,7 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::
     std::vector<std::string> result;
 
     auto messageHistoryRow = 
-        Table("channel_msgs").Select()->columns({"msg"})->where("channel_id = " + channelID)->execute();
+        Table("channel_msgs").Select()->columns({"msg"})->Where("channel_id = " + channelID)->execute();
 
 
     if (messageHistoryRow.has_value())

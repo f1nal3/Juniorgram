@@ -5,7 +5,7 @@ namespace DataAccess
 
     std::shared_ptr<PostgreAdapter> PostgreAdapter::getPostgre() 
     {
-        return getPostgre(ms_newOptions == "" ? ms_defaultOptions : ms_newOptions);
+        return getPostgre(ms_defaultOptions);
     }
 	std::shared_ptr<PostgreAdapter> PostgreAdapter::getPostgre(const std::string_view& options)
     {
@@ -19,8 +19,7 @@ namespace DataAccess
                     "Instance didn't create because options are incorrect!");
             }
 
-            ms_newOptions = options;
-            msp_instance = std::shared_ptr<PostgreAdapter>(new PostgreAdapter(ms_newOptions));
+            msp_instance = std::shared_ptr<PostgreAdapter>(new PostgreAdapter(options));
         }
 
         return msp_instance;
@@ -28,19 +27,19 @@ namespace DataAccess
 
     pqxx::connection& PostgreAdapter::getConnection(void) 
     {
-        return m_connection; 
+        return *m_connection; 
     }
 
     bool PostgreAdapter::isConnected(void) const 
     {
-        return m_connection.is_open(); 
+        return m_connection->is_open(); 
     }
 
     std::optional<pqxx::result> PostgreAdapter::query(const std::string_view& query)
     {
         std::scoped_lock<std::mutex> lock(m_query_mutex);
 
-        pqxx::work work{ m_connection };
+        pqxx::work work{ *m_connection };
 
         auto res = work.exec(query);
 
@@ -54,6 +53,7 @@ namespace DataAccess
 
     void PostgreAdapter::closeConnection(void) 
     { 
+        m_connection.reset();
         msp_instance.reset();
     }
 

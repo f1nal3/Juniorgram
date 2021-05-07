@@ -53,7 +53,7 @@ namespace DataAccess
         *    (for example for 'Not' condition).
         *   @return Current SQLSTATEMENT pointer object to continue SQL query.
         */
-        T* where(const std::string& condition = {})
+        T* Where(const std::string& condition = {})
         {
             if (*(_statement->_queryStream.str().end() - 1) != ' ') 
                 _statement->_queryStream << " ";
@@ -138,17 +138,32 @@ namespace DataAccess
             return _statement;
         }
         /** @brief Beeween condition.
-         *   @params left - start of the range.
-         *    right - end of the range.
-         *   @return Current SQLSTATEMENT pointer object to continue SQL query.
+         *  @params left - start of the range.
+         *   right - end of the range.
+         *  @return Current SQLSTATEMENT pointer object to continue SQL query.
          */
         template <typename ValueType>
-        T* between(ValueType left, ValueType right)
+        T* Between(ValueType left, ValueType right)
         {
             if (*(_statement->_queryStream.str().end() - 1) != ' ')
                 _statement->_queryStream << " ";
 
             _statement->_queryStream << "between " << left << " and " << right;
+
+            return _statement;
+        }
+        /** @brief Like condition.
+        *   @params pattern - see this for info: \
+        *    https://www.w3schools.com/sql/sql_like.asp, \
+        *    https://www.w3schools.com/sql/sql_wildcards.asp
+        *   @return Current SQLSTATEMENT pointer object to continue SQL query.
+        */
+        T* Like(const std::string pattern)
+        {
+            if (*(_statement->_queryStream.str().end() - 1) != ' ')
+                _statement->_queryStream << " ";
+
+            _statement->_queryStream << "like " << pattern;
 
             return _statement;
         }
@@ -375,7 +390,7 @@ namespace DataAccess
         /** @brief Insert one row into table.
         *   @details Inserting all columns into a row.
         *   @code
-        *    ...->field(1, "a", "male")->...;
+        *    ...->field(1, "a", "male")->field(2, "b", "female")...;
         *   @endcode
         *   @params list of row's columns.
         *   @return Current SQLInsert pointer object to continue SQL query.
@@ -403,7 +418,7 @@ namespace DataAccess
         /** @brief Insert one row into table.
          *  @details Inserting columns into a row as tuple. \
          *  @code
-         *   ...->field(tupleName)->...;
+         *   ...->field(tupleName1)->field(tupleName2)...;
          *  @endcode
          *  @params Taple with data.
          *  @return Current SQLInsert pointer object to continue SQL query.
@@ -438,7 +453,7 @@ namespace DataAccess
          *   You don't have to wrap columnName by quotes, \
          *   BUT you must wrap data strings.
          *  @code
-         *   ...->columns(pair{"Column1", 1}, pair{"Column2", "data"})->...;
+         *   ...->columns(pair{"Column1", 1}, pair{"Column2", "data"})->field(data)->...;
          *  @endcode
          *  @params Pairs.
          *  @return Current SQLInsert pointer object to continue SQL query.
@@ -466,7 +481,7 @@ namespace DataAccess
          *  @details Inserting several columns into a row as tuple of pairs. \
          *   You don't have to wrap columnName by quotes. \
          *  @code
-         *   ...->columns(tupleName)->...;
+         *   ...->columns(tupleName1)->field(data)->...;
          *  @endcode
          *  @params Tuple of pairs.
          *  @return Current SQLInsert pointer object to continue SQL query.
@@ -697,6 +712,11 @@ namespace DataAccess
          */
         void changeTable(const std::string& newTableName) noexcept;
     
+        /** @brief Get postgreAdapter object.
+        *   @return PostgreAdapter.
+        */
+        std::shared_ptr<PostgreAdapter> getPostgre(void) const noexcept;
+
     private:
 
         void privateClear(SQLStatement statement);
