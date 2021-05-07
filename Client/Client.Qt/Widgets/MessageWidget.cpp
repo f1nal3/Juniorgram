@@ -213,11 +213,29 @@ void MessageWidget::setMessageText(QString newMessage)
     }
 }
 
+void MessageWidget::setStdMessageText(std::string newMessage)
+{
+    if (newMessage != "")
+    {
+        messageText = QString::fromStdString(newMessage);
+        updateWidget();
+    }
+}
+
 void MessageWidget::setUserName(QString newUserName)
 {
     if (newUserName != "")
     {
         userName = newUserName;
+        updateWidget();
+    }
+}
+
+void MessageWidget::setStdUserName(std::string newUserName)
+{
+    if (newUserName != "")
+    {
+        userName = QString::fromStdString(newUserName);
         updateWidget();
     }
 }

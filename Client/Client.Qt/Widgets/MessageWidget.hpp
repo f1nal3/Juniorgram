@@ -3,7 +3,6 @@
 constexpr auto EMPTY_MESSAGE      = "Empty message";
 constexpr auto EMPTY_USER_NAME    = "You";
 
-
 #include "pch.hpp"
 
 #include "Widgets/FlatButton.hpp"
@@ -27,14 +26,24 @@ public:
     void setThisItem(QListWidgetItem* Item);
     /**
      * @brief Method for method for changing the message.
-     * @param new text message as string of QStrings.
+     * @param new text message as string of QString.
      */
     void setMessageText(QString newMessage);
     /**
+     * @brief Method for method for changing the message.
+     * @param new text message as string of String.
+     */
+    void setStdMessageText(std::string newMessage);
+    /**
      * @brief Method for method for changing the nickname of the message sender.
-     * @param new nickname as string of QStrings.
+     * @param new nickname as string of QString.
      */
     void setUserName(QString newUserName);
+    /**
+     * @brief Method for method for changing the nickname of the message sender.
+     * @param new nickname as string of String.
+     */
+    void setStdUserName(std::string newUserName);
     /**
      * @brief constructor for displaying a message from a user on the screen.
      * @param text of message as string of QStrings.
