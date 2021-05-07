@@ -8,20 +8,20 @@ set(CMAKE_AUTORCC ON)
 set(SOURCE_FILES
         Widgets/BioButton.cpp
         Widgets/BioButton.hpp
-        Widgets/CaptionButton.hpp
         Widgets/CaptionButton.cpp
+        Widgets/CaptionButton.hpp
         Widgets/ChannelListWidget.cpp
         Widgets/ChannelListWidget.hpp
         Widgets/ChannelListWindow.cpp
         Widgets/ChannelListWindow.hpp
-        Widgets/ComboBox.hpp
         Widgets/ComboBox.cpp
+        Widgets/ComboBox.hpp
         Widgets/DateTimeEdit.cpp
         Widgets/DateTimeEdit.hpp
         Widgets/FlatButton.cpp
         Widgets/FlatButton.hpp
-        Widgets/InputFields.hpp
         Widgets/InputFields.cpp
+        Widgets/InputFields.hpp
         Widgets/Label.cpp
         Widgets/Label.hpp
         Widgets/ListWidget.cpp
@@ -40,22 +40,22 @@ set(SOURCE_FILES
         Widgets/TimeEdit.hpp
         Widgets/LogoWidget.cpp
         Widgets/LogoWidget.hpp
-        Style/Shadow.hpp
         Style/Style.cpp
+        Style/Shadow.hpp
         Style/Style.hpp
-        Application.hpp
         Application.cpp
+        Application.hpp
         ChatWindow.cpp
         ChatWindow.hpp
-        login.hpp
         login.cpp
+        login.hpp
         main.cpp
-        ConnectionManager.hpp
         MainWidget.cpp
+        ConnectionManager.hpp
         MainWidget.hpp
         pch.hpp
-        registration.hpp
-        registration.cpp)
+        registration.cpp
+        registration.hpp)
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)
