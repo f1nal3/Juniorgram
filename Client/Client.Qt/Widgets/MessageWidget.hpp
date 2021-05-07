@@ -43,18 +43,18 @@ public:
      * @param object of the QWidget type.
      */
     MessageWidget(QString textMessage, QString nameOfUser, QListWidgetItem* Item,
-                  QWidget* parent = nullptr);
+                  bool deletedMessage, QWidget* parent = nullptr);
     /**
      * @brief constructor for displaying a message from a user on the screen.
      * @param text of message as string of QStrings.
      * @param object of the QListWidgetItem type.
      */
-    MessageWidget(QString textMessage, QListWidgetItem* Item);
+    MessageWidget(QString textMessage, QListWidgetItem* Item, bool deletedMessage);
     /**
      * @brief constructor for displaying a message from a user on the screen.
      * @param object of the QListWidgetItem type.
      */
-    explicit MessageWidget(QListWidgetItem* Item);
+    explicit MessageWidget(QListWidgetItem* Item, bool deletedMessage);
     /**
      * @brief destructor for clearing memory.
      */
@@ -87,13 +87,13 @@ private:
     // delMessage - shows that the message has been deleted
     Label* delMessage;
 
+    bool messageDeleted;
     QString messageText;
     QString userName;
     QTime timeMessage;
     QString reactionOnMessage;
     QStringList itemReactionList;
     std::map<std::string, int> reactionMap{{"Like", 0}};
-    bool messageDel;
     void initializationUi();
     bool isReaction(QString reaction);
     void updateWidget();
