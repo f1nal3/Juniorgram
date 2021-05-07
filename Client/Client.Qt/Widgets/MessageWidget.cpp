@@ -7,7 +7,7 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser,
     : QWidget(parent),
     messageText(std::move(textMessage)),
     userName(std::move(nameOfUser)),
-    timeMessage(QTime::currentTime())
+    dateTimeMessage(QDateTime::currentDateTime())
 {
     initializationUi();
     uiConnect();
@@ -69,8 +69,8 @@ void MessageWidget::initializationUi()
 
     horizontalUpLeftSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-    messageTimeEdit = new TimeEdit(this);
-    messageTimeEdit->setObjectName(QString::fromUtf8("messageTimeEdit"));
+    messageDateTimeEdit = new QDateTimeEdit(this);
+    messageDateTimeEdit->setObjectName(QString::fromUtf8("messageDateTimeEdit"));
 
     horizontalUpRightSpacer = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
     
@@ -82,7 +82,7 @@ void MessageWidget::initializationUi()
     UpLevelLayout->addItem(horizontalUpLeftSpacer);
     UpLevelLayout->addWidget(userNameLabel);
     UpLevelLayout->addItem(horizontalUpRightSpacer);
-    UpLevelLayout->addWidget(messageTimeEdit);
+    UpLevelLayout->addWidget(messageDateTimeEdit);
 
     //DownLevelLayout
 
@@ -120,7 +120,7 @@ void MessageWidget::clearMessage()
         UpLevelLayout->removeItem(horizontalUpLeftSpacer);
         UpLevelLayout->removeWidget(userNameLabel);
         UpLevelLayout->removeItem(horizontalUpRightSpacer);
-        UpLevelLayout->removeWidget(messageTimeEdit);
+        UpLevelLayout->removeWidget(messageDateTimeEdit);
         UpLevelLayout->removeWidget(reactionLabelIcon);
         DownLevelLayout->removeWidget(reactionChoseBox);
         DownLevelLayout->removeItem(horizontalDownSpacer);
@@ -131,7 +131,7 @@ void MessageWidget::clearMessage()
         delete reactionLabel;
         delete horizontalUpLeftSpacer;
         delete horizontalUpRightSpacer;
-        delete messageTimeEdit;
+        delete messageDateTimeEdit;
         delete reactionChoseBox;
         delete reactionLabelIcon;
         delete deleteButton;
@@ -160,7 +160,7 @@ bool MessageWidget::isReaction(QString reaction)
 
 void MessageWidget::updateWidget()
 {
-    messageTimeEdit->setTime(timeMessage);
+    messageDateTimeEdit->setDateTime(dateTimeMessage);
     messageTextEdit->setPlainText(messageText);
     userNameLabel->setText(userName);
     reactionLabel->setText("");

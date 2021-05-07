@@ -87,7 +87,7 @@ private:
     Label* reactionLabelIcon;
     QSpacerItem* horizontalUpLeftSpacer;
     QSpacerItem* horizontalUpRightSpacer;
-    TimeEdit* messageTimeEdit;
+    QDateTimeEdit* messageDateTimeEdit;
     QPixmap *LikeIcon;
     // DownLevelLayout
     ComboBox* reactionChoseBox;
@@ -98,7 +98,7 @@ private:
 
     QString messageText;
     QString userName;
-    QTime timeMessage;
+    QDateTime dateTimeMessage;
     QString reactionOnMessage;
     QStringList itemReactionList;
     std::map<std::string, int> reactionMap{{"Like", 0}};
