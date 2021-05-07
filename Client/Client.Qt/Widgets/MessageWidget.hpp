@@ -104,7 +104,8 @@ private:
     QString reactionOnMessage;
     QStringList itemReactionList;
     std::map<std::string, int> reactionMap{{"Like", 0}};
-    void initializationUi();
+    void initializationUiNotDelete();
+    void initializationUiDelete();
     bool isReaction(QString reaction);
     void updateWidget();
     void uiConnect();
