@@ -56,6 +56,15 @@ public:
                   bool deletedMessage, QWidget* parent = nullptr);
     /**
      * @brief constructor for displaying a message from a user on the screen.
+     * @param text of message as string of Strings.
+     * @param nickname as string of Strings.
+     * @param object of the QListWidgetItem type.
+     * @param object of the QWidget type.
+     */
+    MessageWidget(std::string textMessage, std::string nameOfUser, QListWidgetItem* Item,
+                  bool deletedMessage);
+    /**
+     * @brief constructor for displaying a message from a user on the screen.
      * @param text of message as string of QStrings.
      * @param object of the QListWidgetItem type.
      */

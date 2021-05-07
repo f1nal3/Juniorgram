@@ -26,15 +26,13 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidge
         initializationUiDelete();
 }
 
-MessageWidget::MessageWidget(QString textMessage, QListWidgetItem* Item, bool deletedMessage)
-    : MessageWidget(textMessage, EMPTY_USER_NAME, Item, deletedMessage)
-{
-}
+MessageWidget::MessageWidget(std::string textMessage, std::string nameOfUser, QListWidgetItem* Item,
+                             bool deletedMessage)
+    : MessageWidget(QString::fromStdString(textMessage), QString::fromStdString(nameOfUser), Item,
+                    deletedMessage){}
 
-MessageWidget::MessageWidget(QListWidgetItem* Item, bool deletedMessage)
-    : MessageWidget(EMPTY_MESSAGE, EMPTY_USER_NAME, Item, deletedMessage)
-{
-}
+MessageWidget::MessageWidget(QString textMessage, QListWidgetItem* Item, bool deletedMessage)
+    : MessageWidget(textMessage, EMPTY_USER_NAME, Item, deletedMessage){}
 
 MessageWidget::~MessageWidget()
 {
