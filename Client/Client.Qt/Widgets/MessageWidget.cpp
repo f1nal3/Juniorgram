@@ -69,7 +69,7 @@ void MessageWidget::initializationUi()
 
     horizontalUpLeftSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-    messageDateTimeEdit = new QDateTimeEdit(this);
+    messageDateTimeEdit = new DateTimeEdit(this);
     messageDateTimeEdit->setObjectName(QString::fromUtf8("messageDateTimeEdit"));
 
     horizontalUpRightSpacer = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);

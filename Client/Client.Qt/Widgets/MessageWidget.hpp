@@ -9,6 +9,7 @@ constexpr auto EMPTY_USER_NAME    = "You";
 #include "Widgets/InputFields.hpp"
 #include "Widgets/Label.hpp"
 #include "Widgets/TimeEdit.hpp"
+#include "Widgets/DateTimeEdit.hpp"
 #include "Widgets/ComboBox.hpp"
 
 /** @class MessageWidget
@@ -87,7 +88,7 @@ private:
     Label* reactionLabelIcon;
     QSpacerItem* horizontalUpLeftSpacer;
     QSpacerItem* horizontalUpRightSpacer;
-    QDateTimeEdit* messageDateTimeEdit;
+    DateTimeEdit* messageDateTimeEdit;
     QPixmap *LikeIcon;
     // DownLevelLayout
     ComboBox* reactionChoseBox;
