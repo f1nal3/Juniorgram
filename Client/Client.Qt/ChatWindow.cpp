@@ -58,11 +58,11 @@ void ChatWindow::updateMessagesList_User()
 
 void ChatWindow::newMessage(QString textMessage, QString userNameMessage)
 {
-    auto* item   = new QListWidgetItem();
+    auto* item = new QListWidgetItem();
+    item->setSizeHint(QSize(0, Style::valueDPIScale(150)));
     auto* myItem =
         new MessageWidget(std::move(textMessage), std::move(userNameMessage), item, false);
     myItem->setThisItem(item);
-    item->setSizeHint(QSize(0, Style::valueDPIScale(150)));
     chatWidget->addItem(item);
     chatWidget->setItemWidget(item, myItem);
 }
