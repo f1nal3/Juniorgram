@@ -257,11 +257,13 @@ void MessageWidget::setStdUserName(std::string newUserName)
 void MessageWidget::setDateTime(QDateTime newDataTime)
 {
     dateTimeMessage = std::move(newDataTime);
+    updateWidget();
 }
 
 void MessageWidget::setStdTime_tDateTime(std::time_t newDataTime)
 {
     dateTimeMessage = std::move(QDateTime::fromTime_t(newDataTime));
+    updateWidget();
 }
 
 void MessageWidget::setReactionMap(std::map<std::string, int> newReactionMap)
