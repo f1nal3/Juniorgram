@@ -45,6 +45,10 @@ public:
      * @param new nickname as string of String.
      */
     void setStdUserName(std::string newUserName);
+
+    void setDateTime(QDateTime newDataTime);
+    void setStdTime_tDateTime(std::time_t newDataTime);
+
     /**
      * @brief constructor for displaying a message from a user on the screen.
      * @param text of message as string of QStrings.
