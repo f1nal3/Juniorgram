@@ -56,6 +56,11 @@ public:
      */
     void setStdTime_tDateTime(std::time_t newDataTime);
     /**
+     * @brief Method for changing reaction map.
+     * @param new reactions of map with kay std::string and value int.
+     */
+    void setReactionMap(std::map<std::string, int> newReactionMap);
+    /**
      * @brief constructor for displaying a message from a user on the screen.
      * @param text of message as string of QStrings.
      * @param nickname as string of QStrings.

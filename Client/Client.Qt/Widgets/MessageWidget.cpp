@@ -157,7 +157,6 @@ void MessageWidget::clearMessage()
     }
 }
 
-
 void MessageWidget::deleteButtonClick()
 {
     clearMessage();
@@ -263,4 +262,10 @@ void MessageWidget::setDateTime(QDateTime newDataTime)
 void MessageWidget::setStdTime_tDateTime(std::time_t newDataTime)
 {
     dateTimeMessage = std::move(QDateTime::fromTime_t(newDataTime));
+}
+
+void MessageWidget::setReactionMap(std::map<std::string, int> newReactionMap)
+{
+    reactionMap = std::move(newReactionMap);
+    updateWidget();
 }
