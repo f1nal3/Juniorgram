@@ -5,7 +5,7 @@
 
 #include "DataAccess.Static/PostgreAbstractionLayout.hpp"
 
-DataAccess::Table test("testing", "dbname=postgres user=postgres hostaddr=127.0.0.1 port=1250");
+DataAccess::Table test("testing", "dbname=postgres user=postgres hostaddr=104.40.239.183 port=1250");
 
 TEST_CASE("Select[Where]", "[PostgreAbstractionLayout]")
 { 
