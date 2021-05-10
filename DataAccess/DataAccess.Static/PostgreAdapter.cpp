@@ -54,7 +54,6 @@ namespace DataAccess
     void PostgreAdapter::closeConnection(void) 
     { 
         m_connection.reset();
-        msp_instance.reset();
     }
 
 }
