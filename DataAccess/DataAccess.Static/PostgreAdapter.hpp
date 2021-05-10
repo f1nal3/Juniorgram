@@ -17,15 +17,15 @@ class PostgreAdapter
 private:
     inline static std::mutex ms_static_mutex{};
     inline static std::shared_ptr<PostgreAdapter> msp_instance{};
-    inline static std::string_view ms_newOptions{};
     inline static constexpr std::string_view ms_defaultOptions =
         "dbname=juniorgram user=postgres hostaddr=127.0.0.1 port=5432";
 
     std::mutex m_query_mutex;
-    pqxx::connection m_connection;
+    std::unique_ptr<pqxx::connection> m_connection;
 
 protected:
-    PostgreAdapter(const std::string_view& options) : m_connection{pqxx::zview(options)} {}
+    PostgreAdapter(const std::string_view& options) 
+        : m_connection{std::make_unique<pqxx::connection>(pqxx::zview(options))} {}
 
 public:
     PostgreAdapter(const PostgreAdapter& other) = delete;
@@ -81,8 +81,10 @@ public:
     bool isConnected(void) const;
 
     /** @brief Method for closing connection.
-    *   @details You should use it if you know for sure that \
-    *    you don't need access to the database.
+    *   @details Method for change connection to the database.
+    *   @warning Be careful to use it because if you have many instances \
+    *    of this class and after call this method, you may have \
+    *    'dangling' pointers.
     */
     void closeConnection(void);
 };
