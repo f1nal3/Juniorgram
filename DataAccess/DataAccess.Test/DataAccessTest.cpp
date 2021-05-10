@@ -5,7 +5,31 @@
 
 #include "DataAccess.Static/PostgreAbstractionLayout.hpp"
 
-DataAccess::Table test("testing", "dbname=test user=postgres hostaddr=127.0.0.1 port=5432");
+DataAccess::Table test("testing", "hostaddr=104.40.239.183 port=5432 dbname=test user=userfortests password=123");
+
+TEST_CASE("Query", "[PostgreAdapter]")
+{
+    SECTION("Delete test") 
+    {
+        REQUIRE_NOTHROW(DataAccess::PostgreAdapter::getPostgre(
+                        "hostaddr=104.40.239.183 port=5432 dbname=test user=userfortests password=123")
+                        ->query("delete from tests"));
+    }
+    SECTION("Insert test") 
+    { 
+        REQUIRE_NOTHROW(DataAccess::PostgreAdapter::getPostgre(
+                        "hostaddr=104.40.239.183 port=5432 dbname=test user=userfortests password=123")
+                        ->query("insert into tests values(0, 5, 'male')"));
+    }
+    SECTION("Select test")
+    {
+        auto result  =  DataAccess::PostgreAdapter::getPostgre(
+                        "hostaddr=104.40.239.183 port=5432 dbname=test user=userfortests password=123")
+                        ->query("select * from tests;");
+
+        REQUIRE(result.value().empty() == false);
+    }
+}
 
 TEST_CASE("Select[Where]", "[PostgreAbstractionLayout]")
 { 
