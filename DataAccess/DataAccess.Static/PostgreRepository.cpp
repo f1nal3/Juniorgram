@@ -20,12 +20,12 @@ std::vector<std::string> PostgreRepository::getAllChannelsList()
     return result;
 }
 
-std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const unsigned channelID)
+std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::uint64_t channelID)
 {
     std::vector<std::string> result;
 
     auto messageHistoryRow = 
-        Table("channel_msgs").Select()->columns({"msg"})->where("channel_id = " + channelID)->execute();
+        Table("channel_msgs").Select()->columns({"msg"})->Where("channel_id = " + channelID)->execute();
 
 
     if (messageHistoryRow.has_value())
@@ -40,18 +40,19 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const unsig
     return result;
 }
 
-void PostgreRepository::storeMessage(const Network::MessageInfo& message, const unsigned channelID)
+void PostgreRepository::storeMessage(const Network::MessageInfo& message, const std::uint64_t channelID)
 {
-    std::string timeStr = PostgreAdapter::getPostgre()
-                  ->query("select now()")
-                  .value().at(0).at(0)
-                  .as<std::string>();
+    char timeStampStr[35];
+
+    std::time_t t = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    std::tm time  = Utility::safe_localtime(t);
+    std::strftime(timeStampStr, 35, "%Y-%m-%d %H:%M:%S.0+00", &time);
 
     std::tuple messageToDatabase
     {
         std::pair{"channel_id", channelID},
         std::pair{"sender_id", message.userID},
-        std::pair{"send_time", timeStr}, 
+        std::pair{"send_time", timeStampStr}, 
         std::pair{"msg", message.message}
     };
     Table("channel_msgs").Insert()->columns(messageToDatabase)->execute();

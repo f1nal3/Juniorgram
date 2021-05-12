@@ -1,8 +1,8 @@
 #pragma once
 
-#include "pch.hpp"
 #include "FlatButton.hpp"
 #include "ListWidget.hpp"
+#include "pch.hpp"
 
 /** @class ChannelListWindow
  *  @brief This is channel list
@@ -10,14 +10,30 @@
 class ChannelListWindow : public QWidget
 {
 public:
-    ChannelListWindow(QWidget* parent, ListWidget* anotherChannelListWidget);
+    ChannelListWindow(ListWidget* anotherChannelListWidget, QWidget* parent = nullptr);
     ~ChannelListWindow();
+    /**
+     * @brief Method for update channel list window in another thread.
+     */
+    void updateChannelList();
+    /**
+     * @brief Static method for adding name of channels in own non-static ListWidget container.
+     * @param Name of Channels as std::string
+     */
+    static void addChannelInfo(const std::string& nameOfChannels);
+
+public:
+    inline static std::condition_variable mainWidgetStatus;
+
 public slots:
-    //Then have to add a channel with the chat history
     void addChannelToMainChannelWidget();
+    void updateChannelListWindow();
+
 private:
-    ListWidget*  channelList;
-    FlatButton*  addChannelButton;
-    QVBoxLayout* vBoxLayout;
-    ListWidget*  channelListMainWindow;
+    inline static std::vector<std::string> channelNames{};
+    ListWidget*                            channelList;
+    FlatButton*                            addChannelButton;
+    FlatButton*                            updateChannelButton;
+    QVBoxLayout*                           vBoxLayout;
+    ListWidget*                            channelListMainWindow;
 };
