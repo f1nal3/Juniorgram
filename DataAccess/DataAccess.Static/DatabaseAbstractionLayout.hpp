@@ -1,7 +1,8 @@
 #pragma once
 
-#include <type_traits>
 #include <iostream>
+#include <type_traits>
+#include <variant> 
 
 #include "PostgreAdapter.hpp"
 
@@ -228,45 +229,8 @@ namespace DataAccess
         *    For pqxx::result check here: 
         *    https://libpqxx.readthedocs.io/en/6.4/a01127.html
         */
-        template<class T, typename = std::enable_if_t<std::disjunction<std::is_same<pqxx::result, std::decay_t<T>>>::value>>
-        std::optional<T> execute(void)
-        {
-            std::optional<T> result;
-
-            try
-            {
-                if (_currentCreator._adapter->isConnected())
-                {
-                    result = std::any_cast<T>(_currentCreator._adapter->query(_queryStream.str() + ";"));
-
-                    this->rollback();
-
-                    if (result.has_value())
-                        return result;
-                }
-                else
-                {
-                    throw Utility::OperationDBException("Database connection failure!", __FILE__, __LINE__);
-                }
-            }
-            catch (const pqxx::sql_error& err)
-            {
-                std::cerr << err.what() << '\n';
-                std::cerr << err.query() << '\n';
-                this->rollback();
-
-                return std::nullopt;
-            }
-            catch (const std::exception& err)
-            {
-                std::cerr << err.what() << '\n';
-                this->rollback();
-
-                return std::nullopt;
-            }
-
-            return std::nullopt;
-        }
+        virtual std::variant<std::optional<pqxx::result>> execute(void);
+        
 
         /** @brief Method that clear SQL query string.
         *   @code
@@ -686,7 +650,8 @@ namespace DataAccess
     public:
 
         explicit QueryCreator(DBType type, const char* tableName)
-            : _tableName{tableName},
+            : _databaseType{type},
+              _tableName{tableName},
               _select{nullptr},
               _insert{nullptr},
               _update{nullptr},
@@ -696,13 +661,11 @@ namespace DataAccess
             {
             case DBType::DB_LITE:
             {
-                _databaseType = DBType::DB_LITE;
                 // SQLite adapter
             }
             break;
             case DBType::DB_POSTGRE:
             {
-                _databaseType = DBType::DB_POSTGRE;
                 _adapter = PostgreAdapter::getInstance<PostgreAdapter>();
             }
             break;
@@ -715,7 +678,8 @@ namespace DataAccess
         explicit QueryCreator(DBType type, const std::string_view& tableName)
             : QueryCreator(type, tableName.data()) {}
         explicit QueryCreator(DBType type, const char* tableName, const std::string_view& options)
-            : _tableName{tableName},
+            : _databaseType{type},
+              _tableName{tableName},
               _select{nullptr},
               _insert{nullptr},
               _update{nullptr},
@@ -725,13 +689,11 @@ namespace DataAccess
             {
             case DBType::DB_LITE:
             {
-                _databaseType = DBType::DB_LITE;
                 // SQLite adapter
             }
             break;
             case DBType::DB_POSTGRE:
             {
-                _databaseType = DBType::DB_POSTGRE;
                 _adapter = PostgreAdapter::getInstance<PostgreAdapter>(options);
             }
             break;

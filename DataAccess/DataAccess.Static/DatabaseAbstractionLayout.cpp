@@ -109,15 +109,60 @@ namespace DataAccess
     }
 
 
-    SQLStatement                          SQLBase::type(void) const noexcept
+    SQLStatement                              SQLBase::type(void) const noexcept
     {
         return _statement; 
     }
-    const std::string                     SQLBase::getQuery(void) const noexcept
+    std::variant<std::optional<pqxx::result>> SQLBase::execute()
+    {
+        std::variant<std::optional<pqxx::result>> result;
+
+        try
+        {
+            if (_currentCreator.getAdapter()->isConnected())
+            {
+                if (_currentCreator._databaseType == DBType::DB_POSTGRE)
+                {
+                    result = std::any_cast<pqxx::result>(_currentCreator.getAdapter()->query(_queryStream.str() + ";"));
+
+                    this->rollback();
+
+                    if (std::get<0>(result).has_value())
+                        return { result };
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+                throw Utility::OperationDBException("Database connection failure!", __FILE__, __LINE__);
+            }
+        }
+        catch (const pqxx::sql_error& err)
+        {
+            std::cerr << err.what() << '\n';
+            std::cerr << err.query() << '\n';
+            this->rollback();
+
+            return { std::nullopt };
+        }
+        catch (const std::exception& err)
+        {
+            std::cerr << err.what() << '\n';
+            this->rollback();
+
+            return { std::nullopt };
+        }
+
+        return { std::nullopt } ;
+    }
+    const std::string                         SQLBase::getQuery(void) const noexcept
     {
         return _queryStream.str();
     }
-    void                                  SQLBase::rollback(void)
+    void                                      SQLBase::rollback(void)
     { 
         _currentCreator.privateClear(_statement);
     }
