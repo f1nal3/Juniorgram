@@ -1,7 +1,5 @@
 #include "DatabaseAbstractionLayout.hpp"
 
-#include <iostream>
-
 namespace DataAccess
 {
     SQLSelect*                            QueryCreator::Select(void)
