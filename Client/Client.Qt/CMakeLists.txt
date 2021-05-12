@@ -72,6 +72,7 @@ target_precompile_headers(${TARGET} PRIVATE pch.hpp)
 
 if (WIN32)
     set(Qt5_DIR $ENV{CMAKE_PREFIX_PATH})
+    message(STATUS ${Qt5_DIR})
     if (CMAKE_BUILD_TYPE MATCHES Debug)
         file(COPY "${Qt5_DIR}/bin/Qt5Cored.dll" "${Qt5_DIR}/bin/Qt5Guid.dll"
                 "${Qt5_DIR}/bin/Qt5Widgetsd.dll" "${Qt5_DIR}/plugins/platforms/qminimald.dll"
