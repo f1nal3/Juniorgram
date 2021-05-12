@@ -235,9 +235,9 @@ namespace DataAccess
 
             try
             {
-                if (_currentCreator.getAdapter()->isConnected())
+                if (_currentCreator._adapter->isConnected())
                 {
-                    result = std::any_cast<T>(_currentCreator.getAdapter()->query(_queryStream.str() + ";"));
+                    result = std::any_cast<T>(_currentCreator._adapter->query(_queryStream.str() + ";"));
 
                     this->rollback();
 
