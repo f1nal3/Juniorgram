@@ -3,31 +3,31 @@
 
 #include <iostream>
 
-#include "DataAccess.Static/PostgreAbstractionLayout.hpp"
+#include <DataAccess.Static/DatabaseAbstractionLayout.hpp>
 
-DataAccess::Table test("testing", "hostaddr=104.40.239.183 port=5432 dbname=test user=userfortests password=123");
+DataAccess::PTable test("testing", "hostaddr=104.40.239.183 port=5432 dbname=test user=userfortests password=123");
 
 TEST_CASE("Query", "[PostgreAdapter]")
 {
     SECTION("Delete test") 
     {
-        REQUIRE_NOTHROW(DataAccess::PostgreAdapter::getPostgre(
+        REQUIRE_NOTHROW(DataAccess::PostgreAdapter::getInstance<DataAccess::PostgreAdapter>(
                         "hostaddr=104.40.239.183 port=5432 dbname=test user=userfortests password=123")
                         ->query("delete from tests"));
     }
     SECTION("Insert test") 
     { 
-        REQUIRE_NOTHROW(DataAccess::PostgreAdapter::getPostgre(
+        REQUIRE_NOTHROW(DataAccess::PostgreAdapter::getInstance<DataAccess::PostgreAdapter>(
                         "hostaddr=104.40.239.183 port=5432 dbname=test user=userfortests password=123")
                         ->query("insert into tests values(0, 5, 'male')"));
     }
     SECTION("Select test")
     {
-        auto result  =  DataAccess::PostgreAdapter::getPostgre(
+        auto result =   DataAccess::PostgreAdapter::getInstance<DataAccess::PostgreAdapter>(
                         "hostaddr=104.40.239.183 port=5432 dbname=test user=userfortests password=123")
-                        ->query("select * from tests;");
-
-        REQUIRE(result.value().empty() == false);
+                        ->query("select * from tests;").value();
+        
+        REQUIRE(std::any_cast<pqxx::result>(result).empty() == false);
     }
 }
 
@@ -45,7 +45,7 @@ TEST_CASE("Select[Where]", "[PostgreAbstractionLayout]")
 
 TEST_CASE("Select[Where not]", "[PostgreAbstractionLayout]")
 {
-    std::string query = test.Select()->columns({"*"})->Where()->Not("name = 'Max'")->getQuery();
+    std::string query = test.Select()->columns({"*"})->Where("not name = 'Max'")->getQuery();
 
     SECTION("Query string test")
     {
@@ -58,7 +58,7 @@ TEST_CASE("Select[Where not]", "[PostgreAbstractionLayout]")
 TEST_CASE("Select[Where and]", "[PostgreAbstractionLayout]")
 {
     std::string query =
-        test.Select()->columns({"*"})->Where("name = 'Max'")->And("id > 10")->getQuery();
+        test.Select()->columns({"*"})->Where("name = 'Max' and id > 10")->getQuery();
 
     SECTION("Query string test")
     {
@@ -71,7 +71,7 @@ TEST_CASE("Select[Where and]", "[PostgreAbstractionLayout]")
 TEST_CASE("Select[Where or]", "[PostgreAbstractionLayout]")
 {
     std::string query =
-        test.Select()->columns({"*"})->Where("name = 'Max'")->Or("id > 10")->getQuery();
+        test.Select()->columns({"*"})->Where("name = 'Max' or id > 10")->getQuery();
 
     SECTION("Query string test")
     {
@@ -109,9 +109,7 @@ TEST_CASE("Select[Extra][1]", "[PostgreAbstractionLayout]")
 {
     std::string query = test.Select()->
                              columns({"id", "name"})->
-                             Where()->Not("name = 'A'")->
-                             And("(id < 0")->
-                             Or("id > 15)")->
+                             Where("not name = 'A' and (id < 0 or id > 15)")->
                              orderBy({"name", "id"})->
                              limit(5, 25)->
                              getQuery();
@@ -129,8 +127,7 @@ TEST_CASE("Select[Extra][2]", "[PostgreAbstractionLayout]")
     std::string query = test.Select()
                             ->distinct()
                             ->columns({"id, name"})
-                            ->Where("id")
-                            ->Not()
+                            ->Where("id not")
                             ->Between(0, 15)
                             ->And("name <> 'A'")
                             ->getQuery();
@@ -252,6 +249,4 @@ TEST_CASE("Delete[Where]", "[PostgreAbstractionLayout]")
         REQUIRE(query == "delete from testing where A = 1");
         test.Delete()->rollback();
     }
-
-    test.getPostgre()->closeConnection();
 }

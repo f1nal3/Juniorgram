@@ -30,30 +30,34 @@ namespace Utility
     template <typename T>
     struct is_char
         : public std::disjunction<
-            std::is_same<char, typename std::decay_t<T>>,
-            std::is_same<const char, typename std::decay_t<T>>,
-            std::is_same<wchar_t, typename std::decay_t<T>>,
-            std::is_same<const wchar_t, typename std::decay_t<T>>
+            std::is_same<char,                    typename std::decay_t<T>>,
+            std::is_same<const char,              typename std::decay_t<T>>,
+            std::is_same<wchar_t,                 typename std::decay_t<T>>,
+            std::is_same<const wchar_t,           typename std::decay_t<T>>
         >
     {};
 
     template <typename T>
     struct is_c_string
         : public std::disjunction<
-            std::is_same<char*,               typename std::decay_t<T>>,
-            std::is_same<const char*,         typename std::decay_t<T>>,
-            std::is_same<wchar_t*,            typename std::decay_t<T>>,
-            std::is_same<const wchar_t*,      typename std::decay_t<T>>
+            std::is_same<char*,                   typename std::decay_t<T>>,
+            std::is_same<const char*,             typename std::decay_t<T>>,
+            std::is_same<wchar_t*,                typename std::decay_t<T>>,
+            std::is_same<const wchar_t*,          typename std::decay_t<T>>
         >
     {};
 
     template <typename T>
     struct is_std_string
         : public std::disjunction<
-            std::is_same<std::string,         typename std::decay_t<T>>,
-            std::is_same<const std::string,   typename std::decay_t<T>>,
-            std::is_same<std::wstring,        typename std::decay_t<T>>,
-            std::is_same<const std::wstring,  typename std::decay_t<T>>
+            std::is_same<std::string,             typename std::decay_t<T>>,
+            std::is_same<const std::string,       typename std::decay_t<T>>,
+            std::is_same<std::wstring,            typename std::decay_t<T>>,
+            std::is_same<const std::wstring,      typename std::decay_t<T>>,
+            std::is_same<std::string_view,        typename std::decay_t<T>>,
+            std::is_same<const std::string_view,  typename std::decay_t<T>>,
+            std::is_same<std::wstring_view,       typename std::decay_t<T>>,
+            std::is_same<const std::wstring_view, typename std::decay_t<T>>
         >
     {};
 

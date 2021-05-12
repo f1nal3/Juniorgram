@@ -2,10 +2,10 @@ set(TARGET DataAccess.Static)
 set(OUTPUT_NAME DataAccess.Static)
 
 set(SOURCE_FILES
+    DatabaseAbstractionLayout.hpp
+    DatabaseAbstractionLayout.cpp
     PostgreAdapter.hpp
     PostgreAdapter.cpp
-    PostgreAbstractionLayout.hpp
-    PostgreAbstractionLayout.cpp
     PostgreRepository.hpp
     PostgreRepository.cpp)
 

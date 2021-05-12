@@ -6,7 +6,7 @@ std::vector<std::string> PostgreRepository::getAllChannelsList()
 {
     std::vector<std::string> result;
 
-    auto channelListRow = Table("channels").Select()->columns({"channel_name"})->execute();
+    auto channelListRow = PTable("channels").Select()->columns({"channel_name"})->execute<pqxx::result>();
 
     if (channelListRow.has_value())
     {
@@ -25,7 +25,7 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::
     std::vector<std::string> result;
 
     auto messageHistoryRow = 
-        Table("channel_msgs").Select()->columns({"msg"})->Where("channel_id = " + channelID)->execute();
+        PTable("channel_msgs").Select()->columns({"msg"})->Where("channel_id = " + channelID)->execute<pqxx::result>();
 
 
     if (messageHistoryRow.has_value())
@@ -55,5 +55,5 @@ void PostgreRepository::storeMessage(const Network::MessageInfo& message, const 
         std::pair{"send_time", timeStampStr}, 
         std::pair{"msg", message.message}
     };
-    Table("channel_msgs").Insert()->columns(messageToDatabase)->execute();
+    PTable("channel_msgs").Insert()->columns(messageToDatabase)->execute<pqxx::result>();
 }
