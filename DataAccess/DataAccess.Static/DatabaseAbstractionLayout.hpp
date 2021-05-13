@@ -1,5 +1,9 @@
 #pragma once
 
+#include <iostream>
+#include <type_traits>
+#include <variant> 
+
 #include "PostgreAdapter.hpp"
 
 #include <Utility/Exception.hpp>
@@ -7,7 +11,7 @@
 
 namespace DataAccess
 {
-    class Table;
+    class QueryCreator;
     class SQLBase;
 
     /** @enum SQL statements enum.
@@ -29,13 +33,21 @@ namespace DataAccess
         J_RIGHT, /// Right sql join
         J_FULL   /// Full sql join
     };
+    /** @enum Database type enum.
+    */
+    enum class DBType : std::uint8_t
+    {
+        DB_POSTGRE,
+        DB_LITE
+    };
+
 
     /** @class SQLWhereCondition.
     *   @brief SQLWhereCondition class.
     *   @details This class is a secondary. It needs for \
     *    SQLSelect, SQLUpdate and SQLUpdate. \
     *    This class using for 'where' condition from SQL
-    *   @warning You shouldn't use it itself. Only from Table class.
+    *   @warning You shouldn't use it itself. Only from QueryCreator class.
     */
     template<class T>
     class SQLWhereCondition
@@ -48,9 +60,8 @@ namespace DataAccess
 
     public:
 
-        /** @brief Like common SQL where condition.
+        /** @brief Like common SQL 'where' condition.
         *   @params condition - SQL condition, but it is not required \
-        *    (for example for 'Not' condition).
         *   @return Current SQLSTATEMENT pointer object to continue SQL query.
         */
         T* Where(const std::string& condition = {})
@@ -62,44 +73,31 @@ namespace DataAccess
 
             return _statement;
         }
-        /** @brief Like common SQL and condition.
-         *  @params condition - SQL condition, but it is not required \
-         *   (for example for 'Not' condition).
-         *  @return Current SQLSTATEMENT pointer object to continue SQL query.
-         */
+        /** @brief Like common SQL 'and' condition. This condition \
+        *    need for continue the SQL query after like: limit, beetween, etc.
+        *   @params condition - SQL condition, but it is not required. \
+        *   @return Current SQLSTATEMENT pointer object to continue SQL query.
+        */
         T* And(const std::string& condition = {})
         {
-            if (*(_statement->_queryStream.str().end() - 1) != ' ') 
+            if (*(_statement->_queryStream.str().end() - 1) != ' ')
                 _statement->_queryStream << " ";
 
             _statement->_queryStream << "and " << condition;
 
             return _statement;
         }
-        /** @brief Like common SQL or condition.
-         *  @params condition - SQL condition, but it is not required \
-         *   (for example for 'Not' condition).
-         *  @return Current SQLSTATEMENT pointer object to continue SQL query.
-         */
+        /** @brief Like common SQL 'or' condition. This condition \
+        *    need for continue the SQL query after like: limit, beetween, etc.
+        *   @params condition - SQL condition, but it is not required. \
+        *   @return Current SQLSTATEMENT pointer object to continue SQL query.
+        */
         T* Or(const std::string& condition = {})
         {
-            if (*(_statement->_queryStream.str().end() - 1) != ' ') 
+            if (*(_statement->_queryStream.str().end() - 1) != ' ')
                 _statement->_queryStream << " ";
 
             _statement->_queryStream << "or " << condition;
-
-            return _statement;
-        }
-        /** @brief Like common SQL not condition.
-         *  @params condition - SQL condition, but it is not required.
-         *  @return Current SQLSTATEMENT pointer object to continue SQL query.
-         */
-        T* Not(const std::string& condition = {}) 
-        {
-            if (*(_statement->_queryStream.str().end() - 1) != ' ') 
-                _statement->_queryStream << " ";
-
-            _statement->_queryStream << "not " << condition;
 
             return _statement;
         }
@@ -158,7 +156,7 @@ namespace DataAccess
         *    https://www.w3schools.com/sql/sql_wildcards.asp
         *   @return Current SQLSTATEMENT pointer object to continue SQL query.
         */
-        T* Like(const std::string pattern)
+        T* Like(const std::string& pattern)
         {
             if (*(_statement->_queryStream.str().end() - 1) != ' ')
                 _statement->_queryStream << " ";
@@ -184,8 +182,8 @@ namespace DataAccess
     {
     public:
 
-        SQLBase(SQLStatement statement, Table& table)
-            : _statement{statement}, _currentTable{table}, _queryStream{} {}
+        SQLBase(SQLStatement statement, QueryCreator& table)
+            : _statement{statement}, _currentCreator{table}, _queryStream{} {}
 
     public:
 
@@ -214,23 +212,29 @@ namespace DataAccess
         *   @warning Don't clear SQL string if you use it. \
         *    After getQuery you whatever can call method execute.
         *   @code
-        *    Table table("tableName");
+        *    QueryCreator table("tableName");
         *    table.'SQLSTATEMENT'()->getQuery();
         *    table.'SQLSTATEMENT'()->execute(); /// Here SQL query string will be clear.
         *   @encode
         */
         virtual const std::string getQuery(void) const noexcept final;
-        /** @brief Method that executes SQL string.
+        /** @brief Method that executes SQL string. 
+        *    For technical reasons, 
+             you must specify the type of container 
+             where you want to put the result: 
+             pqxx::result or SQLiteResultType.
+             Maybe it can be fixed in the near future.
         *   @details This method clear SQL query string after call it.
-        *   @return Optional object pqxx::result \
-        *    For pqxx::result check here: \
+        *   @return Optional object pqxx::result or SQLiteResultObject
+        *    For pqxx::result check here: 
         *    https://libpqxx.readthedocs.io/en/6.4/a01127.html
         */
-        virtual std::optional<pqxx::result> execute(void) final;
+        virtual std::variant<std::optional<pqxx::result>> execute(void);
+        
 
         /** @brief Method that clear SQL query string.
         *   @code
-        *    Table table("tableName");
+        *    QueryCreator table("tableName");
         *    table.'SQLSTATEMENT'()->qetQuery();
         *    table.'SQLSTATEMENT'()->rollback();
         *   @endcode
@@ -240,7 +244,7 @@ namespace DataAccess
     protected:
 
         SQLStatement _statement;
-        Table& _currentTable;
+        QueryCreator& _currentCreator;
         std::ostringstream _queryStream;
 
     private:
@@ -261,7 +265,7 @@ namespace DataAccess
     {
     public:
 
-        SQLSelect(Table& table) : SQLBase(SQLStatement::ST_SELECT, table), SQLWhereCondition(this) {}
+        SQLSelect(QueryCreator& table) : SQLBase(SQLStatement::ST_SELECT, table), SQLWhereCondition(this) {}
 
         virtual ~SQLSelect(void) = default;
         
@@ -359,7 +363,7 @@ namespace DataAccess
         SQLSelect* All(const std::string& subQuery);
     
     private:
-        friend class Table;
+        friend class QueryCreator;
         friend class SQLWhereCondition<SQLSelect>;
     };
 
@@ -371,7 +375,7 @@ namespace DataAccess
     {
     public:
 
-        SQLInsert(Table& table) : SQLBase(SQLStatement::ST_INSERT, table) {}
+        SQLInsert(QueryCreator& table) : SQLBase(SQLStatement::ST_INSERT, table) {}
 
         virtual ~SQLInsert(void) = default;
 
@@ -526,7 +530,7 @@ namespace DataAccess
         void privateCorrectFormating(void);
 
     private:
-        friend class Table;
+        friend class QueryCreator;
     };
     
     /** @class SQLUpdate.
@@ -537,7 +541,7 @@ namespace DataAccess
     {
     public:
 
-        SQLUpdate(Table& table) : SQLBase(SQLStatement::ST_UPDATE, table), SQLWhereCondition(this) {}
+        SQLUpdate(QueryCreator& table) : SQLBase(SQLStatement::ST_UPDATE, table), SQLWhereCondition(this) {}
 
         virtual ~SQLUpdate(void) = default;
 
@@ -600,7 +604,7 @@ namespace DataAccess
         void privateCorrectFormating(void);
 
     private:
-        friend class Table;
+        friend class QueryCreator;
         friend class SQLWhereCondition<SQLUpdate>;
     };
 
@@ -612,7 +616,7 @@ namespace DataAccess
     {
     public:
 
-        SQLDelete(Table& table) : SQLBase(SQLStatement::ST_UPDATE, table), SQLWhereCondition(this) {}
+        SQLDelete(QueryCreator& table) : SQLBase(SQLStatement::ST_UPDATE, table), SQLWhereCondition(this) {}
 
         virtual ~SQLDelete(void) = default;
 
@@ -627,60 +631,92 @@ namespace DataAccess
         SQLDelete& operator=(SQLDelete&&) = delete;
 
     private:
-        friend class Table;
+        friend class QueryCreator;
         friend class SQLWhereCondition<SQLDelete>;
     };
 
-
-    /* @class Table.
-    *  @brief Table class.
-    *  @warning Only this class you must use.
+    /* @class QueryCreator.
+    *  @brief QueryCreator class.
     *  @details You can see some examples below for how to use it.
     *  @code
-    *   Table("tableName1").Select()->columns({"column1", "column2", ...})->where("condition")->...->execute()/OR/getQuery();
-    *   Table("tableName2").Insert()->field(1, "a")->field(...)->...->returning({"column1", "column2", ...})->execute()/OR/getQuery();
-    *   Table("tableName3").Update()->fields(pair{"column1", 1}, pair{"column2", "strData"})->where("condition")->...->execute()/OR/getQuery();
-    *   Table("tableName4").Delete()->where("condition")->...->execute()/OR/getQuery();  
+    *   QueryCreator(*DBTypeEnum*, "tableName1").Select()->columns({"column1", "column2", ...})->where("condition")->...->execute()/OR/getQuery();
+    *   QueryCreator(*DBTypeEnum*, "tableName2").Insert()->field(1, "a")->field(...)->...->returning({"column1", "column2", ...})->execute()/OR/getQuery();
+    *   QueryCreator(*DBTypeEnum*, "tableName3").Update()->fields(pair{"column1", 1}, pair{"column2", "strData"})->where("condition")->...->execute()/OR/getQuery();
+    *   QueryCreator(*DBTypeEnum*, "tableName4").Delete()->where("condition")->...->execute()/OR/getQuery();  
     *  @endcodegit 
     */
-    class Table
+    class QueryCreator
     {
     public:
 
-        explicit Table(const char* tableName)
-            : _tableName{tableName},
+        explicit QueryCreator(DBType type, const char* tableName)
+            : _databaseType{type},
+              _tableName{tableName},
               _select{nullptr},
               _insert{nullptr},
               _update{nullptr},
               _delete{nullptr} 
         {
-            _postgre = PostgreAdapter::getPostgre();
+            switch (type)
+            {
+            case DBType::DB_LITE:
+            {
+                // SQLite adapter
+            }
+            break;
+            case DBType::DB_POSTGRE:
+            {
+                _adapter = PostgreAdapter::getInstance<PostgreAdapter>();
+            }
+            break;
+            default:
+                break;
+            }
         }
-        Table(const std::string& tableName)
-            : Table(tableName.c_str()) {}
-        explicit Table(const char* tableName, const std::string_view& options)
-            : _tableName{tableName},
+        explicit QueryCreator(DBType type, const std::string& tableName)
+            : QueryCreator(type, tableName.c_str()) {}
+        explicit QueryCreator(DBType type, const std::string_view& tableName)
+            : QueryCreator(type, tableName.data()) {}
+        explicit QueryCreator(DBType type, const char* tableName, const std::string_view& options)
+            : _databaseType{type},
+              _tableName{tableName},
               _select{nullptr},
               _insert{nullptr},
               _update{nullptr},
               _delete{nullptr}
         {
-            _postgre = PostgreAdapter::getPostgre(options);
+            switch (type)
+            {
+            case DBType::DB_LITE:
+            {
+                // SQLite adapter
+            }
+            break;
+            case DBType::DB_POSTGRE:
+            {
+                _adapter = PostgreAdapter::getInstance<PostgreAdapter>(options);
+            }
+            break;
+            default:
+                break;
+            }
         }
-        Table(const std::string& tableName, const std::string_view& options) 
-            : Table(tableName.c_str(), options) {}
+        explicit QueryCreator(DBType type, const std::string& tableName, const std::string_view& options)
+            : QueryCreator(type, tableName.c_str(), options) {}
+        explicit QueryCreator(DBType type, const std::string_view& tableName, const std::string_view& options)
+            : QueryCreator(type, tableName.data(), options) {}
 
-        virtual ~Table(void);
+        virtual ~QueryCreator(void);
     
     public:
 
-        Table() = delete;
+        QueryCreator() = delete;
     
-        Table(const Table&) = delete;
-        Table(Table&&)      = delete;
+        QueryCreator(const QueryCreator&) = delete;
+        QueryCreator(QueryCreator&&)      = delete;
     
-        Table& operator=(const Table&) = delete;
-        Table& operator=(Table&&) = delete;
+        QueryCreator& operator=(const QueryCreator&) = delete;
+        QueryCreator& operator=(QueryCreator&&) = delete;
     
     public:
 
@@ -715,7 +751,7 @@ namespace DataAccess
         /** @brief Get postgreAdapter object.
         *   @return PostgreAdapter.
         */
-        std::shared_ptr<PostgreAdapter> getPostgre(void) const noexcept;
+        std::shared_ptr<IAdapter> getAdapter(void) const noexcept;
 
     private:
 
@@ -723,9 +759,11 @@ namespace DataAccess
 
     private:
 
+        DBType _databaseType;
+
         std::string _tableName;
 
-        std::shared_ptr<PostgreAdapter> _postgre;
+        std::shared_ptr<IAdapter> _adapter;
 
         SQLSelect* _select;
         SQLInsert* _insert;
@@ -739,5 +777,63 @@ namespace DataAccess
         friend class SQLInsert;
         friend class SQLUpdate;
         friend class SQLDelete;
+    };
+
+    /** @class Postgre table.
+    *   @brief Postgre table class.
+    *   @details You can see some examples below for how to use it.
+    *   @code
+    *    PTable("tableName1").Select()->columns({"column1", "column2", ...})->where("condition")->...->execute()/OR/getQuery();
+    *    PTable("tableName2").Insert()->field(1, "a")->field(...)->...->returning({"column1", "column2", ...})->execute()/OR/getQuery();
+    *    PTable("tableName3").Update()->fields(pair{"column1", 1}, pair{"column2", "strData"})->where("condition")->...->execute()/OR/getQuery();
+    *    PTable("tableName4").Delete()->where("condition")->...->execute()/OR/getQuery();  
+    *   @endcodegit 
+    */
+    class PTable : public QueryCreator
+    {
+    public:
+
+        explicit PTable(const char* tableName) 
+            : QueryCreator(DBType::DB_POSTGRE, tableName) {}
+        explicit PTable(const std::string& tableName) 
+            : QueryCreator(DBType::DB_POSTGRE, tableName) {}
+        explicit PTable(const std::string_view& tableName) 
+            : QueryCreator(DBType::DB_POSTGRE, tableName) {}
+
+        explicit PTable(const char* tableName, const std::string_view& options)
+            : QueryCreator(DBType::DB_POSTGRE, tableName, options) {}
+        explicit PTable(const std::string& tableName, const std::string_view& options)
+            : QueryCreator(DBType::DB_POSTGRE, tableName, options) {}
+        explicit PTable(const std::string_view& tableName, const std::string_view& options)
+            : QueryCreator(DBType::DB_POSTGRE, tableName, options) {}
+    };
+
+    /** @class SQLite table.
+    *   @brief SQLite table class.
+    *   @details You can see some examples below for how to use it.
+    *   @code
+    *    LTable("tableName1").Select()->columns({"column1", "column2", ...})->where("condition")->...->execute()/OR/getQuery();
+    *    LTable("tableName2").Insert()->field(1, "a")->field(...)->...->returning({"column1", "column2", ...})->execute()/OR/getQuery();
+    *    LTable("tableName3").Update()->fields(pair{"column1", 1}, pair{"column2", "strData"})->where("condition")->...->execute()/OR/getQuery();
+    *    LTable("tableName4").Delete()->where("condition")->...->execute()/OR/getQuery();  
+    *   @endcodegit 
+    */
+    class LTable : public QueryCreator
+    {
+    public:
+
+        explicit LTable(const char* tableName)
+            : QueryCreator(DBType::DB_LITE, tableName) {}
+        explicit LTable(const std::string& tableName)
+            : QueryCreator(DBType::DB_LITE, tableName) {}
+        explicit LTable(const std::string_view& tableName)
+            : QueryCreator(DBType::DB_LITE, tableName) {}
+
+        explicit LTable(const char* tableName, const std::string_view& options)
+            : QueryCreator(DBType::DB_LITE, tableName, options) {}
+        explicit LTable(const std::string& tableName, const std::string_view& options)
+            : QueryCreator(DBType::DB_LITE, tableName, options) {}
+        explicit LTable(const std::string_view& tableName, const std::string_view& options)
+            : QueryCreator(DBType::DB_LITE, tableName, options) {}
     };
 }

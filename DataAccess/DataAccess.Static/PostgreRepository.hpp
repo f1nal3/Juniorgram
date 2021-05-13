@@ -9,7 +9,7 @@
 #include "Utility/Utility.hpp"
 
 #include "DataAccess/IRepository.hpp"
-#include "PostgreAbstractionLayout.hpp"
+#include "DatabaseAbstractionLayout.hpp"
 
 namespace DataAccess
 {

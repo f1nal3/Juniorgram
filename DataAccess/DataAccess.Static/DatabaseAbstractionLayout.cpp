@@ -1,10 +1,8 @@
-#include "PostgreAbstractionLayout.hpp"
-
-#include <iostream>
+#include "DatabaseAbstractionLayout.hpp"
 
 namespace DataAccess
 {
-    SQLSelect*                  Table::Select(void)
+    SQLSelect*                            QueryCreator::Select(void)
     {
         if (_select == nullptr)
         {
@@ -14,7 +12,7 @@ namespace DataAccess
 
         return _select;
     }
-    SQLInsert*                  Table::Insert(void)
+    SQLInsert*                            QueryCreator::Insert(void)
     {
         if (_insert == nullptr)
         {
@@ -24,7 +22,7 @@ namespace DataAccess
 
         return _insert;
     }
-    SQLUpdate*                  Table::Update(void)
+    SQLUpdate*                            QueryCreator::Update(void)
     { 
         if (_update == nullptr)
         {
@@ -34,7 +32,7 @@ namespace DataAccess
 
         return _update;
     }
-    SQLDelete*                  Table::Delete(void)
+    SQLDelete*                            QueryCreator::Delete(void)
     {
         if (_delete == nullptr)
         {
@@ -45,7 +43,7 @@ namespace DataAccess
         return _delete;
     }
 
-    void                        Table::changeTable(const char* newTableName) noexcept 
+    void                                  QueryCreator::changeTable(const char* newTableName) noexcept 
     {
         _select->rollback();
         _insert->rollback();
@@ -54,17 +52,17 @@ namespace DataAccess
 
         _tableName = newTableName;
     }
-    void                        Table::changeTable(const std::string& newTableName) noexcept 
+    void                                  QueryCreator::changeTable(const std::string& newTableName) noexcept 
     { 
         changeTable(newTableName.c_str());
     }
     
-    std::shared_ptr<PostgreAdapter> Table::getPostgre(void) const noexcept
+    std::shared_ptr<IAdapter>             QueryCreator::getAdapter(void) const noexcept
     {
-        return _postgre;
+        return _adapter;
     }
 
-    void                        Table::privateClear(SQLStatement statement)
+    void                                  QueryCreator::privateClear(SQLStatement statement)
     {
         switch (statement)
         {
@@ -97,7 +95,7 @@ namespace DataAccess
         }
     }
 
-    Table::~Table(void)
+    QueryCreator::~QueryCreator(void)
     {
         delete _select;
         delete _insert;
@@ -111,24 +109,31 @@ namespace DataAccess
     }
 
 
-    SQLStatement                SQLBase::type(void) const noexcept
+    SQLStatement                              SQLBase::type(void) const noexcept
     {
         return _statement; 
     }
-    
-    const std::string           SQLBase::getQuery(void) const noexcept
+    std::variant<std::optional<pqxx::result>> SQLBase::execute()
     {
-        return _queryStream.str();
-    }
-    std::optional<pqxx::result> SQLBase::execute(void) 
-    {
-        std::optional<pqxx::result> result;
+        std::variant<std::optional<pqxx::result>> result;
 
         try
         {
-            if (_currentTable._postgre->isConnected())
+            if (_currentCreator.getAdapter()->isConnected())
             {
-                result = _currentTable._postgre->query(_queryStream.str() + ";");
+                if (_currentCreator._databaseType == DBType::DB_POSTGRE)
+                {
+                    result = std::any_cast<pqxx::result>(_currentCreator.getAdapter()->query(_queryStream.str() + ";"));
+
+                    this->rollback();
+
+                    if (std::get<0>(result).has_value())
+                        return { result };
+                }
+                else
+                {
+
+                }
             }
             else
             {
@@ -141,43 +146,41 @@ namespace DataAccess
             std::cerr << err.query() << '\n';
             this->rollback();
 
-            return std::nullopt;
+            return { std::nullopt };
         }
         catch (const std::exception& err)
         {
             std::cerr << err.what() << '\n';
             this->rollback();
 
-            return std::nullopt;
+            return { std::nullopt };
         }
 
-        this->rollback();
-
-        if (result.has_value())
-            return result;
-
-        return std::nullopt;
+        return { std::nullopt } ;
     }
-
-    void                        SQLBase::rollback(void)
+    const std::string                         SQLBase::getQuery(void) const noexcept
+    {
+        return _queryStream.str();
+    }
+    void                                      SQLBase::rollback(void)
     { 
-        _currentTable.privateClear(_statement);
+        _currentCreator.privateClear(_statement);
     }
 
 
-    SQLSelect*                  SQLSelect::columns(const std::initializer_list<std::string>& columnList)
+    SQLSelect*                            SQLSelect::columns(const std::initializer_list<std::string>& columnList)
     {
         for (auto& column : columnList)
         {
             _queryStream << column;
             _queryStream << (column != *(columnList.end() - 1) ? ", " : "");
         }
-        _queryStream << " from " << _currentTable._tableName;
+        _queryStream << " from " << _currentCreator._tableName;
 
         return this;
     }                            
 
-    SQLSelect*                  SQLSelect::limit(std::uint32_t limit, std::uint32_t offset)
+    SQLSelect*                            SQLSelect::limit(std::uint32_t limit, std::uint32_t offset)
     {
         if (*(_queryStream.str().end() - 1) != ' ')
             _queryStream << " ";
@@ -186,7 +189,7 @@ namespace DataAccess
 
         return this;
     }
-    SQLSelect*                  SQLSelect::orderBy(const std::initializer_list<std::string>& columnList, bool desc)
+    SQLSelect*                            SQLSelect::orderBy(const std::initializer_list<std::string>& columnList, bool desc)
     {
         if (*(_queryStream.str().end() - 1) != ' ')
             _queryStream << " ";
@@ -203,13 +206,13 @@ namespace DataAccess
 
         return this;
     }
-    SQLSelect*                  SQLSelect::distinct(void)
+    SQLSelect*                            SQLSelect::distinct(void)
     { 
         _queryStream << "distinct ";
 
         return this;
     }
-    SQLSelect*                  SQLSelect::join(SQLJoinType join, const std::string& secondTableName, const std::string& onCondition)
+    SQLSelect*                            SQLSelect::join(SQLJoinType join, const std::string& secondTableName, const std::string& onCondition)
     {
         if (*(_queryStream.str().end() - 1) != ' ')
             _queryStream << " ";
@@ -247,8 +250,7 @@ namespace DataAccess
 
         return this;
     }
-
-    SQLSelect*                  SQLSelect::groupBy(const std::initializer_list<std::string>& columnList)
+    SQLSelect*                            SQLSelect::groupBy(const std::initializer_list<std::string>& columnList)
     {
         if (*(_queryStream.str().end() - 1) != ' ')
             _queryStream << " ";
@@ -263,7 +265,7 @@ namespace DataAccess
 
         return this;
     }
-    SQLSelect*                  SQLSelect::having(const std::string& condition)
+    SQLSelect*                            SQLSelect::having(const std::string& condition)
     { 
         if (*(_queryStream.str().end() - 1) != ' ')
             _queryStream << " ";
@@ -272,7 +274,7 @@ namespace DataAccess
 
         return this;
     }
-    SQLSelect*                  SQLSelect::Any(const std::string& condition)
+    SQLSelect*                            SQLSelect::Any(const std::string& condition)
     { 
         if (*(_queryStream.str().end() - 1) != ' ') 
             _queryStream << " ";
@@ -281,7 +283,7 @@ namespace DataAccess
 
         return this;
     }
-    SQLSelect*                  SQLSelect::All(const std::string& condition) 
+    SQLSelect*                            SQLSelect::All(const std::string& condition) 
     { 
         if (*(_queryStream.str().end() - 1) != ' ') 
             _queryStream << " ";
@@ -292,7 +294,7 @@ namespace DataAccess
     }
 
 
-    SQLInsert*                  SQLInsert::returning(const std::initializer_list<std::string>& columnList)
+    SQLInsert*                            SQLInsert::returning(const std::initializer_list<std::string>& columnList)
     {
         if (*(_queryStream.str().end() - 1) != ' ')
             _queryStream << " ";
@@ -307,7 +309,7 @@ namespace DataAccess
         return this;
     }
 
-    void                        SQLInsert::privateCorrectFormating(void)
+    void                                  SQLInsert::privateCorrectFormating(void)
     {
         std::string queryBuffer = _queryStream.str();
         queryBuffer.erase(queryBuffer.end() - 2, queryBuffer.end());
@@ -317,7 +319,7 @@ namespace DataAccess
     }
 
 
-    void                        SQLUpdate::privateCorrectFormating(void)
+    void                                  SQLUpdate::privateCorrectFormating(void)
     {
         std::string queryBuffer = _queryStream.str();
         queryBuffer.erase(queryBuffer.end() - 2, queryBuffer.end());
