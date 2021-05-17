@@ -115,20 +115,21 @@ namespace DataAccess
     }
     std::variant<std::optional<pqxx::result>> SQLBase::execute()
     {
-        std::variant<std::optional<pqxx::result>> result;
-
         try
         {
             if (_currentCreator.getAdapter()->isConnected())
             {
+                std::optional<std::any> result =
+                    _currentCreator.getAdapter()->query(_queryStream.str());
+
                 if (_currentCreator._databaseType == DBType::DB_POSTGRE)
                 {
-                    result = std::any_cast<pqxx::result>(_currentCreator.getAdapter()->query(_queryStream.str() + ";"));
+                    if (result.has_value())
+                    {
+                        this->rollback();
 
-                    this->rollback();
-
-                    if (std::get<0>(result).has_value())
-                        return { result };
+                        return { std::any_cast<pqxx::result>(result.value()) };
+                    }
                 }
                 else
                 {
@@ -144,17 +145,13 @@ namespace DataAccess
         {
             std::cerr << err.what() << '\n';
             std::cerr << err.query() << '\n';
-            this->rollback();
-
-            return { std::nullopt };
         }
         catch (const std::exception& err)
         {
             std::cerr << err.what() << '\n';
-            this->rollback();
-
-            return { std::nullopt };
         }
+
+        this->rollback();
 
         return { std::nullopt } ;
     }
