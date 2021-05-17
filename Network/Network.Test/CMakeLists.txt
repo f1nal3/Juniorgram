@@ -5,8 +5,6 @@ set(SOURCE_FILES
     NetworkTest.cpp
     TimestampTest.cpp)
 
-set(CMAKE_BUILD_TYPE RELWITHDEBINFO)
-
 if(WIN32)
     set(EXTRA_LIBS ws2_32 wsock32)
 endif()

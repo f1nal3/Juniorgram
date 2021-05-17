@@ -2,18 +2,19 @@ set(TARGET Utility.Test)
 set(OUTPUT_NAME Utility.Test)
 
 set(SOURCE_FILES
-    UtilityTest.cpp
+    ExceptionTest.cpp
     SerializeTest.cpp
-    ExceptionTest.cpp)
-
-#set(CMAKE_BUILD_TYPE RELWITHDEBINFO)
+    UtilityTest.cpp)
 
 add_executable(${TARGET} ${SOURCE_FILES})
 
-target_link_libraries(${TARGET} PUBLIC Utility.Public Utility.Static CONAN_PKG::catch2)
+target_link_libraries(${TARGET} PUBLIC 
+    CONAN_PKG::catch2
+    Utility.Public
+    Utility.Static)
+
 target_include_directories(${TARGET}
     PRIVATE ${CONAN_INCLUDE_DIRS_QT}
-    $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..
-    )
+    $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
 
 add_test(NAME ${OUTPUT_NAME} COMMAND ${TARGET})
