@@ -126,6 +126,6 @@ public:
 
 private:
     inline static Network::Client     client;
-    inline static const std::string   address = "104.40.239.183";
+    inline static const std::string   address = "127.0.0.1";
     inline static const std::uint16_t port    = 65001;
 };

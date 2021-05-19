@@ -1,12 +1,12 @@
 #include <catch2/catch.hpp>
 
-#include "Utility.Static/Serialize.hpp"
+#include "Utility.Static/JsonSerializer.hpp"
 
-TEST_CASE("Test serialize object(open file text.json)", "[Serialize]")
+TEST_CASE("Test serialize object(open file text.json)", "[JsonSerializer]")
 {
     SECTION("Create text.json")
     {
-        Serialize w;
+        JsonSerializer w;
     }
     SECTION("Check text.json status")
     {
@@ -32,7 +32,7 @@ TEST_CASE("Test serialize method updateSerialize", "[SerializeUpdateSerialize]")
 {
     SECTION("Check updateSerialize")
     {
-        Serialize a;
+        JsonSerializer a;
         QStringList someList;
         a.updateSerialize(someList);
         REQUIRE(someList.isEmpty() == true);
@@ -47,9 +47,9 @@ TEST_CASE("Test serialize method updateSerialize", "[SerializeUpdateSerialize]")
 
 TEST_CASE("Test serialize method pushData", "[SerializePushData]")
 {
-        SECTION("Create some Serialize object and add test message to text.json")
+        SECTION("Create some JsonSerializer object and add test message to text.json")
         {
-            Serialize b;
+            JsonSerializer b;
             QStringList someList;
             someList.append("Test1");
             b.pushData(someList);
@@ -60,7 +60,7 @@ TEST_CASE("Test serialize method pushData", "[SerializePushData]")
         }
         SECTION("Check test message")
         {
-            Serialize c;
+            JsonSerializer c;
             QStringList someList;
             c.updateSerialize(someList);
             if(someList.size() == 3)
