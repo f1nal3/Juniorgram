@@ -6,6 +6,7 @@ libtool/2.4.6
 libpq/11.5
 libpqxx/7.2.1
 nlohmann_json/3.9.1
+yas/7.0.5
 
 [generators]
 cmake

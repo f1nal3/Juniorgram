@@ -77,7 +77,7 @@ void Client::pingServer() const
 
     std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
 
-    message << timeNow;
+    timeNow = message.mHeader.mTimestamp;
     send(message);
 }
 
@@ -103,12 +103,11 @@ void Client::storeMessages(const std::vector<std::string>& messagesList) const
         message.mHeader.mConnectionID = Network::Message::MessageType::MessageStoreRequest;
 
         Network::MessageInfo info;
-        info.userID = mConnection->getID();
-        suppressWarning(4996, -Winit-self)
-            strcpy(info.message, msg.data());
-        restoreWarning
+        info.userID  = mConnection->getID();
+        info.message = msg;
 
-        message << info;
+        message.mBody = std::make_any<Network::MessageInfo>(info);
+
         send(message);
     }
 }

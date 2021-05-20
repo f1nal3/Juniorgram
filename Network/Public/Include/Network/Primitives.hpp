@@ -5,18 +5,31 @@
 #include <string>
 #include <chrono>
 #include <cstring>
+#include <string>
 
 namespace Network
 {
     struct ChannelInfo
     {
         std::uint64_t channelID;
-        char channelName[256];
+        std::string channelName;
     };
+
+    template <typename Archive>
+    void serialize(Archive& ar, Network::ChannelInfo& o)
+    {
+        ar& o.channelID& o.channelName;
+    }
     
     struct MessageInfo
     {
         std::uint64_t userID;
-        char message[256];
+        std::string message;
     };
-} // namespace Network
+
+    template <typename Archive>
+    void serialize(Archive& ar, Network::MessageInfo& o)
+    {
+        ar& o.userID& o.message;
+    }
+    } // namespace Network

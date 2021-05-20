@@ -17,6 +17,7 @@
 #include "SafeQueue.hpp"
 #include "Utility/Utility.hpp"
 #include "Utility/WarningSuppression.hpp"
+#include "Utility/YasSerializer.hpp"
 
 namespace Network
 {
@@ -57,6 +58,25 @@ private:
     /// Buffer to store the part of incoming message while it is read
     Message mMessageBuffer;
 
+
+    size_t getMaxMessageHeaderSize()
+    {
+        yas::shared_buffer buffer;
+        YasSerializer::serialize<Message::MessageHeader>(
+            buffer, Message::MessageHeader{Message::MessageType::MessageStoreRequest, UINT32_MAX,
+                                           std::chrono::system_clock::now()});
+        return buffer.size;
+    }
+
+    size_t getMinMessageHeaderSize()
+    {
+        yas::shared_buffer buffer;
+        YasSerializer::serialize<Message::MessageHeader>(
+            buffer, Message::MessageHeader{Message::MessageType::ServerAccept, 0,
+                                           std::chrono::system_clock::now()});
+        return buffer.size;
+    }
+
     /**
      * @brief Method for sending message header.
      * @details Function asio::async_write is used to write the header of the message /
@@ -69,12 +89,50 @@ private:
      */
     void writeHeader()
     {
-        const auto writeHeaderHandler = [this](std::error_code error) {
+        yas::shared_buffer bodyBuffer;
+        Message::MessageHeader messageHeader = mOutcomingMessagesQueue.front().mHeader;
+
+        // body serialization
+        if (mOutcomingMessagesQueue.front().mBody.has_value())
+        {
+            switch (mOutcomingMessagesQueue.front().mHeader.mConnectionID)
+            {
+                case Message::MessageType::ServerAccept:
+                    break;
+                case Message::MessageType::ServerPing:
+                    break;
+                case Message::MessageType::MessageAll:
+                    break;
+                case Message::MessageType::ServerMessage:
+                    break;
+                case Message::MessageType::ChannelListRequest:
+                    YasSerializer::serialize<std::vector<Network::ChannelInfo>>(
+                        bodyBuffer, std::any_cast<std::vector<Network::ChannelInfo>>(
+                                        mOutcomingMessagesQueue.front().mBody));
+                    break;
+                case Message::MessageType::MessageHistoryRequest:
+                    YasSerializer::serialize<std::vector<Network::MessageInfo>>(
+                        bodyBuffer, std::any_cast<std::vector<Network::MessageInfo>>(
+                                        mOutcomingMessagesQueue.front().mBody));
+                    break;
+                case Message::MessageType::MessageStoreRequest:
+                    YasSerializer::serialize<Network::MessageInfo>(
+                        bodyBuffer,
+                        std::any_cast<Network::MessageInfo>(mOutcomingMessagesQueue.front().mBody));
+                    break;
+                default:
+                    break;
+            }
+
+            messageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
+        }
+
+        const auto writeHeaderHandler = [this, bodyBuffer](std::error_code error) {
             if (!error)
             {
-                if (!mOutcomingMessagesQueue.front().mBody.empty())
+                if (mOutcomingMessagesQueue.front().mBody.has_value())
                 {
-                    writeBody();
+                    writeBody(bodyBuffer);
                 }
                 else
                 {
@@ -93,10 +151,12 @@ private:
             }
         };
 
-        asio::async_write(
-            mSocket,
-            asio::buffer(&mOutcomingMessagesQueue.front().mHeader, sizeof(Message::MessageHeader)),
-            std::bind(writeHeaderHandler, std::placeholders::_1));
+        // header serialization
+        yas::shared_buffer headerBuffer;
+        YasSerializer::serialize<Message::MessageHeader>(headerBuffer, messageHeader);
+        
+        asio::async_write(mSocket, asio::buffer(headerBuffer.data.get(), headerBuffer.size),
+                          std::bind(writeHeaderHandler, std::placeholders::_1));
     }
 
     /**
@@ -109,7 +169,7 @@ private:
      * If the writing message body to the socket failed, the error message - /
      * "[connection id] Write Body Fail." is displayed.
      */
-    void writeBody()
+    void writeBody(yas::shared_buffer buffer)
     {
         const auto writeBodyHandler = [this](std::error_code error) {
             if (!error)
@@ -128,9 +188,7 @@ private:
             }
         };
 
-        asio::async_write(mSocket,
-                          asio::buffer(mOutcomingMessagesQueue.front().mBody.data(),
-                                       mOutcomingMessagesQueue.front().mBody.size()),
+        asio::async_write(mSocket, asio::buffer(buffer.data.get(), buffer.size),
                           std::bind(writeBodyHandler, std::placeholders::_1));
     }
 
@@ -148,13 +206,19 @@ private:
      */
     void readHeader()
     {
-        const auto readHeaderHandler = [this](std::error_code error) {
+        yas::shared_buffer buffer;
+        buffer.resize(this->getMaxMessageHeaderSize());
+
+        const auto readHeaderHandler = [this, buffer](std::error_code error) {
             if (!error)
             {
+                // header deserialization
+                YasSerializer::deserialize<Message::MessageHeader>(
+                    buffer, mMessageBuffer.mHeader);
+
                 if (mMessageBuffer.mHeader.mBodySize > 0)
                 {
-                    mMessageBuffer.mBody.resize(mMessageBuffer.mHeader.mBodySize);
-                    readBody();
+                    readBody(mMessageBuffer.mHeader.mBodySize);
                 }
                 else
                 {
@@ -168,8 +232,8 @@ private:
             }
         };
 
-        asio::async_read(mSocket,
-                         asio::buffer(&mMessageBuffer.mHeader, sizeof(Message::MessageHeader)),
+        asio::async_read(mSocket, asio::buffer(buffer.data.get(), buffer.size),
+                         asio::transfer_at_least(this->getMinMessageHeaderSize()),
                          std::bind(readHeaderHandler, std::placeholders::_1));
     }
 
@@ -182,11 +246,49 @@ private:
      * If the reading message body from the socket failed, the error message - /
      * "[connection id] Read Body Fail." is displayed.
      */
-    void readBody()
+    void readBody(size_t size)
     {
-        const auto readBodyHandler = [this](std::error_code error) {
+        yas::shared_buffer buffer;
+        buffer.resize(size);
+
+        const auto readBodyHandler = [this, buffer](std::error_code error) {
             if (!error)
             {
+                // body deserialization
+                switch (mMessageBuffer.mHeader.mConnectionID)
+                {
+                    case Message::MessageType::ServerAccept:
+                        break;
+                    case Message::MessageType::ServerPing:
+                        break;
+                    case Message::MessageType::MessageAll:
+                        break;
+                    case Message::MessageType::ServerMessage:
+                        break;
+                    case Message::MessageType::ChannelListRequest:
+                    {
+                        std::vector<Network::ChannelInfo> channelInfo;
+                        YasSerializer::deserialize<std::vector<Network::ChannelInfo>>(buffer,
+                                                                                      channelInfo);
+                        mMessageBuffer.mBody =
+                            std::make_any<std::vector<Network::ChannelInfo>>(channelInfo);
+                        break;
+                    }
+                    case Message::MessageType::MessageHistoryRequest:
+                    {
+                        std::vector<Network::MessageInfo> messageInfo;
+                        YasSerializer::deserialize<std::vector<Network::MessageInfo>>(buffer,
+                                                                                      messageInfo);
+                        mMessageBuffer.mBody =
+                            std::make_any<std::vector<Network::MessageInfo>>(messageInfo);
+                        break;
+                    }
+                    case Message::MessageType::MessageStoreRequest:
+                        break;
+                    default:
+                        break;
+                }
+
                 addToIncomingMessageQueue();
             }
             else
@@ -196,8 +298,7 @@ private:
             }
         };
 
-        asio::async_read(mSocket,
-                         asio::buffer(mMessageBuffer.mBody.data(), mMessageBuffer.mBody.size()),
+        asio::async_read(mSocket, asio::buffer(buffer.data.get(), buffer.size),
                          std::bind(readBodyHandler, std::placeholders::_1));
     }
 

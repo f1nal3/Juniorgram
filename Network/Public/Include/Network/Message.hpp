@@ -1,5 +1,6 @@
 #pragma once
 
+#include <any>
 #include <chrono>
 #include <cstdlib>
 #include <cstring>
@@ -39,7 +40,7 @@ struct Message
     std::shared_ptr<Connection> mRemote = nullptr;
 
     MessageHeader mHeader;
-    std::vector<uint8_t> mBody;
+    std::any mBody;
 
     friend std::ostream& operator<<(std::ostream& os, const Message& message)
     {
@@ -52,32 +53,6 @@ struct Message
         return os;
     }
 
-    template <typename T>
-    friend Message& operator<<(Message& message, const T& data)
-    {
-        static_assert(std::is_standard_layout<T>::value,
-                      "Data is too complex to be pushed into vector");
-
-        size_t i = message.mBody.size();
-        message.mBody.resize(message.mBody.size() + sizeof(T));
-        std::memcpy(message.mBody.data() + i, &data, sizeof(T));
-        message.mHeader.mBodySize = static_cast<std::uint32_t>(message.mBody.size());
-        return message;
-    }
-
-    template <typename T>
-    friend Message& operator>>(Message& message, T& data)
-    {
-        static_assert(std::is_standard_layout<T>::value,
-                      "Data is too complex to be pulled from vector");
-
-        size_t i = message.mBody.size() - sizeof(T);
-        std::memcpy(&data, message.mBody.data() + i, sizeof(T));
-        message.mBody.resize(i);
-        message.mHeader.mBodySize = static_cast<std::uint32_t>(message.mBody.size());
-        return message;
-    }
-
     friend bool operator<(const Message& lhs, const Message& rhs)
     {
         return lhs.mHeader.mTimestamp < rhs.mHeader.mTimestamp;
@@ -88,4 +63,10 @@ struct Message
         return lhs.mHeader.mTimestamp > rhs.mHeader.mTimestamp;
     }
 };
+
+template <typename Archive>
+void serialize(Archive& ar, Message::MessageHeader& o)
+{
+    ar& o.mConnectionID& o.mBodySize& o.mTimestamp;
+}
 }  // namespace Network
