@@ -32,4 +32,4 @@ namespace Network
     {
         ar& o.userID& o.message;
     }
-    } // namespace Network
+} // namespace Network
