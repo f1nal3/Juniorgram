@@ -13,8 +13,12 @@
 #include <iostream>
 #include <functional>
 
+#include "CompressionHandler.hpp"
+#include "Handler.hpp"
+#include "EncryptionHandler.hpp"
 #include "Message.hpp"
 #include "SafeQueue.hpp"
+#include "SerializationHandler.hpp"
 #include "Utility/Utility.hpp"
 #include "Utility/WarningSuppression.hpp"
 #include "Utility/YasSerializer.hpp"
@@ -90,42 +94,11 @@ private:
     void writeHeader()
     {
         yas::shared_buffer bodyBuffer;
-        Message::MessageHeader messageHeader = mOutcomingMessagesQueue.front().mHeader;
+        yas::shared_buffer headerBuffer;
 
-        // body serialization
-        if (mOutcomingMessagesQueue.front().mBody.has_value())
-        {
-            switch (mOutcomingMessagesQueue.front().mHeader.mConnectionID)
-            {
-                case Message::MessageType::ServerAccept:
-                    break;
-                case Message::MessageType::ServerPing:
-                    break;
-                case Message::MessageType::MessageAll:
-                    break;
-                case Message::MessageType::ServerMessage:
-                    break;
-                case Message::MessageType::ChannelListRequest:
-                    YasSerializer::serialize<std::vector<Network::ChannelInfo>>(
-                        bodyBuffer, std::any_cast<std::vector<Network::ChannelInfo>>(
-                                        mOutcomingMessagesQueue.front().mBody));
-                    break;
-                case Message::MessageType::MessageHistoryRequest:
-                    YasSerializer::serialize<std::vector<Network::MessageInfo>>(
-                        bodyBuffer, std::any_cast<std::vector<Network::MessageInfo>>(
-                                        mOutcomingMessagesQueue.front().mBody));
-                    break;
-                case Message::MessageType::MessageStoreRequest:
-                    YasSerializer::serialize<Network::MessageInfo>(
-                        bodyBuffer,
-                        std::any_cast<Network::MessageInfo>(mOutcomingMessagesQueue.front().mBody));
-                    break;
-                default:
-                    break;
-            }
-
-            messageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
-        }
+        SerializationHandler handler;
+        handler.setNext(new EncryptionHandler())->setNext(new CompressionHandler());
+        handler.handleOutcomingMessage(mOutcomingMessagesQueue.front(), headerBuffer, bodyBuffer);
 
         const auto writeHeaderHandler = [this, bodyBuffer](std::error_code error) {
             if (!error)
@@ -150,10 +123,6 @@ private:
                 mSocket.close();
             }
         };
-
-        // header serialization
-        yas::shared_buffer headerBuffer;
-        YasSerializer::serialize<Message::MessageHeader>(headerBuffer, messageHeader);
         
         asio::async_write(mSocket, asio::buffer(headerBuffer.data.get(), headerBuffer.size),
                           std::bind(writeHeaderHandler, std::placeholders::_1));
@@ -212,9 +181,9 @@ private:
         const auto readHeaderHandler = [this, buffer](std::error_code error) {
             if (!error)
             {
-                // header deserialization
-                YasSerializer::deserialize<Message::MessageHeader>(
-                    buffer, mMessageBuffer.mHeader);
+                CompressionHandler handler;
+                handler.setNext(new EncryptionHandler())->setNext(new SerializationHandler());
+                handler.handleIncomingMessageHeader(buffer, mMessageBuffer.mHeader);
 
                 if (mMessageBuffer.mHeader.mBodySize > 0)
                 {
@@ -254,40 +223,9 @@ private:
         const auto readBodyHandler = [this, buffer](std::error_code error) {
             if (!error)
             {
-                // body deserialization
-                switch (mMessageBuffer.mHeader.mConnectionID)
-                {
-                    case Message::MessageType::ServerAccept:
-                        break;
-                    case Message::MessageType::ServerPing:
-                        break;
-                    case Message::MessageType::MessageAll:
-                        break;
-                    case Message::MessageType::ServerMessage:
-                        break;
-                    case Message::MessageType::ChannelListRequest:
-                    {
-                        std::vector<Network::ChannelInfo> channelInfo;
-                        YasSerializer::deserialize<std::vector<Network::ChannelInfo>>(buffer,
-                                                                                      channelInfo);
-                        mMessageBuffer.mBody =
-                            std::make_any<std::vector<Network::ChannelInfo>>(channelInfo);
-                        break;
-                    }
-                    case Message::MessageType::MessageHistoryRequest:
-                    {
-                        std::vector<Network::MessageInfo> messageInfo;
-                        YasSerializer::deserialize<std::vector<Network::MessageInfo>>(buffer,
-                                                                                      messageInfo);
-                        mMessageBuffer.mBody =
-                            std::make_any<std::vector<Network::MessageInfo>>(messageInfo);
-                        break;
-                    }
-                    case Message::MessageType::MessageStoreRequest:
-                        break;
-                    default:
-                        break;
-                }
+                CompressionHandler handler;
+                handler.setNext(new EncryptionHandler())->setNext(new SerializationHandler());
+                handler.handleIncomingMessageBody(buffer, mMessageBuffer);
 
                 addToIncomingMessageQueue();
             }
