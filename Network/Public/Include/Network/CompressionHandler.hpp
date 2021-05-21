@@ -12,9 +12,9 @@ public:
         // messageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
         // header compression
 
-        if (!this->nextHandler)
+        if (this->nextHandler)
         {
-            AbstractHandler::handleOutcomingMessage(message, headerBuffer, bodyBuffer);
+            this->nextHandler->handleOutcomingMessage(message, headerBuffer, bodyBuffer);
         }
     }
 

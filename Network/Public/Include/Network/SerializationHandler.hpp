@@ -46,9 +46,9 @@ public:
         Network::YasSerializer::serialize<Network::Message::MessageHeader>(headerBuffer,
                                                                            messageHeader);
         
-        if (!this->nextHandler)
+        if (this->nextHandler)
         {
-            AbstractHandler::handleOutcomingMessage(message, headerBuffer, bodyBuffer);
+            this->nextHandler->handleOutcomingMessage(message, headerBuffer, bodyBuffer);
         }
     }
 

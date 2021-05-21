@@ -93,8 +93,8 @@ private:
      */
     void writeHeader()
     {
-        yas::shared_buffer bodyBuffer;
         yas::shared_buffer headerBuffer;
+        yas::shared_buffer bodyBuffer;
 
         SerializationHandler handler;
         handler.setNext(new EncryptionHandler())->setNext(new CompressionHandler());
