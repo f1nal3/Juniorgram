@@ -1,13 +1,15 @@
 #pragma once
 #include "Handler.hpp"
 
+namespace Network
+{
 class CompressionHandler : public AbstractHandler
 {
 public:
-    void handleOutcomingMessage(const Network::Message& message, yas::shared_buffer& headerBuffer,
+    void handleOutcomingMessage(const Message& message, yas::shared_buffer& headerBuffer,
                                 yas::shared_buffer& bodyBuffer) override
     {
-        // Network::Message::MessageHeader messageHeader = message.mHeader;
+        // Message::MessageHeader messageHeader = message.mHeader;
         // body compression
         // messageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
         // header compression
@@ -19,7 +21,7 @@ public:
     }
 
     void handleIncomingMessageHeader(const yas::shared_buffer buffer,
-                                     Network::Message::MessageHeader& messageHeader) override
+                                     Message::MessageHeader& messageHeader) override
     {
         // header decompression
 
@@ -29,8 +31,7 @@ public:
         }
     }
 
-    void handleIncomingMessageBody(const yas::shared_buffer buffer,
-                                   Network::Message& message) override
+    void handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
     {
         // body decompression
 
@@ -40,3 +41,4 @@ public:
         }
     }
 };
+}  // namespace Network

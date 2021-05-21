@@ -1,8 +1,9 @@
 #pragma once
+#include "Network/Message.hpp"
+#include "YasSerializer.hpp"
 
-#include "Message.hpp"
-#include "Utility.Static/YasSerializer.hpp"
-
+namespace Network
+{
 class Handler
 {
 public:
@@ -13,14 +14,12 @@ public:
     Handler& operator=(Handler&&) = delete;
     virtual ~Handler()            = default;
 
-    virtual Handler* setNext(Handler* handler)                                              = 0;
-    virtual void handleOutcomingMessage(const Network::Message& message,
-                                        yas::shared_buffer& headerBuffer,
-                                        yas::shared_buffer& bodyBuffer)                     = 0;
+    virtual Handler* setNext(Handler* handler)                                                = 0;
+    virtual void handleOutcomingMessage(const Message& message, yas::shared_buffer& headerBuffer,
+                                        yas::shared_buffer& bodyBuffer)                       = 0;
     virtual void handleIncomingMessageHeader(const yas::shared_buffer buffer,
-                                             Network::Message::MessageHeader& messgeHeader) = 0;
-    virtual void handleIncomingMessageBody(const yas::shared_buffer buffer,
-                                           Network::Message& message)                       = 0;
+                                             Message::MessageHeader& messgeHeader)            = 0;
+    virtual void handleIncomingMessageBody(const yas::shared_buffer buffer, Network::Message& message) = 0;
 };
 
 class AbstractHandler : public Handler
@@ -31,19 +30,16 @@ protected:
 public:
     AbstractHandler() : nextHandler(nullptr) {}
 
-    virtual ~AbstractHandler() 
-    { 
-        delete nextHandler;
-    }
+    virtual ~AbstractHandler() { delete nextHandler; }
 
-    Handler* setNext(Handler* handler) override  
+    Handler* setNext(Handler* handler) override
     {
         this->nextHandler = handler;
         return this->nextHandler;
     }
 
-    void handleOutcomingMessage(const Network::Message& message, yas::shared_buffer& headerBuffer,
-                       yas::shared_buffer& bodyBuffer) override
+    void handleOutcomingMessage(const Message& message, yas::shared_buffer& headerBuffer,
+                                yas::shared_buffer& bodyBuffer) override
     {
         if (this->nextHandler)
         {
@@ -52,7 +48,7 @@ public:
     }
 
     void handleIncomingMessageHeader(const yas::shared_buffer buffer,
-                                    Network::Message::MessageHeader& messageHeader) override
+                                     Message::MessageHeader& messageHeader) override
     {
         if (this->nextHandler)
         {
@@ -60,8 +56,7 @@ public:
         }
     }
 
-    void handleIncomingMessageBody(const yas::shared_buffer buffer,
-                                   Network::Message& message) override
+    void handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
     {
         if (this->nextHandler)
         {
@@ -69,3 +64,4 @@ public:
         }
     }
 };
+}  // namespace Network
