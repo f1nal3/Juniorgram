@@ -95,7 +95,12 @@ public:
                 break;
             }
             case Network::Message::MessageType::MessageStoreRequest:
+            {
+                Network::MessageInfo messageInfo;
+                Network::YasSerializer::deserialize<Network::MessageInfo>(buffer, messageInfo);
+                message.mBody = std::make_any<Network::MessageInfo>(messageInfo);
                 break;
+            }
             default:
                 break;
         }
