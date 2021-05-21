@@ -1,4 +1,7 @@
 #pragma once
+// clang-format off
+suppressWarning(4996, -Wdeprecated-declarations)
+suppressWarning(4458, -Wmissing-variable-declarations)
 #include <yas/binary_iarchive.hpp>
 #include <yas/binary_oarchive.hpp>
 #include <yas/buffers.hpp>
@@ -8,6 +11,8 @@
 #include <yas/std_types.hpp>
 #include <yas/types/std/string.hpp>
 #include <yas/types/std/vector.hpp>
+restoreWarning
+// clang-format on
 
 #include "Network/Primitives.hpp"
 
