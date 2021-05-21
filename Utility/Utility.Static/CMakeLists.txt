@@ -2,12 +2,17 @@ set(TARGET Utility.Static)
 set(OUTPUT_NAME Utility.Static)
 
 set(SOURCE_FILES
+    CompressionHandler.hpp
     Cryptography.cpp
+    EncryptionHandler.hpp
+    Handler.hpp
     JsonSerializer.hpp
     JsonSerializer.cpp
     SafePriorityQueue.hpp
+    SerializationHandler.hpp
     Task.hpp
-    TaskManager.hpp)
+    TaskManager.hpp
+    YasSerializer.hpp)
 
 
 # Add a library with the above sources

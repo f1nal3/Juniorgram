@@ -1,5 +1,5 @@
 #include "App.hpp"
-#include "Utility/YasSerializer.hpp"
+#include "Utility.Static/YasSerializer.hpp"
 #include "Network/Primitives.hpp"
 
 App::App(/* args */) { client.connect(address, port); }

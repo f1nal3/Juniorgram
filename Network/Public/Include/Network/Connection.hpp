@@ -13,15 +13,15 @@
 #include <iostream>
 #include <functional>
 
-#include "CompressionHandler.hpp"
-#include "Handler.hpp"
-#include "EncryptionHandler.hpp"
 #include "Message.hpp"
 #include "SafeQueue.hpp"
-#include "SerializationHandler.hpp"
 #include "Utility/Utility.hpp"
 #include "Utility/WarningSuppression.hpp"
-#include "Utility/YasSerializer.hpp"
+#include "Utility.Static/CompressionHandler.hpp"
+#include "Utility.Static/Handler.hpp"
+#include "Utility.Static/EncryptionHandler.hpp"
+#include "Utility.Static/SerializationHandler.hpp"
+#include "Utility.Static/YasSerializer.hpp"
 
 namespace Network
 {
@@ -61,7 +61,6 @@ private:
 
     /// Buffer to store the part of incoming message while it is read
     Message mMessageBuffer;
-
 
     size_t getMaxMessageHeaderSize()
     {

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Message.hpp"
-#include "Utility/YasSerializer.hpp"
+#include "Utility.Static/YasSerializer.hpp"
 
 class Handler
 {

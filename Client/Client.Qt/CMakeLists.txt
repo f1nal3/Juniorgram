@@ -66,8 +66,11 @@ elseif (UNIX AND NOT APPLE)
     list(APPEND EXTRA_LIBS xcb)
 endif ()
 
+target_include_directories(${TARGET} PRIVATE
+    $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
+
 target_link_libraries(${TARGET}
-        PRIVATE Qt5::Widgets Qt5::Gui ${EXTRA_LIBS} CONAN_PKG::asio
+        PRIVATE Qt5::Widgets Qt5::Gui ${EXTRA_LIBS} CONAN_PKG::asio Utility.Static
         PUBLIC Network.Public Client.Core.Static)
 
 target_precompile_headers(${TARGET} PRIVATE pch.hpp)
