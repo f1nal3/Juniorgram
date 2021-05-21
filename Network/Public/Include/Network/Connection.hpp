@@ -96,7 +96,7 @@ private:
         yas::shared_buffer bodyBuffer;
 
         SerializationHandler handler;
-        handler.setNext(new EncryptionHandler())->setNext(new CompressionHandler());
+        handler.setNext(new CompressionHandler())->setNext(new EncryptionHandler());
         handler.handleOutcomingMessage(mOutcomingMessagesQueue.front(), headerBuffer, bodyBuffer);
 
         const auto writeHeaderHandler = [this, bodyBuffer](std::error_code error) {
@@ -180,8 +180,8 @@ private:
         const auto readHeaderHandler = [this, buffer](std::error_code error) {
             if (!error)
             {
-                CompressionHandler handler;
-                handler.setNext(new EncryptionHandler())->setNext(new SerializationHandler());
+                EncryptionHandler handler;
+                handler.setNext(new CompressionHandler())->setNext(new SerializationHandler());
                 handler.handleIncomingMessageHeader(buffer, mMessageBuffer.mHeader);
 
                 if (mMessageBuffer.mHeader.mBodySize > 0)
@@ -222,8 +222,8 @@ private:
         const auto readBodyHandler = [this, buffer](std::error_code error) {
             if (!error)
             {
-                CompressionHandler handler;
-                handler.setNext(new EncryptionHandler())->setNext(new SerializationHandler());
+                EncryptionHandler handler;
+                handler.setNext(new CompressionHandler())->setNext(new SerializationHandler());
                 handler.handleIncomingMessageBody(buffer, mMessageBuffer);
 
                 addToIncomingMessageQueue();
