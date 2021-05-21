@@ -1,20 +1,26 @@
 #pragma once
 
-#include <memory>
-
 #include "Message.hpp"
 #include "Utility/YasSerializer.hpp"
 
 class Handler
 {
 public:
-    virtual Handler* setNext(Handler* handler)                              = 0;
-    virtual void handleOutcomingMessage(const Network::Message& message, yas::shared_buffer& headerBuffer,
+    Handler()               = default;
+    Handler(const Handler&) = delete;
+    Handler(Handler&&)      = delete;
+    Handler& operator=(const Handler&) = delete;
+    Handler& operator=(Handler&&) = delete;
+    virtual ~Handler()            = default;
+
+    virtual Handler* setNext(Handler* handler)                                              = 0;
+    virtual void handleOutcomingMessage(const Network::Message& message,
+                                        yas::shared_buffer& headerBuffer,
                                         yas::shared_buffer& bodyBuffer)                     = 0;
     virtual void handleIncomingMessageHeader(const yas::shared_buffer buffer,
                                              Network::Message::MessageHeader& messgeHeader) = 0;
     virtual void handleIncomingMessageBody(const yas::shared_buffer buffer,
-                                             Network::Message& message) = 0;
+                                           Network::Message& message)                       = 0;
 };
 
 class AbstractHandler : public Handler
@@ -25,10 +31,15 @@ protected:
 public:
     AbstractHandler() : nextHandler(nullptr) {}
 
+    virtual ~AbstractHandler() 
+    { 
+        delete nextHandler;
+    }
+
     Handler* setNext(Handler* handler) override  
     {
         this->nextHandler = handler;
-        return handler;
+        return this->nextHandler;
     }
 
     void handleOutcomingMessage(const Network::Message& message, yas::shared_buffer& headerBuffer,
