@@ -12,6 +12,7 @@ suppressWarning(4458, -Wmissing-variable-declarations)
 #include <yas/types/std/string.hpp>
 #include <yas/types/std/vector.hpp>
 restoreWarning
+restoreWarning
 // clang-format on
 
 #include "Network/Primitives.hpp"
