@@ -67,7 +67,7 @@ bool App::loop()
 
                 case Network::Message::MessageType::MessageHistoryRequest:
                 {
-                    std::cout << "Message hosory received: \n";
+                    std::cout << "Message history received: \n";
                     std::vector<std::string> messageList;
 
                     for (const auto& item :
