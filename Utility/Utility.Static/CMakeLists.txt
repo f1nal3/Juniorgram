@@ -9,7 +9,6 @@ set(SOURCE_FILES
     TaskManager.hpp
     Cryptography.cpp)
 
-find_package(Qt5 COMPONENTS Widgets Core REQUIRED)
 
 # Add a library with the above sources
 add_library(${TARGET} STATIC ${SOURCE_FILES})

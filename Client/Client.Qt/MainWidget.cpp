@@ -159,6 +159,7 @@ MainWidget::MouseType MainWidget::checkResizableField(QMouseEvent* event)
 
 void MainWidget::mousePressEvent(QMouseEvent* event)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
     if (event->button() == Qt::LeftButton)
     {
         _mousePressed            = true;
@@ -196,6 +197,7 @@ void MainWidget::mousePressEvent(QMouseEvent* event)
             this->windowHandle()->startSystemResize(Qt::RightEdge);
         }
     }
+#endif
 
     return QWidget::mousePressEvent(event);
 }
@@ -222,7 +224,9 @@ void MainWidget::mouseMoveEvent(QMouseEvent* event)
                 }
 
                 _mousePressed = false;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
                 this->windowHandle()->startSystemMove();
+#endif
             }
             break;
         }
@@ -318,7 +322,7 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
         update();
     });
     setAttribute(Qt::WA_Hover);
-    connect(close_btn, &CaptionButton::mouseRelease, this, &MainWidget::close);
+    connect(close_btn, &CaptionButton::mouseRelease, this, &MainWidget::deleteLater);
     connect(minimize_btn, &CaptionButton::mouseRelease, this, &MainWidget::showMinimized);
     title->setMouseTracking(true);
     body->setMouseTracking(true);

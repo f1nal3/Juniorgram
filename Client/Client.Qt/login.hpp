@@ -3,6 +3,7 @@
 #include "Widgets/InputFields.hpp"
 #include "Widgets/LogoWidget.hpp"
 #include "pch.hpp"
+#include "Application.hpp"
 
 class Login : public QWidget
 {

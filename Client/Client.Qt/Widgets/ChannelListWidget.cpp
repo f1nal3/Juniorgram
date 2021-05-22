@@ -6,7 +6,7 @@ ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
 {
     vBoxLayout         = new QVBoxLayout(this);
     channelList        = new ListWidget();
-    listWidgetChannels = new ChannelListWindow(nullptr, channelList);
+    listWidgetChannels = new ChannelListWindow(channelList);
     addChannelButton   = new FlatButton("+");
 
     addChannelButton->setMinimumWidth(Style::valueDPIScale(200));
@@ -18,20 +18,11 @@ ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
     setLayout(vBoxLayout);
 }
 
-void ChannelListWidget::addChannels()
-{
-    if (ConnectionManager::isConnected())
-    {
-        ConnectionManager::getClient().askForChannelList();
-
-        // here should be code of adding channelList to our listWidgetChannels
-    }
-    listWidgetChannels->show();
-}
+void ChannelListWidget::addChannels() { listWidgetChannels->show(); }
 
 ChannelListWidget::~ChannelListWidget()
 {
-    delete listWidgetChannels;
     delete addChannelButton;
+    delete listWidgetChannels;
     delete vBoxLayout;
 }

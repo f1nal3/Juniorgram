@@ -2,9 +2,11 @@
 
 #include <mutex>
 #include <memory>
-#include <optional>
 
 #include <pqxx/pqxx>
+
+#include <Utility/Exception.hpp>
+#include <DataAccess/IAdapter.hpp>
 
 namespace DataAccess
 {
@@ -12,19 +14,30 @@ namespace DataAccess
 *   @brief Adapter class for working with PostgreSQL. \
 *   The is thread safe singleton.
 */
-class PostgreAdapter
+class PostgreAdapter final : public IAdapter
 {
 private:
     inline static std::mutex ms_static_mutex{};
     inline static std::shared_ptr<PostgreAdapter> msp_instance{};
-    inline static constexpr std::string_view ms_standartOptions =
+    inline static constexpr std::string_view ms_defaultOptions =
         "dbname=juniorgram user=postgres hostaddr=127.0.0.1 port=5432";
 
     std::mutex m_query_mutex;
-    pqxx::connection m_connection;
+    std::unique_ptr<pqxx::connection> m_connection;
+
+public:
+    /** @brief Method that creates new instance of Adapter. \
+    *    It needs for technical purposes. Don't use it \
+    *    (it's because I designed the interface badly). \
+    *    Instead use getInstance method.
+    *   @params options - Connection options.
+    *   @return Pointer to current instanse of Postgre adapter.
+    */
+    static std::shared_ptr<PostgreAdapter> Instance(const std::string_view& options = {});
 
 protected:
-    PostgreAdapter(const std::string_view& options) : m_connection{pqxx::zview(options)} {}
+    PostgreAdapter(const std::string_view& options) 
+        : m_connection{std::make_unique<pqxx::connection>(pqxx::zview(options))} {}
 
 public:
     PostgreAdapter(const PostgreAdapter& other) = delete;
@@ -32,24 +45,7 @@ public:
 
     PostgreAdapter(PostgreAdapter&& other) = delete;
     PostgreAdapter& operator=(PostgreAdapter&& other) = delete;
-
 public:
-    /** @brief Method for getting PostgreAdapter instances.
-    *   @details This method return the instance with standart options \
-    *    (dbname=juniorgram user=postgres hostaddr=127.0.0.1 port=5432).
-    *   @return PostgreAdapter instance: std::shared_ptr<...>
-    */
-    static std::shared_ptr<PostgreAdapter> getPostgre();
-    /** @brief Method for getting PostgreAdapter instances.
-     *  @details This method return the instance with your options. \
-     *   Like: dbname=... user=... hostaddr=... port=... ... . \
-     *   There are another options like: ssh, password, etc. \
-     *   This options must be passed as a single string. \
-     *  @param Your options.
-     *  @return PostgreAdapter instance: std::shared_ptr<...>
-     */
-    static std::shared_ptr<PostgreAdapter> getPostgre(const std::string_view& options);
-
     /** @brief Method for executing SQL quries.
     *   @details You shouldn't use this method because it's \
     *    low level accessing the database. Use it if you \
@@ -64,7 +60,7 @@ public:
     *   @param SQL query in the form of string.
     *   @return Optional result.
     */
-    std::optional<pqxx::result> query(const std::string_view& query);
+    std::optional<std::any> query(const std::string_view& query) override;
 
     /** @brief Method for getting connection object from pqxx.
     *   @details This object using for low level accessing the \
@@ -77,13 +73,15 @@ public:
     *  @details Inside, it getConnection().is_open().
     *  @return True - if connected. False - if not connected.
     */
-    bool isConnected(void) const;
+    bool isConnected(void) const override;
 
     /** @brief Method for closing connection.
-    *   @details You should use it if you know for sure that \
-    *    you don't need access to the database.
+    *   @details Method for change connection to the database.
+    *   @warning Be careful to use it because if you have many instances \
+    *    of this class and after call this method, you may have \
+    *    'dangling' pointers.
     */
-    void closeConnection(void);
+    void closeConnection(void) override;
 };
 
 } // namespace DataAccess

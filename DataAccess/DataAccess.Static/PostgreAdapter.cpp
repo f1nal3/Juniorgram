@@ -2,24 +2,13 @@
 
 namespace DataAccess
 {
-
-    std::shared_ptr<PostgreAdapter> PostgreAdapter::getPostgre() 
-    {
-        return getPostgre(ms_standartOptions);
-    }
-	std::shared_ptr<PostgreAdapter> PostgreAdapter::getPostgre(const std::string_view& options)
+    std::shared_ptr<PostgreAdapter> PostgreAdapter::Instance(const std::string_view& options)
     {
         std::scoped_lock<std::mutex> lock(ms_static_mutex);
 
         if (msp_instance == nullptr)
         {
-            if (options.empty())
-            {  
-                throw pqxx::broken_connection(
-                    "Instance didn't create because options are incorrect!");
-            }
-
-            msp_instance = std::shared_ptr<PostgreAdapter>(new PostgreAdapter(options));
+            msp_instance = std::shared_ptr<PostgreAdapter>(new PostgreAdapter(options.empty() ? ms_defaultOptions : options));
         }
 
         return msp_instance;
@@ -27,26 +16,34 @@ namespace DataAccess
 
     pqxx::connection& PostgreAdapter::getConnection(void) 
     {
-        return m_connection; 
+        return *m_connection; 
     }
 
     bool PostgreAdapter::isConnected(void) const 
     {
-        return m_connection.is_open(); 
+        return m_connection->is_open(); 
     }
 
-    std::optional<pqxx::result> PostgreAdapter::query(const std::string_view& query)
+    std::optional<std::any> PostgreAdapter::query(const std::string_view& query)
     {
         std::scoped_lock<std::mutex> lock(m_query_mutex);
 
-        pqxx::work work{ m_connection };
+        if (this->isConnected())
+        {
+            pqxx::work work{ *m_connection };
 
-        auto res = work.exec(query);
+            auto res = work.exec(query);
+            work.commit();
 
-        work.commit();
-
-        if (!res.empty()) 
-            return std::optional(res);
+            if (!res.empty())
+            {
+                return std::optional{ std::any{ res } };
+            }
+        }
+        else
+        {
+            throw Utility::OperationDBException("Connection with database was released!", __FILE__, __LINE__);
+        }
 
         return std::nullopt;
     }
@@ -54,6 +51,7 @@ namespace DataAccess
     void PostgreAdapter::closeConnection(void) 
     { 
         msp_instance.reset();
+        m_connection.reset();
     }
 
 }

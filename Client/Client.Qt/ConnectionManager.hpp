@@ -1,12 +1,12 @@
 #pragma once
 #include <Client.hpp>
 #include <Network/Primitives.hpp>
-#include "Widgets/ChannelListWidget.hpp"
+
+#include "Widgets/ChannelListWindow.hpp"
 
 class ConnectionManager
 {
 public:
-    
     static void disconnect()
     {
         if (client.isConnected())
@@ -20,14 +20,11 @@ public:
 
     static Network::Client& getClient() { return client; }
 
-    static bool isConnected() 
-    { 
-        return client.isConnected();
-    }
+    static bool isConnected() { return client.isConnected(); }
 
-    static void loop() 
+    static void loop()
     {
-        while(1)
+        while (1)
         {
             if (client.isConnected())
             {
@@ -78,7 +75,12 @@ public:
                                 channelList.emplace_back(info.channelName);
                             }
 
-                            for (auto& item : channelList) std::cout << item << '\n';
+                            for (auto& item : channelList)
+                            {
+                                std::cout << item << '\n';
+                                ChannelListWindow::addChannelInfo(item);
+                            }
+                            ChannelListWindow::mainWidgetStatus.notify_one();
                         }
                         break;
 
@@ -118,11 +120,12 @@ public:
                 std::cout << "Server Down\n";
                 return;
             }
+            std::this_thread::sleep_for(std::chrono::milliseconds(200));
         }
     }
-   
+
 private:
-    inline static Network::Client client;
-    inline static const std::string address = "104.40.239.183";
-    inline static const std::uint16_t port   = 65001;
+    inline static Network::Client     client;
+    inline static const std::string   address = "104.40.239.183";
+    inline static const std::uint16_t port    = 65001;
 };

@@ -2,7 +2,6 @@
 
 #include <utility>
 
-#include "App.hpp"
 #include "Style/Style.hpp"
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
@@ -59,20 +58,21 @@ void ChatWindow::updateMessagesList_User()
 
 void ChatWindow::newMessage(QString textMessage, QString userNameMessage)
 {
-    auto* item   = new QListWidgetItem();
-    auto* myItem = new MessageWidget(std::move(textMessage), std::move(userNameMessage), item);
-    myItem->setThisItem(item);
+    auto* item = new QListWidgetItem();
     item->setSizeHint(QSize(0, Style::valueDPIScale(150)));
+    auto* myItem =
+        new MessageWidget(std::move(textMessage), std::move(userNameMessage), item, false);
+    myItem->setThisItem(item);
     chatWidget->addItem(item);
     chatWidget->setItemWidget(item, myItem);
 }
 
 void ChatWindow::newMessage(QString textMessage)
 {
-    auto* item   = new QListWidgetItem();
-    auto* myItem = new MessageWidget(std::move(textMessage), item);
-    myItem->setThisItem(item);
+    auto* item = new QListWidgetItem();
     item->setSizeHint(QSize(0, Style::valueDPIScale(150)));
+    auto* myItem = new MessageWidget(std::move(textMessage), item, false);
+    myItem->setThisItem(item);
     chatWidget->addItem(item);
     chatWidget->setItemWidget(item, myItem);
 }

@@ -2,7 +2,7 @@
 
 #include <utility>
 
-#include "App.hpp"
+#include "Application.hpp"
 #include "PopupWidget.hpp"
 
 BioButton::BioButton(QImage bioImage, bool inCaption, QWidget* parent) : QWidget(parent)
@@ -89,7 +89,10 @@ bool BioButton::eventFilter(QObject* object, QEvent* event)
 
                 // Adding options
                 menu->addAction("Username: Add format here", []() {});
-                menu->addAction("Quit", []() { App::setAppState(AppState::LoginForm); });
+                menu->addAction("Quit", []() {
+                    oApp->setAppState(App::AppState::LoginForm);
+                    //App::setAppState(AppState::LoginForm);
+                });
 
                 pop->setMenu(menu);
 

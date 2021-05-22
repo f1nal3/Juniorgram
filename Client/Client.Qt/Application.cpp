@@ -1,22 +1,11 @@
-#include <future>
-#include <Widgets/BioButton.hpp>
+#include "Application.hpp"
 
-#include "App.hpp"
-#include "ConnectionManager.hpp"
-#include "ChatWindow.hpp"
-#include "MainWidget.hpp"
 #include "login.hpp"
 #include "registration.hpp"
 
-namespace App
-{
-namespace
-{
-MainWidget* mMainWidget;
-BioButton* mBioButton;
-AppState mAppState = AppState::RegistrationForm;
-}  // namespace
-void create()
+Application::Application(int& argc, char** argv) : QApplication(argc, argv), mBioButton(nullptr){}
+
+void Application::create()
 {
     QFontDatabase::addApplicationFont(":fonts/NotoSans-Regular.ttf");
     QFontDatabase::addApplicationFont(":fonts/NotoSans-Bold.ttf");
@@ -25,6 +14,7 @@ void create()
     mMainWidget = new MainWidget();
     mMainWidget->show();
     mMainWidget->hide();
+    
 #if _WIN32
 
     HWND handle = reinterpret_cast<HWND>(mMainWidget->winId());
@@ -34,19 +24,19 @@ void create()
     // const MARGINS shadow{9, 9, 9, 9};
     //::DwmExtendFrameIntoClientArea(handle, &shadow);
 #endif
-
+    
     ConnectionManager::connect();
-
     std::thread(&ConnectionManager::loop).detach();
 
-    setAppState(AppState::LoginForm);
+    setAppState(App::AppState::LoginForm);
     auto font = QFont("Noto Sans", 12);
     font.setPixelSize(Style::valueDPIScale(15));
     QApplication::setFont(font);
 }
-void show() { mMainWidget->show(); }
 
-void setAppState(AppState app_state)
+void Application::show() { mMainWidget->show(); }
+
+void Application::setAppState(App::AppState app_state)
 {
     mAppState = app_state;
     mMainWidget->show();
@@ -57,28 +47,26 @@ void setAppState(AppState app_state)
     }
     switch (mAppState)
     {
-        case AppState::LoginForm:
+        case App::AppState::LoginForm:
         {
-            auto* wid = new Login();
+            auto* wid  = new Login();
             mMainWidget->setCentralWidget(wid);
+            break;
         }
-        break;
-        case AppState::Authorized:
+        case App::AppState::RegistrationForm:
         {
-            auto* wid  = new ChatWindow();
+            auto* wid = new Registration();
+            mMainWidget->setCentralWidget(wid);
+            break;
+        }
+        case App::AppState::ChatWindowForm:
+        {
+            auto* wid = new ChatWindow();
             mBioButton = new BioButton(QImage(), true, mMainWidget);
             mBioButton->setImage(QImage(":/images/logo.png"));
             mMainWidget->refreshTitleBar(mBioButton);
             mMainWidget->setCentralWidget(wid);
+            break;
         }
-        break;
-        case AppState::RegistrationForm:
-        {
-            auto* wid = new Registration();
-            mMainWidget->setCentralWidget(wid);
-        }
-        break;
     }
 }
-}  // namespace App
-
