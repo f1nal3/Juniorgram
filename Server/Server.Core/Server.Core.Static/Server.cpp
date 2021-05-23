@@ -113,18 +113,18 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             // messageHistory should be std::vector<Network::MessageInfo>
             auto messageHistory = future.get();
 
-            std::vector<Network::MessageInfo> messafeHistoryList;
+            std::vector<Network::MessageInfo> messageHistoryList;
             for (auto& msgFromHistory : messageHistory)
             {
                 Network::MessageInfo info;
                 info.userID  = client->getID();
                 info.message = msgFromHistory.data();
 
-                messafeHistoryList.push_back(info);
+                messageHistoryList.push_back(info);
 
                 std::cout << info.message << '\n';
             }
-            msg.mBody = std::make_any<std::vector<Network::MessageInfo>>(messafeHistoryList);
+            msg.mBody = std::make_any<std::vector<Network::MessageInfo>>(messageHistoryList);
             
             client->send(msg);
         }
