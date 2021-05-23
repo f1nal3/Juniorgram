@@ -24,15 +24,15 @@ public:
                 case Message::MessageType::ServerMessage:
                     break;
                 case Message::MessageType::ChannelListRequest:
-                    YasSerializer::serialize<std::vector<ChannelInfo>>(
+                    YasSerializer::template serialize<std::vector<ChannelInfo>>(
                         bodyBuffer, std::any_cast<std::vector<ChannelInfo>>(message.mBody));
                     break;
                 case Message::MessageType::MessageHistoryRequest:
-                    YasSerializer::serialize<std::vector<MessageInfo>>(
+                    YasSerializer::template serialize<std::vector<MessageInfo>>(
                         bodyBuffer, std::any_cast<std::vector<MessageInfo>>(message.mBody));
                     break;
                 case Message::MessageType::MessageStoreRequest:
-                    YasSerializer::serialize<MessageInfo>(
+                    YasSerializer::template serialize<MessageInfo>(
                         bodyBuffer, std::any_cast<MessageInfo>(message.mBody));
                     break;
                 default:
@@ -42,7 +42,7 @@ public:
             messageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
         }
 
-        YasSerializer::serialize<Message::MessageHeader>(headerBuffer, messageHeader);
+        YasSerializer::template serialize<Message::MessageHeader>(headerBuffer, messageHeader);
 
         if (this->nextHandler)
         {
@@ -53,7 +53,7 @@ public:
     void handleIncomingMessageHeader(const yas::shared_buffer buffer,
                                      Message::MessageHeader& messageHeader) override
     {
-        YasSerializer::deserialize<Message::MessageHeader>(buffer, messageHeader);
+        YasSerializer::template deserialize<Message::MessageHeader>(buffer, messageHeader);
 
         if (this->nextHandler)
         {
@@ -76,21 +76,21 @@ public:
             case Message::MessageType::ChannelListRequest:
             {
                 std::vector<ChannelInfo> channelInfo;
-                YasSerializer::deserialize<std::vector<ChannelInfo>>(buffer, channelInfo);
+                YasSerializer::template deserialize<std::vector<ChannelInfo>>(buffer, channelInfo);
                 message.mBody = std::make_any<std::vector<ChannelInfo>>(channelInfo);
                 break;
             }
             case Message::MessageType::MessageHistoryRequest:
             {
                 std::vector<MessageInfo> messageInfo;
-                YasSerializer::deserialize<std::vector<MessageInfo>>(buffer, messageInfo);
+                YasSerializer::template deserialize<std::vector<MessageInfo>>(buffer, messageInfo);
                 message.mBody = std::make_any<std::vector<MessageInfo>>(messageInfo);
                 break;
             }
             case Message::MessageType::MessageStoreRequest:
             {
                 MessageInfo messageInfo;
-                YasSerializer::deserialize<MessageInfo>(buffer, messageInfo);
+                YasSerializer::template deserialize<MessageInfo>(buffer, messageInfo);
                 message.mBody = std::make_any<MessageInfo>(messageInfo);
                 break;
             }

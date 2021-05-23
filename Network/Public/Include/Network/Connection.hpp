@@ -65,7 +65,7 @@ private:
     size_t getMaxMessageHeaderSize()
     {
         yas::shared_buffer buffer;
-        YasSerializer::serialize<Message::MessageHeader>(
+        YasSerializer::template serialize<Message::MessageHeader>(
             buffer, Message::MessageHeader{Message::MessageType::MessageStoreRequest, UINT32_MAX,
                                            std::chrono::system_clock::now()});
         return buffer.size;
@@ -74,7 +74,7 @@ private:
     size_t getMinMessageHeaderSize()
     {
         yas::shared_buffer buffer;
-        YasSerializer::serialize<Message::MessageHeader>(
+        YasSerializer::template serialize<Message::MessageHeader>(
             buffer, Message::MessageHeader{Message::MessageType::ServerAccept, 0,
                                            std::chrono::system_clock::now()});
         return buffer.size;
