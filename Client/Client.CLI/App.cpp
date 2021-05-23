@@ -23,7 +23,7 @@ bool App::loop()
         {
             Network::Message message = client.incoming().pop_front();
 
-            switch (message.mHeader.mConnectionID)
+            switch (message.mHeader.mMessageType)
             {
                 case Network::Message::MessageType::ServerAccept:
                 {

@@ -1,7 +1,6 @@
 #pragma once
-#include <Client.hpp>
-#include <Network/Primitives.hpp>
-
+#include "Client.hpp"
+#include "Network/Primitives.hpp"
 #include "Widgets/ChannelListWindow.hpp"
 
 class ConnectionManager
@@ -32,7 +31,7 @@ public:
                 {
                     Network::Message message = client.incoming().pop_front();
 
-                    switch (message.mHeader.mConnectionID)
+                    switch (message.mHeader.mMessageType)
                     {
                         case Network::Message::MessageType::ServerAccept:
                         {

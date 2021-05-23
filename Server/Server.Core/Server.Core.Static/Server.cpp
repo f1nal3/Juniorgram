@@ -13,7 +13,7 @@ namespace Server
 bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
 {
     Network::Message message;
-    message.mHeader.mConnectionID = Network::Message::MessageType::ServerAccept;
+    message.mHeader.mMessageType = Network::Message::MessageType::ServerAccept;
     client->send(message);
     return true;
 }
@@ -37,7 +37,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         message.mHeader.mTimestamp = currentTime;
     }
 
-    switch (message.mHeader.mConnectionID)
+    switch (message.mHeader.mMessageType)
     {
         case Network::Message::MessageType::ServerPing:
         {
@@ -60,7 +60,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                       << client->getID() << "]: Message All\n";
 
             Network::Message msg;  // TODO: Why is a new message needed here?
-            msg.mHeader.mConnectionID = Network::Message::MessageType::ServerMessage;
+            msg.mHeader.mMessageType = Network::Message::MessageType::ServerMessage;
             // msg << client->getID();
 
             messageAllClients(msg, client);
@@ -74,7 +74,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                            _postgreRepo.get());
 
             Network::Message msg;
-            msg.mHeader.mConnectionID = Network::Message::MessageType::ChannelListRequest;
+            msg.mHeader.mMessageType = Network::Message::MessageType::ChannelListRequest;
 
             future.wait();
 
@@ -106,7 +106,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                            _postgreRepo.get(), 0); // There need to add channelID not 0.
 
             Network::Message msg;
-            msg.mHeader.mConnectionID = Network::Message::MessageType::MessageHistoryRequest;
+            msg.mHeader.mMessageType = Network::Message::MessageType::MessageHistoryRequest;
 
             future.wait();
            

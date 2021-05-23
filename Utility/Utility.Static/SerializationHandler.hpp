@@ -13,7 +13,7 @@ public:
 
         if (message.mBody.has_value())
         {
-            switch (message.mHeader.mConnectionID)
+            switch (message.mHeader.mMessageType)
             {
                 case Message::MessageType::ServerAccept:
                     break;
@@ -63,7 +63,7 @@ public:
 
     void handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
     {
-        switch (message.mHeader.mConnectionID)
+        switch (message.mHeader.mMessageType)
         {
             case Message::MessageType::ServerAccept:
                 break;

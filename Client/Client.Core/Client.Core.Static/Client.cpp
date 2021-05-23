@@ -73,7 +73,7 @@ void Client::send(const Message& message) const
 void Client::pingServer() const
 {
     Network::Message message;
-    message.mHeader.mConnectionID = Network::Message::MessageType::ServerPing;
+    message.mHeader.mMessageType = Network::Message::MessageType::ServerPing;
 
     std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
 
@@ -84,14 +84,14 @@ void Client::pingServer() const
 void Client::askForChannelList() const
 {
     Network::Message message;
-    message.mHeader.mConnectionID = Network::Message::MessageType::ChannelListRequest;
+    message.mHeader.mMessageType = Network::Message::MessageType::ChannelListRequest;
     send(message);
 }
 
 void Client::askForMessageHistory() const
 {
     Network::Message message;
-    message.mHeader.mConnectionID = Network::Message::MessageType::MessageHistoryRequest;
+    message.mHeader.mMessageType = Network::Message::MessageType::MessageHistoryRequest;
     send(message);
 }
 
@@ -100,7 +100,7 @@ void Client::storeMessages(const std::vector<std::string>& messagesList) const
     for (auto&& msg : messagesList)
     {
         Network::Message message;
-        message.mHeader.mConnectionID = Network::Message::MessageType::MessageStoreRequest;
+        message.mHeader.mMessageType = Network::Message::MessageType::MessageStoreRequest;
 
         Network::MessageInfo info;
         info.userID  = mConnection->getID();
@@ -115,7 +115,7 @@ void Client::storeMessages(const std::vector<std::string>& messagesList) const
 void Client::messageAll() const
 {
     Network::Message message;
-    message.mHeader.mConnectionID = Network::Message::MessageType::MessageAll;
+    message.mHeader.mMessageType = Network::Message::MessageType::MessageAll;
     send(message);
 }
 }  // namespace Network
