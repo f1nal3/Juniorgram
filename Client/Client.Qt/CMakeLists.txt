@@ -48,8 +48,6 @@ set(SOURCE_FILES
         Style/Style_scale.hpp
         Style/Style_font.cpp
         Style/Style_font.hpp
-        Widgets/ResizeArea.cpp
-        Widgets/ResizeArea.hpp
         Style/Style_color.cpp
         Style/Style_color.hpp
         Style/Style.cpp
