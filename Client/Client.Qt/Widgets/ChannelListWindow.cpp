@@ -1,5 +1,7 @@
 #include "ChannelListWindow.hpp"
 
+#include <QFutureWatcher>
+
 #include "ConnectionManager.hpp"
 #include "Style/Style.hpp"
 
@@ -16,19 +18,16 @@ ChannelListWindow::ChannelListWindow(ListWidget* anotherChannelListWidget, QWidg
     setFixedHeight(Style::valueDPIScale(250));
 
     vBoxLayout          = new QVBoxLayout;
-    addChannelButton    = new FlatButton("Add");
-    updateChannelButton = new FlatButton("Update");
+    addChannelButton    = new FlatButton(this, "Add");
+    updateChannelButton = new FlatButton(this, "Update");
     channelList         = new ListWidget();
 
     vBoxLayout->addWidget(channelList);
     vBoxLayout->addWidget(addChannelButton);
     vBoxLayout->addWidget(updateChannelButton);
 
-    connect(addChannelButton, &QPushButton::clicked, this,
-            &ChannelListWindow::addChannelToMainChannelWidget);
-    connect(updateChannelButton, &QPushButton::clicked, this,
-            &ChannelListWindow::updateChannelListWindow);
-
+    addChannelButton->setClickCallback([this]() { addChannelToMainChannelWidget(); });
+    updateChannelButton->setClickCallback([this]() { updateChannelListWindow(); });
     ConnectionManager::getClient().askForChannelList();
     updateChannelList();
 
@@ -106,8 +105,21 @@ void ChannelListWindow::updateChannelListWindow()
 {
     if (ConnectionManager::isConnected())
     {
+        static int                   i = 0;
+        static QFutureInterface<int> fi;
+        i++;
+        if (i > 5)
+        {
+            fi.reportFinished();
+        }
+        auto future = fi.future();
+
         ConnectionManager::getClient().askForChannelList();
-        updateChannelList();
+        auto* watcher = new QFutureWatcher<int>();
+
+        connect(watcher, &QFutureWatcher<int>::finished, [=]() { std::cout << i; });
+
+        watcher->setFuture(future);
     }
 }
 

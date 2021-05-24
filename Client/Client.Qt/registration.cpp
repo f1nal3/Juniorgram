@@ -1,18 +1,16 @@
 #include "registration.hpp"
 
-
 Registration::Registration(QWidget* parent) : QWidget(parent)
 {
     usernameLineEdit       = std::make_unique<FlatInput>("Username", this);
     passwordLineEdit       = std::make_unique<FlatInput>("Password", true, this);
     passwordRepeatLineEdit = std::make_unique<FlatInput>("Repeat password", true, this);
-    registrationButton     = std::make_unique<FlatButton>("Create account", this);
-    back                   = std::make_unique<FlatButton>("Back", this);
+    registrationButton     = std::make_unique<FlatButton>(this, "Create account");
+    back                   = std::make_unique<FlatButton>(this, "Back");
 
     logoWidget = std::make_unique<LogoWidget>(this);
 
-    QObject::connect(back.get(), &FlatButton::pressed,
-                     []() { oApp->setAppState(App::AppState::LoginForm); });
+    back->setClickCallback([]() { oApp->setAppState(App::AppState::LoginForm); });
 
     const int BLOCKWIDTH = Style::valueDPIScale(500);
 
@@ -36,11 +34,11 @@ void Registration::keyPressEvent(QKeyEvent* event)
 
 void Registration::resizeEvent(QResizeEvent* event)
 {
-    const QSize SIZE        = event->size();
-    const int HOR_SPACING   = Style::valueDPIScale(16);
-    const int MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
-    const int LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
-    const int SPACE         = Style::valueDPIScale(10);
+    const QSize SIZE          = event->size();
+    const int   HOR_SPACING   = Style::valueDPIScale(16);
+    const int   MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
+    const int   LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
+    const int   SPACE         = Style::valueDPIScale(10);
 
     const auto FIT_MAX = logoWidget->bestFit();
     // Aspect ratio;

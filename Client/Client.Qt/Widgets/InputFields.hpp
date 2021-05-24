@@ -11,18 +11,18 @@ public:
     explicit FlatInput(const QString& placeholder, QWidget* parent = nullptr);
     explicit FlatInput(const QString& placeholder, bool password = false,
                        QWidget* parent = nullptr);
+    QRect getTextRect() const;
 
 private:
     void paintEvent(QPaintEvent* event) override;
 };
 
-class FlatPlainTextEdit : public QPlainTextEdit
+class FlatPlainTextEdit : public QTextEdit
 {
     Q_OBJECT
 public:
     explicit FlatPlainTextEdit(QWidget* parent = nullptr);
 
 protected:
-    [[nodiscard]] QSize sizeHint() const override;
     void paintEvent(QPaintEvent* event) override;
 };

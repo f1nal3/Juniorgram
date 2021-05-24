@@ -1,6 +1,8 @@
 ﻿#include "MessageWidget.hpp"
-#include "Style/Style.hpp"
+
 #include <utility>
+
+#include "Style/Style.hpp"
 
 MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidgetItem* Item,
                              bool deletedMessage, QWidget* parent)
@@ -9,11 +11,10 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidge
       userName(std::move(nameOfUser)),
       dateTimeMessage(QDateTime::currentDateTime())
 {
-    messageItem = Item;
+    messageItem    = Item;
     messageDeleted = deletedMessage;
     // Main layouts
     mainLayout = new QVBoxLayout(this);
-    mainLayout->setObjectName(QString::fromUtf8("mainLayout"));
     setLayout(mainLayout);
 
     if (!deletedMessage)
@@ -29,10 +30,14 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidge
 MessageWidget::MessageWidget(std::string textMessage, std::string nameOfUser, QListWidgetItem* Item,
                              bool deletedMessage)
     : MessageWidget(QString::fromStdString(textMessage), QString::fromStdString(nameOfUser), Item,
-                    deletedMessage){}
+                    deletedMessage)
+{
+}
 
 MessageWidget::MessageWidget(QString textMessage, QListWidgetItem* Item, bool deletedMessage)
-    : MessageWidget(textMessage, EMPTY_USER_NAME, Item, deletedMessage){}
+    : MessageWidget(textMessage, EMPTY_USER_NAME, Item, deletedMessage)
+{
+}
 
 MessageWidget::~MessageWidget()
 {
@@ -43,35 +48,30 @@ MessageWidget::~MessageWidget()
 void MessageWidget::uiConnect()
 {
     connect(reactionChoseBox, SIGNAL(currentIndexChanged(int)), SLOT(reactionChange(int)));
-    connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteButtonClick()));
+    deleteButton->setClickCallback([&]() { deleteButtonClick(); });
 }
 
-void MessageWidget::initializationUiDelete() {
+void MessageWidget::initializationUiDelete()
+{
     messageItem->setSizeHint(QSize(0, Style::valueDPIScale(40)));
     delMessage = new Label("Message was deleted");
-    delMessage->setFont(QFont("Noto Sans", Style::valueDPIScale(12)));
+    delMessage->setFont(st::semiboldFont);
     mainLayout->addWidget(delMessage);
 }
 
 void MessageWidget::initializationUiNotDelete()
 {
     // Main Layouts
-    UpLevelLayout = new QHBoxLayout();
-    UpLevelLayout->setObjectName(QString::fromUtf8("UpLevelLayout"));
-
+    UpLevelLayout   = new QHBoxLayout();
     DownLevelLayout = new QHBoxLayout();
-    DownLevelLayout->setObjectName(QString::fromUtf8("DownLevelLayout"));
 
     // message
     messageTextEdit = new FlatPlainTextEdit();
-    messageTextEdit->setObjectName(QString::fromUtf8("message"));
-    messageTextEdit->setEnabled(true);
     messageTextEdit->setTabletTracking(false);
-    messageTextEdit->setFocusPolicy(Qt::TabFocus);
-    messageTextEdit->setAcceptDrops(true);
-    messageTextEdit->setFrameShape(QFrame::WinPanel);
-    messageTextEdit->setLineWidth(1);
+    messageTextEdit->setAcceptDrops(false);
     messageTextEdit->setReadOnly(true);
+    messageTextEdit->toMarkdown(QTextDocument::MarkdownFeatures(
+        QTextDocument::MarkdownDialectCommonMark) | QTextDocument::MarkdownDialectGitHub);
 
     // UpLevelLayout
 
@@ -85,7 +85,6 @@ void MessageWidget::initializationUiNotDelete()
     horizontalUpLeftSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     messageDateTimeEdit = new DateTimeEdit(this);
-    messageDateTimeEdit->setObjectName(QString::fromUtf8("messageDateTimeEdit"));
 
     horizontalUpRightSpacer = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
@@ -102,15 +101,13 @@ void MessageWidget::initializationUiNotDelete()
     // DownLevelLayout
 
     reactionChoseBox = new ComboBox();
-    reactionChoseBox->setObjectName(QString::fromUtf8("reactionChoseBox"));
     reactionChoseBox->addItem(QIcon(":/reactions/smile.png"), "");
     reactionChoseBox->addItem(QIcon(":/reactions/like.png"), "");
     reactionChoseBox->setMinimumWidth(Style::valueDPIScale(45));
 
     horizontalDownSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-    deleteButton = new FlatButton("Delete");
-    deleteButton->setObjectName(QString::fromUtf8("deleteButton"));
+    deleteButton = new FlatButton(this, "Delete");
 
     DownLevelLayout->addWidget(reactionChoseBox);
     DownLevelLayout->addItem(horizontalDownSpacer);
@@ -175,7 +172,7 @@ bool MessageWidget::isReaction(QString reaction)
 void MessageWidget::updateWidget()
 {
     messageDateTimeEdit->setDateTime(dateTimeMessage);
-    messageTextEdit->setPlainText(messageText);
+    messageTextEdit->setMarkdown(messageText);
     userNameLabel->setText(userName);
     reactionLabel->setText("");
     if (!isReaction("Like"))
@@ -194,8 +191,9 @@ void MessageWidget::reactionChange(int index)
         case 1:
         {
             ++reactionMap["Like"];
-            reactionLabelIcon->setPixmap(LikeIcon[0].scaled(
-                QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            reactionLabelIcon->setPixmap(
+                LikeIcon[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
+                                   Qt::KeepAspectRatio, Qt::SmoothTransformation));
             reactionLabel->setText(QString::number(reactionMap["Like"]));
             break;
         }
@@ -262,7 +260,7 @@ void MessageWidget::setDateTime(QDateTime newDataTime)
 
 void MessageWidget::setStdTime_tDateTime(std::time_t newDataTime)
 {
-    dateTimeMessage = std::move(QDateTime::fromTime_t(newDataTime));
+    dateTimeMessage = QDateTime::fromTime_t(newDataTime);
     updateWidget();
 }
 

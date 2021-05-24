@@ -7,17 +7,26 @@
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 {
     setContentsMargins(0, 0, 0, 0);
-    mainLayout = new QHBoxLayout(this);
-    rightLayout = new QVBoxLayout();
-    messageLayout = new QVBoxLayout();
+    mainLayout          = new QHBoxLayout(this);
+    rightLayout         = new QVBoxLayout();
+    messageLayout       = new QVBoxLayout();
     messageButtonLayout = new QHBoxLayout();
-    channelListWidget = new ChannelListWidget();
-    chatWidget        = new QListWidget();
-    messageTextEdit   = new FlatPlainTextEdit;
-    sendButton        = new FlatButton("Send");
-    textEdit          = new TextEdit(messageTextEdit);
+    channelListWidget   = new ChannelListWidget();
+    chatWidget          = new QListWidget();
+    chatWidget->setLayoutMode(QListView::Batched);
+    chatWidget->setMovement(QListView::Free);
+    chatWidget->setStyleSheet(
+        QString("QListWidget{ "
+                "border: 0px;"
+                "background: #323232;"
+                "}"));
+    chatWidget->setDragEnabled(false);
+    messageTextEdit        = new FlatPlainTextEdit;
+    sendButton             = new FlatButton(this, "Send");
+    textEdit               = new TextEdit(messageTextEdit);
     horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
+    mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->addWidget(channelListWidget, 10);
     mainLayout->addLayout(rightLayout, 90);
     rightLayout->addWidget(chatWidget, 85);
@@ -28,6 +37,9 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     messageButtonLayout->addItem(horizontalButtonSpacer);
     messageButtonLayout->addWidget(sendButton);
     connectButton();
+    connect(chatWidget->model(), SIGNAL(rowsInserted(QModelIndex, int, int)), chatWidget,
+            SLOT(scrollToBottom()));
+
     setLayout(mainLayout);
 }
 
@@ -43,7 +55,7 @@ void ChatWindow::keyPressEvent(QKeyEvent* event)
 
 void ChatWindow::connectButton()
 {
-    connect(sendButton, &QPushButton::released, this, &ChatWindow::updateMessagesList_User);
+    sendButton->setClickCallback([&]() { updateMessagesList_User(); });
     connect(chatWidget, SIGNAL(itemClicked(QListWidgetItem*)), this,
             SLOT(deletingSelection(QListWidgetItem*)));
 }
