@@ -71,8 +71,6 @@ void MessageWidget::initializationUiNotDelete()
     messageTextEdit->setAcceptDrops(false);
     messageTextEdit->setReadOnly(true);
 
-    // UpLevelLayout
-
     reactionLabel = new Label;
     reactionLabel->setText("");
 
