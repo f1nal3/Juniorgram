@@ -70,8 +70,6 @@ void MessageWidget::initializationUiNotDelete()
     messageTextEdit->setTabletTracking(false);
     messageTextEdit->setAcceptDrops(false);
     messageTextEdit->setReadOnly(true);
-    messageTextEdit->toMarkdown(QTextDocument::MarkdownFeatures(
-        QTextDocument::MarkdownDialectCommonMark) | QTextDocument::MarkdownDialectGitHub);
 
     // UpLevelLayout
 
@@ -172,7 +170,7 @@ bool MessageWidget::isReaction(QString reaction)
 void MessageWidget::updateWidget()
 {
     messageDateTimeEdit->setDateTime(dateTimeMessage);
-    messageTextEdit->setMarkdown(messageText);
+    messageTextEdit->setText(messageText);
     userNameLabel->setText(userName);
     reactionLabel->setText("");
     if (!isReaction("Like"))
