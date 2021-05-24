@@ -85,18 +85,17 @@ public:
                                const std::string& passwordHash)
     {
         // Check on login and email existing in repository.
-        auto checkExistingUsersAmount = [&](const std::string& WHERE, const ResponseCodes code) {
+        auto checkExistingUsersAmount = [&](const std::string& WHERE, const ResponseCodes code) 
+        {
             auto recordsRowAmount = std::get<0>(PTable("user_account_data")
-                                                    .Select()
-                                                    ->columns({"COUNT(*)"})
-                                                    ->Where(WHERE)
-                                                    ->execute());
+                                                 .Select()
+                                                 ->columns({"COUNT(*)"})
+                                                 ->Where(WHERE)
+                                                 ->execute());
 
-            std::size_t recordsAmount = recordsRowAmount.value()[0][0].as<std::size_t>();
-            if (recordsAmount > 0)
-            {
-                throw code;
-            }
+            std::size_t usersAmount = recordsRowAmount.value()[0][0].as<std::size_t>();
+            
+            if (usersAmount > 0) { throw code; }
         };
 
         checkExistingUsersAmount("email = '" + email + "'", ResponseCodes::EMAIL_ALREADY_EXISTS);
@@ -105,14 +104,22 @@ public:
         // Register user.
         PTable("users").Insert()->execute();
 
-        auto qry_2 = std::get<0>(
-            PTable("users").Select()->columns({"id"})->orderBy({"id"}, true)->limit(1)->execute());
+        auto qry_2 = std::get<0>(PTable("users")
+                                  .Select()
+                                  ->columns({"id"})
+                                  ->orderBy({"id"}, true)
+                                  ->limit(1)
+                                  ->execute());
 
         uint64_t userID = qry_2.value()[0][0].as<std::uint64_t>();
 
-        std::tuple userAccountData{std::pair{"user_id", userID}, std::pair{"email", email},
-                                   std::pair{"login", login},
-                                   std::pair{"password_hash", passwordHash}};
+        std::tuple userAccountData
+        {
+            std::pair{"user_id", userID}, 
+            std::pair{"email", email},
+            std::pair{"login", login},
+            std::pair{"password_hash", passwordHash}
+        };
 
         PTable("user_account_data").Insert()->columns(userAccountData)->execute();
 
