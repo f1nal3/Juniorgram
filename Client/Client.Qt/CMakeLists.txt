@@ -6,6 +6,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 set(SOURCE_FILES
+        Widgets/AbstractButton.cpp
+        Widgets/AbstractButton.hpp
         Widgets/BioButton.cpp
         Widgets/BioButton.hpp
         Widgets/CaptionButton.cpp
@@ -40,9 +42,22 @@ set(SOURCE_FILES
         Widgets/TimeEdit.hpp
         Widgets/LogoWidget.cpp
         Widgets/LogoWidget.hpp
+        Style/Style_types.cpp
+        Style/Style_types.hpp
+        Style/Style_scale.cpp
+        Style/Style_scale.hpp
+        Style/Style_font.cpp
+        Style/Style_font.hpp
+        Widgets/ResizeArea.cpp
+        Widgets/ResizeArea.hpp
+        Style/Style_color.cpp
+        Style/Style_color.hpp
         Style/Style.cpp
-        Style/Shadow.hpp
         Style/Style.hpp
+        Style/style_basic.h
+        Style/style_basic.cpp
+        Style/palette.cpp
+        Style/Shadow.hpp
         Application.cpp
         Application.hpp
         ChatWindow.cpp
@@ -55,7 +70,7 @@ set(SOURCE_FILES
         MainWidget.hpp
         pch.hpp
         registration.cpp
-        registration.hpp)
+        registration.hpp )
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)
@@ -67,7 +82,7 @@ elseif (UNIX AND NOT APPLE)
 endif ()
 
 target_link_libraries(${TARGET}
-        PRIVATE Qt5::Widgets Qt5::Gui ${EXTRA_LIBS} CONAN_PKG::asio
+        PRIVATE Qt5::Widgets Qt5::Gui ${EXTRA_LIBS} #CONAN_PKG::asio
         PUBLIC Network.Public Client.Core.Static)
 
 target_precompile_headers(${TARGET} PRIVATE pch.hpp)

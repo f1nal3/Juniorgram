@@ -14,5 +14,4 @@ TimeEdit::TimeEdit(QWidget* parent) : QTimeEdit(parent)
     setFrame(false);
     setReadOnly(true);
     setButtonSymbols(QAbstractSpinBox::NoButtons);
-    setKeyboardTracking(true);
 }
