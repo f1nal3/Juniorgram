@@ -116,7 +116,7 @@ public:
         }
 
         // "INSERT INTO users(id) SELECT max(id) + 1 FROM users";
-        PTable("users").Insert()->field("users_id", userID)->execute();
+        PTable("users").Insert()->columns(std::pair("id", userID))->execute();
 
         std::tuple userAccountData
         {
@@ -129,7 +129,7 @@ public:
         PTable("user_account_data").Insert()->columns(userAccountData)->execute();
 
         // "INSERT INTO user_personal_data (user_id) VALUES(" + user_id + ")";
-        PTable("user_personal_data").Insert()->columns(std::pair{"user_id", userID})->execute();
+        PTable("user_personal_data").Insert()->columns(std::pair("user_id", userID))->execute();
 
         return ResponseCodes::SUCCESS;
     }
