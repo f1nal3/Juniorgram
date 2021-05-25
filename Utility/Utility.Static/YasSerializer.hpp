@@ -1,7 +1,7 @@
 #pragma once
 // clang-format off
 suppressWarning(4996, -Wdeprecated-declarations)
-suppressWarning(4458, -Wmissing-variable-declarations)
+suppressWarning(4458, -Wshadow)
 #include <yas/binary_iarchive.hpp>
 #include <yas/binary_oarchive.hpp>
 #include <yas/buffers.hpp>
