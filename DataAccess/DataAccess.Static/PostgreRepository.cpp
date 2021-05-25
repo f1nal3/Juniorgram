@@ -85,9 +85,9 @@ public:
                                const std::string& passwordHash)
     {
         // Check on existing of login and email in repository.
-        auto checkExistingUsersAmount = [&](const std::string& WHERE, const ResponseCodes code) 
+        auto checkExistingUsers = [&](const std::string& WHERE, const ResponseCodes code) 
         {
-            auto recordsRowAmount = std::get<0>(PTable("user_account_data")
+            auto recordsRowAmount = std::get<0>(PTable("users")
                                                  .Select()
                                                  ->columns({"COUNT(*)"})
                                                  ->Where(WHERE)
@@ -98,38 +98,17 @@ public:
             if (usersAmount > 0) { throw code; }
         };
 
-        checkExistingUsersAmount("email = '" + email + "'", ResponseCodes::EMAIL_ALREADY_EXISTS);
-        checkExistingUsersAmount("login = '" + login + "'", ResponseCodes::LOGIN_ALREADY_EXISTS);
+        checkExistingUsers("email = '" + email + "'", ResponseCodes::EMAIL_ALREADY_EXISTS);
+        checkExistingUsers("login = '" + login + "'", ResponseCodes::LOGIN_ALREADY_EXISTS);
 
-        // Register user.
-        auto recordsRowAmount = std::get<0>(PTable("users").Select()->columns({"*"})->execute());
-
-        std::uint16_t userID = 0;
-        if (recordsRowAmount.value().size() > 0)
+        std::tuple userData
         {
-            userID = std::get<0>(PTable("users")
-                                  .Select()
-                                  ->columns({"max(id)"})
-                                  ->execute())
-                                  .value()[0][0]
-                                  .as<std::uint16_t>() + 1;
-        }
-
-        // "INSERT INTO users(id) SELECT max(id) + 1 FROM users";
-        PTable("users").Insert()->columns(std::pair("id", userID))->execute();
-
-        std::tuple userAccountData
-        {
-            std::pair{ "user_id", userID }, 
             std::pair{ "email", email },
-            std::pair{" login", login },
-            std::pair{" password_hash", passwordHash }
+            std::pair{ "login", login },
+            std::pair{ "password_hash", passwordHash }
         };
 
-        PTable("user_account_data").Insert()->columns(userAccountData)->execute();
-
-        // "INSERT INTO user_personal_data (user_id) VALUES(" + user_id + ")";
-        PTable("user_personal_data").Insert()->columns(std::pair("user_id", userID))->execute();
+        PTable("users").Insert()->columns(userData)->execute();
 
         return ResponseCodes::SUCCESS;
     }
