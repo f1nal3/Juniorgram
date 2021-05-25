@@ -53,7 +53,7 @@ public:
 
                         case Network::Message::MessageType::ServerMessage:
                         {
-                            // ???
+                            // need a structure / variable that will contain client Id
                             uint64_t clientID = 0;
                             // message >> clientID;
                             std::cout << "Hello from [" << clientID << "]\n";
