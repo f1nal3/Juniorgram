@@ -136,6 +136,7 @@ private:
      * Then next message header from the message queue is sent (method writeHeader()). /
      * If the writing message body to the socket failed, the error message - /
      * "[connection id] Write Body Fail." is displayed.
+     * @param buffer - buffer that contatins sent message body
      */
     void writeBody(yas::shared_buffer buffer)
     {
@@ -213,11 +214,12 @@ private:
      * is added to the connection incoming message queue.
      * If the reading message body from the socket failed, the error message - /
      * "[connection id] Read Body Fail." is displayed.
+     * @param bodySize - size of messege body
      */
-    void readBody(size_t size)
+    void readBody(size_t bodySize)
     {
         yas::shared_buffer buffer;
-        buffer.resize(size);
+        buffer.resize(bodySize);
 
         const auto readBodyHandler = [this, buffer](std::error_code error) {
             if (!error)

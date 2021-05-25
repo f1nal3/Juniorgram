@@ -3,9 +3,18 @@
 
 namespace Network
 {
+/** @class SerializationHandler
+ *  @brief handler class for messages serialization.
+ */
 class SerializationHandler : public AbstractHandler
 {
 public:
+    /**
+     * @brief Method for serialization of outcoming messages.
+     * @param message - buffer that contains data that should be serialized.
+     * @param headerBuffer - buffer that will contain serialized header.
+     * @param bodyBuffer - buffer that will contain serialized body.
+     */
     void handleOutcomingMessage(const Message& message, yas::shared_buffer& headerBuffer,
                                 yas::shared_buffer& bodyBuffer) override
     {
@@ -50,6 +59,11 @@ public:
         }
     }
 
+    /**
+     * @brief Method for deserialization of incoming message headers.
+     * @param buffer - buffer that contains data that should be deserialized.
+     * @param messageHeader - variable that will contain deserialized message header data.
+     */
     void handleIncomingMessageHeader(const yas::shared_buffer buffer,
                                      Message::MessageHeader& messageHeader) override
     {
@@ -61,6 +75,11 @@ public:
         }
     }
 
+    /**
+     * @brief Method for deserialization of incoming message bodies.
+     * @param buffer - buffer that contains data that should be deserialized.
+     * @param messageHeader - variable that will contain deserialized message body.
+     */
     void handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
     {
         switch (message.mHeader.mMessageType)

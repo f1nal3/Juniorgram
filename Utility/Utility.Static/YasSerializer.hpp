@@ -18,6 +18,9 @@ restoreWarning
 #include "Network/Primitives.hpp"
 
 namespace Network {
+    /** @class YasSerializer
+     *  @brief binary serialization class using YAS library.
+     */
 	class YasSerializer
 	{
 		YasSerializer()                     = delete;
@@ -31,6 +34,11 @@ namespace Network {
 			yas::mem | yas::binary | yas::no_header | yas::compacted;
 	
 	public:
+        /**
+        * @brief Method for binary serialization of messages.
+        * @param msg - buffer that will contain serialized message data.
+        * @param data - variable that contains data that should be serialized.
+        */
 		template <typename T>
 		static void serialize(yas::shared_buffer& msg, const T& data)
 		{
@@ -40,7 +48,12 @@ namespace Network {
 			restoreWarning
 		}
 		// clang-format on
-		
+
+        /**
+        * @brief Method for binary deserialization of messages.
+        * @param source - variable that contains data that should be deserialized.
+        * @param data - variable that will contain deserialized message data.
+        */
 		template <typename T>
 		static void deserialize(const yas::shared_buffer source, T& data)
 		{
