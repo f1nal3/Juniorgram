@@ -15,4 +15,4 @@ RUN wget -qO- https://bootstrap.pypa.io/get-pip.py | python3 \
 
 RUN aqt install --outputdir /opt/Qt 5.15.2 linux desktop && export CMAKE_PREFIX_PATH=/opt/Qt/5.12.2/gcc_64/lib/cmake/Qt5/:$CMAKE_PREFIX_PATH && conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan && /usr/local/bin/conan install /usr/src/build/conanfile.txt  \
 -s build_type=Release \
--s compiler=gcc -s compiler.version=11 -s compiler.libcxx=libstdc++11 -g=cmake --build=missing 
+-s compiler=gcc -s compiler.version=10.1 -s compiler.libcxx=libstdc++11 -g=cmake --build=missing 
