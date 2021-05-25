@@ -61,24 +61,13 @@ InputStyle<InputClass>* InputStyle<InputClass>::_instance = nullptr;
 FlatInput::FlatInput(QWidget* parent) : QLineEdit(parent)
 {
     setFont(st::defaultFont);
-    QColor inputField(0x32, 0x32, 0x32);
-    inputField            = inputField.lighter(175);
-    auto  selectedText    = inputField.lighter(175);
     auto* regexpvalidator = new QRegExpValidator;
     regexpvalidator->setRegExp(QRegExp("[a-zA-Z0-9._]+@[a-zA-Z0-9]+.[a-zA-Z]+"));
     setValidator(regexpvalidator);
-    /*    setStyleSheet(QString("QLineEdit { "
-                              "selection-background-color: rgb(%1, %2, %3);"
-                              "background-color: rgba(0,0,0,0);"
-                              "color:white;"
-                              "}")
-                          .arg(selectedText.red())
-                          .arg(selectedText.green())
-                          .arg(selectedText.blue()));*/
     setStyle(InputStyle<FlatInput>::instance());
     auto p = palette();
     p.setColor(QPalette::Text, Qt::white);
-    p.setColor(QPalette::Highlight, selectedText);
+    p.setColor(QPalette::Highlight, Qt::white);
     p.setColor(QPalette::HighlightedText, Qt::white);
     setPalette(p);
 

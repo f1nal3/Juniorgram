@@ -176,7 +176,7 @@ QString GetPossibleEmptyOverride(int32 flags)
 QString GetFontOverride(int32 flags)
 {
     const auto result = GetPossibleEmptyOverride(flags);
-    return result.isEmpty() ? "Open Sans" : result;
+    return result.isEmpty() ? "Noto Sans" : result;
 }
 
 QFont ResolveFont(uint32 flags, int size)
@@ -255,14 +255,15 @@ FontData::FontData(int size, uint32 flags, int family, Font* other)
     : f(ResolveFont(flags, size)), m(f), _size(size), _flags(flags), _family(family)
 {
     Q_UNUSED(other);
-    /*if (other)
+    if (other)
     {
-        memcpy(modified, other, sizeof(modified));
     }
     else
     {
-        memset(modified, 0, sizeof(modified));
-    }*/
+        for(auto& mods : modified){
+            mods=nullptr;
+        }
+    }
     modified[_flags] = Font(this);
 
     height  = m.height();
