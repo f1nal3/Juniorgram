@@ -84,7 +84,7 @@ public:
     ResponseCodes registerUser(const std::string& email, const std::string& login,
                                const std::string& passwordHash)
     {
-        // Check on login and email existing in repository.
+        // Check on existing of login and email in repository.
         auto checkExistingUsersAmount = [&](const std::string& WHERE, const ResponseCodes code) 
         {
             auto recordsRowAmount = std::get<0>(PTable("user_account_data")
@@ -102,36 +102,34 @@ public:
         checkExistingUsersAmount("login = '" + login + "'", ResponseCodes::LOGIN_ALREADY_EXISTS);
 
         // Register user.
-        PTable("users").Insert()->execute();
+        auto recordsRowAmount = std::get<0>(PTable("users").Select()->columns({"*"})->execute());
 
-        auto qry_2 = std::get<0>(PTable("users")
+        std::uint16_t userID = 0;
+        if (recordsRowAmount.value().size() > 0)
+        {
+            userID = std::get<0>(PTable("users")
                                   .Select()
-                                  ->columns({"id"})
-                                  ->orderBy({"id"}, true)
-                                  ->limit(1)
-                                  ->execute());
+                                  ->columns({"max(id)"})
+                                  ->execute())
+                                  .value()[0][0]
+                                  .as<std::uint16_t>() + 1;
+        }
 
-        uint64_t userID = qry_2.value()[0][0].as<std::uint64_t>();
+        // "INSERT INTO users(id) SELECT max(id) + 1 FROM users";
+        PTable("users").Insert()->field("users_id", userID)->execute();
 
         std::tuple userAccountData
         {
-            std::pair{"user_id", userID}, 
-            std::pair{"email", email},
-            std::pair{"login", login},
-            std::pair{"password_hash", passwordHash}
+            std::pair{ "user_id", userID }, 
+            std::pair{ "email", email },
+            std::pair{" login", login },
+            std::pair{" password_hash", passwordHash }
         };
 
         PTable("user_account_data").Insert()->columns(userAccountData)->execute();
 
         // "INSERT INTO user_personal_data (user_id) VALUES(" + user_id + ")";
         PTable("user_personal_data").Insert()->columns(std::pair{"user_id", userID})->execute();
-
-        // "INSERT INTO user_own_messages (from_id) VALUES(" + user_id + ")";
-        PTable("user_own_messages").Insert()->columns(std::pair{"from_id", userID})->execute();
-
-        PTable("user_friends_data").Insert()->columns(std::pair{"user_id", userID})->execute();
-
-        PTable("channel_users").Insert()->columns(std::pair{"user_id", userID})->execute();
 
         return ResponseCodes::SUCCESS;
     }
