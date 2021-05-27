@@ -66,8 +66,9 @@ private:
     {
         yas::shared_buffer buffer;
         YasSerializer::template serialize<Message::MessageHeader>(
-            buffer, Message::MessageHeader{Message::MessageType::MessageStoreRequest, UINT32_MAX,
-                                           std::chrono::system_clock::now()});
+            buffer,
+            Message::MessageHeader{static_cast<Message::MessageType>(UINT32_MAX), UINT32_MAX,
+                                   std::chrono::system_clock::time_point::max()});
         return buffer.size;
     }
 
@@ -75,8 +76,9 @@ private:
     {
         yas::shared_buffer buffer;
         YasSerializer::template serialize<Message::MessageHeader>(
-            buffer, Message::MessageHeader{Message::MessageType::ServerAccept, 0,
-                                           std::chrono::system_clock::now()});
+            buffer, Message::MessageHeader{Message::MessageType::ServerAccept, 0U,
+                                           std::chrono::system_clock::from_time_t(0)});
+
         return buffer.size;
     }
 
