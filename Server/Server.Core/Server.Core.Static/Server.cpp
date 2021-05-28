@@ -144,6 +144,26 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         }
         break;
 
+        case Network::Message::MessageType::RegistrationRequest:
+        {
+            Network::RegisrtationMessage rm;
+            message >> rm;
+            
+            auto future = std::async(std::launch::async, &RegistrationUnit::registerUser,
+                                     &RegistrationUnit::instance(), rm);
+        
+            Network::Message messageToClient;
+            messageToClient.mHeader.mConnectionID =
+                Network::Message::MessageType::RegistrationRequest;
+            
+            auto registrationCode = future.get();
+            
+            messageToClient << registrationCode;
+            
+            client->send(messageToClient);
+        }
+        break;
+
         default:
         {
         }

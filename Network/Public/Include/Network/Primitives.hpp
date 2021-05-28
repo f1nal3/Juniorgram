@@ -19,4 +19,11 @@ namespace Network
         std::uint64_t userID;
         char message[256];
     };
+
+    struct RegisrtationMessage
+    {
+        char email[50];
+        char login[50];
+        char password[50];
+    };
 } // namespace Network

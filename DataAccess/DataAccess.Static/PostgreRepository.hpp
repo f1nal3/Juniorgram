@@ -4,6 +4,7 @@
 
 #include <ctime>
 #include <iostream>
+#include <random>
 
 #include "Utility/Exception.hpp"
 #include "Utility/Utility.hpp"
@@ -24,3 +25,116 @@ public:
     virtual void storeMessage(const Network::MessageInfo& message, const std::uint64_t channleID) override final;
 };
 }  // namespace DataAccess
+
+class TokenUnit
+{
+private:
+    const std::uint16_t TOKEN_LENGTH = 32;
+
+    TokenUnit() = default;
+    // TokenUnit(const TokenUnit&) = delete;
+    // void operator=(const TokenUnit& t) = delete;
+public:
+    static TokenUnit instance()
+    {
+        static TokenUnit token;
+        return token;
+    }
+
+    inline std::uint16_t getTokenLength() const { return TOKEN_LENGTH; }
+
+    std::string createToken(const std::uint64_t userID) const
+    {
+        std::string userIDstr = std::to_string(userID);
+
+        std::string possibleCharacters =
+            "!@#$%^&*()-_=<>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+        std::mt19937 generator(std::random_device{}());
+
+        std::shuffle(possibleCharacters.begin(), possibleCharacters.end(), generator);
+
+        for (size_t i = 0; i < userIDstr.size(); ++i)
+        {
+            possibleCharacters[i] = userIDstr[i];
+        }
+
+        return possibleCharacters.substr(0, TOKEN_LENGTH);
+    }
+};
+
+using namespace DataAccess;
+
+class RegistrationUnit
+{
+private:
+    RegistrationUnit() = default;
+
+public:
+    enum class RegistrationCodes : std::uint8_t
+    {
+        EMAIL_ALREADY_EXISTS,
+        LOGIN_ALREADY_EXISTS,
+        SUCCESS,
+    };
+
+    inline static RegistrationUnit instance()
+    {
+        static RegistrationUnit registartor;
+        return registartor;
+    }
+
+public:
+    RegistrationUnit(const RegistrationUnit&) = default;
+    ~RegistrationUnit()                       = default;
+
+    RegistrationCodes registerUser(const Network::RegisrtationMessage& rm)
+    {
+        // Check on existing of login and email in repository.
+        auto checkExistingUsers = [&](const std::string& condition, const RegistrationCodes code) 
+        {
+            auto recordsRowAmount = std::get<0>(PTable("users")
+                                                .Select()
+                                                ->columns({"COUNT(*)"})
+                                                ->Where(condition)
+                                                ->execute());
+
+            std::size_t usersAmount = recordsRowAmount.value()[0][0].as<std::size_t>();
+
+            if (usersAmount > 0){ throw code; }
+        };
+
+        std::string email = rm.email;
+        std::string login = rm.email;
+        checkExistingUsers("email = '" + email + "'", RegistrationCodes::EMAIL_ALREADY_EXISTS);
+        
+        checkExistingUsers("login = '" + login + "'", RegistrationCodes::LOGIN_ALREADY_EXISTS);
+
+        std::tuple userData
+        {
+            std::pair{"email", rm.email}, 
+            std::pair{"login", rm.login},
+            std::pair{"password_hash", rm.password}
+        };
+        std::get<0>(PTable("users").Insert()->columns(userData)->execute());
+
+        std::uint64_t userID = std::get<0>(PTable("users")
+                                           .Select()
+                                           ->columns({"max(id)"})
+                                           ->execute())
+                                           .value()[0][0].as<std::uint64_t>();
+
+        std::string mainToken    = TokenUnit::instance().createToken(userID);
+        std::string refreshToken = TokenUnit::instance().createToken(userID);
+
+        std::tuple tokens
+        {
+            std::pair{"user_id", userID},
+            std::pair{"token", mainToken},
+            std::pair{"refresh_token", refreshToken},
+        };
+        std::get<0>(PTable("user_tokens").Insert()->columns(tokens)->execute());
+
+        return RegistrationCodes::SUCCESS;
+    }
+};

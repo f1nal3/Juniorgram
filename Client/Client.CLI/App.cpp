@@ -94,8 +94,15 @@ bool App::loop()
                 }
                 break;
 
-				        default:
-				        break;
+                case Network::Message::MessageType::RegistrationRequest:
+                {
+                    // Check RegistrationUnit::RegistrationCode::.
+                    std::cout << "New user was registered!" << std::endl;
+                }
+                break;
+
+				default:
+				break;
             }
         }
     }

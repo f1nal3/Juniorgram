@@ -113,6 +113,23 @@ void Client::storeMessages(const std::vector<std::string>& messagesList) const
     }
 }
 
+void Client::userRegistration(const std::string& email, const std::string& login,
+                      const std::string& password) const
+{
+    Network::Message message;
+    message.mHeader.mConnectionID = Network::Message::MessageType::RegistrationRequest;
+
+    Network::RegisrtationMessage rm;
+    suppressWarning(4996, -Winit - self) 
+        strcpy(rm.email, email.data());
+        strcpy(rm.login, login.data());
+        strcpy(rm.password, password.data());
+    restoreWarning
+
+    message << rm;
+    send(message);
+}
+
 void Client::messageAll() const
 {
     Network::Message message;

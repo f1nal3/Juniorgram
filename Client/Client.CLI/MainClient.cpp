@@ -55,6 +55,12 @@ int main()
                 std::vector<std::string> messagesList = {"hi, babe", "I'm comming today at 10 pm", "Expect"};
                 clientApp.shell()->storeMessages(messagesList);
             }
+            else if (cmd == "ur")
+            {
+                std::string email, login, password;
+                std::cin >> email >> login >> password;
+                clientApp.shell()->userRegistration(email, login, password);
+            }
             else if (cmd == "q")
             {
                 quit = true;
