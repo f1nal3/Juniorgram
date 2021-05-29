@@ -130,7 +130,13 @@ private:
     QDateTime dateTimeMessage;
     QString reactionOnMessage;
     QStringList itemReactionList;
-    std::map<std::string, int> reactionMap{{"Like", 0}};
+    std::map<std::string, int> reactionMap
+    {
+        {"Like", 0},
+        {"Dislike", 0},
+        {"Fire", 0},
+        {"Cat", 0}
+    };
     void initializationUiNotDelete();
     void initializationUiDelete();
     bool isReaction(QString reaction);
