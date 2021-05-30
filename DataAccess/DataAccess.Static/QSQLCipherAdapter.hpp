@@ -1,8 +1,8 @@
+#pragma once
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QTemporaryDir>
-#pragma once
 
 #include <DataAccess/IAdapter.hpp>
 #include <Utility/Exception.hpp>
@@ -45,7 +45,7 @@ public:
      *    database. You probably won't need it.
      *   @return pqxx::Connection object.
      */
-    pqxx::connection& getConnection(void);
+    /*pqxx::connection&*/ void getConnection(void);
 
     /* @brief Method for checking the connection to the db.
      *  @details Inside, it getConnection().is_open().
@@ -69,7 +69,7 @@ public:
      *   @params options - Connection options.
      *   @return Pointer to current instanse of Postgre adapter.
      */
-    static std::shared_ptr<QSQLCipherAdapter> Instance(const std::string_view& options = {});
+    static std::shared_ptr<QSQLCipherAdapter> Instance(/*const std::string_view& options = {}*/);
 
 protected:
     QSQLCipherAdapter(const std::string_view& options)
@@ -85,6 +85,8 @@ private:
 
     std::mutex m_query_mutex;
     std::unique_ptr<pqxx::connection> m_connection;
+
+    static QTemporaryDir tmpDir;
 };
 
 }  // namespace DataAccess

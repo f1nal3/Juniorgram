@@ -1,5 +1,7 @@
 #pragma once
 
+#include "DataAccess/IRepository.hpp"
+
 #include "Network/Connection.hpp"
 #include "Network/Message.hpp"
 #include "Network/SafeQueue.hpp"
@@ -10,13 +12,16 @@ class Client
 {
     asio::io_context mContext;
     std::thread mContextThread;
-
     std::unique_ptr<Connection> mConnection;
+
+    std::unique_ptr<DataAccess::IRepository> mQSQLCipherRepo;
 
     SafeQueue<Message> mIncomingMessagesQueue;
 
 public:
     ~Client();
+
+    bool connectToDb();
 
     bool connect(const std::string& host, const uint16_t& port);
 

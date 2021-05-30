@@ -1,8 +1,13 @@
 #include "App.hpp"
 #include "Utility/YasSerializer.hpp"
+#include "DataAccess.Static/QSQLCipherAdapter.hpp"
 #include "Network/Primitives.hpp"
 
-App::App(/* args */) { client.connect(address, port); }
+App::App(/* args */)
+{ 
+    client.connectToDb();
+    client.connect(address, port);   
+}
 
 App::~App()
 {

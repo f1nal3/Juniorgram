@@ -1,12 +1,23 @@
 #include "Client.hpp"
 
+
 #include <Network/Primitives.hpp>
 #include <Utility/WarningSuppression.hpp>
 #include <Utility.Static/Cryptography.hpp>
 
+#include "DataAccess.Static/QSQLCipherRepository.hpp"
+
 namespace Network
 {
 Client::~Client() { disconnect(); }
+
+bool Client::connectToDb()
+{ 
+    mQSQLCipherRepo =
+        std::unique_ptr<DataAccess::QSQLCipherRepository>(new DataAccess::QSQLCipherRepository);
+
+    return false;
+}
 
 bool Client::connect(const std::string& host, const uint16_t& port)
 {
