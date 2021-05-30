@@ -7,9 +7,9 @@ set(SOURCE_FILES
  
 add_executable(${TARGET} ${SOURCE_FILES})
 
-target_link_libraries(${TARGET} PUBLIC Network.Public Utility.Public)
-target_link_libraries(${TARGET} PUBLIC Client.Core.Static)
-target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas)
+target_link_libraries(${TARGET} PUBLIC Network.Public Utility.Public
+								PUBLIC Client.Core.Static
+								PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas)
 
 install(TARGETS ${TARGET}
         CONFIGURATIONS Debug
