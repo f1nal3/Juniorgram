@@ -2,12 +2,13 @@ set(TARGET Utility.Static)
 set(OUTPUT_NAME Utility.Static)
 
 set(SOURCE_FILES
+    Cryptography.cpp
+    Logger.hpp
     Serialize.hpp
-    Serialize.cpp
     SafePriorityQueue.hpp
+    Serialize.cpp
     Task.hpp
-    TaskManager.hpp
-    Cryptography.cpp)
+    TaskManager.hpp)
 
 
 # Add a library with the above sources
