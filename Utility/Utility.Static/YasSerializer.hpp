@@ -31,7 +31,7 @@ namespace Network {
 
 	private:
 		constexpr static std::size_t flags =
-			yas::mem | yas::binary | yas::no_header | yas::compacted;
+			yas::mem | yas::binary | yas::no_header;
 	
 	public:
         /**
