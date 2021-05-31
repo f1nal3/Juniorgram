@@ -91,7 +91,7 @@ public:
     RegistrationCodes registerUser(const Network::RegisrtationMessage& rm)
     {
         // Check on existing of login and email in repository.
-        auto checkExistingUsers = [&](const std::string& condition, const RegistrationCodes code) 
+        auto getUsersAmount = [&](const std::string& condition) -> std::size_t 
         {
             auto recordsRowAmount = std::get<0>(PTable("users")
                                                 .Select()
@@ -99,16 +99,17 @@ public:
                                                 ->Where(condition)
                                                 ->execute());
 
-            std::size_t usersAmount = recordsRowAmount.value()[0][0].as<std::size_t>();
-
-            if (usersAmount > 0){ throw code; }
+            return recordsRowAmount.value()[0][0].as<std::size_t>();
         };
 
-        std::string email = rm.email;
-        std::string login = rm.email;
-        checkExistingUsers("email = '" + email + "'", RegistrationCodes::EMAIL_ALREADY_EXISTS);
-        
-        checkExistingUsers("login = '" + login + "'", RegistrationCodes::LOGIN_ALREADY_EXISTS);
+        if (getUsersAmount("email = '" + std::string(rm.email) + "'") > 0)
+        {
+            return RegistrationCodes::EMAIL_ALREADY_EXISTS;
+        }
+        if (getUsersAmount("login = '" + std::string(rm.login) + "'"))
+        {
+            return RegistrationCodes::LOGIN_ALREADY_EXISTS;
+        }
 
         std::tuple userData
         {
@@ -116,7 +117,7 @@ public:
             std::pair{"login", rm.login},
             std::pair{"password_hash", rm.password}
         };
-        std::get<0>(PTable("users").Insert()->columns(userData)->execute());
+        PTable("users").Insert()->columns(userData)->execute();
 
         std::uint64_t userID = std::get<0>(PTable("users")
                                            .Select()
@@ -127,13 +128,19 @@ public:
         std::string mainToken    = TokenUnit::instance().createToken(userID);
         std::string refreshToken = TokenUnit::instance().createToken(userID);
 
+        char timeStampStr[20];
+        std::time_t t = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+        std::tm time  = Utility::safe_localtime(t);
+        std::strftime(timeStampStr, 20, "%Y-%m-%d %H:%M:%S", &time);
+
         std::tuple tokens
         {
             std::pair{"user_id", userID},
             std::pair{"token", mainToken},
             std::pair{"refresh_token", refreshToken},
+            std::pair{"token_receipt_time", timeStampStr},
         };
-        std::get<0>(PTable("user_tokens").Insert()->columns(tokens)->execute());
+        PTable("user_tokens").Insert()->columns(tokens)->execute();
 
         return RegistrationCodes::SUCCESS;
     }

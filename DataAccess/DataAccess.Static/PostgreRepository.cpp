@@ -45,18 +45,31 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::
 
 void PostgreRepository::storeMessage(const Network::MessageInfo& message, const std::uint64_t channelID)
 {
-    char timeStampStr[35];
+    char timeStampStr[20];
 
     std::time_t t = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     std::tm time  = Utility::safe_localtime(t);
-    std::strftime(timeStampStr, 35, "%Y-%m-%d %H:%M:%S.0+00", &time);
+    std::strftime(timeStampStr, 20, "%Y-%m-%d %H:%M:%S", &time);
 
-    std::tuple messageToDatabase
+    std::uint64_t msgID = std::get<0>(PTable("msgs")
+                                       .Select()
+                                       ->columns({"max(msg_id)"})
+                                       ->execute())
+                                       .value()[0][0].as<std::uint64_t>() + 1;
+
+    std::tuple dataForMsgs
+    {
+        std::pair{"msg_id", msgID},
+        std::pair{"sender_id", message.userID},
+        std::pair{"send_time", timeStampStr},
+        std::pair{"msg", message.message }
+    };
+    std::tuple dataForChannelMsgs
     {
         std::pair{"channel_id", channelID},
-        std::pair{"sender_id", message.userID},
-        std::pair{"send_time", timeStampStr}, 
-        std::pair{"msg", message.message}
+        std::pair{"msg_id", msgID}
     };
-    PTable("channel_msgs").Insert()->columns(messageToDatabase)->execute();
+    
+    PTable("msgs").Insert()->columns(dataForMsgs)->execute();
+    PTable("channel_msgs").Insert()->columns(dataForChannelMsgs)->execute();
 }
