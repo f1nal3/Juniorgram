@@ -292,7 +292,7 @@ void MessageWidget::setDateTime(QDateTime newDataTime)
 
 void MessageWidget::setStdTime_tDateTime(std::time_t newDataTime)
 {
-    dateTimeMessage = std::move(QDateTime::fromTime_t(newDataTime));
+    dateTimeMessage = QDateTime::fromTime_t(newDataTime);
     updateWidget();
 }
 
