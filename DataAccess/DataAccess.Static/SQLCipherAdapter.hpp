@@ -1,9 +1,4 @@
 #pragma once
-#include <QSqlDatabase>
-#include <QSqlError>
-#include <QSqlQuery>
-#include <QTemporaryDir>
-
 #include <DataAccess/IAdapter.hpp>
 #include <Utility/Exception.hpp>
 #include <memory>
@@ -16,14 +11,23 @@ namespace DataAccess
  *   @brief Adapter class for working with PostgreSQL. \
  *   The is thread safe singleton.
  */
-class QSQLCipherAdapter final : public IAdapter
+class SQLCipherAdapter final : public IAdapter
 {
 public:
-    QSQLCipherAdapter(const QSQLCipherAdapter& other) = delete;
-    QSQLCipherAdapter& operator=(const QSQLCipherAdapter& other) = delete;
+    /** @brief Method that creates new instance of Adapter. \
+     *    It needs for technical purposes. Don't use it \
+     *    (it's because I designed the interface badly). \
+     *    Instead use getInstance method.
+     *   @params options - Connection options.
+     *   @return Pointer to current instanse of Postgre adapter.
+     */
+    static std::shared_ptr<SQLCipherAdapter> Instance(const std::string_view& options = {});
 
-    QSQLCipherAdapter(QSQLCipherAdapter&& other) = delete;
-    QSQLCipherAdapter& operator=(QSQLCipherAdapter&& other) = delete;
+    SQLCipherAdapter(const SQLCipherAdapter& other) = delete;
+    SQLCipherAdapter& operator=(const SQLCipherAdapter& other) = delete;
+
+    SQLCipherAdapter(SQLCipherAdapter&& other) = delete;
+    SQLCipherAdapter& operator=(SQLCipherAdapter&& other) = delete;
     /** @brief Method for executing SQL quries.
      *   @details You shouldn't use this method because it's \
      *    low level accessing the database. Use it if you \
@@ -61,32 +65,22 @@ public:
      */
     void closeConnection(void) override;
 
-public:
-    /** @brief Method that creates new instance of Adapter. \
-     *    It needs for technical purposes. Don't use it \
-     *    (it's because I designed the interface badly). \
-     *    Instead use getInstance method.
-     *   @params options - Connection options.
-     *   @return Pointer to current instanse of Postgre adapter.
-     */
-    static std::shared_ptr<QSQLCipherAdapter> Instance(/*const std::string_view& options = {}*/);
+
 
 protected:
-    QSQLCipherAdapter(const std::string_view& options)
+    SQLCipherAdapter(const std::string_view& options)
         : m_connection{std::make_unique<pqxx::connection>(pqxx::zview(options))}
     {
     }
 
 private:
     inline static std::mutex ms_static_mutex{};
-    inline static std::shared_ptr<QSQLCipherAdapter> msp_instance{};
+    inline static std::shared_ptr<SQLCipherAdapter> msp_instance{};
     inline static constexpr std::string_view ms_defaultOptions =
         "dbname=juniorgram user=postgres hostaddr=127.0.0.1 port=5432";
 
     std::mutex m_query_mutex;
     std::unique_ptr<pqxx::connection> m_connection;
-
-    static QTemporaryDir tmpDir;
 };
 
 }  // namespace DataAccess

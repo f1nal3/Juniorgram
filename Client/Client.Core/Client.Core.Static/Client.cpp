@@ -1,11 +1,11 @@
 #include "Client.hpp"
 
-
+#include <future>
 #include <Network/Primitives.hpp>
 #include <Utility/WarningSuppression.hpp>
 #include <Utility.Static/Cryptography.hpp>
 
-#include "DataAccess.Static/QSQLCipherRepository.hpp"
+#include "DataAccess.Static/SQLCipherRepository.hpp"
 
 namespace Network
 {
@@ -13,10 +13,22 @@ Client::~Client() { disconnect(); }
 
 bool Client::connectToDb()
 { 
-    mQSQLCipherRepo =
-        std::unique_ptr<DataAccess::QSQLCipherRepository>(new DataAccess::QSQLCipherRepository);
+    mSQLCipherRepo =
+        std::unique_ptr<DataAccess::SQLCipherRepository>(new DataAccess::SQLCipherRepository);
 
-    return false;
+    auto future = std::async(std::launch::async, &DataAccess::IRepository::getRefreshToken,
+                             mSQLCipherRepo.get());
+
+    std::string token  = future.get();
+
+    if (!token.empty())
+    {
+        return true;
+    }
+    else
+    {
+        return false;   
+    }
 }
 
 bool Client::connect(const std::string& host, const uint16_t& port)

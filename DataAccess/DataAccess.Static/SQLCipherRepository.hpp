@@ -11,12 +11,13 @@
 
 namespace DataAccess
 {
-class QSQLCipherRepository : public IRepository
+class SQLCipherRepository : public IRepository
 {
 public:
-    QSQLCipherRepository()          = default;
-    virtual ~QSQLCipherRepository() = default;
+    SQLCipherRepository()          = default;
+    virtual ~SQLCipherRepository() = default;
 
+    std::string getRefreshToken();
 
 private:
 

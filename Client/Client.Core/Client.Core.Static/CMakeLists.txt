@@ -14,7 +14,7 @@ add_library(${TARGET} STATIC ${SOURCE_FILES})
 target_include_directories(${TARGET}
         INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 		
-target_include_directories(${TARGET} PUBLIC
+target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:DataAccess.Static,SOURCE_DIR>/..)
 
 

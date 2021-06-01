@@ -14,6 +14,7 @@ target_link_libraries(${TARGET} PUBLIC Network.Public
 								PUBLIC Utility.Public
 								PUBLIC Client.Core.Static
 								PUBLIC DataAccess.Static
+								PUBLIC CONAN_PKG::sqlcipher
 								PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas)
 
 install(TARGETS ${TARGET}

@@ -8,6 +8,10 @@ set(SOURCE_FILES
     PostgreAdapter.cpp
     PostgreRepository.hpp
     PostgreRepository.cpp
+	SQLCipherAdapter.hpp
+	SQLCipherAdapter.cpp
+	SQLCipherRepository.hpp
+	SQLCipherRepository.cpp
     PostgreTable.hpp
     LiteAdapter.hpp
     LiteAdapter.cpp
@@ -22,8 +26,10 @@ add_library(${TARGET} STATIC ${SOURCE_FILES})
 target_link_libraries(${TARGET}
     PUBLIC Qt5::Sql)
 
-target_link_libraries(${TARGET}
-    PUBLIC CONAN_PKG::libpq CONAN_PKG::libpqxx)
+target_link_libraries(${TARGET} PUBLIC
+    CONAN_PKG::libpq
+    CONAN_PKG::libpqxx
+    CONAN_PKG::sqlcipher)
 
 target_link_libraries(${TARGET}
     PUBLIC Utility.Public DataAccess.Public Network.Public)

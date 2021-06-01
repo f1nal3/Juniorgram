@@ -1,8 +1,16 @@
-#include "QSQLCipherRepository.hpp"
+#include "SQLCipherRepository.hpp"
 
 namespace DataAccess
 {
-std::vector<std::string> QSQLCipherRepository::getAllChannelsList()
+std::string SQLCipherRepository::getRefreshToken()
+{ 
+    auto channelListRow =
+        std::get<0>(LTable("refreshTokens").Select()->columns({"channel_name"})->execute());
+
+    return std::string("flex");
+}
+
+std::vector<std::string> SQLCipherRepository::getAllChannelsList()
 {
     std::vector<std::string> result;
 
@@ -21,7 +29,7 @@ std::vector<std::string> QSQLCipherRepository::getAllChannelsList()
     return result;
 }
 
-std::vector<std::string> QSQLCipherRepository::getMessageHistoryForUser(
+std::vector<std::string> SQLCipherRepository::getMessageHistoryForUser(
     const std::uint64_t channelID)
 {
     std::vector<std::string> result;
@@ -44,7 +52,7 @@ std::vector<std::string> QSQLCipherRepository::getMessageHistoryForUser(
     return result;
 }
 
-void QSQLCipherRepository::storeMessage(const Network::MessageInfo& message,
+void SQLCipherRepository::storeMessage(const Network::MessageInfo& message,
                                        const std::uint64_t channelID)
 {
     char timeStampStr[35];

@@ -14,7 +14,7 @@ class Client
     std::thread mContextThread;
     std::unique_ptr<Connection> mConnection;
 
-    std::unique_ptr<DataAccess::IRepository> mQSQLCipherRepo;
+    std::unique_ptr<DataAccess::IRepository> mSQLCipherRepo;
 
     SafeQueue<Message> mIncomingMessagesQueue;
 
