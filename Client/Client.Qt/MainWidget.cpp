@@ -261,6 +261,8 @@ void MainWidget::mouseReleaseEvent(QMouseEvent* event)
 MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
 {
     Style::setDpiScale(logicalDpiX() * 100 / 96);
+    Style::startManager(Style::getDpiScale());
+    
     this->setWindowFlag(Qt::FramelessWindowHint);
     this->setWindowFlag(Qt::Window);
     this->setWindowIcon(QIcon(":/images/logo.png"));
