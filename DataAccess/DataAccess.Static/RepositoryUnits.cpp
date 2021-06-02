@@ -35,7 +35,6 @@ std::string TokenUnit::createToken(const std::uint64_t userID) const
 
 RegistrationUnit::RegistrationCodes RegistrationUnit::registerUser(const Network::RegisrtationMessage& rm) const
 {
-    // Check on existing of login and email in repository.
     auto getUsersAmount = [&](const std::string& condition) -> std::uint16_t 
     {
         auto recordsRowAmount = std::get<0>(PTable("users")
@@ -47,6 +46,7 @@ RegistrationUnit::RegistrationCodes RegistrationUnit::registerUser(const Network
         return recordsRowAmount.value()[0][0].as<std::uint16_t>();
     };
 
+    // Check on existing of login and email in repository.
     if (getUsersAmount("email = '" + std::string(rm.email) + "'") > 0)
     {
         return RegistrationCodes::EMAIL_ALREADY_EXISTS;
