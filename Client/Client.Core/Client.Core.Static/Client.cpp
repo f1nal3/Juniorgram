@@ -11,10 +11,13 @@ namespace Network
 {
 Client::~Client() { disconnect(); }
 
+Client::Client() :
+    mSQLCipherRepo{std::unique_ptr<DataAccess::SQLCipherRepository>(new DataAccess::SQLCipherRepository)}
+{}
+
 bool Client::connectToDb()
 { 
-    mSQLCipherRepo =
-        std::unique_ptr<DataAccess::SQLCipherRepository>(new DataAccess::SQLCipherRepository);
+   
 
     /*auto future = std::async(std::launch::async, &DataAccess::SQLCipherRepository::getRefreshToken,
                              mSQLCipherRepo.get());*/

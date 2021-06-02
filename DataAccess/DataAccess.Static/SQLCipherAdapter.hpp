@@ -21,7 +21,7 @@ struct sqlite3_deleter
 
 using sqlite3_ptr = std::unique_ptr<sqlite3, sqlite3_deleter>;
 
-sqlite3_ptr make_sqlite();
+sqlite3_ptr make_sqlite(const std::string_view& dbName);
 
 class SQLCipherAdapter final : public IAdapter
 {
@@ -88,12 +88,10 @@ protected:
 private:
     inline static std::mutex mStaticMutex{};
     inline static std::shared_ptr<SQLCipherAdapter> mspInstance{};
-    inline static constexpr std::string_view msDefaultOptions =
-        "dbname=juniorgram user=postgres hostaddr=127.0.0.1 port=5432";
+    inline static constexpr std::string_view msDefaultDBName = "refrDB.db";
 
     std::mutex mQueryMutex{};
     sqlite3_ptr mDB{nullptr};
-
 };
 
 }  // namespace DataAccess
