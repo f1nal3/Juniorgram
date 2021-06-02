@@ -1,4 +1,7 @@
+#include "Utility/WarningSuppression.hpp"
 #include "SQLCipherAdapter.hpp"
+#include <iostream>
+
 
 namespace DataAccess
 {
@@ -16,19 +19,106 @@ sqlite3_ptr make_sqlite()
         return sqlite3_ptr(buffer);
     }
 }
+suppressWarning(4505, Init)
+suppressWarning(4100, Init)
+static int callback(void* NotUsed, int argc, char** argv, char** azColName)
+{
+    int i;
+    for (i = 0; i < argc; i++)
+    {
+        printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+    }
+    printf("\n");
+    return 0;
+}
+restoreWarning 
+restoreWarning
 
 std::shared_ptr<SQLCipherAdapter> SQLCipherAdapter::Instance(const std::string_view& options)
 {
+      sqlite3* buffer = nullptr;
+    /*  auto mysqlite = sqlite3_open("dbname.db", &buffer);*/
 
-    auto mysqlite   = make_sqlite();
-   /* const char* key = {"222"};*/
+    int rc = sqlite3_open("dbname.db", &buffer);
 
-     std::string k  = "gKv>áD8~2a+>4B3Z533";
-    k.pop_back();
-     sqlite3_key(mysqlite.get(), k.c_str(), (int)k.size());
+     std::string pw = "blablablablablablabla";
+    suppressWarning(4267, Init)
+    if ((rc = sqlite3_key(buffer, pw.data(), pw.length())) != SQLITE_OK)
+    {
+        printf("failed to key database: error %d\n", rc);
+    }
+    restoreWarning
 
-      k.pop_back();
-     k.pop_back();
+    char* sql;
+
+            sql =
+               "CREATE TABLE COMPANY("
+               "ID INT PRIMARY KEY     NOT NULL,"
+               "NAME           TEXT    NOT NULL,"
+               "AGE            INT     NOT NULL,"
+               "ADDRESS        CHAR(50),"
+               "SALARY         REAL );";
+
+       /* Execute SQL statement */
+
+         char* zErrMsg = 0;
+            rc            = sqlite3_exec(buffer, sql, callback, 0, &zErrMsg);
+
+
+
+
+   
+ /*   if (!isDbEncrypted(db))
+    {*/
+   /* sqlite3_key(buffer, "", 0);
+         suppressWarning(4267, Init) */
+  /*  sqlite3_rekey(buffer, pw.data(), pw.length());*/
+        /* restoreWarning*/
+       /* qInfo() << "Database was encrypted.";*/
+  /*  }*/
+    //else
+    //{
+    //    sqlite3_key(db, pw.data(), pw.length());
+    //    sqlite3_rekey(db, "", 0);
+    //    qInfo() << "Database was decrypted.";
+    //}
+
+    sqlite3_close(buffer);
+
+  //  //auto mysqlite   = make_sqlite();
+  // /* const char* key = {"222"};*/
+  //  sqlite3* buffer = nullptr;
+  //  auto mysqlite = sqlite3_open("dbname.db", &buffer);
+
+  //  mysqlite = 10;
+
+  //  
+  // 
+  //       
+  //       char* sql;
+
+  //        sql =
+  //           "CREATE TABLE COMPANY("
+  //           "ID INT PRIMARY KEY     NOT NULL,"
+  //           "NAME           TEXT    NOT NULL,"
+  //           "AGE            INT     NOT NULL,"
+  //           "ADDRESS        CHAR(50),"
+  //           "SALARY         REAL );";
+
+  //   /* Execute SQL statement */
+
+  //     char* zErrMsg = 0;
+  //   mysqlite = sqlite3_exec(buffer, sql, callback, 0, &zErrMsg);
+
+  ///* mysqlite = sqlite3_exec(buffer, "ATTACH DATABASE 'sqlliteDB.db' AS encrypted KEY 'testkey'",
+  //                           callback, 0, &zErrMsg);*/
+
+
+  //     suppressWarning(4267, Init) 
+  //             sqlite3_key(buffer, "1111", strlen("1111"));
+  //   restoreWarning 
+
+  //       sqlite3_close(buffer);
 
     //sqlite3_key(mysqlite.get()/*, "sqlliteDB.db"*/, key, sizeof(key));
 

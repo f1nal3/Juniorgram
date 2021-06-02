@@ -21,7 +21,6 @@ struct sqlite3_deleter
 
 using sqlite3_ptr = std::unique_ptr<sqlite3, sqlite3_deleter>;
 
-
 sqlite3_ptr make_sqlite();
 
 class SQLCipherAdapter final : public IAdapter
@@ -81,8 +80,8 @@ public:
 
 
 protected:
-    SQLCipherAdapter(/*const std::string_view& options*/)
-        /*: m—onnection{std::make_unique<pqxx::connection>(pqxx::zview(options))}*/
+    SQLCipherAdapter(const std::string_view& dbName) 
+        : mDB(make_sqlite())
     {
     }
 
@@ -92,8 +91,8 @@ private:
     inline static constexpr std::string_view msDefaultOptions =
         "dbname=juniorgram user=postgres hostaddr=127.0.0.1 port=5432";
 
-    std::mutex mQueryMutex;
-    sqlite3_deleter mDB;
+    std::mutex mQueryMutex{};
+    sqlite3_ptr mDB{nullptr};
 
 };
 
