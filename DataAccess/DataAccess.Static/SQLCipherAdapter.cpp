@@ -33,6 +33,8 @@ sqlite3_ptr make_sqlite(const std::string_view& dbName)
     return sqlite3_ptr(db);
 }
 
+SQLCipherAdapter::~SQLCipherAdapter() { closeConnection(); }
+
 std::shared_ptr<SQLCipherAdapter> SQLCipherAdapter::Instance(const std::string_view& settedName)
 {
     std::scoped_lock<std::mutex> lock(mStaticMutex);
@@ -55,6 +57,10 @@ std::optional<std::any> SQLCipherAdapter::query(const std::string_view& query)
 
 bool SQLCipherAdapter::isConnected(void) const { return false; }
 
-void SQLCipherAdapter::closeConnection(void) { sqlite3_close(mDB.get()); }
+void SQLCipherAdapter::closeConnection(void)
+{
+    mspInstance.reset();
+    mDB.reset();
+}
 
 }  // namespace DataAccess

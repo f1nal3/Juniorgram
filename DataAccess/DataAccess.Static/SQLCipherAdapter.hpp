@@ -1,11 +1,9 @@
 #pragma once
 #include <DataAccess/IAdapter.hpp>
-#include <Utility/Exception.hpp>
 #include <memory>
 #include <mutex>
 #include <pqxx/pqxx>
 #include <sqlcipher/sqlite3.h>
-
 
 namespace DataAccess
 {
@@ -33,13 +31,14 @@ public:
      *   @params options - Connection options.
      *   @return Pointer to current instanse of Postgre adapter.
      */
-    static std::shared_ptr<SQLCipherAdapter> Instance(const std::string_view& options = {});
-
     SQLCipherAdapter(const SQLCipherAdapter& other) = delete;
     SQLCipherAdapter& operator=(const SQLCipherAdapter& other) = delete;
 
     SQLCipherAdapter(SQLCipherAdapter&& other) = delete;
     SQLCipherAdapter& operator=(SQLCipherAdapter&& other) = delete;
+   
+
+    static std::shared_ptr<SQLCipherAdapter> Instance(const std::string_view& options = {});
     /** @brief Method for executing SQL quries.
      *   @details You shouldn't use this method because it's \
      *    low level accessing the database. Use it if you \
@@ -61,12 +60,7 @@ public:
      *    database. You probably won't need it.
      *   @return pqxx::Connection object.
      */
-    /*pqxx::connection&*/ void getConnection(void);
 
-    /* @brief Method for checking the connection to the db.
-     *  @details Inside, it getConnection().is_open().
-     *  @return True - if connected. False - if not connected.
-     */
     bool isConnected(void) const override;
 
     /** @brief Method for closing connection.
@@ -77,18 +71,17 @@ public:
      */
     void closeConnection(void) override;
 
-
-
 protected:
     SQLCipherAdapter(const std::string_view& dbName) 
-        : mDB(make_sqlite())
+        : mDB(make_sqlite(dbName))
     {
     }
+
 
 private:
     inline static std::mutex mStaticMutex{};
     inline static std::shared_ptr<SQLCipherAdapter> mspInstance{};
-    inline static constexpr std::string_view msDefaultDBName = "refrDB.db";
+    inline static constexpr std::string_view msDefaultDBName = "refr.db";
 
     std::mutex mQueryMutex{};
     sqlite3_ptr mDB{nullptr};
