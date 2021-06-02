@@ -4,6 +4,7 @@
 #include <future>
 
 #include "DataAccess.Static/PostgreRepository.hpp"
+#include "DataAccess.Static/RepositoryUnits.hpp"
 
 using Network::Connection;
 using Network::Message;

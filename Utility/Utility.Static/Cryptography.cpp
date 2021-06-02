@@ -46,7 +46,7 @@ struct AESCipher : ICipher
 
         StringSource(data, true,
                      new StreamTransformationFilter(encryptor,
-                                                    new HexEncoder(new StringSink(encryptedData))));
+                        new HexEncoder(new StringSink(encryptedData))));
 
         return encryptedData;
     }
@@ -78,7 +78,7 @@ namespace Hashing
 {
 using namespace CryptoPP;
 
-std::string SHA(const std::string& message)
+std::string SHA_256(const std::string& message)
 {
     SHA256 hash;
     std::string digest;

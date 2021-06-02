@@ -1,5 +1,5 @@
 #include "PostgreRepository.hpp"
-#include <random>
+#include "RepositoryUnits.hpp"
 
 using namespace DataAccess;
 
@@ -45,31 +45,28 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::
 
 void PostgreRepository::storeMessage(const Network::MessageInfo& message, const std::uint64_t channelID)
 {
-    char timeStampStr[20];
-
-    std::time_t t = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-    std::tm time  = Utility::safe_localtime(t);
-    std::strftime(timeStampStr, 20, "%Y-%m-%d %H:%M:%S", &time);
-
-    std::uint64_t msgID = std::get<0>(PTable("msgs")
-                                       .Select()
-                                       ->columns({"max(msg_id)"})
-                                       ->execute())
-                                       .value()[0][0].as<std::uint64_t>() + 1;
+    std::string timeStampStr = nowTimeStampStr();
 
     std::tuple dataForMsgs
     {
-        std::pair{"msg_id", msgID},
         std::pair{"sender_id", message.userID},
         std::pair{"send_time", timeStampStr},
         std::pair{"msg", message.message }
     };
+    PTable("msgs").Insert()->columns(dataForMsgs)->execute();
+    
+    // ID will not be autoincremented in the future. Later we are going to use postgre
+    // alghorithms to create it.
+    std::uint64_t msgID = std::get<0>(PTable("msgs")
+                                      .Select()
+                                      ->columns({"max(msg_id)"})
+                                      ->execute())
+                                      .value()[0][0].as<std::uint64_t>();
     std::tuple dataForChannelMsgs
     {
         std::pair{"channel_id", channelID},
         std::pair{"msg_id", msgID}
     };
     
-    PTable("msgs").Insert()->columns(dataForMsgs)->execute();
     PTable("channel_msgs").Insert()->columns(dataForChannelMsgs)->execute();
 }

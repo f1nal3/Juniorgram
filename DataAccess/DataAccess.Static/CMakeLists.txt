@@ -7,7 +7,9 @@ set(SOURCE_FILES
     PostgreAdapter.hpp
     PostgreAdapter.cpp
     PostgreRepository.hpp
-    PostgreRepository.cpp)
+    PostgreRepository.cpp
+    RepositoryUnits.hpp
+    RepositoryUnits.cpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
