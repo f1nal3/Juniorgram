@@ -2,7 +2,7 @@
 
 #include "Utility.Static/JsonSerializer.hpp"
 
-TEST_CASE("Test serialize object(open file text.json)", "[JsonSerializer]")
+TEST_CASE("Test json serialize object(open file text.json)", "[JsonSerializer]")
 {
     SECTION("Create text.json")
     {
@@ -28,7 +28,7 @@ TEST_CASE("Test serialize object(open file text.json)", "[JsonSerializer]")
 }
 
 
-TEST_CASE("Test serialize method updateSerialize", "[SerializeUpdateSerialize]")
+TEST_CASE("Test jsonserialize method updateSerialize", "[SerializeUpdateSerialize]")
 {
     SECTION("Check updateSerialize")
     {
@@ -45,7 +45,7 @@ TEST_CASE("Test serialize method updateSerialize", "[SerializeUpdateSerialize]")
 
 }
 
-TEST_CASE("Test serialize method pushData", "[SerializePushData]")
+TEST_CASE("Test json serialize method pushData", "[SerializePushData]")
 {
         SECTION("Create some JsonSerializer object and add test message to text.json")
         {
