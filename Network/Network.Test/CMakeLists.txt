@@ -13,9 +13,6 @@ add_executable(${TARGET} ${SOURCE_FILES})
 
 target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio)
 
-target_link_libraries(${TARGET} PUBLIC Network.Public Utility.Static CONAN_PKG::catch2)
-
-target_include_directories(${TARGET} PRIVATE
-    $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
+target_link_libraries(${TARGET} PUBLIC Network.Public Utility.Public CONAN_PKG::catch2)
 
 add_test(NAME ${OUTPUT_NAME} COMMAND ${TARGET})

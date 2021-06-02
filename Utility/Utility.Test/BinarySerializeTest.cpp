@@ -1,3 +1,4 @@
+#pragma once
 #include <catch2/catch.hpp>
 #include <array>
 #include <list>
@@ -6,9 +7,10 @@
 #include <tuple>
 #include <vector>
 
+#include "Network/Connection.hpp"
 #include "Network/Message.hpp"
 #include "Network/Primitives.hpp"
-#include "Utility.Static/YasSerializer.hpp"
+#include "Utility/YasSerializer.hpp"
 
 TEST_CASE("Test binary serialization & deserialization of plain types", "[YasSerializer]")
 {
@@ -129,7 +131,7 @@ TEST_CASE("Test binary serialization & deserialization of complex types", "[YasS
 
 TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSerializer]") 
 {
-    /*SECTION("Checking serialization & deserialization of custom type MessageHeader")
+    SECTION("Checking serialization & deserialization of custom type MessageHeader")
     {
         Network::Message::MessageHeader serializedValue;
         serializedValue.mTimestamp   = std::chrono::system_clock::now();
@@ -141,11 +143,10 @@ TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSe
 
         Network::Message::MessageHeader deserializedValue;
         Network::YasSerializer::deserialize(buffer, deserializedValue);
-
         REQUIRE(serializedValue.mTimestamp == deserializedValue.mTimestamp);
         REQUIRE(serializedValue.mMessageType == deserializedValue.mMessageType);
         REQUIRE(serializedValue.mBodySize == deserializedValue.mBodySize);
-    }*/
+    }
 
     SECTION("Checking serialization & deserialization of custom type ChannelInfo")
     {

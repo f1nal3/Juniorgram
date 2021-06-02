@@ -17,11 +17,11 @@
 #include "SafeQueue.hpp"
 #include "Utility/Utility.hpp"
 #include "Utility/WarningSuppression.hpp"
-#include "Utility.Static/CompressionHandler.hpp"
-#include "Utility.Static/Handler.hpp"
-#include "Utility.Static/EncryptionHandler.hpp"
-#include "Utility.Static/SerializationHandler.hpp"
-#include "Utility.Static/YasSerializer.hpp"
+#include "Utility/CompressionHandler.hpp"
+#include "Utility/Handler.hpp"
+#include "Utility/EncryptionHandler.hpp"
+#include "Utility/SerializationHandler.hpp"
+#include "Utility/YasSerializer.hpp"
 
 namespace Network
 {
