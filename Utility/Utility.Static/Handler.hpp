@@ -22,7 +22,7 @@ public:
                                         yas::shared_buffer& bodyBuffer)                       = 0;
     virtual void handleIncomingMessageHeader(const yas::shared_buffer buffer,
                                              Message::MessageHeader& messgeHeader)            = 0;
-    virtual void handleIncomingMessageBody(const yas::shared_buffer buffer, Network::Message& message) = 0;
+    virtual void handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) = 0;
 };
 
 /** @class AbstractHandler

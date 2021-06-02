@@ -1,7 +1,8 @@
 set(TARGET Utility.Test)
 set(OUTPUT_NAME Utility.Test)
 
-set(SOURCE_FILES
+set(SOURCE_FILES 
+    BinarySerializeTest.cpp
     ExceptionTest.cpp
     JsonSerializeTest.cpp
     UtilityTest.cpp)

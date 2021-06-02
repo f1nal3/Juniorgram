@@ -10,7 +10,6 @@
 
 #include "Connection.hpp"
 #include "Utility/Utility.hpp"
-#include "Utility/WarningSuppression.hpp"
 
 namespace Network
 {
