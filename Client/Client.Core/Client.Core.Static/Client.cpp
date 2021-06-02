@@ -120,7 +120,8 @@ void Client::userRegistration(const std::string& email, const std::string& login
     message.mHeader.mConnectionID = Network::Message::MessageType::RegistrationRequest;
 
     Network::RegisrtationMessage rm;
-    suppressWarning(4996, -Winit - self) 
+
+    suppressWarning(4996, -Winit-self) 
         strcpy(rm.email, email.data());
         strcpy(rm.login, login.data());
         strcpy(rm.password, password.data());

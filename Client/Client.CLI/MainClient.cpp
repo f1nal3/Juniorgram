@@ -57,8 +57,10 @@ int main()
             }
             else if (cmd == "ur")
             {
-                std::string email, login, password;
-                std::cin >> email >> login >> password;
+                std::string email = GetLineFromCin();
+                std::string login = GetLineFromCin();
+                std::string password = GetLineFromCin();
+                
                 clientApp.shell()->userRegistration(email, login, password);
             }
             else if (cmd == "q")

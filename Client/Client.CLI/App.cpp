@@ -1,6 +1,7 @@
 #include "App.hpp"
 
 #include "Network/Primitives.hpp"
+#include <DataAccess.Static/RepositoryUnits.hpp>
 
 App::App(/* args */) { client.connect(address, port); }
 
@@ -96,8 +97,25 @@ bool App::loop()
 
                 case Network::Message::MessageType::RegistrationRequest:
                 {
-                    // Check RegistrationUnit::RegistrationCode::.
-                    std::cout << "New user was registered!" << std::endl;
+                    RegistrationUnit::RegistrationCodes code;
+                    message >> code;
+                    
+                    if (code == RegistrationUnit::RegistrationCodes::SUCCESS)
+                    {
+                        std::cout << "New user was registered!" << std::endl;
+                    }
+                    else if (code == RegistrationUnit::RegistrationCodes::EMAIL_ALREADY_EXISTS)
+                    {
+                        std::cout << "Email already exists" << std::endl;
+                    }
+                    else if (code == RegistrationUnit::RegistrationCodes::LOGIN_ALREADY_EXISTS)
+                    {
+                        std::cout << "Login already exists" << std::endl;
+                    }
+                    else
+                    {
+                        std::cout << "Unknown code" << std::endl;
+                    }
                 }
                 break;
 
