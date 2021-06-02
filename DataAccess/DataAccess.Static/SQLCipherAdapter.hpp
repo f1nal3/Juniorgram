@@ -4,6 +4,8 @@
 #include <memory>
 #include <mutex>
 #include <pqxx/pqxx>
+#include <sqlcipher/sqlite3.h>
+
 
 namespace DataAccess
 {
@@ -11,6 +13,17 @@ namespace DataAccess
  *   @brief Adapter class for working with PostgreSQL. \
  *   The is thread safe singleton.
  */
+
+struct sqlite3_deleter
+{
+    void operator()(sqlite3* sql);
+};
+
+using sqlite3_ptr = std::unique_ptr<sqlite3, sqlite3_deleter>;
+
+
+sqlite3_ptr make_sqlite();
+
 class SQLCipherAdapter final : public IAdapter
 {
 public:
@@ -68,19 +81,20 @@ public:
 
 
 protected:
-    SQLCipherAdapter(const std::string_view& options)
-        : m_connection{std::make_unique<pqxx::connection>(pqxx::zview(options))}
+    SQLCipherAdapter(/*const std::string_view& options*/)
+        /*: m—onnection{std::make_unique<pqxx::connection>(pqxx::zview(options))}*/
     {
     }
 
 private:
-    inline static std::mutex ms_static_mutex{};
-    inline static std::shared_ptr<SQLCipherAdapter> msp_instance{};
-    inline static constexpr std::string_view ms_defaultOptions =
+    inline static std::mutex mStaticMutex{};
+    inline static std::shared_ptr<SQLCipherAdapter> mspInstance{};
+    inline static constexpr std::string_view msDefaultOptions =
         "dbname=juniorgram user=postgres hostaddr=127.0.0.1 port=5432";
 
-    std::mutex m_query_mutex;
-    std::unique_ptr<pqxx::connection> m_connection;
+    std::mutex mQueryMutex;
+    sqlite3_deleter mDB;
+
 };
 
 }  // namespace DataAccess

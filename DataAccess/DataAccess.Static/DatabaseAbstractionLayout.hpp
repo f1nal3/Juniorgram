@@ -690,7 +690,7 @@ namespace DataAccess
             {
             case DBType::DB_LITE:
             {
-                // SQLite adapter
+                _adapter = SQLCipherAdapter::getInstance<SQLCipherAdapter>(options);
             }
             break;
             case DBType::DB_POSTGRE:

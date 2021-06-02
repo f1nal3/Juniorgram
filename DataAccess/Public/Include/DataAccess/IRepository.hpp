@@ -12,7 +12,7 @@ namespace DataAccess
 class IRepository
 {
 public:
-    virtual std::string getRefreshToken() = 0;
+  /*  virtual std::string getRefreshToken() = 0;*/
     /**
      * @brief Draft method for getting all channel list from the server.
      * @return channels list as vector of strings.

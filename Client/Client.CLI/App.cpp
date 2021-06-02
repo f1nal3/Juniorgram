@@ -3,7 +3,6 @@
 #include "DataAccess.Static/SQLCipherAdapter.hpp"
 #include "Network/Primitives.hpp"
 
-
 App::App(/* args */)
 { 
     client.connectToDb();

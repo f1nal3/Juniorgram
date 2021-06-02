@@ -16,8 +16,12 @@ bool Client::connectToDb()
     mSQLCipherRepo =
         std::unique_ptr<DataAccess::SQLCipherRepository>(new DataAccess::SQLCipherRepository);
 
-    auto future = std::async(std::launch::async, &DataAccess::IRepository::getRefreshToken,
-                             mSQLCipherRepo.get());
+    /*auto future = std::async(std::launch::async, &DataAccess::SQLCipherRepository::getRefreshToken,
+                             mSQLCipherRepo.get());*/
+
+    auto future = std::async(std::launch::async, &DataAccess::SQLCipherRepository::getRefreshToken,
+                   dynamic_cast <DataAccess::SQLCipherRepository*>(mSQLCipherRepo.get()));
+
 
     std::string token  = future.get();
 
