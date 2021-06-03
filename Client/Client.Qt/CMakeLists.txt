@@ -42,14 +42,16 @@ set(SOURCE_FILES
         Widgets/TimeEdit.hpp
         Widgets/LogoWidget.cpp
         Widgets/LogoWidget.hpp
-        Style/Style_types.cpp
-        Style/Style_types.hpp
-        Style/Style_scale.cpp
-        Style/Style_scale.hpp
-        Style/Style_font.cpp
-        Style/Style_font.hpp
-        Style/Style_color.cpp
-        Style/Style_color.hpp
+        Widgets/ResizeArea.cpp
+        Widgets/ResizeArea.hpp
+        Style/StyleTypes.cpp
+        Style/StyleTypes.hpp
+        Style/StyleScale.cpp
+        Style/StyleScale.hpp
+        Style/StyleFont.cpp
+        Style/StyleFont.hpp
+        Style/StyleColor.cpp
+        Style/StyleColor.hpp
         Style/Style.cpp
         Style/Style.hpp
         Style/style_basic.h
@@ -68,7 +70,7 @@ set(SOURCE_FILES
         MainWidget.hpp
         pch.hpp
         registration.cpp
-        registration.hpp )
+        registration.hpp)
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)
@@ -80,7 +82,7 @@ elseif (UNIX AND NOT APPLE)
 endif ()
 
 target_link_libraries(${TARGET}
-        PRIVATE Qt5::Widgets Qt5::Gui ${EXTRA_LIBS} CONAN_PKG::asio
+        PRIVATE Qt5::Widgets Qt5::Gui ${EXTRA_LIBS} #CONAN_PKG::asio
         PUBLIC Network.Public Client.Core.Static)
 
 target_precompile_headers(${TARGET} PRIVATE pch.hpp)
