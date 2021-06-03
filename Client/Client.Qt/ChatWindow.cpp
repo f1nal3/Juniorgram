@@ -27,7 +27,9 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     mainLayout->setContentsMargins(0,0,0,0);
-    mainLayout->addWidget(channelListWidget, 10);
+    mainLayout->setMargin(0);
+    mainLayout->setSpacing(0);
+    mainLayout->addWidget(channelListWidget, 20);
     mainLayout->addLayout(rightLayout, 90);
     rightLayout->addWidget(chatWidget, 85);
     rightLayout->addLayout(messageLayout, 15);

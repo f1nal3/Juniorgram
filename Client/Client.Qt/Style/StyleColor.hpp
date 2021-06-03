@@ -14,11 +14,11 @@ class Color;
 class ColorData
 {
 public:
-    QColor c;
-    QPen   p;
-    QBrush b;
+    QColor color;
+    QPen   pen;
+    QBrush brush;
 
-    [[nodiscard]] QColor transparent() const { return QColor(c.red(), c.green(), c.blue(), 0); };
+    [[nodiscard]] QColor transparent() const { return QColor(color.red(), color.green(), color.blue(), 0); };
 
 private:
     ColorData(uchar r, uchar g, uchar b, uchar a);
@@ -40,9 +40,9 @@ public:
 
     void set(uchar r, uchar g, uchar b, uchar a) const { _data->set(r, g, b, a); }
 
-    operator const QBrush&() const { return _data->b; }
+    operator const QBrush&() const { return _data->brush; }
 
-    operator const QPen&() const { return _data->p; }
+    operator const QPen&() const { return _data->pen; }
 
     ColorData* operator->() const { return _data; }
     ColorData* v() const { return _data; }

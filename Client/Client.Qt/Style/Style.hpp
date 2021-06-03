@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Style_types.hpp"
+#include "StyleTypes.hpp"
 
 namespace Style
 {

@@ -1,4 +1,4 @@
-#include "Style_font.hpp"
+#include "StyleFont.hpp"
 
 namespace Style
 {
@@ -254,15 +254,13 @@ int registerFontFamily(const QString& family)
 FontData::FontData(int size, uint32 flags, int family, Font* other)
     : f(ResolveFont(flags, size)), m(f), _size(size), _flags(flags), _family(family)
 {
-    Q_UNUSED(other);
     if (other)
     {
+        memcpy(modified, other, sizeof(modified));
     }
     else
     {
-        for(auto& mods : modified){
-            mods=nullptr;
-        }
+        for (auto& item : modified) item = nullptr;
     }
     modified[_flags] = Font(this);
 

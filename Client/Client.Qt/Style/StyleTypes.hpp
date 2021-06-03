@@ -7,8 +7,8 @@
 #include <QRect>
 #include <QString>
 
-#include "Style_color.hpp"
-#include "Style_font.hpp"
+#include "StyleColor.hpp"
+#include "StyleFont.hpp"
 
 namespace Style
 {

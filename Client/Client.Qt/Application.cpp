@@ -1,6 +1,6 @@
 #include "Application.hpp"
 
-#include "Style/Style_font.hpp"
+#include "Style/StyleFont.hpp"
 #include "login.hpp"
 #include "registration.hpp"
 
