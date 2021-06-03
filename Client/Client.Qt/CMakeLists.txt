@@ -42,8 +42,6 @@ set(SOURCE_FILES
         Widgets/TimeEdit.hpp
         Widgets/LogoWidget.cpp
         Widgets/LogoWidget.hpp
-        Widgets/ResizeArea.cpp
-        Widgets/ResizeArea.hpp
         Style/StyleTypes.cpp
         Style/StyleTypes.hpp
         Style/StyleScale.cpp
