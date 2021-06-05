@@ -31,14 +31,13 @@ jobs:
         arch: 'win64_msvc2017_64'
         dir: '${{ github.workspace }}/Qt/'
         install-deps: 'true'
-        cached: 'true'
         setup-python: 'false'
         set-env: 'true'
         tools-only: 'false'
 
       
     - name: Run Conan install
-      run: python -m pip conan install ${{github.workspace}}/conanfile.txt build_type=${{matrix.BUILD_TYPE}} \
+      run: conan install ${{github.workspace}}/conanfile.txt build_type=${{matrix.BUILD_TYPE}} \
          --build=missing 
       
     - uses: actions/checkout@v2
