@@ -33,7 +33,13 @@ jobs:
         setup-python: 'false'
         set-env: 'true'
         tools-only: 'false'
-      
+    - name: DEBUG
+      run: |
+        cd ${{ github.workspace }}/Qt/
+        ls
+        cd 5.15.2
+        ls
+        
     - uses: actions/checkout@v2
 
     - name: Configure CMake
