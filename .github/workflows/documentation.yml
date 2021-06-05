@@ -16,7 +16,9 @@ jobs:
           python-version: 3.7
           
     - name: Install coverage tools
-      run: pip3 install coverxygen
+      run: |
+        pip3 install coverxygen
+        sudo apt-get install genhtml
     
     - name: Doxygen Action
       uses: mattnotmitt/doxygen-action@v1.1.0
