@@ -30,19 +30,11 @@ jobs:
         version: '5.15.2'
         host: 'windows'
         target: 'desktop'
-        dir: '${{ github.workspace }}/Qt/'
+        dir: '${{ github.workspace }}'
         install-deps: 'true'
         setup-python: 'false'
         set-env: 'true'
         tools-only: 'false'
-        
-    - name: DEBUG
-      run: |
-        ls
-        cd ${{ github.workspace }}/Qt/
-        ls
-        cd 5.15.2
-        ls
 
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}}
