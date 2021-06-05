@@ -28,17 +28,11 @@ jobs:
         version: '5.15.2'
         host: 'windows'
         target: 'desktop'
-        arch: 'win64_msvc2017_64'
         dir: '${{ github.workspace }}/Qt/'
         install-deps: 'true'
         setup-python: 'false'
         set-env: 'true'
         tools-only: 'false'
-
-      
-    - name: Run Conan install
-      run: conan install ${{github.workspace}}/conanfile.txt build_type=${{matrix.BUILD_TYPE}} \
-         --build=missing 
       
     - uses: actions/checkout@v2
 
