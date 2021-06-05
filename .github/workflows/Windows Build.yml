@@ -12,8 +12,13 @@ jobs:
     strategy:
       matrix:
         BUILD_TYPE: [Debug, Release]
-
+    
     steps:
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+        architecture: 'x64'
+        
     - name: Get prerequisites
       run: pip3 install conan==1.36.0 cmake aqtinstall
       
