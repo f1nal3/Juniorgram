@@ -30,7 +30,10 @@ jobs:
       run: python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --output doc-coverage.info
       
     - name: Generate HTML
-      run: genhtml --no-function-coverage --no-branch-coverage doc-coverage.info -o ./docs/doc/coverage
+      run: |
+        sudo mkdir ./docs/docs/coverage
+        genhtml --no-function-coverage --no-branch-coverage doc-coverage.info -o ./docs/docs/coverage
+        
         
     - name: GH Pages Deployment
       uses: peaceiris/actions-gh-pages@v3
