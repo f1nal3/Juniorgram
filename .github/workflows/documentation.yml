@@ -18,7 +18,7 @@ jobs:
     - name: Install coverage tools
       run: |
         pip3 install coverxygen
-        sudo apt-get install genhtml
+        sudo apt-get -y install lcov
     
     - name: Doxygen Action
       uses: mattnotmitt/doxygen-action@v1.1.0
