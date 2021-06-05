@@ -20,13 +20,13 @@ jobs:
         architecture: 'x64'
         
     - name: Get prerequisites
-      run: cpython -m pip install conan==1.36.0 cmake aqtinstall
+      run: python -m pip install conan==1.36.0 cmake aqtinstall
       
     - name: Install Qt
-      run: cpython -m pip aqtinstall install 5.15.2 windows desktop
+      run: python -m pip aqtinstall install 5.15.2 windows desktop
       
     - name: Run Conan install
-      run: cpython -m pip conan install ${{github.workspace}}/conanfile.txt build_type=${{matrix.BUILD_TYPE}} \
+      run: python -m pip conan install ${{github.workspace}}/conanfile.txt build_type=${{matrix.BUILD_TYPE}} \
          --build=missing 
       
     - uses: actions/checkout@v2
