@@ -20,7 +20,7 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS }}
           
       - name: Pull docker image
-        run: docker pull docker.pkg.github.com/f1nal3/juniorgram/juniorgram:stable
+        run: docker pull docker.pkg.github.com/f1nal3/juniorgram/juniorgram_linux:stable
         
       - name: Run Docker
         run: docker run -v "/home/runner/work/Juniorgram/Juniorgram":/Juniorgram docker.pkg.github.com/f1nal3/juniorgram/juniorgram_linux:stable /bin/sh -c "cd /Juniorgram && cmake . -DCMAKE_BUILD_TYPE=Release && cmake --build . && ctest -E "DataAccess" --output-on-failure"
