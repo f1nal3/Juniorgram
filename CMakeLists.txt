@@ -31,7 +31,7 @@ endif()
 include(${CMAKE_BINARY_DIR}/conan.cmake)
 
 
-conan_cmake_run(CONANFILE conanfile_win.txt
+conan_cmake_run(CONANFILE conanfile.txt
                 BASIC_SETUP CMAKE_TARGETS
                 BUILD missing)
 
