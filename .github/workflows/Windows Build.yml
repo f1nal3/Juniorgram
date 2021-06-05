@@ -18,7 +18,7 @@ jobs:
       run: pip3 install conan==1.36.0 cmake aqtinstall
       
     - name: Install Qt
-      run: python -m pip aqt 5.15.2 windows desktop
+      run: python3 -m pip3 aqtinstall install 5.15.2 windows desktop
       
     - name: Run Conan install
       run: python -m pip conan install ${{github.workspace}}/conanfile.txt build_type=${{matrix.BUILD_TYPE}} \
