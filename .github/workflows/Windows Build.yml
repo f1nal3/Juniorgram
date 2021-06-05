@@ -36,6 +36,15 @@ jobs:
         set-env: 'true'
         tools-only: 'false'
 
+    - name: Cache Conan packages
+      id: conan-cache
+      uses: actions/cache@v2
+      with:
+        path: 'C:\Users\runneradmin\.conan'
+        key: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
+        restore-keys: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
+      
+      
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}}
 
