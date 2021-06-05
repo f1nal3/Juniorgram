@@ -30,20 +30,12 @@ endif()
 
 include(${CMAKE_BINARY_DIR}/conan.cmake)
 
-if(WIN32)
+
 conan_cmake_run(CONANFILE conanfile_win.txt
                 BASIC_SETUP CMAKE_TARGETS
                 BUILD missing)
-elseif(APPLE)
-conan_cmake_run(CONANFILE conanfile_mac.txt
-                BASIC_SETUP CMAKE_TARGETS
-                BUILD missing)
-else()
-conan_cmake_run(CONANFILE conanfile.txt
-                BASIC_SETUP CMAKE_TARGETS
-                BUILD missing)
-endif()
 
+# TODO Find a way to get rid of the hard-coded hint -_-
 find_package(Qt5 COMPONENTS Widgets Core Gui REQUIRED HINTS "/opt/Qt/5.15.2/gcc_64/lib/cmake/Qt5/")
 
 enable_testing()
