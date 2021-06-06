@@ -5,7 +5,7 @@ namespace DataAccess
 std::string SQLCipherRepository::getRefreshToken()
 { 
     auto channelListRow =
-        std::get<0>(LTable("refreshTokens").Select()->columns({"channel_name"})->execute());
+        std::get<0>(LTable("refresh_tokens").Select()->columns({"refresh_token"})->execute());
 
     return std::string("flex");
 }

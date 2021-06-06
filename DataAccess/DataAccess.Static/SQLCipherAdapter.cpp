@@ -1,24 +1,23 @@
 #include "Utility/WarningSuppression.hpp"
 #include "SQLCipherAdapter.hpp"
 #include <iostream>
-
-// suppressWarning(4505, Init)
-// suppressWarning(4100, Init)
-// static int callback(void* NotUsed, int argc, char** argv, char** azColName)
-//{
-//    int i;
-//    for (i = 0; i < argc; i++)
-//    {
-//        printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-//    }
-//    printf("\n");
-//    return 0;
-//}
-// restoreWarning
-// restoreWarning
+#include <Utility/Exception.hpp>
 
 namespace DataAccess
 {
+suppressWarning(4100, Init) 
+static int callback(void* data, int argc, char** argv, char** azColName)
+{
+    auto &dataAlias = *reinterpret_cast<std::vector<std::string>*>(data);
+
+    std::generate_n(std::back_inserter(dataAlias), argc, [i = 0, &argv]() mutable {
+        return argv[i++];
+    });
+
+    return 0;
+}
+restoreWarning 
+
 void sqlite3_deleter::operator()(sqlite3* sql) { sqlite3_close(sql); }
 
 sqlite3_ptr make_sqlite(const std::string_view& dbName)
@@ -50,12 +49,44 @@ std::shared_ptr<SQLCipherAdapter> SQLCipherAdapter::Instance(const std::string_v
 
 std::optional<std::any> SQLCipherAdapter::query(const std::string_view& query)
 {
-    return std::optional<std::any>(query);
+    std::scoped_lock<std::mutex> lock(mStaticMutex);
+
+    std::unique_ptr<std::vector<std::string>> res = std::make_unique<std::vector<std::string>>();
+
+    if (this->isConnected())
+    {
+        char* errMsg = NULL; //take it easy, this is common aproach to use char* in this case
+
+        sqlite3_exec(mDB.get(), "BEGIN TRANSACTION;", NULL, NULL, NULL);
+     
+        if (sqlite3_exec(mDB.get(), query.data(), callback, res.get(), &errMsg) != SQLITE_OK)
+        {
+            std::cout << "Can't execute query, error: " << errMsg;
+        }
+          
+        sqlite3_exec(mDB.get(), "END TRANSACTION;", NULL, NULL, NULL);
+
+        if (!res.get()->empty())
+        {
+            return std::optional{std::any{std::move(res.get())}};   
+        }
+    }
+    else
+    {
+        throw Utility::OperationDBException("The connection to the base was lost!", __FILE__,
+                                            __LINE__);
+    }
+
+    return std::nullopt;
 }
 
-/*pqxx::connection&*/ void SQLCipherAdapter::getConnection(void) { return; }
-
-bool SQLCipherAdapter::isConnected(void) const { return false; }
+bool SQLCipherAdapter::isConnected(void) const
+{ 
+    if (mDB.get() != nullptr)
+        return true;
+    else
+        return false;
+}
 
 void SQLCipherAdapter::closeConnection(void)
 {

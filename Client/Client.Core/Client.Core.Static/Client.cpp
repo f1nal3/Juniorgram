@@ -78,6 +78,7 @@ void Client::disconnect()
     }
 
     mConnection.release();
+    mSQLCipherRepo.release();
 }
 
 bool Client::isConnected() const

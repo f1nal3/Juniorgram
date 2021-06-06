@@ -37,7 +37,7 @@ public:
     SQLCipherAdapter(SQLCipherAdapter&& other) = delete;
     SQLCipherAdapter& operator=(SQLCipherAdapter&& other) = delete;
    
-
+    ~SQLCipherAdapter();
     static std::shared_ptr<SQLCipherAdapter> Instance(const std::string_view& options = {});
     /** @brief Method for executing SQL quries.
      *   @details You shouldn't use this method because it's \
@@ -85,6 +85,7 @@ private:
 
     std::mutex mQueryMutex{};
     sqlite3_ptr mDB{nullptr};
+    std::string mErrMsg{};
 };
 
 }  // namespace DataAccess
