@@ -27,14 +27,16 @@ jobs:
           working-directory: .
   
     - name: Generating Coverage Info
-      run: python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --output doc-coverage.info
+      run: python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --output ./docs/doc-coverage.info
     
     - name: DEBUG
       run: ls
       
     - name: Generate HTML
-      run: 
-        sudo genhtml -s --no-function-coverage --no-branch-coverage doc-coverage.info -o ${{ github.workspace }}/docs/docs/coverage
+      run: |
+        cd docs
+        sudo genhtml -s --no-function-coverage --no-branch-coverage ./doc-coverage.info -o ${{ github.workspace }}/docs/docs/coverage
+        cd ..
         
     - name: GH Pages Deployment
       uses: peaceiris/actions-gh-pages@v3
