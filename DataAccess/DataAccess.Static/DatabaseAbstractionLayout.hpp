@@ -230,7 +230,7 @@ namespace DataAccess
         *    For pqxx::result check here: 
         *    https://libpqxx.readthedocs.io/en/6.4/a01127.html
         */
-        virtual std::variant<std::optional<pqxx::result>> execute(void);
+        virtual std::variant<std::optional<pqxx::result>, std::vector<std::string>> SQLBase::execute(void);
         
 
         /** @brief Method that clear SQL query string.

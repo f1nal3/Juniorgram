@@ -51,10 +51,11 @@ std::optional<std::any> SQLCipherAdapter::query(const std::string_view& query)
 {
     std::scoped_lock<std::mutex> lock(mStaticMutex);
 
-    std::unique_ptr<std::vector<std::string>> res = std::make_unique<std::vector<std::string>>();
-
     if (this->isConnected())
     {
+        std::unique_ptr<std::vector<std::string>> res =
+            std::make_unique<std::vector<std::string>>();
+
         char* errMsg = NULL; //take it easy, this is common aproach to use char* in this case
 
         sqlite3_exec(mDB.get(), "BEGIN TRANSACTION;", NULL, NULL, NULL);
@@ -68,7 +69,7 @@ std::optional<std::any> SQLCipherAdapter::query(const std::string_view& query)
 
         if (!res.get()->empty())
         {
-            return std::optional{std::any{std::move(res.get())}};   
+            return std::optional{std::any{*res}};   
         }
     }
     else

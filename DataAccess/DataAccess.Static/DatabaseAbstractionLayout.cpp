@@ -113,7 +113,7 @@ namespace DataAccess
     {
         return _statement; 
     }
-    std::variant<std::optional<pqxx::result>> SQLBase::execute()
+    std::variant<std::optional<pqxx::result>, std::vector<std::string>> SQLBase::execute()
     {
         try
         {
@@ -128,7 +128,7 @@ namespace DataAccess
                     {
                         this->rollback();
 
-                        return { std::any_cast<pqxx::result>(result.value()) };
+                        return { std::any_cast<pqxx::result>(result.value())};
                     }
                 }
                 else
@@ -137,7 +137,7 @@ namespace DataAccess
                     {
                         this->rollback();
 
-                        return {std::any_cast<pqxx::result>(result.value())};
+                        return {std::any_cast<std::vector<std::string>>(result.value())};
                     }
                 }
             }
@@ -158,7 +158,7 @@ namespace DataAccess
 
         this->rollback();
 
-        return { std::nullopt } ;
+        return {std::nullopt};
     }
     const std::string                         SQLBase::getQuery(void) const noexcept
     {
