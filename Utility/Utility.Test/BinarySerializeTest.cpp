@@ -1,8 +1,9 @@
-#include <catch2/catch.hpp>
 #include <array>
+#include <catch2/catch.hpp>
 #include <list>
 #include <map>
 #include <string>
+#include <tuple>
 #include <vector>
 
 #include "Network/Connection.hpp"
@@ -42,7 +43,7 @@ TEST_CASE("Test binary serialization & deserialization of plain types", "[YasSer
     }
 }
 
-TEST_CASE("Test binary serialization & deserialization of complex types", "[YasSerializer]") 
+TEST_CASE("Test binary serialization & deserialization of complex types", "[YasSerializer]")
 {
     SECTION("Checking serialization & deserialization of std::string")
     {
@@ -75,12 +76,12 @@ TEST_CASE("Test binary serialization & deserialization of complex types", "[YasS
 
     SECTION("Checking serialization & deserialization of std::vector<uint32_t>")
     {
-        const std::vector<uint32_t> serializedValue = {89, 129, 23, 0, 12, 324};
+        const std::vector<std::uint32_t> serializedValue = {89, 129, 23, 0, 12, 324};
         yas::shared_buffer buffer;
         Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
         REQUIRE(state == Network::SerializedState::SUCCESS);
 
-        std::vector<uint32_t> deserializedValue;
+        std::vector<std::uint32_t> deserializedValue;
         state = Network::YasSerializer::deserialize(buffer, deserializedValue);
         REQUIRE(state == Network::SerializedState::SUCCESS);
 
@@ -129,15 +130,16 @@ TEST_CASE("Test binary serialization & deserialization of complex types", "[YasS
 
         REQUIRE(serializedValue == deserializedValue);
     }
-    
+
     SECTION("Checking serialization & deserialization of std::tuple<uint8_t, int, std::wstring>")
     {
-        std::tuple<uint8_t, int, std::wstring> serializedValue = std::make_tuple(1, -12345, std::to_wstring(2374.234));
+        std::tuple<std::uint8_t, int, std::wstring> serializedValue =
+            std::make_tuple(static_cast<std::uint8_t>(1), -12345, std::to_wstring(2374.234));
         yas::shared_buffer buffer;
         Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
         REQUIRE(state == Network::SerializedState::SUCCESS);
 
-        std::tuple<uint8_t, int, std::wstring> deserializedValue;
+        std::tuple<std::uint8_t, int, std::wstring> deserializedValue;
         state = Network::YasSerializer::deserialize(buffer, deserializedValue);
         REQUIRE(state == Network::SerializedState::SUCCESS);
 
@@ -145,7 +147,7 @@ TEST_CASE("Test binary serialization & deserialization of complex types", "[YasS
     }
 }
 
-TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSerializer]") 
+TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSerializer]")
 {
     SECTION("Checking serialization & deserialization of custom type MessageHeader")
     {
