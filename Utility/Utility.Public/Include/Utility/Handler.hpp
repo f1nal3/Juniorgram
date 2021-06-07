@@ -4,6 +4,15 @@
 
 namespace Network
 {
+/** @enum MessageProcessingState
+ *  @brief Successful or not result of message preprocessing
+ */
+enum class MessageProcessingState
+{
+    SUCCESS,  /// successful message processing
+    FAILURE   /// unsuccessful message processing
+};
+
 /** @class Handler
  *  @brief interface for handler class for message preprocessing.
  */
@@ -17,12 +26,14 @@ public:
     Handler& operator=(Handler&&) = delete;
     virtual ~Handler()            = default;
 
-    virtual Handler* setNext(Handler* handler)                                                = 0;
-    virtual void handleOutcomingMessage(const Message& message, yas::shared_buffer& headerBuffer,
-                                        yas::shared_buffer& bodyBuffer)                       = 0;
-    virtual void handleIncomingMessageHeader(const yas::shared_buffer buffer,
-                                             Message::MessageHeader& messgeHeader)            = 0;
-    virtual void handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) = 0;
+    virtual Handler* setNext(Handler* handler)                                            = 0;
+    virtual MessageProcessingState handleOutcomingMessage(const Message& message,
+                                                          yas::shared_buffer& headerBuffer,
+                                                          yas::shared_buffer& bodyBuffer) = 0;
+    virtual MessageProcessingState handleIncomingMessageHeader(
+        const yas::shared_buffer buffer, Message::MessageHeader& messgeHeader) = 0;
+    virtual MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer,
+                                                             Message& message) = 0;
 };
 
 /** @class AbstractHandler
@@ -37,7 +48,7 @@ public:
     AbstractHandler() : nextHandler(nullptr) {}
 
     virtual ~AbstractHandler() { delete nextHandler; }
-    
+
     /**
      * @brief Method for setting next handler fot message preprocessing.
      * @param handler - next handler fot message preprocessing.
@@ -55,13 +66,15 @@ public:
      * @param headerBuffer - buffer that will contain preprocessed header.
      * @param bodyBuffer - buffer that will contain preprocessed body.
      */
-    void handleOutcomingMessage(const Message& message, yas::shared_buffer& headerBuffer,
-                                yas::shared_buffer& bodyBuffer) override
+    MessageProcessingState handleOutcomingMessage(const Message& message,
+                                                  yas::shared_buffer& headerBuffer,
+                                                  yas::shared_buffer& bodyBuffer) override
     {
         if (this->nextHandler)
         {
             this->nextHandler->handleOutcomingMessage(message, headerBuffer, bodyBuffer);
         }
+        return MessageProcessingState::SUCCESS;
     }
 
     /**
@@ -69,13 +82,14 @@ public:
      * @param buffer - buffer that contains data that should be preprocessed.
      * @param messageHeader - variable that will contain preprocessed message header data.
      */
-    void handleIncomingMessageHeader(const yas::shared_buffer buffer,
-                                     Message::MessageHeader& messageHeader) override
+    MessageProcessingState handleIncomingMessageHeader(
+        const yas::shared_buffer buffer, Message::MessageHeader& messageHeader) override
     {
         if (this->nextHandler)
         {
             this->nextHandler->handleIncomingMessageHeader(buffer, messageHeader);
         }
+        return MessageProcessingState::SUCCESS;
     }
 
     /**
@@ -83,12 +97,14 @@ public:
      * @param buffer - buffer that contains data that should be preprocessed.
      * @param messageHeader - variable that will contain preprocessed message body.
      */
-    void handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
+    MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer,
+                                                     Message& message) override
     {
         if (this->nextHandler)
         {
             this->nextHandler->handleIncomingMessageBody(buffer, message);
         }
+        return MessageProcessingState::SUCCESS;
     }
 };
 }  // namespace Network

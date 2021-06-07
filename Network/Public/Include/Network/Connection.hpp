@@ -99,34 +99,37 @@ private:
 
         SerializationHandler handler;
         handler.setNext(new CompressionHandler())->setNext(new EncryptionHandler());
-        handler.handleOutcomingMessage(mOutcomingMessagesQueue.front(), headerBuffer, bodyBuffer);
+        MessageProcessingState result = handler.handleOutcomingMessage(mOutcomingMessagesQueue.front(), headerBuffer, bodyBuffer);
 
-        const auto writeHeaderHandler = [this, bodyBuffer](std::error_code error) {
-            if (!error)
-            {
-                if (mOutcomingMessagesQueue.front().mBody.has_value())
+        if (result == MessageProcessingState::SUCCESS)
+        {
+            const auto writeHeaderHandler = [this, bodyBuffer](std::error_code error) {
+                if (!error)
                 {
-                    writeBody(bodyBuffer);
+                    if (mOutcomingMessagesQueue.front().mBody.has_value())
+                    {
+                        writeBody(bodyBuffer);
+                    }
+                    else
+                    {
+                        mOutcomingMessagesQueue.pop_front();
+
+                        if (!mOutcomingMessagesQueue.empty())
+                        {
+                            writeHeader();
+                        }
+                    }
                 }
                 else
                 {
-                    mOutcomingMessagesQueue.pop_front();
-
-                    if (!mOutcomingMessagesQueue.empty())
-                    {
-                        writeHeader();
-                    }
+                    std::cout << "[" << mConnectionID << "] Write Header Fail.\n";
+                    mSocket.close();
                 }
-            }
-            else
-            {
-                std::cout << "[" << mConnectionID << "] Write Header Fail.\n";
-                mSocket.close();
-            }
-        };
-        
-        asio::async_write(mSocket, asio::buffer(headerBuffer.data.get(), headerBuffer.size),
-                          std::bind(writeHeaderHandler, std::placeholders::_1));
+            };
+
+            asio::async_write(mSocket, asio::buffer(headerBuffer.data.get(), headerBuffer.size),
+                              std::bind(writeHeaderHandler, std::placeholders::_1));
+        }
     }
 
     /**
@@ -185,15 +188,19 @@ private:
             {
                 EncryptionHandler handler;
                 handler.setNext(new CompressionHandler())->setNext(new SerializationHandler());
-                handler.handleIncomingMessageHeader(buffer, mMessageBuffer.mHeader);
+                MessageProcessingState result = handler.handleIncomingMessageHeader(buffer,
+                                                                     mMessageBuffer.mHeader);
 
-                if (mMessageBuffer.mHeader.mBodySize > 0)
+                if (result == MessageProcessingState::SUCCESS)
                 {
-                    readBody(mMessageBuffer.mHeader.mBodySize);
-                }
-                else
-                {
-                    addToIncomingMessageQueue();
+                    if (mMessageBuffer.mHeader.mBodySize > 0)
+                    {
+                        readBody(mMessageBuffer.mHeader.mBodySize);
+                    }
+                    else
+                    {
+                        addToIncomingMessageQueue();
+                    }
                 }
             }
             else
@@ -228,9 +235,13 @@ private:
             {
                 EncryptionHandler handler;
                 handler.setNext(new CompressionHandler())->setNext(new SerializationHandler());
-                handler.handleIncomingMessageBody(buffer, mMessageBuffer);
+                MessageProcessingState result =
+                    handler.handleIncomingMessageBody(buffer, mMessageBuffer);
 
-                addToIncomingMessageQueue();
+                if (result == MessageProcessingState::SUCCESS)
+                {
+                    addToIncomingMessageQueue();
+                }
             }
             else
             {

@@ -15,7 +15,8 @@ public:
      * @param headerBuffer - buffer that will contain compressed header.
      * @param bodyBuffer - buffer that will contain compressed body.
      */
-    void handleOutcomingMessage(const Message& message, yas::shared_buffer& headerBuffer,
+    MessageProcessingState handleOutcomingMessage(const Message& message,
+                                             yas::shared_buffer& headerBuffer,
                                 yas::shared_buffer& bodyBuffer) override
     {
         // Message::MessageHeader messageHeader = message.mHeader;
@@ -27,6 +28,7 @@ public:
         {
             this->nextHandler->handleOutcomingMessage(message, headerBuffer, bodyBuffer);
         }
+        return MessageProcessingState::SUCCESS;
     }
 
     /**
@@ -34,7 +36,7 @@ public:
      * @param buffer - buffer that contains data that should be decompressed.
      * @param messageHeader - variable that will contain decompressed message header data.
      */
-    void handleIncomingMessageHeader(const yas::shared_buffer buffer,
+    MessageProcessingState handleIncomingMessageHeader(const yas::shared_buffer buffer,
                                      Message::MessageHeader& messageHeader) override
     {
         // header decompression
@@ -43,6 +45,7 @@ public:
         {
             this->nextHandler->handleIncomingMessageHeader(buffer, messageHeader);
         }
+        return MessageProcessingState::SUCCESS;
     }
 
     /**
@@ -50,7 +53,8 @@ public:
      * @param buffer - buffer that contains data that should be decompressed.
      * @param messageHeader - variable that will contain decompressed message body.
      */
-    void handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
+    MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer,
+                                                Message& message) override
     {
         // body decompression
 
@@ -58,6 +62,7 @@ public:
         {
             this->nextHandler->handleIncomingMessageBody(buffer, message);
         }
+        return MessageProcessingState::SUCCESS;
     }
 };
 }  // namespace Network

@@ -15,9 +15,11 @@ public:
      * @param headerBuffer - buffer that will contain serialized header.
      * @param bodyBuffer - buffer that will contain serialized body.
      */
-    void handleOutcomingMessage(const Message& message, yas::shared_buffer& headerBuffer,
-                                yas::shared_buffer& bodyBuffer) override
+    MessageProcessingState handleOutcomingMessage(const Message& message,
+                                             yas::shared_buffer& headerBuffer,
+                                             yas::shared_buffer& bodyBuffer) override
     {
+        SerializedState state                = SerializedState::SUCCESS;
         Message::MessageHeader messageHeader = message.mHeader;
 
         if (message.mBody.has_value())
@@ -33,30 +35,37 @@ public:
                 case Message::MessageType::ServerMessage:
                     break;
                 case Message::MessageType::ChannelListRequest:
-                    YasSerializer::template serialize<std::vector<ChannelInfo>>(
-                        bodyBuffer, std::any_cast<std::vector<ChannelInfo>>(message.mBody));
+                    state = processOutcomingMessageBody<std::vector<ChannelInfo>>(bodyBuffer, message.mBody);
                     break;
                 case Message::MessageType::MessageHistoryRequest:
-                    YasSerializer::template serialize<std::vector<MessageInfo>>(
-                        bodyBuffer, std::any_cast<std::vector<MessageInfo>>(message.mBody));
+                    state = processOutcomingMessageBody<std::vector<MessageInfo>>(bodyBuffer,
+                                                                                  message.mBody);
                     break;
                 case Message::MessageType::MessageStoreRequest:
-                    YasSerializer::template serialize<MessageInfo>(
-                        bodyBuffer, std::any_cast<MessageInfo>(message.mBody));
+                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
                     break;
                 default:
                     break;
             }
 
-            messageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
+            if (state == SerializedState::SUCCESS)
+            {
+                messageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
+            }
         }
 
-        YasSerializer::template serialize<Message::MessageHeader>(headerBuffer, messageHeader);
-
-        if (this->nextHandler)
+        if (state == SerializedState::SUCCESS)
         {
-            this->nextHandler->handleOutcomingMessage(message, headerBuffer, bodyBuffer);
+            YasSerializer::template serialize<Message::MessageHeader>(headerBuffer, messageHeader);
+
+            if (this->nextHandler)
+            {
+                this->nextHandler->handleOutcomingMessage(message, headerBuffer, bodyBuffer);
+            }
+            return MessageProcessingState::SUCCESS;
         }
+
+        return MessageProcessingState::FAILURE;
     }
 
     /**
@@ -64,15 +73,22 @@ public:
      * @param buffer - buffer that contains data that should be deserialized.
      * @param messageHeader - variable that will contain deserialized message header data.
      */
-    void handleIncomingMessageHeader(const yas::shared_buffer buffer,
-                                     Message::MessageHeader& messageHeader) override
+    MessageProcessingState handleIncomingMessageHeader(const yas::shared_buffer buffer,
+                                                  Message::MessageHeader& messageHeader) override
     {
-        YasSerializer::template deserialize<Message::MessageHeader>(buffer, messageHeader);
+        SerializedState state = YasSerializer::template deserialize<Message::MessageHeader>(buffer, messageHeader);
 
-        if (this->nextHandler)
+        if (state == SerializedState::SUCCESS)
         {
-            this->nextHandler->handleIncomingMessageHeader(buffer, messageHeader);
+            if (this->nextHandler)
+            {
+                this->nextHandler->handleIncomingMessageHeader(buffer, messageHeader);
+            }
+
+            return MessageProcessingState::SUCCESS;
         }
+
+        return MessageProcessingState::FAILURE;
     }
 
     /**
@@ -80,8 +96,11 @@ public:
      * @param buffer - buffer that contains data that should be deserialized.
      * @param messageHeader - variable that will contain deserialized message body.
      */
-    void handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
+    MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer,
+                                                Message& message) override
     {
+        SerializedState state = SerializedState::FAILURE;
+
         switch (message.mHeader.mMessageType)
         {
             case Message::MessageType::ServerAccept:
@@ -94,32 +113,75 @@ public:
                 break;
             case Message::MessageType::ChannelListRequest:
             {
-                std::vector<ChannelInfo> channelInfo;
-                YasSerializer::template deserialize<std::vector<ChannelInfo>>(buffer, channelInfo);
-                message.mBody = std::make_any<std::vector<ChannelInfo>>(channelInfo);
+                state = processIncomingMessageBody<std::vector<ChannelInfo>>(buffer, message);
                 break;
             }
             case Message::MessageType::MessageHistoryRequest:
             {
-                std::vector<MessageInfo> messageInfo;
-                YasSerializer::template deserialize<std::vector<MessageInfo>>(buffer, messageInfo);
-                message.mBody = std::make_any<std::vector<MessageInfo>>(messageInfo);
+                state = processIncomingMessageBody<std::vector<MessageInfo>>(buffer, message);
                 break;
             }
             case Message::MessageType::MessageStoreRequest:
             {
-                MessageInfo messageInfo;
-                YasSerializer::template deserialize<MessageInfo>(buffer, messageInfo);
-                message.mBody = std::make_any<MessageInfo>(messageInfo);
+                state = processIncomingMessageBody<MessageInfo>(buffer, message);
                 break;
             }
             default:
                 break;
         }
 
-        if (this->nextHandler)
+        if (state == SerializedState::SUCCESS)
         {
-            this->nextHandler->handleIncomingMessageBody(buffer, message);
+            if (this->nextHandler)
+            {
+                this->nextHandler->handleIncomingMessageBody(buffer, message);
+            }
+            return MessageProcessingState::SUCCESS;
+        }
+
+        return MessageProcessingState::FAILURE;
+    }
+
+private:
+    template <typename T>
+    SerializedState processOutcomingMessageBody(yas::shared_buffer& bodyBuffer, const std::any messageBody)
+    {
+        try
+        {
+            return YasSerializer::template serialize<T>(bodyBuffer, std::any_cast<T>(messageBody));
+        }
+        catch (const std::bad_any_cast& e)
+        {
+            std::cout << e.what() << '\n';
+            std::cout << "Message body cann't be serialized\n";
+
+            return SerializedState::FAILURE;
+        }
+    }
+
+    template <typename T>
+    SerializedState processIncomingMessageBody(const yas::shared_buffer& bodyBuffer,
+                                               Message& message)
+    {
+        try
+        {
+            T messageInfo;
+
+            SerializedState state = YasSerializer::template deserialize<T>(bodyBuffer, messageInfo);
+
+            if (state == SerializedState::SUCCESS)
+            {
+                message.mBody = std::make_any<T>(messageInfo);
+            }
+
+            return state;
+        }
+        catch (const std::bad_any_cast& e)
+        {
+            std::cout << e.what() << '\n';
+            std::cout << "Message body cann't be deserialized\n";
+            
+            return SerializedState::FAILURE;
         }
     }
 };
