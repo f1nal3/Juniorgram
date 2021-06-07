@@ -15,20 +15,12 @@ Client::Client() :
     mSQLCipherRepo{std::unique_ptr<DataAccess::SQLCipherRepository>(new DataAccess::SQLCipherRepository)}
 {}
 
-bool Client::connectToDb()
+bool Client::isRefreshTokenExists()
 { 
-   
-
-    /*auto future = std::async(std::launch::async, &DataAccess::SQLCipherRepository::getRefreshToken,
-                             mSQLCipherRepo.get());*/
-
-    auto future = std::async(std::launch::async, &DataAccess::SQLCipherRepository::getRefreshToken,
+    auto result = std::async(std::launch::async, &DataAccess::SQLCipherRepository::getRefreshToken,
                    dynamic_cast <DataAccess::SQLCipherRepository*>(mSQLCipherRepo.get()));
 
-
-    std::string token  = future.get();
-
-    if (!token.empty())
+    if (!result.get().empty())
     {
         return true;
     }

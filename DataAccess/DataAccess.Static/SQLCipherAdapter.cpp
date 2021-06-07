@@ -2,6 +2,7 @@
 #include "SQLCipherAdapter.hpp"
 #include <iostream>
 #include <Utility/Exception.hpp>
+#include <filesystem>
 
 namespace DataAccess
 {
@@ -24,11 +25,42 @@ sqlite3_ptr make_sqlite(const std::string_view& dbName)
 {
     sqlite3* db = nullptr;
         
-    if (sqlite3_open(dbName.data(), &db) != SQLITE_OK)
+    if (std::filesystem::exists(dbName))
     {
-        throw Utility::OperationDBException("Failed to open sqlite!", __FILE__, __LINE__);
+        if (sqlite3_open(dbName.data(), &db) != SQLITE_OK)
+        {
+            throw Utility::OperationDBException("Failed to open sqlite!", __FILE__, __LINE__);
+        }
+
+        int l = 3;
+
+        std::string k = "acacacacacacdddaaddaaddaaaaaaaa2222222222222xaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxax";
+
+        suppressWarning(4267, Init) 
+            l = sqlite3_key_v2(db, dbName.data(), k.data(), strlen(k.data()));
+        restoreWarning
+
+            l = 13;
+
+
+        sqlite3_close(db);
+    }
+    else
+    {
+        if (sqlite3_open(dbName.data(), &db) != SQLITE_OK)
+        {
+            throw Utility::OperationDBException("Failed to open sqlite!", __FILE__, __LINE__);
+        }
+        else
+        {
+            /*sqlite3_key(db, "1q2w3e4r", 8)*/
+        }
     }
 
+    
+
+    
+ 
     return sqlite3_ptr(db);
 }
 
@@ -60,6 +92,11 @@ std::optional<std::any> SQLCipherAdapter::query(const std::string_view& query)
 
         sqlite3_exec(mDB.get(), "BEGIN TRANSACTION;", NULL, NULL, NULL);
      
+        //sqlite3_exec(mDB.get(),
+        //             "select count(type) from sqlite_master where type = 'table' and name = "
+        //             "'refresh_tokens';",
+        //             callback, res.get(), &errMsg);
+
         if (sqlite3_exec(mDB.get(), query.data(), callback, res.get(), &errMsg) != SQLITE_OK)
         {
             std::cout << "Can't execute query, error: " << errMsg;

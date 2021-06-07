@@ -4,10 +4,18 @@
 #include "Network/Primitives.hpp"
 
 App::App(/* args */)
-{ 
-    client.connectToDb();
-    client.connect(address, port);   
+{
+    if (client.isRefreshTokenExists())
+    {
+        client.connect(address, port);
+        client.askForChannelList();
+    }
+    else
+    {
+        
+    }
 }
+    
 
 App::~App()
 {

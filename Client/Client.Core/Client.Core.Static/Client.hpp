@@ -23,7 +23,7 @@ public:
 
     Client();
 
-    bool connectToDb();
+    bool isRefreshTokenExists();
 
     bool connect(const std::string& host, const uint16_t& port);
 
