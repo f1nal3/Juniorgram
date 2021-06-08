@@ -1,4 +1,5 @@
 #include "RepositoryUnits.hpp"
+#include "DatabaseAbstractionLayout.hpp"
 
 using namespace DataAccess;
 
