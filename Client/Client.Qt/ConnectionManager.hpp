@@ -1,8 +1,8 @@
 #pragma once
 #include <Client.hpp>
 #include <Network/Primitives.hpp>
-#include <DataAccess.Static/RepositoryUnits.hpp>
 
+#include "DataAccess.Static/RepositoryUnits.hpp"
 #include "Widgets/ChannelListWindow.hpp"
 
 class ConnectionManager
