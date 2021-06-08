@@ -4,14 +4,13 @@ using namespace DataAccess;
 
 std::string nowTimeStampStr()
 {
-    const std::size_t TIME_STAMP_SIZE = 20;
-    char timeStampStr[TIME_STAMP_SIZE];
-
+    std::string timeStampStr(20, '\0');
+    
     std::time_t t = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     std::tm time  = Utility::safe_localtime(t);
-    std::strftime(timeStampStr, TIME_STAMP_SIZE, "%Y-%m-%d %H:%M:%S", &time);
+    std::strftime(timeStampStr.data(), 20, "%Y-%m-%d %H:%M:%S", &time);
 
-    return std::string(timeStampStr);
+    return timeStampStr;
 }
 
 std::string TokenUnit::createToken(const std::uint64_t userID) const

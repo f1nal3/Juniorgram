@@ -1,6 +1,7 @@
 #pragma once
 #include <Client.hpp>
 #include <Network/Primitives.hpp>
+#include <DataAccess.Static/RepositoryUnits.hpp>
 
 #include "Widgets/ChannelListWindow.hpp"
 
@@ -106,6 +107,30 @@ public:
                         case Network::Message::MessageType::MessageStoreRequest:
                         {
                             std::cout << "Message were stored" << std::endl;
+                        }
+                        break;
+
+                        case Network::Message::MessageType::RegistrationRequest:
+                        {
+                            RegistrationUnit::RegistrationCodes code;
+                            message >> code;
+
+                            if (code == RegistrationUnit::RegistrationCodes::SUCCESS)
+                            {
+                                std::cout << "New user was registered!" << std::endl;
+                            }
+                            else if (code == RegistrationUnit::RegistrationCodes::EMAIL_ALREADY_EXISTS)
+                            {
+                                std::cout << "Email already exists" << std::endl;
+                            }
+                            else if (code == RegistrationUnit::RegistrationCodes::LOGIN_ALREADY_EXISTS)
+                            {
+                                std::cout << "Login already exists" << std::endl;
+                            }
+                            else
+                            {
+                                std::cout << "Unknown code" << std::endl;
+                            }
                         }
                         break;
 

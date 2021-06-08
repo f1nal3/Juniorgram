@@ -93,3 +93,8 @@ if (WIN32)
             "${CMAKE_BINARY_DIR}/bin/glib-2.0-0.dll"
             SHOW_PROGRESS)
 endif ()
+
+target_include_directories(${TARGET}
+    INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${TARGET} PRIVATE
+    $<TARGET_PROPERTY:DataAccess.Static,SOURCE_DIR>/..)

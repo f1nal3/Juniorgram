@@ -9,6 +9,9 @@
 
 std::string nowTimeStampStr();
 
+/** @class TokenUnit.
+ *   @brief TokenUnit for work with tokens.
+ */
 class TokenUnit
 {
 private:
@@ -17,10 +20,16 @@ private:
     TokenUnit() = default;
 
 public:
-    TokenUnit(const TokenUnit&) = delete;
-    void operator=(const TokenUnit&) = delete;
+    TokenUnit(const TokenUnit&)            = delete;
+    TokenUnit& operator=(const TokenUnit&) = delete;
+    ~TokenUnit()                           = default;
 
-    static TokenUnit& instance()
+    /** @brief Method for getting of single TokenUnit instance.
+    *   @details This instance need for gaining access to /
+    *   other class members from outside.
+    *   @return TokenUnit - single class object.
+    */
+    inline static TokenUnit& instance()
     {
         static TokenUnit token;
         return token;
@@ -28,19 +37,26 @@ public:
 
     inline std::uint16_t getTokenLength() const { return TOKEN_LENGTH; }
 
+    /** @brief Draft method of token creating for user.
+     *   @return std::string token.
+     */
     std::string createToken(const std::uint64_t userID) const;
 };
 
 using namespace DataAccess;
 
+/** @class RegistrationUnit.
+ *   @brief RegistrationUnit for user's registration.
+ */
 class RegistrationUnit
 {
 private:
     RegistrationUnit() = default;
 
 public:
-    RegistrationUnit(const RegistrationUnit&) = delete;
+    RegistrationUnit(const RegistrationUnit&)      = delete;
     RegistrationUnit& operator=(RegistrationUnit&) = delete;
+    ~RegistrationUnit()                            = default;
 
     enum class RegistrationCodes : std::uint8_t
     {
@@ -49,14 +65,23 @@ public:
         SUCCESS,
     };
 
+    /** @brief Method for getting of single RegistrationUnit instance.
+     *   @details This instance need for gaining access to /
+     *   other class members from outside.
+     *   @return RegistrationUnit - single class object.
+     */
     inline static RegistrationUnit& instance()
     {
         static RegistrationUnit registartor;
         return registartor;
     }
 
-public:
-    ~RegistrationUnit() = default;
-
+    /** @brief Method for user registration.
+     *   @params RegistrationMessage which contains user data for registration.
+     *   @return The return value of the method is one of the RegistrationCodes (enum). /
+         Registration successful - RegistrationCodes::SUCCESS. / 
+         The user already exists - RegistrationCodes::EMAIL_ALREADY_EXISTS OR /
+         RegistrationCodes::LOGIN_ALREADY_EXISTS.
+     */
     RegistrationCodes registerUser(const Network::RegisrtationMessage& rm) const;
 };
