@@ -41,8 +41,6 @@ public:
     std::string createToken(const std::uint64_t userID) const;
 };
 
-using namespace DataAccess;
-
 /** @class RegistrationUnit.
  *   @brief RegistrationUnit for user's registration.
  */
