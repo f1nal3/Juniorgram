@@ -7,8 +7,10 @@ set(SOURCE_FILES
     JsonSerializer.hpp
     JsonSerializer.cpp
     SafePriorityQueue.hpp
-    Task.hpp
-    TaskManager.hpp)
+    TaskManager.hpp
+    Cryptography.cpp
+	MACAddress.hpp
+	MACAddress.cpp)
 
 # Add a library with the above sources
 add_library(${TARGET} STATIC ${SOURCE_FILES})

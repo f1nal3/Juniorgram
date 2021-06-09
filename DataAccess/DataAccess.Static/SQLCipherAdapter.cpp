@@ -2,10 +2,17 @@
 #include "SQLCipherAdapter.hpp"
 #include <iostream>
 #include <Utility/Exception.hpp>
-#include <filesystem>
+#include <Utility.Static/MACAddress.hpp>
+
 
 namespace DataAccess
 {
+enum class TableExistance : std::uint16_t
+{
+    nonExistent = 0,
+    exists = 1
+};
+
 suppressWarning(4100, Init) 
 static int callback(void* data, int argc, char** argv, char** azColName)
 {
@@ -21,46 +28,34 @@ restoreWarning
 
 void sqlite3_deleter::operator()(sqlite3* sql) { sqlite3_close(sql); }
 
-sqlite3_ptr make_sqlite(const std::string_view& dbName)
+sqlite3_ptr make_sqlite3(const std::string_view& dbName)
 {
     sqlite3* db = nullptr;
-        
-    if (std::filesystem::exists(dbName))
+    unsigned char result[6];
+
+    MACAddressUtility::GetMACAddress(result);
+
+    if (sqlite3_open(dbName.data(), &db) != SQLITE_OK)
     {
-        if (sqlite3_open(dbName.data(), &db) != SQLITE_OK)
-        {
-            throw Utility::OperationDBException("Failed to open sqlite!", __FILE__, __LINE__);
-        }
-
-        int l = 3;
-
-        std::string k = "acacacacacacdddaaddaaddaaaaaaaa2222222222222xaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxax";
-
-        suppressWarning(4267, Init) 
-            l = sqlite3_key_v2(db, dbName.data(), k.data(), strlen(k.data()));
-        restoreWarning
-
-            l = 13;
-
-
-        sqlite3_close(db);
-    }
-    else
-    {
-        if (sqlite3_open(dbName.data(), &db) != SQLITE_OK)
-        {
-            throw Utility::OperationDBException("Failed to open sqlite!", __FILE__, __LINE__);
-        }
-        else
-        {
-            /*sqlite3_key(db, "1q2w3e4r", 8)*/
-        }
+        throw Utility::OperationDBException("Failed to open sqlite!", __FILE__, __LINE__);
     }
 
-    
+    suppressWarning(4267, Init) 
+    /*sqlite3_key(db, key.c_str(), key.size());*/
+    restoreWarning
 
-    
- 
+       std::unique_ptr<std::vector<std::string>>
+            isExists = std::make_unique<std::vector<std::string>>();
+
+    sqlite3_exec(
+    db, "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'refresh_tokens';",
+                 callback, isExists.get(), 0);
+
+    if (std::stoi(isExists.get()->front()) == (std::uint16_t)TableExistance::nonExistent)
+    {
+        sqlite3_exec(db, "CREATE TABLE refresh_tokens(refresh_token TEXT NOT NULL);", 0, 0, 0);
+    }
+  
     return sqlite3_ptr(db);
 }
 
@@ -91,11 +86,6 @@ std::optional<std::any> SQLCipherAdapter::query(const std::string_view& query)
         char* errMsg = NULL; //take it easy, this is common aproach to use char* in this case
 
         sqlite3_exec(mDB.get(), "BEGIN TRANSACTION;", NULL, NULL, NULL);
-     
-        //sqlite3_exec(mDB.get(),
-        //             "select count(type) from sqlite_master where type = 'table' and name = "
-        //             "'refresh_tokens';",
-        //             callback, res.get(), &errMsg);
 
         if (sqlite3_exec(mDB.get(), query.data(), callback, res.get(), &errMsg) != SQLITE_OK)
         {

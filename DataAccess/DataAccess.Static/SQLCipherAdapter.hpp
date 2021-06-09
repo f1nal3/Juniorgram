@@ -19,7 +19,7 @@ struct sqlite3_deleter
 
 using sqlite3_ptr = std::unique_ptr<sqlite3, sqlite3_deleter>;
 
-sqlite3_ptr make_sqlite(const std::string_view& dbName);
+sqlite3_ptr make_sqlite3(const std::string_view& dbName);
 
 class SQLCipherAdapter final : public IAdapter
 {
@@ -73,7 +73,7 @@ public:
 
 protected:
     SQLCipherAdapter(const std::string_view& dbName) 
-        : mDB(make_sqlite(dbName))
+        : mDB(make_sqlite3(dbName))
     {
     }
 

@@ -23,11 +23,14 @@ set(SOURCE_FILES
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
-target_link_libraries(${TARGET}
-    PUBLIC Qt5::Sql)
+target_include_directories(${TARGET}
+    PRIVATE ${CONAN_INCLUDE_DIRS_QT}
+    $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
 
 target_link_libraries(${TARGET} PUBLIC
-    CONAN_PKG::libpq
+	PUBLIC Qt5::Sql
+    Utility.Static
+	CONAN_PKG::libpq
     CONAN_PKG::libpqxx
     CONAN_PKG::sqlcipher)
 
