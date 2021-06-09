@@ -5,6 +5,8 @@ constexpr auto EMPTY_USER_NAME    = "You";
 
 #include "pch.hpp"
 
+#include <ctime>
+
 #include "Widgets/FlatButton.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/Label.hpp"
