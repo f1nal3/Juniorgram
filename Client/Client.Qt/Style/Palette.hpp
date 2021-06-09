@@ -7,7 +7,7 @@
 namespace Style {
 namespace internal {
 
-void init_palette(int scale);
+void init_Palette(int scale);
 
 } // namespace internal
 
@@ -43,6 +43,10 @@ public:
 	inline const color &get_window() const { return _colors[2]; };
 	inline const color &get_windowColor() const { return _colors[3]; };
 	inline const color &get_windowColorOver() const { return _colors[4]; };
+	inline const color &get_titleButton() const { return _colors[5]; };
+	inline const color &get_titleButtonOver() const { return _colors[6]; };
+	inline const color &get_closeButtonC() const { return _colors[7]; };
+	inline const color &get_closeButtonCOver() const { return _colors[8]; };
 
 	palette &operator=(const palette &other) {
 		auto wasReady = _ready;
@@ -72,7 +76,7 @@ public:
 	}
 
 private:
-	static constexpr auto kCount = 5;
+	static constexpr auto kCount = 9;
 
 	void clear() {
 		for (int i = 0; i != kCount; ++i) {
@@ -128,6 +132,10 @@ private:
 		data(2),
 		data(3),
 		data(4),
+		data(5),
+		data(6),
+		data(7),
+		data(8),
 	};
 	Status _status[kCount] = { Status::Initial };
 	bool _ready = false;
@@ -161,4 +169,8 @@ extern const Style::color &windowActiveTextFg;
 extern const Style::color &window;
 extern const Style::color &windowColor;
 extern const Style::color &windowColorOver;
+extern const Style::color &titleButton;
+extern const Style::color &titleButtonOver;
+extern const Style::color &closeButtonC;
+extern const Style::color &closeButtonCOver;
 } // namespace st

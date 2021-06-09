@@ -7,7 +7,7 @@
 namespace Style {
 namespace internal {
 
-void init_style_basic(int scale);
+void init_StyleBasic(int scale);
 
 } // namespace internal
 
@@ -37,8 +37,17 @@ struct FlatButton {
 	Style::font overFont;
 };
 
-struct RippleButton {
-	Style::FlatButton button;
+struct LinkButton {
+	Style::color color;
+	Style::color overColor;
+	Style::font font;
+	Style::font overFont;
+};
+
+struct IconButton {
+	Style::color bgColor;
+	Style::color overBgColor;
+	int duration;
 };
 
 } // namespace Style
@@ -50,9 +59,12 @@ extern const Style::font &defaultFont;
 extern const Style::font &semiboldFont;
 extern const Style::TextStyle &defaultTextStyle;
 extern const Style::TextStyle &semiboldTextStyle;
+extern const Style::IconButton &defaultTitleButton;
+extern const Style::IconButton &closeButton;
 extern const int &defaultMargin;
 extern const Style::margins &mar;
 extern const Style::font &TextStyle;
+extern const Style::LinkButton &defaultLinkButton;
 extern const Style::FlatButton &defaultFlatButton;
 extern const Style::FlatButton &stylingButton;
 extern const Style::FlatButton &boldnessButton;
