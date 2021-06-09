@@ -52,9 +52,10 @@ set(SOURCE_FILES
         Style/StyleColor.hpp
         Style/Style.cpp
         Style/Style.hpp
-        Style/style_basic.h
-        Style/style_basic.cpp
-        Style/palette.cpp
+        Style/StyleBasic.hpp
+        Style/StyleBasic.hpp
+        Style/Palette.cpp
+        Style/Palette.hpp
         Style/Shadow.hpp
         Application.cpp
         Application.hpp
