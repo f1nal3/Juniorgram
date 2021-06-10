@@ -8,8 +8,8 @@ set(SOURCE_FILES
     PostgreAdapter.cpp
     PostgreRepository.hpp
     PostgreRepository.cpp
-    SQLiteAdapter.hpp
-    SQLiteAdapter.cpp)
+    LiteAdapter.hpp
+    LiteAdapter.cpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
