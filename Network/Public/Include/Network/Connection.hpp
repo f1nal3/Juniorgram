@@ -10,6 +10,7 @@
 #define _WIN32_WINNT 0x0601
 
 #include <asio.hpp>
+#include <chrono>
 #include <iostream>
 #include <functional>
 
@@ -77,7 +78,8 @@ private:
         yas::shared_buffer buffer;
         YasSerializer::template serialize<Message::MessageHeader>(
             buffer, Message::MessageHeader{Message::MessageType::ServerAccept, 0U,
-                                           std::chrono::system_clock::from_time_t(0)});
+                                           std::chrono::system_clock::time_point(
+                                               (std::chrono::system_clock::duration::min)())});
 
         return buffer.size;
     }
