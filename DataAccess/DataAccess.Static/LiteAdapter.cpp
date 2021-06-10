@@ -3,14 +3,14 @@
 namespace DataAccess
 {
 
-LiteAdapter::LiteAdapter(const QString& path)
+LiteAdapter::LiteAdapter(const std::string_view& path)
 {
     db_connection = std::make_unique<QSqlDatabase>();
     *db_connection = QSqlDatabase::addDatabase("QSQlITE");
-    db_connection->setDatabaseName(path);
+    db_connection->setDatabaseName(QString::fromStdString(std::string(path)));
 }
 
-std::shared_ptr<LiteAdapter> LiteAdapter::Instance(const QString &path)
+std::shared_ptr<LiteAdapter> LiteAdapter::Instance(const std::string_view& path)
 {
     std::scoped_lock<std::mutex> lock(mtx);
     if(sqlite_instance == nullptr)

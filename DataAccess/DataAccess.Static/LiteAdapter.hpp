@@ -17,12 +17,12 @@ class LiteAdapter : public IAdapter
 public:
     inline static std::mutex mtx{};
     inline static std::shared_ptr<LiteAdapter> sqlite_instance{};
-    inline static const QString path = "Client/SQLiteDB.db";
-    static std::shared_ptr<LiteAdapter> Instance(const QString& path);
+    inline static constexpr std::string_view path = "Client/SQLiteDB.db";
+    static std::shared_ptr<LiteAdapter> Instance(const std::string_view& path);
 private:
     std::unique_ptr<QSqlDatabase> db_connection;
 protected:
-    LiteAdapter(const QString& path);
+    LiteAdapter(const std::string_view& path);
 public:
     LiteAdapter(const LiteAdapter& other) = delete;
     LiteAdapter& operator=(const LiteAdapter& other) = delete;
