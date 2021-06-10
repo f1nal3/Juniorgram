@@ -105,7 +105,7 @@ void MessageWidget::initializationUiNotDelete()
     reactionChoseBox->setObjectName(QString::fromUtf8("reactionChoseBox"));
     reactionChoseBox->addItem(QIcon(":/reactions/smile.png"), "");
     reactionChoseBox->addItem(QIcon(":/reactions/like.png"), "");
-    reactionChoseBox->addItem(QIcon(":/reactions/dislike.png"), "");
+    reactionChoseBox->addItem(QIcon(":/reactions/deslike.png"), "");
     reactionChoseBox->addItem(QIcon(":/reactions/fire.png"), "");
     reactionChoseBox->addItem(QIcon(":/reactions/cat.png"), "");
     reactionChoseBox->setMinimumWidth(Style::valueDPIScale(45));
