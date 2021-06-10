@@ -10,6 +10,7 @@
 #define _WIN32_WINNT 0x0601
 
 #include <asio.hpp>
+#include <chrono>
 #include <iostream>
 #include <functional>
 
@@ -17,6 +18,11 @@
 #include "SafeQueue.hpp"
 #include "Utility/Utility.hpp"
 #include "Utility/WarningSuppression.hpp"
+#include "Utility/CompressionHandler.hpp"
+#include "Utility/Handler.hpp"
+#include "Utility/EncryptionHandler.hpp"
+#include "Utility/SerializationHandler.hpp"
+#include "Utility/YasSerializer.hpp"
 
 namespace Network
 {
@@ -57,6 +63,27 @@ private:
     /// Buffer to store the part of incoming message while it is read
     Message mMessageBuffer;
 
+    size_t getMaxMessageHeaderSize()
+    {
+        yas::shared_buffer buffer;
+        YasSerializer::template serialize<Message::MessageHeader>(
+            buffer,
+            Message::MessageHeader{static_cast<Message::MessageType>(UINT32_MAX), UINT32_MAX,
+                                   std::chrono::system_clock::time_point::max()});
+        return buffer.size;
+    }
+
+    size_t getMinMessageHeaderSize()
+    {
+        yas::shared_buffer buffer;
+        YasSerializer::template serialize<Message::MessageHeader>(
+            buffer, Message::MessageHeader{Message::MessageType::ServerAccept, 0U,
+                                           std::chrono::system_clock::time_point(
+                                               (std::chrono::system_clock::duration::min)())});
+
+        return buffer.size;
+    }
+
     /**
      * @brief Method for sending message header.
      * @details Function asio::async_write is used to write the header of the message /
@@ -69,34 +96,42 @@ private:
      */
     void writeHeader()
     {
-        const auto writeHeaderHandler = [this](std::error_code error) {
-            if (!error)
-            {
-                if (!mOutcomingMessagesQueue.front().mBody.empty())
+        yas::shared_buffer headerBuffer;
+        yas::shared_buffer bodyBuffer;
+
+        SerializationHandler handler;
+        handler.setNext(new CompressionHandler())->setNext(new EncryptionHandler());
+        MessageProcessingState result = handler.handleOutcomingMessage(mOutcomingMessagesQueue.front(), headerBuffer, bodyBuffer);
+
+        if (result == MessageProcessingState::SUCCESS)
+        {
+            const auto writeHeaderHandler = [this, bodyBuffer](std::error_code error) {
+                if (!error)
                 {
-                    writeBody();
+                    if (mOutcomingMessagesQueue.front().mBody.has_value())
+                    {
+                        writeBody(bodyBuffer);
+                    }
+                    else
+                    {
+                        mOutcomingMessagesQueue.pop_front();
+
+                        if (!mOutcomingMessagesQueue.empty())
+                        {
+                            writeHeader();
+                        }
+                    }
                 }
                 else
                 {
-                    mOutcomingMessagesQueue.pop_front();
-
-                    if (!mOutcomingMessagesQueue.empty())
-                    {
-                        writeHeader();
-                    }
+                    std::cout << "[" << mConnectionID << "] Write Header Fail.\n";
+                    mSocket.close();
                 }
-            }
-            else
-            {
-                std::cout << "[" << mConnectionID << "] Write Header Fail.\n";
-                mSocket.close();
-            }
-        };
+            };
 
-        asio::async_write(
-            mSocket,
-            asio::buffer(&mOutcomingMessagesQueue.front().mHeader, sizeof(Message::MessageHeader)),
-            std::bind(writeHeaderHandler, std::placeholders::_1));
+            asio::async_write(mSocket, asio::buffer(headerBuffer.data.get(), headerBuffer.size),
+                              std::bind(writeHeaderHandler, std::placeholders::_1));
+        }
     }
 
     /**
@@ -108,8 +143,9 @@ private:
      * Then next message header from the message queue is sent (method writeHeader()). /
      * If the writing message body to the socket failed, the error message - /
      * "[connection id] Write Body Fail." is displayed.
+     * @param buffer - buffer that contatins sent message body
      */
-    void writeBody()
+    void writeBody(yas::shared_buffer buffer)
     {
         const auto writeBodyHandler = [this](std::error_code error) {
             if (!error)
@@ -128,9 +164,7 @@ private:
             }
         };
 
-        asio::async_write(mSocket,
-                          asio::buffer(mOutcomingMessagesQueue.front().mBody.data(),
-                                       mOutcomingMessagesQueue.front().mBody.size()),
+        asio::async_write(mSocket, asio::buffer(buffer.data.get(), buffer.size),
                           std::bind(writeBodyHandler, std::placeholders::_1));
     }
 
@@ -148,17 +182,27 @@ private:
      */
     void readHeader()
     {
-        const auto readHeaderHandler = [this](std::error_code error) {
+        yas::shared_buffer buffer;
+        buffer.resize(this->getMaxMessageHeaderSize());
+
+        const auto readHeaderHandler = [this, buffer](std::error_code error) {
             if (!error)
             {
-                if (mMessageBuffer.mHeader.mBodySize > 0)
+                EncryptionHandler handler;
+                handler.setNext(new CompressionHandler())->setNext(new SerializationHandler());
+                MessageProcessingState result = handler.handleIncomingMessageHeader(buffer,
+                                                                     mMessageBuffer.mHeader);
+
+                if (result == MessageProcessingState::SUCCESS)
                 {
-                    mMessageBuffer.mBody.resize(mMessageBuffer.mHeader.mBodySize);
-                    readBody();
-                }
-                else
-                {
-                    addToIncomingMessageQueue();
+                    if (mMessageBuffer.mHeader.mBodySize > 0)
+                    {
+                        readBody(mMessageBuffer.mHeader.mBodySize);
+                    }
+                    else
+                    {
+                        addToIncomingMessageQueue();
+                    }
                 }
             }
             else
@@ -168,8 +212,8 @@ private:
             }
         };
 
-        asio::async_read(mSocket,
-                         asio::buffer(&mMessageBuffer.mHeader, sizeof(Message::MessageHeader)),
+        asio::async_read(mSocket, asio::buffer(buffer.data.get(), buffer.size),
+                         asio::transfer_at_least(this->getMinMessageHeaderSize()),
                          std::bind(readHeaderHandler, std::placeholders::_1));
     }
 
@@ -181,13 +225,25 @@ private:
      * is added to the connection incoming message queue.
      * If the reading message body from the socket failed, the error message - /
      * "[connection id] Read Body Fail." is displayed.
+     * @param bodySize - size of messege body
      */
-    void readBody()
+    void readBody(size_t bodySize)
     {
-        const auto readBodyHandler = [this](std::error_code error) {
+        yas::shared_buffer buffer;
+        buffer.resize(bodySize);
+
+        const auto readBodyHandler = [this, buffer](std::error_code error) {
             if (!error)
             {
-                addToIncomingMessageQueue();
+                EncryptionHandler handler;
+                handler.setNext(new CompressionHandler())->setNext(new SerializationHandler());
+                MessageProcessingState result =
+                    handler.handleIncomingMessageBody(buffer, mMessageBuffer);
+
+                if (result == MessageProcessingState::SUCCESS)
+                {
+                    addToIncomingMessageQueue();
+                }
             }
             else
             {
@@ -196,8 +252,7 @@ private:
             }
         };
 
-        asio::async_read(mSocket,
-                         asio::buffer(mMessageBuffer.mBody.data(), mMessageBuffer.mBody.size()),
+        asio::async_read(mSocket, asio::buffer(buffer.data.get(), buffer.size),
                          std::bind(readBodyHandler, std::placeholders::_1));
     }
 
