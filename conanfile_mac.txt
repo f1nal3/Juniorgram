@@ -1,8 +1,7 @@
 [requires]
 asio/1.18.1
-cryptopp/8.5.0
-expat/2.2.10
 catch2/2.13.4
+cryptopp/8.5.0
 libtool/2.4.6
 libpq/11.5
 libpqxx/7.2.1

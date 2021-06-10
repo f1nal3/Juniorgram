@@ -1,5 +1,6 @@
 #pragma once
 
+#include <any>
 #include <chrono>
 #include <cstdlib>
 #include <cstring>
@@ -9,7 +10,6 @@
 
 #include "Connection.hpp"
 #include "Utility/Utility.hpp"
-#include "Utility/WarningSuppression.hpp"
 
 namespace Network
 {
@@ -30,7 +30,7 @@ struct Message
     
     struct MessageHeader
     {
-        MessageType mConnectionID = MessageType();
+        MessageType mMessageType = MessageType();
         std::uint32_t mBodySize   = std::uint32_t();
         std::chrono::time_point<std::chrono::system_clock> mTimestamp =
             std::chrono::system_clock::now();
@@ -39,43 +39,17 @@ struct Message
     std::shared_ptr<Connection> mRemote = nullptr;
 
     MessageHeader mHeader;
-    std::vector<uint8_t> mBody;
+    std::any mBody;
 
     friend std::ostream& operator<<(std::ostream& os, const Message& message)
     {
         std::tm formattedTimestamp = Utility::safe_localtime(
             std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
 
-        os << "ID:" << size_t(message.mHeader.mConnectionID)
+        os << "ID:" << size_t(message.mHeader.mMessageType)
            << " Size:" << message.mHeader.mBodySize
            << "Timestamp:" << std::put_time(&formattedTimestamp, "%F %T");
         return os;
-    }
-
-    template <typename T>
-    friend Message& operator<<(Message& message, const T& data)
-    {
-        static_assert(std::is_standard_layout<T>::value,
-                      "Data is too complex to be pushed into vector");
-
-        size_t i = message.mBody.size();
-        message.mBody.resize(message.mBody.size() + sizeof(T));
-        std::memcpy(message.mBody.data() + i, &data, sizeof(T));
-        message.mHeader.mBodySize = static_cast<std::uint32_t>(message.mBody.size());
-        return message;
-    }
-
-    template <typename T>
-    friend Message& operator>>(Message& message, T& data)
-    {
-        static_assert(std::is_standard_layout<T>::value,
-                      "Data is too complex to be pulled from vector");
-
-        size_t i = message.mBody.size() - sizeof(T);
-        std::memcpy(&data, message.mBody.data() + i, sizeof(T));
-        message.mBody.resize(i);
-        message.mHeader.mBodySize = static_cast<std::uint32_t>(message.mBody.size());
-        return message;
     }
 
     friend bool operator<(const Message& lhs, const Message& rhs)
@@ -88,4 +62,10 @@ struct Message
         return lhs.mHeader.mTimestamp > rhs.mHeader.mTimestamp;
     }
 };
+
+template <typename Archive>
+void serialize(Archive& ar, Message::MessageHeader& o)
+{
+    ar& o.mMessageType& o.mBodySize& o.mTimestamp;
+}
 }  // namespace Network
