@@ -16,7 +16,6 @@ public:
      * @param bodyBuffer - buffer that will contain compressed body.
      */
     MessageProcessingState handleOutcomingMessage(const Message& message,
-                                             yas::shared_buffer& headerBuffer,
                                 yas::shared_buffer& bodyBuffer) override
     {
         // Message::MessageHeader messageHeader = message.mHeader;
@@ -26,24 +25,7 @@ public:
 
         if (this->nextHandler)
         {
-            this->nextHandler->handleOutcomingMessage(message, headerBuffer, bodyBuffer);
-        }
-        return MessageProcessingState::SUCCESS;
-    }
-
-    /**
-     * @brief Method for decompression of incoming message headers.
-     * @param buffer - buffer that contains data that should be decompressed.
-     * @param messageHeader - variable that will contain decompressed message header data.
-     */
-    MessageProcessingState handleIncomingMessageHeader(const yas::shared_buffer buffer,
-                                     Message::MessageHeader& messageHeader) override
-    {
-        // header decompression
-
-        if (this->nextHandler)
-        {
-            this->nextHandler->handleIncomingMessageHeader(buffer, messageHeader);
+            this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
         }
         return MessageProcessingState::SUCCESS;
     }
