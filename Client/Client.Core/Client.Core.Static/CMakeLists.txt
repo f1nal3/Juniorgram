@@ -17,10 +17,15 @@ target_include_directories(${TARGET}
 target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:DataAccess.Static,SOURCE_DIR>/..)
 
+target_include_directories(${TARGET} PRIVATE
+    $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
+
 
 target_link_libraries(${TARGET}
         PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas
-        PUBLIC Network.Public Utility.Static)
+        PUBLIC Utility.Static
+        PUBLIC Network.Public
+		PUBLIC DataAccess.Static)
 
 set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)
 

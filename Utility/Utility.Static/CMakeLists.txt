@@ -8,13 +8,14 @@ set(SOURCE_FILES
     JsonSerializer.cpp
     SafePriorityQueue.hpp
     TaskManager.hpp
-    Cryptography.cpp
+    SymmetricCipher.cpp
 	MACAddress.hpp
-	MACAddress.cpp)
+	MACAddress.cpp
+	HashingAlgorithms.hpp)
 
 # Add a library with the above sources
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
-target_link_libraries(${TARGET} Qt5::Widgets Qt5::Core Network.Public CONAN_PKG::cryptopp CONAN_PKG::asio CONAN_PKG::yas)
+target_link_libraries(${TARGET} Qt5::Widgets Qt5::Core Network.Public Utility.Public CONAN_PKG::cryptopp CONAN_PKG::asio CONAN_PKG::yas)
 
 target_compile_options(${TARGET} PRIVATE "-fPIC")

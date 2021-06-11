@@ -1,7 +1,8 @@
 #include "App.hpp"
 #include "Utility/YasSerializer.hpp"
-#include "DataAccess.Static/SQLCipherAdapter.hpp"
 #include "Network/Primitives.hpp"
+
+#include <DataAccess.Static/SQLCipherAdapter.hpp>
 
 App::App(/* args */)
 {

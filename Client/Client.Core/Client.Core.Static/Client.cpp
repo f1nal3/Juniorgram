@@ -4,8 +4,7 @@
 #include <Network/Primitives.hpp>
 #include <Utility/WarningSuppression.hpp>
 #include <Utility.Static/Cryptography.hpp>
-
-#include "DataAccess.Static/SQLCipherRepository.hpp"
+#include <DataAccess.Static/SQLCipherRepository.hpp>
 
 namespace Network
 {

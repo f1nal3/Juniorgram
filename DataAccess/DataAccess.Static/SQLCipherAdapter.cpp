@@ -1,9 +1,4 @@
-#include "Utility/WarningSuppression.hpp"
 #include "SQLCipherAdapter.hpp"
-#include <iostream>
-#include <Utility/Exception.hpp>
-#include <Utility.Static/MACAddress.hpp>
-
 
 namespace DataAccess
 {
@@ -11,6 +6,12 @@ enum class TableExistance : std::uint16_t
 {
     nonExistent = 0,
     exists = 1
+};
+
+enum class MACAdressExistance : long
+{
+    exists      = 0,
+    nonExistent = -1
 };
 
 suppressWarning(4100, Init) 
@@ -30,33 +31,47 @@ void sqlite3_deleter::operator()(sqlite3* sql) { sqlite3_close(sql); }
 
 sqlite3_ptr make_sqlite3(const std::string_view& dbName)
 {
-    sqlite3* db = nullptr;
-    unsigned char result[6];
+  unsigned char rawMACAddress[6]{};
+  sqlite3* db = nullptr;   
 
-    MACAddressUtility::GetMACAddress(result);
+  if(MACAddressUtility::GetMACAddress(rawMACAddress) == (long)MACAdressExistance::exists)
+  {
+      std::stringstream MACAddress;
 
-    if (sqlite3_open(dbName.data(), &db) != SQLITE_OK)
-    {
-        throw Utility::OperationDBException("Failed to open sqlite!", __FILE__, __LINE__);
-    }
+      MACAddress << std::hex << (unsigned int)rawMACAddress[0] << ':'
+                 << (unsigned int)rawMACAddress[1] << ':' << (unsigned int)rawMACAddress[2] << ':'
+                 << (unsigned int)rawMACAddress[3] << ':' << (unsigned int)rawMACAddress[4] << ':'
+                 << (unsigned int)rawMACAddress[5];       
+ 
+      if (sqlite3_open(dbName.data(), &db) != SQLITE_OK)
+      {
+          throw Utility::OperationDBException("Failed to open sqlite!", __FILE__, __LINE__);
+      }
 
-    suppressWarning(4267, Init) 
-    /*sqlite3_key(db, key.c_str(), key.size());*/
-    restoreWarning
+      suppressWarning(4267, Init) 
+      sqlite3_key(db, MACAddress.str().c_str(), MACAddress.str().size());
+      restoreWarning
 
-       std::unique_ptr<std::vector<std::string>>
-            isExists = std::make_unique<std::vector<std::string>>();
+      std::unique_ptr<std::vector<std::string>>
+      isExists = std::make_unique<std::vector<std::string>>();
 
-    sqlite3_exec(
-    db, "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'refresh_tokens';",
-                 callback, isExists.get(), 0);
+      //sqlite3_exec(db, "INSERT INTO refresh_tokens(refresh_token) VALUES('72asd3222222224');",
+      //    callback, isExists.get(), 0);
 
-    if (std::stoi(isExists.get()->front()) == (std::uint16_t)TableExistance::nonExistent)
-    {
-        sqlite3_exec(db, "CREATE TABLE refresh_tokens(refresh_token TEXT NOT NULL);", 0, 0, 0);
-    }
-  
-    return sqlite3_ptr(db);
+      sqlite3_exec(
+          db, "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'refresh_tokens';",
+          callback, isExists.get(), 0);
+
+      if (std::stoi(isExists.get()->front()) == (std::uint16_t)TableExistance::nonExistent)
+      {
+          sqlite3_exec(db, "CREATE TABLE refresh_tokens(refresh_token TEXT NOT NULL);", 0, 0, 0);
+      }
+  }
+  else
+  {
+      std::runtime_error("Unable to get the MAC address on the device!");
+  }
+  return sqlite3_ptr(db);
 }
 
 SQLCipherAdapter::~SQLCipherAdapter() { closeConnection(); }

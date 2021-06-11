@@ -1,12 +1,10 @@
 #include "MACAddress.hpp"
- 
+
 #include <stdio.h>
  
 #if defined(WIN32) || defined(UNDER_CE)
 #   include <windows.h>
-#   if defined(UNDER_CE)
-#       include <Iphlpapi.h>
-#   endif
+#   pragma comment(lib, "rpcrt4.lib")
 #elif defined(__APPLE__)
 #   include <CoreFoundation/CoreFoundation.h>
 #   include <IOKit/IOKitLib.h>
@@ -21,12 +19,13 @@
 #   include <arpa/inet.h>
 #endif
  
+suppressWarning(4702, Init)
 long MACAddressUtility::GetMACAddress(unsigned char * result)
 {
     // Fill result with zeroes
     memset(result, 0, 6);
     // Call appropriate function for each platform
-#if defined(WIN32) || defined(UNDER_CE)
+#if defined(WIN32)
     return GetMACAddressMSW(result);
 #elif defined(__APPLE__)
     return GetMACAddressMAC(result);
@@ -34,25 +33,19 @@ long MACAddressUtility::GetMACAddress(unsigned char * result)
     return GetMACAddressLinux(result);
 #endif
     // If platform is not supported then return error code
-    return -1;
+    
+    return -1;    
 }
- 
-#if defined(WIN32) || defined(UNDER_CE)
+restoreWarning
+
+#if defined(WIN32)
  
 inline long MACAddressUtility::GetMACAddressMSW(unsigned char * result)
 {
-     
-#if defined(UNDER_CE)
-    IP_ADAPTER_INFO AdapterInfo[16]; // Allocate information
-    DWORD dwBufLen = sizeof(AdapterInfo); // Save memory size of buffer
-    if(GetAdaptersInfo(AdapterInfo, &dwBufLen) == ERROR_SUCCESS)
-    {
-        memcpy(result, AdapterInfo->Address, 6);
-    }
-    else return -1;
-#else
+#if defined(WIN32)
     UUID uuid;
-    if(UuidCreateSequential(&uuid) == RPC_S_UUID_NO_ADDRESS) return -1;
+    if(UuidCreateSequential(&uuid) == RPC_S_UUID_NO_ADDRESS)
+        return -1;
     memcpy(result, (char*)(uuid.Data4+2), 6);
 #endif
     return 0;

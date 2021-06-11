@@ -7,7 +7,6 @@
 #include "DataAccess/IRepository.hpp"
 #include "DatabaseAbstractionLayout.hpp"
 #include "Utility/Exception.hpp"
-#include "Utility/Utility.hpp"
 
 namespace DataAccess
 {

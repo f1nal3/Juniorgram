@@ -1,9 +1,15 @@
 #pragma once
-#include <DataAccess/IAdapter.hpp>
+#include "Utility/WarningSuppression.hpp"
+#include <Utility.Static/MACAddress.hpp>
+
+#include <iostream>
 #include <memory>
 #include <mutex>
 #include <pqxx/pqxx>
 #include <sqlcipher/sqlite3.h>
+#include <DataAccess/IAdapter.hpp>
+#include <Utility/Exception.hpp>
+
 
 namespace DataAccess
 {

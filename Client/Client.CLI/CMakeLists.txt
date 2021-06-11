@@ -10,8 +10,12 @@ add_executable(${TARGET} ${SOURCE_FILES})
 target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:DataAccess.Static,SOURCE_DIR>/..)
 
+target_include_directories(${TARGET} PRIVATE
+    $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
+
 target_link_libraries(${TARGET} PUBLIC Network.Public
 								PUBLIC Utility.Public
+								PUBLIC Utility.Static
 								PUBLIC Client.Core.Static
 								PUBLIC DataAccess.Static
 								PUBLIC CONAN_PKG::sqlcipher

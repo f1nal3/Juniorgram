@@ -1,4 +1,5 @@
 #pragma once
+#include "Utility/WarningSuppression.hpp"
 
 class MACAddressUtility
 {
