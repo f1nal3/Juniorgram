@@ -6,13 +6,13 @@
 #include <QtWidgets/qfiledialog.h>
 #include <QtCore/QStringList>
 
-class Serialize
+class JsonSerializer
 {
 private:
     QJsonObject m_messageData;
 public:
-    Serialize() = default;
+    JsonSerializer() = default;
     void pushData(QStringList &messagesList);
     void updateSerialize(QStringList &messagesList);
-    ~Serialize();
+    ~JsonSerializer();
 };
