@@ -7,7 +7,7 @@ namespace internal
 namespace
 {
 QMap<QString, int>      fontFamilyMap;
-QVector<QString>        fontFamilies;
+QList<QString>          fontFamilies;
 QMap<uint32, FontData*> fontsMap;
 
 uint32 fontKey(int size, uint32 flags, int family)
