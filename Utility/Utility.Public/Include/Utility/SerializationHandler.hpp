@@ -44,7 +44,7 @@ public:
                 case Message::MessageType::MessageStoreRequest:
                     state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
                     break;
-                case Message::MessageType::MessageStoreRequest:
+                case Message::MessageType::RegistrationRequest:
                     state = processOutcomingMessageBody<RegistrationInfo>(bodyBuffer, 
                                                                           message.mBody);
                 default:
