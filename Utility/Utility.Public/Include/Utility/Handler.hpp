@@ -29,10 +29,8 @@ public:
     virtual Handler* setNext(Handler* handler)                                            = 0;
     virtual MessageProcessingState handleOutcomingMessage(const Message& message,
                                                           yas::shared_buffer& bodyBuffer) = 0;
-    virtual MessageProcessingState handleIncomingMessageHeader(
-        const yas::shared_buffer buffer, Message::MessageHeader& messgeHeader) = 0;
     virtual MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer,
-                                                             Message& message) = 0;
+                                                             Message& message)            = 0;
 };
 
 /** @class AbstractHandler
@@ -70,21 +68,6 @@ public:
         if (this->nextHandler)
         {
             this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
-        }
-        return MessageProcessingState::SUCCESS;
-    }
-
-    /**
-     * @brief Method for preprocessing of incoming message headers.
-     * @param buffer - buffer that contains data that should be preprocessed.
-     * @param messageHeader - variable that will contain preprocessed message header data.
-     */
-    MessageProcessingState handleIncomingMessageHeader(
-        const yas::shared_buffer buffer, Message::MessageHeader& messageHeader) override
-    {
-        if (this->nextHandler)
-        {
-            this->nextHandler->handleIncomingMessageHeader(buffer, messageHeader);
         }
         return MessageProcessingState::SUCCESS;
     }

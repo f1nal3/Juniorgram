@@ -59,29 +59,6 @@ public:
     }
 
     /**
-     * @brief Method for deserialization of incoming message headers.
-     * @param buffer - buffer that contains data that should be deserialized.
-     * @param messageHeader - variable that will contain deserialized message header data.
-     */
-    MessageProcessingState handleIncomingMessageHeader(const yas::shared_buffer buffer,
-                                                  Message::MessageHeader& messageHeader) override
-    {
-        SerializedState state = YasSerializer::template deserialize<Message::MessageHeader>(buffer, messageHeader);
-
-        if (state == SerializedState::SUCCESS)
-        {
-            if (this->nextHandler)
-            {
-                this->nextHandler->handleIncomingMessageHeader(buffer, messageHeader);
-            }
-
-            return MessageProcessingState::SUCCESS;
-        }
-
-        return MessageProcessingState::FAILURE;
-    }
-
-    /**
      * @brief Method for deserialization of incoming message bodies.
      * @param buffer - buffer that contains data that should be deserialized.
      * @param messageHeader - variable that will contain deserialized message body.

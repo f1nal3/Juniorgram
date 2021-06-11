@@ -31,23 +31,6 @@ public:
     }
 
     /**
-     * @brief Method for decryption of incoming message headers.
-     * @param buffer - buffer that contains data that should be decrypted.
-     * @param messageHeader - variable that will contain decrypted message header data.
-     */
-    MessageProcessingState handleIncomingMessageHeader(const yas::shared_buffer buffer,
-                                                  Message::MessageHeader& messageHeader) override
-    {
-        // header decryption
-
-        if (this->nextHandler)
-        {
-            this->nextHandler->handleIncomingMessageHeader(buffer, messageHeader);
-        }
-        return MessageProcessingState::SUCCESS;
-    }
-
-    /**
      * @brief Method for decryption of incoming message bodies.
      * @param buffer - buffer that contains data that should be decrypted.
      * @param messageHeader - variable that will contain decrypted message body.

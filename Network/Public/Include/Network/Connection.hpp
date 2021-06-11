@@ -63,29 +63,6 @@ private:
     /// Buffer to store the part of incoming message while it is read
     Message mMessageBuffer;
 
-    size_t getMaxMessageHeaderSize()
-    {
-        yas::shared_buffer buffer;
-        YasSerializer::template serialize<Message::MessageHeader>(
-            buffer,
-            Message::MessageHeader{static_cast<Message::MessageType>(UINT32_MAX), UINT32_MAX,
-                                   std::chrono::system_clock::time_point::max()});
-        std::cout << "max: " << buffer.size << '\n';
-        return buffer.size;
-    }
-
-    size_t getMinMessageHeaderSize()
-    {
-        yas::shared_buffer buffer;
-        YasSerializer::template serialize<Message::MessageHeader>(
-            buffer, Message::MessageHeader{Message::MessageType::ServerAccept, 0U,
-                                           std::chrono::system_clock::time_point(
-                                               (std::chrono::system_clock::duration::min)())});
-        std::cout << "min: " << buffer.size << '\n';
-
-        return buffer.size;
-    }
-
     /**
      * @brief Method for sending message header.
      * @details Function asio::async_write is used to write the header of the message /
@@ -104,7 +81,8 @@ private:
         handler.setNext(new CompressionHandler())->setNext(new EncryptionHandler());
         MessageProcessingState result = handler.handleOutcomingMessage(mOutcomingMessagesQueue.front(), bodyBuffer);
         
-        auto outcomingMessageHeader = mOutcomingMessagesQueue.front().mHeader;
+        Network::Message::MessageHeader outcomingMessageHeader =
+            mOutcomingMessagesQueue.front().mHeader;
         outcomingMessageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
         
         if (result == MessageProcessingState::SUCCESS)

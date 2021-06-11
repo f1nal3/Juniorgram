@@ -31,23 +31,6 @@ public:
     }
 
     /**
-     * @brief Method for decompression of incoming message headers.
-     * @param buffer - buffer that contains data that should be decompressed.
-     * @param messageHeader - variable that will contain decompressed message header data.
-     */
-    MessageProcessingState handleIncomingMessageHeader(const yas::shared_buffer buffer,
-                                     Message::MessageHeader& messageHeader) override
-    {
-        // header decompression
-
-        if (this->nextHandler)
-        {
-            this->nextHandler->handleIncomingMessageHeader(buffer, messageHeader);
-        }
-        return MessageProcessingState::SUCCESS;
-    }
-
-    /**
      * @brief Method for decompression of incoming message bodies.
      * @param buffer - buffer that contains data that should be decompressed.
      * @param messageHeader - variable that will contain decompressed message body.
