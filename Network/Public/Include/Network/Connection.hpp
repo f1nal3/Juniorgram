@@ -63,27 +63,6 @@ private:
     /// Buffer to store the part of incoming message while it is read
     Message mMessageBuffer;
 
-    size_t getMaxMessageHeaderSize()
-    {
-        yas::shared_buffer buffer;
-        YasSerializer::template serialize<Message::MessageHeader>(
-            buffer,
-            Message::MessageHeader{static_cast<Message::MessageType>(UINT32_MAX), UINT32_MAX,
-                                   std::chrono::system_clock::time_point::max()});
-        return buffer.size;
-    }
-
-    size_t getMinMessageHeaderSize()
-    {
-        yas::shared_buffer buffer;
-        YasSerializer::template serialize<Message::MessageHeader>(
-            buffer, Message::MessageHeader{Message::MessageType::ServerAccept, 0U,
-                                           std::chrono::system_clock::time_point(
-                                               (std::chrono::system_clock::duration::min)())});
-
-        return buffer.size;
-    }
-
     /**
      * @brief Method for sending message header.
      * @details Function asio::async_write is used to write the header of the message /
@@ -96,13 +75,16 @@ private:
      */
     void writeHeader()
     {
-        yas::shared_buffer headerBuffer;
         yas::shared_buffer bodyBuffer;
 
         SerializationHandler handler;
         handler.setNext(new CompressionHandler())->setNext(new EncryptionHandler());
-        MessageProcessingState result = handler.handleOutcomingMessage(mOutcomingMessagesQueue.front(), headerBuffer, bodyBuffer);
-
+        MessageProcessingState result = handler.handleOutcomingMessage(mOutcomingMessagesQueue.front(), bodyBuffer);
+        
+        Network::Message::MessageHeader outcomingMessageHeader =
+            mOutcomingMessagesQueue.front().mHeader;
+        outcomingMessageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
+        
         if (result == MessageProcessingState::SUCCESS)
         {
             const auto writeHeaderHandler = [this, bodyBuffer](std::error_code error) {
@@ -129,7 +111,8 @@ private:
                 }
             };
 
-            asio::async_write(mSocket, asio::buffer(headerBuffer.data.get(), headerBuffer.size),
+            asio::async_write(mSocket,
+                              asio::buffer(&outcomingMessageHeader, sizeof(Message::MessageHeader)),
                               std::bind(writeHeaderHandler, std::placeholders::_1));
         }
     }
@@ -182,27 +165,16 @@ private:
      */
     void readHeader()
     {
-        yas::shared_buffer buffer;
-        buffer.resize(this->getMaxMessageHeaderSize());
-
-        const auto readHeaderHandler = [this, buffer](std::error_code error) {
+        const auto readHeaderHandler = [this](std::error_code error) {
             if (!error)
             {
-                EncryptionHandler handler;
-                handler.setNext(new CompressionHandler())->setNext(new SerializationHandler());
-                MessageProcessingState result = handler.handleIncomingMessageHeader(buffer,
-                                                                     mMessageBuffer.mHeader);
-
-                if (result == MessageProcessingState::SUCCESS)
+                if (mMessageBuffer.mHeader.mBodySize > 0)
                 {
-                    if (mMessageBuffer.mHeader.mBodySize > 0)
-                    {
-                        readBody(mMessageBuffer.mHeader.mBodySize);
-                    }
-                    else
-                    {
-                        addToIncomingMessageQueue();
-                    }
+                    readBody(mMessageBuffer.mHeader.mBodySize);
+                }
+                else
+                {
+                    addToIncomingMessageQueue();
                 }
             }
             else
@@ -212,8 +184,8 @@ private:
             }
         };
 
-        asio::async_read(mSocket, asio::buffer(buffer.data.get(), buffer.size),
-                         asio::transfer_at_least(this->getMinMessageHeaderSize()),
+        asio::async_read(mSocket,
+                         asio::buffer(&mMessageBuffer.mHeader, sizeof(Message::MessageHeader)),
                          std::bind(readHeaderHandler, std::placeholders::_1));
     }
 
