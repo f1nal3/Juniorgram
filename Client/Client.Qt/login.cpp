@@ -17,14 +17,10 @@ Login::Login(QWidget* parent) : QWidget(parent)
 
     const int BLOCKWIDTH = Style::valueDPIScale(500);
     buttonSignin->resize(BLOCKWIDTH, buttonSignin->sizeHint().height());
-    buttonSignin->show();
     buttonRegistration->resize(BLOCKWIDTH, buttonRegistration->sizeHint().height());
-    buttonRegistration->show();
 
     passwordLineEdit->resize(BLOCKWIDTH, passwordLineEdit->sizeHint().height());
-    passwordLineEdit->show();
     usernameLineEdit->resize(BLOCKWIDTH, usernameLineEdit->sizeHint().height());
-    usernameLineEdit->show();
 }
 
 void Login::keyPressEvent(QKeyEvent* event)
