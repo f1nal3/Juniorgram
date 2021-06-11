@@ -53,7 +53,7 @@ set(SOURCE_FILES
         Style/Style.cpp
         Style/Style.hpp
         Style/StyleBasic.hpp
-        Style/StyleBasic.hpp
+        Style/StyleBasic.cpp
         Style/Palette.cpp
         Style/Palette.hpp
         Style/Shadow.hpp
