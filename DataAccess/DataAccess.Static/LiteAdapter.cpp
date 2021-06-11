@@ -6,8 +6,9 @@ namespace DataAccess
 LiteAdapter::LiteAdapter(const std::string_view& path)
 {
     db_connection = std::make_unique<QSqlDatabase>();
-    *db_connection = QSqlDatabase::addDatabase("QSQlITE");
+    *db_connection = QSqlDatabase::addDatabase("QSQLITE");
     db_connection->setDatabaseName(QString::fromStdString(std::string(path)));
+    db_connection->open();
 }
 
 std::shared_ptr<LiteAdapter> LiteAdapter::Instance(const std::string_view& path)

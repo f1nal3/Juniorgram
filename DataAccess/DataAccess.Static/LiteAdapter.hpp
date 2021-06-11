@@ -17,7 +17,7 @@ class LiteAdapter : public IAdapter
 public:
     inline static std::mutex mtx{};
     inline static std::shared_ptr<LiteAdapter> sqlite_instance{};
-    inline static constexpr std::string_view path = "Client/SQLiteDB.db";
+    inline static constexpr std::string_view path = "SQLiteDB.db";
     static std::shared_ptr<LiteAdapter> Instance(const std::string_view& path);
 private:
     std::unique_ptr<QSqlDatabase> db_connection;
