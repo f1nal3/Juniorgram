@@ -246,7 +246,7 @@ int registerFontFamily(const QString& family)
     {
         result = fontFamilies.size();
         fontFamilyMap.insert(family, result);
-        fontFamilies.push_back(family);
+        fontFamilies.append(family);
     }
     return result;
 }
@@ -312,7 +312,7 @@ Font::Font(int size, uint32 flags, const QString& family)
     auto i = fontFamilyMap.constFind(family);
     if (i == fontFamilyMap.cend())
     {
-        fontFamilies.push_back(family);
+        fontFamilies.append(family);
         i = fontFamilyMap.insert(family, fontFamilies.size() - 1);
     }
     init(size, flags, i.value(), nullptr);
