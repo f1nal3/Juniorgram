@@ -22,7 +22,7 @@ std::shared_ptr<LiteAdapter> LiteAdapter::Instance(const std::string_view& path)
 
 std::optional<std::any> LiteAdapter::query(const std::string_view &query)
 {
-    std::scoped_lock<std::mutex> lock(mtx);
+    std::scoped_lock<std::mutex> lock(query_mtx);
 
     if(this->isConnected())
     {

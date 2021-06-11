@@ -21,6 +21,7 @@ public:
     static std::shared_ptr<LiteAdapter> Instance(const std::string_view& path);
 private:
     std::unique_ptr<QSqlDatabase> db_connection;
+    std::mutex query_mtx;
 protected:
     LiteAdapter(const std::string_view& path);
 public:
