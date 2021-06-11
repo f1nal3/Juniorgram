@@ -7,14 +7,10 @@ set(SOURCE_FILES
  
 add_executable(${TARGET} ${SOURCE_FILES})
 
-target_link_libraries(${TARGET} PUBLIC Network.Public DataAccess.Static Client.Core.Static)
-target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio)
-
-target_include_directories(${TARGET}
-    INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
-target_include_directories(${TARGET} PRIVATE
-    $<TARGET_PROPERTY:DataAccess.Static,SOURCE_DIR>/..)
-
+target_link_libraries(${TARGET} PUBLIC Network.Public Utility.Public)
+target_link_libraries(${TARGET} PUBLIC Client.Core.Static)
+target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas)
+ 
 install(TARGETS ${TARGET}
         CONFIGURATIONS Debug
         RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Client/Debug)

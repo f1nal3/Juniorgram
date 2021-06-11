@@ -1,6 +1,6 @@
-#include "Serialize.hpp"
+#include "JsonSerializer.hpp"
 
-void Serialize::updateSerialize(QStringList &messagesList)
+void JsonSerializer::updateSerialize(QStringList &messagesList)
 {
     QFile jsonFile("text.json");
     if(!jsonFile.open(QIODevice::ReadOnly))
@@ -18,7 +18,7 @@ void Serialize::updateSerialize(QStringList &messagesList)
     }
 }
 
-void Serialize::pushData(QStringList &messagesList)
+void JsonSerializer::pushData(QStringList &messagesList)
 {
     QJsonObject json;
     json["Message"] = messagesList.back();
@@ -27,7 +27,7 @@ void Serialize::pushData(QStringList &messagesList)
     m_messageData["texts"] = jsonArray;
 }
 
-Serialize::~Serialize()
+JsonSerializer::~JsonSerializer()
 {
     QFile jsonFile("text.json");
     if(!jsonFile.open(QIODevice::WriteOnly))

@@ -1,5 +1,5 @@
 #include "App.hpp"
-
+#include "Utility/YasSerializer.hpp"
 #include "Network/Primitives.hpp"
 #include "DataAccess.Static/RepositoryUnits.hpp"
 
@@ -24,7 +24,7 @@ bool App::loop()
         {
             Network::Message message = client.incoming().pop_front();
 
-            switch (message.mHeader.mConnectionID)
+            switch (message.mHeader.mMessageType)
             {
                 case Network::Message::MessageType::ServerAccept:
                 {
@@ -37,7 +37,7 @@ bool App::loop()
                     std::chrono::system_clock::time_point timeNow =
                         std::chrono::system_clock::now();
                     std::chrono::system_clock::time_point timeThen;
-                    message >> timeThen;
+                    timeThen = message.mHeader.mTimestamp;
                     std::cout << "Ping: "
                               << std::chrono::duration<double>(timeNow - timeThen).count() << "\n";
                 }
@@ -45,8 +45,9 @@ bool App::loop()
 
                 case Network::Message::MessageType::ServerMessage:
                 {
-                    uint64_t clientID;
-                    message >> clientID;
+                    // need a structure / variable that will contain client Id
+                    uint64_t clientID = 0;
+                    // message >> clientID;
                     std::cout << "Hello from [" << clientID << "]\n";
                 }
                 break;
@@ -55,18 +56,13 @@ bool App::loop()
                 {
                     std::cout << "Channel list received: \n";
                     std::vector<std::string> channelList;
-
-                    std::size_t channelListSize;
-                    message >> channelListSize;
-
-                    for (std::size_t i = 0; i < channelListSize; i++)
+                    
+                    for (const auto& item :
+                         std::any_cast<std::vector<Network::ChannelInfo>>(message.mBody))
                     {
-                        Network::ChannelInfo info;
-                        message >> info;
-                        channelList.emplace_back(info.channelName);
+                        channelList.emplace_back(item.channelName);
+                        std::cout << item.channelName << '\n';
                     }
-
-                    for (auto& item : channelList) std::cout << item << '\n';
                 }
                 break;
 
@@ -75,17 +71,12 @@ bool App::loop()
                     std::cout << "Message history received: \n";
                     std::vector<std::string> messageList;
 
-                    std::size_t messageListSize;
-                    message >> messageListSize;
-
-                    for (std::size_t i = 0; i < messageListSize; i++)
+                    for (const auto& item :
+                         std::any_cast<std::vector<Network::MessageInfo>>(message.mBody))
                     {
-                        Network::MessageInfo info;
-                        message >> info;
-                        messageList.emplace_back(std::string(info.message));
+                        messageList.emplace_back(item.message);
+                        std::cout << item.message << '\n';
                     }
-
-                    for (auto& item : messageList) std::cout << item << '\n';
                 }
                 break;
 
@@ -95,32 +86,8 @@ bool App::loop()
                 }
                 break;
 
-                case Network::Message::MessageType::RegistrationRequest:
-                {
-                    RegistrationUnit::RegistrationCodes code;
-                    message >> code;
-                    
-                    if (code == RegistrationUnit::RegistrationCodes::SUCCESS)
-                    {
-                        std::cout << "New user was registered!" << std::endl;
-                    }
-                    else if (code == RegistrationUnit::RegistrationCodes::EMAIL_ALREADY_EXISTS)
-                    {
-                        std::cout << "Email already exists" << std::endl;
-                    }
-                    else if (code == RegistrationUnit::RegistrationCodes::LOGIN_ALREADY_EXISTS)
-                    {
-                        std::cout << "Login already exists" << std::endl;
-                    }
-                    else
-                    {
-                        std::cout << "Unknown code" << std::endl;
-                    }
-                }
-                break;
-
 				default:
-				break;
+                    break;
             }
         }
     }

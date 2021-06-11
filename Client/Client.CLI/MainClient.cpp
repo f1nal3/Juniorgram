@@ -32,14 +32,24 @@ int main()
             else if (cmd == "s")
             {
                 Network::Message message;
-                message << "{'msg':123,'id':777}";
+
+                Network::MessageInfo msg;
+                msg.userID  = 777;
+                msg.message = "123";
+                message.mBody = std::any_cast<Network::MessageInfo>(msg);
+
                 clientApp.shell()->send(message);
                 cmd = "";
             }
             else if (cmd == "qs")
             {
                 Network::Message message;
-                message << "{'msg':0,'id':0,'cmd':True}";
+
+                Network::MessageInfo msg;
+                msg.userID  = 777;
+                msg.message = "123";
+                message.mBody = std::any_cast<Network::MessageInfo>(msg);
+
                 clientApp.shell()->send(message);
             }
             else if (cmd == "cl")
