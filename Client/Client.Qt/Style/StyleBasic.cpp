@@ -1,6 +1,6 @@
 // WARNING! All changes made in this file will be lost!
 // This file was created automatically
-#include "StyleBasic.h"
+#include "StyleBasic.hpp"
 
 #include "Style/Palette.hpp"
 

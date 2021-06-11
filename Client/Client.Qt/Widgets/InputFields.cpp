@@ -1,6 +1,6 @@
 #include "InputFields.hpp"
 
-#include <Style/style_basic.h>
+#include "Style/StyleBasic.hpp"
 
 #include <QCommonStyle>
 #include <QStyle>

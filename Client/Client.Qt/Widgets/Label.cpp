@@ -1,10 +1,12 @@
 #include "Label.hpp"
 
+#include "Style/StyleBasic.hpp"
+
 Label::Label(const QString& text, QWidget* parent) : QLabel(text, parent)
 {
-    setStyleSheet(
-        QString("QLabel {"
-                "background-color: rgba(0,0,0,0);"
-                "color: white;"
-                "}"));
+    setFont(st::defaultFont);
+    setAttribute(Qt::WA_TranslucentBackground);
+    auto p = palette();
+    p.setColor(QPalette::Text, Qt::white);
+    setPalette(p);
 }

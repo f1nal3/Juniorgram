@@ -20,5 +20,7 @@ private:
     std::unique_ptr<FlatInput> passwordLineEdit;
     std::unique_ptr<FlatButton> buttonSignin;
     std::unique_ptr<FlatButton> buttonRegistration;
+
+    std::unique_ptr<LinkButton> forgotPassword;
     std::unique_ptr<LogoWidget> logoWidget;
 };

@@ -47,6 +47,8 @@ public:
 	inline const color &get_titleButtonOver() const { return _colors[6]; };
 	inline const color &get_closeButtonC() const { return _colors[7]; };
 	inline const color &get_closeButtonCOver() const { return _colors[8]; };
+	inline const color &get_linkButtonColor() const { return _colors[9]; };
+	inline const color &get_linkButtonOverColor() const { return _colors[10]; };
 
 	palette &operator=(const palette &other) {
 		auto wasReady = _ready;
@@ -76,7 +78,7 @@ public:
 	}
 
 private:
-	static constexpr auto kCount = 9;
+	static constexpr auto kCount = 11;
 
 	void clear() {
 		for (int i = 0; i != kCount; ++i) {
@@ -136,6 +138,8 @@ private:
 		data(6),
 		data(7),
 		data(8),
+		data(9),
+		data(10),
 	};
 	Status _status[kCount] = { Status::Initial };
 	bool _ready = false;
@@ -173,4 +177,6 @@ extern const Style::color &titleButton;
 extern const Style::color &titleButtonOver;
 extern const Style::color &closeButtonC;
 extern const Style::color &closeButtonCOver;
+extern const Style::color &linkButtonColor;
+extern const Style::color &linkButtonOverColor;
 } // namespace st

@@ -155,7 +155,6 @@ void MessageWidget::deleteButtonClick()
     clearMessage();
     messageItem->setSizeHint(QSize(0, Style::valueDPIScale(40)));
     delMessage = new Label("Message was deleted");
-    delMessage->setFont(QFont("Noto Sans", Style::valueDPIScale(12)));
     mainLayout->addWidget(delMessage);
     messageDeleted = true;
 }
@@ -188,7 +187,7 @@ void MessageWidget::reactionChange(int index)
         {
             ++reactionMap["Like"];
             reactionLabelIcon->setPixmap(
-                LikeIcon[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
+                LikeIcon[0].scaled(fontInfo().pixelSize(), fontInfo().pixelSize(),
                                    Qt::KeepAspectRatio, Qt::SmoothTransformation));
             reactionLabel->setText(QString::number(reactionMap["Like"]));
             break;
