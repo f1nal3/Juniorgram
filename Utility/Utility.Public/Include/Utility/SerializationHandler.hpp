@@ -12,15 +12,12 @@ public:
     /**
      * @brief Method for serialization of outcoming messages.
      * @param message - buffer that contains data that should be serialized.
-     * @param headerBuffer - buffer that will contain serialized header.
      * @param bodyBuffer - buffer that will contain serialized body.
      */
     MessageProcessingState handleOutcomingMessage(const Message& message,
-                                             yas::shared_buffer& headerBuffer,
                                              yas::shared_buffer& bodyBuffer) override
     {
-        SerializedState state                = SerializedState::SUCCESS;
-        Message::MessageHeader messageHeader = message.mHeader;
+        SerializedState state = SerializedState::SUCCESS;
 
         if (message.mBody.has_value())
         {
@@ -47,20 +44,13 @@ public:
                 default:
                     break;
             }
-
-            if (state == SerializedState::SUCCESS)
-            {
-                messageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
-            }
         }
 
         if (state == SerializedState::SUCCESS)
         {
-            YasSerializer::template serialize<Message::MessageHeader>(headerBuffer, messageHeader);
-
             if (this->nextHandler)
             {
-                this->nextHandler->handleOutcomingMessage(message, headerBuffer, bodyBuffer);
+                this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
             }
             return MessageProcessingState::SUCCESS;
         }

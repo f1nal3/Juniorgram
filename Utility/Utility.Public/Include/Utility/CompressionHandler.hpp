@@ -16,7 +16,6 @@ public:
      * @param bodyBuffer - buffer that will contain compressed body.
      */
     MessageProcessingState handleOutcomingMessage(const Message& message,
-                                             yas::shared_buffer& headerBuffer,
                                 yas::shared_buffer& bodyBuffer) override
     {
         // Message::MessageHeader messageHeader = message.mHeader;
@@ -26,7 +25,7 @@ public:
 
         if (this->nextHandler)
         {
-            this->nextHandler->handleOutcomingMessage(message, headerBuffer, bodyBuffer);
+            this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
         }
         return MessageProcessingState::SUCCESS;
     }
