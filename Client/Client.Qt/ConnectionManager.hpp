@@ -2,6 +2,7 @@
 #include "Client.hpp"
 #include "Network/Primitives.hpp"
 #include "Widgets/ChannelListWindow.hpp"
+#include "DataAccess.Static/RepositoryUnits.hpp"
 
 class ConnectionManager
 {
@@ -98,8 +99,7 @@ public:
 
                         case Network::Message::MessageType::RegistrationRequest:
                         {
-                            RegistrationUnit::RegistrationCodes code;
-                            message >> code;
+                            auto code = std::any_cast<RegistrationUnit::RegistrationCodes>(message.mBody);
 
                             if (code == RegistrationUnit::RegistrationCodes::SUCCESS)
                             {

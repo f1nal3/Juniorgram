@@ -7,8 +7,8 @@
 
 std::string nowTimeStampStr();
 
-/** @class TokenUnit.
- *   @brief TokenUnit for work with tokens.
+/**  @class TokenUnit.
+ *  @brief TokenUnit for work with tokens.
  */
 class TokenUnit
 {
@@ -22,27 +22,32 @@ public:
     TokenUnit& operator=(const TokenUnit&) = delete;
     ~TokenUnit()                           = default;
 
-    /** @brief Method for getting of single TokenUnit instance.
-    *   @details This instance need for gaining access to /
-    *   other class members from outside.
-    *   @return TokenUnit - single class object.
-    */
+    /**  @brief Method for getting of single TokenUnit instance.
+     *   @details This instance need for gaining access to /
+     *   other class members from outside.
+     *   @return TokenUnit - single class object.
+     */
     inline static TokenUnit& instance()
     {
         static TokenUnit token;
         return token;
     }
-
+    
+    /**  @brief Method for getting of token length.
+    *   @return std::uint16_t - token.
+    */
     inline std::uint16_t getTokenLength() const { return TOKEN_LENGTH; }
 
-    /** @brief Draft method of token creating for user.
+    /**  @brief DRAFT method of token creating for user.
+     *   @Details Tokens need for authorization and protection /
+     *   against unauthorized access.
      *   @return std::string token.
      */
     std::string createToken(const std::uint64_t userID) const;
 };
 
-/** @class RegistrationUnit.
- *   @brief RegistrationUnit for user's registration.
+/**  @class RegistrationUnit.
+ *  @brief RegistrationUnit for user's registration.
  */
 class RegistrationUnit
 {
@@ -54,6 +59,10 @@ public:
     RegistrationUnit& operator=(RegistrationUnit&) = delete;
     ~RegistrationUnit()                            = default;
 
+    /**  @brief Enum class for tracking authorization status.
+     *   @details RegistrationCodes registerUser(const Network::RegistrationInfo& rm) const /
+     *    return one of this codes.
+     */
     enum class RegistrationCodes : std::uint8_t
     {
         EMAIL_ALREADY_EXISTS,
@@ -61,7 +70,7 @@ public:
         SUCCESS,
     };
 
-    /** @brief Method for getting of single RegistrationUnit instance.
+    /**  @brief Method for getting of single RegistrationUnit instance.
      *   @details This instance need for gaining access to /
      *   other class members from outside.
      *   @return RegistrationUnit - single class object.
@@ -72,12 +81,12 @@ public:
         return registartor;
     }
 
-    /** @brief Method for user registration.
+    /**  @brief Method for user registration.
      *   @params RegistrationMessage which contains user data for registration.
      *   @return The return value of the method is one of the RegistrationCodes (enum). /
-         Registration successful - RegistrationCodes::SUCCESS. / 
-         The user already exists - RegistrationCodes::EMAIL_ALREADY_EXISTS OR /
-         RegistrationCodes::LOGIN_ALREADY_EXISTS.
+     *   Registration successful - RegistrationCodes::SUCCESS. / 
+     *   The user already exists - RegistrationCodes::EMAIL_ALREADY_EXISTS OR /
+     *   RegistrationCodes::LOGIN_ALREADY_EXISTS.
      */
-    RegistrationCodes registerUser(const Network::RegisrtationMessage& rm) const;
+    RegistrationCodes registerUser(const Network::RegistrationInfo& rm) const;
 };

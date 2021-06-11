@@ -33,7 +33,8 @@ std::string TokenUnit::createToken(const std::uint64_t userID) const
     return possibleCharacters.substr(0, TOKEN_LENGTH);
 }
 
-RegistrationUnit::RegistrationCodes RegistrationUnit::registerUser(const Network::RegisrtationMessage& rm) const
+RegistrationUnit::RegistrationCodes RegistrationUnit::registerUser(
+    const Network::RegistrationInfo& rm) const
 {
     auto getUsersAmount = [&](const std::string& condition) -> std::uint16_t 
     {
@@ -47,20 +48,20 @@ RegistrationUnit::RegistrationCodes RegistrationUnit::registerUser(const Network
     };
 
     // Check on existing of login and email in repository.
-    if (getUsersAmount("email = '" + std::string(rm.email) + "'") > 0)
+    if (getUsersAmount("email = '" + rm.getEmail() + "'") > 0)
     {
         return RegistrationCodes::EMAIL_ALREADY_EXISTS;
     }
-    if (getUsersAmount("login = '" + std::string(rm.login) + "'"))
+    if (getUsersAmount("login = '" + std::string(rm.getLogin()) + "'"))
     {
         return RegistrationCodes::LOGIN_ALREADY_EXISTS;
     }
 
     std::tuple userData
     {
-        std::pair{"email", rm.email},
-        std::pair{"login", rm.login},
-        std::pair{"password_hash", rm.password}
+        std::pair{"email", rm.getEmail()},
+        std::pair{"login", rm.getLogin()},
+        std::pair{"password_hash", rm.getPassword()}
     };
     PTable("users").Insert()->columns(userData)->execute();
 

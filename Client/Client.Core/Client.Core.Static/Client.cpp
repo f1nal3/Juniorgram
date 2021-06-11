@@ -115,18 +115,12 @@ void Client::storeMessages(const std::vector<std::string>& messagesList) const
 void Client::userRegistration(const std::string& email, const std::string& login,
                       const std::string& password) const
 {
+    Network::RegistrationInfo rm(email, login, password);
+
     Network::Message message;
-    message.mHeader.mConnectionID = Network::Message::MessageType::RegistrationRequest;
-
-    Network::RegisrtationMessage rm;
-
-    suppressWarning(4996, -Winit-self) 
-        strcpy(rm.email, email.data());
-        strcpy(rm.login, login.data());
-        strcpy(rm.password, password.data());
-    restoreWarning
-
-    message << rm;
+    message.mHeader.mMessageType = Network::Message::MessageType::RegistrationRequest;
+    message.mBody = std::make_any<RegistrationInfo>(rm);
+    
     send(message);
 }
 

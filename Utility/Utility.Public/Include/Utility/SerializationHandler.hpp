@@ -44,6 +44,9 @@ public:
                 case Message::MessageType::MessageStoreRequest:
                     state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
                     break;
+                case Message::MessageType::MessageStoreRequest:
+                    state = processOutcomingMessageBody<RegistrationInfo>(bodyBuffer, 
+                                                                          message.mBody);
                 default:
                     break;
             }
@@ -124,6 +127,11 @@ public:
             case Message::MessageType::MessageStoreRequest:
             {
                 state = processIncomingMessageBody<MessageInfo>(buffer, message);
+                break;
+            }
+            case Message::MessageType::RegistrationRequest:
+            {
+                state = processIncomingMessageBody<RegistrationInfo>(buffer, message);
                 break;
             }
             default:

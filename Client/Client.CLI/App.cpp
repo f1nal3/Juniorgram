@@ -86,6 +86,30 @@ bool App::loop()
                 }
                 break;
 
+                case Network::Message::MessageType::RegistrationRequest:
+                {
+                    RegistrationUnit::RegistrationCodes code =
+                        std::any_cast<RegistrationUnit::RegistrationCodes>(message.mBody);
+
+                    if (code == RegistrationUnit::RegistrationCodes::SUCCESS)
+                    {
+                        std::cout << "User was added" << std::endl;
+                    } 
+                    else if (code == RegistrationUnit::RegistrationCodes::LOGIN_ALREADY_EXISTS)
+                    {
+                        std::cout << "User with such login already exists" << std::endl;
+                    }
+                    else if (code == RegistrationUnit::RegistrationCodes::EMAIL_ALREADY_EXISTS)
+                    {
+                        std::cout << "User with such email already exists" << std::endl;
+                    }
+                    else
+                    {
+                        std::cout << "Unknown RegistrationUnit::RegistrationCode" << std::endl;
+                    }
+                }
+                break;
+
 				default:
                     break;
             }

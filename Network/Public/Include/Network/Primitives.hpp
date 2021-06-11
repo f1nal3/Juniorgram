@@ -49,4 +49,33 @@ namespace Network
                     messageInfo1.message == messageInfo2.message);
         }
     };
+
+    struct RegistrationInfo
+    {
+    private:
+        std::string email;
+        std::string login;
+        std::string password;
+
+    public:
+        RegistrationInfo() = default;
+        explicit RegistrationInfo(const std::string& email, 
+                                  const std::string& login,
+                                  const std::string& password)
+            : email(email), login(login), password(password)
+        { }
+        ~RegistrationInfo() = default;
+
+        friend bool operator==(const RegistrationInfo& registrationInfo1,
+                               const RegistrationInfo& registrationInfo2)
+        {
+            return registrationInfo1.email    == registrationInfo2.email &&
+                   registrationInfo1.login    == registrationInfo2.login &&
+                   registrationInfo1.password == registrationInfo2.password;
+        }
+        
+        inline std::string getEmail() const { return email; }
+        inline std::string getLogin() const  { return login; }
+        inline std::string getPassword() const { return password; }
+    };
 } // namespace Network

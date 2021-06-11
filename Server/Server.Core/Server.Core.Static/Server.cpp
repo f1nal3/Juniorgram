@@ -1,6 +1,7 @@
 #include "Server.hpp"
 #include "Network/Primitives.hpp"
 #include "DataAccess.Static/PostgreRepository.hpp"
+#include "DataAccess.Static/RepositoryUnits.hpp"
 
 #include <future>
 
@@ -132,11 +133,11 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::MessageStoreRequest:
         {
-            Network::MessageInfo msg;
+            auto msgInfo = std::any_cast<Network::MessageInfo>(message.mBody);
             auto future = std::async(std::launch::async, &DataAccess::IRepository::storeMessage,
-                                     _postgreRepo.get(), msg, 0); // There need to add channelID not 0.
+                           _postgreRepo.get(), msgInfo, 0);  // There need to add channelID not 0.
             
-            message.mBody = std::make_any<Network::MessageInfo>(msg);
+            message.mBody = std::make_any<Network::MessageInfo>(msgInfo);
 
             future.wait();
             client->send(message);
@@ -145,20 +146,18 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::RegistrationRequest:
         {
-            Network::RegisrtationMessage rm;
-            message >> rm;
+            Network::RegistrationInfo rm = std::any_cast<Network::RegistrationInfo>(message.mBody);
             
             auto future = std::async(std::launch::async, &RegistrationUnit::registerUser,
                                      &RegistrationUnit::instance(), rm);
         
             Network::Message messageToClient;
-            messageToClient.mHeader.mConnectionID =
+            messageToClient.mHeader.mMessageType =
                 Network::Message::MessageType::RegistrationRequest;
             
             auto registrationCode = future.get();
             
-            messageToClient << registrationCode;
-            
+            messageToClient.mBody = std::make_any<RegistrationUnit::RegistrationCodes>(registrationCode);
             client->send(messageToClient);
         }
         break;
