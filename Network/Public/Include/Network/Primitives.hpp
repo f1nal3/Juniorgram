@@ -50,6 +50,12 @@ namespace Network
         }
     };
 
+    template <typename Archive>
+    void serialize(Archive& ar, Network::MessageInfo& o)
+    {
+        ar& o.userID& o.message;
+    }
+
     struct RegistrationInfo
     {
         std::string email;
@@ -78,4 +84,10 @@ namespace Network
                    registrationInfo1.password == registrationInfo2.password;
         }
     };
+
+    template <typename Archive>
+    void serialize(Archive& ar, Network::RegistrationInfo& o)
+    {
+        ar& o.email& o.login& o.password;
+    }
 } // namespace Network
