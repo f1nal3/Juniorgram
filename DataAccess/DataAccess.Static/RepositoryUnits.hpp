@@ -34,7 +34,7 @@ public:
     }
     
     /**  @brief Method for getting of token length.
-    *   @return std::uint16_t - token.
+    *   @return std::uint16_t token.
     */
     inline std::uint16_t getTokenLength() const { return TOKEN_LENGTH; }
 
@@ -59,7 +59,7 @@ public:
     RegistrationUnit& operator=(RegistrationUnit&) = delete;
     ~RegistrationUnit()                            = default;
 
-    /**  @brief Enum class for tracking authorization status.
+    /**  @brief Enum class for tracking registration status.
      *   @details RegistrationCodes registerUser(const Network::RegistrationInfo& rm) const /
      *    return one of this codes.
      */

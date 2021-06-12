@@ -52,7 +52,6 @@ namespace Network
 
     struct RegistrationInfo
     {
-    private:
         std::string email;
         std::string login;
         std::string password;
@@ -64,7 +63,12 @@ namespace Network
                                   const std::string& password)
             : email(email), login(login), password(password)
         { }
-        ~RegistrationInfo() = default;
+
+        RegistrationInfo(const RegistrationInfo&) = default;
+        ~RegistrationInfo()                       = default;
+
+
+        RegistrationInfo& operator=(const RegistrationInfo& other) = default;
 
         friend bool operator==(const RegistrationInfo& registrationInfo1,
                                const RegistrationInfo& registrationInfo2)
@@ -73,9 +77,5 @@ namespace Network
                    registrationInfo1.login    == registrationInfo2.login &&
                    registrationInfo1.password == registrationInfo2.password;
         }
-        
-        inline std::string getEmail() const { return email; }
-        inline std::string getLogin() const  { return login; }
-        inline std::string getPassword() const { return password; }
     };
 } // namespace Network

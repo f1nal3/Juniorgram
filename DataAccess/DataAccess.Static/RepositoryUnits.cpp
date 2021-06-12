@@ -9,7 +9,7 @@ std::string nowTimeStampStr()
     
     std::time_t t = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     std::tm time  = Utility::safe_localtime(t);
-    std::strftime(timeStampStr.data(), 20, "%Y-%m-%d %H:%M:%S", &time);
+    std::strftime(timeStampStr.data(), timeStampStr.size(), "%Y-%m-%d %H:%M:%S", &time);
 
     return timeStampStr;
 }
@@ -48,44 +48,22 @@ RegistrationUnit::RegistrationCodes RegistrationUnit::registerUser(
     };
 
     // Check on existing of login and email in repository.
-    if (getUsersAmount("email = '" + rm.getEmail() + "'") > 0)
+    if (getUsersAmount("email = '" + rm.email + "'") > 0)
     {
         return RegistrationCodes::EMAIL_ALREADY_EXISTS;
     }
-    if (getUsersAmount("login = '" + std::string(rm.getLogin()) + "'"))
+    if (getUsersAmount("login = '" + rm.login + "'"))
     {
         return RegistrationCodes::LOGIN_ALREADY_EXISTS;
     }
 
     std::tuple userData
     {
-        std::pair{"email", rm.getEmail()},
-        std::pair{"login", rm.getLogin()},
-        std::pair{"password_hash", rm.getPassword()}
+        std::pair{"email", rm.email},
+        std::pair{"login", rm.login},
+        std::pair{"password_hash", rm.password}
     };
     PTable("users").Insert()->columns(userData)->execute();
-
-    // ID will not be autoincremented in the future. Later we are going to use postgre
-    // alghorithms to create it.
-    std::uint64_t userID = std::get<0>(PTable("users")
-                                       .Select()
-                                       ->columns({"max(id)"})
-                                       ->execute())
-                                       .value()[0][0].as<std::uint64_t>();
-    
-    std::string mainToken    = TokenUnit::instance().createToken(userID);
-    std::string refreshToken = TokenUnit::instance().createToken(userID);
-
-    std::string timeStampStr = nowTimeStampStr();
-
-    std::tuple tokens
-    {
-        std::pair{"user_id", userID},
-        std::pair{"token", mainToken},
-        std::pair{"refresh_token", refreshToken},
-        std::pair{"token_receipt_time", timeStampStr},
-    };
-    PTable("user_tokens").Insert()->columns(tokens)->execute();
 
     return RegistrationCodes::SUCCESS;
 }
