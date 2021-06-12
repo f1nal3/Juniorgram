@@ -12,15 +12,12 @@ public:
     /**
      * @brief Method for serialization of outcoming messages.
      * @param message - buffer that contains data that should be serialized.
-     * @param headerBuffer - buffer that will contain serialized header.
      * @param bodyBuffer - buffer that will contain serialized body.
      */
     MessageProcessingState handleOutcomingMessage(const Message& message,
-                                             yas::shared_buffer& headerBuffer,
                                              yas::shared_buffer& bodyBuffer) override
     {
-        SerializedState state                = SerializedState::SUCCESS;
-        Message::MessageHeader messageHeader = message.mHeader;
+        SerializedState state = SerializedState::SUCCESS;
 
         if (message.mBody.has_value())
         {
@@ -50,44 +47,14 @@ public:
                 default:
                     break;
             }
-
-            if (state == SerializedState::SUCCESS)
-            {
-                messageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
-            }
         }
-
-        if (state == SerializedState::SUCCESS)
-        {
-            YasSerializer::template serialize<Message::MessageHeader>(headerBuffer, messageHeader);
-
-            if (this->nextHandler)
-            {
-                this->nextHandler->handleOutcomingMessage(message, headerBuffer, bodyBuffer);
-            }
-            return MessageProcessingState::SUCCESS;
-        }
-
-        return MessageProcessingState::FAILURE;
-    }
-
-    /**
-     * @brief Method for deserialization of incoming message headers.
-     * @param buffer - buffer that contains data that should be deserialized.
-     * @param messageHeader - variable that will contain deserialized message header data.
-     */
-    MessageProcessingState handleIncomingMessageHeader(const yas::shared_buffer buffer,
-                                                  Message::MessageHeader& messageHeader) override
-    {
-        SerializedState state = YasSerializer::template deserialize<Message::MessageHeader>(buffer, messageHeader);
 
         if (state == SerializedState::SUCCESS)
         {
             if (this->nextHandler)
             {
-                this->nextHandler->handleIncomingMessageHeader(buffer, messageHeader);
+                this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
             }
-
             return MessageProcessingState::SUCCESS;
         }
 
