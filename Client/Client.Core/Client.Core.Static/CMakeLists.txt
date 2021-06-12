@@ -20,7 +20,6 @@ target_include_directories(${TARGET} PRIVATE
 target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
 
-
 target_link_libraries(${TARGET}
         PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas
         PUBLIC Utility.Static
