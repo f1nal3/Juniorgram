@@ -50,9 +50,14 @@ namespace Network
         }
     };
 
+    template <typename Archive>
+    void serialize(Archive& ar, Network::MessageInfo& o)
+    {
+        ar& o.userID& o.message;
+    }
+
     struct RegistrationInfo
     {
-    private:
         std::string email;
         std::string login;
         std::string password;
@@ -78,4 +83,10 @@ namespace Network
         inline std::string getLogin() const  { return login; }
         inline std::string getPassword() const { return password; }
     };
+
+    template <typename Archive>
+    void serialize(Archive& ar, Network::RegistrationInfo& o)
+    {
+        ar& o.email& o.login& o.password;
+    }
 } // namespace Network
