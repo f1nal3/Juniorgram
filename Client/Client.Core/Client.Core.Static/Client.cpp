@@ -14,12 +14,12 @@ Client::Client() :
     mSQLCipherRepo{std::unique_ptr<DataAccess::SQLCipherRepository>(new DataAccess::SQLCipherRepository)}
 {}
 
-bool Client::isRefreshTokenExists()
+bool Client::checkTokenExistance()
 { 
-    auto result = std::async(std::launch::async, &DataAccess::SQLCipherRepository::getRefreshToken,
+    auto isExists = std::async(std::launch::async, &DataAccess::SQLCipherRepository::isRefreshTokenExists,
                    dynamic_cast <DataAccess::SQLCipherRepository*>(mSQLCipherRepo.get()));
 
-    if (!result.get().empty())
+    if (isExists.get())
     {
         return true;
     }

@@ -12,7 +12,7 @@ add_library(${TARGET} STATIC ${SOURCE_FILES})
 set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)
 
 target_link_libraries(${TARGET} PUBLIC
-    Utility.Public
+	Utility.Public
     DataAccess.Public
 	Network.Public
 	CONAN_PKG::nlohmann_json)

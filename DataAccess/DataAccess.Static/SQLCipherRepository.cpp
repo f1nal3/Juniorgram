@@ -10,6 +10,14 @@ std::string SQLCipherRepository::getRefreshToken()
     return {tokenVc.front()};
 }
 
+bool SQLCipherRepository::isRefreshTokenExists()
+{
+    auto tokenCountVc = std::get<1>(
+        LTable("refresh_tokens").Select()->columns({"count(refresh_token)"})->execute());
+
+    return std::stoi(tokenCountVc.front());
+}
+
 std::vector<std::string> SQLCipherRepository::getAllChannelsList()
 {
     std::vector<std::string> result;

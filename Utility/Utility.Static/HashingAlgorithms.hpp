@@ -4,12 +4,15 @@
 #include <cryptopp/hex.h>
 #include <cryptopp/sha.h>
 
-std::string getHashingValue(std::string aString)
+inline std::string getSHA512HashingValue(const std::string& hashableString)
 {
     std::string digest;
     CryptoPP::SHA512 hash;
     
-    CryptoPP::StringSource foo(aString, true, new CryptoPP::HashFilter(hash,  new CryptoPP::Base64Encoder(new CryptoPP::StringSink(digest))));
-   
+    CryptoPP::StringSource foo(
+        hashableString, true,
+        new CryptoPP::HashFilter(hash,
+        new CryptoPP::Base64Encoder(new CryptoPP::StringSink(digest), false)));
+
     return digest;
 }

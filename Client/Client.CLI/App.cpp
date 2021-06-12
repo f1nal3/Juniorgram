@@ -6,7 +6,7 @@
 
 App::App(/* args */)
 {
-    if (client.isRefreshTokenExists())
+    if (client.checkTokenExistance())
     {
         client.connect(address, port);
         client.askForChannelList();

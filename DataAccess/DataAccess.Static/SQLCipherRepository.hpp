@@ -17,6 +17,7 @@ public:
     virtual ~SQLCipherRepository() = default;
 
     std::string getRefreshToken();
+    bool isRefreshTokenExists();
 
 private:
 

@@ -23,7 +23,7 @@ public:
 
     Client();
 
-    bool isRefreshTokenExists();
+    bool checkTokenExistance();
 
     bool connect(const std::string& host, const uint16_t& port);
 

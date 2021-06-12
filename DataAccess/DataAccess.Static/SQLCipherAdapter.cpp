@@ -5,12 +5,12 @@ namespace DataAccess
 enum class TableExistance : std::uint16_t
 {
     nonExistent = 0,
-    exists = 1
+    exists      = 1
 };
 
 enum class MACAdressExistance : long
 {
-    exists      = 0,
+    exists      =  0,
     nonExistent = -1
 };
 
@@ -48,24 +48,28 @@ sqlite3_ptr make_sqlite3(const std::string_view& dbName)
           throw Utility::OperationDBException("Failed to open sqlite!", __FILE__, __LINE__);
       }
 
-      suppressWarning(4267, Init) 
-      sqlite3_key(db, MACAddress.str().c_str(), MACAddress.str().size());
+      suppressWarning(4267, Init)
+      const std::string& hashedMAC = getSHA512HashingValue(MACAddress.str());       
+
+      sqlite3_key(db, hashedMAC.c_str(), hashedMAC.size());
       restoreWarning
 
       std::unique_ptr<std::vector<std::string>>
       isExists = std::make_unique<std::vector<std::string>>();
 
-      //sqlite3_exec(db, "INSERT INTO refresh_tokens(refresh_token) VALUES('72asd3222222224');",
-      //    callback, isExists.get(), 0);
-
       sqlite3_exec(
-          db, "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'refresh_tokens';",
+          db, "SELECT count(name) FROM sqlite_master WHERE type = 'table' AND name = 'refresh_tokens';",
           callback, isExists.get(), 0);
 
       if (std::stoi(isExists.get()->front()) == (std::uint16_t)TableExistance::nonExistent)
       {
           sqlite3_exec(db, "CREATE TABLE refresh_tokens(refresh_token TEXT NOT NULL);", 0, 0, 0);
       }
+  
+      //  sqlite3_exec(db, "INSERT INTO refresh_tokens(refresh_token) VALUES('72asd3222222224');",
+      //             callback, isExists.get(), 0);
+      //
+      //sqlite3_close(db);
   }
   else
   {
