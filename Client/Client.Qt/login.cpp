@@ -8,7 +8,6 @@ Login::Login(QWidget* parent) : QWidget(parent)
     buttonSignin       = std::make_unique<FlatButton>(this, "Login");
     buttonRegistration = std::make_unique<FlatButton>(this, "Registration");
 
-    //forgotPassword         = std::make_unique<LinkButton>(this, "Forgot password?");
     logoWidget = std::make_unique<LogoWidget>(this);
 
     buttonSignin->setClickCallback([]() { oApp->setAppState(App::AppState::ChatWindowForm); });
