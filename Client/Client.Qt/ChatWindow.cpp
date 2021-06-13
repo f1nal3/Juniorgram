@@ -22,7 +22,8 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
                 "}"));
     chatWidget->setDragEnabled(false);
     messageTextEdit        = new FlatPlainTextEdit;
-    sendButton             = new FlatButton(this, "Send");
+    sendButton      = new FlatButton(this, "Send");
+    sendButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
     textEdit               = new TextEdit(messageTextEdit);
     horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
