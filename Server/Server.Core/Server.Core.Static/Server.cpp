@@ -1,9 +1,8 @@
 #include "Server.hpp"
-
-#include <Network/Primitives.hpp>
-#include <future>
-
+#include "Network/Primitives.hpp"
 #include "DataAccess.Static/PostgreRepository.hpp"
+
+#include <future>
 
 using Network::Connection;
 using Network::Message;
@@ -14,7 +13,7 @@ namespace Server
 bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
 {
     Network::Message message;
-    message.mHeader.mConnectionID = Network::Message::MessageType::ServerAccept;
+    message.mHeader.mMessageType = Network::Message::MessageType::ServerAccept;
     client->send(message);
     return true;
 }
@@ -38,7 +37,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         message.mHeader.mTimestamp = currentTime;
     }
 
-    switch (message.mHeader.mConnectionID)
+    switch (message.mHeader.mMessageType)
     {
         case Network::Message::MessageType::ServerPing:
         {
@@ -61,8 +60,9 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                       << client->getID() << "]: Message All\n";
 
             Network::Message msg;  // TODO: Why is a new message needed here?
-            msg.mHeader.mConnectionID = Network::Message::MessageType::ServerMessage;
-            msg << client->getID();
+            msg.mHeader.mMessageType = Network::Message::MessageType::ServerMessage;
+            // msg << client->getID();
+
             messageAllClients(msg, client);
         }
         break;
@@ -74,26 +74,26 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                            _postgreRepo.get());
 
             Network::Message msg;
-            msg.mHeader.mConnectionID = Network::Message::MessageType::ChannelListRequest;
+            msg.mHeader.mMessageType = Network::Message::MessageType::ChannelListRequest;
 
             future.wait();
+
+            // channelList should be std::vector<Network::ChannelInfo>
             auto channelList = future.get();
+
+            // loop stub for forming std::vector<Network::ChannelInfo>
+            std::vector<Network::ChannelInfo> channelInfoList;
             for (auto& channel : channelList)
             {
                 Network::ChannelInfo info;
-                info.channelID = 0;
+                info.channelID   = 0;
+                info.channelName = channel;
 
-                // clang-format off
-                suppressWarning(4996, -Winit-self) 
-                    strcpy(info.channelName, channel.data());
-                restoreWarning
-
-                msg << info;
-
-                // clang-format on
-                std::cout << channel << '\n';
+                channelInfoList.push_back(info);
             }
-            msg << channelList.size();
+
+            msg.mBody = std::make_any<std::vector<Network::ChannelInfo>>;
+            msg.mBody = channelInfoList;
 
             client->send(msg);
         }
@@ -106,28 +106,26 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                            _postgreRepo.get(), 0); // There need to add channelID not 0.
 
             Network::Message msg;
-            msg.mHeader.mConnectionID = Network::Message::MessageType::MessageHistoryRequest;
+            msg.mHeader.mMessageType = Network::Message::MessageType::MessageHistoryRequest;
 
             future.wait();
+           
+            // messageHistory should be std::vector<Network::MessageInfo>
             auto messageHistory = future.get();
 
+            std::vector<Network::MessageInfo> messageHistoryList;
             for (auto& msgFromHistory : messageHistory)
             {
                 Network::MessageInfo info;
-                info.userID = client->getID();
+                info.userID  = client->getID();
+                info.message = msgFromHistory.data();
 
-                // clang-format off
-                suppressWarning(4996, -Winit-self) 
-                    strcpy(info.message, msgFromHistory.data());
-                restoreWarning
-
-                msg << info;
-                // clang-format on
+                messageHistoryList.push_back(info);
 
                 std::cout << info.message << '\n';
             }
-            msg << messageHistory.size();
-
+            msg.mBody = std::make_any<std::vector<Network::MessageInfo>>(messageHistoryList);
+            
             client->send(msg);
         }
         break;
@@ -135,9 +133,10 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         case Network::Message::MessageType::MessageStoreRequest:
         {
             Network::MessageInfo msg;
-            message >> msg;
             auto future = std::async(std::launch::async, &DataAccess::IRepository::storeMessage,
                                      _postgreRepo.get(), msg, 0); // There need to add channelID not 0.
+            
+            message.mBody = std::make_any<Network::MessageInfo>(msg);
 
             future.wait();
             client->send(message);
