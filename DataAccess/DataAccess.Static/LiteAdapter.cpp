@@ -28,9 +28,9 @@ std::optional<std::any> LiteAdapter::query(const std::string_view &query)
     if(this->isConnected())
     {
         QSqlQuery sqlite_query{ *db_connection };
-        auto res = sqlite_query.exec(QString::fromStdString(std::string(query)));
+        sqlite_query.exec(QString::fromStdString(std::string(query)));
 
-        if(res)
+        if(sqlite_query.isSelect())
         {
             return std::optional{ std::any { sqlite_query } };
         }
