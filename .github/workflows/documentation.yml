@@ -29,11 +29,8 @@ jobs:
           working-directory: .
   
     - name: Generating Coverage Info
-      run: |
-        cd docs
+      run:
         python3 -m coverxygen --version
-        sudo python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --output doc-coverage.info
-        cd ..
     
     - name: DEBUG
       run: ls
