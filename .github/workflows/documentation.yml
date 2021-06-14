@@ -19,7 +19,7 @@ jobs:
           
     - name: Install coverage tools
       run: |
-        python3 -m pip3 install coverxygen
+        python3 -m pip install coverxygen
         sudo apt-get -y install lcov
     
     - name: Doxygen Action
