@@ -4,6 +4,7 @@
 #include <string>
 
 #include <Network/Primitives.hpp>
+#include <Utility/Utility.hpp>
 
 std::string nowTimeStampStr();
 
@@ -59,17 +60,6 @@ public:
     RegistrationUnit& operator=(RegistrationUnit&) = delete;
     ~RegistrationUnit()                            = default;
 
-    /**  @brief Enum class for tracking registration status.
-     *   @details RegistrationCodes registerUser(const Network::RegistrationInfo& rm) const /
-     *    return one of this codes.
-     */
-    enum class RegistrationCodes : std::uint8_t
-    {
-        EMAIL_ALREADY_EXISTS,
-        LOGIN_ALREADY_EXISTS,
-        SUCCESS,
-    };
-
     /**  @brief Method for getting of single RegistrationUnit instance.
      *   @details This instance need for gaining access to /
      *   other class members from outside.
@@ -77,8 +67,8 @@ public:
      */
     inline static RegistrationUnit& instance()
     {
-        static RegistrationUnit registartor;
-        return registartor;
+        static RegistrationUnit registrator;
+        return registrator;
     }
 
     /**  @brief Method for user registration.
@@ -88,5 +78,5 @@ public:
      *   The user already exists - RegistrationCodes::EMAIL_ALREADY_EXISTS OR /
      *   RegistrationCodes::LOGIN_ALREADY_EXISTS.
      */
-    RegistrationCodes registerUser(const Network::RegistrationInfo& rm) const;
+    Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& rm) const;
 };

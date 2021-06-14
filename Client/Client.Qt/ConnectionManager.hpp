@@ -2,7 +2,6 @@
 #include "Client.hpp"
 #include "Network/Primitives.hpp"
 #include "Widgets/ChannelListWindow.hpp"
-#include "DataAccess.Static/RepositoryUnits.hpp"
 
 class ConnectionManager
 {
@@ -99,17 +98,17 @@ public:
 
                         case Network::Message::MessageType::RegistrationRequest:
                         {
-                            auto code = std::any_cast<RegistrationUnit::RegistrationCodes>(message.mBody);
+                            auto code = std::any_cast<Utility::RegistrationCodes>(message.mBody);
 
-                            if (code == RegistrationUnit::RegistrationCodes::SUCCESS)
+                            if (code == Utility::RegistrationCodes::SUCCESS)
                             {
                                 std::cout << "New user was registered!" << std::endl;
                             }
-                            else if (code == RegistrationUnit::RegistrationCodes::EMAIL_ALREADY_EXISTS)
+                            else if (code == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
                             {
                                 std::cout << "Email already exists" << std::endl;
                             }
-                            else if (code == RegistrationUnit::RegistrationCodes::LOGIN_ALREADY_EXISTS)
+                            else if (code == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS)
                             {
                                 std::cout << "Login already exists" << std::endl;
                             }

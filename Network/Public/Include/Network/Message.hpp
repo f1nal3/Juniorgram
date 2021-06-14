@@ -26,7 +26,8 @@ struct Message
         ChannelListRequest,
         MessageHistoryRequest,
         MessageStoreRequest,
-        RegistrationRequest
+        RegistrationRequest,
+        RegistrationRequestToClient
     };
     
     struct MessageHeader

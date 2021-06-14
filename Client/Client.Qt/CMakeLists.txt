@@ -72,11 +72,6 @@ target_link_libraries(${TARGET}
 
 target_precompile_headers(${TARGET} PRIVATE pch.hpp)
 
-target_include_directories(${TARGET}
-    INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
-target_include_directories(${TARGET} PRIVATE
-    $<TARGET_PROPERTY:DataAccess.Static,SOURCE_DIR>/..)
-
 # This needs to be an install or after install operation
 # At this point it disrupts CI build so I commented it out =)
 

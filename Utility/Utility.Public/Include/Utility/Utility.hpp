@@ -7,6 +7,17 @@
 
 namespace Utility
 {
+    /**  @brief Enum for tracking registration status.
+     *   @details RegistrationCodes registerUser(const Network::RegistrationInfo& rm) const /
+     *    return one of this codes.
+     */
+    enum RegistrationCodes : std::uint8_t
+    {
+        EMAIL_ALREADY_EXISTS = 0,
+        LOGIN_ALREADY_EXISTS,
+        SUCCESS,
+    };
+
     inline std::tm safe_localtime(const std::time_t& time)
     {
         // std::localtime is not thread safe, so we use platform-dependant versions
