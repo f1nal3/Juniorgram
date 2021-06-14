@@ -30,7 +30,9 @@ jobs:
   
     - name: Generating Coverage Info
       run:
-        python3 -m coverxygen --version
+        cd docs
+        python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --output doc-coverage.info
+        cd ..
     
     - name: DEBUG
       run: ls
