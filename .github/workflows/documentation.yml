@@ -39,7 +39,7 @@ jobs:
     - name: Generate HTML
       run: |
         cd docs
-        sudo genhtml -s --no-function-coverage --no-branch-coverage doc-coverage.info -o .
+        genhtml -s --no-function-coverage --no-branch-coverage doc-coverage.info -o .
         cd ..
     
     - name: GH Pages Deployment
