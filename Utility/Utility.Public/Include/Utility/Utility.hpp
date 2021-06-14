@@ -11,7 +11,7 @@ namespace Utility
      *   @details RegistrationCodes registerUser(const Network::RegistrationInfo& rm) const /
      *    return one of this codes.
      */
-    enum RegistrationCodes : std::uint8_t
+    enum class RegistrationCodes : std::uint8_t
     {
         EMAIL_ALREADY_EXISTS = 0,
         LOGIN_ALREADY_EXISTS,

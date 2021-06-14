@@ -104,6 +104,11 @@ public:
                 state = processIncomingMessageBody<RegistrationInfo>(buffer, message);
                 break;
             }
+            case Message::MessageType::RegistrationRequestToClient:
+            {
+                state = processIncomingMessageBody<Utility::RegistrationCodes>(buffer, message);
+                break;
+            }
             default:
                 break;
         }

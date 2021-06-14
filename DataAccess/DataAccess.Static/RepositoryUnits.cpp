@@ -50,11 +50,11 @@ Utility::RegistrationCodes RegistrationUnit::registerUser(
     // Check on existing of login and email in repository.
     if (getUsersAmount("email = '" + rm.email + "'") > 0)
     {
-        return Utility::EMAIL_ALREADY_EXISTS;
+        return Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS;
     }
     if (getUsersAmount("login = '" + rm.login + "'"))
     {
-        return Utility::LOGIN_ALREADY_EXISTS;
+        return Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS;
     }
 
     std::tuple userData
@@ -65,5 +65,5 @@ Utility::RegistrationCodes RegistrationUnit::registerUser(
     };
     PTable("users").Insert()->columns(userData)->execute();
 
-    return Utility::SUCCESS;
+    return Utility::RegistrationCodes::SUCCESS;
 }
