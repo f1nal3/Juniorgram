@@ -15,7 +15,7 @@ Client::Client() :
 {}
 
 bool Client::checkTokenExistance()
-{ 
+{
     auto isExists = std::async(std::launch::async, &DataAccess::SQLCipherRepository::isRefreshTokenExists,
                    dynamic_cast <DataAccess::SQLCipherRepository*>(mSQLCipherRepo.get()));
 

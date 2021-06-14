@@ -44,7 +44,6 @@ int main()
             else if (cmd == "qs")
             {
                 Network::Message message;
-
                 Network::MessageInfo msg;
                 msg.userID  = 777;
                 msg.message = "123";
