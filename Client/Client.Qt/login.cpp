@@ -1,32 +1,25 @@
 #include "login.hpp"
 
-
 Login::Login(QWidget* parent) : QWidget(parent)
 {
     passwordLineEdit = std::make_unique<FlatInput>("Password", true, this);
     usernameLineEdit = std::make_unique<FlatInput>("Username", this);
 
-    buttonSignin       = std::make_unique<FlatButton>("Login", this);
-    buttonRegistration = std::make_unique<FlatButton>("Registration", this);
+    buttonSignin       = std::make_unique<FlatButton>(this, "Login");
+    buttonRegistration = std::make_unique<FlatButton>(this, "Registration");
 
     logoWidget = std::make_unique<LogoWidget>(this);
 
-    QObject::connect(buttonSignin.get(), &FlatButton::pressed,
-                     []() { oApp->setAppState(App::AppState::ChatWindowForm); });
-    QObject::connect(buttonRegistration.get(), &FlatButton::pressed,
-                     []() { oApp->setAppState(App::AppState::RegistrationForm); });
-
+    buttonSignin->setClickCallback([]() { oApp->setAppState(App::AppState::ChatWindowForm); });
+    buttonRegistration->setClickCallback(
+        []() { oApp->setAppState(App::AppState::RegistrationForm); });
 
     const int BLOCKWIDTH = Style::valueDPIScale(500);
     buttonSignin->resize(BLOCKWIDTH, buttonSignin->sizeHint().height());
-    buttonSignin->show();
     buttonRegistration->resize(BLOCKWIDTH, buttonRegistration->sizeHint().height());
-    buttonRegistration->show();
 
     passwordLineEdit->resize(BLOCKWIDTH, passwordLineEdit->sizeHint().height());
-    passwordLineEdit->show();
     usernameLineEdit->resize(BLOCKWIDTH, usernameLineEdit->sizeHint().height());
-    usernameLineEdit->show();
 }
 
 void Login::keyPressEvent(QKeyEvent* event)
@@ -37,11 +30,11 @@ void Login::keyPressEvent(QKeyEvent* event)
 
 void Login::resizeEvent(QResizeEvent* event)
 {
-    const QSize SIZE        = event->size();
-    const int HOR_SPACING   = Style::valueDPIScale(16);
-    const int MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
-    const int LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
-    const int SPACE         = Style::valueDPIScale(10);
+    const QSize SIZE          = event->size();
+    const int   HOR_SPACING   = Style::valueDPIScale(16);
+    const int   MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
+    const int   LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
+    const int   SPACE         = Style::valueDPIScale(10);
 
     const auto FIT_MAX = logoWidget->bestFit();
     // Aspect ratio;

@@ -1,16 +1,12 @@
 #include "Label.hpp"
 
-#include "Style/Style.hpp"
+#include "Style/StyleBasic.hpp"
 
-Label::Label(const QString &text, QWidget *parent)
-    : QLabel(parent)
+Label::Label(const QString& text, QWidget* parent) : QLabel(text, parent)
 {
-    setFont(QFont("Noto Sans", Style::valueDPIScale(12), 50));
-    setStyleSheet(
-                QString("QLabel { "
-                        "border: 0px;"
-                        "background-color: rgba(0,0,0,0);"
-                        "color: white;"
-                        "}"));
-    setText(text);
+    setFont(st::defaultFont);
+    setAttribute(Qt::WA_TranslucentBackground);
+    auto p = palette();
+    p.setColor(QPalette::Text, Qt::white);
+    setPalette(p);
 }

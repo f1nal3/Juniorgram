@@ -2,6 +2,7 @@
 
 #include "FlatButton.hpp"
 #include "ListWidget.hpp"
+#include "MainWidget.hpp"
 #include "pch.hpp"
 
 /** @class ChannelListWindow
