@@ -3,8 +3,6 @@ name: Documentation
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
     
 jobs:
   build-documentation:
@@ -19,7 +17,6 @@ jobs:
           
     - name: Install coverage tools
       run: |
-        pip3 install wheel
         pip3 install coverxygen
         sudo apt-get -y install lcov
     
@@ -30,7 +27,9 @@ jobs:
           working-directory: .
   
     - name: Generating Coverage Info
-      run: python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --output ./docs/doc-coverage.info
+      run: |
+	python -m coverxygen --version
+	sudo python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --output ./docs/doc-coverage.info
     
     - name: DEBUG
       run: ls
