@@ -96,6 +96,29 @@ public:
                         }
                         break;
 
+                        case Network::Message::MessageType::RegistrationRequest:
+                        {
+                            auto code = std::any_cast<Utility::RegistrationCodes>(message.mBody);
+
+                            if (code == Utility::RegistrationCodes::SUCCESS)
+                            {
+                                std::cout << "New user was registered!" << std::endl;
+                            }
+                            else if (code == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
+                            {
+                                std::cout << "Email already exists" << std::endl;
+                            }
+                            else if (code == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS)
+                            {
+                                std::cout << "Login already exists" << std::endl;
+                            }
+                            else
+                            {
+                                std::cout << "Unknown code" << std::endl;
+                            }
+                        }
+                        break;
+
                         default:
                             break;
                     }

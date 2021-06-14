@@ -1,4 +1,5 @@
 #include "PostgreRepository.hpp"
+#include "RepositoryUnits.hpp"
 
 using namespace DataAccess;
 
@@ -24,9 +25,11 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::
 {
     std::vector<std::string> result;
 
-    auto messageHistoryRow = 
-        std::get<0>(PTable("channel_msgs").Select()->columns({"msg"})->Where("channel_id = " + std::to_string(channelID))->execute());
-
+    auto messageHistoryRow = std::get<0>(PTable("channel_msgs")
+                                         .Select()
+                                         ->columns({"msg"})
+                                         ->Where("channel_id = " + std::to_string(channelID))
+                                         ->execute());
 
     if (messageHistoryRow.has_value())
     {
@@ -42,18 +45,28 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::
 
 void PostgreRepository::storeMessage(const Network::MessageInfo& message, const std::uint64_t channelID)
 {
-    char timeStampStr[35];
+    std::string timeStampStr = nowTimeStampStr();
 
-    std::time_t t = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-    std::tm time  = Utility::safe_localtime(t);
-    std::strftime(timeStampStr, 35, "%Y-%m-%d %H:%M:%S.0+00", &time);
-
-    std::tuple messageToDatabase
+    std::tuple dataForMsgs
+    {
+        std::pair{"sender_id", message.userID},
+        std::pair{"send_time", timeStampStr},
+        std::pair{"msg", message.message }
+    };
+    PTable("msgs").Insert()->columns(dataForMsgs)->execute();
+    
+    // ID will not be autoincremented in the future. Later we are going to use postgre
+    // alghorithms to create it.
+    std::uint64_t msgID = std::get<0>(PTable("msgs")
+                                      .Select()
+                                      ->columns({"max(msg_id)"})
+                                      ->execute())
+                                      .value()[0][0].as<std::uint64_t>();
+    std::tuple dataForChannelMsgs
     {
         std::pair{"channel_id", channelID},
-        std::pair{"sender_id", message.userID},
-        std::pair{"send_time", timeStampStr}, 
-        std::pair{"msg", message.message}
+        std::pair{"msg_id", msgID}
     };
-    PTable("channel_msgs").Insert()->columns(messageToDatabase)->execute();
+    
+    PTable("channel_msgs").Insert()->columns(dataForChannelMsgs)->execute();
 }

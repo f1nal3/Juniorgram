@@ -9,7 +9,9 @@ set(SOURCE_FILES
     PostgreRepository.hpp
     PostgreRepository.cpp
     LiteAdapter.hpp
-    LiteAdapter.cpp)
+    LiteAdapter.cpp
+    RepositoryUnits.hpp
+    RepositoryUnits.cpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 

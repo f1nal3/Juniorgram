@@ -45,8 +45,8 @@ struct AESCipher : ICipher
         std::string encryptedData;
 
         StringSource(data, true,
-            new StreamTransformationFilter(encryptor,
-                new HexEncoder(new StringSink(encryptedData))));
+                     new StreamTransformationFilter(encryptor,
+                        new HexEncoder(new StringSink(encryptedData))));
 
         return encryptedData;
     }
@@ -61,8 +61,8 @@ struct AESCipher : ICipher
         std::string decryptedData;
 
         StringSource(cipherData, true,
-            new HexDecoder(
-                new StreamTransformationFilter(decryptor, new StringSink(decryptedData))));
+                     new HexDecoder(
+                         new StreamTransformationFilter(decryptor, new StringSink(decryptedData))));
 
         return decryptedData;
     }
@@ -73,3 +73,17 @@ struct AESFactory : ICiphersFactory
     std::shared_ptr<ICipher> create() override { return std::make_shared<AESCipher>(); }
 };
 }  // namespace SymmetricCipher
+
+namespace Hashing
+{
+using namespace CryptoPP;
+
+std::string SHA_256(const std::string& message)
+{
+    SHA256 hash;
+    std::string digest;
+    StringSource(message, true, new HashFilter(hash, new HexEncoder(new StringSink(digest))));
+
+    return digest;
+}
+}  // namespace Hashing

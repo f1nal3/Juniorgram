@@ -2,7 +2,6 @@
 
 #include <Network/Primitives.hpp>
 
-#include <ctime>
 #include <iostream>
 
 #include "Utility/Exception.hpp"

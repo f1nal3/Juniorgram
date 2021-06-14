@@ -1,6 +1,7 @@
 #include "Server.hpp"
 #include "Network/Primitives.hpp"
 #include "DataAccess.Static/PostgreRepository.hpp"
+#include "DataAccess.Static/RepositoryUnits.hpp"
 
 #include <future>
 
@@ -132,14 +133,33 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::MessageStoreRequest:
         {
-            Network::MessageInfo msg;
-            auto future = std::async(std::launch::async, &DataAccess::IRepository::storeMessage,
-                                     _postgreRepo.get(), msg, 0); // There need to add channelID not 0.
+            auto msgInfo = std::any_cast<Network::MessageInfo>(message.mBody);
             
-            message.mBody = std::make_any<Network::MessageInfo>(msg);
+            auto future = std::async(std::launch::async, &DataAccess::IRepository::storeMessage,
+                           _postgreRepo.get(), msgInfo, 0);  // There need to add channelID not 0.
+            
+            message.mBody = std::make_any<Network::MessageInfo>(msgInfo);
 
             future.wait();
             client->send(message);
+        }
+        break;
+
+        case Network::Message::MessageType::RegistrationRequest:
+        {
+            auto ri = std::any_cast<Network::RegistrationInfo>(message.mBody);
+            
+            auto future = std::async(std::launch::async, &RegistrationUnit::registerUser,
+                                     &RegistrationUnit::instance(), ri);
+        
+            Network::Message messageToClient;
+            messageToClient.mHeader.mMessageType =
+                Network::Message::MessageType::RegistrationRequestToClient;
+            
+            auto registrationCode = future.get();
+            
+            messageToClient.mBody = std::make_any<Utility::RegistrationCodes>(registrationCode);
+            client->send(messageToClient);
         }
         break;
 

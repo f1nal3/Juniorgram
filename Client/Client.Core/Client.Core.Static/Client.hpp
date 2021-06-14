@@ -36,6 +36,9 @@ public:
 
     void storeMessages(const std::vector<std::string>& messagesList) const;
 
+    void userRegistration(const std::string& email, const std::string& login,
+                          const std::string& password) const;
+
     void messageAll() const;
 };
 }  // namespace Network

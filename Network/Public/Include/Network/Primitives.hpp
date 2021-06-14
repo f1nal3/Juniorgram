@@ -55,4 +55,39 @@ namespace Network
     {
         ar& o.userID& o.message;
     }
+
+    struct RegistrationInfo
+    {
+        std::string email;
+        std::string login;
+        std::string password;
+
+    public:
+        RegistrationInfo() = default;
+        explicit RegistrationInfo(const std::string& email, 
+                                  const std::string& login,
+                                  const std::string& password)
+            : email(email), login(login), password(password)
+        { }
+
+        RegistrationInfo(const RegistrationInfo&) = default;
+        ~RegistrationInfo()                       = default;
+
+
+        RegistrationInfo& operator=(const RegistrationInfo& other) = default;
+
+        friend bool operator==(const RegistrationInfo& registrationInfo1,
+                               const RegistrationInfo& registrationInfo2)
+        {
+            return registrationInfo1.email    == registrationInfo2.email &&
+                   registrationInfo1.login    == registrationInfo2.login &&
+                   registrationInfo1.password == registrationInfo2.password;
+        }
+    };
+
+    template <typename Archive>
+    void serialize(Archive& ar, Network::RegistrationInfo& o)
+    {
+        ar& o.email& o.login& o.password;
+    }
 } // namespace Network

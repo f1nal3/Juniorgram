@@ -112,6 +112,18 @@ void Client::storeMessages(const std::vector<std::string>& messagesList) const
     }
 }
 
+void Client::userRegistration(const std::string& email, const std::string& login,
+                      const std::string& password) const
+{
+    Network::RegistrationInfo rm(email, login, password);
+
+    Network::Message message;
+    message.mHeader.mMessageType = Network::Message::MessageType::RegistrationRequest;
+    message.mBody = std::make_any<RegistrationInfo>(rm);
+    
+    send(message);
+}
+
 void Client::messageAll() const
 {
     Network::Message message;
