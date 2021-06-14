@@ -37,8 +37,11 @@ jobs:
       run: ls
       
     - name: Generate HTML
-      run: sudo genhtml -s --no-function-coverage --no-branch-coverage ./docs/doc-coverage.info -o docs
-        
+      run: |
+        cd docs
+        sudo genhtml -s --no-function-coverage --no-branch-coverage doc-coverage.info -o .
+        cd ..
+    
     - name: GH Pages Deployment
       uses: peaceiris/actions-gh-pages@v3
       with:
