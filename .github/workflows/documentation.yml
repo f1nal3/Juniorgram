@@ -30,9 +30,10 @@ jobs:
   
     - name: Generating Coverage Info
       run: |
-        sudo ls ./docs
+        sudo cd ./docs
         python3 -m coverxygen --version
-        sudo python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --output ./docs/doc-coverage.info
+        sudo python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --output doc-coverage.info
+        cd ..
     
     - name: DEBUG
       run: ls
