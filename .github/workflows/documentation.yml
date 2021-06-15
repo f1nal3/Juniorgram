@@ -21,7 +21,7 @@ jobs:
       run: |
         pip3 install coverxygen
         sudo apt-get -y install lcov
-    
+        
     - name: Doxygen Action
       uses: mattnotmitt/doxygen-action@v1.1.0
       with:
@@ -31,7 +31,7 @@ jobs:
     - name: Generating Coverage Info
       run: |
         sudo mkdir ./docs/doc_coverage
-        python3 -m coverxygen --xml-dir ./docs/doc_coverage/xml --src-dir . --kind enum,enumvalue,friend,typedef,variable,function,signal,slot,class,struct,union,define,file --output doc-coverage.info
+        python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --kind enum,enumvalue,friend,typedef,variable,function,signal,slot,class,struct,union,define,file --output doc-coverage.info
         sudo mv doc-coverage.info ./docs/doc_coverage
     
     - name: DEBUG
