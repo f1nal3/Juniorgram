@@ -1,20 +1,18 @@
 #include "Application.hpp"
 
+#include "Style/StyleFont.hpp"
 #include "login.hpp"
 #include "registration.hpp"
 
-Application::Application(int& argc, char** argv) : QApplication(argc, argv), mBioButton(nullptr){}
+Application::Application(int& argc, char** argv) : QApplication(argc, argv), mBioButton(nullptr) {}
 
 void Application::create()
 {
-    QFontDatabase::addApplicationFont(":fonts/NotoSans-Regular.ttf");
-    QFontDatabase::addApplicationFont(":fonts/NotoSans-Bold.ttf");
-    QFontDatabase::addApplicationFont(":fonts/NotoSans-BoldItalic.ttf");
-    QFontDatabase::addApplicationFont(":fonts/NotoSans-Italic.ttf");
+    Style::internal::StartFonts();
     mMainWidget = new MainWidget();
     mMainWidget->show();
     mMainWidget->hide();
-    
+
 #if _WIN32
 
     HWND handle = reinterpret_cast<HWND>(mMainWidget->winId());
@@ -24,13 +22,14 @@ void Application::create()
     // const MARGINS shadow{9, 9, 9, 9};
     //::DwmExtendFrameIntoClientArea(handle, &shadow);
 #endif
-    
+
     ConnectionManager::connect();
     std::thread(&ConnectionManager::loop).detach();
 
     setAppState(App::AppState::LoginForm);
     auto font = QFont("Noto Sans", 12);
     font.setPixelSize(Style::valueDPIScale(15));
+    font.setStyleStrategy(QFont::PreferQuality);
     QApplication::setFont(font);
 }
 
@@ -49,7 +48,7 @@ void Application::setAppState(App::AppState app_state)
     {
         case App::AppState::LoginForm:
         {
-            auto* wid  = new Login();
+            auto* wid = new Login();
             mMainWidget->setCentralWidget(wid);
             break;
         }
@@ -61,7 +60,7 @@ void Application::setAppState(App::AppState app_state)
         }
         case App::AppState::ChatWindowForm:
         {
-            auto* wid = new ChatWindow();
+            auto* wid  = new ChatWindow();
             mBioButton = new BioButton(QImage(), true, mMainWidget);
             mBioButton->setImage(QImage(":/images/logo.png"));
             mMainWidget->refreshTitleBar(mBioButton);

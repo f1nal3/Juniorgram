@@ -6,6 +6,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 set(SOURCE_FILES
+        Widgets/AbstractButton.cpp
+        Widgets/AbstractButton.hpp
         Widgets/BioButton.cpp
         Widgets/BioButton.hpp
         Widgets/CaptionButton.cpp
@@ -40,9 +42,21 @@ set(SOURCE_FILES
         Widgets/TimeEdit.hpp
         Widgets/LogoWidget.cpp
         Widgets/LogoWidget.hpp
+        Style/StyleTypes.cpp
+        Style/StyleTypes.hpp
+        Style/StyleScale.cpp
+        Style/StyleScale.hpp
+        Style/StyleFont.cpp
+        Style/StyleFont.hpp
+        Style/StyleColor.cpp
+        Style/StyleColor.hpp
         Style/Style.cpp
-        Style/Shadow.hpp
         Style/Style.hpp
+        Style/StyleBasic.hpp
+        Style/StyleBasic.cpp
+        Style/Palette.cpp
+        Style/Palette.hpp
+        Style/Shadow.hpp
         Application.cpp
         Application.hpp
         ChatWindow.cpp
