@@ -34,16 +34,15 @@ jobs:
         sudo mv doc-coverage.info ./docs
     
     - name: DEBUG
-      run: ls
+      run: |
+        ls
+        cat doc-coverage.info
       
     - name: Generate HTML
       run: |
         cd docs
         sudo genhtml -s --no-function-coverage --no-branch-coverage doc-coverage.info -o .
         cd ..
-        
-    - name: DEBUG_INFO
-      run: cat doc-coverage.info
     
     - name: GH Pages Deployment
       uses: peaceiris/actions-gh-pages@v3
