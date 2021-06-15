@@ -36,7 +36,7 @@ jobs:
        
     - name: DEBUG
       run: |
-        ls docs/doc_coverage
+        ls docs/doc_coverage/docs
       
     - name: Generating Coverage Info
       run: |
