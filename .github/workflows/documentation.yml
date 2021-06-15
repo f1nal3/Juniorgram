@@ -23,14 +23,17 @@ jobs:
         sudo apt-get -y install lcov
     
     - name: dir
-      run: sudo mkdir ./docs & sudo mkdir ./docs/doc_coverage
-    
+      run: sudo mkdir ./docs & sudo mkdir ./docs/doc_coverage & cd ./docs
+      
     - name: Doxygen Action
       uses: mattnotmitt/doxygen-action@v1.1.0
       with:
-          doxyfile-path: ./Doxyfile
+          doxyfile-path: ../Doxyfile
           working-directory: ./docs
-  
+       
+    - name: DEBUG
+      run: ls docs
+      
     - name: Generating Coverage Info
       run: |
         python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --kind enum,enumvalue,friend,typedef,variable,function,signal,slot,class,struct,union,define,file --output doc-coverage.info
