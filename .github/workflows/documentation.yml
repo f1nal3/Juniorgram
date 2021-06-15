@@ -30,16 +30,18 @@ jobs:
   
     - name: Generating Coverage Info
       run: |
-        python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --kind enum,enumvalue,friend,typedef,variable,function,signal,slot,class,struct,union,define,file --output doc-coverage.info
-        sudo mv doc-coverage.info ./docs
+        mkdir ./docs/doc_coverage
+        python3 -m coverxygen --xml-dir ./docs/doc_coverage/xml --src-dir . --kind enum,enumvalue,friend,typedef,variable,function,signal,slot,class,struct,union,define,file --output doc-coverage.info
+        sudo mv doc-coverage.info ./docs/doc_coverage
     
     - name: DEBUG
       run: |
         ls
         ls ./docs
+        ls ./docs/doc_coverage
       
     - name: Generate HTML
-      run: sudo genhtml -s --no-function-coverage --no-branch-coverage ./docs/doc-coverage.info -o ./docs
+      run: sudo genhtml -s --no-function-coverage --no-branch-coverage ./docs/doc_coverage/doc-coverage.info -o ./docs/doc_coverage
     
     - name: GH Pages Deployment
       uses: peaceiris/actions-gh-pages@v3
