@@ -11,6 +11,7 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidge
       userName(std::move(nameOfUser)),
       dateTimeMessage(QDateTime::currentDateTime())
 {
+    reactionOnMessageYour = "NULL";
     messageItem    = Item;
     messageDeleted = deletedMessage;
     // Main layouts
@@ -71,11 +72,16 @@ void MessageWidget::initializationUiNotDelete()
     messageTextEdit->setAcceptDrops(false);
     messageTextEdit->setReadOnly(true);
 
-    reactionLabel = new Label;
-    reactionLabel->setText("");
+    reactionLabelLike = new Label;
+    reactionLabelDislike = new Label;
+    reactionLabelFire = new Label;
+    reactionLabelCat = new Label;
 
-    reactionLabelIcon = new Label;
-    reactionLabelIcon->setText("");
+    reactionLabelIconLike = new Label;
+    reactionLabelIconDislike = new Label;
+    reactionLabelIconFire = new Label;
+    reactionLabelIconCat = new Label;
+
     IconLike    = new QPixmap(":/reactions/like.png");
     IconDislike = new QPixmap(":/reactions/dislike.png");
     IconFire    = new QPixmap(":/reactions/fire.png");
@@ -90,8 +96,14 @@ void MessageWidget::initializationUiNotDelete()
     userNameLabel = new Label;
     userNameLabel->setText("userName");
 
-    UpLevelLayout->addWidget(reactionLabelIcon);
-    UpLevelLayout->addWidget(reactionLabel);
+    UpLevelLayout->addWidget(reactionLabelIconLike);
+    UpLevelLayout->addWidget(reactionLabelLike);
+    UpLevelLayout->addWidget(reactionLabelIconDislike);
+    UpLevelLayout->addWidget(reactionLabelDislike);
+    UpLevelLayout->addWidget(reactionLabelIconFire);
+    UpLevelLayout->addWidget(reactionLabelFire);
+    UpLevelLayout->addWidget(reactionLabelIconCat);
+    UpLevelLayout->addWidget(reactionLabelCat);
     UpLevelLayout->addItem(horizontalUpLeftSpacer);
     UpLevelLayout->addWidget(userNameLabel);
     UpLevelLayout->addItem(horizontalUpRightSpacer);
@@ -102,7 +114,7 @@ void MessageWidget::initializationUiNotDelete()
     reactionChoseBox = new ComboBox();
     reactionChoseBox->addItem(QIcon(":/reactions/smile.png"), "");
     reactionChoseBox->addItem(QIcon(":/reactions/like.png"), "");
-    reactionChoseBox->addItem(QIcon(":/reactions/deslike.png"), "");
+    reactionChoseBox->addItem(QIcon(":/reactions/dislike.png"), "");
     reactionChoseBox->addItem(QIcon(":/reactions/fire.png"), "");
     reactionChoseBox->addItem(QIcon(":/reactions/cat.png"), "");
     reactionChoseBox->setMinimumWidth(Style::valueDPIScale(45));
@@ -130,24 +142,30 @@ void MessageWidget::clearMessage()
     }
     else
     {
-        UpLevelLayout->removeWidget(reactionLabel);
+        //UpLevelLayout->removeWidget(reactionLabel);
         UpLevelLayout->removeItem(horizontalUpLeftSpacer);
         UpLevelLayout->removeWidget(userNameLabel);
         UpLevelLayout->removeItem(horizontalUpRightSpacer);
         UpLevelLayout->removeWidget(messageDateTimeEdit);
-        UpLevelLayout->removeWidget(reactionLabelIcon);
+        UpLevelLayout->removeWidget(reactionLabelIconLike);
+        UpLevelLayout->removeWidget(reactionLabelIconDislike);
+        UpLevelLayout->removeWidget(reactionLabelIconFire);
+        UpLevelLayout->removeWidget(reactionLabelIconCat);
         DownLevelLayout->removeWidget(reactionChoseBox);
         DownLevelLayout->removeItem(horizontalDownSpacer);
         DownLevelLayout->removeWidget(deleteButton);
         delete messageTextEdit;
 
         delete userNameLabel;
-        delete reactionLabel;
+        //delete reactionLabel;
         delete horizontalUpLeftSpacer;
         delete horizontalUpRightSpacer;
         delete messageDateTimeEdit;
         delete reactionChoseBox;
-        delete reactionLabelIcon;
+        delete reactionLabelIconLike;
+        delete reactionLabelIconDislike;
+        delete reactionLabelIconFire;
+        delete reactionLabelIconCat;
         delete deleteButton;
         delete horizontalDownSpacer;
 
@@ -175,64 +193,74 @@ void MessageWidget::updateWidget()
     messageDateTimeEdit->setDateTime(dateTimeMessage);
     messageTextEdit->setText(messageText);
     userNameLabel->setText(userName);
-    reactionLabel->setText("");
-    if (!isReaction("Like"))
-    {
-        reactionOnMessage.clear();
-        reactionOnMessage = QString::number(reactionMap["Like"]);
-        reactionLabel->setText(reactionOnMessage);
-        reactionLabelIcon->setPixmap(IconLike[0]);
-    }
 }
 
 void MessageWidget::reactionChange(int index)
 {
+    if (reactionOnMessageYour != "NULL")
+    {
+        --reactionMap[reactionOnMessageYour];
+        if (reactionMap["Like"] <= 0)
+        {
+            reactionLabelIconLike->clear();
+            reactionLabelLike->clear();
+        }
+        if (reactionMap["Dislike"] <= 0)
+        {
+            reactionLabelIconDislike->clear();
+            reactionLabelDislike->clear();
+        }
+        if (reactionMap["Fire"] <= 0)
+        {
+            reactionLabelIconFire->clear();
+            reactionLabelFire->clear();
+        }
+        if (reactionMap["Cat"] <= 0)
+        {
+            reactionLabelIconCat->clear();
+            reactionLabelCat->clear();
+        }
+    }
     switch (index)
     {
         case 1:
         {
-            reactionLabelIcon->setPixmap(
+            reactionLabelIconLike->setPixmap(
                 IconLike[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
                                    Qt::KeepAspectRatio, Qt::SmoothTransformation));
-            //++reactionMap["Like"];
-            //reactionLabelIcon->setPixmap(LikeIcon[0].scaled(
-            //    QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)), Qt::KeepAspectRatio, Qt::SmoothTransformation));
-            //reactionLabel->setText(QString::number(reactionMap["Like"]));
+            ++reactionMap["Like"];
+            reactionLabelLike->setText(QString::number(reactionMap["Like"]));
+            reactionOnMessageYour = "Like";
             break;
         }
         case 2:
         {
-            reactionLabelIcon->setPixmap(
+            reactionLabelIconDislike->setPixmap(
                 IconDislike[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
-                                   Qt::KeepAspectRatio, Qt::SmoothTransformation));
+                                      Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            ++reactionMap["Dislike"];
+            reactionLabelDislike->setText(QString::number(reactionMap["Dislike"]));
+            reactionOnMessageYour = "Dislike";
             break;
         }
         case 3:
         {
-            reactionLabelIcon->setPixmap(
+            reactionLabelIconFire->setPixmap(
                 IconFire[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
                                    Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            ++reactionMap["Fire"];
+            reactionLabelFire->setText(QString::number(reactionMap["Fire"]));
+            reactionOnMessageYour = "Fire";
             break;
         }
         case 4:
         {
-            reactionLabelIcon->setPixmap(
+            reactionLabelIconCat->setPixmap(
                 IconCat[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
-                                   Qt::KeepAspectRatio, Qt::SmoothTransformation));
-            break;
-        }
-        default:
-        {
-            //--reactionMap["Like"];
-            //if (reactionMap["Like"] < 1)
-            //{
-            //    reactionLabelIcon->clear();
-            //    reactionLabel->clear();
-            //}
-            //else
-            //{
-            //    reactionLabel->setText(QString::number(reactionMap["Like"]));
-            //}
+                                  Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            ++reactionMap["Cat"];
+            reactionLabelCat->setText(QString::number(reactionMap["Cat"]));
+            reactionOnMessageYour = "Cat";
             break;
         }
     }

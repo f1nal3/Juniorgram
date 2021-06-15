@@ -113,12 +113,22 @@ private:
     FlatPlainTextEdit* messageTextEdit;
     // UpLevelLayout
     Label* userNameLabel;
-    Label* reactionLabel;
-    Label* reactionLabelIcon;
+
+    Label* reactionLabelLike;
+    Label* reactionLabelDislike;
+    Label* reactionLabelFire;
+    Label* reactionLabelCat;
+
+    Label* reactionLabelIconLike;
+    Label* reactionLabelIconDislike;
+    Label* reactionLabelIconFire;
+    Label* reactionLabelIconCat;
+
     QSpacerItem* horizontalUpLeftSpacer;
     QSpacerItem* horizontalUpRightSpacer;
     DateTimeEdit* messageDateTimeEdit;
 
+        
     QPixmap* IconLike;
     QPixmap* IconDislike;
     QPixmap* IconFire;
@@ -135,7 +145,7 @@ private:
     QString messageText;
     QString userName;
     QDateTime dateTimeMessage;
-    QString reactionOnMessage;
+    std::string reactionUserOnMessage;
     QStringList itemReactionList;
     std::map<std::string, int> reactionMap
     {
