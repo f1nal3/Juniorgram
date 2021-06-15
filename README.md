@@ -7,6 +7,8 @@
 # Introduction 
 A C++ messenger for learning purposes in EPAM Brest C++ R&D Lab
 
+# [Documentation](https://f1nal3.github.io/Juniorgram/)
+
 # Getting Started
 
 There are a few steps to get up and running on own system:
