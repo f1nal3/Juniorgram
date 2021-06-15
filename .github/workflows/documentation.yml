@@ -35,7 +35,9 @@ jobs:
           working-directory: ./docs
        
     - name: DEBUG
-      run: ls docs
+      run: |
+        ls docs
+        ls docs/docs
       
     - name: Generating Coverage Info
       run: |
