@@ -30,7 +30,7 @@ jobs:
   
     - name: Generating Coverage Info
       run: |
-        grep generated ./docs/xml/
+        grep generated ./docs/xml/*
         python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --output doc-coverage.info
         sudo mv doc-coverage.info ./docs
     
