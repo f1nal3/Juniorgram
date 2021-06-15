@@ -34,7 +34,9 @@ jobs:
         sudo mv doc-coverage.info ./docs
     
     - name: DEBUG
-      run: ls
+      run: |
+        ls
+        ls ./docs
       
     - name: Generate HTML
       run: sudo genhtml -s --no-function-coverage --no-branch-coverage ./docs/doc-coverage.info -o ./docs
