@@ -7,7 +7,7 @@ std::vector<std::string> PostgreRepository::getAllChannelsList()
 {
     std::vector<std::string> result;
 
-    auto channelListRow = std::get<0>(PTable("channels").Select()->columns({"channel_name"})->execute());
+    auto channelListRow = PostgreTable("channels").Select()->columns({"channel_name"})->execute();
 
     if (channelListRow.has_value())
     {
@@ -25,11 +25,11 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::
 {
     std::vector<std::string> result;
 
-    auto messageHistoryRow = std::get<0>(PTable("channel_msgs")
+    auto messageHistoryRow = PostgreTable("channel_msgs")
                                          .Select()
                                          ->columns({"msg"})
                                          ->Where("channel_id = " + std::to_string(channelID))
-                                         ->execute());
+                                         ->execute();
 
     if (messageHistoryRow.has_value())
     {
@@ -53,14 +53,14 @@ void PostgreRepository::storeMessage(const Network::MessageInfo& message, const 
         std::pair{"send_time", timeStampStr},
         std::pair{"msg", message.message }
     };
-    PTable("msgs").Insert()->columns(dataForMsgs)->execute();
+    PostgreTable("msgs").Insert()->columns(dataForMsgs)->execute();
     
     // ID will not be autoincremented in the future. Later we are going to use postgre
     // alghorithms to create it.
-    std::uint64_t msgID = std::get<0>(PTable("msgs")
+    std::uint64_t msgID = PostgreTable("msgs")
                                       .Select()
                                       ->columns({"max(msg_id)"})
-                                      ->execute())
+                                      ->execute()
                                       .value()[0][0].as<std::uint64_t>();
     std::tuple dataForChannelMsgs
     {
@@ -68,5 +68,5 @@ void PostgreRepository::storeMessage(const Network::MessageInfo& message, const 
         std::pair{"msg_id", msgID}
     };
     
-    PTable("channel_msgs").Insert()->columns(dataForChannelMsgs)->execute();
+    PostgreTable("channel_msgs").Insert()->columns(dataForChannelMsgs)->execute();
 }

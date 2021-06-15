@@ -38,11 +38,11 @@ Utility::RegistrationCodes RegistrationUnit::registerUser(
 {
     auto getUsersAmount = [&](const std::string& condition) -> std::uint16_t 
     {
-        auto recordsRowAmount = std::get<0>(PTable("users")
+        auto recordsRowAmount = PostgreTable("users")
                                             .Select()
                                             ->columns({"COUNT(*)"})
                                             ->Where(condition)
-                                            ->execute());
+                                            ->execute();
 
         return recordsRowAmount.value()[0][0].as<std::uint16_t>();
     };
@@ -63,7 +63,7 @@ Utility::RegistrationCodes RegistrationUnit::registerUser(
         std::pair{"login", rm.login},
         std::pair{"password_hash", rm.password}
     };
-    PTable("users").Insert()->columns(userData)->execute();
+    PostgreTable("users").Insert()->columns(userData)->execute();
 
     return Utility::RegistrationCodes::SUCCESS;
 }
