@@ -36,7 +36,7 @@ jobs:
     - name: DEBUG
       run: |
         ls
-        cat doc-coverage.info
+        cat docs/doc-coverage.info
       
     - name: Generate HTML
       run: |
