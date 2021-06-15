@@ -118,7 +118,12 @@ private:
     QSpacerItem* horizontalUpLeftSpacer;
     QSpacerItem* horizontalUpRightSpacer;
     DateTimeEdit* messageDateTimeEdit;
-    QPixmap *LikeIcon;
+
+    QPixmap* IconLike;
+    QPixmap* IconDislike;
+    QPixmap* IconFire;
+    QPixmap* IconCat;
+
     // DownLevelLayout
     ComboBox* reactionChoseBox;
     FlatButton* deleteButton;

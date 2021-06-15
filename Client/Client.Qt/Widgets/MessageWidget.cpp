@@ -80,7 +80,10 @@ void MessageWidget::initializationUiNotDelete()
 
     reactionLabelIcon = new Label;
     reactionLabelIcon->setText("");
-    LikeIcon = new QPixmap(":/reactions/like.png");
+    IconLike    = new QPixmap(":/reactions/like.png");
+    IconDislike = new QPixmap(":/reactions/dislike.png");
+    IconFire    = new QPixmap(":/reactions/fire.png");
+    IconCat     = new QPixmap(":/reactions/cat.png");
 
     horizontalUpLeftSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -186,7 +189,7 @@ void MessageWidget::updateWidget()
         reactionOnMessage.clear();
         reactionOnMessage = QString::number(reactionMap["Like"]);
         reactionLabel->setText(reactionOnMessage);
-        reactionLabelIcon->setPixmap(LikeIcon[0]);
+        reactionLabelIcon->setPixmap(IconLike[0]);
     }
 }
 
@@ -196,24 +199,48 @@ void MessageWidget::reactionChange(int index)
     {
         case 1:
         {
-            ++reactionMap["Like"];
-            reactionLabelIcon->setPixmap(LikeIcon[0].scaled(
-                QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)), Qt::KeepAspectRatio, Qt::SmoothTransformation));
-            reactionLabel->setText(QString::number(reactionMap["Like"]));
+            reactionLabelIcon->setPixmap(
+                IconLike[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
+                                   Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            //++reactionMap["Like"];
+            //reactionLabelIcon->setPixmap(LikeIcon[0].scaled(
+            //    QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            //reactionLabel->setText(QString::number(reactionMap["Like"]));
+            break;
+        }
+        case 2:
+        {
+            reactionLabelIcon->setPixmap(
+                IconDislike[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
+                                   Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            break;
+        }
+        case 3:
+        {
+            reactionLabelIcon->setPixmap(
+                IconFire[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
+                                   Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            break;
+        }
+        case 4:
+        {
+            reactionLabelIcon->setPixmap(
+                IconCat[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
+                                   Qt::KeepAspectRatio, Qt::SmoothTransformation));
             break;
         }
         default:
         {
-            --reactionMap["Like"];
-            if (reactionMap["Like"] < 1)
-            {
-                reactionLabelIcon->clear();
-                reactionLabel->clear();
-            }
-            else
-            {
-                reactionLabel->setText(QString::number(reactionMap["Like"]));
-            }
+            //--reactionMap["Like"];
+            //if (reactionMap["Like"] < 1)
+            //{
+            //    reactionLabelIcon->clear();
+            //    reactionLabel->clear();
+            //}
+            //else
+            //{
+            //    reactionLabel->setText(QString::number(reactionMap["Like"]));
+            //}
             break;
         }
     }
