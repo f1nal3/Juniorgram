@@ -1,5 +1,4 @@
 name: Documentation
-
 on:
   push:
     branches: [ master ]
@@ -16,39 +15,29 @@ jobs:
     - uses: actions/setup-python@v2
       with:
           python-version: 3.7
-      
+          
     - name: Install coverage tools
       run: |
         pip3 install coverxygen
         sudo apt-get -y install lcov
     
-    - name: dir
-      run: |
-        sudo mkdir ./docs
-        sudo mkdir ./docs/doc_coverage
-        cd ./docs
-      
     - name: Doxygen Action
       uses: mattnotmitt/doxygen-action@v1.1.0
       with:
-          doxyfile-path: ../../Doxyfile
-          working-directory: ./docs/doc_coverage
-       
-    - name: DEBUG
-      run: |
-        ls docs/doc_coverage/docs
-      
+          doxyfile-path: ./Doxyfile
+          working-directory: .
+  
     - name: Generating Coverage Info
       run: |
-        python3 -m coverxygen --xml-dir ./docs/doc_coverage/xml --src-dir . --kind enum,enumvalue,friend,typedef,variable,function,signal,slot,class,struct,union,define,file --output doc-coverage.info
-        sudo mv doc-coverage.info ./docs/doc_coverage
+        python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --kind enum,enumvalue,friend,typedef,variable,function,signal,slot,class,struct,union,define,file --output doc-coverage.info
+        sudo mv doc-coverage.info ./docs
     
     - name: DEBUG
-      run: ls docs
-      
+      run: ls
+
     - name: Generate HTML
-      run: sudo genhtml -s --no-function-coverage --no-branch-coverage ./docs/doc_coverage/doc-coverage.info -o ./docs/doc_coverage
-    
+      run: sudo genhtml -s --no-function-coverage --no-branch-coverage ./docs/doc-coverage.info -o ./docs
+
     - name: GH Pages Deployment
       uses: peaceiris/actions-gh-pages@v3
       with:
