@@ -33,7 +33,7 @@ jobs:
         sudo mkdir ./docs/doc_coverage
         python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --kind enum,enumvalue,friend,typedef,variable,function,signal,slot,class,struct,union,define,file --output doc-coverage.info
         sudo mv doc-coverage.info ./docs/doc_coverage
-        sudo mv ./docs/* ./docs/doc_coverage
+        sudo mv ./docs/* ./docs/doc_coverage !./docs/doc_coverage
     
     - name: DEBUG
       run: ls
