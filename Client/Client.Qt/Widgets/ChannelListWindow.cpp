@@ -46,6 +46,19 @@ void ChannelListWindow::updateChannelList()
 
             int numberOfCoincidences = 0;
 
+            for(int i = 0; i < channelListMainWindow->count(); ++i)
+            {
+                for(auto it = channelNames.rbegin(); it != channelNames.rend(); ++it)
+                {
+
+                    if(QString::fromStdString(*it) == channelListMainWindow->item(i)->text())
+                    {
+                        channelNames.erase(std::remove(channelNames.begin(), channelNames.end(), *it), channelNames.end());
+                    }
+
+                }
+            }
+
             for (auto it = channelNames.rbegin(); it != channelNames.rend(); ++it)
             {
                 if (channelList->count() == 0)
@@ -86,12 +99,12 @@ void ChannelListWindow::addChannelToMainChannelWidget()
             }
             if (numberOfCoincidences == 0)
             {
-                channelListMainWindow->addItem(channelList->currentItem()->text());
+                channelListMainWindow->addItem(channelList->takeItem(channelList->currentRow()));
             }
         }
         else
         {
-            channelListMainWindow->addItem(channelList->currentItem()->text());
+            channelListMainWindow->addItem(channelList->takeItem(channelList->currentRow()));
         }
     }
     this->hide();
