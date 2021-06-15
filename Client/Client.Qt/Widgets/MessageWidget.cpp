@@ -11,7 +11,7 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidge
       userName(std::move(nameOfUser)),
       dateTimeMessage(QDateTime::currentDateTime())
 {
-    reactionOnMessageYour = "NULL";
+    reactionUserOnMessage = "NULL";
     messageItem    = Item;
     messageDeleted = deletedMessage;
     // Main layouts
@@ -197,9 +197,9 @@ void MessageWidget::updateWidget()
 
 void MessageWidget::reactionChange(int index)
 {
-    if (reactionOnMessageYour != "NULL")
+    if (reactionUserOnMessage != "NULL")
     {
-        --reactionMap[reactionOnMessageYour];
+        --reactionMap[reactionUserOnMessage];
         if (reactionMap["Like"] <= 0)
         {
             reactionLabelIconLike->clear();
@@ -230,7 +230,7 @@ void MessageWidget::reactionChange(int index)
                                    Qt::KeepAspectRatio, Qt::SmoothTransformation));
             ++reactionMap["Like"];
             reactionLabelLike->setText(QString::number(reactionMap["Like"]));
-            reactionOnMessageYour = "Like";
+            reactionUserOnMessage = "Like";
             break;
         }
         case 2:
@@ -240,7 +240,7 @@ void MessageWidget::reactionChange(int index)
                                       Qt::KeepAspectRatio, Qt::SmoothTransformation));
             ++reactionMap["Dislike"];
             reactionLabelDislike->setText(QString::number(reactionMap["Dislike"]));
-            reactionOnMessageYour = "Dislike";
+            reactionUserOnMessage = "Dislike";
             break;
         }
         case 3:
@@ -250,7 +250,7 @@ void MessageWidget::reactionChange(int index)
                                    Qt::KeepAspectRatio, Qt::SmoothTransformation));
             ++reactionMap["Fire"];
             reactionLabelFire->setText(QString::number(reactionMap["Fire"]));
-            reactionOnMessageYour = "Fire";
+            reactionUserOnMessage = "Fire";
             break;
         }
         case 4:
@@ -260,7 +260,7 @@ void MessageWidget::reactionChange(int index)
                                   Qt::KeepAspectRatio, Qt::SmoothTransformation));
             ++reactionMap["Cat"];
             reactionLabelCat->setText(QString::number(reactionMap["Cat"]));
-            reactionOnMessageYour = "Cat";
+            reactionUserOnMessage = "Cat";
             break;
         }
     }
