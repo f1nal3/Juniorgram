@@ -32,8 +32,24 @@ public:
 
     inline std::string getPublicServerKey()
     {
+        mDHServer.GenerateKeyPair(mRng, mPrivServer, mPublicServer);
         return {reinterpret_cast<const char*>(mPublicServer.data()), mPublicServer.size()};
     }
+
+    inline void setPublicClientKey(const std::string& publicClientKey)
+    {
+        mPublicClient = CryptoPP::SecByteBlock(reinterpret_cast<const CryptoPP::byte*>(publicClientKey.data()),
+                      publicClientKey.size());
+    }
+
+    inline void calculateSharedSecret()
+    {
+        mSharedSecret.Assign(CryptoPP::SecByteBlock(mDHServer.AgreedValueLength()));
+     
+        if (!mDHServer.Agree(mSharedSecret, mPrivServer, mPublicClient))
+            throw std::runtime_error("Failed to reach shared secret!");
+    }
+
 
 private:
     CryptoPP::AutoSeededRandomPool mRng;
@@ -42,6 +58,10 @@ private:
     
     CryptoPP::SecByteBlock mPublicServer;
     CryptoPP::SecByteBlock mPrivServer;
+
+    CryptoPP::SecByteBlock mPublicClient;
+
+    CryptoPP::SecByteBlock mSharedSecret;
 };
     
 }  // namespace Utility

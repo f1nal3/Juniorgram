@@ -69,9 +69,9 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             std::string publicClientKey = std::any_cast<std::string>(message.mBody);
 
-            CryptoPP::SecByteBlock sbb(
-                reinterpret_cast<const CryptoPP::byte*>(publicClientKey.data()),
-                publicClientKey.size());
+            client->getKeyDestibutor().get()->setPublicClientKey(publicClientKey);
+
+            client->getKeyDestibutor().get()->calculateSharedSecret();
 
             std::cout << "Client accept encrypted connection!"; 
         }

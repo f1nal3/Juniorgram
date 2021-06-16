@@ -49,6 +49,21 @@ namespace Utility
             return {reinterpret_cast<const char*>(mPublicClient.data()), mPublicClient.size()};
         }
 
+        inline void setPublicServerKey(const std::string& publicServerKey)
+        {
+            mPublicServer = CryptoPP::SecByteBlock(
+                reinterpret_cast<const CryptoPP::byte*>(publicServerKey.data()),
+                publicServerKey.size());
+        }
+
+        inline void calculateSharedSecret()
+        {
+            mSharedSecret.Assign(CryptoPP::SecByteBlock(mDHClient.AgreedValueLength()));
+
+            if (!mDHClient.Agree(mSharedSecret, mPrivClient, mPublicServer))
+                throw std::runtime_error("Failed to reach shared secret!");
+        }
+
         inline static bool generateKey() 
         {
             using namespace CryptoPP;
@@ -206,6 +221,7 @@ namespace Utility
         inline static void create()
         {
             static KeyHolder theInstance;
+            mDHClient.GenerateKeyPair(mRng, mPrivClient, mPublicClient);
             mpInstance = &theInstance;
         }
 
@@ -227,6 +243,10 @@ namespace Utility
         inline static CryptoPP::ECDH<CryptoPP::ECP>::Domain mDHClient{mEllipticCurve};
         inline static CryptoPP::SecByteBlock mPublicClient{mDHClient.PublicKeyLength()};
         inline static CryptoPP::SecByteBlock mPrivClient{mDHClient.PrivateKeyLength()};
+
+        inline static CryptoPP::SecByteBlock mPublicServer{};
+
+        inline static CryptoPP::SecByteBlock mSharedSecret{};
     };
 
 }

@@ -47,9 +47,9 @@ bool App::loop()
 
                     std::string publicServerKey = std::any_cast<std::string>(message.mBody);
 
-                    CryptoPP::SecByteBlock sba(
-                        reinterpret_cast<const CryptoPP::byte*>(publicServerKey.data()),
-                        publicServerKey.size());
+                    Utility::KeyHolder::Instance().setPublicServerKey(publicServerKey);
+
+                    Utility::KeyHolder::Instance().calculateSharedSecret();
                     
                     message.mHeader.mMessageType =
                         Network::Message::MessageType::SetEncryptedConnection;
