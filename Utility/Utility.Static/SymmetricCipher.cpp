@@ -7,7 +7,7 @@
 #include <memory>
 #include <string>
 
-namespace SymmetricCipher
+namespace Utility
 {
 using namespace CryptoPP;
 

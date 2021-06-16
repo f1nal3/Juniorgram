@@ -5,6 +5,14 @@
 
 #include <future>
 
+#include <cryptopp/hmac.h>
+#include <cryptopp/osrng.h>
+#include <cryptopp/eccrypto.h>
+
+#include <cryptopp/oids.h>
+#include <cryptopp/dh2.h>
+#include <cryptopp/modes.h>
+
 using Network::Connection;
 using Network::Message;
 using Network::SafeQueue;
@@ -15,6 +23,11 @@ bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
 {
     Network::Message message;
     message.mHeader.mMessageType = Network::Message::MessageType::ServerAccept;
+    client->send(message);
+
+    message.mHeader.mMessageType = Network::Message::MessageType::SetEncryptedConnection;
+    
+    message.mBody = std::make_any<std::string>(client->getKeyDestibutor().get()->getPublicServerKey());
     client->send(message);
     return true;
 }
@@ -49,6 +62,18 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                       << client->getID() << "]: Server Ping\n";
 
             client->send(message);
+        }
+        break;
+
+        case Network::Message::MessageType::SetEncryptedConnection:
+        {
+            std::string publicClientKey = std::any_cast<std::string>(message.mBody);
+
+            CryptoPP::SecByteBlock sbb(
+                reinterpret_cast<const CryptoPP::byte*>(publicClientKey.data()),
+                publicClientKey.size());
+
+            std::cout << "Client accept encrypted connection!"; 
         }
         break;
 

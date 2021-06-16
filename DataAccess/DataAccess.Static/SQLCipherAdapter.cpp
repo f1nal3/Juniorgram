@@ -34,7 +34,7 @@ sqlite3_ptr make_sqlite3(const std::string_view& dbName)
   unsigned char rawMACAddress[6]{};
   sqlite3* db = nullptr;   
 
-  if(MACAddressUtility::GetMACAddress(rawMACAddress) == (long)MACAdressExistance::exists)
+  if (Utility::MACAddressUtility::GetMACAddress(rawMACAddress) == (long)MACAdressExistance::exists)
   {
       std::stringstream MACAddress;
 
@@ -53,6 +53,8 @@ sqlite3_ptr make_sqlite3(const std::string_view& dbName)
 
       sqlite3_key(db, hashedMAC.c_str(), hashedMAC.size());
       restoreWarning
+
+      //getMAC();
 
       std::unique_ptr<std::vector<std::string>>
       isExists = std::make_unique<std::vector<std::string>>();

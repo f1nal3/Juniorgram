@@ -18,22 +18,25 @@ bool SQLCipherRepository::isRefreshTokenExists()
     return std::stoi(tokenCountVc.front());
 }
 
+suppressWarning(4100, Init) 
 std::vector<std::string> SQLCipherRepository::getAllChannelsList()
 {
     throw Utility::NotImplementedException("This feature has no implementation at this time!", __FILE__, __LINE__);
-    return {};
 }
+restoreWarning
 
-std::vector<std::string> SQLCipherRepository::getMessageHistoryForUser(
-    const std::uint64_t channelID)
-{
-    throw Utility::NotImplementedException("This feature has no implementation at this time!", __FILE__, __LINE__);
-    return {};
-}
-
-void SQLCipherRepository::storeMessage(const Network::MessageInfo& message, const std::uint64_t channelID)
+suppressWarning(4100, Init)
+std::vector<std::string> SQLCipherRepository::getMessageHistoryForUser(const std::uint64_t channelID)
 {
     throw Utility::NotImplementedException("This feature has no implementation at this time!", __FILE__, __LINE__);
 }
+restoreWarning
+
+suppressWarning(4100, Init)
+    void SQLCipherRepository::storeMessage(const Network::MessageInfo& message, const std::uint64_t channelID)
+{
+    throw Utility::NotImplementedException("This feature has no implementation at this time!", __FILE__, __LINE__);
+}
+restoreWarning
 
 }

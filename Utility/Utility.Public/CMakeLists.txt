@@ -11,7 +11,9 @@ set(SOURCE_FILES
     Include/Utility/Exception.hpp
     Include/Utility/YasSerializer.hpp
     Include/Utility/SQLUtility.hpp
-    Include/Utility/UserDataValidation.hpp)
+    Include/Utility/UserDataValidation.hpp
+	Include/Utility/KeyHolder.hpp
+	Include/Utility/KeyDestibutor.hpp)
 
 add_library(${TARGET} INTERFACE)
 target_sources(${TARGET} INTERFACE ${SOURCE_FILES})

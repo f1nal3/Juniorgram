@@ -24,6 +24,8 @@
 #include "Utility/SerializationHandler.hpp"
 #include "Utility/YasSerializer.hpp"
 
+#include "Utility/KeyDestibutor.hpp"
+
 namespace Network
 {
 /** @class Connection
@@ -45,6 +47,8 @@ public:
     };
 
 private:
+
+    std::unique_ptr<Utility::KeyDestributor> mKeyDestibutor;
     /// Connection "owner"
     OwnerType mOwner = OwnerType::SERVER;
     /// Connection id
@@ -266,7 +270,8 @@ public:
         : mOwner(owner),
           mSocket(std::move(socket)),
           mContextLink(contextLink),
-          mIncomingMessagesQueueLink(incomingMessagesQueueLink)
+          mIncomingMessagesQueueLink(incomingMessagesQueueLink), 
+          mKeyDestibutor(new Utility::KeyDestributor)
     {
     }
 
@@ -360,6 +365,11 @@ public:
                 writeHeader();
             }
         });
+    }
+
+    std::unique_ptr<Utility::KeyDestributor>& getKeyDestibutor()
+    { 
+        return mKeyDestibutor;
     }
 };
 }  // namespace Network

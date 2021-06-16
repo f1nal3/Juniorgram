@@ -27,6 +27,7 @@ class Server
     Network::SafeQueue<Network::Message> mIncomingMessagesQueue;
     std::deque<std::thread> mThreads;
     std::unique_ptr<DataAccess::IRepository> _postgreRepo;
+    
 
     bool onClientConnect(const std::shared_ptr<Network::Connection>& client);
 

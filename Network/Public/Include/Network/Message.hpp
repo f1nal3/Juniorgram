@@ -19,6 +19,7 @@ struct Message
 {
     enum class MessageType : std::uint32_t
     {
+        SetEncryptedConnection,
         ServerAccept,
         ServerPing,
         MessageAll,

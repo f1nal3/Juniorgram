@@ -46,6 +46,8 @@ public:
                     break;
                 case Message::MessageType::RegistrationAnswer:
                     state = processOutcomingMessageBody<Utility::RegistrationCodes>(bodyBuffer, message.mBody);
+                case Message::MessageType::SetEncryptedConnection:
+                    state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
                     break;
                 default:
                     break;
@@ -99,6 +101,7 @@ public:
                 state = processIncomingMessageBody<MessageInfo>(buffer, message);
                 break;
             }
+<<<<<<< HEAD
             case Message::MessageType::RegistrationRequest:
             {
                 state = processIncomingMessageBody<RegistrationInfo>(buffer, message);
@@ -107,6 +110,11 @@ public:
             case Message::MessageType::RegistrationAnswer:
             {
                 state = processIncomingMessageBody<Utility::RegistrationCodes>(buffer, message);
+=======
+            case Message::MessageType::SetEncryptedConnection:
+            {
+                state = processIncomingMessageBody<std::string>(buffer, message);
+>>>>>>> 4b2e92b (Basic key exchange impl.)
                 break;
             }
             default:

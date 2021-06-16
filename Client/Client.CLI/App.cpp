@@ -3,18 +3,20 @@
 #include "Network/Primitives.hpp"
 
 #include <DataAccess.Static/SQLCipherAdapter.hpp>
+#include "Utility/KeyHolder.hpp"
+
 
 App::App(/* args */)
 {
-    if (client.checkTokenExistance())
-    {
+    //if (client.checkTokenExistance())
+    //{
         client.connect(address, port);
-        client.askForChannelList();
-    }
-    else
-    {
-        //go to authentitication form/state 
-    }
+      /*  client.askForChannelList();*/
+    //}
+    //else
+    //{
+    //    //go to authentitication form/state 
+    //}
 }
     
 
@@ -39,6 +41,26 @@ bool App::loop()
 
             switch (message.mHeader.mMessageType)
             {
+                case Network::Message::MessageType::SetEncryptedConnection:
+                {
+                    std::cout << "The server is trying to establish an encrypted connection!\n";
+
+                    std::string publicServerKey = std::any_cast<std::string>(message.mBody);
+
+                    CryptoPP::SecByteBlock sba(
+                        reinterpret_cast<const CryptoPP::byte*>(publicServerKey.data()),
+                        publicServerKey.size());
+                    
+                    message.mHeader.mMessageType =
+                        Network::Message::MessageType::SetEncryptedConnection;
+
+                    message.mBody =
+                        std::make_any<std::string>(Utility::KeyHolder::Instance().getPublicClientKey());
+
+                    client.send(message);
+                }
+                break;
+
                 case Network::Message::MessageType::ServerAccept:
                 {
                     std::cout << "Server Accepted Connection\n";
