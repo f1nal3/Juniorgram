@@ -6,6 +6,8 @@
 #include <cryptopp/modes.h>
 #include <cryptopp/oids.h>
 #include <cryptopp/osrng.h>
+#include "EncryptionHandler.hpp"
+
 
 #include <cstdlib>
 
@@ -48,6 +50,8 @@ public:
      
         if (!mDHServer.Agree(mSharedSecret, mPrivServer, mPublicClient))
             throw std::runtime_error("Failed to reach shared secret!");
+
+        Network::EncryptionHandler::calculateDigestAndGenerateIVBlock(mSharedSecret);
     }
 
 

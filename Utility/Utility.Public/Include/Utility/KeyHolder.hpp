@@ -62,6 +62,8 @@ namespace Utility
 
             if (!mDHClient.Agree(mSharedSecret, mPrivClient, mPublicServer))
                 throw std::runtime_error("Failed to reach shared secret!");
+
+             Network::EncryptionHandler::calculateDigestAndGenerateIVBlock(mSharedSecret);
         }
 
         inline static bool generateKey() 
@@ -76,142 +78,142 @@ namespace Utility
             CryptoPP::SecByteBlock privClient{DHClient.PrivateKeyLength()};*/
 
           
-             OID CURVE = CryptoPP::ASN1::secp256r1();
+          //   OID CURVE = CryptoPP::ASN1::secp256r1();
 
-             AutoSeededRandomPool rng;
+          //   AutoSeededRandomPool rng;
 
-             ECDH<ECP>::Domain dhA(CURVE), dhB(CURVE);
+          //   ECDH<ECP>::Domain dhA(CURVE), dhB(CURVE);
 
-             SecByteBlock privA(dhA.PrivateKeyLength()), pubA(dhA.PublicKeyLength());
+          //   SecByteBlock privA(dhA.PrivateKeyLength()), pubA(dhA.PublicKeyLength());
 
-          /*     std::string token2(reinterpret_cast<const char*>(pubA.data()),
-                                pub.size());*/
-
-
-             SecByteBlock privB(dhB.PrivateKeyLength()), pubB(dhB.PublicKeyLength());
-
-             dhA.GenerateKeyPair(rng, privA, pubA);
-
-             dhB.GenerateKeyPair(rng, privB, pubB);
-
-             if (dhA.AgreedValueLength() != dhB.AgreedValueLength())
-                 throw std::runtime_error("Shared shared size mismatch");
-
-             SecByteBlock sharedA(dhA.AgreedValueLength()), sharedB(dhB.AgreedValueLength());
-
-             if (!dhA.Agree(sharedA, privA, pubB))
-                 throw std::runtime_error("Failed to reach shared secret (A)");
-
-             if (!dhB.Agree(sharedB, privB, pubA))
-                 throw std::runtime_error("Failed to reach shared secret (B)");
-
-             Integer ssa, ssb;
-
-             ssa.Decode(sharedA.BytePtr(), sharedA.SizeInBytes());
-             std::cout << "(A): " << std::hex << ssa << std::endl;
-
-             ssb.Decode(sharedB.BytePtr(), sharedB.SizeInBytes());
-             std::cout << "(B): " << std::hex << ssb << std::endl;
-
-             if (ssa != ssb) throw std::runtime_error("Failed to reach shared secret (C)");
-
-                 std::cout << "Agreed to shared secret" << std::endl;
+          ///*     std::string token2(reinterpret_cast<const char*>(pubA.data()),
+          //                      pub.size());*/
 
 
+          //   SecByteBlock privB(dhB.PrivateKeyLength()), pubB(dhB.PublicKeyLength());
+
+          //   dhA.GenerateKeyPair(rng, privA, pubA);
+
+          //   dhB.GenerateKeyPair(rng, privB, pubB);
+
+          //   if (dhA.AgreedValueLength() != dhB.AgreedValueLength())
+          //       throw std::runtime_error("Shared shared size mismatch");
+
+          //   SecByteBlock sharedA(dhA.AgreedValueLength()), sharedB(dhB.AgreedValueLength());
+
+          //   if (!dhA.Agree(sharedA, privA, pubB))
+          //       throw std::runtime_error("Failed to reach shared secret (A)");
+
+          //   if (!dhB.Agree(sharedB, privB, pubA))
+          //       throw std::runtime_error("Failed to reach shared secret (B)");
+
+          //   Integer ssa, ssb;
+
+          //   ssa.Decode(sharedA.BytePtr(), sharedA.SizeInBytes());
+          //   std::cout << "(A): " << std::hex << ssa << std::endl;
+
+          //   ssb.Decode(sharedB.BytePtr(), sharedB.SizeInBytes());
+          //   std::cout << "(B): " << std::hex << ssb << std::endl;
+
+          //   if (ssa != ssb) throw std::runtime_error("Failed to reach shared secret (C)");
+
+          //       std::cout << "Agreed to shared secret" << std::endl;
+
+
+
+            ////////////////////////////////////////////////////////////////////////
+          /*   Alice*/
+
+             //Initialize the Diffie-Hellman class with a random prime and base
+            AutoSeededRandomPool rngA;
+            DH dhA;
+            dhA.AccessGroupParameters().Initialize(rngA, 128);
+
+            // Extract the prime and base. These values could also have been hard coded
+            // in the application
+            Integer iPrime     = dhA.GetGroupParameters().GetModulus();
+            Integer iGenerator = dhA.GetGroupParameters().GetSubgroupGenerator();
+
+            SecByteBlock privA(dhA.PrivateKeyLength());
+            SecByteBlock pubA(dhA.PublicKeyLength());
+            SecByteBlock secretKeyA(dhA.AgreedValueLength());
+
+            // Generate a pair of integers for Alice. The public integer is forwarded to Bob.
+            dhA.GenerateKeyPair(rngA, privA, pubA);
 
             //////////////////////////////////////////////////////////////////////////
-            // Alice
+            // Bob
 
-            // Initialize the Diffie-Hellman class with a random prime and base
-            //AutoSeededRandomPool rngA;
-            //DH dhA;
-            //dhA.AccessGroupParameters().Initialize(rngA, 128);
+            AutoSeededRandomPool rngB;
+            // Initialize the Diffie-Hellman class with the prime and base that Alice generated.
+            DH dhB(iPrime, iGenerator);
 
-            //// Extract the prime and base. These values could also have been hard coded
-            //// in the application
-            //Integer iPrime     = dhA.GetGroupParameters().GetModulus();
-            //Integer iGenerator = dhA.GetGroupParameters().GetSubgroupGenerator();
+            SecByteBlock privB(dhB.PrivateKeyLength());
+            SecByteBlock pubB(dhB.PublicKeyLength());
+            SecByteBlock secretKeyB(dhB.AgreedValueLength());
 
-            //SecByteBlock privA(dhA.PrivateKeyLength());
-            //SecByteBlock pubA(dhA.PublicKeyLength());
-            //SecByteBlock secretKeyA(dhA.AgreedValueLength());
+            // Generate a pair of integers for Bob. The public integer is forwarded to Alice.
+            dhB.GenerateKeyPair(rngB, privB, pubB);
 
-            //// Generate a pair of integers for Alice. The public integer is forwarded to Bob.
-            //dhA.GenerateKeyPair(rngA, privA, pubA);
+            std::string token(reinterpret_cast<const char*>(pubB.data()), pubB.size());
 
-            ////////////////////////////////////////////////////////////////////////////
-            //// Bob
+            SecByteBlock sbb(reinterpret_cast<const byte*>(token.data()), token.size());
 
-            //AutoSeededRandomPool rngB;
-            //// Initialize the Diffie-Hellman class with the prime and base that Alice generated.
-            //DH dhB(iPrime, iGenerator);
+            if (pubB == sbb)
+            {
+                std::cout << "Wow!";
+            }
 
-            //SecByteBlock privB(dhB.PrivateKeyLength());
-            //SecByteBlock pubB(dhB.PublicKeyLength());
-            //SecByteBlock secretKeyB(dhB.AgreedValueLength());
+            //////////////////////////////////////////////////////////////////////////
+            // Agreement
 
-            //// Generate a pair of integers for Bob. The public integer is forwarded to Alice.
-            //dhB.GenerateKeyPair(rngB, privB, pubB);
+            // Alice calculates the secret key based on her private integer as well as the
+            // public integer she received from Bob.
+            if (!dhA.Agree(secretKeyA, privA, pubB)) return false;
 
-            //std::string token(reinterpret_cast<const char*>(pubB.data()), pubB.size());
+            // Bob calculates the secret key based on his private integer as well as the
+            // public integer he received from Alice.
+            if (!dhB.Agree(secretKeyB, privB, pubA)) return false;
 
-            //SecByteBlock sbb(reinterpret_cast<const byte*>(token.data()), token.size());
+            // Just a validation check. Did Alice and Bob agree on the same secret key?
+            if (memcmp(secretKeyA.begin(), secretKeyB.begin(), dhA.AgreedValueLength()))
+                return false;
 
-            //if (pubB == sbb)
-            //{
-            //    std::cout << "Wow!";
-            //}
+            //------------------------------------------------------------------------------------
 
-            ////////////////////////////////////////////////////////////////////////////
-            //// Agreement
+            Integer ssa, ssb;
 
-            //// Alice calculates the secret key based on her private integer as well as the
-            //// public integer she received from Bob.
-            //if (!dhA.Agree(secretKeyA, privA, pubB)) return false;
+            ssa.Decode(secretKeyA.BytePtr(), secretKeyA.SizeInBytes());
+            std::cout << "(A): " << std::hex << ssa << std::endl;
 
-            //// Bob calculates the secret key based on his private integer as well as the
-            //// public integer he received from Alice.
-            //if (!dhB.Agree(secretKeyB, privB, pubA)) return false;
+            ssb.Decode(secretKeyB.BytePtr(), secretKeyB.SizeInBytes());
+            std::cout << "(B): " << std::hex << ssb << std::endl;
 
-            //// Just a validation check. Did Alice and Bob agree on the same secret key?
-            //if (memcmp(secretKeyA.begin(), secretKeyB.begin(), dhA.AgreedValueLength()))
-            //    return false;
+            int aesKeyLength = SHA256::DIGESTSIZE;  // 32 bytes = 256 bit key
+            int defBlockSize = AES::BLOCKSIZE;
 
-            ////------------------------------------------------------------------------------------
+            // Calculate a SHA-256 hash over the Diffie-Hellman session key
+            SecByteBlock key(SHA256::DIGESTSIZE);
+            SHA256().CalculateDigest(key, secretKeyA, secretKeyA.size());
 
-            //Integer ssa, ssb;
+            // Generate a random IV
+            byte iv[AES::BLOCKSIZE];
+            rngA.GenerateBlock(iv, defBlockSize /*AES::BLOCKSIZE*/);
 
-            //ssa.Decode(secretKeyA.BytePtr(), secretKeyA.SizeInBytes());
-            //std::cout << "(A): " << std::hex << ssa << std::endl;
+            char message[] = "Hello! How are you.";
+            int messageLen = (int)strlen(message) + 1;
 
-            //ssb.Decode(secretKeyB.BytePtr(), secretKeyB.SizeInBytes());
-            //std::cout << "(B): " << std::hex << ssb << std::endl;
+            //////////////////////////////////////////////////////////////////////////
+            // Encrypt
 
-            //int aesKeyLength = SHA256::DIGESTSIZE;  // 32 bytes = 256 bit key
-            //int defBlockSize = AES::BLOCKSIZE;
+            CFB_Mode<AES>::Encryption cfbEncryption(key, aesKeyLength, iv);
+            cfbEncryption.ProcessData((byte*)message, (byte*)message, messageLen);
 
-            //// Calculate a SHA-256 hash over the Diffie-Hellman session key
-            //SecByteBlock key(SHA256::DIGESTSIZE);
-            //SHA256().CalculateDigest(key, secretKeyA, secretKeyA.size());
+            //////////////////////////////////////////////////////////////////////////
+            // Decrypt
 
-            //// Generate a random IV
-            //byte iv[AES::BLOCKSIZE];
-            //rngA.GenerateBlock(iv, defBlockSize /*AES::BLOCKSIZE*/);
-
-            //char message[] = "Hello! How are you.";
-            //int messageLen = (int)strlen(message) + 1;
-
-            ////////////////////////////////////////////////////////////////////////////
-            //// Encrypt
-
-            //CFB_Mode<AES>::Encryption cfbEncryption(key, aesKeyLength, iv);
-            //cfbEncryption.ProcessData((byte*)message, (byte*)message, messageLen);
-
-            ////////////////////////////////////////////////////////////////////////////
-            //// Decrypt
-
-            //CFB_Mode<AES>::Decryption cfbDecryption(key, aesKeyLength, iv);
-            //cfbDecryption.ProcessData((byte*)message, (byte*)message, messageLen);
+            CFB_Mode<AES>::Decryption cfbDecryption(key, aesKeyLength, iv);
+            cfbDecryption.ProcessData((byte*)message, (byte*)message, messageLen);
 
             return 1;
         }

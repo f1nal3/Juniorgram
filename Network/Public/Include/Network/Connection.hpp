@@ -82,9 +82,25 @@ private:
         yas::shared_buffer bodyBuffer;
 
         SerializationHandler handler;
-        handler.setNext(new CompressionHandler())->setNext(new EncryptionHandler());
-        MessageProcessingState result = handler.handleOutcomingMessage(mOutcomingMessagesQueue.front(), bodyBuffer);
+
+        if (
+            mOutcomingMessagesQueue.front().mHeader.mMessageType == Message::MessageType::SetEncryptedConnection ||
+            mOutcomingMessagesQueue.front().mHeader.mMessageType == Message::MessageType::ServerAccept)
+        {
+             handler.setNext(new CompressionHandler());
+        }
+        else
+        {
+             handler.setNext(new EncryptionHandler())->setNext(new CompressionHandler());
+        }
+    
+        MessageProcessingState result = MessageProcessingState::SUCCESS;
         
+        if (mOutcomingMessagesQueue.front().mBody.has_value())
+        {
+            result = handler.handleOutcomingMessage(mOutcomingMessagesQueue.front(), bodyBuffer);
+        }  
+
         Network::Message::MessageHeader outcomingMessageHeader =
             mOutcomingMessagesQueue.front().mHeader;
         outcomingMessageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
@@ -174,7 +190,7 @@ private:
             {
                 if (mMessageBuffer.mHeader.mBodySize > 0)
                 {
-                    readBody(mMessageBuffer.mHeader.mBodySize);
+                    readBody(mMessageBuffer.mHeader);
                 }
                 else
                 {
@@ -203,16 +219,28 @@ private:
      * "[connection id] Read Body Fail." is displayed.
      * @param bodySize - size of messege body
      */
-    void readBody(size_t bodySize)
+    void readBody(Message::MessageHeader& Header)
     {
         yas::shared_buffer buffer;
-        buffer.resize(bodySize);
+        buffer.resize(Header.mBodySize);
 
-        const auto readBodyHandler = [this, buffer](std::error_code error) {
+        const auto readBodyHandler = [this, buffer, Header](std::error_code error) {
             if (!error)
             {
-                EncryptionHandler handler;
-                handler.setNext(new CompressionHandler())->setNext(new SerializationHandler());
+                CompressionHandler handler;
+
+                if (Header.mMessageType ==
+                        Message::MessageType::SetEncryptedConnection ||
+                    Header.mMessageType ==
+                        Message::MessageType::ServerAccept)
+                {
+                        handler.setNext(new SerializationHandler());
+                }
+                else
+                {
+                        handler.setNext(new EncryptionHandler())->setNext(new SerializationHandler());
+                }
+
                 MessageProcessingState result =
                     handler.handleIncomingMessageBody(buffer, mMessageBuffer);
 

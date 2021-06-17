@@ -19,7 +19,7 @@ public:
     {
         SerializedState state = SerializedState::SUCCESS;
 
-        if (message.mBody.has_value())
+        switch (message.mHeader.mMessageType)
         {
             switch (message.mHeader.mMessageType)
             {
@@ -53,16 +53,15 @@ public:
                     break;
             }
         }
-
+       
         if (state == SerializedState::SUCCESS)
         {
             if (this->nextHandler)
             {
-                this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
+                return this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
             }
             return MessageProcessingState::SUCCESS;
         }
-
         return MessageProcessingState::FAILURE;
     }
 
@@ -74,7 +73,7 @@ public:
     MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer,
                                                 Message& message) override
     {
-        SerializedState state = SerializedState::FAILURE;
+        SerializedState state = SerializedState::SUCCESS;
 
         switch (message.mHeader.mMessageType)
         {
@@ -125,11 +124,10 @@ public:
         {
             if (this->nextHandler)
             {
-                this->nextHandler->handleIncomingMessageBody(buffer, message);
+                return this->nextHandler->handleIncomingMessageBody(buffer, message);
             }
             return MessageProcessingState::SUCCESS;
         }
-
         return MessageProcessingState::FAILURE;
     }
 

@@ -1,6 +1,10 @@
 #pragma once
 #include "Handler.hpp"
 
+#include <cryptopp/osrng.h>
+#include <cryptopp/modes.h>
+#include <cryptopp/sha.h>
+
 namespace Network
 {
 /** @class EncryptionHandler
@@ -22,10 +26,21 @@ public:
         // body encryption
         // messageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
         // header encryption
+        std::cout << "Before encrypt - " << bodyBuffer.data.get() << "\n";
+        std::cout << "Length of serialize buf - " << strlen(bodyBuffer.data.get()) << "\n";
+
+        CryptoPP::CFB_Mode<CryptoPP::AES>::Encryption cfbEncryption(mEncryptionKey,
+                                                                    CryptoPP::AES::BLOCKSIZE, mIV);
+        cfbEncryption.ProcessData((CryptoPP::byte*)bodyBuffer.data.get(),
+                                  (CryptoPP::byte*)bodyBuffer.data.get(), (strlen(bodyBuffer.data.get())+1));
+
+        std::cout <<"After encrypt - " <<bodyBuffer.data.get() << "\n";
+        std::cout << "Length of encrypt buf - " << strlen(bodyBuffer.data.get()) << "\n";
+
 
         if (this->nextHandler)
         {
-            this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
+            return this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
         }
         return MessageProcessingState::SUCCESS;
     }
@@ -40,11 +55,34 @@ public:
     {
         // body decryption
 
+        std::cout << "Before decrypt - " << buffer.data.get() << "\n";
+        std::cout << "Length of encrypt buf - " << strlen(buffer.data.get()) << "\n";
+
+        CryptoPP::CFB_Mode<CryptoPP::AES>::Decryption cfbDecryption(mEncryptionKey,
+                                                                    CryptoPP::AES::BLOCKSIZE, mIV);
+        cfbDecryption.ProcessData((CryptoPP::byte*)buffer.data.get(),(CryptoPP::byte*)buffer.data.get(), (strlen(buffer.data.get()) + 1));
+
+        std::cout << "After decrypt - " << buffer.data.get() << "\n";
+        std::cout << "Length of decrypt buf - " << strlen(buffer.data.get()) << "\n";
+
         if (this->nextHandler)
         {
-            this->nextHandler->handleIncomingMessageBody(buffer, message);
+          return this->nextHandler->handleIncomingMessageBody(buffer, message);
         }
         return MessageProcessingState::SUCCESS;
     }
+
+    inline static void calculateDigestAndGenerateIVBlock(const CryptoPP::SecByteBlock& sharedSecret)
+    {
+        CryptoPP::SHA256().CalculateDigest(mEncryptionKey, sharedSecret, sharedSecret.size());
+
+        // Generate a random IV
+        mRng.GenerateBlock(mIV, CryptoPP::AES::BLOCKSIZE);
+    }
+
+private:
+    inline static CryptoPP::byte mIV[CryptoPP::AES::BLOCKSIZE]{};
+    inline static CryptoPP::AutoSeededRandomPool mRng{};
+    inline static CryptoPP::SecByteBlock mEncryptionKey{CryptoPP::SHA256::DIGESTSIZE};
 };
 }  // namespace Network
