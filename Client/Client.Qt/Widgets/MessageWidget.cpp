@@ -72,15 +72,22 @@ void MessageWidget::initializationUiNotDelete()
     messageTextEdit->setAcceptDrops(false);
     messageTextEdit->setReadOnly(true);
 
-    reactionLabelLike = new Label;
+    reactionLabelLike    = new Label;
     reactionLabelDislike = new Label;
-    reactionLabelFire = new Label;
-    reactionLabelCat = new Label;
+    reactionLabelFire    = new Label;
+    reactionLabelCat     = new Label;
 
     reactionLabelIconLike = new Label;
     reactionLabelIconDislike = new Label;
     reactionLabelIconFire = new Label;
     reactionLabelIconCat = new Label;
+
+    pixmapIcon = new QMap<reactions, QPixmap*>;
+
+    pixmapIcon->insert(reactions::like, new QPixmap(":/reactions/like.png"));
+    pixmapIcon->insert(reactions::dislike, new QPixmap(":/reactions/dislike.png"));
+    pixmapIcon->insert(reactions::fire, new QPixmap(":/reactions/fire.png"));
+    pixmapIcon->insert(reactions::cat, new QPixmap(":/reactions/cat.png"));
 
     IconLike    = new QPixmap(":/reactions/like.png");
     IconDislike = new QPixmap(":/reactions/dislike.png");
@@ -200,6 +207,7 @@ void MessageWidget::reactionChange(int index)
     if (reactionUserOnMessage != "NULL")
     {
         --reactionMap[reactionUserOnMessage];
+        
         if (reactionMap["Like"] <= 0)
         {
             reactionLabelIconLike->clear();
@@ -226,8 +234,14 @@ void MessageWidget::reactionChange(int index)
         case 1:
         {
             reactionLabelIconLike->setPixmap(
-                IconLike[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
+                pixmapIcon->find(reactions::like)
+                    .value()[0]
+                    .scaled(
+                QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
                                    Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            //reactionLabelIconLike->setPixmap(
+            //    IconLike[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
+            //                       Qt::KeepAspectRatio, Qt::SmoothTransformation));
             ++reactionMap["Like"];
             reactionLabelLike->setText(QString::number(reactionMap["Like"]));
             reactionUserOnMessage = "Like";
@@ -236,8 +250,13 @@ void MessageWidget::reactionChange(int index)
         case 2:
         {
             reactionLabelIconDislike->setPixmap(
-                IconDislike[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
-                                      Qt::KeepAspectRatio, Qt::SmoothTransformation));
+                pixmapIcon->find(reactions::dislike)
+                    .value()[0]
+                    .scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
+                            Qt::KeepAspectRatio, Qt::SmoothTransformation));
+            //reactionLabelIconDislike->setPixmap(
+            //    IconDislike[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
+            //                          Qt::KeepAspectRatio, Qt::SmoothTransformation));
             ++reactionMap["Dislike"];
             reactionLabelDislike->setText(QString::number(reactionMap["Dislike"]));
             reactionUserOnMessage = "Dislike";
@@ -246,8 +265,10 @@ void MessageWidget::reactionChange(int index)
         case 3:
         {
             reactionLabelIconFire->setPixmap(
-                IconFire[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
-                                   Qt::KeepAspectRatio, Qt::SmoothTransformation));
+                pixmapIcon->find(reactions::fire)
+                    .value()[0]
+                    .scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
+                            Qt::KeepAspectRatio, Qt::SmoothTransformation));
             ++reactionMap["Fire"];
             reactionLabelFire->setText(QString::number(reactionMap["Fire"]));
             reactionUserOnMessage = "Fire";
@@ -256,8 +277,10 @@ void MessageWidget::reactionChange(int index)
         case 4:
         {
             reactionLabelIconCat->setPixmap(
-                IconCat[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
-                                  Qt::KeepAspectRatio, Qt::SmoothTransformation));
+                pixmapIcon->find(reactions::cat)
+                    .value()[0]
+                    .scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
+                            Qt::KeepAspectRatio, Qt::SmoothTransformation));
             ++reactionMap["Cat"];
             reactionLabelCat->setText(QString::number(reactionMap["Cat"]));
             reactionUserOnMessage = "Cat";

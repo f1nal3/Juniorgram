@@ -104,6 +104,13 @@ private slots:
     void reactionChange(int index);
 
 private:
+    enum reactions
+    {
+        like = 0,
+        dislike,
+        fire,
+        cat
+    };
     QListWidgetItem* messageItem;
     // Layouts
     QVBoxLayout* mainLayout;
@@ -128,7 +135,8 @@ private:
     QSpacerItem* horizontalUpRightSpacer;
     DateTimeEdit* messageDateTimeEdit;
 
-        
+    QMap<reactions, QPixmap*> *pixmapIcon;
+
     QPixmap* IconLike;
     QPixmap* IconDislike;
     QPixmap* IconFire;
