@@ -251,7 +251,7 @@ void MessageWidget::reactionChange(int index)
                     .scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
                             Qt::KeepAspectRatio, Qt::SmoothTransformation));
             ++reactionMap[reactions::dislike];
-            reactionMapLabel->find(reactions::like)
+            reactionMapLabel->find(reactions::dislike)
                 .value()
                 ->setText(QString::number(reactionMap[reactions::dislike]));
             reactionUserOnMessage = reactions::dislike;
@@ -265,7 +265,7 @@ void MessageWidget::reactionChange(int index)
                     .scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
                             Qt::KeepAspectRatio, Qt::SmoothTransformation));
             ++reactionMap[reactions::fire];
-            reactionMapLabel->find(reactions::like)
+            reactionMapLabel->find(reactions::fire)
                 .value()
                 ->setText(QString::number(reactionMap[reactions::fire]));
             reactionUserOnMessage = reactions::fire;
@@ -279,7 +279,7 @@ void MessageWidget::reactionChange(int index)
                     .scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
                             Qt::KeepAspectRatio, Qt::SmoothTransformation));
             ++reactionMap[reactions::cat];
-            reactionMapLabel->find(reactions::like)
+            reactionMapLabel->find(reactions::cat)
                 .value()
                 ->setText(QString::number(reactionMap[reactions::cat]));
             reactionUserOnMessage = reactions::cat;
