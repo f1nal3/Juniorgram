@@ -104,7 +104,7 @@ private slots:
     void reactionChange(int index);
 
 private:
-    enum class reactions
+    enum reactions
     {
         like = 0,
         dislike,
@@ -126,6 +126,8 @@ private:
     Label* reactionLabelDislike;
     Label* reactionLabelFire;
     Label* reactionLabelCat;
+
+    QMap<reactions, Label*>* reactionMapLabel;
 
     Label* reactionLabelIconLike;
     Label* reactionLabelIconDislike;
