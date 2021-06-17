@@ -89,11 +89,6 @@ void MessageWidget::initializationUiNotDelete()
     pixmapIcon->insert(reactions::fire, new QPixmap(":/reactions/fire.png"));
     pixmapIcon->insert(reactions::cat, new QPixmap(":/reactions/cat.png"));
 
-    IconLike    = new QPixmap(":/reactions/like.png");
-    IconDislike = new QPixmap(":/reactions/dislike.png");
-    IconFire    = new QPixmap(":/reactions/fire.png");
-    IconCat     = new QPixmap(":/reactions/cat.png");
-
     horizontalUpLeftSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     messageDateTimeEdit = new DateTimeEdit(this);
@@ -239,9 +234,6 @@ void MessageWidget::reactionChange(int index)
                     .scaled(
                 QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
                                    Qt::KeepAspectRatio, Qt::SmoothTransformation));
-            //reactionLabelIconLike->setPixmap(
-            //    IconLike[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
-            //                       Qt::KeepAspectRatio, Qt::SmoothTransformation));
             ++reactionMap["Like"];
             reactionLabelLike->setText(QString::number(reactionMap["Like"]));
             reactionUserOnMessage = "Like";
@@ -254,9 +246,6 @@ void MessageWidget::reactionChange(int index)
                     .value()[0]
                     .scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
                             Qt::KeepAspectRatio, Qt::SmoothTransformation));
-            //reactionLabelIconDislike->setPixmap(
-            //    IconDislike[0].scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
-            //                          Qt::KeepAspectRatio, Qt::SmoothTransformation));
             ++reactionMap["Dislike"];
             reactionLabelDislike->setText(QString::number(reactionMap["Dislike"]));
             reactionUserOnMessage = "Dislike";

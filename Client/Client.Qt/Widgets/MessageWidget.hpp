@@ -137,11 +137,6 @@ private:
 
     QMap<reactions, QPixmap*> *pixmapIcon;
 
-    QPixmap* IconLike;
-    QPixmap* IconDislike;
-    QPixmap* IconFire;
-    QPixmap* IconCat;
-
     // DownLevelLayout
     ComboBox* reactionChoseBox;
     FlatButton* deleteButton;
