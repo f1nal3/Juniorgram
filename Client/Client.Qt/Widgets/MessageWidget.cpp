@@ -11,7 +11,7 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidge
       userName(std::move(nameOfUser)),
       dateTimeMessage(QDateTime::currentDateTime())
 {
-    reactionUserOnMessage = "NULL";
+    reactionUserOnMessage = reactions::Non;
     messageItem    = Item;
     messageDeleted = deletedMessage;
     // Main layouts
@@ -185,10 +185,10 @@ void MessageWidget::deleteButtonClick()
     messageDeleted = true;
 }
 
-bool MessageWidget::isReaction(QString reaction)
-{
-    return (reactionMap[reaction.toStdString()] > 0) ? false : true;
-}
+//bool MessageWidget::isReaction(QString reaction)
+//{
+//    return (reactionMap[reaction.toStdString()] > 0) ? false : true;
+//}
 
 void MessageWidget::updateWidget()
 {
@@ -199,26 +199,25 @@ void MessageWidget::updateWidget()
 
 void MessageWidget::reactionChange(int index)
 {
-    if (reactionUserOnMessage != "NULL")
+    if (reactionUserOnMessage != reactions::Non)
     {
         --reactionMap[reactionUserOnMessage];
-        
-        if (reactionMap["Like"] <= 0)
+        if (reactionMap[reactions::like] <= 0)
         {
             reactionLabelIconLike->clear();
             reactionLabelLike->clear();
         }
-        if (reactionMap["Dislike"] <= 0)
+        if (reactionMap[reactions::dislike] <= 0)
         {
             reactionLabelIconDislike->clear();
             reactionLabelDislike->clear();
         }
-        if (reactionMap["Fire"] <= 0)
+        if (reactionMap[reactions::fire] <= 0)
         {
             reactionLabelIconFire->clear();
             reactionLabelFire->clear();
         }
-        if (reactionMap["Cat"] <= 0)
+        if (reactionMap[reactions::cat] <= 0)
         {
             reactionLabelIconCat->clear();
             reactionLabelCat->clear();
@@ -234,9 +233,9 @@ void MessageWidget::reactionChange(int index)
                     .scaled(
                 QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
                                    Qt::KeepAspectRatio, Qt::SmoothTransformation));
-            ++reactionMap["Like"];
-            reactionLabelLike->setText(QString::number(reactionMap["Like"]));
-            reactionUserOnMessage = "Like";
+            ++reactionMap[reactions::like];
+            reactionLabelLike->setText(QString::number(reactionMap[reactions::like]));
+            reactionUserOnMessage = reactions::like;
             break;
         }
         case 2:
@@ -246,9 +245,9 @@ void MessageWidget::reactionChange(int index)
                     .value()[0]
                     .scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
                             Qt::KeepAspectRatio, Qt::SmoothTransformation));
-            ++reactionMap["Dislike"];
-            reactionLabelDislike->setText(QString::number(reactionMap["Dislike"]));
-            reactionUserOnMessage = "Dislike";
+            ++reactionMap[reactions::dislike];
+            reactionLabelDislike->setText(QString::number(reactionMap[reactions::dislike]));
+            reactionUserOnMessage = reactions::dislike;
             break;
         }
         case 3:
@@ -258,9 +257,9 @@ void MessageWidget::reactionChange(int index)
                     .value()[0]
                     .scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
                             Qt::KeepAspectRatio, Qt::SmoothTransformation));
-            ++reactionMap["Fire"];
-            reactionLabelFire->setText(QString::number(reactionMap["Fire"]));
-            reactionUserOnMessage = "Fire";
+            ++reactionMap[reactions::fire];
+            reactionLabelFire->setText(QString::number(reactionMap[reactions::fire]));
+            reactionUserOnMessage = reactions::fire;
             break;
         }
         case 4:
@@ -270,9 +269,14 @@ void MessageWidget::reactionChange(int index)
                     .value()[0]
                     .scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
                             Qt::KeepAspectRatio, Qt::SmoothTransformation));
-            ++reactionMap["Cat"];
-            reactionLabelCat->setText(QString::number(reactionMap["Cat"]));
-            reactionUserOnMessage = "Cat";
+            ++reactionMap[reactions::cat];
+            reactionLabelCat->setText(QString::number(reactionMap[reactions::cat]));
+            reactionUserOnMessage = reactions::cat;
+            break;
+        }
+        default:
+        {
+            reactionUserOnMessage=reactions::Non;
             break;
         }
     }
@@ -330,6 +334,6 @@ void MessageWidget::setStdTime_tDateTime(std::time_t newDataTime)
 
 void MessageWidget::setReactionMap(std::map<std::string, int> newReactionMap)
 {
-    reactionMap = std::move(newReactionMap);
+    //reactionMap = std::move(newReactionMap);
     updateWidget();
 }

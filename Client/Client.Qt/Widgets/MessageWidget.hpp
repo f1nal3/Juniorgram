@@ -104,12 +104,13 @@ private slots:
     void reactionChange(int index);
 
 private:
-    enum reactions
+    enum class reactions
     {
         like = 0,
         dislike,
         fire,
-        cat
+        cat,
+        Non
     };
     QListWidgetItem* messageItem;
     // Layouts
@@ -148,18 +149,17 @@ private:
     QString messageText;
     QString userName;
     QDateTime dateTimeMessage;
-    std::string reactionUserOnMessage;
+    reactions reactionUserOnMessage;
     QStringList itemReactionList;
-    std::map<std::string, int> reactionMap
-    {
-        {"Like", 0},
-        {"Dislike", 0},
-        {"Fire", 0},
-        {"Cat", 0}
+    std::map<reactions, int> reactionMap{
+        {reactions::like, 0},
+        {reactions::dislike, 0},
+        {reactions::fire, 0},
+        {reactions::cat, 0}
     };
     void initializationUiNotDelete();
     void initializationUiDelete();
-    bool isReaction(QString reaction);
+    //bool isReaction(QString reaction);
     void updateWidget();
     void uiConnect();
     void clearMessage();
