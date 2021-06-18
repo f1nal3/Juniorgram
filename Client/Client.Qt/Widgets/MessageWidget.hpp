@@ -129,6 +129,8 @@ private:
 
     QMap<reactions, Label*>* reactionMapLabel;
 
+    QMap<reactions, Label*>* reactionMapLabelIcon;
+
     Label* reactionLabelIconLike;
     Label* reactionLabelIconDislike;
     Label* reactionLabelIconFire;
