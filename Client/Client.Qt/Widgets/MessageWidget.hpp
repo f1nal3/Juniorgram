@@ -1,7 +1,8 @@
 #ifndef QMESSAGEWIDGET_H
 #define QMESSAGEWIDGET_H
 constexpr auto EMPTY_MESSAGE      = "Empty message";
-constexpr auto EMPTY_USER_NAME    = "You";
+constexpr auto EMPTY_USER_NAME = "You";
+constexpr auto COUNT_REACTION = 4;
 
 #include "pch.hpp"
 
@@ -122,14 +123,9 @@ private:
     // UpLevelLayout
     Label* userNameLabel;
 
-    Label* reactionLabelLike;
-    Label* reactionLabelDislike;
-    Label* reactionLabelFire;
-    Label* reactionLabelCat;
+    QMap<int, Label*>* reactionMapLabel;
 
-    QMap<reactions, Label*>* reactionMapLabel;
-
-    QMap<reactions, Label*>* reactionMapLabelIcon;
+    QMap<int, Label*>* reactionMapLabelIcon;
 
     Label* reactionLabelIconLike;
     Label* reactionLabelIconDislike;

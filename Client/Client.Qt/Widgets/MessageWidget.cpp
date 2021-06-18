@@ -72,22 +72,14 @@ void MessageWidget::initializationUiNotDelete()
     messageTextEdit->setAcceptDrops(false);
     messageTextEdit->setReadOnly(true);
 
-    reactionMapLabel = new QMap<reactions, Label*>;
-
-    reactionMapLabel->insert(reactions::like, new Label);
-    reactionMapLabel->insert(reactions::dislike, new Label);
-    reactionMapLabel->insert(reactions::fire, new Label);
-    reactionMapLabel->insert(reactions::cat, new Label);
-
-    reactionMapLabelIcon = new QMap<reactions, Label*>;
-
-    reactionMapLabelIcon->insert(reactions::like, new Label);
-    reactionMapLabelIcon->insert(reactions::dislike, new Label);
-    reactionMapLabelIcon->insert(reactions::fire, new Label);
-    reactionMapLabelIcon->insert(reactions::cat, new Label);
-
-    pixmapIcon = new QMap<reactions, QPixmap*>;
-
+    reactionMapLabel     = new QMap<int, Label*>;
+    reactionMapLabelIcon = new QMap<int, Label*>;
+    pixmapIcon           = new QMap<reactions, QPixmap*>;
+    for (int i = 0; i < COUNT_REACTION; i++)
+    {
+        reactionMapLabel->insert(i, new Label);
+        reactionMapLabelIcon->insert(i, new Label);
+    }
     pixmapIcon->insert(reactions::like, new QPixmap(":/reactions/like.png"));
     pixmapIcon->insert(reactions::dislike, new QPixmap(":/reactions/dislike.png"));
     pixmapIcon->insert(reactions::fire, new QPixmap(":/reactions/fire.png"));
@@ -102,14 +94,11 @@ void MessageWidget::initializationUiNotDelete()
     userNameLabel = new Label;
     userNameLabel->setText("userName");
 
-    UpLevelLayout->addWidget(*reactionMapLabelIcon->find(reactions::like));
-    UpLevelLayout->addWidget(*reactionMapLabel->find(reactions::like));
-    UpLevelLayout->addWidget(*reactionMapLabelIcon->find(reactions::dislike));
-    UpLevelLayout->addWidget(*reactionMapLabel->find(reactions::dislike));
-    UpLevelLayout->addWidget(*reactionMapLabelIcon->find(reactions::fire));
-    UpLevelLayout->addWidget(*reactionMapLabel->find(reactions::fire));
-    UpLevelLayout->addWidget(*reactionMapLabelIcon->find(reactions::cat));
-    UpLevelLayout->addWidget(*reactionMapLabel->find(reactions::cat));
+    for (int i = 0; i < COUNT_REACTION; i++)
+    {
+        UpLevelLayout->addWidget(*reactionMapLabelIcon->find(i));
+        UpLevelLayout->addWidget(*reactionMapLabel->find(i));
+    }
 
     UpLevelLayout->addItem(horizontalUpLeftSpacer);
     UpLevelLayout->addWidget(userNameLabel);
@@ -149,33 +138,31 @@ void MessageWidget::clearMessage()
     }
     else
     {
-        //UpLevelLayout->removeWidget(reactionLabel);
         UpLevelLayout->removeItem(horizontalUpLeftSpacer);
         UpLevelLayout->removeWidget(userNameLabel);
         UpLevelLayout->removeItem(horizontalUpRightSpacer);
         UpLevelLayout->removeWidget(messageDateTimeEdit);
-        //UpLevelLayout->removeWidget(reactionLabelIconLike);
-        //UpLevelLayout->removeWidget(reactionLabelIconDislike);
-        //UpLevelLayout->removeWidget(reactionLabelIconFire);
-        //UpLevelLayout->removeWidget(reactionLabelIconCat);
+        UpLevelLayout->removeWidget(messageTextEdit);
+        for (int i = 0; i < COUNT_REACTION; i++)
+        {
+            UpLevelLayout->removeWidget(*reactionMapLabel->find(i));
+            UpLevelLayout->removeWidget(*reactionMapLabelIcon->find(i));
+            delete *reactionMapLabel->find(i);
+            delete *reactionMapLabelIcon->find(i);
+        }
         DownLevelLayout->removeWidget(reactionChoseBox);
         DownLevelLayout->removeItem(horizontalDownSpacer);
         DownLevelLayout->removeWidget(deleteButton);
         delete messageTextEdit;
-
         delete userNameLabel;
-        //delete reactionLabel;
+        delete reactionMapLabel;
+        delete reactionMapLabelIcon;
         delete horizontalUpLeftSpacer;
         delete horizontalUpRightSpacer;
         delete messageDateTimeEdit;
         delete reactionChoseBox;
-        //delete reactionLabelIconLike;
-        //delete reactionLabelIconDislike;
-        //delete reactionLabelIconFire;
-        //delete reactionLabelIconCat;
         delete deleteButton;
         delete horizontalDownSpacer;
-
         delete UpLevelLayout;
         delete DownLevelLayout;
     }
