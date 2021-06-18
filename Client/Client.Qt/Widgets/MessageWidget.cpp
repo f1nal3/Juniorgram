@@ -17,7 +17,6 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidge
     // Main layouts
     mainLayout = new QVBoxLayout(this);
     setLayout(mainLayout);
-
     if (!deletedMessage)
     {
         initializationUiNotDelete();
@@ -74,7 +73,7 @@ void MessageWidget::initializationUiNotDelete()
 
     reactionMapLabel     = new QMap<int, Label*>;
     reactionMapLabelIcon = new QMap<int, Label*>;
-    pixmapIcon           = new QMap<reactions, QPixmap*>;
+    pixmapIcon           = new QMap<int, QPixmap*>;
     for (int i = 0; i < COUNT_REACTION; i++)
     {
         reactionMapLabel->insert(i, new Label);
@@ -86,20 +85,15 @@ void MessageWidget::initializationUiNotDelete()
     pixmapIcon->insert(reactions::cat, new QPixmap(":/reactions/cat.png"));
 
     horizontalUpLeftSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
     messageDateTimeEdit = new DateTimeEdit(this);
-
     horizontalUpRightSpacer = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
     userNameLabel = new Label;
     userNameLabel->setText("userName");
-
     for (int i = 0; i < COUNT_REACTION; i++)
     {
         UpLevelLayout->addWidget(*reactionMapLabelIcon->find(i));
         UpLevelLayout->addWidget(*reactionMapLabel->find(i));
     }
-
     UpLevelLayout->addItem(horizontalUpLeftSpacer);
     UpLevelLayout->addWidget(userNameLabel);
     UpLevelLayout->addItem(horizontalUpRightSpacer);
@@ -177,11 +171,6 @@ void MessageWidget::deleteButtonClick()
     messageDeleted = true;
 }
 
-//bool MessageWidget::isReaction(QString reaction)
-//{
-//    return (reactionMap[reaction.toStdString()] > 0) ? false : true;
-//}
-
 void MessageWidget::updateWidget()
 {
     messageDateTimeEdit->setDateTime(dateTimeMessage);
@@ -194,94 +183,43 @@ void MessageWidget::reactionChange(int index)
     if (reactionUserOnMessage != reactions::Non)
     {
         --reactionMap[reactionUserOnMessage];
-        if (reactionMap[reactions::like] <= 0)
+        for (auto countReaction : reactionMap)
         {
-            reactionMapLabelIcon->find(reactions::like).value()->clear();
-            reactionMapLabel->find(reactions::like).value()->clear();
-        }
-        if (reactionMap[reactions::dislike] <= 0)
-        {
-            reactionMapLabelIcon->find(reactions::dislike).value()->clear();
-            reactionMapLabel->find(reactions::dislike).value()->clear();
-        }
-        if (reactionMap[reactions::fire] <= 0)
-        {
-            reactionMapLabelIcon->find(reactions::fire).value()->clear();
-            reactionMapLabel->find(reactions::fire).value()->clear();
-        }
-        if (reactionMap[reactions::cat] <= 0)
-        {
-            reactionMapLabelIcon->find(reactions::cat).value()->clear();
-            reactionMapLabel->find(reactions::cat).value()->clear();
+            if (countReaction.second <= 0)
+            {
+                reactionMapLabelIcon->find(countReaction.first).value()->clear();
+                reactionMapLabel->find(countReaction.first).value()->clear();
+            }
         }
     }
+    auto reactionSelection{[&](int reactionNumber) {
+        reactionMapLabelIcon->find(reactionNumber)
+            .value()
+            ->setPixmap(pixmapIcon->find(reactionNumber)
+                            .value()[0]
+                            .scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
+                                    Qt::KeepAspectRatio, Qt::SmoothTransformation));
+        ++reactionMap[reactions::like];
+        reactionMapLabel->find(reactionNumber)
+            .value()
+            ->setText(QString::number(reactionMap[reactionNumber]));
+        reactionUserOnMessage = static_cast<reactions>(reactionNumber);
+    }};
     switch (index)
     {
         case 1:
-        {
-            reactionMapLabelIcon->find(reactions::like).value()->setPixmap(
-                pixmapIcon->find(reactions::like)
-                    .value()[0]
-                    .scaled(
-                QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
-                                   Qt::KeepAspectRatio, Qt::SmoothTransformation));
-            ++reactionMap[reactions::like];
-            reactionMapLabel->find(reactions::like)
-                .value()
-                ->setText(QString::number(reactionMap[reactions::like]));
-            reactionUserOnMessage = reactions::like;
-            break;
-        }
         case 2:
-        {
-            reactionMapLabelIcon->find(reactions::dislike)
-                .value()
-                ->setPixmap(pixmapIcon->find(reactions::dislike)
-                                .value()[0]
-                                .scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
-                                        Qt::KeepAspectRatio, Qt::SmoothTransformation));
-            ++reactionMap[reactions::dislike];
-            reactionMapLabel->find(reactions::dislike)
-                .value()
-                ->setText(QString::number(reactionMap[reactions::dislike]));
-            reactionUserOnMessage = reactions::dislike;
-            break;
-        }
         case 3:
-        {
-            reactionMapLabelIcon->find(reactions::fire)
-                .value()
-                ->setPixmap(pixmapIcon->find(reactions::fire)
-                                .value()[0]
-                                .scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
-                                        Qt::KeepAspectRatio, Qt::SmoothTransformation));
-            ++reactionMap[reactions::fire];
-            reactionMapLabel->find(reactions::fire)
-                .value()
-                ->setText(QString::number(reactionMap[reactions::fire]));
-            reactionUserOnMessage = reactions::fire;
-            break;
-        }
         case 4:
         {
-            reactionMapLabelIcon->find(reactions::cat)
-                .value()
-                ->setPixmap(pixmapIcon->find(reactions::cat)
-                                .value()[0]
-                                .scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
-                                        Qt::KeepAspectRatio, Qt::SmoothTransformation));
-            ++reactionMap[reactions::cat];
-            reactionMapLabel->find(reactions::cat)
-                .value()
-                ->setText(QString::number(reactionMap[reactions::cat]));
-            reactionUserOnMessage = reactions::cat;
-            break;
+            reactionSelection(index);
         }
+        break;
         default:
         {
             reactionUserOnMessage = reactions::Non;
-            break;
         }
+        break;
     }
 }
 
@@ -335,8 +273,8 @@ void MessageWidget::setStdTime_tDateTime(std::time_t newDataTime)
     updateWidget();
 }
 
-void MessageWidget::setReactionMap(std::map<std::string, int> newReactionMap)
+void MessageWidget::setReactionMap(std::map<int, int> newReactionMap)
 {
-    //reactionMap = std::move(newReactionMap);
+    reactionMap = std::move(newReactionMap);
     updateWidget();
 }

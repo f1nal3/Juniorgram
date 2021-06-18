@@ -60,9 +60,9 @@ public:
     void setStdTime_tDateTime(std::time_t newDataTime);
     /**
      * @brief Method for changing reaction map.
-     * @param new reactions of map with kay std::string and value int.
+     * @param new reactions of map with kay std::int and value int.
      */
-    void setReactionMap(std::map<std::string, int> newReactionMap);
+    void setReactionMap(std::map<int, int> newReactionMap);
     /**
      * @brief constructor for displaying a message from a user on the screen.
      * @param text of message as string of QStrings.
@@ -136,7 +136,7 @@ private:
     QSpacerItem* horizontalUpRightSpacer;
     DateTimeEdit* messageDateTimeEdit;
 
-    QMap<reactions, QPixmap*> *pixmapIcon;
+    QMap<int, QPixmap*> *pixmapIcon;
 
     // DownLevelLayout
     ComboBox* reactionChoseBox;
@@ -151,7 +151,7 @@ private:
     QDateTime dateTimeMessage;
     reactions reactionUserOnMessage;
     QStringList itemReactionList;
-    std::map<reactions, int> reactionMap{
+    std::map<int, int> reactionMap{
         {reactions::like, 0},
         {reactions::dislike, 0},
         {reactions::fire, 0},
@@ -159,7 +159,6 @@ private:
     };
     void initializationUiNotDelete();
     void initializationUiDelete();
-    //bool isReaction(QString reaction);
     void updateWidget();
     void uiConnect();
     void clearMessage();
