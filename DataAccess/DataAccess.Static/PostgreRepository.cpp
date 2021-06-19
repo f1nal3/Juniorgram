@@ -25,12 +25,13 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::
 {
     std::vector<std::string> result;
 
-    auto messageHistoryRow = PostgreTable("channel_msgs")
+    auto messageHistoryRow = PostgreTable("msgs")
                                          .Select()
                                          ->columns({"msg"})
-                                         ->Where("channel_id = " + std::to_string(channelID))
+                                         ->join(Utility::SQLJoinType::J_INNER, "channel_msgs", "channel_msgs.msg_id = msgs.msg_id")
+                                         ->Where("channel_msgs.channel_id = " + std::to_string(channelID))
                                          ->execute();
-
+    
     if (messageHistoryRow.has_value())
     {
         for (auto message : messageHistoryRow.value())
@@ -50,7 +51,7 @@ void PostgreRepository::storeMessage(const Network::MessageInfo& message, const 
     std::tuple dataForMsgs
     {
         std::pair{"sender_id", message.userID},
-        std::pair{"send_time", timeStampStr},
+        std::pair{"send_time", timeStampStr.c_str()},
         std::pair{"msg", message.message }
     };
     PostgreTable("msgs").Insert()->columns(dataForMsgs)->execute();

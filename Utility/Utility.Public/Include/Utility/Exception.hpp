@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 
-inline std::string formatExceptionMessage(const std::string& msg, const std::string& file, std::uint8_t line)
+inline std::string formatExceptionMessage(const std::string& msg, const std::string& file, std::uint16_t line)
 {
     std::stringstream ss;
 
@@ -17,11 +17,11 @@ namespace Utility
     class NotImplementedException : public std::exception
     {
         public:
-        explicit NotImplementedException(const char* msg, const char* file, std::uint8_t line)
+        explicit NotImplementedException(const char* msg, const char* file, std::uint16_t line)
             : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
         {}
 
-        explicit NotImplementedException(const std::string& msg, const char* file, std::uint8_t line)
+        explicit NotImplementedException(const std::string& msg, const char* file, std::uint16_t line)
             : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
         {}
 
@@ -34,18 +34,18 @@ namespace Utility
         protected:
         std::string _msg;
         std::string _file;
-        std::uint8_t _line;
+        std::uint16_t _line;
     };
 
     class OperationDBException : public std::exception
     {
     public:
-        explicit OperationDBException(const char* msg, const char* file, std::uint8_t line)
+        explicit OperationDBException(const char* msg, const char* file, std::uint16_t line)
             : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
         {
         }
 
-        explicit OperationDBException(const std::string& msg, const char* file, std::uint8_t line)
+        explicit OperationDBException(const std::string& msg, const char* file, std::uint16_t line)
             : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
         {
         }
@@ -56,6 +56,6 @@ namespace Utility
     protected:
         std::string _msg;
         std::string _file;
-        std::uint8_t _line;
+        std::uint16_t _line;
     };
 }

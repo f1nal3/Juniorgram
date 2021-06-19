@@ -3,9 +3,9 @@
 
 #include <iostream>
 
-#include <DataAccess.Static/DatabaseAbstractionLayout.hpp>
+#include <DataAccess.Static/PostgreTable.hpp>
 
-DataAccess::PTable test("testing", "hostaddr=104.40.239.183 port=5432 dbname=test user=userfortests password=123");
+DataAccess::PostgreTable test("testing", "hostaddr=104.40.239.183 port=5432 dbname=test user=userfortests password=123");
 
 TEST_CASE("Query", "[PostgreAdapter]")
 {
@@ -13,19 +13,19 @@ TEST_CASE("Query", "[PostgreAdapter]")
     {
         REQUIRE_NOTHROW(DataAccess::PostgreAdapter::getInstance<DataAccess::PostgreAdapter>(
                         "hostaddr=104.40.239.183 port=5432 dbname=test user=userfortests password=123")
-                        ->query("delete from tests"));
+                        ->query("delete from test_table"));
     }
     SECTION("Insert test") 
     { 
         REQUIRE_NOTHROW(DataAccess::PostgreAdapter::getInstance<DataAccess::PostgreAdapter>(
                         "hostaddr=104.40.239.183 port=5432 dbname=test user=userfortests password=123")
-                        ->query("insert into tests values(0, 5, 'male')"));
+                        ->query("insert into test_table values(0, 5, 'male')"));
     }
     SECTION("Select test")
     {
         auto result =   DataAccess::PostgreAdapter::getInstance<DataAccess::PostgreAdapter>(
                         "hostaddr=104.40.239.183 port=5432 dbname=test user=userfortests password=123")
-                        ->query("select * from tests;").value();
+                        ->query("select * from test_table;").value();
         
         REQUIRE(std::any_cast<pqxx::result>(result).empty() == false);
     }
@@ -33,7 +33,7 @@ TEST_CASE("Query", "[PostgreAdapter]")
 
 TEST_CASE("Select[Where]", "[PostgreAbstractionLayout]")
 { 
-	std::string query = test.Select()->columns({"*"})->Where("id > 5")->getQuery();
+	std::string query = test.Select()->columns({"*"})->Where("id > 5")->getStringQuery();
 
 	SECTION("Query string test") 
 	{
@@ -45,7 +45,7 @@ TEST_CASE("Select[Where]", "[PostgreAbstractionLayout]")
 
 TEST_CASE("Select[Where not]", "[PostgreAbstractionLayout]")
 {
-    std::string query = test.Select()->columns({"*"})->Where("not name = 'Max'")->getQuery();
+    std::string query = test.Select()->columns({"*"})->Where("not name = 'Max'")->getStringQuery();
 
     SECTION("Query string test")
     {
@@ -58,7 +58,7 @@ TEST_CASE("Select[Where not]", "[PostgreAbstractionLayout]")
 TEST_CASE("Select[Where and]", "[PostgreAbstractionLayout]")
 {
     std::string query =
-        test.Select()->columns({"*"})->Where("name = 'Max' and id > 10")->getQuery();
+        test.Select()->columns({"*"})->Where("name = 'Max' and id > 10")->getStringQuery();
 
     SECTION("Query string test")
     {
@@ -71,7 +71,7 @@ TEST_CASE("Select[Where and]", "[PostgreAbstractionLayout]")
 TEST_CASE("Select[Where or]", "[PostgreAbstractionLayout]")
 {
     std::string query =
-        test.Select()->columns({"*"})->Where("name = 'Max' or id > 10")->getQuery();
+        test.Select()->columns({"*"})->Where("name = 'Max' or id > 10")->getStringQuery();
 
     SECTION("Query string test")
     {
@@ -83,7 +83,7 @@ TEST_CASE("Select[Where or]", "[PostgreAbstractionLayout]")
 
 TEST_CASE("Select[limit]", "[PostgreAbstractionLayout]")
 {
-    std::string query = test.Select()->columns({"*"})->limit(1)->getQuery();
+    std::string query = test.Select()->columns({"*"})->limit(1)->getStringQuery();
 
     SECTION("Query string test")
     {
@@ -95,7 +95,7 @@ TEST_CASE("Select[limit]", "[PostgreAbstractionLayout]")
 
 TEST_CASE("Select[orderBy]", "[PostgreAbstractionLayout]")
 {
-    std::string query = test.Select()->columns({"*"})->orderBy({"name"})->getQuery();
+    std::string query = test.Select()->columns({"*"})->orderBy({"name"})->getStringQuery();
 
     SECTION("Query string test")
     {
@@ -112,7 +112,7 @@ TEST_CASE("Select[Extra][1]", "[PostgreAbstractionLayout]")
                              Where("not name = 'A' and (id < 0 or id > 15)")->
                              orderBy({"name", "id"})->
                              limit(5, 25)->
-                             getQuery();
+                             getStringQuery();
 
     SECTION("Query string test")
     {
@@ -130,7 +130,7 @@ TEST_CASE("Select[Extra][2]", "[PostgreAbstractionLayout]")
                             ->Where("id not")
                             ->Between(0, 15)
                             ->And("name <> 'A'")
-                            ->getQuery();
+                            ->getStringQuery();
          
     SECTION("Query string test")
     {
@@ -144,7 +144,7 @@ TEST_CASE("Select[Extra][2]", "[PostgreAbstractionLayout]")
 
 TEST_CASE("Insert[fields][1]", "[PostgreAbstractionLayout]")
 { 
-    std::string query = test.Insert()->field(1, 1.5, "a")->getQuery();
+    std::string query = test.Insert()->field(1, 1.5, "a")->getStringQuery();
 
     SECTION("Query string test")
     {
@@ -157,7 +157,7 @@ TEST_CASE("Insert[fields][1]", "[PostgreAbstractionLayout]")
 TEST_CASE("Insert[fields][2]", "[PostgreAbstractionLayout]")
 {
     std::tuple testTuple{1, 1.5, "a"};
-    std::string query = test.Insert()->field(testTuple)->getQuery();
+    std::string query = test.Insert()->field(testTuple)->getStringQuery();
 
     SECTION("Query string test") 
     {
@@ -169,7 +169,7 @@ TEST_CASE("Insert[fields][2]", "[PostgreAbstractionLayout]")
 
 TEST_CASE("Insert[fields][3]", "[PostgreAbstractionLayout]")
 {
-     std::string query = test.Insert()->columns(std::pair{"A", 1}, std::pair{"B", 1.5}, std::pair{"C", "a"})->getQuery();
+     std::string query = test.Insert()->columns(std::pair{"A", 1}, std::pair{"B", 1.5}, std::pair{"C", "a"})->getStringQuery();
 
     SECTION("Query string test")
     {
@@ -187,7 +187,7 @@ TEST_CASE("Insert[fields][4]", "[PostgreAbstractionLayout]")
         std::pair{"B", 1.5},
         std::pair{"C", "a"}
     };
-    std::string query = test.Insert()->columns(testTuple)->getQuery();
+    std::string query = test.Insert()->columns(testTuple)->getStringQuery();
 
     SECTION("Query string test")
     {
@@ -199,7 +199,7 @@ TEST_CASE("Insert[fields][4]", "[PostgreAbstractionLayout]")
 
 TEST_CASE("Insert[returning]", "[PostgreAbstractionLayout]")
 {
-    std::string query = test.Insert()->field(1, 1.5, "a")->field(1, 1.5, "a")->returning({"*"})->getQuery();
+    std::string query = test.Insert()->field(1, 1.5, "a")->field(1, 1.5, "a")->returning({"*"})->getStringQuery();
 
     SECTION("Query string test")
     {
@@ -212,7 +212,7 @@ TEST_CASE("Insert[returning]", "[PostgreAbstractionLayout]")
 TEST_CASE("Update[fields]", "[PostgreAbstractionLayout]")
 {
     std::string query =
-        test.Update()->fields(std::pair{"A", 1}, std::pair{"B", 1.5}, std::pair{"C", "a"})->getQuery();
+        test.Update()->fields(std::pair{"A", 1}, std::pair{"B", 1.5}, std::pair{"C", "a"})->getStringQuery();
 
     SECTION("Query string test")
     {
@@ -229,7 +229,7 @@ TEST_CASE("Update[fields Where]", "[PostgreAbstractionLayout]")
         std::pair{"B", 1.5},
         std::pair{"C", "a"}
     };
-    std::string query = test.Update()->fields(testTuple)->Where("C <> 'a'")->getQuery();
+    std::string query = test.Update()->fields(testTuple)->Where("C <> 'a'")->getStringQuery();
 
     SECTION("Query string test")
     {
@@ -241,7 +241,7 @@ TEST_CASE("Update[fields Where]", "[PostgreAbstractionLayout]")
 
 TEST_CASE("Delete[Where]", "[PostgreAbstractionLayout]")
 {
-    std::string query = test.Delete()->Where("A = 1")->getQuery();
+    std::string query = test.Delete()->Where("A = 1")->getStringQuery();
 
     SECTION("Query string test")
     {
