@@ -46,9 +46,9 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 void ChatWindow::keyPressEvent(QKeyEvent* event)
 {
     if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) &&
-        (textEdit->text() != ""))
+        (textEdit->getText() != ""))
     {
-        newMessage(textEdit->text());
+        newMessage(textEdit->getText());
         textEdit->clear();
     }
 }
@@ -66,8 +66,8 @@ void ChatWindow::deletingSelection(QListWidgetItem* item) { item->setSelected(fa
 
 void ChatWindow::updateMessagesList_User()
 {
-    if (textEdit->text() != "")
-        newMessage(textEdit->text());
+    if (textEdit->getText() != "")
+        newMessage(textEdit->getText());
     textEdit->clear();
 }
 

@@ -17,7 +17,7 @@ public:
      * @brief Method for getting text from the text edit field.
      * @return text edit field content as QString.
      */
-    [[nodiscard]] QString text() const;
+    [[nodiscard]] QString getText() const;
     /**
      * @brief Method for clearing text edit field.
      */
@@ -30,14 +30,16 @@ private:
 
     FlatButton* mBoldButton;
     FlatPlainTextEdit* mTextField;
-    
-    const int boldSymbolSize = 2;
-    const QString boldSymbol = "**";
 
-    void delSymbolsInSelection(QString &text, int &start, int &end, int symbolSize);
-    void delSymbolsOutSelection(QString &text, int &start, int &end, int symbolSize);
-    void insertSymbolsInSelection(QTextCursor &cursor, int &start, int &end, int symbolSize, const QString symbol);
-    void selectText(QTextCursor &cursor, int start, int end);
+    const int boldSymbolSize      = 3;
+    const QString boldSymbolStart = "<B>";
+    const QString boldSymbolEnd   = "</B>";
+
+    void delSymbolsInSelection(QString& text, int& start, int& end, int symbolSize);
+    void delSymbolsOutSelection(QString& text, int& start, int& end, int symbolSize);
+    void insertSymbolsInSelection(QTextCursor& cursor, int& start, int& end, int symbolSize,
+                                  const QString symbolStart, const QString symbolEnd);
+    void selectText(QTextCursor& cursor, int start, int end);
 
 private slots:
     void boldButtonClicked();
