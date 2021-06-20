@@ -66,7 +66,8 @@ void ChatWindow::deletingSelection(QListWidgetItem* item) { item->setSelected(fa
 
 void ChatWindow::updateMessagesList_User()
 {
-    if (textEdit->text() != "") newMessage(textEdit->text());
+    if (textEdit->text() != "")
+        newMessage(textEdit->text());
     textEdit->clear();
 }
 
