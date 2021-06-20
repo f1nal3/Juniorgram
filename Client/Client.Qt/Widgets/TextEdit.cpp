@@ -89,8 +89,7 @@ void TextEdit::selectText(QTextCursor& cursor, int start, int end)
 
 QString TextEdit::getText() const
 {
-    QString message = mTextField->toPlainText();
-    return message;
+    return mTextField->toPlainText();
 }
 
 void TextEdit::clear() { mTextField->clear(); }
