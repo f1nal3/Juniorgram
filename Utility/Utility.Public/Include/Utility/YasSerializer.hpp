@@ -58,6 +58,17 @@ namespace Network
 				suppressWarning(4127, -Wtype-limits)
 					msg = yas::save<flags>(data);
 				restoreWarning
+
+          std::vector<char> vc;
+          int l = 10;
+                
+            for (size_t i = 0; i < msg.size; i++)
+		          {
+			             vc.push_back(msg.data.get()[i]);
+                l = 0;
+		          }
+            l = 11;
+
            }
             // clang-format on
             catch (const std::exception& e)
@@ -81,11 +92,23 @@ namespace Network
         {
             try
             {
+				        suppressWarning(4127, -Wtype-limits)
+					        yas::load<flags>(source, data);
+				        restoreWarning
                 // clang-format off
-				suppressWarning(4127, -Wtype-limits)
-					yas::load<flags>(source, data);
-				restoreWarning
-			}
+
+             std::vector<char> vc;
+             int l = 10;
+                
+            for (size_t i = 0; i < source.size; i++)
+		          {
+			             vc.push_back(source.data.get()[i]);
+                l = 0;
+		          }
+            l = 11;
+
+
+			         }
             // clang-format on
             catch (const std::exception& e)
             {

@@ -43,6 +43,9 @@ bool App::loop()
             {
                 case Network::Message::MessageType::SetEncryptedConnection:
                 {
+
+                    //Utility::KeyHolder::generateKey();
+
                     std::cout << "The server is trying to establish an encrypted connection!\n";
 
                     std::string publicServerKey = std::any_cast<std::string>(message.mBody);
@@ -58,6 +61,16 @@ bool App::loop()
                         std::make_any<std::string>(Utility::KeyHolder::Instance().getPublicClientKey());
 
                     client.send(message);
+                }
+                break;
+
+                case Network::Message::MessageType::SendIV:
+                {
+                    std::cout << "Noice, i got IV.\n";
+
+                    std::string IV = std::any_cast<std::string>(message.mBody);
+
+                    Network::EncryptionHandler::setIVBlock(IV);
                 }
                 break;
 
@@ -92,6 +105,10 @@ bool App::loop()
                     std::cout << "Channel list received: \n";
                     std::vector<std::string> channelList;
                     
+                    //suppressWarning(4834,init)
+                    //std::any_cast<std::string/*std::vector<Network::ChannelInfo>*/>(message.mBody);
+                    //restoreWarning
+
                     for (const auto& item :
                          std::any_cast<std::vector<Network::ChannelInfo>>(message.mBody))
                     {

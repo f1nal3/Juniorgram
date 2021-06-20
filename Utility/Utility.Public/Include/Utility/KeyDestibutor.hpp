@@ -52,6 +52,7 @@ public:
             throw std::runtime_error("Failed to reach shared secret!");
 
         Network::EncryptionHandler::calculateDigestAndGenerateIVBlock(mSharedSecret);
+
     }
 
 

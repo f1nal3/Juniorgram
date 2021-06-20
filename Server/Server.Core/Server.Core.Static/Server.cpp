@@ -29,6 +29,8 @@ bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
     
     message.mBody = std::make_any<std::string>(client->getKeyDestibutor().get()->getPublicServerKey());
     client->send(message);
+
+
     return true;
 }
 
@@ -72,6 +74,11 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             client->getKeyDestibutor().get()->setPublicClientKey(publicClientKey);
 
             client->getKeyDestibutor().get()->calculateSharedSecret();
+
+            message.mHeader.mMessageType = Network::Message::MessageType::SendIV;
+
+            message.mBody = std::make_any<std::string>(Network::EncryptionHandler::getIVBlock());
+            client->send(message);
 
             std::cout << "Client accept encrypted connection!"; 
         }
@@ -120,6 +127,10 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
             msg.mBody = std::make_any<std::vector<Network::ChannelInfo>>;
             msg.mBody = channelInfoList;
+
+           // msg.mBody =
+           //     std::make_any</*std::vector<Network::ChannelInfo>*/ std::string>("Hello, world!");
+           //// msg.mBody = std::string("Hello, world!");
 
             client->send(msg);
         }

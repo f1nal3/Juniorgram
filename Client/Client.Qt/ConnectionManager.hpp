@@ -65,13 +65,18 @@ public:
                             std::cout << "Channel list received: \n";
                             std::vector<std::string> channelList;
 
-                            for (const auto& item :
-                                 std::any_cast<std::vector<Network::ChannelInfo>>(message.mBody))
-                            {
-                                channelList.emplace_back(item.channelName);
-                                std::cout << item.channelName << '\n';
-                                ChannelListWindow::addChannelInfo(item.channelName);
-                            }
+                            //for (const auto& item :
+                            //     std::any_cast<std::vector<Network::ChannelInfo>>(message.mBody))
+                            //{
+                            //    channelList.emplace_back(item.channelName);
+                            //    std::cout << item.channelName << '\n';
+                            //    ChannelListWindow::addChannelInfo(item.channelName);
+                            //}
+
+                            std::cout
+                                << std::any_cast<std::string /*std::vector<Network::ChannelInfo>*/>(
+                                       message.mBody)
+                                << '\n';
                             ChannelListWindow::mainWidgetStatus.notify_one();
                         }
                         break;

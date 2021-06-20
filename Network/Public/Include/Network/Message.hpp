@@ -29,6 +29,8 @@ struct Message
         MessageStoreRequest,
         RegistrationRequest,
         RegistrationAnswer
+        RegistrationRequestToClient,
+        SendIV
     };
 
     struct MessageHeader

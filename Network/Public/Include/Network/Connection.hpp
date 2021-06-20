@@ -85,7 +85,10 @@ private:
 
         if (
             mOutcomingMessagesQueue.front().mHeader.mMessageType == Message::MessageType::SetEncryptedConnection ||
-            mOutcomingMessagesQueue.front().mHeader.mMessageType == Message::MessageType::ServerAccept)
+            mOutcomingMessagesQueue.front().mHeader.mMessageType ==
+                Message::MessageType::ServerAccept ||
+            mOutcomingMessagesQueue.front().mHeader.mMessageType ==
+                Message::MessageType::SendIV)
         {
              handler.setNext(new CompressionHandler());
         }
@@ -231,8 +234,9 @@ private:
 
                 if (Header.mMessageType ==
                         Message::MessageType::SetEncryptedConnection ||
+                    Header.mMessageType == Message::MessageType::ServerAccept ||
                     Header.mMessageType ==
-                        Message::MessageType::ServerAccept)
+                        Message::MessageType::SendIV)
                 {
                         handler.setNext(new SerializationHandler());
                 }
