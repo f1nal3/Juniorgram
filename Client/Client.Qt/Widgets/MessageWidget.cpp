@@ -107,7 +107,7 @@ void MessageWidget::initializationUiNotDelete()
     reactionChoseBox->addItem(QIcon(":/reactions/dislike.png"), "");
     reactionChoseBox->addItem(QIcon(":/reactions/fire.png"), "");
     reactionChoseBox->addItem(QIcon(":/reactions/cat.png"), "");
-    reactionChoseBox->setMinimumWidth(Style::valueDPIScale(65));
+    reactionChoseBox->setMinimumWidth(Style::valueDPIScale(45));
     #ifdef Q_OS_MAC
         reactionChoseBox->setMinimumWidth(Style::valueDPIScale(65));
     #endif
@@ -196,13 +196,14 @@ void MessageWidget::reactionChange(int index)
         }
     }
     auto reactionSelection{[&](int reactionNumber) {
+        --reactionNumber;
         reactionMapLabelIcon->find(reactionNumber)
             .value()
             ->setPixmap(pixmapIcon->find(reactionNumber)
                             .value()[0]
                             .scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
                                     Qt::KeepAspectRatio, Qt::SmoothTransformation));
-        ++reactionMap[reactions::like];
+        ++reactionMap[reactionNumber];
         reactionMapLabel->find(reactionNumber)
             .value()
             ->setText(QString::number(reactionMap[reactionNumber]));
