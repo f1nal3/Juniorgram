@@ -16,7 +16,11 @@ TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(pa
     vLayout->addLayout(hLayout);
 
     setLayout(vLayout);
-    mBoldButton->setClickCallback([&]() { boldButtonClicked(); });
+    mBoldButton->setClickCallback([&]() 
+    {
+        mTextField->setText("<B>" + mTextField->textCursor().selectedText() + "</B>");
+        //boldButtonClicked(); 
+    });
 }
 
 void TextEdit::boldButtonClicked()
