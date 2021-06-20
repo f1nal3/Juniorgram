@@ -107,7 +107,10 @@ void MessageWidget::initializationUiNotDelete()
     reactionChoseBox->addItem(QIcon(":/reactions/dislike.png"), "");
     reactionChoseBox->addItem(QIcon(":/reactions/fire.png"), "");
     reactionChoseBox->addItem(QIcon(":/reactions/cat.png"), "");
-    reactionChoseBox->setMinimumWidth(Style::valueDPIScale(45));
+    reactionChoseBox->setMinimumWidth(Style::valueDPIScale(65));
+    #ifdef Q_OS_MAC
+        reactionChoseBox->setMinimumWidth(Style::valueDPIScale(65));
+    #endif
 
     horizontalDownSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
