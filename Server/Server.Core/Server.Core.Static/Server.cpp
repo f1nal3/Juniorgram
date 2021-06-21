@@ -165,6 +165,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         default:
         {
+            std::cerr << "Unknows command received\n";
         }
         break;
     }
