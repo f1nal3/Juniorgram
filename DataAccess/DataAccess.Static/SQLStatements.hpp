@@ -219,7 +219,7 @@ namespace DataAccess
                 if (_currentBuilder.getAdapter()->isConnected())
                 {
                     std::optional<std::any> result =
-                        _currentBuilder.getAdapter()->query(_queryStream.str());
+                        _currentBuilder.getAdapter()->query(SQLBase<ResultType>::_queryStream.str());
         
                     if (result.has_value())
                     {
@@ -257,24 +257,24 @@ namespace DataAccess
          */
         virtual void rollback(void) final
         { 
-            _currentBuilder.clearStatement();
+            SQLBase<ResultType>::_currentBuilder.clearStatement();
         }
 
     protected:
 
         void privateCheckForLastSymbol(void)
         {
-            if (*(_queryStream.str().end() - 1) != ' ')
-                _queryStream << " ";
+            if (*(SQLBase<ResultType>::_queryStream.str().end() - 1) != ' ')
+                SQLBase<ResultType>::_queryStream << " ";
         }
 
         void privateCorrectFormating(void)
         {
-            std::string queryBuffer = _queryStream.str();
+            std::string queryBuffer = SQLBase<ResultType>::_queryStream.str();
             queryBuffer.erase(queryBuffer.end() - 2, queryBuffer.end());
 
-            _queryStream.str(queryBuffer);
-            _queryStream.seekp(0, std::ios_base::end);
+            SQLBase<ResultType>::_queryStream.str(queryBuffer);
+            SQLBase<ResultType>::_queryStream.seekp(0, std::ios_base::end);
         }
     };
     
@@ -323,10 +323,10 @@ namespace DataAccess
         {
             for (auto& column : columnList)
             {
-                _queryStream << column;
-                _queryStream << (column != *(columnList.end() - 1) ? ", " : "");
+                SQLBase<ResultType>::_queryStream << column;
+                SQLBase<ResultType>::_queryStream << (column != *(columnList.end() - 1) ? ", " : "");
             }
-            _queryStream << " from " << _currentBuilder.getCurrentTableName();
+            SQLBase<ResultType>::_queryStream << " from " << SQLBase<ResultType>::_currentBuilder.getCurrentTableName();
 
             return this;
         }
@@ -341,9 +341,9 @@ namespace DataAccess
          */
         SQLSelect* limit(std::uint32_t limit, std::uint32_t offset = {})
         {
-            privateCheckForLastSymbol();
+            SQLBase<ResultType>::privateCheckForLastSymbol();
 
-            _queryStream << "limit " << limit << " offset " << offset;
+            SQLBase<ResultType>::_queryStream << "limit " << limit << " offset " << offset;
 
             return this;
         }
@@ -359,16 +359,16 @@ namespace DataAccess
          */
         SQLSelect* orderBy(const std::initializer_list<std::string>& columnList, bool desc = false)
         {
-            privateCheckForLastSymbol();
+            SQLBase<ResultType>::privateCheckForLastSymbol();
 
-            _queryStream << "order by ";
+            SQLBase<ResultType>::_queryStream << "order by ";
             for (auto& column : columnList)
             {
-                _queryStream << column;
-                _queryStream << (column != *(columnList.end() - 1) ? ", " : "");
+                SQLBase<ResultType>::_queryStream << column;
+                SQLBase<ResultType>::_queryStream << (column != *(columnList.end() - 1) ? ", " : "");
             }
 
-            if (desc) _queryStream << " desc";
+            if (desc) SQLBase<ResultType>::_queryStream << " desc";
 
             return this;
         }
@@ -378,7 +378,7 @@ namespace DataAccess
          */
         SQLSelect* distinct(void)
         {
-            _queryStream << "distinct ";
+            SQLBase<ResultType>::_queryStream << "distinct ";
 
             return this;
         }
@@ -391,28 +391,28 @@ namespace DataAccess
         SQLSelect* join(Utility::SQLJoinType join, const std::string& secondTableName,
                         const std::string& onCondition)
         {
-            privateCheckForLastSymbol();
+            SQLBase<ResultType>::privateCheckForLastSymbol();
 
             switch (join)
             {
                 case Utility::SQLJoinType::J_INNER:
                 {
-                    _queryStream << "inner join " << secondTableName;
+                    SQLBase<ResultType>::_queryStream << "inner join " << secondTableName;
                 }
                 break;
                 case Utility::SQLJoinType::J_LEFT:
                 {
-                    _queryStream << "left join " << secondTableName;
+                    SQLBase<ResultType>::_queryStream << "left join " << secondTableName;
                 }
                 break;
                 case Utility::SQLJoinType::J_RIGHT:
                 {
-                    _queryStream << "right join " << secondTableName;
+                    SQLBase<ResultType>::_queryStream << "right join " << secondTableName;
                 }
                 break;
                 case Utility::SQLJoinType::J_FULL:
                 {
-                    _queryStream << "full join " << secondTableName;
+                    SQLBase<ResultType>::_queryStream << "full join " << secondTableName;
                 }
                 break;
                 default:
@@ -422,7 +422,7 @@ namespace DataAccess
                 break;
             }
 
-            _queryStream << " on " << onCondition;
+            SQLBase<ResultType>::_queryStream << " on " << onCondition;
 
             return this;
         }
@@ -434,14 +434,14 @@ namespace DataAccess
          */
         SQLSelect* groupBy(const std::initializer_list<std::string>& columnList)
         {
-            privateCheckForLastSymbol();
+            SQLBase<ResultType>::privateCheckForLastSymbol();
 
-            _queryStream << "group by ";
+            SQLBase<ResultType>::_queryStream << "group by ";
 
             for (auto& column : columnList)
             {
-                _queryStream << column;
-                _queryStream << (column != *(columnList.end() - 1) ? ", " : "");
+                SQLBase<ResultType>::_queryStream << column;
+                SQLBase<ResultType>::_queryStream << (column != *(columnList.end() - 1) ? ", " : "");
             }
 
             return this;
@@ -460,9 +460,9 @@ namespace DataAccess
         */
         SQLSelect* having(const std::string& condition)
         {
-            privateCheckForLastSymbol();
+            SQLBase<ResultType>::privateCheckForLastSymbol();
 
-            _queryStream << "having " << condition;
+            SQLBase<ResultType>::_queryStream << "having " << condition;
 
             return this;
         }
@@ -475,9 +475,9 @@ namespace DataAccess
          */
         SQLSelect* Any(const std::string& subQuery)
         {
-            privateCheckForLastSymbol();
+            SQLBase<ResultType>::privateCheckForLastSymbol();
 
-            _queryStream << "any (" << condition << ")";
+            SQLBase<ResultType>::_queryStream << "any (" << subQuery << ")";
 
             return this;
         }
@@ -488,9 +488,9 @@ namespace DataAccess
          */
         SQLSelect* All(const std::string& subQuery)
         {
-            privateCheckForLastSymbol();
+            SQLBase<ResultType>::privateCheckForLastSymbol();
 
-            _queryStream << "all (" << condition << ")";
+            SQLBase<ResultType>::_queryStream << "all (" << subQuery << ")";
 
             return this;
         }
@@ -532,20 +532,20 @@ namespace DataAccess
         template <typename... DataType>
         SQLInsert* field(const DataType&... data)
         {
-            if (_queryStream.str().find("values") == std::string::npos)
+            if (SQLBase<ResultType>::_queryStream.str().find("values") == std::string::npos)
             {
-                _queryStream << " values(";
+                SQLBase<ResultType>::_queryStream << " values(";
             }
             else
             {
-                _queryStream << ", (";
+                SQLBase<ResultType>::_queryStream << ", (";
             }
 
-            ((_queryStream << Utility::CheckForSQLSingleQuotesProblem(data) << ", "), ...);
+            ((SQLBase<ResultType>::_queryStream << Utility::CheckForSQLSingleQuotesProblem(data) << ", "), ...);
 
-            this->privateCorrectFormating();
+            this->SQLBase<ResultType>::privateCorrectFormating();
 
-            _queryStream << ")";
+            SQLBase<ResultType>::_queryStream << ")";
 
             return this;
         }
@@ -560,25 +560,25 @@ namespace DataAccess
         template <typename... DataType>
         SQLInsert* field(const std::tuple<DataType...>& dataList)
         {
-            if (_queryStream.str().find("values") == std::string::npos)
+            if (SQLBase<ResultType>::_queryStream.str().find("values") == std::string::npos)
             {
-                _queryStream << " values(";
+                SQLBase<ResultType>::_queryStream << " values(";
             }
             else
             {
-                _queryStream << ", (";
+                SQLBase<ResultType>::_queryStream << ", (";
             }
 
             std::apply(
                 [this](const auto&... tupleArgs) {
-                    ((_queryStream << Utility::CheckForSQLSingleQuotesProblem(tupleArgs) << ", "),
+                    ((SQLBase<ResultType>::_queryStream << Utility::CheckForSQLSingleQuotesProblem(tupleArgs) << ", "),
                      ...);
                 },
                 dataList);
 
-            this->privateCorrectFormating();
+            this->SQLBase<ResultType>::privateCorrectFormating();
 
-            _queryStream << ")";
+            SQLBase<ResultType>::_queryStream << ")";
 
             return this;
         }
@@ -595,20 +595,20 @@ namespace DataAccess
         template <typename ColumnType = const char*, typename... DataType>
         SQLInsert* columns(const std::pair<ColumnType, DataType>&... columnData)
         {
-            _queryStream << "(";
-            ((_queryStream << columnData.first << ", "), ...);
+            SQLBase<ResultType>::_queryStream << "(";
+            ((SQLBase<ResultType>::_queryStream << columnData.first << ", "), ...);
 
-            this->privateCorrectFormating();
+            this->SQLBase<ResultType>::privateCorrectFormating();
 
-            _queryStream << ")";
+            SQLBase<ResultType>::_queryStream << ")";
 
-            _queryStream << " values(";
-            ((_queryStream << Utility::CheckForSQLSingleQuotesProblem(columnData.second) << ", "),
+            SQLBase<ResultType>::_queryStream << " values(";
+            ((SQLBase<ResultType>::_queryStream << Utility::CheckForSQLSingleQuotesProblem(columnData.second) << ", "),
              ...);
 
-            this->privateCorrectFormating();
+            this->SQLBase<ResultType>::privateCorrectFormating();
 
-            _queryStream << ")";
+            SQLBase<ResultType>::_queryStream << ")";
 
             return this;
         }
@@ -624,29 +624,29 @@ namespace DataAccess
         template <typename ColumnType = const char*, typename... DataType>
         SQLInsert* columns(const std::tuple<std::pair<ColumnType, DataType>...>& columnDataList)
         {
-            _queryStream << "(";
+            SQLBase<ResultType>::_queryStream << "(";
             std::apply(
                 [this](const auto&... tupleArgs) {
-                    ((_queryStream << tupleArgs.first << ", "), ...);
+                    ((SQLBase<ResultType>::_queryStream << tupleArgs.first << ", "), ...);
                 },
                 columnDataList);
 
-            this->privateCorrectFormating();
+            this->SQLBase<ResultType>::privateCorrectFormating();
 
-            _queryStream << ")";
+            SQLBase<ResultType>::_queryStream << ")";
 
-            _queryStream << " values(";
+            SQLBase<ResultType>::_queryStream << " values(";
             std::apply(
                 [this](const auto&... tupleArgs) {
-                    ((_queryStream << Utility::CheckForSQLSingleQuotesProblem(tupleArgs.second)
+                    ((SQLBase<ResultType>::_queryStream << Utility::CheckForSQLSingleQuotesProblem(tupleArgs.second)
                                    << ", "),
                      ...);
                 },
                 columnDataList);
 
-            this->privateCorrectFormating();
+            this->SQLBase<ResultType>::privateCorrectFormating();
 
-            _queryStream << ")";
+            SQLBase<ResultType>::_queryStream << ")";
 
             return this;
         }
@@ -658,13 +658,13 @@ namespace DataAccess
          */
         SQLInsert* returning(const std::initializer_list<std::string>& columnList)
         {
-            privateCheckForLastSymbol();
+            SQLBase<ResultType>::privateCheckForLastSymbol();
 
-            _queryStream << "returning ";
+            SQLBase<ResultType>::_queryStream << "returning ";
             for (auto& column : columnList)
             {
-                _queryStream << column;
-                _queryStream << (column != *(columnList.end() - 1) ? ", " : "");
+                SQLBase<ResultType>::_queryStream << column;
+                SQLBase<ResultType>::_queryStream << (column != *(columnList.end() - 1) ? ", " : "");
             }
 
             return this;
@@ -705,13 +705,13 @@ namespace DataAccess
         template <typename ColumnType = const char*, typename... Args>
         SQLUpdate* fields(const std::pair<ColumnType, Args>&... columnData)
         {
-            _queryStream << " set ";
+            SQLBase<ResultType>::_queryStream << " set ";
 
-            ((_queryStream << columnData.first << " = "
+            ((SQLBase<ResultType>::_queryStream << columnData.first << " = "
                            << Utility::CheckForSQLSingleQuotesProblem(columnData.second) << ", "),
              ...);
 
-            this->privateCorrectFormating();
+            this->SQLBase<ResultType>::privateCorrectFormating();
 
             return this;
         }
@@ -722,18 +722,18 @@ namespace DataAccess
         template <typename ColumnType = const char*, typename... Args>
         SQLUpdate* fields(const std::tuple<std::pair<ColumnType, Args>...>& columnData)
         {
-            _queryStream << " set ";
+            SQLBase<ResultType>::_queryStream << " set ";
 
             std::apply(
                 [this](const auto&... tupleArg) {
-                    ((_queryStream << tupleArg.first << " = "
+                    ((SQLBase<ResultType>::_queryStream << tupleArg.first << " = "
                                    << Utility::CheckForSQLSingleQuotesProblem(tupleArg.second)
                                    << ", "),
                      ...);
                 },
                 columnData);
 
-            this->privateCorrectFormating();
+            this->SQLBase<ResultType>::privateCorrectFormating();
 
             return this;
         }
