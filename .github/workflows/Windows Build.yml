@@ -54,4 +54,4 @@ jobs:
     - name: Test
       working-directory: ${{github.workspace}}/build
 
-      run: ctest -C ${{matrix.BUILD_TYPE}} -E "DataAccess"
+      run: ctest -C ${{matrix.BUILD_TYPE}}
