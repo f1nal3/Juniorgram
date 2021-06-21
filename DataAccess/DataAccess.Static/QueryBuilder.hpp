@@ -163,7 +163,7 @@ namespace DataAccess
             return _adapter;
         }
 
-        const Utility::DatabaseType getDatabaseType(void) const noexcept
+        Utility::DatabaseType getDatabaseType(void) const noexcept
         {
             return _databaseType;
         }
