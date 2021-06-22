@@ -16,5 +16,5 @@ protected:
     void paintEvent(QPaintEvent* event) override;
 
 private:
-    std::vector<std::unique_ptr<MenuItem>> _items;
+    std::vector<MenuItem*> _items;
 };
