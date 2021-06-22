@@ -11,7 +11,7 @@ public:
     QSize bestFit() const { return logo->size(); }
 
 protected:
-    void paintEvent(QPaintEvent* event);
+    void paintEvent(QPaintEvent* paintEvent);
 
 private:
     QPixmap* logo;
