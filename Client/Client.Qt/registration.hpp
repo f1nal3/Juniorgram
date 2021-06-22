@@ -10,16 +10,17 @@ class Registration : public QWidget
     Q_OBJECT
 public:
     explicit Registration(QWidget* parent = nullptr);
+    ~Registration();
 
 protected:
     void keyPressEvent(QKeyEvent* event) override;
     void resizeEvent(QResizeEvent* event) override;
 
 private:
-    std::unique_ptr<FlatInput> usernameLineEdit;
-    std::unique_ptr<FlatInput> passwordLineEdit;
-    std::unique_ptr<FlatInput> passwordRepeatLineEdit;
-    std::unique_ptr<FlatButton> registrationButton;
-    std::unique_ptr<FlatButton> back;
-    std::unique_ptr<LogoWidget> logoWidget;
+    FlatInput* usernameLineEdit;
+    FlatInput* passwordLineEdit;
+    FlatInput* passwordRepeatLineEdit;
+    FlatButton* registrationButton;
+    FlatButton* backButton;
+    LogoWidget* logoWidget;
 };

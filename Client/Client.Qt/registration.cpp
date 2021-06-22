@@ -2,15 +2,15 @@
 
 Registration::Registration(QWidget* parent) : QWidget(parent)
 {
-    usernameLineEdit       = std::make_unique<FlatInput>("Username", this);
-    passwordLineEdit       = std::make_unique<FlatInput>("Password", true, this);
-    passwordRepeatLineEdit = std::make_unique<FlatInput>("Repeat password", true, this);
-    registrationButton     = std::make_unique<FlatButton>(this, "Create account");
-    back                   = std::make_unique<FlatButton>(this, "Back");
+    usernameLineEdit       = new FlatInput("Username", this);
+    passwordLineEdit       = new FlatInput("Password", true, this);
+    passwordRepeatLineEdit = new FlatInput("Repeat password", true, this);
+    registrationButton     = new FlatButton(this, "Create account");
+    backButton             = new FlatButton(this, "Back");
 
-    logoWidget = std::make_unique<LogoWidget>(this);
+    logoWidget = new LogoWidget(this);
 
-    back->setClickCallback([]() { oApp->setAppState(App::AppState::LoginForm); });
+    backButton->setClickCallback([]() { oApp->setAppState(App::AppState::LoginForm); });
 
     const int BLOCKWIDTH = Style::valueDPIScale(500);
 
@@ -18,7 +18,17 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
     passwordLineEdit->resize(BLOCKWIDTH, passwordLineEdit->sizeHint().height());
     passwordRepeatLineEdit->resize(BLOCKWIDTH, passwordRepeatLineEdit->sizeHint().height());
     registrationButton->resize(BLOCKWIDTH, registrationButton->sizeHint().height());
-    back->resize(BLOCKWIDTH, back->sizeHint().height());
+    backButton->resize(BLOCKWIDTH, backButton->sizeHint().height());
+}
+
+Registration::~Registration() 
+{
+    delete usernameLineEdit;
+    delete passwordLineEdit;
+    delete passwordRepeatLineEdit;
+    delete registrationButton;
+    delete backButton;
+    delete logoWidget;
 }
 
 void Registration::keyPressEvent(QKeyEvent* event)
@@ -29,11 +39,11 @@ void Registration::keyPressEvent(QKeyEvent* event)
 
 void Registration::resizeEvent(QResizeEvent* event)
 {
-    const QSize SIZE          = event->size();
-    const int   HOR_SPACING   = Style::valueDPIScale(16);
-    const int   MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
-    const int   LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
-    const int   SPACE         = Style::valueDPIScale(10);
+    const QSize SIZE        = event->size();
+    const int HOR_SPACING   = Style::valueDPIScale(16);
+    const int MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
+    const int LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
+    const int SPACE         = Style::valueDPIScale(10);
 
     const auto FIT_MAX = logoWidget->bestFit();
     // Aspect ratio;
@@ -55,5 +65,5 @@ void Registration::resizeEvent(QResizeEvent* event)
                                  passwordLineEdit->geometry().bottom() + 1 + HOR_SPACING);
     registrationButton->move(LEFT_SHIFT,
                              passwordRepeatLineEdit->geometry().bottom() + 1 + HOR_SPACING * 3 / 2);
-    back->move(LEFT_SHIFT, registrationButton->geometry().bottom() + 1 + HOR_SPACING);
+    backButton->move(LEFT_SHIFT, registrationButton->geometry().bottom() + 1 + HOR_SPACING);
 }
