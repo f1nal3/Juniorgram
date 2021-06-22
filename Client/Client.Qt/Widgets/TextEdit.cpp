@@ -4,22 +4,30 @@
 
 TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(parent)
 {
-    mTextField  = messageText;
-    mBoldButton = new FlatButton(this, "B",st::boldnessButton);
+    mTextField     = messageText;
+    mBoldButton    = new FlatButton(this, "B", st::boldnessButton);
+    mItalicsButton = new FlatButton(this, "I", st::boldnessButton);
+    mUnderscoreButton = new FlatButton(this, "U", st::boldnessButton);
 
     vLayout = new QVBoxLayout;
     hLayout = new QHBoxLayout;
 
     hLayout->setAlignment(Qt::AlignLeft);
     hLayout->addWidget(mBoldButton);
+    hLayout->addWidget(mItalicsButton);
+    hLayout->addWidget(mUnderscoreButton);
 
     vLayout->addLayout(hLayout);
 
     setLayout(vLayout);
-    mBoldButton->setClickCallback([&]() { boldButtonClicked(); });
+    mBoldButton->setClickCallback([&]() { boldButtonClicked(boldSymbolStart, boldSymbolEnd); });
+    mItalicsButton->setClickCallback(
+        [&]() { boldButtonClicked(italicsSymbolStart, italicsboldSymbolEnd); });
+    mUnderscoreButton->setClickCallback(
+        [&]() { boldButtonClicked(underscoreSymbolStart, underscoreSymbolEnd); });
 }
 
-void TextEdit::boldButtonClicked()
+void TextEdit::boldButtonClicked(QString SymbolStart, QString SymbolEnd)
 {
     QTextCursor cursor = mTextField->textCursor();
 
@@ -29,24 +37,24 @@ void TextEdit::boldButtonClicked()
         int end   = cursor.selectionEnd();
 
         QString mSelection = cursor.selectedText();
-        QString mFullText  = text();
+        QString mFullText  = getText();
 
         QString mBeforeSelection = mFullText.left(start);
         QString mAfterSelection  = mFullText.right(mFullText.size() - end);
 
-        if (mSelection.endsWith(boldSymbol) && mSelection.startsWith(boldSymbol))
+        if (mSelection.endsWith(SymbolEnd) && mSelection.startsWith(SymbolStart))
         {
-            delSymbolsInSelection(mFullText, start, end, boldSymbolSize);
+            delSymbolsInSelection(mFullText, start, end, SymbolSize);
             mTextField->setTextCursor(cursor);
         }
-        else if (mBeforeSelection.endsWith(boldSymbol) && mAfterSelection.startsWith(boldSymbol))
+        else if (mBeforeSelection.endsWith(SymbolStart) && mAfterSelection.startsWith(SymbolEnd))
         {
-            delSymbolsOutSelection(mFullText, start, end, boldSymbolSize);
+            delSymbolsOutSelection(mFullText, start, end, SymbolSize);
             mTextField->setTextCursor(cursor);
         }
         else
         {
-            insertSymbolsInSelection(cursor, start, end, boldSymbolSize, boldSymbol);
+            insertSymbolsInSelection(cursor, start, end, SymbolSize, SymbolStart, SymbolEnd);
             selectText(cursor, start, end);
         }
     }
@@ -54,28 +62,28 @@ void TextEdit::boldButtonClicked()
 
 void TextEdit::delSymbolsInSelection(QString& text, int& start, int& end, int symbolSize)
 {
-    text.replace(end - symbolSize, symbolSize, "");
+    text.replace(end - (symbolSize + 1), symbolSize + 1, "");
     text.replace(start, symbolSize, "");
     mTextField->setPlainText(text);
 }
 
 void TextEdit::delSymbolsOutSelection(QString& text, int& start, int& end, int symbolSize)
 {
-    text.replace(end, symbolSize, "");
+    text.replace(end, symbolSize + 1, "");
     text.replace(start - symbolSize, symbolSize, "");
     mTextField->setPlainText(text);
 }
 
 void TextEdit::insertSymbolsInSelection(QTextCursor& cursor, int& start, int& end, int symbolSize,
-                                        const QString symbol)
+                                        const QString symbolStart, const QString symbolEnd)
 {
     cursor.setPosition(start);
-    cursor.insertText(symbol);
+    cursor.insertText(symbolStart);
     end += symbolSize;
 
     cursor.setPosition((end));
-    cursor.insertText(symbol);
-    end += symbolSize;
+    cursor.insertText(symbolEnd);
+    end += symbolSize + 1;
 }
 
 void TextEdit::selectText(QTextCursor& cursor, int start, int end)
@@ -85,10 +93,9 @@ void TextEdit::selectText(QTextCursor& cursor, int start, int end)
     mTextField->setTextCursor(cursor);
 }
 
-QString TextEdit::text() const
+QString TextEdit::getText() const
 {
-    QString message = mTextField->toPlainText();
-    return message;
+    return mTextField->toPlainText();
 }
 
 void TextEdit::clear() { mTextField->clear(); }
@@ -96,6 +103,7 @@ void TextEdit::clear() { mTextField->clear(); }
 TextEdit::~TextEdit()
 {
     delete mBoldButton;
+    delete mItalicsButton;
     delete hLayout;
     delete vLayout;
 }

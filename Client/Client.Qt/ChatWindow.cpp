@@ -40,18 +40,15 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     messageButtonLayout->addItem(horizontalButtonSpacer);
     messageButtonLayout->addWidget(sendButton);
     connectButton();
-    connect(chatWidget->model(), SIGNAL(rowsInserted(QModelIndex, int, int)), chatWidget,
-            SLOT(scrollToBottom()));
-
     setLayout(mainLayout);
 }
 
 void ChatWindow::keyPressEvent(QKeyEvent* event)
 {
     if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) &&
-        (textEdit->text() != ""))
+        (textEdit->getText() != ""))
     {
-        newMessage(textEdit->text());
+        newMessage(textEdit->getText());
         textEdit->clear();
     }
 }
@@ -61,13 +58,16 @@ void ChatWindow::connectButton()
     sendButton->setClickCallback([&]() { updateMessagesList_User(); });
     connect(chatWidget, SIGNAL(itemClicked(QListWidgetItem*)), this,
             SLOT(deletingSelection(QListWidgetItem*)));
+    connect(chatWidget->model(), SIGNAL(rowsInserted(QModelIndex, int, int)), chatWidget,
+            SLOT(scrollToBottom()));
 }
 
 void ChatWindow::deletingSelection(QListWidgetItem* item) { item->setSelected(false); }
 
 void ChatWindow::updateMessagesList_User()
 {
-    if (textEdit->text() != "") newMessage(textEdit->text());
+    if (textEdit->getText() != "")
+        newMessage(textEdit->getText());
     textEdit->clear();
 }
 
