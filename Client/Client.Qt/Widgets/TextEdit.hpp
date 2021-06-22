@@ -29,11 +29,14 @@ private:
     QHBoxLayout* hLayout;
 
     FlatButton* mBoldButton;
+    FlatButton* mItalicsButton;
     FlatPlainTextEdit* mTextField;
 
-    const int boldSymbolSize      = 3;
+    const int SymbolSize      = 3;
     const QString boldSymbolStart = "<B>";
     const QString boldSymbolEnd   = "</B>";
+    const QString italicsSymbolStart = "<I>";
+    const QString italicsboldSymbolEnd = "</I>";
 
     void delSymbolsInSelection(QString& text, int& start, int& end, int symbolSize);
     void delSymbolsOutSelection(QString& text, int& start, int& end, int symbolSize);
@@ -42,5 +45,5 @@ private:
     void selectText(QTextCursor& cursor, int start, int end);
 
 private slots:
-    void boldButtonClicked();
+    void boldButtonClicked(QString SymbolStart, QString SymbolEnd);
 };

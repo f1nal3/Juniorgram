@@ -4,22 +4,26 @@
 
 TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(parent)
 {
-    mTextField  = messageText;
-    mBoldButton = new FlatButton(this, "B", st::boldnessButton);
+    mTextField     = messageText;
+    mBoldButton    = new FlatButton(this, "B", st::boldnessButton);
+    mItalicsButton = new FlatButton(this, "I", st::boldnessButton);
 
     vLayout = new QVBoxLayout;
     hLayout = new QHBoxLayout;
 
     hLayout->setAlignment(Qt::AlignLeft);
     hLayout->addWidget(mBoldButton);
+    hLayout->addWidget(mItalicsButton);
 
     vLayout->addLayout(hLayout);
 
     setLayout(vLayout);
-    mBoldButton->setClickCallback([&]() { boldButtonClicked(); });
+    mBoldButton->setClickCallback([&]() { boldButtonClicked(boldSymbolStart, boldSymbolEnd); });
+    mItalicsButton->setClickCallback(
+        [&]() { boldButtonClicked(italicsSymbolStart, italicsboldSymbolEnd); });
 }
 
-void TextEdit::boldButtonClicked()
+void TextEdit::boldButtonClicked(QString SymbolStart, QString SymbolEnd)
 {
     QTextCursor cursor = mTextField->textCursor();
 
@@ -34,21 +38,19 @@ void TextEdit::boldButtonClicked()
         QString mBeforeSelection = mFullText.left(start);
         QString mAfterSelection  = mFullText.right(mFullText.size() - end);
 
-        if (mSelection.endsWith(boldSymbolEnd) && mSelection.startsWith(boldSymbolStart))
+        if (mSelection.endsWith(SymbolEnd) && mSelection.startsWith(SymbolStart))
         {
-            delSymbolsInSelection(mFullText, start, end, boldSymbolSize);
+            delSymbolsInSelection(mFullText, start, end, SymbolSize);
             mTextField->setTextCursor(cursor);
         }
-        else if (mBeforeSelection.endsWith(boldSymbolStart) &&
-                 mAfterSelection.startsWith(boldSymbolEnd))
+        else if (mBeforeSelection.endsWith(SymbolStart) && mAfterSelection.startsWith(SymbolEnd))
         {
-            delSymbolsOutSelection(mFullText, start, end, boldSymbolSize);
+            delSymbolsOutSelection(mFullText, start, end, SymbolSize);
             mTextField->setTextCursor(cursor);
         }
         else
         {
-            insertSymbolsInSelection(cursor, start, end, boldSymbolSize, boldSymbolStart,
-                                     boldSymbolEnd);
+            insertSymbolsInSelection(cursor, start, end, SymbolSize, SymbolStart, SymbolEnd);
             selectText(cursor, start, end);
         }
     }
@@ -97,6 +99,7 @@ void TextEdit::clear() { mTextField->clear(); }
 TextEdit::~TextEdit()
 {
     delete mBoldButton;
+    delete mItalicsButton;
     delete hLayout;
     delete vLayout;
 }
