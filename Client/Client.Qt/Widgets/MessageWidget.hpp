@@ -24,7 +24,7 @@ public:
      * @brief Method for changing the object of the QListWidgetItem class in the MessageWidget.
      * @param object reference of class QListWidgetItem.
      */
-    void setThisItem(QListWidgetItem* Item);
+    void setThisItem(QListWidgetItem* item);
     /**
      * @brief Method for method for changing the message.
      * @param new text message as string of QString.
@@ -68,7 +68,7 @@ public:
      * @param boolean indicator of a deleted message.
      * @param object of the QWidget type.
      */
-    MessageWidget(QString textMessage, QString nameOfUser, QListWidgetItem* Item,
+    MessageWidget(QString textMessage, QString nameOfUser, QListWidgetItem* item,
                   bool deletedMessage, QWidget* parent = nullptr);
     /**
      * @brief constructor for displaying a message from a user on the screen.
@@ -77,7 +77,7 @@ public:
      * @param object of the QListWidgetItem type.
      * @param boolean indicator of a deleted message.
      */
-    MessageWidget(std::string textMessage, std::string nameOfUser, QListWidgetItem* Item,
+    MessageWidget(std::string textMessage, std::string nameOfUser, QListWidgetItem* item,
                   bool deletedMessage);
     /**
      * @brief constructor for displaying a message from a user on the screen.
@@ -85,13 +85,13 @@ public:
      * @param object of the QListWidgetItem type.
      * @param boolean indicator of a deleted message.
      */
-    MessageWidget(QString textMessage, QListWidgetItem* Item, bool deletedMessage);
+    MessageWidget(QString textMessage, QListWidgetItem* item, bool deletedMessage);
     /**
      * @brief constructor for displaying a message from a user on the screen.
      * @param object of the QListWidgetItem type.
      * @param boolean indicator of a deleted message.
      */
-    explicit MessageWidget(QListWidgetItem* Item, bool deletedMessage);
+    explicit MessageWidget(QListWidgetItem* item, bool deletedMessage);
     /**
      * @brief destructor for clearing memory.
      */
