@@ -30,6 +30,7 @@ private:
 
     FlatButton* mBoldButton;
     FlatButton* mItalicsButton;
+    FlatButton* mUnderscoreButton;
     FlatPlainTextEdit* mTextField;
 
     const int SymbolSize      = 3;
@@ -37,6 +38,8 @@ private:
     const QString boldSymbolEnd   = "</B>";
     const QString italicsSymbolStart = "<I>";
     const QString italicsboldSymbolEnd = "</I>";
+    const QString underscoreSymbolStart = "<U>";
+    const QString underscoreSymbolEnd   = "</U>";
 
     void delSymbolsInSelection(QString& text, int& start, int& end, int symbolSize);
     void delSymbolsOutSelection(QString& text, int& start, int& end, int symbolSize);

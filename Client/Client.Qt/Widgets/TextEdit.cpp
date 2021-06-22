@@ -7,6 +7,7 @@ TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(pa
     mTextField     = messageText;
     mBoldButton    = new FlatButton(this, "B", st::boldnessButton);
     mItalicsButton = new FlatButton(this, "I", st::boldnessButton);
+    mUnderscoreButton = new FlatButton(this, "U", st::boldnessButton);
 
     vLayout = new QVBoxLayout;
     hLayout = new QHBoxLayout;
@@ -14,6 +15,7 @@ TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(pa
     hLayout->setAlignment(Qt::AlignLeft);
     hLayout->addWidget(mBoldButton);
     hLayout->addWidget(mItalicsButton);
+    hLayout->addWidget(mUnderscoreButton);
 
     vLayout->addLayout(hLayout);
 
@@ -21,6 +23,8 @@ TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(pa
     mBoldButton->setClickCallback([&]() { boldButtonClicked(boldSymbolStart, boldSymbolEnd); });
     mItalicsButton->setClickCallback(
         [&]() { boldButtonClicked(italicsSymbolStart, italicsboldSymbolEnd); });
+    mUnderscoreButton->setClickCallback(
+        [&]() { boldButtonClicked(underscoreSymbolStart, underscoreSymbolEnd); });
 }
 
 void TextEdit::boldButtonClicked(QString SymbolStart, QString SymbolEnd)
