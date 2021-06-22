@@ -2,13 +2,13 @@
 
 Login::Login(QWidget* parent) : QWidget(parent)
 {
-    passwordLineEdit = new FlatInput("Password", true, this);
-    usernameLineEdit = new FlatInput("Username", this);
+    passwordLineEdit = std::make_unique<FlatInput>("Password", true, this);
+    usernameLineEdit = std::make_unique<FlatInput>("Username", this);
 
-    buttonSignin       = new FlatButton(this, "Login");
-    buttonRegistration = new FlatButton(this, "Registration");
+    buttonSignin       = std::make_unique<FlatButton>(this, "Login");
+    buttonRegistration = std::make_unique<FlatButton>(this, "Registration");
 
-    logoWidget = new LogoWidget(this);
+    logoWidget = std::make_unique<LogoWidget>(this);
 
     buttonSignin->setClickCallback([]() { oApp->setAppState(App::AppState::ChatWindowForm); });
     buttonRegistration->setClickCallback(
@@ -20,15 +20,6 @@ Login::Login(QWidget* parent) : QWidget(parent)
 
     passwordLineEdit->resize(BLOCKWIDTH, passwordLineEdit->sizeHint().height());
     usernameLineEdit->resize(BLOCKWIDTH, usernameLineEdit->sizeHint().height());
-}
-
-Login::~Login()
-{
-    delete usernameLineEdit;
-    delete passwordLineEdit;
-    delete buttonSignin;
-    delete buttonRegistration;
-    delete logoWidget;
 }
 
 void Login::keyPressEvent(QKeyEvent* event)
