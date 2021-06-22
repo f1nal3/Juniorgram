@@ -22,7 +22,7 @@ TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(pa
     setLayout(vLayout);
     mBoldButton->setClickCallback([&]() { boldButtonClicked(boldSymbolStart, boldSymbolEnd); });
     mItalicsButton->setClickCallback(
-        [&]() { boldButtonClicked(italicsSymbolStart, italicsboldSymbolEnd); });
+        [&]() { boldButtonClicked(italicsSymbolStart, italicsSymbolEnd); });
     mUnderscoreButton->setClickCallback(
         [&]() { boldButtonClicked(underscoreSymbolStart, underscoreSymbolEnd); });
 }

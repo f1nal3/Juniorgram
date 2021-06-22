@@ -37,7 +37,7 @@ private:
     const QString boldSymbolStart = "<B>";
     const QString boldSymbolEnd   = "</B>";
     const QString italicsSymbolStart = "<I>";
-    const QString italicsboldSymbolEnd = "</I>";
+    const QString italicsSymbolEnd = "</I>";
     const QString underscoreSymbolStart = "<U>";
     const QString underscoreSymbolEnd   = "</U>";
 
