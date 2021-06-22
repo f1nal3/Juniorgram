@@ -10,7 +10,6 @@ MenuItem::MenuItem(const QString& text, QAction* action, QWidget* parent) : QWid
     auto font = QFont("Noto Sans", 12);
     font.setPixelSize(Style::valueDPIScale(12));
     setFont(font);
-
     setFixedSize(parent->width() - 1, Style::valueDPIScale(30));
     setMouseTracking(true);
     setAttribute(Qt::WA_Hover);
