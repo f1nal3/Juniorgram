@@ -196,17 +196,15 @@ void MessageWidget::reactionChange(int index)
         }
     }
     auto reactionSelection{[&](int reactionNumber) {
-        --reactionNumber;
-        reactionMapLabelIcon->find(reactionNumber)
+        reactionMapLabelIcon->find(--reactionNumber)
             .value()
             ->setPixmap(pixmapIcon->find(reactionNumber)
                             .value()[0]
                             .scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)),
                                     Qt::KeepAspectRatio, Qt::SmoothTransformation));
-        ++reactionMap[reactionNumber];
         reactionMapLabel->find(reactionNumber)
             .value()
-            ->setText(QString::number(reactionMap[reactionNumber]));
+            ->setText(QString::number(++reactionMap[reactionNumber]));
         reactionUserOnMessage = static_cast<reactions>(reactionNumber);
     }};
     switch (index)

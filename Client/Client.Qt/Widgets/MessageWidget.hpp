@@ -105,9 +105,9 @@ private slots:
     void reactionChange(int index);
 
 private:
-    enum reactions
+    enum class reactions
     {
-        like = 0,
+        like,
         dislike,
         fire,
         cat,
