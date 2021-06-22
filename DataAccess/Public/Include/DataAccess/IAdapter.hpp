@@ -33,5 +33,6 @@ namespace DataAccess
 
 		virtual void closeConnection(void) = 0;
 
+		virtual ~IAdapter(){}
 	};
 }

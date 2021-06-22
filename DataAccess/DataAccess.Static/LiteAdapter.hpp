@@ -30,6 +30,8 @@ public:
 
     LiteAdapter(LiteAdapter&& other) = delete;
     LiteAdapter& operator=(LiteAdapter&& other) = delete;
+
+    virtual ~LiteAdapter() {}
 public:
     std::optional<std::any> query(const std::string_view& query) override;
     bool isConnected(void) const override;
