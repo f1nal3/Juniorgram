@@ -24,5 +24,5 @@ public:
     explicit FlatPlainTextEdit(QWidget* parent = nullptr);
 
 protected:
-    void paintEvent(QPaintEvent* event) override;
+    void paintEvent(QPaintEvent* paintEvent) override;
 };
