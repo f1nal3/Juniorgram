@@ -3,20 +3,22 @@
 void PopupWidget::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event);
-    QPainter p(this);
+    QPainter painter(this);
     QColor inputField(0x35, 0x35, 0x35);
-    p.setBrush(inputField);
-    p.setPen(Qt::NoPen);
-    p.drawRect(0, 0, width(), height());
+    painter.setBrush(inputField);
+    painter.setPen(Qt::NoPen);
+    painter.drawRect(0, 0, width(), height());
 }
+
 void PopupWidget::hideEvent(QHideEvent* event)
 {
     Q_UNUSED(event);
     deleteLater();
 }
-void PopupWidget::popup(const QPoint& p)
+
+void PopupWidget::popup(const QPoint& painter)
 {
-    move(p);
+    move(painter);
     if (innerMenu)
     {
         innerMenu->move(0, 10);
@@ -25,11 +27,13 @@ void PopupWidget::popup(const QPoint& p)
     }
     show();
 }
+
 void PopupWidget::setMenu(Menu* menu)
 {
     innerMenu = menu;
     innerMenu->setParent(this);
 }
+
 PopupWidget::PopupWidget(QWidget* parent) : QWidget(parent), innerMenu(nullptr)
 {
     setWindowFlags(Qt::WindowFlags(Qt::FramelessWindowHint) | Qt::BypassWindowManagerHint |
