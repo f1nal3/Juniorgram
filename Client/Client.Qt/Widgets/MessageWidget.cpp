@@ -4,15 +4,16 @@
 
 #include "Style/Style.hpp"
 
-MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidgetItem* item,
+MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidgetItem* Item,
                              bool deletedMessage, QWidget* parent)
     : QWidget(parent),
       messageText(std::move(textMessage)),
       userName(std::move(nameOfUser)),
       dateTimeMessage(QDateTime::currentDateTime())
 {
-    messageItem    = item;
+    messageItem    = Item;
     messageDeleted = deletedMessage;
+    // Main layouts
     mainLayout = new QVBoxLayout(this);
     setLayout(mainLayout);
 
@@ -26,15 +27,15 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidge
         initializationUiDelete();
 }
 
-MessageWidget::MessageWidget(std::string textMessage, std::string nameOfUser, QListWidgetItem* item,
+MessageWidget::MessageWidget(std::string textMessage, std::string nameOfUser, QListWidgetItem* Item,
                              bool deletedMessage)
-    : MessageWidget(QString::fromStdString(textMessage), QString::fromStdString(nameOfUser), item,
+    : MessageWidget(QString::fromStdString(textMessage), QString::fromStdString(nameOfUser), Item,
                     deletedMessage)
 {
 }
 
-MessageWidget::MessageWidget(QString textMessage, QListWidgetItem* item, bool deletedMessage)
-    : MessageWidget(textMessage, EMPTY_USER_NAME, item, deletedMessage)
+MessageWidget::MessageWidget(QString textMessage, QListWidgetItem* Item, bool deletedMessage)
+    : MessageWidget(textMessage, EMPTY_USER_NAME, Item, deletedMessage)
 {
 }
 
@@ -208,7 +209,7 @@ void MessageWidget::reactionChange(int index)
     }
 }
 
-void MessageWidget::setThisItem(QListWidgetItem* item) { messageItem = item; }
+void MessageWidget::setThisItem(QListWidgetItem* Item) { messageItem = Item; }
 
 void MessageWidget::setMessageText(QString newMessage)
 {

@@ -1,7 +1,6 @@
 #include "MenuItem.hpp"
 
 #include "Style/Style.hpp"
-
 MenuItem::MenuItem(const QString& text, QAction* action, QWidget* parent) : QWidget(parent)
 {
     innerText = text;
@@ -15,45 +14,40 @@ MenuItem::MenuItem(const QString& text, QAction* action, QWidget* parent) : QWid
     setMouseTracking(true);
     setAttribute(Qt::WA_Hover);
 }
-
 QSize MenuItem::sizeHint() const { return QWidget::sizeHint(); }
-
 void MenuItem::paintEvent(QPaintEvent* event)
 {
-    QPainter painter(this);
-    painter.setPen(Qt::NoPen);
+    QPainter p(this);
+    p.setPen(Qt::NoPen);
     QColor color = QColor(0x32, 0x32, 0x32);
     if (hit)
     {
         color = color.lighter(175);
     }
-    painter.setBrush(color);
-    painter.drawRect(rect());
-    painter.setBrush(Qt::red);
-    painter.setPen(Qt::white);
+    p.setBrush(color);
+    p.drawRect(rect());
+    p.setBrush(Qt::red);
+    p.setPen(Qt::white);
 
     const int TOP_X = (height() - fontMetrics().height()) / 2;
     const int SHIFT = (height() - 10);
-    painter.drawText(10 + SHIFT, TOP_X, 245, fontMetrics().height(), 0, innerText);
+    p.drawText(10 + SHIFT, TOP_X, 245, fontMetrics().height(), 0, innerText);
     QWidget::paintEvent(event);
 }
-
-void MenuItem::mouseMoveEvent(QMouseEvent* event)
+void MenuItem::mouseMoveEvent(QMouseEvent* e)
 {
-    Q_UNUSED(event)
+    Q_UNUSED(e)
     if (underMouse()) hit = true;
 }
-
-void MenuItem::leaveEvent(QEvent* event)
+void MenuItem::leaveEvent(QEvent* e)
 {
-    Q_UNUSED(event)
+    Q_UNUSED(e)
     hit = false;
 }
-
-void MenuItem::mouseReleaseEvent(QMouseEvent* event)
+void MenuItem::mouseReleaseEvent(QMouseEvent* e)
 {
-    Q_UNUSED(event)
+    Q_UNUSED(e)
     mAction->trigger();
     parentWidget()->hide();
-    QWidget::mouseReleaseEvent(event);
+    QWidget::mouseReleaseEvent(e);
 }
