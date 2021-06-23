@@ -3,16 +3,19 @@
 #include "Style/Style.hpp"
 
 AbstractButton::AbstractButton(QWidget* parent) : QWidget(parent) { setMouseTracking(true); }
-void AbstractButton::leaveEvent(QEvent* e)
+
+void AbstractButton::leaveEvent(QEvent* event)
 {
-    Q_UNUSED(e)
+    Q_UNUSED(event)
     setOver(false, StateChanger::ByHover);
 }
-void AbstractButton::enterEvent(QEvent* e)
+
+void AbstractButton::enterEvent(QEvent* event)
 {
-    Q_UNUSED(e)
+    Q_UNUSED(event)
     setOver(true, StateChanger::ByHover);
 }
+
 void AbstractButton::setOver(bool over, AbstractButton::StateChanger source)
 {
     Q_UNUSED(source);
@@ -30,9 +33,10 @@ void AbstractButton::setOver(bool over, AbstractButton::StateChanger source)
     }
     updateCursor();
 }
-void AbstractButton::mouseMoveEvent(QMouseEvent* e)
+
+void AbstractButton::mouseMoveEvent(QMouseEvent* mouseEvent)
 {
-    if (rect().contains(e->pos()))
+    if (rect().contains(mouseEvent->pos()))
     {
         setOver(true, StateChanger::ByHover);
     }
@@ -41,6 +45,7 @@ void AbstractButton::mouseMoveEvent(QMouseEvent* e)
         setOver(false, StateChanger::ByHover);
     }
 }
+
 void AbstractButton::setDisabled(bool disabled)
 {
     auto was = _state;
@@ -55,10 +60,11 @@ void AbstractButton::setDisabled(bool disabled)
         onStateChanged(was, StateChanger::ByUser);
     }
 }
-void AbstractButton::mousePressEvent(QMouseEvent* e)
+
+void AbstractButton::mousePressEvent(QMouseEvent* mouseEvent)
 {
-    checkIfOver(e->pos());
-    if (e->buttons() & Qt::LeftButton)
+    checkIfOver(mouseEvent->pos());
+    if (mouseEvent->buttons() & Qt::LeftButton)
     {
         if ((_state & StateFlag::Over) && !(_state & StateFlag::Down))
         {
@@ -66,11 +72,12 @@ void AbstractButton::mousePressEvent(QMouseEvent* e)
             _state |= StateFlag::Down;
             onStateChanged(was, StateChanger::ByPress);
 
-            e->accept();
+            mouseEvent->accept();
         }
     }
 }
-void AbstractButton::mouseReleaseEvent(QMouseEvent* e)
+
+void AbstractButton::mouseReleaseEvent(QMouseEvent* mouseEvent)
 {
     if (_state & StateFlag::Down)
     {
@@ -81,7 +88,7 @@ void AbstractButton::mouseReleaseEvent(QMouseEvent* e)
 
         if (was & StateFlag::Over)
         {
-            clicked(e->modifiers(), e->button());
+            clicked(mouseEvent->modifiers(), mouseEvent->button());
         }
         else
         {
@@ -89,16 +96,19 @@ void AbstractButton::mouseReleaseEvent(QMouseEvent* e)
         }
     }
 }
+
 void AbstractButton::checkIfOver(QPoint localPos)
 {
     auto over = rect().contains(localPos);
     setOver(over, StateChanger::ByHover);
 }
+
 void AbstractButton::updateCursor()
 {
     auto pointerCursor = _pointerCursor && (_state & StateFlag::Over);
     setCursor(pointerCursor ? Style::cur_pointer : Style::cur_default);
 }
+
 void AbstractButton::setPointerCursor(bool enablePointerCursor)
 {
     if (enablePointerCursor != _pointerCursor)
@@ -107,6 +117,7 @@ void AbstractButton::setPointerCursor(bool enablePointerCursor)
         updateCursor();
     }
 }
+
 void AbstractButton::clicked(Qt::KeyboardModifiers modifiers, Qt::MouseButton button)
 {
     _modifiers = modifiers;

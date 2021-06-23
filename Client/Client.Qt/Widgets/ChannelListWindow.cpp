@@ -49,15 +49,12 @@ void ChannelListWindow::updateChannelList()
             {
                 for(auto it = channelNames.rbegin(); it != channelNames.rend(); ++it)
                 {
-
                     if(QString::fromStdString(*it) == channelListMainWindow->item(i)->text())
                     {
                         channelNames.erase(std::remove(channelNames.begin(), channelNames.end(), *it), channelNames.end());
                     }
-
                 }
             }
-
             for (auto it = channelNames.rbegin(); it != channelNames.rend(); ++it)
             {
                 if (channelList->count() == 0)
@@ -118,7 +115,7 @@ void ChannelListWindow::updateChannelListWindow()
 {
     if (ConnectionManager::isConnected())
     {
-        static int                   i = 0;
+        static int i = 0;
         static QFutureInterface<int> fi;
         i++;
         if (i > 5)
