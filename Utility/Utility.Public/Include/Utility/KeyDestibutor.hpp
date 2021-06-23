@@ -1,4 +1,7 @@
 #pragma once
+#define ATEXIT_FIXED 
+
+#include "EncryptionHandler.hpp"
 
 #include <cryptopp/dh2.h>
 #include <cryptopp/eccrypto.h>
@@ -6,12 +9,9 @@
 #include <cryptopp/modes.h>
 #include <cryptopp/oids.h>
 #include <cryptopp/osrng.h>
-#include "EncryptionHandler.hpp"
-
 
 #include <cstdlib>
 
-//#define ATEXIT_FIXED important moment!
 namespace Utility
 {
 class KeyDestributor

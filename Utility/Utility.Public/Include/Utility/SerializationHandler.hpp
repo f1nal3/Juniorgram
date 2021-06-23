@@ -45,6 +45,13 @@ public:
                     state = processOutcomingMessageBody<RegistrationInfo>(bodyBuffer, message.mBody);
                     break;
                 case Message::MessageType::RegistrationAnswer:
+				/*my part!!!*/
+					break;
+				case Message::MessageType::SendIV:
+					state = processOutcomingMessageBody<std::string>(
+                    bodyBuffer, message.mBody);
+					 break;
+                case Message::MessageType::RegistrationRequestToClient:
                     state = processOutcomingMessageBody<Utility::RegistrationCodes>(bodyBuffer, message.mBody);
 					 break;
                 case Message::MessageType::SetEncryptedConnection:
@@ -87,45 +94,31 @@ public:
             case Message::MessageType::ServerMessage:
                 break;
             case Message::MessageType::ChannelListRequest:
-            {
-                state = processIncomingMessageBody< /*std::string */std::vector<ChannelInfo>>(
-                    buffer, message);
+                state = processIncomingMessageBody<std::vector<ChannelInfo>>(buffer, message);
                 break;
-            }
             case Message::MessageType::MessageHistoryRequest:
-            {
                 state = processIncomingMessageBody<std::vector<MessageInfo>>(buffer, message);
                 break;
-            }
             case Message::MessageType::MessageStoreRequest:
-            {
                 state = processIncomingMessageBody<MessageInfo>(buffer, message);
                 break;
-            }
-<<<<<<< HEAD
-<<<<<<< HEAD
             case Message::MessageType::RegistrationRequest:
-            {
                 state = processIncomingMessageBody<RegistrationInfo>(buffer, message);
                 break;
+<<<<<<< HEAD
             }
             case Message::MessageType::RegistrationAnswer:
             {
+=======
+            case Message::MessageType::RegistrationRequestToClient:
+>>>>>>> fb11095 (Deleted useless code part.)
                 state = processIncomingMessageBody<Utility::RegistrationCodes>(buffer, message);
-=======
-=======
             case Message::MessageType::SendIV:
-            {
                 state = processIncomingMessageBody<std::string>(buffer, message);
                 break; 
-            }
->>>>>>> 537bf1f (Now, we can use encrypt->serialize/decrypt->deserialize mechanism.)
             case Message::MessageType::SetEncryptedConnection:
-            {
                 state = processIncomingMessageBody<std::string>(buffer, message);
->>>>>>> 4b2e92b (Basic key exchange impl.)
                 break;
-            }
             default:
                 break;
         }

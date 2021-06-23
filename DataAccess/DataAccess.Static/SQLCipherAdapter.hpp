@@ -1,6 +1,5 @@
 #pragma once
 #include "Utility/WarningSuppression.hpp"
-#include "Utility.Static/HashingAlgorithms.hpp"
 
 #include <iostream>
 #include <memory>
@@ -9,6 +8,7 @@
 #include <sqlcipher/sqlite3.h>
 #include <DataAccess/IAdapter.hpp>
 #include <Utility/Exception.hpp>
+#include <Utility/HashingAlgorithms.hpp>
 #include <Utility.Static/MACAddress.hpp>
 
 
@@ -83,7 +83,6 @@ protected:
         : mDB(make_sqlite3(dbName))
     {
     }
-
 
 private:
     inline static std::mutex mStaticMutex{};

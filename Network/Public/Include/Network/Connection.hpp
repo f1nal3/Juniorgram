@@ -83,12 +83,11 @@ private:
 
         SerializationHandler handler;
 
+        //Needs improvements in this place
         if (
             mOutcomingMessagesQueue.front().mHeader.mMessageType == Message::MessageType::SetEncryptedConnection ||
-            mOutcomingMessagesQueue.front().mHeader.mMessageType ==
-                Message::MessageType::ServerAccept ||
-            mOutcomingMessagesQueue.front().mHeader.mMessageType ==
-                Message::MessageType::SendIV)
+            mOutcomingMessagesQueue.front().mHeader.mMessageType == Message::MessageType::ServerAccept ||
+            mOutcomingMessagesQueue.front().mHeader.mMessageType == Message::MessageType::SendIV)
         {
              handler.setNext(new CompressionHandler());
         }
@@ -96,6 +95,7 @@ private:
         {
              handler.setNext(new EncryptionHandler())->setNext(new CompressionHandler());
         }
+        // Needs improvements in this place~
     
         MessageProcessingState result = MessageProcessingState::SUCCESS;
         
@@ -222,21 +222,19 @@ private:
      * "[connection id] Read Body Fail." is displayed.
      * @param bodySize - size of messege body
      */
-    void readBody(Message::MessageHeader& Header)
+    void readBody(Message::MessageHeader& header)
     {
         yas::shared_buffer buffer;
-        buffer.resize(Header.mBodySize);
+        buffer.resize(header.mBodySize);
 
-        const auto readBodyHandler = [this, buffer, Header](std::error_code error) {
+        const auto readBodyHandler = [this, buffer, header](std::error_code error) {
             if (!error)
             {
                 CompressionHandler handler;
 
-                if (Header.mMessageType ==
-                        Message::MessageType::SetEncryptedConnection ||
-                    Header.mMessageType == Message::MessageType::ServerAccept ||
-                    Header.mMessageType ==
-                        Message::MessageType::SendIV)
+                if(header.mMessageType == Message::MessageType::SetEncryptedConnection ||
+                   header.mMessageType == Message::MessageType::ServerAccept ||
+                   header.mMessageType == Message::MessageType::SendIV)
                 {
                         handler.setNext(new SerializationHandler());
                 }

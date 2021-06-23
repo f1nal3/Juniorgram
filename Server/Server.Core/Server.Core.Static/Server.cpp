@@ -5,20 +5,13 @@
 
 #include <future>
 
-#include <cryptopp/hmac.h>
-#include <cryptopp/osrng.h>
-#include <cryptopp/eccrypto.h>
-
-#include <cryptopp/oids.h>
-#include <cryptopp/dh2.h>
-#include <cryptopp/modes.h>
-
 using Network::Connection;
 using Network::Message;
 using Network::SafeQueue;
 
 namespace Server
 {
+
 bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
 {
     Network::Message message;
@@ -26,10 +19,8 @@ bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
     client->send(message);
 
     message.mHeader.mMessageType = Network::Message::MessageType::SetEncryptedConnection;
-    
     message.mBody = std::make_any<std::string>(client->getKeyDestibutor().get()->getPublicServerKey());
     client->send(message);
-
 
     return true;
 }
@@ -125,12 +116,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                 channelInfoList.push_back(info);
             }
 
-            msg.mBody = std::make_any<std::vector<Network::ChannelInfo>>;
-            msg.mBody = channelInfoList;
-
-           // msg.mBody =
-           //     std::make_any</*std::vector<Network::ChannelInfo>*/ std::string>("Hello, world!");
-           //// msg.mBody = std::string("Hello, world!");
+            msg.mBody = std::make_any<std::vector<Network::ChannelInfo>>(channelInfoList);
 
             client->send(msg);
         }

@@ -43,9 +43,6 @@ bool App::loop()
             {
                 case Network::Message::MessageType::SetEncryptedConnection:
                 {
-
-                    //Utility::KeyHolder::generateKey();
-
                     std::cout << "The server is trying to establish an encrypted connection!\n";
 
                     std::string publicServerKey = std::any_cast<std::string>(message.mBody);
@@ -105,10 +102,6 @@ bool App::loop()
                     std::cout << "Channel list received: \n";
                     std::vector<std::string> channelList;
                     
-                    //suppressWarning(4834,init)
-                    //std::any_cast<std::string/*std::vector<Network::ChannelInfo>*/>(message.mBody);
-                    //restoreWarning
-
                     for (const auto& item :
                          std::any_cast<std::vector<Network::ChannelInfo>>(message.mBody))
                     {
@@ -137,8 +130,9 @@ bool App::loop()
                     std::cout << "Message were stored" << std::endl;
                 }
                 break;
-
                 case Network::Message::MessageType::RegistrationAnswer:
+				break;
+                case Network::Message::MessageType::RegistrationRequestToClient:
                 {
                     auto code = std::any_cast<Utility::RegistrationCodes>(message.mBody);
 

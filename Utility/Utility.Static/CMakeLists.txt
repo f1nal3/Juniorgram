@@ -12,7 +12,7 @@ set(SOURCE_FILES
 	MACAddress.hpp
 	MACAddress.cpp
 	HashingAlgorithms.hpp)
-
+	
 # Add a library with the above sources
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
