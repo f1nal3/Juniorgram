@@ -1,9 +1,12 @@
 #ifndef QMESSAGEWIDGET_H
 #define QMESSAGEWIDGET_H
 constexpr auto EMPTY_MESSAGE      = "Empty message";
-constexpr auto EMPTY_USER_NAME    = "You";
+constexpr auto EMPTY_USER_NAME = "You";
+constexpr auto COUNT_REACTION = 4;
 
 #include "pch.hpp"
+
+#include <ctime>
 
 #include "Widgets/FlatButton.hpp"
 #include "Widgets/InputFields.hpp"
@@ -57,9 +60,9 @@ public:
     void setStdTime_tDateTime(std::time_t newDataTime);
     /**
      * @brief Method for changing reaction map.
-     * @param new reactions of map with kay std::string and value int.
+     * @param new reactions of map with kay std::int and value int.
      */
-    void setReactionMap(std::map<std::string, int> newReactionMap);
+    void setReactionMap(std::map<int, int> newReactionMap);
     /**
      * @brief constructor for displaying a message from a user on the screen.
      * @param text of message as string of QStrings.
@@ -102,6 +105,14 @@ private slots:
     void reactionChange(int index);
 
 private:
+    enum reactions
+    {
+        like,
+        dislike,
+        fire,
+        cat,
+        Non
+    };
     QListWidgetItem* messageItem;
     // Layouts
     QVBoxLayout* mainLayout;
@@ -111,12 +122,22 @@ private:
     FlatPlainTextEdit* messageTextEdit;
     // UpLevelLayout
     Label* userNameLabel;
-    Label* reactionLabel;
-    Label* reactionLabelIcon;
+
+    QMap<int, Label*>* reactionMapLabel;
+
+    QMap<int, Label*>* reactionMapLabelIcon;
+
+    Label* reactionLabelIconLike;
+    Label* reactionLabelIconDislike;
+    Label* reactionLabelIconFire;
+    Label* reactionLabelIconCat;
+
     QSpacerItem* horizontalUpLeftSpacer;
     QSpacerItem* horizontalUpRightSpacer;
     DateTimeEdit* messageDateTimeEdit;
-    QPixmap *LikeIcon;
+
+    QMap<int, QPixmap*> *pixmapIcon;
+
     // DownLevelLayout
     ComboBox* reactionChoseBox;
     FlatButton* deleteButton;
@@ -128,12 +149,16 @@ private:
     QString messageText;
     QString userName;
     QDateTime dateTimeMessage;
-    QString reactionOnMessage;
+    reactions reactionUserOnMessage;
     QStringList itemReactionList;
-    std::map<std::string, int> reactionMap{{"Like", 0}};
+    std::map<int, int> reactionMap{
+        {reactions::like, 0},
+        {reactions::dislike, 0},
+        {reactions::fire, 0},
+        {reactions::cat, 0}
+    };
     void initializationUiNotDelete();
     void initializationUiDelete();
-    bool isReaction(QString reaction);
     void updateWidget();
     void uiConnect();
     void clearMessage();
