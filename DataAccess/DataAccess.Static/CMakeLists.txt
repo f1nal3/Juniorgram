@@ -1,7 +1,7 @@
 set(TARGET DataAccess.Static)
 set(OUTPUT_NAME DataAccess.Static)
 
-set(QMAKE_CXXFLAGS  ${QMAKE_CXXFLAGS}"-fno-sized-deallocation"
+set(QMAKE_CXXFLAGS  ${QMAKE_CXXFLAGS}"-fno-sized-deallocation")
 
 set(SOURCE_FILES
     PostgreAdapter.hpp
