@@ -115,21 +115,7 @@ void ChannelListWindow::updateChannelListWindow()
 {
     if (ConnectionManager::isConnected())
     {
-        static int i = 0;
-        static QFutureInterface<int> fi;
-        i++;
-        if (i > 5)
-        {
-            fi.reportFinished();
-        }
-        auto future = fi.future();
-
         ConnectionManager::getClient().askForChannelList();
-        auto* watcher = new QFutureWatcher<int>();
-
-        connect(watcher, &QFutureWatcher<int>::finished, [=]() { std::cout << i; });
-
-        watcher->setFuture(future);
     }
 }
 
