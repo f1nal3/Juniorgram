@@ -21,11 +21,6 @@ jobs:
       run: |
         pip3 install coverxygen
         sudo apt-get -y install lcov
-        
-    - name: Creating folder structure
-      run : | 
-        sudo mkdir coverage
-        cd coverage
     
     - name: Doxygen Action
       uses: mattnotmitt/doxygen-action@v1.1.0
@@ -49,7 +44,7 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: .
+        publish_dir: ./docs
         enable_jekyll: false
         allow_empty_commit: false
         force_orphan: true
