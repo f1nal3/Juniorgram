@@ -45,6 +45,8 @@ public:
 
     PostgreAdapter(PostgreAdapter&& other) = delete;
     PostgreAdapter& operator=(PostgreAdapter&& other) = delete;
+
+    virtual ~PostgreAdapter() {}
 public:
     /** @brief Method for executing SQL quries.
     *   @details You shouldn't use this method because it's 
