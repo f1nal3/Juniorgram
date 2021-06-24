@@ -24,7 +24,8 @@ jobs:
         
     - name: Creating folder structure
       run : | 
-        mkdir coverage & cd coverage
+        sudo mkdir coverage
+        cd coverage
     
     - name: Doxygen Action
       uses: mattnotmitt/doxygen-action@v1.1.0
