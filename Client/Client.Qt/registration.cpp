@@ -3,8 +3,8 @@
 Registration::Registration(QWidget* parent) : QWidget(parent)
 {
     usernameLineEdit       = new FlatInput("Username", this);
-    passwordLineEdit       = new FlatInput("Password", this);
-    passwordRepeatLineEdit = new FlatInput("Repeat password", this);
+    passwordLineEdit       = new FlatInput("Password", true, this);
+    passwordRepeatLineEdit = new FlatInput("Repeat password", true, this);
     registrationButton     = new FlatButton(this, "Create account");
     back                   = new FlatButton(this, "Back");
 
