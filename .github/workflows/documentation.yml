@@ -45,15 +45,11 @@ jobs:
       
     - name: Generating Coverage Info
       run: |
-        python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --kind enum,enumvalue,friend,typedef,variable,function,signal,slot,class,struct,union,define,file --output doc-coverage.info
+        python3 -m coverxygen --xml-dir ./coverage/docs/xml --src-dir . --kind enum,enumvalue,friend,typedef,variable,function,signal,slot,class,struct,union,define,file --output doc-coverage.info
         sudo mv doc-coverage.info ./coverage/docs/doc_coverage
-
-    - name: Debug
-      run: ls ./docs
       
     - name: Generate HTML
       run: sudo genhtml -s --no-function-coverage --no-branch-coverage ./coverage/docs/doc_coverage/doc-coverage.info -o ./coverage/docs/doc_coverage
-      
       
     - name: GH Pages Deployment
       uses: peaceiris/actions-gh-pages@v3
