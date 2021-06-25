@@ -38,7 +38,7 @@ jobs:
       uses: mattnotmitt/doxygen-action@v1.1.0
       with:
           doxyfile-path: ./Doxyfile
-          working-directory: .
+          working-directory: ./coverage
   
     - name: Debug
       run: ls  
@@ -53,9 +53,7 @@ jobs:
       
     - name: Generate HTML
       run: sudo genhtml -s --no-function-coverage --no-branch-coverage ./coverage/docs/doc_coverage/doc-coverage.info -o ./coverage/docs/doc_coverage
-        
-    - name: Debug
-      run: sudo mv ./docs/docs/* ./coverage/docs/
+      
       
     - name: GH Pages Deployment
       uses: peaceiris/actions-gh-pages@v3
