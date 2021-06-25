@@ -55,7 +55,7 @@ jobs:
       run: sudo genhtml -s --no-function-coverage --no-branch-coverage ./coverage/docs/doc_coverage/doc-coverage.info -o ./coverage/docs/doc_coverage
         
     - name: Debug
-      run: ls  
+      run: cp ./docs/* ./coverage/docs/
       
     - name: GH Pages Deployment
       uses: peaceiris/actions-gh-pages@v3
