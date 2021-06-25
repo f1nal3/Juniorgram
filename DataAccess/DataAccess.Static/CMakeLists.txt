@@ -9,9 +9,9 @@ set(SOURCE_FILES
     PostgreRepository.hpp
     PostgreRepository.cpp
     PostgreTable.hpp
-    LiteAdapter.hpp
-    LiteAdapter.cpp
-    LiteTable.hpp
+    #LiteAdapter.hpp
+    #LiteAdapter.cpp
+    #LiteTable.hpp
     RepositoryUnits.hpp
     RepositoryUnits.cpp
     SQLStatements.hpp
@@ -19,8 +19,8 @@ set(SOURCE_FILES
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
-target_link_libraries(${TARGET}
-    PUBLIC Qt5::Sql)
+#target_link_libraries(${TARGET}
+#    PUBLIC Qt5::Sql)
 
 target_link_libraries(${TARGET}
     PUBLIC CONAN_PKG::libpq CONAN_PKG::libpqxx)
