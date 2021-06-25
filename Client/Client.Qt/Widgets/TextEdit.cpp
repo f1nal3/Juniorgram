@@ -4,10 +4,10 @@
 
 TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(parent)
 {
-    mTextField     = messageText;
-    mBoldButton    = new FlatButton(this, "B", st::boldnessButton);
-    mItalicsButton = new FlatButton(this, "I", st::boldnessButton);
-    mUnderscoreButton = new FlatButton(this, "U", st::boldnessButton);
+    mTextField             = messageText;
+    mBoldButton            = new FlatButton(this, "B", st::boldnessButton);
+    mItalicsButton         = new FlatButton(this, "I", st::boldnessButton);
+    mUnderscoreButton      = new FlatButton(this, "U", st::boldnessButton);
     sendButton             = new FlatButton(this, "Send");
     horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
