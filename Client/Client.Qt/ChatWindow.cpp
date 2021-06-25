@@ -37,7 +37,7 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     messageLayout->addWidget(messageTextEdit);
     messageLayout->addLayout(messageButtonLayout);
     messageButtonLayout->addWidget(textEdit);
-    messageButtonLayout->addItem(horizontalButtonSpacer);
+    //messageButtonLayout->addItem(horizontalButtonSpacer);
     messageButtonLayout->addWidget(sendButton);
     connectButton();
     setLayout(mainLayout);

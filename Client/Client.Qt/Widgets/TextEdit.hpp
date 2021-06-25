@@ -31,13 +31,15 @@ private:
     FlatButton* mBoldButton;
     FlatButton* mItalicsButton;
     FlatButton* mUnderscoreButton;
+    FlatButton* sendButton;
+    QSpacerItem* horizontalButtonSpacer;
     FlatPlainTextEdit* mTextField;
 
-    const int SymbolSize      = 3;
-    const QString boldSymbolStart = "<B>";
-    const QString boldSymbolEnd   = "</B>";
-    const QString italicsSymbolStart = "<I>";
-    const QString italicsboldSymbolEnd = "</I>";
+    const int SymbolSize                = 3;
+    const QString boldSymbolStart       = "<B>";
+    const QString boldSymbolEnd         = "</B>";
+    const QString italicsSymbolStart    = "<I>";
+    const QString italicsboldSymbolEnd  = "</I>";
     const QString underscoreSymbolStart = "<U>";
     const QString underscoreSymbolEnd   = "</U>";
 

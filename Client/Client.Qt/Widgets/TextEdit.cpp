@@ -8,6 +8,8 @@ TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(pa
     mBoldButton    = new FlatButton(this, "B", st::boldnessButton);
     mItalicsButton = new FlatButton(this, "I", st::boldnessButton);
     mUnderscoreButton = new FlatButton(this, "U", st::boldnessButton);
+    sendButton             = new FlatButton(this, "Send");
+    horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     vLayout = new QVBoxLayout;
     hLayout = new QHBoxLayout;
@@ -16,7 +18,8 @@ TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(pa
     hLayout->addWidget(mBoldButton);
     hLayout->addWidget(mItalicsButton);
     hLayout->addWidget(mUnderscoreButton);
-
+    hLayout->addItem(horizontalButtonSpacer);
+    hLayout->addWidget(sendButton);
     vLayout->addLayout(hLayout);
 
     setLayout(vLayout);
