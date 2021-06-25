@@ -9,6 +9,7 @@ libpqxx/7.2.1
 nlohmann_json/3.9.1
 yas/7.0.5
 sqlcipher/4.4.3
+lz4/1.9.3
 
 [generators]
 cmake

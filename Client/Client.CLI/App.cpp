@@ -5,7 +5,6 @@
 #include <DataAccess.Static/SQLCipherAdapter.hpp>
 #include "Utility/KeyHolder.hpp"
 
-
 App::App(/* args */)
 {
     //if (client.checkTokenExistance())

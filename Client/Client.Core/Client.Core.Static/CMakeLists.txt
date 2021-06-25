@@ -21,7 +21,7 @@ target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
 
 target_link_libraries(${TARGET}
-        PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas
+        PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas CONAN_PKG::lz4
         PUBLIC Utility.Static
         PUBLIC Network.Public
 		PUBLIC DataAccess.Static)

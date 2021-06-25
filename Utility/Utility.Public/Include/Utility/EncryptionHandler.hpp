@@ -31,7 +31,7 @@ public:
        
         cfbEncryption.ProcessData((CryptoPP::byte*)bodyBuffer.data.get(),
                                   (CryptoPP::byte*)bodyBuffer.data.get(),
-                                  bodyBuffer.size /*(strlen(bodyBuffer.data.get())+1)*/);
+                                  bodyBuffer.size);
 
         if (this->nextHandler)
         {

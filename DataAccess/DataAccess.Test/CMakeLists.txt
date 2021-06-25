@@ -17,6 +17,7 @@ target_link_libraries(${TARGET} PUBLIC
     CONAN_PKG::libpq
     CONAN_PKG::libpqxx
     CONAN_PKG::catch2
+    CONAN_PKG::lz4
     DataAccess.Static
     DataAccess.Debug
     Utility.Public

@@ -10,7 +10,7 @@ endif()
 
 add_executable(${TARGET} ${SOURCE_FILES})
 
-target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas)
+target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas CONAN_PKG::lz4)
 target_link_libraries(${TARGET} PUBLIC Server.Core.Static)
 target_link_libraries(${TARGET} PUBLIC Network.Public Utility.Public)
 

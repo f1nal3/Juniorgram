@@ -11,6 +11,7 @@ add_executable(${TARGET} ${SOURCE_FILES})
 
 target_link_libraries(${TARGET} PUBLIC 
     CONAN_PKG::catch2
+    CONAN_PKG::lz4
     Network.Public
     Utility.Public
     Utility.Static)

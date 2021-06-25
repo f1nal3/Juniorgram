@@ -41,7 +41,7 @@ namespace Network
         YasSerializer& operator=(YasSerializer&&) = delete;
 
     private:
-        constexpr static std::size_t flags = yas::mem | yas::binary | yas::no_header;
+        constexpr static std::size_t flags = yas::mem | yas::binary | yas::no_header | yas::compacted   ;
 
     public:
         /**
@@ -58,18 +58,7 @@ namespace Network
 				suppressWarning(4127, -Wtype-limits)
 					msg = yas::save<flags>(data);
 				restoreWarning
-
-          std::vector<char> vc;
-          int l = 10;
-                
-            for (size_t i = 0; i < msg.size; i++)
-		          {
-			             vc.push_back(msg.data.get()[i]);
-                l = 0;
-		          }
-            l = 11;
-
-           }
+            }
             // clang-format on
             catch (const std::exception& e)
             {
@@ -96,18 +85,6 @@ namespace Network
 					        yas::load<flags>(source, data);
 				        restoreWarning
                 // clang-format off
-
-             std::vector<char> vc;
-             int l = 10;
-                
-            for (size_t i = 0; i < source.size; i++)
-		          {
-			             vc.push_back(source.data.get()[i]);
-                l = 0;
-		          }
-            l = 11;
-
-
 			         }
             // clang-format on
             catch (const std::exception& e)
