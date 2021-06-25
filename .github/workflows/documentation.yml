@@ -24,8 +24,9 @@ jobs:
     
     - name: Creating folder structure
       run : | 
-        sudo mkdir coverage
-        cd coverage
+        sudo mkdir coverage      
+        sudo mkdir ./coverage/docs
+        sudo mkdir ./coverage/docs/doc_coverage
         
     - name: Debug
       run: ls    
@@ -45,8 +46,7 @@ jobs:
     - name: Generating Coverage Info
       run: |
         cd coverage
-        sudo mkdir ./docs/doc_coverage
-        python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --kind enum,enumvalue,friend,typedef,variable,function,signal,slot,class,struct,union,define,file --output doc-coverage.info
+        python3 -m coverxygen --xml-dir ../docs/xml --src-dir . --kind enum,enumvalue,friend,typedef,variable,function,signal,slot,class,struct,union,define,file --output doc-coverage.info
         sudo mv doc-coverage.info ./docs/doc_coverage
         cd ..
 
@@ -57,8 +57,6 @@ jobs:
       run: |
         cd coverage
         sudo genhtml -s --no-function-coverage --no-branch-coverage ./docs/doc_coverage/doc-coverage.info -o ./docs/doc_coverage
-        sudo rm -d -r ./docs/xml
-        sudo rm -d -r ./docs/docs
         cd ..
         
     - name: Debug
