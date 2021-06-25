@@ -44,18 +44,22 @@ jobs:
       
     - name: Generating Coverage Info
       run: |
+        cd coverage
         sudo mkdir ./docs/doc_coverage
         python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --kind enum,enumvalue,friend,typedef,variable,function,signal,slot,class,struct,union,define,file --output doc-coverage.info
         sudo mv doc-coverage.info ./docs/doc_coverage
+        cd ..
 
     - name: Debug
       run: ls  
       
     - name: Generate HTML
       run: |
+        cd coverage
         sudo genhtml -s --no-function-coverage --no-branch-coverage ./docs/doc_coverage/doc-coverage.info -o ./docs/doc_coverage
         sudo rm -d -r ./docs/xml
         sudo rm -d -r ./docs/docs
+        cd ..
         
     - name: Debug
       run: ls  
@@ -64,7 +68,7 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: .
+        publish_dir: ./coverage
         enable_jekyll: false
         allow_empty_commit: false
         force_orphan: true
