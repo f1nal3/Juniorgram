@@ -26,7 +26,7 @@ public:
 
 private:
     QVBoxLayout* mainVerticalLayout;
-    QHBoxLayout* horizontaltLayout;
+    QHBoxLayout* horizontaltButtonsLayout;
 
     FlatButton* mBoldButton;
     FlatButton* mItalicsButton;
