@@ -11,7 +11,8 @@ class TextEdit : public QWidget
 {
     Q_OBJECT
 public:
-    TextEdit(FlatPlainTextEdit* messageText, FlatButton** thisSendButton, QWidget* parent = nullptr);
+    TextEdit(FlatPlainTextEdit** thisMessageTextEdit, FlatButton** thisSendButton,
+             QWidget* parent = nullptr);
     /**
      * @brief Method for getting text from the text edit field.
      * @return text edit field content as QString.
@@ -31,8 +32,8 @@ private:
     FlatButton* mItalicsButton;
     FlatButton* mUnderscoreButton;
     FlatButton* sendButton;
+    FlatPlainTextEdit* messageTextEdit;
     QSpacerItem* horizontalButtonSpacer;
-    FlatPlainTextEdit* mTextField;
 
     const int SymbolSize                = 3;
     const QString boldSymbolStart       = "<B>";

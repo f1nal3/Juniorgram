@@ -21,8 +21,7 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
                 "background: #323232;"
                 "}"));
     chatWidget->setDragEnabled(false);
-    messageTextEdit        = new FlatPlainTextEdit;
-    textEdit               = new TextEdit(messageTextEdit, &sendButton);
+    textEdit               = new TextEdit(&messageTextEdit, &sendButton);
     horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     mainLayout->setContentsMargins(0,0,0,0);
@@ -32,7 +31,6 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     mainLayout->addLayout(rightLayout, 90);
     rightLayout->addWidget(chatWidget, 85);
     rightLayout->addLayout(messageLayout, 15);
-    messageLayout->addWidget(messageTextEdit);
     messageLayout->addLayout(messageButtonLayout);
     messageButtonLayout->addWidget(textEdit);
     connectUi();
