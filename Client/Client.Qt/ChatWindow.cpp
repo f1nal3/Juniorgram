@@ -22,9 +22,7 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
                 "}"));
     chatWidget->setDragEnabled(false);
     messageTextEdit        = new FlatPlainTextEdit;
-    sendButton      = new FlatButton(this, "Send");
-    sendButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
-    textEdit               = new TextEdit(messageTextEdit);
+    textEdit               = new TextEdit(messageTextEdit, &sendButton);
     horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     mainLayout->setContentsMargins(0,0,0,0);
@@ -37,8 +35,6 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     messageLayout->addWidget(messageTextEdit);
     messageLayout->addLayout(messageButtonLayout);
     messageButtonLayout->addWidget(textEdit);
-    //messageButtonLayout->addItem(horizontalButtonSpacer);
-    messageButtonLayout->addWidget(sendButton);
     connectButton();
     setLayout(mainLayout);
 }
@@ -96,7 +92,6 @@ ChatWindow::~ChatWindow()
 {
     delete messageButtonLayout;
     delete channelListWidget;
-    delete sendButton;
     delete messageTextEdit;
     delete textEdit;
     delete chatWidget;

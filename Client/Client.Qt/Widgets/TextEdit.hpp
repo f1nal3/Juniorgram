@@ -1,5 +1,5 @@
 #pragma once
-
+//#include "ChatWindow.hpp"
 #include "FlatButton.hpp"
 #include "InputFields.hpp"
 #include "pch.hpp"
@@ -12,7 +12,7 @@ class TextEdit : public QWidget
 {
     Q_OBJECT
 public:
-    explicit TextEdit(FlatPlainTextEdit* messageText, QWidget* parent = nullptr);
+    TextEdit(FlatPlainTextEdit* messageText, FlatButton** thisSendButton, QWidget* parent = nullptr);
     /**
      * @brief Method for getting text from the text edit field.
      * @return text edit field content as QString.
