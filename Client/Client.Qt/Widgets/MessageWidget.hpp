@@ -160,7 +160,7 @@ private:
     void initializationUiNotDelete();
     void initializationUiDelete();
     void updateWidget();
-    void uiConnect();
+    void connectUi();
     void clearMessage();
 };
 

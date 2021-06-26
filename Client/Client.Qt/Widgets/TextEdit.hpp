@@ -1,5 +1,4 @@
 #pragma once
-//#include "ChatWindow.hpp"
 #include "FlatButton.hpp"
 #include "InputFields.hpp"
 #include "pch.hpp"
@@ -48,6 +47,7 @@ private:
     void insertSymbolsInSelection(QTextCursor& cursor, int& start, int& end, int symbolSize,
                                   const QString symbolStart, const QString symbolEnd);
     void selectText(QTextCursor& cursor, int start, int end);
+    void TextEdit::connectUi();
 
 private slots:
     void boldButtonClicked(QString SymbolStart, QString SymbolEnd);

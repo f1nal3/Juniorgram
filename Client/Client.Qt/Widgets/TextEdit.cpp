@@ -10,7 +10,7 @@ TextEdit::TextEdit(FlatPlainTextEdit* messageText, FlatButton** thisSendButton, 
     mItalicsButton         = new FlatButton(this, "I", st::boldnessButton);
     mUnderscoreButton      = new FlatButton(this, "U", st::boldnessButton);
     sendButton             = new FlatButton(this, "Send");
-    *(thisSendButton)         = sendButton;
+    *thisSendButton         = sendButton;
     horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     vLayout = new QVBoxLayout;
@@ -23,8 +23,12 @@ TextEdit::TextEdit(FlatPlainTextEdit* messageText, FlatButton** thisSendButton, 
     hLayout->addItem(horizontalButtonSpacer);
     hLayout->addWidget(sendButton);
     vLayout->addLayout(hLayout);
-
     setLayout(vLayout);
+    connectButton();
+}
+
+void TextEdit::connectUi()
+{
     mBoldButton->setClickCallback([&]() { boldButtonClicked(boldSymbolStart, boldSymbolEnd); });
     mItalicsButton->setClickCallback(
         [&]() { boldButtonClicked(italicsSymbolStart, italicsboldSymbolEnd); });

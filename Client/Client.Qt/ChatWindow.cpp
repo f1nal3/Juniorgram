@@ -49,7 +49,7 @@ void ChatWindow::keyPressEvent(QKeyEvent* event)
     }
 }
 
-void ChatWindow::connectButton()
+void ChatWindow::connectUi()
 {
     sendButton->setClickCallback([&]() { updateMessagesList_User(); });
     connect(chatWidget, SIGNAL(itemClicked(QListWidgetItem*)), this,

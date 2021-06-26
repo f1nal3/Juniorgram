@@ -28,7 +28,7 @@ private:
     TextEdit* textEdit;
     QListWidget* chatWidget;
     QSpacerItem* horizontalButtonSpacer;
-    void connectButton();
+    void connectUi();
     void newMessage(QString textMessage, QString userNameMessage);
     void newMessage(QString textMessage);
 };
