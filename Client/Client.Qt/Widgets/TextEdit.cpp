@@ -6,27 +6,25 @@ TextEdit::TextEdit(FlatPlainTextEdit** thisMessageTextEdit, FlatButton** thisSen
                    QWidget* parent)
     : QWidget(parent)
 {
+    mainVerticalLayout     = new QVBoxLayout;
+    horizontaltLayout      = new QHBoxLayout;
     mBoldButton            = new FlatButton(this, "B", st::boldnessButton);
     mItalicsButton         = new FlatButton(this, "I", st::boldnessButton);
     mUnderscoreButton      = new FlatButton(this, "U", st::boldnessButton);
     sendButton             = new FlatButton(this, "Send");
-    *thisSendButton        = sendButton;
     messageTextEdit        = new FlatPlainTextEdit();
-    *thisMessageTextEdit    = messageTextEdit;
     horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-    vLayout = new QVBoxLayout;
-    hLayout = new QHBoxLayout;
-
-    hLayout->setAlignment(Qt::AlignLeft);
-    hLayout->addWidget(mBoldButton);
-    hLayout->addWidget(mItalicsButton);
-    hLayout->addWidget(mUnderscoreButton);
-    hLayout->addItem(horizontalButtonSpacer);
-    hLayout->addWidget(sendButton);
-    vLayout->addWidget(messageTextEdit);
-    vLayout->addLayout(hLayout);
-    setLayout(vLayout);
+    *thisSendButton        = sendButton;
+    *thisMessageTextEdit   = messageTextEdit;
+    horizontaltLayout->setAlignment(Qt::AlignLeft);
+    horizontaltLayout->addWidget(mBoldButton);
+    horizontaltLayout->addWidget(mItalicsButton);
+    horizontaltLayout->addWidget(mUnderscoreButton);
+    horizontaltLayout->addItem(horizontalButtonSpacer);
+    horizontaltLayout->addWidget(sendButton);
+    mainVerticalLayout->addWidget(messageTextEdit);
+    mainVerticalLayout->addLayout(horizontaltLayout);
+    setLayout(mainVerticalLayout);
     connectUi();
 }
 
@@ -116,6 +114,6 @@ TextEdit::~TextEdit()
 {
     delete mBoldButton;
     delete mItalicsButton;
-    delete hLayout;
-    delete vLayout;
+    delete horizontaltLayout;
+    delete mainVerticalLayout;
 }

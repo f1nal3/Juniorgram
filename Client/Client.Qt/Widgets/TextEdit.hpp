@@ -25,8 +25,8 @@ public:
     ~TextEdit() override;
 
 private:
-    QVBoxLayout* vLayout;
-    QHBoxLayout* hLayout;
+    QVBoxLayout* mainVerticalLayout;
+    QHBoxLayout* horizontaltLayout;
 
     FlatButton* mBoldButton;
     FlatButton* mItalicsButton;
