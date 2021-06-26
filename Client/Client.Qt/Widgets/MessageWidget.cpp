@@ -20,7 +20,7 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidge
     if (!deletedMessage)
     {
         initializationUiNotDelete();
-        uiConnect();
+        connectUi();
         updateWidget();
     }
     else
@@ -45,7 +45,7 @@ MessageWidget::~MessageWidget()
     delete mainLayout;
 }
 
-void MessageWidget::uiConnect()
+void MessageWidget::connectUi()
 {
     connect(reactionChoseBox, SIGNAL(currentIndexChanged(int)), SLOT(reactionChange(int)));
     deleteButton->setClickCallback([&]() { deleteButtonClick(); });

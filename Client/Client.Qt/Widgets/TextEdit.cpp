@@ -24,7 +24,7 @@ TextEdit::TextEdit(FlatPlainTextEdit* messageText, FlatButton** thisSendButton, 
     hLayout->addWidget(sendButton);
     vLayout->addLayout(hLayout);
     setLayout(vLayout);
-    connectButton();
+    connectUi();
 }
 
 void TextEdit::connectUi()
