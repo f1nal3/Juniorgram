@@ -101,7 +101,7 @@ private:
         
         if (mOutcomingMessagesQueue.front().mBody.has_value())
         {
-            result = handler.handleOutcomingMessage(mOutcomingMessagesQueue.front(), bodyBuffer);
+            result = handler.handleOutcomingMessage(const_cast<Network::Message&>(mOutcomingMessagesQueue.front()), bodyBuffer);
         }  
 
         Network::Message::MessageHeader outcomingMessageHeader =

@@ -27,9 +27,9 @@ public:
     virtual ~Handler()            = default;
 
     virtual Handler* setNext(Handler* handler)                                            = 0;
-    virtual MessageProcessingState handleOutcomingMessage(const Message& message,
+    virtual MessageProcessingState handleOutcomingMessage(Message& message,
                                                           yas::shared_buffer& bodyBuffer) = 0;
-    virtual MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer,
+    virtual MessageProcessingState handleIncomingMessageBody(yas::shared_buffer buffer,
                                                              Message& message)            = 0;
 };
 
@@ -62,7 +62,7 @@ public:
      * @param message - buffer that contains data that should be preprocessed.
      * @param bodyBuffer - buffer that will contain preprocessed body.
      */
-    MessageProcessingState handleOutcomingMessage(const Message& message,
+    MessageProcessingState handleOutcomingMessage(Message& message,
                                                   yas::shared_buffer& bodyBuffer) override
     {
         if (this->nextHandler)
@@ -77,7 +77,7 @@ public:
      * @param buffer - buffer that contains data that should be preprocessed.
      * @param messageHeader - variable that will contain preprocessed message body.
      */
-    MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer,
+    MessageProcessingState handleIncomingMessageBody(yas::shared_buffer buffer,
                                                      Message& message) override
     {
         if (this->nextHandler)

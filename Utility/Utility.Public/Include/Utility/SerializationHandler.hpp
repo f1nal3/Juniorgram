@@ -14,7 +14,7 @@ public:
      * @param message - buffer that contains data that should be serialized.
      * @param bodyBuffer - buffer that will contain serialized body.
      */
-    MessageProcessingState handleOutcomingMessage(const Message& message,
+    MessageProcessingState handleOutcomingMessage(Message& message,
                                              yas::shared_buffer& bodyBuffer) override
     {
         SerializedState state = SerializedState::SUCCESS;
@@ -78,8 +78,8 @@ public:
      * @param buffer - buffer that contains data that should be deserialized.
      * @param messageHeader - variable that will contain deserialized message body.
      */
-    MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer,
-                                                Message& message) override
+    MessageProcessingState handleIncomingMessageBody(yas::shared_buffer buffer,
+                                                 Message& message) override
     {
         SerializedState state = SerializedState::SUCCESS;
 
@@ -152,7 +152,7 @@ private:
     }
 
     template <typename T>
-    SerializedState processIncomingMessageBody(const yas::shared_buffer& bodyBuffer,
+    SerializedState processIncomingMessageBody(yas::shared_buffer& bodyBuffer,
                                                Message& message)
     {
         try

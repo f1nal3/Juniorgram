@@ -20,7 +20,7 @@ public:
      * @param headerBuffer - buffer that will contain encrypted header.
      * @param bodyBuffer - buffer that will contain encrypted body.
      */
-    MessageProcessingState handleOutcomingMessage(const Message& message,
+    MessageProcessingState handleOutcomingMessage(Message& message,
                                              yas::shared_buffer& bodyBuffer) override
     {
         // Message::MessageHeader messageHeader = message.mHeader;
@@ -45,8 +45,8 @@ public:
      * @param buffer - buffer that contains data that should be decrypted.
      * @param messageHeader - variable that will contain decrypted message body.
      */
-    MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer,
-                                                Message& message) override
+    MessageProcessingState handleIncomingMessageBody(yas::shared_buffer buffer,
+                                                 Message& message) override
     {
         CryptoPP::CFB_Mode<CryptoPP::AES>::Decryption cfbDecryption(mEncryptionKey, CryptoPP::AES::BLOCKSIZE, mIV);
        
