@@ -19,6 +19,38 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
     passwordRepeatLineEdit->resize(BLOCKWIDTH, passwordRepeatLineEdit->sizeHint().height());
     registrationButton->resize(BLOCKWIDTH, registrationButton->sizeHint().height());
     back->resize(BLOCKWIDTH, back->sizeHint().height());
+
+    registrationButton->setClickCallback([&]() {
+        using namespace UserDataValidation;
+        if (passwordLineEdit->text() == passwordRepeatLineEdit->text())
+        {
+            if (!isLoginValid(usernameLineEdit->text().toStdString()))
+            {
+                // Say to user that input login is not valid.
+                return;
+            }
+            
+            if (!isEmailValid("here must be email"))
+            {
+                // Say to user that input email is not validt.
+                return;
+            }
+
+            if (!isPasswordValid(passwordLineEdit->text().toStdString()))
+            {
+                // Say to user that input password is not valid.
+                return;
+            }
+
+            ConnectionManager::getClient().userRegistration(usernameLineEdit->text().toStdString(),
+                                                            "some_email",
+                                                            passwordLineEdit->text().toStdString());
+        }
+        else
+        {
+            // Say to user that input passwords are different.
+        }
+    });
 }
 
 void Registration::keyPressEvent(QKeyEvent* event)
