@@ -10,7 +10,6 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     mainLayout          = new QHBoxLayout(this);
     rightLayout         = new QVBoxLayout();
     messageLayout       = new QVBoxLayout();
-    messageButtonLayout = new QHBoxLayout();
     channelListWidget   = new ChannelListWidget();
     chatWidget          = new QListWidget();
     chatWidget->setLayoutMode(QListView::Batched);
@@ -22,7 +21,6 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
                 "}"));
     chatWidget->setDragEnabled(false);
     textEdit               = new TextEdit(&messageTextEdit, &sendButton);
-    horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->setMargin(0);
@@ -31,8 +29,7 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     mainLayout->addLayout(rightLayout, 90);
     rightLayout->addWidget(chatWidget, 85);
     rightLayout->addLayout(messageLayout, 15);
-    messageLayout->addLayout(messageButtonLayout);
-    messageButtonLayout->addWidget(textEdit);
+    messageLayout->addWidget(textEdit);
     connectUi();
     setLayout(mainLayout);
 }
@@ -88,7 +85,6 @@ void ChatWindow::newMessage(QString textMessage)
 
 ChatWindow::~ChatWindow()
 {
-    delete messageButtonLayout;
     delete channelListWidget;
     delete messageTextEdit;
     delete textEdit;
