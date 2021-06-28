@@ -30,11 +30,11 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
                 return;
             }
             
-            if (!isEmailValid("here must be email"))
-            {
-                // Say to user that input email is not validt.
-                return;
-            }
+            //if (!isEmailValid("here must be email"))
+            //{
+            //    // Say to user that input email is not validt.
+            //    return;
+            //}
 
             if (!isPasswordValid(passwordLineEdit->text().toStdString()))
             {
