@@ -4,6 +4,7 @@
 #include "Widgets/LogoWidget.hpp"
 #include "pch.hpp"
 #include "Application.hpp"
+#include "Utility/UserDataValidation.hpp"
 
 class Registration : public QWidget
 {
