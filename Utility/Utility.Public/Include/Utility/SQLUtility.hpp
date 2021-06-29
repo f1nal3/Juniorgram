@@ -79,7 +79,7 @@ namespace Utility
     inline constexpr bool is_char_or_string_v = is_char_or_string<T>::value;
     
     // Checking for inner quotes.
-    static void innerQuotes(std::string& arg) 
+    [[maybe_unused]] static void innerQuotes(std::string& arg) 
     {
         std::size_t pos = arg.find('\'');
         while (pos != std::string::npos)
@@ -91,7 +91,7 @@ namespace Utility
     }
 
     // Wrapping whole string with quotes.
-    static void wrapStringByQuotes(std::string& arg)
+    [[maybe_unused]] static void wrapStringByQuotes(std::string& arg)
     {
         arg.insert(0, "'").push_back('\'');
     }
