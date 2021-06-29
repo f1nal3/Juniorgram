@@ -1,5 +1,6 @@
 #pragma once
 #include "Network/Message.hpp"
+#include "Utility/Exception.hpp"
 #include "YasSerializer.hpp"
 
 namespace Network

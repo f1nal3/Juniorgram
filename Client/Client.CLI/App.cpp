@@ -7,15 +7,18 @@
 
 App::App(/* args */)
 {
-    //if (client.checkTokenExistance())
-    //{
-        client.connect(address, port);
-      /*  client.askForChannelList();*/
-    //}
-    //else
-    //{
-    //    //go to authentitication form/state 
-    //}
+    client.connect(address, port);
+
+    // authentication  part 
+   
+    if (client.checkTokenExistance())
+    {
+
+    }
+    else
+    {
+        
+    }
 }
     
 

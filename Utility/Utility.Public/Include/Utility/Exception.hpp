@@ -58,4 +58,27 @@ namespace Utility
         std::string _file;
         std::uint16_t _line;
     };
-}
+
+    class CompressionException : public std::exception
+    {
+    public:
+        explicit CompressionException(const char* msg, const char* file, std::uint8_t line)
+            : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
+        {
+        }
+
+        explicit CompressionException(const std::string& msg, const char* file,
+                                         std::uint8_t line)
+            : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
+        {
+        }
+
+        virtual const char* what() const noexcept { return _msg.c_str(); }
+        virtual ~CompressionException() = default;
+
+    protected:
+        std::string _msg;
+        std::string _file;
+        std::uint8_t _line;
+    };
+    }

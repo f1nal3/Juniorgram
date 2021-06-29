@@ -1,10 +1,8 @@
 #pragma once
 
-#include "lz4.h"
+#include <lz4.h>
 
 #include "Handler.hpp"
-
-#include <sstream>
 
 namespace Network
 {
@@ -20,42 +18,70 @@ public:
      * @param headerBuffer - buffer that will contain compressed header.
      * @param bodyBuffer - buffer that will contain compressed body.
      */
-
+    suppressWarning(4018, Init)
     std::pair<std::unique_ptr<char[]>, size_t> compress(const void* data, size_t dataSize)
     {
-        if (dataSize == 0) return std::make_pair(std::unique_ptr<char[]>(), 0);
+        if (dataSize == 0 || data == nullptr)
+        {
+            throw Utility::CompressionException(
+                "You cannot perform a compression process with a compressible data size equal to "
+                "zero or NULL pointer!",
+                __FILE__, __LINE__);
+        }
 
         unsigned int csizeBound = LZ4_compressBound((int)dataSize);
 
-        std::unique_ptr<char[]> compressedData(new char[csizeBound]);
 
+        std::unique_ptr<char[]> compressedData(new char[csizeBound]);
         int compressedBytes = LZ4_compress_default(static_cast<const char*>(data),
-                                                   compressedData.get(),
-                                                     (int)dataSize, csizeBound);
+                                                   compressedData.get(), (int)dataSize, csizeBound);
 
         if (compressedBytes < 0)
         {
-            std::cout << "res < 0\n";
+            throw Utility::CompressionException(
+                "Destination buffer is not large enough or source stream is detected malformed!",
+                __FILE__, __LINE__);
         }
-        // assert(csize >= 0 && csize <= csizeBound);
+
+        if (!(compressedBytes >= 0 && compressedBytes <= csizeBound))
+        {
+            throw Utility::CompressionException(
+                "Destination buffer is not large enough or source stream is detected malformed!",
+                __FILE__, __LINE__);
+        }
+
 
         return std::make_pair(std::move(compressedData), compressedBytes);
     }
+    restoreWarning
 
-    std::pair<std::unique_ptr<char[]>, size_t> decompress(const void* source,
-                                                          unsigned int sourceSize)
+    std::pair<std::unique_ptr<char[]>, size_t> decompress(const void* data,
+                                                          unsigned int dataSize)
     {
-        /*if (sourceSize == 0 && destSize == 0) return;*/
+        if (data == nullptr && dataSize <= 0)
+        {
+            throw Utility::CompressionException(
+                "You cannot perform a decompression process with a decompressible data size equal to "
+                "zero or NULL pointer!",
+                __FILE__, __LINE__);
+        }
 
-        std::unique_ptr<char[]> decompressedData(new char[256]);
+        std::unique_ptr<char[]> decompressedData(new char[mDestinationCapacity]);
 
-        int decompressedBytes =
-            LZ4_decompress_safe(static_cast<const char*>(source),
-                                static_cast<char*>(decompressedData.get()),
-                                (int)sourceSize, 256);
+        int decompressedBytes = LZ4_decompress_safe(
+            static_cast<const char*>(data), static_cast<char*>(decompressedData.get()),
+                                                    (int)dataSize, mDestinationCapacity);
 
+        if (decompressedBytes < 0)
+        {
+            throw Utility::CompressionException(
+                "Destination buffer is not large enough or source stream is detected malformed!",
+                __FILE__, __LINE__);
+        }
+        
+        //This is specific tests for decompression process
         // assert(result >= 0);
-        // assert(/*static_cast<size_t>(*/result/*)*/ == destSize);
+        // assert(/*static_cast<size_t>(decompressedBytes)*/ == destSize);
 
         return std::make_pair(std::move(decompressedData), decompressedBytes);
     }
@@ -68,7 +94,7 @@ public:
         // messageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
         // header compression
     
-        std::string strBodyBuffer = std::string((char*)bodyBuffer.data.get(), bodyBuffer.size);
+        std::string strBodyBuffer = std::string(bodyBuffer.data.get(), bodyBuffer.size);
        
         std::pair<std::unique_ptr<char[]>, size_t> compressedBuffer =
             compress(strBodyBuffer.data(), strBodyBuffer.size());
@@ -90,7 +116,7 @@ public:
     MessageProcessingState handleIncomingMessageBody(yas::shared_buffer buffer,
                                                 Message& message) override
     {
-        std::string strBodyBuffer = std::string((char*)buffer.data.get(), buffer.size);
+        std::string strBodyBuffer = std::string(buffer.data.get(), buffer.size);
        
         std::pair<std::unique_ptr<char[]>, size_t> decompressedBuffer =
             decompress(strBodyBuffer.data(), (unsigned int)strBodyBuffer.size());
@@ -102,7 +128,16 @@ public:
           return this->nextHandler->handleIncomingMessageBody(buffer, message);
         }
         return MessageProcessingState::SUCCESS;
-        
     }
+
+private:
+    /** 
+    *DestinationCapacity - the function LZ4_decompress_safe (see
+    * https://github.com/Cyan4973/lz4/blob/master/lib/lz4.c#L1288) seems to require only the
+    * maximal decompressed size. In this case, you can allocate a buffer large enough for
+    * decompression and use it. So either that, or transfer the original uncompressed size to the
+    * remote machines as well.
+    */
+    const int mDestinationCapacity = 256;
 };
 }  // namespace Network

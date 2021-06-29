@@ -19,19 +19,20 @@ struct Message
 {
     enum class MessageType : std::uint32_t
     {
+        ChannelListRequest,
         SetEncryptedConnection,
         SendIV,
         ServerAccept,
         ServerPing,
-        MessageAll,
         ServerMessage,
-        ChannelListRequest,
+        MessageAll,
         MessageHistoryRequest,
         MessageStoreRequest,
         RegistrationRequest,
         RegistrationAnswer
         RegistrationRequestToClient,
-        SendIV
+        SendIV,
+        TokenRequest
     };
 
     struct MessageHeader
