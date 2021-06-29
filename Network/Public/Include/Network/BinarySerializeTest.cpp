@@ -6,10 +6,10 @@
 #include <tuple>
 #include <vector>
 
-#include "Network/Connection.hpp"
-#include "Network/Message.hpp"
-#include "Network/Primitives.hpp"
-#include "Utility/YasSerializer.hpp"
+#include "Connection.hpp"
+#include "Message.hpp"
+#include "Primitives.hpp"
+#include "YasSerializer.hpp"
 
 TEST_CASE("Test binary serialization & deserialization of plain types", "[YasSerializer]")
 {
