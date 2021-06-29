@@ -9,7 +9,6 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     setContentsMargins(0, 0, 0, 0);
     mainLayout          = new QHBoxLayout(this);
     rightLayout         = new QVBoxLayout();
-    messageLayout       = new QVBoxLayout();
     channelListWidget   = new ChannelListWidget();
     chatWidget          = new QListWidget();
     chatWidget->setLayoutMode(QListView::Batched);
@@ -27,9 +26,11 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     mainLayout->setSpacing(0);
     mainLayout->addWidget(channelListWidget, 20);
     mainLayout->addLayout(rightLayout, 90);
-    rightLayout->addWidget(chatWidget, 85);
-    rightLayout->addLayout(messageLayout, 15);
-    messageLayout->addWidget(textEdit);
+    rightLayout->addWidget(chatWidget);//, 85);
+    rightLayout->addWidget(textEdit);    //, 15);
+    chat = new ChatWidget();
+    rightLayout->addWidget(chat);  //, 15);
+
     connectUi();
     setLayout(mainLayout);
 }
@@ -89,7 +90,6 @@ ChatWindow::~ChatWindow()
     delete messageTextEdit;
     delete textEdit;
     delete chatWidget;
-    delete messageLayout;
     delete rightLayout;
     delete mainLayout;
 }

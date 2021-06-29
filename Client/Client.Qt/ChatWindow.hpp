@@ -3,6 +3,7 @@
 #include "Widgets/InputFields.hpp"
 #include "Widgets/TextEdit.hpp"
 #include "Widgets/ChannelListWidget.hpp"
+#include "Widgets/ChatWidget.hpp"
 
 class ChatWindow : public QWidget
 {
@@ -20,9 +21,9 @@ private slots:
 private:
     QHBoxLayout* mainLayout;
     QVBoxLayout* rightLayout;
-    QVBoxLayout* messageLayout;
-    QHBoxLayout* messageButtonLayout;
     ChannelListWidget* channelListWidget;
+    ChatWidget* chat;
+    //del
     FlatButton* sendButton;
     FlatPlainTextEdit* messageTextEdit;
     TextEdit* textEdit;
