@@ -145,7 +145,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         }
         break;
 
-        case Network::Message::MessageType::RegistrationRequest:
+        case Network::Message::MessageType::RegistrationRequestToServer:
         {
             auto ri = std::any_cast<Network::RegistrationInfo>(message.mBody);
             

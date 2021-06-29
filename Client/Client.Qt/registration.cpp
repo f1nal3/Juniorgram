@@ -20,36 +20,45 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
     registrationButton->resize(BLOCKWIDTH, registrationButton->sizeHint().height());
     back->resize(BLOCKWIDTH, back->sizeHint().height());
 
-    registrationButton->setClickCallback([&]() {
+    registrationButton->setClickCallback([this]() {
         using namespace UserDataValidation;
-        if (passwordLineEdit->text() == passwordRepeatLineEdit->text())
+
+        // std::string email = ->text().toStdString();
+        std::string login          = usernameLineEdit->text().toStdString();
+        std::string password       = passwordLineEdit->text().toStdString();
+        std::string repeatPassword = passwordRepeatLineEdit->text().toStdString();
+
+        if (/* email.empty()*/ login.empty() || password.empty() || repeatPassword.empty())
         {
-            if (!isLoginValid(usernameLineEdit->text().toStdString()))
-            {
-                // Say to user that input login is not valid.
-                return;
-            }
-            
-            //if (!isEmailValid("here must be email"))
-            //{
-            //    // Say to user that input email is not validt.
-            //    return;
-            //}
-
-            if (!isPasswordValid(passwordLineEdit->text().toStdString()))
-            {
-                // Say to user that input password is not valid.
-                return;
-            }
-
-            ConnectionManager::getClient().userRegistration(usernameLineEdit->text().toStdString(),
-                                                            "some_email",
-                                                            passwordLineEdit->text().toStdString());
+            // Say to user to fill empty fields.
+            return;
         }
-        else
+
+        if (password != repeatPassword)
         {
             // Say to user that input passwords are different.
+            return;
         }
+
+        if (!isLoginValid(login))
+        {
+            // Say to user that input login is not valid.
+            return;
+        }
+
+        // if (!isEmailValid("here must be email"))
+        //{
+        //    // Say to user that input email is not valid.
+        //    return;
+        //}
+
+        if (!isPasswordValid(password))
+        {
+            // Say to user that input password is not valid.
+            return;
+        }
+
+        ConnectionManager::getClient().userRegistration("some_emaiasddsghnjl", login, password);
     });
 }
 
@@ -61,11 +70,11 @@ void Registration::keyPressEvent(QKeyEvent* event)
 
 void Registration::resizeEvent(QResizeEvent* event)
 {
-    const QSize SIZE          = event->size();
-    const int   HOR_SPACING   = Style::valueDPIScale(16);
-    const int   MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
-    const int   LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
-    const int   SPACE         = Style::valueDPIScale(10);
+    const QSize SIZE        = event->size();
+    const int HOR_SPACING   = Style::valueDPIScale(16);
+    const int MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
+    const int LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
+    const int SPACE         = Style::valueDPIScale(10);
 
     const auto FIT_MAX = logoWidget->bestFit();
     // Aspect ratio;

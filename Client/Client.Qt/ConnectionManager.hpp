@@ -96,7 +96,7 @@ public:
                         }
                         break;
 
-                        case Network::Message::MessageType::RegistrationRequest:
+                        case Network::Message::MessageType::RegistrationRequestToClient:
                         {
                             auto code = std::any_cast<Utility::RegistrationCodes>(message.mBody);
 
@@ -136,6 +136,6 @@ public:
 
 private:
     inline static Network::Client     client;
-    inline static const std::string   address = "104.40.239.183";
-    inline static const std::uint16_t port    = 65001;
+    inline static const std::string   address = "127.0.0.1";
+    inline static const std::uint16_t port    = 5430;
 };

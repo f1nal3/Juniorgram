@@ -41,7 +41,7 @@ public:
                 case Message::MessageType::MessageStoreRequest:
                     state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
                     break;
-                case Message::MessageType::RegistrationRequest:
+                case Message::MessageType::RegistrationRequestToServer:
                     state = processOutcomingMessageBody<RegistrationInfo>(bodyBuffer, message.mBody);
                     break;
                 case Message::MessageType::RegistrationRequestToClient:
@@ -99,7 +99,7 @@ public:
                 state = processIncomingMessageBody<MessageInfo>(buffer, message);
                 break;
             }
-            case Message::MessageType::RegistrationRequest:
+            case Message::MessageType::RegistrationRequestToServer:
             {
                 state = processIncomingMessageBody<RegistrationInfo>(buffer, message);
                 break;
