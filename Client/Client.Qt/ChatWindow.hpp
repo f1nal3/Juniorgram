@@ -1,7 +1,4 @@
 #pragma once
-#include "Widgets/MessageWidget.hpp"
-#include "Widgets/InputFields.hpp"
-#include "Widgets/TextEdit.hpp"
 #include "Widgets/ChannelListWidget.hpp"
 #include "Widgets/ChatWidget.hpp"
 
