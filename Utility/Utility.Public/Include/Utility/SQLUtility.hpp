@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "Utility/WarningSuppression.hpp"
 
 namespace Utility
 {
@@ -78,6 +79,7 @@ namespace Utility
     template <typename T>
     inline constexpr bool is_char_or_string_v = is_char_or_string<T>::value;
     
+    suppressWarning(4505, "-Winit-self")
     // Checking for inner quotes.
     [[maybe_unused]] static void innerQuotes(std::string& arg) 
     {
@@ -95,6 +97,7 @@ namespace Utility
     {
         arg.insert(0, "'").push_back('\'');
     }
+    restoreWarning
 
     template <typename T>
     auto CheckForSQLSingleQuotesProblem(T&& arg)
