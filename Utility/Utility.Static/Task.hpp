@@ -7,9 +7,9 @@ class Task
 public:
     enum class Priority : std::uint8_t
     {
-        HIGH   = 0,
-        MEDIUM = 1,
-        LOW    = 2,
+        HIGH,
+        MEDIUM,
+        LOW
     };
 
     Task(std::function<void()> task, const Priority importance)

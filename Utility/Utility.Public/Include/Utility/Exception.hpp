@@ -4,16 +4,18 @@
 #include <sstream>
 #include <string>
 
-inline std::string formatExceptionMessage(const std::string& msg, const std::string& file, std::uint16_t line)
-{
-    std::stringstream ss;
-
-    ss << msg << "\n in file: " << file << "\n on the line: " << line << std::endl;
-
-    return ss.str();
-}
 namespace Utility
 {
+    inline std::string formatExceptionMessage(const std::string& msg, const std::string& file,
+                                              std::uint16_t line)
+    {
+        std::stringstream ss;
+    
+        ss << msg << "\n in file: " << file << "\n on the line: " << line << std::endl;
+    
+        return ss.str();
+    }
+
     class NotImplementedException : public std::exception
     {
         public:
@@ -29,6 +31,7 @@ namespace Utility
         {
             return _msg.c_str();
         }
+
         virtual ~NotImplementedException() = default;
         
         protected:

@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 namespace Utility
 {
@@ -77,6 +78,24 @@ namespace Utility
     template <typename T>
     inline constexpr bool is_char_or_string_v = is_char_or_string<T>::value;
     
+    // Checking for inner quotes.
+    static void innerQuotes(std::string& arg) 
+    {
+        std::size_t pos = arg.find('\'');
+        while (pos != std::string::npos)
+        {
+            arg.insert(pos, "'");
+
+            pos = arg.find('\'', pos + 2);
+        }
+    }
+
+    // Wrapping whole string with quotes.
+    static void wrapStringByQuotes(std::string& arg)
+    {
+        arg.insert(0, "'").push_back('\'');
+    }
+
     template <typename T>
     auto CheckForSQLSingleQuotesProblem(T&& arg)
     {
@@ -85,17 +104,9 @@ namespace Utility
             std::string tempStr;
             tempStr += std::forward<T>(arg);
     
-            // Checking for inner quotes.
-            std::size_t pos = tempStr.find('\'');
-            while (pos != std::string::npos)
-            {
-                tempStr.insert(pos, "'");
+            innerQuotes(tempStr);
     
-                pos = tempStr.find('\'', pos + 2);
-            }
-    
-            // Wrapping whole string with quotes.
-            tempStr.insert(0, "'").push_back('\'');
+            wrapStringByQuotes(tempStr);
     
             return tempStr;
         }
