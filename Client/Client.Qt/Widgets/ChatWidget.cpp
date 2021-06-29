@@ -18,8 +18,8 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     chatWidget->setDragEnabled(false);
     textEdit       = new TextEdit(&messageTextEdit, &sendButton);
 
-    mainChatLayout->addWidget(chatWidget);  //, 85);
-    mainChatLayout->addWidget(textEdit);    //, 15);
+    mainChatLayout->addWidget(chatWidget, 85);
+    mainChatLayout->addWidget(textEdit, 15);
     setLayout(mainChatLayout);
     connectUi();
 }

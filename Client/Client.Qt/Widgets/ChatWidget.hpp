@@ -6,12 +6,14 @@
 
 class ChatWidget: public QWidget
 {
+    Q_OBJECT
 public:
     explicit ChatWidget(QWidget* parent = nullptr);
     ~ChatWidget() override;
 
 protected:
     void keyPressEvent(QKeyEvent* event) override;
+
 private slots:
     void updateMessagesList_User();
     void deletingSelection(QListWidgetItem* item);
