@@ -5,8 +5,8 @@
 TEST_CASE("Test json serialize object(open file text.json)", "[JsonSerializer]")
 {
     SECTION("Create text.json")
-    {
-        JsonSerializer w;
+    { 
+        Utility::JsonSerializer w;
     }
     SECTION("Check text.json status")
     {
@@ -32,7 +32,7 @@ TEST_CASE("Test jsonserialize method updateSerialize", "[SerializeUpdateSerializ
 {
     SECTION("Check updateSerialize")
     {
-        JsonSerializer a;
+        Utility::JsonSerializer a;
         QStringList someList;
         a.updateSerialize(someList);
         REQUIRE(someList.isEmpty() == true);
@@ -47,9 +47,9 @@ TEST_CASE("Test jsonserialize method updateSerialize", "[SerializeUpdateSerializ
 
 TEST_CASE("Test json serialize method pushData", "[SerializePushData]")
 {
-        SECTION("Create some JsonSerializer object and add test message to text.json")
+        SECTION("Create some Utility::JsonSerializer object and add test message to text.json")
         {
-            JsonSerializer b;
+            Utility::JsonSerializer b;
             QStringList someList;
             someList.append("Test1");
             b.pushData(someList);
@@ -60,7 +60,7 @@ TEST_CASE("Test json serialize method pushData", "[SerializePushData]")
         }
         SECTION("Check test message")
         {
-            JsonSerializer c;
+            Utility::JsonSerializer c;
             QStringList someList;
             c.updateSerialize(someList);
             if(someList.size() == 3)
