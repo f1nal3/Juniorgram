@@ -1,5 +1,8 @@
 #include "MenuItem.hpp"
 
+#include <QPainter>
+#include <QAction>
+
 #include "Style/Style.hpp"
 MenuItem::MenuItem(const QString& text, QAction* action, QWidget* parent) : QWidget(parent)
 {
@@ -15,7 +18,7 @@ MenuItem::MenuItem(const QString& text, QAction* action, QWidget* parent) : QWid
     setAttribute(Qt::WA_Hover);
 }
 QSize MenuItem::sizeHint() const { return QWidget::sizeHint(); }
-void MenuItem::paintEvent(QPaintEvent* event)
+void  MenuItem::paintEvent(QPaintEvent* event)
 {
     QPainter p(this);
     p.setPen(Qt::NoPen);

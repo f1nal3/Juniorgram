@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pch.hpp"
+#include <QTimeEdit>
 
 /** @class TimeEdit
  *  @brief Custom style for TimeEdit object

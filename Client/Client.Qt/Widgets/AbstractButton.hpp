@@ -1,7 +1,6 @@
 #pragma once
+#include <QWidget>
 #include <utility>
-
-#include "pch.hpp"
 
 class AbstractButton : public QWidget
 {
@@ -9,9 +8,9 @@ public:
     explicit AbstractButton(QWidget* parent = nullptr);
     virtual void clearState();
 
-    bool isOver() const { return _state & StateFlag::Over; }
-    bool isDown() const { return _state & StateFlag::Down; }
-    bool isDisabled() const { return _state & StateFlag::Disabled; }
+    [[nodiscard]] bool isOver() const { return _state & StateFlag::Over; }
+    [[nodiscard]] bool isDown() const { return _state & StateFlag::Down; }
+    [[nodiscard]] bool isDisabled() const { return _state & StateFlag::Disabled; }
 
     void setDisabled(bool disabled = true);
     void setClickCallback(std::function<void()> callback) { _clickCallback = std::move(callback); }
@@ -36,7 +35,7 @@ protected:
     };
     using State = QFlags<StateFlag>;
 
-    State state() const { return _state; }
+    [[nodiscard]] State state() const { return _state; }
     enum class StateChanger
     {
         ByUser  = 0x0,

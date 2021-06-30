@@ -1,10 +1,11 @@
 #pragma once
 
+#include <QWidget>
+#include <QVBoxLayout>
+
 #include "ChannelListWindow.hpp"
 #include "FlatButton.hpp"
 #include "ListWidget.hpp"
-#include "pch.hpp"
-
 /**
  *  @class ChannelListWidget
  *  @brief This is the main channel list widget

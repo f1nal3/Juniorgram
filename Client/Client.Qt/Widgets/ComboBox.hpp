@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pch.hpp"
+#include <QComboBox>
 
 /** @class TimeEdit
  *  @brief Custom style for ComboBox object
@@ -8,5 +8,5 @@
 class ComboBox: public QComboBox
 {
 public:
-    ComboBox(QWidget* parent = nullptr);
+    explicit ComboBox(QWidget* parent = nullptr);
 };

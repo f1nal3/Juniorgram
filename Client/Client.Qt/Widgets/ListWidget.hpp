@@ -8,5 +8,5 @@
 class ListWidget : public QListWidget
 {
 public:
-    ListWidget(QWidget* parent = nullptr);
+    explicit ListWidget(QWidget* parent = nullptr);
 };

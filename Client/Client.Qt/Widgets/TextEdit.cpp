@@ -6,8 +6,8 @@ TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(pa
 {
     mTextField     = messageText;
     mBoldButton    = new FlatButton(this, "B", st::boldnessButton);
-    mItalicsButton = new FlatButton(this, "I", st::boldnessButton);
-    mUnderscoreButton = new FlatButton(this, "U", st::boldnessButton);
+    mItalicsButton = new FlatButton(this, "I", st::italicButton);
+    mUnderscoreButton = new FlatButton(this, "U", st::underlineButton);
 
     vLayout = new QVBoxLayout;
     hLayout = new QHBoxLayout;

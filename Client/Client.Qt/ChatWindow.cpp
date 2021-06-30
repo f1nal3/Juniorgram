@@ -1,6 +1,7 @@
 #include "ChatWindow.hpp"
 
 #include <utility>
+#include <QtEvents>
 
 #include "Style/Style.hpp"
 
@@ -21,13 +22,13 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
                 "background: #323232;"
                 "}"));
     chatWidget->setDragEnabled(false);
-    messageTextEdit        = new FlatPlainTextEdit;
+    messageTextEdit = new FlatPlainTextEdit;
     sendButton      = new FlatButton(this, "Send");
     sendButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
     textEdit               = new TextEdit(messageTextEdit);
     horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-    mainLayout->setContentsMargins(0,0,0,0);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);
     mainLayout->addWidget(channelListWidget, 20);
@@ -66,8 +67,7 @@ void ChatWindow::deletingSelection(QListWidgetItem* item) { item->setSelected(fa
 
 void ChatWindow::updateMessagesList_User()
 {
-    if (textEdit->getText() != "")
-        newMessage(textEdit->getText());
+    if (textEdit->getText() != "") newMessage(textEdit->getText());
     textEdit->clear();
 }
 

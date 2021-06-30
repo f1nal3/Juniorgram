@@ -1,5 +1,7 @@
 #pragma once
-#include "pch.hpp"
+
+#include <QWidget>
+#include <QPropertyAnimation>
 
 class CaptionButton : public QWidget
 {
@@ -32,7 +34,7 @@ private:
     void setHoverColor(QColor newColor)
     {
         hoverColor = std::move(newColor);
-        repaint();
+        update();
     }
     QColor getHoverColor() { return hoverColor; }
 

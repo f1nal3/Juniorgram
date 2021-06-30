@@ -1,8 +1,10 @@
 #pragma once
 
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+
 #include "FlatButton.hpp"
 #include "InputFields.hpp"
-#include "pch.hpp"
 
 /** @class TextEdit
  *  @brief Widget with a text edit field and an edit bar.\
@@ -28,16 +30,16 @@ private:
     QVBoxLayout* vLayout;
     QHBoxLayout* hLayout;
 
-    FlatButton* mBoldButton;
-    FlatButton* mItalicsButton;
-    FlatButton* mUnderscoreButton;
+    FlatButton*        mBoldButton;
+    FlatButton*        mItalicsButton;
+    FlatButton*        mUnderscoreButton;
     FlatPlainTextEdit* mTextField;
 
-    const int SymbolSize      = 3;
-    const QString boldSymbolStart = "<B>";
-    const QString boldSymbolEnd   = "</B>";
-    const QString italicsSymbolStart = "<I>";
-    const QString italicsboldSymbolEnd = "</I>";
+    const int     SymbolSize            = 3;
+    const QString boldSymbolStart       = "<B>";
+    const QString boldSymbolEnd         = "</B>";
+    const QString italicsSymbolStart    = "<I>";
+    const QString italicsboldSymbolEnd  = "</I>";
     const QString underscoreSymbolStart = "<U>";
     const QString underscoreSymbolEnd   = "</U>";
 
