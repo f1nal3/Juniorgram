@@ -41,10 +41,10 @@ public:
                 case Message::MessageType::MessageStoreRequest:
                     state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
                     break;
-                case Message::MessageType::RegistrationRequestToServer:
+                case Message::MessageType::RegistrationRequest:
                     state = processOutcomingMessageBody<RegistrationInfo>(bodyBuffer, message.mBody);
                     break;
-                case Message::MessageType::RegistrationRequestToClient:
+                case Message::MessageType::RegistrationAnswer:
                     state = processOutcomingMessageBody<Utility::RegistrationCodes>(bodyBuffer, message.mBody);
                     break;
                 default:
@@ -99,12 +99,12 @@ public:
                 state = processIncomingMessageBody<MessageInfo>(buffer, message);
                 break;
             }
-            case Message::MessageType::RegistrationRequestToServer:
+            case Message::MessageType::RegistrationRequest:
             {
                 state = processIncomingMessageBody<RegistrationInfo>(buffer, message);
                 break;
             }
-            case Message::MessageType::RegistrationRequestToClient:
+            case Message::MessageType::RegistrationAnswer:
             {
                 state = processIncomingMessageBody<Utility::RegistrationCodes>(buffer, message);
                 break;
