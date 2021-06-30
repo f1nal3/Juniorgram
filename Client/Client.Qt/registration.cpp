@@ -1,7 +1,10 @@
 #include "registration.hpp"
 
+#include "Utility/UserDataValidation.hpp"
+
 Registration::Registration(QWidget* parent) : QWidget(parent)
 {
+    emailLineEdit          = std::make_unique<FlatInput>("Email", this);
     usernameLineEdit       = std::make_unique<FlatInput>("Username", this);
     passwordLineEdit       = std::make_unique<FlatInput>("Password", true, this);
     passwordRepeatLineEdit = std::make_unique<FlatInput>("Repeat password", true, this);
@@ -14,6 +17,7 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
 
     const int BLOCKWIDTH = Style::valueDPIScale(500);
 
+    emailLineEdit->resize(BLOCKWIDTH, emailLineEdit->sizeHint().height());
     usernameLineEdit->resize(BLOCKWIDTH, usernameLineEdit->sizeHint().height());
     passwordLineEdit->resize(BLOCKWIDTH, passwordLineEdit->sizeHint().height());
     passwordRepeatLineEdit->resize(BLOCKWIDTH, passwordRepeatLineEdit->sizeHint().height());
@@ -29,7 +33,7 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
                 // Say to user that input login is not valid.
                 return;
             }
-            
+
             if (!isEmailValid("here must be email"))
             {
                 // Say to user that input email is not validt.
@@ -61,11 +65,11 @@ void Registration::keyPressEvent(QKeyEvent* event)
 
 void Registration::resizeEvent(QResizeEvent* event)
 {
-    const QSize SIZE          = event->size();
-    const int   HOR_SPACING   = Style::valueDPIScale(16);
-    const int   MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
-    const int   LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
-    const int   SPACE         = Style::valueDPIScale(10);
+    const QSize SIZE        = event->size();
+    const int HOR_SPACING   = Style::valueDPIScale(16);
+    const int MIN_TOP_SHIFT = SIZE.height() * 30 / 100;
+    const int LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
+    const int SPACE         = Style::valueDPIScale(10);
 
     const auto FIT_MAX = logoWidget->bestFit();
     // Aspect ratio;
@@ -81,7 +85,8 @@ void Registration::resizeEvent(QResizeEvent* event)
     logoWidget->resize(bestFit);
     logoWidget->move((width() - bestFit.width()) / 2, (MIN_TOP_SHIFT - bestFit.height()) / 2);
 
-    usernameLineEdit->move(LEFT_SHIFT, MIN_TOP_SHIFT);
+    emailLineEdit->move(LEFT_SHIFT, MIN_TOP_SHIFT);
+    usernameLineEdit->move(LEFT_SHIFT, emailLineEdit->geometry().bottom() + 1 + HOR_SPACING);
     passwordLineEdit->move(LEFT_SHIFT, usernameLineEdit->geometry().bottom() + 1 + HOR_SPACING);
     passwordRepeatLineEdit->move(LEFT_SHIFT,
                                  passwordLineEdit->geometry().bottom() + 1 + HOR_SPACING);
