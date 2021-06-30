@@ -24,15 +24,14 @@ public:
      * @brief Method for clearing text edit field.
      */
     void clear();
-    ~TextEdit() override;
 
 private:
-    QVBoxLayout* vLayout;
-    QHBoxLayout* hLayout;
+    std::unique_ptr<QVBoxLayout> vLayout;
+    std::unique_ptr<QHBoxLayout> hLayout;
 
-    FlatButton*        mBoldButton;
-    FlatButton*        mItalicsButton;
-    FlatButton*        mUnderscoreButton;
+    std::unique_ptr<FlatButton> mBoldButton;
+    std::unique_ptr<FlatButton> mItalicsButton;
+    std::unique_ptr<FlatButton> mUnderscoreButton;
     FlatPlainTextEdit* mTextField;
 
     const int     SymbolSize            = 3;

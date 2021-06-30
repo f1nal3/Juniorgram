@@ -4,22 +4,22 @@
 
 TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(parent)
 {
-    mTextField     = messageText;
-    mBoldButton    = new FlatButton(this, "B", st::boldnessButton);
-    mItalicsButton = new FlatButton(this, "I", st::italicButton);
-    mUnderscoreButton = new FlatButton(this, "U", st::underlineButton);
+    mTextField        = messageText;
+    mBoldButton       = std::make_unique<FlatButton>(this, "B", st::boldnessButton);
+    mItalicsButton    = std::make_unique<FlatButton>(this, "I", st::italicButton);
+    mUnderscoreButton = std::make_unique<FlatButton>(this, "U", st::underlineButton);
 
-    vLayout = new QVBoxLayout;
-    hLayout = new QHBoxLayout;
+    vLayout = std::make_unique<QVBoxLayout>();
+    hLayout = std::make_unique<QHBoxLayout>;
 
     hLayout->setAlignment(Qt::AlignLeft);
-    hLayout->addWidget(mBoldButton);
-    hLayout->addWidget(mItalicsButton);
-    hLayout->addWidget(mUnderscoreButton);
+    hLayout->addWidget(mBoldButton.get());
+    hLayout->addWidget(mItalicsButton.get());
+    hLayout->addWidget(mUnderscoreButton.get());
 
-    vLayout->addLayout(hLayout);
+    vLayout->addLayout(hLayout.get());
 
-    setLayout(vLayout);
+    setLayout(vLayout.get());
     mBoldButton->setClickCallback([&]() { boldButtonClicked(boldSymbolStart, boldSymbolEnd); });
     mItalicsButton->setClickCallback(
         [&]() { boldButtonClicked(italicsSymbolStart, italicsboldSymbolEnd); });
@@ -99,11 +99,3 @@ QString TextEdit::getText() const
 }
 
 void TextEdit::clear() { mTextField->clear(); }
-
-TextEdit::~TextEdit()
-{
-    delete mBoldButton;
-    delete mItalicsButton;
-    delete hLayout;
-    delete vLayout;
-}
