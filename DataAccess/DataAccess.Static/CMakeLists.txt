@@ -27,3 +27,8 @@ target_link_libraries(${TARGET}
 
 target_link_libraries(${TARGET}
     PUBLIC Utility.Public DataAccess.Public Network.Public)
+
+target_include_directories(${TARGET}
+    INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${TARGET} PRIVATE
+    $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)

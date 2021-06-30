@@ -118,7 +118,7 @@ void Client::userRegistration(const std::string& email, const std::string& login
     Network::RegistrationInfo rm(email, login, password);
 
     Network::Message message;
-    message.mHeader.mMessageType = Network::Message::MessageType::RegistrationRequestToServer;
+    message.mHeader.mMessageType = Network::Message::MessageType::RegistrationRequest;
     message.mBody = std::make_any<RegistrationInfo>(rm);
     
     send(message);

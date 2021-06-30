@@ -1,7 +1,9 @@
 #include "registration.hpp"
+#include "Utility/UserDataValidation.hpp"
 
 Registration::Registration(QWidget* parent) : QWidget(parent)
 {
+    emailLineEdit          = std::make_unique<FlatInput>("Email", this);
     usernameLineEdit       = std::make_unique<FlatInput>("Username", this);
     passwordLineEdit       = std::make_unique<FlatInput>("Password", true, this);
     passwordRepeatLineEdit = std::make_unique<FlatInput>("Repeat password", true, this);
@@ -21,45 +23,45 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
     registrationButton->resize(BLOCKWIDTH, registrationButton->sizeHint().height());
     back->resize(BLOCKWIDTH, back->sizeHint().height());
 
-    registrationButton->setClickCallback([&]() {
+    registrationButton->setClickCallback([this]() {
         using namespace UserDataValidation;
 
-        // std::string email = ->text().toStdString();
+        std::string email          = emailLineEdit->text().toStdString();
         std::string login          = usernameLineEdit->text().toStdString();
         std::string password       = passwordLineEdit->text().toStdString();
         std::string repeatPassword = passwordRepeatLineEdit->text().toStdString();
 
-        if (/* email.empty()*/ login.empty() || password.empty() || repeatPassword.empty())
+        if (email.empty() || login.empty() || password.empty() || repeatPassword.empty())
         {
-            // Say to user to fill empty fields.
+            std::cout << "some fields are empty" << std::endl;
             return;
         }
 
         if (password != repeatPassword)
         {
-            // Say to user that input passwords are different.
+            std::cout << "passwords are different" << std::endl;
             return;
         }
 
         if (!isLoginValid(login))
         {
-            // Say to user that input login is not valid.
+            std::cout << "input login is not valid" << std::endl;
             return;
         }
 
-        // if (!isEmailValid("here must be email"))
-        //{
-        //    // Say to user that input email is not valid.
-        //    return;
-        //}
+        if (!isEmailValid(email))
+        {
+            std::cout << "input email is not valid" << std::endl;
+            return;
+        }
 
         if (!isPasswordValid(password))
         {
-            // Say to user that input password is not valid.
+            std::cout << "input password is not valid" << std::endl;
             return;
         }
 
-        ConnectionManager::getClient().userRegistration("some_emaiasddsghnjl", login, password);
+        ConnectionManager::getClient().userRegistration(email, login, password);
     });
 }
 
@@ -73,7 +75,7 @@ void Registration::resizeEvent(QResizeEvent* event)
 {
     const QSize SIZE          = event->size();
     const int   HOR_SPACING   = Style::valueDPIScale(16);
-    const int   MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
+    const int   MIN_TOP_SHIFT = SIZE.height() * 30 / 100;
     const int   LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
     const int   SPACE         = Style::valueDPIScale(10);
 
@@ -91,7 +93,8 @@ void Registration::resizeEvent(QResizeEvent* event)
     logoWidget->resize(bestFit);
     logoWidget->move((width() - bestFit.width()) / 2, (MIN_TOP_SHIFT - bestFit.height()) / 2);
 
-    usernameLineEdit->move(LEFT_SHIFT, MIN_TOP_SHIFT);
+    emailLineEdit->move(LEFT_SHIFT, MIN_TOP_SHIFT);
+    usernameLineEdit->move(LEFT_SHIFT, emailLineEdit->geometry().bottom() + 1 + HOR_SPACING);
     passwordLineEdit->move(LEFT_SHIFT, usernameLineEdit->geometry().bottom() + 1 + HOR_SPACING);
     passwordRepeatLineEdit->move(LEFT_SHIFT,
                                  passwordLineEdit->geometry().bottom() + 1 + HOR_SPACING);

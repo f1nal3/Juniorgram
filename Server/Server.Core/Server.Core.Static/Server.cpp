@@ -145,7 +145,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         }
         break;
 
-        case Network::Message::MessageType::RegistrationRequestToServer:
+        case Network::Message::MessageType::RegistrationRequest:
         {
             auto ri = std::any_cast<Network::RegistrationInfo>(message.mBody);
             
@@ -154,7 +154,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType =
-                Network::Message::MessageType::RegistrationRequestToClient;
+                Network::Message::MessageType::RegistrationAnswer;
             
             auto registrationCode = future.get();
             

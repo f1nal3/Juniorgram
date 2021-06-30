@@ -1,12 +1,14 @@
 #include "RepositoryUnits.hpp"
+
 #include "PostgreRepository.hpp"
+#include "Utility.Static/Cryptography.hpp"
 
 using namespace DataAccess;
 
 std::string nowTimeStampStr()
 {
     std::string timeStampStr(20, '\0');
-    
+
     std::time_t t = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     std::tm time  = Utility::safe_localtime(t);
     std::strftime(timeStampStr.data(), timeStampStr.size(), "%Y-%m-%d %H:%M:%S", &time);
@@ -14,8 +16,7 @@ std::string nowTimeStampStr()
     return timeStampStr;
 }
 
-Utility::RegistrationCodes RegistrationUnit::registerUser(
-    const Network::RegistrationInfo& rm) const
+Utility::RegistrationCodes RegistrationUnit::registerUser(const Network::RegistrationInfo& ri) const
 {
     auto getUsersAmount = [&](const std::string& condition) -> std::uint16_t 
     {
@@ -29,21 +30,27 @@ Utility::RegistrationCodes RegistrationUnit::registerUser(
     };
 
     // Check on existing of login and email in repository.
-    if (getUsersAmount("email = '" + rm.email + "'") > 0)
+    if (getUsersAmount("email = '" + ri.email + "'") > 0)
     {
         return Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS;
     }
-    if (getUsersAmount("login = '" + rm.login + "'"))
+    if (getUsersAmount("login = '" + ri.login + "'"))
     {
         return Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS;
     }
 
+    // Generating password's hash which are based on login. It lets us to insert different users
+    // with the same passwords.
+    const std::string PASSWORD_HASH = Hashing::SHA_256(ri.password, ri.login);
+
+    // Data preperaion for new user inserting.
     std::tuple userData
     {
-        std::pair{"email", rm.email},
-        std::pair{"login", rm.login},
-        std::pair{"password_hash", rm.password}
+        std::pair{"email", ri.email}, 
+        std::pair{"login", ri.login},
+        std::pair{"password_hash", PASSWORD_HASH}
     };
+    // Insert new user.
     PostgreTable("users").Insert()->columns(userData)->execute();
 
     return Utility::RegistrationCodes::SUCCESS;

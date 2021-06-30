@@ -1,6 +1,6 @@
 #pragma once
-#include <string>
 #include <regex>
+#include <string>
 
 namespace UserDataValidation
 {
@@ -33,6 +33,7 @@ namespace UserDataValidation
         static const std::regex pattern(R"(([a-zA-Z]{1})(\w+@\w+\.)(?:com|ru))");
         return std::regex_match(email, pattern);
     }
+
     /** @brief Check user's password.
      * @params string password which contains user's password.
      * @return true if password is valid.
@@ -48,4 +49,5 @@ namespace UserDataValidation
         static const std::regex pattern("(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}");
         return std::regex_match(password, pattern);
     }
+
 }  // namespace UserDataValidation
