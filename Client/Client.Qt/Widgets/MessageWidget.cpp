@@ -101,10 +101,10 @@ void MessageWidget::initializationUiNotDelete()
 
     reactionChoseBox = new ComboBox();
     reactionChoseBox->addItem(QIcon(":/reactions/smile.png"), "");
-    reactionChoseBox->addItem(QIcon(":/reactions/LIKE.png"), "");
-    reactionChoseBox->addItem(QIcon(":/reactions/DISLIKE.png"), "");
-    reactionChoseBox->addItem(QIcon(":/reactions/FIRE.png"), "");
-    reactionChoseBox->addItem(QIcon(":/reactions/CAT.png"), "");
+    reactionChoseBox->addItem(QIcon(":/reactions/like.png"), "");
+    reactionChoseBox->addItem(QIcon(":/reactions/dislike.png"), "");
+    reactionChoseBox->addItem(QIcon(":/reactions/fire.png"), "");
+    reactionChoseBox->addItem(QIcon(":/reactions/cat.png"), "");
     reactionChoseBox->setMinimumWidth(Style::valueDPIScale(45));
 #ifdef Q_OS_MAC
     reactionChoseBox->setMinimumWidth(Style::valueDPIScale(65));
