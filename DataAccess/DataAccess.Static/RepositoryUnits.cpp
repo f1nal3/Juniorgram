@@ -14,55 +14,37 @@ std::string nowTimeStampStr()
     return timeStampStr;
 }
 
-std::string TokenUnit::createToken(const std::uint64_t userID) const
-{
-    std::string userIDstr = std::to_string(userID);
-
-    std::string possibleCharacters =
-        "!@#$%^&*()-_=<>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-
-    std::mt19937 generator(std::random_device{}());
-
-    std::shuffle(possibleCharacters.begin(), possibleCharacters.end(), generator);
-
-    for (size_t i = 0; i < userIDstr.size(); ++i)
-    {
-        possibleCharacters[i] = userIDstr[i];
-    }
-
-    return possibleCharacters.substr(0, TOKEN_LENGTH);
-}
-
-Utility::RegistrationCodes RegistrationUnit::registerUser(
-    const Network::RegistrationInfo& rm) const
+Utility::RegistrationCodes RegistrationUnit::registerUser(const Network::RegistrationInfo& ri) const
 {
     auto getUsersAmount = [&](const std::string& condition) -> std::uint16_t 
     {
         auto recordsRowAmount = PostgreTable("users")
-                                            .Select()
-                                            ->columns({"COUNT(*)"})
-                                            ->Where(condition)
-                                            ->execute();
+                                       .Select()
+                                       ->columns({"COUNT(*)"})
+                                       ->Where(condition)
+                                       ->execute();
 
         return recordsRowAmount.value()[0][0].as<std::uint16_t>();
     };
 
     // Check on existing of login and email in repository.
-    if (getUsersAmount("email = '" + rm.email + "'") > 0)
+    if (getUsersAmount("email = '" + ri.email + "'") > 0)
     {
         return Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS;
     }
-    if (getUsersAmount("login = '" + rm.login + "'"))
+    if (getUsersAmount("login = '" + ri.login + "'"))
     {
         return Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS;
     }
 
+    // Data preperaion for new user inserting.
     std::tuple userData
     {
-        std::pair{"email", rm.email},
-        std::pair{"login", rm.login},
-        std::pair{"password_hash", rm.password}
+        std::pair{"email", ri.email}, 
+        std::pair{"login", ri.login},
+        std::pair{"password_hash", ri.passwordHash}
     };
+    // Insert new user.
     PostgreTable("users").Insert()->columns(userData)->execute();
 
     return Utility::RegistrationCodes::SUCCESS;

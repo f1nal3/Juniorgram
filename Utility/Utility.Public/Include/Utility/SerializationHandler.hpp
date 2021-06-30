@@ -44,7 +44,7 @@ public:
                 case Message::MessageType::RegistrationRequest:
                     state = processOutcomingMessageBody<RegistrationInfo>(bodyBuffer, message.mBody);
                     break;
-                case Message::MessageType::RegistrationRequestToClient:
+                case Message::MessageType::RegistrationAnswer:
                     state = processOutcomingMessageBody<Utility::RegistrationCodes>(bodyBuffer, message.mBody);
                     break;
                 default:
@@ -104,7 +104,7 @@ public:
                 state = processIncomingMessageBody<RegistrationInfo>(buffer, message);
                 break;
             }
-            case Message::MessageType::RegistrationRequestToClient:
+            case Message::MessageType::RegistrationAnswer:
             {
                 state = processIncomingMessageBody<Utility::RegistrationCodes>(buffer, message);
                 break;

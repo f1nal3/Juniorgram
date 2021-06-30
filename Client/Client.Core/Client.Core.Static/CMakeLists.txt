@@ -16,6 +16,11 @@ target_include_directories(${TARGET}
 
 target_link_libraries(${TARGET}
         PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas
-        PUBLIC Network.Public)
+        PUBLIC Network.Public Utility.Static)
 
 set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)
+
+target_include_directories(${TARGET}
+    INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${TARGET} PRIVATE
+    $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)

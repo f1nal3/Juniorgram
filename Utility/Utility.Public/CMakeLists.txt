@@ -10,7 +10,8 @@ set(SOURCE_FILES
     Include/Utility/WarningSuppression.hpp
     Include/Utility/Exception.hpp
     Include/Utility/YasSerializer.hpp
-    Include/Utility/SQLUtility.hpp)
+    Include/Utility/SQLUtility.hpp
+    Include/Utility/UserDataValidation.hpp)
 
 add_library(${TARGET} INTERFACE)
 target_sources(${TARGET} INTERFACE ${SOURCE_FILES})

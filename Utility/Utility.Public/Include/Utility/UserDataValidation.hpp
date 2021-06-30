@@ -1,0 +1,53 @@
+#pragma once
+#include <regex>
+#include <string>
+
+namespace UserDataValidation
+{
+    /** @brief Check user's login.
+     * @params string login which contains user's login.
+     * @return true if login is valid.
+     * @details Login must have: /
+     *   -First char is a letter; /
+     *   -Lowercase letters; /
+     *   -Minimum 5 chars. /
+     * Example: login = 'some_nick34'.
+     */
+    inline bool isLoginValid(const std::string& login)
+    {
+        static const std::regex pattern("([a-z]{1})([a-z0-9_-]{5,})");
+        return std::regex_match(login, pattern);
+    }
+
+    /** @brief Check user's email on valid.
+     * @params string email which contains user's email.
+     * @return true if email is valid.
+     * @details Email must: /
+     *   -have first char like letter; /
+     *   -maintain the following rule: /
+     *     Some letters + '@' + some letters + '.' + com/ru. /
+     * Example: email = 'Anton3_antonov4@epam.com'.
+     */
+    inline bool isEmailValid(const std::string& email)
+    {
+        static const std::regex pattern(R"(([a-zA-Z]{1})(\w+@\w+\.)(?:com|ru))");
+        return std::regex_match(email, pattern);
+    }
+
+    /** @brief Check user's password.
+     * @params string password which contains user's password.
+     * @return true if password is valid.
+     * @details Password must have: /
+     *   -At least one uppercase letter; /
+     *   -at least one lowercase letter; /
+     *   -at least one number; /
+     *   -minimum 8 characters. /
+     * Example: password = '1996a*nton-Anton%ov_34'.
+     */
+    inline bool isPasswordValid(const std::string& password)
+    {
+        static const std::regex pattern("(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}");
+        return std::regex_match(password, pattern);
+    }
+
+}  // namespace UserDataValidation

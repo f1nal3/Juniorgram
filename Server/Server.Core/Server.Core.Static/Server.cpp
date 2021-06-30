@@ -154,7 +154,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType =
-                Network::Message::MessageType::RegistrationRequestToClient;
+                Network::Message::MessageType::RegistrationAnswer;
             
             auto registrationCode = future.get();
             
