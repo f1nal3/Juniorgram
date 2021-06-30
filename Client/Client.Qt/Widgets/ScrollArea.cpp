@@ -356,14 +356,6 @@ void ScrollArea::onScrolled()
             em = true;
         }
     }
-    if (em)
-    {
-        scrolled();
-        if (!_movingByScrollBar)
-        {
-            // SendSynteticMouseEvent(this, QEvent::MouseMove, Qt::NoButton);
-        }
-    }
 }
 
 void ScrollArea::onInnerResized() { innerResized(); }

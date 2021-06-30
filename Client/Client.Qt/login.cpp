@@ -10,16 +10,7 @@ Login::Login(QWidget* parent) : QWidget(parent)
     buttonRegistration = std::make_unique<FlatButton>(this, "Registration");
 
     logoWidget = std::make_unique<LogoWidget>(this);
-    area       = new ScrollArea(this);
-    area->setWidgetResizable(true);
-    area->resize(700, 500);
-    auto* w = new ChatWindow(nullptr);
-    w->setMinimumHeight(1000);
-    w->setMinimumWidth(1000);
-    area->setWidget(w);
-    auto* label =
-        new Label("Super puper duper muper omega delta alpha beta mega giga niga text", w);
-    label->setMinimumWidth(1000);
+
     buttonSignin->setClickCallback([]() { oApp->setAppState(App::AppState::ChatWindowForm); });
     buttonRegistration->setClickCallback(
         []() { oApp->setAppState(App::AppState::RegistrationForm); });
@@ -50,8 +41,6 @@ void Login::resizeEvent(QResizeEvent* event)
     auto bestFit = FIT_MAX;
     if (FIT_WIDTH.width() < bestFit.width()) bestFit = FIT_WIDTH;
     if (FIT_HEIGHT.width() < bestFit.width()) bestFit = FIT_HEIGHT;
-    area->resize(width() / 2, area->height());
-    //area->updateBars();
 
     logoWidget->resize(bestFit);
     logoWidget->move((width() - bestFit.width()) / 2, (MIN_TOP_SHIFT - bestFit.height()) / 2);

@@ -21,5 +21,4 @@ private:
     std::unique_ptr<FlatButton> buttonRegistration;
     std::unique_ptr<LinkButton> forgotPassword;
     std::unique_ptr<LogoWidget> logoWidget;
-    ScrollArea*                 area;
 };
