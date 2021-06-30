@@ -90,7 +90,7 @@ target_precompile_headers(${TARGET} PRIVATE pch.hpp)
 # At this point it disrupts CI build so I commented it out =)
 
 #if (WIN32)
-#  set(Qt5_DIR $ENV{CMAKE_PREFIX_PATH})
+#   set(Qt5_DIR $ENV{CMAKE_PREFIX_PATH})
 #    message(STATUS ${Qt5_DIR})
 #    if (CMAKE_BUILD_TYPE MATCHES Debug)
 #        file(COPY "${Qt5_DIR}/bin/Qt5Cored.dll" "${Qt5_DIR}/bin/Qt5Guid.dll"
