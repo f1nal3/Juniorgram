@@ -321,7 +321,7 @@ ScrollArea::ScrollArea(QWidget* parent, bool handleTouch, const Style::ScrollAre
 
 void ScrollArea::onScrolled()
 {
-    bool em              = false;
+    bool changed         = false;
     int  horizontalValue = horizontalScrollBar()->value();
     int  verticalValue   = verticalScrollBar()->value();
     if (_horizontalValue != horizontalValue)
@@ -337,7 +337,7 @@ void ScrollArea::onScrolled()
             {
                 _horizontalBar.hideTimeout(_st.hiding);
             }
-            em = true;
+            changed = true;
         }
     }
     if (_verticalValue != verticalValue)
@@ -353,9 +353,11 @@ void ScrollArea::onScrolled()
             {
                 _verticalBar.hideTimeout(_st.hiding);
             }
-            em = true;
+            changed = true;
         }
     }
+    Q_UNUSED(changed)
+    // TODO: handle changed
 }
 
 void ScrollArea::onInnerResized() { innerResized(); }
