@@ -9,7 +9,7 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidge
       userName(std::move(nameOfUser)),
       dateTimeMessage(QDateTime::currentDateTime())
 {
-    reactionUserOnMessage = reactions::Non;
+    reactionUserOnMessage = reactions::NON;
     messageItem           = Item;
     messageDeleted        = deletedMessage;
     // Main layouts
