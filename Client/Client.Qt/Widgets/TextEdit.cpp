@@ -10,7 +10,7 @@ TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(pa
     mUnderscoreButton = std::make_unique<FlatButton>(this, "U", st::underlineButton);
 
     vLayout = std::make_unique<QVBoxLayout>();
-    hLayout = std::make_unique<QHBoxLayout>;
+    hLayout = std::make_unique<QHBoxLayout>();
 
     hLayout->setAlignment(Qt::AlignLeft);
     hLayout->addWidget(mBoldButton.get());
