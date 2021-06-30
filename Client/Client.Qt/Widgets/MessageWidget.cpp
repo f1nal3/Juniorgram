@@ -77,10 +77,10 @@ void MessageWidget::initializationUiNotDelete()
         reactionMapLabel->insert(i, new Label);
         reactionMapLabelIcon->insert(i, new Label);
     }
-    pixmapIcon->insert(reactions::LIKE, new QPixmap(":/reactions/LIKE.png"));
-    pixmapIcon->insert(reactions::DISLIKE, new QPixmap(":/reactions/DISLIKE.png"));
-    pixmapIcon->insert(reactions::FIRE, new QPixmap(":/reactions/FIRE.png"));
-    pixmapIcon->insert(reactions::CAT, new QPixmap(":/reactions/CAT.png"));
+    pixmapIcon->insert(reactions::LIKE, new QPixmap(":/reactions/like.png"));
+    pixmapIcon->insert(reactions::DISLIKE, new QPixmap(":/reactions/dislike.png"));
+    pixmapIcon->insert(reactions::FIRE, new QPixmap(":/reactions/fire.png"));
+    pixmapIcon->insert(reactions::CAT, new QPixmap(":/reactions/cat.png"));
 
     horizontalUpLeftSpacer  = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     messageDateTimeEdit     = new DateTimeEdit(this);
