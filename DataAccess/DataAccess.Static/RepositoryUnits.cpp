@@ -14,25 +14,6 @@ std::string nowTimeStampStr()
     return timeStampStr;
 }
 
-std::string TokenUnit::createToken(const std::uint64_t userID) const
-{
-    std::string userIDstr = std::to_string(userID);
-
-    std::string possibleCharacters =
-        "!@#$%^&*()-_=<>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-
-    std::mt19937 generator(std::random_device{}());
-
-    std::shuffle(possibleCharacters.begin(), possibleCharacters.end(), generator);
-
-    for (size_t i = 0; i < userIDstr.size(); ++i)
-    {
-        possibleCharacters[i] = userIDstr[i];
-    }
-
-    return possibleCharacters.substr(0, TOKEN_LENGTH);
-}
-
 Utility::RegistrationCodes RegistrationUnit::registerUser(
     const Network::RegistrationInfo& rm) const
 {

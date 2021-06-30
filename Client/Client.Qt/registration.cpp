@@ -1,10 +1,7 @@
 #include "registration.hpp"
 
-#include "Utility/UserDataValidation.hpp"
-
 Registration::Registration(QWidget* parent) : QWidget(parent)
 {
-    emailLineEdit          = std::make_unique<FlatInput>("Email", this);
     usernameLineEdit       = std::make_unique<FlatInput>("Username", this);
     passwordLineEdit       = std::make_unique<FlatInput>("Password", true, this);
     passwordRepeatLineEdit = std::make_unique<FlatInput>("Repeat password", true, this);
@@ -26,34 +23,43 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
 
     registrationButton->setClickCallback([&]() {
         using namespace UserDataValidation;
-        if (passwordLineEdit->text() == passwordRepeatLineEdit->text())
+
+        // std::string email = ->text().toStdString();
+        std::string login          = usernameLineEdit->text().toStdString();
+        std::string password       = passwordLineEdit->text().toStdString();
+        std::string repeatPassword = passwordRepeatLineEdit->text().toStdString();
+
+        if (/* email.empty()*/ login.empty() || password.empty() || repeatPassword.empty())
         {
-            if (!isLoginValid(usernameLineEdit->text().toStdString()))
-            {
-                // Say to user that input login is not valid.
-                return;
-            }
-
-            if (!isEmailValid("here must be email"))
-            {
-                // Say to user that input email is not validt.
-                return;
-            }
-
-            if (!isPasswordValid(passwordLineEdit->text().toStdString()))
-            {
-                // Say to user that input password is not valid.
-                return;
-            }
-
-            ConnectionManager::getClient().userRegistration(usernameLineEdit->text().toStdString(),
-                                                            "some_email",
-                                                            passwordLineEdit->text().toStdString());
+            // Say to user to fill empty fields.
+            return;
         }
-        else
+
+        if (password != repeatPassword)
         {
             // Say to user that input passwords are different.
+            return;
         }
+
+        if (!isLoginValid(login))
+        {
+            // Say to user that input login is not valid.
+            return;
+        }
+
+        // if (!isEmailValid("here must be email"))
+        //{
+        //    // Say to user that input email is not valid.
+        //    return;
+        //}
+
+        if (!isPasswordValid(password))
+        {
+            // Say to user that input password is not valid.
+            return;
+        }
+
+        ConnectionManager::getClient().userRegistration("some_emaiasddsghnjl", login, password);
     });
 }
 
@@ -65,11 +71,11 @@ void Registration::keyPressEvent(QKeyEvent* event)
 
 void Registration::resizeEvent(QResizeEvent* event)
 {
-    const QSize SIZE        = event->size();
-    const int HOR_SPACING   = Style::valueDPIScale(16);
-    const int MIN_TOP_SHIFT = SIZE.height() * 30 / 100;
-    const int LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
-    const int SPACE         = Style::valueDPIScale(10);
+    const QSize SIZE          = event->size();
+    const int   HOR_SPACING   = Style::valueDPIScale(16);
+    const int   MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
+    const int   LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
+    const int   SPACE         = Style::valueDPIScale(10);
 
     const auto FIT_MAX = logoWidget->bestFit();
     // Aspect ratio;
@@ -85,8 +91,7 @@ void Registration::resizeEvent(QResizeEvent* event)
     logoWidget->resize(bestFit);
     logoWidget->move((width() - bestFit.width()) / 2, (MIN_TOP_SHIFT - bestFit.height()) / 2);
 
-    emailLineEdit->move(LEFT_SHIFT, MIN_TOP_SHIFT);
-    usernameLineEdit->move(LEFT_SHIFT, emailLineEdit->geometry().bottom() + 1 + HOR_SPACING);
+    usernameLineEdit->move(LEFT_SHIFT, MIN_TOP_SHIFT);
     passwordLineEdit->move(LEFT_SHIFT, usernameLineEdit->geometry().bottom() + 1 + HOR_SPACING);
     passwordRepeatLineEdit->move(LEFT_SHIFT,
                                  passwordLineEdit->geometry().bottom() + 1 + HOR_SPACING);
