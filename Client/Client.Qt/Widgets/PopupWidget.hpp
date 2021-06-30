@@ -1,6 +1,7 @@
 #pragma once
+#include <QWidget>
+
 #include "Menu.hpp"
-#include "pch.hpp"
 class PopupWidget : public QWidget
 {
     Q_OBJECT

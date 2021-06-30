@@ -1,16 +1,19 @@
 #include "CaptionButton.hpp"
 
+#include <QPainter>
+#include <QtEvents>
+
 #include "Style/Style.hpp"
 
 void CaptionButton::enterEvent(QEvent* event)
 {
-    Q_UNUSED(event);
+    Q_UNUSED(event)
     fadeinAnim->start();
 }
 
 void CaptionButton::leaveEvent(QEvent* event)
 {
-    Q_UNUSED(event);
+    Q_UNUSED(event)
     fadeinAnim->stop();
     hoverColor = fadeinAnim->startValue().value<QColor>();
 
@@ -68,9 +71,9 @@ CaptionButton::CaptionButton(CaptionButton::CaptionLogo logo, const QColor& endC
 {
     setFixedWidth(Style::valueDPIScale(46));
     setFixedHeight(Style::valueDPIScale(30));
-    int scale    = Style::getDpiScale();
-    QString icon = ":icons/" + Lg2str(logo) + "-w" + dpi2str(scale);
-    pixmap       = new QPixmap(icon);
+    int     scale = Style::getDpiScale();
+    QString icon  = ":icons/" + Lg2str(logo) + "-w" + dpi2str(scale);
+    pixmap        = new QPixmap(icon);
 
     setMouseTracking(true);
     fadeinAnim = new QPropertyAnimation(this, "hoverColor");

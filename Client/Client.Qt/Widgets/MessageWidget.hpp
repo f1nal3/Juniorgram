@@ -1,19 +1,21 @@
 #ifndef QMESSAGEWIDGET_H
 #define QMESSAGEWIDGET_H
-constexpr auto EMPTY_MESSAGE      = "Empty message";
+constexpr auto EMPTY_MESSAGE   = "Empty message";
 constexpr auto EMPTY_USER_NAME = "You";
-constexpr auto COUNT_REACTION = 4;
+constexpr auto COUNT_REACTION  = 4;
 
-#include "pch.hpp"
-
+#include <QHBoxLayout>
+#include <QListWidgetItem>
+#include <QSpacerItem>
+#include <QVBoxLayout>
 #include <ctime>
 
+#include "Widgets/ComboBox.hpp"
+#include "Widgets/DateTimeEdit.hpp"
 #include "Widgets/FlatButton.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/Label.hpp"
 #include "Widgets/TimeEdit.hpp"
-#include "Widgets/DateTimeEdit.hpp"
-#include "Widgets/ComboBox.hpp"
 
 /** @class MessageWidget
  *  @brief message visual representation in chat
@@ -132,31 +134,27 @@ private:
     Label* reactionLabelIconFire;
     Label* reactionLabelIconCat;
 
-    QSpacerItem* horizontalUpLeftSpacer;
-    QSpacerItem* horizontalUpRightSpacer;
+    QSpacerItem*  horizontalUpLeftSpacer;
+    QSpacerItem*  horizontalUpRightSpacer;
     DateTimeEdit* messageDateTimeEdit;
 
-    QMap<int, QPixmap*> *pixmapIcon;
+    QMap<int, QPixmap*>* pixmapIcon;
 
     // DownLevelLayout
-    ComboBox* reactionChoseBox;
-    FlatButton* deleteButton;
+    ComboBox*    reactionChoseBox;
+    FlatButton*  deleteButton;
     QSpacerItem* horizontalDownSpacer;
     // delMessage - shows that the message has been deleted
     Label* delMessage;
 
-    bool messageDeleted;
-    QString messageText;
-    QString userName;
-    QDateTime dateTimeMessage;
-    reactions reactionUserOnMessage;
-    QStringList itemReactionList;
+    bool               messageDeleted;
+    QString            messageText;
+    QString            userName;
+    QDateTime          dateTimeMessage;
+    reactions          reactionUserOnMessage;
+    QStringList        itemReactionList;
     std::map<int, int> reactionMap{
-        {reactions::like, 0},
-        {reactions::dislike, 0},
-        {reactions::fire, 0},
-        {reactions::cat, 0}
-    };
+        {reactions::like, 0}, {reactions::dislike, 0}, {reactions::fire, 0}, {reactions::cat, 0}};
     void initializationUiNotDelete();
     void initializationUiDelete();
     void updateWidget();

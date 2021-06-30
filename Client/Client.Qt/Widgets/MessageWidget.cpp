@@ -1,7 +1,5 @@
 ﻿#include "MessageWidget.hpp"
 
-#include <utility>
-
 #include "Style/Style.hpp"
 
 MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidgetItem* Item,
@@ -12,8 +10,8 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidge
       dateTimeMessage(QDateTime::currentDateTime())
 {
     reactionUserOnMessage = reactions::Non;
-    messageItem    = Item;
-    messageDeleted = deletedMessage;
+    messageItem           = Item;
+    messageDeleted        = deletedMessage;
     // Main layouts
     mainLayout = new QVBoxLayout(this);
     setLayout(mainLayout);
@@ -84,10 +82,10 @@ void MessageWidget::initializationUiNotDelete()
     pixmapIcon->insert(reactions::fire, new QPixmap(":/reactions/fire.png"));
     pixmapIcon->insert(reactions::cat, new QPixmap(":/reactions/cat.png"));
 
-    horizontalUpLeftSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-    messageDateTimeEdit = new DateTimeEdit(this);
+    horizontalUpLeftSpacer  = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    messageDateTimeEdit     = new DateTimeEdit(this);
     horizontalUpRightSpacer = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-    userNameLabel = new Label;
+    userNameLabel           = new Label;
     userNameLabel->setText("userName");
     for (int i = 0; i < COUNT_REACTION; i++)
     {
@@ -108,9 +106,9 @@ void MessageWidget::initializationUiNotDelete()
     reactionChoseBox->addItem(QIcon(":/reactions/fire.png"), "");
     reactionChoseBox->addItem(QIcon(":/reactions/cat.png"), "");
     reactionChoseBox->setMinimumWidth(Style::valueDPIScale(45));
-    #ifdef Q_OS_MAC
-        reactionChoseBox->setMinimumWidth(Style::valueDPIScale(65));
-    #endif
+#ifdef Q_OS_MAC
+    reactionChoseBox->setMinimumWidth(Style::valueDPIScale(65));
+#endif
 
     horizontalDownSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 

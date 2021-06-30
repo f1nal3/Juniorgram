@@ -1,9 +1,9 @@
 #pragma once
+#include "Application.hpp"
 #include "Widgets/FlatButton.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/LogoWidget.hpp"
-#include "pch.hpp"
-#include "Application.hpp"
+#include "Widgets/ScrollArea.hpp"
 
 class Login : public QWidget
 {
@@ -12,14 +12,14 @@ public:
     explicit Login(QWidget* parent = nullptr);
 
 protected:
-    void keyPressEvent(QKeyEvent* event) override;
     void resizeEvent(QResizeEvent* event) override;
 
 private:
-    std::unique_ptr<FlatInput> usernameLineEdit;
-    std::unique_ptr<FlatInput> passwordLineEdit;
+    std::unique_ptr<FlatInput>  usernameLineEdit;
+    std::unique_ptr<FlatInput>  passwordLineEdit;
     std::unique_ptr<FlatButton> buttonSignin;
     std::unique_ptr<FlatButton> buttonRegistration;
     std::unique_ptr<LinkButton> forgotPassword;
     std::unique_ptr<LogoWidget> logoWidget;
+    ScrollArea*                 area;
 };

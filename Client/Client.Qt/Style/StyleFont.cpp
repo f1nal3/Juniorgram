@@ -1,5 +1,9 @@
 #include "StyleFont.hpp"
 
+#include <QFontDatabase>
+#include <QMap>
+#include <QFontInfo>
+
 namespace Style
 {
 namespace internal
