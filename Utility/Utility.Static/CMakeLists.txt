@@ -10,8 +10,7 @@ set(SOURCE_FILES
     TaskManager.hpp
     SymmetricCipher.cpp
 	MACAddress.hpp
-	MACAddress.cpp
-	HashingAlgorithms.hpp)
+	MACAddress.cpp)
 	
 # Add a library with the above sources
 add_library(${TARGET} STATIC ${SOURCE_FILES})
