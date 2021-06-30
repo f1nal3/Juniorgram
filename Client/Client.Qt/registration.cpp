@@ -2,8 +2,8 @@
 
 Registration::Registration(QWidget* parent) : QWidget(parent)
 {
-    usernameLineEdit       = new FlatInput("Username", this);
-    passwordLineEdit       = new FlatInput("Password", this);
+    usernameLineEdit       = std::make_unique<FlatInput>("Username", this);
+    passwordLineEdit       = std::make_unique<FlatInput>("Password", this);
     passwordRepeatLineEdit = std::make_unique<FlatInput>("Repeat password", this);
     registrationButton     = std::make_unique<FlatButton>(this, "Create account");
     back                   = std::make_unique<FlatButton>(this, "Back");

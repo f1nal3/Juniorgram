@@ -11,7 +11,7 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidge
       userName(std::move(nameOfUser)),
       dateTimeMessage(QDateTime::currentDateTime())
 {
-    reactionUserOnMessage = reactions::Non;
+    reactionUserOnMessage = reactions::NON;
     messageItem    = Item;
     messageDeleted = deletedMessage;
     // Main layouts
@@ -79,10 +79,10 @@ void MessageWidget::initializationUiNotDelete()
         reactionMapLabel->insert(i, new Label);
         reactionMapLabelIcon->insert(i, new Label);
     }
-    pixmapIcon->insert(reactions::like, new QPixmap(":/reactions/like.png"));
-    pixmapIcon->insert(reactions::dislike, new QPixmap(":/reactions/dislike.png"));
-    pixmapIcon->insert(reactions::fire, new QPixmap(":/reactions/fire.png"));
-    pixmapIcon->insert(reactions::cat, new QPixmap(":/reactions/cat.png"));
+    pixmapIcon->insert(reactions::LIKE, new QPixmap(":/reactions/LIKE.png"));
+    pixmapIcon->insert(reactions::DISLIKE, new QPixmap(":/reactions/DISLIKE.png"));
+    pixmapIcon->insert(reactions::FIRE, new QPixmap(":/reactions/FIRE.png"));
+    pixmapIcon->insert(reactions::CAT, new QPixmap(":/reactions/CAT.png"));
 
     horizontalUpLeftSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     messageDateTimeEdit = new DateTimeEdit(this);
@@ -103,10 +103,10 @@ void MessageWidget::initializationUiNotDelete()
 
     reactionChoseBox = new ComboBox();
     reactionChoseBox->addItem(QIcon(":/reactions/smile.png"), "");
-    reactionChoseBox->addItem(QIcon(":/reactions/like.png"), "");
-    reactionChoseBox->addItem(QIcon(":/reactions/dislike.png"), "");
-    reactionChoseBox->addItem(QIcon(":/reactions/fire.png"), "");
-    reactionChoseBox->addItem(QIcon(":/reactions/cat.png"), "");
+    reactionChoseBox->addItem(QIcon(":/reactions/LIKE.png"), "");
+    reactionChoseBox->addItem(QIcon(":/reactions/DISLIKE.png"), "");
+    reactionChoseBox->addItem(QIcon(":/reactions/FIRE.png"), "");
+    reactionChoseBox->addItem(QIcon(":/reactions/CAT.png"), "");
     reactionChoseBox->setMinimumWidth(Style::valueDPIScale(45));
     #ifdef Q_OS_MAC
         reactionChoseBox->setMinimumWidth(Style::valueDPIScale(65));
@@ -183,7 +183,7 @@ void MessageWidget::updateWidget()
 
 void MessageWidget::reactionChange(int index)
 {
-    if (reactionUserOnMessage != reactions::Non)
+    if (reactionUserOnMessage != reactions::NON)
     {
         --reactionMap[reactionUserOnMessage];
         for (auto countReaction : reactionMap)
@@ -219,7 +219,7 @@ void MessageWidget::reactionChange(int index)
         break;
         default:
         {
-            reactionUserOnMessage = reactions::Non;
+            reactionUserOnMessage = reactions::NON;
         }
         break;
     }
