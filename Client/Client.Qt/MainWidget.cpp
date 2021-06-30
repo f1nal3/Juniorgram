@@ -1,11 +1,17 @@
 #include "MainWidget.hpp"
 
-#include "Style/Shadow.hpp"
+#include <QWindow>
+#include <QtEvents>
+#include <QGuiApplication>
+#include <iostream>
 
+#include "Style/Shadow.hpp"
 #ifdef _WIN32
+#include <dwmapi.h>
+
 bool isCompositionEnabled()
 {
-    auto result        = BOOL(FALSE);
+    auto       result  = BOOL(FALSE);
     const auto SUCCESS = (::DwmIsCompositionEnabled(&result) == S_OK);
     return SUCCESS && result;
 }
@@ -93,10 +99,10 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
 MainWidget::MouseType MainWidget::checkResizableField(QMouseEvent* event)
 {
     QPointF position = event->screenPos();
-    qreal x          = this->x();
-    qreal y          = this->y();
-    qreal width      = this->width();
-    qreal height     = this->height();
+    qreal   x        = this->x();
+    qreal   y        = this->y();
+    qreal   width    = this->width();
+    qreal   height   = this->height();
 
     QRectF rectTop(x, y, width + 9, 8);
     QRectF rectBottom(x, y + height - 8, width + 9, 8);
@@ -217,12 +223,9 @@ void MainWidget::mouseMoveEvent(QMouseEvent* event)
                     auto part = event->screenPos().x() / width();
                     this->showNormal();
                     // update();
-                    QCoreApplication::processEvents(
-                        QEventLoop::ProcessEventsFlag::ExcludeUserInputEvents);
                     auto offsetX = width() * part;
                     setGeometry(event->screenPos().x() - offsetX, 0, width(), height());
                 }
-
                 _mousePressed = false;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
                 this->windowHandle()->startSystemMove();
@@ -262,7 +265,7 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
 {
     Style::setDpiScale(logicalDpiX() * 100 / 96);
     Style::startManager(Style::getDpiScale());
-    
+
     this->setWindowFlag(Qt::FramelessWindowHint);
     this->setWindowFlag(Qt::Window);
     this->setWindowIcon(QIcon(":/images/logo.png"));

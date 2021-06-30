@@ -1,9 +1,12 @@
 #include "InputFields.hpp"
 
-#include "Style/StyleBasic.hpp"
-
 #include <QCommonStyle>
-#include <QStyle>
+#include <QCoreApplication>
+#include <QPainter>
+#include <QRegExpValidator>
+#include <QtEvents>
+
+#include "Style/StyleBasic.hpp"
 
 template <typename InputClass>
 class InputStyle : public QCommonStyle
@@ -14,10 +17,10 @@ public:
     void drawPrimitive(PrimitiveElement element, const QStyleOption* option, QPainter* painter,
                        const QWidget* widget = nullptr) const override
     {
-        Q_UNUSED(element);
-        Q_UNUSED(option);
-        Q_UNUSED(painter);
-        Q_UNUSED(widget);
+        Q_UNUSED(element)
+        Q_UNUSED(option)
+        Q_UNUSED(painter)
+        Q_UNUSED(widget)
     }
     QRect subElementRect(SubElement r, const QStyleOption* opt,
                          const QWidget* widget = nullptr) const override
@@ -40,7 +43,7 @@ public:
     {
         if (!_instance)
         {
-            if (!QGuiApplication::instance())
+            if (!QCoreApplication::instance())
             {
                 return nullptr;
             }

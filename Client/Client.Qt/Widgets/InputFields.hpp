@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Style/Style.hpp"
-#include "pch.hpp"
+#include <QLineEdit>
+#include <QTextEdit>
 
 class FlatInput : public QLineEdit
 {

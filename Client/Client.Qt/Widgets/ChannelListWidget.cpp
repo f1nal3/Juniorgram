@@ -1,8 +1,5 @@
 #include "ChannelListWidget.hpp"
 
-#include "Style/StyleBasic.hpp"
-#include "Style/Style.hpp"
-
 ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
 {
     vBoxLayout         = new QVBoxLayout(this);

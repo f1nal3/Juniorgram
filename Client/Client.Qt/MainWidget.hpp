@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Widgets/BioButton.hpp"
+#include <QHBoxLayout>
+#include <QWidget>
 
+#include "Widgets/BioButton.hpp"
 #include "Widgets/CaptionButton.hpp"
-#include "pch.hpp"
 
 class MainWidget : public QWidget
 {
@@ -34,7 +35,7 @@ public:
     };
 
     MouseType checkResizableField(QMouseEvent* event);
-    void refreshTitleBar(BioButton* bio_button = nullptr);
+    void      refreshTitleBar(BioButton* bio_button = nullptr);
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -62,7 +63,7 @@ public:
 
 private:
     MouseType m_leftMouseButtonPressed;
-    QPoint m_previousPosition;
+    QPoint    m_previousPosition;
 
     bool _mousePressed{};
 
@@ -70,6 +71,6 @@ private:
     CaptionButton* maximize_btn;
     CaptionButton* minimize_btn;
 
-    QWidget* body;
+    QWidget*     body;
     QHBoxLayout* pTitleLayout;
 };

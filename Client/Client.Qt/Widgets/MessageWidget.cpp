@@ -1,7 +1,5 @@
 ﻿#include "MessageWidget.hpp"
 
-#include <utility>
-
 #include "Style/Style.hpp"
 
 MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidgetItem* Item,
@@ -11,9 +9,9 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidge
       userName(std::move(nameOfUser)),
       dateTimeMessage(QDateTime::currentDateTime())
 {
-    reactionUserOnMessage = reactions::NON;
-    messageItem    = Item;
-    messageDeleted = deletedMessage;
+    reactionUserOnMessage = reactions::Non;
+    messageItem           = Item;
+    messageDeleted        = deletedMessage;
     // Main layouts
     mainLayout = new QVBoxLayout(this);
     setLayout(mainLayout);
@@ -84,10 +82,10 @@ void MessageWidget::initializationUiNotDelete()
     pixmapIcon->insert(reactions::FIRE, new QPixmap(":/reactions/FIRE.png"));
     pixmapIcon->insert(reactions::CAT, new QPixmap(":/reactions/CAT.png"));
 
-    horizontalUpLeftSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-    messageDateTimeEdit = new DateTimeEdit(this);
+    horizontalUpLeftSpacer  = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    messageDateTimeEdit     = new DateTimeEdit(this);
     horizontalUpRightSpacer = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-    userNameLabel = new Label;
+    userNameLabel           = new Label;
     userNameLabel->setText("userName");
     for (int i = 0; i < COUNT_REACTION; i++)
     {
@@ -108,9 +106,9 @@ void MessageWidget::initializationUiNotDelete()
     reactionChoseBox->addItem(QIcon(":/reactions/FIRE.png"), "");
     reactionChoseBox->addItem(QIcon(":/reactions/CAT.png"), "");
     reactionChoseBox->setMinimumWidth(Style::valueDPIScale(45));
-    #ifdef Q_OS_MAC
-        reactionChoseBox->setMinimumWidth(Style::valueDPIScale(65));
-    #endif
+#ifdef Q_OS_MAC
+    reactionChoseBox->setMinimumWidth(Style::valueDPIScale(65));
+#endif
 
     horizontalDownSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 

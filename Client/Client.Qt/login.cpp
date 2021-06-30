@@ -1,4 +1,5 @@
 #include "login.hpp"
+#include <QtEvents>
 
 Login::Login(QWidget* parent) : QWidget(parent)
 {
@@ -20,12 +21,6 @@ Login::Login(QWidget* parent) : QWidget(parent)
 
     passwordLineEdit->resize(BLOCKWIDTH, passwordLineEdit->sizeHint().height());
     usernameLineEdit->resize(BLOCKWIDTH, usernameLineEdit->sizeHint().height());
-}
-
-void Login::keyPressEvent(QKeyEvent* event)
-{
-    if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return))
-        oApp->setAppState(App::AppState::ChatWindowForm);
 }
 
 void Login::resizeEvent(QResizeEvent* event)

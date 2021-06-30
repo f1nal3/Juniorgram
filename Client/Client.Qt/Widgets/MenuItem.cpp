@@ -1,5 +1,8 @@
 #include "MenuItem.hpp"
 
+#include <QPainter>
+#include <QAction>
+
 #include "Style/Style.hpp"
 
 MenuItem::MenuItem(const QString& text, QAction* action, QWidget* parent) : QWidget(parent)

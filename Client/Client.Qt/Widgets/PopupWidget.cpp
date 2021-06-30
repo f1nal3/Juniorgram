@@ -1,5 +1,7 @@
 #include "PopupWidget.hpp"
 
+#include <QPainter>
+
 void PopupWidget::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event);

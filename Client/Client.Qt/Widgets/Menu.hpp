@@ -1,6 +1,7 @@
 #pragma once
+#include <QWidget>
+
 #include "MenuItem.hpp"
-#include "pch.hpp"
 
 class Menu : public QWidget
 {

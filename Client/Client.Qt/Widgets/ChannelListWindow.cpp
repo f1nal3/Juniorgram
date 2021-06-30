@@ -45,13 +45,15 @@ void ChannelListWindow::updateChannelList()
 
             int numberOfCoincidences = 0;
 
-            for(int i = 0; i < channelListMainWindow->count(); ++i)
+            for (int i = 0; i < channelListMainWindow->count(); ++i)
             {
-                for(auto it = channelNames.rbegin(); it != channelNames.rend(); ++it)
+                for (auto it = channelNames.rbegin(); it != channelNames.rend(); ++it)
                 {
-                    if(QString::fromStdString(*it) == channelListMainWindow->item(i)->text())
+                    if (QString::fromStdString(*it) == channelListMainWindow->item(i)->text())
                     {
-                        channelNames.erase(std::remove(channelNames.begin(), channelNames.end(), *it), channelNames.end());
+                        channelNames.erase(
+                            std::remove(channelNames.begin(), channelNames.end(), *it),
+                            channelNames.end());
                     }
                 }
             }

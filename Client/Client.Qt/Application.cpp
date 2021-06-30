@@ -25,7 +25,6 @@ void Application::create()
 
     ConnectionManager::connect();
     std::thread(&ConnectionManager::loop).detach();
-
     setAppState(App::AppState::LoginForm);
     auto font = QFont("Noto Sans", 12);
     font.setPixelSize(Style::valueDPIScale(15));

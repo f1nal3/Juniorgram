@@ -1,5 +1,7 @@
 #include "registration.hpp"
 
+#include <QtEvents>
+
 Registration::Registration(QWidget* parent) : QWidget(parent)
 {
     usernameLineEdit       = std::make_unique<FlatInput>("Username", this);
@@ -19,12 +21,6 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
     passwordRepeatLineEdit->resize(BLOCKWIDTH, passwordRepeatLineEdit->sizeHint().height());
     registrationButton->resize(BLOCKWIDTH, registrationButton->sizeHint().height());
     back->resize(BLOCKWIDTH, back->sizeHint().height());
-}
-
-void Registration::keyPressEvent(QKeyEvent* event)
-{
-    if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return))
-        oApp->setAppState(App::AppState::LoginForm);
 }
 
 void Registration::resizeEvent(QResizeEvent* event)

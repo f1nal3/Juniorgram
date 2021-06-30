@@ -1,5 +1,7 @@
 #include "FlatButton.hpp"
 
+#include <QPainter>
+
 FlatButton::FlatButton(QWidget* parent, const QString& text, const Style::FlatButton& st)
     : AbstractButton(parent), _text(text), _st(st)
 {
@@ -51,8 +53,9 @@ LinkButton::LinkButton(QWidget* parent, const QString& text, const Style::LinkBu
     setPointerCursor(true);
 }
 
-void LinkButton::setText(const QString& text) {
 
+void LinkButton::setText(const QString& text)
+{
     _text = text;
     resize(_st.font->width(_text), minimumHeight());
     setMinimumWidth(width());
