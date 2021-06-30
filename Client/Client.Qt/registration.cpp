@@ -2,13 +2,13 @@
 
 Registration::Registration(QWidget* parent) : QWidget(parent)
 {
-    usernameLineEdit       = std::make_unique<FlatInput>("Username", this);
-    passwordLineEdit       = std::make_unique<FlatInput>("Password", true, this);
-    passwordRepeatLineEdit = std::make_unique<FlatInput>("Repeat password", true, this);
+    usernameLineEdit       = new FlatInput("Username", this);
+    passwordLineEdit       = new FlatInput("Password", this);
+    passwordRepeatLineEdit = std::make_unique<FlatInput>("Repeat password", this);
     registrationButton     = std::make_unique<FlatButton>(this, "Create account");
     back                   = std::make_unique<FlatButton>(this, "Back");
 
-    logoWidget = new LogoWidget(this);
+    logoWidget = std::make_unique<LogoWidget>(this);
 
     back->setClickCallback([]() { oApp->setAppState(App::AppState::LoginForm); });
 
@@ -19,17 +19,6 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
     passwordRepeatLineEdit->resize(BLOCKWIDTH, passwordRepeatLineEdit->sizeHint().height());
     registrationButton->resize(BLOCKWIDTH, registrationButton->sizeHint().height());
     back->resize(BLOCKWIDTH, back->sizeHint().height());
-}
-
-Registration::~Registration()
-{
-    delete usernameLineEdit;
-    delete passwordLineEdit;
-    delete passwordRepeatLineEdit;
-    delete registrationButton;
-    delete back;
-    delete logoWidget;
-
 }
 
 void Registration::keyPressEvent(QKeyEvent* event)

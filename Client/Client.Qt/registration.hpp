@@ -10,7 +10,7 @@ class Registration : public QWidget
     Q_OBJECT
 public:
     explicit Registration(QWidget* parent = nullptr);
-    ~Registration();
+
 protected:
     void keyPressEvent(QKeyEvent* event) override;
     void resizeEvent(QResizeEvent* event) override;
