@@ -22,7 +22,6 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 ChatWindow::~ChatWindow()
 {
     delete channelListWidget;
-    delete rightLayout;
     delete mainLayout;
     delete chat;
 }

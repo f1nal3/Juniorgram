@@ -11,7 +11,6 @@ public:
 
 private:
     QHBoxLayout* mainLayout;
-    QVBoxLayout* rightLayout;
     ChannelListWidget* channelListWidget;
     ChatWidget* chat;
 };

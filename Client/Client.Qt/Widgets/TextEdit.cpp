@@ -5,14 +5,14 @@
 TextEdit::TextEdit(QListWidget* thisChatWidget, QWidget* parent)
     : QWidget(parent), chatWidget(thisChatWidget)
 {
-    mainVerticalLayout     = new QVBoxLayout;
-    horizontaltButtonsLayout      = new QHBoxLayout;
-    mBoldButton            = new FlatButton(this, "B", st::boldnessButton);
-    mItalicsButton         = new FlatButton(this, "I", st::boldnessButton);
-    mUnderscoreButton      = new FlatButton(this, "U", st::boldnessButton);
-    sendButton             = new FlatButton(this, "Send");
-    messageTextEdit        = new FlatPlainTextEdit();
-    horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    mainVerticalLayout       = new QVBoxLayout(this);
+    horizontaltButtonsLayout = new QHBoxLayout();
+    mBoldButton              = new FlatButton(this, "B", st::boldnessButton);
+    mItalicsButton           = new FlatButton(this, "I", st::boldnessButton);
+    mUnderscoreButton        = new FlatButton(this, "U", st::boldnessButton);
+    sendButton               = new FlatButton(this, "Send");
+    messageTextEdit          = new FlatPlainTextEdit();
+    horizontalButtonSpacer   = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     horizontaltButtonsLayout->setAlignment(Qt::AlignLeft);
     horizontaltButtonsLayout->addWidget(mBoldButton);
     horizontaltButtonsLayout->addWidget(mItalicsButton);
@@ -147,12 +147,12 @@ void TextEdit::clear() { messageTextEdit->clear(); }
 
 TextEdit::~TextEdit()
 {
-    delete chatWidget;
     delete mBoldButton;
     delete mItalicsButton;
     delete mUnderscoreButton;
-    delete sendButton;
     delete messageTextEdit;
+    delete sendButton;
+    horizontaltButtonsLayout->removeItem(horizontalButtonSpacer);
     delete horizontalButtonSpacer;
     delete horizontaltButtonsLayout;
     delete mainVerticalLayout;
