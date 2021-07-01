@@ -21,7 +21,6 @@ struct Message
     {
         ChannelListRequest,
         SetEncryptedConnection,
-        SendIV,
         ServerAccept,
         ServerPing,
         ServerMessage,

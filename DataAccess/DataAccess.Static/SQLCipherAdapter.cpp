@@ -54,8 +54,6 @@ sqlite3_ptr make_sqlite3(const std::string_view& dbName)
       sqlite3_key(db, hashedMAC.c_str(), hashedMAC.size());
       restoreWarning
 
-      //getMAC();
-
       std::unique_ptr<std::vector<std::string>>
       isExists = std::make_unique<std::vector<std::string>>();
 

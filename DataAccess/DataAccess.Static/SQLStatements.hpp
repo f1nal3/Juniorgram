@@ -212,7 +212,7 @@ namespace DataAccess
         *    For pqxx::result check here:
         *    https://libpqxx.readthedocs.io/en/6.4/a01127.html
         */
-        std::optional<ResultType> execute(void) 
+        std::variant<std::optional<ResultType>, std::vector<std::string>> execute(void) 
         {
             try
             {
@@ -223,9 +223,19 @@ namespace DataAccess
         
                     if (result.has_value())
                     {
-                        this->rollback();
 
-                        return {std::any_cast<ResultType>(result.value())};
+                        if (_currentBuilder.getDatabaseType() == Utility::DatabaseType::DB_POSTGRE ||
+                            _currentBuilder.getDatabaseType() == Utility::DatabaseType::DB_LITE)
+                        {
+                            this->rollback();
+                            return {std::any_cast<ResultType>(result.value())};
+                        }
+                        else
+                        {
+                            this->rollback();
+                            return {std::any_cast<std::vector<std::string>>(result.value())};
+                        }
+
                     }
                 }
                 else

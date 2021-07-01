@@ -12,6 +12,7 @@ set(SOURCE_FILES
 	SQLCipherAdapter.cpp
 	SQLCipherRepository.hpp
 	SQLCipherRepository.cpp
+	SQLCipherTable.hpp
     PostgreTable.hpp
     LiteAdapter.hpp
     LiteAdapter.cpp

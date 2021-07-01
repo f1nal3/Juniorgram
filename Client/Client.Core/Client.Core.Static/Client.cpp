@@ -16,17 +16,23 @@ Client::Client() :
 
 bool Client::checkTokenExistance()
 {
-    auto isExists = std::async(std::launch::async, &DataAccess::SQLCipherRepository::isRefreshTokenExists,
-                   dynamic_cast <DataAccess::SQLCipherRepository*>(mSQLCipherRepo.get()));
+    //auto isExists = std::async(std::launch::async, &DataAccess::SQLCipherRepository::isRefreshTokenExists,
+    //               dynamic_cast <DataAccess::SQLCipherRepository*>(mSQLCipherRepo.get()));
+    //
+    auto isExists =
+        std::async(std::launch::async, &DataAccess::SQLCipherRepository::getRefreshToken,
+                   dynamic_cast<DataAccess::SQLCipherRepository*>(mSQLCipherRepo.get()));
 
-    if (isExists.get())
+
+   /* if (isExists.get())
     {
         return true;
     }
     else
     {
         return false;   
-    }
+    }*/
+    return true;
 }
 
 bool Client::connect(const std::string& host, const uint16_t& port)

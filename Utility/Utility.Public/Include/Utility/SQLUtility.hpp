@@ -6,7 +6,8 @@ namespace Utility
     enum class DatabaseType : std::uint8_t
     {
         DB_POSTGRE,
-        DB_LITE
+        DB_LITE,
+        DB_SQLCIPHER
     };
     /** @enum SQL statements enum. */
     enum class SQLStatement : std::uint8_t

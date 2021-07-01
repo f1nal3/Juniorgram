@@ -7,7 +7,7 @@ std::vector<std::string> PostgreRepository::getAllChannelsList()
 {
     std::vector<std::string> result;
 
-    auto channelListRow = PostgreTable("channels").Select()->columns({"channel_name"})->execute();
+    auto channelListRow = std::get<0>(PostgreTable("channels").Select()->columns({"channel_name"})->execute());
 
     if (channelListRow.has_value())
     {
@@ -25,12 +25,12 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::
 {
     std::vector<std::string> result;
 
-    auto messageHistoryRow = PostgreTable("msgs")
+    auto messageHistoryRow = std::get<0>(PostgreTable("msgs")
                                          .Select()
                                          ->columns({"msg"})
                                          ->join(Utility::SQLJoinType::J_INNER, "channel_msgs", "channel_msgs.msg_id = msgs.msg_id")
                                          ->Where("channel_msgs.channel_id = " + std::to_string(channelID))
-                                         ->execute();
+                                         ->execute());
     
     if (messageHistoryRow.has_value())
     {
@@ -58,10 +58,10 @@ void PostgreRepository::storeMessage(const Network::MessageInfo& message, const 
     
     // ID will not be autoincremented in the future. Later we are going to use postgre
     // alghorithms to create it.
-    std::uint64_t msgID = PostgreTable("msgs")
+    std::uint64_t msgID = std::get<0>(PostgreTable("msgs")
                                       .Select()
                                       ->columns({"max(msg_id)"})
-                                      ->execute()
+                                      ->execute())
                                       .value()[0][0].as<std::uint64_t>();
     std::tuple dataForChannelMsgs
     {

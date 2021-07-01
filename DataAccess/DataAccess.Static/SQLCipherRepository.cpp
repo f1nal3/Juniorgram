@@ -5,15 +5,14 @@ namespace DataAccess
 std::string SQLCipherRepository::getRefreshToken()
 { 
     auto tokenVc =
-        std::get<1>(LTable("refresh_tokens").Select()->columns({"refresh_token"})->execute());
+        std::get<1>(SQLCipherTable("refresh_tokens").Select()->columns({"refresh_token"})->execute());
 
-    return {tokenVc.front()};
+    return tokenVc.front();
 }
 
 bool SQLCipherRepository::isRefreshTokenExists()
 {
-    auto tokenCountVc = std::get<1>(
-        LTable("refresh_tokens").Select()->columns({"count(refresh_token)"})->execute());
+    auto tokenCountVc = std::get<1>(SQLCipherTable("refresh_tokens").Select()->columns({"count(refresh_token)"})->execute());
 
     return std::stoi(tokenCountVc.front());
 }

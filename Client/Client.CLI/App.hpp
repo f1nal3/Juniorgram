@@ -8,7 +8,6 @@ private:
 	
     const std::uint16_t port            = 65003;
     Network::Client client;
->>>>>>> 7175ced (Small changes ._.)
 
 public:
     App(/* args */);

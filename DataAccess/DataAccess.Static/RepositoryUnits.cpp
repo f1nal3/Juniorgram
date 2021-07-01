@@ -18,11 +18,11 @@ Utility::RegistrationCodes RegistrationUnit::registerUser(const Network::Registr
 {
     auto getUsersAmount = [&](const std::string& condition) -> std::uint16_t 
     {
-        auto recordsRowAmount = getUsersTable().Select()
+        auto recordsRowAmount = std::get<0>(getUsersTable().Select()
                                                ->columns({"COUNT(*)"})
                                                ->Where(condition)
-                                               ->execute();
-
+                                               ->execute());
+											   
         return recordsRowAmount.value()[0][0].as<std::uint16_t>();
     };
 

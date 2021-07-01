@@ -4,9 +4,13 @@
 #include <ctime>
 #include <iostream>
 
-#include "DataAccess/IRepository.hpp"
-#include "DatabaseAbstractionLayout.hpp"
 #include "Utility/Exception.hpp"
+
+#include <QVariant>
+
+#include "DataAccess/IRepository.hpp"
+#include "SQLCipherTable.hpp"
+
 
 namespace DataAccess
 {
