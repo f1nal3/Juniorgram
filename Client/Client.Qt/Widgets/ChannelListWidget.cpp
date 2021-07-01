@@ -20,3 +20,9 @@ ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
 }
 
 void ChannelListWidget::addChannels() { listWidgetChannels->show(); }
+
+ChannelListWidget::~ChannelListWidget()
+{
+    delete listWidgetChannels;
+    delete channelList;
+}
