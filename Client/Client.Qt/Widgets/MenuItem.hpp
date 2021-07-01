@@ -9,10 +9,10 @@ public:
 
 protected:
     [[nodiscard]] QSize sizeHint() const override;
-    void mouseMoveEvent(QMouseEvent* e) override;
-    void leaveEvent(QEvent* e) override;
-    void paintEvent(QPaintEvent* e) override;
-    void mouseReleaseEvent(QMouseEvent* e) override;
+    void mouseMoveEvent(QMouseEvent* mouseEvent) override;
+    void leaveEvent(QEvent* event) override;
+    void paintEvent(QPaintEvent* paintEvent) override;
+    void mouseReleaseEvent(QMouseEvent* mouseEvent) override;
 
 private:
     bool hit{};

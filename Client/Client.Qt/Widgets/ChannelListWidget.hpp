@@ -15,14 +15,13 @@ class ChannelListWidget : public QWidget
     Q_OBJECT
 public:
     explicit ChannelListWidget(QWidget* parent = nullptr);
-    ~ChannelListWidget();
 
 public slots:
     void addChannels();
 
 private:
-    FlatButton*        addChannelButton;
-    ChannelListWindow* listWidgetChannels;
-    QVBoxLayout*       vBoxLayout;
-    ListWidget*        channelList;
+    std::unique_ptr<FlatButton> addChannelButton;
+    std::unique_ptr<ChannelListWindow> listWidgetChannels;
+    std::unique_ptr<QVBoxLayout> vBoxLayout;
+    std::unique_ptr<ListWidget> channelList;
 };

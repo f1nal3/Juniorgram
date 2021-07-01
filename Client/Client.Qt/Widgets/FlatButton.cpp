@@ -12,6 +12,7 @@ FlatButton::FlatButton(QWidget* parent, const QString& text, const Style::FlatBu
     resize(_st.font->width(_text) + _st.paddings.left() * 2, minimumHeight());
     setMinimumWidth(width());
 }
+
 void FlatButton::setText(const QString& text)
 {
     _text = text;
@@ -27,17 +28,17 @@ void FlatButton::paintEvent(QPaintEvent* event)
     auto       back  = (isOver() ? _st.overBgColor : _st.bgColor);
     const auto inner = QRect(0, 0, width(), height());
 
-    QPainter p(this);
-    p.setRenderHint(QPainter::Antialiasing);
-    p.setRenderHint(QPainter::TextAntialiasing);
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setRenderHint(QPainter::TextAntialiasing);
 
-    p.setBrush(back);
-    p.setPen(Qt::NoPen);
-    p.drawRoundedRect(inner, _st.rounding, _st.rounding);
+    painter.setBrush(back);
+    painter.setPen(Qt::NoPen);
+    painter.drawRoundedRect(inner, _st.rounding, _st.rounding);
 
-    p.setFont(isOver() ? _st.overFont : _st.font);
-    p.setPen(isOver() ? _st.overColor : _st.color);
-    p.drawText(inner.marginsRemoved(_st.paddings), _text, Style::al_top);
+    painter.setFont(isOver() ? _st.overFont : _st.font);
+    painter.setPen(isOver() ? _st.overColor : _st.color);
+    painter.drawText(inner.marginsRemoved(_st.paddings), _text, Style::al_top);
 }
 
 LinkButton::LinkButton(QWidget* parent, const QString& text, const Style::LinkButton& st)
@@ -51,6 +52,8 @@ LinkButton::LinkButton(QWidget* parent, const QString& text, const Style::LinkBu
     setMinimumWidth(width());
     setPointerCursor(true);
 }
+
+
 void LinkButton::setText(const QString& text)
 {
     _text = text;
@@ -65,10 +68,10 @@ void LinkButton::paintEvent(QPaintEvent* event)
 
     const auto inner = QRect(0, 0, width(), height());
 
-    QPainter p(this);
-    p.setRenderHint(QPainter::TextAntialiasing);
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::TextAntialiasing);
 
-    p.setFont(isOver() ? _st.overFont : _st.font);
-    p.setPen(isOver() ? _st.overColor : _st.color);
-    p.drawText(inner, _text, Style::al_top);
+    painter.setFont(isOver() ? _st.overFont : _st.font);
+    painter.setPen(isOver() ? _st.overColor : _st.color);
+    painter.drawText(inner, _text, Style::al_top);
 }

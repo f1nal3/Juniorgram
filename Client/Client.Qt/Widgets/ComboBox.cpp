@@ -9,7 +9,7 @@ ComboBox::ComboBox(QWidget* parent) : QComboBox(parent)
     setStyleSheet(
         QString("QComboBox { "
                 "border: 0px;"
-                "background-color: rgba(0,0,0,255);"
+                "background-color: rgba(0,0,0,0);"
                 "color: white;"
                 "}"));
     setContentsMargins(st::mar);

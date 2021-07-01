@@ -9,7 +9,7 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidge
       userName(std::move(nameOfUser)),
       dateTimeMessage(QDateTime::currentDateTime())
 {
-    reactionUserOnMessage = reactions::Non;
+    reactionUserOnMessage = reactions::NON;
     messageItem           = Item;
     messageDeleted        = deletedMessage;
     // Main layouts
@@ -77,10 +77,10 @@ void MessageWidget::initializationUiNotDelete()
         reactionMapLabel->insert(i, new Label);
         reactionMapLabelIcon->insert(i, new Label);
     }
-    pixmapIcon->insert(reactions::like, new QPixmap(":/reactions/like.png"));
-    pixmapIcon->insert(reactions::dislike, new QPixmap(":/reactions/dislike.png"));
-    pixmapIcon->insert(reactions::fire, new QPixmap(":/reactions/fire.png"));
-    pixmapIcon->insert(reactions::cat, new QPixmap(":/reactions/cat.png"));
+    pixmapIcon->insert(reactions::LIKE, new QPixmap(":/reactions/like.png"));
+    pixmapIcon->insert(reactions::DISLIKE, new QPixmap(":/reactions/dislike.png"));
+    pixmapIcon->insert(reactions::FIRE, new QPixmap(":/reactions/fire.png"));
+    pixmapIcon->insert(reactions::CAT, new QPixmap(":/reactions/cat.png"));
 
     horizontalUpLeftSpacer  = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     messageDateTimeEdit     = new DateTimeEdit(this);
@@ -181,7 +181,7 @@ void MessageWidget::updateWidget()
 
 void MessageWidget::reactionChange(int index)
 {
-    if (reactionUserOnMessage != reactions::Non)
+    if (reactionUserOnMessage != reactions::NON)
     {
         --reactionMap[reactionUserOnMessage];
         for (auto countReaction : reactionMap)
@@ -217,7 +217,7 @@ void MessageWidget::reactionChange(int index)
         break;
         default:
         {
-            reactionUserOnMessage = reactions::Non;
+            reactionUserOnMessage = reactions::NON;
         }
         break;
     }
