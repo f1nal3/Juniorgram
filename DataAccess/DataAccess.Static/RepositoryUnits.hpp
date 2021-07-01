@@ -17,7 +17,7 @@ private:
     RegistrationUnit() = default;
 
 public:
-    RegistrationUnit(const RegistrationUnit&) = delete;
+    RegistrationUnit(const RegistrationUnit&)      = delete;
     RegistrationUnit& operator=(RegistrationUnit&) = delete;
     ~RegistrationUnit()                            = default;
 
@@ -34,7 +34,7 @@ public:
 
     /**  @brief Method for user registration.
      *   @params RegistrationMessage which contains user data for registration.
-     *   @detailt Generation password's hash which are based on login. It lets us /
+     *   @details Generation password's hash which are based on login. It lets us /
      *   to insert different users with the same passwords.
      *   @return The return value of the method is one of the RegistrationCodes (enum). /
      *   Registration successful - RegistrationCodes::SUCCESS. /

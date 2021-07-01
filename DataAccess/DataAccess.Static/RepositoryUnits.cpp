@@ -19,10 +19,10 @@ Utility::RegistrationCodes RegistrationUnit::registerUser(const Network::Registr
     auto getUsersAmount = [&](const std::string& condition) -> std::uint16_t 
     {
         auto recordsRowAmount = PostgreTable("users")
-                                       .Select()
-                                       ->columns({"COUNT(*)"})
-                                       ->Where(condition)
-                                       ->execute();
+                                            .Select()
+                                            ->columns({"COUNT(*)"})
+                                            ->Where(condition)
+                                            ->execute();
 
         return recordsRowAmount.value()[0][0].as<std::uint16_t>();
     };
