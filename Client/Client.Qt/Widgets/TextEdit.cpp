@@ -1,5 +1,7 @@
 #include "TextEdit.hpp"
 
+#include <QtEvents>
+
 #include <Style/Style.hpp>
 
 TextEdit::TextEdit(QListWidget* thisChatWidget, QWidget* parent)

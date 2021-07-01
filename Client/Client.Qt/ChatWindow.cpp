@@ -1,7 +1,6 @@
 #include "ChatWindow.hpp"
 
 #include <utility>
-#include <QtEvents>
 
 #include "Style/Style.hpp"
 
