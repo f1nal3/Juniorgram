@@ -17,21 +17,21 @@ ChannelListWindow::ChannelListWindow(ListWidget* anotherChannelListWidget, QWidg
     setFixedWidth(Style::valueDPIScale(300));
     setFixedHeight(Style::valueDPIScale(250));
 
-    vBoxLayout          = new QVBoxLayout;
-    addChannelButton    = new FlatButton(this, "Add");
-    updateChannelButton = new FlatButton(this, "Update");
-    channelList         = new ListWidget();
+    vBoxLayout          = std::make_unique<QVBoxLayout>();
+    addChannelButton    = std::make_unique<FlatButton>(this, "Add");
+    updateChannelButton = std::make_unique<FlatButton>(this, "Update");
+    channelList         = std::make_unique<ListWidget>();
 
-    vBoxLayout->addWidget(channelList);
-    vBoxLayout->addWidget(addChannelButton);
-    vBoxLayout->addWidget(updateChannelButton);
+    vBoxLayout->addWidget(channelList.get());
+    vBoxLayout->addWidget(addChannelButton.get());
+    vBoxLayout->addWidget(updateChannelButton.get());
 
     addChannelButton->setClickCallback([this]() { addChannelToMainChannelWidget(); });
     updateChannelButton->setClickCallback([this]() { updateChannelListWindow(); });
     ConnectionManager::getClient().askForChannelList();
     updateChannelList();
 
-    setLayout(vBoxLayout);
+    setLayout(vBoxLayout.get());
 }
 
 void ChannelListWindow::updateChannelList()
@@ -119,11 +119,4 @@ void ChannelListWindow::updateChannelListWindow()
     {
         ConnectionManager::getClient().askForChannelList();
     }
-}
-
-ChannelListWindow::~ChannelListWindow()
-{
-    delete addChannelButton;
-    delete channelListMainWindow;
-    delete vBoxLayout;
 }
