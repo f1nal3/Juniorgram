@@ -11,11 +11,13 @@ void PopupWidget::paintEvent(QPaintEvent* event)
     painter.setPen(Qt::NoPen);
     painter.drawRect(0, 0, width(), height());
 }
+
 void PopupWidget::hideEvent(QHideEvent* event)
 {
     Q_UNUSED(event);
     deleteLater();
 }
+
 void PopupWidget::popup(const QPoint& point)
 {
     move(point);
@@ -27,11 +29,13 @@ void PopupWidget::popup(const QPoint& point)
     }
     show();
 }
+
 void PopupWidget::setMenu(Menu* menu)
 {
     innerMenu = menu;
     innerMenu->setParent(this);
 }
+
 PopupWidget::PopupWidget(QWidget* parent) : QWidget(parent), innerMenu(nullptr)
 {
     setWindowFlags(Qt::WindowFlags(Qt::FramelessWindowHint) | Qt::BypassWindowManagerHint |
