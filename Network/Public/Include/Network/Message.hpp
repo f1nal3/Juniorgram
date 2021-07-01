@@ -29,7 +29,7 @@ struct Message
         RegistrationRequest,
         RegistrationAnswer
     };
-    
+
     struct MessageHeader
     {
         MessageType mMessageType = MessageType();

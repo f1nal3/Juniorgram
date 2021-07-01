@@ -1,6 +1,8 @@
 #include "registration.hpp"
 #include "Utility/UserDataValidation.hpp"
 
+#include <QtEvents>
+
 Registration::Registration(QWidget* parent) : QWidget(parent)
 {
     emailLineEdit          = std::make_unique<FlatInput>("Email", this);
@@ -63,12 +65,6 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
 
         ConnectionManager::getClient().userRegistration(email, login, password);
     });
-}
-
-void Registration::keyPressEvent(QKeyEvent* event)
-{
-    if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return))
-        oApp->setAppState(App::AppState::LoginForm);
 }
 
 void Registration::resizeEvent(QResizeEvent* event)

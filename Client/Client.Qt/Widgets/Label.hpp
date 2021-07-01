@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pch.hpp"
+#include <QLabel>
 
 /** @class Label
  *  @brief Custom style for Label
@@ -8,5 +8,5 @@
 class Label : public QLabel
 {
 public:
-    Label(const QString &text = QString(), QWidget *parent = nullptr);
+    explicit Label(const QString &text = QString(), QWidget *parent = nullptr);
 };

@@ -1,10 +1,12 @@
 #include "PopupWidget.hpp"
 
+#include <QPainter>
+
 void PopupWidget::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event);
     QPainter p(this);
-    QColor inputField(0x35, 0x35, 0x35);
+    QColor   inputField(0x35, 0x35, 0x35);
     p.setBrush(inputField);
     p.setPen(Qt::NoPen);
     p.drawRect(0, 0, width(), height());

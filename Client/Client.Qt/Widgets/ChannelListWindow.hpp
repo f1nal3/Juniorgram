@@ -1,9 +1,12 @@
 #pragma once
 
+#include <QVBoxLayout>
+#include <QWidget>
+#include <condition_variable>
+
 #include "FlatButton.hpp"
 #include "ListWidget.hpp"
 #include "MainWidget.hpp"
-#include "pch.hpp"
 
 /** @class ChannelListWindow
  *  @brief This is channel list

@@ -75,7 +75,7 @@ public:
                             ChannelListWindow::mainWidgetStatus.notify_one();
                         }
                         break;
-                    
+
                         case Network::Message::MessageType::MessageHistoryRequest:
                         {
                             std::cout << "Message history received: \n";
