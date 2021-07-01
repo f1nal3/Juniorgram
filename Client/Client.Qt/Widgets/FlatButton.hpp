@@ -21,7 +21,7 @@ protected:
     }
 
 private:
-    QString                  _text;
+    QString _text;
     const Style::FlatButton& _st;
 };
 

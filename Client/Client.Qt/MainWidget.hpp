@@ -51,26 +51,16 @@ protected:
 public:
     bool eventFilter(QObject* watched, QEvent* event) override;
 
-public:
-    ~MainWidget() override
-    {
-        delete close_btn;
-        delete maximize_btn;
-        delete minimize_btn;
-        delete pTitleLayout;
-        delete body;
-    }
-
 private:
     MouseType m_leftMouseButtonPressed;
     QPoint    m_previousPosition;
 
     bool _mousePressed{};
 
-    CaptionButton* close_btn;
-    CaptionButton* maximize_btn;
-    CaptionButton* minimize_btn;
+    std::unique_ptr<CaptionButton> close_btn;
+    std::unique_ptr<CaptionButton> maximize_btn;
+    std::unique_ptr<CaptionButton> minimize_btn;
 
-    QWidget*     body;
-    QHBoxLayout* pTitleLayout;
+    std::unique_ptr<QWidget> body;
+    std::unique_ptr <QHBoxLayout> pTitleLayout;
 };

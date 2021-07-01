@@ -7,24 +7,23 @@
 TextEdit::TextEdit(QWidget* parent)
     : QWidget(parent)
 {
-
-    mainVerticalLayout       = new QVBoxLayout(this);
+    mainVerticalLayout       = std::make_unique<QVBoxLayout>(this);
     horizontaltButtonsLayout = new QHBoxLayout();
-    mBoldButton              = new FlatButton(this, "B", st::boldnessButton);
-    mItalicsButton           = new FlatButton(this, "I", st::italicButton);
-    mUnderscoreButton        = new FlatButton(this, "U", st::underlineButton);
+    mBoldButton       = std::make_unique<FlatButton>(this, "B", st::boldnessButton);
+    mItalicsButton    = std::make_unique<FlatButton>(this, "I", st::italicButton);
+    mUnderscoreButton = std::make_unique<FlatButton>(this, "U", st::underlineButton);
     sendButton               = new FlatButton(this, "Send");
     messageTextEdit          = new FlatPlainTextEdit();
     horizontalButtonSpacer   = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     horizontaltButtonsLayout->setAlignment(Qt::AlignLeft);
-    horizontaltButtonsLayout->addWidget(mBoldButton);
-    horizontaltButtonsLayout->addWidget(mItalicsButton);
-    horizontaltButtonsLayout->addWidget(mUnderscoreButton);
+    horizontaltButtonsLayout->addWidget(mBoldButton.get());
+    horizontaltButtonsLayout->addWidget(mItalicsButton.get());
+    horizontaltButtonsLayout->addWidget(mUnderscoreButton.get());
     horizontaltButtonsLayout->addItem(horizontalButtonSpacer);
     horizontaltButtonsLayout->addWidget(sendButton);
     mainVerticalLayout->addWidget(messageTextEdit);
     mainVerticalLayout->addLayout(horizontaltButtonsLayout);
-    setLayout(mainVerticalLayout);
+    setLayout(mainVerticalLayout.get());
     connectUi();
 }
 
@@ -129,13 +128,7 @@ void TextEdit::clearTextEdit() { messageTextEdit->clear(); }
 
 TextEdit::~TextEdit()
 {
-    delete mBoldButton;
-    delete mItalicsButton;
-    delete mUnderscoreButton;
-    delete messageTextEdit;
     delete sendButton;
     horizontaltButtonsLayout->removeItem(horizontalButtonSpacer);
     delete horizontalButtonSpacer;
-    delete horizontaltButtonsLayout;
-    delete mainVerticalLayout;
 }

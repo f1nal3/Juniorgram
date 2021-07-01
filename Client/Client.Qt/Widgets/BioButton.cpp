@@ -119,13 +119,13 @@ bool BioButton::eventFilter(QObject* object, QEvent* event)
 
 void BioButton::paintEvent(QPaintEvent* event)
 {
-    QPainter p(this);
+    QPainter painter(this);
 
     // No borders
-    p.setPen(Qt::NoPen);
+    painter.setPen(Qt::NoPen);
 
     // Background color
-    p.fillRect(0, 0, width(), height(), hoverColor);
+    painter.fillRect(0, 0, width(), height(), hoverColor);
 
     // Profile image diameter 20 < 30 (height of button)
     int di = Style::valueDPIScale(20);
@@ -135,8 +135,8 @@ void BioButton::paintEvent(QPaintEvent* event)
     const int verdi = (height() - di) / 2;
 
     // We need smooth images
-    p.setRenderHint(QPainter::SmoothPixmapTransform);
-    p.drawImage(QRect(hordi, verdi, di, di), image);
+    painter.setRenderHint(QPainter::SmoothPixmapTransform);
+    painter.drawImage(QRect(hordi, verdi, di, di), image);
 
     QWidget::paintEvent(event);
 }

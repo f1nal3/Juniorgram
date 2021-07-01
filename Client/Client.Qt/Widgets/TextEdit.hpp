@@ -26,12 +26,13 @@ public:
     ~TextEdit() override;
 
 private:
-    QVBoxLayout* mainVerticalLayout;
-    QHBoxLayout* horizontaltButtonsLayout;
+    std::unique_ptr<QVBoxLayout> mainVerticalLayout;
+    std::unique_ptr<QHBoxLayout> horizontaltButtonsLayout;
 
-    FlatButton* mBoldButton;
-    FlatButton* mItalicsButton;
-    FlatButton* mUnderscoreButton;
+    std::unique_ptr<FlatButton> mBoldButton;
+    std::unique_ptr<FlatButton> mItalicsButton;
+    std::unique_ptr<FlatButton> mUnderscoreButton;
+    
     FlatButton* sendButton;
     FlatPlainTextEdit* messageTextEdit;
     QSpacerItem* horizontalButtonSpacer;
