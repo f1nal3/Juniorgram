@@ -15,7 +15,7 @@ namespace UserDataValidation
      */
     inline bool isLoginValid(const std::string& login)
     {
-        static const std::regex pattern("([a-z]{1})([a-z0-9_-]{5,})");
+        const std::regex pattern("([a-z]{1})([a-z0-9_-]{5,})");
         return std::regex_match(login, pattern);
     }
 
@@ -30,7 +30,7 @@ namespace UserDataValidation
      */
     inline bool isEmailValid(const std::string& email)
     {
-        static const std::regex pattern(R"(([a-zA-Z]{1})(\w+@\w+\.)(?:com|ru))");
+        const std::regex pattern(R"(([a-zA-Z]{1})(\w+@\w+\.)(?:com|ru))");
         return std::regex_match(email, pattern);
     }
 
@@ -46,7 +46,7 @@ namespace UserDataValidation
      */
     inline bool isPasswordValid(const std::string& password)
     {
-        static const std::regex pattern("(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}");
+        const std::regex pattern("(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}");
         return std::regex_match(password, pattern);
     }
 
