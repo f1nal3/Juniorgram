@@ -1,7 +1,9 @@
 #pragma once
-#include <Style/Style.hpp>
 
-#include "pch.hpp"
+#include <QPropertyAnimation>
+#include <QWidget>
+
+#include "Style/Style.hpp"
 
 /**
  * @class BioButton
@@ -38,7 +40,7 @@ private:
     void setHoverColor(QColor newColor)
     {
         hoverColor = std::move(newColor);
-        repaint();
+        update();
     }
     /**
      * @brief Returns current background color
@@ -48,6 +50,6 @@ private:
 
 private:
     QPropertyAnimation* fadeinAnim;
-    QColor hoverColor;
-    QImage image;
+    QColor              hoverColor;
+    QImage              image;
 };

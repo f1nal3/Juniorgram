@@ -1,6 +1,7 @@
 #include "ChatWindow.hpp"
 
 #include <utility>
+#include <QtEvents>
 
 #include "Style/Style.hpp"
 
@@ -10,7 +11,6 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     mainLayout          = new QHBoxLayout(this);
     channelListWidget   = new ChannelListWidget();
     chat                = new ChatWidget();
-    
     mainLayout->setContentsMargins(0,0,0,0);
     mainLayout->setMargin(0);
     mainLayout->setSpacing(0);

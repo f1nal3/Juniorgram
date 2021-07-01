@@ -1,10 +1,13 @@
 #include "LogoWidget.hpp"
+#include <QPainter>
 
 LogoWidget::LogoWidget(QWidget* parent) : QWidget(parent)
 {
     logo = new QPixmap(":images/textlogo.png");
 }
+
 LogoWidget::~LogoWidget() { delete logo; }
+
 void LogoWidget::paintEvent(QPaintEvent* event)
 {
     QPainter p(this);

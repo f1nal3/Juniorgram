@@ -38,6 +38,8 @@ set(SOURCE_FILES
         Widgets/MessageWidget.hpp
         Widgets/PopupWidget.cpp
         Widgets/PopupWidget.hpp
+        Widgets/ScrollArea.cpp
+        Widgets/ScrollArea.hpp
         Widgets/TextEdit.cpp
         Widgets/TextEdit.hpp
         Widgets/TimeEdit.cpp
@@ -69,7 +71,6 @@ set(SOURCE_FILES
         MainWidget.cpp
         ConnectionManager.hpp
         MainWidget.hpp
-        pch.hpp
         registration.cpp
         registration.hpp)
 
@@ -85,8 +86,6 @@ endif ()
 target_link_libraries(${TARGET}
         PRIVATE Qt5::Widgets Qt5::Gui ${EXTRA_LIBS} CONAN_PKG::asio
         PUBLIC Network.Public Client.Core.Static Utility.Public)
-
-target_precompile_headers(${TARGET} PRIVATE pch.hpp)
 
 # This needs to be an install or after install operation
 # At this point it disrupts CI build so I commented it out =)

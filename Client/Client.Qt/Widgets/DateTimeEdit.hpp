@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pch.hpp"
+#include <QDateTimeEdit>
 
 /** @class QDateTimeEdit
  *  @brief Custom style for QDateTimeEdit object
@@ -8,5 +8,5 @@
 class DateTimeEdit : public QDateTimeEdit
 {
 public:
-    DateTimeEdit(QWidget* parent = nullptr);
+    explicit DateTimeEdit(QWidget* parent = nullptr);
 };

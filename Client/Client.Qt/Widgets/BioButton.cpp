@@ -1,6 +1,7 @@
 #include "BioButton.hpp"
 
-#include <utility>
+#include <QPainter>
+#include <QtEvents>
 
 #include "Application.hpp"
 #include "PopupWidget.hpp"
@@ -91,7 +92,7 @@ bool BioButton::eventFilter(QObject* object, QEvent* event)
                 menu->addAction("Username: Add format here", []() {});
                 menu->addAction("Quit", []() {
                     oApp->setAppState(App::AppState::LoginForm);
-                    //App::setAppState(AppState::LoginForm);
+                    // App::setAppState(AppState::LoginForm);
                 });
 
                 pop->setMenu(menu);

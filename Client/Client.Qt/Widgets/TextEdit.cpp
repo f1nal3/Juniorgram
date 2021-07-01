@@ -5,11 +5,12 @@
 TextEdit::TextEdit(QListWidget* thisChatWidget, QWidget* parent)
     : QWidget(parent), chatWidget(thisChatWidget)
 {
+
     mainVerticalLayout       = new QVBoxLayout(this);
     horizontaltButtonsLayout = new QHBoxLayout();
     mBoldButton              = new FlatButton(this, "B", st::boldnessButton);
-    mItalicsButton           = new FlatButton(this, "I", st::boldnessButton);
-    mUnderscoreButton        = new FlatButton(this, "U", st::boldnessButton);
+    mItalicsButton           = new FlatButton(this, "I", st::italicButton);
+    mUnderscoreButton        = new FlatButton(this, "U", st::underlineButton);
     sendButton               = new FlatButton(this, "Send");
     messageTextEdit          = new FlatPlainTextEdit();
     horizontalButtonSpacer   = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -24,6 +25,7 @@ TextEdit::TextEdit(QListWidget* thisChatWidget, QWidget* parent)
     setLayout(mainVerticalLayout);
     connectUi();
 }
+
 
 void TextEdit::connectUi()
 {

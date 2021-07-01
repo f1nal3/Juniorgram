@@ -1,8 +1,10 @@
 #pragma once
 #include "Widgets/MessageWidget.hpp"
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+
 #include "FlatButton.hpp"
 #include "InputFields.hpp"
-#include "pch.hpp"
 
 /** @class TextEdit
  *  @brief Widget with a text edit field and an edit bar.\
