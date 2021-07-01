@@ -21,7 +21,7 @@ public slots:
 
 private:
     std::unique_ptr<FlatButton> addChannelButton;
-    std::unique_ptr<ChannelListWindow> listWidgetChannels;
+    ChannelListWindow* listWidgetChannels;
     std::unique_ptr<QVBoxLayout> vBoxLayout;
-    std::unique_ptr<ListWidget> channelList;
+    ListWidget* channelList;
 };
