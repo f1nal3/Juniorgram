@@ -2,9 +2,8 @@
 
 #include <Style/Style.hpp>
 
-TextEdit::TextEdit(FlatPlainTextEdit** thisMessageTextEdit, FlatButton** thisSendButton,
-                   QWidget* parent)
-    : QWidget(parent)
+TextEdit::TextEdit(QListWidget* thisChatWidget, QWidget* parent)
+    : QWidget(parent), chatWidget(thisChatWidget)
 {
     mainVerticalLayout     = new QVBoxLayout;
     horizontaltButtonsLayout      = new QHBoxLayout;
@@ -14,8 +13,6 @@ TextEdit::TextEdit(FlatPlainTextEdit** thisMessageTextEdit, FlatButton** thisSen
     sendButton             = new FlatButton(this, "Send");
     messageTextEdit        = new FlatPlainTextEdit();
     horizontalButtonSpacer = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
-    *thisSendButton        = sendButton;
-    *thisMessageTextEdit   = messageTextEdit;
     horizontaltButtonsLayout->setAlignment(Qt::AlignLeft);
     horizontaltButtonsLayout->addWidget(mBoldButton);
     horizontaltButtonsLayout->addWidget(mItalicsButton);
@@ -35,6 +32,44 @@ void TextEdit::connectUi()
         [&]() { boldButtonClicked(italicsSymbolStart, italicsboldSymbolEnd); });
     mUnderscoreButton->setClickCallback(
         [&]() { boldButtonClicked(underscoreSymbolStart, underscoreSymbolEnd); });
+    sendButton->setClickCallback([&]() { updateMessagesList_User(); });
+}
+
+void TextEdit::updateMessagesList_User()
+{
+    if (getText() != "") newMessage(getText());
+    messageTextEdit->clear();
+}
+
+void TextEdit::keyPressEvent(QKeyEvent* event)
+{
+    if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) &&
+        (getText() != ""))
+    {
+        newMessage(getText());
+        messageTextEdit->clear();
+    }
+}
+
+ void TextEdit::newMessage(QString textMessage, QString userNameMessage)
+{
+    auto* item = new QListWidgetItem();
+    item->setSizeHint(QSize(0, Style::valueDPIScale(150)));
+    auto* myItem =
+        new MessageWidget(std::move(textMessage), std::move(userNameMessage), item, false);
+    myItem->setThisItem(item);
+    chatWidget->addItem(item);
+    chatWidget->setItemWidget(item, myItem);
+}
+
+void TextEdit::newMessage(QString textMessage)
+{
+    auto* item = new QListWidgetItem();
+    item->setSizeHint(QSize(0, Style::valueDPIScale(150)));
+    auto* myItem = new MessageWidget(std::move(textMessage), item, false);
+    myItem->setThisItem(item);
+    chatWidget->addItem(item);
+    chatWidget->setItemWidget(item, myItem);
 }
 
 void TextEdit::boldButtonClicked(QString SymbolStart, QString SymbolEnd)
@@ -112,8 +147,13 @@ void TextEdit::clear() { messageTextEdit->clear(); }
 
 TextEdit::~TextEdit()
 {
+    delete chatWidget;
     delete mBoldButton;
     delete mItalicsButton;
+    delete mUnderscoreButton;
+    delete sendButton;
+    delete messageTextEdit;
+    delete horizontalButtonSpacer;
     delete horizontaltButtonsLayout;
     delete mainVerticalLayout;
 }

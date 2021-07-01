@@ -1,5 +1,4 @@
 #pragma once
-#include "Widgets/MessageWidget.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/TextEdit.hpp"
 
@@ -10,11 +9,7 @@ public:
     explicit ChatWidget(QWidget* parent = nullptr);
     ~ChatWidget() override;
 
-protected:
-    void keyPressEvent(QKeyEvent* event) override;
-
 private slots:
-    void updateMessagesList_User();
     void deletingSelection(QListWidgetItem* item);
 
 private:
@@ -24,6 +19,4 @@ private:
     FlatButton* sendButton;
     FlatPlainTextEdit* messageTextEdit;
     void connectUi();
-    void newMessage(QString textMessage, QString userNameMessage);
-    void newMessage(QString textMessage);
 };

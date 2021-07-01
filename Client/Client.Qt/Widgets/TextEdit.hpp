@@ -1,4 +1,5 @@
 #pragma once
+#include "Widgets/MessageWidget.hpp"
 #include "FlatButton.hpp"
 #include "InputFields.hpp"
 #include "pch.hpp"
@@ -11,8 +12,7 @@ class TextEdit : public QWidget
 {
     Q_OBJECT
 public:
-    TextEdit(FlatPlainTextEdit** thisMessageTextEdit, FlatButton** thisSendButton,
-             QWidget* parent = nullptr);
+    TextEdit(QListWidget *thisChatWidget, QWidget* parent = nullptr);
     /**
      * @brief Method for getting text from the text edit field.
      * @return text edit field content as QString.
@@ -28,6 +28,7 @@ private:
     QVBoxLayout* mainVerticalLayout;
     QHBoxLayout* horizontaltButtonsLayout;
 
+    QListWidget *chatWidget;
     FlatButton* mBoldButton;
     FlatButton* mItalicsButton;
     FlatButton* mUnderscoreButton;
@@ -49,7 +50,11 @@ private:
                                   const QString symbolStart, const QString symbolEnd);
     void selectText(QTextCursor& cursor, int start, int end);
     void connectUi();
+    void newMessage(QString textMessage, QString userNameMessage);
+    void newMessage(QString textMessage);
+    void keyPressEvent(QKeyEvent* event) override;
 
 private slots:
+    void updateMessagesList_User();
     void boldButtonClicked(QString SymbolStart, QString SymbolEnd);
 };
