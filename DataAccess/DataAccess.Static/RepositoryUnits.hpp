@@ -4,6 +4,7 @@
 #include <string>
 
 #include <Network/Primitives.hpp>
+#include "PostgreRepository.hpp"
 #include <Utility/Utility.hpp>
 
 std::string nowTimeStampStr();
@@ -15,6 +16,12 @@ class RegistrationUnit
 {
 private:
     RegistrationUnit() = default;
+
+    inline static DataAccess::PostgreTable& getUsersTable()
+    {
+        static DataAccess::PostgreTable pt("users");
+        return pt;
+    }
 
 public:
     RegistrationUnit(const RegistrationUnit&)      = delete;
@@ -41,5 +48,5 @@ public:
      *   The user already exists - RegistrationCodes::EMAIL_ALREADY_EXISTS OR /
      *   RegistrationCodes::LOGIN_ALREADY_EXISTS.
      */
-    Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& rm) const;
+    Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) const;
 };

@@ -18,11 +18,10 @@ Utility::RegistrationCodes RegistrationUnit::registerUser(const Network::Registr
 {
     auto getUsersAmount = [&](const std::string& condition) -> std::uint16_t 
     {
-        auto recordsRowAmount = PostgreTable("users")
-                                            .Select()
-                                            ->columns({"COUNT(*)"})
-                                            ->Where(condition)
-                                            ->execute();
+        auto recordsRowAmount = getUsersTable().Select()
+                                               ->columns({"COUNT(*)"})
+                                               ->Where(condition)
+                                               ->execute();
 
         return recordsRowAmount.value()[0][0].as<std::uint16_t>();
     };
@@ -32,7 +31,7 @@ Utility::RegistrationCodes RegistrationUnit::registerUser(const Network::Registr
     {
         return Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS;
     }
-    if (getUsersAmount("login = '" + ri.login + "'"))
+    if (getUsersAmount("login = '" + ri.login + "'") > 0)
     {
         return Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS;
     }
@@ -45,7 +44,7 @@ Utility::RegistrationCodes RegistrationUnit::registerUser(const Network::Registr
         std::pair{"password_hash", ri.passwordHash}
     };
     // Insert new user.
-    PostgreTable("users").Insert()->columns(userData)->execute();
+    getUsersTable().Insert()->columns(userData)->execute();
 
     return Utility::RegistrationCodes::SUCCESS;
 }
