@@ -3,10 +3,8 @@
 
 LogoWidget::LogoWidget(QWidget* parent) : QWidget(parent)
 {
-    logo = new QPixmap(":images/textlogo.png");
+    logo = std::make_unique<QPixmap>(":images/textlogo.png");
 }
-
-LogoWidget::~LogoWidget() { delete logo; }
 
 void LogoWidget::paintEvent(QPaintEvent* paintEvent)
 {
