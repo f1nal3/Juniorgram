@@ -25,11 +25,25 @@ ChatWidget::ChatWidget(QWidget* parent)
     connectUi();
 }
 
-ChatWidget::~ChatWidget() 
-{ 
-    delete mainChatLayout;
-    delete chatWidget;
-    delete textEdit;
+void ChatWidget::newMessage(QString messageText)
+{
+    auto* item = new QListWidgetItem();
+    item->setSizeHint(QSize(0, Style::valueDPIScale(150)));
+    auto* myItem = new MessageWidget(std::move(messageText), item, false);
+    myItem->setThisItem(item);
+    chatWidget->addItem(item);
+    chatWidget->setItemWidget(item, myItem);
+}
+
+ void ChatWidget::newMessage(QString messageText, QString userNameMessage)
+{
+    auto* item = new QListWidgetItem();
+    item->setSizeHint(QSize(0, Style::valueDPIScale(150)));
+    auto* myItem =
+        new MessageWidget(std::move(messageText), std::move(userNameMessage), item, false);
+    myItem->setThisItem(item);
+    chatWidget->addItem(item);
+    chatWidget->setItemWidget(item, myItem);
 }
 
 void ChatWidget::connectUi()
@@ -38,6 +52,14 @@ void ChatWidget::connectUi()
             SLOT(deletingSelection(QListWidgetItem*)));
     connect(chatWidget->model(), SIGNAL(rowsInserted(QModelIndex, int, int)), chatWidget,
             SLOT(scrollToBottom()));
+    connect(textEdit, SIGNAL(sendMessageSignal(QString)), this, SLOT(newMessage(QString)));
 }
 
 void ChatWidget::deletingSelection(QListWidgetItem* item) { item->setSelected(false); }
+
+ChatWidget::~ChatWidget()
+{
+    delete mainChatLayout;
+    delete chatWidget;
+    delete textEdit;
+}

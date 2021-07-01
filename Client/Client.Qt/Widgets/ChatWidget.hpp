@@ -1,6 +1,7 @@
 #pragma once
 #include "Widgets/InputFields.hpp"
 #include "Widgets/TextEdit.hpp"
+#include "Widgets/MessageWidget.hpp"
 
 class ChatWidget: public QWidget
 {
@@ -11,6 +12,8 @@ public:
 
 private slots:
     void deletingSelection(QListWidgetItem* item);
+    void newMessage(QString messageText);
+    void newMessage(QString textMessage, QString userNameMessage);
 
 private:
     QVBoxLayout* mainChatLayout;

@@ -4,8 +4,8 @@
 
 #include <Style/Style.hpp>
 
-TextEdit::TextEdit(QListWidget* thisChatWidget, QWidget* parent)
-    : QWidget(parent), chatWidget(thisChatWidget)
+TextEdit::TextEdit(QWidget* parent)
+    : QWidget(parent)
 {
 
     mainVerticalLayout       = new QVBoxLayout(this);
@@ -28,7 +28,6 @@ TextEdit::TextEdit(QListWidget* thisChatWidget, QWidget* parent)
     connectUi();
 }
 
-
 void TextEdit::connectUi()
 {
     mBoldButton->setClickCallback([&]() { boldButtonClicked(boldSymbolStart, boldSymbolEnd); });
@@ -36,44 +35,23 @@ void TextEdit::connectUi()
         [&]() { boldButtonClicked(italicsSymbolStart, italicsboldSymbolEnd); });
     mUnderscoreButton->setClickCallback(
         [&]() { boldButtonClicked(underscoreSymbolStart, underscoreSymbolEnd); });
-    sendButton->setClickCallback([&]() { updateMessagesList_User(); });
+    sendButton->setClickCallback([&]() { clickButtonSend(); });
 }
 
-void TextEdit::updateMessagesList_User()
-{
-    if (getText() != "") newMessage(getText());
-    messageTextEdit->clear();
+void TextEdit::clickButtonSend() { 
+    if (getText() != "")
+    {
+        emit sendMessageSignal(getText());
+        clearTextEdit();
+    }
 }
 
 void TextEdit::keyPressEvent(QKeyEvent* event)
 {
-    if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) &&
-        (getText() != ""))
+    if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) && (getText() != ""))
     {
-        newMessage(getText());
-        messageTextEdit->clear();
+        clickButtonSend();
     }
-}
-
- void TextEdit::newMessage(QString textMessage, QString userNameMessage)
-{
-    auto* item = new QListWidgetItem();
-    item->setSizeHint(QSize(0, Style::valueDPIScale(150)));
-    auto* myItem =
-        new MessageWidget(std::move(textMessage), std::move(userNameMessage), item, false);
-    myItem->setThisItem(item);
-    chatWidget->addItem(item);
-    chatWidget->setItemWidget(item, myItem);
-}
-
-void TextEdit::newMessage(QString textMessage)
-{
-    auto* item = new QListWidgetItem();
-    item->setSizeHint(QSize(0, Style::valueDPIScale(150)));
-    auto* myItem = new MessageWidget(std::move(textMessage), item, false);
-    myItem->setThisItem(item);
-    chatWidget->addItem(item);
-    chatWidget->setItemWidget(item, myItem);
 }
 
 void TextEdit::boldButtonClicked(QString SymbolStart, QString SymbolEnd)
@@ -147,7 +125,7 @@ QString TextEdit::getText() const
     return messageTextEdit->toPlainText();
 }
 
-void TextEdit::clear() { messageTextEdit->clear(); }
+void TextEdit::clearTextEdit() { messageTextEdit->clear(); }
 
 TextEdit::~TextEdit()
 {
