@@ -28,14 +28,12 @@ public:
 private:
     std::unique_ptr<QVBoxLayout> mainVerticalLayout;
     std::unique_ptr<QHBoxLayout> horizontaltButtonsLayout;
-
     std::unique_ptr<FlatButton> mBoldButton;
     std::unique_ptr<FlatButton> mItalicsButton;
     std::unique_ptr<FlatButton> mUnderscoreButton;
-    
-    FlatButton* sendButton;
-    FlatPlainTextEdit* messageTextEdit;
-    QSpacerItem* horizontalButtonSpacer;
+    std::unique_ptr<FlatButton> sendButton;
+    std::unique_ptr<FlatPlainTextEdit> messageTextEdit;
+    std::unique_ptr<QSpacerItem> horizontalButtonSpacer;
 
     const int SymbolSize                = 3;
     const QString boldSymbolStart       = "<B>";

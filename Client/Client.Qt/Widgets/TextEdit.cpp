@@ -4,25 +4,25 @@
 
 #include <Style/Style.hpp>
 
-TextEdit::TextEdit(QWidget* parent)
-    : QWidget(parent)
+TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
 {
     mainVerticalLayout       = std::make_unique<QVBoxLayout>(this);
-    horizontaltButtonsLayout = new QHBoxLayout();
-    mBoldButton       = std::make_unique<FlatButton>(this, "B", st::boldnessButton);
-    mItalicsButton    = std::make_unique<FlatButton>(this, "I", st::italicButton);
-    mUnderscoreButton = std::make_unique<FlatButton>(this, "U", st::underlineButton);
-    sendButton               = new FlatButton(this, "Send");
-    messageTextEdit          = new FlatPlainTextEdit();
-    horizontalButtonSpacer   = new QSpacerItem(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    horizontaltButtonsLayout = std::make_unique<QHBoxLayout>();
+    mBoldButton              = std::make_unique<FlatButton>(this, "B", st::boldnessButton);
+    mItalicsButton           = std::make_unique<FlatButton>(this, "I", st::italicButton);
+    mUnderscoreButton        = std::make_unique<FlatButton>(this, "U", st::underlineButton);
+    sendButton               = std::make_unique<FlatButton>(this, "Send");
+    messageTextEdit          = std::make_unique<FlatPlainTextEdit>();
+    horizontalButtonSpacer =
+        std::make_unique<QSpacerItem>(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     horizontaltButtonsLayout->setAlignment(Qt::AlignLeft);
     horizontaltButtonsLayout->addWidget(mBoldButton.get());
     horizontaltButtonsLayout->addWidget(mItalicsButton.get());
     horizontaltButtonsLayout->addWidget(mUnderscoreButton.get());
-    horizontaltButtonsLayout->addItem(horizontalButtonSpacer);
-    horizontaltButtonsLayout->addWidget(sendButton);
-    mainVerticalLayout->addWidget(messageTextEdit);
-    mainVerticalLayout->addLayout(horizontaltButtonsLayout);
+    horizontaltButtonsLayout->addItem(horizontalButtonSpacer.get());
+    horizontaltButtonsLayout->addWidget(sendButton.get());
+    mainVerticalLayout->addWidget(messageTextEdit.get());
+    mainVerticalLayout->addLayout(horizontaltButtonsLayout.get());
     setLayout(mainVerticalLayout.get());
     connectUi();
 }
@@ -128,7 +128,5 @@ void TextEdit::clearTextEdit() { messageTextEdit->clear(); }
 
 TextEdit::~TextEdit()
 {
-    delete sendButton;
-    horizontaltButtonsLayout->removeItem(horizontalButtonSpacer);
-    delete horizontalButtonSpacer;
+    horizontaltButtonsLayout->removeItem(horizontalButtonSpacer.get());
 }
