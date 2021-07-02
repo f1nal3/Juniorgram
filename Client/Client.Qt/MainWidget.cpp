@@ -273,17 +273,17 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
 
     auto* grid = new QGridLayout(this);
 
-    body = new QWidget();
+    body = std::make_unique<QWidget>();
     body->setMinimumHeight(Style::valueDPIScale(480));
 
     auto title = new QWidget();
     title->setFixedHeight(Style::valueDPIScale(30));
-    grid->addWidget(body, 1, 0);
+    grid->addWidget(body.get(), 1, 0);
     grid->addWidget(title, 0, 0);
     grid->setSpacing(0);
     this->setLayout(grid);
     layout()->setMargin(9);
-    auto pBodyLayout = new QVBoxLayout(body);
+    auto pBodyLayout = new QVBoxLayout(body.get());
     body->setLayout(pBodyLayout);
     pBodyLayout->setSpacing(0);
     pBodyLayout->setMargin(0);
@@ -302,14 +302,16 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
 
     std::cout << QGuiApplication::platformName().toStdString() << std::endl;
 
-    pTitleLayout = new QHBoxLayout(title);
-    title->setLayout(pTitleLayout);
-    close_btn    = new CaptionButton(CaptionButton::CaptionLogo::Close, QColor(232, 17, 35));
-    maximize_btn = new CaptionButton(CaptionButton::CaptionLogo::Maximize);
-    minimize_btn = new CaptionButton(CaptionButton::CaptionLogo::Minimize);
+    pTitleLayout = std::make_unique<QHBoxLayout>(title);
+    title->setLayout(pTitleLayout.get());
+    
+    close_btn =
+        std::make_unique<CaptionButton>(CaptionButton::CaptionLogo::Close, QColor(232, 17, 35));
+    maximize_btn = std::make_unique<CaptionButton>(CaptionButton::CaptionLogo::Maximize);
+    minimize_btn = std::make_unique<CaptionButton>(CaptionButton::CaptionLogo::Minimize);
     refreshTitleBar();
 
-    connect(maximize_btn, &CaptionButton::mouseRelease, [this]() {
+    connect(maximize_btn.get(), &CaptionButton::mouseRelease, [this]() {
         if (this->isMaximized())
         {
             this->layout()->setMargin(0);
@@ -327,8 +329,8 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
         update();
     });
     setAttribute(Qt::WA_Hover);
-    connect(close_btn, &CaptionButton::mouseRelease, this, &MainWidget::deleteLater);
-    connect(minimize_btn, &CaptionButton::mouseRelease, this, &MainWidget::showMinimized);
+    connect(close_btn.get(), &CaptionButton::mouseRelease, this, &MainWidget::deleteLater);
+    connect(minimize_btn.get(), &CaptionButton::mouseRelease, this, &MainWidget::showMinimized);
     title->setMouseTracking(true);
     body->setMouseTracking(true);
     this->setMouseTracking(true);
@@ -362,17 +364,17 @@ void MainWidget::refreshTitleBar(BioButton* bio_button)
     pTitleLayout->setAlignment(Qt::AlignTop | Qt::AlignRight);
     if (!pTitleLayout->isEmpty())
     {
-        pTitleLayout->removeWidget(minimize_btn);
-        pTitleLayout->removeWidget(maximize_btn);
-        pTitleLayout->removeWidget(close_btn);
+        pTitleLayout->removeWidget(minimize_btn.get());
+        pTitleLayout->removeWidget(maximize_btn.get());
+        pTitleLayout->removeWidget(close_btn.get());
     }
     if (bio_button)
     {
         pTitleLayout->addWidget(bio_button);
     }
-    pTitleLayout->addWidget(minimize_btn);
-    pTitleLayout->addWidget(maximize_btn);
-    pTitleLayout->addWidget(close_btn);
+    pTitleLayout->addWidget(minimize_btn.get());
+    pTitleLayout->addWidget(maximize_btn.get());
+    pTitleLayout->addWidget(close_btn.get());
 }
 bool MainWidget::eventFilter(QObject* watched, QEvent* event)
 {

@@ -62,7 +62,7 @@ public:
     void setStdTime_tDateTime(std::time_t newDataTime);
     /**
      * @brief Method for changing reaction map.
-     * @param new reactions of map with kay std::int and value int.
+     * @param new reactions of map with kay int and value int.
      */
     void setReactionMap(std::map<int, int> newReactionMap);
     /**
@@ -109,17 +109,17 @@ private slots:
 private:
     enum reactions
     {
-        like,
-        dislike,
-        fire,
-        cat,
-        Non
+        LIKE,
+        DISLIKE,
+        FIRE,
+        CAT,
+        NON
     };
     QListWidgetItem* messageItem;
     // Layouts
-    QVBoxLayout* mainLayout;
-    QHBoxLayout* UpLevelLayout;
-    QHBoxLayout* DownLevelLayout;
+    std::unique_ptr<QVBoxLayout>mainLayout;
+    std::unique_ptr<QHBoxLayout>UpLevelLayout;
+    std::unique_ptr<QHBoxLayout>DownLevelLayout;
     // Message
     FlatPlainTextEdit* messageTextEdit;
     // UpLevelLayout
@@ -129,21 +129,16 @@ private:
 
     QMap<int, Label*>* reactionMapLabelIcon;
 
-    Label* reactionLabelIconLike;
-    Label* reactionLabelIconDislike;
-    Label* reactionLabelIconFire;
-    Label* reactionLabelIconCat;
-
-    QSpacerItem*  horizontalUpLeftSpacer;
-    QSpacerItem*  horizontalUpRightSpacer;
+    std::unique_ptr<QSpacerItem> horizontalUpLeftSpacer;
+    std::unique_ptr<QSpacerItem> horizontalUpRightSpacer;
     DateTimeEdit* messageDateTimeEdit;
 
     QMap<int, QPixmap*>* pixmapIcon;
 
     // DownLevelLayout
-    ComboBox*    reactionChoseBox;
-    FlatButton*  deleteButton;
-    QSpacerItem* horizontalDownSpacer;
+    std::unique_ptr<ComboBox> reactionChoseBox;
+    std::unique_ptr<FlatButton> deleteButton;
+    std::unique_ptr<QSpacerItem> horizontalDownSpacer;
     // delMessage - shows that the message has been deleted
     Label* delMessage;
 
@@ -154,11 +149,15 @@ private:
     reactions          reactionUserOnMessage;
     QStringList        itemReactionList;
     std::map<int, int> reactionMap{
-        {reactions::like, 0}, {reactions::dislike, 0}, {reactions::fire, 0}, {reactions::cat, 0}};
+        {reactions::LIKE, 0},
+        {reactions::DISLIKE, 0},
+        {reactions::FIRE, 0},
+        {reactions::CAT, 0}
+    };
     void initializationUiNotDelete();
     void initializationUiDelete();
     void updateWidget();
-    void uiConnect();
+    void connectUi();
     void clearMessage();
 };
 

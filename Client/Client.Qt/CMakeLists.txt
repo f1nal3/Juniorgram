@@ -16,6 +16,8 @@ set(SOURCE_FILES
         Widgets/ChannelListWidget.hpp
         Widgets/ChannelListWindow.cpp
         Widgets/ChannelListWindow.hpp
+        Widgets/ChatWidget.cpp
+        Widgets/ChatWidget.hpp
         Widgets/ComboBox.cpp
         Widgets/ComboBox.hpp
         Widgets/DateTimeEdit.cpp
@@ -28,6 +30,8 @@ set(SOURCE_FILES
         Widgets/Label.hpp
         Widgets/ListWidget.cpp
         Widgets/ListWidget.hpp
+        Widgets/LogoWidget.cpp
+        Widgets/LogoWidget.hpp
         Widgets/Menu.cpp
         Widgets/Menu.hpp
         Widgets/MenuItem.cpp
@@ -42,32 +46,30 @@ set(SOURCE_FILES
         Widgets/TextEdit.hpp
         Widgets/TimeEdit.cpp
         Widgets/TimeEdit.hpp
-        Widgets/LogoWidget.cpp
-        Widgets/LogoWidget.hpp
-        Style/StyleTypes.cpp
-        Style/StyleTypes.hpp
-        Style/StyleScale.cpp
-        Style/StyleScale.hpp
-        Style/StyleFont.cpp
-        Style/StyleFont.hpp
-        Style/StyleColor.cpp
-        Style/StyleColor.hpp
+        Style/Palette.cpp
+        Style/Palette.hpp
+        Style/Shadow.hpp
         Style/Style.cpp
         Style/Style.hpp
         Style/StyleBasic.hpp
         Style/StyleBasic.cpp
-        Style/Palette.cpp
-        Style/Palette.hpp
-        Style/Shadow.hpp
+        Style/StyleColor.cpp
+        Style/StyleColor.hpp
+        Style/StyleFont.cpp
+        Style/StyleFont.hpp
+        Style/StyleScale.cpp
+        Style/StyleScale.hpp
+        Style/StyleTypes.cpp
+        Style/StyleTypes.hpp
         Application.cpp
         Application.hpp
         ChatWindow.cpp
         ChatWindow.hpp
+        ConnectionManager.hpp
         login.cpp
         login.hpp
         main.cpp
         MainWidget.cpp
-        ConnectionManager.hpp
         MainWidget.hpp
         registration.cpp
         registration.hpp)
