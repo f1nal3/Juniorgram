@@ -13,12 +13,12 @@ MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidge
     messageItem           = Item;
     messageDeleted        = deletedMessage;
     // Main layouts
-    mainLayout = new QVBoxLayout(this);
-    setLayout(mainLayout);
+    mainLayout = std::make_unique<QVBoxLayout>(this);
+    setLayout(mainLayout.get());
     if (!deletedMessage)
     {
         initializationUiNotDelete();
-        uiConnect();
+        connectUi();
         updateWidget();
     }
     else
@@ -40,12 +40,11 @@ MessageWidget::MessageWidget(QString textMessage, QListWidgetItem* Item, bool de
 MessageWidget::~MessageWidget()
 {
     clearMessage();
-    delete mainLayout;
 }
 
-void MessageWidget::uiConnect()
+void MessageWidget::connectUi()
 {
-    connect(reactionChoseBox, SIGNAL(currentIndexChanged(int)), SLOT(reactionChange(int)));
+    connect(reactionChoseBox.get(), SIGNAL(currentIndexChanged(int)), SLOT(reactionChange(int)));
     deleteButton->setClickCallback([&]() { deleteButtonClick(); });
 }
 
@@ -60,8 +59,8 @@ void MessageWidget::initializationUiDelete()
 void MessageWidget::initializationUiNotDelete()
 {
     // Main Layouts
-    UpLevelLayout   = new QHBoxLayout();
-    DownLevelLayout = new QHBoxLayout();
+    UpLevelLayout   = std::make_unique<QHBoxLayout>();
+    DownLevelLayout = std::make_unique<QHBoxLayout>();
 
     // message
     messageTextEdit = new FlatPlainTextEdit();
@@ -82,9 +81,9 @@ void MessageWidget::initializationUiNotDelete()
     pixmapIcon->insert(reactions::FIRE, new QPixmap(":/reactions/fire.png"));
     pixmapIcon->insert(reactions::CAT, new QPixmap(":/reactions/cat.png"));
 
-    horizontalUpLeftSpacer  = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    horizontalUpLeftSpacer  = std::make_unique<QSpacerItem>(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
     messageDateTimeEdit     = new DateTimeEdit(this);
-    horizontalUpRightSpacer = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+    horizontalUpRightSpacer = std::make_unique<QSpacerItem>(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
     userNameLabel           = new Label;
     userNameLabel->setText("userName");
     for (int i = 0; i < COUNT_REACTION; i++)
@@ -92,14 +91,14 @@ void MessageWidget::initializationUiNotDelete()
         UpLevelLayout->addWidget(*reactionMapLabelIcon->find(i));
         UpLevelLayout->addWidget(*reactionMapLabel->find(i));
     }
-    UpLevelLayout->addItem(horizontalUpLeftSpacer);
+    UpLevelLayout->addItem(horizontalUpLeftSpacer.get());
     UpLevelLayout->addWidget(userNameLabel);
-    UpLevelLayout->addItem(horizontalUpRightSpacer);
+    UpLevelLayout->addItem(horizontalUpRightSpacer.get());
     UpLevelLayout->addWidget(messageDateTimeEdit);
 
     // DownLevelLayout
 
-    reactionChoseBox = new ComboBox();
+    reactionChoseBox = std::make_unique<ComboBox>();
     reactionChoseBox->addItem(QIcon(":/reactions/smile.png"), "");
     reactionChoseBox->addItem(QIcon(":/reactions/like.png"), "");
     reactionChoseBox->addItem(QIcon(":/reactions/dislike.png"), "");
@@ -110,18 +109,19 @@ void MessageWidget::initializationUiNotDelete()
     reactionChoseBox->setMinimumWidth(Style::valueDPIScale(65));
 #endif
 
-    horizontalDownSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    horizontalDownSpacer =
+        std::make_unique <QSpacerItem>(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-    deleteButton = new FlatButton(this, "Delete");
+    deleteButton = std::make_unique<FlatButton>(this, "Delete");
 
-    DownLevelLayout->addWidget(reactionChoseBox);
-    DownLevelLayout->addItem(horizontalDownSpacer);
-    DownLevelLayout->addWidget(deleteButton);
+    DownLevelLayout->addWidget(reactionChoseBox.get());
+    DownLevelLayout->addItem(horizontalDownSpacer.get());
+    DownLevelLayout->addWidget(deleteButton.get());
 
     // mainLayout
-    mainLayout->addLayout(UpLevelLayout);
+    mainLayout->addLayout(UpLevelLayout.get());
     mainLayout->addWidget(messageTextEdit);
-    mainLayout->addLayout(DownLevelLayout);
+    mainLayout->addLayout(DownLevelLayout.get());
 }
 
 void MessageWidget::clearMessage()
@@ -133,9 +133,9 @@ void MessageWidget::clearMessage()
     }
     else
     {
-        UpLevelLayout->removeItem(horizontalUpLeftSpacer);
+        UpLevelLayout->removeItem(horizontalUpLeftSpacer.get());
         UpLevelLayout->removeWidget(userNameLabel);
-        UpLevelLayout->removeItem(horizontalUpRightSpacer);
+        UpLevelLayout->removeItem(horizontalUpRightSpacer.get());
         UpLevelLayout->removeWidget(messageDateTimeEdit);
         UpLevelLayout->removeWidget(messageTextEdit);
         for (int i = 0; i < COUNT_REACTION; i++)
@@ -145,21 +145,15 @@ void MessageWidget::clearMessage()
             delete *reactionMapLabel->find(i);
             delete *reactionMapLabelIcon->find(i);
         }
-        DownLevelLayout->removeWidget(reactionChoseBox);
-        DownLevelLayout->removeItem(horizontalDownSpacer);
-        DownLevelLayout->removeWidget(deleteButton);
+        DownLevelLayout->removeWidget(reactionChoseBox.get());
+        DownLevelLayout->removeItem(horizontalDownSpacer.get());
+        DownLevelLayout->removeWidget(deleteButton.get());
+        mainLayout->removeItem(UpLevelLayout.get());
         delete messageTextEdit;
         delete userNameLabel;
         delete reactionMapLabel;
         delete reactionMapLabelIcon;
-        delete horizontalUpLeftSpacer;
-        delete horizontalUpRightSpacer;
         delete messageDateTimeEdit;
-        delete reactionChoseBox;
-        delete deleteButton;
-        delete horizontalDownSpacer;
-        delete UpLevelLayout;
-        delete DownLevelLayout;
     }
 }
 

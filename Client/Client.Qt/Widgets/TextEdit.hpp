@@ -1,5 +1,4 @@
 #pragma once
-
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
@@ -14,7 +13,7 @@ class TextEdit : public QWidget
 {
     Q_OBJECT
 public:
-    explicit TextEdit(FlatPlainTextEdit* messageText, QWidget* parent = nullptr);
+    TextEdit(QWidget* parent = nullptr);
     /**
      * @brief Method for getting text from the text edit field.
      * @return text edit field content as QString.
@@ -23,18 +22,20 @@ public:
     /**
      * @brief Method for clearing text edit field.
      */
-    void clear();
+    void clearTextEdit();
+    ~TextEdit() override;
 
 private:
-    std::unique_ptr<QVBoxLayout> vLayout;
-    std::unique_ptr<QHBoxLayout> hLayout;
-
+    std::unique_ptr<QVBoxLayout> mainVerticalLayout;
+    std::unique_ptr<QHBoxLayout> horizontaltButtonsLayout;
     std::unique_ptr<FlatButton> mBoldButton;
     std::unique_ptr<FlatButton> mItalicsButton;
     std::unique_ptr<FlatButton> mUnderscoreButton;
-    FlatPlainTextEdit* mTextField;
+    std::unique_ptr<FlatButton> sendButton;
+    std::unique_ptr<FlatPlainTextEdit> messageTextEdit;
+    std::unique_ptr<QSpacerItem> horizontalButtonSpacer;
 
-    const int     SymbolSize            = 3;
+    const int SymbolSize                = 3;
     const QString boldSymbolStart       = "<B>";
     const QString boldSymbolEnd         = "</B>";
     const QString italicsSymbolStart    = "<I>";
@@ -47,6 +48,14 @@ private:
     void insertSymbolsInSelection(QTextCursor& cursor, int& start, int& end, int symbolSize,
                                   const QString symbolStart, const QString symbolEnd);
     void selectText(QTextCursor& cursor, int start, int end);
+    void connectUi();
+    void keyPressEvent(QKeyEvent* event) override;
+
+signals:
+    void sendMessageSignal(QString textMessage);
+
+public slots:
+    void clickButtonSend();
 
 private slots:
     void boldButtonClicked(QString SymbolStart, QString SymbolEnd);

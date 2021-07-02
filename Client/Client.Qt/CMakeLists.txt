@@ -16,6 +16,8 @@ set(SOURCE_FILES
         Widgets/ChannelListWidget.hpp
         Widgets/ChannelListWindow.cpp
         Widgets/ChannelListWindow.hpp
+        Widgets/ChatWidget.cpp
+        Widgets/ChatWidget.hpp
         Widgets/ComboBox.cpp
         Widgets/ComboBox.hpp
         Widgets/DateTimeEdit.cpp
