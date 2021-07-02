@@ -117,9 +117,9 @@ private:
     };
     QListWidgetItem* messageItem;
     // Layouts
-    QVBoxLayout* mainLayout;
-    QHBoxLayout* UpLevelLayout;
-    QHBoxLayout* DownLevelLayout;
+    std::unique_ptr<QVBoxLayout>mainLayout;
+    std::unique_ptr<QHBoxLayout>UpLevelLayout;
+    std::unique_ptr<QHBoxLayout>DownLevelLayout;
     // Message
     FlatPlainTextEdit* messageTextEdit;
     // UpLevelLayout
@@ -129,21 +129,16 @@ private:
 
     QMap<int, Label*>* reactionMapLabelIcon;
 
-    Label* reactionLabelIconLike;
-    Label* reactionLabelIconDislike;
-    Label* reactionLabelIconFire;
-    Label* reactionLabelIconCat;
-
-    QSpacerItem*  horizontalUpLeftSpacer;
-    QSpacerItem*  horizontalUpRightSpacer;
+    std::unique_ptr<QSpacerItem> horizontalUpLeftSpacer;
+    std::unique_ptr<QSpacerItem> horizontalUpRightSpacer;
     DateTimeEdit* messageDateTimeEdit;
 
     QMap<int, QPixmap*>* pixmapIcon;
 
     // DownLevelLayout
-    ComboBox*    reactionChoseBox;
-    FlatButton*  deleteButton;
-    QSpacerItem* horizontalDownSpacer;
+    std::unique_ptr<ComboBox> reactionChoseBox;
+    std::unique_ptr<FlatButton> deleteButton;
+    std::unique_ptr<QSpacerItem> horizontalDownSpacer;
     // delMessage - shows that the message has been deleted
     Label* delMessage;
 
