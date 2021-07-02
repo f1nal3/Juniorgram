@@ -15,7 +15,7 @@ namespace UserDataValidation
      */
     inline bool isLoginValid(const std::string& login)
     {
-        const std::regex pattern("([a-z]{1})([a-z0-9_-]{5,})");
+        const std::regex pattern("([a-z]{1})([a-z0-9_-]{4,})");
         return std::regex_match(login, pattern);
     }
 
@@ -25,12 +25,12 @@ namespace UserDataValidation
      * @details Email must: /
      *   -have first char like letter; /
      *   -maintain the following rule: /
-     *     Some chars + '@' + some chars(mail provider) + '.' + com/ru. /
+     *     Some chars + '@' + some chars(mail provider) + '.' + (com/ru/by etc.). /
      * Example: email = 'Anton3_antonov4@epam.com'.
      */
     inline bool isEmailValid(const std::string& email)
     {
-        const std::regex pattern(R"(([a-zA-Z]{1})(\w+@\w+\.)(?:com|ru))");
+        const std::regex pattern(R"(([a-zA-Z]{1})(\w+@\w+\.)([a-z]{2,4}))");
         return std::regex_match(email, pattern);
     }
 
