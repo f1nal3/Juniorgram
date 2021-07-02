@@ -14,6 +14,7 @@ protected:
     void resizeEvent(QResizeEvent* event) override;
 
 private:
+    std::unique_ptr<FlatInput>  emailLineEdit;
     std::unique_ptr<FlatInput>  usernameLineEdit;
     std::unique_ptr<FlatInput>  passwordLineEdit;
     std::unique_ptr<FlatInput>  passwordRepeatLineEdit;

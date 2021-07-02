@@ -96,7 +96,7 @@ public:
                         }
                         break;
 
-                        case Network::Message::MessageType::RegistrationRequest:
+                        case Network::Message::MessageType::RegistrationAnswer:
                         {
                             auto code = std::any_cast<Utility::RegistrationCodes>(message.mBody);
 

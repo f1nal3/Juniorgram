@@ -60,14 +60,14 @@ namespace Network
     {
         std::string email;
         std::string login;
-        std::string password;
+        std::string passwordHash;
 
     public:
         RegistrationInfo() = default;
         explicit RegistrationInfo(const std::string& email, 
                                   const std::string& login,
-                                  const std::string& password)
-            : email(email), login(login), password(password)
+                                  const std::string& passwordHash)
+            : email(email), login(login), passwordHash(passwordHash)
         { }
 
         RegistrationInfo(const RegistrationInfo&) = default;
@@ -81,13 +81,13 @@ namespace Network
         {
             return registrationInfo1.email    == registrationInfo2.email &&
                    registrationInfo1.login    == registrationInfo2.login &&
-                   registrationInfo1.password == registrationInfo2.password;
+                   registrationInfo1.passwordHash == registrationInfo2.passwordHash;
         }
     };
 
     template <typename Archive>
     void serialize(Archive& ar, Network::RegistrationInfo& o)
     {
-        ar& o.email& o.login& o.password;
+        ar& o.email& o.login& o.passwordHash;
     }
 } // namespace Network
