@@ -2,6 +2,7 @@
 
 #include <Network/Primitives.hpp>
 #include <Utility/WarningSuppression.hpp>
+#include <Utility.Static/Cryptography.hpp>
 
 namespace Network
 {
@@ -115,11 +116,14 @@ void Client::storeMessages(const std::vector<std::string>& messagesList) const
 void Client::userRegistration(const std::string& email, const std::string& login,
                       const std::string& password) const
 {
-    Network::RegistrationInfo rm(email, login, password);
+    // Generating password's hash which are based on login. It lets us to insert different users
+    // with the same passwords.
+    const std::string PASSWORD_HASH = Hashing::SHA_256(password, login);
+    Network::RegistrationInfo ri(email, login, PASSWORD_HASH);
 
     Network::Message message;
     message.mHeader.mMessageType = Network::Message::MessageType::RegistrationRequest;
-    message.mBody = std::make_any<RegistrationInfo>(rm);
+    message.mBody = std::make_any<RegistrationInfo>(ri);
     
     send(message);
 }

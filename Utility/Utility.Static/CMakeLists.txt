@@ -2,6 +2,7 @@ set(TARGET Utility.Static)
 set(OUTPUT_NAME Utility.Static)
 
 set(SOURCE_FILES
+    Cryptography.hpp
     Cryptography.cpp
     JsonSerializer.hpp
     JsonSerializer.cpp
