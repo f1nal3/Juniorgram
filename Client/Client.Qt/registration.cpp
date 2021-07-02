@@ -35,7 +35,7 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
 
         if (email.empty() || login.empty() || password.empty() || repeatPassword.empty())
         {
-            std::cout << "some fields are empty" << std::endl;
+            std::cout << "some field is empty" << std::endl;
             return;
         }
 
@@ -47,19 +47,19 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
 
         if (!isLoginValid(login))
         {
-            std::cout << "input login is not valid" << std::endl;
+            std::cout << "login is not valid" << std::endl;
             return;
         }
 
         if (!isEmailValid(email))
         {
-            std::cout << "input email is not valid" << std::endl;
+            std::cout << "email is not valid" << std::endl;
             return;
         }
 
         if (!isPasswordValid(password))
         {
-            std::cout << "input password is not valid" << std::endl;
+            std::cout << "password is not valid" << std::endl;
             return;
         }
 

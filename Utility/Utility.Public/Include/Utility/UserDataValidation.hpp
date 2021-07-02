@@ -25,7 +25,7 @@ namespace UserDataValidation
      * @details Email must: /
      *   -have first char like letter; /
      *   -maintain the following rule: /
-     *     Some letters + '@' + some letters + '.' + com/ru. /
+     *     Some chars + '@' + some chars(mail provider) + '.' + com/ru. /
      * Example: email = 'Anton3_antonov4@epam.com'.
      */
     inline bool isEmailValid(const std::string& email)
