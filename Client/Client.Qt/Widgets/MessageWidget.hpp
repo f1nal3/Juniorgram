@@ -1,5 +1,4 @@
-#ifndef QMESSAGEWIDGET_H
-#define QMESSAGEWIDGET_H
+#pragma once
 constexpr auto EMPTY_MESSAGE   = "Empty message";
 constexpr auto EMPTY_USER_NAME = "You";
 constexpr auto COUNT_REACTION  = 4;
@@ -17,6 +16,8 @@ constexpr auto COUNT_REACTION  = 4;
 #include "Widgets/Label.hpp"
 #include "Widgets/TimeEdit.hpp"
 
+class ChatHistory;
+
 /** @class MessageWidget
  *  @brief message visual representation in chat
  */
@@ -25,11 +26,6 @@ class MessageWidget : public QWidget
     Q_OBJECT
 
 public:
-    /**
-     * @brief Method for changing the object of the QListWidgetItem class in the MessageWidget.
-     * @param object reference of class QListWidgetItem.
-     */
-    void setThisItem(QListWidgetItem* Item);
     /**
      * @brief Method for method for changing the message.
      * @param new text message as string of QString.
@@ -67,44 +63,27 @@ public:
     void setReactionMap(std::map<int, int> newReactionMap);
     /**
      * @brief constructor for displaying a message from a user on the screen.
-     * @param text of message as string of QStrings.
-     * @param nickname as string of QStrings.
-     * @param object of the QListWidgetItem type.
-     * @param boolean indicator of a deleted message.
-     * @param object of the QWidget type.
+     * @param history parent widget
+     * @param message is QString.
+     * @param utc seconds since epoch.
+     * @param username nickname.
      */
-    MessageWidget(QString textMessage, QString nameOfUser, QListWidgetItem* Item,
-                  bool deletedMessage, QWidget* parent = nullptr);
-    /**
-     * @brief constructor for displaying a message from a user on the screen.
-     * @param text of message as string of std::strings.
-     * @param nickname as string of std::strings.
-     * @param object of the QListWidgetItem type.
-     * @param boolean indicator of a deleted message.
-     */
-    MessageWidget(std::string textMessage, std::string nameOfUser, QListWidgetItem* Item,
-                  bool deletedMessage);
-    /**
-     * @brief constructor for displaying a message from a user on the screen.
-     * @param text of message as string of QStrings.
-     * @param object of the QListWidgetItem type.
-     * @param boolean indicator of a deleted message.
-     */
-    MessageWidget(QString textMessage, QListWidgetItem* Item, bool deletedMessage);
-    /**
-     * @brief constructor for displaying a message from a user on the screen.
-     * @param object of the QListWidgetItem type.
-     * @param boolean indicator of a deleted message.
-     */
-    explicit MessageWidget(QListWidgetItem* Item, bool deletedMessage);
+    MessageWidget(QWidget* history, QString message, qint64 utc, QString username);
     /**
      * @brief destructor for clearing memory.
      */
-    ~MessageWidget();
+    ~MessageWidget() override;
 
 private slots:
     void deleteButtonClick();
     void reactionChange(int index);
+
+private:
+    void initializationUiNotDelete();
+    void initializationUiDelete();
+    void updateWidget();
+    void connectUi();
+    void clearMessage();
 
 private:
     enum reactions
@@ -115,11 +94,10 @@ private:
         CAT,
         NON
     };
-    QListWidgetItem* messageItem;
     // Layouts
-    std::unique_ptr<QVBoxLayout>mainLayout;
-    std::unique_ptr<QHBoxLayout>UpLevelLayout;
-    std::unique_ptr<QHBoxLayout>DownLevelLayout;
+    std::unique_ptr<QVBoxLayout> mainLayout;
+    std::unique_ptr<QHBoxLayout> UpLevelLayout;
+    std::unique_ptr<QHBoxLayout> DownLevelLayout;
     // Message
     FlatPlainTextEdit* messageTextEdit;
     // UpLevelLayout
@@ -131,13 +109,13 @@ private:
 
     std::unique_ptr<QSpacerItem> horizontalUpLeftSpacer;
     std::unique_ptr<QSpacerItem> horizontalUpRightSpacer;
-    DateTimeEdit* messageDateTimeEdit;
+    DateTimeEdit*                messageDateTimeEdit;
 
     QMap<int, QPixmap*>* pixmapIcon;
 
     // DownLevelLayout
-    std::unique_ptr<ComboBox> reactionChoseBox;
-    std::unique_ptr<FlatButton> deleteButton;
+    std::unique_ptr<ComboBox>    reactionChoseBox;
+    std::unique_ptr<FlatButton>  deleteButton;
     std::unique_ptr<QSpacerItem> horizontalDownSpacer;
     // delMessage - shows that the message has been deleted
     Label* delMessage;
@@ -149,16 +127,5 @@ private:
     reactions          reactionUserOnMessage;
     QStringList        itemReactionList;
     std::map<int, int> reactionMap{
-        {reactions::LIKE, 0},
-        {reactions::DISLIKE, 0},
-        {reactions::FIRE, 0},
-        {reactions::CAT, 0}
-    };
-    void initializationUiNotDelete();
-    void initializationUiDelete();
-    void updateWidget();
-    void connectUi();
-    void clearMessage();
+        {reactions::LIKE, 0}, {reactions::DISLIKE, 0}, {reactions::FIRE, 0}, {reactions::CAT, 0}};
 };
-
-#endif  // QMESSAGEWIDGET_H

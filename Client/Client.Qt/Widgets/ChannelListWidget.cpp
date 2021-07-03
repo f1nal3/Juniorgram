@@ -3,14 +3,14 @@
 ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
 {
     vBoxLayout         = std::make_unique<QVBoxLayout>(this);
-    channelList        = new ListWidget();
-    listWidgetChannels = new ChannelListWindow(channelList);
+    channelList        = std::make_shared<ListWidget>();
+    listWidgetChannels = std::make_unique<ChannelListWindow>(channelList);
     addChannelButton   = std::make_unique<FlatButton>(this, "+");
 
     setContentsMargins(0, 0, 0, 0);
     addChannelButton->setMinimumWidth(Style::valueDPIScale(200));
     vBoxLayout->addWidget(addChannelButton.get());
-    vBoxLayout->addWidget(channelList);
+    vBoxLayout->addWidget(channelList.get());
     channelList->setFrameShape(QFrame::NoFrame);
 
     addChannelButton->setClickCallback([this]() { addChannels(); });
@@ -20,9 +20,3 @@ ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
 }
 
 void ChannelListWidget::addChannels() { listWidgetChannels->show(); }
-
-ChannelListWidget::~ChannelListWidget()
-{
-    delete listWidgetChannels;
-    delete channelList;
-}

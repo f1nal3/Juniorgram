@@ -5,7 +5,7 @@
 #include "ConnectionManager.hpp"
 #include "Style/Style.hpp"
 
-ChannelListWindow::ChannelListWindow(ListWidget* anotherChannelListWidget, QWidget* parent)
+ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent)
     : QWidget(parent), channelListMainWindow(anotherChannelListWidget)
 {
     setStyleSheet(

@@ -1,46 +1,26 @@
 ﻿#include "MessageWidget.hpp"
 
+#include "ChatHistory.hpp"
 #include "Style/Style.hpp"
 
-MessageWidget::MessageWidget(QString textMessage, QString nameOfUser, QListWidgetItem* Item,
-                             bool deletedMessage, QWidget* parent)
-    : QWidget(parent),
-      messageText(std::move(textMessage)),
-      userName(std::move(nameOfUser)),
-      dateTimeMessage(QDateTime::currentDateTime())
+MessageWidget::MessageWidget(QWidget* history, QString message, qint64 utc, QString user)
+    : QWidget(history),
+      messageText(std::move(message)),
+      userName(std::move(user)),
+      dateTimeMessage(QDateTime::fromSecsSinceEpoch(utc))
 {
     reactionUserOnMessage = reactions::NON;
-    messageItem           = Item;
-    messageDeleted        = deletedMessage;
+    setMinimumHeight(Style::valueDPIScale(150));
     // Main layouts
     mainLayout = std::make_unique<QVBoxLayout>(this);
     setLayout(mainLayout.get());
-    if (!deletedMessage)
-    {
-        initializationUiNotDelete();
-        connectUi();
-        updateWidget();
-    }
-    else
-        initializationUiDelete();
+
+    initializationUiNotDelete();
+    connectUi();
+    updateWidget();
 }
 
-MessageWidget::MessageWidget(std::string textMessage, std::string nameOfUser, QListWidgetItem* Item,
-                             bool deletedMessage)
-    : MessageWidget(QString::fromStdString(textMessage), QString::fromStdString(nameOfUser), Item,
-                    deletedMessage)
-{
-}
-
-MessageWidget::MessageWidget(QString textMessage, QListWidgetItem* Item, bool deletedMessage)
-    : MessageWidget(textMessage, EMPTY_USER_NAME, Item, deletedMessage)
-{
-}
-
-MessageWidget::~MessageWidget()
-{
-    clearMessage();
-}
+MessageWidget::~MessageWidget() { clearMessage(); }
 
 void MessageWidget::connectUi()
 {
@@ -50,7 +30,6 @@ void MessageWidget::connectUi()
 
 void MessageWidget::initializationUiDelete()
 {
-    messageItem->setSizeHint(QSize(0, Style::valueDPIScale(40)));
     delMessage = new Label("Message was deleted");
     delMessage->setFont(st::semiboldFont);
     mainLayout->addWidget(delMessage);
@@ -81,10 +60,12 @@ void MessageWidget::initializationUiNotDelete()
     pixmapIcon->insert(reactions::FIRE, new QPixmap(":/reactions/fire.png"));
     pixmapIcon->insert(reactions::CAT, new QPixmap(":/reactions/cat.png"));
 
-    horizontalUpLeftSpacer  = std::make_unique<QSpacerItem>(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-    messageDateTimeEdit     = new DateTimeEdit(this);
-    horizontalUpRightSpacer = std::make_unique<QSpacerItem>(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-    userNameLabel           = new Label;
+    horizontalUpLeftSpacer =
+        std::make_unique<QSpacerItem>(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    messageDateTimeEdit = new DateTimeEdit(this);
+    horizontalUpRightSpacer =
+        std::make_unique<QSpacerItem>(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+    userNameLabel = new Label;
     userNameLabel->setText("userName");
     for (int i = 0; i < COUNT_REACTION; i++)
     {
@@ -110,7 +91,7 @@ void MessageWidget::initializationUiNotDelete()
 #endif
 
     horizontalDownSpacer =
-        std::make_unique <QSpacerItem>(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        std::make_unique<QSpacerItem>(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     deleteButton = std::make_unique<FlatButton>(this, "Delete");
 
@@ -160,7 +141,6 @@ void MessageWidget::clearMessage()
 void MessageWidget::deleteButtonClick()
 {
     clearMessage();
-    messageItem->setSizeHint(QSize(0, Style::valueDPIScale(40)));
     delMessage = new Label("Message was deleted");
     mainLayout->addWidget(delMessage);
     messageDeleted = true;
@@ -216,8 +196,6 @@ void MessageWidget::reactionChange(int index)
         break;
     }
 }
-
-void MessageWidget::setThisItem(QListWidgetItem* Item) { messageItem = Item; }
 
 void MessageWidget::setMessageText(QString newMessage)
 {

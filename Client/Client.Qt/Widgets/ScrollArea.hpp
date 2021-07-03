@@ -178,6 +178,18 @@ public:
      */
     void rangeChanged(int oldMax, int newMax, bool vertical);
 
+    /**
+     * @brief Takes control on widget
+     * @param widget widget to take control on
+     */
+    void setOwnedWidget(std::unique_ptr<QWidget> widget);
+
+    /**
+     * @brief Return widget and remove ownership
+     * @return Widget
+     */
+    std::unique_ptr<QWidget> takeWidget();
+
 protected:
     void resizeEvent(QResizeEvent* e) override;
     void moveEvent(QMoveEvent* e) override;
@@ -238,6 +250,8 @@ private:
     bool _touchEnabled;
     bool _disabled;
     bool _movingByScrollBar;
+
+    std::unique_ptr<QWidget> _widget;
 
     int _horizontalValue, _verticalValue;
 };
