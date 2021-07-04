@@ -19,7 +19,6 @@ ScrollBar::ScrollBar(ScrollArea* parent, bool vertical, const Style::ScrollArea*
     connect(_connected, SIGNAL(valueChanged(int)), this, SLOT(onValueChanged()));
     connect(_connected, SIGNAL(rangeChanged(int, int)), this, SLOT(onRangeChanged()));
 
-    setAttribute(Qt::WA_Hover);
     updateBar();
 }
 
@@ -389,7 +388,6 @@ void ScrollArea::resizeEvent(QResizeEvent* e)
     QScrollArea::resizeEvent(e);
     _horizontalBar.recountSize();
     _verticalBar.recountSize();
-    updateBars();
     geometryChanged();
 }
 

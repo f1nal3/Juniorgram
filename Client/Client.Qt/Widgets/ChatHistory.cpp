@@ -10,25 +10,31 @@ ChatHistory::ChatHistory(QWidget* parent) : QWidget(parent), _messageList()
     _messageList.reserve(1024);
     _scrollArea  = std::make_unique<ScrollArea>(this);
     auto history = std::make_unique<QWidget>(this);
-    history->setMinimumHeight(5000000);
-    history->setMinimumHeight(0);
+
     _scrollArea->setOwnedWidget(std::move(history));
     _scrollArea->setWidgetResizable(true);
-    connect(_scrollArea.get(), &ScrollArea::scrolled, [=]() {
-        if (_messageList.empty()) return;
-    });
+
+    connect(_scrollArea.get(), SIGNAL(scrolled()), this, SLOT(resizeVisible()));
+}
+void ChatHistory::resizeVisible()
+{
+    if (_messageList.empty()) return;
+    auto [left, right] = findVisible();
+    int width          = this->width();
+
+    for (int index = left; index <= right; index++)
+    {
+        auto& msg = _messageList[index];
+        if (msg->width() != width) msg->resize(width, msg->height());
+    }
 }
 
 void ChatHistory::resizeEvent(QResizeEvent* event)
 {
     _scrollArea->resize(width(), height());
-    qDebug() << _messageList.capacity() << _messageList.size();
     if (event->oldSize().width() != event->size().width())
     {
-        for (auto& msg : _messageList)
-        {
-            msg->resize(width(), msg->height());
-        }
+        resizeVisible();
     }
     if (event->oldSize().height() != event->size().height())
     {
@@ -52,7 +58,7 @@ void ChatHistory::addMessage(const QString& message, quint64 utc, const QString&
     auto msg     = new MessageWidget(history, message, utc, user);
 
     history->setMinimumHeight(history->minimumHeight() + msg->height() + 10);
-
+    // qDebug() << "ScrollTop" << _scrollArea->scrollTop() << _scrollArea->viewport()->rect();
     msg->resize(history->width(), msg->height());
     msg->show();
 
@@ -63,4 +69,38 @@ void ChatHistory::addMessage(const QString& message, quint64 utc, const QString&
     _scrollArea->scrollToWidget(msg);
 
     messageAdded();
+}
+
+std::pair<int, int> ChatHistory::findVisible() const
+{
+    int left   = 0;
+    int right  = _messageList.size();
+    int top    = _scrollArea->scrollTop();
+    int bottom = top + _scrollArea->height();
+    {
+        int  middle    = _messageList[(right - left) / 2]->pos().y();
+        auto isBetween = [](int p, int t, int b) { return p > t && p < b; };
+        while (!isBetween(middle, top, bottom) && left != right)
+        {
+            if (middle < top) left = (right + left) / 2;
+            if (middle > top) right = (right + left) / 2;
+            middle = _messageList[(right + left) / 2]->pos().y();
+        }
+    }
+    int middle = (right + left) / 2;
+    int index  = middle;
+    int size   = _messageList.size();
+
+    while (_messageList[index]->pos().y() < bottom && index < size - 1)
+    {
+        index++;
+    }
+    right = index;
+    index = middle;
+    while (_messageList[index]->pos().y() + _messageList[index]->height() > top && index > 0)
+    {
+        index--;
+    }
+    left = index;
+    return {left, right};
 }

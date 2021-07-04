@@ -11,6 +11,7 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     mainChatLayout->setSpacing(0);
     chatWidget = new ChatHistory(this);
     textEdit   = new TextEdit(chatWidget);
+    setMinimumWidth(Style::valueDPIScale(400));
 
     mainChatLayout->addWidget(chatWidget, 85);
     mainChatLayout->addWidget(textEdit, 15);
@@ -18,11 +19,12 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     connectUi();
 }
 
-void ChatWidget::newMessage(QString messageText)
+void ChatWidget::newMessage(const QString& messageText)
 {
     for (int i = 0; i < 512; i++)
     {
-        chatWidget->addMessage(messageText, QDateTime::currentSecsSinceEpoch());
+        chatWidget->addMessage(messageText + QString("%1").arg(i),
+                               QDateTime::currentSecsSinceEpoch());
     }
 }
 

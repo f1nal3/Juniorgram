@@ -22,6 +22,10 @@ public:
 
 protected:
     void resizeEvent(QResizeEvent* event) override;
+
+private Q_SLOTS:
+
+    void resizeVisible();
 Q_SIGNALS:
     /**
      * @brief Message has been deleted/restored
@@ -33,7 +37,8 @@ Q_SIGNALS:
     void messageAdded();
 
 private:
-    void updateLayout();
+    void                updateLayout();
+    std::pair<int, int> findVisible() const;
 
 private:
     std::unique_ptr<ScrollArea>                 _scrollArea;

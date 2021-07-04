@@ -1,5 +1,7 @@
 ﻿#include "MessageWidget.hpp"
 
+#include <QPainter>
+
 #include "ChatHistory.hpp"
 #include "Style/Style.hpp"
 
@@ -24,7 +26,7 @@ MessageWidget::~MessageWidget() { clearMessage(); }
 
 void MessageWidget::connectUi()
 {
-    connect(reactionChoseBox.get(), SIGNAL(currentIndexChanged(int)), SLOT(reactionChange(int)));
+    // connect(reactionChoseBox.get(), SIGNAL(currentIndexChanged(int)), SLOT(reactionChange(int)));
     deleteButton->setClickCallback([&]() { deleteButtonClick(); });
 }
 
@@ -47,18 +49,18 @@ void MessageWidget::initializationUiNotDelete()
     messageTextEdit->setAcceptDrops(false);
     messageTextEdit->setReadOnly(true);
 
-    reactionMapLabel     = new QMap<int, Label*>;
-    reactionMapLabelIcon = new QMap<int, Label*>;
-    pixmapIcon           = new QMap<int, QPixmap*>;
-    for (int i = 0; i < COUNT_REACTION; i++)
-    {
-        reactionMapLabel->insert(i, new Label);
-        reactionMapLabelIcon->insert(i, new Label);
-    }
-    pixmapIcon->insert(reactions::LIKE, new QPixmap(":/reactions/like.png"));
-    pixmapIcon->insert(reactions::DISLIKE, new QPixmap(":/reactions/dislike.png"));
-    pixmapIcon->insert(reactions::FIRE, new QPixmap(":/reactions/fire.png"));
-    pixmapIcon->insert(reactions::CAT, new QPixmap(":/reactions/cat.png"));
+    /*    reactionMapLabel     = new QMap<int, Label*>;
+        reactionMapLabelIcon = new QMap<int, Label*>;
+        pixmapIcon           = new QMap<int, QPixmap*>;
+        for (int i = 0; i < COUNT_REACTION; i++)
+        {
+            reactionMapLabel->insert(i, new Label);
+            reactionMapLabelIcon->insert(i, new Label);
+        }
+        pixmapIcon->insert(reactions::LIKE, new QPixmap(":/reactions/like.png"));
+        pixmapIcon->insert(reactions::DISLIKE, new QPixmap(":/reactions/dislike.png"));
+        pixmapIcon->insert(reactions::FIRE, new QPixmap(":/reactions/fire.png"));
+        pixmapIcon->insert(reactions::CAT, new QPixmap(":/reactions/cat.png"));*/
 
     horizontalUpLeftSpacer =
         std::make_unique<QSpacerItem>(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -67,11 +69,11 @@ void MessageWidget::initializationUiNotDelete()
         std::make_unique<QSpacerItem>(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
     userNameLabel = new Label;
     userNameLabel->setText("userName");
-    for (int i = 0; i < COUNT_REACTION; i++)
+    /*for (int i = 0; i < COUNT_REACTION; i++)
     {
         UpLevelLayout->addWidget(*reactionMapLabelIcon->find(i));
         UpLevelLayout->addWidget(*reactionMapLabel->find(i));
-    }
+    }*/
     UpLevelLayout->addItem(horizontalUpLeftSpacer.get());
     UpLevelLayout->addWidget(userNameLabel);
     UpLevelLayout->addItem(horizontalUpRightSpacer.get());
@@ -79,23 +81,23 @@ void MessageWidget::initializationUiNotDelete()
 
     // DownLevelLayout
 
-    reactionChoseBox = std::make_unique<ComboBox>();
-    reactionChoseBox->addItem(QIcon(":/reactions/smile.png"), "");
-    reactionChoseBox->addItem(QIcon(":/reactions/like.png"), "");
-    reactionChoseBox->addItem(QIcon(":/reactions/dislike.png"), "");
-    reactionChoseBox->addItem(QIcon(":/reactions/fire.png"), "");
-    reactionChoseBox->addItem(QIcon(":/reactions/cat.png"), "");
-    reactionChoseBox->setMinimumWidth(Style::valueDPIScale(45));
-#ifdef Q_OS_MAC
-    reactionChoseBox->setMinimumWidth(Style::valueDPIScale(65));
-#endif
+    /*    reactionChoseBox = std::make_unique<ComboBox>();
+        reactionChoseBox->addItem(QIcon(":/reactions/smile.png"), "");
+        reactionChoseBox->addItem(QIcon(":/reactions/like.png"), "");
+        reactionChoseBox->addItem(QIcon(":/reactions/dislike.png"), "");
+        reactionChoseBox->addItem(QIcon(":/reactions/fire.png"), "");
+        reactionChoseBox->addItem(QIcon(":/reactions/cat.png"), "");
+        reactionChoseBox->setMinimumWidth(Style::valueDPIScale(45));
+    #ifdef Q_OS_MAC
+        reactionChoseBox->setMinimumWidth(Style::valueDPIScale(65));
+    #endif*/
 
     horizontalDownSpacer =
         std::make_unique<QSpacerItem>(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     deleteButton = std::make_unique<FlatButton>(this, "Delete");
 
-    DownLevelLayout->addWidget(reactionChoseBox.get());
+    // DownLevelLayout->addWidget(reactionChoseBox.get());
     DownLevelLayout->addItem(horizontalDownSpacer.get());
     DownLevelLayout->addWidget(deleteButton.get());
 
@@ -110,7 +112,6 @@ void MessageWidget::clearMessage()
     if (messageDeleted)
     {
         mainLayout->removeWidget(delMessage);
-        delete delMessage;
     }
     else
     {
@@ -119,23 +120,34 @@ void MessageWidget::clearMessage()
         UpLevelLayout->removeItem(horizontalUpRightSpacer.get());
         UpLevelLayout->removeWidget(messageDateTimeEdit);
         UpLevelLayout->removeWidget(messageTextEdit);
-        for (int i = 0; i < COUNT_REACTION; i++)
+        /*for (int i = 0; i < COUNT_REACTION; i++)
         {
             UpLevelLayout->removeWidget(*reactionMapLabel->find(i));
             UpLevelLayout->removeWidget(*reactionMapLabelIcon->find(i));
             delete *reactionMapLabel->find(i);
             delete *reactionMapLabelIcon->find(i);
-        }
-        DownLevelLayout->removeWidget(reactionChoseBox.get());
+        }*/
+        // DownLevelLayout->removeWidget(reactionChoseBox.get());
         DownLevelLayout->removeItem(horizontalDownSpacer.get());
         DownLevelLayout->removeWidget(deleteButton.get());
         mainLayout->removeItem(UpLevelLayout.get());
         delete messageTextEdit;
-        delete userNameLabel;
-        delete reactionMapLabel;
-        delete reactionMapLabelIcon;
+        userNameLabel->hide();
+        // delete reactionMapLabel;
+        // delete reactionMapLabelIcon;
         delete messageDateTimeEdit;
+        deleteButton->hide();
     }
+}
+
+void MessageWidget::paintEvent(QPaintEvent* e)
+{
+    QPainter p(this);
+    p.setPen(QPen(Qt::white, 2));
+    p.setRenderHint(QPainter::Antialiasing);
+    p.drawRoundedRect(rect().marginsRemoved(QMargins(1, 1, 2, 2)), st::defaultMargin,
+                      st::defaultMargin);
+    QWidget::paintEvent(e);
 }
 
 void MessageWidget::deleteButtonClick()
@@ -144,6 +156,7 @@ void MessageWidget::deleteButtonClick()
     delMessage = new Label("Message was deleted");
     mainLayout->addWidget(delMessage);
     messageDeleted = true;
+    update();
 }
 
 void MessageWidget::updateWidget()

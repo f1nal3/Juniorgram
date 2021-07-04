@@ -13,7 +13,7 @@ public:
     ~ChatWidget() override;
 
 private slots:
-    void newMessage(QString messageText);
+    void newMessage(const QString& messageText);
     void newMessage(QString textMessage, QString userNameMessage);
 
 private:

@@ -74,6 +74,9 @@ public:
      */
     ~MessageWidget() override;
 
+protected:
+    void paintEvent(QPaintEvent* e) override;
+
 private slots:
     void deleteButtonClick();
     void reactionChange(int index);
@@ -120,7 +123,7 @@ private:
     // delMessage - shows that the message has been deleted
     Label* delMessage;
 
-    bool               messageDeleted;
+    bool               messageDeleted = false;
     QString            messageText;
     QString            userName;
     QDateTime          dateTimeMessage;
