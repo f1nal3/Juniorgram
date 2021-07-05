@@ -91,6 +91,6 @@ TEST_CASE("Registration user")
         const auto REGISTRATION_CODE = RegistrationUnit::instance().registerUser(USER_4);
 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS);
-        REQUIRE(findUsersAmountWithSameLogin(USER_1.login));
+        REQUIRE(findUsersAmountWithSameLogin(USER_1.login) == 1);
     }
 }
