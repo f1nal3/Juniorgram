@@ -8,6 +8,7 @@ class KeysValidator
 {
 private:
     using initList = std::initializer_list<std::string>;
+
 private:
     struct Keys
     {

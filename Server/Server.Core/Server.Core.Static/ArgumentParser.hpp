@@ -32,8 +32,11 @@ private:
     }
 
     void checkOnBadAmount(std::vector<std::string>& params) const;
+
     std::string trim(std::string& row) const noexcept;
+	
     bool isInteger(const std::string& str) const noexcept;
+
     void tryPushToMap(const std::string& key, const std::string& value);
 };
 

@@ -20,8 +20,8 @@ class Server
 {
 private:
     uint64_t mIDCounter         = 10000;
-	uint64_t mCriticalQueueSize = 100;
-	uint64_t mNewThreadsCount   = std::thread::hardware_concurrency();
+    uint64_t mCriticalQueueSize = 100;
+    uint64_t mNewThreadsCount   = std::thread::hardware_concurrency();
 
     asio::io_context                                 mContext;
     asio::ip::tcp::acceptor                          mAcceptor;
