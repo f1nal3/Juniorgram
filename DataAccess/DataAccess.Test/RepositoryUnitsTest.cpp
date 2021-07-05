@@ -4,14 +4,11 @@
 #include <catch2/catch.hpp>
 #include <iostream>
 #include <unordered_map>
+#include <DataAccess.Test/UsersAmountFunctions.hpp>
+
 // WARNING!
 // Be carefull. Maybe user with some data already exists in DB before tests running.
 // When you create new test, you must delete all test-users from DB calling deleteUsersFromDB function! 
-
-std::uint16_t findUsersAmountWithSameTableAttribute(const std::string& condition);
-std::uint16_t findUsersAmountWithSameLogin(const std::string& login);
-std::uint16_t findUsersAmountWithSameEmail(const std::string& email);
-std::uint16_t findUsersAmountWithAllSameData(const Network::RegistrationInfo& ri);
 
 const std::unordered_map<std::string, Network::RegistrationInfo> USERS_DATA{
     std::pair("user_1", Network::RegistrationInfo
@@ -97,32 +94,3 @@ TEST_CASE("Registration user")
         REQUIRE(findUsersAmountWithSameLogin(USER_1.login));
     }
 }
-
-std::uint16_t findUsersAmountWithSameTableAttribute(const std::string& condition)
-{
-    const auto RECORDS_AMOUNT = DataAccess::PostgreTable("users")
-                                            .Select()
-                                            ->columns({"COUNT(*)"})
-                                            ->Where(condition)
-                                            ->execute();
-                                     
-    return RECORDS_AMOUNT.value()[0][0].as<std::uint16_t>();
-};
-
-std::uint16_t findUsersAmountWithSameLogin(const std::string& login)
-{
-    return findUsersAmountWithSameTableAttribute("login='" + login + "'");
-};
-
-std::uint16_t findUsersAmountWithSameEmail(const std::string& email)
-{
-    return findUsersAmountWithSameTableAttribute("email='" + email + "'");
-};
-
-std::uint16_t findUsersAmountWithAllSameData(const Network::RegistrationInfo& ri)
-{
-    return findUsersAmountWithSameTableAttribute("email='" + ri.email + 
-                                                 "' and login='" + ri.login +
-                                                 "' and password_hash='" + ri.passwordHash + 
-                                                 "'");
-};
