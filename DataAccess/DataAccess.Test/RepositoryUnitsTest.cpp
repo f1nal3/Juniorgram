@@ -5,15 +5,16 @@
 #include <iostream>
 #include <unordered_map>
 // WARNING!
-// Be carefull. Maybe user with this data already exists in DB before tests running!
+// Be carefull. Maybe user with some data already exists in DB before tests running.
 // When you create new test, you must delete all test-users from DB calling deleteUsersFromDB function! 
+// Close connection
 
 std::uint16_t findUsersAmountWithSameTableAttribute(const std::string& condition);
 std::uint16_t findUsersAmountWithSameLogin(const std::string& login);
 std::uint16_t findUsersAmountWithSameEmail(const std::string& email);
 std::uint16_t findUsersAmountWithAllSameData(const Network::RegistrationInfo& ri);
 
-static const std::unordered_map<std::string, Network::RegistrationInfo> USERS_DATA{
+const std::unordered_map<std::string, Network::RegistrationInfo> USERS_DATA{
     std::pair("user_1", Network::RegistrationInfo
                         {
                             "funichtojator3000@gmail.com", 
@@ -30,7 +31,7 @@ static const std::unordered_map<std::string, Network::RegistrationInfo> USERS_DA
 
     std::pair("user_3", Network::RegistrationInfo
                         {
-                            "andropovka64@mail.ru",
+                            "funichtojator3000@gmail.com",
                             "baskov007",
                             "fd38ddb3fa9d7a2f8cf83cbf5d2af1a6600c264ab4dead51df94f5f0b7393c38"
                         }),
@@ -44,17 +45,18 @@ static const std::unordered_map<std::string, Network::RegistrationInfo> USERS_DA
 
 };
 
-static void deleteUser(const Network::RegistrationInfo& ri)
+void deleteUser(DataAccess::PostgreTable&& table, const Network::RegistrationInfo& ri)
 {
-    static DataAccess::PostgreTable tableOfUsers("users");
-    tableOfUsers.Delete()->Where("email='" + ri.email + "' or login='" + ri.login + "'")->execute();
+    table.Delete()->Where("email='" + ri.email + "' or login='" + ri.login + "'")->execute();
 }
 
-static void deleteUsersFromDB()
+void deleteUsersFromDB()
 {
+    DataAccess::PostgreTable tableOfUsers("users");
+    
     for (auto&& user : USERS_DATA)
     {
-        deleteUser(user.second);
+        deleteUser(std::move(tableOfUsers), user.second);
     }
 }
 
@@ -62,7 +64,7 @@ TEST_CASE("Registration user")
 {
     SECTION("RegistrationCode: SUCCESS")
     {
-        //deleteUsersFromDB();
+        deleteUsersFromDB();
 
         const auto USER_1 = USERS_DATA.at("user_1");
         const auto REGISTRATION_CODE = RegistrationUnit::instance().registerUser(USER_1);
@@ -78,11 +80,11 @@ TEST_CASE("Registration user")
         const auto USER_2 = USERS_DATA.at("user_2");
         RegistrationUnit::instance().registerUser(USER_2);
         
-        const auto USER_3      = USERS_DATA.at("user_3");
+        const auto USER_3            = USERS_DATA.at("user_3");
         const auto REGISTRATION_CODE = RegistrationUnit::instance().registerUser(USER_3);
 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS);
-        REQUIRE(findUsersAmountWithSameEmail(USER_3.email) == 0);
+        REQUIRE(findUsersAmountWithSameEmail(USER_2.email) == 1);
     }
 
     SECTION("RegistrationCode: LOGIN_ALREADY_EXISTS")
@@ -96,18 +98,18 @@ TEST_CASE("Registration user")
         const auto REGISTRATION_CODE = RegistrationUnit::instance().registerUser(USER_4);
 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS);
-        REQUIRE(findUsersAmountWithSameLogin(USER_4.email));
+        REQUIRE(findUsersAmountWithSameLogin(USER_1.login));
     }
 }
 
 std::uint16_t findUsersAmountWithSameTableAttribute(const std::string& condition)
 {
     const auto RECORDS_AMOUNT = DataAccess::PostgreTable("users")
-                                    .Select()
-                                    ->columns({"COUNT(*)"})
-                                    ->Where(condition)
-                                    ->execute();
-
+                                            .Select()
+                                            ->columns({"COUNT(*)"})
+                                            ->Where(condition)
+                                            ->execute();
+                                     
     return RECORDS_AMOUNT.value()[0][0].as<std::uint16_t>();
 };
 

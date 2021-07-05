@@ -250,3 +250,8 @@ TEST_CASE("Delete[Where]", "[PostgreAbstractionLayout]")
         test.Delete()->rollback();
     }
 }
+
+TEST_CASE("Close connection 1") 
+{ 
+    test.getAdapter()->closeConnection(); 
+}
