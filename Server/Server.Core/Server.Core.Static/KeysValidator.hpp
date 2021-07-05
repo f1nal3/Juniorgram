@@ -6,6 +6,7 @@
 
 class KeysValidator
 {
+private:
     using initList = std::initializer_list<std::string>;
 private:
     struct Keys
@@ -33,14 +34,10 @@ public:
         : KeysValidator()
     {
         for (auto&& key : validkeysList)
-        {
             validKeys.emplace_back(key);
-        }
 
         for (auto&& key : keysWithoutValuesList)
-        {
             keysWithoutValues.emplace_back(key);
-        }
     }
 
     bool doKeyNeedValue(const std::string& incomingKey) const noexcept

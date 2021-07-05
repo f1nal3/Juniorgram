@@ -18,16 +18,19 @@ namespace Server
 
 class Server
 {
-    uint64_t mIDCounter = 10000, mCriticalQueueSize = 100,
-             mNewThreadsCount = std::thread::hardware_concurrency();
+private:
+    uint64_t mIDCounter         = 10000;
+	uint64_t mCriticalQueueSize = 100;
+	uint64_t mNewThreadsCount   = std::thread::hardware_concurrency();
 
-    asio::io_context mContext;
-    asio::ip::tcp::acceptor mAcceptor;
+    asio::io_context                                 mContext;
+    asio::ip::tcp::acceptor                          mAcceptor;
     std::deque<std::shared_ptr<Network::Connection>> mConnectionsPointers;
-    Network::SafeQueue<Network::Message> mIncomingMessagesQueue;
-    std::deque<std::thread> mThreads;
-    std::unique_ptr<DataAccess::IRepository> _postgreRepo;
+    Network::SafeQueue<Network::Message>             mIncomingMessagesQueue;
+    std::deque<std::thread>                          mThreads;
+    std::unique_ptr<DataAccess::IRepository>         mPostgreRepo;
 
+private:
     bool onClientConnect(const std::shared_ptr<Network::Connection>& client);
 
     void onClientDisconnect(const std::shared_ptr<Network::Connection>& client);
