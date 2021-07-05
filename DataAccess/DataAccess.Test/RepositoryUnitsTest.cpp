@@ -7,7 +7,6 @@
 // WARNING!
 // Be carefull. Maybe user with some data already exists in DB before tests running.
 // When you create new test, you must delete all test-users from DB calling deleteUsersFromDB function! 
-// Close connection
 
 std::uint16_t findUsersAmountWithSameTableAttribute(const std::string& condition);
 std::uint16_t findUsersAmountWithSameLogin(const std::string& login);
@@ -45,18 +44,15 @@ const std::unordered_map<std::string, Network::RegistrationInfo> USERS_DATA{
 
 };
 
-void deleteUser(DataAccess::PostgreTable&& table, const Network::RegistrationInfo& ri)
-{
-    table.Delete()->Where("email='" + ri.email + "' or login='" + ri.login + "'")->execute();
-}
-
 void deleteUsersFromDB()
 {
     DataAccess::PostgreTable tableOfUsers("users");
     
     for (auto&& user : USERS_DATA)
     {
-        deleteUser(std::move(tableOfUsers), user.second);
+        tableOfUsers.Delete()
+            ->Where("email='" + user.second.email + "' or login='" + user.second.login + "'")
+            ->execute();
     }
 }
 
