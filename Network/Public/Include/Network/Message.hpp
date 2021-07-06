@@ -28,7 +28,7 @@ struct Message
         MessageHistoryRequest,
         MessageStoreRequest,
         RegistrationRequest,
-        RegistrationAnswer
+        RegistrationAnswer,
         RegistrationRequestToClient,
         SendIV,
         TokenRequest

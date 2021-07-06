@@ -2,6 +2,7 @@
 #include "Network/Primitives.hpp"
 #include "DataAccess.Static/PostgreRepository.hpp"
 #include "DataAccess.Static/RepositoryUnits.hpp"
+#include "Utility/TokenBuilder.hpp"
 
 #include <future>
 
@@ -19,7 +20,7 @@ bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
     client->send(message);
 
     message.mHeader.mMessageType = Network::Message::MessageType::SetEncryptedConnection;
-    message.mBody = std::make_any<std::string>(client->getKeyDestibutor().get()->getPublicServerKey());
+    message.mBody = std::make_any<std::string>((*client->getKeyDestibutor()).getPublicServerKey());
     client->send(message);
 
     return true;
@@ -179,6 +180,13 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                 Network::Message::MessageType::RegistrationAnswer;
             
             auto registrationCode = future.get();
+
+            auto tokenBuilder = Utility::getTokenBuilder();
+
+            tokenBuilder.onEvent(Utility::GetHeader{});
+            tokenBuilder.onEvent(Utility::GetPayload{});
+            tokenBuilder.onEvent(Utility::GetSignature{});
+
             
             messageToClient.mBody = std::make_any<Utility::RegistrationCodes>(registrationCode);
             client->send(messageToClient);

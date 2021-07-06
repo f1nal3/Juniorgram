@@ -11,14 +11,14 @@ App::App(/* args */)
 
     // authentication  part 
    
-    if (client.checkTokenExistance())
+    /*if (client.checkTokenExistance())
     {
 
     }
     else
     {
         
-    }
+    }*/
 }
     
 
@@ -132,8 +132,10 @@ bool App::loop()
                     std::cout << "Message were stored" << std::endl;
                 }
                 break;
+
                 case Network::Message::MessageType::RegistrationAnswer:
-				break;
+				            break;
+                
                 case Network::Message::MessageType::RegistrationRequestToClient:
                 {
                     auto code = std::any_cast<Utility::RegistrationCodes>(message.mBody);

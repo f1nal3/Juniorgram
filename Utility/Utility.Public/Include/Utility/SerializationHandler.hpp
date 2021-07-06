@@ -21,8 +21,6 @@ public:
 
         switch (message.mHeader.mMessageType)
         {
-            switch (message.mHeader.mMessageType)
-            {
                 case Message::MessageType::ServerAccept:
                     break;
                 case Message::MessageType::ServerPing:
@@ -45,21 +43,20 @@ public:
                     state = processOutcomingMessageBody<RegistrationInfo>(bodyBuffer, message.mBody);
                     break;
                 case Message::MessageType::RegistrationAnswer:
-				/*my part!!!*/
-					break;
-				case Message::MessageType::SendIV:
-					state = processOutcomingMessageBody<std::string>(
+				                /*my part!!!*/
+					                break;
+				            case Message::MessageType::SendIV:
+				                state = processOutcomingMessageBody<std::string>(
                     bodyBuffer, message.mBody);
-					 break;
+					               break;
                 case Message::MessageType::RegistrationRequestToClient:
                     state = processOutcomingMessageBody<Utility::RegistrationCodes>(bodyBuffer, message.mBody);
-					 break;
+					               break;
                 case Message::MessageType::SetEncryptedConnection:
                     state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
                     break;
                 default:
                     break;
-            }
         }
        
         if (state == SerializedState::SUCCESS)
@@ -105,14 +102,12 @@ public:
             case Message::MessageType::RegistrationRequest:
                 state = processIncomingMessageBody<RegistrationInfo>(buffer, message);
                 break;
-<<<<<<< HEAD
-            }
             case Message::MessageType::RegistrationAnswer:
-            {
-=======
+                /*my part!!!*/
+                break;
             case Message::MessageType::RegistrationRequestToClient:
->>>>>>> fb11095 (Deleted useless code part.)
                 state = processIncomingMessageBody<Utility::RegistrationCodes>(buffer, message);
+                break;
             case Message::MessageType::SendIV:
                 state = processIncomingMessageBody<std::string>(buffer, message);
                 break; 

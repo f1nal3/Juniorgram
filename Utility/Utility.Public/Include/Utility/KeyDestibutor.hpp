@@ -24,6 +24,7 @@ public:
           mPublicServer{mDHServer.PublicKeyLength()},
           mPrivServer{mDHServer.PrivateKeyLength()}
     {}
+
     virtual ~KeyDestributor() = default;
 
     KeyDestributor(const KeyDestributor& other) = delete;

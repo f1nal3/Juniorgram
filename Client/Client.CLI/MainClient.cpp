@@ -66,9 +66,9 @@ int main()
             }
             else if (cmd == "ur")
             {
-                std::string email = GetLineFromCin();
-                std::string login = GetLineFromCin();
-                std::string password = GetLineFromCin();
+                std::string email = /*GetLineFromCin()*/"lessocto@gmail.com";
+                std::string login = "gabriel";
+                std::string password = "qwerty124";
                 
                 clientApp.shell()->userRegistration(email, login, password);
             }
@@ -78,6 +78,7 @@ int main()
                 clientApp.shell()->disconnect();
                 continue;
             }
+
             // Set a new line. Subtle race condition between the previous line
             // and this. Some lines could be missed. To aleviate, you need an
             // io-only thread. I'll give an example of that as well.
