@@ -1,9 +1,10 @@
 #include <DataAccess.Static/PostgreTable.hpp>
-#include <DataAccess.Static/RepositoryUnits.hpp>
 #include <catch2/catch.hpp>
 #include <iostream>
 #include <unordered_map>
 #include <DataAccess.Static/UsersAmountFunctions.hpp>
+
+#include "TestRegistrationUnit.hpp"
 
 // WARNING!
 // Be carefull. Maybe user with some data already exists in DB before tests running.
@@ -40,36 +41,26 @@ const std::unordered_map<std::string, Network::RegistrationInfo> USERS_DATA{
 
 };
 
-void deleteUsersFromDB()
-{
-    DataAccess::PostgreTable tableOfUsers("users");
-    
-    for (auto&& user : USERS_DATA)
-    {
-        tableOfUsers.Delete()
-            ->Where("email='" + user.second.email + "' or login='" + user.second.login + "'")
-            ->execute();
-    }
-}
-
 TEST_CASE("Registration user")
 {
-    RegistrationUnit registrator;
+    static TestRegistrationUnit registrator;
 
     SECTION("RegistrationCode: SUCCESS")
     {
-        deleteUsersFromDB();
+        registrator.rollback(USERS_DATA);
 
         const auto USER_1 = USERS_DATA.at("user_1");
         const auto REGISTRATION_CODE = registrator.registerUser(USER_1);
                 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::SUCCESS);
         REQUIRE(findUsersAmountWithAllSameData(USER_1) == 1);
+        
+        registrator.rollback(USERS_DATA);
     }
 
     SECTION("RegistrationCode: EMAIL_ALREADY_EXISTS")
     {
-        deleteUsersFromDB();
+        registrator.rollback(USERS_DATA);
         
         const auto USER_2 = USERS_DATA.at("user_2");
         registrator.registerUser(USER_2);
@@ -79,12 +70,14 @@ TEST_CASE("Registration user")
 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS);
         REQUIRE(findUsersAmountWithSameEmail(USER_2.email) == 1);
+        
+        registrator.rollback(USERS_DATA);
     }
 
     SECTION("RegistrationCode: LOGIN_ALREADY_EXISTS")
     {
-        deleteUsersFromDB();
-     
+        registrator.rollback(USERS_DATA);
+
         const auto USER_1 = USERS_DATA.at("user_1");
         registrator.registerUser(USER_1);
 
@@ -93,5 +86,7 @@ TEST_CASE("Registration user")
 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS);
         REQUIRE(findUsersAmountWithSameLogin(USER_1.login) == 1);
+        
+        registrator.rollback(USERS_DATA);
     }
 }

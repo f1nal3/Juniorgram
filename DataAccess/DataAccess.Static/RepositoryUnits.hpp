@@ -20,11 +20,10 @@ protected:
 
     RegistrationUnit(DataAccess::PostgreTable* pt) : pTable(pt) {}
 
-private:
     std::unique_ptr<Table> pTable;
 
 public:
-    RegistrationUnit() : pTable(new Table("users")) {}
+    RegistrationUnit() : pTable(new Table{"users"}) {}
 
     virtual ~RegistrationUnit() = default;
 
