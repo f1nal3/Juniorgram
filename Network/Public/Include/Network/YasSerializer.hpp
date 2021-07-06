@@ -1,8 +1,8 @@
 #pragma once
 #include "Utility/WarningSuppression.hpp"
 // clang-format off
-suppressWarning(4996, -Wdeprecated-declarations)
-suppressWarning(4458, -Wshadow)
+suppressWarning(4996, "-Wdeprecated-declarations")
+suppressWarning(4458, "-Wshadow")
 #include <yas/binary_iarchive.hpp>
 #include <yas/binary_oarchive.hpp>
 #include <yas/buffers.hpp>
@@ -55,7 +55,7 @@ namespace Network
             try
             {
                 // clang-format off
-				suppressWarning(4127, -Wtype-limits)
+				suppressWarning(4127, "-Wtype-limits")
 					msg = yas::save<flags>(data);
 				restoreWarning
            }
@@ -82,7 +82,7 @@ namespace Network
             try
             {
                 // clang-format off
-				suppressWarning(4127, -Wtype-limits)
+				suppressWarning(4127, "-Wtype-limits")
 					yas::load<flags>(source, data);
 				restoreWarning
 			}

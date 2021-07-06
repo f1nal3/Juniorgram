@@ -18,11 +18,11 @@
 #include "SafeQueue.hpp"
 #include "Utility/Utility.hpp"
 #include "Utility/WarningSuppression.hpp"
-#include "Utility/CompressionHandler.hpp"
-#include "Utility/Handler.hpp"
-#include "Utility/EncryptionHandler.hpp"
-#include "Utility/SerializationHandler.hpp"
-#include "Utility/YasSerializer.hpp"
+#include "CompressionHandler.hpp"
+#include "Handler.hpp"
+#include "EncryptionHandler.hpp"
+#include "SerializationHandler.hpp"
+#include "YasSerializer.hpp"
 
 namespace Network
 {
@@ -296,7 +296,7 @@ public:
     }
 
     // clang-format off
-    suppressWarning(4100, -Wunused-parameter)
+    suppressWarning(4100, "-Wunused-parameter")
     /**
     * @brief Method for connection to server from client side.
     * @details Only clients can connect to servers and make a request asio attempts \

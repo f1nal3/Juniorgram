@@ -13,7 +13,7 @@ public:
     {
         mWorkers.reserve(threadCount);
 
-        for (size_t i = 0; i < threadCount; ++i)
+        for (size_t threadIndex = 0; threadIndex < threadCount; ++threadIndex)
         {
             mWorkers.emplace_back(&TaskManager::processTasks, this);
         }
