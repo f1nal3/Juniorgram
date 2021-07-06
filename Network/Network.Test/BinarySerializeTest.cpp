@@ -9,7 +9,7 @@
 #include "Network/Connection.hpp"
 #include "Network/Message.hpp"
 #include "Network/Primitives.hpp"
-#include "Utility/YasSerializer.hpp"
+#include "Network/YasSerializer.hpp"
 
 TEST_CASE("Test binary serialization & deserialization of plain types", "[YasSerializer]")
 {
