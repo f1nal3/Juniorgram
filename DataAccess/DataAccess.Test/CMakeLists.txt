@@ -4,8 +4,8 @@ set(OUTPUT_NAME DataAccess.Test)
 set(SOURCE_FILES
     DataAccessTest.cpp
     FileDBTest.cpp
-    UsersAmountFunctions.hpp
-    RepositoryUnitsTest.cpp)
+    RepositoryUnitsTest.cpp
+    TestRegistrationUnit.hpp)
     
 add_executable(${TARGET} ${SOURCE_FILES})
 

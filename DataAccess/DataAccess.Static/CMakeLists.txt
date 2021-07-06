@@ -15,7 +15,9 @@ set(SOURCE_FILES
     RepositoryUnits.hpp
     RepositoryUnits.cpp
     SQLStatements.hpp
-    QueryBuilder.hpp)
+    QueryBuilder.hpp
+    UsersAmountFunctions.hpp
+    UsersAmountFunctions.cpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 

@@ -1,5 +1,7 @@
-#include <DataAccess.Static/PostgreTable.hpp>
-#include <Utility/WarningSuppression.hpp>
+#include "UsersAmountFunctions.hpp"
+
+#include "PostgreTable.hpp"
+#include <Network/Primitives.hpp>
 
 std::uint16_t findUsersAmountWithSameTableAttribute(const std::string& condition)
 {

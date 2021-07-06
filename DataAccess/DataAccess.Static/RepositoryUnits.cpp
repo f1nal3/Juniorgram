@@ -1,5 +1,4 @@
 #include "RepositoryUnits.hpp"
-#include "PostgreRepository.hpp"
 
 using namespace DataAccess;
 
@@ -16,22 +15,12 @@ std::string nowTimeStampStr()
 
 Utility::RegistrationCodes RegistrationUnit::registerUser(const Network::RegistrationInfo& ri) const
 {
-    auto getUsersAmount = [&](const std::string& condition) -> std::uint16_t 
-    {
-        auto recordsRowAmount = getUsersTable().Select()
-                                               ->columns({"COUNT(*)"})
-                                               ->Where(condition)
-                                               ->execute();
-
-        return recordsRowAmount.value()[0][0].as<std::uint16_t>();
-    };
-
     // Check on existing of login and email in repository.
-    if (getUsersAmount("email = '" + ri.email + "'") > 0)
+    if (findUsersAmountWithSameEmail(ri.email) > 0)
     {
         return Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS;
     }
-    if (getUsersAmount("login = '" + ri.login + "'") > 0)
+    if (findUsersAmountWithSameLogin(ri.login) > 0)
     {
         return Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS;
     }
@@ -44,7 +33,7 @@ Utility::RegistrationCodes RegistrationUnit::registerUser(const Network::Registr
         std::pair{"password_hash", ri.passwordHash}
     };
     // Insert new user.
-    getUsersTable().Insert()->columns(userData)->execute();
+    pTable->Insert()->columns(userData)->execute();
 
     return Utility::RegistrationCodes::SUCCESS;
 }

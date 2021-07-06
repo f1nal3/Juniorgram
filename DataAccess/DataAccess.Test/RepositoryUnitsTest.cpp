@@ -1,10 +1,9 @@
 #include <DataAccess.Static/PostgreTable.hpp>
 #include <DataAccess.Static/RepositoryUnits.hpp>
-#include <Utility.Static/Cryptography.hpp>
 #include <catch2/catch.hpp>
 #include <iostream>
 #include <unordered_map>
-#include <DataAccess.Test/UsersAmountFunctions.hpp>
+#include <DataAccess.Static/UsersAmountFunctions.hpp>
 
 // WARNING!
 // Be carefull. Maybe user with some data already exists in DB before tests running.
@@ -55,12 +54,14 @@ void deleteUsersFromDB()
 
 TEST_CASE("Registration user")
 {
+    RegistrationUnit registrator;
+
     SECTION("RegistrationCode: SUCCESS")
     {
         deleteUsersFromDB();
 
         const auto USER_1 = USERS_DATA.at("user_1");
-        const auto REGISTRATION_CODE = RegistrationUnit::instance().registerUser(USER_1);
+        const auto REGISTRATION_CODE = registrator.registerUser(USER_1);
                 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::SUCCESS);
         REQUIRE(findUsersAmountWithAllSameData(USER_1) == 1);
@@ -71,10 +72,10 @@ TEST_CASE("Registration user")
         deleteUsersFromDB();
         
         const auto USER_2 = USERS_DATA.at("user_2");
-        RegistrationUnit::instance().registerUser(USER_2);
+        registrator.registerUser(USER_2);
         
         const auto USER_3            = USERS_DATA.at("user_3");
-        const auto REGISTRATION_CODE = RegistrationUnit::instance().registerUser(USER_3);
+        const auto REGISTRATION_CODE = registrator.registerUser(USER_3);
 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS);
         REQUIRE(findUsersAmountWithSameEmail(USER_2.email) == 1);
@@ -85,10 +86,10 @@ TEST_CASE("Registration user")
         deleteUsersFromDB();
      
         const auto USER_1 = USERS_DATA.at("user_1");
-        RegistrationUnit::instance().registerUser(USER_1);
+        registrator.registerUser(USER_1);
 
         const auto USER_4            = USERS_DATA.at("user_4");
-        const auto REGISTRATION_CODE = RegistrationUnit::instance().registerUser(USER_4);
+        const auto REGISTRATION_CODE = registrator.registerUser(USER_4);
 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS);
         REQUIRE(findUsersAmountWithSameLogin(USER_1.login) == 1);
