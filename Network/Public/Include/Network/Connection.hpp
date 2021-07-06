@@ -397,14 +397,14 @@ public:
         });
     }
 
-    std::unique_ptr<Utility::KeyDestributor>& getKeyDestibutor() const 
+    std::unique_ptr<Utility::KeyDestributor>& getKeyDestibutor()
     { 
         return mKeyDestibutor;
     }
 
-    std::string getRemoteIP() const 
-    { 
-        return {mSocket.remote_endpoint()};
+    std::string getIP()
+    {
+        return mSocket.remote_endpoint().address().to_string();
     }
 };
 }  // namespace Network

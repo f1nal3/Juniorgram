@@ -13,7 +13,8 @@ namespace Utility
 suppressWarning(4100, Init)
 struct GetHeader
 {
-    GetHeader(const std::initializer_list<std::string_view>& init_list) 
+    template<typename T>
+    GetHeader(const std::initializer_list<std::pair<std::string_view, T>>& init_list) 
     {
 
     }
@@ -21,7 +22,8 @@ struct GetHeader
 
 struct GetPayload
 {
-    GetPayload(const std::initializer_list<std::string_view>& init_list)
+    template <typename T>
+    GetPayload(const std::initializer_list<std::pair<std::string_view, T>>& init_list)
     {
     
     }
@@ -29,7 +31,8 @@ struct GetPayload
 
 struct GetSignature
 {
-    GetSignature(const std::initializer_list<std::string_view>& init_list)
+    template <typename T>
+    GetSignature(const std::initializer_list<std::pair<std::string_view, T>>& init_list)
     {
     
     }

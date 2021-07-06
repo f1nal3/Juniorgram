@@ -35,11 +35,14 @@ class Server
 
     void onMessage(const std::shared_ptr<Network::Connection>& client, Network::Message& message);
 
+    std::string getToken(const std::shared_ptr<Network::Connection>& client);
+
 public:
     explicit Server(const uint16_t& port);
 
     ~Server();
 
+  
     bool start();
 
     void stop();
@@ -53,5 +56,6 @@ public:
                            const std::shared_ptr<Network::Connection>& exceptionClient = nullptr);
     
     void update(std::size_t maxMessages = std::numeric_limits<size_t>::max(), bool wait = true);
+
 };
 }  // namespace Network

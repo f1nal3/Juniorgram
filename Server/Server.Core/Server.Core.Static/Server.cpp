@@ -5,6 +5,7 @@
 #include "Utility/TokenBuilder.hpp"
 
 #include <future>
+#include <string_view>
 
 using Network::Connection;
 using Network::Message;
@@ -181,13 +182,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             
             auto registrationCode = future.get();
 
-            auto tokenBuilder = Utility::getTokenBuilder();
+            auto token = getToken(client);
 
-            tokenBuilder.onEvent(Utility::GetHeader{});
-            tokenBuilder.onEvent(Utility::GetPayload{});
-            tokenBuilder.onEvent(Utility::GetSignature{});
-
-            
             messageToClient.mBody = std::make_any<Utility::RegistrationCodes>(registrationCode);
             client->send(messageToClient);
         }
@@ -199,6 +195,21 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         }
         break;
     }
+}
+
+std::string Server::getToken(const std::shared_ptr<Connection>& client)
+{ 
+    using namespace std::literals;
+
+    auto tokenBuilder = Utility::getTokenBuilder();
+
+    tokenBuilder.onEvent(Utility::GetHeader{{ std::pair{"alg"sv, "ECDH"}, std::pair{"typ"sv, "JWT"}}});
+    
+    tokenBuilder.onEvent(
+                         Utility::GetPayload{{std::pair{"id"sv, client->getID()}, std::pair{"ip"sv, client->getIP()}}});
+
+   /* tokenBuilder.onEvent(Utility::GetSignature{});*/
+    return "124";
 }
 
 Server::Server(const uint16_t& port)
