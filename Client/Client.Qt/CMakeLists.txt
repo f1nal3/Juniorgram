@@ -16,6 +16,8 @@ set(SOURCE_FILES
         Widgets/ChannelListWidget.hpp
         Widgets/ChannelListWindow.cpp
         Widgets/ChannelListWindow.hpp
+        Widgets/ChatWidget.cpp
+        Widgets/ChatWidget.hpp
         Widgets/ComboBox.cpp
         Widgets/ComboBox.hpp
         Widgets/DateTimeEdit.cpp
@@ -28,6 +30,8 @@ set(SOURCE_FILES
         Widgets/Label.hpp
         Widgets/ListWidget.cpp
         Widgets/ListWidget.hpp
+        Widgets/LogoWidget.cpp
+        Widgets/LogoWidget.hpp
         Widgets/Menu.cpp
         Widgets/Menu.hpp
         Widgets/MenuItem.cpp
@@ -36,38 +40,37 @@ set(SOURCE_FILES
         Widgets/MessageWidget.hpp
         Widgets/PopupWidget.cpp
         Widgets/PopupWidget.hpp
+        Widgets/ScrollArea.cpp
+        Widgets/ScrollArea.hpp
         Widgets/TextEdit.cpp
         Widgets/TextEdit.hpp
         Widgets/TimeEdit.cpp
         Widgets/TimeEdit.hpp
-        Widgets/LogoWidget.cpp
-        Widgets/LogoWidget.hpp
-        Style/StyleTypes.cpp
-        Style/StyleTypes.hpp
-        Style/StyleScale.cpp
-        Style/StyleScale.hpp
-        Style/StyleFont.cpp
-        Style/StyleFont.hpp
-        Style/StyleColor.cpp
-        Style/StyleColor.hpp
+        Style/Palette.cpp
+        Style/Palette.hpp
+        Style/Shadow.hpp
         Style/Style.cpp
         Style/Style.hpp
         Style/StyleBasic.hpp
         Style/StyleBasic.cpp
-        Style/Palette.cpp
-        Style/Palette.hpp
-        Style/Shadow.hpp
+        Style/StyleColor.cpp
+        Style/StyleColor.hpp
+        Style/StyleFont.cpp
+        Style/StyleFont.hpp
+        Style/StyleScale.cpp
+        Style/StyleScale.hpp
+        Style/StyleTypes.cpp
+        Style/StyleTypes.hpp
         Application.cpp
         Application.hpp
         ChatWindow.cpp
         ChatWindow.hpp
+        ConnectionManager.hpp
         login.cpp
         login.hpp
         main.cpp
         MainWidget.cpp
-        ConnectionManager.hpp
         MainWidget.hpp
-        pch.hpp
         registration.cpp
         registration.hpp)
 
@@ -83,8 +86,6 @@ endif ()
 target_link_libraries(${TARGET}
         PRIVATE Qt5::Widgets Qt5::Gui ${EXTRA_LIBS} CONAN_PKG::asio
         PUBLIC Network.Public Client.Core.Static Utility.Public)
-
-target_precompile_headers(${TARGET} PRIVATE pch.hpp)
 
 # This needs to be an install or after install operation
 # At this point it disrupts CI build so I commented it out =)

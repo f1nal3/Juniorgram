@@ -1,6 +1,7 @@
 #pragma once
+#include <QWidget>
+
 #include "Menu.hpp"
-#include "pch.hpp"
 class PopupWidget : public QWidget
 {
     Q_OBJECT
@@ -14,7 +15,7 @@ protected:
     void hideEvent(QHideEvent* event) override;
 
 public:
-    void popup(const QPoint& p);
+    void popup(const QPoint& point);
 
 private:
     Menu* innerMenu;

@@ -1,6 +1,7 @@
 #pragma once
+#include <QWidget>
+
 #include "MenuItem.hpp"
-#include "pch.hpp"
 
 class Menu : public QWidget
 {
@@ -10,10 +11,8 @@ public:
     void addAction(const QString& text, std::function<void()>&& callback);
 
 protected:
-    void hideEvent(QHideEvent* event) override;
-
-protected:
-    void paintEvent(QPaintEvent* event) override;
+    void hideEvent(QHideEvent* hideEvent) override;
+    void paintEvent(QPaintEvent* paintEvent) override;
 
 private:
     std::vector<std::unique_ptr<MenuItem>> _items;

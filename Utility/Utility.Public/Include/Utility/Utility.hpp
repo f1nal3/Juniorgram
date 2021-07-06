@@ -8,7 +8,7 @@
 namespace Utility
 {
     /**  @brief Enum for tracking registration status.
-     *   @details RegistrationCodes registerUser(const Network::RegistrationInfo& rm) const /
+     *   @details RegistrationCodes registerUser(const Network::RegistrationInfo& ri) const /
      *    return one of this codes.
      */
     enum class RegistrationCodes : std::uint8_t

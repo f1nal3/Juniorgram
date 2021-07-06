@@ -1,18 +1,17 @@
 #pragma once
-#include "pch.hpp"
+#include <QWidget>
 
 class LogoWidget : public QWidget
 {
     Q_OBJECT
 public:
-    LogoWidget(QWidget* parent = nullptr);
-    ~LogoWidget();
+    explicit LogoWidget(QWidget* parent = nullptr);
 
-    QSize bestFit() const { return logo->size(); }
+    [[nodiscard]] QSize bestFit() const { return logo->size(); }
 
 protected:
-    void paintEvent(QPaintEvent* event);
+    void paintEvent(QPaintEvent* paintEvent) override;
 
 private:
-    QPixmap* logo;
+    std::unique_ptr<QPixmap> logo;
 };

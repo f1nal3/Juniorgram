@@ -1,35 +1,61 @@
 #include "TextEdit.hpp"
 
+#include <QtEvents>
+
 #include <Style/Style.hpp>
 
-TextEdit::TextEdit(FlatPlainTextEdit* messageText, QWidget* parent) : QWidget(parent)
+TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
 {
-    mTextField     = messageText;
-    mBoldButton    = new FlatButton(this, "B", st::boldnessButton);
-    mItalicsButton = new FlatButton(this, "I", st::boldnessButton);
-    mUnderscoreButton = new FlatButton(this, "U", st::boldnessButton);
+    mainVerticalLayout       = std::make_unique<QVBoxLayout>(this);
+    horizontaltButtonsLayout = std::make_unique<QHBoxLayout>();
+    mBoldButton              = std::make_unique<FlatButton>(this, "B", st::boldnessButton);
+    mItalicsButton           = std::make_unique<FlatButton>(this, "I", st::italicButton);
+    mUnderscoreButton        = std::make_unique<FlatButton>(this, "U", st::underlineButton);
+    sendButton               = std::make_unique<FlatButton>(this, "Send");
+    messageTextEdit          = std::make_unique<FlatPlainTextEdit>();
+    horizontalButtonSpacer =
+        std::make_unique<QSpacerItem>(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    horizontaltButtonsLayout->setAlignment(Qt::AlignLeft);
+    horizontaltButtonsLayout->addWidget(mBoldButton.get());
+    horizontaltButtonsLayout->addWidget(mItalicsButton.get());
+    horizontaltButtonsLayout->addWidget(mUnderscoreButton.get());
+    horizontaltButtonsLayout->addItem(horizontalButtonSpacer.get());
+    horizontaltButtonsLayout->addWidget(sendButton.get());
+    mainVerticalLayout->addWidget(messageTextEdit.get());
+    mainVerticalLayout->addLayout(horizontaltButtonsLayout.get());
+    setLayout(mainVerticalLayout.get());
+    connectUi();
+}
 
-    vLayout = new QVBoxLayout;
-    hLayout = new QHBoxLayout;
-
-    hLayout->setAlignment(Qt::AlignLeft);
-    hLayout->addWidget(mBoldButton);
-    hLayout->addWidget(mItalicsButton);
-    hLayout->addWidget(mUnderscoreButton);
-
-    vLayout->addLayout(hLayout);
-
-    setLayout(vLayout);
+void TextEdit::connectUi()
+{
     mBoldButton->setClickCallback([&]() { boldButtonClicked(boldSymbolStart, boldSymbolEnd); });
     mItalicsButton->setClickCallback(
         [&]() { boldButtonClicked(italicsSymbolStart, italicsboldSymbolEnd); });
     mUnderscoreButton->setClickCallback(
         [&]() { boldButtonClicked(underscoreSymbolStart, underscoreSymbolEnd); });
+    sendButton->setClickCallback([&]() { clickButtonSend(); });
+}
+
+void TextEdit::clickButtonSend() { 
+    if (getText() != "")
+    {
+        emit sendMessageSignal(getText());
+        clearTextEdit();
+    }
+}
+
+void TextEdit::keyPressEvent(QKeyEvent* event)
+{
+    if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) && (getText() != ""))
+    {
+        clickButtonSend();
+    }
 }
 
 void TextEdit::boldButtonClicked(QString SymbolStart, QString SymbolEnd)
 {
-    QTextCursor cursor = mTextField->textCursor();
+    QTextCursor cursor = messageTextEdit->textCursor();
 
     if (cursor.hasSelection())
     {
@@ -45,12 +71,12 @@ void TextEdit::boldButtonClicked(QString SymbolStart, QString SymbolEnd)
         if (mSelection.endsWith(SymbolEnd) && mSelection.startsWith(SymbolStart))
         {
             delSymbolsInSelection(mFullText, start, end, SymbolSize);
-            mTextField->setTextCursor(cursor);
+            messageTextEdit->setTextCursor(cursor);
         }
         else if (mBeforeSelection.endsWith(SymbolStart) && mAfterSelection.startsWith(SymbolEnd))
         {
             delSymbolsOutSelection(mFullText, start, end, SymbolSize);
-            mTextField->setTextCursor(cursor);
+            messageTextEdit->setTextCursor(cursor);
         }
         else
         {
@@ -64,14 +90,14 @@ void TextEdit::delSymbolsInSelection(QString& text, int& start, int& end, int sy
 {
     text.replace(end - (symbolSize + 1), symbolSize + 1, "");
     text.replace(start, symbolSize, "");
-    mTextField->setPlainText(text);
+    messageTextEdit->setPlainText(text);
 }
 
 void TextEdit::delSymbolsOutSelection(QString& text, int& start, int& end, int symbolSize)
 {
     text.replace(end, symbolSize + 1, "");
     text.replace(start - symbolSize, symbolSize, "");
-    mTextField->setPlainText(text);
+    messageTextEdit->setPlainText(text);
 }
 
 void TextEdit::insertSymbolsInSelection(QTextCursor& cursor, int& start, int& end, int symbolSize,
@@ -90,20 +116,17 @@ void TextEdit::selectText(QTextCursor& cursor, int start, int end)
 {
     cursor.setPosition(start, QTextCursor::MoveAnchor);
     cursor.setPosition(end, QTextCursor::KeepAnchor);
-    mTextField->setTextCursor(cursor);
+    messageTextEdit->setTextCursor(cursor);
 }
 
 QString TextEdit::getText() const
 {
-    return mTextField->toPlainText();
+    return messageTextEdit->toPlainText();
 }
 
-void TextEdit::clear() { mTextField->clear(); }
+void TextEdit::clearTextEdit() { messageTextEdit->clear(); }
 
 TextEdit::~TextEdit()
 {
-    delete mBoldButton;
-    delete mItalicsButton;
-    delete hLayout;
-    delete vLayout;
+    horizontaltButtonsLayout->removeItem(horizontalButtonSpacer.get());
 }

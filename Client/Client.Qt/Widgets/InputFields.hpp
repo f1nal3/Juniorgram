@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Style/Style.hpp"
-#include "pch.hpp"
+#include <QLineEdit>
+#include <QTextEdit>
 
 class FlatInput : public QLineEdit
 {
@@ -24,5 +25,5 @@ public:
     explicit FlatPlainTextEdit(QWidget* parent = nullptr);
 
 protected:
-    void paintEvent(QPaintEvent* event) override;
+    void paintEvent(QPaintEvent* paintEvent) override;
 };

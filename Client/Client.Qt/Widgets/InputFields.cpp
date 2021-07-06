@@ -1,9 +1,12 @@
 #include "InputFields.hpp"
 
-#include "Style/StyleBasic.hpp"
-
 #include <QCommonStyle>
-#include <QStyle>
+#include <QCoreApplication>
+#include <QPainter>
+#include <QRegExpValidator>
+#include <QtEvents>
+
+#include "Style/StyleBasic.hpp"
 
 template <typename InputClass>
 class InputStyle : public QCommonStyle
@@ -14,10 +17,10 @@ public:
     void drawPrimitive(PrimitiveElement element, const QStyleOption* option, QPainter* painter,
                        const QWidget* widget = nullptr) const override
     {
-        Q_UNUSED(element);
-        Q_UNUSED(option);
-        Q_UNUSED(painter);
-        Q_UNUSED(widget);
+        Q_UNUSED(element)
+        Q_UNUSED(option)
+        Q_UNUSED(painter)
+        Q_UNUSED(widget)
     }
     QRect subElementRect(SubElement r, const QStyleOption* opt,
                          const QWidget* widget = nullptr) const override
@@ -40,7 +43,7 @@ public:
     {
         if (!_instance)
         {
-            if (!QGuiApplication::instance())
+            if (!QCoreApplication::instance())
             {
                 return nullptr;
             }
@@ -84,11 +87,11 @@ void FlatInput::paintEvent(QPaintEvent* event)
 
     QColor inputField(0x32, 0x32, 0x32);
     inputField = inputField.darker(175);
-    QPainter p(this);
-    p.setRenderHint(QPainter::Antialiasing);
-    p.setBrush(inputField);
-    p.setPen(Qt::NoPen);
-    p.drawRoundedRect(QRectF(0, 0, width(), height()), Style::valueDPIScale(8),
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setBrush(inputField);
+    painter.setPen(Qt::NoPen);
+    painter.drawRoundedRect(QRectF(0, 0, width(), height()), Style::valueDPIScale(8),
                       Style::valueDPIScale(8));
 
     QLineEdit::paintEvent(event);
@@ -140,12 +143,12 @@ FlatPlainTextEdit::FlatPlainTextEdit(QWidget* parent) : QTextEdit(parent)
 void FlatPlainTextEdit::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event)
-    QPainter p(this->viewport());
+    QPainter painter(this->viewport());
     QColor   inputField(0x32, 0x32, 0x32);
     inputField = inputField.darker(175);
-    p.setBrush(inputField);
-    p.setPen(Qt::NoPen);
-    p.drawRect(QRectF(0, 0, width(), height()).marginsRemoved(QMarginsF(2, 2, 2, 2)));
+    painter.setBrush(inputField);
+    painter.setPen(Qt::NoPen);
+    painter.drawRect(QRectF(0, 0, width(), height()).marginsRemoved(QMarginsF(2, 2, 2, 2)));
 
     QTextEdit::paintEvent(event);
 }

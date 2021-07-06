@@ -27,9 +27,9 @@ struct Message
         MessageHistoryRequest,
         MessageStoreRequest,
         RegistrationRequest,
-        RegistrationRequestToClient
+        RegistrationAnswer
     };
-    
+
     struct MessageHeader
     {
         MessageType mMessageType = MessageType();

@@ -5,6 +5,7 @@ set(SOURCE_FILES
     Include/Utility/Exception.hpp
     Include/Utility/SQLUtility.hpp
     Include/Utility/WarningSuppression.hpp
+    Include/UserDataValidation.hpp
     Include/Utility/Utility.hpp)
 
 add_library(${TARGET} INTERFACE)

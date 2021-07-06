@@ -1,7 +1,6 @@
 #pragma once
+#include <QWidget>
 #include <utility>
-
-#include "pch.hpp"
 
 class AbstractButton : public QWidget
 {
@@ -9,9 +8,9 @@ public:
     explicit AbstractButton(QWidget* parent = nullptr);
     virtual void clearState();
 
-    bool isOver() const { return _state & StateFlag::Over; }
-    bool isDown() const { return _state & StateFlag::Down; }
-    bool isDisabled() const { return _state & StateFlag::Disabled; }
+    [[nodiscard]] bool isOver() const { return _state & StateFlag::Over; }
+    [[nodiscard]] bool isDown() const { return _state & StateFlag::Down; }
+    [[nodiscard]] bool isDisabled() const { return _state & StateFlag::Disabled; }
 
     void setDisabled(bool disabled = true);
     void setClickCallback(std::function<void()> callback) { _clickCallback = std::move(callback); }
@@ -20,11 +19,11 @@ public:
     void clicked(Qt::KeyboardModifiers modifiers, Qt::MouseButton button);
 
 protected:
-    void enterEvent(QEvent* e) override;
-    void leaveEvent(QEvent* e) override;
-    void mouseMoveEvent(QMouseEvent* e) override;
-    void mousePressEvent(QMouseEvent* e) override;
-    void mouseReleaseEvent(QMouseEvent* e) override;
+    void enterEvent(QEvent* event) override;
+    void leaveEvent(QEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* mouseEvent) override;
+    void mousePressEvent(QMouseEvent* mouseEvent) override;
+    void mouseReleaseEvent(QMouseEvent* mouseEvent) override;
 
 protected:
     enum class StateFlag
@@ -36,7 +35,7 @@ protected:
     };
     using State = QFlags<StateFlag>;
 
-    State state() const { return _state; }
+    [[nodiscard]] State state() const { return _state; }
     enum class StateChanger
     {
         ByUser  = 0x0,

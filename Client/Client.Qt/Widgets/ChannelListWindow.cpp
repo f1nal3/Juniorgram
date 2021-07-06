@@ -17,21 +17,21 @@ ChannelListWindow::ChannelListWindow(ListWidget* anotherChannelListWidget, QWidg
     setFixedWidth(Style::valueDPIScale(300));
     setFixedHeight(Style::valueDPIScale(250));
 
-    vBoxLayout          = new QVBoxLayout;
-    addChannelButton    = new FlatButton(this, "Add");
-    updateChannelButton = new FlatButton(this, "Update");
-    channelList         = new ListWidget();
+    vBoxLayout          = std::make_unique<QVBoxLayout>();
+    addChannelButton    = std::make_unique<FlatButton>(this, "Add");
+    updateChannelButton = std::make_unique<FlatButton>(this, "Update");
+    channelList         = std::make_unique<ListWidget>();
 
-    vBoxLayout->addWidget(channelList);
-    vBoxLayout->addWidget(addChannelButton);
-    vBoxLayout->addWidget(updateChannelButton);
+    vBoxLayout->addWidget(channelList.get());
+    vBoxLayout->addWidget(addChannelButton.get());
+    vBoxLayout->addWidget(updateChannelButton.get());
 
     addChannelButton->setClickCallback([this]() { addChannelToMainChannelWidget(); });
     updateChannelButton->setClickCallback([this]() { updateChannelListWindow(); });
     ConnectionManager::getClient().askForChannelList();
     updateChannelList();
 
-    setLayout(vBoxLayout);
+    setLayout(vBoxLayout.get());
 }
 
 void ChannelListWindow::updateChannelList()
@@ -45,19 +45,18 @@ void ChannelListWindow::updateChannelList()
 
             int numberOfCoincidences = 0;
 
-            for(int i = 0; i < channelListMainWindow->count(); ++i)
+            for (int i = 0; i < channelListMainWindow->count(); ++i)
             {
-                for(auto it = channelNames.rbegin(); it != channelNames.rend(); ++it)
+                for (auto it = channelNames.rbegin(); it != channelNames.rend(); ++it)
                 {
-
-                    if(QString::fromStdString(*it) == channelListMainWindow->item(i)->text())
+                    if (QString::fromStdString(*it) == channelListMainWindow->item(i)->text())
                     {
-                        channelNames.erase(std::remove(channelNames.begin(), channelNames.end(), *it), channelNames.end());
+                        channelNames.erase(
+                            std::remove(channelNames.begin(), channelNames.end(), *it),
+                            channelNames.end());
                     }
-
                 }
             }
-
             for (auto it = channelNames.rbegin(); it != channelNames.rend(); ++it)
             {
                 if (channelList->count() == 0)
@@ -118,27 +117,6 @@ void ChannelListWindow::updateChannelListWindow()
 {
     if (ConnectionManager::isConnected())
     {
-        static int                   i = 0;
-        static QFutureInterface<int> fi;
-        i++;
-        if (i > 5)
-        {
-            fi.reportFinished();
-        }
-        auto future = fi.future();
-
         ConnectionManager::getClient().askForChannelList();
-        auto* watcher = new QFutureWatcher<int>();
-
-        connect(watcher, &QFutureWatcher<int>::finished, [=]() { std::cout << i; });
-
-        watcher->setFuture(future);
     }
-}
-
-ChannelListWindow::~ChannelListWindow()
-{
-    delete addChannelButton;
-    delete channelListMainWindow;
-    delete vBoxLayout;
 }

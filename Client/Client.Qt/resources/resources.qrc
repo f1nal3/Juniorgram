@@ -32,5 +32,8 @@
         <file>fonts/NotoSans-Italic.ttf</file>
         <file>reactions/like.png</file>
         <file>reactions/smile.png</file>
+        <file>reactions/cat.png</file>
+        <file>reactions/fire.png</file>
+        <file>reactions/dislike.png</file>
     </qresource>
 </RCC>

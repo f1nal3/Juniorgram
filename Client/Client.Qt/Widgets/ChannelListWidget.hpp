@@ -1,10 +1,11 @@
 #pragma once
 
+#include <QWidget>
+#include <QVBoxLayout>
+
 #include "ChannelListWindow.hpp"
 #include "FlatButton.hpp"
 #include "ListWidget.hpp"
-#include "pch.hpp"
-
 /**
  *  @class ChannelListWidget
  *  @brief This is the main channel list widget
@@ -20,8 +21,8 @@ public slots:
     void addChannels();
 
 private:
-    FlatButton*        addChannelButton;
+    std::unique_ptr<FlatButton> addChannelButton;
+    std::unique_ptr<QVBoxLayout> vBoxLayout;
     ChannelListWindow* listWidgetChannels;
-    QVBoxLayout*       vBoxLayout;
-    ListWidget*        channelList;
+    ListWidget* channelList;
 };

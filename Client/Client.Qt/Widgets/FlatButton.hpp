@@ -2,7 +2,6 @@
 
 #include "AbstractButton.hpp"
 #include "Style/StyleBasic.hpp"
-#include "pch.hpp"
 
 class FlatButton : public AbstractButton
 {
@@ -16,13 +15,13 @@ protected:
 
     void onStateChanged(State was, StateChanger source) override
     {
-        Q_UNUSED(was);
-        Q_UNUSED(source);
+        Q_UNUSED(was)
+        Q_UNUSED(source)
         update();
     }
 
 private:
-    QString                  _text;
+    QString _text;
     const Style::FlatButton& _st;
 };
 

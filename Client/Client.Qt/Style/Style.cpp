@@ -1,5 +1,7 @@
 #include "Style.hpp"
 
+#include <cmath>
+
 namespace Style
 {
 std::vector<internal::ModuleBase*>& StyleModules()
@@ -25,7 +27,6 @@ int ScaleValue = defDPI;
 namespace internal
 {
 void registerModule(ModuleBase* module) { StyleModules().push_back(module); }
-
 
 }  // namespace internal
 

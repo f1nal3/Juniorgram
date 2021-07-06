@@ -75,7 +75,7 @@ public:
                             ChannelListWindow::mainWidgetStatus.notify_one();
                         }
                         break;
-                    
+
                         case Network::Message::MessageType::MessageHistoryRequest:
                         {
                             std::cout << "Message history received: \n";
@@ -96,7 +96,7 @@ public:
                         }
                         break;
 
-                        case Network::Message::MessageType::RegistrationRequest:
+                        case Network::Message::MessageType::RegistrationAnswer:
                         {
                             auto code = std::any_cast<Utility::RegistrationCodes>(message.mBody);
 

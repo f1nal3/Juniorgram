@@ -1,11 +1,17 @@
 #include "MainWidget.hpp"
 
-#include "Style/Shadow.hpp"
+#include <QWindow>
+#include <QtEvents>
+#include <QGuiApplication>
+#include <iostream>
 
+#include "Style/Shadow.hpp"
 #ifdef _WIN32
+#include <dwmapi.h>
+
 bool isCompositionEnabled()
 {
-    auto result        = BOOL(FALSE);
+    auto       result  = BOOL(FALSE);
     const auto SUCCESS = (::DwmIsCompositionEnabled(&result) == S_OK);
     return SUCCESS && result;
 }
@@ -93,10 +99,10 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
 MainWidget::MouseType MainWidget::checkResizableField(QMouseEvent* event)
 {
     QPointF position = event->screenPos();
-    qreal x          = this->x();
-    qreal y          = this->y();
-    qreal width      = this->width();
-    qreal height     = this->height();
+    qreal   x        = this->x();
+    qreal   y        = this->y();
+    qreal   width    = this->width();
+    qreal   height   = this->height();
 
     QRectF rectTop(x, y, width + 9, 8);
     QRectF rectBottom(x, y + height - 8, width + 9, 8);
@@ -217,12 +223,9 @@ void MainWidget::mouseMoveEvent(QMouseEvent* event)
                     auto part = event->screenPos().x() / width();
                     this->showNormal();
                     // update();
-                    QCoreApplication::processEvents(
-                        QEventLoop::ProcessEventsFlag::ExcludeUserInputEvents);
                     auto offsetX = width() * part;
                     setGeometry(event->screenPos().x() - offsetX, 0, width(), height());
                 }
-
                 _mousePressed = false;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
                 this->windowHandle()->startSystemMove();
@@ -262,7 +265,7 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
 {
     Style::setDpiScale(logicalDpiX() * 100 / 96);
     Style::startManager(Style::getDpiScale());
-    
+
     this->setWindowFlag(Qt::FramelessWindowHint);
     this->setWindowFlag(Qt::Window);
     this->setWindowIcon(QIcon(":/images/logo.png"));
@@ -270,17 +273,17 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
 
     auto* grid = new QGridLayout(this);
 
-    body = new QWidget();
+    body = std::make_unique<QWidget>();
     body->setMinimumHeight(Style::valueDPIScale(480));
 
     auto title = new QWidget();
     title->setFixedHeight(Style::valueDPIScale(30));
-    grid->addWidget(body, 1, 0);
+    grid->addWidget(body.get(), 1, 0);
     grid->addWidget(title, 0, 0);
     grid->setSpacing(0);
     this->setLayout(grid);
     layout()->setMargin(9);
-    auto pBodyLayout = new QVBoxLayout(body);
+    auto pBodyLayout = new QVBoxLayout(body.get());
     body->setLayout(pBodyLayout);
     pBodyLayout->setSpacing(0);
     pBodyLayout->setMargin(0);
@@ -299,14 +302,16 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
 
     std::cout << QGuiApplication::platformName().toStdString() << std::endl;
 
-    pTitleLayout = new QHBoxLayout(title);
-    title->setLayout(pTitleLayout);
-    close_btn    = new CaptionButton(CaptionButton::CaptionLogo::Close, QColor(232, 17, 35));
-    maximize_btn = new CaptionButton(CaptionButton::CaptionLogo::Maximize);
-    minimize_btn = new CaptionButton(CaptionButton::CaptionLogo::Minimize);
+    pTitleLayout = std::make_unique<QHBoxLayout>(title);
+    title->setLayout(pTitleLayout.get());
+    
+    close_btn =
+        std::make_unique<CaptionButton>(CaptionButton::CaptionLogo::Close, QColor(232, 17, 35));
+    maximize_btn = std::make_unique<CaptionButton>(CaptionButton::CaptionLogo::Maximize);
+    minimize_btn = std::make_unique<CaptionButton>(CaptionButton::CaptionLogo::Minimize);
     refreshTitleBar();
 
-    connect(maximize_btn, &CaptionButton::mouseRelease, [this]() {
+    connect(maximize_btn.get(), &CaptionButton::mouseRelease, [this]() {
         if (this->isMaximized())
         {
             this->layout()->setMargin(0);
@@ -324,8 +329,8 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
         update();
     });
     setAttribute(Qt::WA_Hover);
-    connect(close_btn, &CaptionButton::mouseRelease, this, &MainWidget::deleteLater);
-    connect(minimize_btn, &CaptionButton::mouseRelease, this, &MainWidget::showMinimized);
+    connect(close_btn.get(), &CaptionButton::mouseRelease, this, &MainWidget::deleteLater);
+    connect(minimize_btn.get(), &CaptionButton::mouseRelease, this, &MainWidget::showMinimized);
     title->setMouseTracking(true);
     body->setMouseTracking(true);
     this->setMouseTracking(true);
@@ -359,17 +364,17 @@ void MainWidget::refreshTitleBar(BioButton* bio_button)
     pTitleLayout->setAlignment(Qt::AlignTop | Qt::AlignRight);
     if (!pTitleLayout->isEmpty())
     {
-        pTitleLayout->removeWidget(minimize_btn);
-        pTitleLayout->removeWidget(maximize_btn);
-        pTitleLayout->removeWidget(close_btn);
+        pTitleLayout->removeWidget(minimize_btn.get());
+        pTitleLayout->removeWidget(maximize_btn.get());
+        pTitleLayout->removeWidget(close_btn.get());
     }
     if (bio_button)
     {
         pTitleLayout->addWidget(bio_button);
     }
-    pTitleLayout->addWidget(minimize_btn);
-    pTitleLayout->addWidget(maximize_btn);
-    pTitleLayout->addWidget(close_btn);
+    pTitleLayout->addWidget(minimize_btn.get());
+    pTitleLayout->addWidget(maximize_btn.get());
+    pTitleLayout->addWidget(close_btn.get());
 }
 bool MainWidget::eventFilter(QObject* watched, QEvent* event)
 {
