@@ -2,6 +2,7 @@
 
 #include <QHBoxLayout>
 #include <QWidget>
+#include <memory>
 
 #include "Widgets/BioButton.hpp"
 #include "Widgets/CaptionButton.hpp"

@@ -1,5 +1,6 @@
 #pragma once
 #include <QWidget>
+#include <memory>
 
 class LogoWidget : public QWidget
 {
