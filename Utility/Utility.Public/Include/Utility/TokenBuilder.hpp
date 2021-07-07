@@ -7,6 +7,7 @@
 #include <iostream>
 #include <variant>
 #include <initializer_list>
+#include <memory>
 
 namespace Utility
 {
@@ -18,6 +19,8 @@ struct GetHeader
     {
 
     }
+
+
 };
 
 struct GetPayload
@@ -107,15 +110,32 @@ struct BuildPayload
 struct BuildSignature
 {
 };
-
-auto getTokenBuilder()
+ 
+auto getTokenBuilderAndFinaleJSON()
 {
-    suppressWarning(4100, Init)
-    auto sm = makeTokenBuilder<std::tuple<BuildHeader, BuildPayload, BuildSignature>>(
-        [](BuildHeader& s, GetHeader event) -> TransitionTo<BuildPayload> { return {}; },
-        [](BuildPayload& s, GetPayload event) -> TransitionTo<BuildSignature> { return {}; },
-        [](BuildSignature& s, GetSignature event) {});
-    return sm;
+    suppressWarning(4100, Init) std::shared_ptr<std::string> finaleJSON =
+        std::make_shared<std::string>();
+  
+    auto tokenBuilder = makeTokenBuilder<std::tuple<BuildHeader, BuildPayload, BuildSignature>>
+    (
+        [&finaleJSON](BuildHeader& s, GetHeader event) -> TransitionTo<BuildPayload>
+        {
+     
+            return {}; 
+        },
+
+        [&finaleJSON](BuildPayload& s, GetPayload event) -> TransitionTo<BuildSignature>
+        { 
+            
+            return {};
+        },
+        
+        [&finaleJSON](BuildSignature& s, GetSignature event)
+        {
+        }
+    );
+
+    return std::pair(std::move(tokenBuilder), std::move(finaleJSON));
     restoreWarning
 }
 

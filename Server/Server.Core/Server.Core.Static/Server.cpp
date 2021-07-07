@@ -3,7 +3,6 @@
 #include "DataAccess.Static/PostgreRepository.hpp"
 #include "DataAccess.Static/RepositoryUnits.hpp"
 #include "Utility/TokenBuilder.hpp"
-
 #include <future>
 #include <string_view>
 
@@ -199,17 +198,49 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
 std::string Server::getToken(const std::shared_ptr<Connection>& client)
 { 
-    using namespace std::literals;
+    using namespace std::string_view_literals;
+    using namespace Utility;
+   /* auto tokenBuilderAnsJSON = Utility::getTokenBuilderAndFinaleJSON();*/
 
-    auto tokenBuilder = Utility::getTokenBuilder();
+    suppressWarning(4100, Init) 
+        
+    std::string finaleJSON;
+        
 
-    tokenBuilder.onEvent(Utility::GetHeader{{ std::pair{"alg"sv, "ECDH"}, std::pair{"typ"sv, "JWT"}}});
-    
+    auto tokenBuilder = makeTokenBuilder<std::tuple<BuildHeader, BuildPayload, BuildSignature>>
+        (
+        [&finaleJSON](BuildHeader& s, GetHeader event) -> TransitionTo<BuildPayload> 
+        { 
+          finaleJSON += "1221";
+          return {};
+        },
+        [&finaleJSON](BuildPayload& s, GetPayload event) -> TransitionTo<BuildSignature> 
+        {
+          return {};
+        },
+        [&finaleJSON](BuildSignature& s, GetSignature event) 
+        {
+        }
+        );
+
+
+
     tokenBuilder.onEvent(
-                         Utility::GetPayload{{std::pair{"id"sv, client->getID()}, std::pair{"ip"sv, client->getIP()}}});
+        Utility::GetHeader
+        {{ 
+            std::pair{"alg"sv, "ECDH"}, 
+            std::pair{"typ"sv, "JWT"}
+        }});
 
-   /* tokenBuilder.onEvent(Utility::GetSignature{});*/
-    return "124";
+    tokenBuilder.onEvent(Utility::GetPayload
+        {{
+            std::pair{"exp"sv, std::to_string(Utility::safe_localtime(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now())).tm_hour++)},
+            std::pair{"id"sv,  std::to_string(client->getID())},
+            std::pair{"ip"sv,  client->getIP()}, 
+            std::pair{"iat"sv, std::to_string(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()))}
+        }});
+
+    return " ";
 }
 
 Server::Server(const uint16_t& port)
