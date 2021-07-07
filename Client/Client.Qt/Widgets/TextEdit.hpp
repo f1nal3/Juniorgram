@@ -1,6 +1,7 @@
 #pragma once
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <memory>
 
 #include "FlatButton.hpp"
 #include "InputFields.hpp"
