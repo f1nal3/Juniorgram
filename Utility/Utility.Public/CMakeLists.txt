@@ -5,7 +5,6 @@ set(SOURCE_FILES
     Include/Utility/CompressionHandler.hpp
     Include/Utility/EncryptionHandler.hpp
     Include/Utility/Handler.hpp
-	Include/Utility/HashingAlgorithms.hpp
     Include/Utility/SerializationHandler.hpp
     Include/Utility/Utility.hpp
     Include/Utility/WarningSuppression.hpp

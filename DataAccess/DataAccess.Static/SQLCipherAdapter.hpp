@@ -6,8 +6,8 @@
 #include <mutex>
 #include <sqlcipher/sqlite3.h>
 #include <DataAccess/IAdapter.hpp>
+#include <Utility.Static/Cryptography.hpp>
 #include <Utility/Exception.hpp>
-#include <Utility/HashingAlgorithms.hpp>
 #include <Utility.Static/MACAddress.hpp>
 
 

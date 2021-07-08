@@ -34,4 +34,11 @@ struct AESFactory : ICiphersFactory
 namespace Hashing
 {
 std::string SHA_256(const std::string& message, const std::string& componentForSalt);
+std::string getSHA512HashingValue(const std::string& hashableString);
+}
+
+namespace Coding
+{
+std::string getBASE64CodedValue(std::string& decodedStr);
+std::string getBASE64DecodedValue(std::string& decodedStr);
 }

@@ -8,19 +8,31 @@
 #include <variant>
 #include <initializer_list>
 #include <memory>
+#include <string_view>
+#include <nlohmann/json.hpp>
+#include <algorithm>
+#include <Utility.Static/Cryptography.hpp>
 
 namespace Utility
 {
+
+using json = nlohmann::json;
+
+constexpr short oneHour = 3600; 
+
 suppressWarning(4100, Init)
 struct GetHeader
 {
     template<typename T>
     GetHeader(const std::initializer_list<std::pair<std::string_view, T>>& init_list) 
     {
-
+        std::for_each(init_list.begin(), init_list.end(), [this](std::pair<std::string_view, T> currPair)
+        { 
+            j[std::string(currPair.first.data(), currPair.first.size())] = currPair.second; 
+        });
     }
 
-
+    json j;
 };
 
 struct GetPayload
@@ -28,17 +40,18 @@ struct GetPayload
     template <typename T>
     GetPayload(const std::initializer_list<std::pair<std::string_view, T>>& init_list)
     {
-    
+        std::for_each(
+            init_list.begin(), init_list.end(), [this](std::pair<std::string_view, T> currPair)
+        { 
+              j[std::string(currPair.first.data(), currPair.first.size())] = currPair.second; 
+        });
     }
+
+    json j;
 };
 
-struct GetSignature
+struct GetSignature 
 {
-    template <typename T>
-    GetSignature(const std::initializer_list<std::pair<std::string_view, T>>& init_list)
-    {
-    
-    }
 };
 restoreWarning
 
@@ -76,6 +89,7 @@ struct TokenBuilder<std::tuple<States...>, Handlers...> : Handlers...
                     }
                     else
                     {
+                        /*useless transitionTo. Maybe i'll find useful palce for this.*/
                         auto transitionTo = (*this)(*statePtr, std::forward<E>(e));
                         currentState      = &std::get<typename ResultType::TargetState>(states);
                         std::cout << "(transitioned to " << currentState.index() << ")\n";
@@ -111,32 +125,57 @@ struct BuildSignature
 {
 };
  
-auto getTokenBuilderAndFinaleJSON()
+auto buildToken(const std::shared_ptr<Network::Connection>& client)
 {
-    suppressWarning(4100, Init) std::shared_ptr<std::string> finaleJSON =
-        std::make_shared<std::string>();
+    using namespace std::string_view_literals;
+
+    std::string finaleJSONToken;
   
+    suppressWarning(4100, Init) 
+    suppressWarning(4239, Init)
     auto tokenBuilder = makeTokenBuilder<std::tuple<BuildHeader, BuildPayload, BuildSignature>>
     (
-        [&finaleJSON](BuildHeader& s, GetHeader event) -> TransitionTo<BuildPayload>
-        {
-     
+       
+        [&finaleJSONToken](BuildHeader& s, GetHeader event) -> TransitionTo<BuildPayload>
+        { 
+            finaleJSONToken = Coding::getBASE64CodedValue(event.j.dump()) + '.';
             return {}; 
         },
 
-        [&finaleJSON](BuildPayload& s, GetPayload event) -> TransitionTo<BuildSignature>
+        [&finaleJSONToken](BuildPayload& s, GetPayload event) -> TransitionTo<BuildSignature>
         { 
-            
+            finaleJSONToken += Coding::getBASE64CodedValue(event.j.dump()) + '.';
             return {};
         },
         
-        [&finaleJSON](BuildSignature& s, GetSignature event)
-        {
-        }
+        [&finaleJSONToken](BuildHeader& s, GetHeader event) -> TransitionTo<BuildHeader>
+        { 
+            
+            event;
+        } 
+        
     );
 
-    return std::pair(std::move(tokenBuilder), std::move(finaleJSON));
+    tokenBuilder.onEvent(Utility::GetHeader
+        {{
+            std::pair{"alg"sv, "ECDH"}, 
+            std::pair{"typ"sv, "JWT"}
+        }});
+
+    tokenBuilder.onEvent(Utility::GetPayload
+        {{
+        std::pair{"exp"sv, std::to_string((std::chrono::system_clock::to_time_t(std::chrono::system_clock::now())+3600))},
+        std::pair{"id"sv, std::to_string(client->getID())}, std::pair{"ip"sv, client->getIP()},
+        std::pair{"iat"sv, std::to_string(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()))}
+        }});
+
+    tokenBuilder.onEvent(Utility::GetSignature{});
+
     restoreWarning
+    restoreWarning
+
+    return finaleJSONToken;
+
 }
 
 }  // namespace Utility

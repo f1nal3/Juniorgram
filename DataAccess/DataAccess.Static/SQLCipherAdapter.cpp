@@ -49,7 +49,7 @@ sqlite3_ptr make_sqlite3(const std::string_view& dbName)
       }
 
       suppressWarning(4267, Init)
-      const std::string& hashedMAC = getSHA512HashingValue(MACAddress.str());       
+      const std::string& hashedMAC = Hashing::getSHA512HashingValue(MACAddress.str());       
 
       sqlite3_key(db, hashedMAC.c_str(), hashedMAC.size());
       restoreWarning

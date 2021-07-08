@@ -53,16 +53,3 @@ std::string AESCipher::decrypt(const std::string& cipherData, const std::string&
     return decryptedData;
 }
 }  // namespace SymmetricCipher
-
-std::string Hashing::SHA_256(const std::string& plainText, const std::string& componentForSalt)
-{ 
-    using namespace CryptoPP;
-
-    SHA256 hash;
-    std::string digest;
-    StringSource(componentForSalt + plainText, true, 
-        new HashFilter(hash, new HexEncoder(
-            new StringSink(digest))));
-
-    return digest;
-}
