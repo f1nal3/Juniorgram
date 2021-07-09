@@ -40,5 +40,7 @@ public:
                           const std::string& password) const;
 
     void messageAll() const;
+
+    void messageUserDelete(int userId, int messageId) const;
 };
 }  // namespace Network

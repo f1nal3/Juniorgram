@@ -85,6 +85,16 @@ namespace Network
         }
     };
 
+    struct MessageDeletedInfo
+    {
+        int userId;
+        int messaeId;
+        explicit MessageDeletedInfo(const int _userId, const int _messaeId)
+            : userId(_userId), messaeId(_messaeId)
+        {}
+        
+    };
+
     template <typename Archive>
     void serialize(Archive& ar, Network::RegistrationInfo& o)
     {

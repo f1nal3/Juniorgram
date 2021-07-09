@@ -134,4 +134,15 @@ void Client::messageAll() const
     message.mHeader.mMessageType = Network::Message::MessageType::MessageAll;
     send(message);
 }
+
+void Client::messageUserDelete(int userId, int messageId) const
+{
+    Network::MessageDeletedInfo me(userId, messageId);
+    Network::Message message;
+    message.mHeader.mMessageType = Network::Message::MessageType::MessageUserDelete;
+    message.mBody                = std::make_any<MessageDeletedInfo>(me);
+    std::cout << "Message del";
+    send(message);
+}
+
 }  // namespace Network

@@ -148,6 +148,8 @@ private:
     QDateTime          dateTimeMessage;
     reactions          reactionUserOnMessage;
     QStringList        itemReactionList;
+    int userId;
+    int messageId;
     std::map<int, int> reactionMap{
         {reactions::LIKE, 0},
         {reactions::DISLIKE, 0},

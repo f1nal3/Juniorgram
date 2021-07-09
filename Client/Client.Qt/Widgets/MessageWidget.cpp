@@ -1,4 +1,5 @@
 ﻿#include "MessageWidget.hpp"
+#include "ConnectionManager.hpp"
 
 #include "Style/Style.hpp"
 
@@ -164,6 +165,7 @@ void MessageWidget::deleteButtonClick()
     delMessage = new Label("Message was deleted");
     mainLayout->addWidget(delMessage);
     messageDeleted = true;
+    ConnectionManager::getClient().messageUserDelete(userId, messageId);
 }
 
 void MessageWidget::updateWidget()
