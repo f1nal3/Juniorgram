@@ -6,7 +6,7 @@
 #include <string>
 
 #include "PostgreRepository.hpp"
-#include "UsersAmountFunctions.hpp"
+#include "UsersAmountFinder.hpp"
 
 std::string nowTimeStampStr();
 
@@ -17,10 +17,11 @@ class RegistrationUnit
 {
 protected:
     using Table = DataAccess::PostgreTable;
-
-    RegistrationUnit(DataAccess::PostgreTable* pt) : pTable(pt) {}
-
+    
     std::unique_ptr<Table> pTable;
+    UsersAmountFinder finder;
+
+    RegistrationUnit(Table* pt) : pTable(pt) {}
 
 public:
     RegistrationUnit() : pTable(new Table{"users"}) {}

@@ -16,11 +16,11 @@ std::string nowTimeStampStr()
 Utility::RegistrationCodes RegistrationUnit::registerUser(const Network::RegistrationInfo& ri) const
 {
     // Check on existing of login and email in repository.
-    if (findUsersAmountWithSameEmail(ri.email) > 0)
+    if (finder.findUsersAmountWithSameEmail(ri.email) > 0)
     {
         return Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS;
     }
-    if (findUsersAmountWithSameLogin(ri.login) > 0)
+    if (finder.findUsersAmountWithSameLogin(ri.login) > 0)
     {
         return Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS;
     }

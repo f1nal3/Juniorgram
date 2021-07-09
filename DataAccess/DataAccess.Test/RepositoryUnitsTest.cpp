@@ -2,9 +2,9 @@
 #include <catch2/catch.hpp>
 #include <iostream>
 #include <unordered_map>
-#include <DataAccess.Static/UsersAmountFunctions.hpp>
 
 #include "TestRegistrationUnit.hpp"
+#include "TestUsersAmountFinder.hpp"
 
 // WARNING!
 // Be carefull. Maybe user with some data already exists in DB before tests running.
@@ -44,16 +44,17 @@ const std::unordered_map<std::string, Network::RegistrationInfo> USERS_DATA{
 TEST_CASE("Registration user")
 {
     static TestRegistrationUnit registrator;
+    static TestUsersAmountFinder finder;
 
     SECTION("RegistrationCode: SUCCESS")
     {
         registrator.rollback(USERS_DATA);
 
-        const auto USER_1 = USERS_DATA.at("user_1");
+        const auto USER_1            = USERS_DATA.at("user_1");
         const auto REGISTRATION_CODE = registrator.registerUser(USER_1);
                 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::SUCCESS);
-        REQUIRE(findUsersAmountWithAllSameData(USER_1) == 1);
+        REQUIRE(finder.findUsersAmountWithAllSameData(USER_1) == 1);
         
         registrator.rollback(USERS_DATA);
     }
@@ -69,7 +70,7 @@ TEST_CASE("Registration user")
         const auto REGISTRATION_CODE = registrator.registerUser(USER_3);
 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS);
-        REQUIRE(findUsersAmountWithSameEmail(USER_2.email) == 1);
+        REQUIRE(finder.findUsersAmountWithSameEmail(USER_2.email) == 1);
         
         registrator.rollback(USERS_DATA);
     }
@@ -85,7 +86,7 @@ TEST_CASE("Registration user")
         const auto REGISTRATION_CODE = registrator.registerUser(USER_4);
 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS);
-        REQUIRE(findUsersAmountWithSameLogin(USER_1.login) == 1);
+        REQUIRE(finder.findUsersAmountWithSameLogin(USER_1.login) == 1);
         
         registrator.rollback(USERS_DATA);
     }

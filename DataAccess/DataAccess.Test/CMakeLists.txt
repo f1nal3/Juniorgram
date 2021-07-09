@@ -5,7 +5,8 @@ set(SOURCE_FILES
     DataAccessTest.cpp
     FileDBTest.cpp
     RepositoryUnitsTest.cpp
-    TestRegistrationUnit.hpp)
+    TestRegistrationUnit.hpp
+    TestUsersAmountFinder.hpp)
     
 add_executable(${TARGET} ${SOURCE_FILES})
 

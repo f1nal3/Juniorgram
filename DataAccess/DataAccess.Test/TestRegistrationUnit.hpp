@@ -1,3 +1,4 @@
+#pragma once
 #include <DataAccess.Static/PostgreTable.hpp>
 #include <DataAccess.Static/RepositoryUnits.hpp>
 #include <Network/Primitives.hpp>
