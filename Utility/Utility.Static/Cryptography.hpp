@@ -1,4 +1,16 @@
 #pragma once
+
+#include <Network/Connection.hpp>
+
+#include "Utility/SignerAndVerifier.hpp"
+
+#include <cryptopp/hex.h>
+#include <cryptopp/modes.h>
+#include <cryptopp/osrng.h>
+#include <cryptopp/base64.h>
+#include <cryptopp/dh2.h>
+#include <cryptopp/eccrypto.h>
+
 #include <memory>
 #include <string>
 
@@ -41,4 +53,10 @@ namespace Coding
 {
 std::string getBASE64CodedValue(std::string& decodedStr);
 std::string getBASE64DecodedValue(std::string& decodedStr);
+}
+
+namespace Signing
+{
+std::string signData(const std::shared_ptr<Network::Connection>& client, std::string& data);
+bool verifyData(const std::string& data, const std::string& signature);
 }

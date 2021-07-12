@@ -24,7 +24,7 @@
 #include "Utility/SerializationHandler.hpp"
 #include "Utility/YasSerializer.hpp"
 
-#include "Utility/KeyDestibutor.hpp"
+#include "Utility/KeyDestributor.hpp"
 
 namespace Network
 {
@@ -48,7 +48,7 @@ public:
 
 private:
 
-    std::unique_ptr<Utility::KeyDestributor> mKeyDestibutor;
+    std::unique_ptr<Utility::KeyDestributor> mKeyDestributor;
     /// Connection "owner"
     OwnerType mOwner = OwnerType::SERVER;
     /// Connection id
@@ -301,7 +301,7 @@ public:
           mSocket(std::move(socket)),
           mContextLink(contextLink),
           mIncomingMessagesQueueLink(incomingMessagesQueueLink), 
-          mKeyDestibutor(new Utility::KeyDestributor)
+          mKeyDestributor(new Utility::KeyDestributor)
     {
     }
 
@@ -397,9 +397,9 @@ public:
         });
     }
 
-    std::unique_ptr<Utility::KeyDestributor>& getKeyDestibutor()
+    std::unique_ptr<Utility::KeyDestributor>& getKeyDestributor()
     { 
-        return mKeyDestibutor;
+        return mKeyDestributor;
     }
 
     std::string getIP()

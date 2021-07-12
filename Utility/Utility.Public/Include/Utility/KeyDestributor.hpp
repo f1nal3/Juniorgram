@@ -39,6 +39,16 @@ public:
         return {reinterpret_cast<const char*>(mPublicServer.data()), mPublicServer.size()};
     }
 
+    inline CryptoPP::SecByteBlock getPublicSecByteBlockServerKey()
+    { 
+        return mPublicServer;
+    }
+
+    inline CryptoPP::SecByteBlock getPrivateServerKey()
+    {
+        return mPrivServer;
+    }
+
     inline void setPublicClientKey(const std::string& publicClientKey)
     {
         mPublicClient = CryptoPP::SecByteBlock(reinterpret_cast<const CryptoPP::byte*>(publicClientKey.data()),
@@ -56,6 +66,10 @@ public:
 
     }
 
+    inline CryptoPP::OID getEC()
+    { 
+        return mEllipticCurve;
+    }
 
 private:
     CryptoPP::AutoSeededRandomPool mRng;

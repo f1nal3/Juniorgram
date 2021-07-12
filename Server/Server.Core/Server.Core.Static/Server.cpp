@@ -20,7 +20,7 @@ bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
     client->send(message);
 
     message.mHeader.mMessageType = Network::Message::MessageType::SetEncryptedConnection;
-    message.mBody = std::make_any<std::string>((*client->getKeyDestibutor()).getPublicServerKey());
+    message.mBody = std::make_any<std::string>((*client->getKeyDestributor()).getPublicServerKey());
     client->send(message);
 
     return true;
@@ -63,9 +63,9 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             std::string publicClientKey = std::any_cast<std::string>(message.mBody);
 
-            client->getKeyDestibutor().get()->setPublicClientKey(publicClientKey);
+            client->getKeyDestributor().get()->setPublicClientKey(publicClientKey);
 
-            client->getKeyDestibutor().get()->calculateSharedSecret();
+            client->getKeyDestributor().get()->calculateSharedSecret();
 
             message.mHeader.mMessageType = Network::Message::MessageType::SendIV;
 

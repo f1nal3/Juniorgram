@@ -1,13 +1,5 @@
 #include "Cryptography.hpp"
 
-#include <cryptopp/hex.h>
-#include <cryptopp/modes.h>
-#include <cryptopp/osrng.h>
-#include <cryptopp/base64.h>
-
-#include <memory>
-#include <string>
-
 namespace SymmetricCipher
 {
 using namespace CryptoPP;
@@ -127,3 +119,23 @@ std::string getBASE64DecodedValue(std::string& codedStr)
     return decoded;
 }
 }  // namespace Coding
+
+namespace Signing
+{
+std::string signData(const std::shared_ptr<Network::Connection>& client, std::string& data)
+{
+    Utility::SignerAndVerifier::Instance().initPoint(
+        client->getKeyDestributor().get()->getPrivateServerKey());
+    Utility::SignerAndVerifier::Instance().initAndSavePrivateAndPublicKey();
+    Utility::SignerAndVerifier::Instance().loadPrivateKey();
+
+    return Utility::SignerAndVerifier::Instance().sign(data);
+}
+
+bool verifyData(const std::string& data, const std::string& signature)
+{
+    Utility::SignerAndVerifier::Instance().loadPublicKey();
+
+    return Utility::SignerAndVerifier::Instance().verify(data, signature);
+}
+}  // namespace Signing

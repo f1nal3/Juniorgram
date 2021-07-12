@@ -13,8 +13,9 @@ set(SOURCE_FILES
     Include/Utility/SQLUtility.hpp
     Include/Utility/UserDataValidation.hpp
 	Include/Utility/KeyHolder.hpp
-	Include/Utility/KeyDestibutor.hpp
-	Include/Utility/TokenBuilder.hpp)
+	Include/Utility/KeyDestributor.hpp
+	Include/Utility/TokenBuilder.hpp
+	Include/Utility/SignerAndVerifier.hpp)
 
 add_library(${TARGET} INTERFACE)
 target_sources(${TARGET} INTERFACE ${SOURCE_FILES})
