@@ -19,7 +19,6 @@ ScrollBar::ScrollBar(ScrollArea* parent, bool vertical, const Style::ScrollArea*
     connect(_connected, SIGNAL(valueChanged(int)), this, SLOT(onValueChanged()));
     connect(_connected, SIGNAL(rangeChanged(int, int)), this, SLOT(onRangeChanged()));
 
-    setAttribute(Qt::WA_Hover);
     updateBar();
 }
 
@@ -356,8 +355,10 @@ void ScrollArea::onScrolled()
             changed = true;
         }
     }
-    Q_UNUSED(changed)
-    // TODO: handle changed
+    if (changed)
+    {
+        scrolled();
+    }
 }
 
 void ScrollArea::onInnerResized() { innerResized(); }
@@ -387,7 +388,6 @@ void ScrollArea::resizeEvent(QResizeEvent* e)
     QScrollArea::resizeEvent(e);
     _horizontalBar.recountSize();
     _verticalBar.recountSize();
-    updateBars();
     geometryChanged();
 }
 
@@ -507,8 +507,29 @@ void ScrollArea::setMovingByScrollBar(bool movingByScrollBar)
 {
     _movingByScrollBar = movingByScrollBar;
 }
+
 void ScrollArea::updateBars()
 {
     _verticalBar.updateBar();
     _horizontalBar.updateBar();
+}
+
+void ScrollArea::setOwnedWidget(std::unique_ptr<QWidget> w)
+{
+    if (widget())
+    {
+        // TODO: if we will something done to widget undo it
+    }
+    _widget = std::move(w);
+    QScrollArea::setWidget(_widget.get());
+    if (_widget)
+    {
+        _widget->setAutoFillBackground(false);
+    }
+}
+
+std::unique_ptr<QWidget> ScrollArea::takeWidget()
+{
+    QScrollArea::takeWidget();
+    return std::move(_widget);
 }

@@ -3,7 +3,6 @@
 #include <Network/Primitives.hpp>
 #include <Utility/WarningSuppression.hpp>
 #include <Utility.Static/Cryptography.hpp>
-
 #include "ServerInfo.hpp"
 
 namespace Network
