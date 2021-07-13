@@ -55,8 +55,6 @@ TEST_CASE("Registration user")
                 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::SUCCESS);
         REQUIRE(finder.findUsersAmountWithAllSameData(USER_1) == 1);
-        
-        registrator.rollback(USERS_DATA);
     }
 
     SECTION("RegistrationCode: EMAIL_ALREADY_EXISTS")
@@ -71,8 +69,6 @@ TEST_CASE("Registration user")
 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS);
         REQUIRE(finder.findUsersAmountWithSameEmail(USER_2.email) == 1);
-        
-        registrator.rollback(USERS_DATA);
     }
 
     SECTION("RegistrationCode: LOGIN_ALREADY_EXISTS")
@@ -87,7 +83,5 @@ TEST_CASE("Registration user")
 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS);
         REQUIRE(finder.findUsersAmountWithSameLogin(USER_1.login) == 1);
-        
-        registrator.rollback(USERS_DATA);
     }
 }

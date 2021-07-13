@@ -3,7 +3,8 @@ set(OUTPUT_NAME Client.Core.Static)
 
 set(SOURCE_FILES
         Client.hpp
-        Client.cpp)
+        Client.cpp
+        ServerInfo.hpp)
 
 if (WIN32)
     list(APPEND EXTRA_LIBS ws2_32 wsock32)
