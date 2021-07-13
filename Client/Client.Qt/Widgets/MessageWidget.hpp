@@ -84,9 +84,6 @@ protected:
     void paintEvent(QPaintEvent* e) override;
     void resizeEvent(QResizeEvent* e) override;
 
-private slots:
-    void reactionChange(int index);
-
 private:
     void clearMessage();
 
