@@ -145,10 +145,12 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::RegistrationRequest:
         {
+            static RegistrationUnit registrator;
+
             auto ri = std::any_cast<Network::RegistrationInfo>(message.mBody);
             
-            auto future = std::async(std::launch::async, &RegistrationUnit::registerUser,
-                                     &RegistrationUnit::instance(), ri);
+            auto future = std::async(std::launch::async, &RegistrationUnit::registerUser, 
+                                        &registrator, ri);
         
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType =
