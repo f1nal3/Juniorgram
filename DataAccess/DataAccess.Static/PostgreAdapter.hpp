@@ -8,6 +8,8 @@
 #include <Utility/Exception.hpp>
 #include <DataAccess/IAdapter.hpp>
 
+#include "DataBaseOptions.hpp"
+
 namespace DataAccess
 {
 /** @class PostgreAdapter

@@ -1,11 +1,12 @@
 #pragma once
+#include <Network/Primitives.hpp>
+#include <Utility/Utility.hpp>
 #include <ctime>
-#include <random>
+#include <memory>
 #include <string>
 
-#include <Network/Primitives.hpp>
 #include "PostgreRepository.hpp"
-#include <Utility/Utility.hpp>
+#include "UsersAmountFinder.hpp"
 
 std::string nowTimeStampStr();
 
@@ -14,30 +15,18 @@ std::string nowTimeStampStr();
  */
 class RegistrationUnit
 {
-private:
-    RegistrationUnit() = default;
+protected:
+    using Table = DataAccess::PostgreTable;
+    
+    std::unique_ptr<Table> pTable;
+    UsersAmountFinder finder;
 
-    inline static DataAccess::PostgreTable& getUsersTable()
-    {
-        static DataAccess::PostgreTable pt("users");
-        return pt;
-    }
+    RegistrationUnit(Table* pt) : pTable(pt) {}
 
 public:
-    RegistrationUnit(const RegistrationUnit&)      = delete;
-    RegistrationUnit& operator=(RegistrationUnit&) = delete;
-    ~RegistrationUnit()                            = default;
+    RegistrationUnit() : pTable(new Table{"users"}) {}
 
-    /**  @brief Method for getting of single RegistrationUnit instance.
-     *   @details This instance need for gaining access to /
-     *   other class members from outside.
-     *   @return RegistrationUnit - single class object.
-     */
-    inline static RegistrationUnit& instance()
-    {
-        static RegistrationUnit registrator;
-        return registrator;
-    }
+    virtual ~RegistrationUnit() = default;
 
     /**  @brief Method for user registration.
      *   @params RegistrationMessage which contains user data for registration.
