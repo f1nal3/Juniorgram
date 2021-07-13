@@ -2,9 +2,13 @@
 #include "Client.hpp"
 #include "Network/Primitives.hpp"
 #include "Widgets/ChannelListWindow.hpp"
+#include "ServerInfo.hpp"
 
 class ConnectionManager
 {
+private:
+    inline static Network::Client client;
+
 public:
     static void disconnect()
     {
@@ -15,7 +19,7 @@ public:
         }
     }
 
-    static void connect() { client.connect(address, port); }
+    static void connect() { client.connect(ServerInfo::address, ServerInfo::port); }
 
     static Network::Client& getClient() { return client; }
 
@@ -133,9 +137,4 @@ public:
             std::this_thread::sleep_for(std::chrono::milliseconds(200));
         }
     }
-
-private:
-    inline static Network::Client     client;
-    inline static const std::string   address = "104.40.239.183";
-    inline static const std::uint16_t port    = 65001;
 };

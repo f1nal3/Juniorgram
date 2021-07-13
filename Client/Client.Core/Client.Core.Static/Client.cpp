@@ -4,12 +4,25 @@
 #include <Utility/WarningSuppression.hpp>
 #include <Utility.Static/Cryptography.hpp>
 
+#include "ServerInfo.hpp"
+
 namespace Network
 {
 Client::~Client() { disconnect(); }
 
 bool Client::connect(const std::string& host, const uint16_t& port)
 {
+    if (host != ServerInfo::address)
+    {
+        std::cerr << "Bad server address" << std::endl;
+        return false;
+    }
+    if (port != ServerInfo::port)
+    {
+        std::cerr << "Bad port value" << std::endl;
+        return false;
+    }
+
     try
     {
         asio::ip::tcp::resolver resolver(mContext);
