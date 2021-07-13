@@ -24,7 +24,7 @@ void ChatHistory::addMessage(const QString& message, quint64 utc, const QString&
 
     history->setMinimumHeight(history->minimumHeight() + msg->expectedHeight() + 10);
     msg->show();
-    msg->resize(history->width(), msg->expectedHeight());
+    msg->resize(history->width() - 25, msg->expectedHeight());
 
     _messageList.push_back(std::unique_ptr<MessageWidget>(msg));
 
