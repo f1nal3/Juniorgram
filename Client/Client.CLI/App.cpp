@@ -1,8 +1,9 @@
 #include "App.hpp"
 #include "Network/YasSerializer.hpp"
 #include "Network/Primitives.hpp"
+#include "ServerInfo.hpp"
 
-App::App(/* args */) { client.connect(address, port); }
+App::App(/* args */) { client.connect(ServerInfo::address, ServerInfo::port); }
 
 App::~App()
 {
