@@ -47,6 +47,7 @@ namespace Hashing
 {
 std::string SHA_256(const std::string& message, const std::string& componentForSalt);
 std::string getSHA512HashingValue(const std::string& hashableString);
+std::string getSHA1HashingValue(const std::string& hashableStr);
 }
 
 namespace Coding

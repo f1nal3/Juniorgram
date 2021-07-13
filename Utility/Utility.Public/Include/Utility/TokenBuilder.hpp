@@ -84,14 +84,12 @@ struct TokenBuilder<std::tuple<States...>, Handlers...> : Handlers...
                     if constexpr (std::is_same_v<ResultType, void>)
                     {
                         (*this)(*statePtr, std::forward<E>(e));
-                        std::cout << "(no transition)\n";
                     }
                     else
                     {
                         /*useless transitionTo. Maybe i'll find useful palce for this.*/
                         auto transitionTo = (*this)(*statePtr, std::forward<E>(e));
                         currentState      = &std::get<typename ResultType::TargetState>(states);
-                        std::cout << "(transitioned to " << currentState.index() << ")\n";
                     }
                 }
                 else

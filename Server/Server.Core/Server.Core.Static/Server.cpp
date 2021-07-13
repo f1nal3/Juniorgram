@@ -3,8 +3,8 @@
 #include "DataAccess.Static/PostgreRepository.hpp"
 #include "DataAccess.Static/RepositoryUnits.hpp"
 #include "Utility/TokenBuilder.hpp"
+#include <Utility.Static/ClientPayload.hpp>
 #include <future>
-
 
 using Network::Connection;
 using Network::Message;
@@ -170,10 +170,10 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::RegistrationRequest:
         {
-            auto ri = std::any_cast<Network::RegistrationInfo>(message.mBody);
+            auto ri = std::any_cast<std::pair<Utility::ClientPayload, Network::RegistrationInfo>>(message.mBody);
             
             auto future = std::async(std::launch::async, &RegistrationUnit::registerUser,
-                                     &RegistrationUnit::instance(), ri);
+                            &RegistrationUnit::instance(), ri.second);
         
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType =
@@ -181,10 +181,18 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             
             auto registrationCode = future.get();
 
-            auto token = getToken(client);
-
-            messageToClient.mBody = std::make_any<Utility::RegistrationCodes>(registrationCode);
-            client->send(messageToClient);
+            if (registrationCode == Utility::RegistrationCodes::SUCCESS)
+            {
+                std::string token = getToken(client);
+                messageToClient.mBody =
+                    std::make_any<std::pair<std::string, Utility::RegistrationCodes>>(
+                        std::pair{" ", registrationCode});
+            }
+            else
+            {
+                messageToClient.mBody = std::make_any<Utility::RegistrationCodes>(registrationCode);
+                client->send(messageToClient);
+            }
         }
         break;
 

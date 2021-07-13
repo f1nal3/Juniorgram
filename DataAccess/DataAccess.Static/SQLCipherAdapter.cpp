@@ -8,12 +8,6 @@ enum class TableExistance : std::uint16_t
     exists      = 1
 };
 
-enum class MACAdressExistance : long
-{
-    exists      =  0,
-    nonExistent = -1
-};
-
 suppressWarning(4100, Init) 
 static int callback(void* data, int argc, char** argv, char** azColName)
 {
@@ -31,50 +25,32 @@ void sqlite3_deleter::operator()(sqlite3* sql) { sqlite3_close(sql); }
 
 sqlite3_ptr make_sqlite3(const std::string_view& dbName)
 {
-  unsigned char rawMACAddress[6]{};
-  sqlite3* db = nullptr;   
+    sqlite3* db = nullptr;
 
-  if (Utility::MACAddressUtility::GetMACAddress(rawMACAddress) == (long)MACAdressExistance::exists)
-  {
-      std::stringstream MACAddress;
+    if (sqlite3_open(dbName.data(), &db) != SQLITE_OK)
+    {
+        throw Utility::OperationDBException("Failed to open sqlite!", __FILE__, __LINE__);
+    }
 
-      MACAddress << std::hex << (unsigned int)rawMACAddress[0] << ':'
-                 << (unsigned int)rawMACAddress[1] << ':' << (unsigned int)rawMACAddress[2] << ':'
-                 << (unsigned int)rawMACAddress[3] << ':' << (unsigned int)rawMACAddress[4] << ':'
-                 << (unsigned int)rawMACAddress[5];       
- 
-      if (sqlite3_open(dbName.data(), &db) != SQLITE_OK)
-      {
-          throw Utility::OperationDBException("Failed to open sqlite!", __FILE__, __LINE__);
-      }
+    suppressWarning(4267, Init) const std::string& hashedMAC =
+        Hashing::getSHA512HashingValue(Utility::MACAddressUtility::GetMACAddress());
 
-      suppressWarning(4267, Init)
-      const std::string& hashedMAC = Hashing::getSHA512HashingValue(MACAddress.str());       
+    sqlite3_key(db, hashedMAC.c_str(), hashedMAC.size());
+    restoreWarning
 
-      sqlite3_key(db, hashedMAC.c_str(), hashedMAC.size());
-      restoreWarning
+        std::unique_ptr<std::vector<std::string>>
+            isExists = std::make_unique<std::vector<std::string>>();
 
-      std::unique_ptr<std::vector<std::string>>
-      isExists = std::make_unique<std::vector<std::string>>();
+    sqlite3_exec(
+        db,
+        "SELECT count(name) FROM sqlite_master WHERE type = 'table' AND name = 'refresh_tokens';",
+        callback, isExists.get(), 0);
 
-      sqlite3_exec(
-          db, "SELECT count(name) FROM sqlite_master WHERE type = 'table' AND name = 'refresh_tokens';",
-          callback, isExists.get(), 0);
+    if (std::stoi(isExists.get()->front()) == (std::uint16_t)TableExistance::nonExistent)
+    {
+        sqlite3_exec(db, "CREATE TABLE refresh_tokens(refresh_token TEXT NOT NULL);", 0, 0, 0);
+    }
 
-      if (std::stoi(isExists.get()->front()) == (std::uint16_t)TableExistance::nonExistent)
-      {
-          sqlite3_exec(db, "CREATE TABLE refresh_tokens(refresh_token TEXT NOT NULL);", 0, 0, 0);
-      }
-  
-      //  sqlite3_exec(db, "INSERT INTO refresh_tokens(refresh_token) VALUES('72asd3222222224');",
-      //             callback, isExists.get(), 0);
-      //
-      //sqlite3_close(db);
-  }
-  else
-  {
-      std::runtime_error("Unable to get the MAC address on the device!");
-  }
   return sqlite3_ptr(db);
 }
 

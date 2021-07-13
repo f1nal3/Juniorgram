@@ -76,6 +76,19 @@ std::string getSHA512HashingValue(const std::string& hashableStr)
     return digest;
 }
 
+std::string getSHA1HashingValue(const std::string& hashableStr)
+{
+    CryptoPP::SHA1 hash;
+    std::string digest;
+
+    CryptoPP::StringSource foo(
+        hashableStr, true,
+        new CryptoPP::HashFilter(
+            hash, new CryptoPP::Base64Encoder(new CryptoPP::StringSink(digest), false)));
+
+    return digest;
+}
+
 }  // namespace Hashing
 
 namespace Coding

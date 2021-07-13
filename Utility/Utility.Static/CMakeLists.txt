@@ -8,9 +8,10 @@ set(SOURCE_FILES
     JsonSerializer.cpp
     SafePriorityQueue.hpp
     TaskManager.hpp
-    SymmetricCipher.cpp
 	MACAddress.hpp
-	MACAddress.cpp)
+	MACAddress.cpp
+	ClientPayload.hpp
+	ClientPayload.cpp)
 	
 # Add a library with the above sources
 add_library(${TARGET} STATIC ${SOURCE_FILES})

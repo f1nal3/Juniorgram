@@ -1,27 +1,32 @@
 #include "MACAddress.hpp"
 
-#include <stdio.h>
- 
-#if defined(WIN32) || defined(UNDER_CE)
-#   include <windows.h>
-#   pragma comment(lib, "rpcrt4.lib")
-#elif defined(__APPLE__)
-#   include <CoreFoundation/CoreFoundation.h>
-#   include <IOKit/IOKitLib.h>
-#   include <IOKit/network/IOEthernetInterface.h>
-#   include <IOKit/network/IONetworkInterface.h>
-#   include <IOKit/network/IOEthernetController.h>
-#elif defined(LINUX) || defined(linux)
-#   include <string.h>
-#   include <net/if.h>
-#   include <sys/ioctl.h>
-#   include <sys/socket.h>
-#   include <arpa/inet.h>
-#endif
-
 namespace Utility
 {
-    suppressWarning(4702, Init) long MACAddressUtility::GetMACAddress(unsigned char* result)
+    std::string MACAddressUtility::GetMACAddress()
+    {
+        unsigned char rawMACAddress[6]{};
+
+        if (Utility::MACAddressUtility::takeMAC(rawMACAddress) == (long)Utility::MACAdressExistance::exists)
+        {
+            std::stringstream MACAddress;
+
+            MACAddress << std::hex << (unsigned int)rawMACAddress[0] << ':'
+                       << (unsigned int)rawMACAddress[1] << ':' << (unsigned int)rawMACAddress[2] << ':'
+                       << (unsigned int)rawMACAddress[3] << ':' << (unsigned int)rawMACAddress[4] << ':'
+                       << (unsigned int)rawMACAddress[5];
+
+            return MACAddress.str();
+        }
+        else
+        {
+            std::cout << "Unable to get the MAC address on the device!";
+            return {};
+        }
+    }
+
+
+    suppressWarning(4702, Init)
+    long MACAddressUtility::takeMAC(unsigned char* result)
     {
         // Fill result with zeroes
         memset(result, 0, 6);
