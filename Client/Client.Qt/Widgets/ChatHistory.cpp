@@ -130,7 +130,7 @@ void ChatHistory::resizeVisible()
 std::pair<int, int> ChatHistory::findVisible() const
 {
     int left   = 0;
-    int right  = _messageList.size();
+    int right  = int(_messageList.size());
     int top    = _scrollArea->scrollTop();
     int bottom = top + _scrollArea->height();
     {
@@ -145,7 +145,7 @@ std::pair<int, int> ChatHistory::findVisible() const
     }
     int middle = (right + left) / 2;
     int index  = middle;
-    int size   = _messageList.size();
+    int size   = int(_messageList.size());
 
     while (_messageList[index]->pos().y() < bottom && index < size - 1)
     {
