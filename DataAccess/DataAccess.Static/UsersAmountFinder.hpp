@@ -16,13 +16,11 @@ public:
 
     virtual ~UsersAmountFinder() = default;
 
-    std::uint16_t UsersAmountFinder::findUsersAmountWithSameTableAttribute(
-        const std::string& condition) const;
+    std::uint16_t findUsersAmountWithSameTableAttribute(const std::string& condition) const;
 
-    std::uint16_t UsersAmountFinder::findUsersAmountWithSameLogin(const std::string& login) const;
+    std::uint16_t findUsersAmountWithSameLogin(const std::string& login) const;
 
-    std::uint16_t UsersAmountFinder::findUsersAmountWithSameEmail(const std::string& email) const;
+    std::uint16_t findUsersAmountWithSameEmail(const std::string& email) const;
 
-    std::uint16_t UsersAmountFinder::findUsersAmountWithAllSameData(
-        const Network::RegistrationInfo& ri) const;
+    std::uint16_t findUsersAmountWithAllSameData(const Network::RegistrationInfo& ri) const;
 };

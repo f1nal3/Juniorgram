@@ -4,8 +4,9 @@
 #include <iostream>
 
 #include <DataAccess.Static/PostgreTable.hpp>
+#include <DataAccess.Static/DataBaseOptions.hpp>
 
-DataAccess::PostgreTable test("testing", "hostaddr=104.40.239.183 port=5432 dbname=test user=userfortests password=123");
+DataAccess::PostgreTable test("testing", DBOptions::test);
 
 TEST_CASE("Query", "[PostgreAdapter]")
 {

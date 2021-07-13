@@ -16,6 +16,7 @@ set(SOURCE_FILES
     RepositoryUnits.cpp
     SQLStatements.hpp
     QueryBuilder.hpp
+    DataBaseOptions.hpp
     UsersAmountFinder.hpp
     UsersAmountFinder.cpp)
 

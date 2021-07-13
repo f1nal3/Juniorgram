@@ -49,7 +49,7 @@ TEST_CASE("Registration user")
     SECTION("RegistrationCode: SUCCESS")
     {
         registrator.rollback(USERS_DATA);
-
+        
         const auto USER_1            = USERS_DATA.at("user_1");
         const auto REGISTRATION_CODE = registrator.registerUser(USER_1);
                 
@@ -78,7 +78,7 @@ TEST_CASE("Registration user")
     SECTION("RegistrationCode: LOGIN_ALREADY_EXISTS")
     {
         registrator.rollback(USERS_DATA);
-
+        
         const auto USER_1 = USERS_DATA.at("user_1");
         registrator.registerUser(USER_1);
 
