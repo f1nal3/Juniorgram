@@ -10,7 +10,7 @@ namespace Network
 {
 Client::~Client() { disconnect(); }
 
-bool Client::connect(const std::string& host, const uint16_t port)
+bool Client::connect(const std::string_view& host, const uint16_t port)
 {
     if (host != ServerInfo::address)
     {
