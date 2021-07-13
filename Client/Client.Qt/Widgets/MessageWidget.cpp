@@ -27,7 +27,6 @@ MessageWidget::MessageWidget(QWidget* history, QString message, qint64 utc, QStr
     _fmtMessageText->show();
     _deleteBtn = std::make_unique<FlatButton>(this, "Delete", _st.button);
     resize(width(), expectedHeight());
-    // connect(reactionChoseBox.get(), SIGNAL(currentIndexChanged(int)), SLOT(reactionChange(int)));
     _deleteBtn->setClickCallback([&]() { onDelete(); });
 }
 
@@ -53,7 +52,7 @@ void MessageWidget::paintEvent(QPaintEvent* e)
     p.drawText(usernameRect, _username);
 
     p.setFont(_st.fontdate);
-    QString datetime     = dateTimeMessage.toString("d никогда hh:mm");
+    QString datetime     = dateTimeMessage.toString("d.MM hh:mm");
     auto    datetimeRect = QRect(margin * 3 + usernameRect.right(), margin * 2 + 1, _st.fontdate->width(datetime), _st.fontdate->height);
     p.drawText(datetimeRect, datetime, Style::al_center);
 
