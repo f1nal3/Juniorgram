@@ -10,7 +10,6 @@ class ChatWidget : public QWidget
     Q_OBJECT
 public:
     explicit ChatWidget(QWidget* parent = nullptr);
-    ~ChatWidget() override;
 
 private slots:
     void newMessage(const QString& messageText);
