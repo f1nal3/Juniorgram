@@ -7,10 +7,10 @@
 #include "ChatHistory.hpp"
 #include "Style/Style.hpp"
 
-MessageWidget::MessageWidget(QWidget* history, QString  message, qint64 utc, const QString& username, const Style::MessageWidget& st)
+MessageWidget::MessageWidget(QWidget* history, QString  message, qint64 utc, QString  username, const Style::MessageWidget& st)
     : QWidget(history),
       _messageText(std::move(message)),
-      _username(username),
+      _username(std::move(username)),
       dateTimeMessage(QDateTime::fromSecsSinceEpoch(utc)),
       _st(st)
 {
