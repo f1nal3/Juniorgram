@@ -19,12 +19,9 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     connectUi();
 }
 
-void ChatWidget::newMessage(const QString& messageText)
-{
-    chatWidget->addMessage(messageText, QDateTime::currentSecsSinceEpoch());
-}
+void ChatWidget::newMessage(const QString& messageText) { chatWidget->addMessage(messageText, QDateTime::currentSecsSinceEpoch()); }
 
-void ChatWidget::newMessage(QString messageText, QString userNameMessage)
+void ChatWidget::newMessage(const QString& messageText, const QString& userNameMessage)
 {
     chatWidget->addMessage(messageText, QDateTime::currentSecsSinceEpoch(), userNameMessage);
 }

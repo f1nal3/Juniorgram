@@ -14,7 +14,7 @@ public:
 
 private slots:
     void newMessage(const QString& messageText);
-    void newMessage(QString textMessage, QString userNameMessage);
+    void newMessage(const QString& messageText, const QString& userNameMessage);
 
 private:
     void connectUi();
