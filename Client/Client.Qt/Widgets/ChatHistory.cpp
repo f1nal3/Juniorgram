@@ -22,9 +22,9 @@ void ChatHistory::addMessage(const QString& message, quint64 utc, const QString&
     auto history = _scrollArea->widget();
     auto msg     = new MessageWidget(history, message, utc, user);
 
-    history->setMinimumHeight(history->minimumHeight() + msg->expectedHeight() + 10);
     msg->show();
     msg->resize(history->width() - 25, msg->expectedHeight());
+    history->setMinimumHeight(history->minimumHeight() + msg->expectedHeight() + 10);
 
     _messageList.push_back(std::unique_ptr<MessageWidget>(msg));
 
