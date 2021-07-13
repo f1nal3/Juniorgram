@@ -5,32 +5,24 @@
 ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
 {
     setContentsMargins(0, 0, 0, 0);
-    mainChatLayout = new QVBoxLayout(this);
-    mainChatLayout->setContentsMargins(0, 0, 0, 0);
-    mainChatLayout->setMargin(0);
-    mainChatLayout->setSpacing(0);
-    chatWidget = new ChatHistory(this);
-    textEdit   = new TextEdit(chatWidget);
+    _mainChatLayout = std::make_unique<QVBoxLayout>(this);
+    _mainChatLayout->setContentsMargins(0, 0, 0, 0);
+    _mainChatLayout->setMargin(0);
+    _mainChatLayout->setSpacing(0);
+    _chatHistory = std::make_unique<ChatHistory>(this);
+    _textEdit    = std::make_unique<TextEdit>(_chatHistory.get());
     setMinimumWidth(Style::valueDPIScale(400));
 
-    mainChatLayout->addWidget(chatWidget, 85);
-    mainChatLayout->addWidget(textEdit, 15);
-    setLayout(mainChatLayout);
-    connectUi();
+    _mainChatLayout->addWidget(_chatHistory.get(), 85);
+    _mainChatLayout->addWidget(_textEdit.get(), 15);
+    setLayout(_mainChatLayout.get());
+
+    connect(_textEdit.get(), SIGNAL(sendMessageSignal(QString)), this, SLOT(newMessage(QString)));
 }
 
-void ChatWidget::newMessage(const QString& messageText) { chatWidget->addMessage(messageText, QDateTime::currentSecsSinceEpoch()); }
+void ChatWidget::newMessage(const QString& messageText) { _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch()); }
 
 void ChatWidget::newMessage(const QString& messageText, const QString& userNameMessage)
 {
-    chatWidget->addMessage(messageText, QDateTime::currentSecsSinceEpoch(), userNameMessage);
-}
-
-void ChatWidget::connectUi() { connect(textEdit, SIGNAL(sendMessageSignal(QString)), this, SLOT(newMessage(QString))); }
-
-ChatWidget::~ChatWidget()
-{
-    delete mainChatLayout;
-    delete chatWidget;
-    delete textEdit;
+    _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch(), userNameMessage);
 }

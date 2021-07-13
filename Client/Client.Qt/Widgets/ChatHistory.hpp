@@ -44,8 +44,7 @@ private:
 
 private:
     bool                                        _alreadyScrolling = false;
-    int                                         _left             = -1;
-    int                                         _right            = -1;
+    std::int32_t                                _left             = -1;
     std::unique_ptr<ScrollArea>                 _scrollArea;
     std::vector<std::unique_ptr<MessageWidget>> _messageList;
 };

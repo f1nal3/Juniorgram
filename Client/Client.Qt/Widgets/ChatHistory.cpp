@@ -120,10 +120,9 @@ void ChatHistory::resizeVisible()
         bool  bWidth  = msg->width() != width;
         resized |= bHeight || bWidth;
         if (bWidth || bHeight) msg->resize(width, msg->expectedHeight());
-        msg->setIndex(left + 1, index, right);
+        msg->setIndex(index);
     }
     _left  = left + 1;
-    _right = right;
     updateLayout(resized);
 }
 

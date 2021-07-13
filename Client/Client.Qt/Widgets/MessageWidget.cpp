@@ -7,15 +7,14 @@
 #include "ChatHistory.hpp"
 #include "Style/Style.hpp"
 
-MessageWidget::MessageWidget(QWidget* history, QString  message, qint64 utc, QString  username, const Style::MessageWidget& st)
+MessageWidget::MessageWidget(QWidget* history, QString message, qint64 utc, QString username, const Style::MessageWidget& st)
     : QWidget(history),
       _messageText(std::move(message)),
       _username(std::move(username)),
-      dateTimeMessage(QDateTime::fromSecsSinceEpoch(utc)),
+      _datetime(QDateTime::fromSecsSinceEpoch(utc)),
       _st(st)
 {
     setContentsMargins(QMargins(_st.radius, _st.radius, _st.radius, _st.radius));
-    reactionUserOnMessage = reactions::NON;
     setMinimumHeight(_st.fontname->height + _st.radius * 2);
 
     _fmtMessageText = std::make_unique<FlatTextEdit>(this, _st.textedit);
@@ -53,7 +52,7 @@ void MessageWidget::paintEvent(QPaintEvent* e)
     p.drawText(usernameRect, _username);
 
     p.setFont(_st.fontdate);
-    QString datetime     = dateTimeMessage.toString("d.MM hh:mm");
+    QString datetime     = _datetime.toString("d.MM hh:mm");
     auto    datetimeRect = QRect(margin * 3 + usernameRect.right(), margin * 2 + 1, _st.fontdate->width(datetime), _st.fontdate->height);
     p.drawText(datetimeRect, datetime, Style::al_center);
 
@@ -83,49 +82,6 @@ void MessageWidget::onDelete()
     update();
 }
 
-void MessageWidget::reactionChange(int index)
-{
-    if (reactionUserOnMessage != reactions::NON)
-    {
-        --reactionMap[reactionUserOnMessage];
-        for (auto countReaction : reactionMap)
-        {
-            if (countReaction.second <= 0)
-            {
-                reactionMapLabelIcon->find(countReaction.first).value()->clear();
-                reactionMapLabel->find(countReaction.first).value()->clear();
-            }
-        }
-    }
-
-    auto reactionSelection{[&](int reactionNumber) {
-        reactionMapLabelIcon->find(--reactionNumber)
-            .value()
-            ->setPixmap(
-                pixmapIcon->find(reactionNumber)
-                    .value()[0]
-                    .scaled(QSize(Style::valueDPIScale(16), Style::valueDPIScale(16)), Qt::KeepAspectRatio, Qt::SmoothTransformation));
-        reactionMapLabel->find(reactionNumber).value()->setText(QString::number(++reactionMap[reactionNumber]));
-        reactionUserOnMessage = static_cast<reactions>(reactionNumber);
-    }};
-    switch (index)
-    {
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-        {
-            reactionSelection(index);
-        }
-        break;
-        default:
-        {
-            reactionUserOnMessage = reactions::NON;
-        }
-        break;
-    }
-}
-
 void MessageWidget::setMessageText(const QString& newMessage)
 {
     if (newMessage != "")
@@ -146,7 +102,7 @@ void MessageWidget::setUserName(const QString& newUserName)
 
 void MessageWidget::setTime(qint64 utc)
 {
-    dateTimeMessage.setSecsSinceEpoch(utc);
+    _datetime.setSecsSinceEpoch(utc);
     update();
 }
 

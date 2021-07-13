@@ -42,7 +42,7 @@ public:
      * @param utc Seconds since epoch.
      * @param username User nickname.
      */
-    MessageWidget(QWidget* history, QString  message, qint64 utc, QString  username,
+    MessageWidget(QWidget* history, QString message, qint64 utc, QString username,
                   const Style::MessageWidget& st = st::defaultMessageWidget);
 
     /**
@@ -66,11 +66,9 @@ public:
      */
     void setReactionMap(std::map<int, int> newReactionMap);
 
-    void setIndex(int left, int index, int right)
+    void setIndex(int index)
     {
-        _left  = left;
         _index = index;
-        _right = right;
 
         update();
     }
@@ -104,24 +102,13 @@ private:
 
     // Message
     std::unique_ptr<FlatTextEdit> _fmtMessageText;
-    std::unique_ptr<FlatButton>        _deleteBtn;
-
-    QMap<int, Label*>* reactionMapLabel;
-    QMap<int, Label*>* reactionMapLabelIcon;
-
-    QMap<int, QPixmap*>* pixmapIcon;
-
-    // DownLevelLayout
-    std::unique_ptr<ComboBox> reactionChoseBox;
-
-    int                         _left = 0, _index = 0, _right = 0;
-    QString                     _messageText;
-    QString                     _username;
-    QDateTime                   dateTimeMessage;
-    reactions                   reactionUserOnMessage;
-    QStringList                 itemReactionList;
-    MessageFlags                _messageFlags;
-    const Style::MessageWidget& _st;
+    std::unique_ptr<FlatButton>   _deleteBtn;
+    std::int32_t                  _index = 0;
+    QString                       _messageText;
+    QString                       _username;
+    QDateTime                     _datetime;
+    MessageFlags                  _messageFlags;
+    const Style::MessageWidget&   _st;
 
     std::map<int, int> reactionMap{{reactions::LIKE, 0}, {reactions::DISLIKE, 0}, {reactions::FIRE, 0}, {reactions::CAT, 0}};
 };

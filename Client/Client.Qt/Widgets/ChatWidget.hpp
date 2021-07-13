@@ -17,10 +17,7 @@ private slots:
     void newMessage(const QString& messageText, const QString& userNameMessage);
 
 private:
-    void connectUi();
-
-private:
-    QVBoxLayout* mainChatLayout;
-    ChatHistory* chatWidget;
-    TextEdit*    textEdit;
+    std::unique_ptr<QVBoxLayout> _mainChatLayout;
+    std::unique_ptr<ChatHistory> _chatHistory;
+    std::unique_ptr<TextEdit>    _textEdit;
 };
