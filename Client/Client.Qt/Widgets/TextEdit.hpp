@@ -32,7 +32,7 @@ private:
     std::unique_ptr<FlatButton> mItalicsButton;
     std::unique_ptr<FlatButton> mUnderscoreButton;
     std::unique_ptr<FlatButton> sendButton;
-    std::unique_ptr<FlatPlainTextEdit> messageTextEdit;
+    std::unique_ptr<FlatTextEdit> messageTextEdit;
     std::unique_ptr<QSpacerItem> horizontalButtonSpacer;
 
     const int SymbolSize                = 3;

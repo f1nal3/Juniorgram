@@ -2,6 +2,7 @@
 
 #include <QCommonStyle>
 #include <QCoreApplication>
+#include <QDebug>
 #include <QPainter>
 #include <QRegExpValidator>
 #include <QtEvents>
@@ -22,8 +23,7 @@ public:
         Q_UNUSED(painter)
         Q_UNUSED(widget)
     }
-    QRect subElementRect(SubElement r, const QStyleOption* opt,
-                         const QWidget* widget = nullptr) const override
+    QRect subElementRect(SubElement r, const QStyleOption* opt, const QWidget* widget = nullptr) const override
     {
         switch (r)
         {
@@ -91,8 +91,7 @@ void FlatInput::paintEvent(QPaintEvent* event)
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setBrush(inputField);
     painter.setPen(Qt::NoPen);
-    painter.drawRoundedRect(QRectF(0, 0, width(), height()), Style::valueDPIScale(8),
-                      Style::valueDPIScale(8));
+    painter.drawRoundedRect(QRectF(0, 0, width(), height()), Style::valueDPIScale(8), Style::valueDPIScale(8));
 
     QLineEdit::paintEvent(event);
 }
@@ -103,52 +102,44 @@ FlatInput::FlatInput(const QString& placeholder, bool password, QWidget* parent)
     setEchoMode(password ? Password : Normal);
 }
 
-FlatInput::FlatInput(const QString& placeholder, QWidget* parent)
-    : FlatInput(placeholder, false, parent)
-{
-}
-QRect FlatInput::getTextRect() const
-{
-    return rect().marginsRemoved(st::mar + QMargins(-2, -1, -2, -1));
-}
+FlatInput::FlatInput(const QString& placeholder, QWidget* parent) : FlatInput(placeholder, false, parent) {}
 
-FlatPlainTextEdit::FlatPlainTextEdit(QWidget* parent) : QTextEdit(parent)
-{
-    setFont(st::defaultFont);
-    QColor inputField(0x32, 0x32, 0x32);
-    inputField        = inputField.lighter(175);
-    auto selectedText = inputField.lighter(120);
+QRect FlatInput::getTextRect() const { return rect().marginsRemoved(st::mar + QMargins(-2, -1, -2, -1)); }
 
+FlatTextEdit::FlatTextEdit(QWidget* parent, const Style::FlatTextEdit& st) : QTextEdit(parent), _st(st)
+{
+    setFont(_st.font);
     setFrameStyle(QFrame::NoFrame | QFrame::Plain);
     viewport()->setAutoFillBackground(false);
 
     auto p = palette();
-    p.setColor(QPalette::Text, Qt::white);
-    p.setColor(QPalette::Highlight, selectedText);
-    p.setColor(QPalette::HighlightedText, inputField);
+    p.setColor(QPalette::Text, _st.textcolor->color);
+    p.setColor(QPalette::Highlight, _st.selectedcolor->color);
+    p.setColor(QPalette::HighlightedText, _st.selectedtextcolor->color);
     setPalette(p);
 
-    setContentsMargins(0, 0, 0, 0);
-    document()->setDocumentMargin(st::mar.left());
+    setContentsMargins(_st.margins);
+    document()->setDocumentMargin(_st.margins.left());
     setWordWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     setAttribute(Qt::WA_AcceptTouchEvents);
     viewport()->setAttribute(Qt::WA_AcceptTouchEvents);
-    const QRect BOUND =
-        fontMetrics().boundingRect(0, 0, 360, 1000, Qt::TextWordWrap, document()->toPlainText());
-    setMinimumHeight(std::max(fontMetrics().height(), BOUND.height()) +
-                     Style::valueDPIScale(8) * 2);
+
+    setMinimumHeight(_st.margins.top() + _st.margins.bottom() + _st.font->height);
 }
 
-void FlatPlainTextEdit::paintEvent(QPaintEvent* event)
+void FlatTextEdit::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event)
     QPainter painter(this->viewport());
-    QColor   inputField(0x32, 0x32, 0x32);
-    inputField = inputField.darker(175);
-    painter.setBrush(inputField);
+
     painter.setPen(Qt::NoPen);
-    painter.drawRect(QRectF(0, 0, width(), height()).marginsRemoved(QMarginsF(2, 2, 2, 2)));
+
+    painter.setBrush(_st.bg);
+    painter.drawRect(rect());
 
     QTextEdit::paintEvent(event);
 }
+
+void FlatTextEdit::resizeEvent(QResizeEvent* resizeEvent) { QTextEdit::resizeEvent(resizeEvent); }

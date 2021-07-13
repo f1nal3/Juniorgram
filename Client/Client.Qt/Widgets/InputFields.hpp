@@ -1,8 +1,9 @@
 #pragma once
 
-#include "Style/Style.hpp"
 #include <QLineEdit>
 #include <QTextEdit>
+
+#include "Style/StyleBasic.hpp"
 
 class FlatInput : public QLineEdit
 {
@@ -10,20 +11,23 @@ class FlatInput : public QLineEdit
 public:
     explicit FlatInput(QWidget* parent = nullptr);
     explicit FlatInput(const QString& placeholder, QWidget* parent = nullptr);
-    explicit FlatInput(const QString& placeholder, bool password = false,
-                       QWidget* parent = nullptr);
+    explicit FlatInput(const QString& placeholder, bool password = false, QWidget* parent = nullptr);
     QRect getTextRect() const;
 
 private:
     void paintEvent(QPaintEvent* event) override;
 };
 
-class FlatPlainTextEdit : public QTextEdit
+class FlatTextEdit : public QTextEdit
 {
     Q_OBJECT
 public:
-    explicit FlatPlainTextEdit(QWidget* parent = nullptr);
+    explicit FlatTextEdit(QWidget* parent = nullptr, const Style::FlatTextEdit& st = st::defaultTextEdit);
 
 protected:
     void paintEvent(QPaintEvent* paintEvent) override;
+    void resizeEvent(QResizeEvent* resizeEvent) override;
+
+private:
+    const Style::FlatTextEdit& _st;
 };

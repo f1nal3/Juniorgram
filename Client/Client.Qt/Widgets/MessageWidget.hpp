@@ -26,66 +26,70 @@ class MessageWidget : public QWidget
     Q_OBJECT
 
 public:
+    enum class MessageFlag
+    {
+        Uploading = 1u << 0u,
+        Edited    = 1u << 1u,
+        Deleted   = 1u << 2u,
+    };
+
+    typedef QFlags<MessageFlag> MessageFlags;
+
+    /**
+     * @brief constructor for displaying a message from a user on the screen.
+     * @param history parent widget
+     * @param message Message from user.
+     * @param utc Seconds since epoch.
+     * @param username User nickname.
+     */
+    MessageWidget(QWidget* history, QString message, qint64 utc, QString username,
+                  const Style::MessageWidget& st = st::defaultMessageWidget);
+
     /**
      * @brief Method for method for changing the message.
      * @param new text message as string of QString.
      */
-    void setMessageText(QString newMessage);
+    void setMessageText(const QString& newMessage);
     /**
-     * @brief Method for method for changing the message.
-     * @param new text message as string of std::string.
+     * @brief Set new nickname if user have changed it.
+     * @param newUserName new nickname for user.
      */
-    void setStdMessageText(std::string newMessage);
-    /**
-     * @brief Method for changing the nickname of the message sender.
-     * @param new nickname as string of QString.
-     */
-    void setUserName(QString newUserName);
-    /**
-     * @brief Method for changing the nickname of the message sender.
-     * @param new nickname as string of std::string.
-     */
-    void setStdUserName(std::string newUserName);
+    void setUserName(const QString& newUserName);
     /**
      * @brief Method for changing the data and time of the message sender.
-     * @param new datatime of QDateTime.
+     * @param utc Seconds since epoch.
      */
-    void setDateTime(QDateTime newDataTime);
-    /**
-     * @brief Method for changing the data and time of the message sender.
-     * @param new datatime of std::time_t.
-     */
-    void setStdTime_tDateTime(std::time_t newDataTime);
+    void setTime(qint64 utc);
     /**
      * @brief Method for changing reaction map.
      * @param new reactions of map with kay int and value int.
      */
     void setReactionMap(std::map<int, int> newReactionMap);
-    /**
-     * @brief constructor for displaying a message from a user on the screen.
-     * @param history parent widget
-     * @param message is QString.
-     * @param utc seconds since epoch.
-     * @param username nickname.
-     */
-    MessageWidget(QWidget* history, QString message, qint64 utc, QString username);
-    /**
-     * @brief destructor for clearing memory.
-     */
-    ~MessageWidget() override;
+
+    void setIndex(int left, int index, int right)
+    {
+        _left  = left;
+        _index = index;
+        _right = right;
+
+        update();
+    }
+
+    int expectedHeight();
+public slots:
+    void onDelete();
+
+signals:
+    void geometryChanged(int);
 
 protected:
     void paintEvent(QPaintEvent* e) override;
+    void resizeEvent(QResizeEvent* e) override;
 
 private slots:
-    void deleteButtonClick();
     void reactionChange(int index);
 
 private:
-    void initializationUiNotDelete();
-    void initializationUiDelete();
-    void updateWidget();
-    void connectUi();
     void clearMessage();
 
 private:
@@ -97,38 +101,27 @@ private:
         CAT,
         NON
     };
-    // Layouts
-    std::unique_ptr<QVBoxLayout> mainLayout;
-    std::unique_ptr<QHBoxLayout> UpLevelLayout;
-    std::unique_ptr<QHBoxLayout> DownLevelLayout;
+
     // Message
-    FlatPlainTextEdit* messageTextEdit;
-    // UpLevelLayout
-    Label* userNameLabel;
+    std::unique_ptr<FlatTextEdit> _fmtMessageText;
+    std::unique_ptr<FlatButton>        _deleteBtn;
 
     QMap<int, Label*>* reactionMapLabel;
-
     QMap<int, Label*>* reactionMapLabelIcon;
-
-    std::unique_ptr<QSpacerItem> horizontalUpLeftSpacer;
-    std::unique_ptr<QSpacerItem> horizontalUpRightSpacer;
-    DateTimeEdit*                messageDateTimeEdit;
 
     QMap<int, QPixmap*>* pixmapIcon;
 
     // DownLevelLayout
-    std::unique_ptr<ComboBox>    reactionChoseBox;
-    std::unique_ptr<FlatButton>  deleteButton;
-    std::unique_ptr<QSpacerItem> horizontalDownSpacer;
-    // delMessage - shows that the message has been deleted
-    Label* delMessage;
+    std::unique_ptr<ComboBox> reactionChoseBox;
 
-    bool               messageDeleted = false;
-    QString            messageText;
-    QString            userName;
-    QDateTime          dateTimeMessage;
-    reactions          reactionUserOnMessage;
-    QStringList        itemReactionList;
-    std::map<int, int> reactionMap{
-        {reactions::LIKE, 0}, {reactions::DISLIKE, 0}, {reactions::FIRE, 0}, {reactions::CAT, 0}};
+    int                         _left = 0, _index = 0, _right = 0;
+    QString                     _messageText;
+    QString                     _username;
+    QDateTime                   dateTimeMessage;
+    reactions                   reactionUserOnMessage;
+    QStringList                 itemReactionList;
+    MessageFlags                _messageFlags;
+    const Style::MessageWidget& _st;
+
+    std::map<int, int> reactionMap{{reactions::LIKE, 0}, {reactions::DISLIKE, 0}, {reactions::FIRE, 0}, {reactions::CAT, 0}};
 };

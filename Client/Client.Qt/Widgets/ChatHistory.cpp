@@ -16,59 +16,115 @@ ChatHistory::ChatHistory(QWidget* parent) : QWidget(parent), _messageList()
 
     connect(_scrollArea.get(), SIGNAL(scrolled()), this, SLOT(resizeVisible()));
 }
-void ChatHistory::resizeVisible()
-{
-    if (_messageList.empty()) return;
-    auto [left, right] = findVisible();
-    int width          = this->width();
-
-    for (int index = left; index <= right; index++)
-    {
-        auto& msg = _messageList[index];
-        if (msg->width() != width) msg->resize(width, msg->height());
-    }
-}
-
-void ChatHistory::resizeEvent(QResizeEvent* event)
-{
-    _scrollArea->resize(width(), height());
-    if (event->oldSize().width() != event->size().width())
-    {
-        resizeVisible();
-    }
-    if (event->oldSize().height() != event->size().height())
-    {
-        updateLayout();
-    }
-}
-
-void ChatHistory::updateLayout()
-{
-    auto bottom = _scrollArea->scrollHeight();
-    for (int i = _messageList.size() - 1; i >= 0; i--)
-    {
-        _messageList[i]->move(0, bottom - _messageList[i]->height());
-        bottom -= _messageList[i]->height() + 10;
-    }
-}
 
 void ChatHistory::addMessage(const QString& message, quint64 utc, const QString& user)
 {
     auto history = _scrollArea->widget();
     auto msg     = new MessageWidget(history, message, utc, user);
 
-    history->setMinimumHeight(history->minimumHeight() + msg->height() + 10);
-    // qDebug() << "ScrollTop" << _scrollArea->scrollTop() << _scrollArea->viewport()->rect();
-    msg->resize(history->width(), msg->height());
+    history->setMinimumHeight(history->minimumHeight() + msg->expectedHeight() + 10);
     msg->show();
+    msg->resize(history->width(), msg->expectedHeight());
 
     _messageList.push_back(std::unique_ptr<MessageWidget>(msg));
+
+    connect(msg, &MessageWidget::geometryChanged, this, [=](int diff) {
+        history->setMinimumHeight(history->minimumHeight() + diff);
+        updateLayout(true);
+    });
 
     updateLayout();
 
     _scrollArea->scrollToWidget(msg);
 
     messageAdded();
+}
+
+void ChatHistory::clear() { _messageList.clear(); }
+
+void ChatHistory::resizeEvent(QResizeEvent* event)
+{
+    _scrollArea->resize(width(), height());
+
+    if (event->oldSize().width() != event->size().width())
+    {
+        resizeVisible();
+    }
+
+    if (event->oldSize().height() != event->size().height() && !_alreadyScrolling)
+    {
+        updateLayout();
+    }
+}
+
+void ChatHistory::updateLayout(bool beenResized)
+{
+    if (_messageList.empty()) return;
+    auto bottom = _scrollArea->scrollHeight();
+
+    int diff = _scrollArea->scrollTop();
+    int y    = diff;
+
+    if (_left >= 0)
+    {
+        y = _messageList[_left]->pos().y();
+        diff -= y;
+    }
+    for (int i = int(_messageList.size()) - 1; i >= 0; i--)
+    {
+        _messageList[i]->move(0, bottom - _messageList[i]->height());
+        bottom -= _messageList[i]->height() + 10;
+    }
+
+    bool haveLast = false;
+
+    auto [newleft, newright] = findVisible();
+
+    if (newright == int(_messageList.size()) - 1 && _left >= 0)
+    {
+        int topy    = _messageList[_left]->pos().y() + diff;
+        int bottomy = topy + height();
+        if (_messageList.back()->geometry().top() <= bottomy) haveLast = true;
+    }
+
+    if (_left >= 0 && beenResized && !haveLast)
+    {
+        int newy          = _messageList[_left]->pos().y();
+        int top           = newy + diff;
+        _alreadyScrolling = true;
+        _scrollArea->scrollToY(top);
+        _alreadyScrolling = false;
+    }
+    if (haveLast && beenResized)
+    {
+        _scrollArea->scrollToY(_messageList.back()->pos().y());
+    }
+}
+
+void ChatHistory::resizeVisible()
+{
+    if (_alreadyScrolling) return;
+    if (_messageList.empty())
+    {
+        _left = -1;
+        return;
+    }
+    auto [left, right] = findVisible();
+    int  width         = this->width() - 25;
+    bool resized       = false;
+
+    for (int index = left; index <= right; index++)
+    {
+        auto& msg     = _messageList[index];
+        bool  bHeight = msg->expectedHeight() != msg->height();
+        bool  bWidth  = msg->width() != width;
+        resized |= bHeight || bWidth;
+        if (bWidth || bHeight) msg->resize(width, msg->expectedHeight());
+        msg->setIndex(left + 1, index, right);
+    }
+    _left  = left + 1;
+    _right = right;
+    updateLayout(resized);
 }
 
 std::pair<int, int> ChatHistory::findVisible() const

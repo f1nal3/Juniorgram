@@ -17,6 +17,7 @@ public:
     explicit ChatHistory(QWidget* parent = nullptr);
 
     void addMessage(const QString& message, quint64 utc, const QString& user = "You");
+    void clear();
 
     explicit operator QWidget*() { return _scrollArea->widget(); }
 
@@ -37,10 +38,14 @@ Q_SIGNALS:
     void messageAdded();
 
 private:
-    void                updateLayout();
-    std::pair<int, int> findVisible() const;
+    void updateLayout(bool beenResized = false);
+
+    [[nodiscard]] std::pair<int, int> findVisible() const;
 
 private:
+    bool                                        _alreadyScrolling = false;
+    int                                         _left             = -1;
+    int                                         _right            = -1;
     std::unique_ptr<ScrollArea>                 _scrollArea;
     std::vector<std::unique_ptr<MessageWidget>> _messageList;
 };
