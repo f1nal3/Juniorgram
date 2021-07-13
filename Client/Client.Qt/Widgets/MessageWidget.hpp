@@ -42,7 +42,7 @@ public:
      * @param utc Seconds since epoch.
      * @param username User nickname.
      */
-    MessageWidget(QWidget* history, QString message, qint64 utc, QString username,
+    MessageWidget(QWidget* history, const QString& message, qint64 utc, const QString& username,
                   const Style::MessageWidget& st = st::defaultMessageWidget);
 
     /**
