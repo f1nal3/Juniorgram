@@ -11,7 +11,7 @@ class ChatHistory : public QWidget
     Q_OBJECT
 public:
     /**
-     * @brief Constructor of chat history
+     * @brief Constructor of _chat history
      * @param parent Parent widget
      */
     explicit ChatHistory(QWidget* parent = nullptr);

@@ -109,15 +109,15 @@ void ChatHistory::resizeVisible()
         _left = -1;
         return;
     }
-    auto [left, right] = findVisible();
-    int  width         = this->width() - 25;
-    bool resized       = false;
+    const auto [left, right]   = findVisible();
+    const std::int32_t width   = this->width() - 25;
+    bool               resized = false;
 
     for (int index = left; index <= right; index++)
     {
-        auto& msg     = _messageList[index];
-        bool  bHeight = msg->expectedHeight() != msg->height();
-        bool  bWidth  = msg->width() != width;
+        auto&      msg     = _messageList[index];
+        const bool bHeight = msg->expectedHeight() != msg->height();
+        const bool bWidth  = msg->width() != width;
         resized |= bHeight || bWidth;
         if (bWidth || bHeight) msg->resize(width, msg->expectedHeight());
         msg->setIndex(index);

@@ -19,7 +19,7 @@ constexpr auto COUNT_REACTION  = 4;
 class ChatHistory;
 
 /** @class MessageWidget
- *  @brief message visual representation in chat
+ *  @brief message visual representation in _chat
  */
 class MessageWidget : public QWidget
 {

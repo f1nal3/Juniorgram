@@ -14,7 +14,7 @@ protected:
     void resizeEvent(QResizeEvent* event) override;
 
 private:
-    std::unique_ptr<QSplitter>         mainLayout;
-    std::unique_ptr<ChannelListWidget> channelListWidget;
-    std::unique_ptr<ChatWidget>        chat;
+    std::unique_ptr<QSplitter>         _mainLayout;
+    std::unique_ptr<ChannelListWidget> _channelListWidget;
+    std::unique_ptr<ChatWidget>        _chat;
 };
