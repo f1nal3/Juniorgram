@@ -13,7 +13,7 @@ namespace Utility
      */
     enum class RegistrationCodes : std::uint8_t
     {
-        EMAIL_ALREADY_EXISTS = 0,
+        EMAIL_ALREADY_EXISTS,
         LOGIN_ALREADY_EXISTS,
         SUCCESS,
     };

@@ -9,6 +9,7 @@ constexpr auto COUNT_REACTION  = 4;
 #include <QSpacerItem>
 #include <QVBoxLayout>
 #include <ctime>
+#include <memory>
 
 #include "Widgets/ComboBox.hpp"
 #include "Widgets/DateTimeEdit.hpp"

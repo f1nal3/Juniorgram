@@ -18,7 +18,7 @@ public:
     {
         for (auto&& user : usersData)
         {
-            RegistrationUnit::pTable->Delete()
+            pTable->Delete()
                                     ->Where("email='" + user.second.email + 
                                       "' or login='" + user.second.login + 
                                       "'")

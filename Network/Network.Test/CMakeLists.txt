@@ -2,6 +2,7 @@ set(TARGET Network.Test)
 set(OUTPUT_NAME Network.Test)
 
 set(SOURCE_FILES
+    BinarySerializeTest.cpp
     NetworkTest.cpp
     TimestampTest.cpp)
 
