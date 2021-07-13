@@ -5,9 +5,11 @@ Language: Cpp
 # Force pointers to the type for C++.
 DerivePointerAlignment: false
 PointerAlignment: Left
-ColumnLimit: 100
+ColumnLimit: 140
 AlignAfterOpenBracket: Align
-AlignConsecutiveAssignments: true
+AlignConsecutiveAssignments: Consecutive
+AlignConsecutiveDeclarations: Consecutive
+AlignOperands: Align
 AllowShortBlocksOnASingleLine: Never
 AlwaysBreakTemplateDeclarations: Yes
 AccessModifierOffset: -4
