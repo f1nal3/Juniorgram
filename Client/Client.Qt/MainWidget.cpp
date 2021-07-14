@@ -15,8 +15,8 @@
 
 bool isCompositionEnabled()
 {
-    auto       result  = BOOL(FALSE);
-    const auto SUCCESS = (::DwmIsCompositionEnabled(&result) == S_OK);
+    auto result  = BOOL(FALSE);
+    bool SUCCESS = (::DwmIsCompositionEnabled(&result) == S_OK);
     return SUCCESS && result;
 }
 
