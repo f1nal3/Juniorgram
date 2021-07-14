@@ -57,7 +57,7 @@ private:
 
     std::int32_t _current = -1;
 
-    std::unique_ptr<QWidget>              body;
+    std::unique_ptr<QWidget>              _body;
     std::unique_ptr<QHBoxLayout>          pTitleLayout;
     std::vector<std::unique_ptr<QWidget>> _widgets;
 };

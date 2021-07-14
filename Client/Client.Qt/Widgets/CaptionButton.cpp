@@ -7,35 +7,18 @@
 
 void CaptionButton::enterEvent(QEvent* event)
 {
-    Q_UNUSED(event)
+    fadeinAnim->setDirection(QAbstractAnimation::Forward);
     fadeinAnim->start();
+    AbstractButton::enterEvent(event);
 }
 
 void CaptionButton::leaveEvent(QEvent* event)
 {
-    Q_UNUSED(event)
-    fadeinAnim->stop();
-    hoverColor = fadeinAnim->startValue().value<QColor>();
-
-    update();
+    fadeinAnim->setDirection(QAbstractAnimation::Backward);
+    fadeinAnim->start();
+    return AbstractButton::leaveEvent(event);
 }
 
-void CaptionButton::mouseReleaseEvent(QMouseEvent* event)
-{
-    if (event->button() == Qt::LeftButton)
-    {
-        emit mouseRelease();
-    }
-}
-bool CaptionButton::eventFilter(QObject* watched, QEvent* event)
-{
-    if (event->type() == QEvent::HoverEnter && this != watched)
-    {
-        repaint();
-        return true;
-    }
-    return false;
-}
 QString CaptionButton::dpi2str(int scale)
 {
     if (scale <= 100)
@@ -65,9 +48,7 @@ QString CaptionButton::Lg2str(CaptionButton::CaptionLogo logo)
         return "close";
 }
 
-CaptionButton::CaptionButton(CaptionButton::CaptionLogo logo, const QColor& endColor,
-                             QWidget* parent)
-    : QWidget(parent)
+CaptionButton::CaptionButton(CaptionButton::CaptionLogo logo, const QColor& endColor, QWidget* parent) : AbstractButton(parent)
 {
     setFixedWidth(Style::valueDPIScale(46));
     setFixedHeight(Style::valueDPIScale(30));
@@ -82,7 +63,6 @@ CaptionButton::CaptionButton(CaptionButton::CaptionLogo logo, const QColor& endC
     fadeinAnim->setStartValue(QColor(endColor.red(), endColor.green(), endColor.blue(), 0));
     fadeinAnim->setEndValue(endColor);
     hoverColor = fadeinAnim->startValue().value<QColor>();
-    setAttribute(Qt::WA_Hover);
 }
 
 void CaptionButton::paintEvent(QPaintEvent* event)

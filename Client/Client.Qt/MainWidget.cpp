@@ -1,6 +1,5 @@
 #include "MainWidget.hpp"
 
-#include <QFrame>
 #include <QGuiApplication>
 #include <QHBoxLayout>
 #include <QWindow>
@@ -10,6 +9,7 @@
 #include "Style/Shadow.hpp"
 #include "Widgets/BioButton.hpp"
 #include "Widgets/CaptionButton.hpp"
+
 #ifdef _WIN32
 #include <dwmapi.h>
 
@@ -114,47 +114,50 @@ MainWidget::MouseType MainWidget::checkResizableField(QMouseEvent* event)
     QRectF rectRight(x + width - 8, y, 8, height + 9);
     QRectF rectInterface(x + 9, y + 9, width - 18 - Style::valueDPIScale(46) * 3, Style::valueDPIScale(30));
 
-    if (rectTop.contains(position))
+    if (!isMaximized())
     {
-        if (rectLeft.contains(position))
+        if (rectTop.contains(position))
         {
-            setCursor(Qt::SizeFDiagCursor);
-            return TopLeft;
+            if (rectLeft.contains(position))
+            {
+                setCursor(Qt::SizeFDiagCursor);
+                return TopLeft;
+            }
+            if (rectRight.contains(position))
+            {
+                setCursor(Qt::SizeBDiagCursor);
+                return TopRight;
+            }
+            setCursor(Qt::SizeVerCursor);
+            return Top;
         }
-        if (rectRight.contains(position))
+        else if (rectBottom.contains(position))
         {
-            setCursor(Qt::SizeBDiagCursor);
-            return TopRight;
+            if (rectLeft.contains(position))
+            {
+                setCursor(Qt::SizeBDiagCursor);
+                return BottomLeft;
+            }
+            if (rectRight.contains(position))
+            {
+                setCursor(Qt::SizeFDiagCursor);
+                return BottomRight;
+            }
+            setCursor(Qt::SizeVerCursor);
+            return Bottom;
         }
-        setCursor(Qt::SizeVerCursor);
-        return Top;
-    }
-    else if (rectBottom.contains(position))
-    {
-        if (rectLeft.contains(position))
+        else if (rectLeft.contains(position))
         {
-            setCursor(Qt::SizeBDiagCursor);
-            return BottomLeft;
+            setCursor(Qt::SizeHorCursor);
+            return Left;
         }
-        if (rectRight.contains(position))
+        else if (rectRight.contains(position))
         {
-            setCursor(Qt::SizeFDiagCursor);
-            return BottomRight;
+            setCursor(Qt::SizeHorCursor);
+            return Right;
         }
-        setCursor(Qt::SizeVerCursor);
-        return Bottom;
     }
-    else if (rectLeft.contains(position))
-    {
-        setCursor(Qt::SizeHorCursor);
-        return Left;
-    }
-    else if (rectRight.contains(position))
-    {
-        setCursor(Qt::SizeHorCursor);
-        return Right;
-    }
-    else if (rectInterface.contains(position))
+    if (rectInterface.contains(position))
     {
         setCursor(QCursor());
         return Move;
@@ -220,7 +223,7 @@ void MainWidget::mouseMoveEvent(QMouseEvent* event)
         {
             if (_mousePressed)
             {
-                if (isMaximized())
+                /*if (isMaximized())
                 {
                     this->layout()->setMargin(9);
                     auto part = event->screenPos().x() / width();
@@ -228,7 +231,7 @@ void MainWidget::mouseMoveEvent(QMouseEvent* event)
                     // update();
                     auto offsetX = width() * part;
                     setGeometry(event->screenPos().x() - offsetX, 0, width(), height());
-                }
+                }*/
                 _mousePressed = false;
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
                 this->windowHandle()->startSystemMove();
@@ -276,17 +279,17 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
 
     auto* grid = new QGridLayout(this);
 
-    body = std::make_unique<QWidget>();
-    body->setMinimumHeight(Style::valueDPIScale(480));
+    _body = std::make_unique<QWidget>();
+    _body->setMinimumHeight(Style::valueDPIScale(480));
 
     auto title = new QWidget();
     title->setFixedHeight(Style::valueDPIScale(30));
-    grid->addWidget(body.get(), 1, 0);
+    grid->addWidget(_body.get(), 1, 0);
     grid->addWidget(title, 0, 0);
     grid->setSpacing(0);
     this->setLayout(grid);
     layout()->setMargin(9);
-    body->setStyleSheet(
+    _body->setStyleSheet(
         "QWidget {"
         "background-color: #323232;"
         "}");
@@ -306,7 +309,7 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
     minimize_btn = std::make_unique<CaptionButton>(CaptionButton::CaptionLogo::Minimize);
     refreshTitleBar();
 
-    connect(maximize_btn.get(), &CaptionButton::mouseRelease, [this]() {
+    maximize_btn->setClickCallback([=]() {
         if (this->isMaximized())
         {
             this->layout()->setMargin(0);
@@ -324,25 +327,24 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
         update();
     });
     setAttribute(Qt::WA_Hover);
-    connect(close_btn.get(), &CaptionButton::mouseRelease, this, &MainWidget::deleteLater);
-    connect(minimize_btn.get(), &CaptionButton::mouseRelease, this, &MainWidget::showMinimized);
+    close_btn->setClickCallback([=]() { deleteLater(); });
+    minimize_btn->setClickCallback([=]() { showMinimized(); });
     title->setMouseTracking(true);
-    body->setMouseTracking(true);
     this->setMouseTracking(true);
     title->installEventFilter(this);
-    body->installEventFilter(this);
     this->installEventFilter(this);
 }
 
 void MainWidget::resizeEvent(QResizeEvent* event)
 {
-    if (_current >= 0) _widgets[_current]->resize(body->width(), body->height());
-    QWidget::resizeEvent(event);
+    if (_current >= 0) _widgets[_current]->resize(_body->width(), _body->height());
+    return QWidget::resizeEvent(event);
 }
 
 void MainWidget::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event)
+
     QPainter p(this);
     p.setPen(Qt::NoPen);
     auto start = QColor(0, 0, 0, 0x18);
@@ -352,7 +354,7 @@ void MainWidget::paintEvent(QPaintEvent* event)
 
 std::int32_t MainWidget::addWidget(std::unique_ptr<QWidget> widget)
 {
-    widget->setParent(body.get());
+    widget->setParent(_body.get());
     widget->hide();
     _widgets.push_back(std::move(widget));
     return int(_widgets.size()) - 1;
@@ -362,7 +364,7 @@ void MainWidget::setCentralWidget(std::int32_t index)
 {
     if (index >= 0 && index < std::int32_t(_widgets.size()))
     {
-        _widgets[index]->resize(body->width(), body->height());
+        _widgets[index]->resize(_body->width(), _body->height());
         _widgets[index]->show();
         if (_current >= 0) _widgets[_current]->hide();
         _current = index;
