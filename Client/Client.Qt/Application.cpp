@@ -28,8 +28,7 @@ void Application::create()
 
     _mainwidget->addWidget(std::make_unique<Login>());
     _mainwidget->addWidget(std::make_unique<Registration>());
-    auto chatwindow = new ChatWindow();
-    _mainwidget->addWidget(std::make_unique<ChatWindow>(chatwindow));
+    _mainwidget->addWidget(std::make_unique<ChatWindow>());
 
     ConnectionManager::connect();
     std::thread(&ConnectionManager::loop).detach();
