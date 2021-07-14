@@ -1,9 +1,11 @@
 #pragma once
-#include "Application.hpp"
-#include "Widgets/FlatButton.hpp"
-#include "Widgets/InputFields.hpp"
-#include "Widgets/LogoWidget.hpp"
-#include "Widgets/ScrollArea.hpp"
+
+#include <QWidget>
+
+class FlatInput;
+class FlatButton;
+class LogoWidget;
+class LinkButton;
 
 class Login : public QWidget
 {

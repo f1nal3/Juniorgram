@@ -1,11 +1,15 @@
 #include "MainWidget.hpp"
 
+#include <QFrame>
+#include <QGuiApplication>
+#include <QHBoxLayout>
 #include <QWindow>
 #include <QtEvents>
-#include <QGuiApplication>
 #include <iostream>
 
 #include "Style/Shadow.hpp"
+#include "Widgets/BioButton.hpp"
+#include "Widgets/CaptionButton.hpp"
 #ifdef _WIN32
 #include <dwmapi.h>
 
@@ -108,8 +112,7 @@ MainWidget::MouseType MainWidget::checkResizableField(QMouseEvent* event)
     QRectF rectBottom(x, y + height - 8, width + 9, 8);
     QRectF rectLeft(x, y, 8, height + 9);
     QRectF rectRight(x + width - 8, y, 8, height + 9);
-    QRectF rectInterface(x + 9, y + 9, width - 18 - Style::valueDPIScale(46) * 3,
-                         Style::valueDPIScale(30));
+    QRectF rectInterface(x + 9, y + 9, width - 18 - Style::valueDPIScale(46) * 3, Style::valueDPIScale(30));
 
     if (rectTop.contains(position))
     {
@@ -283,11 +286,6 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
     grid->setSpacing(0);
     this->setLayout(grid);
     layout()->setMargin(9);
-    auto pBodyLayout = new QVBoxLayout(body.get());
-    body->setLayout(pBodyLayout);
-    pBodyLayout->setSpacing(0);
-    pBodyLayout->setMargin(0);
-    pBodyLayout->setContentsMargins(0, 0, 0, 0);
     body->setStyleSheet(
         "QWidget {"
         "background-color: #323232;"
@@ -298,15 +296,12 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
         "background-color: #424140; "
         "}");
 
-    pBodyLayout->setMargin(0);
-
     std::cout << QGuiApplication::platformName().toStdString() << std::endl;
 
     pTitleLayout = std::make_unique<QHBoxLayout>(title);
     title->setLayout(pTitleLayout.get());
-    
-    close_btn =
-        std::make_unique<CaptionButton>(CaptionButton::CaptionLogo::Close, QColor(232, 17, 35));
+
+    close_btn    = std::make_unique<CaptionButton>(CaptionButton::CaptionLogo::Close, QColor(232, 17, 35));
     maximize_btn = std::make_unique<CaptionButton>(CaptionButton::CaptionLogo::Maximize);
     minimize_btn = std::make_unique<CaptionButton>(CaptionButton::CaptionLogo::Minimize);
     refreshTitleBar();
@@ -339,24 +334,41 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
     this->installEventFilter(this);
 }
 
+void MainWidget::resizeEvent(QResizeEvent* event)
+{
+    if (_current >= 0) _widgets[_current]->resize(body->width(), body->height());
+    QWidget::resizeEvent(event);
+}
+
 void MainWidget::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event)
     QPainter p(this);
     p.setPen(Qt::NoPen);
-    // Shadow is ugly on corners
-    drawShadow(p, 10, 2.0, QColor(0, 0, 0, 0x18), QColor(0, 0, 0, 0), 0.0, 1.0, 0.6, width(),
-               height());
+    auto start = QColor(0, 0, 0, 0x18);
+    auto end   = QColor(0, 0, 0, 0);
+    drawShadow(p, 10, 2.0, start, end, 0.0, 1.0, 0.6, width(), height());
 }
 
-void MainWidget::setCentralWidget(QWidget* widget)
+std::int32_t MainWidget::addWidget(std::unique_ptr<QWidget> widget)
 {
-    static QWidget* current = nullptr;
-    delete current;
-
-    current = widget;
-    body->layout()->addWidget(current);
+    widget->setParent(body.get());
+    widget->hide();
+    _widgets.push_back(std::move(widget));
+    return int(_widgets.size()) - 1;
 }
+
+void MainWidget::setCentralWidget(std::int32_t index)
+{
+    if (index >= 0 && index < std::int32_t(_widgets.size()))
+    {
+        _widgets[index]->resize(body->width(), body->height());
+        _widgets[index]->show();
+        if (_current >= 0) _widgets[_current]->hide();
+        _current = index;
+    }
+}
+
 void MainWidget::refreshTitleBar(BioButton* bio_button)
 {
     pTitleLayout->setSpacing(0);
@@ -383,10 +395,4 @@ bool MainWidget::eventFilter(QObject* watched, QEvent* event)
         checkResizableField(static_cast<QMouseEvent*>(event));
     }
     return QObject::eventFilter(watched, event);
-}
-
-void MainWidget::showEvent(QShowEvent* event)
-{
-    QWidget::showEvent(event);
-    update();
 }

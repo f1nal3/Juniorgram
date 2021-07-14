@@ -8,11 +8,14 @@ class LogoWidget : public QWidget
 public:
     explicit LogoWidget(QWidget* parent = nullptr);
 
-    [[nodiscard]] QSize bestFit() const { return logo->size(); }
+    QSize bestFit() const { return logo->size(); }
+    void  setPart(int percent);
+    void  recountSize();
 
 protected:
     void paintEvent(QPaintEvent* paintEvent) override;
 
 private:
     std::unique_ptr<QPixmap> logo;
+    int                      part;
 };
