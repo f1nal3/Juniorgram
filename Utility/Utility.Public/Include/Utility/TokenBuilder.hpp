@@ -13,7 +13,6 @@
 
 namespace Utility
 {
-
 using json = nlohmann::json;
 
 constexpr short tokenExpiredTime = 3600; 
@@ -26,11 +25,11 @@ struct GetHeader
     {
         std::for_each(init_list.begin(), init_list.end(), [this](std::pair<std::string_view, T> currPair)
         { 
-            j[std::string(currPair.first.data(), currPair.first.size())] = currPair.second; 
+            mJsonObj[std::string(currPair.first.data(), currPair.first.size())] = currPair.second; 
         });
     }
 
-    json j;
+    json mJsonObj;
 };
 
 struct GetPayload
@@ -41,11 +40,11 @@ struct GetPayload
         std::for_each(
             init_list.begin(), init_list.end(), [this](std::pair<std::string_view, T> currPair)
         { 
-              j[std::string(currPair.first.data(), currPair.first.size())] = currPair.second; 
+              mJsonObj[std::string(currPair.first.data(), currPair.first.size())] = currPair.second; 
         });
     }
 
-    json j;
+    json mJsonObj;
 };
 
 struct GetSignature 
@@ -94,7 +93,7 @@ struct TokenBuilder<std::tuple<States...>, Handlers...> : Handlers...
                 }
                 else
                 {
-                    std::cout << "(no rules invoked)\n";
+                    std::assert(false && "Òo rules invoked!\n");
                 }
         },currentState);
     }

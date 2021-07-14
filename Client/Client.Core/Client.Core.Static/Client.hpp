@@ -23,7 +23,7 @@ public:
 
     Client();
 
-    bool checkTokenExistance();
+    std::unique_ptr<DataAccess::IRepository>& getSQLCipherRepo();
 
     bool connect(const std::string& host, const uint16_t& port);
 

@@ -170,10 +170,9 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::RegistrationRequest:
         {
-            auto ri = std::any_cast<std::pair<Utility::ClientPayload, Network::RegistrationInfo>>(message.mBody);
+            auto& [clientPayload ,ri] = std::any_cast<std::pair<Utility::ClientPayload, Network::RegistrationInfo>>(message.mBody);
             
-            auto future = std::async(std::launch::async, &RegistrationUnit::registerUser,
-                            &RegistrationUnit::instance(), ri.second);
+            auto future = std::async(std::launch::async, &RegistrationUnit::registerUser, &RegistrationUnit::instance(), ri);
         
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType =
@@ -183,7 +182,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
             if (registrationCode == Utility::RegistrationCodes::SUCCESS)
             {
-                std::string token = getToken(client);
+                std::string token = getToken(clientPayload, client);
                 messageToClient.mBody =
                     std::make_any<std::pair<std::string, Utility::RegistrationCodes>>(
                         std::pair{" ", registrationCode});

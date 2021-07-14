@@ -13,13 +13,13 @@ ClientPayload::ClientPayload(const std::string& login, const std::string& psswdH
                   return "Linux";
         #endif
               }()},
-              mFrom{"jg.client"}
+      mFingerprint{"jg.client"}
       {}
 
 bool operator==(const ClientPayload& payload, const ClientPayload& payloadAnother)
 {
     return payload.mOS == payloadAnother.mOS && payload.mSub == payloadAnother.mSub &&
-            payload.mFrom == payloadAnother.mFrom;
+           payload.mFingerprint == payloadAnother.mFingerprint;
 }
 
 }  // namespace Utility

@@ -1,26 +1,26 @@
 #include "App.hpp"
 #include "Utility/YasSerializer.hpp"
+#include "Utility/KeyHolder.hpp"
 #include "Network/Primitives.hpp"
 
-#include <DataAccess.Static/SQLCipherAdapter.hpp>
-#include "Utility/KeyHolder.hpp"
+#include <Utility.Static/TokenHolder.hpp>
+
 
 App::App(/* args */)
 {
     client.connect(address, port);
-
+    /*Utility::TokenHolder::*/
     // authentication  part 
    
-    /*if (client.checkTokenExistance())
+    if ((*Utility::TokenHolder::Instance()).checkTokenExistance(client.getSQLCipherRepo()))
     {
-
+       
     }
     else
     {
         
-    }*/
+    }
 }
-    
 
 App::~App()
 {
@@ -134,8 +134,10 @@ bool App::loop()
                 break;
 
                 case Network::Message::MessageType::RegistrationAnswer:
+                {
+                }
 				            break;
-                
+
                 case Network::Message::MessageType::RegistrationRequestToClient:
                 {
                     auto code = std::any_cast<Utility::RegistrationCodes>(message.mBody);

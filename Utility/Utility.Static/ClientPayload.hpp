@@ -17,6 +17,6 @@ struct ClientPayload
 private:
     std::string mOS;
     std::string mSub;
-    std::string mFrom;
+    std::string mFingerprint;
 };
 }  // namespace Utility

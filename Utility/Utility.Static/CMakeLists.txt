@@ -11,11 +11,16 @@ set(SOURCE_FILES
 	MACAddress.hpp
 	MACAddress.cpp
 	ClientPayload.hpp
-	ClientPayload.cpp)
+	ClientPayload.cpp
+	TokenHolder.hpp
+	TokenHolder.cpp)
 	
 # Add a library with the above sources
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
-target_link_libraries(${TARGET} Qt5::Widgets Qt5::Core Network.Public Utility.Public CONAN_PKG::cryptopp CONAN_PKG::asio CONAN_PKG::yas CONAN_PKG::lz4)
+target_include_directories(${TARGET} PRIVATE
+    $<TARGET_PROPERTY:DataAccess.Static,SOURCE_DIR>/..)
+
+target_link_libraries(${TARGET} Qt5::Widgets Qt5::Core Network.Public DataAccess.Static Utility.Public CONAN_PKG::nlohmann_json CONAN_PKG::cryptopp CONAN_PKG::asio CONAN_PKG::yas CONAN_PKG::lz4)
 
 target_compile_options(${TARGET} PRIVATE "-fPIC")
