@@ -81,7 +81,7 @@ void MessageWidget::onDelete()
     _messageFlags |= MessageFlag::Deleted;
     resize(width(), _st.fontname->height + _st.radius * 2);
     update();
-    ConnectionManager::getClient().messageUserDelete(userId, messageId);
+    ConnectionManager::getClient().messageUserDelete(_userId, _messageId);
 }
 
 void MessageWidget::setMessageText(const QString& newMessage)
