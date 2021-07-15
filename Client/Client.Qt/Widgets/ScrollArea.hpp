@@ -154,7 +154,6 @@ public:
      */
     [[nodiscard]] int scrollTop() const;
 
-
     /**
      * @brief Getting know that we are scrolling by scrollbar
      * @param movingByScrollBar Do we scroll by scroll bar?
@@ -177,6 +176,18 @@ public:
      * @param vertical vertical?
      */
     void rangeChanged(int oldMax, int newMax, bool vertical);
+
+    /**
+     * @brief Takes control on widget
+     * @param widget widget to take control on
+     */
+    void setOwnedWidget(std::unique_ptr<QWidget> widget);
+
+    /**
+     * @brief Return widget and remove ownership
+     * @return Widget
+     */
+    std::unique_ptr<QWidget> takeWidget();
 
 protected:
     void resizeEvent(QResizeEvent* e) override;
@@ -235,9 +246,11 @@ private:
 
     ScrollBar _horizontalBar, _verticalBar;
 
-    bool _touchEnabled;
-    bool _disabled;
-    bool _movingByScrollBar;
+    bool _touchEnabled      = false;
+    bool _disabled          = false;
+    bool _movingByScrollBar = false;
+
+    std::unique_ptr<QWidget> _widget;
 
     int _horizontalValue, _verticalValue;
 };

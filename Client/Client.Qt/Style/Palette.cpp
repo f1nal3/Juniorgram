@@ -32,6 +32,11 @@ const Style::color& closeButtonC(_palette.get_closeButtonC());
 const Style::color& closeButtonCOver(_palette.get_closeButtonCOver());
 const Style::color& linkButtonColor(_palette.get_linkButtonColor());
 const Style::color& linkButtonOverColor(_palette.get_linkButtonOverColor());
+const Style::color& scrollArea(_palette.get_scrollArea());
+const Style::color& scrollAreaColor(_palette.get_scrollAreaColor());
+const Style::color& scrollAreaBar(_palette.get_scrollAreaBar());
+const Style::color& scrollAreaColorOver(_palette.get_scrollAreaColorOver());
+const Style::color& scrollAreaBarOver(_palette.get_scrollAreaBarOver());
 }  // namespace st
 
 namespace Style
@@ -69,6 +74,11 @@ void palette::finalize()
     compute(8, -1, {232, 17, 35, 76});
     compute(9, -1, {0, 0, 255, 255});
     compute(10, -1, {0, 255, 0, 255});
+    compute(11, 2, {50, 50, 50, 255});
+    compute(12, 3, {64, 65, 66, 255});
+    compute(13, 4, {82, 83, 84, 255});
+    compute(14, -1, {71, 72, 73, 255});
+    compute(15, -1, {89, 90, 91, 255});
 }
 namespace internal
 {

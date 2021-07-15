@@ -18,7 +18,10 @@ public:
     QPen   pen;
     QBrush brush;
 
-    [[nodiscard]] QColor transparent() const { return QColor(color.red(), color.green(), color.blue(), 0); };
+    [[nodiscard]] QColor transparent() const
+    {
+        return QColor(color.red(), color.green(), color.blue(), 0);
+    };
 
 private:
     ColorData(uchar r, uchar g, uchar b, uchar a);

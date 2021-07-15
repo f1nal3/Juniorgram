@@ -5,6 +5,7 @@ set(SOURCE_FILES
     Server.hpp
 	Server.cpp
 	ArgumentParser.hpp
+	ArgumentParser.cpp
 	KeysValidator.hpp)
 
 if(WIN32)

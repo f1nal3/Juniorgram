@@ -4,9 +4,15 @@
 #include <string>
 #include <vector>
 
+/**
+ * @class KeysValidator.
+ * @brief The KeysValidator class.
+ */
 class KeysValidator
 {
+private:
     using initList = std::initializer_list<std::string>;
+
 private:
     struct Keys
     {
@@ -33,22 +39,26 @@ public:
         : KeysValidator()
     {
         for (auto&& key : validkeysList)
-        {
             validKeys.emplace_back(key);
-        }
 
         for (auto&& key : keysWithoutValuesList)
-        {
             keysWithoutValues.emplace_back(key);
-        }
     }
 
+    /**
+     * @brief Method for checking the need for key values.
+     * @param std::string& incoming key value.
+     */
     bool doKeyNeedValue(const std::string& incomingKey) const noexcept
     {
         return std::find(keysWithoutValues.begin(), keysWithoutValues.end(), incomingKey) ==
                keysWithoutValues.end();
     }
 
+    /**
+     * @brief Method for checking the validity of a key.
+     * @param std::string& incoming key value.
+     */
     bool isKeyValid(const std::string& incomingKey) const noexcept
     {
         return std::find(validKeys.begin(), validKeys.end(), incomingKey) != validKeys.end();

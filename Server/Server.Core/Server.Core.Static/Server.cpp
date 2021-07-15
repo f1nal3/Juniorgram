@@ -34,9 +34,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                                                .count()));
 
     if (delay > maxDelay)
-    {
         message.mHeader.mTimestamp = currentTime;
-    }
 
     switch (message.mHeader.mMessageType)
     {
@@ -72,7 +70,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             auto future =
                 std::async(std::launch::async, &DataAccess::IRepository::getAllChannelsList,
-                           _postgreRepo.get());
+                           mPostgreRepo.get());
 
             Network::Message msg;
             msg.mHeader.mMessageType = Network::Message::MessageType::ChannelListRequest;
@@ -104,7 +102,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             auto future =
                 std::async(std::launch::async, &DataAccess::IRepository::getMessageHistoryForUser,
-                           _postgreRepo.get(), 0); // There need to add channelID not 0.
+                           mPostgreRepo.get(), 0); // There need to add channelID not 0.
 
             Network::Message msg;
             msg.mHeader.mMessageType = Network::Message::MessageType::MessageHistoryRequest;
@@ -136,7 +134,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto msgInfo = std::any_cast<Network::MessageInfo>(message.mBody);
             
             auto future = std::async(std::launch::async, &DataAccess::IRepository::storeMessage,
-                           _postgreRepo.get(), msgInfo, 0);  // There need to add channelID not 0.
+                           mPostgreRepo.get(), msgInfo, 0);  // There need to add channelID not 0.
             
             message.mBody = std::make_any<Network::MessageInfo>(msgInfo);
 
@@ -147,10 +145,12 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::RegistrationRequest:
         {
+            static RegistrationUnit registrator;
+
             auto ri = std::any_cast<Network::RegistrationInfo>(message.mBody);
             
-            auto future = std::async(std::launch::async, &RegistrationUnit::registerUser,
-                                     &RegistrationUnit::instance(), ri);
+            auto future = std::async(std::launch::async, &RegistrationUnit::registerUser, 
+                                        &registrator, ri);
         
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType =
@@ -173,7 +173,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
 Server::Server(const uint16_t& port)
     : mAcceptor(mContext, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port)),
-      _postgreRepo(new DataAccess::PostgreRepository)
+      mPostgreRepo(new DataAccess::PostgreRepository)
 {
 }
 
@@ -306,9 +306,7 @@ void Server::messageAllClients(const Message& message,
 void Server::update(size_t maxMessages, bool wait)
 {
     if (wait)
-    {
         mIncomingMessagesQueue.wait();
-    }
 
     if (mIncomingMessagesQueue.size() > mCriticalQueueSize)
     {

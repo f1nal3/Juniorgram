@@ -12,7 +12,7 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
     mItalicsButton           = std::make_unique<FlatButton>(this, "I", st::italicButton);
     mUnderscoreButton        = std::make_unique<FlatButton>(this, "U", st::underlineButton);
     sendButton               = std::make_unique<FlatButton>(this, "Send");
-    messageTextEdit          = std::make_unique<FlatPlainTextEdit>();
+    messageTextEdit          = std::make_unique<FlatTextEdit>();
     horizontalButtonSpacer =
         std::make_unique<QSpacerItem>(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     horizontaltButtonsLayout->setAlignment(Qt::AlignLeft);

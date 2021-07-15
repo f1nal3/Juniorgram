@@ -14,7 +14,7 @@
 class ChannelListWindow : public QWidget
 {
 public:
-    ChannelListWindow(ListWidget* anotherChannelListWidget, QWidget* parent = nullptr);
+    ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent = nullptr);
     /**
      * @brief Method for update channel list window in another thread.
      */
@@ -33,10 +33,10 @@ public slots:
     void updateChannelListWindow();
 
 private:
-    inline static std::vector<std::string> channelNames{};
-    std::unique_ptr<ListWidget> channelList;
-    std::unique_ptr<FlatButton> addChannelButton;
-    std::unique_ptr<FlatButton> updateChannelButton;
-    std::unique_ptr<QVBoxLayout> vBoxLayout;
-    ListWidget* channelListMainWindow;
+    inline static std::vector<std::string> _channelNames{};
+    std::unique_ptr<ListWidget>            _channelList;
+    std::unique_ptr<FlatButton>            _addChannelButton;
+    std::unique_ptr<FlatButton>            _updateChannelButton;
+    std::unique_ptr<QVBoxLayout>           _vBoxLayout;
+    std::shared_ptr<ListWidget>            _channelListMainWindow;
 };

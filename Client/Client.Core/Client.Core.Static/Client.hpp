@@ -18,7 +18,7 @@ class Client
 public:
     ~Client();
 
-    bool connect(const std::string& host, const uint16_t& port);
+    bool connect(const std::string_view& host, const uint16_t port);
 
     void disconnect();
 
