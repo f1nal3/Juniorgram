@@ -63,7 +63,6 @@ namespace Utility
             return regex_iterator.str();
         }
         return std::string("");
-        return std::string();
     }
 
     std::string& TokenHolder::getCurrentToken()

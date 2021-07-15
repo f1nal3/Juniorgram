@@ -18,13 +18,14 @@
 #include "SafeQueue.hpp"
 #include "Utility/Utility.hpp"
 #include "Utility/WarningSuppression.hpp"
-#include "Utility/CompressionHandler.hpp"
-#include "Utility/Handler.hpp"
-#include "Utility/EncryptionHandler.hpp"
-#include "Utility/SerializationHandler.hpp"
-#include "Utility/YasSerializer.hpp"
-
 #include "Utility/KeyDestributor.hpp"
+
+#include <Utility.Static/EncryptionHandler.hpp>
+#include <Utility.Static/CompressionHandler.hpp>
+#include <Utility.Static/SerializationHandler.hpp>
+#include <Utility.Static/Handler.hpp>
+#include <Utility.Static/YasSerializer.hpp>
+
 
 namespace Network
 {
@@ -81,7 +82,7 @@ private:
     {
         yas::shared_buffer bodyBuffer;
 
-        SerializationHandler handler;
+        Utility::SerializationHandler handler;
 
         //Needs improvements in this place
         if (
@@ -97,7 +98,7 @@ private:
         }
         // Needs improvements in this place~
     
-        MessageProcessingState result = MessageProcessingState::SUCCESS;
+        Utility::MessageProcessingState result = Utility::MessageProcessingState::SUCCESS;
         
         if (mOutcomingMessagesQueue.front().mBody.has_value())
         {
@@ -108,7 +109,7 @@ private:
             mOutcomingMessagesQueue.front().mHeader;
         outcomingMessageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
         
-        if (result == MessageProcessingState::SUCCESS)
+        if (result == Utility::MessageProcessingState::SUCCESS)
         {
             const auto writeHeaderHandler = [this, bodyBuffer](std::error_code error) {
                 if (!error)
@@ -236,17 +237,18 @@ private:
                    header.mMessageType == Message::MessageType::ServerAccept ||
                    header.mMessageType == Message::MessageType::SendIV)
                 {
-                        handler.setNext(new SerializationHandler());
+                    handler.setNext(new Utility::SerializationHandler());
                 }
                 else
                 {
-                        handler.setNext(new EncryptionHandler())->setNext(new SerializationHandler());
+                    handler.setNext(new EncryptionHandler())
+                        ->setNext(new Utility::SerializationHandler());
                 }
 
-                MessageProcessingState result =
+                Utility::MessageProcessingState result =
                     handler.handleIncomingMessageBody(buffer, mMessageBuffer);
 
-                if (result == MessageProcessingState::SUCCESS)
+                if (result == Utility::MessageProcessingState::SUCCESS)
                 {
                     addToIncomingMessageQueue();
                 }

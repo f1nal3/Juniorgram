@@ -1,8 +1,8 @@
 #pragma once
 #define ATEXIT_FIXED 
 
-#include "EncryptionHandler.hpp"
-
+#include <Utility.Static/EncryptionHandler.hpp>
+    
 #include <cryptopp/dh2.h>
 #include <cryptopp/eccrypto.h>
 #include <cryptopp/hmac.h>

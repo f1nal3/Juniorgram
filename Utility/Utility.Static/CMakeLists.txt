@@ -13,7 +13,17 @@ set(SOURCE_FILES
 	ClientPayload.hpp
 	ClientPayload.cpp
 	TokenHolder.hpp
-	TokenHolder.cpp)
+	TokenHolder.cpp
+	YasSerializer.hpp
+	YasSerializer.cpp
+	Handler.hpp
+	Handler.cpp
+	SerializationHandler.hpp
+	SerializationHandler.cpp
+	EncryptionHandler.hpp
+	EncryptionHandler.cpp
+	CompressionHandler.hpp
+	CompressionHandler.cpp)
 	
 # Add a library with the above sources
 add_library(${TARGET} STATIC ${SOURCE_FILES})
