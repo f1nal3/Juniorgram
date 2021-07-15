@@ -27,12 +27,12 @@ Recommended install:
  - Windows: [Python 3.8.7.exe](https://www.python.org/ftp/python/3.8.7/python-3.8.7-amd64.exe)
 
  - Linux: 
-`$ sudo apt-get update`
-`$ sudo apt-get install python3.8`
+``$ sudo apt-get update``
+``$ sudo apt-get install python3.8``
 
 2. Install Conan: 
 
- - Windows/Linux: ``` $ pip install conan```
+ - Windows/Linux: `` $ pip install conan``
 
 3. Install Qt 5.15.2
  
@@ -46,7 +46,7 @@ Recommended install:
 
 ---
 
-[##CMake](https://cmake.org)
+[CMake](https://cmake.org)
 
 CMake is a cross-platform, open-source build system generator. 
 
