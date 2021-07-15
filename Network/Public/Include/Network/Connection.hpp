@@ -18,12 +18,12 @@
 #include "SafeQueue.hpp"
 #include "Utility/Utility.hpp"
 #include "Utility/WarningSuppression.hpp"
-#include "Utility/KeyDestributor.hpp"
 
 #include <Utility.Static/EncryptionHandler.hpp>
 #include <Utility.Static/CompressionHandler.hpp>
 #include <Utility.Static/SerializationHandler.hpp>
 #include <Utility.Static/Handler.hpp>
+#include <Utility.Static/KeyDestributor.hpp>
 #include <Utility.Static/YasSerializer.hpp>
 
 
@@ -90,11 +90,11 @@ private:
             mOutcomingMessagesQueue.front().mHeader.mMessageType == Message::MessageType::ServerAccept ||
             mOutcomingMessagesQueue.front().mHeader.mMessageType == Message::MessageType::SendIV)
         {
-             handler.setNext(new CompressionHandler());
+             handler.setNext(new Utility::CompressionHandler());
         }
         else
         {
-             handler.setNext(new EncryptionHandler())->setNext(new CompressionHandler());
+             handler.setNext(new Utility::EncryptionHandler())->setNext(new Utility::CompressionHandler());
         }
         // Needs improvements in this place~
     
@@ -231,7 +231,7 @@ private:
         const auto readBodyHandler = [this, buffer, header](std::error_code error) {
             if (!error)
             {
-                CompressionHandler handler;
+                Utility::CompressionHandler handler;
 
                 if(header.mMessageType == Message::MessageType::SetEncryptedConnection ||
                    header.mMessageType == Message::MessageType::ServerAccept ||
@@ -241,7 +241,7 @@ private:
                 }
                 else
                 {
-                    handler.setNext(new EncryptionHandler())
+                    handler.setNext(new Utility::EncryptionHandler())
                         ->setNext(new Utility::SerializationHandler());
                 }
 

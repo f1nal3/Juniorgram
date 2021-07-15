@@ -69,7 +69,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
             message.mHeader.mMessageType = Network::Message::MessageType::SendIV;
 
-            message.mBody = std::make_any<std::string>(Network::EncryptionHandler::getIVBlock());
+            message.mBody = std::make_any<std::string>(Utility::EncryptionHandler::getIVBlock());
             client->send(message);
 
             std::cout << "Client accept encrypted connection!"; 

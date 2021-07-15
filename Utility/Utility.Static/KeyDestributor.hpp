@@ -1,7 +1,7 @@
 #pragma once
 #define ATEXIT_FIXED 
 
-#include <Utility.Static/EncryptionHandler.hpp>
+#include "EncryptionHandler.hpp"
     
 #include <cryptopp/dh2.h>
 #include <cryptopp/eccrypto.h>
@@ -62,7 +62,7 @@ public:
         if (!mDHServer.Agree(mSharedSecret, mPrivServer, mPublicClient))
             throw std::runtime_error("Failed to reach shared secret!");
 
-        Network::EncryptionHandler::calculateDigestAndGenerateIVBlock(mSharedSecret);
+        EncryptionHandler::calculateDigestAndGenerateIVBlock(mSharedSecret);
 
     }
 

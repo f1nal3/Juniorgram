@@ -9,7 +9,10 @@
 #include "Network/Connection.hpp"
 #include "Network/Message.hpp"
 #include "Network/Primitives.hpp"
-#include "Utility/YasSerializer.hpp"
+#include <Utility.Static/YasSerializer.hpp>
+
+using namespace Utility;
+using namespace Network;
 
 TEST_CASE("Test binary serialization & deserialization of plain types", "[YasSerializer]")
 {
@@ -17,12 +20,12 @@ TEST_CASE("Test binary serialization & deserialization of plain types", "[YasSer
     {
         const int serializedValue = 10;
         yas::shared_buffer buffer;
-        Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        SerializedState state = YasSerializer::serialize(buffer, serializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         int deserializedValue;
-        state = Network::YasSerializer::deserialize(buffer, deserializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        state = YasSerializer::deserialize(buffer, deserializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         REQUIRE(serializedValue == deserializedValue);
     }
@@ -31,12 +34,12 @@ TEST_CASE("Test binary serialization & deserialization of plain types", "[YasSer
     {
         const double serializedValue = 10.9100;
         yas::shared_buffer buffer;
-        Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        SerializedState state = YasSerializer::serialize(buffer, serializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         double deserializedValue;
-        state = Network::YasSerializer::deserialize(buffer, deserializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        state = YasSerializer::deserialize(buffer, deserializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         REQUIRE((serializedValue - 0.005) < deserializedValue);
         REQUIRE((serializedValue + 0.005) > deserializedValue);
@@ -49,12 +52,12 @@ TEST_CASE("Test binary serialization & deserialization of complex types", "[YasS
     {
         const std::string serializedValue = "hello, I'm from India!";
         yas::shared_buffer buffer;
-        Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        SerializedState state = YasSerializer::serialize(buffer, serializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         std::string deserializedValue;
-        state = Network::YasSerializer::deserialize(buffer, deserializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        state = YasSerializer::deserialize(buffer, deserializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         REQUIRE(serializedValue == deserializedValue);
     }
@@ -64,12 +67,12 @@ TEST_CASE("Test binary serialization & deserialization of complex types", "[YasS
         const std::chrono::time_point<std::chrono::system_clock> serializedValue =
             std::chrono::system_clock::now();
         yas::shared_buffer buffer;
-        Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        SerializedState state = YasSerializer::serialize(buffer, serializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         std::chrono::time_point<std::chrono::system_clock> deserializedValue;
-        state = Network::YasSerializer::deserialize(buffer, deserializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        state = YasSerializer::deserialize(buffer, deserializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         REQUIRE(serializedValue == deserializedValue);
     }
@@ -78,12 +81,12 @@ TEST_CASE("Test binary serialization & deserialization of complex types", "[YasS
     {
         const std::vector<std::uint32_t> serializedValue = {89, 129, 23, 0, 12, 324};
         yas::shared_buffer buffer;
-        Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        SerializedState state = YasSerializer::serialize(buffer, serializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         std::vector<std::uint32_t> deserializedValue;
-        state = Network::YasSerializer::deserialize(buffer, deserializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        state = YasSerializer::deserialize(buffer, deserializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         REQUIRE(serializedValue == deserializedValue);
     }
@@ -92,12 +95,12 @@ TEST_CASE("Test binary serialization & deserialization of complex types", "[YasS
     {
         const std::array<std::string, 3> serializedValue = {"freedom ", "for ", "parrots!"};
         yas::shared_buffer buffer;
-        Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        SerializedState state = YasSerializer::serialize(buffer, serializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         std::array<std::string, 3> deserializedValue;
-        state = Network::YasSerializer::deserialize(buffer, deserializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        state = YasSerializer::deserialize(buffer, deserializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         REQUIRE(serializedValue == deserializedValue);
     }
@@ -107,12 +110,12 @@ TEST_CASE("Test binary serialization & deserialization of complex types", "[YasS
         const std::map<char, long int> serializedValue = {
             {'a', 1000000000}, {'b', -2000000000}, {'c', 3000000000}};
         yas::shared_buffer buffer;
-        Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        SerializedState state = YasSerializer::serialize(buffer, serializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         std::map<char, long int> deserializedValue;
-        state = Network::YasSerializer::deserialize(buffer, deserializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        state = YasSerializer::deserialize(buffer, deserializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         REQUIRE(serializedValue == deserializedValue);
     }
@@ -121,12 +124,12 @@ TEST_CASE("Test binary serialization & deserialization of complex types", "[YasS
     {
         std::list<bool> serializedValue = {true, false, false, true, false, true, true};
         yas::shared_buffer buffer;
-        Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        SerializedState state = YasSerializer::serialize(buffer, serializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         std::list<bool> deserializedValue;
-        state = Network::YasSerializer::deserialize(buffer, deserializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        state = YasSerializer::deserialize(buffer, deserializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         REQUIRE(serializedValue == deserializedValue);
     }
@@ -136,12 +139,12 @@ TEST_CASE("Test binary serialization & deserialization of complex types", "[YasS
         std::tuple<std::uint8_t, int, std::wstring> serializedValue =
             std::make_tuple(static_cast<std::uint8_t>(1), -12345, std::to_wstring(2374.234));
         yas::shared_buffer buffer;
-        Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        SerializedState state = YasSerializer::serialize(buffer, serializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         std::tuple<std::uint8_t, int, std::wstring> deserializedValue;
-        state = Network::YasSerializer::deserialize(buffer, deserializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        state = YasSerializer::deserialize(buffer, deserializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         REQUIRE(serializedValue == deserializedValue);
     }
@@ -151,18 +154,18 @@ TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSe
 {
     SECTION("Checking serialization & deserialization of custom type MessageHeader")
     {
-        Network::Message::MessageHeader serializedValue;
+        Message::MessageHeader serializedValue;
         serializedValue.mTimestamp   = std::chrono::system_clock::now();
-        serializedValue.mMessageType = Network::Message::MessageType::ChannelListRequest;
+        serializedValue.mMessageType = Message::MessageType::ChannelListRequest;
         serializedValue.mBodySize    = 30;
 
         yas::shared_buffer buffer;
-        Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        SerializedState state = YasSerializer::serialize(buffer, serializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
-        Network::Message::MessageHeader deserializedValue;
-        state = Network::YasSerializer::deserialize(buffer, deserializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        Message::MessageHeader deserializedValue;
+        state = YasSerializer::deserialize(buffer, deserializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         REQUIRE(serializedValue.mTimestamp == deserializedValue.mTimestamp);
         REQUIRE(serializedValue.mMessageType == deserializedValue.mMessageType);
@@ -171,66 +174,66 @@ TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSe
 
     SECTION("Checking serialization & deserialization of custom type ChannelInfo")
     {
-        Network::ChannelInfo serializedValue(2672, "kittens");
+        ChannelInfo serializedValue(2672, "kittens");
 
         yas::shared_buffer buffer;
-        Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        SerializedState state = YasSerializer::serialize(buffer, serializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
-        Network::ChannelInfo deserializedValue;
-        state = Network::YasSerializer::deserialize(buffer, deserializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        ChannelInfo deserializedValue;
+        state = YasSerializer::deserialize(buffer, deserializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         REQUIRE(serializedValue == deserializedValue);
     }
 
     SECTION("Checking serialization & deserialization of custom type MessageInfo")
     {
-        Network::MessageInfo serializedValue(123, "I'd like ice-cream=)");
+        MessageInfo serializedValue(123, "I'd like ice-cream=)");
 
         yas::shared_buffer buffer;
-        Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        SerializedState state = YasSerializer::serialize(buffer, serializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
-        Network::MessageInfo deserializedValue;
-        state = Network::YasSerializer::deserialize(buffer, deserializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        MessageInfo deserializedValue;
+        state = YasSerializer::deserialize(buffer, deserializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         REQUIRE(serializedValue == deserializedValue);
     }
 
     SECTION("Checking serialization & deserialization of vector of custom type ChannelInfo")
     {
-        std::vector<Network::ChannelInfo> serializedValue{Network::ChannelInfo(2672, "kittens"),
-                                                          Network::ChannelInfo(1445, "puppies"),
-                                                          Network::ChannelInfo(2345, "hamsters")};
+        std::vector<ChannelInfo> serializedValue{ChannelInfo(2672, "kittens"),
+                                                          ChannelInfo(1445, "puppies"),
+                                                          ChannelInfo(2345, "hamsters")};
 
         yas::shared_buffer buffer;
-        Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        SerializedState state = YasSerializer::serialize(buffer, serializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
-        std::vector<Network::ChannelInfo> deserializedValue;
-        state = Network::YasSerializer::deserialize(buffer, deserializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        std::vector<ChannelInfo> deserializedValue;
+        state = YasSerializer::deserialize(buffer, deserializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         REQUIRE(serializedValue == deserializedValue);
     }
 
     SECTION("Checking serialization & deserialization of vector of custom type MessageInfo")
     {
-        std::vector<Network::MessageInfo> serializedValue{
-            Network::MessageInfo(123, "I'd like ice-cream=)"),
-            Network::MessageInfo(123, "I'd like pizza=)"),
-            Network::MessageInfo(123, "I'd like cheeseburger=)"),
-            Network::MessageInfo(123, "I'd like naggets=)")};
+        std::vector<MessageInfo> serializedValue{
+            MessageInfo(123, "I'd like ice-cream=)"),
+            MessageInfo(123, "I'd like pizza=)"),
+            MessageInfo(123, "I'd like cheeseburger=)"),
+            MessageInfo(123, "I'd like naggets=)")};
 
         yas::shared_buffer buffer;
-        Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        SerializedState state = YasSerializer::serialize(buffer, serializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
-        std::vector<Network::MessageInfo> deserializedValue;
-        state = Network::YasSerializer::deserialize(buffer, deserializedValue);
-        REQUIRE(state == Network::SerializedState::SUCCESS);
+        std::vector<MessageInfo> deserializedValue;
+        state = YasSerializer::deserialize(buffer, deserializedValue);
+        REQUIRE(state == SerializedState::SUCCESS);
 
         REQUIRE(serializedValue == deserializedValue);
     }

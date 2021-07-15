@@ -132,13 +132,13 @@ auto buildToken(const std::shared_ptr<Network::Connection>& client)
     (
         [&finaleJSONToken](BuildHeader& s, GetHeader event) -> TransitionTo<BuildPayload>
         { 
-            finaleJSONToken = Coding::getBASE64CodedValue(event.j.dump()) + '.';
+            finaleJSONToken = Coding::getBASE64CodedValue(event.mJsonObj.dump()) + '.';
             return {}; 
         },
 
         [&finaleJSONToken](BuildPayload& s, GetPayload event) -> TransitionTo<BuildSignature>
         { 
-            finaleJSONToken += Coding::getBASE64CodedValue(event.j.dump()) + '.';
+            finaleJSONToken += Coding::getBASE64CodedValue(event.mJsonObj.dump()) + '.';
             return {};
         },
         

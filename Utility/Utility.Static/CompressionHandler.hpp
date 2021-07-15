@@ -2,14 +2,14 @@
 
 #include <lz4.h>
 
-#include <Utility.Static/Handler.hpp>
+#include "Handler.hpp"
 
-namespace Network
+namespace Utility
 {
 /** @class CompressionHandler
  *  @brief handler class for messages compression.
  */
-class CompressionHandler : public Utility::AbstractHandler
+class CompressionHandler : public AbstractHandler
 {
 public:
     /**
@@ -25,7 +25,7 @@ public:
     std::pair<std::unique_ptr<char[]>, size_t> decompress(const void* data,
                                                           unsigned int dataSize);
 
-    Utility::MessageProcessingState handleOutcomingMessage(Message& message,
+    MessageProcessingState handleOutcomingMessage(Network::Message& message,
                                                            yas::shared_buffer& bodyBuffer) override;
 
     /**
@@ -33,8 +33,8 @@ public:
      * @param buffer - buffer that contains data that should be decompressed.
      * @param messageHeader - variable that will contain decompressed message body.
      */
-    Utility::MessageProcessingState handleIncomingMessageBody(yas::shared_buffer buffer,
-                                                              Message& message) override;
+    MessageProcessingState handleIncomingMessageBody(yas::shared_buffer buffer,
+                                                              Network::Message& message) override;
 
 private:
     /** 

@@ -63,7 +63,7 @@ namespace Utility
             if (!mDHClient.Agree(mSharedSecret, mPrivClient, mPublicServer))
                 throw std::runtime_error("Failed to reach shared secret!");
 
-             Network::EncryptionHandler::calculateDigest(mSharedSecret);
+             Utility::EncryptionHandler::calculateDigest(mSharedSecret);
         }
 
     private:

@@ -1,9 +1,9 @@
 #include "App.hpp"
-#include "Utility/YasSerializer.hpp"
-#include "Utility/KeyHolder.hpp"
+#include "TokenHolder.hpp"
 #include "Network/Primitives.hpp"
 
-#include <Utility.Static/TokenHolder.hpp>
+#include <Utility.Static/KeyHolder.hpp>
+#include <Utility.Static/YasSerializer.hpp>
 
 
 App::App(/* args */)
@@ -69,7 +69,7 @@ bool App::loop()
 
                     std::string IV = std::any_cast<std::string>(message.mBody);
 
-                    Network::EncryptionHandler::setIVBlock(IV);
+                    Utility::EncryptionHandler::setIVBlock(IV);
                 }
                 break;
 

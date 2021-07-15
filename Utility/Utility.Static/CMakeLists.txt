@@ -8,14 +8,15 @@ set(SOURCE_FILES
     JsonSerializer.cpp
     SafePriorityQueue.hpp
     TaskManager.hpp
+    KeyDestributor.hpp
+    KeyHolder.hpp
 	MACAddress.hpp
 	MACAddress.cpp
 	ClientPayload.hpp
 	ClientPayload.cpp
-	TokenHolder.hpp
-	TokenHolder.cpp
 	YasSerializer.hpp
 	YasSerializer.cpp
+    IHandler.hpp
 	Handler.hpp
 	Handler.cpp
 	SerializationHandler.hpp
@@ -28,9 +29,6 @@ set(SOURCE_FILES
 # Add a library with the above sources
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
-target_include_directories(${TARGET} PRIVATE
-    $<TARGET_PROPERTY:DataAccess.Static,SOURCE_DIR>/..)
-
-target_link_libraries(${TARGET} Qt5::Widgets Qt5::Core Network.Public DataAccess.Static Utility.Public CONAN_PKG::nlohmann_json CONAN_PKG::cryptopp CONAN_PKG::asio CONAN_PKG::yas CONAN_PKG::lz4)
+target_link_libraries(${TARGET} Qt5::Widgets Qt5::Core Network.Public Utility.Public CONAN_PKG::nlohmann_json CONAN_PKG::cryptopp CONAN_PKG::asio CONAN_PKG::yas CONAN_PKG::lz4)
 
 target_compile_options(${TARGET} PRIVATE "-fPIC")
