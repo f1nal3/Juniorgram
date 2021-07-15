@@ -7,8 +7,7 @@ DerivePointerAlignment: false
 PointerAlignment: Left
 ColumnLimit: 140
 AlignAfterOpenBracket: Align
-AlignConsecutiveAssignments: Consecutive
-AlignConsecutiveDeclarations: Consecutive
+AlignConsecutiveAssignments: true
 AlignOperands: Align
 AllowShortBlocksOnASingleLine: Never
 AlwaysBreakTemplateDeclarations: Yes
