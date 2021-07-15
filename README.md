@@ -7,7 +7,7 @@
 # Introduction 
 A C++ messenger for learning purposes in EPAM Brest C++ R&D Lab
 
-# [Documentation Coverage](https://f1nal3.github.io/Juniorgram/doc_coverage/index.html)
+##[Documentation Coverage](https://f1nal3.github.io/Juniorgram/doc_coverage/index.html)
 
 # Getting Started
 
@@ -15,7 +15,7 @@ There are a few steps to get up and running on own system:
 
 #### 1. Software dependencies
 
-## [Conan](https://conan.io/index.html)
+##[Conan](https://conan.io/index.html)
 
 This is an open source, decentralized and multi-platform package manager for C/C++.
 
@@ -26,8 +26,8 @@ Recommended install:
  - Windows: [Python 3.8.7.exe](https://www.python.org/ftp/python/3.8.7/python-3.8.7-amd64.exe)
 
  - Linux: 
-```$ sudo apt-get update ```
-```$ sudo apt-get install python3.8```
+`$ sudo apt-get update`
+`$ sudo apt-get install python3.8`
 
 2. Install Conan: 
 
