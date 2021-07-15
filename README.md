@@ -7,7 +7,7 @@
 # Introduction 
 A C++ messenger for learning purposes in EPAM Brest C++ R&D Lab
 
-# [Documentation](https://f1nal3.github.io/Juniorgram/)
+# [Documentation Coverage](https://f1nal3.github.io/Juniorgram/doc_coverage/index.html)
 
 # Getting Started
 
@@ -15,7 +15,7 @@ There are a few steps to get up and running on own system:
 
 #### 1. Software dependencies
 
-<font size="4">[Conan](https://conan.io/index.html)<font size/>
+## [Conan](https://conan.io/index.html)
 
 This is an open source, decentralized and multi-platform package manager for C/C++.
 
@@ -45,7 +45,7 @@ Recommended install:
 
 ---
 
-<font size="4">[CMake](https://cmake.org)<font size/>
+## [CMake](https://cmake.org)
 
 CMake is a cross-platform, open-source build system generator. 
 
@@ -57,13 +57,13 @@ Install CMake:
 
 #### 2. Installation process
 
-<font size="4">Windows:<font size/>
+## Windows: 
 
-<font size="4">Visual Studio 2019: <font size/>
+## Visual Studio 2019:
  1. Clone this repository or download as Zip from Github.
  2. Run Visual Studio and open this repository as folder. It will automatically detect the root CMakeLists.txt and execute it, after which you can start/debug the server and client sides.
 
-<font size="4">Linux:<font size/>
+## Linux:
 
 Qt Creator:
 
