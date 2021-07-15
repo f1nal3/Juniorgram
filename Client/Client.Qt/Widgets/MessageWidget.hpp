@@ -40,11 +40,13 @@ public:
      * @brief constructor for displaying a message from a user on the screen.
      * @param history parent widget
      * @param message Message from user.
+     * @param userId of user.
+     * @param messageId of message.
      * @param utc Seconds since epoch.
      * @param username User nickname.
      */
-    MessageWidget(QWidget* history, QString message, qint64 utc, QString username,
-                  const Style::MessageWidget& st = st::defaultMessageWidget);
+    MessageWidget(QWidget* history, QString message, int userId, int messageId, qint64 utc, QString username,
+        const Style::MessageWidget& st = st::defaultMessageWidget);
 
     /**
      * @brief Method for method for changing the message.
@@ -110,5 +112,5 @@ private:
     int                           _messageId;
     const Style::MessageWidget&   _st;
 
-    std::map<int, int> reactionMap{{reactions::LIKE, 0}, {reactions::DISLIKE, 0}, {reactions::FIRE, 0}, {reactions::CAT, 0}};
+    std::map<int, int> reactionMap{ {reactions::LIKE, 0}, {reactions::DISLIKE, 0}, {reactions::FIRE, 0}, {reactions::CAT, 0} };
 };

@@ -153,7 +153,7 @@ void Client::messageUserDelete(int userId, int messageId) const
     Network::Message message;
     message.mHeader.mMessageType = Network::Message::MessageType::MessageUserDelete;
     message.mBody                = std::make_any<MessageDeletedInfo>(me);
-    std::cout << "Message del";
+    std::cout << "Message del id= " << messageId << " userId= " << userId << std::endl;
     send(message);
 }
 

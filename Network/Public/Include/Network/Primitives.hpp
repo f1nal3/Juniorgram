@@ -85,19 +85,32 @@ namespace Network
         }
     };
 
-    struct MessageDeletedInfo
-    {
-        int userId;
-        int messaeId;
-        explicit MessageDeletedInfo(const int _userId, const int _messaeId)
-            : userId(_userId), messaeId(_messaeId)
-        {}
-        
-    };
-
     template <typename Archive>
     void serialize(Archive& ar, Network::RegistrationInfo& o)
     {
         ar& o.email& o.login& o.passwordHash;
     }
+
+    struct MessageDeletedInfo
+    {
+        int userId;
+        int messageId;
+        explicit MessageDeletedInfo(const int _userId, const int _messageId)
+            : userId(_userId), messageId(_messageId)
+        {}
+
+        friend bool operator==(const MessageDeletedInfo& messageDeletedInfo1,
+            const MessageDeletedInfo& messageDeletedInfo2)
+        {
+            return messageDeletedInfo1.messageId    == messageDeletedInfo2.messageId &&
+                messageDeletedInfo1.userId    == messageDeletedInfo2.userId;
+        }
+    };
+
+    template <typename Archive>
+    void serialize(Archive& ar, Network::MessageDeletedInfo& o)
+    {
+        ar& o.userId& o.messageId;
+    }
+
 } // namespace Network

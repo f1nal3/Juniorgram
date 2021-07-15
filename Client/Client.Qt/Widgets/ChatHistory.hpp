@@ -19,7 +19,7 @@ public:
     void addMessage(const QString& message, quint64 utc, const QString& user = "You");
     void clear();
 
-    explicit operator QWidget*() { return _scrollArea->widget(); }
+    explicit operator QWidget* () { return _scrollArea->widget(); }
 
 protected:
     void resizeEvent(QResizeEvent* event) override;
@@ -44,7 +44,9 @@ private:
 
 private:
     bool                                        _alreadyScrolling = false;
-    std::int32_t                                _left             = -1;
+    std::int32_t                                _left = -1;
     std::unique_ptr<ScrollArea>                 _scrollArea;
     std::vector<std::unique_ptr<MessageWidget>> _messageList;
+    int                                         _userId = 0;
+    int                                         _messageId = 0;
 };

@@ -20,7 +20,7 @@ ChatHistory::ChatHistory(QWidget* parent) : QWidget(parent), _messageList()
 void ChatHistory::addMessage(const QString& message, quint64 utc, const QString& user)
 {
     auto history = _scrollArea->widget();
-    auto msg     = new MessageWidget(history, message, utc, user);
+    auto msg     = new MessageWidget(history, message, _messageId, _userId, utc, user);
 
     msg->show();
     msg->resize(history->width() - 25, msg->expectedHeight());
