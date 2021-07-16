@@ -1,5 +1,8 @@
 #pragma once
 #include <QApplication>
+#include <memory>
+
+#include "MainWidget.hpp"
 
 #define oApp (static_cast<Application*>(QCoreApplication::instance()))
 
@@ -13,15 +16,14 @@ enum class AppState
 };
 }
 
-class MainWidget;
 class BioButton;
 
 class Application : public QApplication
 {
 private:
-    MainWidget*   _mainwidget;
-    BioButton*    _bio;
-    App::AppState mAppState;
+    std::unique_ptr<MainWidget> _mainwidget;
+    BioButton*                  _bio;
+    App::AppState               mAppState;
 
 public:
     Application(int& argc, char** argv);

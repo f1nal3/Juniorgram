@@ -41,13 +41,17 @@ Style::FlatButton _italicButton = {
 Style::FlatButton _underlineButton = {
     {0, 0, 0, 0},       0, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized},
     {Qt::Uninitialized}};
-Style::ScrollArea   _defaultScrollArea = {0, 0, 0, 0, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized},
+Style::ScrollArea   _defaultScrollArea  = {0, 0, 0, 0, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized},
                                         0, 0};
-Style::FlatTextEdit _defaultTextEdit   = {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized},
+Style::FlatTextEdit _defaultTextEdit    = {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized},
                                         {Qt::Uninitialized}, {Qt::Uninitialized}, {0, 0, 0, 0}};
-Style::FlatTextEdit _messageTextEdit   = {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized},
+Style::FlatTextEdit _messageTextEdit    = {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized},
                                         {Qt::Uninitialized}, {Qt::Uninitialized}, {0, 0, 0, 0}};
-Style::FlatButton   _messageButton     = {
+Style::icon         _closeButtonIcon    = {Qt::Uninitialized};
+Style::icon         _restoreButtonIcon  = {Qt::Uninitialized};
+Style::icon         _maximizeButtonIcon = {Qt::Uninitialized};
+Style::icon         _minimizeButtonIcon = {Qt::Uninitialized};
+Style::FlatButton   _messageButton      = {
     {0, 0, 0, 0},       0, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized},
     {Qt::Uninitialized}};
 Style::MessageWidget _defaultMessageWidget = {
@@ -87,6 +91,10 @@ const Style::FlatButton&    underlineButton(_underlineButton);
 const Style::ScrollArea&    defaultScrollArea(_defaultScrollArea);
 const Style::FlatTextEdit&  defaultTextEdit(_defaultTextEdit);
 const Style::FlatTextEdit&  messageTextEdit(_messageTextEdit);
+const Style::icon&          closeButtonIcon(_closeButtonIcon);
+const Style::icon&          restoreButtonIcon(_restoreButtonIcon);
+const Style::icon&          maximizeButtonIcon(_maximizeButtonIcon);
+const Style::icon&          minimizeButtonIcon(_minimizeButtonIcon);
 const Style::FlatButton&    messageButton(_messageButton);
 const Style::MessageWidget& defaultMessageWidget(_defaultMessageWidget);
 }  // namespace st
@@ -156,6 +164,10 @@ void init_StyleBasic(int scale)
     _defaultTextEdit    = {{px15, 0, 0}, st::windowActiveTextFg, st::windowColorOver, st::windowActiveTextFg, st::windowColor, st::mar};
     _messageTextEdit    = {{px12, 0, 0},           st::windowActiveTextFg, st::windowColorOver,
                         st::windowActiveTextFg, st::transparent,        {px0, px0, px0, px0}};
+    _closeButtonIcon    = {":icons/close-w"};
+    _restoreButtonIcon  = {":icons/restore-w"};
+    _maximizeButtonIcon = {":icons/max-w"};
+    _minimizeButtonIcon = {":icons/min-w"};
     _messageButton      = {
         {px4, px4, px4, px4}, px4,         st::windowActiveTextFg, st::windowActiveTextFg, st::windowColor, st::windowColorOver,
         {px12, 0, 0},         {px12, 0, 0}};

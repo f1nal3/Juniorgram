@@ -9,9 +9,11 @@
 
 #include "StyleColor.hpp"
 #include "StyleFont.hpp"
+#include "StyleIcon.hpp"
 
 namespace Style
 {
+using icon    = internal::Icon;
 using font    = internal::Font;
 using color   = internal::Color;
 using margins = QMargins;

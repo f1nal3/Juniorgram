@@ -1,5 +1,6 @@
 #include "MainWidget.hpp"
 
+#include <QDebug>
 #include <QGuiApplication>
 #include <QHBoxLayout>
 #include <QWindow>
@@ -8,7 +9,6 @@
 
 #include "Style/Shadow.hpp"
 #include "Widgets/BioButton.hpp"
-#include "Widgets/CaptionButton.hpp"
 
 #ifdef _WIN32
 #include <dwmapi.h>
@@ -80,7 +80,6 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
         if (msg->wParam == SIZE_MAXIMIZED)
         {
             state = Qt::WindowMaximized;
-            this->layout()->setMargin(0);
             this->setAttribute(Qt::WA_TranslucentBackground, false);
         }
         else if (msg->wParam == SIZE_MINIMIZED)
@@ -91,7 +90,6 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
         else
         {
             state = Qt::WindowNoState;
-            this->layout()->setMargin(9);
             this->setAttribute(Qt::WA_TranslucentBackground);
         }
         emit(window())->windowHandle()->windowStateChanged(state);
@@ -301,25 +299,40 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
 
     std::cout << QGuiApplication::platformName().toStdString() << std::endl;
 
+    window()->createWinId();
+
     pTitleLayout = std::make_unique<QHBoxLayout>(title);
     title->setLayout(pTitleLayout.get());
 
-    close_btn    = std::make_unique<CaptionButton>(CaptionButton::CaptionLogo::Close, QColor(232, 17, 35));
-    maximize_btn = std::make_unique<CaptionButton>(CaptionButton::CaptionLogo::Maximize);
-    minimize_btn = std::make_unique<CaptionButton>(CaptionButton::CaptionLogo::Minimize);
+    close_btn    = std::make_unique<CaptionButton>(title, QColor(232, 17, 35), st::closeButtonIcon);
+    maximize_btn = std::make_unique<CaptionButton>(title, QColor(255, 255, 255, 76), st::maximizeButtonIcon);
+    minimize_btn = std::make_unique<CaptionButton>(title, QColor(255, 255, 255, 76), st::minimizeButtonIcon);
     refreshTitleBar();
+
+    connect(window()->windowHandle(), &QWindow::windowStateChanged, this, [=](Qt::WindowState state) {
+        if (state == Qt::WindowMinimized) return;
+
+        if (state == Qt::WindowNoState)
+        {
+            layout()->setMargin(9);
+            maximize_btn->setIcon(nullptr);
+        }
+        else if (state == Qt::WindowMaximized)
+        {
+            layout()->setMargin(0);
+            maximize_btn->setIcon(&st::restoreButtonIcon);
+        }
+    });
 
     maximize_btn->setClickCallback([=]() {
         if (this->isMaximized())
         {
-            this->layout()->setMargin(0);
             this->setAttribute(Qt::WA_TranslucentBackground);
             window()->setWindowState(Qt::WindowNoState);
             this->m_leftMouseButtonPressed = None;
         }
         else
         {
-            this->layout()->setMargin(9);
             this->setAttribute(Qt::WA_TranslucentBackground, false);
             window()->setWindowState(Qt::WindowMaximized);
             this->m_leftMouseButtonPressed = None;

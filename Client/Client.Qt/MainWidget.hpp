@@ -3,9 +3,10 @@
 #include <QWidget>
 #include <memory>
 
+#include "Widgets/CaptionButton.hpp"
+
 class QHBoxLayout;
 class BioButton;
-class CaptionButton;
 
 class MainWidget : public QWidget
 {

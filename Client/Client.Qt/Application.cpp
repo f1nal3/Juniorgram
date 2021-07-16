@@ -2,7 +2,6 @@
 
 #include "ChatWindow.hpp"
 #include "ConnectionManager.hpp"
-#include "MainWidget.hpp"
 #include "Style/StyleFont.hpp"
 #include "Widgets/BioButton.hpp"
 #include "login.hpp"
@@ -13,7 +12,7 @@ Application::Application(int& argc, char** argv) : QApplication(argc, argv), _bi
 void Application::create()
 {
     Style::internal::StartFonts();
-    _mainwidget = new MainWidget();
+    _mainwidget = std::make_unique<MainWidget>();
     _mainwidget->show();
     _mainwidget->hide();
 
@@ -33,10 +32,7 @@ void Application::create()
     ConnectionManager::connect();
     std::thread(&ConnectionManager::loop).detach();
     setAppState(App::AppState::LoginForm);
-    auto font = QFont("Noto Sans", 12);
-    font.setPixelSize(Style::valueDPIScale(15));
-    font.setStyleStrategy(QFont::PreferQuality);
-    QApplication::setFont(font);
+    QApplication::setFont(st::defaultFont);
 }
 
 void Application::show() { _mainwidget->show(); }
@@ -64,7 +60,7 @@ void Application::setAppState(App::AppState app_state)
         }
         case App::AppState::ChatWindowForm:
         {
-            _bio = new BioButton(QImage(), true, _mainwidget);
+            _bio = new BioButton(QImage(), true, _mainwidget.get());
             _bio->setImage(QImage(":/images/logo.png"));
             _mainwidget->refreshTitleBar(_bio);
             _mainwidget->setCentralWidget(2);

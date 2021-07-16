@@ -1,21 +1,24 @@
 #pragma once
 #include <QWidget>
 
-class MenuItem : public QWidget
+#include "AbstractButton.hpp"
+
+class ItemBase : public AbstractButton
 {
     Q_OBJECT
 public:
-    explicit MenuItem(const QString& text, QAction* action, QWidget* parent = nullptr);
+    explicit ItemBase(QString text, QAction* action, QWidget* parent = nullptr);
 
 protected:
-    [[nodiscard]] QSize sizeHint() const override;
-    void mouseMoveEvent(QMouseEvent* mouseEvent) override;
-    void leaveEvent(QEvent* event) override;
     void paintEvent(QPaintEvent* paintEvent) override;
-    void mouseReleaseEvent(QMouseEvent* mouseEvent) override;
+    void onStateChanged(State was, StateChanger source) override
+    {
+        Q_UNUSED(was)
+        Q_UNUSED(source)
+        update();
+    }
 
 private:
-    bool hit{};
-    QString innerText;
+    QString  innerText;
     QAction* mAction;
 };
