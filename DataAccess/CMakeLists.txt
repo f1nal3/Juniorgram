@@ -1,8 +1,9 @@
 project(DataAccess LANGUAGES CXX)
 
 add_subdirectory(Public)
-add_subdirectory(DataAccess.Static)
 add_subdirectory(DataAccess.Debug)
+add_subdirectory(DataAccess.Static)
+add_subdirectory(DataAccess.SQLite)
 add_subdirectory(DataAccess.Test)
 
 set(TARGET DataAccess)

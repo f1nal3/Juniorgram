@@ -3,8 +3,6 @@
 #include <optional>
 #include <any>
 
-#include <pqxx/pqxx>
-
 namespace DataAccess
 {
 	class IAdapter
