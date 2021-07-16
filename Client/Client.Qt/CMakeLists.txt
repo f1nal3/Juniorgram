@@ -63,6 +63,8 @@ set(SOURCE_FILES
         Style/StyleScale.hpp
         Style/StyleTypes.cpp
         Style/StyleTypes.hpp
+        Style/StyleIcon.cpp
+        Style/StyleIcon.hpp
         Application.cpp
         Application.hpp
         ChatWindow.cpp
