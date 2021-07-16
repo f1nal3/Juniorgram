@@ -32,8 +32,8 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
          */
         if (isCompositionEnabled())
         {
-            const auto RES = DefWindowProc(msg->hwnd, msg->message, msg->wParam, -1);
-            if (result) *result = RES;
+            const auto res = DefWindowProc(msg->hwnd, msg->message, msg->wParam, -1);
+            if (result) *result = res;
         }
         else
         {
@@ -65,7 +65,7 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
     else if (msg->message == WM_NCHITTEST)
     {
         const auto P = MAKEPOINTS(msg->lParam);
-        if (P.x <= 9)
+        if (P.x - this->x() <= 9)
         {
             if (result) *result = HTLEFT;
             return true;
@@ -152,16 +152,8 @@ MainWidget::MouseType MainWidget::checkResizableField(QMouseEvent* event)
             return Right;
         }
     }
-    if (rectInterface.contains(position))
-    {
-        setCursor(QCursor());
-        return Move;
-    }
-    else
-    {
-        setCursor(QCursor());
-        return None;
-    }
+    setCursor(QCursor());
+    return None;
 }
 
 void MainWidget::mousePressEvent(QMouseEvent* event)
@@ -169,8 +161,7 @@ void MainWidget::mousePressEvent(QMouseEvent* event)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
     if (event->button() == Qt::LeftButton)
     {
-        _mousePressed            = true;
-        _lmbPos                  = checkResizableField(event);
+        _lmbPos = checkResizableField(event);
         if (_lmbPos == Top)
         {
             this->windowHandle()->startSystemResize(Qt::TopEdge);
@@ -214,26 +205,6 @@ void MainWidget::mouseMoveEvent(QMouseEvent* event)
     checkResizableField(event);
     switch (_lmbPos)
     {
-        case Move:
-        {
-            if (_mousePressed)
-            {
-                /*if (isMaximized())
-                {
-                    this->layout()->setMargin(9);
-                    auto part = event->screenPos().x() / width();
-                    this->showNormal();
-                    // update();
-                    auto offsetX = width() * part;
-                    setGeometry(event->screenPos().x() - offsetX, 0, width(), height());
-                }*/
-                _mousePressed = false;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
-                this->windowHandle()->startSystemMove();
-#endif
-            }
-            break;
-        }
         case Top:
         case Bottom:
         case Left:
@@ -255,10 +226,8 @@ void MainWidget::mouseReleaseEvent(QMouseEvent* event)
 {
     if (event->button() == Qt::LeftButton)
     {
-        _lmbPos                  = None;
-        _mousePressed            = false;
+        _lmbPos = None;
     }
-    update();
     return QWidget::mouseReleaseEvent(event);
 }
 
@@ -267,80 +236,36 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
     Style::setDpiScale(logicalDpiX() * 100 / 96);
     Style::startManager(Style::getDpiScale());
 
-    this->setWindowFlag(Qt::FramelessWindowHint);
-    this->setWindowFlag(Qt::Window);
-    this->setWindowIcon(QIcon(":/images/logo.png"));
-    this->setMinimumWidth(Style::valueDPIScale(800));
+    setWindowFlag(Qt::FramelessWindowHint);
+    setWindowIcon(QIcon(":/images/logo.png"));
+    setMinimumWidth(Style::valueDPIScale(800));
 
+    window()->createWinId();
     auto* grid = new QGridLayout(this);
 
     _body = std::make_unique<QWidget>();
     _body->setMinimumHeight(Style::valueDPIScale(480));
 
-    auto title = new QWidget();
-    title->setFixedHeight(Style::valueDPIScale(30));
+    _title = std::make_unique<TitleWidget>(this);
+
+    _title->setFixedHeight(Style::valueDPIScale(30));
     grid->addWidget(_body.get(), 1, 0);
-    grid->addWidget(title, 0, 0);
+    grid->addWidget(_title.get(), 0, 0);
     grid->setSpacing(0);
-    this->setLayout(grid);
-    layout()->setMargin(9);
+    setLayout(grid);
+
     _body->setStyleSheet(
         "QWidget {"
         "background-color: #323232;"
         "}");
 
-    title->setStyleSheet(
-        "QWidget { "
-        "background-color: #424140; "
-        "}");
-
     std::cout << QGuiApplication::platformName().toStdString() << std::endl;
 
-    window()->createWinId();
-
-    pTitleLayout = std::make_unique<QHBoxLayout>(title);
-    title->setLayout(pTitleLayout.get());
-
-    close_btn    = std::make_unique<CaptionButton>(title, QColor(232, 17, 35), st::closeButtonIcon);
-    maximize_btn = std::make_unique<CaptionButton>(title, QColor(255, 255, 255, 76), st::maximizeButtonIcon);
-    minimize_btn = std::make_unique<CaptionButton>(title, QColor(255, 255, 255, 76), st::minimizeButtonIcon);
     refreshTitleBar();
 
-    connect(window()->windowHandle(), &QWindow::windowStateChanged, this, [=](Qt::WindowState state) {
-        if (state == Qt::WindowMinimized) return;
-
-        if (state == Qt::WindowNoState)
-        {
-            setAttribute(Qt::WA_TranslucentBackground);
-            layout()->setMargin(9);
-            maximize_btn->setIcon(nullptr);
-        }
-        else if (state == Qt::WindowMaximized)
-        {
-            setAttribute(Qt::WA_TranslucentBackground, false);
-            layout()->setMargin(0);
-            maximize_btn->setIcon(&st::restoreButtonIcon);
-        }
-    });
-
-    maximize_btn->setClickCallback([=]() {
-        if (this->isMaximized())
-        {
-            window()->setWindowState(Qt::WindowNoState);
-        }
-        else
-        {
-            window()->setWindowState(Qt::WindowMaximized);
-        }
-        _lmbPos = None;
-        update();
-    });
-    close_btn->setClickCallback([=]() { deleteLater(); });
-    minimize_btn->setClickCallback([=]() { showMinimized(); });
-    title->setMouseTracking(true);
-    this->setMouseTracking(true);
-    title->installEventFilter(this);
-    this->installEventFilter(this);
+    setAttribute(Qt::WA_Hover);
+    setMouseTracking(true);
+    installEventFilter(this);
 }
 
 void MainWidget::resizeEvent(QResizeEvent* event)
@@ -352,7 +277,6 @@ void MainWidget::resizeEvent(QResizeEvent* event)
 void MainWidget::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event)
-
     QPainter p(this);
     p.setPen(Qt::NoPen);
     auto start = QColor(0, 0, 0, 0x18);
@@ -379,24 +303,15 @@ void MainWidget::setCentralWidget(std::int32_t index)
     }
 }
 
-void MainWidget::refreshTitleBar(BioButton* bio_button)
+void MainWidget::refreshTitleBar(BioButton*)
 {
-    pTitleLayout->setSpacing(0);
-    pTitleLayout->setMargin(0);
-    pTitleLayout->setAlignment(Qt::AlignTop | Qt::AlignRight);
-    if (!pTitleLayout->isEmpty())
+    /*if (!pTitleLayout->isEmpty())
     {
-        pTitleLayout->removeWidget(minimize_btn.get());
-        pTitleLayout->removeWidget(maximize_btn.get());
-        pTitleLayout->removeWidget(close_btn.get());
     }
     if (bio_button)
     {
         pTitleLayout->addWidget(bio_button);
-    }
-    pTitleLayout->addWidget(minimize_btn.get());
-    pTitleLayout->addWidget(maximize_btn.get());
-    pTitleLayout->addWidget(close_btn.get());
+    }*/
 }
 bool MainWidget::eventFilter(QObject* watched, QEvent* event)
 {

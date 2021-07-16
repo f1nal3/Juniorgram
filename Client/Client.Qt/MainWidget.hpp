@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <memory>
 
+#include "TitleWidget.hpp"
 #include "Widgets/CaptionButton.hpp"
 
 class QHBoxLayout;
@@ -30,8 +31,7 @@ public:
         BottomLeft,
         BottomRight,
         Left,
-        Right,
-        Move
+        Right
     };
 
     MouseType checkResizableField(QMouseEvent* event);
@@ -48,18 +48,12 @@ public:
     bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
-    MouseType _lmbPos;
-
-    bool _mousePressed{};
-
-    std::unique_ptr<CaptionButton> close_btn;
-    std::unique_ptr<CaptionButton> maximize_btn;
-    std::unique_ptr<CaptionButton> minimize_btn;
-    std::unique_ptr<BioButton>     _bioButton;
+    MouseType                  _lmbPos = None;
+    std::unique_ptr<BioButton> _bioButton;
 
     std::int32_t _current = -1;
 
     std::unique_ptr<QWidget>              _body;
-    std::unique_ptr<QHBoxLayout>          pTitleLayout;
+    std::unique_ptr<TitleWidget>          _title;
     std::vector<std::unique_ptr<QWidget>> _widgets;
 };

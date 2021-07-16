@@ -72,7 +72,9 @@ set(SOURCE_FILES
         MainWidget.cpp
         MainWidget.hpp
         registration.cpp
-        registration.hpp)
+        registration.hpp
+        TitleWidget.cpp
+        TitleWidget.hpp)
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)
