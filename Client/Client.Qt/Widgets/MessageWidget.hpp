@@ -72,11 +72,13 @@ public:
     void setIndex(int index)
     {
         _index = index;
-
         update();
     }
 
     int expectedHeight();
+    int _userId;
+    int _messageId;
+
 public slots:
     void onDelete();
 
@@ -108,8 +110,6 @@ private:
     QString                       _username;
     QDateTime                     _datetime;
     MessageFlags                  _messageFlags;
-    int                           _userId;
-    int                           _messageId;
     const Style::MessageWidget&   _st;
 
     std::map<int, int> reactionMap{ {reactions::LIKE, 0}, {reactions::DISLIKE, 0}, {reactions::FIRE, 0}, {reactions::CAT, 0} };

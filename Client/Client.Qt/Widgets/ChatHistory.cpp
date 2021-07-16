@@ -20,7 +20,7 @@ ChatHistory::ChatHistory(QWidget* parent) : QWidget(parent), _messageList()
 void ChatHistory::addMessage(const QString& message, quint64 utc, const QString& user)
 {
     auto history = _scrollArea->widget();
-    auto msg     = new MessageWidget(history, message, _messageId, _userId, utc, user);
+    auto msg     = new MessageWidget(history, message, _messageId++, _userId, utc, user);
 
     msg->show();
     msg->resize(history->width() - 25, msg->expectedHeight());
@@ -41,6 +41,15 @@ void ChatHistory::addMessage(const QString& message, quint64 utc, const QString&
 }
 
 void ChatHistory::clear() { _messageList.clear(); }
+
+void ChatHistory::deleteMessage(int userId, int messageId)
+{
+    for (typename std::vector<std::unique_ptr<MessageWidget>>::iterator i = _messageList.begin(); i != _messageList.end(); i++)
+    {
+        if ((i->get()->_messageId == messageId) && (i->get()->_userId == userId))
+            i->get()->onDelete();
+    }
+}
 
 void ChatHistory::resizeEvent(QResizeEvent* event)
 {

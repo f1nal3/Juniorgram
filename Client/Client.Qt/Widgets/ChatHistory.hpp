@@ -18,6 +18,7 @@ public:
 
     void addMessage(const QString& message, quint64 utc, const QString& user = "You");
     void clear();
+    void deleteMessage(int userId, int messageId);
 
     explicit operator QWidget* () { return _scrollArea->widget(); }
 

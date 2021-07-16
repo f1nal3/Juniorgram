@@ -102,8 +102,8 @@ namespace Network
         friend bool operator==(const MessageDeletedInfo& messageDeletedInfo1,
             const MessageDeletedInfo& messageDeletedInfo2)
         {
-            return messageDeletedInfo1.messageId    == messageDeletedInfo2.messageId &&
-                messageDeletedInfo1.userId    == messageDeletedInfo2.userId;
+            return messageDeletedInfo1.messageId == messageDeletedInfo2.messageId &&
+                   messageDeletedInfo1.userId    == messageDeletedInfo2.userId;
         }
     };
 
