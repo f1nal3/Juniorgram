@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Network/Primitives.hpp>
+#include <Network.Static/Primitives.hpp>
 
 #include <iostream>
 

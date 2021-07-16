@@ -1,4 +1,5 @@
-#include "Network/Message.hpp"
+#include <Network.Static/Message.hpp>
+
 #include "Utility/WarningSuppression.hpp"
 // clang-format off
 suppressWarning(4996, -Wdeprecated - declarations)
@@ -24,11 +25,11 @@ restoreWarning
     class Handler
     {
     public:
-        // Handler()               = default;
-        // Handler(const Handler&) = delete;
-        // Handler(Handler&&)      = delete;
-        // Handler& operator=(const Handler&) = delete;
-        // Handler& operator=(Handler&&) = delete;
+         Handler()               = default;
+         Handler(const Handler&) = delete;
+         Handler(Handler&&)      = delete;
+         Handler& operator=(const Handler&) = delete;
+         Handler& operator=(Handler&&) = delete;
         virtual ~Handler() = default;
 
         virtual Handler* setNext(Handler* handler)                                            = 0;

@@ -3,7 +3,7 @@
 #include <random>
 #include <string>
 
-#include <Network/Primitives.hpp>
+#include <Network.Static/Primitives.hpp>
 #include "PostgreRepository.hpp"
 #include <Utility/Utility.hpp>
 

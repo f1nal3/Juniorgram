@@ -1,8 +1,9 @@
 #pragma once
+
+#include <Network.Static/Message.hpp>
 #include "IHandler.hpp"
 #include "YasSerializer.hpp"
 
-#include "Network/Message.hpp"
 #include "Utility/Exception.hpp"
 
 

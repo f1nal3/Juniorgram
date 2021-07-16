@@ -16,7 +16,7 @@ restoreWarning
 restoreWarning
 // clang-format on
 
-#include "Network/Primitives.hpp"
+#include <Network.Static/Primitives.hpp>
 
 namespace Utility
 {

@@ -2,10 +2,7 @@ set(TARGET Network.Public)
 set(OUTPUT_NAME Juniorgram.Network.Public)
 
 set(SOURCE_FILES
-    Include/Network/Connection.hpp
-    Include/Network/Message.hpp
-    Include/Network/SafeQueue.hpp
-    Include/Network/Primitives.hpp)
+    Include/Network/SafeQueue.hpp)
 
 add_library(${TARGET} INTERFACE)
 

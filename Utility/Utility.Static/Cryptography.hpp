@@ -1,6 +1,5 @@
 #pragma once
 
-#include <Network/Connection.hpp>
 
 #include "Utility/SignerAndVerifier.hpp"
 
@@ -13,6 +12,8 @@
 
 #include <memory>
 #include <string>
+
+#include <Network.Static/Connection.hpp>
 
 namespace SymmetricCipher
 {
