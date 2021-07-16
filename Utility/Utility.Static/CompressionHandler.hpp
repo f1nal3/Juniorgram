@@ -1,7 +1,7 @@
 #pragma once
 
 #include <lz4.h>
-
+#include "Utility/Exception.hpp"
 #include "Handler.hpp"
 
 namespace Utility

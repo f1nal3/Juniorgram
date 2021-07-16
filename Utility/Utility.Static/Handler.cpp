@@ -17,7 +17,8 @@ namespace Utility
         return this->nextHandler;
     }
 
-    MessageProcessingState AbstractHandler::handleOutcomingMessage(Message& message,yas::shared_buffer& bodyBuffer)
+   MessageProcessingState AbstractHandler::handleOutcomingMessage(Network::Message& message,
+                                                                   yas::shared_buffer& bodyBuffer)
     {
         if (this->nextHandler)
         {
@@ -26,7 +27,8 @@ namespace Utility
         return MessageProcessingState::SUCCESS;
     }
 
-    MessageProcessingState AbstractHandler::handleIncomingMessageBody(yas::shared_buffer buffer, Message& message) override
+    MessageProcessingState AbstractHandler::handleIncomingMessageBody(yas::shared_buffer buffer,
+                                                                      Network::Message& message)
     {
         if (this->nextHandler)
         {
@@ -34,4 +36,4 @@ namespace Utility
         }
         return MessageProcessingState::SUCCESS;
     }
-    }
+}

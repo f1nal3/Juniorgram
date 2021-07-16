@@ -16,7 +16,6 @@ set(SOURCE_FILES
 	ClientPayload.cpp
 	YasSerializer.hpp
 	YasSerializer.cpp
-    IHandler.hpp
 	Handler.hpp
 	Handler.cpp
 	SerializationHandler.hpp

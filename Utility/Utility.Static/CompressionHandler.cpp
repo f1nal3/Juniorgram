@@ -1,6 +1,6 @@
 #include "CompressionHandler.hpp"
 
-namespace Network
+namespace Utility
 {
 std::pair<std::unique_ptr<char[]>, size_t> CompressionHandler::compress(const void* data,
                                                                         size_t dataSize)
@@ -69,7 +69,7 @@ std::pair<std::unique_ptr<char[]>, size_t> CompressionHandler::decompress(const 
 }
 
 Utility::MessageProcessingState CompressionHandler::handleOutcomingMessage(
-    Message& message, yas::shared_buffer& bodyBuffer)
+    Network::Message& message, yas::shared_buffer& bodyBuffer)
 {
     // Message::MessageHeader messageHeader = message.mHeader;
     // body compression
@@ -91,7 +91,7 @@ Utility::MessageProcessingState CompressionHandler::handleOutcomingMessage(
 }
 
 Utility::MessageProcessingState CompressionHandler::handleIncomingMessageBody(
-    yas::shared_buffer buffer, Message& message)
+    yas::shared_buffer buffer, Network::Message& message)
 {
     std::string strBodyBuffer = std::string(buffer.data.get(), buffer.size);
 

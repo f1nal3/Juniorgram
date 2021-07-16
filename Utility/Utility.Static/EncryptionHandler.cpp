@@ -1,9 +1,9 @@
 #include "EncryptionHandler.hpp"
 
-namespace Network
+namespace Utility
 {
 Utility::MessageProcessingState EncryptionHandler::handleOutcomingMessage(
-    Message& message, yas::shared_buffer& bodyBuffer)
+    Network::Message& message, yas::shared_buffer& bodyBuffer)
 {
     // Message::MessageHeader messageHeader = message.mHeader;
     // body encryption
@@ -23,7 +23,7 @@ Utility::MessageProcessingState EncryptionHandler::handleOutcomingMessage(
 }
 
 Utility::MessageProcessingState EncryptionHandler::handleIncomingMessageBody(
-    yas::shared_buffer buffer, Message& message)
+    yas::shared_buffer buffer, Network::Message& message)
 {
     CryptoPP::CFB_Mode<CryptoPP::AES>::Decryption cfbDecryption(mEncryptionKey,
                                                                 CryptoPP::AES::BLOCKSIZE, mIV);
@@ -60,4 +60,4 @@ const void EncryptionHandler::calculateDigestAndGenerateIVBlock(
 
     mRng.GenerateBlock(mIV, CryptoPP::AES::BLOCKSIZE);  // Generate a random IV
 }
-}  // namespace Network
+}  // namespace Utility
