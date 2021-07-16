@@ -13,7 +13,7 @@ public:
     explicit CaptionButton(QWidget* parent = nullptr, const QColor& endColor = QColor(255, 255, 255, 76),
                            const Style::icon& icon = Style::icon());
 
-    void setIcon(const Style::icon* icon);
+    bool setIcon(const Style::icon* icon);
 
 protected:
     void enterEvent(QEvent* event) override;

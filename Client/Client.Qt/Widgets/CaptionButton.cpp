@@ -33,14 +33,35 @@ CaptionButton::CaptionButton(QWidget* parent, const QColor& endColor, const Styl
 
 void CaptionButton::paintEvent(QPaintEvent* event)
 {
-    QPainter p(this);
+    QPainter painter(this);
 
-    p.setPen(Qt::NoPen);
-    p.fillRect(0, 0, width(), height(), _hoverColor);
+    painter.setPen(Qt::NoPen);
+    painter.fillRect(0, 0, width(), height(), _hoverColor);
 
-    const Style::icon& icon = _iconOverride ? *_iconOverride : _icon;
+    const int          maxSide = Style::valueDPIScale(20);
+    const Style::icon& icon    = _iconOverride ? *_iconOverride : _icon;
 
-    p.drawPixmap((width() - icon->pixmap()->width()) / 2, (height() - icon->pixmap()->height()) / 2, *icon->pixmap());
+    const int horside = (width() - maxSide) / 2;
+    const int verside = (height() - maxSide) / 2;
+
+    if (icon.size().width() <= maxSide)
+    {
+        painter.drawPixmap((width() - icon->pixmap()->width()) / 2, (height() - icon->pixmap()->height()) / 2, *icon->pixmap());
+    }
+    else
+    {
+        painter.setRenderHint(QPainter::SmoothPixmapTransform);
+        painter.drawPixmap(QRect(horside, verside, maxSide, maxSide), *icon->pixmap());
+    }
     QWidget::paintEvent(event);
 }
-void CaptionButton::setIcon(const Style::icon* icon) { _iconOverride = icon; }
+
+bool CaptionButton::setIcon(const Style::icon* icon)
+{
+    if (icon != nullptr)
+    {
+        if (icon->size().width() != icon->size().height()) return false;
+    }
+    _iconOverride = icon;
+    return true;
+}

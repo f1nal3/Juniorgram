@@ -48,13 +48,14 @@ public:
     bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
-    MouseType m_leftMouseButtonPressed;
+    MouseType _lmbPos;
 
     bool _mousePressed{};
 
     std::unique_ptr<CaptionButton> close_btn;
     std::unique_ptr<CaptionButton> maximize_btn;
     std::unique_ptr<CaptionButton> minimize_btn;
+    std::unique_ptr<BioButton>     _bioButton;
 
     std::int32_t _current = -1;
 

@@ -80,17 +80,14 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
         if (msg->wParam == SIZE_MAXIMIZED)
         {
             state = Qt::WindowMaximized;
-            this->setAttribute(Qt::WA_TranslucentBackground, false);
         }
         else if (msg->wParam == SIZE_MINIMIZED)
         {
             state = Qt::WindowMinimized;
-            this->setAttribute(Qt::WA_TranslucentBackground, false);
         }
         else
         {
             state = Qt::WindowNoState;
-            this->setAttribute(Qt::WA_TranslucentBackground);
         }
         emit(window())->windowHandle()->windowStateChanged(state);
     }
@@ -173,36 +170,36 @@ void MainWidget::mousePressEvent(QMouseEvent* event)
     if (event->button() == Qt::LeftButton)
     {
         _mousePressed            = true;
-        m_leftMouseButtonPressed = checkResizableField(event);
-        if (m_leftMouseButtonPressed == Top)
+        _lmbPos                  = checkResizableField(event);
+        if (_lmbPos == Top)
         {
             this->windowHandle()->startSystemResize(Qt::TopEdge);
         }
-        else if (m_leftMouseButtonPressed == TopLeft)
+        else if (_lmbPos == TopLeft)
         {
             this->windowHandle()->startSystemResize(Qt::TopEdge | Qt::LeftEdge);
         }
-        else if (m_leftMouseButtonPressed == TopRight)
+        else if (_lmbPos == TopRight)
         {
             this->windowHandle()->startSystemResize(Qt::TopEdge | Qt::RightEdge);
         }
-        else if (m_leftMouseButtonPressed == Bottom)
+        else if (_lmbPos == Bottom)
         {
             this->windowHandle()->startSystemResize(Qt::BottomEdge);
         }
-        else if (m_leftMouseButtonPressed == BottomLeft)
+        else if (_lmbPos == BottomLeft)
         {
             this->windowHandle()->startSystemResize(Qt::BottomEdge | Qt::LeftEdge);
         }
-        else if (m_leftMouseButtonPressed == BottomRight)
+        else if (_lmbPos == BottomRight)
         {
             this->windowHandle()->startSystemResize(Qt::BottomEdge | Qt::RightEdge);
         }
-        else if (m_leftMouseButtonPressed == Left)
+        else if (_lmbPos == Left)
         {
             this->windowHandle()->startSystemResize(Qt::LeftEdge);
         }
-        else if (m_leftMouseButtonPressed == Right)
+        else if (_lmbPos == Right)
         {
             this->windowHandle()->startSystemResize(Qt::RightEdge);
         }
@@ -215,7 +212,7 @@ void MainWidget::mousePressEvent(QMouseEvent* event)
 void MainWidget::mouseMoveEvent(QMouseEvent* event)
 {
     checkResizableField(event);
-    switch (m_leftMouseButtonPressed)
+    switch (_lmbPos)
     {
         case Move:
         {
@@ -258,7 +255,7 @@ void MainWidget::mouseReleaseEvent(QMouseEvent* event)
 {
     if (event->button() == Qt::LeftButton)
     {
-        m_leftMouseButtonPressed = None;
+        _lmbPos                  = None;
         _mousePressed            = false;
     }
     update();
@@ -314,11 +311,13 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
 
         if (state == Qt::WindowNoState)
         {
+            setAttribute(Qt::WA_TranslucentBackground);
             layout()->setMargin(9);
             maximize_btn->setIcon(nullptr);
         }
         else if (state == Qt::WindowMaximized)
         {
+            setAttribute(Qt::WA_TranslucentBackground, false);
             layout()->setMargin(0);
             maximize_btn->setIcon(&st::restoreButtonIcon);
         }
@@ -327,19 +326,15 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
     maximize_btn->setClickCallback([=]() {
         if (this->isMaximized())
         {
-            this->setAttribute(Qt::WA_TranslucentBackground);
             window()->setWindowState(Qt::WindowNoState);
-            this->m_leftMouseButtonPressed = None;
         }
         else
         {
-            this->setAttribute(Qt::WA_TranslucentBackground, false);
             window()->setWindowState(Qt::WindowMaximized);
-            this->m_leftMouseButtonPressed = None;
         }
+        _lmbPos = None;
         update();
     });
-    setAttribute(Qt::WA_Hover);
     close_btn->setClickCallback([=]() { deleteLater(); });
     minimize_btn->setClickCallback([=]() { showMinimized(); });
     title->setMouseTracking(true);

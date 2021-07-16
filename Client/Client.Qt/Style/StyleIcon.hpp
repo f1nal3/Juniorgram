@@ -39,6 +39,8 @@ public:
 
     operator const QPixmap*() const { return _data->pixmap(); }
 
+    QSize size() const { return _data->size(); }
+
     IconData* operator->() const { return _data; }
     IconData* v() const { return _data; }
 

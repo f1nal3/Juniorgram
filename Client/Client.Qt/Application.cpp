@@ -13,8 +13,6 @@ void Application::create()
 {
     Style::internal::StartFonts();
     _mainwidget = std::make_unique<MainWidget>();
-    _mainwidget->show();
-    _mainwidget->hide();
 
 #if _WIN32
     HWND handle = reinterpret_cast<HWND>(_mainwidget->winId());
@@ -24,6 +22,9 @@ void Application::create()
     // const MARGINS shadow{9, 9, 9, 9};
     //::DwmExtendFrameIntoClientArea(handle, &shadow);
 #endif
+
+    _icon = new Style::icon(":/images/logo.png");
+    _bio  = std::make_unique<BioButton>();
 
     _mainwidget->addWidget(std::make_unique<Login>());
     _mainwidget->addWidget(std::make_unique<Registration>());
@@ -40,11 +41,9 @@ void Application::show() { _mainwidget->show(); }
 void Application::setAppState(App::AppState app_state)
 {
     mAppState = app_state;
-    _mainwidget->show();
     if (_bio)
     {
-        delete _bio;
-        _bio = nullptr;
+        _bio->hide();
     }
     switch (mAppState)
     {
@@ -60,9 +59,10 @@ void Application::setAppState(App::AppState app_state)
         }
         case App::AppState::ChatWindowForm:
         {
-            _bio = new BioButton(QImage(), true, _mainwidget.get());
-            _bio->setImage(QImage(":/images/logo.png"));
-            _mainwidget->refreshTitleBar(_bio);
+            _bio->setParent(_mainwidget.get());
+            _bio->setIcon(_icon);
+            _bio->show();
+            _mainwidget->refreshTitleBar(_bio.get());
             _mainwidget->setCentralWidget(2);
             break;
         }

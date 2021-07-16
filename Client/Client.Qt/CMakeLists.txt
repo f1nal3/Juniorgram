@@ -22,8 +22,6 @@ set(SOURCE_FILES
         Widgets/ChatWidget.hpp
         Widgets/ComboBox.cpp
         Widgets/ComboBox.hpp
-        Widgets/DateTimeEdit.cpp
-        Widgets/DateTimeEdit.hpp
         Widgets/FlatButton.cpp
         Widgets/FlatButton.hpp
         Widgets/InputFields.cpp
@@ -46,8 +44,6 @@ set(SOURCE_FILES
         Widgets/ScrollArea.hpp
         Widgets/TextEdit.cpp
         Widgets/TextEdit.hpp
-        Widgets/TimeEdit.cpp
-        Widgets/TimeEdit.hpp
         Style/Palette.cpp
         Style/Palette.hpp
         Style/Shadow.hpp

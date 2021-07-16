@@ -22,8 +22,9 @@ class Application : public QApplication
 {
 private:
     std::unique_ptr<MainWidget> _mainwidget;
-    BioButton*                  _bio;
+    std::unique_ptr<BioButton>  _bio;
     App::AppState               mAppState;
+    const Style::icon*          _icon;
 
 public:
     Application(int& argc, char** argv);

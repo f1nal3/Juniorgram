@@ -9,18 +9,16 @@
 
 Login::Login(QWidget* parent) : QWidget(parent)
 {
-    passwordLineEdit = std::make_unique<FlatInput>("Password", true, this);
-    usernameLineEdit = std::make_unique<FlatInput>("Username", this);
+    usernameLineEdit = std::make_unique<FlatInput>(this, "Username");
+    passwordLineEdit = std::make_unique<FlatInput>(this, "Password", true);
 
     buttonSignin       = std::make_unique<FlatButton>(this, "Login");
     buttonRegistration = std::make_unique<FlatButton>(this, "Registration");
 
     logoWidget = std::make_unique<LogoWidget>(this);
 
-
     buttonSignin->setClickCallback([]() { oApp->setAppState(App::AppState::ChatWindowForm); });
     buttonRegistration->setClickCallback([]() { oApp->setAppState(App::AppState::RegistrationForm); });
-
 
     const int BLOCKWIDTH = Style::valueDPIScale(500);
     buttonSignin->resize(BLOCKWIDTH, buttonSignin->sizeHint().height());
