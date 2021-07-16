@@ -1,5 +1,5 @@
-set(TARGET DataAccess.Static)
-set(OUTPUT_NAME DataAccess.Static)
+set(TARGET DataAccess.Postgre)
+set(OUTPUT_NAME DataAccess.Postgre)
 
 set(SOURCE_FILES
     PostgreAdapter.hpp

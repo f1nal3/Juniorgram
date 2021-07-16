@@ -1,6 +1,6 @@
 #pragma once
-#include <DataAccess.Static/UsersAmountFinder.hpp>
-#include <DataAccess.Static/DataBaseOptions.hpp>
+#include <DataAccess.Postgre/UsersAmountFinder.hpp>
+#include <DataAccess.Postgre/DataBaseOptions.hpp>
 
 class TestUsersAmountFinder : public UsersAmountFinder
 {
