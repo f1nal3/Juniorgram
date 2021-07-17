@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-#include <DataAccess.Static/PostgreTable.hpp>
-#include <DataAccess.Static/DataBaseOptions.hpp>
+#include <DataAccess.Postgre/PostgreTable.hpp>
+#include <DataAccess.Postgre/DataBaseOptions.hpp>
 
 DataAccess::PostgreTable test("testing", DBOptions::test);
 

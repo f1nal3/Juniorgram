@@ -1,9 +1,10 @@
 #pragma once
-#include <string_view>
-#include <optional>
-#include <any>
 
-#include <pqxx/pqxx>
+#include <any>
+#include <memory>
+#include <optional>
+#include <string_view>
+
 
 namespace DataAccess
 {

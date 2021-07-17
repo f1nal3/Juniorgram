@@ -1,7 +1,7 @@
 #pragma once
-#include <DataAccess.Static/PostgreTable.hpp>
-#include <DataAccess.Static/RepositoryUnits.hpp>
-#include <DataAccess.Static/DataBaseOptions.hpp>
+#include <DataAccess.Postgre/PostgreTable.hpp>
+#include <DataAccess.Postgre/RepositoryUnits.hpp>
+#include <DataAccess.Postgre/DataBaseOptions.hpp>
 #include <Network/Primitives.hpp>
 #include <string>
 #include <unordered_map>
