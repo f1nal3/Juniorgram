@@ -1,6 +1,9 @@
 #pragma once
 
-#include <Utility.Static/Handler.hpp>
+#include "Handler.hpp"
+
+//EXPERIMENTAL
+#include <any>
 
 namespace Utility
 {
@@ -15,15 +18,15 @@ public:
      * @param message - buffer that contains data that should be serialized.
      * @param bodyBuffer - buffer that will contain serialized body.
      */
-    MessageProcessingState handleOutcomingMessage(Network::Message& message, yas::shared_buffer& bodyBuffer) override;
+    MessageProcessingState handleOutcomingMessage(/*Network::Message& message,*/ yas::shared_buffer& bodyBuffer) override;
     
     /**
      * @brief Method for deserialization of incoming message bodies.
      * @param buffer - buffer that contains data that should be deserialized.
      * @param messageHeader - variable that will contain deserialized message body.
      */
-    MessageProcessingState handleIncomingMessageBody(yas::shared_buffer buffer,
-                                                     Network::Message& message) override;
+    MessageProcessingState handleIncomingMessageBody(yas::shared_buffer buffer/*,
+                                                     Network::Message& message*/) override;
     
 
 private:
@@ -32,7 +35,7 @@ private:
                                                 const std::any messageBody);
 
     template <typename T>
-    SerializedState processIncomingMessageBody(yas::shared_buffer& bodyBuffer,
-                                               Network::Message& message);
+    SerializedState processIncomingMessageBody(yas::shared_buffer& bodyBuffer/*,
+                                               Network::Message& message*/);
 };
 }  // namespace Network

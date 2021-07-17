@@ -7,7 +7,9 @@ set(SOURCE_FILES
 	Message.hpp
 	Message.cpp
 	Primitives.hpp
-	Primitives.cpp)
+	Primitives.cpp
+	SafeQueue.hpp
+	SafeQueue.cpp)
 	
 # Add a library with the above sources
 add_library(${TARGET} STATIC ${SOURCE_FILES})

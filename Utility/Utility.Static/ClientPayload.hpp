@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Utility.Static/Cryptography.hpp>
-#include <Utility.Static/MACAddress.hpp>
+#include "Cryptography.hpp"
+#include "MACAddress.hpp"
 #include <string>
 
 namespace Utility

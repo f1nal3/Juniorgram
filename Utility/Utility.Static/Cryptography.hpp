@@ -13,7 +13,7 @@
 #include <memory>
 #include <string>
 
-#include <Network.Static/Connection.hpp>
+//#include <Network.Static/Connection.hpp>
 
 namespace SymmetricCipher
 {
@@ -59,6 +59,6 @@ std::string getBASE64DecodedValue(std::string& decodedStr);
 
 namespace Signing
 {
-std::string signData(const std::shared_ptr<Network::Connection>& client, std::string& data);
+//std::string signData(const std::shared_ptr<Network::Connection>& client, std::string& data);
 bool verifyData(const std::string& data, const std::string& signature);
 }

@@ -17,22 +17,22 @@ namespace Utility
         return this->nextHandler;
     }
 
-   MessageProcessingState AbstractHandler::handleOutcomingMessage(Network::Message& message,
+   MessageProcessingState AbstractHandler::handleOutcomingMessage(/*Network::Message& message,*/
                                                                    yas::shared_buffer& bodyBuffer)
     {
         if (this->nextHandler)
         {
-            this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
+            this->nextHandler->handleOutcomingMessage(/*message,*/ bodyBuffer);
         }
         return MessageProcessingState::SUCCESS;
     }
 
-    MessageProcessingState AbstractHandler::handleIncomingMessageBody(yas::shared_buffer buffer,
-                                                                      Network::Message& message)
+    MessageProcessingState AbstractHandler::handleIncomingMessageBody(yas::shared_buffer buffer/*,
+                                                                      Network::Message& message*/)
     {
         if (this->nextHandler)
         {
-            this->nextHandler->handleIncomingMessageBody(buffer, message);
+            this->nextHandler->handleIncomingMessageBody(buffer/*, message*/);
         }
         return MessageProcessingState::SUCCESS;
     }

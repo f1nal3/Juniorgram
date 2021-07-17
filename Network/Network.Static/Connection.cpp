@@ -1,10 +1,11 @@
+#include "Message.hpp"
 #include "Connection.hpp"
 
 namespace Network
 {
     Connection::Connection(const OwnerType& owner, asio::io_context& contextLink,
                     asio::ip::tcp::socket socket,
-                    SafeQueue<Message>& incomingMessagesQueueLink)
+                       SafeQueue<Message>& incomingMessagesQueueLink)
     : mOwner(owner),
       mSocket(std::move(socket)),
       mContextLink(contextLink),
@@ -14,7 +15,7 @@ namespace Network
     
     uint64_t Connection::getID() const { return mConnectionID; }
 
-    void Connection::connectToClient(const uint64_t uid = uint64_t())
+    void Connection::connectToClient(const uint64_t uid)
     {
         if (mOwner == OwnerType::SERVER)
         {
@@ -31,13 +32,14 @@ namespace Network
         if (mOwner == OwnerType::CLIENT)
         {
             asio::async_connect(mSocket, endpoint,
-                                [this](std::error_code ec, asio::ip::tcp::endpoint endpoint) {
-                                    if (!ec)
-                                    {
-                                        readHeader();
-                                    }
-                                });
-        }
+            [this](std::error_code ec, asio::ip::tcp::endpoint endpoint) {
+                if (!ec)
+                {
+                    endpoint;
+                    readHeader();
+                }
+            });
+}
     }
 
     void Connection::disconnect()
@@ -86,7 +88,8 @@ namespace Network
                 Message::MessageType::SetEncryptedConnection ||
             mOutcomingMessagesQueue.front().mHeader.mMessageType ==
                 Message::MessageType::ServerAccept ||
-            mOutcomingMessagesQueue.front().mHeader.mMessageType == Message::MessageType::SendIV)
+            mOutcomingMessagesQueue.front().mHeader.mMessageType ==
+                Message::MessageType::SendIV)
         {
             handler.setNext(new Utility::CompressionHandler());
         }
@@ -102,10 +105,10 @@ namespace Network
         if (mOutcomingMessagesQueue.front().mBody.has_value())
         {
             result = handler.handleOutcomingMessage(
-                const_cast<Network::Message&>(mOutcomingMessagesQueue.front()), bodyBuffer);
+                /*const_cast<Network::Message&>(mOutcomingMessagesQueue.front()),*/ bodyBuffer);
         }
 
-        Network::Message::MessageHeader outcomingMessageHeader =
+     Message::MessageHeader outcomingMessageHeader =
             mOutcomingMessagesQueue.front().mHeader;
         outcomingMessageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
 
@@ -136,7 +139,7 @@ namespace Network
             };
 
             asio::async_write(mSocket,
-                              asio::buffer(&outcomingMessageHeader, sizeof(Message::MessageHeader)),
+                asio::buffer(&outcomingMessageHeader, sizeof(Message::MessageHeader)),
                               std::bind(writeHeaderHandler, std::placeholders::_1));
         }
     }
@@ -185,8 +188,7 @@ namespace Network
             }
         };
 
-        asio::async_read(mSocket,
-                         asio::buffer(&mMessageBuffer.mHeader, sizeof(Message::MessageHeader)),
+        asio::async_read(mSocket, asio::buffer(&mMessageBuffer.mHeader, sizeof(Message::MessageHeader)),
                          std::bind(readHeaderHandler, std::placeholders::_1));
     }
 
@@ -213,7 +215,7 @@ namespace Network
                 }
 
                 Utility::MessageProcessingState result =
-                    handler.handleIncomingMessageBody(buffer, mMessageBuffer);
+                    handler.handleIncomingMessageBody(buffer/*, mMessageBuffer*/);
 
                 if (result == Utility::MessageProcessingState::SUCCESS)
                 {
@@ -237,7 +239,7 @@ namespace Network
         {
             mMessageBuffer.mRemote = this->shared_from_this();
             mIncomingMessagesQueueLink.push_back(mMessageBuffer);
-        }
+        }   
         else
         {
             mIncomingMessagesQueueLink.push_back(mMessageBuffer);

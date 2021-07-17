@@ -13,7 +13,7 @@ std::pair<std::unique_ptr<char[]>, size_t> CompressionHandler::compress(const vo
             __FILE__, __LINE__);
     }
 
-    unsigned int csizeBound = LZ4_compressBound((int)dataSize);
+    int csizeBound = LZ4_compressBound((int)dataSize);
 
     std::unique_ptr<char[]> compressedData(new char[csizeBound]);
     int compressedBytes = LZ4_compress_default(static_cast<const char*>(data), compressedData.get(),
@@ -69,7 +69,7 @@ std::pair<std::unique_ptr<char[]>, size_t> CompressionHandler::decompress(const 
 }
 
 Utility::MessageProcessingState CompressionHandler::handleOutcomingMessage(
-    Network::Message& message, yas::shared_buffer& bodyBuffer)
+   /* Network::Message& message,*/ yas::shared_buffer& bodyBuffer)
 {
     // Message::MessageHeader messageHeader = message.mHeader;
     // body compression
@@ -85,13 +85,13 @@ Utility::MessageProcessingState CompressionHandler::handleOutcomingMessage(
 
     if (this->nextHandler)
     {
-        return this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
+        return this->nextHandler->handleOutcomingMessage(/*message,*/ bodyBuffer);
     }
     return Utility::MessageProcessingState::SUCCESS;
 }
 
 Utility::MessageProcessingState CompressionHandler::handleIncomingMessageBody(
-    yas::shared_buffer buffer, Network::Message& message)
+    yas::shared_buffer buffer/*, Network::Message& message*/)
 {
     std::string strBodyBuffer = std::string(buffer.data.get(), buffer.size);
 
@@ -102,7 +102,7 @@ Utility::MessageProcessingState CompressionHandler::handleIncomingMessageBody(
 
     if (this->nextHandler)
     {
-        return this->nextHandler->handleIncomingMessageBody(buffer, message);
+        return this->nextHandler->handleIncomingMessageBody(buffer/*, message*/);
     }
     return Utility::MessageProcessingState::SUCCESS;
 }

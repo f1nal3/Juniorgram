@@ -14,11 +14,10 @@
 #include <iostream>
 #include <functional>
 
-#include "Message.hpp"
-#include "Network/SafeQueue.hpp"
+#include "SafeQueue.hpp"
+
 #include "Utility/Utility.hpp"
 #include "Utility/WarningSuppression.hpp"
-
 
 #include <Utility.Static/KeyDestributor.hpp>
 #include <Utility.Static/EncryptionHandler.hpp>
@@ -27,14 +26,16 @@
 #include <Utility.Static/Handler.hpp>
 #include <Utility.Static/YasSerializer.hpp>
 
-
 namespace Network
 {
+struct Message;
 /** @class Connection
  *  @brief Connection managment class
  *  @details see https://github.com/f1nal3/Juniorgram/wiki/Legacy-Frontend-network \
  *  for additional details
  */
+    //using Message = Network::Message;
+
 class Connection : public std::enable_shared_from_this<Connection>
 {
 public:

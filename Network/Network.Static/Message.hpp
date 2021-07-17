@@ -8,7 +8,6 @@
 #include <memory>
 #include <vector>
 
-#include "Connection.hpp"
 #include "Utility/Utility.hpp"
 
 namespace Network

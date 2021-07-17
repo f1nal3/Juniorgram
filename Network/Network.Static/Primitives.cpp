@@ -15,7 +15,7 @@ namespace Network
         ar& o.userID& o.message;
     }
 
-    explicit RegistrationInfo::RegistrationInfo(const std::string& email, const std::string& login,
+    RegistrationInfo::RegistrationInfo(const std::string& email, const std::string& login,
                               const std::string& passwordHash)
         : email(email), login(login), passwordHash(passwordHash)
     {

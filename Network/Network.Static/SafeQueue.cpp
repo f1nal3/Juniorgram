@@ -1,39 +1,23 @@
-#pragma once
-
-#include <condition_variable>
-#include <deque>
-#include <mutex>
-#include <thread>
+#include "SafeQueue.hpp"    
 
 namespace Network
 {
-template <typename T>
-class SafeQueue
-{
-    std::mutex mScopedMutex, mUniqueMutex;
-    std::condition_variable mBlock;
-
-    std::deque<T> mRawQueue;
-
-public:
-    SafeQueue()                          = default;
-    SafeQueue(const SafeQueue<T>& other) = delete;
-
-    ~SafeQueue() { clear(); }
-
-    const T& front()
+    template<class T>
+    const T& SafeQueue<T>::front()
     {
         std::scoped_lock scopedLock(mScopedMutex);
         return mRawQueue.front();
     }
 
-    const T& back()
+    template <class T>
+    const T& SafeQueue<T>::back()
     {
         std::scoped_lock scopedLock(mScopedMutex);
         return mRawQueue.back();
     }
 
-    T pop_front()
+    template <class T>
+    T SafeQueue<T>::pop_front()
     {
         std::scoped_lock scopedLock(mScopedMutex);
         T result = std::move(mRawQueue.front());
@@ -41,7 +25,8 @@ public:
         return result;
     }
 
-    T pop_back()
+    template <class T>
+    T SafeQueue<T>::pop_back()
     {
         std::scoped_lock scopedLock(mScopedMutex);
         T result = std::move(mRawQueue.back());
@@ -49,7 +34,8 @@ public:
         return result;
     }
 
-    void push_back(const T& item)
+    template <class T>
+    void SafeQueue<T>::push_back(const T& item)
     {
         std::scoped_lock scopedLock(mScopedMutex);
         mRawQueue.emplace_back(std::move(item));
@@ -58,7 +44,8 @@ public:
         mBlock.notify_one();
     }
 
-    void push_front(const T& item)
+    template <class T>
+    void SafeQueue<T>::push_front(const T& item)
     {
         std::scoped_lock scopedLock(mScopedMutex);
         mRawQueue.emplace_front(std::move(item));
@@ -67,25 +54,29 @@ public:
         mBlock.notify_one();
     }
 
-    bool empty()
+    template <class T>
+    bool SafeQueue<T>::empty()
     {
         std::scoped_lock scopedLock(mScopedMutex);
         return mRawQueue.empty();
     }
 
-    size_t size()
+    template <class T>
+    size_t SafeQueue<T>::size()
     {
         std::scoped_lock scopedLock(mScopedMutex);
         return mRawQueue.size();
     }
 
-    void clear()
+    template <class T>
+    void SafeQueue<T>::clear()
     {
         std::scoped_lock scopedLock(mScopedMutex);
         mRawQueue.clear();
     }
 
-    void wait()
+    template <class T>
+    void SafeQueue<T>::wait()
     {
         while (empty())
         {
@@ -93,5 +84,8 @@ public:
             mBlock.wait(uniqueLock);
         }
     }
-};
-}  // namespace Network
+
+    template <class T>
+    SafeQueue<T>::~SafeQueue() { clear(); }
+    
+}

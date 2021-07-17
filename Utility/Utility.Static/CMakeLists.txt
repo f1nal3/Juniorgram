@@ -6,8 +6,6 @@ set(SOURCE_FILES
     Cryptography.cpp
     JsonSerializer.hpp
     JsonSerializer.cpp
-    SafePriorityQueue.hpp
-    TaskManager.hpp
     KeyDestributor.hpp
     KeyHolder.hpp
 	MACAddress.hpp

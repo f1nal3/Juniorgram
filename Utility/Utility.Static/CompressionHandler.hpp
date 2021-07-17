@@ -25,7 +25,7 @@ public:
     std::pair<std::unique_ptr<char[]>, size_t> decompress(const void* data,
                                                           unsigned int dataSize);
 
-    MessageProcessingState handleOutcomingMessage(Network::Message& message,
+    MessageProcessingState handleOutcomingMessage(/*Network::Message& message,*/
                                                            yas::shared_buffer& bodyBuffer) override;
 
     /**
@@ -33,8 +33,8 @@ public:
      * @param buffer - buffer that contains data that should be decompressed.
      * @param messageHeader - variable that will contain decompressed message body.
      */
-    MessageProcessingState handleIncomingMessageBody(yas::shared_buffer buffer,
-                                                              Network::Message& message) override;
+    MessageProcessingState handleIncomingMessageBody(yas::shared_buffer buffer/*,
+                                                              Network::Message& message*/) override;
 
 private:
     /** 
