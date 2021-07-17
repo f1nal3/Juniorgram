@@ -1,9 +1,9 @@
 #pragma once
-//#include <Network.Static/Message.hpp>
 #include "YasSerializer.hpp"
 
 namespace Utility
 {
+struct Network::Message;
 /** @enum MessageProcessingState
  *  @brief Successful or not result of message preprocessing
  */
@@ -27,10 +27,10 @@ public:
     virtual ~Handler()            = default;
 
     virtual Handler* setNext(Handler* handler)                                            = 0;
-    virtual MessageProcessingState handleOutcomingMessage(/*Network::Message& message,*/
+    virtual MessageProcessingState handleOutcomingMessage(Network::Message& message,
                                                           yas::shared_buffer& bodyBuffer) = 0;
-    virtual MessageProcessingState handleIncomingMessageBody(yas::shared_buffer buffer/*,
-                                                             Network::Message& message*/)   = 0;
+    virtual MessageProcessingState handleIncomingMessageBody(yas::shared_buffer buffer,
+                                                             Network::Message& message)   = 0;
 };
 
 /** @class AbstractHandler
@@ -57,7 +57,7 @@ public:
      * @param message - buffer that contains data that should be preprocessed.
      * @param bodyBuffer - buffer that will contain preprocessed body.
      */
-    MessageProcessingState handleOutcomingMessage(/*Network::Message& message,*/
+    MessageProcessingState handleOutcomingMessage(Network::Message& message,
                                                   yas::shared_buffer& bodyBuffer) override;
 
     /**
@@ -65,7 +65,7 @@ public:
      * @param buffer - buffer that contains data that should be preprocessed.
      * @param messageHeader - variable that will contain preprocessed message body.
      */
-    MessageProcessingState handleIncomingMessageBody( yas::shared_buffer buffer/*,
-                                                     Network::Message& message*/) override;
+    MessageProcessingState handleIncomingMessageBody( yas::shared_buffer buffer,
+                                                     Network::Message& message) override;
 };
 }  // namespace Network

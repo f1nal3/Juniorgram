@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "Handler.hpp"
 
 #include <cryptopp/osrng.h>
@@ -22,13 +23,13 @@ public:
      * @param headerBuffer - buffer that will contain encrypted header.
      * @param bodyBuffer - buffer that will contain encrypted body.
      */
-    MessageProcessingState handleOutcomingMessage(/*Network::Message& message,*/ yas::shared_buffer& bodyBuffer) override;
+    MessageProcessingState handleOutcomingMessage(Network::Message& message, yas::shared_buffer& bodyBuffer) override;
     /**
      * @brief Method for decryption of incoming message bodies.
      * @param buffer - buffer that contains data that should be decrypted.
      * @param messageHeader - variable that will contain decrypted message body.
      */
-    MessageProcessingState handleIncomingMessageBody(yas::shared_buffer buffer/*, Network::Message& message*/) override;
+    MessageProcessingState handleIncomingMessageBody(yas::shared_buffer buffer, Network::Message& message) override;
 
     static void calculateDigest(const CryptoPP::SecByteBlock& sharedSecret);
 

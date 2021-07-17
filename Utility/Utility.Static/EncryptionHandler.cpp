@@ -1,9 +1,10 @@
+#include <Network.Static/Message.hpp>
 #include "EncryptionHandler.hpp"
 
 namespace Utility
 {
 Utility::MessageProcessingState EncryptionHandler::handleOutcomingMessage(
-    /*Network::Message& message,*/ yas::shared_buffer& bodyBuffer)
+    Network::Message& message, yas::shared_buffer& bodyBuffer)
 {
     // Message::MessageHeader messageHeader = message.mHeader;
     // body encryption
@@ -17,13 +18,13 @@ Utility::MessageProcessingState EncryptionHandler::handleOutcomingMessage(
 
     if (this->nextHandler)
     {
-        return this->nextHandler->handleOutcomingMessage(/*message, */bodyBuffer);
+        return this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
     }
     return Utility::MessageProcessingState::SUCCESS;
 }
 
 Utility::MessageProcessingState EncryptionHandler::handleIncomingMessageBody(
-    yas::shared_buffer buffer/*, Network::Message& message*/)
+    yas::shared_buffer buffer, Network::Message& message)
 {
     CryptoPP::CFB_Mode<CryptoPP::AES>::Decryption cfbDecryption(mEncryptionKey,
                                                                 CryptoPP::AES::BLOCKSIZE, mIV);
@@ -33,7 +34,7 @@ Utility::MessageProcessingState EncryptionHandler::handleIncomingMessageBody(
 
     if (this->nextHandler)
     {
-        return this->nextHandler->handleIncomingMessageBody(buffer/*, message*/);
+        return this->nextHandler->handleIncomingMessageBody(buffer, message);
     }
     return Utility::MessageProcessingState::SUCCESS;
 }

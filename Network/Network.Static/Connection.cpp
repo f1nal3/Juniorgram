@@ -105,7 +105,7 @@ namespace Network
         if (mOutcomingMessagesQueue.front().mBody.has_value())
         {
             result = handler.handleOutcomingMessage(
-                /*const_cast<Network::Message&>(mOutcomingMessagesQueue.front()),*/ bodyBuffer);
+                const_cast<Network::Message&>(mOutcomingMessagesQueue.front()), bodyBuffer);
         }
 
      Message::MessageHeader outcomingMessageHeader =
@@ -215,7 +215,7 @@ namespace Network
                 }
 
                 Utility::MessageProcessingState result =
-                    handler.handleIncomingMessageBody(buffer/*, mMessageBuffer*/);
+                    handler.handleIncomingMessageBody(buffer, mMessageBuffer);
 
                 if (result == Utility::MessageProcessingState::SUCCESS)
                 {
