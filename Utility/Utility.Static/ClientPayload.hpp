@@ -1,4 +1,4 @@
-#pragma once
+    #pragma once
 
 #include "Cryptography.hpp"
 #include "MACAddress.hpp"

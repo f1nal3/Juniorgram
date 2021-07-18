@@ -1,7 +1,6 @@
 #pragma once
 
-
-#include "Utility/SignerAndVerifier.hpp"
+#include "SignerAndVerifier.hpp"
 
 #include <cryptopp/hex.h>
 #include <cryptopp/modes.h>
@@ -13,10 +12,14 @@
 #include <memory>
 #include <string>
 
-//#include <Network.Static/Connection.hpp>
+namespace Network
+{
+class Connection;
+}
 
 namespace SymmetricCipher
 {
+
 struct ICipher
 {
     virtual std::string generateKey()                                                        = 0;
@@ -57,8 +60,9 @@ std::string getBASE64CodedValue(std::string& decodedStr);
 std::string getBASE64DecodedValue(std::string& decodedStr);
 }
 
+
 namespace Signing
 {
-//std::string signData(const std::shared_ptr<Network::Connection>& client, std::string& data);
+std::string signData(const std::shared_ptr<Network::Connection>& client, std::string& data);
 bool verifyData(const std::string& data, const std::string& signature);
 }

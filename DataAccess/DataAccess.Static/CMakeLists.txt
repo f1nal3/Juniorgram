@@ -20,7 +20,11 @@ set(SOURCE_FILES
     RepositoryUnits.hpp
     RepositoryUnits.cpp
     SQLStatements.hpp
-    QueryBuilder.hpp)
+    QueryBuilder.hpp
+	IAdapter.hpp
+	IAdapter.cpp
+	IRepository.hpp
+	IRepository.cpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
@@ -41,5 +45,5 @@ target_link_libraries(${TARGET} PUBLIC
     CONAN_PKG::sqlcipher)
 
 target_link_libraries(${TARGET}
-    PUBLIC Utility.Public DataAccess.Public)
+    PUBLIC Utility.Public)
 

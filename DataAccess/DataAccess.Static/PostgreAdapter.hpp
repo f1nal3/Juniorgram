@@ -1,12 +1,13 @@
 #pragma once
 
+#include "IAdapter.hpp"
+
 #include <mutex>
 #include <memory>
 
 #include <pqxx/pqxx>
 
 #include <Utility/Exception.hpp>
-#include <DataAccess/IAdapter.hpp>
 
 namespace DataAccess
 {

@@ -1,3 +1,4 @@
+#include <Network.Static/Connection.hpp>
 #include "Cryptography.hpp"
 
 namespace SymmetricCipher
@@ -135,15 +136,14 @@ std::string getBASE64DecodedValue(std::string& codedStr)
 
 namespace Signing
 {
-//std::string signData(const std::shared_ptr<Network::Connection>& client, std::string& data)
-//{
-//    Utility::SignerAndVerifier::Instance().initPoint(
-//        client->getKeyDestributor().get()->getPrivateServerKey());
-//    Utility::SignerAndVerifier::Instance().initAndSavePrivateAndPublicKey();
-//    Utility::SignerAndVerifier::Instance().loadPrivateKey();
-//
-//    return Utility::SignerAndVerifier::Instance().sign(data);
-//}
+std::string signData(const std::shared_ptr<Network::Connection>& client, std::string& data)
+{
+    Utility::SignerAndVerifier::Instance().initPoint(client->getKeyDestributor().get()->getPrivateServerKey());
+    Utility::SignerAndVerifier::Instance().initAndSavePrivateAndPublicKey();
+    Utility::SignerAndVerifier::Instance().loadPrivateKey();
+
+    return Utility::SignerAndVerifier::Instance().sign(data);
+}
 
 bool verifyData(const std::string& data, const std::string& signature)
 {

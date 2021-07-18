@@ -1,10 +1,4 @@
 #pragma once
-
-#include "DataAccess/IRepository.hpp"
-#include "Network/Connection.hpp"
-#include "Network/SafeQueue.hpp"
-#include "Network/Message.hpp"
-
 #include <asio.hpp>
 
 #include <chrono>
@@ -12,6 +6,14 @@
 #include <iostream>
 #include <memory>
 #include <thread>
+
+#include <Network.Static/Connection.hpp>
+#include <Network.Static/SafeQueue.hpp>
+#include <Network.Static/Message.hpp>
+#include <Network.Static/Primitives.hpp>
+
+#include <DataAccess.Static/IRepository.hpp>
+
 
 namespace Server
 {

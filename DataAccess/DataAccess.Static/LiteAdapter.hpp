@@ -1,10 +1,11 @@
 #pragma once
 
+#include "IAdapter.hpp"
+
 #include <QtSql/QSql>
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
 
-#include <DataAccess/IAdapter.hpp>
 #include <Utility/Exception.hpp>
 
 #include <memory>

@@ -8,7 +8,7 @@
 
 #include <QVariant>
 
-#include "DataAccess/IRepository.hpp"
+#include "IRepository.hpp"
 #include "SQLCipherTable.hpp"
 
 

@@ -21,7 +21,11 @@ set(SOURCE_FILES
 	EncryptionHandler.hpp
 	EncryptionHandler.cpp
 	CompressionHandler.hpp
-	CompressionHandler.cpp)
+	CompressionHandler.cpp
+	TokenBuilder.hpp
+	TokenBuilder.cpp
+	SignerAndVerifier.hpp
+	SignerAndVerifier.cpp)
 	
 # Add a library with the above sources
 add_library(${TARGET} STATIC ${SOURCE_FILES})

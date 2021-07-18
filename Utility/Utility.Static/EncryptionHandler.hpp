@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "Handler.hpp"
 
 #include <cryptopp/osrng.h>

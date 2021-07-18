@@ -1,14 +1,15 @@
 #include "Server.hpp"
-#include "Network/Primitives.hpp"
-#include "DataAccess.Static/PostgreRepository.hpp"
-#include "DataAccess.Static/RepositoryUnits.hpp"
+
 #include "Utility/TokenBuilder.hpp"
+
+#include <DataAccess.Static/PostgreRepository.hpp>
+#include <DataAccess.Static/RepositoryUnits.hpp>
 #include <Utility.Static/ClientPayload.hpp>
 #include <future>
 
 using Network::Connection;
-using Network::Message;
 using Network::SafeQueue;
+using Network::Message;
 
 namespace Server
 {

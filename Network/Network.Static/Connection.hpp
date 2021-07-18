@@ -15,26 +15,30 @@
 #include <functional>
 
 #include "SafeQueue.hpp"
+#include "Message.hpp"
 
 #include "Utility/Utility.hpp"
 #include "Utility/WarningSuppression.hpp"
 
-#include <Utility.Static/KeyDestributor.hpp>
-#include <Utility.Static/EncryptionHandler.hpp>
-#include <Utility.Static/CompressionHandler.hpp>
-#include <Utility.Static/SerializationHandler.hpp>
-#include <Utility.Static/Handler.hpp>
-#include <Utility.Static/YasSerializer.hpp>
+//#include <yas/buffers.hpp>
+
+namespace Utility
+{
+class  KeyDestributor;
+class  Handler;
+class  EncryptionHandler;
+class  CompressionHandler;
+class  SerializationHandler;
+}
 
 namespace Network
 {
-struct Message;
-/** @class Connection
+    /** @class Connection
  *  @brief Connection managment class
  *  @details see https://github.com/f1nal3/Juniorgram/wiki/Legacy-Frontend-network \
  *  for additional details
  */
-    //using Message = Network::Message;
+// using Message = Network::Message;
 
 class Connection : public std::enable_shared_from_this<Connection>
 {

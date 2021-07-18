@@ -1,11 +1,11 @@
 #pragma once
 #include "Utility/WarningSuppression.hpp"
+#include "IAdapter.hpp"
 
 #include <iostream>
 #include <memory>
 #include <mutex>
 #include <sqlcipher/sqlite3.h>
-#include <DataAccess/IAdapter.hpp>
 #include <Utility.Static/Cryptography.hpp>
 #include <Utility/Exception.hpp>
 #include <Utility.Static/MACAddress.hpp>

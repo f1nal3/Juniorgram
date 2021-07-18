@@ -3,8 +3,9 @@
 #include <random>
 #include <string>
 
-#include <Network.Static/Primitives.hpp>
 #include "PostgreRepository.hpp"
+
+#include <Network.Static/Primitives.hpp>
 #include <Utility/Utility.hpp>
 
 std::string nowTimeStampStr();

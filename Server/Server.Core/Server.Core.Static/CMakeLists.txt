@@ -19,8 +19,11 @@ target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:DataAccess.Static,SOURCE_DIR>/..)
 target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
+	target_include_directories(${TARGET}
+    PRIVATE ${CONAN_INCLUDE_DIRS_QT}
+    $<TARGET_PROPERTY:Network.Static,SOURCE_DIR>/..)
 	        
 target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas CONAN_PKG::lz4 DataAccess.Static)
-target_link_libraries(${TARGET} PUBLIC Network.Public DataAccess.Public Utility.Static Utility.Public)
+target_link_libraries(${TARGET} PUBLIC Network.Static Utility.Static Utility.Public)
 
 set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)
