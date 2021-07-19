@@ -23,6 +23,15 @@ namespace Utility
         mPoint = CryptoPP::Integer(privKey.data(), privKey.size());
     }
 
+    void SignerAndVerifier::initAndSavePrivateAndPublicKey()
+    {
+        mPrivKey.Initialize(mEllipticCurve, mPoint);
+        mPrivKey.Save(mPrivateKey);
+
+        mPrivKey.MakePublicKey(mPubKey);
+        mPubKey.Save(mPublicKey);
+    }
+
     void SignerAndVerifier::loadPrivateKey()
     {
         // Load private key (in ByteQueue, PKCS#8 format)

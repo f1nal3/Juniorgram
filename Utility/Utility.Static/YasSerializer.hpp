@@ -18,7 +18,7 @@ restoreWarning
 
 //#include <Network.Static/Primitives.hpp>
 
-namespace Utility
+namespace Utility   
 {
     /** @enum SerializedState
      *  @brief Successful or not result of serialization/deserialization

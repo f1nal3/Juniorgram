@@ -50,12 +50,12 @@ namespace Utility
                 }
                 else
                 {
-                    std::assert(false && "Òo rules invoked!\n");
+                    assert(false && "Òo rules invoked!\n");
                 }
             },
             currentState);
     }
-
+   
     template <typename S, typename... Handlers>
     auto makeTokenBuilder(Handlers&&... h)
     {

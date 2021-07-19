@@ -6,7 +6,6 @@
 #define _WIN32_WINNT 0x0601
 #endif
 #endif
-
 #define _WIN32_WINNT 0x0601
 
 #include <asio.hpp>
@@ -19,8 +18,13 @@
 
 #include "Utility/Utility.hpp"
 #include "Utility/WarningSuppression.hpp"
-
-//#include <yas/buffers.hpp>
+// clang-format off
+suppressWarning(4996, -Wdeprecated-declarations)
+suppressWarning(4458, -Wshadow)
+#include <yas/buffers.hpp>
+restoreWarning
+restoreWarning
+// clang-format on
 
 namespace Utility
 {
@@ -99,7 +103,7 @@ private:
      */
     void writeBody(yas::shared_buffer buffer);
 
-    /**
+    /**             
      * @brief Method for getting message header.
      * @details Function asio::async_read is used to read the header of the message /
      * from the socket. /

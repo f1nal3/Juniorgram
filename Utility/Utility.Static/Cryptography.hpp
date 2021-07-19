@@ -1,6 +1,8 @@
 #pragma once
 
+//#include <Network.Static/Connection.hpp>
 #include "SignerAndVerifier.hpp"
+#include "KeyDestributor.hpp"
 
 #include <cryptopp/hex.h>
 #include <cryptopp/modes.h>
@@ -9,12 +11,13 @@
 #include <cryptopp/dh2.h>
 #include <cryptopp/eccrypto.h>
 
+
 #include <memory>
 #include <string>
 
 namespace Network
 {
-class Connection;
+class Connection;   
 }
 
 namespace SymmetricCipher

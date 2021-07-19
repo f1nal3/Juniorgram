@@ -8,6 +8,7 @@
 #include <memory>
 #include <string_view>
 #include <nlohmann/json.hpp>
+#include <cassert>
 #include <algorithm>
 
 #include "Utility/WarningSuppression.hpp"

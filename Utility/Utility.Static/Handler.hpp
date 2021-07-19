@@ -1,9 +1,14 @@
 #pragma once
 #include "YasSerializer.hpp"
 
+namespace Network
+{
+struct Message;
+}
+
 namespace Utility
 {
-struct Network::Message;
+
 /** @enum MessageProcessingState
  *  @brief Successful or not result of message preprocessing
  */

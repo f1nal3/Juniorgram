@@ -22,7 +22,7 @@ public:
 
     static std::string sign(const std::string& data);
 
-    bool verify(const std::string& data, const std::string& signature);
+    static bool verify(const std::string& data, const std::string& signature);
 
     virtual ~SignerAndVerifier();
 

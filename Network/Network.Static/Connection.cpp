@@ -1,10 +1,10 @@
+#include "Connection.hpp"
+
+#include <Utility.Static/YasSerializer.hpp>
 #include <Utility.Static/CompressionHandler.hpp>
 #include <Utility.Static/SerializationHandler.hpp>
-#include <Utility.Static/YasSerializer.hpp>
 #include <Utility.Static/KeyDestributor.hpp>
 #include <Utility.Static/EncryptionHandler.hpp>
-
-#include "Connection.hpp"
 
 namespace Network
 {
