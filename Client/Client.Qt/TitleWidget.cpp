@@ -9,9 +9,9 @@
 
 TitleWidget::TitleWidget(QWidget* parent) : QWidget(parent)
 {
-    _closebtn    = std::make_unique<CaptionButton>(this, QColor(232, 17, 35), st::closeButtonIcon);
-    _maximizebtn = std::make_unique<CaptionButton>(this, QColor(255, 255, 255, 76), st::maximizeButtonIcon);
-    _minbtn      = std::make_unique<CaptionButton>(this, QColor(255, 255, 255, 76), st::minimizeButtonIcon);
+    _closeButton = std::make_unique<CaptionButton>(this, QColor(232, 17, 35), st::closeButtonIcon);
+    _maximizeButton = std::make_unique<CaptionButton>(this, QColor(255, 255, 255, 76), st::maximizeButtonIcon);
+    _minimizeButton = std::make_unique<CaptionButton>(this, QColor(255, 255, 255, 76), st::minimizeButtonIcon);
 
     setFixedHeight(Style::valueDPIScale(30) / Style::devicePixelRatio());
 
@@ -22,17 +22,17 @@ TitleWidget::TitleWidget(QWidget* parent) : QWidget(parent)
         {
             parent->setAttribute(Qt::WA_TranslucentBackground);
             parent->layout()->setMargin(9);
-            _maximizebtn->setIcon(nullptr);
+            _maximizeButton->setIcon(nullptr);
         }
         else if (state == Qt::WindowMaximized)
         {
             parent->setAttribute(Qt::WA_TranslucentBackground, false);
             parent->layout()->setMargin(0);
-            _maximizebtn->setIcon(&st::restoreButtonIcon);
+            _maximizeButton->setIcon(&st::restoreButtonIcon);
         }
     });
 
-    _maximizebtn->setClickCallback([=]() {
+    _maximizeButton->setClickCallback([=]() {
         if (parent->isMaximized())
         {
             window()->setWindowState(Qt::WindowNoState);
@@ -43,8 +43,8 @@ TitleWidget::TitleWidget(QWidget* parent) : QWidget(parent)
         }
         update();
     });
-    _closebtn->setClickCallback([=]() { parent->deleteLater(); });
-    _minbtn->setClickCallback([=]() { parent->showMinimized(); });
+    _closeButton->setClickCallback([=]() { parent->deleteLater(); });
+    _minimizeButton->setClickCallback([=]() { parent->showMinimized(); });
 }
 
 void TitleWidget::paintEvent(QPaintEvent* paintEvent)
@@ -55,10 +55,10 @@ void TitleWidget::paintEvent(QPaintEvent* paintEvent)
 }
 void TitleWidget::resizeEvent(QResizeEvent* resizeEvent)
 {
-    const int buttonWidth = _closebtn->width();
-    _closebtn->move(width() - buttonWidth, 0);
-    _maximizebtn->move(width() - buttonWidth * 2, 0);
-    _minbtn->move(width() - buttonWidth * 3, 0);
+    const int buttonWidth = _closeButton->width();
+    _closeButton->move(width() - buttonWidth, 0);
+    _maximizeButton->move(width() - buttonWidth * 2, 0);
+    _minimizeButton->move(width() - buttonWidth * 3, 0);
     QWidget::resizeEvent(resizeEvent);
 }
 

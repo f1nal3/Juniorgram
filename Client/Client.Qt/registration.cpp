@@ -8,34 +8,34 @@
 
 Registration::Registration(QWidget* parent) : QWidget(parent)
 {
-    emailLineEdit          = std::make_unique<FlatInput>(this, "Email");
-    usernameLineEdit       = std::make_unique<FlatInput>(this, "Username");
-    passwordLineEdit       = std::make_unique<FlatInput>(this, "Password", true);
-    passwordRepeatLineEdit = std::make_unique<FlatInput>(this, "Repeat password", true);
-    registrationButton     = std::make_unique<FlatButton>(this, "Create account");
-    back                   = std::make_unique<FlatButton>(this, "Back");
+    _emailInput            = std::make_unique<FlatInput>(this, "Email");
+    _usernameInput         = std::make_unique<FlatInput>(this, "Username");
+    _passwordInput         = std::make_unique<FlatInput>(this, "Password", true);
+    _repeatPasswordInput   = std::make_unique<FlatInput>(this, "Repeat password", true);
+    _registrationButton    = std::make_unique<FlatButton>(this, "Create account");
+    _backButton            = std::make_unique<FlatButton>(this, "Back");
 
-    logoWidget = std::make_unique<LogoWidget>(this);
+    _logoWidget = std::make_unique<LogoWidget>(this);
 
-    back->setClickCallback([]() { oApp->setAppState(App::AppState::LoginForm); });
+    _backButton->setClickCallback([]() { oApp->setAppState(App::AppState::LoginForm); });
 
     const int BLOCKWIDTH = Style::valueDPIScale(500);
 
-    emailLineEdit->resize(BLOCKWIDTH, emailLineEdit->sizeHint().height());
-    usernameLineEdit->resize(BLOCKWIDTH, usernameLineEdit->sizeHint().height());
-    passwordLineEdit->resize(BLOCKWIDTH, passwordLineEdit->sizeHint().height());
-    passwordRepeatLineEdit->resize(BLOCKWIDTH, passwordRepeatLineEdit->sizeHint().height());
-    registrationButton->resize(BLOCKWIDTH, registrationButton->sizeHint().height());
-    back->resize(BLOCKWIDTH, back->sizeHint().height());
-    logoWidget->setPart(30);
+    _emailInput->resize(BLOCKWIDTH, _emailInput->sizeHint().height());
+    _usernameInput->resize(BLOCKWIDTH, _usernameInput->sizeHint().height());
+    _passwordInput->resize(BLOCKWIDTH, _passwordInput->sizeHint().height());
+    _repeatPasswordInput->resize(BLOCKWIDTH, _repeatPasswordInput->sizeHint().height());
+    _registrationButton->resize(BLOCKWIDTH, _registrationButton->sizeHint().height());
+    _backButton->resize(BLOCKWIDTH, _backButton->sizeHint().height());
+    _logoWidget->setPart(30);
 
-    registrationButton->setClickCallback([this]() {
+    _registrationButton->setClickCallback([this]() {
         using namespace UserDataValidation;
 
-        std::string email          = emailLineEdit->text().toStdString();
-        std::string login          = usernameLineEdit->text().toStdString();
-        std::string password       = passwordLineEdit->text().toStdString();
-        std::string repeatPassword = passwordRepeatLineEdit->text().toStdString();
+        std::string email          = _emailInput->text().toStdString();
+        std::string login          = _usernameInput->text().toStdString();
+        std::string password       = _passwordInput->text().toStdString();
+        std::string repeatPassword = _repeatPasswordInput->text().toStdString();
 
         if (email.empty() || login.empty() || password.empty() || repeatPassword.empty())
         {
@@ -77,12 +77,12 @@ void Registration::resizeEvent(QResizeEvent* event)
     const int   HOR_SPACING   = Style::valueDPIScale(16);
     const int   MIN_TOP_SHIFT = SIZE.height() * 30 / 100;
     const int   LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
-    logoWidget->recountSize();
+    _logoWidget->recountSize();
 
-    emailLineEdit->move(LEFT_SHIFT, MIN_TOP_SHIFT);
-    usernameLineEdit->move(LEFT_SHIFT, emailLineEdit->geometry().bottom() + 1 + HOR_SPACING);
-    passwordLineEdit->move(LEFT_SHIFT, usernameLineEdit->geometry().bottom() + 1 + HOR_SPACING);
-    passwordRepeatLineEdit->move(LEFT_SHIFT, passwordLineEdit->geometry().bottom() + 1 + HOR_SPACING);
-    registrationButton->move(LEFT_SHIFT, passwordRepeatLineEdit->geometry().bottom() + 1 + HOR_SPACING * 3 / 2);
-    back->move(LEFT_SHIFT, registrationButton->geometry().bottom() + 1 + HOR_SPACING);
+    _emailInput->move(LEFT_SHIFT, MIN_TOP_SHIFT);
+    _usernameInput->move(LEFT_SHIFT, _emailInput->geometry().bottom() + 1 + HOR_SPACING);
+    _passwordInput->move(LEFT_SHIFT, _usernameInput->geometry().bottom() + 1 + HOR_SPACING);
+    _repeatPasswordInput->move(LEFT_SHIFT, _passwordInput->geometry().bottom() + 1 + HOR_SPACING);
+    _registrationButton->move(LEFT_SHIFT, _repeatPasswordInput->geometry().bottom() + 1 + HOR_SPACING * 3 / 2);
+    _backButton->move(LEFT_SHIFT, _registrationButton->geometry().bottom() + 1 + HOR_SPACING);
 }

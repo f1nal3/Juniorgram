@@ -61,21 +61,6 @@ private:
 template <typename InputClass>
 InputStyle<InputClass>* InputStyle<InputClass>::_instance = nullptr;
 
-void FlatInput::paintEvent(QPaintEvent* event)
-{
-    Q_UNUSED(event)
-
-    QColor inputField(0x32, 0x32, 0x32);
-    inputField = inputField.darker(175);
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing);
-    painter.setBrush(inputField);
-    painter.setPen(Qt::NoPen);
-    painter.drawRoundedRect(QRectF(0, 0, width(), height()), Style::valueDPIScale(8), Style::valueDPIScale(8));
-
-    QLineEdit::paintEvent(event);
-}
-
 FlatInput::FlatInput(QWidget* parent, const QString& placeholder, bool password) : QLineEdit(parent)
 {
     setFont(st::defaultFont);
@@ -100,6 +85,21 @@ FlatInput::FlatInput(QWidget* parent, const QString& placeholder, bool password)
 }
 
 QRect FlatInput::getTextRect() const { return rect().marginsRemoved(st::mar + QMargins(-2, -1, -2, -1)); }
+
+void FlatInput::paintEvent(QPaintEvent* event)
+{
+    Q_UNUSED(event)
+
+    QColor inputField(0x32, 0x32, 0x32);
+    inputField = inputField.darker(175);
+    QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setBrush(inputField);
+    painter.setPen(Qt::NoPen);
+    painter.drawRoundedRect(QRectF(0, 0, width(), height()), Style::valueDPIScale(8), Style::valueDPIScale(8));
+
+    QLineEdit::paintEvent(event);
+}
 
 FlatTextEdit::FlatTextEdit(QWidget* parent, const Style::FlatTextEdit& st) : QTextEdit(parent), _st(st)
 {

@@ -23,7 +23,7 @@ class Application : public QApplication
 private:
     std::unique_ptr<MainWidget> _mainwidget;
     std::unique_ptr<BioButton>  _bio;
-    App::AppState               mAppState;
+    App::AppState               _appState;
     const Style::icon*          _icon;
 
 public:

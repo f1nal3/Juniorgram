@@ -40,12 +40,12 @@ void Application::show() { _mainwidget->show(); }
 
 void Application::setAppState(App::AppState app_state)
 {
-    mAppState = app_state;
+    _appState = app_state;
     if (_bio)
     {
         _bio->hide();
     }
-    switch (mAppState)
+    switch (_appState)
     {
         case App::AppState::LoginForm:
         {

@@ -6,7 +6,7 @@
 
 #include "Style/StyleBasic.hpp"
 
-ItemBase::ItemBase(QString text, QAction* action, QWidget* parent) : AbstractButton(parent), innerText(std::move(text)), mAction(action)
+ItemBase::ItemBase(QString text, QAction* action, QWidget* parent) : AbstractButton(parent), _text(std::move(text)), _action(action)
 {
     setFont(st::defaultFont);
 
@@ -36,6 +36,6 @@ void ItemBase::paintEvent(QPaintEvent* paintEvent)
 
     const int TOP_X = (height() - fontMetrics().height()) / 2;
     const int SHIFT = (height() - 10);
-    painter.drawText(10 + SHIFT, TOP_X, 245, fontMetrics().height(), 0, innerText);
+    painter.drawText(10 + SHIFT, TOP_X, 245, fontMetrics().height(), 0, _text);
     QWidget::paintEvent(paintEvent);
 }

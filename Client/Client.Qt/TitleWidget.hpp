@@ -16,7 +16,7 @@ protected:
     void mousePressEvent(QMouseEvent* mouseEvent) override;
 
 private:
-    std::unique_ptr<CaptionButton> _closebtn;
-    std::unique_ptr<CaptionButton> _maximizebtn;
-    std::unique_ptr<CaptionButton> _minbtn;
+    std::unique_ptr<CaptionButton> _closeButton;
+    std::unique_ptr<CaptionButton> _maximizeButton;
+    std::unique_ptr<CaptionButton> _minimizeButton;
 };

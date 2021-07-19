@@ -49,8 +49,7 @@ public:
 private:
     MouseType                  _lmbPos = None;
     std::unique_ptr<BioButton> _bioButton;
-
-    std::int32_t _current = -1;
+    std::int32_t               _current = -1;
 
     std::unique_ptr<QWidget>              _body;
     std::unique_ptr<TitleWidget>          _title;

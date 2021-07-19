@@ -19,6 +19,6 @@ protected:
     }
 
 private:
-    QString  innerText;
-    QAction* mAction;
+    QString  _text;
+    QAction* _action;
 };

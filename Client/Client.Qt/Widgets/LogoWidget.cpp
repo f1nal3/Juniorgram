@@ -4,16 +4,16 @@
 
 #include "Style/StyleBasic.hpp"
 
-LogoWidget::LogoWidget(QWidget* parent) : QWidget(parent), part(40) { logo = std::make_unique<QPixmap>(":images/textlogo.png"); }
+LogoWidget::LogoWidget(QWidget* parent) : QWidget(parent), _partInPercent(40) { _logo = std::make_unique<QPixmap>(":images/textlogo.png"); }
 
-void LogoWidget::setPart(int percent) { part = percent; }
+void LogoWidget::setPart(int percent) { _partInPercent = percent; }
 
 void LogoWidget::paintEvent(QPaintEvent* paintEvent)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
     painter.setRenderHint(QPainter::Antialiasing);
-    painter.drawPixmap(0, 0, width(), height(), *logo);
+    painter.drawPixmap(0, 0, width(), height(), *_logo);
     QWidget::paintEvent(paintEvent);
 }
 void LogoWidget::recountSize()
@@ -21,7 +21,7 @@ void LogoWidget::recountSize()
     if (auto parent = parentWidget())
     {
         const auto         FIT_MAX     = bestFit();
-        const std::int32_t minTopShift = parent->height() * part / 100;
+        const std::int32_t minTopShift = parent->height() * _partInPercent / 100;
         const float        aspectRatio = FIT_MAX.width() / FIT_MAX.height();
 
         const int  SPACE      = Style::valueDPIScale(10);
