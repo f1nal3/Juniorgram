@@ -13,7 +13,7 @@ float pixelRatio = 1.0f;
 void setDpiScale(int factor)
 {
     if (factor < minDPI) factor = minDPI;
-    if (factor > maxDPI) factor = maxDPI / devicePixelRatio();
+    if (factor > maxDPI) factor = int(double(maxDPI) / devicePixelRatio());
     ScaleValue = factor;
 }
 
