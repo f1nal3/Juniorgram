@@ -8,23 +8,19 @@
 #include <thread>
 
 #include <Network.Static/Message.hpp>
-#include <Network.Static/SafeQueue.hpp>
+#include "Network/SafeQueue.hpp"
+
+#include "DataAccess/IRepository.hpp"
 
 namespace Network
 {
 class Connection;
-
-//struct Message;
-
-//template <typename T> 
-//class SafeQueue;
-
 }
 
-namespace DataAccess
-{
-class IRepository;
-}
+//namespace DataAccess
+//{
+//class IRepository;
+//}
 
 namespace Server
 {

@@ -20,9 +20,7 @@ set(SOURCE_FILES
     RepositoryUnits.hpp
     RepositoryUnits.cpp
     SQLStatements.hpp
-    QueryBuilder.hpp
-	IAdapter.hpp
-	IRepository.hpp)
+    QueryBuilder.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
@@ -34,6 +32,11 @@ target_include_directories(${TARGET}
     PRIVATE ${CONAN_INCLUDE_DIRS_QT}
     $<TARGET_PROPERTY:Network.Static,SOURCE_DIR>/..)
 
+target_include_directories(${TARGET}
+    PRIVATE ${CONAN_INCLUDE_DIRS_QT}
+    $<TARGET_PROPERTY:Network.Static,SOURCE_DIR>/..)
+
+
 target_link_libraries(${TARGET} PUBLIC
 	PUBLIC Qt5::Sql
     Utility.Static
@@ -43,4 +46,4 @@ target_link_libraries(${TARGET} PUBLIC
     CONAN_PKG::sqlcipher)
 
 target_link_libraries(${TARGET}
-    PUBLIC Utility.Public)
+    PUBLIC Utility.Public DataAccess.Public)

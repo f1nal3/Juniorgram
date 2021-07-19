@@ -7,7 +7,7 @@
 #include "Utility/Exception.hpp"
 #include "Utility/Utility.hpp"
 
-#include "IRepository.hpp"
+#include "DataAccess/IRepository.hpp"
 #include "PostgreTable.hpp"
 
 namespace DataAccess

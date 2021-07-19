@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IAdapter.hpp"
+#include "DataAccess/IAdapter.hpp"
 
 #include <mutex>
 #include <memory>

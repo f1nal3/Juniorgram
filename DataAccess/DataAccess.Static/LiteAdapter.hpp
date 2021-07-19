@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IAdapter.hpp"
+#include "DataAccess/IAdapter.hpp"
 
 #include <QtSql/QSql>
 #include <QtSql/QSqlDatabase>

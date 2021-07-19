@@ -2,29 +2,10 @@
 
 namespace Network
 {
-
-    template <typename Archive>
-    void serialize(Archive& ar, Network::ChannelInfo& o)
-    {
-        ar& o.channelID& o.channelName;
-    }
-
-    template <typename Archive>
-    void serialize(Archive& ar, Network::MessageInfo& o)
-    {
-        ar& o.userID& o.message;
-    }
-
     RegistrationInfo::RegistrationInfo(const std::string& email, const std::string& login,
                               const std::string& passwordHash)
         : email(email), login(login), passwordHash(passwordHash)
     {
-    }
-
-    template <typename Archive>
-    void serialize(Archive& ar, Network::RegistrationInfo& o)
-    {
-        ar& o.email& o.login& o.passwordHash;
     }
 
     bool operator==(const ChannelInfo& channelInfo1, const ChannelInfo& channelInfo2)

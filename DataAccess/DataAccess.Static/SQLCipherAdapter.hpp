@@ -1,6 +1,6 @@
 #pragma once
 #include "Utility/WarningSuppression.hpp"
-#include "IAdapter.hpp"
+#include "DataAccess/IAdapter.hpp"
 
 #include <iostream>
 #include <memory>

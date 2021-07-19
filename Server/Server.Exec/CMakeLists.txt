@@ -19,7 +19,7 @@ target_include_directories(${TARGET}
     $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
 
 target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS}  Server.Core.Static Network.Static Utility.Static CONAN_PKG::asio CONAN_PKG::yas CONAN_PKG::lz4 CONAN_PKG::nlohmann_json)
-target_link_libraries(${TARGET} PUBLIC Utility.Public)
+target_link_libraries(${TARGET} PUBLIC Network.Public Utility.Public)
 
 install(TARGETS ${TARGET}
         CONFIGURATIONS Debug

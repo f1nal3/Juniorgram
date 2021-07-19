@@ -7,9 +7,7 @@ set(SOURCE_FILES
 	Message.hpp
 	Message.cpp
 	Primitives.hpp
-	Primitives.cpp
-	SafeQueue.hpp
-	SafeQueue.cpp)
+	Primitives.cpp)
 	
 # Add a library with the above sources
 add_library(${TARGET} STATIC ${SOURCE_FILES})
@@ -20,6 +18,9 @@ target_include_directories(${TARGET} PRIVATE
 target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
 
-target_link_libraries(${TARGET} DataAccess.Static Utility.Public Utility.Static CONAN_PKG::cryptopp CONAN_PKG::asio CONAN_PKG::yas)
+target_include_directories(${TARGET} PRIVATE
+    $<TARGET_PROPERTY:Network.Public,SOURCE_DIR>/..)
+
+target_link_libraries(${TARGET} DataAccess.Static Network.Public Utility.Public Utility.Static CONAN_PKG::cryptopp CONAN_PKG::asio CONAN_PKG::yas)
 
 target_compile_options(${TARGET} PRIVATE "-fPIC")

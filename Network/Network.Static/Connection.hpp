@@ -13,7 +13,7 @@
 #include <iostream>
 #include <functional>
 
-#include "SafeQueue.hpp"
+#include "Network/SafeQueue.hpp"
 #include "Message.hpp"
 
 #include "Utility/Utility.hpp"

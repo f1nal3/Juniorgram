@@ -22,8 +22,6 @@ namespace Network
         friend bool operator==(const ChannelInfo& channelInfo1, const ChannelInfo& channelInfo2);
     };
 
-    template <typename Archive>
-    void serialize(Archive& ar, Network::ChannelInfo& o);
     
     struct MessageInfo
     {
@@ -38,8 +36,6 @@ namespace Network
         friend bool operator==(const MessageInfo& messageInfo1, const MessageInfo& messageInfo2);
     };
 
-    template <typename Archive>
-    void serialize(Archive& ar, Network::MessageInfo& o);
 
     struct RegistrationInfo
     {
@@ -63,5 +59,20 @@ namespace Network
     };
 
     template <typename Archive>
-    void serialize(Archive& ar, Network::RegistrationInfo& o);
+    void serialize(Archive& ar, Network::ChannelInfo& o)
+    {
+        ar& o.channelID& o.channelName;
+    }
+
+    template <typename Archive>
+    void serialize(Archive& ar, Network::MessageInfo& o)
+    {
+        ar& o.userID& o.message;
+    }
+
+    template <typename Archive>
+    void serialize(Archive& ar, Network::RegistrationInfo& o)
+    {
+        ar& o.email& o.login& o.passwordHash;
+    }
 } // namespace Network

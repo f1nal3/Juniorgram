@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-#include "IAdapter.hpp"
+#include "DataAccess/IAdapter.hpp"
 
 #include "SQLStatements.hpp"
 

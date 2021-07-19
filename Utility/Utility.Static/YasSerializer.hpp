@@ -18,6 +18,7 @@ restoreWarning
 
 namespace Utility
 {
+
     /** @enum SerializedState
      *  @brief Successful or not result of serialization/deserialization
      */

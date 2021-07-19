@@ -1,5 +1,5 @@
 #pragma once
-
+#include <Network.Static/Primitives.hpp>
 #include <string>
 #include <vector>
 

@@ -7,6 +7,8 @@
 
 namespace Utility
 {
+
+
 /** @class SerializationHandler
  *  @brief handler class for messages serialization.
  */
