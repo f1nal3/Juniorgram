@@ -3,8 +3,8 @@
 #include <QWidget>
 #include <memory>
 
-#include "TitleWidget.hpp"
 #include "Widgets/CaptionButton.hpp"
+#include "Widgets/TitleWidget.hpp"
 
 class QHBoxLayout;
 class BioButton;
