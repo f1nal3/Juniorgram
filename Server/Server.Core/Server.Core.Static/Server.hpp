@@ -7,13 +7,22 @@
 #include <memory>
 #include <thread>
 
-#include <Network.Static/Connection.hpp>
-#include <Network.Static/SafeQueue.hpp>
-#include <Network.Static/Message.hpp>
-#include <Network.Static/Primitives.hpp>
 
-#include <DataAccess.Static/IRepository.hpp>
+namespace Network
+{
+class Connection;
 
+struct Message;
+
+template <typename T = Message> 
+class SafeQueue;
+
+}
+
+namespace DataAccess
+{
+class IRepository;
+}
 
 namespace Server
 {

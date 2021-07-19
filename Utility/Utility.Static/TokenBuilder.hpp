@@ -83,6 +83,6 @@ struct BuildSignature
 {
 };
  
-auto buildToken(const std::shared_ptr<Network::Connection>& client);
+std::string buildToken(const std::shared_ptr<Network::Connection>& client);
 
 }  // namespace Utility

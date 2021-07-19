@@ -15,15 +15,18 @@ add_library(${TARGET} STATIC ${SOURCE_FILES})
 
 target_include_directories(${TARGET}
     INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+
 target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:DataAccess.Static,SOURCE_DIR>/..)
+
 target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
-	target_include_directories(${TARGET}
+
+target_include_directories(${TARGET}
     PRIVATE ${CONAN_INCLUDE_DIRS_QT}
     $<TARGET_PROPERTY:Network.Static,SOURCE_DIR>/..)
 	        
-target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas CONAN_PKG::lz4 DataAccess.Static)
-target_link_libraries(${TARGET} PUBLIC Network.Static Utility.Static Utility.Public)
+target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} Network.Static CONAN_PKG::asio CONAN_PKG::yas CONAN_PKG::lz4 DataAccess.Static)
+target_link_libraries(${TARGET} PUBLIC Utility.Static Utility.Public)
 
 set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)

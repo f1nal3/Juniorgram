@@ -1,20 +1,27 @@
 #include "Server.hpp"
 
-#include "Utility/TokenBuilder.hpp"
+#include <Network.Static/SafeQueue.hpp>
+#include <Network.Static/Message.hpp>
+
+#include <Network.Static/Connection.hpp>
+
+#include <Utility.Static/TokenBuilder.hpp>
+#include <Utility.Static/ClientPayload.hpp>
 
 #include <DataAccess.Static/PostgreRepository.hpp>
 #include <DataAccess.Static/RepositoryUnits.hpp>
-#include <Utility.Static/ClientPayload.hpp>
-#include <future>
+#include <DataAccess.Static/IRepository.hpp>
 
-using Network::Connection;
-using Network::SafeQueue;
-using Network::Message;
+#include <Network.Static/Primitives.hpp>
+
+
+
+#include <future>
 
 namespace Server
 {
 
-bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
+bool Server::onClientConnect(const std::shared_ptr<Network::Connection>& client)
 {
     Network::Message message;
     message.mHeader.mMessageType = Network::Message::MessageType::ServerAccept;
@@ -27,12 +34,12 @@ bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
     return true;
 }
 
-void Server::onClientDisconnect(const std::shared_ptr<Connection>& client)
+void Server::onClientDisconnect(const std::shared_ptr<Network::Connection>& client)
 {
     std::cout << "Removing client [" << client->getID() << "]\n";
 }
 
-void Server::onMessage(const std::shared_ptr<Connection>& client, Message& message)
+void Server::onMessage(const std::shared_ptr<Network::Connection>& client, Network::Message& message)
 {
     const auto maxDelay    = std::chrono::milliseconds(300);
     const auto currentTime = std::chrono::system_clock::now();
@@ -171,7 +178,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::RegistrationRequest:
         {
-            auto& [clientPayload ,ri] = std::any_cast<std::pair<Utility::ClientPayload, Network::RegistrationInfo>>(message.mBody);
+            auto [clientPayload ,ri] = std::any_cast<std::pair<Utility::ClientPayload, Network::RegistrationInfo>>(message.mBody);
             
             auto future = std::async(std::launch::async, &RegistrationUnit::registerUser, &RegistrationUnit::instance(), ri);
         
@@ -183,7 +190,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
             if (registrationCode == Utility::RegistrationCodes::SUCCESS)
             {
-                std::string token = getToken(clientPayload, client);
+                std::string token = getToken(/*clientPayload, */client);
                 messageToClient.mBody =
                     std::make_any<std::pair<std::string, Utility::RegistrationCodes>>(
                         std::pair{" ", registrationCode});
@@ -204,9 +211,9 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
     }
 }
 
-std::string Server::getToken(const std::shared_ptr<Connection>& client)
+std::string Server::getToken(const std::shared_ptr<Network::Connection>& client)
 { 
-    auto token = Utility::buildToken(client);
+    std::string token = Utility::buildToken(client);
     return token;
 }
 
@@ -266,8 +273,10 @@ void Server::waitForClientConnection()
         {
             std::cout << "[SERVER] New Connection: " << socket.remote_endpoint() << "\n";
 
-            std::shared_ptr<Connection> newConnection = std::make_shared<Connection>(
-                Connection::OwnerType::SERVER, mContext, std::move(socket), mIncomingMessagesQueue);
+            std::shared_ptr<Network::Connection> newConnection =
+                std::make_shared<Network::Connection>(Network::Connection::OwnerType::SERVER,
+                                                      mContext, std::move(socket),
+                                                      mIncomingMessagesQueue);
 
             if (onClientConnect(newConnection))
             {
@@ -292,7 +301,7 @@ void Server::waitForClientConnection()
     });
 }
 
-void Server::messageClient(std::shared_ptr<Connection> client, const Message& message)
+void Server::messageClient(std::shared_ptr<Network::Connection> client, const Network::Message& message)
 {
     if (client != nullptr && client->isConnected())
     {
@@ -310,8 +319,8 @@ void Server::messageClient(std::shared_ptr<Connection> client, const Message& me
     }
 }
 
-void Server::messageAllClients(const Message& message,
-                               const std::shared_ptr<Connection>& exceptionClient)
+void Server::messageAllClients(const Network::Message& message,
+                               const std::shared_ptr<Network::Connection>& exceptionClient)
 {
     bool deadConnectionExist = false;
 
@@ -361,7 +370,7 @@ void Server::update(size_t maxMessages, bool wait)
 
     while (messagesCount < maxMessages && !mIncomingMessagesQueue.empty())
     {
-        Message message = mIncomingMessagesQueue.pop_front();
+        Network::Message message = mIncomingMessagesQueue.pop_front();
 
         onMessage(message.mRemote, message);
 

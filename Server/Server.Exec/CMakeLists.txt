@@ -10,8 +10,15 @@ endif()
 
 add_executable(${TARGET} ${SOURCE_FILES})
 
-target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas CONAN_PKG::lz4 CONAN_PKG::nlohmann_json)
-target_link_libraries(${TARGET} PUBLIC Server.Core.Static Network.Static)
+target_include_directories(${TARGET}
+    PRIVATE ${CONAN_INCLUDE_DIRS_QT}
+    $<TARGET_PROPERTY:Network.Static,SOURCE_DIR>/..)
+    
+target_include_directories(${TARGET}
+    PRIVATE ${CONAN_INCLUDE_DIRS_QT}
+    $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
+
+target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS}  Server.Core.Static Network.Static Utility.Static CONAN_PKG::asio CONAN_PKG::yas CONAN_PKG::lz4 CONAN_PKG::nlohmann_json)
 target_link_libraries(${TARGET} PUBLIC Utility.Public)
 
 install(TARGETS ${TARGET}

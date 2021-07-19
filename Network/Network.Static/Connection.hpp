@@ -18,6 +18,7 @@
 
 #include "Utility/Utility.hpp"
 #include "Utility/WarningSuppression.hpp"
+
 // clang-format off
 suppressWarning(4996, -Wdeprecated-declarations)
 suppressWarning(4458, -Wshadow)

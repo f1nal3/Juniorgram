@@ -62,7 +62,7 @@ namespace Utility
         return TokenBuilder<S, std::decay_t<Handlers>...>{std::forward<Handlers>(h)...};
     }
 
-    auto buildToken(const std::shared_ptr<Network::Connection>& client)
+    std::string buildToken(const std::shared_ptr<Network::Connection>& client)
     {
         using namespace std::string_view_literals;
 
@@ -95,12 +95,9 @@ namespace Utility
              std::pair{"typ"sv, std::string("JWT")}}});
 
         tokenBuilder.onEvent(Utility::GetPayload{
-            {std::pair{"exp"sv, std::to_string((std::chrono::system_clock::to_time_t(
-                                                    std::chrono::system_clock::now()) +
-                                                tokenExpiredTime))},
+            {std::pair{"exp"sv, std::to_string((std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) + tokenExpiredTime))},
              std::pair{"id"sv, std::to_string(client->getID())}, std::pair{"ip"sv, client->getIP()},
-             std::pair{"iat"sv, std::to_string(std::chrono::system_clock::to_time_t(
-                                    std::chrono::system_clock::now()))},
+             std::pair{"iat"sv, std::to_string(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()))},
              std::pair{"os"sv, []() -> std::string {
                         #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
                                                    return "Windows";
@@ -113,7 +110,10 @@ namespace Utility
 
         tokenBuilder.onEvent(Utility::GetSignature{});
 
-        restoreWarning restoreWarning return finaleJSONToken;
+        restoreWarning 
+        restoreWarning 
+            
+        return finaleJSONToken;
     }
 
 }
