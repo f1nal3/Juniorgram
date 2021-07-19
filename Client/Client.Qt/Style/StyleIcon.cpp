@@ -11,7 +11,10 @@ namespace internal
 {
 IconData::IconData(const QString& filename)
 {
-    _image = QImage(filename);
+    _image = QImage();
+    _image.load(filename);
+    _image.setDevicePixelRatio(devicePixelRatio());
+
     _pixmap = QPixmap();
     _size   = QSize();
     if (!_image.isNull())

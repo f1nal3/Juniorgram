@@ -19,8 +19,7 @@ void CaptionButton::leaveEvent(QEvent* event)
 
 CaptionButton::CaptionButton(QWidget* parent, const QColor& endColor, const Style::icon& icon) : AbstractButton(parent), _icon(icon)
 {
-    setFixedWidth(Style::valueDPIScale(46));
-    setFixedHeight(Style::valueDPIScale(30));
+    resize(Style::valueDPIScale(46) / Style::devicePixelRatio(), Style::valueDPIScale(30) / Style::devicePixelRatio());
 
     setMouseTracking(true);
     _fadeinAnim = new QPropertyAnimation(this, "_hoverColor");

@@ -17,10 +17,6 @@ public:
     int  addWidget(std::unique_ptr<QWidget> widget);
     void setCentralWidget(std::int32_t index);
 
-#ifdef _WIN32
-    bool nativeEvent(const QByteArray& eventType, void* message, long* result) override;
-#endif
-
     enum MouseType
     {
         None = 0,
@@ -38,6 +34,9 @@ public:
     void      refreshTitleBar(BioButton* bio_button = nullptr);
 
 protected:
+#ifdef _WIN32
+    bool nativeEvent(const QByteArray& eventType, void* message, long* result) override;
+#endif
     void paintEvent(QPaintEvent* event) override;
     void resizeEvent(QResizeEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;

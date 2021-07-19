@@ -97,7 +97,7 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
 
 MainWidget::MouseType MainWidget::checkResizableField(QMouseEvent* event)
 {
-    QPointF position = event->screenPos();
+    QPointF position = event->globalPos();
     qreal   x        = this->x();
     qreal   y        = this->y();
     qreal   width    = this->width();
@@ -233,7 +233,8 @@ void MainWidget::mouseReleaseEvent(QMouseEvent* event)
 
 MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
 {
-    Style::setDpiScale(logicalDpiX() * 100 / 96);
+    Style::setDevicePixelRatio(devicePixelRatioF());
+    Style::setDpiScale(logicalDpiX() * devicePixelRatioF() * 100 / 96);
     Style::startManager(Style::getDpiScale());
 
     setWindowFlag(Qt::FramelessWindowHint);
@@ -248,7 +249,6 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
 
     _title = std::make_unique<TitleWidget>(this);
 
-    _title->setFixedHeight(Style::valueDPIScale(30));
     grid->addWidget(_body.get(), 1, 0);
     grid->addWidget(_title.get(), 0, 0);
     grid->setSpacing(0);

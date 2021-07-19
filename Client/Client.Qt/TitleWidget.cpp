@@ -13,6 +13,8 @@ TitleWidget::TitleWidget(QWidget* parent) : QWidget(parent)
     _maximizebtn = std::make_unique<CaptionButton>(this, QColor(255, 255, 255, 76), st::maximizeButtonIcon);
     _minbtn      = std::make_unique<CaptionButton>(this, QColor(255, 255, 255, 76), st::minimizeButtonIcon);
 
+    setFixedHeight(Style::valueDPIScale(30) / Style::devicePixelRatio());
+
     connect(window()->windowHandle(), &QWindow::windowStateChanged, this, [=](Qt::WindowState state) {
         if (state == Qt::WindowMinimized) return;
 

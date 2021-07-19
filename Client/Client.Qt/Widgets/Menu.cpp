@@ -2,6 +2,8 @@
 
 #include <QAction>
 
+#include "Style/StyleBasic.hpp"
+
 QAction* CreateAction(QWidget* actionparent, const QString& text, std::function<void()>&& callback)
 {
     const auto action = new QAction(text, actionparent);
@@ -21,7 +23,7 @@ void Menu::addAction(const QString& text, std::function<void()>&& callback)
     Item->move(0, top);
     Item->show();
     _items.push_back(std::move(Item));
-    resize(256, _items.back()->y() + _items.back()->height());
+    resize(Style::valueDPIScale(250), _items.back()->y() + _items.back()->height());
 }
 
 void Menu::hideEvent(QHideEvent* hideEvent)

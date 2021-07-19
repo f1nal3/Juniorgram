@@ -7,7 +7,6 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     setContentsMargins(0, 0, 0, 0);
     _mainChatLayout = std::make_unique<QVBoxLayout>(this);
     _mainChatLayout->setContentsMargins(0, 0, 0, 0);
-    _mainChatLayout->setMargin(0);
     _mainChatLayout->setSpacing(0);
     _chatHistory = std::make_unique<ChatHistory>(this);
     _textEdit    = std::make_unique<TextEdit>(_chatHistory.get());

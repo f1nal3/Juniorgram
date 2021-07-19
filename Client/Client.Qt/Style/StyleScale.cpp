@@ -6,15 +6,20 @@ namespace Style
 {
 namespace
 {
-int ScaleValue = defDPI;
-}
+int   ScaleValue = defDPI;
+float pixelRatio = 1.0f;
+}  // namespace
 
 void setDpiScale(int factor)
 {
     if (factor < minDPI) factor = minDPI;
-    if (factor > maxDPI) factor = maxDPI;
+    if (factor > maxDPI) factor = maxDPI / devicePixelRatio();
     ScaleValue = factor;
 }
+
+void setDevicePixelRatio(float factor) { pixelRatio = factor; }
+
+float devicePixelRatio() { return pixelRatio; }
 
 int getDpiScale() { return ScaleValue; }
 

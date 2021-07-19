@@ -6,17 +6,8 @@
 #include "Application.hpp"
 #include "PopupWidget.hpp"
 
-BioButton::BioButton(QWidget* parent, bool inCaption) : CaptionButton(parent)
+BioButton::BioButton(QWidget* parent, bool) : CaptionButton(parent)
 {
-    if (inCaption)
-    {
-        setFixedWidth(Style::valueDPIScale(46));
-        setFixedHeight(Style::valueDPIScale(30));
-    }
-    else
-    {
-    }
-
     setClickCallback([=]() {
         // Creating popup and setting
         auto pop = new PopupWidget();

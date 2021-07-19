@@ -4,7 +4,7 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include <QPainter>
-#include <QRegExpValidator>
+#include <QRegularExpressionValidator>
 #include <QtEvents>
 
 #include "Style/StyleBasic.hpp"
@@ -79,13 +79,14 @@ void FlatInput::paintEvent(QPaintEvent* event)
 FlatInput::FlatInput(QWidget* parent, const QString& placeholder, bool password) : QLineEdit(parent)
 {
     setFont(st::defaultFont);
-    auto* regexpvalidator = new QRegExpValidator;
-    regexpvalidator->setRegExp(QRegExp("[a-zA-Z0-9._]+@[a-zA-Z0-9]+.[a-zA-Z]+"));
+    auto* regexpvalidator = new QRegularExpressionValidator;
+    regexpvalidator->setRegularExpression(QRegularExpression("[a-zA-Z0-9._]+@[a-zA-Z0-9]+.[a-zA-Z]+"));
     setValidator(regexpvalidator);
     setStyle(InputStyle<FlatInput>::instance());
     auto p = palette();
+    p.setColor(QPalette::Window, Qt::white);
     p.setColor(QPalette::Text, Qt::white);
-    p.setColor(QPalette::Highlight, Qt::white);
+    p.setColor(QPalette::Highlight, Qt::gray);
     p.setColor(QPalette::HighlightedText, Qt::white);
     setPalette(p);
 
