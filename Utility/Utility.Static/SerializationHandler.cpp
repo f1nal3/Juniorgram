@@ -2,8 +2,12 @@
 #include <Network.Static/Primitives.hpp>
 #include "SerializationHandler.hpp"
 
+
 namespace Utility
 {
+
+
+
 MessageProcessingState SerializationHandler::handleOutcomingMessage(Network::Message& message,
                                                                         yas::shared_buffer& bodyBuffer)
 {
@@ -20,8 +24,7 @@ MessageProcessingState SerializationHandler::handleOutcomingMessage(Network::Mes
         case Network::Message::MessageType::ServerMessage:
             break;
         case Network::Message::MessageType::ChannelListRequest:
-            state =
-                processOutcomingMessageBody<std::vector<Network::ChannelInfo>>(bodyBuffer, message.mBody);
+            state = processOutcomingMessageBody<std::vector<Network::ChannelInfo>>(bodyBuffer, message.mBody);
             break;
         case Network::Message::MessageType::MessageHistoryRequest:
             state = processOutcomingMessageBody<std::vector<Network::MessageInfo>>(bodyBuffer,

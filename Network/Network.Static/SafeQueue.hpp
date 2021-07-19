@@ -19,27 +19,79 @@ public:
     SafeQueue()                          = default;
     SafeQueue(const SafeQueue<T>& other) = delete;
 
-    ~SafeQueue();
+    ~SafeQueue() { clear(); }
 
-    const T& front();
-    
-    const T& back();
+    const T& front()
+    {
+        std::scoped_lock scopedLock(mScopedMutex);
+        return mRawQueue.front();
+    }
 
-    T pop_front();
+    const T& back()
+    {
+        std::scoped_lock scopedLock(mScopedMutex);
+        return mRawQueue.back();
+    }
 
-    T pop_back();
+    T pop_front()
+    {
+        std::scoped_lock scopedLock(mScopedMutex);
+        T result = std::move(mRawQueue.front());
+        mRawQueue.pop_front();
+        return result;
+    }
 
-    void push_back(const T& item);
+    T pop_back()
+    {
+        std::scoped_lock scopedLock(mScopedMutex);
+        T result = std::move(mRawQueue.back());
+        mRawQueue.pop_back();
+        return result;
+    }
 
-    void push_front(const T& item);
+    void push_back(const T& item)
+    {
+        std::scoped_lock scopedLock(mScopedMutex);
+        mRawQueue.emplace_back(std::move(item));
 
-    bool empty();
+        std::unique_lock<std::mutex> uniqueLock(mUniqueMutex);
+        mBlock.notify_one();
+    }
 
-    size_t size();
+    void push_front(const T& item)
+    {
+        std::scoped_lock scopedLock(mScopedMutex);
+        mRawQueue.emplace_front(std::move(item));
 
-    void clear();
+        std::unique_lock<std::mutex> uniqueLock(mUniqueMutex);
+        mBlock.notify_one();
+    }
 
-    void wait();
+    bool empty()
+    {
+        std::scoped_lock scopedLock(mScopedMutex);
+        return mRawQueue.empty();
+    }
 
+    size_t size()
+    {
+        std::scoped_lock scopedLock(mScopedMutex);
+        return mRawQueue.size();
+    }
+
+    void clear()
+    {
+        std::scoped_lock scopedLock(mScopedMutex);
+        mRawQueue.clear();
+    }
+
+    void wait()
+    {
+        while (empty())
+        {
+            std::unique_lock<std::mutex> uniqueLock(mUniqueMutex);
+            mBlock.wait(uniqueLock);
+        }
+    }
 };
 }  // namespace Network

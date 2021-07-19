@@ -22,9 +22,7 @@ set(SOURCE_FILES
     SQLStatements.hpp
     QueryBuilder.hpp
 	IAdapter.hpp
-	IAdapter.cpp
-	IRepository.hpp
-	IRepository.cpp)
+	IRepository.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 

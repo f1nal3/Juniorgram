@@ -1,8 +1,8 @@
 #pragma once
 #include "Utility/WarningSuppression.hpp"
 // clang-format off
-suppressWarning(4996, -Wdeprecated-declarations)
-suppressWarning(4458, -Wshadow)
+suppressWarning(4996, "-Wdeprecated-declarations")
+suppressWarning(4458, "-Wshadow")
 #include <yas/binary_iarchive.hpp>
 #include <yas/binary_oarchive.hpp>
 #include <yas/buffers.hpp>
@@ -16,9 +16,7 @@ restoreWarning
 restoreWarning
 // clang-format on
 
-//#include <Network.Static/Primitives.hpp>
-
-namespace Utility   
+namespace Utility
 {
     /** @enum SerializedState
      *  @brief Successful or not result of serialization/deserialization
@@ -41,7 +39,7 @@ namespace Utility
         YasSerializer& operator=(YasSerializer&&) = delete;
 
     private:
-        constexpr static std::size_t flags = yas::mem | yas::binary | yas::no_header | yas::compacted   ;
+        constexpr static std::size_t flags = yas::mem | yas::binary | yas::no_header;
 
     public:
         /**
@@ -50,8 +48,26 @@ namespace Utility
          * @param data - variable that contains data that should be serialized.
          */
         template <typename T>
-        static SerializedState serialize(yas::shared_buffer& msg, const T& data);
-      
+        static SerializedState serialize(yas::shared_buffer& msg, const T& data)
+        {
+            try
+            {
+                // clang-format off
+				suppressWarning(4127, "-Wtype-limits")
+					msg = yas::save<flags>(data);
+				restoreWarning
+           }
+            // clang-format on
+            catch (const std::exception& e)
+            {
+                std::cout << "Serialization error\n";
+                std::cout << e.what() << '\n';
+
+                return SerializedState::FAILURE;
+            }
+
+            return SerializedState::SUCCESS;
+        }
 
         /**
          * @brief Method for binary deserialization of messages.
@@ -59,7 +75,25 @@ namespace Utility
          * @param data - variable that will contain deserialized message data.
          */
         template <typename T>
-        static SerializedState deserialize(const yas::shared_buffer source, T& data);
-        
+        static SerializedState deserialize(const yas::shared_buffer source, T& data)
+        {
+            try
+            {
+                // clang-format off
+				            suppressWarning(4127, "-Wtype-limits")
+					            yas::load<flags>(source, data);
+				            restoreWarning
+                // clang-format on
+			         }
+            catch (const std::exception& e)
+            {
+                std::cout << "Deserialization error\n";
+                std::cout << e.what() << '\n';
+
+                return SerializedState::FAILURE;
+            }
+
+            return SerializedState::SUCCESS;
+        }
     };
 }

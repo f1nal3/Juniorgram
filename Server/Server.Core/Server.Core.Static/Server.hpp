@@ -7,15 +7,17 @@
 #include <memory>
 #include <thread>
 
+#include <Network.Static/Message.hpp>
+#include <Network.Static/SafeQueue.hpp>
 
 namespace Network
 {
 class Connection;
 
-struct Message;
+//struct Message;
 
-template <typename T = Message> 
-class SafeQueue;
+//template <typename T> 
+//class SafeQueue;
 
 }
 

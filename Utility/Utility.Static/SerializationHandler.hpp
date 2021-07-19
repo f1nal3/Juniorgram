@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <any>
+
 #include "Handler.hpp"
 
 namespace Utility
@@ -12,6 +13,7 @@ namespace Utility
 class SerializationHandler : public AbstractHandler
 {
 public:
+
     /**
      * @brief Method for serialization of outcoming messages.
      * @param message - buffer that contains data that should be serialized.
