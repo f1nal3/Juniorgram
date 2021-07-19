@@ -16,6 +16,7 @@ public:
     explicit MainWidget(QWidget* parent = nullptr);
     int  addWidget(std::unique_ptr<QWidget> widget);
     void setCentralWidget(std::int32_t index);
+    bool setBioButtonIcon(const Style::icon* icon);
 
     enum MouseType
     {
@@ -31,7 +32,7 @@ public:
     };
 
     MouseType checkResizableField(QMouseEvent* event);
-    void      refreshTitleBar(BioButton* bio_button = nullptr);
+    void      refreshTitleBar(bool showBioButton);
 
 protected:
 #ifdef _WIN32

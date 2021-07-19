@@ -261,7 +261,7 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
 
     std::cout << QGuiApplication::platformName().toStdString() << std::endl;
 
-    refreshTitleBar();
+    refreshTitleBar(false);
 
     setAttribute(Qt::WA_Hover);
     setMouseTracking(true);
@@ -303,16 +303,8 @@ void MainWidget::setCentralWidget(std::int32_t index)
     }
 }
 
-void MainWidget::refreshTitleBar(BioButton*)
-{
-    /*if (!pTitleLayout->isEmpty())
-    {
-    }
-    if (bio_button)
-    {
-        pTitleLayout->addWidget(bio_button);
-    }*/
-}
+void MainWidget::refreshTitleBar(bool showBioButton) { _title->showBioButton(showBioButton); }
+
 bool MainWidget::eventFilter(QObject* watched, QEvent* event)
 {
     if (event->type() == QEvent::HoverMove)
@@ -321,3 +313,4 @@ bool MainWidget::eventFilter(QObject* watched, QEvent* event)
     }
     return QObject::eventFilter(watched, event);
 }
+bool MainWidget::setBioButtonIcon(const Style::icon* icon) { return _title->setBioButtonIcon(icon); }

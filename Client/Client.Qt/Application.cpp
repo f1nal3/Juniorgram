@@ -7,7 +7,7 @@
 #include "login.hpp"
 #include "registration.hpp"
 
-Application::Application(int& argc, char** argv) : QApplication(argc, argv), _bio(nullptr) {}
+Application::Application(int& argc, char** argv) : QApplication(argc, argv) {}
 
 void Application::create()
 {
@@ -24,7 +24,7 @@ void Application::create()
 #endif
 
     _icon = new Style::icon(":/images/logo.png");
-    _bio  = std::make_unique<BioButton>();
+    _mainwidget->setBioButtonIcon(_icon);
 
     _mainwidget->addWidget(std::make_unique<Login>());
     _mainwidget->addWidget(std::make_unique<Registration>());
@@ -41,10 +41,7 @@ void Application::show() { _mainwidget->show(); }
 void Application::setAppState(App::AppState app_state)
 {
     _appState = app_state;
-    if (_bio)
-    {
-        _bio->hide();
-    }
+    _mainwidget->refreshTitleBar(false);
     switch (_appState)
     {
         case App::AppState::LoginForm:
@@ -59,10 +56,7 @@ void Application::setAppState(App::AppState app_state)
         }
         case App::AppState::ChatWindowForm:
         {
-            _bio->setParent(_mainwidget.get());
-            _bio->setIcon(_icon);
-            _bio->show();
-            _mainwidget->refreshTitleBar(_bio.get());
+            _mainwidget->refreshTitleBar(true);
             _mainwidget->setCentralWidget(2);
             break;
         }

@@ -5,15 +5,17 @@
 #include <QWindow>
 #include <QtEvents>
 
+#include "Widgets/BioButton.hpp"
 #include "Widgets/CaptionButton.hpp"
 
 TitleWidget::TitleWidget(QWidget* parent) : QWidget(parent)
 {
-    _closeButton = std::make_unique<CaptionButton>(this, QColor(232, 17, 35), st::closeButtonIcon);
+    _closeButton    = std::make_unique<CaptionButton>(this, QColor(232, 17, 35), st::closeButtonIcon);
     _maximizeButton = std::make_unique<CaptionButton>(this, QColor(255, 255, 255, 76), st::maximizeButtonIcon);
     _minimizeButton = std::make_unique<CaptionButton>(this, QColor(255, 255, 255, 76), st::minimizeButtonIcon);
+    _bioButton      = std::make_unique<BioButton>(this);
 
-    setFixedHeight(Style::valueDPIScale(30) / Style::devicePixelRatio());
+    setFixedHeight(Style::valueDPIScale(30));
 
     connect(window()->windowHandle(), &QWindow::windowStateChanged, this, [=](Qt::WindowState state) {
         if (state == Qt::WindowMinimized) return;
@@ -59,6 +61,7 @@ void TitleWidget::resizeEvent(QResizeEvent* resizeEvent)
     _closeButton->move(width() - buttonWidth, 0);
     _maximizeButton->move(width() - buttonWidth * 2, 0);
     _minimizeButton->move(width() - buttonWidth * 3, 0);
+    _bioButton->move(width() - buttonWidth * 4, 0);
     QWidget::resizeEvent(resizeEvent);
 }
 
@@ -67,3 +70,11 @@ void TitleWidget::mousePressEvent(QMouseEvent* mouseEvent)
     parentWidget()->window()->windowHandle()->startSystemMove();
     QWidget::mousePressEvent(mouseEvent);
 }
+void TitleWidget::showBioButton(bool show)
+{
+    if (show)
+        _bioButton->show();
+    else
+        _bioButton->hide();
+}
+bool TitleWidget::setBioButtonIcon(const Style::icon* icon) { return _bioButton->setIcon(icon); }

@@ -13,7 +13,7 @@ public:
 
 private slots:
     void newMessage(const QString& messageText);
-    void newMessage(const QString& messageText, const QString& userNameMessage = QString("You"));
+    void newMessage(const QString& messageText, const QString& userNameMessage);
 
 private:
     std::unique_ptr<QVBoxLayout> _mainChatLayout;

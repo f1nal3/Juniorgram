@@ -6,6 +6,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 set(SOURCE_FILES
+        Widgets/TitleWidget.cpp
+        Widgets/TitleWidget.hpp
         Widgets/AbstractButton.cpp
         Widgets/AbstractButton.hpp
         Widgets/BioButton.cpp
@@ -72,9 +74,7 @@ set(SOURCE_FILES
         MainWidget.cpp
         MainWidget.hpp
         registration.cpp
-        registration.hpp
-        Widgets/TitleWidget.cpp
-        Widgets/TitleWidget.hpp)
+        registration.hpp)
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)
