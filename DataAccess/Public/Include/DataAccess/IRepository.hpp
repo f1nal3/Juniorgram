@@ -30,6 +30,13 @@ public:
      */
     virtual void storeMessage(const Network::MessageInfo& message, const std::uint64_t channelID) = 0;
     /**
+     * @brief attempts to login a user with the provided login by checking privided hash with the one stored.
+     * @param login user login as string
+     * @param pwdHash password hash
+     * @return login status - true if provided hash is the same as stored in repository
+     */ 
+    virtual bool loginUser(const std::string& login, const std::string& pwdHash) = 0;
+    /**
      * @brief Virtual dtor.
      */
     virtual ~IRepository() = default;

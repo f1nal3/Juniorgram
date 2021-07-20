@@ -25,11 +25,6 @@ Login::Login(QWidget* parent) : QWidget(parent)
         std::string login = usernameLineEdit->text().toStdString();
         std::string password = passwordLineEdit->text().toStdString();
         
-        if (!isLoginValid(login))
-        {
-            std::cerr << "Invalid data in login field.\n";
-        }
-        
         ConnectionManager::getClient().userAuthorization(login, password);
         });
 

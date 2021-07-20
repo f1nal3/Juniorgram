@@ -71,3 +71,14 @@ void PostgreRepository::storeMessage(const Network::MessageInfo& message, const 
     
     PostgreTable("channel_msgs").Insert()->columns(dataForChannelMsgs)->execute();
 }
+
+bool PostgreRepository::loginUser(const std::string& login, const std::string& pwdHash)
+{
+    const std::string storedHash = PostgreTable("users")
+                                                .Select()
+                                                ->columns({"password_hash"})
+                                                ->Where("name=" + login)
+                                                ->execute().value()[0][0].as<std::string>();
+    
+    return storedHash == pwdHash;
+}
