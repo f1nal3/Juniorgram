@@ -14,11 +14,11 @@ protected:
     void resizeEvent(QResizeEvent* event) override;
 
 private:
-    std::unique_ptr<FlatInput>  emailLineEdit;
-    std::unique_ptr<FlatInput>  usernameLineEdit;
-    std::unique_ptr<FlatInput>  passwordLineEdit;
-    std::unique_ptr<FlatInput>  passwordRepeatLineEdit;
-    std::unique_ptr<FlatButton> registrationButton;
-    std::unique_ptr<FlatButton> back;
-    std::unique_ptr<LogoWidget> logoWidget;
+    std::unique_ptr<FlatInput>  _emailInput;
+    std::unique_ptr<FlatInput>  _usernameInput;
+    std::unique_ptr<FlatInput>  _passwordInput;
+    std::unique_ptr<FlatInput>  _repeatPasswordInput;
+    std::unique_ptr<FlatButton> _registrationButton;
+    std::unique_ptr<FlatButton> _backButton;
+    std::unique_ptr<LogoWidget> _logoWidget;
 };

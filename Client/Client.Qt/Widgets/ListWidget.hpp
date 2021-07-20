@@ -2,7 +2,8 @@
 
 #include <QListWidget>
 
-/** @class TimeEdit
+/**
+ *  @class ListWidget
  *  @brief Custom style for QListWidget
  */
 class ListWidget : public QListWidget

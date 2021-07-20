@@ -1,32 +1,31 @@
 #include "MenuItem.hpp"
 
-#include <QPainter>
 #include <QAction>
+#include <QPainter>
+#include <utility>
 
-#include "Style/Style.hpp"
+#include "Style/StyleBasic.hpp"
 
-MenuItem::MenuItem(const QString& text, QAction* action, QWidget* parent) : QWidget(parent)
+ItemBase::ItemBase(QString text, QAction* action, QWidget* parent) : AbstractButton(parent), _text(std::move(text)), _action(action)
 {
-    innerText = text;
-    mAction   = action;
+    setFont(st::defaultFont);
 
-    auto font = QFont("Noto Sans", 12);
-    font.setPixelSize(Style::valueDPIScale(12));
-    setFont(font);
+    resize(parent->width() - 1, Style::valueDPIScale(30));
 
-    setFixedSize(parent->width() - 1, Style::valueDPIScale(30));
     setMouseTracking(true);
-    setAttribute(Qt::WA_Hover);
+    // setAttribute(Qt::WA_Hover);
+    setClickCallback([=]() {
+        action->trigger();
+        parentWidget()->hide();
+    });
 }
 
-QSize MenuItem::sizeHint() const { return QWidget::sizeHint(); }
-
-void MenuItem::paintEvent(QPaintEvent* paintEvent)
+void ItemBase::paintEvent(QPaintEvent* paintEvent)
 {
     QPainter painter(this);
     painter.setPen(Qt::NoPen);
     QColor color = QColor(0x32, 0x32, 0x32);
-    if (hit)
+    if (isOver())
     {
         color = color.lighter(175);
     }
@@ -37,26 +36,6 @@ void MenuItem::paintEvent(QPaintEvent* paintEvent)
 
     const int TOP_X = (height() - fontMetrics().height()) / 2;
     const int SHIFT = (height() - 10);
-    painter.drawText(10 + SHIFT, TOP_X, 245, fontMetrics().height(), 0, innerText);
+    painter.drawText(10 + SHIFT, TOP_X, 245, fontMetrics().height(), 0, _text);
     QWidget::paintEvent(paintEvent);
-}
-
-void MenuItem::mouseMoveEvent(QMouseEvent* mouseEvent)
-{
-    Q_UNUSED(mouseEvent)
-    if (underMouse()) hit = true;
-}
-
-void MenuItem::leaveEvent(QEvent* event)
-{
-    Q_UNUSED(event)
-    hit = false;
-}
-
-void MenuItem::mouseReleaseEvent(QMouseEvent* mouseEvent)
-{
-    Q_UNUSED(mouseEvent)
-    mAction->trigger();
-    parentWidget()->hide();
-    QWidget::mouseReleaseEvent(mouseEvent);
 }

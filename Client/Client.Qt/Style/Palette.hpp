@@ -12,11 +12,11 @@ void init_Palette(int scale);
 
 }  // namespace internal
 
-class palette
+class Palette
 {
 public:
-    palette()                     = default;
-    palette(const palette& other) = delete;
+    Palette()                     = default;
+    Palette(const Palette& other) = delete;
 
     QByteArray save() const;
     bool       load(const QByteArray& cache);
@@ -42,24 +42,24 @@ public:
     int   indexOfColor(color c) const;
     color colorAtIndex(int index) const;
 
-    inline const color& get_transparent() const { return _colors[0]; };  // special color
-    inline const color& get_windowActiveTextFg() const { return _colors[1]; };
-    inline const color& get_window() const { return _colors[2]; };
-    inline const color& get_windowColor() const { return _colors[3]; };
-    inline const color& get_windowColorOver() const { return _colors[4]; };
-    inline const color& get_titleButton() const { return _colors[5]; };
-    inline const color& get_titleButtonOver() const { return _colors[6]; };
-    inline const color& get_closeButtonC() const { return _colors[7]; };
-    inline const color& get_closeButtonCOver() const { return _colors[8]; };
-    inline const color& get_linkButtonColor() const { return _colors[9]; };
-    inline const color& get_linkButtonOverColor() const { return _colors[10]; };
-    inline const color& get_scrollArea() const { return _colors[11]; };
-    inline const color& get_scrollAreaColor() const { return _colors[12]; };
-    inline const color& get_scrollAreaBar() const { return _colors[13]; };
-    inline const color& get_scrollAreaColorOver() const { return _colors[14]; };
-    inline const color& get_scrollAreaBarOver() const { return _colors[15]; };
+    inline const color&               get_transparent() const { return _colors[0]; };  // special color
+    [[nodiscard]] inline const color& get_windowActiveTextFg() const { return _colors[1]; };
+    [[nodiscard]] inline const color& get_window() const { return _colors[2]; };
+    [[nodiscard]] inline const color& get_windowColor() const { return _colors[3]; };
+    [[nodiscard]] inline const color& get_windowColorOver() const { return _colors[4]; };
+    [[nodiscard]] inline const color& get_titleButton() const { return _colors[5]; };
+    [[nodiscard]] inline const color& get_titleButtonOver() const { return _colors[6]; };
+    [[nodiscard]] inline const color& get_closeButtonC() const { return _colors[7]; };
+    [[nodiscard]] inline const color& get_closeButtonCOver() const { return _colors[8]; };
+    [[nodiscard]] inline const color& get_linkButtonColor() const { return _colors[9]; };
+    [[nodiscard]] inline const color& get_linkButtonOverColor() const { return _colors[10]; };
+    [[nodiscard]] inline const color& get_scrollArea() const { return _colors[11]; };
+    [[nodiscard]] inline const color& get_scrollAreaColor() const { return _colors[12]; };
+    [[nodiscard]] inline const color& get_scrollAreaBar() const { return _colors[13]; };
+    [[nodiscard]] inline const color& get_scrollAreaColorOver() const { return _colors[14]; };
+    [[nodiscard]] inline const color& get_scrollAreaBarOver() const { return _colors[15]; };
 
-    palette& operator=(const palette& other)
+    Palette& operator=(const Palette& other)
     {
         auto wasReady = _ready;
         for (int i = 0; i != kCount; ++i)
@@ -89,9 +89,7 @@ public:
         return *this;
     }
 
-    static std::int32_t Checksum();
-
-    ~palette() { clear(); }
+    ~Palette() { clear(); }
 
 private:
     static constexpr auto kCount = 16;
@@ -164,13 +162,13 @@ private:
     bool   _ready          = false;
 };
 
-namespace main_palette
+namespace MainPalette
 {
 QByteArray         save();
 bool               load(const QByteArray& cache);
-palette::SetResult setColor(QLatin1String name, uchar r, uchar g, uchar b, uchar a);
-palette::SetResult setColor(QLatin1String name, QLatin1String from);
-void               apply(const palette& other);
+Palette::SetResult setColor(QLatin1String name, uchar r, uchar g, uchar b, uchar a);
+Palette::SetResult setColor(QLatin1String name, QLatin1String from);
+void               apply(const Palette& other);
 void               reset();
 int                indexOfColor(color c);
 
@@ -183,7 +181,7 @@ struct row
 };
 QList<row> data();
 
-}  // namespace main_palette
+}  // namespace MainPalette
 }  // namespace Style
 
 namespace st

@@ -120,8 +120,7 @@ public:
      * @param handleTouch should we tahandle touches(not working for now)
      * @param st Styles
      */
-    explicit ScrollArea(QWidget* parent, bool handleTouch = true,
-                        const Style::ScrollArea& st = st::defaultScrollArea);
+    explicit ScrollArea(QWidget* parent, bool handleTouch = true, const Style::ScrollArea& st = st::defaultScrollArea);
 
     /**
      * @brief Returns possible scroll width

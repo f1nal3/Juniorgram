@@ -1,45 +1,59 @@
 #pragma once
 
-#include <QWidget>
 #include <QPropertyAnimation>
+#include <Widgets/AbstractButton.hpp>
 
-class CaptionButton : public QWidget
+#include "Style/StyleBasic.hpp"
+
+/**
+ * @class CaptionButton
+ * @brief A button for title
+ */
+class CaptionButton : public AbstractButton
 {
     Q_OBJECT
-    Q_PROPERTY(QColor hoverColor READ getHoverColor WRITE setHoverColor)
+    Q_PROPERTY(QColor _hoverColor READ getHoverColor WRITE setHoverColor)
 public:
-    enum class CaptionLogo
-    {
-        Maximize,
-        Minimize,
-        Restore,
-        Close
-    };
-    static QString Lg2str(CaptionLogo logo);
-    static QString dpi2str(int scale);
-    explicit CaptionButton(CaptionLogo logo, const QColor& endColor = QColor(255, 255, 255, 76),
-                           QWidget* parent = nullptr);
+    /**
+     * @brief Constructor for caption button
+     * @param parent Title widget
+     * @param endColor Color on hover
+     * @param icon Default icon
+     */
+    explicit CaptionButton(QWidget* parent = nullptr, const QColor& endColor = QColor(255, 255, 255, 76),
+                           const Style::icon& icon = Style::icon());
+
+    /**
+     * @brief Override icon by a new one
+     * @param icon New icon
+     * @return Icon has been set?
+     */
+    bool setIcon(const Style::icon* icon);
+
+protected:
     void enterEvent(QEvent* event) override;
     void leaveEvent(QEvent* event) override;
-    void mouseReleaseEvent(QMouseEvent* event) override;
     void paintEvent(QPaintEvent* event) override;
-    ~CaptionButton() override = default;
-signals:
-    void mouseRelease();
-
-public:
-    bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
+    /**
+     * @brief Changes button background color if in title bar
+     * @param newColor New background color
+     */
     void setHoverColor(QColor newColor)
     {
-        hoverColor = std::move(newColor);
+        _hoverColor = std::move(newColor);
         update();
     }
-    QColor getHoverColor() { return hoverColor; }
+    /**
+     * @brief Returns current background color
+     * @return Current background color
+     */
+    QColor getHoverColor() { return _hoverColor; }
 
 private:
-    QColor hoverColor;
-    QPropertyAnimation* fadeinAnim;
-    QPixmap* pixmap;
+    QColor              _hoverColor;
+    const Style::icon&  _icon;
+    const Style::icon*  _iconOverride = nullptr;
+    QPropertyAnimation* _fadeinAnim;
 };
