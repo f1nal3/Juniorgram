@@ -1,5 +1,4 @@
 #include "Application.hpp"
-#include "Style/StyleBasic.hpp"
 
 int main(int argc, char* argv[])
 {
