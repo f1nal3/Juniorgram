@@ -4,6 +4,7 @@
 #include <QtEvents>
 
 #include "Application.hpp"
+#include "ConnectionManager.hpp"
 #include "Widgets/FlatButton.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/LogoWidget.hpp"
@@ -22,13 +23,13 @@ Login::Login(QWidget* parent) : QWidget(parent)
     _signInButton->setClickCallback([this]() {
         using namespace UserDataValidation;
         
-        std::string login = usernameLineEdit->text().toStdString();
-        std::string password = passwordLineEdit->text().toStdString();
+        std::string login = _usernameInput->text().toStdString();
+        std::string password = _passwordInput->text().toStdString();
         
         ConnectionManager::getClient().userAuthorization(login, password);
         });
 
-    buttonRegistration->setClickCallback(
+    _registrationButton->setClickCallback(
         []() { oApp->setAppState(App::AppState::RegistrationForm); });
 
     const int BLOCKWIDTH = Style::valueDPIScale(500);
