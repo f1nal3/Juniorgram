@@ -6,7 +6,7 @@
 
 namespace Style
 {
-class palette;
+class Palette;
 namespace internal
 {
 class Color;
@@ -18,10 +18,7 @@ public:
     QPen   pen;
     QBrush brush;
 
-    [[nodiscard]] QColor transparent() const
-    {
-        return QColor(color.red(), color.green(), color.blue(), 0);
-    };
+    [[nodiscard]] QColor transparent() const { return QColor(color.red(), color.green(), color.blue(), 0); };
 
 private:
     ColorData(uchar r, uchar g, uchar b, uchar a);
@@ -31,7 +28,7 @@ private:
     void set(uchar r, uchar g, uchar b, uchar a);
 
     friend class Color;
-    friend class Style::palette;
+    friend class Style::Palette;
 };
 
 class Color
@@ -53,7 +50,7 @@ public:
     explicit operator bool() const { return !!_data; }
 
 private:
-    friend class Style::palette;
+    friend class Style::Palette;
     Color(ColorData* data) : _data(data) {}
 
     ColorData* _data = nullptr;

@@ -2,8 +2,7 @@
 
 #include <QPainter>
 
-FlatButton::FlatButton(QWidget* parent, const QString& text, const Style::FlatButton& st)
-    : AbstractButton(parent), _text(text), _st(st)
+FlatButton::FlatButton(QWidget* parent, const QString& text, const Style::FlatButton& st) : AbstractButton(parent), _text(text), _st(st)
 {
     setAttribute(Qt::WA_AcceptTouchEvents);
 
@@ -41,8 +40,7 @@ void FlatButton::paintEvent(QPaintEvent* event)
     painter.drawText(inner.marginsRemoved(_st.paddings), _text, Style::al_top);
 }
 
-LinkButton::LinkButton(QWidget* parent, const QString& text, const Style::LinkButton& st)
-    : AbstractButton(parent), _text(text), _st(st)
+LinkButton::LinkButton(QWidget* parent, const QString& text, const Style::LinkButton& st) : AbstractButton(parent), _text(text), _st(st)
 {
     setAttribute(Qt::WA_AcceptTouchEvents);
 
@@ -52,7 +50,6 @@ LinkButton::LinkButton(QWidget* parent, const QString& text, const Style::LinkBu
     setMinimumWidth(width());
     setPointerCursor(true);
 }
-
 
 void LinkButton::setText(const QString& text)
 {

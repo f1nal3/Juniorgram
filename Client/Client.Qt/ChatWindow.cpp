@@ -2,7 +2,6 @@
 
 #include <QtEvents>
 
-#include "Widgets/ChatHistory.hpp"
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 {

@@ -1,8 +1,7 @@
 #pragma once
 #include <QApplication>
+#include <memory>
 
-#include "ChatWindow.hpp"
-#include "ConnectionManager.hpp"
 #include "MainWidget.hpp"
 
 #define oApp (static_cast<Application*>(QCoreApplication::instance()))
@@ -17,12 +16,14 @@ enum class AppState
 };
 }
 
+class BioButton;
+
 class Application : public QApplication
 {
 private:
-    MainWidget*   mMainWidget;
-    BioButton*    mBioButton;
-    App::AppState mAppState;
+    std::unique_ptr<MainWidget> _mainwidget;
+    App::AppState               _appState;
+    const Style::icon*          _icon;
 
 public:
     Application(int& argc, char** argv);

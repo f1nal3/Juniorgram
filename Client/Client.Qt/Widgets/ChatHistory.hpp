@@ -6,26 +6,40 @@
 #include "MessageWidget.hpp"
 #include "ScrollArea.hpp"
 
+/**
+ * @class ChatHistory
+ * @brief Widget for showing messages in the chat
+ */
 class ChatHistory : public QWidget
 {
     Q_OBJECT
 public:
     /**
-     * @brief Constructor of _chat history
+     * @brief Constructor for chat history
      * @param parent Parent widget
      */
     explicit ChatHistory(QWidget* parent = nullptr);
 
-    void addMessage(const QString& message, quint64 utc, const QString& user = "You");
+    /**
+     * @brief Adds a new message to history
+     * @param message Message Text
+     * @param utc Seconds since epoch
+     * @param user Usenname
+     */
+    void addMessage(const QString& message = QString(), quint64 utc = 0, const QString& user = "You");
+    /**
+     * @brief Clears all chat
+     */
     void clear();
-
-    explicit operator QWidget*() { return _scrollArea->widget(); }
 
 protected:
     void resizeEvent(QResizeEvent* event) override;
 
 private Q_SLOTS:
 
+    /**
+     * @brief Resize visible messageboxes
+     */
     void resizeVisible();
 Q_SIGNALS:
     /**
@@ -38,8 +52,16 @@ Q_SIGNALS:
     void messageAdded();
 
 private:
+    /**
+     * @brief Updates layout if some changed size
+     * @param beenResized Update from resize?
+     */
     void updateLayout(bool beenResized = false);
 
+    /**
+     * @brief Finds visible messages
+     * @return Left and right visible messages
+     */
     [[nodiscard]] std::pair<int, int> findVisible() const;
 
 private:
