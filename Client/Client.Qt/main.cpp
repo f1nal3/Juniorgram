@@ -1,5 +1,3 @@
-#include <QDebug>
-
 #include "Application.hpp"
 #include "Style/StyleBasic.hpp"
 
