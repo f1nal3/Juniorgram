@@ -1,4 +1,5 @@
 #include "login.hpp"
+#include "Utility/UserDataValidation.hpp"
 
 #include <QtEvents>
 
@@ -17,8 +18,23 @@ Login::Login(QWidget* parent) : QWidget(parent)
 
     _logoWidget = std::make_unique<LogoWidget>(this);
 
-    _signInButton->setClickCallback([]() { oApp->setAppState(App::AppState::ChatWindowForm); });
     _registrationButton->setClickCallback([]() { oApp->setAppState(App::AppState::RegistrationForm); });
+    _signInButton->setClickCallback([this]() {
+        using namespace UserDataValidation;
+        
+        std::string login = usernameLineEdit->text().toStdString();
+        std::string password = passwordLineEdit->text().toStdString();
+        
+        if (!isLoginValid(login))
+        {
+            std::cerr << "Invalid data in login field.\n";
+        }
+        
+        ConnectionManager::getClient().userAuthorization(login, password);
+        });
+
+    buttonRegistration->setClickCallback(
+        []() { oApp->setAppState(App::AppState::RegistrationForm); });
 
     const int BLOCKWIDTH = Style::valueDPIScale(500);
     _signInButton->resize(BLOCKWIDTH, _signInButton->sizeHint().height());
