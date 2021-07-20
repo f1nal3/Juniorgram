@@ -8,19 +8,15 @@
 #include <thread>
 
 #include <Network.Static/Message.hpp>
+#include <Network.Static/Connection.hpp>
+
+#include <Network.Static/Primitives.hpp>
+#include <Utility.Static/YasSerializer.hpp>
+#include <Utility.Static/TokenBuilder.hpp>
+#include <Utility.Static/ClientPayload.hpp>
+
 #include "Network/SafeQueue.hpp"
-
 #include "DataAccess/IRepository.hpp"
-
-namespace Network
-{
-class Connection;
-}
-
-//namespace DataAccess
-//{
-//class IRepository;
-//}
 
 namespace Server
 {

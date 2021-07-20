@@ -6,10 +6,7 @@
 #include <memory>
 #include <mutex>
 #include <sqlcipher/sqlite3.h>
-#include <Utility.Static/Cryptography.hpp>
 #include <Utility/Exception.hpp>
-#include <Utility.Static/MACAddress.hpp>
-
 
 namespace DataAccess
 {

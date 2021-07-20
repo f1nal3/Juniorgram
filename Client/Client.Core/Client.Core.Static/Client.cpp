@@ -1,10 +1,10 @@
 #include "Client.hpp"
 
-#include <future>
-#include <Network/Primitives.hpp>
-#include <Utility/WarningSuppression.hpp>
+#include <Network.Static/Primitives.hpp>
 #include <Utility.Static/ClientPayload.hpp>
+
 #include <DataAccess.Static/SQLCipherRepository.hpp>
+
 
 namespace Network
 {

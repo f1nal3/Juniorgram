@@ -1,9 +1,14 @@
 #pragma once
 
-#include "DataAccess/IRepository.hpp"
+#include <future>
 
-#include "Network/Connection.hpp"
-#include "Network/Message.hpp"
+#include <Network.Static/Connection.hpp>
+#include <Network.Static/Message.hpp>
+
+#include "DataAccess/IRepository.hpp"
+#include "Utility/WarningSuppression.hpp"
+
+
 #include "Network/SafeQueue.hpp"
 
 namespace Network

@@ -1,4 +1,6 @@
+#include <DataAccess.Static/SQLCipherRepository.cpp>
 #include "TokenHolder.hpp"
+
 
 namespace Utility
 {

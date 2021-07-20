@@ -3,9 +3,15 @@
 #include <string>
 #include <memory>
 #include <regex>
+#include <future>
 #include <nlohmann/json.hpp>
-#include <DataAccess.Static/SQLCipherRepository.cpp>
-#include <Utility.Static/Cryptography.hpp>
+
+#include "Cryptography.hpp"
+
+namespace DataAccess
+{
+class IRepository;
+}
 
 namespace Utility
 {

@@ -1,4 +1,6 @@
 #include "SQLCipherAdapter.hpp"
+#include <Utility.Static/Cryptography.hpp>
+#include <Utility.Static/MACAddress.hpp>
 
 namespace DataAccess
 {

@@ -13,19 +13,18 @@ target_include_directories(${TARGET} PRIVATE
 target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
 
+target_include_directories(${TARGET} PRIVATE
+    $<TARGET_PROPERTY:Network.Static,SOURCE_DIR>/..)
+
 target_link_libraries(${TARGET} 
-    PUBLIC Utility.Static                      
-    PUBLIC Utility.Public
-	PUBLIC DataAccess.Static
-    PUBLIC Network.Public
-	PUBLIC Client.Core.Static
-	PUBLIC CONAN_PKG::asio
-	# PUBLIC CONAN_PKG::cryptopp
-	PUBLIC CONAN_PKG::nlohmann_json
-    PUBLIC CONAN_PKG::lz4
-	PUBLIC CONAN_PKG::sqlcipher
-	PUBLIC CONAN_PKG::yas
-	PRIVATE ${EXTRA_LIBS})
+    PRIVATE ${EXTRA_LIBS} Utility.Static Network.Static DataAccess.Static Client.Core.Static CONAN_PKG::asio CONAN_PKG::nlohmann_json	
+    CONAN_PKG::lz4
+	CONAN_PKG::sqlcipher
+	CONAN_PKG::yas
+    CONAN_PKG::cryptopp)
+
+target_link_libraries(${TARGET} PUBLIC Network.Public Utility.Public)
+    
 
 install(TARGETS ${TARGET}
         CONFIGURATIONS Debug

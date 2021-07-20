@@ -3,9 +3,7 @@ set(OUTPUT_NAME Client.Core.Static)
 
 set(SOURCE_FILES
         Client.hpp
-        Client.cpp
-        TokenHolder.hpp
-        TokenHolder.cpp)
+        Client.cpp)
 
 if (WIN32)
     list(APPEND EXTRA_LIBS ws2_32 wsock32)
@@ -22,15 +20,18 @@ target_include_directories(${TARGET} PRIVATE
 target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
 
+target_include_directories(${TARGET} PRIVATE
+    $<TARGET_PROPERTY:Network.Public,SOURCE_DIR>/..)
+
+target_include_directories(${TARGET} PRIVATE
+    $<TARGET_PROPERTY:Network.Static,SOURCE_DIR>/..)
+
 target_link_libraries(${TARGET}
-        PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas CONAN_PKG::lz4
-        PUBLIC Utility.Static
-        PUBLIC Network.Public
-		PUBLIC DataAccess.Static)
+        PRIVATE ${EXTRA_LIBS} Network.Static Utility.Static DataAccess.Static
+        CONAN_PKG::asio
+        CONAN_PKG::yas
+        CONAN_PKG::lz4)
+
+target_link_libraries(${TARGET} PUBLIC Network.Public)
 
 set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)
-
-target_include_directories(${TARGET}
-    INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
-target_include_directories(${TARGET} PRIVATE
-    $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)

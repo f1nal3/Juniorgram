@@ -1,19 +1,7 @@
 #include "Server.hpp"
 
-
-
-#include <Network.Static/Connection.hpp>
-#include <Network.Static/Primitives.hpp>
-
-#include <Utility.Static/YasSerializer.hpp>
-#include <Utility.Static/TokenBuilder.hpp>
-#include <Utility.Static/ClientPayload.hpp>
-
 #include <DataAccess.Static/PostgreRepository.hpp>
 #include <DataAccess.Static/RepositoryUnits.hpp>
-
-
-#include <future>
 
 namespace Server
 {

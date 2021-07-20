@@ -43,7 +43,8 @@ target_link_libraries(${TARGET} PUBLIC
 	Network.Static
 	CONAN_PKG::libpq
     CONAN_PKG::libpqxx
-    CONAN_PKG::sqlcipher)
+    CONAN_PKG::sqlcipher
+    CONAN_PKG::cryptopp)
 
 target_link_libraries(${TARGET}
     PUBLIC Utility.Public DataAccess.Public)
