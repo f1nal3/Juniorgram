@@ -56,6 +56,20 @@ namespace Network
         ar& o.userID& o.message;
     }
 
+    struct LoginInfo
+    {
+        std::string login;
+        std::string pwdHash;
+        explicit LoginInfo(const std::string& login, const std::string& passwordHash) :
+                            login(login), pwdHash(passwordHash) {}
+    };
+
+    template <typename Archive>
+    void serialize(Archive& ar, LoginInfo& o)
+    {
+        ar& o.login& o.pwdHash;
+    }
+
     struct RegistrationInfo
     {
         std::string email;

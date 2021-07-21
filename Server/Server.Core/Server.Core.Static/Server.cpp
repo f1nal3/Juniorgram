@@ -166,10 +166,10 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         case Network::Message::MessageType::LoginRequest:
         {
             std::cout << "Got login request\n";
-            auto loginInfo = std::any_cast<Network::RegistrationInfo>(message.mBody);
+            auto loginInfo = std::any_cast<Network::LoginInfo>(message.mBody);
             std::cout << "Bad cast?\n";
             auto future = std::async(std::launch::async, &DataAccess::IRepository::loginUser,
-                                        mPostgreRepo.get(), loginInfo.login, loginInfo.passwordHash);
+                                        mPostgreRepo.get(), loginInfo.login, loginInfo.pwdHash);
 
             auto loginSuccessful = future.get();
 

@@ -143,11 +143,11 @@ void Client::userRegistration(const std::string& email, const std::string& login
 void Client::userAuthorization(const std::string& login, const std::string& password)
 {
     const std::string pwdHash = Hashing::SHA_256(password, login);
-    Network::RegistrationInfo loginInfo({}, login, pwdHash);
+    LoginInfo loginInfo(login, pwdHash);
 
     Network::Message message;
     message.mHeader.mMessageType = Network::Message::MessageType::LoginRequest;
-    message.mBody = std::make_any<RegistrationInfo>(loginInfo);
+    message.mBody = std::make_any<LoginInfo>(loginInfo);
 
     send(message);
 }

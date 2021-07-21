@@ -20,12 +20,10 @@ Login::Login(QWidget* parent) : QWidget(parent)
     _logoWidget = std::make_unique<LogoWidget>(this);
 
     _registrationButton->setClickCallback([]() { oApp->setAppState(App::AppState::RegistrationForm); });
-    _signInButton->setClickCallback([this]() {
-        using namespace UserDataValidation;
-        
+    _signInButton->setClickCallback([this]() {        
         std::string login = _usernameInput->text().toStdString();
         std::string password = _passwordInput->text().toStdString();
-        
+        std::cout << "DEBUG: Login: " << login << " pwd: " << password << '\n';
         ConnectionManager::getClient().userAuthorization(login, password);
         });
 
