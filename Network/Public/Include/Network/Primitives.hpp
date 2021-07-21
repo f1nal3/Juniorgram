@@ -60,6 +60,7 @@ namespace Network
     {
         std::string login;
         std::string pwdHash;
+        LoginInfo() = default;
         explicit LoginInfo(const std::string& login, const std::string& passwordHash) :
                             login(login), pwdHash(passwordHash) {}
     };

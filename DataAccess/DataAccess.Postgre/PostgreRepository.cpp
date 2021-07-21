@@ -74,11 +74,11 @@ void PostgreRepository::storeMessage(const Network::MessageInfo& message, const 
 
 bool PostgreRepository::loginUser(const std::string& login, const std::string& pwdHash)
 {
-    const std::string storedHash = PostgreTable("users")
+    auto storedHash = PostgreTable("users")
                                                 .Select()
                                                 ->columns({"password_hash"})
-                                                ->Where("name=" + login)
-                                                ->execute().value()[0][0].as<std::string>();
+                                                ->Where("login=" + login)
+                                                ->execute().value()[0][0].c_str();
     
-    return storedHash == pwdHash;
+    return std::string(storedHash) == pwdHash;
 }

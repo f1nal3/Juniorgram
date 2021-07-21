@@ -143,6 +143,7 @@ void Client::userRegistration(const std::string& email, const std::string& login
 void Client::userAuthorization(const std::string& login, const std::string& password)
 {
     const std::string pwdHash = Hashing::SHA_256(password, login);
+    std::cout << "PWDHASH " << pwdHash;
     LoginInfo loginInfo(login, pwdHash);
 
     Network::Message message;
