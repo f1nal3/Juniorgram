@@ -45,10 +45,10 @@ void ChatHistory::clear() { _messageList.clear(); }
 
 void ChatHistory::deleteMessage(int userId, int messageId)
 {
-    for (typename std::vector<std::unique_ptr<MessageWidget>>::iterator i = _messageList.begin(); i != _messageList.end(); i++)
+    for (auto& i : _messageList)
     {
-        if ((i->get()->_messageId == messageId) && (i->get()->_userId == userId))
-            i->get()->onDelete();
+        if ((i->_messageId == messageId) && (i->_userId == userId))
+            i->onDelete();
     }
 }
 
