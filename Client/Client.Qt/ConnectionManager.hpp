@@ -122,6 +122,12 @@ public:
                             }
                         }
                         break;
+                        
+                        case Network::Message::MessageType::LoginAnswer:
+                        {
+                            std::cout << "Login successful\n";
+                        }
+                        break;
 
                         default:
                             break;
