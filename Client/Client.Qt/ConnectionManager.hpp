@@ -125,7 +125,8 @@ public:
 
                         case Network::Message::MessageType::ServerMessageDelete:
                         {
-                            auto messageInfo = std::any_cast<Network::MessageDeletedInfo>(message.mBody);
+                            //Temporarily commented out code
+                            //auto messageInfo = std::any_cast<Network::MessageDeletedInfo>(message.mBody);
                         }
                         break;
 
