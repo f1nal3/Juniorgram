@@ -63,6 +63,7 @@ namespace Network
         LoginInfo() = default;
         explicit LoginInfo(const std::string& login, const std::string& passwordHash) :
                             login(login), pwdHash(passwordHash) {}
+        ~LoginInfo() = default;
     };
 
     template <typename Archive>

@@ -23,7 +23,7 @@ Login::Login(QWidget* parent) : QWidget(parent)
     _signInButton->setClickCallback([this]() {        
         std::string login = _usernameInput->text().toStdString();
         std::string password = _passwordInput->text().toStdString();
-        std::cout << "DEBUG: Login: " << login << " pwd: " << password << '\n';
+
         ConnectionManager::getClient().userAuthorization(login, password);
         });
 

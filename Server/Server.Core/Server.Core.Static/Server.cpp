@@ -165,16 +165,9 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::LoginRequest:
         {
-            std::cout << "Got login request\n";
-            Network::LoginInfo loginInfo;
-            try {
-            loginInfo = std::any_cast<Network::LoginInfo>(message.mBody);
-            }
-            catch(const std::bad_any_cast& e) 
-            {
-                std::cout << message.mBody.type().name();
-                std::cout << e.what() << '\n';
-            }
+            std::cout << "LoginRequest type" << message.mBody.type().name() << '\n';
+            Network::LoginInfo loginInfo = std::any_cast<Network::LoginInfo>(message.mBody);
+
             auto future = std::async(std::launch::async, &DataAccess::IRepository::loginUser,
                                         mPostgreRepo.get(), loginInfo.login, loginInfo.pwdHash);
 
