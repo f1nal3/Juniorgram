@@ -10,9 +10,9 @@
 
 MessageWidget::MessageWidget(QWidget* history, QString message, int userId, int messageId, qint64 utc, QString username, const Style::MessageWidget& st)
     : QWidget(history),
-    _messageText(std::move(message)),
     _userId(std::move(userId)),
     _messageId(std::move(messageId)),
+    _messageText(std::move(message)),
     _username(std::move(username)),
     _datetime(QDateTime::fromSecsSinceEpoch(utc)),
     _st(st)

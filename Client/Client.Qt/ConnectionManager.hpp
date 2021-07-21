@@ -123,10 +123,9 @@ public:
                         }
                         break;
 
-                        case Network::Message::MessageType::MessageServerDelete:
+                        case Network::Message::MessageType::ServerMessageDelete:
                         {
                             auto messageInfo = std::any_cast<Network::MessageDeletedInfo>(message.mBody);
-                            std::cout << "Message " << messageInfo.messageId << " user " << messageInfo.userId;
                         }
                         break;
 
