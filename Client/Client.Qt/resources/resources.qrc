@@ -2,30 +2,30 @@
     <qresource prefix="/">
         <file>images/textlogo.png</file>
         <file>images/logo.png</file>
-        <file>icons/close-w-10.png</file>
-        <file>icons/close-w-12.png</file>
-        <file>icons/close-w-15.png</file>
-        <file>icons/close-w-20.png</file>
-        <file>icons/close-w-24.png</file>
-        <file>icons/close-w-30.png</file>
-        <file>icons/max-w-10.png</file>
-        <file>icons/max-w-12.png</file>
-        <file>icons/max-w-15.png</file>
-        <file>icons/max-w-20.png</file>
-        <file>icons/max-w-24.png</file>
-        <file>icons/max-w-30.png</file>
-        <file>icons/min-w-10.png</file>
-        <file>icons/min-w-12.png</file>
-        <file>icons/min-w-15.png</file>
-        <file>icons/min-w-20.png</file>
-        <file>icons/min-w-24.png</file>
-        <file>icons/min-w-30.png</file>
-        <file>icons/restore-w-10.png</file>
-        <file>icons/restore-w-12.png</file>
-        <file>icons/restore-w-15.png</file>
-        <file>icons/restore-w-20.png</file>
-        <file>icons/restore-w-24.png</file>
-        <file>icons/restore-w-30.png</file>
+        <file>icons/close-w-100.png</file>
+        <file>icons/close-w-125.png</file>
+        <file>icons/close-w-150.png</file>
+        <file>icons/close-w-200.png</file>
+        <file>icons/close-w-250.png</file>
+        <file>icons/close-w-300.png</file>
+        <file>icons/max-w-100.png</file>
+        <file>icons/max-w-125.png</file>
+        <file>icons/max-w-150.png</file>
+        <file>icons/max-w-200.png</file>
+        <file>icons/max-w-250.png</file>
+        <file>icons/max-w-300.png</file>
+        <file>icons/min-w-100.png</file>
+        <file>icons/min-w-125.png</file>
+        <file>icons/min-w-150.png</file>
+        <file>icons/min-w-200.png</file>
+        <file>icons/min-w-250.png</file>
+        <file>icons/min-w-300.png</file>
+        <file>icons/restore-w-100.png</file>
+        <file>icons/restore-w-125.png</file>
+        <file>icons/restore-w-150.png</file>
+        <file>icons/restore-w-200.png</file>
+        <file>icons/restore-w-250.png</file>
+        <file>icons/restore-w-300.png</file>
         <file>fonts/NotoSans-Regular.ttf</file>
         <file>fonts/NotoSans-Bold.ttf</file>
         <file>fonts/NotoSans-BoldItalic.ttf</file>

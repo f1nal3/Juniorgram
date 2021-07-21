@@ -3,11 +3,24 @@
 #include "AbstractButton.hpp"
 #include "Style/StyleBasic.hpp"
 
+/**
+ * @class FlatButton
+ * @brief Simple flat button
+ */
 class FlatButton : public AbstractButton
 {
 public:
-    explicit FlatButton(QWidget* parent, const QString& text,
-                        const Style::FlatButton& st = st::defaultFlatButton);
+    /**
+     * @brief Constructor for a flat button
+     * @param parent Parent widget
+     * @param text Button text
+     * @param st Button styles
+     */
+    explicit FlatButton(QWidget* parent, const QString& text, const Style::FlatButton& st = st::defaultFlatButton);
+    /**
+     * @brief Sets a new text for a button
+     * @param text New text
+     */
     void setText(const QString& text);
 
 protected:
@@ -21,15 +34,14 @@ protected:
     }
 
 private:
-    QString _text;
+    QString                  _text;
     const Style::FlatButton& _st;
 };
 
 class LinkButton : public AbstractButton
 {
 public:
-    explicit LinkButton(QWidget* parent, const QString& text,
-                        const Style::LinkButton& st = st::defaultLinkButton);
+    explicit LinkButton(QWidget* parent, const QString& text, const Style::LinkButton& st = st::defaultLinkButton);
 
     void setText(const QString& text);
 

@@ -3,95 +3,64 @@
 #include <QPainter>
 #include <QtEvents>
 
-#include "Style/Style.hpp"
-
 void CaptionButton::enterEvent(QEvent* event)
 {
-    Q_UNUSED(event)
-    fadeinAnim->start();
+    _fadeinAnim->setDirection(QAbstractAnimation::Forward);
+    _fadeinAnim->start();
+    return AbstractButton::enterEvent(event);
 }
 
 void CaptionButton::leaveEvent(QEvent* event)
 {
-    Q_UNUSED(event)
-    fadeinAnim->stop();
-    hoverColor = fadeinAnim->startValue().value<QColor>();
-
-    update();
+    _fadeinAnim->setDirection(QAbstractAnimation::Backward);
+    _fadeinAnim->start();
+    return AbstractButton::leaveEvent(event);
 }
 
-void CaptionButton::mouseReleaseEvent(QMouseEvent* event)
+CaptionButton::CaptionButton(QWidget* parent, const QColor& endColor, const Style::icon& icon) : AbstractButton(parent), _icon(icon)
 {
-    if (event->button() == Qt::LeftButton)
-    {
-        emit mouseRelease();
-    }
-}
-bool CaptionButton::eventFilter(QObject* watched, QEvent* event)
-{
-    if (event->type() == QEvent::HoverEnter && this != watched)
-    {
-        repaint();
-        return true;
-    }
-    return false;
-}
-QString CaptionButton::dpi2str(int scale)
-{
-    if (scale <= 100)
-        return "-10";
-    else if (scale <= 125)
-        return "-12";
-    else if (scale < 200)
-        return "-15";
-    else if (scale < 250)
-        return "-20";
-    else if (scale < 300)
-        return "-24";
-    else
-        return "-30";
-}
-
-QString CaptionButton::Lg2str(CaptionButton::CaptionLogo logo)
-{
-    using cp = CaptionLogo;
-    if (logo == cp::Maximize)
-        return "max";
-    else if (logo == cp::Minimize)
-        return "min";
-    else if (logo == cp::Restore)
-        return "restore";
-    else
-        return "close";
-}
-
-CaptionButton::CaptionButton(CaptionButton::CaptionLogo logo, const QColor& endColor,
-                             QWidget* parent)
-    : QWidget(parent)
-{
-    setFixedWidth(Style::valueDPIScale(46));
-    setFixedHeight(Style::valueDPIScale(30));
-    int     scale = Style::getDpiScale();
-    QString icon  = ":icons/" + Lg2str(logo) + "-w" + dpi2str(scale);
-    pixmap        = new QPixmap(icon);
+    resize(Style::valueDPIScale(46) / Style::devicePixelRatio(), Style::valueDPIScale(30) / Style::devicePixelRatio());
 
     setMouseTracking(true);
-    fadeinAnim = new QPropertyAnimation(this, "hoverColor");
-    fadeinAnim->setDuration(150);
-    fadeinAnim->setEasingCurve(QEasingCurve::InCubic);
-    fadeinAnim->setStartValue(QColor(endColor.red(), endColor.green(), endColor.blue(), 0));
-    fadeinAnim->setEndValue(endColor);
-    hoverColor = fadeinAnim->startValue().value<QColor>();
-    setAttribute(Qt::WA_Hover);
+    _fadeinAnim = new QPropertyAnimation(this, "_hoverColor");
+    _fadeinAnim->setDuration(150);
+    _fadeinAnim->setEasingCurve(QEasingCurve::InCubic);
+    _fadeinAnim->setStartValue(QColor(endColor.red(), endColor.green(), endColor.blue(), 0));
+    _fadeinAnim->setEndValue(endColor);
+    _hoverColor = _fadeinAnim->startValue().value<QColor>();
 }
 
 void CaptionButton::paintEvent(QPaintEvent* event)
 {
-    QPainter p(this);
+    QPainter painter(this);
 
-    p.setPen(Qt::NoPen);
-    p.fillRect(0, 0, width(), height(), hoverColor);
+    painter.setPen(Qt::NoPen);
+    painter.fillRect(0, 0, width(), height(), _hoverColor);
 
-    p.drawPixmap((width() - pixmap->width()) / 2, (height() - pixmap->height()) / 2, *pixmap);
+    const int          maxSide = Style::valueDPIScale(20);
+    const Style::icon& icon    = _iconOverride ? *_iconOverride : _icon;
+
+    const int horside = (width() - maxSide) / 2;
+    const int verside = (height() - maxSide) / 2;
+
+    if (icon.size().width() <= maxSide)
+    {
+        painter.drawPixmap((width() - icon->pixmap()->width()) / 2, (height() - icon->pixmap()->height()) / 2, *icon->pixmap());
+    }
+    else
+    {
+        painter.setRenderHint(QPainter::SmoothPixmapTransform);
+        painter.drawPixmap(QRect(horside, verside, maxSide, maxSide), *icon->pixmap());
+    }
     QWidget::paintEvent(event);
+}
+
+bool CaptionButton::setIcon(const Style::icon* icon)
+{
+    if (icon != nullptr)
+    {
+        if (icon->size().width() != icon->size().height()) return false;
+    }
+    _iconOverride = icon;
+    return true;
 }

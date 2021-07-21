@@ -4,7 +4,7 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include <QPainter>
-#include <QRegExpValidator>
+#include <QRegularExpressionValidator>
 #include <QtEvents>
 
 #include "Style/StyleBasic.hpp"
@@ -61,16 +61,17 @@ private:
 template <typename InputClass>
 InputStyle<InputClass>* InputStyle<InputClass>::_instance = nullptr;
 
-FlatInput::FlatInput(QWidget* parent) : QLineEdit(parent)
+FlatInput::FlatInput(QWidget* parent, const QString& placeholder, bool password) : QLineEdit(parent)
 {
     setFont(st::defaultFont);
-    auto* regexpvalidator = new QRegExpValidator;
-    regexpvalidator->setRegExp(QRegExp("[a-zA-Z0-9._]+@[a-zA-Z0-9]+.[a-zA-Z]+"));
+    auto* regexpvalidator = new QRegularExpressionValidator;
+    regexpvalidator->setRegularExpression(QRegularExpression("[a-zA-Z0-9._]+@[a-zA-Z0-9]+.[a-zA-Z]+"));
     setValidator(regexpvalidator);
     setStyle(InputStyle<FlatInput>::instance());
     auto p = palette();
+    p.setColor(QPalette::Window, Qt::white);
     p.setColor(QPalette::Text, Qt::white);
-    p.setColor(QPalette::Highlight, Qt::white);
+    p.setColor(QPalette::Highlight, Qt::gray);
     p.setColor(QPalette::HighlightedText, Qt::white);
     setPalette(p);
 
@@ -79,7 +80,11 @@ FlatInput::FlatInput(QWidget* parent) : QLineEdit(parent)
     QLineEdit::setTextMargins(0, 0, 0, 0);
     setContentsMargins(st::mar);
     setMinimumHeight(fontMetrics().height() + Style::valueDPIScale(8) * 2);
+    setPlaceholderText(placeholder);
+    setEchoMode(password ? Password : Normal);
 }
+
+QRect FlatInput::getTextRect() const { return rect().marginsRemoved(st::mar + QMargins(-2, -1, -2, -1)); }
 
 void FlatInput::paintEvent(QPaintEvent* event)
 {
@@ -95,16 +100,6 @@ void FlatInput::paintEvent(QPaintEvent* event)
 
     QLineEdit::paintEvent(event);
 }
-
-FlatInput::FlatInput(const QString& placeholder, bool password, QWidget* parent) : FlatInput(parent)
-{
-    setPlaceholderText(placeholder);
-    setEchoMode(password ? Password : Normal);
-}
-
-FlatInput::FlatInput(const QString& placeholder, QWidget* parent) : FlatInput(placeholder, false, parent) {}
-
-QRect FlatInput::getTextRect() const { return rect().marginsRemoved(st::mar + QMargins(-2, -1, -2, -1)); }
 
 FlatTextEdit::FlatTextEdit(QWidget* parent, const Style::FlatTextEdit& st) : QTextEdit(parent), _st(st)
 {

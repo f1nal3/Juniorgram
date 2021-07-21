@@ -4,6 +4,7 @@
 #include <string>
 
 #include "App.hpp"
+#include "Utility/UserDataValidation.hpp"
 
 std::string GetLineFromCin()
 {
@@ -70,7 +71,49 @@ int main()
                 std::string email = GetLineFromCin();
                 std::string login = GetLineFromCin();
                 std::string password = GetLineFromCin();
+                std::string repeatPassword = GetLineFromCin();
                 
+                if (email.empty() || login.empty() || password.empty() || repeatPassword.empty())
+                {
+                    std::cout << "some field is empty" << std::endl;
+                    
+                    future = std::async(std::launch::async, GetLineFromCin);
+                    continue;
+                }
+
+                if (password != repeatPassword)
+                {
+                    std::cout << "passwords are different" << std::endl;
+                    
+                    future = std::async(std::launch::async, GetLineFromCin);
+                    continue;
+                }
+
+                using namespace UserDataValidation;
+                if (!isLoginValid(login))
+                {
+                    std::cout << "login is not valid" << std::endl;
+                    
+                    future = std::async(std::launch::async, GetLineFromCin);
+                    continue;
+                }
+
+                if (!isEmailValid(email))
+                {
+                    std::cout << "email is not valid" << std::endl;
+                    
+                    future = std::async(std::launch::async, GetLineFromCin);
+                    continue;
+                }
+
+                if (!isPasswordValid(password))
+                {
+                    std::cout << "password is not valid" << std::endl;
+                    
+                    future = std::async(std::launch::async, GetLineFromCin);
+                    continue;
+                }
+
                 clientApp.shell()->userRegistration(email, login, password);
             }
             else if (cmd == "q")
@@ -89,5 +132,6 @@ int main()
 
         quit = clientApp.loop();
     }
+
     return EXIT_SUCCESS;
 }

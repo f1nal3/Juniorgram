@@ -95,6 +95,10 @@ extern const Style::FlatButton&    underlineButton;
 extern const Style::ScrollArea&    defaultScrollArea;
 extern const Style::FlatTextEdit&  defaultTextEdit;
 extern const Style::FlatTextEdit&  messageTextEdit;
+extern const Style::icon&          closeButtonIcon;
+extern const Style::icon&          restoreButtonIcon;
+extern const Style::icon&          maximizeButtonIcon;
+extern const Style::icon&          minimizeButtonIcon;
 extern const Style::FlatButton&    messageButton;
 extern const Style::MessageWidget& defaultMessageWidget;
 }  // namespace st

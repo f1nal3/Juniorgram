@@ -3,19 +3,16 @@ constexpr auto EMPTY_MESSAGE   = "Empty message";
 constexpr auto EMPTY_USER_NAME = "You";
 constexpr auto COUNT_REACTION  = 4;
 
+#include <QDateTime>
 #include <QHBoxLayout>
-#include <QListWidgetItem>
 #include <QSpacerItem>
 #include <QVBoxLayout>
 #include <ctime>
 #include <memory>
 
-#include "Widgets/ComboBox.hpp"
-#include "Widgets/DateTimeEdit.hpp"
 #include "Widgets/FlatButton.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/Label.hpp"
-#include "Widgets/TimeEdit.hpp"
 
 class ChatHistory;
 
