@@ -43,7 +43,7 @@ void ChatHistory::addMessage(const QString& message, quint64 utc, const QString&
 
 void ChatHistory::clear() { _messageList.clear(); }
 
-void ChatHistory::deleteMessage(int userId, int messageId)
+void ChatHistory::deleteMessage(uint64_t userId, uint64_t messageId)
 {
     for (auto& i : _messageList)
     {

@@ -31,7 +31,7 @@ public:
      * @brief Clears all chat
      */
     void clear();
-    void deleteMessage(int userId, int messageId);
+    void deleteMessage(uint64_t userId, uint64_t messageId);
 
 protected:
     void resizeEvent(QResizeEvent* event) override;
