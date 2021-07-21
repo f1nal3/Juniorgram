@@ -1,4 +1,4 @@
-#include <DataAccess.Static/PostgreTable.hpp>
+#include <DataAccess.Postgre/PostgreTable.hpp>
 #include <catch2/catch.hpp>
 #include <iostream>
 #include <unordered_map>

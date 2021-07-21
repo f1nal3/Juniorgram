@@ -21,8 +21,7 @@ class PostgreAdapter final : public IAdapter
 private:
     inline static std::mutex ms_static_mutex{};
     inline static std::shared_ptr<PostgreAdapter> msp_instance{};
-    inline static constexpr std::string_view ms_defaultOptions =
-        "dbname=juniorgram user=postgres hostaddr=127.0.0.1 port=5432";
+    inline static constexpr std::string_view ms_defaultOptions = DBOptions::real;
 
     std::mutex m_query_mutex;
     std::unique_ptr<pqxx::connection> m_connection;

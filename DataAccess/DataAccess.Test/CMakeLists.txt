@@ -14,13 +14,13 @@ target_link_libraries(${TARGET} PUBLIC
     CONAN_PKG::libpq
     CONAN_PKG::libpqxx
     CONAN_PKG::catch2
-    DataAccess.Static
+    DataAccess.Postgre
     DataAccess.Debug
     Utility.Public
     Utility.Static)
 
 target_include_directories(${TARGET} PRIVATE
-    $<TARGET_PROPERTY:DataAccess.Static,SOURCE_DIR>/..)
+    $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
 
 target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)

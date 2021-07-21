@@ -6,6 +6,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 set(SOURCE_FILES
+        Widgets/TitleWidget.cpp
+        Widgets/TitleWidget.hpp
         Widgets/AbstractButton.cpp
         Widgets/AbstractButton.hpp
         Widgets/BioButton.cpp
@@ -22,8 +24,6 @@ set(SOURCE_FILES
         Widgets/ChatWidget.hpp
         Widgets/ComboBox.cpp
         Widgets/ComboBox.hpp
-        Widgets/DateTimeEdit.cpp
-        Widgets/DateTimeEdit.hpp
         Widgets/FlatButton.cpp
         Widgets/FlatButton.hpp
         Widgets/InputFields.cpp
@@ -46,8 +46,6 @@ set(SOURCE_FILES
         Widgets/ScrollArea.hpp
         Widgets/TextEdit.cpp
         Widgets/TextEdit.hpp
-        Widgets/TimeEdit.cpp
-        Widgets/TimeEdit.hpp
         Style/Palette.cpp
         Style/Palette.hpp
         Style/Shadow.hpp
@@ -63,6 +61,8 @@ set(SOURCE_FILES
         Style/StyleScale.hpp
         Style/StyleTypes.cpp
         Style/StyleTypes.hpp
+        Style/StyleIcon.cpp
+        Style/StyleIcon.hpp
         Application.cpp
         Application.hpp
         ChatWindow.cpp
@@ -86,7 +86,7 @@ elseif (UNIX AND NOT APPLE)
 endif ()
 
 target_link_libraries(${TARGET}
-        PRIVATE Qt5::Widgets Qt5::Gui ${EXTRA_LIBS} CONAN_PKG::asio
+        PRIVATE Qt::Widgets Qt::Gui ${EXTRA_LIBS} CONAN_PKG::asio
         PUBLIC Network.Public Client.Core.Static Utility.Public)
 
 # This needs to be an install or after install operation

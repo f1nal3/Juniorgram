@@ -15,7 +15,7 @@ public:
 };
 Module_Palette registrator;
 
-Style::palette _palette;
+Style::Palette _palette;
 
 }  // namespace
 
@@ -41,7 +41,7 @@ const Style::color& scrollAreaBarOver(_palette.get_scrollAreaBarOver());
 
 namespace Style
 {
-int palette::indexOfColor(Style::color c) const
+int Palette::indexOfColor(Style::color c) const
 {
     auto start = data(0);
     if (c._data >= start && c._data < start + kCount)
@@ -51,14 +51,14 @@ int palette::indexOfColor(Style::color c) const
     return -1;
 }
 
-color palette::colorAtIndex(int index) const
+color Palette::colorAtIndex(int index) const
 {
     assert(_ready);
     assert(index >= 0 && index < kCount);
     return _colors[index];
 }
 
-void palette::finalize()
+void Palette::finalize()
 {
     if (_ready) return;
     _ready = true;
@@ -80,12 +80,19 @@ void palette::finalize()
     compute(14, -1, {71, 72, 73, 255});
     compute(15, -1, {89, 90, 91, 255});
 }
+
+namespace
+{
+}  // namespace
+
 namespace internal
 {
-void init_Palette(int)
+void init_Palette(int scale)
 {
     if (inited) return;
     inited = true;
+
+    Q_UNUSED(scale)
 
     _palette.finalize();
 }

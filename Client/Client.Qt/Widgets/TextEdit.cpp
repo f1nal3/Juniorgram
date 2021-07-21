@@ -6,35 +6,35 @@
 
 TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
 {
-    mainVerticalLayout       = std::make_unique<QVBoxLayout>(this);
-    horizontaltButtonsLayout = std::make_unique<QHBoxLayout>();
-    mBoldButton              = std::make_unique<FlatButton>(this, "B", st::boldnessButton);
-    mItalicsButton           = std::make_unique<FlatButton>(this, "I", st::italicButton);
-    mUnderscoreButton        = std::make_unique<FlatButton>(this, "U", st::underlineButton);
-    sendButton               = std::make_unique<FlatButton>(this, "Send");
-    messageTextEdit          = std::make_unique<FlatTextEdit>();
-    horizontalButtonSpacer =
+    _mainVerticalLayout      = std::make_unique<QVBoxLayout>(this);
+    _horizontalButtonLayout  = std::make_unique<QHBoxLayout>();
+    _boldnessButton          = std::make_unique<FlatButton>(this, "B", st::boldnessButton);
+    _italicButton            = std::make_unique<FlatButton>(this, "I", st::italicButton);
+    _underlineButton         = std::make_unique<FlatButton>(this, "U", st::underlineButton);
+    _sendButton              = std::make_unique<FlatButton>(this, "Send");
+    _messageInput            = std::make_unique<FlatTextEdit>();
+    _horizontalButtonSpacer  =
         std::make_unique<QSpacerItem>(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
-    horizontaltButtonsLayout->setAlignment(Qt::AlignLeft);
-    horizontaltButtonsLayout->addWidget(mBoldButton.get());
-    horizontaltButtonsLayout->addWidget(mItalicsButton.get());
-    horizontaltButtonsLayout->addWidget(mUnderscoreButton.get());
-    horizontaltButtonsLayout->addItem(horizontalButtonSpacer.get());
-    horizontaltButtonsLayout->addWidget(sendButton.get());
-    mainVerticalLayout->addWidget(messageTextEdit.get());
-    mainVerticalLayout->addLayout(horizontaltButtonsLayout.get());
-    setLayout(mainVerticalLayout.get());
+    _horizontalButtonLayout->setAlignment(Qt::AlignLeft);
+    _horizontalButtonLayout->addWidget(_boldnessButton.get());
+    _horizontalButtonLayout->addWidget(_italicButton.get());
+    _horizontalButtonLayout->addWidget(_underlineButton.get());
+    _horizontalButtonLayout->addItem(_horizontalButtonSpacer.get());
+    _horizontalButtonLayout->addWidget(_sendButton.get());
+    _mainVerticalLayout->addWidget(_messageInput.get());
+    _mainVerticalLayout->addLayout(_horizontalButtonLayout.get());
+    setLayout(_mainVerticalLayout.get());
     connectUi();
 }
 
 void TextEdit::connectUi()
 {
-    mBoldButton->setClickCallback([&]() { boldButtonClicked(boldSymbolStart, boldSymbolEnd); });
-    mItalicsButton->setClickCallback(
-        [&]() { boldButtonClicked(italicsSymbolStart, italicsboldSymbolEnd); });
-    mUnderscoreButton->setClickCallback(
-        [&]() { boldButtonClicked(underscoreSymbolStart, underscoreSymbolEnd); });
-    sendButton->setClickCallback([&]() { clickButtonSend(); });
+    _boldnessButton->setClickCallback([&]() { boldButtonClicked(_boldSymbolOpen, _boldSymbolClose); });
+    _italicButton->setClickCallback(
+        [&]() { boldButtonClicked(_italicSymbolOpen, _italicSymbolClose); });
+    _underlineButton->setClickCallback(
+        [&]() { boldButtonClicked(_underlineSymbolOpen, _underlineSymbolClose); });
+    _sendButton->setClickCallback([&]() { clickButtonSend(); });
 }
 
 void TextEdit::clickButtonSend() { 
@@ -55,7 +55,7 @@ void TextEdit::keyPressEvent(QKeyEvent* event)
 
 void TextEdit::boldButtonClicked(QString SymbolStart, QString SymbolEnd)
 {
-    QTextCursor cursor = messageTextEdit->textCursor();
+    QTextCursor cursor = _messageInput->textCursor();
 
     if (cursor.hasSelection())
     {
@@ -71,12 +71,12 @@ void TextEdit::boldButtonClicked(QString SymbolStart, QString SymbolEnd)
         if (mSelection.endsWith(SymbolEnd) && mSelection.startsWith(SymbolStart))
         {
             delSymbolsInSelection(mFullText, start, end, SymbolSize);
-            messageTextEdit->setTextCursor(cursor);
+            _messageInput->setTextCursor(cursor);
         }
         else if (mBeforeSelection.endsWith(SymbolStart) && mAfterSelection.startsWith(SymbolEnd))
         {
             delSymbolsOutSelection(mFullText, start, end, SymbolSize);
-            messageTextEdit->setTextCursor(cursor);
+            _messageInput->setTextCursor(cursor);
         }
         else
         {
@@ -90,14 +90,14 @@ void TextEdit::delSymbolsInSelection(QString& text, int& start, int& end, int sy
 {
     text.replace(end - (symbolSize + 1), symbolSize + 1, "");
     text.replace(start, symbolSize, "");
-    messageTextEdit->setPlainText(text);
+    _messageInput->setPlainText(text);
 }
 
 void TextEdit::delSymbolsOutSelection(QString& text, int& start, int& end, int symbolSize)
 {
     text.replace(end, symbolSize + 1, "");
     text.replace(start - symbolSize, symbolSize, "");
-    messageTextEdit->setPlainText(text);
+    _messageInput->setPlainText(text);
 }
 
 void TextEdit::insertSymbolsInSelection(QTextCursor& cursor, int& start, int& end, int symbolSize,
@@ -116,17 +116,16 @@ void TextEdit::selectText(QTextCursor& cursor, int start, int end)
 {
     cursor.setPosition(start, QTextCursor::MoveAnchor);
     cursor.setPosition(end, QTextCursor::KeepAnchor);
-    messageTextEdit->setTextCursor(cursor);
+    _messageInput->setTextCursor(cursor);
 }
 
 QString TextEdit::getText() const
 {
-    return messageTextEdit->toPlainText();
+    return _messageInput->toPlainText();
 }
 
-void TextEdit::clearTextEdit() { messageTextEdit->clear(); }
+void TextEdit::clearTextEdit() { _messageInput->clear(); }
 
 TextEdit::~TextEdit()
-{
-    horizontaltButtonsLayout->removeItem(horizontalButtonSpacer.get());
+{ _horizontalButtonLayout->removeItem(_horizontalButtonSpacer.get());
 }

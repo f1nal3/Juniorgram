@@ -14,10 +14,10 @@ class TextEdit : public QWidget
 {
     Q_OBJECT
 public:
-    TextEdit(QWidget* parent = nullptr);
+    explicit TextEdit(QWidget* parent = nullptr);
     /**
      * @brief Method for getting text from the text edit field.
-     * @return text edit field content as QString.
+     * @return text edit field content.
      */
     [[nodiscard]] QString getText() const;
     /**
@@ -27,27 +27,26 @@ public:
     ~TextEdit() override;
 
 private:
-    std::unique_ptr<QVBoxLayout> mainVerticalLayout;
-    std::unique_ptr<QHBoxLayout> horizontaltButtonsLayout;
-    std::unique_ptr<FlatButton> mBoldButton;
-    std::unique_ptr<FlatButton> mItalicsButton;
-    std::unique_ptr<FlatButton> mUnderscoreButton;
-    std::unique_ptr<FlatButton> sendButton;
-    std::unique_ptr<FlatTextEdit> messageTextEdit;
-    std::unique_ptr<QSpacerItem> horizontalButtonSpacer;
+    std::unique_ptr<QVBoxLayout>  _mainVerticalLayout;
+    std::unique_ptr<QHBoxLayout>  _horizontalButtonLayout;
+    std::unique_ptr<FlatButton>   _boldnessButton;
+    std::unique_ptr<FlatButton>   _italicButton;
+    std::unique_ptr<FlatButton>   _underlineButton;
+    std::unique_ptr<FlatButton>   _sendButton;
+    std::unique_ptr<FlatTextEdit> _messageInput;
+    std::unique_ptr<QSpacerItem>  _horizontalButtonSpacer;
 
-    const int SymbolSize                = 3;
-    const QString boldSymbolStart       = "<B>";
-    const QString boldSymbolEnd         = "</B>";
-    const QString italicsSymbolStart    = "<I>";
-    const QString italicsboldSymbolEnd  = "</I>";
-    const QString underscoreSymbolStart = "<U>";
-    const QString underscoreSymbolEnd   = "</U>";
+    const int     SymbolSize            = 3;
+    const QString _boldSymbolOpen       = "<B>";
+    const QString _boldSymbolClose      = "</B>";
+    const QString _italicSymbolOpen     = "<I>";
+    const QString _italicSymbolClose    = "</I>";
+    const QString _underlineSymbolOpen  = "<U>";
+    const QString _underlineSymbolClose = "</U>";
 
     void delSymbolsInSelection(QString& text, int& start, int& end, int symbolSize);
     void delSymbolsOutSelection(QString& text, int& start, int& end, int symbolSize);
-    void insertSymbolsInSelection(QTextCursor& cursor, int& start, int& end, int symbolSize,
-                                  const QString symbolStart, const QString symbolEnd);
+    void insertSymbolsInSelection(QTextCursor& cursor, int& start, int& end, int symbolSize, QString symbolStart, QString symbolEnd);
     void selectText(QTextCursor& cursor, int start, int end);
     void connectUi();
     void keyPressEvent(QKeyEvent* event) override;
