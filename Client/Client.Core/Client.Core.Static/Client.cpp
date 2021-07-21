@@ -147,7 +147,7 @@ void Client::messageAll() const
     send(message);
 }
 
-void Client::messageUserDelete(int userId, int messageId) const
+void Client::messageUserDelete(int64_t userId, int64_t messageId) const
 {
     Network::MessageDeletedInfo messageDeletedInfo(userId, messageId);
     Network::Message message;

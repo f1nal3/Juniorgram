@@ -95,7 +95,7 @@ namespace Network
     {
         int userId;
         int messageId;
-        explicit MessageDeletedInfo(const int _userId, const int _messageId)
+        explicit MessageDeletedInfo(const int64_t _userId, const int64_t _messageId)
             : userId(_userId), messageId(_messageId)
         {}
 
