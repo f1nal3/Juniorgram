@@ -42,7 +42,7 @@ public:
      * @param utc Seconds since epoch.
      * @param username User nickname.
      */
-    MessageWidget(QWidget* history, QString message, int userId, int messageId, qint64 utc, QString username,
+    MessageWidget(QWidget* history, QString message, int64_t userId, int64_t messageId, qint64 utc, QString username,
         const Style::MessageWidget& st = st::defaultMessageWidget);
 
     /**
@@ -73,8 +73,8 @@ public:
     }
 
     int expectedHeight();
-    int _userId;
-    int _messageId;
+    int64_t _userId;
+    int64_t _messageId;
 
 public slots:
     void onDelete();

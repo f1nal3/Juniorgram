@@ -28,8 +28,8 @@ struct Message
         MessageStoreRequest,
         RegistrationRequest,
         RegistrationAnswer,
-        UserMessageDelete,
-        ServerMessageDelete
+        UserMessageDeleteRequest,
+        UserMessageDeleteAnswer
     };
 
     struct MessageHeader

@@ -123,7 +123,7 @@ public:
                         }
                         break;
 
-                        case Network::Message::MessageType::ServerMessageDelete:
+                        case Network::Message::MessageType::UserMessageDeleteAnswer:
                         {
                             //Temporarily commented out code
                             //auto messageInfo = std::any_cast<Network::MessageDeletedInfo>(message.mBody);
