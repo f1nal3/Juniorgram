@@ -13,8 +13,8 @@ MessageWidget::MessageWidget(QWidget* history, QString message, int userId, int 
     _messageText(std::move(message)),
     _username(std::move(username)),
     _datetime(QDateTime::fromSecsSinceEpoch(utc)),
-    _userId(userId),
-    _messageId(messageId),
+    _userId(std::move(userId)),
+    _messageId(std::move(messageId)),
     _st(st)
 {
     setContentsMargins(QMargins(_st.radius, _st.radius, _st.radius, _st.radius));
