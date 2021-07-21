@@ -8,7 +8,7 @@
 #include "ChatHistory.hpp"
 #include "Style/Style.hpp"
 
-MessageWidget::MessageWidget(QWidget* history, QString message, int64_t userId, int64_t messageId, qint64 utc, QString username, const Style::MessageWidget& st)
+MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId, uint64_t messageId, qint64 utc, QString username, const Style::MessageWidget& st)
     : QWidget(history),
     _userId(userId),
     _messageId(messageId),
