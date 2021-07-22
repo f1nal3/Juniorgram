@@ -34,8 +34,8 @@ sqlite3_ptr make_sqlite3(const std::string_view& dbName)
         throw Utility::OperationDBException("Failed to open sqlite!", __FILE__, __LINE__);
     }
 
-    suppressWarning(4267, Init) const std::string& hashedMAC =
-        Hashing::getSHA512HashingValue(Utility::MACAddressUtility::GetMACAddress());
+    suppressWarning(4267, Init) 
+        const std::string& hashedMAC = Hashing::getSHA512HashingValue(Utility::MACAddressUtility::GetMACAddress());
 
     sqlite3_key(db, hashedMAC.c_str(), hashedMAC.size());
     restoreWarning

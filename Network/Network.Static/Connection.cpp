@@ -74,6 +74,10 @@ namespace Network
 
     std::unique_ptr<Utility::KeyDestributor>& Connection::getKeyDestributor()
     {
+        if (mKeyDestributor == nullptr)
+        {
+            mKeyDestributor = std::make_unique<Utility::KeyDestributor>();
+        }
         return mKeyDestributor;
     }
 

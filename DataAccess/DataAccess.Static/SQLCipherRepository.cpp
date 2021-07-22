@@ -4,8 +4,7 @@ namespace DataAccess
 {
 std::string SQLCipherRepository::getRefreshToken()
 { 
-    auto tokenVc =
-        std::get<1>(SQLCipherTable("refresh_tokens").Select()->columns({"refresh_token"})->execute());
+    auto tokenVc = std::get<1>(SQLCipherTable("refresh_tokens").Select()->columns({"refresh_token"})->execute());
 
     return tokenVc.front();
 }

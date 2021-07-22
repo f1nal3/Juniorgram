@@ -36,18 +36,24 @@ namespace Utility
 
     bool TokenHolder::checkTokenExistance(const std::unique_ptr<DataAccess::IRepository>& SQLCipherRepo)
     {
-        auto isExists = std::async(std::launch::async, &DataAccess::SQLCipherRepository::getRefreshToken,
+        auto isExists = std::async(std::launch::async, &DataAccess::SQLCipherRepository::isRefreshTokenExists,
                        dynamic_cast<DataAccess::SQLCipherRepository*>(SQLCipherRepo.get()));
         
-        if (isExists.get().empty())
+        if (isExists.get())
         {
-            return false;
-        }
-        else
-        {
-            this->setRefreshToken(isExists.get());
+            auto refrToken = std::async(
+                std::launch::async, &DataAccess::SQLCipherRepository::getRefreshToken,
+                dynamic_cast<DataAccess::SQLCipherRepository*>(SQLCipherRepo.get()));
+        
+            this->setRefreshToken(refrToken.get());
             return true;
         }
+        else
+        {           
+           return false;
+        }
+
+        return true;
     }
 
     bool TokenHolder::isExpired(const std::string& currentToken) 

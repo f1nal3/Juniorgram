@@ -12,11 +12,11 @@ App::App(/* args */)
    
     if ((*Utility::TokenHolder::Instance()).checkTokenExistance(client.getSQLCipherRepo()))
     {
-       
+        std::cout << "Success";
     }
     else
     {
-        
+        std::cout << "No success";
     }
 }
 
