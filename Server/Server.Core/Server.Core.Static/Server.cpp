@@ -163,7 +163,7 @@ void Server::onMessage(const std::shared_ptr<Network::Connection>& client, Netwo
 
         case Network::Message::MessageType::RegistrationRequest:
         {
-            auto [clientPayload ,ri] = std::any_cast<std::pair<Utility::ClientPayload, Network::RegistrationInfo>>(message.mBody);
+            auto [clientPayload ,ri] = std::any_cast<std::pair<Network::ClientPayload, Network::RegistrationInfo>>(message.mBody);
             
             auto future = std::async(std::launch::async, &RegistrationUnit::registerUser, &RegistrationUnit::instance(), ri);
         

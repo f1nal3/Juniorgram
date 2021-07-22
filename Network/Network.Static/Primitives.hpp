@@ -1,13 +1,29 @@
 #pragma once
 
-#include <Utility/WarningSuppression.hpp>
 #include <cstdint>
 #include <string>
 #include <chrono>
 #include <cstring>
-        
+
+#include <Utility/WarningSuppression.hpp>
+  
 namespace Network
 {
+    struct ClientPayload
+    {
+        ClientPayload(const std::string& login, const std::string& psswdHash);
+
+        ClientPayload& operator=(const ClientPayload& other) = default;
+
+        friend bool operator==(const ClientPayload& payload, const ClientPayload& payloadAnother);
+
+    private:
+        std::string mOS;
+        std::string mSub;
+        std::string mFingerprint;
+        std::string mIP;
+    };
+
     struct ChannelInfo
     {
         std::uint64_t channelID;

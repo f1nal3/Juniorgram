@@ -1,6 +1,5 @@
 #pragma once
 
-//#include <Network.Static/Connection.hpp>
 #include "SignerAndVerifier.hpp"
 #include "KeyDestributor.hpp"
 
@@ -10,7 +9,6 @@
 #include <cryptopp/base64.h>
 #include <cryptopp/dh2.h>
 #include <cryptopp/eccrypto.h>
-
 
 #include <memory>
 #include <string>

@@ -1,5 +1,8 @@
 #include "Primitives.hpp"
 
+#include <Utility.Static/Cryptography.hpp>
+#include <Utility.Static/MACAddress.hpp>
+      
 namespace Network
 {
     RegistrationInfo::RegistrationInfo(const std::string& email, const std::string& login,
@@ -7,6 +10,28 @@ namespace Network
         : email(email), login(login), passwordHash(passwordHash)
     {
     }
+
+    ClientPayload::ClientPayload(const std::string& login, const std::string& psswdHash)
+        : mSub{Hashing::getSHA1HashingValue(Utility::MACAddressUtility::GetMACAddress() + login +
+                                            psswdHash)},
+                mOS{[]() -> std::string {
+    #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+                    return "Windows";
+    #elif __APPLE__
+                    return "MacOS";
+    #elif __linux__
+                    return "Linux";
+    #endif
+                }()},
+                mFingerprint{"jg.client"}
+    {
+    }
+
+    bool operator==(const ClientPayload& payload, const ClientPayload& payloadAnother)
+        {
+            return payload.mOS == payloadAnother.mOS && payload.mSub == payloadAnother.mSub &&
+                   payload.mFingerprint == payloadAnother.mFingerprint;
+        }
 
     bool operator==(const ChannelInfo& channelInfo1, const ChannelInfo& channelInfo2)
     {

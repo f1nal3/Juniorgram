@@ -52,8 +52,6 @@ namespace Utility
         {           
            return false;
         }
-
-        return true;
     }
 
     bool TokenHolder::isExpired(const std::string& currentToken) 

@@ -10,8 +10,6 @@ set(SOURCE_FILES
     KeyHolder.hpp
 	MACAddress.hpp
 	MACAddress.cpp
-	ClientPayload.hpp
-	ClientPayload.cpp
 	TokenHolder.hpp
 	TokenHolder.cpp
 	YasSerializer.hpp

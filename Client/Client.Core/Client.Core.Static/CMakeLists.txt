@@ -21,10 +21,11 @@ target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
 
 target_include_directories(${TARGET} PRIVATE
-    $<TARGET_PROPERTY:Network.Public,SOURCE_DIR>/..)
+    $<TARGET_PROPERTY:Network.Static,SOURCE_DIR>/..)
 
 target_include_directories(${TARGET} PRIVATE
-    $<TARGET_PROPERTY:Network.Static,SOURCE_DIR>/..)
+    $<TARGET_PROPERTY:Network.Public,SOURCE_DIR>/..)
+
 
 target_link_libraries(${TARGET}
         PRIVATE ${EXTRA_LIBS} Network.Static Utility.Static DataAccess.Static

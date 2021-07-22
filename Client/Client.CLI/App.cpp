@@ -12,11 +12,13 @@ App::App(/* args */)
    
     if ((*Utility::TokenHolder::Instance()).checkTokenExistance(client.getSQLCipherRepo()))
     {
-        std::cout << "Success";
+        std::cout << "An existing refresh token is used.";
     }
     else
     {
-        std::cout << "No success";
+        std::cout<< "At the moment refresh token is not detected," 
+                           "you need to authenticate or register.";
+       
     }
 }
 
@@ -158,9 +160,8 @@ bool App::loop()
                     }
                 }
                 break;
-
-				default:
-                    break;
+                default:
+                break;
             }
         }
     }
