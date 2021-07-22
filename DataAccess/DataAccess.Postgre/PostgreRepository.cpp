@@ -86,6 +86,7 @@ bool PostgreRepository::loginUser(const std::string& login, const std::string& p
     }
     catch(const std::exception& e)
     {
+        std::cout << e.what();
         return false;
     }
 }
