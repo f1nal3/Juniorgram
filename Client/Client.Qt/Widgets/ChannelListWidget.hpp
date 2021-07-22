@@ -3,8 +3,8 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
+#include "Buttons.hpp"
 #include "ChannelListWindow.hpp"
-#include "FlatButton.hpp"
 #include "ListWidget.hpp"
 /**
  *  @class ChannelListWidget

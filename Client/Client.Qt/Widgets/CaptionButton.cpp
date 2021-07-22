@@ -17,17 +17,11 @@ void CaptionButton::leaveEvent(QEvent* event)
     return AbstractButton::leaveEvent(event);
 }
 
-CaptionButton::CaptionButton(QWidget* parent, const QColor& endColor, const Style::icon& icon) : AbstractButton(parent), _icon(icon)
+CaptionButton::CaptionButton(QWidget* parent, const Style::TitleBarButton* st) : AbstractButton(parent), _st(st)
 {
-    resize(Style::valueDPIScale(46) / Style::devicePixelRatio(), Style::valueDPIScale(30) / Style::devicePixelRatio());
-
     setMouseTracking(true);
-    _fadeinAnim = new QPropertyAnimation(this, "_hoverColor");
-    _fadeinAnim->setDuration(150);
-    _fadeinAnim->setEasingCurve(QEasingCurve::InCubic);
-    _fadeinAnim->setStartValue(QColor(endColor.red(), endColor.green(), endColor.blue(), 0));
-    _fadeinAnim->setEndValue(endColor);
-    _hoverColor = _fadeinAnim->startValue().value<QColor>();
+    _fadeinAnim = std::make_unique<QPropertyAnimation>(this, "_hoverColor");
+    updateWidget();
 }
 
 void CaptionButton::paintEvent(QPaintEvent* event)
@@ -38,7 +32,7 @@ void CaptionButton::paintEvent(QPaintEvent* event)
     painter.fillRect(0, 0, width(), height(), _hoverColor);
 
     const int          maxSide = Style::valueDPIScale(20);
-    const Style::icon& icon    = _iconOverride ? *_iconOverride : _icon;
+    const Style::icon& icon    = _iconOverride ? *_iconOverride : _st->icon;
 
     const int horside = (width() - maxSide) / 2;
     const int verside = (height() - maxSide) / 2;
@@ -55,6 +49,12 @@ void CaptionButton::paintEvent(QPaintEvent* event)
     QWidget::paintEvent(event);
 }
 
+void CaptionButton::setStyle(const Style::TitleBarButton* newSt)
+{
+    _st = newSt;
+    updateWidget();
+}
+
 bool CaptionButton::setIcon(const Style::icon* icon)
 {
     if (icon != nullptr)
@@ -63,4 +63,15 @@ bool CaptionButton::setIcon(const Style::icon* icon)
     }
     _iconOverride = icon;
     return true;
+}
+void CaptionButton::updateWidget()
+{
+    resize(_st->width, _st->height);
+
+    _fadeinAnim->setDuration(150);
+    _fadeinAnim->setEasingCurve(QEasingCurve::InCubic);
+    _fadeinAnim->setStartValue(_st->bgColor->color);
+    _fadeinAnim->setEndValue(_st->overBgColor->color);
+    _hoverColor = _fadeinAnim->startValue().value<QColor>();
+    update();
 }

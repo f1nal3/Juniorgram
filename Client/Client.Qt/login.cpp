@@ -3,16 +3,16 @@
 #include <QtEvents>
 
 #include "Application.hpp"
-#include "Widgets/FlatButton.hpp"
+#include "Widgets/Buttons.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/LogoWidget.hpp"
 
 Login::Login(QWidget* parent) : QWidget(parent)
 {
-    _usernameInput   = std::make_unique<FlatInput>(this, "Username");
-    _passwordInput   = std::make_unique<FlatInput>(this, "Password", true);
+    _usernameInput = std::make_unique<FlatInput>(this, "Username");
+    _passwordInput = std::make_unique<FlatInput>(this, "Password", true);
 
-    _signInButton      = std::make_unique<FlatButton>(this, "Login");
+    _signInButton       = std::make_unique<FlatButton>(this, "Login");
     _registrationButton = std::make_unique<FlatButton>(this, "Registration");
 
     _logoWidget = std::make_unique<LogoWidget>(this);
@@ -29,10 +29,10 @@ Login::Login(QWidget* parent) : QWidget(parent)
 
 void Login::resizeEvent(QResizeEvent* event)
 {
-    const QSize SIZE          = event->size();
-    const int   HOR_SPACING   = Style::valueDPIScale(16);
-    const int   MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
-    const int   LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
+    const QSize SIZE        = event->size();
+    const int HOR_SPACING   = Style::valueDPIScale(16);
+    const int MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
+    const int LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
 
     _logoWidget->recountSize();
 

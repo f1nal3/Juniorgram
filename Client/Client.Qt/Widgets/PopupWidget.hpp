@@ -2,9 +2,13 @@
 #include <QWidget>
 
 #include "Menu.hpp"
+
+/**
+ * @class PopupWidget
+ */
 class PopupWidget : public QWidget
 {
-    Q_OBJECT
+Q_OBJECT
 public:
     explicit PopupWidget(QWidget* parent = nullptr);
 

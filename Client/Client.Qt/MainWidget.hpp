@@ -3,18 +3,16 @@
 #include <QWidget>
 #include <memory>
 
-#include "Widgets/CaptionButton.hpp"
 #include "Widgets/TitleWidget.hpp"
 
 class QHBoxLayout;
-class BioButton;
 
 class MainWidget : public QWidget
 {
     Q_OBJECT
 public:
     explicit MainWidget(QWidget* parent = nullptr);
-    int  addWidget(std::unique_ptr<QWidget> widget);
+    int addWidget(std::unique_ptr<QWidget> widget);
     void setCentralWidget(std::int32_t index);
     bool setBioButtonIcon(const Style::icon* icon);
 
@@ -32,7 +30,7 @@ public:
     };
 
     MouseType checkResizableField(QMouseEvent* event);
-    void      refreshTitleBar(bool showBioButton);
+    void refreshTitleBar(bool showBioButton);
 
 protected:
 #ifdef _WIN32
@@ -48,11 +46,11 @@ public:
     bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
-    MouseType                  _lmbPos = None;
+    MouseType _lmbPos = None;
     std::unique_ptr<BioButton> _bioButton;
-    std::int32_t               _current = -1;
+    std::int32_t _current = -1;
 
-    std::unique_ptr<QWidget>              _body;
-    std::unique_ptr<TitleWidget>          _title;
+    std::unique_ptr<QWidget> _body;
+    std::unique_ptr<TitleWidget> _title;
     std::vector<std::unique_ptr<QWidget>> _widgets;
 };

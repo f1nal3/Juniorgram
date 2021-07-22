@@ -24,8 +24,8 @@ set(SOURCE_FILES
         Widgets/ChatWidget.hpp
         Widgets/ComboBox.cpp
         Widgets/ComboBox.hpp
-        Widgets/FlatButton.cpp
-        Widgets/FlatButton.hpp
+        Widgets/Buttons.cpp
+        Widgets/Buttons.hpp
         Widgets/InputFields.cpp
         Widgets/InputFields.hpp
         Widgets/Label.cpp

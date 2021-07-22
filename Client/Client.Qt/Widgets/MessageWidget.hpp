@@ -10,7 +10,7 @@ constexpr auto COUNT_REACTION  = 4;
 #include <ctime>
 #include <memory>
 
-#include "Widgets/FlatButton.hpp"
+#include "Widgets/Buttons.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/Label.hpp"
 

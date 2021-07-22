@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <condition_variable>
 
-#include "FlatButton.hpp"
+#include "Buttons.hpp"
 #include "ListWidget.hpp"
 #include "MainWidget.hpp"
 
