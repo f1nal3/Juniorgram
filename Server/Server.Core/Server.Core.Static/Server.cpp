@@ -1,7 +1,6 @@
 #include "Server.hpp"
 #include "Network/Primitives.hpp"
 #include "DataAccess.Postgre/PostgreRepository.hpp"
-#include "DataAccess.Postgre/RepositoryUnits.hpp"
 
 #include <future>
 
@@ -68,9 +67,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::ChannelListRequest:
         {
-            auto future =
-                std::async(std::launch::async, &DataAccess::IRepository::getAllChannelsList,
-                           mPostgreRepo.get());
+            auto future = std::async(std::launch::async, &DataAccess::IRepository::getAllChannelsList,
+                                        mPostgreRepo.get());
 
             Network::Message msg;
             msg.mHeader.mMessageType = Network::Message::MessageType::ChannelListRequest;
@@ -102,7 +100,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             auto future =
                 std::async(std::launch::async, &DataAccess::IRepository::getMessageHistoryForUser,
-                           mPostgreRepo.get(), 0); // There need to add channelID not 0.
+                                mPostgreRepo.get(), 0); // There need to add channelID not 0.
 
             Network::Message msg;
             msg.mHeader.mMessageType = Network::Message::MessageType::MessageHistoryRequest;
@@ -145,16 +143,13 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::RegistrationRequest:
         {
-            static RegistrationUnit registrator;
-
             auto ri = std::any_cast<Network::RegistrationInfo>(message.mBody);
             
-            auto future = std::async(std::launch::async, &RegistrationUnit::registerUser, 
-                                        &registrator, ri);
+            auto future = std::async(std::launch::async, &DataAccess::IRepository::registerUser, 
+                                        mPostgreRepo.get(), ri);
         
             Network::Message messageToClient;
-            messageToClient.mHeader.mMessageType =
-                Network::Message::MessageType::RegistrationAnswer;
+            messageToClient.mHeader.mMessageType = Network::Message::MessageType::RegistrationAnswer;
             
             auto registrationCode = future.get();
             
