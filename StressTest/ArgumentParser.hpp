@@ -28,7 +28,7 @@ namespace StressTest
         {
         private:
 
-            static inline const std::uint8_t _MAX_COUNT = 256;
+            static inline const std::uint8_t _MAX_COUNT = 255;
 
         public:
 

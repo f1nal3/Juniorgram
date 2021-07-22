@@ -2,11 +2,15 @@ project(StressTest LANGUAGES CXX)
 
 set(TARGET StressTest)
 set(SOURCE_FILES
+    ArgumentParser.hpp
+    ArgumentParser.cpp
 	main.cpp
+    Pipe.hpp
+    Pipe.cpp
 	SimpleTimer.hpp
     SimpleTimer.cpp
-    ArgumentParser.hpp
-    ArgumentParser.cpp)
+    Tester.hpp
+    Tester.cpp)
 
 add_executable(${TARGET} ${SOURCE_FILES})
 

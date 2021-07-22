@@ -27,12 +27,15 @@ namespace StressTest
 		case argument::path:
 			return fs::exists(value);
 		case argument::count:
-			return !value.empty() 
-				&& (std::atoi(value.data()) < _MAX_COUNT)
-				&& std::all_of(value.begin(), value.end(), std::isdigit);
+			return !value.empty()
+				&& (std::atoi(value.data()) < _MAX_COUNT);
+				// WHY IS IT NOT COMPILING!??!!?
+				//&& std::all_of(value.cbegin(), value.cend(), std::isdigit);
 		case argument::test:
 			return value == "true" || value == "false";
 		}
+
+		return false;
 	}
 
 	ArgumentParser::argument	  ArgumentParser::privateParseArgument(const std::string_view& arg)
@@ -68,7 +71,7 @@ namespace StressTest
 		if (argc > 7)
 			throw std::runtime_error("Too many arguments!");
 
-		const std::vector<std::string_view> args(argv[0], argv[argc]);
+		std::vector<std::string_view> args(&argv[0], &argv[argc]);
 
 		argument	  arg;
 		argumentValue value;

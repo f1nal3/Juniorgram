@@ -1,20 +1,24 @@
 #include <iostream>
 
-#include "ArgumentParser.hpp"
+#include "Tester.hpp"
 
 int main(int argc, char** argv)
 { 
     using namespace StressTest;
 
-    ArgumentParser parser(argc, argv);
-
-    if (parser.isArggumentDefind(eKeys::count))
+    try
     {
-        std::uint8_t a = parser.getArgument<eKeys::count, std::uint8_t>();
-        a = 1;
-        if (a > 0)
-            std::cout << "!";
+        ArgumentParser parser(argc, argv);
+
+        Pipe p("cls");
+        p.write("cl");
     }
+    catch (const std::exception& ex)
+    {
+        std::cerr << ex.what() << std::endl;
+        return EXIT_FAILURE;
+    }
+
 
     return EXIT_SUCCESS;
 }
