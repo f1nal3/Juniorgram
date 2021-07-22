@@ -10,10 +10,6 @@ set(SOURCE_FILES
         Widgets/TitleWidget.hpp
         Widgets/AbstractButton.cpp
         Widgets/AbstractButton.hpp
-        Widgets/BioButton.cpp
-        Widgets/BioButton.hpp
-        Widgets/CaptionButton.cpp
-        Widgets/CaptionButton.hpp
         Widgets/ChannelListWidget.cpp
         Widgets/ChannelListWidget.hpp
         Widgets/ChannelListWindow.cpp

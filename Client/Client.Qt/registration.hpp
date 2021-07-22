@@ -1,8 +1,10 @@
 #pragma once
-#include "Application.hpp"
-#include "Widgets/Buttons.hpp"
-#include "Widgets/InputFields.hpp"
-#include "Widgets/LogoWidget.hpp"
+#include <QWidget>
+#include <memory>
+
+class FlatInput;
+class FlatButton;
+class LogoWidget;
 
 /**
  * @class Registration

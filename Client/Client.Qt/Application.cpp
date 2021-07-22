@@ -2,7 +2,7 @@
 
 #include "ChatWindow.hpp"
 #include "ConnectionManager.hpp"
-#include "Style/StyleFont.hpp"
+#include "MainWidget.hpp"
 #include "login.hpp"
 #include "registration.hpp"
 

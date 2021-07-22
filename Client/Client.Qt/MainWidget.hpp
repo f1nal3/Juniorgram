@@ -3,17 +3,39 @@
 #include <QWidget>
 #include <memory>
 
+#include "Style/StyleBasic.hpp"
 #include "Widgets/TitleWidget.hpp"
 
 class QHBoxLayout;
 
+/**
+ * @class MainWidget
+ * @brief Custom window for JuniorGram
+ */
 class MainWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MainWidget(QWidget* parent = nullptr);
+    /**
+     * @brief Constructor for MainWidget
+     */
+    explicit MainWidget();
+    /**
+     * @brief Adds widget to window
+     * @param widget Own-pointer to widget
+     * @return widget index
+     */
     int addWidget(std::unique_ptr<QWidget> widget);
+    /**
+     * @brief Hide old widget and show a new one
+     * @param index index of new widget
+     */
     void setCentralWidget(std::int32_t index);
+    /**
+     * @brief change icon of bio button
+     * @param icon new icon
+     * @return Success=true
+     */
     bool setBioButtonIcon(const Style::icon* icon);
 
     enum MouseType
@@ -30,7 +52,7 @@ public:
     };
 
     MouseType checkResizableField(QMouseEvent* event);
-    void refreshTitleBar(bool showBioButton);
+    void      refreshTitleBar(bool showBioButton);
 
 protected:
 #ifdef _WIN32
@@ -41,16 +63,13 @@ protected:
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
-
-public:
     bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
-    MouseType _lmbPos = None;
-    std::unique_ptr<BioButton> _bioButton;
+    MouseType    _lmbPos  = None;
     std::int32_t _current = -1;
 
-    std::unique_ptr<QWidget> _body;
-    std::unique_ptr<TitleWidget> _title;
+    std::unique_ptr<TitleWidget>          _title;
+    std::unique_ptr<QWidget>              _body;
     std::vector<std::unique_ptr<QWidget>> _widgets;
 };

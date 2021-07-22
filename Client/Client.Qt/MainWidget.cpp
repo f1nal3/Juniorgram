@@ -1,6 +1,5 @@
 #include "MainWidget.hpp"
 
-#include <QDebug>
 #include <QGuiApplication>
 #include <QHBoxLayout>
 #include <QWindow>
@@ -8,6 +7,7 @@
 #include <iostream>
 
 #include "Style/Shadow.hpp"
+#include "Widgets/TitleWidget.hpp"
 
 #ifdef _WIN32
 #include <dwmapi.h>
@@ -97,10 +97,10 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
 MainWidget::MouseType MainWidget::checkResizableField(QMouseEvent* event)
 {
     QPointF position = event->globalPos();
-    qreal x          = this->x();
-    qreal y          = this->y();
-    qreal width      = this->width();
-    qreal height     = this->height();
+    qreal   x        = this->x();
+    qreal   y        = this->y();
+    qreal   width    = this->width();
+    qreal   height   = this->height();
 
     QRectF rectTop(x, y, width + 9, 8);
     QRectF rectBottom(x, y + height - 8, width + 9, 8);
@@ -314,5 +314,3 @@ bool MainWidget::eventFilter(QObject* watched, QEvent* event)
 }
 
 bool MainWidget::setBioButtonIcon(const Style::icon* icon) { return _title->setBioButtonIcon(icon); }
-
-void MainWidget::leaveEvent(QEvent*) { std::cout << "leave event"; }

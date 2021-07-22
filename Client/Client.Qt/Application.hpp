@@ -2,7 +2,9 @@
 #include <QApplication>
 #include <memory>
 
-#include "MainWidget.hpp"
+#include "Style/Style.hpp"
+
+class MainWidget;
 
 #define oApp (static_cast<Application*>(QCoreApplication::instance()))
 
@@ -49,6 +51,6 @@ public:
 
 private:
     std::unique_ptr<MainWidget> _mainWidget;
-    App::AppState               _appState;
-    const Style::icon*          _icon;
+    App::AppState _appState;
+    const Style::icon* _icon;
 };
