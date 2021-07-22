@@ -41,6 +41,6 @@ public:
 
     void messageAll() const;
 
-    void messageUserDelete(uint64_t userId, uint64_t messageId) const;
+    void messageUserDelete(const uint64_t userId, const uint64_t messageId) const;
 };
 }  // namespace Network
