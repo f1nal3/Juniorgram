@@ -1,8 +1,16 @@
 #pragma once
+
 #include "Client.hpp"
 #include "Network/Primitives.hpp"
 #include "Widgets/ChannelListWindow.hpp"
 #include "ServerInfo.hpp"
+
+enum class LoginState
+{
+    SUCCESS,
+    IN_PROGRESS,
+    FAILED
+};
 
 class ConnectionManager
 {
@@ -10,12 +18,15 @@ private:
     inline static Network::Client client;
 
 public:
+    
+    inline static LoginState loginState;
+    
     static void disconnect()
     {
         if (client.isConnected())
         {
             client.disconnect();
-            std::cout << "Server Down\n";
+            loginState = LoginState::FAILED;
         }
     }
 
@@ -125,7 +136,15 @@ public:
                         
                         case Network::Message::MessageType::LoginAnswer:
                         {
-                            std::cout << "Login successful\n";
+                            auto loginSuccessful = std::any_cast<bool>(message.mBody);
+                            if (loginSuccessful)
+                            {
+                                loginState = LoginState::SUCCESS;
+                            }
+                            else
+                            {
+                                loginState = LoginState::FAILED;
+                            }
                         }
                         break;
 
@@ -137,7 +156,7 @@ public:
             else
             {
                 client.disconnect();
-                std::cout << "Server Down\n";
+                loginState = LoginState::FAILED;
                 return;
             }
             std::this_thread::sleep_for(std::chrono::milliseconds(200));

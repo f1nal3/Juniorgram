@@ -23,8 +23,14 @@ Login::Login(QWidget* parent) : QWidget(parent)
     _signInButton->setClickCallback([this]() {        
         std::string login = _usernameInput->text().toStdString();
         std::string password = _passwordInput->text().toStdString();
-
+        
+        ConnectionManager::loginState = LoginState::IN_PROGRESS;
         ConnectionManager::getClient().userAuthorization(login, password);
+        
+        while(ConnectionManager::loginState == LoginState::IN_PROGRESS)
+        {}
+        
+        oApp->setAppState(App::AppState::ChatWindowForm);
         });
 
     _registrationButton->setClickCallback(
