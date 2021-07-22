@@ -61,6 +61,7 @@ namespace Network
         std::string login;
         std::string pwdHash;
         LoginInfo() = default;
+        LoginInfo(const LoginInfo&) = default;
         explicit LoginInfo(const std::string& login, const std::string& passwordHash) :
                             login(login), pwdHash(passwordHash) {}
         ~LoginInfo() = default;
