@@ -68,21 +68,20 @@ namespace Utility
 
         std::string finaleJSONToken;
 
-        suppressWarning(4100, Init) suppressWarning(4239, Init) auto tokenBuilder =
-            makeTokenBuilder<std::tuple<BuildHeader, BuildPayload, BuildSignature>>(
+        suppressWarning(4100, Init)
+        suppressWarning(4239, Init)
+            auto tokenBuilder = makeTokenBuilder<std::tuple<BuildHeader, BuildPayload, BuildSignature>>(
                 [&finaleJSONToken](BuildHeader& s, GetHeader event) -> TransitionTo<BuildPayload> {
                     finaleJSONToken = Coding::getBASE64CodedValue(event.mJsonObj.dump()) + '.';
                     return {};
                 },
 
-                [&finaleJSONToken](BuildPayload& s,
-                                   GetPayload event) -> TransitionTo<BuildSignature> {
+                [&finaleJSONToken](BuildPayload& s, GetPayload event) -> TransitionTo<BuildSignature> {
                     finaleJSONToken += Coding::getBASE64CodedValue(event.mJsonObj.dump()) + '.';
                     return {};
                 },
 
-                [&finaleJSONToken, &client](BuildSignature& s,
-                                            GetSignature event) -> TransitionTo<BuildHeader> {
+                [&finaleJSONToken, &client](BuildSignature& s, GetSignature event) -> TransitionTo<BuildHeader> {
                     std::string signedTokenPart = Signing::signData(client, finaleJSONToken);
 
                     finaleJSONToken += signedTokenPart;

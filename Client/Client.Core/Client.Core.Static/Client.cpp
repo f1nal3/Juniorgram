@@ -1,9 +1,7 @@
 #include "Client.hpp"
 
 #include <Network.Static/Primitives.hpp>
-
 #include <Utility.Static/Cryptography.hpp>
-
 #include <DataAccess.Static/SQLCipherRepository.hpp>
 
 namespace Network
@@ -132,11 +130,11 @@ void Client::userRegistration(const std::string& email, const std::string& login
     // with the same passwords.
     const std::string PASSWORD_HASH = Hashing::SHA_256(password, login);
     Network::RegistrationInfo ri(email, login, PASSWORD_HASH);
-    Network::ClientPayload payload(login, PASSWORD_HASH);
+    Network::ClientPayload payload(mConnection.get()->getIP(), login, PASSWORD_HASH);
+
     Network::Message message;
     message.mHeader.mMessageType = Network::Message::MessageType::RegistrationRequest;
-    message.mBody =
-        std::make_any<std::pair<Network::ClientPayload, RegistrationInfo>>(std::pair{payload, ri});
+    message.mBody = std::make_any<std::pair<Network::ClientPayload, Network::RegistrationInfo>>(std::pair{payload, ri});
     
     send(message);
 }

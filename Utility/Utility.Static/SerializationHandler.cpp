@@ -27,15 +27,13 @@ MessageProcessingState SerializationHandler::handleOutcomingMessage(Network::Mes
             state = processOutcomingMessageBody<std::vector<Network::ChannelInfo>>(bodyBuffer, message.mBody);
             break;
         case Network::Message::MessageType::MessageHistoryRequest:
-            state = processOutcomingMessageBody<std::vector<Network::MessageInfo>>(bodyBuffer,
-                                                                                   message.mBody);
+            state = processOutcomingMessageBody<std::vector<Network::MessageInfo>>(bodyBuffer, message.mBody);
             break;
         case Network::Message::MessageType::MessageStoreRequest:
             state = processOutcomingMessageBody<Network::MessageInfo>(bodyBuffer, message.mBody);
             break;
         case Network::Message::MessageType::RegistrationRequest:
-            state =
-                processOutcomingMessageBody<Network::RegistrationInfo>(bodyBuffer, message.mBody);
+            state = processOutcomingMessageBody<std::pair<Network::ClientPayload, Network::RegistrationInfo>>(bodyBuffer, message.mBody);
             break;
         case Network::Message::MessageType::RegistrationAnswer:
             /*my part!!!*/
@@ -89,7 +87,7 @@ MessageProcessingState SerializationHandler::handleOutcomingMessage(Network::Mes
             state = processIncomingMessageBody<Network::MessageInfo>(buffer, message);
             break;
         case Network::Message::MessageType::RegistrationRequest:
-            state = processIncomingMessageBody<Network::RegistrationInfo>(buffer, message);
+            state = processIncomingMessageBody<std::pair<Network::ClientPayload, Network::RegistrationInfo>>(buffer, message);  
             break;
         case Network::Message::MessageType::RegistrationAnswer:
             /*my part!!!*/
@@ -140,14 +138,38 @@ MessageProcessingState SerializationHandler::handleOutcomingMessage(Network::Mes
     {
         try
         {
-            T messageInfo;
+            SerializedState state;
 
-            SerializedState state = YasSerializer::template deserialize<T>(bodyBuffer, messageInfo);
+            if constexpr(std::is_same_v<T, std::pair<Network::ClientPayload, Network::RegistrationInfo>>)
+            {
+            T messageInfo = std::make_pair<Network::ClientPayload, Network::RegistrationInfo>( Network::ClientPayload(),Network::RegistrationInfo());
+          
+            state = YasSerializer::template deserialize<T>(bodyBuffer, messageInfo);
 
             if (state == SerializedState::SUCCESS)
             {
                 message.mBody = std::make_any<T>(messageInfo);
             }
+
+            }
+            else
+            {
+            T messageInfo;
+            
+            state = YasSerializer::template deserialize<T>(bodyBuffer, messageInfo);
+           
+            if (state == SerializedState::SUCCESS)
+            {
+                message.mBody = std::make_any<T>(messageInfo);
+            }
+
+            }
+
+
+      /*      if (state == SerializedState::SUCCESS)
+            {
+                message.mBody = std::make_any<T>(messageInfo);
+            }*/
 
             return state;
         }

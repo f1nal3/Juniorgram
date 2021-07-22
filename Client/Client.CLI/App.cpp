@@ -18,7 +18,6 @@ App::App(/* args */)
     {
         std::cout<< "At the moment refresh token is not detected," 
                            "you need to authenticate or register.";
-       
     }
 }
 

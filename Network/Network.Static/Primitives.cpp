@@ -11,19 +11,21 @@ namespace Network
     {
     }
 
-    ClientPayload::ClientPayload(const std::string& login, const std::string& psswdHash)
+    ClientPayload::ClientPayload(const std::string& IP, const std::string& login,
+                                 const std::string& psswdHash)
         : mSub{Hashing::getSHA1HashingValue(Utility::MACAddressUtility::GetMACAddress() + login +
                                             psswdHash)},
-                mOS{[]() -> std::string {
-    #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
-                    return "Windows";
-    #elif __APPLE__
-                    return "MacOS";
-    #elif __linux__
-                    return "Linux";
-    #endif
-                }()},
-                mFingerprint{"jg.client"}
+            mOS{[]() -> std::string {
+            #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+                            return "Windows";
+            #elif __APPLE__
+                            return "MacOS";
+            #elif __linux__
+                            return "Linux";
+            #endif
+                        }()},
+            mFingerprint{"jg.client"},
+            mIP{IP}
     {
     }
 

@@ -11,17 +11,16 @@ namespace Network
 {
     struct ClientPayload
     {
-        ClientPayload(const std::string& login, const std::string& psswdHash);
-
-        ClientPayload& operator=(const ClientPayload& other) = default;
-
-        friend bool operator==(const ClientPayload& payload, const ClientPayload& payloadAnother);
-
-    private:
         std::string mOS;
         std::string mSub;
         std::string mFingerprint;
         std::string mIP;
+
+    public:
+        ClientPayload() = default;
+        ClientPayload(const std::string& IP, const std::string& login, const std::string& psswdHash);
+        ClientPayload& operator=(const ClientPayload& other) = default;
+        friend bool operator==(const ClientPayload& payload, const ClientPayload& payloadAnother);
     };
 
     struct ChannelInfo
@@ -73,6 +72,12 @@ namespace Network
         friend bool operator==(const RegistrationInfo& registrationInfo1,
                                const RegistrationInfo& registrationInfo2);
     };
+
+    template <typename Archive>
+    void serialize(Archive& ar, Network::ClientPayload& o)
+    {
+        ar& o.mOS& o.mSub& o.mFingerprint& o.mIP;
+    }
 
     template <typename Archive>
     void serialize(Archive& ar, Network::ChannelInfo& o)
