@@ -180,13 +180,13 @@ BioButton::BioButton(QWidget* parent, bool) : CaptionButton(parent)
         auto globalPoint = mapToGlobal(localPoint);
 
         // Creating menu
-        Menu* menu = new Menu;
+        auto menu = std::make_unique<Menu>();
 
         // Adding options
         menu->addAction("Username: Add format here", []() {});
         menu->addAction("Quit", []() { oApp->setAppState(App::AppState::LoginForm); });
 
-        _popup->setMenu(menu);
+        _popup->setMenu(std::move(menu));
 
         // Now show the menu
         _popup->popup(QPoint(globalPoint.x() - localPoint.x(), globalPoint.y() + 1));

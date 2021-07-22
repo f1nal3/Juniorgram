@@ -18,7 +18,6 @@ void startModules(int scale)
     }
 }
 
-
 namespace internal
 {
 void registerModule(ModuleBase* module) { StyleModules().push_back(module); }

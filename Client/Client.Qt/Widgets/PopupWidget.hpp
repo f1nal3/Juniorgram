@@ -8,19 +8,17 @@
  */
 class PopupWidget : public QWidget
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     explicit PopupWidget(QWidget* parent = nullptr);
 
-    void setMenu(Menu* menu);
+    void setMenu(std::unique_ptr<Menu> menu);
+    void popup(const QPoint& point);
 
 protected:
     void paintEvent(QPaintEvent* event) override;
     void hideEvent(QHideEvent* event) override;
 
-public:
-    void popup(const QPoint& point);
-
 private:
-    Menu* _innerMenu;
+    std::unique_ptr<Menu> _innerMenu;
 };

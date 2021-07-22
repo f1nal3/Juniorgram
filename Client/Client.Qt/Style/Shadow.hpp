@@ -2,9 +2,21 @@
 
 #include <QPainter>
 
-void drawShadow(QPainter& _p, qint16 _margin, qreal _r, const QColor& _start, const QColor& _end,
-                qreal _startPosition, qreal _endPosition0, qreal _endPosition1, qreal _width,
-                qreal _height)
+// TODO: a better shadow on corners
+/**
+ * @brief Draw a shadow for main window
+ * @param _p Painter
+ * @param _margin Margin between desktop and window(shadow width)
+ * @param _start Color near window
+ * @param _end Color far from window
+ * @param _startPosition where to start gradient
+ * @param _endPosition0 where it ends sideways
+ * @param _endPosition1 where it ends on corners
+ * @param _width Window width
+ * @param _height Window height
+ */
+void drawShadow(QPainter& _p, qint16 _margin, qreal _r, const QColor& _start, const QColor& _end, qreal _startPosition, qreal _endPosition0,
+                qreal _endPosition1, qreal _width, qreal _height)
 {
     _p.setPen(Qt::NoPen);
 
@@ -17,17 +29,14 @@ void drawShadow(QPainter& _p, qint16 _margin, qreal _r, const QColor& _start, co
     gradient.setStart(right0);
     gradient.setFinalStop(right1);
     _p.setBrush(QBrush(gradient));
-    _p.drawRoundedRect(
-        QRectF(QPointF(_width - _margin * _r, _margin), QPointF(_width, _height - _margin)), 0.0,
-        0.0);
+    _p.drawRoundedRect(QRectF(QPointF(_width - _margin * _r, _margin), QPointF(_width, _height - _margin)), 0.0, 0.0);
     // Left
     QPointF left0(_margin, _height / 2);
     QPointF left1(0, _height / 2);
     gradient.setStart(left0);
     gradient.setFinalStop(left1);
     _p.setBrush(QBrush(gradient));
-    _p.drawRoundedRect(QRectF(QPointF(_margin * _r, _margin), QPointF(0, _height - _margin)), 0.0,
-                       0.0);
+    _p.drawRoundedRect(QRectF(QPointF(_margin * _r, _margin), QPointF(0, _height - _margin)), 0.0, 0.0);
     // Top
     QPointF top0(_width / 2, _margin);
     QPointF top1(_width / 2, 0);
@@ -41,8 +50,7 @@ void drawShadow(QPainter& _p, qint16 _margin, qreal _r, const QColor& _start, co
     gradient.setStart(bottom0);
     gradient.setFinalStop(bottom1);
     _p.setBrush(QBrush(gradient));
-    _p.drawRoundedRect(
-        QRectF(QPointF(_margin, _height - _margin), QPointF(_width - _margin, _height)), 0.0, 0.0);
+    _p.drawRoundedRect(QRectF(QPointF(_margin, _height - _margin), QPointF(_width - _margin, _height)), 0.0, 0.0);
     // BottomRight
     QPointF bottomright0(_width - _margin, _height - _margin);
     QPointF bottomright1(_width, _height);

@@ -1,5 +1,7 @@
 #include "StyleIcon.hpp"
 
+#include <QBitmap>
+#include <QDebug>
 #include <QFile>
 #include <QPainter>
 
@@ -9,11 +11,23 @@ namespace Style
 {
 namespace internal
 {
-IconData::IconData(const QString& filename)
+IconData::IconData(const QString& filename, const QColor& activeTextFg)
 {
     _image = QImage();
     _image.load(filename);
-    _image.setDevicePixelRatio(devicePixelRatio());
+    if (_image.isNull()) return;
+    {
+        auto   alpha     = QPixmap::fromImage(_image.createAlphaMask());
+        QImage fakeImage = QImage(_image.size(), _image.format());
+        fakeImage.setDevicePixelRatio(devicePixelRatio());
+        fakeImage.fill(Qt::transparent);
+        QPainter p(&fakeImage);
+        p.setClipRegion(QRegion(alpha));
+        p.setPen(Qt::NoPen);
+        p.setBrush(activeTextFg);
+        p.drawRect(_image.rect());
+        _image = fakeImage;
+    }
 
     _pixmap = QPixmap();
     _size   = QSize();

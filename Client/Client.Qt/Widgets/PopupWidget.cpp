@@ -12,7 +12,6 @@ PopupWidget::PopupWidget(QWidget* parent) : QWidget(parent), _innerMenu(nullptr)
     setFixedSize(Style::valueDPIScale(250), 256);
 
     hide();
-    setFocusPolicy(Qt::NoFocus);
     setAttribute(Qt::WA_NoSystemBackground, true);
     setAttribute(Qt::WA_TranslucentBackground, true);
 }
@@ -30,7 +29,6 @@ void PopupWidget::paintEvent(QPaintEvent* event)
 void PopupWidget::hideEvent(QHideEvent* event)
 {
     Q_UNUSED(event);
-    deleteLater();
 }
 
 void PopupWidget::popup(const QPoint& point)
@@ -45,8 +43,8 @@ void PopupWidget::popup(const QPoint& point)
     show();
 }
 
-void PopupWidget::setMenu(Menu* menu)
+void PopupWidget::setMenu(std::unique_ptr<Menu> menu)
 {
-    _innerMenu = menu;
+    _innerMenu = std::move(menu);
     _innerMenu->setParent(this);
 }
