@@ -20,9 +20,6 @@ target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:DataAccess.Public,SOURCE_DIR>/..)
 
 target_include_directories(${TARGET} PRIVATE
-    $<TARGET_PROPERTY:DataAccess.Static,SOURCE_DIR>/..)
-
-target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
 
 target_include_directories(${TARGET}

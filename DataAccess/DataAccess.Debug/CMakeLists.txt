@@ -11,8 +11,13 @@ add_library(${TARGET} STATIC ${SOURCE_FILES})
 
 set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)
 
+target_include_directories(${TARGET} PRIVATE
+    $<TARGET_PROPERTY:Network.Static,SOURCE_DIR>/..)
+
 target_link_libraries(${TARGET} PUBLIC
 	Utility.Public
 	DataAccess.Static
 	Network.Public
 	CONAN_PKG::nlohmann_json)
+
+target_link_libraries(${TARGET} PRIVATE Network.Static)

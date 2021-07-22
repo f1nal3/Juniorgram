@@ -1,6 +1,6 @@
 #pragma once
 #include "Client.hpp"
-#include "Network/Primitives.hpp"
+#include <Network.Static/Primitives.hpp>
 #include "Widgets/ChannelListWindow.hpp"
 
 class ConnectionManager

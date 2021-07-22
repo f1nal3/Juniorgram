@@ -8,7 +8,6 @@
 #include "DataAccess/IRepository.hpp"
 #include "Utility/WarningSuppression.hpp"
 
-
 #include "Network/SafeQueue.hpp"
 
 namespace Network

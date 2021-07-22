@@ -83,9 +83,12 @@ elseif (UNIX AND NOT APPLE)
     list(APPEND EXTRA_LIBS xcb)
 endif ()
 
+target_include_directories(${TARGET} PRIVATE
+    $<TARGET_PROPERTY:Network.Static,SOURCE_DIR>/..)
+
 target_link_libraries(${TARGET}
-        PRIVATE Qt5::Widgets Qt5::Gui ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::lz4
-        PUBLIC Network.Public Client.Core.Static Utility.Public)
+    PRIVATE Qt5::Widgets Qt5::Gui ${EXTRA_LIBS} Network.Static CONAN_PKG::asio CONAN_PKG::lz4
+    PUBLIC Network.Public Client.Core.Static Utility.Public)
 
 # This needs to be an install or after install operation
 # At this point it disrupts CI build so I commented it out =)

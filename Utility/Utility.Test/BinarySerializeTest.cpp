@@ -6,10 +6,11 @@
 #include <tuple>
 #include <vector>
 
-#include "Network/Connection.hpp"
-#include "Network/Message.hpp"
-#include "Network/Primitives.hpp"
 #include <Utility.Static/YasSerializer.hpp>
+
+#include <Network.Static/Connection.hpp>
+#include <Network.Static/Message.hpp>
+#include <Network.Static/Primitives.hpp>
 
 using namespace Utility;
 using namespace Network;
@@ -152,26 +153,6 @@ TEST_CASE("Test binary serialization & deserialization of complex types", "[YasS
 
 TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSerializer]")
 {
-    SECTION("Checking serialization & deserialization of custom type MessageHeader")
-    {
-        Message::MessageHeader serializedValue;
-        serializedValue.mTimestamp   = std::chrono::system_clock::now();
-        serializedValue.mMessageType = Message::MessageType::ChannelListRequest;
-        serializedValue.mBodySize    = 30;
-
-        yas::shared_buffer buffer;
-        SerializedState state = YasSerializer::serialize(buffer, serializedValue);
-        REQUIRE(state == SerializedState::SUCCESS);
-
-        Message::MessageHeader deserializedValue;
-        state = YasSerializer::deserialize(buffer, deserializedValue);
-        REQUIRE(state == SerializedState::SUCCESS);
-
-        REQUIRE(serializedValue.mTimestamp == deserializedValue.mTimestamp);
-        REQUIRE(serializedValue.mMessageType == deserializedValue.mMessageType);
-        REQUIRE(serializedValue.mBodySize == deserializedValue.mBodySize);
-    }
-
     SECTION("Checking serialization & deserialization of custom type ChannelInfo")
     {
         ChannelInfo serializedValue(2672, "kittens");
