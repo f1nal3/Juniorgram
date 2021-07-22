@@ -3,8 +3,6 @@
 #include "Widgets/MessageWidget.hpp"
 #include "Widgets/TextEdit.hpp"
 
-class ChatHistory;
-
 class ChatWidget : public QWidget
 {
     Q_OBJECT

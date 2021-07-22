@@ -27,7 +27,9 @@ struct Message
         MessageHistoryRequest,
         MessageStoreRequest,
         RegistrationRequest,
-        RegistrationAnswer
+        RegistrationAnswer,
+        UserMessageDeleteRequest,
+        UserMessageDeleteAnswer
     };
 
     struct MessageHeader
