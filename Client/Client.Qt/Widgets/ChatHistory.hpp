@@ -31,6 +31,7 @@ public:
      * @brief Clears all chat
      */
     void clear();
+    void deleteMessage(const uint64_t userId, const uint64_t messageId);
 
 protected:
     void resizeEvent(QResizeEvent* event) override;
@@ -66,7 +67,9 @@ private:
 
 private:
     bool                                        _alreadyScrolling = false;
-    std::int32_t                                _left             = -1;
+    std::int32_t                                _left = -1;
     std::unique_ptr<ScrollArea>                 _scrollArea;
     std::vector<std::unique_ptr<MessageWidget>> _messageList;
+    uint64_t                                    _userId = 0;
+    uint64_t                                    _messageId = 0;
 };

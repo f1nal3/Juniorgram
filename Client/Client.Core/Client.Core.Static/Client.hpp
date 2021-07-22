@@ -41,5 +41,7 @@ public:
     void userAuthorization(const std::string& login, const std::string& password);
 
     void messageAll() const;
+
+    void messageUserDelete(const uint64_t userId, const uint64_t messageId) const;
 };
 }  // namespace Network

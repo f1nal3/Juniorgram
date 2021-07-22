@@ -29,7 +29,9 @@ struct Message
         RegistrationRequest,
         RegistrationAnswer,
         LoginRequest,
-        LoginAnswer
+        LoginAnswer,
+        UserMessageDeleteRequest,
+        UserMessageDeleteAnswer
     };
 
     struct MessageHeader

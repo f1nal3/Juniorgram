@@ -1,4 +1,5 @@
-﻿#include "MessageWidget.hpp"
+#include "MessageWidget.hpp"
+#include "ConnectionManager.hpp"
 
 #include <QPainter>
 #include <QtEvents>
@@ -7,12 +8,14 @@
 #include "ChatHistory.hpp"
 #include "Style/Style.hpp"
 
-MessageWidget::MessageWidget(QWidget* history, QString message, qint64 utc, QString username, const Style::MessageWidget& st)
+MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId, uint64_t messageId, qint64 utc, QString username, const Style::MessageWidget& st)
     : QWidget(history),
-      _messageText(std::move(message)),
-      _username(std::move(username)),
-      _datetime(QDateTime::fromSecsSinceEpoch(utc)),
-      _st(st)
+    _userId(userId),
+    _messageId(messageId),
+    _messageText(std::move(message)),
+    _username(std::move(username)),
+    _datetime(QDateTime::fromSecsSinceEpoch(utc)),
+    _st(st)
 {
     setContentsMargins(QMargins(_st.radius, _st.radius, _st.radius, _st.radius));
     setMinimumHeight(_st.fontname->height + _st.radius * 2);
@@ -80,6 +83,7 @@ void MessageWidget::onDelete()
     _messageFlags |= MessageFlag::Deleted;
     resize(width(), _st.fontname->height + _st.radius * 2);
     update();
+    ConnectionManager::getClient().messageUserDelete(_userId, _messageId);
 }
 
 void MessageWidget::setMessageText(const QString& newMessage)

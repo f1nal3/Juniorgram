@@ -13,7 +13,7 @@ class ChatWindow : public QWidget
     Q_OBJECT
 public:
     explicit ChatWindow(QWidget* parent = nullptr);
-
+    
 protected:
     void resizeEvent(QResizeEvent* event) override;
 
