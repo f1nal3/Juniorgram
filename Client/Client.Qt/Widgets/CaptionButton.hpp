@@ -20,8 +20,7 @@ public:
      * @param endColor Color on hover
      * @param icon Default icon
      */
-    explicit CaptionButton(QWidget* parent = nullptr, const QColor& endColor = QColor(255, 255, 255, 76),
-                           const Style::icon& icon = Style::icon());
+    explicit CaptionButton(QWidget* parent = nullptr, const Style::TitleBarButton* st = &st::defaultTitleBarButton);
 
     /**
      * @brief Override icon by a new one
@@ -30,12 +29,23 @@ public:
      */
     bool setIcon(const Style::icon* icon);
 
+    /**
+     * @brief Sets a new style
+     * @param newSt New style
+     */
+    void setStyle(const Style::TitleBarButton* newSt);
+
 protected:
     void enterEvent(QEvent* event) override;
     void leaveEvent(QEvent* event) override;
     void paintEvent(QPaintEvent* event) override;
 
 private:
+    /**
+     * @brief Updates widget to current style
+     */
+    void updateWidget();
+
     /**
      * @brief Changes button background color if in title bar
      * @param newColor New background color
@@ -52,8 +62,8 @@ private:
     QColor getHoverColor() { return _hoverColor; }
 
 private:
-    QColor              _hoverColor;
-    const Style::icon&  _icon;
-    const Style::icon*  _iconOverride = nullptr;
-    QPropertyAnimation* _fadeinAnim;
+    QColor                              _hoverColor;
+    const Style::TitleBarButton*        _st;
+    const Style::icon*                  _iconOverride = nullptr;
+    std::unique_ptr<QPropertyAnimation> _fadeinAnim;
 };

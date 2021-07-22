@@ -8,26 +8,47 @@
 
 namespace App
 {
+/**
+ * @enum AppState
+ * @brief Current app state
+ */
 enum class AppState
 {
     LoginForm,
     RegistrationForm,
     ChatWindowForm
 };
-}
+}  // namespace App
 
-class BioButton;
-
+/**
+ * @class Application
+ * @brief Application abstraction
+ */
 class Application : public QApplication
 {
+public:
+    /**
+     * @brief Application constructor
+     * @param argc Arguments count
+     * @param argv Arguments
+     */
+    Application(int& argc, char** argv);
+    /**
+     * @brief Creates window and initialize all stuff
+     */
+    void create();
+    /**
+     * @brief Shows the window
+     */
+    void show();
+    /**
+     * @brief Change app state
+     * @param app_state App state
+     */
+    void setAppState(App::AppState app_state);
+
 private:
-    std::unique_ptr<MainWidget> _mainwidget;
+    std::unique_ptr<MainWidget> _mainWidget;
     App::AppState               _appState;
     const Style::icon*          _icon;
-
-public:
-    Application(int& argc, char** argv);
-    void create();
-    void show();
-    void setAppState(App::AppState app_state);
 };

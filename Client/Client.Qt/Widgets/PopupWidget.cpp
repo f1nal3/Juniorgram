@@ -1,5 +1,6 @@
 #include "PopupWidget.hpp"
 
+#include <QApplication>
 #include <QPainter>
 
 #include "Style/StyleBasic.hpp"
@@ -12,7 +13,6 @@ PopupWidget::PopupWidget(QWidget* parent) : QWidget(parent), _innerMenu(nullptr)
     setFixedSize(Style::valueDPIScale(250), 256);
 
     hide();
-    setFocusPolicy(Qt::NoFocus);
     setAttribute(Qt::WA_NoSystemBackground, true);
     setAttribute(Qt::WA_TranslucentBackground, true);
 }
@@ -27,11 +27,7 @@ void PopupWidget::paintEvent(QPaintEvent* event)
     painter.drawRect(0, 0, width(), height());
 }
 
-void PopupWidget::hideEvent(QHideEvent* event)
-{
-    Q_UNUSED(event);
-    deleteLater();
-}
+void PopupWidget::hideEvent(QHideEvent* event) { Q_UNUSED(event); }
 
 void PopupWidget::popup(const QPoint& point)
 {

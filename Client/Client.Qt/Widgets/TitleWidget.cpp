@@ -8,11 +8,11 @@
 #include "Widgets/BioButton.hpp"
 #include "Widgets/CaptionButton.hpp"
 
-TitleWidget::TitleWidget(QWidget* parent) : QWidget(parent)
+TitleWidget::TitleWidget(QWidget* parent, const Style::TitleBar& st) : QWidget(parent), _st(st)
 {
-    _closeButton    = std::make_unique<CaptionButton>(this, QColor(232, 17, 35), st::closeButtonIcon);
-    _maximizeButton = std::make_unique<CaptionButton>(this, QColor(255, 255, 255, 76), st::maximizeButtonIcon);
-    _minimizeButton = std::make_unique<CaptionButton>(this, QColor(255, 255, 255, 76), st::minimizeButtonIcon);
+    _closeButton    = std::make_unique<CaptionButton>(this, &_st.closeButton);
+    _maximizeButton = std::make_unique<CaptionButton>(this, &_st.maximizeButton);
+    _minimizeButton = std::make_unique<CaptionButton>(this, &_st.minimizeButton);
     _bioButton      = std::make_unique<BioButton>(this);
 
     setFixedHeight(Style::valueDPIScale(30));
@@ -24,13 +24,13 @@ TitleWidget::TitleWidget(QWidget* parent) : QWidget(parent)
         {
             parent->setAttribute(Qt::WA_TranslucentBackground);
             parent->layout()->setMargin(9);
-            _maximizeButton->setIcon(nullptr);
+            _maximizeButton->setStyle(&_st.maximizeButton);
         }
         else if (state == Qt::WindowMaximized)
         {
             parent->setAttribute(Qt::WA_TranslucentBackground, false);
             parent->layout()->setMargin(0);
-            _maximizeButton->setIcon(&st::restoreButtonIcon);
+            _maximizeButton->setStyle(&_st.restoreButton);
         }
     });
 
@@ -43,16 +43,22 @@ TitleWidget::TitleWidget(QWidget* parent) : QWidget(parent)
         {
             window()->setWindowState(Qt::WindowMaximized);
         }
-        update();
+        _maximizeButton->clearState();
     });
-    _closeButton->setClickCallback([=]() { parent->deleteLater(); });
-    _minimizeButton->setClickCallback([=]() { parent->showMinimized(); });
+    _closeButton->setClickCallback([=]() {
+        parent->deleteLater();
+        _closeButton->clearState();
+    });
+    _minimizeButton->setClickCallback([=]() {
+        parent->showMinimized();
+        _minimizeButton->clearState();
+    });
 }
 
 void TitleWidget::paintEvent(QPaintEvent* paintEvent)
 {
     QPainter painter(this);
-    painter.fillRect(rect(), QColor(0x40, 0x41, 0x42));
+    painter.fillRect(rect(), _st.bgColor);
     QWidget::paintEvent(paintEvent);
 }
 void TitleWidget::resizeEvent(QResizeEvent* resizeEvent)

@@ -9,7 +9,7 @@
 class ScrollArea;
 
 /**
- * @class Scrollbar
+ * @class ScrollBar
  * @brief Custom scrollbar visual for scrollarea
  */
 class ScrollBar : public QWidget

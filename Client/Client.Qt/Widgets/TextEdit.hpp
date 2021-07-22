@@ -3,12 +3,12 @@
 #include <QVBoxLayout>
 #include <memory>
 
-#include "FlatButton.hpp"
+#include "Buttons.hpp"
 #include "InputFields.hpp"
 
-/** @class TextEdit
- *  @brief Widget with a text edit field and an edit bar.\
- * The edit bar has a Bold button which makes selected text bold.
+/**
+ * @class TextEdit
+ * @brief Widget with a text edit field and an edit bar.
  */
 class TextEdit : public QWidget
 {

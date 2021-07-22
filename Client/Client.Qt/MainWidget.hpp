@@ -3,20 +3,43 @@
 #include <QWidget>
 #include <memory>
 
+#include "Widgets/BioButton.hpp"
 #include "Widgets/CaptionButton.hpp"
 #include "Widgets/TitleWidget.hpp"
 
 class QHBoxLayout;
 class BioButton;
 
+/**
+ * @class MainWidget
+ * @brief Custom window for JuniorGram
+ */
 class MainWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MainWidget(QWidget* parent = nullptr);
+    /**
+     * @brief Constructor for MainWidget
+     */
+    explicit MainWidget();
+    /**
+     * @brief Adds widget to window
+     * @param widget Own-pointer to widget
+     * @return widget index
+     */
     int  addWidget(std::unique_ptr<QWidget> widget);
+    /**
+     * @brief Hide old widget and show a new one
+     * @param index index of new widget
+     */
     void setCentralWidget(std::int32_t index);
+    /**
+     * @brief change icon of bio button
+     * @param icon new icon
+     * @return Success=true
+     */
     bool setBioButtonIcon(const Style::icon* icon);
+
 
     enum MouseType
     {
@@ -43,8 +66,7 @@ protected:
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
-
-public:
+    void leaveEvent(QEvent* event) override;
     bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:

@@ -3,7 +3,7 @@
 #include <QtEvents>
 
 #include "Application.hpp"
-#include "Widgets/FlatButton.hpp"
+#include "Widgets/Buttons.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/LogoWidget.hpp"
 

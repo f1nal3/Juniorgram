@@ -2,6 +2,7 @@
 
 #include "Style/StyleBasic.hpp"
 #include "Widgets/CaptionButton.hpp"
+#include "Widgets/PopupWidget.hpp"
 
 /**
  * @class BioButton
@@ -17,4 +18,7 @@ public:
      * @param inCaption Must be set true for now
      */
     explicit BioButton(QWidget* parent = nullptr, bool inCaption = true);
+
+private:
+    std::unique_ptr<PopupWidget> _popup;
 };

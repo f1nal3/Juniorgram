@@ -231,7 +231,7 @@ void MainWidget::mouseReleaseEvent(QMouseEvent* event)
     return QWidget::mouseReleaseEvent(event);
 }
 
-MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
+MainWidget::MainWidget() : QWidget(nullptr)
 {
     Style::setDevicePixelRatio(devicePixelRatioF());
     Style::setDpiScale(logicalDpiX() * devicePixelRatioF() * 100 / 96);
@@ -314,3 +314,4 @@ bool MainWidget::eventFilter(QObject* watched, QEvent* event)
     return QObject::eventFilter(watched, event);
 }
 bool MainWidget::setBioButtonIcon(const Style::icon* icon) { return _title->setBioButtonIcon(icon); }
+void MainWidget::leaveEvent(QEvent*) { std::cout << "leave event"; }

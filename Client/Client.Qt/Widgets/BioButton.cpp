@@ -1,17 +1,19 @@
 #include "BioButton.hpp"
 
 #include <QPainter>
+#include <QWindow>
 #include <QtEvents>
 
 #include "Application.hpp"
-#include "PopupWidget.hpp"
 
 BioButton::BioButton(QWidget* parent, bool) : CaptionButton(parent)
 {
+    _popup = std::make_unique<PopupWidget>(this);
+    _popup->setFocusPolicy(Qt::NoFocus);
+    _popup->setFocusProxy(this);
+
     setClickCallback([=]() {
         // Creating popup and setting
-        auto pop = new PopupWidget();
-
         /*
          * We need to know where to place popup menu on screen
          * If we just use mapToGlobal(localPoint) we'll get shift on X
@@ -30,9 +32,9 @@ BioButton::BioButton(QWidget* parent, bool) : CaptionButton(parent)
         menu->addAction("Username: Add format here", []() {});
         menu->addAction("Quit", []() { oApp->setAppState(App::AppState::LoginForm); });
 
-        pop->setMenu(menu);
+        _popup->setMenu(menu);
 
         // Now show the menu
-        pop->popup(QPoint(globalPoint.x() - localPoint.x(), globalPoint.y() + 1));
+        _popup->popup(QPoint(globalPoint.x() - localPoint.x(), globalPoint.y() + 1));
     });
 }

@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <condition_variable>
 
-#include "FlatButton.hpp"
+#include "Buttons.hpp"
 #include "ListWidget.hpp"
 #include "MainWidget.hpp"
 
@@ -14,7 +14,7 @@
 class ChannelListWindow : public QWidget
 {
 public:
-    ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent = nullptr);
+    explicit ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent = nullptr);
     /**
      * @brief Method for update channel list window in another thread.
      */

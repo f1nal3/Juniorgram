@@ -64,7 +64,7 @@ void MessageWidget::resizeEvent(QResizeEvent* e)
     geometryChanged(e->size().height() - e->oldSize().height());
     if (_messageFlags & MessageFlag::Deleted) return QWidget::resizeEvent(e);
     int deleteButtonX = width() - _st.radius - _deleteBtn->width();
-    _deleteBtn->move(deleteButtonX, _st.radius);
+    _deleteBtn->move(deleteButtonX - 1, _st.radius);
     _fmtMessageText->resize(width() - _st.radius * 4 - 1, _fmtMessageText->document()->size().height());
 
     if (expectedHeight() != height())

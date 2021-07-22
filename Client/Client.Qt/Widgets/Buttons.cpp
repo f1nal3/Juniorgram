@@ -1,4 +1,4 @@
-#include "FlatButton.hpp"
+#include "Buttons.hpp"
 
 #include <QPainter>
 
@@ -71,4 +71,23 @@ void LinkButton::paintEvent(QPaintEvent* event)
     painter.setFont(isOver() ? _st.overFont : _st.font);
     painter.setPen(isOver() ? _st.overColor : _st.color);
     painter.drawText(inner, _text, Style::al_top);
+}
+
+IconButton::IconButton(QWidget* parent, QString text, const Style::IconButton& st) : AbstractButton(parent), _text(std::move(text)), _st(st)
+{
+    setAttribute(Qt::WA_AcceptTouchEvents);
+
+    updateWidget();
+}
+
+void IconButton::setText(const QString& text) { _text = text; }
+
+void IconButton::paintEvent(QPaintEvent* event) { QWidget::paintEvent(event); }
+
+void IconButton::updateWidget()
+{
+    const int longestFont = std::max(_st.font->width(_text), _st.overFont->width(_text));
+    setMinimumWidth(_st.margins.left() + _st.margins.right() + _st.icon.size().width() + longestFont);
+    const int biggestFont = std::max(_st.icon.size().height(), std::max(_st.font->height, _st.overFont->height));
+    setMinimumHeight(_st.margins.top() + _st.margins.bottom() + biggestFont);
 }
