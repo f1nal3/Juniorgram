@@ -256,7 +256,7 @@ namespace DataAccess
          *   @endcode
          */
         virtual void rollback(void) final
-        { 
+        {
             SQLBase<ResultType>::_currentBuilder.clearStatement();
         }
 

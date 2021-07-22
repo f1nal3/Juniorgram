@@ -37,4 +37,15 @@ namespace Utility
     
         return formatted_time;
     }
+
+    inline std::string nowTimeStampStr()
+    {
+        std::string timeStampStr(20, '\0');
+
+        std::time_t t = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+        std::tm time  = Utility::safe_localtime(t);
+        std::strftime(timeStampStr.data(), timeStampStr.size(), "%Y-%m-%d %H:%M:%S", &time);
+
+        return timeStampStr;
+    }
 }  // namespace Utility
