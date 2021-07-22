@@ -15,7 +15,7 @@ namespace DataAccess
 class PostgreRepository : public IRepository
 {
 protected:
-    // This constructor lets us test test all this functions.
+    // This constructor lets us test all this functions.
     PostgreRepository(PostgreTable* pt) : pTable(pt) {}
 
 public:
@@ -29,6 +29,5 @@ public:
     virtual std::vector<std::string> getMessageHistoryForUser(const std::uint64_t channelID) override final;
     virtual void storeMessage(const Network::MessageInfo& message, const std::uint64_t channleID) override final;
     virtual Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) const override final;
-
 };
 }  // namespace DataAccess

@@ -60,14 +60,17 @@ void PostgreRepository::storeMessage(const Network::MessageInfo& message, const 
     
     // ID will not be autoincremented in the future. Later we are going to use postgre
     // alghorithms to create it.
-    std::uint64_t msgID = pTable->Select()
+    const auto lastMessageID = pTable->Select()
                                 ->columns({"max(msg_id)"})
                                 ->execute()
-                                .value()[0][0].as<std::uint64_t>() + 1;
+                                .value()[0][0].as<std::uint64_t>();
+    
+    const auto currentMessageID = lastMessageID + 1;
+
     std::tuple dataForChannelMsgs
     {
-        std::pair{"channel_id", channelID},
-        std::pair{"msg_id", msgID}
+        std::pair{"channel_id", channelID}, 
+        std::pair{"msg_id", currentMessageID}
     };
     
     pTable->changeTable("channel_msgs");
