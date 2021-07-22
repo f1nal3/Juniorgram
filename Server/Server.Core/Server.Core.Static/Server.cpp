@@ -165,7 +165,6 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::LoginRequest:
         {
-            std::cout << "LoginRequest type" << message.mBody.type().name() << '\n';
             Network::LoginInfo loginInfo = std::any_cast<Network::LoginInfo>(message.mBody);
 
             auto future = std::async(std::launch::async, &DataAccess::IRepository::loginUser,
