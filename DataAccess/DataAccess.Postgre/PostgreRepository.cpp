@@ -112,7 +112,7 @@ bool PostgreRepository::loginUser(const std::string& login, const std::string& p
         auto storedHash = PostgreTable("users")
                                                 .Select()
                                                 ->columns({"password_hash"})
-                                                ->Where("login=" + std::string("'") + login + std::string("'"))
+                                                ->Where("login='" + login + std::string("'"))
                                                 ->execute().value()[0][0].c_str();
     
         return std::string(storedHash) == pwdHash;
