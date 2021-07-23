@@ -7,8 +7,6 @@ set(SOURCE_FILES
     PostgreRepository.hpp
     PostgreRepository.cpp
     PostgreTable.hpp
-    RepositoryUnits.hpp
-    RepositoryUnits.cpp
     SQLStatements.hpp
     QueryBuilder.hpp
     DataBaseOptions.hpp

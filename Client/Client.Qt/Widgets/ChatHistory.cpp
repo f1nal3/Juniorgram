@@ -20,7 +20,8 @@ ChatHistory::ChatHistory(QWidget* parent) : QWidget(parent), _messageList()
 void ChatHistory::addMessage(const QString& message, quint64 utc, const QString& user)
 {
     auto history = _scrollArea->widget();
-    auto msg     = new MessageWidget(history, message, utc, user);
+    //The _messageId is incremented for message numbering
+    auto msg     = new MessageWidget(history, message, _messageId++, _userId, utc, user);
 
     msg->show();
     msg->resize(history->width() - 25, msg->expectedHeight());
@@ -41,6 +42,15 @@ void ChatHistory::addMessage(const QString& message, quint64 utc, const QString&
 }
 
 void ChatHistory::clear() { _messageList.clear(); }
+
+void ChatHistory::deleteMessage(const uint64_t userId, const uint64_t messageId)
+{
+    for (auto& i : _messageList)
+    {
+        if ((i->_messageId == messageId) && (i->_userId == userId))
+            i->onDelete();
+    }
+}
 
 void ChatHistory::resizeEvent(QResizeEvent* event)
 {
@@ -135,7 +145,7 @@ std::pair<int, int> ChatHistory::findVisible() const
     {
         int  middle    = _messageList[(right - left) / 2]->pos().y();
         auto isBetween = [](int p, int t, int b) { return p >= t && p <= b; };
-        while (!isBetween(middle, top, bottom) && left != right)
+        while (!isBetween(middle, top, bottom) && (right - left) > 1)
         {
             if (middle < top) left = (right + left) / 2;
             if (middle > top) right = (right + left) / 2;

@@ -1,8 +1,13 @@
 #pragma once
+
 #include <QSplitter>
 #include <QStackedWidget>
+#include <QWidget>
+#include <memory>
+
 
 #include "Widgets/ChannelListWidget.hpp"
+#include "Widgets/ChatHistory.hpp"
 #include "Widgets/ChatWidget.hpp"
 
 class ChatWindow : public QWidget
@@ -10,7 +15,7 @@ class ChatWindow : public QWidget
     Q_OBJECT
 public:
     explicit ChatWindow(QWidget* parent = nullptr);
-
+    
 protected:
     void resizeEvent(QResizeEvent* event) override;
 

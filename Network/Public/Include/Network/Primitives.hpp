@@ -90,4 +90,27 @@ namespace Network
     {
         ar& o.email& o.login& o.passwordHash;
     }
+
+    struct MessageDeletedInfo
+    {
+        uint64_t userId;
+        uint64_t messageId;
+        explicit MessageDeletedInfo(const uint64_t _userId, const uint64_t _messageId)
+            : userId(_userId), messageId(_messageId)
+        {}
+
+        friend bool operator==(const MessageDeletedInfo& messageDeletedInfo1,
+            const MessageDeletedInfo& messageDeletedInfo2)
+        {
+            return messageDeletedInfo1.messageId == messageDeletedInfo2.messageId &&
+                   messageDeletedInfo1.userId    == messageDeletedInfo2.userId;
+        }
+    };
+
+    template <typename Archive>
+    void serialize(Archive& ar, Network::MessageDeletedInfo& o)
+    {
+        ar& o.userId& o.messageId;
+    }
+
 } // namespace Network

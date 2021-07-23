@@ -3,19 +3,16 @@ constexpr auto EMPTY_MESSAGE   = "Empty message";
 constexpr auto EMPTY_USER_NAME = "You";
 constexpr auto COUNT_REACTION  = 4;
 
+#include <QDateTime>
 #include <QHBoxLayout>
-#include <QListWidgetItem>
 #include <QSpacerItem>
 #include <QVBoxLayout>
 #include <ctime>
 #include <memory>
 
-#include "Widgets/ComboBox.hpp"
-#include "Widgets/DateTimeEdit.hpp"
 #include "Widgets/FlatButton.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/Label.hpp"
-#include "Widgets/TimeEdit.hpp"
 
 class ChatHistory;
 
@@ -40,11 +37,13 @@ public:
      * @brief constructor for displaying a message from a user on the screen.
      * @param history parent widget
      * @param message Message from user.
+     * @param userId of user.
+     * @param messageId of message.
      * @param utc Seconds since epoch.
      * @param username User nickname.
      */
-    MessageWidget(QWidget* history, QString message, qint64 utc, QString username,
-                  const Style::MessageWidget& st = st::defaultMessageWidget);
+    MessageWidget(QWidget* history, QString message, uint64_t userId, uint64_t messageId, qint64 utc, QString username,
+        const Style::MessageWidget& st = st::defaultMessageWidget);
 
     /**
      * @brief Method for method for changing the message.
@@ -70,11 +69,13 @@ public:
     void setIndex(int index)
     {
         _index = index;
-
         update();
     }
 
     int expectedHeight();
+    uint64_t _userId;
+    uint64_t _messageId;
+
 public slots:
     void onDelete();
 
@@ -108,5 +109,5 @@ private:
     MessageFlags                  _messageFlags;
     const Style::MessageWidget&   _st;
 
-    std::map<int, int> reactionMap{{reactions::LIKE, 0}, {reactions::DISLIKE, 0}, {reactions::FIRE, 0}, {reactions::CAT, 0}};
+    std::map<int, int> reactionMap{ {reactions::LIKE, 0}, {reactions::DISLIKE, 0}, {reactions::FIRE, 0}, {reactions::CAT, 0} };
 };

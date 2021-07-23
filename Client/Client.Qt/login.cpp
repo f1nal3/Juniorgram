@@ -1,26 +1,30 @@
 #include "login.hpp"
+
 #include <QtEvents>
+
+#include "Application.hpp"
+#include "Widgets/FlatButton.hpp"
+#include "Widgets/InputFields.hpp"
+#include "Widgets/LogoWidget.hpp"
 
 Login::Login(QWidget* parent) : QWidget(parent)
 {
-    passwordLineEdit = std::make_unique<FlatInput>("Password", true, this);
-    usernameLineEdit = std::make_unique<FlatInput>("Username", this);
+    _usernameInput   = std::make_unique<FlatInput>(this, "Username");
+    _passwordInput   = std::make_unique<FlatInput>(this, "Password", true);
 
-    buttonSignin       = std::make_unique<FlatButton>(this, "Login");
-    buttonRegistration = std::make_unique<FlatButton>(this, "Registration");
+    _signInButton      = std::make_unique<FlatButton>(this, "Login");
+    _registrationButton = std::make_unique<FlatButton>(this, "Registration");
 
-    logoWidget = std::make_unique<LogoWidget>(this);
+    _logoWidget = std::make_unique<LogoWidget>(this);
 
-    buttonSignin->setClickCallback([]() { oApp->setAppState(App::AppState::ChatWindowForm); });
-    buttonRegistration->setClickCallback(
-        []() { oApp->setAppState(App::AppState::RegistrationForm); });
+    _signInButton->setClickCallback([]() { oApp->setAppState(App::AppState::ChatWindowForm); });
+    _registrationButton->setClickCallback([]() { oApp->setAppState(App::AppState::RegistrationForm); });
 
     const int BLOCKWIDTH = Style::valueDPIScale(500);
-    buttonSignin->resize(BLOCKWIDTH, buttonSignin->sizeHint().height());
-    buttonRegistration->resize(BLOCKWIDTH, buttonRegistration->sizeHint().height());
-
-    passwordLineEdit->resize(BLOCKWIDTH, passwordLineEdit->sizeHint().height());
-    usernameLineEdit->resize(BLOCKWIDTH, usernameLineEdit->sizeHint().height());
+    _signInButton->resize(BLOCKWIDTH, _signInButton->sizeHint().height());
+    _registrationButton->resize(BLOCKWIDTH, _registrationButton->sizeHint().height());
+    _passwordInput->resize(BLOCKWIDTH, _passwordInput->sizeHint().height());
+    _usernameInput->resize(BLOCKWIDTH, _usernameInput->sizeHint().height());
 }
 
 void Login::resizeEvent(QResizeEvent* event)
@@ -29,24 +33,11 @@ void Login::resizeEvent(QResizeEvent* event)
     const int   HOR_SPACING   = Style::valueDPIScale(16);
     const int   MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
     const int   LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
-    const int   SPACE         = Style::valueDPIScale(10);
 
-    const auto FIT_MAX = logoWidget->bestFit();
-    // Aspect ratio;
-    const float ASPRAT = FIT_MAX.width() / FIT_MAX.height();
+    _logoWidget->recountSize();
 
-    const auto FIT_WIDTH  = QSize(SIZE.width() - SPACE * 2, (SIZE.width() - SPACE * 2) / ASPRAT);
-    const auto FIT_HEIGHT = QSize((MIN_TOP_SHIFT - SPACE * 2) * ASPRAT, MIN_TOP_SHIFT - SPACE * 2);
-
-    auto bestFit = FIT_MAX;
-    if (FIT_WIDTH.width() < bestFit.width()) bestFit = FIT_WIDTH;
-    if (FIT_HEIGHT.width() < bestFit.width()) bestFit = FIT_HEIGHT;
-
-    logoWidget->resize(bestFit);
-    logoWidget->move((width() - bestFit.width()) / 2, (MIN_TOP_SHIFT - bestFit.height()) / 2);
-
-    usernameLineEdit->move(LEFT_SHIFT, MIN_TOP_SHIFT);
-    passwordLineEdit->move(LEFT_SHIFT, usernameLineEdit->geometry().bottom() + 1 + HOR_SPACING);
-    buttonSignin->move(LEFT_SHIFT, passwordLineEdit->geometry().bottom() + 1 + HOR_SPACING * 2);
-    buttonRegistration->move(LEFT_SHIFT, buttonSignin->geometry().bottom() + 1 + HOR_SPACING);
+    _usernameInput->move(LEFT_SHIFT, MIN_TOP_SHIFT);
+    _passwordInput->move(LEFT_SHIFT, _usernameInput->geometry().bottom() + 1 + HOR_SPACING);
+    _signInButton->move(LEFT_SHIFT, _passwordInput->geometry().bottom() + 1 + HOR_SPACING * 2);
+    _registrationButton->move(LEFT_SHIFT, _signInButton->geometry().bottom() + 1 + HOR_SPACING);
 }
