@@ -253,6 +253,7 @@ void ScrollBar::mousePressEvent(QMouseEvent* e)
     else
     {
         int32_t val = _vertical ? e->pos().y() : e->pos().x(), div = _vertical ? height() : width();
+
         val        = (val <= _st->deltat) ? 0 : (val - _st->deltat);
         div        = (div <= _st->deltat + _st->deltab) ? 1 : (div - _st->deltat - _st->deltab);
         _startFrom = _vertical ? int32_t((val * int64_t(area()->scrollTopMax())) / div) : ((val * int64_t(area()->scrollLeftMax())) / div);

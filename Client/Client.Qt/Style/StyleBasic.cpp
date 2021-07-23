@@ -43,6 +43,16 @@ Style::IconButton     _defaultIconButton     = {{Qt::Uninitialized},
                                         {Qt::Uninitialized},
                                         {Qt::Uninitialized},
                                         0};
+Style::IconButton     _reactionIconButton    = {{Qt::Uninitialized},
+                                         {Qt::Uninitialized},
+                                         {Qt::Uninitialized},
+                                         {Qt::Uninitialized},
+                                         {Qt::Uninitialized},
+                                         {0, 0, 0, 0},
+                                         0,
+                                         {Qt::Uninitialized},
+                                         {Qt::Uninitialized},
+                                         0};
 Style::LinkButton     _defaultLinkButton     = {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}};
 Style::FlatButton     _defaultFlatButton     = {
     {0, 0, 0, 0},       0, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized},
@@ -101,6 +111,7 @@ const int&                   defaultMargin(_defaultMargin);
 const Style::margins&        mar(_mar);
 const Style::font&           TextStyle(_TextStyle);
 const Style::IconButton&     defaultIconButton(_defaultIconButton);
+const Style::IconButton&     reactionIconButton(_reactionIconButton);
 const Style::LinkButton&     defaultLinkButton(_defaultLinkButton);
 const Style::FlatButton&     defaultFlatButton(_defaultFlatButton);
 const Style::FlatButton&     stylingButton(_stylingButton);
@@ -175,12 +186,22 @@ void init_StyleBasic(int scale)
                           st::windowColorOver,
                           st::windowActiveTextFg,
                           st::windowActiveTextFg,
-                          {":"},
+                          {":icons/max-w"},
                           st::mar,
                           px5,
                           {px15, 0, 0},
                           {px15, 0, 0},
                           500};
+    _reactionIconButton    = {st::windowColor,
+                           st::windowColorOver,
+                           st::windowActiveTextFg,
+                           st::windowActiveTextFg,
+                           {":icons/max-w"},
+                           {px4, px4, px4, px4},
+                           px4,
+                           {px12, 0, 0},
+                           {px12, 0, 0},
+                           500};
     _defaultLinkButton     = {st::linkButtonColor, st::linkButtonOverColor, {px15, 0, 0}, {px15, 2, 0}};
     _defaultFlatButton = {st::mar,      px5,         st::windowActiveTextFg, st::windowActiveTextFg, st::windowColor, st::windowColorOver,
                           {px15, 0, 0}, {px15, 0, 0}};
