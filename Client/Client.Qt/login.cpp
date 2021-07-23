@@ -30,7 +30,10 @@ Login::Login(QWidget* parent) : QWidget(parent)
         while(ConnectionManager::loginState == LoginState::IN_PROGRESS)
         {}
         
-        oApp->setAppState(App::AppState::ChatWindowForm);
+        if (ConnectionManager::loginState == LoginState::SUCCESS)
+        {
+            oApp->setAppState(App::AppState::ChatWindowForm);
+        }
         });
 
     _registrationButton->setClickCallback(
