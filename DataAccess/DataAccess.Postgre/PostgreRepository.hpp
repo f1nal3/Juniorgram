@@ -14,13 +14,21 @@ namespace DataAccess
 {
 class PostgreRepository : public IRepository
 {
+protected:
+    // This constructor lets us test all this functions.
+    PostgreRepository(PostgreTable* pt) : pTable(pt) {}
+
 public:
-    PostgreRepository() = default;
+    std::unique_ptr<PostgreTable> pTable;
+
+    PostgreRepository() : pTable(new PostgreTable{""}) {}
+
     virtual ~PostgreRepository() = default;
 
     virtual std::vector<std::string> getAllChannelsList() override final;
     virtual std::vector<std::string> getMessageHistoryForUser(const std::uint64_t channelID) override final;
     virtual void storeMessage(const Network::MessageInfo& message, const std::uint64_t channleID) override final;
     virtual bool loginUser(const std::string& login, const std::string& pwdHash) override final;
+    virtual Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) const override final;
 };
 }  // namespace DataAccess

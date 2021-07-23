@@ -2,6 +2,7 @@
 #include <Network/Primitives.hpp>
 #include <string>
 #include <vector>
+#include <Utility/Utility.hpp>
 
 namespace DataAccess
 {
@@ -17,6 +18,7 @@ public:
      * @return channels list as vector of strings.
      */
     virtual std::vector<std::string> getAllChannelsList() = 0;
+
     /**
      * @brief Draft method for getting history for a specific user. \
      * History is all messages that a marked as "non-delivered" for this user.
@@ -24,11 +26,23 @@ public:
      * @return List of messages as vector of strings.
      */
     virtual std::vector<std::string> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
+    
     /**
      * @brief Draft method for storing user's message in repository
      * @param message as Network::UserMessage.
      */
     virtual void storeMessage(const Network::MessageInfo& message, const std::uint64_t channelID) = 0;
+    
+    /**  @brief Method for user registration.
+     *   @params RegistrationMessage which contains user data for registration.
+     *   @details Generation password's hash in which login is a salt. It lets us /
+     *   to insert different users with the same passwords.
+     *   @return The return value of the method is one of the RegistrationCodes (enum). /
+     *   Registration successful - RegistrationCodes::SUCCESS. /
+     *   The user already exists - RegistrationCodes::EMAIL_ALREADY_EXISTS OR /
+     *   RegistrationCodes::LOGIN_ALREADY_EXISTS.
+     */
+    virtual Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) const = 0;
     /**
      * @brief attempts to login a user with the provided login by checking privided hash with the one stored.
      * @param login user login as string
