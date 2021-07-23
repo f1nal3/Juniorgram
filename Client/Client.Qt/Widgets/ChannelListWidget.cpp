@@ -21,3 +21,8 @@ ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
 }
 
 void ChannelListWidget::addChannels() { _listWidgetChannels->show(); }
+
+std::shared_ptr<ListWidget> ChannelListWidget::getChannelList()
+{
+    return _channelList;
+}
