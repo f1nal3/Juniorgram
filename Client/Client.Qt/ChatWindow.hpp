@@ -1,5 +1,6 @@
 #pragma once
 #include <QSplitter>
+#include <QStackedWidget>
 
 #include "Widgets/ChannelListWidget.hpp"
 #include "Widgets/ChatWidget.hpp"
@@ -16,5 +17,5 @@ protected:
 private:
     std::unique_ptr<QSplitter>         _mainLayout;
     std::unique_ptr<ChannelListWidget> _channelListWidget;
-    std::unique_ptr<ChatWidget>        _chat;
+    std::unique_ptr<QStackedWidget>    _chatSwitchWidget;
 };

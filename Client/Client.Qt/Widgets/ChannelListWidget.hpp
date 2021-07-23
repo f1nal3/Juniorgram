@@ -19,6 +19,9 @@ public:
 public slots:
     void addChannels();
 
+public:
+    std::shared_ptr<ListWidget> getChannelList();
+
 private:
     std::unique_ptr<FlatButton>        _addChannelButton;
     std::unique_ptr<ChannelListWindow> _listWidgetChannels;
