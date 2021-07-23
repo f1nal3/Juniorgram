@@ -57,10 +57,10 @@ public:
     void set(uchar r, uchar g, uchar b, uchar a) const { _data->set(r, g, b, a); }
 
     /// Get a brush with the color
-    explicit operator const QBrush&() const { return _data->brush; }
+    operator const QBrush&() const { return _data->brush; }
 
     /// Get a pen with the color
-    explicit operator const QPen&() const { return _data->pen; }
+    operator const QPen&() const { return _data->pen; }
 
     /// Refer to storage
     ColorData* operator->() const { return _data; }

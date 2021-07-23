@@ -53,7 +53,7 @@ public:
     Icon& operator=(const Icon& other) = default;
 
     /// Pixmap of icon
-    explicit operator const QPixmap*() const { return _data->pixmap(); }
+    operator const QPixmap*() const { return _data->pixmap(); }
 
     /// Size of icon
     [[nodiscard]] QSize size() const { return _data->size(); }

@@ -44,10 +44,10 @@ public:
     FontData* v() const { return ptr; }
 
     /// Does data exist
-    explicit operator bool() const { return !!ptr; }
+    operator bool() const { return !!ptr; }
 
     /// Convert to QFont
-    explicit operator const QFont&() const;
+    operator const QFont&() const;
 
 private:
     FontData* ptr;
