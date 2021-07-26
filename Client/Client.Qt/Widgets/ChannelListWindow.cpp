@@ -113,5 +113,6 @@ void ChannelListWindow::updateChannelListWindow()
     if (ConnectionManager::isConnected())
     {
         ConnectionManager::getClient().askForChannelList();
+        updateChannelList();
     }
 }
