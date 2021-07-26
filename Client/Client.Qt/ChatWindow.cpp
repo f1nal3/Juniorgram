@@ -20,27 +20,16 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     connect(_channelListWidget->getChannelList().get(), &ListWidget::itemPressed,
             [&](){
 
-        int numberOfCoincidences = 0;
         if(_chatSwitchWidget->currentIndex() < 0)
+                _chatSwitchWidget->insertWidget(_channelListWidget->getChannelList()->currentRow(), new ChatWidget());
+
+        if(_chatSwitchWidget->widget(_channelListWidget->getChannelList()->currentRow()) == nullptr)
         {
                 _chatSwitchWidget->insertWidget(_channelListWidget->getChannelList()->currentRow(), new ChatWidget());
-                _channelListNumbers.push_back(_channelListWidget->getChannelList()->currentRow());
-        }
-        for(size_t i = 0; i < _channelListNumbers.size(); ++i)
-        {
-            if(_channelListNumbers[i] == _channelListWidget->getChannelList()->currentRow())
-            {
                 _chatSwitchWidget->setCurrentIndex(_channelListWidget->getChannelList()->currentRow());
-                numberOfCoincidences++;
-            }
         }
-        if(numberOfCoincidences == 0)
-        {
-            _chatSwitchWidget->insertWidget(_channelListWidget->getChannelList()->currentRow(), new ChatWidget());
-            _chatSwitchWidget->setCurrentIndex(_channelListWidget->getChannelList()->currentRow());
-            _channelListNumbers.push_back(_channelListWidget->getChannelList()->currentRow());
-        }
-        numberOfCoincidences = 0;
+        else
+                _chatSwitchWidget->setCurrentIndex(_channelListWidget->getChannelList()->currentRow());
 
     });
 }

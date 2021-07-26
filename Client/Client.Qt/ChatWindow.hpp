@@ -23,5 +23,4 @@ private:
     std::unique_ptr<QSplitter>         _mainLayout;
     std::unique_ptr<ChannelListWidget> _channelListWidget;
     std::unique_ptr<QStackedWidget>    _chatSwitchWidget;
-    std::vector<int>                   _channelListNumbers;
 };
