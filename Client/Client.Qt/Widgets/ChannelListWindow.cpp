@@ -28,7 +28,11 @@ ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannel
 
     _addChannelButton->setClickCallback([this]() { addChannelToMainChannelWidget(); });
     _updateChannelButton->setClickCallback([this]() { updateChannelListWindow(); });
-    ConnectionManager::getClient().askForChannelList();
+    if (ConnectionManager::isConnected())
+    {
+        ConnectionManager::getClient().askForChannelList();
+    
+    }
     updateChannelList();
 
     setLayout(_vBoxLayout.get());
@@ -114,4 +118,5 @@ void ChannelListWindow::updateChannelListWindow()
     {
         ConnectionManager::getClient().askForChannelList();
     }
+    updateChannelList();
 }
