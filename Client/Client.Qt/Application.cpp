@@ -56,7 +56,7 @@ void Application::setAppState(App::AppState app_state)
         }
         case App::AppState::ChatWindowForm:
         {
-            if (_mainwidget->getCountWidgets() < 3)
+            if (_mainwidget->getWidgetsCount() < 3)
                 _mainwidget->addWidget(std::make_unique<ChatWindow>());
             _mainwidget->refreshTitleBar(true);
             _mainwidget->setCentralWidget(2);
