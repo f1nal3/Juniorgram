@@ -118,5 +118,4 @@ void ChannelListWindow::updateChannelListWindow()
     {
         ConnectionManager::getClient().askForChannelList();
     }
-    updateChannelList();
 }
