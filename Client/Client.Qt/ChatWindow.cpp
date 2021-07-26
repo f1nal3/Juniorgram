@@ -1,6 +1,7 @@
 #include "ChatWindow.hpp"
 
 #include <QtEvents>
+#include <iostream>
 
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
@@ -19,10 +20,29 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 
     connect(_channelListWidget->getChannelList().get(), &ListWidget::itemPressed,
             [&](){
-            if(_chatSwitchWidget->count() == _channelListWidget->getChannelList()->currentRow())
+
+        int numberOfCoincidences = 0;
+        if(_chatSwitchWidget->currentIndex() < 0)
+        {
                 _chatSwitchWidget->insertWidget(_channelListWidget->getChannelList()->currentRow(), new ChatWidget());
-            else
+                _channelListNumbers.push_back(_channelListWidget->getChannelList()->currentRow());
+        }
+        for(size_t i = 0; i < _channelListNumbers.size(); ++i)
+        {
+            if(_channelListNumbers[i] == _channelListWidget->getChannelList()->currentRow())
+            {
                 _chatSwitchWidget->setCurrentIndex(_channelListWidget->getChannelList()->currentRow());
+                numberOfCoincidences++;
+            }
+        }
+        if(numberOfCoincidences == 0)
+        {
+            _chatSwitchWidget->insertWidget(_channelListWidget->getChannelList()->currentRow(), new ChatWidget());
+            _chatSwitchWidget->setCurrentIndex(_channelListWidget->getChannelList()->currentRow());
+            _channelListNumbers.push_back(_channelListWidget->getChannelList()->currentRow());
+        }
+        numberOfCoincidences = 0;
+
     });
 }
 
