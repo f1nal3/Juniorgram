@@ -33,7 +33,7 @@ public:
 
     MouseType checkResizableField(QMouseEvent* event);
     void      refreshTitleBar(bool showBioButton);
-    size_t    getCountWidgets();
+    size_t    getWidgetsCount();
 
 protected:
 #ifdef _WIN32

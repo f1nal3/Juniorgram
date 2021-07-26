@@ -305,7 +305,7 @@ void MainWidget::setCentralWidget(std::int32_t index)
 
 void MainWidget::refreshTitleBar(bool showBioButton) { _title->showBioButton(showBioButton); }
 
-size_t MainWidget::getCountWidgets() { return _widgets.size(); }
+size_t MainWidget::getWidgetsCount() { return _widgets.size(); }
 
 bool MainWidget::eventFilter(QObject* watched, QEvent* event)
 {
