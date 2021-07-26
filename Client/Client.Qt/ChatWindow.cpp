@@ -1,7 +1,6 @@
 #include "ChatWindow.hpp"
 
 #include <QtEvents>
-#include <iostream>
 
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
