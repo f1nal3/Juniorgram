@@ -3,7 +3,7 @@
 
 /**
  * @class App(Client.CLI)
- * @brief App(Client.CLI) class that which allows
+ * @brief App(Client.CLI) class which allows
  *        you to work with the console
  *        and process messages from the server.
  */
