@@ -131,3 +131,7 @@ int MessageWidget::expectedHeight()
     }
     return _st.radius * 6 + _st.fontname->height + _fmtMessageText->document()->size().height();
 }
+
+uint64_t MessageWidget::getUserId() { return _userId; }
+
+uint64_t MessageWidget::getMessageId() { return uint64_t(); }

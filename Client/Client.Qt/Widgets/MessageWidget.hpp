@@ -1,6 +1,11 @@
 #pragma once
-constexpr auto EMPTY_MESSAGE   = "Empty message";
+/** 
+ *  @brief nickname for messages sent by the user himself
+ */
 constexpr auto EMPTY_USER_NAME = "You";
+/**
+ *  @brief the number of reactions to messages
+ */
 constexpr auto COUNT_REACTION  = 4;
 
 #include <QDateTime>
@@ -73,10 +78,20 @@ public:
     }
 
     int expectedHeight();
-    uint64_t _userId;
-    uint64_t _messageId;
+
+    /**
+     *  @brief Method for getting the ID of a user in the format
+     */
+    uint64_t getUserId();
+    /**
+     *  @brief Method for getting the ID of a message in the format
+     */
+    uint64_t getMessageId();
 
 public slots:
+    /**
+     *  @brief Slots : the function responsible for deleting messages on the client and sending a request to the server
+     */
     void onDelete();
 
 signals:
@@ -107,6 +122,8 @@ private:
     QString                       _username;
     QDateTime                     _datetime;
     MessageFlags                  _messageFlags;
+    uint64_t                      _userId;
+    uint64_t                      _messageId;
     const Style::MessageWidget&   _st;
 
     std::map<int, int> reactionMap{ {reactions::LIKE, 0}, {reactions::DISLIKE, 0}, {reactions::FIRE, 0}, {reactions::CAT, 0} };

@@ -47,7 +47,7 @@ void ChatHistory::deleteMessage(const uint64_t userId, const uint64_t messageId)
 {
     for (auto& i : _messageList)
     {
-        if ((i->_messageId == messageId) && (i->_userId == userId))
+        if ((i->getMessageId() == messageId) && (i->getUserId() == userId))
             i->onDelete();
     }
 }
