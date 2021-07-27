@@ -19,10 +19,18 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 
     connect(_channelListWidget->getChannelList().get(), &ListWidget::itemPressed,
             [&](){
-            if(_chatSwitchWidget->count() == _channelListWidget->getChannelList()->currentRow())
+
+        if(_chatSwitchWidget->currentIndex() < 0)
                 _chatSwitchWidget->insertWidget(_channelListWidget->getChannelList()->currentRow(), new ChatWidget());
-            else
+
+        if(_chatSwitchWidget->widget(_channelListWidget->getChannelList()->currentRow()) == nullptr)
+        {
+                _chatSwitchWidget->insertWidget(_channelListWidget->getChannelList()->currentRow(), new ChatWidget());
                 _chatSwitchWidget->setCurrentIndex(_channelListWidget->getChannelList()->currentRow());
+        }
+        else
+                _chatSwitchWidget->setCurrentIndex(_channelListWidget->getChannelList()->currentRow());
+
     });
 }
 
