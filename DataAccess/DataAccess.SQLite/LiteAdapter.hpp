@@ -60,7 +60,7 @@ public:
      */
     std::optional<std::any> query(const std::string_view& query) override;
 
-    /* @brief Method for checking the connection to the db.
+    /** @brief Method for checking the connection to the db.
      *  @details Inside, it getConnection().is_open().
      *  @return True - if connected. False - if not connected.
      */
