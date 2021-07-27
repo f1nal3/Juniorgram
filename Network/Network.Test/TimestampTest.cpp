@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch.hpp>
 #include <Network/Connection.hpp>
 
 TEST_CASE("Message comparison operators")

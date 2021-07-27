@@ -10,6 +10,9 @@ set (CXX_EXTENSIONS off)
 # For those VSCode users
 set(EXPORT_COMPILE_COMMANDS TRUE)
 
+# Compile time statistics
+set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
+
 # Set warnings level higher and force treating them as errors.
 # GCC TBD
 if (MSVC)
@@ -19,6 +22,11 @@ else()
     # lots of warnings and all warnings as errors
     add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()
+
+# Temporary remove linker warnings
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /ignore:4099")
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /ignore:4099")
+set(CMAKE_STATIC_LINKER_FLAGS "${CMAKE_STATIC_LINKER_FLAGS} /ignore:4099")
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
@@ -39,6 +47,7 @@ find_package(Qt5 COMPONENTS Widgets Core Gui Sql REQUIRED HINTS "/opt/Qt/5.15.2/
 
 enable_testing()
 
+add_subdirectory(Precompiled)
 add_subdirectory(Client)
 add_subdirectory(DataAccess)
 add_subdirectory(Network)

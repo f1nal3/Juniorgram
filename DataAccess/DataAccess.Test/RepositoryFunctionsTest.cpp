@@ -1,5 +1,5 @@
 #include <DataAccess.Postgre/PostgreTable.hpp>
-#include <catch2/catch.hpp>
+#include <catch.hpp>
 #include <iostream>
 #include <unordered_map>
 
