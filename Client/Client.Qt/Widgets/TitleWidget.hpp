@@ -40,6 +40,10 @@ protected:
     void paintEvent(QPaintEvent* paintEvent) override;
     void resizeEvent(QResizeEvent* resizeEvent) override;
     void mousePressEvent(QMouseEvent* mouseEvent) override;
+    void mouseDoubleClickEvent(QMouseEvent* event) override;
+
+private:
+    void windowStateChanged(Qt::WindowState state);
 
 private:
     const Style::TitleBar&         _st;
@@ -47,6 +51,8 @@ private:
     std::unique_ptr<CaptionButton> _maximizeButton;
     std::unique_ptr<CaptionButton> _minimizeButton;
     std::unique_ptr<BioButton>     _bioButton;
+
+    bool _maximizedState;
 };
 
 /**

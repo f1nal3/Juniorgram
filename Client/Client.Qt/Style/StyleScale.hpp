@@ -2,7 +2,7 @@
 namespace Style
 {
 /// Minimal dpi factor
-inline constexpr auto minDPI = 75;
+inline constexpr auto minDPI = 100;
 /// Maximal dpi factor
 inline constexpr auto maxDPI = 300;
 /// Default dpi factor

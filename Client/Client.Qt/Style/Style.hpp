@@ -5,8 +5,6 @@
 
 namespace Style
 {
-class palette;
-
 /**
  * @brief Starts all modules with scale
  * @param scale DPI factor 100%(96dpi)

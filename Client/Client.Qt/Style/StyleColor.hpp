@@ -21,7 +21,7 @@ public:
     /// Color itself
     QColor color;
     /// Pen with the color
-    QPen   pen;
+    QPen pen;
     /// Brush with the color
     QBrush brush;
 
@@ -68,7 +68,7 @@ public:
     ColorData* v() const { return _data; }
 
     /// Does data exist
-    explicit operator bool() const { return !!_data; }
+    operator bool() const { return !!_data; }
 
 private:
     friend class Style::Palette;

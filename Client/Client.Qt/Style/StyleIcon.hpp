@@ -10,6 +10,12 @@ namespace internal
 {
 class Icon;
 
+enum IconType
+{
+    KW       = 0,
+    REACTION = 1
+};
+
 /**
  * @class IconData
  * @brief Stores icon data
@@ -25,7 +31,7 @@ public:
     [[nodiscard]] QImage instance() const;
 
 private:
-    IconData(const QString& file, const QColor& activeTextFg = Qt::white);
+    IconData(const QString& file, IconType type, const QColor& activeTextFg = Qt::white);
     IconData(const IconData& other) = default;
     IconData& operator=(const IconData& other) = default;
 
@@ -46,7 +52,9 @@ public:
     /// Empty initialization
     Icon(Qt::Initialization = Qt::Uninitialized) {}
     /// File initialization
-    Icon(const QString& file);
+    Icon(const QString& file, IconType type = REACTION);
+    /// File initialization
+    Icon(const QString& file, int type);
     /// Copy constructor
     Icon(const Icon& other) = default;
     /// Copy assigment

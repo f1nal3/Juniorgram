@@ -99,6 +99,22 @@ struct TitleBar
     Style::TitleBarButton minimizeButton;
 };
 
+struct Menu
+{
+    int            separatorWidth;
+    Style::margins separatorPadding;
+    Style::color   separatorFg;
+    Style::margins itemPadding;
+    Style::font    itemFont;
+    Style::color   itemFg;
+    Style::color   itemFgOver;
+    Style::color   itemFgDisabled;
+    Style::color   itemBg;
+    Style::color   itemBgOver;
+    int            widthMin;
+    int            widthMax;
+};
+
 }  // namespace Style
 
 namespace st
@@ -106,6 +122,7 @@ namespace st
 extern const int&                   fsize;
 extern const Style::font&           defaultFont;
 extern const Style::font&           semiboldFont;
+extern const Style::Menu&           defaultMenu;
 extern const Style::TitleBarButton& defaultTitleBarButton;
 extern const Style::TitleBarButton& closeButton;
 extern const Style::TitleBarButton& restoreButton;
@@ -117,6 +134,11 @@ extern const Style::margins&        mar;
 extern const Style::font&           TextStyle;
 extern const Style::IconButton&     defaultIconButton;
 extern const Style::IconButton&     reactionIconButton;
+extern const Style::IconButton&     smileIconButton;
+extern const Style::IconButton&     dislikeIconButton;
+extern const Style::IconButton&     likeIconButton;
+extern const Style::IconButton&     fireIconButton;
+extern const Style::IconButton&     catIconButton;
 extern const Style::LinkButton&     defaultLinkButton;
 extern const Style::FlatButton&     defaultFlatButton;
 extern const Style::FlatButton&     stylingButton;

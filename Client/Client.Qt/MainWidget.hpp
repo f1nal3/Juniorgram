@@ -38,21 +38,13 @@ public:
      */
     bool setBioButtonIcon(const Style::icon* icon);
 
-    enum MouseType
-    {
-        None = 0,
-        Top,
-        TopLeft,
-        TopRight,
-        Bottom,
-        BottomLeft,
-        BottomRight,
-        Left,
-        Right
-    };
+    Qt::Edges edgesFromPos(const QPoint& pos);
 
-    MouseType checkResizableField(QMouseEvent* event);
-    void      refreshTitleBar(bool showBioButton);
+    /**
+     * @brief Relayout titlebar
+     * @param showBioButton Show bio button?
+     */
+    void refreshTitleBar(bool showBioButton);
 
 protected:
 #ifdef _WIN32
@@ -61,13 +53,17 @@ protected:
     void paintEvent(QPaintEvent* event) override;
     void resizeEvent(QResizeEvent* event) override;
     void mousePressEvent(QMouseEvent* event) override;
-    void mouseMoveEvent(QMouseEvent* event) override;
     void mouseReleaseEvent(QMouseEvent* event) override;
     bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
-    MouseType    _lmbPos  = None;
-    std::int32_t _current = -1;
+    void updateCursor(Qt::Edges edges);
+    void restoreCursor();
+
+private:
+    std::int32_t _current        = -1;
+    bool         _mousePressed   = false;
+    bool         _cursorOverride = false;
 
     std::unique_ptr<TitleWidget>          _title;
     std::unique_ptr<QWidget>              _body;

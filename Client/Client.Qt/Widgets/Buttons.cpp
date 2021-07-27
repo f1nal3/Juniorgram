@@ -100,11 +100,11 @@ void IconButton::paintEvent(QPaintEvent* event)
     const Style::font& currentFont = isOver() ? _st.overFont : _st.font;
     p.setFont(currentFont);
     p.setPen(isOver() ? _st.overColor : _st.color);
-    QSize  textSize  = QSize(_st.font->width(_text), currentFont->height);
+    QSize  textSize  = QSize(_st.font->width(_text), height() - _st.margins.bottom());
     QPoint textPoint = QPoint(_st.margins.left() + _st.margins.right() + _st.icon.size().width(), _st.margins.top());
     QRect  textRect  = QRect(textPoint, textSize);
 
-    p.drawText(textRect, _text, Style::al_top);
+    p.drawText(textRect, _text, Style::al_center);
 
     QWidget::paintEvent(event);
 }

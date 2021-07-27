@@ -14,34 +14,18 @@ TitleWidget::TitleWidget(QWidget* parent, const Style::TitleBar& st) : QWidget(p
     _minimizeButton = std::make_unique<CaptionButton>(this, &_st.minimizeButton);
     _bioButton      = std::make_unique<BioButton>(this);
 
+    setAttribute(Qt::WA_OpaquePaintEvent);
     setFixedHeight(Style::valueDPIScale(30));
 
-    connect(window()->windowHandle(), &QWindow::windowStateChanged, this, [=](Qt::WindowState state) {
-        if (state == Qt::WindowMinimized) return;
+    _maximizedState = !(window()->windowState() & Qt::WindowMaximized);
 
-        if (state == Qt::WindowNoState)
-        {
-            parent->setAttribute(Qt::WA_TranslucentBackground);
-            parent->layout()->setMargin(9);
-            _maximizeButton->setStyle(&_st.maximizeButton);
-        }
-        else if (state == Qt::WindowMaximized)
-        {
-            parent->setAttribute(Qt::WA_TranslucentBackground, false);
-            parent->layout()->setMargin(0);
-            _maximizeButton->setStyle(&_st.restoreButton);
-        }
-    });
+    connect(window()->windowHandle(), &QWindow::windowStateChanged, this, [=](Qt::WindowState state) { windowStateChanged(state); });
 
     _maximizeButton->setClickCallback([=]() {
         if (parent->isMaximized())
-        {
             window()->setWindowState(Qt::WindowNoState);
-        }
         else
-        {
             window()->setWindowState(Qt::WindowMaximized);
-        }
         _maximizeButton->clearState();
     });
     _closeButton->setClickCallback([=]() {
@@ -54,27 +38,21 @@ TitleWidget::TitleWidget(QWidget* parent, const Style::TitleBar& st) : QWidget(p
     });
 }
 
-void TitleWidget::paintEvent(QPaintEvent* paintEvent)
+void TitleWidget::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
     painter.fillRect(rect(), _st.bgColor);
-    QWidget::paintEvent(paintEvent);
 }
-void TitleWidget::resizeEvent(QResizeEvent* resizeEvent)
+void TitleWidget::resizeEvent(QResizeEvent*)
 {
     const int buttonWidth = _closeButton->width();
     _closeButton->move(width() - buttonWidth, 0);
     _maximizeButton->move(width() - buttonWidth * 2, 0);
     _minimizeButton->move(width() - buttonWidth * 3, 0);
     _bioButton->move(width() - buttonWidth * 4, 0);
-    QWidget::resizeEvent(resizeEvent);
 }
 
-void TitleWidget::mousePressEvent(QMouseEvent* mouseEvent)
-{
-    parentWidget()->window()->windowHandle()->startSystemMove();
-    QWidget::mousePressEvent(mouseEvent);
-}
+void TitleWidget::mousePressEvent(QMouseEvent*) { parentWidget()->window()->windowHandle()->startSystemMove(); }
 
 void TitleWidget::showBioButton(bool show)
 {
@@ -85,6 +63,41 @@ void TitleWidget::showBioButton(bool show)
 }
 
 bool TitleWidget::setBioButtonIcon(const Style::icon* icon) { return _bioButton->setIcon(icon); }
+
+void TitleWidget::mouseDoubleClickEvent(QMouseEvent*)
+{
+    if (_maximizedState)
+    {
+        window()->setWindowState(Qt::WindowNoState);
+    }
+    else
+    {
+        window()->setWindowState(Qt::WindowMaximized);
+    }
+}
+void TitleWidget::windowStateChanged(Qt::WindowState state)
+{
+    if (state == Qt::WindowMinimized) return;
+
+    auto maximized = (window()->windowState() & Qt::WindowMaximized);
+
+    if (maximized != _maximizedState)
+    {
+        _maximizedState = maximized;
+        if (state == Qt::WindowNoState)
+        {
+            parentWidget()->setAttribute(Qt::WA_TranslucentBackground);
+            parentWidget()->layout()->setMargin(9);
+            _maximizeButton->setStyle(&_st.maximizeButton);
+        }
+        else if (state == Qt::WindowMaximized)
+        {
+            parentWidget()->setAttribute(Qt::WA_TranslucentBackground, false);
+            parentWidget()->layout()->setMargin(0);
+            _maximizeButton->setStyle(&_st.restoreButton);
+        }
+    }
+}
 
 void CaptionButton::enterEvent(QEvent* event)
 {
@@ -107,7 +120,7 @@ CaptionButton::CaptionButton(QWidget* parent, const Style::TitleBarButton* st) :
     updateWidget();
 }
 
-void CaptionButton::paintEvent(QPaintEvent* event)
+void CaptionButton::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
 
@@ -129,7 +142,6 @@ void CaptionButton::paintEvent(QPaintEvent* event)
         painter.setRenderHint(QPainter::SmoothPixmapTransform);
         painter.drawPixmap(QRect(horside, verside, maxSide, maxSide), *icon->pixmap());
     }
-    QWidget::paintEvent(event);
 }
 
 void CaptionButton::setStyle(const Style::TitleBarButton* newSt)
@@ -167,7 +179,6 @@ BioButton::BioButton(QWidget* parent, bool) : CaptionButton(parent)
     _popup->setFocusProxy(this);
 
     setClickCallback([=]() {
-        // Creating popup and setting
         /*
          * We need to know where to place popup menu on screen
          * If we just use mapToGlobal(localPoint) we'll get shift on X
@@ -184,6 +195,7 @@ BioButton::BioButton(QWidget* parent, bool) : CaptionButton(parent)
 
         // Adding options
         menu->addAction("Username: Add format here", []() {});
+        menu->addSeparator();
         menu->addAction("Quit", []() { oApp->setAppState(App::AppState::LoginForm); });
 
         _popup->setMenu(std::move(menu));
