@@ -26,12 +26,12 @@ void Application::create()
     _icon = new Style::icon(":/images/logo.png");
     _mainwidget->setBioButtonIcon(_icon);
 
-    ConnectionManager::connect();
-    std::thread(&ConnectionManager::loop).detach();
-
     _mainwidget->addWidget(std::make_unique<Login>());
     _mainwidget->addWidget(std::make_unique<Registration>());
     _mainwidget->addWidget(std::make_unique<ChatWindow>());
+    
+    ConnectionManager::connect();
+    std::thread(&ConnectionManager::loop).detach();
 
     setAppState(App::AppState::LoginForm);
     QApplication::setFont(st::defaultFont);
