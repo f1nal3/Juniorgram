@@ -29,9 +29,10 @@ void Application::create()
     _mainwidget->addWidget(std::make_unique<Login>());
     _mainwidget->addWidget(std::make_unique<Registration>());
     _mainwidget->addWidget(std::make_unique<ChatWindow>());
-
+    
     ConnectionManager::connect();
     std::thread(&ConnectionManager::loop).detach();
+
     setAppState(App::AppState::LoginForm);
     QApplication::setFont(st::defaultFont);
 }
