@@ -31,6 +31,7 @@ void Application::create()
 
     _mainwidget->addWidget(std::make_unique<Login>());
     _mainwidget->addWidget(std::make_unique<Registration>());
+    _mainwidget->addWidget(std::make_unique<ChatWindow>());
 
     setAppState(App::AppState::LoginForm);
     QApplication::setFont(st::defaultFont);
@@ -56,8 +57,6 @@ void Application::setAppState(App::AppState app_state)
         }
         case App::AppState::ChatWindowForm:
         {
-            if (_mainwidget->getWidgetsCount() < 3)
-                _mainwidget->addWidget(std::make_unique<ChatWindow>());
             _mainwidget->refreshTitleBar(true);
             _mainwidget->setCentralWidget(2);
             break;
