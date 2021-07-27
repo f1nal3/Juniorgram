@@ -31,9 +31,17 @@ public:
      * @brief Clears all chat
      */
     void clear();
+    /**
+     * @brief method for deleting a selected message
+     * @param uint64_t id of the message being deleted
+     * @param uint64_t id of the user being deleted
+     */
     void deleteMessage(const uint64_t userId, const uint64_t messageId);
 
 protected:
+    /**
+     * @brief method for scaling internal objects when changing the window size
+     */
     void resizeEvent(QResizeEvent* event) override;
 
 private Q_SLOTS:

@@ -8,5 +8,8 @@
 class Label : public QLabel
 {
 public:
+    /**
+     *  @brief Setting the style for Label objects
+     */
     explicit Label(const QString &text = QString(), QWidget *parent = nullptr);
 };
