@@ -6,4 +6,6 @@ target_include_directories(Precompiled.Catch2.Main PUBLIC "${CONAN_CATCH2_ROOT}/
 
 add_executable(Precompiled.Catch2.Test CatchDummyTest.cpp)
 target_link_libraries(Precompiled.Catch2.Test Precompiled.Catch2.Main)
+
+target_compile_definitions(Precompiled.Catch2.Test PRIVATE CATCH_CONFIG_FAST_COMPILE)
 target_precompile_headers(Precompiled.Catch2.Test PRIVATE "${CONAN_CATCH2_ROOT}/include/catch2/catch.hpp")

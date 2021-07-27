@@ -9,6 +9,7 @@ set (CXX_EXTENSIONS off)
 
 # For those VSCode users
 set(EXPORT_COMPILE_COMMANDS TRUE)
+set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")
 
 # Compile time statistics
 set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CMAKE_COMMAND} -E time")

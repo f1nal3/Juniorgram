@@ -11,6 +11,7 @@ target_link_libraries(${TARGET} PUBLIC
     Network.Public 
     Server.Core.Static)
 
+target_compile_definitions(${TARGET} PRIVATE CATCH_CONFIG_FAST_COMPILE)
 target_precompile_headers(${TARGET} REUSE_FROM Precompiled.Catch2.Test)
 
 add_test(NAME ${OUTPUT_NAME} COMMAND ${TARGET})

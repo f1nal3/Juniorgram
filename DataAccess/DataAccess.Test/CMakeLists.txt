@@ -25,6 +25,7 @@ target_include_directories(${TARGET} PRIVATE
 target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
 
+target_compile_definitions(${TARGET} PRIVATE CATCH_CONFIG_FAST_COMPILE)
 target_precompile_headers(${TARGET} REUSE_FROM Precompiled.Catch2.Test)
 
 add_test(NAME ${OUTPUT_NAME} COMMAND ${TARGET})
