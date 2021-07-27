@@ -1,4 +1,6 @@
 #pragma once
+
+#include "Utility/Utility.hpp"
 #include <Network.Static/Primitives.hpp>
 #include <string>
 #include <vector>
@@ -30,6 +32,8 @@ public:
      * @param message as Network::UserMessage.
      */
     virtual void storeMessage(const Network::MessageInfo& message, const std::uint64_t channelID) = 0;
+    
+    virtual Utility::SessionCodes addSessionAfterRegistration() = 0;
     /**
      * @brief Virtual dtor.
      */

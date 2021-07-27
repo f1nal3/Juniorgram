@@ -39,13 +39,14 @@ class Server
 
     void onMessage(const std::shared_ptr<Network::Connection>& client, Network::Message& message);
 
-    std::string getToken(const std::shared_ptr<Network::Connection>& client);
+    std::pair<std::string, std::string> getTokens(const Network::ClientPayload& clPayload, const std::shared_ptr<Network::Connection>& client);
 
 public:
     explicit Server(const uint16_t& port);
 
     ~Server();
 
+    std::unique_ptr<DataAccess::IRepository>& getPostgreRepo();
   
     bool start();
 

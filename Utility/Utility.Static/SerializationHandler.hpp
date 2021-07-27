@@ -2,13 +2,12 @@
 
 #include <iostream>
 #include <any>
+#include <type_traits>
 
 #include "Handler.hpp"
 
 namespace Utility
 {
-
-
 /** @class SerializationHandler
  *  @brief handler class for messages serialization.
  */
@@ -33,11 +32,20 @@ public:
     
 
 private:
+
+    template <typename T, typename U>
+    SerializedState processOutcomingMessageBody(yas::shared_buffer& bodyBuffer,
+                                                const std::any messageBody);
+
     template <typename T>
     SerializedState processOutcomingMessageBody(yas::shared_buffer& bodyBuffer,
                                                 const std::any messageBody);
 
     template <typename T>
+    SerializedState processIncomingMessageBody(yas::shared_buffer& bodyBuffer,
+                                               Network::Message& message);
+
+    template <typename T, typename U>
     SerializedState processIncomingMessageBody(yas::shared_buffer& bodyBuffer,
                                                Network::Message& message);
 };

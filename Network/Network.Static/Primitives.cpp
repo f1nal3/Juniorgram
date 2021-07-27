@@ -11,7 +11,7 @@ namespace Network
     {
     }
 
-    ClientPayload::ClientPayload(const std::string& IP, const std::string& login,
+    ClientPayload::ClientPayload(const std::string& login,
                                  const std::string& psswdHash)
         : mSub{Hashing::getSHA1HashingValue(Utility::MACAddressUtility::GetMACAddress() + login +
                                             psswdHash)},
@@ -24,15 +24,14 @@ namespace Network
                             return "Linux";
             #endif
                         }()},
-            mFingerprint{"jg.client"},
-            mIP{IP}
+            mTag{"jg.client"}
     {
     }
 
     bool operator==(const ClientPayload& payload, const ClientPayload& payloadAnother)
         {
             return payload.mOS == payloadAnother.mOS && payload.mSub == payloadAnother.mSub &&
-                   payload.mFingerprint == payloadAnother.mFingerprint;
+                   payload.mTag == payloadAnother.mTag;
         }
 
     bool operator==(const ChannelInfo& channelInfo1, const ChannelInfo& channelInfo2)

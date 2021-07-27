@@ -18,6 +18,11 @@ namespace Utility
         SUCCESS,
     };
 
+    enum class SessionCodes : std::uint8_t
+    {
+
+    };
+
     inline std::tm safe_localtime(const std::time_t& time)
     {
         // std::localtime is not thread safe, so we use platform-dependant versions

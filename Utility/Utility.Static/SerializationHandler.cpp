@@ -1,13 +1,11 @@
 #include <Network.Static/Message.hpp>
 #include <Network.Static/Primitives.hpp>
+#include "TokenBuilder.hpp"
 #include "SerializationHandler.hpp"
 
 
 namespace Utility
 {
-
-
-
 MessageProcessingState SerializationHandler::handleOutcomingMessage(Network::Message& message,
                                                                         yas::shared_buffer& bodyBuffer)
 {
@@ -33,10 +31,10 @@ MessageProcessingState SerializationHandler::handleOutcomingMessage(Network::Mes
             state = processOutcomingMessageBody<Network::MessageInfo>(bodyBuffer, message.mBody);
             break;
         case Network::Message::MessageType::RegistrationRequest:
-            state = processOutcomingMessageBody<std::pair<Network::ClientPayload, Network::RegistrationInfo>>(bodyBuffer, message.mBody);
+            state = processOutcomingMessageBody<Network::ClientPayload, Network::RegistrationInfo>(bodyBuffer, message.mBody);
             break;
         case Network::Message::MessageType::RegistrationAnswer:
-            /*my part!!!*/
+            state = processOutcomingMessageBody<Utility::AccessAndRefreshToken,Utility::RegistrationCodes>(bodyBuffer, message.mBody);
             break;
         case Network::Message::MessageType::SendIV:
             state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
@@ -87,10 +85,10 @@ MessageProcessingState SerializationHandler::handleOutcomingMessage(Network::Mes
             state = processIncomingMessageBody<Network::MessageInfo>(buffer, message);
             break;
         case Network::Message::MessageType::RegistrationRequest:
-            state = processIncomingMessageBody<std::pair<Network::ClientPayload, Network::RegistrationInfo>>(buffer, message);  
+            state = processIncomingMessageBody<Network::ClientPayload, Network::RegistrationInfo>(buffer, message);  
             break;
         case Network::Message::MessageType::RegistrationAnswer:
-            /*my part!!!*/
+            state = processIncomingMessageBody<Utility::AccessAndRefreshToken,Utility::RegistrationCodes>(buffer, message);
             break;
         case Network::Message::MessageType::RegistrationRequestToClient:
             state = processIncomingMessageBody<Utility::RegistrationCodes>(buffer, message);
@@ -116,6 +114,23 @@ MessageProcessingState SerializationHandler::handleOutcomingMessage(Network::Mes
     return MessageProcessingState::FAILURE;
     }
 
+    template <typename T, typename U>
+    SerializedState SerializationHandler::processOutcomingMessageBody(
+        yas::shared_buffer& bodyBuffer, const std::any messageBody)
+    {
+        try
+        {
+            return YasSerializer::template serialize<std::pair<T,U>>(bodyBuffer, std::any_cast<std::pair<T,U>>(messageBody));
+        }
+        catch (const std::bad_any_cast& e)
+        {
+            std::cout << e.what() << '\n';
+            std::cout << "Message body cann't be serialized\n";
+
+            return SerializedState::FAILURE;
+        }
+    }
+
     template <typename T>
     SerializedState SerializationHandler::processOutcomingMessageBody(yas::shared_buffer& bodyBuffer,const std::any messageBody)
     {
@@ -130,6 +145,24 @@ MessageProcessingState SerializationHandler::handleOutcomingMessage(Network::Mes
 
             return SerializedState::FAILURE;
         }
+    }
+
+    template <typename T, typename U>
+    SerializedState SerializationHandler::processIncomingMessageBody(yas::shared_buffer& bodyBuffer,
+                                                                     Network::Message& message)
+    {
+        SerializedState state;
+
+        std::pair<T,U> messageInfo = std::make_pair<T, U>(T(), U());
+
+        state = YasSerializer::template deserialize<std::pair<T,U>>(bodyBuffer, messageInfo);
+
+        if (state == SerializedState::SUCCESS)
+        {
+            message.mBody = std::make_any<std::pair<T,U>>(messageInfo);
+        }
+
+        return state;
     }
 
     template <typename T>

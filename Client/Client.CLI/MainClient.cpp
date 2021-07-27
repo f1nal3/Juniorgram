@@ -66,8 +66,8 @@ int main()
             }
             else if (cmd == "ur")
             {
-                std::string email = /*GetLineFromCin()*/"lessocto@gmail.com";
-                std::string login = "gabriel";
+                std::string email = /*GetLineFromCin()*/"1lessocto@gmail.com";
+                std::string login = "gabriel111";
                 std::string password = "qwerty124";
                 
                 clientApp.shell()->userRegistration(email, login, password);

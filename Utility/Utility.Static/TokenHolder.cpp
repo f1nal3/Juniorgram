@@ -14,9 +14,14 @@ namespace Utility
         return mInstance;
     }
 
-    void TokenHolder::setRefreshToken(const std::string& refrToken)
+    void TokenHolder::setRefreshToken(const std::unique_ptr<DataAccess::IRepository>& SQLCipherRepo, const std::string& refrToken)
     {
-        mRefreshToken = refrToken;
+        suppressWarning(4834, Init)
+        std::async(std::launch::async, &DataAccess::SQLCipherRepository::setRefreshToken,
+        dynamic_cast<DataAccess::SQLCipherRepository*>(SQLCipherRepo.get()), refrToken);
+        restoreWarning
+
+        mRefreshToken = refrToken;   
     }   
 
     void TokenHolder::setAcccessToken(const std::string& accssToken)
@@ -24,12 +29,34 @@ namespace Utility
         mAccessToken = accssToken;
     }
 
-    void TokenHolder::getRefreshToken()
-    {
+    std::string TokenHolder::getRefreshToken(const std::unique_ptr<DataAccess::IRepository>& SQLCipherRepo)
+    { 
+        if (mRefreshToken.empty())
+        {
+            auto refreshToken = std::async(std::launch::async, &DataAccess::SQLCipherRepository::getRefreshToken,
+                       dynamic_cast<DataAccess::SQLCipherRepository*>(SQLCipherRepo.get()));
+         
+            if (!refreshToken.get().empty())
+            {
+                mRefreshToken = refreshToken.get();
+                return mRefreshToken;
+            }
+            else
+            {
+                std::cout << "Please go through the authentication step!" << '\n';
+                return "";
+            }
+        }
+        else
+        {
+            return mRefreshToken;
+        }
     }
 
     std::string TokenHolder::getAcccessToken()
-    { return mAccessToken; }
+    {
+        return mAccessToken; 
+    }
 
     TokenHolder::~TokenHolder()
     {}
@@ -45,7 +72,8 @@ namespace Utility
                 std::launch::async, &DataAccess::SQLCipherRepository::getRefreshToken,
                 dynamic_cast<DataAccess::SQLCipherRepository*>(SQLCipherRepo.get()));
         
-            this->setRefreshToken(refrToken.get());
+            this->setRefreshToken(SQLCipherRepo, refrToken.get());
+
             return true;
         }
         else
@@ -59,6 +87,7 @@ namespace Utility
         currentToken;
         return false;
     }
+
     std::string TokenHolder::extractPayload(const std::string& currentToken)
     { 
         const std::string payloadRegex = R"(.(\w|\W)*.)";

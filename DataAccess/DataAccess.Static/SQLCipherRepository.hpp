@@ -22,6 +22,7 @@ public:
 
     std::string getRefreshToken();
     bool isRefreshTokenExists();
+    void setRefreshToken(const std::string& refrToken);
 
 private:
 

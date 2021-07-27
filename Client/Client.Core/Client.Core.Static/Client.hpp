@@ -37,7 +37,7 @@ public:
 
     void send(const Message& message) const;
 
-    SafeQueue<Message>& incoming() { return mIncomingMessagesQueue; }
+    SafeQueue<Message>& incoming();
 
     void pingServer() const;
 

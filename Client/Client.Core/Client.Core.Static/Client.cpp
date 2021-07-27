@@ -8,9 +8,11 @@ namespace Network
 {
 Client::~Client() { disconnect(); }
 
-Client::Client() :
-    mSQLCipherRepo{std::unique_ptr<DataAccess::SQLCipherRepository>(new DataAccess::SQLCipherRepository)}
-{}
+Client::Client()
+    : mSQLCipherRepo{
+          std::unique_ptr<DataAccess::SQLCipherRepository>(new DataAccess::SQLCipherRepository)}
+{
+}
 
 std::unique_ptr<DataAccess::IRepository>& Client::getSQLCipherRepo()
 {
@@ -81,6 +83,11 @@ void Client::send(const Message& message) const
     }
 }
 
+SafeQueue<Message>& Client::incoming()
+{ 
+    return mIncomingMessagesQueue;
+}
+
 void Client::pingServer() const
 {
     Network::Message message;
@@ -130,7 +137,7 @@ void Client::userRegistration(const std::string& email, const std::string& login
     // with the same passwords.
     const std::string PASSWORD_HASH = Hashing::SHA_256(password, login);
     Network::RegistrationInfo ri(email, login, PASSWORD_HASH);
-    Network::ClientPayload payload(mConnection.get()->getIP(), login, PASSWORD_HASH);
+    Network::ClientPayload payload(login, PASSWORD_HASH);
 
     Network::Message message;
     message.mHeader.mMessageType = Network::Message::MessageType::RegistrationRequest;

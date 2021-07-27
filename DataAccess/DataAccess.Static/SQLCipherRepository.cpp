@@ -16,6 +16,11 @@ bool SQLCipherRepository::isRefreshTokenExists()
     return std::stoi(tokenCountVc.front());
 }
 
+void SQLCipherRepository::setRefreshToken(const std::string& refrToken)
+{
+    SQLCipherTable("refresh_tokens").Insert()->columns(std::pair{"refresh_token", refrToken.c_str()});
+}
+
 suppressWarning(4100, Init) 
 std::vector<std::string> SQLCipherRepository::getAllChannelsList()
 {

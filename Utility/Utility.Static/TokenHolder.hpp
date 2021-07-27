@@ -6,6 +6,7 @@
 #include <future>
 #include <nlohmann/json.hpp>
 
+#include "Utility/WarningSuppression.hpp"
 #include "Cryptography.hpp"
 
 namespace DataAccess
@@ -28,11 +29,11 @@ public:
 
     static std::shared_ptr<TokenHolder> Instance();
    
-    void setRefreshToken(const std::string& refrToken);
+    void setRefreshToken(const std::unique_ptr<DataAccess::IRepository>& SQLCipherRepo, const std::string& refrToken);
 
     void setAcccessToken(const std::string& accssToken);
 
-    void getRefreshToken();
+    std::string getRefreshToken(const std::unique_ptr<DataAccess::IRepository>& SQLCipherRepo);
 
     bool checkTokenExistance(const std::unique_ptr<DataAccess::IRepository>& SQLCipherRepo);
     

@@ -1,6 +1,7 @@
 #include "App.hpp"
 
 #include <Utility.Static/TokenHolder.hpp>
+#include <Utility.Static/TokenBuilder.hpp>
 #include <Utility.Static/KeyHolder.hpp>
 
 
@@ -117,8 +118,7 @@ bool App::loop()
                     std::cout << "Message history received: \n";
                     std::vector<std::string> messageList;
 
-                    for (const auto& item :
-                         std::any_cast<std::vector<Network::MessageInfo>>(message.mBody))
+                    for (const auto& item : std::any_cast<std::vector<Network::MessageInfo>>(message.mBody))
                     {
                         messageList.emplace_back(item.message);
                         std::cout << item.message << '\n';
@@ -134,6 +134,26 @@ bool App::loop()
 
                 case Network::Message::MessageType::RegistrationAnswer:
                 {
+                    auto answer = std::any_cast<std::pair<Utility::AccessAndRefreshToken, Utility::RegistrationCodes>>(message.mBody);
+
+                    if (answer.second == Utility::RegistrationCodes::SUCCESS)
+                    {
+                        Utility::TokenHolder::Instance().get()->setAcccessToken(answer.first.first); 
+                        Utility::TokenHolder::Instance().get()->setRefreshToken(client.getSQLCipherRepo(), answer.first.second);
+
+
+
+                        std::cout << "You are successfully registered!" << std::endl;
+
+                    }
+                    else if (answer.second == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
+                    {
+                        std::cout << "Email already exists!" << std::endl;
+                    }
+                    else
+                    {
+                        std::cout << "Login already exists!" << std::endl;
+                    }
                 }
 				            break;
 

@@ -17,9 +17,18 @@
 
 namespace Utility
 {
+enum class TokenType : std::uint16_t
+{
+    refreshToken = 0,
+    accessToken
+};
+
+using AccessAndRefreshToken = std::pair<std::string, std::string>;
+
 using json = nlohmann::json;
 
-constexpr short tokenExpiredTime = 3600; 
+constexpr short accessTokenExpiredTime = 3600;
+constexpr unsigned int refreshTokenExpiredTime = 86400;
 
 suppressWarning(4100, Init)
 struct GetHeader
@@ -83,6 +92,7 @@ struct BuildSignature
 {
 };
  
-std::string buildToken(const std::shared_ptr<Network::Connection>& client);
+std::string buildToken(const Network::ClientPayload& clPayload, const std::shared_ptr<Network::Connection>& client, const Utility::TokenType& tokenType);
+
 
 }  // namespace Utility

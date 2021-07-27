@@ -163,7 +163,7 @@ void Server::onMessage(const std::shared_ptr<Network::Connection>& client, Netwo
 
         case Network::Message::MessageType::RegistrationRequest:
         {
-            auto& [clientPayload ,ri] = std::any_cast<std::pair<Network::ClientPayload, Network::RegistrationInfo>>(message.mBody);
+            const auto [clientPayload, ri] = std::any_cast<std::pair<Network::ClientPayload, Network::RegistrationInfo>>(message.mBody);
             
             auto future = std::async(std::launch::async, &RegistrationUnit::registerUser, &RegistrationUnit::instance(), ri);
         
@@ -173,18 +173,27 @@ void Server::onMessage(const std::shared_ptr<Network::Connection>& client, Netwo
             
             auto registrationCode = future.get();
 
-            if (registrationCode == Utility::RegistrationCodes::SUCCESS)
+            if (true/*registrationCode == Utility::RegistrationCodes::SUCCESS*/)
             {
-                std::string token = getToken(/*clientPayload, */client);
-                messageToClient.mBody =
-                    std::make_any<std::pair<std::string, Utility::RegistrationCodes>>(
-                        std::pair{" ", registrationCode});
+                auto [accessToken, refreshToken] = getTokens(clientPayload, client);
+
+                auto isExists = std::async(std::launch::async, &DataAccess::PostgreRepository::addSessionAfterRegistration,
+                       dynamic_cast<DataAccess::PostgreRepository*>(getPostgreRepo().get()));
+
+               /* auto future = std::async(std::launch::async, &RegistrationUnit::,
+                                    &RegistrationUnit::instance(), ri);*/
+        
+
+                messageToClient.mBody = std::make_any<std::pair<Utility::AccessAndRefreshToken, Utility::RegistrationCodes>>(
+                    std::pair{std::pair{accessToken, refreshToken}, registrationCode});
             }
             else
             {
-                messageToClient.mBody = std::make_any<Utility::RegistrationCodes>(registrationCode);
-                client->send(messageToClient);
+                messageToClient.mBody = std::make_any<std::pair<Utility::AccessAndRefreshToken, Utility::RegistrationCodes>>(
+                    std::pair{std::pair{"",""}, registrationCode});
             }
+
+            client->send(messageToClient);
         }
         break;
 
@@ -196,10 +205,12 @@ void Server::onMessage(const std::shared_ptr<Network::Connection>& client, Netwo
     }
 }
 
-std::string Server::getToken(const std::shared_ptr<Network::Connection>& client)
+std::pair<std::string, std::string> Server::getTokens(const Network::ClientPayload& clPayload, const std::shared_ptr<Network::Connection>& client)
 { 
-    std::string token = Utility::buildToken(client);
-    return token;
+    std::string accessToken = Utility::buildToken(clPayload, client, Utility::TokenType::accessToken);
+    std::string refreshToken = Utility::buildToken(clPayload, client, Utility::TokenType::refreshToken);
+    
+    return {accessToken, refreshToken};
 }
 
 Server::Server(const uint16_t& port)
@@ -209,6 +220,11 @@ Server::Server(const uint16_t& port)
 }
 
 Server::~Server() { stop(); }
+
+std::unique_ptr<DataAccess::IRepository>& Server::getPostgreRepo()
+{
+    return _postgreRepo; 
+}
 
 bool Server::start()
 {

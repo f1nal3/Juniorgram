@@ -1,4 +1,6 @@
 #include <Network.Static/Connection.hpp>
+#include <Network.Static/Primitives.hpp>
+
 #include "TokenBuilder.hpp"
 
 namespace Utility
@@ -43,7 +45,7 @@ namespace Utility
                     }
                     else
                     {
-                        /*useless transitionTo. Maybe i'll find useful palce for this.*/
+                        /*useless transitionTo. Maybe i'll find useful place for this ._. */
                         auto transitionTo = (*this)(*statePtr, std::forward<E>(e));
                         currentState      = &std::get<typename ResultType::TargetState>(states);
                     }
@@ -62,7 +64,7 @@ namespace Utility
         return TokenBuilder<S, std::decay_t<Handlers>...>{std::forward<Handlers>(h)...};
     }
 
-    std::string buildToken(const std::shared_ptr<Network::Connection>& client)
+    std::string buildToken(const Network::ClientPayload& clPayload, const std::shared_ptr<Network::Connection>& client, const TokenType& tokenType)
     {
         using namespace std::string_view_literals;
 
@@ -70,7 +72,7 @@ namespace Utility
 
         suppressWarning(4100, Init)
         suppressWarning(4239, Init)
-            auto tokenBuilder = makeTokenBuilder<std::tuple<BuildHeader, BuildPayload, BuildSignature>>(
+          auto tokenBuilder = makeTokenBuilder<std::tuple<BuildHeader, BuildPayload, BuildSignature>>(
                 [&finaleJSONToken](BuildHeader& s, GetHeader event) -> TransitionTo<BuildPayload> {
                     finaleJSONToken = Coding::getBASE64CodedValue(event.mJsonObj.dump()) + '.';
                     return {};
@@ -89,26 +91,52 @@ namespace Utility
                 });
 
         tokenBuilder.onEvent(Utility::GetHeader{
-            {std::pair{"alg"sv,
-                       CryptoPP::ECDSA<CryptoPP::ECP, CryptoPP::SHA256>::StaticAlgorithmName()},
+            {std::pair{"alg"sv, CryptoPP::ECDSA<CryptoPP::ECP, CryptoPP::SHA256>::StaticAlgorithmName()},
              std::pair{"typ"sv, std::string("JWT")}}});
 
         tokenBuilder.onEvent(Utility::GetPayload{
-            {std::pair{"exp"sv, std::to_string((std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()) + tokenExpiredTime))},
-             std::pair{"id"sv, std::to_string(client->getID())}, std::pair{"ip"sv, client->getIP()},
+            {std::pair{"exp"sv,
+                       [&tokenType]() -> std::string {
+                           if (tokenType == Utility::TokenType::accessToken)
+                           {
+                               return std::to_string((std::chrono::system_clock::to_time_t(
+                                                          std::chrono::system_clock::now()) +
+                                                      accessTokenExpiredTime));
+                           }
+                           else
+                           {
+                               return std::to_string((std::chrono::system_clock::to_time_t(
+                                                          std::chrono::system_clock::now()) +
+                                                      refreshTokenExpiredTime));
+                           }
+                       }()},
+             std::pair{"jti"sv,
+                       [&tokenType]() -> std::string {
+                           if (tokenType == Utility::TokenType::accessToken)
+                           {
+                               return "access_token";
+                           }
+                           else
+                           {
+                               return "refresh_token";
+                           }
+                       }()},
+             std::pair{"upd"sv, std::to_string(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()))},
              std::pair{"iat"sv, std::to_string(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()))},
-             std::pair{"os"sv, []() -> std::string {
-                        #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
-                                                   return "Windows";
-                        #elif __APPLE__ 
-                                                            return "MacOS";
-                        #elif __linux__ 
-                                                            return "Linux" ;
-                        #endif
-                       }()}}});
+             std::pair{"id"sv, /*std::to_string(client->getID())*/ 
+                       [&client]() -> std::string
+                       {
+                           return " ";
+                          /* std::async(std::launch::async, client->get)*/
+                       }()},
+             std::pair{"ip"sv, client->getIP()},
+             std::pair{"os"sv, clPayload.mOS}, 
+             std::pair{"prt"sv, clPayload.mTag},
+             std::pair{"sub"sv, clPayload.mSub}
+            }
+            });
 
         tokenBuilder.onEvent(Utility::GetSignature{});
-
         restoreWarning 
         restoreWarning 
             

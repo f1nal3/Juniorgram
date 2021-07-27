@@ -13,12 +13,11 @@ namespace Network
     {
         std::string mOS;
         std::string mSub;
-        std::string mFingerprint;
-        std::string mIP;
+        std::string mTag;
 
     public:
         ClientPayload() = default;
-        ClientPayload(const std::string& IP, const std::string& login, const std::string& psswdHash);
+        ClientPayload(const std::string& login, const std::string& psswdHash);
         ClientPayload& operator=(const ClientPayload& other) = default;
         friend bool operator==(const ClientPayload& payload, const ClientPayload& payloadAnother);
     };
@@ -76,7 +75,7 @@ namespace Network
     template <typename Archive>
     void serialize(Archive& ar, Network::ClientPayload& o)
     {
-        ar& o.mOS& o.mSub& o.mFingerprint& o.mIP;
+        ar& o.mOS& o.mSub& o.mTag;
     }
 
     template <typename Archive>
