@@ -3,9 +3,8 @@
 #include <iostream>
 #include <unordered_map>
 
-#include "TestRegistrationUnit.hpp"
 #include "TestUsersAmountFinder.hpp"
-
+#include "TestPostgreRepository.hpp"
 // WARNING!
 // Be carefull. Maybe user with some data already exists in DB before tests running.
 // When you create new test, you must delete all test-users from DB calling deleteUsersFromDB function! 
@@ -43,15 +42,16 @@ const std::unordered_map<std::string, Network::RegistrationInfo> USERS_DATA{
 
 TEST_CASE("Registration user")
 {
-    static TestRegistrationUnit registrator;
-    static TestUsersAmountFinder finder;
+    TestPostgreRepository testRepository;
+    testRepository.pTable->changeTable("users");
+    TestUsersAmountFinder finder;
 
     SECTION("RegistrationCode: SUCCESS")
     {
-        registrator.rollback(USERS_DATA);
-        
+        testRepository.deleteUsers(USERS_DATA);
+
         const auto USER_1            = USERS_DATA.at("user_1");
-        const auto REGISTRATION_CODE = registrator.registerUser(USER_1);
+        const auto REGISTRATION_CODE = testRepository.registerUser(USER_1);
                 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::SUCCESS);
         REQUIRE(finder.findUsersAmountWithAllSameData(USER_1) == 1);
@@ -59,13 +59,13 @@ TEST_CASE("Registration user")
 
     SECTION("RegistrationCode: EMAIL_ALREADY_EXISTS")
     {
-        registrator.rollback(USERS_DATA);
-        
+        testRepository.deleteUsers(USERS_DATA);
+
         const auto USER_2 = USERS_DATA.at("user_2");
-        registrator.registerUser(USER_2);
+        testRepository.registerUser(USER_2);
         
         const auto USER_3            = USERS_DATA.at("user_3");
-        const auto REGISTRATION_CODE = registrator.registerUser(USER_3);
+        const auto REGISTRATION_CODE = testRepository.registerUser(USER_3);
 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS);
         REQUIRE(finder.findUsersAmountWithSameEmail(USER_2.email) == 1);
@@ -73,13 +73,13 @@ TEST_CASE("Registration user")
 
     SECTION("RegistrationCode: LOGIN_ALREADY_EXISTS")
     {
-        registrator.rollback(USERS_DATA);
-        
+        testRepository.deleteUsers(USERS_DATA);
+
         const auto USER_1 = USERS_DATA.at("user_1");
-        registrator.registerUser(USER_1);
+        testRepository.registerUser(USER_1);
 
         const auto USER_4            = USERS_DATA.at("user_4");
-        const auto REGISTRATION_CODE = registrator.registerUser(USER_4);
+        const auto REGISTRATION_CODE = testRepository.registerUser(USER_4);
 
         REQUIRE(REGISTRATION_CODE == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS);
         REQUIRE(finder.findUsersAmountWithSameLogin(USER_1.login) == 1);

@@ -16,7 +16,8 @@
 namespace Server
 {
 
-/* @class Server.
+/**
+*  @class Server.
 *  @brief Server class.
 */
 class Server

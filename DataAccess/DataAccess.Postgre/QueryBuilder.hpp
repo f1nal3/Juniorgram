@@ -142,7 +142,11 @@ namespace DataAccess
         */
         void changeTable(const char* newTableName) noexcept
         {
-            _statement->rollback();
+            if (_statement != nullptr)
+            {
+                _statement->rollback();
+            }
+
             _tableName = newTableName;
         }
         /** @brief Changing table.
