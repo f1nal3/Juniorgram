@@ -9,8 +9,6 @@ PopupWidget::PopupWidget(QWidget* parent) : QWidget(parent), _innerMenu(nullptr)
     setWindowFlags(Qt::WindowFlags(Qt::FramelessWindowHint) | Qt::Popup | Qt::BypassWindowManagerHint | Qt::NoDropShadowWindowHint);
     setMouseTracking(true);
 
-    setFixedSize(Style::valueDPIScale(250), 256);
-
     hide();
     setAttribute(Qt::WA_NoSystemBackground, true);
     setAttribute(Qt::WA_TranslucentBackground, true);
@@ -26,10 +24,7 @@ void PopupWidget::paintEvent(QPaintEvent* event)
     painter.drawRect(0, 0, width(), height());
 }
 
-void PopupWidget::hideEvent(QHideEvent* event)
-{
-    Q_UNUSED(event);
-}
+void PopupWidget::hideEvent(QHideEvent* event) { Q_UNUSED(event); }
 
 void PopupWidget::popup(const QPoint& point)
 {
@@ -37,7 +32,7 @@ void PopupWidget::popup(const QPoint& point)
     if (_innerMenu)
     {
         _innerMenu->move(0, 10);
-        resize(width(), _innerMenu->height() + 20);
+        resize(_innerMenu->width(), _innerMenu->height() + 20);
         _innerMenu->show();
     }
     show();
@@ -47,4 +42,5 @@ void PopupWidget::setMenu(std::unique_ptr<Menu> menu)
 {
     _innerMenu = std::move(menu);
     _innerMenu->setParent(this);
+    _innerMenu->setTriggeredCallback([=](const CallbackData&) { hide(); });
 }
