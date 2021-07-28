@@ -20,11 +20,11 @@ public:
     explicit Menu(QWidget* parent = nullptr, const Style::Menu& st = st::defaultMenu);
 
     /**
-     * @brief Adds menu item widget to menu
-     * @param widget MenuItem widget
+     * @brief Adds menu item callbackData to menu
+     * @param callbackData MenuItem callbackData
      * @return Action of menu item
      */
-    QAction* addAction(std::unique_ptr<ItemBase> widget);
+    QAction* addAction(std::unique_ptr<ItemBase> callbackData);
     /**
      * @brief Adds action to menu
      * @param text Text of item
@@ -49,10 +49,25 @@ public:
      */
     QAction* addSeparator();
 
+    /**
+     * @brief Clear menu
+     */
     void clearActions();
-    bool empty() const;
+    /**
+     * @brief Is menu empty
+     * @return Is menu empty
+     */
+    [[nodiscard]] bool empty() const;
 
+    /**
+     * @brief Sets callback on item selection
+     * @param callback Callback function
+     */
     void setActivatedCallback(std::function<void(const CallbackData& data)> callback) { _activatedCallback = std::move(callback); }
+    /**
+     * @brief Sets callback on item trigger
+     * @param callback
+     */
     void setTriggeredCallback(std::function<void(const CallbackData& data)> callback) { _triggeredCallback = std::move(callback); }
 
     void setMouseMoveDelegate(std::function<void(QPoint globalPosition)> delegate) { _mouseMoveDelegate = std::move(delegate); }
@@ -64,7 +79,14 @@ public:
     void setMouseReleaseDelegate(std::function<void(QPoint globalPosition)> delegate) { _mouseReleaseDelegate = std::move(delegate); }
     void handleMouseRelease(QPoint globalPosition);
 
+    /**
+     * @brief Finds currently selected
+     * @return
+     */
     ItemBase* findSelectedAction() const;
+    /**
+     * @brief removes selection
+     */
     void      clearSelection();
     void      setSelected(int32_t selected);
     void      updateSelected(const QPoint& globalPosition);
