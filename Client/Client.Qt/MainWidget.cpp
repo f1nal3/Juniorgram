@@ -22,7 +22,6 @@ bool isCompositionEnabled()
 
 bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* result)
 {
-    return false;
     Q_UNUSED(eventType)
     MSG* msg = static_cast<MSG*>(message);
 
