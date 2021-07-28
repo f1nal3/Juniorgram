@@ -7,7 +7,7 @@ Settings::Settings()
 
 std::unique_ptr<Settings> Settings::instance = nullptr;
 
-Settings &Settings::getInstance()
+Settings& Settings::getInstance()
 {
     if(instance == nullptr)
     {
@@ -21,17 +21,17 @@ Settings &Settings::getInstance()
 void Settings::writeSettings()
 {
     settings->beginGroup("Font");
-    settings->setValue("FontSize", fontSize);
+    settings->setValue("FontSize", _fontSize);
     settings->endGroup();
 }
 
 void Settings::setFontSize(int size)
 {
-    fontSize = size;
+    _fontSize = size;
 }
 
 int Settings::getFontSize()
 {
-    return fontSize;
+    return _fontSize;
 }
 

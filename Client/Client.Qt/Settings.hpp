@@ -21,7 +21,7 @@ public:
      * @brief Method for getting reference to Settings instance.
      * @return Reference to Settings instance.
      */
-    static Settings &getInstance();
+    static Settings& getInstance();
     /**
      * @brief Destructor.
      */
@@ -43,5 +43,5 @@ public:
     int getFontSize();
 
 private:
-    int fontSize;
+    int _fontSize;
 };
