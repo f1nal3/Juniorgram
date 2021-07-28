@@ -194,7 +194,7 @@ BioButton::BioButton(QWidget* parent, bool) : CaptionButton(parent)
         auto menu = std::make_unique<Menu>();
 
         // Adding options
-        menu->addAction("Username: Add format here", []() {});
+        menu->addAction("Username: Add format here WWWWWWWWWWWWWWWWWWWWWWWWWWW", []() {});
         menu->addSeparator();
         menu->addAction("Quit", []() { oApp->setAppState(App::AppState::LoginForm); });
 
