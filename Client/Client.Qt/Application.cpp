@@ -25,9 +25,9 @@ void Application::create()
     _icon = new Style::icon(":/images/logo.png");
     _mainWidget->setBioButtonIcon(_icon);
 
-    _mainwidget->addWidget(std::make_unique<Login>());
-    _mainwidget->addWidget(std::make_unique<Registration>());
-    _mainwidget->addWidget(std::make_unique<ChatWindow>());
+    _mainWidget->addWidget(std::make_unique<Login>());
+    _mainWidget->addWidget(std::make_unique<Registration>());
+    _mainWidget->addWidget(std::make_unique<ChatWindow>());
   
     ConnectionManager::connect();
     std::thread(&ConnectionManager::loop).detach();
