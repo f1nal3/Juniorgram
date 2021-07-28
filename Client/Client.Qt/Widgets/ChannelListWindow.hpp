@@ -38,5 +38,5 @@ private:
     std::unique_ptr<FlatButton>            _addChannelButton;
     std::unique_ptr<FlatButton>            _updateChannelButton;
     std::unique_ptr<QVBoxLayout>           _vBoxLayout;
-    std::shared_ptr<ListWidget>            _channelListMainWindow;
+    std::shared_ptr<ListWidget>            _widgetChannelList;
 };

@@ -41,7 +41,7 @@ public:
     Qt::Edges edgesFromPos(const QPoint& pos);
 
     /**
-     * @brief Relayout titlebar
+     * @brief Re-layout title-bar
      * @param showBioButton Show bio button?
      */
     void refreshTitleBar(bool showBioButton);
