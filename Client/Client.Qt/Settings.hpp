@@ -15,8 +15,8 @@ private:
 
 public:
     static Settings &getInstance();
-    ~Settings();
-    void WriteSettings();
+    ~Settings(){};
+    void writeSettings();
     void setFontSize(int size);
     int getFontSize();
 

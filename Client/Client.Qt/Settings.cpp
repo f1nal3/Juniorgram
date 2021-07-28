@@ -1,6 +1,4 @@
 #include "Settings.hpp"
-#include <QDebug>
-#include <iostream>
 
 Settings::Settings()
 {
@@ -16,23 +14,11 @@ Settings &Settings::getInstance()
         QCoreApplication::setOrganizationName("L&D C++ Lab");
         QCoreApplication::setApplicationName("Juniorgram");
         instance.reset(new Settings());
-        qDebug() << instance->fileName(); 
     }
     return *instance;
 }
 
-Settings::~Settings()
-{
-    std::cout<<"Settings Destructor\n";
-    if(instance.release() == nullptr){
-        std::cout<<"instance killed\n";
-    }
-    else{
-        std::cout<<"memory leak\n";
-    }
-}
-
-void Settings::WriteSettings()
+void Settings::writeSettings()
 {
     settings->beginGroup("Font");
     settings->setValue("FontSize", fontSize);
