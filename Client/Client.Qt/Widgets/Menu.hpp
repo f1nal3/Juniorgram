@@ -6,18 +6,47 @@
 
 /**
  * @class Menu
- * @brief A simple menu
+ * @brief A  menu
  */
 class Menu : public QWidget
 {
     Q_OBJECT
 public:
+    /**
+     * @brief Constructor for menu
+     * @param parent Parent widget
+     * @param st Styles
+     */
     explicit Menu(QWidget* parent = nullptr, const Style::Menu& st = st::defaultMenu);
 
+    /**
+     * @brief Adds menu item widget to menu
+     * @param widget MenuItem widget
+     * @return Action of menu item
+     */
     QAction* addAction(std::unique_ptr<ItemBase> widget);
+    /**
+     * @brief Adds action to menu
+     * @param text Text of item
+     * @param callback Callback function for item
+     * @param icon Icon for item
+     * @param iconOver Over icon for item
+     * @return Action of menu item
+     */
     QAction* addAction(const QString& text, std::function<void()>&& callback, const Style::icon* icon = nullptr,
                        const Style::icon* iconOver = nullptr);
+    /**
+     * @brief Adds action to menu
+     * @param action Action itself
+     * @param icon Icon
+     * @param iconOver OverIcon
+     * @return Action of menu item
+     */
     QAction* addAction(QAction* action, const Style::icon* icon = nullptr, const Style::icon* iconOver = nullptr);
+    /**
+     * @brief Menu separator
+     * @return Action of menu item
+     */
     QAction* addSeparator();
 
     void clearActions();

@@ -57,14 +57,14 @@ QAction* Menu::addAction(std::unique_ptr<ItemBase> widget)
 
     widget->setIndex(int32_t(_items.size()));
 
-    connect(widget.get(), &ItemBase::clicked, [=](CallbackData data) {
+    connect(widget.get(), &ItemBase::clicked, [=](const CallbackData& data) {
         if (_triggeredCallback)
         {
             _triggeredCallback(data);
         }
     });
 
-    connect(widget.get(), &ItemBase::selected, [=](CallbackData data) {
+    connect(widget.get(), &ItemBase::selected, [=](const CallbackData& data) {
         if (_activatedCallback)
         {
             _activatedCallback(data);
