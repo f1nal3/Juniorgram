@@ -108,7 +108,7 @@ void Client::askForMessageHistory() const
     send(message);
 }
 
-void Client::storeMessages(const std::string& message, const uint64_t userID, const uint64_t channelID) const
+void Client::storeMessage(const std::string& message, const uint64_t userID, const uint64_t channelID) const
 {
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = Network::Message::MessageType::MessageStoreRequest;
