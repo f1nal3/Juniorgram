@@ -31,7 +31,7 @@ public:
      * @brief Draft method for storing user's message in repository
      * @param message as Network::UserMessage.
      */
-    virtual void storeMessage(const Network::MessageInfo& message, const std::uint64_t channelID) = 0;
+    virtual void storeMessage(const Network::MessageStoringInfo& message) = 0;
     
     /**  @brief Method for user registration.
      *   @params RegistrationMessage which contains user data for registration.

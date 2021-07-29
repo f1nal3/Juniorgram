@@ -18,6 +18,13 @@ namespace Utility
         SUCCESS,
     };
 
+    enum class RegistrationCodes : std::uint8_t
+    {
+        EMAIL_ALREADY_EXISTS,
+        LOGIN_ALREADY_EXISTS,
+        SUCCESS,
+    };
+
     inline std::tm safe_localtime(const std::time_t& time)
     {
         // std::localtime is not thread safe, so we use platform-dependant versions

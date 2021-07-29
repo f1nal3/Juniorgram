@@ -41,7 +41,7 @@ namespace Network
     public:
         MessageInfo() = default;
         MessageInfo(std::uint64_t userID, std::string message) : userID(userID), message(message) {}
-        ~MessageInfo() = default;
+        virtual ~MessageInfo() = default;
 
         friend bool operator==(const MessageInfo& messageInfo1, const MessageInfo& messageInfo2)
         {
@@ -111,6 +111,32 @@ namespace Network
     void serialize(Archive& ar, Network::MessageDeletedInfo& o)
     {
         ar& o.userId& o.messageId;
+    }
+
+    struct MessageStoringInfo : MessageInfo
+    {
+        std::uint64_t channelID;
+        
+        MessageStoringInfo() = default;
+        explicit MessageStoringInfo(const uint64_t userID, const uint64_t channelID, const std::string& text) 
+            : MessageInfo(userID, text), channelID(channelID) 
+        {}
+
+        MessageStoringInfo(const MessageStoringInfo&) = default;
+        ~MessageStoringInfo()                         = default;
+
+        friend bool operator==(const MessageStoringInfo& first, const MessageStoringInfo& second)
+        {
+            return first.message   == second.message && 
+                   first.userID    == second.userID  && 
+                   first.channelID == second.channelID;
+        }
+    };
+
+    template <typename Archive>
+    void serialize(Archive& ar, Network::MessageStoringInfo& o)
+    {
+        ar& o.channelID& o.message& o.userID;
     }
 
 } // namespace Network

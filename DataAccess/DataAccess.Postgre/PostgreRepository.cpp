@@ -45,38 +45,6 @@ std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::
     return result;
 }
 
-void PostgreRepository::storeMessage(const Network::MessageInfo& message, const std::uint64_t channelID)
-{
-    std::string timeStampStr = Utility::nowTimeStampStr();
-
-    std::tuple dataForMsgs
-    {
-        std::pair{"sender_id", message.userID},
-        std::pair{"send_time", timeStampStr.c_str()},
-        std::pair{"msg", message.message }
-    };
-    pTable->changeTable("msgs");
-    pTable->Insert()->columns(dataForMsgs)->execute();
-    
-    // ID will not be autoincremented in the future. Later we are going to use postgre
-    // alghorithms to create it.
-    const auto lastMessageID = pTable->Select()
-                                ->columns({"max(msg_id)"})
-                                ->execute()
-                                .value()[0][0].as<std::uint64_t>();
-    
-    const auto currentMessageID = lastMessageID + 1;
-
-    std::tuple dataForChannelMsgs
-    {
-        std::pair{"channel_id", channelID}, 
-        std::pair{"msg_id", currentMessageID}
-    };
-    
-    pTable->changeTable("channel_msgs");
-    pTable->Insert()->columns(dataForChannelMsgs)->execute();
-}
-
 Utility::RegistrationCodes PostgreRepository::registerUser(const Network::RegistrationInfo& ri) const
 {
     static UsersAmountFinder finder;
@@ -103,4 +71,50 @@ Utility::RegistrationCodes PostgreRepository::registerUser(const Network::Regist
     pTable->Insert()->columns(userData)->execute();
 
     return Utility::RegistrationCodes::SUCCESS;
+}
+
+void PostgreRepository::storeMessage(const Network::MessageStoringInfo& msi)
+{
+    insertMessageIntoMessagesTable(msi);
+
+    // ID will not be autoincremented in the future. Later we are going to use postgre
+    // alghorithms to create it.
+    const auto currentMessageID = pTable->Select()
+                                        ->columns({"max(msg_id)"})
+                                        ->execute()
+                                        .value()[0][0].as<std::uint64_t>();
+
+    insertIDsIntoChannelMessagesTable(msi.channelID, currentMessageID);
+}
+
+void PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageStoringInfo& msi)
+{
+    std::string timeStampStr = Utility::nowTimeStampStr();
+    std::tuple dataForMsgs
+    {
+        std::pair{"sender_id", msi.userID}, 
+        std::pair{"send_time", timeStampStr.c_str()}, 
+        std::pair{"msg", msi.message}
+    };
+
+    pTable->changeTable("msgs");
+    pTable->Insert()->columns(dataForMsgs)->execute();
+}
+
+void PostgreRepository::insertIDsIntoChannelMessagesTable(const std::uint64_t chinnelID, const std::uint64_t messageID) 
+{
+    std::tuple dataForChannelMsgs
+    {
+        std::pair{"channel_id", chinnelID}, 
+        std::pair{"msg_id", messageID}
+    };
+
+    pTable->changeTable("channel_msgs");
+    pTable->Insert()->columns(dataForChannelMsgs)->execute();
+}
+
+void PostgreRepository::insertIDIntoMessageReactionsTable(const std::uint64_t messageID)
+{
+    pTable->changeTable("msg_reactions");
+    pTable->Insert()->columns(std::pair{"msg_id", messageID})->execute();
 }

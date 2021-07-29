@@ -27,7 +27,12 @@ public:
 
     virtual std::vector<std::string> getAllChannelsList() override final;
     virtual std::vector<std::string> getMessageHistoryForUser(const std::uint64_t channelID) override final;
-    virtual void storeMessage(const Network::MessageInfo& message, const std::uint64_t channleID) override final;
+    virtual void storeMessage(const Network::MessageStoringInfo& message) override final;
     virtual Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) const override final;
+
+private:
+    void insertMessageIntoMessagesTable(const Network::MessageStoringInfo& msi);
+    void insertIDsIntoChannelMessagesTable(const std::uint64_t chinnelID, const std::uint64_t messageID);
+    void insertIDIntoMessageReactionsTable(const std::uint64_t messageID);
 };
 }  // namespace DataAccess

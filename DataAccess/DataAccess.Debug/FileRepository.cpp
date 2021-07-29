@@ -38,7 +38,7 @@ std::vector<std::string> FileRepository::getMessageHistoryForUser(const std::uin
     return messages;
 }
 
-void FileRepository::storeMessage(const Network::MessageInfo& messageInfo, const std::uint64_t channelID)
+void FileRepository::storeMessage(const Network::MessageStoreInfo& messageInfo, const std::uint64_t channelID)
 {
     std::string formattedTime = std::string{30, '\0'};
 

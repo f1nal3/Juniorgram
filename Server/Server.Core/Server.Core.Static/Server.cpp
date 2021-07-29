@@ -129,12 +129,13 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::MessageStoreRequest:
         {
-            auto msgInfo = std::any_cast<Network::MessageInfo>(message.mBody);
+            auto msi = std::any_cast<Network::MessageStoringInfo>(message.mBody);
             
             auto future = std::async(std::launch::async, &DataAccess::IRepository::storeMessage,
-                           mPostgreRepo.get(), msgInfo, 0);  // There need to add channelID not 0.
+                           mPostgreRepo.get(), msi);
             
-            message.mBody = std::make_any<Network::MessageInfo>(msgInfo);
+            // ????
+            message.mBody = std::make_any<Network::MessageStoringInfo>(msi);
 
             future.wait();
             client->send(message);
