@@ -63,8 +63,8 @@ int main()
             }
             else if (cmd == "sm")
             {
-                std::vector<std::string> messagesList = {"hi, babe", "I'm comming today at 10 pm", "Expect"};
-                clientApp.shell()->storeMessages(messagesList);
+                std::string text = GetLineFromCin();
+                clientApp.shell()->storeMessage(text, 140, 2);
             }
             else if (cmd == "ur")
             {
