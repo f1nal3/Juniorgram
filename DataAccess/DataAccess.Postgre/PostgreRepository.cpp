@@ -75,16 +75,17 @@ Utility::RegistrationCodes PostgreRepository::registerUser(const Network::Regist
 
 void PostgreRepository::storeMessage(const Network::MessageStoringInfo& msi)
 {
-    insertMessageIntoMessagesTable(msi);
-
     // ID will not be autoincremented in the future. Later we are going to use postgre
     // alghorithms to create it.
+    insertMessageIntoMessagesTable(msi);
+
     const auto currentMessageID = pTable->Select()
                                         ->columns({"max(msg_id)"})
                                         ->execute()
                                         .value()[0][0].as<std::uint64_t>();
-
+    
     insertIDsIntoChannelMessagesTable(msi.channelID, currentMessageID);
+    insertIDIntoMessageReactionsTable(currentMessageID);
 }
 
 void PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageStoringInfo& msi)
