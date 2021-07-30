@@ -1,6 +1,5 @@
 #pragma once
 
-//#include <Utility/WarningSuppression.hpp>
 #include <cstdint>
 #include <string>
 #include <chrono>
@@ -55,7 +54,12 @@ namespace Network
     {
         ar& o.userID& o.message;
     }
-
+    
+    /**
+     * @brief Struct for storing and transmitting login information
+     *  @field login users login as std::string
+     *  @field pwdHash hash of user's password
+     */
     struct LoginInfo
     {
         std::string login;
@@ -66,7 +70,10 @@ namespace Network
                             login(login), pwdHash(passwordHash) {}
         ~LoginInfo() = default;
     };
-
+    
+    /**
+     * @brief helper function for serializing @ref LoginInfo structure
+     */
     template <typename Archive>
     void serialize(Archive& ar, LoginInfo& o)
     {
