@@ -39,7 +39,10 @@ public:
                                                                                   message.mBody);
                     break;
                 case Message::MessageType::MessageStoreRequest:
-                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<MessageStoringInfo>(bodyBuffer, message.mBody);
+                    break;
+                case Message::MessageType::MessageStoreAnswer:
+                    state = processOutcomingMessageBody<Utility::StoringMessageCodes>(bodyBuffer, message.mBody);
                     break;
                 case Message::MessageType::RegistrationRequest:
                     state = processOutcomingMessageBody<RegistrationInfo>(bodyBuffer, message.mBody);
@@ -97,6 +100,11 @@ public:
             case Message::MessageType::MessageStoreRequest:
             {
                 state = processIncomingMessageBody<MessageInfo>(buffer, message);
+                break;
+            }
+            case Message::MessageType::MessageStoreAnswer:
+            {
+                state = processIncomingMessageBody<Utility::StoringMessageCodes>(buffer, message);
                 break;
             }
             case Message::MessageType::RegistrationRequest:

@@ -64,7 +64,10 @@ int main()
             else if (cmd == "sm")
             {
                 std::string text = GetLineFromCin();
-                clientApp.shell()->storeMessage(text, 140, 2);
+                uint64_t userID     = 100;
+                uint64_t channelID  = 2;
+
+                clientApp.shell()->storeMessage(text, userID, channelID);
             }
             else if (cmd == "ur")
             {

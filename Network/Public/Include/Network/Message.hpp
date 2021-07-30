@@ -26,6 +26,7 @@ struct Message
         ChannelListRequest,
         MessageHistoryRequest,
         MessageStoreRequest,
+        MessageStoreAnswer,
         RegistrationRequest,
         RegistrationAnswer,
         UserMessageDeleteRequest,
