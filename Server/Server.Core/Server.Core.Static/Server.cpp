@@ -133,12 +133,13 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             
             auto future = std::async(std::launch::async, &DataAccess::IRepository::storeMessage,
                            mPostgreRepo.get(), msi);
+            Network::Message answerForClient;
+            answerForClient.mHeader.mMessageType = Network::Message::MessageType::MessageStoreAnswer;
             
-            // ????
-            message.mBody = std::make_any<Network::MessageStoringInfo>(msi);
+            auto messageStoringCode = future.get();
 
-            future.wait();
-            client->send(message);
+            answerForClient.mBody = std::make_any<Utility::StoringMessageCodes>(messageStoringCode);
+            client->send(answerForClient);
         }
         break;
 

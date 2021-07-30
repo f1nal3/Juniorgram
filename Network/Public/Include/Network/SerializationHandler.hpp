@@ -99,7 +99,7 @@ public:
             }
             case Message::MessageType::MessageStoreRequest:
             {
-                state = processIncomingMessageBody<MessageInfo>(buffer, message);
+                state = processIncomingMessageBody<MessageStoringInfo>(buffer, message);
                 break;
             }
             case Message::MessageType::MessageStoreAnswer:
