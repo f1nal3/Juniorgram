@@ -73,22 +73,35 @@ Utility::RegistrationCodes PostgreRepository::registerUser(const Network::Regist
     return Utility::RegistrationCodes::SUCCESS;
 }
 
-void PostgreRepository::storeMessage(const Network::MessageStoringInfo& msi)
+Utility::StoreMessageCodes PostgreRepository::storeMessage(const Network::MessageStoringInfo& msi)
 {
-    // ID will not be autoincremented in the future. Later we are going to use postgre
-    // alghorithms to create it.
-    insertMessageIntoMessagesTable(msi);
+    const auto firstResult = insertMessageIntoMessagesTable(msi);
+    if (!firstResult.has_value())
+    {
+        std::cerr << "Insert message into 'msgs' table failed" << std::endl;
+        return Utility::StoreMessageCodes::FAILED;
+    }
 
-    const auto currentMessageID = pTable->Select()
-                                        ->columns({"max(msg_id)"})
-                                        ->execute()
-                                        .value()[0][0].as<std::uint64_t>();
+    const auto currentMessageID = firstResult.value()[0][0].as<std::uint64_t>();
     
-    insertIDsIntoChannelMessagesTable(msi.channelID, currentMessageID);
-    insertIDIntoMessageReactionsTable(currentMessageID);
+    const auto secondResult = insertIDsIntoChannelMessagesTable(msi.channelID, currentMessageID);
+    if (!secondResult.has_value())
+    {
+        std::cerr << "Insert message into 'channel_messages' table failed" << std::endl;
+        return Utility::StoreMessageCodes::FAILED;
+    }
+
+    const auto thirdResult = insertIDIntoMessageReactionsTable(currentMessageID);
+    if (!thirdResult.has_value())
+    {
+        std::cerr << "Insert message into 'msg_reactions' table failed" << std::endl;
+        return Utility::StoreMessageCodes::FAILED;
+    }
+
+    return Utility::StoreMessageCodes::SUCCESS;
 }
 
-void PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageStoringInfo& msi)
+std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageStoringInfo& msi)
 {
     std::string timeStampStr = Utility::nowTimeStampStr();
     std::tuple dataForMsgs
@@ -99,10 +112,11 @@ void PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageSto
     };
 
     pTable->changeTable("msgs");
-    pTable->Insert()->columns(dataForMsgs)->execute();
+    return pTable->Insert()->columns(dataForMsgs)->returning({"id"})->execute();
 }
 
-void PostgreRepository::insertIDsIntoChannelMessagesTable(const std::uint64_t chinnelID, const std::uint64_t messageID) 
+std::optional<pqxx::result> PostgreRepository::insertIDsIntoChannelMessagesTable(const std::uint64_t chinnelID,
+                                                                                 const std::uint64_t messageID)
 {
     std::tuple dataForChannelMsgs
     {
@@ -111,11 +125,11 @@ void PostgreRepository::insertIDsIntoChannelMessagesTable(const std::uint64_t ch
     };
 
     pTable->changeTable("channel_msgs");
-    pTable->Insert()->columns(dataForChannelMsgs)->execute();
+    return pTable->Insert()->columns(dataForChannelMsgs)->execute();
 }
 
-void PostgreRepository::insertIDIntoMessageReactionsTable(const std::uint64_t messageID)
+std::optional<pqxx::result> PostgreRepository::insertIDIntoMessageReactionsTable(const std::uint64_t messageID)
 {
     pTable->changeTable("msg_reactions");
-    pTable->Insert()->columns(std::pair{"msg_id", messageID})->execute();
+    return pTable->Insert()->columns(std::pair{"msg_id", messageID})->execute();
 }

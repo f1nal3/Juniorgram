@@ -18,6 +18,12 @@ namespace Utility
         SUCCESS,
     };
 
+    enum class StoreMessageCodes : std::uint8_t
+    {
+        SUCCESS,
+        FAILED,
+    };
+
     inline std::tm safe_localtime(const std::time_t& time)
     {
         // std::localtime is not thread safe, so we use platform-dependant versions

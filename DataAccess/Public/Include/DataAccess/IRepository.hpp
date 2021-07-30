@@ -28,10 +28,10 @@ public:
     virtual std::vector<std::string> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
     
     /**
-     * @brief Draft method for storing user's message in repository
-     * @param message as Network::UserMessage.
+     * @brief Method for storing user's message in repository
+     * @param message as Network::MessageStoringInfo.
      */
-    virtual void storeMessage(const Network::MessageStoringInfo& message) = 0;
+    virtual Utility::StoreMessageCodes storeMessage(const Network::MessageStoringInfo& msi) = 0;
     
     /**  @brief Method for user registration.
      *   @params RegistrationMessage which contains user data for registration.
