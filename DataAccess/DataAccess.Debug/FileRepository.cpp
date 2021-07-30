@@ -37,17 +37,4 @@ std::vector<std::string> FileRepository::getMessageHistoryForUser(const std::uin
 
     return messages;
 }
-
-void FileRepository::storeMessage(const Network::MessageStoringInfo& msi)
-{
-    std::string formattedTime = std::string{30, '\0'};
-
-    std::time_t timestamp = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-    std::tm localTime = Utility::safe_localtime(timestamp);
-    std::strftime(formattedTime.data(), formattedTime.size(), "%Y-%m-%d %H:%M:%S", &localTime);
-
-    database->insert("messages",
-                     {std::to_string(msi.channelID), std::to_string(msi.userID), formattedTime, msi.message},
-                     {"channel_id", "sender_id", "send_time", "msg"});
-}
 }  // namespace DataAccess

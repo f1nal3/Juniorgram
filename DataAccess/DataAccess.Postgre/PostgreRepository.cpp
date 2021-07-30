@@ -73,13 +73,13 @@ Utility::RegistrationCodes PostgreRepository::registerUser(const Network::Regist
     return Utility::RegistrationCodes::SUCCESS;
 }
 
-Utility::StoreMessageCodes PostgreRepository::storeMessage(const Network::MessageStoringInfo& msi)
+Utility::StoringMessageCodes PostgreRepository::storeMessage(const Network::MessageStoringInfo& msi)
 {
     const auto firstResult = insertMessageIntoMessagesTable(msi);
     if (!firstResult.has_value())
     {
         std::cerr << "Insert message into 'msgs' table failed" << std::endl;
-        return Utility::StoreMessageCodes::FAILED;
+        return Utility::StoringMessageCodes::FAILED;
     }
 
     const auto currentMessageID = firstResult.value()[0][0].as<std::uint64_t>();
@@ -88,17 +88,17 @@ Utility::StoreMessageCodes PostgreRepository::storeMessage(const Network::Messag
     if (!secondResult.has_value())
     {
         std::cerr << "Insert message into 'channel_messages' table failed" << std::endl;
-        return Utility::StoreMessageCodes::FAILED;
+        return Utility::StoringMessageCodes::FAILED;
     }
 
     const auto thirdResult = insertIDIntoMessageReactionsTable(currentMessageID);
     if (!thirdResult.has_value())
     {
         std::cerr << "Insert message into 'msg_reactions' table failed" << std::endl;
-        return Utility::StoreMessageCodes::FAILED;
+        return Utility::StoringMessageCodes::FAILED;
     }
 
-    return Utility::StoreMessageCodes::SUCCESS;
+    return Utility::StoringMessageCodes::SUCCESS;
 }
 
 std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageStoringInfo& msi)

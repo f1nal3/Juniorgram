@@ -18,7 +18,7 @@ namespace Utility
         SUCCESS,
     };
 
-    enum class StoreMessageCodes : std::uint8_t
+    enum class StoringMessageCodes : std::uint8_t
     {
         SUCCESS,
         FAILED,

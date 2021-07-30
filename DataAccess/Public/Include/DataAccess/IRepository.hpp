@@ -31,7 +31,7 @@ public:
      * @brief Method for storing user's message in repository
      * @param message as Network::MessageStoringInfo.
      */
-    virtual Utility::StoreMessageCodes storeMessage(const Network::MessageStoringInfo& msi) = 0;
+    virtual Utility::StoringMessageCodes storeMessage(const Network::MessageStoringInfo& msi) = 0;
     
     /**  @brief Method for user registration.
      *   @params RegistrationMessage which contains user data for registration.
