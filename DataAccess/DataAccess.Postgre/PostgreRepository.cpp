@@ -3,19 +3,22 @@
 
 using namespace DataAccess;
 
-std::vector<std::string> PostgreRepository::getAllChannelsList()
+std::vector<Network::ChannelInfo> PostgreRepository::getAllChannelsList()
 {
-    std::vector<std::string> result;
-
     pTable->changeTable("channels");
-    auto channelListRow = pTable->Select()->columns({"channel_name"})->execute();
+    auto channelListRow = pTable->Select()->columns({"*"})->execute();
 
+    std::vector<Network::ChannelInfo> result;
     if (channelListRow.has_value())
     {
-        for (auto item : channelListRow.value())
+        // + serialisation
+        for (int i = 0; i < channelListRow.value().size(); ++i)
         {
-            std::cout << item.at(0).c_str() << '\n';
-            result.emplace_back(std::string(item.at(0).c_str()));
+            Network::ChannelInfo channelInfo;
+            channelInfo.channelID   = channelListRow.value()[i][0].as<std::uint64_t>();
+            channelInfo.channelName = channelListRow.value()[i][1].as<std::uint64_t>();
+            channelInfo.creatorID   = channelListRow.value()[i][2].as<std::uint64_t>();
+            result.push_back(channelInfo);
         }
     }
 

@@ -11,13 +11,14 @@ namespace Network
 {
     struct ChannelInfo
     {
+        std::uint64_t creatorID;
         std::uint64_t channelID;
         std::string channelName;
 
     public:
         ChannelInfo() = default;
-        ChannelInfo(std::uint64_t channelID, std::string channelName)
-            : channelID(channelID), channelName(channelName) {}
+        ChannelInfo(const std::uint64_t creatorID, const std::uint64_t channelID, const std::string& channelName)
+            : creatorID(creatorID), channelID(channelID), channelName(channelName) {}
         ~ChannelInfo() = default;
 
         friend bool operator==(const ChannelInfo& channelInfo1, const ChannelInfo& channelInfo2)
@@ -30,7 +31,7 @@ namespace Network
     template <typename Archive>
     void serialize(Archive& ar, Network::ChannelInfo& o)
     {
-        ar& o.channelID& o.channelName;
+        ar& o.creatorID& o.channelID& o.channelName;
     }
     
     struct MessageInfo
