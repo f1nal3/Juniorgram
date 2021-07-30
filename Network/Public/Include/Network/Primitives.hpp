@@ -133,8 +133,7 @@ namespace Network
         {
             return first.message   == second.message   && 
                    first.userID    == second.userID    && 
-                   first.channelID == second.channelID &&
-                   first.time      == second.time;
+                   first.channelID == second.channelID;
         }
     };
 

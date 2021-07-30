@@ -101,10 +101,12 @@ void Client::askForChannelList() const
     send(message);
 }
 
-void Client::askForMessageHistory() const
+void Client::askForMessageHistory(const std::uint64_t channellID) const
 {
     Network::Message message;
     message.mHeader.mMessageType = Network::Message::MessageType::MessageHistoryRequest;
+
+    message.mBody = std::make_any<std::uint64_t>(channellID);
     send(message);
 }
 

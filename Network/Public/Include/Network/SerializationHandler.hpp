@@ -35,8 +35,10 @@ public:
                     state = processOutcomingMessageBody<std::vector<ChannelInfo>>(bodyBuffer, message.mBody);
                     break;
                 case Message::MessageType::MessageHistoryRequest:
-                    state = processOutcomingMessageBody<std::vector<MessageInfo>>(bodyBuffer,
-                                                                                  message.mBody);
+                    state = processOutcomingMessageBody<std::uint64_t>(bodyBuffer, message.mBody);
+                    break;
+                case Message::MessageType::MessageHistoryAnswer:
+                    state = processOutcomingMessageBody<std::vector<MessageStoringInfo>>(bodyBuffer, message.mBody);
                     break;
                 case Message::MessageType::MessageStoreRequest:
                     state = processOutcomingMessageBody<MessageStoringInfo>(bodyBuffer, message.mBody);
@@ -94,7 +96,12 @@ public:
             }
             case Message::MessageType::MessageHistoryRequest:
             {
-                state = processIncomingMessageBody<std::vector<MessageInfo>>(buffer, message);
+                state = processIncomingMessageBody<std::uint64_t>(buffer, message);
+                break;
+            }
+            case Message::MessageType::MessageHistoryAnswer:
+            {
+                state = processIncomingMessageBody<std::vector<MessageStoringInfo>>(buffer, message);
                 break;
             }
             case Message::MessageType::MessageStoreRequest:

@@ -23,17 +23,22 @@ std::vector<Network::ChannelInfo> FileRepository::getAllChannelsList()
     return channels;
 }
 
-std::vector<std::string> FileRepository::getMessageHistoryForUser(const std::uint64_t channelID)
+std::vector<Network::MessageStoringInfo> FileRepository::getMessageHistoryForUser(const std::uint64_t channelID)
 {
     auto rows = database->select("channel_msgs", [channelID](const nlohmann::ordered_json& row) {
         return row.at("channel_id") == channelID ? true : false;
     });
 
-    std::vector<std::string> messages;
+    std::vector<Network::MessageStoringInfo> messages;
 
+    Network::MessageStoringInfo mi;
+    mi.channelID = channelID;
     for (const auto& row : rows)
     {
-        messages.emplace_back(row.at("msg"));
+        mi.message = row.at("msg");
+        mi.time    = row.at("send_time");
+        mi.userID  = row.at("sender_id");
+        messages.emplace_back(row);
     }
 
     return messages;

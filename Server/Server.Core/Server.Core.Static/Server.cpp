@@ -83,31 +83,17 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::MessageHistoryRequest:
         {
+            const auto channelID = std::any_cast<std::uint64_t>(message.mBody);
             auto future =
                 std::async(std::launch::async, &DataAccess::IRepository::getMessageHistoryForUser,
-                                mPostgreRepo.get(), 0); // There need to add channelID not 0.
+                                mPostgreRepo.get(), channelID); 
 
             Network::Message msg;
-            msg.mHeader.mMessageType = Network::Message::MessageType::MessageHistoryRequest;
+            msg.mHeader.mMessageType = Network::Message::MessageType::MessageHistoryAnswer;
 
-            future.wait();
-           
-            // messageHistory should be std::vector<Network::MessageInfo>
             auto messageHistory = future.get();
 
-            std::vector<Network::MessageInfo> messageHistoryList;
-            for (auto& msgFromHistory : messageHistory)
-            {
-                Network::MessageInfo info;
-                info.userID  = client->getID();
-                info.message = msgFromHistory.data();
-
-                messageHistoryList.push_back(info);
-
-                std::cout << info.message << '\n';
-            }
-            msg.mBody = std::make_any<std::vector<Network::MessageInfo>>(messageHistoryList);
-            
+            msg.mBody = std::make_any<std::vector<Network::MessageStoringInfo>>(messageHistory);
             client->send(msg);
         }
         break;

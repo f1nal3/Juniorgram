@@ -24,23 +24,28 @@ std::vector<Network::ChannelInfo> PostgreRepository::getAllChannelsList()
     return result;
 }
 
-std::vector<std::string> PostgreRepository::getMessageHistoryForUser(const std::uint64_t channelID)
+std::vector<Network::MessageStoringInfo> PostgreRepository::getMessageHistoryForUser(const std::uint64_t channelID)
 {
-    std::vector<std::string> result;
+    std::vector<Network::MessageStoringInfo> result;
 
     pTable->changeTable("msgs");
     auto messageHistoryRow = pTable->Select()
-                                   ->columns({"msg"})
+                                   ->columns({"*"})
                                    ->join(Utility::SQLJoinType::J_INNER, "channel_msgs", "channel_msgs.msg_id = msgs.msg_id")
                                    ->Where("channel_msgs.channel_id = " + std::to_string(channelID))
                                    ->execute();
     
     if (messageHistoryRow.has_value())
     {
-        for (auto message : messageHistoryRow.value())
+        Network::MessageStoringInfo mi;
+        mi.channelID = channelID;
+        for (auto i = 0; i < messageHistoryRow.value().size(); ++i)
         {
-            std::cout << message.at(0).c_str() << '\n';
-            result.emplace_back(std::string(message.at(0).c_str()));
+            // at(0) - msg_id
+            mi.userID = messageHistoryRow.value()[i][1].as<std::uint64_t>();
+            mi.time = messageHistoryRow.value()[i][2].as<std::string>();
+            mi.message = messageHistoryRow.value()[i][3].as<std::string>();
+            result.emplace_back(mi);
         }
     }
 

@@ -55,26 +55,24 @@ bool App::loop()
                 case Network::Message::MessageType::ChannelListRequest:
                 {
                     std::cout << "Channel list received: \n";
-                    std::vector<std::string> channelList;
+                    std::vector<Network::ChannelInfo> channelList;
                     
-                    for (const auto& item :
-                         std::any_cast<std::vector<Network::ChannelInfo>>(message.mBody))
+                    for (auto&& item : std::any_cast<std::vector<Network::ChannelInfo>>(message.mBody))
                     {
-                        channelList.emplace_back(item.channelName);
+                        channelList.emplace_back(item);
                         std::cout << item.channelName << '\n';
                     }
                 }
                 break;
 
-                case Network::Message::MessageType::MessageHistoryRequest:
+                case Network::Message::MessageType::MessageHistoryAnswer:
                 {
                     std::cout << "Message history received: \n";
-                    std::vector<std::string> messageList;
+                    std::vector<Network::MessageStoringInfo> messageList;
 
-                    for (const auto& item :
-                         std::any_cast<std::vector<Network::MessageInfo>>(message.mBody))
+                    for (auto&& item : std::any_cast<std::vector<Network::MessageStoringInfo>>(message.mBody))
                     {
-                        messageList.emplace_back(item.message);
+                        messageList.emplace_back(item);
                         std::cout << item.message << '\n';
                     }
                 }

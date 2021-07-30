@@ -26,7 +26,7 @@ public:
     virtual ~PostgreRepository() = default;
 
     std::vector<Network::ChannelInfo> getAllChannelsList() override final;
-    std::vector<std::string> getMessageHistoryForUser(const std::uint64_t channelID) override final;
+    std::vector<Network::MessageStoringInfo> getMessageHistoryForUser(const std::uint64_t channelID) override final;
     Utility::StoringMessageCodes storeMessage(const Network::MessageStoringInfo& msi) override final;
     Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) const override final;
 

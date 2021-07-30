@@ -32,7 +32,7 @@ public:
 
     void askForChannelList() const;
 
-    void askForMessageHistory() const;
+    void askForMessageHistory(const std::uint64_t channellID) const;
 
     void storeMessage(const std::string& message, const uint64_t userID, const uint64_t channelID) const;
 

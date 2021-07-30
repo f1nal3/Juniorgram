@@ -25,7 +25,7 @@ public:
      * @param UserID as a string
      * @return List of messages as vector of strings.
      */
-    virtual std::vector<std::string> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
+    virtual std::vector<Network::MessageStoringInfo> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
     
     /**
      * @brief Method for storing user's message in repository

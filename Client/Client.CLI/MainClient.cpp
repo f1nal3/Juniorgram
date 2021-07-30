@@ -59,13 +59,14 @@ int main()
             }
             else if (cmd == "mh")
             {
-                clientApp.shell()->askForMessageHistory();
+                const std::uint64_t channelID = 2;
+                clientApp.shell()->askForMessageHistory(channelID);
             }
             else if (cmd == "sm")
             {
                 std::string text = GetLineFromCin();
-                uint64_t userID     = 100;
-                uint64_t channelID  = 2;
+                uint64_t userID     = 99;
+                uint64_t channelID  = 1;
 
                 clientApp.shell()->storeMessage(text, userID, channelID);
             }
