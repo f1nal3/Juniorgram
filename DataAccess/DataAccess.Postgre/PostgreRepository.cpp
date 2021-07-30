@@ -125,11 +125,11 @@ std::optional<pqxx::result> PostgreRepository::insertIDsIntoChannelMessagesTable
     };
 
     pTable->changeTable("channel_msgs");
-    return pTable->Insert()->columns(dataForChannelMsgs)->execute();
+    return pTable->Insert()->columns(dataForChannelMsgs)->returning({"channel_id"})->execute();
 }
 
 std::optional<pqxx::result> PostgreRepository::insertIDIntoMessageReactionsTable(const std::uint64_t messageID)
 {
     pTable->changeTable("msg_reactions");
-    return pTable->Insert()->columns(std::pair{"msg_id", messageID})->execute();
+    return pTable->Insert()->columns(std::pair{"msg_id", messageID})->returning({"msg_id"})->execute();
 }
