@@ -109,6 +109,26 @@ bool App::loop()
                 }
                 break;
 
+                case Network::Message::MessageType::MessageStoreAnswer:
+                {
+                    auto code = std::any_cast<Utility::StoringMessageCodes>(message.mBody);
+
+                    if (code == Utility::StoringMessageCodes::SUCCESS)
+                    {
+                        std::cout << "SUCCESS sending" << std::endl;
+                    }
+                    else if (code == Utility::StoringMessageCodes::FAILED)
+                    {
+                        std::cout << "FAILED sending" << std::endl;
+                    }
+                    else
+                    {
+                        std::cout << "Unknown StoringMessageCode" << std::endl;
+                    }
+                }
+
+                break;
+
 				default:
                     break;
             }

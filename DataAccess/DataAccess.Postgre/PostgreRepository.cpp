@@ -112,7 +112,7 @@ std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(co
     };
 
     pTable->changeTable("msgs");
-    return pTable->Insert()->columns(dataForMsgs)->returning({"id"})->execute();
+    return pTable->Insert()->columns(dataForMsgs)->returning({"msg_id"})->execute();
 }
 
 std::optional<pqxx::result> PostgreRepository::insertIDsIntoChannelMessagesTable(const std::uint64_t chinnelID,
