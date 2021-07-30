@@ -17,7 +17,7 @@ public:
      * @brief Draft method for getting all channel list from the server.
      * @return channels list as vector of strings.
      */
-    virtual std::vector<std::string> getAllChannelsList() = 0;
+    virtual std::vector<Network::ChannelInfo> getAllChannelsList() = 0;
 
     /**
      * @brief Draft method for getting history for a specific user. \

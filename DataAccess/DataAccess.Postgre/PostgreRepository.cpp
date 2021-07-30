@@ -11,12 +11,11 @@ std::vector<Network::ChannelInfo> PostgreRepository::getAllChannelsList()
     std::vector<Network::ChannelInfo> result;
     if (channelListRow.has_value())
     {
-        // + serialisation
+        Network::ChannelInfo channelInfo;
         for (int i = 0; i < channelListRow.value().size(); ++i)
         {
-            Network::ChannelInfo channelInfo;
             channelInfo.channelID   = channelListRow.value()[i][0].as<std::uint64_t>();
-            channelInfo.channelName = channelListRow.value()[i][1].as<std::uint64_t>();
+            channelInfo.channelName = channelListRow.value()[i][1].as<std::string>();
             channelInfo.creatorID   = channelListRow.value()[i][2].as<std::uint64_t>();
             result.push_back(channelInfo);
         }
@@ -106,11 +105,10 @@ Utility::StoringMessageCodes PostgreRepository::storeMessage(const Network::Mess
 
 std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageStoringInfo& msi)
 {
-    std::string timeStampStr = Utility::nowTimeStampStr();
     std::tuple dataForMsgs
     {
         std::pair{"sender_id", msi.userID}, 
-        std::pair{"send_time", timeStampStr.c_str()}, 
+        std::pair{"send_time", msi.time.c_str()}, 
         std::pair{"msg", msi.message}
     };
 

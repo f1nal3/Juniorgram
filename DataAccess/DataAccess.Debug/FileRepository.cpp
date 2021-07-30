@@ -9,14 +9,15 @@ FileRepository::FileRepository()
     database = std::make_unique<FileDB>("Debug"); 
 }
 
-std::vector<std::string> FileRepository::getAllChannelsList()
+std::vector<Network::ChannelInfo> FileRepository::getAllChannelsList()
 {
     auto rows = database->select("channels");
-    std::vector<std::string> channels;
+    std::vector<Network::ChannelInfo> channels;
 
     for (const auto& row : rows)
     {
-        channels.emplace_back(row.at("channel_name"));
+        Network::ChannelInfo channelInfo(row.at("creator_id"), row.at("id"), row.at("channel_name"));
+        channels.emplace_back(channelInfo);
     }
 
     return channels;

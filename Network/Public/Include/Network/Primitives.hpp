@@ -6,6 +6,7 @@
 #include <chrono>
 #include <cstring>
 #include <string>
+#include <Utility/Utility.hpp>
 
 namespace Network
 {
@@ -21,10 +22,11 @@ namespace Network
             : creatorID(creatorID), channelID(channelID), channelName(channelName) {}
         ~ChannelInfo() = default;
 
-        friend bool operator==(const ChannelInfo& channelInfo1, const ChannelInfo& channelInfo2)
+        friend bool operator==(const ChannelInfo& first, const ChannelInfo& second)
         {
-            return (channelInfo1.channelID == channelInfo2.channelID &&
-                    channelInfo1.channelName == channelInfo2.channelName);
+            return first.channelID   == second.channelID &&
+                   first.creatorID   == second.creatorID &&
+                   first.channelName == second.channelName;
         }
     };
 
@@ -117,10 +119,11 @@ namespace Network
     struct MessageStoringInfo : MessageInfo
     {
         std::uint64_t channelID;
-        
+        std::string time = Utility::getTimeNow();
+
         MessageStoringInfo() = default;
         explicit MessageStoringInfo(const uint64_t userID, const uint64_t channelID, const std::string& text) 
-            : MessageInfo(userID, text), channelID(channelID) 
+            : MessageInfo(userID, text), channelID(channelID)
         {}
 
         MessageStoringInfo(const MessageStoringInfo&) = default;
@@ -128,9 +131,10 @@ namespace Network
 
         friend bool operator==(const MessageStoringInfo& first, const MessageStoringInfo& second)
         {
-            return first.message   == second.message && 
-                   first.userID    == second.userID  && 
-                   first.channelID == second.channelID;
+            return first.message   == second.message   && 
+                   first.userID    == second.userID    && 
+                   first.channelID == second.channelID &&
+                   first.time      == second.time;
         }
     };
 
