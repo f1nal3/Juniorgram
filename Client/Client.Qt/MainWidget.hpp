@@ -52,8 +52,6 @@ protected:
 #endif
     void paintEvent(QPaintEvent* event) override;
     void resizeEvent(QResizeEvent* event) override;
-    void mousePressEvent(QMouseEvent* event) override;
-    void mouseReleaseEvent(QMouseEvent* event) override;
     bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
@@ -62,7 +60,6 @@ private:
 
 private:
     std::int32_t _current        = -1;
-    bool         _mousePressed   = false;
     bool         _cursorOverride = false;
 
     std::unique_ptr<TitleWidget>          _title;

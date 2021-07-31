@@ -79,7 +79,7 @@ void TitleWidget::windowStateChanged(Qt::WindowState state)
 {
     if (state == Qt::WindowMinimized) return;
 
-    auto maximized = (window()->windowState() & Qt::WindowMaximized);
+    auto maximized = (window()->windowState() & Qt::WindowMaximized) == Qt::WindowMaximized;
 
     if (maximized != _maximizedState)
     {
@@ -175,20 +175,9 @@ void CaptionButton::updateWidget()
 BioButton::BioButton(QWidget* parent, bool) : CaptionButton(parent)
 {
     _popup = std::make_unique<PopupWidget>(this);
-    _popup->setFocusPolicy(Qt::NoFocus);
-    _popup->setFocusProxy(this);
 
     setClickCallback([=]() {
-        /*
-         * We need to know where to place popup menu on screen
-         * If we just use mapToGlobal(localPoint) we'll get shift on X
-         * like globalPoint.x = screenPosition.x + localPoint.x
-         * so we need localPoint and globalPoint
-         * localPoint - position on window
-         * globalPoint - position on screen(with shift on X)
-         */
-        auto localPoint  = geometry().bottomLeft();
-        auto globalPoint = mapToGlobal(localPoint);
+        auto globalPoint = mapToGlobal(QPoint(0, height()));
 
         // Creating menu
         auto menu = std::make_unique<Menu>();
@@ -201,6 +190,6 @@ BioButton::BioButton(QWidget* parent, bool) : CaptionButton(parent)
         _popup->setMenu(std::move(menu));
 
         // Now show the menu
-        _popup->popup(QPoint(globalPoint.x() - localPoint.x(), globalPoint.y() + 1));
+        _popup->popup(QPoint(globalPoint.x(), globalPoint.y() + 1));
     });
 }

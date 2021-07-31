@@ -84,16 +84,6 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
 }
 #endif
 
-void MainWidget::mousePressEvent(QMouseEvent* event)
-{
-    if (event->button() == Qt::LeftButton) _mousePressed = true;
-}
-
-void MainWidget::mouseReleaseEvent(QMouseEvent* event)
-{
-    if (event->button() == Qt::LeftButton) _mousePressed = false;
-}
-
 MainWidget::MainWidget() : QWidget(nullptr)
 {
     Style::setDevicePixelRatio(devicePixelRatioF());
@@ -176,8 +166,6 @@ bool MainWidget::eventFilter(QObject* obj, QEvent* e)
 
             if (e->type() == QEvent::MouseMove && mouseEvent->buttons() == Qt::NoButton)
             {
-                if (_mousePressed) _mousePressed = false;
-
                 updateCursor(edges);
             }
 
