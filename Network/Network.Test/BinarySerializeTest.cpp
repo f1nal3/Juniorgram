@@ -186,13 +186,13 @@ TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSe
 
     SECTION("Checking serialization & deserialization of custom type MessageInfo")
     {
-        Network::MessageInfo serializedValue(123, "I'd like ice-cream=)");
+        Network::MessageStoringInfo serializedValue(123, 3, "I'd like ice-cream=)");
 
         yas::shared_buffer buffer;
         Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
         REQUIRE(state == Network::SerializedState::SUCCESS);
 
-        Network::MessageInfo deserializedValue;
+        Network::MessageStoringInfo deserializedValue;
         state = Network::YasSerializer::deserialize(buffer, deserializedValue);
         REQUIRE(state == Network::SerializedState::SUCCESS);
 
@@ -218,17 +218,19 @@ TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSe
 
     SECTION("Checking serialization & deserialization of vector of custom type MessageInfo")
     {
-        std::vector<Network::MessageInfo> serializedValue{
-            Network::MessageInfo(123, "I'd like ice-cream=)"),
-            Network::MessageInfo(123, "I'd like pizza=)"),
-            Network::MessageInfo(123, "I'd like cheeseburger=)"),
-            Network::MessageInfo(123, "I'd like naggets=)")};
+        std::vector<Network::MessageStoringInfo> serializedValue
+        {
+            Network::MessageStoringInfo(123, 3, "I'd like ice-cream=)"),
+            Network::MessageStoringInfo(123, 3, "I'd like pizza=)"),
+            Network::MessageStoringInfo(123, 3, "I'd like cheeseburger=)"),
+            Network::MessageStoringInfo(123, 3, "I'd like naggets=)")
+        };
 
         yas::shared_buffer buffer;
         Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
         REQUIRE(state == Network::SerializedState::SUCCESS);
 
-        std::vector<Network::MessageInfo> deserializedValue;
+        std::vector<Network::MessageStoringInfo> deserializedValue;
         state = Network::YasSerializer::deserialize(buffer, deserializedValue);
         REQUIRE(state == Network::SerializedState::SUCCESS);
 

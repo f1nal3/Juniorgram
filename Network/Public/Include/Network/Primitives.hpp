@@ -116,14 +116,16 @@ namespace Network
         ar& o.userId& o.messageId;
     }
 
-    struct MessageStoringInfo : MessageInfo
+    struct MessageStoringInfo
     {
+        std::uint64_t userID;
         std::uint64_t channelID;
+        std::string message;
         std::string time = Utility::getTimeNow();
 
         MessageStoringInfo() = default;
-        explicit MessageStoringInfo(const uint64_t userID, const uint64_t channelID, const std::string& text) 
-            : MessageInfo(userID, text), channelID(channelID)
+        explicit MessageStoringInfo(const uint64_t userID, const uint64_t channelID, const std::string& text)
+            : userID(userID), channelID(channelID), message(text)
         {}
 
         MessageStoringInfo(const MessageStoringInfo&) = default;
