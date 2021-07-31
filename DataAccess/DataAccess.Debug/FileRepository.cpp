@@ -14,9 +14,12 @@ std::vector<Network::ChannelInfo> FileRepository::getAllChannelsList()
     auto rows = database->select("channels");
     std::vector<Network::ChannelInfo> channels;
 
+    Network::ChannelInfo channelInfo;
     for (const auto& row : rows)
     {
-        Network::ChannelInfo channelInfo(row.at("creator_id"), row.at("id"), row.at("channel_name"));
+        channelInfo.creatorID = row.at("creator_id");
+        channelInfo.channelName = row.at("channel_name");
+        channelInfo.channelID   = row.at("id");
         channels.emplace_back(channelInfo);
     }
 
@@ -33,12 +36,12 @@ std::vector<Network::MessageStoringInfo> FileRepository::getMessageHistoryForUse
 
     Network::MessageStoringInfo mi;
     mi.channelID = channelID;
-    for (const auto& row : rows)
+    for (auto&& row : rows)
     {
         mi.message = row.at("msg");
         mi.time    = row.at("send_time");
         mi.userID  = row.at("sender_id");
-        messages.emplace_back(row);
+        messages.emplace_back(mi);
     }
 
     return messages;
