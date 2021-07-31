@@ -73,6 +73,8 @@ public:
     }
 
     int expectedHeight();
+    
+public:
     uint64_t _userId;
     uint64_t _messageId;
 

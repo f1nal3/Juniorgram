@@ -49,30 +49,30 @@ void ChannelListWindow::updateChannelList()
 
             for (int i = 0; i < _channelListMainWindow->count(); ++i)
             {
-                for (auto it = _channelNames.rbegin(); it != _channelNames.rend(); ++it)
+                for (auto it = channels.rbegin(); it != channels.rend(); ++it)
                 {
-                    if (QString::fromStdString(*it) == _channelListMainWindow->item(i)->text())
+                    if (QString::fromStdString(it->channelName) == _channelListMainWindow->item(i)->text())
                     {
-                        _channelNames.erase(std::remove(_channelNames.begin(), _channelNames.end(), *it), _channelNames.end());
+                        channels.erase(std::remove(channels.begin(), channels.end(), *it), channels.end());
                     }
                 }
             }
-            for (auto it = _channelNames.rbegin(); it != _channelNames.rend(); ++it)
+            for (auto it = channels.rbegin(); it != channels.rend(); ++it)
             {
                 if (_channelList->count() == 0)
                 {
-                    _channelList->addItem(QString::fromStdString(*it));
+                    _channelList->addItem(QString::fromStdString(it->channelName));
                 }
                 for (int i = 0; i < _channelList->count(); ++i)
                 {
-                    if (_channelList->item(i)->text() == QString::fromStdString(*it))
+                    if (_channelList->item(i)->text() == QString::fromStdString(it->channelName))
                     {
                         numberOfCoincidences++;
                     }
                 }
                 if (numberOfCoincidences == 0)
                 {
-                    _channelList->addItem(QString::fromStdString(*it));
+                    _channelList->addItem(QString::fromStdString(it->channelName));
                 }
                 numberOfCoincidences = 0;
             }
@@ -108,7 +108,10 @@ void ChannelListWindow::addChannelToMainChannelWidget()
     this->hide();
 }
 
-void ChannelListWindow::addChannelInfo(const std::string& nameOfChannels) { _channelNames.push_back(nameOfChannels); }
+void ChannelListWindow::setChannels(std::vector<Network::ChannelInfo>&& channels_) 
+{
+    channels = channels_;    
+}
 
 void ChannelListWindow::updateChannelListWindow()
 {

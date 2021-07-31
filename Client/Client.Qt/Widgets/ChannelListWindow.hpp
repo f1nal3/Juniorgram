@@ -3,6 +3,7 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include <condition_variable>
+#include <Network/Primitives.hpp>
 
 #include "FlatButton.hpp"
 #include "ListWidget.hpp"
@@ -23,20 +24,20 @@ public:
      * @brief Static method for adding name of channels in own non-static ListWidget container.
      * @param Name of Channels as std::string
      */
-    static void addChannelInfo(const std::string& nameOfChannels);
+    static void setChannels(std::vector<Network::ChannelInfo>&& channels);
 
 public:
     inline static std::condition_variable mainWidgetStatus;
+    inline static std::vector<Network::ChannelInfo> channels{};
 
 public slots:
     void addChannelToMainChannelWidget();
     void updateChannelListWindow();
 
 private:
-    inline static std::vector<std::string> _channelNames{};
-    std::unique_ptr<ListWidget>            _channelList;
-    std::unique_ptr<FlatButton>            _addChannelButton;
-    std::unique_ptr<FlatButton>            _updateChannelButton;
-    std::unique_ptr<QVBoxLayout>           _vBoxLayout;
-    std::shared_ptr<ListWidget>            _channelListMainWindow;
+    std::unique_ptr<ListWidget>  _channelList;
+    std::unique_ptr<FlatButton>  _addChannelButton;
+    std::unique_ptr<FlatButton>  _updateChannelButton;
+    std::unique_ptr<QVBoxLayout> _vBoxLayout;
+    std::shared_ptr<ListWidget>  _channelListMainWindow;
 };

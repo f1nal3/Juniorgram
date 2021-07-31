@@ -66,15 +66,9 @@ public:
 
                         case Network::Message::MessageType::ChannelListRequest:
                         {
-                            std::cout << "Channel list received: \n";
-                            std::vector<Network::ChannelInfo> channelsList;
-
-                            for (auto&& item : std::any_cast<std::vector<Network::ChannelInfo>>(message.mBody))
-                            {
-                                channelsList.emplace_back(item);
-                                std::cout << item.channelName << std::endl;
-                                ChannelListWindow::addChannelInfo(item.channelName);
-                            }
+                            auto channels = std::any_cast<std::vector<Network::ChannelInfo>>(message.mBody);
+                            ChannelListWindow::setChannels(std::move(channels));
+                            
                             ChannelListWindow::mainWidgetStatus.notify_one();
                         }
                         break;

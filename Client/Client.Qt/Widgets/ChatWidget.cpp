@@ -1,6 +1,7 @@
 #include "ChatWidget.hpp"
 
 #include "ChatHistory.hpp"
+#include "ConnectionManager.hpp"
 
 ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
 {
@@ -19,7 +20,12 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     connect(_textEdit.get(), SIGNAL(sendMessageSignal(QString)), this, SLOT(newMessage(QString)));
 }
 
-void ChatWidget::newMessage(const QString& messageText) { _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch()); }
+void ChatWidget::newMessage(const QString& messageText) 
+{
+    const std::uint64_t userID = 40;
+    ConnectionManager::getClient().storeMessage(messageText.toStdString(), userID, _channelID);
+    _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch()); 
+}
 
 void ChatWidget::newMessage(const QString& messageText, const QString& userNameMessage)
 {

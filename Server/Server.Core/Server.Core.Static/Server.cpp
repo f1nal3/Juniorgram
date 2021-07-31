@@ -74,7 +74,6 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             msg.mHeader.mMessageType = Network::Message::MessageType::ChannelListRequest;
 
             auto channelList = future.get();
-            // ADD SERIALISATION FOR THIS MESSAGE TYPE, BUDDY.
             msg.mBody = std::make_any<std::vector<Network::ChannelInfo>>(channelList);
 
             client->send(msg);

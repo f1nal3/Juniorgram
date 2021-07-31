@@ -106,12 +106,12 @@ namespace Network
         {}
 
         MessageInfo(const MessageInfo&) = default;
-        ~MessageInfo()                         = default;
+        ~MessageInfo()                  = default;
 
         friend bool operator==(const MessageInfo& first, const MessageInfo& second)
         {
-            return first.message   == second.message   && 
-                   first.userID    == second.userID    && 
+            return first.message   == second.message   &&
+                   first.userID    == second.userID    &&
                    first.channelID == second.channelID &&
                    first.time      == second.time;
         }
