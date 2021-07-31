@@ -4,6 +4,8 @@ namespace PerformanceTest
 {
 	void SimpleTimer::start() noexcept 
 	{
+		this->reset();
+
 		_start = hsc::now();
 	}
 
@@ -20,6 +22,6 @@ namespace PerformanceTest
 
 	double SimpleTimer::elapsed() const noexcept 
 	{
-		return (_start - _end).count() / 1'000'000'000.0;
+		return (_end - _start).count() / 1'000'000'000.0;
 	}
 }

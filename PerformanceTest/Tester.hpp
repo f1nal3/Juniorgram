@@ -1,9 +1,19 @@
 #pragma once
+#include <fstream>
+#include <functional>
 #include <iostream>
+#include <numeric>
+#include <random>
+#include <sstream>
 
 #include "ArgumentParser.hpp"
-#include "Pipe.hpp"
 #include "SimpleTimer.hpp"
+
+#ifdef _WIN32
+	#include <Windows.h>
+#elif
+	#include <process.h>
+#endif
 
 namespace PerformanceTest
 {
@@ -14,11 +24,13 @@ namespace PerformanceTest
 		const std::uint8_t _testsCount;
 		const fs::path     _instancePath;
 		
+		std::vector<double> _timestamps;
+
 		SimpleTimer  _timer;
 
 	private:
 
-		bool privateRunTest(const std::size_t testIndex);
+		const char** privateCreateArgs(void) const;
 
 	public:
 
@@ -26,7 +38,8 @@ namespace PerformanceTest
 
 	public:
 
-		bool run(void);
+		void run(void);
 
+		void printResult(void) const;
 	};
 }

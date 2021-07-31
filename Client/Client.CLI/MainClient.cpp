@@ -2,19 +2,39 @@
 #include <future>
 #include <iostream>
 #include <string>
+#include <stack>
 
 #include "App.hpp"
 #include "Utility/UserDataValidation.hpp"
 
+static std::stack<std::string> commandLineArgs;
+
 std::string GetLineFromCin()
 {
     std::string line;
-    std::getline(std::cin, line);
+    if (commandLineArgs.empty())
+    {
+        std::getline(std::cin, line);
+    }
+    else
+    {
+        line = commandLineArgs.top();
+        commandLineArgs.pop();
+    }
     return line;
 }
 
-int main()
+int main(int argc, char** argv)
 {
+    for (std::size_t argIndex = 1; argIndex < static_cast<std::size_t>(argc); argIndex++)
+    {
+        commandLineArgs.push(argv[argIndex - 1]);
+    }
+
+    commandLineArgs.push("q");
+    commandLineArgs.push("p");
+    commandLineArgs.push("p");
+
     App clientApp;
     bool quit   = false;
     auto future = std::async(std::launch::async, GetLineFromCin);
@@ -25,6 +45,7 @@ int main()
         {
             static std::string cmd;
             cmd = future.get();
+
             if (cmd == "p")
             {
                 clientApp.shell()->pingServer();

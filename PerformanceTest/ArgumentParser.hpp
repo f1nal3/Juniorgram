@@ -14,7 +14,6 @@ namespace PerformanceTest
     {
         path = 'p',
         count = 'c',
-        test = 't'
     };
 
 	class ArgumentParser
@@ -22,7 +21,7 @@ namespace PerformanceTest
     private:
 
         using argument = eKeys;
-        using argumentValue = std::variant<fs::path, std::uint8_t, bool>;
+        using argumentValue = std::variant<fs::path, std::uint8_t>;
 
         class Validator
         {

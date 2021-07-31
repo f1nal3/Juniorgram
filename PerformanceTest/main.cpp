@@ -1,24 +1,29 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
-
+    
 #include "Tester.hpp"
 
+// By default args are: TestsCount (-c) = 10; PathToApp (-p) = "./Client.CLI.exe".
 int main(int argc, char** argv)
 { 
     using namespace PerformanceTest;
-    using namespace std::literals;
 
     try
     {
         ArgumentParser parser(argc, argv);
 
-        FILE* f = _popen("start Client.CLI.exe", "r");
-
-
-
-        _pclose(f);
-
+        if (parser.isArgumentDefind(eKeys::count) && parser.isArgumentDefind(eKeys::path))
+        {
+            Tester tester(parser);
+            
+            tester.run();
+            tester.printResult();
+        }
+        else
+        {
+            throw std::runtime_error("Not all args were defind!");
+        }
     }
     catch (const std::exception& ex)
     {

@@ -5,8 +5,6 @@ set(SOURCE_FILES
     ArgumentParser.hpp
     ArgumentParser.cpp
 	main.cpp
-    Pipe.hpp
-    Pipe.cpp
 	SimpleTimer.hpp
     SimpleTimer.cpp
     Tester.hpp
