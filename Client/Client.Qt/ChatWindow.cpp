@@ -2,7 +2,8 @@
 
 #include <QtEvents>
 #include <iostream>
-
+#include <ConnectionManager.hpp>
+#include <thread>
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 {
@@ -49,7 +50,6 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
             _chatSwitchWidget->insertWidget(_channelListWidget->getChannelList()->currentRow(), chatWidget);
         }
         _chatSwitchWidget->setCurrentIndex(_channelListWidget->getChannelList()->currentRow());
-        
     });
 }
 

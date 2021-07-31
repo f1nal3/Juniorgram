@@ -70,6 +70,7 @@ private:
     std::int32_t                                _left = -1;
     std::unique_ptr<ScrollArea>                 _scrollArea;
     std::vector<std::unique_ptr<MessageWidget>> _messageList;
+
     uint64_t                                    _userId = 0;
     uint64_t                                    _messageId = 0;
 };

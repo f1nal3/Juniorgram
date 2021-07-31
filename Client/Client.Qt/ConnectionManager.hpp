@@ -2,6 +2,7 @@
 #include "Client.hpp"
 #include "Network/Primitives.hpp"
 #include "Widgets/ChannelListWindow.hpp"
+#include "Widgets/ChatHistory.hpp"
 #include "ServerInfo.hpp"
 
 class ConnectionManager
@@ -73,7 +74,7 @@ public:
                         }
                         break;
 
-                        case Network::Message::MessageType::MessageHistoryRequest:
+                        case Network::Message::MessageType::MessageHistoryAnswer:
                         {
                             std::cout << "Message history received: \n";
                             std::vector<Network::MessageInfo> messageList;
