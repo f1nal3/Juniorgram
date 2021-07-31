@@ -1,17 +1,24 @@
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 #include "Tester.hpp"
 
 int main(int argc, char** argv)
 { 
     using namespace PerformanceTest;
+    using namespace std::literals;
 
     try
     {
         ArgumentParser parser(argc, argv);
 
-        Pipe p("cls");
-        p.write("cl");
+        FILE* f = _popen("start Client.CLI.exe", "r");
+
+
+
+        _pclose(f);
+
     }
     catch (const std::exception& ex)
     {

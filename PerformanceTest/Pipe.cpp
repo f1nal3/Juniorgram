@@ -3,7 +3,7 @@
 namespace PerformanceTest
 {
 	Pipe::Pipe(const std::string_view& command)
-		: _pipe{ openPipe(command.data(), "rwt"), &closePipe } {}
+		: _pipe{ openPipe(command.data(), "w"), &closePipe } {}
 
 	void Pipe::write(const std::string_view& data)
 	{
