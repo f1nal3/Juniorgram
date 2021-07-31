@@ -93,14 +93,14 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
             auto messageHistory = future.get();
 
-            msg.mBody = std::make_any<std::vector<Network::MessageStoringInfo>>(messageHistory);
+            msg.mBody = std::make_any<std::vector<Network::MessageInfo>>(messageHistory);
             client->send(msg);
         }
         break;
 
         case Network::Message::MessageType::MessageStoreRequest:
         {
-            auto msi = std::any_cast<Network::MessageStoringInfo>(message.mBody);
+            auto msi = std::any_cast<Network::MessageInfo>(message.mBody);
             
             auto future = std::async(std::launch::async, &DataAccess::IRepository::storeMessage,
                            mPostgreRepo.get(), msi);

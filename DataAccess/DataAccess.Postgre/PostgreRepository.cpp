@@ -24,9 +24,9 @@ std::vector<Network::ChannelInfo> PostgreRepository::getAllChannelsList()
     return result;
 }
 
-std::vector<Network::MessageStoringInfo> PostgreRepository::getMessageHistoryForUser(const std::uint64_t channelID)
+std::vector<Network::MessageInfo> PostgreRepository::getMessageHistoryForUser(const std::uint64_t channelID)
 {
-    std::vector<Network::MessageStoringInfo> result;
+    std::vector<Network::MessageInfo> result;
 
     pTable->changeTable("msgs");
     auto messageHistoryRow = pTable->Select()
@@ -37,7 +37,7 @@ std::vector<Network::MessageStoringInfo> PostgreRepository::getMessageHistoryFor
     
     if (messageHistoryRow.has_value())
     {
-        Network::MessageStoringInfo mi;
+        Network::MessageInfo mi;
         mi.channelID = channelID;
         for (auto i = 0; i < messageHistoryRow.value().size(); ++i)
         {
@@ -80,7 +80,7 @@ Utility::RegistrationCodes PostgreRepository::registerUser(const Network::Regist
     return Utility::RegistrationCodes::SUCCESS;
 }
 
-Utility::StoringMessageCodes PostgreRepository::storeMessage(const Network::MessageStoringInfo& msi)
+Utility::StoringMessageCodes PostgreRepository::storeMessage(const Network::MessageInfo& msi)
 {
     const auto firstResult = insertMessageIntoMessagesTable(msi);
     if (!firstResult.has_value())
@@ -108,7 +108,7 @@ Utility::StoringMessageCodes PostgreRepository::storeMessage(const Network::Mess
     return Utility::StoringMessageCodes::SUCCESS;
 }
 
-std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageStoringInfo& msi)
+std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageInfo& msi)
 {
     std::tuple dataForMsgs
     {

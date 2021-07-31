@@ -35,29 +35,6 @@ namespace Network
     {
         ar& o.creatorID& o.channelID& o.channelName;
     }
-    
-    struct MessageInfo
-    {
-        std::uint64_t userID;
-        std::string message;
-
-    public:
-        MessageInfo() = default;
-        MessageInfo(std::uint64_t userID, std::string message) : userID(userID), message(message) {}
-        virtual ~MessageInfo() = default;
-
-        friend bool operator==(const MessageInfo& messageInfo1, const MessageInfo& messageInfo2)
-        {
-            return (messageInfo1.userID == messageInfo2.userID &&
-                    messageInfo1.message == messageInfo2.message);
-        }
-    };
-
-    template <typename Archive>
-    void serialize(Archive& ar, Network::MessageInfo& o)
-    {
-        ar& o.userID& o.message;
-    }
 
     struct RegistrationInfo
     {
@@ -116,22 +93,22 @@ namespace Network
         ar& o.userId& o.messageId;
     }
 
-    struct MessageStoringInfo
+    struct MessageInfo
     {
         std::uint64_t userID;
         std::uint64_t channelID;
         std::string message;
         std::string time = Utility::getTimeNow();
 
-        MessageStoringInfo() = default;
-        explicit MessageStoringInfo(const uint64_t userID, const uint64_t channelID, const std::string& text)
+        MessageInfo() = default;
+        explicit MessageInfo(const uint64_t userID, const uint64_t channelID, const std::string& text)
             : userID(userID), channelID(channelID), message(text)
         {}
 
-        MessageStoringInfo(const MessageStoringInfo&) = default;
-        ~MessageStoringInfo()                         = default;
+        MessageInfo(const MessageInfo&) = default;
+        ~MessageInfo()                         = default;
 
-        friend bool operator==(const MessageStoringInfo& first, const MessageStoringInfo& second)
+        friend bool operator==(const MessageInfo& first, const MessageInfo& second)
         {
             return first.message   == second.message   && 
                    first.userID    == second.userID    && 
@@ -141,7 +118,7 @@ namespace Network
     };
 
     template <typename Archive>
-    void serialize(Archive& ar, Network::MessageStoringInfo& o)
+    void serialize(Archive& ar, Network::MessageInfo& o)
     {
         ar& o.channelID& o.message& o.userID;
     }

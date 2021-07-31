@@ -82,11 +82,11 @@ public:
                         case Network::Message::MessageType::MessageHistoryRequest:
                         {
                             std::cout << "Message history received: \n";
-                            std::vector<Network::MessageStoringInfo> messageList;
+                            std::vector<Network::MessageInfo> messageList;
 
-                            for (auto&& item : std::any_cast<std::vector<Network::MessageStoringInfo>>(message.mBody))
+                            for (auto&& item : std::any_cast<std::vector<Network::MessageInfo>>(message.mBody))
                             {
-                                messageList.emplace_back(item.message);
+                                messageList.emplace_back(item);
                                 std::cout << item.message << '\n';
                             }
                         }

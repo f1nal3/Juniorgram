@@ -115,9 +115,9 @@ void Client::storeMessage(const std::string& message, const uint64_t userID, con
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = Network::Message::MessageType::MessageStoreRequest;
 
-    Network::MessageStoringInfo msi(userID, channelID, message);
+    Network::MessageInfo msi(userID, channelID, message);
     
-    networkMessage.mBody = std::make_any<Network::MessageStoringInfo>(msi);
+    networkMessage.mBody = std::make_any<Network::MessageInfo>(msi);
     send(networkMessage);
 }
 

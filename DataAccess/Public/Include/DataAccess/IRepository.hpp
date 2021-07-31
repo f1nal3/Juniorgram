@@ -25,13 +25,13 @@ public:
      * @param UserID as a string
      * @return List of messages as vector of strings.
      */
-    virtual std::vector<Network::MessageStoringInfo> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
+    virtual std::vector<Network::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
     
     /**
      * @brief Method for storing user's message in repository
-     * @param message as Network::MessageStoringInfo.
+     * @param message as Network::MessageInfo.
      */
-    virtual Utility::StoringMessageCodes storeMessage(const Network::MessageStoringInfo& msi) = 0;
+    virtual Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& msi) = 0;
     
     /**  @brief Method for user registration.
      *   @params RegistrationMessage which contains user data for registration.

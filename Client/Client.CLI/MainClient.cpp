@@ -34,10 +34,10 @@ int main()
             {
                 Network::Message message;
 
-                Network::MessageStoringInfo msg;
+                Network::MessageInfo msg;
                 msg.userID  = 777;
                 msg.message = "123";
-                message.mBody = std::any_cast<Network::MessageStoringInfo>(msg);
+                message.mBody = std::any_cast<Network::MessageInfo>(msg);
 
                 clientApp.shell()->send(message);
                 cmd = "";
@@ -46,10 +46,10 @@ int main()
             {
                 Network::Message message;
 
-                Network::MessageStoringInfo msg;
+                Network::MessageInfo msg;
                 msg.userID  = 777;
                 msg.message = "123";
-                message.mBody = std::any_cast<Network::MessageStoringInfo>(msg);
+                message.mBody = std::any_cast<Network::MessageInfo>(msg);
 
                 clientApp.shell()->send(message);
             }
