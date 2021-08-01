@@ -12,7 +12,7 @@
 
 #ifdef _WIN32
 	#include <Windows.h>
-#elif
+#else
 	#include <process.h>
 #endif
 
