@@ -80,7 +80,7 @@ namespace PerformanceTest
             ::CloseHandle(pi.hProcess);
             ::CloseHandle(pi.hThread);
 
-        #elif
+        #else // Linux and MacOS
 
             // Creating testing object and waiting until it finishes.
             spawnv(P_WAIT, _instancePath.string(), argv.data());

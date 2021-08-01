@@ -7,20 +7,20 @@
 #include "App.hpp"
 #include "Utility/UserDataValidation.hpp"
 
-static std::queue<std::string> cmdQueries;
+static std::queue<std::string> queriesQueue;
 
 std::string GetLineFromCin()
 {
     std::string line;
-    if (cmdQueries.empty())
+    if (queriesQueue.empty())
     {
         std::getline(std::cin, line);
 
-        cmdQueries.push(std::move(line));
+        queriesQueue.push(std::move(line));
     }
 
-    line = cmdQueries.front();
-    cmdQueries.pop();
+    line = queriesQueue.front();
+    queriesQueue.pop();
 
     return line;
 }
@@ -29,16 +29,16 @@ int main(int argc, char** argv)
 {
     for (std::size_t argIndex = 1; argIndex < static_cast<std::size_t>(argc); argIndex++)
     {
-        cmdQueries.emplace(argv[argIndex]);
+        queriesQueue.emplace(argv[argIndex]);
     }
 
-    cmdQueries.emplace("cl");
+    queriesQueue.emplace("cl");
 
     App clientApp;
     
-    // Without this string Performance test or Args fall server.
+    // Without this string Performance test or Args fall client.
     // We need some kind of mechanism that would put
-    // the thread to sleep until the client connects to the server.
+    // the thread to sleep until the client connects to the client.
     // 
     // This doesn't work.
     // while (!clientApp.shell()->isConnected());
