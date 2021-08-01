@@ -63,7 +63,7 @@ namespace PerformanceTest
 
 		argument	  arg;
 		argumentValue value;
-		for (std::size_t argIndex = 1; argIndex < argc; argIndex += 2)
+		for (std::size_t argIndex = 1; argIndex < static_cast<std::size_t>(argc); argIndex += 2)
 		{
 
 			arg   = this->privateParseArgument(args.at(argIndex));

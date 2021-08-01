@@ -68,7 +68,7 @@ namespace PerformanceTest
             // Creating testing object.
             //              Not '_instancePath.c_str()' because it returns 'value_type' which is 'wchar_t' by default.
             ::CreateProcess(_instancePath.string().c_str(),
-                const_cast<LPSTR>(argvByOneString.c_str()),
+                const_cast<::LPSTR>(argvByOneString.c_str()),
                 NULL, NULL, FALSE,
                 CREATE_NEW_CONSOLE, NULL, NULL,
                 &si, &pi);
