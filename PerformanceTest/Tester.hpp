@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include <fstream>
 #include <functional>
 #include <iostream>
@@ -30,7 +31,7 @@ namespace PerformanceTest
 
 	private:
 
-		const char** privateCreateArgs(void) const;
+		std::vector<const char*> privateCreateArgs(void) const;
 
 	public:
 

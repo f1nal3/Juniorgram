@@ -2,25 +2,26 @@
 #include <future>
 #include <iostream>
 #include <string>
-#include <stack>
+#include <queue>
 
 #include "App.hpp"
 #include "Utility/UserDataValidation.hpp"
 
-static std::stack<std::string> commandLineArgs;
+static std::queue<std::string> cmdQueries;
 
 std::string GetLineFromCin()
 {
     std::string line;
-    if (commandLineArgs.empty())
+    if (cmdQueries.empty())
     {
         std::getline(std::cin, line);
+
+        cmdQueries.push(std::move(line));
     }
-    else
-    {
-        line = commandLineArgs.top();
-        commandLineArgs.pop();
-    }
+
+    line = cmdQueries.front();
+    cmdQueries.pop();
+
     return line;
 }
 
@@ -28,14 +29,21 @@ int main(int argc, char** argv)
 {
     for (std::size_t argIndex = 1; argIndex < static_cast<std::size_t>(argc); argIndex++)
     {
-        commandLineArgs.push(argv[argIndex - 1]);
+        cmdQueries.emplace(argv[argIndex]);
     }
 
-    commandLineArgs.push("q");
-    commandLineArgs.push("p");
-    commandLineArgs.push("p");
+    cmdQueries.emplace("cl");
 
     App clientApp;
+    
+    // Without this string Performance test or Args fall server.
+    // We need some kind of mechanism that would put
+    // the thread to sleep until the client connects to the server.
+    // 
+    // This doesn't work.
+    // while (!clientApp.shell()->isConnected());
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+
     bool quit   = false;
     auto future = std::async(std::launch::async, GetLineFromCin);
 
@@ -51,9 +59,10 @@ int main(int argc, char** argv)
                 clientApp.shell()->pingServer();
                 cmd = "";
             }
-            else if (cmd == "s")
+            // What is the diference between:
+            else if (cmd == "s")                                           // <---- This
             {
-                Network::Message message;
+                Network::Message message;                                  
 
                 Network::MessageInfo msg;
                 msg.userID  = 777;
@@ -63,7 +72,7 @@ int main(int argc, char** argv)
                 clientApp.shell()->send(message);
                 cmd = "";
             }
-            else if (cmd == "qs")
+            else if (cmd == "qs")                                          // <---- And this?
             {
                 Network::Message message;
 
@@ -74,6 +83,7 @@ int main(int argc, char** argv)
 
                 clientApp.shell()->send(message);
             }
+            // ========================================================
             else if (cmd == "cl")
             {
                 clientApp.shell()->askForChannelList();

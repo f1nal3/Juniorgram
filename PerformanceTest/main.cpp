@@ -4,7 +4,6 @@
     
 #include "Tester.hpp"
 
-// By default args are: TestsCount (-c) = 10; PathToApp (-p) = "./Client.CLI.exe".
 int main(int argc, char** argv)
 { 
     using namespace PerformanceTest;
