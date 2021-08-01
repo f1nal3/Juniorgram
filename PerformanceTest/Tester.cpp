@@ -70,7 +70,7 @@ namespace PerformanceTest
             ::CreateProcess(_instancePath.string().c_str(),
                 const_cast<::LPSTR>(argvByOneString.c_str()),
                 NULL, NULL, FALSE,
-                CREATE_NEW_CONSOLE, NULL, NULL,
+                CREATE_NO_WINDOW, NULL, NULL,
                 &si, &pi);
 
             // Waiting until testing object finishes it's work.
