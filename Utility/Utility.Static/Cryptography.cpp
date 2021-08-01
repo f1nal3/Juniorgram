@@ -96,41 +96,22 @@ namespace Coding
 {
 std::string getBASE64CodedValue(std::string& decodedStr)
 {
-    using CryptoPP::Name::Pad;
-    using CryptoPP::Name::InsertLineBreaks;
+    std::string encoded; 
 
-   
-       std::string encoded;
-        CryptoPP::Base64Encoder encoder;
+    CryptoPP::StringSource ss(decodedStr, true,
+                              new CryptoPP::Base64Encoder(new CryptoPP::StringSink(encoded), false));
 
-       CryptoPP::AlgorithmParameters params =
-            CryptoPP::MakeParameters(Pad(), false)(InsertLineBreaks(), false);
-       encoder.IsolatedInitialize(params);
-       encoder.Attach(new CryptoPP::StringSink(encoded));
-
-       CryptoPP::ArraySource as(reinterpret_cast<CryptoPP::byte*>(decodedStr.data()),
-                                sizeof(decodedStr), true, new CryptoPP::Redirector(encoder));
-      
     return encoded;
 }
 
 std::string getBASE64DecodedValue(std::string& codedStr)
 {
-    using CryptoPP::Name::Pad;
-    using CryptoPP::Name::InsertLineBreaks;
+    std::string clear;
 
-    std::string decoded;
-    CryptoPP::Base64Decoder decoder;
+    CryptoPP::StringSource ss(codedStr, true,
+                              new CryptoPP::Base64Decoder(new CryptoPP::StringSink(clear)));
 
-    CryptoPP::AlgorithmParameters params = CryptoPP::MakeParameters(Pad(), false)(InsertLineBreaks(), false);
-    
-    decoder.IsolatedInitialize(params);
-    decoder.Attach(new CryptoPP::StringSink(decoded));
-
-    CryptoPP::ArraySource as(reinterpret_cast<CryptoPP::byte*>(codedStr.data()), sizeof(codedStr),
-                               true, new CryptoPP::Redirector(decoder));
-
-    return decoded;
+    return clear;
 }
 }  // namespace Coding
 

@@ -88,18 +88,6 @@ namespace Utility
         return false;
     }
 
-    std::string TokenHolder::extractPayload(const std::string& currentToken)
-    { 
-        const std::string payloadRegex = R"(.(\w|\W)*.)";
-        std::regex regex(payloadRegex);
-        std::smatch regex_iterator;
-        if (std::regex_search(currentToken, regex_iterator, regex))
-        {
-            return regex_iterator.str();
-        }
-        return std::string("");
-    }
-
     std::string& TokenHolder::getCurrentToken()
     { 
         if (!mAccessToken.empty())

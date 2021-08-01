@@ -92,7 +92,7 @@ struct BuildSignature
 {
 };
  
-std::string buildToken(const Network::ClientPayload& clPayload, const std::shared_ptr<Network::Connection>& client, const Utility::TokenType& tokenType);
+std::string buildToken(const Network::ClientPayload& clPayload, const Network::RegistrationInfo& ri, const std::shared_ptr<Network::Connection>& client, const Utility::TokenType& tokenType);
 
 
 }  // namespace Utility

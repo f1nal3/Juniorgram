@@ -1,6 +1,5 @@
 #include "Server.hpp"
 
-#include <DataAccess.Static/PostgreRepository.hpp>
 #include <DataAccess.Static/RepositoryUnits.hpp>
 
 namespace Server
@@ -163,9 +162,14 @@ void Server::onMessage(const std::shared_ptr<Network::Connection>& client, Netwo
 
         case Network::Message::MessageType::RegistrationRequest:
         {
+            std::string k = "data";
+
+            Signing::signData(client, k);
+
             const auto [clientPayload, ri] = std::any_cast<std::pair<Network::ClientPayload, Network::RegistrationInfo>>(message.mBody);
             
-            auto future = std::async(std::launch::async, &RegistrationUnit::registerUser, &RegistrationUnit::instance(), ri);
+            auto future =
+                std::async(std::launch::async, &DataAccess::RegistrationUnit::registerUser,&DataAccess::RegistrationUnit::instance(), ri);
         
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType =
@@ -173,27 +177,32 @@ void Server::onMessage(const std::shared_ptr<Network::Connection>& client, Netwo
             
             auto registrationCode = future.get();
 
+            registrationCode;
+
             if (true/*registrationCode == Utility::RegistrationCodes::SUCCESS*/)
             {
-                auto [accessToken, refreshToken] = getTokens(clientPayload, client);
+                suppressWarning(4239, Init)
+                auto& [accessToken, refreshToken] = getTokens(clientPayload, ri, client);
+                restoreWarning
 
-                auto isExists = std::async(std::launch::async, &DataAccess::PostgreRepository::addSessionAfterRegistration,
-                       dynamic_cast<DataAccess::PostgreRepository*>(getPostgreRepo().get()));
+                auto sessionCode = std::async(std::launch::async, &DataAccess::SessionsManagementUnit::addSessionAfterRegistration,
+                               &DataAccess::SessionsManagementUnit::instance(), refreshToken);
 
-               /* auto future = std::async(std::launch::async, &RegistrationUnit::,
-                                    &RegistrationUnit::instance(), ri);*/
-        
 
-                messageToClient.mBody = std::make_any<std::pair<Utility::AccessAndRefreshToken, Utility::RegistrationCodes>>(
-                    std::pair{std::pair{accessToken, refreshToken}, registrationCode});
+
+
+                //Utility::SessionCodes code = sessionCode.get();
+
+         /*       messageToClient.mBody = std::make_any<std::pair<Utility::AccessAndRefreshToken, Utility::RegistrationCodes>>(
+                    std::pair{std::pair{accessToken, refreshToken}, registrationCode});*/
             }
             else
             {
-                messageToClient.mBody = std::make_any<std::pair<Utility::AccessAndRefreshToken, Utility::RegistrationCodes>>(
-                    std::pair{std::pair{"",""}, registrationCode});
+        /*        messageToClient.mBody = std::make_any<std::pair<Utility::AccessAndRefreshToken, Utility::RegistrationCodes>>(
+                    std::pair{std::pair{"",""}, registrationCode});*/
             }
 
-            client->send(messageToClient);
+            //client->send(messageToClient);
         }
         break;
 
@@ -205,10 +214,12 @@ void Server::onMessage(const std::shared_ptr<Network::Connection>& client, Netwo
     }
 }
 
-std::pair<std::string, std::string> Server::getTokens(const Network::ClientPayload& clPayload, const std::shared_ptr<Network::Connection>& client)
+std::pair<std::string, std::string> Server::getTokens(const Network::ClientPayload& clPayload, const Network::RegistrationInfo& ri, const std::shared_ptr<Network::Connection>& client)
 { 
-    std::string accessToken = Utility::buildToken(clPayload, client, Utility::TokenType::accessToken);
-    std::string refreshToken = Utility::buildToken(clPayload, client, Utility::TokenType::refreshToken);
+    std::string accessToken =
+        Utility::buildToken(clPayload, ri, client, Utility::TokenType::accessToken);
+    std::string refreshToken =
+        Utility::buildToken(clPayload, ri, client, Utility::TokenType::refreshToken);
     
     return {accessToken, refreshToken};
 }

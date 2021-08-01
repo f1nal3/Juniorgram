@@ -1,5 +1,6 @@
 #include <Network.Static/Connection.hpp>
 #include <Network.Static/Primitives.hpp>
+#include <DataAccess.Static/RepositoryUnits.hpp>
 
 #include "TokenBuilder.hpp"
 
@@ -64,7 +65,8 @@ namespace Utility
         return TokenBuilder<S, std::decay_t<Handlers>...>{std::forward<Handlers>(h)...};
     }
 
-    std::string buildToken(const Network::ClientPayload& clPayload, const std::shared_ptr<Network::Connection>& client, const TokenType& tokenType)
+    std::string buildToken(const Network::ClientPayload& clPayload, const Network::RegistrationInfo& ri, const std::shared_ptr<Network::Connection>& client,
+                           const TokenType& tokenType)
     {
         using namespace std::string_view_literals;
 
@@ -123,12 +125,12 @@ namespace Utility
                        }()},
              std::pair{"upd"sv, std::to_string(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()))},
              std::pair{"iat"sv, std::to_string(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()))},
-             std::pair{"id"sv, /*std::to_string(client->getID())*/ 
-                       [&client]() -> std::string
-                       {
-                           return " ";
-                          /* std::async(std::launch::async, client->get)*/
-                       }()},
+             std::pair{"id"sv, 
+                        [&ri]() -> std::string 
+                        {
+                          auto userId = std::async(std::launch::async, &DataAccess::RegistrationUnit::getUserIdByLogin, &DataAccess::RegistrationUnit::instance(), ri);
+                          return userId.get();
+                        }()},
              std::pair{"ip"sv, client->getIP()},
              std::pair{"os"sv, clPayload.mOS}, 
              std::pair{"prt"sv, clPayload.mTag},

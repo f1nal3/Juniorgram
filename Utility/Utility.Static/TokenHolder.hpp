@@ -2,7 +2,6 @@
 
 #include <string>
 #include <memory>
-#include <regex>
 #include <future>
 #include <nlohmann/json.hpp>
 
@@ -40,8 +39,6 @@ public:
     bool isExpired(const std::string& currentToken);
 
     std::string& getCurrentToken();
-
-    std::string extractPayload(const std::string& currentToken);
 
     std::string getAcccessToken();
 

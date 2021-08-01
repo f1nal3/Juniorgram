@@ -39,7 +39,7 @@ class Server
 
     void onMessage(const std::shared_ptr<Network::Connection>& client, Network::Message& message);
 
-    std::pair<std::string, std::string> getTokens(const Network::ClientPayload& clPayload, const std::shared_ptr<Network::Connection>& client);
+    std::pair<std::string, std::string> getTokens(const Network::ClientPayload& clPayload, const Network::RegistrationInfo& ri, const std::shared_ptr<Network::Connection>& client);
 
 public:
     explicit Server(const uint16_t& port);

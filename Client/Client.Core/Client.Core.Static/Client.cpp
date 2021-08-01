@@ -9,8 +9,7 @@ namespace Network
 Client::~Client() { disconnect(); }
 
 Client::Client()
-    : mSQLCipherRepo{
-          std::unique_ptr<DataAccess::SQLCipherRepository>(new DataAccess::SQLCipherRepository)}
+    : mSQLCipherRepo{std::unique_ptr<DataAccess::SQLCipherRepository>(new DataAccess::SQLCipherRepository)}
 {
 }
 

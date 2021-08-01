@@ -32,8 +32,7 @@ public:
      * @param message as Network::UserMessage.
      */
     virtual void storeMessage(const Network::MessageInfo& message, const std::uint64_t channelID) = 0;
-    
-    virtual Utility::SessionCodes addSessionAfterRegistration() = 0;
+   
     /**
      * @brief Virtual dtor.
      */

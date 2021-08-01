@@ -218,8 +218,8 @@ namespace DataAccess
             {
                 if (_currentBuilder.getAdapter()->isConnected())
                 {
-                    std::optional<std::any> result =
-                        _currentBuilder.getAdapter()->query(SQLBase<ResultType>::_queryStream.str());
+                    std::optional<std::any> result = _currentBuilder.getAdapter()->query(
+                        SQLBase<ResultType>::_queryStream.str());
         
                     if (result.has_value())
                     {
@@ -234,7 +234,7 @@ namespace DataAccess
                         {
                             this->rollback();
                             return {std::any_cast<std::vector<std::string>>(result.value())};
-                        }
+                        }   
 
                     }
                 }
@@ -248,7 +248,7 @@ namespace DataAccess
             {
                 std::cerr << err.what() << '\n';
                 std::cerr << err.query() << '\n';
-            }
+                }
             catch (const std::exception& err)
             {
                 std::cerr << err.what() << '\n';

@@ -44,7 +44,8 @@ target_link_libraries(${TARGET} PUBLIC
 	CONAN_PKG::libpq
     CONAN_PKG::libpqxx
     CONAN_PKG::sqlcipher
-    CONAN_PKG::cryptopp)
+    CONAN_PKG::cryptopp
+    CONAN_PKG::nlohmann_json)
 
 target_link_libraries(${TARGET}
     PUBLIC Utility.Public DataAccess.Public)

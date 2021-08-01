@@ -72,7 +72,4 @@ void PostgreRepository::storeMessage(const Network::MessageInfo& message, const 
     PostgreTable("channel_msgs").Insert()->columns(dataForChannelMsgs)->execute();
 }
 
-Utility::SessionCodes DataAccess::PostgreRepository::addSessionAfterRegistration()
-{
-    return Utility::SessionCodes();
-}
+
