@@ -52,8 +52,7 @@ public:
     /** @brief Method for executing SQL quries.
     *   @details You shouldn't use this method because it's 
     *    low level accessing the database. Use it if you 
-    *    want something specific from database, instead use 
-    *    PostgreAbstractionLayout Table. 
+    *    want something specific from database, instead use PostgreTable. 
     *    If you want to insert some strings, big text 
     *    or a timestamp you must wrap the string/text by single quotes. 
     *    You don't have to put ';' at the end of query.
