@@ -36,26 +36,20 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
             return channelItartor->channelID;
         };
 
-        if (_chatSwitchWidget->currentIndex() < 0)
-        {
-            auto chatWidget = new ChatWidget();
-            chatWidget->setChannelID(findChannelID());
-            _chatSwitchWidget->insertWidget(_channelListWidget->getChannelList()->currentRow(), chatWidget);
-        }
-
         if (_chatSwitchWidget->widget(_channelListWidget->getChannelList()->currentRow()) == nullptr)
         {
             auto chatWidget = new ChatWidget();
             chatWidget->setChannelID(findChannelID());
             _chatSwitchWidget->insertWidget(_channelListWidget->getChannelList()->currentRow(), chatWidget);
-            _chatSwitchWidget->setCurrentIndex(_channelListWidget->getChannelList()->currentRow());
         }
         else
         {
-            auto chatWidget = dynamic_cast<ChatWidget*>(_chatSwitchWidget->currentWidget());
+            auto chatWidget = dynamic_cast<ChatWidget*>(_chatSwitchWidget->widget(_channelListWidget
+                                                                                  ->getChannelList()
+                                                                                  ->currentRow()));
             chatWidget->setChannelID(findChannelID());
-            _chatSwitchWidget->setCurrentIndex(_channelListWidget->getChannelList()->currentRow());
         }
+        _chatSwitchWidget->setCurrentIndex(_channelListWidget->getChannelList()->currentRow());
     });
 }
 
