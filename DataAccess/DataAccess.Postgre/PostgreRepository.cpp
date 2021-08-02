@@ -104,3 +104,22 @@ Utility::RegistrationCodes PostgreRepository::registerUser(const Network::Regist
 
     return Utility::RegistrationCodes::SUCCESS;
 }
+
+bool PostgreRepository::loginUser(const std::string& login, const std::string& pwdHash)
+{
+    try
+    {
+        auto storedHash = PostgreTable("users")
+                                                .Select()
+                                                ->columns({"password_hash"})
+                                                ->Where("login='" + login + std::string("'"))
+                                                ->execute().value()[0][0].c_str();
+    
+        return std::string(storedHash) == pwdHash;
+    }
+    catch(const std::exception& e)
+    {
+        std::cout << e.what();
+        return false;
+    }
+}

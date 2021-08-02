@@ -28,6 +28,8 @@ struct Message
         MessageStoreRequest,
         RegistrationRequest,
         RegistrationAnswer,
+        LoginRequest,
+        LoginAnswer,
         UserMessageDeleteRequest,
         UserMessageDeleteAnswer
     };

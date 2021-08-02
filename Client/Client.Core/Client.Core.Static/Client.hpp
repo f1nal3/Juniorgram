@@ -38,6 +38,7 @@ public:
 
     void userRegistration(const std::string& email, const std::string& login,
                           const std::string& password) const;
+    void userAuthorization(const std::string& login, const std::string& password);
 
     void messageAll() const;
 
