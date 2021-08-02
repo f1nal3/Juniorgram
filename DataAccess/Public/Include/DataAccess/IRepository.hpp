@@ -47,9 +47,9 @@ public:
      * @brief attempts to login a user with the provided login by checking privided hash with the one stored.
      * @param login user login as string
      * @param pwdHash password hash
-     * @return login status - true if provided hash is the same as stored in repository
+     * @return userID if provided hash is the same as stored in repository, 0 stands for failed login
      */ 
-    virtual bool loginUser(const std::string& login, const std::string& pwdHash) = 0;
+    virtual std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) = 0;
     /**
      * @brief Virtual dtor.
      */

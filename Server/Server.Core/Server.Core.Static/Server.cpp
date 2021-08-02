@@ -165,16 +165,24 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto future = std::async(std::launch::async, &DataAccess::IRepository::loginUser,
                                         mPostgreRepo.get(), loginInfo.login, loginInfo.pwdHash);
 
-            auto loginSuccessful = future.get();
-
+            auto userID = future.get();
+            auto loginSuccessful = userID != 0;
+            
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::LoginAnswer;
             messageToClient.mBody = std::make_any<bool>(loginSuccessful);
 
             client->send(messageToClient);
 
-            if (!loginSuccessful)
+            if (loginSuccessful)
+            {
+                client->setUserID(userID);
+                std::cout << "User " << userID << " logged in.\n";
+            }
+            else
+            {
                 client->disconnect();
+            }
         }
         break;
 
