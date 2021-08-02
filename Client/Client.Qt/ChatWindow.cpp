@@ -31,8 +31,8 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
                                                       return channelName == channelInfo.channelName;
                                                   });
 
-            std::cout << channelItartor->channelName << " " << channelItartor->channelID << std::endl;
-            
+            std::cout << channelItartor->channelName << " id: " << channelItartor->channelID << std::endl;
+                   
             return channelItartor->channelID;
         };
 
@@ -43,13 +43,19 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
             _chatSwitchWidget->insertWidget(_channelListWidget->getChannelList()->currentRow(), chatWidget);
         }
 
-        if(_chatSwitchWidget->widget(_channelListWidget->getChannelList()->currentRow()) == nullptr)
+        if (_chatSwitchWidget->widget(_channelListWidget->getChannelList()->currentRow()) == nullptr)
         {
             auto chatWidget = new ChatWidget();
             chatWidget->setChannelID(findChannelID());
             _chatSwitchWidget->insertWidget(_channelListWidget->getChannelList()->currentRow(), chatWidget);
+            _chatSwitchWidget->setCurrentIndex(_channelListWidget->getChannelList()->currentRow());
         }
-        _chatSwitchWidget->setCurrentIndex(_channelListWidget->getChannelList()->currentRow());
+        else
+        {
+            auto chatWidget = dynamic_cast<ChatWidget*>(_chatSwitchWidget->currentWidget());
+            chatWidget->setChannelID(findChannelID());
+            _chatSwitchWidget->setCurrentIndex(_channelListWidget->getChannelList()->currentRow());
+        }
     });
 }
 

@@ -2,7 +2,6 @@
 #include "Client.hpp"
 #include "Network/Primitives.hpp"
 #include "Widgets/ChannelListWindow.hpp"
-#include "Widgets/ChatHistory.hpp"
 #include "ServerInfo.hpp"
 
 class ConnectionManager
@@ -87,9 +86,22 @@ public:
                         }
                         break;
 
-                        case Network::Message::MessageType::MessageStoreRequest:
+                        case Network::Message::MessageType::MessageStoreAnswer:
                         {
-                            std::cout << "Message were stored" << std::endl;
+                            auto code = std::any_cast<Utility::StoringMessageCodes>(message.mBody);
+
+                            if (code == Utility::StoringMessageCodes::SUCCESS)
+                            {
+                                std::cout << "SUCCESS sending" << std::endl;
+                            }
+                            else if (code == Utility::StoringMessageCodes::FAILED)
+                            {
+                                std::cout << "FAILED sending" << std::endl;
+                            }
+                            else
+                            {
+                                std::cout << "Unknown StoringMessageCode" << std::endl;
+                            }
                         }
                         break;
 
