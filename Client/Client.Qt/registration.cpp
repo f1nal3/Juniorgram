@@ -68,6 +68,8 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
         }
 
         ConnectionManager::getClient().userRegistration(email, login, password);
+
+        oApp->setAppState(App::AppState::LoginForm);
     });
 }
 
