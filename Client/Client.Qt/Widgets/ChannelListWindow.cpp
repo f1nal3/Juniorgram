@@ -46,10 +46,10 @@ void ChannelListWindow::updateChannelList()
             mainWidgetStatus.wait(lck);
             for (auto &channel : _channelsMap)
             {
-                if (!channel.second._addToMainChannelsWindow)
+                if (!channel.second.addToMainChannelsWindow)
                 {
                     _channelList->addItem(QString::fromStdString(channel.first));
-                    channel.second._addToMainChannelsWindow = true;
+                    channel.second.addToMainChannelsWindow = true;
                 }
             }
             lck.unlock();
@@ -87,9 +87,9 @@ void ChannelListWindow::addChannelInfoMap(const std::map<std::string, uint16_t> 
 {
     for (auto channel : nameOfChannelsMap)
     {
-        channelStruct a;
-        a._channelId = channel.second;
-        _channelsMap.insert(std::pair(channel.first, a));
+        ChannelStruct channelInfo;
+        channelInfo.channelId = channel.second;
+        _channelsMap.insert(std::pair(channel.first, channelInfo));
     }
 }
 

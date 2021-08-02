@@ -39,12 +39,12 @@ public slots:
     void updateChannelListWindow();
 
 private:
-    struct channelStruct
+    struct ChannelStruct
     {
-        uint16_t _channelId;
-        bool _addToMainChannelsWindow = false;
+        uint16_t channelId;
+        bool     addToMainChannelsWindow = false;
     };
-    inline static std::map<std::string, channelStruct> _channelsMap{};
+    inline static std::map<std::string, ChannelStruct> _channelsMap{};
     std::unique_ptr<ListWidget>                        _channelList;
     std::unique_ptr<FlatButton>                        _addChannelButton;
     std::unique_ptr<FlatButton>                        _updateChannelButton;
