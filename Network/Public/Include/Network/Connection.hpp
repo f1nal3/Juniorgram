@@ -48,7 +48,8 @@ private:
     /// Connection "owner"
     OwnerType mOwner = OwnerType::SERVER;
     /// Connection id
-    uint64_t mConnectionID = uint64_t();
+    std::uint64_t mConnectionID = uint64_t();
+    std::uint64_t userID;
 
     /// Unique socket to remote
     asio::ip::tcp::socket mSocket;
@@ -276,7 +277,20 @@ public:
      * whole system.
      * @return mId - connection id.
      */
-    uint64_t getID() const { return mConnectionID; }
+    std::uint64_t getID() const { return mConnectionID; }
+    
+    /**
+     * @brief Method for accessing userID associated with this connection
+     * @details ID gets assigned to connection on successful login
+     * @return userID as stored in repository
+     */
+    std::uint64_t getUserID() const { return userID; }
+    
+    /**
+     * @brief Method for setting userID for this connection
+     * @param id userID from repository
+     */
+    void setUserID(std::uint64_t id) { userID = id; }
 
     /**
      * @brief Method for connection to clients from server side.
