@@ -78,12 +78,6 @@ bool App::loop()
                 }
                 break;
 
-                case Network::Message::MessageType::MessageStoreRequest:
-                {
-                    std::cout << "Message were stored" << std::endl;
-                }
-                break;
-
                 case Network::Message::MessageType::RegistrationAnswer:
                 {
                     auto code = std::any_cast<Utility::RegistrationCodes>(message.mBody);
@@ -124,7 +118,6 @@ bool App::loop()
                         std::cout << "Unknown StoringMessageCode" << std::endl;
                     }
                 }
-
                 break;
 
 				default:
