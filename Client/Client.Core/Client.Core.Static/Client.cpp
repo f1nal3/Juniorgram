@@ -126,13 +126,25 @@ void Client::userRegistration(const std::string& email, const std::string& login
 {
     // Generating password's hash which are based on login. It lets us to insert different users
     // with the same passwords.
-    const std::string PASSWORD_HASH = Hashing::SHA_256(password, login);
-    Network::RegistrationInfo ri(email, login, PASSWORD_HASH);
+    const std::string pwdHash = Hashing::SHA_256(password, login);
+    Network::RegistrationInfo ri(email, login, pwdHash);
 
     Network::Message message;
     message.mHeader.mMessageType = Network::Message::MessageType::RegistrationRequest;
     message.mBody = std::make_any<RegistrationInfo>(ri);
     
+    send(message);
+}
+
+void Client::userAuthorization(const std::string& login, const std::string& password)
+{
+    const std::string pwdHash = Hashing::SHA_256(password, login);
+    LoginInfo loginInfo(login, pwdHash);
+
+    Message message;
+    message.mHeader.mMessageType = Message::MessageType::LoginRequest;
+    message.mBody = std::make_any<LoginInfo>(loginInfo);
+
     send(message);
 }
 

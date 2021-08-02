@@ -30,6 +30,8 @@ struct Message
         MessageStoreAnswer,
         RegistrationRequest,
         RegistrationAnswer,
+        LoginRequest,
+        LoginAnswer,
         UserMessageDeleteRequest,
         UserMessageDeleteAnswer
     };

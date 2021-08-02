@@ -44,6 +44,13 @@ public:
      */
     virtual Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) const = 0;
     /**
+     * @brief attempts to login a user with the provided login by checking privided hash with the one stored.
+     * @param login user login as string
+     * @param pwdHash password hash
+     * @return userID if provided hash is the same as stored in repository, 0 stands for failed login
+     */ 
+    virtual std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) = 0;
+    /**
      * @brief Virtual dtor.
      */
     virtual ~IRepository() = default;

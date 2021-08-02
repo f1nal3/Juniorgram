@@ -52,6 +52,12 @@ public:
                 case Message::MessageType::RegistrationAnswer:
                     state = processOutcomingMessageBody<Utility::RegistrationCodes>(bodyBuffer, message.mBody);
                     break;
+                case Message::MessageType::LoginRequest:
+                    state = processOutcomingMessageBody<LoginInfo>(bodyBuffer, message.mBody);
+                    break;
+                case Message::MessageType::LoginAnswer:
+                    state = processOutcomingMessageBody<bool>(bodyBuffer, message.mBody);
+                    break;
                 default:
                     break;
             }
@@ -122,6 +128,16 @@ public:
             case Message::MessageType::RegistrationAnswer:
             {
                 state = processIncomingMessageBody<Utility::RegistrationCodes>(buffer, message);
+                break;
+            }
+            case Message::MessageType::LoginRequest:
+            {
+                state = processIncomingMessageBody<LoginInfo>(buffer, message);
+                break;
+            }
+            case Message::MessageType::LoginAnswer:
+            {
+                state = processIncomingMessageBody<bool>(buffer, message);
                 break;
             }
             default:

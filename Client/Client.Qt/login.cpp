@@ -1,8 +1,10 @@
 #include "login.hpp"
+#include "Utility/UserDataValidation.hpp"
 
 #include <QtEvents>
 
 #include "Application.hpp"
+#include "ConnectionManager.hpp"
 #include "Widgets/FlatButton.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/LogoWidget.hpp"
@@ -17,8 +19,25 @@ Login::Login(QWidget* parent) : QWidget(parent)
 
     _logoWidget = std::make_unique<LogoWidget>(this);
 
-    _signInButton->setClickCallback([]() { oApp->setAppState(App::AppState::ChatWindowForm); });
     _registrationButton->setClickCallback([]() { oApp->setAppState(App::AppState::RegistrationForm); });
+    _signInButton->setClickCallback([this]() {        
+        std::string login = _usernameInput->text().toStdString();
+        std::string password = _passwordInput->text().toStdString();
+        
+        ConnectionManager::loginState = LoginState::IN_PROGRESS;
+        ConnectionManager::getClient().userAuthorization(login, password);
+        
+        while(ConnectionManager::loginState == LoginState::IN_PROGRESS)
+        {}
+        
+        if (ConnectionManager::loginState == LoginState::SUCCESS)
+        {
+            oApp->setAppState(App::AppState::ChatWindowForm);
+        }
+        });
+
+    _registrationButton->setClickCallback(
+        []() { oApp->setAppState(App::AppState::RegistrationForm); });
 
     const int BLOCKWIDTH = Style::valueDPIScale(500);
     _signInButton->resize(BLOCKWIDTH, _signInButton->sizeHint().height());
