@@ -44,37 +44,13 @@ void ChannelListWindow::updateChannelList()
             std::mutex                   mtx;
             std::unique_lock<std::mutex> lck(mtx);
             mainWidgetStatus.wait(lck);
-
-            int numberOfCoincidences = 0;
-
-            for (int i = 0; i < _channelListMainWindow->count(); ++i)
+            for (auto &channel : _channelsMap)
             {
-                for (auto it = _channelNames.rbegin(); it != _channelNames.rend(); ++it)
+                if (!channel.second._addToMainChannelsWindow)
                 {
-                    if (QString::fromStdString(*it) == _channelListMainWindow->item(i)->text())
-                    {
-                        _channelNames.erase(std::remove(_channelNames.begin(), _channelNames.end(), *it), _channelNames.end());
-                    }
+                    _channelList->addItem(QString::fromStdString(channel.first));
+                    channel.second._addToMainChannelsWindow = true;
                 }
-            }
-            for (auto it = _channelNames.rbegin(); it != _channelNames.rend(); ++it)
-            {
-                if (_channelList->count() == 0)
-                {
-                    _channelList->addItem(QString::fromStdString(*it));
-                }
-                for (int i = 0; i < _channelList->count(); ++i)
-                {
-                    if (_channelList->item(i)->text() == QString::fromStdString(*it))
-                    {
-                        numberOfCoincidences++;
-                    }
-                }
-                if (numberOfCoincidences == 0)
-                {
-                    _channelList->addItem(QString::fromStdString(*it));
-                }
-                numberOfCoincidences = 0;
             }
             lck.unlock();
         }
@@ -105,10 +81,17 @@ void ChannelListWindow::addChannelToMainChannelWidget()
             _channelListMainWindow->addItem(_channelList->takeItem(_channelList->currentRow()));
         }
     }
-    this->hide();
 }
 
-void ChannelListWindow::addChannelInfo(const std::string& nameOfChannels) { _channelNames.push_back(nameOfChannels); }
+void ChannelListWindow::addChannelInfoMap(const std::map<std::string, uint16_t> &nameOfChannelsMap)
+{
+    for (auto channel : nameOfChannelsMap)
+    {
+        channelStruct a;
+        a._channelId = channel.second;
+        _channelsMap.insert(std::pair(channel.first, a));
+    }
+}
 
 void ChannelListWindow::updateChannelListWindow()
 {

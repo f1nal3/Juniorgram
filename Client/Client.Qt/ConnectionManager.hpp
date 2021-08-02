@@ -67,15 +67,15 @@ public:
                         case Network::Message::MessageType::ChannelListRequest:
                         {
                             std::cout << "Channel list received: \n";
-                            std::vector<std::string> channelList;
+                            std::map<std::string, uint16_t> channelsMap;
 
                             for (const auto& item :
                                  std::any_cast<std::vector<Network::ChannelInfo>>(message.mBody))
                             {
-                                channelList.emplace_back(item.channelName);
-                                std::cout << item.channelName << '\n';
-                                ChannelListWindow::addChannelInfo(item.channelName);
+                                channelsMap.insert(std::pair<std::string, uint16_t>(item.channelName, item.channelID));
+                                std::cout << item.channelName << " Id: " << item.channelID << '\n';
                             }
+                            ChannelListWindow::addChannelInfoMap(channelsMap);
                             ChannelListWindow::mainWidgetStatus.notify_one();
                         }
                         break;
