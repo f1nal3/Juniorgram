@@ -1,116 +1,159 @@
 #include "Logger.hpp"
 #include <iostream>
 
-namespace LOG
+std::string Logger::stringify(const LogLevel level)
 {
-    std::string Logger::stringify(const LogLevel level)
-    {
-        std::string result = "NONE";
-        const static std::map<LogLevel, std::string> S_LEVEL_MAP =
-        {
-            {LogLevel::ERROR, "ERROR"},
-            {LogLevel::WARNING, "WARNING"},
-            {LogLevel::INFO, "INFO"},
-            {LogLevel::DEBUG, "DEBUG"},
-        };
+    std::string result                                    = "NONE";
+    const static std::map<LogLevel, std::string> LevelMap = {
+        {LogLevel::ERROR, "ERROR"},
+        {LogLevel::WARNING, "WARNING"},
+        {LogLevel::INFO, "INFO"},
+        {LogLevel::DEBUG, "DEBUG"},
+    };
 
-        auto it = S_LEVEL_MAP.find(level);
-        if (it != S_LEVEL_MAP.end())
-        {
-            result = it->second;
-        }
-        return result;
+    auto it = LevelMap.find(level);
+    if (it != LevelMap.end())
+    {
+        result = it->second;
+    }
+    return result;
+}
+
+Logger::Logger() : mThread{}, mCV{}, mMutex{}, mQueue{}, mStop{false}
+{
+    mThread = std::thread(&Logger::Run, this);
+}
+
+Logger::~Logger()
+{
+    if (mThread.joinable())
+    {
+        mThread.join();
+    }
+}
+
+Logger& Logger::getInstance() const
+{
+    static Logger self;
+    return self;
+}
+
+void Logger::init(const std::string& filename, const LogOutput output = LogOutput::EVERYWHERE) const
+{
+    m_fileName = filename;
+    m_output   = output;
+}
+
+void Logger::open() const
+{
+    if (m_isOpened)
+    {
+        return;
     }
 
-    Logger& Logger::get()
+    if (m_output == LogOutput::EVERYWHERE || m_output == LogOutput::FILE)
     {
-        static Logger self;
-        return self;
-    }
+        m_file.open(m_fileName, std::ios::out);
+        m_isOpened = m_file.is_open();
 
-    void Logger::init(const std::string& filename, const LogOutput output = LogOutput::EVERYWHERE)
-    {
-        m_fileName = filename;
-        m_output = output;
-    }
-
-    void Logger::open()
-    {
-        if (m_isOpened)
-        {
-            return;
-        }
-
-        if (m_output == LogOutput::EVERYWHERE || m_output == LogOutput::FILE)
-        {
-            m_file.open(m_fileName, std::ios::out);
-            m_isOpened = m_file.is_open();
-
-            if (!m_isOpened)
-            {
-                throw std::runtime_error("Couldn't open a log file");
-            }
-        }
-    }
-
-    void Logger::close()
-    {
-        if (m_output == LogOutput::EVERYWHERE || m_output == LogOutput::FILE)
-        {
-            m_file.close();
-        }
-    }
-
-    void Logger::log(const std::string& msg, const LogLevel level)
-    {
         if (!m_isOpened)
         {
-            return;
+            throw std::runtime_error("Couldn't open a log file");
+        }
+    }
+}
+
+void Logger::close() const
+{
+    if (m_output == LogOutput::EVERYWHERE || m_output == LogOutput::FILE)
+    {
+        m_file.close();
+    }
+}
+
+void Logger::stop()
+{
+    std::lock_guard<std::mutex> lk(mMutex);
+    mStop = true;
+    mCV.notify_one();
+}
+
+void Logger::log(const std::string& msg, const LogLevel level) const
+{
+    std::string result = wrapValue(timestamp(), m_blockWrapper) + " " +
+                         wrapValue(threadID(), m_blockWrapper) + " " +
+                         wrapValue(stringify(level), m_blockWrapper) + " " + msg;
+
+    std::lock_guard<std::mutex> lk(mMutex);
+    std::map<std::string, LogLevel> mapForQueue;
+    mapForQueue.insert(make_pair(result, level));
+    mQueue.push(mapForQueue);
+    mCV.notify_one();
+}
+
+std::string Logger::timestamp() const
+{
+    using namespace std::chrono;
+    auto now = system_clock::now();
+    struct tm localtime;
+    time_t tt = system_clock::to_time_t(now);
+    auto ms = duration_cast<microseconds>(now.time_since_epoch()) % 1000;
+
+    const unsigned sizeBuffer = 26;
+    char buffer[sizeBuffer];
+    localtime_s(&localtime, &tt);
+    strftime(buffer, sizeBuffer, "%F %T", &localtime);
+    std::string str = std::string(buffer);
+
+    std::stringstream ss;
+    ss << str << "." << std::setfill('0') << std::setw(3) << ms.count();
+
+    return ss.str();
+}
+std::string Logger::threadID() const
+{
+    std::stringstream ss;
+    ss << std::this_thread::get_id();
+    return ss.str();
+}
+std::string Logger::wrapValue(const std::string& value, const BlockWrapper& blockWrapper) const
+{
+    return blockWrapper.first + value + blockWrapper.second;
+}
+
+void Logger::run()
+{
+    while (true)
+    {
+        // Wait until some request comes or stop flag is set
+        std::unique_lock<std::mutex> lock(mMutex);
+        mCV.wait(lock, [&]() { return mStop || !mQueue.empty(); });
+
+        // Stop if needed
+        if (mStop)
+        {
+            break;
         }
 
-        std::string result = wrapValue(timestamp(), m_blockWrapper) +
-            " " + wrapValue(threadID(), m_blockWrapper) +
-            " " + wrapValue(stringify(level), m_blockWrapper) +
-            " " + msg;
+        std::string msg = std::move(mQueue.front().begin()->first);
+        mQueue.pop();
 
-        std::unique_lock<std::mutex> locker(m_logMutex);
         if (m_output == LogOutput::CONSOLE)
         {
-            std::cout << result << std::endl;
+            std::cout << msg << std::endl;
         }
         else if (m_output == LogOutput::FILE)
         {
-            m_file << stringify(level) << "." << msg << std::endl;
+            open();
+            m_file << msg << std::endl;
         }
         else
         {
-            std::cout << result << std::endl;
-            m_file << result << std::endl;
+            open();
+            std::cout << msg << std::endl;
+            m_file << msg << std::endl;
         }
-    }
 
-
-    std::string Logger::timestamp()
-    {
-        using namespace std::chrono;
-        auto now = system_clock::now();
-        time_t tt = system_clock::to_time_t(now);
-        auto ms = duration_cast<microseconds>(now.time_since_epoch()) % 1000;
-
-        std::stringstream ss;
-        ss << std::put_time(localtime(&tt), "%F %T");
-        ss << "." << std::setfill('0') << std::setw(3) << ms.count();
-
-        return ss.str();
+        lock.unlock();
     }
-    std::string Logger::threadID()
-    {
-        std::stringstream ss;
-        ss << std::this_thread::get_id();
-        return ss.str();
-    }
-    std::string Logger::wrapValue(const std::string& value, const BlockWrapper& blockWrapper)
-    {
-        return blockWrapper.first + value + blockWrapper.second;
-    }
-} // namespace LOG
+}
