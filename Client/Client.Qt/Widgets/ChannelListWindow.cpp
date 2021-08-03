@@ -85,7 +85,7 @@ void ChannelListWindow::addChannelToMainChannelWidget()
 
 void ChannelListWindow::addChannelInfoMap(const std::map<std::string, uint16_t> &nameOfChannelsMap)
 {
-    for (auto channel : nameOfChannelsMap)
+    for (auto &channel : nameOfChannelsMap)
     {
         ChannelStruct channelInfo;
         channelInfo.channelId = channel.second;
