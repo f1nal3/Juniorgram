@@ -383,7 +383,7 @@ void Server::update(size_t maxMessages, bool wait)
     while (messagesCount < maxMessages && !mIncomingMessagesQueue.empty())
     {
         Network::Message message = mIncomingMessagesQueue.pop_front();
-
+            
         onMessage(message.mRemote, message);
 
         messagesCount++;

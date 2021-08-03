@@ -120,7 +120,7 @@ namespace Signing
 std::string signData(const std::shared_ptr<Network::Connection>& client, std::string& data)
 {
     Utility::SignerAndVerifier::Instance().initPoint(client->getKeyDestributor().get()->getPrivateServerKey());
-    Utility::SignerAndVerifier::Instance().initAndSavePrivateAndPublicKey();
+    Utility::SignerAndVerifier::Instance().initPrivateAndPublicKey();
     Utility::SignerAndVerifier::Instance().loadPrivateKey();
 
     return Utility::SignerAndVerifier::Instance().sign(data);

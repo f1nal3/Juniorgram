@@ -80,7 +80,9 @@ Utility::SessionCodes SessionsManagementUnit::addSessionAfterRegistration(const 
         std::pair{"updated_at", Utility::WithoutQuotes("to_timestamp(" + std::string(mJRepresentation["upd"]) + ")::timestamp")},
         std::pair{"fingerprint", std::string(mJRepresentation["sub"])},
         std::pair{"refresh_token", std::string(refreshToken)},
-        std::pair{"signature_verification_key", std::string("verif")}
+        std::pair{"signature_key", std::string()},
+        std::pair{"signature_verification_key", std::string("verif")},
+
     };
 
     getSessionTable().Insert()->columns(sessionData)->execute();

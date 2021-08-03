@@ -23,45 +23,59 @@ namespace Utility
         mPoint = CryptoPP::Integer(privKey.data(), privKey.size());
     }
 
-    void SignerAndVerifier::initAndSavePrivateAndPublicKey()
+    void SignerAndVerifier::initPrivateAndPublicKey()
     {
- 
         mPrivKey.Initialize(mEllipticCurve, mPoint);
-        mPrivKey.Save(mPrivateKey);
-
         mPrivKey.MakePublicKey(mPubKey);
-        mPubKey.Save(mPublicKey);
 
-        
-        std::string publickey;
-        CryptoPP::StringSink ss(publickey);
-        mPubKey.Save(ss);
+        //        
+        //std::string publickey;
+        //CryptoPP::StringSink ss(publickey);
+        //mPubKey.Save(ss);
 
-        std::string privatekey;
-        CryptoPP::StringSink ssp(privatekey);
-        mPrivKey.Save(ssp);
+        //std::string privatekey;
+        //CryptoPP::StringSink ssp(privatekey);
+        //mPrivKey.Save(ssp);
 
-        /*CryptoPP::StringSource ss(key, true);
-        mPrivKey.BERDecode(ss);*/
+        ///*CryptoPP::StringSource ss(key, true);
+        //mPrivKey.BERDecode(ss);*/
 
-        std::cout << mPrivateKey.CurrentSize();
-       CryptoPP::byte* bts = new CryptoPP::byte[mPrivateKey.MaxRetrievable()];
+        //std::cout << mPrivateKey.CurrentSize();
+        //CryptoPP::byte* bts = new CryptoPP::byte[mPrivateKey.MaxRetrievable()];
 
-       std::cout << mPrivateKey.MaxRetrievable();
+        //std::cout << mPrivateKey.MaxRetrievable();
 
-        mPrivateKey.Peek(bts, mPrivateKey.MaxRetrievable());
+        //mPrivateKey.Peek(bts, mPrivateKey.MaxRetrievable());
 
+    }
+
+    std::string SignerAndVerifier::getPrivateKey()
+    {
+         std::string publicKey;
+         CryptoPP::StringSink ss(publicKey);
+         mPubKey.Save(ss);
+
+         return publicKey;
+    }
+
+    std::string SignerAndVerifier::getPublicKey()
+    {
+        std::string privateKey;
+        CryptoPP::StringSink ss(privateKey);
+        mPrivKey.Save(ss);
+
+        return privateKey;
     }
 
     void SignerAndVerifier::loadPrivateKey()
     {
         // Load private key (in ByteQueue, PKCS#8 format)
-        mSigner = CryptoPP::ECDSA<CryptoPP::ECP, CryptoPP::SHA256>::Signer(mPrivateKey);
+        mSigner = CryptoPP::ECDSA<CryptoPP::ECP, CryptoPP::SHA256>::Signer(mPrivKey);
     }
 
     void SignerAndVerifier::loadPublicKey()
     {
-        mVerifier = CryptoPP::ECDSA<CryptoPP::ECP, CryptoPP::SHA256>::Verifier(mPublicKey);
+        mVerifier = CryptoPP::ECDSA<CryptoPP::ECP, CryptoPP::SHA256>::Verifier(mPubKey);
     }
 
     std::string SignerAndVerifier::sign(const std::string& data)

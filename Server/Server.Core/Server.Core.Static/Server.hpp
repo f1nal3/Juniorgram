@@ -32,7 +32,6 @@ class Server
     std::deque<std::thread> mThreads;
     std::unique_ptr<DataAccess::IRepository> _postgreRepo;
     
-
     bool onClientConnect(const std::shared_ptr<Network::Connection>& client);
 
     void onClientDisconnect(const std::shared_ptr<Network::Connection>& client);
@@ -57,8 +56,7 @@ public:
     void messageClient(std::shared_ptr<Network::Connection> client,
                        const Network::Message& message);
 
-    void messageAllClients(const Network::Message& message,
-                           const std::shared_ptr<Network::Connection>& exceptionClient = nullptr);
+    void messageAllClients(const Network::Message& message,const std::shared_ptr<Network::Connection>& exceptionClient = nullptr);
     
     void update(std::size_t maxMessages = std::numeric_limits<size_t>::max(), bool wait = true);
 
