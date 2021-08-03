@@ -116,7 +116,7 @@ std::uint64_t PostgreRepository::loginUser(const std::string& login, const std::
                                                 ->execute().value();
         if (std::string(queryResult[0][0].c_str()) == pwdHash)
         {
-            return queryResult[1][0].as<std::uint64_t>();
+            return queryResult[0][1].as<std::uint64_t>();
         }
         else
         {
