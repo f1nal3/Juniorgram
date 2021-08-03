@@ -27,7 +27,7 @@ public:
 
     std::vector<Network::ChannelInfo> getAllChannelsList() override final;
     std::vector<Network::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) override final;
-    Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& msi) override final;
+    Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& mi) override final;
     Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) const override final;
     std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) override final;
 

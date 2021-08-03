@@ -186,7 +186,7 @@ TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSe
 
     SECTION("Checking serialization & deserialization of custom type MessageInfo")
     {
-        Network::MessageInfo serializedValue(123, 3, "I'd like ice-cream=)");
+        Network::MessageInfo serializedValue(3, "I'd like ice-cream=)");
 
         yas::shared_buffer buffer;
         Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
@@ -220,10 +220,10 @@ TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSe
     {
         std::vector<Network::MessageInfo> serializedValue
         {
-            Network::MessageInfo(123, 3, "I'd like ice-cream=)"),
-            Network::MessageInfo(123, 3, "I'd like pizza=)"),
-            Network::MessageInfo(123, 3, "I'd like cheeseburger=)"),
-            Network::MessageInfo(123, 3, "I'd like naggets=)")
+            Network::MessageInfo(3, "I'd like ice-cream=)"),
+            Network::MessageInfo(3, "I'd like pizza=)"),
+            Network::MessageInfo(3, "I'd like cheeseburger=)"),
+            Network::MessageInfo(3, "I'd like naggets=)")
         };
 
         yas::shared_buffer buffer;

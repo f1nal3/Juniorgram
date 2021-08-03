@@ -38,9 +38,9 @@ std::vector<Network::MessageInfo> FileRepository::getMessageHistoryForUser(const
     mi.channelID = channelID;
     for (auto&& row : rows)
     {
-        mi.message = row.at("msg");
-        mi.time    = row.at("send_time");
-        mi.userID  = row.at("sender_id");
+        mi.message   = row.at("msg");
+        mi.time      = row.at("send_time");
+        mi.senderID  = row.at("sender_id");
         messages.emplace_back(mi);
     }
 

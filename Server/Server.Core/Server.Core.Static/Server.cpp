@@ -99,10 +99,12 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::MessageStoreRequest:
         {
-            auto msi = std::any_cast<Network::MessageInfo>(message.mBody);
-            
+            auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
+            mi.senderID = client->getUserID();
+
             auto future = std::async(std::launch::async, &DataAccess::IRepository::storeMessage,
-                           mPostgreRepo.get(), msi);
+                           mPostgreRepo.get(), mi);
+
             Network::Message answerForClient;
             answerForClient.mHeader.mMessageType = Network::Message::MessageType::MessageStoreAnswer;
             

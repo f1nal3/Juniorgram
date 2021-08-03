@@ -34,7 +34,7 @@ public:
 
     void askForMessageHistory(const std::uint64_t channellID) const;
 
-    void storeMessage(const std::string& message, const uint64_t userID, const uint64_t channelID) const;
+    void storeMessage(const std::string& message, const uint64_t channelID) const;
 
     void userRegistration(const std::string& email, const std::string& login,
                           const std::string& password) const;

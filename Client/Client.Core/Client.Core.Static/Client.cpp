@@ -110,14 +110,16 @@ void Client::askForMessageHistory(const std::uint64_t channellID) const
     send(message);
 }
 
-void Client::storeMessage(const std::string& message, const uint64_t userID, const uint64_t channelID) const
+void Client::storeMessage(const std::string& message, const uint64_t channelID) const
 {
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = Network::Message::MessageType::MessageStoreRequest;
 
-    Network::MessageInfo msi(userID, channelID, message);
-    
-    networkMessage.mBody = std::make_any<Network::MessageInfo>(msi);
+    Network::MessageInfo mi;
+    mi.message   = message;
+    mi.channelID = channelID;
+       
+    networkMessage.mBody = std::make_any<Network::MessageInfo>(mi);
     send(networkMessage);
 }
 
@@ -131,7 +133,7 @@ void Client::userRegistration(const std::string& email, const std::string& login
 
     Network::Message message;
     message.mHeader.mMessageType = Network::Message::MessageType::RegistrationRequest;
-    message.mBody = std::make_any<RegistrationInfo>(ri);
+    message.mBody                = std::make_any<RegistrationInfo>(ri);
     
     send(message);
 }

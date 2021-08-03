@@ -22,8 +22,7 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
 
 void ChatWidget::newMessage(const QString& messageText) 
 {
-    const std::uint64_t userID = 40;
-    ConnectionManager::getClient().storeMessage(messageText.toStdString(), userID, _channelID);
+    ConnectionManager::getClient().storeMessage(messageText.toStdString(), _channelID);
     _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch()); 
 }
 

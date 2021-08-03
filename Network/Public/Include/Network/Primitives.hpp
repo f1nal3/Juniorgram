@@ -119,14 +119,16 @@ namespace Network
 
     struct MessageInfo
     {
-        std::uint64_t userID;
         std::uint64_t channelID;
         std::string message;
+        std::uint64_t msgID;
+        std::uint64_t senderID;
+        std::uint64_t recipientID;
         std::string time = Utility::getTimeNow();
 
         MessageInfo() = default;
-        explicit MessageInfo(const uint64_t userID, const uint64_t channelID, const std::string& text)
-            : userID(userID), channelID(channelID), message(text)
+        explicit MessageInfo(const uint64_t channelID, const std::string& text)
+            : channelID(channelID), message(text)
         {}
 
         MessageInfo(const MessageInfo&) = default;
@@ -135,7 +137,6 @@ namespace Network
         friend bool operator==(const MessageInfo& first, const MessageInfo& second)
         {
             return first.message   == second.message   &&
-                   first.userID    == second.userID    &&
                    first.channelID == second.channelID &&
                    first.time      == second.time;
         }
@@ -144,7 +145,7 @@ namespace Network
     template <typename Archive>
     void serialize(Archive& ar, Network::MessageInfo& o)
     {
-        ar& o.channelID& o.message& o.userID;
+        ar& o.channelID& o.message& o.time;
     }
 
 } // namespace Network

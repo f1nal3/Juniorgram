@@ -41,10 +41,10 @@ std::vector<Network::MessageInfo> PostgreRepository::getMessageHistoryForUser(co
         mi.channelID = channelID;
         for (auto i = 0; i < messageHistoryRow.value().size(); ++i)
         {
-            // at(0) - msg_id
-            mi.userID = messageHistoryRow.value()[i][1].as<std::uint64_t>();
-            mi.time = messageHistoryRow.value()[i][2].as<std::string>();
-            mi.message = messageHistoryRow.value()[i][3].as<std::string>();
+            mi.msgID    = messageHistoryRow.value()[i][0].as<std::uint64_t>();
+            mi.senderID = messageHistoryRow.value()[i][1].as<std::uint64_t>();
+            mi.time     = messageHistoryRow.value()[i][2].as<std::string>();
+            mi.message  = messageHistoryRow.value()[i][3].as<std::string>();
             result.emplace_back(mi);
         }
     }
@@ -80,9 +80,9 @@ Utility::RegistrationCodes PostgreRepository::registerUser(const Network::Regist
     return Utility::RegistrationCodes::SUCCESS;
 }
 
-Utility::StoringMessageCodes PostgreRepository::storeMessage(const Network::MessageInfo& msi)
+Utility::StoringMessageCodes PostgreRepository::storeMessage(const Network::MessageInfo& mi)
 {
-    const auto firstResult = insertMessageIntoMessagesTable(msi);
+    const auto firstResult = insertMessageIntoMessagesTable(mi);
     if (!firstResult.has_value())
     {
         std::cerr << "Insert message into 'msgs' table failed" << std::endl;
@@ -91,7 +91,7 @@ Utility::StoringMessageCodes PostgreRepository::storeMessage(const Network::Mess
 
     const auto currentMessageID = firstResult.value()[0][0].as<std::uint64_t>();
     
-    const auto secondResult = insertIDsIntoChannelMessagesTable(msi.channelID, currentMessageID);
+    const auto secondResult = insertIDsIntoChannelMessagesTable(mi.channelID, currentMessageID);
     if (!secondResult.has_value())
     {
         std::cerr << "Insert message into 'channel_messages' table failed" << std::endl;
@@ -108,13 +108,13 @@ Utility::StoringMessageCodes PostgreRepository::storeMessage(const Network::Mess
     return Utility::StoringMessageCodes::SUCCESS;
 }
 
-std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageInfo& msi)
+std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageInfo& mi)
 {
     std::tuple dataForMsgs
     {
-        std::pair{"sender_id", msi.userID}, 
-        std::pair{"send_time", msi.time.c_str()}, 
-        std::pair{"msg", msi.message}
+        std::pair{"sender_id", mi.senderID}, 
+        std::pair{"send_time", mi.time.c_str()}, 
+        std::pair{"msg", mi.message}
     };
 
     pTable->changeTable("msgs");
@@ -144,14 +144,15 @@ std::uint64_t PostgreRepository::loginUser(const std::string& login, const std::
 {
     try
     {
-        auto queryResult = PostgreTable("users")
-                                                .Select()
-                                                ->columns({"password_hash", "id"})
-                                                ->Where("login='" + login + std::string("'"))
-                                                ->execute().value();
+        pTable->changeTable("users");
+        auto queryResult = pTable->Select()
+                                 ->columns({"password_hash", "id"})
+                                 ->Where("login='" + login + "'")
+                                 ->execute().value();
+        
         if (std::string(queryResult[0][0].c_str()) == pwdHash)
         {
-            return queryResult[1][0].as<std::uint64_t>();
+            return queryResult[0][1].as<std::uint64_t>();
         }
         else
         {

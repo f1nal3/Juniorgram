@@ -35,7 +35,6 @@ int main()
                 Network::Message message;
 
                 Network::MessageInfo msg;
-                msg.userID  = 777;
                 msg.message = "123";
                 message.mBody = std::any_cast<Network::MessageInfo>(msg);
 
@@ -47,7 +46,6 @@ int main()
                 Network::Message message;
 
                 Network::MessageInfo msg;
-                msg.userID  = 777;
                 msg.message = "123";
                 message.mBody = std::any_cast<Network::MessageInfo>(msg);
 
@@ -65,10 +63,9 @@ int main()
             else if (cmd == "sm")
             {
                 std::string text = GetLineFromCin();
-                uint64_t userID     = 99;
                 uint64_t channelID  = 1;
 
-                clientApp.shell()->storeMessage(text, userID, channelID);
+                clientApp.shell()->storeMessage(text, channelID);
             }
             else if (cmd == "ur")
             {
