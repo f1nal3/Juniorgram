@@ -18,6 +18,10 @@ namespace Utility
         SUCCESS,
     };
 
+    /**  @brief Enum for tracking message's storing status.
+     *   @details Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& mi) /
+     *    return one of this codes.
+     */
     enum class StoringMessageCodes : std::uint8_t
     {
         SUCCESS,

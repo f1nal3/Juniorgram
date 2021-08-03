@@ -15,21 +15,23 @@ class IRepository
 public:
     /**
      * @brief Draft method for getting all channel list from the server.
-     * @return channels list as vector of strings.
+     * @return channels list as vector of ChannelInfo.
      */
     virtual std::vector<Network::ChannelInfo> getAllChannelsList() = 0;
 
     /**
      * @brief Draft method for getting history for a specific user. \
      * History is all messages that a marked as "non-delivered" for this user.
-     * @param UserID as a string
-     * @return List of messages as vector of strings.
+     * @param channelID - channel's id from which we want to get message history.
+     * @return List of messages as vector of MessageInfo.
      */
     virtual std::vector<Network::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
     
-    /**
-     * @brief Method for storing user's message in repository
-     * @param message as Network::MessageInfo.
+    /**  @brief Method for storing message.
+     *   @params Network::MessageInfo which contains message's data for storing in repository.
+     *   @return The return value of the method is one of the StoringMessageCodes (enum): /
+     *   Storing successful - StoringMessageCodes::SUCCESS. /
+     *   Storing failed     - StoringMessageCodes::FAILED.
      */
     virtual Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& msi) = 0;
     
