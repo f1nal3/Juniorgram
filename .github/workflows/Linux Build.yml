@@ -40,12 +40,9 @@ jobs:
       id: conan-cache
       uses: actions/cache@v2
       with:
-        path: '~/.conan'
+        path: '/home/runner/.conan/'
         key: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
         restore-keys: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
-    
-    - name: DEBUG /home/runner/
-      run: ls /home/runner/
       
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}}
