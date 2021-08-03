@@ -13,6 +13,7 @@ public:
     explicit PopupWidget(QWidget* parent = nullptr);
 
     void setMenu(std::unique_ptr<Menu> menu);
+    void setDeleteOnHide(bool deleteOnHide);
     void popup(const QPoint& point);
 
 protected:
@@ -21,4 +22,5 @@ protected:
 
 private:
     std::unique_ptr<Menu> _innerMenu;
+    bool                  _deleteOnHide = false;
 };

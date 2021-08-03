@@ -2,7 +2,6 @@
 
 #include <QtEvents>
 
-
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
 {
     setContentsMargins(0, 0, 0, 0);

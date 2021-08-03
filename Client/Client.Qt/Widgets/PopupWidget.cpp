@@ -1,7 +1,10 @@
 #include "PopupWidget.hpp"
 
+#include <QDebug>
 #include <QPainter>
+#include <QScreen>
 
+#include "Application.hpp"
 #include "Style/StyleBasic.hpp"
 
 PopupWidget::PopupWidget(QWidget* parent) : QWidget(parent), _innerMenu(nullptr)
@@ -24,17 +27,29 @@ void PopupWidget::paintEvent(QPaintEvent* event)
     painter.drawRect(0, 0, width(), height());
 }
 
-void PopupWidget::hideEvent(QHideEvent* event) { Q_UNUSED(event); }
+void PopupWidget::hideEvent(QHideEvent*)
+{
+    if (_deleteOnHide) deleteLater();
+}
 
 void PopupWidget::popup(const QPoint& point)
 {
-    move(point);
     if (_innerMenu)
     {
         _innerMenu->move(0, 10);
         resize(_innerMenu->width(), _innerMenu->height() + 20);
         _innerMenu->show();
     }
+    auto screen = oApp->screenAt(point);
+    if (!screen) return;
+    auto p = point;
+    auto w = screen->availableGeometry();
+    // Make sure popup is on screen
+    if (p.x() + width() > w.right())
+    {
+        p.rx() -= p.x() + width() - w.right();
+    }
+    move(p);
     show();
 }
 
@@ -44,3 +59,4 @@ void PopupWidget::setMenu(std::unique_ptr<Menu> menu)
     _innerMenu->setParent(this);
     _innerMenu->setTriggeredCallback([=](const CallbackData&) { hide(); });
 }
+void PopupWidget::setDeleteOnHide(bool deleteOnHide) { _deleteOnHide = deleteOnHide; }

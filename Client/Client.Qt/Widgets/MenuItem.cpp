@@ -131,7 +131,7 @@ void MenuItem::processAction()
         _text.clear();
         return;
     }
-    _text                 = _st.itemFont->elided(_action->text(), _st.widthMax);
+    _text                 = _action->text();
     const auto  textWidth = _st.itemFont->width(_text);
     const auto& padding   = _st.itemPadding;
 

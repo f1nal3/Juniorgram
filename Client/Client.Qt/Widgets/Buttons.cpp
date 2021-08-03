@@ -95,24 +95,33 @@ void IconButton::paintEvent(QPaintEvent* event)
     p.setPen(Qt::NoPen);
     p.setBrush(isOver() ? _st.overBgColor : _st.bgColor);
     p.drawRoundedRect(rect(), _st.rounding, _st.rounding);
+    const auto& icon = _iconOverride ? *_iconOverride : _st.icon;
 
-    p.drawPixmap(_st.margins.left(), (height() - _st.icon.size().height()) / 2, *_st.icon);
+    p.drawPixmap(_st.margins.left(), (height() - icon.size().height()) / 2, *icon);
     const Style::font& currentFont = isOver() ? _st.overFont : _st.font;
     p.setFont(currentFont);
     p.setPen(isOver() ? _st.overColor : _st.color);
     QSize  textSize  = QSize(_st.font->width(_text), height() - _st.margins.bottom());
-    QPoint textPoint = QPoint(_st.margins.left() + _st.margins.right() + _st.icon.size().width(), _st.margins.top());
+    QPoint textPoint = QPoint(_st.margins.left() + _st.margins.right() + icon.size().width(), _st.margins.top());
     QRect  textRect  = QRect(textPoint, textSize);
 
-    p.drawText(textRect, _text, Style::al_center);
+    p.drawText(textRect, _text, Style::al_left);
 
     QWidget::paintEvent(event);
 }
 
 void IconButton::updateWidget()
 {
-    const int longestFont = std::max(_st.font->width(_text), _st.overFont->width(_text));
-    setMinimumWidth(_st.margins.left() + _st.margins.right() + _st.icon.size().width() + longestFont);
-    const int biggestFont = std::max(_st.icon.size().height(), std::max(_st.font->height, _st.overFont->height));
+    const int   longestFont = std::max(_st.font->width(_text), _st.overFont->width(_text));
+    const auto& icon        = _iconOverride ? *_iconOverride : _st.icon;
+    setMinimumWidth(_st.margins.left() + _st.margins.right() * 2 + icon.size().width() + longestFont);
+    const int biggestFont = std::max(icon.size().height(), std::max(_st.font->height, _st.overFont->height));
     setMinimumHeight(_st.margins.top() + _st.margins.bottom() + biggestFont);
+    resize(minimumWidth(), minimumHeight());
+}
+
+void IconButton::setIcon(const Style::icon* icon)
+{
+    _iconOverride = icon;
+    updateWidget();
 }
