@@ -142,6 +142,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto userID = future.get();
             auto loginSuccessful = userID != 0;
             
+            std::cout << "DEBUG: userID=" << userID << "\n";
+            
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::LoginAnswer;
             messageToClient.mBody = std::make_any<bool>(loginSuccessful);
