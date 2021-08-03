@@ -10,6 +10,9 @@ Application::Application(int& argc, char** argv) : QApplication(argc, argv) {}
 
 void Application::create()
 {
+    setOrganizationName("L&D C++ Lab");
+    setApplicationName("Juniorgram");
+
     Style::internal::StartFonts();
     _mainWidget = std::make_unique<MainWidget>();
 
@@ -28,7 +31,13 @@ void Application::create()
     _mainWidget->addWidget(std::make_unique<Login>());
     _mainWidget->addWidget(std::make_unique<Registration>());
     _mainWidget->addWidget(std::make_unique<ChatWindow>());
-  
+
+    ReactionLayout::addIcon(0, st::likeIcon);
+    ReactionLayout::addIcon(1, st::dislikeIcon);
+    ReactionLayout::addIcon(2, st::fireIcon);
+    ReactionLayout::addIcon(3, st::catIcon);
+    ReactionLayout::addIcon(4, st::smileIcon);
+
     ConnectionManager::connect();
     std::thread(&ConnectionManager::loop).detach();
 

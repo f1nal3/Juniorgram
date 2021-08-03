@@ -1,18 +1,10 @@
 #pragma once
-constexpr auto EMPTY_MESSAGE   = "Empty message";
-constexpr auto EMPTY_USER_NAME = "You";
-constexpr auto COUNT_REACTION  = 4;
-
 #include <QDateTime>
-#include <QHBoxLayout>
-#include <QSpacerItem>
-#include <QVBoxLayout>
-#include <ctime>
 #include <memory>
 
 #include "Widgets/Buttons.hpp"
 #include "Widgets/InputFields.hpp"
-#include "Widgets/Label.hpp"
+#include "Widgets/ReactionLayout.hpp"
 
 class ChatHistory;
 
@@ -24,6 +16,7 @@ class MessageWidget : public QWidget
     Q_OBJECT
 
 public:
+    /// Message flag
     enum class MessageFlag
     {
         Uploading = 1u << 0u,
@@ -31,6 +24,7 @@ public:
         Deleted   = 1u << 2u,
     };
 
+    /// Message flags
     typedef QFlags<MessageFlag> MessageFlags;
 
     /**
@@ -43,7 +37,7 @@ public:
      * @param username User nickname.
      */
     MessageWidget(QWidget* history, QString message, uint64_t userId, uint64_t messageId, qint64 utc, QString username,
-        const Style::MessageWidget& st = st::defaultMessageWidget);
+                  const Style::MessageWidget& st = st::defaultMessageWidget);
 
     /**
      * @brief Method for method for changing the message.
@@ -66,15 +60,18 @@ public:
      */
     void setReactionMap(std::map<int, int> newReactionMap);
 
+    /// Set message index in array
     void setIndex(int index)
     {
         _index = index;
         update();
     }
 
-    int expectedHeight();
-    uint64_t _userId;
-    uint64_t _messageId;
+    /// Possible height of message widget
+    int expectedHeight() const;
+
+    /// Message DB
+    bool isTheMessage(uint64_t messageId, uint64_t userId) const { return messageId == _messageId && userId == _userId; }
 
 public slots:
     void onDelete();
@@ -99,15 +96,19 @@ private:
         NON
     };
 
-    // Message
-    std::unique_ptr<FlatTextEdit> _fmtMessageText;
-    std::unique_ptr<FlatButton>   _deleteBtn;
-    std::int32_t                  _index = 0;
-    QString                       _messageText;
-    QString                       _username;
-    QDateTime                     _datetime;
-    MessageFlags                  _messageFlags;
-    const Style::MessageWidget&   _st;
+    std::unique_ptr<FlatTextEdit>   _fmtMessageText;
+    std::unique_ptr<FlatButton>     _menuBtn;
+    std::unique_ptr<FlatButton>     _reactionsBtn;
+    std::unique_ptr<ReactionLayout> _reactions;
+    int32_t                         _index = 0;
 
-    std::map<int, int> reactionMap{ {reactions::LIKE, 0}, {reactions::DISLIKE, 0}, {reactions::FIRE, 0}, {reactions::CAT, 0} };
+    uint64_t                    _userId;
+    uint64_t                    _messageId;
+    QString                     _messageText;
+    QString                     _username;
+    QDateTime                   _datetime;
+    MessageFlags                _messageFlags;
+    const Style::MessageWidget& _st;
+
+    std::map<int, int> reactionMap{{reactions::LIKE, 0}, {reactions::DISLIKE, 0}, {reactions::FIRE, 0}, {reactions::CAT, 0}};
 };
