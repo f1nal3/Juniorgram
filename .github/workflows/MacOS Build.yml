@@ -40,7 +40,7 @@ jobs:
       id: conan-cache
       uses: actions/cache@v2
       with:
-        path: '/home/runner/.conan/'
+        path: '/Users/runner/.conan/'
         key: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
         restore-keys: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
       
