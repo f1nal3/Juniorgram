@@ -1,5 +1,5 @@
 [requires]
-asio/1.18.1
+asio/1.19.2
 cryptopp/8.5.0
 expat/2.2.10
 catch2/2.13.4

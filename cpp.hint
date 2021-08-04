@@ -1,0 +1,10 @@
+// Hint files help the Visual Studio IDE interpret Visual C++ identifiers
+// such as names of functions and macros.
+// For more information see https://go.microsoft.com/fwlink/?linkid=865984
+#define QT_Q_ENUM(ENUM) inline const QMetaObject *qt_getEnumMetaObject(ENUM) noexcept { return qt_getQtMetaObject(); } inline Q_DECL_CONSTEXPR const char *qt_getEnumName(ENUM) noexcept { return #ENUM; }
+#define QT_Q_ENUM
+// Hint files help the Visual Studio IDE interpret Visual C++ identifiers
+// such as names of functions and macros.
+// For more information see https://go.microsoft.com/fwlink/?linkid=865984
+#define Q_DECLARE_OPERATORS_FOR_FLAGS(Flags) Q_DECL_CONSTEXPR inline QFlags<Flags::enum_type> operator|(Flags::enum_type f1, Flags::enum_type f2) noexcept { return QFlags<Flags::enum_type>(f1) | f2; } Q_DECL_CONSTEXPR inline QFlags<Flags::enum_type> operator|(Flags::enum_type f1, QFlags<Flags::enum_type> f2) noexcept { return f2 | f1; } Q_DECLARE_INCOMPATIBLE_FLAGS(Flags)
+#define Q_DECLARE_OPERATORS_FOR_FLAGS(Flags)
