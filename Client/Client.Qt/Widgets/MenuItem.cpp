@@ -109,6 +109,8 @@ QAction* MenuItem::action() const { return const_cast<QAction*>(_action); }
 
 void MenuItem::paintEvent(QPaintEvent*)
 {
+    Q_UNUSED(_icon)
+    Q_UNUSED(_iconOver)
     QPainter   p(this);
     const auto enabled  = _action->isEnabled();
     const auto selected = isSelected();

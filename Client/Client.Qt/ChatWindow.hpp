@@ -5,7 +5,6 @@
 #include <QWidget>
 #include <memory>
 
-
 #include "Widgets/ChannelListWidget.hpp"
 #include "Widgets/ChatHistory.hpp"
 #include "Widgets/ChatWidget.hpp"

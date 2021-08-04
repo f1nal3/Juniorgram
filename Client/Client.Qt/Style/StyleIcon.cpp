@@ -1,7 +1,6 @@
 #include "StyleIcon.hpp"
 
 #include <QBitmap>
-#include <QDebug>
 #include <QFile>
 #include <QPainter>
 
