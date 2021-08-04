@@ -88,9 +88,6 @@ private:
     void clearMessage();
 
 private:
-
-    uint64_t _userId;
-    uint64_t _messageId;
     std::unique_ptr<FlatTextEdit>   _fmtMessageText;
     std::unique_ptr<FlatButton>     _menuBtn;
     std::unique_ptr<FlatButton>     _reactionsBtn;
