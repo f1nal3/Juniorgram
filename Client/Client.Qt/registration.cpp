@@ -72,6 +72,9 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
         }
 
         ConnectionManager::getClient().userRegistration(email, login, password);
+
+        // TODO : Check server reply before returning from registration
+        oApp->setAppState(App::AppState::LoginForm);
     });
 }
 
