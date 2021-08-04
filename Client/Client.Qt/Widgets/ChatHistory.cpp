@@ -22,7 +22,6 @@ void ChatHistory::addMessage(const QString& message, quint64 utc, const QString&
     auto history = _scrollArea->widget();
     //The _messageId is incremented for message numbering
     auto msg     = new MessageWidget(history, message, _messageId++, _userId, utc, user);
-
     msg->show();
     msg->resize(history->width() - 25, msg->expectedHeight());
     history->setMinimumHeight(history->minimumHeight() + msg->expectedHeight() + 10);

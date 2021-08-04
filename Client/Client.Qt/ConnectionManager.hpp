@@ -77,37 +77,42 @@ public:
 
                         case Network::Message::MessageType::ChannelListRequest:
                         {
-                            std::cout << "Channel list received: \n";
-                            std::vector<std::string> channelList;
-
-                            for (const auto& item :
-                                 std::any_cast<std::vector<Network::ChannelInfo>>(message.mBody))
-                            {
-                                channelList.emplace_back(item.channelName);
-                                std::cout << item.channelName << '\n';
-                                ChannelListWindow::addChannelInfo(item.channelName);
-                            }
+                            auto channels = std::any_cast<std::vector<Network::ChannelInfo>>(message.mBody);
+                            ChannelListWindow::setChannels(std::move(channels));
+                            
                             ChannelListWindow::mainWidgetStatus.notify_one();
                         }
                         break;
 
-                        case Network::Message::MessageType::MessageHistoryRequest:
+                        case Network::Message::MessageType::MessageHistoryAnswer:
                         {
                             std::cout << "Message history received: \n";
-                            std::vector<std::string> messageList;
+                            std::vector<Network::MessageInfo> messageList;
 
-                            for (const auto& item :
-                                 std::any_cast<std::vector<Network::MessageInfo>>(message.mBody))
+                            for (auto&& item : std::any_cast<std::vector<Network::MessageInfo>>(message.mBody))
                             {
-                                messageList.emplace_back(item.message);
+                                messageList.emplace_back(item);
                                 std::cout << item.message << '\n';
                             }
                         }
                         break;
 
-                        case Network::Message::MessageType::MessageStoreRequest:
+                        case Network::Message::MessageType::MessageStoreAnswer:
                         {
-                            std::cout << "Message were stored" << std::endl;
+                            auto code = std::any_cast<Utility::StoringMessageCodes>(message.mBody);
+
+                            if (code == Utility::StoringMessageCodes::SUCCESS)
+                            {
+                                std::cout << "SUCCESS sending" << std::endl;
+                            }
+                            else if (code == Utility::StoringMessageCodes::FAILED)
+                            {
+                                std::cout << "FAILED sending" << std::endl;
+                            }
+                            else
+                            {
+                                std::cout << "Unknown StoringMessageCode" << std::endl;
+                            }
                         }
                         break;
 
