@@ -7,6 +7,8 @@ set(SOURCE_FILES
 
 if(WIN32)
     set(EXTRA_LIBS ws2_32 wsock32)
+else()
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 endif()
 
 add_executable(${TARGET} ${SOURCE_FILES})
