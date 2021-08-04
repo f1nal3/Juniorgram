@@ -50,6 +50,9 @@ jobs:
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}}
 
+    - name: debug
+      run: otool -L /Users/runner/work/Juniorgram/Juniorgram/build/bin/Utility.Test
+
     - name: Test
       working-directory: ${{github.workspace}}/build
 
