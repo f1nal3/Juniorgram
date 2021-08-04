@@ -19,11 +19,7 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     connect(_textEdit.get(), SIGNAL(sendMessageSignal(QString)), this, SLOT(newMessage(QString)));
 }
 
-void ChatWidget::newMessage(const QString& messageText)
-{
-    // TODO: server handling
-    for (int i = 0; i < 2048; i++) _chatHistory->addMessage(messageText + QString("%1").arg(i), QDateTime::currentSecsSinceEpoch());
-}
+void ChatWidget::newMessage(const QString& messageText) { _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch()); }
 
 void ChatWidget::newMessage(const QString& messageText, const QString& userNameMessage)
 {
