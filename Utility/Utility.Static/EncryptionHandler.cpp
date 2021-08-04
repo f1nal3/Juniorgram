@@ -58,7 +58,6 @@ const void EncryptionHandler::calculateDigestAndGenerateIVBlock(
     const CryptoPP::SecByteBlock& sharedSecret)
 {
     CryptoPP::SHA256().CalculateDigest(mEncryptionKey, sharedSecret, sharedSecret.size());
-
     mRng.GenerateBlock(mIV, CryptoPP::AES::BLOCKSIZE);  // Generate a random IV
 }
 }  // namespace Utility

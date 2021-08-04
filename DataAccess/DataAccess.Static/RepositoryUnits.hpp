@@ -6,8 +6,9 @@
 
 #include "PostgreRepository.hpp"
 
-
+#include <Network.Static/Connection.hpp>
 #include <Network.Static/Primitives.hpp>
+
 #include <Utility/Utility.hpp>
 
 std::string nowTimeStampStr();
@@ -85,6 +86,6 @@ namespace DataAccess
             return sessionManager;
         }
 
-        Utility::SessionCodes addSessionAfterRegistration(const std::string& refreshToken);
+        Utility::SessionCodes addSessionAfterRegistration(const std::shared_ptr<Network::Connection>& client,const std::string& refreshToken);
     };
     }

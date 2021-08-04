@@ -30,6 +30,7 @@ restoreWarning
 namespace Utility
 {
 class  KeyDestributor;
+class SignerAndVerifier;
 class  Handler;
 class  EncryptionHandler;
 class  CompressionHandler;
@@ -61,6 +62,9 @@ public:
 private:
 
     std::unique_ptr<Utility::KeyDestributor> mKeyDestributor;
+
+    std::unique_ptr<Utility::SignerAndVerifier> mSignerAndVerifier;
+
     /// Connection "owner"
     OwnerType mOwner = OwnerType::SERVER;
     /// Connection id
@@ -207,8 +211,12 @@ public:
      */
     void send(const Message& message);
 
-    std::unique_ptr<Utility::KeyDestributor>& getKeyDestributor();
+    std::unique_ptr<Utility::KeyDestributor>& getKeyDestributorInstance();
   
+    std::unique_ptr<Utility::SignerAndVerifier>& getSignerAndVerifierInstance();
+    
+    bool checkSignerAndVerifierExistance();
+
     std::string getIP();
 
 };

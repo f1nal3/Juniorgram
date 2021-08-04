@@ -3,8 +3,10 @@
 #include <Utility.Static/YasSerializer.hpp>
 #include <Utility.Static/CompressionHandler.hpp>
 #include <Utility.Static/SerializationHandler.hpp>
-#include <Utility.Static/KeyDestributor.hpp>
 #include <Utility.Static/EncryptionHandler.hpp>
+
+#include <Utility.Static/SignerAndVerifier.hpp>
+#include <Utility.Static/KeyDestributor.hpp>
 
 namespace Network
 {
@@ -72,13 +74,27 @@ namespace Network
         });
     }
 
-    std::unique_ptr<Utility::KeyDestributor>& Connection::getKeyDestributor()
+    std::unique_ptr<Utility::KeyDestributor>& Connection::getKeyDestributorInstance()
     {
         if (mKeyDestributor == nullptr)
         {
             mKeyDestributor = std::make_unique<Utility::KeyDestributor>();
         }
         return mKeyDestributor;
+    }
+
+    std::unique_ptr<Utility::SignerAndVerifier>& Connection::getSignerAndVerifierInstance()
+    {
+        if (mSignerAndVerifier == nullptr)
+        {
+            mSignerAndVerifier = std::make_unique<Utility::SignerAndVerifier>();
+        }
+        return mSignerAndVerifier;
+    }
+
+    bool Connection::checkSignerAndVerifierExistance()
+    { 
+        return mSignerAndVerifier == nullptr;
     }
 
     std::string Connection::getIP()

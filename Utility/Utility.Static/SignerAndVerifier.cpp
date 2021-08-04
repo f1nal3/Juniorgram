@@ -2,7 +2,7 @@
 
 namespace Utility
 {
-    SignerAndVerifier& SignerAndVerifier::Instance()
+   /* SignerAndVerifier& SignerAndVerifier::Instance()
     {
         if (!mpInstance)
         {
@@ -16,7 +16,7 @@ namespace Utility
             }
         }
         return *mpInstance;
-    }
+    }*/
 
     void SignerAndVerifier::initPoint(const CryptoPP::SecByteBlock& privKey)
     {
@@ -27,26 +27,6 @@ namespace Utility
     {
         mPrivKey.Initialize(mEllipticCurve, mPoint);
         mPrivKey.MakePublicKey(mPubKey);
-
-        //        
-        //std::string publickey;
-        //CryptoPP::StringSink ss(publickey);
-        //mPubKey.Save(ss);
-
-        //std::string privatekey;
-        //CryptoPP::StringSink ssp(privatekey);
-        //mPrivKey.Save(ssp);
-
-        ///*CryptoPP::StringSource ss(key, true);
-        //mPrivKey.BERDecode(ss);*/
-
-        //std::cout << mPrivateKey.CurrentSize();
-        //CryptoPP::byte* bts = new CryptoPP::byte[mPrivateKey.MaxRetrievable()];
-
-        //std::cout << mPrivateKey.MaxRetrievable();
-
-        //mPrivateKey.Peek(bts, mPrivateKey.MaxRetrievable());
-
     }
 
     std::string SignerAndVerifier::getPrivateKey()
@@ -107,16 +87,16 @@ namespace Utility
 
     SignerAndVerifier::~SignerAndVerifier()
     {
-        mpInstance = nullptr;
+        //mpInstance = nullptr;
         mDestroyed = true;
     }
 
     void SignerAndVerifier::killSignerAndVerifier()
     {
-        mpInstance->~SignerAndVerifier();
+       /* mpInstance->~SignerAndVerifier();*/
     }
 
-    void SignerAndVerifier::create()
+  /*  void SignerAndVerifier::create()
     {
         static SignerAndVerifier theInstance;
         mpInstance = &theInstance;
@@ -130,6 +110,6 @@ namespace Utility
         std::atexit(killSignerAndVerifier);
         #endif
         mDestroyed = false;
-    }
+    }*/
 
 }

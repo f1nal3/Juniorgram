@@ -119,17 +119,22 @@ namespace Signing
 {
 std::string signData(const std::shared_ptr<Network::Connection>& client, std::string& data)
 {
-    Utility::SignerAndVerifier::Instance().initPoint(client->getKeyDestributor().get()->getPrivateServerKey());
-    Utility::SignerAndVerifier::Instance().initPrivateAndPublicKey();
-    Utility::SignerAndVerifier::Instance().loadPrivateKey();
-
-    return Utility::SignerAndVerifier::Instance().sign(data);
+    if (client->checkSignerAndVerifierExistance())
+    {
+        client->getSignerAndVerifierInstance()->initPoint(client->getKeyDestributorInstance()->getPrivateServerKey());
+        client->getSignerAndVerifierInstance()->initPrivateAndPublicKey();
+        client->getSignerAndVerifierInstance()->loadPrivateKey();
+    }
+    return client->getSignerAndVerifierInstance()->sign(data);
 }
 
-bool verifyData(const std::string& data, const std::string& signature)
+bool verifyData(const std::shared_ptr<Network::Connection>& client, const std::string& data,
+                const std::string& signature)
 {
-    Utility::SignerAndVerifier::Instance().loadPublicKey();
-
-    return Utility::SignerAndVerifier::Instance().verify(data, signature);
+    if (client->checkSignerAndVerifierExistance())
+    {
+        client->getSignerAndVerifierInstance()->loadPublicKey();
+    }
+    return client->getSignerAndVerifierInstance()->verify(data, signature);
 }
 }  // namespace Signing

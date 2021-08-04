@@ -12,7 +12,7 @@ bool Server::onClientConnect(const std::shared_ptr<Network::Connection>& client)
     client->send(message);
 
     message.mHeader.mMessageType = Network::Message::MessageType::SetEncryptedConnection;
-    message.mBody = std::make_any<std::string>((*client->getKeyDestributor()).getPublicServerKey());
+    message.mBody = std::make_any<std::string>(client->getKeyDestributorInstance()->getPublicServerKey());
     client->send(message);
 
     return true;
@@ -55,9 +55,9 @@ void Server::onMessage(const std::shared_ptr<Network::Connection>& client, Netwo
         {
             std::string publicClientKey = std::any_cast<std::string>(message.mBody);
 
-            client->getKeyDestributor().get()->setPublicClientKey(publicClientKey);
+            client->getKeyDestributorInstance()->setPublicClientKey(publicClientKey);
 
-            client->getKeyDestributor().get()->calculateSharedSecret();
+            client->getKeyDestributorInstance()->calculateSharedSecret();
 
             message.mHeader.mMessageType = Network::Message::MessageType::SendIV;
 
@@ -186,7 +186,7 @@ void Server::onMessage(const std::shared_ptr<Network::Connection>& client, Netwo
                 restoreWarning
 
                 auto sessionCode = std::async(std::launch::async, &DataAccess::SessionsManagementUnit::addSessionAfterRegistration,
-                               &DataAccess::SessionsManagementUnit::instance(), refreshToken);
+                        &DataAccess::SessionsManagementUnit::instance(), client, refreshToken);
 
 
 

@@ -62,7 +62,7 @@ std::string RegistrationUnit::getUserIdByLogin(const Network::RegistrationInfo& 
     return getUserId("email = '" + ri.email + "'");
 }
 
-Utility::SessionCodes SessionsManagementUnit::addSessionAfterRegistration(const std::string& refreshToken)
+Utility::SessionCodes SessionsManagementUnit::addSessionAfterRegistration(const std::shared_ptr<Network::Connection>& client, const std::string& refreshToken)
 {
     suppressWarning(4239, Init)
     std::string decodedPayload = Coding::getBASE64DecodedValue(Utility::extractPayload(refreshToken));
@@ -80,8 +80,8 @@ Utility::SessionCodes SessionsManagementUnit::addSessionAfterRegistration(const 
         std::pair{"updated_at", Utility::WithoutQuotes("to_timestamp(" + std::string(mJRepresentation["upd"]) + ")::timestamp")},
         std::pair{"fingerprint", std::string(mJRepresentation["sub"])},
         std::pair{"refresh_token", std::string(refreshToken)},
-        std::pair{"signature_key", std::string()},
-        std::pair{"signature_verification_key", std::string("verif")},
+        std::pair{"signature_key", std::string(client->getSignerAndVerifierInstance()->getPrivateKey())},
+        std::pair{"signature_verification_key", std::string(client->getSignerAndVerifierInstance()->getPublicKey())},
 
     };
 

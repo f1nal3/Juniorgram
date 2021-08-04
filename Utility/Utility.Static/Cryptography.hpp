@@ -65,5 +65,6 @@ std::string getBASE64DecodedValue(std::string& decodedStr);
 namespace Signing
 {
 std::string signData(const std::shared_ptr<Network::Connection>& client, std::string& data);
-bool verifyData(const std::string& data, const std::string& signature);
+bool verifyData(const std::shared_ptr<Network::Connection>& client, const std::string& data,
+                const std::string& signature);
 }

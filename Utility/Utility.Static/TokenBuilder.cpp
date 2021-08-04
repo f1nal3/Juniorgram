@@ -88,6 +88,9 @@ namespace Utility
                 [&finaleJSONToken, &client](BuildSignature& s, GetSignature event) -> TransitionTo<BuildHeader> {
                     std::string signedTokenPart = Signing::signData(client, finaleJSONToken);
 
+                    std::cout << "Our signature [" << client->getID() << "]: " << signedTokenPart
+                              << "\n\n\n\n";
+
                     finaleJSONToken += signedTokenPart;
                     return {};
                 });
