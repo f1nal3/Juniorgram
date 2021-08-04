@@ -2,7 +2,6 @@
 #include <QWidget>
 #include <memory>
 
-
 /**
  * @brief Adds logo to main screens
  */
@@ -25,11 +24,11 @@ public:
      * @brief Sets part for logo to take place in
      * @param percent Value in [0, 100]
      */
-    void  setPart(int percent);
+    void setPart(int percent);
     /**
      * @brief Recalculates size of widget if parent widget geometry changed
      */
-    void  recountSize();
+    void recountSize();
 
 protected:
     void paintEvent(QPaintEvent* paintEvent) override;

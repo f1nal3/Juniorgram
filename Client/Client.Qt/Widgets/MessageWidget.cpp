@@ -1,21 +1,24 @@
 #include "MessageWidget.hpp"
-#include "ConnectionManager.hpp"
 
+#include <QDebug>
 #include <QPainter>
 #include <QtEvents>
 #include <utility>
 
-#include "ChatHistory.hpp"
+#include "ConnectionManager.hpp"
 #include "Style/Style.hpp"
+#include "Widgets/ChatHistory.hpp"
+#include "Widgets/ReactionLayout.hpp"
 
-MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId, uint64_t messageId, qint64 utc, QString username, const Style::MessageWidget& st)
+MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId, uint64_t messageId, qint64 utc, QString username,
+                             const Style::MessageWidget& st)
     : QWidget(history),
-    _userId(userId),
-    _messageId(messageId),
-    _messageText(std::move(message)),
-    _username(std::move(username)),
-    _datetime(QDateTime::fromSecsSinceEpoch(utc)),
-    _st(st)
+      _userId(userId),
+      _messageId(messageId),
+      _messageText(std::move(message)),
+      _username(std::move(username)),
+      _datetime(QDateTime::fromSecsSinceEpoch(utc)),
+      _st(st)
 {
     setContentsMargins(QMargins(_st.radius, _st.radius, _st.radius, _st.radius));
     setMinimumHeight(_st.fontname->height + _st.radius * 2);
@@ -28,9 +31,24 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
     _fmtMessageText->setFont(_st.fonttext);
     _fmtMessageText->move(_st.radius * 2, _st.fontname->height + _st.radius * 4);
     _fmtMessageText->show();
-    _deleteBtn = std::make_unique<FlatButton>(this, "Delete", _st.button);
+    _menuBtn = std::make_unique<FlatButton>(this, "Menu", _st.button);
+    _menuBtn->setClickCallback([=]() {
+        auto popup = new PopupWidget();
+        popup->setDeleteOnHide(true);
+        auto       messageMenu   = std::make_unique<Menu>();
+        const auto menuReactions = new ReactionLayout(this, 400, 0, true);
+        messageMenu->addAction(menuReactions);
+        messageMenu->addSeparator();
+
+        // TODO: implement a better way to delete a message "through server"
+        messageMenu->addAction("Delete message", [=]() { onDelete(); });
+        popup->setMenu(std::move(messageMenu));
+
+        auto globalPoint = mapToGlobal(QPoint(_menuBtn->x(), _menuBtn->height()));
+        popup->popup(QPoint(globalPoint.x(), globalPoint.y() + 1));
+    });
+    _reactions = std::make_unique<ReactionLayout>(this);
     resize(width(), expectedHeight());
-    _deleteBtn->setClickCallback([&]() { onDelete(); });
 }
 
 void MessageWidget::paintEvent(QPaintEvent* e)
@@ -66,9 +84,11 @@ void MessageWidget::resizeEvent(QResizeEvent* e)
 {
     geometryChanged(e->size().height() - e->oldSize().height());
     if (_messageFlags & MessageFlag::Deleted) return QWidget::resizeEvent(e);
-    int deleteButtonX = width() - _st.radius - _deleteBtn->width();
-    _deleteBtn->move(deleteButtonX, _st.radius);
+    _reactions->recountSize();
+    int deleteButtonX = width() - _st.radius - _menuBtn->width();
+    _menuBtn->move(deleteButtonX, _st.radius);
     _fmtMessageText->resize(width() - _st.radius * 4 - 1, _fmtMessageText->document()->size().height());
+    _reactions->move(_st.radius * 2, _fmtMessageText->y() + _fmtMessageText->document()->size().height() + _st.radius);
 
     if (expectedHeight() != height())
     {
@@ -110,24 +130,24 @@ void MessageWidget::setTime(qint64 utc)
     update();
 }
 
-void MessageWidget::setReactionMap(std::map<int, int> newReactionMap)
+void MessageWidget::setReactionMap(const std::map<uint32_t, uint32_t>& newReactionMap)
 {
-    reactionMap = std::move(newReactionMap);
+    _reactions->setReactionsModel(newReactionMap);
     update();
 }
 
 void MessageWidget::clearMessage()
 {
     _fmtMessageText->hide();
-    _deleteBtn->hide();
+    _menuBtn->hide();
 }
 
-int MessageWidget::expectedHeight()
+int MessageWidget::expectedHeight() const
 {
     if (!_fmtMessageText) return 0;
     if (_messageFlags & MessageFlag::Deleted)
     {
         return _st.fontname->height + _st.radius * 2;
     }
-    return _st.radius * 6 + _st.fontname->height + _fmtMessageText->document()->size().height();
+    return _st.radius * 7 + _st.fontname->height + _fmtMessageText->document()->size().height() + _reactions->layoutSize().height();
 }

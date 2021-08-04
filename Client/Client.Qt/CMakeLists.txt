@@ -10,10 +10,6 @@ set(SOURCE_FILES
         Widgets/TitleWidget.hpp
         Widgets/AbstractButton.cpp
         Widgets/AbstractButton.hpp
-        Widgets/BioButton.cpp
-        Widgets/BioButton.hpp
-        Widgets/CaptionButton.cpp
-        Widgets/CaptionButton.hpp
         Widgets/ChannelListWidget.cpp
         Widgets/ChannelListWidget.hpp
         Widgets/ChannelListWindow.cpp
@@ -24,8 +20,8 @@ set(SOURCE_FILES
         Widgets/ChatWidget.hpp
         Widgets/ComboBox.cpp
         Widgets/ComboBox.hpp
-        Widgets/FlatButton.cpp
-        Widgets/FlatButton.hpp
+        Widgets/Buttons.cpp
+        Widgets/Buttons.hpp
         Widgets/InputFields.cpp
         Widgets/InputFields.hpp
         Widgets/Label.cpp
@@ -46,6 +42,8 @@ set(SOURCE_FILES
         Widgets/ScrollArea.hpp
         Widgets/TextEdit.cpp
         Widgets/TextEdit.hpp
+        Widgets/ReactionLayout.cpp
+        Widgets/ReactionLayout.hpp
         Style/Palette.cpp
         Style/Palette.hpp
         Style/Shadow.hpp
