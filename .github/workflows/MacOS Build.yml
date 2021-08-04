@@ -52,7 +52,7 @@ jobs:
       run: otool -L /Users/runner/work/Juniorgram/Juniorgram/build/bin/Utility.Test
       
     - name: qt find
-      run: find / -name "Versions/5/QtWidgets"
+      run: find / -name "QtWidgets"
 
     - name: Test
       working-directory: ${{github.workspace}}/build
