@@ -48,11 +48,6 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
         popup->popup(QPoint(globalPoint.x(), globalPoint.y() + 1));
     });
     _reactions = std::make_unique<ReactionLayout>(this);
-    std::map<uint32_t, uint32_t> model;
-    model.insert({1, 16});
-    model.insert({2, 15});
-    model.insert({0, 3});
-    _reactions->setReactionsModel(model);
     resize(width(), expectedHeight());
 }
 
