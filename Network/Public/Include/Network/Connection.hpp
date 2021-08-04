@@ -284,7 +284,7 @@ public:
      * @details ID gets assigned to connection on successful login
      * @return userID as stored in repository
      */
-    std::uint64_t getUserID() { return userID; }
+    std::uint64_t getUserID() const { return userID; }
     
     /**
      * @brief Method for setting userID for this connection
