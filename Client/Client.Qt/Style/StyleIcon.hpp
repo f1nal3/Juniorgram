@@ -12,8 +12,8 @@ class Icon;
 
 enum IconType
 {
-    KW       = 0,
-    REACTION = 1
+    Contrasted = 0,
+    Colored    = 1
 };
 
 /**
@@ -52,7 +52,7 @@ public:
     /// Empty initialization
     Icon(Qt::Initialization = Qt::Uninitialized) {}
     /// File initialization
-    Icon(const QString& file, IconType type = REACTION);
+    Icon(const QString& file, IconType type = Colored);
     /// File initialization
     Icon(const QString& file, int type);
     /// Copy constructor

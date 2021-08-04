@@ -31,7 +31,7 @@ void PopupWidget::hideEvent(QHideEvent*)
     if (_deleteOnHide) deleteLater();
 }
 
-void PopupWidget::popup(const QPoint& point)
+void PopupWidget::popup(const QPoint& globalPoint)
 {
     if (_innerMenu)
     {
@@ -39,9 +39,9 @@ void PopupWidget::popup(const QPoint& point)
         resize(_innerMenu->width(), _innerMenu->height() + 20);
         _innerMenu->show();
     }
-    auto screen = oApp->screenAt(point);
+    auto screen = oApp->screenAt(globalPoint);
     if (!screen) return;
-    auto p = point;
+    auto p = globalPoint;
     auto w = screen->availableGeometry();
     // Make sure popup is on screen
     if (p.x() + width() > w.right())

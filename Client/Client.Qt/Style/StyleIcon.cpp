@@ -15,7 +15,7 @@ IconData::IconData(const QString& filename, IconType type, const QColor& activeT
     _image = QImage();
     _image.load(filename);
     if (_image.isNull()) return;
-    if (type == KW)
+    if (type == Contrasted)
     {
         auto   alpha     = QPixmap::fromImage(_image.createAlphaMask());
         QImage fakeImage = QImage(_image.size(), _image.format());
@@ -53,7 +53,7 @@ QSize internal::IconData::size() const { return _size; }
 Icon::Icon(const QString& file, IconType iconType)
 {
     QString filename = file;
-    if (iconType == KW)
+    if (iconType == Contrasted)
     {
         int scale = Style::getDpiScale();
         scale -= Style::getDpiScale() % 25;
