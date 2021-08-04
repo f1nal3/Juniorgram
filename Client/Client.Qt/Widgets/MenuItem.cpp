@@ -141,3 +141,17 @@ void MenuItem::processAction()
     _textWidth   = w - (goodWidth - textWidth);
     update();
 }
+
+WidgetItem::WidgetItem(QWidget* parent, QWidgetAction* action) : ItemBase(parent), _action(action)
+{
+    const auto defaultWidget = action->defaultWidget();
+    setMinimumSize(defaultWidget->size());
+    defaultWidget->setParent(this);
+    defaultWidget->show();
+}
+
+QAction* WidgetItem::action() const { return _action; }
+
+bool WidgetItem::isEnabled() const { return true; }
+
+int WidgetItem::contentHeight() const { return _action->defaultWidget()->height(); }

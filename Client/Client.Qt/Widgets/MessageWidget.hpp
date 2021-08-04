@@ -58,7 +58,7 @@ public:
      * @brief Method for changing reaction map.
      * @param new reactions of map with kay int and value int.
      */
-    void setReactionMap(std::map<int, int> newReactionMap);
+    void setReactionMap(const std::map<uint32_t, uint32_t>& newReactionMap);
 
     /// Set message index in array
     void setIndex(int index)
@@ -87,19 +87,11 @@ private:
     void clearMessage();
 
 private:
-    enum reactions
-    {
-        LIKE,
-        DISLIKE,
-        FIRE,
-        CAT,
-        NON
-    };
-
     std::unique_ptr<FlatTextEdit>   _fmtMessageText;
     std::unique_ptr<FlatButton>     _menuBtn;
     std::unique_ptr<FlatButton>     _reactionsBtn;
     std::unique_ptr<ReactionLayout> _reactions;
+    std::unique_ptr<ReactionLayout> _reactionsInMenu;
     int32_t                         _index = 0;
 
     uint64_t                    _userId;
@@ -109,6 +101,4 @@ private:
     QDateTime                   _datetime;
     MessageFlags                _messageFlags;
     const Style::MessageWidget& _st;
-
-    std::map<int, int> reactionMap{{reactions::LIKE, 0}, {reactions::DISLIKE, 0}, {reactions::FIRE, 0}, {reactions::CAT, 0}};
 };

@@ -35,9 +35,12 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
     _menuBtn->setClickCallback([=]() {
         auto popup = new PopupWidget();
         popup->setDeleteOnHide(true);
-        auto messageMenu = std::make_unique<Menu>();
-        // TODO: implement a better way to delete a message
+        auto       messageMenu   = std::make_unique<Menu>();
+        const auto menuReactions = new ReactionLayout(this, 400, 0, true);
+        messageMenu->addAction(menuReactions);
         messageMenu->addSeparator();
+
+        // TODO: implement a better way to delete a message "through server"
         messageMenu->addAction("Delete message", [=]() { onDelete(); });
         popup->setMenu(std::move(messageMenu));
 
@@ -45,7 +48,7 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
         popup->popup(QPoint(globalPoint.x(), globalPoint.y() + 1));
     });
     _reactions = std::make_unique<ReactionLayout>(this);
-    std::unordered_map<uint32_t, uint32_t> model;
+    std::map<uint32_t, uint32_t> model;
     model.insert({1, 16});
     model.insert({2, 15});
     model.insert({0, 3});
@@ -132,9 +135,9 @@ void MessageWidget::setTime(qint64 utc)
     update();
 }
 
-void MessageWidget::setReactionMap(std::map<int, int> newReactionMap)
+void MessageWidget::setReactionMap(const std::map<uint32_t, uint32_t>& newReactionMap)
 {
-    reactionMap = std::move(newReactionMap);
+    _reactions->setReactionsModel(newReactionMap);
     update();
 }
 

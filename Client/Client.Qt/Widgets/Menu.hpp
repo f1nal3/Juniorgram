@@ -20,6 +20,13 @@ public:
     explicit Menu(QWidget* parent = nullptr, const Style::Menu& st = st::defaultMenu);
 
     /**
+     * @breif Adds widget to a menu
+     * @pararm widget
+     * @return Action of widget
+     */
+    QAction* addAction(QWidget* widget);
+
+    /**
      * @brief Adds menu item callbackData to menu
      * @param callbackData MenuItem callbackData
      * @return Action of menu item
@@ -87,9 +94,9 @@ public:
     /**
      * @brief removes selection
      */
-    void      clearSelection();
-    void      setSelected(int32_t selected);
-    void      updateSelected(const QPoint& globalPosition);
+    void clearSelection();
+    void setSelected(int32_t selected);
+    void updateSelected(const QPoint& globalPosition);
 
 protected:
     void mousePressEvent(QMouseEvent* event) override;

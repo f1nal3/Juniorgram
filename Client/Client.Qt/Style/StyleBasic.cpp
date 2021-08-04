@@ -17,10 +17,10 @@ public:
 };
 Module_StyleBasic registrator;
 
-int                   _fsize                  = 0;
-Style::font           _defaultFont            = {Qt::Uninitialized};
-Style::font           _semiboldFont           = {Qt::Uninitialized};
-Style::Menu           _defaultMenu            = {0,
+int                   _fsize                    = 0;
+Style::font           _defaultFont              = {Qt::Uninitialized};
+Style::font           _semiboldFont             = {Qt::Uninitialized};
+Style::Menu           _defaultMenu              = {0,
                             {0, 0, 0, 0},
                             {Qt::Uninitialized},
                             {0, 0, 0, 0},
@@ -32,20 +32,20 @@ Style::Menu           _defaultMenu            = {0,
                             {Qt::Uninitialized},
                             0,
                             0};
-Style::TitleBarButton _defaultTitleBarButton  = {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, 0, 0};
-Style::TitleBarButton _closeButton            = {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, 0, 0};
-Style::TitleBarButton _restoreButton          = {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, 0, 0};
-Style::TitleBarButton _maximizeButton         = {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, 0, 0};
-Style::TitleBarButton _minimizeButton         = {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, 0, 0};
-Style::TitleBar       _defaultTitleBar        = {{Qt::Uninitialized},
+Style::TitleBarButton _defaultTitleBarButton    = {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, 0, 0};
+Style::TitleBarButton _closeButton              = {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, 0, 0};
+Style::TitleBarButton _restoreButton            = {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, 0, 0};
+Style::TitleBarButton _maximizeButton           = {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, 0, 0};
+Style::TitleBarButton _minimizeButton           = {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, 0, 0};
+Style::TitleBar       _defaultTitleBar          = {{Qt::Uninitialized},
                                     {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, 0, 0},
                                     {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, 0, 0},
                                     {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, 0, 0},
                                     {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, 0, 0}};
-int                   _defaultMargin          = 0;
-Style::margins        _mar                    = {0, 0, 0, 0};
-Style::font           _TextStyle              = {Qt::Uninitialized};
-Style::IconButton     _defaultIconButton      = {{Qt::Uninitialized},
+int                   _defaultMargin            = 0;
+Style::margins        _mar                      = {0, 0, 0, 0};
+Style::font           _TextStyle                = {Qt::Uninitialized};
+Style::IconButton     _defaultIconButton        = {{Qt::Uninitialized},
                                         {Qt::Uninitialized},
                                         {Qt::Uninitialized},
                                         {Qt::Uninitialized},
@@ -55,7 +55,17 @@ Style::IconButton     _defaultIconButton      = {{Qt::Uninitialized},
                                         {Qt::Uninitialized},
                                         {Qt::Uninitialized},
                                         0};
-Style::IconButton     _reactionIconButton     = {{Qt::Uninitialized},
+Style::IconButton     _reactionIconButtonInMenu = {{Qt::Uninitialized},
+                                               {Qt::Uninitialized},
+                                               {Qt::Uninitialized},
+                                               {Qt::Uninitialized},
+                                               {Qt::Uninitialized},
+                                               {0, 0, 0, 0},
+                                               0,
+                                               {Qt::Uninitialized},
+                                               {Qt::Uninitialized},
+                                               0};
+Style::IconButton     _reactionIconButton       = {{Qt::Uninitialized},
                                          {Qt::Uninitialized},
                                          {Qt::Uninitialized},
                                          {Qt::Uninitialized},
@@ -65,7 +75,7 @@ Style::IconButton     _reactionIconButton     = {{Qt::Uninitialized},
                                          {Qt::Uninitialized},
                                          {Qt::Uninitialized},
                                          0};
-Style::IconButton     _userReactionIconButton = {{Qt::Uninitialized},
+Style::IconButton     _userReactionIconButton   = {{Qt::Uninitialized},
                                              {Qt::Uninitialized},
                                              {Qt::Uninitialized},
                                              {Qt::Uninitialized},
@@ -75,13 +85,13 @@ Style::IconButton     _userReactionIconButton = {{Qt::Uninitialized},
                                              {Qt::Uninitialized},
                                              {Qt::Uninitialized},
                                              0};
-Style::icon           _smileIcon              = {Qt::Uninitialized};
-Style::icon           _dislikeIcon            = {Qt::Uninitialized};
-Style::icon           _likeIcon               = {Qt::Uninitialized};
-Style::icon           _fireIcon               = {Qt::Uninitialized};
-Style::icon           _catIcon                = {Qt::Uninitialized};
-Style::LinkButton     _defaultLinkButton      = {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}};
-Style::FlatButton     _defaultFlatButton      = {
+Style::icon           _smileIcon                = {Qt::Uninitialized};
+Style::icon           _dislikeIcon              = {Qt::Uninitialized};
+Style::icon           _likeIcon                 = {Qt::Uninitialized};
+Style::icon           _fireIcon                 = {Qt::Uninitialized};
+Style::icon           _catIcon                  = {Qt::Uninitialized};
+Style::LinkButton     _defaultLinkButton        = {{Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}};
+Style::FlatButton     _defaultFlatButton        = {
     {0, 0, 0, 0},       0, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized}, {Qt::Uninitialized},
     {Qt::Uninitialized}};
 Style::FlatButton _stylingButton = {
@@ -139,6 +149,7 @@ const int&                   defaultMargin(_defaultMargin);
 const Style::margins&        mar(_mar);
 const Style::font&           TextStyle(_TextStyle);
 const Style::IconButton&     defaultIconButton(_defaultIconButton);
+const Style::IconButton&     reactionIconButtonInMenu(_reactionIconButtonInMenu);
 const Style::IconButton&     reactionIconButton(_reactionIconButton);
 const Style::IconButton&     userReactionIconButton(_userReactionIconButton);
 const Style::icon&           smileIcon(_smileIcon);
@@ -166,6 +177,7 @@ namespace internal
 namespace
 {
 int  px0   = 0;
+int  px1   = 1;
 int  px2   = 2;
 int  px3   = 3;
 int  px4   = 4;
@@ -182,6 +194,7 @@ int  px300 = 300;
 void initPxValues(int scale)
 {
     px0   = ConvertScale(0, scale);
+    px1   = ConvertScale(1, scale);
     px2   = ConvertScale(2, scale);
     px3   = ConvertScale(3, scale);
     px4   = ConvertScale(4, scale);
@@ -208,10 +221,10 @@ void init_StyleBasic(int scale)
 
     initPxValues(scale);
 
-    _fsize                  = px15;
-    _defaultFont            = {px15, 0, 0};
-    _semiboldFont           = {px15, 16, 0};
-    _defaultMenu            = {px2,
+    _fsize                    = px15;
+    _defaultFont              = {px15, 0, 0};
+    _semiboldFont             = {px15, 16, 0};
+    _defaultMenu              = {px2,
                     {px4, px4, px4, px4},
                     st::windowActiveTextFg,
                     {px4, px4, px4, px4},
@@ -223,16 +236,16 @@ void init_StyleBasic(int scale)
                     st::windowColorOver,
                     px100,
                     px300};
-    _defaultTitleBarButton  = {st::titleButton, st::titleButtonOver, {":", 0}, px30, px46};
-    _closeButton            = {st::closeButtonC, st::closeButtonCOver, {":icons/close", 0}, px30, px46};
-    _restoreButton          = {st::titleButton, st::titleButtonOver, {":icons/restore", 0}, px30, px46};
-    _maximizeButton         = {st::titleButton, st::titleButtonOver, {":icons/max", 0}, px30, px46};
-    _minimizeButton         = {st::titleButton, st::titleButtonOver, {":icons/min", 0}, px30, px46};
-    _defaultTitleBar        = {st::windowColor, st::closeButton, st::maximizeButton, st::restoreButton, st::minimizeButton};
-    _defaultMargin          = px8;
-    _mar                    = {px8, px8, px8, px8};
-    _TextStyle              = {px14, 1, 0};
-    _defaultIconButton      = {st::windowColor,
+    _defaultTitleBarButton    = {st::titleButton, st::titleButtonOver, {":", 0}, px30, px46};
+    _closeButton              = {st::closeButtonC, st::closeButtonCOver, {":icons/close", 0}, px30, px46};
+    _restoreButton            = {st::titleButton, st::titleButtonOver, {":icons/restore", 0}, px30, px46};
+    _maximizeButton           = {st::titleButton, st::titleButtonOver, {":icons/max", 0}, px30, px46};
+    _minimizeButton           = {st::titleButton, st::titleButtonOver, {":icons/min", 0}, px30, px46};
+    _defaultTitleBar          = {st::windowColor, st::closeButton, st::maximizeButton, st::restoreButton, st::minimizeButton};
+    _defaultMargin            = px8;
+    _mar                      = {px8, px8, px8, px8};
+    _TextStyle                = {px14, 1, 0};
+    _defaultIconButton        = {st::windowColor,
                           st::windowColorOver,
                           st::windowActiveTextFg,
                           st::windowActiveTextFg,
@@ -242,7 +255,17 @@ void init_StyleBasic(int scale)
                           {px15, 0, 0},
                           {px15, 0, 0},
                           500};
-    _reactionIconButton     = {st::windowColor,
+    _reactionIconButtonInMenu = {st::windowColor,
+                                 st::windowColorOver,
+                                 st::windowActiveTextFg,
+                                 st::windowActiveTextFg,
+                                 {":icons/max", 0},
+                                 {px4, px4, px4, px4},
+                                 px0,
+                                 {px1, 0, 0},
+                                 {px1, 0, 0},
+                                 500};
+    _reactionIconButton       = {st::windowColor,
                            st::windowColorOver,
                            st::windowActiveTextFg,
                            st::windowActiveTextFg,
@@ -252,7 +275,7 @@ void init_StyleBasic(int scale)
                            {px12, 0, 0},
                            {px12, 0, 0},
                            500};
-    _userReactionIconButton = {st::windowColor,
+    _userReactionIconButton   = {st::windowColor,
                                st::windowColorOver,
                                st::windowActiveTextFg,
                                st::windowActiveTextFg,
@@ -262,12 +285,12 @@ void init_StyleBasic(int scale)
                                {px12, 1, 0},
                                {px12, 1, 0},
                                500};
-    _smileIcon              = {":reactions/smile.png", 1};
-    _dislikeIcon            = {":reactions/dislike.png", 1};
-    _likeIcon               = {":reactions/like.png", 1};
-    _fireIcon               = {":reactions/fire.png", 1};
-    _catIcon                = {":reactions/cat.png", 1};
-    _defaultLinkButton      = {st::linkButtonColor, st::linkButtonOverColor, {px15, 0, 0}, {px15, 2, 0}};
+    _smileIcon                = {":reactions/smile.png", 1};
+    _dislikeIcon              = {":reactions/dislike.png", 1};
+    _likeIcon                 = {":reactions/like.png", 1};
+    _fireIcon                 = {":reactions/fire.png", 1};
+    _catIcon                  = {":reactions/cat.png", 1};
+    _defaultLinkButton        = {st::linkButtonColor, st::linkButtonOverColor, {px15, 0, 0}, {px15, 2, 0}};
     _defaultFlatButton = {st::mar,      px5,         st::windowActiveTextFg, st::windowActiveTextFg, st::windowColor, st::windowColorOver,
                           {px15, 0, 0}, {px15, 0, 0}};
     _stylingButton     = {st::mar,      px5,         st::windowActiveTextFg, st::windowActiveTextFg, st::window, st::windowColorOver,

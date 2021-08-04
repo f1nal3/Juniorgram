@@ -1,8 +1,10 @@
 #include "Menu.hpp"
 
 #include <QAction>
+#include <QWidgetAction>
 #include <QtEvents>
 
+#include "ReactionLayout.hpp"
 #include "Style/StyleBasic.hpp"
 
 QAction* CreateAction(QWidget* actionparent, const QString& text, std::function<void()>&& callback)
@@ -20,10 +22,35 @@ Menu::Menu(QWidget* parent, const Style::Menu& st) : QWidget(parent), _st(st)
 
 void Menu::paintEvent(QPaintEvent* paintEvent) { QWidget::paintEvent(paintEvent); }
 
+QAction* Menu::addAction(QWidget* widget)
+{
+    const auto action = new QWidgetAction(this);
+    action->setDefaultWidget(widget);
+    _actions.emplace_back(action);
+
+    const auto item = new WidgetItem(this, action);
+
+    const int top = _items.empty() ? 0 : _items.back()->y() + _items.back()->contentHeight();
+    item->move(0, top);
+    item->show();
+
+    connect(dynamic_cast<ReactionLayout*>(widget), &ReactionLayout::clicked, [=](const CallbackData& callbackData) {
+        if (_triggeredCallback)
+        {
+            _triggeredCallback(callbackData);
+        }
+    });
+
+    _items.push_back(std::unique_ptr<ItemBase>(item));
+    resize(width(), _items.empty() ? 0 : _items.back()->y() + widget->height());
+
+    return action;
+}
+
 QAction* Menu::addAction(const QString& text, std::function<void()>&& callback, const Style::icon* icon, const Style::icon* iconOver)
 {
     auto action = CreateAction(this, text, std::move(callback));
-    return addAction(std::move(action), icon, iconOver);
+    return addAction(action, icon, iconOver);
 }
 
 QAction* Menu::addAction(QAction* action, const Style::icon* icon, const Style::icon* iconOver)
@@ -51,7 +78,7 @@ QAction* Menu::addAction(std::unique_ptr<ItemBase> widget)
 
     widget->setParent(this);
 
-    const int top = _items.empty() ? 0 : _items.back()->y() + _items.back()->height();
+    const int top = _items.empty() ? 0 : _items.back()->y() + _items.back()->contentHeight();
     widget->move(0, top);
     widget->show();
 

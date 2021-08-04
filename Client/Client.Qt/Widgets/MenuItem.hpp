@@ -1,5 +1,6 @@
 #pragma once
 #include <QWidget>
+#include <QWidgetAction>
 
 #include "Buttons.hpp"
 #include "Style/StyleBasic.hpp"
@@ -40,6 +41,18 @@ private:
     int32_t _index = -1;
 
     bool _selected = false;
+};
+
+class WidgetItem : public ItemBase
+{
+public:
+    explicit WidgetItem(QWidget* parent, QWidgetAction* action);
+    [[nodiscard]] QAction* action() const override;
+    [[nodiscard]] bool     isEnabled() const override;
+    [[nodiscard]] int      contentHeight() const override;
+
+private:
+    QWidgetAction* _action;
 };
 
 class MenuItem : public ItemBase

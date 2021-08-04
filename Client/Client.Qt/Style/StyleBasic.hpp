@@ -133,6 +133,7 @@ extern const int&                   defaultMargin;
 extern const Style::margins&        mar;
 extern const Style::font&           TextStyle;
 extern const Style::IconButton&     defaultIconButton;
+extern const Style::IconButton&     reactionIconButtonInMenu;
 extern const Style::IconButton&     reactionIconButton;
 extern const Style::IconButton&     userReactionIconButton;
 extern const Style::icon&           smileIcon;

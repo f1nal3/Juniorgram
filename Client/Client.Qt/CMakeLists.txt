@@ -42,6 +42,8 @@ set(SOURCE_FILES
         Widgets/ScrollArea.hpp
         Widgets/TextEdit.cpp
         Widgets/TextEdit.hpp
+        Widgets/ReactionLayout.cpp
+        Widgets/ReactionLayout.hpp
         Style/Palette.cpp
         Style/Palette.hpp
         Style/Shadow.hpp
