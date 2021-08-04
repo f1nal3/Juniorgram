@@ -105,7 +105,9 @@ TEST_CASE("Test binary serialization & deserialization of complex types", "[YasS
     SECTION("Checking serialization & deserialization of std::map<char, long int>")
     {
         const std::map<char, long int> serializedValue = {
-            {'a', 1000000000}, {'b', -2000000000}, {'c', 3000000000}};
+            {'a', static_cast<long int>(1000000000)}, 
+            {'b', static_cast<long int>(-2000000000)}, 
+            {'c', static_cast<long int>(3000000000)}};
         yas::shared_buffer buffer;
         Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
         REQUIRE(state == Network::SerializedState::SUCCESS);
