@@ -1,6 +1,5 @@
 #include "PopupWidget.hpp"
 
-#include <QDebug>
 #include <QPainter>
 #include <QScreen>
 
