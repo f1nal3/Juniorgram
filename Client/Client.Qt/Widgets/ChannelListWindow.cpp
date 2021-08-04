@@ -46,7 +46,7 @@ void ChannelListWindow::updateChannelList()
             {
                 for (auto it = channels.rbegin(); it != channels.rend(); ++it)
                 {
-                    if (QString::fromStdString(it->channelName) == _channelListMainWindow->item(i)->text())
+                    if (QString::fromStdString(it->channelName) == _widgetChannelList->item(index)->text())
                     {
                         channels.erase(std::remove(channels.begin(), channels.end(), *it), channels.end());
                     }
@@ -103,10 +103,7 @@ void ChannelListWindow::addChannelToMainChannelWidget()
     hide();
 }
 
-void ChannelListWindow::setChannels(std::vector<Network::ChannelInfo>&& channels_) 
-{
-    channels = channels_;    
-}
+void ChannelListWindow::setChannels(std::vector<Network::ChannelInfo>&& channels_) { channels = channels_; }
 
 void ChannelListWindow::updateChannelListWindow()
 {
