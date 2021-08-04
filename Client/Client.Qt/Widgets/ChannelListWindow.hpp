@@ -28,7 +28,7 @@ public:
 
 public:
     inline static std::condition_variable mainWidgetStatus;
-    inline static std::vector<Network::ChannelInfo> channels{};
+    inline static std::vector<Network::ChannelInfo> channels;
 
 public slots:
     void addChannelToMainChannelWidget();
