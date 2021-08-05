@@ -24,29 +24,31 @@ bool Client::connect(const std::string_view& host, const uint16_t port)
         return false;
     }
 
+    asio::ip::tcp::resolver resolver(_context);
+
+    using OwnerType = Connection::OwnerType;
+    _connection     = std::make_unique<Connection>(OwnerType::CLIENT, _context, asio::ip::tcp::socket(_context), _incomingMessagesQueue);
+
     try
     {
-        asio::ip::tcp::resolver               resolver(_context);
-        asio::ip::tcp::resolver::results_type endpoints = resolver.resolve(host, std::to_string(port));
-
-        using OwnerType = Connection::OwnerType;
-
-        _connection = std::make_unique<Connection>(OwnerType::CLIENT, _context, asio::ip::tcp::socket(_context), _incomingMessagesQueue);
+        /// Auto = asio::ip::tcp::resolver::results_type
+        auto endpoints = resolver.resolve(host, std::to_string(port));
         _connection->connectToServer(endpoints);
+
         _contextThread = std::thread([=]() {
             while (_context.run_one())
             {
                 loop();
             }
-            std::cerr << "Something went wrong";
+            onDisconnect();
         });
-        return true;
     }
-    catch (std::exception& exception)
+    catch (std::exception& e)
     {
-        std::cerr << "Client Exception: " << exception.what() << "\n";
+        std::cerr << "Client Exception: " << e.what() << "\n";
         return false;
     }
+    return true;
 }
 
 void Client::disconnect()
@@ -81,8 +83,11 @@ void Client::send(const Message& message) const
     {
         _connection->send(message);
     }
+    else
+    {
+        onMessageSendFailed(message);
+    }
 }
-
 void Client::pingServer() const
 {
     Network::Message message;
@@ -171,7 +176,8 @@ void Client::loop()
     while (!_incomingMessagesQueue.empty())
     {
         const Message message = _incomingMessagesQueue.pop_front();
-
+        std::string   output  = "[" + std::to_string(message.mHeader.mTimestamp.time_since_epoch().count()) + "]\n";
+        std::cout << output;
         switch (message.mHeader.mMessageType)
         {
             case MessageType::LoginAnswer:
@@ -292,5 +298,13 @@ void Client::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
 }
 
 void Client::onUserMessageDeleteAnswer() { std::cerr << "[Client][Warning] user message delete answer is not implemented\n"; }
+
+void Client::onDisconnect() { std::cerr << "[Client][Warning] onDisconnect is not implemented\n"; }
+
+void Client::onMessageSendFailed(const Message& message) const
+{
+    (void)(message);
+    std::cerr << "[Client][Warning] onMessageSendFailed";
+}
 
 }  // namespace Network

@@ -11,7 +11,9 @@ class Client
 public:
     ~Client();
 
+    /// Connect to server with IP(host) and Port(port)
     bool connect(const std::string_view& host, uint16_t port);
+    /// Disconnect from server
     void disconnect();
 
     [[nodiscard]] bool isConnected() const;
@@ -33,6 +35,11 @@ public:
 
     void userRegistration(const std::string& email, const std::string& login, const std::string& password) const;
     void userAuthorization(const std::string& login, const std::string& password) const;
+
+    /// Disconnect handler
+    virtual void onDisconnect();
+    /// Message send failure handler
+    virtual void onMessageSendFailed(const Message& message) const;
 
     /// Login Answer handler
     virtual void onLoginAnswer(bool success);
