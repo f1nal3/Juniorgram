@@ -97,4 +97,3 @@ ALTER TABLE channel_links ADD FOREIGN KEY (channel_id) REFERENCES channels (id)O
 ALTER TABLE channel_links ADD FOREIGN KEY (link_id) REFERENCES links (link_id) ON DELETE CASCADE;
 
 ALTER TABLE channel_links ADD FOREIGN KEY (sender_id) REFERENCES users (id) ON DELETE SET NULL;
- 
