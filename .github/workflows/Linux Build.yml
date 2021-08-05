@@ -52,5 +52,11 @@ jobs:
 
     - name: Test
       working-directory: ${{github.workspace}}/build
-
       run: ctest -C ${{matrix.BUILD_TYPE}} --output-on-failure
+   
+    - name: Archive server executable
+      if: matrix.BUILD_TYPE == 'Release'
+      uses: actions/upload-artifact@v2
+      with:
+        name: juniorgram-server
+        path: ./bin/Server.Exec
