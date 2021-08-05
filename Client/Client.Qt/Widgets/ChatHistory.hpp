@@ -27,13 +27,24 @@ public:
      * @param user Usenname
      */
     void addMessage(const QString& message = QString(), quint64 utc = 0, const QString& user = "You");
+
     /**
      * @brief Clears all chat
      */
     void clear();
-    void deleteMessage(const uint64_t userId, const uint64_t messageId);
+
+    /**
+     * @brief Delete specified message
+     * @param userId Message user ID
+     * @param messageId Message ID
+     */
+    void deleteMessage(uint64_t userId, uint64_t messageId);
 
 protected:
+    /**
+     * @brief Handle resizes
+     * @param event Event
+     */
     void resizeEvent(QResizeEvent* event) override;
 
 private Q_SLOTS:
@@ -67,9 +78,9 @@ private:
 
 private:
     bool                                        _alreadyScrolling = false;
-    std::int32_t                                _left = -1;
+    std::int32_t                                _left             = -1;
     std::unique_ptr<ScrollArea>                 _scrollArea;
     std::vector<std::unique_ptr<MessageWidget>> _messageList;
-    uint64_t                                    _userId = 0;
-    uint64_t                                    _messageId = 0;
+    std::uint64_t                               _userId    = 0;
+    std::uint64_t                               _messageId = 0;
 };

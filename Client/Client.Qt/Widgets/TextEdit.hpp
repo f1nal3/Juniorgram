@@ -3,7 +3,7 @@
 #include <QVBoxLayout>
 #include <memory>
 
-#include "FlatButton.hpp"
+#include "Buttons.hpp"
 #include "InputFields.hpp"
 
 /** @class TextEdit

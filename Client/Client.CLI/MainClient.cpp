@@ -35,7 +35,6 @@ int main()
                 Network::Message message;
 
                 Network::MessageInfo msg;
-                msg.userID  = 777;
                 msg.message = "123";
                 message.mBody = std::any_cast<Network::MessageInfo>(msg);
 
@@ -47,7 +46,6 @@ int main()
                 Network::Message message;
 
                 Network::MessageInfo msg;
-                msg.userID  = 777;
                 msg.message = "123";
                 message.mBody = std::any_cast<Network::MessageInfo>(msg);
 
@@ -59,12 +57,15 @@ int main()
             }
             else if (cmd == "mh")
             {
-                clientApp.shell()->askForMessageHistory();
+                const std::uint64_t channelID = 2;
+                clientApp.shell()->askForMessageHistory(channelID);
             }
             else if (cmd == "sm")
             {
-                std::vector<std::string> messagesList = {"hi, babe", "I'm comming today at 10 pm", "Expect"};
-                clientApp.shell()->storeMessages(messagesList);
+                std::string text = GetLineFromCin();
+                uint64_t channelID  = 1;
+
+                clientApp.shell()->storeMessage(text, channelID);
             }
             else if (cmd == "ur")
             {

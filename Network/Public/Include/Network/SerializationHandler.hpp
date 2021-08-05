@@ -35,11 +35,16 @@ public:
                     state = processOutcomingMessageBody<std::vector<ChannelInfo>>(bodyBuffer, message.mBody);
                     break;
                 case Message::MessageType::MessageHistoryRequest:
-                    state = processOutcomingMessageBody<std::vector<MessageInfo>>(bodyBuffer,
-                                                                                  message.mBody);
+                    state = processOutcomingMessageBody<std::uint64_t>(bodyBuffer, message.mBody);
+                    break;
+                case Message::MessageType::MessageHistoryAnswer:
+                    state = processOutcomingMessageBody<std::vector<MessageInfo>>(bodyBuffer, message.mBody);
                     break;
                 case Message::MessageType::MessageStoreRequest:
                     state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
+                    break;
+                case Message::MessageType::MessageStoreAnswer:
+                    state = processOutcomingMessageBody<Utility::StoringMessageCodes>(bodyBuffer, message.mBody);
                     break;
                 case Message::MessageType::RegistrationRequest:
                     state = processOutcomingMessageBody<RegistrationInfo>(bodyBuffer, message.mBody);
@@ -97,12 +102,22 @@ public:
             }
             case Message::MessageType::MessageHistoryRequest:
             {
+                state = processIncomingMessageBody<std::uint64_t>(buffer, message);
+                break;
+            }
+            case Message::MessageType::MessageHistoryAnswer:
+            {
                 state = processIncomingMessageBody<std::vector<MessageInfo>>(buffer, message);
                 break;
             }
             case Message::MessageType::MessageStoreRequest:
             {
                 state = processIncomingMessageBody<MessageInfo>(buffer, message);
+                break;
+            }
+            case Message::MessageType::MessageStoreAnswer:
+            {
+                state = processIncomingMessageBody<Utility::StoringMessageCodes>(buffer, message);
                 break;
             }
             case Message::MessageType::RegistrationRequest:

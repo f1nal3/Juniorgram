@@ -8,6 +8,7 @@ PointerAlignment: Left
 ColumnLimit: 140
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
 AlignOperands: Align
 AllowShortBlocksOnASingleLine: Never
 AlwaysBreakTemplateDeclarations: Yes

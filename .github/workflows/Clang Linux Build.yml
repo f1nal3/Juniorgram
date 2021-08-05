@@ -1,4 +1,4 @@
-name: MacOS Build
+name: Clang Linux Build
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         BUILD_TYPE: [Debug, Release]
@@ -22,13 +22,13 @@ jobs:
         architecture: 'x64'
         
     - name: Get prerequisites
-      run: python -m pip install conan==1.36.0 cmake
+      run: python -m pip install conan==1.36.0 cmake && sudo apt install clang-12
       
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
       with:
         version: '5.15.2'
-        host: 'mac'
+        host: 'linux'
         target: 'desktop'
         dir: '${{ github.workspace }}'
         install-deps: 'true'
@@ -40,18 +40,15 @@ jobs:
       id: conan-cache
       uses: actions/cache@v2
       with:
-        path: '/Users/runner/.conan/'
+        path: '/home/runner/.conan/'
         key: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
         restore-keys: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
       
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}}
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}}
-
-    - name: debug
-      run: otool -L /Users/runner/work/Juniorgram/Juniorgram/build/bin/Utility.Test
 
     - name: Test
       working-directory: ${{github.workspace}}/build

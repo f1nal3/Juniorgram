@@ -11,9 +11,8 @@ class FileRepository : public IRepository
 	FileRepository();
 	virtual ~FileRepository() = default;
 
-	virtual std::vector<std::string> getAllChannelsList() override;
-	virtual std::vector<std::string> getMessageHistoryForUser(const std::uint64_t channelID) override;
-	virtual void storeMessage(const Network::MessageInfo& messageInfo, const std::uint64_t channelID) override;
+	std::vector<Network::ChannelInfo> getAllChannelsList() override;
+	std::vector<Network::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) override;
 
 private:
 	std::unique_ptr<FileDB> database;

@@ -101,28 +101,26 @@ void Client::askForChannelList() const
     send(message);
 }
 
-void Client::askForMessageHistory() const
+void Client::askForMessageHistory(const std::uint64_t channellID) const
 {
     Network::Message message;
     message.mHeader.mMessageType = Network::Message::MessageType::MessageHistoryRequest;
+
+    message.mBody = std::make_any<std::uint64_t>(channellID);
     send(message);
 }
 
-void Client::storeMessages(const std::vector<std::string>& messagesList) const
+void Client::storeMessage(const std::string& message, const uint64_t channelID) const
 {
-    for (auto&& msg : messagesList)
-    {
-        Network::Message message;
-        message.mHeader.mMessageType = Network::Message::MessageType::MessageStoreRequest;
+    Network::Message networkMessage;
+    networkMessage.mHeader.mMessageType = Network::Message::MessageType::MessageStoreRequest;
 
-        Network::MessageInfo info;
-        info.userID  = mConnection->getID();
-        info.message = msg;
-
-        message.mBody = std::make_any<Network::MessageInfo>(info);
-
-        send(message);
-    }
+    Network::MessageInfo mi;
+    mi.message   = message;
+    mi.channelID = channelID;
+       
+    networkMessage.mBody = std::make_any<Network::MessageInfo>(mi);
+    send(networkMessage);
 }
 
 void Client::userRegistration(const std::string& email, const std::string& login,
@@ -135,7 +133,7 @@ void Client::userRegistration(const std::string& email, const std::string& login
 
     Network::Message message;
     message.mHeader.mMessageType = Network::Message::MessageType::RegistrationRequest;
-    message.mBody = std::make_any<RegistrationInfo>(ri);
+    message.mBody                = std::make_any<RegistrationInfo>(ri);
     
     send(message);
 }

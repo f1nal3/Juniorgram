@@ -11,8 +11,6 @@ Settings& Settings::getInstance()
 {
     if(instance == nullptr)
     {
-        QCoreApplication::setOrganizationName("L&D C++ Lab");
-        QCoreApplication::setApplicationName("Juniorgram");
         instance.reset(new Settings());
     }
     return *instance;

@@ -1,5 +1,6 @@
-#include "FlatButton.hpp"
+#include "Buttons.hpp"
 
+#include <QDebug>
 #include <QPainter>
 
 FlatButton::FlatButton(QWidget* parent, const QString& text, const Style::FlatButton& st) : AbstractButton(parent), _text(text), _st(st)
@@ -71,4 +72,56 @@ void LinkButton::paintEvent(QPaintEvent* event)
     painter.setFont(isOver() ? _st.overFont : _st.font);
     painter.setPen(isOver() ? _st.overColor : _st.color);
     painter.drawText(inner, _text, Style::al_top);
+}
+
+IconButton::IconButton(QWidget* parent, QString text, const Style::IconButton& st) : AbstractButton(parent), _text(std::move(text)), _st(st)
+{
+    setAttribute(Qt::WA_AcceptTouchEvents);
+
+    updateWidget();
+}
+
+void IconButton::setText(const QString& text)
+{
+    _text = text;
+    updateWidget();
+}
+
+void IconButton::paintEvent(QPaintEvent* event)
+{
+    QPainter p(this);
+
+    p.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform);
+    p.setPen(Qt::NoPen);
+    p.setBrush(isOver() ? _st.overBgColor : _st.bgColor);
+    p.drawRoundedRect(rect(), _st.rounding, _st.rounding);
+    const auto& icon = _iconOverride ? *_iconOverride : _st.icon;
+
+    p.drawPixmap(_st.margins.left(), (height() - icon.size().height()) / 2, *icon);
+    const Style::font& currentFont = isOver() ? _st.overFont : _st.font;
+    p.setFont(currentFont);
+    p.setPen(isOver() ? _st.overColor : _st.color);
+    QSize  textSize  = QSize(_st.font->width(_text), height() - _st.margins.bottom());
+    QPoint textPoint = QPoint(_st.margins.left() + _st.margins.right() + icon.size().width(), _st.margins.top());
+    QRect  textRect  = QRect(textPoint, textSize);
+
+    p.drawText(textRect, _text, Style::al_left);
+
+    QWidget::paintEvent(event);
+}
+
+void IconButton::updateWidget()
+{
+    const int   longestFont = std::max(_st.font->width(_text), _st.overFont->width(_text));
+    const auto& icon        = _iconOverride ? *_iconOverride : _st.icon;
+    setMinimumWidth(_st.margins.left() + _st.margins.right() * 2 + icon.size().width() + longestFont);
+    const int biggestFont = std::max(icon.size().height(), std::max(_st.font->height, _st.overFont->height));
+    setMinimumHeight(_st.margins.top() + _st.margins.bottom() + biggestFont);
+    resize(minimumWidth(), minimumHeight());
+}
+
+void IconButton::setIcon(const Style::icon* icon)
+{
+    _iconOverride = icon;
+    updateWidget();
 }
