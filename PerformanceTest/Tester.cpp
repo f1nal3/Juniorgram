@@ -83,7 +83,9 @@ namespace PerformanceTest
         #else // Linux and MacOS
 
             // Creating testing object and waiting until it finishes.
-            spawnv(P_WAIT, _instancePath.string(), argv.data());
+            pid_t pid;
+            posix_spawn(&pid, _instancePath.string().c_str(), nullptr, nullptr, argv.data(), nullptr);
+            waitpid(pid, nullptr, 0);
 
         #endif
 

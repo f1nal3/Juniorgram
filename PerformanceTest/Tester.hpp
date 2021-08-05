@@ -13,7 +13,7 @@
 #ifdef _WIN32
 	#include <Windows.h>
 #else
-	#include <spawn.h>
+	#include <sys/spawn.h>
 #endif
 
 namespace PerformanceTest
