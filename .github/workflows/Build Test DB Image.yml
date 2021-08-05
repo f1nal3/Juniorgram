@@ -2,7 +2,7 @@ name: Build Test Database Image
 on:
   push:
     paths:
-      - 'Database_scheme.sql'
+      - 'Database_Scheme.sql'
     
 jobs:
   build_and_push:
