@@ -62,6 +62,7 @@ Q_SIGNALS:
      * @brief Message has been added
      */
     void messageAdded();
+    void createReplySignal(ReplyWidget*);
 
 private:
     /**

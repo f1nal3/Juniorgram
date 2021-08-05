@@ -13,8 +13,10 @@ public:
 private slots:
     void newMessage(const QString& messageText);
     void newMessage(const QString& messageText, const QString& userNameMessage);
+    void addReplyWidget(ReplyWidget* reply);
 
 private:
+    ReplyWidget* _replyWidget = nullptr;
     std::unique_ptr<QVBoxLayout> _mainChatLayout;
     std::unique_ptr<ChatHistory> _chatHistory;
     std::unique_ptr<TextEdit>    _textEdit;

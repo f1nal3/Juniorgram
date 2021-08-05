@@ -34,11 +34,13 @@ void ChatHistory::addMessage(const QString& message, quint64 utc, const QString&
         updateLayout(true);
     });
 
+    connect(msg, &MessageWidget::createReplySignal, this, &ChatHistory::createReplySignal);
+
     updateLayout();
 
     _scrollArea->scrollToWidget(msg);
 
-    messageAdded();
+    emit messageAdded();
 }
 
 void ChatHistory::clear() { _messageList.clear(); }

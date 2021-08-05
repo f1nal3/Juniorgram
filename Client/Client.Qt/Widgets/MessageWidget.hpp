@@ -5,6 +5,8 @@
 #include "Widgets/Buttons.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/ReactionLayout.hpp"
+#include "Widgets/Label.hpp"
+#include "Widgets/ReplyWidget.hpp"
 
 class ChatHistory;
 
@@ -76,9 +78,11 @@ public:
 
 public slots:
     void onDelete();
+    void createReply();
 
 signals:
     void geometryChanged(int);
+    void createReplySignal(ReplyWidget*);
 
 protected:
     void paintEvent(QPaintEvent* e) override;
@@ -102,4 +106,9 @@ private:
     QDateTime                   _datetime;
     MessageFlags                _messageFlags;
     const Style::MessageWidget& _st;
+
+
+    std::unique_ptr<FlatButton>   _replyBtn;
+    //std::shared_ptr<ReplyWidget>  _replyWidget;
+    ReplyWidget*                  _replyWidget;
 };

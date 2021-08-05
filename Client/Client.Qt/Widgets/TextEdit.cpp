@@ -127,5 +127,6 @@ QString TextEdit::getText() const
 void TextEdit::clearTextEdit() { _messageInput->clear(); }
 
 TextEdit::~TextEdit()
-{ _horizontalButtonLayout->removeItem(_horizontalButtonSpacer.get());
+{
+    _horizontalButtonLayout->removeItem(_horizontalButtonSpacer.get());
 }

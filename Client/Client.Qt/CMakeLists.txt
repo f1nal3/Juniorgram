@@ -36,6 +36,8 @@ set(SOURCE_FILES
         Widgets/MenuItem.hpp
         Widgets/MessageWidget.cpp
         Widgets/MessageWidget.hpp
+        Widgets/ReplyWidget.cpp
+        Widgets/ReplyWidget.hpp
         Widgets/PopupWidget.cpp
         Widgets/PopupWidget.hpp
         Widgets/ScrollArea.cpp
