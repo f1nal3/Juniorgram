@@ -1,135 +1,72 @@
 #include "App.hpp"
-#include "Network/YasSerializer.hpp"
-#include "Network/Primitives.hpp"
+
 #include "ServerInfo.hpp"
 
-App::App(/* args */) { client.connect(ServerInfo::address, ServerInfo::port); }
+App::App(/* args */) { connect(ServerInfo::address, ServerInfo::port); }
 
 App::~App()
 {
-    if (client.isConnected())
+    if (isConnected())
     {
-        client.disconnect();
+        disconnect();
         std::cout << "Server Down\n";
     }
 }
 
-Network::Client* App::shell() { return &client; }
+void App::onServerAccepted() { std::cout << "Server Accepted Connection\n"; }
 
-bool App::loop()
+void App::onServerPing(double timestamp) { std::cout << "Ping: " << timestamp << "\n"; }
+
+void App::onServerMessage(const uint64_t clientId) { std::cout << "Hello from [" << clientId << "]\n"; }
+
+void App::onChannelListRequest(const std::vector<Network::ChannelInfo>& channels)
 {
-    if (client.isConnected())
+    for (const auto& item : channels)
     {
-        if (!client.incoming().empty())
-        {
-            Network::Message message = client.incoming().pop_front();
+        std::cout << item.channelName << '\n';
+    }
+}
 
-            switch (message.mHeader.mMessageType)
-            {
-                case Network::Message::MessageType::ServerAccept:
-                {
-                    std::cout << "Server Accepted Connection\n";
-                }
-                break;
-
-                case Network::Message::MessageType::ServerPing:
-                {
-                    std::chrono::system_clock::time_point timeNow =
-                        std::chrono::system_clock::now();
-                    std::chrono::system_clock::time_point timeThen;
-                    timeThen = message.mHeader.mTimestamp;
-                    std::cout << "Ping: "
-                              << std::chrono::duration<double>(timeNow - timeThen).count() << "\n";
-                }
-                break;
-
-                case Network::Message::MessageType::ServerMessage:
-                {
-                    // need a structure / variable that will contain client Id
-                    uint64_t clientID = 0;
-                    // message >> clientID;
-                    std::cout << "Hello from [" << clientID << "]\n";
-                }
-                break;
-
-                case Network::Message::MessageType::ChannelListRequest:
-                {
-                    std::cout << "Channel list received: \n";
-                    std::vector<Network::ChannelInfo> channelList;
-                    
-                    for (auto&& item : std::any_cast<std::vector<Network::ChannelInfo>>(message.mBody))
-                    {
-                        channelList.emplace_back(item);
-                        std::cout << item.channelName << '\n';
-                    }
-                }
-                break;
-
-                case Network::Message::MessageType::MessageHistoryAnswer:
-                {
-                    std::cout << "Message history received: \n";
-                    std::vector<Network::MessageInfo> messageList;
-
-                    for (auto&& item : std::any_cast<std::vector<Network::MessageInfo>>(message.mBody))
-                    {
-                        messageList.emplace_back(item);
-                        std::cout << item.message << '\n';
-                    }
-                }
-                break;
-
-                case Network::Message::MessageType::RegistrationAnswer:
-                {
-                    auto code = std::any_cast<Utility::RegistrationCodes>(message.mBody);
-
-                    if (code == Utility::RegistrationCodes::SUCCESS)
-                    {
-                        std::cout << "User was added" << std::endl;
-                    } 
-                    else if (code == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS)
-                    {
-                        std::cout << "User with such login already exists" << std::endl;
-                    }
-                    else if (code == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
-                    {
-                        std::cout << "User with such email already exists" << std::endl;
-                    }
-                    else
-                    {
-                        std::cout << "Unknown RegistrationCode" << std::endl;
-                    }
-                }
-                break;
-
-                case Network::Message::MessageType::MessageStoreAnswer:
-                {
-                    auto code = std::any_cast<Utility::StoringMessageCodes>(message.mBody);
-
-                    if (code == Utility::StoringMessageCodes::SUCCESS)
-                    {
-                        std::cout << "SUCCESS sending" << std::endl;
-                    }
-                    else if (code == Utility::StoringMessageCodes::FAILED)
-                    {
-                        std::cout << "FAILED sending" << std::endl;
-                    }
-                    else
-                    {
-                        std::cout << "Unknown StoringMessageCode" << std::endl;
-                    }
-                }
-                break;
-
-				default:
-                    break;
-            }
-        }
+void App::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode)
+{
+    if (storingMessageCode == Utility::StoringMessageCodes::SUCCESS)
+    {
+        std::cout << "SUCCESS sending" << std::endl;
+    }
+    else if (storingMessageCode == Utility::StoringMessageCodes::FAILED)
+    {
+        std::cout << "FAILED sending" << std::endl;
     }
     else
     {
-        client.disconnect();
-        std::cout << "Server Down\n";
-        return true;
+        std::cout << "Unknown StoringMessageCode" << std::endl;
     }
-    return false;
+}
+
+void App::onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages)
+{
+    for (const auto& item : messages)
+    {
+        std::cout << item.message << '\n';
+    }
+}
+
+void App::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
+{
+    if (registrationCode == Utility::RegistrationCodes::SUCCESS)
+    {
+        std::cout << "User was added" << std::endl;
+    }
+    else if (registrationCode == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS)
+    {
+        std::cout << "User with such login already exists" << std::endl;
+    }
+    else if (registrationCode == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
+    {
+        std::cout << "User with such email already exists" << std::endl;
+    }
+    else
+    {
+        std::cout << "Unknown RegistrationCode" << std::endl;
+    }
 }

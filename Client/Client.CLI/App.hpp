@@ -7,11 +7,8 @@
  *        you to work with the console
  *        and process messages from the server.
  */
-class App
+class App : public Network::Client
 {
-private:
-    Network::Client client;
-
 public:
     /**
      * @brief App(Client.CLI) constructor.
@@ -19,23 +16,17 @@ public:
      */
     App(/* args */);
 
-   /**
-    * @brief App(Client.CLI) destructor.
-    * @details Disconnect client connection.
-    */
+    /**
+     * @brief App(Client.CLI) destructor.
+     * @details Disconnect client connection.
+     */
     ~App();
 
-public:
-    /**
-     * @brief Method for returning client.
-     * @return Network::Client*.
-     */
-    Network::Client* shell();
-
-    /**
-     * @brief Loop method which allows you to process requests from the server,
-     *        list of requests look at Network::Message::MessageType.
-     * @return Return true if server is down correctly and false if not.
-     */
-    bool loop();
+    void onServerAccepted() override;
+    void onServerPing(double timestamp) override;
+    void onServerMessage(const uint64_t clientId) override;
+    void onChannelListRequest(const std::vector<Network::ChannelInfo>& channels) override;
+    void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode) override;
+    void onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages) override;
+    void onRegistrationAnswer(Utility::RegistrationCodes registrationCode) override;
 };

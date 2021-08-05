@@ -1,12 +1,14 @@
 #include "Client.hpp"
 
 #include <Network/Primitives.hpp>
-#include <Utility/WarningSuppression.hpp>
 #include <Utility.Static/Cryptography.hpp>
+
 #include "ServerInfo.hpp"
 
 namespace Network
 {
+using MessageType = Network::Message::MessageType;
+
 Client::~Client() { disconnect(); }
 
 bool Client::connect(const std::string_view& host, const uint16_t port)
@@ -24,18 +26,20 @@ bool Client::connect(const std::string_view& host, const uint16_t port)
 
     try
     {
-        asio::ip::tcp::resolver resolver(mContext);
-        asio::ip::tcp::resolver::results_type endpoints =
-            resolver.resolve(host, std::to_string(port));
+        asio::ip::tcp::resolver               resolver(_context);
+        asio::ip::tcp::resolver::results_type endpoints = resolver.resolve(host, std::to_string(port));
 
-        mConnection =
-            std::make_unique<Connection>(Connection::OwnerType::CLIENT, mContext,
-                                         asio::ip::tcp::socket(mContext), mIncomingMessagesQueue);
+        using OwnerType = Connection::OwnerType;
 
-        mConnection->connectToServer(endpoints);
-
-        mContextThread = std::thread([this]() { mContext.run(); });
-
+        _connection = std::make_unique<Connection>(OwnerType::CLIENT, _context, asio::ip::tcp::socket(_context), _incomingMessagesQueue);
+        _connection->connectToServer(endpoints);
+        _contextThread = std::thread([=]() {
+            while (_context.run_one())
+            {
+                loop();
+            }
+            std::cerr << "Something went wrong";
+        });
         return true;
     }
     catch (std::exception& exception)
@@ -49,103 +53,97 @@ void Client::disconnect()
 {
     if (isConnected())
     {
-        mConnection->disconnect();
+        _connection->disconnect();
     }
 
-    mContext.stop();
+    _context.stop();
 
-    if (mContextThread.joinable())
+    if (_contextThread.joinable())
     {
-        mContextThread.join();
+        _contextThread.join();
     }
 
-    mConnection.release();
+    _connection.reset();
 }
 
 bool Client::isConnected() const
 {
-    if (mConnection != nullptr)
+    if (_connection != nullptr)
     {
-        return mConnection->isConnected();
+        return _connection->isConnected();
     }
-
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 void Client::send(const Message& message) const
 {
     if (isConnected())
     {
-        mConnection->send(message);
+        _connection->send(message);
     }
 }
 
 void Client::pingServer() const
 {
     Network::Message message;
-    message.mHeader.mMessageType = Network::Message::MessageType::ServerPing;
+    message.mHeader.mMessageType = MessageType::ServerPing;
 
-    std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
-
-    timeNow = message.mHeader.mTimestamp;
+    auto timeNow = std::chrono::system_clock::now();
+    timeNow      = message.mHeader.mTimestamp;
     send(message);
 }
 
 void Client::askForChannelList() const
 {
     Network::Message message;
-    message.mHeader.mMessageType = Network::Message::MessageType::ChannelListRequest;
+    message.mHeader.mMessageType = MessageType::ChannelListRequest;
     send(message);
 }
 
-void Client::askForMessageHistory(const std::uint64_t channellID) const
+void Client::askForMessageHistory(const std::uint64_t channelID) const
 {
     Network::Message message;
-    message.mHeader.mMessageType = Network::Message::MessageType::MessageHistoryRequest;
+    message.mHeader.mMessageType = MessageType::MessageHistoryRequest;
 
-    message.mBody = std::make_any<std::uint64_t>(channellID);
+    message.mBody = std::make_any<std::uint64_t>(channelID);
     send(message);
 }
 
 void Client::storeMessage(const std::string& message, const uint64_t channelID) const
 {
     Network::Message networkMessage;
-    networkMessage.mHeader.mMessageType = Network::Message::MessageType::MessageStoreRequest;
+    networkMessage.mHeader.mMessageType = MessageType::MessageStoreRequest;
 
     Network::MessageInfo mi;
     mi.message   = message;
     mi.channelID = channelID;
-       
+
     networkMessage.mBody = std::make_any<Network::MessageInfo>(mi);
     send(networkMessage);
 }
 
-void Client::userRegistration(const std::string& email, const std::string& login,
-                      const std::string& password) const
+void Client::userRegistration(const std::string& email, const std::string& login, const std::string& password) const
 {
     // Generating password's hash which are based on login. It lets us to insert different users
     // with the same passwords.
-    const std::string pwdHash = Hashing::SHA_256(password, login);
+    const std::string         pwdHash = Hashing::SHA_256(password, login);
     Network::RegistrationInfo ri(email, login, pwdHash);
 
     Network::Message message;
-    message.mHeader.mMessageType = Network::Message::MessageType::RegistrationRequest;
+    message.mHeader.mMessageType = MessageType::RegistrationRequest;
     message.mBody                = std::make_any<RegistrationInfo>(ri);
-    
+
     send(message);
 }
 
-void Client::userAuthorization(const std::string& login, const std::string& password)
+void Client::userAuthorization(const std::string& login, const std::string& password) const
 {
     const std::string pwdHash = Hashing::SHA_256(password, login);
-    LoginInfo loginInfo(login, pwdHash);
+    LoginInfo         loginInfo(login, pwdHash);
 
     Message message;
-    message.mHeader.mMessageType = Message::MessageType::LoginRequest;
-    message.mBody = std::make_any<LoginInfo>(loginInfo);
+    message.mHeader.mMessageType = MessageType::LoginRequest;
+    message.mBody                = std::make_any<LoginInfo>(loginInfo);
 
     send(message);
 }
@@ -153,18 +151,100 @@ void Client::userAuthorization(const std::string& login, const std::string& pass
 void Client::messageAll() const
 {
     Network::Message message;
-    message.mHeader.mMessageType = Network::Message::MessageType::MessageAll;
+    message.mHeader.mMessageType = MessageType::MessageAll;
     send(message);
 }
 
-void Client::messageUserDelete(const uint64_t userId, const uint64_t messageId) const
+void Client::userMessageDelete(const uint64_t userId, const uint64_t messageId) const
 {
     Network::MessageDeletedInfo messageDeletedInfo(userId, messageId);
-    Network::Message message;
-    message.mHeader.mMessageType = Network::Message::MessageType::UserMessageDeleteRequest;
+    Network::Message            message;
+
+    message.mHeader.mMessageType = MessageType::UserMessageDeleteRequest;
     message.mBody                = std::make_any<MessageDeletedInfo>(messageDeletedInfo);
-    //Temporarily commented out function
-    //send(message);
+    // Temporarily commented out function
+    // send(message);
+}
+
+void Client::loop()
+{
+    while (!_incomingMessagesQueue.empty())
+    {
+        const Message message = _incomingMessagesQueue.pop_front();
+
+        switch (message.mHeader.mMessageType)
+        {
+            case MessageType::LoginAnswer:
+            {
+                auto loginSuccessful = std::any_cast<bool>(message.mBody);
+                onLoginAnswer(loginSuccessful);
+            }
+            break;
+
+            case MessageType::ServerAccept:
+            {
+                onServerAccepted();
+            }
+            break;
+
+            case MessageType::ServerPing:
+            {
+                std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
+                std::chrono::system_clock::time_point timeThen;
+                timeThen = message.mHeader.mTimestamp;
+                onServerPing(std::chrono::duration<double>(timeNow - timeThen).count());
+            }
+            break;
+
+            case MessageType::ServerMessage:
+            {
+                // TODO: add handling
+                uint64_t clientID = 0;
+                onServerMessage(clientID);
+            }
+            break;
+
+            case MessageType::ChannelListRequest:
+            {
+                auto channels = std::any_cast<std::vector<Network::ChannelInfo>>(message.mBody);
+                onChannelListRequest(channels);
+            }
+            break;
+
+            case MessageType::MessageHistoryAnswer:
+            {
+                auto messages = std::any_cast<std::vector<Network::MessageInfo>>(message.mBody);
+                onMessageHistoryAnswer(messages);
+            }
+            break;
+
+            case MessageType::MessageStoreAnswer:
+            {
+                auto code = std::any_cast<Utility::StoringMessageCodes>(message.mBody);
+                onMessageStoreAnswer(code);
+            }
+            break;
+
+            case MessageType::RegistrationAnswer:
+            {
+                auto code = std::any_cast<Utility::RegistrationCodes>(message.mBody);
+
+                onRegistrationAnswer(code);
+            }
+            break;
+
+            case MessageType::UserMessageDeleteAnswer:
+            {
+                onUserMessageDeleteAnswer();
+                // Temporarily commented out code
+                // auto messageInfo = std::any_cast<Network::MessageDeletedInfo>(message.mBody);
+            }
+            break;
+
+            default:
+                std::cerr << "[Client][Warning] unimplemented[" << uint32_t(message.mHeader.mMessageType) << "]\n";
+        }
+    }
 }
 
 }  // namespace Network
