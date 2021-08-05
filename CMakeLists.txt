@@ -30,6 +30,10 @@ endif()
 
 include(${CMAKE_BINARY_DIR}/conan.cmake)
 
+conan_add_remote(NAME conancenter
+                 URL https://center.conan.io
+                 VERIFY_SSL True)
+
 
 conan_cmake_run(CONANFILE conanfile.txt
                 BASIC_SETUP CMAKE_TARGETS
