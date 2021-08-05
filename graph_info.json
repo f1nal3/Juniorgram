@@ -1,0 +1,54 @@
+{
+ "options": [
+  [
+   "catch2:with_main",
+   "False"
+  ],
+  [
+   "cryptopp:shared",
+   "False"
+  ],
+  [
+   "expat:char_type",
+   "char"
+  ],
+  [
+   "expat:shared",
+   "False"
+  ],
+  [
+   "libpq:shared",
+   "False"
+  ],
+  [
+   "libpq:with_openssl",
+   "False"
+  ],
+  [
+   "libpq:with_zlib",
+   "True"
+  ],
+  [
+   "libpqxx:shared",
+   "False"
+  ],
+  [
+   "libtool:shared",
+   "False"
+  ],
+  [
+   "zlib:minizip",
+   "False"
+  ],
+  [
+   "zlib:shared",
+   "False"
+  ]
+ ],
+ "root": {
+  "name": null,
+  "version": null,
+  "user": null,
+  "channel": null
+ }
+}

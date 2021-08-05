@@ -1,0 +1,131 @@
+{
+ "graph_lock": {
+  "nodes": {
+   "0": {
+    "options": "catch2:with_main=False\ncryptopp:shared=False\nexpat:char_type=char\nexpat:shared=False\nlibpq:shared=False\nlibpq:with_openssl=False\nlibpq:with_zlib=True\nlibpqxx:shared=False\nlibtool:shared=False\nzlib:minizip=False\nzlib:shared=False",
+    "requires": [
+     "1",
+     "2",
+     "3",
+     "4",
+     "5",
+     "9",
+     "11",
+     "12",
+     "13"
+    ],
+    "path": "conanfile.txt",
+    "context": "host"
+   },
+   "1": {
+    "ref": "asio/1.19.2",
+    "options": "",
+    "package_id": "5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9",
+    "prev": "0",
+    "context": "host"
+   },
+   "2": {
+    "ref": "cryptopp/8.5.0",
+    "options": "shared=False",
+    "package_id": "3fb49604f9c2f729b85ba3115852006824e72cab",
+    "prev": "0",
+    "context": "host"
+   },
+   "3": {
+    "ref": "expat/2.2.10",
+    "options": "char_type=char\nshared=False",
+    "package_id": "ce5788ba7e3bb7dc834e36b06df66c481f42c99a",
+    "prev": "0",
+    "context": "host"
+   },
+   "4": {
+    "ref": "catch2/2.13.4",
+    "options": "with_main=False",
+    "package_id": "5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9",
+    "prev": "0",
+    "context": "host"
+   },
+   "5": {
+    "ref": "libtool/2.4.6",
+    "options": "shared=False",
+    "package_id": "82ad5af1557e85f11dfc0f68ec2820c275dfe6d4",
+    "prev": "0",
+    "requires": [
+     "6"
+    ],
+    "context": "host"
+   },
+   "6": {
+    "ref": "automake/1.16.3",
+    "options": "",
+    "package_id": "3e48e69237f7f2196164383ef9dedf0f93cbf249",
+    "prev": "0",
+    "requires": [
+     "7"
+    ],
+    "context": "host"
+   },
+   "7": {
+    "ref": "autoconf/2.69",
+    "options": "",
+    "package_id": "3475bd55b91ae904ac96fde0f106a136ab951a5e",
+    "prev": "0",
+    "requires": [
+     "8"
+    ],
+    "context": "host"
+   },
+   "8": {
+    "ref": "m4/1.4.18",
+    "options": "",
+    "package_id": "3fb49604f9c2f729b85ba3115852006824e72cab",
+    "prev": "0",
+    "context": "host"
+   },
+   "9": {
+    "ref": "libpq/11.5",
+    "options": "shared=False\nwith_openssl=False\nwith_zlib=True\nzlib:minizip=False\nzlib:shared=False",
+    "package_id": "d8ac7a0f959aa6a09fd6a37c84b5d5aa5d138d1f",
+    "prev": "0",
+    "requires": [
+     "10"
+    ],
+    "context": "host"
+   },
+   "10": {
+    "ref": "zlib/1.2.11",
+    "options": "minizip=False\nshared=False",
+    "package_id": "3fb49604f9c2f729b85ba3115852006824e72cab",
+    "prev": "0",
+    "context": "host"
+   },
+   "11": {
+    "ref": "libpqxx/7.2.1",
+    "options": "shared=False\nlibpq:shared=False\nlibpq:with_openssl=False\nlibpq:with_zlib=True\nzlib:minizip=False\nzlib:shared=False",
+    "package_id": "9608a5a69bd5ee4ebda5240c72b3c2aa9fe2a85f",
+    "prev": "0",
+    "requires": [
+     "9"
+    ],
+    "context": "host"
+   },
+   "12": {
+    "ref": "nlohmann_json/3.9.1",
+    "options": "",
+    "package_id": "5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9",
+    "prev": "0",
+    "context": "host"
+   },
+   "13": {
+    "ref": "yas/7.0.5",
+    "options": "",
+    "package_id": "5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9",
+    "prev": "0",
+    "context": "host"
+   }
+  },
+  "revisions_enabled": false
+ },
+ "version": "0.4",
+ "profile_host": "[settings]\narch=x86_64\narch_build=x86_64\nbuild_type=Release\ncompiler=Visual Studio\ncompiler.runtime=MD\ncompiler.version=16\nos=Windows\nos_build=Windows\n[options]\n[build_requires]\n[env]\n"
+}

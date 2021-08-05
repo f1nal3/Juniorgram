@@ -1,0 +1,64 @@
+[settings]
+    arch=x86_64
+    build_type=Release
+    compiler=Visual Studio
+    compiler.runtime=MD
+    compiler.version=16
+    os=Windows
+
+[requires]
+    asio/1.Y.Z
+    catch2/2.Y.Z
+    cryptopp/8.Y.Z
+    expat/2.Y.Z
+    libpq/11.Y.Z
+    libpqxx/7.Y.Z
+    libtool/2.Y.Z
+    nlohmann_json/3.Y.Z
+    yas/7.Y.Z
+
+[options]
+
+
+[full_settings]
+    arch=x86_64
+    arch_build=x86_64
+    build_type=Release
+    compiler=Visual Studio
+    compiler.runtime=MD
+    compiler.version=16
+    os=Windows
+    os_build=Windows
+
+[full_requires]
+    asio/1.19.2:5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
+    autoconf/2.69:3475bd55b91ae904ac96fde0f106a136ab951a5e
+    automake/1.16.3:3e48e69237f7f2196164383ef9dedf0f93cbf249
+    catch2/2.13.4:5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
+    cryptopp/8.5.0:3fb49604f9c2f729b85ba3115852006824e72cab
+    expat/2.2.10:ce5788ba7e3bb7dc834e36b06df66c481f42c99a
+    libpq/11.5:d8ac7a0f959aa6a09fd6a37c84b5d5aa5d138d1f
+    libpqxx/7.2.1:9608a5a69bd5ee4ebda5240c72b3c2aa9fe2a85f
+    libtool/2.4.6:82ad5af1557e85f11dfc0f68ec2820c275dfe6d4
+    nlohmann_json/3.9.1:5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
+    yas/7.0.5:5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
+    zlib/1.2.11:3fb49604f9c2f729b85ba3115852006824e72cab
+
+[full_options]
+    catch2:with_main=False
+    cryptopp:shared=False
+    expat:char_type=char
+    expat:shared=False
+    libpq:shared=False
+    libpq:with_openssl=False
+    libpq:with_zlib=True
+    libpqxx:shared=False
+    libtool:shared=False
+    zlib:minizip=False
+    zlib:shared=False
+
+[recipe_hash]
+
+
+[env]
+
