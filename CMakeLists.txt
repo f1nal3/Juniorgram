@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.17.0)
 project(Juniorgram)
 
 # Global settings. Should probably be moved to a separate file later.
-set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD 20)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CXX_EXTENSIONS off)
 
