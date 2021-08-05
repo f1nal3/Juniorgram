@@ -84,7 +84,7 @@ namespace PerformanceTest
 
             // Creating testing object and waiting until it finishes.
             pid_t pid;
-            posix_spawn(&pid, _instancePath.string().c_str(), nullptr, nullptr, argv.data(), nullptr);
+            posix_spawn(&pid, _instancePath.string().c_str(), nullptr, nullptr, const_cast<char* const*>(argv.data()), nullptr);
             waitpid(pid, nullptr, 0);
 
         #endif
