@@ -247,4 +247,50 @@ void Client::loop()
     }
 }
 
+void Client::onLoginAnswer(bool success)
+{
+    (void)(success);
+    std::cerr << "[Client][Warning] login answer is not implemented\n";
+}
+
+void Client::onServerAccepted() { std::cerr << "[Client][Warning] server accepted is not implemented\n"; }
+
+void Client::onServerPing(double timestamp)
+{
+    (void)(timestamp);
+    std::cerr << "[Client][Warning] server ping is not implemented\n";
+}
+
+void Client::onServerMessage(const uint64_t clientId)
+{
+    (void)(clientId);
+    std::cerr << "[Client][Warning] server message is not implemented\n";
+}
+
+void Client::onChannelListRequest(const std::vector<Network::ChannelInfo>& channels)
+{
+    (void)(channels);
+    std::cerr << "[Client][Warning] channel list request is not implemented\n";
+}
+
+void Client::onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages)
+{
+    (void)(messages);
+    std::cerr << "[Client][Warning] message history answer is not implemented\n";
+}
+
+void Client::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode)
+{
+    (void)(storingMessageCode);
+    std::cerr << "[Client][Warning] message store answer is not implemented\n";
+}
+
+void Client::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
+{
+    (void)(registrationCode);
+    std::cerr << "[Client][Warning] registration answer is not implemented\n";
+}
+
+void Client::onUserMessageDeleteAnswer() { std::cerr << "[Client][Warning] user message delete answer is not implemented\n"; }
+
 }  // namespace Network
