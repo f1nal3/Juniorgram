@@ -1,5 +1,7 @@
 #include "ArgumentParser.hpp"
 
+#include <vector>
+
 namespace PerformanceTest
 {
 	bool ArgumentParser::Validator::isArgument(const std::string_view& arg)
