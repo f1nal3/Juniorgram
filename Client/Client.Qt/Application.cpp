@@ -1,7 +1,6 @@
 #include "Application.hpp"
 
 #include "ChatWindow.hpp"
-#include "ConnectionManager.hpp"
 #include "MainWidget.hpp"
 #include "login.hpp"
 #include "registration.hpp"
