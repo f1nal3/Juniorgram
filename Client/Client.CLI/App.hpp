@@ -22,6 +22,7 @@ public:
      */
     ~App();
 
+protected:
     void onServerAccepted() override;
     void onServerPing(double timestamp) override;
     void onServerMessage(const uint64_t clientId) override;

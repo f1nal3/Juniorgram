@@ -12,9 +12,9 @@ public:
     ~Client();
 
     /// Connect to server with IP(host) and Port(port)
-    bool connect(const std::string_view& host, uint16_t port);
+    bool connectToServer(const std::string_view& host, const uint16_t port);
     /// Disconnect from server
-    void disconnect();
+    void disconnectFromServer();
 
     [[nodiscard]] bool isConnected() const;
 
@@ -36,6 +36,7 @@ public:
     void userRegistration(const std::string& email, const std::string& login, const std::string& password) const;
     void userAuthorization(const std::string& login, const std::string& password) const;
 
+protected:
     /// Disconnect handler
     virtual void onDisconnect();
     /// Message send failure handler

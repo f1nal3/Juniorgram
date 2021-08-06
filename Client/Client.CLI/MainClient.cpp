@@ -120,7 +120,7 @@ int main()
             else if (cmd == "q")
             {
                 quit = true;
-                clientApp.disconnect();
+                clientApp.disconnectFromServer();
                 continue;
             }
             // Set a new line. Subtle race condition between the previous line

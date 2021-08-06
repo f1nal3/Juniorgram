@@ -2,13 +2,13 @@
 
 #include "ServerInfo.hpp"
 
-App::App(/* args */) { connect(ServerInfo::address, ServerInfo::port); }
+App::App(/* args */) { connectToServer(ServerInfo::address, ServerInfo::port); }
 
 App::~App()
 {
     if (isConnected())
     {
-        disconnect();
+        disconnectFromServer();
         std::cout << "Server Down\n";
     }
 }

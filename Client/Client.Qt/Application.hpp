@@ -50,11 +50,17 @@ public:
      */
     void setAppState(App::AppState app_state);
 
+    /**
+     * @brief Reconnects to server
+     */
+     void reconnectToServer();
+
     std::unique_ptr<ConnectionManager>& connectionManager();
 
 private:
     std::unique_ptr<MainWidget>        _mainWidget;
     std::unique_ptr<ConnectionManager> _connectionManager;
+    std::unique_ptr<ReceiverManager>  _recieverManager;
     App::AppState                      _appState;
     const Style::icon*                 _icon;
 };

@@ -9,9 +9,9 @@ namespace Network
 {
 using MessageType = Network::Message::MessageType;
 
-Client::~Client() { disconnect(); }
+Client::~Client() { disconnectFromServer(); }
 
-bool Client::connect(const std::string_view& host, const uint16_t port)
+bool Client::connectToServer(const std::string_view& host, const uint16_t port)
 {
     if (host != ServerInfo::address)
     {
@@ -34,7 +34,6 @@ bool Client::connect(const std::string_view& host, const uint16_t port)
         /// Auto = asio::ip::tcp::resolver::results_type
         auto endpoints = resolver.resolve(host, std::to_string(port));
         _connection->connectToServer(endpoints);
-
         _contextThread = std::thread([=]() {
             while (_context.run_one())
             {
@@ -51,7 +50,7 @@ bool Client::connect(const std::string_view& host, const uint16_t port)
     return true;
 }
 
-void Client::disconnect()
+void Client::disconnectFromServer()
 {
     if (isConnected())
     {
@@ -60,7 +59,7 @@ void Client::disconnect()
 
     _context.stop();
 
-    if (_contextThread.joinable())
+    if (_contextThread.get_id() != std::this_thread::get_id() && _contextThread.joinable())
     {
         _contextThread.join();
     }
@@ -304,7 +303,7 @@ void Client::onDisconnect() { std::cerr << "[Client][Warning] onDisconnect is no
 void Client::onMessageSendFailed(const Message& message) const
 {
     (void)(message);
-    std::cerr << "[Client][Warning] onMessageSendFailed";
+    std::cerr << "[Client][Warning] onMessageSendFailed is not implemented\n";
 }
 
 }  // namespace Network
