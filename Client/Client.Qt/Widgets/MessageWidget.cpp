@@ -1,5 +1,4 @@
 #include "MessageWidget.hpp"
-#include <iostream>
 
 #include <QDebug>
 #include <QPainter>
@@ -162,7 +161,6 @@ int MessageWidget::expectedHeight() const
 
 void MessageWidget::createReply()
 {
-    //_replyWidget = std::make_shared<ReplyWidget>(_messageText, _username, _messageId);
     _replyWidget = new ReplyWidget(_messageText, _username, _messageId);
     emit createReplySignal(_replyWidget);
 }

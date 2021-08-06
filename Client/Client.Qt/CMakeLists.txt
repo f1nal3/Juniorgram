@@ -42,6 +42,8 @@ set(SOURCE_FILES
         Widgets/PopupWidget.hpp
         Widgets/ScrollArea.cpp
         Widgets/ScrollArea.hpp
+        Widgets/SimpleReplyWidget.hpp
+        Widgets/SimpleReplyWidget.cpp
         Widgets/TextEdit.cpp
         Widgets/TextEdit.hpp
         Widgets/ReactionLayout.cpp

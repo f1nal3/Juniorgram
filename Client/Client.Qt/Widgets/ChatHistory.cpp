@@ -17,10 +17,18 @@ ChatHistory::ChatHistory(QWidget* parent) : QWidget(parent), _messageList()
     connect(_scrollArea.get(), SIGNAL(scrolled()), this, SLOT(resizeVisible()));
 }
 
-void ChatHistory::addMessage(const QString& message, quint64 utc, const QString& user)
+void ChatHistory::addMessage(const QString& message, quint64 utc, ReplyWidget* reply, const QString& user)
 {
     auto history = _scrollArea->widget();
     // The _messageId is incremented for message numbering
+    if(reply != nullptr)
+    {
+        auto replyMsg = new SimpleReplyWidget(history, reply->getMessage(), reply->getMessageId(), reply->getUsername());
+        replyMsg->show();
+        replyMsg->resize(history->width() - 25, replyMsg->expectedHeight());
+        reply->close();
+    }
+
     auto msg = new MessageWidget(history, message, _messageId++, _userId, utc, user);
 
     msg->show();

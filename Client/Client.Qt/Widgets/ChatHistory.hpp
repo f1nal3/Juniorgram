@@ -5,6 +5,7 @@
 
 #include "MessageWidget.hpp"
 #include "ScrollArea.hpp"
+#include "SimpleReplyWidget.hpp"
 
 /**
  * @class ChatHistory
@@ -26,7 +27,7 @@ public:
      * @param utc Seconds since epoch
      * @param user Usenname
      */
-    void addMessage(const QString& message = QString(), quint64 utc = 0, const QString& user = "You");
+    void addMessage(const QString& message = QString(), quint64 utc = 0, ReplyWidget* reply = nullptr, const QString& user = "You");
 
     /**
      * @brief Clears all chat

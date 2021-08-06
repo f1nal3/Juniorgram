@@ -19,12 +19,16 @@ ReplyWidget::ReplyWidget(QString message, QString username, uint64_t messageId, 
     resize(width(), expectedHeight());
     _closeReplyButton = std::make_unique<FlatButton>(this, "Close", _st.button);
     _closeReplyButton->setClickCallback([&](){ closeReply(); });
-    //emit createReplySignal(this);
 }
 
 void ReplyWidget::closeReply()
 {
     this->close();
+}
+
+void ReplyWidget::hideButtons()
+{
+    _closeReplyButton->hide();
 }
 
 int ReplyWidget::expectedHeight()

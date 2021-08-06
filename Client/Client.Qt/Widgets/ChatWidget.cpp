@@ -3,8 +3,6 @@
 #include "ChatHistory.hpp"
 #include "ConnectionManager.hpp"
 
-#include <iostream>
-
 ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
 {
     setContentsMargins(0, 0, 0, 0);
@@ -27,12 +25,26 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
 void ChatWidget::newMessage(const QString& messageText) 
 {
     ConnectionManager::getClient().storeMessage(messageText.toStdString(), _channelID);
-    _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch()); 
+    if(this->findChild<ReplyWidget*>())
+    {
+        _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch(), _replyWidget);
+    }
+    else
+    {
+        _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch());
+    }
 }
 
 void ChatWidget::newMessage(const QString& messageText, const QString& userNameMessage)
 {
-    _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch(), userNameMessage);
+    if(this->findChild<ReplyWidget*>())
+    {
+        _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch(), _replyWidget, userNameMessage);
+    }
+    else
+    {
+        _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch(), nullptr, userNameMessage);
+    }
 }
 
 void ChatWidget::addReplyWidget(ReplyWidget* reply)
@@ -43,7 +55,5 @@ void ChatWidget::addReplyWidget(ReplyWidget* reply)
     }
 
      _replyWidget = reply;
-    _mainChatLayout->insertWidget(1, _replyWidget, 10);
-
-    std::cout << _replyWidget << std::endl;
+    _mainChatLayout->insertWidget(1, _replyWidget, 15);
 }
