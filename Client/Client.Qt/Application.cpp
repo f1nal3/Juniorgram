@@ -41,7 +41,7 @@ void Application::create()
     _connectionManager = std::make_unique<ConnectionManager>();
     _connectionManager->init();
 
-    setAppState(App::AppState::Login);
+    setAppState(App::AppState::LoginForm);
     QApplication::setFont(st::defaultFont);
 }
 
