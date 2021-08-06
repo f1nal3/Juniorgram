@@ -3,7 +3,6 @@
 #include <QtEvents>
 
 #include "Application.hpp"
-#include "ConnectionManager.hpp"
 #include "Utility/UserDataValidation.hpp"
 #include "Widgets/Buttons.hpp"
 #include "Widgets/InputFields.hpp"
@@ -25,9 +24,10 @@ Login::Login(QWidget* parent) : QWidget(parent)
         std::string password = _passwordInput->text().toStdString();
 
         ConnectionManager::loginState = LoginState::IN_PROGRESS;
-        ConnectionManager::getClient().userAuthorization(login, password);
+        auto& connectionManager       = oApp->connectionManager();
+        connectionManager->userAuthorization(login, password);
 
-        while (ConnectionManager::loginState == LoginState::IN_PROGRESS && ConnectionManager::isConnected())
+        while (ConnectionManager::loginState == LoginState::IN_PROGRESS && connectionManager->isConnected())
         {
         }
 

@@ -38,10 +38,10 @@ void Application::create()
     ReactionLayout::addIcon(3, st::catIcon);
     ReactionLayout::addIcon(4, st::smileIcon);
 
-    ConnectionManager::connect();
-    std::thread(&ConnectionManager::loop).detach();
+    _connectionManager = std::make_unique<ConnectionManager>();
+    _connectionManager->init();
 
-    setAppState(App::AppState::LoginForm);
+    setAppState(App::AppState::Login);
     QApplication::setFont(st::defaultFont);
 }
 
@@ -71,3 +71,4 @@ void Application::setAppState(App::AppState app_state)
         }
     }
 }
+std::unique_ptr<ConnectionManager>& Application::connectionManager() { return _connectionManager; }

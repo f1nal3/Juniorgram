@@ -2,7 +2,7 @@
 
 #include <QFutureWatcher>
 
-#include "ConnectionManager.hpp"
+#include "Application.hpp"
 
 ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent)
     : QWidget(parent), _widgetChannelList(anotherChannelListWidget)
@@ -34,7 +34,7 @@ ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannel
 void ChannelListWindow::updateChannelList()
 {
     std::thread([&]() {
-        if (ConnectionManager::isConnected())
+        if (oApp->connectionManager()->isConnected())
         {
             std::mutex                   mtx;
             std::unique_lock<std::mutex> lck(mtx);
@@ -107,9 +107,9 @@ void ChannelListWindow::setChannels(std::vector<Network::ChannelInfo>&& channels
 
 void ChannelListWindow::updateChannelListWindow()
 {
-    if (ConnectionManager::isConnected())
+    if (oApp->connectionManager()->isConnected())
     {
-        ConnectionManager::getClient().askForChannelList();
+        oApp->connectionManager()->askForChannelList();
         updateChannelList();
     }
 }
