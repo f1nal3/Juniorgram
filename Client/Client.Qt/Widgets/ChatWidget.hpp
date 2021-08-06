@@ -16,7 +16,7 @@ private slots:
     void addReplyWidget(ReplyWidget* reply);
 
 private:
-    ReplyWidget* _replyWidget = nullptr;
+    ReplyWidget* _replyWidget;
     std::unique_ptr<QVBoxLayout> _mainChatLayout;
     std::unique_ptr<ChatHistory> _chatHistory;
     std::unique_ptr<TextEdit>    _textEdit;

@@ -5,7 +5,6 @@
 #include "Widgets/Buttons.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/ReactionLayout.hpp"
-#include "Widgets/Label.hpp"
 #include "Widgets/ReplyWidget.hpp"
 
 class ChatHistory;
@@ -110,5 +109,5 @@ private:
 
     std::unique_ptr<FlatButton>   _replyBtn;
     //std::shared_ptr<ReplyWidget>  _replyWidget;
-    ReplyWidget*                  _replyWidget;
+    ReplyWidget*                  _replyWidget = nullptr;
 };

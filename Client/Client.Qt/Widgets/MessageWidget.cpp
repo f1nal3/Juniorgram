@@ -1,4 +1,5 @@
 #include "MessageWidget.hpp"
+#include <iostream>
 
 #include <QDebug>
 #include <QPainter>

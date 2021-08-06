@@ -6,6 +6,8 @@
 ReplyWidget::ReplyWidget(QString message, QString username, uint64_t messageId, const Style::MessageWidget& st)
     : _messageText(message), _username(username), _messageId(messageId), _st(st)
 {
+    setAttribute(Qt::WA_DeleteOnClose);
+
     _fmtMessageText = std::make_unique<FlatTextEdit>(this, _st.textedit);
     _fmtMessageText->setText(_messageText);
     _fmtMessageText->setAcceptDrops(false);
@@ -17,8 +19,7 @@ ReplyWidget::ReplyWidget(QString message, QString username, uint64_t messageId, 
     resize(width(), expectedHeight());
     _closeReplyButton = std::make_unique<FlatButton>(this, "Close", _st.button);
     _closeReplyButton->setClickCallback([&](){ closeReply(); });
-    setAttribute(Qt::WA_DeleteOnClose);
-    emit createReplySignal(this);
+    //emit createReplySignal(this);
 }
 
 void ReplyWidget::closeReply()

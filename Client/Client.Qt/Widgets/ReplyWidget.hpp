@@ -3,7 +3,7 @@
 #include <QWidget>
 #include <memory>
 
-#include "FlatButton.hpp"
+#include "Buttons.hpp"
 #include "InputFields.hpp"
 
 class ReplyWidget : public QWidget
