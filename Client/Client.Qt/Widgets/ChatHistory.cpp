@@ -26,6 +26,12 @@ void ChatHistory::addMessage(const QString& message, quint64 utc, ReplyWidget* r
         auto replyMsg = new SimpleReplyWidget(history, reply->getMessage(), reply->getMessageId(), reply->getUsername());
         replyMsg->show();
         replyMsg->resize(history->width() - 25, replyMsg->expectedHeight());
+
+        connect(replyMsg, &SimpleReplyWidget::geometryChanged, this, [=](int diff) {
+            history->setMinimumHeight(history->minimumHeight() + diff);
+            updateLayout(true);
+        });
+
         reply->close();
     }
 

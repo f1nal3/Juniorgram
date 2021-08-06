@@ -19,6 +19,8 @@ SimpleReplyWidget::SimpleReplyWidget(QWidget* history, QString message, uint64_t
     _fmtMessageText->setFont(_st.fonttext);
     _fmtMessageText->move(_st.radius * 2, _st.fontname->height + _st.radius * 4);
     _fmtMessageText->show();
+
+    resize(width(), expectedHeight());
 }
 
 int SimpleReplyWidget::expectedHeight() const
@@ -45,4 +47,17 @@ void SimpleReplyWidget::paintEvent(QPaintEvent* e)
     p.setFont(_st.fontdate);
 
     QWidget::paintEvent(e);
+}
+
+void SimpleReplyWidget::resizeEvent(QResizeEvent* e)
+{
+    emit geometryChanged(e->size().height() - e->oldSize().height());
+
+    _fmtMessageText->resize(width() - _st.radius * 4 - 1, _fmtMessageText->document()->size().height());
+
+    if (expectedHeight() != height())
+    {
+        resize(width(), expectedHeight());
+    }
+    QWidget::resizeEvent(e);
 }

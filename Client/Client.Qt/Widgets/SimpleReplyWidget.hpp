@@ -2,6 +2,7 @@
 
 #include <QWidget>
 #include <QPainter>
+#include <QResizeEvent>
 #include <memory>
 
 #include "Widgets/InputFields.hpp"
@@ -9,6 +10,8 @@
 
 class SimpleReplyWidget : public QWidget
 {
+    Q_OBJECT
+
 public:
     SimpleReplyWidget(QWidget* history, QString message, uint64_t messageId, QString username,
                       const Style::MessageWidget& st = st::defaultMessageWidget);
@@ -16,10 +19,13 @@ public:
 public:
     int expectedHeight() const;
 
+signals:
+    void geometryChanged(int);
+
 
 protected:
     void paintEvent(QPaintEvent* e) override;
-    //void resizeEvent(QResizeEvent* e) override;
+    void resizeEvent(QResizeEvent* e) override;
 
 private:
     std::unique_ptr<FlatTextEdit>   _fmtMessageText;
