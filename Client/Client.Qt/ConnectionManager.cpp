@@ -4,11 +4,23 @@ ReceiverManager* ReceiverManager::self;
 
 ReceiverManager::ReceiverManager() { self = this; }
 
-void ConnectionManager::onServerAccepted() { std::cout << "Server Accepted Connection\n"; }
+void ConnectionManager::onServerAccepted()
+{
+    std::cout << "Server Accepted Connection\n";
+    emit ReceiverManager::instance()->onServerAccepted();
+}
 
-void ConnectionManager::onServerPing(double timestamp) { std::cout << "Ping: " << timestamp << "\n"; }
+void ConnectionManager::onServerPing(double timestamp)
+{
+    std::cout << "Ping: " << timestamp << "\n";
+    emit ReceiverManager::instance()->onServerPing(timestamp);
+}
 
-void ConnectionManager::onServerMessage(const uint64_t clientId) { std::cout << "Hello from [" << clientId << "]\n"; }
+void ConnectionManager::onServerMessage(const uint64_t clientId)
+{
+    std::cout << "Hello from [" << clientId << "]\n";
+    emit ReceiverManager::instance()->onServerMessage(clientId);
+}
 
 void ConnectionManager::onChannelListRequest(const std::vector<Network::ChannelInfo>& channels)
 {
@@ -26,6 +38,7 @@ void ConnectionManager::onMessageHistoryAnswer(const std::vector<Network::Messag
     {
         std::cout << item.message << '\n';
     }
+    emit ReceiverManager::instance()->onMessageHistoryAnswer(messages);
 }
 
 void ConnectionManager::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode)
@@ -42,6 +55,7 @@ void ConnectionManager::onMessageStoreAnswer(Utility::StoringMessageCodes storin
     {
         std::cout << "Unknown StoringMessageCode" << std::endl;
     }
+    emit ReceiverManager::instance()->onMessageStoreAnswer(storingMessageCode);
 }
 
 void ConnectionManager::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
@@ -62,6 +76,7 @@ void ConnectionManager::onRegistrationAnswer(Utility::RegistrationCodes registra
     {
         std::cout << "Unknown code" << std::endl;
     }
+    emit ReceiverManager::instance()->onRegistrationAnswer(registrationCode);
 }
 
 void ConnectionManager::onLoginAnswer(bool success)
@@ -77,7 +92,11 @@ void ConnectionManager::onLoginAnswer(bool success)
     emit ReceiverManager::instance()->onLoginAnswer(success);
 }
 
-void ConnectionManager::onUserMessageDeleteAnswer() { Client::onUserMessageDeleteAnswer(); }
+void ConnectionManager::onUserMessageDeleteAnswer()
+{
+    Client::onUserMessageDeleteAnswer();
+    emit ReceiverManager::instance()->onUserMessageDeleteAnswer();
+}
 
 void ConnectionManager::onDisconnect()
 {

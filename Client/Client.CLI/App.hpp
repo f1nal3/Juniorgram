@@ -23,11 +23,18 @@ public:
     ~App();
 
 protected:
+    /// Server accepted handler
     void onServerAccepted() override;
+    /// Server ping handler
     void onServerPing(double timestamp) override;
+    /// Server message handler
     void onServerMessage(const uint64_t clientId) override;
+    /// Channel list request handler
     void onChannelListRequest(const std::vector<Network::ChannelInfo>& channels) override;
+    /// Message store answer handler
     void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode) override;
+    /// Message history answer handler
     void onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages) override;
+    /// Registration answer handler
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode) override;
 };

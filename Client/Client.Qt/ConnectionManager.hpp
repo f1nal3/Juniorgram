@@ -20,9 +20,16 @@ public:
     inline static ReceiverManager* instance() { return self; }
 
 signals:
-    void onDisconnect();
-    void onLoginAnswer(bool success);
+    void onServerAccepted();
+    void onServerPing(double timestamp);
+    void onServerMessage(const uint64_t clientId);
     void onChannelListRequest(const std::vector<Network::ChannelInfo>& channels);
+    void onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages);
+    void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode);
+    void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
+    void onUserMessageDeleteAnswer() override;
+    void onLoginAnswer(bool success) override;
+    void onDisconnect() override;
 
 private:
     static ReceiverManager* self;
