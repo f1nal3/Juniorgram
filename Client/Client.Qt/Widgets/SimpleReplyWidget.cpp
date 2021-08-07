@@ -44,7 +44,9 @@ void SimpleReplyWidget::paintEvent(QPaintEvent* e)
     auto usernameRect = QRect(margin * 2, margin * 2 + 1, _st.fontname->width(_username), _st.fontname->height);
     p.drawText(usernameRect, _username);
 
-    p.setFont(_st.fontdate);
+    auto replyRect = QRect(margin * 2, margin * 2 + 1, _st.fontname->width(_replyTag), _st.fontname->height);
+    replyRect.moveRight(width() - _st.radius - 10);
+    p.drawText(replyRect, _replyTag);
 
     QWidget::paintEvent(e);
 }

@@ -2,6 +2,7 @@
 
 #include <QWidget>
 #include <memory>
+#include <QResizeEvent>
 
 #include "Buttons.hpp"
 #include "InputFields.hpp"
@@ -21,10 +22,11 @@ public:
 
 public slots:
     void closeReply();
-    void hideButtons();
-
-signals:
-    //void geometryChanged(int);
+/*
+protected:
+    void paintEvent(QPaintEvent* e) override;
+    void resizeEvent(QResizeEvent* e) override;
+    */
 
 private:
     QString _messageText;

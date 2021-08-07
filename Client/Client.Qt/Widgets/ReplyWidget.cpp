@@ -26,11 +26,6 @@ void ReplyWidget::closeReply()
     this->close();
 }
 
-void ReplyWidget::hideButtons()
-{
-    _closeReplyButton->hide();
-}
-
 int ReplyWidget::expectedHeight()
 {
     if (!_fmtMessageText) return 0;
@@ -48,14 +43,16 @@ void ReplyWidget::paintEvent(QPaintEvent* e)
     auto thisrect = rect().marginsRemoved(QMargins(1, 1, 2, 2));
     p.drawRoundedRect(thisrect, margin, margin);
 
-    p.setFont(_st.fontdate);
+    p.setFont(_st.fontname);
+
+    auto usernameRect = QRect(margin * 2, margin * 2 + 1, _st.fontname->width(_username), _st.fontname->height);
+    p.drawText(usernameRect, _username);
 
     QWidget::paintEvent(e);
 }
 
 void ReplyWidget::resizeEvent(QResizeEvent* e)
 {
-    emit geometryChanged(e->size().height() - e->oldSize().height());
     int closeReplyButtonX = width() - _st.radius - _closeReplyButton->width();
     _closeReplyButton->move(closeReplyButtonX, _st.radius);
     _fmtMessageText->resize(width() - _st.radius * 4 - 1, _fmtMessageText->document()->size().height());
@@ -66,4 +63,5 @@ void ReplyWidget::resizeEvent(QResizeEvent* e)
     }
     QWidget::resizeEvent(e);
 }
+
 */

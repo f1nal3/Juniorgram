@@ -34,4 +34,5 @@ private:
     QString                         _messageText;
     QString                         _username;
     const Style::MessageWidget&     _st;
+    const QString                   _replyTag = "Reply";
 };
