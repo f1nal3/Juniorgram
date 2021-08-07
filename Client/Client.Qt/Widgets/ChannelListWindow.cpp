@@ -27,6 +27,7 @@ ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannel
 
     _addChannelButton->setClickCallback([this]() { addChannelToMainChannelWidget(); });
     _updateChannelButton->setClickCallback([this]() { updateChannelListWindow(); });
+    updateChannelListWindow();
 
     setLayout(_vBoxLayout.get());
 }
@@ -40,36 +41,13 @@ void ChannelListWindow::updateChannelList()
             std::unique_lock<std::mutex> lck(mtx);
             mainWidgetStatus.wait(lck);
 
-            int numberOfCoincidences = 0;
-
-            for (int index = 0; index < _widgetChannelList->count(); ++index)
+            for (auto channel : channels)
             {
-                for (auto it = channels.rbegin(); it != channels.rend(); ++it)
+                if (!_channelsAddMap[channel.channelID])
                 {
-                    if (QString::fromStdString(it->channelName) == _widgetChannelList->item(index)->text())
-                    {
-                        channels.erase(std::remove(channels.begin(), channels.end(), *it), channels.end());
-                    }
+                    _channelList->addItem(QString::fromStdString(channel.channelName));
+                    _channelsAddMap[channel.channelID] = true;
                 }
-            }
-            for (auto it = channels.rbegin(); it != channels.rend(); ++it)
-            {
-                if (_channelList->count() == 0)
-                {
-                    _channelList->addItem(QString::fromStdString(it->channelName));
-                }
-                for (int i = 0; i < _channelList->count(); ++i)
-                {
-                    if (_channelList->item(i)->text() == QString::fromStdString(it->channelName))
-                    {
-                        numberOfCoincidences++;
-                    }
-                }
-                if (numberOfCoincidences == 0)
-                {
-                    _channelList->addItem(QString::fromStdString(it->channelName));
-                }
-                numberOfCoincidences = 0;
             }
             lck.unlock();
         }
@@ -100,10 +78,16 @@ void ChannelListWindow::addChannelToMainChannelWidget()
             _widgetChannelList->addItem(_channelList->takeItem(_channelList->currentRow()));
         }
     }
-    hide();
 }
 
-void ChannelListWindow::setChannels(std::vector<Network::ChannelInfo>&& channels_) { channels = channels_; }
+void ChannelListWindow::setChannels(std::vector<Network::ChannelInfo>&& channels_)
+{ 
+    channels = channels_;
+    for (auto& channel : channels)
+    {
+        _channelsAddMap.emplace(std::pair<std::uint64_t, bool>(channel.channelID, false));
+    }
+}
 
 void ChannelListWindow::updateChannelListWindow()
 {
