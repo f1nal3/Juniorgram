@@ -22,6 +22,7 @@ public:
 signals:
     void onDisconnect();
     void onLoginAnswer(bool success);
+    void onChannelListRequest(const std::vector<Network::ChannelInfo>& channels);
 
 private:
     static ReceiverManager* self;

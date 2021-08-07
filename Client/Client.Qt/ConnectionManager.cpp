@@ -16,6 +16,7 @@ void ConnectionManager::onChannelListRequest(const std::vector<Network::ChannelI
     ChannelListWindow::setChannels(std::move(copy));
 
     ChannelListWindow::mainWidgetStatus.notify_one();
+    emit ReceiverManager::instance()->onChannelListRequest(channels);
 }
 
 void ConnectionManager::onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages)

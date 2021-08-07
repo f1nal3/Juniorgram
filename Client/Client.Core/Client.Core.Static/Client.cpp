@@ -42,9 +42,9 @@ bool Client::connectToServer(const std::string_view& host, const uint16_t port)
             onDisconnect();
         });
     }
-    catch (std::exception& e)
+    catch (std::exception& exception)
     {
-        std::cerr << "Client Exception: " << e.what() << "\n";
+        std::cerr << "Client Exception: " << exception.what() << "\n";
         return false;
     }
     return true;

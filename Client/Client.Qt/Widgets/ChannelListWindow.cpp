@@ -28,6 +28,9 @@ ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannel
     _addChannelButton->setClickCallback([this]() { addChannelToMainChannelWidget(); });
     _updateChannelButton->setClickCallback([this]() { updateChannelListWindow(); });
 
+    /// TODO: implement it w/o thread
+    // connect(ReceiverManager::instance(), &ReceiverManager::onChannelListRequest, this, &ChannelListWindow::setChannels);
+
     setLayout(_vBoxLayout.get());
 }
 
