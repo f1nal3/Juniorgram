@@ -27,9 +27,9 @@ signals:
     void onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages);
     void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode);
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
-    void onUserMessageDeleteAnswer() override;
-    void onLoginAnswer(bool success) override;
-    void onDisconnect() override;
+    void onUserMessageDeleteAnswer();
+    void onLoginAnswer(bool success);
+    void onDisconnect();
 
 private:
     static ReceiverManager* self;
