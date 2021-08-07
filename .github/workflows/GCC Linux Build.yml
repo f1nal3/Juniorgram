@@ -26,7 +26,7 @@ jobs:
       run: docker pull docker.pkg.github.com/f1nal3/juniorgram/juniorgram_test_db:stable
       
     - name: Run docker image
-      run: docker run -d --name juniorgram_test_db_container -p 5555:5432 docker.pkg.github.com/f1nal3/juniorgram/juniorgram_test_db:stable
+      run: docker run -d --name juniorgram_test_db_container -p 5432:5432 docker.pkg.github.com/f1nal3/juniorgram/juniorgram_test_db:stable
     
     - uses: actions/setup-python@v2
       with:
