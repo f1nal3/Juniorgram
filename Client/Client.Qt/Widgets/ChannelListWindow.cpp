@@ -80,9 +80,9 @@ void ChannelListWindow::addChannelToMainChannelWidget()
     }
 }
 
-void ChannelListWindow::setChannels(std::vector<Network::ChannelInfo>&& channels_)
+void ChannelListWindow::setChannels(std::vector<Network::ChannelInfo>&& newChannels)
 { 
-    channels = channels_;
+    channels = newChannels;
     for (auto& channel : channels)
     {
         _channelsAddMap.emplace(std::pair<std::uint64_t, bool>(channel.channelID, false));
