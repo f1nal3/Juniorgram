@@ -34,17 +34,10 @@ int main(int argc, char** argv)
 
     queriesQueue.emplace("cl");
 
-    App clientApp;
-    
-    // Without this string Performance test or Args fall client.
-    // We need some kind of mechanism that would put
-    // the thread to sleep until the client connects to the client.
-    // 
-    // This doesn't work.
-    // while (!clientApp.shell()->isConnected());
-    std::this_thread::sleep_for(std::chrono::seconds(5));
-
     App  clientApp;
+
+    while (!clientApp.isConnected());
+
     bool quit   = false;
     auto future = std::async(std::launch::async, GetLineFromCin);
 
@@ -60,8 +53,7 @@ int main(int argc, char** argv)
                 clientApp.pingServer();
                 cmd = "";
             }
-            // What is the diference between:
-            else if (cmd == "s")                                           // <---- This
+            else if (cmd == "s")
             {
                 Network::Message message;                                  
 
@@ -72,7 +64,7 @@ int main(int argc, char** argv)
                 clientApp.send(message);
                 cmd = "";
             }
-            else if (cmd == "qs")                                          // <---- And this?
+            else if (cmd == "qs")
             {
                 Network::Message message;
 
@@ -82,7 +74,6 @@ int main(int argc, char** argv)
 
                 clientApp.send(message);
             }
-            // ========================================================
             else if (cmd == "cl")
             {
                 clientApp.askForChannelList();

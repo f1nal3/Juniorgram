@@ -3,7 +3,6 @@
 
 namespace PerformanceTest
 {
-	// Is it worth to move it to Utility target?
 	class SimpleTimer
 	{
 		using hsc = std::chrono::high_resolution_clock;

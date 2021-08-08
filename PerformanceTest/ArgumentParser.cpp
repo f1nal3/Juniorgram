@@ -19,10 +19,10 @@ namespace PerformanceTest
 		case argument::path:
 			return fs::exists(value);
 		case argument::count:
+            auto isdig = [](char ch) { return std::isdigit(static_cast<unsigned char>(ch)); };
 			return !value.empty()
-				&& (std::atoi(value.data()) < _MAX_COUNT);
-				// WHY IS IT NOT COMPILING!??!!?
-				//&& std::all_of(value.cbegin(), value.cend(), std::isdigit);
+				&& (std::atoi(value.data()) < _MAX_COUNT)
+				&& std::all_of(value.cbegin(), value.cend(), isdig);
 		}
 
 		return false;

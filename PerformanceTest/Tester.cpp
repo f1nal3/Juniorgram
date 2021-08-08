@@ -7,7 +7,7 @@ namespace PerformanceTest
         std::array<const char*, 4> argTypes = { "q ", "mh ", "p ", "cl " };
         std::vector<const char*> args;
 
-        std::uniform_int_distribution distIndex(1, 3), distRange(25, 75);
+        std::uniform_int_distribution distIndex(1, 3), distRange(50, 100);
 
         std::random_device rd;
         std::mt19937 engine(rd());
@@ -20,10 +20,8 @@ namespace PerformanceTest
         for (std::size_t randArgIter = 0; randArgIter < range; randArgIter++)
         {
             const char* argType = argTypes[randArgIter < 25 ? rndIndex() : rndIndex() - 1];
-            if (argType[0] == 'q')
+            if (argType[0] == 'q' || randArgIter == range - 1)
             {
-                args.push_back("cl ");
-                args.push_back("mh ");
                 args.push_back("q");
                 break;
             }
@@ -52,7 +50,7 @@ namespace PerformanceTest
             std::string argvByOneString;
             argvByOneString = std::accumulate(argv.begin(), argv.end(), std::string{});
 
-            std::cout << "Args to testing objects: " << argvByOneString << std::endl;
+            std::cout << "Args to testing object #" << testIndex + 1 << ": " << argvByOneString << std::endl;
 
         #endif
 
@@ -100,11 +98,14 @@ namespace PerformanceTest
         std::size_t testIndex = 1;
         for (const auto timestamp : _timestamps)
         {
+            if ((testIndex - 1) % 5 == 0) 
+                std::cout << "\n";
+
             std::cout << std::fixed << std::setprecision(std::streamsize(9))
                       << "Test #" << std::setw(3) << testIndex++ << ": "
-                      << std::setw(15) << timestamp - 5 << "s\n";
+                      << std::setw(15) << timestamp << "s\t";
         }
 
-        std::cout << "\nAverage time:  " << std::accumulate(_timestamps.begin(), _timestamps.end(), 0.0) / _timestamps.size() - 5 << "s" << std::endl;
+        std::cout << "\n\nAverage time:  " << std::accumulate(_timestamps.begin(), _timestamps.end(), 0.0) / _timestamps.size() << "s" << std::endl;
     }
 }
