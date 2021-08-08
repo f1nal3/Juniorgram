@@ -23,6 +23,8 @@ public:
      */
     explicit Login(QWidget* parent = nullptr);
 
+public slots:
+    void onLogin();
 protected:
     /**
      * @brief Handle resize events

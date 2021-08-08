@@ -2,7 +2,7 @@
 
 #include <QFutureWatcher>
 
-#include "ConnectionManager.hpp"
+#include "Application.hpp"
 
 ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent)
     : QWidget(parent), _widgetChannelList(anotherChannelListWidget)
@@ -28,13 +28,16 @@ ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannel
     _addChannelButton->setClickCallback([this]() { addChannelToMainChannelWidget(); });
     _updateChannelButton->setClickCallback([this]() { updateChannelListWindow(); });
 
+    /// TODO: implement it w/o thread
+    // connect(ReceiverManager::instance(), &ReceiverManager::onChannelListRequest, this, &ChannelListWindow::setChannels);
+
     setLayout(_vBoxLayout.get());
 }
 
 void ChannelListWindow::updateChannelList()
 {
     std::thread([&]() {
-        if (ConnectionManager::isConnected())
+        if (oApp->connectionManager()->isConnected())
         {
             std::mutex                   mtx;
             std::unique_lock<std::mutex> lck(mtx);
@@ -107,9 +110,9 @@ void ChannelListWindow::setChannels(std::vector<Network::ChannelInfo>&& channels
 
 void ChannelListWindow::updateChannelListWindow()
 {
-    if (ConnectionManager::isConnected())
+    if (oApp->connectionManager()->isConnected())
     {
-        ConnectionManager::getClient().askForChannelList();
+        oApp->connectionManager()->askForChannelList();
         updateChannelList();
     }
 }
