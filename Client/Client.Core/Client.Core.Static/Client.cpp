@@ -39,6 +39,7 @@ bool Client::connectToServer(const std::string_view& host, const uint16_t port)
             {
                 loop();
             }
+            _serverAccept = false;
             onDisconnect();
         });
     }
@@ -71,7 +72,7 @@ bool Client::isConnected() const
 {
     if (_connection != nullptr)
     {
-        return _connection->isConnected();
+        return _connection->isConnected() && _serverAccept;
     }
     return false;
 }
@@ -188,6 +189,7 @@ void Client::loop()
 
             case MessageType::ServerAccept:
             {
+                _serverAccept = true;
                 onServerAccepted();
             }
             break;

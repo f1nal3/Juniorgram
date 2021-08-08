@@ -104,6 +104,8 @@ private:
     asio::io_context _context;
     std::thread      _contextThread;
 
+    bool _serverAccept = false;
+
     std::unique_ptr<Connection> _connection;
 
     SafeQueue<Message> _incomingMessagesQueue;
