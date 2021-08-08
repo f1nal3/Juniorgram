@@ -3,17 +3,21 @@
 #include <QtEvents>
 #include <iostream>
 
+#include "Application.hpp"
 #include "ConnectionManager.hpp"
 #include "Utility/UserDataValidation.hpp"
+#include "Widgets/Buttons.hpp"
+#include "Widgets/InputFields.hpp"
+#include "Widgets/LogoWidget.hpp"
 
 Registration::Registration(QWidget* parent) : QWidget(parent)
 {
-    _emailInput            = std::make_unique<FlatInput>(this, "Email");
-    _usernameInput         = std::make_unique<FlatInput>(this, "Username");
-    _passwordInput         = std::make_unique<FlatInput>(this, "Password", true);
-    _repeatPasswordInput   = std::make_unique<FlatInput>(this, "Repeat password", true);
-    _registrationButton    = std::make_unique<FlatButton>(this, "Create account");
-    _backButton            = std::make_unique<FlatButton>(this, "Back");
+    _emailInput          = std::make_unique<FlatInput>(this, "Email");
+    _usernameInput       = std::make_unique<FlatInput>(this, "Username");
+    _passwordInput       = std::make_unique<FlatInput>(this, "Password", true);
+    _repeatPasswordInput = std::make_unique<FlatInput>(this, "Repeat password", true);
+    _registrationButton  = std::make_unique<FlatButton>(this, "Create account");
+    _backButton          = std::make_unique<FlatButton>(this, "Back");
 
     _logoWidget = std::make_unique<LogoWidget>(this);
 
@@ -67,7 +71,10 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
             return;
         }
 
-        ConnectionManager::getClient().userRegistration(email, login, password);
+        oApp->connectionManager()->userRegistration(email, login, password);
+
+        // TODO : Check server reply before returning from registration
+        oApp->setAppState(App::AppState::LoginForm);
     });
 }
 

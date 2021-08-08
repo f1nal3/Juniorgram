@@ -69,36 +69,87 @@ struct LinkButton
 
 struct IconButton
 {
+    Style::color   bgColor;
+    Style::color   overBgColor;
+    Style::color   color;
+    Style::color   overColor;
+    Style::icon    icon;
+    Style::margins margins;
+    int            rounding;
+    Style::font    font;
+    Style::font    overFont;
+    int            duration;
+};
+
+struct TitleBarButton
+{
     Style::color bgColor;
     Style::color overBgColor;
-    int          duration;
+    Style::icon  icon;
+    int          height;
+    int          width;
+};
+
+struct TitleBar
+{
+    Style::color          bgColor;
+    Style::TitleBarButton closeButton;
+    Style::TitleBarButton maximizeButton;
+    Style::TitleBarButton restoreButton;
+    Style::TitleBarButton minimizeButton;
+};
+
+struct Menu
+{
+    int            separatorWidth;
+    Style::margins separatorPadding;
+    Style::color   separatorFg;
+    Style::margins itemPadding;
+    Style::font    itemFont;
+    Style::color   itemFg;
+    Style::color   itemFgOver;
+    Style::color   itemFgDisabled;
+    Style::color   itemBg;
+    Style::color   itemBgOver;
+    int            widthMin;
+    int            widthMax;
 };
 
 }  // namespace Style
 
 namespace st
 {
-extern const int&                  fsize;
-extern const Style::font&          defaultFont;
-extern const Style::font&          semiboldFont;
-extern const Style::IconButton&    defaultTitleButton;
-extern const Style::IconButton&    closeButton;
-extern const int&                  defaultMargin;
-extern const Style::margins&       mar;
-extern const Style::font&          TextStyle;
-extern const Style::LinkButton&    defaultLinkButton;
-extern const Style::FlatButton&    defaultFlatButton;
-extern const Style::FlatButton&    stylingButton;
-extern const Style::FlatButton&    boldnessButton;
-extern const Style::FlatButton&    italicButton;
-extern const Style::FlatButton&    underlineButton;
-extern const Style::ScrollArea&    defaultScrollArea;
-extern const Style::FlatTextEdit&  defaultTextEdit;
-extern const Style::FlatTextEdit&  messageTextEdit;
-extern const Style::icon&          closeButtonIcon;
-extern const Style::icon&          restoreButtonIcon;
-extern const Style::icon&          maximizeButtonIcon;
-extern const Style::icon&          minimizeButtonIcon;
-extern const Style::FlatButton&    messageButton;
-extern const Style::MessageWidget& defaultMessageWidget;
+extern const int&                   fsize;
+extern const Style::font&           defaultFont;
+extern const Style::font&           semiboldFont;
+extern const Style::Menu&           defaultMenu;
+extern const Style::TitleBarButton& defaultTitleBarButton;
+extern const Style::TitleBarButton& closeButton;
+extern const Style::TitleBarButton& restoreButton;
+extern const Style::TitleBarButton& maximizeButton;
+extern const Style::TitleBarButton& minimizeButton;
+extern const Style::TitleBar&       defaultTitleBar;
+extern const int&                   defaultMargin;
+extern const Style::margins&        mar;
+extern const Style::font&           TextStyle;
+extern const Style::IconButton&     defaultIconButton;
+extern const Style::IconButton&     reactionIconButtonInMenu;
+extern const Style::IconButton&     reactionIconButton;
+extern const Style::IconButton&     userReactionIconButton;
+extern const Style::icon&           smileIcon;
+extern const Style::icon&           dislikeIcon;
+extern const Style::icon&           likeIcon;
+extern const Style::icon&           fireIcon;
+extern const Style::icon&           catIcon;
+extern const Style::LinkButton&     defaultLinkButton;
+extern const Style::FlatButton&     defaultFlatButton;
+extern const Style::FlatButton&     stylingButton;
+extern const Style::FlatButton&     boldnessButton;
+extern const Style::FlatButton&     italicButton;
+extern const Style::FlatButton&     underlineButton;
+extern const Style::ScrollArea&     defaultScrollArea;
+extern const Style::FlatTextEdit&   defaultTextEdit;
+extern const Style::FlatTextEdit&   messageTextEdit;
+extern const Style::FlatButton&     messageButton;
+extern const Style::MessageWidget&  defaultMessageWidget;
 }  // namespace st

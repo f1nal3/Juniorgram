@@ -1,59 +1,63 @@
 #pragma once
 
-//#include <Utility/WarningSuppression.hpp>
 #include <cstdint>
 #include <string>
 #include <chrono>
 #include <cstring>
 #include <string>
+#include <Utility/Utility.hpp>
 
 namespace Network
 {
     struct ChannelInfo
     {
+        std::uint64_t creatorID;
         std::uint64_t channelID;
         std::string channelName;
 
     public:
         ChannelInfo() = default;
-        ChannelInfo(std::uint64_t channelID, std::string channelName)
-            : channelID(channelID), channelName(channelName) {}
+        ChannelInfo(const std::uint64_t creatorID, const std::uint64_t channelID, const std::string& channelName)
+            : creatorID(creatorID), channelID(channelID), channelName(channelName) {}
         ~ChannelInfo() = default;
 
-        friend bool operator==(const ChannelInfo& channelInfo1, const ChannelInfo& channelInfo2)
+        friend bool operator==(const ChannelInfo& first, const ChannelInfo& second)
         {
-            return (channelInfo1.channelID == channelInfo2.channelID &&
-                    channelInfo1.channelName == channelInfo2.channelName);
+            return first.channelID   == second.channelID &&
+                   first.creatorID   == second.creatorID &&
+                   first.channelName == second.channelName;
         }
     };
 
     template <typename Archive>
     void serialize(Archive& ar, Network::ChannelInfo& o)
     {
-        ar& o.channelID& o.channelName;
+        ar& o.creatorID& o.channelID& o.channelName;
     }
     
-    struct MessageInfo
+    /**
+     * @brief Struct for storing and transmitting login information
+     *  @field login users login as std::string
+     *  @field pwdHash hash of user's password
+     */
+    struct LoginInfo
     {
-        std::uint64_t userID;
-        std::string message;
-
-    public:
-        MessageInfo() = default;
-        MessageInfo(std::uint64_t userID, std::string message) : userID(userID), message(message) {}
-        ~MessageInfo() = default;
-
-        friend bool operator==(const MessageInfo& messageInfo1, const MessageInfo& messageInfo2)
-        {
-            return (messageInfo1.userID == messageInfo2.userID &&
-                    messageInfo1.message == messageInfo2.message);
-        }
+        std::string login;
+        std::string pwdHash;
+        LoginInfo() = default;
+        LoginInfo(const LoginInfo&) = default;
+        explicit LoginInfo(const std::string& login, const std::string& passwordHash) :
+                            login(login), pwdHash(passwordHash) {}
+        ~LoginInfo() = default;
     };
-
+    
+    /**
+     * @brief helper function for serializing @ref LoginInfo structure
+     */
     template <typename Archive>
-    void serialize(Archive& ar, Network::MessageInfo& o)
+    void serialize(Archive& ar, LoginInfo& o)
     {
-        ar& o.userID& o.message;
+        ar& o.login& o.pwdHash;
     }
 
     struct RegistrationInfo
@@ -111,6 +115,37 @@ namespace Network
     void serialize(Archive& ar, Network::MessageDeletedInfo& o)
     {
         ar& o.userId& o.messageId;
+    }
+
+    struct MessageInfo
+    {
+        std::uint64_t channelID;
+        std::string message;
+        std::uint64_t msgID;
+        std::uint64_t senderID;
+        std::uint64_t recipientID;
+        std::string time = Utility::getTimeNow();
+
+        MessageInfo() = default;
+        explicit MessageInfo(const uint64_t channelID, const std::string& text)
+            : channelID(channelID), message(text)
+        {}
+
+        MessageInfo(const MessageInfo&) = default;
+        ~MessageInfo()                  = default;
+
+        friend bool operator==(const MessageInfo& first, const MessageInfo& second)
+        {
+            return first.message   == second.message   &&
+                   first.channelID == second.channelID &&
+                   first.time      == second.time;
+        }
+    };
+
+    template <typename Archive>
+    void serialize(Archive& ar, Network::MessageInfo& o)
+    {
+        ar& o.channelID& o.message& o.time;
     }
 
 } // namespace Network

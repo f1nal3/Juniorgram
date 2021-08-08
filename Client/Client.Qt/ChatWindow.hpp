@@ -5,7 +5,6 @@
 #include <QWidget>
 #include <memory>
 
-
 #include "Widgets/ChannelListWidget.hpp"
 #include "Widgets/ChatHistory.hpp"
 #include "Widgets/ChatWidget.hpp"
@@ -23,4 +22,5 @@ private:
     std::unique_ptr<QSplitter>         _mainLayout;
     std::unique_ptr<ChannelListWidget> _channelListWidget;
     std::unique_ptr<QStackedWidget>    _chatSwitchWidget;
+    
 };

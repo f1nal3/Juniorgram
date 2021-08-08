@@ -25,9 +25,13 @@ struct Message
         ServerMessage,
         ChannelListRequest,
         MessageHistoryRequest,
+        MessageHistoryAnswer,
         MessageStoreRequest,
+        MessageStoreAnswer,
         RegistrationRequest,
         RegistrationAnswer,
+        LoginRequest,
+        LoginAnswer,
         UserMessageDeleteRequest,
         UserMessageDeleteAnswer
     };

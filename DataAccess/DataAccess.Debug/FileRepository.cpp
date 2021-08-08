@@ -9,45 +9,41 @@ FileRepository::FileRepository()
     database = std::make_unique<FileDB>("Debug"); 
 }
 
-std::vector<std::string> FileRepository::getAllChannelsList()
+std::vector<Network::ChannelInfo> FileRepository::getAllChannelsList()
 {
     auto rows = database->select("channels");
-    std::vector<std::string> channels;
+    std::vector<Network::ChannelInfo> channels;
 
+    Network::ChannelInfo channelInfo;
     for (const auto& row : rows)
     {
-        channels.emplace_back(row.at("channel_name"));
+        channelInfo.creatorID = row.at("creator_id");
+        channelInfo.channelName = row.at("channel_name");
+        channelInfo.channelID   = row.at("id");
+        channels.emplace_back(channelInfo);
     }
 
     return channels;
 }
 
-std::vector<std::string> FileRepository::getMessageHistoryForUser(const std::uint64_t channelID)
+std::vector<Network::MessageInfo> FileRepository::getMessageHistoryForUser(const std::uint64_t channelID)
 {
     auto rows = database->select("channel_msgs", [channelID](const nlohmann::ordered_json& row) {
         return row.at("channel_id") == channelID ? true : false;
     });
 
-    std::vector<std::string> messages;
+    std::vector<Network::MessageInfo> messages;
 
-    for (const auto& row : rows)
+    Network::MessageInfo mi;
+    mi.channelID = channelID;
+    for (auto&& row : rows)
     {
-        messages.emplace_back(row.at("msg"));
+        mi.message   = row.at("msg");
+        mi.time      = row.at("send_time");
+        mi.senderID  = row.at("sender_id");
+        messages.emplace_back(mi);
     }
 
     return messages;
-}
-
-void FileRepository::storeMessage(const Network::MessageInfo& messageInfo, const std::uint64_t channelID)
-{
-    std::string formattedTime = std::string{30, '\0'};
-
-    std::time_t timestamp = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-    std::tm localTime = Utility::safe_localtime(timestamp);
-    std::strftime(formattedTime.data(), formattedTime.size(), "%Y-%m-%d %H:%M:%S", &localTime);
-
-    database->insert("messages",
-                     {std::to_string(channelID), std::to_string(messageInfo.userID), formattedTime, messageInfo.message},
-                     {"channel_id", "sender_id", "send_time", "msg"});
 }
 }  // namespace DataAccess

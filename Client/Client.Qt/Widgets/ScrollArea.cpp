@@ -33,13 +33,13 @@ void ScrollBar::updateBar(bool)
     QRect newBar;
     if (_connected->maximum() != _scrollMax)
     {
-        int32 oldMax = _scrollMax, newMax = _connected->maximum();
+        int32_t oldMax = _scrollMax, newMax = _connected->maximum();
         _scrollMax = newMax;
         area()->rangeChanged(oldMax, newMax, _vertical);
     }
     if (_vertical)
     {
-        int sh = area()->scrollHeight(), rh = height(), h = sh ? int32((rh * int64_t(area()->height())) / sh) : 0;
+        int sh = area()->scrollHeight(), rh = height(), h = sh ? int32_t((rh * int64_t(area()->height())) / sh) : 0;
         if (h >= rh || !area()->scrollTopMax() || rh < 30)
         {
             if (!isHidden()) hide();
@@ -47,14 +47,14 @@ void ScrollBar::updateBar(bool)
         }
 
         if (h <= 30) h = 30;
-        int stm = area()->scrollTopMax(), y = stm ? int32(((rh - h) * int64_t(area()->scrollTop())) / stm) : 0;
+        int stm = area()->scrollTopMax(), y = stm ? int32_t(((rh - h) * int64_t(area()->scrollTop())) / stm) : 0;
         if (y > rh - h) y = rh - h;
 
         newBar = QRect(_st->deltax, y, width() - 2 * _st->deltax, h);
     }
     else
     {
-        int sw = area()->scrollWidth(), rw = width(), w = sw ? int32((rw * int64_t(area()->width())) / sw) : 0;
+        int sw = area()->scrollWidth(), rw = width(), w = sw ? int32_t((rw * int64_t(area()->width())) / sw) : 0;
         if (w >= rw || !area()->scrollLeftMax() || rw < 30)
         {
             if (!isHidden()) hide();
@@ -62,7 +62,7 @@ void ScrollBar::updateBar(bool)
         }
 
         if (w <= 30) w = 30;
-        int slm = area()->scrollLeftMax(), x = slm ? int32(((rw - w) * int64_t(area()->scrollLeft())) / slm) : 0;
+        int slm = area()->scrollLeftMax(), x = slm ? int32_t(((rw - w) * int64_t(area()->scrollLeft())) / slm) : 0;
         if (x > rw - w) x = rw - w;
 
         newBar = QRect(x, _st->deltax, w, height() - 2 * _st->deltax);
@@ -233,7 +233,8 @@ void ScrollBar::mouseMoveEvent(QMouseEvent* e)
         if (barDelta > 0)
         {
             QPoint d = (e->globalPos() - _dragStart);
-            delta = int32((_vertical ? (d.y() * int64_t(area()->scrollTopMax())) : (d.x() * int64_t(area()->scrollLeftMax()))) / barDelta);
+            delta =
+                int32_t((_vertical ? (d.y() * int64_t(area()->scrollTopMax())) : (d.x() * int64_t(area()->scrollLeftMax()))) / barDelta);
         }
         _connected->setValue(_startFrom + delta);
     }
@@ -251,10 +252,11 @@ void ScrollBar::mousePressEvent(QMouseEvent* e)
     }
     else
     {
-        int32 val = _vertical ? e->pos().y() : e->pos().x(), div = _vertical ? height() : width();
+        int32_t val = _vertical ? e->pos().y() : e->pos().x(), div = _vertical ? height() : width();
+
         val        = (val <= _st->deltat) ? 0 : (val - _st->deltat);
         div        = (div <= _st->deltat + _st->deltab) ? 1 : (div - _st->deltat - _st->deltab);
-        _startFrom = _vertical ? int32((val * int64_t(area()->scrollTopMax())) / div) : ((val * int64_t(area()->scrollLeftMax())) / div);
+        _startFrom = _vertical ? int32_t((val * int64_t(area()->scrollTopMax())) / div) : ((val * int64_t(area()->scrollLeftMax())) / div);
         _connected->setValue(_startFrom);
         setOverBar(true);
     }

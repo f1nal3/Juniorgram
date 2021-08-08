@@ -15,23 +15,25 @@ class IRepository
 public:
     /**
      * @brief Draft method for getting all channel list from the server.
-     * @return channels list as vector of strings.
+     * @return channels list as vector of ChannelInfo.
      */
-    virtual std::vector<std::string> getAllChannelsList() = 0;
+    virtual std::vector<Network::ChannelInfo> getAllChannelsList() = 0;
 
     /**
      * @brief Draft method for getting history for a specific user. \
      * History is all messages that a marked as "non-delivered" for this user.
-     * @param UserID as a string
-     * @return List of messages as vector of strings.
+     * @param channelID - channel's id from which we want to get message history.
+     * @return List of messages as vector of MessageInfo.
      */
-    virtual std::vector<std::string> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
+    virtual std::vector<Network::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
     
-    /**
-     * @brief Draft method for storing user's message in repository
-     * @param message as Network::UserMessage.
+    /**  @brief Method for storing message.
+     *   @params Network::MessageInfo which contains message's data for storing in repository.
+     *   @return The return value of the method is one of the StoringMessageCodes (enum): /
+     *   Storing successful - StoringMessageCodes::SUCCESS. /
+     *   Storing failed     - StoringMessageCodes::FAILED.
      */
-    virtual void storeMessage(const Network::MessageInfo& message, const std::uint64_t channelID) = 0;
+    virtual Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& msi) = 0;
     
     /**  @brief Method for user registration.
      *   @params RegistrationMessage which contains user data for registration.
@@ -43,6 +45,13 @@ public:
      *   RegistrationCodes::LOGIN_ALREADY_EXISTS.
      */
     virtual Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) const = 0;
+    /**
+     * @brief attempts to login a user with the provided login by checking privided hash with the one stored.
+     * @param login user login as string
+     * @param pwdHash password hash
+     * @return userID if provided hash is the same as stored in repository, 0 stands for failed login
+     */ 
+    virtual std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) = 0;
     /**
      * @brief Virtual dtor.
      */

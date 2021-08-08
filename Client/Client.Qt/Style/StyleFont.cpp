@@ -1,8 +1,8 @@
 #include "StyleFont.hpp"
 
 #include <QFontDatabase>
-#include <QMap>
 #include <QFontInfo>
+#include <QMap>
 
 namespace Style
 {
@@ -10,14 +10,11 @@ namespace internal
 {
 namespace
 {
-QMap<QString, int>      fontFamilyMap;
-QList<QString>          fontFamilies;
-QMap<uint32, FontData*> fontsMap;
+QMap<QString, int>        fontFamilyMap;
+QList<QString>            fontFamilies;
+QMap<uint32_t, FontData*> fontsMap;
 
-uint32 fontKey(int size, uint32 flags, int family)
-{
-    return (((uint32(family) << 12) | uint32(size)) << 6) | flags;
-}
+uint32_t fontKey(int size, uint32_t flags, int family) { return (((uint32_t(family) << 12) | uint32_t(size)) << 6) | flags; }
 
 bool ValidateFont(const QString& familyName, int flags = 0)
 {
@@ -73,8 +70,7 @@ bool LoadCustomFont(const QString& filePath, const QString& familyName, int flag
 
 [[nodiscard]] QString ManualMonospaceFont()
 {
-    const auto kTryFirst =
-        std::initializer_list<QString>{"Consolas", "Liberation Mono", "Menlo", "Courier"};
+    const auto kTryFirst = std::initializer_list<QString>{"Consolas", "Liberation Mono", "Menlo", "Courier"};
     for (const auto& family : kTryFirst)
     {
         const auto resolved = QFontInfo(QFont(family)).family();
@@ -114,8 +110,7 @@ QString MonospaceFont()
 #else   // Q_OS_WIN || Q_OS_MAC
         // Prefer system monospace font.
         const auto metrics   = QFontMetrics(QFont(system));
-        const auto useSystem = manual.isEmpty() || (metrics.horizontalAdvance(QChar('i')) ==
-                                                    metrics.horizontalAdvance(QChar('W')));
+        const auto useSystem = manual.isEmpty() || (metrics.horizontalAdvance(QChar('i')) == metrics.horizontalAdvance(QChar('W')));
 #endif  // Q_OS_WIN || Q_OS_MAC
         return useSystem ? system : manual;
     }();
@@ -145,11 +140,11 @@ enum
 };
 
 QString Overrides[FontTypesCount];
-QString GetPossibleEmptyOverride(int32 flags)
+QString GetPossibleEmptyOverride(int32_t flags)
 {
-    flags               = flags & (FontBold | FontSemibold | FontItalic);
-    int32 flagsBold     = flags & (FontBold | FontItalic);
-    int32 flagsSemibold = flags & (FontSemibold | FontItalic);
+    flags                 = flags & (FontBold | FontSemibold | FontItalic);
+    int32_t flagsBold     = flags & (FontBold | FontItalic);
+    int32_t flagsSemibold = flags & (FontSemibold | FontItalic);
     if (flagsSemibold == (FontSemibold | FontItalic))
     {
         return Overrides[FontTypeSemiboldItalic];
@@ -177,13 +172,13 @@ QString GetPossibleEmptyOverride(int32 flags)
     return QString();
 }
 
-QString GetFontOverride(int32 flags)
+QString GetFontOverride(int32_t flags)
 {
     const auto result = GetPossibleEmptyOverride(flags);
     return result.isEmpty() ? "Noto Sans" : result;
 }
 
-QFont ResolveFont(uint32 flags, int size)
+QFont ResolveFont(uint32_t flags, int size)
 {
     static auto Database = QFontDatabase();
 
@@ -200,8 +195,7 @@ QFont ResolveFont(uint32 flags, int size)
     else if (useCustom)
     {
         const auto sizes = Database.smoothSizes(custom.family, custom.style);
-        const auto good =
-            sizes.isEmpty() ? Database.pointSizes(custom.family, custom.style) : sizes;
+        const auto good  = sizes.isEmpty() ? Database.pointSizes(custom.family, custom.style) : sizes;
         const auto point = good.isEmpty() ? size : good.front();
         result           = Database.font(custom.family, custom.style, point);
     }
@@ -255,7 +249,7 @@ int registerFontFamily(const QString& family)
     return result;
 }
 
-FontData::FontData(int size, uint32 flags, int family, Font* other)
+FontData::FontData(int size, uint32_t flags, int family, Font* other)
     : f(ResolveFont(flags, size)), m(f), _size(size), _flags(flags), _family(family)
 {
     if (other)
@@ -293,9 +287,9 @@ uint32_t FontData::flags() const { return _flags; }
 
 int FontData::family() const { return _family; }
 
-Font FontData::otherFlagsFont(uint32 flag, bool set) const
+Font FontData::otherFlagsFont(uint32_t flag, bool set) const
 {
-    uint32 newFlags = set ? (_flags | flag) : (_flags & ~flag);
+    uint32_t newFlags = set ? (_flags | flag) : (_flags & ~flag);
     if (!modified[newFlags].v())
     {
         modified[newFlags] = Font(_size, newFlags, _family, modified);
@@ -303,7 +297,7 @@ Font FontData::otherFlagsFont(uint32 flag, bool set) const
     return modified[newFlags];
 }
 
-Font::Font(int size, uint32 flags, const QString& family)
+Font::Font(int size, uint32_t flags, const QString& family)
 {
     if (fontFamilyMap.isEmpty())
     {
@@ -324,10 +318,7 @@ Font::Font(int size, uint32 flags, const QString& family)
 
 Font::Font(int size, uint32_t flags, int family) { init(size, flags, family, nullptr); }
 
-Font::Font(int size, uint32_t flags, int family, Font* modified)
-{
-    init(size, flags, family, modified);
-}
+Font::Font(int size, uint32_t flags, int family, Font* modified) { init(size, flags, family, modified); }
 
 void Font::init(int size, uint32_t flags, int family, Font* modified)
 {

@@ -3,46 +3,64 @@
 #include <QFont>
 #include <QFontMetrics>
 
-using uint32 = std::uint32_t;
-using int32  = std::int32_t;
-
-namespace Style
+namespace Style::internal
 {
-namespace internal
-{
-void                  StartFonts();
-[[nodiscard]] QString GetFontOverride(int32 flags = 0);
+/// Initialize all fonts
+void StartFonts();
+/// Get other version of Font
+[[nodiscard]] QString GetFontOverride(int32_t flags = 0);
 
+/// Destroys fonts
 void destroyFonts();
-int  registerFontFamily(const QString& family);
+/// Registers font
+int registerFontFamily(const QString& family);
 
-[[nodiscard]] QFont ResolveFont(uint32 flags, int size);
+/**
+ * @brief Get a font with specified parameters
+ * @param flags Font flags
+ * @param size Pixel size
+ * @return Requested font
+ */
+[[nodiscard]] QFont ResolveFont(uint32_t flags, int size);
 class FontData;
+
+/**
+ * @class Font
+ * @brief Pointer to font data
+ */
 class Font
 {
 public:
+    /// Empty initialization
     Font(Qt::Initialization = Qt::Uninitialized) : ptr(0) {}
-    Font(int size, uint32 flags, const QString& family);
-    Font(int size, uint32 flags, int family);
+    /// Create font from family with specified flags
+    Font(int size, uint32_t flags, const QString& family);
+    /// Create font from registered family with specified flags
+    Font(int size, uint32_t flags, int family);
 
+    /// Refer to data
     FontData* operator->() const { return ptr; }
+    /// Refer to data
     FontData* v() const { return ptr; }
 
+    /// Does data exist
     operator bool() const { return !!ptr; }
 
+    /// Convert to QFont
     operator const QFont&() const;
 
 private:
     FontData* ptr;
 
-    void        init(int size, uint32 flags, int family, Font* modified);
+    void        init(int size, uint32_t flags, int family, Font* modified);
     friend void startManager();
 
     Font(FontData* p) : ptr(p) {}
-    Font(int size, uint32 flags, int family, Font* modified);
+    Font(int size, uint32_t flags, int family, Font* modified);
     friend class FontData;
 };
 
+/// Font flags
 enum FontFlags
 {
     FontBold      = 0x01,
@@ -55,31 +73,61 @@ enum FontFlags
     FontDifferentFlags = 0x40,
 };
 
+/**
+ * @class Font data
+ * @brief Holds font data
+ */
 class FontData
 {
 public:
+    /**
+     * @brief Get width of string
+     * @param str String
+     * @return Width in pixels
+     */
     int width(const QString& str) const { return m.horizontalAdvance(str); }
-    int width(const QString& str, int32 from, int32 to) const { return width(str.mid(from, to)); }
-    int width(QChar ch) const { return m.horizontalAdvance(ch); }
-    QString elided(const QString& str, int width, Qt::TextElideMode mode = Qt::ElideRight) const
-    {
-        return m.elidedText(str, mode, width);
-    }
+    /**
+     * @brief Get width of part of a string
+     * @param str String
+     * @param from First element
+     * @param to End element
+     * @return Width in pixels
+     */
+    int width(const QString& str, int32_t from, int32_t to) const { return width(str.mid(from, to)); }
+    /**
+     * @brief Get width of a char
+     * @param ch Char
+     * @return Width in pixels
+     */
+    int     width(QChar ch) const { return m.horizontalAdvance(ch); }
+    QString elided(const QString& str, int width, Qt::TextElideMode mode = Qt::ElideRight) const { return m.elidedText(str, mode, width); }
 
+    /// Get bold version of font
     Font bold(bool set = true) const;
+    /// Get italic version of font
     Font italic(bool set = true) const;
+    /// Get underline version of font
     Font underline(bool set = true) const;
+    /// Get striked version of font
     Font strikeout(bool set = true) const;
+    /// Get semibold version of font
     Font semibold(bool set = true) const;
+    /// Get monospaced version of font
     Font monospace(bool set = true) const;
 
-    int    size() const;
-    uint32 flags() const;
-    int    family() const;
+    /// Pixel size
+    int size() const;
+    /// Font flags
+    uint32_t flags() const;
+    /// Font family in base
+    int family() const;
 
-    QFont        f;
+    /// QFont for qt
+    QFont f;
+    /// Font metrics for measure
     QFontMetrics m;
-    int32        height, ascent, descent, spacew, elidew;
+    /// Font info
+    int32_t height, ascent, descent, spacew, elidew;
 
 private:
     mutable Font modified[FontDifferentFlags];
@@ -88,15 +136,16 @@ private:
     FontData(int size, uint32_t flags, int family, Font* other);
 
     friend class Font;
-    int    _size;
-    uint32 _flags;
-    int    _family;
+    int      _size;
+    uint32_t _flags;
+    int      _family;
 };
 
+/// Compare on sameness
 inline bool operator==(const Font& a, const Font& b) { return a.v() == b.v(); }
+/// Compare to not sameness
 inline bool operator!=(const Font& a, const Font& b) { return a.v() != b.v(); }
 
 inline Font::operator const QFont&() const { return ptr->f; }
 
-}  // namespace internal
-}  // namespace Style
+}  // namespace Style::internal

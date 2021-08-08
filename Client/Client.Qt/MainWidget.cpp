@@ -8,7 +8,7 @@
 #include <iostream>
 
 #include "Style/Shadow.hpp"
-#include "Widgets/BioButton.hpp"
+#include "Widgets/TitleWidget.hpp"
 
 #ifdef _WIN32
 #include <dwmapi.h>
@@ -27,9 +27,7 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
 
     if (msg->message == WM_NCACTIVATE)
     {
-        /*
-         * https://github.com/melak47/BorderlessWindow
-         */
+        // https://github.com/melak47/BorderlessWindow
         if (isCompositionEnabled())
         {
             const auto res = DefWindowProc(msg->hwnd, msg->message, msg->wParam, -1);
@@ -62,15 +60,6 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
         if (result) *result = 1;
         return true;
     }
-    else if (msg->message == WM_NCHITTEST)
-    {
-        const auto P = MAKEPOINTS(msg->lParam);
-        if (P.x - this->x() <= 9)
-        {
-            if (result) *result = HTLEFT;
-            return true;
-        }
-    }
     else if (msg->message == WM_SIZE)
     {
         WINDOWPLACEMENT wp;
@@ -89,149 +78,13 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
         {
             state = Qt::WindowNoState;
         }
-        emit(window())->windowHandle()->windowStateChanged(state);
+        window()->windowHandle()->windowStateChanged(state);
     }
     return false;
 }
 #endif
 
-MainWidget::MouseType MainWidget::checkResizableField(QMouseEvent* event)
-{
-    QPointF position = event->globalPos();
-    qreal   x        = this->x();
-    qreal   y        = this->y();
-    qreal   width    = this->width();
-    qreal   height   = this->height();
-
-    QRectF rectTop(x, y, width + 9, 8);
-    QRectF rectBottom(x, y + height - 8, width + 9, 8);
-    QRectF rectLeft(x, y, 8, height + 9);
-    QRectF rectRight(x + width - 8, y, 8, height + 9);
-    QRectF rectInterface(x + 9, y + 9, width - 18 - Style::valueDPIScale(46) * 3, Style::valueDPIScale(30));
-
-    if (!isMaximized())
-    {
-        if (rectTop.contains(position))
-        {
-            if (rectLeft.contains(position))
-            {
-                setCursor(Qt::SizeFDiagCursor);
-                return TopLeft;
-            }
-            if (rectRight.contains(position))
-            {
-                setCursor(Qt::SizeBDiagCursor);
-                return TopRight;
-            }
-            setCursor(Qt::SizeVerCursor);
-            return Top;
-        }
-        else if (rectBottom.contains(position))
-        {
-            if (rectLeft.contains(position))
-            {
-                setCursor(Qt::SizeBDiagCursor);
-                return BottomLeft;
-            }
-            if (rectRight.contains(position))
-            {
-                setCursor(Qt::SizeFDiagCursor);
-                return BottomRight;
-            }
-            setCursor(Qt::SizeVerCursor);
-            return Bottom;
-        }
-        else if (rectLeft.contains(position))
-        {
-            setCursor(Qt::SizeHorCursor);
-            return Left;
-        }
-        else if (rectRight.contains(position))
-        {
-            setCursor(Qt::SizeHorCursor);
-            return Right;
-        }
-    }
-    setCursor(QCursor());
-    return None;
-}
-
-void MainWidget::mousePressEvent(QMouseEvent* event)
-{
-#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
-    if (event->button() == Qt::LeftButton)
-    {
-        _lmbPos = checkResizableField(event);
-        if (_lmbPos == Top)
-        {
-            this->windowHandle()->startSystemResize(Qt::TopEdge);
-        }
-        else if (_lmbPos == TopLeft)
-        {
-            this->windowHandle()->startSystemResize(Qt::TopEdge | Qt::LeftEdge);
-        }
-        else if (_lmbPos == TopRight)
-        {
-            this->windowHandle()->startSystemResize(Qt::TopEdge | Qt::RightEdge);
-        }
-        else if (_lmbPos == Bottom)
-        {
-            this->windowHandle()->startSystemResize(Qt::BottomEdge);
-        }
-        else if (_lmbPos == BottomLeft)
-        {
-            this->windowHandle()->startSystemResize(Qt::BottomEdge | Qt::LeftEdge);
-        }
-        else if (_lmbPos == BottomRight)
-        {
-            this->windowHandle()->startSystemResize(Qt::BottomEdge | Qt::RightEdge);
-        }
-        else if (_lmbPos == Left)
-        {
-            this->windowHandle()->startSystemResize(Qt::LeftEdge);
-        }
-        else if (_lmbPos == Right)
-        {
-            this->windowHandle()->startSystemResize(Qt::RightEdge);
-        }
-    }
-#endif
-
-    return QWidget::mousePressEvent(event);
-}
-
-void MainWidget::mouseMoveEvent(QMouseEvent* event)
-{
-    checkResizableField(event);
-    switch (_lmbPos)
-    {
-        case Top:
-        case Bottom:
-        case Left:
-        case Right:
-        {
-            if (!isMaximized())
-            {
-            }
-            break;
-        }
-        default:
-            checkResizableField(event);
-            break;
-    }
-    return QWidget::mouseMoveEvent(event);
-}
-
-void MainWidget::mouseReleaseEvent(QMouseEvent* event)
-{
-    if (event->button() == Qt::LeftButton)
-    {
-        _lmbPos = None;
-    }
-    return QWidget::mouseReleaseEvent(event);
-}
-
-MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
+MainWidget::MainWidget() : QWidget(nullptr)
 {
     Style::setDevicePixelRatio(devicePixelRatioF());
     Style::setDpiScale(logicalDpiX() * devicePixelRatioF() * 100 / 96);
@@ -262,10 +115,7 @@ MainWidget::MainWidget(QWidget* parent) : QWidget(parent)
     std::cout << QGuiApplication::platformName().toStdString() << std::endl;
 
     refreshTitleBar(false);
-
-    setAttribute(Qt::WA_Hover);
-    setMouseTracking(true);
-    installEventFilter(this);
+    qApp->installEventFilter(this);
 }
 
 void MainWidget::resizeEvent(QResizeEvent* event)
@@ -274,9 +124,8 @@ void MainWidget::resizeEvent(QResizeEvent* event)
     return QWidget::resizeEvent(event);
 }
 
-void MainWidget::paintEvent(QPaintEvent* event)
+void MainWidget::paintEvent(QPaintEvent*)
 {
-    Q_UNUSED(event)
     QPainter p(this);
     p.setPen(Qt::NoPen);
     auto start = QColor(0, 0, 0, 0x18);
@@ -305,12 +154,112 @@ void MainWidget::setCentralWidget(std::int32_t index)
 
 void MainWidget::refreshTitleBar(bool showBioButton) { _title->showBioButton(showBioButton); }
 
-bool MainWidget::eventFilter(QObject* watched, QEvent* event)
+bool MainWidget::eventFilter(QObject* obj, QEvent* e)
 {
-    if (event->type() == QEvent::HoverMove)
+    if (e->type() == QEvent::MouseMove || e->type() == QEvent::MouseButtonPress)
     {
-        checkResizableField(static_cast<QMouseEvent*>(event));
+        if (obj->isWidgetType() && window()->isAncestorOf(static_cast<QWidget*>(obj)))
+        {
+            const auto mouseEvent   = static_cast<QMouseEvent*>(e);
+            const auto currentPoint = mouseEvent->windowPos().toPoint();
+            const auto edges        = edgesFromPos(currentPoint);
+
+            if (e->type() == QEvent::MouseMove && mouseEvent->buttons() == Qt::NoButton)
+            {
+                updateCursor(edges);
+            }
+
+            if (e->type() == QEvent::MouseButtonPress && mouseEvent->button() == Qt::LeftButton && edges)
+                return window()->windowHandle()->startSystemResize(edges);
+        }
     }
-    return QObject::eventFilter(watched, event);
+    else if (e->type() == QEvent::Leave)
+    {
+        if (obj->isWidgetType() && window() == static_cast<QWidget*>(obj))
+        {
+            restoreCursor();
+        }
+    }
+    return QObject::eventFilter(obj, e);
 }
+
 bool MainWidget::setBioButtonIcon(const Style::icon* icon) { return _title->setBioButtonIcon(icon); }
+
+void MainWidget::updateCursor(Qt::Edges edges)
+{
+    if (!edges)
+    {
+        restoreCursor();
+        return;
+    }
+    else if (!QGuiApplication::overrideCursor())
+    {
+        _cursorOverride = false;
+    }
+
+    if (!_cursorOverride)
+    {
+        _cursorOverride = true;
+        QGuiApplication::setOverrideCursor(QCursor());
+    }
+
+    if (((edges & Qt::LeftEdge) && (edges & Qt::TopEdge)) || ((edges & Qt::RightEdge) && (edges & Qt::BottomEdge)))
+    {
+        QGuiApplication::changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
+    }
+    else if (((edges & Qt::LeftEdge) && (edges & Qt::BottomEdge)) || ((edges & Qt::RightEdge) && (edges & Qt::TopEdge)))
+    {
+        QGuiApplication::changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
+    }
+    else if ((edges & Qt::LeftEdge) || (edges & Qt::RightEdge))
+    {
+        QGuiApplication::changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+    }
+    else if ((edges & Qt::TopEdge) || (edges & Qt::BottomEdge))
+    {
+        QGuiApplication::changeOverrideCursor(QCursor(Qt::SizeVerCursor));
+    }
+}
+
+void MainWidget::restoreCursor()
+{
+    if (_cursorOverride)
+    {
+        _cursorOverride = false;
+        QGuiApplication::restoreOverrideCursor();
+    }
+}
+
+Qt::Edges MainWidget::edgesFromPos(const QPoint& pos)
+{
+    const auto area = QRect(0, 0, width(), height()).marginsRemoved(QMargins(9, 9, 9, 9));
+
+    if (area.isNull() || isMaximized())
+    {
+        return Qt::Edges();
+    }
+    else if (pos.x() <= area.left())
+    {
+        if (pos.y() <= area.top())
+            return Qt::LeftEdge | Qt::TopEdge;
+        else if (pos.y() >= (window()->height() - area.top()))
+            return Qt::LeftEdge | Qt::BottomEdge;
+
+        return Qt::LeftEdge;
+    }
+    else if (pos.x() >= (window()->width() - area.left()))
+    {
+        if (pos.y() <= area.top())
+            return Qt::RightEdge | Qt::TopEdge;
+        else if (pos.y() >= (window()->height() - area.top()))
+            return Qt::RightEdge | Qt::BottomEdge;
+
+        return Qt::RightEdge;
+    }
+    else if (pos.y() <= area.top())
+        return Qt::TopEdge;
+    else if (pos.y() >= (window()->height() - area.top()))
+        return Qt::BottomEdge;
+
+    return Qt::Edges();
+}

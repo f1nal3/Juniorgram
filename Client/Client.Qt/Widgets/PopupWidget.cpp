@@ -1,7 +1,9 @@
 #include "PopupWidget.hpp"
 
 #include <QPainter>
+#include <QScreen>
 
+#include "Application.hpp"
 #include "Style/StyleBasic.hpp"
 
 PopupWidget::PopupWidget(QWidget* parent) : QWidget(parent), _innerMenu(nullptr)
@@ -9,10 +11,7 @@ PopupWidget::PopupWidget(QWidget* parent) : QWidget(parent), _innerMenu(nullptr)
     setWindowFlags(Qt::WindowFlags(Qt::FramelessWindowHint) | Qt::Popup | Qt::BypassWindowManagerHint | Qt::NoDropShadowWindowHint);
     setMouseTracking(true);
 
-    setFixedSize(Style::valueDPIScale(250), 256);
-
     hide();
-    setFocusPolicy(Qt::NoFocus);
     setAttribute(Qt::WA_NoSystemBackground, true);
     setAttribute(Qt::WA_TranslucentBackground, true);
 }
@@ -27,26 +26,36 @@ void PopupWidget::paintEvent(QPaintEvent* event)
     painter.drawRect(0, 0, width(), height());
 }
 
-void PopupWidget::hideEvent(QHideEvent* event)
+void PopupWidget::hideEvent(QHideEvent*)
 {
-    Q_UNUSED(event);
-    deleteLater();
+    if (_deleteOnHide) deleteLater();
 }
 
-void PopupWidget::popup(const QPoint& point)
+void PopupWidget::popup(const QPoint& globalPoint)
 {
-    move(point);
     if (_innerMenu)
     {
         _innerMenu->move(0, 10);
-        resize(width(), _innerMenu->height() + 20);
+        resize(_innerMenu->width(), _innerMenu->height() + 20);
         _innerMenu->show();
     }
+    auto screen = oApp->screenAt(globalPoint);
+    if (!screen) return;
+    auto p = globalPoint;
+    auto w = screen->availableGeometry();
+    // Make sure popup is on screen
+    if (p.x() + width() > w.right())
+    {
+        p.rx() -= p.x() + width() - w.right();
+    }
+    move(p);
     show();
 }
 
-void PopupWidget::setMenu(Menu* menu)
+void PopupWidget::setMenu(std::unique_ptr<Menu> menu)
 {
-    _innerMenu = menu;
+    _innerMenu = std::move(menu);
     _innerMenu->setParent(this);
+    _innerMenu->setTriggeredCallback([=](const CallbackData&) { hide(); });
 }
+void PopupWidget::setDeleteOnHide(bool deleteOnHide) { _deleteOnHide = deleteOnHide; }

@@ -1,19 +1,33 @@
 #include "StyleIcon.hpp"
 
+#include <QBitmap>
 #include <QFile>
 #include <QPainter>
 
+#include "Palette.hpp"
 #include "StyleScale.hpp"
+#include "StyleTypes.hpp"
 
-namespace Style
+namespace Style::internal
 {
-namespace internal
-{
-IconData::IconData(const QString& filename)
+IconData::IconData(const QString& filename, IconType type, const QColor& activeTextFg)
 {
     _image = QImage();
     _image.load(filename);
-    _image.setDevicePixelRatio(devicePixelRatio());
+    if (_image.isNull()) return;
+    if (type == Contrasted)
+    {
+        auto   alpha     = QPixmap::fromImage(_image.createAlphaMask());
+        QImage fakeImage = QImage(_image.size(), _image.format());
+        fakeImage.setDevicePixelRatio(devicePixelRatio());
+        fakeImage.fill(Qt::transparent);
+        QPainter p(&fakeImage);
+        p.setClipRegion(QRegion(alpha));
+        p.setPen(Qt::NoPen);
+        p.setBrush(activeTextFg);
+        p.drawRect(_image.rect());
+        _image = fakeImage;
+    }
 
     _pixmap = QPixmap();
     _size   = QSize();
@@ -36,20 +50,25 @@ QImage IconData::instance() const
 
 QSize internal::IconData::size() const { return _size; }
 
-Icon::Icon(const QString& file)
+Icon::Icon(const QString& file, IconType iconType)
 {
     QString filename = file;
-    for (int scale = Style::getDpiScale(); scale >= 100; scale -= 5)
+    if (iconType == Contrasted)
     {
-        QFile fileinfo(file + QString("-%1.png").arg(scale));
-        if (fileinfo.exists())
+        int scale = Style::getDpiScale();
+        scale -= Style::getDpiScale() % 25;
+        for (; scale >= 100; scale -= 25)
         {
-            filename = fileinfo.fileName();
-            break;
+            QFile fileInfo(file + QString("-w-%1.png").arg(scale));
+            if (fileInfo.exists())
+            {
+                filename = fileInfo.fileName();
+                break;
+            }
         }
     }
-    _data = new IconData(filename);
+    _data = new IconData(filename, iconType);
 }
+Icon::Icon(const QString& file, int type) : Icon(file, IconType(type)) {}
 
-}  // namespace internal
-}  // namespace Style
+}  // namespace Style::internal

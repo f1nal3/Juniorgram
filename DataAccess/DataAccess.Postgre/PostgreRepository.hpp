@@ -25,9 +25,15 @@ public:
 
     virtual ~PostgreRepository() = default;
 
-    virtual std::vector<std::string> getAllChannelsList() override final;
-    virtual std::vector<std::string> getMessageHistoryForUser(const std::uint64_t channelID) override final;
-    virtual void storeMessage(const Network::MessageInfo& message, const std::uint64_t channleID) override final;
-    virtual Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) const override final;
+    std::vector<Network::ChannelInfo> getAllChannelsList() override final;
+    std::vector<Network::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) override final;
+    Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& mi) override final;
+    Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) const override final;
+    std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) override final;
+
+private:
+    std::optional<pqxx::result> insertMessageIntoMessagesTable(const Network::MessageInfo& msi);
+    std::optional<pqxx::result> insertIDsIntoChannelMessagesTable(const std::uint64_t chinnelID, const std::uint64_t messageID);
+    std::optional<pqxx::result> insertIDIntoMessageReactionsTable(const std::uint64_t messageID);
 };
 }  // namespace DataAccess

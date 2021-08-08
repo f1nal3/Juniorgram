@@ -73,24 +73,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             Network::Message msg;
             msg.mHeader.mMessageType = Network::Message::MessageType::ChannelListRequest;
 
-            future.wait();
-
-            // channelList should be std::vector<Network::ChannelInfo>
             auto channelList = future.get();
-
-            // loop stub for forming std::vector<Network::ChannelInfo>
-            std::vector<Network::ChannelInfo> channelInfoList;
-            for (auto& channel : channelList)
-            {
-                Network::ChannelInfo info;
-                info.channelID   = 0;
-                info.channelName = channel;
-
-                channelInfoList.push_back(info);
-            }
-
-            msg.mBody = std::make_any<std::vector<Network::ChannelInfo>>;
-            msg.mBody = channelInfoList;
+            msg.mBody = std::make_any<std::vector<Network::ChannelInfo>>(channelList);
 
             client->send(msg);
         }
@@ -98,46 +82,36 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::MessageHistoryRequest:
         {
+            const auto channelID = std::any_cast<std::uint64_t>(message.mBody);
             auto future =
                 std::async(std::launch::async, &DataAccess::IRepository::getMessageHistoryForUser,
-                                mPostgreRepo.get(), 0); // There need to add channelID not 0.
+                                mPostgreRepo.get(), channelID); 
 
             Network::Message msg;
-            msg.mHeader.mMessageType = Network::Message::MessageType::MessageHistoryRequest;
+            msg.mHeader.mMessageType = Network::Message::MessageType::MessageHistoryAnswer;
 
-            future.wait();
-           
-            // messageHistory should be std::vector<Network::MessageInfo>
             auto messageHistory = future.get();
 
-            std::vector<Network::MessageInfo> messageHistoryList;
-            for (auto& msgFromHistory : messageHistory)
-            {
-                Network::MessageInfo info;
-                info.userID  = client->getID();
-                info.message = msgFromHistory.data();
-
-                messageHistoryList.push_back(info);
-
-                std::cout << info.message << '\n';
-            }
-            msg.mBody = std::make_any<std::vector<Network::MessageInfo>>(messageHistoryList);
-            
+            msg.mBody = std::make_any<std::vector<Network::MessageInfo>>(messageHistory);
             client->send(msg);
         }
         break;
 
         case Network::Message::MessageType::MessageStoreRequest:
         {
-            auto msgInfo = std::any_cast<Network::MessageInfo>(message.mBody);
-            
-            auto future = std::async(std::launch::async, &DataAccess::IRepository::storeMessage,
-                           mPostgreRepo.get(), msgInfo, 0);  // There need to add channelID not 0.
-            
-            message.mBody = std::make_any<Network::MessageInfo>(msgInfo);
+            auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
+            mi.senderID = client->getUserID();
 
-            future.wait();
-            client->send(message);
+            auto future = std::async(std::launch::async, &DataAccess::IRepository::storeMessage,
+                           mPostgreRepo.get(), mi);
+
+            Network::Message answerForClient;
+            answerForClient.mHeader.mMessageType = Network::Message::MessageType::MessageStoreAnswer;
+            
+            auto messageStoringCode = future.get();
+
+            answerForClient.mBody = std::make_any<Utility::StoringMessageCodes>(messageStoringCode);
+            client->send(answerForClient);
         }
         break;
 
@@ -155,6 +129,36 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             
             messageToClient.mBody = std::make_any<Utility::RegistrationCodes>(registrationCode);
             client->send(messageToClient);
+        }
+        break;
+
+        case Network::Message::MessageType::LoginRequest:
+        {
+            Network::LoginInfo loginInfo = std::any_cast<Network::LoginInfo>(message.mBody);
+
+            auto future = std::async(std::launch::async, &DataAccess::IRepository::loginUser,
+                                        mPostgreRepo.get(), loginInfo.login, loginInfo.pwdHash);
+
+            auto userID = future.get();
+            auto loginSuccessful = userID != 0;
+            
+            std::cout << "DEBUG: userID=" << userID << "\n";
+            
+            Network::Message messageToClient;
+            messageToClient.mHeader.mMessageType = Network::Message::MessageType::LoginAnswer;
+            messageToClient.mBody = std::make_any<bool>(loginSuccessful);
+
+            client->send(messageToClient);
+
+            if (loginSuccessful)
+            {
+                client->setUserID(userID);
+                std::cout << "User " << userID << " logged in.\n";
+            }
+            else
+            {
+                client->disconnect();
+            }
         }
         break;
 
