@@ -5,7 +5,7 @@
 
 #include "MessageWidget.hpp"
 #include "ScrollArea.hpp"
-#include "SimpleReplyWidget.hpp"
+#include "ReplyMessageWidget.hpp"
 
 /**
  * @class ChatHistory

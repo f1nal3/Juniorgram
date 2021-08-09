@@ -8,12 +8,12 @@
 #include "Widgets/InputFields.hpp"
 #include "Widgets/ReactionLayout.hpp"
 
-class SimpleReplyWidget : public QWidget
+class ReplyMessageWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    SimpleReplyWidget(QWidget* history, QString message, uint64_t messageId, QString username,
+    ReplyMessageWidget(QWidget* history, QString message, uint64_t messageId, QString username,
                       const Style::MessageWidget& st = st::defaultMessageWidget);
 
 public:

@@ -1,6 +1,6 @@
-#include "SimpleReplyWidget.hpp"
+#include "ReplyMessageWidget.hpp"
 
-SimpleReplyWidget::SimpleReplyWidget(QWidget* history, QString message, uint64_t messageId, QString username,
+ReplyMessageWidget::ReplyMessageWidget(QWidget* history, QString message, uint64_t messageId, QString username,
                                      const Style::MessageWidget& st)
     : QWidget(history),
       _messageId(messageId),
@@ -23,13 +23,13 @@ SimpleReplyWidget::SimpleReplyWidget(QWidget* history, QString message, uint64_t
     resize(width(), expectedHeight());
 }
 
-int SimpleReplyWidget::expectedHeight() const
+int ReplyMessageWidget::expectedHeight() const
 {
     if (!_fmtMessageText) return 0;
     return _st.radius * 7 + _st.fontname->height + _fmtMessageText->document()->size().height();
 }
 
-void SimpleReplyWidget::paintEvent(QPaintEvent* e)
+void ReplyMessageWidget::paintEvent(QPaintEvent* e)
 {
     QPainter p(this);
     auto     margin = _st.radius;
@@ -51,7 +51,7 @@ void SimpleReplyWidget::paintEvent(QPaintEvent* e)
     QWidget::paintEvent(e);
 }
 
-void SimpleReplyWidget::resizeEvent(QResizeEvent* e)
+void ReplyMessageWidget::resizeEvent(QResizeEvent* e)
 {
     emit geometryChanged(e->size().height() - e->oldSize().height());
 

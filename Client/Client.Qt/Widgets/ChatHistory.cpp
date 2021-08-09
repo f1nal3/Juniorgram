@@ -23,11 +23,11 @@ void ChatHistory::addMessage(const QString& message, quint64 utc, ReplyWidget* r
     // The _messageId is incremented for message numbering
     if(reply != nullptr)
     {
-        auto replyMsg = new SimpleReplyWidget(history, reply->getMessage(), reply->getMessageId(), reply->getUsername());
+        auto replyMsg = new ReplyMessageWidget(history, reply->getMessage(), reply->getMessageId(), reply->getUsername());
         replyMsg->show();
         replyMsg->resize(history->width() - 25, replyMsg->expectedHeight());
 
-        connect(replyMsg, &SimpleReplyWidget::geometryChanged, this, [=](int diff) {
+        connect(replyMsg, &ReplyMessageWidget::geometryChanged, this, [=](int diff) {
             history->setMinimumHeight(history->minimumHeight() + diff);
             updateLayout(true);
         });

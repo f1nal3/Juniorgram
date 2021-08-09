@@ -22,11 +22,10 @@ public:
 
 public slots:
     void closeReply();
-/*
+
 protected:
     void paintEvent(QPaintEvent* e) override;
     void resizeEvent(QResizeEvent* e) override;
-    */
 
 private:
     QString _messageText;
