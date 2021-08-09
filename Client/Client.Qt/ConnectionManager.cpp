@@ -1,5 +1,7 @@
 #include "ConnectionManager.hpp"
 
+#include "Application.hpp"
+
 ReceiverManager* ReceiverManager::self;
 
 ReceiverManager::ReceiverManager() { self = this; }
@@ -51,31 +53,13 @@ void ConnectionManager::onMessageStoreAnswer(Utility::StoringMessageCodes storin
     {
         std::cout << "FAILED sending" << std::endl;
     }
-    else
-    {
-        std::cout << "Unknown StoringMessageCode" << std::endl;
-    }
+    qRegisterMetaType<Utility::StoringMessageCodes>("Utility::StoringMessageCodes");
     emit ReceiverManager::instance()->onMessageStoreAnswer(storingMessageCode);
 }
 
 void ConnectionManager::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
 {
-    if (registrationCode == Utility::RegistrationCodes::SUCCESS)
-    {
-        std::cout << "New user was registered!" << std::endl;
-    }
-    else if (registrationCode == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
-    {
-        std::cout << "Email already exists" << std::endl;
-    }
-    else if (registrationCode == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS)
-    {
-        std::cout << "Login already exists" << std::endl;
-    }
-    else
-    {
-        std::cout << "Unknown code" << std::endl;
-    }
+    qRegisterMetaType<Utility::RegistrationCodes>("Utility::RegistrationCodes");
     emit ReceiverManager::instance()->onRegistrationAnswer(registrationCode);
 }
 
