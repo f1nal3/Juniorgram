@@ -1,13 +1,13 @@
-#include "Logger.h"
+#include "Logger.hpp"
 
 std::string Logger::stringify(const LogLevel level)
 {
-    std::string result                                    = "NONE";
+    std::string result =        "NONE";
     const static std::map<LogLevel, std::string> LevelMap = {
-        {LogLevel::ERROR, "ERROR"},
-        {LogLevel::WARNING, "WARNING"},
-        {LogLevel::INFO, "INFO"},
-        {LogLevel::DEBUG, "DEBUG"},
+        {LogLevel::ERROR,       "ERROR"},
+        {LogLevel::WARNING,     "WARNING"},
+        {LogLevel::INFO,        "INFO"},
+        {LogLevel::DEBUG,       "DEBUG"},
     };
 
     auto it = LevelMap.find(level);
