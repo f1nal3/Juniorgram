@@ -19,8 +19,13 @@ Settings& Settings::getInstance()
 void Settings::writeSettings()
 {
     settings->beginGroup("Font");
-    settings->setValue("FontSize", _fontSize);
+    settings->setValue("ChatFontSize", _fontSize);
     settings->endGroup();
+}
+
+void Settings::resetSettings()
+{
+    settings->clear();
 }
 
 void Settings::setFontSize(int size)
@@ -30,6 +35,7 @@ void Settings::setFontSize(int size)
 
 int Settings::getFontSize()
 {
-    return _fontSize;
+    if(!settings->contains("Font/ChatFontSize")) { return -1; }
+    return settings->value("Font/ChatFontSize").toInt();
 }
 

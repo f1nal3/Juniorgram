@@ -32,13 +32,18 @@ public:
      */
     void writeSettings();
     /**
+     * @brief Method for Settiings reset by clearing .config file
+     */
+    void resetSettings();
+    /**
      * @brief Draft method for setting font size value
      * @param size as int.
      */
     void setFontSize(int size);
     /**
      * @brief Draft method for getting font size value
-     * @return fontSize as int.
+     * @return fontSize as int /
+     * if fontSize is not set returns -1
      */
     int getFontSize();
 

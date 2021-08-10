@@ -4,7 +4,7 @@
 
 #include <Style/Style.hpp>
 
-TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
+TextEdit::TextEdit(QWidget* parent) : QWidget(parent), _settings(Settings::getInstance())
 {
     _mainVerticalLayout      = std::make_unique<QVBoxLayout>(this);
     _horizontalButtonLayout  = std::make_unique<QHBoxLayout>();
@@ -13,6 +13,7 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
     _underlineButton         = std::make_unique<FlatButton>(this, "U", st::underlineButton);
     _sendButton              = std::make_unique<FlatButton>(this, "Send");
     _messageInput            = std::make_unique<FlatTextEdit>();
+    if(_settings.getFontSize() != -1){ _messageInput->setFontPointSize(_settings.getFontSize()); }
     _horizontalButtonSpacer  =
         std::make_unique<QSpacerItem>(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     _horizontalButtonLayout->setAlignment(Qt::AlignLeft);

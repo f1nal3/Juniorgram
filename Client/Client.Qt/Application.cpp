@@ -13,7 +13,8 @@ void Application::create()
     setApplicationName("Juniorgram");
 
     Style::internal::StartFonts();
-    _mainWidget = std::make_unique<MainWidget>();
+    _mainWidget     = std::make_unique<MainWidget>();
+    _settingsWidget = std::make_unique<SettingsWidget>();
 
 #if _WIN32
     HWND handle = reinterpret_cast<HWND>(_mainWidget->winId());
@@ -70,6 +71,12 @@ void Application::setAppState(App::AppState app_state)
             _mainWidget->refreshTitleBar(true);
             _mainWidget->setCentralWidget(2);
             break;
+        }
+        case App::AppState::SettingsWidgetForm:
+        {
+            _mainWidget->refreshTitleBar(true);
+            _settingsWidget->show();
+            break;    
         }
     }
 }

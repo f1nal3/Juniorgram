@@ -186,6 +186,7 @@ BioButton::BioButton(QWidget* parent, bool) : CaptionButton(parent)
         menu->addAction("Username: Add format here WWWWWWWWWWWWWWWWWWWWWWWWWWW", []() {});
         menu->addSeparator();
         menu->addAction("Quit", []() { oApp->setAppState(App::AppState::LoginForm); });
+        menu->addAction("Settings", [](){ oApp->setAppState(App::AppState::SettingsWidgetForm); });
 
         _popup->setMenu(std::move(menu));
 

@@ -3,6 +3,7 @@
 #include <QVBoxLayout>
 #include <memory>
 
+#include "Settings.hpp"
 #include "Buttons.hpp"
 #include "InputFields.hpp"
 
@@ -43,6 +44,8 @@ private:
     const QString _italicSymbolClose    = "</I>";
     const QString _underlineSymbolOpen  = "<U>";
     const QString _underlineSymbolClose = "</U>";
+
+    Settings& _settings;
 
     void delSymbolsInSelection(QString& text, int& start, int& end, int symbolSize);
     void delSymbolsOutSelection(QString& text, int& start, int& end, int symbolSize);
