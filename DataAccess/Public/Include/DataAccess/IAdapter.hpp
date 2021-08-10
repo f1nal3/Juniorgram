@@ -22,8 +22,8 @@ namespace DataAccess
 		*	@return Adapter instance: std::shared_ptr<...>
 		*/
 		template<typename T>
-  static std::shared_ptr<T> getInstance(const std::string_view& options = {})
-  {
+		static std::shared_ptr<T> getInstance(const std::string_view& options = {})
+		{
 			return T::Instance(options);
 		}
 

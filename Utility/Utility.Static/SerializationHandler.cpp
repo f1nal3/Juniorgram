@@ -1,5 +1,6 @@
 #include <Network.Static/Message.hpp>
 #include <Network.Static/Primitives.hpp>
+
 #include "TokenBuilder.hpp"
 #include "SerializationHandler.hpp"
 
@@ -173,20 +174,6 @@ MessageProcessingState SerializationHandler::handleOutcomingMessage(Network::Mes
         {
             SerializedState state;
 
-            if constexpr(std::is_same_v<T, std::pair<Network::ClientPayload, Network::RegistrationInfo>>)
-            {
-            T messageInfo = std::make_pair<Network::ClientPayload, Network::RegistrationInfo>( Network::ClientPayload(),Network::RegistrationInfo());
-          
-            state = YasSerializer::template deserialize<T>(bodyBuffer, messageInfo);
-
-            if (state == SerializedState::SUCCESS)
-            {
-                message.mBody = std::make_any<T>(messageInfo);
-            }
-
-            }
-            else
-            {
             T messageInfo;
             
             state = YasSerializer::template deserialize<T>(bodyBuffer, messageInfo);
@@ -195,15 +182,6 @@ MessageProcessingState SerializationHandler::handleOutcomingMessage(Network::Mes
             {
                 message.mBody = std::make_any<T>(messageInfo);
             }
-
-            }
-
-
-      /*      if (state == SerializedState::SUCCESS)
-            {
-                message.mBody = std::make_any<T>(messageInfo);
-            }*/
-
             return state;
         }
         catch (const std::bad_any_cast& e)

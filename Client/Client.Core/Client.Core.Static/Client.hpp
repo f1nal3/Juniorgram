@@ -18,16 +18,12 @@ class Client
     std::thread mContextThread{};
     std::unique_ptr<Connection> mConnection{};
 
-    std::unique_ptr<DataAccess::IRepository> mSQLCipherRepo;
-
     SafeQueue<Message> mIncomingMessagesQueue{};
 
 public:
     ~Client();
 
     Client();
-
-    std::unique_ptr<DataAccess::IRepository>& getSQLCipherRepo();
 
     bool connect(const std::string& host, const uint16_t& port);
 
@@ -49,6 +45,8 @@ public:
 
     void userRegistration(const std::string& email, const std::string& login,
                           const std::string& password) const;
+
+    void revokeSession();
 
     void messageAll() const;
 };

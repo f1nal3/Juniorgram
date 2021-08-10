@@ -26,6 +26,7 @@ struct Message
         MessageAll,
         MessageHistoryRequest,
         MessageStoreRequest,
+        RevokeSession,
         RegistrationRequest,
         RegistrationAnswer,
         RegistrationRequestToClient,
@@ -37,6 +38,7 @@ struct Message
     {
         MessageType mMessageType = MessageType();
         std::uint32_t mBodySize   = std::uint32_t();
+        std::uint32_t mOriginalSize = std::uint32_t();
         std::chrono::time_point<std::chrono::system_clock> mTimestamp =
             std::chrono::system_clock::now();
     };

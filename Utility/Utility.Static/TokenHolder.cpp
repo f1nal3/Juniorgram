@@ -1,6 +1,6 @@
 #include <DataAccess.Static/SQLCipherRepository.cpp>
-#include "TokenHolder.hpp"
 
+#include "TokenHolder.hpp"
 
 namespace Utility
 {
@@ -14,11 +14,11 @@ namespace Utility
         return mInstance;
     }
 
-    void TokenHolder::setRefreshToken(const std::unique_ptr<DataAccess::IRepository>& SQLCipherRepo, const std::string& refrToken)
+    void TokenHolder::setRefreshToken(const std::string& refrToken)
     {
         suppressWarning(4834, Init)
         std::async(std::launch::async, &DataAccess::SQLCipherRepository::setRefreshToken,
-        dynamic_cast<DataAccess::SQLCipherRepository*>(SQLCipherRepo.get()), refrToken);
+        /* std::reference_wrapper(*/DataAccess::SQLCipherRepository::Instance()/*)*/, refrToken);
         restoreWarning
 
         mRefreshToken = refrToken;   
@@ -29,12 +29,12 @@ namespace Utility
         mAccessToken = accssToken;
     }
 
-    std::string TokenHolder::getRefreshToken(const std::unique_ptr<DataAccess::IRepository>& SQLCipherRepo)
+    std::string TokenHolder::getRefreshToken()
     { 
         if (mRefreshToken.empty())
         {
             auto refreshToken = std::async(std::launch::async, &DataAccess::SQLCipherRepository::getRefreshToken,
-                       dynamic_cast<DataAccess::SQLCipherRepository*>(SQLCipherRepo.get()));
+                           &DataAccess::SQLCipherRepository::Instance());
          
             if (!refreshToken.get().empty())
             {
@@ -61,18 +61,17 @@ namespace Utility
     TokenHolder::~TokenHolder()
     {}
 
-    bool TokenHolder::checkTokenExistance(const std::unique_ptr<DataAccess::IRepository>& SQLCipherRepo)
+    bool TokenHolder::checkRefrTokenExistance()
     {
         auto isExists = std::async(std::launch::async, &DataAccess::SQLCipherRepository::isRefreshTokenExists,
-                       dynamic_cast<DataAccess::SQLCipherRepository*>(SQLCipherRepo.get()));
+                       /*std::reference_wrapper(*/DataAccess::SQLCipherRepository::Instance())/*)*/;
         
         if (isExists.get())
         {
-            auto refrToken = std::async(
-                std::launch::async, &DataAccess::SQLCipherRepository::getRefreshToken,
-                dynamic_cast<DataAccess::SQLCipherRepository*>(SQLCipherRepo.get()));
+            auto refrToken = std::async(std::launch::async, &DataAccess::SQLCipherRepository::getRefreshToken,
+                       /*std::reference_wrapper(*/DataAccess::SQLCipherRepository::Instance())/*)*/;
         
-            this->setRefreshToken(SQLCipherRepo, refrToken.get());
+            this->setRefreshToken(refrToken.get());
 
             return true;
         }
@@ -82,25 +81,45 @@ namespace Utility
         }
     }
 
+    void TokenHolder::clearTokens()
+    {
+        mAccessToken.clear();
+        mRefreshToken.clear();
+
+        std::async(std::launch::async, &DataAccess::SQLCipherRepository::deleteRefreshToken, /*std::reference_wrapper(*/DataAccess::SQLCipherRepository::Instance())/*)*/.get();
+    }
+
     bool TokenHolder::isExpired(const std::string& currentToken) 
-    { 
-        currentToken;
-        return false;
+    {    
+        using std::chrono::system_clock;
+
+        suppressWarning(4239, Init)
+        json mJRepresentation = json::parse(Coding::getBASE64DecodedValue(Utility::extractPayload(currentToken)));
+        restoreWarning
+
+        time_t ttTimestamp = system_clock::to_time_t(system_clock::now() + std::chrono::duration_cast<system_clock::duration>(system_clock::time_point(std::chrono::seconds( std::stoll(std::string(mJRepresentation["exp"])))) - system_clock::now()));
+        
+        if (std::difftime(ttTimestamp, std::time(nullptr)) > 0) 
+        {
+            return false;
+        }
+        return true;
     }
 
     std::string& TokenHolder::getCurrentToken()
     { 
-        if (!mAccessToken.empty())
+        if (!mAccessToken.empty() && !isExpired(mAccessToken))
         {
-            isExpired(mAccessToken);
+            return mAccessToken;
+        }
+        else if (!mRefreshToken.empty() && !isExpired(mRefreshToken))
+        {
+            return mRefreshToken;
         }
         else
         {
-        
+           mRefreshToken = getRefreshToken();
+           return mRefreshToken; 
         }
-
-        return mAccessToken;
     }
-
-   
 }

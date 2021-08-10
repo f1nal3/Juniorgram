@@ -89,12 +89,11 @@ std::string getSHA1HashingValue(const std::string& hashableStr)
 
     return digest;
 }
-
 }  // namespace Hashing
 
 namespace Coding
 {
-std::string getBASE64CodedValue(std::string& decodedStr)
+std::string getBASE64CodedValue(const std::string& decodedStr)
 {
     std::string encoded; 
 
@@ -107,9 +106,25 @@ std::string getBASE64CodedValue(std::string& decodedStr)
 std::string getBASE64DecodedValue(std::string& codedStr)
 {
     std::string clear;
-
     CryptoPP::StringSource ss(codedStr, true,
                               new CryptoPP::Base64Decoder(new CryptoPP::StringSink(clear)));
+    return clear;
+}
+
+std::string getHexCodedValue(const std::string& clearStr) 
+{ 
+    std::string hexedStr;
+    CryptoPP::StringSource ss3(clearStr, true,
+                              new CryptoPP::HexEncoder(new CryptoPP::StringSink(hexedStr)));
+
+    return hexedStr;
+}
+
+std::string getHexDecodedValue(std::string& codedStr)
+{
+    std::string clear;
+    CryptoPP::StringSource ss3(codedStr, true,
+                               new CryptoPP::HexDecoder(new CryptoPP::StringSink(clear)));
 
     return clear;
 }

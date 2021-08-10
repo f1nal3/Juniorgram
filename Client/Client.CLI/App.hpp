@@ -1,6 +1,10 @@
 #include <Client.hpp>
 #include <string>
 
+#include <Utility.Static/TokenHolder.hpp>
+#include <Utility.Static/KeyHolder.hpp>
+#include <Utility.Static/Cryptography.hpp>
+
 class App
 {
 private:

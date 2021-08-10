@@ -162,10 +162,6 @@ void Server::onMessage(const std::shared_ptr<Network::Connection>& client, Netwo
 
         case Network::Message::MessageType::RegistrationRequest:
         {
-            std::string k = "data";
-
-            Signing::signData(client, k);
-
             const auto [clientPayload, ri] = std::any_cast<std::pair<Network::ClientPayload, Network::RegistrationInfo>>(message.mBody);
             
             auto future =
@@ -179,30 +175,31 @@ void Server::onMessage(const std::shared_ptr<Network::Connection>& client, Netwo
 
             registrationCode;
 
-            if (true/*registrationCode == Utility::RegistrationCodes::SUCCESS*/)
+            if(registrationCode == Utility::RegistrationCodes::SUCCESS)
             {
                 suppressWarning(4239, Init)
                 auto& [accessToken, refreshToken] = getTokens(clientPayload, ri, client);
                 restoreWarning
 
-                auto sessionCode = std::async(std::launch::async, &DataAccess::SessionsManagementUnit::addSessionAfterRegistration,
-                        &DataAccess::SessionsManagementUnit::instance(), client, refreshToken);
+                auto sessionCode = std::async(std::launch::async, &DataAccess::Sessions::SessionsManagementUnit::addSessionAfterRegistration,
+                        &DataAccess::Sessions::SessionsManagementUnit::instance(), client,refreshToken);
 
-
-
-
+                std::string accTk = Coding::getHexCodedValue(accessToken);
+                std::string refrTk = Coding::getHexCodedValue(refreshToken);
+                // Needs improvements in this place. Need handler for process result form sessionCode.
                 //Utility::SessionCodes code = sessionCode.get();
-
-         /*       messageToClient.mBody = std::make_any<std::pair<Utility::AccessAndRefreshToken, Utility::RegistrationCodes>>(
-                    std::pair{std::pair{accessToken, refreshToken}, registrationCode});*/
+                // Needs improvements in this place~
+                
+                messageToClient.mBody = std::make_any<std::pair<Utility::AccessAndRefreshToken, Utility::RegistrationCodes>>(
+                    std::pair{std::pair{accTk /*Coding::getHexCodedValue(accessToken)*/, refrTk /*Coding::getHexCodedValue(refreshToken)*/}, registrationCode});
             }
             else
             {
-        /*        messageToClient.mBody = std::make_any<std::pair<Utility::AccessAndRefreshToken, Utility::RegistrationCodes>>(
-                    std::pair{std::pair{"",""}, registrationCode});*/
+               messageToClient.mBody = std::make_any<std::pair<Utility::AccessAndRefreshToken, Utility::RegistrationCodes>>(
+                    std::pair{std::pair{"",""}, registrationCode});
             }
 
-            //client->send(messageToClient);
+            client->send(messageToClient);
         }
         break;
 

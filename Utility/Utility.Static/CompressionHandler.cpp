@@ -37,8 +37,7 @@ std::pair<std::unique_ptr<char[]>, size_t> CompressionHandler::compress(const vo
     return std::make_pair(std::move(compressedData), compressedBytes);
 }
 
-std::pair<std::unique_ptr<char[]>, size_t> CompressionHandler::decompress(const void* data,
-                                                                          unsigned int dataSize)
+std::pair<std::unique_ptr<char[]>, size_t> CompressionHandler::decompress(const void* data, const unsigned int& dataSize, const unsigned int& originalSize)
 {
     if (data == nullptr && dataSize <= 0)
     {
@@ -49,11 +48,11 @@ std::pair<std::unique_ptr<char[]>, size_t> CompressionHandler::decompress(const 
             __FILE__, __LINE__);
     }
 
-    std::unique_ptr<char[]> decompressedData(new char[mDestinationCapacity]);
+    std::unique_ptr<char[]> decompressedData(new char[originalSize]);
 
     int decompressedBytes = LZ4_decompress_safe(static_cast<const char*>(data),
                                                 static_cast<char*>(decompressedData.get()),
-                                                (int)dataSize, mDestinationCapacity);
+                                                (int)dataSize, originalSize);
 
     if (decompressedBytes < 0)
     {
@@ -79,6 +78,10 @@ Utility::MessageProcessingState CompressionHandler::handleOutcomingMessage(
 
     std::string strBodyBuffer = std::string(bodyBuffer.data.get(), bodyBuffer.size);
 
+    suppressWarning(4267, Init) 
+    message.mHeader.mOriginalSize = bodyBuffer.size;
+    restoreWarning
+
     std::pair<std::unique_ptr<char[]>, size_t> compressedBuffer =
         compress(strBodyBuffer.data(), strBodyBuffer.size());
 
@@ -97,7 +100,7 @@ Utility::MessageProcessingState CompressionHandler::handleIncomingMessageBody(
     std::string strBodyBuffer = std::string(buffer.data.get(), buffer.size);
 
     std::pair<std::unique_ptr<char[]>, size_t> decompressedBuffer =
-        decompress(strBodyBuffer.data(), (unsigned int)strBodyBuffer.size());
+        decompress(strBodyBuffer.data(), (unsigned int)strBodyBuffer.size(), message.mHeader.mOriginalSize);
 
     buffer.assign(decompressedBuffer.first.get(), decompressedBuffer.second);
 

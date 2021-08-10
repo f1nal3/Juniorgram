@@ -62,13 +62,25 @@ std::string RegistrationUnit::getUserIdByLogin(const Network::RegistrationInfo& 
     return getUserId("email = '" + ri.email + "'");
 }
 
-Utility::SessionCodes SessionsManagementUnit::addSessionAfterRegistration(const std::shared_ptr<Network::Connection>& client, const std::string& refreshToken)
+Utility::SessionCodes Sessions::SessionsManagementUnit::addSessionAfterRegistration(const std::shared_ptr<Network::Connection>& client, const std::string& refreshToken)
 {
     suppressWarning(4239, Init)
     std::string decodedPayload = Coding::getBASE64DecodedValue(Utility::extractPayload(refreshToken));
     restoreWarning
 
     mJRepresentation = json::parse(decodedPayload);
+
+    /*auto getAmountSessionForCurrentUserID = [](const std::string& condition) -> std::uint16_t {
+        auto recordsRowAmount = std::get<0>(
+            getSessionTable().Select()->columns({"COUNT(*)"})->Where(condition)->execute());
+
+        return recordsRowAmount.value()[0][0].as<std::uint16_t>();
+    };
+
+    if (getAmountSessionForCurrentUserID("user_id = '" + std::string(mJRepresentation["id"]) + "'") > mMaxSessionForCurrentUser)
+    {
+        return Utility::SessionCodes::TOO_MANY_SESSIONS_FOR_CURRENT_USER;
+    }*/
 
     std::tuple sessionData
     {
@@ -79,35 +91,12 @@ Utility::SessionCodes SessionsManagementUnit::addSessionAfterRegistration(const 
         std::pair{"created_at", Utility::WithoutQuotes("to_timestamp(" + std::string(mJRepresentation["iat"]) + ")::timestamp")},
         std::pair{"updated_at", Utility::WithoutQuotes("to_timestamp(" + std::string(mJRepresentation["upd"]) + ")::timestamp")},
         std::pair{"fingerprint", std::string(mJRepresentation["sub"])},
-        std::pair{"refresh_token", std::string(refreshToken)},
-        std::pair{"signature_key", std::string(client->getSignerAndVerifierInstance()->getPrivateKey())},
-        std::pair{"signature_verification_key", std::string(client->getSignerAndVerifierInstance()->getPublicKey())},
-
+        std::pair{"refresh_token", Coding::getHexCodedValue(refreshToken)},
+        std::pair{"signature_key", Coding::getHexCodedValue(std::string(client->getSignerAndVerifierInstance()->getPrivateKey()))},
+        std::pair{"signature_verification_key", Coding::getHexCodedValue(std::string(client->getSignerAndVerifierInstance()->getPublicKey()))},
     };
 
     getSessionTable().Insert()->columns(sessionData)->execute();
-    
-    //std::string hexedToken = (std::get<0>(getSessionTable().Select()->columns({std::string("token")})->execute())).value()[0][0].as<std::string>();
-
-   // std::string decodedToken;
-
-   // CryptoPP::StringSource ss(hexedToken, true, new CryptoPP::HexDecoder(new CryptoPP::StringSink(decodedToken)));                                                       
-   //
-   // std::string m =
-   //    "eyJhbGciOiJFQ0RTQS9FTVNBMShTSEEtMjU2KSIsInR5cCI6IkpXVCJ9."
-   //    "eyJleHAiOiIxNjI3NzQ3NDAxIiwiaWF0IjoiMTYyNzY2MTAwMSIsImlkIjoiICIsImlwIjoiMTI3LjAuMC4xIiwianR"
-   //    "pIjoicmVmcmVzaF90b2tlbiIsIm9zIjoiV2luZG93cyIsInBydCI6ImpnLmNsaWVudCIsInN1YiI6IlJiNmgyQTNYaD"
-   //    "RqaVhsa3pJajJTcWgwblJqdz0iLCJ1cGQiOiIxNjI3NjYxMDAxIn0=.ƒhªÂÔt¿ŒûYú/‘5*Š¢OÓ¹ö0Ä÷Ä	"
-   //    "µÅ›[Ô´t$j¤Ð¹a”Pyù[–Ø¯…Êp)yõÙFyâ‰‰)";
-
-
-   //if (decodedToken == m)
-   //{
-   //    std::cout << "suceess";
-   //}
-
-
-
 
     return Utility::SessionCodes::SUCCESS;
 }

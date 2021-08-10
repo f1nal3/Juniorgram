@@ -3,6 +3,7 @@
 #include <string>
 #include <memory>
 #include <future>
+#include <chrono>
 #include <nlohmann/json.hpp>
 
 #include "Utility/WarningSuppression.hpp"
@@ -15,11 +16,14 @@ class IRepository;
 
 namespace Utility
 {
+using AccessAndRefreshToken = std::pair<std::string, std::string>;
+
 class TokenHolder
 {
 public:
-    using json = nlohmann::json;
 
+    using json = nlohmann::json;
+  
     TokenHolder(const TokenHolder& other) = delete;
     TokenHolder& operator=(const TokenHolder& other) = delete;
 
@@ -28,14 +32,16 @@ public:
 
     static std::shared_ptr<TokenHolder> Instance();
    
-    void setRefreshToken(const std::unique_ptr<DataAccess::IRepository>& SQLCipherRepo, const std::string& refrToken);
+    void setRefreshToken(const std::string& refrToken);
 
     void setAcccessToken(const std::string& accssToken);
 
-    std::string getRefreshToken(const std::unique_ptr<DataAccess::IRepository>& SQLCipherRepo);
+    std::string getRefreshToken();
 
-    bool checkTokenExistance(const std::unique_ptr<DataAccess::IRepository>& SQLCipherRepo);
+    bool checkRefrTokenExistance();
     
+    void clearTokens();
+
     bool isExpired(const std::string& currentToken);
 
     std::string& getCurrentToken();

@@ -4,6 +4,7 @@
 #include <string>
 
 #include "App.hpp"
+//#include <Utility.Static/TokenHolder.hpp>
 
 std::string GetLineFromCin()
 {
@@ -72,11 +73,24 @@ int main()
                 
                 clientApp.shell()->userRegistration(email, login, password);
             }
+            else if (cmd == "ul")
+            {
+                std::cout << "To log in, please enter your email, login and password." << std::endl;
+
+                std::string email    = /*GetLineFromCin()*/ "1lessocto@gmail.com";
+                std::string login    = "gabriel111";
+                std::string password = "qwerty124";
+            }
             else if (cmd == "q")
             {
+                std::string accss =
+                    "eyJhbGciOiJFQ0RTQS9FTVNBMShTSEEtMjU2KSIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNjI4NDY1OTYzIiwiaWF0IjoiMTYyODQ2MjM2MyIsImlkIjoiYWI1ODg0NDYtODVlMS00YzM5LTkyOTItN2I5ZWQ1NDFkY2U4IiwiaXAiOiIxMjcuMC4wLjEiLCJqdGkiOiJhY2Nlc3NfdG9rZW4iLCJvcyI6IldpbmRvd3MiLCJwcnQiOiJqZy5jbGllbnQiLCJzdWIiOiJSYjZoMkEzWGg0amlYbGt6SWoyU3FoMG5Sanc9IiwidXBkIjoiMTYyODQ2MjM2MyJ9."
+                    "Ï";
+
+                std::string refr = "eyJhbGciOiJFQ0RTQS9FTVNBMShTSEEtMjU2KSIsInR5cCI6IkpXVCJ9.eyJleHAiOiIxNjI4NTUxMjAzIiwiaWF0IjoiMTYyODQ2NDgwMyIsImlkIjoiODRiMzMwY2UtZjFlYS00ZjZhLTlmMzEtNjBiMWFhNDMwOGJjIiwiaXAiOiIxMjcuMC4wLjEiLCJqdGkiOiJyZWZyZXNoX3Rva2VuIiwib3MiOiJXaW5kb3dzIiwicHJ0IjoiamcuY2xpZW50Iiwic3ViIjoiUmI2aDJBM1hoNGppWGxreklqMlNxaDBuUmp3PSIsInVwZCI6IjE2Mjg0NjQ4MDMifQ==.õ1?¢Â³¼¯¾·=øSãv~jå;S×‘ô—©@aId.XÝµƒìê8ý·ˆÓ˜Ë{†œJ[XÞNè4";
+
                 quit = true;
                 clientApp.shell()->disconnect();
-                continue;
             }
 
             // Set a new line. Subtle race condition between the previous line
@@ -84,8 +98,6 @@ int main()
             // io-only thread. I'll give an example of that as well.
             future = std::async(std::launch::async, GetLineFromCin);
         }
-
-        // std::this_thread::sleep_for(std::chrono::seconds(1));
 
         quit = clientApp.loop();
     }

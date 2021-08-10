@@ -1,17 +1,12 @@
 #include "App.hpp"
 
-#include <Utility.Static/TokenHolder.hpp>
-#include <Utility.Static/TokenBuilder.hpp>
-#include <Utility.Static/KeyHolder.hpp>
-
-
 App::App(/* args */)
 {
     client.connect(address, port);
     /*Utility::TokenHolder::*/
     // authentication  part 
    
-    if ((*Utility::TokenHolder::Instance()).checkTokenExistance(client.getSQLCipherRepo()))
+    if (Utility::TokenHolder::Instance()->checkRefrTokenExistance())
     {
         std::cout << "An existing refresh token is used.";
     }
@@ -138,13 +133,10 @@ bool App::loop()
 
                     if (answer.second == Utility::RegistrationCodes::SUCCESS)
                     {
-                        Utility::TokenHolder::Instance().get()->setAcccessToken(answer.first.first); 
-                        Utility::TokenHolder::Instance().get()->setRefreshToken(client.getSQLCipherRepo(), answer.first.second);
+                        Utility::TokenHolder::Instance()->setAcccessToken(Coding::getHexDecodedValue(answer.first.first)); 
+                        Utility::TokenHolder::Instance()->setRefreshToken(Coding::getHexDecodedValue(answer.first.second));
 
-
-
-                        std::cout << "You are successfully registered!" << std::endl;
-
+                        std::cout << "You are successfully registered!" << std::endl; 
                     }
                     else if (answer.second == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
                     {
@@ -152,10 +144,10 @@ bool App::loop()
                     }
                     else
                     {
-                        std::cout << "Login already exists!" << std::endl;
+                        std::cout << "The login you entered is already in use, please enter another login!" << std::endl;
                     }
                 }
-				            break;
+                break;
 
                 case Network::Message::MessageType::RegistrationRequestToClient:
                 {

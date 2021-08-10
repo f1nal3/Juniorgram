@@ -9,6 +9,11 @@ std::string SQLCipherRepository::getRefreshToken()
     return tokenVc.front();
 }
 
+void SQLCipherRepository::deleteRefreshToken()
+{
+    SQLCipherTable("refresh_tokens").Delete();
+}
+
 bool SQLCipherRepository::isRefreshTokenExists()
 {
     auto tokenCountVc = std::get<1>(SQLCipherTable("refresh_tokens").Select()->columns({"count(refresh_token)"})->execute());

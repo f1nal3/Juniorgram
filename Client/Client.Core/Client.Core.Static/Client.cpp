@@ -1,22 +1,20 @@
 #include "Client.hpp"
 
+#include <Utility.Static/TokenHolder.hpp>
 #include <Network.Static/Primitives.hpp>
 #include <Utility.Static/Cryptography.hpp>
 #include <DataAccess.Static/SQLCipherRepository.hpp>
+
 
 namespace Network
 {
 Client::~Client() { disconnect(); }
 
 Client::Client()
-    : mSQLCipherRepo{std::unique_ptr<DataAccess::SQLCipherRepository>(new DataAccess::SQLCipherRepository)}
 {
+    DataAccess::SQLCipherRepository::Instance();
 }
 
-std::unique_ptr<DataAccess::IRepository>& Client::getSQLCipherRepo()
-{
-    return mSQLCipherRepo;
-}
 
 bool Client::connect(const std::string& host, const uint16_t& port)
 {
@@ -45,6 +43,17 @@ bool Client::connect(const std::string& host, const uint16_t& port)
 
 void Client::disconnect()
 {
+    //revokeSession();
+    
+    Utility::TokenHolder::Instance()->clearTokens();
+
+  /*  Utility::TokenHolder::Instance()->clearAccessToken();
+    Utility::TokenHolder::Instance()->clearRefreshToken();*/
+
+    /*`
+    set_null_to_refresh
+    set_null_to_access*/
+
     if (isConnected())
     {
         mConnection->disconnect();
@@ -58,7 +67,8 @@ void Client::disconnect()
     }
 
     mConnection.release();
-    mSQLCipherRepo.release();
+
+
 }
 
 bool Client::isConnected() const
@@ -141,6 +151,15 @@ void Client::userRegistration(const std::string& email, const std::string& login
     Network::Message message;
     message.mHeader.mMessageType = Network::Message::MessageType::RegistrationRequest;
     message.mBody = std::make_any<std::pair<Network::ClientPayload, Network::RegistrationInfo>>(std::pair{payload, ri});
+    
+    send(message);
+}
+
+void Client::revokeSession()
+{
+    Network::Message message;
+    message.mHeader.mMessageType = Network::Message::MessageType::RevokeSession;
+    message.mBody = std::make_any<std::string>(Coding::getBASE64CodedValue(Utility::TokenHolder::Instance()->getRefreshToken()));
     
     send(message);
 }

@@ -21,6 +21,7 @@ namespace Utility
 
     enum class SessionCodes : std::uint8_t
     {
+        TOO_MANY_SESSIONS_FOR_CURRENT_USER = 0,
         SUCCESS
     };
 

@@ -35,8 +35,11 @@ namespace Utility
 
         virtual ~KeyHolder()
         { 
+            // Needs improvements in this place. Check this on delete issue and in ctor placement for this class.
+            delete mpInstance;
             mpInstance = nullptr;
             mDestroyed = true;
+            // Needs improvements in this place~
         }
 
         inline static void killKeyHolder()

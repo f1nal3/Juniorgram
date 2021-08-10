@@ -57,8 +57,10 @@ std::string getSHA1HashingValue(const std::string& hashableStr);
 
 namespace Coding
 {
-std::string getBASE64CodedValue(std::string& decodedStr);
-std::string getBASE64DecodedValue(std::string& decodedStr);
+std::string getBASE64CodedValue(const std::string& clearStr);
+std::string getBASE64DecodedValue(std::string& codedStr);
+std::string getHexCodedValue(const std::string& clearStr);
+std::string getHexDecodedValue(std::string& codedStr);
 }
 
 
