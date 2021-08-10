@@ -18,9 +18,10 @@ public:
     explicit ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent = nullptr);
 
 public:
+    /// TODO: rework channel list in main window to make this private
     inline static std::vector<Network::ChannelInfo> channels;
 
-public slots:
+private slots:
 
     /// et channels
     void setChannels(const std::vector<Network::ChannelInfo>& channels_);

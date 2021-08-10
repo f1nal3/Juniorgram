@@ -18,7 +18,7 @@ public:
     /// Constructor for registration form
     explicit Registration(QWidget* parent = nullptr);
 
-public slots:
+private slots:
     /// On registration
     void onRegistration(Utility::RegistrationCodes code);
 

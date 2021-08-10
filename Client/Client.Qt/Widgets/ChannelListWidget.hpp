@@ -6,6 +6,7 @@
 #include "Buttons.hpp"
 #include "ChannelListWindow.hpp"
 #include "ListWidget.hpp"
+
 /**
  *  @class ChannelListWidget
  *  @brief This is the main channel list widget

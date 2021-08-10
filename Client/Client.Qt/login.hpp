@@ -20,7 +20,7 @@ public:
     /// Constructor for login form
     explicit Login(QWidget* parent = nullptr);
 
-public slots:
+private slots:
     /// On login handler
     void onLogin();
 
