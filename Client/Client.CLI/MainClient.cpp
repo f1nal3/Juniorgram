@@ -2,20 +2,42 @@
 #include <future>
 #include <iostream>
 #include <string>
+#include <queue>
 
 #include "App.hpp"
 #include "Utility/UserDataValidation.hpp"
 
+static std::queue<std::string> queriesQueue;
+
 std::string GetLineFromCin()
 {
     std::string line;
-    std::getline(std::cin, line);
+    if (queriesQueue.empty())
+    {
+        std::getline(std::cin, line);
+
+        queriesQueue.push(std::move(line));
+    }
+
+    line = queriesQueue.front();
+    queriesQueue.pop();
+
     return line;
 }
 
-int main()
+int main(int argc, char** argv)
 {
+    for (std::size_t argIndex = 1; argIndex < static_cast<std::size_t>(argc); argIndex++)
+    {
+        queriesQueue.emplace(argv[argIndex]);
+    }
+
+    queriesQueue.emplace("cl");
+
     App  clientApp;
+
+    while (!clientApp.isConnected());
+
     bool quit   = false;
     auto future = std::async(std::launch::async, GetLineFromCin);
 
@@ -25,6 +47,7 @@ int main()
         {
             static std::string cmd;
             cmd = future.get();
+
             if (cmd == "p")
             {
                 clientApp.pingServer();
@@ -32,7 +55,7 @@ int main()
             }
             else if (cmd == "s")
             {
-                Network::Message message;
+                Network::Message message;                                  
 
                 Network::MessageInfo msg;
                 msg.message   = "123";
