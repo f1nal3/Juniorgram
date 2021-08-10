@@ -18,13 +18,13 @@ std::string Logger::stringify(const LogLevel level)
     return result;
 }
 
-Logger::Logger() { _mThread = std::thread(&Logger::run, this); }
+Logger::Logger() { _Thread = std::thread(&Logger::run, this); }
 
 Logger::~Logger()
 {
-    if (_mThread.joinable())
+    if (_Thread.joinable())
     {
-        _mThread.join();
+        _Thread.join();
     }
 }
 
@@ -66,8 +66,8 @@ void Logger::close()
 void Logger::stop()
 {
     std::lock_guard<std::mutex> lk(_mMutex);
-    _mStop = true;
-    _mCV.notify_one();
+    _Stop = true;
+    _CV.notify_one();
 }
 
 void Logger::log(const std::string& msg, const LogLevel level)
@@ -79,8 +79,8 @@ void Logger::log(const std::string& msg, const LogLevel level)
     std::lock_guard<std::mutex> lk(_mMutex);
     std::map<std::string, LogLevel> mapForQueue;
     mapForQueue.insert(make_pair(result, level));
-    _mQueue.push(mapForQueue);
-    _mCV.notify_one();
+    _Queue.push(mapForQueue);
+    _CV.notify_one();
 }
 
 std::string Logger::timestamp()
@@ -123,16 +123,16 @@ void Logger::run()
     {
         // Wait until some request comes or stop flag is set
         std::unique_lock<std::mutex> lock(_mMutex);
-        _mCV.wait(lock, [&]() { return _mStop || !_mQueue.empty(); });
+        _CV.wait(lock, [&]() { return _Stop || !_Queue.empty(); });
 
         // Stop if needed
-        if (_mStop)
+        if (_Stop)
         {
             break;
         }
 
-        std::string msg = std::move(_mQueue.front().begin()->first);
-        _mQueue.pop();
+        std::string msg = std::move(_Queue.front().begin()->first);
+        _Queue.pop();
 
         if (_output == LogOutput::CONSOLE)
         {
@@ -151,8 +151,6 @@ void Logger::run()
             _file << msg << std::endl;
             close();
         }
-
-        lock.unlock();
     }
 }
 

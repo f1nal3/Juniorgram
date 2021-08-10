@@ -176,9 +176,9 @@ private:
 
     bool _isOpened = false;
 
-    std::thread _mThread;
-    std::condition_variable _mCV;
+    std::thread _Thread;
+    std::condition_variable _CV;
     std::mutex _mMutex;
-    std::queue<std::map<std::string, LogLevel>> _mQueue;
-    bool _mStop = false;
+    std::queue<std::map<std::string, LogLevel>> _Queue;
+    bool _Stop = false;
 };

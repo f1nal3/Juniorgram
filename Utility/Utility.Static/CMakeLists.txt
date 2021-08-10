@@ -5,7 +5,9 @@ set(SOURCE_FILES
     Cryptography.hpp
     Cryptography.cpp
     JsonSerializer.hpp
-    JsonSerializer.cpp)
+    JsonSerializer.cpp
+    Logger.hpp
+    Logger.cpp)
 
 # Add a library with the above sources
 add_library(${TARGET} STATIC ${SOURCE_FILES})
