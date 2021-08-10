@@ -1,5 +1,7 @@
 #include "ConnectionManager.hpp"
 
+#include "Application.hpp"
+
 ReceiverManager* ReceiverManager::self;
 
 ReceiverManager::ReceiverManager() { self = this; }
@@ -24,10 +26,7 @@ void ConnectionManager::onServerMessage(const uint64_t clientId)
 
 void ConnectionManager::onChannelListRequest(const std::vector<Network::ChannelInfo>& channels)
 {
-    auto copy = channels;
-    ChannelListWindow::setChannels(std::move(copy));
-
-    ChannelListWindow::mainWidgetStatus.notify_one();
+    qRegisterMetaType<std::vector<Network::ChannelInfo> >("std::vector<Network::ChannelInfo>");
     emit ReceiverManager::instance()->onChannelListRequest(channels);
 }
 
@@ -51,31 +50,13 @@ void ConnectionManager::onMessageStoreAnswer(Utility::StoringMessageCodes storin
     {
         std::cout << "FAILED sending" << std::endl;
     }
-    else
-    {
-        std::cout << "Unknown StoringMessageCode" << std::endl;
-    }
+    qRegisterMetaType<Utility::StoringMessageCodes>("Utility::StoringMessageCodes");
     emit ReceiverManager::instance()->onMessageStoreAnswer(storingMessageCode);
 }
 
 void ConnectionManager::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
 {
-    if (registrationCode == Utility::RegistrationCodes::SUCCESS)
-    {
-        std::cout << "New user was registered!" << std::endl;
-    }
-    else if (registrationCode == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
-    {
-        std::cout << "Email already exists" << std::endl;
-    }
-    else if (registrationCode == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS)
-    {
-        std::cout << "Login already exists" << std::endl;
-    }
-    else
-    {
-        std::cout << "Unknown code" << std::endl;
-    }
+    qRegisterMetaType<Utility::RegistrationCodes>("Utility::RegistrationCodes");
     emit ReceiverManager::instance()->onRegistrationAnswer(registrationCode);
 }
 

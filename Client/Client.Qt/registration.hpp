@@ -1,5 +1,6 @@
 #pragma once
 #include <QWidget>
+#include <Utility/Utility.hpp>
 #include <memory>
 
 class FlatInput;
@@ -14,17 +15,15 @@ class Registration : public QWidget
 {
     Q_OBJECT
 public:
-    /**
-     * @brief Constructor for registration form
-     * @param parent MainWidget
-     */
+    /// Constructor for registration form
     explicit Registration(QWidget* parent = nullptr);
 
+private slots:
+    /// On registration
+    void onRegistration(Utility::RegistrationCodes code);
+
 protected:
-    /**
-     * @brief Handle resize events
-     * @param event Resize event
-     */
+    /// Handle resize
     void resizeEvent(QResizeEvent* event) override;
 
 private:
