@@ -17,6 +17,8 @@
 #include <thread>
 #include <vector>
 
+#include "../Utility.Public/Include/Utility/Utility.hpp"
+
 class Logger final  // Singolton class
 {
 public:
@@ -147,6 +149,10 @@ private:
     */
     static std::string threadID();
 
+    /**
+     * @brief Converts the std::filesystem::last_write_time to time_t
+     * @return the time in the format time_t
+     */
     template <typename TP>
     std::time_t to_time_t(TP tp)
     {
