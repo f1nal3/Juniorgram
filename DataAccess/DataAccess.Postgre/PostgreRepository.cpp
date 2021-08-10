@@ -108,6 +108,19 @@ Utility::StoringMessageCodes PostgreRepository::storeMessage(const Network::Mess
     return Utility::StoringMessageCodes::SUCCESS;
 }
 
+Utility::DeletingMessageCodes PostgreRepository::deleteMessage(const Network::MessageInfo& mi) 
+{
+    using Utility::DeletingMessageCodes;
+
+    pTable->changeTable("msgs");
+    const auto queryResult = pTable->Delete()
+                                    ->Where("msg_id=" + std::to_string(mi.msgID))
+                                    ->Or("msg='" + mi.message + "'")
+                                    ->execute();
+
+    return queryResult.has_value() ? DeletingMessageCodes::SUCCESS : DeletingMessageCodes::FAILED;
+}
+
 std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageInfo& mi)
 {
     std::tuple dataForMsgs

@@ -49,11 +49,11 @@ public:
      */
     void messageAll() const;
     /**
-     * @brief Delete message from user
-     * @param userId user ID
+     * @brief Delete user's message
      * @param messageId message ID
      */
-    void userMessageDelete(uint64_t userId, uint64_t messageId) const;
+    void userMessageDelete(const uint64_t messageId) const;
+    void userMessageDelete(const std::string& messageText) const;
     /**
      * @brief Send a message to server
      * @param message Message

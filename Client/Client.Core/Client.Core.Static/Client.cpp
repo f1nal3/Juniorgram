@@ -160,15 +160,26 @@ void Client::messageAll() const
     send(message);
 }
 
-void Client::userMessageDelete(const uint64_t userId, const uint64_t messageId) const
+void Client::userMessageDelete(const uint64_t messageId) const
 {
-    Network::MessageDeletedInfo messageDeletedInfo(userId, messageId);
-    Network::Message            message;
+    Network::MessageInfo mi;
+    mi.msgID = messageId;
 
+    Network::Message message;
     message.mHeader.mMessageType = MessageType::UserMessageDeleteRequest;
-    message.mBody                = std::make_any<MessageDeletedInfo>(messageDeletedInfo);
-    // Temporarily commented out function
-    // send(message);
+    message.mBody                = std::make_any<Network::MessageInfo>(mi);
+    send(message);
+}
+
+void Client::userMessageDelete(const std::string& messageText) const 
+{
+    Network::MessageInfo mi;
+    mi.message = messageText;
+
+    Network::Message message;
+    message.mHeader.mMessageType = MessageType::UserMessageDeleteRequest;
+    message.mBody                = std::make_any<Network::MessageInfo>(mi);
+    send(message);
 }
 
 void Client::loop()

@@ -35,6 +35,8 @@ public:
      */
     virtual Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& msi) = 0;
     
+    virtual Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) = 0;
+
     /**  @brief Method for user registration.
      *   @params RegistrationMessage which contains user data for registration.
      *   @details Generation password's hash in which login is a salt. It lets us /

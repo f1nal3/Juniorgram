@@ -1,14 +1,12 @@
 #pragma once
 
 #include <Network/Primitives.hpp>
-
 #include <iostream>
-
-#include "Utility/Exception.hpp"
-#include "Utility/Utility.hpp"
 
 #include "DataAccess/IRepository.hpp"
 #include "PostgreTable.hpp"
+#include "Utility/Exception.hpp"
+#include "Utility/Utility.hpp"
 
 namespace DataAccess
 {
@@ -27,9 +25,10 @@ public:
 
     std::vector<Network::ChannelInfo> getAllChannelsList() override final;
     std::vector<Network::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) override final;
-    Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& mi) override final;
-    Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) const override final;
-    std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) override final;
+    std::uint64_t                     loginUser(const std::string& login, const std::string& pwdHash) override final;
+    Utility::StoringMessageCodes      storeMessage(const Network::MessageInfo& mi) override final;
+    Utility::RegistrationCodes        registerUser(const Network::RegistrationInfo& ri) const override final;
+    Utility::DeletingMessageCodes     deleteMessage(const Network::MessageInfo& mi) override final;
 
 private:
     std::optional<pqxx::result> insertMessageIntoMessagesTable(const Network::MessageInfo& msi);
