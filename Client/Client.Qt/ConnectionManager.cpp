@@ -26,10 +26,7 @@ void ConnectionManager::onServerMessage(const uint64_t clientId)
 
 void ConnectionManager::onChannelListRequest(const std::vector<Network::ChannelInfo>& channels)
 {
-    auto copy = channels;
-    ChannelListWindow::setChannels(std::move(copy));
-
-    ChannelListWindow::mainWidgetStatus.notify_one();
+    qRegisterMetaType<std::vector<Network::ChannelInfo> >("std::vector<Network::ChannelInfo>");
     emit ReceiverManager::instance()->onChannelListRequest(channels);
 }
 

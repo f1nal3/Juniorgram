@@ -12,6 +12,8 @@ ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannel
                 "background-color: #323232;"
                 "}"));
     setWindowFlag(Qt::WindowMinimizeButtonHint, false);
+    setWindowFlag(Qt::WindowStaysOnTopHint);
+    setWindowModality(Qt::ApplicationModal);
 
     setFixedWidth(Style::valueDPIScale(300));
     setFixedHeight(Style::valueDPIScale(250));
@@ -25,36 +27,25 @@ ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannel
     _vBoxLayout->addWidget(_addChannelButton.get());
     _vBoxLayout->addWidget(_updateChannelButton.get());
 
-    _addChannelButton->setClickCallback([this]() { addChannelToMainChannelWidget(); });
-    _updateChannelButton->setClickCallback([this]() { updateChannelListWindow(); });
-    updateChannelListWindow();
+    connect(ReceiverManager::instance(), &ReceiverManager::onChannelListRequest, this, &ChannelListWindow::setChannels);
 
-    /// TODO: implement it w/o thread
-    // connect(ReceiverManager::instance(), &ReceiverManager::onChannelListRequest, this, &ChannelListWindow::setChannels);
+    _addChannelButton->setClickCallback([this]() { addChannelToMainChannelWidget(); });
+    _updateChannelButton->setClickCallback([this]() { requestChannels(); });
+    requestChannels();
 
     setLayout(_vBoxLayout.get());
 }
 
 void ChannelListWindow::updateChannelList()
 {
-    std::thread([&]() {
-        if (oApp->connectionManager()->isConnected())
+    for (const auto& channel : channels)
+    {
+        if (!_channelsAddMap[channel.channelID])
         {
-            std::mutex                   mtx;
-            std::unique_lock<std::mutex> lck(mtx);
-            mainWidgetStatus.wait(lck);
-
-            for (auto channel : channels)
-            {
-                if (!_channelsAddMap[channel.channelID])
-                {
-                    _channelList->addItem(QString::fromStdString(channel.channelName));
-                    _channelsAddMap[channel.channelID] = true;
-                }
-            }
-            lck.unlock();
+            _channelList->addItem(QString::fromStdString(channel.channelName));
+            _channelsAddMap[channel.channelID] = true;
         }
-    }).detach();
+    }
 }
 
 void ChannelListWindow::addChannelToMainChannelWidget()
@@ -83,20 +74,20 @@ void ChannelListWindow::addChannelToMainChannelWidget()
     }
 }
 
-void ChannelListWindow::setChannels(std::vector<Network::ChannelInfo>&& newChannels)
-{ 
+void ChannelListWindow::setChannels(const std::vector<Network::ChannelInfo>& newChannels)
+{
     channels = newChannels;
     for (auto& channel : channels)
     {
         _channelsAddMap.emplace(std::pair<std::uint64_t, bool>(channel.channelID, false));
     }
+    updateChannelList();
 }
 
-void ChannelListWindow::updateChannelListWindow()
+void ChannelListWindow::requestChannels()
 {
     if (oApp->connectionManager()->isConnected())
     {
         oApp->connectionManager()->askForChannelList();
-        updateChannelList();
     }
 }
