@@ -142,7 +142,7 @@ private:
     * @brief Marks to current time
     * @return time format [yyyy.mm.dd. hh.mm.ss.ms]
     */
-    static std::string timestamp();
+    std::string timestamp();
     /**
     * @brief Marks to current thread
     * @return curent thread in string format

@@ -85,17 +85,21 @@ void Logger::log(const std::string& msg, const LogLevel level)
 
 std::string Logger::timestamp()
 {
-    using namespace std::chrono;
-    auto now = system_clock::now();
-    struct tm localtime;
-    time_t tt = system_clock::to_time_t(now);
-    auto ms   = duration_cast<microseconds>(now.time_since_epoch()) % 1000;
+    using std::chrono::system_clock;
+    system_clock::time_point tp = system_clock::now();
+
+    time_t raw_time = system_clock::to_time_t(tp);
+
+    std::tm tt        = Utility::safe_localtime(raw_time);
+    std::tm* timeinfo = &tt;
+    auto ms           = std::chrono::duration_cast<std::chrono::microseconds>(tp.time_since_epoch()) % 1000;
 
     const unsigned sizeBuffer = 26;
-    char buffer[sizeBuffer];
-    localtime_s(&localtime, &tt);
-    strftime(buffer, sizeBuffer, "%F %T", &localtime);
-    std::string str = std::string(buffer);
+    char buf[sizeBuffer]      = {0};
+
+    strftime(buf, sizeBuffer, "%F %T", timeinfo);
+
+    std::string str = std::string(buf);
 
     std::stringstream ss;
     ss << str << "." << std::setfill('0') << std::setw(3) << ms.count();
