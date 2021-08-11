@@ -15,6 +15,8 @@ class ChatHistory : public QWidget
 {
     Q_OBJECT
 public:
+    using MessageAndReply = std::vector<std::pair<std::unique_ptr<MessageWidget>, std::unique_ptr<ReplyMessageWidget>>>;
+
     /**
      * @brief Constructor for chat history
      * @param parent Parent widget
@@ -83,7 +85,9 @@ private:
     bool                                        _alreadyScrolling = false;
     std::int32_t                                _left             = -1;
     std::unique_ptr<ScrollArea>                 _scrollArea;
-    std::vector<std::unique_ptr<MessageWidget>> _messageList;
+    MessageAndReply                             _messageAndReplyList;
+    std::uint64_t                               _replyCount = 0;
+    //std::vector<std::unique_ptr<MessageWidget>> _messageList;
     std::uint64_t                               _userId    = 0;
     std::uint64_t                               _messageId = 0;
 };
