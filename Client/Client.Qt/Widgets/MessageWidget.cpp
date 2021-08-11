@@ -5,7 +5,7 @@
 #include <QtEvents>
 #include <utility>
 
-#include "ConnectionManager.hpp"
+#include "Application.hpp"
 #include "Style/Style.hpp"
 #include "Widgets/ChatHistory.hpp"
 #include "Widgets/ReactionLayout.hpp"
@@ -109,7 +109,7 @@ void MessageWidget::onDelete()
     _messageFlags |= MessageFlag::Deleted;
     resize(width(), _st.fontname->height + _st.radius * 2);
     update();
-    ConnectionManager::getClient().messageUserDelete(_userId, _messageId);
+    oApp->connectionManager()->userMessageDelete(_userId, _messageId);
 }
 
 void MessageWidget::setMessageText(const QString& newMessage)

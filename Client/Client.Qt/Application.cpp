@@ -1,7 +1,6 @@
 #include "Application.hpp"
 
 #include "ChatWindow.hpp"
-#include "ConnectionManager.hpp"
 #include "MainWidget.hpp"
 #include "login.hpp"
 #include "registration.hpp"
@@ -28,6 +27,7 @@ void Application::create()
     _icon = new Style::icon(":/images/logo.png");
     _mainWidget->setBioButtonIcon(_icon);
 
+    _recieverManager = std::make_unique<ReceiverManager>();
     _mainWidget->addWidget(std::make_unique<Login>());
     _mainWidget->addWidget(std::make_unique<Registration>());
     _mainWidget->addWidget(std::make_unique<ChatWindow>());
@@ -38,8 +38,10 @@ void Application::create()
     ReactionLayout::addIcon(3, st::catIcon);
     ReactionLayout::addIcon(4, st::smileIcon);
 
-    ConnectionManager::connect();
-    std::thread(&ConnectionManager::loop).detach();
+    _connectionManager = std::make_unique<ConnectionManager>();
+    _connectionManager->init();
+
+    // connect(ReceiverManager::instance(), &ReceiverManager::disconnected, this, &Application::reconnectToServer, Qt::QueuedConnection);
 
     setAppState(App::AppState::LoginForm);
     QApplication::setFont(st::defaultFont);
@@ -71,3 +73,7 @@ void Application::setAppState(App::AppState app_state)
         }
     }
 }
+
+std::unique_ptr<ConnectionManager>& Application::connectionManager() { return _connectionManager; }
+
+void Application::reconnectToServer() { _connectionManager->init(); }

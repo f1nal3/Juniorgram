@@ -1,7 +1,7 @@
 #include "ChatWidget.hpp"
 
+#include "Application.hpp"
 #include "ChatHistory.hpp"
-#include "ConnectionManager.hpp"
 
 ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
 {
@@ -22,9 +22,9 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     connect(_chatHistory.get(), &ChatHistory::createReplySignal, this, &ChatWidget::addReplyWidget);
 }
 
-void ChatWidget::newMessage(const QString& messageText) 
+void ChatWidget::newMessage(const QString& messageText)
 {
-    ConnectionManager::getClient().storeMessage(messageText.toStdString(), _channelID);
+    oApp->connectionManager()->storeMessage(messageText.toStdString(), _channelID);
     if(this->findChild<ReplyWidget*>())
     {
         _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch(), _replyWidget);

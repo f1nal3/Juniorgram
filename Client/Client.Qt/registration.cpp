@@ -4,7 +4,6 @@
 #include <iostream>
 
 #include "Application.hpp"
-#include "ConnectionManager.hpp"
 #include "Utility/UserDataValidation.hpp"
 #include "Widgets/Buttons.hpp"
 #include "Widgets/InputFields.hpp"
@@ -32,6 +31,8 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
     _registrationButton->resize(BLOCKWIDTH, _registrationButton->sizeHint().height());
     _backButton->resize(BLOCKWIDTH, _backButton->sizeHint().height());
     _logoWidget->setPart(30);
+
+    connect(ReceiverManager::instance(), &ReceiverManager::onRegistrationAnswer, this, &Registration::onRegistration);
 
     _registrationButton->setClickCallback([this]() {
         using namespace UserDataValidation;
@@ -71,10 +72,7 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
             return;
         }
 
-        ConnectionManager::getClient().userRegistration(email, login, password);
-
-        // TODO : Check server reply before returning from registration
-        oApp->setAppState(App::AppState::LoginForm);
+        oApp->connectionManager()->userRegistration(email, login, password);
     });
 }
 
@@ -92,4 +90,33 @@ void Registration::resizeEvent(QResizeEvent* event)
     _repeatPasswordInput->move(LEFT_SHIFT, _passwordInput->geometry().bottom() + 1 + HOR_SPACING);
     _registrationButton->move(LEFT_SHIFT, _repeatPasswordInput->geometry().bottom() + 1 + HOR_SPACING * 3 / 2);
     _backButton->move(LEFT_SHIFT, _registrationButton->geometry().bottom() + 1 + HOR_SPACING);
+}
+
+void Registration::onRegistration(Utility::RegistrationCodes code)
+{
+    if (code == Utility::RegistrationCodes::SUCCESS)
+    {
+        _emailInput->clear();
+        _usernameInput->clear();
+        _passwordInput->clear();
+        _repeatPasswordInput->clear();
+        oApp->setAppState(App::AppState::LoginForm);
+    }
+    else
+    {
+        // TODO: notification
+
+        if (code == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
+        {
+            std::cout << "Email already exists" << std::endl;
+        }
+        else if (code == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS)
+        {
+            std::cout << "Login already exists" << std::endl;
+        }
+        else
+        {
+            std::cout << "Unknown code" << std::endl;
+        }
+    }
 }

@@ -2,7 +2,7 @@
 
 #include <QFutureWatcher>
 
-#include "ConnectionManager.hpp"
+#include "Application.hpp"
 
 ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent)
     : QWidget(parent), _widgetChannelList(anotherChannelListWidget)
@@ -12,6 +12,8 @@ ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannel
                 "background-color: #323232;"
                 "}"));
     setWindowFlag(Qt::WindowMinimizeButtonHint, false);
+    setWindowFlag(Qt::WindowStaysOnTopHint);
+    setWindowModality(Qt::ApplicationModal);
 
     setFixedWidth(Style::valueDPIScale(300));
     setFixedHeight(Style::valueDPIScale(250));
@@ -25,55 +27,25 @@ ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannel
     _vBoxLayout->addWidget(_addChannelButton.get());
     _vBoxLayout->addWidget(_updateChannelButton.get());
 
+    connect(ReceiverManager::instance(), &ReceiverManager::onChannelListRequest, this, &ChannelListWindow::setChannels);
+
     _addChannelButton->setClickCallback([this]() { addChannelToMainChannelWidget(); });
-    _updateChannelButton->setClickCallback([this]() { updateChannelListWindow(); });
+    _updateChannelButton->setClickCallback([this]() { requestChannels(); });
+    requestChannels();
 
     setLayout(_vBoxLayout.get());
 }
 
 void ChannelListWindow::updateChannelList()
 {
-    std::thread([&]() {
-        if (ConnectionManager::isConnected())
+    for (const auto& channel : channels)
+    {
+        if (!_channelsAddMap[channel.channelID])
         {
-            std::mutex                   mtx;
-            std::unique_lock<std::mutex> lck(mtx);
-            mainWidgetStatus.wait(lck);
-
-            int numberOfCoincidences = 0;
-
-            for (int index = 0; index < _widgetChannelList->count(); ++index)
-            {
-                for (auto it = channels.rbegin(); it != channels.rend(); ++it)
-                {
-                    if (QString::fromStdString(it->channelName) == _widgetChannelList->item(index)->text())
-                    {
-                        channels.erase(std::remove(channels.begin(), channels.end(), *it), channels.end());
-                    }
-                }
-            }
-            for (auto it = channels.rbegin(); it != channels.rend(); ++it)
-            {
-                if (_channelList->count() == 0)
-                {
-                    _channelList->addItem(QString::fromStdString(it->channelName));
-                }
-                for (int i = 0; i < _channelList->count(); ++i)
-                {
-                    if (_channelList->item(i)->text() == QString::fromStdString(it->channelName))
-                    {
-                        numberOfCoincidences++;
-                    }
-                }
-                if (numberOfCoincidences == 0)
-                {
-                    _channelList->addItem(QString::fromStdString(it->channelName));
-                }
-                numberOfCoincidences = 0;
-            }
-            lck.unlock();
+            _channelList->addItem(QString::fromStdString(channel.channelName));
+            _channelsAddMap[channel.channelID] = true;
         }
-    }).detach();
+    }
 }
 
 void ChannelListWindow::addChannelToMainChannelWidget()
@@ -100,16 +72,22 @@ void ChannelListWindow::addChannelToMainChannelWidget()
             _widgetChannelList->addItem(_channelList->takeItem(_channelList->currentRow()));
         }
     }
-    hide();
 }
 
-void ChannelListWindow::setChannels(std::vector<Network::ChannelInfo>&& channels_) { channels = channels_; }
-
-void ChannelListWindow::updateChannelListWindow()
+void ChannelListWindow::setChannels(const std::vector<Network::ChannelInfo>& newChannels)
 {
-    if (ConnectionManager::isConnected())
+    channels = newChannels;
+    for (auto& channel : channels)
     {
-        ConnectionManager::getClient().askForChannelList();
-        updateChannelList();
+        _channelsAddMap.emplace(std::pair<std::uint64_t, bool>(channel.channelID, false));
+    }
+    updateChannelList();
+}
+
+void ChannelListWindow::requestChannels()
+{
+    if (oApp->connectionManager()->isConnected())
+    {
+        oApp->connectionManager()->askForChannelList();
     }
 }
