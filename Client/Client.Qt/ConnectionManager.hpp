@@ -66,6 +66,7 @@ public:
 
     /// Initialize connection to server
     void init() { connectToServer(ServerInfo::address, ServerInfo::port); }
+    virtual ~ConnectionManager() = default;
 
 protected:
     /// Disconnect handler
