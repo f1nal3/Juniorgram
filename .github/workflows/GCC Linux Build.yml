@@ -15,7 +15,7 @@ jobs:
   
     services:
       postgres:
-        image: ghcr.io/f1nal3/juniorgram/juniorgram_test_db:stable
+        image: postgres
         env:
            POSTGRES_USER: postgres
            POSTGRES_PASSWORD: postgres
