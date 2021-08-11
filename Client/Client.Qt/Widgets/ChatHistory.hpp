@@ -87,7 +87,6 @@ private:
     std::unique_ptr<ScrollArea>                 _scrollArea;
     MessageAndReply                             _messageAndReplyList;
     std::uint64_t                               _replyCount = 0;
-    //std::vector<std::unique_ptr<MessageWidget>> _messageList;
     std::uint64_t                               _userId    = 0;
     std::uint64_t                               _messageId = 0;
 };

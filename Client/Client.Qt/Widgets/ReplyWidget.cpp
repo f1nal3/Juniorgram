@@ -34,17 +34,6 @@ int ReplyWidget::expectedHeight()
 
 void ReplyWidget::paintEvent(QPaintEvent* e)
 {
-    /*
-    QPainter p(this);
-
-    p.setPen(QPen(Qt::white, 2));
-    p.setRenderHint(QPainter::Antialiasing);
-
-    auto usernameRect = QRect(_st.radius * 2, _st.radius * 2 + 1, _st.fontname->width(_username), _st.fontname->height);
-    p.drawText(usernameRect, _username);
-    p.setFont(_st.fontname);
-    */
-
     QPainter p(this);
     auto     margin = _st.radius;
     p.setPen(QPen(Qt::white, 2));    p.setFont(_st.fontname);
@@ -61,12 +50,10 @@ void ReplyWidget::resizeEvent(QResizeEvent* e)
     _closeReplyButton->move(closeReplyButtonX, _st.radius);
     _fmtMessageText->resize(width() - _st.radius * 4 - 1, _fmtMessageText->document()->size().height());
 
-    /*
     if (expectedHeight() != height())
     {
         resize(width(), expectedHeight());
     }
-    */
 
     resize(width(), expectedHeight());
     QWidget::resizeEvent(e);

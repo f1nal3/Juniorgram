@@ -152,7 +152,6 @@ void ChatHistory::updateLayout(bool beenResized)
         int topy = 0;
         if(_messageAndReplyList[_left].second != nullptr)
         {
-           //topy = (_messageAndReplyList[_left].first->pos().y() + _messageAndReplyList[_left].second->pos().y()) / 2;
             topy    = _messageAndReplyList[_left].second->pos().y() + diff;
         }
         else
@@ -161,27 +160,13 @@ void ChatHistory::updateLayout(bool beenResized)
         }
         int bottomy = topy + height();
         if (_messageAndReplyList.back().first->geometry().top() <= bottomy) haveLast = true;
-        /*
-        if(_messageAndReplyList[_left].second != nullptr)
-        {
-            //if ((_messageAndReplyList.back().first->geometry().top() +
-             //       _messageAndReplyList.back().second->geometry().top()) / 2 <= bottomy) haveLast = true;
-            if (_messageAndReplyList.back().second->geometry().top() <= bottomy) haveLast = true;
-        }
-        else
-        {
-            if (_messageAndReplyList.back().first->geometry().top() <= bottomy) haveLast = true;
-        }
-        */
     }
 
     if (_left >= 0 && beenResized && !haveLast)
     {
         int newy = 0;
-        //int newy          = _messageAndReplyList[_left].first->pos().y();
         if(_messageAndReplyList[_left].second != nullptr)
         {
-            //newy = (_messageAndReplyList[_left].first->pos().y() + _messageAndReplyList[_left].second->pos().y()) / 2;
             newy = _messageAndReplyList[_left].second->pos().y();
         }
         else
@@ -197,7 +182,6 @@ void ChatHistory::updateLayout(bool beenResized)
     {
         if(_messageAndReplyList.back().second != nullptr)
         {
-            //_scrollArea->scrollToY((_messageAndReplyList.back().first->pos().y() + _messageAndReplyList.back().second->pos().y()) / 2);
             _scrollArea->scrollToY(_messageAndReplyList.back().second->pos().y());
         }
         else
@@ -254,7 +238,6 @@ std::pair<int, int> ChatHistory::findVisible() const
         int  middle = 0;
         if(_messageAndReplyList[(right - left) / 2].second != nullptr)
         {
-            //middle = (_messageAndReplyList[(right - left) / 2].first->pos().y() + _messageAndReplyList[(right - left) / 2].second->pos().y()) / 2;
             middle = _messageAndReplyList[(right - left) / 2].second->pos().y();
         }
         else
@@ -266,10 +249,8 @@ std::pair<int, int> ChatHistory::findVisible() const
         {
             if (middle < top) left = (right + left) / 2;
             if (middle > top) right = (right + left) / 2;
-            //middle = _messageAndReplyList[(right + left) / 2].first->pos().y();
             if(_messageAndReplyList[(right - left) / 2].second != nullptr)
             {
-                //middle = (_messageAndReplyList[(right - left) / 2].first->pos().y() + _messageAndReplyList[(right - left) / 2].second->pos().y()) / 2;
                 middle = _messageAndReplyList[(right - left) / 2].second->pos().y();
             }
             else
@@ -297,7 +278,6 @@ std::pair<int, int> ChatHistory::findVisible() const
     {
         if(_messageAndReplyList[index].second != nullptr)
         {
-            //sizeHeight = (_messageAndReplyList[index].first->pos().y() + _messageAndReplyList[index].second->pos().y()) / 2;
             sizeHeight = _messageAndReplyList[index].second->pos().y();
         }
         else
@@ -306,12 +286,6 @@ std::pair<int, int> ChatHistory::findVisible() const
         }
         index++;
     }
-    /*
-    while ((_messageAndReplyList[index].first->pos().y() + _messageAndReplyList[index].second->pos().y()) / 2 < bottom && index < size - 1)
-    {
-        index++;
-    }
-    */
     right = index;
     index = middle;
 
@@ -328,8 +302,6 @@ std::pair<int, int> ChatHistory::findVisible() const
     {
         if(_messageAndReplyList[index].second != nullptr)
         {
-            //sizeHeight = (_messageAndReplyList[index].first->pos().y() + _messageAndReplyList[index].second->pos().y() +
-             //             _messageAndReplyList[index].first->height() + _messageAndReplyList[index].second->height()) / 2;
             sizeHeight = _messageAndReplyList[index].second->pos().y() + _messageAndReplyList[index].second->height();
         }
         else
@@ -338,12 +310,6 @@ std::pair<int, int> ChatHistory::findVisible() const
         }
         index--;
     }
-    /*
-    while (_messageAndReplyList[index].first->pos().y() + _messageAndReplyList[index].first->height() > top && index > 0)
-    {
-        index--;
-    }
-    */
 
     left = index;
     return {left, right};
