@@ -33,13 +33,7 @@ jobs:
           registry: docker.pkg.github.com
           username: ${{ github.repository_owner }}
           password: ${{ secrets.DOCKER_ACCESS }}
-        
-    - name: Pull docker image
-      run: docker pull docker.pkg.github.com/f1nal3/juniorgram/juniorgram_test_db:stable
       
-    - name: Run docker image
-      run: docker run -d --name juniorgram_test_db_container -p 5432:5432 docker.pkg.github.com/f1nal3/juniorgram/juniorgram_test_db:stable
-    
     - uses: actions/setup-python@v2
       with:
         python-version: '3.x'
