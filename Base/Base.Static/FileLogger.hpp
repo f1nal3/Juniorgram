@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
+#include "Logger/ILogger.hpp"
 #include <chrono>
 #include <condition_variable>
 #include <cstdlib>
@@ -15,69 +16,52 @@
 #include <sstream>
 #include <string>
 #include <thread>
+#include "Utility/Utility.hpp"
 #include <vector>
 
-#include "../Utility.Public/Include/Utility/Utility.hpp"
-
-class Logger final  // Singolton class
+namespace Logger
+{
+class FileLogger : ILogger
 {
 public:
-    /**
-    * @brief Valid log levels
-    * ERROR -   Task cannot continue and component cannot function
-    * WARNING - Potential error or impending error
-    * INFO -    General information outlining overall task progress
-    * DEBUG -   General information detailing debug progress
-    */
-    enum class LogLevel
-    {
-        ERROR,
-        WARNING,
-        INFO,
-        DEBUG
-    };
-
-    /**
-    * @brief Place of output of logged information
-    */
-    enum class LogOutput
-    {
-        CONSOLE,
-        FILE,
-        EVERYWHERE
-    };
-
     using BlockWrapper = std::pair<std::string, std::string>;
 
     /**
      * @brief Gets an object of the current class
      * @return object Logger
      */
-    static Logger& getInstance();
+    static FileLogger& getInstance();
+
+    /**
+     * @brief Get required storage period for log files
+     * @param basic file storage 7 days
+     * @return storage period in days
+     */
+    unsigned getPeriodLife(unsigned periodLife) override;
 
     /**
      * @brief Initialization of the current class object
      * @param file name to write data
      * @param the place where the data will be displayed
      */
-    void init(const std::string& filename, const LogOutput output);
+    void init(const std::string& filename, const LogOutput output) override;
 
     /**
      * @brief Opening the current class file
      */
-    void open();
+    void open() override;
 
     /**
      * @brief Closing the current class file
      */
-    void close();
+    void close() override;
 
     /**
      * @brief Log entry
      * @param required log message
      * @param log level
      */
-    void log(const std::string& msg, const LogLevel severity = LogLevel::DEBUG);
+    void log(const std::string& msg, const LogLevel severity = LogLevel::DEBUG) override;
 
     /**
      * @brief Log entry
@@ -104,11 +88,11 @@ public:
     inline std::string stringify(const LogLevel level);
 
 private:
-    Logger();
-    ~Logger();
+    FileLogger();
+    ~FileLogger();
 
-    Logger(const Logger&) = delete;
-    Logger& operator=(const Logger&) = delete;
+    FileLogger(const FileLogger&) = delete;
+    FileLogger& operator=(const FileLogger&) = delete;
 
     /**
      * @brief Syncs the number of log files in the folder
@@ -133,20 +117,21 @@ private:
      */
     std::string getFldName();
 
+
     /**
-    * @brief Loop to synchronize all threads
-    */
+     * @brief Loop to synchronize all threads
+     */
     void run();
 
     /**
-    * @brief Marks to current time
-    * @return time format [yyyy.mm.dd. hh.mm.ss.ms]
-    */
+     * @brief Marks to current time
+     * @return time format [yyyy.mm.dd. hh.mm.ss.ms]
+     */
     std::string timestamp();
     /**
-    * @brief Marks to current thread
-    * @return curent thread in string format
-    */
+     * @brief Marks to current thread
+     * @return curent thread in string format
+     */
     static std::string threadID();
 
     /**
@@ -162,9 +147,9 @@ private:
     }
 
     /**
-    * @brief Wraps the value of a variable
-    * @return [value]
-    */
+     * @brief Wraps the value of a variable
+     * @return [value]
+     */
     static std::string wrapValue(const std::string& value, const BlockWrapper& blockWerapper);
 
 private:
@@ -182,3 +167,4 @@ private:
     std::queue<std::map<std::string, LogLevel>> _Queue;
     bool _Stop = false;
 };
+}

@@ -1,6 +1,8 @@
-#include "Logger.hpp"
+#include "FileLogger.hpp"
 
-std::string Logger::stringify(const LogLevel level)
+using namespace Logger;
+
+std::string FileLogger::stringify(const LogLevel level)
 {
     std::string result =        "NONE";
     const static std::map<LogLevel, std::string> LevelMap = {
@@ -18,9 +20,12 @@ std::string Logger::stringify(const LogLevel level)
     return result;
 }
 
-Logger::Logger() { _Thread = std::thread(&Logger::run, this); }
+FileLogger::FileLogger()
+{
+    _Thread = std::thread(&FileLogger::run, this);
+}
 
-Logger::~Logger()
+FileLogger::~FileLogger()
 {
     if (_Thread.joinable())
     {
@@ -28,19 +33,23 @@ Logger::~Logger()
     }
 }
 
-Logger& Logger::getInstance()
+FileLogger& FileLogger::getInstance()
 {
-    static Logger self;
+    static FileLogger self;
     return self;
 }
 
-void Logger::init(const std::string& filename, const LogOutput output = LogOutput::EVERYWHERE)
+unsigned Logger::FileLogger::getPeriodLife(unsigned periodLife = 7) {
+    return periodLife;
+}
+
+void FileLogger::init(const std::string& filename, const LogOutput output = LogOutput::EVERYWHERE)
 {
     _fileName = filename;
     _output   = output;
 }
 
-void Logger::open()
+void FileLogger::open()
 {
     if (_output == LogOutput::EVERYWHERE || _output == LogOutput::FILE)
     {
@@ -55,7 +64,7 @@ void Logger::open()
     }
 }
 
-void Logger::close()
+void FileLogger::close()
 {
     if (_output == LogOutput::EVERYWHERE || _output == LogOutput::FILE)
     {
@@ -63,14 +72,14 @@ void Logger::close()
     }
 }
 
-void Logger::stop()
+void FileLogger::stop()
 {
     std::lock_guard<std::mutex> lk(_mMutex);
     _Stop = true;
     _CV.notify_one();
 }
 
-void Logger::log(const std::string& msg, const LogLevel level)
+void FileLogger::log(const std::string& msg, const LogLevel level)
 {
     std::string result = wrapValue(timestamp(), _blockWrapper) + " " +
                          wrapValue(threadID(), _blockWrapper) + " " +
@@ -83,7 +92,7 @@ void Logger::log(const std::string& msg, const LogLevel level)
     _CV.notify_one();
 }
 
-std::string Logger::timestamp()
+std::string FileLogger::timestamp()
 {
     using std::chrono::system_clock;
     system_clock::time_point tp = system_clock::now();
@@ -106,18 +115,18 @@ std::string Logger::timestamp()
 
     return ss.str();
 }
-std::string Logger::threadID()
+std::string FileLogger::threadID()
 {
     std::stringstream ss;
     ss << std::this_thread::get_id();
     return ss.str();
 }
-std::string Logger::wrapValue(const std::string& value, const BlockWrapper& blockWrapper)
+std::string FileLogger::wrapValue(const std::string& value, const BlockWrapper& blockWrapper)
 {
     return blockWrapper.first + value + blockWrapper.second;
 }
 
-void Logger::run()
+void FileLogger::run()
 {
     while (true)
     {
@@ -154,7 +163,7 @@ void Logger::run()
     }
 }
 
-std::string Logger::getCurrentDate()
+std::string FileLogger::getCurrentDate()
 {
     using std::chrono::system_clock;
 
@@ -172,13 +181,13 @@ std::string Logger::getCurrentDate()
     return std::string(buf);
 }
 
-std::string Logger::getFileName()
+std::string FileLogger::getFileName()
 {
     _fileName = "Log-" + getCurrentDate() + ".txt";
     return _fileName;
 }
 
-std::string Logger::getFldName()
+std::string FileLogger::getFldName()
 {
     std::filesystem::path path = "Log";
     if (std::filesystem::create_directory(path) != 0)
@@ -188,7 +197,7 @@ std::string Logger::getFldName()
     return path.string();
 }
 
-void Logger::fileSync()
+void FileLogger::fileSync()
 {
     std::vector<std::pair<std::time_t, std::filesystem::path>> VecLogFiles;
 
@@ -200,7 +209,7 @@ void Logger::fileSync()
 
     sort(VecLogFiles.rbegin(), VecLogFiles.rend());
 
-    while (VecLogFiles.size() > 7)
+    while (VecLogFiles.size() > getPeriodLife())
     {
         std::filesystem::remove(VecLogFiles.back().second);
         VecLogFiles.pop_back();
