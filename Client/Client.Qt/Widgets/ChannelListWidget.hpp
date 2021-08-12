@@ -15,12 +15,15 @@ class ChannelListWidget : public QWidget
 {
     Q_OBJECT
 public:
+    /// Constructor for channel list widget
     explicit ChannelListWidget(QWidget* parent = nullptr);
 
 public slots:
-    void addChannels();
+    /// Shows channel list window
+    void showChannelListWindow();
 
 public:
+    /// Returns channel list
     std::shared_ptr<ListWidget> getChannelList();
 
 private:
