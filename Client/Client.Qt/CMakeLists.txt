@@ -44,6 +44,10 @@ set(SOURCE_FILES
         Widgets/TextEdit.hpp
         Widgets/ReactionLayout.cpp
         Widgets/ReactionLayout.hpp
+        Widgets/LoadingSpinner.cpp
+        Widgets/LoadingSpinner.hpp
+        Widgets/Page.cpp
+        Widgets/Page.hpp
         Style/Palette.cpp
         Style/Palette.hpp
         Style/Shadow.hpp

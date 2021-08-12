@@ -8,7 +8,6 @@
 #include <iostream>
 
 #include "Style/Shadow.hpp"
-#include "Widgets/TitleWidget.hpp"
 
 #ifdef _WIN32
 #include <dwmapi.h>

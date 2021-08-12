@@ -7,7 +7,7 @@
 #include "Widgets/Buttons.hpp"
 #include "Widgets/InputFields.hpp"
 
-Login::Login(QWidget* parent) : QWidget(parent)
+Login::Login(QWidget* parent) : Page(parent)
 {
     _usernameInput = std::make_unique<FlatInput>(this, "Username");
     _passwordInput = std::make_unique<FlatInput>(this, "Password", true);
@@ -17,11 +17,10 @@ Login::Login(QWidget* parent) : QWidget(parent)
 
     _logoWidget = std::make_unique<LogoWidget>(this);
 
-    _registrationButton->setClickCallback([]() { oApp->setAppState(App::AppState::RegistrationForm); });
-
     connect(ReceiverManager::instance(), &ReceiverManager::onLoginAnswer, this, &Login::onLogin);
 
     _signInButton->setClickCallback([this]() {
+        onPause();
         std::string login    = _usernameInput->text().toStdString();
         std::string password = _passwordInput->text().toStdString();
 
@@ -29,6 +28,8 @@ Login::Login(QWidget* parent) : QWidget(parent)
         auto& connectionManager       = oApp->connectionManager();
         connectionManager->userAuthorization(login, password);
     });
+
+    _registrationButton->setClickCallback([=]() { oApp->setAppState(App::AppState::RegistrationForm); });
 
     const int BLOCKWIDTH = Style::valueDPIScale(500);
     _signInButton->resize(BLOCKWIDTH, _signInButton->sizeHint().height());
@@ -50,10 +51,12 @@ void Login::resizeEvent(QResizeEvent* event)
     _passwordInput->move(LEFT_SHIFT, _usernameInput->geometry().bottom() + 1 + HOR_SPACING);
     _signInButton->move(LEFT_SHIFT, _passwordInput->geometry().bottom() + 1 + HOR_SPACING * 2);
     _registrationButton->move(LEFT_SHIFT, _signInButton->geometry().bottom() + 1 + HOR_SPACING);
+    Page::resizeEvent(event);
 }
 
 void Login::onLogin()
 {
+    onResume();
     if (ConnectionManager::loginState == LoginState::SUCCESS)
     {
         _usernameInput->clear();

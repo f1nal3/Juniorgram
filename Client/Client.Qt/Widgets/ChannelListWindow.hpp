@@ -8,11 +8,12 @@
 #include "Buttons.hpp"
 #include "ListWidget.hpp"
 #include "MainWidget.hpp"
+#include "Page.hpp"
 
 /** @class ChannelListWindow
  *  @brief This is channel list
  */
-class ChannelListWindow : public QWidget
+class ChannelListWindow : public Page
 {
 public:
     explicit ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent = nullptr);
