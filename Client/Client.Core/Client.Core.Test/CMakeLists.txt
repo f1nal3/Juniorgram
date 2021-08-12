@@ -1,5 +1,6 @@
 set(TARGET Client.Core.Test)
 set(OUTPUT_NAME Client.Core.Test)
+set(CMAKE_CXX_STANDARD 20)
 
 set(SOURCE_FILES
     ClientCoreTest.cpp)
