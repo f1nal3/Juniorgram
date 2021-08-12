@@ -1,9 +1,9 @@
 #pragma once
 
+#include <Network/Primitives.hpp>
 #include <QVBoxLayout>
 #include <QWidget>
 #include <condition_variable>
-#include <Network/Primitives.hpp>
 
 #include "Buttons.hpp"
 #include "ListWidget.hpp"
@@ -15,29 +15,30 @@
 class ChannelListWindow : public QWidget
 {
 public:
-    ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent = nullptr);
-    /**
-     * @brief Method for update channel list window in another thread.
-     */
-    void updateChannelList();
-    /**
-     * @brief Static method for adding name of channels in own non-static ListWidget container.
-     * @param Name of Channels as std::string
-     */
-    static void setChannels(std::vector<Network::ChannelInfo>&& channels);
+    explicit ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent = nullptr);
 
 public:
-    inline static std::condition_variable mainWidgetStatus;
+    /// TODO: rework channel list in main window to make this private
     inline static std::vector<Network::ChannelInfo> channels;
 
-public slots:
+private slots:
+
+    /// et channels
+    void setChannels(const std::vector<Network::ChannelInfo>& channels_);
+
+    /// Adds selected channel to main window
     void addChannelToMainChannelWidget();
-    void updateChannelListWindow();
+
+    /// Do a request to server for new channels
+    void requestChannels();
+    /// Update channel view
+    void updateChannelList();
 
 private:
-    std::unique_ptr<ListWidget>  _channelList;
-    std::unique_ptr<FlatButton>  _addChannelButton;
-    std::unique_ptr<FlatButton>  _updateChannelButton;
-    std::unique_ptr<QVBoxLayout> _vBoxLayout;
-    std::shared_ptr<ListWidget>  _widgetChannelList;
+    inline static std::map<std::uint64_t, bool> _channelsAddMap;
+    std::unique_ptr<ListWidget>                 _channelList;
+    std::unique_ptr<FlatButton>                 _addChannelButton;
+    std::unique_ptr<FlatButton>                 _updateChannelButton;
+    std::unique_ptr<QVBoxLayout>                _vBoxLayout;
+    std::shared_ptr<ListWidget>                 _widgetChannelList;
 };

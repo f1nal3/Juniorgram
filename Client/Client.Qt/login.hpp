@@ -17,17 +17,15 @@ class Login : public QWidget
 {
     Q_OBJECT
 public:
-    /**
-     * @brief Constructor for login form
-     * @param parent MainWidget
-     */
+    /// Constructor for login form
     explicit Login(QWidget* parent = nullptr);
 
+private slots:
+    /// On login handler
+    void onLogin();
+
 protected:
-    /**
-     * @brief Handle resize events
-     * @param event Resize event
-     */
+    /// Handle resize
     void resizeEvent(QResizeEvent* event) override;
 
 private:

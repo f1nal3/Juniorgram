@@ -1,5 +1,6 @@
+[![Clang Linux Build](https://github.com/f1nal3/Juniorgram/actions/workflows/Clang%20Linux%20Build.yml/badge.svg)](https://github.com/f1nal3/Juniorgram/actions/workflows/Clang%20Linux%20Build.yml)
 [![Windows Build](https://github.com/f1nal3/Juniorgram/actions/workflows/Windows%20Build.yml/badge.svg?branch=master)](https://github.com/f1nal3/Juniorgram/actions/workflows/Windows%20Build.yml)
-[![Linux GCC Release Build](https://github.com/f1nal3/Juniorgram/actions/workflows/Linux%20GCC%20Release%20Build.yml/badge.svg)](https://github.com/f1nal3/Juniorgram/actions/workflows/Linux%20GCC%20Release%20Build.yml)
+[![GCC Linux Build](https://github.com/f1nal3/Juniorgram/actions/workflows/GCC%20Linux%20Build.yml/badge.svg)](https://github.com/f1nal3/Juniorgram/actions/workflows/GCC%20Linux%20Build.yml)
 [![Documentation](https://github.com/f1nal3/Juniorgram/actions/workflows/documentation.yml/badge.svg?branch=master)](https://github.com/f1nal3/Juniorgram/actions/workflows/documentation.yml)
 
 ![](https://i.ibb.co/sC8WJQs/logo2.png)

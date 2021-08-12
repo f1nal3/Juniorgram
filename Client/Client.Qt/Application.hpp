@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <memory>
 
+#include "ConnectionManager.hpp"
 #include "Style/Style.hpp"
 
 class MainWidget;
@@ -35,13 +36,9 @@ public:
      * @param argv Arguments
      */
     Application(int& argc, char** argv);
-    /**
-     * @brief Creates window and initialize all stuff
-     */
+    /// Creates window and initialize all stuff
     void create();
-    /**
-     * @brief Shows the window
-     */
+    /// Show the window
     void show();
     /**
      * @brief Change app state
@@ -49,8 +46,16 @@ public:
      */
     void setAppState(App::AppState app_state);
 
+    /// Reconnects to server
+    void reconnectToServer();
+
+    /// Connection manager
+    std::unique_ptr<ConnectionManager>& connectionManager();
+
 private:
-    std::unique_ptr<MainWidget> _mainWidget;
-    App::AppState _appState;
-    const Style::icon* _icon;
+    std::unique_ptr<MainWidget>        _mainWidget;
+    std::unique_ptr<ConnectionManager> _connectionManager;
+    std::unique_ptr<ReceiverManager>   _recieverManager;
+    App::AppState                      _appState;
+    const Style::icon*                 _icon;
 };

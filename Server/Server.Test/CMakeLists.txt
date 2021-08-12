@@ -2,14 +2,20 @@ set(TARGET Server.Test)
 set(OUTPUT_NAME Server.Test)
 
 set(SOURCE_FILES
-    ArgumentParserTests.cpp
-    ServerTest.cpp)
+    ArgumentParserTests.cpp)
+
+if(NOT WIN32)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+endif()
 
 add_executable(${TARGET} ${SOURCE_FILES})
 
 target_link_libraries(${TARGET} PUBLIC 
-    CONAN_PKG::catch2
+    Precompiled.Catch2.Main
     Network.Public 
     Server.Core.Static)
+
+target_compile_definitions(${TARGET} PRIVATE CATCH_CONFIG_FAST_COMPILE)
+target_precompile_headers(${TARGET} REUSE_FROM Precompiled.Catch2.Test)
 
 add_test(NAME ${OUTPUT_NAME} COMMAND ${TARGET})

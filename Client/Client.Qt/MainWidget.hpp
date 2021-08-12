@@ -16,9 +16,7 @@ class MainWidget : public QWidget
 {
     Q_OBJECT
 public:
-    /**
-     * @brief Constructor for MainWidget
-     */
+    /// Constructor for main widget
     explicit MainWidget();
     /**
      * @brief Adds widget to window
@@ -38,6 +36,7 @@ public:
      */
     bool setBioButtonIcon(const Style::icon* icon);
 
+    /// Returns edge from global position
     Qt::Edges edgesFromPos(const QPoint& pos);
 
     /**
@@ -50,8 +49,11 @@ protected:
 #ifdef _WIN32
     bool nativeEvent(const QByteArray& eventType, void* message, long* result) override;
 #endif
+    /// Handle paint
     void paintEvent(QPaintEvent* event) override;
+    /// Handle resize
     void resizeEvent(QResizeEvent* event) override;
+    /// Handle window events
     bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:

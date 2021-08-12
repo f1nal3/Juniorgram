@@ -65,6 +65,7 @@ set(SOURCE_FILES
         Application.hpp
         ChatWindow.cpp
         ChatWindow.hpp
+        ConnectionManager.cpp
         ConnectionManager.hpp
         login.cpp
         login.hpp

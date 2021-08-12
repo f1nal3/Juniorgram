@@ -1,6 +1,9 @@
-name: Build Linux GCC Docker image
+name: Build Test Database Image
 on:
-  workflow_dispatch:
+  push:
+    paths:
+      - 'Database_Scheme.sql'
+    
 jobs:
   build_and_push:
      runs-on: ubuntu-latest
@@ -19,7 +22,7 @@ jobs:
         uses: actions/checkout@v2
      
       - name: Build the image.
-        run: docker build -t docker.pkg.github.com/f1nal3/juniorgram/juniorgram_linux:stable .
+        run: docker build -t docker.pkg.github.com/f1nal3/juniorgram/juniorgram_test_db:stable .
     
       - name: Publish the image to GitHub Packages. 
-        run: docker push docker.pkg.github.com/f1nal3/juniorgram/juniorgram_linux:stable
+        run: docker push docker.pkg.github.com/f1nal3/juniorgram/juniorgram_test_db:stable

@@ -3,11 +3,9 @@
 #include <QtEvents>
 
 #include "Application.hpp"
-#include "ConnectionManager.hpp"
 #include "Utility/UserDataValidation.hpp"
 #include "Widgets/Buttons.hpp"
 #include "Widgets/InputFields.hpp"
-#include "Widgets/LogoWidget.hpp"
 
 Login::Login(QWidget* parent) : QWidget(parent)
 {
@@ -20,21 +18,16 @@ Login::Login(QWidget* parent) : QWidget(parent)
     _logoWidget = std::make_unique<LogoWidget>(this);
 
     _registrationButton->setClickCallback([]() { oApp->setAppState(App::AppState::RegistrationForm); });
+
+    connect(ReceiverManager::instance(), &ReceiverManager::onLoginAnswer, this, &Login::onLogin);
+
     _signInButton->setClickCallback([this]() {
         std::string login    = _usernameInput->text().toStdString();
         std::string password = _passwordInput->text().toStdString();
 
         ConnectionManager::loginState = LoginState::IN_PROGRESS;
-        ConnectionManager::getClient().userAuthorization(login, password);
-
-        while (ConnectionManager::loginState == LoginState::IN_PROGRESS && ConnectionManager::isConnected())
-        {
-        }
-
-        if (ConnectionManager::loginState == LoginState::SUCCESS)
-        {
-            oApp->setAppState(App::AppState::ChatWindowForm);
-        }
+        auto& connectionManager       = oApp->connectionManager();
+        connectionManager->userAuthorization(login, password);
     });
 
     const int BLOCKWIDTH = Style::valueDPIScale(500);
@@ -57,4 +50,14 @@ void Login::resizeEvent(QResizeEvent* event)
     _passwordInput->move(LEFT_SHIFT, _usernameInput->geometry().bottom() + 1 + HOR_SPACING);
     _signInButton->move(LEFT_SHIFT, _passwordInput->geometry().bottom() + 1 + HOR_SPACING * 2);
     _registrationButton->move(LEFT_SHIFT, _signInButton->geometry().bottom() + 1 + HOR_SPACING);
+}
+
+void Login::onLogin()
+{
+    if (ConnectionManager::loginState == LoginState::SUCCESS)
+    {
+        _usernameInput->clear();
+        _passwordInput->clear();
+        oApp->setAppState(App::AppState::ChatWindowForm);
+    }
 }
