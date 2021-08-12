@@ -9,7 +9,7 @@
 class ScrollArea;
 
 /**
- * @class Scrollbar
+ * @class ScrollBar
  * @brief Custom scrollbar visual for scrollarea
  */
 class ScrollBar : public QWidget
@@ -57,12 +57,19 @@ private Q_SLOTS:
     void onHideTimer();
 
 protected:
+    /// Handle paint
     void paintEvent(QPaintEvent* e) override;
+    /// Handle mouse enter event
     void enterEvent(QEvent* e) override;
+    /// Handle mouse leave event
     void leaveEvent(QEvent* e) override;
+    /// Handle mouse move event
     void mouseMoveEvent(QMouseEvent* e) override;
+    /// Handle mouse press event
     void mousePressEvent(QMouseEvent* e) override;
+    /// Handle mouse click event
     void mouseReleaseEvent(QMouseEvent* e) override;
+    /// Handle resize
     void resizeEvent(QResizeEvent* e) override;
 
 private:
@@ -189,11 +196,16 @@ public:
     std::unique_ptr<QWidget> takeWidget();
 
 protected:
+    /// Handle resize
     void resizeEvent(QResizeEvent* e) override;
+    /// Handle move event
     void moveEvent(QMoveEvent* e) override;
 
+    /// Handle mouse enter event
     void enterEvent(QEvent* e) override;
+    /// Handle mouse leave event
     void leaveEvent(QEvent* e) override;
+    /// Handle key press event
     void keyPressEvent(QKeyEvent* e) override;
 
 public Q_SLOTS:
@@ -238,6 +250,7 @@ Q_SIGNALS:
     void geometryChanged();
 
 protected:
+    /// Override to make scroll locking possible
     void scrollContentsBy(int dx, int dy) override;
 
 private:
