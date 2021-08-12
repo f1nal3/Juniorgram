@@ -9,10 +9,7 @@ class LogoWidget : public QWidget
 {
     Q_OBJECT
 public:
-    /**
-     * @brief Builds new logo widget
-     * @param parent Parent widget
-     */
+    /// Constructor for logo widget
     explicit LogoWidget(QWidget* parent = nullptr);
 
     /**
@@ -25,12 +22,11 @@ public:
      * @param percent Value in [0, 100]
      */
     void setPart(int percent);
-    /**
-     * @brief Recalculates size of widget if parent widget geometry changed
-     */
-    void recountSize();
+    /// Update size of logo
+    void updateSize();
 
 protected:
+    /// Handle paint
     void paintEvent(QPaintEvent* paintEvent) override;
 
 private:

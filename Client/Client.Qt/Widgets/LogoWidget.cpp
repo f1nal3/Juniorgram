@@ -16,7 +16,7 @@ void LogoWidget::paintEvent(QPaintEvent* paintEvent)
     painter.drawPixmap(0, 0, width(), height(), *_logo);
     QWidget::paintEvent(paintEvent);
 }
-void LogoWidget::recountSize()
+void LogoWidget::updateSize()
 {
     if (auto parent = parentWidget())
     {
