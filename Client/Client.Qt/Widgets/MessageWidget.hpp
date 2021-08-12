@@ -108,6 +108,5 @@ private:
 
 
     std::unique_ptr<FlatButton>   _replyBtn;
-    //std::shared_ptr<ReplyWidget>  _replyWidget;
     ReplyWidget*                  _replyWidget = nullptr;
 };

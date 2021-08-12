@@ -1,7 +1,5 @@
 #include "ChatHistory.hpp"
 
-#include <iostream>
-
 #include <QCoreApplication>
 #include <QDebug>
 #include <QPainter>
