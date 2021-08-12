@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <memory>
 
+#include "SettingsWidget.hpp"
 #include "Style/StyleBasic.hpp"
 #include "Widgets/AbstractButton.hpp"
 #include "Widgets/PopupWidget.hpp"
@@ -134,5 +135,6 @@ public:
     explicit BioButton(QWidget* parent = nullptr, bool inCaption = true);
 
 private:
-    std::unique_ptr<PopupWidget> _popup;
+    std::unique_ptr<PopupWidget>    _popup;
+    std::unique_ptr<SettingsWidget> _settingsWidget;
 };

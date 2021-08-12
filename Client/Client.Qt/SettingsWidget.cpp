@@ -9,9 +9,13 @@ SettingsWidget::SettingsWidget(QWidget *parent)
         "background-color: #323232;"
         "}");
 
+    setWindowFlag(Qt::WindowMinimizeButtonHint, false);
+    setWindowFlag(Qt::WindowStaysOnTopHint);
+    setWindowModality(Qt::ApplicationModal);  
+
     _vBoxLayout             = std::make_unique<QVBoxLayout>();
-    _chatSettings           = std::make_unique<Label>("Chat Font size" ,this);
-    _chatFontSizeSlider     = std::make_unique<QSlider>(Qt::Orientation::Horizontal,this);
+    _chatSettings           = std::make_unique<Label>("Chat Font size", this);
+    _chatFontSizeSlider     = std::make_unique<QSlider>(Qt::Orientation::Horizontal, this);
     _loadButton             = std::make_unique<FlatButton>(this, "Apply");
     _defaultButton          = std::make_unique<FlatButton>(this, "Reset");
 
