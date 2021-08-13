@@ -115,10 +115,23 @@ struct Menu
     int            widthMax;
 };
 
+struct LoadingSpinner
+{
+    Style::color lineColor;
+    double       revolutionsPerSecond;
+    int          numberOfLines;
+    int          lineLength;
+    int          lineWidth;
+    int          innerRadius;
+    double       minimumTrailOpacity;
+    double       trailFadePercentage;
+};
+
 }  // namespace Style
 
 namespace st
 {
+extern const Style::LoadingSpinner& defaultLoadingSpinner;
 extern const int&                   fsize;
 extern const Style::font&           defaultFont;
 extern const Style::font&           semiboldFont;

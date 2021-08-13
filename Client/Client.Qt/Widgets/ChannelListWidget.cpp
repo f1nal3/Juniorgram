@@ -13,13 +13,13 @@ ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
     _vBoxLayout->addWidget(_channelList.get());
     _channelList->setFrameShape(QFrame::NoFrame);
 
-    _addChannelButton->setClickCallback([this]() { addChannels(); });
+    _addChannelButton->setClickCallback([this]() { showChannelListWindow(); });
 
     _vBoxLayout->setContentsMargins(contentsMargins());
     setLayout(_vBoxLayout.get());
 }
 
-void ChannelListWidget::addChannels()
+void ChannelListWidget::showChannelListWindow()
 {
     if (!_listWidgetChannels)
         _listWidgetChannels = std::make_unique<ChannelListWindow>(_channelList);

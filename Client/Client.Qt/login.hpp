@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <Widgets/Page.hpp>
 #include <memory>
 
 #include "Widgets/LogoWidget.hpp"
@@ -11,13 +12,13 @@ class LinkButton;
 
 /**
  * @class Login
- * @brief Login form for JuniorGram
+ * @brief Login page for JuniorGram
  */
-class Login : public QWidget
+class Login : public Page
 {
     Q_OBJECT
 public:
-    /// Constructor for login form
+    /// Constructor for login page
     explicit Login(QWidget* parent = nullptr);
 
 private slots:
