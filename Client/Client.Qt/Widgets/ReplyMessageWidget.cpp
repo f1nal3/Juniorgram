@@ -19,8 +19,6 @@ ReplyMessageWidget::ReplyMessageWidget(QWidget* history, QString message, uint64
     _fmtMessageText->setFont(_st.fonttext);
     _fmtMessageText->move(_st.radius * 2, _st.fontname->height + _st.radius * 4);
     _fmtMessageText->show();
-
-    resize(width(), expectedHeight());
 }
 
 int ReplyMessageWidget::expectedHeight() const

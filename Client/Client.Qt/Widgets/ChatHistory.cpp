@@ -5,9 +5,9 @@
 #include <QPainter>
 #include <QtEvents>
 
-ChatHistory::ChatHistory(QWidget* parent) : QWidget(parent), _messageAndReplyList()
+ChatHistory::ChatHistory(QWidget* parent) : QWidget(parent), _messageList()
 {
-    _messageAndReplyList.reserve(1024);
+    _messageList.reserve(1024);
     _scrollArea  = std::make_unique<ScrollArea>(this);
     auto history = std::make_unique<QWidget>(this);
 
@@ -17,7 +17,7 @@ ChatHistory::ChatHistory(QWidget* parent) : QWidget(parent), _messageAndReplyLis
     connect(_scrollArea.get(), SIGNAL(scrolled()), this, SLOT(resizeVisible()));
 }
 
-void ChatHistory::addReply(ReplyWidget *reply)
+void ChatHistory::addReply(ReplyWidget* reply)
 {
     auto history = _scrollArea->widget();
     auto replyMsg = new ReplyMessageWidget(history, reply->getMessage(), reply->getMessageId(), reply->getUsername());
@@ -31,7 +31,7 @@ void ChatHistory::addReply(ReplyWidget *reply)
             updateLayout(true);
     });
 
-    _messageAndReplyList.push_back(std::make_pair(std::unique_ptr<MessageWidget>(nullptr), std::unique_ptr<ReplyMessageWidget>(replyMsg)));
+    _replyList.insert(std::make_pair(_messageList.size(), std::unique_ptr<ReplyMessageWidget>(replyMsg)));
 
     reply->close();
 }
@@ -42,7 +42,7 @@ void ChatHistory::addMessage(const QString& message, quint64 utc, const QString&
     auto msg = new MessageWidget(history, message, _messageId++, _userId, utc, user);
     msg->show();
     msg->resize(history->width() - 25, msg->expectedHeight());
-    _messageAndReplyList.push_back(std::make_pair(std::unique_ptr<MessageWidget>(msg), std::unique_ptr<ReplyMessageWidget>(nullptr)));
+    _messageList.push_back(std::unique_ptr<MessageWidget>(msg));
 
     history->setMinimumHeight(history->minimumHeight() + msg->expectedHeight() + 10);
 
@@ -60,13 +60,17 @@ void ChatHistory::addMessage(const QString& message, quint64 utc, const QString&
     emit messageAdded();
 }
 
-void ChatHistory::clear() { _messageAndReplyList.clear(); }
+void ChatHistory::clear()
+{
+    _messageList.clear();
+    _replyList.clear();
+}
 
 void ChatHistory::deleteMessage(const uint64_t userId, const uint64_t messageId)
 {
-    for (auto& msg : _messageAndReplyList)
+    for (auto& msg : _messageList)
     {
-        if (msg.first->isTheMessage(messageId, userId)) msg.first->onDelete();
+        if (msg->isTheMessage(messageId, userId)) msg->onDelete();
     }
 }
 
@@ -87,7 +91,7 @@ void ChatHistory::resizeEvent(QResizeEvent* event)
 
 void ChatHistory::updateLayout(bool beenResized)
 {
-    if (_messageAndReplyList.empty()) return;
+    if (_messageList.empty()) return;
     auto bottom = _scrollArea->scrollHeight();
 
     int diff = _scrollArea->scrollTop();
@@ -95,27 +99,24 @@ void ChatHistory::updateLayout(bool beenResized)
 
     if (_left >= 0)
     {
-        if(_messageAndReplyList[_left].second != nullptr)
+        auto it = _replyList.find(_left);
+        y = _messageList[_left]->pos().y();
+        if(it != _replyList.end())
         {
-            y = _messageAndReplyList[_left].second->pos().y();
-        }
-        else
-        {
-            y = _messageAndReplyList[_left].first->pos().y();
+            y = it->second->pos().y();
         }
         diff -= y;
     }
-    for (int i = int(_messageAndReplyList.size()) - 1; i >= 0; i--)
+    auto it = _replyList.rbegin();
+    for (int i = int(_messageList.size()) - 1; i >= 0; i--)
     {
-        if(_messageAndReplyList[i].second != nullptr)
+        _messageList[i]->move(0, bottom - _messageList[i]->height());
+        bottom -= _messageList[i]->height() + 10;
+        if(it != _replyList.rend())
         {
-            _messageAndReplyList[i].second->move(0, bottom - _messageAndReplyList[i].second->height());
-            bottom -= _messageAndReplyList[i].second->height() + 10;
-        }
-        else
-        {
-            _messageAndReplyList[i].first->move(0, bottom - _messageAndReplyList[i].first->height());
-            bottom -= _messageAndReplyList[i].first->height() + 10;
+            it->second->move(0, bottom - it->second->height());
+            bottom -= it->second->height() + 10;
+            it++;
         }
     }
 
@@ -123,31 +124,27 @@ void ChatHistory::updateLayout(bool beenResized)
 
     auto [newleft, newright] = findVisible();
 
-    if (newright == int(_messageAndReplyList.size()) - 1 && _left >= 0)
+    if (newright == int(_messageList.size()) - 1 && _left >= 0)
     {
         int topy = 0;
-        if(_messageAndReplyList[_left].second != nullptr)
+        auto it = _replyList.find(_left);
+        topy    = _messageList[_left]->pos().y() + diff;
+        if(it != _replyList.end())
         {
-            topy    = _messageAndReplyList[_left].second->pos().y() + diff;
-        }
-        else
-        {
-            topy    = _messageAndReplyList[_left].first->pos().y() + diff;
+            topy = it->second->pos().y() + diff;
         }
         int bottomy = topy + height();
-        if (_messageAndReplyList.back().first->geometry().top() <= bottomy) haveLast = true;
+        if (_messageList.back()->geometry().top() <= bottomy) haveLast = true;
     }
 
     if (_left >= 0 && beenResized && !haveLast)
     {
         int newy = 0;
-        if(_messageAndReplyList[_left].second != nullptr)
+        auto it = _replyList.find(_left);
+        newy = _messageList[_left]->pos().y();
+        if(it->first == _left)
         {
-            newy = _messageAndReplyList[_left].second->pos().y();
-        }
-        else
-        {
-            newy = _messageAndReplyList[_left].first->pos().y();
+            newy = it->second->pos().y();
         }
         int top           = newy + diff;
         _alreadyScrolling = true;
@@ -156,14 +153,14 @@ void ChatHistory::updateLayout(bool beenResized)
     }
     if (haveLast && beenResized)
     {
-        _scrollArea->scrollToY(_messageAndReplyList.back().first->pos().y());
+        _scrollArea->scrollToY(_messageList.back()->pos().y());
     }
 }
 
 void ChatHistory::resizeVisible()
 {
     if (_alreadyScrolling) return;
-    if (_messageAndReplyList.empty())
+    if (_messageList.empty())
     {
         _left = -1;
         return;
@@ -174,108 +171,96 @@ void ChatHistory::resizeVisible()
     bool bHeight;
     bool bWidth;
 
+    auto it = _replyList.find(left);
     for (int index = left; index <= right; index++)
     {
-        auto&      msg     = _messageAndReplyList[index];
-        if (msg.second == nullptr)
+        it = _replyList.find(index);
+        if(it != _replyList.end())
         {
-            bHeight = msg.first->expectedHeight() != msg.first->height();
-            bWidth  = msg.first->width() != width;
+            bHeight = it->second->expectedHeight() != it->second->height();
+            bWidth = it->second->width() != width;
             resized |= bHeight || bWidth;
-            if (bWidth || bHeight) msg.first->resize(width, msg.first->expectedHeight());
-            msg.first->setIndex(index);
+            if(bWidth || bHeight) it->second->resize(width, it->second->expectedHeight());
         }
-        else
-        {
-            bHeight = msg.second->expectedHeight() != msg.second->height();
-            bWidth  = msg.second->width() != width;
-            resized |= bHeight || bWidth;
-            if (bWidth || bHeight) msg.second->resize(width, msg.second->expectedHeight());
-        }
+
+        auto&      msg     = _messageList[index];
+        bHeight = msg->expectedHeight() != msg->height();
+        bWidth  = msg->width() != width;
+        resized |= bHeight || bWidth;
+        if (bWidth || bHeight) msg->resize(width, msg->expectedHeight());
+        msg->setIndex(index);
     }
-    if (left >= 0 && left + 1 < int(_messageAndReplyList.size())) _left = left + 1;
+    if (left >= 0 && left + 1 < int(_messageList.size())) _left = left + 1;
     updateLayout(resized);
 }
 
 std::pair<int, int> ChatHistory::findVisible() const
 {
     int left   = 0;
-    int right  = int(_messageAndReplyList.size());
+    int right  = int(_messageList.size());
     int top    = _scrollArea->scrollTop();
     int bottom = top + _scrollArea->height();
     {
         int  middle = 0;
-        if(_messageAndReplyList[(right - left) / 2].second != nullptr)
+        auto it = _replyList.find((right - left) / 2);
+        middle    = _messageList[(right - left) / 2]->pos().y();
+        if(it != _replyList.end())
         {
-            middle = _messageAndReplyList[(right - left) / 2].second->pos().y();
-        }
-        else
-        {
-            middle    = _messageAndReplyList[(right - left) / 2].first->pos().y();
+            middle = it->second->pos().y();
         }
         auto isBetween = [](int p, int t, int b) { return p >= t && p <= b; };
         while (!isBetween(middle, top, bottom) && (right - left) > 1)
         {
             if (middle < top) left = (right + left) / 2;
             if (middle > top) right = (right + left) / 2;
-            if(_messageAndReplyList[(right - left) / 2].second != nullptr)
+            it = _replyList.find((right - left) / 2);
+            middle = _messageList[(right - left) / 2]->pos().y();
+            if(it != _replyList.end())
             {
-                middle = _messageAndReplyList[(right - left) / 2].second->pos().y();
-            }
-            else
-            {
-                middle = _messageAndReplyList[(right - left) / 2].first->pos().y();
+                middle = it->second->pos().y();
             }
         }
     }
     int middle = (right + left) / 2;
     int index  = middle;
-    int size   = int(_messageAndReplyList.size());
+    int size   = int(_messageList.size());
 
     int sizeHeight = 0;
 
-    if(_messageAndReplyList[index].second != nullptr)
+    auto it = _replyList.find(index);
+    sizeHeight = _messageList[index]->pos().y();
+    if(it != _replyList.end())
     {
-        sizeHeight = _messageAndReplyList[index].second->pos().y();
-    }
-    else
-    {
-        sizeHeight = _messageAndReplyList[index].first->pos().y();
+        sizeHeight = it->second->pos().y();
     }
 
     while (sizeHeight < bottom && index < size - 1)
     {
-        if(_messageAndReplyList[index].second != nullptr)
+        it = _replyList.find(index);
+        sizeHeight = _messageList[index]->pos().y();
+        if(it != _replyList.end())
         {
-            sizeHeight = _messageAndReplyList[index].second->pos().y();
-        }
-        else
-        {
-            sizeHeight = _messageAndReplyList[index].first->pos().y();
+            sizeHeight = it->second->pos().y();
         }
         index++;
     }
     right = index;
     index = middle;
 
-    if(_messageAndReplyList[index].second != nullptr)
+    it = _replyList.find(index);
+    sizeHeight = _messageList[index]->pos().y() + _messageList[index]->height();
+    if(it != _replyList.end())
     {
-        sizeHeight = _messageAndReplyList[index].second->pos().y() + _messageAndReplyList[index].second->height();
-    }
-    else
-    {
-        sizeHeight = _messageAndReplyList[index].first->pos().y() + _messageAndReplyList[index].first->height();
+        sizeHeight = it->second->pos().y() + it->second->height();
     }
 
     while(sizeHeight > top && index > 0)
     {
-        if(_messageAndReplyList[index].second != nullptr)
+        it = _replyList.find(index);
+        sizeHeight = _messageList[index]->pos().y() + _messageList[index]->height();
+        if(it != _replyList.end())
         {
-            sizeHeight = _messageAndReplyList[index].second->pos().y() + _messageAndReplyList[index].second->height();
-        }
-        else
-        {
-            sizeHeight = _messageAndReplyList[index].first->pos().y() + _messageAndReplyList[index].first->height();
+            sizeHeight = it->second->pos().y() + it->second->height();
         }
         index--;
     }
