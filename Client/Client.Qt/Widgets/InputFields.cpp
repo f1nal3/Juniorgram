@@ -9,6 +9,7 @@
 
 #include "Styles/StyleBasic.hpp"
 
+/// This is to remove default qt drawing
 template <typename InputClass>
 class InputStyle : public QCommonStyle
 {

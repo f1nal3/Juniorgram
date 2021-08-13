@@ -7,13 +7,16 @@
 #include "Buttons.hpp"
 #include "ListWidget.hpp"
 #include "MainWidget.hpp"
+#include "Page.hpp"
 
-/** @class ChannelListWindow
+/**
+ *  @class ChannelListWindow
  *  @brief This is channel list
  */
-class ChannelListWindow : public QWidget
+class ChannelListWindow : public Page
 {
 public:
+    /// Constructor for channel list window
     explicit ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent = nullptr);
 
 public:
@@ -22,7 +25,7 @@ public:
 
 private slots:
 
-    /// et channels
+    /// set channels
     void setChannels(const std::vector<Network::ChannelInfo>& channels_);
 
     /// Adds selected channel to main window

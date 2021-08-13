@@ -8,7 +8,6 @@ namespace Style
 {
 namespace internal
 {
-/// Palette initializer
 void init_Palette(int scale);
 
 }  // namespace internal
@@ -189,36 +188,20 @@ QList<row> data();
 namespace st
 {
 extern const Style::color& transparent;  // special color
-/// windowActiveTextFg: Style::color
 extern const Style::color& windowActiveTextFg;
-/// window: Style::color
 extern const Style::color& window;
-/// windowColor: Style::color
 extern const Style::color& windowColor;
-/// windowColorOver: Style::color
 extern const Style::color& windowColorOver;
-/// titleButton: Style::color
 extern const Style::color& titleButton;
-/// titleButtonOver: Style::color
 extern const Style::color& titleButtonOver;
-/// closeButtonC: Style::color
 extern const Style::color& closeButtonC;
-/// closeButtonCOver: Style::color
 extern const Style::color& closeButtonCOver;
-/// linkButtonColor: Style::color
 extern const Style::color& linkButtonColor;
-/// linkButtonOverColor: Style::color
 extern const Style::color& linkButtonOverColor;
-/// scrollArea: Style::color
 extern const Style::color& scrollArea;
-/// scrollAreaColor: Style::color
 extern const Style::color& scrollAreaColor;
-/// scrollAreaBar: Style::color
 extern const Style::color& scrollAreaBar;
-/// scrollAreaColorOver: Style::color
 extern const Style::color& scrollAreaColorOver;
-/// scrollAreaBarOver: Style::color
 extern const Style::color& scrollAreaBarOver;
-/// spinnerLineColor: Style::color
 extern const Style::color& spinnerLineColor;
 }  // namespace st

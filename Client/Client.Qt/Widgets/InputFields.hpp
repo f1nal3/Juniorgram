@@ -24,7 +24,8 @@ public:
      */
     [[nodiscard]] QRect getTextRect() const;
 
-private:
+protected:
+    /// Handle paint
     void paintEvent(QPaintEvent* event) override;
 };
 
@@ -43,7 +44,9 @@ public:
     explicit FlatTextEdit(QWidget* parent = nullptr, const Style::FlatTextEdit& st = st::defaultTextEdit);
 
 protected:
+    /// Handle paint
     void paintEvent(QPaintEvent* paintEvent) override;
+    /// Handle resize
     void resizeEvent(QResizeEvent* resizeEvent) override;
 
 private:

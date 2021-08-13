@@ -1,6 +1,7 @@
 #pragma once
 #include <QWidget>
 #include <Utility/Utility.hpp>
+#include <Widgets/Page.hpp>
 #include <memory>
 
 class FlatInput;
@@ -11,7 +12,7 @@ class LogoWidget;
  * @class Registration
  * @brief Registration form for JuniorGram
  */
-class Registration : public QWidget
+class Registration : public Page
 {
     Q_OBJECT
 public:
