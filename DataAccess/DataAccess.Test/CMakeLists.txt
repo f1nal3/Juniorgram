@@ -1,6 +1,10 @@
 set(TARGET DataAccess.Test)
 set(OUTPUT_NAME DataAccess.Test)
 
+if(NOT WIN32)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+endif()
+
 set(SOURCE_FILES
     DataAccessTest.cpp
     FileDBTest.cpp

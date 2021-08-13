@@ -1,6 +1,10 @@
 set(TARGET Utility.Test)
 set(OUTPUT_NAME Utility.Test)
 
+if(NOT WIN32)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+endif()
+
 set(SOURCE_FILES 
     ExceptionTest.cpp)
 
