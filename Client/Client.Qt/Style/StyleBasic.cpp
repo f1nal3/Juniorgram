@@ -17,6 +17,7 @@ public:
 };
 Module_StyleBasic registrator;
 
+Style::LoadingSpinner _defaultLoadingSpinner    = {{Qt::Uninitialized}, 0., 0, 0, 0, 0, 0., 0.};
 int                   _fsize                    = 0;
 Style::font           _defaultFont              = {Qt::Uninitialized};
 Style::font           _semiboldFont             = {Qt::Uninitialized};
@@ -135,6 +136,7 @@ Style::MessageWidget _defaultMessageWidget = {
 
 namespace st
 {
+const Style::LoadingSpinner& defaultLoadingSpinner(_defaultLoadingSpinner);
 const int&                   fsize(_fsize);
 const Style::font&           defaultFont(_defaultFont);
 const Style::font&           semiboldFont(_semiboldFont);
@@ -221,6 +223,7 @@ void init_StyleBasic(int scale)
 
     initPxValues(scale);
 
+    _defaultLoadingSpinner    = {st::spinnerLineColor, 1.5708, 16, px8, px2, px12, 0.0314159, 0.8};
     _fsize                    = px15;
     _defaultFont              = {px15, 0, 0};
     _semiboldFont             = {px15, 16, 0};

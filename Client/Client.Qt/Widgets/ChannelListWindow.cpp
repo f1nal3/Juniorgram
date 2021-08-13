@@ -5,7 +5,7 @@
 #include "Application.hpp"
 
 ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent)
-    : QWidget(parent), _widgetChannelList(anotherChannelListWidget)
+    : Page(parent), _widgetChannelList(anotherChannelListWidget)
 {
     setStyleSheet(
         QString("QWidget {"
@@ -46,6 +46,7 @@ void ChannelListWindow::updateChannelList()
             _channelsAddMap[channel.channelID] = true;
         }
     }
+    onResume();
 }
 
 void ChannelListWindow::addChannelToMainChannelWidget()
@@ -86,6 +87,7 @@ void ChannelListWindow::setChannels(const std::vector<Network::ChannelInfo>& new
 
 void ChannelListWindow::requestChannels()
 {
+    onPause();
     if (oApp->connectionManager()->isConnected())
     {
         oApp->connectionManager()->askForChannelList();

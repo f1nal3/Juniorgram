@@ -9,7 +9,7 @@
 #include "Widgets/InputFields.hpp"
 #include "Widgets/LogoWidget.hpp"
 
-Registration::Registration(QWidget* parent) : QWidget(parent)
+Registration::Registration(QWidget* parent) : Page(parent)
 {
     _emailInput          = std::make_unique<FlatInput>(this, "Email");
     _usernameInput       = std::make_unique<FlatInput>(this, "Username");
@@ -36,7 +36,7 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
 
     _registrationButton->setClickCallback([this]() {
         using namespace UserDataValidation;
-
+        onPause();
         std::string email          = _emailInput->text().toStdString();
         std::string login          = _usernameInput->text().toStdString();
         std::string password       = _passwordInput->text().toStdString();
@@ -71,7 +71,6 @@ Registration::Registration(QWidget* parent) : QWidget(parent)
             std::cout << "password is not valid" << std::endl;
             return;
         }
-
         oApp->connectionManager()->userRegistration(email, login, password);
     });
 }
@@ -82,7 +81,7 @@ void Registration::resizeEvent(QResizeEvent* event)
     const int   HOR_SPACING   = Style::valueDPIScale(16);
     const int   MIN_TOP_SHIFT = SIZE.height() * 30 / 100;
     const int   LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
-    _logoWidget->recountSize();
+    _logoWidget->updateSize();
 
     _emailInput->move(LEFT_SHIFT, MIN_TOP_SHIFT);
     _usernameInput->move(LEFT_SHIFT, _emailInput->geometry().bottom() + 1 + HOR_SPACING);
@@ -90,10 +89,12 @@ void Registration::resizeEvent(QResizeEvent* event)
     _repeatPasswordInput->move(LEFT_SHIFT, _passwordInput->geometry().bottom() + 1 + HOR_SPACING);
     _registrationButton->move(LEFT_SHIFT, _repeatPasswordInput->geometry().bottom() + 1 + HOR_SPACING * 3 / 2);
     _backButton->move(LEFT_SHIFT, _registrationButton->geometry().bottom() + 1 + HOR_SPACING);
+    Page::resizeEvent(event);
 }
 
 void Registration::onRegistration(Utility::RegistrationCodes code)
 {
+    onResume();
     if (code == Utility::RegistrationCodes::SUCCESS)
     {
         _emailInput->clear();
