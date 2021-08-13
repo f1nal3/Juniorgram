@@ -28,19 +28,17 @@ void Settings::resetSettings()
     settings->clear();
 }
 
-void Settings::setFontSize(std::uint32_t size)
+void Settings::setFontSize(int size)
 {
     if (size > _minFontSize) 
-        _fontSize = size;
-    else 
-        throw std::range_error("font size value must be >0");
+        _fontSize = size;    
 }
 
-std::optional<std::uint32_t> Settings::getFontSize()
+std::optional<int> Settings::getFontSize()
 {
     if (settings->contains("Font/ChatFontSize")) 
     { 
-        return settings->value("Font/ChatFontSize").toUInt(); 
+        return settings->value("Font/ChatFontSize").toInt(); 
     }
     return { };
 }

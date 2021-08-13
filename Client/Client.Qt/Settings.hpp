@@ -36,19 +36,20 @@ public:
      */
     void resetSettings();
     /**
-     * @brief Draft method for setting font size value
-     * @param size as uint32_t.
+     * @brief Draft method for setting font size value /
+     * if input argument is <=0, size value remains as before
+     * @param size as int.
      */
-    void setFontSize(std::uint32_t size);
+    void setFontSize(int size);
     /**
      * @brief Method for getting font size value if it's present
-     * @return fontSize as uint32_t /
+     * @return fontSize as int /
      * if fontSize is not set returns indicator of optional type /
      * with uninitialized state
      */
-    std::optional<std::uint32_t> getFontSize();
+    std::optional<int> getFontSize();
 
 private:
-    std::uint32_t _fontSize;
-    static constexpr std::uint32_t _minFontSize = 0;
+    int _fontSize;
+    static constexpr int _minFontSize = 0;
 };
