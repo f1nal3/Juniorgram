@@ -23,7 +23,9 @@ enum class TokenType : std::uint16_t
     accessToken
 };
 
-using AccessAndRefreshToken = std::pair<std::string, std::string>;
+using AccessToken = std::string;
+using RefreshToken = std::string;
+using AccessAndRefreshToken = std::pair<AccessToken, RefreshToken>;
 
 using json = nlohmann::json;
 

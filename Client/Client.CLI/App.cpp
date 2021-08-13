@@ -1,5 +1,9 @@
 #include "App.hpp"
 
+#include <Utility.Static/TokenHolder.hpp>
+#include <Utility.Static/KeyHolder.hpp>
+#include <Utility.Static/Cryptography.hpp>
+
 App::App(/* args */)
 {
     client.connect(address, port);

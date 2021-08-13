@@ -31,6 +31,9 @@ MessageProcessingState SerializationHandler::handleOutcomingMessage(Network::Mes
         case Network::Message::MessageType::MessageStoreRequest:
             state = processOutcomingMessageBody<Network::MessageInfo>(bodyBuffer, message.mBody);
             break;
+        case Network::Message::MessageType::RevokeSession:
+            state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
+            break;
         case Network::Message::MessageType::RegistrationRequest:
             state = processOutcomingMessageBody<Network::ClientPayload, Network::RegistrationInfo>(bodyBuffer, message.mBody);
             break;
@@ -84,6 +87,9 @@ MessageProcessingState SerializationHandler::handleOutcomingMessage(Network::Mes
             break;
         case Network::Message::MessageType::MessageStoreRequest:
             state = processIncomingMessageBody<Network::MessageInfo>(buffer, message);
+            break;
+        case Network::Message::MessageType::RevokeSession:
+            state = processIncomingMessageBody<std::string>(buffer, message);
             break;
         case Network::Message::MessageType::RegistrationRequest:
             state = processIncomingMessageBody<Network::ClientPayload, Network::RegistrationInfo>(buffer, message);  

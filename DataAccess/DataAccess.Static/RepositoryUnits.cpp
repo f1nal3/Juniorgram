@@ -64,8 +64,8 @@ std::string RegistrationUnit::getUserIdByLogin(const Network::RegistrationInfo& 
 
 Utility::SessionCodes Sessions::SessionsManagementUnit::addSessionAfterRegistration(const std::shared_ptr<Network::Connection>& client, const std::string& refreshToken)
 {
-    suppressWarning(4239, Init)
-    std::string decodedPayload = Coding::getBASE64DecodedValue(Utility::extractPayload(refreshToken));
+    suppressWarning(4239, Init) std::string decodedPayload =
+        Coding::getBASE64DecodedValue(Utility::extractPayload(refreshToken));
     restoreWarning
 
     mJRepresentation = json::parse(decodedPayload);
@@ -99,6 +99,16 @@ Utility::SessionCodes Sessions::SessionsManagementUnit::addSessionAfterRegistrat
     getSessionTable().Insert()->columns(sessionData)->execute();
 
     return Utility::SessionCodes::SUCCESS;
+}
+
+void Sessions::SessionsManagementUnit::revokeSession(const std::string& refreshToken)
+{
+    getSessionTable().getAdapter()->query(
+        "INSERT INTO revoked_sessions SELECT id, user_id, ip, expire, fingerprint, refresh_token "
+        "FROM sessions WHERE refresh_token = '" +
+        refreshToken + "'");
+
+    getSessionTable().Delete()->Where("refresh_token = '" + refreshToken + "'")->execute();
 }
 
 }  // namespace DataAccess

@@ -1,5 +1,4 @@
 #include <DataAccess.Static/SQLCipherRepository.cpp>
-
 #include "TokenHolder.hpp"
 
 namespace Utility
@@ -10,23 +9,23 @@ namespace Utility
         {
             mInstance = std::shared_ptr<TokenHolder>(new TokenHolder());
         }
-
         return mInstance;
     }
 
+    // Needs improvements in this place. We should split DB writing and class field wirting.
     void TokenHolder::setRefreshToken(const std::string& refrToken)
     {
-        suppressWarning(4834, Init)
-        std::async(std::launch::async, &DataAccess::SQLCipherRepository::setRefreshToken,
-        /* std::reference_wrapper(*/DataAccess::SQLCipherRepository::Instance()/*)*/, refrToken);
+        suppressWarning(4834, Init) std::async(
+            std::launch::async, &DataAccess::SQLCipherRepository::setRefreshToken,std::reference_wrapper(DataAccess::SQLCipherRepository::Instance()),Coding::getHexCodedValue(refrToken));
         restoreWarning
-
+ 
         mRefreshToken = refrToken;   
-    }   
+    }
+    // ~Needs improvements in this place.
 
     void TokenHolder::setAcccessToken(const std::string& accssToken)
     {
-        mAccessToken = accssToken;
+        mAccessToken = Coding::getHexCodedValue(accssToken);
     }
 
     std::string TokenHolder::getRefreshToken()
@@ -34,12 +33,13 @@ namespace Utility
         if (mRefreshToken.empty())
         {
             auto refreshToken = std::async(std::launch::async, &DataAccess::SQLCipherRepository::getRefreshToken,
-                           &DataAccess::SQLCipherRepository::Instance());
+                           DataAccess::SQLCipherRepository::Instance());
          
             if (!refreshToken.get().empty())
             {
-                mRefreshToken = refreshToken.get();
-                return mRefreshToken;
+                suppressWarning(4239, Init) return mRefreshToken =
+                    Coding::getHexDecodedValue(refreshToken.get());
+                restoreWarning
             }
             else
             {
@@ -53,7 +53,7 @@ namespace Utility
         }
     }
 
-    std::string TokenHolder::getAcccessToken()
+    std::string TokenHolder::getAccessToken()
     {
         return mAccessToken; 
     }
@@ -64,12 +64,12 @@ namespace Utility
     bool TokenHolder::checkRefrTokenExistance()
     {
         auto isExists = std::async(std::launch::async, &DataAccess::SQLCipherRepository::isRefreshTokenExists,
-                       /*std::reference_wrapper(*/DataAccess::SQLCipherRepository::Instance())/*)*/;
+                       std::reference_wrapper(DataAccess::SQLCipherRepository::Instance()));
         
         if (isExists.get())
         {
             auto refrToken = std::async(std::launch::async, &DataAccess::SQLCipherRepository::getRefreshToken,
-                       /*std::reference_wrapper(*/DataAccess::SQLCipherRepository::Instance())/*)*/;
+                       std::reference_wrapper(DataAccess::SQLCipherRepository::Instance()));
         
             this->setRefreshToken(refrToken.get());
 
@@ -83,10 +83,10 @@ namespace Utility
 
     void TokenHolder::clearTokens()
     {
+        std::async(std::launch::async, &DataAccess::SQLCipherRepository::deleteRefreshToken, std::reference_wrapper(DataAccess::SQLCipherRepository::Instance())).get();
+        
         mAccessToken.clear();
         mRefreshToken.clear();
-
-        std::async(std::launch::async, &DataAccess::SQLCipherRepository::deleteRefreshToken, /*std::reference_wrapper(*/DataAccess::SQLCipherRepository::Instance())/*)*/.get();
     }
 
     bool TokenHolder::isExpired(const std::string& currentToken) 
@@ -94,7 +94,7 @@ namespace Utility
         using std::chrono::system_clock;
 
         suppressWarning(4239, Init)
-        json mJRepresentation = json::parse(Coding::getBASE64DecodedValue(Utility::extractPayload(currentToken)));
+        json mJRepresentation = json::parse(Coding::getHexDecodedValue(Utility::extractPayload(currentToken)));
         restoreWarning
 
         time_t ttTimestamp = system_clock::to_time_t(system_clock::now() + std::chrono::duration_cast<system_clock::duration>(system_clock::time_point(std::chrono::seconds( std::stoll(std::string(mJRepresentation["exp"])))) - system_clock::now()));

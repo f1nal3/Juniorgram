@@ -43,17 +43,15 @@ sqlite3_ptr make_sqlite3(const std::string_view& dbName)
         std::unique_ptr<std::vector<std::string>>
             isExists = std::make_unique<std::vector<std::string>>();
 
-    sqlite3_exec(
-        db,
-        "SELECT count(name) FROM sqlite_master WHERE type = 'table' AND name = 'refresh_tokens';",
-        callback, isExists.get(), 0);
+    sqlite3_exec(db, "SELECT count(name) FROM sqlite_master WHERE type = 'table' AND name = 'refresh_tokens';", callback, isExists.get(), 0);
 
     if (std::stoi(isExists.get()->front()) == (std::uint16_t)TableExistance::nonExistent)
     {
-        sqlite3_exec(db, "CREATE TABLE refresh_tokens(refresh_token TEXT NOT NULL);", 0, 0, 0);
+        sqlite3_exec(db, "CREATE TABLE refresh_tokens(refresh_token_id bool PRIMARY KEY DEFAULT TRUE, refresh_token TEXT, CONSTRAINT refresh_tokens CHECK (refresh_token_id));", 0, 0, 0);
+        sqlite3_exec(db, "INSERT INTO refresh_tokens VALUES(true, '0');", 0, 0, 0);    
     }
 
-  return sqlite3_ptr(db);
+    return sqlite3_ptr(db);
 }
 
 SQLCipherAdapter::~SQLCipherAdapter() { closeConnection(); }

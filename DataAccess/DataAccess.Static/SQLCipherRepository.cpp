@@ -11,19 +11,22 @@ std::string SQLCipherRepository::getRefreshToken()
 
 void SQLCipherRepository::deleteRefreshToken()
 {
-    SQLCipherTable("refresh_tokens").Delete();
+    SQLCipherTable("refresh_tokens").Update()->fields(std::pair{"refresh_token", "0"})->execute();
 }
 
 bool SQLCipherRepository::isRefreshTokenExists()
 {
-    auto tokenCountVc = std::get<1>(SQLCipherTable("refresh_tokens").Select()->columns({"count(refresh_token)"})->execute());
-
-    return std::stoi(tokenCountVc.front());
+    auto tokenCountVc = std::get<1>(SQLCipherTable("refresh_tokens").Select()->columns({"refresh_token"})->execute());
+    if(tokenCountVc.front()[0] == '0')
+    {
+        return false;
+    }
+    return true;
 }
 
 void SQLCipherRepository::setRefreshToken(const std::string& refrToken)
 {
-    SQLCipherTable("refresh_tokens").Insert()->columns(std::pair{"refresh_token", refrToken.c_str()});
+    SQLCipherTable("refresh_tokens").Update()->fields(std::pair{"refresh_token", refrToken.c_str()})->execute();
 }
 
 suppressWarning(4100, Init) 

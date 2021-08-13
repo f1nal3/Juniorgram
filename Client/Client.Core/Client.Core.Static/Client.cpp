@@ -43,16 +43,8 @@ bool Client::connect(const std::string& host, const uint16_t& port)
 
 void Client::disconnect()
 {
-    //revokeSession();
-    
+    revokeSession();
     Utility::TokenHolder::Instance()->clearTokens();
-
-  /*  Utility::TokenHolder::Instance()->clearAccessToken();
-    Utility::TokenHolder::Instance()->clearRefreshToken();*/
-
-    /*`
-    set_null_to_refresh
-    set_null_to_access*/
 
     if (isConnected())
     {
@@ -159,7 +151,7 @@ void Client::revokeSession()
 {
     Network::Message message;
     message.mHeader.mMessageType = Network::Message::MessageType::RevokeSession;
-    message.mBody = std::make_any<std::string>(Coding::getBASE64CodedValue(Utility::TokenHolder::Instance()->getRefreshToken()));
+    message.mBody = std::make_any<std::string>(Coding::getHexCodedValue(Utility::TokenHolder::Instance()->getRefreshToken()));
     
     send(message);
 }

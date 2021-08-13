@@ -165,7 +165,7 @@ void Server::onMessage(const std::shared_ptr<Network::Connection>& client, Netwo
             const auto [clientPayload, ri] = std::any_cast<std::pair<Network::ClientPayload, Network::RegistrationInfo>>(message.mBody);
             
             auto future =
-                std::async(std::launch::async, &DataAccess::RegistrationUnit::registerUser,&DataAccess::RegistrationUnit::instance(), ri);
+                std::async(std::launch::async, &DataAccess::RegistrationUnit::registerUser, std::reference_wrapper(DataAccess::RegistrationUnit::instance()), ri);
         
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType =
@@ -182,16 +182,16 @@ void Server::onMessage(const std::shared_ptr<Network::Connection>& client, Netwo
                 restoreWarning
 
                 auto sessionCode = std::async(std::launch::async, &DataAccess::Sessions::SessionsManagementUnit::addSessionAfterRegistration,
-                        &DataAccess::Sessions::SessionsManagementUnit::instance(), client,refreshToken);
-
-                std::string accTk = Coding::getHexCodedValue(accessToken);
-                std::string refrTk = Coding::getHexCodedValue(refreshToken);
+                        std::reference_wrapper(DataAccess::Sessions::SessionsManagementUnit::instance()), client,refreshToken).get();
+                sessionCode;
+                Utility::AccessToken accTk = Coding::getHexCodedValue(accessToken);
+                Utility::RefreshToken refrTk = Coding::getHexCodedValue(refreshToken);
                 // Needs improvements in this place. Need handler for process result form sessionCode.
                 //Utility::SessionCodes code = sessionCode.get();
                 // Needs improvements in this place~
                 
                 messageToClient.mBody = std::make_any<std::pair<Utility::AccessAndRefreshToken, Utility::RegistrationCodes>>(
-                    std::pair{std::pair{accTk /*Coding::getHexCodedValue(accessToken)*/, refrTk /*Coding::getHexCodedValue(refreshToken)*/}, registrationCode});
+                    std::pair{std::pair{accTk , refrTk }, registrationCode});
             }
             else
             {
@@ -200,6 +200,16 @@ void Server::onMessage(const std::shared_ptr<Network::Connection>& client, Netwo
             }
 
             client->send(messageToClient);
+        }
+        break;
+
+        case Network::Message::MessageType::RevokeSession:
+        {
+            Utility::RefreshToken clientRefrToken = std::any_cast<Utility::RefreshToken>(message.mBody);
+
+            std::async(std::launch::async, &DataAccess::Sessions::SessionsManagementUnit::revokeSession,
+                std::reference_wrapper(DataAccess::Sessions::SessionsManagementUnit::instance()),clientRefrToken).get();
+
         }
         break;
 

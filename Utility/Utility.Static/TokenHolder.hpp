@@ -46,7 +46,7 @@ public:
 
     std::string& getCurrentToken();
 
-    std::string getAcccessToken();
+    std::string getAccessToken();
 
     virtual ~TokenHolder();
 

@@ -62,35 +62,38 @@ public:
 
 namespace Sessions
 {
-    class SessionsManagementUnit
+class SessionsManagementUnit
+{
+private:
+    using json = nlohmann::json;
+
+    SessionsManagementUnit() = default;
+
+    inline static DataAccess::PostgreTable& getSessionTable()
     {
-    private:
-        using json = nlohmann::json;
+        static DataAccess::PostgreTable pt("sessions");
+        return pt;
+    }
 
-        SessionsManagementUnit() = default;
+    json mJRepresentation;
 
-        inline static DataAccess::PostgreTable& getSessionTable()
-        {
-            static DataAccess::PostgreTable pt("sessions");
-            return pt;
-        }
+public:
+    SessionsManagementUnit(const SessionsManagementUnit&) = delete;
+    SessionsManagementUnit& operator=(SessionsManagementUnit&) = delete;
+    ~SessionsManagementUnit()                                  = default;
 
-        json mJRepresentation;
+    inline static SessionsManagementUnit& instance()
+    {
+        static SessionsManagementUnit sessionManager;
+        return sessionManager;
+    }
 
-    public:
-        SessionsManagementUnit(const SessionsManagementUnit&) = delete;
-        SessionsManagementUnit& operator=(SessionsManagementUnit&) = delete;
-        ~SessionsManagementUnit()                                  = default;
+    const unsigned short mMaxSessionForCurrentUser = 5;
+    Utility::SessionCodes addSessionAfterRegistration(
+        const std::shared_ptr<Network::Connection>& client, const std::string& refreshToken);
 
-        inline static SessionsManagementUnit& instance()
-        {
-            static SessionsManagementUnit sessionManager;
-            return sessionManager;
-        }
+    void revokeSession(const std::string& refreshToken);
+};
 
-        const unsigned short mMaxSessionForCurrentUser = 5;
-        Utility::SessionCodes addSessionAfterRegistration(
-            const std::shared_ptr<Network::Connection>& client, const std::string& refreshToken);
-    };
-}
+}  // namespace Sessions
 }
