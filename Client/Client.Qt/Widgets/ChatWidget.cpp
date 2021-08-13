@@ -27,24 +27,20 @@ void ChatWidget::newMessage(const QString& messageText)
     oApp->connectionManager()->storeMessage(messageText.toStdString(), _channelID);
     if(this->findChild<ReplyWidget*>())
     {
-        _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch(), _replyWidget);
+        _chatHistory->addReply(_replyWidget);
     }
-    else
-    {
-        _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch());
-    }
+
+    _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch());
 }
 
 void ChatWidget::newMessage(const QString& messageText, const QString& userNameMessage)
 {
     if(this->findChild<ReplyWidget*>())
-    {
-        _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch(), _replyWidget, userNameMessage);
+    { 
+        _chatHistory->addReply(_replyWidget);
     }
-    else
-    {
-        _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch(), nullptr, userNameMessage);
-    }
+
+    _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch(), userNameMessage);
 }
 
 void ChatWidget::addReplyWidget(ReplyWidget* reply)

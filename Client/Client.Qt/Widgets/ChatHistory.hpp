@@ -29,7 +29,9 @@ public:
      * @param utc Seconds since epoch
      * @param user Usenname
      */
-    void addMessage(const QString& message = QString(), quint64 utc = 0, ReplyWidget* reply = nullptr, const QString& user = "You");
+    void addMessage(const QString& message = QString(), quint64 utc = 0, const QString& user = "You");
+
+    void addReply(ReplyWidget* reply);
 
     /**
      * @brief Clears all chat
@@ -65,7 +67,6 @@ Q_SIGNALS:
      * @brief Message has been added
      */
     void messageAdded();
-    //void createReplySignal(ReplyWidget*);
     void createReplySignal(ReplyWidget*);
 
 private:
@@ -86,7 +87,6 @@ private:
     std::int32_t                                _left             = -1;
     std::unique_ptr<ScrollArea>                 _scrollArea;
     MessageAndReply                             _messageAndReplyList;
-    std::uint64_t                               _replyCount = 0;
     std::uint64_t                               _userId    = 0;
     std::uint64_t                               _messageId = 0;
 };

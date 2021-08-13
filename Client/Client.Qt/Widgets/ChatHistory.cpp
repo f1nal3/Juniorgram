@@ -17,67 +17,45 @@ ChatHistory::ChatHistory(QWidget* parent) : QWidget(parent), _messageAndReplyLis
     connect(_scrollArea.get(), SIGNAL(scrolled()), this, SLOT(resizeVisible()));
 }
 
-void ChatHistory::addMessage(const QString& message, quint64 utc, ReplyWidget* reply, const QString& user)
+void ChatHistory::addReply(ReplyWidget *reply)
 {
     auto history = _scrollArea->widget();
-    if(reply != nullptr)
-    {
-        auto replyMsg = new ReplyMessageWidget(history, reply->getMessage(), reply->getMessageId(), reply->getUsername());
-        auto msg = new MessageWidget(history, message, _messageId++, _userId, utc, user);
-        replyMsg->show();
-        replyMsg->resize(history->width() - 25, replyMsg->expectedHeight());
-        msg->show();
-        msg->resize(history->width() - 25, msg->expectedHeight());
+    auto replyMsg = new ReplyMessageWidget(history, reply->getMessage(), reply->getMessageId(), reply->getUsername());
+    replyMsg->show();
+    replyMsg->resize(history->width() - 25, replyMsg->expectedHeight());
 
-        history->setMinimumHeight(history->minimumHeight() + replyMsg->expectedHeight() + 10);
+    history->setMinimumHeight(history->minimumHeight() + replyMsg->expectedHeight() + 10);
 
-        connect(replyMsg, &ReplyMessageWidget::geometryChanged, this, [=](int diff) {
+    connect(replyMsg, &ReplyMessageWidget::geometryChanged, this, [=](int diff) {
             history->setMinimumHeight(history->minimumHeight() + diff);
             updateLayout(true);
-        });
+    });
 
+    _messageAndReplyList.push_back(std::make_pair(std::unique_ptr<MessageWidget>(nullptr), std::unique_ptr<ReplyMessageWidget>(replyMsg)));
 
-        history->setMinimumHeight(history->minimumHeight() + msg->expectedHeight() + 10);
+    reply->close();
+}
 
+void ChatHistory::addMessage(const QString& message, quint64 utc, const QString& user)
+{
+    auto history = _scrollArea->widget();
+    auto msg = new MessageWidget(history, message, _messageId++, _userId, utc, user);
+    msg->show();
+    msg->resize(history->width() - 25, msg->expectedHeight());
+    _messageAndReplyList.push_back(std::make_pair(std::unique_ptr<MessageWidget>(msg), std::unique_ptr<ReplyMessageWidget>(nullptr)));
 
-        connect(msg, &MessageWidget::geometryChanged, this, [=](int diff) {
-            history->setMinimumHeight(history->minimumHeight() + diff);
-            updateLayout(true);
-        });
+    history->setMinimumHeight(history->minimumHeight() + msg->expectedHeight() + 10);
 
-        connect(msg, &MessageWidget::createReplySignal, this, &ChatHistory::createReplySignal);
+    connect(msg, &MessageWidget::geometryChanged, this, [=](int diff) {
+        history->setMinimumHeight(history->minimumHeight() + diff);
+        updateLayout(true);
+    });
 
-        _messageAndReplyList.push_back(std::make_pair(std::unique_ptr<MessageWidget>(nullptr), std::unique_ptr<ReplyMessageWidget>(replyMsg)));
-        _messageAndReplyList.push_back(std::make_pair(std::unique_ptr<MessageWidget>(msg), std::unique_ptr<ReplyMessageWidget>(nullptr)));
+    connect(msg, &MessageWidget::createReplySignal, this, &ChatHistory::createReplySignal);
 
-        updateLayout();
+    updateLayout();
 
-        _scrollArea->scrollToWidget(msg);
-
-        _replyCount++;
-
-        reply->close();
-    }
-    else
-    {
-        auto msg = new MessageWidget(history, message, _messageId++, _userId, utc, user);
-        msg->show();
-        msg->resize(history->width() - 25, msg->expectedHeight());
-        _messageAndReplyList.push_back(std::make_pair(std::unique_ptr<MessageWidget>(msg), std::unique_ptr<ReplyMessageWidget>(nullptr)));
-
-         history->setMinimumHeight(history->minimumHeight() + msg->expectedHeight() + 10);
-
-        connect(msg, &MessageWidget::geometryChanged, this, [=](int diff) {
-            history->setMinimumHeight(history->minimumHeight() + diff);
-            updateLayout(true);
-        });
-
-        connect(msg, &MessageWidget::createReplySignal, this, &ChatHistory::createReplySignal);
-
-        updateLayout();
-
-        _scrollArea->scrollToWidget(msg);
-    }
+    _scrollArea->scrollToWidget(msg);
 
     emit messageAdded();
 }
@@ -178,14 +156,7 @@ void ChatHistory::updateLayout(bool beenResized)
     }
     if (haveLast && beenResized)
     {
-        if(_messageAndReplyList.back().second != nullptr)
-        {
-            _scrollArea->scrollToY(_messageAndReplyList.back().second->pos().y());
-        }
-        else
-        {
-            _scrollArea->scrollToY(_messageAndReplyList.back().first->pos().y());
-        }
+        _scrollArea->scrollToY(_messageAndReplyList.back().first->pos().y());
     }
 }
 
