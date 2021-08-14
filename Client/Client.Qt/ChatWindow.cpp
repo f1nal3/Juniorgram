@@ -5,12 +5,14 @@
 #include <iostream>
 #include <thread>
 
-ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
+ChatWindow::ChatWindow(QWidget* parent) : Page(parent)
 {
     setContentsMargins(0, 0, 0, 0);
     _mainLayout        = std::make_unique<QSplitter>(this);
     _channelListWidget = std::make_unique<ChannelListWidget>();
     _chatSwitchWidget  = std::make_unique<QStackedWidget>();
+
+    _mainLayout->setStyleSheet("QSplitter::handle { image: none; }");
     _mainLayout->setOrientation(Qt::Horizontal);
     _mainLayout->setChildrenCollapsible(false);
     _mainLayout->setContentsMargins(0, 0, 0, 0);

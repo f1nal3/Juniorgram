@@ -22,14 +22,14 @@ Registration::Registration(QWidget* parent) : Page(parent)
 
     _backButton->setClickCallback([]() { oApp->setAppState(App::AppState::LoginForm); });
 
-    const int BLOCKWIDTH = Style::valueDPIScale(500);
+    const int BLOCKWIDTH = st::authBlockWidth;
 
-    _emailInput->resize(BLOCKWIDTH, _emailInput->sizeHint().height());
-    _usernameInput->resize(BLOCKWIDTH, _usernameInput->sizeHint().height());
-    _passwordInput->resize(BLOCKWIDTH, _passwordInput->sizeHint().height());
-    _repeatPasswordInput->resize(BLOCKWIDTH, _repeatPasswordInput->sizeHint().height());
-    _registrationButton->resize(BLOCKWIDTH, _registrationButton->sizeHint().height());
-    _backButton->resize(BLOCKWIDTH, _backButton->sizeHint().height());
+    _emailInput->resize(BLOCKWIDTH, _emailInput->minimumHeight());
+    _usernameInput->resize(BLOCKWIDTH, _usernameInput->minimumHeight());
+    _passwordInput->resize(BLOCKWIDTH, _passwordInput->minimumHeight());
+    _repeatPasswordInput->resize(BLOCKWIDTH, _repeatPasswordInput->minimumHeight());
+    _registrationButton->resize(BLOCKWIDTH, _registrationButton->minimumHeight());
+    _backButton->resize(BLOCKWIDTH, _backButton->minimumHeight());
     _logoWidget->setPart(30);
 
     connect(ReceiverManager::instance(), &ReceiverManager::onRegistrationAnswer, this, &Registration::onRegistration);
@@ -80,7 +80,7 @@ void Registration::resizeEvent(QResizeEvent* event)
     const QSize SIZE          = event->size();
     const int   HOR_SPACING   = Style::valueDPIScale(16);
     const int   MIN_TOP_SHIFT = SIZE.height() * 30 / 100;
-    const int   LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
+    const int   LEFT_SHIFT    = (SIZE.width() - st::authBlockWidth) / 2;
     _logoWidget->updateSize();
 
     _emailInput->move(LEFT_SHIFT, MIN_TOP_SHIFT);

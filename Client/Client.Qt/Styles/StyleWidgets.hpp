@@ -16,126 +16,201 @@ void init_StyleWidgets(int scale);
 /// Style struct for ScrollArea
 struct ScrollArea
 {
-    int          width;
-    int          deltat;
-    int          deltab;
-    int          deltax;
+    /// width: pixels
+    int width;
+    /// deltat: pixels
+    int deltat;
+    /// deltab: pixels
+    int deltab;
+    /// deltax: pixels
+    int deltax;
+    /// bg: Style::color
     Style::color bg;
+    /// bgOver: Style::color
     Style::color bgOver;
+    /// barBg: Style::color
     Style::color barBg;
+    /// barBgOver: Style::color
     Style::color barBgOver;
-    int          round;
-    int          hiding;
+    /// round: pixels
+    int round;
+    /// hiding: int
+    int hiding;
 };
 
 /// Style struct for FlatButton
 struct FlatButton
 {
+    /// paddings: Style::margins
     Style::margins paddings;
-    int            rounding;
-    Style::color   color;
-    Style::color   overColor;
-    Style::color   bgColor;
-    Style::color   overBgColor;
-    Style::font    font;
-    Style::font    overFont;
+    /// rounding: pixels
+    int rounding;
+    /// color: Style::color
+    Style::color color;
+    /// overColor: Style::color
+    Style::color overColor;
+    /// bgColor: Style::color
+    Style::color bgColor;
+    /// overBgColor: Style::color
+    Style::color overBgColor;
+    /// font: Style::font
+    Style::font font;
+    /// overFont: Style::font
+    Style::font overFont;
 };
 
 /// Style struct for FlatTextEdit
 struct FlatTextEdit
 {
-    Style::font    font;
-    Style::color   textcolor;
-    Style::color   selectedcolor;
-    Style::color   selectedtextcolor;
-    Style::color   bg;
+    /// font: Style::font
+    Style::font font;
+    /// textcolor: Style::color
+    Style::color textcolor;
+    /// selectedcolor: Style::color
+    Style::color selectedcolor;
+    /// selectedtextcolor: Style::color
+    Style::color selectedtextcolor;
+    /// bg: Style::color
+    Style::color bg;
+    /// margins: Style::margins
     Style::margins margins;
 };
 
 /// Style struct for MessageWidget
 struct MessageWidget
 {
-    int                 radius;
-    Style::font         fontname;
-    Style::font         fontdate;
-    Style::font         fonttext;
-    int                 border;
-    Style::FlatButton   button;
+    /// radius: pixels
+    int radius;
+    /// fontname: Style::font
+    Style::font fontname;
+    /// fontdate: Style::font
+    Style::font fontdate;
+    /// fonttext: Style::font
+    Style::font fonttext;
+    /// border: pixels
+    int border;
+    /// button: Style::FlatButton
+    Style::FlatButton button;
+    /// textedit: Style::FlatTextEdit
     Style::FlatTextEdit textedit;
 };
 
 /// Style struct for LinkButton
 struct LinkButton
 {
+    /// color: Style::color
     Style::color color;
+    /// overColor: Style::color
     Style::color overColor;
-    Style::font  font;
-    Style::font  overFont;
+    /// font: Style::font
+    Style::font font;
+    /// overFont: Style::font
+    Style::font overFont;
 };
 
 /// Style struct for IconButton
 struct IconButton
 {
-    Style::color   bgColor;
-    Style::color   overBgColor;
-    Style::color   color;
-    Style::color   overColor;
-    Style::icon    icon;
+    /// bgColor: Style::color
+    Style::color bgColor;
+    /// overBgColor: Style::color
+    Style::color overBgColor;
+    /// color: Style::color
+    Style::color color;
+    /// overColor: Style::color
+    Style::color overColor;
+    /// icon: Style::icon
+    Style::icon icon;
+    /// margins: Style::margins
     Style::margins margins;
-    int            rounding;
-    Style::font    font;
-    Style::font    overFont;
-    int            duration;
+    /// rounding: pixels
+    int rounding;
+    /// font: Style::font
+    Style::font font;
+    /// overFont: Style::font
+    Style::font overFont;
+    /// duration: int
+    int duration;
 };
 
 /// Style struct for TitleBarButton
 struct TitleBarButton
 {
+    /// bgColor: Style::color
     Style::color bgColor;
+    /// overBgColor: Style::color
     Style::color overBgColor;
-    Style::icon  icon;
-    int          height;
-    int          width;
+    /// icon: Style::icon
+    Style::icon icon;
+    /// height: pixels
+    int height;
+    /// width: pixels
+    int width;
 };
 
 /// Style struct for TitleBar
 struct TitleBar
 {
-    Style::color          bgColor;
+    /// bgColor: Style::color
+    Style::color bgColor;
+    /// closeButton: Style::TitleBarButton
     Style::TitleBarButton closeButton;
+    /// maximizeButton: Style::TitleBarButton
     Style::TitleBarButton maximizeButton;
+    /// restoreButton: Style::TitleBarButton
     Style::TitleBarButton restoreButton;
+    /// minimizeButton: Style::TitleBarButton
     Style::TitleBarButton minimizeButton;
 };
 
 /// Style struct for Menu
 struct Menu
 {
-    int            separatorWidth;
+    /// separatorWidth: pixels
+    int separatorWidth;
+    /// separatorPadding: Style::margins
     Style::margins separatorPadding;
-    Style::color   separatorFg;
+    /// separatorFg: Style::color
+    Style::color separatorFg;
+    /// itemPadding: Style::margins
     Style::margins itemPadding;
-    Style::font    itemFont;
-    Style::color   itemFg;
-    Style::color   itemFgOver;
-    Style::color   itemFgDisabled;
-    Style::color   itemBg;
-    Style::color   itemBgOver;
-    int            widthMin;
-    int            widthMax;
+    /// itemFont: Style::font
+    Style::font itemFont;
+    /// itemFg: Style::color
+    Style::color itemFg;
+    /// itemFgOver: Style::color
+    Style::color itemFgOver;
+    /// itemFgDisabled: Style::color
+    Style::color itemFgDisabled;
+    /// itemBg: Style::color
+    Style::color itemBg;
+    /// itemBgOver: Style::color
+    Style::color itemBgOver;
+    /// widthMin: pixels
+    int widthMin;
+    /// widthMax: pixels
+    int widthMax;
 };
 
 /// Style struct for LoadingSpinner
 struct LoadingSpinner
 {
+    /// lineColor: Style::color
     Style::color lineColor;
-    double       revolutionsPerSecond;
-    int          numberOfLines;
-    int          lineLength;
-    int          lineWidth;
-    int          innerRadius;
-    double       minimumTrailOpacity;
-    double       trailFadePercentage;
+    /// revolutionsPerSecond: double
+    double revolutionsPerSecond;
+    /// numberOfLines: int
+    int numberOfLines;
+    /// lineLength: pixels
+    int lineLength;
+    /// lineWidth: pixels
+    int lineWidth;
+    /// innerRadius: pixels
+    int innerRadius;
+    /// minimumTrailOpacity: double
+    double minimumTrailOpacity;
+    /// trailFadePercentage: double
+    double trailFadePercentage;
 };
 
 }  // namespace Style

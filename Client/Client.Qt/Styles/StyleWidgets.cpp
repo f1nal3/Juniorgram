@@ -2,8 +2,8 @@
 // This file was created automatically
 #include "StyleWidgets.hpp"
 
-#include "Palette.hpp"
-#include "StyleBasic.hpp"
+#include "Styles/Palette.hpp"
+#include "Styles/StyleBasic.hpp"
 
 namespace
 {
@@ -225,10 +225,10 @@ void init_StyleWidgets(int scale)
                           st::windowActiveTextFg,
                           st::windowActiveTextFg,
                           {":icons/max", 0},
-                          st::mar,
+                          st::defaultMargins,
                           px5,
-                          {px15, 0, 0},
-                          {px15, 0, 0},
+                          st::defaultFont,
+                          st::defaultFont,
                           500};
     _reactionIconButtonInMenu = {st::windowColor,
                                  st::windowColorOver,
@@ -260,20 +260,24 @@ void init_StyleWidgets(int scale)
                                {px12, 1, 0},
                                {px12, 1, 0},
                                500};
-    _defaultLinkButton        = {st::linkButtonColor, st::linkButtonOverColor, {px15, 0, 0}, {px15, 2, 0}};
-    _defaultFlatButton = {st::mar,      px5,         st::windowActiveTextFg, st::windowActiveTextFg, st::windowColor, st::windowColorOver,
-                          {px15, 0, 0}, {px15, 0, 0}};
-    _stylingButton     = {st::mar,      px5,         st::windowActiveTextFg, st::windowActiveTextFg, st::window, st::windowColorOver,
-                      {px15, 0, 0}, {px15, 0, 0}};
-    _boldnessButton    = {st::mar,      px5,         st::windowActiveTextFg, st::windowActiveTextFg, st::window, st::windowColorOver,
-                       {px15, 1, 0}, {px15, 1, 0}};
-    _italicButton      = {st::mar,      px5,         st::windowActiveTextFg, st::windowActiveTextFg, st::window, st::windowColorOver,
-                     {px15, 2, 0}, {px15, 2, 0}};
-    _underlineButton   = {st::mar,      px5,         st::windowActiveTextFg, st::windowActiveTextFg, st::window, st::windowColorOver,
-                        {px15, 4, 0}, {px15, 4, 0}};
+    _defaultLinkButton        = {st::linkButtonColor, st::linkButtonOverColor, st::defaultFont, st::italicFont};
+    _defaultFlatButton        = {
+        st::defaultMargins, px5, st::windowActiveTextFg, st::windowActiveTextFg, st::windowColor, st::windowColorOver, st::defaultFont,
+        st::defaultFont};
+    _stylingButton = {
+        st::defaultMargins, px5, st::windowActiveTextFg, st::windowActiveTextFg, st::window, st::windowColorOver, st::defaultFont,
+        st::defaultFont};
+    _boldnessButton  = {st::defaultMargins, px5,         st::windowActiveTextFg, st::windowActiveTextFg, st::window, st::windowColorOver,
+                       st::boldFont,       st::boldFont};
+    _italicButton    = {st::defaultMargins, px5,           st::windowActiveTextFg, st::windowActiveTextFg, st::window, st::windowColorOver,
+                     st::italicFont,     st::italicFont};
+    _underlineButton = {
+        st::defaultMargins, px5, st::windowActiveTextFg, st::windowActiveTextFg, st::window, st::windowColorOver, st::underlineFont,
+        st::underlineFont};
     _defaultScrollArea = {px15, px10, px10, px2, st::scrollAreaColor, st::scrollAreaColorOver, st::scrollAreaBar, st::scrollAreaBarOver,
                           px3,  500};
-    _defaultTextEdit   = {{px15, 0, 0}, st::windowActiveTextFg, st::windowColorOver, st::windowActiveTextFg, st::windowColor, st::mar};
+    _defaultTextEdit   = {st::defaultFont,        st::windowActiveTextFg, st::windowColorOver,
+                        st::windowActiveTextFg, st::windowColor,        st::defaultMargins};
     _messageTextEdit   = {{px12, 0, 0},           st::windowActiveTextFg, st::windowColorOver,
                         st::windowActiveTextFg, st::transparent,        {px0, px0, px0, px0}};
     _messageButton     = {

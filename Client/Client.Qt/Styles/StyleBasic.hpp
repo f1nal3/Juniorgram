@@ -16,18 +16,30 @@ void init_StyleBasic(int scale);
 
 namespace st
 {
-/// fsize: pixels
-extern const int& fsize;
+/// defaultFontSize: pixels
+extern const int& defaultFontSize;
 /// defaultFont: Style::font
 extern const Style::font& defaultFont;
 /// semiboldFont: Style::font
 extern const Style::font& semiboldFont;
+/// italicFont: Style::font
+extern const Style::font& italicFont;
+/// boldFont: Style::font
+extern const Style::font& boldFont;
+/// underlineFont: Style::font
+extern const Style::font& underlineFont;
 /// defaultMargin: pixels
 extern const int& defaultMargin;
-/// mar: Style::margins
-extern const Style::margins& mar;
-/// TextStyle: Style::font
-extern const Style::font& TextStyle;
+/// defaultMargins: Style::margins
+extern const Style::margins& defaultMargins;
+/// minWidth: pixels
+extern const int& minWidth;
+/// minHeight: pixels
+extern const int& minHeight;
+/// shadowPadding: pixels
+extern const int& shadowPadding;
+/// authBlockWidth: pixels
+extern const int& authBlockWidth;
 /// smileIcon: Style::icon
 extern const Style::icon& smileIcon;
 /// dislikeIcon: Style::icon

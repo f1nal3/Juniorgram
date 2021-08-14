@@ -31,11 +31,10 @@ Login::Login(QWidget* parent) : Page(parent)
 
     _registrationButton->setClickCallback([=]() { oApp->setAppState(App::AppState::RegistrationForm); });
 
-    const int BLOCKWIDTH = Style::valueDPIScale(500);
-    _signInButton->resize(BLOCKWIDTH, _signInButton->sizeHint().height());
-    _registrationButton->resize(BLOCKWIDTH, _registrationButton->sizeHint().height());
-    _passwordInput->resize(BLOCKWIDTH, _passwordInput->sizeHint().height());
-    _usernameInput->resize(BLOCKWIDTH, _usernameInput->sizeHint().height());
+    _signInButton->resize(st::authBlockWidth, _signInButton->minimumHeight());
+    _registrationButton->resize(st::authBlockWidth, _registrationButton->minimumHeight());
+    _passwordInput->resize(st::authBlockWidth, _passwordInput->minimumHeight());
+    _usernameInput->resize(st::authBlockWidth, _usernameInput->minimumHeight());
 }
 
 void Login::resizeEvent(QResizeEvent* event)
@@ -43,7 +42,7 @@ void Login::resizeEvent(QResizeEvent* event)
     const QSize SIZE          = event->size();
     const int   HOR_SPACING   = Style::valueDPIScale(16);
     const int   MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
-    const int   LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
+    const int   LEFT_SHIFT    = (SIZE.width() - st::authBlockWidth) / 2;
 
     _logoWidget->updateSize();
 

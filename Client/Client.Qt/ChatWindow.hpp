@@ -13,7 +13,7 @@
  * @class ChatWindow
  * @brief Chat form for JuniorGram
  */
-class ChatWindow : public QWidget
+class ChatWindow : public Page
 {
     Q_OBJECT
 public:

@@ -188,7 +188,8 @@ QList<row> data();
 
 namespace st
 {
-extern const Style::color& transparent;  // special color
+/// special color
+extern const Style::color& transparent;
 /// windowActiveTextFg: Style::color
 extern const Style::color& windowActiveTextFg;
 /// window: Style::color

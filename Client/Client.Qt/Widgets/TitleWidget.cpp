@@ -87,7 +87,7 @@ void TitleWidget::windowStateChanged(Qt::WindowState state)
         if (state == Qt::WindowNoState)
         {
             parentWidget()->setAttribute(Qt::WA_TranslucentBackground);
-            parentWidget()->layout()->setMargin(9);
+            parentWidget()->layout()->setMargin(st::shadowPadding);
             _maximizeButton->setStyle(&_st.maximizeButton);
         }
         else if (state == Qt::WindowMaximized)

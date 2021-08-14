@@ -5,7 +5,6 @@
 #include <QHBoxLayout>
 #include <QWindow>
 #include <QtEvents>
-#include <iostream>
 
 #include "Style/Shadow.hpp"
 
@@ -86,32 +85,33 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
 MainWidget::MainWidget() : QWidget(nullptr)
 {
     Style::setDevicePixelRatio(devicePixelRatioF());
+    /**
+     * logicalDpiX() is current display dpi
+     * devicePixelRatioF() is how much pixels will scale?
+     * 100 is 100%
+     * 96 is default dpi(100%)
+     */
     Style::setDpiScale(logicalDpiX() * devicePixelRatioF() * 100 / 96);
     Style::startManager(Style::getDpiScale());
 
     setWindowFlag(Qt::FramelessWindowHint);
     setWindowIcon(QIcon(":/images/logo.png"));
-    setMinimumWidth(Style::valueDPIScale(800));
 
     window()->createWinId();
+
+    setMinimumWidth(st::minWidth);
+    setMinimumHeight(st::minHeight);
+
     auto* grid = new QGridLayout(this);
 
-    _body = std::make_unique<QWidget>();
-    _body->setMinimumHeight(Style::valueDPIScale(480));
-
+    _body  = std::make_unique<QWidget>(this);
     _title = std::make_unique<TitleWidget>(this);
 
     grid->addWidget(_body.get(), 1, 0);
     grid->addWidget(_title.get(), 0, 0);
     grid->setSpacing(0);
     setLayout(grid);
-
-    _body->setStyleSheet(
-        "QWidget {"
-        "background-color: #323232;"
-        "}");
-
-    std::cout << QGuiApplication::platformName().toStdString() << std::endl;
+    grid->invalidate();
 
     refreshTitleBar(false);
     qApp->installEventFilter(this);
@@ -136,6 +136,7 @@ std::int32_t MainWidget::addWidget(std::unique_ptr<QWidget> widget)
 {
     widget->setParent(_body.get());
     widget->hide();
+    widget->resize(_body->width(), _body->height());
     _widgets.push_back(std::move(widget));
     return int(_widgets.size()) - 1;
 }

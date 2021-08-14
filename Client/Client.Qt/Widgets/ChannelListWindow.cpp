@@ -5,10 +5,6 @@
 ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent)
     : Page(parent), _widgetChannelList(anotherChannelListWidget)
 {
-    setStyleSheet(
-        QString("QWidget {"
-                "background-color: #323232;"
-                "}"));
     setWindowFlag(Qt::WindowMinimizeButtonHint, false);
     setWindowFlag(Qt::WindowStaysOnTopHint);
     setWindowModality(Qt::ApplicationModal);

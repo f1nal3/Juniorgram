@@ -11,5 +11,5 @@ ComboBox::ComboBox(QWidget* parent) : QComboBox(parent)
                 "background-color: rgba(0,0,0,0);"
                 "color: white;"
                 "}"));
-    setContentsMargins(st::mar);
+    setContentsMargins(st::defaultMargins);
 }
