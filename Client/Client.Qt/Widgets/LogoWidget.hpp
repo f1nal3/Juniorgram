@@ -8,11 +8,8 @@
 class LogoWidget : public QWidget
 {
     Q_OBJECT
-public:
-    /**
-     * @brief Builds new logo widget
-     * @param parent Parent widget
-     */
+public
+    /// Constructor for logo widget
     explicit LogoWidget(QWidget* parent = nullptr);
 
     /**
@@ -28,7 +25,7 @@ public:
     /**
      * @brief Recalculates size of widget if parent widget geometry changed
      */
-    void recountSize();
+    void updateSize();
 
 protected:
     void paintEvent(QPaintEvent* paintEvent) override;

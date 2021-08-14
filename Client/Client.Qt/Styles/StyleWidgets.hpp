@@ -8,10 +8,12 @@ namespace Style
 {
 namespace internal
 {
-void init_StyleBasic(int scale);
+/// StyleWidgets initializer
+void init_StyleWidgets(int scale);
 
 }  // namespace internal
 
+/// Style struct for ScrollArea
 struct ScrollArea
 {
     int          width;
@@ -26,6 +28,7 @@ struct ScrollArea
     int          hiding;
 };
 
+/// Style struct for FlatButton
 struct FlatButton
 {
     Style::margins paddings;
@@ -38,6 +41,7 @@ struct FlatButton
     Style::font    overFont;
 };
 
+/// Style struct for FlatTextEdit
 struct FlatTextEdit
 {
     Style::font    font;
@@ -48,6 +52,7 @@ struct FlatTextEdit
     Style::margins margins;
 };
 
+/// Style struct for MessageWidget
 struct MessageWidget
 {
     int                 radius;
@@ -59,6 +64,7 @@ struct MessageWidget
     Style::FlatTextEdit textedit;
 };
 
+/// Style struct for LinkButton
 struct LinkButton
 {
     Style::color color;
@@ -67,6 +73,7 @@ struct LinkButton
     Style::font  overFont;
 };
 
+/// Style struct for IconButton
 struct IconButton
 {
     Style::color   bgColor;
@@ -81,6 +88,7 @@ struct IconButton
     int            duration;
 };
 
+/// Style struct for TitleBarButton
 struct TitleBarButton
 {
     Style::color bgColor;
@@ -90,6 +98,7 @@ struct TitleBarButton
     int          width;
 };
 
+/// Style struct for TitleBar
 struct TitleBar
 {
     Style::color          bgColor;
@@ -99,6 +108,7 @@ struct TitleBar
     Style::TitleBarButton minimizeButton;
 };
 
+/// Style struct for Menu
 struct Menu
 {
     int            separatorWidth;
@@ -115,41 +125,67 @@ struct Menu
     int            widthMax;
 };
 
+/// Style struct for LoadingSpinner
+struct LoadingSpinner
+{
+    Style::color lineColor;
+    double       revolutionsPerSecond;
+    int          numberOfLines;
+    int          lineLength;
+    int          lineWidth;
+    int          innerRadius;
+    double       minimumTrailOpacity;
+    double       trailFadePercentage;
+};
+
 }  // namespace Style
 
 namespace st
 {
-extern const int&                   fsize;
-extern const Style::font&           defaultFont;
-extern const Style::font&           semiboldFont;
-extern const Style::Menu&           defaultMenu;
+/// defaultLoadingSpinner: Style::LoadingSpinner
+extern const Style::LoadingSpinner& defaultLoadingSpinner;
+/// defaultMenu: Style::Menu
+extern const Style::Menu& defaultMenu;
+/// defaultTitleBarButton: Style::TitleBarButton
 extern const Style::TitleBarButton& defaultTitleBarButton;
+/// closeButton: Style::TitleBarButton
 extern const Style::TitleBarButton& closeButton;
+/// restoreButton: Style::TitleBarButton
 extern const Style::TitleBarButton& restoreButton;
+/// maximizeButton: Style::TitleBarButton
 extern const Style::TitleBarButton& maximizeButton;
+/// minimizeButton: Style::TitleBarButton
 extern const Style::TitleBarButton& minimizeButton;
-extern const Style::TitleBar&       defaultTitleBar;
-extern const int&                   defaultMargin;
-extern const Style::margins&        mar;
-extern const Style::font&           TextStyle;
-extern const Style::IconButton&     defaultIconButton;
-extern const Style::IconButton&     reactionIconButtonInMenu;
-extern const Style::IconButton&     reactionIconButton;
-extern const Style::IconButton&     userReactionIconButton;
-extern const Style::icon&           smileIcon;
-extern const Style::icon&           dislikeIcon;
-extern const Style::icon&           likeIcon;
-extern const Style::icon&           fireIcon;
-extern const Style::icon&           catIcon;
-extern const Style::LinkButton&     defaultLinkButton;
-extern const Style::FlatButton&     defaultFlatButton;
-extern const Style::FlatButton&     stylingButton;
-extern const Style::FlatButton&     boldnessButton;
-extern const Style::FlatButton&     italicButton;
-extern const Style::FlatButton&     underlineButton;
-extern const Style::ScrollArea&     defaultScrollArea;
-extern const Style::FlatTextEdit&   defaultTextEdit;
-extern const Style::FlatTextEdit&   messageTextEdit;
-extern const Style::FlatButton&     messageButton;
-extern const Style::MessageWidget&  defaultMessageWidget;
+/// defaultTitleBar: Style::TitleBar
+extern const Style::TitleBar& defaultTitleBar;
+/// defaultIconButton: Style::IconButton
+extern const Style::IconButton& defaultIconButton;
+/// reactionIconButtonInMenu: Style::IconButton
+extern const Style::IconButton& reactionIconButtonInMenu;
+/// reactionIconButton: Style::IconButton
+extern const Style::IconButton& reactionIconButton;
+/// userReactionIconButton: Style::IconButton
+extern const Style::IconButton& userReactionIconButton;
+/// defaultLinkButton: Style::LinkButton
+extern const Style::LinkButton& defaultLinkButton;
+/// defaultFlatButton: Style::FlatButton
+extern const Style::FlatButton& defaultFlatButton;
+/// stylingButton: Style::FlatButton
+extern const Style::FlatButton& stylingButton;
+/// boldnessButton: Style::FlatButton
+extern const Style::FlatButton& boldnessButton;
+/// italicButton: Style::FlatButton
+extern const Style::FlatButton& italicButton;
+/// underlineButton: Style::FlatButton
+extern const Style::FlatButton& underlineButton;
+/// defaultScrollArea: Style::ScrollArea
+extern const Style::ScrollArea& defaultScrollArea;
+/// defaultTextEdit: Style::FlatTextEdit
+extern const Style::FlatTextEdit& defaultTextEdit;
+/// messageTextEdit: Style::FlatTextEdit
+extern const Style::FlatTextEdit& messageTextEdit;
+/// messageButton: Style::FlatButton
+extern const Style::FlatButton& messageButton;
+/// defaultMessageWidget: Style::MessageWidget
+extern const Style::MessageWidget& defaultMessageWidget;
 }  // namespace st

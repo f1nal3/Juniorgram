@@ -44,7 +44,7 @@ void Login::resizeEvent(QResizeEvent* event)
     const int   MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
     const int   LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
 
-    _logoWidget->recountSize();
+    _logoWidget->updateSize();
 
     _usernameInput->move(LEFT_SHIFT, MIN_TOP_SHIFT);
     _passwordInput->move(LEFT_SHIFT, _usernameInput->geometry().bottom() + 1 + HOR_SPACING);

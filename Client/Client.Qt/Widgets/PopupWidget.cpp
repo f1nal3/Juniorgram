@@ -2,9 +2,9 @@
 
 #include <QPainter>
 #include <QScreen>
+#include <Styles/Styles.hpp>
 
 #include "Application.hpp"
-#include "Style/StyleBasic.hpp"
 
 PopupWidget::PopupWidget(QWidget* parent) : QWidget(parent), _innerMenu(nullptr)
 {

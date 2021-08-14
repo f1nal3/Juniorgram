@@ -82,7 +82,7 @@ void Registration::resizeEvent(QResizeEvent* event)
     const int   HOR_SPACING   = Style::valueDPIScale(16);
     const int   MIN_TOP_SHIFT = SIZE.height() * 30 / 100;
     const int   LEFT_SHIFT    = (SIZE.width() - Style::valueDPIScale(500)) / 2;
-    _logoWidget->recountSize();
+    _logoWidget->updateSize();
 
     _emailInput->move(LEFT_SHIFT, MIN_TOP_SHIFT);
     _usernameInput->move(LEFT_SHIFT, _emailInput->geometry().bottom() + 1 + HOR_SPACING);

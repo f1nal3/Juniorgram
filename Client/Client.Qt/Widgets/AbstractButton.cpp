@@ -1,8 +1,7 @@
 #include "AbstractButton.hpp"
 
 #include <QtEvents>
-
-#include "Style/Style.hpp"
+#include <Styles/Styles.hpp>
 
 AbstractButton::AbstractButton(QWidget* parent) : QWidget(parent) { setMouseTracking(true); }
 

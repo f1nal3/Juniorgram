@@ -1,7 +1,6 @@
 #include "ComboBox.hpp"
 
-#include "Style/Style.hpp"
-#include "Style/StyleBasic.hpp"
+#include <Styles/Styles.hpp>
 
 ComboBox::ComboBox(QWidget* parent) : QComboBox(parent)
 {

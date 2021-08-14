@@ -1,20 +1,18 @@
 #include "TextEdit.hpp"
 
 #include <QtEvents>
-
-#include <Style/Style.hpp>
+#include <Styles/Styles.hpp>
 
 TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
 {
-    _mainVerticalLayout      = std::make_unique<QVBoxLayout>(this);
-    _horizontalButtonLayout  = std::make_unique<QHBoxLayout>();
-    _boldnessButton          = std::make_unique<FlatButton>(this, "B", st::boldnessButton);
-    _italicButton            = std::make_unique<FlatButton>(this, "I", st::italicButton);
-    _underlineButton         = std::make_unique<FlatButton>(this, "U", st::underlineButton);
-    _sendButton              = std::make_unique<FlatButton>(this, "Send");
-    _messageInput            = std::make_unique<FlatTextEdit>();
-    _horizontalButtonSpacer  =
-        std::make_unique<QSpacerItem>(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    _mainVerticalLayout     = std::make_unique<QVBoxLayout>(this);
+    _horizontalButtonLayout = std::make_unique<QHBoxLayout>();
+    _boldnessButton         = std::make_unique<FlatButton>(this, "B", st::boldnessButton);
+    _italicButton           = std::make_unique<FlatButton>(this, "I", st::italicButton);
+    _underlineButton        = std::make_unique<FlatButton>(this, "U", st::underlineButton);
+    _sendButton             = std::make_unique<FlatButton>(this, "Send");
+    _messageInput           = std::make_unique<FlatTextEdit>();
+    _horizontalButtonSpacer = std::make_unique<QSpacerItem>(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     _horizontalButtonLayout->setAlignment(Qt::AlignLeft);
     _horizontalButtonLayout->addWidget(_boldnessButton.get());
     _horizontalButtonLayout->addWidget(_italicButton.get());
@@ -30,14 +28,13 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
 void TextEdit::connectUi()
 {
     _boldnessButton->setClickCallback([&]() { boldButtonClicked(_boldSymbolOpen, _boldSymbolClose); });
-    _italicButton->setClickCallback(
-        [&]() { boldButtonClicked(_italicSymbolOpen, _italicSymbolClose); });
-    _underlineButton->setClickCallback(
-        [&]() { boldButtonClicked(_underlineSymbolOpen, _underlineSymbolClose); });
+    _italicButton->setClickCallback([&]() { boldButtonClicked(_italicSymbolOpen, _italicSymbolClose); });
+    _underlineButton->setClickCallback([&]() { boldButtonClicked(_underlineSymbolOpen, _underlineSymbolClose); });
     _sendButton->setClickCallback([&]() { clickButtonSend(); });
 }
 
-void TextEdit::clickButtonSend() { 
+void TextEdit::clickButtonSend()
+{
     if (getText() != "")
     {
         emit sendMessageSignal(getText());
@@ -100,8 +97,8 @@ void TextEdit::delSymbolsOutSelection(QString& text, int& start, int& end, int s
     _messageInput->setPlainText(text);
 }
 
-void TextEdit::insertSymbolsInSelection(QTextCursor& cursor, int& start, int& end, int symbolSize,
-                                        const QString symbolStart, const QString symbolEnd)
+void TextEdit::insertSymbolsInSelection(QTextCursor& cursor, int& start, int& end, int symbolSize, const QString symbolStart,
+                                        const QString symbolEnd)
 {
     cursor.setPosition(start);
     cursor.insertText(symbolStart);
@@ -119,13 +116,8 @@ void TextEdit::selectText(QTextCursor& cursor, int start, int end)
     _messageInput->setTextCursor(cursor);
 }
 
-QString TextEdit::getText() const
-{
-    return _messageInput->toPlainText();
-}
+QString TextEdit::getText() const { return _messageInput->toPlainText(); }
 
 void TextEdit::clearTextEdit() { _messageInput->clear(); }
 
-TextEdit::~TextEdit()
-{ _horizontalButtonLayout->removeItem(_horizontalButtonSpacer.get());
-}
+TextEdit::~TextEdit() { _horizontalButtonLayout->removeItem(_horizontalButtonSpacer.get()); }

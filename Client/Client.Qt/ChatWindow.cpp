@@ -1,8 +1,8 @@
 #include "ChatWindow.hpp"
 
+#include <ConnectionManager.hpp>
 #include <QtEvents>
 #include <iostream>
-#include <ConnectionManager.hpp>
 #include <thread>
 
 ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
@@ -19,20 +19,15 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
     _mainLayout->setStretchFactor(0, 20);
     _mainLayout->setStretchFactor(1, 80);
 
-    connect(_channelListWidget->getChannelList().get(), &ListWidget::itemPressed, [&]()
-    {
-        auto findChannelID = [&]() 
-        {
+    connect(_channelListWidget->getChannelList().get(), &ListWidget::itemPressed, [&]() {
+        auto findChannelID = [&]() {
             const auto channelName = _channelListWidget->getChannelList()->currentItem()->text().toStdString();
-            auto channelItartor    = std::find_if(ChannelListWindow::channels.begin(), 
-                                                  ChannelListWindow::channels.end(),
-                                                  [&](const Network::ChannelInfo& channelInfo)
-                                                  {
-                                                      return channelName == channelInfo.channelName;
-                                                  });
+            auto       channelItartor =
+                std::find_if(ChannelListWindow::channels.begin(), ChannelListWindow::channels.end(),
+                             [&](const Network::ChannelInfo& channelInfo) { return channelName == channelInfo.channelName; });
 
             std::cout << channelItartor->channelName << " id: " << channelItartor->channelID << std::endl;
-                   
+
             return channelItartor->channelID;
         };
 
@@ -44,9 +39,7 @@ ChatWindow::ChatWindow(QWidget* parent) : QWidget(parent)
         }
         else
         {
-            auto chatWidget = dynamic_cast<ChatWidget*>(_chatSwitchWidget->widget(_channelListWidget
-                                                                                  ->getChannelList()
-                                                                                  ->currentRow()));
+            auto chatWidget = dynamic_cast<ChatWidget*>(_chatSwitchWidget->widget(_channelListWidget->getChannelList()->currentRow()));
             chatWidget->setChannelID(findChannelID());
         }
         _chatSwitchWidget->setCurrentIndex(_channelListWidget->getChannelList()->currentRow());

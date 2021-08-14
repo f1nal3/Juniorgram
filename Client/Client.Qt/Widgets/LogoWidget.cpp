@@ -2,7 +2,7 @@
 
 #include <QPainter>
 
-#include "Style/StyleBasic.hpp"
+#include "Styles/StyleBasic.hpp"
 
 LogoWidget::LogoWidget(QWidget* parent) : QWidget(parent), _partInPercent(40) { _logo = std::make_unique<QPixmap>(":images/textlogo.png"); }
 
@@ -16,7 +16,7 @@ void LogoWidget::paintEvent(QPaintEvent* paintEvent)
     painter.drawPixmap(0, 0, width(), height(), *_logo);
     QWidget::paintEvent(paintEvent);
 }
-void LogoWidget::recountSize()
+void LogoWidget::updateSize()
 {
     if (auto parent = parentWidget())
     {

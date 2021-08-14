@@ -7,7 +7,7 @@
 #include <QRegularExpressionValidator>
 #include <QtEvents>
 
-#include "Style/StyleBasic.hpp"
+#include "Styles/StyleBasic.hpp"
 
 template <typename InputClass>
 class InputStyle : public QCommonStyle

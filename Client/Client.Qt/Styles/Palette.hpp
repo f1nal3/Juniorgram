@@ -8,6 +8,7 @@ namespace Style
 {
 namespace internal
 {
+/// Palette initializer
 void init_Palette(int scale);
 
 }  // namespace internal
@@ -58,6 +59,7 @@ public:
     [[nodiscard]] inline const color& get_scrollAreaBar() const { return _colors[13]; };
     [[nodiscard]] inline const color& get_scrollAreaColorOver() const { return _colors[14]; };
     [[nodiscard]] inline const color& get_scrollAreaBarOver() const { return _colors[15]; };
+    [[nodiscard]] inline const color& get_spinnerLineColor() const { return _colors[16]; };
 
     Palette& operator=(const Palette& other)
     {
@@ -92,7 +94,7 @@ public:
     ~Palette() { clear(); }
 
 private:
-    static constexpr auto kCount = 16;
+    static constexpr auto kCount = 17;
 
     void clear()
     {
@@ -155,8 +157,8 @@ private:
     alignas(alignof(internal::ColorData)) char _data[sizeof(internal::ColorData) * kCount];
 
     color _colors[kCount] = {
-        data(0), data(1), data(2),  data(3),  data(4),  data(5),  data(6),  data(7),
-        data(8), data(9), data(10), data(11), data(12), data(13), data(14), data(15),
+        data(0), data(1),  data(2),  data(3),  data(4),  data(5),  data(6),  data(7),  data(8),
+        data(9), data(10), data(11), data(12), data(13), data(14), data(15), data(16),
     };
     Status _status[kCount] = {Status::Initial};
     bool   _ready          = false;
@@ -187,19 +189,36 @@ QList<row> data();
 namespace st
 {
 extern const Style::color& transparent;  // special color
+/// windowActiveTextFg: Style::color
 extern const Style::color& windowActiveTextFg;
+/// window: Style::color
 extern const Style::color& window;
+/// windowColor: Style::color
 extern const Style::color& windowColor;
+/// windowColorOver: Style::color
 extern const Style::color& windowColorOver;
+/// titleButton: Style::color
 extern const Style::color& titleButton;
+/// titleButtonOver: Style::color
 extern const Style::color& titleButtonOver;
+/// closeButtonC: Style::color
 extern const Style::color& closeButtonC;
+/// closeButtonCOver: Style::color
 extern const Style::color& closeButtonCOver;
+/// linkButtonColor: Style::color
 extern const Style::color& linkButtonColor;
+/// linkButtonOverColor: Style::color
 extern const Style::color& linkButtonOverColor;
+/// scrollArea: Style::color
 extern const Style::color& scrollArea;
+/// scrollAreaColor: Style::color
 extern const Style::color& scrollAreaColor;
+/// scrollAreaBar: Style::color
 extern const Style::color& scrollAreaBar;
+/// scrollAreaColorOver: Style::color
 extern const Style::color& scrollAreaColorOver;
+/// scrollAreaBarOver: Style::color
 extern const Style::color& scrollAreaBarOver;
+/// spinnerLineColor: Style::color
+extern const Style::color& spinnerLineColor;
 }  // namespace st
