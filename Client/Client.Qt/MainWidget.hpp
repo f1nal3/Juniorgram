@@ -1,9 +1,9 @@
 #pragma once
 
 #include <QWidget>
+#include <Styles/Styles.hpp>
 #include <memory>
 
-#include "Style/StyleBasic.hpp"
 #include "Widgets/TitleWidget.hpp"
 
 class QHBoxLayout;

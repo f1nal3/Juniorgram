@@ -8,7 +8,7 @@ class ChatWidget : public QWidget
     Q_OBJECT
 public:
     explicit ChatWidget(QWidget* parent = nullptr);
-    void setChannelID(const std::uint64_t channeID) { _channelID = channeID; }
+    void setChannelID(const std::uint64_t channelID) { _channelID = channelID; }
 
 private slots:
     void newMessage(const QString& messageText);
@@ -18,5 +18,5 @@ private:
     std::unique_ptr<QVBoxLayout> _mainChatLayout;
     std::unique_ptr<ChatHistory> _chatHistory;
     std::unique_ptr<TextEdit>    _textEdit;
-    std::uint64_t         _channelID;
+    std::uint64_t                _channelID;
 };

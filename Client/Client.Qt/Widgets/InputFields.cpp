@@ -7,7 +7,7 @@
 #include <QRegularExpressionValidator>
 #include <QtEvents>
 
-#include "Style/StyleBasic.hpp"
+#include "Styles/StyleBasic.hpp"
 
 /// This is to remove default qt drawing
 template <typename InputClass>

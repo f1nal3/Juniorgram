@@ -2,9 +2,9 @@
 
 ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
 {
-    _vBoxLayout         = std::make_unique<QVBoxLayout>(this);
-    _channelList        = std::make_shared<ListWidget>();
-    _addChannelButton   = std::make_unique<FlatButton>(this, "+");
+    _vBoxLayout       = std::make_unique<QVBoxLayout>(this);
+    _channelList      = std::make_shared<ListWidget>();
+    _addChannelButton = std::make_unique<FlatButton>(this, "+");
 
     setContentsMargins(0, 0, 0, 0);
     _addChannelButton->setMinimumWidth(Style::valueDPIScale(200));
@@ -21,12 +21,8 @@ ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
 
 void ChannelListWidget::showChannelListWindow()
 {
-    if (!_listWidgetChannels)
-        _listWidgetChannels = std::make_unique<ChannelListWindow>(_channelList);
+    if (!_listWidgetChannels) _listWidgetChannels = std::make_unique<ChannelListWindow>(_channelList);
     _listWidgetChannels->show();
 }
 
-std::shared_ptr<ListWidget> ChannelListWidget::getChannelList()
-{
-    return _channelList;
-}
+std::shared_ptr<ListWidget> ChannelListWidget::getChannelList() { return _channelList; }

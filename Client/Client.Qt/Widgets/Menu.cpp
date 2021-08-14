@@ -3,9 +3,9 @@
 #include <QAction>
 #include <QWidgetAction>
 #include <QtEvents>
+#include <Styles/Styles.hpp>
 
 #include "ReactionLayout.hpp"
-#include "Style/StyleBasic.hpp"
 
 QAction* CreateAction(QWidget* actionparent, const QString& text, std::function<void()>&& callback)
 {

@@ -29,7 +29,7 @@ void ReactionLayout::recountSize()
         _sizes = QSize(0, 0);
         return;
     }
-    QSize result;
+    QSize    result;
     uint32_t width  = 0;
     uint32_t height = 0;
     for (const auto& reaction : _reactions)

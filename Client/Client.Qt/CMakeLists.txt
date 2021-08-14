@@ -48,13 +48,10 @@ set(SOURCE_FILES
         Widgets/LoadingSpinner.hpp
         Widgets/Page.cpp
         Widgets/Page.hpp
-        Style/Palette.cpp
-        Style/Palette.hpp
+
         Style/Shadow.hpp
         Style/Style.cpp
         Style/Style.hpp
-        Style/StyleBasic.hpp
-        Style/StyleBasic.cpp
         Style/StyleColor.cpp
         Style/StyleColor.hpp
         Style/StyleFont.cpp
@@ -65,12 +62,23 @@ set(SOURCE_FILES
         Style/StyleTypes.hpp
         Style/StyleIcon.cpp
         Style/StyleIcon.hpp
+
+        Styles/Styles.hpp
+        Styles/StyleBasic.hpp
+        Styles/StyleBasic.cpp
+        Styles/StyleWidgets.hpp
+        Styles/StyleWidgets.cpp
+        Styles/Palette.cpp
+        Styles/Palette.hpp
+
         Application.cpp
         Application.hpp
-        ChatWindow.cpp
-        ChatWindow.hpp
+
         ConnectionManager.cpp
         ConnectionManager.hpp
+
+        ChatWindow.cpp
+        ChatWindow.hpp
         login.cpp
         login.hpp
         main.cpp
