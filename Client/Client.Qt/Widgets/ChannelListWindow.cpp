@@ -1,7 +1,5 @@
 #include "ChannelListWindow.hpp"
 
-#include <QFutureWatcher>
-
 #include "Application.hpp"
 
 ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent)

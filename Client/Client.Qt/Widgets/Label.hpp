@@ -2,11 +2,12 @@
 
 #include <QLabel>
 
-/** @class Label
+/**
+ *  @class Label
  *  @brief Custom style for Label
  */
 class Label : public QLabel
 {
 public:
-    explicit Label(const QString &text = QString(), QWidget *parent = nullptr);
+    explicit Label(const QString& text = QString(), QWidget* parent = nullptr);
 };

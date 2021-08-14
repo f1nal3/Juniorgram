@@ -3,7 +3,7 @@
 #include <QWidget>
 #include <memory>
 
-#include "Style/StyleBasic.hpp"
+#include "Styles/StyleBasic.hpp"
 #include "Widgets/TitleWidget.hpp"
 
 class QHBoxLayout;

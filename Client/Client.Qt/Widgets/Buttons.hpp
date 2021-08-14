@@ -1,7 +1,8 @@
 #pragma once
 
+#include <Styles/Styles.hpp>
+
 #include "AbstractButton.hpp"
-#include "Style/StyleBasic.hpp"
 
 /**
  * @class FlatButton

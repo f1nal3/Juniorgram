@@ -4,9 +4,9 @@
 #include <QFile>
 #include <QPainter>
 
-#include "Palette.hpp"
 #include "StyleScale.hpp"
 #include "StyleTypes.hpp"
+#include "Styles/Palette.hpp"
 
 namespace Style::internal
 {

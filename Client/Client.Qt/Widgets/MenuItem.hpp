@@ -3,7 +3,7 @@
 #include <QWidgetAction>
 
 #include "Buttons.hpp"
-#include "Style/StyleBasic.hpp"
+#include "Styles/StyleBasic.hpp"
 
 struct CallbackData
 {

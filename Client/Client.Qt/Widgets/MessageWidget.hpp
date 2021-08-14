@@ -73,7 +73,6 @@ public:
     /// Message DB
     bool isTheMessage(uint64_t messageId, uint64_t userId) const { return messageId == _messageId && userId == _userId; }
 
-
 public slots:
     void onDelete();
 
