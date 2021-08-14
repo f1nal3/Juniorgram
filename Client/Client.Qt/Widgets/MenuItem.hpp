@@ -1,9 +1,9 @@
 #pragma once
 #include <QWidget>
 #include <QWidgetAction>
+#include <Styles/Styles.hpp>
 
 #include "Buttons.hpp"
-#include "Styles/StyleBasic.hpp"
 
 struct CallbackData
 {
