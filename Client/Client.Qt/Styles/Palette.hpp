@@ -13,15 +13,24 @@ void init_Palette(int scale);
 
 }  // namespace internal
 
+/**
+ * @class Palette
+ * @brief Class for holding application color palette
+ */
 class Palette
 {
 public:
-    Palette()                     = default;
+    /// Constructor for palette
+    Palette() = default;
+    /// Remove copy constructor
     Palette(const Palette& other) = delete;
 
+    /// TODO: implement this
     QByteArray save() const;
-    bool       load(const QByteArray& cache);
+    /// TODO: implement this
+    bool load(const QByteArray& cache);
 
+    /// Set result
     enum class SetResult
     {
         Ok,
@@ -29,36 +38,54 @@ public:
         ValueNotFound,
         Duplicate,
     };
-    SetResult setColor(QLatin1String name, uchar r, uchar g, uchar b, uchar a);
-    SetResult setColor(QLatin1String name, QLatin1String from);
-    void      reset()
+    /// Reset palette
+    void reset()
     {
         clear();
         finalize();
     }
 
-    // Created not inited, should be finalized before usage.
+    /// Created not inited, should be finalized before usage.
     void finalize();
 
-    int   indexOfColor(color c) const;
+    /// Index of color
+    int indexOfColor(color c) const;
+    /// Color at index
     color colorAtIndex(int index) const;
 
-    inline const color&               get_transparent() const { return _colors[0]; };  // special color
+    /// Transparent color
+    inline const color& get_transparent() const { return _colors[0]; };
+    /// windowActiveTextFg
     [[nodiscard]] inline const color& get_windowActiveTextFg() const { return _colors[1]; };
+    /// window
     [[nodiscard]] inline const color& get_window() const { return _colors[2]; };
+    /// windowColor
     [[nodiscard]] inline const color& get_windowColor() const { return _colors[3]; };
+    /// windowColorOver
     [[nodiscard]] inline const color& get_windowColorOver() const { return _colors[4]; };
+    /// titleButton
     [[nodiscard]] inline const color& get_titleButton() const { return _colors[5]; };
+    /// titleButtonOver
     [[nodiscard]] inline const color& get_titleButtonOver() const { return _colors[6]; };
+    /// closeButtonC
     [[nodiscard]] inline const color& get_closeButtonC() const { return _colors[7]; };
+    /// closeButtonCOver
     [[nodiscard]] inline const color& get_closeButtonCOver() const { return _colors[8]; };
+    /// linkButtonColor
     [[nodiscard]] inline const color& get_linkButtonColor() const { return _colors[9]; };
+    /// linkButtonOverColor
     [[nodiscard]] inline const color& get_linkButtonOverColor() const { return _colors[10]; };
+    /// scrollArea
     [[nodiscard]] inline const color& get_scrollArea() const { return _colors[11]; };
+    /// scrollAreaColor
     [[nodiscard]] inline const color& get_scrollAreaColor() const { return _colors[12]; };
+    /// scrollAreaBar
     [[nodiscard]] inline const color& get_scrollAreaBar() const { return _colors[13]; };
+    /// scrollAreaColorOver
     [[nodiscard]] inline const color& get_scrollAreaColorOver() const { return _colors[14]; };
+    /// scrollAreaBarOver
     [[nodiscard]] inline const color& get_scrollAreaBarOver() const { return _colors[15]; };
+    /// spinnerLineColor
     [[nodiscard]] inline const color& get_spinnerLineColor() const { return _colors[16]; };
 
     Palette& operator=(const Palette& other)
@@ -163,33 +190,11 @@ private:
     Status _status[kCount] = {Status::Initial};
     bool   _ready          = false;
 };
-
-namespace MainPalette
-{
-QByteArray         save();
-bool               load(const QByteArray& cache);
-Palette::SetResult setColor(QLatin1String name, uchar r, uchar g, uchar b, uchar a);
-Palette::SetResult setColor(QLatin1String name, QLatin1String from);
-void               apply(const Palette& other);
-void               reset();
-int                indexOfColor(color c);
-
-struct row
-{
-    QLatin1String name;
-    QLatin1String value;
-    QLatin1String fallback;
-    QLatin1String description;
-};
-QList<row> data();
-
-}  // namespace MainPalette
 }  // namespace Style
 
 namespace st
 {
-/// special color
-extern const Style::color& transparent;
+extern const Style::color& transparent;  // special color
 /// windowActiveTextFg: Style::color
 extern const Style::color& windowActiveTextFg;
 /// window: Style::color
