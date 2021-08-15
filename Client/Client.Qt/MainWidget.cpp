@@ -111,7 +111,6 @@ MainWidget::MainWidget() : QWidget(nullptr)
     grid->addWidget(_title.get(), 0, 0);
     grid->setSpacing(0);
     setLayout(grid);
-    grid->invalidate();
 
     refreshTitleBar(false);
     qApp->installEventFilter(this);
@@ -205,19 +204,19 @@ void MainWidget::updateCursor(Qt::Edges edges)
 
     if (((edges & Qt::LeftEdge) && (edges & Qt::TopEdge)) || ((edges & Qt::RightEdge) && (edges & Qt::BottomEdge)))
     {
-        QGuiApplication::changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
+        QGuiApplication::changeOverrideCursor(Style::cur_sizefdiag);
     }
     else if (((edges & Qt::LeftEdge) && (edges & Qt::BottomEdge)) || ((edges & Qt::RightEdge) && (edges & Qt::TopEdge)))
     {
-        QGuiApplication::changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
+        QGuiApplication::changeOverrideCursor(Style::cur_sizebdiag);
     }
     else if ((edges & Qt::LeftEdge) || (edges & Qt::RightEdge))
     {
-        QGuiApplication::changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+        QGuiApplication::changeOverrideCursor(Style::cur_sizehor);
     }
     else if ((edges & Qt::TopEdge) || (edges & Qt::BottomEdge))
     {
-        QGuiApplication::changeOverrideCursor(QCursor(Qt::SizeVerCursor));
+        QGuiApplication::changeOverrideCursor(Style::cur_sizever);
     }
 }
 

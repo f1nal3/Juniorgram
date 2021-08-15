@@ -38,8 +38,14 @@ extern const int& minWidth;
 extern const int& minHeight;
 /// shadowPadding: pixels
 extern const int& shadowPadding;
+/// titleBarHeight: pixels
+extern const int& titleBarHeight;
+/// titleBarMaxIconWidth: pixels
+extern const int& titleBarMaxIconWidth;
 /// authBlockWidth: pixels
 extern const int& authBlockWidth;
+/// authBlockSpacing: pixels
+extern const int& authBlockSpacing;
 /// smileIcon: Style::icon
 extern const Style::icon& smileIcon;
 /// dislikeIcon: Style::icon

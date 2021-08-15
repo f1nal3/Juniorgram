@@ -40,16 +40,15 @@ Login::Login(QWidget* parent) : Page(parent)
 void Login::resizeEvent(QResizeEvent* event)
 {
     const QSize SIZE          = event->size();
-    const int   HOR_SPACING   = Style::valueDPIScale(16);
     const int   MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
     const int   LEFT_SHIFT    = (SIZE.width() - st::authBlockWidth) / 2;
 
     _logoWidget->updateSize();
 
     _usernameInput->move(LEFT_SHIFT, MIN_TOP_SHIFT);
-    _passwordInput->move(LEFT_SHIFT, _usernameInput->geometry().bottom() + 1 + HOR_SPACING);
-    _signInButton->move(LEFT_SHIFT, _passwordInput->geometry().bottom() + 1 + HOR_SPACING * 2);
-    _registrationButton->move(LEFT_SHIFT, _signInButton->geometry().bottom() + 1 + HOR_SPACING);
+    _passwordInput->move(LEFT_SHIFT, _usernameInput->geometry().bottom() + 1 + st::authBlockSpacing);
+    _signInButton->move(LEFT_SHIFT, _passwordInput->geometry().bottom() + 1 + st::authBlockSpacing * 3 / 2);
+    _registrationButton->move(LEFT_SHIFT, _signInButton->geometry().bottom() + 1 + st::authBlockSpacing);
     Page::resizeEvent(event);
 }
 
