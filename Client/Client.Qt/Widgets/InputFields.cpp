@@ -80,7 +80,7 @@ FlatInput::FlatInput(QWidget* parent, const QString& placeholder, bool password)
 
     QLineEdit::setTextMargins(0, 0, 0, 0);
     setContentsMargins(st::defaultMargins);
-    setMinimumHeight(fontMetrics().height() + Style::valueDPIScale(8) * 2);
+    setMinimumHeight(fontMetrics().height() + st::defaultMargin * 2);
     setPlaceholderText(placeholder);
     setEchoMode(password ? Password : Normal);
 }
