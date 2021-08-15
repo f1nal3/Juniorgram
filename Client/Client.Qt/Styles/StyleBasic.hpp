@@ -46,6 +46,10 @@ extern const int& titleBarMaxIconWidth;
 extern const int& authBlockWidth;
 /// authBlockSpacing: pixels
 extern const int& authBlockSpacing;
+/// channelListMinWidth: pixels
+extern const int& channelListMinWidth;
+/// channelListMaxWidth: pixels
+extern const int& channelListMaxWidth;
 /// smileIcon: Style::icon
 extern const Style::icon& smileIcon;
 /// dislikeIcon: Style::icon

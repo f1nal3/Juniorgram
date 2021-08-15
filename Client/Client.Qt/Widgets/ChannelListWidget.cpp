@@ -1,5 +1,7 @@
 #include "ChannelListWidget.hpp"
 
+#include "Buttons.hpp"
+
 ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
 {
     _vBoxLayout       = std::make_unique<QVBoxLayout>(this);
@@ -7,8 +9,8 @@ ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
     _addChannelButton = std::make_unique<FlatButton>(this, "+");
 
     setContentsMargins(0, 0, 0, 0);
-    setMinimumWidth(Style::valueDPIScale(200));
-    setMaximumWidth(Style::valueDPIScale(300));
+    setMinimumWidth(st::channelListMinWidth);
+    setMaximumWidth(st::channelListMaxWidth);
     _vBoxLayout->addWidget(_addChannelButton.get());
     _vBoxLayout->addWidget(_channelList.get());
     _channelList->setFrameShape(QFrame::NoFrame);

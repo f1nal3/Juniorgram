@@ -1,6 +1,7 @@
 #include "ChannelListWindow.hpp"
 
 #include "Application.hpp"
+#include "Buttons.hpp"
 
 ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent)
     : Page(parent), _widgetChannelList(anotherChannelListWidget)

@@ -7,6 +7,7 @@
 #include <utility>
 
 #include "Application.hpp"
+#include "PopupWidget.hpp"
 #include "Widgets/ChatHistory.hpp"
 #include "Widgets/ReactionLayout.hpp"
 

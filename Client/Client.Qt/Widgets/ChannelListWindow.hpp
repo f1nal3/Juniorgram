@@ -4,10 +4,10 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-#include "Buttons.hpp"
 #include "ListWidget.hpp"
-#include "MainWidget.hpp"
 #include "Page.hpp"
+
+class FlatButton;
 
 /**
  *  @class ChannelListWindow
