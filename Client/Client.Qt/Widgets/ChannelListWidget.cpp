@@ -7,7 +7,7 @@ ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
     _addChannelButton = std::make_unique<FlatButton>(this, "+");
 
     setContentsMargins(0, 0, 0, 0);
-    _addChannelButton->setMinimumWidth(Style::valueDPIScale(200));
+    setMinimumWidth(Style::valueDPIScale(200));
     setMaximumWidth(Style::valueDPIScale(300));
     _vBoxLayout->addWidget(_addChannelButton.get());
     _vBoxLayout->addWidget(_channelList.get());
