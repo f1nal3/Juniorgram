@@ -20,15 +20,15 @@ jobs:
            POSTGRES_USER: postgres
            POSTGRES_PASSWORD: postgres
            POSTGRES_DB: test
-
         ports:
         - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
+    - name: Checkout
     - uses: actions/checkout@v2
-    - name: Login to GitHub Packages Docker Registry.
       
+    - name: Python setup
     - uses: actions/setup-python@v2
       with:
         python-version: '3.x'
