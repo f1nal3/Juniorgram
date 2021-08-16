@@ -5,6 +5,8 @@
 #include <Styles/StyleBasic.hpp>
 #include <vector>
 
+#include "Widgets/MenuItem.hpp"
+
 class IconButton;
 
 /**

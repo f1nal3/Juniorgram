@@ -88,6 +88,7 @@ public:
     /// spinnerLineColor
     [[nodiscard]] inline const color& get_spinnerLineColor() const { return _colors[16]; };
 
+    /// Assign operator for Palette
     Palette& operator=(const Palette& other)
     {
         auto wasReady = _ready;
@@ -118,6 +119,7 @@ public:
         return *this;
     }
 
+    /// Destructor for palette
     ~Palette() { clear(); }
 
 private:

@@ -4,20 +4,20 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-#include "ListWidget.hpp"
-#include "Page.hpp"
+#include "Widgets/ListWidget.hpp"
+#include "Widgets/Page.hpp"
 
 class FlatButton;
 
 /**
- *  @class ChannelListWindow
+ *  @class ChannelListPage
  *  @brief This is channel list
  */
-class ChannelListWindow : public Page
+class ChannelListPage : public Page
 {
 public:
     /// Constructor for channel list window
-    explicit ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent = nullptr);
+    explicit ChannelListPage(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent = nullptr);
 
 public:
     /// TODO: rework channel list in main window to make this private

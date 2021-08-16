@@ -18,6 +18,7 @@ bool isCompositionEnabled()
     return SUCCESS && result;
 }
 
+/// https://github.com/melak47/BorderlessWindow
 bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* result)
 {
     Q_UNUSED(eventType)
@@ -25,7 +26,6 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
 
     if (msg->message == WM_NCACTIVATE)
     {
-        // https://github.com/melak47/BorderlessWindow
         if (isCompositionEnabled())
         {
             const auto res = DefWindowProc(msg->hwnd, msg->message, msg->wParam, -1);
@@ -102,15 +102,17 @@ MainWidget::MainWidget() : QWidget(nullptr)
     setMinimumWidth(st::minWidth);
     setMinimumHeight(st::minHeight);
 
-    auto* grid = new QGridLayout(this);
+    auto* grid = new QVBoxLayout(this);
 
-    _body  = std::make_unique<QWidget>(this);
     _title = std::make_unique<TitleWidget>(this);
+    _body  = std::make_unique<QWidget>(this);
 
-    grid->addWidget(_body.get(), 1, 0);
-    grid->addWidget(_title.get(), 0, 0);
+    grid->addWidget(_title.get());
+    grid->addWidget(_body.get());
     grid->setSpacing(0);
     setLayout(grid);
+
+    resize(width(), height());
 
     refreshTitleBar(false);
     qApp->installEventFilter(this);

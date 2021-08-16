@@ -3,8 +3,8 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-#include "ChannelListWindow.hpp"
 #include "ListWidget.hpp"
+#include "Pages/ChannelListPage.hpp"
 
 class FlatButton;
 
@@ -28,8 +28,8 @@ public:
     std::shared_ptr<ListWidget> getChannelList();
 
 private:
-    std::unique_ptr<FlatButton>        _addChannelButton;
-    std::unique_ptr<ChannelListWindow> _listWidgetChannels;
-    std::unique_ptr<QVBoxLayout>       _vBoxLayout;
-    std::shared_ptr<ListWidget>        _channelList;
+    std::unique_ptr<FlatButton>      _addChannelButton;
+    std::unique_ptr<ChannelListPage> _listWidgetChannels;
+    std::unique_ptr<QVBoxLayout>     _vBoxLayout;
+    std::shared_ptr<ListWidget>      _channelList;
 };

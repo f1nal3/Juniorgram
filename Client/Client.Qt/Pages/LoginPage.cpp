@@ -1,4 +1,4 @@
-#include "login.hpp"
+#include "LoginPage.hpp"
 
 #include <QtEvents>
 
@@ -7,17 +7,17 @@
 #include "Widgets/Buttons.hpp"
 #include "Widgets/InputFields.hpp"
 
-Login::Login(QWidget* parent) : Page(parent)
+LoginPage::LoginPage(QWidget* parent) : Page(parent)
 {
     _usernameInput = std::make_unique<FlatInput>(this, "Username");
     _passwordInput = std::make_unique<FlatInput>(this, "Password", true);
 
-    _signInButton       = std::make_unique<FlatButton>(this, "Login");
+    _signInButton       = std::make_unique<FlatButton>(this, "LoginPage");
     _registrationButton = std::make_unique<FlatButton>(this, "Registration");
 
     _logoWidget = std::make_unique<LogoWidget>(this);
 
-    connect(ReceiverManager::instance(), &ReceiverManager::onLoginAnswer, this, &Login::onLogin);
+    connect(ReceiverManager::instance(), &ReceiverManager::onLoginAnswer, this, &LoginPage::onLogin);
 
     _signInButton->setClickCallback([this]() {
         onPause();
@@ -37,7 +37,7 @@ Login::Login(QWidget* parent) : Page(parent)
     _usernameInput->resize(st::authBlockWidth, _usernameInput->minimumHeight());
 }
 
-void Login::resizeEvent(QResizeEvent* event)
+void LoginPage::resizeEvent(QResizeEvent* event)
 {
     const QSize SIZE          = event->size();
     const int   MIN_TOP_SHIFT = SIZE.height() * 40 / 100;
@@ -52,7 +52,7 @@ void Login::resizeEvent(QResizeEvent* event)
     Page::resizeEvent(event);
 }
 
-void Login::onLogin()
+void LoginPage::onLogin()
 {
     onResume();
     if (ConnectionManager::loginState == LoginState::SUCCESS)

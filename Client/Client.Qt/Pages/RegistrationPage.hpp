@@ -10,13 +10,13 @@ class LogoWidget;
 
 /**
  * @class Registration
- * @brief Registration form for JuniorGram
+ * @brief Registration page for JuniorGram
  */
 class Registration : public Page
 {
     Q_OBJECT
 public:
-    /// Constructor for registration form
+    /// Constructor for registration page
     explicit Registration(QWidget* parent = nullptr);
 
 private slots:

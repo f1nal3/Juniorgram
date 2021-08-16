@@ -1,9 +1,9 @@
 #include "Application.hpp"
 
-#include "ChatWindow.hpp"
 #include "MainWidget.hpp"
-#include "login.hpp"
-#include "registration.hpp"
+#include "Pages/ChatPage.hpp"
+#include "Pages/LoginPage.hpp"
+#include "Pages/RegistrationPage.hpp"
 
 Application::Application(int& argc, char** argv) : QApplication(argc, argv) {}
 
@@ -28,9 +28,9 @@ void Application::create()
     _mainWidget->setBioButtonIcon(_icon);
 
     _recieverManager = std::make_unique<ReceiverManager>();
-    _mainWidget->addWidget(std::make_unique<Login>());
+    _mainWidget->addWidget(std::make_unique<LoginPage>());
     _mainWidget->addWidget(std::make_unique<Registration>());
-    _mainWidget->addWidget(std::make_unique<ChatWindow>());
+    _mainWidget->addWidget(std::make_unique<ChatPage>());
 
     ReactionLayout::addIcon(0, st::likeIcon);
     ReactionLayout::addIcon(1, st::dislikeIcon);

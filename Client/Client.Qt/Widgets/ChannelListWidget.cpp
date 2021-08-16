@@ -23,7 +23,7 @@ ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
 
 void ChannelListWidget::showChannelListWindow()
 {
-    if (!_listWidgetChannels) _listWidgetChannels = std::make_unique<ChannelListWindow>(_channelList);
+    if (!_listWidgetChannels) _listWidgetChannels = std::make_unique<ChannelListPage>(_channelList);
     _listWidgetChannels->show();
 }
 

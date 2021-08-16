@@ -5,50 +5,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(SOURCE_FILES
-        Widgets/TitleWidget.cpp
-        Widgets/TitleWidget.hpp
-        Widgets/AbstractButton.cpp
-        Widgets/AbstractButton.hpp
-        Widgets/ChannelListWidget.cpp
-        Widgets/ChannelListWidget.hpp
-        Widgets/ChannelListWindow.cpp
-        Widgets/ChannelListWindow.hpp
-        Widgets/ChatHistory.cpp
-        Widgets/ChatHistory.hpp
-        Widgets/ChatWidget.cpp
-        Widgets/ChatWidget.hpp
-        Widgets/ComboBox.cpp
-        Widgets/ComboBox.hpp
-        Widgets/Buttons.cpp
-        Widgets/Buttons.hpp
-        Widgets/InputFields.cpp
-        Widgets/InputFields.hpp
-        Widgets/Label.cpp
-        Widgets/Label.hpp
-        Widgets/ListWidget.cpp
-        Widgets/ListWidget.hpp
-        Widgets/LogoWidget.cpp
-        Widgets/LogoWidget.hpp
-        Widgets/Menu.cpp
-        Widgets/Menu.hpp
-        Widgets/MenuItem.cpp
-        Widgets/MenuItem.hpp
-        Widgets/MessageWidget.cpp
-        Widgets/MessageWidget.hpp
-        Widgets/PopupWidget.cpp
-        Widgets/PopupWidget.hpp
-        Widgets/ScrollArea.cpp
-        Widgets/ScrollArea.hpp
-        Widgets/TextEdit.cpp
-        Widgets/TextEdit.hpp
-        Widgets/ReactionLayout.cpp
-        Widgets/ReactionLayout.hpp
-        Widgets/LoadingSpinner.cpp
-        Widgets/LoadingSpinner.hpp
-        Widgets/Page.cpp
-        Widgets/Page.hpp
-
+set(STYLE_SOURCES
         Style/Shadow.hpp
         Style/Style.cpp
         Style/Style.hpp
@@ -56,40 +13,87 @@ set(SOURCE_FILES
         Style/StyleColor.hpp
         Style/StyleFont.cpp
         Style/StyleFont.hpp
+        Style/StyleIcon.cpp
+        Style/StyleIcon.hpp
         Style/StyleScale.cpp
         Style/StyleScale.hpp
         Style/StyleTypes.cpp
         Style/StyleTypes.hpp
-        Style/StyleIcon.cpp
-        Style/StyleIcon.hpp
 
-        Styles/Styles.hpp
-        Styles/StyleBasic.hpp
-        Styles/StyleBasic.cpp
-        Styles/StyleWidgets.hpp
-        Styles/StyleWidgets.cpp
         Styles/Palette.cpp
         Styles/Palette.hpp
+        Styles/StyleBasic.hpp
+        Styles/StyleBasic.cpp
+        Styles/Styles.hpp
+        Styles/StyleWidgets.hpp
+        Styles/StyleWidgets.cpp)
+
+set(UI_WIDGETS_SOURCES
+        Widgets/AbstractButton.cpp
+        Widgets/AbstractButton.hpp
+        Widgets/Buttons.cpp
+        Widgets/Buttons.hpp
+        Widgets/ComboBox.cpp
+        Widgets/ComboBox.hpp
+        Widgets/InputFields.cpp
+        Widgets/InputFields.hpp
+        Widgets/Label.cpp
+        Widgets/Label.hpp
+        Widgets/ListWidget.cpp
+        Widgets/ListWidget.hpp
+        Widgets/LoadingSpinner.cpp
+        Widgets/LoadingSpinner.hpp
+        Widgets/LogoWidget.cpp
+        Widgets/LogoWidget.hpp
+        Widgets/Menu.cpp
+        Widgets/Menu.hpp
+        Widgets/MenuItem.cpp
+        Widgets/MenuItem.hpp
+        Widgets/Page.cpp
+        Widgets/Page.hpp
+        Widgets/PopupWidget.cpp
+        Widgets/PopupWidget.hpp
+        Widgets/ScrollArea.cpp
+        Widgets/ScrollArea.hpp
+        Widgets/TextEdit.cpp
+        Widgets/TextEdit.hpp
+        Widgets/TitleWidget.cpp
+        Widgets/TitleWidget.hpp)
+
+set(PAGES_SOURCES
+        Pages/ChannelListPage.cpp
+        Pages/ChannelListPage.hpp
+        Pages/ChatPage.cpp
+        Pages/ChatPage.hpp
+        Pages/LoginPage.cpp
+        Pages/LoginPage.hpp
+        Pages/RegistrationPage.cpp
+        Pages/RegistrationPage.hpp)
+
+set(SOURCE_FILES
+        Widgets/ChannelListWidget.cpp
+        Widgets/ChannelListWidget.hpp
+        Widgets/ChatHistory.cpp
+        Widgets/ChatHistory.hpp
+        Widgets/ChatWidget.cpp
+        Widgets/ChatWidget.hpp
+        Widgets/MessageWidget.cpp
+        Widgets/MessageWidget.hpp
+        Widgets/ReactionLayout.cpp
+        Widgets/ReactionLayout.hpp
 
         Application.cpp
         Application.hpp
-
         ConnectionManager.cpp
         ConnectionManager.hpp
 
-        ChatWindow.cpp
-        ChatWindow.hpp
-        login.cpp
-        login.hpp
         main.cpp
         MainWidget.cpp
         MainWidget.hpp
-        registration.cpp
-        registration.hpp
         Settings.cpp
         Settings.hpp)
 
-add_executable(${TARGET} ${SOURCE_FILES}
+add_executable(${TARGET} ${SOURCE_FILES} ${STYLE_SOURCES} ${UI_WIDGETS_SOURCES} ${PAGES_SOURCES}
         resources/resources.qrc)
 
 if (WIN32)

@@ -2,10 +2,10 @@
 
 #include "Client.hpp"
 #include "Network/Primitives.hpp"
+#include "Pages/ChannelListPage.hpp"
 #include "ServerInfo.hpp"
-#include "Widgets/ChannelListWindow.hpp"
 
-/// Login status
+/// LoginPage status
 enum class LoginState
 {
     SUCCESS,
@@ -30,7 +30,7 @@ signals:
     /// Disconnect handler
     void onDisconnect();
 
-    /// Login Answer handler
+    /// LoginPage Answer handler
     void onLoginAnswer(bool success);
     /// Server Accepted handler
     void onServerAccepted();
@@ -61,7 +61,7 @@ class ConnectionManager : public Network::Client
 {
 public:
     /// TODO: should be in client core
-    /// Login status
+    /// LoginPage status
     inline static LoginState loginState;
 
     /// Initialize connection to server
@@ -73,7 +73,7 @@ protected:
     /// Disconnect handler
     void onDisconnect() override;
 
-    /// Login Answer handler
+    /// LoginPage Answer handler
     void onLoginAnswer(bool success) override;
     /// Server Accepted handler
     void onServerAccepted() override;

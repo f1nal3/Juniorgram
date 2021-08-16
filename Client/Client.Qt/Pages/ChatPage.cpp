@@ -1,11 +1,11 @@
-#include "ChatWindow.hpp"
+#include "ChatPage.hpp"
 
 #include <ConnectionManager.hpp>
 #include <QtEvents>
 #include <iostream>
 #include <thread>
 
-ChatWindow::ChatWindow(QWidget* parent) : Page(parent)
+ChatPage::ChatPage(QWidget* parent) : Page(parent)
 {
     setContentsMargins(0, 0, 0, 0);
     _mainLayout        = std::make_unique<QSplitter>(this);
@@ -25,7 +25,7 @@ ChatWindow::ChatWindow(QWidget* parent) : Page(parent)
         auto findChannelID = [&]() {
             const auto channelName = _channelListWidget->getChannelList()->currentItem()->text().toStdString();
             auto       channelItartor =
-                std::find_if(ChannelListWindow::channels.begin(), ChannelListWindow::channels.end(),
+                std::find_if(ChannelListPage::channels.begin(), ChannelListPage::channels.end(),
                              [&](const Network::ChannelInfo& channelInfo) { return channelName == channelInfo.channelName; });
 
             std::cout << channelItartor->channelName << " id: " << channelItartor->channelID << std::endl;
@@ -48,4 +48,4 @@ ChatWindow::ChatWindow(QWidget* parent) : Page(parent)
     });
 }
 
-void ChatWindow::resizeEvent(QResizeEvent*) { _mainLayout->resize(width(), height()); }
+void ChatPage::resizeEvent(QResizeEvent*) { _mainLayout->resize(width(), height()); }
