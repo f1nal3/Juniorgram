@@ -2,7 +2,7 @@
 
 #include <QPropertyAnimation>
 #include <QWidget>
-#include <Styles/Styles.hpp>
+#include <Style/Styles.hpp>
 #include <memory>
 
 #include "Widgets/AbstractButton.hpp"

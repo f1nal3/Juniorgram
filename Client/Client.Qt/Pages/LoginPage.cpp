@@ -12,7 +12,7 @@ LoginPage::LoginPage(QWidget* parent) : Page(parent)
     _usernameInput = std::make_unique<FlatInput>(this, "Username");
     _passwordInput = std::make_unique<FlatInput>(this, "Password", true);
 
-    _signInButton       = std::make_unique<FlatButton>(this, "LoginPage");
+    _signInButton       = std::make_unique<FlatButton>(this, "Login");
     _registrationButton = std::make_unique<FlatButton>(this, "Registration");
 
     _logoWidget = std::make_unique<LogoWidget>(this);

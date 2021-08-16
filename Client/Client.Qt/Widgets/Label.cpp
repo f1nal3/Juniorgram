@@ -1,6 +1,6 @@
 #include "Label.hpp"
 
-#include "Styles/Styles.hpp"
+#include "Style/Styles.hpp"
 
 Label::Label(const QString& text, QWidget* parent) : QLabel(text, parent)
 {

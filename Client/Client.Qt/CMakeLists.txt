@@ -20,13 +20,15 @@ set(STYLE_SOURCES
         Style/StyleTypes.cpp
         Style/StyleTypes.hpp
 
-        Styles/Palette.cpp
-        Styles/Palette.hpp
-        Styles/StyleBasic.hpp
-        Styles/StyleBasic.cpp
-        Styles/Styles.hpp
-        Styles/StyleWidgets.hpp
-        Styles/StyleWidgets.cpp)
+        Style/Palette.cpp
+        Style/Palette.hpp
+        Style/StyleBasic.hpp
+        Style/StyleBasic.cpp
+        Style/StyleIcons.cpp
+        Style/StyleIcons.hpp
+        Style/Styles.hpp
+        Style/StyleWidgets.hpp
+        Style/StyleWidgets.cpp)
 
 set(UI_WIDGETS_SOURCES
         Widgets/AbstractButton.cpp

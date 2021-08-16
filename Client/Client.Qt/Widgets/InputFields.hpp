@@ -2,7 +2,7 @@
 
 #include <QLineEdit>
 #include <QTextEdit>
-#include <Styles/Styles.hpp>
+#include <Style/Styles.hpp>
 
 /**
  * @brief Single line input field

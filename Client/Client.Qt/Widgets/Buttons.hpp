@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Styles/Styles.hpp>
+#include <Style/Styles.hpp>
 
 #include "AbstractButton.hpp"
 

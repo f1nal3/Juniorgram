@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <QPainter>
 #include <QtEvents>
-#include <Styles/Styles.hpp>
+#include <Style/Styles.hpp>
 #include <utility>
 
 #include "Application.hpp"

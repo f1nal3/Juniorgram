@@ -1,5 +1,6 @@
 #include "TitleWidget.hpp"
 
+#include <QDebug>
 #include <QLayout>
 #include <QPainter>
 #include <QWindow>
@@ -36,6 +37,7 @@ TitleWidget::TitleWidget(QWidget* parent, const Style::TitleBar& st) : QWidget(p
         parent->showMinimized();
         _minimizeButton->clearState();
     });
+    setMinimumWidth(_minimizeButton->width() + _maximizeButton->width() + _closeButton->width() + _bioButton->width());
 }
 
 void TitleWidget::paintEvent(QPaintEvent*)

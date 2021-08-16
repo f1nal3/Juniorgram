@@ -2,7 +2,6 @@
 
 #include <QDebug>
 #include <QGuiApplication>
-#include <QHBoxLayout>
 #include <QWindow>
 #include <QtEvents>
 
@@ -102,17 +101,15 @@ MainWidget::MainWidget() : QWidget(nullptr)
     setMinimumWidth(st::minWidth);
     setMinimumHeight(st::minHeight);
 
-    auto* grid = new QVBoxLayout(this);
-
+    _grid  = std::make_unique<QVBoxLayout>();
+    _body  = std::make_unique<QWidget>();
     _title = std::make_unique<TitleWidget>(this);
-    _body  = std::make_unique<QWidget>(this);
 
-    grid->addWidget(_title.get());
-    grid->addWidget(_body.get());
-    grid->setSpacing(0);
-    setLayout(grid);
-
-    resize(width(), height());
+    _grid->setSpacing(0);
+    _grid->setMargin(st::shadowPadding);
+    setLayout(_grid.get());
+    _grid->addWidget(_title.get());
+    _grid->addWidget(_body.get());
 
     refreshTitleBar(false);
     qApp->installEventFilter(this);
@@ -120,13 +117,16 @@ MainWidget::MainWidget() : QWidget(nullptr)
 
 void MainWidget::resizeEvent(QResizeEvent* event)
 {
+    QWidget::resizeEvent(event);
+    _body->resize(_body->width() + diff, _body->height() + diff);
+
     if (_current >= 0) _widgets[_current]->resize(_body->width(), _body->height());
-    return QWidget::resizeEvent(event);
 }
 
 void MainWidget::paintEvent(QPaintEvent*)
 {
     QPainter p(this);
+    p.fillRect(rect().marginsRemoved(QMargins(layout()->margin(), layout()->margin(), layout()->margin(), layout()->margin())), Qt::red);
     p.setPen(Qt::NoPen);
     auto start = QColor(0, 0, 0, 0x18);
     auto end   = QColor(0, 0, 0, 0);
@@ -146,6 +146,7 @@ void MainWidget::setCentralWidget(std::int32_t index)
 {
     if (index >= 0 && index < std::int32_t(_widgets.size()))
     {
+        qDebug() << _body->width() << _body->height();
         _widgets[index]->resize(_body->width(), _body->height());
         _widgets[index]->show();
         if (_current >= 0) _widgets[_current]->hide();
@@ -264,3 +265,5 @@ Qt::Edges MainWidget::edgesFromPos(const QPoint& pos)
 
     return Qt::Edges();
 }
+
+void MainWidget::showEvent(QShowEvent*) { resize(size()); }

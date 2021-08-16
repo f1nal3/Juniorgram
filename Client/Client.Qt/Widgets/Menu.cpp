@@ -3,7 +3,7 @@
 #include <QAction>
 #include <QWidgetAction>
 #include <QtEvents>
-#include <Styles/Styles.hpp>
+#include <Style/Styles.hpp>
 
 #include "ReactionLayout.hpp"
 

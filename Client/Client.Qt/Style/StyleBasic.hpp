@@ -50,14 +50,4 @@ extern const int& authBlockSpacing;
 extern const int& channelListMinWidth;
 /// channelListMaxWidth: pixels
 extern const int& channelListMaxWidth;
-/// smileIcon: Style::icon
-extern const Style::icon& smileIcon;
-/// dislikeIcon: Style::icon
-extern const Style::icon& dislikeIcon;
-/// likeIcon: Style::icon
-extern const Style::icon& likeIcon;
-/// fireIcon: Style::icon
-extern const Style::icon& fireIcon;
-/// catIcon: Style::icon
-extern const Style::icon& catIcon;
 }  // namespace st

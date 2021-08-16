@@ -2,7 +2,7 @@
 #include <QColor>
 #include <QTimer>
 #include <QWidget>
-#include <Styles/Styles.hpp>
+#include <Style/Styles.hpp>
 
 /**
  * @class Loading spinner

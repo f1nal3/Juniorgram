@@ -32,11 +32,6 @@ int            _authBlockWidth       = 0;
 int            _authBlockSpacing     = 0;
 int            _channelListMinWidth  = 0;
 int            _channelListMaxWidth  = 0;
-Style::icon    _smileIcon            = {Qt::Uninitialized};
-Style::icon    _dislikeIcon          = {Qt::Uninitialized};
-Style::icon    _likeIcon             = {Qt::Uninitialized};
-Style::icon    _fireIcon             = {Qt::Uninitialized};
-Style::icon    _catIcon              = {Qt::Uninitialized};
 
 }  // namespace
 
@@ -59,11 +54,6 @@ const int&            authBlockWidth(_authBlockWidth);
 const int&            authBlockSpacing(_authBlockSpacing);
 const int&            channelListMinWidth(_channelListMinWidth);
 const int&            channelListMaxWidth(_channelListMaxWidth);
-const Style::icon&    smileIcon(_smileIcon);
-const Style::icon&    dislikeIcon(_dislikeIcon);
-const Style::icon&    likeIcon(_likeIcon);
-const Style::icon&    fireIcon(_fireIcon);
-const Style::icon&    catIcon(_catIcon);
 }  // namespace st
 
 namespace Style
@@ -124,11 +114,6 @@ void init_StyleBasic(int scale)
     _authBlockSpacing     = px16;
     _channelListMinWidth  = px200;
     _channelListMaxWidth  = px300;
-    _smileIcon            = {":reactions/smile.png", 1};
-    _dislikeIcon          = {":reactions/dislike.png", 1};
-    _likeIcon             = {":reactions/like.png", 1};
-    _fireIcon             = {":reactions/fire.png", 1};
-    _catIcon              = {":reactions/cat.png", 1};
 }
 
 }  // namespace internal

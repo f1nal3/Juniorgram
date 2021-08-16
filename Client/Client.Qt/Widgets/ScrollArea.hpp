@@ -3,7 +3,7 @@
 #include <QScrollBar>
 #include <QTimer>
 #include <QWidget>
-#include <Styles/Styles.hpp>
+#include <Style/Styles.hpp>
 
 class ScrollArea;
 

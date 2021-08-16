@@ -1,7 +1,7 @@
 #pragma once
 #include <QWidget>
 #include <QWidgetAction>
-#include <Styles/Styles.hpp>
+#include <Style/Styles.hpp>
 
 #include "Buttons.hpp"
 

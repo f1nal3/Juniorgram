@@ -2,7 +2,7 @@
 
 #include <QPainter>
 
-#include "Styles/StyleBasic.hpp"
+#include "Style/StyleBasic.hpp"
 
 LogoWidget::LogoWidget(QWidget* parent) : QWidget(parent), _part(40) { _logo = std::make_unique<QPixmap>(":images/textlogo.png"); }
 

@@ -2,8 +2,9 @@
 // This file was created automatically
 #include "StyleWidgets.hpp"
 
-#include "Styles/Palette.hpp"
-#include "Styles/StyleBasic.hpp"
+#include "Palette.hpp"
+#include "StyleBasic.hpp"
+#include "StyleIcons.hpp"
 
 namespace
 {
@@ -198,6 +199,7 @@ void init_StyleWidgets(int scale)
 
     init_Palette(scale);
     init_StyleBasic(scale);
+    init_StyleIcons(scale);
 
     initPxValues(scale);
 

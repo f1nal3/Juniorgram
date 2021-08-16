@@ -1,5 +1,7 @@
 #include "Application.hpp"
 
+#include <Style/Styles.hpp>
+
 #include "MainWidget.hpp"
 #include "Pages/ChatPage.hpp"
 #include "Pages/LoginPage.hpp"
@@ -27,7 +29,7 @@ void Application::create()
     _icon = new Style::icon(":/images/logo.png");
     _mainWidget->setBioButtonIcon(_icon);
 
-    _recieverManager = std::make_unique<ReceiverManager>();
+    _receiverManager = std::make_unique<ReceiverManager>();
     _mainWidget->addWidget(std::make_unique<LoginPage>());
     _mainWidget->addWidget(std::make_unique<Registration>());
     _mainWidget->addWidget(std::make_unique<ChatPage>());

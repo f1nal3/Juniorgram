@@ -2,7 +2,7 @@
 
 #include <QPainter>
 #include <QScreen>
-#include <Styles/Styles.hpp>
+#include <Style/Styles.hpp>
 
 #include "Application.hpp"
 

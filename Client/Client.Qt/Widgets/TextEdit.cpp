@@ -1,7 +1,7 @@
 #include "TextEdit.hpp"
 
 #include <QtEvents>
-#include <Styles/Styles.hpp>
+#include <Style/Styles.hpp>
 
 TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
 {

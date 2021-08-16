@@ -5,7 +5,7 @@
 #include "Pages/ChannelListPage.hpp"
 #include "ServerInfo.hpp"
 
-/// LoginPage status
+/// Login status
 enum class LoginState
 {
     SUCCESS,
@@ -30,7 +30,7 @@ signals:
     /// Disconnect handler
     void onDisconnect();
 
-    /// LoginPage Answer handler
+    /// Login Answer handler
     void onLoginAnswer(bool success);
     /// Server Accepted handler
     void onServerAccepted();
@@ -61,7 +61,7 @@ class ConnectionManager : public Network::Client
 {
 public:
     /// TODO: should be in client core
-    /// LoginPage status
+    /// Login status
     inline static LoginState loginState;
 
     /// Initialize connection to server
@@ -73,7 +73,7 @@ protected:
     /// Disconnect handler
     void onDisconnect() override;
 
-    /// LoginPage Answer handler
+    /// Login Answer handler
     void onLoginAnswer(bool success) override;
     /// Server Accepted handler
     void onServerAccepted() override;

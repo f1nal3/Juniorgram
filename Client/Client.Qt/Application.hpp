@@ -3,7 +3,6 @@
 #include <memory>
 
 #include "ConnectionManager.hpp"
-#include "Style/Style.hpp"
 
 class MainWidget;
 
@@ -55,7 +54,7 @@ public:
 private:
     std::unique_ptr<MainWidget>        _mainWidget;
     std::unique_ptr<ConnectionManager> _connectionManager;
-    std::unique_ptr<ReceiverManager>   _recieverManager;
+    std::unique_ptr<ReceiverManager>   _receiverManager;
     App::AppState                      _appState;
     const Style::icon*                 _icon;
 };

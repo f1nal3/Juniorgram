@@ -2,7 +2,7 @@
 
 #include <QWidget>
 #include <QWidgetAction>
-#include <Styles/StyleBasic.hpp>
+#include <Style/StyleBasic.hpp>
 #include <vector>
 
 #include "Widgets/MenuItem.hpp"
