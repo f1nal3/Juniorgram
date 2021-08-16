@@ -14,15 +14,9 @@ jobs:
         BUILD_TYPE: [Debug, Release]
     
     steps:
-    - name: Database Setup
-      run: |
-        $pgService = Get-Service -Name postgresql*
-        Set-Service -InputObject $pgService -Status running -StartupType automatic
-        Start-Process -FilePath "$env:PGBIN\pg_isready" -Wait -PassThru
-
     - name : Checkout
       uses: actions/checkout@v2
-        
+    
     - name: Python setup
       uses: actions/setup-python@v2
       with:
@@ -57,7 +51,23 @@ jobs:
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}}
-  
+
+    - name: Database Setup
+      run: |
+        $pgService = Get-Service -Name postgresql*
+        Set-Service -InputObject $pgService -Status running -StartupType automatic
+        Start-Process -FilePath "$env:PGBIN\pg_isready" -Wait -PassThru
+
+    - name: Create Test Database User
+      run: |
+        & $env:PGBIN\psql --command="CREATE USER testuser PASSWORD null" --command="\du"
+    
+    - name: Create Test Database
+      run: |
+        & $env:PGBIN\createdb --owner=testuser testdb
+        & $env:PGBIN\psql --username=testuser --host=localhost -d testdb -f Database_Scheme.sql
+        & $env:PGBIN\psql --username=testuser --host=localhost --list testdb
+
     - name: Test
       working-directory: ${{github.workspace}}/build
 
