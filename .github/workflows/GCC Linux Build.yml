@@ -38,6 +38,14 @@ jobs:
     - name: Get prerequisites
       run: python -m pip install conan==1.36.0 cmake
       
+    - name: Cache Qt
+      id: qt-cache
+      uses: actions/cache@v2
+      with:
+        path: '/home/runner/work/Juniorgram/Juniorgram/Qt/'
+        key: ${{ runner.os }}${{matrix.BUILD_TYPE}}-qt
+        restore-keys: ${{ runner.os }}${{matrix.BUILD_TYPE}}-qt
+      
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
       with:
