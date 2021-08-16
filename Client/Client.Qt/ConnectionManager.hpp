@@ -1,5 +1,7 @@
 #pragma once
 
+#include <QObject>
+
 #include "Client.hpp"
 #include "Network/Primitives.hpp"
 #include "ServerInfo.hpp"
