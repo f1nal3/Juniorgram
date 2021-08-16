@@ -57,17 +57,12 @@ jobs:
         $pgService = Get-Service -Name postgresql*
         Set-Service -InputObject $pgService -Status running -StartupType automatic
         Start-Process -FilePath "$env:PGBIN\pg_isready" -Wait -PassThru
-
-    - name: Create Test Database User
-      run: |
-        & $env:PGBIN\psql --command="CREATE USER testuser PASSWORD null" --command="\du"
     
     - name: Create Test Database
       run: |
-        & $env:PGBIN\createdb --owner=testuser testdb
-        & $env:PGPASSWORD = 'somestrong'
-        & $env:PGBIN\psql --username=testuser --host=localhost -d testdb -f Database_Scheme.sql
-        & $env:PGBIN\psql --username=testuser --host=localhost --list testdb
+        & $env:PGBIN\createdb --owner=postgres testdb
+        & $env:PGBIN\psql --username=postgres --host=localhost -d testdb -f Database_Scheme.sql
+        & $env:PGBIN\psql --username=postgres --host=localhost --list testdb
 
     - name: Test
       working-directory: ${{github.workspace}}/build
