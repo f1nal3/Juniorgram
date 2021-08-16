@@ -2,7 +2,6 @@
 
 #include "Client.hpp"
 #include "Network/Primitives.hpp"
-#include "Pages/ChannelListPage.hpp"
 #include "ServerInfo.hpp"
 
 /// Login status

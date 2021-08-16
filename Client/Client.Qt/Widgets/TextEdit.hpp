@@ -21,13 +21,43 @@ public:
      * @return text edit field content.
      */
     [[nodiscard]] QString getText() const;
-    /**
-     * @brief Method for clearing text edit field.
-     */
-    void clearTextEdit();
+
+    /// clear text
+    void clear();
+    /// Destructor for text edit
     ~TextEdit() override;
 
+public slots:
+    /// send message
+    void sendButtonClick();
+
+protected:
+    /// handle keyboard
+    void keyPressEvent(QKeyEvent* event) override;
+
+signals:
+    /// message send
+    void sendMessage(QString textMessage);
+
+private slots:
+    void styleButtonClick(const QString& symbolStart, const QString& symbolEnd);
+
 private:
+    void delSymbolsInSelection(QString& text, int& start, int& end, int symbolSize);
+    void delSymbolsOutSelection(QString& text, int& start, int& end, int symbolSize);
+    void insertSymbolsInSelection(QTextCursor& cursor, int& start, int& end, int symbolSize, const QString& symbolStart,
+                                  const QString& symbolEnd);
+    void selectText(QTextCursor& cursor, int start, int end);
+
+private:
+    const int     _symbolSize           = 3;
+    const QString _boldSymbolOpen       = "<B>";
+    const QString _boldSymbolClose      = "</B>";
+    const QString _italicSymbolOpen     = "<I>";
+    const QString _italicSymbolClose    = "</I>";
+    const QString _underlineSymbolOpen  = "<U>";
+    const QString _underlineSymbolClose = "</U>";
+
     std::unique_ptr<QVBoxLayout>  _mainVerticalLayout;
     std::unique_ptr<QHBoxLayout>  _horizontalButtonLayout;
     std::unique_ptr<FlatButton>   _boldnessButton;
@@ -36,28 +66,4 @@ private:
     std::unique_ptr<FlatButton>   _sendButton;
     std::unique_ptr<FlatTextEdit> _messageInput;
     std::unique_ptr<QSpacerItem>  _horizontalButtonSpacer;
-
-    const int     SymbolSize            = 3;
-    const QString _boldSymbolOpen       = "<B>";
-    const QString _boldSymbolClose      = "</B>";
-    const QString _italicSymbolOpen     = "<I>";
-    const QString _italicSymbolClose    = "</I>";
-    const QString _underlineSymbolOpen  = "<U>";
-    const QString _underlineSymbolClose = "</U>";
-
-    void delSymbolsInSelection(QString& text, int& start, int& end, int symbolSize);
-    void delSymbolsOutSelection(QString& text, int& start, int& end, int symbolSize);
-    void insertSymbolsInSelection(QTextCursor& cursor, int& start, int& end, int symbolSize, QString symbolStart, QString symbolEnd);
-    void selectText(QTextCursor& cursor, int start, int end);
-    void connectUi();
-    void keyPressEvent(QKeyEvent* event) override;
-
-signals:
-    void sendMessageSignal(QString textMessage);
-
-public slots:
-    void clickButtonSend();
-
-private slots:
-    void boldButtonClicked(QString SymbolStart, QString SymbolEnd);
 };
