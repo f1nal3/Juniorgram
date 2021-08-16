@@ -65,6 +65,7 @@ jobs:
     - name: Create Test Database
       run: |
         & $env:PGBIN\createdb --owner=testuser testdb
+        & $env:PGPASSWORD = 'somestrong'
         & $env:PGBIN\psql --username=testuser --host=localhost -d testdb -f Database_Scheme.sql
         & $env:PGBIN\psql --username=testuser --host=localhost --list testdb
 
