@@ -184,14 +184,14 @@ void Server::onMessage(const std::shared_ptr<Network::Connection>& client, Netwo
                 auto sessionCode = std::async(std::launch::async, &DataAccess::Sessions::SessionsManagementUnit::addSessionAfterRegistration,
                         std::reference_wrapper(DataAccess::Sessions::SessionsManagementUnit::instance()), client,refreshToken).get();
                 sessionCode;
-                Utility::AccessToken accTk = Coding::getHexCodedValue(accessToken);
-                Utility::RefreshToken refrTk = Coding::getHexCodedValue(refreshToken);
+                Utility::AccessToken hexCodedAccTk = Coding::getHexCodedValue(accessToken);
+                Utility::RefreshToken hexCodedRefrTk = Coding::getHexCodedValue(refreshToken);
                 // Needs improvements in this place. Need handler for process result form sessionCode.
                 //Utility::SessionCodes code = sessionCode.get();
                 // Needs improvements in this place~
                 
                 messageToClient.mBody = std::make_any<std::pair<Utility::AccessAndRefreshToken, Utility::RegistrationCodes>>(
-                    std::pair{std::pair{accTk , refrTk }, registrationCode});
+                    std::pair{std::pair{hexCodedAccTk, hexCodedRefrTk}, registrationCode});
             }
             else
             {
@@ -209,7 +209,6 @@ void Server::onMessage(const std::shared_ptr<Network::Connection>& client, Netwo
 
             std::async(std::launch::async, &DataAccess::Sessions::SessionsManagementUnit::revokeSession,
                 std::reference_wrapper(DataAccess::Sessions::SessionsManagementUnit::instance()),clientRefrToken).get();
-
         }
         break;
 

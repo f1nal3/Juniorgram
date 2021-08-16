@@ -46,6 +46,11 @@ namespace Network
  */
 // using Message = Network::Message;
 
+using MessageType = Message::MessageType;
+const unsigned int AcceptECMask = (unsigned int)MessageType::SetEncryptedConnection |
+                                  (unsigned int)MessageType::ServerAccept |
+                                  (unsigned int)Message::MessageType::SendIV;
+
 class Connection : public std::enable_shared_from_this<Connection>
 {
 public:
@@ -58,7 +63,7 @@ public:
         SERVER,  /// owner is server
         CLIENT   /// owner is client
     };
-
+    
 private:
 
     std::unique_ptr<Utility::KeyDestributor> mKeyDestributor;

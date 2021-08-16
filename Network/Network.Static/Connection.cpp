@@ -107,14 +107,9 @@ namespace Network
         yas::shared_buffer bodyBuffer;
 
         Utility::SerializationHandler handler;
-
+   
         // Needs improvements in this place
-        if (mOutcomingMessagesQueue.front().mHeader.mMessageType ==
-                Message::MessageType::SetEncryptedConnection ||
-            mOutcomingMessagesQueue.front().mHeader.mMessageType ==
-                Message::MessageType::ServerAccept ||
-            mOutcomingMessagesQueue.front().mHeader.mMessageType ==
-                Message::MessageType::SendIV)
+        if ((unsigned int)mOutcomingMessagesQueue.front().mHeader.mMessageType & AcceptECMask)
         {
             handler.setNext(new Utility::CompressionHandler());
         }
@@ -227,9 +222,7 @@ namespace Network
             {
                 Utility::CompressionHandler handler;
 
-                if (header.mMessageType == Message::MessageType::SetEncryptedConnection ||
-                    header.mMessageType == Message::MessageType::ServerAccept ||
-                    header.mMessageType == Message::MessageType::SendIV)
+                if ((unsigned int)header.mMessageType & AcceptECMask)
                 {
                     handler.setNext(new Utility::SerializationHandler());
                 }

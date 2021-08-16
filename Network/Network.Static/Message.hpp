@@ -15,24 +15,25 @@ namespace Network
 class Connection;
 
 struct Message
-{
-    enum class MessageType : std::uint32_t
+{  
+    enum class MessageType : std::uint64_t
     {
-        ChannelListRequest,
-        SetEncryptedConnection,
-        ServerAccept,
-        ServerPing,
-        ServerMessage,
-        MessageAll,
-        MessageHistoryRequest,
-        MessageStoreRequest,
-        RevokeSession,
-        RegistrationRequest,
-        RegistrationAnswer,
-        RegistrationRequestToClient,
-        SendIV,
-        TokenRequest
+        ChannelListRequest          = 1 << 0,
+        SetEncryptedConnection      = 1 << 1,
+        ServerAccept                = 1 << 2,
+        ServerPing                  = 1 << 3,
+        ServerMessage               = 1 << 4,
+        MessageAll                  = 1 << 5,
+        MessageHistoryRequest       = 1 << 6,
+        MessageStoreRequest         = 1 << 7,
+        RevokeSession               = 1 << 8,   
+        RegistrationRequest         = 1 << 9,
+        RegistrationAnswer          = 1 << 10,
+        RegistrationRequestToClient = 1 << 11,
+        SendIV                      = 1 << 12,
+        TokenRequest                = 1 << 13
     };
+  
 
     struct MessageHeader
     {
