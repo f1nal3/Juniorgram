@@ -9,15 +9,15 @@ class FlatButton;
 class LogoWidget;
 
 /**
- * @class Registration
+ * @class RegistrationPage
  * @brief Registration page for JuniorGram
  */
-class Registration : public Page
+class RegistrationPage : public Page
 {
     Q_OBJECT
 public:
     /// Constructor for registration page
-    explicit Registration(QWidget* parent = nullptr);
+    explicit RegistrationPage(QWidget* parent = nullptr);
 
 private slots:
     /// On registration

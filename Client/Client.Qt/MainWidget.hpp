@@ -56,11 +56,9 @@ protected:
     void resizeEvent(QResizeEvent* event) override;
     /// Handle window events
     bool eventFilter(QObject* watched, QEvent* event) override;
-    //// Handle show event
-    void showEvent(QShowEvent* event) override;
 
 private:
-    void updateCursor(Qt::Edges edges);
+    void updateCursor(const Qt::Edges edges);
     void restoreCursor();
 
 private:

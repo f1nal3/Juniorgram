@@ -41,15 +41,15 @@ public:
     void show();
     /**
      * @brief Change app state
-     * @param app_state App state
+     * @param appState App state
      */
-    void setAppState(App::AppState app_state);
-
-    /// Reconnects to server
-    void reconnectToServer();
+    void setAppState(App::AppState appState);
 
     /// Connection manager
     std::unique_ptr<ConnectionManager>& connectionManager();
+public slots:
+    /// Reconnects to server
+    void reconnectToServer();
 
 private:
     std::unique_ptr<MainWidget>        _mainWidget;

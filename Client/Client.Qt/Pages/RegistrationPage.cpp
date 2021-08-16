@@ -9,7 +9,7 @@
 #include "Widgets/InputFields.hpp"
 #include "Widgets/LogoWidget.hpp"
 
-Registration::Registration(QWidget* parent) : Page(parent)
+RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
 {
     _emailInput          = std::make_unique<FlatInput>(this, "Email");
     _usernameInput       = std::make_unique<FlatInput>(this, "Username");
@@ -30,7 +30,7 @@ Registration::Registration(QWidget* parent) : Page(parent)
     _backButton->resize(st::authBlockWidth, _backButton->minimumHeight());
     _logoWidget->setPart(30);
 
-    connect(ReceiverManager::instance(), &ReceiverManager::onRegistrationAnswer, this, &Registration::onRegistration);
+    connect(ReceiverManager::instance(), &ReceiverManager::onRegistrationAnswer, this, &RegistrationPage::onRegistration);
 
     _registrationButton->setClickCallback([this]() {
         using namespace UserDataValidation;
@@ -73,7 +73,7 @@ Registration::Registration(QWidget* parent) : Page(parent)
     });
 }
 
-void Registration::resizeEvent(QResizeEvent* event)
+void RegistrationPage::resizeEvent(QResizeEvent* event)
 {
     const QSize SIZE          = event->size();
     const int   MIN_TOP_SHIFT = SIZE.height() * 30 / 100;
@@ -89,7 +89,7 @@ void Registration::resizeEvent(QResizeEvent* event)
     Page::resizeEvent(event);
 }
 
-void Registration::onRegistration(Utility::RegistrationCodes code)
+void RegistrationPage::onRegistration(Utility::RegistrationCodes code)
 {
     onResume();
     if (code == Utility::RegistrationCodes::SUCCESS)

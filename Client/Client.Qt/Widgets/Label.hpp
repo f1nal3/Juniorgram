@@ -9,5 +9,6 @@
 class Label : public QLabel
 {
 public:
+    /// Constructor for label
     explicit Label(const QString& text = QString(), QWidget* parent = nullptr);
 };

@@ -24,10 +24,8 @@ public:
      */
     ScrollBar(ScrollArea* parent, bool vertical, const Style::ScrollArea* st);
 
-    /**
-     * @brief Recalculate its position and sizes
-     */
-    void recountSize();
+    /// updates position and size
+    void updateSize();
 
     /**
      * @brief Update bar visual representation
@@ -42,17 +40,11 @@ public:
     void hideTimeout(int dtms);
 
 private Q_SLOTS:
-    /**
-     * @brief Connected scrollbar moved
-     */
+    /// on scrollbar move
     void onValueChanged();
-    /**
-     * @brief Connected scrollbar range changed
-     */
+    /// on scrollbar range change
     void onRangeChanged();
-    /**
-     * @brief Nothing has done so timer expired so time to hide scrollbar
-     */
+    /// time to hide
     void onHideTimer();
 
 protected:
@@ -72,9 +64,7 @@ protected:
     void resizeEvent(QResizeEvent* e) override;
 
 private:
-    /**
-     * @brief Scrollarea this scrollbar are connected to
-     */
+    /// ScrollArea this scrollbar are connected to
     ScrollArea* area();
 
     /**
@@ -84,9 +74,9 @@ private:
     void setOver(bool over);
     /**
      * @brief Is mouse over bar?
-     * @param overbar is mouse overB bar?
+     * @param overBar is mouse over bar?
      */
-    void setOverBar(bool overbar);
+    void setOverBar(bool overBar);
     /**
      * @brief Does mouse been pressed on bar
      * @param moving
@@ -98,7 +88,7 @@ private:
     bool _vertical = true;
     bool _hiding   = false;
     bool _over     = false;
-    bool _overbar  = false;
+    bool _overBar  = false;
     bool _moving   = false;
 
     QPoint      _dragStart;
@@ -170,10 +160,9 @@ public:
      */
     void scrollToWidget(QWidget* widget);
 
-    /**
-     * @brief Update scrollbars representation
-     */
+    /// Update scrollbars
     void updateBars();
+
     /**
      * @brief Range of a scrollbar has changed
      * @param oldMax old range
@@ -227,25 +216,15 @@ public Q_SLOTS:
     void onInnerResized();
 
 Q_SIGNALS:
-    /**
-     * @brief scroll just happened
-     */
+    /// area has been scrolled
     void scrolled();
-    /**
-     * @brief inner widget just resized
-     */
+    /// inner widget changed size
     void innerResized();
-    /**
-     * @brief scroll just started
-     */
+    /// scroll just started
     void scrollStarted();
-    /**
-     * @brief scroll just finished
-     */
+    /// scroll just ended
     void scrollFinished();
-    /**
-     * @brief position/size just changed
-     */
+    /// scroll area just resized/moved
     void geometryChanged();
 
 protected:

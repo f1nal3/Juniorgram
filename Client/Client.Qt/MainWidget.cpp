@@ -118,7 +118,6 @@ MainWidget::MainWidget() : QWidget(nullptr)
 void MainWidget::resizeEvent(QResizeEvent* event)
 {
     QWidget::resizeEvent(event);
-    _body->resize(_body->width() + diff, _body->height() + diff);
 
     if (_current >= 0) _widgets[_current]->resize(_body->width(), _body->height());
 }
@@ -126,7 +125,6 @@ void MainWidget::resizeEvent(QResizeEvent* event)
 void MainWidget::paintEvent(QPaintEvent*)
 {
     QPainter p(this);
-    p.fillRect(rect().marginsRemoved(QMargins(layout()->margin(), layout()->margin(), layout()->margin(), layout()->margin())), Qt::red);
     p.setPen(Qt::NoPen);
     auto start = QColor(0, 0, 0, 0x18);
     auto end   = QColor(0, 0, 0, 0);
@@ -142,11 +140,10 @@ std::int32_t MainWidget::addWidget(std::unique_ptr<QWidget> widget)
     return int(_widgets.size()) - 1;
 }
 
-void MainWidget::setCentralWidget(std::int32_t index)
+void MainWidget::setCentralWidget(const std::int32_t index)
 {
     if (index >= 0 && index < std::int32_t(_widgets.size()))
     {
-        qDebug() << _body->width() << _body->height();
         _widgets[index]->resize(_body->width(), _body->height());
         _widgets[index]->show();
         if (_current >= 0) _widgets[_current]->hide();
@@ -154,7 +151,7 @@ void MainWidget::setCentralWidget(std::int32_t index)
     }
 }
 
-void MainWidget::refreshTitleBar(bool showBioButton) { _title->showBioButton(showBioButton); }
+void MainWidget::refreshTitleBar(const bool showBioButton) { _title->showBioButton(showBioButton); }
 
 bool MainWidget::eventFilter(QObject* obj, QEvent* e)
 {
@@ -187,7 +184,7 @@ bool MainWidget::eventFilter(QObject* obj, QEvent* e)
 
 bool MainWidget::setBioButtonIcon(const Style::icon* icon) { return _title->setBioButtonIcon(icon); }
 
-void MainWidget::updateCursor(Qt::Edges edges)
+void MainWidget::updateCursor(const Qt::Edges edges)
 {
     if (!edges)
     {
@@ -265,5 +262,3 @@ Qt::Edges MainWidget::edgesFromPos(const QPoint& pos)
 
     return Qt::Edges();
 }
-
-void MainWidget::showEvent(QShowEvent*) { resize(size()); }

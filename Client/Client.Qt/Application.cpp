@@ -31,7 +31,7 @@ void Application::create()
 
     _receiverManager = std::make_unique<ReceiverManager>();
     _mainWidget->addWidget(std::make_unique<LoginPage>());
-    _mainWidget->addWidget(std::make_unique<Registration>());
+    _mainWidget->addWidget(std::make_unique<RegistrationPage>());
     _mainWidget->addWidget(std::make_unique<ChatPage>());
 
     ReactionLayout::addIcon(0, st::likeIcon);
@@ -43,7 +43,7 @@ void Application::create()
     _connectionManager = std::make_unique<ConnectionManager>();
     _connectionManager->init();
 
-    // connect(ReceiverManager::instance(), &ReceiverManager::disconnected, this, &Application::reconnectToServer, Qt::QueuedConnection);
+    connect(ReceiverManager::instance(), &ReceiverManager::onDisconnect, this, &Application::reconnectToServer);
 
     setAppState(App::AppState::LoginForm);
     QApplication::setFont(st::defaultFont);
@@ -51,9 +51,9 @@ void Application::create()
 
 void Application::show() { _mainWidget->show(); }
 
-void Application::setAppState(App::AppState app_state)
+void Application::setAppState(const App::AppState appState)
 {
-    _appState = app_state;
+    _appState = appState;
     _mainWidget->refreshTitleBar(false);
     switch (_appState)
     {
