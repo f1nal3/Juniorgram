@@ -43,7 +43,7 @@ signals:
     void onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages);
     /// Message Store Answer handler
     void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode);
-    /// Registration Answer handler
+    /// RegistrationPage Answer handler
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
     /// User Message Delete Answer handler
     void onUserMessageDeleteAnswer();
@@ -86,7 +86,7 @@ protected:
     void onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages) override;
     /// Message Store Answer handler
     void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode) override;
-    /// Registration Answer handler
+    /// RegistrationPage Answer handler
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode) override;
     /// User Message Delete Answer handler
     void onUserMessageDeleteAnswer() override;
