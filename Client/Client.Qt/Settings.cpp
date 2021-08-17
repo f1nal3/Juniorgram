@@ -28,13 +28,13 @@ void Settings::resetSettings()
     settings->clear();
 }
 
-void Settings::setFontSize(int size)
+void Settings::setFontSize(std::int32_t size)
 {
     if (size > _minFontSize) 
         _fontSize = size;    
 }
 
-std::optional<int> Settings::getFontSize()
+std::optional<std::int32_t> Settings::getFontSize()
 {
     if (settings->contains("Font/ChatFontSize")) 
     { 
