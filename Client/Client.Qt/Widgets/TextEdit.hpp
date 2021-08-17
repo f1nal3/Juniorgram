@@ -3,6 +3,7 @@
 #include <QVBoxLayout>
 #include <memory>
 
+#include "Settings.hpp"
 #include "Buttons.hpp"
 #include "InputFields.hpp"
 
@@ -50,6 +51,8 @@ private:
     void selectText(QTextCursor& cursor, int start, int end);
 
 private:
+    Settings& _settings;
+
     const int     _symbolSize           = 3;
     const QString _boldSymbolOpen       = "<B>";
     const QString _boldSymbolClose      = "</B>";
@@ -57,7 +60,6 @@ private:
     const QString _italicSymbolClose    = "</I>";
     const QString _underlineSymbolOpen  = "<U>";
     const QString _underlineSymbolClose = "</U>";
-
     std::unique_ptr<QVBoxLayout>  _mainVerticalLayout;
     std::unique_ptr<QHBoxLayout>  _horizontalButtonLayout;
     std::unique_ptr<FlatButton>   _boldnessButton;
@@ -66,4 +68,5 @@ private:
     std::unique_ptr<FlatButton>   _sendButton;
     std::unique_ptr<FlatTextEdit> _messageInput;
     std::unique_ptr<QSpacerItem>  _horizontalButtonSpacer;
+    
 };

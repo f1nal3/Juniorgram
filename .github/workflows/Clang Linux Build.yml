@@ -19,7 +19,8 @@ jobs:
         env:
            POSTGRES_USER: postgres
            POSTGRES_PASSWORD: postgres
-           POSTGRES_DB: test
+           POSTGRES_DB: testdb
+           POSTGRES_HOST_AUTH_METHOD: trust
         ports:
         - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -34,7 +35,7 @@ jobs:
         
     - name: Get prerequisites
       run: python -m pip install conan==1.36.0 cmake && sudo apt install clang-12
-      
+
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
       with:
@@ -60,6 +61,9 @@ jobs:
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}}
+      
+    - name: Prepare Database
+      run: psql --username=postgres --host=localhost -d testdb -f Database_Scheme.sql
 
     - name: Test
       working-directory: ${{github.workspace}}/build

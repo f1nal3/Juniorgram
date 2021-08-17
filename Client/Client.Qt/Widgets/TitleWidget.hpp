@@ -141,5 +141,6 @@ public:
     explicit BioButton(QWidget* parent = nullptr, bool inCaption = true);
 
 private:
-    std::unique_ptr<PopupWidget> _popup;
+    std::unique_ptr<PopupWidget>    _popup;
+    std::unique_ptr<SettingsWidget> _settingsWidget;
 };

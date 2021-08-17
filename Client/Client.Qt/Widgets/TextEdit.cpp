@@ -3,7 +3,7 @@
 #include <QtEvents>
 #include <Style/Styles.hpp>
 
-TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
+TextEdit::TextEdit(QWidget* parent) : QWidget(parent), _settings(Settings::getInstance())
 {
     _mainVerticalLayout     = std::make_unique<QVBoxLayout>(this);
     _horizontalButtonLayout = std::make_unique<QHBoxLayout>();
@@ -12,15 +12,17 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
     _underlineButton        = std::make_unique<FlatButton>(this, "U", st::underlineButton);
     _sendButton             = std::make_unique<FlatButton>(this, "Send");
     _messageInput           = std::make_unique<FlatTextEdit>();
-    _horizontalButtonSpacer = std::make_unique<QSpacerItem>(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
+  
+    
+  _horizontalButtonSpacer = std::make_unique<QSpacerItem>(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     _horizontalButtonLayout->setAlignment(Qt::AlignLeft);
     _horizontalButtonLayout->addWidget(_boldnessButton.get());
     _horizontalButtonLayout->addWidget(_italicButton.get());
     _horizontalButtonLayout->addWidget(_underlineButton.get());
     _horizontalButtonLayout->addItem(_horizontalButtonSpacer.get());
     _horizontalButtonLayout->addWidget(_sendButton.get());
-
+  
+    if (auto fontSize = _settings.getFontSize()){ _messageInput->setFontPointSize(*fontSize); } 
     _mainVerticalLayout->addWidget(_messageInput.get());
     _mainVerticalLayout->addLayout(_horizontalButtonLayout.get());
 

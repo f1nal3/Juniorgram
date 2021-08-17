@@ -93,7 +93,9 @@ set(SOURCE_FILES
         MainWidget.cpp
         MainWidget.hpp
         Settings.cpp
-        Settings.hpp)
+        Settings.hpp
+        SettingsWidget.cpp
+        SettingsWidget.hpp)
 
 add_executable(${TARGET} ${SOURCE_FILES} ${STYLE_SOURCES} ${UI_WIDGETS_SOURCES} ${PAGES_SOURCES}
         resources/resources.qrc)
