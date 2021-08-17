@@ -1,4 +1,6 @@
 #pragma once
+#include <Network/Primitives.hpp>
+
 #include "Widgets/InputFields.hpp"
 #include "Widgets/MessageWidget.hpp"
 #include "Widgets/TextEdit.hpp"
@@ -12,7 +14,8 @@ public:
 
 private slots:
     void newMessage(const QString& messageText);
-    void newMessage(const QString& messageText, const QString& userNameMessage);
+    void newMessageA(const QString& messageText, const QString& username);
+    void addMessages(const std::vector<Network::MessageInfo>& messages);
 
 private:
     std::unique_ptr<QVBoxLayout> _mainChatLayout;
