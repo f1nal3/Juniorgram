@@ -1,5 +1,6 @@
 #pragma once
 #include <QApplication>
+#include <Style/Styles.hpp>
 #include <memory>
 
 #include "ConnectionManager.hpp"

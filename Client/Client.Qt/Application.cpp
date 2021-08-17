@@ -1,7 +1,5 @@
 #include "Application.hpp"
 
-#include <Style/Styles.hpp>
-
 #include "MainWidget.hpp"
 #include "Pages/ChatPage.hpp"
 #include "Pages/LoginPage.hpp"
@@ -43,7 +41,8 @@ void Application::create()
     _connectionManager = std::make_unique<ConnectionManager>();
     _connectionManager->init();
 
-    connect(ReceiverManager::instance(), &ReceiverManager::onDisconnect, this, &Application::reconnectToServer);
+    // TODO: it now may crash
+    //  connect(ReceiverManager::instance(), &ReceiverManager::onDisconnect, this, &Application::reconnectToServer);
 
     setAppState(App::AppState::LoginForm);
     QApplication::setFont(st::defaultFont);
