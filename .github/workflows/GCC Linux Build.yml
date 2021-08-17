@@ -72,13 +72,14 @@ jobs:
       run: ctest -C ${{matrix.BUILD_TYPE}} --output-on-failure
    
     - name: Archive server executable
-      if: matrix.BUILD_TYPE == 'Release'
+      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/master'
       uses: actions/upload-artifact@v2
       with:
         name: juniorgram-server
         path: ./build/bin/Server.Exec
         
     - name: Setup SSH
+      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/master'
       run: |
           mkdir -p ~/.ssh/
           echo "$SSH_KEY" > ~/.ssh/staging.key
@@ -96,14 +97,17 @@ jobs:
           SSH_HOST: ${{ secrets.HOST_IP_ADDRESS }}
           
     - name: Stop JG Service
+      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/master'
       run: |
           ssh jg_host 'sudo systemctl stop juniorgram.service '
           ssh jg_host 'sudo rm juniorgram' 
       
     - name: Upload server to Host
+      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/master'    
       run: scp ./build/bin/Server.Exec jg_host:/home/jg_admin/juniorgram
         
     - name: Start JG Service
+      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/master'
       run: |
           ssh jg_host 'sudo chmod +x juniorgram'
           ssh jg_host 'sudo systemctl start juniorgram.service'
