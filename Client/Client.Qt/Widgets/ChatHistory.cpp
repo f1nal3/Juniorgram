@@ -31,7 +31,7 @@ void ChatHistory::addReply(ReplyWidget* reply)
             updateLayout(true);
     });
 
-    _replyList.insert(std::make_pair(_messageList.size(), std::unique_ptr<ReplyMessageWidget>(replyMsg)));
+    _replyList.insert(std::make_pair(int32_t(_messageList.size()), std::unique_ptr<ReplyMessageWidget>(replyMsg)));
 
     reply->close();
 }
