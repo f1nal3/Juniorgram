@@ -5,6 +5,7 @@
 #include <Style/Styles.hpp>
 #include <memory>
 
+#include "SettingsWidget.hpp"
 #include "Widgets/AbstractButton.hpp"
 #include "Widgets/PopupWidget.hpp"
 
