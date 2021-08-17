@@ -77,3 +77,33 @@ jobs:
       with:
         name: juniorgram-server
         path: ./build/bin/Server.Exec
+        
+    - name: Setup SSH
+      run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host jg_host
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+      env:
+          SSH_USER: ${{ secrets.HOST_USER }}
+          SSH_KEY: ${{ secrets.HOST_SSH_KEY }}
+          SSH_HOST: ${{ secrets.HOST_IP_ADDRESS }}
+          
+    - name: Stop JG Service
+      run: |
+          ssh jg_host 'sudo systemctl stop juniorgram.service '
+          ssh jg_host 'sudo rm juniorgram' 
+      
+    - name: Upload server to Host
+      run: scp ./build/bin/Server.Exec jg_host:/home/jg_admin/juniorgram
+        
+    - name: Start JG Service
+      run: |
+          ssh jg_host 'sudo chmod +x juniorgram'
+          ssh jg_host 'sudo systemctl start juniorgram.service'
