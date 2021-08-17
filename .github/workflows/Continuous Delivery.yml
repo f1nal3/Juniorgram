@@ -16,8 +16,7 @@ jobs:
             workflow_conclusion: success
             branch: master
             event: push
-            name: juniorgram_server
-            check_artifacts:  false
+            name: juniorgram-server
             
       - name: Setup SSH
         run: |
