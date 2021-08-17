@@ -229,7 +229,7 @@ std::pair<int, int> ChatHistory::findVisible() const
     int sizeHeight = 0;
 
     auto it = _replyList.find(index);
-    sizeHeight = _messageList[index]->pos().y();
+    sizeHeight = int(_messageList[index]->pos().y());
     if(it != _replyList.end())
     {
         sizeHeight = int(it->second->pos().y());
@@ -246,7 +246,7 @@ std::pair<int, int> ChatHistory::findVisible() const
         index++;
     }
     right = index;
-    index = middle;
+    index = int(middle);
 
     it = _replyList.find(index);
     sizeHeight = int(_messageList[index]->pos().y() + _messageList[index]->height());
