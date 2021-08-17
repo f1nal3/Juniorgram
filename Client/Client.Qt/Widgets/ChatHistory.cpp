@@ -124,10 +124,11 @@ void ChatHistory::updateLayout(bool beenResized)
 
     auto [newleft, newright] = findVisible();
 
+    auto iter = _replyList.find(_left);
     if (newright == int(_messageList.size()) - 1 && _left >= 0)
     {
         int topy = 0;
-        auto iter = _replyList.find(_left);
+        iter = _replyList.find(_left);
         topy    = _messageList[_left]->pos().y() + diff;
         if(iter != _replyList.end())
         {
@@ -140,11 +141,11 @@ void ChatHistory::updateLayout(bool beenResized)
     if (_left >= 0 && beenResized && !haveLast)
     {
         int newy = 0;
-        auto it = _replyList.find(_left);
+        iter = _replyList.find(_left);
         newy = _messageList[_left]->pos().y();
-        if(it->first == _left)
+        if(iter->first == _left)
         {
-            newy = it->second->pos().y();
+            newy = iter->second->pos().y();
         }
         int top           = newy + diff;
         _alreadyScrolling = true;
