@@ -15,8 +15,6 @@ class ChatHistory : public QWidget
 {
     Q_OBJECT
 public:
-    using MessageAndReply = std::vector<std::pair<std::unique_ptr<MessageWidget>, std::unique_ptr<ReplyMessageWidget>>>;
-
     /**
      * @brief Constructor for chat history
      * @param parent Parent widget

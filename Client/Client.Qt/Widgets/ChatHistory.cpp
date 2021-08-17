@@ -127,9 +127,9 @@ void ChatHistory::updateLayout(bool beenResized)
     if (newright == int(_messageList.size()) - 1 && _left >= 0)
     {
         int topy = 0;
-        auto it = _replyList.find(_left);
+        auto iter = _replyList.find(_left);
         topy    = _messageList[_left]->pos().y() + diff;
-        if(it != _replyList.end())
+        if(iter != _replyList.end())
         {
             topy = it->second->pos().y() + diff;
         }

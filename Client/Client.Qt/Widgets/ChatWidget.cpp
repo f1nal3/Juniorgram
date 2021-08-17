@@ -51,5 +51,5 @@ void ChatWidget::addReplyWidget(ReplyWidget* reply)
     }
 
      _replyWidget = reply;
-    _mainChatLayout->insertWidget(1, _replyWidget, 12);
+    _mainChatLayout->insertWidget(1, _replyWidget, 15);
 }
