@@ -37,7 +37,7 @@ public:
     void resetSettings();
     /**
      * @brief Draft method for setting font size value /
-     * if input argument is <=0, size value remains as before
+     * if it is more than const _minFontSize = 0
      * @param size as int.
      */
     void setFontSize(int size);
