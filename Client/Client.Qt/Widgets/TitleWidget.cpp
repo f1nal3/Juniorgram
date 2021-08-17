@@ -174,7 +174,8 @@ void CaptionButton::updateWidget()
 
 BioButton::BioButton(QWidget* parent, bool) : CaptionButton(parent)
 {
-    _popup = std::make_unique<PopupWidget>(this);
+    _popup          = std::make_unique<PopupWidget>(this);
+    _settingsWidget = std::make_unique<SettingsWidget>();
 
     setClickCallback([=]() {
         auto globalPoint = mapToGlobal(QPoint(0, height()));
@@ -184,6 +185,8 @@ BioButton::BioButton(QWidget* parent, bool) : CaptionButton(parent)
 
         // Adding options
         menu->addAction("Username: Add format here WWWWWWWWWWWWWWWWWWWWWWWWWWW", []() {});
+        menu->addSeparator();
+        menu->addAction("Settings", [=](){ _settingsWidget->show(); });
         menu->addSeparator();
         menu->addAction("Quit", []() { oApp->setAppState(App::AppState::LoginForm); });
 

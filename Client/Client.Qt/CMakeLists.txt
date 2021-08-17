@@ -79,7 +79,9 @@ set(SOURCE_FILES
         registration.cpp
         registration.hpp
         Settings.cpp
-        Settings.hpp)
+        Settings.hpp
+        SettingsWidget.cpp
+        SettingsWidget.hpp)
 
 add_executable(${TARGET} ${SOURCE_FILES}
         resources/resources.qrc)
