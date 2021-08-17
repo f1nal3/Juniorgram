@@ -30,6 +30,7 @@ int            _titleBarHeight       = 0;
 int            _titleBarMaxIconWidth = 0;
 int            _authBlockWidth       = 0;
 int            _authBlockSpacing     = 0;
+int            _chatWidgetMinWidth   = 0;
 int            _channelListMinWidth  = 0;
 int            _channelListMaxWidth  = 0;
 
@@ -52,6 +53,7 @@ const int&            titleBarHeight(_titleBarHeight);
 const int&            titleBarMaxIconWidth(_titleBarMaxIconWidth);
 const int&            authBlockWidth(_authBlockWidth);
 const int&            authBlockSpacing(_authBlockSpacing);
+const int&            chatWidgetMinWidth(_chatWidgetMinWidth);
 const int&            channelListMinWidth(_channelListMinWidth);
 const int&            channelListMaxWidth(_channelListMaxWidth);
 }  // namespace st
@@ -70,6 +72,7 @@ int  px20  = 20;
 int  px30  = 30;
 int  px200 = 200;
 int  px300 = 300;
+int  px400 = 400;
 int  px500 = 500;
 int  px600 = 600;
 int  px800 = 800;
@@ -83,6 +86,7 @@ void initPxValues(int scale)
     px30  = ConvertScale(30, scale);
     px200 = ConvertScale(200, scale);
     px300 = ConvertScale(300, scale);
+    px400 = ConvertScale(400, scale);
     px500 = ConvertScale(500, scale);
     px600 = ConvertScale(600, scale);
     px800 = ConvertScale(800, scale);
@@ -112,6 +116,7 @@ void init_StyleBasic(int scale)
     _titleBarMaxIconWidth = px20;
     _authBlockWidth       = px500;
     _authBlockSpacing     = px16;
+    _chatWidgetMinWidth   = px400;
     _channelListMinWidth  = px200;
     _channelListMaxWidth  = px300;
 }

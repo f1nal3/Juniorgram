@@ -9,7 +9,7 @@ namespace
 std::map<uint32_t, const Style::icon> _icons;
 }
 
-ReactionLayout::ReactionLayout(QWidget* parent, uint32_t maxWidth, uint32_t spacing, bool isMenu)
+ReactionLayout::ReactionLayout(QWidget* parent, const uint32_t maxWidth, const uint32_t spacing, bool isMenu)
     : QWidget(parent), _maxWidth(maxWidth), _spacing(Style::valueDPIScale(isMenu ? 4 : spacing)), _isMenu(isMenu)
 {
     if (isMenu)

@@ -46,6 +46,8 @@ extern const int& titleBarMaxIconWidth;
 extern const int& authBlockWidth;
 /// authBlockSpacing: pixels
 extern const int& authBlockSpacing;
+/// chatWidgetMinWidth: pixels
+extern const int& chatWidgetMinWidth;
 /// channelListMinWidth: pixels
 extern const int& channelListMinWidth;
 /// channelListMaxWidth: pixels

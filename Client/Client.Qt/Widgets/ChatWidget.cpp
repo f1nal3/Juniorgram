@@ -16,7 +16,7 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     _mainChatLayout->addWidget(_textEdit.get(), 15);
     setLayout(_mainChatLayout.get());
 
-    setMinimumWidth(Style::valueDPIScale(400));
+    setMinimumWidth(st::chatWidgetMinWidth);
     connect(_textEdit.get(), &TextEdit::sendMessage, this, &ChatWidget::newMessage);
     connect(ReceiverManager::instance(), &ReceiverManager::onMessageHistoryAnswer, this, &ChatWidget::addMessages);
 }
