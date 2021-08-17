@@ -232,16 +232,16 @@ std::pair<int, int> ChatHistory::findVisible() const
     sizeHeight = _messageList[index]->pos().y();
     if(it != _replyList.end())
     {
-        sizeHeight = it->second->pos().y();
+        sizeHeight = int(it->second->pos().y());
     }
 
     while (sizeHeight < bottom && index < size - 1)
     {
         it = _replyList.find(index);
-        sizeHeight = _messageList[index]->pos().y();
+        sizeHeight = int(_messageList[index]->pos().y());
         if(it != _replyList.end())
         {
-            sizeHeight = it->second->pos().y();
+            sizeHeight = int(it->second->pos().y());
         }
         index++;
     }
@@ -249,19 +249,19 @@ std::pair<int, int> ChatHistory::findVisible() const
     index = middle;
 
     it = _replyList.find(index);
-    sizeHeight = _messageList[index]->pos().y() + _messageList[index]->height();
+    sizeHeight = int(_messageList[index]->pos().y() + _messageList[index]->height());
     if(it != _replyList.end())
     {
-        sizeHeight = it->second->pos().y() + it->second->height();
+        sizeHeight = int(it->second->pos().y() + it->second->height());
     }
 
     while(sizeHeight > top && index > 0)
     {
         it = _replyList.find(index);
-        sizeHeight = _messageList[index]->pos().y() + _messageList[index]->height();
+        sizeHeight = int(_messageList[index]->pos().y() + _messageList[index]->height());
         if(it != _replyList.end())
         {
-            sizeHeight = it->second->pos().y() + it->second->height();
+            sizeHeight = int(it->second->pos().y() + it->second->height());
         }
         index--;
     }
