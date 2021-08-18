@@ -7,7 +7,8 @@ set(SOURCE_FILES
 add_executable(${TARGET} ${SOURCE_FILES})
 
 target_link_libraries(${TARGET} PUBLIC 
-    CONAN_PKG::catch2 
+    Precompiled.Catch2.Main
+    Base.Public
     Base.Static)
 
 target_include_directories(${TARGET} PRIVATE
