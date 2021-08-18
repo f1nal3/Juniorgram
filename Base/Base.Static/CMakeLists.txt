@@ -5,6 +5,9 @@ set(SOURCE_FILES
     FileLogger.hpp
     FileLogger.cpp)
 
+set(CMAKE_CXX_FLAGS -pthread)
+set(CMAKE_C_FLAGS -pthread)
+
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
 set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)
