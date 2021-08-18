@@ -85,7 +85,7 @@ public:
      * @brief Stringify the log level to its name
      * @param required LogLevel
      */
-    inline std::string stringifyLogLvl(const LogLevel level);
+    std::string stringifyLogLvl(const LogLevel level);
 
 private:
     FileLogger();
