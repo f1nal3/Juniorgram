@@ -164,8 +164,8 @@ TEST_CASE("Change the valid log levels")
 {
     FileLogger& log = FileLogger::getInstance();
 
-    REQUIRE(log.stringify(Logger::LogLevel::ERROR) == "ERROR");
-    REQUIRE(log.stringify(Logger::LogLevel::WARNING) == "WARNING");
-    REQUIRE(log.stringify(Logger::LogLevel::INFO) == "INFO");
-    REQUIRE(log.stringify(Logger::LogLevel::DEBUG) == "DEBUG");
+    REQUIRE(log.stringifyLogLvl(LogLevel::ERROR) == "ERROR");
+    REQUIRE(log.stringifyLogLvl(LogLevel::WARNING) == "WARNING");
+    REQUIRE(log.stringifyLogLvl(LogLevel::INFO) == "INFO");
+    REQUIRE(log.stringifyLogLvl(LogLevel::DEBUG) == "DEBUG");
 }
