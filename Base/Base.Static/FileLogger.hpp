@@ -81,12 +81,6 @@ public:
      */
     void stop();
 
-    /**
-     * @brief Stringify the log level to its name
-     * @param required LogLevel
-     */
-    inline std::string stringify(const LogLevel level);
-
 private:
     FileLogger();
     ~FileLogger();

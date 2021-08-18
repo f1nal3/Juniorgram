@@ -32,6 +32,34 @@ namespace Logger
         EVERYWHERE
     };
 
+    /**
+     * @brief Stringify the log level to its name
+     * @param required LogLevel
+     */
+    std::string stringifyLogLvl(const LogLevel level)
+    {
+        std::string                                  result   = "NONE";
+        const static std::map<LogLevel, std::string> LevelMap = {
+            {LogLevel::ERROR, "ERROR"},
+            {LogLevel::WARNING, "WARNING"},
+            {LogLevel::INFO, "INFO"},
+            {LogLevel::DEBUG, "DEBUG"},
+        };
+
+        auto it = LevelMap.find(level);
+        if (it != LevelMap.end())
+        {
+            result = it->second;
+        }
+        return result;
+    }
+
+
+    /**
+     * @brief Required storage period for log files
+     */
+    const uint64_t periodLife = 7;
+
     /** @class ILogger
      *  @brief An interface for logger
      */
