@@ -6,7 +6,8 @@ set(SOURCE_FILES
     FileLogger.cpp)
 
 set(CMAKE_CXX_FLAGS -pthread)
-set(CMAKE_C_FLAGS -pthread)
+
+find_package(Threads REQUIRED)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
@@ -14,4 +15,5 @@ set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)
 
 target_link_libraries(${TARGET} PUBLIC
     Base.Public
-    Utility.Public)
+    Utility.Public
+    Threads::Threads)
