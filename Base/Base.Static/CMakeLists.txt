@@ -5,7 +5,7 @@ set(SOURCE_FILES
     FileLogger.hpp
     FileLogger.cpp)
 
-set(CMAKE_CXX_FLAGS -pthread)
+set(CMAKE_C_FLAGS -pthread)
 
 find_package(Threads REQUIRED)
 
