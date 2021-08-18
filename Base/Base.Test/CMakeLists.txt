@@ -4,6 +4,10 @@ set(OUTPUT_NAME Base.Test)
 set(SOURCE_FILES
     FileLoggerTests.cpp)
 
+if(NOT WIN32)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+endif()
+
 add_executable(${TARGET} ${SOURCE_FILES})
 
 target_link_libraries(${TARGET} PUBLIC 
