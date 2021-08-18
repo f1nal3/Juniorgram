@@ -5,8 +5,6 @@ set(SOURCE_FILES
     FileLogger.hpp
     FileLogger.cpp)
 
-set(CMAKE_C_FLAGS -pthread)
-
 find_package(Threads REQUIRED)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
