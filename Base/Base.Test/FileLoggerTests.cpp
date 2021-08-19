@@ -45,7 +45,7 @@ std::string getCurrentDate()
 
 void check()
 {
-    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
 
 void cleanUp()
@@ -93,7 +93,6 @@ TEST_CASE("Checking the corresponding lvl log")
         log.log("Test: creat new log", LogLevel::DEBUG);
         // time delay for file recording
         check();
-
     }
 
     SECTION("Record request")
@@ -132,13 +131,13 @@ TEST_CASE("Checking the number of log files in a directory")
         size_t counter = 1;
         std::fstream fileName;
 
-        while (counter < 8)
+        while (counter < 10)
         {
             fileName.open(getFldName() + std::string{"\\"} + "Test" + std::to_string(counter) + ".txt", std::ios::app);
             fileName.close();
             ++counter;
-            check();
         }
+        check();
     }
 
     SECTION("Add another log file")
