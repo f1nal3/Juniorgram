@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Network/Primitives.hpp>
 #include <QWidget>
 #include <vector>
 
@@ -28,6 +29,7 @@ public:
      * @param user Usenname
      */
     void addMessage(const QString& message = QString(), quint64 utc = 0, const QString& user = "You");
+    void addMessage(const Network::MessageInfo& messageInfo);
 
     /**
      * @brief Add a new reply to history
@@ -88,6 +90,7 @@ private:
     std::unique_ptr<ScrollArea>                                  _scrollArea;
     std::map<int32_t, std::unique_ptr<ReplyMessageWidget>>       _replyList;
     std::vector<std::unique_ptr<MessageWidget>>                  _messageList;
+    std::vector<Network::MessageInfo>           _messages;
     std::uint64_t                                                _userId    = 0;
     std::uint64_t                                                _messageId = 0;
 };

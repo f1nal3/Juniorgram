@@ -1,5 +1,7 @@
 #include "ChatWidget.hpp"
 
+#include <QDebug>
+
 #include "Application.hpp"
 #include "ChatHistory.hpp"
 
@@ -9,6 +11,7 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     _mainChatLayout = std::make_unique<QVBoxLayout>(this);
     _chatHistory    = std::make_unique<ChatHistory>(this);
     _textEdit       = std::make_unique<TextEdit>(_chatHistory.get());
+    _requestTimer   = std::make_unique<QTimer>();
 
     _mainChatLayout->setContentsMargins(0, 0, 0, 0);
     _mainChatLayout->setSpacing(0);
@@ -16,6 +19,11 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     _mainChatLayout->addWidget(_textEdit.get(), 15);
 
     setLayout(_mainChatLayout.get());
+
+    connect(_requestTimer.get(), &QTimer::timeout, this, &ChatWidget::requestMessages);
+
+    /// Once in a second
+    _requestTimer->start(1000);
 
     setMinimumWidth(st::chatWidgetMinWidth);
     connect(_chatHistory.get(), &ChatHistory::createReplySignal, this, &ChatWidget::addReplyWidget);
@@ -30,23 +38,30 @@ void ChatWidget::newMessage(const QString& messageText)
     {
         _chatHistory->addReply(_replyWidget);
     }
-
-    _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch());
 }
 
-void ChatWidget::newMessageA(const QString& messageText, const QString& username)
+void ChatWidget::addMessages(const std::vector<Network::MessageInfo>& messages)
 {
     if(this->findChild<ReplyWidget*>())
     { 
         _chatHistory->addReply(_replyWidget);
     }
 
-    _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch(), username);
+    for (const auto& message : messages)
+    {
+        if (message.channelID == _channelID)
+        {
+            _chatHistory->addMessage(message);
+        }
+    }
 }
 
-void ChatWidget::addMessages(const std::vector<Network::MessageInfo>&)
+void ChatWidget::requestMessages()
 {
-    /// TODO: implement it
+    if (oApp->connectionManager()->isConnected())
+    {
+        oApp->connectionManager()->askForMessageHistory(_channelID);
+    }
 }
 
 void ChatWidget::addReplyWidget(ReplyWidget* reply)
