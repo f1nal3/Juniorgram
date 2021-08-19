@@ -19,12 +19,9 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     _mainChatLayout->addWidget(_textEdit.get(), 15);
     setLayout(_mainChatLayout.get());
 
-    connect(_requestTimer.get(), &QTimer::timeout, [=]() {
-        if (oApp->connectionManager()->isConnected())
-        {
-            oApp->connectionManager()->askForMessageHistory(_channelID);
-        }
-    });
+    connect(_requestTimer.get(), &QTimer::timeout, this, &ChatWidget::requestMessages);
+
+    /// Once in a second
     _requestTimer->start(1000);
 
     setMinimumWidth(st::chatWidgetMinWidth);
@@ -38,10 +35,17 @@ void ChatWidget::addMessages(const std::vector<Network::MessageInfo>& messages)
 {
     for (const auto& message : messages)
     {
-        if (message.channelID != _channelID)
+        if (message.channelID == _channelID)
         {
-            continue;
+            _chatHistory->addMessage(message);
         }
-        _chatHistory->addMessage(message);
+    }
+}
+
+void ChatWidget::requestMessages()
+{
+    if (oApp->connectionManager()->isConnected())
+    {
+        oApp->connectionManager()->askForMessageHistory(_channelID);
     }
 }

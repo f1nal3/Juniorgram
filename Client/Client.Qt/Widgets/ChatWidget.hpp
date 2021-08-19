@@ -16,6 +16,8 @@ private slots:
     void newMessage(const QString& messageText);
     void addMessages(const std::vector<Network::MessageInfo>& messages);
 
+    void requestMessages();
+
 private:
     std::unique_ptr<QVBoxLayout> _mainChatLayout;
     std::unique_ptr<ChatHistory> _chatHistory;
