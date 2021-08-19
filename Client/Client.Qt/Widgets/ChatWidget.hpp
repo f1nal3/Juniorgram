@@ -20,5 +20,6 @@ private:
     std::unique_ptr<QVBoxLayout> _mainChatLayout;
     std::unique_ptr<ChatHistory> _chatHistory;
     std::unique_ptr<TextEdit>    _textEdit;
+    std::unique_ptr<QTimer>      _requestTimer;
     std::uint64_t                _channelID;
 };
