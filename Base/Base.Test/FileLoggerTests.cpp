@@ -131,7 +131,7 @@ TEST_CASE("Checking the number of log files in a directory")
         size_t counter = 1;
         std::fstream fileName;
 
-        while (counter < 10)
+        while (counter < 8)
         {
             fileName.open(getFldName() + std::string{"\\"} + "Test" + std::to_string(counter) + ".txt", std::ios::app);
             fileName.close();

@@ -29,6 +29,7 @@ FileLogger::~FileLogger()
 {
     if (_Thread.joinable())
     {
+        stop();
         _Thread.join();
     }
 }
