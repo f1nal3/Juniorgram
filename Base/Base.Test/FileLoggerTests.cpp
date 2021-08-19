@@ -43,7 +43,7 @@ std::string getCurrentDate()
     return std::string(buf);
 }
 
-void check()
+void waitThreadTerminate()
 {
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
@@ -55,7 +55,7 @@ void cleanUp()
 
 bool getCurrentFilesInFile()
 {
-    size_t count = 0;
+    std::size_t count = 0;
     for (auto p : std::filesystem::directory_iterator(getFldName()))
     {
         count++;
@@ -91,8 +91,7 @@ TEST_CASE("Checking the corresponding lvl log")
     {
         FileLogger& log = FileLogger::getInstance();
         log.log("Test: creat new log", LogLevel::DEBUG);
-        // time delay for file recording
-        check();
+        waitThreadTerminate();
     }
 
     SECTION("Record request")
@@ -108,8 +107,7 @@ TEST_CASE("Log in debug creates log file")
         {
             FileLogger& log = FileLogger::getInstance();
             log.log("Test: creat new log", LogLevel::DEBUG);
-            // time delay for file recording
-            check();
+            waitThreadTerminate();
         }
     }
 
@@ -128,16 +126,18 @@ TEST_CASE("Checking the number of log files in a directory")
 {
     SECTION("Create ten Test.txt files")
     {
-        size_t counter = 1;
-        std::fstream fileName;
-
+        std::size_t           counter = 1;
+          // creates TestingFolder object on C:
         while (counter < 8)
         {
-            fileName.open(getFldName() + std::string{"\\"} + "Test" + std::to_string(counter) + ".txt", std::ios::app);
-            fileName.close();
+            std::filesystem::path path{getFldName()};
+            path /= getFileName(std::to_string(counter));
+            std::filesystem::create_directory(path.parent_path());
+            std::ofstream ofs(path);
+            ofs.close();
             ++counter;
         }
-        check();
+        waitThreadTerminate();
     }
 
     SECTION("Add another log file")
@@ -145,7 +145,7 @@ TEST_CASE("Checking the number of log files in a directory")
         FileLogger& log = FileLogger::getInstance();
         log.init("Test-", LogOutput::EVERYWHERE);
         log.log("Test: creat new log", LogLevel::DEBUG);
-        check();
+        waitThreadTerminate();
     }
 
     SECTION("Checking the number of files")
