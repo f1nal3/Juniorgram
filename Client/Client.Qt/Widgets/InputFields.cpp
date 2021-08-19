@@ -79,13 +79,13 @@ FlatInput::FlatInput(QWidget* parent, const QString& placeholder, bool password)
     setAttribute(Qt::WA_AcceptTouchEvents);
 
     QLineEdit::setTextMargins(0, 0, 0, 0);
-    setContentsMargins(st::mar);
-    setMinimumHeight(fontMetrics().height() + Style::valueDPIScale(8) * 2);
+    setContentsMargins(st::defaultMargins);
+    setMinimumHeight(fontMetrics().height() + st::defaultMargin * 2);
     setPlaceholderText(placeholder);
     setEchoMode(password ? Password : Normal);
 }
 
-QRect FlatInput::getTextRect() const { return rect().marginsRemoved(st::mar + QMargins(-2, -1, -2, -1)); }
+QRect FlatInput::getTextRect() const { return rect().marginsRemoved(st::defaultMargins + QMargins(-2, -1, -2, -1)); }
 
 void FlatInput::paintEvent(QPaintEvent* event)
 {

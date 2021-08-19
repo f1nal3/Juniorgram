@@ -1,16 +1,11 @@
-#include "ChannelListWindow.hpp"
-
-#include <QFutureWatcher>
+#include "ChannelListPage.hpp"
 
 #include "Application.hpp"
+#include "Widgets/Buttons.hpp"
 
-ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent)
+ChannelListPage::ChannelListPage(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent)
     : Page(parent), _widgetChannelList(anotherChannelListWidget)
 {
-    setStyleSheet(
-        QString("QWidget {"
-                "background-color: #323232;"
-                "}"));
     setWindowFlag(Qt::WindowMinimizeButtonHint, false);
     setWindowFlag(Qt::WindowStaysOnTopHint);
     setWindowModality(Qt::ApplicationModal);
@@ -27,7 +22,7 @@ ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannel
     _vBoxLayout->addWidget(_addChannelButton.get());
     _vBoxLayout->addWidget(_updateChannelButton.get());
 
-    connect(ReceiverManager::instance(), &ReceiverManager::onChannelListRequest, this, &ChannelListWindow::setChannels);
+    connect(ReceiverManager::instance(), &ReceiverManager::onChannelListRequest, this, &ChannelListPage::setChannels);
 
     _addChannelButton->setClickCallback([this]() { addChannelToMainChannelWidget(); });
     _updateChannelButton->setClickCallback([this]() { requestChannels(); });
@@ -36,7 +31,7 @@ ChannelListWindow::ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannel
     setLayout(_vBoxLayout.get());
 }
 
-void ChannelListWindow::updateChannelList()
+void ChannelListPage::updateChannelList()
 {
     for (const auto& channel : channels)
     {
@@ -49,7 +44,7 @@ void ChannelListWindow::updateChannelList()
     onResume();
 }
 
-void ChannelListWindow::addChannelToMainChannelWidget()
+void ChannelListPage::addChannelToMainChannelWidget()
 {
     if (_channelList->currentItem())
     {
@@ -75,7 +70,7 @@ void ChannelListWindow::addChannelToMainChannelWidget()
     }
 }
 
-void ChannelListWindow::setChannels(const std::vector<Network::ChannelInfo>& newChannels)
+void ChannelListPage::setChannels(const std::vector<Network::ChannelInfo>& newChannels)
 {
     channels = newChannels;
     for (auto& channel : channels)
@@ -85,7 +80,7 @@ void ChannelListWindow::setChannels(const std::vector<Network::ChannelInfo>& new
     updateChannelList();
 }
 
-void ChannelListWindow::requestChannels()
+void ChannelListPage::requestChannels()
 {
     onPause();
     if (oApp->connectionManager()->isConnected())

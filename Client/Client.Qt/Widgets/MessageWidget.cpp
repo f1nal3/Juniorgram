@@ -3,10 +3,11 @@
 #include <QDebug>
 #include <QPainter>
 #include <QtEvents>
+#include <Style/Styles.hpp>
 #include <utility>
 
 #include "Application.hpp"
-#include "Style/Style.hpp"
+#include "PopupWidget.hpp"
 #include "Widgets/ChatHistory.hpp"
 #include "Widgets/ReactionLayout.hpp"
 

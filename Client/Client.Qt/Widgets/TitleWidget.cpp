@@ -1,5 +1,6 @@
 #include "TitleWidget.hpp"
 
+#include <QDebug>
 #include <QLayout>
 #include <QPainter>
 #include <QWindow>
@@ -15,7 +16,7 @@ TitleWidget::TitleWidget(QWidget* parent, const Style::TitleBar& st) : QWidget(p
     _bioButton      = std::make_unique<BioButton>(this);
 
     setAttribute(Qt::WA_OpaquePaintEvent);
-    setFixedHeight(Style::valueDPIScale(30));
+    setFixedHeight(st::titleBarHeight);
 
     _maximizedState = !(window()->windowState() & Qt::WindowMaximized);
 
@@ -36,6 +37,7 @@ TitleWidget::TitleWidget(QWidget* parent, const Style::TitleBar& st) : QWidget(p
         parent->showMinimized();
         _minimizeButton->clearState();
     });
+    setMinimumWidth(_minimizeButton->width() + _maximizeButton->width() + _closeButton->width() + _bioButton->width());
 }
 
 void TitleWidget::paintEvent(QPaintEvent*)
@@ -87,7 +89,7 @@ void TitleWidget::windowStateChanged(Qt::WindowState state)
         if (state == Qt::WindowNoState)
         {
             parentWidget()->setAttribute(Qt::WA_TranslucentBackground);
-            parentWidget()->layout()->setMargin(9);
+            parentWidget()->layout()->setMargin(st::shadowPadding);
             _maximizeButton->setStyle(&_st.maximizeButton);
         }
         else if (state == Qt::WindowMaximized)
@@ -127,20 +129,19 @@ void CaptionButton::paintEvent(QPaintEvent*)
     painter.setPen(Qt::NoPen);
     painter.fillRect(0, 0, width(), height(), _hoverColor);
 
-    const int          maxSide = Style::valueDPIScale(20);
-    const Style::icon& icon    = _iconOverride ? *_iconOverride : _st->icon;
+    const Style::icon& icon = _iconOverride ? *_iconOverride : _st->icon;
 
-    const int horside = (width() - maxSide) / 2;
-    const int verside = (height() - maxSide) / 2;
+    const int horside = (width() - st::titleBarMaxIconWidth) / 2;
+    const int verside = (height() - st::titleBarMaxIconWidth) / 2;
 
-    if (icon.size().width() <= maxSide)
+    if (icon.size().width() <= st::titleBarMaxIconWidth)
     {
         painter.drawPixmap((width() - icon->pixmap()->width()) / 2, (height() - icon->pixmap()->height()) / 2, *icon->pixmap());
     }
     else
     {
         painter.setRenderHint(QPainter::SmoothPixmapTransform);
-        painter.drawPixmap(QRect(horside, verside, maxSide, maxSide), *icon->pixmap());
+        painter.drawPixmap(QRect(horside, verside, st::titleBarMaxIconWidth, st::titleBarMaxIconWidth), *icon->pixmap());
     }
 }
 

@@ -31,6 +31,8 @@ signals:
 protected:
     /// Handle resize
     void resizeEvent(QResizeEvent* event) override;
+    /// Handle paint
+    void paintEvent(QPaintEvent* event) override;
 
 private:
     std::unique_ptr<LoadingSpinner> _loading;

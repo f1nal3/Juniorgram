@@ -1,9 +1,10 @@
 #pragma once
 
+#include <QObject>
+
 #include "Client.hpp"
 #include "Network/Primitives.hpp"
 #include "ServerInfo.hpp"
-#include "Widgets/ChannelListWindow.hpp"
 
 /// Login status
 enum class LoginState

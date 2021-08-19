@@ -1,9 +1,9 @@
 #pragma once
 #include <QApplication>
+#include <Style/Styles.hpp>
 #include <memory>
 
 #include "ConnectionManager.hpp"
-#include "Style/Style.hpp"
 
 class MainWidget;
 
@@ -42,20 +42,20 @@ public:
     void show();
     /**
      * @brief Change app state
-     * @param app_state App state
+     * @param appState App state
      */
-    void setAppState(App::AppState app_state);
-
-    /// Reconnects to server
-    void reconnectToServer();
+    void setAppState(App::AppState appState);
 
     /// Connection manager
     std::unique_ptr<ConnectionManager>& connectionManager();
+public slots:
+    /// Reconnects to server
+    void reconnectToServer();
 
 private:
     std::unique_ptr<MainWidget>        _mainWidget;
     std::unique_ptr<ConnectionManager> _connectionManager;
-    std::unique_ptr<ReceiverManager>   _recieverManager;
+    std::unique_ptr<ReceiverManager>   _receiverManager;
     App::AppState                      _appState;
     const Style::icon*                 _icon;
 };

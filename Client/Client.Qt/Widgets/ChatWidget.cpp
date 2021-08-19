@@ -16,8 +16,9 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     _mainChatLayout->addWidget(_textEdit.get(), 15);
     setLayout(_mainChatLayout.get());
 
-    setMinimumWidth(Style::valueDPIScale(400));
-    connect(_textEdit.get(), SIGNAL(sendMessageSignal(QString)), this, SLOT(newMessage(QString)));
+    setMinimumWidth(st::chatWidgetMinWidth);
+    connect(_textEdit.get(), &TextEdit::sendMessage, this, &ChatWidget::newMessage);
+    connect(ReceiverManager::instance(), &ReceiverManager::onMessageHistoryAnswer, this, &ChatWidget::addMessages);
 }
 
 void ChatWidget::newMessage(const QString& messageText)
@@ -26,7 +27,12 @@ void ChatWidget::newMessage(const QString& messageText)
     _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch());
 }
 
-void ChatWidget::newMessage(const QString& messageText, const QString& userNameMessage)
+void ChatWidget::newMessageA(const QString& messageText, const QString& username)
 {
-    _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch(), userNameMessage);
+    _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch(), username);
+}
+
+void ChatWidget::addMessages(const std::vector<Network::MessageInfo>&)
+{
+    /// TODO: implement it
 }

@@ -11,15 +11,15 @@ class FlatButton;
 class LinkButton;
 
 /**
- * @class Login
- * @brief Login page for JuniorGram
+ * @class LoginPage
+ * @brief LoginPage page for JuniorGram
  */
-class Login : public Page
+class LoginPage : public Page
 {
     Q_OBJECT
 public:
     /// Constructor for login page
-    explicit Login(QWidget* parent = nullptr);
+    explicit LoginPage(QWidget* parent = nullptr);
 
 private slots:
     /// On login handler

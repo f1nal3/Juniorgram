@@ -21,7 +21,8 @@ Style::Palette _palette;
 
 namespace st
 {
-const Style::color& transparent(_palette.get_transparent());  // special color
+/// Transparent color
+const Style::color& transparent(_palette.get_transparent());
 const Style::color& windowActiveTextFg(_palette.get_windowActiveTextFg());
 const Style::color& window(_palette.get_window());
 const Style::color& windowColor(_palette.get_windowColor());
