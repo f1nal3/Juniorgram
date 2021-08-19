@@ -29,9 +29,7 @@ public:
      */
     [[nodiscard]] bool isDown() const { return _state & StateFlag::Down; }
 
-    /**
-     * @return Is button disable
-     */
+    /// Is button disabled?
     [[nodiscard]] bool isDisabled() const { return _state & StateFlag::Disabled; }
 
     /**
@@ -58,13 +56,19 @@ public:
     void clicked(Qt::KeyboardModifiers modifiers, Qt::MouseButton button);
 
 protected:
+    /// Handle mouse enter event
     void enterEvent(QEvent* event) override;
+    /// Handle mouse leave event
     void leaveEvent(QEvent* event) override;
+    /// Handle mouse move event
     void mouseMoveEvent(QMouseEvent* mouseEvent) override;
+    /// Handle mouse press event
     void mousePressEvent(QMouseEvent* mouseEvent) override;
+    /// Handle mouse release event
     void mouseReleaseEvent(QMouseEvent* mouseEvent) override;
 
 protected:
+    /// Button states
     enum class StateFlag
     {
         None     = 0,
@@ -72,6 +76,7 @@ protected:
         Down     = (1 << 1),
         Disabled = (1 << 2)
     };
+    /// It could be over and down
     using State = QFlags<StateFlag>;
 
     /**
@@ -79,6 +84,7 @@ protected:
      * @return Button state
      */
     [[nodiscard]] State state() const { return _state; }
+    /// State changers
     enum class StateChanger
     {
         ByUser  = 0x0,

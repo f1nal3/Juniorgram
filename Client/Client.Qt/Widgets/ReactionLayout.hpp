@@ -2,9 +2,9 @@
 
 #include <QWidget>
 #include <QWidgetAction>
+#include <Style/StyleBasic.hpp>
 #include <vector>
 
-#include "Style/StyleBasic.hpp"
 #include "Widgets/MenuItem.hpp"
 
 class IconButton;

@@ -1,9 +1,10 @@
 #pragma once
 
+#include <QObject>
+
 #include "Client.hpp"
 #include "Network/Primitives.hpp"
 #include "ServerInfo.hpp"
-#include "Widgets/ChannelListWindow.hpp"
 
 /// Login status
 enum class LoginState
@@ -66,6 +67,8 @@ public:
 
     /// Initialize connection to server
     void init() { connectToServer(ServerInfo::address, ServerInfo::port); }
+    /// Default behavior
+    virtual ~ConnectionManager() = default;
 
 protected:
     /// Disconnect handler

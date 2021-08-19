@@ -3,19 +3,21 @@
 #include <Network/Primitives.hpp>
 #include <QVBoxLayout>
 #include <QWidget>
-#include <condition_variable>
 
-#include "Buttons.hpp"
-#include "ListWidget.hpp"
-#include "MainWidget.hpp"
+#include "Widgets/ListWidget.hpp"
+#include "Widgets/Page.hpp"
 
-/** @class ChannelListWindow
+class FlatButton;
+
+/**
+ *  @class ChannelListPage
  *  @brief This is channel list
  */
-class ChannelListWindow : public QWidget
+class ChannelListPage : public Page
 {
 public:
-    explicit ChannelListWindow(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent = nullptr);
+    /// Constructor for channel list window
+    explicit ChannelListPage(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent = nullptr);
 
 public:
     /// TODO: rework channel list in main window to make this private
@@ -23,7 +25,7 @@ public:
 
 private slots:
 
-    /// et channels
+    /// set channels
     void setChannels(const std::vector<Network::ChannelInfo>& channels_);
 
     /// Adds selected channel to main window

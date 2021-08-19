@@ -3,13 +3,12 @@
 #include <QScrollBar>
 #include <QTimer>
 #include <QWidget>
-
-#include "Style/StyleBasic.hpp"
+#include <Style/Styles.hpp>
 
 class ScrollArea;
 
 /**
- * @class Scrollbar
+ * @class ScrollBar
  * @brief Custom scrollbar visual for scrollarea
  */
 class ScrollBar : public QWidget
@@ -25,10 +24,8 @@ public:
      */
     ScrollBar(ScrollArea* parent, bool vertical, const Style::ScrollArea* st);
 
-    /**
-     * @brief Recalculate its position and sizes
-     */
-    void recountSize();
+    /// updates position and size
+    void updateSize();
 
     /**
      * @brief Update bar visual representation
@@ -43,32 +40,31 @@ public:
     void hideTimeout(int dtms);
 
 private Q_SLOTS:
-    /**
-     * @brief Connected scrollbar moved
-     */
+    /// on scrollbar move
     void onValueChanged();
-    /**
-     * @brief Connected scrollbar range changed
-     */
+    /// on scrollbar range change
     void onRangeChanged();
-    /**
-     * @brief Nothing has done so timer expired so time to hide scrollbar
-     */
+    /// time to hide
     void onHideTimer();
 
 protected:
+    /// Handle paint
     void paintEvent(QPaintEvent* e) override;
+    /// Handle mouse enter event
     void enterEvent(QEvent* e) override;
+    /// Handle mouse leave event
     void leaveEvent(QEvent* e) override;
+    /// Handle mouse move event
     void mouseMoveEvent(QMouseEvent* e) override;
+    /// Handle mouse press event
     void mousePressEvent(QMouseEvent* e) override;
+    /// Handle mouse click event
     void mouseReleaseEvent(QMouseEvent* e) override;
+    /// Handle resize
     void resizeEvent(QResizeEvent* e) override;
 
 private:
-    /**
-     * @brief Scrollarea this scrollbar are connected to
-     */
+    /// ScrollArea this scrollbar are connected to
     ScrollArea* area();
 
     /**
@@ -78,9 +74,9 @@ private:
     void setOver(bool over);
     /**
      * @brief Is mouse over bar?
-     * @param overbar is mouse overB bar?
+     * @param overBar is mouse over bar?
      */
-    void setOverBar(bool overbar);
+    void setOverBar(bool overBar);
     /**
      * @brief Does mouse been pressed on bar
      * @param moving
@@ -92,7 +88,7 @@ private:
     bool _vertical = true;
     bool _hiding   = false;
     bool _over     = false;
-    bool _overbar  = false;
+    bool _overBar  = false;
     bool _moving   = false;
 
     QPoint      _dragStart;
@@ -164,10 +160,9 @@ public:
      */
     void scrollToWidget(QWidget* widget);
 
-    /**
-     * @brief Update scrollbars representation
-     */
+    /// Update scrollbars
     void updateBars();
+
     /**
      * @brief Range of a scrollbar has changed
      * @param oldMax old range
@@ -189,11 +184,16 @@ public:
     std::unique_ptr<QWidget> takeWidget();
 
 protected:
+    /// Handle resize
     void resizeEvent(QResizeEvent* e) override;
+    /// Handle move event
     void moveEvent(QMoveEvent* e) override;
 
+    /// Handle mouse enter event
     void enterEvent(QEvent* e) override;
+    /// Handle mouse leave event
     void leaveEvent(QEvent* e) override;
+    /// Handle key press event
     void keyPressEvent(QKeyEvent* e) override;
 
 public Q_SLOTS:
@@ -216,28 +216,19 @@ public Q_SLOTS:
     void onInnerResized();
 
 Q_SIGNALS:
-    /**
-     * @brief scroll just happened
-     */
+    /// area has been scrolled
     void scrolled();
-    /**
-     * @brief inner widget just resized
-     */
+    /// inner widget changed size
     void innerResized();
-    /**
-     * @brief scroll just started
-     */
+    /// scroll just started
     void scrollStarted();
-    /**
-     * @brief scroll just finished
-     */
+    /// scroll just ended
     void scrollFinished();
-    /**
-     * @brief position/size just changed
-     */
+    /// scroll area just resized/moved
     void geometryChanged();
 
 protected:
+    /// Override to make scroll locking possible
     void scrollContentsBy(int dx, int dy) override;
 
 private:

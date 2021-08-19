@@ -1,6 +1,7 @@
 #pragma once
 #include <QWidget>
 #include <Utility/Utility.hpp>
+#include <Widgets/Page.hpp>
 #include <memory>
 
 class FlatInput;
@@ -8,15 +9,15 @@ class FlatButton;
 class LogoWidget;
 
 /**
- * @class Registration
- * @brief Registration form for JuniorGram
+ * @class RegistrationPage
+ * @brief Registration page for JuniorGram
  */
-class Registration : public QWidget
+class RegistrationPage : public Page
 {
     Q_OBJECT
 public:
-    /// Constructor for registration form
-    explicit Registration(QWidget* parent = nullptr);
+    /// Constructor for registration page
+    explicit RegistrationPage(QWidget* parent = nullptr);
 
 private slots:
     /// On registration

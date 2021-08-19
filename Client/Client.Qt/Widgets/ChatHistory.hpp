@@ -61,9 +61,7 @@ private Q_SLOTS:
      */
     void resizeVisible();
 Q_SIGNALS:
-    /**
-     * @brief Message has been deleted/restored
-     */
+    /// Message has been deleted/restored
     void messageChanged();
     /**
      * @brief Message has been added

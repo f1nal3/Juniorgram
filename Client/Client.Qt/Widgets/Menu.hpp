@@ -6,7 +6,7 @@
 
 /**
  * @class Menu
- * @brief A  menu
+ * @brief A menu
  */
 class Menu : public QWidget
 {

@@ -2,9 +2,10 @@
 
 #include <QPropertyAnimation>
 #include <QWidget>
+#include <Style/Styles.hpp>
 #include <memory>
 
-#include "Style/StyleBasic.hpp"
+#include "SettingsWidget.hpp"
 #include "Widgets/AbstractButton.hpp"
 #include "Widgets/PopupWidget.hpp"
 
@@ -37,9 +38,13 @@ public:
     bool setBioButtonIcon(const Style::icon* icon);
 
 protected:
+    /// Handle paint
     void paintEvent(QPaintEvent* paintEvent) override;
+    /// Handle resize
     void resizeEvent(QResizeEvent* resizeEvent) override;
+    /// Handle mouse press
     void mousePressEvent(QMouseEvent* mouseEvent) override;
+    /// Handle double click
     void mouseDoubleClickEvent(QMouseEvent* event) override;
 
 private:
@@ -86,8 +91,11 @@ public:
     void setStyle(const Style::TitleBarButton* newSt);
 
 protected:
+    /// Handle enter event
     void enterEvent(QEvent* event) override;
+    /// Handle leave event
     void leaveEvent(QEvent* event) override;
+    /// Handle paint
     void paintEvent(QPaintEvent* event) override;
 
 private:
@@ -134,5 +142,6 @@ public:
     explicit BioButton(QWidget* parent = nullptr, bool inCaption = true);
 
 private:
-    std::unique_ptr<PopupWidget> _popup;
+    std::unique_ptr<PopupWidget>    _popup;
+    std::unique_ptr<SettingsWidget> _settingsWidget;
 };

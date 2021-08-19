@@ -10,15 +10,15 @@
 #include "Widgets/ChatWidget.hpp"
 
 /**
- * @class ChatWindow
- * @brief Chat form for JuniorGram
+ * @class ChatPage
+ * @brief Chat page for JuniorGram
  */
-class ChatWindow : public QWidget
+class ChatPage : public Page
 {
     Q_OBJECT
 public:
-    /// Constructor for chat frame
-    explicit ChatWindow(QWidget* parent = nullptr);
+    /// Constructor for chat page
+    explicit ChatPage(QWidget* parent = nullptr);
 
 protected:
     /// Handle resize

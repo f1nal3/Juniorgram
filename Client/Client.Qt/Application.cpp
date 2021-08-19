@@ -1,9 +1,9 @@
 #include "Application.hpp"
 
-#include "ChatWindow.hpp"
 #include "MainWidget.hpp"
-#include "login.hpp"
-#include "registration.hpp"
+#include "Pages/ChatPage.hpp"
+#include "Pages/LoginPage.hpp"
+#include "Pages/RegistrationPage.hpp"
 
 Application::Application(int& argc, char** argv) : QApplication(argc, argv) {}
 
@@ -27,10 +27,10 @@ void Application::create()
     _icon = new Style::icon(":/images/logo.png");
     _mainWidget->setBioButtonIcon(_icon);
 
-    _recieverManager = std::make_unique<ReceiverManager>();
-    _mainWidget->addWidget(std::make_unique<Login>());
-    _mainWidget->addWidget(std::make_unique<Registration>());
-    _mainWidget->addWidget(std::make_unique<ChatWindow>());
+    _receiverManager = std::make_unique<ReceiverManager>();
+    _mainWidget->addWidget(std::make_unique<LoginPage>());
+    _mainWidget->addWidget(std::make_unique<RegistrationPage>());
+    _mainWidget->addWidget(std::make_unique<ChatPage>());
 
     ReactionLayout::addIcon(0, st::likeIcon);
     ReactionLayout::addIcon(1, st::dislikeIcon);
@@ -41,7 +41,8 @@ void Application::create()
     _connectionManager = std::make_unique<ConnectionManager>();
     _connectionManager->init();
 
-    // connect(ReceiverManager::instance(), &ReceiverManager::disconnected, this, &Application::reconnectToServer, Qt::QueuedConnection);
+    // TODO: it now may crash
+    //  connect(ReceiverManager::instance(), &ReceiverManager::onDisconnect, this, &Application::reconnectToServer);
 
     setAppState(App::AppState::LoginForm);
     QApplication::setFont(st::defaultFont);
@@ -49,9 +50,9 @@ void Application::create()
 
 void Application::show() { _mainWidget->show(); }
 
-void Application::setAppState(App::AppState app_state)
+void Application::setAppState(const App::AppState appState)
 {
-    _appState = app_state;
+    _appState = appState;
     _mainWidget->refreshTitleBar(false);
     switch (_appState)
     {

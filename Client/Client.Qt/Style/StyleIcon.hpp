@@ -10,10 +10,13 @@ namespace internal
 {
 class Icon;
 
+/// Icon type
 enum IconType
 {
+    /// Contrasted: black or white depends on background
     Contrasted = 0,
-    Colored    = 1
+    /// Colored: colored on any background
+    Colored = 1
 };
 
 /**

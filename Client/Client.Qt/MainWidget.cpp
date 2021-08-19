@@ -2,13 +2,10 @@
 
 #include <QDebug>
 #include <QGuiApplication>
-#include <QHBoxLayout>
 #include <QWindow>
 #include <QtEvents>
-#include <iostream>
 
 #include "Style/Shadow.hpp"
-#include "Widgets/TitleWidget.hpp"
 
 #ifdef _WIN32
 #include <dwmapi.h>
@@ -20,6 +17,7 @@ bool isCompositionEnabled()
     return SUCCESS && result;
 }
 
+/// https://github.com/melak47/BorderlessWindow
 bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* result)
 {
     Q_UNUSED(eventType)
@@ -27,7 +25,6 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
 
     if (msg->message == WM_NCACTIVATE)
     {
-        // https://github.com/melak47/BorderlessWindow
         if (isCompositionEnabled())
         {
             const auto res = DefWindowProc(msg->hwnd, msg->message, msg->wParam, -1);
@@ -87,32 +84,32 @@ bool MainWidget::nativeEvent(const QByteArray& eventType, void* message, long* r
 MainWidget::MainWidget() : QWidget(nullptr)
 {
     Style::setDevicePixelRatio(devicePixelRatioF());
+    /**
+     * logicalDpiX() is current display dpi
+     * devicePixelRatioF() is how much pixels will scale?
+     * 100 is 100%
+     * 96 is default dpi(100%)
+     */
     Style::setDpiScale(logicalDpiX() * devicePixelRatioF() * 100 / 96);
     Style::startManager(Style::getDpiScale());
 
     setWindowFlag(Qt::FramelessWindowHint);
     setWindowIcon(QIcon(":/images/logo.png"));
-    setMinimumWidth(Style::valueDPIScale(800));
 
     window()->createWinId();
-    auto* grid = new QGridLayout(this);
 
-    _body = std::make_unique<QWidget>();
-    _body->setMinimumHeight(Style::valueDPIScale(480));
+    setMinimumWidth(st::minWidth);
+    setMinimumHeight(st::minHeight);
 
+    _grid  = std::make_unique<QVBoxLayout>();
+    _body  = std::make_unique<QWidget>();
     _title = std::make_unique<TitleWidget>(this);
 
-    grid->addWidget(_body.get(), 1, 0);
-    grid->addWidget(_title.get(), 0, 0);
-    grid->setSpacing(0);
-    setLayout(grid);
-
-    _body->setStyleSheet(
-        "QWidget {"
-        "background-color: #323232;"
-        "}");
-
-    std::cout << QGuiApplication::platformName().toStdString() << std::endl;
+    _grid->setSpacing(0);
+    _grid->setMargin(st::shadowPadding);
+    setLayout(_grid.get());
+    _grid->addWidget(_title.get());
+    _grid->addWidget(_body.get());
 
     refreshTitleBar(false);
     qApp->installEventFilter(this);
@@ -120,8 +117,9 @@ MainWidget::MainWidget() : QWidget(nullptr)
 
 void MainWidget::resizeEvent(QResizeEvent* event)
 {
+    QWidget::resizeEvent(event);
+
     if (_current >= 0) _widgets[_current]->resize(_body->width(), _body->height());
-    return QWidget::resizeEvent(event);
 }
 
 void MainWidget::paintEvent(QPaintEvent*)
@@ -137,11 +135,12 @@ std::int32_t MainWidget::addWidget(std::unique_ptr<QWidget> widget)
 {
     widget->setParent(_body.get());
     widget->hide();
+    widget->resize(_body->width(), _body->height());
     _widgets.push_back(std::move(widget));
     return int(_widgets.size()) - 1;
 }
 
-void MainWidget::setCentralWidget(std::int32_t index)
+void MainWidget::setCentralWidget(const std::int32_t index)
 {
     if (index >= 0 && index < std::int32_t(_widgets.size()))
     {
@@ -152,7 +151,7 @@ void MainWidget::setCentralWidget(std::int32_t index)
     }
 }
 
-void MainWidget::refreshTitleBar(bool showBioButton) { _title->showBioButton(showBioButton); }
+void MainWidget::refreshTitleBar(const bool showBioButton) { _title->showBioButton(showBioButton); }
 
 bool MainWidget::eventFilter(QObject* obj, QEvent* e)
 {
@@ -185,7 +184,7 @@ bool MainWidget::eventFilter(QObject* obj, QEvent* e)
 
 bool MainWidget::setBioButtonIcon(const Style::icon* icon) { return _title->setBioButtonIcon(icon); }
 
-void MainWidget::updateCursor(Qt::Edges edges)
+void MainWidget::updateCursor(const Qt::Edges edges)
 {
     if (!edges)
     {
@@ -205,19 +204,19 @@ void MainWidget::updateCursor(Qt::Edges edges)
 
     if (((edges & Qt::LeftEdge) && (edges & Qt::TopEdge)) || ((edges & Qt::RightEdge) && (edges & Qt::BottomEdge)))
     {
-        QGuiApplication::changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
+        QGuiApplication::changeOverrideCursor(Style::cur_sizefdiag);
     }
     else if (((edges & Qt::LeftEdge) && (edges & Qt::BottomEdge)) || ((edges & Qt::RightEdge) && (edges & Qt::TopEdge)))
     {
-        QGuiApplication::changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
+        QGuiApplication::changeOverrideCursor(Style::cur_sizebdiag);
     }
     else if ((edges & Qt::LeftEdge) || (edges & Qt::RightEdge))
     {
-        QGuiApplication::changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+        QGuiApplication::changeOverrideCursor(Style::cur_sizehor);
     }
     else if ((edges & Qt::TopEdge) || (edges & Qt::BottomEdge))
     {
-        QGuiApplication::changeOverrideCursor(QCursor(Qt::SizeVerCursor));
+        QGuiApplication::changeOverrideCursor(Style::cur_sizever);
     }
 }
 

@@ -11,7 +11,7 @@ ScrollBar::ScrollBar(ScrollArea* parent, bool vertical, const Style::ScrollArea*
       _connected(vertical ? parent->verticalScrollBar() : parent->horizontalScrollBar()),
       _scrollMax(_connected->maximum())
 {
-    recountSize();
+    updateSize();
 
     _hideTimer.setSingleShot(true);
     connect(&_hideTimer, SIGNAL(timeout()), this, SLOT(onHideTimer()));
@@ -22,7 +22,7 @@ ScrollBar::ScrollBar(ScrollArea* parent, bool vertical, const Style::ScrollArea*
     updateBar();
 }
 
-void ScrollBar::recountSize()
+void ScrollBar::updateSize()
 {
     setGeometry(_vertical ? QRect(area()->width() - _st->width, _st->deltat, _st->width, area()->height() - _st->deltat - _st->deltab)
                           : QRect(_st->deltat, area()->height() - _st->width, area()->width() - _st->deltat - _st->deltab, _st->width));
@@ -106,7 +106,7 @@ void ScrollBar::paintEvent(QPaintEvent*)
     p.setPen(Qt::NoPen);
     auto bg = (_over || _moving) ? _st->bgOver->color : _st->bg->color;
     bg.setAlpha(bg.alpha() * opacity);
-    auto bar = (_overbar || _moving) ? _st->barBgOver->color : _st->barBg->color;
+    auto bar = (_overBar || _moving) ? _st->barBgOver->color : _st->barBg->color;
     bar.setAlpha(bar.alpha() * opacity);
     if (_st->round)
     {
@@ -165,13 +165,13 @@ void ScrollBar::setOver(bool over)
     }
 }
 
-void ScrollBar::setOverBar(bool overbar)
+void ScrollBar::setOverBar(bool overBar)
 {
-    if (_overbar != overbar)
+    if (_overBar != overBar)
     {
-        auto wasBarOver = (_overbar || _moving);
-        _overbar        = overbar;
-        auto nowBarOver = (_overbar || _moving);
+        auto wasBarOver = (_overBar || _moving);
+        _overBar        = overBar;
+        auto nowBarOver = (_overBar || _moving);
         if (wasBarOver != nowBarOver)
         {
             update();
@@ -184,9 +184,9 @@ void ScrollBar::setMoving(bool moving)
     if (_moving != moving)
     {
         auto wasOver    = (_over || _moving);
-        auto wasBarOver = (_overbar || _moving);
+        auto wasBarOver = (_overBar || _moving);
         _moving         = moving;
-        auto nowBarOver = (_overbar || _moving);
+        auto nowBarOver = (_overBar || _moving);
         if (wasBarOver != nowBarOver)
         {
             update();
@@ -246,7 +246,7 @@ void ScrollBar::mousePressEvent(QMouseEvent* e)
 
     _dragStart = e->globalPos();
     setMoving(true);
-    if (_overbar)
+    if (_overBar)
     {
         _startFrom = _connected->value();
     }
@@ -371,8 +371,8 @@ int ScrollArea::scrollTop() const { return _verticalValue; }
 void ScrollArea::resizeEvent(QResizeEvent* e)
 {
     QScrollArea::resizeEvent(e);
-    _horizontalBar.recountSize();
-    _verticalBar.recountSize();
+    _horizontalBar.updateSize();
+    _verticalBar.updateSize();
     geometryChanged();
 }
 
