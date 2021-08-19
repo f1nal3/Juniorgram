@@ -14,7 +14,6 @@ public:
 
 private slots:
     void newMessage(const QString& messageText);
-    void newMessageA(const QString& messageText, const QString& username);
     void addMessages(const std::vector<Network::MessageInfo>& messages);
 
 private:

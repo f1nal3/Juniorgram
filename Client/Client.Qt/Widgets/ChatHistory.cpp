@@ -8,6 +8,7 @@
 ChatHistory::ChatHistory(QWidget* parent) : QWidget(parent), _messageList()
 {
     _messageList.reserve(1024);
+    _messages.reserve(1024);
     _scrollArea  = std::make_unique<ScrollArea>(this);
     auto history = std::make_unique<QWidget>(this);
 
@@ -28,6 +29,39 @@ void ChatHistory::addMessage(const QString& message, quint64 utc, const QString&
     history->setMinimumHeight(history->minimumHeight() + msg->expectedHeight() + 10);
 
     _messageList.push_back(std::unique_ptr<MessageWidget>(msg));
+
+    connect(msg, &MessageWidget::geometryChanged, this, [=](int diff) {
+        history->setMinimumHeight(history->minimumHeight() + diff);
+        updateLayout(true);
+    });
+
+    updateLayout();
+
+    _scrollArea->scrollToWidget(msg);
+
+    messageAdded();
+}
+
+void ChatHistory::addMessage(const Network::MessageInfo& messageInfo)
+{
+    auto copy = std::find(_messages.begin(), _messages.end(), messageInfo);
+    if (copy != _messages.end())
+    {
+        return;
+    }
+
+    auto history = _scrollArea->widget();
+    auto time    = QDateTime::fromString(QString::fromStdString(messageInfo.time), "yyyy-MM-dd hh:mm:ss");
+
+    auto msg = new MessageWidget(history, QString::fromStdString(messageInfo.message), messageInfo.senderID, messageInfo.msgID,
+                                 time.toMSecsSinceEpoch(), QString::number(messageInfo.senderID));
+
+    msg->show();
+    msg->resize(history->width() - 25, msg->expectedHeight());
+    history->setMinimumHeight(history->minimumHeight() + msg->expectedHeight() + 10);
+
+    _messageList.push_back(std::unique_ptr<MessageWidget>(msg));
+    _messages.push_back(messageInfo);
 
     connect(msg, &MessageWidget::geometryChanged, this, [=](int diff) {
         history->setMinimumHeight(history->minimumHeight() + diff);

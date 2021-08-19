@@ -1,5 +1,7 @@
 #include "ChatWidget.hpp"
 
+#include <QDebug>
+
 #include "Application.hpp"
 #include "ChatHistory.hpp"
 
@@ -24,15 +26,17 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
 void ChatWidget::newMessage(const QString& messageText)
 {
     oApp->connectionManager()->storeMessage(messageText.toStdString(), _channelID);
-    _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch());
+    oApp->connectionManager()->askForMessageHistory(_channelID);
 }
 
-void ChatWidget::newMessageA(const QString& messageText, const QString& username)
+void ChatWidget::addMessages(const std::vector<Network::MessageInfo>& messages)
 {
-    _chatHistory->addMessage(messageText, QDateTime::currentSecsSinceEpoch(), username);
-}
-
-void ChatWidget::addMessages(const std::vector<Network::MessageInfo>&)
-{
-    /// TODO: implement it
+    for (const auto& message : messages)
+    {
+        if (message.channelID != _channelID)
+        {
+            continue;
+        }
+        _chatHistory->addMessage(message);
+    }
 }
