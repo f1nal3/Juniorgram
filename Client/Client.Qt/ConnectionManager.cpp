@@ -32,11 +32,7 @@ void ConnectionManager::onChannelListRequest(const std::vector<Network::ChannelI
 
 void ConnectionManager::onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages)
 {
-    std::cout << "Message history received: \n";
-    for (auto&& item : messages)
-    {
-        std::cout << item.message << '\n';
-    }
+    qRegisterMetaType<std::vector<Network::MessageInfo> >("std::vector<Network::MessageInfo>");
     emit ReceiverManager::instance()->onMessageHistoryAnswer(messages);
 }
 

@@ -18,7 +18,7 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
       _messageId(messageId),
       _messageText(std::move(message)),
       _username(std::move(username)),
-      _datetime(QDateTime::fromSecsSinceEpoch(utc)),
+      _datetime(QDateTime::fromMSecsSinceEpoch(utc)),
       _st(st)
 {
     setContentsMargins(QMargins(_st.radius, _st.radius, _st.radius, _st.radius));

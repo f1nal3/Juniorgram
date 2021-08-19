@@ -14,12 +14,14 @@ public:
 
 private slots:
     void newMessage(const QString& messageText);
-    void newMessageA(const QString& messageText, const QString& username);
     void addMessages(const std::vector<Network::MessageInfo>& messages);
+
+    void requestMessages();
 
 private:
     std::unique_ptr<QVBoxLayout> _mainChatLayout;
     std::unique_ptr<ChatHistory> _chatHistory;
     std::unique_ptr<TextEdit>    _textEdit;
+    std::unique_ptr<QTimer>      _requestTimer;
     std::uint64_t                _channelID;
 };
