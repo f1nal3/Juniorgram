@@ -43,7 +43,7 @@ std::string getCurrentDate()
     return std::string(buf);
 }
 
-void waitThreadTerminate()
+void pauseForRecording()
 {
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
@@ -91,7 +91,7 @@ TEST_CASE("Checking the corresponding lvl log")
     {
         FileLogger& log = FileLogger::getInstance();
         log.log("Test: creat new log", LogLevel::DEBUG);
-        waitThreadTerminate();
+        pauseForRecording();
     }
 
     SECTION("Record request")
@@ -107,7 +107,7 @@ TEST_CASE("Log in debug creates log file")
         {
             FileLogger& log = FileLogger::getInstance();
             log.log("Test: creat new log", LogLevel::DEBUG);
-            waitThreadTerminate();
+            pauseForRecording();
         }
     }
 
@@ -137,7 +137,7 @@ TEST_CASE("Checking the number of log files in a directory")
             ofs.close();
             ++counter;
         }
-        waitThreadTerminate();
+        pauseForRecording();
     }
 
     SECTION("Add another log file")
@@ -145,7 +145,7 @@ TEST_CASE("Checking the number of log files in a directory")
         FileLogger& log = FileLogger::getInstance();
         log.init("Test-", LogOutput::EVERYWHERE);
         log.log("Test: creat new log", LogLevel::DEBUG);
-        waitThreadTerminate();
+        pauseForRecording();
     }
 
     SECTION("Checking the number of files")
