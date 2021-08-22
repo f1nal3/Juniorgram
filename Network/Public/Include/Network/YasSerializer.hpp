@@ -18,7 +18,7 @@ restoreWarning
 
 #include "Network/Primitives.hpp"
 
-namespace Network
+    namespace Network
 {
     /** @enum SerializedState
      *  @brief Successful or not result of serialization/deserialization
@@ -54,12 +54,10 @@ namespace Network
         {
             try
             {
-                // clang-format off
-				suppressWarning(4127, "-Wtype-limits")
-					msg = yas::save<flags>(data);
-				restoreWarning
-           }
-            // clang-format on
+                //clang-format off
+                suppressWarning(4127, "-Wtype-limits") msg = yas::save<flags>(data);
+                restoreWarning
+            }
             catch (const std::exception& e)
             {
                 std::cout << "Serialization error\n";
@@ -81,11 +79,11 @@ namespace Network
         {
             try
             {
-                // clang-format off
-				suppressWarning(4127, "-Wtype-limits")
+				// clang-format off
+                suppressWarning(4127, "-Wtype-limits")
 					yas::load<flags>(source, data);
-				restoreWarning
-			}
+                restoreWarning
+            }
             // clang-format on
             catch (const std::exception& e)
             {

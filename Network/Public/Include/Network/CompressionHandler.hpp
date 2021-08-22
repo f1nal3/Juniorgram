@@ -15,8 +15,7 @@ public:
      * @param headerBuffer - buffer that will contain compressed header.
      * @param bodyBuffer - buffer that will contain compressed body.
      */
-    MessageProcessingState handleOutcomingMessage(const Message& message,
-                                yas::shared_buffer& bodyBuffer) override
+    MessageProcessingState handleOutcomingMessage(const Message& message, yas::shared_buffer& bodyBuffer) override
     {
         // Message::MessageHeader messageHeader = message.mHeader;
         // body compression
@@ -35,8 +34,7 @@ public:
      * @param buffer - buffer that contains data that should be decompressed.
      * @param messageHeader - variable that will contain decompressed message body.
      */
-    MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer,
-                                                Message& message) override
+    MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
     {
         // body decompression
 

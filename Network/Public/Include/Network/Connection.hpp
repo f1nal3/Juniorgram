@@ -11,17 +11,17 @@
 
 #include <asio.hpp>
 #include <chrono>
-#include <iostream>
 #include <functional>
+#include <iostream>
 
+#include "CompressionHandler.hpp"
+#include "EncryptionHandler.hpp"
+#include "Handler.hpp"
 #include "Message.hpp"
 #include "SafeQueue.hpp"
+#include "SerializationHandler.hpp"
 #include "Utility/Utility.hpp"
 #include "Utility/WarningSuppression.hpp"
-#include "CompressionHandler.hpp"
-#include "Handler.hpp"
-#include "EncryptionHandler.hpp"
-#include "SerializationHandler.hpp"
 #include "YasSerializer.hpp"
 
 namespace Network
@@ -81,11 +81,10 @@ private:
         SerializationHandler handler;
         handler.setNext(new CompressionHandler())->setNext(new EncryptionHandler());
         MessageProcessingState result = handler.handleOutcomingMessage(mOutcomingMessagesQueue.front(), bodyBuffer);
-        
-        Network::Message::MessageHeader outcomingMessageHeader =
-            mOutcomingMessagesQueue.front().mHeader;
-        outcomingMessageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
-        
+
+        Network::Message::MessageHeader outcomingMessageHeader = mOutcomingMessagesQueue.front().mHeader;
+        outcomingMessageHeader.mBodySize                       = static_cast<uint32_t>(bodyBuffer.size);
+
         if (result == MessageProcessingState::SUCCESS)
         {
             const auto writeHeaderHandler = [this, bodyBuffer](std::error_code error) {
@@ -112,8 +111,7 @@ private:
                 }
             };
 
-            asio::async_write(mSocket,
-                              asio::buffer(&outcomingMessageHeader, sizeof(Message::MessageHeader)),
+            asio::async_write(mSocket, asio::buffer(&outcomingMessageHeader, sizeof(Message::MessageHeader)),
                               std::bind(writeHeaderHandler, std::placeholders::_1));
         }
     }
@@ -148,8 +146,7 @@ private:
             }
         };
 
-        asio::async_write(mSocket, asio::buffer(buffer.data.get(), buffer.size),
-                          std::bind(writeBodyHandler, std::placeholders::_1));
+        asio::async_write(mSocket, asio::buffer(buffer.data.get(), buffer.size), std::bind(writeBodyHandler, std::placeholders::_1));
     }
 
     /**
@@ -185,8 +182,7 @@ private:
             }
         };
 
-        asio::async_read(mSocket,
-                         asio::buffer(&mMessageBuffer.mHeader, sizeof(Message::MessageHeader)),
+        asio::async_read(mSocket, asio::buffer(&mMessageBuffer.mHeader, sizeof(Message::MessageHeader)),
                          std::bind(readHeaderHandler, std::placeholders::_1));
     }
 
@@ -210,8 +206,7 @@ private:
             {
                 EncryptionHandler handler;
                 handler.setNext(new CompressionHandler())->setNext(new SerializationHandler());
-                MessageProcessingState result =
-                    handler.handleIncomingMessageBody(buffer, mMessageBuffer);
+                MessageProcessingState result = handler.handleIncomingMessageBody(buffer, mMessageBuffer);
 
                 if (result == MessageProcessingState::SUCCESS)
                 {
@@ -225,8 +220,7 @@ private:
             }
         };
 
-        asio::async_read(mSocket, asio::buffer(buffer.data.get(), buffer.size),
-                         std::bind(readBodyHandler, std::placeholders::_1));
+        asio::async_read(mSocket, asio::buffer(buffer.data.get(), buffer.size), std::bind(readBodyHandler, std::placeholders::_1));
     }
 
     /**
@@ -264,10 +258,7 @@ public:
      */
     Connection(const OwnerType& owner, asio::io_context& contextLink, asio::ip::tcp::socket socket,
                SafeQueue<Message>& incomingMessagesQueueLink)
-        : mOwner(owner),
-          mSocket(std::move(socket)),
-          mContextLink(contextLink),
-          mIncomingMessagesQueueLink(incomingMessagesQueueLink)
+        : mOwner(owner), mSocket(std::move(socket)), mContextLink(contextLink), mIncomingMessagesQueueLink(incomingMessagesQueueLink)
     {
     }
 
@@ -278,14 +269,14 @@ public:
      * @return mId - connection id.
      */
     std::uint64_t getID() const { return mConnectionID; }
-    
+
     /**
      * @brief Method for accessing userID associated with this connection
      * @details ID gets assigned to connection on successful login
      * @return userID as stored in repository
      */
     std::uint64_t getUserID() const { return userID; }
-    
+
     /**
      * @brief Method for setting userID for this connection
      * @param id userID from repository
