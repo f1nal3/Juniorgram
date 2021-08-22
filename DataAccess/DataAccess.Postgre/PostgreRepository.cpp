@@ -117,7 +117,7 @@ Utility::DeletingMessageCodes PostgreRepository::deleteMessage(const Network::Me
     {
         pTable->Delete()->Where("msg_id=" + std::to_string(mi.msgID))
                         ->Or("msg='" + mi.message + "'")
-                        ->execute();
+                        ->execute().value();
 
         return DeletingMessageCodes::SUCCESS;
     }
