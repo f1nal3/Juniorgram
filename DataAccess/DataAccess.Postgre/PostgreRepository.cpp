@@ -113,12 +113,19 @@ Utility::DeletingMessageCodes PostgreRepository::deleteMessage(const Network::Me
     using Utility::DeletingMessageCodes;
 
     pTable->changeTable("msgs");
-    const auto queryResult = pTable->Delete()
-                                    ->Where("msg_id=" + std::to_string(mi.msgID))
-                                    ->Or("msg='" + mi.message + "'")
-                                    ->execute();
+    try
+    {
+        pTable->Delete()->Where("msg_id=" + std::to_string(mi.msgID))
+                        ->Or("msg='" + mi.message + "'")
+                        ->execute();
 
-    return queryResult.has_value() ? DeletingMessageCodes::SUCCESS : DeletingMessageCodes::FAILED;
+        return DeletingMessageCodes::SUCCESS;
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+        return DeletingMessageCodes::FAILED;
+    }
 }
 
 std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageInfo& mi)
