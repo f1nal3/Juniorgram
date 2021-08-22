@@ -115,7 +115,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         }
         break;
 
-        case Network::Message::MessageType::UserMessageDeleteRequest:
+        case Network::Message::MessageType::MessageDeleteRequest:
         {
             auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
             mi.senderID = client->getUserID();
@@ -124,7 +124,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                             mPostgreRepo.get(), mi);
 
             Network::Message answerForClient;
-            answerForClient.mHeader.mMessageType = Network::Message::MessageType::UserMessageDeleteAnswer;
+            answerForClient.mHeader.mMessageType = Network::Message::MessageType::MessageDeleteAnswer;
 
             const auto deletingMessageCode = future.get();
             answerForClient.mBody          = std::make_any<Utility::DeletingMessageCodes>(deletingMessageCode);

@@ -69,10 +69,10 @@ int main()
             }
             else if (cmd == "dm")
             {
-                std::uint64_t messagedID;
-                std::cin >> messagedID;
+                std::uint64_t messageID;
+                std::cin >> messageID;
 
-                clientApp.userMessageDelete(messagedID);
+                clientApp.userMessageDelete(messageID);
             }
             else if (cmd == "ur")
             {

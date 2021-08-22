@@ -116,14 +116,15 @@ namespace Network
         {
             return first.message   == second.message   &&
                    first.channelID == second.channelID &&
-                   first.time      == second.time;
+                   first.time      == second.time      &&
+                   first.msgID     == second.msgID;
         }
     };
 
     template <typename Archive>
     void serialize(Archive& ar, Network::MessageInfo& o)
     {
-        ar& o.channelID& o.message& o.time;
+        ar& o.channelID& o.message& o.msgID& o.time;
     }
 
 } // namespace Network
