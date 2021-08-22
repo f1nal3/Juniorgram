@@ -1,6 +1,5 @@
 #pragma once
 #include "Utility/WarningSuppression.hpp"
-// clang-format off
 suppressWarning(4996, "-Wdeprecated-declarations")
 suppressWarning(4458, "-Wshadow")
 #include <yas/binary_iarchive.hpp>
@@ -14,7 +13,6 @@ suppressWarning(4458, "-Wshadow")
 #include <yas/types/std/vector.hpp>
 restoreWarning
 restoreWarning
-// clang-format on
 
 #include "Network/Primitives.hpp"
 
@@ -79,12 +77,10 @@ restoreWarning
         {
             try
             {
-				// clang-format off
                 suppressWarning(4127, "-Wtype-limits")
 					yas::load<flags>(source, data);
                 restoreWarning
             }
-            // clang-format on
             catch (const std::exception& e)
             {
                 std::cout << "Deserialization error\n";

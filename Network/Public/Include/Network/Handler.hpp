@@ -19,20 +19,20 @@ enum class MessageProcessingState
 class Handler
 {
 public:
-    // Default Handler constructor
+    /// Default Handler constructor
     Handler()               = default;
-    // Delete Handler copy constructor
+    /// Delete Handler copy constructor
     Handler(const Handler&) = delete;
-    // Delete Handler move constructor
+    /// Delete Handler move constructor
     Handler(Handler&&)      = delete;
-    // Delete Handler copy assigment constructor
+    /// Delete Handler copy assigment constructor
     Handler& operator=(const Handler&) = delete;
-    // Delete Handler move assigment constructor
+    /// Delete Handler move assigment constructor
     Handler& operator=(Handler&&) = delete;
-    // Virtual Handler destructor
+    /// Virtual Handler destructor
     virtual ~Handler()            = default;
 
-    // Virtual Handler method for preprocessing next handler
+    /// Virtual Handler method for preprocessing next handler
     virtual Handler*               setNext(Handler* handler)                                                      = 0;
 
     /**
