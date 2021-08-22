@@ -95,10 +95,10 @@ protected:
     virtual void onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages);
     /// Message Store Answer handler
     virtual void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode);
+    /// Message Delete Answer handler
+    virtual void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState);
     /// Registration Answer handler
     virtual void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
-    /// User Message Delete Answer handler
-    virtual void onUserMessageDeleteAnswer();
 
 private:
     asio::io_context _context;

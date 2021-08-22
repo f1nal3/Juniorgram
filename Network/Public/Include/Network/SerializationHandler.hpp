@@ -47,7 +47,7 @@ public:
                     state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
                     break;
                 case Message::MessageType::UserMessageDeleteAnswer:
-                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::DeletingMessageCodes>(bodyBuffer, message.mBody);
                     break;
                 case Message::MessageType::MessageStoreAnswer:
                     state = processOutcomingMessageBody<Utility::StoringMessageCodes>(bodyBuffer, message.mBody);
@@ -128,7 +128,7 @@ public:
             }
             case Message::MessageType::UserMessageDeleteRequest:
             {
-                state = processIncomingMessageBody<Utility::DeletingMessageCodes>(buffer, message);
+                state = processIncomingMessageBody<Network::MessageInfo>(buffer, message);
                 break;
             }
             case Message::MessageType::UserMessageDeleteAnswer:

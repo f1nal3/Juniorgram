@@ -27,7 +27,7 @@ signals:
     void onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages);
     void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode);
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
-    void onUserMessageDeleteAnswer();
+    void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingCode);
     void onLoginAnswer(bool success);
     void onDisconnect();
 
@@ -50,7 +50,7 @@ protected:
     void onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages) override;
     void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode) override;
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode) override;
-    void onUserMessageDeleteAnswer() override;
+    void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) override;
     void onLoginAnswer(bool success) override;
     void onDisconnect() override;
 };

@@ -49,7 +49,7 @@ private:
     OwnerType mOwner = OwnerType::SERVER;
     /// Connection id
     std::uint64_t mConnectionID = uint64_t();
-    std::uint64_t userID;
+    std::uint64_t userID = 1;
 
     /// Unique socket to remote
     asio::ip::tcp::socket mSocket;

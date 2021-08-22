@@ -67,6 +67,13 @@ int main()
 
                 clientApp.storeMessage(text, channelID);
             }
+            else if (cmd == "dm")
+            {
+                std::uint64_t messagedID;
+                std::cin >> messagedID;
+
+                clientApp.userMessageDelete(messagedID);
+            }
             else if (cmd == "ur")
             {
                 std::string email          = GetLineFromCin();

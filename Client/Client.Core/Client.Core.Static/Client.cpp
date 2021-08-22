@@ -160,10 +160,10 @@ void Client::messageAll() const
     send(message);
 }
 
-void Client::userMessageDelete(const uint64_t messageId) const
+void Client::userMessageDelete(const uint64_t messageID) const
 {
     Network::MessageInfo mi;
-    mi.msgID = messageId;
+    mi.msgID = messageID;
 
     Network::Message message;
     message.mHeader.mMessageType = MessageType::UserMessageDeleteRequest;
@@ -253,9 +253,8 @@ void Client::loop()
 
             case MessageType::UserMessageDeleteAnswer:
             {
-                onUserMessageDeleteAnswer();
-                // Temporarily commented out code
-                // auto messageInfo = std::any_cast<Network::MessageDeletedInfo>(message.mBody);
+                auto messageInfo = std::any_cast<Utility::DeletingMessageCodes>(message.mBody);
+                onUserMessageDeleteAnswer(messageInfo);
             }
             break;
 
@@ -309,7 +308,11 @@ void Client::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
     std::cerr << "[Client][Warning] registration answer is not implemented\n";
 }
 
-void Client::onUserMessageDeleteAnswer() { std::cerr << "[Client][Warning] user message delete answer is not implemented\n"; }
+void Client::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) 
+{
+    (void)(deletingState);
+    std::cerr << "[Client][Warning] registration answer is not implemented\n";
+}
 
 void Client::onDisconnect() { std::cerr << "[Client][Warning] onDisconnect is not implemented\n"; }
 
