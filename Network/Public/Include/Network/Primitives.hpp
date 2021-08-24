@@ -17,10 +17,8 @@ struct ChannelInfo
 {
     /// creator ID uint64_t variable
     std::uint64_t creatorID;
-
     /// channel ID uint64_t variable
     std::uint64_t channelID;
-
     /// channel name string variable
     std::string   channelName;
 
@@ -33,11 +31,10 @@ public:
         : creatorID(creatorID), channelID(channelID), channelName(channelName)
     {
     }
-
     /// Default ChannelInfo destructor
     ~ChannelInfo() = default;
 
-    /// Operator == for comparisons channels info
+    /// Operator == to compare channels info
     friend bool operator==(const ChannelInfo& first, const ChannelInfo& second)
     {
         return first.channelID == second.channelID && first.creatorID == second.creatorID && first.channelName == second.channelName;
@@ -60,19 +57,14 @@ struct LoginInfo
 {
     /// login string variable
     std::string login;
-
     /// pwdHash string variable
     std::string pwdHash;
-
     /// Default LoginInfo constructor
     LoginInfo()                 = default;
-
     /// Default LoginInfo copy constructor
     LoginInfo(const LoginInfo&) = default;
-
     /// LoginInfo constructor with initializing list
     explicit LoginInfo(const std::string& login, const std::string& passwordHash) : login(login), pwdHash(passwordHash) {}
-
     /// Default LoginInfo destructor
     ~LoginInfo() = default;
 };
@@ -94,13 +86,10 @@ struct RegistrationInfo
 {
     /// email string variable
     std::string email;
-
     /// login string variable
     std::string login;
-
     /// passwordHash string variable
     std::string passwordHash;
-
     /// Default RegistrationInfo constructor
     RegistrationInfo() = default;
 
@@ -112,14 +101,13 @@ struct RegistrationInfo
 
     /// Default RegistrationInfo copy constructor
     RegistrationInfo(const RegistrationInfo&) = default;
-
     /// Default RegistrationInfo destructor
     ~RegistrationInfo()                       = default;
 
     /// Default Registration copy assignment constructor
     RegistrationInfo& operator=(const RegistrationInfo& other) = default;
 
-    /// Operator == for comparison registration info
+    /// Operator == to compare registration info
     friend bool operator==(const RegistrationInfo& registrationInfo1, const RegistrationInfo& registrationInfo2)
     {
         return registrationInfo1.email == registrationInfo2.email && registrationInfo1.login == registrationInfo2.login &&
@@ -142,14 +130,12 @@ struct MessageDeletedInfo
 {
     /// userId uint64_t variable
     uint64_t userId;
-
     /// messageId uint64_t variable
     uint64_t messageId;
-
     /// MessageDeletedInfo with initializing list
     explicit MessageDeletedInfo(const uint64_t _userId, const uint64_t _messageId) : userId(_userId), messageId(_messageId) {}
 
-    /// Operator == for comparison message deleted info
+    /// Operator == to compare message deleted info
     friend bool operator==(const MessageDeletedInfo& messageDeletedInfo1, const MessageDeletedInfo& messageDeletedInfo2)
     {
         return messageDeletedInfo1.messageId == messageDeletedInfo2.messageId && messageDeletedInfo1.userId == messageDeletedInfo2.userId;
@@ -172,35 +158,27 @@ struct MessageInfo
 {
     /// channel ID uint64_t variable
     std::uint64_t channelID;
-
     /// message string variable
     std::string   message;
-
     /// msg ID uint64_t variable
     std::uint64_t msgID;
-
     /// sender ID uint64_t variable
     std::uint64_t senderID;
-
     /// recipient ID uint64_t variable
     std::uint64_t recipientID;
-
     /// time string variable
     std::string   time = Utility::getTimeNow();
 
     /// Default MessageIndo constructor
     MessageInfo() = default;
-
     /// MessageIndo constructor with initializing list
     explicit MessageInfo(const uint64_t channelID, const std::string& text) : channelID(channelID), message(text) {}
-
     /// Default MessageIndo copy constructor
     MessageInfo(const MessageInfo&) = default;
-
     /// Default MessageIndo destructor
     ~MessageInfo()                  = default;
 
-    /// Operator == for comparison Message Info
+    /// Operator == to compare Message Info
     friend bool operator==(const MessageInfo& first, const MessageInfo& second)
     {
         return first.message == second.message && first.channelID == second.channelID && first.time == second.time;
@@ -211,7 +189,7 @@ struct MessageInfo
 template <typename Archive>
 void serialize(Archive& ar, Network::MessageInfo& o)
 {
-    ar& o.channelID& o.message& o.time;
+    ar& o.channelID& o.senderID& o.message& o.time;
 }
 
 }  // namespace Network
