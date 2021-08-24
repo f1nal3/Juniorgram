@@ -34,7 +34,7 @@ public:
     /// Default ChannelInfo destructor
     ~ChannelInfo() = default;
 
-    /// Operator == for comparisons channels info
+    /// Operator == to compare channels info
     friend bool operator==(const ChannelInfo& first, const ChannelInfo& second)
     {
         return first.channelID == second.channelID && first.creatorID == second.creatorID && first.channelName == second.channelName;
@@ -178,7 +178,7 @@ struct MessageInfo
     /// Default MessageIndo destructor
     ~MessageInfo()                  = default;
 
-    /// Operator == for comparison Message Info
+    /// Operator == to compare Message Info
     friend bool operator==(const MessageInfo& first, const MessageInfo& second)
     {
         return first.message == second.message && first.channelID == second.channelID && first.time == second.time;
