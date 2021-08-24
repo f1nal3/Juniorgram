@@ -300,7 +300,6 @@ public:
         }
     }
 
-    // clang-format off
     suppressWarning(4100, "-Wunused-parameter")
     /**
     * @brief Method for connection to server from client side.
@@ -338,7 +337,6 @@ public:
             asio::post(mContextLink, [this]() { mSocket.close(); });
         }
     }
-    // clang-format on
 
     /**
      * @brief Method for checking if current socket is open.

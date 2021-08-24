@@ -52,7 +52,6 @@ restoreWarning
         {
             try
             {
-                //clang-format off
                 suppressWarning(4127, "-Wtype-limits") msg = yas::save<flags>(data);
                 restoreWarning
             }
