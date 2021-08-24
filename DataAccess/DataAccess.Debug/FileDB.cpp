@@ -7,12 +7,21 @@ namespace
 {
 namespace fs = std::filesystem;
 
-// FileDB Utility functions
 
+/**
+ * @brief   Function that constructs empty properties JSON
+ */
 nlohmann::ordered_json constructPropertiesJSON()
 {
     return nlohmann::ordered_json{{"column_info", nlohmann::ordered_json()}, {"number_of_rows", 0U}};
 }
+
+/**
+ * @brief   Function that checks if input identifier is valid
+ * @details Valid identifier is not empty, starts with either an underscore or a character
+ *          and can contain only characters, digits and underscores
+ * @params  Identifier as string
+ */
 bool isValidIdentifier(const std::string& identifier)
 {
     if (identifier.empty() || std::isdigit(identifier[0]))
@@ -25,6 +34,12 @@ bool isValidIdentifier(const std::string& identifier)
 
     return true;
 }
+
+/**
+ * @brief   Function that checks if input datatype is valid
+ * @details Valid datatypes are int, unsigned, float, bool, string
+ * @params  Datatype as string
+ */
 bool isValidDatatype(const std::string& dataType)
 {
     const std::vector<std::string> validTypes = {"int", "unsigned", "float", "bool", "string"};
@@ -34,6 +49,16 @@ bool isValidDatatype(const std::string& dataType)
 
     return false;
 }
+
+/**
+ * @brief   Function that sets JSON field to appropriate C++ type
+ * @details If not fieldValue has been supplied, function uses 0 as default
+ *          Value from fieldValue string is explicitly converted to fieldType
+ * @params  Target json as nlohmann::ordered_json
+ *          fieldName as string
+ *          fieldType as string
+ *          fieldValue as string ("0" by default)
+ */
 void setJSONFieldType(nlohmann::ordered_json& json, const std::string& fieldName,
                               const std::string& fieldType, const std::string& fieldValue = "0")
 {
@@ -89,23 +114,23 @@ FileDB::FileDB(const std::string& instanceName)
 {
     if (isValidIdentifier(instanceName))
     {
-        name = instanceName;
-        path = fs::current_path().append(instanceName);
+        _name = instanceName;
+        _path = fs::current_path().append(instanceName);
     }
     else
     {
         throw std::invalid_argument("Invalid identifier : \"" + instanceName + "\"");
     }
 
-    if (!fs::exists(path))
+    if (!fs::exists(_path))
     {
-        fs::create_directory(path);
+        fs::create_directory(_path);
     }
     else
     {
         std::fstream fileStream;
 
-        for (auto& directoryEntry : fs::directory_iterator(path))
+        for (auto& directoryEntry : fs::directory_iterator(_path))
         {
             if (directoryEntry.is_directory())
             {
@@ -122,7 +147,7 @@ FileDB::FileDB(const std::string& instanceName)
                                                        std::istreambuf_iterator<char>());
                     fileStream.close();
 
-                    tableProperties[tableName] = properties;
+                    _tableProperties[tableName] = properties;
 
                     nlohmann::ordered_json rowTemplate;
 
@@ -131,7 +156,7 @@ FileDB::FileDB(const std::string& instanceName)
                         setJSONFieldType(rowTemplate, columnName, columnType);
                     }
 
-                    tableRowTemplates[tableName] = rowTemplate;
+                    _tableRowTemplates[tableName] = rowTemplate;
                 }
             }
         }
@@ -140,15 +165,15 @@ FileDB::FileDB(const std::string& instanceName)
 
 FileDB::~FileDB()
 {
-    if (tableProperties.size() == 0)
+    if (_tableProperties.size() == 0)
     {
-        fs::remove(path);
+        fs::remove(_path);
     }
 }
 
 void FileDB::dropAllTables()
 {
-    auto propertiesCopy = tableProperties;
+    auto propertiesCopy = _tableProperties;
 
     for (auto [tableName, properties] : propertiesCopy)
     {
@@ -159,21 +184,21 @@ void FileDB::dropAllTables()
 void FileDB::insert(const std::string& tableName, const std::vector<std::string>& columnData,
             const std::vector<std::string>& columnNames)
 {
-    std::scoped_lock<std::mutex> lock{ mutex };
+    std::scoped_lock<std::mutex> lock{ _mutex };
 
-    if (tableProperties.find(tableName) == tableProperties.end())
+    if (_tableProperties.find(tableName) == _tableProperties.end())
     {
         throw std::invalid_argument("Table \"" + tableName + "\" does not exist.");
     }
 
-    nlohmann::ordered_json& properties = tableProperties[tableName];
+    nlohmann::ordered_json& properties = _tableProperties[tableName];
 
     if ((columnNames.size() != columnData.size()) && columnNames.size() != 0)
     {
         throw std::invalid_argument("Number of columns/initializers mismatch");
     }
 
-    nlohmann::ordered_json row = tableRowTemplates[tableName];
+    nlohmann::ordered_json row = _tableRowTemplates[tableName];
 
     if (columnData.size() > row.size())
     {
@@ -218,12 +243,12 @@ void FileDB::insert(const std::string& tableName, const std::vector<std::string>
 
     std::fstream fileStream;
 
-    fileStream.open(path / tableName / "properties.json",
+    fileStream.open(_path / tableName / "properties.json",
                     std::ios::out);
     fileStream << std::setw(4) << properties;
     fileStream.close();
 
-    fs::path rowPath = path / tableName / rowFilename;
+    fs::path rowPath = _path / tableName / rowFilename;
 
     fileStream.open(rowPath, std::ios::out);
     fileStream << std::setw(4) << row;
@@ -232,16 +257,16 @@ void FileDB::insert(const std::string& tableName, const std::vector<std::string>
 
 std::vector<nlohmann::ordered_json> FileDB::select(const std::string& tableName, std::function<bool(const nlohmann::ordered_json&)> condition) const
 {
-    std::scoped_lock<std::mutex> lock{mutex};
+    std::scoped_lock<std::mutex> lock{_mutex};
 
-    if (tableProperties.find(tableName) == tableProperties.end())
+    if (_tableProperties.find(tableName) == _tableProperties.end())
     {
         throw std::invalid_argument("Table \"" + tableName + "\" does not exist.");
     }
 
-    nlohmann::ordered_json properties = tableProperties.at(tableName);
+    nlohmann::ordered_json properties = _tableProperties.at(tableName);
 
-    fs::path tablePath = path / tableName;
+    fs::path tablePath = _path / tableName;
     std::vector<nlohmann::ordered_json> results;
 
     std::fstream fileStream;
@@ -270,16 +295,16 @@ void FileDB::update(const std::string& tableName, const std::vector<std::string>
             const std::vector<std::string>& columnNames,
             std::function<bool(const nlohmann::ordered_json&)> condition)
 {
-    std::scoped_lock<std::mutex> lock{ mutex };
+    std::scoped_lock<std::mutex> lock{ _mutex };
 
-    if (tableProperties.find(tableName) == tableProperties.end())
+    if (_tableProperties.find(tableName) == _tableProperties.end())
     {
         throw std::invalid_argument("Table \"" + tableName + "\" does not exist.");
     }
 
-    const nlohmann::ordered_json& properties = tableProperties[tableName];
+    const nlohmann::ordered_json& properties = _tableProperties[tableName];
 
-    fs::path tablePath = path / tableName;
+    fs::path tablePath = _path / tableName;
 
     for (auto columnName : columnNames)
     {
@@ -325,16 +350,16 @@ void FileDB::update(const std::string& tableName, const std::vector<std::string>
 void FileDB::remove(const std::string& tableName,
                  std::function<bool(const nlohmann::ordered_json&)> condition)
 {
-    std::scoped_lock<std::mutex> lock{mutex};
+    std::scoped_lock<std::mutex> lock{_mutex};
 
-    if (tableProperties.find(tableName) == tableProperties.end())
+    if (_tableProperties.find(tableName) == _tableProperties.end())
     {
         throw std::invalid_argument("Table \"" + tableName + "\" does not exist.");
     }
 
-    nlohmann::ordered_json& properties = tableProperties[tableName];
+    nlohmann::ordered_json& properties = _tableProperties[tableName];
 
-    fs::path tablePath = path / tableName;
+    fs::path tablePath = _path / tableName;
 
     std::fstream fileStream;
     nlohmann::ordered_json row;
@@ -356,7 +381,7 @@ void FileDB::remove(const std::string& tableName,
         }
     }
 
-    fileStream.open(path / tableName / "properties.json", std::ios::out);
+    fileStream.open(_path / tableName / "properties.json", std::ios::out);
     fileStream << std::setw(4) << properties;
     fileStream.close();
 
@@ -366,19 +391,19 @@ void FileDB::remove(const std::string& tableName,
 void FileDB::createTable(const std::string& tableName, const std::vector<std::string>& columnNames,
                           const std::vector<std::string>& columnTypes)
 {
-    std::scoped_lock<std::mutex> lock{mutex};
+    std::scoped_lock<std::mutex> lock{_mutex};
 
     if (!isValidIdentifier(tableName))
     {
         throw std::invalid_argument("Invalid identifier : \"" + tableName + "\"");
     }
 
-    if (tableProperties.find(tableName) != tableProperties.end())
+    if (_tableProperties.find(tableName) != _tableProperties.end())
     {
         throw std::invalid_argument("Table already exists.");
     }
 
-    fs::path tablePath = path / tableName;
+    fs::path tablePath = _path / tableName;
 
 
     if (columnNames.size() != columnTypes.size())
@@ -409,7 +434,7 @@ void FileDB::createTable(const std::string& tableName, const std::vector<std::st
         setJSONFieldType(rowTemplate, columnName, columnType);
     }
 
-    tableRowTemplates[tableName] = rowTemplate;
+    _tableRowTemplates[tableName] = rowTemplate;
 
     if (!fs::exists(tablePath))
     {
@@ -422,21 +447,21 @@ void FileDB::createTable(const std::string& tableName, const std::vector<std::st
     fileStream << std::setw(4) << properties;
     fileStream.close();
 
-    tableProperties[tableName] = properties;
+    _tableProperties[tableName] = properties;
 }
 
 void FileDB::removeTable(const std::string& tableName)
 {
-    std::scoped_lock<std::mutex> lock{mutex};
+    std::scoped_lock<std::mutex> lock{_mutex};
 
-    if (tableProperties.find(tableName) == tableProperties.end())
+    if (_tableProperties.find(tableName) == _tableProperties.end())
     {
         throw std::invalid_argument("Table \"" + tableName + "\" does not exist.");
     }
 
-    tableProperties.erase(tableName);
+    _tableProperties.erase(tableName);
 
-    fs::path tablePath = path / tableName;
+    fs::path tablePath = _path / tableName;
 
     if (fs::exists(tablePath))
     {
@@ -447,7 +472,7 @@ void FileDB::removeTable(const std::string& tableName)
 void FileDB::addColumn(const std::string& tableName, const std::string& columnName,
                const std::string& columnType)
 {
-    std::scoped_lock<std::mutex> lock{mutex};
+    std::scoped_lock<std::mutex> lock{_mutex};
 
     if (!isValidIdentifier(columnName) || !isValidDatatype(columnType))
     {
@@ -455,14 +480,14 @@ void FileDB::addColumn(const std::string& tableName, const std::string& columnNa
                                     " : " + columnType + "\"");
     }
 
-    if (tableProperties.find(tableName) == tableProperties.end())
+    if (_tableProperties.find(tableName) == _tableProperties.end())
     {
         throw std::invalid_argument("Table \"" + tableName + "\" does not exist.");
     }
 
-    nlohmann::ordered_json& properties = tableProperties[tableName];
+    nlohmann::ordered_json& properties = _tableProperties[tableName];
 
-    fs::path tablePath = path / tableName;
+    fs::path tablePath = _path / tableName;
 
     std::fstream fileStream;
 
@@ -477,21 +502,21 @@ void FileDB::addColumn(const std::string& tableName, const std::string& columnNa
     fileStream << std::setw(4) << properties;
     fileStream.close();
 
-    setJSONFieldType(tableRowTemplates[tableName], columnName, columnType);
+    setJSONFieldType(_tableRowTemplates[tableName], columnName, columnType);
 }
 
 void FileDB::removeColumn(const std::string& tableName, const std::string columnName)
 {
-    std::scoped_lock<std::mutex> lock{mutex};
+    std::scoped_lock<std::mutex> lock{_mutex};
 
-    if (tableProperties.find(tableName) == tableProperties.end())
+    if (_tableProperties.find(tableName) == _tableProperties.end())
     {
         throw std::invalid_argument("Table \"" + tableName + "\" does not exist.");
     }
 
-    nlohmann::ordered_json& properties = tableProperties[tableName];
+    nlohmann::ordered_json& properties = _tableProperties[tableName];
 
-    fs::path tablePath = path / tableName;
+    fs::path tablePath = _path / tableName;
 
     std::fstream fileStream;
 
@@ -521,16 +546,16 @@ void FileDB::removeColumn(const std::string& tableName, const std::string column
         }
     }
 
-    tableRowTemplates[tableName].erase(columnName);
+    _tableRowTemplates[tableName].erase(columnName);
 }
 
 void FileDB::renumerateRowFiles(const std::string& tableName) const
 {
     fs::path tablePath;
 
-    if (tableProperties.find(tableName) != tableProperties.end())
+    if (_tableProperties.find(tableName) != _tableProperties.end())
     {
-        tablePath = path / tableName;
+        tablePath = _path / tableName;
     }
     else
     {
