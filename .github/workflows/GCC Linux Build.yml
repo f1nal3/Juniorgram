@@ -99,15 +99,15 @@ jobs:
     - name: Stop JG Service
       if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/master'
       run: |
-          ssh jg_host 'sudo systemctl stop juniorgram.service '
-          ssh jg_host 'sudo rm juniorgram' 
-      
+          ssh jg_host 'sudo systemctl stop juniorgram.test.service '
+          ssh jg_host 'sudo rm juniorgram.test' 
+  
     - name: Upload server to Host
       if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/master'    
-      run: scp ./build/bin/Server.Exec jg_host:/home/jg_admin/juniorgram
+      run: scp ./build/bin/Server.Exec jg_host:/home/jg_admin/juniorgram.test
         
     - name: Start JG Service
       if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/master'
       run: |
-          ssh jg_host 'sudo chmod +x juniorgram'
-          ssh jg_host 'sudo systemctl start juniorgram.service'
+          ssh jg_host 'sudo chmod +x juniorgram.test'
+          ssh jg_host 'sudo systemctl start juniorgram.test.service'
