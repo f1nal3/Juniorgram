@@ -127,7 +127,6 @@ TEST_CASE("Checking the number of log files in a directory")
     SECTION("Create ten Test.txt files")
     {
         std::size_t           counter = 1;
-          // creates TestingFolder object on C:
         while (counter < 8)
         {
             std::filesystem::path path{getFldName()};

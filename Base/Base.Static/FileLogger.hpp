@@ -117,7 +117,6 @@ private:
      */
     std::string getFldName();
 
-
     /**
      * @brief Loop to synchronize all threads
      */
@@ -138,13 +137,7 @@ private:
      * @brief Converts the std::filesystem::last_write_time to time_t
      * @return the time in the format time_t
      */
-    template <typename TP>
-    std::time_t to_time_t(TP tp)
-    {
-        using namespace std::chrono;
-        auto sctp = time_point_cast<system_clock::duration>(tp - TP::clock::now() + system_clock::now());
-        return system_clock::to_time_t(sctp);
-    }
+    std::time_t to_time_t(std::filesystem::file_time_type timeType);
 
     /**
      * @brief Wraps the value of a variable
@@ -163,8 +156,8 @@ private:
 
     std::thread _Thread;
     std::condition_variable _CV;
-    std::mutex _mMutex;
-    std::queue<std::map<std::string, LogLevel>> _Queue;
+    std::mutex _Mutex;
+    std::queue<std::map<std::string, LogLevel>> _msgQueue;
     bool _Stop = false;
 };
 }

@@ -22,7 +22,7 @@ namespace Logger
      /**
      * @brief Place of output of logged information
      * CONSOLE -    console output
-     * File -       file output
+     * FILE -       file output
      * EVERYWHERE - output to console and file
      */
     enum class LogOutput
@@ -35,7 +35,7 @@ namespace Logger
     /**
      * @brief Required storage period for log files
      */
-    const uint64_t periodLife = 7;
+    const uint64_t lifeTime = 7;
 
     /** @class ILogger
      *  @brief An interface for logger

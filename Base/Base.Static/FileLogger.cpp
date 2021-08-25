@@ -75,7 +75,7 @@ void FileLogger::close()
 
 void FileLogger::stop()
 {
-    std::lock_guard<std::mutex> lk(_mMutex);
+    std::lock_guard<std::mutex> lk(_Mutex);
     _Stop = true;
     _CV.notify_one();
 }
@@ -86,10 +86,10 @@ void FileLogger::log(const std::string& msg, const LogLevel level)
                          wrapValue(threadID(), _blockWrapper) + " " +
                          wrapValue(stringify(level), _blockWrapper) + " " + msg;
 
-    std::lock_guard<std::mutex> lk(_mMutex);
+    std::lock_guard<std::mutex> lk(_Mutex);
     std::map<std::string, LogLevel> mapForQueue;
     mapForQueue.insert(make_pair(result, level));
-    _Queue.push(mapForQueue);
+    _msgQueue.push(mapForQueue);
     _CV.notify_one();
 }
 
@@ -122,6 +122,14 @@ std::string FileLogger::threadID()
     ss << std::this_thread::get_id();
     return ss.str();
 }
+
+std::time_t Logger::FileLogger::to_time_t(std::filesystem::file_time_type timeType)
+{
+    using namespace std::chrono;
+    auto sctp = time_point_cast<system_clock::duration>(timeType - std::filesystem::file_time_type::clock::now() + system_clock::now());
+    return system_clock::to_time_t(sctp);
+}
+
 std::string FileLogger::wrapValue(const std::string& value, const BlockWrapper& blockWrapper)
 {
     return blockWrapper.first + value + blockWrapper.second;
@@ -132,8 +140,8 @@ void FileLogger::run()
     while (true)
     {
         // Wait until some request comes or stop flag is set
-        std::unique_lock<std::mutex> lock(_mMutex);
-        _CV.wait(lock, [&]() { return _Stop || !_Queue.empty(); });
+        std::unique_lock<std::mutex> lock(_Mutex);
+        _CV.wait(lock, [&]() { return _Stop || !_msgQueue.empty(); });
 
         // Stop if needed
         if (_Stop)
@@ -141,8 +149,8 @@ void FileLogger::run()
             break;
         }
 
-        std::string msg = std::move(_Queue.front().begin()->first);
-        _Queue.pop();
+        std::string msg = std::move(_msgQueue.front().begin()->first);
+        _msgQueue.pop();
 
         if (_output == LogOutput::CONSOLE)
         {
@@ -204,13 +212,14 @@ void FileLogger::fileSync()
 
     for (auto& p : std::filesystem::directory_iterator(getFldName()))
     {
+        auto a = std::filesystem::last_write_time(p.path());
         std::time_t tt = to_time_t(std::filesystem::last_write_time(p.path()));
         VecLogFiles.push_back(std::make_pair(tt, p.path()));
     }
 
     sort(VecLogFiles.rbegin(), VecLogFiles.rend());
 
-    while (VecLogFiles.size() > getPeriodLife())
+    while (VecLogFiles.size() > lifeTime)
     {
         std::filesystem::remove(VecLogFiles.back().second);
         VecLogFiles.pop_back();
