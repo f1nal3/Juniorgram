@@ -43,6 +43,22 @@ void App::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode)
     }
 }
 
+void App::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) 
+{
+    if(deletingState == Utility::DeletingMessageCodes::SUCCESS)
+    {
+        std::cout << "SUCCESS deleting" << std::endl;
+    }
+    else if (deletingState == Utility::DeletingMessageCodes::FAILED)
+    {
+        std::cout << "FAILED deleting" << std::endl;
+    }
+    else
+    {
+        std::cout << "Unknown StoringMessageCode" << std::endl;
+    }
+}
+
 void App::onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages)
 {
     for (const auto& item : messages)

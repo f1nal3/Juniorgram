@@ -311,7 +311,7 @@ void Client::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
 void Client::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) 
 {
     (void)(deletingState);
-    std::cerr << "[Client][Warning] registration answer is not implemented\n";
+    std::cerr << "[Client][Warning] onUserMessageDeleteAnswer answer is not implemented\n";
 }
 
 void Client::onDisconnect() { std::cerr << "[Client][Warning] onDisconnect is not implemented\n"; }
