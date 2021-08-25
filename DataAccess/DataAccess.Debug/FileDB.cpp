@@ -20,7 +20,7 @@ nlohmann::ordered_json constructPropertiesJSON()
  * @brief   Function that checks if input identifier is valid
  * @details Valid identifier is not empty, starts with either an underscore or a character
  *          and can contain only characters, digits and underscores
- * @params  Identifier as string
+ * @param  Identifier as string
  */
 bool isValidIdentifier(const std::string& identifier)
 {
@@ -38,7 +38,7 @@ bool isValidIdentifier(const std::string& identifier)
 /**
  * @brief   Function that checks if input datatype is valid
  * @details Valid datatypes are int, unsigned, float, bool, string
- * @params  Datatype as string
+ * @param  Datatype as string
  */
 bool isValidDatatype(const std::string& dataType)
 {
@@ -54,7 +54,7 @@ bool isValidDatatype(const std::string& dataType)
  * @brief   Function that sets JSON field to appropriate C++ type
  * @details If not fieldValue has been supplied, function uses 0 as default
  *          Value from fieldValue string is explicitly converted to fieldType
- * @params  Target json as nlohmann::ordered_json
+ * @param  Target json as nlohmann::ordered_json
  *          fieldName as string
  *          fieldType as string
  *          fieldValue as string ("0" by default)
