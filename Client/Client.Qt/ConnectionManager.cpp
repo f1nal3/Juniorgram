@@ -69,13 +69,13 @@ void ConnectionManager::onLoginAnswer(bool success)
     emit ReceiverManager::instance()->onLoginAnswer(success);
 }
 
-void ConnectionManager::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState)
+void ConnectionManager::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingCode)
 {
-    if (deletingState == Utility::DeletingMessageCodes::SUCCESS)
+    if (deletingCode == Utility::DeletingMessageCodes::SUCCESS)
     {
         std::cout << "SUCCESS DELETING" << std::endl;
     }
-    else if (deletingState == Utility::DeletingMessageCodes::FAILED)
+    else if (deletingCode == Utility::DeletingMessageCodes::FAILED)
     {
         std::cout << "FAILED DELETING" << std::endl;
     }
@@ -84,7 +84,7 @@ void ConnectionManager::onUserMessageDeleteAnswer(const Utility::DeletingMessage
         std::cout << "UNKNOWN deleting message code" << std::endl;
     }
 
-    emit ReceiverManager::instance()->onUserMessageDeleteAnswer(deletingState);
+    emit ReceiverManager::instance()->onUserMessageDeleteAnswer(deletingCode);
 }
 
 void ConnectionManager::onDisconnect()
