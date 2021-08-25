@@ -1,7 +1,8 @@
 #pragma once
 
+#include <Style/Styles.hpp>
+
 #include "AbstractButton.hpp"
-#include "Style/StyleBasic.hpp"
 
 /**
  * @class FlatButton
@@ -54,12 +55,16 @@ private:
 class LinkButton : public AbstractButton
 {
 public:
+    /// Constructor for LinkButton
     explicit LinkButton(QWidget* parent, const QString& text, const Style::LinkButton& st = st::defaultLinkButton);
 
+    /// Set text
     void setText(const QString& text);
 
 protected:
+    /// Handle paint
     void paintEvent(QPaintEvent* event) override;
+    /// Update on state change
     void onStateChanged(State was, StateChanger source) override
     {
         Q_UNUSED(was);

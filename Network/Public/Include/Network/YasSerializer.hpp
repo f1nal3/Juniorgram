@@ -1,6 +1,5 @@
 #pragma once
 #include "Utility/WarningSuppression.hpp"
-// clang-format off
 suppressWarning(4996, "-Wdeprecated-declarations")
 suppressWarning(4458, "-Wshadow")
 #include <yas/binary_iarchive.hpp>
@@ -14,11 +13,10 @@ suppressWarning(4458, "-Wshadow")
 #include <yas/types/std/vector.hpp>
 restoreWarning
 restoreWarning
-// clang-format on
 
 #include "Network/Primitives.hpp"
 
-namespace Network
+    namespace Network
 {
     /** @enum SerializedState
      *  @brief Successful or not result of serialization/deserialization
@@ -54,12 +52,9 @@ namespace Network
         {
             try
             {
-                // clang-format off
-				suppressWarning(4127, "-Wtype-limits")
-					msg = yas::save<flags>(data);
-				restoreWarning
-           }
-            // clang-format on
+                suppressWarning(4127, "-Wtype-limits") msg = yas::save<flags>(data);
+                restoreWarning
+            }
             catch (const std::exception& e)
             {
                 std::cout << "Serialization error\n";
@@ -81,12 +76,10 @@ namespace Network
         {
             try
             {
-                // clang-format off
-				suppressWarning(4127, "-Wtype-limits")
+                suppressWarning(4127, "-Wtype-limits")
 					yas::load<flags>(source, data);
-				restoreWarning
-			}
-            // clang-format on
+                restoreWarning
+            }
             catch (const std::exception& e)
             {
                 std::cout << "Deserialization error\n";

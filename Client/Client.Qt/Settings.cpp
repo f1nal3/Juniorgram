@@ -9,7 +9,7 @@ std::unique_ptr<Settings> Settings::instance = nullptr;
 
 Settings& Settings::getInstance()
 {
-    if(instance == nullptr)
+    if (instance == nullptr)
     {
         instance.reset(new Settings());
     }
@@ -19,17 +19,27 @@ Settings& Settings::getInstance()
 void Settings::writeSettings()
 {
     settings->beginGroup("Font");
-    settings->setValue("FontSize", _fontSize);
+    settings->setValue("ChatFontSize", _fontSize);
     settings->endGroup();
 }
 
-void Settings::setFontSize(int size)
+void Settings::resetSettings()
 {
-    _fontSize = size;
+    settings->clear();
 }
 
-int Settings::getFontSize()
+void Settings::setFontSize(std::int32_t size)
 {
-    return _fontSize;
+    if (size > _minFontSize) 
+        _fontSize = size;    
+}
+
+std::optional<std::int32_t> Settings::getFontSize()
+{
+    if (settings->contains("Font/ChatFontSize")) 
+    { 
+        return settings->value("Font/ChatFontSize").toInt(); 
+    }
+    return { };
 }
 

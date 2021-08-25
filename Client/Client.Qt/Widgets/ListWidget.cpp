@@ -1,7 +1,5 @@
 #include "ListWidget.hpp"
 
-#include "Style/Style.hpp"
-
 ListWidget::ListWidget(QWidget* parent) : QListWidget(parent)
 {
     setStyleSheet(

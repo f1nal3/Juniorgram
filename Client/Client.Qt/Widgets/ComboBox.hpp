@@ -9,9 +9,6 @@
 class ComboBox : public QComboBox
 {
 public:
-    /**
-     * @brief Constructor for ComboBox
-     * @param parent parent widget
-     */
+    /// Constructor for ComboBox
     explicit ComboBox(QWidget* parent = nullptr);
 };

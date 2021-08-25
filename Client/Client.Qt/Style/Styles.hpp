@@ -1,0 +1,5 @@
+#include "Palette.hpp"
+#include "StyleBasic.hpp"
+#include "StyleIcons.hpp"
+#include "StyleTypes.hpp"
+#include "StyleWidgets.hpp"

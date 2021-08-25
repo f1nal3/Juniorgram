@@ -27,7 +27,7 @@ public:
      *   @details It needs for technical purposes. Don't use it /
      *   (it's because I designed the interface badly). /
      *   Instead use getInstance method. /
-     *   @params db_name - Data Base name.
+     *   @param db_name - Data Base name.
      *   @return Pointer to current instanse of Lite adapter.
      */
     static std::shared_ptr<LiteAdapter> Instance(const std::string_view& db_name);

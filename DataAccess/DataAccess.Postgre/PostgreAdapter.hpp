@@ -31,7 +31,7 @@ public:
     *    It needs for technical purposes. Don't use it 
     *    (it's because I designed the interface badly). 
     *    Instead use getInstance method.
-    *   @params options - Connection options.
+    *   @param options - Connection options.
     *   @return Pointer to current instanse of Postgre adapter.
     */
     static std::shared_ptr<PostgreAdapter> Instance(const std::string_view& options = {});

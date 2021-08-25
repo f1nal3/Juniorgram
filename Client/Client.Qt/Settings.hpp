@@ -1,6 +1,8 @@
 #pragma once
 #include <QApplication>
 #include <QSettings>
+#include <optional>
+
 #include <memory>
 
 /** @class Settings
@@ -32,16 +34,24 @@ public:
      */
     void writeSettings();
     /**
-     * @brief Draft method for setting font size value
-     * @param size as int.
+     * @brief Method for Settiings reset by clearing .config file
      */
-    void setFontSize(int size);
+    void resetSettings();
     /**
-     * @brief Draft method for getting font size value
-     * @return fontSize as int.
+     * @brief Draft method for setting font size value /
+     * if it is more than const _minFontSize = 0
+     * @param size as std::int32_t.
      */
-    int getFontSize();
+    void setFontSize(std::int32_t size);
+    /**
+     * @brief Method for getting font size value if it's present
+     * @return fontSize as std::int32_t /
+     * if fontSize is not set returns indicator of optional type /
+     * with uninitialized state
+     */
+    std::optional<std::int32_t> getFontSize();
 
 private:
-    int _fontSize;
+    std::int32_t _fontSize;
+    static constexpr std::int32_t _minFontSize = 0;
 };

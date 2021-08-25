@@ -13,7 +13,7 @@ add_executable(${TARGET} ${SOURCE_FILES})
 target_link_libraries(${TARGET} PUBLIC
     CONAN_PKG::libpq
     CONAN_PKG::libpqxx
-    CONAN_PKG::catch2
+    Precompiled.Catch2.Main
     DataAccess.Postgre
     DataAccess.Debug
     Utility.Public
@@ -24,5 +24,8 @@ target_include_directories(${TARGET} PRIVATE
 
 target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
+
+target_compile_definitions(${TARGET} PRIVATE CATCH_CONFIG_FAST_COMPILE)
+target_precompile_headers(${TARGET} REUSE_FROM Precompiled.Catch2.Test)
 
 add_test(NAME ${OUTPUT_NAME} COMMAND ${TARGET})

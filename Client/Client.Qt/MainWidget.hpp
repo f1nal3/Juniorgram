@@ -1,9 +1,10 @@
 #pragma once
 
+#include <QVBoxLayout>
 #include <QWidget>
+#include <Style/Styles.hpp>
 #include <memory>
 
-#include "Style/StyleBasic.hpp"
 #include "Widgets/TitleWidget.hpp"
 
 class QHBoxLayout;
@@ -16,9 +17,7 @@ class MainWidget : public QWidget
 {
     Q_OBJECT
 public:
-    /**
-     * @brief Constructor for MainWidget
-     */
+    /// Constructor for main widget
     explicit MainWidget();
     /**
      * @brief Adds widget to window
@@ -38,6 +37,7 @@ public:
      */
     bool setBioButtonIcon(const Style::icon* icon);
 
+    /// Returns edge from global position
     Qt::Edges edgesFromPos(const QPoint& pos);
 
     /**
@@ -50,17 +50,22 @@ protected:
 #ifdef _WIN32
     bool nativeEvent(const QByteArray& eventType, void* message, long* result) override;
 #endif
+    /// Handle paint
     void paintEvent(QPaintEvent* event) override;
+    /// Handle resize
     void resizeEvent(QResizeEvent* event) override;
+    /// Handle window events
     bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
-    void updateCursor(Qt::Edges edges);
+    void updateCursor(const Qt::Edges edges);
     void restoreCursor();
 
 private:
     std::int32_t _current        = -1;
     bool         _cursorOverride = false;
+
+    std::unique_ptr<QVBoxLayout> _grid;
 
     std::unique_ptr<TitleWidget>          _title;
     std::unique_ptr<QWidget>              _body;

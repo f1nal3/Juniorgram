@@ -28,7 +28,7 @@ public:
     virtual std::vector<Network::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
     
     /**  @brief Method for storing message.
-     *   @params Network::MessageInfo which contains message's data for storing in repository.
+     *   @param Network::MessageInfo which contains message's data for storing in repository.
      *   @return The return value of the method is one of the StoringMessageCodes (enum): /
      *   Storing successful - StoringMessageCodes::SUCCESS. /
      *   Storing failed     - StoringMessageCodes::FAILED.
@@ -38,7 +38,7 @@ public:
     virtual Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) = 0;
 
     /**  @brief Method for user registration.
-     *   @params RegistrationMessage which contains user data for registration.
+     *   @param RegistrationMessage which contains user data for registration.
      *   @details Generation password's hash in which login is a salt. It lets us /
      *   to insert different users with the same passwords.
      *   @return The return value of the method is one of the RegistrationCodes (enum). /

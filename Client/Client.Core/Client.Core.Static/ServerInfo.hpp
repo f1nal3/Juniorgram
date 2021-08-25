@@ -5,5 +5,6 @@ namespace ServerInfo
 /// Server address
 constexpr std::string_view address = "127.0.0.1";
 /// Server port
-constexpr std::uint16_t port = 5430;
+/// 65001 can be used for test server
+constexpr std::uint16_t port = 65003;
 }  // namespace ServerInfo

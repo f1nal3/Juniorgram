@@ -21,7 +21,8 @@ Style::Palette _palette;
 
 namespace st
 {
-const Style::color& transparent(_palette.get_transparent());  // special color
+/// Transparent color
+const Style::color& transparent(_palette.get_transparent());
 const Style::color& windowActiveTextFg(_palette.get_windowActiveTextFg());
 const Style::color& window(_palette.get_window());
 const Style::color& windowColor(_palette.get_windowColor());
@@ -37,6 +38,7 @@ const Style::color& scrollAreaColor(_palette.get_scrollAreaColor());
 const Style::color& scrollAreaBar(_palette.get_scrollAreaBar());
 const Style::color& scrollAreaColorOver(_palette.get_scrollAreaColorOver());
 const Style::color& scrollAreaBarOver(_palette.get_scrollAreaBarOver());
+const Style::color& spinnerLineColor(_palette.get_spinnerLineColor());
 }  // namespace st
 
 namespace Style
@@ -79,6 +81,7 @@ void Palette::finalize()
     compute(13, 4, {82, 83, 84, 255});
     compute(14, -1, {71, 72, 73, 255});
     compute(15, -1, {89, 90, 91, 255});
+    compute(16, -1, {255, 255, 255, 255});
 }
 
 namespace

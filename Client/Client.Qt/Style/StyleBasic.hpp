@@ -8,148 +8,48 @@ namespace Style
 {
 namespace internal
 {
+/// StyleBasic initializer
 void init_StyleBasic(int scale);
 
 }  // namespace internal
-
-struct ScrollArea
-{
-    int          width;
-    int          deltat;
-    int          deltab;
-    int          deltax;
-    Style::color bg;
-    Style::color bgOver;
-    Style::color barBg;
-    Style::color barBgOver;
-    int          round;
-    int          hiding;
-};
-
-struct FlatButton
-{
-    Style::margins paddings;
-    int            rounding;
-    Style::color   color;
-    Style::color   overColor;
-    Style::color   bgColor;
-    Style::color   overBgColor;
-    Style::font    font;
-    Style::font    overFont;
-};
-
-struct FlatTextEdit
-{
-    Style::font    font;
-    Style::color   textcolor;
-    Style::color   selectedcolor;
-    Style::color   selectedtextcolor;
-    Style::color   bg;
-    Style::margins margins;
-};
-
-struct MessageWidget
-{
-    int                 radius;
-    Style::font         fontname;
-    Style::font         fontdate;
-    Style::font         fonttext;
-    int                 border;
-    Style::FlatButton   button;
-    Style::FlatTextEdit textedit;
-};
-
-struct LinkButton
-{
-    Style::color color;
-    Style::color overColor;
-    Style::font  font;
-    Style::font  overFont;
-};
-
-struct IconButton
-{
-    Style::color   bgColor;
-    Style::color   overBgColor;
-    Style::color   color;
-    Style::color   overColor;
-    Style::icon    icon;
-    Style::margins margins;
-    int            rounding;
-    Style::font    font;
-    Style::font    overFont;
-    int            duration;
-};
-
-struct TitleBarButton
-{
-    Style::color bgColor;
-    Style::color overBgColor;
-    Style::icon  icon;
-    int          height;
-    int          width;
-};
-
-struct TitleBar
-{
-    Style::color          bgColor;
-    Style::TitleBarButton closeButton;
-    Style::TitleBarButton maximizeButton;
-    Style::TitleBarButton restoreButton;
-    Style::TitleBarButton minimizeButton;
-};
-
-struct Menu
-{
-    int            separatorWidth;
-    Style::margins separatorPadding;
-    Style::color   separatorFg;
-    Style::margins itemPadding;
-    Style::font    itemFont;
-    Style::color   itemFg;
-    Style::color   itemFgOver;
-    Style::color   itemFgDisabled;
-    Style::color   itemBg;
-    Style::color   itemBgOver;
-    int            widthMin;
-    int            widthMax;
-};
-
 }  // namespace Style
 
 namespace st
 {
-extern const int&                   fsize;
-extern const Style::font&           defaultFont;
-extern const Style::font&           semiboldFont;
-extern const Style::Menu&           defaultMenu;
-extern const Style::TitleBarButton& defaultTitleBarButton;
-extern const Style::TitleBarButton& closeButton;
-extern const Style::TitleBarButton& restoreButton;
-extern const Style::TitleBarButton& maximizeButton;
-extern const Style::TitleBarButton& minimizeButton;
-extern const Style::TitleBar&       defaultTitleBar;
-extern const int&                   defaultMargin;
-extern const Style::margins&        mar;
-extern const Style::font&           TextStyle;
-extern const Style::IconButton&     defaultIconButton;
-extern const Style::IconButton&     reactionIconButtonInMenu;
-extern const Style::IconButton&     reactionIconButton;
-extern const Style::IconButton&     userReactionIconButton;
-extern const Style::icon&           smileIcon;
-extern const Style::icon&           dislikeIcon;
-extern const Style::icon&           likeIcon;
-extern const Style::icon&           fireIcon;
-extern const Style::icon&           catIcon;
-extern const Style::LinkButton&     defaultLinkButton;
-extern const Style::FlatButton&     defaultFlatButton;
-extern const Style::FlatButton&     stylingButton;
-extern const Style::FlatButton&     boldnessButton;
-extern const Style::FlatButton&     italicButton;
-extern const Style::FlatButton&     underlineButton;
-extern const Style::ScrollArea&     defaultScrollArea;
-extern const Style::FlatTextEdit&   defaultTextEdit;
-extern const Style::FlatTextEdit&   messageTextEdit;
-extern const Style::FlatButton&     messageButton;
-extern const Style::MessageWidget&  defaultMessageWidget;
+/// defaultFontSize: pixels
+extern const int& defaultFontSize;
+/// defaultFont: Style::font
+extern const Style::font& defaultFont;
+/// semiboldFont: Style::font
+extern const Style::font& semiboldFont;
+/// italicFont: Style::font
+extern const Style::font& italicFont;
+/// boldFont: Style::font
+extern const Style::font& boldFont;
+/// underlineFont: Style::font
+extern const Style::font& underlineFont;
+/// defaultMargin: pixels
+extern const int& defaultMargin;
+/// defaultMargins: Style::margins
+extern const Style::margins& defaultMargins;
+/// minWidth: pixels
+extern const int& minWidth;
+/// minHeight: pixels
+extern const int& minHeight;
+/// shadowPadding: pixels
+extern const int& shadowPadding;
+/// titleBarHeight: pixels
+extern const int& titleBarHeight;
+/// titleBarMaxIconWidth: pixels
+extern const int& titleBarMaxIconWidth;
+/// authBlockWidth: pixels
+extern const int& authBlockWidth;
+/// authBlockSpacing: pixels
+extern const int& authBlockSpacing;
+/// chatWidgetMinWidth: pixels
+extern const int& chatWidgetMinWidth;
+/// channelListMinWidth: pixels
+extern const int& channelListMinWidth;
+/// channelListMaxWidth: pixels
+extern const int& channelListMaxWidth;
 }  // namespace st

@@ -14,7 +14,7 @@ namespace DataAccess
  *    PostgreTable("tableName3").Update()->fields(pair{"column1", 1}, pair{"column2",
  * "strData"})->where("condition")->...->execute()/OR/getQuery();
  *    PostgreTable("tableName4").Delete()->where("condition")->...->execute()/OR/getQuery();
- *   @endcodegit
+ *   @endcode
  */
 class PostgreTable : public QueryBuilder<pqxx::result>
 {

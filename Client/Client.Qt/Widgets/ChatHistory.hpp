@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Network/Primitives.hpp>
 #include <QWidget>
 #include <vector>
 
@@ -27,6 +28,7 @@ public:
      * @param user Usenname
      */
     void addMessage(const QString& message = QString(), quint64 utc = 0, const QString& user = "You");
+    void addMessage(const Network::MessageInfo& messageInfo);
 
     /**
      * @brief Clears all chat
@@ -54,9 +56,7 @@ private Q_SLOTS:
      */
     void resizeVisible();
 Q_SIGNALS:
-    /**
-     * @brief Message has been deleted/restored
-     */
+    /// Message has been deleted/restored
     void messageChanged();
     /**
      * @brief Message has been added
@@ -81,6 +81,7 @@ private:
     std::int32_t                                _left             = -1;
     std::unique_ptr<ScrollArea>                 _scrollArea;
     std::vector<std::unique_ptr<MessageWidget>> _messageList;
+    std::vector<Network::MessageInfo>           _messages;
     std::uint64_t                               _userId    = 0;
     std::uint64_t                               _messageId = 0;
 };

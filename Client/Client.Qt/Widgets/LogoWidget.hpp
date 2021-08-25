@@ -9,31 +9,26 @@ class LogoWidget : public QWidget
 {
     Q_OBJECT
 public:
-    /**
-     * @brief Builds new logo widget
-     * @param parent Parent widget
-     */
+    /// Constructor for logo widget
     explicit LogoWidget(QWidget* parent = nullptr);
 
-    /**
-     * @brief Original size of logo
-     * @return Original size of logo
-     */
-    [[nodiscard]] QSize bestFit() const { return _logo->size(); }
     /**
      * @brief Sets part for logo to take place in
      * @param percent Value in [0, 100]
      */
-    void setPart(int percent);
-    /**
-     * @brief Recalculates size of widget if parent widget geometry changed
-     */
-    void recountSize();
+    void setPart(double percent);
+    /// Update size of logo
+    void updateSize();
 
 protected:
+    /// Handle paint
     void paintEvent(QPaintEvent* paintEvent) override;
 
 private:
+    /// Original size of logo
+    [[nodiscard]] QSize bestFit() const { return _logo->size(); }
+
+private:
     std::unique_ptr<QPixmap> _logo;
-    int                      _partInPercent;
+    double                   _part;
 };
