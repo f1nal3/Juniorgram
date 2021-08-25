@@ -138,7 +138,7 @@ namespace DataAccess
     public:
 
         /** @brief Changing table.
-        *   @params newTableName - new name of the table.
+        *   @param newTableName - new name of the table.
         */
         void changeTable(const char* newTableName) noexcept
         {
@@ -150,7 +150,7 @@ namespace DataAccess
             _tableName = newTableName;
         }
         /** @brief Changing table.
-         *   @params newTableName - new name of the table.
+         *   @param newTableName - new name of the table.
          */
         void changeTable(const std::string& newTableName) noexcept
         {

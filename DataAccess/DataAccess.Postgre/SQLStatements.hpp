@@ -30,7 +30,7 @@ namespace DataAccess
 
     public:
         /** @brief Like common SQL 'where' condition.
-         *   @params condition - SQL condition, but it is not required \
+         *   @param condition - SQL condition, but it is not required \
          *   @return Current SQLSTATEMENT pointer object to continue SQL query.
          */
         T* Where(const std::string& condition = {})
@@ -43,7 +43,7 @@ namespace DataAccess
         }
         /** @brief Like common SQL 'and' condition. This condition \
          *    need for continue the SQL query after like: limit, beetween, etc.
-         *   @params condition - SQL condition, but it is not required. \
+         *   @param condition - SQL condition, but it is not required. \
          *   @return Current SQLSTATEMENT pointer object to continue SQL query.
          */
         T* And(const std::string& condition = {})
@@ -56,7 +56,7 @@ namespace DataAccess
         }
         /** @brief Like common SQL 'or' condition. This condition \
          *    need for continue the SQL query after like: limit, beetween, etc.
-         *   @params condition - SQL condition, but it is not required. \
+         *   @param condition - SQL condition, but it is not required. \
          *   @return Current SQLSTATEMENT pointer object to continue SQL query.
          */
         T* Or(const std::string& condition = {})
@@ -68,7 +68,7 @@ namespace DataAccess
             return _statement;
         }
         /** @brief In condition.
-         *  @params anotherStatement - another SQL statement, \
+         *  @param anotherStatement - another SQL statement, \
          *   that you can receive from 'getQuery()' method.
          *  @return Current SQLSTATEMENT pointer object to continue SQL query.
          */
@@ -81,7 +81,7 @@ namespace DataAccess
             return _statement;
         }
         /** @brief In condition.
-         *   @params valueList - checking from list of values.
+         *   @param valueList - checking from list of values.
          *   @return Current SQLSTATEMENT pointer object to continue SQL query.
          */
         T* In(const std::initializer_list<std::string>& valueList)
@@ -100,7 +100,7 @@ namespace DataAccess
             return _statement;
         }
         /** @brief Beeween condition.
-         *  @params left - start of the range.
+         *  @param left - start of the range.
          *   right - end of the range.
          *  @return Current SQLSTATEMENT pointer object to continue SQL query.
          */
@@ -114,7 +114,7 @@ namespace DataAccess
             return _statement;
         }
         /** @brief Like condition.
-         *   @params pattern - see this for info: \
+         *   @param pattern - see this for info: \
          *    https://www.w3schools.com/sql/sql_like.asp, \
          *    https://www.w3schools.com/sql/sql_wildcards.asp
          *   @return Current SQLSTATEMENT pointer object to continue SQL query.
@@ -316,7 +316,7 @@ namespace DataAccess
          *   @details Or, for all columns from table use:
          *   @code
          *    ...->columns({"*"})->...;
-         *   @params Inintializer_list<string> of columns that you need.
+         *   @param Inintializer_list<string> of columns that you need.
          *   @return Current SQLSelect pointer object to continue SQL query.
          */
         SQLSelect* columns(const std::initializer_list<std::string>& columnList)
@@ -335,7 +335,7 @@ namespace DataAccess
         /** @brief Method for limiting returned SQL rows.
          *   @details For example limit 5 offset 2 return: \
          *    row3, row4, row5, row6, row7.
-         *   @params limit - how much rows that you need
+         *   @param limit - how much rows that you need
          *    offset - from what row start limit
          *   @return Current SQLSelect pointer object to continue SQL query.
          */
@@ -349,8 +349,8 @@ namespace DataAccess
         }
         /** @brief Method for selecting rows by columns in alphabetic order.
          *   @details Use desc = true, if you wanna select in reverse order.
-         *   @params columnList - list of columns.
-         *   @params desc - reverse order.
+         *   @param columnList - list of columns.
+         *   @param desc - reverse order.
          *   @code
          *    ...->orderBy({"column1", "column2", ...})->...;
          *    ...->orderBy({"*"})->...;
@@ -383,7 +383,7 @@ namespace DataAccess
             return this;
         }
         /** @brief Method that select join tables.
-         *   @params join - join type (Check SQLJoinType enum)
+         *   @param join - join type (Check SQLJoinType enum)
          *    secondTableName - table with which will be join select
          *    onCondition - important condition for join tables
          *   @return Current SQLSelect pointer object to continue SQL query
@@ -428,7 +428,7 @@ namespace DataAccess
         }
     
         /** @brief Method for group result table.
-         *   @params columnList - list of the columns.
+         *   @param columnList - list of the columns.
          *    Use ...({"*"})->... for all columns
          *   @return Current SQLSelect pointer object to continue SQL query
          */
@@ -470,7 +470,7 @@ namespace DataAccess
          *    and a range of other values (any of the values).
          *   @details It's equivolent of:
          *    x = ANY (a,b,c) -> x = a OR b OR c
-         *   @params SQL subQuery string
+         *   @param SQL subQuery string
          *   @return Current SQLSelect pointer object to continue SQL query
          */
         SQLSelect* Any(const std::string& subQuery)
@@ -483,7 +483,7 @@ namespace DataAccess
         }
         /** @brief Method for a condition between a single column
          *    and a range of other values (a of the values).
-         *   @params SQL subQuery string
+         *   @param SQL subQuery string
          *   @return Current SQLSelect pointer object to continue SQL query
          */
         SQLSelect* All(const std::string& subQuery)
@@ -526,7 +526,7 @@ namespace DataAccess
          *   @code
          *    ...->field(1, "a", "male")->field(2, "b", "female")...;
          *   @endcode
-         *   @params list of row's columns.
+         *   @param list of row's columns.
          *   @return Current SQLInsert pointer object to continue SQL query.
          */
         template <typename... DataType>
@@ -554,7 +554,7 @@ namespace DataAccess
          *  @code
          *   ...->field(tupleName1)->field(tupleName2)...;
          *  @endcode
-         *  @params Taple with data.
+         *  @param Taple with data.
          *  @return Current SQLInsert pointer object to continue SQL query.
          */
         template <typename... DataType>
@@ -589,7 +589,7 @@ namespace DataAccess
          *  @code
          *   ...->columns(pair{"Column1", 1}, pair{"Column2", "data"})->field(data)->...;
          *  @endcode
-         *  @params Pairs.
+         *  @param Pairs.
          *  @return Current SQLInsert pointer object to continue SQL query.
          */
         template <typename ColumnType = const char*, typename... DataType>
@@ -618,7 +618,7 @@ namespace DataAccess
          *  @code
          *   ...->columns(tupleName1)->field(data)->...;
          *  @endcode
-         *  @params Tuple of pairs.
+         *  @param Tuple of pairs.
          *  @return Current SQLInsert pointer object to continue SQL query.
          */
         template <typename ColumnType = const char*, typename... DataType>
@@ -653,7 +653,7 @@ namespace DataAccess
 
     public:
         /** @brief Returning columns from table after insert.
-         *   @params columnList - list of columns that need to return.
+         *   @param columnList - list of columns that need to return.
          *   @return Current SQLInsert pointer object to continue SQL query.
          */
         SQLInsert* returning(const std::initializer_list<std::string>& columnList)
@@ -698,7 +698,7 @@ namespace DataAccess
 
     public:
         /** @brief Updating fields with new data.
-         *   @params columnData - pairs with column names by first \
+         *   @param columnData - pairs with column names by first \
          *    and the data by second.
          *   @return Current SQLUpdate pointer object to continue SQL query.
          */
@@ -716,7 +716,7 @@ namespace DataAccess
             return this;
         }
         /** @brief Updating fields with new data.
-         *   @params columnData - tuple of pairs.
+         *   @param columnData - tuple of pairs.
          *   @return Current SQLUpdate pointer object to continue SQL query.
          */
         template <typename ColumnType = const char*, typename... Args>
