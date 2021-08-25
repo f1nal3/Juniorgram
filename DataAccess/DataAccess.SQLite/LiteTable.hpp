@@ -14,7 +14,7 @@ namespace DataAccess
  *    LiteTable("tableName3").Update()->fields(pair{"column1", 1}, pair{"column2",
  * "strData"})->where("condition")->...->execute()/OR/getQuery();
  *    LiteTable("tableName4").Delete()->where("condition")->...->execute()/OR/getQuery();
- *   @endcodegit
+ *   @endcode
  */
 class LiteTable : public QueryBuilder<QSqlQuery>
 {
