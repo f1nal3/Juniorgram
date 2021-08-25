@@ -63,7 +63,7 @@ public:
      * @brief   Method for retrieving data that satisfies condition from a table
      * @details Applies "condition" to all rows in "tableName" and returns rows for which "condition" returns true.
      *          Default argument will result in returning all rows
-     * @params  Table name as "tableName" string, condition as function with bool(const nlohmann::json&) signature
+     * @param  Table name as "tableName" string, condition as function with bool(const nlohmann::json&) signature
      */
     std::vector<nlohmann::ordered_json> select(const std::string& tableName,
         std::function<bool(const nlohmann::ordered_json&)> condition = [](const nlohmann::ordered_json&){ return true; }) const;
@@ -71,7 +71,7 @@ public:
      * @brief   Method for updating rows that satisfy specified condition
      * @details Applies "condition" to all rows in "tableName" and sets data to "columnData" in "columnNames"
      *          if "condition" returns true
-     * @params  Table name as "tableName" string, column data as vector of strings "columnData", 
+     * @param  Table name as "tableName" string, column data as vector of strings "columnData", 
      *          column names as vector of strings "columnNames", condition as function with bool(const nlohmann::json&) signature
      */
     void update(const std::string& tableName, const std::vector<std::string>& columnData,
@@ -81,28 +81,28 @@ public:
      * @brief   Method for removing rows that satisfy specified condition
      * @details Applies "condition" to all rows in "tableName" and removes row for which "condition" returns true.
      *          Renumerates row files afterwards.
-     * @params  Table name as "tableName" string, condition as function with bool(const nlohmann::json&) signature
+     * @param  Table name as "tableName" string, condition as function with bool(const nlohmann::json&) signature
      */
     void remove(const std::string& tableName, 
         std::function<bool(const nlohmann::ordered_json&)> condition = [](const nlohmann::ordered_json&){ return true; });
     /**
      * @brief   Method for adding new columns to a table
      * @details Creates new column with "columnName" name and "columnType" type
-     * @params  Table name as "tableName" string, column name as "columnName" string", column type as "columnType"
+     * @param  Table name as "tableName" string, column name as "columnName" string", column type as "columnType"
      */
     void addColumn(const std::string& tableName, const std::string& columnName,
                    const std::string& columnType);
     /**
      * @brief   Method for removing columns from a table
      * @details Removes column with "columnName" name from specified table
-     * @params  Table name as "tableName" string, column name as "columnName" string"
+     * @param  Table name as "tableName" string, column name as "columnName" string"
      */
     void removeColumn(const std::string& tableName, const std::string columnName);
     /**
      * @brief   Method for creating new tables
      * @details Creates a new table with a name specified in "tableName", column names specified in "columnNames",
      *          column types specified in "columntypes"
-     * @params  Table name as "tableName" string, column names as vector of strings "columnNames",
+     * @param  Table name as "tableName" string, column names as vector of strings "columnNames",
      *          column types as vector of strings "columnTypes"
      */
     void createTable(const std::string& tableName, const std::vector<std::string>& columnNames,
@@ -110,7 +110,7 @@ public:
     /**
      * @brief   Method for removing tables
      * @details Removes table with a name specified in "tableName"
-     * @params  Table name as string
+     * @param  Table name as string
      */
     void removeTable(const std::string& tableName);
 
@@ -127,7 +127,7 @@ private:
      * @brief   Method for renumerating row files
      * @details Renames row files, maintaining their order. 
      *          Unsafe to call ouside non-locking methods since it doesn't lock any mutex
-     * @params  Table name as string
+     * @param  Table name as string
      */
     void renumerateRowFiles(const std::string& tableName) const;
 };
