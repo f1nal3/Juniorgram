@@ -5,9 +5,9 @@
 #include <fstream>
 #include <map>
 #include <memory>
+#include <mutex>
 #include <string>
 #include <vector>
-#include <mutex>
 
 #include <nlohmann/json.hpp>
 
@@ -37,11 +37,14 @@ public:
      */
     FileDB(const std::string& instanceName);
     /**
-     * @brief   FileDb destructor
+     * @brief   FileDB destructor
      * @details Removes database folder if database has no tables
      */
     ~FileDB();
 
+    /**
+     * Prohibit copy operations 
+     */
     FileDB(const FileDB&) = delete;
     FileDB& operator=(const FileDB&) = delete;
 
@@ -115,13 +118,31 @@ public:
     void removeTable(const std::string& tableName);
 
 private:
-    std::string name;
-    std::filesystem::path path;
+    /**
+     * Name of the database 
+     */
+    std::string _name;
 
-    mutable std::mutex mutex;
+    /**
+     * Path to folder containing tables
+     */
+    std::filesystem::path _path;
 
-    std::map<std::string, nlohmann::ordered_json> tableProperties;
-    std::map<std::string, nlohmann::ordered_json> tableRowTemplates;
+    /**
+     * Mutex used to protect class resources (both files and members)
+     * Needs to be mutable to use in const functions that can read files
+     */
+    mutable std::mutex _mutex;
+
+    /**
+     * Contains table names as keys and their layout with number of rows as values
+     */
+    std::map<std::string, nlohmann::ordered_json> _tableProperties;
+
+    /**
+     * Contains table names as keys and an empty JSON with fields preset to corresponding C++ types
+     */
+    std::map<std::string, nlohmann::ordered_json> _tableRowTemplates;
 
     /**
      * @brief   Method for renumerating row files
