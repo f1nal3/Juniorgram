@@ -56,12 +56,13 @@ void cleanUp()
 bool getCurrentFilesInFile()
 {
     std::size_t count = 0;
+    std::size_t requirerequiredNumberFiles = 7;
     for (auto p : std::filesystem::directory_iterator(getFldName()))
     {
         count++;
     }
 
-    if (count == 7)
+    if (count == requirerequiredNumberFiles)
     {
         return true;
     }
