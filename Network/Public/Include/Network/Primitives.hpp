@@ -50,14 +50,12 @@ void serialize(Archive& ar, Network::ChannelInfo& o)
 
 /**
  * @brief Struct for storing and transmitting login information
- *  @field login users login as std::string
- *  @field pwdHash hash of user's password
  */
 struct LoginInfo
 {
-    /// login string variable
+    /// user's login as string variable
     std::string login;
-    /// pwdHash string variable
+    /// pwdHash hash of user's password as string variable
     std::string pwdHash;
     /// Default LoginInfo constructor
     LoginInfo()                 = default;
