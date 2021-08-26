@@ -49,6 +49,10 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
         popup->popup(QPoint(globalPoint.x(), globalPoint.y() + 1));
     });
     _reactions = std::make_unique<ReactionLayout>(this);
+
+    _replyBtn = std::make_unique<FlatButton>(this, "Reply", _st.button);
+    _replyBtn->setClickCallback([&](){ createReply(); });
+
     resize(width(), expectedHeight());
 }
 
@@ -83,11 +87,13 @@ void MessageWidget::paintEvent(QPaintEvent* e)
 
 void MessageWidget::resizeEvent(QResizeEvent* e)
 {
-    geometryChanged(e->size().height() - e->oldSize().height());
+    emit geometryChanged(e->size().height() - e->oldSize().height());
     if (_messageFlags & MessageFlag::Deleted) return QWidget::resizeEvent(e);
     _reactions->recountSize();
-    int deleteButtonX = width() - _st.radius - _menuBtn->width();
-    _menuBtn->move(deleteButtonX, _st.radius);
+    int menuButtonX = width() - _st.radius - _menuBtn->width();
+    _menuBtn->move(menuButtonX, _st.radius);
+    int replyButtonX = width() - _st.radius - _menuBtn->width() - _replyBtn->width() - 2;
+    _replyBtn->move(replyButtonX, _st.radius);
     _fmtMessageText->resize(width() - _st.radius * 4 - 1, _fmtMessageText->document()->size().height());
     _reactions->move(_st.radius * 2, _fmtMessageText->y() + _fmtMessageText->document()->size().height() + _st.radius);
 
@@ -141,6 +147,7 @@ void MessageWidget::clearMessage()
 {
     _fmtMessageText->hide();
     _menuBtn->hide();
+    _replyBtn->hide();
 }
 
 int MessageWidget::expectedHeight() const
@@ -151,4 +158,10 @@ int MessageWidget::expectedHeight() const
         return _st.fontname->height + _st.radius * 2;
     }
     return _st.radius * 7 + _st.fontname->height + _fmtMessageText->document()->size().height() + _reactions->layoutSize().height();
+}
+
+void MessageWidget::createReply()
+{
+    _replyWidget = new ReplyWidget(_messageText, _username, _messageId);
+    emit createReplySignal(_replyWidget);
 }

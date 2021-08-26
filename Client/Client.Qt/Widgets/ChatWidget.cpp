@@ -17,6 +17,7 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     _mainChatLayout->setSpacing(0);
     _mainChatLayout->addWidget(_chatHistory.get(), 85);
     _mainChatLayout->addWidget(_textEdit.get(), 15);
+
     setLayout(_mainChatLayout.get());
 
     connect(_requestTimer.get(), &QTimer::timeout, this, &ChatWidget::requestMessages);
@@ -25,14 +26,27 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     _requestTimer->start(1000);
 
     setMinimumWidth(st::chatWidgetMinWidth);
+    connect(_chatHistory.get(), &ChatHistory::createReplySignal, this, &ChatWidget::addReplyWidget);
     connect(_textEdit.get(), &TextEdit::sendMessage, this, &ChatWidget::newMessage);
     connect(ReceiverManager::instance(), &ReceiverManager::onMessageHistoryAnswer, this, &ChatWidget::addMessages);
 }
 
-void ChatWidget::newMessage(const QString& messageText) { oApp->connectionManager()->storeMessage(messageText.toStdString(), _channelID); }
+void ChatWidget::newMessage(const QString& messageText)
+{
+    oApp->connectionManager()->storeMessage(messageText.toStdString(), _channelID);
+    if(this->findChild<ReplyWidget*>())
+    {
+        _chatHistory->addReply(_replyWidget);
+    }
+}
 
 void ChatWidget::addMessages(const std::vector<Network::MessageInfo>& messages)
 {
+    if(this->findChild<ReplyWidget*>())
+    { 
+        _chatHistory->addReply(_replyWidget);
+    }
+
     for (const auto& message : messages)
     {
         if (message.channelID == _channelID)
@@ -48,4 +62,15 @@ void ChatWidget::requestMessages()
     {
         oApp->connectionManager()->askForMessageHistory(_channelID);
     }
+}
+
+void ChatWidget::addReplyWidget(ReplyWidget* reply)
+{
+    if(this->findChild<ReplyWidget*>())
+    {
+        _replyWidget->close();
+    }
+
+     _replyWidget = reply;
+    _mainChatLayout->insertWidget(1, _replyWidget, 15);
 }

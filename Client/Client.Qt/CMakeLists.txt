@@ -51,6 +51,12 @@ set(UI_WIDGETS_SOURCES
         Widgets/Menu.hpp
         Widgets/MenuItem.cpp
         Widgets/MenuItem.hpp
+        Widgets/MessageWidget.cpp
+        Widgets/MessageWidget.hpp
+        Widgets/ReplyWidget.cpp
+        Widgets/ReplyWidget.hpp
+		    Widgets/ReplyMessageWidget.cpp
+		    Widgets/ReplyMessageWidget.hpp
         Widgets/Page.cpp
         Widgets/Page.hpp
         Widgets/PopupWidget.cpp

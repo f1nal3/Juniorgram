@@ -6,6 +6,7 @@
 
 #include "MessageWidget.hpp"
 #include "ScrollArea.hpp"
+#include "ReplyMessageWidget.hpp"
 
 /**
  * @class ChatHistory
@@ -29,6 +30,12 @@ public:
      */
     void addMessage(const QString& message = QString(), quint64 utc = 0, const QString& user = "You");
     void addMessage(const Network::MessageInfo& messageInfo);
+
+    /**
+     * @brief Add a new reply to history
+     * @param reply ReplyWidget with information
+     */
+    void addReply(ReplyWidget* reply);
 
     /**
      * @brief Clears all chat
@@ -62,6 +69,7 @@ Q_SIGNALS:
      * @brief Message has been added
      */
     void messageAdded();
+    void createReplySignal(ReplyWidget*);
 
 private:
     /**
@@ -77,11 +85,12 @@ private:
     [[nodiscard]] std::pair<int, int> findVisible() const;
 
 private:
-    bool                                        _alreadyScrolling = false;
-    std::int32_t                                _left             = -1;
-    std::unique_ptr<ScrollArea>                 _scrollArea;
-    std::vector<std::unique_ptr<MessageWidget>> _messageList;
+    bool                                                         _alreadyScrolling = false;
+    std::int32_t                                                 _left             = -1;
+    std::unique_ptr<ScrollArea>                                  _scrollArea;
+    std::map<int32_t, std::unique_ptr<ReplyMessageWidget>>       _replyList;
+    std::vector<std::unique_ptr<MessageWidget>>                  _messageList;
     std::vector<Network::MessageInfo>           _messages;
-    std::uint64_t                               _userId    = 0;
-    std::uint64_t                               _messageId = 0;
+    std::uint64_t                                                _userId    = 0;
+    std::uint64_t                                                _messageId = 0;
 };
