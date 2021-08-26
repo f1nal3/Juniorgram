@@ -2,7 +2,7 @@
 
 using namespace Logger;
 
-std::string FileLogger::stringify(const LogLevel level)
+std::string FileLogger::stringifyLogLvl(const LogLevel level)
 {
     std::string result =        "NONE";
     const static std::map<LogLevel, std::string> LevelMap = {
@@ -40,10 +40,6 @@ FileLogger& FileLogger::getInstance()
     return self;
 }
 
-unsigned Logger::FileLogger::getPeriodLife(unsigned periodLife = 7) {
-    return periodLife;
-}
-
 void FileLogger::init(const std::string& filename, const LogOutput output = LogOutput::EVERYWHERE)
 {
     _fileName = filename;
@@ -54,8 +50,8 @@ void FileLogger::open()
 {
     if (_output == LogOutput::EVERYWHERE || _output == LogOutput::FILE)
     {
-        fileSync();
         _file.open(getFldName() + std::string{"\\"} + getFileName(), std::ios::app);
+        fileSync();
         _isOpened = _file.is_open();
 
         if (!_isOpened)
@@ -84,12 +80,10 @@ void FileLogger::log(const std::string& msg, const LogLevel level)
 {
     std::string result = wrapValue(timestamp(), _blockWrapper) + " " +
                          wrapValue(threadID(), _blockWrapper) + " " +
-                         wrapValue(stringify(level), _blockWrapper) + " " + msg;
+                         wrapValue(stringifyLogLvl(level), _blockWrapper) + " " + msg;
 
     std::lock_guard<std::mutex> lk(_Mutex);
-    std::map<std::string, LogLevel> mapForQueue;
-    mapForQueue.insert(make_pair(result, level));
-    _msgQueue.push(mapForQueue);
+    _msgQueue.push(result);
     _CV.notify_one();
 }
 
@@ -149,7 +143,7 @@ void FileLogger::run()
             break;
         }
 
-        std::string msg = std::move(_msgQueue.front().begin()->first);
+        std::string msg = std::move(_msgQueue.front());
         _msgQueue.pop();
 
         if (_output == LogOutput::CONSOLE)
@@ -192,17 +186,14 @@ std::string FileLogger::getCurrentDate()
 
 std::string FileLogger::getFileName()
 {
-    _fileName = "Log-" + getCurrentDate() + ".txt";
+    _fileName = _fileName + getCurrentDate() + ".txt";
     return _fileName;
 }
 
 std::string FileLogger::getFldName()
 {
     std::filesystem::path path = "Log";
-    if (std::filesystem::create_directory(path) != 0)
-    {
-        throw std::runtime_error("Couldn't create folder");
-    }
+    std::filesystem::create_directory(path);
     return path.string();
 }
 

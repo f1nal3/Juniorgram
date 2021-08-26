@@ -33,28 +33,21 @@ public:
     static FileLogger& getInstance();
 
     /**
-     * @brief Get required storage period for log files
-     * @param basic file storage 7 days
-     * @return storage period in days
-     */
-    unsigned getPeriodLife(unsigned periodLife) override;
-
-    /**
      * @brief Initialization of the current class object
      * @param file name to write data
      * @param the place where the data will be displayed
      */
-    void init(const std::string& filename, const LogOutput output) override;
+    void init(const std::string& filename, const LogOutput output);
 
     /**
      * @brief Opening the current class file
      */
-    void open() override;
+    void open();
 
     /**
      * @brief Closing the current class file
      */
-    void close() override;
+    void close();
 
     /**
      * @brief Log entry
@@ -146,7 +139,7 @@ private:
     static std::string wrapValue(const std::string& value, const BlockWrapper& blockWerapper);
 
 private:
-    std::string _fileName;
+    std::string  _fileName{"Log-"};
     LogOutput _output = LogOutput::EVERYWHERE;
     std::fstream _file;
 
@@ -157,7 +150,7 @@ private:
     std::thread _Thread;
     std::condition_variable _CV;
     std::mutex _Mutex;
-    std::queue<std::map<std::string, LogLevel>> _msgQueue;
+    std::queue<std::string> _msgQueue;
     bool _Stop = false;
 };
 }

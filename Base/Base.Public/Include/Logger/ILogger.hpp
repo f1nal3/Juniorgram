@@ -44,41 +44,10 @@ namespace Logger
     {
     public:
         /**
-         * @brief Get required storage period for log files
-         * @param basic file storage 7 days
-         * @return storage period in days
-         */
-        virtual unsigned getPeriodLife(unsigned periodLife) = 0;
-
-        /**
-         * @brief Initialization of the current class object
-         * @param file name to write data
-         * @param the place where the data will be displayed
-         */
-        virtual void init(const std::string& filename, const LogOutput output) = 0;
-
-        /**
-         * @brief Opening the current class file
-         */
-        virtual void open() = 0;
-
-        /**
-         * @brief Closing the current class file
-         */
-        virtual void close() = 0;
-
-        /**
          * @brief Log entry
          * @param required log message
          * @param log level
          */
         virtual void log(const std::string& msg, const LogLevel severity = LogLevel::DEBUG) = 0;
-
-        /**
-         * @brief Stringify the log level to its name
-         * @param required LogLevel
-         */
-        virtual std::string stringify(const LogLevel level) = 0;
-    
     };
 }  // namespace Logger
