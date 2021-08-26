@@ -203,7 +203,6 @@ void FileLogger::fileSync()
 
     for (auto& p : std::filesystem::directory_iterator(getFldName()))
     {
-        auto a = std::filesystem::last_write_time(p.path());
         std::time_t tt = to_time_t(std::filesystem::last_write_time(p.path()));
         VecLogFiles.push_back(std::make_pair(tt, p.path()));
     }
