@@ -53,7 +53,7 @@ void cleanUp()
     std::filesystem::remove_all(getFldName());
 }
 
-bool getCurrentFilesInFile()
+bool checkNumberCurrentFiles()
 {
     std::size_t count = 0;
     std::size_t requirerequiredNumberFiles = 7;
@@ -61,15 +61,7 @@ bool getCurrentFilesInFile()
     {
         count++;
     }
-
-    if (count == requirerequiredNumberFiles)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return count == requirerequiredNumberFiles;
 }
 
 bool getCurrentName(std::string LogLvl)
@@ -150,7 +142,7 @@ TEST_CASE("Checking the number of log files in a directory")
 
     SECTION("Checking the number of files")
     {
-        REQUIRE(getCurrentFilesInFile() == true);
+        REQUIRE(checkNumberCurrentFiles() == true);
     }
 
     SECTION("Clear folder")
