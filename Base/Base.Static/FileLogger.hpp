@@ -147,10 +147,10 @@ private:
 
     bool _isOpened = false;
 
-    std::thread _Thread;
-    std::condition_variable _CV;
-    std::mutex _Mutex;
+    std::thread _loggerThread;
+    std::condition_variable _inputWait;
+    std::mutex _mutex;
     std::queue<std::string> _msgQueue;
-    bool _Stop = false;
+    bool _stop = false;
 };
 }

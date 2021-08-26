@@ -22,15 +22,15 @@ std::string FileLogger::stringifyLogLvl(const LogLevel level)
 
 FileLogger::FileLogger()
 {
-    _Thread = std::thread(&FileLogger::run, this);
+    _loggerThread = std::thread(&FileLogger::run, this);
 }
 
 FileLogger::~FileLogger()
 {
-    if (_Thread.joinable())
+    if (_loggerThread.joinable())
     {
         stop();
-        _Thread.join();
+        _loggerThread.join();
     }
 }
 
@@ -71,9 +71,9 @@ void FileLogger::close()
 
 void FileLogger::stop()
 {
-    std::lock_guard<std::mutex> lk(_Mutex);
-    _Stop = true;
-    _CV.notify_one();
+    std::lock_guard<std::mutex> lk(_mutex);
+    _stop = true;
+    _inputWait.notify_one();
 }
 
 void FileLogger::log(const std::string& msg, const LogLevel level)
@@ -82,9 +82,9 @@ void FileLogger::log(const std::string& msg, const LogLevel level)
                          wrapValue(threadID(), _blockWrapper) + " " +
                          wrapValue(stringifyLogLvl(level), _blockWrapper) + " " + msg;
 
-    std::lock_guard<std::mutex> lk(_Mutex);
+    std::lock_guard<std::mutex> lk(_mutex);
     _msgQueue.push(result);
-    _CV.notify_one();
+    _inputWait.notify_one();
 }
 
 std::string FileLogger::timestamp()
@@ -134,11 +134,11 @@ void FileLogger::run()
     while (true)
     {
         // Wait until some request comes or stop flag is set
-        std::unique_lock<std::mutex> lock(_Mutex);
-        _CV.wait(lock, [&]() { return _Stop || !_msgQueue.empty(); });
+        std::unique_lock<std::mutex> lock(_mutex);
+        _inputWait.wait(lock, [&]() { return _stop || !_msgQueue.empty(); });
 
         // Stop if needed
-        if (_Stop)
+        if (_stop)
         {
             break;
         }
