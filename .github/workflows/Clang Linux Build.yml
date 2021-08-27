@@ -64,7 +64,10 @@ jobs:
       
     - name: Clang-tidy checks
       working-directory: ${{github.workspace}}/build
-      run: clang-tidy -p=./ -checks=-*,clang-analyzer-*,concurrency-*,cppcoreguidelines-*,modernize-*,performance-*,portability-*,readability-*
+      run: |
+        where run-clang-tidy.py
+        find / -name "run-clang-tidy.py"
+     # run: clang-tidy -p=./ -checks=-*,clang-analyzer-*,concurrency-*,cppcoreguidelines-*,modernize-*,performance-*,portability-*,readability-*
       
     - name: Prepare Database
       run: psql --username=postgres --host=localhost -d testdb -f Database_Scheme.sql
