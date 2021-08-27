@@ -64,9 +64,7 @@ jobs:
       
     - name: Clang-tidy checks
       working-directory: ${{github.workspace}}/build
-      run: |
-        where run-clang-tidy.py
-        find / -name "run-clang-tidy.py"
+      run: find / -name "run-clang-tidy.py"
      # run: clang-tidy -p=./ -checks=-*,clang-analyzer-*,concurrency-*,cppcoreguidelines-*,modernize-*,performance-*,portability-*,readability-*
       
     - name: Prepare Database
