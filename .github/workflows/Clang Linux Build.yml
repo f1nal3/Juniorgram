@@ -34,7 +34,7 @@ jobs:
         architecture: 'x64'
         
     - name: Get prerequisites
-      run: python -m pip install conan==1.36.0 cmake && sudo apt install clang-12
+      run: python -m pip install conan==1.36.0 cmake && sudo apt install clang-12 clang-tidy
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
@@ -61,6 +61,9 @@ jobs:
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}}
+      
+    - name: Clang-tidy checks
+      run: clang-tidy -p ./build -checks=-*,clang-analyzer-*,concurrency-*,cppcoreguidelines-*,modernize-*,performance-*,portability-*,readability-*
       
     - name: Prepare Database
       run: psql --username=postgres --host=localhost -d testdb -f Database_Scheme.sql
