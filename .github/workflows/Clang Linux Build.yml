@@ -63,7 +63,7 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}}
       
     - name: Clang-tidy checks
-      run: clang-tidy -p ./build -checks=-*,clang-analyzer-*,concurrency-*,cppcoreguidelines-*,modernize-*,performance-*,portability-*,readability-*
+      run: clang-tidy -p=./build -checks=-*,clang-analyzer-*,concurrency-*,cppcoreguidelines-*,modernize-*,performance-*,portability-*,readability-*
       
     - name: Prepare Database
       run: psql --username=postgres --host=localhost -d testdb -f Database_Scheme.sql
