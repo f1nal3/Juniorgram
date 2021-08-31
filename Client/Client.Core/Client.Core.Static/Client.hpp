@@ -49,11 +49,15 @@ public:
      */
     void messageAll() const;
     /**
-     * @brief Delete message from user
-     * @param userId user ID
+     * @brief Delete user's message
      * @param messageId message ID
      */
-    void userMessageDelete(uint64_t userId, uint64_t messageId) const;
+    void userMessageDelete(const std::uint64_t messageID) const;
+    /**
+     * @brief Delete user's message
+     * @param messageId message's text
+     */
+    void userMessageDelete(const std::string& messageText) const;
     /**
      * @brief Send a message to server
      * @param message Message
@@ -95,10 +99,10 @@ protected:
     virtual void onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages);
     /// Message Store Answer handler
     virtual void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode);
+    /// Message Delete Answer handler
+    virtual void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState);
     /// Registration Answer handler
     virtual void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
-    /// User Message Delete Answer handler
-    virtual void onUserMessageDeleteAnswer();
 
 private:
     asio::io_context _context;

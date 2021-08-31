@@ -33,6 +33,8 @@ protected:
     void onChannelListRequest(const std::vector<Network::ChannelInfo>& channels) override;
     /// Message store answer handler
     void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode) override;
+    /// Message delete answer handler
+    void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) override;
     /// Message history answer handler
     void onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages) override;
     /// Registration answer handler

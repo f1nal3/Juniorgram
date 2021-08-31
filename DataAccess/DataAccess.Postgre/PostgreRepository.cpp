@@ -108,6 +108,23 @@ Utility::StoringMessageCodes PostgreRepository::storeMessage(const Network::Mess
     return Utility::StoringMessageCodes::SUCCESS;
 }
 
+Utility::DeletingMessageCodes PostgreRepository::deleteMessage(const Network::MessageInfo& mi) 
+{
+    using Utility::DeletingMessageCodes;
+
+    pTable->changeTable("msgs");
+    pTable->Delete()->Where("msg_id=" + std::to_string(mi.msgID))->Or("msg='" + mi.message + "'")->execute();
+    
+    // TODO: we need a better way to check state of deleting, than doing select request:
+    auto messagesAmountResult = pTable->Select()->columns({"COUNT(*)"})->Where("msg_id=" + std::to_string(mi.msgID))->execute();
+    if (messagesAmountResult.value()[0][0].as<std::uint64_t>() == 0)
+    {
+        return DeletingMessageCodes::SUCCESS;
+    }
+
+    return DeletingMessageCodes::FAILED;
+}
+
 std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageInfo& mi)
 {
     std::tuple dataForMsgs

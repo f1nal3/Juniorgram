@@ -160,15 +160,26 @@ void Client::messageAll() const
     send(message);
 }
 
-void Client::userMessageDelete(const uint64_t userId, const uint64_t messageId) const
+void Client::userMessageDelete(const uint64_t messageID) const
 {
-    Network::MessageDeletedInfo messageDeletedInfo(userId, messageId);
-    Network::Message            message;
+    Network::MessageInfo mi;
+    mi.msgID = messageID;
 
-    message.mHeader.mMessageType = MessageType::UserMessageDeleteRequest;
-    message.mBody                = std::make_any<MessageDeletedInfo>(messageDeletedInfo);
-    // Temporarily commented out function
-    // send(message);
+    Network::Message message;
+    message.mHeader.mMessageType = MessageType::MessageDeleteRequest;
+    message.mBody                = std::make_any<Network::MessageInfo>(mi);
+    send(message);
+}
+
+void Client::userMessageDelete(const std::string& messageText) const 
+{
+    Network::MessageInfo mi;
+    mi.message = messageText;
+
+    Network::Message message;
+    message.mHeader.mMessageType = MessageType::MessageDeleteRequest;
+    message.mBody                = std::make_any<Network::MessageInfo>(mi);
+    send(message);
 }
 
 void Client::loop()
@@ -240,11 +251,10 @@ void Client::loop()
             }
             break;
 
-            case MessageType::UserMessageDeleteAnswer:
+            case MessageType::MessageDeleteAnswer:
             {
-                onUserMessageDeleteAnswer();
-                // Temporarily commented out code
-                // auto messageInfo = std::any_cast<Network::MessageDeletedInfo>(message.mBody);
+                auto messageInfo = std::any_cast<Utility::DeletingMessageCodes>(message.mBody);
+                onUserMessageDeleteAnswer(messageInfo);
             }
             break;
 
@@ -298,7 +308,11 @@ void Client::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
     std::cerr << "[Client][Warning] registration answer is not implemented\n";
 }
 
-void Client::onUserMessageDeleteAnswer() { std::cerr << "[Client][Warning] user message delete answer is not implemented\n"; }
+void Client::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) 
+{
+    (void)(deletingState);
+    std::cerr << "[Client][Warning] onUserMessageDeleteAnswer answer is not implemented\n";
+}
 
 void Client::onDisconnect() { std::cerr << "[Client][Warning] onDisconnect is not implemented\n"; }
 

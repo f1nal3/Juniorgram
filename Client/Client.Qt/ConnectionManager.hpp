@@ -48,7 +48,7 @@ signals:
     /// Registration Answer handler
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
     /// User Message Delete Answer handler
-    void onUserMessageDeleteAnswer();
+    void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingCode);
 
 private:
     static ReceiverManager* self;
@@ -91,5 +91,5 @@ protected:
     /// Registration Answer handler
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode) override;
     /// User Message Delete Answer handler
-    void onUserMessageDeleteAnswer() override;
+    void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) override;
 };

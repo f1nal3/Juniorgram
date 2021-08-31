@@ -121,33 +121,6 @@ void serialize(Archive& ar, Network::RegistrationInfo& o)
 }
 
 /**
- * @brief The MessageDeletedInfo struct
- * @details Deleted Information contains user ID and message ID
- */
-struct MessageDeletedInfo
-{
-    /// userId uint64_t variable
-    uint64_t userId;
-    /// messageId uint64_t variable
-    uint64_t messageId;
-    /// MessageDeletedInfo with initializing list
-    explicit MessageDeletedInfo(const uint64_t _userId, const uint64_t _messageId) : userId(_userId), messageId(_messageId) {}
-
-    /// Operator == to compare message deleted info
-    friend bool operator==(const MessageDeletedInfo& messageDeletedInfo1, const MessageDeletedInfo& messageDeletedInfo2)
-    {
-        return messageDeletedInfo1.messageId == messageDeletedInfo2.messageId && messageDeletedInfo1.userId == messageDeletedInfo2.userId;
-    }
-};
-
-/// Serialize method for serialize deleted info for each field
-template <typename Archive>
-void serialize(Archive& ar, Network::MessageDeletedInfo& o)
-{
-    ar& o.userId& o.messageId;
-}
-
-/**
  * @brief The MessageInfo struct
  * @details Message Info contains channel ID, message, message ID,
  *          sender ID, recipient ID and time.
@@ -179,7 +152,10 @@ struct MessageInfo
     /// Operator == to compare Message Info
     friend bool operator==(const MessageInfo& first, const MessageInfo& second)
     {
-        return first.message == second.message && first.channelID == second.channelID && first.time == second.time;
+        return first.message   == second.message   && 
+               first.channelID == second.channelID && 
+               first.time      == second.time      &&
+               first.msgID     == second.msgID;
     }
 };
 
@@ -187,7 +163,7 @@ struct MessageInfo
 template <typename Archive>
 void serialize(Archive& ar, Network::MessageInfo& o)
 {
-    ar& o.channelID& o.senderID& o.message& o.time;
+    ar& o.channelID& o.senderID& o.msgID& o.message& o.time;
 }
 
 }  // namespace Network
