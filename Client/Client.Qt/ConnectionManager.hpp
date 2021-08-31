@@ -49,6 +49,8 @@ signals:
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
     /// User Message Delete Answer handler
     void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingCode);
+	/// Reply History Answer handler
+    void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
 
 private:
     static ReceiverManager* self;
@@ -92,4 +94,6 @@ protected:
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode) override;
     /// User Message Delete Answer handler
     void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) override;
+	/// Reply History Answer handler
+    void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies) override;
 };

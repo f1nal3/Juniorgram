@@ -47,6 +47,7 @@ public:
     /**
      * @brief Sends a none message to all clients
      */
+    void askForReplyHistory(uint64_t channelID) const;
     void messageAll() const;
     /**
      * @brief Delete user's message
@@ -103,6 +104,8 @@ protected:
     virtual void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState);
     /// Registration Answer handler
     virtual void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
+	/// Reply History Answer heandler
+    virtual void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
 
 private:
     asio::io_context _context;

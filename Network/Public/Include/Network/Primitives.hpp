@@ -166,4 +166,35 @@ void serialize(Archive& ar, Network::MessageInfo& o)
     ar& o.channelID& o.senderID& o.msgID& o.message& o.time;
 }
 
+struct ReplyInfo
+{
+    std::uint64_t channelID;
+
+    std::string message;
+
+    std::uint64_t msgID;
+
+    std::uint64_t senderID;
+
+    ReplyInfo() = default;
+
+    explicit ReplyInfo(const std::string& text) : message(text) {}
+
+    ReplyInfo(const ReplyInfo&) = default;
+
+    ~ReplyInfo()                = default;
+
+    friend bool operator==(const ReplyInfo& first, const ReplyInfo& second)
+    {
+        return first.message == second.message && first.msgID == second.msgID && first.senderID == second.senderID;
+    }
+
+};
+
+template <typename Archive>
+void serialize(Archive& ar, Network::ReplyInfo& o)
+{
+    ar& o.message& o.msgID& o.senderID;
+}
+
 }  // namespace Network

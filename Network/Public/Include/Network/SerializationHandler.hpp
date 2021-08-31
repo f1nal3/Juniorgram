@@ -39,6 +39,9 @@ public:
                 case Message::MessageType::MessageHistoryAnswer:
                     state = processOutcomingMessageBody<std::vector<MessageInfo>>(bodyBuffer, message.mBody);
                     break;
+                case Message::MessageType::ReplyHistoryAnswer:
+                    state = processOutcomingMessageBody<std::vector<ReplyInfo>>(bodyBuffer, message.mBody);
+                    break;
                 case Message::MessageType::MessageStoreRequest:
                     state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
                     break;

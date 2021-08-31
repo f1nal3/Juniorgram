@@ -17,15 +17,18 @@ class ReplyWidget : public QWidget
 
 public:
     /// Constructor for reply widget
-    ReplyWidget(QString message, QString username, uint64_t messageId, const Style::MessageWidget& st = st::defaultMessageWidget);
+    ReplyWidget(QString message, QString username, uint64_t messageId, uint64_t userId = uint64_t(),
+                const Style::MessageWidget& st = st::defaultMessageWidget);
 
 public:
     /// Function to get username
     QString getUsername() const { return _username; };
-     /// Function to get message
+    /// Function to get message
     QString getMessage() const { return _messageText; };
-     /// Function to get messageId
+    /// Function to get messageId
     uint64_t getMessageId() const { return _messageId; };
+    /// Function to get userId
+    uint64_t getUserId() const { return _userId; };
     /// Possible height of message widget
     int expectedHeight();
 
@@ -43,6 +46,7 @@ private:
     QString _messageText;
     QString _username;
     uint64_t _messageId;
+    uint64_t _userId;
     std::unique_ptr<FlatButton> _closeReplyButton;
     std::unique_ptr<FlatTextEdit> _fmtMessageText;
     const Style::MessageWidget& _st;

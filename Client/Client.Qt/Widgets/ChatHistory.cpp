@@ -21,7 +21,7 @@ ChatHistory::ChatHistory(QWidget* parent) : QWidget(parent), _messageList()
 void ChatHistory::addReply(ReplyWidget* reply)
 {
     auto history = _scrollArea->widget();
-    auto replyMsg = new ReplyMessageWidget(history, reply->getMessage(), reply->getMessageId(), reply->getUsername());
+    auto replyMsg = new ReplyMessageWidget(history, reply->getMessage(), reply->getMessageId(), reply->getUsername(), _userId);
     replyMsg->show();
     replyMsg->resize(history->width() - 25, replyMsg->expectedHeight());
 
@@ -97,7 +97,7 @@ void ChatHistory::addMessage(const Network::MessageInfo& messageInfo)
 
     _scrollArea->scrollToWidget(msg);
 
-    messageAdded();
+    emit messageAdded();
 }
 
 void ChatHistory::deleteMessage(const uint64_t userId, const uint64_t messageId)

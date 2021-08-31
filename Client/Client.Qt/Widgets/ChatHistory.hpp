@@ -90,7 +90,7 @@ private:
     std::unique_ptr<ScrollArea>                                  _scrollArea;
     std::map<int32_t, std::unique_ptr<ReplyMessageWidget>>       _replyList;
     std::vector<std::unique_ptr<MessageWidget>>                  _messageList;
-    std::vector<Network::MessageInfo>           _messages;
+    std::vector<Network::MessageInfo>                            _messages;
     std::uint64_t                                                _userId    = 0;
     std::uint64_t                                                _messageId = 0;
 };

@@ -18,7 +18,7 @@ class ReplyMessageWidget : public QWidget
 
 public:
     /// Constructor for reply message widget
-    ReplyMessageWidget(QWidget* history, QString message, uint64_t messageId, QString username,
+    ReplyMessageWidget(QWidget* history, QString message, uint64_t messageId, QString username, uint64_t userId = uint64_t(),
                       const Style::MessageWidget& st = st::defaultMessageWidget);
 
 public:
@@ -38,10 +38,10 @@ protected:
 
 private:
     std::unique_ptr<FlatTextEdit>   _fmtMessageText;
-    uint64_t                        _userId;
     uint64_t                        _messageId;
     QString                         _messageText;
     QString                         _username;
+    uint64_t                        _userId;
     const Style::MessageWidget&     _st;
     const QString                   _replyTag = "Reply";
 };

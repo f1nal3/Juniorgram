@@ -3,8 +3,8 @@
 #include <QPainter>
 #include <QtEvents>
 
-ReplyWidget::ReplyWidget(QString message, QString username, uint64_t messageId, const Style::MessageWidget& st)
-    : _messageText(message), _username(username), _messageId(messageId), _st(st)
+ReplyWidget::ReplyWidget(QString message, QString username, uint64_t messageId, uint64_t userId, const Style::MessageWidget& st)
+    : _messageText(message), _username(username), _messageId(messageId), _userId(userId), _st(st)
 {
     setAttribute(Qt::WA_DeleteOnClose);
 

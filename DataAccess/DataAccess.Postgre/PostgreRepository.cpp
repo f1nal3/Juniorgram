@@ -52,6 +52,24 @@ std::vector<Network::MessageInfo> PostgreRepository::getMessageHistoryForUser(co
     return result;
 }
 
+std::vector<Network::ReplyInfo> PostgreRepository::getReplyHistoryForUser(const std::uint64_t channelID)
+{
+    std::vector<Network::ReplyInfo> result;
+
+    pTable->changeTable("replies");
+    auto replyHistoryRow = pTable->Select()
+            ->columns({"*"})
+            ->join(Utility::SQLJoinType::J_INNER, "channel_msgs", "channel_msgs.msg_id = msgs.msg_id")
+            ->Where("channel_msgs.channel_id = " + std::to_string(channelID))
+            ->execute();
+    if(replyHistoryRow.has_value())
+    {
+        Network::ReplyInfo ri;
+
+    }
+    return result;
+}
+
 Utility::RegistrationCodes PostgreRepository::registerUser(const Network::RegistrationInfo& ri) const
 {
     static UsersAmountFinder finder;

@@ -26,6 +26,11 @@ public:
      * @return List of messages as vector of MessageInfo.
      */
     virtual std::vector<Network::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
+
+	/**
+	 * @brief Draft method for getting history for a specific user.
+	 */
+	virtual std::vector<Network::ReplyInfo>   getReplyHistoryForUser(const std::uint64_t channelID) = 0;
     
     /**  @brief Method for storing message.
      *   @param Network::MessageInfo which contains message's data for storing in repository.

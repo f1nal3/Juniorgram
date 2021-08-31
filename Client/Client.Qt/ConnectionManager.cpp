@@ -36,6 +36,12 @@ void ConnectionManager::onMessageHistoryAnswer(const std::vector<Network::Messag
     emit ReceiverManager::instance()->onMessageHistoryAnswer(messages);
 }
 
+void ConnectionManager::onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies)
+{
+    qRegisterMetaType<std::vector<Network::ReplyInfo>>("std::vector<Network::ReplyInfo");
+    emit ReceiverManager::instance()->onReplyHistoryAnswer(replies);
+}
+
 void ConnectionManager::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode)
 {
     if (storingMessageCode == Utility::StoringMessageCodes::SUCCESS)

@@ -114,6 +114,15 @@ void Client::askForMessageHistory(const std::uint64_t channelID) const
     send(message);
 }
 
+void Client::askForReplyHistory(uint64_t channelID) const
+{
+    Network::Message message;
+    message.mHeader.mMessageType = MessageType::ReplyHistoryRequest;
+
+    message.mBody = std::make_any<std::uint64_t>(channelID);
+    send(message);
+}
+
 void Client::storeMessage(const std::string& message, const uint64_t channelID) const
 {
     Network::Message networkMessage;
@@ -258,6 +267,13 @@ void Client::loop()
             }
             break;
 
+            case MessageType::ReplyHistoryAnswer:
+            {
+                auto replies = std::any_cast<std::vector<Network::ReplyInfo>>(message.mBody);
+                onReplyHistoryAnswer(replies);
+            }
+            break;
+
             default:
                 std::cerr << "[Client][Warning] unimplemented[" << uint32_t(message.mHeader.mMessageType) << "]\n";
         }
@@ -320,6 +336,12 @@ void Client::onMessageSendFailed(const Message& message) const
 {
     (void)(message);
     std::cerr << "[Client][Warning] onMessageSendFailed is not implemented\n";
+}
+
+void Client::onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies)
+{
+    (void)(replies);
+    std::cerr << "[Client][Warning] reply answer is not implemented\n";
 }
 
 }  // namespace Network
