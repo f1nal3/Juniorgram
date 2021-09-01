@@ -1,6 +1,6 @@
 #include <catch.hpp>
 
-#include "Base.Static/FileLogger.hpp"
+#include "Logger.Static/FileLogger.hpp"
 
 using namespace Logger;
 
