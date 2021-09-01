@@ -24,48 +24,76 @@ public:
             {
                 case Message::MessageType::ServerAccept:
                     break;
+
                 case Message::MessageType::ServerPing:
                     break;
+
                 case Message::MessageType::MessageAll:
                     break;
+
                 case Message::MessageType::ServerMessage:
                     break;
+
                 case Message::MessageType::ChannelListRequest:
                     state = processOutcomingMessageBody<std::vector<ChannelInfo>>(bodyBuffer, message.mBody);
                     break;
+
                 case Message::MessageType::MessageHistoryRequest:
                     state = processOutcomingMessageBody<std::uint64_t>(bodyBuffer, message.mBody);
                     break;
+
                 case Message::MessageType::MessageHistoryAnswer:
                     state = processOutcomingMessageBody<std::vector<MessageInfo>>(bodyBuffer, message.mBody);
                     break;
-                case Message::MessageType::ReplyHistoryAnswer:
-                    state = processOutcomingMessageBody<std::vector<ReplyInfo>>(bodyBuffer, message.mBody);
-                    break;
+
                 case Message::MessageType::MessageStoreRequest:
                     state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
                     break;
+
                 case Message::MessageType::MessageStoreAnswer:
                     state = processOutcomingMessageBody<Utility::StoringMessageCodes>(bodyBuffer, message.mBody);
                     break;
+
+                case Message::MessageType::ReplyHistoryRequest:
+                    state = processOutcomingMessageBody<std::uint64_t>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::ReplyHistoryAnswer:
+                    state = processOutcomingMessageBody<std::vector<ReplyInfo>>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::ReplyStoreRequest:
+                    state = processOutcomingMessageBody<ReplyInfo>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::ReplyStoreAnswer:
+                    state = processOutcomingMessageBody<Utility::StoringReplyCodes>(bodyBuffer, message.mBody);
+                    break;
+
                 case Message::MessageType::MessageDeleteRequest:
                     state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
                     break;
+
                 case Message::MessageType::MessageDeleteAnswer:
                     state = processOutcomingMessageBody<Utility::DeletingMessageCodes>(bodyBuffer, message.mBody);
                     break;
+
                 case Message::MessageType::RegistrationRequest:
                     state = processOutcomingMessageBody<RegistrationInfo>(bodyBuffer, message.mBody);
                     break;
+
                 case Message::MessageType::RegistrationAnswer:
                     state = processOutcomingMessageBody<Utility::RegistrationCodes>(bodyBuffer, message.mBody);
                     break;
+
                 case Message::MessageType::LoginRequest:
                     state = processOutcomingMessageBody<LoginInfo>(bodyBuffer, message.mBody);
                     break;
+
                 case Message::MessageType::LoginAnswer:
                     state = processOutcomingMessageBody<bool>(bodyBuffer, message.mBody);
                     break;
+
                 default:
                     break;
             }
@@ -125,6 +153,26 @@ public:
             case Message::MessageType::MessageStoreAnswer:
             {
                 state = processIncomingMessageBody<Utility::StoringMessageCodes>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ReplyHistoryRequest:
+            {
+                state = processIncomingMessageBody<std::uint64_t>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ReplyHistoryAnswer:
+            {
+                state = processIncomingMessageBody<std::vector<ReplyInfo>>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ReplyStoreRequest:
+            {
+                state = processIncomingMessageBody<ReplyInfo>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ReplyStoreAnswer:
+            {
+                state = processIncomingMessageBody<Utility::StoringReplyCodes>(buffer, message);
                 break;
             }
             case Message::MessageType::MessageDeleteRequest:

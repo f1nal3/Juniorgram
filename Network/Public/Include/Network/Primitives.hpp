@@ -178,7 +178,7 @@ struct ReplyInfo
 
     ReplyInfo() = default;
 
-    explicit ReplyInfo(const std::string& text) : message(text) {}
+    explicit ReplyInfo(const std::uint64_t& channelID, const std::string& text) : channelID(channelID), message(text) {}
 
     ReplyInfo(const ReplyInfo&) = default;
 
@@ -194,7 +194,7 @@ struct ReplyInfo
 template <typename Archive>
 void serialize(Archive& ar, Network::ReplyInfo& o)
 {
-    ar& o.message& o.msgID& o.senderID;
+    ar& o.channelID& o.message& o.msgID& o.senderID;
 }
 
 }  // namespace Network

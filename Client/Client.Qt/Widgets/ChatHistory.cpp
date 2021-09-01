@@ -67,6 +67,34 @@ void ChatHistory::clear()
     _replyList.clear();
 }
 
+void ChatHistory::addReply(const Network::ReplyInfo& replyInfo)
+{
+    auto copy = std::find(_replies.begin(), _replies.end(), replyInfo);
+    if(copy != _replies.end())
+    {
+        return;
+    }
+
+    auto history = _scrollArea->widget();
+
+    auto replyMsg = new ReplyMessageWidget(history, QString::fromStdString(replyInfo.message), replyInfo.msgID,
+                                           QString::number(replyInfo.senderID), replyInfo.senderID);
+
+    replyMsg->show();
+    replyMsg->resize(history->width() - 25, replyMsg->expectedHeight());
+    history->setMinimumHeight(history->minimumHeight() + replyMsg->expectedHeight() + 10);
+
+    _replyList.insert(std::make_pair(int32_t(replyInfo.senderID), std::unique_ptr<ReplyMessageWidget>(replyMsg)));
+    _replies.push_back(replyInfo);
+
+    connect(replyMsg, &ReplyMessageWidget::geometryChanged, this, [=](int diff) {
+            history->setMinimumHeight(history->minimumHeight() + diff);
+            updateLayout(true);
+    });
+
+    updateLayout();
+}
+
 void ChatHistory::addMessage(const Network::MessageInfo& messageInfo)
 {
     auto copy = std::find(_messages.begin(), _messages.end(), messageInfo);
@@ -87,6 +115,8 @@ void ChatHistory::addMessage(const Network::MessageInfo& messageInfo)
 
     _messageList.push_back(std::unique_ptr<MessageWidget>(msg));
     _messages.push_back(messageInfo);
+
+    connect(msg, &MessageWidget::createReplySignal, this, &ChatHistory::createReplySignal);
 
     connect(msg, &MessageWidget::geometryChanged, this, [=](int diff) {
         history->setMinimumHeight(history->minimumHeight() + diff);

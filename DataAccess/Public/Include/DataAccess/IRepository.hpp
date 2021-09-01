@@ -39,7 +39,19 @@ public:
      *   Storing failed     - StoringMessageCodes::FAILED.
      */
     virtual Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& msi) = 0;
+
+    /**
+     * @brief storeReply
+     * @param rsi
+     * @return
+     */
+    virtual Utility::StoringReplyCodes storeReply(const Network::ReplyInfo& rsi) = 0;
     
+    /**
+     * @brief deleteMessage
+     * @param mi
+     * @return
+     */
     virtual Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) = 0;
 
     /**  @brief Method for user registration.

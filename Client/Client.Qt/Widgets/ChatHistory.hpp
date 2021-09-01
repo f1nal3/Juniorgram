@@ -36,6 +36,7 @@ public:
      * @param reply ReplyWidget with information
      */
     void addReply(ReplyWidget* reply);
+    void addReply(const Network::ReplyInfo& replyInfo);
 
     /**
      * @brief Clears all chat
@@ -91,6 +92,7 @@ private:
     std::map<int32_t, std::unique_ptr<ReplyMessageWidget>>       _replyList;
     std::vector<std::unique_ptr<MessageWidget>>                  _messageList;
     std::vector<Network::MessageInfo>                            _messages;
+    std::vector<Network::ReplyInfo>                              _replies;
     std::uint64_t                                                _userId    = 0;
     std::uint64_t                                                _messageId = 0;
 };

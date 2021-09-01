@@ -38,7 +38,7 @@ void ConnectionManager::onMessageHistoryAnswer(const std::vector<Network::Messag
 
 void ConnectionManager::onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies)
 {
-    qRegisterMetaType<std::vector<Network::ReplyInfo>>("std::vector<Network::ReplyInfo");
+    qRegisterMetaType<std::vector<Network::ReplyInfo>>("std::vector<Network::ReplyInfo>");
     emit ReceiverManager::instance()->onReplyHistoryAnswer(replies);
 }
 
@@ -54,6 +54,20 @@ void ConnectionManager::onMessageStoreAnswer(Utility::StoringMessageCodes storin
     }
     qRegisterMetaType<Utility::StoringMessageCodes>("Utility::StoringMessageCodes");
     emit ReceiverManager::instance()->onMessageStoreAnswer(storingMessageCode);
+}
+
+void ConnectionManager::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
+{
+    if (storingReplyCode == Utility::StoringReplyCodes::SUCCESS)
+    {
+        std::cout << "SUCCESS sending" << std::endl;
+    }
+    else if (storingReplyCode == Utility::StoringReplyCodes::FAILED)
+    {
+        std::cout << "FAILED sending" << std::endl;
+    }
+    qRegisterMetaType<Utility::StoringReplyCodes>("Utility::StoringReplyCodes");
+    emit ReceiverManager::instance()->onReplyStoreAnswer(storingReplyCode);
 }
 
 void ConnectionManager::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)

@@ -136,6 +136,19 @@ void Client::storeMessage(const std::string& message, const uint64_t channelID) 
     send(networkMessage);
 }
 
+void Client::storeReply(const std::string &message, uint64_t channelID) const
+{
+    Network::Message networkMessage;
+    networkMessage.mHeader.mMessageType = MessageType::ReplyStoreRequest;
+
+    Network::ReplyInfo ri;
+    ri.message = message;
+    ri.channelID = channelID;
+
+    networkMessage.mBody = std::make_any<Network::ReplyInfo>(ri);
+    send(networkMessage);
+}
+
 void Client::userRegistration(const std::string& email, const std::string& login, const std::string& password) const
 {
     // Generating password's hash which are based on login. It lets us to insert different users
@@ -274,6 +287,13 @@ void Client::loop()
             }
             break;
 
+            case MessageType::ReplyStoreAnswer:
+            {
+                auto code = std::any_cast<Utility::StoringReplyCodes>(message.mBody);
+                onReplyStoreAnswer(code);
+            }
+            break;
+
             default:
                 std::cerr << "[Client][Warning] unimplemented[" << uint32_t(message.mHeader.mMessageType) << "]\n";
         }
@@ -342,6 +362,12 @@ void Client::onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies
 {
     (void)(replies);
     std::cerr << "[Client][Warning] reply answer is not implemented\n";
+}
+
+void Client::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
+{
+    (void)(storingReplyCode);
+    std::cerr << "[Client][Warning] reply store answer is not implemented\n";
 }
 
 }  // namespace Network

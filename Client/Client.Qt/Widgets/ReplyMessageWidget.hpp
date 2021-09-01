@@ -24,6 +24,7 @@ public:
 public:
     /// Possible height of message widget
     int expectedHeight() const;
+    uint64_t getUserId() const { return _userId; };
 
 signals:
     /// Signal for change reply message geometry

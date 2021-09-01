@@ -37,9 +37,11 @@ struct Message
         LoginRequest,
         LoginAnswer,
         MessageDeleteRequest,
-        MessageDeleteAnswer
+        MessageDeleteAnswer,
         ReplyHistoryRequest,
-        ReplyHistoryAnswer
+        ReplyHistoryAnswer,
+        ReplyStoreRequest,
+        ReplyStoreAnswer
     };
 
     /**

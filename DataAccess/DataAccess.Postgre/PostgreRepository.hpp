@@ -28,12 +28,15 @@ public:
     std::vector<Network::ReplyInfo>   getReplyHistoryForUser(const std::uint64_t channelID) override final;
     std::uint64_t                     loginUser(const std::string& login, const std::string& pwdHash) override final;
     Utility::StoringMessageCodes      storeMessage(const Network::MessageInfo& mi) override final;
+    Utility::StoringReplyCodes        storeReply(const Network::ReplyInfo& rsi) override final;
     Utility::RegistrationCodes        registerUser(const Network::RegistrationInfo& ri) const override final;
     Utility::DeletingMessageCodes     deleteMessage(const Network::MessageInfo& mi) override final;
 
 private:
     std::optional<pqxx::result> insertMessageIntoMessagesTable(const Network::MessageInfo& msi);
-    std::optional<pqxx::result> insertIDsIntoChannelMessagesTable(const std::uint64_t chinnelID, const std::uint64_t messageID);
+    std::optional<pqxx::result> insertReplyIntoRepliesTable(const Network::ReplyInfo& rsi);
+    std::optional<pqxx::result> insertIDsIntoChannelMessagesTable(const std::uint64_t channelID, const std::uint64_t messageID);
+    std::optional<pqxx::result> insertIDsIntoChannelRepliesTable(const std::uint64_t channelID, const std::uint64_t replyID);
     std::optional<pqxx::result> insertIDIntoMessageReactionsTable(const std::uint64_t messageID);
 };
 }  // namespace DataAccess

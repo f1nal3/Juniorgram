@@ -67,6 +67,13 @@ public:
     void storeMessage(const std::string& message, uint64_t channelID) const;
 
     /**
+     * @brief storeReply
+     * @param message
+     * @param channelID
+     */
+    void storeReply(const std::string& message, uint64_t channelID) const;
+
+    /**
      * @brief Send an registration request to server
      * @param email User E-Mail
      * @param login User Login
@@ -106,6 +113,8 @@ protected:
     virtual void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
 	/// Reply History Answer heandler
     virtual void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
+    /// Reply Store Answer handler
+    virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
 
 private:
     asio::io_context _context;
