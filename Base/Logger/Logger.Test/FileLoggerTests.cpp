@@ -2,7 +2,7 @@
 
 #include "Logger.Static/FileLogger.hpp"
 
-using namespace Logger;
+using namespace Base::Logger;
 
 std::string getFldName()
 {
