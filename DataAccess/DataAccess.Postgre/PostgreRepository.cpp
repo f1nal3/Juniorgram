@@ -189,6 +189,7 @@ std::optional<pqxx::result> PostgreRepository::insertReplyIntoRepliesTable(const
 {
     std::tuple dataForReplies
     {
+        std::pair{"msg_id_owner", rsi.senderID},
         std::pair{"msg_id_ref", rsi.msgID},
         std::pair{"msg", rsi.message}
     };

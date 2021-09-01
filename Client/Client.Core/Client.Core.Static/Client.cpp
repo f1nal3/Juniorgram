@@ -136,7 +136,7 @@ void Client::storeMessage(const std::string& message, const uint64_t channelID) 
     send(networkMessage);
 }
 
-void Client::storeReply(const std::string &message, uint64_t channelID) const
+void Client::storeReply(const std::string &message, uint64_t channelID, uint64_t msgID) const
 {
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ReplyStoreRequest;
@@ -144,6 +144,7 @@ void Client::storeReply(const std::string &message, uint64_t channelID) const
     Network::ReplyInfo ri;
     ri.message = message;
     ri.channelID = channelID;
+    ri.msgID = msgID;
 
     networkMessage.mBody = std::make_any<Network::ReplyInfo>(ri);
     send(networkMessage);

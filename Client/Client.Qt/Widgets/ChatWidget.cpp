@@ -21,7 +21,7 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     setLayout(_mainChatLayout.get());
 
     connect(_requestTimer.get(), &QTimer::timeout, this, &ChatWidget::requestMessages);
-    //connect(_requestTimer.get(), &QTimer::timeout, this, &ChatWidget::requestReplies);
+    connect(_requestTimer.get(), &QTimer::timeout, this, &ChatWidget::requestReplies);
 
     /// Once in a second
     _requestTimer->start(1000);
@@ -29,7 +29,7 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     setMinimumWidth(st::chatWidgetMinWidth);
     connect(_chatHistory.get(), &ChatHistory::createReplySignal, this, &ChatWidget::addReplyWidget);
     connect(_textEdit.get(), &TextEdit::sendMessage, this, &ChatWidget::newMessage);
-    //connect(ReceiverManager::instance(), &ReceiverManager::onReplyHistoryAnswer, this, &ChatWidget::addReplies);
+    connect(ReceiverManager::instance(), &ReceiverManager::onReplyHistoryAnswer, this, &ChatWidget::addReplies);
     connect(ReceiverManager::instance(), &ReceiverManager::onMessageHistoryAnswer, this, &ChatWidget::addMessages);
 }
 
@@ -38,17 +38,13 @@ void ChatWidget::newMessage(const QString& messageText)
     oApp->connectionManager()->storeMessage(messageText.toStdString(), _channelID);
     if(this->findChild<ReplyWidget*>())
     {
-        _chatHistory->addReply(_replyWidget);
+        oApp->connectionManager()->storeReply(_replyWidget->getMessage().toStdString(), _channelID, _replyWidget->getMessageId());
+        _replyWidget->close();
     }
 }
 
 void ChatWidget::addMessages(const std::vector<Network::MessageInfo>& messages)
 {
-    if(this->findChild<ReplyWidget*>())
-    { 
-        _chatHistory->addReply(_replyWidget);
-    }
-
     for (const auto& message : messages)
     {
         if (message.channelID == _channelID)

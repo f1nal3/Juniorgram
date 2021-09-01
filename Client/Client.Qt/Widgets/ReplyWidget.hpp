@@ -31,6 +31,8 @@ public:
     uint64_t getUserId() const { return _userId; };
     /// Possible height of message widget
     int expectedHeight();
+    /// Return message
+    QString getMessageText() const { return _messageText; }
 
 public slots:
     /// Slot for close reply above text edit widget after sending message

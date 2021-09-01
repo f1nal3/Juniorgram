@@ -71,7 +71,7 @@ public:
      * @param message
      * @param channelID
      */
-    void storeReply(const std::string& message, uint64_t channelID) const;
+    void storeReply(const std::string& message, uint64_t channelID, uint64_t msgID) const;
 
     /**
      * @brief Send an registration request to server
