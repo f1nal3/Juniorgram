@@ -2,7 +2,7 @@
 name: Issue template
 about: Description of issue for implementation
 title: ''
-labels: Front
+labels: 
 assignees: ''
 
 ---

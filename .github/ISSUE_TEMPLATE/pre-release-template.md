@@ -2,7 +2,7 @@
 name: Pre-release template
 about: Template that help to cross all needed steps for release new version
 title: 'Pre release actions for ver.x.x.x'
-labels: Front
+labels: 
 assignees: ''
 
 ---
