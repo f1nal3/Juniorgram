@@ -1,6 +1,8 @@
 #include "PostgreRepository.hpp"
 #include "UsersAmountFinder.hpp"
 
+#include <iostream>
+
 using namespace DataAccess;
 
 std::vector<Network::ChannelInfo> PostgreRepository::getAllChannelsList()
@@ -69,8 +71,9 @@ std::vector<Network::ReplyInfo> PostgreRepository::getReplyHistoryForUser(const 
         for(auto i = 0; i < replyHistoryRow.value().size(); ++i)
         {
             ri.senderID = replyHistoryRow.value()[i][0].as<std::uint64_t>();
-            ri.msgID    = replyHistoryRow.value()[i][1].as<std::uint64_t>();
-            ri.message  = replyHistoryRow.value()[i][2].as<std::string>();
+            ri.msgIdOwner = replyHistoryRow.value()[i][1].as<std::uint64_t>();
+            ri.msgID    = replyHistoryRow.value()[i][2].as<std::uint64_t>();
+            ri.message  = replyHistoryRow.value()[i][3].as<std::string>();
             result.emplace_back(ri);
         }
 
@@ -187,9 +190,15 @@ std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(co
 
 std::optional<pqxx::result> PostgreRepository::insertReplyIntoRepliesTable(const Network::ReplyInfo& rsi)
 {
+    pTable->changeTable("msgs");
+    auto lastMsgID = pTable->Select()
+                           ->columns({"MAX(msg_id)"})
+                           ->execute();
+
     std::tuple dataForReplies
     {
-        std::pair{"msg_id_owner", rsi.senderID},
+        std::pair{"sender_id", rsi.senderID},
+        std::pair{"msg_id_owner", lastMsgID.value()[0][0].as<std::uint64_t>()},
         std::pair{"msg_id_ref", rsi.msgID},
         std::pair{"msg", rsi.message}
     };

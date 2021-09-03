@@ -39,6 +39,7 @@ void ChatWidget::newMessage(const QString& messageText)
     if(this->findChild<ReplyWidget*>())
     {
         oApp->connectionManager()->storeReply(_replyWidget->getMessage().toStdString(), _channelID, _replyWidget->getMessageId());
+        _replyWidget->close();
     }
 }
 
@@ -77,7 +78,6 @@ void ChatWidget::requestReplies()
     if(oApp->connectionManager()->isConnected())
     {
         oApp->connectionManager()->askForReplyHistory(_channelID);
-        //emit requestMessagesSignal();
     }
 }
 

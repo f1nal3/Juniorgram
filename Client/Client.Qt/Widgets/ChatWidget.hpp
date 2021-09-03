@@ -12,9 +12,6 @@ public:
     explicit ChatWidget(QWidget* parent = nullptr);
     void setChannelID(const std::uint64_t channelID) { _channelID = channelID; }
 
-//signals:
-    //void requestMessagesSignal();
-
 private slots:
     void newMessage(const QString& messageText);
     void addReplyWidget(ReplyWidget* reply);

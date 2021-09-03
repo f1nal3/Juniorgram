@@ -174,6 +174,8 @@ struct ReplyInfo
 
     std::uint64_t msgID;
 
+    std::uint64_t msgIdOwner;
+
     std::uint64_t senderID;
 
     ReplyInfo() = default;
@@ -186,7 +188,11 @@ struct ReplyInfo
 
     friend bool operator==(const ReplyInfo& first, const ReplyInfo& second)
     {
-        return first.message == second.message && first.msgID == second.msgID && first.senderID == second.senderID;
+        return first.message == second.message &&
+               first.msgID == second.msgID &&
+               first.senderID == second.senderID &&
+               first.msgIdOwner == second.msgIdOwner &&
+               first.channelID == second.channelID;
     }
 
 };
@@ -194,7 +200,7 @@ struct ReplyInfo
 template <typename Archive>
 void serialize(Archive& ar, Network::ReplyInfo& o)
 {
-    ar& o.channelID& o.message& o.msgID& o.senderID;
+    ar& o.channelID& o.message& o.msgID& o.senderID& o.msgIdOwner;
 }
 
 }  // namespace Network
