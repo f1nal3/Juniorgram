@@ -166,37 +166,46 @@ void serialize(Archive& ar, Network::MessageInfo& o)
     ar& o.channelID& o.senderID& o.msgID& o.message& o.time;
 }
 
+/**
+ * @brief The ReplyInfo struct
+ * @details Reply Info contains channel ID, message, message ID,
+ *          sender ID, msgIdOwner and sender ID.
+ */
 struct ReplyInfo
 {
+    /// channel ID uint64_t variable
     std::uint64_t channelID;
-
+    /// message string variable
     std::string message;
-
+    /// msg ID uint64_t variable
     std::uint64_t msgID;
-
+    /// msg ID owner uint64_t variable
     std::uint64_t msgIdOwner;
-
+    /// sender ID uint64_t variable
     std::uint64_t senderID;
-
+    /// Default ReplyInfo constructor
     ReplyInfo() = default;
 
+    /// ReplyInfo constructor with initializing list
     explicit ReplyInfo(const std::uint64_t& channelID, const std::string& text) : channelID(channelID), message(text) {}
-
+    /// Default Reply copy constructor
     ReplyInfo(const ReplyInfo&) = default;
-
+    /// Default ReplyInfo destructor
     ~ReplyInfo()                = default;
 
+    /// Operator == to compare Reply Info
     friend bool operator==(const ReplyInfo& first, const ReplyInfo& second)
     {
-        return first.message == second.message &&
-               first.msgID == second.msgID &&
-               first.senderID == second.senderID &&
+        return first.message    == second.message    &&
+               first.msgID      == second.msgID      &&
+               first.senderID   == second.senderID   &&
                first.msgIdOwner == second.msgIdOwner &&
-               first.channelID == second.channelID;
+               first.channelID  == second.channelID;
     }
 
 };
 
+/// Serialize method for serialize ReplyInfo for each field
 template <typename Archive>
 void serialize(Archive& ar, Network::ReplyInfo& o)
 {

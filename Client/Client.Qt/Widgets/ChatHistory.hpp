@@ -24,18 +24,14 @@ public:
 
     /**
      * @brief Adds a new message to history
-     * @param message Message Text
-     * @param utc Seconds since epoch
-     * @param user Usenname
+     * @param Network::MessageInfo& messageInfo
      */
-    //void addMessage(const QString& message = QString(), quint64 utc = 0, const QString& user = "You");
     void addMessage(const Network::MessageInfo& messageInfo);
 
     /**
      * @brief Add a new reply to history
-     * @param reply ReplyWidget with information
+     * @param Network::ReplyInfo& replyInfo
      */
-    //void addReply(ReplyWidget* reply);
     void addReply(const Network::ReplyInfo& replyInfo);
 
     /**

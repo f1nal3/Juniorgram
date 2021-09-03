@@ -45,9 +45,13 @@ public:
      */
     void askForMessageHistory(uint64_t channelID) const;
     /**
-     * @brief Sends a none message to all clients
+     * @brief Ask for reply message history
+     * @param channelID
      */
     void askForReplyHistory(uint64_t channelID) const;
+    /**
+     * @brief Sends a none message to all clients
+     */
     void messageAll() const;
     /**
      * @brief Delete user's message
@@ -65,14 +69,13 @@ public:
      * @param channelID Channel ID
      */
     void storeMessage(const std::string& message, uint64_t channelID) const;
-
     /**
-     * @brief storeReply
-     * @param message
-     * @param channelID
+     * @brief Send a reply to server
+     * @param string Message
+     * @param uint64_t channelID
+     * @param uint64_t msgID
      */
     void storeReply(const std::string& message, uint64_t channelID, uint64_t msgID) const;
-
     /**
      * @brief Send an registration request to server
      * @param email User E-Mail
