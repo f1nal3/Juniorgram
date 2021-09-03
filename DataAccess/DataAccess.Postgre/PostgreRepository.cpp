@@ -1,8 +1,6 @@
 #include "PostgreRepository.hpp"
 #include "UsersAmountFinder.hpp"
 
-#include <iostream>
-
 using namespace DataAccess;
 
 std::vector<Network::ChannelInfo> PostgreRepository::getAllChannelsList()

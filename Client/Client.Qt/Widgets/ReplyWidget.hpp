@@ -1,8 +1,8 @@
 #pragma once
 
+#include <QResizeEvent>
 #include <QWidget>
 #include <memory>
-#include <QResizeEvent>
 
 #include "Buttons.hpp"
 #include "InputFields.hpp"
@@ -45,12 +45,11 @@ protected:
     void resizeEvent(QResizeEvent* e) override;
 
 private:
-    QString _messageText;
-    QString _username;
-    uint64_t _messageId;
-    uint64_t _userId;
-    std::unique_ptr<FlatButton> _closeReplyButton;
+    QString                       _messageText;
+    QString                       _username;
+    uint64_t                      _messageId;
+    uint64_t                      _userId;
+    std::unique_ptr<FlatButton>   _closeReplyButton;
     std::unique_ptr<FlatTextEdit> _fmtMessageText;
-    const Style::MessageWidget& _st;
+    const Style::MessageWidget&   _st;
 };
-
