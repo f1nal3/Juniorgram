@@ -36,7 +36,6 @@ target_include_directories(${TARGET}
     PRIVATE ${CONAN_INCLUDE_DIRS_QT}
     $<TARGET_PROPERTY:Network.Static,SOURCE_DIR>/..)
 
-
 target_link_libraries(${TARGET} PUBLIC
 	PUBLIC Qt5::Sql
     Utility.Static
