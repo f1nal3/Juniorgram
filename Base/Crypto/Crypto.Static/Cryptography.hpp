@@ -1,8 +1,9 @@
 #pragma once
+
 #include <memory>
 #include <string>
 
-namespace SymmetricCipher
+namespace Base::Crypto
 {
 struct ICipher
 {
@@ -29,9 +30,9 @@ struct AESFactory : ICiphersFactory
 {
     std::shared_ptr<ICipher> create() override { return std::make_shared<AESCipher>(); }
 };
-}  // namespace SymmetricCipher
+}  // namespace Base::Crypto
 
-namespace Hashing
+namespace Base::Hashing
 {
 std::string SHA_256(const std::string& message, const std::string& componentForSalt);
 }

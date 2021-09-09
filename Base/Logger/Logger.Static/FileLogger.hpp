@@ -19,7 +19,7 @@
 #include "Utility/Utility.hpp"
 #include <vector>
 
-namespace Logger
+namespace Base::Logger
 {
 class FileLogger : ILogger
 {
@@ -136,7 +136,7 @@ private:
      * @brief Wraps the value of a variable
      * @return [value]
      */
-    static std::string wrapValue(const std::string& value, const BlockWrapper& blockWerapper);
+    static std::string wrapValue(const std::string& value, const BlockWrapper& blockWrapper);
 
 private:
     std::string  _fileName{"Log-"};

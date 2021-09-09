@@ -1,7 +1,7 @@
 #include "Client.hpp"
 
 #include <Network/Primitives.hpp>
-#include <Utility.Static/Cryptography.hpp>
+#include <Crypto.Static/Cryptography.hpp>
 
 #include "ServerInfo.hpp"
 
@@ -131,7 +131,7 @@ void Client::userRegistration(const std::string& email, const std::string& login
 {
     // Generating password's hash which are based on login. It lets us to insert different users
     // with the same passwords.
-    const std::string         pwdHash = Hashing::SHA_256(password, login);
+    const std::string         pwdHash = Base::Hashing::SHA_256(password, login);
     Network::RegistrationInfo ri(email, login, pwdHash);
 
     Network::Message message;
@@ -143,7 +143,7 @@ void Client::userRegistration(const std::string& email, const std::string& login
 
 void Client::userAuthorization(const std::string& login, const std::string& password) const
 {
-    const std::string pwdHash = Hashing::SHA_256(password, login);
+    const std::string pwdHash = Base::Hashing::SHA_256(password, login);
     LoginInfo         loginInfo(login, pwdHash);
 
     Message message;

@@ -7,7 +7,7 @@
 #include <memory>
 #include <string>
 
-namespace SymmetricCipher
+namespace Base::Crypto
 {
 using namespace CryptoPP;
 
@@ -52,9 +52,9 @@ std::string AESCipher::decrypt(const std::string& cipherData, const std::string&
 
     return decryptedData;
 }
-}  // namespace SymmetricCipher
+}  // namespace Base::Crypto
 
-std::string Hashing::SHA_256(const std::string& plainText, const std::string& componentForSalt)
+std::string Base::Hashing::SHA_256(const std::string& plainText, const std::string& componentForSalt)
 { 
     using namespace CryptoPP;
 
