@@ -97,16 +97,24 @@ void ReactionLayout::remodelLayout()
         }
         else
         {
-            if ((_zeroVisible && item.second == 0) || item.second > 0)
-                _reactions[item.first] = std::make_unique<IconButton>(this, QString("%1").arg(item.second),
-                                                                      _isMenu ? st::reactionIconButtonInMenu : st::reactionIconButton);
-            else
+            if (_isMenu)
+            {
                 _reactions[item.first] =
-                    std::make_unique<IconButton>(this, QString(""), _isMenu ? st::reactionIconButtonInMenu : st::reactionIconButton);
+                    std::make_unique<IconButton>(this, QString(""), st::reactionIconButtonInMenu);
 
-            _reactions[item.first]->setIcon(&_icons[item.first]);
-            _reactions[item.first]->setClickCallback([=]() { clicked({nullptr, y(), 0, true}); });
+                _reactions[item.first]->setIcon(&_icons[item.first]);
+                _reactions[item.first]->setClickCallback([=]() { clicked({ nullptr, y(), 0, true }); emit onClick(item.first); });
+            }
+
+            else if (_zeroVisible || item.second > 0)
+            {
+                _reactions[item.first] = std::make_unique<IconButton>(this, QString("%1").arg(item.second), st::reactionIconButton);
+
+                _reactions[item.first]->setIcon(&_icons[item.first]);
+                _reactions[item.first]->setClickCallback([=]() { clicked({ nullptr, y(), 0, true }); emit onClick(item.first); });
+            }
         }
     }
+
     recountSize();
 }

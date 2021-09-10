@@ -110,7 +110,7 @@ void RegistrationPage::onRegistration(Utility::RegistrationCodes code)
         }
         else if (code == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS)
         {
-            std::cout << "LoginPage already exists" << std::endl;
+            std::cout << "Login already exists" << std::endl;
         }
         else
         {

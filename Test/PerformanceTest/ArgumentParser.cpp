@@ -1,5 +1,6 @@
 #include "ArgumentParser.hpp"
 
+#include <cctype>
 #include <vector>
 
 namespace PerformanceTest

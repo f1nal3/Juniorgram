@@ -63,6 +63,7 @@ public:
 
 signals:
     void clicked(const CallbackData& data_);
+    void onClick(const std::uint32_t reactionID);
 
 private:
     uint64_t _channelId, _userId, _msgId;

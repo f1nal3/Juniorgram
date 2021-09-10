@@ -10,7 +10,7 @@ CREATE TABLE user_channels ( user_id int NOT NULL, channel_id int NOT NULL, UNIQ
 
 CREATE TABLE msgs ( msg_id serial PRIMARY KEY, sender_id int NOT NULL, send_time timestamp, msg text NOT NULL );
 
-CREATE TABLE msg_reactions ( msg_id int NOT NULL, like_number int DEFAULT 0, dislike_number int DEFAULT 0, fire_number int DEFAULT 0, cat_number int DEFAULT 0 );
+CREATE TABLE msg_reactions ( msg_id int NOT NULL, likes int[] DEFAULT array[]::int[], dislikes int[] DEFAULT array[]::int[], fires int[] DEFAULT array[]::int[], cats int[] DEFAULT array[]::int[], smiles int[] DEFAULT array[]::int[]);
 
 CREATE TABLE channel_msgs ( channel_id int NOT NULL, msg_id int NOT NULL );
 

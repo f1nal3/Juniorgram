@@ -65,6 +65,8 @@ signals:
     void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
     /// Direct message create Answer handler
     void onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer);
+    /// Reaction update answer handler
+    void onMessageReactionAnswer(const Utility::ReactionMessageCodes reactionCode);
 
 private:
     static ReceiverManager* self;
@@ -124,4 +126,6 @@ protected:
     void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode) override;
     /// Direct message create Answer handler
     void onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer) override;
+    /// Reaction update answer handler
+    void onMessageReactionAnswer(const Utility::ReactionMessageCodes reactionCode) override;
 };

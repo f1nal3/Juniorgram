@@ -4,6 +4,7 @@
 #include <chrono>
 #include <cstdint>
 #include <cstring>
+#include <map>
 #include <string>
 
 namespace Network
@@ -180,8 +181,10 @@ struct MessageInfo
     std::string userLogin;
     /// recipient ID uint64_t variable
     std::uint64_t recipientID;
-    /// time string variable
-    std::string time = Utility::getTimeNow();
+    /// time in seconds since Epoch (1970-01-01 00:00:00 UTC)
+    std::int64_t time = Utility::getUnixTime();
+    /// reactions (reaction_id, reaction_count)
+    std::map<std::uint32_t, std::uint32_t> reactions = {};
 
     /// Default MessageIndo constructor
     MessageInfo() = default;
@@ -198,13 +201,19 @@ struct MessageInfo
         return first.message == second.message && first.channelID == second.channelID && first.time == second.time &&
                first.msgID == second.msgID && first.userLogin == second.userLogin;
     }
+
+    /// Operator < to compare MessageInfo
+    friend bool operator<(const MessageInfo& lhs, const MessageInfo& rhs) 
+    {
+        return lhs.time < rhs.time;
+    }
 };
 
 /// Serialize method for serialize Message Info for each field
 template <typename Archive>
 void serialize(Archive& ar, Network::MessageInfo& o)
 {
-    ar& o.channelID& o.senderID& o.msgID& o.message& o.time& o.userLogin;
+    ar& o.channelID& o.senderID& o.msgID& o.message& o.reactions& o.time& o.userLogin;
 }
 
 /**

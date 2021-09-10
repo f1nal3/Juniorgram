@@ -121,6 +121,21 @@ enum class DirectMessageStatus : std::uint8_t
     FAILED,
 };
 
+/**
+ * @brief enum for tracking message's reaction status
+ * @details Utility::ReactionMessageCodes updateMessageReactions(const Network::MessageInfo& mi) /
+ *    returns one of these codes.
+ */
+enum class ReactionMessageCodes : std::uint8_t
+{
+    SUCCESS,
+    FAILED
+};
+
+/**
+ * @brief Wrapper for OS implementations of thread-safe std::localtime
+ * @details std::localtime return static internal std::tm internally, so it is not thread-safe
+ */
 inline std::tm safe_localtime(const std::time_t& time)
 {
     // std::localtime is not thread safe, so we use platform-dependant versions
@@ -201,6 +216,14 @@ inline std::string removeSpaces(const std::string& input)
     }
 
     return result;
+}
+
+/**
+ * @brief Returns time in seconds since Epoch (1970-01-01 00:00:00 UTC)
+ */
+inline std::int64_t getUnixTime()
+{
+    return static_cast<std::int64_t>(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count());
 }
 
 }  // namespace Utility
