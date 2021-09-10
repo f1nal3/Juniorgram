@@ -24,13 +24,13 @@ public:
     /// Table constructor
     explicit LiteTable(const std::string& tableName) : QueryBuilder(Utility::DatabaseType::DB_LITE, tableName)
     {
-        _adapter = LiteAdapter::getInstance<LiteAdapter>();
+        _adapter = LiteAdapter::Instance("local.db");
     }
 
     /// Table constructor with options
     LiteTable(const std::string& tableName, const std::string_view& options) : QueryBuilder(Utility::DatabaseType::DB_LITE, tableName)
     {
-        _adapter = LiteAdapter::getInstance<LiteAdapter>(options);
+        _adapter = LiteAdapter::Instance(options);
     }
 };
 }  // namespace DataAccess
