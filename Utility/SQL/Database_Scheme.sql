@@ -8,15 +8,13 @@ CREATE TABLE user_friends_data ( user_id int NOT NULL, friend_id int UNIQUE NOT 
 
 CREATE TABLE user_channels ( user_id int NOT NULL, channel_id int NOT NULL );
 
-CREATE TABLE msgs ( msg_id serial PRIMARY KEY, sender_id int NOT NULL, send_time timestamp, msg text NOT NULL );
+CREATE TABLE msgs ( msg_id serial PRIMARY KEY, sender_id int NOT NULL, send_time timestamp, msg text NOT NULL, channel_id int NOT NULL);
 
 CREATE TABLE msg_reactions ( msg_id int NOT NULL, like_number int DEFAULT 0, dislike_number int DEFAULT 0, fire_number int DEFAULT 0, cat_number int DEFAULT 0 );
 
 CREATE TABLE user_from_msgs ( from_id int NOT NULL, msg_id int NOT NULL );
 
 CREATE TABLE user_to_msgs ( to_id int NOT NULL, msg_id int NOT NULL );
-
-CREATE TABLE channel_msgs ( channel_id int NOT NULL, msg_id int NOT NULL);
 
 CREATE TABLE channels ( id serial PRIMARY KEY, channel_name varchar(64) UNIQUE, creator_id int NOT NULL );
 
@@ -66,10 +64,6 @@ ALTER TABLE user_to_msgs ADD FOREIGN KEY (to_id) REFERENCES users (id) ON DELETE
 
 ALTER TABLE user_to_msgs ADD FOREIGN KEY (msg_id) REFERENCES msgs (msg_id) ON DELETE CASCADE;
 
-ALTER TABLE channel_msgs ADD FOREIGN KEY (channel_id) REFERENCES channels (id) ON DELETE CASCADE;
-
-ALTER TABLE channel_msgs ADD FOREIGN KEY (msg_id) REFERENCES msgs (msg_id) ON DELETE CASCADE;
-
 ALTER TABLE channels ADD FOREIGN KEY (creator_id) REFERENCES users (id) ON DELETE CASCADE;
 
 ALTER TABLE channel_images ADD FOREIGN KEY (channel_id) REFERENCES channels (id) ON DELETE CASCADE;
@@ -109,3 +103,5 @@ ALTER TABLE channel_replies ADD FOREIGN KEY (msg_id_owner) REFERENCES msgs (msg_
 ALTER TABLE replies ADD FOREIGN KEY (msg_id_owner) REFERENCES msgs (msg_id) ON DELETE CASCADE;
 
 ALTER TABLE replies ADD FOREIGN KEY (msg_id_ref) REFERENCES msgs (msg_id) ON DELETE CASCADE;
+
+ALTER TABLE msgs ADD FOREIGN KEY (channel_id) REFERENCES channels (id) ON DELETE CASCADE;

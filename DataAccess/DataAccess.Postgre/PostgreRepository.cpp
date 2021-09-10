@@ -31,8 +31,7 @@ std::vector<Network::MessageInfo> PostgreRepository::getMessageHistoryForUser(co
     pTable->changeTable("msgs");
     auto messageHistoryRow = pTable->Select()
                                    ->columns({"*"})
-                                   ->join(Utility::SQLJoinType::J_INNER, "channel_msgs", "channel_msgs.msg_id = msgs.msg_id")
-                                   ->Where("channel_msgs.channel_id = " + std::to_string(channelID))
+                                   ->Where("msgs.channel_id = " + std::to_string(channelID))
                                    ->execute();
     
     if (messageHistoryRow.has_value())
@@ -45,6 +44,7 @@ std::vector<Network::MessageInfo> PostgreRepository::getMessageHistoryForUser(co
             mi.senderID = messageHistoryRow.value()[i][1].as<std::uint64_t>();
             mi.time     = messageHistoryRow.value()[i][2].as<std::string>();
             mi.message  = messageHistoryRow.value()[i][3].as<std::string>();
+            mi.channelID = messageHistoryRow.value()[i][4].as<std::uint64_t>();
             result.emplace_back(mi);
         }
     }
@@ -118,15 +118,9 @@ Utility::StoringMessageCodes PostgreRepository::storeMessage(const Network::Mess
 
     const auto currentMessageID = firstResult.value()[0][0].as<std::uint64_t>();
     
-    const auto secondResult = insertIDsIntoChannelMessagesTable(mi.channelID, currentMessageID);
-    if (!secondResult.has_value())
-    {
-        std::cerr << "Insert message into 'channel_messages' table failed" << std::endl;
-        return Utility::StoringMessageCodes::FAILED;
-    }
+    const auto secondResult = insertIDIntoMessageReactionsTable(currentMessageID);
 
-    const auto thirdResult = insertIDIntoMessageReactionsTable(currentMessageID);
-    if (!thirdResult.has_value())
+    if (!secondResult.has_value())
     {
         std::cerr << "Insert message into 'msg_reactions' table failed" << std::endl;
         return Utility::StoringMessageCodes::FAILED;
@@ -195,7 +189,8 @@ std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(co
     {
         std::pair{"sender_id", mi.senderID}, 
         std::pair{"send_time", mi.time.c_str()}, 
-        std::pair{"msg", mi.message}
+        std::pair{"msg", mi.message},
+        std::pair{"channel_id", mi.channelID}
     };
 
     pTable->changeTable("msgs");
