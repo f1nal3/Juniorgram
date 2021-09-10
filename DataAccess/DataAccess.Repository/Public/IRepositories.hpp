@@ -1,13 +1,12 @@
 #pragma once
 
 #include <Network/Primitives.hpp>
+#include <Utility/Utility.hpp>
 #include <string>
 #include <vector>
-#include <Utility/Utility.hpp>
 
 namespace DataAccess
 {
-
 struct IMasterRepository
 {
     virtual ~IMasterRepository() = default;
@@ -15,7 +14,7 @@ struct IMasterRepository
 
 struct IMessagesRepository : IMasterRepository
 {
-    virtual std::vector<Network::MessageInfo>   getMessageHistoryForUser(const std::uint64_t channelID) = 0;
+    virtual std::vector<Network::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
 
     virtual Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& mi) = 0;
 
@@ -45,4 +44,4 @@ struct ILoginRepository : IMasterRepository
     virtual ~ILoginRepository() = default;
 };
 
-}
+}  // namespace DataAccess
