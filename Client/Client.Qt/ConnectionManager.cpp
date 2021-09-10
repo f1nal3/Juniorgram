@@ -107,6 +107,25 @@ void ConnectionManager::onUserMessageDeleteAnswer(const Utility::DeletingMessage
     emit ReceiverManager::instance()->onUserMessageDeleteAnswer(deletingCode);
 }
 
+
+void ConnectionManager::onChannelDeleteAnswer(const Utility::DeletingChannelCodes deletingCode)
+{
+    if(deletingCode == Utility::DeletingChannelCodes::SUCCESS)
+    {
+        std::cout << "SUCCESS DELETING" << std::endl;
+    }
+    else if (deletingCode == Utility::DeletingChannelCodes::FAILED)
+    {
+        std::cout << "FAILED DELETING" << std::endl;
+    }
+    else
+    {
+        std::cout << "UNKNOWN deleting message code" << std::endl;
+    }
+
+    emit ReceiverManager::instance()->onChannelDeleteAnswer(deletingCode);
+}
+
 void ConnectionManager::onDisconnect()
 {
     disconnectFromServer();

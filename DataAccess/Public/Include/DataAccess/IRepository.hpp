@@ -54,6 +54,8 @@ public:
      */
     virtual Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) = 0;
 
+    virtual Utility::DeletingChannelCodes deleteChannel(const Network::MessageInfo& mi) = 0;
+
     /**  @brief Method for user registration.
      *   @param RegistrationMessage which contains user data for registration.
      *   @details Generation password's hash in which login is a salt. It lets us /

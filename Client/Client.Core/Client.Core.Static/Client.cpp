@@ -105,6 +105,17 @@ void Client::askForChannelList() const
     send(message);
 }
 
+void Client::userChannelDelete(const std::uint64_t channelID) const
+{
+    Network::MessageInfo message;
+    message.channelID = channelID;
+
+    Network::Message networkMessage;
+    networkMessage.mHeader.mMessageType = MessageType::ChannelDeleteRequest;
+    networkMessage.mBody = std::make_any<Network::MessageInfo>(message);
+    send(networkMessage);
+}
+
 void Client::askForMessageHistory(const std::uint64_t channelID) const
 {
     Network::Message message;
@@ -252,6 +263,13 @@ void Client::loop()
             }
             break;
 
+            case MessageType::ChannelDeleteAnswer:
+            {
+                auto channelDelete = std::any_cast<Utility::DeletingChannelCodes>(message.mBody);
+                onChannelDeleteAnswer(channelDelete);
+            }
+            break;
+
             case MessageType::MessageHistoryAnswer:
             {
                 auto messages = std::any_cast<std::vector<Network::MessageInfo>>(message.mBody);
@@ -369,6 +387,12 @@ void Client::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
 {
     (void)(storingReplyCode);
     std::cerr << "[Client][Warning] reply store answer is not implemented\n";
+}
+
+void Client::onChannelDeleteAnswer(const Utility::DeletingChannelCodes deletingState)
+{
+    (void)(deletingState);
+    std::cerr << "[Client][Warning] onChannelDeleteAnswer answer is not implemented\n";
 }
 
 }  // namespace Network

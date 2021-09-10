@@ -38,7 +38,11 @@ public:
 
     /// Ask for channel list
     void askForChannelList() const;
-
+    /**
+     * @brief Delete channel
+     * @param channelID Channel ID
+     */
+    void userChannelDelete(const std::uint64_t channelID) const;
     /**
      * @brief Ask for channel message history
      * @param channelID Channel ID
@@ -118,6 +122,8 @@ protected:
     virtual void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
     /// Reply Store Answer handler
     virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
+    /// Channel Delete Answer handler
+    virtual void onChannelDeleteAnswer(const Utility::DeletingChannelCodes deletingState);
 
 private:
     asio::io_context _context;

@@ -16,7 +16,7 @@ restoreWarning
 
 #include "Network/Primitives.hpp"
 
-    namespace Network
+namespace Network
 {
     /** @enum SerializedState
      *  @brief Successful or not result of serialization/deserialization

@@ -173,6 +173,22 @@ Utility::DeletingMessageCodes PostgreRepository::deleteMessage(const Network::Me
     return DeletingMessageCodes::FAILED;
 }
 
+Utility::DeletingChannelCodes PostgreRepository::deleteChannel(const Network::MessageInfo &mi)
+{
+    using Utility::DeletingChannelCodes;
+
+    pTable->changeTable("channels");
+    pTable->Delete()->Where("id=" + std::to_string(mi.channelID))->execute();
+
+    auto channelAmountResult = pTable->Select()->columns({"COUNT(*)"})->Where("id=" + std::to_string(mi.channelID))->execute();
+    if (channelAmountResult.value()[0][0].as<std::uint64_t>() == 0)
+    {
+        return DeletingChannelCodes::SUCCESS;
+    }
+
+    return DeletingChannelCodes::FAILED;
+}
+
 std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageInfo& mi)
 {
     std::tuple dataForMsgs

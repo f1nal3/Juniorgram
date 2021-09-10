@@ -31,6 +31,7 @@ public:
     Utility::StoringReplyCodes        storeReply(const Network::ReplyInfo& rsi) override final;
     Utility::RegistrationCodes        registerUser(const Network::RegistrationInfo& ri) const override final;
     Utility::DeletingMessageCodes     deleteMessage(const Network::MessageInfo& mi) override final;
+    Utility::DeletingChannelCodes     deleteChannel(const Network::MessageInfo& mi) override final;
 
 private:
     std::optional<pqxx::result> insertMessageIntoMessagesTable(const Network::MessageInfo& msi);
