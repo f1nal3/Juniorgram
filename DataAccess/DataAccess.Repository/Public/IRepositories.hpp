@@ -23,6 +23,13 @@ struct IMessagesRepository : IMasterRepository
     virtual ~IMessagesRepository() = default;
 };
 
+struct IRepliesRepository : IMasterRepository
+{
+    virtual std::vector<Network::ReplyInfo> getReplyHistoryForUser(const std::uint64_t channelID) = 0;
+
+    virtual ~IRepliesRepository() = default;
+};
+
 struct IChannelsRepository : IMasterRepository
 {
     virtual std::vector<Network::ChannelInfo> getAllChannelsList() = 0;
