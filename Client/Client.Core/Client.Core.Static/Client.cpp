@@ -1,7 +1,7 @@
 #include "Client.hpp"
 
 #include <Network/Primitives.hpp>
-#include <Utility.Static/Cryptography.hpp>
+#include <Crypto.Static/Cryptography.hpp>
 
 #include "ServerInfo.hpp"
 
@@ -114,6 +114,15 @@ void Client::askForMessageHistory(const std::uint64_t channelID) const
     send(message);
 }
 
+void Client::askForReplyHistory(uint64_t channelID) const
+{
+    Network::Message message;
+    message.mHeader.mMessageType = MessageType::ReplyHistoryRequest;
+
+    message.mBody = std::make_any<std::uint64_t>(channelID);
+    send(message);
+}
+
 void Client::storeMessage(const std::string& message, const uint64_t channelID) const
 {
     Network::Message networkMessage;
@@ -127,11 +136,25 @@ void Client::storeMessage(const std::string& message, const uint64_t channelID) 
     send(networkMessage);
 }
 
+void Client::storeReply(const std::string &message, uint64_t channelID, uint64_t msgID) const
+{
+    Network::Message networkMessage;
+    networkMessage.mHeader.mMessageType = MessageType::ReplyStoreRequest;
+
+    Network::ReplyInfo ri;
+    ri.message = message;
+    ri.channelID = channelID;
+    ri.msgID = msgID;
+
+    networkMessage.mBody = std::make_any<Network::ReplyInfo>(ri);
+    send(networkMessage);
+}
+
 void Client::userRegistration(const std::string& email, const std::string& login, const std::string& password) const
 {
     // Generating password's hash which are based on login. It lets us to insert different users
     // with the same passwords.
-    const std::string         pwdHash = Hashing::SHA_256(password, login);
+    const std::string         pwdHash = Base::Hashing::SHA_256(password, login);
     Network::RegistrationInfo ri(email, login, pwdHash);
 
     Network::Message message;
@@ -143,7 +166,7 @@ void Client::userRegistration(const std::string& email, const std::string& login
 
 void Client::userAuthorization(const std::string& login, const std::string& password) const
 {
-    const std::string pwdHash = Hashing::SHA_256(password, login);
+    const std::string pwdHash = Base::Hashing::SHA_256(password, login);
     LoginInfo         loginInfo(login, pwdHash);
 
     Message message;
@@ -258,6 +281,20 @@ void Client::loop()
             }
             break;
 
+            case MessageType::ReplyHistoryAnswer:
+            {
+                auto replies = std::any_cast<std::vector<Network::ReplyInfo>>(message.mBody);
+                onReplyHistoryAnswer(replies);
+            }
+            break;
+
+            case MessageType::ReplyStoreAnswer:
+            {
+                auto code = std::any_cast<Utility::StoringReplyCodes>(message.mBody);
+                onReplyStoreAnswer(code);
+            }
+            break;
+
             default:
                 std::cerr << "[Client][Warning] unimplemented[" << uint32_t(message.mHeader.mMessageType) << "]\n";
         }
@@ -320,6 +357,18 @@ void Client::onMessageSendFailed(const Message& message) const
 {
     (void)(message);
     std::cerr << "[Client][Warning] onMessageSendFailed is not implemented\n";
+}
+
+void Client::onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies)
+{
+    (void)(replies);
+    std::cerr << "[Client][Warning] reply answer is not implemented\n";
+}
+
+void Client::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
+{
+    (void)(storingReplyCode);
+    std::cerr << "[Client][Warning] reply store answer is not implemented\n";
 }
 
 }  // namespace Network

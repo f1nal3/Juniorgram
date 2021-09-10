@@ -1,8 +1,7 @@
 project(Base LANGUAGES CXX)
 
-add_subdirectory(Base.Public)
-add_subdirectory(Base.Static)
-add_subdirectory(Base.Test)
+add_subdirectory(Logger)
+add_subdirectory(Crypto)
 
 set(TARGET Base)
 

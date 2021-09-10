@@ -74,6 +74,8 @@ public:
     /// Message DB
     bool isTheMessage(uint64_t messageId, uint64_t userId) const { return messageId == _messageId && userId == _userId; }
 
+    uint64_t getMessageID() const { return _messageId; }
+
 public slots:
     void onDelete();
     void createReply();

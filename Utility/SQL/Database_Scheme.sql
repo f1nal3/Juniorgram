@@ -6,7 +6,7 @@ CREATE TABLE user_tokens ( user_id int UNIQUE, token varchar(64) NOT NULL, refre
 
 CREATE TABLE user_friends_data ( user_id int NOT NULL, friend_id int UNIQUE NOT NULL );
 
-CREATE TABLE user_channles ( user_id int NOT NULL, channel_id int NOT NULL );
+CREATE TABLE user_channels ( user_id int NOT NULL, channel_id int NOT NULL );
 
 CREATE TABLE msgs ( msg_id serial PRIMARY KEY, sender_id int NOT NULL, send_time timestamp, msg text NOT NULL );
 
@@ -40,6 +40,10 @@ CREATE TABLE audio ( audio_id serial PRIMARY KEY, audio_name varchar(32) NOT NUL
 
 CREATE TABLE links ( link_id serial PRIMARY KEY, link varchar(64) NOT NULL );
 
+CREATE TABLE replies ( sender_id int NOT NULL, msg_id_owner int NOT NULL, msg_id_ref int NOT NULL, msg text NOT NULL );
+
+CREATE TABLE channel_replies ( channel_id int NOT NULL, msg_id_owner int NOT NULL );
+
 ALTER TABLE user_personal_data ADD FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE;
 
 ALTER TABLE user_tokens ADD FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL;
@@ -48,11 +52,11 @@ ALTER TABLE user_friends_data ADD FOREIGN KEY (user_id) REFERENCES users (id) ON
 
 ALTER TABLE user_friends_data ADD FOREIGN KEY (friend_id) REFERENCES users (id) ON DELETE SET NULL;
 
-ALTER TABLE user_channles ADD FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL;
+ALTER TABLE user_channels ADD FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL;
 
-ALTER TABLE user_channles ADD FOREIGN KEY (channel_id) REFERENCES channels (id) ON DELETE SET NULL;
+ALTER TABLE user_channels ADD FOREIGN KEY (channel_id) REFERENCES channels (id) ON DELETE SET NULL;
 
-ALTER TABLE msg_reactions ADD FOREIGN KEY (msg_id) REFERENCES msgs (msg_id) ON DELETE SET NULL;
+ALTER TABLE msg_reactions ADD FOREIGN KEY (msg_id) REFERENCES msgs (msg_id) ON DELETE CASCADE;
 
 ALTER TABLE user_from_msgs ADD FOREIGN KEY (from_id) REFERENCES users (id) ON DELETE SET NULL;
 
@@ -62,13 +66,13 @@ ALTER TABLE user_to_msgs ADD FOREIGN KEY (to_id) REFERENCES users (id) ON DELETE
 
 ALTER TABLE user_to_msgs ADD FOREIGN KEY (msg_id) REFERENCES msgs (msg_id) ON DELETE CASCADE;
 
-ALTER TABLE channel_msgs ADD FOREIGN KEY (channel_id) REFERENCES channels (id) ON DELETE SET NULL;
+ALTER TABLE channel_msgs ADD FOREIGN KEY (channel_id) REFERENCES channels (id) ON DELETE CASCADE;
 
 ALTER TABLE channel_msgs ADD FOREIGN KEY (msg_id) REFERENCES msgs (msg_id) ON DELETE CASCADE;
 
 ALTER TABLE channels ADD FOREIGN KEY (creator_id) REFERENCES users (id) ON DELETE CASCADE;
 
-ALTER TABLE channel_images ADD FOREIGN KEY (channel_id) REFERENCES channels (id) ON DELETE SET NULL;
+ALTER TABLE channel_images ADD FOREIGN KEY (channel_id) REFERENCES channels (id) ON DELETE CASCADE;
 
 ALTER TABLE channel_images ADD FOREIGN KEY (image_id) REFERENCES images (image_id) ON DELETE CASCADE;
 
@@ -92,8 +96,16 @@ ALTER TABLE channel_audio ADD FOREIGN KEY (audio_id) REFERENCES audio (audio_id)
 
 ALTER TABLE channel_audio ADD FOREIGN KEY (sender_id) REFERENCES users (id) ON DELETE SET NULL;
 
-ALTER TABLE channel_links ADD FOREIGN KEY (channel_id) REFERENCES channels (id)ON DELETE SET NULL;
+ALTER TABLE channel_links ADD FOREIGN KEY (channel_id) REFERENCES channels (id) ON DELETE SET NULL;
 
 ALTER TABLE channel_links ADD FOREIGN KEY (link_id) REFERENCES links (link_id) ON DELETE CASCADE;
 
 ALTER TABLE channel_links ADD FOREIGN KEY (sender_id) REFERENCES users (id) ON DELETE SET NULL;
+
+ALTER TABLE channel_replies ADD FOREIGN KEY (channel_id) REFERENCES channels (id) ON DELETE CASCADE;
+
+ALTER TABLE channel_replies ADD FOREIGN KEY (msg_id_owner) REFERENCES msgs (msg_id) ON DELETE CASCADE;
+
+ALTER TABLE replies ADD FOREIGN KEY (msg_id_owner) REFERENCES msgs (msg_id) ON DELETE CASCADE;
+
+ALTER TABLE replies ADD FOREIGN KEY (msg_id_ref) REFERENCES msgs (msg_id) ON DELETE CASCADE;
