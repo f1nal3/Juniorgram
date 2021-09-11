@@ -9,7 +9,7 @@ namespace DataAccess
 {
 struct IMasterRepository
 {
-    virtual ~IMasterRepository() = default;
+    virtual ~IMasterRepository() = 0;
 };
 
 struct IMessagesRepository : IMasterRepository
