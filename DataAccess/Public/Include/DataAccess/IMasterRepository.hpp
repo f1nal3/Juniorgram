@@ -8,8 +8,6 @@ namespace DataAccess
      */
     struct IMasterRepository
     {
-        std::shared_ptr<IAdapter> _adapter;
-
         /// Default virtual destructor
         virtual ~IMasterRepository() = default;
     };

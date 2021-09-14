@@ -23,15 +23,12 @@ namespace DataAccess
         Utility::DatabaseType _databaseType;
         std::string _tableName;
         SQLBase<ResultType>* _statement;
-
-    protected:
-
         std::shared_ptr<IAdapter> _adapter;
 
     public:
 
-        QueryBuilder(Utility::DatabaseType type, const std::string& tableName)
-            : _databaseType{type}, _tableName{tableName}, _statement{nullptr} {}
+        QueryBuilder(Utility::DatabaseType type, const std::string& tableName, std::shared_ptr<IAdapter> adapter)
+            : _databaseType{type}, _tableName{tableName}, _adapter(adapter), _statement{nullptr} {}
 
         virtual ~QueryBuilder(void) 
         { 
@@ -47,7 +44,7 @@ namespace DataAccess
     
         QueryBuilder& operator=(const QueryBuilder&) = delete;
         QueryBuilder& operator=(QueryBuilder&&) = delete;
-    
+
     public:
 
         /** @brief SQL select query.

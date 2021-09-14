@@ -5,7 +5,6 @@
 #include <typeinfo>
 #include <stdexcept>
 
-#include "IAdapter.hpp"
 #include "IMasterRepository.hpp"
 
 namespace DataAccess
@@ -22,7 +21,6 @@ namespace DataAccess
 
         private:
 
-			static std::shared_ptr<IAdapter> _adapter;
 			static std::map<RealType, IType> _container;
 
 		public:
@@ -43,7 +41,7 @@ namespace DataAccess
 					throw std::runtime_error(std::string("This interface has already registered! - ") + typeInfo);
 				}
 
-				_container.emplace(typeInfo, std::make_shared<TInterface>(_adapter->getInstance()));
+				_container.emplace(typeInfo, std::make_shared<TInterface>());
 			}
 
 			/* @brief Method for get a repositories.

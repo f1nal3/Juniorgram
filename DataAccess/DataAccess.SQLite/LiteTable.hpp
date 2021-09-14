@@ -20,15 +20,9 @@ class LiteTable : public QueryBuilder<QSqlQuery>
 {
 public:
     LiteTable(const std::string& tableName)
-        : QueryBuilder(DatabaseType::DB_LITE, tableName) 
-    {
-        _adapter = LiteAdapter::getInstance<LiteAdapter>();
-    }
+        : QueryBuilder(Utility::DatabaseType::DB_LITE, tableName, LiteAdapter::getInstance<LiteAdapter>()) {}
 
     LiteTable(const std::string& tableName, const std::string_view& options)
-        : QueryBuilder(DatabaseType::DB_LITE, tableName, options) 
-    {
-        _adapter = LiteAdapter::getInstance<LiteAdapter>(options);
-    }
+        : QueryBuilder(Utility::DatabaseType::DB_LITE, tableName, options, LiteAdapter::getInstance<LiteAdapter>()) {}
 };
 }
