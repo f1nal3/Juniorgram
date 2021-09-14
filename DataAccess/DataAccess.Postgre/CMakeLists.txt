@@ -6,14 +6,14 @@ set(SOURCE_FILES
     PostgreAdapter.cpp
     PostgreRepository.hpp
     PostgreRepository.cpp
+	PostgreServerRepository.hpp
     PostgreTable.hpp
     SQLStatements.hpp
     QueryBuilder.hpp
     DataBaseOptions.hpp
     UsersAmountFinder.hpp
     UsersAmountFinder.cpp
-	ServerRepositories.hpp
-	ServerRepositoryContainer.hpp)
+	ServerRepositories.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
