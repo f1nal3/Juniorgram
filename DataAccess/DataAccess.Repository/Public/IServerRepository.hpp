@@ -5,18 +5,10 @@
 #include <string>
 #include <vector>
 
+#include "IMasterRepository.hpp"
+
 namespace DataAccess
 {
-
-/**
- * @brief The IMasterRepository base abstract class
- */
-struct IMasterRepository
-{
-    /// Default virtual destructor
-    virtual ~IMasterRepository() = default;
-};
-
 /**
  * @brief The IMessagesRepository abstract subclass from IMasterRepository
  */

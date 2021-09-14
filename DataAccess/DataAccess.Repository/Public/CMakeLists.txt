@@ -3,7 +3,9 @@ set(OUTPUT_NAME Juniorgram.DataAccess.Repository.Public)
 
 set(SOURCE_FILES
     AbstarctRepositoryContainer.hpp
-    IRepositories.hpp)
+	IMasterRepository.hpp
+	IClientRepository.hpp
+	IServerRepository.hpp)
 
 add_library(${TARGET} INTERFACE)
 
