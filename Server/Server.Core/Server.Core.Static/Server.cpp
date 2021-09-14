@@ -115,6 +115,41 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         }
         break;
 
+        case Network::Message::MessageType::ReplyHistoryRequest:
+        {
+            const auto channelID = std::any_cast<std::uint64_t>(message.mBody);
+            auto future =
+                    std::async(std::launch::async, &DataAccess::IRepository::getReplyHistoryForUser,
+                               mPostgreRepo.get(), channelID);
+
+            Network::Message replyMsg;
+            replyMsg.mHeader.mMessageType = Network::Message::MessageType::ReplyHistoryAnswer;
+
+            auto replyHistory = future.get();
+
+            replyMsg.mBody = std::make_any<std::vector<Network::ReplyInfo>>(replyHistory);
+            client->send(replyMsg);
+        }
+        break;
+
+        case Network::Message::MessageType::ReplyStoreRequest:
+        {
+            auto ri = std::any_cast<Network::ReplyInfo>(message.mBody);
+            ri.senderID = client->getUserID();
+
+            auto future = std::async(std::launch::async, &DataAccess::IRepository::storeReply,
+                                     mPostgreRepo.get(), ri);
+
+            Network::Message answerForClient;
+            answerForClient.mHeader.mMessageType = Network::Message::MessageType::ReplyStoreAnswer;
+
+            auto replyStoringCode = future.get();
+
+            answerForClient.mBody = std::make_any<Utility::StoringReplyCodes>(replyStoringCode);
+            client->send(answerForClient);
+        }
+        break;
+
         case Network::Message::MessageType::MessageDeleteRequest:
         {
             auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);

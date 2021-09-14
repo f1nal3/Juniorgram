@@ -1,6 +1,6 @@
 #include "FileLogger.hpp"
 
-using namespace Logger;
+using namespace Base::Logger;
 
 std::string FileLogger::stringifyLogLvl(const LogLevel level)
 {
@@ -117,7 +117,7 @@ std::string FileLogger::threadID()
     return ss.str();
 }
 
-std::time_t Logger::FileLogger::to_time_t(std::filesystem::file_time_type timeType)
+std::time_t FileLogger::to_time_t(std::filesystem::file_time_type timeType)
 {
     using namespace std::chrono;
     auto sctp = time_point_cast<system_clock::duration>(timeType - std::filesystem::file_time_type::clock::now() + system_clock::now());

@@ -16,8 +16,10 @@ private slots:
     void newMessage(const QString& messageText);
     void addReplyWidget(ReplyWidget* reply);
     void addMessages(const std::vector<Network::MessageInfo>& messages);
+    void addReplies(const std::vector<Network::ReplyInfo>& replies);
 
     void requestMessages();
+    void requestReplies();
 
 private:
     ReplyWidget* _replyWidget;

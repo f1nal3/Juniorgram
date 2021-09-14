@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Utility/Utility.hpp"
+#include <string>
 
-namespace Logger
+namespace Base::Logger
 {
     /**
      * @brief Valid log levels

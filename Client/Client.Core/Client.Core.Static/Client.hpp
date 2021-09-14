@@ -45,6 +45,11 @@ public:
      */
     void askForMessageHistory(uint64_t channelID) const;
     /**
+     * @brief Ask for reply message history
+     * @param channelID
+     */
+    void askForReplyHistory(uint64_t channelID) const;
+    /**
      * @brief Sends a none message to all clients
      */
     void messageAll() const;
@@ -64,7 +69,13 @@ public:
      * @param channelID Channel ID
      */
     void storeMessage(const std::string& message, uint64_t channelID) const;
-
+    /**
+     * @brief Send a reply to server
+     * @param string Message
+     * @param uint64_t channelID
+     * @param uint64_t msgID
+     */
+    void storeReply(const std::string& message, uint64_t channelID, uint64_t msgID) const;
     /**
      * @brief Send an registration request to server
      * @param email User E-Mail
@@ -103,6 +114,10 @@ protected:
     virtual void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState);
     /// Registration Answer handler
     virtual void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
+	/// Reply History Answer heandler
+    virtual void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
+    /// Reply Store Answer handler
+    virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
 
 private:
     asio::io_context _context;
