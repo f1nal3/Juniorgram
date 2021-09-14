@@ -5,11 +5,23 @@
 #include "Widgets/MessageWidget.hpp"
 #include "Widgets/TextEdit.hpp"
 
+/** 
+ *  @class ChatWidget
+ *  @brief chatWidget stores and displays messages and replies.
+ */
 class ChatWidget : public QWidget
 {
     Q_OBJECT
 public:
+    /**
+     * @brief Constructor for ñhat widget
+     * @param parent Parent widget
+     */
     explicit ChatWidget(QWidget* parent = nullptr);
+    /**
+     * @brief Method for ñhat widget
+     * @param ID of channel. It's format uint64_t
+     */
     void setChannelID(const std::uint64_t channelID) { _channelID = channelID; }
 
 private slots:
