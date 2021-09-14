@@ -22,8 +22,8 @@ namespace DataAccess
 
         Utility::DatabaseType _databaseType;
         std::string _tableName;
-        SQLBase<ResultType>* _statement;
         std::shared_ptr<IAdapter> _adapter;
+        SQLBase<ResultType>* _statement;
 
     public:
 
