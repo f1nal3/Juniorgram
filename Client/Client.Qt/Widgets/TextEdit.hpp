@@ -10,12 +10,16 @@
 /**
  *  @class TextEdit
  *  @brief Widget with a text edit field and an edit bar.\
- *  The edit bar has a Bold button which makes selected text bold.
+ *  The edit bar has a Bold, Italics and Underscores which makes selected text, and the send button.
  */
 class TextEdit : public QWidget
 {
     Q_OBJECT
 public:
+    /**
+     * @brief Constructor for widget textEdit.
+     * @param parent Parent widget
+     */
     explicit TextEdit(QWidget* parent = nullptr);
     /**
      * @brief Method for getting text from the text edit field.

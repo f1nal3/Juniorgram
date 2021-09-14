@@ -9,7 +9,9 @@ set(SOURCE_FILES
         PostgreTable.hpp
         DataBaseOptions.hpp
         UsersAmountFinder.hpp
-        UsersAmountFinder.cpp)
+        UsersAmountFinder.cpp
+	      ServerRepositories.hpp
+	      ServerRepositoryContainer.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 

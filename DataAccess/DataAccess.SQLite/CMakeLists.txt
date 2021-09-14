@@ -6,7 +6,9 @@ set(QMAKE_CXXFLAGS ${QMAKE_CXXFLAGS}"-fno-sized-deallocation")
 set(SOURCE_FILES
     LiteAdapter.cpp
     LiteAdapter.hpp
-    LiteTable.hpp)
+    LiteTable.hpp
+	ClientRepositories.hpp
+	ClientRepositoryContainer.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
