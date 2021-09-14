@@ -15,7 +15,7 @@ namespace DataAccess
 struct IMessagesRepository : IMasterRepository
 {
     /// Virtual method for geting Message History
-    virtual std::vector<Network::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
+    virtual std::vector<Network::MessageInfo> getMessageHistory(const std::uint64_t channelID) = 0;
 
     /// Virtual method for store Message
     virtual Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& mi) = 0;
@@ -33,7 +33,7 @@ struct IMessagesRepository : IMasterRepository
 struct IRepliesRepository : IMasterRepository
 {
     /// Virtual method for geting Reply History
-    virtual std::vector<Network::ReplyInfo> getReplyHistoryForUser(const std::uint64_t channelID) = 0;
+    virtual std::vector<Network::ReplyInfo> getReplyHistory(const std::uint64_t channelID) = 0;
 
     /// Default virtual destructor
     virtual ~IRepliesRepository() = default;

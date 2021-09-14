@@ -11,7 +11,9 @@ set(SOURCE_FILES
     QueryBuilder.hpp
     DataBaseOptions.hpp
     UsersAmountFinder.hpp
-    UsersAmountFinder.cpp)
+    UsersAmountFinder.cpp
+	ServerRepositories.hpp
+	ServerRepositoryContainer.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
