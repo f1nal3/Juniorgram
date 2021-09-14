@@ -26,6 +26,18 @@ public:
 
     ~LiteAdapter() override = default;
 
+    /**
+     * @brief Method that gets us single Lite adapter instance.
+     * @details It needs for technical purposes. Don't use it /
+     *  (it's because I designed the interface badly). /
+     *  Instead use getInstance method. /
+     * @param db_name - Data Base name.
+     * @return Pointer to current instance of Lite adapter.
+     */
+    static std::shared_ptr<LiteAdapter> Instance(const std::string_view& db_name);
+
+    explicit LiteAdapter(const std::string_view& db_name);
+
 public:
     /**
      * @brief Method for executing SQL quries.
@@ -56,26 +68,12 @@ public:
      */
     void closeConnection() override;
 
-public:
+private:
     inline static std::mutex                   mtx{};
     inline static std::shared_ptr<LiteAdapter> sqlite_instance{};
 
     inline static constexpr std::string_view m_db_name = "SQLiteDB.db";
 
-    /**
-     * @brief Method that gets us single Lite adapter instance.
-     * @details It needs for technical purposes. Don't use it /
-     *  (it's because I designed the interface badly). /
-     *  Instead use getInstance method. /
-     * @param db_name - Data Base name.
-     * @return Pointer to current instance of Lite adapter.
-     */
-    static std::shared_ptr<LiteAdapter> Instance(const std::string_view& db_name);
-
-protected:
-    explicit LiteAdapter(const std::string_view& db_name);
-
-private:
     std::unique_ptr<QSqlDatabase> db_connection;
     std::mutex                    query_mtx;
 };
