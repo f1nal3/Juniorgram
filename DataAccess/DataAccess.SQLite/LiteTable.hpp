@@ -23,6 +23,6 @@ public:
         : QueryBuilder(Utility::DatabaseType::DB_LITE, tableName, LiteAdapter::getInstance<LiteAdapter>()) {}
 
     LiteTable(const std::string& tableName, const std::string_view& options)
-        : QueryBuilder(Utility::DatabaseType::DB_LITE, tableName, options, LiteAdapter::getInstance<LiteAdapter>()) {}
+        : QueryBuilder(Utility::DatabaseType::DB_LITE, tableName, LiteAdapter::getInstance<LiteAdapter>(options)) {}
 };
 }

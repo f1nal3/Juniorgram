@@ -23,6 +23,6 @@ public:
         : QueryBuilder(Utility::DatabaseType::DB_POSTGRE, tableName, PostgreAdapter::getInstance<PostgreAdapter>()) {}
 
     PostgreTable(const std::string& tableName, const std::string_view& options)
-        : QueryBuilder(Utility::DatabaseType::DB_POSTGRE, tableName, PostgreAdapter::getInstance<PostgreAdapter>()) {}
+        : QueryBuilder(Utility::DatabaseType::DB_POSTGRE, tableName, PostgreAdapter::getInstance<PostgreAdapter>(options)) {}
 };
 }
