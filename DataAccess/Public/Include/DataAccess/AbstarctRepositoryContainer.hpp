@@ -19,7 +19,7 @@ namespace DataAccess
 			using RealType = std::string;
 			using IType    = std::shared_ptr<IMasterRepository>;
 
-        private:
+        protected:
 
 			static std::shared_ptr<IAdapter> _adapter;
 			static std::map<RealType, IType> _container;
