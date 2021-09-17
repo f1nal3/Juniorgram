@@ -1,7 +1,10 @@
 #pragma once
-#include "AbstarctRepositoryContainer.hpp"
+#include "LiteAdapter.hpp"
+#include <Public/Include/DataAccess/AbstarctRepositoryContainer.hpp>
 
 namespace DataAccess
 {
-	class PostgreServerRepository : public AbstarctRepositoryContainer {};
+	class LiteServerRepository : public AbstarctRepositoryContainer {};
+
+	LiteServerRepository::_adapter = LiteAdapter::getInstance<LiteAdapter>();
 }

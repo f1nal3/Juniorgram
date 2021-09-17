@@ -17,6 +17,7 @@ int main(int argc, const char** argv)
 
         Server::Server server(parser.getPort());
         server.start();
+        server.registerRepositories();
 
         while (true)
         {

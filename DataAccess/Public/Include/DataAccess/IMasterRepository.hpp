@@ -1,4 +1,7 @@
 #pragma once
+#include <memory>
+#include <iostream>
+
 #include "IAdapter.hpp"
 
 namespace DataAccess
@@ -8,6 +11,12 @@ namespace DataAccess
      */
     struct IMasterRepository
     {
+    protected:
+
+        std::shared_ptr<IAdapter> _adapter;
+
+    public:
+
         /// Default virtual destructor
         virtual ~IMasterRepository() = default;
     };

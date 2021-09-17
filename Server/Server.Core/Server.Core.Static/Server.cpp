@@ -1,6 +1,8 @@
 #include "Server.hpp"
 #include "Network/Primitives.hpp"
 #include "DataAccess.Postgre/PostgreRepository.hpp"
+#include "DataAccess.Postgre/PostgreServerRepository.hpp"
+#include "DataAccess.Postgre/ServerRepositories.hpp"
 
 #include <future>
 
@@ -252,6 +254,17 @@ bool Server::start()
         std::cerr << "[SERVER] Exception: " << exception.what() << "\n";
         return false;
     }
+}
+
+void Server::registerRepositories()
+{ 
+    using namespace DataAccess;
+
+    PostgreServerRepository::registerRepository<IChannelsRepository, ChannelsRepository>();
+    PostgreServerRepository::registerRepository<ILoginRepository   , LoginRepository   >();
+    PostgreServerRepository::registerRepository<IMessagesRepository, MessagesRepository>();
+    PostgreServerRepository::registerRepository<IRegisterRepository, RegisterRepository>();
+    PostgreServerRepository::registerRepository<IRepliesRepository , RepliesRepository >();
 }
 
 void Server::stop()

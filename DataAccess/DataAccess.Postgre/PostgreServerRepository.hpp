@@ -1,7 +1,10 @@
 #pragma once
-#include "AbstarctRepositoryContainer.hpp"
+#include "PostgreAdapter.hpp"
+#include <Public/Include/DataAccess/AbstarctRepositoryContainer.hpp>
 
 namespace DataAccess
 {
 	class PostgreServerRepository : public AbstarctRepositoryContainer {};
+
+	std::shared_ptr<IAdapter> PostgreServerRepository::_adapter = PostgreAdapter::getInstance<PostgreAdapter>();
 }

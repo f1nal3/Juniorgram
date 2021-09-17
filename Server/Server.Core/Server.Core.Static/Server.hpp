@@ -64,6 +64,8 @@ public:
      */
     bool start();
 
+    void registerRepositories();
+
     /**
      * @brief Method to stop the server.
      */

@@ -28,6 +28,8 @@ namespace DataAccess
 			return T::Instance(options);
 		}
 
+	public:
+
 		virtual std::optional<std::any> query(const std::string_view& query) = 0;
 
 		virtual bool isConnected(void) const = 0;
