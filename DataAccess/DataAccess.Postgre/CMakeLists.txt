@@ -10,8 +10,8 @@ set(SOURCE_FILES
         DataBaseOptions.hpp
         UsersAmountFinder.hpp
         UsersAmountFinder.cpp
-	      ServerRepositories.hpp
-	      ServerRepositoryContainer.hpp)
+        ServerRepositories.hpp
+        ServerRepositoryContainer.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 

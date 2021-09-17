@@ -6,10 +6,10 @@ set(SOURCE_FILES
         Include/DataAccess/IRepository.hpp
         Include/DataAccess/QueryBuilder.hpp
         Include/DataAccess/SQLStatements.hpp
-    Include/DataAccess/IMasterRepository.hpp
-    Include/DataAccess/IClientRepository.hpp
-    Include/DataAccess/IServerRepository.hpp
-    Include/DataAccess/AbstarctRepositoryContainer.hpp)
+        Include/DataAccess/IMasterRepository.hpp
+        Include/DataAccess/IClientRepository.hpp
+        Include/DataAccess/IServerRepository.hpp
+        Include/DataAccess/AbstarctRepositoryContainer.hpp)
 
 add_library(${TARGET} INTERFACE)
 
