@@ -7,4 +7,5 @@ namespace DataAccess
 	class PostgreServerRepository : public AbstarctRepositoryContainer {};
 
 	std::shared_ptr<IAdapter> PostgreServerRepository::_adapter = PostgreAdapter::getInstance<PostgreAdapter>();
+	std::map<PostgreServerRepository::RealType, PostgreServerRepository::IType> PostgreServerRepository::_container = {};
 }

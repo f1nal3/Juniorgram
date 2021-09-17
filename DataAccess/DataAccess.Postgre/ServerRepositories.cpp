@@ -119,6 +119,30 @@ namespace DataAccess
         return Utility::StoringMessageCodes::SUCCESS;
     }
 
+    Utility::DeletingMessageCodes MessagesRepository::deleteMessage(const Network::MessageInfo& mi)
+    {
+        using Utility::DeletingMessageCodes;
+
+        std::stringstream queryStream;
+        queryStream << "DELETE FROM msgs WHERE msg_id = ";
+        queryStream << std::to_string(mi.msgID) << " OR msg = '" << mi.message << "'";
+
+        _adapter->query(queryStream.str());
+
+        queryStream.clear();
+        queryStream << "SELECT COUNT(*) FROM msgs WHERE msg_id = ";
+        queryStream << std::to_string(mi.msgID);
+
+        // TODO: we need a better way to check state of deleting, than doing select request:
+        auto messagesAmountResult = toPQXX(_adapter->query(queryStream.str()));
+        if (messagesAmountResult.value()[0][0].as<std::uint64_t>() == 0)
+        {
+            return DeletingMessageCodes::SUCCESS;
+        }
+
+        return DeletingMessageCodes::FAILED;
+    }
+
     Utility::RegistrationCodes RegisterRepository::registerUser(const Network::RegistrationInfo& ri)
     {
         static UsersAmountFinder finder;
@@ -140,7 +164,7 @@ namespace DataAccess
 
         return Utility::RegistrationCodes::SUCCESS;
     }
-
+    
     std::vector<Network::ReplyInfo> RepliesRepository::getReplyHistory(const std::uint64_t channelID)
     {
         std::vector<Network::ReplyInfo> result;

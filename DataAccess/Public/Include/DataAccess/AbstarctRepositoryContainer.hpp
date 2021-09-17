@@ -42,7 +42,7 @@ namespace DataAccess
 					throw std::runtime_error(std::string("This interface has already registered! - ") + typeInfo);
 				}
 
-				_container.emplace(typeInfo, std::make_shared<TInterface>(_adapter));
+				_container.emplace(typeInfo, std::make_shared<TRepository>(_adapter));
 			}
 
 			/* @brief Method for get a repositories.
