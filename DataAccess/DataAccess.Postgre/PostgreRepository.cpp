@@ -172,7 +172,7 @@ Utility::DeletingChannelCodes PostgreRepository::deleteChannel(const Network::Me
     using Utility::DeletingChannelCodes;
 
     pTable->changeTable("channels");
-    pTable->Delete()->Where("id=" + std::to_string(mi.channelID))->execute();
+    pTable->Delete()->Where("id=" + std::to_string(mi.channelID))->And("creator_id=" + std::to_string(mi.senderID))->execute();
 
     auto channelAmountResult = pTable->Select()->columns({"COUNT(*)"})->Where("id=" + std::to_string(mi.channelID))->execute();
     if (channelAmountResult.value()[0][0].as<std::uint64_t>() == 0)
