@@ -31,8 +31,8 @@ private:
     std::unique_ptr<QVBoxLayout> _vBoxLayout;
     std::unique_ptr<FlatButton>  _loadButton;
     std::unique_ptr<FlatButton>  _defaultButton;
-    static constexpr std::uint32_t _fontSizeMin = 6;
-    static constexpr std::uint32_t _fontSizeMax = 18;
+    static constexpr int _fontSizeMin = 6;
+    static constexpr int _fontSizeMax = 18;
 
 private:    
     void connectUi();

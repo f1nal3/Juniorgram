@@ -38,6 +38,8 @@ struct Message
         LoginAnswer,
         MessageDeleteRequest,
         MessageDeleteAnswer
+        //MessageEditRequest,
+        //MessageEditAnswer
     };
 
     /**

@@ -38,6 +38,16 @@ namespace Utility
         FAILED,
     };
 
+    /**  @brief Enum for tracking message's editing status.
+     *   @details Utility::EditingMessageCodes deleteMessage(const Network::MessageInfo& mi) /
+     *    return one of this codes. !!!!!!!!!!!!!!
+     */
+    /*enum class EditingMessageCodes : std::uint8_t
+    {
+        SUCCESS,
+        FAILED,
+    };*/
+
     inline std::tm safe_localtime(const std::time_t& time)
     {
         // std::localtime is not thread safe, so we use platform-dependant versions

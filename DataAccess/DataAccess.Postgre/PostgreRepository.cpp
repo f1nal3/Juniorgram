@@ -125,6 +125,11 @@ Utility::DeletingMessageCodes PostgreRepository::deleteMessage(const Network::Me
     return DeletingMessageCodes::FAILED;
 }
 
+/*Utility::EditingMessageCodes PostgreRepository::editMessage(const Network::MessageInfo& mi, const std::string editMsg)
+{
+    
+}*/
+
 std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageInfo& mi)
 {
     std::tuple dataForMsgs
