@@ -21,17 +21,19 @@ namespace DataAccess
 
         protected:
 
-			static std::shared_ptr<IAdapter> _adapter;
-			static std::map<RealType, IType> _container;
+			std::shared_ptr<IAdapter> _adapter;
+			std::map<RealType, IType> _container;
 
 		public:
+
+			AbstarctRepositoryContainer(std::shared_ptr<IAdapter> adapter) : _adapter(adapter), _container() {}
 
 			/* @brief Method for register new repositories.
 			*  (You should pass, firstly, an interface and
 			*  after an implementation of this repository)
 			*/
 			template <typename TInterface, typename TRepository>
-			static void registerRepository(void)
+			void registerRepository(void)
 			{
 				static_assert(std::is_base_of_v<TInterface, TRepository>, "Repository does not implement current Interface!");
 
@@ -49,7 +51,7 @@ namespace DataAccess
             *  (You should pass an interface)
             */
 			template <typename TInterface>
-            static std::shared_ptr<TInterface> getRepository(void)
+            std::shared_ptr<TInterface> getRepository(void)
             {
 				const char* typeInfo = typeid(TInterface).name();
 

@@ -30,7 +30,7 @@ namespace DataAccess
         return result;
     }
 
-    std::uint64_t LoginRepository::loginUser(const std::string& login, std::string& pwdHash)
+    std::uint64_t LoginRepository::loginUser(const std::string& login, const std::string& pwdHash)
     {
         try
         {
@@ -75,8 +75,7 @@ namespace DataAccess
 
         return result;
     }
-
-    Utility::StoringMessageCodes MessagesRepository::storeMessage(const Network::MessageInfo& mi)
+    Utility::StoringMessageCodes      MessagesRepository::storeMessage(const Network::MessageInfo& mi)
     {
         std::stringstream queryStream;
         queryStream << "INSERT FROM msgs (sender_id, send_time, msg) VALUES (";
@@ -118,8 +117,7 @@ namespace DataAccess
 
         return Utility::StoringMessageCodes::SUCCESS;
     }
-
-    Utility::DeletingMessageCodes MessagesRepository::deleteMessage(const Network::MessageInfo& mi)
+    Utility::DeletingMessageCodes     MessagesRepository::deleteMessage(const Network::MessageInfo& mi)
     {
         using Utility::DeletingMessageCodes;
 
@@ -191,5 +189,41 @@ namespace DataAccess
 
         }
         return result;
+    }
+    Utility::StoringReplyCodes      RepliesRepository::storeReply(const Network::ReplyInfo& rsi)
+    {
+        std::stringstream queryStream;
+        queryStream << "SELECT MAX(msg_id) from msgs";
+
+        const auto maxMsgId = toPQXX(_adapter->query(queryStream.str()));
+
+        queryStream.clear();
+        queryStream << "INSERT INTO replies (sender_id, msg_id_owner, msg_id_ref, msg) VALUES (";
+        queryStream << rsi.senderID << ", " << maxMsgId.value()[0][0].as<std::uint64_t>();
+        queryStream << ", " << rsi.msgID << ", " << rsi.message << ") ";
+        queryStream << "RETURNING msg_id_owner";
+
+        const auto firstResult = toPQXX(_adapter->query(queryStream.str()));
+        if (!firstResult.has_value())
+        {
+            std::cerr << "Insert reply into 'replies' table failed" << std::endl;
+            return Utility::StoringReplyCodes::FAILED;
+        }
+
+        const auto currentReplyID = firstResult.value()[0][0].as<std::uint64_t>();
+
+        queryStream.clear();
+        queryStream << "INSERT INTO channel_replies (channel_id, msg_id_owner) VALUE (";
+        queryStream << rsi.channelID << ", " << currentReplyID << ") ";
+        queryStream << "RETURNING channel_id";
+
+        const auto secondResult = toPQXX(_adapter->query(queryStream.str()));
+        if (!secondResult.has_value())
+        {
+            std::cerr << "Insert reply into 'channel_replies' table failed" << std::endl;
+            return Utility::StoringReplyCodes::FAILED;
+        }
+
+        return Utility::StoringReplyCodes::SUCCESS;
     }
 }

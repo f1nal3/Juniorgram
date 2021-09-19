@@ -20,7 +20,7 @@ namespace DataAccess
     {
         LoginRepository(std::shared_ptr<IAdapter> adapter) { _adapter = adapter; }
 
-        virtual std::uint64_t loginUser(const std::string& login, std::string& pwdHash) override final;
+        virtual std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) override final;
 
         virtual ~LoginRepository() = default;
     };
@@ -52,6 +52,8 @@ namespace DataAccess
         RepliesRepository(std::shared_ptr<IAdapter> adapter) { _adapter = adapter; }
 
         virtual std::vector<Network::ReplyInfo> getReplyHistory(const std::uint64_t channelID) override final;
+
+        virtual Utility::StoringReplyCodes  storeReply(const Network::ReplyInfo& rsi) override final;
 
         virtual ~RepliesRepository() = default;
     };

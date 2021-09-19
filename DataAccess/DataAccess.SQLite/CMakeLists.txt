@@ -7,7 +7,7 @@ set(SOURCE_FILES
     LiteAdapter.cpp
     LiteAdapter.hpp
     LiteTable.hpp
-	LiteClientRepository.hpp
+	LiteRepositoryContainer.hpp
 	ClientRepositories.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})

@@ -6,7 +6,7 @@ set(SOURCE_FILES
     PostgreAdapter.cpp
     PostgreRepository.hpp
     PostgreRepository.cpp
-	PostgreServerRepository.hpp
+	PostgreRepositoryContainer.hpp
     PostgreTable.hpp
     SQLStatements.hpp
     QueryBuilder.hpp
