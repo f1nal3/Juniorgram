@@ -55,7 +55,7 @@ namespace DataAccess
             {
 				const char* typeInfo = typeid(TInterface).name();
 
-				if (_container.find(typeInfo) != _container.end())
+				if (_container.find(typeInfo) == _container.end())
 				{
 					throw std::runtime_error(std::string("This repository was not registered! - ") + typeInfo);
 				}

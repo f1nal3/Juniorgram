@@ -78,8 +78,8 @@ namespace DataAccess
     Utility::StoringMessageCodes      MessagesRepository::storeMessage(const Network::MessageInfo& mi)
     {
         std::stringstream queryStream;
-        queryStream << "INSERT FROM msgs (sender_id, send_time, msg) VALUES (";
-        queryStream << mi.senderID << ", " << mi.time << ", " << mi.message << ") ";
+        queryStream << "INSERT INTO msgs (sender_id, send_time, msg) VALUES (";
+        queryStream << mi.senderID << ", '" << mi.time.c_str() << "', '" << mi.message << "') ";
         queryStream << "RETURNING msg_id";
 
         const auto firstResult = toPQXX(_adapter->query(queryStream.str()));
@@ -91,7 +91,7 @@ namespace DataAccess
 
         const auto currentMessageID = firstResult.value()[0][0].as<std::uint64_t>();
 
-        queryStream.clear();
+        queryStream.str("");
         queryStream << "INSERT INTO channel_msgs (channel_id, msg_id) VALUES (";
         queryStream << mi.channelID << ", " << currentMessageID << ") ";
         queryStream << "RETURNING channel_id";
@@ -103,7 +103,7 @@ namespace DataAccess
             return Utility::StoringMessageCodes::FAILED;
         }
 
-        queryStream.clear();
+        queryStream.str("");
         queryStream << "INSERT INTO msg_reactions (msg_id) VALUES (";
         queryStream << currentMessageID << ") ";
         queryStream << "RETURNING msg_id";
@@ -127,7 +127,7 @@ namespace DataAccess
 
         _adapter->query(queryStream.str());
 
-        queryStream.clear();
+        queryStream.str("");
         queryStream << "SELECT COUNT(*) FROM msgs WHERE msg_id = ";
         queryStream << std::to_string(mi.msgID);
 
@@ -155,8 +155,8 @@ namespace DataAccess
         }
 
         std::stringstream queryStream;
-        queryStream << "INSERT INTO users (email, login, password_hash) VALUES (";
-        queryStream << ri.email << ", " << ri.login << ", " << ri.passwordHash << ") ";
+        queryStream << "INSERT INTO users (email, login, password_hash) VALUES ('";
+        queryStream << ri.email << "', '" << ri.login << "', '" << ri.passwordHash << "') ";
 
         _adapter->query(queryStream.str());
 
@@ -197,10 +197,10 @@ namespace DataAccess
 
         const auto maxMsgId = toPQXX(_adapter->query(queryStream.str()));
 
-        queryStream.clear();
+        queryStream.str("");
         queryStream << "INSERT INTO replies (sender_id, msg_id_owner, msg_id_ref, msg) VALUES (";
         queryStream << rsi.senderID << ", " << maxMsgId.value()[0][0].as<std::uint64_t>();
-        queryStream << ", " << rsi.msgID << ", " << rsi.message << ") ";
+        queryStream << ", " << rsi.msgID << ", '" << rsi.message << "') ";
         queryStream << "RETURNING msg_id_owner";
 
         const auto firstResult = toPQXX(_adapter->query(queryStream.str()));
@@ -212,7 +212,7 @@ namespace DataAccess
 
         const auto currentReplyID = firstResult.value()[0][0].as<std::uint64_t>();
 
-        queryStream.clear();
+        queryStream.str("");
         queryStream << "INSERT INTO channel_replies (channel_id, msg_id_owner) VALUE (";
         queryStream << rsi.channelID << ", " << currentReplyID << ") ";
         queryStream << "RETURNING channel_id";
