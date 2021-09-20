@@ -1,9 +1,9 @@
 #pragma once
 
+#include <DataAccess/IRepository.hpp>
 #include <Network/Primitives.hpp>
 #include <iostream>
 
-#include "DataAccess/IRepository.hpp"
 #include "PostgreTable.hpp"
 #include "Utility/Exception.hpp"
 #include "Utility/Utility.hpp"
@@ -32,6 +32,7 @@ public:
     Utility::RegistrationCodes        registerUser(const Network::RegistrationInfo& ri) const override final;
     Utility::DeletingMessageCodes     deleteMessage(const Network::MessageInfo& mi) override final;
     Utility::DeletingChannelCodes     deleteChannel(const Network::MessageInfo& mi) override final;
+
 
 private:
     std::optional<pqxx::result> insertMessageIntoMessagesTable(const Network::MessageInfo& msi);
