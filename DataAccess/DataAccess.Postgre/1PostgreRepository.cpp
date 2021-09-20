@@ -36,7 +36,7 @@ std::vector<Network::MessageInfo> PostgreRepository::getMessageHistoryForUser(co
                                    ->execute();
 
     pTable->changeTable("users");
-    auto logins = pTable->Select()->columns({"*"})->execute();
+    auto logins = pTable->Select()->columns({"login"})->execute();
 
 
     if (messageHistoryRow.has_value())
@@ -49,7 +49,7 @@ std::vector<Network::MessageInfo> PostgreRepository::getMessageHistoryForUser(co
             mi.senderID = messageHistoryRow.value()[i][1].as<std::uint64_t>();
             mi.time     = messageHistoryRow.value()[i][2].as<std::string>();
             mi.message  = messageHistoryRow.value()[i][3].as<std::string>();
-            mi.userLogin = logins.value()[int(mi.senderID - 1)][2].as<std::string>();
+            mi.userLogin = logins.value()[int(mi.senderID - 1)][0].as<std::string>();
             result.emplace_back(mi);
         }
     }
