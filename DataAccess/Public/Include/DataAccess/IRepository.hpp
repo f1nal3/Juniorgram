@@ -37,7 +37,7 @@ public:
     
     virtual Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) = 0;
 
-    //virtual Utility::EditingMessageCodes editMessage(const Network::MessageInfo& mi) = 0;
+    virtual Utility::EditingMessageCodes editMessage(const Network::MessageInfo& mi, const std::string em) = 0;
 
     /**  @brief Method for user registration.
      *   @param RegistrationMessage which contains user data for registration.

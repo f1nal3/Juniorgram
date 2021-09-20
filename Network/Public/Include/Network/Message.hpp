@@ -37,9 +37,9 @@ struct Message
         LoginRequest,
         LoginAnswer,
         MessageDeleteRequest,
-        MessageDeleteAnswer
-        //MessageEditRequest,
-        //MessageEditAnswer
+        MessageDeleteAnswer,
+        MessageEditRequest,
+        MessageEditAnswer
     };
 
     /**

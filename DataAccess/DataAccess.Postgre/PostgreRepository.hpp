@@ -29,7 +29,7 @@ public:
     Utility::StoringMessageCodes      storeMessage(const Network::MessageInfo& mi) override final;
     Utility::RegistrationCodes        registerUser(const Network::RegistrationInfo& ri) const override final;
     Utility::DeletingMessageCodes     deleteMessage(const Network::MessageInfo& mi) override final;
-    //Utility::EditingMessageCodes      editMessage(const Network::MessageInfo& mi) override final;
+    Utility::EditingMessageCodes      editMessage(const Network::MessageInfo& mi, const std::string em) override final;
 
 private:
     std::optional<pqxx::result> insertMessageIntoMessagesTable(const Network::MessageInfo& msi);
