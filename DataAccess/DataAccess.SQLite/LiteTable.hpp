@@ -23,5 +23,7 @@ class LiteTable : public QueryBuilder<QSqlQuery>
 public:
     LiteTable(const std::string& tableName, std::shared_ptr<IAdapter> adapter = LiteAdapter::getInstance<LiteAdapter>())
         : QueryBuilder(Utility::DatabaseType::DB_LITE, tableName, adapter) {}
+    LiteTable(const std::string& tableName, std::string_view options)
+        : QueryBuilder(Utility::DatabaseType::DB_LITE, tableName, LiteAdapter::getInstance<LiteAdapter>(options)) {}
 };
 }  // namespace DataAccess
