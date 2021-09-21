@@ -27,7 +27,7 @@ protected:
 
 public:
     QueryBuilder(Utility::DatabaseType type, const std::string& tableName, std::shared_ptr<IAdapter> adapter)
-        : _databaseType{ type }, _tableName{ tableName }, _adapter(adapter), _statement{ nullptr } {}
+        : _databaseType{ type }, _tableName{ tableName }, _statement{ nullptr }, _adapter{ adapter } {}
 
     virtual ~QueryBuilder(void) { this->clearStatement(); }
 
