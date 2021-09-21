@@ -1,8 +1,7 @@
 #include "Server.hpp"
 #include "Network/Primitives.hpp"
-#include "DataAccess.Postgre/PostgreRepository.hpp"
+#include "DataAccess.Postgre/PostgreRepositories.hpp"
 #include "DataAccess.Postgre/PostgreRepositoryContainer.hpp"
-#include "DataAccess.Postgre/ServerRepositories.hpp"
 
 #include <future>
 

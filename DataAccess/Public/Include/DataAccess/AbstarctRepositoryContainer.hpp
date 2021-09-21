@@ -5,6 +5,7 @@
 #include <typeinfo>
 #include <stdexcept>
 
+#include "IAdapter.hpp"
 #include "IMasterRepository.hpp"
 
 namespace DataAccess
