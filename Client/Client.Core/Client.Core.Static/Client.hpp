@@ -57,7 +57,8 @@ public:
      * @brief Delete user's message
      * @param messageId message ID
      */
-    void userMessageDelete(const std::uint64_t messageID) const;/**
+    void userMessageDelete(const std::uint64_t messageID) const;
+    /**
      * @brief Delete user's message
      * @param messageId message's text
      */
