@@ -57,7 +57,11 @@ public:
      * @brief Delete user's message
      * @param messageId message ID
      */
-    void userMessageDelete(const std::uint64_t messageID) const;
+    void userMessageDelete(const std::uint64_t messageID) const;/**
+     * @brief Delete user's message
+     * @param messageId message's text
+     */
+    void userMessageDelete(const std::string& messageText) const;
     /**
      * @brief Sending the ID of the subscribed channel
      * @param message ID uint64_t variable
