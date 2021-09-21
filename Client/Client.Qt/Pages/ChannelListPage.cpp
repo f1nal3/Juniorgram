@@ -48,25 +48,15 @@ void ChannelListPage::addChannelToMainChannelWidget()
 {
     if (_channelList->currentItem())
     {
-        if (_widgetChannelList->count() != 0)
+        std::string channel = _channelList->currentItem()->text().toStdString();
+        auto        channelInfo =
+            std::find_if(channels.begin(), channels.end(), [&channel](const Network::ChannelInfo& i) 
+            { return i.channelName == channel; });
+        if (oApp->connectionManager()->isConnected())
         {
-            int numberOfCoincidences = 0;
-            for (int i = 0; i < _widgetChannelList->count(); ++i)
-            {
-                if (_channelList->currentItem()->text() == _widgetChannelList->item(i)->text())
-                {
-                    numberOfCoincidences++;
-                }
-            }
-            if (numberOfCoincidences == 0)
-            {
-                _widgetChannelList->addItem(_channelList->takeItem(_channelList->currentRow()));
-            }
+            oApp->connectionManager()->subscriptionChannel(channelInfo->channelID);
         }
-        else
-        {
-            _widgetChannelList->addItem(_channelList->takeItem(_channelList->currentRow()));
-        }
+        _widgetChannelList->addItem(_channelList->takeItem(_channelList->currentRow()));
     }
 }
 

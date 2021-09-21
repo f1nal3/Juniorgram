@@ -194,15 +194,15 @@ void Client::userMessageDelete(const uint64_t messageID) const
     send(message);
 }
 
-void Client::userMessageDelete(const std::string& messageText) const 
+void Client::subscriptionChannel(const std::uint64_t channelID) const
 {
-    Network::MessageInfo mi;
-    mi.message = messageText;
+    Network::Message networkMessage;
+    networkMessage.mHeader.mMessageType = MessageType::ReplyStoreRequest;
 
-    Network::Message message;
-    message.mHeader.mMessageType = MessageType::MessageDeleteRequest;
-    message.mBody                = std::make_any<Network::MessageInfo>(mi);
-    send(message);
+    Network::SubscriptionChannelInfo ri;
+    ri.channelID         = channelID;
+    networkMessage.mBody = std::make_any<Network::SubscriptionChannelInfo>(ri);
+    //send(networkMessage); temporarily commented out before implementation on the server side
 }
 
 void Client::loop()
