@@ -19,10 +19,10 @@ namespace DataAccess
 class PostgreTable : public QueryBuilder<pqxx::result>
 {
 public:
-    PostgreTable(const std::string& tableName)
-        : QueryBuilder(Utility::DatabaseType::DB_POSTGRE, tableName, PostgreAdapter::getInstance<PostgreAdapter>()) {}
+    PostgreTable(const std::string& tableName, std::shared_ptr<IAdapter> adapter)
+        : QueryBuilder(Utility::DatabaseType::DB_POSTGRE, tableName, adapter) {}
 
-    PostgreTable(const std::string& tableName, const std::string_view& options)
-        : QueryBuilder(Utility::DatabaseType::DB_POSTGRE, tableName, PostgreAdapter::getInstance<PostgreAdapter>(options)) {}
+    PostgreTable(const std::string& tableName, const std::string_view& options, std::shared_ptr<IAdapter> adapter)
+        : QueryBuilder(Utility::DatabaseType::DB_POSTGRE, tableName, adapter) {}
 };
 }
