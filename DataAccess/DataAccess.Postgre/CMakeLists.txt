@@ -2,16 +2,15 @@ set(TARGET DataAccess.Postgre)
 set(OUTPUT_NAME DataAccess.Postgre)
 
 set(SOURCE_FILES
-        PostgreAdapter.hpp
-        PostgreAdapter.cpp
-        PostgreRepository.hpp
-        PostgreRepository.cpp
-        PostgreTable.hpp
-        DataBaseOptions.hpp
-        UsersAmountFinder.hpp
-        UsersAmountFinder.cpp
-        ServerRepositories.hpp
-        ServerRepositoryContainer.hpp)
+    PostgreAdapter.hpp
+    PostgreAdapter.cpp
+    PostgreRepositories.hpp
+    PostgreRepositories.cpp
+	PostgreRepositoryContainer.hpp
+    PostgreTable.hpp
+    DataBaseOptions.hpp
+    UsersAmountFinder.hpp
+    UsersAmountFinder.cpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 

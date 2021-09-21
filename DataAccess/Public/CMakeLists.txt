@@ -7,8 +7,8 @@ set(SOURCE_FILES
         Include/DataAccess/QueryBuilder.hpp
         Include/DataAccess/SQLStatements.hpp
         Include/DataAccess/IMasterRepository.hpp
-        Include/DataAccess/IClientRepository.hpp
-        Include/DataAccess/IServerRepository.hpp
+        Include/DataAccess/IClientRepositories.hpp
+        Include/DataAccess/IServerRepositories.hpp
         Include/DataAccess/AbstarctRepositoryContainer.hpp)
 
 add_library(${TARGET} INTERFACE)
