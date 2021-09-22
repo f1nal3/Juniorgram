@@ -50,7 +50,7 @@ void ChannelListPage::addChannelToMainChannelWidget()
     {
         std::string channel = _channelList->currentItem()->text().toStdString();
         auto        channelInfo =
-            std::find_if(channels.begin(), channels.end(), [&channel](const Network::ChannelInfo& i) 
+            std::find_if(channels.begin(), channels.end(), [channel](const Network::ChannelInfo& i) 
             { return i.channelName == channel; });
         if (oApp->connectionManager()->isConnected())
         {
