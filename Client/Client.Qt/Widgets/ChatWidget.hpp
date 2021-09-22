@@ -14,7 +14,7 @@ class ChatWidget : public QWidget
     Q_OBJECT
 public:
     /**
-     * @brief Constructor for ñhat widget
+     * @brief Constructor for chat widget
      * @param parent Parent widget
      */
     explicit ChatWidget(QWidget* parent = nullptr);

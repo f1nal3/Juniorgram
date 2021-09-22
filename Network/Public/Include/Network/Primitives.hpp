@@ -41,6 +41,35 @@ public:
     }
 };
 
+/**
+ * @brief The SubscriptionChannelInfo struct
+ * @details Channel Info struct for information about the channel that the user subscribed.
+ *          contain channel ID.
+ */
+struct SubscriptionChannelInfo
+{
+    /// channel ID uint64_t variable
+    std::uint64_t channelID;
+
+public:
+    /// Default ChannelInfo constructor
+    SubscriptionChannelInfo() = default;
+
+    /// ChannelInfo constructor with initializing list
+    SubscriptionChannelInfo(const std::uint64_t channelID)
+        : channelID(channelID)
+    {
+    }
+    /// Default SubscriptionChannelInfo destructor
+    ~SubscriptionChannelInfo() = default;
+
+    /// Operator == to compare channel info
+    friend bool operator==(const SubscriptionChannelInfo& first, const SubscriptionChannelInfo& second)
+    {
+        return first.channelID == second.channelID;
+    }
+};
+
 /// Serialize method which serialize each field
 template <typename Archive>
 void serialize(Archive& ar, Network::ChannelInfo& o)
