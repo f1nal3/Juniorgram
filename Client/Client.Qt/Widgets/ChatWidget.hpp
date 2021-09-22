@@ -19,7 +19,7 @@ public:
      */
     explicit ChatWidget(QWidget* parent = nullptr);
     /**
-     * @brief Method for ñhat widget
+     * @brief Method for chat widget
      * @param ID of channel. It's format uint64_t
      */
     void setChannelID(const std::uint64_t channelID) { _channelID = channelID; }
