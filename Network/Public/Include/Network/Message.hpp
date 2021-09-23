@@ -41,7 +41,8 @@ struct Message
         ReplyHistoryRequest,
         ReplyHistoryAnswer,
         ReplyStoreRequest,
-        ReplyStoreAnswer
+        ReplyStoreAnswer,
+        ChannelSubscribeRequest
     };
 
     /**

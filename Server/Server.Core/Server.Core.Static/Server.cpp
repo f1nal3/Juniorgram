@@ -217,6 +217,11 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         }
         break;
 
+        case Network::Message::MessageType::ChannelSubscribeRequest:
+        {
+        }
+        break;
+
         default:
         {
             std::cerr << "Unknows command received\n";
