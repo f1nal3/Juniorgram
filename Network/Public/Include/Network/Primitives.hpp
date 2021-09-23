@@ -41,6 +41,13 @@ public:
     }
 };
 
+/// Serialize method which serialize each field
+template <typename Archive>
+void serialize(Archive& ar, Network::ChannelInfo& o)
+{
+    ar& o.creatorID& o.channelID& o.channelName;
+}
+
 /**
  * @brief The SubscriptionChannelInfo struct
  * @details Channel Info struct for information about the channel that the user subscribed.
@@ -70,11 +77,14 @@ public:
     }
 };
 
-/// Serialize method which serialize each field
+/**
+ * @brief helper function for serializing
+ * @ref SubscriptionChannelInfo structure
+ */
 template <typename Archive>
-void serialize(Archive& ar, Network::ChannelInfo& o)
+void serialize(Archive& ar, Network::SubscriptionChannelInfo& o)
 {
-    ar& o.creatorID& o.channelID& o.channelName;
+    ar& o.channelID;
 }
 
 /**

@@ -94,6 +94,10 @@ public:
                     state = processOutcomingMessageBody<bool>(bodyBuffer, message.mBody);
                     break;
 
+                case Message::MessageType::ChannelSubscribeRequest:
+                    state = processOutcomingMessageBody<SubscriptionChannelInfo>(bodyBuffer, message.mBody);
+                    break;
+
                 default:
                     break;
             }
@@ -203,6 +207,11 @@ public:
             case Message::MessageType::LoginAnswer:
             {
                 state = processIncomingMessageBody<bool>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ChannelSubscribeRequest:
+            {
+                state = processIncomingMessageBody<SubscriptionChannelInfo>(buffer, message);
                 break;
             }
             default:
