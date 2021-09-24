@@ -57,6 +57,8 @@ struct SubscriptionChannelInfo
 {
     /// channel ID uint64_t variable
     std::uint64_t channelID;
+    /// user ID uint64_t variable
+    std::uint64_t userID;
 
 public:
     /// Default ChannelInfo constructor

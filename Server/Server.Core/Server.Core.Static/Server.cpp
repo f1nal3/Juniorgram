@@ -219,6 +219,14 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::ChannelSubscribeRequest:
         {
+            auto ri = std::any_cast<Network::SubscriptionChannelInfo>(message.mBody);
+            ri.userID = client->getUserID();
+
+            Network::Message messageToClient;
+            messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelSubscribeAnswer;
+
+            messageToClient.mBody = std::make_any<Utility::SubscribingChannelCodes>(Utility::SubscribingChannelCodes::SUCCESS);
+            client->send(messageToClient);
         }
         break;
 
