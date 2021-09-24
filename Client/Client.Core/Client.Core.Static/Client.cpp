@@ -306,6 +306,13 @@ void Client::loop()
             }
             break;
 
+            case MessageType::ChannelSubscribeAnswer:
+            {
+                //auto code = std::any_cast<Utility::SubscribingChannelCodes>(message.mBody);
+                //onSubscribingChannelAnswer(code);
+            }
+            break;
+
             default:
                 std::cerr << "[Client][Warning] unimplemented[" << uint32_t(message.mHeader.mMessageType) << "]\n";
         }
