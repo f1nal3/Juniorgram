@@ -4,13 +4,12 @@ set(OUTPUT_NAME DataAccess.SQLite)
 set(QMAKE_CXXFLAGS ${QMAKE_CXXFLAGS}"-fno-sized-deallocation")
 
 set(SOURCE_FILES
-    LiteAdapter.cpp
-    LiteAdapter.hpp
-    LiteTable.hpp
-	LiteRepositoryContainer.hpp
-    LiteRepositories.hpp
-    LiteRepositories.cpp
-	ClientRepositories.hpp)
+        LiteAdapter.cpp
+        LiteAdapter.hpp
+        LiteTable.hpp
+        LiteRepositoryContainer.hpp
+        LiteRepositories.hpp
+        LiteRepositories.cpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
