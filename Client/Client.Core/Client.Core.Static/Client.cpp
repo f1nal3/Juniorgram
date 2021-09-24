@@ -280,7 +280,6 @@ void Client::loop()
             case MessageType::RegistrationAnswer:
             {
                 auto code = std::any_cast<Utility::RegistrationCodes>(message.mBody);
-
                 onRegistrationAnswer(code);
             }
             break;
@@ -308,8 +307,8 @@ void Client::loop()
 
             case MessageType::ChannelSubscribeAnswer:
             {
-                //auto code = std::any_cast<Utility::SubscribingChannelCodes>(message.mBody);
-                //onSubscribingChannelAnswer(code);
+                auto code = std::any_cast<Utility::SubscribingChannelCodes>(message.mBody);
+                onSubscribingChannelAnswer(code);
             }
             break;
 
@@ -387,6 +386,12 @@ void Client::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
 {
     (void)(storingReplyCode);
     std::cerr << "[Client][Warning] reply store answer is not implemented\n";
+}
+
+void Client::onSubscribingChannelAnswer(Utility::SubscribingChannelCodes subscribingChannelCode)
+{
+    (void)(subscribingChannelCode);
+    std::cerr << "[Client][Warning] subscribing channel is not implemented\n";
 }
 
 }  // namespace Network

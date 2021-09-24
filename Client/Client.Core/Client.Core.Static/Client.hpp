@@ -123,6 +123,8 @@ protected:
     virtual void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
     /// Reply Store Answer handler
     virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
+    /// Subscription channel Answer handler
+    virtual void onSubscribingChannelAnswer(const Utility::SubscribingChannelCodes subscribingChannelCode);
 
 private:
     asio::io_context _context;

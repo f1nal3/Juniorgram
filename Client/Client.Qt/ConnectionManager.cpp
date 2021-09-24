@@ -107,6 +107,20 @@ void ConnectionManager::onUserMessageDeleteAnswer(const Utility::DeletingMessage
     emit ReceiverManager::instance()->onUserMessageDeleteAnswer(deletingCode);
 }
 
+void ConnectionManager::onSubscribingChannelAnswer(const Utility::SubscribingChannelCodes subscribingChannelCode)
+{
+    if (subscribingChannelCode == Utility::SubscribingChannelCodes::SUCCESS)
+    {
+        std::cout << "SUCCESS SUBSCRIBING" << std::endl;
+    }
+    else if (subscribingChannelCode == Utility::SubscribingChannelCodes::FAILED)
+    {
+        std::cout << "FAILED SUBSCRIBING" << std::endl;
+    }
+
+    emit ReceiverManager::instance()->onSubscriptionChannelAnswer(subscribingChannelCode);
+}
+
 void ConnectionManager::onDisconnect()
 {
     disconnectFromServer();
