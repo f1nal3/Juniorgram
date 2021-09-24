@@ -36,7 +36,7 @@ struct IRepliesRepository : IMasterRepository
     virtual std::vector<Network::ReplyInfo> getReplyHistory(const std::uint64_t channelID) = 0;
 
     /// Virtual method for inserting Reply message
-    virtual Utility::StoringReplyCodes      storeReply(const Network::ReplyInfo& rsi) = 0;
+    virtual Utility::StoringReplyCodes storeReply(const Network::ReplyInfo& rsi) = 0;
 
     /// Default virtual destructor
     virtual ~IRepliesRepository() = default;
@@ -63,7 +63,7 @@ struct IRegisterRepository : IMasterRepository
     virtual Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) = 0;
 
     /// Default virtual destructor
-    virtual ~IRegisterRepository() = default;
+    ~IRegisterRepository() override = default;
 };
 
 /**

@@ -1,12 +1,19 @@
 #pragma once
+#include <AbstarctRepositoryContainer.hpp>
+
 #include "LiteAdapter.hpp"
-#include <Public/Include/DataAccess/AbstarctRepositoryContainer.hpp>
 
 namespace DataAccess
 {
-	class LiteRepositoryContainer : public AbstarctRepositoryContainer
-	{
-	public:
-		LiteRepositoryContainer(std::shared_ptr<IAdapter> adapter) : AbstarctRepositoryContainer(adapter) {}
-	};
-}
+/**
+ * @class LiteRepositoryContainer
+ * @brief Repository container for SQLite database
+ */
+class LiteRepositoryContainer : public AbstarctRepositoryContainer
+{
+public:
+    /// Default constructor from adapter
+    LiteRepositoryContainer(std::shared_ptr<IAdapter> adapter) : AbstarctRepositoryContainer(adapter) {}
+};
+
+}  // namespace DataAccess
