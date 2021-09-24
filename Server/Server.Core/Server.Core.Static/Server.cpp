@@ -219,13 +219,19 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::ChannelSubscribeRequest:
         {
-            auto ri = std::any_cast<Network::SubscriptionChannelInfo>(message.mBody);
-            ri.userID = client->getUserID();
+            auto channel = std::any_cast<Network::SubscriptionChannelInfo>(message.mBody);
+            channel.userID = client->getUserID();
+
+            //Temporarily commented out until full implementation
+            //auto IRegisterRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
+            //auto future = std::async(std::launch::async, &DataAccess::IChannelsRepository::subscriptionChannel, IRegisterRep, channel);
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelSubscribeAnswer;
 
-            messageToClient.mBody = std::make_any<Utility::SubscribingChannelCodes>(Utility::SubscribingChannelCodes::SUCCESS);
+            auto subscribingChannelCodes = Utility::SubscribingChannelCodes::SUCCESS; //future.get();
+
+            messageToClient.mBody = std::make_any<Utility::SubscribingChannelCodes>(subscribingChannelCodes);
             client->send(messageToClient);
         }
         break;

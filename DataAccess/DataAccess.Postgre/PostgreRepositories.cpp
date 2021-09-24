@@ -201,6 +201,26 @@ namespace DataAccess
         }
         return result;
     }
+
+    Utility::SubscribingChannelCodes ChannelsRepository::subscriptionChannel(const Network::SubscriptionChannelInfo& channel)
+    {
+        //static UsersAmountFinder finder;
+        //// TODO implement verification for the signature on the channel.
+
+        //// Preparing data for inserting a signed channel.
+        std::tuple userData
+        {
+            std::pair{"user_id", channel.userID}, 
+            std::pair{"channel_id", channel.channelID}
+        };
+
+        // Inserting a signed channel.
+        pTable->changeTable("user_channles");
+        pTable->Insert()->columns(userData)->execute();
+
+        return Utility::SubscribingChannelCodes::SUCCESS;
+    }
+
     Utility::StoringReplyCodes        RepliesRepository::storeReply(const Network::ReplyInfo& rsi)
     {
         const auto firstResult = insertReplyIntoRepliesTable(rsi);
