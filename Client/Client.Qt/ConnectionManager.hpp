@@ -55,6 +55,8 @@ signals:
     void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
     /// Subscription channel Answer handler
     void onSubscriptionChannelAnswer(const Utility::SubscribingChannelCodes subscribingChannelCode);
+    /// Subscription channel Answer handler
+    void onSubscribingChannelListAnswer(const std::vector<uint64_t> subscribingChannelList);
 
 private:
     static ReceiverManager* self;
