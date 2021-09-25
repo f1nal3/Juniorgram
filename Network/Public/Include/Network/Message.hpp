@@ -44,7 +44,7 @@ struct Message
         ReplyStoreAnswer,
         ChannelSubscribeRequest,
         ChannelSubscribeAnswer,
-        ChannelSubscribeListAnswer
+        ChannelSubscribeListRequest
 
     };
 

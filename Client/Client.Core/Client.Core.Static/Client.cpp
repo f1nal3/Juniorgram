@@ -108,8 +108,8 @@ void Client::askForChannelList() const
 void Client::askForSubscriptionChannelList() const
 {
     Network::Message message;
-    message.mHeader.mMessageType = MessageType::ChannelSubscribeListAnswer;
-    //send(message); temporarily commented out before implementation on the server side
+    message.mHeader.mMessageType = MessageType::ChannelSubscribeListRequest;
+    send(message);
 }
 
 void Client::askForMessageHistory(const std::uint64_t channelID) const

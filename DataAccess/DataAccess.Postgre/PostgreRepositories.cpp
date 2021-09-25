@@ -204,7 +204,6 @@ namespace DataAccess
 
     Utility::SubscribingChannelCodes ChannelsRepository::subscriptionChannel(const Network::SubscriptionChannelInfo& channel)
     {
-        //static UsersAmountFinder finder;
         //// TODO implement verification for the signature on the channel.
 
         //// Preparing data for inserting a signed channel.
@@ -219,6 +218,27 @@ namespace DataAccess
         pTable->Insert()->columns(userData)->execute();
 
         return Utility::SubscribingChannelCodes::SUCCESS;
+    }
+
+    std::vector<uint16_t> ChannelsRepository::getListSubscriptionChannel(const uint16_t& userID) 
+    {
+        std::cout << userID << std::endl;
+        pTable->changeTable("user_channles");
+        auto      listSubscriptionChannel =
+                pTable->Select()
+                ->columns({"channel_id"})
+                ->Where("user_id = " + std::to_string(userID))
+                ->execute();
+        std::vector<uint16_t> result;
+        if (listSubscriptionChannel.has_value())
+        {
+            for (auto i = 0; i < listSubscriptionChannel.value().size(); ++i)
+            {
+                uint16_t channelID = listSubscriptionChannel.value()[i][0].as<uint16_t>();
+                result.push_back(channelID);
+            }
+        }
+        return result;
     }
 
     Utility::StoringReplyCodes        RepliesRepository::storeReply(const Network::ReplyInfo& rsi)

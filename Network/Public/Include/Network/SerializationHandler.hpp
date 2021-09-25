@@ -102,6 +102,10 @@ public:
                     state = processOutcomingMessageBody<Utility::SubscribingChannelCodes>(bodyBuffer, message.mBody);
                     break;
 
+                case Message::MessageType::ChannelSubscribeListRequest:
+                    state = processOutcomingMessageBody<SubscriptionChannelInfo>(bodyBuffer, message.mBody);
+                    break;
+
                 default:
                     break;
             }
@@ -221,6 +225,11 @@ public:
             case Message::MessageType::ChannelSubscribeAnswer:
             {
                 state = processIncomingMessageBody<Utility::SubscribingChannelCodes>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ChannelSubscribeListRequest:
+            {
+                state = processIncomingMessageBody<SubscriptionChannelInfo>(buffer, message);
                 break;
             }
             default:
