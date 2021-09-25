@@ -128,6 +128,8 @@ protected:
     virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
     /// Subscription channel Answer handler
     virtual void onSubscribingChannelAnswer(const Utility::SubscribingChannelCodes subscribingChannelCode);
+    /// Subscription channel list Answer handler
+    virtual void onSubscribingChannelListAnswer(const std::vector<uint64_t> subscribingChannelList);
 
 private:
     asio::io_context _context;

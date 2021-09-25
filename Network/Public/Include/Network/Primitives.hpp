@@ -75,7 +75,7 @@ public:
     /// Operator == to compare channel info
     friend bool operator==(const SubscriptionChannelInfo& first, const SubscriptionChannelInfo& second)
     {
-        return first.channelID == second.channelID;
+        return first.channelID == second.channelID && first.userID == second.userID;
     }
 };
 

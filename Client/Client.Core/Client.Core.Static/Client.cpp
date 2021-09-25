@@ -319,6 +319,13 @@ void Client::loop()
             }
             break;
 
+            case MessageType::ChannelSubscribeListAnswer:
+            {
+                auto channelsList = std::any_cast<std::vector<uint64_t>>(message.mBody);
+                onSubscribingChannelListAnswer(channelsList);
+            }
+            break;
+
             default:
                 std::cerr << "[Client][Warning] unimplemented[" << uint32_t(message.mHeader.mMessageType) << "]\n";
         }
@@ -399,6 +406,11 @@ void Client::onSubscribingChannelAnswer(Utility::SubscribingChannelCodes subscri
 {
     (void)(subscribingChannelCode);
     std::cerr << "[Client][Warning] subscribing channel is not implemented\n";
+}
+void Client::onSubscribingChannelListAnswer(std::vector<uint64_t> subscribingChannelList)
+{
+    (void)(subscribingChannelList);
+    std::cerr << "[Client][Warning] subscribing channel list is not implemented\n";
 }
 
 }  // namespace Network

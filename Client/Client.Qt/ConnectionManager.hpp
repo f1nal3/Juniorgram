@@ -104,4 +104,6 @@ protected:
     void onReplyStoreAnswer(const Utility::StoringReplyCodes storingReplyCode) override;
     /// Subscription channel Answer handler
     void onSubscribingChannelAnswer(const Utility::SubscribingChannelCodes subscribingChannelCode) override;
+    /// Subscription channel list Answer handler
+    void onSubscribingChannelListAnswer(const std::vector<uint64_t> subscribingChannelList) override;
 };

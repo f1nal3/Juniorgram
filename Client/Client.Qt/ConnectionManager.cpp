@@ -121,6 +121,10 @@ void ConnectionManager::onSubscribingChannelAnswer(const Utility::SubscribingCha
     emit ReceiverManager::instance()->onSubscriptionChannelAnswer(subscribingChannelCode);
 }
 
+void ConnectionManager::onSubscribingChannelListAnswer(const std::vector<uint64_t> subscribingChannelList)
+{
+    //emit ReceiverManager::instance()->onSubscribingChannelListAnswer(subscribingChannelCode); commented out before the implementation of the function
+}
 void ConnectionManager::onDisconnect()
 {
     disconnectFromServer();
