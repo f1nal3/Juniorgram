@@ -223,7 +223,7 @@ namespace DataAccess
     std::vector<uint64_t> ChannelsRepository::getSubscriptionChannelList(const uint64_t& userID) 
     {
         pTable->changeTable("user_channles");
-        auto      listSubscriptionChannel =
+        auto    listSubscriptionChannel =
                 pTable->Select()
                 ->columns({"channel_id"})
                 ->Where("user_id = " + std::to_string(userID))
