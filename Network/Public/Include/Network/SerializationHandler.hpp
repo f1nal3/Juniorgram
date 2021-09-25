@@ -106,6 +106,10 @@ public:
                     state = processOutcomingMessageBody<SubscriptionChannelInfo>(bodyBuffer, message.mBody);
                     break;
 
+                case Message::MessageType::ChannelSubscribeListAnswer:
+                    state = processOutcomingMessageBody<std::vector<uint64_t>>(bodyBuffer, message.mBody);
+                    break;
+
                 default:
                     break;
             }
@@ -230,6 +234,11 @@ public:
             case Message::MessageType::ChannelSubscribeListRequest:
             {
                 state = processIncomingMessageBody<SubscriptionChannelInfo>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ChannelSubscribeListAnswer:
+            {
+                state = processIncomingMessageBody<std::vector<uint64_t>>(buffer, message);
                 break;
             }
             default:
