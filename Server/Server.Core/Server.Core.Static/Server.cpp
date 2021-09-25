@@ -238,7 +238,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::ChannelSubscribeListRequest:
         {
-            uint16_t userID = 1; //Temporary solution
+            uint64_t userID = client->getUserID();  // Temporary solution
 
             auto IRegisterRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
             auto future =
@@ -249,7 +249,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
             auto subscribingChannelCodes = future.get();
 
-            messageToClient.mBody = std::make_any<std::vector<uint16_t>>(subscribingChannelCodes);
+            messageToClient.mBody = std::make_any<std::vector<uint64_t>>(subscribingChannelCodes);
             client->send(messageToClient);
         }
         break;

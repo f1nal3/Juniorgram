@@ -220,21 +220,20 @@ namespace DataAccess
         return Utility::SubscribingChannelCodes::SUCCESS;
     }
 
-    std::vector<uint16_t> ChannelsRepository::getListSubscriptionChannel(const uint16_t& userID) 
+    std::vector<uint64_t> ChannelsRepository::getSubscriptionChannelList(const uint64_t& userID) 
     {
-        std::cout << userID << std::endl;
         pTable->changeTable("user_channles");
         auto      listSubscriptionChannel =
                 pTable->Select()
                 ->columns({"channel_id"})
                 ->Where("user_id = " + std::to_string(userID))
                 ->execute();
-        std::vector<uint16_t> result;
+        std::vector<uint64_t> result;
         if (listSubscriptionChannel.has_value())
         {
             for (auto i = 0; i < listSubscriptionChannel.value().size(); ++i)
             {
-                uint16_t channelID = listSubscriptionChannel.value()[i][0].as<uint16_t>();
+                uint64_t channelID = listSubscriptionChannel.value()[i][0].as<uint64_t>();
                 result.push_back(channelID);
             }
         }
