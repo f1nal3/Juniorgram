@@ -76,5 +76,6 @@ void ChannelListPage::requestChannels()
     if (oApp->connectionManager()->isConnected())
     {
         oApp->connectionManager()->askForChannelList();
+        oApp->connectionManager()->askForSubscriptionChannelList();
     }
 }

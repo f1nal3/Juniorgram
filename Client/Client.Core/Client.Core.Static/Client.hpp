@@ -38,7 +38,10 @@ public:
 
     /// Ask for channel list
     void askForChannelList() const;
-
+    /**
+     * @brief Ask for subscription channel
+     */
+    void askForSubscriptionChannelList() const;
     /**
      * @brief Ask for channel message history
      * @param channelID Channel ID
