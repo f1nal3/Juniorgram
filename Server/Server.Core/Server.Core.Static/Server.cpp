@@ -223,8 +223,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             channel.userID = client->getUserID();
 
             //Temporarily commented out until full implementation
-            //auto IRegisterRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
-            //auto future = std::async(std::launch::async, &DataAccess::IChannelsRepository::subscriptionChannel, IRegisterRep, channel);
+            //auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
+            //auto future = std::async(std::launch::async, &DataAccess::IChannelsRepository::subscriptionChannel, IChannelRep, channel);
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelSubscribeAnswer;
@@ -238,18 +238,17 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::ChannelSubscribeListRequest:
         {
-            uint64_t userID = client->getUserID();  // Temporary solution
+            const auto userID = client->getUserID();
 
-            auto IRegisterRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
-            auto future =
-                std::async(std::launch::async, &DataAccess::IChannelsRepository::getSubscriptionChannelList, IRegisterRep, userID); 
+            auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
+            auto future = std::async(std::launch::async, &DataAccess::IChannelsRepository::getSubscriptionChannelList, IChannelRep, userID);
 
             Network::Message messageToClient;
-            messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelSubscribeAnswer;
+            messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelSubscribeListAnswer;
 
             auto subscribingChannelCodes = future.get();
-
-            messageToClient.mBody = std::make_any<std::vector<uint64_t>>(subscribingChannelCodes);
+            messageToClient.mBody =
+                std::make_any<std::vector<uint64_t>>(subscribingChannelCodes);
             client->send(messageToClient);
         }
         break;
