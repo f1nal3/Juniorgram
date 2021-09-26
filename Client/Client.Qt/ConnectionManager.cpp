@@ -26,7 +26,7 @@ void ConnectionManager::onServerMessage(const uint64_t clientId)
 
 void ConnectionManager::onChannelListRequest(const std::vector<Network::ChannelInfo>& channels)
 {
-    qRegisterMetaType<std::vector<Network::ChannelInfo> >("std::vector<Network::ChannelInfo>");
+    qRegisterMetaType<std::vector<Network::ChannelInfo>>("std::vector<Network::ChannelInfo>");
     emit ReceiverManager::instance()->onChannelListRequest(channels);
 }
 
@@ -117,14 +117,16 @@ void ConnectionManager::onSubscribingChannelAnswer(const Utility::SubscribingCha
     {
         std::cout << "FAILED SUBSCRIBING" << std::endl;
     }
-
+    qRegisterMetaType<Utility::SubscribingChannelCodes>("Utility::SubscribingChannelCodes");
     emit ReceiverManager::instance()->onSubscriptionChannelAnswer(subscribingChannelCode);
 }
 
 void ConnectionManager::onSubscribingChannelListAnswer(const std::vector<uint64_t> subscribingChannelList)
 {
+    qRegisterMetaType<std::vector<uint64_t>>("std::vector<uint64_t>");
     emit ReceiverManager::instance()->onSubscribingChannelListAnswer(subscribingChannelList);
 }
+
 void ConnectionManager::onDisconnect()
 {
     disconnectFromServer();

@@ -23,10 +23,16 @@ ChannelListPage::ChannelListPage(std::shared_ptr<ListWidget>& anotherChannelList
     _vBoxLayout->addWidget(_updateChannelButton.get());
 
     connect(ReceiverManager::instance(), &ReceiverManager::onChannelListRequest, this, &ChannelListPage::setChannels);
+    connect(ReceiverManager::instance(), &ReceiverManager::onSubscribingChannelListAnswer, this, &ChannelListPage::addSubscribeChannelToMainChannelWidget);
 
-    _addChannelButton->setClickCallback([this]() { addChannelToMainChannelWidget(); });
-    _updateChannelButton->setClickCallback([this]() { requestChannels(); });
+    _addChannelButton->setClickCallback([this]() { addChannelToChannelListWidget(); });
+    _updateChannelButton->setClickCallback([this]()
+        { 
+            requestChannels();
+            updateSubscribeChannelList();
+        });
     requestChannels();
+    updateSubscribeChannelList();
 
     setLayout(_vBoxLayout.get());
 }
@@ -44,7 +50,7 @@ void ChannelListPage::updateChannelList()
     onResume();
 }
 
-void ChannelListPage::addChannelToMainChannelWidget()
+void ChannelListPage::addChannelToChannelListWidget()
 {
     if (_channelList->currentItem())
     {
@@ -70,12 +76,43 @@ void ChannelListPage::setChannels(const std::vector<Network::ChannelInfo>& newCh
     updateChannelList();
 }
 
+void ChannelListPage::addSubscribeChannelToMainChannelWidget(const std::vector<uint64_t>& ChannelsSubscribeList)
+{
+    std::vector<std::string> channelsSubscribeVector;
+    for (auto channel : ChannelsSubscribeList)
+    {
+        int  row = 0;
+        auto findChannel =
+            std::find_if(channels.begin(), channels.end(), [channel](Network::ChannelInfo i) { return i.channelID == channel; });
+        channelsSubscribeVector.push_back(findChannel->channelName);
+        _channelList->setCurrentRow(row);
+        while (_channelList->currentRow() != -1)
+        {
+            if (_channelList->item(_channelList->currentRow())->text().toStdString() == findChannel->channelName)
+            {
+                _widgetChannelList->addItem(_channelList->takeItem((_channelList->currentRow())));
+                break;
+            }
+            else
+                ++row;
+            _channelList->setCurrentRow(row);
+        }
+    }
+}
+
 void ChannelListPage::requestChannels()
 {
     onPause();
     if (oApp->connectionManager()->isConnected())
     {
         oApp->connectionManager()->askForChannelList();
+    }
+}
+
+void ChannelListPage::updateSubscribeChannelList()
+{
+    if (oApp->connectionManager()->isConnected())
+    {
         oApp->connectionManager()->askForSubscriptionChannelList();
     }
 }
