@@ -315,6 +315,12 @@ void Client::loop()
                 auto code = std::any_cast<Utility::StoringReplyCodes>(message.mBody);
                 onReplyStoreAnswer(code);
             }
+
+            case MessageType::ChannelCreateAnswer:
+            {
+                auto createChannelcode = std::any_cast<Utility::CreateChannelCodes>(message.mBody);
+                onCreateChannelAnswer(createChannelcode);
+            }
             break;
 
             default:
@@ -391,6 +397,12 @@ void Client::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
 {
     (void)(storingReplyCode);
     std::cerr << "[Client][Warning] reply store answer is not implemented\n";
+}
+
+void Client::onCreateChannelAnswer(Utility::CreateChannelCodes createChannelCode)
+{
+    (void)(createChannelCode);
+    std::cerr << "[Client][Warning] create channel answer is not implemented\n";
 }
 
 }  // namespace Network
