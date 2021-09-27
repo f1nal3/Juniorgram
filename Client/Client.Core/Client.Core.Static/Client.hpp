@@ -69,6 +69,11 @@ public:
      */
     void subscriptionChannel(const std::uint64_t channelID) const;
     /**
+     * @brief Sending the info of the created channel
+     * @param channel info Network::ChannelInfo variable
+     */
+    void createChannel(const std::string channelName) const;
+    /**
      * @brief Send a message to server
      * @param message Message
      * @param channelID Channel ID

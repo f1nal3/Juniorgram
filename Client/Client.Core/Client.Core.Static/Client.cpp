@@ -216,6 +216,17 @@ void Client::subscriptionChannel(const std::uint64_t channelID) const
     //send(networkMessage); temporarily commented out before implementation on the server side
 }
 
+void Client::createChannel(const std::string channelName) const
+{
+    Network::Message networkMessage;
+    networkMessage.mHeader.mMessageType = MessageType::ChannelCreateRequest;
+
+    std::string ri;
+    ri       = channelName;
+    networkMessage.mBody = std::make_any<std::string>(ri);
+    send(networkMessage);
+}
+
 void Client::loop()
 {
     while (!_incomingMessagesQueue.empty())

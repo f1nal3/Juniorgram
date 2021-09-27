@@ -49,6 +49,18 @@ namespace Utility
         FAILED,
     };
 
+    /**  @brief Enum for tracking message's deleting status.
+     *   @details Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) /
+     *    return one of this codes.
+     */
+    enum class CreateChannelCodes : std::uint8_t
+    {
+        CHANNEL_ALREADY_CREATE,
+        SUCCESS,
+        FAILED,
+    };
+
+
     inline std::tm safe_localtime(const std::time_t& time)
     {
         // std::localtime is not thread safe, so we use platform-dependant versions

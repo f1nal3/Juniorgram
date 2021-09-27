@@ -23,6 +23,11 @@ namespace DataAccess
         return result;
     }
 
+    Utility::CreateChannelCodes ChannelsRepository::createChannel(const Network::ChannelInfo& channel)
+    {
+        return Utility::CreateChannelCodes::SUCCESS;
+    }
+
     std::uint64_t                     LoginRepository::loginUser(const std::string& login, const std::string& pwdHash)
     {
         try
