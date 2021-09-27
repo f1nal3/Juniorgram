@@ -1,8 +1,6 @@
 set(TARGET DataAccess.SQLite)
 set(OUTPUT_NAME DataAccess.SQLite)
 
-set(QMAKE_CXXFLAGS ${QMAKE_CXXFLAGS}"-fno-sized-deallocation")
-
 set(SOURCE_FILES
         LiteAdapter.cpp
         LiteAdapter.hpp
@@ -14,4 +12,4 @@ set(SOURCE_FILES
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
 target_link_libraries(${TARGET}
-        PUBLIC Qt5::Sql DataAccess.Public Utility.Public)
+        PUBLIC Qt::Sql DataAccess.Public Utility.Public)
