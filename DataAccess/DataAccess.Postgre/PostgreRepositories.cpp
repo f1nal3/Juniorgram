@@ -204,19 +204,26 @@ namespace DataAccess
 
     Utility::SubscribingChannelCodes ChannelsRepository::subscriptionChannel(const Network::SubscriptionChannelInfo& channel)
     {
-        //// TODO implement verification for the signature on the channel.
-
-        //// Preparing data for inserting a signed channel.
-        std::tuple userData
-        {
-            std::pair{"user_id", channel.userID}, 
-            std::pair{"channel_id", channel.channelID}
-        };
-
-        // Inserting a signed channel.
         pTable->changeTable("user_channles");
-        pTable->Insert()->columns(userData)->execute();
-
+        auto listSubscriptionChannel =
+            pTable->Select()
+                  ->columns({"*"})
+                  ->Where("channel_id = " + std::to_string(channel.channelID) + " AND " + "user_id = " + std::to_string(channel.userID))
+                  ->execute();
+        if (listSubscriptionChannel.has_value())
+        {
+            if ((listSubscriptionChannel.value()[0][0].as<std::uint64_t>() == channel.userID)&&(listSubscriptionChannel.value()[0][1].as<std::uint64_t>() == channel.channelID))
+            {
+                return Utility::SubscribingChannelCodes::CHANNEL_ALREADY_BEEN_ADDED;
+            }
+        }
+        // Preparing data for inserting a signed channel.
+        std::tuple userData{std::pair{"user_id", channel.userID}, std::pair{"channel_id", channel.channelID}};
+        auto result = pTable->Insert()->columns(userData)->execute();
+        if (result.has_value())
+        {
+            return Utility::SubscribingChannelCodes::FAILED;
+        }
         return Utility::SubscribingChannelCodes::SUCCESS;
     }
 
