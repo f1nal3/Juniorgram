@@ -49,8 +49,8 @@ namespace Utility
         FAILED,
     };
 
-    /**  @brief Enum for tracking message's deleting status.
-     *   @details Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) /
+    /**  @brief Enum for tracking channel creating status.
+     *   @details Utility::CreateChannelCodes createChannel(const Network::ChannelInfo& channel) /
      *    return one of this codes.
      */
     enum class CreateChannelCodes : std::uint8_t
