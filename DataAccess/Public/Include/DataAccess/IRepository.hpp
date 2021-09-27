@@ -26,6 +26,11 @@ public:
      * @return List of messages as vector of MessageInfo.
      */
     virtual std::vector<Network::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
+
+	/**
+	 * @brief Draft method for getting history for a specific user.
+	 */
+	virtual std::vector<Network::ReplyInfo>   getReplyHistoryForUser(const std::uint64_t channelID) = 0;
     
     /**  @brief Method for storing message.
      *   @param Network::MessageInfo which contains message's data for storing in repository.
@@ -34,7 +39,19 @@ public:
      *   Storing failed     - StoringMessageCodes::FAILED.
      */
     virtual Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& msi) = 0;
+
+    /**
+     * @brief storeReply
+     * @param rsi
+     * @return
+     */
+    virtual Utility::StoringReplyCodes storeReply(const Network::ReplyInfo& rsi) = 0;
     
+    /**
+     * @brief deleteMessage
+     * @param mi
+     * @return
+     */
     virtual Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) = 0;
 
     virtual Utility::EditingMessageCodes editMessage(const Network::MessageInfo& mi, const std::string em) = 0;

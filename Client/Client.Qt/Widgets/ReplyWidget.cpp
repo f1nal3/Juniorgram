@@ -3,8 +3,8 @@
 #include <QPainter>
 #include <QtEvents>
 
-ReplyWidget::ReplyWidget(QString message, QString username, uint64_t messageId, const Style::MessageWidget& st)
-    : _messageText(message), _username(username), _messageId(messageId), _st(st)
+ReplyWidget::ReplyWidget(QString message, QString username, uint64_t messageId, uint64_t userId, const Style::MessageWidget& st)
+    : _messageText(message), _username(username), _messageId(messageId), _userId(userId), _st(st)
 {
     setAttribute(Qt::WA_DeleteOnClose);
 
@@ -17,14 +17,11 @@ ReplyWidget::ReplyWidget(QString message, QString username, uint64_t messageId, 
     _fmtMessageText->move(_st.radius * 2, _st.fontname->height + _st.radius * 4);
     _fmtMessageText->show();
     _closeReplyButton = std::make_unique<FlatButton>(this, "Close", _st.button);
-    _closeReplyButton->setClickCallback([&](){ closeReply(); });
+    _closeReplyButton->setClickCallback([&]() { closeReply(); });
     resize(width(), expectedHeight());
 }
 
-void ReplyWidget::closeReply()
-{
-    this->close();
-}
+void ReplyWidget::closeReply() { this->close(); }
 
 int ReplyWidget::expectedHeight()
 {
@@ -36,7 +33,8 @@ void ReplyWidget::paintEvent(QPaintEvent* e)
 {
     QPainter p(this);
     auto     margin = _st.radius;
-    p.setPen(QPen(Qt::white, 2));    p.setFont(_st.fontname);
+    p.setPen(QPen(Qt::white, 2));
+    p.setFont(_st.fontname);
 
     auto usernameRect = QRect(margin * 2, margin * 2 + 1, _st.fontname->width(_username), _st.fontname->height);
     p.drawText(usernameRect, _username);

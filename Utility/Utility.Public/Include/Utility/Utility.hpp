@@ -28,6 +28,17 @@ namespace Utility
         FAILED,
     };
 
+    /**
+     * @brief Enum for traking replies storing status.
+     * @details Utility::StoringReplyCodes storeReply(const Network::ReplyInfo& ri) /
+     *    return one of this codes.
+     */
+    enum class StoringReplyCodes : std::uint8_t
+    {
+        SUCCESS,
+        FAILED,
+    };
+
     /**  @brief Enum for tracking message's deleting status.
      *   @details Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) /
      *    return one of this codes.

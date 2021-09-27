@@ -1,12 +1,8 @@
 #include "ReplyMessageWidget.hpp"
 
-ReplyMessageWidget::ReplyMessageWidget(QWidget* history, QString message, uint64_t messageId, QString username,
-                                     const Style::MessageWidget& st)
-    : QWidget(history),
-      _messageId(messageId),
-      _messageText(std::move(message)),
-      _username(std::move(username)),
-      _st(st)
+ReplyMessageWidget::ReplyMessageWidget(QWidget* history, QString message, uint64_t messageId, QString username, uint64_t userId,
+                                       const Style::MessageWidget& st)
+    : QWidget(history), _messageId(messageId), _messageText(std::move(message)), _username(std::move(username)), _userId(userId), _st(st)
 {
     setContentsMargins(QMargins(_st.radius, _st.radius, _st.radius, _st.radius));
     setMinimumHeight(_st.fontname->height + _st.radius * 2);

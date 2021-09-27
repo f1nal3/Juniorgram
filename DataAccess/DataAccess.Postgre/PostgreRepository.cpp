@@ -52,6 +52,33 @@ std::vector<Network::MessageInfo> PostgreRepository::getMessageHistoryForUser(co
     return result;
 }
 
+std::vector<Network::ReplyInfo> PostgreRepository::getReplyHistoryForUser(const std::uint64_t channelID)
+{
+    std::vector<Network::ReplyInfo> result;
+
+    pTable->changeTable("replies");
+    auto replyHistoryRow = pTable->Select()
+                                 ->columns({"*"})
+                                 ->join(Utility::SQLJoinType::J_INNER, "channel_replies", "channel_replies.msg_id_owner = replies.msg_id_owner")
+                                 ->Where("channel_replies.channel_id = " + std::to_string(channelID))
+                                 ->execute();
+    if(replyHistoryRow.has_value())
+    {
+        Network::ReplyInfo ri;
+        ri.channelID = channelID;
+        for(auto i = 0; i < replyHistoryRow.value().size(); ++i)
+        {
+            ri.senderID = replyHistoryRow.value()[i][0].as<std::uint64_t>();
+            ri.msgIdOwner = replyHistoryRow.value()[i][1].as<std::uint64_t>();
+            ri.msgID    = replyHistoryRow.value()[i][2].as<std::uint64_t>();
+            ri.message  = replyHistoryRow.value()[i][3].as<std::string>();
+            result.emplace_back(ri);
+        }
+
+    }
+    return result;
+}
+
 Utility::RegistrationCodes PostgreRepository::registerUser(const Network::RegistrationInfo& ri) const
 {
     static UsersAmountFinder finder;
@@ -108,6 +135,27 @@ Utility::StoringMessageCodes PostgreRepository::storeMessage(const Network::Mess
     return Utility::StoringMessageCodes::SUCCESS;
 }
 
+Utility::StoringReplyCodes PostgreRepository::storeReply(const Network::ReplyInfo& rsi)
+{
+    const auto firstResult = insertReplyIntoRepliesTable(rsi);
+    if (!firstResult.has_value())
+    {
+        std::cerr << "Insert reply into 'replies' table failed" << std::endl;
+        return Utility::StoringReplyCodes::FAILED;
+    }
+
+    const auto currentReplyID = firstResult.value()[0][0].as<std::uint64_t>();
+
+    const auto secondResult = insertIDsIntoChannelRepliesTable(rsi.channelID, currentReplyID);
+    if (!secondResult.has_value())
+    {
+        std::cerr << "Insert reply into 'channel_replies' table failed" << std::endl;
+        return Utility::StoringReplyCodes::FAILED;
+    }
+
+    return Utility::StoringReplyCodes::SUCCESS;
+}
+
 Utility::DeletingMessageCodes PostgreRepository::deleteMessage(const Network::MessageInfo& mi) 
 {
     using Utility::DeletingMessageCodes;
@@ -133,8 +181,14 @@ Utility::EditingMessageCodes PostgreRepository::editMessage(const Network::Messa
     }
 
     pTable->changeTable("msgs");
-    pTable->
-    
+    pTable->Update()
+          ->fields(std::pair{"msg", em})
+          ->Where("msg_id=" + std::to_string(mi.msgID))
+          ->And("msg='" + mi.message + "'")->execute();
+
+    auto updatedMessage = pTable->Select()->columns({"ms"})  
+
+    return Utility::EditingMessageCodes::SUCCESS;
 }
 
 std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageInfo& mi)
@@ -150,17 +204,49 @@ std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(co
     return pTable->Insert()->columns(dataForMsgs)->returning({"msg_id"})->execute();
 }
 
-std::optional<pqxx::result> PostgreRepository::insertIDsIntoChannelMessagesTable(const std::uint64_t chinnelID,
+std::optional<pqxx::result> PostgreRepository::insertReplyIntoRepliesTable(const Network::ReplyInfo& rsi)
+{
+    pTable->changeTable("msgs");
+    auto lastMsgID = pTable->Select()
+                           ->columns({"MAX(msg_id)"})
+                           ->execute();
+
+    std::tuple dataForReplies
+    {
+        std::pair{"sender_id", rsi.senderID},
+        std::pair{"msg_id_owner", lastMsgID.value()[0][0].as<std::uint64_t>()},
+        std::pair{"msg_id_ref", rsi.msgID},
+        std::pair{"msg", rsi.message}
+    };
+
+    pTable->changeTable("replies");
+    return pTable->Insert()->columns(dataForReplies)->returning({"msg_id_owner"})->execute();
+}
+
+std::optional<pqxx::result> PostgreRepository::insertIDsIntoChannelMessagesTable(const std::uint64_t channelID,
                                                                                  const std::uint64_t messageID)
 {
     std::tuple dataForChannelMsgs
     {
-        std::pair{"channel_id", chinnelID}, 
+        std::pair{"channel_id", channelID},
         std::pair{"msg_id", messageID}
     };
 
     pTable->changeTable("channel_msgs");
     return pTable->Insert()->columns(dataForChannelMsgs)->returning({"channel_id"})->execute();
+}
+
+std::optional<pqxx::result> PostgreRepository::insertIDsIntoChannelRepliesTable(const std::uint64_t channelID,
+                                                                                const std::uint64_t replyID)
+{
+    std::tuple dataForChannelReplies
+    {
+        std::pair{"channel_id", channelID},
+        std::pair{"msg_id_owner", replyID}
+    };
+
+    pTable->changeTable("channel_replies");
+    return pTable->Insert()->columns(dataForChannelReplies)->returning({"channel_id"})->execute();
 }
 
 std::optional<pqxx::result> PostgreRepository::insertIDIntoMessageReactionsTable(const std::uint64_t messageID)

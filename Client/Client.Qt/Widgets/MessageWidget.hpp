@@ -74,8 +74,21 @@ public:
     /// Message DB
     bool isTheMessage(uint64_t messageId, uint64_t userId) const { return messageId == _messageId && userId == _userId; }
 
+    /**
+     * @brief Method for get ID of message.
+     * @return Message ID in the format uint64_t
+     */
+    uint64_t getMessageID() const { return _messageId; }
+
 public slots:
+    /**
+     * @brief Method a method for deleting a message on the client side
+     * and sending a deletion request to the server.
+     */
     void onDelete();
+    /**
+     * @brief Method for create new reply for message.
+     */
     void createReply();
 
 signals:

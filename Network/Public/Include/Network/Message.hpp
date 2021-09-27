@@ -39,7 +39,11 @@ struct Message
         MessageDeleteRequest,
         MessageDeleteAnswer,
         MessageEditRequest,
-        MessageEditAnswer
+        MessageEditAnswer,
+        ReplyHistoryRequest,
+        ReplyHistoryAnswer,
+        ReplyStoreRequest,
+        ReplyStoreAnswer
     };
 
     /**
