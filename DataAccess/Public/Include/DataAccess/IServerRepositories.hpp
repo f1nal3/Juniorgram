@@ -23,6 +23,9 @@ struct IMessagesRepository : IMasterRepository
     /// Virtual method for delete Message
     virtual Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) = 0;
 
+    /// Virtual method for editing Message
+    virtual Utility::EditingMessageCodes editMessage(const Network::MessageInfo& mi, const std::string em) = 0;
+
     /// Default virtual destructor
     virtual ~IMessagesRepository() = default;
 };
@@ -34,6 +37,9 @@ struct IRepliesRepository : IMasterRepository
 {
     /// Virtual method for geting Reply History
     virtual std::vector<Network::ReplyInfo> getReplyHistory(const std::uint64_t channelID) = 0;
+
+    /// Virtual method for inserting Reply message
+    virtual Utility::StoringReplyCodes      storeReply(const Network::ReplyInfo& rsi) = 0;
 
     /// Default virtual destructor
     virtual ~IRepliesRepository() = default;
@@ -69,7 +75,7 @@ struct IRegisterRepository : IMasterRepository
 struct ILoginRepository : IMasterRepository
 {
     /// Virtual method for login User
-    virtual std::uint64_t loginUser(const std::string& login, std::string& pwdHash) = 0;
+    virtual std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) = 0;
 
     /// Default virtual destructor
     virtual ~ILoginRepository() = default;

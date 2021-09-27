@@ -184,9 +184,14 @@ Utility::EditingMessageCodes PostgreRepository::editMessage(const Network::Messa
     pTable->Update()
           ->fields(std::pair{"msg", em})
           ->Where("msg_id=" + std::to_string(mi.msgID))
-          ->And("msg='" + mi.message + "'")->execute();
+          ->And("msg='" + mi.message + "'")->execute(); 
 
-    auto updatedMessage = pTable->Select()->columns({"ms"})  
+    auto updatedMessage = pTable->Select()
+                                ->columns({*})
+                                ->Where("msg_id=" + std::string(mi.msgID))
+                                ->And("sender_id=" + std::to_string(mi.senderID));
+
+                                
 
     return Utility::EditingMessageCodes::SUCCESS;
 }

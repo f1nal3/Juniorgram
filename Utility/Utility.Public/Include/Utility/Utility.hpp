@@ -50,8 +50,8 @@ namespace Utility
     };
 
     /**  @brief Enum for tracking message's editing status.
-     *   @details Utility::EditingMessageCodes deleteMessage(const Network::MessageInfo& mi) /
-     *    return one of this codes. !!!!!!!!!!!!!!
+     *   @details Utility::EditingMessageCodes editMessage(const Network::MessageInfo& mi, const std::string em) /
+     *    return one of this codes.
      */
     enum class EditingMessageCodes : std::uint8_t
     {

@@ -1,6 +1,7 @@
 #include "Server.hpp"
 #include "Network/Primitives.hpp"
-#include "DataAccess.Postgre/PostgreRepository.hpp"
+#include "DataAccess.Postgre/PostgreRepositories.hpp"
+#include "DataAccess.Postgre/PostgreRepositoryContainer.hpp"
 
 #include <future>
 
@@ -67,8 +68,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::ChannelListRequest:
         {
-            auto future = std::async(std::launch::async, &DataAccess::IRepository::getAllChannelsList,
-                                        mPostgreRepo.get());
+            auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
+            auto future = std::async(std::launch::async, &DataAccess::IChannelsRepository::getAllChannelsList, IChannelRep);
 
             Network::Message msg;
             msg.mHeader.mMessageType = Network::Message::MessageType::ChannelListRequest;
@@ -83,9 +84,9 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         case Network::Message::MessageType::MessageHistoryRequest:
         {
             const auto channelID = std::any_cast<std::uint64_t>(message.mBody);
-            auto future =
-                std::async(std::launch::async, &DataAccess::IRepository::getMessageHistoryForUser,
-                                mPostgreRepo.get(), channelID); 
+
+            auto IMessageRep = mPostgreRepo->getRepository<DataAccess::IMessagesRepository>();
+            auto future      = std::async(std::launch::async, &DataAccess::IMessagesRepository::getMessageHistory, IMessageRep, channelID); 
 
             Network::Message msg;
             msg.mHeader.mMessageType = Network::Message::MessageType::MessageHistoryAnswer;
@@ -102,8 +103,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
             mi.senderID = client->getUserID();
 
-            auto future = std::async(std::launch::async, &DataAccess::IRepository::storeMessage,
-                           mPostgreRepo.get(), mi);
+            auto IMessageRep = mPostgreRepo->getRepository<DataAccess::IMessagesRepository>();
+            auto future      = std::async(std::launch::async, &DataAccess::IMessagesRepository::storeMessage,   IMessageRep, mi);
 
             Network::Message answerForClient;
             answerForClient.mHeader.mMessageType = Network::Message::MessageType::MessageStoreAnswer;
@@ -118,9 +119,9 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         case Network::Message::MessageType::ReplyHistoryRequest:
         {
             const auto channelID = std::any_cast<std::uint64_t>(message.mBody);
-            auto future =
-                    std::async(std::launch::async, &DataAccess::IRepository::getReplyHistoryForUser,
-                               mPostgreRepo.get(), channelID);
+
+            auto IReplyRep = mPostgreRepo->getRepository<DataAccess::IRepliesRepository>();
+            auto future    = std::async(std::launch::async, &DataAccess::IRepliesRepository::getReplyHistory, IReplyRep, channelID);
 
             Network::Message replyMsg;
             replyMsg.mHeader.mMessageType = Network::Message::MessageType::ReplyHistoryAnswer;
@@ -137,8 +138,9 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto ri = std::any_cast<Network::ReplyInfo>(message.mBody);
             ri.senderID = client->getUserID();
 
-            auto future = std::async(std::launch::async, &DataAccess::IRepository::storeReply,
-                                     mPostgreRepo.get(), ri);
+            auto IReplyRep = mPostgreRepo->getRepository<DataAccess::IRepliesRepository>();
+            auto future    = std::async(std::launch::async, &DataAccess::IRepliesRepository::storeReply,
+                                     IReplyRep, ri);
 
             Network::Message answerForClient;
             answerForClient.mHeader.mMessageType = Network::Message::MessageType::ReplyStoreAnswer;
@@ -155,8 +157,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
             mi.senderID = client->getUserID();
 
-            auto future = std::async(std::launch::async, &DataAccess::IRepository::deleteMessage, 
-                            mPostgreRepo.get(), mi);
+            auto IMessageRep = mPostgreRepo->getRepository<DataAccess::IMessagesRepository>();
+            auto future      = std::async(std::launch::async, &DataAccess::IMessagesRepository::deleteMessage, IMessageRep, mi);
 
             Network::Message answerForClient;
             answerForClient.mHeader.mMessageType = Network::Message::MessageType::MessageDeleteAnswer;
@@ -167,12 +169,28 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         }
         break;
 
+        case Network::Message::MessageType::MessageEditRequest:
+        {
+            auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
+            mi.senderID = client->getUserID();
+
+            auto IMessageRep = mPostgreRepo->getRepository<DataAccess::IMessagesRepository>();
+            auto future      = std::async(std::launch::async, &DataAccess::IMessagesRepository::editMessage, IMessageRep, mi, em);
+
+            Network::Message answerForClient;
+            answerForClient.mHeader.mMessageType = Network::Message::MessageType::MessageEditAnswer;
+
+            const auto editingMessageCode = future.get();
+            answerForClient.mBody         = std::make_any<Utility::EditingMessageCodes>(editingMessageCode);
+            client->send(answerForClient);
+        }
+
         case Network::Message::MessageType::RegistrationRequest:
         {
             auto ri = std::any_cast<Network::RegistrationInfo>(message.mBody);
             
-            auto future = std::async(std::launch::async, &DataAccess::IRepository::registerUser, 
-                                        mPostgreRepo.get(), ri);
+            auto IRegisterRep = mPostgreRepo->getRepository<DataAccess::IRegisterRepository>();
+            auto future       = std::async(std::launch::async, &DataAccess::IRegisterRepository::registerUser, IRegisterRep, ri);
         
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::RegistrationAnswer;
@@ -188,9 +206,10 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             Network::LoginInfo loginInfo = std::any_cast<Network::LoginInfo>(message.mBody);
 
-            auto future = std::async(std::launch::async, &DataAccess::IRepository::loginUser,
-                                        mPostgreRepo.get(), loginInfo.login, loginInfo.pwdHash);
-
+            auto ILoginRep = mPostgreRepo->getRepository<DataAccess::ILoginRepository>();
+            auto future    = std::async(std::launch::async, &DataAccess::ILoginRepository::loginUser,
+                                        ILoginRep, loginInfo.login, loginInfo.pwdHash);
+            
             auto userID = future.get();
             auto loginSuccessful = userID != 0;
             
@@ -224,7 +243,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
 Server::Server(const uint16_t& port)
     : mAcceptor(mContext, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port)),
-      mPostgreRepo(new DataAccess::PostgreRepository)
+      mPostgreRepo(std::make_unique<DataAccess::PostgreRepositoryContainer>(DataAccess::PostgreAdapter::getInstance<DataAccess::PostgreAdapter>()))
 {
 }
 
@@ -252,6 +271,17 @@ bool Server::start()
         std::cerr << "[SERVER] Exception: " << exception.what() << "\n";
         return false;
     }
+}
+
+void Server::registerRepositories()
+{ 
+    using namespace DataAccess;
+
+    mPostgreRepo->registerRepository<IChannelsRepository, ChannelsRepository>();
+    mPostgreRepo->registerRepository<ILoginRepository   , LoginRepository   >();
+    mPostgreRepo->registerRepository<IMessagesRepository, MessagesRepository>();
+    mPostgreRepo->registerRepository<IRegisterRepository, RegisterRepository>();
+    mPostgreRepo->registerRepository<IRepliesRepository , RepliesRepository >();
 }
 
 void Server::stop()

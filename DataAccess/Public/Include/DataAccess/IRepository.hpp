@@ -1,8 +1,8 @@
 #pragma once
 #include <Network/Primitives.hpp>
+#include <Utility/Utility.hpp>
 #include <string>
 #include <vector>
-#include <Utility/Utility.hpp>
 
 namespace DataAccess
 {
@@ -27,10 +27,10 @@ public:
      */
     virtual std::vector<Network::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
 
-	/**
-	 * @brief Draft method for getting history for a specific user.
-	 */
-	virtual std::vector<Network::ReplyInfo>   getReplyHistoryForUser(const std::uint64_t channelID) = 0;
+	  /**
+	   * @brief Draft method for getting history for a specific user.
+	   */
+	  virtual std::vector<Network::ReplyInfo>   getReplyHistoryForUser(const std::uint64_t channelID) = 0;
     
     /**  @brief Method for storing message.
      *   @param Network::MessageInfo which contains message's data for storing in repository.
@@ -39,7 +39,7 @@ public:
      *   Storing failed     - StoringMessageCodes::FAILED.
      */
     virtual Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& msi) = 0;
-
+  
     /**
      * @brief storeReply
      * @param rsi
@@ -54,6 +54,12 @@ public:
      */
     virtual Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) = 0;
 
+    /**
+     * @brief editMessage
+     * @param mi 
+     * @param em which contains text of edited message
+     * @return
+     */
     virtual Utility::EditingMessageCodes editMessage(const Network::MessageInfo& mi, const std::string em) = 0;
 
     /**  @brief Method for user registration.
@@ -71,7 +77,7 @@ public:
      * @param login user login as string
      * @param pwdHash password hash
      * @return userID if provided hash is the same as stored in repository, 0 stands for failed login
-     */ 
+     */
     virtual std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) = 0;
     /**
      * @brief Virtual dtor.
