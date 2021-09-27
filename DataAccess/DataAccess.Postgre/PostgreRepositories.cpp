@@ -35,13 +35,29 @@ namespace DataAccess
             }
         }
 
-        std::tuple channelInfoData{std::pair{"channel_name", channel.channelName}, std::pair{"creator_id", channel.creatorID}};
-        auto       result = pTable->Insert()->columns(channelInfoData)->execute();
+        std::tuple channelData
+        {
+            std::pair{"channel_name", channel.channelName},
+            std::pair{"creator_id", channel.creatorID}
+        };
+        auto       result = pTable->Insert()->columns(channelData)->execute();
 
         if (result.has_value())
         {
             return Utility::CreateChannelCodes::FAILED;
         }
+
+        auto newChannel = pTable->Select()->columns({"id"})->Where("channel_name = '" + channel.channelName + "'")->execute();
+        auto IDNewChannel = newChannel.value()[0][0].as<uint64_t>();
+
+        std::tuple SubscribNewChannelData
+        {
+            std::pair{"user_id", channel.creatorID},
+            std::pair{"channel_id", IDNewChannel}
+        };
+
+        pTable->changeTable("user_channles");
+        pTable->Insert()->columns(SubscribNewChannelData)->execute();
         return Utility::CreateChannelCodes::SUCCESS;
     }
 
