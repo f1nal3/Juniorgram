@@ -25,6 +25,23 @@ namespace DataAccess
 
     Utility::CreateChannelCodes ChannelsRepository::createChannel(const Network::ChannelInfo& channel)
     {
+        pTable->changeTable("channels");
+        auto findChannel = pTable->Select()->columns({"channel_name"})->Where("channel_name = '" + channel.channelName + "'")->execute();
+        if (findChannel.has_value())
+        {
+            if (findChannel.value()[0][0].as<std::string>() == channel.channelName)
+            {
+                return Utility::CreateChannelCodes::CHANNEL_ALREADY_CREATE;
+            }
+        }
+
+        std::tuple channelInfoData{std::pair{"channel_name", channel.channelName}, std::pair{"creator_id", channel.creatorID}};
+        auto       result = pTable->Insert()->columns(channelInfoData)->execute();
+
+        if (result.has_value())
+        {
+            return Utility::CreateChannelCodes::FAILED;
+        }
         return Utility::CreateChannelCodes::SUCCESS;
     }
 
