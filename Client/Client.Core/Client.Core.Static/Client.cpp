@@ -315,6 +315,7 @@ void Client::loop()
                 auto code = std::any_cast<Utility::StoringReplyCodes>(message.mBody);
                 onReplyStoreAnswer(code);
             }
+            break;
 
             case MessageType::ChannelCreateAnswer:
             {
