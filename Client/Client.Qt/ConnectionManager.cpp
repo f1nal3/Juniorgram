@@ -117,9 +117,9 @@ void ConnectionManager::onChannelDeleteAnswer(Utility::ChannelDeleteCode channel
     {
         std::cout << "FAILD DELETING" << std::endl;
     }
-    else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_ALREADY_DELETED)
+    else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_NON_USER)
     {
-        std::cout << "CHANNEL ALREADY DELETED" << std::endl;
+        std::cout << "NON-USER CHANNEL" << std::endl;
     }
     qRegisterMetaType<Utility::ChannelDeleteCode>("Utility::ChannelDeleteCode");
     emit ReceiverManager::instance()->onChannelDeleteAnswer(channelDeleteCode);

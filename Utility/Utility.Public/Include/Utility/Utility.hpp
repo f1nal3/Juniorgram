@@ -56,7 +56,7 @@ namespace Utility
     enum class ChannelDeleteCode : std::uint8_t
     {
         CHANNEL_NOT_FOUND,
-        CHANNEL_ALREADY_DELETED,
+        CHANNEL_NON_USER,
         SUCCESS,
         FAILED,
     };

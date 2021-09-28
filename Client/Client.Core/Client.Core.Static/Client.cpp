@@ -319,8 +319,8 @@ void Client::loop()
 
             case MessageType::ChannelDeleteAnswer:
             {
-                auto ChannelLeavecode = std::any_cast<Utility::ChannelDeleteCode>(message.mBody);
-                onChannelDeleteAnswer(ChannelLeavecode);
+                auto channelDeleteCode = std::any_cast<Utility::ChannelDeleteCode>(message.mBody);
+                onChannelDeleteAnswer(channelDeleteCode);
             }
             break;
 
