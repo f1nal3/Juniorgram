@@ -319,8 +319,8 @@ void Client::loop()
 
             case MessageType::ChannelLeaveAnswer:
             {
-                auto leaveChannelcode = std::any_cast<Utility::ChannelLeavedCode>(message.mBody);
-                onLeaveChannelAnswer(leaveChannelcode);
+                auto ChannelLeavecode = std::any_cast<Utility::ChannelLeavedCode>(message.mBody);
+                onChannelLeaveAnswer(ChannelLeavecode);
             }
             break;
 
@@ -400,10 +400,10 @@ void Client::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
     std::cerr << "[Client][Warning] reply store answer is not implemented\n";
 }
 
-void Client::onLeaveChannelAnswer(Utility::ChannelLeavedCode leaveChannelCode)
+void Client::onChannelLeaveAnswer(Utility::ChannelLeavedCode ChannelLeaveCode)
 {
-    (void)(leaveChannelCode);
-    std::cerr << "[Client][Warning] create channel answer is not implemented\n";
+    (void)(ChannelLeaveCode);
+    std::cerr << "[Client][Warning] leave channel answer is not implemented\n";
 }
 
 }  // namespace Network
