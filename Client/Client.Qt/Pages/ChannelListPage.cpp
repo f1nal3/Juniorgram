@@ -25,14 +25,7 @@ ChannelListPage::ChannelListPage(std::shared_ptr<ListWidget>& anotherChannelList
     connect(ReceiverManager::instance(), &ReceiverManager::onChannelListRequest, this, &ChannelListPage::setChannels);
 
     _addChannelButton->setClickCallback([this]() { addChannelToMainChannelWidget(); });
-    _updateChannelButton->setClickCallback([this]()
-        { 
-            //requestChannels();
-            if (oApp->connectionManager()->isConnected())
-            {
-                oApp->connectionManager()->leaveChannel("New channel 2");
-            }
-        });
+    _updateChannelButton->setClickCallback([this]() { requestChannels(); });
     requestChannels();
 
     setLayout(_vBoxLayout.get());

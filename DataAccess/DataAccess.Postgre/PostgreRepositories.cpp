@@ -23,7 +23,7 @@ namespace DataAccess
         return result;
     }
 
-    Utility::CreateLeaveCode ChannelsRepository::leaveChannel(const Network::ChannelInfo& channel)
+    Utility::CreateLeaveCode ChannelsRepository::leaveChannel(const Network::ChannelLeaveInfo& channel)
     {
         return Utility::CreateLeaveCode::SUCCESS;
     }

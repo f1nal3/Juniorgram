@@ -219,10 +219,10 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::ChannelLeaveRequest:
         {
-            Network::ChannelInfo newChennelInfo;
-            std::string          channelName = std::any_cast<std::string>(message.mBody);
-            newChennelInfo.creatorID         = client->getUserID();
-            newChennelInfo.channelName       = channelName;
+            Network::ChannelLeaveInfo newChennelInfo;
+            std::string               channelName = std::any_cast<std::string>(message.mBody);
+            newChennelInfo.userID                 = client->getUserID();
+            newChennelInfo.channelName            = channelName;
 
             auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
             auto future      = std::async(std::launch::async, &DataAccess::IChannelsRepository::leaveChannel, IChannelRep, newChennelInfo);
