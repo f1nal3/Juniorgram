@@ -49,11 +49,11 @@ void serialize(Archive& ar, Network::ChannelInfo& o)
 }
 
 /**
- * @brief The SubscriptionChannelInfo struct
+ * @brief The ChannelSubscriptionInfo struct
  * @details Channel Info struct for information about the channel that the user subscribed.
  *          contain channel ID.
  */
-struct SubscriptionChannelInfo
+struct ChannelSubscriptionInfo
 {
     /// channel ID uint64_t variable
     std::uint64_t channelID;
@@ -62,18 +62,18 @@ struct SubscriptionChannelInfo
 
 public:
     /// Default ChannelInfo constructor
-    SubscriptionChannelInfo() = default;
+    ChannelSubscriptionInfo() = default;
 
     /// ChannelInfo constructor with initializing list
-    SubscriptionChannelInfo(const std::uint64_t channelID)
+    ChannelSubscriptionInfo(const std::uint64_t channelID)
         : channelID(channelID)
     {
     }
-    /// Default SubscriptionChannelInfo destructor
-    ~SubscriptionChannelInfo() = default;
+    /// Default ChannelSubscriptionInfo destructor
+    ~ChannelSubscriptionInfo() = default;
 
     /// Operator == to compare channel info
-    friend bool operator==(const SubscriptionChannelInfo& first, const SubscriptionChannelInfo& second)
+    friend bool operator==(const ChannelSubscriptionInfo& first, const ChannelSubscriptionInfo& second)
     {
         return first.channelID == second.channelID && first.userID == second.userID;
     }
@@ -81,10 +81,10 @@ public:
 
 /**
  * @brief helper function for serializing
- * @ref SubscriptionChannelInfo structure
+ * @ref ChannelSubscriptionInfo structure
  */
 template <typename Archive>
-void serialize(Archive& ar, Network::SubscriptionChannelInfo& o)
+void serialize(Archive& ar, Network::ChannelSubscriptionInfo& o)
 {
     ar& o.channelID;
 }

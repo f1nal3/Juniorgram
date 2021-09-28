@@ -202,7 +202,7 @@ namespace DataAccess
         return result;
     }
 
-    Utility::SubscribingChannelCodes ChannelsRepository::subscriptionChannel(const Network::SubscriptionChannelInfo& channel)
+    Utility::ChannelSubscribingCodes ChannelsRepository::subscriptionChannel(const Network::ChannelSubscriptionInfo& channel)
     {
         pTable->changeTable("user_channles");
         auto listSubscriptionChannel =
@@ -214,7 +214,7 @@ namespace DataAccess
         {
             if ((listSubscriptionChannel.value()[0][0].as<std::uint64_t>() == channel.userID)&&(listSubscriptionChannel.value()[0][1].as<std::uint64_t>() == channel.channelID))
             {
-                return Utility::SubscribingChannelCodes::CHANNEL_ALREADY_BEEN_ADDED;
+                return Utility::ChannelSubscribingCodes::CHANNEL_ALREADY_BEEN_ADDED;
             }
         }
         // Preparing data for inserting a signed channel.
@@ -222,9 +222,9 @@ namespace DataAccess
         auto result = pTable->Insert()->columns(userData)->execute();
         if (result.has_value())
         {
-            return Utility::SubscribingChannelCodes::FAILED;
+            return Utility::ChannelSubscribingCodes::FAILED;
         }
-        return Utility::SubscribingChannelCodes::SUCCESS;
+        return Utility::ChannelSubscribingCodes::SUCCESS;
     }
 
     std::vector<uint64_t> ChannelsRepository::getSubscriptionChannelList(const uint64_t& userID) 

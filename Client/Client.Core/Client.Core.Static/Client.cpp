@@ -217,9 +217,9 @@ void Client::subscriptionChannel(const std::uint64_t channelID) const
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ChannelSubscribeRequest;
 
-    Network::SubscriptionChannelInfo ri;
+    Network::ChannelSubscriptionInfo ri;
     ri.channelID         = channelID;
-    networkMessage.mBody = std::make_any<Network::SubscriptionChannelInfo>(ri);
+    networkMessage.mBody = std::make_any<Network::ChannelSubscriptionInfo>(ri);
     send(networkMessage);
 }
 
@@ -314,8 +314,8 @@ void Client::loop()
 
             case MessageType::ChannelSubscribeAnswer:
             {
-                auto code = std::any_cast<Utility::SubscribingChannelCodes>(message.mBody);
-                onSubscribingChannelAnswer(code);
+                auto code = std::any_cast<Utility::ChannelSubscribingCodes>(message.mBody);
+                onChannelSubscribingAnswer(code);
             }
             break;
 
@@ -402,7 +402,7 @@ void Client::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
     std::cerr << "[Client][Warning] reply store answer is not implemented\n";
 }
 
-void Client::onSubscribingChannelAnswer(Utility::SubscribingChannelCodes subscribingChannelCode)
+void Client::onChannelSubscribingAnswer(Utility::ChannelSubscribingCodes subscribingChannelCode)
 {
     (void)(subscribingChannelCode);
     std::cerr << "[Client][Warning] subscribing channel is not implemented\n";

@@ -95,15 +95,15 @@ public:
                     break;
 
                 case Message::MessageType::ChannelSubscribeRequest:
-                    state = processOutcomingMessageBody<SubscriptionChannelInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<ChannelSubscriptionInfo>(bodyBuffer, message.mBody);
                     break;
 
                 case Message::MessageType::ChannelSubscribeAnswer:
-                    state = processOutcomingMessageBody<Utility::SubscribingChannelCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::ChannelSubscribingCodes>(bodyBuffer, message.mBody);
                     break;
 
                 case Message::MessageType::ChannelSubscribeListRequest:
-                    state = processOutcomingMessageBody<SubscriptionChannelInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<ChannelSubscriptionInfo>(bodyBuffer, message.mBody);
                     break;
 
                 case Message::MessageType::ChannelSubscribeListAnswer:
@@ -223,17 +223,17 @@ public:
             }
             case Message::MessageType::ChannelSubscribeRequest:
             {
-                state = processIncomingMessageBody<SubscriptionChannelInfo>(buffer, message);
+                state = processIncomingMessageBody<ChannelSubscriptionInfo>(buffer, message);
                 break;
             }
             case Message::MessageType::ChannelSubscribeAnswer:
             {
-                state = processIncomingMessageBody<Utility::SubscribingChannelCodes>(buffer, message);
+                state = processIncomingMessageBody<Utility::ChannelSubscribingCodes>(buffer, message);
                 break;
             }
             case Message::MessageType::ChannelSubscribeListRequest:
             {
-                state = processIncomingMessageBody<SubscriptionChannelInfo>(buffer, message);
+                state = processIncomingMessageBody<ChannelSubscriptionInfo>(buffer, message);
                 break;
             }
             case Message::MessageType::ChannelSubscribeListAnswer:

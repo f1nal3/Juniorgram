@@ -54,7 +54,7 @@ signals:
     /// Reply Store Answer handler
     void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
     /// Subscription channel Answer handler
-    void onSubscriptionChannelAnswer(const Utility::SubscribingChannelCodes subscribingChannelCode);
+    void onSubscriptionChannelAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode);
     /// Subscription channel Answer handler
     void onSubscribingChannelListAnswer(const std::vector<uint64_t> subscribingChannelList);
 
@@ -105,7 +105,7 @@ protected:
     /// Reply Store Answer handler
     void onReplyStoreAnswer(const Utility::StoringReplyCodes storingReplyCode) override;
     /// Subscription channel Answer handler
-    void onSubscribingChannelAnswer(const Utility::SubscribingChannelCodes subscribingChannelCode) override;
+    void onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode) override;
     /// Subscription channel list Answer handler
     void onSubscribingChannelListAnswer(const std::vector<uint64_t> subscribingChannelList) override;
 };

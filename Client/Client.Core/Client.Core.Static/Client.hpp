@@ -127,7 +127,7 @@ protected:
     /// Reply Store Answer handler
     virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
     /// Subscription channel Answer handler
-    virtual void onSubscribingChannelAnswer(const Utility::SubscribingChannelCodes subscribingChannelCode);
+    virtual void onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode);
     /// Subscription channel list Answer handler
     virtual void onSubscribingChannelListAnswer(const std::vector<uint64_t> subscribingChannelList);
 

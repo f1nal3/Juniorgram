@@ -107,17 +107,17 @@ void ConnectionManager::onUserMessageDeleteAnswer(const Utility::DeletingMessage
     emit ReceiverManager::instance()->onUserMessageDeleteAnswer(deletingCode);
 }
 
-void ConnectionManager::onSubscribingChannelAnswer(const Utility::SubscribingChannelCodes subscribingChannelCode)
+void ConnectionManager::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode)
 {
-    if (subscribingChannelCode == Utility::SubscribingChannelCodes::SUCCESS)
+    if (subscribingChannelCode == Utility::ChannelSubscribingCodes::SUCCESS)
     {
         std::cout << "SUCCESS SUBSCRIBING" << std::endl;
     }
-    else if (subscribingChannelCode == Utility::SubscribingChannelCodes::FAILED)
+    else if (subscribingChannelCode == Utility::ChannelSubscribingCodes::FAILED)
     {
         std::cout << "FAILED SUBSCRIBING" << std::endl;
     }
-    qRegisterMetaType<Utility::SubscribingChannelCodes>("Utility::SubscribingChannelCodes");
+    qRegisterMetaType<Utility::ChannelSubscribingCodes>("Utility::ChannelSubscribingCodes");
     emit ReceiverManager::instance()->onSubscriptionChannelAnswer(subscribingChannelCode);
 }
 

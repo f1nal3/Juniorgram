@@ -52,7 +52,7 @@ namespace Utility
     /**  @brief Enum for tracking channel's subscribe status.
      *   @details Utility::ChannelSubscribeCodes.
      */
-    enum class SubscribingChannelCodes : std::uint8_t
+    enum class ChannelSubscribingCodes : std::uint8_t
     {
         CHANNEL_ALREADY_BEEN_ADDED,
         SUCCESS,
