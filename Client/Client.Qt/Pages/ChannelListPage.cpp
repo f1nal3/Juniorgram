@@ -94,9 +94,7 @@ void ChannelListPage::addSubscribeChannelToMainChannelWidget(const std::vector<u
                 _widgetChannelList->addItem(_channelList->takeItem((_channelList->currentRow())));
                 break;
             }
-            else
-                ++row;
-            _channelList->setCurrentRow(row);
+            _channelList->setCurrentRow(++row);
         }
     }
 }
