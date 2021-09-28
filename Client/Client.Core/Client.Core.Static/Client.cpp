@@ -319,8 +319,8 @@ void Client::loop()
 
             case MessageType::ChannelCreateAnswer:
             {
-                auto createChannelcode = std::any_cast<Utility::CreateChannelCode>(message.mBody);
-                onCreateChannelAnswer(createChannelcode);
+                auto channelCreateCode = std::any_cast<Utility::channelCreateCode>(message.mBody);
+                onChannelCreateAnswer(channelCreateCode);
             }
             break;
 
@@ -400,9 +400,9 @@ void Client::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
     std::cerr << "[Client][Warning] reply store answer is not implemented\n";
 }
 
-void Client::onCreateChannelAnswer(Utility::CreateChannelCode createChannelCode)
+void Client::onChannelCreateAnswer(Utility::channelCreateCode channelCreateCode)
 {
-    (void)(createChannelCode);
+    (void)(channelCreateCode);
     std::cerr << "[Client][Warning] create channel answer is not implemented\n";
 }
 

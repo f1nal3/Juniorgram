@@ -23,7 +23,7 @@ namespace DataAccess
         return result;
     }
 
-    Utility::CreateChannelCode ChannelsRepository::createChannel(const Network::ChannelInfo& channel)
+    Utility::channelCreateCode ChannelsRepository::createChannel(const Network::ChannelInfo& channel)
     {
         pTable->changeTable("channels");
         auto findChannel = pTable->Select()->columns({"channel_name"})->Where("channel_name = '" + channel.channelName + "'")->execute();
@@ -31,7 +31,7 @@ namespace DataAccess
         {
             if (findChannel.value()[0][0].as<std::string>() == channel.channelName)
             {
-                return Utility::CreateChannelCode::CHANNEL_ALREADY_CREATED;
+                return Utility::channelCreateCode::CHANNEL_ALREADY_CREATED;
             }
         }
 
@@ -44,7 +44,7 @@ namespace DataAccess
 
         if (result.has_value())
         {
-            return Utility::CreateChannelCode::FAILED;
+            return Utility::channelCreateCode::FAILED;
         }
 
         auto newChannel = pTable->Select()->columns({"id"})->Where("channel_name = '" + channel.channelName + "'")->execute();
@@ -58,7 +58,7 @@ namespace DataAccess
 
         pTable->changeTable("user_channles");
         pTable->Insert()->columns(SubscribNewChannelData)->execute();
-        return Utility::CreateChannelCode::SUCCESS;
+        return Utility::channelCreateCode::SUCCESS;
     }
 
     std::uint64_t                     LoginRepository::loginUser(const std::string& login, const std::string& pwdHash)
