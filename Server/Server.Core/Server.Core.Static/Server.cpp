@@ -231,7 +231,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelLeaveAnswer;
 
             auto subscribingChannelCodes = future.get();
-            messageToClient.mBody        = std::make_any<Utility::CreateLeaveCode>(subscribingChannelCodes);
+            messageToClient.mBody        = std::make_any<Utility::ChannelLeavedCode>(subscribingChannelCodes);
             client->send(messageToClient);
         }
         break;

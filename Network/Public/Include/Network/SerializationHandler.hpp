@@ -99,7 +99,7 @@ public:
                     break;
 
                 case Message::MessageType::ChannelLeaveAnswer:
-                    state = processOutcomingMessageBody<Utility::CreateLeaveCode>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::ChannelLeavedCode>(bodyBuffer, message.mBody);
                     break;
 
                 default:
@@ -220,7 +220,7 @@ public:
             }
             case Message::MessageType::ChannelLeaveAnswer:
             {
-                state = processIncomingMessageBody<Utility::CreateLeaveCode>(buffer, message);
+                state = processIncomingMessageBody<Utility::ChannelLeavedCode>(buffer, message);
                 break;
             }
             default:

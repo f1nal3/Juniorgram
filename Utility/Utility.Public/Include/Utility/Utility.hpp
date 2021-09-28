@@ -49,11 +49,11 @@ namespace Utility
         FAILED,
     };
 
-    /**  @brief Enum for tracking channel creating status.
-     *   @details Utility::CreateLeaveCode createChannel(const Network::ChannelInfo& channel) /
+    /**  @brief Enum for tracking channel leave status.
+     *   @details Utility::ChannelLeavedCode leaveChannel(const std::string channelName) /
      *    return one of this codes.
      */
-    enum class CreateLeaveCode : std::uint8_t
+    enum class ChannelLeavedCode : std::uint8_t
     {
         CHANNEL_NOT_FOUND,
         CHANNEL_ALREADY_LEAVED,

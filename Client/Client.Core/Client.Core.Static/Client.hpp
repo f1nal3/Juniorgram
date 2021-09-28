@@ -69,8 +69,8 @@ public:
      */
     void subscriptionChannel(const std::uint64_t channelID) const;
     /**
-     * @brief Sending the info of the created channel
-     * @param channel info Network::ChannelInfo variable
+     * @brief Sending the name of the leave channel
+     * @param channel name std::string variable
      */
     void leaveChannel(const std::string channelName) const;
     /**
@@ -128,8 +128,8 @@ protected:
     virtual void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
     /// Reply Store Answer handler
     virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);  
-    /// Reply create channel Answer handler
-    virtual void onLeaveChannelAnswer(Utility::CreateLeaveCode createChannelCode);
+    /// Reply leave channel Answer handler
+    virtual void onLeaveChannelAnswer(Utility::ChannelLeavedCode leaveChannelCode);
 
 private:
     asio::io_context _context;
