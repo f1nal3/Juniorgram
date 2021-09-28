@@ -53,6 +53,8 @@ signals:
     void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
     /// Reply Store Answer handler
     void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
+    /// Reply delete channel Answer handler
+    void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
 
 private:
     static ReceiverManager* self;
@@ -100,4 +102,6 @@ protected:
     void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies) override;
     /// Reply Store Answer handler
     void onReplyStoreAnswer(const Utility::StoringReplyCodes storingReplyCode) override;
+    /// Reply delete channel Answer handler
+    void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode) override;
 };

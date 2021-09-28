@@ -107,6 +107,24 @@ void ConnectionManager::onUserMessageDeleteAnswer(const Utility::DeletingMessage
     emit ReceiverManager::instance()->onUserMessageDeleteAnswer(deletingCode);
 }
 
+void ConnectionManager::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode)
+{
+    if (channelDeleteCode == Utility::ChannelDeleteCode::SUCCESS)
+    {
+        std::cout << "SUCCESS DELETING" << std::endl;
+    }
+    else if (channelDeleteCode == Utility::ChannelDeleteCode::SUCCESS)
+    {
+        std::cout << "FAILD DELETING" << std::endl;
+    }
+    else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_ALREADY_DELETED)
+    {
+        std::cout << "CHANNEL ALREADY DELETED" << std::endl;
+    }
+    qRegisterMetaType<Utility::ChannelDeleteCode>("Utility::ChannelDeleteCode");
+    emit ReceiverManager::instance()->onChannelDeleteAnswer(channelDeleteCode);
+}
+
 void ConnectionManager::onDisconnect()
 {
     disconnectFromServer();

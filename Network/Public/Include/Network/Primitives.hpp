@@ -78,6 +78,40 @@ void serialize(Archive& ar, Network::ChannelInfo& o)
 }
 
 /**
+ * @brief The ChannelDeleteInfo struct
+ * @details Channel delete Info struct for information about channels
+ *          contain user ID and channel Name.
+ */
+struct ChannelDeleteInfo
+{
+    /// user ID uint64_t variable
+    std::uint64_t userID;
+    /// channel name string variable
+    std::string channelName;
+
+public:
+    /// Default ChannelDeleteInfo constructor
+    ChannelDeleteInfo() = default;
+    /// ChannelDeleteInfo constructor with initializing list
+    ChannelDeleteInfo(const std::uint64_t userID, const std::string& channelName) : userID(userID), channelName(channelName) {}
+    /// Default ChannelDeleteInfo destructor
+    ~ChannelDeleteInfo() = default;
+
+    /// Operator == to compare channels info
+    friend bool operator==(const ChannelDeleteInfo& first, const ChannelDeleteInfo& second)
+    {
+        return first.userID == second.userID && first.channelName == second.channelName;
+    }
+};
+
+/// Serialize method which serialize each field
+template <typename Archive>
+void serialize(Archive& ar, Network::ChannelDeleteInfo& o)
+{
+    ar& o.userID& o.channelName;
+}
+
+/**
  * @brief Struct for storing and transmitting login information
  */
 struct LoginInfo

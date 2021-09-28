@@ -217,6 +217,25 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         }
         break;
 
+        case Network::Message::MessageType::ChannelDeleteRequest:
+        {
+            Network::ChannelDeleteInfo deletedChennelInfo;
+            std::string               channelName = std::any_cast<std::string>(message.mBody);
+            deletedChennelInfo.userID              = client->getUserID();
+            deletedChennelInfo.channelName         = channelName;
+
+            auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
+            auto future = std::async(std::launch::async, &DataAccess::IChannelsRepository::deleteChannel, IChannelRep, deletedChennelInfo);
+
+            Network::Message messageToClient;
+            messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelDeleteAnswer;
+
+            auto deletedChannelCodes = future.get();
+            messageToClient.mBody        = std::make_any<Utility::ChannelDeleteCode>(deletedChannelCodes);
+            client->send(messageToClient);
+        }
+        break;
+
         default:
         {
             std::cerr << "Unknows command received\n";

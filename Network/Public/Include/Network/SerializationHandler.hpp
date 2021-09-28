@@ -94,6 +94,14 @@ public:
                     state = processOutcomingMessageBody<bool>(bodyBuffer, message.mBody);
                     break;
 
+                case Message::MessageType::ChannelDeleteRequest:
+                    state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::ChannelDeleteAnswer:
+                    state = processOutcomingMessageBody<Utility::ChannelDeleteCode>(bodyBuffer, message.mBody);
+                    break;
+
                 default:
                     break;
             }
@@ -203,6 +211,16 @@ public:
             case Message::MessageType::LoginAnswer:
             {
                 state = processIncomingMessageBody<bool>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ChannelDeleteRequest:
+            {
+                state = processIncomingMessageBody<std::string>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ChannelDeleteAnswer:
+            {
+                state = processIncomingMessageBody<Utility::ChannelDeleteCode>(buffer, message);
                 break;
             }
             default:

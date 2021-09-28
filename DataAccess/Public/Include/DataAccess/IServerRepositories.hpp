@@ -48,7 +48,9 @@ struct IRepliesRepository : IMasterRepository
 struct IChannelsRepository : IMasterRepository
 {
     /// Virtual method for geting channgel List
-    virtual std::vector<Network::ChannelInfo> getAllChannelsList() = 0;
+    virtual std::vector<Network::ChannelInfo> getAllChannelsList() = 0; 
+    /// Virtual method for delete channel
+    virtual Utility::ChannelDeleteCode        deleteChannel(const Network::ChannelDeleteInfo& channel) = 0;
 
     /// Default virtual destructor
     virtual ~IChannelsRepository() = default;

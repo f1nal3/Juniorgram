@@ -23,6 +23,12 @@ namespace DataAccess
         return result;
     }
 
+    Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Network::ChannelDeleteInfo& channel)
+    {
+        std::cout << channel.userID << std::endl; //temporarily
+        return Utility::ChannelDeleteCode::SUCCESS;
+    }
+
     std::uint64_t                     LoginRepository::loginUser(const std::string& login, const std::string& pwdHash)
     {
         try

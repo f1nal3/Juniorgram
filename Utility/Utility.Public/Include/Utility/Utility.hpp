@@ -49,6 +49,18 @@ namespace Utility
         FAILED,
     };
 
+    /**  @brief Enum for tracking channel leave status.
+     *   @details Utility::ChannelDeleteCode deleteChannel(const std::string channelName) /
+     *    return one of this codes.
+     */
+    enum class ChannelDeleteCode : std::uint8_t
+    {
+        CHANNEL_NOT_FOUND,
+        CHANNEL_ALREADY_DELETED,
+        SUCCESS,
+        FAILED,
+    };
+
     inline std::tm safe_localtime(const std::time_t& time)
     {
         // std::localtime is not thread safe, so we use platform-dependant versions
