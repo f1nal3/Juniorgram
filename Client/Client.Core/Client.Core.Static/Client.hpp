@@ -129,7 +129,7 @@ protected:
     /// Reply Store Answer handler
     virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
     /// Reply create channel Answer handler
-    virtual void onChannelCreateAnswer(Utility::ÑhannelCreateCode channelCreateCode);
+    virtual void onChannelCreateAnswer(Utility::ChannelCreateCode channelCreateCode);
 
 private:
     asio::io_context _context;

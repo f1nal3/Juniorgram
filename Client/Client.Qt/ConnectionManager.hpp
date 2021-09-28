@@ -54,7 +54,7 @@ signals:
     /// Reply Store Answer handler
     void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
     /// Reply create channel Answer handler
-    void onChannelCreateAnswer(Utility::ÑhannelCreateCode channelCreateCode);
+    void onChannelCreateAnswer(Utility::ChannelCreateCode channelCreateCode);
 
 private:
     static ReceiverManager* self;
@@ -103,5 +103,5 @@ protected:
     /// Reply Store Answer handler
     void onReplyStoreAnswer(const Utility::StoringReplyCodes storingReplyCode) override;
     /// Reply create channel Answer handler
-    void onChannelCreateAnswer(Utility::ÑhannelCreateCode channelCreateCode) override;
+    void onChannelCreateAnswer(Utility::ChannelCreateCode channelCreateCode) override;
 };
