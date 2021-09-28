@@ -25,6 +25,38 @@ namespace DataAccess
 
     Utility::CreateLeaveCode ChannelsRepository::leaveChannel(const Network::ChannelLeaveInfo& channel)
     {
+        pTable->changeTable("channels");
+        auto findIdChannel = pTable->Select()->columns({"id"})->Where("channel_name = '" + channel.channelName + "'")->execute();
+        pTable->changeTable("user_channles");
+        if (findIdChannel.has_value())
+        {
+            return Utility::CreateLeaveCode::CHANNEL_NOT_FOUND;
+        }
+        auto findChannel = pTable->Select()
+                          ->columns({"*"})
+                          ->Where("user_id = " + std::to_string(channel.userID) + 
+                                  " AND " +
+                                  "channel_id = " + std::to_string(findIdChannel.value()[0][0].as<std::uint64_t>()))
+                          ->execute();
+        if (findChannel.has_value())
+        {
+            pTable->changeTable("user_channles");
+            auto result = pTable->Delete()
+                                ->Where(
+                                "user_id = " + std::to_string(findChannel.value()[0][0].as<std::uint64_t>()) + 
+                                " AND " + 
+                                "channel_id = " + std::to_string(findChannel.value()[0][1].as<std::uint64_t>())
+                                )
+                                ->execute();
+            if (result.has_value())
+            {
+                return Utility::CreateLeaveCode::FAILED;
+            }
+        }
+        else
+        {
+            Utility::CreateLeaveCode::CHANNEL_ALREADY_LEAVED;
+        }
         return Utility::CreateLeaveCode::SUCCESS;
     }
 
