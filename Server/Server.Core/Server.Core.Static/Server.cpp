@@ -230,8 +230,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelCreateAnswer;
 
-            auto subscribingChannelCodes = future.get();
-            messageToClient.mBody        = std::make_any<Utility::channelCreateCode>(subscribingChannelCodes);
+            auto channelCreateCode = future.get();
+            messageToClient.mBody  = std::make_any<Utility::channelCreateCode>(channelCreateCode);
             client->send(messageToClient);
         }
         break;

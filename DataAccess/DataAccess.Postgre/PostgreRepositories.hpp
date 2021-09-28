@@ -17,10 +17,10 @@ namespace DataAccess
         ChannelsRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
 
         virtual std::vector<Network::ChannelInfo> getAllChannelsList() override final;
-        virtual Utility::channelCreateCode       createChannel(const Network::ChannelInfo& channel) override final;
+        virtual Utility::channelCreateCode        createChannel(const Network::ChannelInfo& channel) override final;
 
         virtual ~ChannelsRepository() = default;
-	};
+    };
 
 	struct LoginRepository : ILoginRepository, AbstractPostgreRepository
     {

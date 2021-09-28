@@ -70,7 +70,7 @@ public:
     void subscriptionChannel(const std::uint64_t channelID) const;
     /**
      * @brief Sending the info of the created channel
-     * @param channel info Network::ChannelInfo variable
+     * @param channel name std::string variable
      */
     void createChannel(const std::string channelName) const;
     /**
