@@ -217,6 +217,25 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         }
         break;
 
+        case Network::Message::MessageType::ChannelLeaveRequest:
+        {
+            Network::ChannelInfo newChennelInfo;
+            std::string          channelName = std::any_cast<std::string>(message.mBody);
+            newChennelInfo.creatorID         = client->getUserID();
+            newChennelInfo.channelName       = channelName;
+
+            auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
+            auto future      = std::async(std::launch::async, &DataAccess::IChannelsRepository::leaveChannel, IChannelRep, newChennelInfo);
+
+            Network::Message messageToClient;
+            messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelLeaveAnswer;
+
+            auto subscribingChannelCodes = future.get();
+            messageToClient.mBody        = std::make_any<Utility::CreateLeaveCode>(subscribingChannelCodes);
+            client->send(messageToClient);
+        }
+        break;
+
         default:
         {
             std::cerr << "Unknows command received\n";

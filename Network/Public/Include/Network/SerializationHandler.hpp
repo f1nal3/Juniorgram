@@ -94,6 +94,14 @@ public:
                     state = processOutcomingMessageBody<bool>(bodyBuffer, message.mBody);
                     break;
 
+                case Message::MessageType::ChannelLeaveRequest:
+                    state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::ChannelLeaveAnswer:
+                    state = processOutcomingMessageBody<Utility::CreateLeaveCode>(bodyBuffer, message.mBody);
+                    break;
+
                 default:
                     break;
             }
@@ -203,6 +211,16 @@ public:
             case Message::MessageType::LoginAnswer:
             {
                 state = processIncomingMessageBody<bool>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ChannelLeaveRequest:
+            {
+                state = processIncomingMessageBody<std::string>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ChannelLeaveAnswer:
+            {
+                state = processIncomingMessageBody<Utility::CreateLeaveCode>(buffer, message);
                 break;
             }
             default:

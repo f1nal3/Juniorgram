@@ -23,6 +23,11 @@ namespace DataAccess
         return result;
     }
 
+    Utility::CreateLeaveCode ChannelsRepository::leaveChannel(const Network::ChannelInfo& channel)
+    {
+        return Utility::CreateLeaveCode::SUCCESS;
+    }
+
     std::uint64_t                     LoginRepository::loginUser(const std::string& login, const std::string& pwdHash)
     {
         try
