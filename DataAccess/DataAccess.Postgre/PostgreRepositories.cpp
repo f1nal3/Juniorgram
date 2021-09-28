@@ -55,7 +55,7 @@ namespace DataAccess
         }
         else
         {
-            Utility::CreateLeaveCode::CHANNEL_ALREADY_LEAVED;
+            return Utility::CreateLeaveCode::CHANNEL_ALREADY_LEAVED;
         }
         return Utility::CreateLeaveCode::SUCCESS;
     }
