@@ -51,7 +51,7 @@ struct IChannelsRepository : IMasterRepository
     virtual std::vector<Network::ChannelInfo> getAllChannelsList() = 0;
 
     /// Virtual method for geting channgel List
-    virtual Utility::CreateChannelCodes createChannel(const Network::ChannelInfo& channel) = 0;
+    virtual Utility::CreateChannelCode createChannel(const Network::ChannelInfo& channel) = 0;
 
     /// Default virtual destructor
     virtual ~IChannelsRepository() = default;

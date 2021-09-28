@@ -50,12 +50,12 @@ namespace Utility
     };
 
     /**  @brief Enum for tracking channel creating status.
-     *   @details Utility::CreateChannelCodes createChannel(const Network::ChannelInfo& channel) /
+     *   @details Utility::CreateChannelCode createChannel(const Network::ChannelInfo& channel) /
      *    return one of this codes.
      */
-    enum class CreateChannelCodes : std::uint8_t
+    enum class CreateChannelCode : std::uint8_t
     {
-        CHANNEL_ALREADY_CREATE,
+        CHANNEL_ALREADY_CREATED,
         SUCCESS,
         FAILED,
     };

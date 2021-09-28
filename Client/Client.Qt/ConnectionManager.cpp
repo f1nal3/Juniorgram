@@ -107,21 +107,21 @@ void ConnectionManager::onUserMessageDeleteAnswer(const Utility::DeletingMessage
     emit ReceiverManager::instance()->onUserMessageDeleteAnswer(deletingCode);
 }
 
-void ConnectionManager::onCreateChannelAnswer(Utility::CreateChannelCodes createChannelCode)
+void ConnectionManager::onCreateChannelAnswer(Utility::CreateChannelCode createChannelCode)
 {
-    if (createChannelCode == Utility::CreateChannelCodes::SUCCESS)
+    if (createChannelCode == Utility::CreateChannelCode::SUCCESS)
     {
         std::cout << "SUCCESS CREATING" << std::endl;
     }
-    else if (createChannelCode == Utility::CreateChannelCodes::SUCCESS)
+    else if (createChannelCode == Utility::CreateChannelCode::SUCCESS)
     {
         std::cout << "FAILD CREATING" << std::endl;
     }
-    else if(createChannelCode == Utility::CreateChannelCodes::CHANNEL_ALREADY_CREATE)
+    else if(createChannelCode == Utility::CreateChannelCode::CHANNEL_ALREADY_CREATED)
     {
         std::cout << "CHANNEL ALREADY CREATE" << std::endl;
     }
-    qRegisterMetaType<Utility::CreateChannelCodes>("Utility::CreateChannelCodes");
+    qRegisterMetaType<Utility::CreateChannelCode>("Utility::CreateChannelCode");
     emit ReceiverManager::instance()->onCreateChannelAnswer(createChannelCode);
 }
 
