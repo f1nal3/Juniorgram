@@ -113,7 +113,7 @@ void ConnectionManager::onChannelCreateAnswer(Utility::ChannelCreateCode channel
     {
         std::cout << "SUCCESS CREATING" << std::endl;
     }
-    else if (channelCreateCode == Utility::ChannelCreateCode::SUCCESS)
+    else if (channelCreateCode == Utility::ChannelCreateCode::FAILED)
     {
         std::cout << "FAILD CREATING" << std::endl;
     }
