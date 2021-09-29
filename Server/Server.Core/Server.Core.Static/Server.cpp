@@ -233,6 +233,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto deletedChannelCodes = future.get();
             messageToClient.mBody    = std::make_any<Utility::ChannelDeleteCode>(deletedChannelCodes);
         }
+        break;
         
         case Network::Message::MessageType::ChannelCreateRequest:
         {
