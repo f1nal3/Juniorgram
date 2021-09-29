@@ -49,6 +49,18 @@ namespace Utility
         FAILED,
     };
 
+    /**  @brief Enum for tracking channel creating status.
+     *   @details Utility::ChannelCreateCodes createChannel(const Network::ChannelInfo& channel) /
+     *    return one of this codes.
+     */
+    enum class ChannelCreateCodes : std::uint8_t
+    {
+        CHANNEL_ALREADY_CREATED,
+        SUCCESS,
+        FAILED,
+    };
+
+
     inline std::tm safe_localtime(const std::time_t& time)
     {
         // std::localtime is not thread safe, so we use platform-dependant versions

@@ -216,6 +216,17 @@ void Client::subscriptionChannel(const std::uint64_t channelID) const
     //send(networkMessage); temporarily commented out before implementation on the server side
 }
 
+void Client::createChannel(const std::string channelName) const
+{
+    Network::Message networkMessage;
+    networkMessage.mHeader.mMessageType = MessageType::ChannelCreateRequest;
+
+    std::string ri;
+    ri       = channelName;
+    networkMessage.mBody = std::make_any<std::string>(ri);
+    send(networkMessage);
+}
+
 void Client::loop()
 {
     while (!_incomingMessagesQueue.empty())
@@ -306,6 +317,13 @@ void Client::loop()
             }
             break;
 
+            case MessageType::ChannelCreateAnswer:
+            {
+                auto channelCreateCode = std::any_cast<Utility::ChannelCreateCodes>(message.mBody);
+                onChannelCreateAnswer(channelCreateCode);
+            }
+            break;
+
             default:
                 std::cerr << "[Client][Warning] unimplemented[" << uint32_t(message.mHeader.mMessageType) << "]\n";
         }
@@ -380,6 +398,12 @@ void Client::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
 {
     (void)(storingReplyCode);
     std::cerr << "[Client][Warning] reply store answer is not implemented\n";
+}
+
+void Client::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode)
+{
+    (void)(channelCreateCode);
+    std::cerr << "[Client][Warning] create channel answer is not implemented\n";
 }
 
 }  // namespace Network
