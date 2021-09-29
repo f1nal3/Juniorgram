@@ -235,7 +235,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         }
         break;
 
-        case Network::Message::MessageType::ChannelSubscribeListRequest:
+        case Network::Message::MessageType::ChannelSubscriptionListRequest:
         {
             const auto userID = client->getUserID();
 
@@ -243,7 +243,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto future = std::async(std::launch::async, &DataAccess::IChannelsRepository::getChannelSubscriptionList, IChannelRep, userID);
 
             Network::Message messageToClient;
-            messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelSubscribeListAnswer;
+            messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelSubscriptionListAnswer;
 
             auto subscribingChannelCodes = future.get();
             messageToClient.mBody =

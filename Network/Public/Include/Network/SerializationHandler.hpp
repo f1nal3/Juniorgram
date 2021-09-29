@@ -102,11 +102,11 @@ public:
                     state = processOutcomingMessageBody<Utility::ChannelSubscribingCodes>(bodyBuffer, message.mBody);
                     break;
 
-                case Message::MessageType::ChannelSubscribeListRequest:
+                case Message::MessageType::ChannelSubscriptionListRequest:
                     state = processOutcomingMessageBody<ChannelSubscriptionInfo>(bodyBuffer, message.mBody);
                     break;
 
-                case Message::MessageType::ChannelSubscribeListAnswer:
+                case Message::MessageType::ChannelSubscriptionListAnswer:
                     state = processOutcomingMessageBody<std::vector<uint64_t>>(bodyBuffer, message.mBody);
                     break;
 
@@ -231,12 +231,12 @@ public:
                 state = processIncomingMessageBody<Utility::ChannelSubscribingCodes>(buffer, message);
                 break;
             }
-            case Message::MessageType::ChannelSubscribeListRequest:
+            case Message::MessageType::ChannelSubscriptionListRequest:
             {
                 state = processIncomingMessageBody<ChannelSubscriptionInfo>(buffer, message);
                 break;
             }
-            case Message::MessageType::ChannelSubscribeListAnswer:
+            case Message::MessageType::ChannelSubscriptionListAnswer:
             {
                 state = processIncomingMessageBody<std::vector<uint64_t>>(buffer, message);
                 break;

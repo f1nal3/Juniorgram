@@ -108,7 +108,7 @@ void Client::askForChannelList() const
 void Client::askForSubscriptionChannelList() const
 {
     Network::Message message;
-    message.mHeader.mMessageType = MessageType::ChannelSubscribeListRequest;
+    message.mHeader.mMessageType = MessageType::ChannelSubscriptionListRequest;
     send(message);
 }
 
@@ -319,7 +319,7 @@ void Client::loop()
             }
             break;
 
-            case MessageType::ChannelSubscribeListAnswer:
+            case MessageType::ChannelSubscriptionListAnswer:
             {
                 auto channelsList = std::any_cast<std::vector<uint64_t>>(message.mBody);
                 onChannelSubscribingListAnswer(channelsList);

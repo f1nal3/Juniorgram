@@ -104,8 +104,8 @@ protected:
     void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies) override;
     /// Reply Store Answer handler
     void onReplyStoreAnswer(const Utility::StoringReplyCodes storingReplyCode) override;
-    /// Subscription channel Answer handler
+    /// Channel subscription Answer handler
     void onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode) override;
-    /// Subscription channel list Answer handler
+    /// Channel subscription list Answer handler
     void onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList) override;
 };
