@@ -34,12 +34,12 @@ namespace DataAccess
         {
             return Utility::ChannelDeleteCode::CHANNEL_NOT_FOUND;
         }
-        if (findChannel.value()[0][0].as<uint64_t>() != channel.userID)
+        if (findChannel.value()[0][0].as<uint64_t>() != channel.creatorID)
         {
             return Utility::ChannelDeleteCode::CHANNEL_NON_USER;
         }
         auto result = pTable->Delete()
-                            ->Where("channel_name = '" + channel.channelName + "'" + " AND " + "creator_id = " + std::to_string(channel.userID))
+                            ->Where("channel_name = '" + channel.channelName + "'" + " AND " + "creator_id = " + std::to_string(channel.creatorID))
                             ->execute();
         if (result.has_value())
         {
