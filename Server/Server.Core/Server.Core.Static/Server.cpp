@@ -217,6 +217,24 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         }
         break;
 
+        case Network::Message::MessageType::ChannelDeleteRequest:
+        {
+            Network::ChannelDeleteInfo chennelDeletedInfo;
+            std::string                channelName = std::any_cast<std::string>(message.mBody);
+            chennelDeletedInfo.creatorID           = client->getUserID();
+            chennelDeletedInfo.channelName         = channelName;
+
+            auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
+            auto future = std::async(std::launch::async, &DataAccess::IChannelsRepository::deleteChannel, IChannelRep, chennelDeletedInfo);
+
+            Network::Message messageToClient;
+            messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelDeleteAnswer;
+
+            auto deletedChannelCodes = future.get();
+            messageToClient.mBody    = std::make_any<Utility::ChannelDeleteCode>(deletedChannelCodes);
+        }
+        break;
+        
         case Network::Message::MessageType::ChannelCreateRequest:
         {
             Network::ChannelInfo newChennelInfo;

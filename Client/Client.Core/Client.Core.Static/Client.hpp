@@ -69,6 +69,11 @@ public:
      */
     void subscriptionChannel(const std::uint64_t channelID) const;
     /**
+     * @brief Sending the name of the delete channel
+     * @param channel name std::string variable
+     */
+    void deleteChannel(const std::string channelName) const;
+    /**
      * @brief Sending the info of the created channel
      * @param channel name std::string variable
      */
@@ -128,6 +133,8 @@ protected:
     virtual void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
     /// Reply Store Answer handler
     virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
+    /// Reply delete channel Answer handler
+    virtual void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
     /// Reply create channel Answer handler
     virtual void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
 

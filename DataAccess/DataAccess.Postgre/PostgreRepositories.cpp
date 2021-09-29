@@ -23,6 +23,31 @@ namespace DataAccess
         return result;
     }
 
+    Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Network::ChannelDeleteInfo& channel)
+    {
+        pTable->changeTable("channels");
+        auto findChannel = pTable->Select()
+                                 ->columns({"creator_id"})
+                                 ->Where("channel_name = '" + channel.channelName + "'")
+                                 ->execute();
+        if (!findChannel.has_value())
+        {
+            return Utility::ChannelDeleteCode::CHANNEL_NOT_FOUND;
+        }
+        if (findChannel.value()[0][0].as<uint64_t>() != channel.creatorID)
+        {
+            return Utility::ChannelDeleteCode::CHANNEL_NON_USER;
+        }
+        auto result = pTable->Delete()
+                            ->Where("channel_name = '" + channel.channelName + "'" + " AND " + "creator_id = " + std::to_string(channel.creatorID))
+                            ->execute();
+        if (result.has_value())
+        {
+            return Utility::ChannelDeleteCode::FAILED;
+        }
+        return Utility::ChannelDeleteCode::SUCCESS;
+    }
+
     Utility::ChannelCreateCodes ChannelsRepository::createChannel(const Network::ChannelInfo& channel)
     {
         pTable->changeTable("channels");

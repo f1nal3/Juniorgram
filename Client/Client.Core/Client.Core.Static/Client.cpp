@@ -105,6 +105,17 @@ void Client::askForChannelList() const
     send(message);
 }
 
+void Client::deleteChannel(const std::string channelName) const
+{
+    Network::Message networkMessage;
+    networkMessage.mHeader.mMessageType = MessageType::ChannelDeleteRequest;
+
+    std::string ri;
+    ri                   = channelName;
+    networkMessage.mBody = std::make_any<std::string>(ri);
+    send(networkMessage);
+}
+
 void Client::askForMessageHistory(const std::uint64_t channelID) const
 {
     Network::Message message;
@@ -317,10 +328,18 @@ void Client::loop()
             }
             break;
 
+            case MessageType::ChannelDeleteAnswer:
+            {
+                auto channelDeleteCode = std::any_cast<Utility::ChannelDeleteCode>(message.mBody);
+                onChannelDeleteAnswer(channelDeleteCode);
+            }
+            break;
+
             case MessageType::ChannelCreateAnswer:
             {
                 auto channelCreateCode = std::any_cast<Utility::ChannelCreateCodes>(message.mBody);
                 onChannelCreateAnswer(channelCreateCode);
+
             }
             break;
 
@@ -398,6 +417,12 @@ void Client::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
 {
     (void)(storingReplyCode);
     std::cerr << "[Client][Warning] reply store answer is not implemented\n";
+}
+
+void Client::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode)
+{
+    (void)(channelDeleteCode);
+    std::cerr << "[Client][Warning] leave channel answer is not implemented\n";
 }
 
 void Client::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode)

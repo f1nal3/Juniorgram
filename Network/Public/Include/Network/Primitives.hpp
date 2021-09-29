@@ -41,6 +41,8 @@ public:
     }
 };
 
+using ChannelDeleteInfo = ChannelInfo;
+
 /**
  * @brief The SubscriptionChannelInfo struct
  * @details Channel Info struct for information about the channel that the user subscribed.
