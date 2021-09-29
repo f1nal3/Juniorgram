@@ -1,7 +1,9 @@
 #pragma once
-#include <AbstarctRepositoryContainer.hpp>
+#include <DataAccess/AbstractRepositoryContainer.hpp>
+#include <utility>
 
 #include "LiteAdapter.hpp"
+#include "LiteRepositories.hpp"
 
 namespace DataAccess
 {
@@ -9,11 +11,11 @@ namespace DataAccess
  * @class LiteRepositoryContainer
  * @brief Repository container for SQLite database
  */
-class LiteRepositoryContainer : public AbstarctRepositoryContainer
+class LiteRepositoryContainer : public AbstractRepositoryContainer
 {
 public:
     /// Default constructor from adapter
-    LiteRepositoryContainer(std::shared_ptr<IAdapter> adapter) : AbstarctRepositoryContainer(adapter) {}
+    explicit LiteRepositoryContainer(std::shared_ptr<IAdapter> adapter) : AbstractRepositoryContainer(std::move(adapter)) {}
 };
 
 }  // namespace DataAccess

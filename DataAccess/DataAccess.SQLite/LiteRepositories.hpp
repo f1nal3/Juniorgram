@@ -48,6 +48,13 @@ struct MessageInfo
 class LiteMessageRepository : public IMessageRepository
 {
     void addMessages(std::vector<MessageInfo>& messages) override;
+
+public:
+    void                     editMessages(std::vector<MessageInfo>& messages) override;
+    std::vector<MessageInfo> getMessages(std::uint64_t channelID) override;
+    std::vector<MessageInfo> getMessageSince(std::uint64_t channelID, std::uint64_t since) override;
+    std::vector<MessageInfo> getMessageBefore(std::uint64_t channelID, std::uint64_t before, std::uint64_t amount) override;
+    void                     removeMessages(std::vector<MessageInfo>& messages) override;
 };
 
 }  // namespace DataAccess

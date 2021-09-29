@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <string>
 #include <typeinfo>
+#include <utility>
 
 #include "IAdapter.hpp"
 #include "IMasterRepository.hpp"
@@ -24,7 +25,7 @@ protected:
     std::map<RealType, IType> _container;
 
 public:
-    AbstractRepositoryContainer(std::shared_ptr<IAdapter> adapter) : _adapter(adapter), _container() {}
+    explicit AbstractRepositoryContainer(std::shared_ptr<IAdapter> adapter) : _adapter(std::move(adapter)), _container() {}
 
     /**
      * @brief Method for register new repositories.
