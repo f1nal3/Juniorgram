@@ -59,7 +59,7 @@ namespace Utility
         CHANNEL_NON_USER,
         SUCCESS,
         FAILED,
-    }
+    };
     /**  @brief Enum for tracking channel creating status.
      *   @details Utility::ChannelCreateCodes createChannel(const Network::ChannelInfo& channel) /
      *    return one of this codes.
