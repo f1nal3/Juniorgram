@@ -221,7 +221,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             Network::ChannelLeaveInfo leavedChennelInfo;
             std::string               channelName = std::any_cast<std::string>(message.mBody);
-            leavedChennelInfo.userID              = client->getUserID();
+            leavedChennelInfo.creatorID           = client->getUserID();
             leavedChennelInfo.channelName         = channelName;
 
             auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();

@@ -34,7 +34,7 @@ namespace DataAccess
         }
         auto findChannel = pTable->Select()
                           ->columns({"*"})
-                          ->Where("user_id = " + std::to_string(channel.userID) + 
+                          ->Where("user_id = " + std::to_string(channel.creatorID) + 
                                   " AND " +
                                   "channel_id = " + std::to_string(findIdChannel.value()[0][0].as<std::uint64_t>()))
                           ->execute();

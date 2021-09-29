@@ -41,43 +41,7 @@ public:
     }
 };
 
-/**
- * @brief The ChannelLeaveInfo struct
- * @details Channel Leave Info struct for information about channels
- *          contain user ID and channel Name.
- */
-struct ChannelLeaveInfo
-{
-    /// user ID uint64_t variable
-    std::uint64_t userID;
-    /// channel name string variable
-    std::string channelName;
-
-public:
-    /// Default ChannelLeaveInfo constructor
-    ChannelLeaveInfo() = default;
-
-    /// ChannelLeaveInfo constructor with initializing list
-    ChannelLeaveInfo(const std::uint64_t userID, const std::string& channelName)
-        : userID(userID), channelName(channelName)
-    {
-    }
-    /// Default ChannelLeaveInfo destructor
-    ~ChannelLeaveInfo() = default;
-
-    /// Operator == to compare channels info
-    friend bool operator==(const ChannelLeaveInfo& first, const ChannelLeaveInfo& second)
-    {
-        return first.userID == second.userID && first.channelName == second.channelName;
-    }
-};
-
-/// Serialize method which serialize each field
-template <typename Archive>
-void serialize(Archive& ar, Network::ChannelLeaveInfo& o)
-{
-    ar& o.userID& o.channelName;
-}
+using ChannelLeaveInfo = ChannelInfo;
 
 /**
  * @brief The SubscriptionChannelInfo struct
