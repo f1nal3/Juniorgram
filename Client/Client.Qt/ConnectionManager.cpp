@@ -117,10 +117,6 @@ void ConnectionManager::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelL
     {
         std::cout << "FAILD LEAVING" << std::endl;
     }
-    else if (ChannelLeaveCode == Utility::ChannelLeaveCodes::CHANNEL_ALREADY_LEAVED)
-    {
-        std::cout << "CHANNEL ALREADY LEAVED" << std::endl;
-    }   
     else if(ChannelLeaveCode == Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND)
     {
         std::cout << "CHANNEL NOT FOUND" << std::endl;

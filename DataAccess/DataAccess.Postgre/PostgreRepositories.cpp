@@ -55,7 +55,7 @@ namespace DataAccess
         }
         else
         {
-            return Utility::ChannelLeaveCodes::CHANNEL_ALREADY_LEAVED;
+            return Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND;
         }
         return Utility::ChannelLeaveCodes::SUCCESS;
     }

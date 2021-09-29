@@ -56,7 +56,6 @@ namespace Utility
     enum class ChannelLeaveCodes : std::uint8_t
     {
         CHANNEL_NOT_FOUND,
-        CHANNEL_ALREADY_LEAVED,
         SUCCESS,
         FAILED,
     };
