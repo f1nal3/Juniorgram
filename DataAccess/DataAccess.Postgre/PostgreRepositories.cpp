@@ -23,14 +23,14 @@ namespace DataAccess
         return result;
     }
 
-    Utility::ChannelLeavedCode ChannelsRepository::leaveChannel(const Network::ChannelLeaveInfo& channel)
+    Utility::ChannelLeaveCodes ChannelsRepository::leaveChannel(const Network::ChannelLeaveInfo& channel)
     {
         pTable->changeTable("channels");
         auto findIdChannel = pTable->Select()->columns({"id"})->Where("channel_name = '" + channel.channelName + "'")->execute();
         pTable->changeTable("user_channles");
         if (!findIdChannel.has_value())
         {
-            return Utility::ChannelLeavedCode::CHANNEL_NOT_FOUND;
+            return Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND;
         }
         auto findChannel = pTable->Select()
                           ->columns({"*"})
@@ -50,14 +50,14 @@ namespace DataAccess
                                 ->execute();
             if (result.has_value())
             {
-                return Utility::ChannelLeavedCode::FAILED;
+                return Utility::ChannelLeaveCodes::FAILED;
             }
         }
         else
         {
-            return Utility::ChannelLeavedCode::CHANNEL_ALREADY_LEAVED;
+            return Utility::ChannelLeaveCodes::CHANNEL_ALREADY_LEAVED;
         }
-        return Utility::ChannelLeavedCode::SUCCESS;
+        return Utility::ChannelLeaveCodes::SUCCESS;
     }
 
     std::uint64_t                     LoginRepository::loginUser(const std::string& login, const std::string& pwdHash)

@@ -319,7 +319,7 @@ void Client::loop()
 
             case MessageType::ChannelLeaveAnswer:
             {
-                auto ChannelLeavecode = std::any_cast<Utility::ChannelLeavedCode>(message.mBody);
+                auto ChannelLeavecode = std::any_cast<Utility::ChannelLeaveCodes>(message.mBody);
                 onChannelLeaveAnswer(ChannelLeavecode);
             }
             break;
@@ -400,7 +400,7 @@ void Client::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
     std::cerr << "[Client][Warning] reply store answer is not implemented\n";
 }
 
-void Client::onChannelLeaveAnswer(Utility::ChannelLeavedCode ChannelLeaveCode)
+void Client::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode)
 {
     (void)(ChannelLeaveCode);
     std::cerr << "[Client][Warning] leave channel answer is not implemented\n";

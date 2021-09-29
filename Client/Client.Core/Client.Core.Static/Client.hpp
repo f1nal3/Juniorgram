@@ -128,8 +128,8 @@ protected:
     virtual void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
     /// Reply Store Answer handler
     virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);  
-    /// Reply leave channel Answer handler
-    virtual void onChannelLeaveAnswer(Utility::ChannelLeavedCode ChannelLeaveCode);
+    /// Reply leave Answer handler
+    virtual void onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode);
 
 private:
     asio::io_context _context;
