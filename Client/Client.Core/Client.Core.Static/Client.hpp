@@ -74,6 +74,11 @@ public:
      */
     void deleteChannel(const std::string channelName) const;
     /**
+     * @brief Sending the info of the created channel
+     * @param channel name std::string variable
+     */
+    void createChannel(const std::string channelName) const;
+    /**
      * @brief Send a message to server
      * @param message Message
      * @param channelID Channel ID
@@ -130,6 +135,8 @@ protected:
     virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
     /// Reply delete channel Answer handler
     virtual void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
+    /// Reply create channel Answer handler
+    virtual void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
 
 private:
     asio::io_context _context;

@@ -55,6 +55,8 @@ signals:
     void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
     /// Reply delete channel Answer handler
     void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
+    /// Reply create channel Answer handler
+    void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
 
 private:
     static ReceiverManager* self;
@@ -104,4 +106,6 @@ protected:
     void onReplyStoreAnswer(const Utility::StoringReplyCodes storingReplyCode) override;
     /// Reply delete channel Answer handler
     void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode) override;
+    /// Reply create channel Answer handler
+    void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode) override;
 };

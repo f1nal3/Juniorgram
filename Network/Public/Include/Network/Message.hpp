@@ -43,7 +43,9 @@ struct Message
         ReplyStoreRequest,
         ReplyStoreAnswer,
         ChannelDeleteRequest,
-        ChannelDeleteAnswer
+        ChannelDeleteAnswer,
+        ChannelCreateRequest,
+        ChannelCreateAnswer
     };
 
     /**

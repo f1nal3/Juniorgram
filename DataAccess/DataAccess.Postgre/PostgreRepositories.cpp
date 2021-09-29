@@ -48,6 +48,44 @@ namespace DataAccess
         return Utility::ChannelDeleteCode::SUCCESS;
     }
 
+    Utility::ChannelCreateCodes ChannelsRepository::createChannel(const Network::ChannelInfo& channel)
+    {
+        pTable->changeTable("channels");
+        auto findChannel = pTable->Select()->columns({"channel_name"})->Where("channel_name = '" + channel.channelName + "'")->execute();
+        if (findChannel.has_value())
+        {
+            if (findChannel.value()[0][0].as<std::string>() == channel.channelName)
+            {
+                return Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED;
+            }
+        }
+
+        std::tuple channelData
+        {
+            std::pair{"channel_name", channel.channelName},
+            std::pair{"creator_id", channel.creatorID}
+        };
+        auto       result = pTable->Insert()->columns(channelData)->execute();
+
+        if (result.has_value())
+        {
+            return Utility::ChannelCreateCodes::FAILED;
+        }
+
+        auto newChannel = pTable->Select()->columns({"id"})->Where("channel_name = '" + channel.channelName + "'")->execute();
+        auto IDNewChannel = newChannel.value()[0][0].as<uint64_t>();
+
+        std::tuple SubscribNewChannelData
+        {
+            std::pair{"user_id", channel.creatorID},
+            std::pair{"channel_id", IDNewChannel}
+        };
+
+        pTable->changeTable("user_channles");
+        pTable->Insert()->columns(SubscribNewChannelData)->execute();
+        return Utility::ChannelCreateCodes::SUCCESS;
+    }
+
     std::uint64_t                     LoginRepository::loginUser(const std::string& login, const std::string& pwdHash)
     {
         try

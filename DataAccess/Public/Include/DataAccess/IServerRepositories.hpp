@@ -52,6 +52,9 @@ struct IChannelsRepository : IMasterRepository
     /// Virtual method for delete channel
     virtual Utility::ChannelDeleteCode        deleteChannel(const Network::ChannelDeleteInfo& channel) = 0;
 
+    /// Virtual method for create channel
+    virtual Utility::ChannelCreateCodes createChannel(const Network::ChannelInfo& channel) = 0;
+
     /// Default virtual destructor
     virtual ~IChannelsRepository() = default;
 };
