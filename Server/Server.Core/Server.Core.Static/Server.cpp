@@ -1,7 +1,6 @@
 #include "Server.hpp"
 #include "Network/Primitives.hpp"
-#include "DataAccess.Postgre/PostgreRepositories.hpp"
-#include "DataAccess.Postgre/PostgreRepositoryContainer.hpp"
+#include "DataAccess.Postgre/PostgreRepositoryManager.hpp"
 
 #include <future>
 
@@ -26,6 +25,8 @@ void Server::onClientDisconnect(const std::shared_ptr<Connection>& client)
 
 void Server::onMessage(const std::shared_ptr<Connection>& client, Message& message)
 {
+    using namespace DataAccess;
+
     const auto maxDelay    = std::chrono::milliseconds(300);
     const auto currentTime = std::chrono::system_clock::now();
     const auto delay =
@@ -68,6 +69,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::ChannelListRequest:
         {
+
+
             auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
             auto future = std::async(std::launch::async, &DataAccess::IChannelsRepository::getAllChannelsList, IChannelRep);
 
