@@ -28,7 +28,7 @@ namespace DataAccess
         pTable->changeTable("channels");
         auto findIdChannel = pTable->Select()->columns({"id"})->Where("channel_name = '" + channel.channelName + "'")->execute();
         pTable->changeTable("user_channles");
-        if (findIdChannel.has_value())
+        if (!findIdChannel.has_value())
         {
             return Utility::ChannelLeavedCode::CHANNEL_NOT_FOUND;
         }
