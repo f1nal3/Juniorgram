@@ -118,13 +118,13 @@ void ConnectionManager::onChannelSubscribingAnswer(const Utility::ChannelSubscri
         std::cout << "FAILED SUBSCRIBING" << std::endl;
     }
     qRegisterMetaType<Utility::ChannelSubscribingCodes>("Utility::ChannelSubscribingCodes");
-    emit ReceiverManager::instance()->onSubscriptionChannelAnswer(subscribingChannelCode);
+    emit ReceiverManager::instance()->onChannelSubscriptionAnswer(subscribingChannelCode);
 }
 
-void ConnectionManager::onSubscribingChannelListAnswer(const std::vector<uint64_t> subscribingChannelList)
+void ConnectionManager::onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList)
 {
     qRegisterMetaType<std::vector<uint64_t>>("std::vector<uint64_t>");
-    emit ReceiverManager::instance()->onSubscribingChannelListAnswer(subscribingChannelList);
+    emit ReceiverManager::instance()->onChannelSubscribingListAnswer(subscribingChannelList);
 }
 
 void ConnectionManager::onDisconnect()

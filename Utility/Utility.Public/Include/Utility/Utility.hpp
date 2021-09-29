@@ -54,7 +54,7 @@ namespace Utility
      */
     enum class ChannelSubscribingCodes : std::uint8_t
     {
-        CHANNEL_ALREADY_BEEN_ADDED,
+        CHANNEL_HAS_ALREADY_BEEN_SIGNED,
         SUCCESS,
         FAILED,
     };

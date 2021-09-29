@@ -18,7 +18,7 @@ namespace DataAccess
 
         virtual std::vector<Network::ChannelInfo> getAllChannelsList() override final;
         virtual Utility::ChannelSubscribingCodes  subscriptionChannel(const Network::ChannelSubscriptionInfo& channel) override final;
-        virtual std::vector<uint64_t>             getSubscriptionChannelList(const uint64_t& userID) override final;
+        virtual std::vector<uint64_t>             getChannelSubscriptionList(const uint64_t& userID) override final;
 
         virtual ~ChannelsRepository() = default;
 	};

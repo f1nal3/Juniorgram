@@ -126,10 +126,10 @@ protected:
     virtual void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
     /// Reply Store Answer handler
     virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
-    /// Subscription channel Answer handler
+    /// Channel subscription Answer handler
     virtual void onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode);
-    /// Subscription channel list Answer handler
-    virtual void onSubscribingChannelListAnswer(const std::vector<uint64_t> subscribingChannelList);
+    /// Channel subscription list Answer handler
+    virtual void onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList);
 
 private:
     asio::io_context _context;

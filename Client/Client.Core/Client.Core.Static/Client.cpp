@@ -322,7 +322,7 @@ void Client::loop()
             case MessageType::ChannelSubscribeListAnswer:
             {
                 auto channelsList = std::any_cast<std::vector<uint64_t>>(message.mBody);
-                onSubscribingChannelListAnswer(channelsList);
+                onChannelSubscribingListAnswer(channelsList);
             }
             break;
 
@@ -407,7 +407,7 @@ void Client::onChannelSubscribingAnswer(Utility::ChannelSubscribingCodes subscri
     (void)(subscribingChannelCode);
     std::cerr << "[Client][Warning] subscribing channel is not implemented\n";
 }
-void Client::onSubscribingChannelListAnswer(std::vector<uint64_t> subscribingChannelList)
+void Client::onChannelSubscribingListAnswer(std::vector<uint64_t> subscribingChannelList)
 {
     (void)(subscribingChannelList);
     std::cerr << "[Client][Warning] subscribing channel list is not implemented\n";

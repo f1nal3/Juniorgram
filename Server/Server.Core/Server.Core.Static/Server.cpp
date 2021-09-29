@@ -240,7 +240,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             const auto userID = client->getUserID();
 
             auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
-            auto future = std::async(std::launch::async, &DataAccess::IChannelsRepository::getSubscriptionChannelList, IChannelRep, userID);
+            auto future = std::async(std::launch::async, &DataAccess::IChannelsRepository::getChannelSubscriptionList, IChannelRep, userID);
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelSubscribeListAnswer;

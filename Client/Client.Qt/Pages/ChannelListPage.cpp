@@ -23,16 +23,11 @@ ChannelListPage::ChannelListPage(std::shared_ptr<ListWidget>& anotherChannelList
     _vBoxLayout->addWidget(_updateChannelButton.get());
 
     connect(ReceiverManager::instance(), &ReceiverManager::onChannelListRequest, this, &ChannelListPage::setChannels);
-    connect(ReceiverManager::instance(), &ReceiverManager::onSubscribingChannelListAnswer, this, &ChannelListPage::addSubscribeChannelToMainChannelWidget);
+    connect(ReceiverManager::instance(), &ReceiverManager::onChannelSubscribingListAnswer, this, &ChannelListPage::addSubscribedChannelToMainChannelWidget);
 
     _addChannelButton->setClickCallback([this]() { addChannelToChannelListWidget(); });
-    _updateChannelButton->setClickCallback([this]()
-        { 
-            requestChannels();
-            updateSubscribeChannelList();
-        });
+    _updateChannelButton->setClickCallback([this]() { requestChannels(); });
     requestChannels();
-    updateSubscribeChannelList();
 
     setLayout(_vBoxLayout.get());
 }
@@ -76,10 +71,10 @@ void ChannelListPage::setChannels(const std::vector<Network::ChannelInfo>& newCh
     updateChannelList();
 }
 
-void ChannelListPage::addSubscribeChannelToMainChannelWidget(const std::vector<uint64_t>& ChannelsSubscribeList)
+void ChannelListPage::addSubscribedChannelToMainChannelWidget(const std::vector<uint64_t>& ChannelSubscribeList)
 {
     std::vector<std::string> channelsSubscribeVector;
-    for (auto channel : ChannelsSubscribeList)
+    for (auto channel : ChannelSubscribeList)
     {
         int  row = 0;
         auto findChannel =
@@ -105,13 +100,6 @@ void ChannelListPage::requestChannels()
     if (oApp->connectionManager()->isConnected())
     {
         oApp->connectionManager()->askForChannelList();
-    }
-}
-
-void ChannelListPage::updateSubscribeChannelList()
-{
-    if (oApp->connectionManager()->isConnected())
-    {
         oApp->connectionManager()->askForSubscriptionChannelList();
     }
 }

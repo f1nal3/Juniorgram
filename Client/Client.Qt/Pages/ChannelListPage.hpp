@@ -30,15 +30,13 @@ private slots:
 
     /// Adds selected channel to main window
     void addChannelToChannelListWidget();
-    /// Adds Subscribe channel to main window
-    void addSubscribeChannelToMainChannelWidget(const std::vector<uint64_t>& ChannelsSubscribeList);
+    /// Adds subscribed channel to main window
+    void addSubscribedChannelToMainChannelWidget(const std::vector<uint64_t>& ChannelSubscribeList);
 
     /// Do a request to server for new channels
     void requestChannels();
     /// Update channel view
     void updateChannelList();
-    /// Update subscribe channel view
-    void updateSubscribeChannelList();
 
 private:
     inline static std::map<std::uint64_t, bool> _channelsAddMap;
