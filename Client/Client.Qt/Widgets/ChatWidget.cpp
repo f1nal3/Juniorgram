@@ -5,6 +5,58 @@
 #include "Application.hpp"
 #include "ChatHistory.hpp"
 
+namespace
+{
+    /*
+     * @brief   Removes redundant whitespaces
+     * @param   Input string as input
+     * @details Removes whitespaces at the beginning and the end of input string, replaces whitespace
+     *          sequences with a single space or newline (if sequence contains a newline)
+     */
+    std::string removeSpaces(const std::string& input)
+    {
+        std::string result;
+        result.reserve(input.size());
+
+        auto sequenceStart = std::find_if_not(input.cbegin(), input.cend(), std::isspace);
+        auto sequenceEnd = sequenceStart;
+
+        while (sequenceStart < input.end())
+        {
+            bool spaceSequence = std::isspace(*sequenceStart);
+
+            if (spaceSequence)
+            {
+                char singleSpace = ' ';
+
+                for (; (sequenceEnd < input.end()) && std::isspace(*sequenceEnd); ++sequenceEnd)
+                {
+                    if (*sequenceEnd == '\n')
+                    {
+                        singleSpace = '\n';
+                    }
+                }
+
+                result.push_back(singleSpace);
+            }
+            else
+            {
+                sequenceEnd = std::find_if(sequenceStart, input.cend(), std::isspace);
+                result.append(sequenceStart, sequenceEnd);
+            }
+
+            sequenceStart = sequenceEnd;
+        }
+
+        if (!result.empty() && std::isspace(result.back()))
+        {
+            result.pop_back();
+        }
+
+        return result;
+    }
+}
+
 ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
 {
     setContentsMargins(0, 0, 0, 0);
@@ -35,10 +87,15 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
 
 void ChatWidget::newMessage(const QString& messageText)
 {
-    oApp->connectionManager()->storeMessage(messageText.toStdString(), _channelID);
-    if(this->findChild<ReplyWidget*>())
+    std::string formattedMessage = removeSpaces(messageText.toStdString());
+
+    oApp->connectionManager()->storeMessage(formattedMessage, _channelID);
+
+    if (this->findChild<ReplyWidget*>())
     {
-        oApp->connectionManager()->storeReply(_replyWidget->getMessage().toStdString(), _channelID, _replyWidget->getMessageId());
+        std::string formattedReply = removeSpaces(_replyWidget->getMessage().toStdString());
+
+        oApp->connectionManager()->storeReply(formattedReply, _channelID, _replyWidget->getMessageId());
         _replyWidget->close();
     }
 }
