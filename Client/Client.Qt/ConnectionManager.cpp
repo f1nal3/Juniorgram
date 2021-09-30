@@ -135,9 +135,13 @@ void ConnectionManager::onChannelDeleteAnswer(Utility::ChannelDeleteCode channel
     {
         std::cout << "FAILD DELETING" << std::endl;
     }
-    else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_NON_USER)
+    else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_NOT_FOUND)
     {
-        std::cout << "NON-USER CHANNEL" << std::endl;
+        std::cout << "CHANNEL NOT FOUND" << std::endl;
+    }
+    else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_IS_NOT_USER)
+    {
+        std::cout << "CHANNEL DOES NOT BELONG TO THE USER" << std::endl;
     }
     qRegisterMetaType<Utility::ChannelDeleteCode>("Utility::ChannelDeleteCode");
     emit ReceiverManager::instance()->onChannelDeleteAnswer(channelDeleteCode);
