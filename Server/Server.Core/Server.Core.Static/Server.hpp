@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DataAccess/AbstarctRepositoryContainer.hpp"
+#include "../../../DataAccess/DataAccess.Postgre/PostgreRepositoryManager.hpp"
 #include "Network/Connection.hpp"
 #include "Network/SafeQueue.hpp"
 #include "Network/Message.hpp"
@@ -27,12 +27,12 @@ private:
     uint64_t mCriticalQueueSize = 100;
     uint64_t mNewThreadsCount   = std::thread::hardware_concurrency();
 
-    asio::io_context                                         mContext;
-    asio::ip::tcp::acceptor                                  mAcceptor;
-    std::deque<std::shared_ptr<Network::Connection>>         mConnectionsPointers;
-    Network::SafeQueue<Network::Message>                     mIncomingMessagesQueue;
-    std::deque<std::thread>                                  mThreads;
-    std::unique_ptr<DataAccess::AbstarctRepositoryContainer> mPostgreRepo;
+    asio::io_context                                 mContext;
+    asio::ip::tcp::acceptor                          mAcceptor;
+    std::deque<std::shared_ptr<Network::Connection>> mConnectionsPointers;
+    Network::SafeQueue<Network::Message>             mIncomingMessagesQueue;
+    std::deque<std::thread>                          mThreads;
+    DataAccess::PostgreReposiotoryManager            mPostgreManager;
 
 private:
     /**
@@ -64,7 +64,7 @@ public:
      */
     bool start();
 
-    void registerRepositories();
+    //void registerRepositories();
 
     /**
      * @brief Method to stop the server.

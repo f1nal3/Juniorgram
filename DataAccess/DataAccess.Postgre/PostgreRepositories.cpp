@@ -22,7 +22,6 @@ namespace DataAccess
 
         return result;
     }
-
     Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Network::ChannelDeleteInfo& channel)
     {
         pTable->changeTable("channels");
@@ -47,7 +46,6 @@ namespace DataAccess
         }
         return Utility::ChannelDeleteCode::SUCCESS;
     }
-
     Utility::ChannelCreateCodes ChannelsRepository::createChannel(const Network::ChannelInfo& channel)
     {
         pTable->changeTable("channels");
@@ -86,17 +84,17 @@ namespace DataAccess
         return Utility::ChannelCreateCodes::SUCCESS;
     }
 
-    std::uint64_t                     LoginRepository::loginUser(const std::string& login, const std::string& pwdHash)
+    std::uint64_t                     LoginRepository::loginUser(const Network::LoginInfo& li)
     {
         try
         {
             pTable->changeTable("users");
             auto queryResult = pTable->Select()
                                      ->columns({ "password_hash", "id" })
-                                     ->Where("login='" + login + "'")
+                                     ->Where("login='" + li.login + "'")
                                      ->execute().value();
 
-            if (std::string(queryResult[0][0].c_str()) == pwdHash)
+            if (std::string(queryResult[0][0].c_str()) == li.pwdHash)
             {
                 return queryResult[0][1].as<std::uint64_t>();
             }

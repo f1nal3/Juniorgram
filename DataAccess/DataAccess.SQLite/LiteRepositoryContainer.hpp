@@ -1,6 +1,6 @@
 #pragma once
 #include "LiteAdapter.hpp"
-#include <Public/Include/DataAccess/AbstarctRepositoryContainer.hpp>
+#include <DataAccess/AbstarctRepositoryContainer.hpp>
 
 namespace DataAccess
 {

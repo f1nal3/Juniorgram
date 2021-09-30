@@ -77,7 +77,7 @@ struct IRegisterRepository : IMasterRepository
 struct ILoginRepository : IMasterRepository
 {
     /// Virtual method for login User
-    virtual std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) = 0;
+    virtual std::uint64_t loginUser(const Network::LoginInfo& li/*std::string& login, const std::string& pwdHash*/) = 0;
 
     /// Default virtual destructor
     virtual ~ILoginRepository() = default;

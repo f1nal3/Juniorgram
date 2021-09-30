@@ -29,7 +29,7 @@ namespace DataAccess
     {
         LoginRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
 
-        virtual std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) override final;
+        virtual std::uint64_t loginUser(const Network::LoginInfo& li) override final;
 
         virtual ~LoginRepository() = default;
     };
