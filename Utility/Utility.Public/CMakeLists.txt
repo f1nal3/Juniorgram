@@ -6,7 +6,8 @@ set(SOURCE_FILES
     Include/Utility/SQLUtility.hpp
     Include/Utility/WarningSuppression.hpp
     Include/Utility/UserDataValidation.hpp
-    Include/Utility/Utility.hpp)
+    Include/Utility/Utility.hpp
+    Include/Utility/Utility.cpp)
 
 add_library(${TARGET} INTERFACE)
 target_sources(${TARGET} INTERFACE ${SOURCE_FILES})

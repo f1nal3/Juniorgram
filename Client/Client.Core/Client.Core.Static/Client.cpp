@@ -140,7 +140,7 @@ void Client::storeMessage(const std::string& message, const uint64_t channelID) 
     networkMessage.mHeader.mMessageType = MessageType::MessageStoreRequest;
 
     Network::MessageInfo mi;
-    mi.message   = message;
+    mi.message   = Utility::removeSpaces(message);
     mi.channelID = channelID;
 
     networkMessage.mBody = std::make_any<Network::MessageInfo>(mi);
@@ -153,7 +153,7 @@ void Client::storeReply(const std::string &message, uint64_t channelID, uint64_t
     networkMessage.mHeader.mMessageType = MessageType::ReplyStoreRequest;
 
     Network::ReplyInfo ri;
-    ri.message = message;
+    ri.message = Utility::removeSpaces(message);
     ri.channelID = channelID;
     ri.msgID = msgID;
 

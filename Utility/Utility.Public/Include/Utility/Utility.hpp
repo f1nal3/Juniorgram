@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <ctime>
 #include <mutex>
 #include <string>
@@ -101,5 +102,13 @@ namespace Utility
 
         return timeStampStr;
     }
+
+    /**
+     * @brief   Removes redundant whitespaces
+     * @param   Input string as input
+     * @details Removes whitespaces at the beginning and the end of input string, replaces whitespace
+     *          sequences with a single space or newline (if sequence contains a newline)
+     */
+    std::string removeSpaces(const std::string& input);
 
 }  // namespace Utility
