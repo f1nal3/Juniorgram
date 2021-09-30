@@ -111,6 +111,17 @@ void Client::askForSubscriptionChannelList() const
     message.mHeader.mMessageType = MessageType::ChannelSubscriptionListRequest;
     send(message);
 }
+  
+void Client::deleteChannel(const std::string channelName) const
+{
+    Network::Message networkMessage;
+    networkMessage.mHeader.mMessageType = MessageType::ChannelDeleteRequest;
+
+    std::string ri;
+    ri                   = channelName;
+    networkMessage.mBody = std::make_any<std::string>(ri);
+    send(networkMessage);
+}
 
 void Client::askForMessageHistory(const std::uint64_t channelID) const
 {
@@ -223,6 +234,17 @@ void Client::subscriptionChannel(const std::uint64_t channelID) const
     send(networkMessage);
 }
 
+void Client::createChannel(const std::string channelName) const
+{
+    Network::Message networkMessage;
+    networkMessage.mHeader.mMessageType = MessageType::ChannelCreateRequest;
+
+    std::string ri;
+    ri       = channelName;
+    networkMessage.mBody = std::make_any<std::string>(ri);
+    send(networkMessage);
+}
+
 void Client::loop()
 {
     while (!_incomingMessagesQueue.empty())
@@ -311,7 +333,6 @@ void Client::loop()
                 onReplyStoreAnswer(code);
             }
             break;
-
             case MessageType::ChannelSubscribeAnswer:
             {
                 auto code = std::any_cast<Utility::ChannelSubscribingCodes>(message.mBody);
@@ -323,6 +344,20 @@ void Client::loop()
             {
                 auto channelsList = std::any_cast<std::vector<uint64_t>>(message.mBody);
                 onChannelSubscribingListAnswer(channelsList);
+            }
+            break;
+            
+            case MessageType::ChannelDeleteAnswer:
+            {
+                auto channelDeleteCode = std::any_cast<Utility::ChannelDeleteCode>(message.mBody);
+                onChannelDeleteAnswer(channelDeleteCode);
+            }
+            break;
+
+            case MessageType::ChannelCreateAnswer:
+            {
+                auto channelCreateCode = std::any_cast<Utility::ChannelCreateCodes>(message.mBody);
+                onChannelCreateAnswer(channelCreateCode);
             }
             break;
 
@@ -411,6 +446,18 @@ void Client::onChannelSubscribingListAnswer(std::vector<uint64_t> subscribingCha
 {
     (void)(subscribingChannelList);
     std::cerr << "[Client][Warning] subscribing channel list is not implemented\n";
+}
+  
+void Client::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode)
+{
+    (void)(channelDeleteCode);
+    std::cerr << "[Client][Warning] leave channel answer is not implemented\n";
+}
+
+void Client::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode)
+{
+    (void)(channelCreateCode);
+    std::cerr << "[Client][Warning] create channel answer is not implemented\n";
 }
 
 }  // namespace Network

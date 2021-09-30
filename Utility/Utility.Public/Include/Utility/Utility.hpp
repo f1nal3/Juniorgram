@@ -48,7 +48,7 @@ namespace Utility
         SUCCESS,
         FAILED,
     };
-
+  
     /**  @brief Enum for tracking channel's subscribe status.
      *   @details Utility::ChannelSubscribeCodes.
      */
@@ -58,7 +58,30 @@ namespace Utility
         SUCCESS,
         FAILED,
     };
-
+  
+    /**  @brief Enum for tracking channel leave status.
+     *   @details Utility::ChannelDeleteCode deleteChannel(const std::string channelName) /
+     *    return one of this codes.
+     */
+    enum class ChannelDeleteCode : std::uint8_t
+    {
+        CHANNEL_NOT_FOUND,
+        CHANNEL_NON_USER,
+        SUCCESS,
+        FAILED,
+    };
+  
+    /**  @brief Enum for tracking channel creating status.
+     *   @details Utility::ChannelCreateCodes createChannel(const Network::ChannelInfo& channel) /
+     *    return one of this codes.
+     */
+    enum class ChannelCreateCodes : std::uint8_t
+    {
+        CHANNEL_ALREADY_CREATED,
+        SUCCESS,
+        FAILED,
+    };
+  
     inline std::tm safe_localtime(const std::time_t& time)
     {
         // std::localtime is not thread safe, so we use platform-dependant versions

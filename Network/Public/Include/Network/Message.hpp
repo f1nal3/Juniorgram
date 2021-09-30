@@ -46,7 +46,10 @@ struct Message
         ChannelSubscribeAnswer,
         ChannelSubscriptionListRequest,
         ChannelSubscriptionListAnswer
-
+        ChannelDeleteRequest,
+        ChannelDeleteAnswer,
+        ChannelCreateRequest,
+        ChannelCreateAnswer
     };
 
     /**

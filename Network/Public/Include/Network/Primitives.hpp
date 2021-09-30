@@ -47,6 +47,8 @@ void serialize(Archive& ar, Network::ChannelInfo& o)
 {
     ar& o.creatorID& o.channelID& o.channelName;
 }
+  
+using ChannelDeleteInfo = ChannelInfo;
 
 /**
  * @brief The ChannelSubscriptionInfo struct
