@@ -105,6 +105,17 @@ void Client::askForChannelList() const
     send(message);
 }
 
+void Client::deleteChannel(const std::string channelName) const
+{
+    Network::Message networkMessage;
+    networkMessage.mHeader.mMessageType = MessageType::ChannelDeleteRequest;
+
+    std::string ri;
+    ri                   = channelName;
+    networkMessage.mBody = std::make_any<std::string>(ri);
+    send(networkMessage);
+}
+
 void Client::askForMessageHistory(const std::uint64_t channelID) const
 {
     Network::Message message;
@@ -226,6 +237,17 @@ void Client::leaveChannel(const std::string channelName) const
     networkMessage.mBody = std::make_any<std::string>(ri);
     send(networkMessage);
 }
+  
+void Client::createChannel(const std::string channelName) const
+{
+    Network::Message networkMessage;
+    networkMessage.mHeader.mMessageType = MessageType::ChannelCreateRequest;
+
+    std::string ri;
+    ri       = channelName;
+    networkMessage.mBody = std::make_any<std::string>(ri);
+    send(networkMessage);
+}
 
 void Client::loop()
 {
@@ -322,6 +344,18 @@ void Client::loop()
                 auto ChannelLeavecode = std::any_cast<Utility::ChannelLeaveCodes>(message.mBody);
                 onChannelLeaveAnswer(ChannelLeavecode);
             }
+            case MessageType::ChannelDeleteAnswer:
+            {
+                auto channelDeleteCode = std::any_cast<Utility::ChannelDeleteCode>(message.mBody);
+                onChannelDeleteAnswer(channelDeleteCode);
+            }
+            break;
+
+            case MessageType::ChannelCreateAnswer:
+            {
+                auto channelCreateCode = std::any_cast<Utility::ChannelCreateCodes>(message.mBody);
+                onChannelCreateAnswer(channelCreateCode);
+            }
             break;
 
             default:
@@ -404,6 +438,18 @@ void Client::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode)
 {
     (void)(ChannelLeaveCode);
     std::cerr << "[Client][Warning] leave channel answer is not implemented\n";
+}
+
+void Client::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode)
+{
+    (void)(channelDeleteCode);
+    std::cerr << "[Client][Warning] leave channel answer is not implemented\n";
+}
+
+void Client::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode)
+{
+    (void)(channelCreateCode);
+    std::cerr << "[Client][Warning] create channel answer is not implemented\n";
 }
 
 }  // namespace Network

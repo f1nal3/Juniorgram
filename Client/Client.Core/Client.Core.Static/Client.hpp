@@ -74,6 +74,16 @@ public:
      */
     void leaveChannel(const std::string channelName) const;
     /**
+     * @brief Sending the name of the delete channel
+     * @param channel name std::string variable
+     */
+    void deleteChannel(const std::string channelName) const;
+    /**
+     * @brief Sending the info of the created channel
+     * @param channel name std::string variable
+     */
+    void createChannel(const std::string channelName) const;
+    /**
      * @brief Send a message to server
      * @param message Message
      * @param channelID Channel ID
@@ -124,12 +134,16 @@ protected:
     virtual void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState);
     /// Registration Answer handler
     virtual void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
-	/// Reply History Answer heandler
+	  /// Reply History Answer heandler
     virtual void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
     /// Reply Store Answer handler
-    virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);  
+    virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
     /// Reply leave Answer handler
     virtual void onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode);
+    /// Reply delete channel Answer handler
+    virtual void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
+    /// Reply create channel Answer handler
+    virtual void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
 
 private:
     asio::io_context _context;

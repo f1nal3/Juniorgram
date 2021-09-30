@@ -49,12 +49,16 @@ signals:
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
     /// User Message Delete Answer handler
     void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingCode);
-	/// Reply History Answer handler
+	  /// Reply History Answer handler
     void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
     /// Reply Store Answer handler
     void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
     /// Reply leave Answer handler
     void onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode);
+    /// Reply delete channel Answer handler
+    void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
+    /// Reply create channel Answer handler
+    void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
 
 private:
     static ReceiverManager* self;
@@ -104,4 +108,8 @@ protected:
     void onReplyStoreAnswer(const Utility::StoringReplyCodes storingReplyCode) override;
     /// Reply leave Answer handler
     void onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode) override;
+    /// Reply delete channel Answer handler
+    void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode) override;
+    /// Reply create channel Answer handler
+    void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode) override;
 };

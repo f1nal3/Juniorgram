@@ -42,6 +42,7 @@ public:
 };
 
 using ChannelLeaveInfo = ChannelInfo;
+using ChannelDeleteInfo = ChannelInfo;
 
 /**
  * @brief The SubscriptionChannelInfo struct

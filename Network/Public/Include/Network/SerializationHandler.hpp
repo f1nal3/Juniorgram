@@ -102,6 +102,22 @@ public:
                     state = processOutcomingMessageBody<Utility::ChannelLeaveCodes>(bodyBuffer, message.mBody);
                     break;
 
+                case Message::MessageType::ChannelDeleteRequest:
+                    state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::ChannelDeleteAnswer:
+                    state = processOutcomingMessageBody<Utility::ChannelDeleteCode>(bodyBuffer, message.mBody);
+                    break;
+                    
+                case Message::MessageType::ChannelCreateRequest:
+                    state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::ChannelCreateAnswer:
+                    state = processOutcomingMessageBody<Utility::ChannelCreateCodes>(bodyBuffer, message.mBody);
+                    break;
+
                 default:
                     break;
             }
@@ -223,6 +239,27 @@ public:
                 state = processIncomingMessageBody<Utility::ChannelLeaveCodes>(buffer, message);
                 break;
             }
+            case Message::MessageType::ChannelCreateRequest:
+            {
+                state = processIncomingMessageBody<std::string>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ChannelCreateAnswer:
+            {
+                state = processIncomingMessageBody<Utility::ChannelCreateCodes>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ChannelDeleteRequest:
+            {
+                state = processIncomingMessageBody<std::string>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ChannelDeleteAnswer:
+            {
+                state = processIncomingMessageBody<Utility::ChannelDeleteCode>(buffer, message);
+                break;
+            }
+
             default:
                 break;
         }
