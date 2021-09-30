@@ -45,7 +45,7 @@ struct Message
         ChannelSubscribeRequest,
         ChannelSubscribeAnswer,
         ChannelSubscriptionListRequest,
-        ChannelSubscriptionListAnswer
+        ChannelSubscriptionListAnswer,
         ChannelDeleteRequest,
         ChannelDeleteAnswer,
         ChannelCreateRequest,
