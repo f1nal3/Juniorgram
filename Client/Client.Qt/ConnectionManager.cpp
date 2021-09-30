@@ -32,12 +32,14 @@ void ConnectionManager::onChannelListRequest(const std::vector<Network::ChannelI
 
 void ConnectionManager::onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages)
 {
-    std::cout << "Message history received: \n";
-    for (auto&& item : messages)
-    {
-        std::cout << item.message << '\n';
-    }
+    qRegisterMetaType<std::vector<Network::MessageInfo> >("std::vector<Network::MessageInfo>");
     emit ReceiverManager::instance()->onMessageHistoryAnswer(messages);
+}
+
+void ConnectionManager::onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies)
+{
+    qRegisterMetaType<std::vector<Network::ReplyInfo>>("std::vector<Network::ReplyInfo>");
+    emit ReceiverManager::instance()->onReplyHistoryAnswer(replies);
 }
 
 void ConnectionManager::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode)
@@ -52,6 +54,20 @@ void ConnectionManager::onMessageStoreAnswer(Utility::StoringMessageCodes storin
     }
     qRegisterMetaType<Utility::StoringMessageCodes>("Utility::StoringMessageCodes");
     emit ReceiverManager::instance()->onMessageStoreAnswer(storingMessageCode);
+}
+
+void ConnectionManager::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
+{
+    if (storingReplyCode == Utility::StoringReplyCodes::SUCCESS)
+    {
+        std::cout << "SUCCESS sending" << std::endl;
+    }
+    else if (storingReplyCode == Utility::StoringReplyCodes::FAILED)
+    {
+        std::cout << "FAILED sending" << std::endl;
+    }
+    qRegisterMetaType<Utility::StoringReplyCodes>("Utility::StoringReplyCodes");
+    emit ReceiverManager::instance()->onReplyStoreAnswer(storingReplyCode);
 }
 
 void ConnectionManager::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
@@ -73,10 +89,58 @@ void ConnectionManager::onLoginAnswer(bool success)
     emit ReceiverManager::instance()->onLoginAnswer(success);
 }
 
-void ConnectionManager::onUserMessageDeleteAnswer()
+void ConnectionManager::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingCode)
 {
-    Client::onUserMessageDeleteAnswer();
-    emit ReceiverManager::instance()->onUserMessageDeleteAnswer();
+    if (deletingCode == Utility::DeletingMessageCodes::SUCCESS)
+    {
+        std::cout << "SUCCESS DELETING" << std::endl;
+    }
+    else if (deletingCode == Utility::DeletingMessageCodes::FAILED)
+    {
+        std::cout << "FAILED DELETING" << std::endl;
+    }
+    else 
+    {
+        std::cout << "UNKNOWN deleting message code" << std::endl;
+    }
+
+    emit ReceiverManager::instance()->onUserMessageDeleteAnswer(deletingCode);
+}
+
+void ConnectionManager::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode)
+{
+    if (channelDeleteCode == Utility::ChannelDeleteCode::SUCCESS)
+    {
+        std::cout << "SUCCESS DELETING" << std::endl;
+    }
+    else if (channelDeleteCode == Utility::ChannelDeleteCode::SUCCESS)
+    {
+        std::cout << "FAILD DELETING" << std::endl;
+    }
+    else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_NON_USER)
+    {
+        std::cout << "NON-USER CHANNEL" << std::endl;
+    }
+    qRegisterMetaType<Utility::ChannelDeleteCode>("Utility::ChannelDeleteCode");
+    emit ReceiverManager::instance()->onChannelDeleteAnswer(channelDeleteCode);
+}
+
+void ConnectionManager::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode)
+{
+    if (channelCreateCode == Utility::ChannelCreateCodes::SUCCESS)
+    {
+        std::cout << "SUCCESS CREATING" << std::endl;
+    }
+    else if (channelCreateCode == Utility::ChannelCreateCodes::FAILED)
+    {
+        std::cout << "FAILD CREATING" << std::endl;
+    }
+    else if(channelCreateCode == Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED)
+    {
+        std::cout << "CHANNEL ALREADY CREATE" << std::endl;
+    }
+    qRegisterMetaType<Utility::ChannelCreateCodes>("Utility::ChannelCreateCodes");
+    emit ReceiverManager::instance()->onChannelCreateAnswer(channelCreateCode);
 }
 
 void ConnectionManager::onDisconnect()

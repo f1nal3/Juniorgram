@@ -5,7 +5,7 @@
 namespace UserDataValidation
 {
     /** @brief Check user's login.
-     * @params string login which contains user's login.
+     * @param string login which contains user's login.
      * @return true if login is valid.
      * @details Login must have: /
      *   -First char is a letter; /
@@ -20,7 +20,7 @@ namespace UserDataValidation
     }
 
     /** @brief Check user's email on valid.
-     * @params string email which contains user's email.
+     * @param string email which contains user's email.
      * @return true if email is valid.
      * @details Email must: /
      *   -have first char like letter; /
@@ -36,7 +36,7 @@ namespace UserDataValidation
     }
 
     /** @brief Check user's password.
-     * @params string password which contains user's password.
+     * @param string password which contains user's password.
      * @return true if password is valid.
      * @details Password must have: /
      *   -At least one uppercase letter; /

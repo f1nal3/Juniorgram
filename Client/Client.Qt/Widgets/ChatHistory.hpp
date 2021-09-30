@@ -1,9 +1,11 @@
 #pragma once
 
+#include <Network/Primitives.hpp>
 #include <QWidget>
 #include <vector>
 
 #include "MessageWidget.hpp"
+#include "ReplyMessageWidget.hpp"
 #include "ScrollArea.hpp"
 
 /**
@@ -22,11 +24,15 @@ public:
 
     /**
      * @brief Adds a new message to history
-     * @param message Message Text
-     * @param utc Seconds since epoch
-     * @param user Usenname
+     * @param Network::MessageInfo& messageInfo
      */
-    void addMessage(const QString& message = QString(), quint64 utc = 0, const QString& user = "You");
+    void addMessage(const Network::MessageInfo& messageInfo);
+
+    /**
+     * @brief Add a new reply to history
+     * @param Network::ReplyInfo& replyInfo
+     */
+    void addReply(const Network::ReplyInfo& replyInfo);
 
     /**
      * @brief Clears all chat
@@ -54,14 +60,13 @@ private Q_SLOTS:
      */
     void resizeVisible();
 Q_SIGNALS:
-    /**
-     * @brief Message has been deleted/restored
-     */
+    /// Message has been deleted/restored
     void messageChanged();
     /**
      * @brief Message has been added
      */
     void messageAdded();
+    void createReplySignal(ReplyWidget*);
 
 private:
     /**
@@ -77,10 +82,13 @@ private:
     [[nodiscard]] std::pair<int, int> findVisible() const;
 
 private:
-    bool                                        _alreadyScrolling = false;
-    std::int32_t                                _left             = -1;
-    std::unique_ptr<ScrollArea>                 _scrollArea;
-    std::vector<std::unique_ptr<MessageWidget>> _messageList;
-    std::uint64_t                               _userId    = 0;
-    std::uint64_t                               _messageId = 0;
+    bool                                                   _alreadyScrolling = false;
+    std::int32_t                                           _left             = -1;
+    std::unique_ptr<ScrollArea>                            _scrollArea;
+    std::map<int32_t, std::unique_ptr<ReplyMessageWidget>> _replyList;
+    std::vector<std::unique_ptr<MessageWidget>>            _messageList;
+    std::vector<Network::MessageInfo>                      _messages;
+    std::vector<Network::ReplyInfo>                        _replies;
+    std::uint64_t                                          _userId    = 0;
+    std::uint64_t                                          _messageId = 0;
 };

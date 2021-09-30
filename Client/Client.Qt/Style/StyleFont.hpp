@@ -74,7 +74,7 @@ enum FontFlags
 };
 
 /**
- * @class Font data
+ * @class FontData
  * @brief Holds font data
  */
 class FontData
@@ -99,7 +99,8 @@ public:
      * @param ch Char
      * @return Width in pixels
      */
-    int     width(QChar ch) const { return m.horizontalAdvance(ch); }
+    int width(QChar ch) const { return m.horizontalAdvance(ch); }
+    /// Cut "string" so it can fit in a "width" with "..." on end
     QString elided(const QString& str, int width, Qt::TextElideMode mode = Qt::ElideRight) const { return m.elidedText(str, mode, width); }
 
     /// Get bold version of font
@@ -126,8 +127,16 @@ public:
     QFont f;
     /// Font metrics for measure
     QFontMetrics m;
-    /// Font info
-    int32_t height, ascent, descent, spacew, elidew;
+    /// Font height
+    int32_t height;
+    /// Font ascent
+    int32_t ascent;
+    /// Fond descent
+    int32_t descent;
+    /// Space width
+    int32_t spacew;
+    /// Elide width
+    int32_t elidew;
 
 private:
     mutable Font modified[FontDifferentFlags];

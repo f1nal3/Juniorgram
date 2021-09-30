@@ -28,6 +28,49 @@ namespace Utility
         FAILED,
     };
 
+    /**
+     * @brief Enum for traking replies storing status.
+     * @details Utility::StoringReplyCodes storeReply(const Network::ReplyInfo& ri) /
+     *    return one of this codes.
+     */
+    enum class StoringReplyCodes : std::uint8_t
+    {
+        SUCCESS,
+        FAILED,
+    };
+
+    /**  @brief Enum for tracking message's deleting status.
+     *   @details Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) /
+     *    return one of this codes.
+     */
+    enum class DeletingMessageCodes : std::uint8_t
+    {
+        SUCCESS,
+        FAILED,
+    };
+  
+    /**  @brief Enum for tracking channel leave status.
+     *   @details Utility::ChannelDeleteCode deleteChannel(const std::string channelName) /
+     *    return one of this codes.
+     */
+    enum class ChannelDeleteCode : std::uint8_t
+    {
+        CHANNEL_NOT_FOUND,
+        CHANNEL_NON_USER,
+        SUCCESS,
+        FAILED,
+    };
+    /**  @brief Enum for tracking channel creating status.
+     *   @details Utility::ChannelCreateCodes createChannel(const Network::ChannelInfo& channel) /
+     *    return one of this codes.
+     */
+    enum class ChannelCreateCodes : std::uint8_t
+    {
+        CHANNEL_ALREADY_CREATED,
+        SUCCESS,
+        FAILED,
+    };
+  
     inline std::tm safe_localtime(const std::time_t& time)
     {
         // std::localtime is not thread safe, so we use platform-dependant versions

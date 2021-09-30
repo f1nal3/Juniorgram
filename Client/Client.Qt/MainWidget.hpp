@@ -1,9 +1,10 @@
 #pragma once
 
+#include <QVBoxLayout>
 #include <QWidget>
+#include <Style/Styles.hpp>
 #include <memory>
 
-#include "Style/StyleBasic.hpp"
 #include "Widgets/TitleWidget.hpp"
 
 class QHBoxLayout;
@@ -57,12 +58,14 @@ protected:
     bool eventFilter(QObject* watched, QEvent* event) override;
 
 private:
-    void updateCursor(Qt::Edges edges);
+    void updateCursor(const Qt::Edges edges);
     void restoreCursor();
 
 private:
     std::int32_t _current        = -1;
     bool         _cursorOverride = false;
+
+    std::unique_ptr<QVBoxLayout> _grid;
 
     std::unique_ptr<TitleWidget>          _title;
     std::unique_ptr<QWidget>              _body;

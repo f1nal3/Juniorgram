@@ -45,22 +45,52 @@ public:
      */
     void askForMessageHistory(uint64_t channelID) const;
     /**
+     * @brief Ask for reply message history
+     * @param channelID
+     */
+    void askForReplyHistory(uint64_t channelID) const;
+    /**
      * @brief Sends a none message to all clients
      */
     void messageAll() const;
     /**
-     * @brief Delete message from user
-     * @param userId user ID
+     * @brief Delete user's message
      * @param messageId message ID
      */
-    void userMessageDelete(uint64_t userId, uint64_t messageId) const;
+    void userMessageDelete(const std::uint64_t messageID) const;
+    /**
+     * @brief Delete user's message
+     * @param messageId message's text
+     */
+    void userMessageDelete(const std::string& messageText) const;
+    /**
+     * @brief Sending the ID of the subscribed channel
+     * @param message ID uint64_t variable
+     */
+    void subscriptionChannel(const std::uint64_t channelID) const;
+    /**
+     * @brief Sending the name of the delete channel
+     * @param channel name std::string variable
+     */
+    void deleteChannel(const std::string channelName) const;
+    /**
+     * @brief Sending the info of the created channel
+     * @param channel name std::string variable
+     */
+    void createChannel(const std::string channelName) const;
     /**
      * @brief Send a message to server
      * @param message Message
      * @param channelID Channel ID
      */
     void storeMessage(const std::string& message, uint64_t channelID) const;
-
+    /**
+     * @brief Send a reply to server
+     * @param string Message
+     * @param uint64_t channelID
+     * @param uint64_t msgID
+     */
+    void storeReply(const std::string& message, uint64_t channelID, uint64_t msgID) const;
     /**
      * @brief Send an registration request to server
      * @param email User E-Mail
@@ -95,10 +125,18 @@ protected:
     virtual void onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages);
     /// Message Store Answer handler
     virtual void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode);
+    /// Message Delete Answer handler
+    virtual void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState);
     /// Registration Answer handler
     virtual void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
-    /// User Message Delete Answer handler
-    virtual void onUserMessageDeleteAnswer();
+	/// Reply History Answer heandler
+    virtual void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
+    /// Reply Store Answer handler
+    virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
+    /// Reply delete channel Answer handler
+    virtual void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
+    /// Reply create channel Answer handler
+    virtual void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
 
 private:
     asio::io_context _context;

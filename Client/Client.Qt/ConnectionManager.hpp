@@ -1,9 +1,10 @@
 #pragma once
 
+#include <QObject>
+
 #include "Client.hpp"
 #include "Network/Primitives.hpp"
 #include "ServerInfo.hpp"
-#include "Widgets/ChannelListWindow.hpp"
 
 /// Login status
 enum class LoginState
@@ -47,7 +48,15 @@ signals:
     /// Registration Answer handler
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
     /// User Message Delete Answer handler
-    void onUserMessageDeleteAnswer();
+    void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingCode);
+	/// Reply History Answer handler
+    void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
+    /// Reply Store Answer handler
+    void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
+    /// Reply delete channel Answer handler
+    void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
+    /// Reply create channel Answer handler
+    void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
 
 private:
     static ReceiverManager* self;
@@ -90,5 +99,13 @@ protected:
     /// Registration Answer handler
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode) override;
     /// User Message Delete Answer handler
-    void onUserMessageDeleteAnswer() override;
+    void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) override;
+	/// Reply History Answer handler
+    void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies) override;
+    /// Reply Store Answer handler
+    void onReplyStoreAnswer(const Utility::StoringReplyCodes storingReplyCode) override;
+    /// Reply delete channel Answer handler
+    void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode) override;
+    /// Reply create channel Answer handler
+    void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode) override;
 };

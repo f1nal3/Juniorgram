@@ -9,7 +9,7 @@ namespace
 std::map<uint32_t, const Style::icon> _icons;
 }
 
-ReactionLayout::ReactionLayout(QWidget* parent, uint32_t maxWidth, uint32_t spacing, bool isMenu)
+ReactionLayout::ReactionLayout(QWidget* parent, const uint32_t maxWidth, const uint32_t spacing, bool isMenu)
     : QWidget(parent), _maxWidth(maxWidth), _spacing(Style::valueDPIScale(isMenu ? 4 : spacing)), _isMenu(isMenu)
 {
     if (isMenu)
@@ -29,7 +29,7 @@ void ReactionLayout::recountSize()
         _sizes = QSize(0, 0);
         return;
     }
-    QSize result;
+    QSize    result;
     uint32_t width  = 0;
     uint32_t height = 0;
     for (const auto& reaction : _reactions)

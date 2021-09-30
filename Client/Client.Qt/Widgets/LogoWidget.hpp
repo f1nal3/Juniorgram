@@ -13,15 +13,10 @@ public:
     explicit LogoWidget(QWidget* parent = nullptr);
 
     /**
-     * @brief Original size of logo
-     * @return Original size of logo
-     */
-    [[nodiscard]] QSize bestFit() const { return _logo->size(); }
-    /**
      * @brief Sets part for logo to take place in
      * @param percent Value in [0, 100]
      */
-    void setPart(int percent);
+    void setPart(double percent);
     /// Update size of logo
     void updateSize();
 
@@ -30,6 +25,10 @@ protected:
     void paintEvent(QPaintEvent* paintEvent) override;
 
 private:
+    /// Original size of logo
+    [[nodiscard]] QSize bestFit() const { return _logo->size(); }
+
+private:
     std::unique_ptr<QPixmap> _logo;
-    int                      _partInPercent;
+    double                   _part;
 };

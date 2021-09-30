@@ -1,47 +1,45 @@
 #include "TextEdit.hpp"
 
 #include <QtEvents>
+#include <Style/Styles.hpp>
 
-#include <Style/Style.hpp>
-
-TextEdit::TextEdit(QWidget* parent) : QWidget(parent)
+TextEdit::TextEdit(QWidget* parent) : QWidget(parent), _settings(Settings::getInstance())
 {
-    _mainVerticalLayout      = std::make_unique<QVBoxLayout>(this);
-    _horizontalButtonLayout  = std::make_unique<QHBoxLayout>();
-    _boldnessButton          = std::make_unique<FlatButton>(this, "B", st::boldnessButton);
-    _italicButton            = std::make_unique<FlatButton>(this, "I", st::italicButton);
-    _underlineButton         = std::make_unique<FlatButton>(this, "U", st::underlineButton);
-    _sendButton              = std::make_unique<FlatButton>(this, "Send");
-    _messageInput            = std::make_unique<FlatTextEdit>();
-    _horizontalButtonSpacer  =
-        std::make_unique<QSpacerItem>(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    _mainVerticalLayout     = std::make_unique<QVBoxLayout>(this);
+    _horizontalButtonLayout = std::make_unique<QHBoxLayout>();
+    _boldnessButton         = std::make_unique<FlatButton>(this, "B", st::boldnessButton);
+    _italicButton           = std::make_unique<FlatButton>(this, "I", st::italicButton);
+    _underlineButton        = std::make_unique<FlatButton>(this, "U", st::underlineButton);
+    _sendButton             = std::make_unique<FlatButton>(this, "Send");
+    _messageInput           = std::make_unique<FlatTextEdit>();
+  
+    
+  _horizontalButtonSpacer = std::make_unique<QSpacerItem>(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     _horizontalButtonLayout->setAlignment(Qt::AlignLeft);
     _horizontalButtonLayout->addWidget(_boldnessButton.get());
     _horizontalButtonLayout->addWidget(_italicButton.get());
     _horizontalButtonLayout->addWidget(_underlineButton.get());
     _horizontalButtonLayout->addItem(_horizontalButtonSpacer.get());
     _horizontalButtonLayout->addWidget(_sendButton.get());
+  
+    if (auto fontSize = _settings.getFontSize()){ _messageInput->setFontPointSize(*fontSize); } 
     _mainVerticalLayout->addWidget(_messageInput.get());
     _mainVerticalLayout->addLayout(_horizontalButtonLayout.get());
+
     setLayout(_mainVerticalLayout.get());
-    connectUi();
+
+    _boldnessButton->setClickCallback([&]() { styleButtonClick(_boldSymbolOpen, _boldSymbolClose); });
+    _italicButton->setClickCallback([&]() { styleButtonClick(_italicSymbolOpen, _italicSymbolClose); });
+    _underlineButton->setClickCallback([&]() { styleButtonClick(_underlineSymbolOpen, _underlineSymbolClose); });
+    _sendButton->setClickCallback([&]() { sendButtonClick(); });
 }
 
-void TextEdit::connectUi()
+void TextEdit::sendButtonClick()
 {
-    _boldnessButton->setClickCallback([&]() { boldButtonClicked(_boldSymbolOpen, _boldSymbolClose); });
-    _italicButton->setClickCallback(
-        [&]() { boldButtonClicked(_italicSymbolOpen, _italicSymbolClose); });
-    _underlineButton->setClickCallback(
-        [&]() { boldButtonClicked(_underlineSymbolOpen, _underlineSymbolClose); });
-    _sendButton->setClickCallback([&]() { clickButtonSend(); });
-}
-
-void TextEdit::clickButtonSend() { 
     if (getText() != "")
     {
-        emit sendMessageSignal(getText());
-        clearTextEdit();
+        emit sendMessage(getText());
+        clear();
     }
 }
 
@@ -49,11 +47,11 @@ void TextEdit::keyPressEvent(QKeyEvent* event)
 {
     if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) && (getText() != ""))
     {
-        clickButtonSend();
+        sendButtonClick();
     }
 }
 
-void TextEdit::boldButtonClicked(QString SymbolStart, QString SymbolEnd)
+void TextEdit::styleButtonClick(const QString& symbolStart, const QString& symbolEnd)
 {
     QTextCursor cursor = _messageInput->textCursor();
 
@@ -62,25 +60,25 @@ void TextEdit::boldButtonClicked(QString SymbolStart, QString SymbolEnd)
         int start = cursor.selectionStart();
         int end   = cursor.selectionEnd();
 
-        QString mSelection = cursor.selectedText();
-        QString mFullText  = getText();
+        QString selectedText = cursor.selectedText();
+        QString fullText     = getText();
 
-        QString mBeforeSelection = mFullText.left(start);
-        QString mAfterSelection  = mFullText.right(mFullText.size() - end);
+        QString beforeSelectedText = fullText.left(start);
+        QString afterSelectedText  = fullText.right(fullText.size() - end);
 
-        if (mSelection.endsWith(SymbolEnd) && mSelection.startsWith(SymbolStart))
+        if (selectedText.endsWith(symbolEnd) && selectedText.startsWith(symbolStart))
         {
-            delSymbolsInSelection(mFullText, start, end, SymbolSize);
+            delSymbolsInSelection(fullText, start, end, _symbolSize);
             _messageInput->setTextCursor(cursor);
         }
-        else if (mBeforeSelection.endsWith(SymbolStart) && mAfterSelection.startsWith(SymbolEnd))
+        else if (beforeSelectedText.endsWith(symbolStart) && afterSelectedText.startsWith(symbolEnd))
         {
-            delSymbolsOutSelection(mFullText, start, end, SymbolSize);
+            delSymbolsOutSelection(fullText, start, end, _symbolSize);
             _messageInput->setTextCursor(cursor);
         }
         else
         {
-            insertSymbolsInSelection(cursor, start, end, SymbolSize, SymbolStart, SymbolEnd);
+            insertSymbolsInSelection(cursor, start, end, _symbolSize, symbolStart, symbolEnd);
             selectText(cursor, start, end);
         }
     }
@@ -100,8 +98,8 @@ void TextEdit::delSymbolsOutSelection(QString& text, int& start, int& end, int s
     _messageInput->setPlainText(text);
 }
 
-void TextEdit::insertSymbolsInSelection(QTextCursor& cursor, int& start, int& end, int symbolSize,
-                                        const QString symbolStart, const QString symbolEnd)
+void TextEdit::insertSymbolsInSelection(QTextCursor& cursor, int& start, int& end, int symbolSize, const QString& symbolStart,
+                                        const QString& symbolEnd)
 {
     cursor.setPosition(start);
     cursor.insertText(symbolStart);
@@ -119,13 +117,8 @@ void TextEdit::selectText(QTextCursor& cursor, int start, int end)
     _messageInput->setTextCursor(cursor);
 }
 
-QString TextEdit::getText() const
-{
-    return _messageInput->toPlainText();
-}
+QString TextEdit::getText() const { return _messageInput->toPlainText(); }
 
-void TextEdit::clearTextEdit() { _messageInput->clear(); }
+void TextEdit::clear() { _messageInput->clear(); }
 
-TextEdit::~TextEdit()
-{ _horizontalButtonLayout->removeItem(_horizontalButtonSpacer.get());
-}
+TextEdit::~TextEdit() { _horizontalButtonLayout->removeItem(_horizontalButtonSpacer.get()); }

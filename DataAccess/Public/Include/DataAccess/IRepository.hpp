@@ -1,8 +1,8 @@
 #pragma once
 #include <Network/Primitives.hpp>
+#include <Utility/Utility.hpp>
 #include <string>
 #include <vector>
-#include <Utility/Utility.hpp>
 
 namespace DataAccess
 {
@@ -26,17 +26,36 @@ public:
      * @return List of messages as vector of MessageInfo.
      */
     virtual std::vector<Network::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
+
+	  /**
+	   * @brief Draft method for getting history for a specific user.
+	   */
+	  virtual std::vector<Network::ReplyInfo>   getReplyHistoryForUser(const std::uint64_t channelID) = 0;
     
     /**  @brief Method for storing message.
-     *   @params Network::MessageInfo which contains message's data for storing in repository.
+     *   @param Network::MessageInfo which contains message's data for storing in repository.
      *   @return The return value of the method is one of the StoringMessageCodes (enum): /
      *   Storing successful - StoringMessageCodes::SUCCESS. /
      *   Storing failed     - StoringMessageCodes::FAILED.
      */
     virtual Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& msi) = 0;
+  
+    /**
+     * @brief storeReply
+     * @param rsi
+     * @return
+     */
+    virtual Utility::StoringReplyCodes storeReply(const Network::ReplyInfo& rsi) = 0;
     
+    /**
+     * @brief deleteMessage
+     * @param mi
+     * @return
+     */
+    virtual Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) = 0;
+
     /**  @brief Method for user registration.
-     *   @params RegistrationMessage which contains user data for registration.
+     *   @param RegistrationMessage which contains user data for registration.
      *   @details Generation password's hash in which login is a salt. It lets us /
      *   to insert different users with the same passwords.
      *   @return The return value of the method is one of the RegistrationCodes (enum). /
@@ -50,7 +69,7 @@ public:
      * @param login user login as string
      * @param pwdHash password hash
      * @return userID if provided hash is the same as stored in repository, 0 stands for failed login
-     */ 
+     */
     virtual std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) = 0;
     /**
      * @brief Virtual dtor.
