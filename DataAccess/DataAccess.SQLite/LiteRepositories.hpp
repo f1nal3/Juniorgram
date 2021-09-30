@@ -4,10 +4,14 @@
 
 namespace DataAccess
 {
-struct AbstractLiteRepository
+class AbstractLiteRepository
 {
-protected:
-    std::unique_ptr<LiteTable> pTable;
+public:
+    AbstractLiteRepository(LiteAdapter& adapter);
+    bool ensureTable(const QString& table_name, const QString& fields);
+
+private:
+    LiteAdapter& _adapter;
 };
 
 struct MessageInfo
@@ -45,7 +49,7 @@ struct MessageInfo
     }
 };
 
-class LiteMessageRepository : public IMessageRepository
+class LiteMessageRepository : public IMessageRepository, public AbstractLiteRepository
 {
     void addMessages(std::vector<MessageInfo>& messages) override;
 
