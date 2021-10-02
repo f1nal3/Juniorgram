@@ -37,7 +37,9 @@ jobs:
       run: python -m pip install conan==1.40.0 cmake && sudo apt install clang-12 clang-tidy
 
     - name: DEBUG
-      run: conan remote list
+      run: |
+        conan remote list
+        conan --version
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
