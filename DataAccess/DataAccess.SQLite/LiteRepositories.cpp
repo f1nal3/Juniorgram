@@ -4,13 +4,15 @@
 #include <QSqlRecord>
 #include <QVariant>
 
+#include "LiteAdapter.hpp"
+
 namespace DataAccess
 {
-AbstractLiteRepository::AbstractLiteRepository(LiteAdapter& adapter) : _adapter(adapter) {}
+AbstractLiteRepository::AbstractLiteRepository(std::shared_ptr<IAdapter>& adapter) : _adapter(adapter) {}
 
 bool AbstractLiteRepository::ensureTable(const QString& table_name, const QString& fields)
 {
-    _adapter.query(QString("CREATE TABLE IF NOT EXISTS %1 (%2);").arg(table_name).arg(fields).toStdString());
+    _adapter->query(QString("CREATE TABLE IF NOT EXISTS %1 (%2);").arg(table_name).arg(fields).toStdString());
     return true;
 }
 
@@ -186,4 +188,5 @@ void LiteMessageRepository::removeMessages(std::vector<MessageInfo>& messages)
     }
     auto oQuery = adapter->query((query + ";").toStdString());
 }
+LiteMessageRepository::LiteMessageRepository(std::shared_ptr<IAdapter>& adapter) : AbstractLiteRepository(adapter) {}
 }  // namespace DataAccess

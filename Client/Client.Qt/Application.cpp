@@ -29,6 +29,7 @@ void Application::create()
 
     _repContainer = std::make_unique<DataAccess::LiteRepositoryContainer>(DataAccess::LiteAdapter::getInstance<DataAccess::LiteAdapter>());
     _receiverManager = std::make_unique<ReceiverManager>();
+    _repContainer->registerRepository<DataAccess::IMessageRepository, DataAccess::LiteMessageRepository>();
     _mainWidget->addWidget(std::make_unique<LoginPage>());
     _mainWidget->addWidget(std::make_unique<RegistrationPage>());
     _mainWidget->addWidget(std::make_unique<ChatPage>());

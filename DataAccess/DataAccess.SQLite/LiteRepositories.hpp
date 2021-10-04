@@ -1,21 +1,22 @@
 #pragma once
 #include "DataAccess/IClientRepositories.hpp"
-#include "LiteTable.hpp"
+#include "LiteAdapter.hpp"
 
 namespace DataAccess
 {
 class AbstractLiteRepository
 {
 public:
-    AbstractLiteRepository(LiteAdapter& adapter);
+    AbstractLiteRepository(std::shared_ptr<IAdapter>& adapter);
     bool ensureTable(const QString& table_name, const QString& fields);
 
 private:
-    LiteAdapter& _adapter;
+    std::shared_ptr<IAdapter>& _adapter;
 };
 
 struct MessageInfo
-{  /// channel identifier
+{
+    /// channel identifier
     std::uint64_t channelID{};
     /// text of a message
     QString message{};
@@ -51,9 +52,10 @@ struct MessageInfo
 
 class LiteMessageRepository : public IMessageRepository, public AbstractLiteRepository
 {
+public:
+    LiteMessageRepository(std::shared_ptr<IAdapter>& adapter);
     void addMessages(std::vector<MessageInfo>& messages) override;
 
-public:
     void                     editMessages(std::vector<MessageInfo>& messages) override;
     std::vector<MessageInfo> getMessages(std::uint64_t channelID) override;
     std::vector<MessageInfo> getMessageSince(std::uint64_t channelID, std::uint64_t since) override;
