@@ -4,21 +4,23 @@ namespace Utility
 {
     std::string removeSpaces(const std::string& input)
     {
+        auto isSpace = [] (char c) -> bool { return std::isspace(static_cast<unsigned char>(c));  };
+
         std::string result;
         result.reserve(input.size());
 
-        auto sequenceStart = std::find_if_not(input.cbegin(), input.cend(), std::isspace);
+        auto sequenceStart = std::find_if_not(input.cbegin(), input.cend(), isSpace);
         auto sequenceEnd = sequenceStart;
 
         while (sequenceStart < input.end())
         {
-            bool spaceSequence = std::isspace(*sequenceStart);
+            bool spaceSequence = isSpace(*sequenceStart);
 
             if (spaceSequence)
             {
                 char singleSpace = ' ';
 
-                for (; (sequenceEnd < input.end()) && std::isspace(*sequenceEnd); ++sequenceEnd)
+                for (; (sequenceEnd < input.end()) && isSpace(*sequenceEnd); ++sequenceEnd)
                 {
                     if (*sequenceEnd == '\n')
                     {
@@ -30,14 +32,14 @@ namespace Utility
             }
             else
             {
-                sequenceEnd = std::find_if(sequenceStart, input.cend(), std::isspace);
+                sequenceEnd = std::find_if(sequenceStart, input.cend(), isSpace);
                 result.append(sequenceStart, sequenceEnd);
             }
 
             sequenceStart = sequenceEnd;
         }
 
-        if (!result.empty() && std::isspace(result.back()))
+        if (!result.empty() && isSpace(result.back()))
         {
             result.pop_back();
         }
