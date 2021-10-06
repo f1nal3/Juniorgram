@@ -5,7 +5,7 @@
 #include "Widgets/MessageWidget.hpp"
 #include "Widgets/TextEdit.hpp"
 
-/** 
+/**
  *  @class ChatWidget
  *  @brief chatWidget stores and displays messages and replies.
  */
@@ -26,15 +26,14 @@ public:
 
 private slots:
     void newMessage(const QString& messageText);
-    void addReplyWidget(ReplyWidget* reply);
+    void setReply(QString messageText, QString username, uint64_t messageId);
     void addMessages(const std::vector<Network::MessageInfo>& messages);
     void addReplies(const std::vector<Network::ReplyInfo>& replies);
 
-    void requestMessages();
-    void requestReplies();
+    void requestMessages() const;
 
 private:
-    ReplyWidget* _replyWidget;
+    std::unique_ptr<ReplyWidget> _replyWidget;
     std::unique_ptr<QVBoxLayout> _mainChatLayout;
     std::unique_ptr<ChatHistory> _chatHistory;
     std::unique_ptr<TextEdit>    _textEdit;

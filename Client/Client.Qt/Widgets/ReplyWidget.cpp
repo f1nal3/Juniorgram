@@ -21,8 +21,6 @@ ReplyWidget::ReplyWidget(QString message, QString username, uint64_t messageId, 
     resize(width(), expectedHeight());
 }
 
-void ReplyWidget::closeReply() { this->close(); }
-
 int ReplyWidget::expectedHeight()
 {
     if (!_fmtMessageText) return 0;
@@ -56,3 +54,5 @@ void ReplyWidget::resizeEvent(QResizeEvent* e)
     resize(width(), expectedHeight());
     QWidget::resizeEvent(e);
 }
+
+void ReplyWidget::setReply(QString messageText, QString username, uint64_t messageId) {}

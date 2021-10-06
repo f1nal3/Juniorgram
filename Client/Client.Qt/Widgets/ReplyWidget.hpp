@@ -20,7 +20,6 @@ public:
     ReplyWidget(QString message, QString username, uint64_t messageId, uint64_t userId = uint64_t(),
                 const Style::MessageWidget& st = st::defaultMessageWidget);
 
-public:
     /// Function to get username
     QString getUsername() const { return _username; };
     /// Function to get message
@@ -29,14 +28,12 @@ public:
     uint64_t getMessageId() const { return _messageId; };
     /// Function to get userId
     uint64_t getUserId() const { return _userId; };
-    /// Possible height of message widget
+
     int expectedHeight();
+    /// Set reply
+    void setReply(QString messageText, QString username, uint64_t messageId);
     /// Return message
     QString getMessageText() const { return _messageText; }
-
-public slots:
-    /// Slot for close reply above text edit widget after sending message
-    void closeReply();
 
 protected:
     /// Event that is responsible for rendering the message
