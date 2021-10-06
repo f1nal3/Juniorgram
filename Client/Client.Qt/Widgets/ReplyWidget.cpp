@@ -11,7 +11,7 @@ ReplyWidget::ReplyWidget(QWidget* parent, const Style::MessageWidget& st) : QWid
     resize(width(), expectedHeight());
 }
 
-int ReplyWidget::expectedHeight() { return _st.radius * 5 + _st.fontname->height; }
+int ReplyWidget::expectedHeight() { return _st.radius * 5 + _st.fontname->height + _st.fonttext->height; }
 
 void ReplyWidget::paintEvent(QPaintEvent* e)
 {

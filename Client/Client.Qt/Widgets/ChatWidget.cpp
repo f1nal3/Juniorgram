@@ -1,6 +1,8 @@
 #include "ChatWidget.hpp"
 
+#include <QtDebug>
 #include <QtEvents>
+#include <utility>
 
 #include "Application.hpp"
 #include "ChatHistory.hpp"
@@ -9,7 +11,7 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
 {
     setContentsMargins(0, 0, 0, 0);
     _chatHistory  = std::make_unique<ChatHistory>(this);
-    _textEdit     = std::make_unique<TextEdit>(_chatHistory.get());
+    _textEdit     = std::make_unique<TextEdit>(this);
     _replyWidget  = std::make_unique<ReplyWidget>(this);
     _requestTimer = std::make_unique<QTimer>();
 
@@ -17,6 +19,7 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
 
     /// Once in a second
     _requestTimer->start(1000);
+    _textEdit->show();
 
     setMinimumWidth(st::chatWidgetMinWidth);
     connect(_chatHistory.get(), &ChatHistory::createReplySignal, this, &ChatWidget::setReply);
@@ -68,16 +71,17 @@ void ChatWidget::requestMessages() const
 
 void ChatWidget::setReply(QString messageText, QString username, uint64_t messageId)
 {
-    _replyWidget->setReply(messageText, username, messageId);
+    _replyWidget->setReply(std::move(messageText), std::move(username), messageId);
     _replyWidget->show();
+    resize(size());
 }
 
 void ChatWidget::resizeEvent(QResizeEvent* event)
 {
     const auto& size = event->size();
     _replyWidget->setFixedWidth(size.width());
-    _textEdit->setFixedWidth(size.width());
-    _chatHistory->resize(size.width(), size.height() - _textEdit->height() - _replyWidget->height());
-    _replyWidget->move(0, _textEdit->y() - _replyWidget->height());
+    _textEdit->resize(size.width(), _textEdit->expectedHeight());
+    _chatHistory->resize(size.width(), size.height() - _textEdit->height() - (_replyWidget->isHidden() ? 0 : _replyWidget->height()));
     _textEdit->move(0, size.height() - _textEdit->height());
+    _replyWidget->move(0, _textEdit->y() - _replyWidget->height());
 }

@@ -34,7 +34,11 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent), _settings(Settings::getIn
     _italicButton->setClickCallback([&]() { styleButtonClick(_italicSymbolOpen, _italicSymbolClose); });
     _underlineButton->setClickCallback([&]() { styleButtonClick(_underlineSymbolOpen, _underlineSymbolClose); });
     _sendButton->setClickCallback([&]() { sendButtonClick(); });
+    setMaximumHeight(Style::valueDPIScale(480));
+    setMinimumHeight(Style::valueDPIScale(100));
 }
+
+int TextEdit::expectedHeight() { return _boldnessButton->height() + _messageInput->document()->size().height(); }
 
 void TextEdit::sendButtonClick()
 {
@@ -42,14 +46,6 @@ void TextEdit::sendButtonClick()
     {
         emit sendMessage(getText());
         clear();
-    }
-}
-
-void TextEdit::keyPressEvent(QKeyEvent* event)
-{
-    if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) && (getText() != ""))
-    {
-        sendButtonClick();
     }
 }
 
