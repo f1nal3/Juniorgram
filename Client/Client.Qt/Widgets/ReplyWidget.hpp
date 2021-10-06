@@ -17,8 +17,7 @@ class ReplyWidget : public QWidget
 
 public:
     /// Constructor for reply widget
-    ReplyWidget(QString message, QString username, uint64_t messageId, uint64_t userId = uint64_t(),
-                const Style::MessageWidget& st = st::defaultMessageWidget);
+    ReplyWidget(QWidget* parent, const Style::MessageWidget& st = st::defaultMessageWidget);
 
     /// Function to get username
     QString getUsername() const { return _username; };
@@ -42,11 +41,10 @@ protected:
     void resizeEvent(QResizeEvent* e) override;
 
 private:
-    QString                       _messageText;
-    QString                       _username;
-    uint64_t                      _messageId;
-    uint64_t                      _userId;
-    std::unique_ptr<FlatButton>   _closeReplyButton;
-    std::unique_ptr<FlatTextEdit> _fmtMessageText;
-    const Style::MessageWidget&   _st;
+    QString                     _messageText;
+    QString                     _username;
+    uint64_t                    _messageId;
+    uint64_t                    _userId;
+    std::unique_ptr<FlatButton> _closeReplyButton;
+    const Style::MessageWidget& _st;
 };

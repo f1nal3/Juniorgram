@@ -24,6 +24,10 @@ public:
      */
     void setChannelID(const std::uint64_t channelID) { _channelID = channelID; }
 
+protected:
+    /// Handle resize
+    void resizeEvent(QResizeEvent* event) override;
+
 private slots:
     void newMessage(const QString& messageText);
     void setReply(QString messageText, QString username, uint64_t messageId);
@@ -34,9 +38,8 @@ private slots:
 
 private:
     std::unique_ptr<ReplyWidget> _replyWidget;
-    std::unique_ptr<QVBoxLayout> _mainChatLayout;
     std::unique_ptr<ChatHistory> _chatHistory;
     std::unique_ptr<TextEdit>    _textEdit;
     std::unique_ptr<QTimer>      _requestTimer;
-    std::uint64_t                _channelID;
+    std::uint64_t                _channelID{};
 };

@@ -1,6 +1,6 @@
 #include "ChatWidget.hpp"
 
-#include <QDebug>
+#include <QtEvents>
 
 #include "Application.hpp"
 #include "ChatHistory.hpp"
@@ -8,17 +8,10 @@
 ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
 {
     setContentsMargins(0, 0, 0, 0);
-    _mainChatLayout = std::make_unique<QVBoxLayout>(this);
-    _chatHistory    = std::make_unique<ChatHistory>(this);
-    _textEdit       = std::make_unique<TextEdit>(_chatHistory.get());
-    _requestTimer   = std::make_unique<QTimer>();
-
-    _mainChatLayout->setContentsMargins(0, 0, 0, 0);
-    _mainChatLayout->setSpacing(0);
-    _mainChatLayout->addWidget(_chatHistory.get(), 85);
-    _mainChatLayout->addWidget(_textEdit.get(), 15);
-
-    setLayout(_mainChatLayout.get());
+    _chatHistory  = std::make_unique<ChatHistory>(this);
+    _textEdit     = std::make_unique<TextEdit>(_chatHistory.get());
+    _replyWidget  = std::make_unique<ReplyWidget>(this);
+    _requestTimer = std::make_unique<QTimer>();
 
     connect(_requestTimer.get(), &QTimer::timeout, this, &ChatWidget::requestMessages);
 
@@ -76,5 +69,15 @@ void ChatWidget::requestMessages() const
 void ChatWidget::setReply(QString messageText, QString username, uint64_t messageId)
 {
     _replyWidget->setReply(messageText, username, messageId);
-    _mainChatLayout->insertWidget(1, _replyWidget, 15);
+    _replyWidget->show();
+}
+
+void ChatWidget::resizeEvent(QResizeEvent* event)
+{
+    const auto& size = event->size();
+    _replyWidget->setFixedWidth(size.width());
+    _textEdit->setFixedWidth(size.width());
+    _chatHistory->resize(size.width(), size.height() - _textEdit->height() - _replyWidget->height());
+    _replyWidget->move(0, _textEdit->y() - _replyWidget->height());
+    _textEdit->move(0, size.height() - _textEdit->height());
 }
