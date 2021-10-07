@@ -20,7 +20,6 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent), _settings(Settings::getIn
     _horizontalButtonLayout->addWidget(_underlineButton.get());
     _horizontalButtonLayout->addItem(_horizontalButtonSpacer.get());
     _horizontalButtonLayout->addWidget(_sendButton.get());
-
     if (auto fontSize = _settings.getFontSize())
     {
         if (fontSize.has_value()) _messageInput->setFontPointSize(fontSize.value());
@@ -34,7 +33,8 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent), _settings(Settings::getIn
     _italicButton->setClickCallback([&]() { styleButtonClick(_italicSymbolOpen, _italicSymbolClose); });
     _underlineButton->setClickCallback([&]() { styleButtonClick(_underlineSymbolOpen, _underlineSymbolClose); });
     _sendButton->setClickCallback([&]() { sendButtonClick(); });
-    setMaximumHeight(Style::valueDPIScale(480));
+    connect(_messageInput.get(), &FlatTextEdit::textChanged, this, &TextEdit::textChanged);
+    setMaximumHeight(Style::valueDPIScale(400));
     setMinimumHeight(Style::valueDPIScale(100));
 }
 

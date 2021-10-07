@@ -41,6 +41,8 @@ public slots:
 signals:
     /// message send
     void sendMessage(QString textMessage);
+    /// text changed
+    void textChanged();
 
 private slots:
     void styleButtonClick(const QString& symbolStart, const QString& symbolEnd);

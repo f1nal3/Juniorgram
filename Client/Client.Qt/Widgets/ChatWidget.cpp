@@ -19,12 +19,15 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
 
     /// Once in a second
     _requestTimer->start(1000);
-    _textEdit->show();
+    _replyWidget->hide();
 
     setMinimumWidth(st::chatWidgetMinWidth);
     connect(_chatHistory.get(), &ChatHistory::createReplySignal, this, &ChatWidget::setReply);
     connect(_textEdit.get(), &TextEdit::sendMessage, this, &ChatWidget::newMessage);
+
     connect(_replyWidget.get(), &ReplyWidget::visibilityChanged, [=](bool) { layout(); });
+    connect(_textEdit.get(), &TextEdit::textChanged, [=]() { layout(); });
+
     connect(ReceiverManager::instance(), &ReceiverManager::onReplyHistoryAnswer, this, &ChatWidget::addReplies);
     connect(ReceiverManager::instance(), &ReceiverManager::onMessageHistoryAnswer, this, &ChatWidget::addMessages);
 }
@@ -32,7 +35,7 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
 void ChatWidget::newMessage(const QString& messageText)
 {
     oApp->connectionManager()->storeMessage(messageText.toStdString(), _channelID);
-    if (this->findChild<ReplyWidget*>())
+    if (!_replyWidget->isHidden())
     {
         oApp->connectionManager()->storeReply(_replyWidget->getMessage().toStdString(), _channelID, _replyWidget->getMessageId());
         _replyWidget->close();
@@ -80,7 +83,11 @@ void ChatWidget::layout()
 {
     const auto& size = this->size();
     _replyWidget->setFixedWidth(size.width());
-    _textEdit->resize(size.width(), _textEdit->expectedHeight());
+    auto textEditExpectedHeightBefore = _textEdit->expectedHeight();
+    _textEdit->resize(size.width(), textEditExpectedHeightBefore);
+    auto textEditExpectedHeightAfter = _textEdit->expectedHeight();
+    if (textEditExpectedHeightBefore != textEditExpectedHeightAfter) _textEdit->resize(size.width(), textEditExpectedHeightBefore);
+
     _chatHistory->resize(size.width(), size.height() - _textEdit->height() - (_replyWidget->isHidden() ? 0 : _replyWidget->height()));
     _textEdit->move(0, size.height() - _textEdit->height());
     _replyWidget->move(0, _textEdit->y() - _replyWidget->height());
