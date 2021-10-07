@@ -23,7 +23,7 @@ void ReplyWidget::paintEvent(QPaintEvent* e)
     auto usernameRect = QRect(margin * 2, margin * 2 + 1, _st.fontname->width(_username), _st.fontname->height);
     p.drawText(usernameRect, _username);
 
-    auto drawText = _st.fonttext->elided(_messageText, QWidget::width() - margin * 2);
+    auto drawText = _st.fonttext->elided(_messageText, QWidget::width() - margin * 4);
 
     auto textRect = QRect(margin * 2, margin * 3 + 1 + _st.fontname->height, _st.fonttext->width(drawText), _st.fonttext->height);
     p.setFont(_st.fonttext);
@@ -34,7 +34,7 @@ void ReplyWidget::paintEvent(QPaintEvent* e)
 
 void ReplyWidget::resizeEvent(QResizeEvent* e)
 {
-    int closeReplyButtonX = width() - _st.radius - _closeReplyButton->width();
+    int closeReplyButtonX = width() - _st.radius * 2 - _closeReplyButton->width();
     _closeReplyButton->move(closeReplyButtonX, _st.radius);
 
     if (expectedHeight() != height())
