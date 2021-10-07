@@ -25,8 +25,8 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     connect(_chatHistory.get(), &ChatHistory::createReplySignal, this, &ChatWidget::setReply);
     connect(_textEdit.get(), &TextEdit::sendMessage, this, &ChatWidget::newMessage);
 
-    connect(_replyWidget.get(), &ReplyWidget::visibilityChanged, [=](bool) { layout(); });
-    connect(_textEdit.get(), &TextEdit::textChanged, [=]() { layout(); });
+    connect(_replyWidget.get(), &ReplyWidget::visibilityChanged, [=](bool) { updateLayout(); });
+    connect(_textEdit.get(), &TextEdit::textChanged, [=]() { updateLayout(); });
 
     connect(ReceiverManager::instance(), &ReceiverManager::onReplyHistoryAnswer, this, &ChatWidget::addReplies);
     connect(ReceiverManager::instance(), &ReceiverManager::onMessageHistoryAnswer, this, &ChatWidget::addMessages);
@@ -79,7 +79,7 @@ void ChatWidget::setReply(QString messageText, QString username, uint64_t messag
     _replyWidget->show();
 }
 
-void ChatWidget::layout()
+void ChatWidget::updateLayout()
 {
     const auto& size = this->size();
     _replyWidget->setFixedWidth(size.width());
@@ -92,4 +92,4 @@ void ChatWidget::layout()
     _replyWidget->move(0, _textEdit->y() - _replyWidget->height());
 }
 
-void ChatWidget::resizeEvent(QResizeEvent*) { layout(); }
+void ChatWidget::resizeEvent(QResizeEvent*) { updateLayout(); }

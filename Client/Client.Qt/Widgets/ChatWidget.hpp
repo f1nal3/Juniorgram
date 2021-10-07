@@ -35,7 +35,7 @@ private slots:
     void addReplies(const std::vector<Network::ReplyInfo>& replies);
 
     void requestMessages() const;
-    void layout();
+    void updateLayout();
 
 private:
     std::unique_ptr<ReplyWidget> _replyWidget;
