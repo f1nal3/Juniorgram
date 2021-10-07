@@ -36,6 +36,7 @@ public:
     QString getMessageText() const { return _messageText; }
 
 signals:
+    /// Visibility has been changed
     void visibilityChanged(bool hidden);
 
 protected:
