@@ -86,8 +86,7 @@ void ChatWidget::layout()
     auto textEditExpectedHeightBefore = _textEdit->expectedHeight();
     _textEdit->resize(size.width(), textEditExpectedHeightBefore);
     auto textEditExpectedHeightAfter = _textEdit->expectedHeight();
-    if (textEditExpectedHeightBefore != textEditExpectedHeightAfter) _textEdit->resize(size.width(), textEditExpectedHeightBefore);
-
+    if (textEditExpectedHeightBefore != textEditExpectedHeightAfter) _textEdit->resize(size.width(), textEditExpectedHeightAfter);
     _chatHistory->resize(size.width(), size.height() - _textEdit->height() - (_replyWidget->isHidden() ? 0 : _replyWidget->height()));
     _textEdit->move(0, size.height() - _textEdit->height());
     _replyWidget->move(0, _textEdit->y() - _replyWidget->height());
