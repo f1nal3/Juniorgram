@@ -27,6 +27,7 @@ public:
      */
     [[nodiscard]] QString getText() const;
 
+    /// Expected height of Text Edit
     int expectedHeight();
 
     /// clear text
