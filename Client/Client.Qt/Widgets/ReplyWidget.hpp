@@ -34,11 +34,18 @@ public:
     /// Return message
     QString getMessageText() const { return _messageText; }
 
+signals:
+    void visibilityChanged(bool hidden);
+
 protected:
     /// Event that is responsible for rendering the message
     void paintEvent(QPaintEvent* e) override;
     /// Event that is responsible for changing the size of the message
     void resizeEvent(QResizeEvent* e) override;
+    /// Handle hide event
+    void hideEvent(QHideEvent* e) override;
+    /// Handle show event
+    void showEvent(QShowEvent* e) override;
 
 private:
     QString                     _messageText;

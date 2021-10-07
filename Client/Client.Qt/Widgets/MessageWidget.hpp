@@ -119,5 +119,4 @@ private:
     const Style::MessageWidget& _st;
 
     std::unique_ptr<FlatButton> _replyBtn;
-    ReplyWidget*                _replyWidget = nullptr;
 };

@@ -24,6 +24,7 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     setMinimumWidth(st::chatWidgetMinWidth);
     connect(_chatHistory.get(), &ChatHistory::createReplySignal, this, &ChatWidget::setReply);
     connect(_textEdit.get(), &TextEdit::sendMessage, this, &ChatWidget::newMessage);
+    connect(_replyWidget.get(), &ReplyWidget::visibilityChanged, [=](bool) { layout(); });
     connect(ReceiverManager::instance(), &ReceiverManager::onReplyHistoryAnswer, this, &ChatWidget::addReplies);
     connect(ReceiverManager::instance(), &ReceiverManager::onMessageHistoryAnswer, this, &ChatWidget::addMessages);
 }
@@ -73,15 +74,16 @@ void ChatWidget::setReply(QString messageText, QString username, uint64_t messag
 {
     _replyWidget->setReply(std::move(messageText), std::move(username), messageId);
     _replyWidget->show();
-    resize(size());
 }
 
-void ChatWidget::resizeEvent(QResizeEvent* event)
+void ChatWidget::layout()
 {
-    const auto& size = event->size();
+    const auto& size = this->size();
     _replyWidget->setFixedWidth(size.width());
     _textEdit->resize(size.width(), _textEdit->expectedHeight());
     _chatHistory->resize(size.width(), size.height() - _textEdit->height() - (_replyWidget->isHidden() ? 0 : _replyWidget->height()));
     _textEdit->move(0, size.height() - _textEdit->height());
     _replyWidget->move(0, _textEdit->y() - _replyWidget->height());
 }
+
+void ChatWidget::resizeEvent(QResizeEvent*) { layout(); }

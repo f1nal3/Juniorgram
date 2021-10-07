@@ -53,3 +53,7 @@ void ReplyWidget::setReply(QString messageText, QString username, uint64_t messa
     _messageId   = messageId;
     update();
 }
+
+void ReplyWidget::hideEvent(QHideEvent*) { visibilityChanged(true); }
+
+void ReplyWidget::showEvent(QShowEvent*) { visibilityChanged(false); }
