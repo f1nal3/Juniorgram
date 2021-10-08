@@ -49,6 +49,16 @@ namespace Utility
         FAILED,
     };
   
+    /**  @brief Enum for tracking channel's subscribe status.
+     *   @details Utility::ChannelSubscribeCodes.
+     */
+    enum class ChannelSubscribingCodes : std::uint8_t
+    {
+        CHANNEL_HAS_ALREADY_BEEN_SIGNED,
+        SUCCESS,
+        FAILED,
+    };
+  
     /**  @brief Enum for tracking channel leave status.
      *   @details Utility::ChannelLeaveCodes leaveChannel(const std::string channelName) /
      *    return one of this codes.

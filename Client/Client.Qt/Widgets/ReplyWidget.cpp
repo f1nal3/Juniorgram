@@ -2,32 +2,16 @@
 
 #include <QPainter>
 #include <QtEvents>
+#include <utility>
 
-ReplyWidget::ReplyWidget(QString message, QString username, uint64_t messageId, uint64_t userId, const Style::MessageWidget& st)
-    : _messageText(message), _username(username), _messageId(messageId), _userId(userId), _st(st)
+ReplyWidget::ReplyWidget(QWidget* parent, const Style::MessageWidget& st) : QWidget(parent), _st(st)
 {
-    setAttribute(Qt::WA_DeleteOnClose);
-
-    _fmtMessageText = std::make_unique<FlatTextEdit>(this, _st.textedit);
-    _fmtMessageText->setText(_messageText);
-    _fmtMessageText->setAcceptDrops(false);
-    _fmtMessageText->setReadOnly(true);
-    _fmtMessageText->moveCursor(QTextCursor::Start);
-    _fmtMessageText->setFont(_st.fonttext);
-    _fmtMessageText->move(_st.radius * 2, _st.fontname->height + _st.radius * 4);
-    _fmtMessageText->show();
     _closeReplyButton = std::make_unique<FlatButton>(this, "Close", _st.button);
-    _closeReplyButton->setClickCallback([&]() { closeReply(); });
+    _closeReplyButton->setClickCallback([&]() { close(); });
     resize(width(), expectedHeight());
 }
 
-void ReplyWidget::closeReply() { this->close(); }
-
-int ReplyWidget::expectedHeight()
-{
-    if (!_fmtMessageText) return 0;
-    return _st.radius * 7 + _st.fontname->height + _fmtMessageText->document()->size().height() + _closeReplyButton->height();
-}
+int ReplyWidget::expectedHeight() { return _st.radius * 5 + _st.fontname->height + _st.fonttext->height; }
 
 void ReplyWidget::paintEvent(QPaintEvent* e)
 {
@@ -39,14 +23,19 @@ void ReplyWidget::paintEvent(QPaintEvent* e)
     auto usernameRect = QRect(margin * 2, margin * 2 + 1, _st.fontname->width(_username), _st.fontname->height);
     p.drawText(usernameRect, _username);
 
+    auto drawText = _st.fonttext->elided(_messageText, QWidget::width() - margin * 4);
+
+    auto textRect = QRect(margin * 2, margin * 3 + 1 + _st.fontname->height, _st.fonttext->width(drawText), _st.fonttext->height);
+    p.setFont(_st.fonttext);
+    p.drawText(textRect, drawText);
+
     QWidget::paintEvent(e);
 }
 
 void ReplyWidget::resizeEvent(QResizeEvent* e)
 {
-    int closeReplyButtonX = width() - _st.radius - _closeReplyButton->width();
+    int closeReplyButtonX = width() - _st.radius * 2 - _closeReplyButton->width();
     _closeReplyButton->move(closeReplyButtonX, _st.radius);
-    _fmtMessageText->resize(width() - _st.radius * 4 - 1, _fmtMessageText->document()->size().height());
 
     if (expectedHeight() != height())
     {
@@ -56,3 +45,15 @@ void ReplyWidget::resizeEvent(QResizeEvent* e)
     resize(width(), expectedHeight());
     QWidget::resizeEvent(e);
 }
+
+void ReplyWidget::setReply(QString messageText, QString username, uint64_t messageId)
+{
+    _messageText = std::move(messageText);
+    _username    = std::move(username);
+    _messageId   = messageId;
+    update();
+}
+
+void ReplyWidget::hideEvent(QHideEvent*) { visibilityChanged(true); }
+
+void ReplyWidget::showEvent(QShowEvent*) { visibilityChanged(false); }

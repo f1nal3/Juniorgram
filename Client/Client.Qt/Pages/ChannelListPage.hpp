@@ -29,7 +29,9 @@ private slots:
     void setChannels(const std::vector<Network::ChannelInfo>& channels_);
 
     /// Adds selected channel to main window
-    void addChannelToMainChannelWidget();
+    void addChannelToChannelListWidget();
+    /// Adds subscribed channel to main window
+    void addSubscribedChannelToMainChannelWidget(const std::vector<uint64_t>& ChannelSubscribeList);
 
     /// Do a request to server for new channels
     void requestChannels();

@@ -9,7 +9,7 @@ set(SOURCE_FILES
         Include/DataAccess/IMasterRepository.hpp
         Include/DataAccess/IClientRepositories.hpp
         Include/DataAccess/IServerRepositories.hpp
-        Include/DataAccess/AbstarctRepositoryContainer.hpp)
+        Include/DataAccess/AbstractRepositoryContainer.hpp)
 
 add_library(${TARGET} INTERFACE)
 

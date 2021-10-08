@@ -101,7 +101,21 @@ public:
                 case Message::MessageType::ChannelLeaveAnswer:
                     state = processOutcomingMessageBody<Utility::ChannelLeaveCodes>(bodyBuffer, message.mBody);
                     break;
+                case Message::MessageType::ChannelSubscribeRequest:
+                    state = processOutcomingMessageBody<ChannelSubscriptionInfo>(bodyBuffer, message.mBody);
+                    break;
 
+                case Message::MessageType::ChannelSubscribeAnswer:
+                    state = processOutcomingMessageBody<Utility::ChannelSubscribingCodes>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::ChannelSubscriptionListRequest:
+                    state = processOutcomingMessageBody<ChannelSubscriptionInfo>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::ChannelSubscriptionListAnswer:
+                    state = processOutcomingMessageBody<std::vector<uint64_t>>(bodyBuffer, message.mBody);
+                    break;
                 case Message::MessageType::ChannelDeleteRequest:
                     state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
                     break;
@@ -229,6 +243,7 @@ public:
                 state = processIncomingMessageBody<bool>(buffer, message);
                 break;
             }
+            
             case Message::MessageType::ChannelLeaveRequest:
             {
                 state = processIncomingMessageBody<std::string>(buffer, message);
@@ -237,6 +252,26 @@ public:
             case Message::MessageType::ChannelLeaveAnswer:
             {
                 state = processIncomingMessageBody<Utility::ChannelLeaveCodes>(buffer, message);
+            }
+
+            case Message::MessageType::ChannelSubscribeRequest:
+            {
+                state = processIncomingMessageBody<ChannelSubscriptionInfo>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ChannelSubscribeAnswer:
+            {
+                state = processIncomingMessageBody<Utility::ChannelSubscribingCodes>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ChannelSubscriptionListRequest:
+            {
+                state = processIncomingMessageBody<ChannelSubscriptionInfo>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ChannelSubscriptionListAnswer:
+            {
+                state = processIncomingMessageBody<std::vector<uint64_t>>(buffer, message);
                 break;
             }
             case Message::MessageType::ChannelCreateRequest:
@@ -259,6 +294,7 @@ public:
                 state = processIncomingMessageBody<Utility::ChannelDeleteCode>(buffer, message);
                 break;
             }
+
 
             default:
                 break;

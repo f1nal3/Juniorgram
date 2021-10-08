@@ -155,8 +155,9 @@ namespace DataAccess
 
         pTable->changeTable("msgs");
         auto messageHistoryRow = pTable->Select()
-                                       ->columns({ "*" })
+                                       ->columns({"msgs.msg_id, msgs.sender_id, msgs.send_time, msgs.msg, users.login, users.id"})
                                        ->join(Utility::SQLJoinType::J_INNER, "channel_msgs", "channel_msgs.msg_id = msgs.msg_id")
+                                       ->join(Utility::SQLJoinType::J_INNER, "users", "users.id = msgs.sender_id")
                                        ->Where("channel_msgs.channel_id = " + std::to_string(channelID))
                                        ->execute();
         
@@ -170,6 +171,7 @@ namespace DataAccess
                 mi.senderID = messageHistoryRow.value()[i][1].as<std::uint64_t>();
                 mi.time = messageHistoryRow.value()[i][2].as<std::string>();
                 mi.message = messageHistoryRow.value()[i][3].as<std::string>();
+                mi.userLogin = messageHistoryRow.value()[i][4].as<std::string>();
                 result.emplace_back(mi);
             }
         }
@@ -301,6 +303,53 @@ namespace DataAccess
         }
         return result;
     }
+
+    Utility::ChannelSubscribingCodes ChannelsRepository::subscribeToChannel(const Network::ChannelSubscriptionInfo& channel)
+    {
+        pTable->changeTable("user_channles");
+        auto listSubscriptionChannel =
+            pTable->Select()
+                ->columns({"*"})
+                ->Where("channel_id = " + std::to_string(channel.channelID) + " AND " + "user_id = " + std::to_string(channel.userID))
+                ->execute();
+        if (listSubscriptionChannel.has_value())
+        {
+            if ((listSubscriptionChannel.value()[0][0].as<std::uint64_t>() == channel.userID) &&
+                (listSubscriptionChannel.value()[0][1].as<std::uint64_t>() == channel.channelID))
+            {
+                return Utility::ChannelSubscribingCodes::CHANNEL_HAS_ALREADY_BEEN_SIGNED;
+            }
+        }
+        // Preparing data for inserting a signed channel.
+        std::tuple userData{std::pair{"user_id", channel.userID}, std::pair{"channel_id", channel.channelID}};
+        auto result = pTable->Insert()->columns(userData)->execute();
+        if (result.has_value())
+        {
+            return Utility::ChannelSubscribingCodes::FAILED;
+        }
+        return Utility::ChannelSubscribingCodes::SUCCESS;
+    }
+
+    std::vector<uint64_t> ChannelsRepository::getChannelSubscriptionList(const uint64_t& userID) 
+    {
+        pTable->changeTable("user_channles");
+        auto    listSubscriptionChannel =
+                pTable->Select()
+                ->columns({"channel_id"})
+                ->Where("user_id = " + std::to_string(userID))
+                ->execute();
+        std::vector<uint64_t> result;
+        if (listSubscriptionChannel.has_value())
+        {
+            for (auto i = 0; i < listSubscriptionChannel.value().size(); ++i)
+            {
+                uint64_t channelID = listSubscriptionChannel.value()[i][0].as<uint64_t>();
+                result.push_back(channelID);
+            }
+        }
+        return result;
+    }
+
     Utility::StoringReplyCodes        RepliesRepository::storeReply(const Network::ReplyInfo& rsi)
     {
         const auto firstResult = insertReplyIntoRepliesTable(rsi);

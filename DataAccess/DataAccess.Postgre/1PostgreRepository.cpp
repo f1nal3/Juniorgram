@@ -30,11 +30,12 @@ std::vector<Network::MessageInfo> PostgreRepository::getMessageHistoryForUser(co
 
     pTable->changeTable("msgs");
     auto messageHistoryRow = pTable->Select()
-                                   ->columns({"*"})
+                                   ->columns({"msgs.msg_id, msgs.sender_id, msgs.send_time, msgs.msg, users.login, users.id"})
                                    ->join(Utility::SQLJoinType::J_INNER, "channel_msgs", "channel_msgs.msg_id = msgs.msg_id")
+                                   ->join(Utility::SQLJoinType::J_INNER, "users", "users.id = msgs.sender_id")
                                    ->Where("channel_msgs.channel_id = " + std::to_string(channelID))
                                    ->execute();
-    
+
     if (messageHistoryRow.has_value())
     {
         Network::MessageInfo mi;
@@ -45,6 +46,7 @@ std::vector<Network::MessageInfo> PostgreRepository::getMessageHistoryForUser(co
             mi.senderID = messageHistoryRow.value()[i][1].as<std::uint64_t>();
             mi.time     = messageHistoryRow.value()[i][2].as<std::string>();
             mi.message  = messageHistoryRow.value()[i][3].as<std::string>();
+            mi.userLogin = messageHistoryRow.value()[i][4].as<std::string>();
             result.emplace_back(mi);
         }
     }

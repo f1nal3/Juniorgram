@@ -18,6 +18,8 @@ namespace DataAccess
 
         virtual std::vector<Network::ChannelInfo> getAllChannelsList() override final;
         virtual Utility::ChannelLeaveCodes        leaveChannel(const Network::ChannelLeaveInfo& channel) override final;
+        virtual Utility::ChannelSubscribingCodes  subscribeToChannel(const Network::ChannelSubscriptionInfo& channel) override final;
+        virtual std::vector<uint64_t>             getChannelSubscriptionList(const uint64_t& userID) override final;
 
         virtual Utility::ChannelDeleteCode        deleteChannel(const Network::ChannelDeleteInfo& channel) override final;
 
