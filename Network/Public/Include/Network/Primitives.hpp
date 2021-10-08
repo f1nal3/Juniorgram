@@ -41,42 +41,54 @@ public:
     }
 };
 
-using ChannelDeleteInfo = ChannelInfo;
-
-/**
- * @brief The SubscriptionChannelInfo struct
- * @details Channel Info struct for information about the channel that the user subscribed.
- *          contain channel ID.
- */
-struct SubscriptionChannelInfo
-{
-    /// channel ID uint64_t variable
-    std::uint64_t channelID;
-
-public:
-    /// Default ChannelInfo constructor
-    SubscriptionChannelInfo() = default;
-
-    /// ChannelInfo constructor with initializing list
-    SubscriptionChannelInfo(const std::uint64_t channelID)
-        : channelID(channelID)
-    {
-    }
-    /// Default SubscriptionChannelInfo destructor
-    ~SubscriptionChannelInfo() = default;
-
-    /// Operator == to compare channel info
-    friend bool operator==(const SubscriptionChannelInfo& first, const SubscriptionChannelInfo& second)
-    {
-        return first.channelID == second.channelID;
-    }
-};
-
 /// Serialize method which serialize each field
 template <typename Archive>
 void serialize(Archive& ar, Network::ChannelInfo& o)
 {
     ar& o.creatorID& o.channelID& o.channelName;
+}
+  
+using ChannelDeleteInfo = ChannelInfo;
+
+/**
+ * @brief The ChannelSubscriptionInfo struct
+ * @details Channel Info struct for information about the channel that the user subscribed.
+ *          contain channel ID.
+ */
+struct ChannelSubscriptionInfo
+{
+    /// channel ID uint64_t variable
+    std::uint64_t channelID;
+    /// user ID uint64_t variable
+    std::uint64_t userID;
+
+public:
+    /// Default ChannelInfo constructor
+    ChannelSubscriptionInfo() = default;
+
+    /// ChannelInfo constructor with initializing list
+    ChannelSubscriptionInfo(const std::uint64_t channelID)
+        : channelID(channelID)
+    {
+    }
+    /// Default ChannelSubscriptionInfo destructor
+    ~ChannelSubscriptionInfo() = default;
+
+    /// Operator == to compare channel info
+    friend bool operator==(const ChannelSubscriptionInfo& first, const ChannelSubscriptionInfo& second)
+    {
+        return first.channelID == second.channelID && first.userID == second.userID;
+    }
+};
+
+/**
+ * @brief helper function for serializing
+ * @ref ChannelSubscriptionInfo structure
+ */
+template <typename Archive>
+void serialize(Archive& ar, Network::ChannelSubscriptionInfo& o)
+{
+    ar& o.channelID;
 }
 
 /**

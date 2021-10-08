@@ -38,7 +38,8 @@ public:
 
     /// Ask for channel list
     void askForChannelList() const;
-
+    /// Ask for channel subscription list
+    void askForChannelSubscriptionList() const;
     /**
      * @brief Ask for channel message history
      * @param channelID Channel ID
@@ -129,10 +130,14 @@ protected:
     virtual void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState);
     /// Registration Answer handler
     virtual void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
-	/// Reply History Answer heandler
+    /// Reply History Answer heandler
     virtual void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
     /// Reply Store Answer handler
     virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
+    /// Channel subscription Answer handler
+    virtual void onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode);
+    /// Channel subscription list Answer handler
+    virtual void onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList);
     /// Reply delete channel Answer handler
     virtual void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
     /// Reply create channel Answer handler

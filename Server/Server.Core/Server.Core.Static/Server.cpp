@@ -207,6 +207,40 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         }
         break;
 
+        case Network::Message::MessageType::ChannelSubscribeRequest:
+        {
+            auto channel = std::any_cast<Network::ChannelSubscriptionInfo>(message.mBody);
+            channel.userID = client->getUserID();
+
+            auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
+            auto future      = std::async(std::launch::async, &DataAccess::IChannelsRepository::subscribeToChannel, IChannelRep, channel);
+
+            Network::Message messageToClient;
+            messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelSubscribeAnswer;
+
+            auto subscribingChannelCodes = future.get();
+
+            messageToClient.mBody = std::make_any<Utility::ChannelSubscribingCodes>(subscribingChannelCodes);
+            client->send(messageToClient);
+        }
+        break;
+
+        case Network::Message::MessageType::ChannelSubscriptionListRequest:
+        {
+            const auto userID = client->getUserID();
+
+            auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
+            auto future = std::async(std::launch::async, &DataAccess::IChannelsRepository::getChannelSubscriptionList, IChannelRep, userID);
+
+            Network::Message messageToClient;
+            messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelSubscriptionListAnswer;
+
+            auto subscribingChannelCodes = future.get();
+            messageToClient.mBody =
+                std::make_any<std::vector<uint64_t>>(subscribingChannelCodes);
+        }
+        break;
+        
         case Network::Message::MessageType::ChannelDeleteRequest:
         {
             Network::ChannelDeleteInfo chennelDeletedInfo;
