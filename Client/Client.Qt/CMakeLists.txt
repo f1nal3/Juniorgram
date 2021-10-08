@@ -55,8 +55,8 @@ set(UI_WIDGETS_SOURCES
         Widgets/MessageWidget.hpp
         Widgets/ReplyWidget.cpp
         Widgets/ReplyWidget.hpp
-		    Widgets/ReplyMessageWidget.cpp
-		    Widgets/ReplyMessageWidget.hpp
+        Widgets/ReplyMessageWidget.cpp
+        Widgets/ReplyMessageWidget.hpp
         Widgets/Page.cpp
         Widgets/Page.hpp
         Widgets/PopupWidget.cpp
@@ -114,7 +114,11 @@ endif ()
 
 target_link_libraries(${TARGET}
         PRIVATE Qt::Widgets Qt::Gui ${EXTRA_LIBS} CONAN_PKG::asio
-        PUBLIC Network.Public Client.Core.Static Utility.Public)
+        PUBLIC Network.Public Client.Core.Static Utility.Public DataAccess.SQLite)
+
+
+target_include_directories(${TARGET}
+        PUBLIC $<TARGET_PROPERTY:DataAccess.SQLite,SOURCE_DIR>/..)
 
 # This needs to be an install or after install operation
 # At this point it disrupts CI build so I commented it out =)
