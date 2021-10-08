@@ -1,7 +1,6 @@
 #include "ChatWidget.hpp"
 
-#include <QtEvents>
-#include <utility>
+#include <QDebug>
 
 #include "Application.hpp"
 #include "ChatHistory.hpp"
@@ -9,6 +8,10 @@
 ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
 {
     setContentsMargins(0, 0, 0, 0);
+    _mainChatLayout = std::make_unique<QVBoxLayout>(this);
+    _chatHistory    = std::make_unique<ChatHistory>(this);
+    _textEdit       = std::make_unique<TextEdit>(_chatHistory.get());
+    _requestTimer   = std::make_unique<QTimer>();
 
     _channelBar   = std::make_unique<ChannelBar>(this);
     _chatHistory  = std::make_unique<ChatHistory>(this);
@@ -56,10 +59,7 @@ void ChatWidget::addMessages(const std::vector<Network::MessageInfo>& messages)
 
 void ChatWidget::addReplies(const std::vector<Network::ReplyInfo>& replies)
 {
-    if (replies.empty()) return;
-    if (replies.front().channelID != _channelID) return;  // It could be replies for other channel
-
-    for (const auto& reply : replies)
+    for(const auto& reply : replies)
     {
         _chatHistory->addReply(reply);
     }
@@ -74,31 +74,19 @@ void ChatWidget::requestMessages() const
     }
 }
 
-void ChatWidget::setReply(QString messageText, QString username, uint64_t messageId)
+void ChatWidget::requestReplies()
 {
-    _replyWidget->setReply(std::move(messageText), std::move(username), messageId);
-    _replyWidget->show();
+    if(oApp->connectionManager()->isConnected())
+    {
+        oApp->connectionManager()->askForReplyHistory(_channelID);
+    }
 }
 
-void ChatWidget::updateLayout()
+void ChatWidget::addReplyWidget(ReplyWidget* reply)
 {
-    const auto& size = this->size();
-    _replyWidget->setFixedWidth(size.width());  // Reply on whole width
-    _channelBar->setFixedWidth(size.width());
-
-    auto textEditExpectedHeightBefore = _textEdit->expectedHeight();  // Text edit size before resize
-    _textEdit->resize(size.width(), textEditExpectedHeightBefore);
-    auto textEditExpectedHeightAfter = _textEdit->expectedHeight();   // Text edit size after resize
-    if (textEditExpectedHeightBefore != textEditExpectedHeightAfter)  // Need to resize again
-        _textEdit->resize(size.width(), textEditExpectedHeightAfter);
-
-    _chatHistory->resize(size.width(), size.height() - _textEdit->height() - _channelBar->height() -
-                                           (_replyWidget->isHidden() ? 0 : _replyWidget->height()));
-
-    _chatHistory->move(0, _channelBar->height());
-
-    _textEdit->move(0, size.height() - _textEdit->height());
-    _replyWidget->move(0, _textEdit->y() - _replyWidget->height());
-}
+    if(this->findChild<ReplyWidget*>())
+    {
+        _replyWidget->close();
+    }
 
 void ChatWidget::resizeEvent(QResizeEvent*) { updateLayout(); }
