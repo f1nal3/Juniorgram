@@ -269,7 +269,7 @@ namespace DataAccess
 
     Utility::ChannelSubscribingCodes ChannelsRepository::subscribeToChannel(const Network::ChannelSubscriptionInfo& channel)
     {
-        pTable->changeTable("user_channles");
+        pTable->changeTable("user_channels");
         auto listSubscriptionChannel =
             pTable->Select()
                 ->columns({"*"})
