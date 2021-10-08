@@ -88,6 +88,29 @@ void ChannelListPage::addSubscribedChannelToMainChannelWidget(const std::vector<
     }
 }
 
+void ChannelListPage::addSubscribedChannelToMainChannelWidget(const std::vector<uint64_t>& ChannelSubscribeList)
+{
+    std::vector<std::string> channelsSubscribeVector;
+    for (auto channel : ChannelSubscribeList)
+    {
+        int  row = 0;
+        auto findChannel =
+            std::find_if(channels.begin(), channels.end(), [channel](Network::ChannelInfo i) 
+                                                           { return i.channelID == channel; });
+        channelsSubscribeVector.push_back(findChannel->channelName);
+        _channelList->setCurrentRow(row);
+        while (_channelList->currentRow() != -1)
+        {
+            if (_channelList->item(_channelList->currentRow())->text().toStdString() == findChannel->channelName)
+            {
+                _widgetChannelList->addItem(_channelList->takeItem((_channelList->currentRow())));
+                break;
+            }
+            _channelList->setCurrentRow(++row);
+        }
+    }
+}
+
 void ChannelListPage::requestChannels()
 {
     onPause();
