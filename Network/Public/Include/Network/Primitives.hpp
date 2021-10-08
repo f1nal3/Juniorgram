@@ -178,6 +178,8 @@ struct MessageInfo
     std::uint64_t msgID;
     /// sender ID uint64_t variable
     std::uint64_t senderID;
+    /// user Login string variable
+    std::string userLogin;
     /// recipient ID uint64_t variable
     std::uint64_t recipientID;
     /// time string variable
@@ -198,7 +200,8 @@ struct MessageInfo
         return first.message   == second.message   && 
                first.channelID == second.channelID && 
                first.time      == second.time      &&
-               first.msgID     == second.msgID;
+               first.msgID     == second.msgID     &&
+               first.userLogin == second.userLogin;
     }
 };
 
@@ -206,7 +209,7 @@ struct MessageInfo
 template <typename Archive>
 void serialize(Archive& ar, Network::MessageInfo& o)
 {
-    ar& o.channelID& o.senderID& o.msgID& o.message& o.time;
+    ar& o.channelID& o.senderID& o.msgID& o.message& o.time& o.userLogin;
 }
 
 /**

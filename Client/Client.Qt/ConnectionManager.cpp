@@ -32,7 +32,7 @@ void ConnectionManager::onChannelListRequest(const std::vector<Network::ChannelI
 
 void ConnectionManager::onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages)
 {
-    qRegisterMetaType<std::vector<Network::MessageInfo> >("std::vector<Network::MessageInfo>");
+    qRegisterMetaType<std::vector<Network::MessageInfo>>("std::vector<Network::MessageInfo>");
     emit ReceiverManager::instance()->onMessageHistoryAnswer(messages);
 }
 
@@ -99,7 +99,7 @@ void ConnectionManager::onUserMessageDeleteAnswer(const Utility::DeletingMessage
     {
         std::cout << "FAILED DELETING" << std::endl;
     }
-    else 
+    else
     {
         std::cout << "UNKNOWN deleting message code" << std::endl;
     }

@@ -66,7 +66,7 @@ Q_SIGNALS:
      * @brief Message has been added
      */
     void messageAdded();
-    void createReplySignal(ReplyWidget*);
+    void createReplySignal(QString messageText, QString username, uint64_t messageId);
 
 private:
     /**
