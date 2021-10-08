@@ -123,7 +123,7 @@ public:
                 case Message::MessageType::ChannelDeleteAnswer:
                     state = processOutcomingMessageBody<Utility::ChannelDeleteCode>(bodyBuffer, message.mBody);
                     break;
-                    
+
                 case Message::MessageType::ChannelCreateRequest:
                     state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
                     break;
@@ -243,7 +243,7 @@ public:
                 state = processIncomingMessageBody<bool>(buffer, message);
                 break;
             }
-            
+
             case Message::MessageType::ChannelLeaveRequest:
             {
                 state = processIncomingMessageBody<std::string>(buffer, message);
@@ -252,6 +252,7 @@ public:
             case Message::MessageType::ChannelLeaveAnswer:
             {
                 state = processIncomingMessageBody<Utility::ChannelLeaveCodes>(buffer, message);
+                break;
             }
 
             case Message::MessageType::ChannelSubscribeRequest:
@@ -294,7 +295,6 @@ public:
                 state = processIncomingMessageBody<Utility::ChannelDeleteCode>(buffer, message);
                 break;
             }
-
 
             default:
                 break;
