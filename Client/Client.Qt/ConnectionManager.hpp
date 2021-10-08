@@ -49,10 +49,6 @@ signals:
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
     /// User Message Delete Answer handler
     void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingCode);
-	  /// Reply History Answer handler
-    void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
-    /// Reply Store Answer handler
-    void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
     /// Reply History Answer handler
     void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
     /// Reply Store Answer handler
