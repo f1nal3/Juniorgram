@@ -117,12 +117,13 @@ void ConnectionManager::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelL
     {
         std::cout << "FAILD LEAVING" << std::endl;
     }
-    else if(ChannelLeaveCode == Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND)
+    else if (ChannelLeaveCode == Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND)
     {
         std::cout << "CHANNEL NOT FOUND" << std::endl;
     }
     qRegisterMetaType<Utility::ChannelLeaveCodes>("Utility::ChannelLeaveCodes");
     emit ReceiverManager::instance()->onChannelLeaveAnswer(ChannelLeaveCode);
+}
 
 void ConnectionManager::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode)
 {
