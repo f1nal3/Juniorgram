@@ -265,17 +265,18 @@ namespace DataAccess
         return result;
     }
 
-    Utility::ChannelSubscribingCodes ChannelsRepository::subscriptionChannel(const Network::ChannelSubscriptionInfo& channel)
+    Utility::ChannelSubscribingCodes ChannelsRepository::subscribeToChannel(const Network::ChannelSubscriptionInfo& channel)
     {
         pTable->changeTable("user_channles");
         auto listSubscriptionChannel =
             pTable->Select()
-                  ->columns({"*"})
-                  ->Where("channel_id = " + std::to_string(channel.channelID) + " AND " + "user_id = " + std::to_string(channel.userID))
-                  ->execute();
+                ->columns({"*"})
+                ->Where("channel_id = " + std::to_string(channel.channelID) + " AND " + "user_id = " + std::to_string(channel.userID))
+                ->execute();
         if (listSubscriptionChannel.has_value())
         {
-            if ((listSubscriptionChannel.value()[0][0].as<std::uint64_t>() == channel.userID)&&(listSubscriptionChannel.value()[0][1].as<std::uint64_t>() == channel.channelID))
+            if ((listSubscriptionChannel.value()[0][0].as<std::uint64_t>() == channel.userID) &&
+                (listSubscriptionChannel.value()[0][1].as<std::uint64_t>() == channel.channelID))
             {
                 return Utility::ChannelSubscribingCodes::CHANNEL_HAS_ALREADY_BEEN_SIGNED;
             }

@@ -17,7 +17,7 @@ namespace DataAccess
         ChannelsRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
 
         virtual std::vector<Network::ChannelInfo> getAllChannelsList() override final;
-        virtual Utility::ChannelSubscribingCodes  subscriptionChannel(const Network::ChannelSubscriptionInfo& channel) override final;
+        virtual Utility::ChannelSubscribingCodes  subscribeToChannel(const Network::ChannelSubscriptionInfo& channel) override final;
         virtual std::vector<uint64_t>             getChannelSubscriptionList(const uint64_t& userID) override final;
 
         virtual Utility::ChannelDeleteCode        deleteChannel(const Network::ChannelDeleteInfo& channel) override final;

@@ -105,13 +105,13 @@ void Client::askForChannelList() const
     send(message);
 }
 
-void Client::askForSubscriptionChannelList() const
+void Client::askForChannelSubscriptionList() const
 {
     Network::Message message;
     message.mHeader.mMessageType = MessageType::ChannelSubscriptionListRequest;
     send(message);
 }
-  
+
 void Client::deleteChannel(const std::string channelName) const
 {
     Network::Message networkMessage;

@@ -49,14 +49,14 @@ signals:
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
     /// User Message Delete Answer handler
     void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingCode);
-	  /// Reply History Answer handler
+    /// Reply History Answer handler
     void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
     /// Reply Store Answer handler
     void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
     /// Channel subscription Answer handler
-    void onChannelSubscriptionAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode);
-    /// Channel subscription Answer handler
-    void onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList);
+    void onChannelSubscriptionAnswer(const Utility::ChannelSubscribingCodes channelSubscribingCodes);
+    /// Channel subscription list Answer handler
+    void onChannelSubscriptionListAnswer(const std::vector<uint64_t> channelSubscriptionList);
     /// Reply delete channel Answer handler
     void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
     /// Reply create channel Answer handler
@@ -104,7 +104,7 @@ protected:
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode) override;
     /// User Message Delete Answer handler
     void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) override;
-	/// Reply History Answer handler
+    /// Reply History Answer handler
     void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies) override;
     /// Reply Store Answer handler
     void onReplyStoreAnswer(const Utility::StoringReplyCodes storingReplyCode) override;

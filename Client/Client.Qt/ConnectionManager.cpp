@@ -124,7 +124,7 @@ void ConnectionManager::onChannelSubscribingAnswer(const Utility::ChannelSubscri
 void ConnectionManager::onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList)
 {
     qRegisterMetaType<std::vector<uint64_t>>("std::vector<uint64_t>");
-    emit ReceiverManager::instance()->onChannelSubscribingListAnswer(subscribingChannelList);
+    emit ReceiverManager::instance()->onChannelSubscriptionListAnswer(subscribingChannelList);
 }
 
 void ConnectionManager::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode)

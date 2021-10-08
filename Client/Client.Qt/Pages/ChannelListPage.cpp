@@ -23,7 +23,8 @@ ChannelListPage::ChannelListPage(std::shared_ptr<ListWidget>& anotherChannelList
     _vBoxLayout->addWidget(_updateChannelButton.get());
 
     connect(ReceiverManager::instance(), &ReceiverManager::onChannelListRequest, this, &ChannelListPage::setChannels);
-    connect(ReceiverManager::instance(), &ReceiverManager::onChannelSubscribingListAnswer, this, &ChannelListPage::addSubscribedChannelToMainChannelWidget);
+    connect(ReceiverManager::instance(), &ReceiverManager::onChannelSubscriptionListAnswer, this,
+            &ChannelListPage::addSubscribedChannelToMainChannelWidget);
 
     _addChannelButton->setClickCallback([this]() { addChannelToChannelListWidget(); });
     _updateChannelButton->setClickCallback([this]() { requestChannels(); });
@@ -100,6 +101,6 @@ void ChannelListPage::requestChannels()
     if (oApp->connectionManager()->isConnected())
     {
         oApp->connectionManager()->askForChannelList();
-        oApp->connectionManager()->askForSubscriptionChannelList();
+        oApp->connectionManager()->askForChannelSubscriptionList();
     }
 }
