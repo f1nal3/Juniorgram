@@ -223,6 +223,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto subscribingChannelCodes = future.get();
             messageToClient.mBody        = std::make_any<Utility::ChannelLeaveCodes>(subscribingChannelCodes);
         }
+        break;
+
         case Network::Message::MessageType::ChannelSubscribeRequest:
         {
             auto channel = std::any_cast<Network::ChannelSubscriptionInfo>(message.mBody);
