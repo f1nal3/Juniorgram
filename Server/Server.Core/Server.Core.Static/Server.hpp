@@ -27,12 +27,12 @@ private:
     uint64_t mCriticalQueueSize = 100;
     uint64_t mNewThreadsCount   = std::thread::hardware_concurrency();
 
-    asio::io_context                                 mContext;
-    asio::ip::tcp::acceptor                          mAcceptor;
-    std::deque<std::shared_ptr<Network::Connection>> mConnectionsPointers;
-    Network::SafeQueue<Network::Message>             mIncomingMessagesQueue;
-    std::deque<std::thread>                          mThreads;
-    DataAccess::PostgreReposiotoryManager            mPostgreManager;
+    asio::io_context                                       mContext;
+    asio::ip::tcp::acceptor                                mAcceptor;
+    std::deque<std::shared_ptr<Network::Connection>>       mConnectionsPointers;
+    Network::SafeQueue<Network::Message>                   mIncomingMessagesQueue;
+    std::deque<std::thread>                                mThreads;
+    std::unique_ptr<DataAccess::PostgreReposiotoryManager> mPostgreManager;
 
 private:
     /**

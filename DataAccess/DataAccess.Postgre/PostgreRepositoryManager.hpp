@@ -1,11 +1,14 @@
 #pragma once
 #include <any>
-#include <future>
 #include <functional>
-#include <mutex>
 #include <type_traits>
 #include <queue>
 
+#include <atomic>
+#include <future>
+#include <mutex>
+
+// TODO: Come up something with cmake targets and split to hpp, cpp.
 #include "DataAccess/AbstarctRepositoryContainer.hpp"
 #include "DataAccess/IServerRepositories.hpp"
 
@@ -14,23 +17,23 @@
 
 namespace DataAccess
 {
+	template <typename TIRepository, typename TReturn, typename... TArgs>
+	using MethodReference = TReturn (TIRepository::*)(TArgs...);
+	
+	using RequestTask = std::packaged_task<std::any(void)>;
+
 	template <typename Type>
-	std::conditional_t<std::is_fundamental_v<Type>, std::remove_reference_t<Type>, const Type&> byRef(const Type& ref)
+	std::conditional_t<std::is_fundamental_v<Type>, std::remove_reference_t<Type>, const Type&> fmt(const Type& ref)
 	{
 		return ref;
 	}
 
 	enum class EPriority : std::uint8_t
 	{
-		_1, _2, _3, _4, _5,
-		_6, _7, _8, _9, _10,
+		_1,  _2,  _3,  _4,  _5,
+		_6,  _7,  _8,  _9,  _10,
 		_11, _12, _13, _14, _15
 	};
-
-	template <typename TIRepository, typename TReturn, typename... TArgs>
-	using MethodReference = TReturn(TIRepository::*)(TArgs...);
-
-	using RequestTask = std::packaged_task<std::any(void)>;
 
 	struct RepositoryRequest
 	{
@@ -43,12 +46,12 @@ namespace DataAccess
 		RepositoryRequest(EPriority priority, RequestTask& task)
 			: mPriority(priority), mTask(std::move(task)) {}
 
-		RepositoryRequest(RepositoryRequest&& other)
+		RepositoryRequest(RepositoryRequest&& other) noexcept
 		{
 			this->mPriority = other.mPriority;
 			this->mTask = std::move(other.mTask);
 		}
-		RepositoryRequest& operator = (RepositoryRequest&& other)
+		RepositoryRequest& operator = (RepositoryRequest&& other) noexcept
 		{
 			this->mPriority = other.mPriority;
 			this->mTask = std::move(other.mTask);
@@ -60,12 +63,12 @@ namespace DataAccess
 
 		EPriority getPriority(void) const noexcept
 		{
-			return this->mPriority;
+			return mPriority;
 		}
 
-		std::future<std::any>&& getFutureFromTask(void) noexcept
+		std::future<std::any> getFutureFromTask(void)
 		{
-			return std::move(mTask.get_future());
+			return mTask.get_future();
 		}
 
 	public:
@@ -74,6 +77,11 @@ namespace DataAccess
 		bool operator <  (const RepositoryRequest& task) const noexcept { return this->mPriority < task.mPriority; }
 		bool operator == (const RepositoryRequest& task) const noexcept { return this->mPriority == task.mPriority; }
 		bool operator != (const RepositoryRequest& task) const noexcept { return this->mPriority != task.mPriority; }
+
+		inline void operator()(void) 
+		{
+			mTask();
+		}
 	};
 
 	template <typename TFromAny>
@@ -88,9 +96,9 @@ namespace DataAccess
 		FutureResult(std::future<std::any>&& future)
 			: mFuture(std::move(future)) {}
 
-		TFromAny&& get()
+		TFromAny get()
 		{
-			return std::move(std::any_cast<TFromAny>(mFuture.get()));
+			return std::any_cast<TFromAny>(mFuture.get());
 		}
 	};
 
@@ -98,19 +106,29 @@ namespace DataAccess
 	{
         private:
 
+			// Is this really need to be a pointer???
 			std::unique_ptr<AbstarctRepositoryContainer> mRepositories;
             std::priority_queue<RepositoryRequest>       mQueue;
 
-			std::mutex mPushMutex;
-			std::mutex mPopMutex;
+			std::mutex									 mPushMutex;
+			std::mutex									 mPopMutex;
+
+            std::atomic<bool>							 mHandlerState;
+			std::thread									 mReposritoryRequestsHandler;
 
         public:
 
 			PostgreReposiotoryManager(std::shared_ptr<IAdapter> repositoryContainer)
-				: mRepositories(std::make_unique<PostgreRepositoryContainer>(repositoryContainer)), mQueue(), mPushMutex(), mPopMutex()
+                : mRepositories(std::make_unique<PostgreRepositoryContainer>(repositoryContainer)),
+                  mQueue(),
+                  mPushMutex(),
+                  mPopMutex(),
+                  mHandlerState(true)
 			{
 				this->privateRegisterRepositories();
 			}
+
+			~PostgreReposiotoryManager() { mReposritoryRequestsHandler.join(); }
 
 		public:
 
@@ -131,49 +149,71 @@ namespace DataAccess
 				return futureResult;
 			}
 
-			RepositoryRequest&& popRequest(void) noexcept
-			{
-				std::unique_lock<std::mutex> lck(mPopMutex);
-				
-				RepositoryRequest request = std::move(const_cast<RepositoryRequest&>(mQueue.top()));
-				mQueue.pop();
-				
-				return std::move(request);
-			}
-
-		public:
-
 			bool empty(void) const noexcept 
 			{ 
 				return mQueue.empty();
 			}
 
-		private:
-
-			void privateRegisterRepositories()
-			{
-				mRepositories->registerRepository<IChannelsRepository, ChannelsRepository>();
-				mRepositories->registerRepository<ILoginRepository   , LoginRepository   >();
-				mRepositories->registerRepository<IMessagesRepository, MessagesRepository>();
-				mRepositories->registerRepository<IRegisterRepository, RegisterRepository>();
-				mRepositories->registerRepository<IRepliesRepository , RepliesRepository >();
+			// TODO: Do better handler 
+			// (Probably, will be better to create thread pool 
+			// and use it for server and manager).
+			void handleRequests(void) 
+			{ 
+				mReposritoryRequestsHandler = std::thread(
+					[this]() 
+					{ 
+						while (mHandlerState)
+                        {
+							if (!this->empty())
+							{
+							    this->privatePopRequest()();
+							}
+						}
+					}
+                );
 			}
 
+			void stopHandler() 
+			{ 
+				mHandlerState = false;
+			}
+
+		private:
+
 			template <EPriority priority, typename TIRepository, typename TReturn, typename... TArgs>
-			RepositoryRequest&& privateCreateRequest(const MethodReference<TIRepository, TReturn, TArgs...>& methodRef, TArgs&&... args)
+			RepositoryRequest privateCreateRequest(const MethodReference<TIRepository, TReturn, TArgs...>& methodRef, TArgs&&... args)
 			{
 				auto iRepository = mRepositories->getRepository<TIRepository>();
 
 				RequestTask task(
-					[&iRepository, &methodRef, args = std::make_tuple(std::forward<TArgs>(args)...)]() mutable -> std::any
+					[iRepository, methodRef, args = std::make_tuple(std::forward<TArgs>(args)...)]()
+					mutable -> std::any
 					{
-						return std::apply(methodRef, std::tuple_cat(std::make_tuple(&*iRepository), std::move(args)));
+                        return std::apply(methodRef, std::tuple_cat(std::make_tuple(iRepository), std::move(args)));
 					}
 				);
 
-				RepositoryRequest request(EPriority::_15, task);
-				return std::move(request);
+				return RepositoryRequest(priority, task);
 			}
+
+			RepositoryRequest privatePopRequest(void) noexcept
+            {
+                std::unique_lock<std::mutex> lck(mPopMutex);
+
+                RepositoryRequest request = std::move(const_cast<RepositoryRequest&>(mQueue.top()));
+                mQueue.pop();
+
+                return request;
+            }
+
+			void privateRegisterRepositories(void)
+            {
+                mRepositories->registerRepository<IChannelsRepository, ChannelsRepository>();
+                mRepositories->registerRepository<ILoginRepository   , LoginRepository   >();
+                mRepositories->registerRepository<IMessagesRepository, MessagesRepository>();
+                mRepositories->registerRepository<IRegisterRepository, RegisterRepository>();
+                mRepositories->registerRepository<IRepliesRepository , RepliesRepository >();
+            }
 	};
 
 	
