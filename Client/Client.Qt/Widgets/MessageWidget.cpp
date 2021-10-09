@@ -160,8 +160,4 @@ int MessageWidget::expectedHeight() const
     return _st.radius * 7 + _st.fontname->height + _fmtMessageText->document()->size().height() + _reactions->layoutSize().height();
 }
 
-void MessageWidget::createReply()
-{
-    _replyWidget = new ReplyWidget(_messageText, _username, _messageId);
-    emit createReplySignal(_replyWidget);
-}
+void MessageWidget::createReply() { emit createReplySignal(_messageText, _username, _messageId); }

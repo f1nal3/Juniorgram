@@ -64,7 +64,7 @@ void ChatHistory::addMessage(const Network::MessageInfo& messageInfo)
     auto time    = QDateTime::fromString(QString::fromStdString(messageInfo.time), "yyyy-MM-dd hh:mm:ss");
 
     auto msg = new MessageWidget(history, QString::fromStdString(messageInfo.message), messageInfo.senderID, messageInfo.msgID,
-                                 time.toMSecsSinceEpoch(), QString::number(messageInfo.senderID));
+                                 time.toMSecsSinceEpoch(), QString::fromStdString(messageInfo.userLogin));
 
     msg->show();
     msg->resize(history->width() - 25, msg->expectedHeight());

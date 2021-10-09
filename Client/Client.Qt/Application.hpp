@@ -1,4 +1,5 @@
 #pragma once
+#include <DataAccess.SQLite/LiteRepositoryContainer.hpp>
 #include <QApplication>
 #include <Style/Styles.hpp>
 #include <memory>
@@ -48,11 +49,15 @@ public:
 
     /// Connection manager
     std::unique_ptr<ConnectionManager>& connectionManager();
+    /// Repository container
+    std::unique_ptr<DataAccess::LiteRepositoryContainer>& repositoryContainer();
 public slots:
     /// Reconnects to server
     void reconnectToServer();
 
 private:
+    std::unique_ptr<DataAccess::LiteRepositoryContainer> _repContainer;
+
     std::unique_ptr<MainWidget>        _mainWidget;
     std::unique_ptr<ConnectionManager> _connectionManager;
     std::unique_ptr<ReceiverManager>   _receiverManager;

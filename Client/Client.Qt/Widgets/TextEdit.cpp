@@ -12,17 +12,18 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent), _settings(Settings::getIn
     _underlineButton        = std::make_unique<FlatButton>(this, "U", st::underlineButton);
     _sendButton             = std::make_unique<FlatButton>(this, "Send");
     _messageInput           = std::make_unique<FlatTextEdit>();
-  
-    
-  _horizontalButtonSpacer = std::make_unique<QSpacerItem>(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+    _horizontalButtonSpacer = std::make_unique<QSpacerItem>(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     _horizontalButtonLayout->setAlignment(Qt::AlignLeft);
     _horizontalButtonLayout->addWidget(_boldnessButton.get());
     _horizontalButtonLayout->addWidget(_italicButton.get());
     _horizontalButtonLayout->addWidget(_underlineButton.get());
     _horizontalButtonLayout->addItem(_horizontalButtonSpacer.get());
     _horizontalButtonLayout->addWidget(_sendButton.get());
-  
-    if (auto fontSize = _settings.getFontSize()){ _messageInput->setFontPointSize(*fontSize); } 
+    if (auto fontSize = _settings.getFontSize())
+    {
+        if (fontSize.has_value()) _messageInput->setFontPointSize(fontSize.value());
+    }
     _mainVerticalLayout->addWidget(_messageInput.get());
     _mainVerticalLayout->addLayout(_horizontalButtonLayout.get());
 
@@ -32,6 +33,16 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent), _settings(Settings::getIn
     _italicButton->setClickCallback([&]() { styleButtonClick(_italicSymbolOpen, _italicSymbolClose); });
     _underlineButton->setClickCallback([&]() { styleButtonClick(_underlineSymbolOpen, _underlineSymbolClose); });
     _sendButton->setClickCallback([&]() { sendButtonClick(); });
+    connect(_messageInput.get(), &FlatTextEdit::textChanged, this, &TextEdit::textChanged);
+    setMaximumHeight(Style::valueDPIScale(400));
+    setMinimumHeight(Style::valueDPIScale(100));
+}
+
+int TextEdit::expectedHeight()
+{
+    return _boldnessButton->height() + _messageInput->document()->size().height() + _mainVerticalLayout->margin() +
+           _messageInput->contentsMargins().top() + _messageInput->contentsMargins().bottom() + contentsMargins().top() +
+           contentsMargins().bottom();
 }
 
 void TextEdit::sendButtonClick()
@@ -40,14 +51,6 @@ void TextEdit::sendButtonClick()
     {
         emit sendMessage(getText());
         clear();
-    }
-}
-
-void TextEdit::keyPressEvent(QKeyEvent* event)
-{
-    if ((event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return) && (getText() != ""))
-    {
-        sendButtonClick();
     }
 }
 
