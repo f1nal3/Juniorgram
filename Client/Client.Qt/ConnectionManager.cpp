@@ -1,5 +1,7 @@
 #include "ConnectionManager.hpp"
 
+#include <QDebug>
+
 #include "Application.hpp"
 
 ReceiverManager* ReceiverManager::self;
@@ -141,6 +143,7 @@ void ConnectionManager::onChannelSubscribingAnswer(const Utility::ChannelSubscri
 
 void ConnectionManager::onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList)
 {
+    qDebug() << "onChannelSubscribingListAnswer";
     qRegisterMetaType<std::vector<uint64_t>>("std::vector<uint64_t>");
     emit ReceiverManager::instance()->onChannelSubscriptionListAnswer(subscribingChannelList);
 }
@@ -177,7 +180,7 @@ void ConnectionManager::onChannelCreateAnswer(Utility::ChannelCreateCodes channe
     {
         std::cout << "FAILD CREATING" << std::endl;
     }
-    else if(channelCreateCode == Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED)
+    else if (channelCreateCode == Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED)
     {
         std::cout << "CHANNEL ALREADY CREATE" << std::endl;
     }
