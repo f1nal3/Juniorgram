@@ -27,7 +27,7 @@ namespace DataAccess
     {
         pTable->changeTable("channels");
         auto findIdChannel = pTable->Select()->columns({"id"})->Where("channel_name = '" + channel.channelName + "'")->execute();
-        pTable->changeTable("user_channles");
+        pTable->changeTable("user_channels");
         if (!findIdChannel.has_value())
         {
             return Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND;
@@ -40,7 +40,6 @@ namespace DataAccess
                           ->execute();
         if (findChannel.has_value())
         {
-            pTable->changeTable("user_channles");
             auto result = pTable->Delete()
                                 ->Where(
                                 "user_id = " + std::to_string(findChannel.value()[0][0].as<std::uint64_t>()) + 
