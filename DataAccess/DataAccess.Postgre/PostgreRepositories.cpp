@@ -117,7 +117,7 @@ namespace DataAccess
             std::pair{"channel_id", IDNewChannel}
         };
 
-        pTable->changeTable("user_channles");
+        pTable->changeTable("user_channels");
         pTable->Insert()->columns(SubscribNewChannelData)->execute();
         return Utility::ChannelCreateCodes::SUCCESS;
     }
@@ -305,7 +305,7 @@ namespace DataAccess
 
     Utility::ChannelSubscribingCodes ChannelsRepository::subscribeToChannel(const Network::ChannelSubscriptionInfo& channel)
     {
-        pTable->changeTable("user_channles");
+        pTable->changeTable("user_channels");
         auto listSubscriptionChannel =
             pTable->Select()
                 ->columns({"*"})
@@ -331,7 +331,7 @@ namespace DataAccess
 
     std::vector<uint64_t> ChannelsRepository::getChannelSubscriptionList(const uint64_t& userID) 
     {
-        pTable->changeTable("user_channles");
+        pTable->changeTable("user_channels");
         auto    listSubscriptionChannel =
                 pTable->Select()
                 ->columns({"channel_id"})
