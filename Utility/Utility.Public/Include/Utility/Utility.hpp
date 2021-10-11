@@ -60,13 +60,24 @@ namespace Utility
     };
   
     /**  @brief Enum for tracking channel leave status.
+     *   @details Utility::ChannelLeaveCodes leaveChannel(const std::string channelName) /
+     *    return one of this codes.
+     */
+    enum class ChannelLeaveCodes : std::uint8_t
+    {
+        CHANNEL_NOT_FOUND,
+        SUCCESS,
+        FAILED,
+    };
+  
+    /**  @brief Enum for tracking channel leave status.
      *   @details Utility::ChannelDeleteCode deleteChannel(const std::string channelName) /
      *    return one of this codes.
      */
     enum class ChannelDeleteCode : std::uint8_t
     {
         CHANNEL_NOT_FOUND,
-        CHANNEL_NON_USER,
+        CHANNEL_IS_NOT_USER,
         SUCCESS,
         FAILED,
     };

@@ -107,6 +107,24 @@ void ConnectionManager::onUserMessageDeleteAnswer(const Utility::DeletingMessage
     emit ReceiverManager::instance()->onUserMessageDeleteAnswer(deletingCode);
 }
 
+void ConnectionManager::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode)
+{
+    if (ChannelLeaveCode == Utility::ChannelLeaveCodes::SUCCESS)
+    {
+        std::cout << "SUCCESS LEAVING" << std::endl;
+    }
+    else if (ChannelLeaveCode == Utility::ChannelLeaveCodes::FAILED)
+    {
+        std::cout << "FAILD LEAVING" << std::endl;
+    }
+    else if (ChannelLeaveCode == Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND)
+    {
+        std::cout << "CHANNEL NOT FOUND" << std::endl;
+    }
+    qRegisterMetaType<Utility::ChannelLeaveCodes>("Utility::ChannelLeaveCodes");
+    emit ReceiverManager::instance()->onChannelLeaveAnswer(ChannelLeaveCode);
+}
+
 void ConnectionManager::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode)
 {
     if (subscribingChannelCode == Utility::ChannelSubscribingCodes::SUCCESS)
@@ -137,9 +155,13 @@ void ConnectionManager::onChannelDeleteAnswer(Utility::ChannelDeleteCode channel
     {
         std::cout << "FAILD DELETING" << std::endl;
     }
-    else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_NON_USER)
+    else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_NOT_FOUND)
     {
-        std::cout << "NON-USER CHANNEL" << std::endl;
+        std::cout << "CHANNEL NOT FOUND" << std::endl;
+    }
+    else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_IS_NOT_USER)
+    {
+        std::cout << "CHANNEL DOES NOT BELONG TO THE USER" << std::endl;
     }
     qRegisterMetaType<Utility::ChannelDeleteCode>("Utility::ChannelDeleteCode");
     emit ReceiverManager::instance()->onChannelDeleteAnswer(channelDeleteCode);

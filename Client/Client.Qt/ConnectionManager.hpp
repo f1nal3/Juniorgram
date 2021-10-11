@@ -53,13 +53,15 @@ signals:
     void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
     /// Reply Store Answer handler
     void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
+    /// Channel leave Answer handler
+    void onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode);
     /// Channel subscription Answer handler
     void onChannelSubscriptionAnswer(const Utility::ChannelSubscribingCodes channelSubscribingCodes);
     /// Channel subscription list Answer handler
     void onChannelSubscriptionListAnswer(const std::vector<uint64_t> channelSubscriptionList);
-    /// Reply delete channel Answer handler
+    /// Channel delete Answer handler
     void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
-    /// Reply create channel Answer handler
+    /// Channel create Answer handler
     void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
 
 private:
@@ -108,12 +110,14 @@ protected:
     void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies) override;
     /// Reply Store Answer handler
     void onReplyStoreAnswer(const Utility::StoringReplyCodes storingReplyCode) override;
+    /// Channel leave Answer handler
+    void onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode) override;
     /// Channel subscription Answer handler
     void onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode) override;
     /// Channel subscription list Answer handler
     void onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList) override;
-    /// Reply delete channel Answer handler
+    /// Channel delete Answer handler
     void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode) override;
-    /// Reply create channel Answer handler
+    /// Channel create Answer handler
     void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode) override;
 };
