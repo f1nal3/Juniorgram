@@ -154,7 +154,7 @@ void ConnectionManager::onChannelDeleteAnswer(Utility::ChannelDeleteCode channel
     {
         std::cout << "SUCCESS DELETING" << std::endl;
     }
-    else if (channelDeleteCode == Utility::ChannelDeleteCode::SUCCESS)
+    else if (channelDeleteCode == Utility::ChannelDeleteCode::FAILED)
     {
         std::cout << "FAILD DELETING" << std::endl;
     }

@@ -69,6 +69,8 @@ set(UI_WIDGETS_SOURCES
         Widgets/TitleWidget.hpp)
 
 set(PAGES_SOURCES
+        Pages/ChannelCreationPage.cpp
+        Pages/ChannelCreationPage.hpp
         Pages/ChannelListPage.cpp
         Pages/ChannelListPage.hpp
         Pages/ChatPage.cpp
@@ -85,6 +87,8 @@ set(SOURCE_FILES
         Widgets/ChatHistory.hpp
         Widgets/ChatWidget.cpp
         Widgets/ChatWidget.hpp
+        Widgets/ChannelBar.cpp
+        Widgets/ChannelBar.hpp
         Widgets/MessageWidget.cpp
         Widgets/MessageWidget.hpp
         Widgets/ReactionLayout.cpp
@@ -101,7 +105,7 @@ set(SOURCE_FILES
         Settings.cpp
         Settings.hpp
         SettingsWidget.cpp
-        SettingsWidget.hpp Pages/ChannelCreationPage.cpp Pages/ChannelCreationPage.hpp Widgets/ChannelBar.cpp Widgets/ChannelBar.hpp)
+        SettingsWidget.hpp)
 
 add_executable(${TARGET} ${SOURCE_FILES} ${STYLE_SOURCES} ${UI_WIDGETS_SOURCES} ${PAGES_SOURCES}
         resources/resources.qrc)
