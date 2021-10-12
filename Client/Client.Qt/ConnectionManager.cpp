@@ -151,7 +151,7 @@ void ConnectionManager::onChannelDeleteAnswer(Utility::ChannelDeleteCode channel
     {
         std::cout << "SUCCESS DELETING" << std::endl;
     }
-    else if (channelDeleteCode == Utility::ChannelDeleteCode::SUCCESS)
+    else if (channelDeleteCode == Utility::ChannelDeleteCode::FAILED)
     {
         std::cout << "FAILD DELETING" << std::endl;
     }
@@ -177,7 +177,7 @@ void ConnectionManager::onChannelCreateAnswer(Utility::ChannelCreateCodes channe
     {
         std::cout << "FAILD CREATING" << std::endl;
     }
-    else if(channelCreateCode == Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED)
+    else if (channelCreateCode == Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED)
     {
         std::cout << "CHANNEL ALREADY CREATE" << std::endl;
     }

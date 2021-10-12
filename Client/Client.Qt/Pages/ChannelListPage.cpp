@@ -13,14 +13,9 @@ ChannelListPage::ChannelListPage(std::shared_ptr<ListWidget>& anotherChannelList
     setFixedWidth(Style::valueDPIScale(300));
     setFixedHeight(Style::valueDPIScale(250));
 
-    _vBoxLayout          = std::make_unique<QVBoxLayout>();
     _addChannelButton    = std::make_unique<FlatButton>(this, "Add");
     _updateChannelButton = std::make_unique<FlatButton>(this, "Update");
-    _channelList         = std::make_unique<ListWidget>();
-
-    _vBoxLayout->addWidget(_channelList.get());
-    _vBoxLayout->addWidget(_addChannelButton.get());
-    _vBoxLayout->addWidget(_updateChannelButton.get());
+    _channelList         = std::make_unique<ListWidget>(this);
 
     connect(ReceiverManager::instance(), &ReceiverManager::onChannelListRequest, this, &ChannelListPage::setChannels);
     connect(ReceiverManager::instance(), &ReceiverManager::onChannelSubscriptionListAnswer, this,
@@ -30,7 +25,7 @@ ChannelListPage::ChannelListPage(std::shared_ptr<ListWidget>& anotherChannelList
     _updateChannelButton->setClickCallback([this]() { requestChannels(); });
     requestChannels();
 
-    setLayout(_vBoxLayout.get());
+    updateLayout();
 }
 
 void ChannelListPage::updateChannelList()
@@ -52,8 +47,7 @@ void ChannelListPage::addChannelToChannelListWidget()
     {
         std::string channel = _channelList->currentItem()->text().toStdString();
         auto        channelInfo =
-            std::find_if(channels.begin(), channels.end(), [channel](const Network::ChannelInfo& i) 
-            { return i.channelName == channel; });
+            std::find_if(channels.begin(), channels.end(), [channel](const Network::ChannelInfo& i) { return i.channelName == channel; });
         if (oApp->connectionManager()->isConnected())
         {
             oApp->connectionManager()->subscriptionChannel(channelInfo->channelID);
@@ -79,8 +73,7 @@ void ChannelListPage::addSubscribedChannelToMainChannelWidget(const std::vector<
     {
         int  row = 0;
         auto findChannel =
-            std::find_if(channels.begin(), channels.end(), [channel](Network::ChannelInfo i) 
-                                                           { return i.channelID == channel; });
+            std::find_if(channels.begin(), channels.end(), [channel](Network::ChannelInfo i) { return i.channelID == channel; });
         channelsSubscribeVector.push_back(findChannel->channelName);
         _channelList->setCurrentRow(row);
         while (_channelList->currentRow() != -1)
@@ -103,4 +96,17 @@ void ChannelListPage::requestChannels()
         oApp->connectionManager()->askForChannelList();
         oApp->connectionManager()->askForChannelSubscriptionList();
     }
+}
+
+void ChannelListPage::updateLayout()
+{
+    const QSize& size = this->size();
+    _addChannelButton->resize(size.width() - st::defaultMargin * 2, _addChannelButton->minimumHeight());
+    _updateChannelButton->resize(size.width() - st::defaultMargin * 2, _updateChannelButton->minimumHeight());
+
+    _updateChannelButton->move(st::defaultMargin, size.height() - _updateChannelButton->height() - st::defaultMargin);
+    _addChannelButton->move(st::defaultMargin, _updateChannelButton->y() - _addChannelButton->height() - st::defaultMargin);
+    _channelList->move(st::defaultMargin, st::defaultMargin);
+
+    _channelList->resize(size.width() - st::defaultMargin * 2, _addChannelButton->y() - st::defaultMargin * 2);
 }

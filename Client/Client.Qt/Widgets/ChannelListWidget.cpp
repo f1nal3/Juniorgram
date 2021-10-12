@@ -4,21 +4,27 @@
 
 ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
 {
-    _vBoxLayout       = std::make_unique<QVBoxLayout>(this);
-    _channelList      = std::make_shared<ListWidget>();
-    _addChannelButton = std::make_unique<FlatButton>(this, "+");
+    _mainLayout   = std::make_unique<QVBoxLayout>(this);
+    _buttonLayout = std::make_unique<QHBoxLayout>();
+
+    _channelList         = std::make_shared<ListWidget>();
+    _addChannelButton    = std::make_unique<FlatButton>(this, "Add");
+    _createChannelButton = std::make_unique<FlatButton>(this, "Create");
 
     setContentsMargins(0, 0, 0, 0);
     setMinimumWidth(st::channelListMinWidth);
     setMaximumWidth(st::channelListMaxWidth);
-    _vBoxLayout->addWidget(_addChannelButton.get());
-    _vBoxLayout->addWidget(_channelList.get());
+    _buttonLayout->addWidget(_addChannelButton.get());
+    _buttonLayout->addWidget(_createChannelButton.get());
+    _mainLayout->addLayout(_buttonLayout.get());
+    _mainLayout->addWidget(_channelList.get());
     _channelList->setFrameShape(QFrame::NoFrame);
 
     _addChannelButton->setClickCallback([this]() { showChannelListWindow(); });
+    _createChannelButton->setClickCallback([this]() { showChannelCreationWindow(); });
 
-    _vBoxLayout->setContentsMargins(contentsMargins());
-    setLayout(_vBoxLayout.get());
+    _mainLayout->setContentsMargins(contentsMargins());
+    setLayout(_mainLayout.get());
 }
 
 void ChannelListWidget::showChannelListWindow()
@@ -28,3 +34,10 @@ void ChannelListWidget::showChannelListWindow()
 }
 
 std::shared_ptr<ListWidget> ChannelListWidget::getChannelList() { return _channelList; }
+
+void ChannelListWidget::showChannelCreationWindow()
+{
+    _channelCreationPopup = std::make_unique<ChannelCreationPage>();
+    _channelCreationPopup->show();
+    _channelCreationPopup.release();
+}

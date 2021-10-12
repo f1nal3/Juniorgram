@@ -5,7 +5,7 @@
 #include <Style/Styles.hpp>
 
 /**
- * @class Loading spinner
+ * @class LoadingSpinner
  * @brief Widget which blocks page with spinner animation
  */
 class LoadingSpinner : public QWidget
