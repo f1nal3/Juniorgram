@@ -101,7 +101,7 @@ set(SOURCE_FILES
         Settings.cpp
         Settings.hpp
         SettingsWidget.cpp
-        SettingsWidget.hpp)
+        SettingsWidget.hpp Pages/ChannelCreationPage.cpp Pages/ChannelCreationPage.hpp Widgets/ChannelBar.cpp Widgets/ChannelBar.hpp)
 
 add_executable(${TARGET} ${SOURCE_FILES} ${STYLE_SOURCES} ${UI_WIDGETS_SOURCES} ${PAGES_SOURCES}
         resources/resources.qrc)
