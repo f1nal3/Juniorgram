@@ -93,6 +93,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
             mi.senderID = client->getUserID();
+            mi.message = Utility::removeSpaces(mi.message);
 
             auto IMessageRep = mPostgreRepo->getRepository<DataAccess::IMessagesRepository>();
             auto future      = std::async(std::launch::async, &DataAccess::IMessagesRepository::storeMessage, IMessageRep, mi);
@@ -128,6 +129,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             auto ri     = std::any_cast<Network::ReplyInfo>(message.mBody);
             ri.senderID = client->getUserID();
+            ri.message = Utility::removeSpaces(ri.message);
 
             auto IReplyRep = mPostgreRepo->getRepository<DataAccess::IRepliesRepository>();
             auto future    = std::async(std::launch::async, &DataAccess::IRepliesRepository::storeReply, IReplyRep, ri);
