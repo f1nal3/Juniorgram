@@ -133,3 +133,16 @@ void ChannelListPage::updateLayout()
 
     _channelList->resize(size.width() - st::defaultMargin * 2, _addChannelButton->y() - st::defaultMargin * 2);
 }
+
+void ChannelListPage::updateLayout()
+{
+    const QSize& size = this->size();
+    _addChannelButton->resize(size.width() - st::defaultMargin * 2, _addChannelButton->minimumHeight());
+    _updateChannelButton->resize(size.width() - st::defaultMargin * 2, _updateChannelButton->minimumHeight());
+
+    _updateChannelButton->move(st::defaultMargin, size.height() - _updateChannelButton->height() - st::defaultMargin);
+    _addChannelButton->move(st::defaultMargin, _updateChannelButton->y() - _addChannelButton->height() - st::defaultMargin);
+    _channelList->move(st::defaultMargin, st::defaultMargin);
+
+    _channelList->resize(size.width() - st::defaultMargin * 2, _addChannelButton->y() - st::defaultMargin * 2);
+}
