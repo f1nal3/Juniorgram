@@ -1,7 +1,5 @@
 #include "ConnectionManager.hpp"
 
-#include <QDebug>
-
 #include "Application.hpp"
 
 ReceiverManager* ReceiverManager::self;
@@ -143,7 +141,6 @@ void ConnectionManager::onChannelSubscribingAnswer(const Utility::ChannelSubscri
 
 void ConnectionManager::onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList)
 {
-    qDebug() << "onChannelSubscribingListAnswer";
     qRegisterMetaType<std::vector<uint64_t>>("std::vector<uint64_t>");
     emit ReceiverManager::instance()->onChannelSubscriptionListAnswer(subscribingChannelList);
 }
