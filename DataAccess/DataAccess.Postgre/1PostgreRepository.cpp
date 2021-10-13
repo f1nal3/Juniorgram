@@ -173,25 +173,27 @@ Utility::DeletingMessageCodes PostgreRepository::deleteMessage(const Network::Me
     return DeletingMessageCodes::FAILED;
 }
 
-Utility::EditingMessageCodes PostgreRepository::editMessage(const Network::MessageInfo& mi, const std::string em)
+Utility::EditingMessageCodes PostgreRepository::editMessage(const Network::EditMessageInfo& emi)
 {
-    if (mi.message == em)
+    if (emi.originMessage == emi.editedMessage)
     {
         return Utility::EditingMessageCodes::FAILED;
     }
 
     pTable->changeTable("msgs");
     pTable->Update()
-          ->fields(std::pair{"msg", em})
-          ->Where("msg_id=" + std::to_string(mi.msgID))
-          ->And("msg='" + mi.message + "'")->execute(); 
+          ->fields(std::pair{"msg", emi.editedMessage})
+          ->Where("msg_id=" + std::to_string(emi.msgID))
+          ->And("msg='" + emi.originMessage + "'")->execute(); 
 
-    auto updatedMessage = pTable->Select()
-                                ->columns({*})
-                                ->Where("msg_id=" + std::string(mi.msgID))
-                                ->And("sender_id=" + std::to_string(mi.senderID));
-
-                                
+    auto messageAmountResult = pTable->Select()
+                                ->columns({ "*" })
+                                ->Where("msg_id=" + std::to_string(emi.msgID))
+                                ->And("msg='" + emi.originMessage + "'")->execute();
+    if (messageAmountResult.value()[0][0].as<std::uint64_t>() == 0)
+    {
+        return Utility::EditingMessageCodes::FAILED;
+    }                            
 
     return Utility::EditingMessageCodes::SUCCESS;
 }

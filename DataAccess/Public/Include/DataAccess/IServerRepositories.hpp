@@ -24,7 +24,7 @@ struct IMessagesRepository : IMasterRepository
     virtual Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) = 0;
 
     /// Virtual method for editing Message
-    virtual Utility::EditingMessageCodes editMessage(const Network::MessageInfo& mi, const std::string em) = 0;
+    virtual Utility::EditingMessageCodes editMessage(const Network::EditMessageInfo& emi) = 0;
 
     /// Default virtual destructor
     virtual ~IMessagesRepository() = default;

@@ -31,7 +31,7 @@ public:
     Utility::StoringReplyCodes        storeReply(const Network::ReplyInfo& rsi) final;
     Utility::RegistrationCodes        registerUser(const Network::RegistrationInfo& ri) const final;
     Utility::DeletingMessageCodes     deleteMessage(const Network::MessageInfo& mi) final;
-    Utility::EditingMessageCodes      editMessage(const Network::MessageInfo& mi, const std::string em) final;
+    Utility::EditingMessageCodes      editMessage(const Network::EditMessageInfo& emi) final;
 
 private:
     std::optional<pqxx::result> insertMessageIntoMessagesTable(const Network::MessageInfo& msi);

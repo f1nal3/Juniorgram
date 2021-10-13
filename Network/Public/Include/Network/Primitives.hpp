@@ -196,6 +196,45 @@ void serialize(Archive& ar, Network::MessageInfo& o)
 }
 
 /**
+ * @brief The MessageInfo struct
+ * @details Message Info contains channel ID, message, message ID,
+ *          sender ID, recipient ID and time.
+ */
+struct EditMessageInfo
+{
+    /// channel ID uint64_t variable
+    std::uint64_t channelID;
+    /// original message string variable
+    std::string   originMessage;
+    /// edited message string variable
+    std::string   editedMessage;
+    /// msg ID uint64_t variable
+    std::uint64_t msgID;
+    /// sender ID uint64_t variable
+    std::uint64_t senderID;
+
+    /// Default EditMessageIndo constructor
+    EditMessageInfo() = default;
+    /// EditMessageIndo constructor with initializing list
+    explicit EditMessageInfo(const uint64_t channelID, const std::string& oText, const std::string eText,
+        std::uint64_t msgID, std::uint64_t senderID) 
+            : channelID(channelID), originMessage(oText), editedMessage(eText), msgID(msgID), senderID(senderID) {}
+    /// Default EditMessageInfo copy constructor
+    EditMessageInfo(const EditMessageInfo&) = default;
+    /// Default EditMessageIndo destructor
+    ~EditMessageInfo()                      = default;
+
+};    
+
+/// Serialize method for serialize Edit Message Info for each field
+template <typename Archive>
+void serialize(Archive& ar, Network::EditMessageInfo& o)
+{
+    ar& o.channelID& o.senderID& o.msgID& o.originMessage& o.editedMessage;
+}
+
+
+/**
  * @brief The ReplyInfo struct
  * @details Reply Info contains channel ID, message, message ID,
  *          sender ID, msgIdOwner and sender ID.

@@ -56,11 +56,10 @@ public:
 
     /**
      * @brief editMessage
-     * @param mi 
-     * @param em which contains text of edited message
+     * @param emi as EditMessageInfos
      * @return
      */
-    virtual Utility::EditingMessageCodes editMessage(const Network::MessageInfo& mi, const std::string em) = 0;
+    virtual Utility::EditingMessageCodes editMessage(const Network::EditMessageInfo& emi) = 0;
 
     /**  @brief Method for user registration.
      *   @param RegistrationMessage which contains user data for registration.

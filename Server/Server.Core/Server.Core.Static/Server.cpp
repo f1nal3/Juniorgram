@@ -171,11 +171,11 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::MessageEditRequest:
         {
-            auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
-            mi.senderID = client->getUserID();
+            auto emi     = std::any_cast<Network::EditMessageInfo>(message.mBody);
+            emi.senderID = client->getUserID();
 
             auto IMessageRep = mPostgreRepo->getRepository<DataAccess::IMessagesRepository>();
-            auto future      = std::async(std::launch::async, &DataAccess::IMessagesRepository::editMessage, IMessageRep, mi, em);
+            auto future      = std::async(std::launch::async, &DataAccess::IMessagesRepository::editMessage, IMessageRep, emi);
 
             Network::Message answerForClient;
             answerForClient.mHeader.mMessageType = Network::Message::MessageType::MessageEditAnswer;
@@ -184,6 +184,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             answerForClient.mBody         = std::make_any<Utility::EditingMessageCodes>(editingMessageCode);
             client->send(answerForClient);
         }
+        break;
 
         case Network::Message::MessageType::RegistrationRequest:
         {
