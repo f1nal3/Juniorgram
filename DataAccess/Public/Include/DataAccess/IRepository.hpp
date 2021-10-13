@@ -56,7 +56,7 @@ public:
 
     /**
      * @brief editMessage
-     * @param emi as EditMessageInfos
+     * @param emi as EditMessageInfo
      * @return
      */
     virtual Utility::EditingMessageCodes editMessage(const Network::EditMessageInfo& emi) = 0;

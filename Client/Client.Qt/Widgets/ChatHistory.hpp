@@ -62,11 +62,10 @@ private Q_SLOTS:
 Q_SIGNALS:
     /// Message has been deleted/restored
     void messageChanged();
-    /**
-     * @brief Message has been added
-     */
+    /// Message has been added
     void messageAdded();
-    void createReplySignal(ReplyWidget*);
+    /// This message is replied
+    void createReplySignal(QString messageText, QString username, uint64_t messageId);
 
 private:
     /**

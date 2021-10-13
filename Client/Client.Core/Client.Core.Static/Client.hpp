@@ -38,7 +38,8 @@ public:
 
     /// Ask for channel list
     void askForChannelList() const;
-
+    /// Ask for channel subscription list
+    void askForChannelSubscriptionList() const;
     /**
      * @brief Ask for channel message history
      * @param channelID Channel ID
@@ -68,6 +69,21 @@ public:
      * @param message ID uint64_t variable
      */
     void subscriptionChannel(const std::uint64_t channelID) const;
+    /**
+     * @brief Sending the name of the leave channel
+     * @param channel name std::string variable
+     */
+    void leaveChannel(const std::string channelName) const;
+    /**
+     * @brief Sending the name of the delete channel
+     * @param channel name std::string variable
+     */
+    void deleteChannel(const std::string channelName) const;
+    /**
+     * @brief Sending the info of the created channel
+     * @param channel name std::string variable
+     */
+    void createChannel(const std::string channelName) const;
     /**
      * @brief Send a message to server
      * @param message Message
@@ -119,10 +135,20 @@ protected:
     virtual void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState);
     /// Registration Answer handler
     virtual void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
-	/// Reply History Answer heandler
+    /// Reply History Answer heandler
     virtual void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
     /// Reply Store Answer handler
     virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
+    /// Channel leave Answer handler
+    virtual void onChannelLeaveAnswer(Utility::ChannelLeaveCodes channelLeaveCode);
+    /// Channel subscription Answer handler
+    virtual void onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode);
+    /// Channel subscription list Answer handler
+    virtual void onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList);
+    /// Channel delete Answer handler
+    virtual void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
+    /// Channel create Answer handler
+    virtual void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
 
 private:
     asio::io_context _context;
