@@ -33,7 +33,7 @@ enum class StoringMessageCodes : std::uint8_t
 };
 
 /**
- * @brief Enum for traking replies storing status.
+ * @brief Enum for tracking replies storing status.
  * @details Utility::StoringReplyCodes storeReply(const Network::ReplyInfo& ri) /
  *    return one of this codes.
  */
@@ -61,6 +61,18 @@ enum class DeletingMessageCodes : std::uint8_t
 enum class ChannelSubscribingCodes : std::uint8_t
 {
     CHANNEL_HAS_ALREADY_BEEN_SIGNED,
+    SUCCESS,
+    FAILED,
+};
+
+/**
+ * @brief Enum for tracking channel leave status.
+ * @details Utility::ChannelLeaveCodes leaveChannel(const std::string channelName) /
+ *    return one of this codes.
+ */
+enum class ChannelLeaveCodes : std::uint8_t
+{
+    CHANNEL_NOT_FOUND,
     SUCCESS,
     FAILED,
 };
