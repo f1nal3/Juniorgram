@@ -9,8 +9,9 @@
 
 namespace Utility
 {
-/**  @brief Enum for tracking registration status.
- *   @details RegistrationCodes registerUser(const Network::RegistrationInfo& ri) const /
+/**
+ * @brief Enum for tracking registration status.
+ * @details RegistrationCodes registerUser(const Network::RegistrationInfo& ri) const /
  *    return one of this codes.
  */
 enum class RegistrationCodes : std::uint8_t
@@ -20,8 +21,9 @@ enum class RegistrationCodes : std::uint8_t
     SUCCESS,
 };
 
-/**  @brief Enum for tracking message's storing status.
- *   @details Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& mi) /
+/**
+ * @brief Enum for tracking message's storing status.
+ * @details Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& mi) /
  *    return one of this codes.
  */
 enum class StoringMessageCodes : std::uint8_t
@@ -41,8 +43,9 @@ enum class StoringReplyCodes : std::uint8_t
     FAILED,
 };
 
-/**  @brief Enum for tracking message's deleting status.
- *   @details Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) /
+/**
+ * @brief Enum for tracking message's deleting status.
+ * @details Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) /
  *    return one of this codes.
  */
 enum class DeletingMessageCodes : std::uint8_t
@@ -51,8 +54,9 @@ enum class DeletingMessageCodes : std::uint8_t
     FAILED,
 };
 
-/**  @brief Enum for tracking channel's subscribe status.
- *   @details Utility::ChannelSubscribeCodes.
+/**
+ * @brief Enum for tracking channel's subscribe status.
+ * @details Utility::ChannelSubscribeCodes.
  */
 enum class ChannelSubscribingCodes : std::uint8_t
 {
@@ -61,8 +65,9 @@ enum class ChannelSubscribingCodes : std::uint8_t
     FAILED,
 };
 
-/**  @brief Enum for tracking channel leave status.
- *   @details Utility::ChannelDeleteCode deleteChannel(const std::string channelName) /
+/**
+ * @brief Enum for tracking channel leave status.
+ * @details Utility::ChannelDeleteCode deleteChannel(const std::string channelName) /
  *    return one of this codes.
  */
 enum class ChannelDeleteCode : std::uint8_t
@@ -73,8 +78,9 @@ enum class ChannelDeleteCode : std::uint8_t
     FAILED,
 };
 
-/**  @brief Enum for tracking channel creating status.
- *   @details Utility::ChannelCreateCodes createChannel(const Network::ChannelInfo& channel) /
+/**
+ * @brief Enum for tracking channel creating status.
+ * @details Utility::ChannelCreateCodes createChannel(const Network::ChannelInfo& channel) /
  *    return one of this codes.
  */
 enum class ChannelCreateCodes : std::uint8_t
@@ -121,7 +127,7 @@ inline std::string getTimeNow()
  * @details Removes whitespaces at the beginning and the end of input string, replaces whitespace
  *          sequences with a single space or newline (if sequence contains a newline)
  */
-std::string removeSpaces(const std::string& input)
+inline std::string removeSpaces(const std::string& input)
 {
     auto isSpace = [](char c) -> bool { return std::isspace(static_cast<unsigned char>(c)); };
 
