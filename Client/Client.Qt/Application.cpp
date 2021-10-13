@@ -27,7 +27,9 @@ void Application::create()
     _icon = new Style::icon(":/images/logo.png");
     _mainWidget->setBioButtonIcon(_icon);
 
+    _repContainer    = std::make_unique<DataAccess::LiteRepositoryContainer>(DataAccess::LiteAdapter::Instance("client.db"));
     _receiverManager = std::make_unique<ReceiverManager>();
+    _repContainer->registerRepository<DataAccess::IMessageRepository, DataAccess::LiteMessageRepository>();
     _mainWidget->addWidget(std::make_unique<LoginPage>());
     _mainWidget->addWidget(std::make_unique<RegistrationPage>());
     _mainWidget->addWidget(std::make_unique<ChatPage>());
@@ -76,5 +78,7 @@ void Application::setAppState(const App::AppState appState)
 }
 
 std::unique_ptr<ConnectionManager>& Application::connectionManager() { return _connectionManager; }
+
+std::unique_ptr<DataAccess::LiteRepositoryContainer>& Application::repositoryContainer() { return _repContainer; }
 
 void Application::reconnectToServer() { _connectionManager->init(); }

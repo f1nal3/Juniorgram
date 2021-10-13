@@ -14,13 +14,13 @@ namespace DataAccess
  */
 struct IMessagesRepository : IMasterRepository
 {
-    /// Virtual method for geting Message History
+    /// Virtual method to get Message History
     virtual std::vector<Network::MessageInfo> getMessageHistory(const std::uint64_t channelID) = 0;
 
-    /// Virtual method for store Message
+    /// Virtual method to store Message
     virtual Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& mi) = 0;
 
-    /// Virtual method for delete Message
+    /// Virtual method to delete Message
     virtual Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) = 0;
 
     /// Default virtual destructor
@@ -32,8 +32,11 @@ struct IMessagesRepository : IMasterRepository
  */
 struct IRepliesRepository : IMasterRepository
 {
-    /// Virtual method for geting Reply History
+    /// Virtual method to get Reply History
     virtual std::vector<Network::ReplyInfo> getReplyHistory(const std::uint64_t channelID) = 0;
+
+    /// Virtual method to store Reply message
+    virtual Utility::StoringReplyCodes storeReply(const Network::ReplyInfo& rsi) = 0;
 
     /// Default virtual destructor
     virtual ~IRepliesRepository() = default;
@@ -44,8 +47,20 @@ struct IRepliesRepository : IMasterRepository
  */
 struct IChannelsRepository : IMasterRepository
 {
-    /// Virtual method for geting channgel List
+    /// Virtual method to get channel List
     virtual std::vector<Network::ChannelInfo> getAllChannelsList() = 0;
+    /// Virtual method to delete channel
+    virtual Utility::ChannelDeleteCode deleteChannel(const Network::ChannelDeleteInfo& channel) = 0;
+
+    /// Virtual method to create channel
+    virtual Utility::ChannelCreateCodes createChannel(const Network::ChannelInfo& channel) = 0;
+
+    /// Virtual method to leave channel
+    virtual Utility::ChannelLeaveCodes leaveChannel(const Network::ChannelLeaveInfo& channel) = 0;
+    /// Virtual method for channel subscription
+    virtual Utility::ChannelSubscribingCodes subscribeToChannel(const Network::ChannelSubscriptionInfo& channel) = 0;
+    /// Virtual method to get list of subscribed channels
+    virtual std::vector<uint64_t> getChannelSubscriptionList(const uint64_t& userID) = 0;
 
     /// Default virtual destructor
     virtual ~IChannelsRepository() = default;
@@ -56,11 +71,11 @@ struct IChannelsRepository : IMasterRepository
  */
 struct IRegisterRepository : IMasterRepository
 {
-    /// Virtual method for register User
+    /// Virtual method to register User
     virtual Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) = 0;
 
     /// Default virtual destructor
-    virtual ~IRegisterRepository() = default;
+    ~IRegisterRepository() override = default;
 };
 
 /**
@@ -68,8 +83,8 @@ struct IRegisterRepository : IMasterRepository
  */
 struct ILoginRepository : IMasterRepository
 {
-    /// Virtual method for login User
-    virtual std::uint64_t loginUser(const std::string& login, std::string& pwdHash) = 0;
+    /// Virtual method to login User
+    virtual std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) = 0;
 
     /// Default virtual destructor
     virtual ~ILoginRepository() = default;

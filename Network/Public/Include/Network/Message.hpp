@@ -41,7 +41,17 @@ struct Message
         ReplyHistoryRequest,
         ReplyHistoryAnswer,
         ReplyStoreRequest,
-        ReplyStoreAnswer
+        ReplyStoreAnswer,
+        ChannelLeaveRequest,
+        ChannelLeaveAnswer,
+        ChannelSubscribeRequest,
+        ChannelSubscribeAnswer,
+        ChannelSubscriptionListRequest,
+        ChannelSubscriptionListAnswer,
+        ChannelDeleteRequest,
+        ChannelDeleteAnswer,
+        ChannelCreateRequest,
+        ChannelCreateAnswer
     };
 
     /**

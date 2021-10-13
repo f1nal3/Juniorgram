@@ -48,6 +48,51 @@ void serialize(Archive& ar, Network::ChannelInfo& o)
     ar& o.creatorID& o.channelID& o.channelName;
 }
 
+using ChannelDeleteInfo = ChannelInfo;
+using ChannelLeaveInfo = ChannelInfo;
+
+  
+/**
+ * @brief The ChannelSubscriptionInfo struct
+ * @details Channel Info struct for information about the channel that the user subscribed.
+ *          contain channel ID.
+ */
+struct ChannelSubscriptionInfo
+{
+    /// channel ID uint64_t variable
+    std::uint64_t channelID;
+    /// user ID uint64_t variable
+    std::uint64_t userID;
+
+public:
+    /// Default ChannelInfo constructor
+    ChannelSubscriptionInfo() = default;
+
+    /// ChannelInfo constructor with initializing list
+    ChannelSubscriptionInfo(const std::uint64_t channelID)
+        : channelID(channelID)
+    {
+    }
+    /// Default ChannelSubscriptionInfo destructor
+    ~ChannelSubscriptionInfo() = default;
+
+    /// Operator == to compare channel info
+    friend bool operator==(const ChannelSubscriptionInfo& first, const ChannelSubscriptionInfo& second)
+    {
+        return first.channelID == second.channelID && first.userID == second.userID;
+    }
+};
+
+/**
+ * @brief helper function for serializing
+ * @ref ChannelSubscriptionInfo structure
+ */
+template <typename Archive>
+void serialize(Archive& ar, Network::ChannelSubscriptionInfo& o)
+{
+    ar& o.channelID;
+}
+
 /**
  * @brief Struct for storing and transmitting login information
  */
@@ -135,6 +180,8 @@ struct MessageInfo
     std::uint64_t msgID;
     /// sender ID uint64_t variable
     std::uint64_t senderID;
+    /// user Login string variable
+    std::string userLogin;
     /// recipient ID uint64_t variable
     std::uint64_t recipientID;
     /// time string variable
@@ -155,7 +202,8 @@ struct MessageInfo
         return first.message   == second.message   && 
                first.channelID == second.channelID && 
                first.time      == second.time      &&
-               first.msgID     == second.msgID;
+               first.msgID     == second.msgID     &&
+               first.userLogin == second.userLogin;
     }
 };
 
@@ -163,7 +211,7 @@ struct MessageInfo
 template <typename Archive>
 void serialize(Archive& ar, Network::MessageInfo& o)
 {
-    ar& o.channelID& o.senderID& o.msgID& o.message& o.time;
+    ar& o.channelID& o.senderID& o.msgID& o.message& o.time& o.userLogin;
 }
 
 /**

@@ -16,7 +16,7 @@ protected:
     UsersAmountFinder(Table* pt) : pTable(pt) {}
 
 public:
-    UsersAmountFinder() : pTable(new Table{"users"}) {}
+    UsersAmountFinder() : pTable(std::make_unique<Table>("users")) {}
 
     virtual ~UsersAmountFinder() = default;
 

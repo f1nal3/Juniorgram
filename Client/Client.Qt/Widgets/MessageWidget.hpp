@@ -93,7 +93,7 @@ public slots:
 
 signals:
     void geometryChanged(int);
-    void createReplySignal(ReplyWidget*);
+    void createReplySignal(QString messageText, QString username, uint64_t messageId);
 
 protected:
     void paintEvent(QPaintEvent* e) override;
@@ -118,7 +118,5 @@ private:
     MessageFlags                _messageFlags;
     const Style::MessageWidget& _st;
 
-
-    std::unique_ptr<FlatButton>   _replyBtn;
-    ReplyWidget*                  _replyWidget = nullptr;
+    std::unique_ptr<FlatButton> _replyBtn;
 };

@@ -41,6 +41,7 @@ std::vector<Network::MessageInfo> FileRepository::getMessageHistoryForUser(const
         mi.message   = row.at("msg");
         mi.time      = row.at("send_time");
         mi.senderID  = row.at("sender_id");
+        mi.userLogin  = row.at("username");
         messages.emplace_back(mi);
     }
 

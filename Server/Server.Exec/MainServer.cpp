@@ -1,3 +1,5 @@
+#include <ArgumentParser.hpp>
+#include <Server.hpp>
 #include <algorithm>
 #include <array>
 #include <iostream>
@@ -5,17 +7,14 @@
 #include <stdexcept>
 #include <string>
 
-#include <Server.hpp>
-#include <ArgumentParser.hpp>
-
 int main(int argc, const char** argv)
 {
-
     try
     {
         ArgumentParser parser(argc, argv);
 
         Server::Server server(parser.getPort());
+        server.registerRepositories();
         server.start();
 
         while (true)
