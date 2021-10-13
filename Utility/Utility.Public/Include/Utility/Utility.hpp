@@ -85,7 +85,7 @@ enum class ChannelLeaveCodes : std::uint8_t
 enum class ChannelDeleteCode : std::uint8_t
 {
     CHANNEL_NOT_FOUND,
-    CHANNEL_NON_USER,
+    CHANNEL_IS_NOT_USER,
     SUCCESS,
     FAILED,
 };
