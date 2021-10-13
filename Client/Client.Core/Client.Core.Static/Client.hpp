@@ -70,6 +70,11 @@ public:
      */
     void subscriptionChannel(const std::uint64_t channelID) const;
     /**
+     * @brief Sending the name of the leave channel
+     * @param channel name std::string variable
+     */
+    void leaveChannel(const std::string channelName) const;
+    /**
      * @brief Sending the name of the delete channel
      * @param channel name std::string variable
      */
@@ -134,13 +139,15 @@ protected:
     virtual void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
     /// Reply Store Answer handler
     virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
+    /// Channel leave Answer handler
+    virtual void onChannelLeaveAnswer(Utility::ChannelLeaveCodes channelLeaveCode);
     /// Channel subscription Answer handler
     virtual void onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode);
     /// Channel subscription list Answer handler
     virtual void onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList);
-    /// Reply delete channel Answer handler
+    /// Channel delete Answer handler
     virtual void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
-    /// Reply create channel Answer handler
+    /// Channel create Answer handler
     virtual void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
 
 private:

@@ -42,6 +42,8 @@ struct Message
         ReplyHistoryAnswer,
         ReplyStoreRequest,
         ReplyStoreAnswer,
+        ChannelLeaveRequest,
+        ChannelLeaveAnswer,
         ChannelSubscribeRequest,
         ChannelSubscribeAnswer,
         ChannelSubscriptionListRequest,

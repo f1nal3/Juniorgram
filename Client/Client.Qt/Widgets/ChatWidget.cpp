@@ -1,6 +1,5 @@
 #include "ChatWidget.hpp"
 
-#include <QtDebug>
 #include <QtEvents>
 #include <utility>
 
@@ -10,6 +9,8 @@
 ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
 {
     setContentsMargins(0, 0, 0, 0);
+
+    _channelBar   = std::make_unique<ChannelBar>(this);
     _chatHistory  = std::make_unique<ChatHistory>(this);
     _textEdit     = std::make_unique<TextEdit>(this);
     _replyWidget  = std::make_unique<ReplyWidget>(this);
@@ -44,23 +45,23 @@ void ChatWidget::newMessage(const QString& messageText)
 
 void ChatWidget::addMessages(const std::vector<Network::MessageInfo>& messages)
 {
+    if (messages.empty()) return;
+    if (messages.front().channelID != _channelID) return;  // It could be messages for other channel
+
     for (const auto& message : messages)
     {
-        if (message.channelID == _channelID)
-        {
-            _chatHistory->addMessage(message);
-        }
+        _chatHistory->addMessage(message);
     }
 }
 
 void ChatWidget::addReplies(const std::vector<Network::ReplyInfo>& replies)
 {
+    if (replies.empty()) return;
+    if (replies.front().channelID != _channelID) return;  // It could be replies for other channel
+
     for (const auto& reply : replies)
     {
-        if (reply.channelID == _channelID)
-        {
-            _chatHistory->addReply(reply);
-        }
+        _chatHistory->addReply(reply);
     }
 }
 
@@ -82,12 +83,20 @@ void ChatWidget::setReply(QString messageText, QString username, uint64_t messag
 void ChatWidget::updateLayout()
 {
     const auto& size = this->size();
-    _replyWidget->setFixedWidth(size.width());
-    auto textEditExpectedHeightBefore = _textEdit->expectedHeight();
+    _replyWidget->setFixedWidth(size.width());  // Reply on whole width
+    _channelBar->setFixedWidth(size.width());
+
+    auto textEditExpectedHeightBefore = _textEdit->expectedHeight();  // Text edit size before resize
     _textEdit->resize(size.width(), textEditExpectedHeightBefore);
-    auto textEditExpectedHeightAfter = _textEdit->expectedHeight();
-    if (textEditExpectedHeightBefore != textEditExpectedHeightAfter) _textEdit->resize(size.width(), textEditExpectedHeightAfter);
-    _chatHistory->resize(size.width(), size.height() - _textEdit->height() - (_replyWidget->isHidden() ? 0 : _replyWidget->height()));
+    auto textEditExpectedHeightAfter = _textEdit->expectedHeight();   // Text edit size after resize
+    if (textEditExpectedHeightBefore != textEditExpectedHeightAfter)  // Need to resize again
+        _textEdit->resize(size.width(), textEditExpectedHeightAfter);
+
+    _chatHistory->resize(size.width(), size.height() - _textEdit->height() - _channelBar->height() -
+                                           (_replyWidget->isHidden() ? 0 : _replyWidget->height()));
+
+    _chatHistory->move(0, _channelBar->height());
+
     _textEdit->move(0, size.height() - _textEdit->height());
     _replyWidget->move(0, _textEdit->y() - _replyWidget->height());
 }

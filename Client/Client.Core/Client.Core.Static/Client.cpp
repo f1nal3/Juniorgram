@@ -234,6 +234,17 @@ void Client::subscriptionChannel(const std::uint64_t channelID) const
     send(networkMessage);
 }
 
+void Client::leaveChannel(const std::string channelName) const
+{
+    Network::Message networkMessage;
+    networkMessage.mHeader.mMessageType = MessageType::ChannelLeaveRequest;
+
+    std::string ri;
+    ri                   = channelName;
+    networkMessage.mBody = std::make_any<std::string>(ri);
+    send(networkMessage);
+}
+  
 void Client::createChannel(const std::string channelName) const
 {
     Network::Message networkMessage;
@@ -339,14 +350,18 @@ void Client::loop()
                 onChannelSubscribingAnswer(code);
             }
             break;
-
+            case MessageType::ChannelLeaveAnswer:
+            {
+                auto ChannelLeaveCode = std::any_cast<Utility::ChannelLeaveCodes>(message.mBody);
+                onChannelLeaveAnswer(ChannelLeaveCode);
+            }
+            break;
             case MessageType::ChannelSubscriptionListAnswer:
             {
                 auto channelsList = std::any_cast<std::vector<uint64_t>>(message.mBody);
                 onChannelSubscribingListAnswer(channelsList);
             }
             break;
-            
             case MessageType::ChannelDeleteAnswer:
             {
                 auto channelDeleteCode = std::any_cast<Utility::ChannelDeleteCode>(message.mBody);
@@ -437,11 +452,18 @@ void Client::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
     std::cerr << "[Client][Warning] reply store answer is not implemented\n";
 }
 
+void Client::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode)
+{
+    (void)(ChannelLeaveCode);
+    std::cerr << "[Client][Warning] leave channel answer is not implemented\n";
+}
+
 void Client::onChannelSubscribingAnswer(Utility::ChannelSubscribingCodes subscribingChannelCode)
 {
     (void)(subscribingChannelCode);
     std::cerr << "[Client][Warning] subscribing channel is not implemented\n";
 }
+
 void Client::onChannelSubscribingListAnswer(std::vector<uint64_t> subscribingChannelList)
 {
     (void)(subscribingChannelList);
