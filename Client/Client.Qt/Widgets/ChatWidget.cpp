@@ -7,7 +7,6 @@
 #include "Application.hpp"
 #include "ChatHistory.hpp"
 
-
 ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
 {
     setContentsMargins(0, 0, 0, 0);
