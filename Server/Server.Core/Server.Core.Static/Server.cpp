@@ -93,6 +93,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
             mi.senderID = client->getUserID();
+            mi.message  = Utility::removeSpaces(mi.message);
 
             auto IMessageRep = mPostgreRepo->getRepository<DataAccess::IMessagesRepository>();
             auto future      = std::async(std::launch::async, &DataAccess::IMessagesRepository::storeMessage, IMessageRep, mi);
@@ -128,6 +129,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             auto ri     = std::any_cast<Network::ReplyInfo>(message.mBody);
             ri.senderID = client->getUserID();
+            ri.message  = Utility::removeSpaces(ri.message);
 
             auto IReplyRep = mPostgreRepo->getRepository<DataAccess::IRepliesRepository>();
             auto future    = std::async(std::launch::async, &DataAccess::IRepliesRepository::storeReply, IReplyRep, ri);
@@ -244,7 +246,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::ChannelSubscribeRequest:
         {
-            auto channel = std::any_cast<Network::ChannelSubscriptionInfo>(message.mBody);
+            auto channel   = std::any_cast<Network::ChannelSubscriptionInfo>(message.mBody);
             channel.userID = client->getUserID();
 
             auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
@@ -271,11 +273,10 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelSubscriptionListAnswer;
 
             auto subscribingChannelCodes = future.get();
-            messageToClient.mBody =
-                std::make_any<std::vector<uint64_t>>(subscribingChannelCodes);
+            messageToClient.mBody        = std::make_any<std::vector<uint64_t>>(subscribingChannelCodes);
         }
         break;
-        
+
         case Network::Message::MessageType::ChannelDeleteRequest:
         {
             Network::ChannelDeleteInfo chennelDeletedInfo;
@@ -293,7 +294,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             messageToClient.mBody    = std::make_any<Utility::ChannelDeleteCode>(deletedChannelCodes);
         }
         break;
-        
+
         case Network::Message::MessageType::ChannelCreateRequest:
         {
             Network::ChannelInfo newChennelInfo;
