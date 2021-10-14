@@ -11,11 +11,11 @@ namespace DataAccess
         if (channelListRow.has_value())
         {
             Network::ChannelInfo channelInfo;
-            for (int i = 0; i < channelListRow.value().size(); ++i)
+            for (auto&& i : channelListRow.value())
             {
-                channelInfo.channelID = channelListRow.value()[i][0].as<std::uint64_t>();
-                channelInfo.channelName = channelListRow.value()[i][1].as<std::string>();
-                channelInfo.creatorID = channelListRow.value()[i][2].as<std::uint64_t>();
+                channelInfo.channelID   = i[0].as<std::uint64_t>();
+                channelInfo.channelName = i[1].as<std::string>();
+                channelInfo.creatorID   = i[2].as<std::uint64_t>();
                 result.push_back(channelInfo);
             }
         }
@@ -164,13 +164,13 @@ namespace DataAccess
         {
             Network::MessageInfo mi;
             mi.channelID = channelID;
-            for (auto i = 0; i < messageHistoryRow.value().size(); ++i)
+            for (auto&& i : messageHistoryRow.value())
             {
-                mi.msgID = messageHistoryRow.value()[i][0].as<std::uint64_t>();
-                mi.senderID = messageHistoryRow.value()[i][1].as<std::uint64_t>();
-                mi.time = messageHistoryRow.value()[i][2].as<std::string>();
-                mi.message = messageHistoryRow.value()[i][3].as<std::string>();
-                mi.userLogin = messageHistoryRow.value()[i][4].as<std::string>();
+                mi.msgID     = i[0].as<std::uint64_t>();
+                mi.senderID  = i[1].as<std::uint64_t>();
+                mi.time      = i[2].as<std::string>();
+                mi.message   = i[3].as<std::string>();
+                mi.userLogin = i[4].as<std::string>();
                 result.emplace_back(mi);
             }
         }
@@ -290,15 +290,14 @@ namespace DataAccess
         {
             Network::ReplyInfo ri;
             ri.channelID = channelID;
-            for (auto i = 0; i < replyHistoryRow.value().size(); ++i)
+            for (auto&& i : replyHistoryRow.value())
             {
-                ri.senderID = replyHistoryRow.value()[i][0].as<std::uint64_t>();
-                ri.msgIdOwner = replyHistoryRow.value()[i][1].as<std::uint64_t>();
-                ri.msgID = replyHistoryRow.value()[i][2].as<std::uint64_t>();
-                ri.message = replyHistoryRow.value()[i][3].as<std::string>();
+                ri.senderID   = i[0].as<std::uint64_t>();
+                ri.msgIdOwner = i[1].as<std::uint64_t>();
+                ri.msgID      = i[2].as<std::uint64_t>();
+                ri.message    = i[3].as<std::string>();
                 result.emplace_back(ri);
             }
-
         }
         return result;
     }
@@ -340,9 +339,9 @@ namespace DataAccess
         std::vector<uint64_t> result;
         if (listSubscriptionChannel.has_value())
         {
-            for (auto i = 0; i < listSubscriptionChannel.value().size(); ++i)
+            for (auto&& i : listSubscriptionChannel.value())
             {
-                uint64_t channelID = listSubscriptionChannel.value()[i][0].as<uint64_t>();
+                uint64_t channelID = i[0].as<uint64_t>();
                 result.push_back(channelID);
             }
         }
