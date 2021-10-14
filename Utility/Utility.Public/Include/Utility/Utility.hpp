@@ -64,8 +64,6 @@ enum class EditingMessageCodes : std::uint8_t
     FAILED,
 };
 
-/**  @brief Enum for tracking channel's subscribe status.
- *   @details Utility::ChannelSubscribeCodes.
 /**
  * @brief Enum for tracking channel's subscribe status.
  * @details Utility::ChannelSubscribeCodes.
