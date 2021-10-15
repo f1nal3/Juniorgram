@@ -1,9 +1,8 @@
 #pragma once
-#include <DataAccess/AbstractRepositoryContainer.hpp>
+#include <../../Public/Include/DataAccess/AbstractRepositoryContainer.hpp>
 #include <utility>
 
 #include "LiteAdapter.hpp"
-#include <DataAccess/AbstarctRepositoryContainer.hpp>
 #include "LiteRepositories.hpp"
 
 namespace DataAccess
