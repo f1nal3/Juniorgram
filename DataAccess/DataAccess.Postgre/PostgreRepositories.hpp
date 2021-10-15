@@ -11,39 +11,39 @@ protected:
     std::unique_ptr<PostgreTable> pTable;
 };
 
-struct ChannelsRepository : IChannelsRepository, AbstractPostgreRepository
+struct ChannelsRepository final : IChannelsRepository, AbstractPostgreRepository
 {
-    ChannelsRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
+    explicit ChannelsRepository(const std::shared_ptr<IAdapter>& adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
 
-    virtual std::vector<Network::ChannelInfo> getAllChannelsList() override final;
-    virtual Utility::ChannelLeaveCodes        leaveChannel(const Network::ChannelLeaveInfo& channel) override final;
-    virtual Utility::ChannelSubscribingCodes  subscribeToChannel(const Network::ChannelSubscriptionInfo& channel) override final;
-    virtual std::vector<uint64_t>             getChannelSubscriptionList(const uint64_t& userID) override final;
+    std::vector<Network::ChannelInfo> getAllChannelsList() final;
+    Utility::ChannelLeaveCodes        leaveChannel(const Network::ChannelLeaveInfo& channel) final;
+    Utility::ChannelSubscribingCodes  subscribeToChannel(const Network::ChannelSubscriptionInfo& channel) final;
+    std::vector<uint64_t>             getChannelSubscriptionList(const uint64_t& userID) final;
 
-    virtual Utility::ChannelDeleteCode  deleteChannel(const Network::ChannelDeleteInfo& channel) override final;
-    virtual Utility::ChannelCreateCodes createChannel(const Network::ChannelInfo& channel) override final;
+    Utility::ChannelDeleteCode  deleteChannel(const Network::ChannelDeleteInfo& channel) final;
+    Utility::ChannelCreateCodes createChannel(const Network::ChannelInfo& channel) final;
 
-    virtual ~ChannelsRepository() = default;
+    ~ChannelsRepository() final = default;
 };
 
-struct LoginRepository : ILoginRepository, AbstractPostgreRepository
+struct LoginRepository final : ILoginRepository, AbstractPostgreRepository
 {
-    LoginRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
+    explicit LoginRepository(const std::shared_ptr<IAdapter>& adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
 
-    virtual std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) override final;
+    std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) final;
 
-    virtual ~LoginRepository() = default;
+    ~LoginRepository() final = default;
 };
 
-struct MessagesRepository : IMessagesRepository, AbstractPostgreRepository
+struct MessagesRepository final : IMessagesRepository, AbstractPostgreRepository
 {
-    MessagesRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
+    explicit MessagesRepository(const std::shared_ptr<IAdapter>& adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
 
-    virtual std::vector<Network::MessageInfo> getMessageHistory(const std::uint64_t channelID) override final;
-    virtual Utility::StoringMessageCodes      storeMessage(const Network::MessageInfo& mi) override final;
-    virtual Utility::DeletingMessageCodes     deleteMessage(const Network::MessageInfo& mi) override final;
+    std::vector<Network::MessageInfo> getMessageHistory(const std::uint64_t channelID) final;
+    Utility::StoringMessageCodes      storeMessage(const Network::MessageInfo& mi) final;
+    Utility::DeletingMessageCodes     deleteMessage(const Network::MessageInfo& mi)  final;
 
-    virtual ~MessagesRepository() = default;
+    ~MessagesRepository() final = default;
 
 private:
     std::optional<pqxx::result> insertMessageIntoMessagesTable(const Network::MessageInfo& msi);
@@ -51,23 +51,23 @@ private:
     std::optional<pqxx::result> insertIDIntoMessageReactionsTable(const std::uint64_t messageID);
 };
 
-struct RegisterRepository : IRegisterRepository, AbstractPostgreRepository
+struct RegisterRepository final : IRegisterRepository, AbstractPostgreRepository
 {
-    RegisterRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
+    explicit RegisterRepository(const std::shared_ptr<IAdapter>& adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
 
-    virtual Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) override final;
+    Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) final;
 
-    virtual ~RegisterRepository() = default;
+    ~RegisterRepository() final = default;
 };
 
-struct RepliesRepository : IRepliesRepository, AbstractPostgreRepository
+struct RepliesRepository final : IRepliesRepository, AbstractPostgreRepository
 {
-    RepliesRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
+    explicit RepliesRepository(const std::shared_ptr<IAdapter>& adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
 
-    virtual std::vector<Network::ReplyInfo> getReplyHistory(const std::uint64_t channelID) override final;
-    virtual Utility::StoringReplyCodes      storeReply(const Network::ReplyInfo& rsi) override final;
+    std::vector<Network::ReplyInfo> getReplyHistory(const std::uint64_t channelID) final;
+    Utility::StoringReplyCodes      storeReply(const Network::ReplyInfo& rsi) final;
 
-    virtual ~RepliesRepository() = default;
+    ~RepliesRepository() final = default;
 
 private:
     std::optional<pqxx::result> insertIDsIntoChannelRepliesTable(const std::uint64_t channelID, const std::uint64_t replyID);

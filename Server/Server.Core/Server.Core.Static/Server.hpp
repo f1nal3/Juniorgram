@@ -34,7 +34,7 @@ private:
 private:
     /**
      * @brief Method for sending the message connecting to the server.
-     * @param Connection managment class as std::shared_ptr<Network::Connection>&.
+     * @param Connection management class as std::shared_ptr<Network::Connection>&.
      */
     bool onClientConnect(const std::shared_ptr<Network::Connection>& client);
 
