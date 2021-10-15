@@ -18,12 +18,9 @@ namespace DataAccess
 class LiteAdapter : public IAdapter
 {
 public:
-    LiteAdapter(const LiteAdapter& other) = delete;
-    LiteAdapter& operator=(const LiteAdapter& other) = delete;
+    Q_DISABLE_COPY_MOVE(LiteAdapter)
 
-    LiteAdapter(LiteAdapter&& other) = delete;
-    LiteAdapter& operator=(LiteAdapter&& other) = delete;
-
+    /// Default destructor
     ~LiteAdapter() override = default;
 
     /**
@@ -36,6 +33,7 @@ public:
      */
     static std::shared_ptr<LiteAdapter> Instance(const std::string_view& db_name);
 
+    /// Create database adapter with a db name
     explicit LiteAdapter(const std::string_view& db_name);
 
 public:

@@ -26,13 +26,13 @@ void ConnectionManager::onServerMessage(const uint64_t clientId)
 
 void ConnectionManager::onChannelListRequest(const std::vector<Network::ChannelInfo>& channels)
 {
-    qRegisterMetaType<std::vector<Network::ChannelInfo> >("std::vector<Network::ChannelInfo>");
+    qRegisterMetaType<std::vector<Network::ChannelInfo>>("std::vector<Network::ChannelInfo>");
     emit ReceiverManager::instance()->onChannelListRequest(channels);
 }
 
 void ConnectionManager::onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages)
 {
-    qRegisterMetaType<std::vector<Network::MessageInfo> >("std::vector<Network::MessageInfo>");
+    qRegisterMetaType<std::vector<Network::MessageInfo>>("std::vector<Network::MessageInfo>");
     emit ReceiverManager::instance()->onMessageHistoryAnswer(messages);
 }
 
@@ -99,12 +99,32 @@ void ConnectionManager::onUserMessageDeleteAnswer(const Utility::DeletingMessage
     {
         std::cout << "FAILED DELETING" << std::endl;
     }
-    else 
+    else
     {
         std::cout << "UNKNOWN deleting message code" << std::endl;
     }
 
     emit ReceiverManager::instance()->onUserMessageDeleteAnswer(deletingCode);
+}
+
+void ConnectionManager::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode)
+{
+    if (subscribingChannelCode == Utility::ChannelSubscribingCodes::SUCCESS)
+    {
+        std::cout << "SUCCESS SUBSCRIBING" << std::endl;
+    }
+    else if (subscribingChannelCode == Utility::ChannelSubscribingCodes::FAILED)
+    {
+        std::cout << "FAILED SUBSCRIBING" << std::endl;
+    }
+    qRegisterMetaType<Utility::ChannelSubscribingCodes>("Utility::ChannelSubscribingCodes");
+    emit ReceiverManager::instance()->onChannelSubscriptionAnswer(subscribingChannelCode);
+}
+
+void ConnectionManager::onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList)
+{
+    qRegisterMetaType<std::vector<uint64_t>>("std::vector<uint64_t>");
+    emit ReceiverManager::instance()->onChannelSubscriptionListAnswer(subscribingChannelList);
 }
 
 void ConnectionManager::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode)

@@ -10,6 +10,7 @@ set(SOURCE_FILES
         Include/DataAccess/IServerRepositories.hpp
         Include/DataAccess/SQLStatements.hpp
         Include/DataAccess/QueryBuilder.hpp)
+        Include/DataAccess/AbstractRepositoryContainer.hpp)
 
 add_library(${TARGET} INTERFACE)
 

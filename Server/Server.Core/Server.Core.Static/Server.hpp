@@ -6,20 +6,23 @@
 #include "Network/Message.hpp"
 
 #include <asio.hpp>
-
 #include <chrono>
 #include <deque>
 #include <iostream>
 #include <memory>
 #include <thread>
 
+#include "DataAccess/AbstractRepositoryContainer.hpp"
+#include "Network/Connection.hpp"
+#include "Network/Message.hpp"
+#include "Network/SafeQueue.hpp"
+
 namespace Server
 {
-
 /**
-*  @class Server.
-*  @brief Server class.
-*/
+ *  @class Server.
+ *  @brief Server class.
+ */
 class Server
 {
 private:
@@ -80,20 +83,18 @@ public:
      * @brief Method for sending the message from client.
      * @param Connection managment class as std::shared_ptr<Network::Connection>& and Network::Message& class.
      */
-    void messageClient(std::shared_ptr<Network::Connection> client,
-                       const Network::Message& message);
+    void messageClient(std::shared_ptr<Network::Connection> client, const Network::Message& message);
 
     /**
      * @brief Method of sending a message to all clients.
      * @param Network::Message& class and connection managment class as std::shared_ptr<Network::Connection>&.
      */
-    void messageAllClients(const Network::Message& message,
-                           const std::shared_ptr<Network::Connection>& exceptionClient = nullptr);
-    
+    void messageAllClients(const Network::Message& message, const std::shared_ptr<Network::Connection>& exceptionClient = nullptr);
+
     /**
      * @brief Method for updating messages.
      * @param std::size_t limit and bool for method wait() in SafeQueue.
      */
     void update(std::size_t maxMessages = std::numeric_limits<size_t>::max(), bool wait = true);
 };
-}  // namespace Network
+}  // namespace Server
