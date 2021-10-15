@@ -55,6 +55,8 @@ struct IChannelsRepository : IMasterRepository
     /// Virtual method to create channel
     virtual Utility::ChannelCreateCodes createChannel(const Network::ChannelInfo& channel) = 0;
 
+    /// Virtual method to leave channel
+    virtual Utility::ChannelLeaveCodes leaveChannel(const Network::ChannelLeaveInfo& channel) = 0;
     /// Virtual method for channel subscription
     virtual Utility::ChannelSubscribingCodes subscribeToChannel(const Network::ChannelSubscriptionInfo& channel) = 0;
     /// Virtual method to get list of subscribed channels

@@ -22,6 +22,41 @@ namespace DataAccess
 
         return result;
     }
+    Utility::ChannelLeaveCodes ChannelsRepository::leaveChannel(const Network::ChannelLeaveInfo& channel)
+    {
+        pTable->changeTable("channels");
+        auto findIdChannel = pTable->Select()->columns({"id"})->Where("channel_name = '" + channel.channelName + "'")->execute();
+        pTable->changeTable("user_channels");
+        if (!findIdChannel.has_value())
+        {
+            return Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND;
+        }
+        auto findChannel = pTable->Select()
+                          ->columns({"*"})
+                          ->Where("user_id = " + std::to_string(channel.creatorID) + 
+                                  " AND " +
+                                  "channel_id = " + std::to_string(findIdChannel.value()[0][0].as<std::uint64_t>()))
+                          ->execute();
+        if (findChannel.has_value())
+        {
+            auto result = pTable->Delete()
+                                ->Where(
+                                "user_id = " + std::to_string(findChannel.value()[0][0].as<std::uint64_t>()) + 
+                                " AND " + 
+                                "channel_id = " + std::to_string(findChannel.value()[0][1].as<std::uint64_t>())
+                                )
+                                ->execute();
+            if (result.has_value())
+            {
+                return Utility::ChannelLeaveCodes::FAILED;
+            }
+        }
+        else
+        {
+            return Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND;
+        }
+        return Utility::ChannelLeaveCodes::SUCCESS;
+    }
     Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Network::ChannelDeleteInfo& channel)
     {
         pTable->changeTable("channels");
@@ -35,7 +70,7 @@ namespace DataAccess
         }
         if (findChannel.value()[0][0].as<uint64_t>() != channel.creatorID)
         {
-            return Utility::ChannelDeleteCode::CHANNEL_NON_USER;
+            return Utility::ChannelDeleteCode::CHANNEL_IS_NOT_USER;
         }
         auto result = pTable->Delete()
                             ->Where("channel_name = '" + channel.channelName + "'" + " AND " + "creator_id = " + std::to_string(channel.creatorID))
@@ -79,7 +114,7 @@ namespace DataAccess
             std::pair{"channel_id", IDNewChannel}
         };
 
-        pTable->changeTable("user_channles");
+        pTable->changeTable("user_channels");
         pTable->Insert()->columns(SubscribNewChannelData)->execute();
         return Utility::ChannelCreateCodes::SUCCESS;
     }
@@ -293,7 +328,7 @@ namespace DataAccess
 
     std::vector<uint64_t> ChannelsRepository::getChannelSubscriptionList(const uint64_t& userID) 
     {
-        pTable->changeTable("user_channles");
+        pTable->changeTable("user_channels");
         auto    listSubscriptionChannel =
                 pTable->Select()
                 ->columns({"channel_id"})

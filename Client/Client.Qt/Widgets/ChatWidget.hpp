@@ -1,6 +1,7 @@
 #pragma once
 #include <Network/Primitives.hpp>
 
+#include "Widgets/ChannelBar.hpp"
 #include "Widgets/InputFields.hpp"
 #include "Widgets/MessageWidget.hpp"
 #include "Widgets/TextEdit.hpp"
@@ -38,9 +39,11 @@ private slots:
     void updateLayout();
 
 private:
+    std::unique_ptr<ChannelBar>  _channelBar;
     std::unique_ptr<ReplyWidget> _replyWidget;
     std::unique_ptr<ChatHistory> _chatHistory;
     std::unique_ptr<TextEdit>    _textEdit;
-    std::unique_ptr<QTimer>      _requestTimer;
-    std::uint64_t                _channelID{};
+
+    std::unique_ptr<QTimer> _requestTimer;
+    std::uint64_t           _channelID{};
 };

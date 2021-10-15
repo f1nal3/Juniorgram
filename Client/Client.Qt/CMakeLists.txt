@@ -69,6 +69,8 @@ set(UI_WIDGETS_SOURCES
         Widgets/TitleWidget.hpp)
 
 set(PAGES_SOURCES
+        Pages/ChannelCreationPage.cpp
+        Pages/ChannelCreationPage.hpp
         Pages/ChannelListPage.cpp
         Pages/ChannelListPage.hpp
         Pages/ChatPage.cpp
@@ -85,6 +87,8 @@ set(SOURCE_FILES
         Widgets/ChatHistory.hpp
         Widgets/ChatWidget.cpp
         Widgets/ChatWidget.hpp
+        Widgets/ChannelBar.cpp
+        Widgets/ChannelBar.hpp
         Widgets/MessageWidget.cpp
         Widgets/MessageWidget.hpp
         Widgets/ReactionLayout.cpp
