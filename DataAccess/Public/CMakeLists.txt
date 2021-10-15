@@ -2,7 +2,7 @@ set(TARGET DataAccess.Public)
 set(OUTPUT_NAME Juniorgram.DataAccess.Public)
 
 set(SOURCE_FILES
-        Include/DataAccess/AbstarctRepositoryContainer.hpp
+        "Include/DataAccess/AbstarctRepositoryContainer.hpp"
         Include/DataAccess/IAdapter.hpp
         Include/DataAccess/IClientRepositories.hpp
         Include/DataAccess/IMasterRepository.hpp
