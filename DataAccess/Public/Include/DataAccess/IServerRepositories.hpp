@@ -67,6 +67,19 @@ struct IChannelsRepository : IMasterRepository
 };
 
 /**
+ * @brief The IChannelsRepository abstract subclass from IMasterRepository
+ */
+struct IDirectMessageRepository : IMasterRepository
+{
+    /**
+     * @brief save a direct message from *user_id* to *receiverId*
+     * @param user_id Sender id
+     * @param directMessageInfo receiver info
+     */
+    virtual int sendMessage(uint64_t user_id, const Network::DirectMessageInfo& directMessageInfo) = 0;
+};
+
+/**
  * @brief The IRegisterRepository abstract subclass from IMasterRepository
  */
 struct IRegisterRepository : IMasterRepository

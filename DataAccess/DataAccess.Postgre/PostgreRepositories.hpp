@@ -26,6 +26,14 @@ struct ChannelsRepository final : IChannelsRepository, AbstractPostgreRepository
     ~ChannelsRepository() final = default;
 };
 
+struct DirectMessageRepository final : IDirectMessageRepository, AbstractPostgreRepository
+{
+    explicit DirectMessageRepository(const std::shared_ptr<IAdapter>& adapter) { pTable = std::make_unique<PostgreTable>("channels", adapter); }
+
+    int sendMessage(uint64_t user_id, const Network::DirectMessageInfo& directMessageInfo);
+    ~DirectMessageRepository() final = default;
+};
+
 struct LoginRepository final : ILoginRepository, AbstractPostgreRepository
 {
     explicit LoginRepository(const std::shared_ptr<IAdapter>& adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
@@ -41,7 +49,7 @@ struct MessagesRepository final : IMessagesRepository, AbstractPostgreRepository
 
     std::vector<Network::MessageInfo> getMessageHistory(const std::uint64_t channelID) final;
     Utility::StoringMessageCodes      storeMessage(const Network::MessageInfo& mi) final;
-    Utility::DeletingMessageCodes     deleteMessage(const Network::MessageInfo& mi)  final;
+    Utility::DeletingMessageCodes     deleteMessage(const Network::MessageInfo& mi) final;
 
     ~MessagesRepository() final = default;
 

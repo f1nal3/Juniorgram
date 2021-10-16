@@ -20,7 +20,7 @@ struct ChannelInfo
     /// channel ID uint64_t variable
     std::uint64_t channelID;
     /// channel name string variable
-    std::string   channelName;
+    std::string channelName;
 
 public:
     /// Default ChannelInfo constructor
@@ -49,9 +49,8 @@ void serialize(Archive& ar, Network::ChannelInfo& o)
 }
 
 using ChannelDeleteInfo = ChannelInfo;
-using ChannelLeaveInfo = ChannelInfo;
+using ChannelLeaveInfo  = ChannelInfo;
 
-  
 /**
  * @brief The ChannelSubscriptionInfo struct
  * @details Channel Info struct for information about the channel that the user subscribed.
@@ -69,10 +68,7 @@ public:
     ChannelSubscriptionInfo() = default;
 
     /// ChannelInfo constructor with initializing list
-    ChannelSubscriptionInfo(const std::uint64_t channelID)
-        : channelID(channelID)
-    {
-    }
+    ChannelSubscriptionInfo(const std::uint64_t channelID) : channelID(channelID) {}
     /// Default ChannelSubscriptionInfo destructor
     ~ChannelSubscriptionInfo() = default;
 
@@ -103,7 +99,7 @@ struct LoginInfo
     /// pwdHash hash of user's password as string variable
     std::string pwdHash;
     /// Default LoginInfo constructor
-    LoginInfo()                 = default;
+    LoginInfo() = default;
     /// Default LoginInfo copy constructor
     LoginInfo(const LoginInfo&) = default;
     /// LoginInfo constructor with initializing list
@@ -145,7 +141,7 @@ struct RegistrationInfo
     /// Default RegistrationInfo copy constructor
     RegistrationInfo(const RegistrationInfo&) = default;
     /// Default RegistrationInfo destructor
-    ~RegistrationInfo()                       = default;
+    ~RegistrationInfo() = default;
 
     /// Default Registration copy assignment constructor
     RegistrationInfo& operator=(const RegistrationInfo& other) = default;
@@ -175,7 +171,7 @@ struct MessageInfo
     /// channel ID uint64_t variable
     std::uint64_t channelID;
     /// message string variable
-    std::string   message;
+    std::string message;
     /// msg ID uint64_t variable
     std::uint64_t msgID;
     /// sender ID uint64_t variable
@@ -185,7 +181,7 @@ struct MessageInfo
     /// recipient ID uint64_t variable
     std::uint64_t recipientID;
     /// time string variable
-    std::string   time = Utility::getTimeNow();
+    std::string time = Utility::getTimeNow();
 
     /// Default MessageIndo constructor
     MessageInfo() = default;
@@ -194,16 +190,13 @@ struct MessageInfo
     /// Default MessageIndo copy constructor
     MessageInfo(const MessageInfo&) = default;
     /// Default MessageIndo destructor
-    ~MessageInfo()                  = default;
+    ~MessageInfo() = default;
 
     /// Operator == to compare Message Info
     friend bool operator==(const MessageInfo& first, const MessageInfo& second)
     {
-        return first.message   == second.message   && 
-               first.channelID == second.channelID && 
-               first.time      == second.time      &&
-               first.msgID     == second.msgID     &&
-               first.userLogin == second.userLogin;
+        return first.message == second.message && first.channelID == second.channelID && first.time == second.time &&
+               first.msgID == second.msgID && first.userLogin == second.userLogin;
     }
 };
 
@@ -239,18 +232,14 @@ struct ReplyInfo
     /// Default Reply copy constructor
     ReplyInfo(const ReplyInfo&) = default;
     /// Default ReplyInfo destructor
-    ~ReplyInfo()                = default;
+    ~ReplyInfo() = default;
 
     /// Operator == to compare Reply Info
     friend bool operator==(const ReplyInfo& first, const ReplyInfo& second)
     {
-        return first.message    == second.message    &&
-               first.msgID      == second.msgID      &&
-               first.senderID   == second.senderID   &&
-               first.msgIdOwner == second.msgIdOwner &&
-               first.channelID  == second.channelID;
+        return first.message == second.message && first.msgID == second.msgID && first.senderID == second.senderID &&
+               first.msgIdOwner == second.msgIdOwner && first.channelID == second.channelID;
     }
-
 };
 
 /// Serialize method for serialize ReplyInfo for each field
@@ -258,6 +247,29 @@ template <typename Archive>
 void serialize(Archive& ar, Network::ReplyInfo& o)
 {
     ar& o.channelID& o.message& o.msgID& o.senderID& o.msgIdOwner;
+}
+
+/**
+ * @brief Information needed to send direct messages
+ */
+struct DirectMessageInfo
+{
+    /// Receivers user ID
+    uint64_t receiverId;
+    /// Message itself
+    std::string message;
+
+    friend bool operator==(const DirectMessageInfo& first, const DirectMessageInfo& second)
+    {
+        return first.receiverId == second.receiverId && first.message == second.message;
+    }
+};
+
+/// How to serialize DirectMessageInfo
+template <typename Archive>
+void serialize(Archive& ar, Network::DirectMessageInfo& o)
+{
+    ar& o.receiverId& o.message;
 }
 
 }  // namespace Network

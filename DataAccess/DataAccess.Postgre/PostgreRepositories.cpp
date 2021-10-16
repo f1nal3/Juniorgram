@@ -11,11 +11,11 @@ std::vector<Network::ChannelInfo> ChannelsRepository::getAllChannelsList()
     if (channelListRow.has_value())
     {
         Network::ChannelInfo channelInfo;
-        for (auto&& i : channelListRow.value())
+        for (auto&& value : channelListRow.value())
         {
-            channelInfo.channelID   = i[0].as<std::uint64_t>();
-            channelInfo.channelName = i[1].as<std::string>();
-            channelInfo.creatorID   = i[2].as<std::uint64_t>();
+            channelInfo.channelID   = value[0].as<std::uint64_t>();
+            channelInfo.channelName = value[1].as<std::string>();
+            channelInfo.creatorID   = value[2].as<std::uint64_t>();
             result.push_back(channelInfo);
         }
     }
@@ -90,7 +90,8 @@ Utility::ChannelCreateCodes ChannelsRepository::createChannel(const Network::Cha
         }
     }
 
-    std::tuple channelData{std::pair{"channel_name", channel.channelName}, std::pair{"creator_id", channel.creatorID}};
+    std::tuple channelData{std::pair{"channel_name", channel.channelName}, std::pair{"creator_id", channel.creatorID},
+                           std::pair{"user_limit", 1'000'000}};
     auto       result = pTable->Insert()->columns(channelData)->execute();
 
     if (result.has_value())
@@ -147,13 +148,13 @@ std::vector<Network::MessageInfo> MessagesRepository::getMessageHistory(const st
     {
         Network::MessageInfo mi;
         mi.channelID = channelID;
-        for (auto&& i : messageHistoryRow.value())
+        for (auto&& value : messageHistoryRow.value())
         {
-            mi.msgID     = i[0].as<std::uint64_t>();
-            mi.senderID  = i[1].as<std::uint64_t>();
-            mi.time      = i[2].as<std::string>();
-            mi.message   = i[3].as<std::string>();
-            mi.userLogin = i[4].as<std::string>();
+            mi.msgID     = value[0].as<std::uint64_t>();
+            mi.senderID  = value[1].as<std::uint64_t>();
+            mi.time      = value[2].as<std::string>();
+            mi.message   = value[3].as<std::string>();
+            mi.userLogin = value[4].as<std::string>();
             result.emplace_back(mi);
         }
     }
@@ -261,12 +262,12 @@ std::vector<Network::ReplyInfo> RepliesRepository::getReplyHistory(const std::ui
     {
         Network::ReplyInfo ri;
         ri.channelID = channelID;
-        for (auto&& i : replyHistoryRow.value())
+        for (auto&& value : replyHistoryRow.value())
         {
-            ri.senderID   = i[0].as<std::uint64_t>();
-            ri.msgIdOwner = i[1].as<std::uint64_t>();
-            ri.msgID      = i[2].as<std::uint64_t>();
-            ri.message    = i[3].as<std::string>();
+            ri.senderID   = value[0].as<std::uint64_t>();
+            ri.msgIdOwner = value[1].as<std::uint64_t>();
+            ri.msgID      = value[2].as<std::uint64_t>();
+            ri.message    = value[3].as<std::string>();
             result.emplace_back(ri);
         }
     }
@@ -335,6 +336,7 @@ Utility::StoringReplyCodes RepliesRepository::storeReply(const Network::ReplyInf
 
     return Utility::StoringReplyCodes::SUCCESS;
 }
+
 std::optional<pqxx::result> RepliesRepository::insertReplyIntoRepliesTable(const Network::ReplyInfo& rsi)
 {
     pTable->changeTable("msgs");
@@ -346,6 +348,7 @@ std::optional<pqxx::result> RepliesRepository::insertReplyIntoRepliesTable(const
     pTable->changeTable("replies");
     return pTable->Insert()->columns(dataForReplies)->returning({"msg_id_owner"})->execute();
 }
+
 std::optional<pqxx::result> RepliesRepository::insertIDsIntoChannelRepliesTable(const std::uint64_t channelID, const std::uint64_t replyID)
 {
     std::tuple dataForChannelReplies{std::pair{"channel_id", channelID}, std::pair{"msg_id_owner", replyID}};
@@ -353,4 +356,12 @@ std::optional<pqxx::result> RepliesRepository::insertIDsIntoChannelRepliesTable(
     pTable->changeTable("channel_replies");
     return pTable->Insert()->columns(dataForChannelReplies)->returning({"channel_id"})->execute();
 }
+
+int DirectMessageRepository::sendMessage(uint64_t user_id, const Network::DirectMessageInfo& directMessageInfo)
+{
+    pTable->changeTable("channels");
+    auto adapter = pTable->getAdapter();
+    adapter->query("")
+}
+
 }  // namespace DataAccess
