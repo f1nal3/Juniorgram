@@ -360,8 +360,14 @@ std::optional<pqxx::result> RepliesRepository::insertIDsIntoChannelRepliesTable(
 int DirectMessageRepository::sendMessage(uint64_t user_id, const Network::DirectMessageInfo& directMessageInfo)
 {
     pTable->changeTable("channels");
-    auto adapter = pTable->getAdapter();
-    adapter->query("")
+    auto adapter   = pTable->getAdapter();
+    auto minUserId = std::min(user_id, directMessageInfo.receiverId);
+    auto maxUserId = std::max(user_id, directMessageInfo.receiverId);
+    adapter->query(
+        "create extension if not exists pgcrypto;\n"
+        "INSERT INTO channels VALUES (DEFAULT, encode(digest(concat(" +
+        std::to_string(minUserId) + ", " + std::to_string(maxUserId) + "),'sha384'),'base64')," + std::to_string(minUserId) +
+        ",2) ON CONFLICT DO NOTHING;");
 }
 
 }  // namespace DataAccess

@@ -347,6 +347,7 @@ void Server::registerRepositories()
     mPostgreRepo->registerRepository<IMessagesRepository, MessagesRepository>();
     mPostgreRepo->registerRepository<IRegisterRepository, RegisterRepository>();
     mPostgreRepo->registerRepository<IRepliesRepository, RepliesRepository>();
+    mPostgreRepo->registerRepository<IDirectMessageRepository, DirectMessageRepository>();
 }
 
 void Server::stop()
@@ -464,7 +465,7 @@ void Server::update(size_t maxMessages, bool wait)
         Message message = mIncomingMessagesQueue.pop_front();
 
         onMessage(message.mRemote, message);
-
+       
         messagesCount++;
     }
 }
