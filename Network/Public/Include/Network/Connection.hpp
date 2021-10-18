@@ -265,8 +265,8 @@ public:
      */
     Connection(const OwnerType& owner, asio::io_context& contextLink, asio::ip::tcp::socket socket,
                SafeQueue<Message>& incomingMessagesQueueLink)
-        : mOwner(owner), mSocket(std::move(socket)), mContextLink(contextLink), mIncomingMessagesQueueLink(incomingMessagesQueueLink),
-            _readStrand(contextLink), _writeStrand(contextLink)
+        : mOwner(owner), mSocket(std::move(socket)), mContextLink(contextLink), _readStrand(contextLink), _writeStrand(contextLink), 
+            mIncomingMessagesQueueLink(incomingMessagesQueueLink)
     {
     }
 
