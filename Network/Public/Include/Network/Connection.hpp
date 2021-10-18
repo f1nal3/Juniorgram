@@ -56,6 +56,11 @@ private:
     /// Overall context for the whole asio instance
     asio::io_context& mContextLink;
 
+    /// Strand to protect read operations
+    asio::io_context::strand _readStrand;
+    /// Strand to protect write operations
+    asio::io_context::strand _writeStrand;
+
     /// References to the incoming queue of the parent object
     SafeQueue<Message>& mIncomingMessagesQueueLink;
     /// Queue all messages to be sent to the remote side of this connection
@@ -112,7 +117,7 @@ private:
             };
 
             asio::async_write(mSocket, asio::buffer(&outcomingMessageHeader, sizeof(Message::MessageHeader)),
-                              std::bind(writeHeaderHandler, std::placeholders::_1));
+                              asio::bind_executor(_writeStrand, std::bind(writeHeaderHandler, std::placeholders::_1)));
         }
     }
 
@@ -146,7 +151,8 @@ private:
             }
         };
 
-        asio::async_write(mSocket, asio::buffer(buffer.data.get(), buffer.size), std::bind(writeBodyHandler, std::placeholders::_1));
+        asio::async_write(mSocket, asio::buffer(buffer.data.get(), buffer.size), 
+                            asio::bind_executor(_writeStrand, std::bind(writeBodyHandler, std::placeholders::_1)));
     }
 
     /**
@@ -183,7 +189,7 @@ private:
         };
 
         asio::async_read(mSocket, asio::buffer(&mMessageBuffer.mHeader, sizeof(Message::MessageHeader)),
-                         std::bind(readHeaderHandler, std::placeholders::_1));
+                         asio::bind_executor(_readStrand, std::bind(readHeaderHandler, std::placeholders::_1)));
     }
 
     /**
@@ -220,7 +226,8 @@ private:
             }
         };
 
-        asio::async_read(mSocket, asio::buffer(buffer.data.get(), buffer.size), std::bind(readBodyHandler, std::placeholders::_1));
+        asio::async_read(mSocket, asio::buffer(buffer.data.get(), buffer.size),
+                            asio::bind_executor(_readStrand, std::bind(readBodyHandler, std::placeholders::_1)));
     }
 
     /**
@@ -258,7 +265,8 @@ public:
      */
     Connection(const OwnerType& owner, asio::io_context& contextLink, asio::ip::tcp::socket socket,
                SafeQueue<Message>& incomingMessagesQueueLink)
-        : mOwner(owner), mSocket(std::move(socket)), mContextLink(contextLink), mIncomingMessagesQueueLink(incomingMessagesQueueLink)
+        : mOwner(owner), mSocket(std::move(socket)), mContextLink(contextLink), mIncomingMessagesQueueLink(incomingMessagesQueueLink),
+            _readStrand(contextLink), _writeStrand(contextLink)
     {
     }
 
@@ -353,7 +361,7 @@ public:
      */
     void send(const Message& message)
     {
-        asio::post(mContextLink, [this, message]() {
+        asio::post(_writeStrand, [this, message]() {
             bool isMessageExist = !mOutcomingMessagesQueue.empty();
 
             mOutcomingMessagesQueue.push_back(message);
