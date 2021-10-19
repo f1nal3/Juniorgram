@@ -498,8 +498,10 @@ void Client::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode
     (void)(channelCreateCode);
     std::cerr << "[Client][Warning] create channel answer is not implemented\n";
 }
-void Client::onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer) {
+void Client::onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer)
+{
     (void)(directMessageCreateAnswer);
-    std::cerr << "[Client][Warning] direct message create answer is not implemented\n";}
+    std::cerr << "[Client][Warning] direct message create answer is not implemented\n";
+}
 
 }  // namespace Network
