@@ -76,7 +76,7 @@ struct IDirectMessageRepository : IMasterRepository
      * @param user_id Sender id
      * @param directMessageInfo receiver info
      */
-    virtual int addDirectChat(uint64_t user_id, const Network::DirectMessageInfo& directMessageInfo) = 0;
+    virtual Utility::DirectMessageStatus addDirectChat(uint64_t user_id, uint64_t directMessageInfo) = 0;
 };
 
 /**

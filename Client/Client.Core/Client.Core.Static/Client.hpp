@@ -36,6 +36,9 @@ public:
     /// Ping a server
     void pingServer() const;
 
+    /// Create direct chat
+    void createDirectChat(uint64_t receiverId) const;
+
     /// Ask for channel list
     void askForChannelList() const;
     /// Ask for channel subscription list

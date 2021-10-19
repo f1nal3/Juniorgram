@@ -99,7 +99,7 @@ struct LoginInfo
     /// pwdHash hash of user's password as string variable
     std::string pwdHash;
     /// Default LoginInfo constructor
-    LoginInfo() = default;
+    LoginInfo()                 = default;
     /// Default LoginInfo copy constructor
     LoginInfo(const LoginInfo&) = default;
     /// LoginInfo constructor with initializing list
@@ -141,7 +141,7 @@ struct RegistrationInfo
     /// Default RegistrationInfo copy constructor
     RegistrationInfo(const RegistrationInfo&) = default;
     /// Default RegistrationInfo destructor
-    ~RegistrationInfo() = default;
+    ~RegistrationInfo()                       = default;
 
     /// Default Registration copy assignment constructor
     RegistrationInfo& operator=(const RegistrationInfo& other) = default;
@@ -190,7 +190,7 @@ struct MessageInfo
     /// Default MessageIndo copy constructor
     MessageInfo(const MessageInfo&) = default;
     /// Default MessageIndo destructor
-    ~MessageInfo() = default;
+    ~MessageInfo()                  = default;
 
     /// Operator == to compare Message Info
     friend bool operator==(const MessageInfo& first, const MessageInfo& second)
@@ -232,7 +232,7 @@ struct ReplyInfo
     /// Default Reply copy constructor
     ReplyInfo(const ReplyInfo&) = default;
     /// Default ReplyInfo destructor
-    ~ReplyInfo() = default;
+    ~ReplyInfo()                = default;
 
     /// Operator == to compare Reply Info
     friend bool operator==(const ReplyInfo& first, const ReplyInfo& second)
@@ -247,29 +247,6 @@ template <typename Archive>
 void serialize(Archive& ar, Network::ReplyInfo& o)
 {
     ar& o.channelID& o.message& o.msgID& o.senderID& o.msgIdOwner;
-}
-
-/**
- * @brief Information needed to send direct messages
- */
-struct DirectMessageInfo
-{
-    /// Receivers user ID
-    uint64_t receiverId;
-    /// Message itself
-    std::string message;
-
-    friend bool operator==(const DirectMessageInfo& first, const DirectMessageInfo& second)
-    {
-        return first.receiverId == second.receiverId && first.message == second.message;
-    }
-};
-
-/// How to serialize DirectMessageInfo
-template <typename Archive>
-void serialize(Archive& ar, Network::DirectMessageInfo& o)
-{
-    ar& o.receiverId& o.message;
 }
 
 }  // namespace Network

@@ -262,13 +262,13 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::ChannelDeleteRequest:
         {
-            Network::ChannelDeleteInfo chennelDeletedInfo;
+            Network::ChannelDeleteInfo channelDeleteInfo;
             std::string                channelName = std::any_cast<std::string>(message.mBody);
-            chennelDeletedInfo.creatorID           = client->getUserID();
-            chennelDeletedInfo.channelName         = channelName;
+            channelDeleteInfo.creatorID            = client->getUserID();
+            channelDeleteInfo.channelName          = channelName;
 
             auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
-            auto future = std::async(std::launch::async, &DataAccess::IChannelsRepository::deleteChannel, IChannelRep, chennelDeletedInfo);
+            auto future = std::async(std::launch::async, &DataAccess::IChannelsRepository::deleteChannel, IChannelRep, channelDeleteInfo);
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelDeleteAnswer;
@@ -280,13 +280,14 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::ChannelCreateRequest:
         {
-            Network::ChannelInfo newChennelInfo;
-            std::string          channelName = std::any_cast<std::string>(message.mBody);
-            newChennelInfo.creatorID         = client->getUserID();
-            newChennelInfo.channelName       = channelName;
+            Network::ChannelInfo newChannelInfo;
+
+            auto channelName           = std::any_cast<std::string>(message.mBody);
+            newChannelInfo.creatorID   = client->getUserID();
+            newChannelInfo.channelName = channelName;
 
             auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
-            auto future      = std::async(std::launch::async, &DataAccess::IChannelsRepository::createChannel, IChannelRep, newChennelInfo);
+            auto future      = std::async(std::launch::async, &DataAccess::IChannelsRepository::createChannel, IChannelRep, newChannelInfo);
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelCreateAnswer;
@@ -297,9 +298,24 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         }
         break;
 
+        case Network::Message::MessageType::DirectMessageCreateRequest:
+        {
+            auto secondUser = std::any_cast<uint32_t>(message.mBody);
+
+            auto IDirectMessageRepository = mPostgreRepo->getRepository<DataAccess::IDirectMessageRepository>();
+            auto result                   = IDirectMessageRepository->addDirectChat(client->getUserID(), secondUser);
+
+            Network::Message messageToClient;
+            messageToClient.mHeader.mMessageType = Network::Message::MessageType::DirectMessageCreateAnswer;
+
+            messageToClient.mBody = std::make_any<Utility::ChannelCreateCodes>(result);
+            client->send(messageToClient);
+        }
+        break;
+
         default:
         {
-            std::cerr << "Unknows command received\n";
+            std::cerr << "Unknown command received\n";
         }
         break;
     }
@@ -465,9 +481,6 @@ void Server::update(size_t maxMessages, bool wait)
         Message message = mIncomingMessagesQueue.pop_front();
 
         onMessage(message.mRemote, message);
-        Network::DirectMessageInfo nice{5, "444"};
-        mPostgreRepo->getRepository<DataAccess::IDirectMessageRepository>()->addDirectChat(8, nice);
-
         messagesCount++;
     }
 }

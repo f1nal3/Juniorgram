@@ -102,6 +102,15 @@ enum class ChannelCreateCodes : std::uint8_t
     FAILED,
 };
 
+/**
+ * @brief Direct message chat creation status
+ */
+enum class DirectMessageStatus : std::uint8_t
+{
+    SUCCESS,
+    FAILED,
+};
+
 inline std::tm safe_localtime(const std::time_t& time)
 {
     // std::localtime is not thread safe, so we use platform-dependant versions

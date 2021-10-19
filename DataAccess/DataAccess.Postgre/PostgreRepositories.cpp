@@ -361,13 +361,13 @@ std::optional<pqxx::result> RepliesRepository::insertIDsIntoChannelRepliesTable(
     return pTable->Insert()->columns(dataForChannelReplies)->returning({"channel_id"})->execute();
 }
 
-int DirectMessageRepository::addDirectChat(uint64_t user_id, const Network::DirectMessageInfo& directMessageInfo)
+Utility::DirectMessageStatus DirectMessageRepository::addDirectChat(uint64_t user_id, uint64_t receiverId)
 {
-    if (user_id == 0) return 0;
+    if (user_id == 0) return Utility::DirectMessageStatus::FAILED;
     pTable->changeTable("channels");
     auto adapter   = pTable->getAdapter();
-    auto minUserId = std::to_string(std::min(user_id, directMessageInfo.receiverId));
-    auto maxUserId = std::to_string(std::max(user_id, directMessageInfo.receiverId));
+    auto minUserId = std::to_string(std::min(user_id, receiverId));
+    auto maxUserId = std::to_string(std::max(user_id, receiverId));
     auto result    = adapter->query(
            "create extension if not exists pgcrypto;\n"
               "INSERT INTO channels VALUES (DEFAULT, encode(digest(concat(" +
@@ -382,8 +382,9 @@ int DirectMessageRepository::addDirectChat(uint64_t user_id, const Network::Dire
         auto channelId = std::to_string(cId[0][0].as<uint64_t>());
         adapter->query("INSERT INTO user_channels VALUES (" + minUserId + "," + channelId + "), (" + maxUserId + "," + channelId +
                        ")ON CONFLICT DO NOTHING;");
+        return Utility::DirectMessageStatus::SUCCESS;
     }
-    return 0;
+    return Utility::DirectMessageStatus::FAILED
 }
 
 }  // namespace DataAccess

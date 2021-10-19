@@ -132,6 +132,14 @@ public:
                     state = processOutcomingMessageBody<Utility::ChannelCreateCodes>(bodyBuffer, message.mBody);
                     break;
 
+                case Message::MessageType::DirectMessageCreateRequest:
+                    state = state = processOutcomingMessageBody<uint64_t>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::DirectMessageCreateAnswer:
+                    state = state = processOutcomingMessageBody<Utility::DirectMessageStatus>(bodyBuffer, message.mBody);
+                    break;
+
                 default:
                     break;
             }
@@ -296,6 +304,17 @@ public:
                 break;
             }
 
+            case Message::MessageType::DirectMessageCreateRequest:
+            {
+                state = state = processIncomingMessageBody<uint64_t>(buffer, message);
+                break;
+            }
+
+            case Message::MessageType::DirectMessageCreateAnswer:
+            {
+                state = state = processIncomingMessageBody<Utility::DirectMessageStatus>(buffer, message);
+                break;
+            }
             default:
                 break;
         }

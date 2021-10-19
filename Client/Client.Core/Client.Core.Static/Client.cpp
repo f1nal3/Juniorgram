@@ -1,7 +1,7 @@
 #include "Client.hpp"
 
-#include <Network/Primitives.hpp>
 #include <Crypto.Static/Cryptography.hpp>
+#include <Network/Primitives.hpp>
 
 #include "ServerInfo.hpp"
 
@@ -154,15 +154,15 @@ void Client::storeMessage(const std::string& message, const uint64_t channelID) 
     send(networkMessage);
 }
 
-void Client::storeReply(const std::string &message, uint64_t channelID, uint64_t msgID) const
+void Client::storeReply(const std::string& message, uint64_t channelID, uint64_t msgID) const
 {
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ReplyStoreRequest;
 
     Network::ReplyInfo ri;
-    ri.message = message;
+    ri.message   = message;
     ri.channelID = channelID;
-    ri.msgID = msgID;
+    ri.msgID     = msgID;
 
     networkMessage.mBody = std::make_any<Network::ReplyInfo>(ri);
     send(networkMessage);
@@ -244,15 +244,25 @@ void Client::leaveChannel(const std::string channelName) const
     networkMessage.mBody = std::make_any<std::string>(ri);
     send(networkMessage);
 }
-  
+
 void Client::createChannel(const std::string channelName) const
 {
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ChannelCreateRequest;
 
     std::string ri;
-    ri       = channelName;
+    ri                   = channelName;
     networkMessage.mBody = std::make_any<std::string>(ri);
+    send(networkMessage);
+}
+
+void Client::createDirectChat(uint64_t receiverId) const
+{
+    Network::Message networkMessage;
+    networkMessage.mHeader.mMessageType = MessageType::ChannelCreateRequest;
+
+    auto userId          = receiverId;
+    networkMessage.mBody = std::make_any<uint64_t>(receiverId);
     send(networkMessage);
 }
 
@@ -426,7 +436,7 @@ void Client::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
     std::cerr << "[Client][Warning] registration answer is not implemented\n";
 }
 
-void Client::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) 
+void Client::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState)
 {
     (void)(deletingState);
     std::cerr << "[Client][Warning] onUserMessageDeleteAnswer answer is not implemented\n";
@@ -469,7 +479,7 @@ void Client::onChannelSubscribingListAnswer(std::vector<uint64_t> subscribingCha
     (void)(subscribingChannelList);
     std::cerr << "[Client][Warning] subscribing channel list is not implemented\n";
 }
-  
+
 void Client::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode)
 {
     (void)(channelDeleteCode);

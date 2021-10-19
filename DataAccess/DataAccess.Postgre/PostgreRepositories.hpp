@@ -33,7 +33,7 @@ struct DirectMessageRepository final : IDirectMessageRepository, AbstractPostgre
         pTable = std::make_unique<PostgreTable>("channels", adapter);
     }
 
-    int addDirectChat(uint64_t user_id, const Network::DirectMessageInfo& directMessageInfo) final;
+    Utility::DirectMessageStatus addDirectChat(uint64_t user_id, uint64_t receiverId) final;
     ~DirectMessageRepository() final = default;
 };
 
