@@ -386,6 +386,13 @@ void Client::loop()
             }
             break;
 
+            case MessageType::DirectMessageCreateAnswer:
+            {
+                auto directMessageCreateAnswer = std::any_cast<Utility::DirectMessageStatus>(message.mBody);
+                onDirectMessageCreateAnswer(directMessageCreateAnswer);
+            }
+            break;
+
             default:
                 std::cerr << "[Client][Warning] unimplemented[" << uint32_t(message.mHeader.mMessageType) << "]\n";
         }
@@ -491,5 +498,8 @@ void Client::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode
     (void)(channelCreateCode);
     std::cerr << "[Client][Warning] create channel answer is not implemented\n";
 }
+void Client::onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer) {
+    (void)(directMessageCreateAnswer);
+    std::cerr << "[Client][Warning] direct message create answer is not implemented\n";}
 
 }  // namespace Network
