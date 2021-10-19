@@ -465,7 +465,9 @@ void Server::update(size_t maxMessages, bool wait)
         Message message = mIncomingMessagesQueue.pop_front();
 
         onMessage(message.mRemote, message);
-       
+        Network::DirectMessageInfo nice{5, "444"};
+        mPostgreRepo->getRepository<DataAccess::IDirectMessageRepository>()->addDirectChat(8, nice);
+
         messagesCount++;
     }
 }

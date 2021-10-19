@@ -277,11 +277,14 @@ std::vector<Network::ReplyInfo> RepliesRepository::getReplyHistory(const std::ui
 Utility::ChannelSubscribingCodes ChannelsRepository::subscribeToChannel(const Network::ChannelSubscriptionInfo& channel)
 {
     pTable->changeTable("user_channels");
-    auto listSubscriptionChannel =
-        pTable->Select()
-            ->columns({"*"})
-            ->Where("channel_id = " + std::to_string(channel.channelID) + " AND " + "user_id = " + std::to_string(channel.userID))
-            ->execute();
+    auto channel_id              = std::to_string(channel.channelID);
+    auto listSubscriptionChannel = pTable->Select()
+                                       ->columns({"*"})
+                                       ->Where("channel_id = " + channel_id)
+                                       ->And("user_id = " + std::to_string(channel.userID))
+                                       ->And("(SELECT COUNT(*) from user_channels WHERE channel_id=" + channel_id +
+                                             ") < (SELECT user_limit FROM channels WHERE id=" + channel_id + ")")
+                                       ->execute();
     if (listSubscriptionChannel.has_value())
     {
         if ((listSubscriptionChannel.value()[0][0].as<std::uint64_t>() == channel.userID) &&
@@ -303,13 +306,14 @@ Utility::ChannelSubscribingCodes ChannelsRepository::subscribeToChannel(const Ne
 std::vector<uint64_t> ChannelsRepository::getChannelSubscriptionList(const uint64_t& userID)
 {
     pTable->changeTable("user_channels");
+    /// TODO: add limit check
     auto listSubscriptionChannel = pTable->Select()->columns({"channel_id"})->Where("user_id = " + std::to_string(userID))->execute();
     std::vector<uint64_t> result;
     if (listSubscriptionChannel.has_value())
     {
-        for (auto&& i : listSubscriptionChannel.value())
+        for (auto&& value : listSubscriptionChannel.value())
         {
-            uint64_t channelID = i[0].as<uint64_t>();
+            uint64_t channelID = value[0].as<uint64_t>();
             result.push_back(channelID);
         }
     }
@@ -357,17 +361,29 @@ std::optional<pqxx::result> RepliesRepository::insertIDsIntoChannelRepliesTable(
     return pTable->Insert()->columns(dataForChannelReplies)->returning({"channel_id"})->execute();
 }
 
-int DirectMessageRepository::sendMessage(uint64_t user_id, const Network::DirectMessageInfo& directMessageInfo)
+int DirectMessageRepository::addDirectChat(uint64_t user_id, const Network::DirectMessageInfo& directMessageInfo)
 {
+    if (user_id == 0) return 0;
     pTable->changeTable("channels");
     auto adapter   = pTable->getAdapter();
-    auto minUserId = std::min(user_id, directMessageInfo.receiverId);
-    auto maxUserId = std::max(user_id, directMessageInfo.receiverId);
-    adapter->query(
-        "create extension if not exists pgcrypto;\n"
-        "INSERT INTO channels VALUES (DEFAULT, encode(digest(concat(" +
-        std::to_string(minUserId) + ", " + std::to_string(maxUserId) + "),'sha384'),'base64')," + std::to_string(minUserId) +
-        ",2) ON CONFLICT DO NOTHING;");
+    auto minUserId = std::to_string(std::min(user_id, directMessageInfo.receiverId));
+    auto maxUserId = std::to_string(std::max(user_id, directMessageInfo.receiverId));
+    auto result    = adapter->query(
+           "create extension if not exists pgcrypto;\n"
+              "INSERT INTO channels VALUES (DEFAULT, encode(digest(concat(" +
+           minUserId + ", " + maxUserId + "),'sha384'),'base64')," + minUserId + ",2) ON CONFLICT DO NOTHING;");
+
+    result = adapter->query("SELECT id FROM channels WHERE channel_name=encode(digest(concat(" + minUserId + ", " + maxUserId +
+                            "),'sha384'),'base64');");
+
+    if (result.has_value())
+    {
+        auto cId       = std::any_cast<pqxx::result>(result.value());
+        auto channelId = std::to_string(cId[0][0].as<uint64_t>());
+        adapter->query("INSERT INTO user_channels VALUES (" + minUserId + "," + channelId + "), (" + maxUserId + "," + channelId +
+                       ")ON CONFLICT DO NOTHING;");
+    }
+    return 0;
 }
 
 }  // namespace DataAccess

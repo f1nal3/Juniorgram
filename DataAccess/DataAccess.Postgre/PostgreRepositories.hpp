@@ -28,9 +28,12 @@ struct ChannelsRepository final : IChannelsRepository, AbstractPostgreRepository
 
 struct DirectMessageRepository final : IDirectMessageRepository, AbstractPostgreRepository
 {
-    explicit DirectMessageRepository(const std::shared_ptr<IAdapter>& adapter) { pTable = std::make_unique<PostgreTable>("channels", adapter); }
+    explicit DirectMessageRepository(const std::shared_ptr<IAdapter>& adapter)
+    {
+        pTable = std::make_unique<PostgreTable>("channels", adapter);
+    }
 
-    int sendMessage(uint64_t user_id, const Network::DirectMessageInfo& directMessageInfo);
+    int addDirectChat(uint64_t user_id, const Network::DirectMessageInfo& directMessageInfo) final;
     ~DirectMessageRepository() final = default;
 };
 

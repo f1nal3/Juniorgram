@@ -48,7 +48,7 @@ struct IRepliesRepository : IMasterRepository
 struct IChannelsRepository : IMasterRepository
 {
     /// Virtual method to get channel List
-    virtual std::vector<Network::ChannelInfo> getAllChannelsList() = 0;
+    virtual std::vector<Network::ChannelInfo> getAllChannelsList()                              = 0;
     /// Virtual method to delete channel
     virtual Utility::ChannelDeleteCode deleteChannel(const Network::ChannelDeleteInfo& channel) = 0;
 
@@ -56,11 +56,11 @@ struct IChannelsRepository : IMasterRepository
     virtual Utility::ChannelCreateCodes createChannel(const Network::ChannelInfo& channel) = 0;
 
     /// Virtual method to leave channel
-    virtual Utility::ChannelLeaveCodes leaveChannel(const Network::ChannelLeaveInfo& channel) = 0;
+    virtual Utility::ChannelLeaveCodes leaveChannel(const Network::ChannelLeaveInfo& channel)                    = 0;
     /// Virtual method for channel subscription
     virtual Utility::ChannelSubscribingCodes subscribeToChannel(const Network::ChannelSubscriptionInfo& channel) = 0;
     /// Virtual method to get list of subscribed channels
-    virtual std::vector<uint64_t> getChannelSubscriptionList(const uint64_t& userID) = 0;
+    virtual std::vector<uint64_t> getChannelSubscriptionList(const uint64_t& userID)                             = 0;
 
     /// Default virtual destructor
     virtual ~IChannelsRepository() = default;
@@ -76,7 +76,7 @@ struct IDirectMessageRepository : IMasterRepository
      * @param user_id Sender id
      * @param directMessageInfo receiver info
      */
-    virtual int sendMessage(uint64_t user_id, const Network::DirectMessageInfo& directMessageInfo) = 0;
+    virtual int addDirectChat(uint64_t user_id, const Network::DirectMessageInfo& directMessageInfo) = 0;
 };
 
 /**
