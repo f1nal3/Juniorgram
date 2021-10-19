@@ -498,6 +498,7 @@ void Client::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode
     (void)(channelCreateCode);
     std::cerr << "[Client][Warning] create channel answer is not implemented\n";
 }
+
 void Client::onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer)
 {
     (void)(directMessageCreateAnswer);

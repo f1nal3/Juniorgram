@@ -185,6 +185,21 @@ void ConnectionManager::onChannelCreateAnswer(Utility::ChannelCreateCodes channe
     emit ReceiverManager::instance()->onChannelCreateAnswer(channelCreateCode);
 }
 
+/// Direct message create Answer handler
+void onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer)
+{
+    if (directMessageCreateAnswer == Utility::DirectMessageStatus::SUCCESS)
+    {
+        std::cout << "SUCCESS CREATING" << std::endl;
+    }
+    else if (directMessageCreateAnswer == Utility::DirectMessageStatus::FAILED)
+    {
+        std::cout << "FAILED CREATING" << std::endl;
+    }
+    qRegisterMetaType<Utility::DirectMessageStatus>("Utility::DirectMessageStatus");
+    emit ReceiverManager::instance()->onDirectMessageCreateAnswer(directMessageCreateAnswer);
+}
+
 void ConnectionManager::onDisconnect()
 {
     disconnectFromServer();
