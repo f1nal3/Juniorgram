@@ -27,7 +27,7 @@ void ReplyMessageWidget::paintEvent(QPaintEvent* e)
 {
     QPainter p(this);
     auto     margin = _st.radius;
-    p.setPen(QPen(Qt::white, 2));
+    p.setPen(QPen(Qt::yellow, 2));
     p.setRenderHint(QPainter::Antialiasing);
 
     auto thisrect = rect().marginsRemoved(QMargins(1, 1, 2, 2));
