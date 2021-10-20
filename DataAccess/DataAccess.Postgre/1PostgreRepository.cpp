@@ -175,32 +175,27 @@ Utility::DeletingMessageCodes PostgreRepository::deleteMessage(const Network::Me
     return DeletingMessageCodes::FAILED;
 }
 
-Utility::EditingMessageCodes PostgreRepository::editMessage(const Network::EditMessageInfo& emi)
-{
-    if (emi.originMessage == emi.editedMessage)
+Utility::EditingMessageCodes PostgreRepository::editMessage(const Network::MessageInfo& mi)
     {
-        return Utility::EditingMessageCodes::FAILED;
-    }
+        pTable->changeTable("msgs");
 
-    pTable->changeTable("msgs");
-    pTable->Update()
-          ->fields(std::pair{"msg", emi.editedMessage})
-          ->Where("msg_id=" + std::to_string(emi.msgID))
-          ->And("msg='" + emi.originMessage + "'")
-          ->execute(); 
-
-    auto messagesAmountResult = pTable->Select()
-                                      ->columns({ "*" })
-                                      ->Where("msg_id=" + std::to_string(emi.msgID))
-                                      ->And("msg='" + emi.originMessage + "'")
+        auto isPresentInTable = pTable->Select()
+                                      ->columns({"*"})
+                                      ->Where("msg_id=" + std::to_string(mi.msgID))
+                                      ->And("msg.sender_id" + std::to_string(mi.senderID))
                                       ->execute();
-    if (messagesAmountResult.has_value())
-    {
-        return Utility::EditingMessageCodes::FAILED;
-    }                            
+        if (!isPresentInTable.has_value())
+        {
+            return Utility::EditingMessageCodes::FAILED;
+        }                              
 
-    return Utility::EditingMessageCodes::SUCCESS;
-}
+        pTable->Update()
+              ->fields(std::pair{"msg", mi.message})
+              ->Where("msg_id=" + std::to_string(mi.msgID))
+              ->execute(); 
+
+        return Utility::EditingMessageCodes::SUCCESS;
+    }
 
 std::optional<pqxx::result> PostgreRepository::insertMessageIntoMessagesTable(const Network::MessageInfo& mi)
 {

@@ -77,6 +77,14 @@ public:
                 case Message::MessageType::MessageDeleteAnswer:
                     state = processOutcomingMessageBody<Utility::DeletingMessageCodes>(bodyBuffer, message.mBody);
                     break;
+                    
+                case Message::MessageType::MessageEditRequest:
+                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::MessageEditAnswer:
+                    state = processOutcomingMessageBody<Utility::EditingMessageCodes>(bodyBuffer, message.mBody);
+                    break;       
 
                 case Message::MessageType::RegistrationRequest:
                     state = processOutcomingMessageBody<RegistrationInfo>(bodyBuffer, message.mBody);

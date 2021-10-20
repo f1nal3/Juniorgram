@@ -163,11 +163,11 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::MessageEditRequest:
         {
-            auto emi     = std::any_cast<Network::EditMessageInfo>(message.mBody);
-            emi.senderID = client->getUserID();
+            auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
+            mi.senderID = client->getUserID();
 
             auto IMessageRep = mPostgreRepo->getRepository<DataAccess::IMessagesRepository>();
-            auto future      = std::async(std::launch::async, &DataAccess::IMessagesRepository::editMessage, IMessageRep, emi);
+            auto future      = std::async(std::launch::async, &DataAccess::IMessagesRepository::editMessage, IMessageRep, mi);
 
             Network::Message answerForClient;
             answerForClient.mHeader.mMessageType = Network::Message::MessageType::MessageEditAnswer;

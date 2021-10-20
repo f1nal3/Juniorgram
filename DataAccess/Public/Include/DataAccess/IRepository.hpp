@@ -55,11 +55,13 @@ public:
     virtual Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) = 0;
 
     /**
-     * @brief editMessage
-     * @param emi as EditMessageInfo
-     * @return
+     * @brief method for editing message
+     * @param emi as MessageInfo which contains message's data.
+     * @return The return value of the method is one of the StoringMessageCodes (enum): /
+     * Storing successful - StoringMessageCodes::SUCCESS. /
+     * Storing failed     - StoringMessageCodes::FAILED.
      */
-    virtual Utility::EditingMessageCodes editMessage(const Network::EditMessageInfo& emi) = 0;
+    virtual Utility::EditingMessageCodes editMessage(const Network::MessageInfo& mi) = 0;
 
     /**  @brief Method for user registration.
      *   @param RegistrationMessage which contains user data for registration.

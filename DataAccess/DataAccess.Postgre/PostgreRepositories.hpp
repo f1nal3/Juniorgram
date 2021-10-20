@@ -44,7 +44,7 @@ namespace DataAccess
         virtual std::vector<Network::MessageInfo> getMessageHistory(const std::uint64_t channelID) override final;
         virtual Utility::StoringMessageCodes      storeMessage(const Network::MessageInfo& mi) override final;
         virtual Utility::DeletingMessageCodes     deleteMessage(const Network::MessageInfo& mi) override final;
-        virtual Utility::EditingMessageCodes      editMessage(const Network::EditMessageInfo& emi) override final;
+        virtual Utility::EditingMessageCodes      editMessage(const Network::MessageInfo& mi) override final;
 
         virtual ~MessagesRepository() = default;
 

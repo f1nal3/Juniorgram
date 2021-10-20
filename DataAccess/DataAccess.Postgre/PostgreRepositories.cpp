@@ -219,29 +219,24 @@ namespace DataAccess
 
         return DeletingMessageCodes::FAILED;
     }
-    Utility::EditingMessageCodes       MessagesRepository::editMessage(const Network::EditMessageInfo& emi)
+    Utility::EditingMessageCodes       MessagesRepository::editMessage(const Network::MessageInfo& mi)
     {
-        if (emi.originMessage == emi.editedMessage)
-        {
-            return Utility::EditingMessageCodes::FAILED;
-        }
-
         pTable->changeTable("msgs");
-        pTable->Update()
-              ->fields(std::pair{"msg", emi.editedMessage})
-              ->Where("msg_id=" + std::to_string(emi.msgID))
-              ->And("msg='" + emi.originMessage + "'")
-              ->execute(); 
 
-        auto messagesAmountResult = pTable->Select()
-                                          ->columns({ "*" })
-                                          ->Where("msg_id=" + std::to_string(emi.msgID))
-                                          ->And("msg='" + emi.originMessage + "'")
-                                          ->execute();
-        if (messagesAmountResult.has_value())
+        auto isPresentInTable = pTable->Select()
+                                      ->columns({"*"})
+                                      ->Where("msg_id=" + std::to_string(mi.msgID))
+                                      ->And("msg.sender_id" + std::to_string(mi.senderID))
+                                      ->execute();
+        if (!isPresentInTable.has_value())
         {
             return Utility::EditingMessageCodes::FAILED;
-        }                            
+        }                              
+
+        pTable->Update()
+              ->fields(std::pair{"msg", mi.message})
+              ->Where("msg_id=" + std::to_string(mi.msgID))
+              ->execute(); 
 
         return Utility::EditingMessageCodes::SUCCESS;
     }
