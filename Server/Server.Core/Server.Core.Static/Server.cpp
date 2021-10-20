@@ -4,10 +4,6 @@
 
 #include <future>
 
-#include "DataAccess.Postgre/PostgreRepositories.hpp"
-#include "DataAccess.Postgre/PostgreRepositoryContainer.hpp"
-#include "Network/Primitives.hpp"
-
 using Network::Connection;
 using Network::Message;
 using Network::SafeQueue;
