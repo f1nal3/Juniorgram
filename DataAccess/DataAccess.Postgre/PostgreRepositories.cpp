@@ -216,6 +216,27 @@ namespace DataAccess
 
         return DeletingMessageCodes::FAILED;
     }
+    Utility::EditingMessageCodes       MessagesRepository::editMessage(const Network::MessageInfo& mi)
+    {
+        pTable->changeTable("msgs");
+
+        auto isPresentInTable = pTable->Select()
+                                      ->columns({"*"})
+                                      ->Where("msg_id=" + std::to_string(mi.msgID))
+                                      ->And("msg.sender_id" + std::to_string(mi.senderID))
+                                      ->execute();
+        if (!isPresentInTable.has_value())
+        {
+            return Utility::EditingMessageCodes::FAILED;
+        }                              
+
+        pTable->Update()
+              ->fields(std::pair{"msg", mi.message})
+              ->Where("msg_id=" + std::to_string(mi.msgID))
+              ->execute(); 
+
+        return Utility::EditingMessageCodes::SUCCESS;
+    }
     std::optional<pqxx::result>       MessagesRepository::insertMessageIntoMessagesTable(const Network::MessageInfo& mi)
     {
         std::tuple dataForMsgs

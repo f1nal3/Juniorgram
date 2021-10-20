@@ -41,11 +41,12 @@ namespace DataAccess
     {
         MessagesRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("msgs", adapter); }
         
-        virtual std::vector<Network::MessageInfo> getMessageHistory(const std::uint64_t channelID) override final;
-        virtual Utility::StoringMessageCodes      storeMessage(const Network::MessageInfo& mi) override final;
-        virtual Utility::DeletingMessageCodes     deleteMessage(const Network::MessageInfo& mi) override final;
+        std::vector<Network::MessageInfo> getMessageHistory(const std::uint64_t channelID) override;
+        Utility::StoringMessageCodes      storeMessage(const Network::MessageInfo& mi) override;
+        Utility::DeletingMessageCodes     deleteMessage(const Network::MessageInfo& mi) override;
+        Utility::EditingMessageCodes      editMessage(const Network::MessageInfo& mi) override;
 
-        virtual ~MessagesRepository() = default;
+        ~MessagesRepository() = default;
 
     private:
 

@@ -155,6 +155,22 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         }
         break;
 
+        case Network::Message::MessageType::MessageEditRequest:
+        {
+            auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
+            mi.senderID = client->getUserID();
+
+            auto future = mPostgreManager->pushRequest(&IMessagesRepository::editMessage, fmt(mi));
+
+            Network::Message answerForClient;
+            answerForClient.mHeader.mMessageType = Network::Message::MessageType::MessageEditAnswer;
+
+            const auto editingMessageCode = future.get();
+            answerForClient.mBody         = std::make_any<Utility::EditingMessageCodes>(editingMessageCode);
+            client->send(answerForClient);
+        }
+        break;
+
         case Network::Message::MessageType::RegistrationRequest:
         {
             auto ri = std::any_cast<Network::RegistrationInfo>(message.mBody);

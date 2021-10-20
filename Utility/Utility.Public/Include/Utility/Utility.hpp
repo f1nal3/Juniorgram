@@ -54,6 +54,16 @@ enum class DeletingMessageCodes : std::uint8_t
     FAILED,
 };
 
+/**  @brief Enum for tracking message's editing status.
+ *   @details Utility::EditingMessageCodes editMessage(const Network::EditMessageInfo& emi) /
+ *    return one of this codes.
+ */
+enum class EditingMessageCodes : std::uint8_t
+{
+    SUCCESS,
+    FAILED,
+};
+
 /**
  * @brief Enum for tracking channel's subscribe status.
  * @details Utility::ChannelSubscribeCodes.
