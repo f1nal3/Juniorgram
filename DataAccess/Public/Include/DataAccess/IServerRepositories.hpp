@@ -63,7 +63,7 @@ struct IChannelsRepository : IMasterRepository
     /// Virtual method for channel subscription
     virtual Utility::ChannelSubscribingCodes subscribeToChannel(const Network::ChannelSubscriptionInfo& channel) = 0;
     /// Virtual method to get list of subscribed channels
-    virtual std::vector<uint64_t> getChannelSubscriptionList(const uint64_t& userID) = 0;
+    virtual std::vector<uint64_t> getChannelSubscriptionList(uint64_t userID) = 0;
 
     /// Default virtual destructor
     virtual ~IChannelsRepository() = default;
@@ -86,8 +86,8 @@ struct IRegisterRepository : IMasterRepository
  */
 struct ILoginRepository : IMasterRepository
 {
-    /// Virtual method to login User
-    virtual std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) = 0;
+    /// Virtual method for login User
+    virtual std::uint64_t loginUser(const Network::LoginInfo& li) = 0;
 
     /// Default virtual destructor
     virtual ~ILoginRepository() = default;

@@ -2,14 +2,14 @@ set(TARGET DataAccess.Public)
 set(OUTPUT_NAME Juniorgram.DataAccess.Public)
 
 set(SOURCE_FILES
+        Include/DataAccess/AbstractRepositoryContainer.hpp
         Include/DataAccess/IAdapter.hpp
-        Include/DataAccess/IRepository.hpp
-        Include/DataAccess/QueryBuilder.hpp
-        Include/DataAccess/SQLStatements.hpp
-        Include/DataAccess/IMasterRepository.hpp
         Include/DataAccess/IClientRepositories.hpp
+        Include/DataAccess/IMasterRepository.hpp
+        Include/DataAccess/IRepository.hpp
         Include/DataAccess/IServerRepositories.hpp
-        Include/DataAccess/AbstractRepositoryContainer.hpp)
+        Include/DataAccess/SQLStatements.hpp
+        Include/DataAccess/QueryBuilder.hpp)
 
 add_library(${TARGET} INTERFACE)
 
