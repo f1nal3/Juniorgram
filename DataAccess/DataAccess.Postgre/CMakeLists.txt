@@ -7,6 +7,7 @@ set(SOURCE_FILES
     PostgreRepositories.hpp
     PostgreRepositories.cpp
 	PostgreRepositoryContainer.hpp
+    PostgreRepositoryManager.hpp
     PostgreTable.hpp
     DataBaseOptions.hpp
     UsersAmountFinder.hpp
