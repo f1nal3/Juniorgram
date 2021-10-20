@@ -14,12 +14,12 @@ namespace DataAccess
 
     struct ChannelsRepository : IChannelsRepository, AbstractPostgreRepository
     {
-        ChannelsRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
+        ChannelsRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("channels", adapter); }
 
         virtual std::vector<Network::ChannelInfo> getAllChannelsList() override final;
         virtual Utility::ChannelLeaveCodes        leaveChannel(const Network::ChannelLeaveInfo& channel) override final;
         virtual Utility::ChannelSubscribingCodes  subscribeToChannel(const Network::ChannelSubscriptionInfo& channel) override final;
-        virtual std::vector<uint64_t>             getChannelSubscriptionList(const uint64_t& userID) override final;
+        virtual std::vector<uint64_t>             getChannelSubscriptionList(uint64_t userID) override final;
 
         virtual Utility::ChannelDeleteCode        deleteChannel(const Network::ChannelDeleteInfo& channel) override final;
 
@@ -39,7 +39,7 @@ namespace DataAccess
 
 	struct MessagesRepository : IMessagesRepository, AbstractPostgreRepository
     {
-        MessagesRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
+        MessagesRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("msgs", adapter); }
         
         virtual std::vector<Network::MessageInfo> getMessageHistory(const std::uint64_t channelID) override final;
         virtual Utility::StoringMessageCodes      storeMessage(const Network::MessageInfo& mi) override final;
@@ -65,7 +65,7 @@ namespace DataAccess
 
     struct RepliesRepository : IRepliesRepository, AbstractPostgreRepository
     {
-        RepliesRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
+        RepliesRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("msgs", adapter); }
 
         virtual std::vector<Network::ReplyInfo> getReplyHistory(const std::uint64_t channelID) override final;
         virtual Utility::StoringReplyCodes      storeReply(const Network::ReplyInfo& rsi) override final;

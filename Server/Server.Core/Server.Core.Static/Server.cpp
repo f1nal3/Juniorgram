@@ -211,8 +211,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             leavedChennelInfo.creatorID           = client->getUserID();
             leavedChennelInfo.channelName         = channelName;
 
-            auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
-            auto future = std::async(std::launch::async, &DataAccess::IChannelsRepository::leaveChannel, IChannelRep, leavedChennelInfo);
+            auto future = mPostgreManager->pushRequest(&IChannelsRepository::leaveChannel, fmt(leavedChennelInfo));
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelLeaveAnswer;
@@ -227,8 +226,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto channel   = std::any_cast<Network::ChannelSubscriptionInfo>(message.mBody);
             channel.userID = client->getUserID();
 
-            auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
-            auto future      = std::async(std::launch::async, &DataAccess::IChannelsRepository::subscribeToChannel, IChannelRep, channel);
+            auto future      = mPostgreManager->pushRequest(&IChannelsRepository::subscribeToChannel, fmt(channel));
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelSubscribeAnswer;
@@ -244,8 +242,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             const auto userID = client->getUserID();
 
-            auto IChannelRep = mPostgreRepo->getRepository<DataAccess::IChannelsRepository>();
-            auto future = std::async(std::launch::async, &DataAccess::IChannelsRepository::getChannelSubscriptionList, IChannelRep, userID);
+            auto future      = mPostgreManager->pushRequest(&IChannelsRepository::getChannelSubscriptionList, fmt(userID));
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelSubscriptionListAnswer;

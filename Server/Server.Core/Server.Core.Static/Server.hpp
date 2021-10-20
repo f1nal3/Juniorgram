@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../../../DataAccess/DataAccess.Postgre/PostgreRepositoryManager.hpp"
 #include "Network/Connection.hpp"
 #include "Network/SafeQueue.hpp"
 #include "Network/Message.hpp"
@@ -12,10 +11,14 @@
 #include <memory>
 #include <thread>
 
-#include "DataAccess/AbstractRepositoryContainer.hpp"
 #include "Network/Connection.hpp"
 #include "Network/Message.hpp"
 #include "Network/SafeQueue.hpp"
+
+namespace DataAccess
+{
+class PostgreReposiotoryManager;
+}
 
 namespace Server
 {

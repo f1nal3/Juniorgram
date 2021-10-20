@@ -326,7 +326,7 @@ namespace DataAccess
         return Utility::ChannelSubscribingCodes::SUCCESS;
     }
 
-    std::vector<uint64_t> ChannelsRepository::getChannelSubscriptionList(const uint64_t& userID) 
+    std::vector<uint64_t> ChannelsRepository::getChannelSubscriptionList(uint64_t userID) 
     {
         pTable->changeTable("user_channels");
         auto    listSubscriptionChannel =

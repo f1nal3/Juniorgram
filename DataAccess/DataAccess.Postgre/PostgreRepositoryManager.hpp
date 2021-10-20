@@ -8,9 +8,8 @@
 #include <future>
 #include <mutex>
 
-// TODO: Come up something with cmake targets and split to hpp, cpp.
-#include "DataAccess/AbstarctRepositoryContainer.hpp"
-#include "DataAccess/IServerRepositories.hpp"
+#include <DataAccess/AbstractRepositoryContainer.hpp>
+#include <DataAccess/IServerRepositories.hpp>
 
 #include "PostgreRepositoryContainer.hpp"
 #include "PostgreRepositories.hpp"
@@ -28,7 +27,7 @@ namespace DataAccess
 		return ref;
 	}
 
-	enum class EPriority : std::uint8_t
+	enum class ePriority : std::uint8_t
 	{
 		_1,  _2,  _3,  _4,  _5,
 		_6,  _7,  _8,  _9,  _10,
@@ -39,11 +38,11 @@ namespace DataAccess
 	{
 	private:
 
-		EPriority   mPriority;
+		ePriority   mPriority;
 		RequestTask mTask;
 
 	public:
-		RepositoryRequest(EPriority priority, RequestTask& task)
+		RepositoryRequest(ePriority priority, RequestTask& task)
 			: mPriority(priority), mTask(std::move(task)) {}
 
 		RepositoryRequest(RepositoryRequest&& other) noexcept
@@ -61,7 +60,7 @@ namespace DataAccess
 
 	public:
 
-		EPriority getPriority(void) const noexcept
+		ePriority getPriority(void) const noexcept
 		{
 			return mPriority;
 		}
@@ -106,8 +105,7 @@ namespace DataAccess
 	{
         private:
 
-			// Is this really need to be a pointer???
-			std::unique_ptr<AbstarctRepositoryContainer> mRepositories;
+			std::unique_ptr<AbstractRepositoryContainer> mRepositories;
             std::priority_queue<RepositoryRequest>       mQueue;
 
 			std::mutex									 mPushMutex;
@@ -132,7 +130,7 @@ namespace DataAccess
 
 		public:
 
-			template <EPriority priority = EPriority::_15, typename TIRepository, typename TReturn, typename... TArgs>
+			template <ePriority priority = ePriority::_15, typename TIRepository, typename TReturn, typename... TArgs>
             FutureResult<TReturn> pushRequest(const MethodReference<TIRepository, TReturn, TArgs...>& methodRef, TArgs&&... args)
 			{
 				std::unique_lock<std::mutex> lck(mPushMutex);
@@ -180,7 +178,7 @@ namespace DataAccess
 
 		private:
 
-			template <EPriority priority, typename TIRepository, typename TReturn, typename... TArgs>
+			template <ePriority priority, typename TIRepository, typename TReturn, typename... TArgs>
 			RepositoryRequest privateCreateRequest(const MethodReference<TIRepository, TReturn, TArgs...>& methodRef, TArgs&&... args)
 			{
 				auto iRepository = mRepositories->getRepository<TIRepository>();

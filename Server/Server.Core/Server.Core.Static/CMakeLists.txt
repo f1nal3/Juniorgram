@@ -22,7 +22,5 @@ target_include_directories(${TARGET} PRIVATE
 
 target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas DataAccess.Postgre)
 target_link_libraries(${TARGET} PUBLIC Network.Public DataAccess.Public Utility.Public)
-target_link_libraries(${TARGET}
-       PUBLIC CONAN_PKG::libpq CONAN_PKG::libpqxx) # Added it because PostgreRepositoryManager doesn't any interface.
 
 set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)
