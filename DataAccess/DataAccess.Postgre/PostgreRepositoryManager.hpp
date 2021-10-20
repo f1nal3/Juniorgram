@@ -163,7 +163,7 @@ namespace DataAccess
 		public:
 
 			/* @brief   Exists for add methods in the queue.
-			*  @warning Pass all arguments through 'fmt()' function!!!
+			*		    Pass all arguments (args) through 'fmt()' function!!!
 			*  @param   (Template arg) priority - priority of request.
 			*  @param   MethodReference - just a pointer to member function needed to add to the queue.
 			*  @param   args - list of args that passing to member function.
