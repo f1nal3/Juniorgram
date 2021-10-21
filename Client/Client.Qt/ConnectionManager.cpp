@@ -185,8 +185,7 @@ void ConnectionManager::onChannelCreateAnswer(Utility::ChannelCreateCodes channe
     emit ReceiverManager::instance()->onChannelCreateAnswer(channelCreateCode);
 }
 
-/// Direct message create Answer handler
-void onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer)
+void ConnectionManager::onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer)
 {
     if (directMessageCreateAnswer == Utility::DirectMessageStatus::SUCCESS)
     {

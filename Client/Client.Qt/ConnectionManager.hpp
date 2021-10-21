@@ -123,5 +123,5 @@ protected:
     /// Channel create Answer handler
     void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode) override;
     /// Direct message create Answer handler
-    virtual void onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer) override;
+    void onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer) override;
 };
