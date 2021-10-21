@@ -109,14 +109,14 @@ Utility::ChannelCreateCodes ChannelsRepository::createChannel(const Network::Cha
     return Utility::ChannelCreateCodes::SUCCESS;
 }
 
-std::uint64_t LoginRepository::loginUser(const std::string& login, const std::string& pwdHash)
+std::uint64_t LoginRepository::loginUser(const Network::LoginInfo& loginInfo)
 {
     try
     {
         pTable->changeTable("users");
-        auto queryResult = pTable->Select()->columns({"password_hash", "id"})->Where("login='" + login + "'")->execute().value();
+        auto queryResult = pTable->Select()->columns({"password_hash", "id"})->Where("login='" + loginInfo.login + "'")->execute().value();
 
-        if (std::string(queryResult[0][0].c_str()) == pwdHash)
+        if (std::string(queryResult[0][0].c_str()) == loginInfo.pwdHash)
         {
             return queryResult[0][1].as<std::uint64_t>();
         }
@@ -223,27 +223,24 @@ std::optional<pqxx::result> MessagesRepository::insertIDIntoMessageReactionsTabl
     return pTable->Insert()->columns(std::pair{"msg_id", messageID})->returning({"msg_id"})->execute();
 }
 
-    Utility::EditingMessageCodes       MessagesRepository::editMessage(const Network::MessageInfo& mi)
+Utility::EditingMessageCodes MessagesRepository::editMessage(const Network::MessageInfo& mi)
+{
+    pTable->changeTable("msgs");
+
+    auto isPresentInTable = pTable->Select()
+                                ->columns({"*"})
+                                ->Where("msg_id=" + std::to_string(mi.msgID))
+                                ->And("msg.sender_id" + std::to_string(mi.senderID))
+                                ->execute();
+    if (!isPresentInTable.has_value())
     {
-        pTable->changeTable("msgs");
-
-        auto isPresentInTable = pTable->Select()
-                                      ->columns({"*"})
-                                      ->Where("msg_id=" + std::to_string(mi.msgID))
-                                      ->And("msg.sender_id" + std::to_string(mi.senderID))
-                                      ->execute();
-        if (!isPresentInTable.has_value())
-        {
-            return Utility::EditingMessageCodes::FAILED;
-        }                              
-
-        pTable->Update()
-              ->fields(std::pair{"msg", mi.message})
-              ->Where("msg_id=" + std::to_string(mi.msgID))
-              ->execute(); 
-
-        return Utility::EditingMessageCodes::SUCCESS;
+        return Utility::EditingMessageCodes::FAILED;
     }
+
+    pTable->Update()->fields(std::pair{"msg", mi.message})->Where("msg_id=" + std::to_string(mi.msgID))->execute();
+
+    return Utility::EditingMessageCodes::SUCCESS;
+}
 
 Utility::RegistrationCodes RegisterRepository::registerUser(const Network::RegistrationInfo& ri)
 {
@@ -324,7 +321,7 @@ Utility::ChannelSubscribingCodes ChannelsRepository::subscribeToChannel(const Ne
     return Utility::ChannelSubscribingCodes::SUCCESS;
 }
 
-std::vector<uint64_t> ChannelsRepository::getChannelSubscriptionList(const uint64_t& userID)
+std::vector<uint64_t> ChannelsRepository::getChannelSubscriptionList(uint64_t userID)
 {
     pTable->changeTable("user_channels");
     /// TODO: add limit check
@@ -334,7 +331,7 @@ std::vector<uint64_t> ChannelsRepository::getChannelSubscriptionList(const uint6
     {
         for (auto&& value : listSubscriptionChannel.value())
         {
-            uint64_t channelID = value[0].as<uint64_t>();
+            auto channelID = value[0].as<uint64_t>();
             result.push_back(channelID);
         }
     }
@@ -405,7 +402,7 @@ Utility::DirectMessageStatus DirectMessageRepository::addDirectChat(uint64_t use
                        ")ON CONFLICT DO NOTHING;");
         return Utility::DirectMessageStatus::SUCCESS;
     }
-    return Utility::DirectMessageStatus::FAILED
+    return Utility::DirectMessageStatus::FAILED;
 }
 
 }  // namespace DataAccess

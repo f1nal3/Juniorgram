@@ -36,14 +36,13 @@ struct DirectMessageRepository final : IDirectMessageRepository, AbstractPostgre
     ~DirectMessageRepository() final = default;
 };
 
-
-struct LoginRepository final : ILoginRepository, AbstractPostgreRepository
+struct LoginRepository : ILoginRepository, AbstractPostgreRepository
 {
     explicit LoginRepository(const std::shared_ptr<IAdapter>& adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
 
-    std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) final;
+    std::uint64_t loginUser(const Network::LoginInfo& loginInfo) final;
 
-    ~LoginRepository() final = default;
+    ~LoginRepository() = default;
 };
 
 struct MessagesRepository final : IMessagesRepository, AbstractPostgreRepository
