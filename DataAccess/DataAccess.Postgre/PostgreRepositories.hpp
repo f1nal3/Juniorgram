@@ -14,11 +14,11 @@ protected:
 struct ChannelsRepository final : IChannelsRepository, AbstractPostgreRepository
 {
     explicit ChannelsRepository(const std::shared_ptr<IAdapter>& adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
-
+    
     std::vector<Network::ChannelInfo> getAllChannelsList() final;
     Utility::ChannelLeaveCodes        leaveChannel(const Network::ChannelLeaveInfo& channel) final;
     Utility::ChannelSubscribingCodes  subscribeToChannel(const Network::ChannelSubscriptionInfo& channel) final;
-    std::vector<uint64_t>             getChannelSubscriptionList(const uint64_t& userID) final;
+    std::vector<uint64_t>             getChannelSubscriptionList(uint64_t userID) final;
 
     Utility::ChannelDeleteCode  deleteChannel(const Network::ChannelDeleteInfo& channel) final;
     Utility::ChannelCreateCodes createChannel(const Network::ChannelInfo& channel) final;
@@ -32,10 +32,10 @@ struct DirectMessageRepository final : IDirectMessageRepository, AbstractPostgre
     {
         pTable = std::make_unique<PostgreTable>("channels", adapter);
     }
-
     Utility::DirectMessageStatus addDirectChat(uint64_t user_id, uint64_t receiverId) final;
     ~DirectMessageRepository() final = default;
 };
+
 
 struct LoginRepository final : ILoginRepository, AbstractPostgreRepository
 {
@@ -53,6 +53,7 @@ struct MessagesRepository final : IMessagesRepository, AbstractPostgreRepository
     std::vector<Network::MessageInfo> getMessageHistory(const std::uint64_t channelID) final;
     Utility::StoringMessageCodes      storeMessage(const Network::MessageInfo& mi) final;
     Utility::DeletingMessageCodes     deleteMessage(const Network::MessageInfo& mi) final;
+        Utility::EditingMessageCodes      editMessage(const Network::MessageInfo& mi) final;
 
     ~MessagesRepository() final = default;
 
@@ -71,9 +72,10 @@ struct RegisterRepository final : IRegisterRepository, AbstractPostgreRepository
     ~RegisterRepository() final = default;
 };
 
+
 struct RepliesRepository final : IRepliesRepository, AbstractPostgreRepository
 {
-    explicit RepliesRepository(const std::shared_ptr<IAdapter>& adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
+    explicit RepliesRepository(const std::shared_ptr<IAdapter>& adapter) { pTable = std::make_unique<PostgreTable>("msgs", adapter); }
 
     std::vector<Network::ReplyInfo> getReplyHistory(const std::uint64_t channelID) final;
     Utility::StoringReplyCodes      storeReply(const Network::ReplyInfo& rsi) final;

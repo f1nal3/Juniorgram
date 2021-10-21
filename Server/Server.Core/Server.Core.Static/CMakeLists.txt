@@ -19,6 +19,7 @@ target_include_directories(${TARGET}
 target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
 
+
 target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas DataAccess.Postgre)
 target_link_libraries(${TARGET} PUBLIC Network.Public DataAccess.Public Utility.Public)
 

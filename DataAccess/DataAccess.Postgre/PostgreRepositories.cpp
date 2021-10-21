@@ -214,7 +214,6 @@ std::optional<pqxx::result> MessagesRepository::insertIDsIntoChannelMessagesTabl
                                                                                   const std::uint64_t messageID)
 {
     std::tuple dataForChannelMsgs{std::pair{"channel_id", channelID}, std::pair{"msg_id", messageID}};
-
     pTable->changeTable("channel_msgs");
     return pTable->Insert()->columns(dataForChannelMsgs)->returning({"channel_id"})->execute();
 }
@@ -223,6 +222,28 @@ std::optional<pqxx::result> MessagesRepository::insertIDIntoMessageReactionsTabl
     pTable->changeTable("msg_reactions");
     return pTable->Insert()->columns(std::pair{"msg_id", messageID})->returning({"msg_id"})->execute();
 }
+
+    Utility::EditingMessageCodes       MessagesRepository::editMessage(const Network::MessageInfo& mi)
+    {
+        pTable->changeTable("msgs");
+
+        auto isPresentInTable = pTable->Select()
+                                      ->columns({"*"})
+                                      ->Where("msg_id=" + std::to_string(mi.msgID))
+                                      ->And("msg.sender_id" + std::to_string(mi.senderID))
+                                      ->execute();
+        if (!isPresentInTable.has_value())
+        {
+            return Utility::EditingMessageCodes::FAILED;
+        }                              
+
+        pTable->Update()
+              ->fields(std::pair{"msg", mi.message})
+              ->Where("msg_id=" + std::to_string(mi.msgID))
+              ->execute(); 
+
+        return Utility::EditingMessageCodes::SUCCESS;
+    }
 
 Utility::RegistrationCodes RegisterRepository::registerUser(const Network::RegistrationInfo& ri)
 {
