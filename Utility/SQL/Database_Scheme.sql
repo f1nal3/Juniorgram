@@ -32,7 +32,8 @@ CREATE TABLE user_friends_data
 CREATE TABLE user_channels
 (
     user_id    int NOT NULL,
-    channel_id int NOT NULL
+    channel_id int NOT NULL,
+    UNIQUE (user_id, channel_id)
 );
 
 CREATE TABLE msgs
@@ -50,18 +51,6 @@ CREATE TABLE msg_reactions
     dislike_number int DEFAULT 0,
     fire_number    int DEFAULT 0,
     cat_number     int DEFAULT 0
-);
-
-CREATE TABLE user_from_msgs
-(
-    from_id int NOT NULL,
-    msg_id  int NOT NULL
-);
-
-CREATE TABLE user_to_msgs
-(
-    to_id  int NOT NULL,
-    msg_id int NOT NULL
 );
 
 CREATE TABLE channel_msgs
@@ -185,18 +174,6 @@ ALTER TABLE user_channels
     ADD FOREIGN KEY (channel_id) REFERENCES channels (id) ON DELETE SET NULL;
 
 ALTER TABLE msg_reactions
-    ADD FOREIGN KEY (msg_id) REFERENCES msgs (msg_id) ON DELETE CASCADE;
-
-ALTER TABLE user_from_msgs
-    ADD FOREIGN KEY (from_id) REFERENCES users (id) ON DELETE SET NULL;
-
-ALTER TABLE user_from_msgs
-    ADD FOREIGN KEY (msg_id) REFERENCES msgs (msg_id) ON DELETE CASCADE;
-
-ALTER TABLE user_to_msgs
-    ADD FOREIGN KEY (to_id) REFERENCES users (id) ON DELETE SET NULL;
-
-ALTER TABLE user_to_msgs
     ADD FOREIGN KEY (msg_id) REFERENCES msgs (msg_id) ON DELETE CASCADE;
 
 ALTER TABLE channel_msgs
