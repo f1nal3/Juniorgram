@@ -4,12 +4,12 @@ using namespace Base::Logger;
 
 std::string FileLogger::stringifyLogLvl(const LogLevel level)
 {
-    std::string result =        "NONE";
+    std::string                                  result   = "NONE";
     const static std::map<LogLevel, std::string> LevelMap = {
-        {LogLevel::ERROR,       "ERROR"},
-        {LogLevel::WARNING,     "WARNING"},
-        {LogLevel::INFO,        "INFO"},
-        {LogLevel::DEBUG,       "DEBUG"},
+        {LogLevel::ERROR, "ERROR"},
+        {LogLevel::WARNING, "WARNING"},
+        {LogLevel::INFO, "INFO"},
+        {LogLevel::DEBUG, "DEBUG"},
     };
 
     auto it = LevelMap.find(level);
@@ -20,10 +20,7 @@ std::string FileLogger::stringifyLogLvl(const LogLevel level)
     return result;
 }
 
-FileLogger::FileLogger()
-{
-    _loggerThread = std::thread(&FileLogger::run, this);
-}
+FileLogger::FileLogger() { _loggerThread = std::thread(&FileLogger::run, this); }
 
 FileLogger::~FileLogger()
 {
@@ -78,8 +75,7 @@ void FileLogger::stop()
 
 void FileLogger::log(const std::string& msg, const LogLevel level)
 {
-    std::string result = wrapValue(timestamp(), _blockWrapper) + " " +
-                         wrapValue(threadID(), _blockWrapper) + " " +
+    std::string result = wrapValue(timestamp(), _blockWrapper) + " " + wrapValue(threadID(), _blockWrapper) + " " +
                          wrapValue(stringifyLogLvl(level), _blockWrapper) + " " + msg;
 
     std::lock_guard<std::mutex> lk(_mutex);
@@ -94,14 +90,16 @@ std::string FileLogger::timestamp()
 
     time_t raw_time = system_clock::to_time_t(tp);
 
-    std::tm tt        = Utility::safe_localtime(raw_time);
+    std::tm  tt       = Utility::safe_localtime(raw_time);
     std::tm* timeinfo = &tt;
-    auto ms           = std::chrono::duration_cast<std::chrono::microseconds>(tp.time_since_epoch()) % 1000;
+    auto     ms       = std::chrono::duration_cast<std::chrono::microseconds>(tp.time_since_epoch()) % 1000;
 
-    const unsigned sizeBuffer = 26;
-    char buf[sizeBuffer]      = {0};
+    const unsigned sizeBuffer      = 26;
+    char           buf[sizeBuffer] = {0};
 
-    strftime(buf, sizeBuffer, "%F %T", timeinfo);
+    /// MinGW will warning if we put this string directly
+    std::string_view timeFormat = "%F %T";
+    std::strftime(buf, sizeBuffer, timeFormat.data(), timeinfo);
 
     std::string str = std::string(buf);
 
@@ -174,7 +172,7 @@ std::string FileLogger::getCurrentDate()
 
     time_t raw_time = system_clock::to_time_t(tp);
 
-    std::tm tt = Utility::safe_localtime(raw_time);
+    std::tm    tt       = Utility::safe_localtime(raw_time);
     struct tm* timeinfo = &tt;
 
     char buf[24] = {0};
