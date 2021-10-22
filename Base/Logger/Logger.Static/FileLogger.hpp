@@ -1,7 +1,8 @@
 #pragma once
 
+#include <Logger/ILogger.hpp>
+#include <Utility/Utility.hpp>
 #include <algorithm>
-#include "Logger/ILogger.hpp"
 #include <chrono>
 #include <condition_variable>
 #include <cstdlib>
@@ -16,7 +17,6 @@
 #include <sstream>
 #include <string>
 #include <thread>
-#include "Utility/Utility.hpp"
 #include <vector>
 
 namespace Base::Logger
@@ -140,17 +140,17 @@ private:
 
 private:
     std::string  _fileName{"Log-"};
-    LogOutput _output = LogOutput::EVERYWHERE;
+    LogOutput    _output = LogOutput::EVERYWHERE;
     std::fstream _file;
 
     BlockWrapper _blockWrapper = {"[", "]"};
 
     bool _isOpened = false;
 
-    std::thread _loggerThread;
+    std::thread             _loggerThread;
     std::condition_variable _inputWait;
-    std::mutex _mutex;
+    std::mutex              _mutex;
     std::queue<std::string> _msgQueue;
-    bool _stop = false;
+    bool                    _stop = false;
 };
-}
+}  // namespace Base::Logger

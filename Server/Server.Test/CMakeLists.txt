@@ -2,18 +2,14 @@ set(TARGET Server.Test)
 set(OUTPUT_NAME Server.Test)
 
 set(SOURCE_FILES
-    ArgumentParserTests.cpp)
-
-if(NOT WIN32)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
-endif()
+        ArgumentParserTests.cpp)
 
 add_executable(${TARGET} ${SOURCE_FILES})
 
-target_link_libraries(${TARGET} PUBLIC 
-    Precompiled.Catch2.Main
-    Network.Public 
-    Server.Core.Static)
+target_link_libraries(${TARGET} PUBLIC
+        Precompiled.Catch2.Main
+        Network.Public
+        Server.Core.Static)
 
 target_compile_definitions(${TARGET} PRIVATE CATCH_CONFIG_FAST_COMPILE)
 target_precompile_headers(${TARGET} REUSE_FROM Precompiled.Catch2.Test)

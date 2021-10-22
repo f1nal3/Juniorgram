@@ -2,14 +2,13 @@ set(TARGET Network.Test)
 set(OUTPUT_NAME Network.Test)
 
 set(SOURCE_FILES
-    BinarySerializeTest.cpp
-    TimestampTest.cpp)
+        BinarySerializeTest.cpp
+        TimestampTest.cpp)
 
-if(WIN32)
+if (WIN32)
     set(EXTRA_LIBS ws2_32 wsock32)
-else()
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
-endif()
+else ()
+endif ()
 
 add_executable(${TARGET} ${SOURCE_FILES})
 
