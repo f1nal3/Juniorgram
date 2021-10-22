@@ -5,3 +5,4 @@ add_subdirectory(Utility.Test)
 
 set(TARGET Utility)
 
+add_library(${TARGET} INTERFACE)
