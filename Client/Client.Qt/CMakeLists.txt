@@ -55,8 +55,8 @@ set(UI_WIDGETS_SOURCES
         Widgets/MessageWidget.hpp
         Widgets/ReplyWidget.cpp
         Widgets/ReplyWidget.hpp
-		    Widgets/ReplyMessageWidget.cpp
-		    Widgets/ReplyMessageWidget.hpp
+        Widgets/ReplyMessageWidget.cpp
+        Widgets/ReplyMessageWidget.hpp
         Widgets/Page.cpp
         Widgets/Page.hpp
         Widgets/PopupWidget.cpp
@@ -69,6 +69,8 @@ set(UI_WIDGETS_SOURCES
         Widgets/TitleWidget.hpp)
 
 set(PAGES_SOURCES
+        Pages/ChannelCreationPage.cpp
+        Pages/ChannelCreationPage.hpp
         Pages/ChannelListPage.cpp
         Pages/ChannelListPage.hpp
         Pages/ChatPage.cpp
@@ -85,6 +87,8 @@ set(SOURCE_FILES
         Widgets/ChatHistory.hpp
         Widgets/ChatWidget.cpp
         Widgets/ChatWidget.hpp
+        Widgets/ChannelBar.cpp
+        Widgets/ChannelBar.hpp
         Widgets/MessageWidget.cpp
         Widgets/MessageWidget.hpp
         Widgets/ReactionLayout.cpp
@@ -114,7 +118,11 @@ endif ()
 
 target_link_libraries(${TARGET}
         PRIVATE Qt::Widgets Qt::Gui ${EXTRA_LIBS} CONAN_PKG::asio
-        PUBLIC Network.Public Client.Core.Static Utility.Public)
+        PUBLIC Network.Public Client.Core.Static Utility.Public DataAccess.SQLite)
+
+
+target_include_directories(${TARGET}
+        PUBLIC $<TARGET_PROPERTY:DataAccess.SQLite,SOURCE_DIR>/..)
 
 # This needs to be an install or after install operation
 # At this point it disrupts CI build so I commented it out =)
@@ -124,14 +132,16 @@ target_link_libraries(${TARGET}
 #    message(STATUS ${Qt5_DIR})
 #    if (CMAKE_BUILD_TYPE MATCHES Debug)
 #        file(COPY "${Qt5_DIR}/bin/Qt5Cored.dll" "${Qt5_DIR}/bin/Qt5Guid.dll"
-#                "${Qt5_DIR}/bin/Qt5Widgetsd.dll" "${Qt5_DIR}/plugins/platforms/qminimald.dll"
-#                "${Qt5_DIR}/plugins/platforms/qoffscreend.dll" "${Qt5_DIR}/plugins/platforms/qwindowsd.dll"
+#                "${Qt5_DIR}/bin/Qt5Widgetsd.dll" "${Qt5_DIR}/bin/Qt5Sqld.dll"
+#                "${Qt5_DIR}/plugins/platforms/qminimald.dll" "${Qt5_DIR}/plugins/platforms/qoffscreend.dll"
+#                "${Qt5_DIR}/plugins/platforms/qwindowsd.dll"
 #                DESTINATION "${CMAKE_BINARY_DIR}/bin")
 #        message("Install Debug .dll's")
 #    elseif (CMAKE_BUILD_TYPE MATCHES Release)
 #        file(COPY "${Qt5_DIR}/bin/Qt5Core.dll" "${Qt5_DIR}/bin/Qt5Gui.dll"
-#                "${Qt5_DIR}/bin/Qt5Widgets.dll" "${Qt5_DIR}/plugins/platforms/qminimal.dll"
-#                "${Qt5_DIR}/plugins/platforms/qoffscreen.dll" "${Qt5_DIR}/plugins/platforms/qwindows.dll"
+#                "${Qt5_DIR}/bin/Qt5Widgets.dll" "${Qt5_DIR}/bin/Qt5Sqld.dll"
+#                "${Qt5_DIR}/plugins/platforms/qminimal.dll" "${Qt5_DIR}/plugins/platforms/qoffscreen.dll"
+#                "${Qt5_DIR}/plugins/platforms/qwindows.dll"
 #                DESTINATION "${CMAKE_BINARY_DIR}/bin")
 #        message("Install Release .dll's")
 #    endif ()

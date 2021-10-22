@@ -105,6 +105,13 @@ void Client::askForChannelList() const
     send(message);
 }
 
+void Client::askForChannelSubscriptionList() const
+{
+    Network::Message message;
+    message.mHeader.mMessageType = MessageType::ChannelSubscriptionListRequest;
+    send(message);
+}
+
 void Client::deleteChannel(const std::string channelName) const
 {
     Network::Message networkMessage;
@@ -219,14 +226,25 @@ void Client::userMessageDelete(const std::string& messageText) const
 void Client::subscriptionChannel(const std::uint64_t channelID) const
 {
     Network::Message networkMessage;
-    networkMessage.mHeader.mMessageType = MessageType::ReplyStoreRequest;
+    networkMessage.mHeader.mMessageType = MessageType::ChannelSubscribeRequest;
 
-    Network::SubscriptionChannelInfo ri;
+    Network::ChannelSubscriptionInfo ri;
     ri.channelID         = channelID;
-    networkMessage.mBody = std::make_any<Network::SubscriptionChannelInfo>(ri);
-    //send(networkMessage); temporarily commented out before implementation on the server side
+    networkMessage.mBody = std::make_any<Network::ChannelSubscriptionInfo>(ri);
+    send(networkMessage);
 }
 
+void Client::leaveChannel(const std::string channelName) const
+{
+    Network::Message networkMessage;
+    networkMessage.mHeader.mMessageType = MessageType::ChannelLeaveRequest;
+
+    std::string ri;
+    ri                   = channelName;
+    networkMessage.mBody = std::make_any<std::string>(ri);
+    send(networkMessage);
+}
+  
 void Client::createChannel(const std::string channelName) const
 {
     Network::Message networkMessage;
@@ -302,7 +320,6 @@ void Client::loop()
             case MessageType::RegistrationAnswer:
             {
                 auto code = std::any_cast<Utility::RegistrationCodes>(message.mBody);
-
                 onRegistrationAnswer(code);
             }
             break;
@@ -327,7 +344,24 @@ void Client::loop()
                 onReplyStoreAnswer(code);
             }
             break;
-
+            case MessageType::ChannelSubscribeAnswer:
+            {
+                auto code = std::any_cast<Utility::ChannelSubscribingCodes>(message.mBody);
+                onChannelSubscribingAnswer(code);
+            }
+            break;
+            case MessageType::ChannelLeaveAnswer:
+            {
+                auto ChannelLeaveCode = std::any_cast<Utility::ChannelLeaveCodes>(message.mBody);
+                onChannelLeaveAnswer(ChannelLeaveCode);
+            }
+            break;
+            case MessageType::ChannelSubscriptionListAnswer:
+            {
+                auto channelsList = std::any_cast<std::vector<uint64_t>>(message.mBody);
+                onChannelSubscribingListAnswer(channelsList);
+            }
+            break;
             case MessageType::ChannelDeleteAnswer:
             {
                 auto channelDeleteCode = std::any_cast<Utility::ChannelDeleteCode>(message.mBody);
@@ -339,7 +373,6 @@ void Client::loop()
             {
                 auto channelCreateCode = std::any_cast<Utility::ChannelCreateCodes>(message.mBody);
                 onChannelCreateAnswer(channelCreateCode);
-
             }
             break;
 
@@ -419,6 +452,24 @@ void Client::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
     std::cerr << "[Client][Warning] reply store answer is not implemented\n";
 }
 
+void Client::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode)
+{
+    (void)(ChannelLeaveCode);
+    std::cerr << "[Client][Warning] leave channel answer is not implemented\n";
+}
+
+void Client::onChannelSubscribingAnswer(Utility::ChannelSubscribingCodes subscribingChannelCode)
+{
+    (void)(subscribingChannelCode);
+    std::cerr << "[Client][Warning] subscribing channel is not implemented\n";
+}
+
+void Client::onChannelSubscribingListAnswer(std::vector<uint64_t> subscribingChannelList)
+{
+    (void)(subscribingChannelList);
+    std::cerr << "[Client][Warning] subscribing channel list is not implemented\n";
+}
+  
 void Client::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode)
 {
     (void)(channelDeleteCode);

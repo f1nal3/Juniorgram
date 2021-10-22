@@ -14,9 +14,12 @@ namespace DataAccess
 
     struct ChannelsRepository : IChannelsRepository, AbstractPostgreRepository
     {
-        ChannelsRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
+        ChannelsRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("channels", adapter); }
 
         virtual std::vector<Network::ChannelInfo> getAllChannelsList() override final;
+        virtual Utility::ChannelLeaveCodes        leaveChannel(const Network::ChannelLeaveInfo& channel) override final;
+        virtual Utility::ChannelSubscribingCodes  subscribeToChannel(const Network::ChannelSubscriptionInfo& channel) override final;
+        virtual std::vector<uint64_t>             getChannelSubscriptionList(uint64_t userID) override final;
 
         virtual Utility::ChannelDeleteCode        deleteChannel(const Network::ChannelDeleteInfo& channel) override final;
 
@@ -29,20 +32,21 @@ namespace DataAccess
     {
         LoginRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
 
-        virtual std::uint64_t loginUser(const std::string& login, const std::string& pwdHash) override final;
+        virtual std::uint64_t loginUser(const Network::LoginInfo& li) override final;
 
         virtual ~LoginRepository() = default;
     };
 
 	struct MessagesRepository : IMessagesRepository, AbstractPostgreRepository
     {
-        MessagesRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
+        MessagesRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("msgs", adapter); }
         
-        virtual std::vector<Network::MessageInfo> getMessageHistory(const std::uint64_t channelID) override final;
-        virtual Utility::StoringMessageCodes      storeMessage(const Network::MessageInfo& mi) override final;
-        virtual Utility::DeletingMessageCodes     deleteMessage(const Network::MessageInfo& mi) override final;
+        std::vector<Network::MessageInfo> getMessageHistory(const std::uint64_t channelID) override;
+        Utility::StoringMessageCodes      storeMessage(const Network::MessageInfo& mi) override;
+        Utility::DeletingMessageCodes     deleteMessage(const Network::MessageInfo& mi) override;
+        Utility::EditingMessageCodes      editMessage(const Network::MessageInfo& mi) override;
 
-        virtual ~MessagesRepository() = default;
+        ~MessagesRepository() = default;
 
     private:
 
@@ -62,7 +66,7 @@ namespace DataAccess
 
     struct RepliesRepository : IRepliesRepository, AbstractPostgreRepository
     {
-        RepliesRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
+        RepliesRepository(std::shared_ptr<IAdapter> adapter) { pTable = std::make_unique<PostgreTable>("msgs", adapter); }
 
         virtual std::vector<Network::ReplyInfo> getReplyHistory(const std::uint64_t channelID) override final;
         virtual Utility::StoringReplyCodes      storeReply(const Network::ReplyInfo& rsi) override final;

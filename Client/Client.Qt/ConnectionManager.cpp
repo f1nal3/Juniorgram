@@ -26,13 +26,13 @@ void ConnectionManager::onServerMessage(const uint64_t clientId)
 
 void ConnectionManager::onChannelListRequest(const std::vector<Network::ChannelInfo>& channels)
 {
-    qRegisterMetaType<std::vector<Network::ChannelInfo> >("std::vector<Network::ChannelInfo>");
+    qRegisterMetaType<std::vector<Network::ChannelInfo>>("std::vector<Network::ChannelInfo>");
     emit ReceiverManager::instance()->onChannelListRequest(channels);
 }
 
 void ConnectionManager::onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages)
 {
-    qRegisterMetaType<std::vector<Network::MessageInfo> >("std::vector<Network::MessageInfo>");
+    qRegisterMetaType<std::vector<Network::MessageInfo>>("std::vector<Network::MessageInfo>");
     emit ReceiverManager::instance()->onMessageHistoryAnswer(messages);
 }
 
@@ -99,12 +99,50 @@ void ConnectionManager::onUserMessageDeleteAnswer(const Utility::DeletingMessage
     {
         std::cout << "FAILED DELETING" << std::endl;
     }
-    else 
+    else
     {
         std::cout << "UNKNOWN deleting message code" << std::endl;
     }
 
     emit ReceiverManager::instance()->onUserMessageDeleteAnswer(deletingCode);
+}
+
+void ConnectionManager::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode)
+{
+    if (ChannelLeaveCode == Utility::ChannelLeaveCodes::SUCCESS)
+    {
+        std::cout << "SUCCESS LEAVING" << std::endl;
+    }
+    else if (ChannelLeaveCode == Utility::ChannelLeaveCodes::FAILED)
+    {
+        std::cout << "FAILD LEAVING" << std::endl;
+    }
+    else if (ChannelLeaveCode == Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND)
+    {
+        std::cout << "CHANNEL NOT FOUND" << std::endl;
+    }
+    qRegisterMetaType<Utility::ChannelLeaveCodes>("Utility::ChannelLeaveCodes");
+    emit ReceiverManager::instance()->onChannelLeaveAnswer(ChannelLeaveCode);
+}
+
+void ConnectionManager::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode)
+{
+    if (subscribingChannelCode == Utility::ChannelSubscribingCodes::SUCCESS)
+    {
+        std::cout << "SUCCESS SUBSCRIBING" << std::endl;
+    }
+    else if (subscribingChannelCode == Utility::ChannelSubscribingCodes::FAILED)
+    {
+        std::cout << "FAILED SUBSCRIBING" << std::endl;
+    }
+    qRegisterMetaType<Utility::ChannelSubscribingCodes>("Utility::ChannelSubscribingCodes");
+    emit ReceiverManager::instance()->onChannelSubscriptionAnswer(subscribingChannelCode);
+}
+
+void ConnectionManager::onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList)
+{
+    qRegisterMetaType<std::vector<uint64_t>>("std::vector<uint64_t>");
+    emit ReceiverManager::instance()->onChannelSubscriptionListAnswer(subscribingChannelList);
 }
 
 void ConnectionManager::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode)
@@ -113,13 +151,17 @@ void ConnectionManager::onChannelDeleteAnswer(Utility::ChannelDeleteCode channel
     {
         std::cout << "SUCCESS DELETING" << std::endl;
     }
-    else if (channelDeleteCode == Utility::ChannelDeleteCode::SUCCESS)
+    else if (channelDeleteCode == Utility::ChannelDeleteCode::FAILED)
     {
         std::cout << "FAILD DELETING" << std::endl;
     }
-    else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_NON_USER)
+    else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_NOT_FOUND)
     {
-        std::cout << "NON-USER CHANNEL" << std::endl;
+        std::cout << "CHANNEL NOT FOUND" << std::endl;
+    }
+    else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_IS_NOT_USER)
+    {
+        std::cout << "CHANNEL DOES NOT BELONG TO THE USER" << std::endl;
     }
     qRegisterMetaType<Utility::ChannelDeleteCode>("Utility::ChannelDeleteCode");
     emit ReceiverManager::instance()->onChannelDeleteAnswer(channelDeleteCode);
@@ -135,7 +177,7 @@ void ConnectionManager::onChannelCreateAnswer(Utility::ChannelCreateCodes channe
     {
         std::cout << "FAILD CREATING" << std::endl;
     }
-    else if(channelCreateCode == Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED)
+    else if (channelCreateCode == Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED)
     {
         std::cout << "CHANNEL ALREADY CREATE" << std::endl;
     }

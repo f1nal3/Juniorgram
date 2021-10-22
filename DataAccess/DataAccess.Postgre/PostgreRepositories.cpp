@@ -22,7 +22,41 @@ namespace DataAccess
 
         return result;
     }
-
+    Utility::ChannelLeaveCodes ChannelsRepository::leaveChannel(const Network::ChannelLeaveInfo& channel)
+    {
+        pTable->changeTable("channels");
+        auto findIdChannel = pTable->Select()->columns({"id"})->Where("channel_name = '" + channel.channelName + "'")->execute();
+        pTable->changeTable("user_channels");
+        if (!findIdChannel.has_value())
+        {
+            return Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND;
+        }
+        auto findChannel = pTable->Select()
+                          ->columns({"*"})
+                          ->Where("user_id = " + std::to_string(channel.creatorID) + 
+                                  " AND " +
+                                  "channel_id = " + std::to_string(findIdChannel.value()[0][0].as<std::uint64_t>()))
+                          ->execute();
+        if (findChannel.has_value())
+        {
+            auto result = pTable->Delete()
+                                ->Where(
+                                "user_id = " + std::to_string(findChannel.value()[0][0].as<std::uint64_t>()) + 
+                                " AND " + 
+                                "channel_id = " + std::to_string(findChannel.value()[0][1].as<std::uint64_t>())
+                                )
+                                ->execute();
+            if (result.has_value())
+            {
+                return Utility::ChannelLeaveCodes::FAILED;
+            }
+        }
+        else
+        {
+            return Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND;
+        }
+        return Utility::ChannelLeaveCodes::SUCCESS;
+    }
     Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Network::ChannelDeleteInfo& channel)
     {
         pTable->changeTable("channels");
@@ -36,7 +70,7 @@ namespace DataAccess
         }
         if (findChannel.value()[0][0].as<uint64_t>() != channel.creatorID)
         {
-            return Utility::ChannelDeleteCode::CHANNEL_NON_USER;
+            return Utility::ChannelDeleteCode::CHANNEL_IS_NOT_USER;
         }
         auto result = pTable->Delete()
                             ->Where("channel_name = '" + channel.channelName + "'" + " AND " + "creator_id = " + std::to_string(channel.creatorID))
@@ -47,7 +81,6 @@ namespace DataAccess
         }
         return Utility::ChannelDeleteCode::SUCCESS;
     }
-
     Utility::ChannelCreateCodes ChannelsRepository::createChannel(const Network::ChannelInfo& channel)
     {
         pTable->changeTable("channels");
@@ -81,22 +114,22 @@ namespace DataAccess
             std::pair{"channel_id", IDNewChannel}
         };
 
-        pTable->changeTable("user_channles");
+        pTable->changeTable("user_channels");
         pTable->Insert()->columns(SubscribNewChannelData)->execute();
         return Utility::ChannelCreateCodes::SUCCESS;
     }
 
-    std::uint64_t                     LoginRepository::loginUser(const std::string& login, const std::string& pwdHash)
+    std::uint64_t                     LoginRepository::loginUser(const Network::LoginInfo& li)
     {
         try
         {
             pTable->changeTable("users");
             auto queryResult = pTable->Select()
                                      ->columns({ "password_hash", "id" })
-                                     ->Where("login='" + login + "'")
+                                     ->Where("login='" + li.login + "'")
                                      ->execute().value();
 
-            if (std::string(queryResult[0][0].c_str()) == pwdHash)
+            if (std::string(queryResult[0][0].c_str()) == li.pwdHash)
             {
                 return queryResult[0][1].as<std::uint64_t>();
             }
@@ -118,8 +151,9 @@ namespace DataAccess
 
         pTable->changeTable("msgs");
         auto messageHistoryRow = pTable->Select()
-                                       ->columns({ "*" })
+                                       ->columns({"msgs.msg_id, msgs.sender_id, msgs.send_time, msgs.msg, users.login, users.id"})
                                        ->join(Utility::SQLJoinType::J_INNER, "channel_msgs", "channel_msgs.msg_id = msgs.msg_id")
+                                       ->join(Utility::SQLJoinType::J_INNER, "users", "users.id = msgs.sender_id")
                                        ->Where("channel_msgs.channel_id = " + std::to_string(channelID))
                                        ->execute();
         
@@ -133,6 +167,7 @@ namespace DataAccess
                 mi.senderID = messageHistoryRow.value()[i][1].as<std::uint64_t>();
                 mi.time = messageHistoryRow.value()[i][2].as<std::string>();
                 mi.message = messageHistoryRow.value()[i][3].as<std::string>();
+                mi.userLogin = messageHistoryRow.value()[i][4].as<std::string>();
                 result.emplace_back(mi);
             }
         }
@@ -180,6 +215,27 @@ namespace DataAccess
         }
 
         return DeletingMessageCodes::FAILED;
+    }
+    Utility::EditingMessageCodes       MessagesRepository::editMessage(const Network::MessageInfo& mi)
+    {
+        pTable->changeTable("msgs");
+
+        auto isPresentInTable = pTable->Select()
+                                      ->columns({"*"})
+                                      ->Where("msg_id=" + std::to_string(mi.msgID))
+                                      ->And("msg.sender_id" + std::to_string(mi.senderID))
+                                      ->execute();
+        if (!isPresentInTable.has_value())
+        {
+            return Utility::EditingMessageCodes::FAILED;
+        }                              
+
+        pTable->Update()
+              ->fields(std::pair{"msg", mi.message})
+              ->Where("msg_id=" + std::to_string(mi.msgID))
+              ->execute(); 
+
+        return Utility::EditingMessageCodes::SUCCESS;
     }
     std::optional<pqxx::result>       MessagesRepository::insertMessageIntoMessagesTable(const Network::MessageInfo& mi)
     {
@@ -264,6 +320,53 @@ namespace DataAccess
         }
         return result;
     }
+
+    Utility::ChannelSubscribingCodes ChannelsRepository::subscribeToChannel(const Network::ChannelSubscriptionInfo& channel)
+    {
+        pTable->changeTable("user_channels");
+        auto listSubscriptionChannel =
+            pTable->Select()
+                ->columns({"*"})
+                ->Where("channel_id = " + std::to_string(channel.channelID) + " AND " + "user_id = " + std::to_string(channel.userID))
+                ->execute();
+        if (listSubscriptionChannel.has_value())
+        {
+            if ((listSubscriptionChannel.value()[0][0].as<std::uint64_t>() == channel.userID) &&
+                (listSubscriptionChannel.value()[0][1].as<std::uint64_t>() == channel.channelID))
+            {
+                return Utility::ChannelSubscribingCodes::CHANNEL_HAS_ALREADY_BEEN_SIGNED;
+            }
+        }
+        // Preparing data for inserting a signed channel.
+        std::tuple userData{std::pair{"user_id", channel.userID}, std::pair{"channel_id", channel.channelID}};
+        auto result = pTable->Insert()->columns(userData)->execute();
+        if (result.has_value())
+        {
+            return Utility::ChannelSubscribingCodes::FAILED;
+        }
+        return Utility::ChannelSubscribingCodes::SUCCESS;
+    }
+
+    std::vector<uint64_t> ChannelsRepository::getChannelSubscriptionList(uint64_t userID) 
+    {
+        pTable->changeTable("user_channels");
+        auto    listSubscriptionChannel =
+                pTable->Select()
+                ->columns({"channel_id"})
+                ->Where("user_id = " + std::to_string(userID))
+                ->execute();
+        std::vector<uint64_t> result;
+        if (listSubscriptionChannel.has_value())
+        {
+            for (auto i = 0; i < listSubscriptionChannel.value().size(); ++i)
+            {
+                uint64_t channelID = listSubscriptionChannel.value()[i][0].as<uint64_t>();
+                result.push_back(channelID);
+            }
+        }
+        return result;
+    }
+
     Utility::StoringReplyCodes        RepliesRepository::storeReply(const Network::ReplyInfo& rsi)
     {
         const auto firstResult = insertReplyIntoRepliesTable(rsi);

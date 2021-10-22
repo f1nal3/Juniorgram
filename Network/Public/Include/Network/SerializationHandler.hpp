@@ -77,6 +77,14 @@ public:
                 case Message::MessageType::MessageDeleteAnswer:
                     state = processOutcomingMessageBody<Utility::DeletingMessageCodes>(bodyBuffer, message.mBody);
                     break;
+                    
+                case Message::MessageType::MessageEditRequest:
+                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::MessageEditAnswer:
+                    state = processOutcomingMessageBody<Utility::EditingMessageCodes>(bodyBuffer, message.mBody);
+                    break;       
 
                 case Message::MessageType::RegistrationRequest:
                     state = processOutcomingMessageBody<RegistrationInfo>(bodyBuffer, message.mBody);
@@ -94,6 +102,28 @@ public:
                     state = processOutcomingMessageBody<bool>(bodyBuffer, message.mBody);
                     break;
 
+                case Message::MessageType::ChannelLeaveRequest:
+                    state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::ChannelLeaveAnswer:
+                    state = processOutcomingMessageBody<Utility::ChannelLeaveCodes>(bodyBuffer, message.mBody);
+                    break;
+                case Message::MessageType::ChannelSubscribeRequest:
+                    state = processOutcomingMessageBody<ChannelSubscriptionInfo>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::ChannelSubscribeAnswer:
+                    state = processOutcomingMessageBody<Utility::ChannelSubscribingCodes>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::ChannelSubscriptionListRequest:
+                    state = processOutcomingMessageBody<ChannelSubscriptionInfo>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::ChannelSubscriptionListAnswer:
+                    state = processOutcomingMessageBody<std::vector<uint64_t>>(bodyBuffer, message.mBody);
+                    break;
                 case Message::MessageType::ChannelDeleteRequest:
                     state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
                     break;
@@ -101,7 +131,7 @@ public:
                 case Message::MessageType::ChannelDeleteAnswer:
                     state = processOutcomingMessageBody<Utility::ChannelDeleteCode>(bodyBuffer, message.mBody);
                     break;
-                    
+
                 case Message::MessageType::ChannelCreateRequest:
                     state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
                     break;
@@ -219,6 +249,38 @@ public:
             case Message::MessageType::LoginAnswer:
             {
                 state = processIncomingMessageBody<bool>(buffer, message);
+                break;
+            }
+
+            case Message::MessageType::ChannelLeaveRequest:
+            {
+                state = processIncomingMessageBody<std::string>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ChannelLeaveAnswer:
+            {
+                state = processIncomingMessageBody<Utility::ChannelLeaveCodes>(buffer, message);
+                break;
+            }
+
+            case Message::MessageType::ChannelSubscribeRequest:
+            {
+                state = processIncomingMessageBody<ChannelSubscriptionInfo>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ChannelSubscribeAnswer:
+            {
+                state = processIncomingMessageBody<Utility::ChannelSubscribingCodes>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ChannelSubscriptionListRequest:
+            {
+                state = processIncomingMessageBody<ChannelSubscriptionInfo>(buffer, message);
+                break;
+            }
+            case Message::MessageType::ChannelSubscriptionListAnswer:
+            {
+                state = processIncomingMessageBody<std::vector<uint64_t>>(buffer, message);
                 break;
             }
             case Message::MessageType::ChannelCreateRequest:

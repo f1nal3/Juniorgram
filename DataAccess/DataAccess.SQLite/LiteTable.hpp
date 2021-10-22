@@ -1,5 +1,6 @@
 #pragma once
 #include <DataAccess/QueryBuilder.hpp>
+#include <utility>
 
 #include "LiteAdapter.hpp"
 
@@ -21,9 +22,15 @@ namespace DataAccess
 class LiteTable : public QueryBuilder<QSqlQuery>
 {
 public:
-    LiteTable(const std::string& tableName, std::shared_ptr<IAdapter> adapter = LiteAdapter::getInstance<LiteAdapter>())
-        : QueryBuilder(Utility::DatabaseType::DB_LITE, tableName, adapter) {}
+    /// Base constructor with adapter
+    explicit LiteTable(const std::string& tableName, std::shared_ptr<IAdapter> adapter = LiteAdapter::Instance(""))
+        : QueryBuilder(Utility::DatabaseType::DB_LITE, tableName, std::move(adapter))
+    {
+    }
+    /// Base constructor with options
     LiteTable(const std::string& tableName, std::string_view options)
-        : QueryBuilder(Utility::DatabaseType::DB_LITE, tableName, LiteAdapter::getInstance<LiteAdapter>(options)) {}
+        : QueryBuilder(Utility::DatabaseType::DB_LITE, tableName, LiteAdapter::Instance(options))
+    {
+    }
 };
 }  // namespace DataAccess
