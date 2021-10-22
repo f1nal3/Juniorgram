@@ -259,7 +259,7 @@ void Client::createChannel(const std::string channelName) const
 void Client::createDirectChat(uint64_t receiverId) const
 {
     Network::Message networkMessage;
-    networkMessage.mHeader.mMessageType = MessageType::ChannelCreateRequest;
+    networkMessage.mHeader.mMessageType = MessageType::DirectMessageCreateRequest;
 
     networkMessage.mBody = std::make_any<uint64_t>(receiverId);
     send(networkMessage);

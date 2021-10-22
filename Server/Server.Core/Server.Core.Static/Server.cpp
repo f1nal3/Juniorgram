@@ -1,8 +1,9 @@
 #include "Server.hpp"
-#include "Network/Primitives.hpp"
-#include "DataAccess.Postgre/PostgreRepositoryManager.hpp"
 
 #include <future>
+
+#include "DataAccess.Postgre/PostgreRepositoryManager.hpp"
+#include "Network/Primitives.hpp"
 
 using Network::Connection;
 using Network::Message;
@@ -174,7 +175,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         case Network::Message::MessageType::RegistrationRequest:
         {
             auto ri = std::any_cast<Network::RegistrationInfo>(message.mBody);
-            
+
             auto future = mPostgreManager->pushRequest(&IRegisterRepository::registerUser, fmt(ri));
 
             Network::Message messageToClient;
@@ -193,7 +194,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
             auto future = mPostgreManager->pushRequest(&ILoginRepository::loginUser, fmt(li));
 
-            auto userID = future.get();
+            auto userID          = future.get();
             auto loginSuccessful = userID != 0;
 
             std::cout << "DEBUG: userID=" << userID << "\n";
@@ -238,7 +239,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto channel   = std::any_cast<Network::ChannelSubscriptionInfo>(message.mBody);
             channel.userID = client->getUserID();
 
-            auto future      = mPostgreManager->pushRequest(&IChannelsRepository::subscribeToChannel, fmt(channel));
+            auto future = mPostgreManager->pushRequest(&IChannelsRepository::subscribeToChannel, fmt(channel));
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelSubscribeAnswer;
@@ -254,7 +255,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             const auto userID = client->getUserID();
 
-            auto future      = mPostgreManager->pushRequest(&IChannelsRepository::getChannelSubscriptionList, fmt(userID));
+            auto future = mPostgreManager->pushRequest(&IChannelsRepository::getChannelSubscriptionList, fmt(userID));
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelSubscriptionListAnswer;
@@ -271,7 +272,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             channelDeleteInfo.creatorID            = client->getUserID();
             channelDeleteInfo.channelName          = channelName;
 
-            auto future = mPostgreManager->pushRequest(&IChannelsRepository::deleteChannel, fmt(chennelDeletedInfo));
+            auto future = mPostgreManager->pushRequest(&IChannelsRepository::deleteChannel, fmt(channelDeleteInfo));
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelDeleteAnswer;
@@ -289,7 +290,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             newChannelInfo.creatorID   = client->getUserID();
             newChannelInfo.channelName = channelName;
 
-            auto future = mPostgreManager->pushRequest(&IChannelsRepository::createChannel, fmt(newChennelInfo));
+            auto future = mPostgreManager->pushRequest(&IChannelsRepository::createChannel, fmt(newChannelInfo));
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelCreateAnswer;
@@ -302,15 +303,14 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::DirectMessageCreateRequest:
         {
-            auto secondUser = std::any_cast<uint32_t>(message.mBody);
+            auto secondUser = std::any_cast<std::uint64_t>(message.mBody);
 
-            auto IDirectMessageRepository = mPostgreRepo->getRepository<DataAccess::IDirectMessageRepository>();
-            auto result                   = IDirectMessageRepository->addDirectChat(client->getUserID(), secondUser);
+            auto result = mPostgreManager->pushRequest(&IDirectMessageRepository::addDirectChat, fmt(client->getUserID()), fmt(secondUser));
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::DirectMessageCreateAnswer;
 
-            messageToClient.mBody = std::make_any<Utility::ChannelCreateCodes>(result);
+            messageToClient.mBody = std::make_any<Utility::DirectMessageStatus>(result.get());
             client->send(messageToClient);
         }
         break;
@@ -325,7 +325,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
 Server::Server(const uint16_t& port)
     : mAcceptor(mContext, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port)),
-      mPostgreManager(std::make_unique<DataAccess::PostgreReposiotoryManager>(DataAccess::PostgreAdapter::getInstance<DataAccess::PostgreAdapter>()))
+      mPostgreManager(
+          std::make_unique<DataAccess::PostgreRepositoryManager>(DataAccess::PostgreAdapter::getInstance<DataAccess::PostgreAdapter>()))
 {
 }
 

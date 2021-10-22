@@ -12,7 +12,7 @@
 
 namespace DataAccess
 {
-class PostgreReposiotoryManager;
+class PostgreRepositoryManager;
 }
 
 namespace Server
@@ -33,7 +33,7 @@ private:
     std::deque<std::shared_ptr<Network::Connection>>       mConnectionsPointers;
     Network::SafeQueue<Network::Message>                   mIncomingMessagesQueue;
     std::deque<std::thread>                                mThreads;
-    std::unique_ptr<DataAccess::PostgreReposiotoryManager> mPostgreManager;
+    std::unique_ptr<DataAccess::PostgreRepositoryManager>  mPostgreManager;
 
 private:
     /**
