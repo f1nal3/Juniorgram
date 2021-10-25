@@ -178,8 +178,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto messageInfo = std::any_cast<Network::MessageInfo>(message.mBody);
             messageInfo.senderID = client->getUserID();
             
-            auto future = std::async(std::launch::async, &DataAccess::IMessagesRepository::updateMessageReactions,
-                            mPostgreRepo->getRepository<DataAccess::IMessagesRepository>(), messageInfo);
+            auto future = mPostgreManager->pushRequest(&IMessagesRepository::updateMessageReactions, fmt(messageInfo));
 
             Network::Message answerForClient;
             answerForClient.mHeader.mMessageType = Network::Message::MessageType::MessageReactionAnswer;
