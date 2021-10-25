@@ -219,11 +219,11 @@ inline std::string removeSpaces(const std::string& input)
 }
 
 /**
- * @brief Returns time in seconds since Epoch (1970-01-01 00:00:00 UTC)
+ * @brief Returns time in milliseconds since Epoch (1970-01-01 00:00:00 UTC)
  */
-inline std::int64_t getUnixTime()
+inline std::int64_t millisecondsSinceEpoch()
 {
-    return static_cast<std::int64_t>(std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count());
+    return static_cast<std::int64_t>(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count());
 }
 
 }  // namespace Utility

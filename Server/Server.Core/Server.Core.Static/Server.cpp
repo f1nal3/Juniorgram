@@ -93,7 +93,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
             mi.senderID = client->getUserID();
             mi.message  = Utility::removeSpaces(mi.message);
-            mi.time = Utility::getUnixTime();
+            mi.time = Utility::millisecondsSinceEpoch();
 
             auto future = mPostgreManager->pushRequest(&IMessagesRepository::storeMessage, fmt(mi));
 

@@ -136,9 +136,9 @@ std::vector<Network::MessageInfo> MessagesRepository::getMessageHistory(const st
 {
     std::vector<Network::MessageInfo> result;
 
-    pTable->changeTable("msgs");
-    auto messageHistoryRow = pTable->Select()
-            ->columns({ "msgs.msg_id, msgs.sender_id, extract(epoch from msgs.send_time), msgs.msg, "
+        pTable->changeTable("msgs");
+        auto messageHistoryRow = pTable->Select()
+            ->columns({ "msgs.msg_id, msgs.sender_id, extract(epoch from msgs.send_time) * 1000, msgs.msg, "
                         "users.login, users.id, "
                         "coalesce(array_length(msg_reactions.likes, 1), 0), "
                         "coalesce(array_length(msg_reactions.dislikes, 1), 0), "
@@ -222,8 +222,8 @@ std::optional<pqxx::result>       MessagesRepository::insertMessageIntoMessagesT
     auto adapter = pTable->getAdapter();
 
     auto result = adapter->query("INSERT INTO msgs(sender_id, send_time, msg) VALUES (" + std::to_string(mi.senderID)
-        + ", to_timestamp(" + std::to_string(mi.time) + ") AT TIME ZONE 'utc', "
-        + Utility::CheckForSQLSingleQuotesProblem(mi.message) + ") RETURNING msg_id;");
+            + ", to_timestamp(" + std::to_string(mi.time) + " / 1000.0) AT TIME ZONE 'utc', "
+            + Utility::CheckForSQLSingleQuotesProblem(mi.message) + ") RETURNING msg_id;");
 
     return { std::any_cast<pqxx::result>(result.value()) };
 }

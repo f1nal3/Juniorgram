@@ -181,8 +181,8 @@ struct MessageInfo
     std::string userLogin;
     /// recipient ID uint64_t variable
     std::uint64_t recipientID;
-    /// time in seconds since Epoch (1970-01-01 00:00:00 UTC)
-    std::int64_t time = Utility::getUnixTime();
+    /// time in milliseconds since Epoch (1970-01-01 00:00:00 UTC)
+    std::int64_t time = Utility::millisecondsSinceEpoch();
     /// reactions (reaction_id, reaction_count)
     std::map<std::uint32_t, std::uint32_t> reactions = {};
 
