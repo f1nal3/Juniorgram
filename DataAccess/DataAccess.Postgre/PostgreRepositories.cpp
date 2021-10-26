@@ -299,21 +299,24 @@ namespace DataAccess
         std::vector<Network::ReplyInfo> result;
 
         pTable->changeTable("replies");
-        auto replyHistoryRow = pTable->Select()
-                                     ->columns({ "*" })
-                                     ->join(Utility::SQLJoinType::J_INNER, "channel_replies", "channel_replies.msg_id_owner = replies.msg_id_owner")
-                                     ->Where("channel_replies.channel_id = " + std::to_string(channelID))
-                                     ->execute();
+        auto replyHistoryRow =
+            pTable->Select()
+                ->columns({"replies.sender_id, replies.msg_id_owner, replies.msg_id_ref, replies.msg, users.login, users.id"})
+                ->join(Utility::SQLJoinType::J_INNER, "channel_replies", "channel_replies.msg_id_owner = replies.msg_id_owner")
+                ->join(Utility::SQLJoinType::J_INNER, "users", "users.id = replies.sender_id")
+                ->Where("channel_replies.channel_id = " + std::to_string(channelID))
+                ->execute();
         if (replyHistoryRow.has_value())
         {
             Network::ReplyInfo ri;
             ri.channelID = channelID;
             for (auto i = 0; i < replyHistoryRow.value().size(); ++i)
             {
-                ri.senderID = replyHistoryRow.value()[i][0].as<std::uint64_t>();
+                ri.senderID   = replyHistoryRow.value()[i][0].as<std::uint64_t>();
                 ri.msgIdOwner = replyHistoryRow.value()[i][1].as<std::uint64_t>();
-                ri.msgID = replyHistoryRow.value()[i][2].as<std::uint64_t>();
-                ri.message = replyHistoryRow.value()[i][3].as<std::string>();
+                ri.msgID      = replyHistoryRow.value()[i][2].as<std::uint64_t>();
+                ri.message    = replyHistoryRow.value()[i][3].as<std::string>();
+                ri.userLogin  = replyHistoryRow.value()[i][4].as<std::string>();
                 result.emplace_back(ri);
             }
 
