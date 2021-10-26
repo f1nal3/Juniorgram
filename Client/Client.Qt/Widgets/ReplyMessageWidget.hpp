@@ -17,6 +17,9 @@ class ReplyMessageWidget : public QWidget
     Q_OBJECT
 
 public:
+    ///// Constructor for reply message widget
+    //ReplyMessageWidget(QWidget* history, QString message, uint64_t messageId, QString username, uint64_t userId = uint64_t(),
+    //                   const Style::MessageWidget& st = st::defaultMessageWidget);
     /// Constructor for reply message widget
     ReplyMessageWidget(QWidget* history, QString message, uint64_t messageId, QString username, uint64_t userId = uint64_t(),
                        const Style::MessageWidget& st = st::defaultMessageWidget);

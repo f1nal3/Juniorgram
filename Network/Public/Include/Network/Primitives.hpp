@@ -231,6 +231,8 @@ struct ReplyInfo
     std::uint64_t msgIdOwner;
     /// sender ID uint64_t variable
     std::uint64_t senderID;
+    /// user Login string variable
+    std::string userLogin;
     /// Default ReplyInfo constructor
     ReplyInfo() = default;
 
@@ -248,16 +250,16 @@ struct ReplyInfo
                first.msgID      == second.msgID      &&
                first.senderID   == second.senderID   &&
                first.msgIdOwner == second.msgIdOwner &&
-               first.channelID  == second.channelID;
+               first.channelID  == second.channelID  &&
+               first.userLogin == second.userLogin;
     }
-
 };
 
 /// Serialize method for serialize ReplyInfo for each field
 template <typename Archive>
 void serialize(Archive& ar, Network::ReplyInfo& o)
 {
-    ar& o.channelID& o.message& o.msgID& o.senderID& o.msgIdOwner;
+    ar& o.channelID& o.message& o.msgID& o.senderID& o.msgIdOwner& o.userLogin;
 }
 
 }  // namespace Network

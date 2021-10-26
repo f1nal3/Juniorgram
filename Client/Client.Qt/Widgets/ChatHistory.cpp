@@ -35,7 +35,7 @@ void ChatHistory::addReply(const Network::ReplyInfo& replyInfo)
     auto history = _scrollArea->widget();
 
     auto replyMsg = new ReplyMessageWidget(history, QString::fromStdString(replyInfo.message), replyInfo.msgID,
-                                           QString::number(replyInfo.senderID), replyInfo.senderID);
+                                           QString::fromStdString(replyInfo.userLogin), replyInfo.senderID);
 
     replyMsg->show();
     replyMsg->resize(history->width() - 25, replyMsg->expectedHeight());

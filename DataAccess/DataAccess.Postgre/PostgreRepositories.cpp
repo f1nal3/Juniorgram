@@ -300,8 +300,9 @@ namespace DataAccess
 
         pTable->changeTable("replies");
         auto replyHistoryRow = pTable->Select()
-                                     ->columns({ "*" })
+                                     ->columns({ "replies.sender_id, replies.msg_id_owner, replies.msg_id_ref, replies.msg, users.login, users.id"})
                                      ->join(Utility::SQLJoinType::J_INNER, "channel_replies", "channel_replies.msg_id_owner = replies.msg_id_owner")
+                                     ->join(Utility::SQLJoinType::J_INNER, "users", "users.id = replies.sender_id")
                                      ->Where("channel_replies.channel_id = " + std::to_string(channelID))
                                      ->execute();
         if (replyHistoryRow.has_value())
@@ -314,6 +315,7 @@ namespace DataAccess
                 ri.msgIdOwner = replyHistoryRow.value()[i][1].as<std::uint64_t>();
                 ri.msgID = replyHistoryRow.value()[i][2].as<std::uint64_t>();
                 ri.message = replyHistoryRow.value()[i][3].as<std::string>();
+                ri.userLogin  = replyHistoryRow.value()[i][4].as<std::string>();
                 result.emplace_back(ri);
             }
 
