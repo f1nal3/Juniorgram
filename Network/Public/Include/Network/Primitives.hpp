@@ -251,7 +251,7 @@ struct ReplyInfo
                first.senderID   == second.senderID   &&
                first.msgIdOwner == second.msgIdOwner &&
                first.channelID  == second.channelID  &&
-               first.userLogin == second.userLogin;
+               first.userLogin  == second.userLogin;
     }
 
 };
