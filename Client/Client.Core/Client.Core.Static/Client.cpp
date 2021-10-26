@@ -368,7 +368,6 @@ void Client::loop()
                 onChannelSubscribingListAnswer(channelsList);
             }
             break;
-            
             case MessageType::ChannelDeleteAnswer:
             {
                 auto channelDeleteCode = std::any_cast<Utility::ChannelDeleteCode>(message.mBody);
