@@ -64,7 +64,7 @@ signals:
     /// Channel create Answer handler
     void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
     /// Direct message create Answer handler
-    virtual void onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer);
+    void onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer);
 
 private:
     static ReceiverManager* self;
