@@ -3,19 +3,14 @@ set(OUTPUT_NAME Utility.Test)
 
 set(SOURCE_FILES 
     ExceptionTest.cpp
-    JsonSerializeTest.cpp)
+    )
 
 add_executable(${TARGET} ${SOURCE_FILES})
 
 target_link_libraries(${TARGET} PUBLIC 
     Precompiled.Catch2.Main
     Network.Public
-    Utility.Public
-    Utility.Static)
-
-target_include_directories(${TARGET}
-    PRIVATE ${CONAN_INCLUDE_DIRS_QT}
-    $<TARGET_PROPERTY:Utility.Static,SOURCE_DIR>/..)
+    Utility.Public)
 
 target_compile_definitions(${TARGET} PRIVATE CATCH_CONFIG_FAST_COMPILE)
 target_precompile_headers(${TARGET} REUSE_FROM Precompiled.Catch2.Test)

@@ -231,6 +231,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
             auto subscribingChannelCodes = future.get();
             messageToClient.mBody        = std::make_any<Utility::ChannelLeaveCodes>(subscribingChannelCodes);
+            client->send(messageToClient);
         }
         break;
 
@@ -262,6 +263,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
             auto subscribingChannelCodes = future.get();
             messageToClient.mBody        = std::make_any<std::vector<uint64_t>>(subscribingChannelCodes);
+            client->send(messageToClient);
         }
         break;
 
@@ -279,6 +281,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
             auto deletedChannelCodes = future.get();
             messageToClient.mBody    = std::make_any<Utility::ChannelDeleteCode>(deletedChannelCodes);
+            client->send(messageToClient);
         }
         break;
 

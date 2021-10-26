@@ -1,10 +1,6 @@
 set(TARGET Precompiled.Catch2)
 set(OUTPUT_NAME Precompiled.Catch2)
 
-if(NOT WIN32)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
-endif()
-
 add_library(Precompiled.Catch2.Main STATIC CatchMainConfig.cpp)
 target_include_directories(Precompiled.Catch2.Main PUBLIC "${CONAN_CATCH2_ROOT}/include/catch2")
 

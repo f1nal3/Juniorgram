@@ -224,6 +224,8 @@ struct ReplyInfo
     std::uint64_t msgIdOwner;
     /// sender ID uint64_t variable
     std::uint64_t senderID;
+    /// user Login string variable
+    std::string userLogin;
     /// Default ReplyInfo constructor
     ReplyInfo() = default;
 
@@ -237,8 +239,12 @@ struct ReplyInfo
     /// Operator == to compare Reply Info
     friend bool operator==(const ReplyInfo& first, const ReplyInfo& second)
     {
-        return first.message == second.message && first.msgID == second.msgID && first.senderID == second.senderID &&
-               first.msgIdOwner == second.msgIdOwner && first.channelID == second.channelID;
+        return first.message    == second.message    &&
+               first.msgID      == second.msgID      &&
+               first.senderID   == second.senderID   &&
+               first.msgIdOwner == second.msgIdOwner &&
+               first.channelID  == second.channelID  &&
+               first.userLogin  == second.userLogin;
     }
 };
 
@@ -246,7 +252,7 @@ struct ReplyInfo
 template <typename Archive>
 void serialize(Archive& ar, Network::ReplyInfo& o)
 {
-    ar& o.channelID& o.message& o.msgID& o.senderID& o.msgIdOwner;
+    ar& o.channelID& o.message& o.msgID& o.senderID& o.msgIdOwner& o.userLogin;
 }
 
 }  // namespace Network
