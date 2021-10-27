@@ -1,8 +1,9 @@
 project(Base LANGUAGES CXX)
 
+set(TARGET Base)
+set(FOLDER "Base")
+
 add_subdirectory(Logger)
 add_subdirectory(Crypto)
-
-set(TARGET Base)
 
 add_library(${TARGET} INTERFACE)
