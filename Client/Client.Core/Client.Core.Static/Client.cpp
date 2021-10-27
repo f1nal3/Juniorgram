@@ -1,5 +1,7 @@
 #include "Client.hpp"
 
+#include <limits>
+
 #include <Crypto.Static/Cryptography.hpp>
 #include <Network/Primitives.hpp>
 
@@ -271,7 +273,7 @@ void Client::userMessageReaction(const std::uint64_t messageID, const std::uint3
     mi.msgID = messageID;
 
     // using max uint32_t as special value
-    mi.reactions[reactionID] = static_cast<std::uint32_t>(-1);
+    mi.reactions[reactionID] = std::numeric_limits<std::uint32_t>::max();
     
     Network::Message message;
     message.mHeader.mMessageType = MessageType::MessageReactionRequest;

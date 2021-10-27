@@ -1,5 +1,7 @@
 #include "PostgreRepositories.hpp"
 
+#include <limits>
+
 namespace DataAccess
 {
 std::vector<Network::ChannelInfo> ChannelsRepository::getAllChannelsList()
@@ -288,17 +290,10 @@ Utility::RegistrationCodes RegisterRepository::registerUser(const Network::Regis
     {
         using Utility::ReactionMessageCodes;
 
-        std::map<std::uint32_t, std::string> reactionNames =
-        {
-            { 0, "likes" },
-            { 1, "dislikes" },
-            { 2, "fires" },
-            { 3, "cats" },
-            { 4, "smiles" }
-        };
+        const std::vector<std::string> reactionNames = { "likes", "dislikes", "fires", "cats", "smiles" };
 
         auto reactionInfo = std::find_if(mi.reactions.cbegin(), mi.reactions.cend(),
-            [](std::pair<std::uint32_t, std::uint32_t> p) { return p.second == static_cast<std::uint32_t>(-1); });
+            [](std::pair<std::uint32_t, std::uint32_t> p) { return p.second == std::numeric_limits<std::uint32_t>::max(); });
 
         if (reactionInfo == mi.reactions.end())
         {
@@ -307,7 +302,17 @@ Utility::RegistrationCodes RegisterRepository::registerUser(const Network::Regis
         }
 
         std::uint32_t reactionID = reactionInfo->first;
-        std::string reactionName = reactionNames[reactionID];
+        std::string reactionName = "NULL";
+
+        if (reactionID < reactionNames.size())
+        {
+            reactionName = reactionNames[reactionID];
+        }
+        else
+        {
+            std::cerr << "Reaction with id = \"" << reactionID << "\" is not supported by server";
+            return ReactionMessageCodes::FAILED;
+        }
 
         auto adapter = pTable->getAdapter();
 
