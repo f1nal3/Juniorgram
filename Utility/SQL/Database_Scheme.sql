@@ -6,19 +6,15 @@ CREATE TABLE user_tokens ( user_id int UNIQUE, token varchar(64) NOT NULL, refre
 
 CREATE TABLE user_friends_data ( user_id int NOT NULL, friend_id int UNIQUE NOT NULL );
 
-CREATE TABLE user_channels ( user_id int NOT NULL, channel_id int NOT NULL );
+CREATE TABLE user_channels ( user_id int NOT NULL, channel_id int NOT NULL, UNIQUE (user_id, channel_id) );
 
 CREATE TABLE msgs ( msg_id serial PRIMARY KEY, sender_id int NOT NULL, send_time timestamp, msg text NOT NULL );
 
 CREATE TABLE msg_reactions ( msg_id int NOT NULL, like_number int DEFAULT 0, dislike_number int DEFAULT 0, fire_number int DEFAULT 0, cat_number int DEFAULT 0 );
 
-CREATE TABLE user_from_msgs ( from_id int NOT NULL, msg_id int NOT NULL );
-
-CREATE TABLE user_to_msgs ( to_id int NOT NULL, msg_id int NOT NULL );
-
 CREATE TABLE channel_msgs ( channel_id int NOT NULL, msg_id int NOT NULL );
 
-CREATE TABLE channels ( id serial PRIMARY KEY, channel_name varchar(64) UNIQUE, creator_id int NOT NULL );
+CREATE TABLE channels ( id serial PRIMARY KEY, channel_name varchar(64) UNIQUE, creator_id int NOT NULL, user_limit int NOT NULL );
 
 CREATE TABLE channel_images ( channel_id int NOT NULL, image_id int NOT NULL, save_date timestamp NOT NULL, sender_id int NOT NULL );
 
@@ -57,14 +53,6 @@ ALTER TABLE user_channels ADD FOREIGN KEY (user_id) REFERENCES users (id) ON DEL
 ALTER TABLE user_channels ADD FOREIGN KEY (channel_id) REFERENCES channels (id) ON DELETE SET NULL;
 
 ALTER TABLE msg_reactions ADD FOREIGN KEY (msg_id) REFERENCES msgs (msg_id) ON DELETE CASCADE;
-
-ALTER TABLE user_from_msgs ADD FOREIGN KEY (from_id) REFERENCES users (id) ON DELETE SET NULL;
-
-ALTER TABLE user_from_msgs ADD FOREIGN KEY (msg_id) REFERENCES msgs (msg_id) ON DELETE CASCADE;
-
-ALTER TABLE user_to_msgs ADD FOREIGN KEY (to_id) REFERENCES users (id) ON DELETE SET NULL;
-
-ALTER TABLE user_to_msgs ADD FOREIGN KEY (msg_id) REFERENCES msgs (msg_id) ON DELETE CASCADE;
 
 ALTER TABLE channel_msgs ADD FOREIGN KEY (channel_id) REFERENCES channels (id) ON DELETE CASCADE;
 

@@ -53,7 +53,9 @@ struct Message
         ChannelDeleteRequest,
         ChannelDeleteAnswer,
         ChannelCreateRequest,
-        ChannelCreateAnswer
+        ChannelCreateAnswer,
+        DirectMessageCreateRequest,
+        DirectMessageCreateAnswer,
     };
 
     /**
@@ -73,7 +75,7 @@ struct Message
     /// Message Header variable
     MessageHeader mHeader;
     /// Message Body variable
-    std::any      mBody;
+    std::any mBody;
 
     /// Stream for out message about message ID and Timestapm
     friend std::ostream& operator<<(std::ostream& os, const Message& message)

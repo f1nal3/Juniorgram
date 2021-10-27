@@ -20,7 +20,7 @@ struct ChannelInfo
     /// channel ID uint64_t variable
     std::uint64_t channelID;
     /// channel name string variable
-    std::string   channelName;
+    std::string channelName;
 
 public:
     /// Default ChannelInfo constructor
@@ -49,9 +49,8 @@ void serialize(Archive& ar, Network::ChannelInfo& o)
 }
 
 using ChannelDeleteInfo = ChannelInfo;
-using ChannelLeaveInfo = ChannelInfo;
+using ChannelLeaveInfo  = ChannelInfo;
 
-  
 /**
  * @brief The ChannelSubscriptionInfo struct
  * @details Channel Info struct for information about the channel that the user subscribed.
@@ -69,10 +68,7 @@ public:
     ChannelSubscriptionInfo() = default;
 
     /// ChannelInfo constructor with initializing list
-    ChannelSubscriptionInfo(const std::uint64_t channelID)
-        : channelID(channelID)
-    {
-    }
+    ChannelSubscriptionInfo(const std::uint64_t channelID) : channelID(channelID) {}
     /// Default ChannelSubscriptionInfo destructor
     ~ChannelSubscriptionInfo() = default;
 
@@ -175,7 +171,7 @@ struct MessageInfo
     /// channel ID uint64_t variable
     std::uint64_t channelID;
     /// message string variable
-    std::string   message;
+    std::string message;
     /// msg ID uint64_t variable
     std::uint64_t msgID;
     /// sender ID uint64_t variable
@@ -185,7 +181,7 @@ struct MessageInfo
     /// recipient ID uint64_t variable
     std::uint64_t recipientID;
     /// time string variable
-    std::string   time = Utility::getTimeNow();
+    std::string time = Utility::getTimeNow();
 
     /// Default MessageIndo constructor
     MessageInfo() = default;
@@ -199,11 +195,8 @@ struct MessageInfo
     /// Operator == to compare Message Info
     friend bool operator==(const MessageInfo& first, const MessageInfo& second)
     {
-        return first.message   == second.message   && 
-               first.channelID == second.channelID && 
-               first.time      == second.time      &&
-               first.msgID     == second.msgID     &&
-               first.userLogin == second.userLogin;
+        return first.message == second.message && first.channelID == second.channelID && first.time == second.time &&
+               first.msgID == second.msgID && first.userLogin == second.userLogin;
     }
 };
 
@@ -253,7 +246,6 @@ struct ReplyInfo
                first.channelID  == second.channelID  &&
                first.userLogin  == second.userLogin;
     }
-
 };
 
 /// Serialize method for serialize ReplyInfo for each field

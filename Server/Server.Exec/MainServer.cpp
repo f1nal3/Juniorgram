@@ -1,11 +1,7 @@
 #include <ArgumentParser.hpp>
 #include <Server.hpp>
-#include <algorithm>
-#include <array>
 #include <iostream>
-#include <map>
 #include <stdexcept>
-#include <string>
 
 int main(int argc, const char** argv)
 {

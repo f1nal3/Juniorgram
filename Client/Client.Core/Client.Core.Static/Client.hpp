@@ -36,6 +36,9 @@ public:
     /// Ping a server
     void pingServer() const;
 
+    /// Create direct chat
+    void createDirectChat(uint64_t receiverId) const;
+
     /// Ask for channel list
     void askForChannelList() const;
     /// Ask for channel subscription list
@@ -149,6 +152,8 @@ protected:
     virtual void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
     /// Channel create Answer handler
     virtual void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
+    /// Direct message create Answer handler
+    virtual void onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer);
 
 private:
     asio::io_context _context;

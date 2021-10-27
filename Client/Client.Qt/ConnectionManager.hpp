@@ -63,6 +63,8 @@ signals:
     void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
     /// Channel create Answer handler
     void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
+    /// Direct message create Answer handler
+    void onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer);
 
 private:
     static ReceiverManager* self;
@@ -120,4 +122,6 @@ protected:
     void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode) override;
     /// Channel create Answer handler
     void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode) override;
+    /// Direct message create Answer handler
+    void onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer) override;
 };
