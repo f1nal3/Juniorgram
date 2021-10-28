@@ -326,7 +326,7 @@ Utility::ChannelSubscribingCodes ChannelsRepository::subscribeToChannel(const Ne
 std::vector<uint64_t> ChannelsRepository::getChannelSubscriptionList(uint64_t userID)
 {
     pTable->changeTable("user_channels");
-    /// TODO: add limit check
+    /// T\todo add limit check
     auto listSubscriptionChannel = pTable->Select()->columns({"channel_id"})->Where("user_id = " + std::to_string(userID))->execute();
     std::vector<uint64_t> result;
     if (listSubscriptionChannel.has_value())

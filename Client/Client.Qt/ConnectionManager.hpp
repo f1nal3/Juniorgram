@@ -77,7 +77,7 @@ private:
 class ConnectionManager : public Network::Client
 {
 public:
-    /// TODO: should be in client core
+    /// \todo: should be in client core
     /// Login status
     inline static LoginState loginState;
 

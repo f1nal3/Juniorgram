@@ -20,7 +20,7 @@ public:
     explicit ChannelListPage(std::shared_ptr<ListWidget>& anotherChannelListWidget, QWidget* parent = nullptr);
 
 public:
-    /// TODO: rework channel list in main window to make this private
+    /// T\todo rework channel list in main window to make this private
     inline static std::vector<Network::ChannelInfo> channels;
 
 private:

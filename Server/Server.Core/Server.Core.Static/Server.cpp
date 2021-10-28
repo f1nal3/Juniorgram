@@ -50,7 +50,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
             std::cout << "[" << std::put_time(&formattedTimestamp, "%F %T") << "][" << client->getID() << "]: Message All\n";
 
-            Network::Message msg;  // TODO: Why is a new message needed here?
+            Network::Message msg;  // T\todo Why is a new message needed here?
             msg.mHeader.mMessageType = Network::Message::MessageType::ServerMessage;
             // msg << client->getID();
 

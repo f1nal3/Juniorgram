@@ -299,7 +299,7 @@ void Client::loop()
 
             case MessageType::ServerMessage:
             {
-                // TODO: add handling
+                // T\todo add handling
                 uint64_t clientID = 0;
                 onServerMessage(clientID);
             }

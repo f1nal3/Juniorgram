@@ -41,7 +41,7 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
         messageMenu->addAction(menuReactions);
         messageMenu->addSeparator();
 
-        // TODO: implement a better way to delete a message "through server"
+        // T\todo implement a better way to delete a message "through server"
         messageMenu->addAction("Delete message", [=]() { onDelete(); });
         popup->setMenu(std::move(messageMenu));
 

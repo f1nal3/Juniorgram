@@ -43,7 +43,7 @@ void Application::create()
     _connectionManager = std::make_unique<ConnectionManager>();
     _connectionManager->init();
 
-    // TODO: it now may crash
+    // T\todo it now may crash
     //  connect(ReceiverManager::instance(), &ReceiverManager::onDisconnect, this, &Application::reconnectToServer);
 
     setAppState(App::AppState::LoginForm);

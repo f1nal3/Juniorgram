@@ -2,7 +2,7 @@
 
 #include <QPainter>
 
-// TODO: a better shadow on corners
+// T\todo a better shadow on corners
 /**
  * @brief Draw a shadow for main window
  * @param _p Painter

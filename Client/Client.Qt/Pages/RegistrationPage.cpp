@@ -102,7 +102,7 @@ void RegistrationPage::onRegistration(Utility::RegistrationCodes code)
     }
     else
     {
-        // TODO: notification
+        // T\todo notification
 
         if (code == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
         {

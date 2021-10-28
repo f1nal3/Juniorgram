@@ -499,7 +499,7 @@ void ScrollArea::setOwnedWidget(std::unique_ptr<QWidget> w)
 {
     if (widget())
     {
-        // TODO: if we will something done to widget undo it
+        // T\todo if we will something done to widget undo it
     }
     _widget = std::move(w);
     QScrollArea::setWidget(_widget.get());
