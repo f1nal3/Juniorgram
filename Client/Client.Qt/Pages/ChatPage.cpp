@@ -24,13 +24,13 @@ ChatPage::ChatPage(QWidget* parent) : Page(parent)
     connect(_channelListWidget->getChannelList().get(), &ListWidget::itemPressed, [&]() {
         auto findChannelID = [&]() {
             const auto channelName = _channelListWidget->getChannelList()->currentItem()->text().toStdString();
-            auto       channelItartor =
+            auto       channelIterator =
                 std::find_if(ChannelListPage::channels.begin(), ChannelListPage::channels.end(),
                              [&](const Network::ChannelInfo& channelInfo) { return channelName == channelInfo.channelName; });
 
-            std::cout << channelItartor->channelName << " id: " << channelItartor->channelID << std::endl;
+            std::cout << channelIterator->channelName << " id: " << channelIterator->channelID << std::endl;
 
-            return channelItartor->channelID;
+            return channelIterator->channelID;
         };
 
         if (_chatSwitchWidget->widget(_channelListWidget->getChannelList()->currentRow()) == nullptr)

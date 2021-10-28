@@ -114,6 +114,14 @@ public:
      */
     void userAuthorization(const std::string& login, const std::string& password) const;
 
+    /**
+     * @brief Send user reaction change to database
+     * @param Message ID as std::uint64_t messageID
+     * @param Reaction ID as std::uint32_t reactionID
+     * @details Supported reaction IDs are 0(like), 1(dislike), 2(fire), 3(cat), 4(smile)
+     */
+    void userMessageReaction(const std::uint64_t messageID, const std::uint32_t reactionID) const;
+
 protected:
     /// Disconnect handler
     virtual void onDisconnect();
@@ -154,7 +162,9 @@ protected:
     virtual void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
     /// Direct message create Answer handler
     virtual void onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer);
-
+    /// Reaction Answer handler
+    virtual void onMessageReactionAnswer(Utility::ReactionMessageCodes reactionState);
+    
 private:
     asio::io_context _context;
     std::thread      _contextThread;

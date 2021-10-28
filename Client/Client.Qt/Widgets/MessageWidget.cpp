@@ -23,7 +23,7 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
 {
     setContentsMargins(QMargins(_st.radius, _st.radius, _st.radius, _st.radius));
     setMinimumHeight(_st.fontname->height + _st.radius * 2);
-
+    
     _fmtMessageText = std::make_unique<FlatTextEdit>(this, _st.textedit);
     _fmtMessageText->setText(_messageText);
     _fmtMessageText->setAcceptDrops(false);
@@ -38,6 +38,10 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
         popup->setDeleteOnHide(true);
         auto       messageMenu   = std::make_unique<Menu>();
         const auto menuReactions = new ReactionLayout(this, 400, 0, true);
+
+        connect(menuReactions, &ReactionLayout::onClick,
+                this, &MessageWidget::onReaction);
+
         messageMenu->addAction(menuReactions);
         messageMenu->addSeparator();
 
@@ -48,7 +52,11 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
         auto globalPoint = mapToGlobal(QPoint(_menuBtn->x(), _menuBtn->height()));
         popup->popup(QPoint(globalPoint.x(), globalPoint.y() + 1));
     });
+
     _reactions = std::make_unique<ReactionLayout>(this);
+    
+    connect(_reactions.get(), &ReactionLayout::onClick,
+            this, &MessageWidget::onReaction);
 
     _replyBtn = std::make_unique<FlatButton>(this, "Reply", _st.button);
     _replyBtn->setClickCallback([&](){ createReply(); });
@@ -111,6 +119,11 @@ void MessageWidget::onDelete()
     resize(width(), _st.fontname->height + _st.radius * 2);
     update();
     oApp->connectionManager()->userMessageDelete(_messageId);
+}
+
+void MessageWidget::onReaction(const std::uint32_t reactionID)
+{
+    oApp->connectionManager()->userMessageReaction(_messageId, reactionID);
 }
 
 void MessageWidget::setMessageText(const QString& newMessage)

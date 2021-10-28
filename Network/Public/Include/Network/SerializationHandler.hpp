@@ -88,6 +88,14 @@ public:
                     state = processOutcomingMessageBody<Utility::EditingMessageCodes>(bodyBuffer, message.mBody);
                     break;       
 
+                case Message::MessageType::MessageReactionRequest:
+                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::MessageReactionAnswer:
+                    state = processOutcomingMessageBody<Utility::ReactionMessageCodes>(bodyBuffer, message.mBody);
+                    break;
+                    
                 case Message::MessageType::RegistrationRequest:
                     state = processOutcomingMessageBody<RegistrationInfo>(bodyBuffer, message.mBody);
                     break;
@@ -239,6 +247,16 @@ public:
             case Message::MessageType::MessageDeleteAnswer:
             {
                 state = processIncomingMessageBody<Utility::DeletingMessageCodes>(buffer, message);
+                break;
+            }
+            case Message::MessageType::MessageReactionRequest:
+            {
+                state = processIncomingMessageBody<MessageInfo>(buffer, message);
+                break;
+            }
+            case Message::MessageType::MessageReactionAnswer:
+            {
+                state = processIncomingMessageBody<Utility::ReactionMessageCodes>(buffer, message);
                 break;
             }
             case Message::MessageType::RegistrationRequest:

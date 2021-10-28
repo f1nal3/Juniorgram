@@ -52,7 +52,8 @@ struct MessagesRepository final : IMessagesRepository, AbstractPostgreRepository
     std::vector<Network::MessageInfo> getMessageHistory(const std::uint64_t channelID) final;
     Utility::StoringMessageCodes      storeMessage(const Network::MessageInfo& mi) final;
     Utility::DeletingMessageCodes     deleteMessage(const Network::MessageInfo& mi) final;
-        Utility::EditingMessageCodes      editMessage(const Network::MessageInfo& mi) final;
+    Utility::EditingMessageCodes      editMessage(const Network::MessageInfo& mi) final;
+    Utility::ReactionMessageCodes     updateMessageReactions(const Network::MessageInfo& mi) final;
 
     ~MessagesRepository() final = default;
 
