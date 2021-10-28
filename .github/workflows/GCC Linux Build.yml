@@ -2,9 +2,9 @@ name: GCC Linux Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ dev ]
   pull_request:
-    branches: [ master ]
+    branches: [ dev ]
 
 jobs:
   build:
@@ -79,7 +79,7 @@ jobs:
         path: ./build/bin/Server.Exec
         
     - name: Setup SSH
-      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/master'
+      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'
       run: |
           mkdir -p ~/.ssh/
           echo "$SSH_KEY" > ~/.ssh/staging.key
@@ -97,17 +97,17 @@ jobs:
           SSH_HOST: ${{ secrets.HOST_IP_ADDRESS }}
           
     - name: Stop JG Service
-      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/master'
+      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'
       run: |
           ssh jg_host 'sudo systemctl stop juniorgram.test.service '
           ssh jg_host 'sudo rm juniorgram.test' 
   
     - name: Upload server to Host
-      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/master'    
+      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'    
       run: scp ./build/bin/Server.Exec jg_host:/home/jg_admin/juniorgram.test
         
     - name: Start JG Service
-      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/master'
+      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'
       run: |
           ssh jg_host 'sudo chmod +x juniorgram.test'
           ssh jg_host 'sudo systemctl start juniorgram.test.service'
