@@ -12,6 +12,8 @@ set(SOURCE_FILES
 
 add_executable(${TARGET} ${SOURCE_FILES})
 
+set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
+
 install(TARGETS ${TARGET}
         CONFIGURATIONS Debug
         RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/PerformanceTest/Debug)

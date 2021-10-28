@@ -70,6 +70,20 @@ void ConnectionManager::onReplyStoreAnswer(Utility::StoringReplyCodes storingRep
     emit ReceiverManager::instance()->onReplyStoreAnswer(storingReplyCode);
 }
 
+void ConnectionManager::onMessageReactionAnswer(const Utility::ReactionMessageCodes reactionCode)
+{
+    if (reactionCode == Utility::ReactionMessageCodes::SUCCESS)
+    {
+        std::cout << "Reaction update SUCCESS\n";
+    }
+    else if (reactionCode == Utility::ReactionMessageCodes::FAILED)
+    {
+        std::cout << "Reaction update FAILED\n";
+    }
+    qRegisterMetaType<Utility::ReactionMessageCodes>("Utility::ReactionMessageCodes");
+    emit ReceiverManager::instance()->onMessageReactionAnswer(reactionCode);
+}
+
 void ConnectionManager::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
 {
     qRegisterMetaType<Utility::RegistrationCodes>("Utility::RegistrationCodes");

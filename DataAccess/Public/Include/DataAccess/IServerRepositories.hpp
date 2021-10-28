@@ -25,6 +25,9 @@ struct IMessagesRepository : IMasterRepository
 
     /// Pure Virtual method for editing Message
     virtual Utility::EditingMessageCodes editMessage(const Network::MessageInfo& mi) = 0;
+    
+    /// Pure Virtual method for updating message reactions
+    virtual Utility::ReactionMessageCodes updateMessageReactions(const Network::MessageInfo& mi) = 0;
 
     /// Default virtual destructor
     virtual ~IMessagesRepository() = default;

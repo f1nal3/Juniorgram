@@ -1,8 +1,11 @@
 project(Utility LANGUAGES CXX)
 
+set(TARGET Utility)
+set(FOLDER "Utility")
+
 add_subdirectory(Utility.Public)
 add_subdirectory(Utility.Test)
 
-set(TARGET Utility)
+
 
 add_library(${TARGET} INTERFACE)

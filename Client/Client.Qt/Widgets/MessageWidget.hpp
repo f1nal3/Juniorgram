@@ -80,6 +80,11 @@ public:
      */
     uint64_t getMessageID() const { return _messageId; }
 
+    /**
+     * @brief Compares MessageWidgets by their message's send time
+     */
+    friend bool operator<(const MessageWidget& lhs, const MessageWidget& rhs) { return lhs._datetime < rhs._datetime; }
+
 public slots:
     /**
      * @brief Method a method for deleting a message on the client side
@@ -90,6 +95,10 @@ public slots:
      * @brief Method for create new reply for message.
      */
     void createReply();
+    /**
+     * @brief Method for updating message reactions
+     */
+    void onReaction(const std::uint32_t reactionID);
 
 signals:
     void geometryChanged(int);

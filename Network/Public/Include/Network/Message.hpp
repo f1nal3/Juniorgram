@@ -56,6 +56,8 @@ struct Message
         ChannelCreateAnswer,
         DirectMessageCreateRequest,
         DirectMessageCreateAnswer,
+        MessageReactionRequest,
+        MessageReactionAnswer
     };
 
     /**

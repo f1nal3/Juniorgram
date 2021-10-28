@@ -23,7 +23,7 @@ using RawFuture   = std::future<std::any>;
 /**
  * @brief  fmt function uses for converting arguments,
  *          that you pass to repository method to correct from.
- * @param  ref - argument that is passing to reposiroty method.
+ * @param  ref - argument that is passing to repository method.
  * @return Return correct format argument.
  *                 (For fundamental types like int, float, etc - by value, all other - by const ref).
  */
@@ -68,7 +68,7 @@ private:
     RequestTask mTask;
 
 public:
-    RepositoryRequest(ePriority priority, RequestTask& task) : mPriority(priority), mTask(std::move(task)) {}
+    explicit RepositoryRequest(ePriority priority, RequestTask& task) : mPriority(priority), mTask(std::move(task)) {}
 
     RepositoryRequest(RepositoryRequest&& other) noexcept
     {
@@ -88,13 +88,13 @@ public:
      * @brief  Getter for priority from request.
      * @return ePriority.
      */
-    ePriority getPriority(void) const noexcept { return mPriority; }
+    ePriority getPriority() const noexcept { return mPriority; }
 
     /**
      * @brief  Getter for raw future from task.
      * @return future<any>.
      */
-    RawFuture getFutureFromTask(void) { return mTask.get_future(); }
+    RawFuture getFutureFromTask() { return mTask.get_future(); }
 
 public:
     bool operator>(const RepositoryRequest& task) const noexcept { return this->mPriority > task.mPriority; }
@@ -105,7 +105,7 @@ public:
     /**
      * @brief Invoke operator for request task.
      */
-    inline void operator()(void) { mTask(); }
+    inline void operator()() { mTask(); }
 };
 
 /**
@@ -119,20 +119,20 @@ private:
     RawFuture mFuture;
 
 public:
-    FutureResult(RawFuture&& future) : mFuture(std::move(future)) {}
+    explicit FutureResult(RawFuture&& future) : mFuture(std::move(future)) {}
 
     /**
      * @brief   Like common std::future::get().
      * @details The difference is that returns not a raw data (any).
      * @return  Already known type value.
      */
-    TFromAny get(void) { return std::any_cast<TFromAny>(mFuture.get()); }
+    TFromAny get() { return std::any_cast<TFromAny>(mFuture.get()); }
 };
 
 /**
  * @class   PostgreRepositoryManager
  * @brief   PostgreRepositoryManager controls handler for repository requests.
- * @details Controls push to queue and furthur processing of requests (have own thread for it).
+ * @details Controls push to queue and further processing of requests (have own thread for it).
  */
 class PostgreRepositoryManager
 {
@@ -140,24 +140,19 @@ private:
     std::unique_ptr<AbstractRepositoryContainer> mRepositories;
     std::priority_queue<RepositoryRequest>       mQueue;
 
-    std::mutex mPushMutex;
-    std::mutex mPopMutex;
+    std::mutex mQueueMutex;
 
     std::atomic<bool> mHandlerState;
-    std::thread       mReposritoryRequestsHandler;
+    std::thread       mRepositoryRequestsHandler;
 
 public:
-    PostgreRepositoryManager(std::shared_ptr<IAdapter> repositoryContainer)
-        : mRepositories(std::make_unique<PostgreRepositoryContainer>(repositoryContainer)),
-          mQueue(),
-          mPushMutex(),
-          mPopMutex(),
-          mHandlerState(true)
+    explicit PostgreRepositoryManager(const std::shared_ptr<IAdapter>& repositoryContainer)
+        : mRepositories(std::make_unique<PostgreRepositoryContainer>(repositoryContainer)), mQueue(), mQueueMutex(), mHandlerState(true)
     {
         this->privateRegisterRepositories();
     }
 
-    ~PostgreRepositoryManager() { mReposritoryRequestsHandler.join(); }
+    ~PostgreRepositoryManager() { mRepositoryRequestsHandler.join(); }
 
 public:
     /**
@@ -171,13 +166,13 @@ public:
     template <ePriority priority = ePriority::_15, typename TIRepository, typename TReturn, typename... TArgs>
     FutureResult<TReturn> pushRequest(const MethodReference<TIRepository, TReturn, TArgs...>& methodRef, TArgs&&... args)
     {
-        std::unique_lock<std::mutex> lck(mPushMutex);
-
         static_assert(std::is_base_of_v<IMasterRepository, TIRepository>, "Current type is not implement IMasterRepository!");
         static_assert(std::is_polymorphic_v<TIRepository> && std::is_abstract_v<TIRepository>,
                       "Current type is not polymorphic or abstract!");
         static_assert(std::is_member_function_pointer_v<MethodReference<TIRepository, TReturn, TArgs...>>,
                       "You passed not a method reference!");
+
+        std::unique_lock<std::mutex> lck(mQueueMutex);
 
         RepositoryRequest     request = this->privateCreateRequest<priority>(methodRef, std::forward<TArgs>(args)...);
         FutureResult<TReturn> futureResult(request.getFutureFromTask());
@@ -191,7 +186,7 @@ public:
      * @brief  Predicate for checking: is queue empty?
      * @return if empty - true, else - false.
      */
-    bool empty(void) const noexcept { return mQueue.empty(); }
+    bool empty() const noexcept { return mQueue.empty(); }
 
     // \todo: Do better handler
     // (Probably, will be better to create thread pool
@@ -200,9 +195,9 @@ public:
      * @brief   Requests handler.
      * @details Creates inside itself a thread that handle all requests in queue.
      */
-    void handleRequests(void)
+    void handleRequests()
     {
-        mReposritoryRequestsHandler = std::thread([this]() {
+        mRepositoryRequestsHandler = std::thread([this]() {
             while (mHandlerState)
             {
                 if (!this->empty())
@@ -235,9 +230,9 @@ private:
      * @brief  Extract request from queue.
      * @return Repository request.
      */
-    RepositoryRequest privatePopRequest(void) noexcept
+    RepositoryRequest privatePopRequest() noexcept
     {
-        std::unique_lock<std::mutex> lck(mPopMutex);
+        std::unique_lock<std::mutex> lck(mQueueMutex);
 
         RepositoryRequest request = std::move(const_cast<RepositoryRequest&>(mQueue.top()));
         mQueue.pop();
@@ -248,7 +243,7 @@ private:
     /**
      * @brief Needs to register all repositories in repository container.
      */
-    void privateRegisterRepositories(void)
+    void privateRegisterRepositories()
     {
         mRepositories->registerRepository<IChannelsRepository, ChannelsRepository>();
         mRepositories->registerRepository<ILoginRepository, LoginRepository>();

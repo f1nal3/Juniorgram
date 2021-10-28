@@ -1,4 +1,4 @@
-project(LoggerLANGUAGES CXX)
+project(Logger LANGUAGES CXX)
 
 add_subdirectory(Public)
 add_subdirectory(Logger.Static)

@@ -1,5 +1,7 @@
 #include "Client.hpp"
 
+#include <limits>
+
 #include <Crypto.Static/Cryptography.hpp>
 #include <Network/Primitives.hpp>
 
@@ -265,6 +267,21 @@ void Client::createDirectChat(uint64_t receiverId) const
     send(networkMessage);
 }
 
+void Client::userMessageReaction(const std::uint64_t messageID, const std::uint32_t reactionID) const
+{
+    Network::MessageInfo mi;
+    mi.msgID = messageID;
+
+    // using max uint32_t as special value
+    mi.reactions[reactionID] = std::numeric_limits<std::uint32_t>::max();
+    
+    Network::Message message;
+    message.mHeader.mMessageType = MessageType::MessageReactionRequest;
+    message.mBody                = std::make_any<Network::MessageInfo>(mi);
+
+    send(message);
+}
+
 void Client::loop()
 {
     while (!_incomingMessagesQueue.empty())
@@ -384,6 +401,13 @@ void Client::loop()
                 onChannelCreateAnswer(channelCreateCode);
             }
             break;
+            
+            case MessageType::MessageReactionAnswer:
+            {
+                auto messageInfo = std::any_cast<Utility::ReactionMessageCodes>(message.mBody);
+                onMessageReactionAnswer(messageInfo);
+            }
+            break;
 
             case MessageType::DirectMessageCreateAnswer:
             {
@@ -446,6 +470,12 @@ void Client::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes delet
 {
     (void)(deletingState);
     std::cerr << "[Client][Warning] onUserMessageDeleteAnswer answer is not implemented\n";
+}
+
+void Client::onMessageReactionAnswer(const Utility::ReactionMessageCodes reactionState)
+{
+    (void)(reactionState);
+    std::cerr << "[Client][Warning] onMessageReaction answer is not implemented\n";
 }
 
 void Client::onDisconnect() { std::cerr << "[Client][Warning] onDisconnect is not implemented\n"; }

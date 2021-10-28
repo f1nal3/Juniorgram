@@ -14,6 +14,8 @@ endif()
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
+set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
+
 target_include_directories(${TARGET}
     INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(${TARGET} PRIVATE

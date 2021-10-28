@@ -62,6 +62,14 @@ public:
      * Storing failed     - StoringMessageCodes::FAILED.
      */
     virtual Utility::EditingMessageCodes editMessage(const Network::MessageInfo& mi) = 0;
+    
+    /**  @brief Method for updating message reactions
+     *   @param Network::MessageInfo which contains message's reaction map(id, count) with changed reaction count set to uint32_t max
+     *   @return The return value of the method is one of the ReactionMessageCodes (enum): /
+     *   Update successful - ReactionMessageCodes::SUCCESS. /
+     *   Update failed     - ReactionMessageCodes::FAILED.
+     */
+    virtual Utility::ReactionMessageCodes updateMessageReactions(const Network::MessageInfo& mi) = 0;
 
     /**  @brief Method for user registration.
      *   @param RegistrationMessage which contains user data for registration.

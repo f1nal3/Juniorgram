@@ -93,6 +93,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
             mi.senderID = client->getUserID();
             mi.message  = Utility::removeSpaces(mi.message);
+            mi.time = Utility::millisecondsSinceEpoch();
 
             auto future = mPostgreManager->pushRequest(&IMessagesRepository::storeMessage, fmt(mi));
 
@@ -168,6 +169,22 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
             const auto editingMessageCode = future.get();
             answerForClient.mBody         = std::make_any<Utility::EditingMessageCodes>(editingMessageCode);
+            client->send(answerForClient);
+        }
+        break;
+        
+        case Network::Message::MessageType::MessageReactionRequest:
+        {
+            auto messageInfo = std::any_cast<Network::MessageInfo>(message.mBody);
+            messageInfo.senderID = client->getUserID();
+            
+            auto future = mPostgreManager->pushRequest(&IMessagesRepository::updateMessageReactions, fmt(messageInfo));
+
+            Network::Message answerForClient;
+            answerForClient.mHeader.mMessageType = Network::Message::MessageType::MessageReactionAnswer;
+
+            const auto reactionMessageCode = future.get();
+            answerForClient.mBody          = std::make_any<Utility::ReactionMessageCodes>(reactionMessageCode);
             client->send(answerForClient);
         }
         break;

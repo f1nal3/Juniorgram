@@ -10,6 +10,8 @@ set(SOURCE_FILES
 
 add_executable(${TARGET} ${SOURCE_FILES})
 
+set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
+
 target_link_libraries(${TARGET} PUBLIC
         CONAN_PKG::libpq
         CONAN_PKG::libpqxx

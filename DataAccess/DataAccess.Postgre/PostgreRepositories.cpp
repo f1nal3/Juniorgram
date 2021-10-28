@@ -1,5 +1,7 @@
 #include "PostgreRepositories.hpp"
 
+#include <limits>
+
 namespace DataAccess
 {
 std::vector<Network::ChannelInfo> ChannelsRepository::getAllChannelsList()
@@ -138,29 +140,44 @@ std::vector<Network::MessageInfo> MessagesRepository::getMessageHistory(const st
 
     pTable->changeTable("msgs");
     auto messageHistoryRow = pTable->Select()
-                                 ->columns({"msgs.msg_id, msgs.sender_id, msgs.send_time, msgs.msg, users.login, users.id"})
-                                 ->join(Utility::SQLJoinType::J_INNER, "channel_msgs", "channel_msgs.msg_id = msgs.msg_id")
-                                 ->join(Utility::SQLJoinType::J_INNER, "users", "users.id = msgs.sender_id")
-                                 ->Where("channel_msgs.channel_id = " + std::to_string(channelID))
-                                 ->execute();
+        ->columns({ "msgs.msg_id, msgs.sender_id, extract(epoch from msgs.send_time) * 1000, msgs.msg, "
+                    "users.login, users.id, "
+                    "coalesce(array_length(msg_reactions.likes, 1), 0), "
+                    "coalesce(array_length(msg_reactions.dislikes, 1), 0), "
+                    "coalesce(array_length(msg_reactions.fires, 1), 0), "
+                    "coalesce(array_length(msg_reactions.cats, 1), 0), "
+                    "coalesce(array_length(msg_reactions.smiles, 1), 0)"
+            })
+        ->join(Utility::SQLJoinType::J_INNER, "channel_msgs", "channel_msgs.msg_id = msgs.msg_id")
+        ->join(Utility::SQLJoinType::J_INNER, "users", "users.id = msgs.sender_id")
+        ->join(Utility::SQLJoinType::J_INNER, "msg_reactions", "msg_reactions.msg_id = msgs.msg_id")
+        ->Where("channel_msgs.channel_id = " + std::to_string(channelID))
+        ->execute();
 
     if (messageHistoryRow.has_value())
     {
         Network::MessageInfo mi;
         mi.channelID = channelID;
+
         for (auto&& value : messageHistoryRow.value())
         {
-            mi.msgID     = value[0].as<std::uint64_t>();
-            mi.senderID  = value[1].as<std::uint64_t>();
-            mi.time      = value[2].as<std::string>();
-            mi.message   = value[3].as<std::string>();
-            mi.userLogin = value[4].as<std::string>();
+            mi.msgID        = value[0].as<std::uint64_t>();
+            mi.senderID     = value[1].as<std::uint64_t>();
+            mi.time         = value[2].as<std::int64_t>();
+            mi.message      = value[3].as<std::string>();
+            mi.userLogin    = value[4].as<std::string>();
+            mi.reactions[0] = value[6].as<std::uint32_t>();
+            mi.reactions[1] = value[7].as<std::uint32_t>();
+            mi.reactions[2] = value[8].as<std::uint32_t>();
+            mi.reactions[3] = value[9].as<std::uint32_t>();
+            mi.reactions[4] = value[10].as<std::uint32_t>();
             result.emplace_back(mi);
         }
     }
 
     return result;
 }
+
 Utility::StoringMessageCodes MessagesRepository::storeMessage(const Network::MessageInfo& mi)
 {
     const auto firstResult = insertMessageIntoMessagesTable(mi);
@@ -188,6 +205,7 @@ Utility::StoringMessageCodes MessagesRepository::storeMessage(const Network::Mes
 
     return Utility::StoringMessageCodes::SUCCESS;
 }
+
 Utility::DeletingMessageCodes MessagesRepository::deleteMessage(const Network::MessageInfo& mi)
 {
     using Utility::DeletingMessageCodes;
@@ -203,13 +221,18 @@ Utility::DeletingMessageCodes MessagesRepository::deleteMessage(const Network::M
 
     return DeletingMessageCodes::FAILED;
 }
+
 std::optional<pqxx::result> MessagesRepository::insertMessageIntoMessagesTable(const Network::MessageInfo& mi)
 {
-    std::tuple dataForMsgs{std::pair{"sender_id", mi.senderID}, std::pair{"send_time", mi.time.c_str()}, std::pair{"msg", mi.message}};
+    auto adapter = pTable->getAdapter();
 
-    pTable->changeTable("msgs");
-    return pTable->Insert()->columns(dataForMsgs)->returning({"msg_id"})->execute();
+    auto result = adapter->query("INSERT INTO msgs(sender_id, send_time, msg) VALUES (" + std::to_string(mi.senderID)
+        + ", to_timestamp(" + std::to_string(mi.time) + " / 1000.0) AT TIME ZONE 'utc', "
+        + Utility::CheckForSQLSingleQuotesProblem(mi.message) + ") RETURNING msg_id;");
+
+    return { std::any_cast<pqxx::result>(result.value()) };
 }
+
 std::optional<pqxx::result> MessagesRepository::insertIDsIntoChannelMessagesTable(const std::uint64_t channelID,
                                                                                   const std::uint64_t messageID)
 {
@@ -217,6 +240,7 @@ std::optional<pqxx::result> MessagesRepository::insertIDsIntoChannelMessagesTabl
     pTable->changeTable("channel_msgs");
     return pTable->Insert()->columns(dataForChannelMsgs)->returning({"channel_id"})->execute();
 }
+
 std::optional<pqxx::result> MessagesRepository::insertIDIntoMessageReactionsTable(const std::uint64_t messageID)
 {
     pTable->changeTable("msg_reactions");
@@ -264,9 +288,58 @@ Utility::RegistrationCodes RegisterRepository::registerUser(const Network::Regis
 
     return Utility::RegistrationCodes::SUCCESS;
 }
-    
-    std::vector<Network::ReplyInfo>   RepliesRepository::getReplyHistory(const std::uint64_t channelID)
+
+Utility::ReactionMessageCodes MessagesRepository::updateMessageReactions(const Network::MessageInfo& mi)
+{
+    using Utility::ReactionMessageCodes;
+
+    const std::vector<std::string> reactionNames = { "likes", "dislikes", "fires", "cats", "smiles" };
+
+    auto reactionInfo = std::find_if(mi.reactions.cbegin(), mi.reactions.cend(),
+        [](std::pair<std::uint32_t, std::uint32_t> p) { return p.second == std::numeric_limits<std::uint32_t>::max(); });
+
+    if (reactionInfo == mi.reactions.end())
     {
+        std::cerr << "Invalid reaction info supplied" << std::endl;
+        return ReactionMessageCodes::FAILED;
+    }
+
+    std::uint32_t reactionID = reactionInfo->first;
+    std::string reactionName = "NULL";
+
+    if (reactionID < reactionNames.size())
+    {
+        reactionName = reactionNames[reactionID];
+    }
+    else
+    {
+        std::cerr << "Reaction with id = \"" << reactionID << "\" is not supported by server";
+        return ReactionMessageCodes::FAILED;
+    }
+
+    auto adapter = pTable->getAdapter();
+
+    pTable->changeTable("msg_reactions");
+    std::optional<pqxx::result> userQueryResult =
+        pTable->Select()->columns({ "*" })->Where("msg_id=" + std::to_string(mi.msgID))
+        ->And(std::to_string(mi.senderID) + " = ANY(" + reactionName + ");")->execute();
+
+    if (userQueryResult.has_value())
+    {
+        adapter->query("UPDATE msg_reactions SET " + reactionName
+            + " = array_remove(" + reactionName + ", " + std::to_string(mi.senderID) + ") WHERE msg_id = " + std::to_string(mi.msgID) + ";");
+    }
+    else
+    {
+        adapter->query("UPDATE msg_reactions SET " + reactionName
+            + " = array_append(" + reactionName + ", " + std::to_string(mi.senderID) + ") WHERE msg_id = " + std::to_string(mi.msgID) + ";");
+    }
+
+    return ReactionMessageCodes::SUCCESS;
+}
+
+std::vector<Network::ReplyInfo>   RepliesRepository::getReplyHistory(const std::uint64_t channelID)
+{
         std::vector<Network::ReplyInfo> result;
 
         pTable->changeTable("replies");
