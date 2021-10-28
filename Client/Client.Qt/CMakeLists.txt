@@ -110,6 +110,8 @@ set(SOURCE_FILES
 add_executable(${TARGET} ${SOURCE_FILES} ${STYLE_SOURCES} ${UI_WIDGETS_SOURCES} ${PAGES_SOURCES}
         resources/resources.qrc)
 
+set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
+
 if (WIN32)
     list(APPEND EXTRA_LIBS ws2_32 wsock32 winmm dwmapi)
 elseif (UNIX AND NOT APPLE)

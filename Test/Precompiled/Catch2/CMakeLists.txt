@@ -1,11 +1,17 @@
-set(TARGET Precompiled.Catch2)
+set(TARGET_MAIN Precompiled.Catch2.Main)
+set(TARGET_TEST Precompiled.Catch2.Test)
+
 set(OUTPUT_NAME Precompiled.Catch2)
 
-add_library(Precompiled.Catch2.Main STATIC CatchMainConfig.cpp)
-target_include_directories(Precompiled.Catch2.Main PUBLIC "${CONAN_CATCH2_ROOT}/include/catch2")
+add_library(${TARGET_MAIN} STATIC CatchMainConfig.cpp)
+target_include_directories(${TARGET_MAIN} PUBLIC "${CONAN_CATCH2_ROOT}/include/catch2")
 
-add_executable(Precompiled.Catch2.Test CatchDummyTest.cpp)
-target_link_libraries(Precompiled.Catch2.Test Precompiled.Catch2.Main)
+add_executable(${TARGET_TEST} CatchDummyTest.cpp)
 
-target_compile_definitions(Precompiled.Catch2.Test PRIVATE CATCH_CONFIG_FAST_COMPILE)
-target_precompile_headers(Precompiled.Catch2.Test PRIVATE "${CONAN_CATCH2_ROOT}/include/catch2/catch.hpp")
+set_target_properties(${TARGET_MAIN} PROPERTIES FOLDER ${FOLDER})
+set_target_properties(${TARGET_TEST} PROPERTIES FOLDER ${FOLDER})
+
+target_link_libraries(${TARGET_TEST} ${TARGET_MAIN})
+
+target_compile_definitions(${TARGET_TEST} PRIVATE CATCH_CONFIG_FAST_COMPILE)
+target_precompile_headers(${TARGET_TEST} PRIVATE "${CONAN_CATCH2_ROOT}/include/catch2/catch.hpp")

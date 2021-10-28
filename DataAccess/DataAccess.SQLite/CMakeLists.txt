@@ -11,5 +11,7 @@ set(SOURCE_FILES
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
+set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
+
 target_link_libraries(${TARGET}
         PUBLIC Qt::Sql DataAccess.Public Utility.Public)

@@ -6,10 +6,12 @@ set(SOURCE_FILES
 
 add_executable(${TARGET} ${SOURCE_FILES})
 
-target_link_libraries(${TARGET} PUBLIC
-        Precompiled.Catch2.Main
-        Base.Logger.Public
-        Base.Logger.Static)
+set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
+
+target_link_libraries(${TARGET} PUBLIC 
+    Precompiled.Catch2.Main
+    Base.Logger.Public
+    Base.Logger.Static)
 
 target_include_directories(${TARGET} PRIVATE
         $<TARGET_PROPERTY:Base.Logger.Static,SOURCE_DIR>/..)
