@@ -117,7 +117,7 @@ void ConnectionManager::onUserMessageDeleteAnswer(const Utility::DeletingMessage
     {
         std::cout << "UNKNOWN deleting message code" << std::endl;
     }
-
+    qRegisterMetaType<Utility::DeletingMessageCodes>("Utility::DeletingMessageCodes");
     emit ReceiverManager::instance()->onUserMessageDeleteAnswer(deletingCode);
 }
 
