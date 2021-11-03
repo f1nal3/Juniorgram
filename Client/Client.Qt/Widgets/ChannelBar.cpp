@@ -9,7 +9,12 @@ ChannelBar::ChannelBar(QWidget* parent, QString channelName /* const Network::Ch
     _leaveChannel->setClickCallback([this]() {
         leaveChannel();
         emit leaveChannelClick();
-        });
+    });
+    _deleteChannel->setClickCallback([this]() {
+        leaveChannel();
+        deleteChannel();
+        emit leaveChannelClick();
+    });
     setMinimumHeight(_leaveChannel->minimumHeight()  // minimal button height
                      + st::defaultMargin             // top margin
                      + st::defaultMargin);           // bottom margin
@@ -46,5 +51,13 @@ void ChannelBar::leaveChannel()
     if (oApp->connectionManager()->isConnected())
     {
         oApp->connectionManager()->leaveChannel(_channelName.toStdString());
+    }
+}
+
+void ChannelBar::deleteChannel()
+{
+    if (oApp->connectionManager()->isConnected())
+    {
+        oApp->connectionManager()->deleteChannel(_channelName.toStdString());
     }
 }

@@ -60,19 +60,22 @@ Utility::ChannelLeaveCodes ChannelsRepository::leaveChannel(const Network::Chann
 Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Network::ChannelDeleteInfo& channel)
 {
     pTable->changeTable("channels");
-    auto findChannel = pTable->Select()->columns({"creator_id"})->Where("channel_name = '" + channel.channelName + "'")->execute();
+    auto findChannel = pTable->Select()->columns({"creator_id, id"})->Where("channel_name = '" + channel.channelName + "'")->execute();
+    auto creatorlID  = findChannel.value()[0][0].as<uint64_t>();
+    // auto channelID   = findChannel.value()[0][1].as<uint64_t>(); //Temporarily until implementation
     if (!findChannel.has_value())
     {
         return Utility::ChannelDeleteCode::CHANNEL_NOT_FOUND;
     }
-    if (findChannel.value()[0][0].as<uint64_t>() != channel.creatorID)
+    if (creatorlID != channel.creatorID)
     {
         return Utility::ChannelDeleteCode::CHANNEL_IS_NOT_USER;
     }
-    auto result =
-        pTable->Delete()
-            ->Where("channel_name = '" + channel.channelName + "'" + " AND " + "creator_id = " + std::to_string(channel.creatorID))
-            ->execute();
+    pTable->changeTable("channels");
+    auto result = pTable->Delete()
+                      ->Where("channel_name = '" + channel.channelName + "'")
+                      ->And("creator_id = " + std::to_string(channel.creatorID))
+                      ->execute();
     if (result.has_value())
     {
         return Utility::ChannelDeleteCode::FAILED;

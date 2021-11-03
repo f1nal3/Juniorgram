@@ -34,6 +34,7 @@ signals:
 
 private slots:
     void leaveChannel();
+    void deleteChannel();
 
 private:
     void updateLayout();
