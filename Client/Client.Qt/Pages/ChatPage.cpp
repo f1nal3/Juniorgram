@@ -35,14 +35,20 @@ ChatPage::ChatPage(QWidget* parent) : Page(parent)
 
         if (_chatSwitchWidget->widget(_channelListWidget->getChannelList()->currentRow()) == nullptr)
         {
-            auto chatWidget = new ChatWidget();
+            auto chatWidget = new ChatWidget(ChannelListPage::channels[findChannelID() - 1].channelName);
             chatWidget->setChannelID(findChannelID());
             _chatSwitchWidget->insertWidget(_channelListWidget->getChannelList()->currentRow(), chatWidget);
+            connect(chatWidget, &ChatWidget::removeChannel, this, [this]() {
+                _chatSwitchWidget->removeWidget(_chatSwitchWidget->widget(_channelListWidget->getChannelList()->currentRow()));
+                _channelListWidget->getChannelList()->takeItem(_channelListWidget->getChannelList()->currentRow());
+                _channelListWidget->getChannelList()->clearSelection();
+                });
         }
         else
         {
             auto chatWidget = dynamic_cast<ChatWidget*>(_chatSwitchWidget->widget(_channelListWidget->getChannelList()->currentRow()));
             chatWidget->setChannelID(findChannelID());
+            chatWidget->setChannelName(ChannelListPage::channels[findChannelID() - 1].channelName);
         }
         _chatSwitchWidget->setCurrentIndex(_channelListWidget->getChannelList()->currentRow());
     });

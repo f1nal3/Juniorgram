@@ -18,12 +18,17 @@ public:
      * @brief Constructor for chat widget
      * @param parent Parent widget
      */
-    explicit ChatWidget(QWidget* parent = nullptr);
+    explicit ChatWidget(std::string channelName, QWidget* parent = nullptr);
     /**
      * @brief Method for chat widget
      * @param ID of channel. It's format uint64_t
      */
     void setChannelID(const std::uint64_t channelID) { _channelID = channelID; }
+    void setChannelName(const std::string channelName) 
+    { 
+        _channelName = channelName;
+        _channelBar->setChannelName(QString::fromStdString(_channelName));
+    }
 
 protected:
     /// Handle resize
@@ -38,6 +43,10 @@ private slots:
     void requestMessages() const;
     void updateLayout();
 
+signals:
+    ///
+    void removeChannel();
+
 private:
     std::unique_ptr<ChannelBar>  _channelBar;
     std::unique_ptr<ReplyWidget> _replyWidget;
@@ -46,4 +55,5 @@ private:
 
     std::unique_ptr<QTimer> _requestTimer;
     std::uint64_t           _channelID{};
+    std::string             _channelName;
 };

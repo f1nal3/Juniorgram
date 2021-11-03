@@ -4,6 +4,7 @@
 #include <QWidget>
 
 #include "Buttons.hpp"
+#include "Application.hpp"
 
 /**
  * @class ChannelBar
@@ -16,7 +17,8 @@ class ChannelBar : public QWidget
 public:
     /// Default constructor
     ChannelBar(QWidget* parent,
-               QString  channelName = "haha" /*, const Network::ChannelInfo& info*/);  // for the future, remove channelName to info
+               QString  channelName);
+    void setChannelName(const QString channelName) { _channelName = channelName; }
 
 protected:
     /// Handle paint
@@ -30,14 +32,14 @@ signals:
     /// On delete button click
     void deleteChannelClick();
 
+private slots:
+    void leaveChannel();
+
 private:
     void updateLayout();
 
 private:
     std::unique_ptr<FlatButton> _leaveChannel;
     std::unique_ptr<FlatButton> _deleteChannel;
-
-    const Network::ChannelInfo _info;
-
     QString _channelName;
 };

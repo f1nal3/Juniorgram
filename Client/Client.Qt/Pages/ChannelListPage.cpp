@@ -32,11 +32,7 @@ void ChannelListPage::updateChannelList()
 {
     for (const auto& channel : channels)
     {
-        if (!_channelsAddMap[channel.channelID])
-        {
-            _channelList->addItem(QString::fromStdString(channel.channelName));
-            _channelsAddMap[channel.channelID] = true;
-        }
+        _channelList->addItem(QString::fromStdString(channel.channelName));
     }
     onResume();
 }
@@ -59,10 +55,6 @@ void ChannelListPage::addChannelToChannelListWidget()
 void ChannelListPage::setChannels(const std::vector<Network::ChannelInfo>& newChannels)
 {
     channels = newChannels;
-    for (auto& channel : channels)
-    {
-        _channelsAddMap.emplace(std::pair<std::uint64_t, bool>(channel.channelID, false));
-    }
     updateChannelList();
 }
 
@@ -86,11 +78,14 @@ void ChannelListPage::addSubscribedChannelToMainChannelWidget(const std::vector<
             _channelList->setCurrentRow(++row);
         }
     }
+    _widgetChannelList->sortItems();
 }
 
 void ChannelListPage::requestChannels()
 {
     onPause();
+    _channelList->clear();
+    _widgetChannelList->clear();
     if (oApp->connectionManager()->isConnected())
     {
         oApp->connectionManager()->askForChannelList();
