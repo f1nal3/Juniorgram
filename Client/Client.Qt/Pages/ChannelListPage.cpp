@@ -50,6 +50,7 @@ void ChannelListPage::addChannelToChannelListWidget()
         }
         _widgetChannelList->addItem(_channelList->takeItem(_channelList->currentRow()));
     }
+    _widgetChannelList->sortItems();
 }
 
 void ChannelListPage::setChannels(const std::vector<Network::ChannelInfo>& newChannels)
