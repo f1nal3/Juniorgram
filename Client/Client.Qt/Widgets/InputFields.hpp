@@ -3,6 +3,7 @@
 #include <QLineEdit>
 #include <QTextEdit>
 #include <Style/Styles.hpp>
+#include <QKeyEvent>
 
 /**
  * @brief Single line input field
@@ -48,7 +49,11 @@ protected:
     void paintEvent(QPaintEvent* paintEvent) override;
     /// Handle resize
     void resizeEvent(QResizeEvent* resizeEvent) override;
+    /// Handles pressing Shift+Enter combination
+    void keyPressEvent(QKeyEvent* keyEvent) override;
 
+signals:
+    void messageSent();
 private:
     const Style::FlatTextEdit& _st;
 };
