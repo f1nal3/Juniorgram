@@ -2,6 +2,7 @@
 
 #include <QVBoxLayout>
 #include <QWidget>
+#include <QShortcut>
 
 #include "ListWidget.hpp"
 #include "Pages/ChannelCreationPage.hpp"
@@ -39,4 +40,6 @@ private:
     std::unique_ptr<QVBoxLayout> _mainLayout;
     std::unique_ptr<QHBoxLayout> _buttonLayout;
     std::shared_ptr<ListWidget>  _channelList;
+
+    std::unique_ptr<QShortcut>   _openChannelList;
 };
