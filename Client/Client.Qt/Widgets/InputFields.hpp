@@ -53,7 +53,7 @@ protected:
     void keyPressEvent(QKeyEvent* keyEvent) override;
 
 signals:
-    void messageSent();
+    void shiftAndEnterPressed();
 private:
     const Style::FlatTextEdit& _st;
 };
