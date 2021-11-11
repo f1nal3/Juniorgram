@@ -25,6 +25,7 @@ enum class AppState
 };
 }  // namespace App
 
+/// Notification message type
 enum class MessageType
 {
     Info,
