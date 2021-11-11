@@ -8,7 +8,7 @@ ReceiverManager::ReceiverManager() { self = this; }
 
 void ConnectionManager::onServerAccepted()
 {
-    std::cout << "Server Accepted Connection\n";
+    oApp->showMessage("Connection Status", "Server accepted the connection!");
     emit ReceiverManager::instance()->onServerAccepted();
 }
 
@@ -45,13 +45,9 @@ void ConnectionManager::onReplyHistoryAnswer(const std::vector<Network::ReplyInf
 void ConnectionManager::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode)
 {
     if (storingMessageCode == Utility::StoringMessageCodes::SUCCESS)
-    {
-        std::cout << "SUCCESS sending" << std::endl;
-    }
+        oApp->showMessage("Message", "Message sent successfully!");
     else if (storingMessageCode == Utility::StoringMessageCodes::FAILED)
-    {
-        std::cout << "FAILED sending" << std::endl;
-    }
+        oApp->showMessage("Message", "Message not sent!:(", MessageType::Error);
     qRegisterMetaType<Utility::StoringMessageCodes>("Utility::StoringMessageCodes");
     emit ReceiverManager::instance()->onMessageStoreAnswer(storingMessageCode);
 }
@@ -129,7 +125,7 @@ void ConnectionManager::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelL
     }
     else if (ChannelLeaveCode == Utility::ChannelLeaveCodes::FAILED)
     {
-        std::cout << "FAILD LEAVING" << std::endl;
+        std::cout << "FAILED LEAVING" << std::endl;
     }
     else if (ChannelLeaveCode == Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND)
     {
@@ -217,5 +213,6 @@ void ConnectionManager::onDisconnect()
 {
     disconnectFromServer();
     loginState = LoginState::FAILED;
+    oApp->showMessage("Connection Status", "You've been disconnected from server!", MessageType::Error);
     emit ReceiverManager::instance()->onDisconnect();
 }
