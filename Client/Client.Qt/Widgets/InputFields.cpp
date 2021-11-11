@@ -145,7 +145,7 @@ void FlatTextEdit::keyPressEvent(QKeyEvent* keyEvent)
 {
     if ((keyEvent->modifiers() & Qt::SHIFT) && keyEvent->key() == Qt::Key_Return)
     {
-        emit messageSent();
+        emit shiftAndEnterPressed();
     }
     else
     {
