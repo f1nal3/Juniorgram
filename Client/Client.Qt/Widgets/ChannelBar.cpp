@@ -52,6 +52,10 @@ void ChannelBar::leaveChannel()
     {
         oApp->connectionManager()->leaveChannel(_channelName.toStdString());
     }
+    else
+    {
+        std::cout << "Server isn't connected" << std::endl;
+    }
 }
 
 void ChannelBar::deleteChannel()
@@ -59,5 +63,9 @@ void ChannelBar::deleteChannel()
     if (oApp->connectionManager()->isConnected())
     {
         oApp->connectionManager()->deleteChannel(_channelName.toStdString());
+    }
+    else
+    {
+        std::cout << "Server isn't connected" << std::endl;
     }
 }

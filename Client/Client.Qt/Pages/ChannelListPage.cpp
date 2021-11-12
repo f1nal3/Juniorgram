@@ -30,6 +30,7 @@ ChannelListPage::ChannelListPage(std::shared_ptr<ListWidget>& anotherChannelList
 
 void ChannelListPage::updateChannelList()
 {
+    _channelList->clear();
     for (const auto& channel : channels)
     {
         _channelList->addItem(QString::fromStdString(channel.channelName));
@@ -61,6 +62,7 @@ void ChannelListPage::setChannels(const std::vector<Network::ChannelInfo>& newCh
 
 void ChannelListPage::addSubscribedChannelToMainChannelWidget(const std::vector<uint64_t>& ChannelSubscribeList)
 {
+    _widgetChannelList->clear();
     std::vector<std::string> channelsSubscribeVector;
     for (auto channel : ChannelSubscribeList)
     {
@@ -85,8 +87,6 @@ void ChannelListPage::addSubscribedChannelToMainChannelWidget(const std::vector<
 void ChannelListPage::requestChannels()
 {
     onPause();
-    _channelList->clear();
-    _widgetChannelList->clear();
     if (oApp->connectionManager()->isConnected())
     {
         oApp->connectionManager()->askForChannelList();

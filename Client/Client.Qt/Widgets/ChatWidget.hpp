@@ -44,7 +44,7 @@ private slots:
     void updateLayout();
 
 signals:
-    ///
+    /// On delete button click
     void removeChannel();
 
 private:
