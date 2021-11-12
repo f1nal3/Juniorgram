@@ -3,7 +3,6 @@
 #include <QLineEdit>
 #include <QTextEdit>
 #include <Style/Styles.hpp>
-#include <QKeyEvent>
 
 /**
  * @brief Single line input field
