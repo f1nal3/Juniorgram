@@ -5,7 +5,7 @@
 
 ![](https://i.ibb.co/sC8WJQs/logo2.png)
 
-# Introduction 
+# Introduction {#mainpage}
 A C++ messenger for learning purposes in EPAM Brest C++ R&D Lab
 
 [Documentation Coverage](https://f1nal3.github.io/Juniorgram/doc_coverage/index.html)
@@ -72,4 +72,6 @@ Qt Creator:
  1. Clone this repository or download as Zip from Github.
  2. Run Qt Creator and open the root CMakeLists.txt. It will automatically detect the root CMakeLists.txt and execute it, after which you can start/debug the server and client sides.
 
- 
+ #### Setting server on a local machine
+
+ See @ref localserversetup ["this page"] for a guide.
