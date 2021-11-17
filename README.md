@@ -12,7 +12,7 @@ A C++ messenger for learning purposes in EPAM Brest C++ R&D Lab
 ---
 ## Contents:
 
-### [Documentation main page](https://f1nal3.github.io/Juniorgram/)
+[Documentation main page](https://f1nal3.github.io/Juniorgram/)
 
 ### Getting started
 
@@ -22,4 +22,4 @@ See @ref gettingstarted for more info on build setup and installation.
 
  See @ref localserversetup for a guide on running the server on your local machine.
 
-### [Documentation Coverage](https://f1nal3.github.io/Juniorgram/doc_coverage/index.html)
+[Documentation Coverage](https://f1nal3.github.io/Juniorgram/doc_coverage/index.html)
