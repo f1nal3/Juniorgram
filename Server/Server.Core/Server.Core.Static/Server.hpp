@@ -43,7 +43,7 @@ private:
     static bool onClientConnect(const std::shared_ptr<Network::Connection>& client);
 
     /**
-     * @brief Method for sending the message disconnecting to the server.
+     * @brief Method for sending the message disconnecting from the server.
      * @param Connection management class as std::shared_ptr<Network::Connection>&.
      */
     static void onClientDisconnect(const std::shared_ptr<Network::Connection>& client);

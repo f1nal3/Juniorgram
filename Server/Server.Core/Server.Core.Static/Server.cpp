@@ -400,7 +400,7 @@ void Server::waitForClientConnection()
             std::shared_ptr<Connection> newConnection =
                 std::make_shared<Connection>(Connection::OwnerType::SERVER, mContext, std::move(socket), mIncomingMessagesQueue);
 
-            /// FIXME: This function always return true
+            /// \todo This function always return true
             if (onClientConnect(newConnection))
             {
                 mConnectionsPointers.push_back(std::move(newConnection));
