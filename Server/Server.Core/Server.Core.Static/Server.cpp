@@ -3,7 +3,6 @@
 #include <future>
 
 #include "DataAccess.Postgre/PostgreRepositoryManager.hpp"
-#include "Network/Primitives.hpp"
 
 using Network::Connection;
 using Network::Message;
@@ -25,12 +24,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 {
     using namespace DataAccess;
 
-    const auto maxDelay    = std::chrono::milliseconds(300);
-    const auto currentTime = std::chrono::system_clock::now();
-    const auto delay       = std::chrono::milliseconds(
-              std::abs(std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - message.mHeader.mTimestamp).count()));
-
-    if (delay > maxDelay) message.mHeader.mTimestamp = currentTime;
+    const auto currentTime     = std::chrono::system_clock::now();
+    message.mHeader.mTimestamp = currentTime;
 
     switch (message.mHeader.mMessageType)
     {
@@ -74,7 +69,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::MessageHistoryRequest:
         {
-            std::uint64_t channelID = std::any_cast<std::uint64_t>(message.mBody);
+            auto channelID = std::any_cast<std::uint64_t>(message.mBody);
 
             auto future = mPostgreManager->pushRequest(&IMessagesRepository::getMessageHistory, fmt(channelID));
 
@@ -93,7 +88,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
             mi.senderID = client->getUserID();
             mi.message  = Utility::removeSpaces(mi.message);
-            mi.time = Utility::millisecondsSinceEpoch();
+            mi.time     = Utility::millisecondsSinceEpoch();
 
             auto future = mPostgreManager->pushRequest(&IMessagesRepository::storeMessage, fmt(mi));
 
@@ -172,12 +167,12 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             client->send(answerForClient);
         }
         break;
-        
+
         case Network::Message::MessageType::MessageReactionRequest:
         {
-            auto messageInfo = std::any_cast<Network::MessageInfo>(message.mBody);
+            auto messageInfo     = std::any_cast<Network::MessageInfo>(message.mBody);
             messageInfo.senderID = client->getUserID();
-            
+
             auto future = mPostgreManager->pushRequest(&IMessagesRepository::updateMessageReactions, fmt(messageInfo));
 
             Network::Message answerForClient;
@@ -227,21 +222,18 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
                 client->setUserID(userID);
                 std::cout << "User " << userID << " logged in.\n";
             }
-            else
-            {
-                client->disconnect();
-            }
         }
         break;
 
         case Network::Message::MessageType::ChannelLeaveRequest:
         {
-            Network::ChannelLeaveInfo leavedChennelInfo;
-            std::string               channelName = std::any_cast<std::string>(message.mBody);
-            leavedChennelInfo.creatorID           = client->getUserID();
-            leavedChennelInfo.channelName         = channelName;
+            Network::ChannelLeaveInfo channelLeaveInfo;
 
-            auto future = mPostgreManager->pushRequest(&IChannelsRepository::leaveChannel, fmt(leavedChennelInfo));
+            auto channelName             = std::any_cast<std::string>(message.mBody);
+            channelLeaveInfo.creatorID   = client->getUserID();
+            channelLeaveInfo.channelName = channelName;
+
+            auto future = mPostgreManager->pushRequest(&IChannelsRepository::leaveChannel, fmt(channelLeaveInfo));
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelLeaveAnswer;
@@ -287,9 +279,10 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         case Network::Message::MessageType::ChannelDeleteRequest:
         {
             Network::ChannelDeleteInfo channelDeleteInfo;
-            std::string                channelName = std::any_cast<std::string>(message.mBody);
-            channelDeleteInfo.creatorID            = client->getUserID();
-            channelDeleteInfo.channelName          = channelName;
+
+            auto channelName              = std::any_cast<std::string>(message.mBody);
+            channelDeleteInfo.creatorID   = client->getUserID();
+            channelDeleteInfo.channelName = channelName;
 
             auto future = mPostgreManager->pushRequest(&IChannelsRepository::deleteChannel, fmt(channelDeleteInfo));
 
@@ -407,6 +400,7 @@ void Server::waitForClientConnection()
             std::shared_ptr<Connection> newConnection =
                 std::make_shared<Connection>(Connection::OwnerType::SERVER, mContext, std::move(socket), mIncomingMessagesQueue);
 
+            /// \todo This function always return true
             if (onClientConnect(newConnection))
             {
                 mConnectionsPointers.push_back(std::move(newConnection));
