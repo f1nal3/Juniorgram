@@ -48,7 +48,11 @@ protected:
     void paintEvent(QPaintEvent* paintEvent) override;
     /// Handle resize
     void resizeEvent(QResizeEvent* resizeEvent) override;
+    /// Handles pressing Shift+Enter combination
+    void keyPressEvent(QKeyEvent* keyEvent) override;
 
+signals:
+    void shiftAndEnterPressed();
 private:
     const Style::FlatTextEdit& _st;
 };

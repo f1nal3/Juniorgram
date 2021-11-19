@@ -33,7 +33,8 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent), _settings(Settings::getIn
     _italicButton->setClickCallback([&]() { styleButtonClick(_italicSymbolOpen, _italicSymbolClose); });
     _underlineButton->setClickCallback([&]() { styleButtonClick(_underlineSymbolOpen, _underlineSymbolClose); });
     _sendButton->setClickCallback([&]() { sendButtonClick(); });
-    connect(_messageInput.get(), &FlatTextEdit::textChanged, this, &TextEdit::textChanged);
+    connect(_messageInput.get(), &FlatTextEdit::textChanged,          this, &TextEdit::textChanged);
+    connect(_messageInput.get(), &FlatTextEdit::shiftAndEnterPressed, this, &TextEdit::sendButtonClick);
     setMaximumHeight(Style::valueDPIScale(400));
     setMinimumHeight(Style::valueDPIScale(100));
 }

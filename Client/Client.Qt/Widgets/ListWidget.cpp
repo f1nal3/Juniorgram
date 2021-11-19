@@ -8,4 +8,24 @@ ListWidget::ListWidget(QWidget* parent) : QListWidget(parent)
         "color: white;"
         "border: none;"
         "}");
+
+    _switchItemUp = std::make_unique<QShortcut>(
+        QKeySequence{ "Alt+P" }, 
+        this, 
+        [this](){ 
+            setCurrentRow(currentRow() == -1 ? count() - 1 : currentRow() - 1);
+            if (currentItem()) 
+                emit itemPressed(currentItem());
+        }
+    );
+
+    _switchItemDown = std::make_unique<QShortcut>(
+        QKeySequence{ "Alt+N" },
+        this,
+        [this](){ 
+            setCurrentRow(currentRow() == count() - 1 ? -1 : currentRow() + 1);
+            if (currentItem()) 
+                emit itemPressed(currentItem());
+        }
+    );
 }
