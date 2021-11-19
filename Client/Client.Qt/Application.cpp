@@ -1,5 +1,7 @@
 #include "Application.hpp"
 
+#include <QSystemTrayIcon>
+
 #include "MainWidget.hpp"
 #include "Pages/ChatPage.hpp"
 #include "Pages/LoginPage.hpp"
@@ -13,8 +15,10 @@ void Application::create()
     setApplicationName("Juniorgram");
 
     Style::internal::StartFonts();
-    _mainWidget = std::make_unique<MainWidget>();
-
+    _mainWidget     = std::make_unique<MainWidget>();
+    _systemTrayIcon = std::make_unique<QSystemTrayIcon>(this);
+    _systemTrayIcon->setIcon(QIcon(":/images/logo.png"));
+    _systemTrayIcon->show();
 #if _WIN32
     HWND handle = reinterpret_cast<HWND>(_mainWidget->winId());
     LONG style  = ::GetWindowLong(handle, GWL_STYLE);
@@ -82,3 +86,11 @@ std::unique_ptr<ConnectionManager>& Application::connectionManager() { return _c
 std::unique_ptr<DataAccess::LiteRepositoryContainer>& Application::repositoryContainer() { return _repContainer; }
 
 void Application::reconnectToServer() { _connectionManager->init(); }
+
+void Application::showMessage(const QString& header, const QString& body, MessageType type, int msecs)
+{
+    auto messageIcon = QSystemTrayIcon::MessageIcon::Information;
+    if (type == MessageType::Warning) messageIcon = QSystemTrayIcon::MessageIcon::Warning;
+    if (type == MessageType::Error) messageIcon = QSystemTrayIcon::MessageIcon::Critical;
+    _systemTrayIcon->showMessage(header, body, messageIcon, msecs);
+}
