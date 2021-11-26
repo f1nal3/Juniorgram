@@ -30,13 +30,10 @@ ChannelListPage::ChannelListPage(std::shared_ptr<ListWidget>& anotherChannelList
 
 void ChannelListPage::updateChannelList()
 {
+    _channelList->clear();
     for (const auto& channel : channels)
     {
-        if (!_channelsAddMap[channel.channelID])
-        {
-            _channelList->addItem(QString::fromStdString(channel.channelName));
-            _channelsAddMap[channel.channelID] = true;
-        }
+        _channelList->addItem(QString::fromStdString(channel.channelName));
     }
     onResume();
 }
@@ -54,20 +51,18 @@ void ChannelListPage::addChannelToChannelListWidget()
         }
         _widgetChannelList->addItem(_channelList->takeItem(_channelList->currentRow()));
     }
+    _widgetChannelList->sortItems();
 }
 
 void ChannelListPage::setChannels(const std::vector<Network::ChannelInfo>& newChannels)
 {
     channels = newChannels;
-    for (auto& channel : channels)
-    {
-        _channelsAddMap.emplace(std::pair<std::uint64_t, bool>(channel.channelID, false));
-    }
     updateChannelList();
 }
 
 void ChannelListPage::addSubscribedChannelToMainChannelWidget(const std::vector<uint64_t>& ChannelSubscribeList)
 {
+    _widgetChannelList->clear();
     std::vector<std::string> channelsSubscribeVector;
     for (auto channel : ChannelSubscribeList)
     {
@@ -86,6 +81,7 @@ void ChannelListPage::addSubscribedChannelToMainChannelWidget(const std::vector<
             _channelList->setCurrentRow(++row);
         }
     }
+    _widgetChannelList->sortItems();
 }
 
 void ChannelListPage::requestChannels()
