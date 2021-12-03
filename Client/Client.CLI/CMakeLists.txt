@@ -11,7 +11,11 @@ set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
 target_link_libraries(${TARGET} PUBLIC Network.Public Utility.Public)
 target_link_libraries(${TARGET} PUBLIC Client.Core.Static)
+target_link_libraries(${TARGET} PUBLIC Base.Logger.Static)
 target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas)
+
+target_include_directories(${TARGET} PRIVATE
+    $<TARGET_PROPERTY:Base.Logger.Static,SOURCE_DIR>/..)
 
 install(TARGETS ${TARGET}
         CONFIGURATIONS Debug

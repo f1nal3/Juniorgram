@@ -1,6 +1,8 @@
 #include "App.hpp"
 
 #include "ServerInfo.hpp"
+//#include "Logger.Static/FileLogger.hpp"
+//#include <Logger.Static/FileLogger.hpp>
 
 App::App(/* args */) { connectToServer(ServerInfo::address, ServerInfo::port); }
 
