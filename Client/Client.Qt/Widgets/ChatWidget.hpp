@@ -1,5 +1,6 @@
 #pragma once
 #include <Network/Primitives.hpp>
+#include <QShortcut>
 
 #include "Widgets/ChannelBar.hpp"
 #include "Widgets/InputFields.hpp"
@@ -43,6 +44,7 @@ private:
     std::unique_ptr<ReplyWidget> _replyWidget;
     std::unique_ptr<ChatHistory> _chatHistory;
     std::unique_ptr<TextEdit>    _textEdit;
+    std::unique_ptr<QShortcut>   _sendMessage;
 
     std::unique_ptr<QTimer> _requestTimer;
     std::uint64_t           _channelID{};

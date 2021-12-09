@@ -139,14 +139,3 @@ void FlatTextEdit::paintEvent(QPaintEvent* event)
 }
 
 void FlatTextEdit::resizeEvent(QResizeEvent* resizeEvent) { QTextEdit::resizeEvent(resizeEvent); }
-
-
-void FlatTextEdit::keyPressEvent(QKeyEvent* keyEvent)
-{
-    if ((keyEvent->modifiers() & Qt::SHIFT) && keyEvent->key() == Qt::Key_Return)
-    {
-        emit shiftAndEnterPressed();
-        return;
-    }
-    QTextEdit::keyPressEvent(keyEvent);
-}
