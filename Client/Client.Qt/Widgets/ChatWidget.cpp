@@ -16,14 +16,6 @@ ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
     _replyWidget  = std::make_unique<ReplyWidget>(this);
     _requestTimer = std::make_unique<QTimer>();
 
-    _sendMessage  = std::make_unique<QShortcut>
-    (
-        QKeySequence{ Qt::CTRL | Qt::Key_Return },
-        this,
-        _textEdit.get(),
-        [this]() { _textEdit->sendButtonClick(); }
-    );
-
     connect(_requestTimer.get(), &QTimer::timeout, this, &ChatWidget::requestMessages);
 
     /// Once in a second

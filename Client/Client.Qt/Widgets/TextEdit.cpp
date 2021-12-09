@@ -13,6 +13,13 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent), _settings(Settings::getIn
     _sendButton             = std::make_unique<FlatButton>(this, "Send");
     _messageInput           = std::make_unique<FlatTextEdit>();
 
+    _sendMessage  = std::make_unique<QShortcut>
+    (
+        QKeySequence{ Qt::CTRL | Qt::Key_Return },
+        this,
+        [this]() { sendButtonClick(); }
+    );
+
     _horizontalButtonSpacer = std::make_unique<QSpacerItem>(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     _horizontalButtonLayout->setAlignment(Qt::AlignLeft);
     _horizontalButtonLayout->addWidget(_boldnessButton.get());
