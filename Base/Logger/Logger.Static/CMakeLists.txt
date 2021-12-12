@@ -17,3 +17,5 @@ target_link_libraries(${TARGET} PUBLIC
         Base.Logger.Public
         Utility.Public
         Threads::Threads)
+
+target_include_directories(${TARGET} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
