@@ -184,8 +184,7 @@ std::string FileLogger::getCurrentDate()
 
 std::string FileLogger::getFileName()
 {
-    _fileName = _fileName + getCurrentDate() + ".txt";
-    return _fileName;
+    return _fileName + getCurrentDate() + ".txt";
 }
 
 std::string FileLogger::getFldName()
