@@ -18,7 +18,14 @@ bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
     return true;
 }
 
-void Server::onClientDisconnect(const std::shared_ptr<Connection>& client) { std::cout << "Removing client [" << client->getID() << "]\n"; }
+void Server::onClientDisconnect(const std::shared_ptr<Connection>& client)
+{
+    Base::Logger::FileLogger::getInstance().log
+    (
+        (std::stringstream() << "Removing client [" << client->getID() << "]").str(),
+        Base::Logger::LogLevel::INFO
+    );
+}
 
 void Server::onMessage(const std::shared_ptr<Connection>& client, Message& message)
 {
@@ -32,8 +39,11 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         case Network::Message::MessageType::ServerPing:
         {
             std::tm formattedTimestamp = Utility::safe_localtime(std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
-
-            std::cout << "[" << std::put_time(&formattedTimestamp, "%F %T") << "][" << client->getID() << "]: Server Ping\n";
+            
+            std::stringstream out;
+            out << "[" << std::put_time(&formattedTimestamp, "%F %T") << "][" << client->getID() << "]: Server Ping";
+            
+            Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::INFO);
 
             client->send(message);
         }
@@ -43,7 +53,10 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             std::tm formattedTimestamp = Utility::safe_localtime(std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
 
-            std::cout << "[" << std::put_time(&formattedTimestamp, "%F %T") << "][" << client->getID() << "]: Message All\n";
+            std::stringstream out;
+            out << "[" << std::put_time(&formattedTimestamp, "%F %T") << "][" << client->getID() << "]: Message All\n";
+
+            Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::INFO);
 
             Network::Message msg;  // T\todo Why is a new message needed here?
             msg.mHeader.mMessageType = Network::Message::MessageType::ServerMessage;
@@ -209,7 +222,10 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto userID          = future.get();
             auto loginSuccessful = userID != 0;
 
-            std::cout << "DEBUG: userID=" << userID << "\n";
+            std::stringstream out;
+            out << "DEBUG: userID=" << userID;
+            Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::DEBUG);
+            out.str("");
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::LoginAnswer;
@@ -220,7 +236,9 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             if (loginSuccessful)
             {
                 client->setUserID(userID);
-                std::cout << "User " << userID << " logged in.\n";
+
+                out << "User " << userID << " logged in.";
+                Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::INFO);
             }
         }
         break;
@@ -330,7 +348,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         default:
         {
-            std::cerr << "Unknown command received\n";
+            Base::Logger::FileLogger::getInstance().log("Unknown command received", Base::Logger::LogLevel::ERROR);
         }
         break;
     }
@@ -361,12 +379,16 @@ bool Server::start()
 
         mPostgreManager->handleRequests();
 
-        std::cout << "[SERVER] Started!\n";
+        Base::Logger::FileLogger::getInstance().log("[SERVER] Started!", Base::Logger::LogLevel::INFO);
         return true;
     }
     catch (std::exception& exception)
     {
-        std::cerr << "[SERVER] Exception: " << exception.what() << "\n";
+        Base::Logger::FileLogger::getInstance().log
+        (
+            std::string("[SERVER] Exception: ") + exception.what(),
+            Base::Logger::LogLevel::ERROR
+        );
         return false;
     }
 }
@@ -386,8 +408,7 @@ void Server::stop()
     }
 
     mThreads.clear();
-
-    std::cout << "[SERVER] Stopped!\n";
+    Base::Logger::FileLogger::getInstance().log("[SERVER] Stopped!", Base::Logger::LogLevel::INFO);
 }
 
 void Server::waitForClientConnection()
@@ -395,7 +416,10 @@ void Server::waitForClientConnection()
     mAcceptor.async_accept([this](std::error_code error, asio::ip::tcp::socket socket) {
         if (!error)
         {
-            std::cout << "[SERVER] New Connection: " << socket.remote_endpoint() << "\n";
+            std::ostringstream out;
+            out << "[SERVER] New Connection: " << socket.remote_endpoint();
+            Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::INFO);
+            out.str("");
 
             std::shared_ptr<Connection> newConnection =
                 std::make_shared<Connection>(Connection::OwnerType::SERVER, mContext, std::move(socket), mIncomingMessagesQueue);
@@ -407,16 +431,25 @@ void Server::waitForClientConnection()
 
                 mConnectionsPointers.back()->connectToClient(mIDCounter++);
 
-                std::cout << "[" << mConnectionsPointers.back()->getID() << "] Connection Approved\n";
+                out << "[" << mConnectionsPointers.back()->getID() << "] Connection Approved";
+                Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::INFO);
             }
             else
             {
-                std::cout << "[-----] Connection Denied\n";
+                Base::Logger::FileLogger::getInstance().log
+                (
+                    "[-----] Connection Denied", 
+                    Base::Logger::LogLevel::INFO
+                );
             }
         }
         else
         {
-            std::cout << "[SERVER] New Connection Error: " << error.message() << "\n";
+            Base::Logger::FileLogger::getInstance().log
+            (
+                "[SERVER] New Connection Error: " + error.message(),
+                Base::Logger::LogLevel::ERROR
+            );
         }
 
         waitForClientConnection();
