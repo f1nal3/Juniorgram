@@ -348,7 +348,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         default:
         {
-            Base::Logger::FileLogger::getInstance().log("Unknown command received", Base::Logger::LogLevel::ERROR);
+            Base::Logger::FileLogger::getInstance().log("Unknown command received", Base::Logger::LogLevel::ERR);
         }
         break;
     }
@@ -387,7 +387,7 @@ bool Server::start()
         Base::Logger::FileLogger::getInstance().log
         (
             std::string("[SERVER] Exception: ") + exception.what(),
-            Base::Logger::LogLevel::ERROR
+            Base::Logger::LogLevel::ERR
         );
         return false;
     }
@@ -448,7 +448,7 @@ void Server::waitForClientConnection()
             Base::Logger::FileLogger::getInstance().log
             (
                 "[SERVER] New Connection Error: " + error.message(),
-                Base::Logger::LogLevel::ERROR
+                Base::Logger::LogLevel::ERR
             );
         }
 

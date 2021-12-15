@@ -6,7 +6,7 @@ std::string FileLogger::stringifyLogLvl(const LogLevel level)
 {
     std::string                                  result   = "NONE";
     const static std::map<LogLevel, std::string> LevelMap = {
-        {LogLevel::ERROR, "ERROR"},
+        {LogLevel::ERR, "ERROR"},
         {LogLevel::WARNING, "WARNING"},
         {LogLevel::INFO, "INFO"},
         {LogLevel::DEBUG, "DEBUG"},
