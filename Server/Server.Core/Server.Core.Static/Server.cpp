@@ -20,11 +20,9 @@ bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
 
 void Server::onClientDisconnect(const std::shared_ptr<Connection>& client)
 {
-    Base::Logger::FileLogger::getInstance().log
-    (
-        (std::stringstream() << "Removing client [" << client->getID() << "]").str(),
-        Base::Logger::LogLevel::INFO
-    );
+    std::stringstream out;
+    out << "Removing client [" << client->getID() << "]";
+    Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::INFO);
 }
 
 void Server::onMessage(const std::shared_ptr<Connection>& client, Message& message)
