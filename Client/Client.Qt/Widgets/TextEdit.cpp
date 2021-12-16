@@ -42,6 +42,7 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent), _settings(Settings::getIn
     _sendButton->setClickCallback([&]() { sendButtonClick(); });
     
     connect(_messageInput.get(), &FlatTextEdit::textChanged, this, &TextEdit::textChanged);
+
     setMaximumHeight(Style::valueDPIScale(400));
     setMinimumHeight(Style::valueDPIScale(100));
 }

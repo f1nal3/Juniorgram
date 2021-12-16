@@ -40,13 +40,13 @@ private:
      * @brief Method for sending the message connecting to the server.
      * @param Connection management class as std::shared_ptr<Network::Connection>&.
      */
-    bool onClientConnect(const std::shared_ptr<Network::Connection>& client);
+    static bool onClientConnect(const std::shared_ptr<Network::Connection>& client);
 
     /**
-     * @brief Method for sending the message disconnecting to the server.
+     * @brief Method for sending the message disconnecting from the server.
      * @param Connection management class as std::shared_ptr<Network::Connection>&.
      */
-    void onClientDisconnect(const std::shared_ptr<Network::Connection>& client);
+    static void onClientDisconnect(const std::shared_ptr<Network::Connection>& client);
 
     /**
      * @brief Method used to process messages.

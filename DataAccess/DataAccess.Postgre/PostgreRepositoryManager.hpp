@@ -140,7 +140,8 @@ private:
     std::unique_ptr<AbstractRepositoryContainer> mRepositories;
     std::priority_queue<RepositoryRequest>       mQueue;
 
-    std::mutex mQueueMutex;
+    std::mutex              mQueueMutex;
+    std::condition_variable mQueueCV;
 
     std::atomic<bool> mHandlerState;
     std::thread       mRepositoryRequestsHandler;
@@ -178,7 +179,7 @@ public:
         FutureResult<TReturn> futureResult(request.getFutureFromTask());
 
         mQueue.push(std::move(request));
-
+        mQueueCV.notify_one();
         return futureResult;
     }
 
@@ -200,18 +201,20 @@ public:
         mRepositoryRequestsHandler = std::thread([this]() {
             while (mHandlerState)
             {
-                if (!this->empty())
-                {
-                    this->privatePopRequest()();
-                }
+                auto request = this->privatePopRequest();
+                if (request.has_value()) request.value()();
             }
         });
     }
 
     /**
-     * @brief Stopping handler.
+     * @brief Stops handler.
      */
-    void stopHandler() { mHandlerState = false; }
+    void stopHandler()
+    {
+        mHandlerState = false;
+        mQueueCV.notify_one();
+    }
 
 private:
     template <ePriority priority, typename TIRepository, typename TReturn, typename... TArgs>
@@ -230,9 +233,14 @@ private:
      * @brief  Extract request from queue.
      * @return Repository request.
      */
-    RepositoryRequest privatePopRequest() noexcept
+    std::optional<RepositoryRequest> privatePopRequest() noexcept
     {
         std::unique_lock<std::mutex> lck(mQueueMutex);
+
+        mQueueCV.wait(lck, [&]() { return !empty() || !mHandlerState; });
+
+        auto emp = empty();
+        if (!mHandlerState || emp) return {};
 
         RepositoryRequest request = std::move(const_cast<RepositoryRequest&>(mQueue.top()));
         mQueue.pop();
