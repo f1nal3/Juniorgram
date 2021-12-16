@@ -20,9 +20,11 @@ bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
 
 void Server::onClientDisconnect(const std::shared_ptr<Connection>& client)
 {
-    std::stringstream out;
-    out << "Removing client [" << client->getID() << "]";
-    Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::INFO);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Removing client [" + std::to_string(client->getID()) + "]", 
+        Base::Logger::LogLevel::INFO
+    );
 }
 
 void Server::onMessage(const std::shared_ptr<Connection>& client, Message& message)
@@ -38,10 +40,14 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             std::tm formattedTimestamp = Utility::safe_localtime(std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
             
-            std::stringstream out;
-            out << "[" << std::put_time(&formattedTimestamp, "%F %T") << "][" << client->getID() << "]: Server Ping";
+            std::ostringstream out;
+            out << std::put_time(&formattedTimestamp, "%F %T");
             
-            Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::INFO);
+            Base::Logger::FileLogger::getInstance().log
+            (
+                "[" + out.str() + "][" + std::to_string(client->getID()) + "]: Server Ping", 
+                Base::Logger::LogLevel::INFO
+            );
 
             client->send(message);
         }
@@ -51,10 +57,14 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             std::tm formattedTimestamp = Utility::safe_localtime(std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
 
-            std::stringstream out;
-            out << "[" << std::put_time(&formattedTimestamp, "%F %T") << "][" << client->getID() << "]: Message All\n";
+            std::ostringstream out;
+            out << std::put_time(&formattedTimestamp, "%F %T");
 
-            Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::INFO);
+            Base::Logger::FileLogger::getInstance().log
+            (
+                "[" + out.str() + "][" + std::to_string(client->getID()) + "]: Message All\n", 
+                Base::Logger::LogLevel::INFO
+            );
 
             Network::Message msg;  // T\todo Why is a new message needed here?
             msg.mHeader.mMessageType = Network::Message::MessageType::ServerMessage;
@@ -220,10 +230,11 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto userID          = future.get();
             auto loginSuccessful = userID != 0;
 
-            std::stringstream out;
-            out << "DEBUG: userID=" << userID;
-            Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::DEBUG);
-            out.str("");
+            Base::Logger::FileLogger::getInstance().log
+            (
+                "DEBUG: userID=" + std::to_string(userID), 
+                Base::Logger::LogLevel::DEBUG
+            );
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::LoginAnswer;
@@ -235,8 +246,11 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             {
                 client->setUserID(userID);
 
-                out << "User " << userID << " logged in.";
-                Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::INFO);
+                Base::Logger::FileLogger::getInstance().log
+                (
+                    "User " + std::to_string(userID) + " logged in.", 
+                    Base::Logger::LogLevel::INFO
+                );
             }
         }
         break;
@@ -415,9 +429,12 @@ void Server::waitForClientConnection()
         if (!error)
         {
             std::ostringstream out;
-            out << "[SERVER] New Connection: " << socket.remote_endpoint();
-            Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::INFO);
-            out.str("");
+            out << socket.remote_endpoint();
+            Base::Logger::FileLogger::getInstance().log
+            (
+                "[SERVER] New Connection: " + out.str(), 
+                Base::Logger::LogLevel::INFO
+            );
 
             std::shared_ptr<Connection> newConnection =
                 std::make_shared<Connection>(Connection::OwnerType::SERVER, mContext, std::move(socket), mIncomingMessagesQueue);
@@ -429,8 +446,11 @@ void Server::waitForClientConnection()
 
                 mConnectionsPointers.back()->connectToClient(mIDCounter++);
 
-                out << "[" << mConnectionsPointers.back()->getID() << "] Connection Approved";
-                Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::INFO);
+                Base::Logger::FileLogger::getInstance().log
+                (
+                   "[" + std::to_string(mConnectionsPointers.back()->getID()) + "] Connection Approved",
+                    Base::Logger::LogLevel::INFO
+                );
             }
             else
             {
