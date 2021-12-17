@@ -6,6 +6,8 @@
 #include <memory>
 #include <thread>
 
+#include <FileLogger.hpp>
+
 #include "Network/Connection.hpp"
 #include "Network/Message.hpp"
 #include "Network/SafeQueue.hpp"

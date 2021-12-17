@@ -20,7 +20,7 @@ int main(int argc, const char** argv)
     }
     catch (const std::exception& e)
     {
-        std::cerr << e.what() << std::endl;
+        Base::Logger::FileLogger::getInstance().log(e.what(), Base::Logger::LogLevel::ERR);
     }
 
     return 0;
