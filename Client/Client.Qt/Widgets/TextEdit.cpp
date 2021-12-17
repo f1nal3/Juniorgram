@@ -13,6 +13,13 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent), _settings(Settings::getIn
     _sendButton             = std::make_unique<FlatButton>(this, "Send");
     _messageInput           = std::make_unique<FlatTextEdit>();
 
+    _sendMessage  = std::make_unique<QShortcut>
+    (
+        QKeySequence{ Qt::CTRL | Qt::Key_Return },
+        this,
+        [this]() { sendButtonClick(); }
+    );
+
     _horizontalButtonSpacer = std::make_unique<QSpacerItem>(40, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     _horizontalButtonLayout->setAlignment(Qt::AlignLeft);
     _horizontalButtonLayout->addWidget(_boldnessButton.get());
@@ -33,8 +40,9 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent), _settings(Settings::getIn
     _italicButton->setClickCallback([&]() { styleButtonClick(_italicSymbolOpen, _italicSymbolClose); });
     _underlineButton->setClickCallback([&]() { styleButtonClick(_underlineSymbolOpen, _underlineSymbolClose); });
     _sendButton->setClickCallback([&]() { sendButtonClick(); });
-    connect(_messageInput.get(), &FlatTextEdit::textChanged,          this, &TextEdit::textChanged);
-    connect(_messageInput.get(), &FlatTextEdit::shiftAndEnterPressed, this, &TextEdit::sendButtonClick);
+    
+    connect(_messageInput.get(), &FlatTextEdit::textChanged, this, &TextEdit::textChanged);
+
     setMaximumHeight(Style::valueDPIScale(400));
     setMinimumHeight(Style::valueDPIScale(100));
 }
