@@ -4,7 +4,7 @@ set(TARGET_TEST Precompiled.Catch2.Test)
 set(OUTPUT_NAME Precompiled.Catch2)
 
 add_library(${TARGET_MAIN} STATIC CatchMainConfig.cpp)
-target_include_directories(${TARGET_MAIN} PUBLIC "${CONAN_CATCH2_ROOT}/include/catch2")
+target_link_libraries(${TARGET_MAIN} PUBLIC CONAN_PKG::catch2)
 
 add_executable(${TARGET_TEST} CatchDummyTest.cpp)
 
@@ -14,4 +14,4 @@ set_target_properties(${TARGET_TEST} PROPERTIES FOLDER ${FOLDER})
 target_link_libraries(${TARGET_TEST} ${TARGET_MAIN})
 
 target_compile_definitions(${TARGET_TEST} PRIVATE CATCH_CONFIG_FAST_COMPILE)
-target_precompile_headers(${TARGET_TEST} PRIVATE "${CONAN_CATCH2_ROOT}/include/catch2/catch.hpp")
+target_precompile_headers(${TARGET_TEST} PRIVATE   ${CONAN_INCLUDE_DIRS_CATCH2_RELEASE}/Catch2/catch.hpp)
