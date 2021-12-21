@@ -18,7 +18,7 @@ int main(int argc, const char** argv)
             server.update();
         }
     }
-    catch (const std::exception& e)
+    catch (const std::runtime_error& e)
     {
         Base::Logger::FileLogger::getInstance().log(e.what(), Base::Logger::LogLevel::ERR);
     }
