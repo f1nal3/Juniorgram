@@ -375,7 +375,7 @@ Server::Server(const uint16_t& port)
 
 Server::~Server() { stop(); }
 
-bool Server::start()
+void Server::start()
 {
     waitForClientConnection();
 

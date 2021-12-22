@@ -63,9 +63,8 @@ public:
 
     /**
      * @brief Method to start the server.
-     * @return Boolean, if true then the server is running.
      */
-    bool start();
+    void start();
 
     //void registerRepositories();
 
