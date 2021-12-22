@@ -381,26 +381,14 @@ bool Server::start()
 
     size_t threadsCount = std::thread::hardware_concurrency();
     threadsCount > 1 ? --threadsCount : threadsCount = 1;
-    try
+    
+    for (size_t i = 0; i < threadsCount; ++i)
     {
-        for (size_t i = 0; i < threadsCount; ++i)
-        {
-            mThreads.emplace_back(std::thread([this]() { mContext.run(); }));
-        }
-        mPostgreManager->handleRequests();
+        mThreads.emplace_back(std::thread([this]() { mContext.run(); }));
     }
-    catch (std::system_error& err)
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            std::string("[SERVER] Exception: ") + err.what(),
-            Base::Logger::LogLevel::ERR
-        );
-        return false;
-    }
+    mPostgreManager->handleRequests();
 
     Base::Logger::FileLogger::getInstance().log("[SERVER] Started!", Base::Logger::LogLevel::INFO);
-    return true;
 }
 
 void Server::stop()
