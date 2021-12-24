@@ -31,6 +31,7 @@ set(STYLE_SOURCES
         Style/StyleWidgets.cpp)
 
 set(UI_WIDGETS_SOURCES
+        Widgets/AbstractMessageWidget.hpp
         Widgets/AbstractButton.cpp
         Widgets/AbstractButton.hpp
         Widgets/Buttons.cpp
