@@ -37,11 +37,5 @@ protected:
     void resizeEvent(QResizeEvent* e) override;
 
 private:
-    std::unique_ptr<FlatTextEdit> _fmtMessageText;
-    uint64_t                      _messageId;
-    QString                       _messageText;
-    QString                       _username;
-    uint64_t                      _userId;
-    const Style::MessageWidget&   _st;
     const QString                 _replyTag = "Reply";
 };

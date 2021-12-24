@@ -112,7 +112,6 @@ private:
     void clearMessage();
 
 private:
-    std::unique_ptr<FlatTextEdit>   _fmtMessageText;
     std::unique_ptr<FlatButton>     _menuBtn;
     std::unique_ptr<FlatButton>     _reactionsBtn;
     std::unique_ptr<ReactionLayout> _reactions;
@@ -120,12 +119,8 @@ private:
     int32_t                         _index = 0;
 
     uint64_t                    _userId;
-    uint64_t                    _messageId;
-    QString                     _messageText;
-    QString                     _username;
     QDateTime                   _datetime;
     MessageFlags                _messageFlags;
-    const Style::MessageWidget& _st;
 
     std::unique_ptr<FlatButton> _replyBtn;
 };
