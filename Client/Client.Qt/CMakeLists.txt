@@ -35,6 +35,14 @@ set(UI_WIDGETS_SOURCES
         Widgets/AbstractButton.hpp
         Widgets/Buttons.cpp
         Widgets/Buttons.hpp
+        Widgets/ChannelListWidget.cpp
+        Widgets/ChannelListWidget.hpp
+        Widgets/ChannelBar.cpp
+        Widgets/ChannelBar.hpp
+        Widgets/ChatHistory.cpp
+        Widgets/ChatHistory.hpp
+        Widgets/ChatWidget.cpp
+        Widgets/ChatWidget.hpp
         Widgets/ComboBox.cpp
         Widgets/ComboBox.hpp
         Widgets/InputFields.cpp
@@ -53,14 +61,16 @@ set(UI_WIDGETS_SOURCES
         Widgets/MenuItem.hpp
         Widgets/MessageWidget.cpp
         Widgets/MessageWidget.hpp
-        Widgets/ReplyWidget.cpp
-        Widgets/ReplyWidget.hpp
-        Widgets/ReplyMessageWidget.cpp
-        Widgets/ReplyMessageWidget.hpp
         Widgets/Page.cpp
         Widgets/Page.hpp
         Widgets/PopupWidget.cpp
         Widgets/PopupWidget.hpp
+        Widgets/ReactionLayout.cpp
+        Widgets/ReactionLayout.hpp
+        Widgets/ReplyWidget.cpp
+        Widgets/ReplyWidget.hpp
+        Widgets/ReplyMessageWidget.cpp
+        Widgets/ReplyMessageWidget.hpp
         Widgets/ScrollArea.cpp
         Widgets/ScrollArea.hpp
         Widgets/TextEdit.cpp
@@ -81,19 +91,6 @@ set(PAGES_SOURCES
         Pages/RegistrationPage.hpp)
 
 set(SOURCE_FILES
-        Widgets/ChannelListWidget.cpp
-        Widgets/ChannelListWidget.hpp
-        Widgets/ChatHistory.cpp
-        Widgets/ChatHistory.hpp
-        Widgets/ChatWidget.cpp
-        Widgets/ChatWidget.hpp
-        Widgets/ChannelBar.cpp
-        Widgets/ChannelBar.hpp
-        Widgets/MessageWidget.cpp
-        Widgets/MessageWidget.hpp
-        Widgets/ReactionLayout.cpp
-        Widgets/ReactionLayout.hpp
-
         Application.cpp
         Application.hpp
         ConnectionManager.cpp
