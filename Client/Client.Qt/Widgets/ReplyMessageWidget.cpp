@@ -2,19 +2,9 @@
 
 ReplyMessageWidget::ReplyMessageWidget(QWidget* history, QString message, uint64_t messageId, QString username, uint64_t userId,
                                        const Style::MessageWidget& st)
-    : QWidget(history), _messageId(messageId), _messageText(std::move(message)), _username(std::move(username)), _userId(userId), _st(st)
+    : AbstractMessageWidget(history, message, messageId, username, userId, st)
 {
-    setContentsMargins(QMargins(_st.radius, _st.radius, _st.radius, _st.radius));
-    setMinimumHeight(_st.fontname->height + _st.radius * 2);
-
-    _fmtMessageText = std::make_unique<FlatTextEdit>(this, _st.textedit);
-    _fmtMessageText->setText(_messageText);
-    _fmtMessageText->setAcceptDrops(false);
-    _fmtMessageText->setReadOnly(true);
-    _fmtMessageText->moveCursor(QTextCursor::Start);
-    _fmtMessageText->setFont(_st.fonttext);
-    _fmtMessageText->move(_st.radius * 2, _st.fontname->height + _st.radius * 4);
-    _fmtMessageText->show();
+    
 }
 
 int ReplyMessageWidget::expectedHeight() const

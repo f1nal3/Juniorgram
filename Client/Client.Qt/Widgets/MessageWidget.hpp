@@ -6,13 +6,14 @@
 #include "Widgets/InputFields.hpp"
 #include "Widgets/ReactionLayout.hpp"
 #include "Widgets/ReplyWidget.hpp"
+#include "Widgets/AbstractMessageWidget.hpp"
 
 class ChatHistory;
 
 /** @class MessageWidget
  *  @brief message visual representation in _chat
  */
-class MessageWidget : public QWidget
+class MessageWidget : public AbstractMessageWidget
 {
     Q_OBJECT
 

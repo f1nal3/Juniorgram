@@ -7,12 +7,13 @@
 
 #include "Widgets/InputFields.hpp"
 #include "Widgets/ReactionLayout.hpp"
+#include "Widgets/AbstractMessageWidget.hpp"
 
 /**
  * @class ReplyMessageWidget
  * @brief Class for display reply
  */
-class ReplyMessageWidget : public QWidget
+class ReplyMessageWidget : public AbstractMessageWidget
 {
     Q_OBJECT
 

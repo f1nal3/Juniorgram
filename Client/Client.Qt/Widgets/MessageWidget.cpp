@@ -13,25 +13,9 @@
 
 MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId, uint64_t messageId, qint64 utc, QString username,
                              const Style::MessageWidget& st)
-    : QWidget(history),
-      _userId(userId),
-      _messageId(messageId),
-      _messageText(std::move(message)),
-      _username(std::move(username)),
-      _datetime(QDateTime::fromMSecsSinceEpoch(utc)),
-      _st(st)
-{
-    setContentsMargins(QMargins(_st.radius, _st.radius, _st.radius, _st.radius));
-    setMinimumHeight(_st.fontname->height + _st.radius * 2);
-    
-    _fmtMessageText = std::make_unique<FlatTextEdit>(this, _st.textedit);
-    _fmtMessageText->setText(_messageText);
-    _fmtMessageText->setAcceptDrops(false);
-    _fmtMessageText->setReadOnly(true);
-    _fmtMessageText->moveCursor(QTextCursor::Start);
-    _fmtMessageText->setFont(_st.fonttext);
-    _fmtMessageText->move(_st.radius * 2, _st.fontname->height + _st.radius * 4);
-    _fmtMessageText->show();
+    : AbstractMessageWidget(history, message, messageId, username, userId, st) 
+    , _datetime(QDateTime::fromMSecsSinceEpoch(utc))
+{   
     _menuBtn = std::make_unique<FlatButton>(this, "Menu", _st.button);
     _menuBtn->setClickCallback([=]() {
         auto popup = new PopupWidget();

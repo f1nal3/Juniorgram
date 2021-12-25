@@ -7,7 +7,7 @@
 #include "Widgets/InputFields.hpp"
 #include "Style/StyleWidgets.hpp"
 
-class AbstractMessageWidget
+class AbstractMessageWidget : public QWidget
 {
 public:
     /**
@@ -25,7 +25,7 @@ public:
     /// Possible height of message widget
     virtual int expectedHeight() const = 0;
 
-    uint64_t getUserId() const { return _userId; };
+    uint64_t getUserId() const { return _userID; };
 
 private:
     std::unique_ptr<FlatTextEdit> _fmtMessageText;
@@ -37,6 +37,4 @@ private:
     QString     _userName;
 
     const Style::MessageWidget& _st;
-
-
 };
