@@ -9,6 +9,8 @@
 
 class AbstractMessageWidget : public QWidget
 {
+    Q_OBJECT
+
 public:
     /**
      * @brief constructor for displaying a message from a user on the screen.
@@ -26,6 +28,10 @@ public:
     virtual int expectedHeight() const = 0;
 
     uint64_t getUserId() const { return _userID; };
+
+signals:
+    /// Signal for change reply message geometry
+    void geometryChanged(int);
 
 private:
     std::unique_ptr<FlatTextEdit> _fmtMessageText;

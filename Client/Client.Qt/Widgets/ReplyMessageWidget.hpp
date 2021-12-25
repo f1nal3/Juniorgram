@@ -24,11 +24,7 @@ public:
 
 public:
     /// Possible height of message widget
-    int      expectedHeight() const override;
-
-signals:
-    /// Signal for change reply message geometry
-    void geometryChanged(int);
+    int expectedHeight() const override;
 
 protected:
     /// Event that is responsible for rendering the message

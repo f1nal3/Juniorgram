@@ -102,7 +102,6 @@ public slots:
     void onReaction(const std::uint32_t reactionID);
 
 signals:
-    void geometryChanged(int);
     void createReplySignal(QString messageText, QString username, uint64_t messageId);
 
 protected:
