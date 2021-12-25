@@ -9,6 +9,23 @@
 
 class AbstractMessageWidget
 {
+public:
+    /**
+     * @brief constructor for displaying a message from a user on the screen.
+     * @param history parent widget
+     * @param message Message from user.
+     * @param messageId of message.
+     * @param username User nickname.
+     * @param userId of user.
+     * @param st Set of widget's Style properties
+     */
+    AbstractMessageWidget(QWidget* history, QString message, uint64_t messageID, QString username, uint64_t userID,
+                          const Style::MessageWidget& st = st::defaultMessageWidget);
+    
+    /// Possible height of message widget
+    virtual int expectedHeight() const = 0;
+
+    uint64_t getUserId() const { return _userId; };
 
 private:
     std::unique_ptr<FlatTextEdit> _fmtMessageText;

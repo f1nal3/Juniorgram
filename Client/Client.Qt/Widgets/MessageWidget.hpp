@@ -69,7 +69,7 @@ public:
     }
 
     /// Possible height of message widget
-    int expectedHeight() const;
+    int expectedHeight() const override;
 
     /// Message DB
     bool isTheMessage(uint64_t messageId, uint64_t userId) const { return messageId == _messageId && userId == _userId; }
@@ -118,7 +118,6 @@ private:
     std::unique_ptr<ReactionLayout> _reactionsInMenu;
     int32_t                         _index = 0;
 
-    uint64_t                    _userId;
     QDateTime                   _datetime;
     MessageFlags                _messageFlags;
 
