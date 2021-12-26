@@ -73,13 +73,13 @@ public:
     int expectedHeight() const override;
 
     /// Message DB
-    bool isTheMessage(uint64_t messageId, uint64_t userId) const { return messageId == _messageId && userId == _userId; }
+    bool isTheMessage(uint64_t messageId, uint64_t userId) const { return messageId == getMessageID() && userId == getUserID(); }
 
     /**
      * @brief Method for get ID of message.
      * @return Message ID in the format uint64_t
      */
-    uint64_t getMessageID() const { return _messageId; }
+    uint64_t getMessageID() const { return AbstractMessageWidget::getMessageID(); }
 
     /**
      * @brief Compares MessageWidgets by their message's send time

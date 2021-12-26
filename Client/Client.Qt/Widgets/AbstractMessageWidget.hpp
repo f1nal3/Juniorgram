@@ -27,11 +27,25 @@ public:
     /// Possible height of message widget
     virtual int expectedHeight() const = 0;
 
-    uint64_t getUserId() const { return _userID; };
-
 signals:
     /// Signal for change reply message geometry
     void geometryChanged(int);
+
+protected:
+    // Getters and setters for derived classes
+    uint64_t getUserID()             const { return _userID; };
+    uint64_t getMessageID()          const { return _messageID; }
+    const QString&  getMessageText() const { return _messageText; }
+    const QString&  getUserName()    const { return _userName; }
+
+    const Style::MessageWidget& getStyle() const { return _st; }
+
+    void setUserID(uint64_t uID)          { _userID = uID; }
+    void setMessageID(uint64_t msgID)     { _messageID = msgID; }
+    void setMessageText(QString msg)      { _messageText = std::move(msg); }
+    void setUserName(QString usrName)     { _userName = std::move(usrName); }
+
+    FlatTextEdit* getFmtMessageText() const { return _fmtMessageText.get(); }
 
 private:
     std::unique_ptr<FlatTextEdit> _fmtMessageText;
