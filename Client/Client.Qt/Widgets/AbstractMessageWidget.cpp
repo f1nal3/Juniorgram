@@ -4,10 +4,10 @@ AbstractMessageWidget::AbstractMessageWidget(QWidget* history, QString message, 
     QString username, uint64_t userID,
     const Style::MessageWidget& st)
     : QWidget(history)
-    , _messageText(std::move(message))
     , _messageID(messageID)
-    , _userName(std::move(username))
     , _userID(userID)
+    , _messageText(std::move(message))
+    , _userName(std::move(username))
     , _st(st)
 {
     setContentsMargins(QMargins(_st.radius, _st.radius, _st.radius, _st.radius));
