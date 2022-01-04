@@ -31,6 +31,16 @@ void PopupWidget::hideEvent(QHideEvent*)
     if (_deleteOnHide) deleteLater();
 }
 
+void PopupWidget::setMessage(QString text) 
+{ 
+    if (!_messageText)
+    {
+        _messageText = std::make_unique<QLabel>(text, this);
+    }
+ 
+    _messageText->setText(text);
+}
+
 void PopupWidget::popup(const QPoint& globalPoint)
 {
     if (_innerMenu)
@@ -59,3 +69,10 @@ void PopupWidget::setMenu(std::unique_ptr<Menu> menu)
     _innerMenu->setTriggeredCallback([=](const CallbackData&) { hide(); });
 }
 void PopupWidget::setDeleteOnHide(bool deleteOnHide) { _deleteOnHide = deleteOnHide; }
+
+void messageOut(std::shared_ptr<PopupWidget>& popupWidget, QString text)
+{
+    popupWidget->resize(400, 150);
+    popupWidget->setMessage(text);
+    popupWidget->popup(QPoint(960 - 400 / 2, 540 - 150 / 2));  //нахардкодил, ну € и негод€й
+}
