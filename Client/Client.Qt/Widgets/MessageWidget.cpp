@@ -13,26 +13,10 @@
 
 MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId, uint64_t messageId, qint64 utc, QString username,
                              const Style::MessageWidget& st)
-    : QWidget(history),
-      _userId(userId),
-      _messageId(messageId),
-      _messageText(std::move(message)),
-      _username(std::move(username)),
-      _datetime(QDateTime::fromMSecsSinceEpoch(utc)),
-      _st(st)
-{
-    setContentsMargins(QMargins(_st.radius, _st.radius, _st.radius, _st.radius));
-    setMinimumHeight(_st.fontname->height + _st.radius * 2);
-    
-    _fmtMessageText = std::make_unique<FlatTextEdit>(this, _st.textedit);
-    _fmtMessageText->setText(_messageText);
-    _fmtMessageText->setAcceptDrops(false);
-    _fmtMessageText->setReadOnly(true);
-    _fmtMessageText->moveCursor(QTextCursor::Start);
-    _fmtMessageText->setFont(_st.fonttext);
-    _fmtMessageText->move(_st.radius * 2, _st.fontname->height + _st.radius * 4);
-    _fmtMessageText->show();
-    _menuBtn = std::make_unique<FlatButton>(this, "Menu", _st.button);
+    : AbstractMessageWidget(history, message, messageId, username, userId, st) 
+    , _datetime(QDateTime::fromMSecsSinceEpoch(utc))
+{   
+    _menuBtn = std::make_unique<FlatButton>(this, "Menu", getStyle().button);
     _menuBtn->setClickCallback([=]() {
         auto popup = new PopupWidget();
         popup->setDeleteOnHide(true);
@@ -58,7 +42,7 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
     connect(_reactions.get(), &ReactionLayout::onClick,
             this, &MessageWidget::onReaction);
 
-    _replyBtn = std::make_unique<FlatButton>(this, "Reply", _st.button);
+    _replyBtn = std::make_unique<FlatButton>(this, "Reply", getStyle().button);
     _replyBtn->setClickCallback([&](){ createReply(); });
 
     resize(width(), expectedHeight());
@@ -67,27 +51,30 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
 void MessageWidget::paintEvent(QPaintEvent* e)
 {
     QPainter p(this);
-    auto     margin = _st.radius;
+    auto     margin = getStyle().radius;
     p.setPen(QPen(Qt::white, 2));
     p.setRenderHint(QPainter::Antialiasing);
 
     auto thisrect = rect().marginsRemoved(QMargins(1, 1, 2, 2));
     p.drawRoundedRect(thisrect, margin, margin);
 
-    p.setFont(_st.fontname);
+    p.setFont(getStyle().fontname);
     if (_messageFlags & MessageFlag::Deleted)
     {
         QString dltmsg = QString("Message was deleted");
-        p.drawText(QRect(margin, margin, _st.fontname->width(dltmsg), _st.fontname->height), dltmsg, Style::al_center);
+        p.drawText(QRect(margin, margin, getStyle().fontname->width(dltmsg), getStyle().fontname->height), dltmsg, Style::al_center);
         return;
     }
 
-    auto usernameRect = QRect(margin * 2, margin * 2 + 1, _st.fontname->width(_username), _st.fontname->height);
-    p.drawText(usernameRect, _username);
+    auto usernameRect = QRect(margin * 2, margin * 2 + 1, getStyle().fontname->width(getUserName()), getStyle().fontname->height);
+    p.drawText(usernameRect, getUserName());
 
-    p.setFont(_st.fontdate);
+    p.setFont(getStyle().fontdate);
     QString datetime     = _datetime.toString("d.MM hh:mm");
-    auto    datetimeRect = QRect(margin * 3 + usernameRect.right(), margin * 2 + 1, _st.fontdate->width(datetime), _st.fontdate->height);
+    auto    datetimeRect = QRect(margin * 3 + usernameRect.right(), 
+                                 margin * 2 + 1,
+                                 getStyle().fontdate->width(datetime), 
+                                 getStyle().fontdate->height);
     p.drawText(datetimeRect, datetime, Style::al_center);
 
     QWidget::paintEvent(e);
@@ -98,12 +85,12 @@ void MessageWidget::resizeEvent(QResizeEvent* e)
     emit geometryChanged(e->size().height() - e->oldSize().height());
     if (_messageFlags & MessageFlag::Deleted) return QWidget::resizeEvent(e);
     _reactions->recountSize();
-    int menuButtonX = width() - _st.radius - _menuBtn->width();
-    _menuBtn->move(menuButtonX, _st.radius);
-    int replyButtonX = width() - _st.radius - _menuBtn->width() - _replyBtn->width() - 2;
-    _replyBtn->move(replyButtonX, _st.radius);
-    _fmtMessageText->resize(width() - _st.radius * 4 - 1, _fmtMessageText->document()->size().height());
-    _reactions->move(_st.radius * 2, _fmtMessageText->y() + _fmtMessageText->document()->size().height() + _st.radius);
+    int menuButtonX = width() - getStyle().radius - _menuBtn->width();
+    _menuBtn->move(menuButtonX, getStyle().radius);
+    int replyButtonX = width() - getStyle().radius - _menuBtn->width() - _replyBtn->width() - 2;
+    _replyBtn->move(replyButtonX, getStyle().radius);
+    getFmtMessageText()->resize(width() - getStyle().radius * 4 - 1, getFmtMessageText()->document()->size().height());
+    _reactions->move(getStyle().radius * 2, getFmtMessageText()->y() + getFmtMessageText()->document()->size().height() + getStyle().radius);
 
     if (expectedHeight() != height())
     {
@@ -116,21 +103,21 @@ void MessageWidget::onDelete()
 {
     clearMessage();
     _messageFlags |= MessageFlag::Deleted;
-    resize(width(), _st.fontname->height + _st.radius * 2);
+    resize(width(), getStyle().fontname->height + getStyle().radius * 2);
     update();
-    oApp->connectionManager()->userMessageDelete(_messageId);
+    oApp->connectionManager()->userMessageDelete(getMessageID());
 }
 
 void MessageWidget::onReaction(const std::uint32_t reactionID)
 {
-    oApp->connectionManager()->userMessageReaction(_messageId, reactionID);
+    oApp->connectionManager()->userMessageReaction(getMessageID(), reactionID);
 }
 
 void MessageWidget::setMessageText(const QString& newMessage)
 {
     if (newMessage != "")
     {
-        _messageText = newMessage;
+        AbstractMessageWidget::setMessageText(newMessage);
         update();
     }
 }
@@ -139,7 +126,7 @@ void MessageWidget::setUserName(const QString& newUserName)
 {
     if (newUserName != "")
     {
-        _username = newUserName;
+        AbstractMessageWidget::setUserName(newUserName);
         update();
     }
 }
@@ -158,19 +145,19 @@ void MessageWidget::setReactionMap(const std::map<uint32_t, uint32_t>& newReacti
 
 void MessageWidget::clearMessage()
 {
-    _fmtMessageText->hide();
+    getFmtMessageText()->hide();
     _menuBtn->hide();
     _replyBtn->hide();
 }
 
 int MessageWidget::expectedHeight() const
 {
-    if (!_fmtMessageText) return 0;
+    if (!getFmtMessageText()) return 0;
     if (_messageFlags & MessageFlag::Deleted)
     {
-        return _st.fontname->height + _st.radius * 2;
+        return getStyle().fontname->height + getStyle().radius * 2;
     }
-    return _st.radius * 7 + _st.fontname->height + _fmtMessageText->document()->size().height() + _reactions->layoutSize().height();
+    return getStyle().radius * 7 + getStyle().fontname->height + getFmtMessageText()->document()->size().height() + _reactions->layoutSize().height();
 }
 
-void MessageWidget::createReply() { emit createReplySignal(_messageText, _username, _messageId); }
+void MessageWidget::createReply() { emit createReplySignal(getMessageText(), getUserName(), getMessageID()); }

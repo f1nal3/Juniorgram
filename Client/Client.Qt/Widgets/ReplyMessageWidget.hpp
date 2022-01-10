@@ -7,12 +7,13 @@
 
 #include "Widgets/InputFields.hpp"
 #include "Widgets/ReactionLayout.hpp"
+#include "Widgets/AbstractMessageWidget.hpp"
 
 /**
  * @class ReplyMessageWidget
  * @brief Class for display reply
  */
-class ReplyMessageWidget : public QWidget
+class ReplyMessageWidget : public AbstractMessageWidget
 {
     Q_OBJECT
 
@@ -23,12 +24,7 @@ public:
 
 public:
     /// Possible height of message widget
-    int      expectedHeight() const;
-    uint64_t getUserId() const { return _userId; };
-
-signals:
-    /// Signal for change reply message geometry
-    void geometryChanged(int);
+    int expectedHeight() const override;
 
 protected:
     /// Event that is responsible for rendering the message
@@ -37,11 +33,5 @@ protected:
     void resizeEvent(QResizeEvent* e) override;
 
 private:
-    std::unique_ptr<FlatTextEdit> _fmtMessageText;
-    uint64_t                      _messageId;
-    QString                       _messageText;
-    QString                       _username;
-    uint64_t                      _userId;
-    const Style::MessageWidget&   _st;
     const QString                 _replyTag = "Reply";
 };

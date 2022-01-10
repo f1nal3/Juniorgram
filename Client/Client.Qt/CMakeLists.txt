@@ -33,6 +33,8 @@ set(STYLE_SOURCES
 set(UI_WIDGETS_SOURCES
         Widgets/AbstractButton.cpp
         Widgets/AbstractButton.hpp
+        Widgets/AbstractMessageWidget.hpp
+        Widgets/AbstractMessageWidget.cpp
         Widgets/Buttons.cpp
         Widgets/Buttons.hpp
         Widgets/ComboBox.cpp
