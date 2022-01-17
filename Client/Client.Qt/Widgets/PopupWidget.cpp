@@ -70,9 +70,9 @@ void PopupWidget::setMenu(std::unique_ptr<Menu> menu)
 }
 void PopupWidget::setDeleteOnHide(bool deleteOnHide) { _deleteOnHide = deleteOnHide; }
 
-void messageOut(std::shared_ptr<PopupWidget>& popupWidget, QString text)
+void messageOut(std::shared_ptr<PopupWidget> popupWidget, QString text)
 {
     popupWidget->resize(400, 150);
     popupWidget->setMessage(text);
-    popupWidget->popup(QPoint(960 - 400 / 2, 540 - 150 / 2));  //нахардкодил, ну € и негод€й
+    popupWidget->popup(QPoint(960 - 400 / 2, 540 - 150 / 2));  //nahardkodil, ny ya i negodyai
 }

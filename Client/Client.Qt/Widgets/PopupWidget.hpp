@@ -54,4 +54,4 @@ private:
     bool                  _deleteOnHide = false;
 };
 
-void messageOut(std::shared_ptr<PopupWidget>& popupWidget, QString text);
+void messageOut(std::shared_ptr<PopupWidget> popupWidget, QString text);
