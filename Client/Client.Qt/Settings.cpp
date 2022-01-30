@@ -1,31 +1,27 @@
 #include "Settings.hpp"
+#include "ServerInfo.hpp"
 
-Settings::Settings()
+Settings::Settings(const QString& filename, QSettings::Format format)
+    : QSettings(filename, format)
 {
-    settings = std::make_unique<QSettings>();
 }
-
-std::unique_ptr<Settings> Settings::instance = nullptr;
 
 Settings& Settings::getInstance()
 {
-    if (instance == nullptr)
-    {
-        instance.reset(new Settings());
-    }
-    return *instance;
+    static Settings instance{ defaultFilename.data(), QSettings::IniFormat };
+    return instance;
 }
 
 void Settings::writeSettings()
 {
-    settings->beginGroup("Font");
-    settings->setValue("ChatFontSize", _fontSize);
-    settings->endGroup();
+    beginGroup("Font");
+    setValue("ChatFontSize", _fontSize);
+    endGroup();
 }
 
 void Settings::resetSettings()
 {
-    settings->clear();
+    clear();
 }
 
 void Settings::setFontSize(std::int32_t size)
@@ -36,10 +32,33 @@ void Settings::setFontSize(std::int32_t size)
 
 std::optional<std::int32_t> Settings::getFontSize()
 {
-    if (settings->contains("Font/ChatFontSize")) 
+    if (contains("Font/ChatFontSize")) 
     { 
-        return settings->value("Font/ChatFontSize").toInt(); 
+        return value("Font/ChatFontSize").toInt(); 
     }
     return { };
 }
 
+void Settings::configureSettingsGroup(const QString& groupName, const std::map<QString, QVariant>& values)
+{
+    std::unique_lock<std::mutex> lock(_mutex);
+    beginGroup(groupName);
+    for (const auto& [key, value] : values)
+    {
+        if (!contains(key))
+        {
+            setValue(key, value);
+        }
+    }
+    endGroup();
+}
+
+void Settings::rewriteSetting(const QString& fullName, const QVariant& newValue)
+{
+    std::unique_lock<std::mutex> lock(_mutex);
+    if (contains(fullName))
+    {
+        throw Errors{ "Key " + fullName.toStdString() + " already exists ", fullName, newValue };
+    }
+    setValue(fullName, value);
+}
