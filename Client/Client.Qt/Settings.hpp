@@ -48,8 +48,8 @@ public:
      */
     std::optional<std::int32_t> getFontSize();
 
-    void configureSettingsGroup(const QString& groupName, const std::map<QString, QVariant>& values);
-    void configureSettingsGroup(const std::map<QString, QVariant>& values) { configureSettingsGroup("General", values); }
+    void configureSettings(const QString& groupName, const std::map<QString, QVariant>& values);
+    void configureSettings(const std::map<QString, QVariant>& values) { configureSettings("General", values); }
 
     void rewriteSetting(const QString& fullName, const QVariant& newValue);
 
@@ -64,6 +64,7 @@ private:
     std::int32_t _fontSize;
     static constexpr std::int32_t _minFontSize = 0;
 };
+
 
 class Settings::Errors : public std::runtime_error
 {
