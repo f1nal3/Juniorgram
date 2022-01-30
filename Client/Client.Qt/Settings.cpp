@@ -60,5 +60,5 @@ void Settings::rewriteSetting(const QString& fullName, const QVariant& newValue)
     {
         throw Errors{ "Key " + fullName.toStdString() + " doesn't exist ", fullName, newValue };
     }
-    setValue(fullName, value);
+    setValue(fullName, newValue);
 }
