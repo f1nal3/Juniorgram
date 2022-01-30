@@ -79,12 +79,14 @@ private:
 class ConnectionManager : public Network::Client
 {
 public:
+    ConnectionManager() { configureConnectionProperties(); }
+
     /// \todo: should be in client core
     /// Login status
     inline static LoginState loginState;
 
     /// Initialize connection to server
-    void init() { connectToServer(ServerInfo::address, ServerInfo::port); }
+    void init();
     /// Default behavior
     virtual ~ConnectionManager() = default;
 
@@ -128,4 +130,6 @@ protected:
     void onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer) override;
     /// Reaction update answer handler
     void onMessageReactionAnswer(const Utility::ReactionMessageCodes reactionCode) override;
+
+    void configureConnectionProperties();
 };
