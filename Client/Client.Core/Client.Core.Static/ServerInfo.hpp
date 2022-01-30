@@ -1,7 +1,13 @@
 #include <string_view>
 
+constexpr std::uint16_t test_server = 65001;
+constexpr std::uint16_t production_server = 65003;
+
 namespace ServerInfo
 {
+/// Server address
+constexpr std::string_view address = "104.40.239.183";
+
 namespace Address
 {
     constexpr std::string_view remote = "104.40.239.183";
@@ -16,4 +22,5 @@ namespace Port
     constexpr std::uint16_t test       = 65001;
     constexpr std::uint16_t production = 65003;
 }
+constexpr std::uint16_t port = test_server;
 }  // namespace ServerInfo
