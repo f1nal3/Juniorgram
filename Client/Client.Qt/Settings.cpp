@@ -39,7 +39,7 @@ std::optional<std::int32_t> Settings::getFontSize()
     return { };
 }
 
-void Settings::configureSettingsGroup(const QString& groupName, const std::map<QString, QVariant>& values)
+void Settings::configureSettings(const QString& groupName, const std::map<QString, QVariant>& values)
 {
     std::unique_lock<std::mutex> lock(_mutex);
     beginGroup(groupName);
