@@ -56,9 +56,9 @@ void Settings::configureSettings(const QString& groupName, const std::map<QStrin
 void Settings::rewriteSetting(const QString& fullName, const QVariant& newValue)
 {
     std::unique_lock<std::mutex> lock(_mutex);
-    if (contains(fullName))
+    if (!contains(fullName))
     {
-        throw Errors{ "Key " + fullName.toStdString() + " already exists ", fullName, newValue };
+        throw Errors{ "Key " + fullName.toStdString() + " doesn't exist ", fullName, newValue };
     }
     setValue(fullName, value);
 }
