@@ -66,7 +66,9 @@ set(UI_WIDGETS_SOURCES
         Widgets/TextEdit.cpp
         Widgets/TextEdit.hpp
         Widgets/TitleWidget.cpp
-        Widgets/TitleWidget.hpp)
+        Widgets/TitleWidget.hpp
+        Widgets/PopupSystemMessage.cpp
+        Widgets/PopupSystemMessage.hpp)
 
 set(PAGES_SOURCES
         Pages/ChannelCreationPage.cpp

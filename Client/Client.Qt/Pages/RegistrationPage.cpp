@@ -19,7 +19,7 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
     _backButton          = std::make_unique<FlatButton>(this, "Back");
 
     _logoWidget = std::make_unique<LogoWidget>(this);
-    _popupWidget = std::make_shared<PopupWidget>(this);
+    _popupSystemMessage = std::make_unique<PopupSystemMessage>(this);
 
     _registrationHotkey = std::make_unique<QShortcut>
     (
@@ -51,7 +51,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (email.empty() || login.empty() || password.empty() || repeatPassword.empty())
         {
             std::cout << "some field is empty" << std::endl;
-            messageOut(_popupWidget, "some field is empty");
+            _popupSystemMessage->setPopupText("some field is empty");
+            _popupSystemMessage->show();
             onResume();
 
             return;
@@ -60,7 +61,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (password != repeatPassword)
         {
             std::cout << "passwords are different" << std::endl;
-            messageOut(_popupWidget, "passwords are different");
+            _popupSystemMessage->setPopupText("passwords are different");
+            _popupSystemMessage->show();
             onResume();
 
             return;
@@ -69,7 +71,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (!isLoginValid(login))
         {
             std::cout << "login is not valid" << std::endl;
-            messageOut(_popupWidget, "login is not valid");
+            _popupSystemMessage->setPopupText("login is not valid");
+            _popupSystemMessage->show();
             onResume();
 
             return;
@@ -78,7 +81,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (!isEmailValid(email))
         {
             std::cout << "email is not valid" << std::endl;
-            messageOut(_popupWidget, "email is not valid");
+            _popupSystemMessage->setPopupText("email is not valid");
+            _popupSystemMessage->show();
             onResume();
 
             return;
@@ -87,7 +91,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (!isPasswordValid(password))
         {
             std::cout << "password is not valid" << std::endl;
-            messageOut(_popupWidget, "password is not valid");
+            _popupSystemMessage->setPopupText("password is not valid");
+            _popupSystemMessage->show();
             onResume();
 
             return;
@@ -130,19 +135,22 @@ void RegistrationPage::onRegistration(Utility::RegistrationCodes code)
         if (code == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
         {
             std::cout << "Email already exists" << std::endl;
-            messageOut(_popupWidget, "Email already exists");
+            _popupSystemMessage->setPopupText("Email already exists");
+            _popupSystemMessage->show();
             onResume();
         }
         else if (code == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS)
         {
             std::cout << "Username already taken" << std::endl;
-            messageOut(_popupWidget, "Username already taken");
+            _popupSystemMessage->setPopupText("Username already taken");
+            _popupSystemMessage->show();
             onResume();
         }
         else
         {
             std::cout << "Unknown code" << std::endl;
-            messageOut(_popupWidget, "Unknown code");
+            _popupSystemMessage->setPopupText("Unknown code");
+            _popupSystemMessage->show();
             onResume();
         }
     }
