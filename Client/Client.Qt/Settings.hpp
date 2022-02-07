@@ -49,7 +49,7 @@ public:
     std::optional<std::int32_t> getFontSize();
 
     void configureSettings(const QString& groupName, const std::map<QString, QVariant>& values);
-    void configureSettings(const std::map<QString, QVariant>& values) { configureSettings("General", values); }
+    void configureSettings(const std::map<QString, QVariant>& values);
 
     void rewriteSetting(const QString& fullName, const QVariant& newValue);
 
@@ -71,9 +71,9 @@ class Settings::Errors : public std::runtime_error
     QString  _fullKey;
     QVariant _value; 
 public:
-    Errors(std::string wht): std::runtime_error(std::move(wht)) { }
-    Errors(std::string wht, QString fullKey, QVariant value): std::runtime_error(std::move(wht)), _fullKey(fullKey), _value(value) { }
+    Errors(std::string wht);
+    Errors(std::string wht, QString fullKey, QVariant value);
 
-    const QString&  getKey()   const { return _fullKey; }
-    const QVariant& getValue() const { return _value; }
+    const QString&  getKey()   const;
+    const QVariant& getValue() const;
 };
