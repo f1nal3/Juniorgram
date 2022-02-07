@@ -91,20 +91,20 @@ void PopupSystemMessage::hideAnimation()
 
 void PopupSystemMessage::hide()
 {
-    if (getPopupSystemMessageOpacity() == 0.0)
+    if (getPopupOpacity() == 0.0)
     {
         QWidget::hide();
     }
 }
 
-void PopupSystemMessage::setPopupSystemMessageOpacity(float opacity)
+void PopupSystemMessage::setPopupOpacity(float opacity)
 { 
     popupOpacity = opacity;
 
     setWindowOpacity(opacity);
 }
 
-float PopupSystemMessage::getPopupSystemMessageOpacity() const 
+float PopupSystemMessage::getPopupOpacity() const 
 { 
     return popupOpacity; 
 }

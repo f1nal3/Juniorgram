@@ -21,8 +21,8 @@ class PopupSystemMessage : public QWidget
         float popupOpacity;
         QTimer* timer;
 
-        void  setPopupSystemMessageOpacity(float opacity);
-        float getPopupSystemMessageOpacity() const;
+        void  setPopupOpacity(float opacity);
+        float getPopupOpacity() const;
 
     private slots:
         void hideAnimation();
