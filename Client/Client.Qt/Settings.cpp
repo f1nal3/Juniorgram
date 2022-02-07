@@ -52,6 +52,7 @@ void Settings::configureSettings(const QString& groupName, const std::map<QStrin
     }
     endGroup();
 }
+void Settings::configureSettings(const std::map<QString, QVariant>& values) { configureSettings("General", values); }
 
 void Settings::rewriteSetting(const QString& fullName, const QVariant& newValue)
 {
@@ -62,3 +63,19 @@ void Settings::rewriteSetting(const QString& fullName, const QVariant& newValue)
     }
     setValue(fullName, newValue);
 }
+
+
+Settings::Errors::Errors(std::string wht)
+    : std::runtime_error(std::move(wht)) 
+{
+}
+
+Settings::Errors::Errors(std::string wht, QString fullKey, QVariant value)
+    : std::runtime_error(std::move(wht))
+    , _fullKey(fullKey)
+    , _value(value)
+{
+}
+
+const QString&  Settings::Errors::getKey()   const { return _fullKey; }
+const QVariant& Settings::Errors::getValue() const { return _value; }

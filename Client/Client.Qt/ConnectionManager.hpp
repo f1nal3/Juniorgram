@@ -79,7 +79,7 @@ private:
 class ConnectionManager : public Network::Client
 {
 public:
-    ConnectionManager() { configureConnectionProperties(); }
+    ConnectionManager();
 
     /// \todo: should be in client core
     /// Login status

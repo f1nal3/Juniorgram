@@ -7,6 +7,8 @@ ReceiverManager* ReceiverManager::self;
 
 ReceiverManager::ReceiverManager() { self = this; }
 
+ConnectionManager::ConnectionManager() { configureConnectionProperties(); }
+
 void ConnectionManager::init()
 {
     Settings::getInstance().beginGroup("ConnectionSettings");
