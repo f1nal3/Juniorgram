@@ -2,7 +2,7 @@
 
 #include "ServerInfo.hpp"
 
-App::App(/* args */) { connectToServer(ServerInfo::address, ServerInfo::port); }
+App::App(/* args */) { connectToServer(ServerInfo::Address::remote, ServerInfo::Port::production); }
 
 App::~App()
 {

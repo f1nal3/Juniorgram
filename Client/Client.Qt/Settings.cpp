@@ -1,31 +1,27 @@
 #include "Settings.hpp"
+#include "ServerInfo.hpp"
 
-Settings::Settings()
+Settings::Settings(const QString& filename, QSettings::Format format)
+    : QSettings(filename, format)
 {
-    settings = std::make_unique<QSettings>();
 }
-
-std::unique_ptr<Settings> Settings::instance = nullptr;
 
 Settings& Settings::getInstance()
 {
-    if (instance == nullptr)
-    {
-        instance.reset(new Settings());
-    }
-    return *instance;
+    static Settings instance{ defaultFilename.data(), QSettings::IniFormat };
+    return instance;
 }
 
 void Settings::writeSettings()
 {
-    settings->beginGroup("Font");
-    settings->setValue("ChatFontSize", _fontSize);
-    settings->endGroup();
+    beginGroup("Font");
+    setValue("ChatFontSize", _fontSize);
+    endGroup();
 }
 
 void Settings::resetSettings()
 {
-    settings->clear();
+    clear();
 }
 
 void Settings::setFontSize(std::int32_t size)
@@ -36,10 +32,50 @@ void Settings::setFontSize(std::int32_t size)
 
 std::optional<std::int32_t> Settings::getFontSize()
 {
-    if (settings->contains("Font/ChatFontSize")) 
+    if (contains("Font/ChatFontSize")) 
     { 
-        return settings->value("Font/ChatFontSize").toInt(); 
+        return value("Font/ChatFontSize").toInt(); 
     }
     return { };
 }
 
+void Settings::configureSettings(const QString& groupName, const std::map<QString, QVariant>& values)
+{
+    std::unique_lock<std::mutex> lock(_mutex);
+    beginGroup(groupName);
+    for (const auto& [key, value] : values)
+    {
+        if (!contains(key))
+        {
+            setValue(key, value);
+        }
+    }
+    endGroup();
+}
+void Settings::configureSettings(const std::map<QString, QVariant>& values) { configureSettings("General", values); }
+
+void Settings::rewriteSetting(const QString& fullName, const QVariant& newValue)
+{
+    std::unique_lock<std::mutex> lock(_mutex);
+    if (!contains(fullName))
+    {
+        throw Errors{ "Key " + fullName.toStdString() + " doesn't exist ", fullName, newValue };
+    }
+    setValue(fullName, newValue);
+}
+
+
+Settings::Errors::Errors(std::string wht)
+    : std::runtime_error(std::move(wht)) 
+{
+}
+
+Settings::Errors::Errors(std::string wht, QString fullKey, QVariant value)
+    : std::runtime_error(std::move(wht))
+    , _fullKey(fullKey)
+    , _value(value)
+{
+}
+
+const QString&  Settings::Errors::getKey()   const { return _fullKey; }
+const QVariant& Settings::Errors::getValue() const { return _value; }
