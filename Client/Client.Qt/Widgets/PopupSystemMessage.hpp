@@ -37,7 +37,6 @@ class PopupSystemMessage : public QWidget
     public slots:
         void setPopupText(const QString& text);
         void show();
-
 };
 
 #endif  // POPUP_SYSTEM_MESSAGE_H

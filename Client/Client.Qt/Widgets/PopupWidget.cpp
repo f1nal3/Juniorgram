@@ -74,5 +74,5 @@ void messageOut(std::shared_ptr<PopupWidget> popupWidget, QString text)
 {
     popupWidget->resize(400, 150);
     popupWidget->setMessage(text);
-    popupWidget->popup(QPoint(960 - 400 / 2, 540 - 150 / 2));  //nahardkodil, ny ya i negodyai
+    popupWidget->popup(QPoint(960 - 400 / 2, 540 - 150 / 2));  //alignment near the center
 }

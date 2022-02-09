@@ -31,14 +31,14 @@ protected:
     void resizeEvent(QResizeEvent* event) override;
 
 private:
-    std::unique_ptr<FlatInput>   _emailInput;
-    std::unique_ptr<FlatInput>   _usernameInput;
-    std::unique_ptr<FlatInput>   _passwordInput;
-    std::unique_ptr<FlatInput>   _repeatPasswordInput;
-    std::unique_ptr<FlatButton>  _registrationButton;
-    std::unique_ptr<FlatButton>  _backButton;
-    std::unique_ptr<LogoWidget>  _logoWidget;
+    std::unique_ptr<FlatInput>  _emailInput;
+    std::unique_ptr<FlatInput>  _usernameInput;
+    std::unique_ptr<FlatInput>  _passwordInput;
+    std::unique_ptr<FlatInput>  _repeatPasswordInput;
+    std::unique_ptr<FlatButton> _registrationButton;
+    std::unique_ptr<FlatButton> _backButton;
+    std::unique_ptr<LogoWidget> _logoWidget;
     std::unique_ptr<PopupSystemMessage> _popupSystemMessage;
 
-    std::unique_ptr<QShortcut>   _registrationHotkey;
+    std::unique_ptr<QShortcut>  _registrationHotkey;
 };
