@@ -22,4 +22,5 @@ See @ref gettingstarted for more info on build setup and installation.
 
  See @ref localserversetup for a guide on running the server on your local machine.
 
+
 [Documentation Coverage](https://f1nal3.github.io/Juniorgram/doc_coverage/index.html)
