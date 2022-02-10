@@ -106,3 +106,19 @@ void ChannelListPage::updateLayout()
 
     _channelList->resize(size.width() - st::defaultMargin * 2, _addChannelButton->y() - st::defaultMargin * 2);
 }
+
+void ChannelListPage::keyPressEvent(QKeyEvent* event)
+{
+    if ((event->modifiers() == Qt::CTRL) && (event->nativeVirtualKey() == Qt::Key_N))
+    {
+        addChannelToChannelListWidget();
+    }
+    if ((event->modifiers() == Qt::CTRL) && (event->nativeVirtualKey() == Qt::Key_U))
+    {
+        requestChannels();
+    }
+    if (event->key() == Qt::Key_Escape)
+    {
+        close();
+    }
+}

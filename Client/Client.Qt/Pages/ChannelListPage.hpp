@@ -3,6 +3,7 @@
 #include <Network/Primitives.hpp>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <QKeyEvent>
 
 #include "Widgets/ListWidget.hpp"
 #include "Widgets/Page.hpp"
@@ -39,6 +40,9 @@ private slots:
     void addSubscribedChannelToMainChannelWidget(const std::vector<uint64_t>& ChannelSubscribeList);
     /// Update channel view
     void updateChannelList();
+
+protected:
+    void keyPressEvent(QKeyEvent* event) override;
 
 private:
     std::unique_ptr<ListWidget> _channelList;
