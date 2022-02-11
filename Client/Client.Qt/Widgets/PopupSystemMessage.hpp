@@ -1,5 +1,4 @@
-#ifndef POPUP_SYSTEM_MESSAGE_H
-#define POPUP_SYSTEM_MESSAGE_H
+#pragma once
 
 #include <QWidget>
 #include <QLabel>
@@ -13,16 +12,6 @@ class PopupSystemMessage : public QWidget
 
     // translucency property
     Q_PROPERTY(float popupOpacity READ getPopupOpacity WRITE setPopupOpacity)
-    
-    private:
-        QLabel label;
-        QGridLayout layout;
-        QPropertyAnimation animation;
-        float popupOpacity;
-        QTimer* timer;
-
-        void  setPopupOpacity(float opacity);
-        float getPopupOpacity() const;
 
     private slots:
         void hideAnimation();
@@ -37,6 +26,14 @@ class PopupSystemMessage : public QWidget
     public slots:
         void setPopupText(const QString& text);
         void show();
-};
 
-#endif  // POPUP_SYSTEM_MESSAGE_H
+      private:
+        QLabel             label;
+        QGridLayout        layout;
+        QPropertyAnimation animation;
+        float              popupOpacity;
+        QTimer*            timer;
+
+        void  setPopupOpacity(float opacity);
+        float getPopupOpacity() const;
+};

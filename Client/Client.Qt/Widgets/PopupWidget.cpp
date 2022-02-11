@@ -37,8 +37,10 @@ void PopupWidget::setMessage(QString text)
     {
         _messageText = std::make_unique<QLabel>(text, this);
     }
- 
-    _messageText->setText(text);
+    else
+    {
+        _messageText->setText(text);
+    }
 }
 
 void PopupWidget::popup(const QPoint& globalPoint)

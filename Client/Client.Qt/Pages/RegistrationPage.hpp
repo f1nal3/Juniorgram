@@ -4,8 +4,8 @@
 #include <QLabel>
 #include <Utility/Utility.hpp>
 #include <Widgets/Page.hpp>
-#include <memory>
 #include <Widgets/PopupSystemMessage.hpp>
+#include <memory>
 
 class FlatInput;
 class FlatButton;

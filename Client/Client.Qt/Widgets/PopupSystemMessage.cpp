@@ -66,14 +66,6 @@ void PopupSystemMessage::show()
     animation.setStartValue(0.0);
     animation.setEndValue(1.0);
 
-    /*
-    setGeometry(QApplication::desktop()->availableGeometry().width() - 36 - width() + QApplication::desktop()->availableGeometry().x(),
-                QApplication::desktop()->availableGeometry().height() - 36 - height() + QApplication::desktop()->availableGeometry().y(),
-                width(), height());  
-                                                                                                                                                moving the widget to the bottom corner
-                */
-
-     
     QWidget::show();
 
     animation.start();
