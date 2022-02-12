@@ -17,6 +17,25 @@ ChannelListPage::ChannelListPage(std::shared_ptr<ListWidget>& anotherChannelList
     _updateChannelButton = std::make_unique<FlatButton>(this, "Update");
     _channelList         = std::make_unique<ListWidget>(this);
 
+    _addChannelHotkey = std::make_unique<QShortcut>
+    (
+        QKeySequence(Qt::CTRL + Qt::Key_A),
+        this,
+        [this]() { _addChannelButton->clicked(Qt::NoModifier, Qt::LeftButton); }
+    );
+    _updateChannelHotKey = std::make_unique<QShortcut>
+    (
+        QKeySequence(Qt::CTRL + Qt::Key_U),
+        this,
+        [this]() { _updateChannelButton->clicked(Qt::NoModifier, Qt::LeftButton); }
+    );
+    _closeHotkey = std::make_unique<QShortcut>
+    (
+        QKeySequence(Qt::Key_Escape),
+        this,
+        [this]() { this->close(); }
+    );
+
     connect(ReceiverManager::instance(), &ReceiverManager::onChannelListRequest, this, &ChannelListPage::setChannels);
     connect(ReceiverManager::instance(), &ReceiverManager::onChannelSubscriptionListAnswer, this,
             &ChannelListPage::addSubscribedChannelToMainChannelWidget);
@@ -105,20 +124,4 @@ void ChannelListPage::updateLayout()
     _channelList->move(st::defaultMargin, st::defaultMargin);
 
     _channelList->resize(size.width() - st::defaultMargin * 2, _addChannelButton->y() - st::defaultMargin * 2);
-}
-
-void ChannelListPage::keyPressEvent(QKeyEvent* event)
-{
-    if ((event->modifiers() == Qt::CTRL) && (event->nativeVirtualKey() == Qt::Key_N))
-    {
-        addChannelToChannelListWidget();
-    }
-    if ((event->modifiers() == Qt::CTRL) && (event->nativeVirtualKey() == Qt::Key_U))
-    {
-        requestChannels();
-    }
-    if (event->key() == Qt::Key_Escape)
-    {
-        close();
-    }
 }
