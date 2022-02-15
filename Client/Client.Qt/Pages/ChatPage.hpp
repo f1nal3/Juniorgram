@@ -4,6 +4,7 @@
 #include <QStackedWidget>
 #include <QWidget>
 #include <memory>
+#include <algorithm>
 
 #include "Widgets/ChannelListWidget.hpp"
 #include "Widgets/ChatHistory.hpp"

@@ -17,6 +17,13 @@ LoginPage::LoginPage(QWidget* parent) : Page(parent)
 
     _logoWidget = std::make_unique<LogoWidget>(this);
 
+    _signInHotkey = std::make_unique<QShortcut>
+    (
+        QKeySequence{ Qt::Key_Return },
+        this,
+        [this]() { _signInButton->clicked(Qt::NoModifier, Qt::LeftButton); }
+    );
+
     connect(ReceiverManager::instance(), &ReceiverManager::onLoginAnswer, this, &LoginPage::onLogin);
 
     _signInButton->setClickCallback([this]() {

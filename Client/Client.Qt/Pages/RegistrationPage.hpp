@@ -1,5 +1,6 @@
 #pragma once
 #include <QWidget>
+#include <QShortcut>
 #include <Utility/Utility.hpp>
 #include <Widgets/Page.hpp>
 #include <memory>
@@ -35,4 +36,6 @@ private:
     std::unique_ptr<FlatButton> _registrationButton;
     std::unique_ptr<FlatButton> _backButton;
     std::unique_ptr<LogoWidget> _logoWidget;
+
+    std::unique_ptr<QShortcut>  _registrationHotkey;
 };

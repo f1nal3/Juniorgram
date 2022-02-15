@@ -3,7 +3,6 @@
 #include <future>
 
 #include "DataAccess.Postgre/PostgreRepositoryManager.hpp"
-#include "Network/Primitives.hpp"
 
 using Network::Connection;
 using Network::Message;
@@ -19,26 +18,36 @@ bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
     return true;
 }
 
-void Server::onClientDisconnect(const std::shared_ptr<Connection>& client) { std::cout << "Removing client [" << client->getID() << "]\n"; }
+void Server::onClientDisconnect(const std::shared_ptr<Connection>& client)
+{
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Removing client [" + std::to_string(client->getID()) + "]", 
+        Base::Logger::LogLevel::INFO
+    );
+}
 
 void Server::onMessage(const std::shared_ptr<Connection>& client, Message& message)
 {
     using namespace DataAccess;
 
-    const auto maxDelay    = std::chrono::milliseconds(300);
-    const auto currentTime = std::chrono::system_clock::now();
-    const auto delay       = std::chrono::milliseconds(
-              std::abs(std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - message.mHeader.mTimestamp).count()));
-
-    if (delay > maxDelay) message.mHeader.mTimestamp = currentTime;
+    const auto currentTime     = std::chrono::system_clock::now();
+    message.mHeader.mTimestamp = currentTime;
 
     switch (message.mHeader.mMessageType)
     {
         case Network::Message::MessageType::ServerPing:
         {
             std::tm formattedTimestamp = Utility::safe_localtime(std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
-
-            std::cout << "[" << std::put_time(&formattedTimestamp, "%F %T") << "][" << client->getID() << "]: Server Ping\n";
+            
+            std::ostringstream out;
+            out << std::put_time(&formattedTimestamp, "%F %T");
+            
+            Base::Logger::FileLogger::getInstance().log
+            (
+                "[" + out.str() + "][" + std::to_string(client->getID()) + "]: Server Ping", 
+                Base::Logger::LogLevel::INFO
+            );
 
             client->send(message);
         }
@@ -48,7 +57,14 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             std::tm formattedTimestamp = Utility::safe_localtime(std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
 
-            std::cout << "[" << std::put_time(&formattedTimestamp, "%F %T") << "][" << client->getID() << "]: Message All\n";
+            std::ostringstream out;
+            out << std::put_time(&formattedTimestamp, "%F %T");
+
+            Base::Logger::FileLogger::getInstance().log
+            (
+                "[" + out.str() + "][" + std::to_string(client->getID()) + "]: Message All\n", 
+                Base::Logger::LogLevel::INFO
+            );
 
             Network::Message msg;  // T\todo Why is a new message needed here?
             msg.mHeader.mMessageType = Network::Message::MessageType::ServerMessage;
@@ -74,7 +90,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::MessageHistoryRequest:
         {
-            std::uint64_t channelID = std::any_cast<std::uint64_t>(message.mBody);
+            auto channelID = std::any_cast<std::uint64_t>(message.mBody);
 
             auto future = mPostgreManager->pushRequest(&IMessagesRepository::getMessageHistory, fmt(channelID));
 
@@ -93,7 +109,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
             mi.senderID = client->getUserID();
             mi.message  = Utility::removeSpaces(mi.message);
-            mi.time = Utility::millisecondsSinceEpoch();
+            mi.time     = Utility::millisecondsSinceEpoch();
 
             auto future = mPostgreManager->pushRequest(&IMessagesRepository::storeMessage, fmt(mi));
 
@@ -172,12 +188,12 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             client->send(answerForClient);
         }
         break;
-        
+
         case Network::Message::MessageType::MessageReactionRequest:
         {
-            auto messageInfo = std::any_cast<Network::MessageInfo>(message.mBody);
+            auto messageInfo     = std::any_cast<Network::MessageInfo>(message.mBody);
             messageInfo.senderID = client->getUserID();
-            
+
             auto future = mPostgreManager->pushRequest(&IMessagesRepository::updateMessageReactions, fmt(messageInfo));
 
             Network::Message answerForClient;
@@ -214,7 +230,11 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto userID          = future.get();
             auto loginSuccessful = userID != 0;
 
-            std::cout << "DEBUG: userID=" << userID << "\n";
+            Base::Logger::FileLogger::getInstance().log
+            (
+                "DEBUG: userID=" + std::to_string(userID), 
+                Base::Logger::LogLevel::DEBUG
+            );
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::LoginAnswer;
@@ -225,23 +245,25 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             if (loginSuccessful)
             {
                 client->setUserID(userID);
-                std::cout << "User " << userID << " logged in.\n";
-            }
-            else
-            {
-                client->disconnect();
+
+                Base::Logger::FileLogger::getInstance().log
+                (
+                    "User " + std::to_string(userID) + " logged in.", 
+                    Base::Logger::LogLevel::INFO
+                );
             }
         }
         break;
 
         case Network::Message::MessageType::ChannelLeaveRequest:
         {
-            Network::ChannelLeaveInfo leavedChennelInfo;
-            std::string               channelName = std::any_cast<std::string>(message.mBody);
-            leavedChennelInfo.creatorID           = client->getUserID();
-            leavedChennelInfo.channelName         = channelName;
+            Network::ChannelLeaveInfo channelLeaveInfo;
 
-            auto future = mPostgreManager->pushRequest(&IChannelsRepository::leaveChannel, fmt(leavedChennelInfo));
+            auto channelName             = std::any_cast<std::string>(message.mBody);
+            channelLeaveInfo.creatorID   = client->getUserID();
+            channelLeaveInfo.channelName = channelName;
+
+            auto future = mPostgreManager->pushRequest(&IChannelsRepository::leaveChannel, fmt(channelLeaveInfo));
 
             Network::Message messageToClient;
             messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelLeaveAnswer;
@@ -287,9 +309,10 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         case Network::Message::MessageType::ChannelDeleteRequest:
         {
             Network::ChannelDeleteInfo channelDeleteInfo;
-            std::string                channelName = std::any_cast<std::string>(message.mBody);
-            channelDeleteInfo.creatorID            = client->getUserID();
-            channelDeleteInfo.channelName          = channelName;
+
+            auto channelName              = std::any_cast<std::string>(message.mBody);
+            channelDeleteInfo.creatorID   = client->getUserID();
+            channelDeleteInfo.channelName = channelName;
 
             auto future = mPostgreManager->pushRequest(&IChannelsRepository::deleteChannel, fmt(channelDeleteInfo));
 
@@ -337,7 +360,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         default:
         {
-            std::cerr << "Unknown command received\n";
+            Base::Logger::FileLogger::getInstance().log("Unknown command received", Base::Logger::LogLevel::ERR);
         }
         break;
     }
@@ -352,30 +375,20 @@ Server::Server(const uint16_t& port)
 
 Server::~Server() { stop(); }
 
-bool Server::start()
+void Server::start()
 {
-    try
+    waitForClientConnection();
+
+    size_t threadsCount = std::thread::hardware_concurrency();
+    threadsCount > 1 ? --threadsCount : threadsCount = 1;
+    
+    for (size_t i = 0; i < threadsCount; ++i)
     {
-        waitForClientConnection();
-
-        size_t threadsCount = std::thread::hardware_concurrency();
-        threadsCount > 1 ? --threadsCount : threadsCount = 1;
-
-        for (size_t i = 0; i < threadsCount; ++i)
-        {
-            mThreads.emplace_back(std::thread([this]() { mContext.run(); }));
-        }
-
-        mPostgreManager->handleRequests();
-
-        std::cout << "[SERVER] Started!\n";
-        return true;
+        mThreads.emplace_back(std::thread([this]() { mContext.run(); }));
     }
-    catch (std::exception& exception)
-    {
-        std::cerr << "[SERVER] Exception: " << exception.what() << "\n";
-        return false;
-    }
+    mPostgreManager->handleRequests();
+
+    Base::Logger::FileLogger::getInstance().log("[SERVER] Started!", Base::Logger::LogLevel::INFO);
 }
 
 void Server::stop()
@@ -393,8 +406,7 @@ void Server::stop()
     }
 
     mThreads.clear();
-
-    std::cout << "[SERVER] Stopped!\n";
+    Base::Logger::FileLogger::getInstance().log("[SERVER] Stopped!", Base::Logger::LogLevel::INFO);
 }
 
 void Server::waitForClientConnection()
@@ -402,27 +414,46 @@ void Server::waitForClientConnection()
     mAcceptor.async_accept([this](std::error_code error, asio::ip::tcp::socket socket) {
         if (!error)
         {
-            std::cout << "[SERVER] New Connection: " << socket.remote_endpoint() << "\n";
+            std::ostringstream out;
+            out << socket.remote_endpoint();
+            Base::Logger::FileLogger::getInstance().log
+            (
+                "[SERVER] New Connection: " + out.str(), 
+                Base::Logger::LogLevel::INFO
+            );
 
             std::shared_ptr<Connection> newConnection =
                 std::make_shared<Connection>(Connection::OwnerType::SERVER, mContext, std::move(socket), mIncomingMessagesQueue);
 
+            /// \todo This function always return true
             if (onClientConnect(newConnection))
             {
                 mConnectionsPointers.push_back(std::move(newConnection));
 
                 mConnectionsPointers.back()->connectToClient(mIDCounter++);
 
-                std::cout << "[" << mConnectionsPointers.back()->getID() << "] Connection Approved\n";
+                Base::Logger::FileLogger::getInstance().log
+                (
+                   "[" + std::to_string(mConnectionsPointers.back()->getID()) + "] Connection Approved",
+                    Base::Logger::LogLevel::INFO
+                );
             }
             else
             {
-                std::cout << "[-----] Connection Denied\n";
+                Base::Logger::FileLogger::getInstance().log
+                (
+                    "[-----] Connection Denied", 
+                    Base::Logger::LogLevel::INFO
+                );
             }
         }
         else
         {
-            std::cout << "[SERVER] New Connection Error: " << error.message() << "\n";
+            Base::Logger::FileLogger::getInstance().log
+            (
+                "[SERVER] New Connection Error: " + error.message(),
+                Base::Logger::LogLevel::ERR
+            );
         }
 
         waitForClientConnection();

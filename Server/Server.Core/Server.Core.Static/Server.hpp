@@ -6,6 +6,8 @@
 #include <memory>
 #include <thread>
 
+#include <FileLogger.hpp>
+
 #include "Network/Connection.hpp"
 #include "Network/Message.hpp"
 #include "Network/SafeQueue.hpp"
@@ -40,13 +42,13 @@ private:
      * @brief Method for sending the message connecting to the server.
      * @param Connection management class as std::shared_ptr<Network::Connection>&.
      */
-    bool onClientConnect(const std::shared_ptr<Network::Connection>& client);
+    static bool onClientConnect(const std::shared_ptr<Network::Connection>& client);
 
     /**
-     * @brief Method for sending the message disconnecting to the server.
+     * @brief Method for sending the message disconnecting from the server.
      * @param Connection management class as std::shared_ptr<Network::Connection>&.
      */
-    void onClientDisconnect(const std::shared_ptr<Network::Connection>& client);
+    static void onClientDisconnect(const std::shared_ptr<Network::Connection>& client);
 
     /**
      * @brief Method used to process messages.
@@ -61,9 +63,8 @@ public:
 
     /**
      * @brief Method to start the server.
-     * @return Boolean, if true then the server is running.
      */
-    bool start();
+    void start();
 
     //void registerRepositories();
 

@@ -13,7 +13,7 @@ namespace Base::Logger
      */
     enum class LogLevel
     {
-        ERROR,
+        ERR,
         WARNING,
         INFO,
         DEBUG

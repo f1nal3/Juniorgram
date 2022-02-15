@@ -6,7 +6,7 @@ std::string FileLogger::stringifyLogLvl(const LogLevel level)
 {
     std::string                                  result   = "NONE";
     const static std::map<LogLevel, std::string> LevelMap = {
-        {LogLevel::ERROR, "ERROR"},
+        {LogLevel::ERR, "ERROR"},
         {LogLevel::WARNING, "WARNING"},
         {LogLevel::INFO, "INFO"},
         {LogLevel::DEBUG, "DEBUG"},
@@ -184,8 +184,7 @@ std::string FileLogger::getCurrentDate()
 
 std::string FileLogger::getFileName()
 {
-    _fileName = _fileName + getCurrentDate() + ".txt";
-    return _fileName;
+    return _fileName + getCurrentDate() + ".txt";
 }
 
 std::string FileLogger::getFldName()

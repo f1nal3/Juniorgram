@@ -2,6 +2,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <memory>
+#include <QShortcut>
 
 #include "Buttons.hpp"
 #include "InputFields.hpp"
@@ -74,4 +75,5 @@ private:
     std::unique_ptr<FlatButton>   _sendButton;
     std::unique_ptr<FlatTextEdit> _messageInput;
     std::unique_ptr<QSpacerItem>  _horizontalButtonSpacer;
+    std::unique_ptr<QShortcut>    _sendMessage;
 };

@@ -6,13 +6,14 @@
 #include "Widgets/InputFields.hpp"
 #include "Widgets/ReactionLayout.hpp"
 #include "Widgets/ReplyWidget.hpp"
+#include "Widgets/AbstractMessageWidget.hpp"
 
 class ChatHistory;
 
 /** @class MessageWidget
  *  @brief message visual representation in _chat
  */
-class MessageWidget : public QWidget
+class MessageWidget : public AbstractMessageWidget
 {
     Q_OBJECT
 
@@ -69,16 +70,16 @@ public:
     }
 
     /// Possible height of message widget
-    int expectedHeight() const;
+    int expectedHeight() const override;
 
     /// Message DB
-    bool isTheMessage(uint64_t messageId, uint64_t userId) const { return messageId == _messageId && userId == _userId; }
+    bool isTheMessage(uint64_t messageId, uint64_t userId) const { return messageId == getMessageID() && userId == getUserID(); }
 
     /**
      * @brief Method for get ID of message.
      * @return Message ID in the format uint64_t
      */
-    uint64_t getMessageID() const { return _messageId; }
+    uint64_t getMessageID() const { return AbstractMessageWidget::getMessageID(); }
 
     /**
      * @brief Compares MessageWidgets by their message's send time
@@ -101,7 +102,6 @@ public slots:
     void onReaction(const std::uint32_t reactionID);
 
 signals:
-    void geometryChanged(int);
     void createReplySignal(QString messageText, QString username, uint64_t messageId);
 
 protected:
@@ -112,20 +112,14 @@ private:
     void clearMessage();
 
 private:
-    std::unique_ptr<FlatTextEdit>   _fmtMessageText;
     std::unique_ptr<FlatButton>     _menuBtn;
     std::unique_ptr<FlatButton>     _reactionsBtn;
     std::unique_ptr<ReactionLayout> _reactions;
     std::unique_ptr<ReactionLayout> _reactionsInMenu;
     int32_t                         _index = 0;
 
-    uint64_t                    _userId;
-    uint64_t                    _messageId;
-    QString                     _messageText;
-    QString                     _username;
     QDateTime                   _datetime;
     MessageFlags                _messageFlags;
-    const Style::MessageWidget& _st;
 
     std::unique_ptr<FlatButton> _replyBtn;
 };

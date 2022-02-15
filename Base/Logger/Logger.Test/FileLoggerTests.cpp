@@ -1,4 +1,4 @@
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 
 #include "Logger.Static/FileLogger.hpp"
 
@@ -155,7 +155,7 @@ TEST_CASE("Change the valid log levels")
 {
     FileLogger& log = FileLogger::getInstance();
 
-    REQUIRE(log.stringifyLogLvl(LogLevel::ERROR) == "ERROR");
+    REQUIRE(log.stringifyLogLvl(LogLevel::ERR) == "ERROR");
     REQUIRE(log.stringifyLogLvl(LogLevel::WARNING) == "WARNING");
     REQUIRE(log.stringifyLogLvl(LogLevel::INFO) == "INFO");
     REQUIRE(log.stringifyLogLvl(LogLevel::DEBUG) == "DEBUG");

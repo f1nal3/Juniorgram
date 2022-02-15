@@ -15,12 +15,12 @@ Client::~Client() { disconnectFromServer(); }
 
 bool Client::connectToServer(const std::string_view& host, const uint16_t port)
 {
-    if (host != ServerInfo::address)
+    if (host != ServerInfo::Address::remote && host != ServerInfo::Address::local)
     {
         std::cerr << "Bad server address" << std::endl;
         return false;
     }
-    if (port != ServerInfo::port)
+    if (port != ServerInfo::Port::test && port != ServerInfo::Port::production)
     {
         std::cerr << "Bad port value" << std::endl;
         return false;

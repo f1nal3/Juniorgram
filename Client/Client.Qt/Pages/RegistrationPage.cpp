@@ -20,6 +20,13 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
 
     _logoWidget = std::make_unique<LogoWidget>(this);
 
+    _registrationHotkey = std::make_unique<QShortcut>
+    (
+        QKeySequence{ Qt::Key_Return },
+        this,
+        [this]() { _registrationButton->clicked(Qt::NoModifier, Qt::LeftButton); }
+    );
+
     _backButton->setClickCallback([]() { oApp->setAppState(App::AppState::LoginForm); });
 
     _emailInput->resize(st::authBlockWidth, _emailInput->minimumHeight());

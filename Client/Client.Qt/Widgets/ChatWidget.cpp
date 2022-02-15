@@ -6,18 +6,20 @@
 #include "Application.hpp"
 #include "ChatHistory.hpp"
 
-ChatWidget::ChatWidget(QWidget* parent) : QWidget(parent)
+ChatWidget::ChatWidget(std::string channelName, QWidget* parent) : QWidget(parent), _channelName(channelName)
 {
     setContentsMargins(0, 0, 0, 0);
 
-    _channelBar   = std::make_unique<ChannelBar>(this);
+    _channelBar   = std::make_unique<ChannelBar>(this, QString::fromStdString(_channelName));
     _chatHistory  = std::make_unique<ChatHistory>(this);
     _textEdit     = std::make_unique<TextEdit>(this);
     _replyWidget  = std::make_unique<ReplyWidget>(this);
     _requestTimer = std::make_unique<QTimer>();
-
     connect(_requestTimer.get(), &QTimer::timeout, this, &ChatWidget::requestMessages);
-
+    connect(_channelBar.get(), &ChannelBar::leaveChannelClick, this, [&]() {
+        this->close();
+        emit removeChannel();
+    });
     /// Once in a second
     _requestTimer->start(1000);
     _replyWidget->hide();

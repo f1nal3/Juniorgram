@@ -33,16 +33,29 @@ ChatPage::ChatPage(QWidget* parent) : Page(parent)
             return channelIterator->channelID;
         };
 
+        auto findChannelName = [&](auto channelID) {
+            return std::find_if(ChannelListPage::channels.begin(), ChannelListPage::channels.end(),
+                                [channelID](Network::ChannelInfo a) { return a.channelID == channelID; })->channelName;
+        };
+        auto channelID   = findChannelID();
+        auto channelName = findChannelName(channelID);
+
         if (_chatSwitchWidget->widget(_channelListWidget->getChannelList()->currentRow()) == nullptr)
         {
-            auto chatWidget = new ChatWidget();
-            chatWidget->setChannelID(findChannelID());
+            auto chatWidget = new ChatWidget(channelName);
+            chatWidget->setChannelID(channelID);
             _chatSwitchWidget->insertWidget(_channelListWidget->getChannelList()->currentRow(), chatWidget);
+            connect(chatWidget, &ChatWidget::removeChannel, this, [this]() {
+                _chatSwitchWidget->removeWidget(_chatSwitchWidget->widget(_channelListWidget->getChannelList()->currentRow()));
+                _channelListWidget->getChannelList()->takeItem(_channelListWidget->getChannelList()->currentRow());
+                _channelListWidget->getChannelList()->clearSelection();
+            });
         }
         else
         {
             auto chatWidget = dynamic_cast<ChatWidget*>(_chatSwitchWidget->widget(_channelListWidget->getChannelList()->currentRow()));
-            chatWidget->setChannelID(findChannelID());
+            chatWidget->setChannelID(channelID);
+            chatWidget->setChannelName(channelName);
         }
         _chatSwitchWidget->setCurrentIndex(_channelListWidget->getChannelList()->currentRow());
     });

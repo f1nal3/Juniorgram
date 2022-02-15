@@ -11,6 +11,13 @@ ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
     _addChannelButton    = std::make_unique<FlatButton>(this, "Add");
     _createChannelButton = std::make_unique<FlatButton>(this, "Create");
 
+    _openChannelList     = std::make_unique<QShortcut>(
+        QKeySequence{ "Shift+C" },
+        this,
+        this,
+        [this](){ showChannelListWindow(); }
+    );
+
     setContentsMargins(0, 0, 0, 0);
     setMinimumWidth(st::channelListMinWidth);
     setMaximumWidth(st::channelListMaxWidth);
@@ -29,7 +36,14 @@ ChannelListWidget::ChannelListWidget(QWidget* parent) : QWidget(parent)
 
 void ChannelListWidget::showChannelListWindow()
 {
-    if (!_listWidgetChannels) _listWidgetChannels = std::make_unique<ChannelListPage>(_channelList);
+    if (!_listWidgetChannels)
+    {
+        _listWidgetChannels = std::make_unique<ChannelListPage>(_channelList);
+    }
+    else
+    {
+        _listWidgetChannels->requestChannels();
+    }
     _listWidgetChannels->show();
 }
 
