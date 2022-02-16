@@ -26,6 +26,9 @@ protected:
     void resizeEvent(QResizeEvent* event) override;
 
 private:
+    void chosenChannelHandler();
+
+private:
     std::unique_ptr<QSplitter>         _mainLayout;
     std::unique_ptr<ChannelListWidget> _channelListWidget;
     std::unique_ptr<QStackedWidget>    _chatSwitchWidget;
