@@ -37,7 +37,7 @@ void ChatPage::chosenChannelHandler()
     );
     std::cout << channel->channelName << " id: " << channel->channelID << std::endl;
 
-    int chatIndex = 0;
+    int chatIndex;
     for (chatIndex = 0; chatIndex < _chatSwitchWidget->count(); chatIndex++)
     {
         if (dynamic_cast<ChatWidget*>(_chatSwitchWidget->widget(chatIndex))->getChannelName() == channelName)
@@ -58,7 +58,6 @@ void ChatPage::chosenChannelHandler()
             _channelListWidget->getChannelList()->clearSelection();
             delete _channelListWidget->getChannelList()->takeItem(_channelListWidget->getChannelList()->currentRow());
         });
-        chatIndex--;
     }
     else
     {
@@ -66,5 +65,5 @@ void ChatPage::chosenChannelHandler()
         chatWidget->setChannelID(channel->channelID);
         chatWidget->setChannelName(channel->channelName);
     }
-    _chatSwitchWidget->setCurrentIndex(chatIndex);   
+    _chatSwitchWidget->setCurrentIndex(chatIndex);
 }

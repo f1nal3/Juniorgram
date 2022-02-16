@@ -25,7 +25,7 @@ protected:
     /// Handle resize
     void resizeEvent(QResizeEvent* event) override;
 
-private:
+public slots:
     void chosenChannelHandler();
 
 private:
