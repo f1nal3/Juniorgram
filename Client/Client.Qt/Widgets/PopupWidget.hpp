@@ -1,5 +1,6 @@
 #pragma once
 #include <QWidget>
+#include <QLabel>
 
 #include "Menu.hpp"
 
@@ -31,6 +32,9 @@ public:
      * @brief Show popup menu
      * @param globalPoint Global globalPoint
      */
+
+    void setMessage(QString text);
+
     void popup(const QPoint& globalPoint);
 
 protected:
@@ -45,6 +49,9 @@ protected:
     void hideEvent(QHideEvent* event) override;
 
 private:
+    std::unique_ptr<QLabel> _messageText;
     std::unique_ptr<Menu> _innerMenu;
     bool                  _deleteOnHide = false;
 };
+
+void messageOut(std::shared_ptr<PopupWidget> popupWidget, QString text);
