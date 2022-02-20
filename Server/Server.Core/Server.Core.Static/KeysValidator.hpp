@@ -16,7 +16,7 @@ private:
 private:
     struct Keys
     {
-        const std::string realDB = "-p";
+        const std::string withPort = "-p";
         const std::string fileDB = "-d";
     };
 
@@ -29,7 +29,7 @@ public:
 
     KeysValidator() noexcept
     {
-        validKeys.emplace_back(keys.realDB);
+        validKeys.emplace_back(keys.withPort);
         validKeys.emplace_back(keys.fileDB);
 
         keysWithoutValues.emplace_back(keys.fileDB);

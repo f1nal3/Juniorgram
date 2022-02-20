@@ -38,22 +38,22 @@ ArgumentParser::ArgumentParser(int argc, const char** argv, const KeysValidator&
         tryPushToMap(key, value);
     }
 
-    realDB      = doMapContainKey(validator.keys.realDB);
+    withPort      = doMapContainKey(validator.keys.withPort); // replace to the new name
     bool fileDB = doMapContainKey(validator.keys.fileDB);
 
-    if (realDB && fileDB)
-        throw std::runtime_error("Coexistence realDB and fileDB in arguments");
+    if (withPort && fileDB)
+        throw std::runtime_error("Coexistence withPort and fileDB in arguments");
 
-    if (!realDB && !fileDB)
-        throw std::runtime_error("realDB or fileDB key must be in arguments");
+    if (!withPort && !fileDB)
+        throw std::runtime_error("withPort or fileDB key must be in arguments");
 }
 
 uint16_t ArgumentParser::getPort() const
 {
-    if (!realDB)
+    if (!withPort)
         throw std::runtime_error("FileDB doesn't have a port");
 
-    int32_t port = arguments.find(validator.keys.realDB)->second;
+    int32_t port = arguments.find(validator.keys.withPort)->second;
 
     if (port < std::numeric_limits<uint16_t>::min() || port > std::numeric_limits<uint16_t>::max())
         throw std::runtime_error("Port value is too small or big");
@@ -109,7 +109,7 @@ std::string ArgumentParser::trim(std::string& row) const noexcept
 void ArgumentParser::tryPushToMap(const std::string& key, const std::string& value)
 {
     if (!isInteger(value))
-        throw std::runtime_error("key " + key + " has unvalid value");
+        throw std::runtime_error("key " + key + " has invalid value");
 
     arguments.emplace(key, stoi(value));
 }

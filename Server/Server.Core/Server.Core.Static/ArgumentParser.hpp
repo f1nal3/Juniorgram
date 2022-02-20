@@ -17,7 +17,7 @@ class ArgumentParser
 private:
     KeysValidator                  validator;
     std::map<std::string, int32_t> arguments;
-    bool                           realDB;
+    bool                           withPort;
 
 public:
     ArgumentParser()                      = delete;
@@ -35,7 +35,7 @@ public:
      * @brief Method for checking the port value.
      * @return bool base status(true or false).
      */
-    bool isRealDB() const noexcept { return realDB; }
+    bool isWithPort() const noexcept { return withPort; }
 
 private:
     /**

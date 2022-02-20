@@ -62,7 +62,7 @@ TEST_CASE("Constructor argument parser")
         }
     }
 
-    SECTION("Coexistence realDB and fileDB keys in arguments throws an exception")
+    SECTION("Coexistence withPort and fileDB keys in arguments throws an exception")
     {
         std::vector<const char*> args = {"path_to_project", "-p",
                                          "27015"
@@ -70,7 +70,7 @@ TEST_CASE("Constructor argument parser")
         CHECK_THROWS_AS(ArgumentParser(static_cast<int>(args.size()), args.data()), std::exception);
     }
 
-    SECTION("Not existing realDB and fileDB key in arguments throws an exception")
+    SECTION("Not existing withPort and fileDB key in arguments throws an exception")
     {
         std::vector<const char*> args = {"path_to_project", "-k", "-r"};
         CHECK_THROWS_AS(ArgumentParser(static_cast<int>(args.size()), args.data(),
@@ -81,7 +81,7 @@ TEST_CASE("Constructor argument parser")
 
 TEST_CASE("getPort()")
 {
-    SECTION("realDB key")
+    SECTION("withPort key")
     {
         SECTION("Too big port value throws an exception")
         {
@@ -127,21 +127,21 @@ TEST_CASE("getPort()")
     }
 }
 
-TEST_CASE("isRealDB()")
+TEST_CASE("isithPort()")
 {
-    SECTION("with realDB key isRealDB() == true")
+    SECTION("use withPort key in isKeyWithPort() == true")
     {
         std::vector<const char*> args = {"path_to_project", "-p", "27015"};
         REQUIRE_NOTHROW(ArgumentParser(static_cast<int>(args.size()), args.data()));
         ArgumentParser ap(static_cast<int>(args.size()), args.data());
-        REQUIRE(ap.isRealDB() == true);
+        REQUIRE(ap.isWithPort() == true);
     }
 
-    SECTION("with fileDB key isRealDB() == false")
+    SECTION("use fileDB key in isWithPort() == false")
     {
         std::vector<const char*> args = {"path_to_project", "-d"};
         REQUIRE_NOTHROW(ArgumentParser(static_cast<int>(args.size()), args.data()));
         ArgumentParser ap(static_cast<int>(args.size()), args.data());
-        REQUIRE(ap.isRealDB() == false);
+        REQUIRE(ap.isWithPort() == false);
     }
 }
