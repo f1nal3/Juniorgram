@@ -19,7 +19,7 @@ ArgumentParser::ArgumentParser(int argc, const char** argv, const KeysValidator&
         std::string value;
 
         if (!validator.isKeyValid(key))
-            throw std::runtime_error("Key '" + key + "' is unvalid");
+            throw std::runtime_error("Key '" + key + "' is invalid");
 
         if (validator.doKeyNeedValue(key))
         {
