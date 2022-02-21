@@ -43,7 +43,7 @@ private:
      * @param const std::string& incoming key.
      * @return true or false.
      */
-    bool doMapContainKey(const std::string& incomingKey) const noexcept
+    bool isKeyExist(const std::string& incomingKey) const noexcept
     {
         return arguments.find(incomingKey) != arguments.end();
     }
@@ -52,12 +52,12 @@ private:
      * @brief Method for checking the value of the number of arguments.
      * @param std::vector<std::string>& parameters.
      */
-    void checkOnBadAmount(std::vector<std::string>& params) const;
+    void validateArgumentsAmount(std::vector<std::string>& params) const;
 
     /**
      * @brief Method to remove spaces in a row
      * @param std::string& row
-     * @return std::string without spase
+     * @return std::string without space
      */
     std::string trim(std::string& row) const noexcept;
 	
@@ -65,6 +65,7 @@ private:
      * @brief Method for checking a string for numbers.
      * @param const std::string& str.
      * @return true or false.
+     * @todo Update the method to change the custom logic to use std::isdigit
      */
     bool isInteger(const std::string& str) const noexcept;
 

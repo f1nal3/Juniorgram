@@ -9,7 +9,7 @@ ArgumentParser::ArgumentParser(int argc, const char** argv, const KeysValidator&
     for (auto&& param : tempParams)
         trim(param);
 
-    checkOnBadAmount(tempParams);
+    validateArgumentsAmount(tempParams);
 
     // path to project don't need for us, so we start from i = 1.
     size_t i = 1;
@@ -32,14 +32,14 @@ ArgumentParser::ArgumentParser(int argc, const char** argv, const KeysValidator&
             i++;
         }
 
-        if (doMapContainKey(key))
+        if (isKeyExist(key))
             throw std::runtime_error("Arguments have duplicated keys '" + key + "'");
 
         tryPushToMap(key, value);
     }
 
-    withPort      = doMapContainKey(validator.keys.withPort); // replace to the new name
-    bool fileDB = doMapContainKey(validator.keys.fileDB);
+    withPort      = isKeyExist(validator.keys.withPort); // replace to the new name
+    bool fileDB = isKeyExist(validator.keys.fileDB);
 
     if (withPort && fileDB)
         throw std::runtime_error("Coexistence withPort and fileDB in arguments");
@@ -61,7 +61,7 @@ uint16_t ArgumentParser::getPort() const
     return static_cast<uint16_t>(port);
 }
 
-void ArgumentParser::checkOnBadAmount(std::vector<std::string>& params) const
+void ArgumentParser::validateArgumentsAmount(std::vector<std::string>& params) const
 {
     const auto amountOfKeysWithValueAndPath =
         std::count_if(params.begin(), params.end(),
