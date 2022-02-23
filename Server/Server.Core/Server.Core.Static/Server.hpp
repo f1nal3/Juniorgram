@@ -22,6 +22,7 @@ namespace Server
 /**
  *  @class Server
  *  @brief Server class.
+ *  @details Describes all stuff that's needed for server
  */
 class Server
 {
@@ -57,8 +58,15 @@ private:
     void onMessage(const std::shared_ptr<Network::Connection>& client, Network::Message& message);
 
 public:
+    /**
+    * @brief Explicit constructor
+    * @param const uint16_t& port
+    * @details Uses port from main function argument
+    */
     explicit Server(const uint16_t& port);
-
+    /**
+    * @brief Destructor
+    */
     ~Server();
 
     /**

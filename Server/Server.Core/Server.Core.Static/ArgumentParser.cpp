@@ -11,7 +11,7 @@ ArgumentParser::ArgumentParser(int argc, const char** argv, const KeysValidator&
 
     validateArgumentsAmount(tempParams);
 
-    // path to project don't need for us, so we start from i = 1.
+    // path to project isn't necessary for us, so we start from i = 1.
     size_t i = 1;
     while (i < tempParams.size())
     {
@@ -38,22 +38,22 @@ ArgumentParser::ArgumentParser(int argc, const char** argv, const KeysValidator&
         tryPushToMap(key, value);
     }
 
-    withPort      = isKeyExist(validator.keys.withPort); // replace to the new name
-    bool fileDB = isKeyExist(validator.keys.fileDB);
+    bool listenedPort = isKeyExist(validator.keys.listenedPort);
+    bool fileDB       = isKeyExist(validator.keys.fileDB);
 
-    if (withPort && fileDB)
-        throw std::runtime_error("Coexistence withPort and fileDB in arguments");
+    if (listenedPort && fileDB) 
+        throw std::runtime_error("Simultaneous existence both listenedPort and fileDB keys is forbidden. Use only one key.");
 
-    if (!withPort && !fileDB)
-        throw std::runtime_error("withPort or fileDB key must be in arguments");
+    if (!listenedPort && !fileDB) 
+        throw std::runtime_error("There is no used key. Use only one key.");
 }
 
 uint16_t ArgumentParser::getPort() const
 {
-    if (!withPort)
+    if (!isKeyExist(validator.keys.listenedPort)) 
         throw std::runtime_error("FileDB doesn't have a port");
 
-    int32_t port = arguments.find(validator.keys.withPort)->second;
+    int32_t port = arguments.find(validator.keys.listenedPort)->second;
 
     if (port < std::numeric_limits<uint16_t>::min() || port > std::numeric_limits<uint16_t>::max())
         throw std::runtime_error("Port value is too small or big");
@@ -73,18 +73,16 @@ void ArgumentParser::validateArgumentsAmount(std::vector<std::string>& params) c
 
 bool ArgumentParser::isInteger(const std::string& str) const noexcept
 {
-    auto numberElement = str.begin();
-    if (str[0] == '-')
-        numberElement++;
-
-    while (numberElement != str.end())
+    auto iter = str.begin();
+    if (str[0] == '-') 
+        ++iter;
+    while (iter != str.end())
     {
-        if ((*numberElement < '0') || (*numberElement > '9'))
+        if (std::isdigit(*iter))
+            ++iter;
+        else
             return false;
-
-        numberElement++;
     }
-
     return true;
 }
 
@@ -102,7 +100,6 @@ std::string ArgumentParser::trim(std::string& row) const noexcept
             row.erase(row.end() - 1);
         }
     }
-
     return row;
 }
 
