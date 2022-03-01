@@ -12,18 +12,12 @@ endif ()
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
-target_include_directories(${TARGET}
-        INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
-
-target_link_libraries(${TARGET}
-        PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas
-        PUBLIC Network.Public Crypto.Static)
+target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas)
+target_link_libraries(${TARGET} PUBLIC Network.Public Crypto.Static Base.Logger.Static)
 
 set_target_properties(${TARGET} PROPERTIES
     LINKER_LANGUAGE CXX
     FOLDER ${FOLDER})
 
-target_include_directories(${TARGET}
-    INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
-target_include_directories(${TARGET} PRIVATE
-    $<TARGET_PROPERTY:Crypto.Static,SOURCE_DIR>/..)
+target_include_directories(${TARGET} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${TARGET} PRIVATE $<TARGET_PROPERTY:Crypto.Static,SOURCE_DIR>/..)
