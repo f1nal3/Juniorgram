@@ -10,7 +10,7 @@
 
 /**
  * @class ArgumentParser.
- * @brief Parses the command line arguments 
+ * @brief This class parses agruments with which application is started
  * @details
  * For example: "your_path -p 65001" 
  * Ignoring your_path because it isn't necessary
@@ -34,8 +34,8 @@ public:
     ArgumentParser(const ArgumentParser&) = delete;
     /**
      * @brief Used to take parameters from main function
-     * @details Parses arguments from main function
-     * @param int argc, const char** argv, const KeysValidator& validator = KeysValidator()
+     * @details Parses arguments which were set when application was run
+     * @param int argc(amount of arguments), const char** argv(C-string arguments), const KeysValidator& validator = KeysValidator()
      */
     explicit ArgumentParser(int argc, const char** argv,
                             const KeysValidator& validator = KeysValidator());
@@ -48,9 +48,9 @@ public:
     uint16_t getPort() const;
 
     /**
-     * @brief Method for checking the port value.
-     * @param const std::string& incomingKey 
-     * @return true if incoming key is listenedPortKey, if not -> false
+     * @brief Method for checking the equality of incoming key
+     * @param const std::string& incomingKey (we will check it)
+     * @return true if incoming key is equal to listenedPort key(Validator), if not -> false
      */
     bool isListenedPort(const std::string& incomingKey) const noexcept { return validator.keys.listenedPort == incomingKey; }
 
@@ -77,9 +77,9 @@ private:
 	
     /**
      * @brief Method for checking a string for numbers.
-     * @details Checks if incoming port is valid (only digits are used)
-     * @param const std::string& str.
-     * @return true if incoming str(port) is integer, if not -> false
+     * @details Checks if incoming port is valid
+     * @param const std::string& str(port).
+     * @return true if incoming str(port) consists of only digits, if not -> false
      */
     bool isInteger(const std::string& str) const noexcept;
 

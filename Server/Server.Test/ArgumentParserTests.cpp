@@ -127,7 +127,7 @@ TEST_CASE("getPort()")
 
 TEST_CASE("isListenedPort()")
 {
-    SECTION("use listenedPort key in isKeyWithPort() == true")
+    SECTION("use listenedPort key in isListenedPort() == true")
     {
         std::vector<const char*> args = {"path_to_project", "-p", "27015"};
         REQUIRE_NOTHROW(ArgumentParser(static_cast<int>(args.size()), args.data()));

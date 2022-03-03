@@ -5,8 +5,8 @@
 #include <vector>
 
 /**
- * @class KeysValidator.
- * @brief Used to validate incoming keys
+ * @class KeysValidator class.
+ * @brief Class is used to validate incoming keys
  * @details listenedPort variable is used to tell the server what port to listen to /
  * fileDB variable means the zero port (ArgumentParser constructor)
  */
@@ -18,8 +18,8 @@ private:
 private:
     /**
      * @struct Keys
-     * @brief The core of the KeysValidator Class. Includes two keys.
-     * @details Keys: listenedPort("-p") and fileDB("-d")
+     * @brief Includes valid keys for this platform
+     * @details We use keys for fileDB and 
      */
     struct Keys
     {
@@ -45,7 +45,7 @@ public:
         keysWithoutValues.emplace_back(keys.fileDB);
     }
     /**
-     * @brief It's constructor with initList
+     * @brief It's constructor which uses initializer list
      * @details Used to initialize vectors of valid keys
      * @param const initList& validkeysList, const initList& keysWithoutValuesList
      */

@@ -20,9 +20,9 @@ class PostgreRepositoryManager;
 namespace Server
 {
 /**
- *  @class Server
- *  @brief Server class.
- *  @details Describes all stuff that's needed for server
+ *  @class Server class
+ *  @brief This class does all logic which is needed to run the server.
+ *  @details 
  */
 class Server
 {
@@ -61,7 +61,7 @@ public:
     /**
     * @brief Explicit constructor
     * @param const uint16_t& port
-    * @details Uses port from main function argument
+    * @details Uses incoming port value from ArgumentParser
     */
     explicit Server(const uint16_t& port);
     /**
