@@ -22,7 +22,7 @@ namespace Server
 /**
  *  @class Server class
  *  @brief This class does all logic which is needed to run the server.
- *  @details 
+ *  @details Uses std::asio tools
  */
 class Server
 {
