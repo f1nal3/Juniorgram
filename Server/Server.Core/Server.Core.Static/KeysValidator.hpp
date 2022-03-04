@@ -35,7 +35,7 @@ public:
     const Keys keys;
     /**
      * @brief It's default noexcept constructor
-     * @details Used to initialize vectors of valid keys
+     * @details Used to initialize vectors with already valid keys to compare them with the incoming keys
      */
     KeysValidator() noexcept
     {
@@ -76,9 +76,6 @@ public:
         return std::find(validKeys.begin(), validKeys.end(), incomingKey) != validKeys.end();
     }
 
-    /**
-     * @brief It's copy assignment operator
-     */
     KeysValidator& operator=(const KeysValidator& validator)
     {
         this->validKeys = validator.validKeys;
