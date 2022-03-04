@@ -50,7 +50,7 @@ public:
     /**
      * @brief Method for checking the equality of incoming key
      * @param const std::string& incomingKey (we will check it)
-     * @return true if incoming key is equal to listenedPort key(Validator), if not -> false
+     * @return true if incomingKey is equal to listenedPort key(Validator), if not -> false
      */
     bool isListenedPort(const std::string& incomingKey) const noexcept { return validator.keys.listenedPort == incomingKey; }
 

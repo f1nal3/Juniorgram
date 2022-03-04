@@ -19,7 +19,7 @@ private:
     /**
      * @struct Keys
      * @brief Includes valid keys for this platform
-     * @details We use keys for fileDB and 
+     * @details We use keys for validating our port
      */
     struct Keys
     {
@@ -47,7 +47,7 @@ public:
     /**
      * @brief It's constructor which uses initializer list
      * @details Used to initialize vectors of valid keys
-     * @param const initList& validkeysList, const initList& keysWithoutValuesList
+     * @param const initList&(Only keys which validate no-zero port), const initList&(Only keys which validate zero port)
      */
     KeysValidator(const initList& validkeysList, const initList& keysWithoutValuesList) noexcept : KeysValidator()
     {
@@ -58,8 +58,8 @@ public:
 
     /**
      * @brief Method for checking the need for key values.
-     * @param const std::string& incoming key value.
-     * @return true if incomingKey is listenedPort, if not -> false
+     * @param const std::string& incomingKey.
+     * @return true if incomingKey should have a value, if not -> false
      */
     bool doKeyNeedValue(const std::string& incomingKey) const noexcept
     {
@@ -78,7 +78,6 @@ public:
 
     /**
      * @brief It's copy assignment operator
-     * @param const KeysValidator& validator
      */
     KeysValidator& operator=(const KeysValidator& validator)
     {
