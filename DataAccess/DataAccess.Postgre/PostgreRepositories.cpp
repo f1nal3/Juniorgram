@@ -182,7 +182,7 @@ std::vector<Network::MessageInfo> MessagesRepository::getMessageHistory(const st
         {
             mi.msgID        = value[0].as<std::uint64_t>();
             mi.senderID     = value[1].as<std::uint64_t>();
-            mi.time         = static_cast<std::int64_t>(value[2].as<double>());
+            mi.time         = static_cast<std::uint64_t>(value[2].as<std::time_t>());
             mi.message      = value[3].as<std::string>();
             mi.userLogin    = value[4].as<std::string>();
             mi.reactions[0] = value[6].as<std::uint32_t>();

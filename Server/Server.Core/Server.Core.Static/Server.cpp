@@ -368,8 +368,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
 Server::Server(const uint16_t& port)
     : mAcceptor(mContext, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port)),
-      mPostgreManager(
-          std::make_unique<DataAccess::PostgreRepositoryManager>(DataAccess::PostgreAdapter::getInstance<DataAccess::PostgreAdapter>()))
+      mPostgreManager(std::make_unique<DataAccess::PostgreRepositoryManager>(
+          DataAccess::PostgreAdapter::getInstance<DataAccess::PostgreAdapter>(DBOptions::real)))
 {
 }
 
@@ -526,7 +526,7 @@ void Server::update(size_t maxMessages, bool wait)
         Message message = mIncomingMessagesQueue.pop_front();
 
         onMessage(message.mRemote, message);
-        messagesCount++;
+        ++messagesCount;
     }
 }
 

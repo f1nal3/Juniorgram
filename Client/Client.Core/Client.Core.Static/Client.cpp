@@ -25,6 +25,10 @@ bool Client::connectToServer(const std::string_view& host, const uint16_t port)
         std::cerr << "Bad port value" << std::endl;
         return false;
     }
+    else
+    {
+        Base::Logger::FileLogger::getInstance().log("[CLIENT] Started!", Base::Logger::LogLevel::INFO);
+    }
 
     asio::ip::tcp::resolver resolver(_context);
 
@@ -287,8 +291,10 @@ void Client::loop()
     while (!_incomingMessagesQueue.empty())
     {
         const Message message = _incomingMessagesQueue.pop_front();
-        std::string   output  = "[" + std::to_string(message.mHeader.mTimestamp.time_since_epoch().count()) + "]\n";
-        std::cout << output;
+        auto          _realtime   = Utility::getTimeNow();
+
+        std::cout << "[" << Utility::getTimeNow() << "]\n";
+
         switch (message.mHeader.mMessageType)
         {
             case MessageType::LoginAnswer:
