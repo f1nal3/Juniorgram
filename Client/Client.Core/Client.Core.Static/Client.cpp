@@ -127,8 +127,8 @@ void Client::deleteChannel(const std::string channelName) const
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ChannelDeleteRequest;
 
-    std::string _channelName = channelName;
-    networkMessage.mBody     = std::make_any<std::string>(_channelName);
+    std::string channelName = channelName;
+    networkMessage.mBody     = std::make_any<std::string>(channelName);
     send(networkMessage);
 }
 
@@ -155,11 +155,11 @@ void Client::storeMessage(const std::string& message, const uint64_t channelID) 
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::MessageStoreRequest;
 
-    Network::MessageInfo _messageInfo;
-    _messageInfo.message = message;
-    _messageInfo.channelID = channelID;
+    Network::MessageInfo messageInfo;
+    messageInfo.message = message;
+    messageInfo.channelID = channelID;
 
-    networkMessage.mBody = std::make_any<Network::MessageInfo>(_messageInfo);
+    networkMessage.mBody = std::make_any<Network::MessageInfo>(messageInfo);
     send(networkMessage);
 }
 
@@ -168,12 +168,12 @@ void Client::storeReply(const std::string& message, uint64_t channelID, uint64_t
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ReplyStoreRequest;
 
-    Network::ReplyInfo _replyInfo;
-    _replyInfo.message = message;
-    _replyInfo.channelID = channelID;
-    _replyInfo.msgID     = msgID;
+    Network::ReplyInfo replyInfo;
+    replyInfo.message = message;
+    replyInfo.channelID = channelID;
+    replyInfo.msgID     = msgID;
 
-    networkMessage.mBody = std::make_any<Network::ReplyInfo>(_replyInfo);
+    networkMessage.mBody = std::make_any<Network::ReplyInfo>(replyInfo);
     send(networkMessage);
 }
 
@@ -182,11 +182,11 @@ void Client::userRegistration(const std::string& email, const std::string& login
     // Generating password's hash which are based on login. It lets us to insert different users
     // with the same passwords.
     const std::string         pwdHash = Base::Hashing::SHA_256(password, login);
-    Network::RegistrationInfo ri(email, login, pwdHash);
+    Network::RegistrationInfo rgInfo(email, login, pwdHash);
 
     Network::Message message;
     message.mHeader.mMessageType = MessageType::RegistrationRequest;
-    message.mBody                = std::make_any<RegistrationInfo>(ri);
+    message.mBody                = std::make_any<RegistrationInfo>(rgInfo);
 
     send(message);
 }
@@ -215,24 +215,24 @@ void Client::messageAll() const
 
 void Client::userMessageDelete(const uint64_t messageID) const
 {
-    Network::MessageInfo _messageInfo;
-    _messageInfo.msgID = messageID;
+    Network::MessageInfo messageInfo;
+    messageInfo.msgID = messageID;
 
     Network::Message message;
     message.mHeader.mMessageType = MessageType::MessageDeleteRequest;
-    message.mBody                = std::make_any<Network::MessageInfo>(_messageInfo);
+    message.mBody                = std::make_any<Network::MessageInfo>(messageInfo);
 
     send(message);
 }
 
 void Client::userMessageDelete(const std::string& messageText) const
 {
-    Network::MessageInfo _messageInfo;
-    _messageInfo.message = messageText;
+    Network::MessageInfo messageInfo;
+    messageInfo.message = messageText;
 
     Network::Message message;
     message.mHeader.mMessageType = MessageType::MessageDeleteRequest;
-    message.mBody                = std::make_any<Network::MessageInfo>(_messageInfo);
+    message.mBody                = std::make_any<Network::MessageInfo>(messageInfo);
 
     send(message);
 }
@@ -242,9 +242,9 @@ void Client::subscriptionChannel(const std::uint64_t channelID) const
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ChannelSubscribeRequest;
 
-    Network::ChannelSubscriptionInfo _channelInfo;
-    _channelInfo.channelID = channelID;
-    networkMessage.mBody   = std::make_any<Network::ChannelSubscriptionInfo>(_channelInfo);
+    Network::ChannelSubscriptionInfo channelInfo;
+    channelInfo.channelID = channelID;
+    networkMessage.mBody   = std::make_any<Network::ChannelSubscriptionInfo>(channelInfo);
 
     send(networkMessage);
 }
@@ -254,8 +254,7 @@ void Client::leaveChannel(const std::string channelName) const
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ChannelLeaveRequest;
 
-    std::string _channelName = channelName;
-    
+    std::string channelName = channelName;
     networkMessage.mBody = std::make_any<std::string>(channelName);
 
     send(networkMessage);
@@ -266,9 +265,8 @@ void Client::createChannel(const std::string channelName) const
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ChannelCreateRequest;
 
-    std::string _channelName = channelName;
-   
-    networkMessage.mBody     = std::make_any<std::string>(_channelName);
+    std::string channelName = channelName;
+    networkMessage.mBody    = std::make_any<std::string>(channelName);
 
     send(networkMessage);
 }
@@ -277,7 +275,6 @@ void Client::createDirectChat(uint64_t receiverId) const
 {
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::DirectMessageCreateRequest;
-
     networkMessage.mBody = std::make_any<uint64_t>(receiverId);
 
     send(networkMessage);
@@ -285,14 +282,14 @@ void Client::createDirectChat(uint64_t receiverId) const
 
 void Client::userMessageReaction(const std::uint64_t messageID, const std::uint32_t reactionID) const
 {
-    Network::MessageInfo _messageInfo;
-    _messageInfo.msgID = messageID;
+    Network::MessageInfo messageInfo;
+    messageInfo.msgID = messageID;
 
-    _messageInfo.reactions[reactionID] = std::numeric_limits<std::uint32_t>::max();
+    messageInfo.reactions[reactionID] = std::numeric_limits<std::uint32_t>::max();
     
     Network::Message message;
     message.mHeader.mMessageType = MessageType::MessageReactionRequest;
-    message.mBody                = std::make_any<Network::MessageInfo>(_messageInfo);
+    message.mBody                = std::make_any<Network::MessageInfo>(messageInfo);
 
     send(message);
 }
@@ -302,9 +299,9 @@ void Client::loop()
     while (!_incomingMessagesQueue.empty())
     {
         const Message message = _incomingMessagesQueue.pop_front();
-        auto         _timeNow = Utility::getTimeNow();
+        auto          timeNow = Utility::getTimeNow();
 
-        std::cout << "[" << Utility::getTimeNow() << "]\n";
+        std::cout << "[" + Utility::getTimeNow() + "]\n";
 
         switch (message.mHeader.mMessageType)
         {
@@ -327,6 +324,7 @@ void Client::loop()
                 std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
                 std::chrono::system_clock::time_point timeThen;
                 timeThen = message.mHeader.mTimestamp;
+
                 onServerPing(std::chrono::duration<double>(timeNow - timeThen).count());
             }
             break;
