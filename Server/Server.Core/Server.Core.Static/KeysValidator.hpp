@@ -7,8 +7,7 @@
 /**
  * @class KeysValidator class.
  * @brief Class is used to validate incoming keys
- * @details listenedPort variable is used to tell the server what port to listen to /
- * fileDB variable means the zero port (ArgumentParser constructor)
+ * @details This class contains keys which can help us to set a rule when we're starting the server and logic, which does validation
  */
 class KeysValidator
 {
@@ -19,7 +18,6 @@ private:
     /**
      * @struct Keys
      * @brief Includes valid keys for this platform
-     * @details We use keys for validating our port
      */
     struct Keys
     {
@@ -47,7 +45,7 @@ public:
     /**
      * @brief It's constructor which uses initializer list
      * @details Used to initialize vectors of valid keys
-     * @param const initList&(Only keys which validate no-zero port), const initList&(Only keys which validate zero port)
+     * @param const initList& validKeysList(all valid keys), const initList& keysWithoutValuesList(Only valid keys which are used without value)
      */
     KeysValidator(const initList& validkeysList, const initList& keysWithoutValuesList) noexcept : KeysValidator()
     {
