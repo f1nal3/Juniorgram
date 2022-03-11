@@ -291,7 +291,7 @@ void Client::loop()
     while (!_incomingMessagesQueue.empty())
     {
         const Message message = _incomingMessagesQueue.pop_front();
-        
+
         switch (message.mHeader.mMessageType)
         {
             case MessageType::LoginAnswer:
