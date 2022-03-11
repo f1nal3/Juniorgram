@@ -287,8 +287,11 @@ void Client::loop()
     while (!_incomingMessagesQueue.empty())
     {
         const Message message = _incomingMessagesQueue.pop_front();
-        std::string   output  = "[" + std::to_string(message.mHeader.mTimestamp.time_since_epoch().count()) + "]\n";
-        std::cout << output;
+        auto          _realtime   = std::chrono::system_clock::to_time_t;
+        std::tm       output_time = Utility::safe_localtime(_realtime(message.mHeader.mTimestamp));
+
+        std::cout << "[" << std::put_time(&output_time, "%F %T%z") << "]\n";
+
         switch (message.mHeader.mMessageType)
         {
             case MessageType::LoginAnswer:
