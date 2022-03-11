@@ -7,7 +7,7 @@
 /**
  * @class KeysValidator class.
  * @brief Class is used to validate incoming keys
- * @details This class contains keys which can help us to set a rule when we're starting the server and logic, which does validation
+ * @details A class that checks given arguments for correctness. Contains the validation logic and a list of all arguments that work for all operating systems
  */
 class KeysValidator
 {
@@ -43,9 +43,10 @@ public:
         keysWithoutValues.emplace_back(keys.fileDB);
     }
     /**
-     * @brief It's constructor which uses initializer list
-     * @details Used to initialize vectors of valid keys
-     * @param const initList& validKeysList(all valid keys), const initList& keysWithoutValuesList(Only valid keys which are used without value)
+     * @brief The custom constructor initialized by extra arguments
+     * @details In case we want to use some extra arguments and don't want to store that argument in the keyValidator list, we can use this constructor. Exception safe method. Calls default constructor inside.
+     * @param const initList& validKeysList - list of arguments that don't need additional value, unary argument
+     *const initList& keysWithoutValuesList - list of arguments that need additional value
      */
     KeysValidator(const initList& validkeysList, const initList& keysWithoutValuesList) noexcept : KeysValidator()
     {
@@ -65,9 +66,9 @@ public:
     }
 
     /**
-     * @brief Method for checking the validity of a key.
-     * @param const std::string& incoming key value.
-     * @return true if incoming key exists in the memory, if not -> false
+     * @brief Checks for the presence in the general list of arguments.
+     * @param const std::string& incomingKey - argument to check.
+     * @return Returns true if the argument in the incomingKey variable is present in the list.
      */
     bool isKeyValid(const std::string& incomingKey) const noexcept
     {
