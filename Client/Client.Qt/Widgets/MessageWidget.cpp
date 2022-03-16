@@ -17,6 +17,7 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
     , _datetime(QDateTime::fromMSecsSinceEpoch(utc))
 {   
     _menuBtn = std::make_unique<FlatButton>(this, "Menu", getStyle().button);
+   
     _menuBtn->setClickCallback([=]() {
         auto popup = new PopupWidget();
         popup->setDeleteOnHide(true);
@@ -42,8 +43,11 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
     connect(_reactions.get(), &ReactionLayout::onClick,
             this, &MessageWidget::onReaction);
 
-    _replyBtn = std::make_unique<FlatButton>(this, "Reply", getStyle().button);
-    _replyBtn->setClickCallback([&](){ createReply(); });
+     _replyBtn = std::make_unique<FlatButton>(this, "Reply", getStyle().button);
+     _replyBtn->setClickCallback([&](){ createReply(); });
+
+     _userNameButton = std::make_unique<FlatButton>(this, username, getStyle().button);
+     _userNameButton->setClickCallback([&]() { createDirect(username); });
 
     resize(width(), expectedHeight());
 }
@@ -67,7 +71,8 @@ void MessageWidget::paintEvent(QPaintEvent* e)
     }
 
     auto usernameRect = QRect(margin * 2, margin * 2 + 1, getStyle().fontname->width(getUserName()), getStyle().fontname->height);
-    p.drawText(usernameRect, getUserName());
+
+    // p.drawText(usernameRect, getUserName());
 
     p.setFont(getStyle().fontdate);
     QString datetime     = _datetime.toString("d.MM hh:mm");
@@ -84,13 +89,22 @@ void MessageWidget::resizeEvent(QResizeEvent* e)
 {
     emit geometryChanged(e->size().height() - e->oldSize().height());
     if (_messageFlags & MessageFlag::Deleted) return QWidget::resizeEvent(e);
+    
     _reactions->recountSize();
+
     int menuButtonX = width() - getStyle().radius - _menuBtn->width();
     _menuBtn->move(menuButtonX, getStyle().radius);
+
     int replyButtonX = width() - getStyle().radius - _menuBtn->width() - _replyBtn->width() - 2;
     _replyBtn->move(replyButtonX, getStyle().radius);
+
     getFmtMessageText()->resize(width() - getStyle().radius * 4 - 1, getFmtMessageText()->document()->size().height());
+
     _reactions->move(getStyle().radius * 2, getFmtMessageText()->y() + getFmtMessageText()->document()->size().height() + getStyle().radius);
+
+    // also resize new usernamebtn
+    _userNameButton->move(getStyle().radius, getStyle().radius);
+
 
     if (expectedHeight() != height())
     {
@@ -161,3 +175,8 @@ int MessageWidget::expectedHeight() const
 }
 
 void MessageWidget::createReply() { emit createReplySignal(getMessageText(), getUserName(), getMessageID()); }
+
+void MessageWidget::createDirect(QString username) 
+{
+    // some business logic
+}

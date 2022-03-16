@@ -101,6 +101,13 @@ public slots:
      */
     void onReaction(const std::uint32_t reactionID);
 
+    /*
+    * @brief Method for creating new direct channel
+    * @param QString userName(the person with whom the new direct channel will be created)
+    * @details That's a slot which is used when we click on the username button
+    */
+    void createDirect(QString userName);
+
 signals:
     void createReplySignal(QString messageText, QString username, uint64_t messageId);
 
@@ -114,6 +121,7 @@ private:
 private:
     std::unique_ptr<FlatButton>     _menuBtn;
     std::unique_ptr<FlatButton>     _reactionsBtn;
+    std::unique_ptr<FlatButton>     _userNameButton;
     std::unique_ptr<ReactionLayout> _reactions;
     std::unique_ptr<ReactionLayout> _reactionsInMenu;
     int32_t                         _index = 0;
