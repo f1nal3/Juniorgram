@@ -50,7 +50,7 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
 
         if (email.empty() || login.empty() || password.empty() || repeatPassword.empty())
         {
-            std::cout << "some field is empty" << std::endl;
+            Base::Logger::FileLogger::getInstance().log("some field is empty", Base::Logger::LogLevel::INFO);
             _popupSystemMessage->setPopupText("some field is empty");
             _popupSystemMessage->show();
             onResume();
@@ -60,7 +60,7 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
 
         if (password != repeatPassword)
         {
-            std::cout << "passwords are different" << std::endl;
+            Base::Logger::FileLogger::getInstance().log("passwords are different", Base::Logger::LogLevel::INFO);
             _popupSystemMessage->setPopupText("passwords are different");
             _popupSystemMessage->show();
             onResume();
@@ -70,7 +70,7 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
 
         if (!isLoginValid(login))
         {
-            std::cout << "login is not valid" << std::endl;
+            Base::Logger::FileLogger::getInstance().log("login is not valid", Base::Logger::LogLevel::INFO);
             _popupSystemMessage->setPopupText("login is not valid");
             _popupSystemMessage->show();
             onResume();
@@ -80,7 +80,7 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
 
         if (!isEmailValid(email))
         {
-            std::cout << "email is not valid" << std::endl;
+            Base::Logger::FileLogger::getInstance().log("email is not valid", Base::Logger::LogLevel::INFO);
             _popupSystemMessage->setPopupText("email is not valid");
             _popupSystemMessage->show();
             onResume();
@@ -90,7 +90,7 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
 
         if (!isPasswordValid(password))
         {
-            std::cout << "password is not valid" << std::endl;
+            Base::Logger::FileLogger::getInstance().log("password is not valid", Base::Logger::LogLevel::INFO);
             _popupSystemMessage->setPopupText("password is not valid");
             _popupSystemMessage->show();
             onResume();
@@ -134,21 +134,21 @@ void RegistrationPage::onRegistration(Utility::RegistrationCodes code)
 
         if (code == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
         {
-            std::cout << "Email already exists" << std::endl;
+            Base::Logger::FileLogger::getInstance().log("Email already exists", Base::Logger::LogLevel::INFO);
             _popupSystemMessage->setPopupText("Email already exists");
             _popupSystemMessage->show();
             onResume();
         }
         else if (code == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS)
         {
-            std::cout << "Username already taken" << std::endl;
+            Base::Logger::FileLogger::getInstance().log("Username already taken", Base::Logger::LogLevel::INFO);
             _popupSystemMessage->setPopupText("Username already taken");
             _popupSystemMessage->show();
             onResume();
         }
         else
         {
-            std::cout << "Unknown code" << std::endl;
+            Base::Logger::FileLogger::getInstance().log("Unknown code", Base::Logger::LogLevel::INFO);
             _popupSystemMessage->setPopupText("Unknown code");
             _popupSystemMessage->show();
             onResume();

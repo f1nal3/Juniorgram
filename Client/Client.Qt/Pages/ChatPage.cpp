@@ -35,7 +35,11 @@ void ChatPage::chosenChannelHandler()
         ChannelListPage::channels.end(),
         [&channelName](const Network::ChannelInfo& channel) { return channel.channelName == channelName; }
     );
-    std::cout << channel->channelName << " id: " << channel->channelID << std::endl;
+    Base::Logger::FileLogger::getInstance().log
+    (
+        channel->channelName + " id: " + std::to_string(channel->channelID),
+        Base::Logger::LogLevel::INFO
+    );
 
     int chatIndex;
     for (chatIndex = 0; chatIndex < _chatSwitchWidget->count(); chatIndex++)

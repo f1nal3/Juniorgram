@@ -54,7 +54,7 @@ void ChannelBar::leaveChannel()
     }
     else
     {
-        std::cout << "Server isn't connected" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("Server isn't connected", Base::Logger::LogLevel::ERR);
     }
 }
 
@@ -66,6 +66,6 @@ void ChannelBar::deleteChannel()
     }
     else
     {
-        std::cout << "Server isn't connected" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("Server isn't connected", Base::Logger::LogLevel::ERR);
     }
 }
