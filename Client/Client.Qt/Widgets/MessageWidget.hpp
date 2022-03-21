@@ -1,5 +1,6 @@
 #pragma once
 #include <QDateTime>
+#include <QString>
 #include <memory>
 
 #include "Widgets/Buttons.hpp"
@@ -100,13 +101,12 @@ public slots:
      * @brief Method for updating message reactions
      */
     void onReaction(const std::uint32_t reactionID);
-
     /*
     * @brief Method for creating new direct channel
     * @param QString userName(the person with whom the new direct channel will be created)
     * @details That's a slot which is used when we click on the username button
     */
-    void createDirect(QString userName);
+    void createDirect();
 
 signals:
     void createReplySignal(QString messageText, QString username, uint64_t messageId);

@@ -3,13 +3,17 @@
 #include <QDebug>
 #include <QPainter>
 #include <QtEvents>
-#include <Style/Styles.hpp>
 #include <utility>
+#include <Style/Styles.hpp>
+#include <Network/Primitives.hpp>
 
 #include "Application.hpp"
+#include "ChatWidget.hpp"
 #include "PopupWidget.hpp"
 #include "Widgets/ChatHistory.hpp"
 #include "Widgets/ReactionLayout.hpp"
+#include "Widgets/Page.hpp"
+
 
 MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId, uint64_t messageId, qint64 utc, QString username,
                              const Style::MessageWidget& st)
@@ -47,7 +51,7 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
      _replyBtn->setClickCallback([&](){ createReply(); });
 
      _userNameButton = std::make_unique<FlatButton>(this, username, getStyle().button);
-     _userNameButton->setClickCallback([&]() { createDirect(username); });
+     _userNameButton->setClickCallback([&]() { createDirect(); });
 
     resize(width(), expectedHeight());
 }
@@ -90,21 +94,19 @@ void MessageWidget::resizeEvent(QResizeEvent* e)
     emit geometryChanged(e->size().height() - e->oldSize().height());
     if (_messageFlags & MessageFlag::Deleted) return QWidget::resizeEvent(e);
     
+    _userNameButton->move(getStyle().radius, getStyle().radius);
+
     _reactions->recountSize();
 
     int menuButtonX = width() - getStyle().radius - _menuBtn->width();
     _menuBtn->move(menuButtonX, getStyle().radius);
 
-    int replyButtonX = width() - getStyle().radius - _menuBtn->width() - _replyBtn->width() - 2;
+    int replyButtonX = width() - getStyle().radius - _menuBtn->width() - _replyBtn->width() - 2 ;
     _replyBtn->move(replyButtonX, getStyle().radius);
 
     getFmtMessageText()->resize(width() - getStyle().radius * 4 - 1, getFmtMessageText()->document()->size().height());
 
     _reactions->move(getStyle().radius * 2, getFmtMessageText()->y() + getFmtMessageText()->document()->size().height() + getStyle().radius);
-
-    // also resize new usernamebtn
-    _userNameButton->move(getStyle().radius, getStyle().radius);
-
 
     if (expectedHeight() != height())
     {
@@ -176,7 +178,13 @@ int MessageWidget::expectedHeight() const
 
 void MessageWidget::createReply() { emit createReplySignal(getMessageText(), getUserName(), getMessageID()); }
 
-void MessageWidget::createDirect(QString username) 
-{
-    // some business logic
+void MessageWidget::createDirect() 
+{ 
+    /*
+    * this part should be changed due to next points
+    * 1)We need to know exists this channel or doesn't
+    * 2)For us first point doesn't matter -> we must paint new channel page
+    */
+    oApp->connectionManager()->createDirectChat(getUserID());
+    
 }
