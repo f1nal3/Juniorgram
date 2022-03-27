@@ -185,6 +185,7 @@ void MessageWidget::createDirect()
     * 1)We need to know exists this channel or doesn't
     * 2)For us first point doesn't matter -> we must paint new channel page
     */
+
     oApp->connectionManager()->createDirectChat(getUserID());
     
 }

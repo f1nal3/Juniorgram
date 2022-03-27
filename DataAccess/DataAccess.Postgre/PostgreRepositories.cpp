@@ -99,6 +99,39 @@ Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Network::Chan
     return Utility::ChannelDeleteCode::SUCCESS;
 }
 
+Utility::DirectMessageStatus DirectMessageRepository::addDirectChat(uint64_t user_id, uint64_t receiverId)
+{
+    if (user_id == 0) return Utility::DirectMessageStatus::FAILED;
+    
+    pTable->changeTable("users");
+
+    auto firstUser = pTable->Select()->columns({"id", "login"})->Where("id = " + std::to_string(user_id))->execute();
+    auto firstName = firstUser.value()[0][1].as<std::string>();
+   
+    auto secondUser = pTable->Select()->columns({"id", "login"})->Where("id = " + std::to_string(receiverId))->execute();
+    auto secondName = secondUser.value()[0][1].as<std::string>();
+
+    if ((!firstName.empty()) && (!secondName.empty()))
+    {
+        pTable->changeTable("channels");
+        std::tuple channelData{std::pair{"channel_name", firstName + secondName}, std::pair{"creator_id", user_id},
+                               std::pair{"user_limit", 2}};
+        auto result = pTable->Insert()->columns(channelData)->execute();
+    }
+    else
+        return Utility::DirectMessageStatus::FAILED;
+
+    auto newChannel   = pTable->Select()->columns({"id"})->Where("channel_name = '" + firstName + secondName + "'")->execute();
+    auto IDNewChannel = newChannel.value()[0][0].as<uint64_t>();
+
+    if (!newChannel.has_value()) 
+        return Utility::DirectMessageStatus::FAILED;
+
+    pTable->changeTable("user_channels");
+
+    std::tuple newDirectChannel{std::pair{"user_id", firstUser.value()[0][0].as<uint32_t>()}, std::pair{"channel_id", IDNewChannel}};
+    return Utility::DirectMessageStatus::SUCCESS;
+}
 Utility::ChannelCreateCodes ChannelsRepository::createChannel(const Network::ChannelInfo& channel)
 {
     pTable->changeTable("channels");
@@ -473,30 +506,6 @@ std::optional<pqxx::result> RepliesRepository::insertIDsIntoChannelRepliesTable(
     return pTable->Insert()->columns(dataForChannelReplies)->returning({"channel_id"})->execute();
 }
 
-Utility::DirectMessageStatus DirectMessageRepository::addDirectChat(uint64_t user_id, uint64_t receiverId)
-{
-    if (user_id == 0) return Utility::DirectMessageStatus::FAILED;
-    pTable->changeTable("channels");
-    auto adapter   = pTable->getAdapter();
-    auto minUserId = std::to_string(std::min(user_id, receiverId));
-    auto maxUserId = std::to_string(std::max(user_id, receiverId));
-    auto result    = adapter->query(
-           "create extension if not exists pgcrypto;\n"
-              "INSERT INTO channels VALUES (DEFAULT, encode(digest(concat(" +
-           minUserId + ", " + maxUserId + "),'sha384'),'base64')," + minUserId + ",2) ON CONFLICT DO NOTHING;");
 
-    result = adapter->query("SELECT id FROM channels WHERE channel_name=encode(digest(concat(" + minUserId + ", " + maxUserId +
-                            "),'sha384'),'base64');");
-
-    if (result.has_value())
-    {
-        auto cId       = std::any_cast<pqxx::result>(result.value());
-        auto channelId = std::to_string(cId[0][0].as<uint64_t>());
-        adapter->query("INSERT INTO user_channels VALUES (" + minUserId + "," + channelId + "), (" + maxUserId + "," + channelId +
-                       ")ON CONFLICT DO NOTHING;");
-        return Utility::DirectMessageStatus::SUCCESS;
-    }
-    return Utility::DirectMessageStatus::FAILED;
-}
 
 }  // namespace DataAccess

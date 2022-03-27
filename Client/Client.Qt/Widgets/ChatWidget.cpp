@@ -82,7 +82,7 @@ void ChatWidget::setReply(QString messageText, QString username, uint64_t messag
     _replyWidget->show();
 }
 
-void ChatWidget::updateLayout()
+void ChatWidget::updateLayout() // at that point we repaint everything
 {
     const auto& size = this->size();
     _replyWidget->setFixedWidth(size.width());  // Reply on whole width
