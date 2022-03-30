@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.17.0)
 
+set(PROJECT "Juniorgram")
 project(Juniorgram)
 
 # Global settings. Should probably be moved to a separate file later.
@@ -10,30 +11,26 @@ set (CXX_EXTENSIONS off)
 # For those VSCode users
 set(EXPORT_COMPILE_COMMANDS TRUE)
 
-# Set warnings level higher and force treating them as errors.
-# GCC TBD
-if (MSVC)
-    # warning level 4 and all warnings as errors
-    add_compile_options(/W4 /WX)
-else()
-    # lots of warnings and all warnings as errors
-    add_compile_options(-Wall -Wextra -pedantic -Werror)
+# Oprions
+option(ENABLE_CCACHE        "Enable the usage of Ccache."           ON)
+option(ENABLE_WARNINGS      "Enable to add warnings to a target."   ON)
+
+
+# Cmake modules
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
+# CMake properies
+include(CMakeConfig)
+# conan
+include(ConanModule)
+# warnings
+if(ENABLE_WARNINGS)
+    include(Warnings)
+    set_warnings()
 endif()
-
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-
-if(NOT EXISTS "${CMAKE_BINARY_DIR}/conan.cmake")
-  message(STATUS "Downloading conan.cmake from https://github.com/conan-io/cmake-conan")
-  file(DOWNLOAD "https://github.com/conan-io/cmake-conan/raw/master/conan.cmake"
-                 "${CMAKE_BINARY_DIR}/conan.cmake" TLS_VERIFY ON)
+# ccache
+if (ENABLE_CCACHE)
+    include(Ccache)
 endif()
-
-include(${CMAKE_BINARY_DIR}/conan.cmake)
-
-
-conan_cmake_run(CONANFILE conanfile.txt
-                BASIC_SETUP CMAKE_TARGETS
-                BUILD missing)
 
 find_package(Qt5 COMPONENTS Widgets Core Gui Sql REQUIRED HINTS "/opt/Qt/5.15.2/gcc_64/lib/cmake/Qt5/")
 
