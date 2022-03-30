@@ -1,5 +1,5 @@
 set(TARGET DataAccess.Public)
-set(OUTPUT_NAME Juniorgram.DataAccess.Public)
+set(OUTPUT_NAME ${PROJECT}.DataAccess.Public)
 
 set(SOURCE_FILES
         Include/DataAccess/AbstractRepositoryContainer.hpp
