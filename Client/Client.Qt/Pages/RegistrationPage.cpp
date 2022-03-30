@@ -19,7 +19,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
     _backButton          = std::make_unique<FlatButton>(this, "Back");
 
     _logoWidget = std::make_unique<LogoWidget>(this);
-    _popupSystemMessage = std::make_unique<PopupSystemMessage>(this);
+    //_popupSystemMessage = std::make_unique<PopupSystemMessage>(this);
+    _popupMessage = std::make_unique<PopupMessage>(this);
 
     _registrationHotkey = std::make_unique<QShortcut>
     (
@@ -51,8 +52,10 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (email.empty() || login.empty() || password.empty() || repeatPassword.empty())
         {
             std::cout << "some field is empty" << std::endl;
-            _popupSystemMessage->setPopupText("some field is empty");
-            _popupSystemMessage->show();
+            //_popupSystemMessage->setPopupText("some field is empty");
+            //_popupSystemMessage->show();
+            _popupMessage->setPopupText("some field is empty");
+            _popupMessage->popupShow();
             onResume();
 
             return;
@@ -61,8 +64,10 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (password != repeatPassword)
         {
             std::cout << "passwords are different" << std::endl;
-            _popupSystemMessage->setPopupText("passwords are different");
-            _popupSystemMessage->show();
+            //_popupSystemMessage->setPopupText("passwords are different");
+            //_popupSystemMessage->show();
+            _popupMessage->setPopupText("passwords are different");
+            _popupMessage->popupShow();
             onResume();
 
             return;
@@ -71,8 +76,10 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (!isLoginValid(login))
         {
             std::cout << "login is not valid" << std::endl;
-            _popupSystemMessage->setPopupText("login is not valid");
-            _popupSystemMessage->show();
+            //_popupSystemMessage->setPopupText("login is not valid");
+            //_popupSystemMessage->show();
+            _popupMessage->setPopupText("login is not valid");
+            _popupMessage->popupShow();
             onResume();
 
             return;
@@ -81,8 +88,10 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (!isEmailValid(email))
         {
             std::cout << "email is not valid" << std::endl;
-            _popupSystemMessage->setPopupText("email is not valid");
-            _popupSystemMessage->show();
+            //_popupSystemMessage->setPopupText("email is not valid");
+            //_popupSystemMessage->show();
+            _popupMessage->setPopupText("email is not valid");
+            _popupMessage->popupShow();
             onResume();
 
             return;
@@ -91,8 +100,10 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (!isPasswordValid(password))
         {
             std::cout << "password is not valid" << std::endl;
-            _popupSystemMessage->setPopupText("password is not valid");
-            _popupSystemMessage->show();
+            //_popupSystemMessage->setPopupText("password is not valid");
+            //_popupSystemMessage->show();
+            _popupMessage->setPopupText("password is not valid");
+            _popupMessage->popupShow();
             onResume();
 
             return;
@@ -135,22 +146,28 @@ void RegistrationPage::onRegistration(Utility::RegistrationCodes code)
         if (code == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
         {
             std::cout << "Email already exists" << std::endl;
-            _popupSystemMessage->setPopupText("Email already exists");
-            _popupSystemMessage->show();
+            //_popupSystemMessage->setPopupText("Email already exists");
+            //_popupSystemMessage->show();
+            _popupMessage->setPopupText("Email already exists");
+            _popupMessage->popupShow();
             onResume();
         }
         else if (code == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS)
         {
             std::cout << "Username already taken" << std::endl;
-            _popupSystemMessage->setPopupText("Username already taken");
-            _popupSystemMessage->show();
+            //_popupSystemMessage->setPopupText("Username already taken");
+            //_popupSystemMessage->show();
+            _popupMessage->setPopupText("Username already taken");
+            _popupMessage->popupShow();
             onResume();
         }
         else
         {
             std::cout << "Unknown code" << std::endl;
-            _popupSystemMessage->setPopupText("Unknown code");
-            _popupSystemMessage->show();
+            //_popupSystemMessage->setPopupText("Unknown code");
+            //_popupSystemMessage->show();
+            _popupMessage->setPopupText("Unknown code");
+            _popupMessage->popupShow();
             onResume();
         }
     }
