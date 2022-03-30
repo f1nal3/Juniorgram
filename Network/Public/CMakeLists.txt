@@ -1,5 +1,5 @@
 set(TARGET Network.Public)
-set(OUTPUT_NAME Juniorgram.Network.Public)
+set(OUTPUT_NAME ${PROJECT}.Network.Public)
 
 set(SOURCE_FILES
     Include/Network/CompressionHandler.hpp

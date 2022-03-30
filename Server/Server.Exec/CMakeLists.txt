@@ -1,5 +1,5 @@
 set(TARGET Server.Exec)
-set(OUTPUT_NAME Juniorgram.Server.Exec)
+set(OUTPUT_NAME ${PROJECT}.Server.Exec)
 
 set(SOURCE_FILES
     MainServer.cpp)

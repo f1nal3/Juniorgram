@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.17.0)
 
-set(PROJECT "Juniorgram")
+set(PROJECT Juniorgram)
 project(Juniorgram)
 
 # Global settings. Should probably be moved to a separate file later.

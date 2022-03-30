@@ -1,7 +1,6 @@
 #include "FileLogger.hpp"
 #include <algorithm>
 #include <chrono>
-#include <condition_variable>
 #include <cstdlib>
 #include <ctime>
 #include <map>
