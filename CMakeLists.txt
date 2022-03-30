@@ -8,26 +8,25 @@ set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CXX_EXTENSIONS off)
 
-# For those VSCode users
-set(EXPORT_COMPILE_COMMANDS TRUE)
-
 # Oprions
 option(ENABLE_CCACHE        "Enable the usage of Ccache."           ON)
 option(ENABLE_WARNINGS      "Enable to add warnings to a target."   ON)
 
 
 # Cmake modules
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/)
 # CMake properies
 include(CMakeConfig)
-# conan
+# Conan and dependencies
 include(ConanModule)
-# warnings
+
+# Warnings toggle should be implemented here
 if(ENABLE_WARNINGS)
     include(Warnings)
     set_warnings()
 endif()
-# ccache
+
+# CCache
 if (ENABLE_CCACHE)
     include(Ccache)
 endif()
