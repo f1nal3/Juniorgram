@@ -39,7 +39,7 @@ conan_cmake_install(PATH_OR_REFERENCE .
 
 # Append the folder with
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}/Conan)
-#set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
 
 # List of find_packages for each external library that we use.
 # TODO: Qt has HINT due to legacy CI issues. Need to check if this persists.
