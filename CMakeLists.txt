@@ -14,7 +14,7 @@ option(ENABLE_WARNINGS      "Enable to add warnings to a target."   ON)
 
 
 # Cmake modules
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake/)
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/CMake/")
 # CMake properies
 include(CMakeConfig)
 # Conan and dependencies
