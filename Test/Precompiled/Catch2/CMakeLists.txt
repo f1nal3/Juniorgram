@@ -4,7 +4,7 @@ set(TARGET_TEST Precompiled.Catch2.Test)
 set(OUTPUT_NAME Precompiled.Catch2)
 
 add_library(${TARGET_MAIN} STATIC CatchMainConfig.cpp)
-target_link_libraries(${TARGET_MAIN} PUBLIC CONAN_PKG::catch2)
+target_link_libraries(${TARGET_MAIN} PUBLIC Catch2::Catch2)
 
 add_executable(${TARGET_TEST} CatchDummyTest.cpp)
 

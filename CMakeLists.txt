@@ -31,8 +31,6 @@ if (ENABLE_CCACHE)
     include(Ccache)
 endif()
 
-find_package(Qt5 COMPONENTS Widgets Core Gui Sql REQUIRED HINTS "/opt/Qt/5.15.2/gcc_64/lib/cmake/Qt5/")
-
 enable_testing()
 
 add_subdirectory(Test)
