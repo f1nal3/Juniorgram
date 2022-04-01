@@ -17,6 +17,6 @@ target_compile_definitions(${TARGET_TEST} PRIVATE CATCH_CONFIG_FAST_COMPILE)
 
 # TODO This is definately bad, gotta rework this ASAP
 get_target_property(CATCH2_INCLUDE_DIRS Catch2::Catch2 INTERFACE_INCLUDE_DIRECTORIES)
-list(GET CATCH2_INCLUDE_DIRS 0 CATCH2_INCLUDE_DIR)
+string(CONCAT CATCH2_INCLUDE ${CATCH2_INCLUDE_DIRS} "/catch2/catch.hpp")
 
-target_precompile_headers(${TARGET_TEST} PRIVATE "${CATCH2_INCLUDE_DIR}/catch2/catch.hpp")
+target_precompile_headers(${TARGET_TEST} PRIVATE ${CATCH2_INCLUDE})
