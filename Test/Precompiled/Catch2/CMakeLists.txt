@@ -14,4 +14,9 @@ set_target_properties(${TARGET_TEST} PROPERTIES FOLDER ${FOLDER})
 target_link_libraries(${TARGET_TEST} ${TARGET_MAIN})
 
 target_compile_definitions(${TARGET_TEST} PRIVATE CATCH_CONFIG_FAST_COMPILE)
-target_precompile_headers(${TARGET_TEST} PRIVATE ${CONAN_CATCH2_ROOT}/include/catch2/catch.hpp)
+
+# TODO This is definately bad, gotta rework this ASAP
+get_target_property(CATCH2_INCLUDE_DIRS Catch2::Catch2 INTERFACE_INCLUDE_DIRECTORIES)
+list(GET CATCH2_INCLUDE_DIRS 0 CATCH2_INCLUDE_DIR)
+
+target_precompile_headers(${TARGET_TEST} PRIVATE "${CATCH2_INCLUDE_DIR}/catch2/catch.hpp")
