@@ -14,16 +14,15 @@ option(ENABLE_WARNINGS      "Enable to add warnings to a target."   ON)
 
 
 # Cmake modules
-list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/CMake/")
-message(${CMAKE_MODULE_PATH})
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 # CMake properies
-include("CMake/CMakeConfig.cmake")
+include(CMakeConfig)
 # Conan and dependencies
-include("CMake/ConanModule.cmake")
+include(ConanModule)
 
 # Warnings toggle should be implemented here
 if(ENABLE_WARNINGS)
-    include("CMake/Warnings.cmake")
+    include(Warnings)
     set_warnings()
 endif()
 
