@@ -15,12 +15,12 @@ Client::~Client() { disconnectFromServer(); }
 
 bool Client::connectToServer(const std::string_view& host, const uint16_t port)
 {
-    if (host != ServerInfo::address)
+    if (host != ServerInfo::Address::remote && host != ServerInfo::Address::local)
     {
         std::cerr << "Bad server address" << std::endl;
         return false;
     }
-    if (port != ServerInfo::port)
+    if (port != ServerInfo::Port::test && port != ServerInfo::Port::production)
     {
         std::cerr << "Bad port value" << std::endl;
         return false;
@@ -287,8 +287,11 @@ void Client::loop()
     while (!_incomingMessagesQueue.empty())
     {
         const Message message = _incomingMessagesQueue.pop_front();
-        std::string   output  = "[" + std::to_string(message.mHeader.mTimestamp.time_since_epoch().count()) + "]\n";
-        std::cout << output;
+        auto          convertTime = std::chrono::system_clock::to_time_t;
+        std::tm       output_time = Utility::safe_localtime(convertTime(message.mHeader.mTimestamp));
+
+        std::cout << "[" << std::put_time(&output_time, "%F %T%z") << "]\n";
+
         switch (message.mHeader.mMessageType)
         {
             case MessageType::LoginAnswer:

@@ -1,5 +1,5 @@
 set(TARGET Base.Logger.Public)
-set(OUTPUT_NAME Juniorgram.Base.Logger.Public)
+set(OUTPUT_NAME ${PROJECT}.Base.Logger.Public)
 
 set(SOURCE_FILES
         Include/Logger/ILogger.hpp)

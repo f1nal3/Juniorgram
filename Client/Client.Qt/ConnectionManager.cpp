@@ -1,10 +1,27 @@
 #include "ConnectionManager.hpp"
 
 #include "Application.hpp"
+#include "Settings.hpp"
 
 ReceiverManager* ReceiverManager::self;
 
 ReceiverManager::ReceiverManager() { self = this; }
+
+ConnectionManager::ConnectionManager() { configureConnectionProperties(); }
+
+void ConnectionManager::init()
+{
+    Settings::getInstance().beginGroup("ConnectionSettings");
+    std::string host = Settings::getInstance().value("address").toString().toStdString();
+    auto port = Settings::getInstance().value("port").toInt();
+    Settings::getInstance().endGroup();
+
+    connectToServer
+    (
+        host.data(),
+        port
+    );
+}
 
 void ConnectionManager::onServerAccepted()
 {
@@ -215,4 +232,19 @@ void ConnectionManager::onDisconnect()
     loginState = LoginState::FAILED;
     oApp->showMessage("Connection Status", "You've been disconnected from server!", MessageType::Error);
     emit ReceiverManager::instance()->onDisconnect();
+}
+
+void ConnectionManager::configureConnectionProperties()
+{
+    using Values = std::map<QString, QVariant>;
+
+    Settings::getInstance().configureSettings
+    (
+        "ConnectionSettings",
+        Values
+        {
+            { "address", ServerInfo::Address::remote.data() },
+            { "port"   , ServerInfo::Port::production }
+        }
+    );
 }

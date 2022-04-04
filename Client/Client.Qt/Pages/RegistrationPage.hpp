@@ -6,7 +6,6 @@
 #include <Widgets/Page.hpp>
 #include <Widgets/IPopupMessage/IPopupMessage.hpp>
 #include <Widgets/IPopupMessage/PopupMessage.hpp>
-
 #include <memory>
 
 class FlatInput;

@@ -375,34 +375,20 @@ Server::Server(const uint16_t& port)
 
 Server::~Server() { stop(); }
 
-bool Server::start()
+void Server::start()
 {
-    try
+    waitForClientConnection();
+
+    size_t threadsCount = std::thread::hardware_concurrency();
+    threadsCount > 1 ? --threadsCount : threadsCount = 1;
+    
+    for (size_t i = 0; i < threadsCount; ++i)
     {
-        waitForClientConnection();
-
-        size_t threadsCount = std::thread::hardware_concurrency();
-        threadsCount > 1 ? --threadsCount : threadsCount = 1;
-
-        for (size_t i = 0; i < threadsCount; ++i)
-        {
-            mThreads.emplace_back(std::thread([this]() { mContext.run(); }));
-        }
-
-        mPostgreManager->handleRequests();
-
-        Base::Logger::FileLogger::getInstance().log("[SERVER] Started!", Base::Logger::LogLevel::INFO);
-        return true;
+        mThreads.emplace_back(std::thread([this]() { mContext.run(); }));
     }
-    catch (std::exception& exception)
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            std::string("[SERVER] Exception: ") + exception.what(),
-            Base::Logger::LogLevel::ERR
-        );
-        return false;
-    }
+    mPostgreManager->handleRequests();
+
+    Base::Logger::FileLogger::getInstance().log("[SERVER] Started!", Base::Logger::LogLevel::INFO);
 }
 
 void Server::stop()
@@ -439,7 +425,7 @@ void Server::waitForClientConnection()
             std::shared_ptr<Connection> newConnection =
                 std::make_shared<Connection>(Connection::OwnerType::SERVER, mContext, std::move(socket), mIncomingMessagesQueue);
 
-            /// \todo This function always return true
+            /// @todo This function always return true
             if (onClientConnect(newConnection))
             {
                 mConnectionsPointers.push_back(std::move(newConnection));

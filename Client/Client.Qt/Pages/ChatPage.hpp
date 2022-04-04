@@ -25,6 +25,9 @@ protected:
     /// Handle resize
     void resizeEvent(QResizeEvent* event) override;
 
+public slots:
+    void chosenChannelHandler();
+
 private:
     std::unique_ptr<QSplitter>         _mainLayout;
     std::unique_ptr<ChannelListWidget> _channelListWidget;

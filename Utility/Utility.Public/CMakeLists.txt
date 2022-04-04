@@ -1,5 +1,5 @@
 set(TARGET Utility.Public)
-set(OUTPUT_NAME Juniorgram.Utility.Public)
+set(OUTPUT_NAME ${PROJECT}.Utility.Public)
 
 set(SOURCE_FILES
         Include/Utility/Exception.hpp

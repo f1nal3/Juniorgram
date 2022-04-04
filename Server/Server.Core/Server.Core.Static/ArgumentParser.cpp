@@ -9,9 +9,9 @@ ArgumentParser::ArgumentParser(int argc, const char** argv, const KeysValidator&
     for (auto&& param : tempParams)
         trim(param);
 
-    checkOnBadAmount(tempParams);
+    validateArgumentsAmount(tempParams);
 
-    // path to project don't need for us, so we start from i = 1.
+    // path to project isn't necessary for us, so we start from i = 1.
     size_t i = 1;
     while (i < tempParams.size())
     {
@@ -19,7 +19,7 @@ ArgumentParser::ArgumentParser(int argc, const char** argv, const KeysValidator&
         std::string value;
 
         if (!validator.isKeyValid(key))
-            throw std::runtime_error("Key '" + key + "' is unvalid");
+            throw std::runtime_error("Key '" + key + "' is invalid");
 
         if (validator.doKeyNeedValue(key))
         {
@@ -32,28 +32,28 @@ ArgumentParser::ArgumentParser(int argc, const char** argv, const KeysValidator&
             i++;
         }
 
-        if (doMapContainKey(key))
+        if (isKeyExist(key))
             throw std::runtime_error("Arguments have duplicated keys '" + key + "'");
 
         tryPushToMap(key, value);
     }
 
-    realDB      = doMapContainKey(validator.keys.realDB);
-    bool fileDB = doMapContainKey(validator.keys.fileDB);
+    bool listenedPort = isKeyExist(validator.keys.listenedPort);
+    bool fileDB       = isKeyExist(validator.keys.fileDB);
 
-    if (realDB && fileDB)
-        throw std::runtime_error("Coexistence realDB and fileDB in arguments");
+    if (listenedPort && fileDB) 
+        throw std::runtime_error("Simultaneous existence both listenedPort and fileDB keys is forbidden. Use only one key.");
 
-    if (!realDB && !fileDB)
-        throw std::runtime_error("realDB or fileDB key must be in arguments");
+    if (!listenedPort && !fileDB) 
+        throw std::runtime_error("There is no used key. Use only one key.");
 }
 
 uint16_t ArgumentParser::getPort() const
 {
-    if (!realDB)
+    if (!isKeyExist(validator.keys.listenedPort)) 
         throw std::runtime_error("FileDB doesn't have a port");
 
-    int32_t port = arguments.find(validator.keys.realDB)->second;
+    int32_t port = arguments.find(validator.keys.listenedPort)->second;
 
     if (port < std::numeric_limits<uint16_t>::min() || port > std::numeric_limits<uint16_t>::max())
         throw std::runtime_error("Port value is too small or big");
@@ -61,7 +61,7 @@ uint16_t ArgumentParser::getPort() const
     return static_cast<uint16_t>(port);
 }
 
-void ArgumentParser::checkOnBadAmount(std::vector<std::string>& params) const
+void ArgumentParser::validateArgumentsAmount(std::vector<std::string>& params) const
 {
     const auto amountOfKeysWithValueAndPath =
         std::count_if(params.begin(), params.end(),
@@ -73,18 +73,16 @@ void ArgumentParser::checkOnBadAmount(std::vector<std::string>& params) const
 
 bool ArgumentParser::isInteger(const std::string& str) const noexcept
 {
-    auto numberElement = str.begin();
-    if (str[0] == '-')
-        numberElement++;
-
-    while (numberElement != str.end())
+    auto iter = str.begin();
+    if (str[0] == '-') 
+        ++iter;
+    while (iter != str.end())
     {
-        if ((*numberElement < '0') || (*numberElement > '9'))
+        if (std::isdigit(*iter))
+            ++iter;
+        else
             return false;
-
-        numberElement++;
     }
-
     return true;
 }
 
@@ -102,14 +100,13 @@ std::string ArgumentParser::trim(std::string& row) const noexcept
             row.erase(row.end() - 1);
         }
     }
-
     return row;
 }
 
 void ArgumentParser::tryPushToMap(const std::string& key, const std::string& value)
 {
     if (!isInteger(value))
-        throw std::runtime_error("key " + key + " has unvalid value");
+        throw std::runtime_error("key " + key + " has invalid value");
 
     arguments.emplace(key, stoi(value));
 }

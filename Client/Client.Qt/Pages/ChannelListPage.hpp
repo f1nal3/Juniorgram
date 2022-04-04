@@ -3,6 +3,7 @@
 #include <Network/Primitives.hpp>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <QShortcut>
 
 #include "Widgets/ListWidget.hpp"
 #include "Widgets/Page.hpp"
@@ -45,4 +46,8 @@ private:
     std::unique_ptr<FlatButton> _addChannelButton;
     std::unique_ptr<FlatButton> _updateChannelButton;
     std::shared_ptr<ListWidget> _widgetChannelList;
+    
+    std::unique_ptr<QShortcut>  _addChannelHotkey;
+    std::unique_ptr<QShortcut>  _updateChannelHotKey;
+    std::unique_ptr<QShortcut>  _closeHotkey;
 };
