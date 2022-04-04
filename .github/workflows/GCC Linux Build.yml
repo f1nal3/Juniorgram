@@ -28,6 +28,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: sudo apt-get install libgl-dev
       
     - name: Python setup
       uses: actions/setup-python@v2
@@ -37,18 +40,6 @@ jobs:
         
     - name: Get prerequisites
       run: python -m pip install conan==1.45 cmake
-      
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v2
-      with:
-        version: '5.15.2'
-        host: 'linux'
-        target: 'desktop'
-        dir: '${{ github.workspace }}'
-        install-deps: 'true'
-        setup-python: 'false'
-        set-env: 'true'
-        tools-only: 'false'
 
     - name: Cache Conan packages
       id: conan-cache
@@ -68,7 +59,7 @@ jobs:
       run: psql --username=postgres --host=localhost -d testdb -f ./Utility/SQL/Database_Scheme.sql
 
     - name: Test
-      working-directory: ${{github.workspace}}/build
+      working-directory: ${{github.workspace}}/build  
       run: ctest -C ${{matrix.BUILD_TYPE}} --output-on-failure
    
     - name: Archive server executable
