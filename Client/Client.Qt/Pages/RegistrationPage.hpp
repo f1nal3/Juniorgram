@@ -4,9 +4,8 @@
 #include <QLabel>
 #include <Utility/Utility.hpp>
 #include <Widgets/Page.hpp>
-#include <Widgets/PopupSystemMessage.hpp>
-#include <Widgets/I_PopupMessage/I_PopupMessage.hpp>
-#include <Widgets/I_PopupMessage/PopupMessage.hpp>
+#include <Widgets/IPopupMessage/IPopupMessage.hpp>
+#include <Widgets/IPopupMessage/PopupMessage.hpp>
 
 #include <memory>
 
@@ -41,9 +40,7 @@ private:
     std::unique_ptr<FlatButton> _registrationButton;
     std::unique_ptr<FlatButton> _backButton;
     std::unique_ptr<LogoWidget> _logoWidget;
-    //std::unique_ptr<PopupSystemMessage> _popupSystemMessage;
-    std::unique_ptr<I_PopupMessage>     _popupMessage;
-    
+    std::unique_ptr<IPopupMessage> _popupMessage;
 
     std::unique_ptr<QShortcut>  _registrationHotkey;
 };

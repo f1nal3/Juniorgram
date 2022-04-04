@@ -1,12 +1,12 @@
 #pragma once
 
-#include "I_PopupMessage.hpp"
+#include "IPopupMessage.hpp"
 #include <QLabel>
 #include <QGridLayout>
 #include <QPropertyAnimation>
 #include <QTimer>
 
-class PopupMessage : public I_PopupMessage
+class PopupMessage : public IPopupMessage
 {
 public:
     explicit PopupMessage(QWidget* parent = nullptr);
@@ -32,7 +32,6 @@ private:
     QLabel             label;
     QGridLayout        layout;
     QPropertyAnimation animation;
-    //float              popupOpacity;
     QTimer*            timer;
 
     float getPopupOpacity() const override;
