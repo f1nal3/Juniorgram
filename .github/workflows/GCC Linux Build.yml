@@ -103,11 +103,3 @@ jobs:
       #run: |
        #   ssh jg_host 'sudo chmod +x juniorgram.test'
         #  ssh jg_host 'sudo systemctl start juniorgram.test.service'
-        
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: ${{ matrix.language }}
-        
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
