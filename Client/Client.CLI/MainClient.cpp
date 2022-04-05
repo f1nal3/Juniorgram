@@ -106,7 +106,7 @@ int main(int argc, char** argv)
 
                 if (email.empty() || login.empty() || password.empty() || repeatPassword.empty())
                 {
-                    Base::Logger::FileLogger::getInstance().log("some field is empty", Base::Logger::LogLevel::INFO);
+                    Base::Logger::FileLogger::getInstance().log("some field is empty", Base::Logger::LogLevel::WARNING);
 
                     future = std::async(std::launch::async, GetLineFromCin);
                     continue;

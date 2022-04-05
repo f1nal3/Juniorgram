@@ -85,7 +85,7 @@ void ConnectionManager::onReplyStoreAnswer(Utility::StoringReplyCodes storingRep
     }
     else if (storingReplyCode == Utility::StoringReplyCodes::FAILED)
     {
-        Base::Logger::FileLogger::getInstance().log("FAILED sending", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("FAILED sending", Base::Logger::LogLevel::ERR);
     }
     qRegisterMetaType<Utility::StoringReplyCodes>("Utility::StoringReplyCodes");
     emit ReceiverManager::instance()->onReplyStoreAnswer(storingReplyCode);
@@ -99,7 +99,7 @@ void ConnectionManager::onMessageReactionAnswer(const Utility::ReactionMessageCo
     }
     else if (reactionCode == Utility::ReactionMessageCodes::FAILED)
     {
-        Base::Logger::FileLogger::getInstance().log("Reaction update FAILED", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("Reaction update FAILED", Base::Logger::LogLevel::ERR);
     }
     qRegisterMetaType<Utility::ReactionMessageCodes>("Utility::ReactionMessageCodes");
     emit ReceiverManager::instance()->onMessageReactionAnswer(reactionCode);
@@ -132,11 +132,11 @@ void ConnectionManager::onUserMessageDeleteAnswer(const Utility::DeletingMessage
     }
     else if (deletingCode == Utility::DeletingMessageCodes::FAILED)
     {
-        Base::Logger::FileLogger::getInstance().log("FAILED DELETING", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("FAILED DELETING", Base::Logger::LogLevel::ERR);
     }
     else
     {
-        Base::Logger::FileLogger::getInstance().log("UNKNOWN deleting message code", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("UNKNOWN deleting message code", Base::Logger::LogLevel::WARNING);
     }
     qRegisterMetaType<Utility::DeletingMessageCodes>("Utility::DeletingMessageCodes");
     emit ReceiverManager::instance()->onUserMessageDeleteAnswer(deletingCode);
@@ -150,7 +150,7 @@ void ConnectionManager::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelL
     }
     else if (ChannelLeaveCode == Utility::ChannelLeaveCodes::FAILED)
     {
-        Base::Logger::FileLogger::getInstance().log("FAILED LEAVING", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("FAILED LEAVING", Base::Logger::LogLevel::ERR);
     }
     else if (ChannelLeaveCode == Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND)
     {
@@ -168,7 +168,7 @@ void ConnectionManager::onChannelSubscribingAnswer(const Utility::ChannelSubscri
     }
     else if (subscribingChannelCode == Utility::ChannelSubscribingCodes::FAILED)
     {
-        Base::Logger::FileLogger::getInstance().log("FAILED SUBSCRIBING", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("FAILED SUBSCRIBING", Base::Logger::LogLevel::ERR);
     }
     qRegisterMetaType<Utility::ChannelSubscribingCodes>("Utility::ChannelSubscribingCodes");
     emit ReceiverManager::instance()->onChannelSubscriptionAnswer(subscribingChannelCode);
@@ -188,7 +188,7 @@ void ConnectionManager::onChannelDeleteAnswer(Utility::ChannelDeleteCode channel
     }
     else if (channelDeleteCode == Utility::ChannelDeleteCode::FAILED)
     {
-        Base::Logger::FileLogger::getInstance().log("FAILED DELETING", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("FAILED DELETING", Base::Logger::LogLevel::ERR);
     }
     else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_NOT_FOUND)
     {
@@ -210,7 +210,7 @@ void ConnectionManager::onChannelCreateAnswer(Utility::ChannelCreateCodes channe
     }
     else if (channelCreateCode == Utility::ChannelCreateCodes::FAILED)
     {
-        Base::Logger::FileLogger::getInstance().log("FAILD CREATING", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("FAILD CREATING", Base::Logger::LogLevel::ERR);
     }
     else if (channelCreateCode == Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED)
     {
@@ -228,7 +228,7 @@ void ConnectionManager::onDirectMessageCreateAnswer(Utility::DirectMessageStatus
     }
     else if (directMessageCreateAnswer == Utility::DirectMessageStatus::FAILED)
     {
-        Base::Logger::FileLogger::getInstance().log("FAILED CREATING", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("FAILED CREATING", Base::Logger::LogLevel::ERR);
     }
     qRegisterMetaType<Utility::DirectMessageStatus>("Utility::DirectMessageStatus");
     emit ReceiverManager::instance()->onDirectMessageCreateAnswer(directMessageCreateAnswer);

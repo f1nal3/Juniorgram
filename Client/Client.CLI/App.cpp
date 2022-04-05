@@ -55,11 +55,11 @@ void App::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode)
     }
     else if (storingMessageCode == Utility::StoringMessageCodes::FAILED)
     {
-        Base::Logger::FileLogger::getInstance().log("FAILED sending", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("FAILED sending", Base::Logger::LogLevel::ERR);
     }
     else
     {
-        Base::Logger::FileLogger::getInstance().log("Unknown StoringMessageCode", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("Unknown StoringMessageCode", Base::Logger::LogLevel::WARNING);
     }
 }
 
@@ -71,11 +71,11 @@ void App::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deleting
     }
     else if (deletingState == Utility::DeletingMessageCodes::FAILED)
     {
-        Base::Logger::FileLogger::getInstance().log("FAILED deleting", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("FAILED deleting", Base::Logger::LogLevel::ERR);
     }
     else
     {
-        Base::Logger::FileLogger::getInstance().log("Unknown StoringMessageCode", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("Unknown StoringMessageCode", Base::Logger::LogLevel::WARNING);
     }
 }
 
