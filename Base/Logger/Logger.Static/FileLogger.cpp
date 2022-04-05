@@ -1,4 +1,11 @@
 #include "FileLogger.hpp"
+#include <algorithm>
+#include <chrono>
+#include <cstdlib>
+#include <ctime>
+#include <map>
+#include <vector>
+#include <iostream>
 
 using namespace Base::Logger;
 

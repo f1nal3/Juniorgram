@@ -120,7 +120,7 @@ elseif (UNIX AND NOT APPLE)
 endif ()
 
 target_link_libraries(${TARGET}
-        PRIVATE Qt::Widgets Qt::Gui ${EXTRA_LIBS} CONAN_PKG::asio
+        PRIVATE Qt5::Widgets Qt5::Gui ${EXTRA_LIBS} asio::asio
         PUBLIC Network.Public Client.Core.Static Utility.Public DataAccess.SQLite)
 
 
