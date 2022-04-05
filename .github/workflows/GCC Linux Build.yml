@@ -12,6 +12,7 @@ jobs:
     strategy:
       matrix:
         BUILD_TYPE: [Debug, Release]
+        LANGUAGE: [ 'cpp' ]
   
     services:
       postgres:
@@ -69,36 +70,44 @@ jobs:
         name: juniorgram-server
         path: ./build/bin/Server.Exec
         
-    - name: Setup SSH
-      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'
-      run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/staging.key
-          chmod 600 ~/.ssh/staging.key
-          cat >>~/.ssh/config <<END
-          Host jg_host
-            HostName $SSH_HOST
-            User $SSH_USER
-            IdentityFile ~/.ssh/staging.key
-            StrictHostKeyChecking no
-          END
-      env:
-          SSH_USER: ${{ secrets.HOST_USER }}
-          SSH_KEY: ${{ secrets.HOST_SSH_KEY }}
-          SSH_HOST: ${{ secrets.HOST_IP_ADDRESS }}
-          
-    - name: Stop JG Service
-      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'
-      run: |
-          ssh jg_host 'sudo systemctl stop juniorgram.test.service '
-          ssh jg_host 'sudo rm juniorgram.test' 
-  
-    - name: Upload server to Host
-      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'    
-      run: scp ./build/bin/Server.Exec jg_host:/home/jg_admin/juniorgram.test
+    #- name: Setup SSH
+    #  if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    #  run: |
+    #      mkdir -p ~/.ssh/
+    #      echo "$SSH_KEY" > ~/.ssh/staging.key
+    #      chmod 600 ~/.ssh/staging.key
+    #      cat >>~/.ssh/config <<END
+    #      Host jg_host
+    #        HostName $SSH_HOST
+    #        User $SSH_USER
+    #        IdentityFile ~/.ssh/staging.key
+    #        StrictHostKeyChecking no
+    #      END
+    #  env:
+    #      SSH_USER: ${{ secrets.HOST_USER }}
+    #      SSH_KEY: ${{ secrets.HOST_SSH_KEY }}
+    #      SSH_HOST: ${{ secrets.HOST_IP_ADDRESS }}
+    #      
+    #- name: Stop JG Service
+    #  if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    #  run: |
+    #      ssh jg_host 'sudo systemctl stop juniorgram.test.service '
+    #      ssh jg_host 'sudo rm juniorgram.test' 
+    
+    #- name: Upload server to Host
+      #if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'    
+      #run: scp ./build/bin/Server.Exec jg_host:/home/jg_admin/juniorgram.test
         
-    - name: Start JG Service
-      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'
-      run: |
-          ssh jg_host 'sudo chmod +x juniorgram.test'
-          ssh jg_host 'sudo systemctl start juniorgram.test.service'
+    #- name: Start JG Service
+      #if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'
+      #run: |
+       #   ssh jg_host 'sudo chmod +x juniorgram.test'
+        #  ssh jg_host 'sudo systemctl start juniorgram.test.service'
+        
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+        
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
