@@ -97,14 +97,14 @@ void App::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
     }
     else if (registrationCode == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS)
     {
-        Base::Logger::FileLogger::getInstance().log("User with such login already exists", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("User with such login already exists", Base::Logger::LogLevel::ERR);
     }
     else if (registrationCode == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
     {
-        Base::Logger::FileLogger::getInstance().log("User with such email already exists", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("User with such email already exists", Base::Logger::LogLevel::ERR);
     }
     else
     {
-        Base::Logger::FileLogger::getInstance().log("Unknown RegistrationCode", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("Unknown RegistrationCode", Base::Logger::LogLevel::WARNING);
     }
 }
