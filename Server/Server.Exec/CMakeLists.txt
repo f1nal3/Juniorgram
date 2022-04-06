@@ -18,7 +18,7 @@ target_link_libraries(${TARGET} PUBLIC Network.Public Utility.Public)
 
 install(TARGETS ${TARGET}
         CONFIGURATIONS Debug
-        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Server/Debug)
+        RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin/)
 install(TARGETS ${TARGET}
         CONFIGURATIONS Release
-        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Server/Release)
+        RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin/)
