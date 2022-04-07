@@ -35,6 +35,8 @@ set(UI_WIDGETS_SOURCES
         Widgets/AbstractButton.hpp
         Widgets/AbstractMessageWidget.hpp
         Widgets/AbstractMessageWidget.cpp
+        Widgets/AbstractPopupWidget.hpp
+        Widgets/AbstractPopupWidget.cpp
         Widgets/Buttons.cpp
         Widgets/Buttons.hpp
         Widgets/ChannelListWidget.cpp
