@@ -244,7 +244,9 @@ public:
         }*/
         catch (const std::exception& err)
         {
-            std::cerr << err.what() << '\n';
+            Base::Logger::FileLogger::getInstance().log(
+                std::string(err.what() + '\n'),
+                Base::Logger::LogLevel::ERR);
         }
 
         this->rollback();
