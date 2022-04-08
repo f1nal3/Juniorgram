@@ -45,9 +45,10 @@ namespace Base::Logger
     public:
         /**
          * @brief Log entry
-         * @param required log message
-         * @param log level
+         * @param msg log message
+         * @param severity type of message
          */
-        virtual void log(const std::string& msg, const LogLevel severity = LogLevel::DEBUG) = 0;
+        virtual void log(const std::string& msg, LogLevel severity) = 0;
+        virtual ~ILogger() = default;
     };
 }  // namespace Logger

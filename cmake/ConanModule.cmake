@@ -16,12 +16,12 @@ include(${CMAKE_BINARY_DIR}/conan.cmake)
 
 # Uses conan.cmake functionality to list the needed packages.
 conan_cmake_configure(REQUIRES asio/1.18.1
-                               cryptopp/8.5.0
+                               cryptopp/8.6.0
                                expat/2.2.10
-                               catch2/2.13.4
+                               catch2/2.13.8
                                libtool/2.4.6
                                libpq/13.6
-                               libpqxx/7.7.0
+                               libpqxx/7.7.2
                                nlohmann_json/3.9.1
                                yas/7.0.5
                                qt/5.15.2

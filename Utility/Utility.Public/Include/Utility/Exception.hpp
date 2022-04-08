@@ -29,9 +29,7 @@ public:
     {
     }
 
-    virtual const char* what() const noexcept { return _msg.c_str(); }
-
-    virtual ~NotImplementedException() = default;
+    [[nodiscard]] const char* what() const noexcept override { return _msg.c_str(); }
 
 protected:
     std::string   _msg;
@@ -52,8 +50,7 @@ public:
     {
     }
 
-    virtual const char* what() const noexcept { return _msg.c_str(); }
-    virtual ~OperationDBException() = default;
+    [[nodiscard]] const char* what() const noexcept override { return _msg.c_str(); }
 
 protected:
     std::string   _msg;

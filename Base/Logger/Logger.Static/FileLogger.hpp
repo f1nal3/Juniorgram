@@ -30,10 +30,10 @@ public:
 
     /**
      * @brief Initialization of the current class object
-     * @param file name to write data
-     * @param the place where the data will be displayed
+     * @param filename std::string name to write data
+     * @param output LogOutput - the place where the data will be displayed
      */
-    void init(const std::string& filename, const LogOutput output);
+    void init(const std::string& filename, LogOutput output);
 
     /**
      * @brief Opening the current class file
@@ -47,15 +47,15 @@ public:
 
     /**
      * @brief Log entry
-     * @param required log message
-     * @param log level
+     * @param msg std::string - message that should be written at log
+     * @param severity LogLevel - level of message
      */
-    void log(const std::string& msg, const LogLevel severity = LogLevel::DEBUG) override;
+    void log(const std::string& msg, LogLevel severity = LogLevel::DEBUG) override;
 
     /**
      * @brief Log entry
-     * @param required log message
-     * @param log level
+     * @param t T& - templated type of log message
+     * @param level LogLevel - level of message
      */
     template <class T>
     void log(const T& t, const LogLevel level = LogLevel::DEBUG)
@@ -72,16 +72,22 @@ public:
 
     /**
      * @brief Stringify the log level to its name
-     * @param required LogLevel
+     * @param level LogLevel - element of LogLevel enumeration that should be stringify
      */
-    std::string stringifyLogLvl(const LogLevel level);
+    static std::string stringifyLogLvl(LogLevel level);
 
+    /**
+     * @brief Deleted copy constructor in singleton pattern purpose
+     */
+    FileLogger(const FileLogger&) = delete;
+
+    /**
+     * @brief Deleted assigning operator in singleton pattern purpose
+     */
+    FileLogger& operator=(const FileLogger&) = delete;
 private:
     FileLogger();
-    ~FileLogger();
-
-    FileLogger(const FileLogger&) = delete;
-    FileLogger& operator=(const FileLogger&) = delete;
+    ~FileLogger() override;
 
     /**
      * @brief Syncs the number of log files in the folder
@@ -92,7 +98,7 @@ private:
      * @brief Gets current data
      * @return "dd.mm.yy"
      */
-    std::string getCurrentDate();
+    static std::string getCurrentDate();
 
     /**
      * @brief Get the name of the logger file
@@ -104,7 +110,7 @@ private:
      * @brief Get the name of the logger folder
      * @return "Log\\"
      */
-    std::string getFldName();
+    static std::string getFldName();
 
     /**
      * @brief Loop to synchronize all threads
@@ -115,7 +121,7 @@ private:
      * @brief Marks to current time
      * @return time format [yyyy.mm.dd. hh.mm.ss.ms]
      */
-    std::string timestamp();
+    static std::string timestamp();
     /**
      * @brief Marks to current thread
      * @return curent thread in string format
@@ -126,7 +132,7 @@ private:
      * @brief Converts the std::filesystem::last_write_time to time_t
      * @return the time in the format time_t
      */
-    std::time_t to_time_t(std::filesystem::file_time_type timeType);
+    static std::time_t to_time_t(std::filesystem::file_time_type timeType);
 
     /**
      * @brief Wraps the value of a variable
