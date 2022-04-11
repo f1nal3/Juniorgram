@@ -1,6 +1,7 @@
 #pragma once
 #include <Utility/Exception.hpp>
 #include <Utility/SQLUtility.hpp>
+#include <FileLogger.hpp>
 #include <any>
 #include <iostream>
 #include <optional>
@@ -237,11 +238,7 @@ public:
                 throw Utility::OperationDBException("Database connection failure!", __FILE__, __LINE__);
             }
         }
-        /*catch (const pqxx::sql_error& err)
-        {
-            std::cerr << err.what() << '\n';
-            std::cerr << err.query() << '\n';
-        }*/
+
         catch (const std::exception& err)
         {
             Base::Logger::FileLogger::getInstance().log(

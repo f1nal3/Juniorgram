@@ -603,7 +603,7 @@ Utility::StoringReplyCodes RepliesRepository::storeReply(const Network::ReplyInf
     if (!firstResult.has_value())
     {
         Base::Logger::FileLogger::getInstance().log(
-            "Insert reply into 'replies' table failed\n",
+            "Inserting reply into 'replies' table failed\n",
             Base::Logger::LogLevel::ERR);
 
         return Utility::StoringReplyCodes::FAILED;
@@ -615,7 +615,7 @@ Utility::StoringReplyCodes RepliesRepository::storeReply(const Network::ReplyInf
     if (!secondResult.has_value())
     {
         Base::Logger::FileLogger::getInstance().log(
-            "Insert reply into 'channel_replies' table failed\n",
+            "Inserting reply into 'channel_replies' table failed\n",
             Base::Logger::LogLevel::ERR);
 
         return Utility::StoringReplyCodes::FAILED;
@@ -659,6 +659,7 @@ Utility::DirectMessageStatus DirectMessageRepository::addDirectChat(uint64_t use
 
         return Utility::DirectMessageStatus::FAILED;
     }
+
     pTable->changeTable("channels");
     auto adapter   = pTable->getAdapter();
     auto minUserId = std::to_string(std::min(user_id, receiverId));
@@ -686,7 +687,7 @@ Utility::DirectMessageStatus DirectMessageRepository::addDirectChat(uint64_t use
     }
 
     Base::Logger::FileLogger::getInstance().log(
-        "Creating direct char failed\n",
+        "Creating direct chat failed\n",
         Base::Logger::LogLevel::ERR);
 
     return Utility::DirectMessageStatus::FAILED;
