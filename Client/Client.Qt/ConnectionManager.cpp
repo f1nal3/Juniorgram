@@ -154,7 +154,7 @@ void ConnectionManager::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelL
     }
     else if (ChannelLeaveCode == Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND)
     {
-        Base::Logger::FileLogger::getInstance().log("CHANNEL NOT FOUND", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("CHANNEL NOT FOUND", Base::Logger::LogLevel::WARNING);
     }
     qRegisterMetaType<Utility::ChannelLeaveCodes>("Utility::ChannelLeaveCodes");
     emit ReceiverManager::instance()->onChannelLeaveAnswer(ChannelLeaveCode);
@@ -192,11 +192,11 @@ void ConnectionManager::onChannelDeleteAnswer(Utility::ChannelDeleteCode channel
     }
     else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_NOT_FOUND)
     {
-        Base::Logger::FileLogger::getInstance().log("CHANNEL NOT FOUND", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("CHANNEL NOT FOUND", Base::Logger::LogLevel::WARNING);
     }
     else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_IS_NOT_USER)
     {
-        Base::Logger::FileLogger::getInstance().log("CHANNEL DOES NOT BELONG TO THE USER", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("CHANNEL DOES NOT BELONG TO THE USER", Base::Logger::LogLevel::WARNING);
     }
     qRegisterMetaType<Utility::ChannelDeleteCode>("Utility::ChannelDeleteCode");
     emit ReceiverManager::instance()->onChannelDeleteAnswer(channelDeleteCode);
@@ -214,7 +214,7 @@ void ConnectionManager::onChannelCreateAnswer(Utility::ChannelCreateCodes channe
     }
     else if (channelCreateCode == Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED)
     {
-        Base::Logger::FileLogger::getInstance().log("CHANNEL ALREADY CREATE", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("CHANNEL ALREADY CREATE", Base::Logger::LogLevel::WARNING);
     }
     qRegisterMetaType<Utility::ChannelCreateCodes>("Utility::ChannelCreateCodes");
     emit ReceiverManager::instance()->onChannelCreateAnswer(channelCreateCode);

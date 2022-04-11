@@ -114,7 +114,7 @@ int main(int argc, char** argv)
 
                 if (password != repeatPassword)
                 {
-                    Base::Logger::FileLogger::getInstance().log("passwords are different", Base::Logger::LogLevel::INFO);
+                    Base::Logger::FileLogger::getInstance().log("passwords are different", Base::Logger::LogLevel::WARNING);
 
 
                     future = std::async(std::launch::async, GetLineFromCin);
@@ -124,7 +124,7 @@ int main(int argc, char** argv)
                 using namespace UserDataValidation;
                 if (!isLoginValid(login))
                 {
-                    Base::Logger::FileLogger::getInstance().log("login is not valid", Base::Logger::LogLevel::INFO);
+                    Base::Logger::FileLogger::getInstance().log("login is not valid", Base::Logger::LogLevel::WARNING);
 
 
                     future = std::async(std::launch::async, GetLineFromCin);
@@ -133,7 +133,7 @@ int main(int argc, char** argv)
 
                 if (!isEmailValid(email))
                 {
-                    Base::Logger::FileLogger::getInstance().log("email is not valid", Base::Logger::LogLevel::INFO);
+                    Base::Logger::FileLogger::getInstance().log("email is not valid", Base::Logger::LogLevel::WARNING);
 
 
                     future = std::async(std::launch::async, GetLineFromCin);
@@ -142,7 +142,7 @@ int main(int argc, char** argv)
 
                 if (!isPasswordValid(password))
                 {
-                    Base::Logger::FileLogger::getInstance().log("password is not valid", Base::Logger::LogLevel::INFO);
+                    Base::Logger::FileLogger::getInstance().log("password is not valid", Base::Logger::LogLevel::WARNING);
 
 
                     future = std::async(std::launch::async, GetLineFromCin);
