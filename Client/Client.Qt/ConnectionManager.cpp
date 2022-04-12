@@ -31,13 +31,21 @@ void ConnectionManager::onServerAccepted()
 
 void ConnectionManager::onServerPing(double timestamp)
 {
-    std::cout << "Ping: " << timestamp << "\n";
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Ping: " + std::to_string(timestamp), 
+        Base::Logger::LogLevel::INFO
+    );
     emit ReceiverManager::instance()->onServerPing(timestamp);
 }
 
 void ConnectionManager::onServerMessage(const uint64_t clientId)
 {
-    std::cout << "Hello from [" << clientId << "]\n";
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Hello from [" + std::to_string(clientId) + "]", 
+        Base::Logger::LogLevel::INFO
+    );
     emit ReceiverManager::instance()->onServerMessage(clientId);
 }
 
@@ -73,11 +81,11 @@ void ConnectionManager::onReplyStoreAnswer(Utility::StoringReplyCodes storingRep
 {
     if (storingReplyCode == Utility::StoringReplyCodes::SUCCESS)
     {
-        std::cout << "SUCCESS sending" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("SUCCESS sending", Base::Logger::LogLevel::INFO);
     }
     else if (storingReplyCode == Utility::StoringReplyCodes::FAILED)
     {
-        std::cout << "FAILED sending" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("FAILED sending", Base::Logger::LogLevel::ERR);
     }
     qRegisterMetaType<Utility::StoringReplyCodes>("Utility::StoringReplyCodes");
     emit ReceiverManager::instance()->onReplyStoreAnswer(storingReplyCode);
@@ -87,11 +95,11 @@ void ConnectionManager::onMessageReactionAnswer(const Utility::ReactionMessageCo
 {
     if (reactionCode == Utility::ReactionMessageCodes::SUCCESS)
     {
-        std::cout << "Reaction update SUCCESS\n";
+        Base::Logger::FileLogger::getInstance().log("Reaction update SUCCESS", Base::Logger::LogLevel::INFO);
     }
     else if (reactionCode == Utility::ReactionMessageCodes::FAILED)
     {
-        std::cout << "Reaction update FAILED\n";
+        Base::Logger::FileLogger::getInstance().log("Reaction update FAILED", Base::Logger::LogLevel::ERR);
     }
     qRegisterMetaType<Utility::ReactionMessageCodes>("Utility::ReactionMessageCodes");
     emit ReceiverManager::instance()->onMessageReactionAnswer(reactionCode);
@@ -120,15 +128,15 @@ void ConnectionManager::onUserMessageDeleteAnswer(const Utility::DeletingMessage
 {
     if (deletingCode == Utility::DeletingMessageCodes::SUCCESS)
     {
-        std::cout << "SUCCESS DELETING" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("SUCCESS DELETING", Base::Logger::LogLevel::INFO);
     }
     else if (deletingCode == Utility::DeletingMessageCodes::FAILED)
     {
-        std::cout << "FAILED DELETING" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("FAILED DELETING", Base::Logger::LogLevel::ERR);
     }
     else
     {
-        std::cout << "UNKNOWN deleting message code" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("UNKNOWN deleting message code", Base::Logger::LogLevel::WARNING);
     }
     qRegisterMetaType<Utility::DeletingMessageCodes>("Utility::DeletingMessageCodes");
     emit ReceiverManager::instance()->onUserMessageDeleteAnswer(deletingCode);
@@ -138,15 +146,15 @@ void ConnectionManager::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelL
 {
     if (ChannelLeaveCode == Utility::ChannelLeaveCodes::SUCCESS)
     {
-        std::cout << "SUCCESS LEAVING" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("SUCCESS LEAVING", Base::Logger::LogLevel::INFO);
     }
     else if (ChannelLeaveCode == Utility::ChannelLeaveCodes::FAILED)
     {
-        std::cout << "FAILED LEAVING" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("FAILED LEAVING", Base::Logger::LogLevel::ERR);
     }
     else if (ChannelLeaveCode == Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND)
     {
-        std::cout << "CHANNEL NOT FOUND" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("CHANNEL NOT FOUND", Base::Logger::LogLevel::WARNING);
     }
     qRegisterMetaType<Utility::ChannelLeaveCodes>("Utility::ChannelLeaveCodes");
     emit ReceiverManager::instance()->onChannelLeaveAnswer(ChannelLeaveCode);
@@ -156,11 +164,11 @@ void ConnectionManager::onChannelSubscribingAnswer(const Utility::ChannelSubscri
 {
     if (subscribingChannelCode == Utility::ChannelSubscribingCodes::SUCCESS)
     {
-        std::cout << "SUCCESS SUBSCRIBING" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("SUCCESS SUBSCRIBING", Base::Logger::LogLevel::INFO);
     }
     else if (subscribingChannelCode == Utility::ChannelSubscribingCodes::FAILED)
     {
-        std::cout << "FAILED SUBSCRIBING" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("FAILED SUBSCRIBING", Base::Logger::LogLevel::ERR);
     }
     qRegisterMetaType<Utility::ChannelSubscribingCodes>("Utility::ChannelSubscribingCodes");
     emit ReceiverManager::instance()->onChannelSubscriptionAnswer(subscribingChannelCode);
@@ -176,19 +184,19 @@ void ConnectionManager::onChannelDeleteAnswer(Utility::ChannelDeleteCode channel
 {
     if (channelDeleteCode == Utility::ChannelDeleteCode::SUCCESS)
     {
-        std::cout << "SUCCESS DELETING" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("SUCCESS DELETING", Base::Logger::LogLevel::INFO);
     }
     else if (channelDeleteCode == Utility::ChannelDeleteCode::FAILED)
     {
-        std::cout << "FAILED DELETING" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("FAILED DELETING", Base::Logger::LogLevel::ERR);
     }
     else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_NOT_FOUND)
     {
-        std::cout << "CHANNEL NOT FOUND" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("CHANNEL NOT FOUND", Base::Logger::LogLevel::WARNING);
     }
     else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_IS_NOT_USER)
     {
-        std::cout << "CHANNEL DOES NOT BELONG TO THE USER" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("CHANNEL DOES NOT BELONG TO THE USER", Base::Logger::LogLevel::WARNING);
     }
     qRegisterMetaType<Utility::ChannelDeleteCode>("Utility::ChannelDeleteCode");
     emit ReceiverManager::instance()->onChannelDeleteAnswer(channelDeleteCode);
@@ -198,15 +206,15 @@ void ConnectionManager::onChannelCreateAnswer(Utility::ChannelCreateCodes channe
 {
     if (channelCreateCode == Utility::ChannelCreateCodes::SUCCESS)
     {
-        std::cout << "SUCCESS CREATING" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("SUCCESS CREATING", Base::Logger::LogLevel::INFO);
     }
     else if (channelCreateCode == Utility::ChannelCreateCodes::FAILED)
     {
-        std::cout << "FAILD CREATING" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("FAILD CREATING", Base::Logger::LogLevel::ERR);
     }
     else if (channelCreateCode == Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED)
     {
-        std::cout << "CHANNEL ALREADY CREATE" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("CHANNEL ALREADY CREATE", Base::Logger::LogLevel::WARNING);
     }
     qRegisterMetaType<Utility::ChannelCreateCodes>("Utility::ChannelCreateCodes");
     emit ReceiverManager::instance()->onChannelCreateAnswer(channelCreateCode);
@@ -216,11 +224,11 @@ void ConnectionManager::onDirectMessageCreateAnswer(Utility::DirectMessageStatus
 {
     if (directMessageCreateAnswer == Utility::DirectMessageStatus::SUCCESS)
     {
-        std::cout << "SUCCESS CREATING" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("SUCCESS CREATING", Base::Logger::LogLevel::INFO);
     }
     else if (directMessageCreateAnswer == Utility::DirectMessageStatus::FAILED)
     {
-        std::cout << "FAILED CREATING" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("FAILED CREATING", Base::Logger::LogLevel::ERR);
     }
     qRegisterMetaType<Utility::DirectMessageStatus>("Utility::DirectMessageStatus");
     emit ReceiverManager::instance()->onDirectMessageCreateAnswer(directMessageCreateAnswer);
