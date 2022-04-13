@@ -36,9 +36,7 @@ Utility::ChannelLeaveCodes ChannelsRepository::leaveChannel(const Network::Chann
     if (!findIdChannel.has_value())
     {
         Base::Logger::FileLogger::getInstance().log(
-            '[' + "channel id: " + 
-            std::to_string(findIdChannel.value()[0][0].as<std::uint64_t>()) +
-            "] Channel was not found\n",
+            "Leaving from channel failed because channel was not found\n ",
             Base::Logger::LogLevel::WARNING);
 
         return Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND;
@@ -69,8 +67,7 @@ Utility::ChannelLeaveCodes ChannelsRepository::leaveChannel(const Network::Chann
     else
     {
         Base::Logger::FileLogger::getInstance().log(
-            '[' + "channel id: " + std::to_string(findChannel.value()[0][1].as<std::uint64_t>()) +
-            "] Channel was not found\n",
+            "Leaving from channel failed because channel was not found\n ",
             Base::Logger::LogLevel::WARNING);
 
         return Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND;
@@ -91,9 +88,7 @@ Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Network::Chan
     if (!findChannel.has_value())
     {
         Base::Logger::FileLogger::getInstance().log(
-            '[' + "channel id: " + 
-            std::to_string(findChannel.value()[0][1].as<std::uint64_t>()) +
-            "] Channel was not found\n",
+            "Deleting channel failed because channel was not found\n ",
             Base::Logger::LogLevel::WARNING);
 
         return Utility::ChannelDeleteCode::CHANNEL_NOT_FOUND;
@@ -106,7 +101,7 @@ Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Network::Chan
         Base::Logger::FileLogger::getInstance().log(
             '['+ "channel id: " + std::to_string(channelID) + 
             "] User id " + std::to_string(creatorlID) +
-            " is not the creator of channel id " + std::to_string(channelID)+"\n",
+            " is not the creator of this channel\n",
             Base::Logger::LogLevel::INFO);
 
         return Utility::ChannelDeleteCode::CHANNEL_IS_NOT_USER;
