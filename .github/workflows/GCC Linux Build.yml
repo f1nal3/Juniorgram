@@ -30,7 +30,10 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install dependencies
-      run: sudo apt-get install libgl-dev libx11-xcb-dev apt-file libfontenc-dev libxaw7-dev
+      run: sudo apt-get install libgl-dev 
+      
+    - name: Xorg dependency installation
+      run: CONAN_SYSREQUIRES_MODE=enabled conan install xorg/system@
       
     - name: Python setup
       uses: actions/setup-python@v2
