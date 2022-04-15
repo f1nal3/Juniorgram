@@ -50,7 +50,7 @@ jobs:
         restore-keys: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
         
     - name: Xorg dependency installation
-      run: CONAN_SYSREQUIRES_MODE=enabled conan install xorg/system@
+      run: sudo conan remove --system-reqs xorg/system@ #CONAN_SYSREQUIRES_MODE=enabled conan install xorg/system@
       
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}}
