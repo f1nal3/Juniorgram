@@ -30,8 +30,6 @@ public:
         _channelBar->setChannelName(QString::fromStdString(_channelName));
     }
 
-    const std::string& getChannelName() const { return _channelName; }
-
 protected:
     /// Handle resize
     void resizeEvent(QResizeEvent* event) override;

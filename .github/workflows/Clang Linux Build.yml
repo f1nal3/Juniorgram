@@ -35,7 +35,19 @@ jobs:
         architecture: 'x64'
         
     - name: Get prerequisites
-      run: python -m pip install conan==1.45 cmake && sudo apt install clang-12 clang-tidy libgl-dev
+      run: python -m pip install conan==1.40.4 cmake && sudo apt install clang-12 clang-tidy
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v2
+      with:
+        version: '5.15.2'
+        host: 'linux'
+        target: 'desktop'
+        dir: '${{ github.workspace }}'
+        install-deps: 'true'
+        setup-python: 'false'
+        set-env: 'true'
+        tools-only: 'false'
 
     - name: Cache Conan packages
       id: conan-cache
@@ -51,10 +63,10 @@ jobs:
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}}
       
-    #- name: Clang-tidy checks
-    #  working-directory: ${{github.workspace}}/build
-    #  continue-on-error: true
-    #  run: /usr/lib/llvm-10/share/clang/run-clang-tidy.py -p="" -checks=-*,clang-analyzer-*,concurrency-*,cppcoreguidelines-*,modernize-*,performance-*,portability-*,readability-*
+    - name: Clang-tidy checks
+      working-directory: ${{github.workspace}}/build
+      continue-on-error: true
+      run: /usr/lib/llvm-10/share/clang/run-clang-tidy.py -p="" -checks=-*,clang-analyzer-*,concurrency-*,cppcoreguidelines-*,modernize-*,performance-*,portability-*,readability-*
       
     - name: Prepare Database
       run: psql --username=postgres --host=localhost -d testdb -f ./Utility/SQL/Database_Scheme.sql

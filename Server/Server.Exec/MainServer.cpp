@@ -6,22 +6,22 @@
 
 int main(int argc, const char** argv)
 {
-    uint16_t port;
     try
     {
         ArgumentParser parser(argc, argv);
-        port = parser.getPort();
+
+        Server::Server server(parser.getPort());
+        server.start();
+
+        while (true)
+        {
+            server.update();
+        }
     }
-    catch (const std::runtime_error& e)
+    catch (const std::exception& e)
     {
         Base::Logger::FileLogger::getInstance().log(e.what(), Base::Logger::LogLevel::ERR);
     }
-    Server::Server server(port);
-    server.start();
 
-    while (true)
-    {
-        server.update();
-    }
     return 0;
 }

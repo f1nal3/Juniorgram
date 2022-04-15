@@ -369,11 +369,9 @@ private:
         }
         catch (const std::bad_any_cast& e)
         {
-            Base::Logger::FileLogger::getInstance().log
-            (
-                std::string(e.what()) + "\nMessage body can't be serialized\n",
-                Base::Logger::LogLevel::ERR
-            );
+            std::cout << e.what() << '\n';
+            std::cout << "Message body cann't be serialized\n";
+
             return SerializedState::FAILURE;
         }
     }
@@ -396,11 +394,9 @@ private:
         }
         catch (const std::bad_any_cast& e)
         {
-            Base::Logger::FileLogger::getInstance().log
-            (
-                std::string(e.what()) + "\nMessage body can't be deserialized\n",
-                Base::Logger::LogLevel::ERR
-            );
+            std::cout << e.what() << '\n';
+            std::cout << "Message body cann't be deserialized\n";
+
             return SerializedState::FAILURE;
         }
     }

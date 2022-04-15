@@ -20,9 +20,8 @@ class PostgreRepositoryManager;
 namespace Server
 {
 /**
- *  @class Server class
- *  @brief This class does all logic which is needed to run the server.
- *  @details Uses std::asio tools
+ *  @class Server
+ *  @brief Server class.
  */
 class Server
 {
@@ -58,21 +57,15 @@ private:
     void onMessage(const std::shared_ptr<Network::Connection>& client, Network::Message& message);
 
 public:
-    /**
-    * @brief Explicit constructor
-    * @param const uint16_t& port
-    * @details Uses incoming port value from ArgumentParser
-    */
     explicit Server(const uint16_t& port);
-    /**
-    * @brief Destructor
-    */
+
     ~Server();
 
     /**
      * @brief Method to start the server.
+     * @return Boolean, if true then the server is running.
      */
-    void start();
+    bool start();
 
     //void registerRepositories();
 

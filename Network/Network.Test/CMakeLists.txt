@@ -14,7 +14,7 @@ add_executable(${TARGET} ${SOURCE_FILES})
 
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
-target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} asio::asio)
+target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio)
 
 target_link_libraries(${TARGET} PUBLIC Network.Public Utility.Public Precompiled.Catch2.Main)
 

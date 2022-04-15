@@ -17,4 +17,4 @@ target_link_libraries(${TARGET} PUBLIC
     Utility.Public
     DataAccess.Public
 	Network.Public
-	nlohmann_json::nlohmann_json)
+	CONAN_PKG::nlohmann_json)

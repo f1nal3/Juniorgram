@@ -17,25 +17,6 @@ ChannelListPage::ChannelListPage(std::shared_ptr<ListWidget>& anotherChannelList
     _updateChannelButton = std::make_unique<FlatButton>(this, "Update");
     _channelList         = std::make_unique<ListWidget>(this);
 
-    _addChannelHotkey = std::make_unique<QShortcut>
-    (
-        QKeySequence(Qt::CTRL + Qt::Key_A),
-        this,
-        [this]() { _addChannelButton->clicked(Qt::NoModifier, Qt::LeftButton); }
-    );
-    _updateChannelHotKey = std::make_unique<QShortcut>
-    (
-        QKeySequence(Qt::CTRL + Qt::Key_U),
-        this,
-        [this]() { _updateChannelButton->clicked(Qt::NoModifier, Qt::LeftButton); }
-    );
-    _closeHotkey = std::make_unique<QShortcut>
-    (
-        QKeySequence(Qt::Key_Escape),
-        this,
-        [this]() { this->close(); }
-    );
-
     connect(ReceiverManager::instance(), &ReceiverManager::onChannelListRequest, this, &ChannelListPage::setChannels);
     connect(ReceiverManager::instance(), &ReceiverManager::onChannelSubscriptionListAnswer, this,
             &ChannelListPage::addSubscribedChannelToMainChannelWidget);

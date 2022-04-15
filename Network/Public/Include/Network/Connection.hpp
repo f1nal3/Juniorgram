@@ -111,11 +111,7 @@ private:
                 }
                 else
                 {
-                    Base::Logger::FileLogger::getInstance().log
-                    (
-                        '[' + std::to_string(mConnectionID) + "] Write Header Fail.\n",
-                        Base::Logger::LogLevel::ERR
-                    );
+                    std::cout << "[" << mConnectionID << "] Write Header Fail.\n";
                     mSocket.close();
                 }
             };
@@ -150,11 +146,7 @@ private:
             }
             else
             {
-                Base::Logger::FileLogger::getInstance().log
-                (
-                    '[' + std::to_string(mConnectionID) + "] Write Body Fail.\n",
-                    Base::Logger::LogLevel::ERR
-                );
+                std::cout << "[" << mConnectionID << "] Write Body Fail.\n";
                 mSocket.close();
             }
         };
@@ -191,11 +183,7 @@ private:
             }
             else
             {
-                Base::Logger::FileLogger::getInstance().log
-                (
-                    '[' + std::to_string(mConnectionID) + "] Read Header Fail.\n",
-                    Base::Logger::LogLevel::ERR
-                );
+                std::cout << "[" << mConnectionID << "] Read Header Fail.\n";
                 mSocket.close();
             }
         };
@@ -233,11 +221,7 @@ private:
             }
             else
             {
-                Base::Logger::FileLogger::getInstance().log
-                (
-                    '[' + std::to_string(mConnectionID) + "] Read Body Fail.\n",
-                    Base::Logger::LogLevel::ERR
-                );
+                std::cout << "[" << mConnectionID << "] Read Body Fail.\n";
                 mSocket.close();
             }
         };

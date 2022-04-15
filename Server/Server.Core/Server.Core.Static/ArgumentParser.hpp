@@ -10,82 +10,67 @@
 
 /**
  * @class ArgumentParser.
- * @brief This class parses agruments with which application is started
- * @details
- * For example: "your_path -p 65001" 
- * Ignoring your_path because it isn't necessary
- * Using -p as KeyValidator variable -> incoming port will be listened
- * Sending the port to the Server class constructor
+ * @brief The ArgumentParser class.
  */
 class ArgumentParser
 {
 private:
     KeysValidator                  validator;
     std::map<std::string, int32_t> arguments;
+    bool                           realDB;
 
 public:
-    /**
-    *@brief It's deleted default constructor. There is no need to use this.
-    */
     ArgumentParser()                      = delete;
-    /**
-     *@brief It's deleted copy constructor. There is no need to use this.
-     */
     ArgumentParser(const ArgumentParser&) = delete;
-    /**
-     * @brief Used to take parameters from main function
-     * @details Parses arguments which were set when application was run
-     * @param int argc(amount of arguments), const char** argv(C-string arguments), const KeysValidator& validator = KeysValidator()
-     */
     explicit ArgumentParser(int argc, const char** argv,
                             const KeysValidator& validator = KeysValidator());
 
 public:
     /**
      * @brief Method for getting the port value.
-     * @return uint16_t value of the port db.
+     * @return uint16_t value the port db.
      */
     uint16_t getPort() const;
-
     /**
-     * @brief Method for checking the equality of incoming key
-     * @param const std::string& incomingKey (we will check it)
-     * @return true if incomingKey is equal to listenedPort key(Validator), if not -> false
+     * @brief Method for checking the port value.
+     * @return bool base status(true or false).
      */
-    bool isListenedPort(const std::string& incomingKey) const noexcept { return validator.keys.listenedPort == incomingKey; }
+    bool isRealDB() const noexcept { return realDB; }
 
 private:
     /**
      * @brief Method for checking if arguments have an input key.
      * @param const std::string& incoming key.
-     * @return true if incomingKey exists in the memory, if not -> false
+     * @return true or false.
      */
-    bool isKeyExist(const std::string& incomingKey) const noexcept { return arguments.find(incomingKey) != arguments.end(); }
+    bool doMapContainKey(const std::string& incomingKey) const noexcept
+    {
+        return arguments.find(incomingKey) != arguments.end();
+    }
 
     /**
      * @brief Method for checking the value of the number of arguments.
      * @param std::vector<std::string>& parameters.
      */
-    void validateArgumentsAmount(std::vector<std::string>& params) const;
+    void checkOnBadAmount(std::vector<std::string>& params) const;
 
     /**
      * @brief Method to remove spaces in a row
      * @param std::string& row
-     * @return std::string without space
+     * @return std::string without spase
      */
     std::string trim(std::string& row) const noexcept;
 	
     /**
      * @brief Method for checking a string for numbers.
-     * @details Checks if incoming port is valid
-     * @param const std::string& str(port).
-     * @return true if incoming str(port) consists of only digits, if not -> false
+     * @param const std::string& str.
+     * @return true or false.
      */
     bool isInteger(const std::string& str) const noexcept;
 
     /**
      * @brief Method for adding values in arguments.
-     * @param const std::string& key, const std::string& value.
+     * @param const std::string& key and const std::string& value.
      */
     void tryPushToMap(const std::string& key, const std::string& value);  
 };

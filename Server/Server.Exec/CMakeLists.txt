@@ -1,5 +1,5 @@
 set(TARGET Server.Exec)
-set(OUTPUT_NAME ${PROJECT}.Server.Exec)
+set(OUTPUT_NAME Juniorgram.Server.Exec)
 
 set(SOURCE_FILES
     MainServer.cpp)
@@ -12,7 +12,7 @@ add_executable(${TARGET} ${SOURCE_FILES})
 
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
-target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} asio::asio yas::yas)
+target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas)
 target_link_libraries(${TARGET} PUBLIC Server.Core.Static)
 target_link_libraries(${TARGET} PUBLIC Network.Public Utility.Public)
 

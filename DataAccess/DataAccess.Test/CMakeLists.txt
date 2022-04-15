@@ -13,8 +13,8 @@ add_executable(${TARGET} ${SOURCE_FILES})
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
 target_link_libraries(${TARGET} PUBLIC
-        PostgreSQL::pq
-        libpqxx::libpqxx
+        CONAN_PKG::libpq
+        CONAN_PKG::libpqxx
         Precompiled.Catch2.Main
         DataAccess.Postgre
         DataAccess.Debug

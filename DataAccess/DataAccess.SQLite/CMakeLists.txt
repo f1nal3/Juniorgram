@@ -14,4 +14,4 @@ add_library(${TARGET} STATIC ${SOURCE_FILES})
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
 target_link_libraries(${TARGET}
-        PUBLIC Qt5::Sql DataAccess.Public Utility.Public)
+        PUBLIC Qt::Sql DataAccess.Public Utility.Public)

@@ -25,9 +25,9 @@ public:
     Handler(const Handler&) = delete;
     /// Delete Handler move constructor
     Handler(Handler&&)      = delete;
-    /// Delete Handler copy assignment constructor
+    /// Delete Handler copy assigment constructor
     Handler& operator=(const Handler&) = delete;
-    /// Delete Handler move assignment constructor
+    /// Delete Handler move assigment constructor
     Handler& operator=(Handler&&) = delete;
     /// Virtual Handler destructor
     virtual ~Handler()            = default;

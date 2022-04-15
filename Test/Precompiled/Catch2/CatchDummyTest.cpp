@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include "catch.hpp"
 
 TEST_CASE("CATCH DUMMY TEST", "[TRUE != FALSE]")
 {

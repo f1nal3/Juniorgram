@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch.hpp>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -32,7 +32,7 @@ TEST_CASE("Constructor argument parser")
         CHECK_THROWS_AS(ArgumentParser(static_cast<int>(args.size()), args.data()), std::exception);
     }
 
-    SECTION("Invalid arguments keys throw an exeption")
+    SECTION("Unvalid arguments keys throw an exeption")
     {
         {
             std::vector<const char*> args = {"path_to_project", "any_key", "641", "-d"};
@@ -62,13 +62,15 @@ TEST_CASE("Constructor argument parser")
         }
     }
 
-    SECTION("Coexistence listenedPort and fileDB keys in arguments throws an exception")
+    SECTION("Coexistence realDB and fileDB keys in arguments throws an exception")
     {
-        std::vector<const char*> args = {"path_to_project", "-p", "27015", "-d"};
+        std::vector<const char*> args = {"path_to_project", "-p",
+                                         "27015"
+                                         "-d"};
         CHECK_THROWS_AS(ArgumentParser(static_cast<int>(args.size()), args.data()), std::exception);
     }
 
-    SECTION("Not existing listenedPort and fileDB key in arguments throws an exception")
+    SECTION("Not existing realDB and fileDB key in arguments throws an exception")
     {
         std::vector<const char*> args = {"path_to_project", "-k", "-r"};
         CHECK_THROWS_AS(ArgumentParser(static_cast<int>(args.size()), args.data(),
@@ -79,7 +81,7 @@ TEST_CASE("Constructor argument parser")
 
 TEST_CASE("getPort()")
 {
-    SECTION("listenedPort key")
+    SECTION("realDB key")
     {
         SECTION("Too big port value throws an exception")
         {
@@ -125,21 +127,21 @@ TEST_CASE("getPort()")
     }
 }
 
-TEST_CASE("isListenedPort()")
+TEST_CASE("isRealDB()")
 {
-    SECTION("use listenedPort key in isListenedPort() == true")
+    SECTION("with realDB key isRealDB() == true")
     {
         std::vector<const char*> args = {"path_to_project", "-p", "27015"};
         REQUIRE_NOTHROW(ArgumentParser(static_cast<int>(args.size()), args.data()));
         ArgumentParser ap(static_cast<int>(args.size()), args.data());
-        REQUIRE(ap.isListenedPort(args[1]) == true);
+        REQUIRE(ap.isRealDB() == true);
     }
 
-    SECTION("use fileDB key in isListenedPort() == false")
+    SECTION("with fileDB key isRealDB() == false")
     {
         std::vector<const char*> args = {"path_to_project", "-d"};
         REQUIRE_NOTHROW(ArgumentParser(static_cast<int>(args.size()), args.data()));
         ArgumentParser ap(static_cast<int>(args.size()), args.data());
-        REQUIRE(ap.isListenedPort(args[1]) == false);
+        REQUIRE(ap.isRealDB() == false);
     }
 }

@@ -1,23 +1,22 @@
 #pragma once
-
+#include <QApplication>
 #include <QSettings>
 #include <optional>
-#include <string_view>
-#include <mutex>
-#include <stdexcept>
+
+#include <memory>
 
 /** @class Settings
  *  @brief Persistent settings
  */
-class Settings : public QSettings
-{
+class Settings : public QSettings{
 private:
-    Settings(const QString& filename, QSettings::Format format);
-
+    Settings();
     Settings(const Settings&) = delete;
     Settings(Settings&&) = delete;
     Settings& operator=(const Settings&) = delete;
     Settings& operator=(Settings&&) = delete;
+    static std::unique_ptr<Settings> instance;
+    std::unique_ptr<QSettings> settings;
 
 public:
     /**
@@ -26,12 +25,16 @@ public:
      */
     static Settings& getInstance();
     /**
+     * @brief Destructor.
+     */
+    ~Settings(){};
+    /**
      * @brief Draft method for writting settings keys and /
-     * values to .ini file.
+     * values to .config file.
      */
     void writeSettings();
     /**
-     * @brief Method for Settiings reset by clearing .ini file
+     * @brief Method for Settiings reset by clearing .config file
      */
     void resetSettings();
     /**
@@ -48,32 +51,7 @@ public:
      */
     std::optional<std::int32_t> getFontSize();
 
-    void configureSettings(const QString& groupName, const std::map<QString, QVariant>& values);
-    void configureSettings(const std::map<QString, QVariant>& values);
-
-    void rewriteSetting(const QString& fullName, const QVariant& newValue);
-
-    static constexpr std::string_view defaultFilename = "juniorgram_settings.ini";
-
-    class Errors;
-
 private:
-
-    std::mutex _mutex;
-
     std::int32_t _fontSize;
     static constexpr std::int32_t _minFontSize = 0;
-};
-
-
-class Settings::Errors : public std::runtime_error
-{
-    QString  _fullKey;
-    QVariant _value; 
-public:
-    Errors(std::string wht);
-    Errors(std::string wht, QString fullKey, QVariant value);
-
-    const QString&  getKey()   const;
-    const QVariant& getValue() const;
 };

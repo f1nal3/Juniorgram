@@ -14,8 +14,6 @@ suppressWarning(4458, "-Wshadow")
 restoreWarning
 restoreWarning
 
-#include <FileLogger.hpp>
-
 #include "Network/Primitives.hpp"
 
     namespace Network
@@ -59,11 +57,9 @@ restoreWarning
             }
             catch (const std::exception& e)
             {
-                Base::Logger::FileLogger::getInstance().log
-                (
-                    std::string("Serialization error\n") + e.what() + '\n',
-                    Base::Logger::LogLevel::ERR
-                );
+                std::cout << "Serialization error\n";
+                std::cout << e.what() << '\n';
+
                 return SerializedState::FAILURE;
             }
 
@@ -86,10 +82,9 @@ restoreWarning
             }
             catch (const std::exception& e)
             {
-                Base::Logger::FileLogger::getInstance().log(
-                    std::string("Deserialization error\n") + e.what() + '\n',
-                    Base::Logger::LogLevel::ERR
-                );
+                std::cout << "Deserialization error\n";
+                std::cout << e.what() << '\n';
+
                 return SerializedState::FAILURE;
             }
 
