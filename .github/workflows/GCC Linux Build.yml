@@ -44,7 +44,7 @@ jobs:
     - name: Glob match
       uses: tj-actions/glob@v7.16
       id: glob
-      with: |
+      with: 
         files: '/home/runner/.conan/*'
     
     - name: Show all matching files
