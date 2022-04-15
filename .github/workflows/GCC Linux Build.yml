@@ -30,7 +30,10 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install dependencies
-      run: sudo apt-get install libgl-dev libx11-xcb-dev fontenc
+      run: sudo apt-get install libgl-dev libx11-xcb-dev apt-file
+    
+    - name: Update apt-file
+      run: apt-file update
       
     - name: Python setup
       uses: actions/setup-python@v2
