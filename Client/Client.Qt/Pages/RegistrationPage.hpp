@@ -4,12 +4,7 @@
 #include <QLabel>
 #include <Utility/Utility.hpp>
 #include <Widgets/Page.hpp>
-<<<<<<< HEAD
 #include <Widgets/PopupMessage.hpp>
-=======
-#include <Widgets/IPopupMessage/IPopupMessage.hpp>
-#include <Widgets/IPopupMessage/PopupMessage.hpp>
->>>>>>> parent of 0b04815 (Merge branch 'dev' into InterfaceClassOfPopupMessage)
 
 #include <memory>
 
