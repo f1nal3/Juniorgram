@@ -37,7 +37,7 @@ Utility::ChannelLeaveCodes ChannelsRepository::leaveChannel(const Network::Chann
     {
         Base::Logger::FileLogger::getInstance().log(
             "Leaving from channel failed because channel was not found\n ",
-            Base::Logger::LogLevel::WARNING);
+            Base::Logger::LogLevel::ERR);
 
         return Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND;
     }
@@ -68,7 +68,7 @@ Utility::ChannelLeaveCodes ChannelsRepository::leaveChannel(const Network::Chann
     {
         Base::Logger::FileLogger::getInstance().log(
             "Leaving from channel failed because channel was not found\n ",
-            Base::Logger::LogLevel::WARNING);
+            Base::Logger::LogLevel::ERR);
 
         return Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND;
     }
@@ -376,7 +376,7 @@ Utility::EditingMessageCodes MessagesRepository::editMessage(const Network::Mess
     {
         Base::Logger::FileLogger::getInstance().log(
             '[' +"channel id: "+ std::to_string(mi.channelID) +']' +
-            " Editing message failed\n",
+            " Editing message failed because message was not found\n",
             Base::Logger::LogLevel::ERR);
 
         return Utility::EditingMessageCodes::FAILED;
@@ -423,7 +423,7 @@ Utility::RegistrationCodes RegisterRepository::registerUser(const Network::Regis
     pTable->Insert()->columns(userData)->execute();
 
      Base::Logger::FileLogger::getInstance().log(
-         "User successfully registered",
+         "User successfully registered\n",
          Base::Logger::LogLevel::INFO);
 
     return Utility::RegistrationCodes::SUCCESS;
@@ -433,6 +433,9 @@ Utility::ReactionMessageCodes MessagesRepository::updateMessageReactions(const N
 {
     using Utility::ReactionMessageCodes;
 
+    /*
+    * @todo move reactionNames to Base
+    */
     const std::vector<std::string> reactionNames = { "likes", "dislikes", "fires", "cats", "smiles" };
 
     auto reactionInfo = std::find_if(mi.reactions.cbegin(), mi.reactions.cend(),
@@ -441,7 +444,7 @@ Utility::ReactionMessageCodes MessagesRepository::updateMessageReactions(const N
     if (reactionInfo == mi.reactions.end())
     {
         Base::Logger::FileLogger::getInstance().log(
-            "Invalid reaction info supplied",
+            "Updating message reaction failed because providing reaction was not found\n",
             Base::Logger::LogLevel::ERR);
 
         return ReactionMessageCodes::FAILED;
