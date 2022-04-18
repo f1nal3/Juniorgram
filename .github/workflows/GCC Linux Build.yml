@@ -30,8 +30,8 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install dependencies
-      run: sudo apt-get install libgl-dev
-      
+      run: sudo apt-get install libgl-dev 
+           
     - name: Python setup
       uses: actions/setup-python@v2
       with:
@@ -48,6 +48,11 @@ jobs:
         path: '/home/runner/.conan/*'
         key: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
         restore-keys: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
+
+    - name: Remove Xorg package
+      run: CONAN_SYSREQUIRES_MODE=enabled conan remove xorg -f
+    - name: Install Xorg
+      run:  conan install xorg/system@
       
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}}
