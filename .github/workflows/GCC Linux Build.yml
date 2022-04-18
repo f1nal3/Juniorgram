@@ -59,6 +59,9 @@ jobs:
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}}
+    
+    - name: Install
+      run: cmake --install .
       
     - name: Prepare Database
       run: psql --username=postgres --host=localhost -d testdb -f ./Utility/SQL/Database_Scheme.sql
@@ -68,7 +71,7 @@ jobs:
       run: ctest -C ${{matrix.BUILD_TYPE}} --output-on-failure
    
     - name: Archive server executable
-      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/master'
+      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'
       uses: actions/upload-artifact@v2
       with:
         name: juniorgram-server
