@@ -61,7 +61,7 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}}
     
     - name: Install
-      run: cmake --install .
+      run: cmake --install /home/runner/work/Juniorgram/Juniorgram/build
       
     - name: Prepare Database
       run: psql --username=postgres --host=localhost -d testdb -f ./Utility/SQL/Database_Scheme.sql
