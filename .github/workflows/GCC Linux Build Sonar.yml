@@ -2,7 +2,7 @@ name: GCC Linux Build Sonar
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, dev ]
   pull_request:
     types: [opened, synchronize, reopened]
     branches: [dev]
