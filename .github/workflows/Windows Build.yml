@@ -30,7 +30,7 @@ jobs:
       id: conan-cache
       uses: actions/cache@v2
       with:
-        path: 'C:\Users\runneradmin\.conan'
+        path: 'C:\Users\runneradmin\.conan\*'
         key: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
         restore-keys: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
       

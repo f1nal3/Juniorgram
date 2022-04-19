@@ -41,21 +41,21 @@ jobs:
       id: conan-cache
       uses: actions/cache@v2
       with:
-        path: '/home/runner/.conan/'
+        path: '/home/runner/.conan/*'
         key: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
         restore-keys: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
+
+    - name: Remove Xorg package
+      run: CONAN_SYSREQUIRES_MODE=enabled conan remove xorg -f
+    - name: Install Xorg
+      run:  conan install xorg/system@
       
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_EXPORT_COMPILE_COMMANDS=true
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}}
-      
-    #- name: Clang-tidy checks
-    #  working-directory: ${{github.workspace}}/build
-    #  continue-on-error: true
-    #  run: /usr/lib/llvm-10/share/clang/run-clang-tidy.py -p="" -checks=-*,clang-analyzer-*,concurrency-*,cppcoreguidelines-*,modernize-*,performance-*,portability-*,readability-*
-      
+
     - name: Prepare Database
       run: psql --username=postgres --host=localhost -d testdb -f ./Utility/SQL/Database_Scheme.sql
 
