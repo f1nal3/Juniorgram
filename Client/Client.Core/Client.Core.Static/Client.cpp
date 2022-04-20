@@ -55,14 +55,14 @@ bool Client::connectToServer(const std::string_view& host, const uint16_t port)
 
 bool Client::reconnectToServer()
 {
+    //ToDo::Server exception handling
     if (_serverAccept == false)
     {
+        _contextThread.detach();
         _context.reset();
         _connection.reset();
-        _contextThread.detach();
 
         //ToDo: Save other information from Server after Reconnect Part
-        system("pause");
         connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);   
     }
     

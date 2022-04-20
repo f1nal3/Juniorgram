@@ -26,9 +26,8 @@ void ConnectionManager::init()
 void ConnectionManager::onReconnect()
 { 
     //ToDo: Fooes onResume && onPause from Reconnect Part
-    
     oApp->showMessage("Connection Status", "Server trying to connection!", MessageType::Warning);
-   
+    
     reconnectToServer();
     emit ReceiverManager::instance()->onServerAccepted();
 }
