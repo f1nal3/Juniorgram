@@ -18,6 +18,8 @@ public:
 
     /// Connect to server with IP(host) and Port(port)
     bool connectToServer(const std::string_view& host, const uint16_t port);
+    /// Reconnect to server
+    bool reconnectToServer();
     /// Disconnect from server
     void disconnectFromServer();
 

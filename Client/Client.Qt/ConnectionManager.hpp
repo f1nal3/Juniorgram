@@ -6,6 +6,7 @@
 #include "Network/Primitives.hpp"
 #include "ServerInfo.hpp"
 
+
 /// Login status
 enum class LoginState
 {
@@ -87,13 +88,15 @@ public:
 
     /// Initialize connection to server
     void init();
+    /// Initialize reconnection to server
+    void onReconnect(); 
     /// Default behavior
     virtual ~ConnectionManager() = default;
 
 protected:
     /// Disconnect handler
     void onDisconnect() override;
-
+    
     /// Login Answer handler
     void onLoginAnswer(bool success) override;
     /// Server Accepted handler

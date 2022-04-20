@@ -1,7 +1,7 @@
 #pragma once
-#include <DataAccess.SQLite/LiteRepositoryContainer.hpp>
 #include <QApplication>
 #include <Style/Styles.hpp>
+#include <DataAccess.SQLite/LiteRepositoryContainer.hpp>
 #include <memory>
 
 #include "ConnectionManager.hpp"
@@ -57,7 +57,6 @@ public:
     std::unique_ptr<DataAccess::LiteRepositoryContainer>& repositoryContainer();
     /// Shows message as notification
     void showMessage(const QString& header, const QString& body, MessageType type = MessageType::Info, int msecs = 5000);
-
     /**
      * @brief Change app state
      * @param appState App state

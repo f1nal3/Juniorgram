@@ -33,17 +33,17 @@ bool Client::connectToServer(const std::string_view& host, const uint16_t port)
 
     try
     {
-        /// Auto = asio::ip::tcp::resolver::results_type
-        auto endpoints = resolver.resolve(host, std::to_string(port));
-        _connection->connectToServer(endpoints);
-        _contextThread = std::thread([=]() {
-            while (_context.run_one())
-            {
-                loop();
-            }
-            _serverAccept = false;
-            onDisconnect();
-        });
+            /// Auto = asio::ip::tcp::resolver::results_type
+            auto endpoints = resolver.resolve(host, std::to_string(port));
+            _connection->connectToServer(endpoints);
+            _contextThread = std::thread([=]() {
+                while (_context.run_one())
+                {
+                    loop();
+                }
+                _serverAccept = false;
+                onDisconnect();
+            });
     }
     catch (std::exception& exception)
     {
@@ -53,13 +53,29 @@ bool Client::connectToServer(const std::string_view& host, const uint16_t port)
     return true;
 }
 
+bool Client::reconnectToServer()
+{
+    if (_serverAccept == false)
+    {
+        _context.reset();
+        _connection.reset();
+        _contextThread.detach();
+
+        //ToDo: Save other information from Server after Reconnect Part
+        system("pause");
+        connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);   
+    }
+    
+    return true;
+}
+
 void Client::disconnectFromServer()
 {
     if (isConnected())
     {
         _connection->disconnect();
     }
-
+ 
     _context.stop();
 
     if (_contextThread.get_id() != std::this_thread::get_id() && _contextThread.joinable())
@@ -286,11 +302,11 @@ void Client::loop()
 {
     while (!_incomingMessagesQueue.empty())
     {
-        const Message message = _incomingMessagesQueue.pop_front();
+        const Message message     = _incomingMessagesQueue.pop_front();
         auto          convertTime = std::chrono::system_clock::to_time_t;
-        std::tm       output_time = Utility::safe_localtime(convertTime(message.mHeader.mTimestamp));
+        std::tm        outputTime = Utility::safe_localtime(convertTime(message.mHeader.mTimestamp));
 
-        std::cout << "[" << std::put_time(&output_time, "%F %T%z") << "]\n";
+        std::cout << "[" << std::put_time(&outputTime, "%F %T%z") << "]\n";
 
         switch (message.mHeader.mMessageType)
         {
@@ -420,7 +436,8 @@ void Client::loop()
             break;
 
             default:
-                std::cerr << "[Client][Warning] unimplemented[" << uint32_t(message.mHeader.mMessageType) << "]\n";
+                Base::Logger::FileLogger::getInstance().log(
+                    "[Client][Warning] unimplemented!", Base::Logger::LogLevel::INFO);
         }
     }
 }
