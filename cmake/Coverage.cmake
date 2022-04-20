@@ -1,0 +1,1 @@
+add_compile_options(--coverage -g -O0)
