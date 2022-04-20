@@ -96,7 +96,6 @@ public:
 protected:
     /// Disconnect handler
     void onDisconnect() override;
-    
     /// Login Answer handler
     void onLoginAnswer(bool success) override;
     /// Server Accepted handler
