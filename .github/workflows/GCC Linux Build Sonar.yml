@@ -87,7 +87,7 @@ jobs:
 
     - name: Build using build-wrapper 
       run: |
-        build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}} -DCOVERAGE_MODE=True
+        build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}} -DCOVERAGE_MODE:BOOL=True
 
     - name: Run sonar-scanner
       env:
