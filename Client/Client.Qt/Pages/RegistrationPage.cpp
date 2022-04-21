@@ -19,7 +19,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
     _backButton          = std::make_unique<FlatButton>(this, "Back");
 
     _logoWidget = std::make_unique<LogoWidget>(this);
-    _popupSystemMessage = std::make_unique<PopupSystemMessage>(this);
+    //_popupSystemMessage = std::make_unique<PopupSystemMessage>(this);
+    _popupMessage = std::make_unique<PopupMessage>(this);
 
     _registrationHotkey = std::make_unique<QShortcut>
     (
