@@ -54,8 +54,4 @@ private:
     bool                  _deleteOnHide = false;
 };
 
-<<<<<<< HEAD
 void messageOut(std::shared_ptr<PopupWidget> popupWidget, QString text);
-=======
-void messageOut(std::shared_ptr<PopupWidget> popupWidget, QString text);
->>>>>>> 7a73a72 (Changed the comment and argument in messageOut function)
