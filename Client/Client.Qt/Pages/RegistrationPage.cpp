@@ -19,7 +19,6 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
     _backButton          = std::make_unique<FlatButton>(this, "Back");
 
     _logoWidget = std::make_unique<LogoWidget>(this);
-    //_popupSystemMessage = std::make_unique<PopupSystemMessage>(this);
     _popupMessage = std::make_unique<PopupMessage>(this);
 
     _registrationHotkey = std::make_unique<QShortcut>
@@ -79,11 +78,18 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (!isEmailValid(email))
         {
             Base::Logger::FileLogger::getInstance().log("email is not valid", Base::Logger::LogLevel::WARNING);
-            messageOut(_popupWidget, "email is not valid");
+            _popupMessage->setPopupText("email is not valid");
+            _popupMessage->popupShow();
             onResume();
+
+            return;
+        }
+        
+        if(!isPasswordValid(password))
         {
             Base::Logger::FileLogger::getInstance().log("password is not valid", Base::Logger::LogLevel::WARNING);
-            messageOut(_popupWidget, "password is not valid");
+            _popupMessage->setPopupText("password is not valid");
+            _popupMessage->popupShow();
             onResume();
 
             return;

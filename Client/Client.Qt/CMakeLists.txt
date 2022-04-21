@@ -81,9 +81,9 @@ set(UI_WIDGETS_SOURCES
         Widgets/TitleWidget.hpp
         Widgets/PopupSystemMessage.cpp
         Widgets/PopupSystemMessage.hpp
-        Widgets/I_PopupMessage/I_PopupMessage.hpp
-        Widgets/I_PopupMessage/PopupMessage.hpp
-        Widgets/I_PopupMessage/PopupMessage.cpp)
+        Widgets/IPopupMessage/IPopupMessage.hpp
+        Widgets/IPopupMessage/PopupMessage.hpp
+        Widgets/IPopupMessage/PopupMessage.cpp)
 
 set(PAGES_SOURCES
         Pages/ChannelCreationPage.cpp
