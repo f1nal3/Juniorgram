@@ -19,7 +19,7 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
     _backButton          = std::make_unique<FlatButton>(this, "Back");
 
     _logoWidget = std::make_unique<LogoWidget>(this);
-    _popupSystemMessage = std::make_unique<PopupSystemMessage>(this);
+    _popupWidget = std::make_shared<PopupWidget>(this);
 
     _registrationHotkey = std::make_unique<QShortcut>
     (
@@ -51,8 +51,7 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (email.empty() || login.empty() || password.empty() || repeatPassword.empty())
         {
             Base::Logger::FileLogger::getInstance().log("some field is empty", Base::Logger::LogLevel::WARNING);
-            _popupSystemMessage->setPopupText("some field is empty");
-            _popupSystemMessage->show();
+            messageOut(_popupWidget, "some field is empty");
             onResume();
 
             return;
@@ -61,8 +60,7 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (password != repeatPassword)
         {
             Base::Logger::FileLogger::getInstance().log("passwords are different", Base::Logger::LogLevel::WARNING);
-            _popupSystemMessage->setPopupText("passwords are different");
-            _popupSystemMessage->show();
+            messageOut(_popupWidget, "passwords are different");
             onResume();
 
             return;
@@ -71,8 +69,7 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (!isLoginValid(login))
         {
             Base::Logger::FileLogger::getInstance().log("login is not valid", Base::Logger::LogLevel::WARNING);
-            _popupSystemMessage->setPopupText("login is not valid");
-            _popupSystemMessage->show();
+            messageOut(_popupWidget, "login is not valid");
             onResume();
 
             return;
@@ -81,8 +78,7 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (!isEmailValid(email))
         {
             Base::Logger::FileLogger::getInstance().log("email is not valid", Base::Logger::LogLevel::WARNING);
-            _popupSystemMessage->setPopupText("email is not valid");
-            _popupSystemMessage->show();
+            messageOut(_popupWidget, "email is not valid");
             onResume();
 
             return;
@@ -91,8 +87,7 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (!isPasswordValid(password))
         {
             Base::Logger::FileLogger::getInstance().log("password is not valid", Base::Logger::LogLevel::WARNING);
-            _popupSystemMessage->setPopupText("password is not valid");
-            _popupSystemMessage->show();
+            messageOut(_popupWidget, "password is not valid");
             onResume();
 
             return;
@@ -135,22 +130,19 @@ void RegistrationPage::onRegistration(Utility::RegistrationCodes code)
         if (code == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
         {
             Base::Logger::FileLogger::getInstance().log("Email already exists", Base::Logger::LogLevel::WARNING);
-            _popupSystemMessage->setPopupText("Email already exists");
-            _popupSystemMessage->show();
+            messageOut(_popupWidget, "Email already exists");
             onResume();
         }
         else if (code == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS)
         {
             Base::Logger::FileLogger::getInstance().log("Username already taken", Base::Logger::LogLevel::WARNING);
-            _popupSystemMessage->setPopupText("Username already taken");
-            _popupSystemMessage->show();
+            messageOut(_popupWidget, "Username already taken");
             onResume();
         }
         else
         {
             Base::Logger::FileLogger::getInstance().log("Unknown code", Base::Logger::LogLevel::WARNING);
-            _popupSystemMessage->setPopupText("Unknown code");
-            _popupSystemMessage->show();
+            messageOut(_popupWidget, "Unknown code");
             onResume();
         }
     }
