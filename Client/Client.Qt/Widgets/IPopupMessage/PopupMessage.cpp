@@ -5,7 +5,7 @@
 #include <QDebug>
 
 PopupMessage::PopupMessage(QWidget* parent) 
-    : I_PopupMessage(parent)
+    : IPopupMessage(parent)
 {
     setWindowFlags(Qt::FramelessWindowHint | 
                    Qt::Tool | 
