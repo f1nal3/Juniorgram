@@ -4,8 +4,7 @@
 #include <QLabel>
 #include <Utility/Utility.hpp>
 #include <Widgets/Page.hpp>
-#include <Widgets/IPopupMessage/IPopupMessage.hpp>
-#include <Widgets/IPopupMessage/PopupMessage.hpp>
+#include <Widgets/PopupMessage.hpp>
 
 #include <memory>
 
