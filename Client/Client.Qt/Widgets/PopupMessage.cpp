@@ -32,6 +32,11 @@ PopupMessage::PopupMessage(QWidget* parent)
     connect(timer, &QTimer::timeout, this, &PopupMessage::hideAnimation);
 }
 
+PopupMessage::~PopupMessage() 
+{
+
+}
+
 void PopupMessage::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event)
