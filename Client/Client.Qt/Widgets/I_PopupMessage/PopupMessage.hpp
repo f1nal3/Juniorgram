@@ -10,12 +10,12 @@ class PopupMessage : public I_PopupMessage
 {
 public:
     explicit PopupMessage(QWidget* parent = nullptr);
-    /*
+
     virtual ~PopupMessage() override
     {
 
     }
-    */
+    
 
 public slots:
     void setPopupText(const QString& text) override;
@@ -32,7 +32,7 @@ private:
     QLabel             label;
     QGridLayout        layout;
     QPropertyAnimation animation;
-    float              popupOpacity;
+    //float              popupOpacity;
     QTimer*            timer;
 
     float getPopupOpacity() const override;
