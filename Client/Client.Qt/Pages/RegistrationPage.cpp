@@ -132,19 +132,22 @@ void RegistrationPage::onRegistration(Utility::RegistrationCodes code)
         if (code == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
         {
             Base::Logger::FileLogger::getInstance().log("Email already exists", Base::Logger::LogLevel::WARNING);
-            messageOut(_popupWidget, "Email already exists");
+            _popupMessage->setPopupText("Email already exists");
+            _popupMessage->popupShow();
             onResume();
         }
         else if (code == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS)
         {
             Base::Logger::FileLogger::getInstance().log("Username already taken", Base::Logger::LogLevel::WARNING);
-            messageOut(_popupWidget, "Username already taken");
+            _popupMessage->setPopupText("Username already taken");
+            _popupMessage->popupShow();
             onResume();
         }
         else
         {
             Base::Logger::FileLogger::getInstance().log("Unknown code", Base::Logger::LogLevel::WARNING);
-            messageOut(_popupWidget, "Unknown code");
+            _popupMessage->setPopupText("Unknown code");
+            _popupMessage->popupShow();
             onResume();
         }
     }
