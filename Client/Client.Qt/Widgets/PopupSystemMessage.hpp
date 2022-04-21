@@ -12,6 +12,16 @@ class PopupSystemMessage : public QWidget
 
     // translucency property
     Q_PROPERTY(float popupOpacity READ getPopupOpacity WRITE setPopupOpacity)
+    
+    private:
+        QLabel label;
+        QGridLayout layout;
+        QPropertyAnimation animation;
+        float popupOpacity;
+        QTimer* timer;
+
+        void  setPopupOpacity(float opacity);
+        float getPopupOpacity() const;
 
     private slots:
         void hideAnimation();
