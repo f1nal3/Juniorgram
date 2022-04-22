@@ -25,7 +25,7 @@ conan_cmake_configure(REQUIRES asio/1.18.1
                                nlohmann_json/3.9.1
                                yas/7.0.5
                                qt/5.15.2
-                    GENERATORS cmake_find_package_multi)
+                    GENERATORS cmake_find_package_multi )
 
 # This detects system settings such as platform, compiler, etc.
 # Those can be overridden, see conan.cmake github for documentation.
@@ -34,7 +34,8 @@ conan_cmake_install(PATH_OR_REFERENCE .
                     REMOTE conancenter
                     BUILD missing
                     INSTALL_FOLDER ${CMAKE_BINARY_DIR}/Conan
-                    SETTINGS ${settings})
+                    SETTINGS ${settings}
+                    UPDATE)
 
 # Append the folder with
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}/Conan)
