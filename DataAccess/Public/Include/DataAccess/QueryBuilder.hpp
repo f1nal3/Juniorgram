@@ -1,10 +1,11 @@
 #pragma once
+#include <iostream>
+#include <string>
+
 #include <DataAccess/IAdapter.hpp>
 #include <Utility/Exception.hpp>
 #include <Utility/SQLUtility.hpp>
 #include <Utility/Utility.hpp>
-#include <iostream>
-#include <string>
 
 #include "SQLStatements.hpp"
 

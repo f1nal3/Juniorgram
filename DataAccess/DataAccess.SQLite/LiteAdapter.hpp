@@ -1,12 +1,14 @@
 #pragma once
+#include <memory>
+#include <mutex>
 
-#include <DataAccess/IAdapter.hpp>
 #include <QtSql/QSql>
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
+
+#include <DataAccess/IAdapter.hpp>
 #include <Utility/Exception.hpp>
-#include <memory>
-#include <mutex>
+
 
 namespace DataAccess
 {

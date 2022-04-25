@@ -1,6 +1,7 @@
 #pragma once
-#include "PostgreTable.hpp"
 #include <Network/Primitives.hpp>
+
+#include "PostgreTable.hpp"
 
 /** @class UsersAmountFinder.
  *   @brief UsersAmountFinder class.

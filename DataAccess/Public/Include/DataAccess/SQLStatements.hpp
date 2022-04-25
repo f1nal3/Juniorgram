@@ -1,11 +1,13 @@
 #pragma once
-#include <Utility/Exception.hpp>
-#include <Utility/SQLUtility.hpp>
-#include <FileLogger.hpp>
 #include <any>
 #include <iostream>
 #include <optional>
 #include <sstream>
+
+#include <Utility/Exception.hpp>
+#include <Utility/SQLUtility.hpp>
+
+#include "FileLogger.hpp"
 
 namespace DataAccess
 {
@@ -767,4 +769,4 @@ public:
     SQLDelete(SQLDelete&&) = delete;
     SQLDelete& operator=(SQLDelete&&) = delete;
 };
-}  // namespace DataAccess
+}  /// namespace DataAccess

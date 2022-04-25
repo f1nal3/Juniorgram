@@ -1,6 +1,4 @@
 #pragma once
-#include <DataAccess/AbstractRepositoryContainer.hpp>
-#include <DataAccess/IServerRepositories.hpp>
 #include <any>
 #include <atomic>
 #include <functional>
@@ -8,6 +6,9 @@
 #include <mutex>
 #include <queue>
 #include <type_traits>
+
+#include <DataAccess/AbstractRepositoryContainer.hpp>
+#include <DataAccess/IServerRepositories.hpp>
 
 #include "PostgreRepositories.hpp"
 #include "PostgreRepositoryContainer.hpp"

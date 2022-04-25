@@ -1,5 +1,6 @@
 #pragma once
 #include "DataAccess/IClientRepositories.hpp"
+
 #include "LiteAdapter.hpp"
 
 namespace DataAccess

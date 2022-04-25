@@ -1,9 +1,9 @@
 #pragma once
+#include <string>
+#include <vector>
 
 #include <Network/Primitives.hpp>
 #include <Utility/Utility.hpp>
-#include <string>
-#include <vector>
 
 #include "IMasterRepository.hpp"
 

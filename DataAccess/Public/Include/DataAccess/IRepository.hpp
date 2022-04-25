@@ -1,8 +1,9 @@
 #pragma once
-#include <Network/Primitives.hpp>
-#include <Utility/Utility.hpp>
 #include <string>
 #include <vector>
+
+#include <Network/Primitives.hpp>
+#include <Utility/Utility.hpp>
 
 namespace DataAccess
 {
@@ -30,7 +31,7 @@ public:
 	  /**
 	   * @brief Draft method for getting history for a specific user.
 	   */
-	  virtual std::vector<Network::ReplyInfo>   getReplyHistoryForUser(const std::uint64_t channelID) = 0;
+	virtual std::vector<Network::ReplyInfo>   getReplyHistoryForUser(const std::uint64_t channelID) = 0;
     
     /**  @brief Method for storing message.
      *   @param Network::MessageInfo which contains message's data for storing in repository.
