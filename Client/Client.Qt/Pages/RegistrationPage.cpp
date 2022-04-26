@@ -51,7 +51,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (email.empty() || login.empty() || password.empty() || repeatPassword.empty())
         {
             Base::Logger::FileLogger::getInstance().log("some field is empty", Base::Logger::LogLevel::WARNING);
-            messageOut(_popupWidget, "some field is empty");
+            _popupMessage->setPopupText("some field is empty");
+            _popupMessage->popupShow();
             onResume();
 
             return;
@@ -60,7 +61,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (password != repeatPassword)
         {
             Base::Logger::FileLogger::getInstance().log("passwords are different", Base::Logger::LogLevel::WARNING);
-            messageOut(_popupWidget, "passwords are different");
+            _popupMessage->setPopupText("passwords are different");
+            _popupMessage->popupShow();
             onResume();
 
             return;
@@ -69,7 +71,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (!isLoginValid(login))
         {
             Base::Logger::FileLogger::getInstance().log("login is not valid", Base::Logger::LogLevel::WARNING);
-            messageOut(_popupWidget, "login is not valid");
+            _popupMessage->setPopupText("login is not valid");
+            _popupMessage->popupShow();
             onResume();
 
             return;
