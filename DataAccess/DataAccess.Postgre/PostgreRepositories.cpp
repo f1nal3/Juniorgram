@@ -692,4 +692,4 @@ Utility::DirectMessageStatus DirectMessageRepository::addDirectChat(uint64_t use
     return Utility::DirectMessageStatus::FAILED;
 }
 
-}  // namespace DataAccess
+}  /// namespace DataAccess

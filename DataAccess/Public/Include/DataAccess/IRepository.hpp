@@ -94,4 +94,4 @@ public:
      */
     virtual ~IRepository() = default;
 };
-}  // namespace DataAccess
+}  /// namespace DataAccess

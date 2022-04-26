@@ -19,4 +19,4 @@ public:
     explicit LiteRepositoryContainer(std::shared_ptr<IAdapter> adapter) : AbstractRepositoryContainer(std::move(adapter)) {}
 };
 
-}  // namespace DataAccess
+}  /// namespace DataAccess

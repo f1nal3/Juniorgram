@@ -33,9 +33,9 @@ struct MessageInfo
     /// Default MessageIndo constructor
     MessageInfo() = delete;
     /// MessageIndo constructor with initializing list
-    explicit MessageInfo(const std::uint64_t channelID, const std::uint64_t senderID, const std::uint64_t time, const std::uint64_t msgID,
+    explicit MessageInfo(const std::uint64_t _channelID, const std::uint64_t _senderID, const std::uint64_t _time, const std::uint64_t _msgID,
                          QString text)
-        : channelID(channelID), message(std::move(text)), msgID(msgID), senderID(senderID), time(time)
+        : channelID(_channelID), message(std::move(text)), msgID(_msgID), senderID(_senderID), time(_time)
     {
     }
 
@@ -58,10 +58,10 @@ public:
     void addMessages(std::vector<MessageInfo>& messages) override;
 
     void                     editMessages(std::vector<MessageInfo>& messages) override;
-    std::vector<MessageInfo> getMessages(std::uint64_t channelID) override;
-    std::vector<MessageInfo> getMessageSince(std::uint64_t channelID, std::uint64_t since) override;
-    std::vector<MessageInfo> getMessageBefore(std::uint64_t channelID, std::uint64_t before, std::uint64_t amount) override;
+    std::vector<MessageInfo> getMessages(std::uint64_t _channelID) override;
+    std::vector<MessageInfo> getMessageSince(std::uint64_t _channelID, std::uint64_t since) override;
+    std::vector<MessageInfo> getMessageBefore(std::uint64_t _channelID, std::uint64_t before, std::uint64_t amount) override;
     void                     removeMessages(std::vector<MessageInfo>& messages) override;
 };
 
-}  // namespace DataAccess
+}  /// namespace DataAccess

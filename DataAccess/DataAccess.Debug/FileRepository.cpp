@@ -48,4 +48,4 @@ std::vector<Network::MessageInfo> FileRepository::getMessageHistoryForUser(const
 
     return messages;
 }
-}  // namespace DataAccess
+}  /// namespace DataAccess

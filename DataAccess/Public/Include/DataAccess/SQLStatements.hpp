@@ -193,7 +193,7 @@ public:
      * @brief Return SQL statement type.
      * @return ST_SELECT, ST_INSERT, ST_UPDATE, ST_DELETE
      */
-    virtual Utility::SQLStatement getStatementType(void) const noexcept final { return _statementType; }
+    Utility::SQLStatement getStatementType(void) const noexcept  { return _statementType; }
     /**
      * @brief Method that returns current SQL query string.
      *  This method for subqueries basically.
@@ -206,7 +206,7 @@ public:
      *    table.'SQLSTATEMENT'()->execute(); /// Here SQL query string will be clear.
      * @encode
      */
-    virtual const std::string getStringQuery(void) const noexcept final { return _queryStream.str(); }
+    const std::string getStringQuery(void) const noexcept { return _queryStream.str(); }
     /**
      * @brief Method that executes SQL string.
      * For technical reasons,
@@ -260,7 +260,7 @@ public:
      *  table.'SQLSTATEMENT'()->rollback();
      * @endcode
      */
-    virtual void rollback(void) final { SQLBase<ResultType>::_currentBuilder.clearStatement(); }
+    void rollback(void) { SQLBase<ResultType>::_currentBuilder.clearStatement(); }
 
 protected:
     void privateCheckForLastSymbol(void)

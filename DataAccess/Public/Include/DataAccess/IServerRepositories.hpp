@@ -109,4 +109,4 @@ struct ILoginRepository : IMasterRepository
     virtual ~ILoginRepository() = default;
 };
 
-}  // namespace DataAccess
+}  /// namespace DataAccess

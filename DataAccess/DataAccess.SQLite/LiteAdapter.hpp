@@ -77,4 +77,4 @@ private:
     std::unique_ptr<QSqlDatabase> db_connection;
     std::mutex                    query_mtx;
 };
-}  // namespace DataAccess
+}  /// namespace DataAccess

@@ -54,4 +54,4 @@ bool LiteAdapter::isConnected(void) const { return db_connection->isOpen(); }
 
 void LiteAdapter::closeConnection(void) { db_connection->close(); }
 
-}  // namespace DataAccess
+}  /// namespace DataAccess

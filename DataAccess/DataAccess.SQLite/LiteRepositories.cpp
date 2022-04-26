@@ -57,13 +57,13 @@ void LiteMessageRepository::editMessages(std::vector<MessageInfo>& messages)
     LiteAdapter::getInstance<LiteAdapter>()->query((query + " ON CONFLICT REPLACE;").toStdString());
 }
 
-std::vector<MessageInfo> LiteMessageRepository::getMessages(std::uint64_t channelID)
+std::vector<MessageInfo> LiteMessageRepository::getMessages(std::uint64_t _channelID)
 {
     ensureTable("msgs",
                 "msg_id BIGINT UNIQUE PRIMARY KEY NOT NULL , sender_id BIGINT NOT NULL,"
                 "send_time BIGINT NOT NULL, msg TEXT NOT NULL, channel_id BIGINT NOT NULL");
     auto oQuery =
-        LiteAdapter::getInstance<LiteAdapter>()->query(QString("SELECT * FROM msgs WHERE channel_id = %1;").arg(channelID).toStdString());
+        LiteAdapter::getInstance<LiteAdapter>()->query(QString("SELECT * FROM msgs WHERE channel_id = %1;").arg(_channelID).toStdString());
     if (oQuery.has_value())
     {
         auto query = std::any_cast<QSqlQuery>(oQuery.value());
@@ -89,7 +89,7 @@ std::vector<MessageInfo> LiteMessageRepository::getMessages(std::uint64_t channe
     }
     return {};
 }
-std::vector<MessageInfo> LiteMessageRepository::getMessageSince(std::uint64_t channelID, std::uint64_t since)
+std::vector<MessageInfo> LiteMessageRepository::getMessageSince(std::uint64_t _channelID, std::uint64_t since)
 {
     ensureTable("msgs",
                 "msg_id BIGINT UNIQUE PRIMARY KEY NOT NULL , sender_id BIGINT NOT NULL,"
@@ -98,7 +98,7 @@ std::vector<MessageInfo> LiteMessageRepository::getMessageSince(std::uint64_t ch
     auto oQuery  = adapter->query(QString("SELECT * "
                                            "FROM msgs "
                                            "WHERE channel_id = %1 AND send_time > %2;")
-                                      .arg(channelID)
+                                      .arg(_channelID)
                                       .arg(since)
                                       .toStdString());
     if (oQuery.has_value())
@@ -127,7 +127,7 @@ std::vector<MessageInfo> LiteMessageRepository::getMessageSince(std::uint64_t ch
     return {};
 }
 
-std::vector<MessageInfo> LiteMessageRepository::getMessageBefore(std::uint64_t channelID, std::uint64_t before, std::uint64_t amount)
+std::vector<MessageInfo> LiteMessageRepository::getMessageBefore(std::uint64_t _channelID, std::uint64_t before, std::uint64_t amount)
 {
     ensureTable("msgs",
                 "msg_id BIGINT UNIQUE PRIMARY KEY NOT NULL , sender_id BIGINT NOT NULL,"
@@ -136,7 +136,7 @@ std::vector<MessageInfo> LiteMessageRepository::getMessageBefore(std::uint64_t c
     auto oQuery  = adapter->query(QString("SELECT COUNT(%3) "
                                            "FROM msgs "
                                            "WHERE channel_id = %1 AND send_time < %2;")
-                                      .arg(channelID)
+                                      .arg(_channelID)
                                       .arg(before)
                                       .arg(amount)
                                       .toStdString());
@@ -189,4 +189,4 @@ void LiteMessageRepository::removeMessages(std::vector<MessageInfo>& messages)
     auto oQuery = adapter->query((query + ";").toStdString());
 }
 LiteMessageRepository::LiteMessageRepository(std::shared_ptr<IAdapter>& adapter) : AbstractLiteRepository(adapter) {}
-}  // namespace DataAccess
+}  /// namespace DataAccess

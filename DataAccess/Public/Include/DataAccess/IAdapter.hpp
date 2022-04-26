@@ -34,4 +34,4 @@ public:
 
     virtual ~IAdapter() {}
 };
-}  // namespace DataAccess
+}  /// namespace DataAccess

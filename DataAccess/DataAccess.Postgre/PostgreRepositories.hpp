@@ -87,4 +87,4 @@ private:
     std::optional<pqxx::result> insertIDsIntoChannelRepliesTable(const std::uint64_t channelID, const std::uint64_t replyID);
     std::optional<pqxx::result> insertReplyIntoRepliesTable(const Network::ReplyInfo& rsi);
 };
-}  // namespace DataAccess
+}  /// namespace DataAccess

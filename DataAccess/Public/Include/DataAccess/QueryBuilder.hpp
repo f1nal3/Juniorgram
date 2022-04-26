@@ -164,4 +164,4 @@ public:
         _statement = nullptr;
     }
 };
-}  // namespace DataAccess
+}  /// namespace DataAccess
