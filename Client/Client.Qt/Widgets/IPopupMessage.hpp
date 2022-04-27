@@ -8,7 +8,7 @@ class IPopupMessage : public QWidget
     Q_PROPERTY(float popupOpacity READ getPopupOpacity WRITE setPopupOpacity)
 public:
 
-    IPopupMessage(QWidget* parent)
+    explicit IPopupMessage(QWidget* parent)
         : QWidget(parent) 
     {
     }
