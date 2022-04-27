@@ -13,7 +13,7 @@ public:
     {
     }
     
-    virtual ~IPopupMessage(){};
+    ~IPopupMessage() override {};
     
     virtual void setPopupText(const QString& text)  = 0;
     virtual void  popupShow()                       = 0;
