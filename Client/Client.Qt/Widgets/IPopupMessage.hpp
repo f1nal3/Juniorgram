@@ -9,7 +9,7 @@ class IPopupMessage : public QWidget
 public:
 
     explicit IPopupMessage(QWidget* parent) 
-        : QWidget(parent), _popupOpacity(0)
+        : QWidget(parent)
     {
     }
     
