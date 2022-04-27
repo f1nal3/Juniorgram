@@ -28,8 +28,8 @@ private slots:
     void hide();
 
 private:
-    QLabel             label;
-    QGridLayout        layout;
-    QPropertyAnimation animation;
-    QTimer*            timer;
+    QLabel             _label;
+    QGridLayout        _layout;
+    QPropertyAnimation _animation;
+    QTimer*            _timer;
 };
