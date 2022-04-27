@@ -69,12 +69,12 @@ public:
     void closeConnection() override;
 
 private:
-    inline static std::mutex                   mtx{};
-    inline static std::shared_ptr<LiteAdapter> sqlite_instance{};
+    inline static std::mutex                   _mtx{};
+    inline static std::shared_ptr<LiteAdapter> _SQLiteInstance{};
 
-    inline static constexpr std::string_view m_db_name = "SQLiteDB.db";
+    inline static constexpr std::string_view   _DBName = "SQLiteDB.db";
 
-    std::unique_ptr<QSqlDatabase> db_connection;
-    std::mutex                    query_mtx;
+    std::unique_ptr<QSqlDatabase>              _DBConnection;
+    std::mutex                                 _queryMTX;
 };
 }  /// namespace DataAccess

@@ -26,11 +26,11 @@ void LiteMessageRepository::addMessages(std::vector<MessageInfo>& messages)
     for (const auto& message : messages)
     {
         query += QString(" (%1, %2, %3, \'%4\', %5),")
-                     .arg(message.msgID)
-                     .arg(message.senderID)
-                     .arg(message.time)
-                     .arg(message.message)
-                     .arg(message.channelID);
+                     .arg(message._msgID)
+                     .arg(message._senderID)
+                     .arg(message._time)
+                     .arg(message._message)
+                     .arg(message._channelID);
     }
     query.remove(query.size() - 1, 1);
     LiteAdapter::getInstance<LiteAdapter>()->query((query + " ON CONFLICT DO NOTHING;").toStdString());
@@ -47,11 +47,11 @@ void LiteMessageRepository::editMessages(std::vector<MessageInfo>& messages)
     for (const auto& message : messages)
     {
         query += QString(" (%1, %2, %3, \'%4\', %5),")
-                     .arg(message.msgID)
-                     .arg(message.senderID)
-                     .arg(message.time)
-                     .arg(message.message)
-                     .arg(message.channelID);
+                     .arg(message._msgID)
+                     .arg(message._senderID)
+                     .arg(message._time)
+                     .arg(message._message)
+                     .arg(message._channelID);
     }
     query.remove(query.size() - 1, 1);
     LiteAdapter::getInstance<LiteAdapter>()->query((query + " ON CONFLICT REPLACE;").toStdString());
@@ -69,8 +69,8 @@ std::vector<MessageInfo> LiteMessageRepository::getMessages(std::uint64_t _chann
         auto query = std::any_cast<QSqlQuery>(oQuery.value());
         if (query.size() == 1) return {};
         std::vector<MessageInfo> result;
-        // msg_id BIGINT UNIQUE PRIMARY KEY NOT NULL , sender_id BIGINT NOT NULL, "
-        //         "send_time BIGINT NOT NULL, msg TEXT NOT NULL, channel_id BIGINT NOT NULL"
+        /// msg_id BIGINT UNIQUE PRIMARY KEY NOT NULL , sender_id BIGINT NOT NULL, "
+        ///         "send_time BIGINT NOT NULL, msg TEXT NOT NULL, channel_id BIGINT NOT NULL"
         auto iMsg_id     = query.record().indexOf("msg_id");
         auto iChannel_id = query.record().indexOf("channel_id");
         auto iMsg        = query.record().indexOf("msg");
@@ -106,8 +106,8 @@ std::vector<MessageInfo> LiteMessageRepository::getMessageSince(std::uint64_t _c
         auto query = std::any_cast<QSqlQuery>(oQuery.value());
         if (query.size() == 1) return {};
         std::vector<MessageInfo> result;
-        // msg_id BIGINT UNIQUE PRIMARY KEY NOT NULL , sender_id BIGINT NOT NULL, "
-        //         "send_time BIGINT NOT NULL, msg TEXT NOT NULL, channel_id BIGINT NOT NULL"
+        /// msg_id BIGINT UNIQUE PRIMARY KEY NOT NULL , sender_id BIGINT NOT NULL, "
+        ///         "send_time BIGINT NOT NULL, msg TEXT NOT NULL, channel_id BIGINT NOT NULL"
         auto iMsg_id     = query.record().indexOf("msg_id");
         auto iChannel_id = query.record().indexOf("channel_id");
         auto iMsg        = query.record().indexOf("msg");
@@ -145,8 +145,8 @@ std::vector<MessageInfo> LiteMessageRepository::getMessageBefore(std::uint64_t _
         auto query = std::any_cast<QSqlQuery>(oQuery.value());
         if (query.size() == 1) return {};
         std::vector<MessageInfo> result;
-        // msg_id BIGINT UNIQUE PRIMARY KEY NOT NULL , sender_id BIGINT NOT NULL, "
-        //         "send_time BIGINT NOT NULL, msg TEXT NOT NULL, channel_id BIGINT NOT NULL"
+        /// msg_id BIGINT UNIQUE PRIMARY KEY NOT NULL , sender_id BIGINT NOT NULL, "
+        ///         "send_time BIGINT NOT NULL, msg TEXT NOT NULL, channel_id BIGINT NOT NULL"
         auto iMsg_id     = query.record().indexOf("msg_id");
         auto iChannel_id = query.record().indexOf("channel_id");
         auto iMsg        = query.record().indexOf("msg");
@@ -175,16 +175,16 @@ void LiteMessageRepository::removeMessages(std::vector<MessageInfo>& messages)
                 "send_time BIGINT NOT NULL, msg TEXT NOT NULL, channel_id BIGINT NOT NULL");
     auto adapter = LiteAdapter::getInstance<LiteAdapter>();
 
-    // msg_id BIGINT UNIQUE PRIMARY KEY NOT NULL , sender_id BIGINT NOT NULL, "
-    //         "send_time BIGINT NOT NULL, msg TEXT NOT NULL, channel_id BIGINT NOT NULL"
+    /// msg_id BIGINT UNIQUE PRIMARY KEY NOT NULL , sender_id BIGINT NOT NULL, "
+    ///         "send_time BIGINT NOT NULL, msg TEXT NOT NULL, channel_id BIGINT NOT NULL"
     auto query = QString(
                      "REMOVE"
                      "FROM msgs "
                      "WHERE msg_id = %1")
-                     .arg(messages[0].msgID);
+                     .arg(messages[0]._msgID);
     for (auto index = 1; index < int(messages.size()); index++)
     {
-        query += QString(" OR msg_id=%1").arg(messages[index].msgID);
+        query += QString(" OR msg_id=%1").arg(messages[index]._msgID);
     }
     auto oQuery = adapter->query((query + ";").toStdString());
 }

@@ -11,10 +11,7 @@ namespace fs = std::filesystem;
 /**
  * @brief   Function that constructs empty properties JSON
  */
-nlohmann::ordered_json constructPropertiesJSON()
-{
-    return nlohmann::ordered_json{{"column_info", nlohmann::ordered_json()}, {"number_of_rows", 0U}};
-}
+nlohmann::ordered_json constructPropertiesJSON() { return nlohmann::ordered_json{{"column_info", nlohmann::ordered_json()}, {"number_of_rows", 0U}}; }
 
 /**
  * @brief   Function that checks if input identifier is valid

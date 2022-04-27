@@ -29,10 +29,7 @@ using RawFuture   = std::future<std::any>;
  *                 (For fundamental types like int, float, etc - by value, all other - by const ref).
  */
 template <typename Type>
-std::conditional_t<std::is_fundamental_v<Type>, std::remove_reference_t<Type>, const Type&> fmt(const Type& ref)
-{
-    return ref;
-}
+std::conditional_t<std::is_fundamental_v<Type>, std::remove_reference_t<Type>, const Type&> fmt(const Type& ref) { return ref; }
 
 /**
  * @brief   Priority enum.
@@ -65,21 +62,21 @@ enum class ePriority : std::uint8_t
 struct RepositoryRequest
 {
 private:
-    ePriority   mPriority;
-    RequestTask mTask;
+    ePriority   _priority;
+    RequestTask _task;
 
 public:
-    explicit RepositoryRequest(ePriority priority, RequestTask& task) : mPriority(priority), mTask(std::move(task)) {}
+    explicit RepositoryRequest(ePriority priority, RequestTask& task) : _priority(priority), _task(std::move(task)) {}
 
     RepositoryRequest(RepositoryRequest&& other) noexcept
     {
-        this->mPriority = other.mPriority;
-        this->mTask     = std::move(other.mTask);
+        this->_priority = other._priority;
+        this->_task     = std::move(other._task);
     }
     RepositoryRequest& operator=(RepositoryRequest&& other) noexcept
     {
-        this->mPriority = other.mPriority;
-        this->mTask     = std::move(other.mTask);
+        this->_priority = other._priority;
+        this->_task     = std::move(other._task);
 
         return *this;
     }
@@ -89,24 +86,24 @@ public:
      * @brief  Getter for priority from request.
      * @return ePriority.
      */
-    ePriority getPriority() const noexcept { return mPriority; }
+    ePriority getPriority() const noexcept { return _priority; }
 
     /**
      * @brief  Getter for raw future from task.
      * @return future<any>.
      */
-    RawFuture getFutureFromTask() { return mTask.get_future(); }
+    RawFuture getFutureFromTask() { return _task.get_future(); }
 
 public:
-    bool operator>(const RepositoryRequest& task) const noexcept { return this->mPriority > task.mPriority; }
-    bool operator<(const RepositoryRequest& task) const noexcept { return this->mPriority < task.mPriority; }
-    bool operator==(const RepositoryRequest& task) const noexcept { return this->mPriority == task.mPriority; }
-    bool operator!=(const RepositoryRequest& task) const noexcept { return this->mPriority != task.mPriority; }
+    bool operator>(const RepositoryRequest& task) const noexcept { return this->_priority > task._priority; }
+    bool operator<(const RepositoryRequest& task) const noexcept { return this->_priority < task._priority; }
+    bool operator==(const RepositoryRequest& task) const noexcept { return this->_priority == task._priority; }
+    bool operator!=(const RepositoryRequest& task) const noexcept { return this->_priority != task._priority; }
 
     /**
      * @brief Invoke operator for request task.
      */
-    inline void operator()() { mTask(); }
+    inline void operator()() { _task(); }
 };
 
 /**
@@ -117,17 +114,17 @@ template <typename TFromAny>
 struct FutureResult
 {
 private:
-    RawFuture mFuture;
+    RawFuture _future;
 
 public:
-    explicit FutureResult(RawFuture&& future) : mFuture(std::move(future)) {}
+    explicit FutureResult(RawFuture&& future) : _future(std::move(future)) {}
 
     /**
      * @brief   Like common std::future::get().
      * @details The difference is that returns not a raw data (any).
      * @return  Already known type value.
      */
-    TFromAny get() { return std::any_cast<TFromAny>(mFuture.get()); }
+    TFromAny get() { return std::any_cast<TFromAny>(_future.get()); }
 };
 
 /**
@@ -138,23 +135,23 @@ public:
 class PostgreRepositoryManager
 {
 private:
-    std::unique_ptr<AbstractRepositoryContainer> mRepositories;
-    std::priority_queue<RepositoryRequest>       mQueue;
+    std::unique_ptr<AbstractRepositoryContainer> _repositories;
+    std::priority_queue<RepositoryRequest>       _queue;
 
-    std::mutex              mQueueMutex;
-    std::condition_variable mQueueCV;
+    std::mutex                                   _queueMutex;
+    std::condition_variable                      _queueCV;
 
-    std::atomic<bool> mHandlerState;
-    std::thread       mRepositoryRequestsHandler;
+    std::atomic<bool>                            _handlerState;
+    std::thread                                  _repositoryRequestsHandler;
 
 public:
     explicit PostgreRepositoryManager(const std::shared_ptr<IAdapter>& repositoryContainer)
-        : mRepositories(std::make_unique<PostgreRepositoryContainer>(repositoryContainer)), mQueue(), mQueueMutex(), mHandlerState(true)
+        : _repositories(std::make_unique<PostgreRepositoryContainer>(repositoryContainer)), _queue(), _queueMutex(), _handlerState(true)
     {
         this->privateRegisterRepositories();
     }
 
-    ~PostgreRepositoryManager() { mRepositoryRequestsHandler.join(); }
+    ~PostgreRepositoryManager() { _repositoryRequestsHandler.join(); }
 
 public:
     /**
@@ -174,13 +171,13 @@ public:
         static_assert(std::is_member_function_pointer_v<MethodReference<TIRepository, TReturn, TArgs...>>,
                       "You passed not a method reference!");
 
-        std::unique_lock<std::mutex> lck(mQueueMutex);
+        std::unique_lock<std::mutex> lck(_queueMutex);
 
         RepositoryRequest     request = this->privateCreateRequest<priority>(methodRef, std::forward<TArgs>(args)...);
         FutureResult<TReturn> futureResult(request.getFutureFromTask());
 
-        mQueue.push(std::move(request));
-        mQueueCV.notify_one();
+        _queue.push(std::move(request));
+        _queueCV.notify_one();
         return futureResult;
     }
 
@@ -188,7 +185,7 @@ public:
      * @brief  Predicate for checking: is queue empty?
      * @return if empty - true, else - false.
      */
-    bool empty() const noexcept { return mQueue.empty(); }
+    bool empty() const noexcept { return _queue.empty(); }
 
     // \todo: Do better handler
     // (Probably, will be better to create thread pool
@@ -199,8 +196,8 @@ public:
      */
     void handleRequests()
     {
-        mRepositoryRequestsHandler = std::thread([this]() {
-            while (mHandlerState)
+        _repositoryRequestsHandler = std::thread([this]() {
+            while (_handlerState)
             {
                 auto request = this->privatePopRequest();
                 if (request.has_value()) request.value()();
@@ -213,8 +210,8 @@ public:
      */
     void stopHandler()
     {
-        mHandlerState = false;
-        mQueueCV.notify_one();
+        _handlerState = false;
+        _queueCV.notify_one();
     }
 
 private:
@@ -236,15 +233,15 @@ private:
      */
     std::optional<RepositoryRequest> privatePopRequest() noexcept
     {
-        std::unique_lock<std::mutex> lck(mQueueMutex);
+        std::unique_lock<std::mutex> lck(_queueMutex);
 
-        mQueueCV.wait(lck, [&]() { return !empty() || !mHandlerState; });
+        _queueCV.wait(lck, [&]() { return !empty() || !_handlerState; });
 
         auto emp = empty();
-        if (!mHandlerState || emp) return {};
+        if (!_handlerState || emp) return {};
 
-        RepositoryRequest request = std::move(const_cast<RepositoryRequest&>(mQueue.top()));
-        mQueue.pop();
+        RepositoryRequest request = std::move(const_cast<RepositoryRequest&>(_queue.top()));
+        _queue.pop();
 
         return request;
     }
@@ -254,12 +251,12 @@ private:
      */
     void privateRegisterRepositories()
     {
-        mRepositories->registerRepository<IChannelsRepository, ChannelsRepository>();
-        mRepositories->registerRepository<ILoginRepository, LoginRepository>();
-        mRepositories->registerRepository<IMessagesRepository, MessagesRepository>();
-        mRepositories->registerRepository<IRegisterRepository, RegisterRepository>();
-        mRepositories->registerRepository<IRepliesRepository, RepliesRepository>();
-        mRepositories->registerRepository<IDirectMessageRepository, DirectMessageRepository>();
+        _repositories->registerRepository<IChannelsRepository, ChannelsRepository>();
+        _repositories->registerRepository<ILoginRepository, LoginRepository>();
+        _repositories->registerRepository<IMessagesRepository, MessagesRepository>();
+        _repositories->registerRepository<IRegisterRepository, RegisterRepository>();
+        _repositories->registerRepository<IRepliesRepository, RepliesRepository>();
+        _repositories->registerRepository<IDirectMessageRepository, DirectMessageRepository>();
     }
 };
 

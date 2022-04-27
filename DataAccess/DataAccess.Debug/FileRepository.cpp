@@ -7,12 +7,12 @@ namespace DataAccess
 {
 FileRepository::FileRepository() 
 { 
-    database = std::make_unique<FileDB>("Debug"); 
+    _database = std::make_unique<FileDB>("Debug"); 
 }
 
 std::vector<Network::ChannelInfo> FileRepository::getAllChannelsList()
 {
-    auto rows = database->select("channels");
+    auto rows = _database->select("channels");
     std::vector<Network::ChannelInfo> channels;
 
     Network::ChannelInfo channelInfo;
@@ -29,7 +29,7 @@ std::vector<Network::ChannelInfo> FileRepository::getAllChannelsList()
 
 std::vector<Network::MessageInfo> FileRepository::getMessageHistoryForUser(const std::uint64_t channelID)
 {
-    auto rows = database->select("channel_msgs", [channelID](const nlohmann::ordered_json& row) {
+    auto rows = _database->select("channel_msgs", [channelID](const nlohmann::ordered_json& row) {
         return row.at("channel_id") == channelID ? true : false;
     });
 

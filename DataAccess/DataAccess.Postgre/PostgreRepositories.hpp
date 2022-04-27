@@ -9,12 +9,12 @@ namespace DataAccess
 struct AbstractPostgreRepository
 {
 protected:
-    std::unique_ptr<PostgreTable> pTable;
+    std::unique_ptr<PostgreTable> _pTable;
 };
 
 struct ChannelsRepository final : IChannelsRepository, AbstractPostgreRepository
 {
-    explicit ChannelsRepository(const std::shared_ptr<IAdapter>& adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
+    explicit ChannelsRepository(const std::shared_ptr<IAdapter>& adapter) { _pTable = std::make_unique<PostgreTable>("users", adapter); }
     
     std::vector<Network::ChannelInfo> getAllChannelsList() final;
     Utility::ChannelLeaveCodes        leaveChannel(const Network::ChannelLeaveInfo& channel) final;
@@ -31,7 +31,7 @@ struct DirectMessageRepository final : IDirectMessageRepository, AbstractPostgre
 {
     explicit DirectMessageRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        pTable = std::make_unique<PostgreTable>("channels", adapter);
+        _pTable = std::make_unique<PostgreTable>("channels", adapter);
     }
     Utility::DirectMessageStatus addDirectChat(uint64_t user_id, uint64_t receiverId) final;
     ~DirectMessageRepository() final = default;
@@ -39,7 +39,7 @@ struct DirectMessageRepository final : IDirectMessageRepository, AbstractPostgre
 
 struct LoginRepository : ILoginRepository, AbstractPostgreRepository
 {
-    explicit LoginRepository(const std::shared_ptr<IAdapter>& adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
+    explicit LoginRepository(const std::shared_ptr<IAdapter>& adapter) { _pTable = std::make_unique<PostgreTable>("users", adapter); }
 
     std::uint64_t loginUser(const Network::LoginInfo& loginInfo) final;
 
@@ -48,7 +48,7 @@ struct LoginRepository : ILoginRepository, AbstractPostgreRepository
 
 struct MessagesRepository final : IMessagesRepository, AbstractPostgreRepository
 {
-    explicit MessagesRepository(const std::shared_ptr<IAdapter>& adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
+    explicit MessagesRepository(const std::shared_ptr<IAdapter>& adapter) { _pTable = std::make_unique<PostgreTable>("users", adapter); }
 
     std::vector<Network::MessageInfo> getMessageHistory(const std::uint64_t channelID) final;
     Utility::StoringMessageCodes      storeMessage(const Network::MessageInfo& mi) final;
@@ -66,7 +66,7 @@ private:
 
 struct RegisterRepository final : IRegisterRepository, AbstractPostgreRepository
 {
-    explicit RegisterRepository(const std::shared_ptr<IAdapter>& adapter) { pTable = std::make_unique<PostgreTable>("users", adapter); }
+    explicit RegisterRepository(const std::shared_ptr<IAdapter>& adapter) { _pTable = std::make_unique<PostgreTable>("users", adapter); }
 
     Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) final;
 
@@ -76,7 +76,7 @@ struct RegisterRepository final : IRegisterRepository, AbstractPostgreRepository
 
 struct RepliesRepository final : IRepliesRepository, AbstractPostgreRepository
 {
-    explicit RepliesRepository(const std::shared_ptr<IAdapter>& adapter) { pTable = std::make_unique<PostgreTable>("msgs", adapter); }
+    explicit RepliesRepository(const std::shared_ptr<IAdapter>& adapter) { _pTable = std::make_unique<PostgreTable>("msgs", adapter); }
 
     std::vector<Network::ReplyInfo> getReplyHistory(const std::uint64_t channelID) final;
     Utility::StoringReplyCodes      storeReply(const Network::ReplyInfo& rsi) final;

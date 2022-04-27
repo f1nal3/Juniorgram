@@ -206,7 +206,7 @@ public:
      *    table.'SQLSTATEMENT'()->execute(); /// Here SQL query string will be clear.
      * @encode
      */
-    const std::string getStringQuery(void) const noexcept { return _queryStream.str(); }
+    std::string getStringQuery(void) const noexcept { return _queryStream.str(); }
     /**
      * @brief Method that executes SQL string.
      * For technical reasons,
