@@ -19,12 +19,12 @@ template <typename ResultType>
 class QueryBuilder
 {
 private:
-    Utility::DatabaseType _databaseType;
-    std::string           _tableName;
-    SQLBase<ResultType>*  _statement;
+    Utility::DatabaseType       _databaseType;
+    std::string                 _tableName;
+    SQLBase<ResultType>*        _statement;
 
 protected:
-    std::shared_ptr<IAdapter> _adapter;
+    std::shared_ptr<IAdapter>   _adapter;
 
 public:
     QueryBuilder(Utility::DatabaseType type, const std::string& tableName, std::shared_ptr<IAdapter> adapter)

@@ -218,7 +218,7 @@ private:
     template <ePriority priority, typename TIRepository, typename TReturn, typename... TArgs>
     RepositoryRequest privateCreateRequest(const MethodReference<TIRepository, TReturn, TArgs...>& methodRef, TArgs&&... args)
     {
-        auto iRepository = mRepositories->getRepository<TIRepository>();
+        auto iRepository = _repositories->getRepository<TIRepository>();
 
         RequestTask task([iRepository, methodRef, args = std::make_tuple(std::forward<TArgs>(args)...)]() mutable -> std::any {
             return std::apply(methodRef, std::tuple_cat(std::make_tuple(iRepository), std::move(args)));
@@ -237,8 +237,7 @@ private:
 
         _queueCV.wait(lck, [&]() { return !empty() || !_handlerState; });
 
-        auto emp = empty();
-        if (!_handlerState || emp) return {};
+        if (!_handlerState || empty()) return {};
 
         RepositoryRequest request = std::move(const_cast<RepositoryRequest&>(_queue.top()));
         _queue.pop();
