@@ -33,8 +33,9 @@ PopupMessage::PopupMessage(QWidget* parent)
 }
 
 PopupMessage::~PopupMessage() 
-{
-
+{ 
+    delete _timer;
+    _timer = nullptr;
 }
 
 void PopupMessage::paintEvent(QPaintEvent* event)
