@@ -1,10 +1,11 @@
 #include <array>
-#include <catch2/catch.hpp>
 #include <list>
 #include <map>
 #include <string>
 #include <tuple>
 #include <vector>
+
+#include <catch2/catch.hpp>
 
 #include "Network/Connection.hpp"
 #include "Network/Message.hpp"
@@ -152,9 +153,9 @@ TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSe
     SECTION("Checking serialization & deserialization of custom type MessageHeader")
     {
         Network::Message::MessageHeader serializedValue;
-        serializedValue.mTimestamp   = std::chrono::system_clock::now();
-        serializedValue.mMessageType = Network::Message::MessageType::ChannelListRequest;
-        serializedValue.mBodySize    = 30;
+        serializedValue._timestamp   = std::chrono::system_clock::now();
+        serializedValue._messageType = Network::Message::MessageType::ChannelListRequest;
+        serializedValue._bodySize    = 30;
 
         yas::shared_buffer buffer;
         Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
@@ -164,9 +165,9 @@ TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSe
         state = Network::YasSerializer::deserialize(buffer, deserializedValue);
         REQUIRE(state == Network::SerializedState::SUCCESS);
 
-        REQUIRE(serializedValue.mTimestamp == deserializedValue.mTimestamp);
-        REQUIRE(serializedValue.mMessageType == deserializedValue.mMessageType);
-        REQUIRE(serializedValue.mBodySize == deserializedValue.mBodySize);
+        REQUIRE(serializedValue._timestamp == deserializedValue._timestamp);
+        REQUIRE(serializedValue._messageType == deserializedValue._messageType);
+        REQUIRE(serializedValue._bodySize == deserializedValue._bodySize);
     }
 
     SECTION("Checking serialization & deserialization of custom type ChannelInfo")

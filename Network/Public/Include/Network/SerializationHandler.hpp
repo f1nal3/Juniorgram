@@ -389,7 +389,7 @@ private:
 
             if (state == SerializedState::SUCCESS)
             {
-                message.mBody = std::make_any<TMessage>(messageInfo);
+                message._body = std::make_any<TMessage>(messageInfo);
             }
 
             return state;

@@ -53,7 +53,7 @@ public:
      * @param const std::string& incomingKey (we will check it)
      * @return true if incomingKey is equal to listenedPort key(Validator), if not -> false
      */
-    bool isListenedPort(const std::string& incomingKey) const noexcept { return _validator.keys.listenedPort == incomingKey; }
+    bool isListenedPort(const std::string& incomingKey) const noexcept { return _validator._keys._listenedPort == incomingKey; }
 
 private:
     /**
