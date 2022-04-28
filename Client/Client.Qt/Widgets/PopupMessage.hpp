@@ -1,17 +1,17 @@
 #pragma once
 
-#include "IPopupMessage.hpp"
+#include "AbstractPopupMessage.hpp"
 #include <QLabel>
 #include <QGridLayout>
 #include <QPropertyAnimation>
 #include <QTimer>
 #include <memory>
 
-class PopupMessage : public IPopupMessage
+class PopupMessage : public AbstractPopupMessage
 {
 public:
     explicit PopupMessage(QWidget* parent = nullptr);
-
+    
     ~PopupMessage() override = default;
 
     float getPopupOpacity() const override;
