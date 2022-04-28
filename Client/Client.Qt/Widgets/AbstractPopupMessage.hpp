@@ -12,8 +12,8 @@ public:
 
     ~AbstractPopupMessage() override = default;
 
-    void  setPopupText(const QString& text)      override = 0;
-    virtual void  popupShow()                    override = 0;
-    virtual float getPopupOpacity() const        override = 0;
-    virtual void  setPopupOpacity(float opacity) override = 0;
+    void  setPopupText(const QString& text)     override = 0;
+    void  popupShow()                           override = 0;
+    float getPopupOpacity() const               override = 0;
+    void  setPopupOpacity(float opacity)        override = 0;
 };
