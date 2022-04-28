@@ -39,7 +39,7 @@ private:
     std::unique_ptr<FlatButton> _registrationButton;
     std::unique_ptr<FlatButton> _backButton;
     std::unique_ptr<LogoWidget> _logoWidget;
-    std::unique_ptr<IPopupMessage> _popupMessage;
+    std::unique_ptr<AbstractPopupMessage> _popupMessage;
 
     std::unique_ptr<QShortcut>  _registrationHotkey;
 };
