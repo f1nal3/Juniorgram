@@ -83,11 +83,11 @@ jobs:
       run:  conan install xorg/system@
       
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}}
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} -DCOVERAGE_MODE:BOOL=True
 
     - name: Build using build-wrapper 
       run: |
-        build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}} --DCOVERAGE_MODE:BOOL=True
+        build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}}
 
     - name: Run sonar-scanner
       env:
