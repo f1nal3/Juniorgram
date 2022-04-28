@@ -28,14 +28,8 @@ PopupMessage::PopupMessage(QWidget* parent)
     _layout.addWidget(&_label, 0, 0);
     setLayout(&_layout);
 
-    _timer = new QTimer();
-    connect(_timer, &QTimer::timeout, this, &PopupMessage::hideAnimation);
-}
-
-PopupMessage::~PopupMessage() 
-{ 
-    delete _timer;
-    _timer = nullptr;
+    _timer = std::make_unique<QTimer>();
+    connect(_timer.get(), &QTimer::timeout, this, &PopupMessage::hideAnimation);
 }
 
 void PopupMessage::paintEvent(QPaintEvent* event)
