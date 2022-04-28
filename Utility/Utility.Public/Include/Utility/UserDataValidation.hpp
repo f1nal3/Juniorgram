@@ -1,4 +1,5 @@
 #pragma once
+
 #include <regex>
 #include <string>
 
@@ -54,4 +55,4 @@ inline bool isPasswordValid(const std::string& password)
     return std::regex_match(password, pattern);
 }
 
-}  // namespace UserDataValidation
+}  /// namespace UserDataValidation

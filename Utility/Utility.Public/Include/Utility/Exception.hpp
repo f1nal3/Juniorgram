@@ -6,7 +6,13 @@
 
 namespace Utility
 {
-/// Formats exception error message with file:line
+/**
+ * @brief Formats exception error message with file:line.
+ * @param msg  - for output message. 
+ * @param file - for file reading.
+ * @param line - to display the output lines in the file.
+ * @return ss  - data output from file.
+ */
 inline std::string formatExceptionMessage(const std::string& msg, const std::string& file, std::uint16_t line)
 {
     std::stringstream ss;
@@ -60,4 +66,4 @@ protected:
     std::string   _file;
     std::uint16_t _line;
 };
-}  // namespace Utility
+}  /// namespace Utility

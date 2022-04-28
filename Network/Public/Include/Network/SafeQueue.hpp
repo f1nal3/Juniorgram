@@ -7,108 +7,108 @@
 
 namespace Network
 {
-template <typename T>
+template <typename TQueue>
 /**
- * @brief The tamplate SafeQueue class
+ * @brief The tamplate SafeQueue class.
  */
 class SafeQueue
 {
-    std::mutex              mScopedMutex, mUniqueMutex;
-    std::condition_variable mBlock;
+    std::mutex              _scopedMutex, _uniqueMutex;
+    std::condition_variable _block;
 
-    std::deque<T> mRawQueue;
+    std::deque<TQueue> _rawQueue;
 
 public:
-    /// Default SafeQueue constructor
+    /// Default SafeQueue constructor.
     SafeQueue()                          = default;
 
-    /// SafeQueue copy constructor delete
-    SafeQueue(const SafeQueue<T>& other) = delete;
+    /// SafeQueue copy constructor delete.
+    SafeQueue(const SafeQueue<TQueue>& other) = delete;
 
-    /// SafeQueue destructor for clear method
+    /// SafeQueue destructor for clear method.
     ~SafeQueue() { clear(); }
 
-    /// Method for access to front value
-    const T& front()
+    /// Method for access to front value.
+    const TQueue& front()
     {
-        std::scoped_lock scopedLock(mScopedMutex);
-        return mRawQueue.front();
+        std::scoped_lock scopedLock(_scopedMutex);
+        return _rawQueue.front();
     }
 
-    /// Method for access to back value
-    const T& back()
+    /// Method for access to back value.
+    const TQueue& back()
     {
-        std::scoped_lock scopedLock(mScopedMutex);
-        return mRawQueue.back();
+        std::scoped_lock scopedLock(_scopedMutex);
+        return _rawQueue.back();
     }
 
-    /// Method to remove front value
-    T pop_front()
+    /// Method to remove front value.
+    TQueue pop_front()
     {
-        std::scoped_lock scopedLock(mScopedMutex);
-        T                result = std::move(mRawQueue.front());
-        mRawQueue.pop_front();
+        std::scoped_lock scopedLock(_scopedMutex);
+        TQueue           result = std::move(_rawQueue.front());
+        _rawQueue.pop_front();
         return result;
     }
 
-    /// Method to remove back value
-    T pop_back()
+    /// Method to remove back value.
+    TQueue pop_back()
     {
-        std::scoped_lock scopedLock(mScopedMutex);
-        T                result = std::move(mRawQueue.back());
-        mRawQueue.pop_back();
+        std::scoped_lock scopedLock(_scopedMutex);
+        TQueue           result = std::move(_rawQueue.back());
+        _rawQueue.pop_back();
         return result;
     }
 
-    /// Method to add back value
-    void push_back(const T& item)
+    /// Method to add back value.
+    void push_back(const TQueue& item)
     {
-        std::scoped_lock scopedLock(mScopedMutex);
-        mRawQueue.emplace_back(std::move(item));
+        std::scoped_lock scopedLock(_scopedMutex);
+        _rawQueue.emplace_back(std::move(item));
 
-        std::unique_lock<std::mutex> uniqueLock(mUniqueMutex);
-        mBlock.notify_one();
+        std::unique_lock<std::mutex> uniqueLock(_uniqueMutex);
+        _block.notify_one();
     }
 
-    /// Method to add front value
-    void push_front(const T& item)
+    /// Method to add front value.
+    void push_front(const TQueue& item)
     {
-        std::scoped_lock scopedLock(mScopedMutex);
-        mRawQueue.emplace_front(std::move(item));
+        std::scoped_lock scopedLock(_scopedMutex);
+        _rawQueue.emplace_front(std::move(item));
 
-        std::unique_lock<std::mutex> uniqueLock(mUniqueMutex);
-        mBlock.notify_one();
+        std::unique_lock<std::mutex> uniqueLock(_uniqueMutex);
+        _block.notify_one();
     }
 
-    /// Method for checking if a SafeQueue is empty
+    /// Method for checking if a SafeQueue is empty.
     bool empty()
     {
-        std::scoped_lock scopedLock(mScopedMutex);
-        return mRawQueue.empty();
+        std::scoped_lock scopedLock(_scopedMutex);
+        return _rawQueue.empty();
     }
 
-    /// Method for return size
+    /// Method for return size.
     size_t size()
     {
-        std::scoped_lock scopedLock(mScopedMutex);
-        return mRawQueue.size();
+        std::scoped_lock scopedLock(_scopedMutex);
+        return _rawQueue.size();
     }
 
-    /// Method for clear SafeQueue
+    /// Method for clear SafeQueue.
     void clear()
     {
-        std::scoped_lock scopedLock(mScopedMutex);
-        mRawQueue.clear();
+        std::scoped_lock scopedLock(_scopedMutex);
+        _rawQueue.clear();
     }
 
-    /// Method to wait which uses condition variable
+    /// Method to wait which uses condition variable.
     void wait()
     {
         while (empty())
         {
-            std::unique_lock<std::mutex> uniqueLock(mUniqueMutex);
-            mBlock.wait(uniqueLock);
+            std::unique_lock<std::mutex> uniqueLock(_uniqueMutex);
+            _block.wait(uniqueLock);
         }
     }
 };
-}  // namespace Network
+}  /// namespace Network

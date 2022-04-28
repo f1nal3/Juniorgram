@@ -20,9 +20,9 @@ public:
     {
         SerializedState state = SerializedState::SUCCESS;
 
-        if (message.mBody.has_value())
+        if (message._body.has_value())
         {
-            switch (message.mHeader.mMessageType)
+            switch (message._header._messageType)
             {
                 case Message::MessageType::ServerAccept:
                     break;
@@ -37,125 +37,125 @@ public:
                     break;
 
                 case Message::MessageType::ChannelListRequest:
-                    state = processOutcomingMessageBody<std::vector<ChannelInfo>>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::vector<ChannelInfo>>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::MessageHistoryRequest:
-                    state = processOutcomingMessageBody<std::uint64_t>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::uint64_t>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::MessageHistoryAnswer:
-                    state = processOutcomingMessageBody<std::vector<MessageInfo>>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::vector<MessageInfo>>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::MessageStoreRequest:
-                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::MessageStoreAnswer:
-                    state = processOutcomingMessageBody<Utility::StoringMessageCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::StoringMessageCodes>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::ReplyHistoryRequest:
-                    state = processOutcomingMessageBody<std::uint64_t>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::uint64_t>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::ReplyHistoryAnswer:
-                    state = processOutcomingMessageBody<std::vector<ReplyInfo>>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::vector<ReplyInfo>>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::ReplyStoreRequest:
-                    state = processOutcomingMessageBody<ReplyInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<ReplyInfo>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::ReplyStoreAnswer:
-                    state = processOutcomingMessageBody<Utility::StoringReplyCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::StoringReplyCodes>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::MessageDeleteRequest:
-                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::MessageDeleteAnswer:
-                    state = processOutcomingMessageBody<Utility::DeletingMessageCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::DeletingMessageCodes>(bodyBuffer, message._body);
                     break;
                     
                 case Message::MessageType::MessageEditRequest:
-                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::MessageEditAnswer:
-                    state = processOutcomingMessageBody<Utility::EditingMessageCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::EditingMessageCodes>(bodyBuffer, message._body);
                     break;       
 
                 case Message::MessageType::MessageReactionRequest:
-                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::MessageReactionAnswer:
-                    state = processOutcomingMessageBody<Utility::ReactionMessageCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::ReactionMessageCodes>(bodyBuffer, message._body);
                     break;
                     
                 case Message::MessageType::RegistrationRequest:
-                    state = processOutcomingMessageBody<RegistrationInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<RegistrationInfo>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::RegistrationAnswer:
-                    state = processOutcomingMessageBody<Utility::RegistrationCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::RegistrationCodes>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::LoginRequest:
-                    state = processOutcomingMessageBody<LoginInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<LoginInfo>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::LoginAnswer:
-                    state = processOutcomingMessageBody<bool>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<bool>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::ChannelLeaveRequest:
-                    state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::string>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::ChannelLeaveAnswer:
-                    state = processOutcomingMessageBody<Utility::ChannelLeaveCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::ChannelLeaveCodes>(bodyBuffer, message._body);
                     break;
                 case Message::MessageType::ChannelSubscribeRequest:
-                    state = processOutcomingMessageBody<ChannelSubscriptionInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<ChannelSubscriptionInfo>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::ChannelSubscribeAnswer:
-                    state = processOutcomingMessageBody<Utility::ChannelSubscribingCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::ChannelSubscribingCodes>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::ChannelSubscriptionListRequest:
-                    state = processOutcomingMessageBody<ChannelSubscriptionInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<ChannelSubscriptionInfo>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::ChannelSubscriptionListAnswer:
-                    state = processOutcomingMessageBody<std::vector<uint64_t>>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::vector<uint64_t>>(bodyBuffer, message._body);
                     break;
                 case Message::MessageType::ChannelDeleteRequest:
-                    state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::string>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::ChannelDeleteAnswer:
-                    state = processOutcomingMessageBody<Utility::ChannelDeleteCode>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::ChannelDeleteCode>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::ChannelCreateRequest:
-                    state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::string>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::ChannelCreateAnswer:
-                    state = processOutcomingMessageBody<Utility::ChannelCreateCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::ChannelCreateCodes>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::DirectMessageCreateRequest:
-                    state = processOutcomingMessageBody<uint64_t>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<uint64_t>(bodyBuffer, message._body);
                     break;
 
                 case Message::MessageType::DirectMessageCreateAnswer:
-                    state = processOutcomingMessageBody<Utility::DirectMessageStatus>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::DirectMessageStatus>(bodyBuffer, message._body);
                     break;
 
                 default:
@@ -165,9 +165,9 @@ public:
 
         if (state == SerializedState::SUCCESS)
         {
-            if (this->nextHandler)
+            if (this->_nextHandler)
             {
-                this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
+                this->_nextHandler->handleOutcomingMessage(message, bodyBuffer);
             }
             return MessageProcessingState::SUCCESS;
         }
@@ -184,7 +184,7 @@ public:
     {
         SerializedState state = SerializedState::FAILURE;
 
-        switch (message.mHeader.mMessageType)
+        switch (message._header._messageType)
         {
             case Message::MessageType::ServerAccept:
                 break;
@@ -349,9 +349,9 @@ public:
 
         if (state == SerializedState::SUCCESS)
         {
-            if (this->nextHandler)
+            if (this->_nextHandler)
             {
-                this->nextHandler->handleIncomingMessageBody(buffer, message);
+                this->_nextHandler->handleIncomingMessageBody(buffer, message);
             }
             return MessageProcessingState::SUCCESS;
         }
@@ -360,12 +360,12 @@ public:
     }
 
 private:
-    template <typename T>
+    template <typename TMessage>
     SerializedState processOutcomingMessageBody(yas::shared_buffer& bodyBuffer, const std::any messageBody)
     {
         try
         {
-            return YasSerializer::template serialize<T>(bodyBuffer, std::any_cast<T>(messageBody));
+            return YasSerializer::template serialize<TMessage>(bodyBuffer, std::any_cast<TMessage>(messageBody));
         }
         catch (const std::bad_any_cast& e)
         {
@@ -378,18 +378,18 @@ private:
         }
     }
 
-    template <typename T>
+    template <typename TMessage>
     SerializedState processIncomingMessageBody(const yas::shared_buffer& bodyBuffer, Message& message)
     {
         try
         {
-            T messageInfo;
+            TMessage messageInfo;
 
-            SerializedState state = YasSerializer::template deserialize<T>(bodyBuffer, messageInfo);
+            SerializedState state = YasSerializer::template deserialize<TMessage>(bodyBuffer, messageInfo);
 
             if (state == SerializedState::SUCCESS)
             {
-                message.mBody = std::make_any<T>(messageInfo);
+                message.mBody = std::make_any<TMessage>(messageInfo);
             }
 
             return state;
@@ -405,4 +405,4 @@ private:
         }
     }
 };
-}  // namespace Network
+}  /// namespace Network

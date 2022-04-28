@@ -20,7 +20,7 @@ class Connection;
  */
 struct Message
 {
-    /// Enum class for Message Type
+    /// Enum class for Message Type.
     enum class MessageType : std::uint32_t
     {
         ServerAccept,
@@ -66,40 +66,40 @@ struct Message
      */
     struct MessageHeader
     {
-        MessageType                                        mMessageType = MessageType();
-        std::uint32_t                                      mBodySize    = std::uint32_t();
-        std::chrono::time_point<std::chrono::system_clock> mTimestamp   = std::chrono::system_clock::now();
+        MessageType                                        _messageType = MessageType();
+        std::uint32_t                                      _bodySize    = std::uint32_t();
+        std::chrono::time_point<std::chrono::system_clock> _timestamp   = std::chrono::system_clock::now();
     };
 
-    /// Connection variable
-    std::shared_ptr<Connection> mRemote = nullptr;
+    /// Connection variable.
+    std::shared_ptr<Connection> _remote = nullptr;
 
-    /// Message Header variable
-    MessageHeader mHeader;
-    /// Message Body variable
-    std::any mBody;
+    /// Message Header variable.
+    MessageHeader _header;
+    /// Message Body variable.
+    std::any _body;
 
-    /// Stream for out message about message ID and Timestapm
+    /// Stream for out message about message ID and Timestapm.
     friend std::ostream& operator<<(std::ostream& os, const Message& message)
     {
-        std::tm formattedTimestamp = Utility::safe_localtime(std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
+        std::tm formattedTimestamp = Utility::safe_localtime(std::chrono::system_clock::to_time_t(message._header._timestamp));
 
-        os << "ID:" << size_t(message.mHeader.mMessageType) << " Size:" << message.mHeader.mBodySize
+        os << "ID:" << size_t(message._header._messageType) << " Size:" << message._header._bodySize
            << "Timestamp:" << std::put_time(&formattedTimestamp, "%F %T");
         return os;
     }
 
-    /// Operator < for comparison timestamps
-    friend bool operator<(const Message& lhs, const Message& rhs) { return lhs.mHeader.mTimestamp < rhs.mHeader.mTimestamp; }
+    /// Operator < for comparison timestamps.
+    friend bool operator<(const Message& lhs, const Message& rhs) { return lhs._header._timestamp < rhs._header._timestamp; }
 
-    /// Operator > for comparison timestamps
-    friend bool operator>(const Message& lhs, const Message& rhs) { return lhs.mHeader.mTimestamp > rhs.mHeader.mTimestamp; }
+    /// Operator > for comparison timestamps.
+    friend bool operator>(const Message& lhs, const Message& rhs) { return lhs._header._timestamp > rhs._header._timestamp; }
 };
 
-/// Serialize method for MessageHeader which serialize each field
-template <typename Archive>
-void serialize(Archive& ar, Message::MessageHeader& o)
+/// Serialize method for MessageHeader which serialize each field.
+template <typename TArchive>
+void serialize(TArchive& ar, Message::MessageHeader& o)
 {
-    ar& o.mMessageType& o.mBodySize& o.mTimestamp;
+    ar& o._messageType& o._bodySize& o._timestamp;
 }
-}  // namespace Network
+}  /// namespace Network

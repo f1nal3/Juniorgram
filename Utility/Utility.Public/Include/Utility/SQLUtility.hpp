@@ -21,10 +21,10 @@ enum class DatabaseType : std::uint8_t
  */
 enum class SQLStatement : std::uint8_t
 {
-    ST_SELECT,  /// SELECT statement
-    ST_INSERT,  /// INSERT statement
-    ST_UPDATE,  /// UPDATE statement
-    ST_DELETE   /// DELETE statement
+    ST_SELECT,  /// SELECT statement.
+    ST_INSERT,  /// INSERT statement.
+    ST_UPDATE,  /// UPDATE statement.
+    ST_DELETE   /// DELETE statement.
 };
 
 /**
@@ -33,10 +33,10 @@ enum class SQLStatement : std::uint8_t
  */
 enum class SQLJoinType : std::uint8_t
 {
-    J_INNER,  /// Standard inner sql join
-    J_LEFT,   /// Left sql join
-    J_RIGHT,  /// Right sql join
-    J_FULL    /// Full sql join
+    J_INNER,  /// Standard inner SQL join.
+    J_LEFT,   /// Left SQL join.
+    J_RIGHT,  /// Right SQL join.
+    J_FULL    /// Full SQL join.
 };
 
 template <typename T, typename... Args>
@@ -122,4 +122,4 @@ restoreWarning
         return arg;
     }
 }
-}  // namespace Utility
+}  /// namespace Utility

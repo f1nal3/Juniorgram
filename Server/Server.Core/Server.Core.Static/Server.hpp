@@ -22,21 +22,21 @@ namespace Server
 /**
  *  @class Server class
  *  @brief This class does all logic which is needed to run the server.
- *  @details Uses std::asio tools
+ *  @details Uses std::asio tools.
  */
 class Server
 {
 private:
-    uint64_t mIDCounter         = 10000;
-    uint64_t mCriticalQueueSize = 100;
-    uint64_t mNewThreadsCount   = std::thread::hardware_concurrency();
+    uint64_t _IDCounter         = 10000;
+    uint64_t _criticalQueueSize = 100;
+    uint64_t _newThreadsCount   = std::thread::hardware_concurrency();
 
-    asio::io_context                                       mContext;
-    asio::ip::tcp::acceptor                                mAcceptor;
-    std::deque<std::shared_ptr<Network::Connection>>       mConnectionsPointers;
-    Network::SafeQueue<Network::Message>                   mIncomingMessagesQueue;
-    std::deque<std::thread>                                mThreads;
-    std::unique_ptr<DataAccess::PostgreRepositoryManager>  mPostgreManager;
+    asio::io_context                                       _context;
+    asio::ip::tcp::acceptor                                _acceptor;
+    std::deque<std::shared_ptr<Network::Connection>>       _connectionsPointers;
+    Network::SafeQueue<Network::Message>                   _incomingMessagesQueue;
+    std::deque<std::thread>                                _threads;
+    std::unique_ptr<DataAccess::PostgreRepositoryManager>  _postgreManager;
 
 private:
     /**
@@ -60,8 +60,8 @@ private:
 public:
     /**
     * @brief Explicit constructor
-    * @param const uint16_t& port
-    * @details Uses incoming port value from ArgumentParser
+    * @param const uint16_t& port.
+    * @details Uses incoming port value from ArgumentParser.
     */
     explicit Server(const uint16_t& port);
     /**
@@ -104,4 +104,4 @@ public:
      */
     void update(std::size_t maxMessages = std::numeric_limits<size_t>::max(), bool wait = true);
 };
-}  // namespace Server
+}  /// namespace Server

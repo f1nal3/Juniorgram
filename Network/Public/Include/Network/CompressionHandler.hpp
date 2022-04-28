@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Handler.hpp"
 
 namespace Network
@@ -22,9 +23,9 @@ public:
         // messageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
         // header compression
 
-        if (this->nextHandler)
+        if (this->_nextHandler)
         {
-            this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
+            this->_nextHandler->handleOutcomingMessage(message, bodyBuffer);
         }
         return MessageProcessingState::SUCCESS;
     }
@@ -38,11 +39,11 @@ public:
     {
         // body decompression
 
-        if (this->nextHandler)
+        if (this->_nextHandler)
         {
-            this->nextHandler->handleIncomingMessageBody(buffer, message);
+            this->_nextHandler->handleIncomingMessageBody(buffer, message);
         }
         return MessageProcessingState::SUCCESS;
     }
 };
-}  // namespace Network
+}  /// namespace Network

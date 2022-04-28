@@ -1,4 +1,8 @@
 #pragma once
+
+#include <FileLogger.hpp>
+
+#include "Network/Primitives.hpp"
 #include "Utility/WarningSuppression.hpp"
 suppressWarning(4996, "-Wdeprecated-declarations")
 suppressWarning(4458, "-Wshadow")
@@ -14,19 +18,15 @@ suppressWarning(4458, "-Wshadow")
 restoreWarning
 restoreWarning
 
-#include <FileLogger.hpp>
-
-#include "Network/Primitives.hpp"
-
     namespace Network
 {
     /** @enum SerializedState
-     *  @brief Successful or not result of serialization/deserialization
+     *  @brief Successful or not result of serialization/deserialization.
      */
     enum class SerializedState
     {
-        SUCCESS,  /// successful serialization/deserialization
-        FAILURE   /// unsuccessful serialization/deserialization
+        SUCCESS,  /// successful serialization/deserialization.
+        FAILURE   /// unsuccessful serialization/deserialization.
     };
 
     /** @class YasSerializer
@@ -86,7 +86,8 @@ restoreWarning
             }
             catch (const std::exception& e)
             {
-                Base::Logger::FileLogger::getInstance().log(
+                Base::Logger::FileLogger::getInstance().log
+                (
                     std::string("Deserialization error\n") + e.what() + '\n',
                     Base::Logger::LogLevel::ERR
                 );
@@ -96,4 +97,4 @@ restoreWarning
             return SerializedState::SUCCESS;
         }
     };
-}
+} /// namespace Network

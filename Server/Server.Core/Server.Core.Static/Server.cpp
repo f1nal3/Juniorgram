@@ -1,7 +1,6 @@
-#include "Server.hpp"
-
 #include <future>
 
+#include "Server.hpp"
 #include "DataAccess.Postgre/PostgreRepositoryManager.hpp"
 
 using Network::Connection;
@@ -12,9 +11,9 @@ namespace Server
 {
 bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
 {
-    Network::Message message;
-    message.mHeader.mMessageType = Network::Message::MessageType::ServerAccept;
-    client->send(message);
+    Network::Message messageHandler;
+    messageHandler._header._messageType = Network::Message::MessageType::ServerAccept;
+    client->send(messageHandler);
     return true;
 }
 
@@ -32,20 +31,20 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
     using namespace DataAccess;
 
     const auto currentTime     = std::chrono::system_clock::now();
-    message.mHeader.mTimestamp = currentTime;
+    message._header._timestamp = currentTime;
 
-    switch (message.mHeader.mMessageType)
+    switch (message._header._messageType)
     {
         case Network::Message::MessageType::ServerPing:
         {
-            std::tm formattedTimestamp = Utility::safe_localtime(std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
+            std::tm formattedTimestamp = Utility::safe_localtime(std::chrono::system_clock::to_time_t(message._header._timestamp));
             
-            std::ostringstream out;
-            out << std::put_time(&formattedTimestamp, "%F %T");
+            std::ostringstream timeOutput;
+            timeOutput << std::put_time(&formattedTimestamp, "%F %T");
             
             Base::Logger::FileLogger::getInstance().log
             (
-                "[" + out.str() + "][" + std::to_string(client->getID()) + "]: Server Ping", 
+                "[" + timeOutput.str() + "][" + std::to_string(client->getID()) + "]: Server Ping", 
                 Base::Logger::LogLevel::INFO
             );
 
@@ -55,179 +54,179 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::MessageAll:
         {
-            std::tm formattedTimestamp = Utility::safe_localtime(std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
+            std::tm formattedTimestamp = Utility::safe_localtime(std::chrono::system_clock::to_time_t(message._header._timestamp));
 
-            std::ostringstream out;
-            out << std::put_time(&formattedTimestamp, "%F %T");
+            std::ostringstream timeOutput;
+            timeOutput << std::put_time(&formattedTimestamp, "%F %T");
 
             Base::Logger::FileLogger::getInstance().log
             (
-                "[" + out.str() + "][" + std::to_string(client->getID()) + "]: Message All\n", 
+                "[" + timeOutput.str() + "][" + std::to_string(client->getID()) + "]: Message All\n", 
                 Base::Logger::LogLevel::INFO
             );
-
-            Network::Message msg;  // T\todo Why is a new message needed here?
-            msg.mHeader.mMessageType = Network::Message::MessageType::ServerMessage;
+            /// T\todo Why is a new message needed here?
+            Network::Message messageHandler;  
+            messageHandler._header._messageType = Network::Message::MessageType::ServerMessage;
             // msg << client->getID();
 
-            messageAllClients(msg, client);
+            messageAllClients(messageHandler, client);
         }
         break;
 
         case Network::Message::MessageType::ChannelListRequest:
         {
-            auto future = mPostgreManager->pushRequest(&IChannelsRepository::getAllChannelsList);
+            auto futureResult = _postgreManager->pushRequest(&IChannelsRepository::getAllChannelsList);
 
-            Network::Message msg;
-            msg.mHeader.mMessageType = Network::Message::MessageType::ChannelListRequest;
+            Network::Message messageHandler;
+            messageHandler._header._messageType = Network::Message::MessageType::ChannelListRequest;
 
-            auto channelList = future.get();
-            msg.mBody        = std::make_any<std::vector<Network::ChannelInfo>>(channelList);
+            auto channelList     = futureResult.get();
+            messageHandler._body = std::make_any<std::vector<Network::ChannelInfo>>(channelList);
 
-            client->send(msg);
+            client->send(messageHandler);
         }
         break;
 
         case Network::Message::MessageType::MessageHistoryRequest:
         {
-            auto channelID = std::any_cast<std::uint64_t>(message.mBody);
+            auto channelID      = std::any_cast<std::uint64_t>(message._body);
 
-            auto future = mPostgreManager->pushRequest(&IMessagesRepository::getMessageHistory, fmt(channelID));
+            auto futureResult = _postgreManager->pushRequest(&IMessagesRepository::getMessageHistory, fmt(channelID));
 
-            Network::Message msg;
-            msg.mHeader.mMessageType = Network::Message::MessageType::MessageHistoryAnswer;
+            Network::Message messageHandler;
+            messageHandler._header._messageType = Network::Message::MessageType::MessageHistoryAnswer;
 
-            auto messageHistory = future.get();
+            auto messageHistory = futureResult.get();
 
-            msg.mBody = std::make_any<std::vector<Network::MessageInfo>>(messageHistory);
-            client->send(msg);
+            messageHandler._body = std::make_any<std::vector<Network::MessageInfo>>(messageHistory);
+            client->send(messageHandler);
         }
         break;
 
         case Network::Message::MessageType::MessageStoreRequest:
         {
-            auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
-            mi.senderID = client->getUserID();
-            mi.message  = Utility::removeSpaces(mi.message);
-            mi.time     = Utility::millisecondsSinceEpoch();
+            auto messageInfo     = std::any_cast<Network::MessageInfo>(message._body);
+            messageInfo._senderID = client->getUserID();
+            messageInfo._message  = Utility::removeSpaces(messageInfo._message);
+            messageInfo._time     = Utility::millisecondsSinceEpoch();
 
-            auto future = mPostgreManager->pushRequest(&IMessagesRepository::storeMessage, fmt(mi));
+            auto futureResult = _postgreManager->pushRequest(&IMessagesRepository::storeMessage, fmt(messageInfo));
 
             Network::Message answerForClient;
-            answerForClient.mHeader.mMessageType = Network::Message::MessageType::MessageStoreAnswer;
+            answerForClient._header._messageType = Network::Message::MessageType::MessageStoreAnswer;
 
-            auto messageStoringCode = future.get();
+            auto messageStoringCode = futureResult.get();
 
-            answerForClient.mBody = std::make_any<Utility::StoringMessageCodes>(messageStoringCode);
+            answerForClient._body = std::make_any<Utility::StoringMessageCodes>(messageStoringCode);
             client->send(answerForClient);
         }
         break;
 
         case Network::Message::MessageType::ReplyHistoryRequest:
         {
-            auto channelID = std::any_cast<std::uint64_t>(message.mBody);
+            auto channelID   = std::any_cast<std::uint64_t>(message._body);
 
-            auto future = mPostgreManager->pushRequest(&IRepliesRepository::getReplyHistory, fmt(channelID));
+            auto futureResult = _postgreManager->pushRequest(&IRepliesRepository::getReplyHistory, fmt(channelID));
 
             Network::Message replyMsg;
-            replyMsg.mHeader.mMessageType = Network::Message::MessageType::ReplyHistoryAnswer;
+            replyMsg._header._messageType = Network::Message::MessageType::ReplyHistoryAnswer;
 
-            auto replyHistory = future.get();
+            auto replyHistory = futureResult.get();
 
-            replyMsg.mBody = std::make_any<std::vector<Network::ReplyInfo>>(replyHistory);
+            replyMsg._body    = std::make_any<std::vector<Network::ReplyInfo>>(replyHistory);
             client->send(replyMsg);
         }
         break;
 
         case Network::Message::MessageType::ReplyStoreRequest:
         {
-            auto ri     = std::any_cast<Network::ReplyInfo>(message.mBody);
-            ri.senderID = client->getUserID();
-            ri.message  = Utility::removeSpaces(ri.message);
+            auto replyInfo     = std::any_cast<Network::ReplyInfo>(message._body);
+            replyInfo._senderID = client->getUserID();
+            replyInfo._message  = Utility::removeSpaces(replyInfo._message);
 
-            auto future = mPostgreManager->pushRequest(&IRepliesRepository::storeReply, fmt(ri));
+            auto futureResult = _postgreManager->pushRequest(&IRepliesRepository::storeReply, fmt(replyInfo));
 
             Network::Message answerForClient;
-            answerForClient.mHeader.mMessageType = Network::Message::MessageType::ReplyStoreAnswer;
+            answerForClient._header._messageType = Network::Message::MessageType::ReplyStoreAnswer;
 
-            auto replyStoringCode = future.get();
+            auto replyStoringCode = futureResult.get();
 
-            answerForClient.mBody = std::make_any<Utility::StoringReplyCodes>(replyStoringCode);
+            answerForClient._body = std::make_any<Utility::StoringReplyCodes>(replyStoringCode);
             client->send(answerForClient);
         }
         break;
 
         case Network::Message::MessageType::MessageDeleteRequest:
         {
-            auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
-            mi.senderID = client->getUserID();
+            auto messageInfo     = std::any_cast<Network::MessageInfo>(message._body);
+            messageInfo._senderID = client->getUserID();
 
-            auto future = mPostgreManager->pushRequest(&IMessagesRepository::deleteMessage, fmt(mi));
+            auto futureResult = _postgreManager->pushRequest(&IMessagesRepository::deleteMessage, fmt(messageInfo));
 
             Network::Message answerForClient;
-            answerForClient.mHeader.mMessageType = Network::Message::MessageType::MessageDeleteAnswer;
+            answerForClient._header._messageType = Network::Message::MessageType::MessageDeleteAnswer;
 
-            const auto deletingMessageCode = future.get();
-            answerForClient.mBody          = std::make_any<Utility::DeletingMessageCodes>(deletingMessageCode);
+            const auto deletingMessageCode = futureResult.get();
+            answerForClient._body          = std::make_any<Utility::DeletingMessageCodes>(deletingMessageCode);
             client->send(answerForClient);
         }
         break;
 
         case Network::Message::MessageType::MessageEditRequest:
         {
-            auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
-            mi.senderID = client->getUserID();
+            auto messageInfo     = std::any_cast<Network::MessageInfo>(message._body);
+            messageInfo._senderID = client->getUserID();
 
-            auto future = mPostgreManager->pushRequest(&IMessagesRepository::editMessage, fmt(mi));
+            auto futureResult = _postgreManager->pushRequest(&IMessagesRepository::editMessage, fmt(messageInfo));
 
             Network::Message answerForClient;
-            answerForClient.mHeader.mMessageType = Network::Message::MessageType::MessageEditAnswer;
+            answerForClient._header._messageType = Network::Message::MessageType::MessageEditAnswer;
 
-            const auto editingMessageCode = future.get();
-            answerForClient.mBody         = std::make_any<Utility::EditingMessageCodes>(editingMessageCode);
+            const auto editingMessageCode = futureResult.get();
+            answerForClient._body         = std::make_any<Utility::EditingMessageCodes>(editingMessageCode);
             client->send(answerForClient);
         }
         break;
 
         case Network::Message::MessageType::MessageReactionRequest:
         {
-            auto messageInfo     = std::any_cast<Network::MessageInfo>(message.mBody);
-            messageInfo.senderID = client->getUserID();
+            auto messageInfo     = std::any_cast<Network::MessageInfo>(message._body);
+            messageInfo._senderID = client->getUserID();
 
-            auto future = mPostgreManager->pushRequest(&IMessagesRepository::updateMessageReactions, fmt(messageInfo));
+            auto futureResult = _postgreManager->pushRequest(&IMessagesRepository::updateMessageReactions, fmt(messageInfo));
 
             Network::Message answerForClient;
-            answerForClient.mHeader.mMessageType = Network::Message::MessageType::MessageReactionAnswer;
+            answerForClient._header._messageType = Network::Message::MessageType::MessageReactionAnswer;
 
-            const auto reactionMessageCode = future.get();
-            answerForClient.mBody          = std::make_any<Utility::ReactionMessageCodes>(reactionMessageCode);
+            const auto reactionMessageCode = futureResult.get();
+            answerForClient._body          = std::make_any<Utility::ReactionMessageCodes>(reactionMessageCode);
             client->send(answerForClient);
         }
         break;
 
         case Network::Message::MessageType::RegistrationRequest:
         {
-            auto ri = std::any_cast<Network::RegistrationInfo>(message.mBody);
+            auto replyInfo = std::any_cast<Network::RegistrationInfo>(message._body);
 
-            auto future = mPostgreManager->pushRequest(&IRegisterRepository::registerUser, fmt(ri));
+            auto futureResult = _postgreManager->pushRequest(&IRegisterRepository::registerUser, fmt(replyInfo));
 
             Network::Message messageToClient;
-            messageToClient.mHeader.mMessageType = Network::Message::MessageType::RegistrationAnswer;
+            messageToClient._header._messageType = Network::Message::MessageType::RegistrationAnswer;
 
-            auto registrationCode = future.get();
+            auto registrationCode = futureResult.get();
 
-            messageToClient.mBody = std::make_any<Utility::RegistrationCodes>(registrationCode);
+            messageToClient._body = std::make_any<Utility::RegistrationCodes>(registrationCode);
             client->send(messageToClient);
         }
         break;
 
         case Network::Message::MessageType::LoginRequest:
         {
-            auto li = std::any_cast<Network::LoginInfo>(message.mBody);
+            auto loginInfo = std::any_cast<Network::LoginInfo>(message._body);
 
-            auto future = mPostgreManager->pushRequest(&ILoginRepository::loginUser, fmt(li));
+            auto futureResult = _postgreManager->pushRequest(&ILoginRepository::loginUser, fmt(loginInfo));
 
-            auto userID          = future.get();
+            auto userID          = futureResult.get();
             auto loginSuccessful = userID != 0;
 
             Base::Logger::FileLogger::getInstance().log
@@ -237,8 +236,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             );
 
             Network::Message messageToClient;
-            messageToClient.mHeader.mMessageType = Network::Message::MessageType::LoginAnswer;
-            messageToClient.mBody                = std::make_any<bool>(loginSuccessful);
+            messageToClient._header._messageType = Network::Message::MessageType::LoginAnswer;
+            messageToClient._body                = std::make_any<bool>(loginSuccessful);
 
             client->send(messageToClient);
 
@@ -259,34 +258,34 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             Network::ChannelLeaveInfo channelLeaveInfo;
 
-            auto channelName             = std::any_cast<std::string>(message.mBody);
-            channelLeaveInfo.creatorID   = client->getUserID();
-            channelLeaveInfo.channelName = channelName;
+            auto channelName             = std::any_cast<std::string>(message._body);
+            channelLeaveInfo._creatorID   = client->getUserID();
+            channelLeaveInfo._channelName = channelName;
 
-            auto future = mPostgreManager->pushRequest(&IChannelsRepository::leaveChannel, fmt(channelLeaveInfo));
+            auto futureResult = _postgreManager->pushRequest(&IChannelsRepository::leaveChannel, fmt(channelLeaveInfo));
 
             Network::Message messageToClient;
-            messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelLeaveAnswer;
+            messageToClient._header._messageType = Network::Message::MessageType::ChannelLeaveAnswer;
 
-            auto subscribingChannelCodes = future.get();
-            messageToClient.mBody        = std::make_any<Utility::ChannelLeaveCodes>(subscribingChannelCodes);
+            auto subscribingChannelCodes = futureResult.get();
+            messageToClient._body        = std::make_any<Utility::ChannelLeaveCodes>(subscribingChannelCodes);
             client->send(messageToClient);
         }
         break;
 
         case Network::Message::MessageType::ChannelSubscribeRequest:
         {
-            auto channel   = std::any_cast<Network::ChannelSubscriptionInfo>(message.mBody);
-            channel.userID = client->getUserID();
+            auto channelInfo   = std::any_cast<Network::ChannelSubscriptionInfo>(message._body);
+            channelInfo._userID = client->getUserID();
 
-            auto future = mPostgreManager->pushRequest(&IChannelsRepository::subscribeToChannel, fmt(channel));
+            auto futureResult = _postgreManager->pushRequest(&IChannelsRepository::subscribeToChannel, fmt(channelInfo));
 
             Network::Message messageToClient;
-            messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelSubscribeAnswer;
+            messageToClient._header._messageType = Network::Message::MessageType::ChannelSubscribeAnswer;
 
-            auto subscribingChannelCodes = future.get();
+            auto subscribingChannelCodes = futureResult.get();
 
-            messageToClient.mBody = std::make_any<Utility::ChannelSubscribingCodes>(subscribingChannelCodes);
+            messageToClient._body = std::make_any<Utility::ChannelSubscribingCodes>(subscribingChannelCodes);
             client->send(messageToClient);
         }
         break;
@@ -295,13 +294,13 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             const auto userID = client->getUserID();
 
-            auto future = mPostgreManager->pushRequest(&IChannelsRepository::getChannelSubscriptionList, fmt(userID));
+            auto futureResult = _postgreManager->pushRequest(&IChannelsRepository::getChannelSubscriptionList, fmt(userID));
 
             Network::Message messageToClient;
-            messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelSubscriptionListAnswer;
+            messageToClient._header._messageType = Network::Message::MessageType::ChannelSubscriptionListAnswer;
 
-            auto subscribingChannelCodes = future.get();
-            messageToClient.mBody        = std::make_any<std::vector<uint64_t>>(subscribingChannelCodes);
+            auto subscribingChannelCodes = futureResult.get();
+            messageToClient._body        = std::make_any<std::vector<uint64_t>>(subscribingChannelCodes);
             client->send(messageToClient);
         }
         break;
@@ -310,17 +309,17 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             Network::ChannelDeleteInfo channelDeleteInfo;
 
-            auto channelName              = std::any_cast<std::string>(message.mBody);
-            channelDeleteInfo.creatorID   = client->getUserID();
-            channelDeleteInfo.channelName = channelName;
+            auto channelName              = std::any_cast<std::string>(message._body);
+            channelDeleteInfo._creatorID   = client->getUserID();
+            channelDeleteInfo._channelName = channelName;
 
-            auto future = mPostgreManager->pushRequest(&IChannelsRepository::deleteChannel, fmt(channelDeleteInfo));
+            auto futureResult = _postgreManager->pushRequest(&IChannelsRepository::deleteChannel, fmt(channelDeleteInfo));
 
             Network::Message messageToClient;
-            messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelDeleteAnswer;
+            messageToClient._header._messageType = Network::Message::MessageType::ChannelDeleteAnswer;
 
-            auto deletedChannelCodes = future.get();
-            messageToClient.mBody    = std::make_any<Utility::ChannelDeleteCode>(deletedChannelCodes);
+            auto deletedChannelCodes = futureResult.get();
+            messageToClient._body    = std::make_any<Utility::ChannelDeleteCode>(deletedChannelCodes);
             client->send(messageToClient);
         }
         break;
@@ -329,46 +328,49 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         {
             Network::ChannelInfo newChannelInfo;
 
-            auto channelName           = std::any_cast<std::string>(message.mBody);
-            newChannelInfo.creatorID   = client->getUserID();
-            newChannelInfo.channelName = channelName;
+            auto channelName           = std::any_cast<std::string>(message._body);
+            newChannelInfo._creatorID   = client->getUserID();
+            newChannelInfo._channelName = channelName;
 
-            auto future = mPostgreManager->pushRequest(&IChannelsRepository::createChannel, fmt(newChannelInfo));
+            auto futureResult = _postgreManager->pushRequest(&IChannelsRepository::createChannel, fmt(newChannelInfo));
 
             Network::Message messageToClient;
-            messageToClient.mHeader.mMessageType = Network::Message::MessageType::ChannelCreateAnswer;
+            messageToClient._header._messageType = Network::Message::MessageType::ChannelCreateAnswer;
 
-            auto channelCreateCode = future.get();
-            messageToClient.mBody  = std::make_any<Utility::ChannelCreateCodes>(channelCreateCode);
+            auto channelCreateCode = futureResult.get();
+            messageToClient._body  = std::make_any<Utility::ChannelCreateCodes>(channelCreateCode);
             client->send(messageToClient);
         }
         break;
 
         case Network::Message::MessageType::DirectMessageCreateRequest:
         {
-            auto secondUser = std::any_cast<std::uint64_t>(message.mBody);
+            auto secondUser = std::any_cast<std::uint64_t>(message._body);
 
-            auto result = mPostgreManager->pushRequest(&IDirectMessageRepository::addDirectChat, fmt(client->getUserID()), fmt(secondUser));
+            auto futureResult = _postgreManager->pushRequest(&IDirectMessageRepository::addDirectChat, fmt(client->getUserID()), fmt(secondUser));
 
             Network::Message messageToClient;
-            messageToClient.mHeader.mMessageType = Network::Message::MessageType::DirectMessageCreateAnswer;
+            messageToClient._header._messageType = Network::Message::MessageType::DirectMessageCreateAnswer;
 
-            messageToClient.mBody = std::make_any<Utility::DirectMessageStatus>(result.get());
+            messageToClient._body = std::make_any<Utility::DirectMessageStatus>(futureResult.get());
             client->send(messageToClient);
         }
         break;
 
         default:
         {
-            Base::Logger::FileLogger::getInstance().log("Unknown command received", Base::Logger::LogLevel::ERR);
+            Base::Logger::FileLogger::getInstance().log
+            (
+                "Unknown command received", Base::Logger::LogLevel::ERR
+            );
         }
         break;
     }
 }
 
 Server::Server(const uint16_t& port)
-    : mAcceptor(mContext, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port)),
-      mPostgreManager(
+    : _acceptor(_context, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port)),
+      _postgreManager(
           std::make_unique<DataAccess::PostgreRepositoryManager>(DataAccess::PostgreAdapter::getInstance<DataAccess::PostgreAdapter>()))
 {
 }
@@ -384,20 +386,23 @@ void Server::start()
     
     for (size_t i = 0; i < threadsCount; ++i)
     {
-        mThreads.emplace_back(std::thread([this]() { mContext.run(); }));
+        _threads.emplace_back(std::thread([this]() { _context.run(); }));
     }
-    mPostgreManager->handleRequests();
+    _postgreManager->handleRequests();
 
-    Base::Logger::FileLogger::getInstance().log("[SERVER] Started!", Base::Logger::LogLevel::INFO);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[SERVER] Started!", Base::Logger::LogLevel::INFO
+    );
 }
 
 void Server::stop()
 {
-    mContext.stop();
+    _context.stop();
 
-    mPostgreManager->stopHandler();
+    _postgreManager->stopHandler();
 
-    for (std::thread& thread : mThreads)
+    for (std::thread& thread : _threads)
     {
         if (thread.joinable())
         {
@@ -405,36 +410,38 @@ void Server::stop()
         }
     }
 
-    mThreads.clear();
-    Base::Logger::FileLogger::getInstance().log("[SERVER] Stopped!", Base::Logger::LogLevel::INFO);
+    _threads.clear();
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[SERVER] Stopped!", Base::Logger::LogLevel::INFO
+    );
 }
 
 void Server::waitForClientConnection()
 {
-    mAcceptor.async_accept([this](std::error_code error, asio::ip::tcp::socket socket) {
+    _acceptor.async_accept([this](std::error_code error, asio::ip::tcp::socket socket) {
         if (!error)
         {
-            std::ostringstream out;
-            out << socket.remote_endpoint();
+            std::ostringstream outputPoint;
+            outputPoint << socket.remote_endpoint();
             Base::Logger::FileLogger::getInstance().log
             (
-                "[SERVER] New Connection: " + out.str(), 
+                "[SERVER] New Connection: " + outputPoint.str(), 
                 Base::Logger::LogLevel::INFO
             );
 
             std::shared_ptr<Connection> newConnection =
-                std::make_shared<Connection>(Connection::OwnerType::SERVER, mContext, std::move(socket), mIncomingMessagesQueue);
+                std::make_shared<Connection>(Connection::OwnerType::SERVER, _context, std::move(socket), _incomingMessagesQueue);
 
-            /// @todo This function always return true
+            /// @todo This function always return true.
             if (onClientConnect(newConnection))
             {
-                mConnectionsPointers.push_back(std::move(newConnection));
-
-                mConnectionsPointers.back()->connectToClient(mIDCounter++);
+                _connectionsPointers.push_back(std::move(newConnection));
+                _connectionsPointers.back()->connectToClient(_IDCounter++);
 
                 Base::Logger::FileLogger::getInstance().log
                 (
-                   "[" + std::to_string(mConnectionsPointers.back()->getID()) + "] Connection Approved",
+                    "[" + std::to_string(_connectionsPointers.back()->getID()) + "] Connection Approved",
                     Base::Logger::LogLevel::INFO
                 );
             }
@@ -472,8 +479,8 @@ void Server::messageClient(std::shared_ptr<Connection> client, const Message& me
 
         client.reset();
 
-        mConnectionsPointers.erase(std::remove(mConnectionsPointers.begin(), mConnectionsPointers.end(), client),
-                                   mConnectionsPointers.end());
+        _connectionsPointers.erase(std::remove(_connectionsPointers.begin(), _connectionsPointers.end(), client),
+                                   _connectionsPointers.end());
     }
 }
 
@@ -481,7 +488,7 @@ void Server::messageAllClients(const Message& message, const std::shared_ptr<Con
 {
     bool deadConnectionExist = false;
 
-    for (auto& client : mConnectionsPointers)
+    for (auto& client : _connectionsPointers)
     {
         if (client != nullptr && client->isConnected())
         {
@@ -502,32 +509,32 @@ void Server::messageAllClients(const Message& message, const std::shared_ptr<Con
 
     if (deadConnectionExist)
     {
-        mConnectionsPointers.erase(std::remove(mConnectionsPointers.begin(), mConnectionsPointers.end(), nullptr),
-                                   mConnectionsPointers.end());
+        _connectionsPointers.erase(std::remove(_connectionsPointers.begin(), _connectionsPointers.end(), nullptr),
+                                   _connectionsPointers.end());
     }
 }
 
 void Server::update(size_t maxMessages, bool wait)
 {
-    if (wait) mIncomingMessagesQueue.wait();
+    if (wait) _incomingMessagesQueue.wait();
 
-    if (mIncomingMessagesQueue.size() > mCriticalQueueSize)
+    if (_incomingMessagesQueue.size() > _criticalQueueSize)
     {
-        for (size_t i = 0; i < mNewThreadsCount; ++i)
+        for (size_t i = 0; i < _newThreadsCount; ++i)
         {
-            mThreads.emplace_back(std::thread([this]() { mContext.run(); }));
+            _threads.emplace_back(std::thread([this]() { _context.run(); }));
         }
     }
 
     size_t messagesCount = size_t();
 
-    while (messagesCount < maxMessages && !mIncomingMessagesQueue.empty())
+    while (messagesCount < maxMessages && !_incomingMessagesQueue.empty())
     {
-        Message message = mIncomingMessagesQueue.pop_front();
+        Message messageInfo = _incomingMessagesQueue.pop_front();
 
-        onMessage(message.mRemote, message);
-        messagesCount++;
+        onMessage(messageInfo._remote, messageInfo);
+        ++messagesCount;
     }
 }
 
-}  // namespace Server
+}  /// namespace Server

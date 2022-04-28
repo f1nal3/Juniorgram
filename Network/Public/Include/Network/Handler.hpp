@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Network/Message.hpp"
 #include "YasSerializer.hpp"
 
@@ -16,24 +17,24 @@ enum class MessageProcessingState
 /** @class Handler
  *  @brief interface for handler class for message preprocessing.
  */
-class Handler
+class IHandler
 {
 public:
     /// Default Handler constructor
-    Handler()               = default;
+    IHandler()               = default;
     /// Delete Handler copy constructor
-    Handler(const Handler&) = delete;
+    IHandler(const IHandler&) = delete;
     /// Delete Handler move constructor
-    Handler(Handler&&)      = delete;
+    IHandler(IHandler&&)      = delete;
     /// Delete Handler copy assignment constructor
-    Handler& operator=(const Handler&) = delete;
+    IHandler& operator=(const IHandler&) = delete;
     /// Delete Handler move assignment constructor
-    Handler& operator=(Handler&&) = delete;
+    IHandler& operator=(IHandler&&) = delete;
     /// Virtual Handler destructor
-    virtual ~Handler()            = default;
+    virtual ~IHandler()            = default;
 
     /// Virtual Handler method for preprocessing next handler
-    virtual Handler*               setNext(Handler* handler)                                                      = 0;
+    virtual IHandler*               setNext(IHandler* handler)                                                      = 0;
 
     /**
      * @brief Virtual method for preprocessing of outcoming messages.
@@ -51,27 +52,27 @@ public:
 };
 
 /** @class AbstractHandler
- *  @brief handler class for message preprocessing
+ *  @brief handler class for message preprocessing.
  */
-class AbstractHandler : public Handler
+class AbstractHandler : public IHandler
 {
 protected:
-    Handler* nextHandler;
+    IHandler* _nextHandler;
 
 public:
-    AbstractHandler() : nextHandler(nullptr) {}
+    AbstractHandler() : _nextHandler(nullptr) {}
 
-    virtual ~AbstractHandler() { delete nextHandler; }
+    virtual ~AbstractHandler() { delete _nextHandler; }
 
     /**
      * @brief Method for setting next handler fot message preprocessing.
      * @param handler - next handler fot message preprocessing.
      * @return handler - next handler fot message preprocessing.
      */
-    Handler* setNext(Handler* handler) override
+    IHandler* setNext(IHandler* handler) override
     {
-        this->nextHandler = handler;
-        return this->nextHandler;
+        this->_nextHandler = handler;
+        return this->_nextHandler;
     }
 
     /**
@@ -81,9 +82,9 @@ public:
      */
     MessageProcessingState handleOutcomingMessage(const Message& message, yas::shared_buffer& bodyBuffer) override
     {
-        if (this->nextHandler)
+        if (this->_nextHandler)
         {
-            this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
+            this->_nextHandler->handleOutcomingMessage(message, bodyBuffer);
         }
         return MessageProcessingState::SUCCESS;
     }
@@ -95,11 +96,11 @@ public:
      */
     MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
     {
-        if (this->nextHandler)
+        if (this->_nextHandler)
         {
-            this->nextHandler->handleIncomingMessageBody(buffer, message);
+            this->_nextHandler->handleIncomingMessageBody(buffer, message);
         }
         return MessageProcessingState::SUCCESS;
     }
 };
-}  // namespace Network
+}  /// namespace Network

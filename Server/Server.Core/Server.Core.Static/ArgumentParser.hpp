@@ -1,4 +1,5 @@
 #pragma once
+
 #include <algorithm>
 #include <map>
 #include <stdexcept>
@@ -10,31 +11,31 @@
 
 /**
  * @class ArgumentParser.
- * @brief This class parses agruments with which application is started
+ * @brief This class parses agruments with which application is started.
  * @details
- * For example: "your_path -p 65001" 
- * Ignoring your_path because it isn't necessary
- * Using -p as KeyValidator variable -> incoming port will be listened
- * Sending the port to the Server class constructor
+ * For example: "your_path -p 65001".
+ * Ignoring your_path because it isn't necessary.
+ * Using -p as KeyValidator variable -> incoming port will be listened.
+ * Sending the port to the Server class constructor.
  */
 class ArgumentParser
 {
 private:
-    KeysValidator                  validator;
-    std::map<std::string, int32_t> arguments;
+    KeysValidator                  _validator;
+    std::map<std::string, int32_t> _arguments;
 
 public:
     /**
-    *@brief It's deleted default constructor. There is no need to use this.
+    * @brief It's deleted default constructor. There is no need to use this.
     */
     ArgumentParser()                      = delete;
     /**
-     *@brief It's deleted copy constructor. There is no need to use this.
+     * @brief It's deleted copy constructor. There is no need to use this.
      */
     ArgumentParser(const ArgumentParser&) = delete;
     /**
      * @brief Used to take parameters from main function
-     * @details Parses arguments which were set when application was run
+     * @details Parses arguments which were set when application was run.
      * @param int argc(amount of arguments), const char** argv(C-string arguments), const KeysValidator& validator = KeysValidator()
      */
     explicit ArgumentParser(int argc, const char** argv,
@@ -52,7 +53,7 @@ public:
      * @param const std::string& incomingKey (we will check it)
      * @return true if incomingKey is equal to listenedPort key(Validator), if not -> false
      */
-    bool isListenedPort(const std::string& incomingKey) const noexcept { return validator.keys.listenedPort == incomingKey; }
+    bool isListenedPort(const std::string& incomingKey) const noexcept { return _validator.keys.listenedPort == incomingKey; }
 
 private:
     /**
@@ -60,7 +61,7 @@ private:
      * @param const std::string& incoming key.
      * @return true if incomingKey exists in the memory, if not -> false
      */
-    bool isKeyExist(const std::string& incomingKey) const noexcept { return arguments.find(incomingKey) != arguments.end(); }
+    bool isKeyExist(const std::string& incomingKey) const noexcept { return _arguments.find(incomingKey) != _arguments.end(); }
 
     /**
      * @brief Method for checking the value of the number of arguments.

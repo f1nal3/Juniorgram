@@ -160,9 +160,9 @@ inline std::string getTimeNow()
 {
     std::string timeStampStr(20, '\0');
 
-    std::time_t t    = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-    std::tm     time = Utility::safe_localtime(t);
-    std::strftime(timeStampStr.data(), timeStampStr.size(), "%Y-%m-%d %H:%M:%S", &time);
+    std::time_t time        = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    std::tm     timeConvert = Utility::safe_localtime(time);
+    std::strftime(timeStampStr.data(), timeStampStr.size(), "%Y-%m-%d %H:%M:%S", &timeConvert);
 
     return timeStampStr;
 }
@@ -227,4 +227,4 @@ inline std::uint64_t millisecondsSinceEpoch()
     return std::chrono::duration_cast<std::chrono::milliseconds>(timeSinceEpoch).count();
 }
 
-}  // namespace Utility
+}  /// namespace Utility
