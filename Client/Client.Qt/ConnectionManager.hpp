@@ -30,7 +30,8 @@ public:
 signals:
     /// Disconnect handler
     void onDisconnect();
-
+    /// Reconnect handler
+    void onReconnect();
     /// Login Answer handler
     void onLoginAnswer(bool success);
     /// Server Accepted handler
@@ -87,13 +88,16 @@ public:
 
     /// Initialize connection to server
     void init();
+
+    /// Initialize reconnection to server
+    void onReconnecting();
+    
     /// Default behavior
     virtual ~ConnectionManager() = default;
 
 protected:
     /// Disconnect handler
     void onDisconnect() override;
-
     /// Login Answer handler
     void onLoginAnswer(bool success) override;
     /// Server Accepted handler

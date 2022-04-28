@@ -23,6 +23,15 @@ void ConnectionManager::init()
     );
 }
 
+void ConnectionManager::onReconnecting() 
+{
+    // @TODO: Functions of onResume && onPause from Reconnect Part
+    oApp->showMessage("Connection Status", "Server trying to connection!", MessageType::Warning);
+
+    reconnectToServer();
+    emit ReceiverManager::instance()->onReconnect();
+}
+
 void ConnectionManager::onServerAccepted()
 {
     oApp->showMessage("Connection Status", "Server accepted the connection!");
@@ -240,6 +249,7 @@ void ConnectionManager::onDisconnect()
     loginState = LoginState::FAILED;
     oApp->showMessage("Connection Status", "You've been disconnected from server!", MessageType::Error);
     emit ReceiverManager::instance()->onDisconnect();
+    onReconnecting();
 }
 
 void ConnectionManager::configureConnectionProperties()

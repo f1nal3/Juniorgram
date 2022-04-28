@@ -20,8 +20,12 @@ public:
 
     /// Connect to server with IP(host) and Port(port)
     bool connectToServer(const std::string_view& host, const uint16_t port);
+
     /// Disconnect from server
     void disconnectFromServer();
+
+    /// Reconnect to server
+    bool reconnectToServer();
 
     /// Returns true if connection is established
     [[nodiscard]] bool isConnected() const;

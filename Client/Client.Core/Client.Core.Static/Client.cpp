@@ -74,6 +74,21 @@ void Client::disconnectFromServer()
     _connection.reset();
 }
 
+bool Client::reconnectToServer() 
+{
+    if (_serverAccept == false)
+    {
+        _context.reset();
+        _connection.reset();
+        _contextThread.detach();
+
+        /// @TODO: Save other information from Server after Reconnect Part
+        connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);
+    }
+
+    return true;
+}
+
 bool Client::isConnected() const
 {
     if (_connection != nullptr)
