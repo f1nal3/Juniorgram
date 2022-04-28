@@ -5,13 +5,14 @@
 #include <QGridLayout>
 #include <QPropertyAnimation>
 #include <QTimer>
+#include <memory>
 
 class PopupMessage : public IPopupMessage
 {
 public:
     explicit PopupMessage(QWidget* parent = nullptr);
 
-    ~PopupMessage() override;
+    ~PopupMessage() override = default;
 
     float getPopupOpacity() const override;
     void  setPopupOpacity(float opacity) override;
@@ -21,15 +22,15 @@ public slots:
     void popupShow() override;
 
 protected:
-    void paintEvent(QPaintEvent* event);
+    void paintEvent(QPaintEvent* event) override;
 
 private slots:
     void hideAnimation();
     void hide();
 
 private:
-    QLabel             _label;
-    QGridLayout        _layout;
-    QPropertyAnimation _animation;
-    QTimer*            _timer;
+    QLabel                   _label;
+    QGridLayout              _layout;
+    QPropertyAnimation       _animation;
+    std::unique_ptr<QTimer>  _timer;
 };
