@@ -1,11 +1,13 @@
 #pragma once
 
-#include "AbstractPopupMessage.hpp"
 #include <QLabel>
 #include <QGridLayout>
 #include <QPropertyAnimation>
 #include <QTimer>
+
 #include <memory>
+
+#include "AbstractPopupMessage.hpp"
 
 class PopupMessage : public AbstractPopupMessage
 {
