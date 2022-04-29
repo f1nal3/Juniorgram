@@ -101,7 +101,7 @@ jobs:
       
     - name: Compute Code Coverage
       working-directory: ${{github.workspace}}/build
-      run: gcovr -r ./ --sonarqube coverage.xml
+      run: gcovr -r . --sonarqube ${{github.workspace}}/build/coverage.xml
 
     - name: Run sonar-scanner
       env:
