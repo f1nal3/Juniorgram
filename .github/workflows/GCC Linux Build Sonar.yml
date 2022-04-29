@@ -88,14 +88,7 @@ jobs:
     - name: Build using build-wrapper 
       run: |
         build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}}
-
-    - name: Run sonar-scanner
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: |
-          sonar-scanner --define sonar.host.url="${{ env.SONAR_SERVER_URL }}" --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
-
+        
     - name: Install
       run: cmake --install /home/runner/work/Juniorgram/Juniorgram/build
       
@@ -105,7 +98,13 @@ jobs:
     - name: Test
       working-directory: ${{github.workspace}}/build  
       run: ctest -C ${{matrix.BUILD_TYPE}} --output-on-failure
-
     - name: Compute Code Coverage
       working-directory: ${{github.workspace}}/build
       run: gcovr -r .. --sonarqube coverage.xml
+
+    - name: Run sonar-scanner
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: |
+          sonar-scanner --define sonar.host.url="${{ env.SONAR_SERVER_URL }}" --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
