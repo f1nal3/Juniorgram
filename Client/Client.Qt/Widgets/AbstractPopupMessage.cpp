@@ -7,10 +7,12 @@ AbstractPopupMessage::AbstractPopupMessage(QWidget* parent)
 
 void AbstractPopupMessage::setPopupText(const QString& text) 
 {
+
 }
 
 void AbstractPopupMessage::popupShow() 
 {
+
 }
 
 float AbstractPopupMessage::getPopupOpacity() const 
