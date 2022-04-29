@@ -1,19 +1,32 @@
 #pragma once
 
-#include "IPopupMessage.hpp"
+#include <QWidget>
 
-class AbstractPopupMessage : public IPopupMessage
+class IPopupMessage
 {
 public:
-    explicit AbstractPopupMessage(QWidget* parent) 
-        : IPopupMessage(parent) 
-    {
-    }
+    virtual ~IPopupMessage() = default;
+
+    virtual void  setPopupText(const QString& text) = 0;
+    virtual void  popupShow()                       = 0;
+};
+
+
+class AbstractPopupMessage : public QWidget, public IPopupMessage
+{
+    Q_OBJECT
+    Q_PROPERTY(float _popupOpacity READ getPopupOpacity WRITE setPopupOpacity)
+public:
+    explicit AbstractPopupMessage(QWidget* parent);
 
     ~AbstractPopupMessage() override = default;
 
-    void  setPopupText(const QString& text)     override = 0;
-    void  popupShow()                           override = 0;
-    float getPopupOpacity() const               override = 0;
-    void  setPopupOpacity(float opacity)        override = 0;
+    void  setPopupText(const QString& text) override;
+    void  popupShow() override;
+
+    float getPopupOpacity() const;
+    void  setPopupOpacity(float opacity);
+
+private:
+    float _popupOpacity;
 };
