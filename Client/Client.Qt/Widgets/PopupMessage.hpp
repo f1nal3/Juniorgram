@@ -14,9 +14,6 @@ public:
     
     ~PopupMessage() override = default;
 
-    float getPopupOpacity() const override;
-    void  setPopupOpacity(float opacity) override;
-
 public slots:
     void setPopupText(const QString& text) override;
     void popupShow() override;

@@ -87,15 +87,3 @@ void PopupMessage::hide()
         QWidget::hide();
     }
 }
-
-float PopupMessage::getPopupOpacity() const 
-{ 
-    return _popupOpacity; 
-}
-
-void PopupMessage::setPopupOpacity(float opacity)
-{ 
-    _popupOpacity = opacity;
-
-    setWindowOpacity(opacity);
-}
