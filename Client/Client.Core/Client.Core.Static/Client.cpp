@@ -10,6 +10,7 @@
 namespace Network
 {
 using MessageType = Network::Message::MessageType;
+using namespace UtilityTime;
 
 Client::~Client() { disconnectFromServer(); }
 
@@ -95,7 +96,7 @@ void Client::pingServer() const
     Network::Message message;
     message.mHeader.mMessageType = MessageType::ServerPing;
 
-    auto timeNow = std::chrono::system_clock::now();
+    auto timeNow = Clock::to_time_t(Clock::now());
     timeNow      = message.mHeader.mTimestamp;
     send(message);
 }
@@ -286,11 +287,8 @@ void Client::loop()
 {
     while (!_incomingMessagesQueue.empty())
     {
-        const Message message = _incomingMessagesQueue.pop_front();
-        auto          convertTime = std::chrono::system_clock::to_time_t;
-        std::tm       output_time = Utility::safe_localtime(convertTime(message.mHeader.mTimestamp));
-
-        std::cout << "[" << std::put_time(&output_time, "%F %T%z") << "]\n";
+        const Message message     = _incomingMessagesQueue.pop_front();
+        outputTimestamp();
 
         switch (message.mHeader.mMessageType)
         {
@@ -310,9 +308,8 @@ void Client::loop()
 
             case MessageType::ServerPing:
             {
-                std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
-                std::chrono::system_clock::time_point timeThen;
-                timeThen = message.mHeader.mTimestamp;
+                Timestamp timeNow  = Clock::to_time_t(Clock::now());
+                Timestamp timeThen = message.mHeader.mTimestamp;
                 onServerPing(std::chrono::duration<double>(timeNow - timeThen).count());
             }
             break;

@@ -7,9 +7,9 @@
 #include <iomanip>
 #include <memory>
 #include <vector>
+#include <Utility/Utility.hpp>
 
 #include "Connection.hpp"
-#include "Utility/Utility.hpp"
 
 namespace Network
 {
@@ -68,7 +68,7 @@ struct Message
     {
         MessageType                                        mMessageType = MessageType();
         std::uint32_t                                      mBodySize    = std::uint32_t();
-        std::chrono::time_point<std::chrono::system_clock> mTimestamp   = std::chrono::system_clock::now();
+        std::uint64_t                                      mTimestamp   = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
     };
 
     /// Connection variable
@@ -82,7 +82,7 @@ struct Message
     /// Stream for out message about message ID and Timestapm
     friend std::ostream& operator<<(std::ostream& os, const Message& message)
     {
-        std::tm formattedTimestamp = Utility::safe_localtime(std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
+        std::tm formattedTimestamp = UtilityTime::safe_localtime(message.mHeader.mTimestamp);
 
         os << "ID:" << size_t(message.mHeader.mMessageType) << " Size:" << message.mHeader.mBodySize
            << "Timestamp:" << std::put_time(&formattedTimestamp, "%F %T");
