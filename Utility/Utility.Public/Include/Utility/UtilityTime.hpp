@@ -81,4 +81,4 @@ inline Timestamp millisecondsSinceEpoch() noexcept
     return duration_cast<milliseconds>(timeSinceEpoch).count();
 }
 
-}  /// namespace ResolutionOfTime
+}  /// namespace UtilityTime

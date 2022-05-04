@@ -7,7 +7,7 @@
 #include <string>
 #include <type_traits>
 
-#include <Utility/Time.hpp>
+#include <Utility/UtilityTime.hpp>
 
 namespace Utility
 {
