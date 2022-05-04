@@ -66,7 +66,7 @@ jobs:
         architecture: 'x64'
         
     - name: Get prerequisites
-      run: python -m pip install conan==1.45 cmake gcovr
+      run: python -m pip install conan==1.45 cmake gcovr==5.0
 
     - name: Cache Conan packages
       id: conan-cache
