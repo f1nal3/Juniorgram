@@ -11,7 +11,7 @@ jobs:
     runs-on: windows-2019
     strategy:
       matrix:
-        BUILD_TYPE: [Debug, Release]
+        BUILD_TYPE: [Debug]
     
     steps:
     - name : Checkout
@@ -31,8 +31,8 @@ jobs:
       uses: actions/cache@v2
       with:
         path: 'C:\Users\runneradmin\.conan\*'
-        key: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
-        restore-keys: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
+        key: ${{matrix.BUILD_TYPE}}${{ runner.os }}-conan
+        restore-keys: ${{matrix.BUILD_TYPE}}${{ runner.os }}-conan
       
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}}
