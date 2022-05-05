@@ -183,7 +183,7 @@ struct MessageInfo
     /// recipient ID uint64_t variable
     std::uint64_t recipientID;
     /// time in milliseconds since Epoch (1970-01-01 00:00:00 UTC)
-    Timestamp time = UtilityTime::millisecondsSinceEpoch();
+    UtilityTime::timestamp_t time = UtilityTime::millisecondsSinceEpoch();
     /// reactions (reaction_id, reaction_count)
     std::map<std::uint32_t, std::uint32_t> reactions = {};
 

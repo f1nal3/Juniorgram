@@ -7,13 +7,15 @@
 #include <iomanip>
 #include <memory>
 #include <vector>
-#include <Utility/Utility.hpp>
 
 #include "Connection.hpp"
+#include <Utility/Utility.hpp>
 
 namespace Network
 {
 class Connection;
+        using std::chrono::milliseconds;
+        using std::chrono::duration_cast;
 
 /**
  * @brief The Message struct
@@ -66,9 +68,11 @@ struct Message
      */
     struct MessageHeader
     {
-        MessageType                                        mMessageType = MessageType();
-        std::uint32_t                                      mBodySize    = std::uint32_t();
-        std::uint64_t                                      mTimestamp   = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+
+
+        MessageType                 mMessageType = MessageType();
+        std::uint32_t               mBodySize    = std::uint32_t();
+        UtilityTime::timestamp_t    mTimestamp   = duration_cast<milliseconds>(UtilityTime::RTC::now().time_since_epoch()).count();
     };
 
     /// Connection variable
