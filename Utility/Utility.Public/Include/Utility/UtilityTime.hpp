@@ -58,10 +58,9 @@ inline void consoleLogTimestamp()
     time_t rawTime = std::chrono::system_clock::to_time_t(currentTime);
 
     std::tm  timeFormat = safe_localtime(rawTime);
-    std::tm* timeInfo   = &timeFormat;
 
     /// MinGW will warning if we put this string directly
-    std::cout << "[" << std::put_time(timeInfo, "%F %T%z") << "]\n";
+    std::cout << "[" << std::put_time(&timeFormat, "%F %T%z") << "]\n";
 }
 
 /**
