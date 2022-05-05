@@ -32,8 +32,6 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 {
     using namespace DataAccess;
 
-    const auto currentTime = message.mHeader.mTimestamp;
-
     switch (message.mHeader.mMessageType)
     {
         case Network::Message::MessageType::ServerPing:

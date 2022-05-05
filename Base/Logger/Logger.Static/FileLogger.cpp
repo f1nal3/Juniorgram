@@ -100,7 +100,7 @@ std::string FileLogger::timestamp()
 
     std::tm  tt       = safe_localtime(raw_time);
     std::tm* timeinfo = &tt;
-    auto     ms       = duration_cast<microseconds>(tp.time_since_epoch()) % 1000;
+    auto     ms       = std::chrono::duration_cast<std::chrono::microseconds>(tp.time_since_epoch()) % 1000;
 
     const unsigned sizeBuffer      = 26;
     char           buf[sizeBuffer] = {0};

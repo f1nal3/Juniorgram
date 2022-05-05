@@ -10,7 +10,8 @@
 namespace Network
 {
 using MessageType = Network::Message::MessageType;
-using namespace UtilityTime;
+using UtilityTime::RTC;
+using UtilityTime::timestamp_t;
 
 Client::~Client() { disconnectFromServer(); }
 
@@ -99,8 +100,8 @@ void Client::pingServer() const
 {
     Network::Message message;
     message.mHeader.mMessageType = MessageType::ServerPing;
-
-    auto timeNow = Clock::to_time_t(Clock::now());
+    
+    auto timeNow = RTC::to_time_t(RTC::now());
     timeNow      = message.mHeader.mTimestamp;
     send(message);
 }
@@ -292,7 +293,7 @@ void Client::loop()
     while (!_incomingMessagesQueue.empty())
     {
         const Message message     = _incomingMessagesQueue.pop_front();
-        outputTimestamp();
+        UtilityTime::consoleLogTimestamp();
 
         switch (message.mHeader.mMessageType)
         {
@@ -312,15 +313,16 @@ void Client::loop()
 
             case MessageType::ServerPing:
             {
-                Timestamp timeNow  = Clock::to_time_t(Clock::now());
-                Timestamp timeThen = message.mHeader.mTimestamp;
+                
+                timestamp_t timeNow  = RTC::to_time_t(RTC::now());
+                timestamp_t timeThen = message.mHeader.mTimestamp;
                 onServerPing(std::chrono::duration<double>(timeNow - timeThen).count());
             }
             break;
 
             case MessageType::ServerMessage:
             {
-                // T\todo add handling
+                // @todo add handling
                 uint64_t clientID = 0;
                 onServerMessage(clientID);
             }

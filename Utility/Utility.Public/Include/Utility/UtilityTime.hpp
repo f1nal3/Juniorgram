@@ -11,13 +11,19 @@
 #include <mutex>
 #include <sstream>
 
-using namespace std::chrono;
-
-using Clock = system_clock;
-using Timestamp = std::uint64_t;
 
 namespace UtilityTime
 {
+/*
+* @brief RTC - real time clock
+*/
+using RTC = std::chrono::system_clock; 
+
+/*
+ * @timestamp_t - alias that make more understantable format of keeping server-client timestamp represantation
+ */
+using timestamp_t = std::uint64_t;
+
 /**
  * @brief Wrapper for OS implementations of thread-safe std::localtime.
  * @details std::localtime return static internal std::tm internally, so it is not thread-safe.
@@ -45,11 +51,11 @@ inline std::tm safe_localtime(const std::time_t& time)
 /**
 *@brief Current time display function.
 */
-inline void outputTimestamp()
+inline void consoleLogTimestamp()
 {
-    Clock::time_point currentTime = Clock::now();
+    RTC::time_point currentTime = RTC::now();
 
-    time_t rawTime = Clock::to_time_t(currentTime);
+    time_t rawTime = std::chrono::system_clock::to_time_t(currentTime);
 
     std::tm  timeFormat = safe_localtime(rawTime);
     std::tm* timeInfo   = &timeFormat;
@@ -65,7 +71,7 @@ inline std::string getTimeNow()
 {
     std::string timeStampStr(20, '\0');
 
-    std::time_t t    = Clock::to_time_t(Clock::now());
+    std::time_t t    = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     std::tm     time = safe_localtime(t);
     std::strftime(timeStampStr.data(), timeStampStr.size(), "%Y-%m-%d %H:%M:%S", &time);
 
@@ -75,10 +81,10 @@ inline std::string getTimeNow()
 /**
  * @brief Returns time in milliseconds since Epoch (1970-01-01 00:00:00 UTC).
  */
-inline Timestamp millisecondsSinceEpoch() noexcept
+inline timestamp_t millisecondsSinceEpoch() noexcept
 {
-    auto timeSinceEpoch = time_point_cast<milliseconds>(Clock::now()).time_since_epoch();
-    return duration_cast<milliseconds>(timeSinceEpoch).count();
+    auto timeSinceEpoch = std::chrono::time_point_cast<std::chrono::milliseconds>(RTC::now()).time_since_epoch();
+    return std::chrono::duration_cast<std::chrono::milliseconds>(timeSinceEpoch).count();
 }
 
 }  /// namespace UtilityTime
