@@ -1,11 +1,12 @@
 #pragma once
 
-#include <Utility/Utility.hpp>
 #include <chrono>
 #include <cstdint>
 #include <cstring>
 #include <map>
 #include <string>
+
+#include <Utility/Utility.hpp>
 
 namespace Network
 {
@@ -182,7 +183,7 @@ struct MessageInfo
     /// recipient ID uint64_t variable
     std::uint64_t recipientID;
     /// time in milliseconds since Epoch (1970-01-01 00:00:00 UTC)
-    std::uint64_t time = Utility::millisecondsSinceEpoch();
+    Timestamp time = UtilityTime::millisecondsSinceEpoch();
     /// reactions (reaction_id, reaction_count)
     std::map<std::uint32_t, std::uint32_t> reactions = {};
 
