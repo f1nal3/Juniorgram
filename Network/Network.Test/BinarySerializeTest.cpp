@@ -152,7 +152,7 @@ TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSe
     SECTION("Checking serialization & deserialization of custom type MessageHeader")
     {
         Network::Message::MessageHeader serializedValue;
-        serializedValue.mTimestamp   = std::chrono::system_clock::now();
+        serializedValue.mTimestamp   = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
         serializedValue.mMessageType = Network::Message::MessageType::ChannelListRequest;
         serializedValue.mBodySize    = 30;
 

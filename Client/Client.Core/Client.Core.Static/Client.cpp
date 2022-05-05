@@ -10,6 +10,8 @@
 namespace Network
 {
 using MessageType = Network::Message::MessageType;
+using UtilityTime::RTC;
+using UtilityTime::timestamp_t;
 
 Client::~Client() { disconnectFromServer(); }
 
@@ -98,8 +100,8 @@ void Client::pingServer() const
 {
     Network::Message message;
     message.mHeader.mMessageType = MessageType::ServerPing;
-
-    auto timeNow = std::chrono::system_clock::now();
+    
+    auto timeNow = RTC::to_time_t(RTC::now());
     timeNow      = message.mHeader.mTimestamp;
     send(message);
 }
@@ -290,14 +292,9 @@ void Client::loop()
 {
     while (!_incomingMessagesQueue.empty())
     {
-        const Message message = _incomingMessagesQueue.pop_front();
-        auto          convertTime = std::chrono::system_clock::to_time_t;
-        std::tm       output_time = Utility::safe_localtime(convertTime(message.mHeader.mTimestamp));
+        const Message message     = _incomingMessagesQueue.pop_front();
+        UtilityTime::consoleLogTimestamp();
 
-        std::ostringstream out;
-        out << "[" << std::put_time(&output_time, "%F %T%z") << "]\n";
-        Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::INFO);
-      
         switch (message.mHeader.mMessageType)
         {
             case MessageType::LoginAnswer:
@@ -316,16 +313,16 @@ void Client::loop()
 
             case MessageType::ServerPing:
             {
-                std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
-                std::chrono::system_clock::time_point timeThen;
-                timeThen = message.mHeader.mTimestamp;
+                
+                timestamp_t timeNow  = RTC::to_time_t(RTC::now());
+                timestamp_t timeThen = message.mHeader.mTimestamp;
                 onServerPing(std::chrono::duration<double>(timeNow - timeThen).count());
             }
             break;
 
             case MessageType::ServerMessage:
             {
-                // T\todo add handling
+                // @todo add handling
                 uint64_t clientID = 0;
                 onServerMessage(clientID);
             }
