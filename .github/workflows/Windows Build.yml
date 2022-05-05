@@ -31,13 +31,14 @@ jobs:
       uses: actions/cache@v2
       with:
         path: 'C:\Users\runneradmin\.conan\*'
-        key: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
-        restore-keys: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
+        key: ${{matrix.BUILD_TYPE}}${{ runner.os }}-conan
+        restore-keys: ${{matrix.BUILD_TYPE}}${{ runner.os }}-conan
       
     - name: Show receipies 
       run: cd 'C:\Users\runneradmin\.conan\data' && dir
-    - name: Show conan cache
-      run: cd 'C:\.conan\' && dir
+    
+    - name: Remove Qt
+      run: conan remove qt -f
       
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}}
