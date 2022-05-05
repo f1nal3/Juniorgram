@@ -6,8 +6,10 @@ TEST_CASE("Message comparison operators")
 	Network::Message early;
     Network::Message late;
 
-	early.mHeader.mTimestamp = std::chrono::system_clock::now();
-	late.mHeader.mTimestamp = early.mHeader.mTimestamp + std::chrono::milliseconds(10);
+    uint64_t         testMilliseconds = 10000;
+
+	early.mHeader.mTimestamp = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    late.mHeader.mTimestamp  = early.mHeader.mTimestamp + testMilliseconds;
 
 	SECTION("Operator <")
 	{

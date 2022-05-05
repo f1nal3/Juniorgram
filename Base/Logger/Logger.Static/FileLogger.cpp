@@ -8,6 +8,7 @@
 #include <iostream>
 
 using namespace Base::Logger;
+using UtilityTime::safe_localtime;
 
 std::string FileLogger::stringifyLogLvl(const LogLevel level)
 {
@@ -97,9 +98,9 @@ std::string FileLogger::timestamp()
 
     time_t raw_time = system_clock::to_time_t(tp);
 
-    std::tm  tt       = Utility::safe_localtime(raw_time);
+    std::tm  tt       = safe_localtime(raw_time);
     std::tm* timeinfo = &tt;
-    auto     ms       = std::chrono::duration_cast<std::chrono::microseconds>(tp.time_since_epoch()) % 1000;
+    auto     ms       = duration_cast<microseconds>(tp.time_since_epoch()) % 1000;
 
     const unsigned sizeBuffer      = 26;
     char           buf[sizeBuffer] = {0};
@@ -179,7 +180,7 @@ std::string FileLogger::getCurrentDate()
 
     time_t raw_time = system_clock::to_time_t(tp);
 
-    std::tm    tt       = Utility::safe_localtime(raw_time);
+    std::tm    tt       = safe_localtime(raw_time);
     struct tm* timeinfo = &tt;
 
     char buf[24] = {0};
