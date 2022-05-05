@@ -34,6 +34,9 @@ jobs:
         key: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
         restore-keys: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
       
+    - name: Show entyties
+      run: cd 'C:\Users\runneradmin\.conan\' && dir
+      
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}}
 
