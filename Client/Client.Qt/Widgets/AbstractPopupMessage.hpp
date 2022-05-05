@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <QLabel>
 
 class IPopupMessage
 {
@@ -26,6 +27,9 @@ public:
 
     float getPopupOpacity() const;
     void  setPopupOpacity(float opacity);
+
+protected:
+    QLabel _label;
 
 private:
     float _popupOpacity;

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <QLabel>
 #include <QGridLayout>
 #include <QPropertyAnimation>
 #include <QTimer>
@@ -17,7 +16,6 @@ public:
     ~PopupMessage() override = default;
 
 public slots:
-    void setPopupText(const QString& text) override;
     void popupShow() override;
 
 protected:
@@ -28,8 +26,7 @@ private slots:
     void hide();
 
 private:
-    QLabel                   _label;
     QGridLayout              _layout;
-    QPropertyAnimation       _animation;
-    std::unique_ptr<QTimer>  _timer;
+    QPropertyAnimation      _animation;
+    std::unique_ptr<QTimer> _timer;
 };

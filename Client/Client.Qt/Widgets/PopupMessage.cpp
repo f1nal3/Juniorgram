@@ -51,12 +51,6 @@ void PopupMessage::paintEvent(QPaintEvent* event)
     painter.drawRoundedRect(roundedRect, 10, 10);
 }
 
-void PopupMessage::setPopupText(const QString& text)
-{
-    _label.setText(text);
-    adjustSize();
-}
-
 void PopupMessage::popupShow()
 {
     setWindowOpacity(0.0);
