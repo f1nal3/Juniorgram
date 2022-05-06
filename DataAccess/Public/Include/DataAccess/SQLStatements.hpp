@@ -6,7 +6,6 @@
 
 #include <Utility/Exception.hpp>
 #include <Utility/SQLUtility.hpp>
-
 #include "FileLogger.hpp"
 
 namespace DataAccess

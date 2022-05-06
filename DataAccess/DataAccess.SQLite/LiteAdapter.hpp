@@ -70,11 +70,11 @@ public:
 
 private:
     inline static std::mutex                   _mtx{};
-    inline static std::shared_ptr<LiteAdapter> _SQLiteInstance{};
+    inline static std::shared_ptr<LiteAdapter> _sqliteInstance{};
 
     inline static constexpr std::string_view   _DBName = "SQLiteDB.db";
 
-    std::unique_ptr<QSqlDatabase>              _DBConnection;
+    std::unique_ptr<QSqlDatabase>              _dbConnection;
     std::mutex                                 _queryMTX;
 };
 }  /// namespace DataAccess
