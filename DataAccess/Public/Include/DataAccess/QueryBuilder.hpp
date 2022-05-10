@@ -1,10 +1,11 @@
 #pragma once
+#include <iostream>
+#include <string>
+
 #include <DataAccess/IAdapter.hpp>
 #include <Utility/Exception.hpp>
 #include <Utility/SQLUtility.hpp>
 #include <Utility/Utility.hpp>
-#include <iostream>
-#include <string>
 
 #include "SQLStatements.hpp"
 
@@ -18,12 +19,12 @@ template <typename ResultType>
 class QueryBuilder
 {
 private:
-    Utility::DatabaseType _databaseType;
-    std::string           _tableName;
-    SQLBase<ResultType>*  _statement;
+    Utility::DatabaseType       _databaseType;
+    std::string                 _tableName;
+    SQLBase<ResultType>*        _statement;
 
 protected:
-    std::shared_ptr<IAdapter> _adapter;
+    std::shared_ptr<IAdapter>   _adapter;
 
 public:
     QueryBuilder(Utility::DatabaseType type, const std::string& tableName, std::shared_ptr<IAdapter> adapter)
@@ -163,4 +164,4 @@ public:
         _statement = nullptr;
     }
 };
-}  // namespace DataAccess
+}  /// namespace DataAccess

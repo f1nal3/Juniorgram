@@ -1,5 +1,4 @@
 #pragma once
-
 #include <mutex>
 #include <memory>
 
@@ -19,12 +18,12 @@ namespace DataAccess
 class PostgreAdapter final : public IAdapter
 {
 private:
-    inline static std::mutex ms_static_mutex{};
-    inline static std::shared_ptr<PostgreAdapter> msp_instance{};
-    inline static constexpr std::string_view ms_defaultOptions = DBOptions::real;
+    inline static std::mutex                        _staticMutex{};
+    inline static std::shared_ptr<PostgreAdapter>   _instance{};
+    inline static constexpr std::string_view        _defaultOptions = DBOptions::real;
 
-    std::mutex m_query_mutex;
-    std::unique_ptr<pqxx::connection> m_connection;
+    std::mutex                                      _queryMutex;
+    std::unique_ptr<pqxx::connection>               _connection;
 
 public:
     /** @brief Method that creates new instance of Adapter. 
@@ -38,7 +37,7 @@ public:
 
 protected:
     PostgreAdapter(const std::string_view& options) 
-        : m_connection{std::make_unique<pqxx::connection>(pqxx::zview(options))} {}
+        : _connection{std::make_unique<pqxx::connection>(pqxx::zview(options))} {}
 
 public:
     PostgreAdapter(const PostgreAdapter& other) = delete;
@@ -86,4 +85,4 @@ public:
     void closeConnection(void) override;
 };
 
-} // namespace DataAccess
+} /// namespace DataAccess

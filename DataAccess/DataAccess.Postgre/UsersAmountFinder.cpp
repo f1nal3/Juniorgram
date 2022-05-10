@@ -6,7 +6,7 @@
 
 std::uint16_t UsersAmountFinder::findUsersAmountWithSameTableAttribute(const std::string& condition) const
 {
-    const auto RECORDS_AMOUNT = pTable->Select()
+    const auto RECORDS_AMOUNT = _pTable->Select()
                                       ->columns({"COUNT(*)"})
                                       ->Where(condition)
                                       ->execute();

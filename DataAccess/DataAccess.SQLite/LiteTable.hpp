@@ -1,6 +1,7 @@
 #pragma once
-#include <DataAccess/QueryBuilder.hpp>
 #include <utility>
+
+#include <DataAccess/QueryBuilder.hpp>
 
 #include "LiteAdapter.hpp"
 
@@ -33,4 +34,4 @@ public:
     {
     }
 };
-}  // namespace DataAccess
+}  /// namespace DataAccess
