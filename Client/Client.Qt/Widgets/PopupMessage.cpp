@@ -17,15 +17,15 @@ PopupMessage::PopupMessage(QWidget* parent)
     _animation.setPropertyName("popupOpacity");
     connect(&_animation, &QAbstractAnimation::finished, this, &PopupMessage::hide);
 
-    _label.setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    _label.setStyleSheet(
+    getPopupLabel().setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    getPopupLabel().setStyleSheet(
         "QLabel { color : white; "
         "margin-top: 6px;"
         "margin-bottom: 6px;"
         "margin-left: 10px;"
         "margin-right: 10px; }");
 
-    _layout.addWidget(&_label, 0, 0);
+    _layout.addWidget(&getPopupLabel(), 0, 0);
     setLayout(&_layout);
 
     _timer = std::make_unique<QTimer>();
