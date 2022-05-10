@@ -29,3 +29,8 @@ void AbstractPopupMessage::setPopupOpacity(float opacity)
 
     setWindowOpacity(opacity);
 }
+
+QLabel& AbstractPopupMessage::getPopupLabel()
+{ 
+    return _label;
+}
