@@ -1,5 +1,4 @@
 #pragma once
-
 #include <vector>
 
 #include "IMasterRepository.hpp"
@@ -39,4 +38,4 @@ public:
      */
     virtual void removeMessages(std::vector<MessageInfo>& messages) = 0;
 };
-}  // namespace DataAccess
+}  /// namespace DataAccess

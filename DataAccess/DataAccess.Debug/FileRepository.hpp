@@ -1,7 +1,7 @@
 #pragma once
+#include <DataAccess/IRepository.hpp>
 
 #include "FileDB.hpp"
-#include "DataAccess/IRepository.hpp"
 
 namespace DataAccess
 {
@@ -15,6 +15,6 @@ class FileRepository : public IRepository
 	std::vector<Network::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) override;
 
 private:
-	std::unique_ptr<FileDB> database;
+	std::unique_ptr<FileDB> _database;
 };
 }
