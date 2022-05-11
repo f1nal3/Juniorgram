@@ -20,51 +20,45 @@ enum class RegistrationCodes : std::uint8_t
 {
     EMAIL_ALREADY_EXISTS,
     LOGIN_ALREADY_EXISTS,
-    SUCCESS,
+    SUCCESS
 };
+
+/**
+ * @brief Template enum
+ */
+enum class GeneralCodes : std::uint8_t
+{
+    SUCCESS,
+    FAILED
+};
+
 
 /**
  * @brief Enum for tracking message's storing status.
  * @details Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& mi) /
  *    return one of this codes.
  */
-enum class StoringMessageCodes : std::uint8_t
-{
-    SUCCESS,
-    FAILED,
-};
+using  StoringMessageCodes = GeneralCodes;
 
 /**
  * @brief Enum for tracking replies storing status.
  * @details Utility::StoringReplyCodes storeReply(const Network::ReplyInfo& ri) /
  *    return one of this codes.
  */
-enum class StoringReplyCodes : std::uint8_t
-{
-    SUCCESS,
-    FAILED,
-};
+using StoringReplyCodes = GeneralCodes;
 
 /**
  * @brief Enum for tracking message's deleting status.
  * @details Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) /
  *    return one of this codes.
  */
-enum class DeletingMessageCodes : std::uint8_t
-{
-    SUCCESS,
-    FAILED,
-};
+using DeletingMessageCodes  = GeneralCodes;
 
 /**  @brief Enum for tracking message's editing status.
  *   @details Utility::EditingMessageCodes editMessage(const Network::EditMessageInfo& emi) /
  *    return one of this codes.
  */
-enum class EditingMessageCodes : std::uint8_t
-{
-    SUCCESS,
-    FAILED,
-};
+using EditingMessageCodes  = GeneralCodes;
 
 /**
  * @brief Enum for tracking channel's subscribe status.
@@ -74,7 +68,7 @@ enum class ChannelSubscribingCodes : std::uint8_t
 {
     CHANNEL_HAS_ALREADY_BEEN_SIGNED,
     SUCCESS,
-    FAILED,
+    FAILED
 };
 
 /**
@@ -86,7 +80,7 @@ enum class ChannelLeaveCodes : std::uint8_t
 {
     CHANNEL_NOT_FOUND,
     SUCCESS,
-    FAILED,
+    FAILED
 };
 
 /**
@@ -99,7 +93,7 @@ enum class ChannelDeleteCode : std::uint8_t
     CHANNEL_NOT_FOUND,
     CHANNEL_IS_NOT_USER,
     SUCCESS,
-    FAILED,
+    FAILED
 };
 
 /**
@@ -111,32 +105,24 @@ enum class ChannelCreateCodes : std::uint8_t
 {
     CHANNEL_ALREADY_CREATED,
     SUCCESS,
-    FAILED,
+    FAILED
 };
 
 /**
  * @brief Direct message chat creation status
  */
-enum class DirectMessageStatus : std::uint8_t
-{
-    SUCCESS,
-    FAILED,
-};
+using  DirectMessageStatus  = GeneralCodes;
 
 /**
  * @brief enum for tracking message's reaction status
  * @details Utility::ReactionMessageCodes updateMessageReactions(const Network::MessageInfo& mi) /
  *    returns one of these codes.
  */
-enum class ReactionMessageCodes : std::uint8_t
-{
-    SUCCESS,
-    FAILED
-};
+using ReactionMessageCodes  = GeneralCodes;
 
 /**
  * @brief   Removes redundant whitespaces
- * @param   Input string as input
+ * @param   input std::string - bunch of text that should be trimmed
  * @details Removes whitespaces at the beginning and the end of input string, replaces whitespace
  *          sequences with a single space or newline (if sequence contains a newline)
  */

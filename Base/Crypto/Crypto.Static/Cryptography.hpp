@@ -7,9 +7,9 @@ namespace Base::Crypto
 {
 struct ICipher
 {
-    virtual std::string generateKey()                                                        = 0;
-    virtual std::string encrypt(const std::string& data, const std::string& cipherKey)       = 0;
-    virtual std::string decrypt(const std::string& cipherData, const std::string& cipherKey) = 0;
+    [[maybe_unused]] virtual std::string generateKey()                                                        = 0;
+    [[maybe_unused]] virtual std::string encrypt(const std::string& data, const std::string& cipherKey)       = 0;
+    [[maybe_unused]] virtual std::string decrypt(const std::string& cipherData, const std::string& cipherKey) = 0;
     virtual ~ICipher() = default;
 };
 
@@ -21,9 +21,9 @@ struct ICiphersFactory
 
 struct AESCipher : ICipher
 {
-    std::string generateKey();
-    std::string encrypt(const std::string& data, const std::string& key);
-    std::string decrypt(const std::string& cipherData, const std::string& key);
+    std::string generateKey() override;
+    std::string encrypt(const std::string& data, const std::string& key) override;
+    std::string decrypt(const std::string& cipherData, const std::string& key) override;
 };
 
 struct AESFactory : ICiphersFactory
