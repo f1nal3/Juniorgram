@@ -1,7 +1,6 @@
 #include "FileLogger.hpp"
 #include <algorithm>
 #include <chrono>
-#include <cstdlib>
 #include <ctime>
 #include <map>
 #include <vector>
@@ -14,10 +13,10 @@ std::string FileLogger::stringifyLogLvl(const LogLevel level)
 {
     std::string                                  result   = "NONE";
     const static std::map<LogLevel, std::string> LevelMap = {
-        {LogLevel::ERR, "ERROR"},
+        {LogLevel::ERR,     "ERROR"},
         {LogLevel::WARNING, "WARNING"},
-        {LogLevel::INFO, "INFO"},
-        {LogLevel::DEBUG, "DEBUG"},
+        {LogLevel::INFO,    "INFO"},
+        {LogLevel::DEBUG,   "DEBUG"},
     };
 
     auto it = LevelMap.find(level);
@@ -98,8 +97,8 @@ std::string FileLogger::timestamp()
 
     time_t raw_time = system_clock::to_time_t(tp);
 
-    std::tm  tt       = safe_localtime(raw_time);
-    std::tm* timeinfo = &tt;
+    std::tm  tt       = Utility::safe_localtime(raw_time);
+    std::tm* timeInfo = &tt;
     auto     ms       = std::chrono::duration_cast<std::chrono::microseconds>(tp.time_since_epoch()) % 1000;
 
     const unsigned sizeBuffer      = 26;
@@ -107,7 +106,7 @@ std::string FileLogger::timestamp()
 
     /// MinGW will warning if we put this string directly
     std::string_view timeFormat = "%F %T";
-    std::strftime(buf, sizeBuffer, timeFormat.data(), timeinfo);
+    std::strftime(buf, sizeBuffer, timeFormat.data(), timeInfo);
 
     std::string str = std::string(buf);
 
@@ -180,14 +179,19 @@ std::string FileLogger::getCurrentDate()
 
     time_t raw_time = system_clock::to_time_t(tp);
 
+<<<<<<< HEAD
     std::tm    tt       = safe_localtime(raw_time);
     struct tm* timeinfo = &tt;
+=======
+    std::tm    tt       = Utility::safe_localtime(raw_time);
+    struct tm* timeInfo = &tt;
+>>>>>>> 2ad2644 (Act of purification code.)
 
     char buf[24] = {0};
 
-    strftime(buf, 24, "%d.%m.%Y", timeinfo);
+    strftime(buf, 24, "%d.%m.%Y", timeInfo);
 
-    return std::string(buf);
+    return buf;
 }
 
 std::string FileLogger::getFileName()
@@ -209,7 +213,7 @@ void FileLogger::fileSync()
     for (auto& p : std::filesystem::directory_iterator(getFldName()))
     {
         std::time_t tt = to_time_t(std::filesystem::last_write_time(p.path()));
-        VecLogFiles.push_back(std::make_pair(tt, p.path()));
+        VecLogFiles.emplace_back(tt, p.path());
     }
 
     sort(VecLogFiles.rbegin(), VecLogFiles.rend());

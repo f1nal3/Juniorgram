@@ -5,28 +5,26 @@
 using namespace Base::Logger;
 using UtilityTime::safe_localtime;
 
-std::string getFldName()
+static std::string getFldName()
 {
     std::filesystem::path path = "Log";
     std::filesystem::create_directory(path);
     return path.string();
 }
 
-std::string getFileName(std::string Date)
+static std::string getFileName(const std::string& Date)
 {
     std::string fileName = "Log-" + Date + ".txt";
     return fileName;
 }
 
-bool logFileExists(std::string Date)
+static bool logFileExists(const std::string& Date)
 {
-    std::string           fileName = getFileName(Date);
-    std::filesystem::path path = "Log" +  std::string{"\\"} + fileName;
-    
+    std::filesystem::path path = "Log" +  std::string{"\\"} + getFileName(Date);
     return std::filesystem::exists(path);
 }
 
-std::string getCurrentDate()
+static std::string getCurrentDate()
 {
     using std::chrono::system_clock;
 
@@ -34,38 +32,38 @@ std::string getCurrentDate()
 
     time_t raw_time = system_clock::to_time_t(tp);
 
-    std::tm    tt       = safe_localtime(raw_time);
-    struct tm* timeinfo = &tt;
+    std::tm    tt       = Utility::safe_localtime(raw_time);
+    struct tm* timeInfo = &tt;
 
     char buf[24] = {0};
 
-    strftime(buf, 24, "%d.%m.%Y", timeinfo);
+    strftime(buf, 24, "%d.%m.%Y", timeInfo);
 
-    return std::string(buf);
+    return buf;
 }
 
-void pauseForRecording()
+static void pauseForRecording()
 {
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
 
-void cleanUp()
+static void cleanUp()
 {
     std::filesystem::remove_all(getFldName());
 }
 
-bool checkNumberCurrentFiles()
+static bool checkNumberCurrentFiles()
 {
     std::size_t count = 0;
-    std::size_t requirerequiredNumberFiles = 7;
+    std::size_t requiredCountFiles = 7;
     for (auto p : std::filesystem::directory_iterator(getFldName()))
     {
         count++;
     }
-    return count == requirerequiredNumberFiles;
+    return count == requiredCountFiles;
 }
 
-bool getCurrentName(std::string LogLvl)
+static bool getCurrentName(std::string LogLvl)
 {
     std::ifstream ifs("Log" + std::string{"\\"} + getFileName(getCurrentDate()));
 

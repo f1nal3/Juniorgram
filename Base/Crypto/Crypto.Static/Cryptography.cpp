@@ -15,10 +15,10 @@ std::string AESCipher::generateKey()
 {
     AutoSeededRandomPool rnd;
 
-    SecByteBlock bytes(0x0, AES::DEFAULT_KEYLENGTH);
+    SecByteBlock bytes(nullptr, AES::DEFAULT_KEYLENGTH);
     rnd.GenerateBlock(bytes, bytes.size());
 
-    return std::string(reinterpret_cast<const char*>(bytes.BytePtr()), bytes.size());
+    return {reinterpret_cast<const char*>(bytes.BytePtr()), bytes.size()};
 }
 
 std::string AESCipher::encrypt(const std::string& data, const std::string& key)
