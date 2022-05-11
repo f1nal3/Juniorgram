@@ -32,7 +32,7 @@ static std::string getCurrentDate()
 
     time_t raw_time = system_clock::to_time_t(tp);
 
-    std::tm    tt       = Utility::safe_localtime(raw_time);
+    std::tm    tt       = safe_localtime(raw_time);
     struct tm* timeInfo = &tt;
 
     char buf[24] = {0};
