@@ -160,7 +160,7 @@ std::string FileLogger::genDateTimeFileName() const
     return _fileNamePrefix + UtilityTime::getStringifiedCurrentDate() + ".log";
 }
 
-void FileLogger::fileSync()
+void FileLogger::fileSync() const
 {
     using hz = std::pair<std::time_t, std::filesystem::path>;
     std::vector<hz> listLogFiles;

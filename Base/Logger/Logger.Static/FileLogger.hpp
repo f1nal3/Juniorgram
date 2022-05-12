@@ -90,7 +90,7 @@ private:
     /**
      * @brief Syncs the number of log files in the folder
      */
-    void fileSync();
+    void fileSync() const;
 
     /**
      * @brief Get the name of the logger file

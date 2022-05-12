@@ -9,13 +9,12 @@ using UtilityTime::safe_localtime;
 
 static std::string __getFileName(const std::string& Date)
 {
-    std::string fileName = "Log-" + Date;
-    return fileName;
+    return "Log-" + Date;
 }
 
-static bool logFileExists(const std::string& Date)
+static bool logFileExists(std::string_view Date)
 {
-    std::filesystem::path path = "Log" + std::string{"\\"} + __getFileName(Date);
+    std::filesystem::path path = "Log" + std::string{"\\"} + __getFileName(Date.data());
     return std::filesystem::exists(path);
 }
 
@@ -28,14 +27,14 @@ static bool checkNumberCurrentFiles()
     std::size_t count              = 0;
     std::size_t requiredCountFiles = 7;
     std::string path               = Utility::getFldPath();
-    for (auto p : std::filesystem::directory_iterator(path))
+    for ([[maybe_unused]]const auto& p : std::filesystem::directory_iterator(path))
     {
         count++;
     }
     return count == requiredCountFiles;
 }
 
-static bool getCurrentName(std::string LogLvl)
+static bool getCurrentName(std::string_view LogLvl)
 {
     auto path = Utility::getFldPath() + "\\" + __getFileName(UtilityTime::getStringifiedCurrentDate());
     std::ifstream ifs (path, std::ios::in);
