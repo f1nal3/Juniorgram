@@ -8,8 +8,6 @@
 #include <type_traits>
 #include <filesystem>
 
-#include <Utility/UtilityTime.hpp>
-
 namespace Utility
 {
 /**
@@ -176,10 +174,11 @@ inline std::string removeSpaces(const std::string& input)
  * @brief Get the name of the logger folder
  * @return "Log\\"
  */
-std::string getFldName()
+inline std::string getFldName()
 {
     std::filesystem::path _path = "Log";
     std::filesystem::create_directory(_path);
     return _path.string();
 }
+
 }  // namespace Utility

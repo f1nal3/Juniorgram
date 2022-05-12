@@ -1,11 +1,13 @@
 #include <catch2/catch.hpp>
 
 #include "Logger.Static/FileLogger.hpp"
+#include "Utility/UtilityTime.hpp"
+#include <Utility/Utility.hpp>
 
 using namespace Base::Logger;
 using UtilityTime::safe_localtime;
 
-static std::string getFileName(const std::string& Date)
+static std::string __getFileName(const std::string& Date)
 {
     std::string fileName = "Log-" + Date + ".txt";
     return fileName;
@@ -13,21 +15,17 @@ static std::string getFileName(const std::string& Date)
 
 static bool logFileExists(const std::string& Date)
 {
-    std::filesystem::path path = "Log" +  std::string{"\\"} + getFileName(Date);
+    std::filesystem::path path = "Log" + std::string{"\\"} + __getFileName(Date);
     return std::filesystem::exists(path);
 }
 
-static void pauseForRecording()
-{
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-}
+static void pauseForRecording() { std::this_thread::sleep_for(std::chrono::milliseconds(1000)); }
 
-static void cleanUp()
-{ std::filesystem::remove_all(Utility::getFldName()); }
+static void cleanUp() { std::filesystem::remove_all(Utility::getFldName()); }
 
 static bool checkNumberCurrentFiles()
 {
-    std::size_t count = 0;
+    std::size_t count              = 0;
     std::size_t requiredCountFiles = 7;
     std::string path               = Utility::getFldName();
     for (auto p : std::filesystem::directory_iterator(path))
@@ -39,7 +37,7 @@ static bool checkNumberCurrentFiles()
 
 static bool getCurrentName(std::string LogLvl)
 {
-    std::ifstream ifs("Log" + std::string{"\\"} + getFileName(UtilityTime::getCurrentDate()));
+    std::ifstream ifs("Log" + std::string{"\\"} + __getFileName(UtilityTime::getStringifiedCurrentDate()));
 
     while (std::getline(ifs, LogLvl))
     {
@@ -60,10 +58,7 @@ TEST_CASE("Checking the corresponding lvl log")
         pauseForRecording();
     }
 
-    SECTION("Record request")
-    {
-        REQUIRE(getCurrentName("DEBUG") == true);
-    }
+    SECTION("Record request") { REQUIRE(getCurrentName("DEBUG") == true); }
 }
 
 TEST_CASE("Log in debug creates log file")
@@ -77,25 +72,20 @@ TEST_CASE("Log in debug creates log file")
         }
     }
 
-    SECTION("Check created log file")
-    { REQUIRE(logFileExists(UtilityTime::getCurrentDate()) == true);
-    }
+    SECTION("Check created log file") { REQUIRE(logFileExists(UtilityTime::getStringifiedCurrentDate()) == true); }
 
-    SECTION("Clear folder")
-    {
-        cleanUp();
-    }
+    SECTION("Clear folder") { cleanUp(); }
 }
 
 TEST_CASE("Checking the number of log files in a directory")
 {
     SECTION("Create ten Test.txt files")
     {
-        std::size_t           counter = 1;
+        std::size_t counter = 1;
         while (counter < 8)
         {
             std::filesystem::path path{Utility::getFldName()};
-            path /= getFileName(std::to_string(counter));
+            path /= __getFileName(std::to_string(counter));
             std::filesystem::create_directory(path.parent_path());
             std::ofstream ofs(path);
             ofs.close();
@@ -112,15 +102,9 @@ TEST_CASE("Checking the number of log files in a directory")
         pauseForRecording();
     }
 
-    SECTION("Checking the number of files")
-    {
-        REQUIRE(checkNumberCurrentFiles() == true);
-    }
+    SECTION("Checking the number of files") { REQUIRE(checkNumberCurrentFiles() == true); }
 
-    SECTION("Clear folder")
-    {
-        cleanUp();
-    }
+    SECTION("Clear folder") { cleanUp(); }
 }
 
 TEST_CASE("Change the valid log levels")

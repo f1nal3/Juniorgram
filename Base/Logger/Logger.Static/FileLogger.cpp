@@ -6,6 +6,9 @@
 #include <vector>
 #include <iostream>
 
+#include <Utility/Utility.hpp>
+#include "Utility/UtilityTime.hpp"
+
 using namespace Base::Logger;
 using UtilityTime::safe_localtime;
 
@@ -169,8 +172,6 @@ void FileLogger::run()
         }
     }
 }
-
-
 
 std::string FileLogger::genDateTimeFileName() const
 {

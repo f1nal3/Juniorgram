@@ -7,6 +7,7 @@
 #include <string>
 
 #include <Utility/Utility.hpp>
+#include <Utility/UtilityTime.hpp>
 
 namespace Network
 {

@@ -87,7 +87,7 @@ inline timestamp_t millisecondsSinceEpoch() noexcept
     return std::chrono::duration_cast<std::chrono::milliseconds>(timeSinceEpoch).count();
 }
 
-std::string getCurrentDate()
+inline std::string getStringifiedCurrentDate()
 {
     using std::chrono::system_clock;
 

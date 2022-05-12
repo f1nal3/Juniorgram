@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Logger/ILogger.hpp>
-#include <Utility/Utility.hpp>
 
 #include <sstream>
 #include <fstream>
@@ -92,12 +91,6 @@ private:
      * @brief Syncs the number of log files in the folder
      */
     void fileSync();
-
-    /**
-     * @brief Gets current data
-     * @return "dd.mm.yy"
-     */
-    static std::string getCurrentDate();
 
     /**
      * @brief Get the name of the logger file
