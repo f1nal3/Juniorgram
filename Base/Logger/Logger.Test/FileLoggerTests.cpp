@@ -9,7 +9,7 @@ using UtilityTime::safe_localtime;
 
 static std::string __getFileName(const std::string& Date)
 {
-    std::string fileName = "Log-" + Date + ".txt";
+    std::string fileName = "Log-" + Date;
     return fileName;
 }
 
@@ -19,15 +19,15 @@ static bool logFileExists(const std::string& Date)
     return std::filesystem::exists(path);
 }
 
-static void pauseForRecording() { std::this_thread::sleep_for(std::chrono::milliseconds(1000)); }
+static void pauseForRecording(uint64_t ms = 1000) { std::this_thread::sleep_for(std::chrono::milliseconds(ms)); }
 
-static void cleanUp() { std::filesystem::remove_all(Utility::getFldName()); }
+static void cleanUp() { std::filesystem::remove_all(Utility::getFldPath()); }
 
 static bool checkNumberCurrentFiles()
 {
     std::size_t count              = 0;
     std::size_t requiredCountFiles = 7;
-    std::string path               = Utility::getFldName();
+    std::string path               = Utility::getFldPath();
     for (auto p : std::filesystem::directory_iterator(path))
     {
         count++;
@@ -37,11 +37,12 @@ static bool checkNumberCurrentFiles()
 
 static bool getCurrentName(std::string LogLvl)
 {
-    std::ifstream ifs("Log" + std::string{"\\"} + __getFileName(UtilityTime::getStringifiedCurrentDate()));
-
-    while (std::getline(ifs, LogLvl))
+    auto path = Utility::getFldPath() + "\\" + __getFileName(UtilityTime::getStringifiedCurrentDate());
+    std::ifstream ifs (path, std::ios::in);
+    std::string buf;
+    while (std::getline(ifs, buf))
     {
-        if (LogLvl.find(LogLvl) != std::string::npos)
+        if (buf.find(LogLvl) != std::string::npos)
         {
             return true;
         }
@@ -84,7 +85,7 @@ TEST_CASE("Checking the number of log files in a directory")
         std::size_t counter = 1;
         while (counter < 8)
         {
-            std::filesystem::path path{Utility::getFldName()};
+            std::filesystem::path path{Utility::getFldPath()};
             path /= __getFileName(std::to_string(counter));
             std::filesystem::create_directory(path.parent_path());
             std::ofstream ofs(path);

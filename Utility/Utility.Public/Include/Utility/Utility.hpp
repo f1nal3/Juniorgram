@@ -174,11 +174,12 @@ inline std::string removeSpaces(const std::string& input)
  * @brief Get the name of the logger folder
  * @return "Log\\"
  */
-inline std::string getFldName()
+inline std::string getFldPath(std::string folderPath = "Log")
 {
-    std::filesystem::path _path = "Log";
-    std::filesystem::create_directory(_path);
-    return _path.string();
+    std::filesystem::path _path = folderPath;
+    if (! std::filesystem::exists(_path))
+        std::filesystem::create_directory(_path);
+    return std::filesystem::absolute(_path).string();
 }
 
 }  // namespace Utility

@@ -125,9 +125,9 @@ private:
      * @return [value]
      */
     static std::string wrapValue(const std::string& value, const BlockWrapper& blockWrapper);
-
+    
 private:
-    std::string  _fileName{"Log-"};
+    std::string  _fileNamePrefix{"Log-"};
     LogOutput    _output = LogOutput::EVERYWHERE;
     std::fstream _file;
 
