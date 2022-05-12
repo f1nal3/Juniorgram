@@ -5,13 +5,6 @@
 using namespace Base::Logger;
 using UtilityTime::safe_localtime;
 
-static std::string getFldName()
-{
-    std::filesystem::path path = "Log";
-    std::filesystem::create_directory(path);
-    return path.string();
-}
-
 static std::string getFileName(const std::string& Date)
 {
     std::string fileName = "Log-" + Date + ".txt";
@@ -24,39 +17,20 @@ static bool logFileExists(const std::string& Date)
     return std::filesystem::exists(path);
 }
 
-static std::string getCurrentDate()
-{
-    using std::chrono::system_clock;
-
-    system_clock::time_point tp = system_clock::now();
-
-    time_t raw_time = system_clock::to_time_t(tp);
-
-    std::tm    tt       = safe_localtime(raw_time);
-    struct tm* timeInfo = &tt;
-
-    char buf[24] = {0};
-
-    strftime(buf, 24, "%d.%m.%Y", timeInfo);
-
-    return buf;
-}
-
 static void pauseForRecording()
 {
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
 
 static void cleanUp()
-{
-    std::filesystem::remove_all(getFldName());
-}
+{ std::filesystem::remove_all(Utility::getFldName()); }
 
 static bool checkNumberCurrentFiles()
 {
     std::size_t count = 0;
     std::size_t requiredCountFiles = 7;
-    for (auto p : std::filesystem::directory_iterator(getFldName()))
+    std::string path               = Utility::getFldName();
+    for (auto p : std::filesystem::directory_iterator(path))
     {
         count++;
     }
@@ -65,7 +39,7 @@ static bool checkNumberCurrentFiles()
 
 static bool getCurrentName(std::string LogLvl)
 {
-    std::ifstream ifs("Log" + std::string{"\\"} + getFileName(getCurrentDate()));
+    std::ifstream ifs("Log" + std::string{"\\"} + getFileName(UtilityTime::getCurrentDate()));
 
     while (std::getline(ifs, LogLvl))
     {
@@ -81,8 +55,8 @@ TEST_CASE("Checking the corresponding lvl log")
 {
     SECTION("Create log file")
     {
-        FileLogger& log = FileLogger::getInstance();
-        log.log("Test: creat new log", LogLevel::DEBUG);
+        FileLogger& loger = FileLogger::getInstance();
+        loger.log("Test: creat new log", LogLevel::DEBUG);
         pauseForRecording();
     }
 
@@ -97,15 +71,14 @@ TEST_CASE("Log in debug creates log file")
     SECTION("Create some log")
     {
         {
-            FileLogger& log = FileLogger::getInstance();
-            log.log("Test: creat new log", LogLevel::DEBUG);
+            FileLogger& loger = FileLogger::getInstance();
+            loger.log("Test: creat new log", LogLevel::DEBUG);
             pauseForRecording();
         }
     }
 
     SECTION("Check created log file")
-    {
-        REQUIRE(logFileExists(getCurrentDate()) == true);
+    { REQUIRE(logFileExists(UtilityTime::getCurrentDate()) == true);
     }
 
     SECTION("Clear folder")
@@ -121,7 +94,7 @@ TEST_CASE("Checking the number of log files in a directory")
         std::size_t           counter = 1;
         while (counter < 8)
         {
-            std::filesystem::path path{getFldName()};
+            std::filesystem::path path{Utility::getFldName()};
             path /= getFileName(std::to_string(counter));
             std::filesystem::create_directory(path.parent_path());
             std::ofstream ofs(path);
@@ -152,7 +125,7 @@ TEST_CASE("Checking the number of log files in a directory")
 
 TEST_CASE("Change the valid log levels")
 {
-    FileLogger& log = FileLogger::getInstance();
+    const FileLogger& log = FileLogger::getInstance();
 
     REQUIRE(log.stringifyLogLvl(LogLevel::ERR) == "ERROR");
     REQUIRE(log.stringifyLogLvl(LogLevel::WARNING) == "WARNING");

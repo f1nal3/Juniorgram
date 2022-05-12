@@ -1,11 +1,12 @@
 #pragma once
 
 #include <algorithm>
+#include <string>
 #include <cctype>
 #include <ctime>
 #include <mutex>
-#include <string>
 #include <type_traits>
+#include <filesystem>
 
 #include <Utility/UtilityTime.hpp>
 
@@ -169,5 +170,16 @@ inline std::string removeSpaces(const std::string& input)
     }
 
     return result;
+}
+
+/**
+ * @brief Get the name of the logger folder
+ * @return "Log\\"
+ */
+std::string getFldName()
+{
+    std::filesystem::path _path = "Log";
+    std::filesystem::create_directory(_path);
+    return _path.string();
 }
 }  // namespace Utility

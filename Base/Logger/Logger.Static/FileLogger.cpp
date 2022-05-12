@@ -54,7 +54,7 @@ void FileLogger::open()
 {
     if (_output == LogOutput::EVERYWHERE || _output == LogOutput::FILE)
     {
-        _file.open(getFldName() + std::string{"\\"} + getFileName(), std::ios::app);
+        _file.open(Utility::getFldName() + std::string{"\\"} + genDateTimeFileName(), std::ios::app);
         fileSync();
         _isOpened = _file.is_open();
 
@@ -98,7 +98,6 @@ std::string FileLogger::timestamp()
     time_t raw_time = system_clock::to_time_t(tp);
 
     std::tm  tt       = safe_localtime(raw_time);
-    std::tm* timeInfo = &tt;
     auto     ms       = std::chrono::duration_cast<std::chrono::microseconds>(tp.time_since_epoch()) % 1000;
 
     const unsigned sizeBuffer      = 26;
@@ -106,7 +105,7 @@ std::string FileLogger::timestamp()
 
     /// MinGW will warning if we put this string directly
     std::string_view timeFormat = "%F %T";
-    std::strftime(buf, sizeBuffer, timeFormat.data(), timeInfo);
+    std::strftime(buf, sizeBuffer, timeFormat.data(), &tt);
 
     std::string str = std::string(buf);
 
@@ -171,41 +170,18 @@ void FileLogger::run()
     }
 }
 
-std::string FileLogger::getCurrentDate()
+
+
+std::string FileLogger::genDateTimeFileName() const
 {
-    using std::chrono::system_clock;
-
-    system_clock::time_point tp = system_clock::now();
-
-    time_t raw_time = system_clock::to_time_t(tp);
-
-    std::tm    tt       = safe_localtime(raw_time);
-    struct tm* timeInfo = &tt;
-
-    char buf[24] = {0};
-
-    strftime(buf, 24, "%d.%m.%Y", timeInfo);
-
-    return buf;
-}
-
-std::string FileLogger::getFileName()
-{
-    return _fileName + getCurrentDate() + ".txt";
-}
-
-std::string FileLogger::getFldName()
-{
-    std::filesystem::path path = "Log";
-    std::filesystem::create_directory(path);
-    return path.string();
+    return _fileName + UtilityTime::getTimeNow() + ".txt";
 }
 
 void FileLogger::fileSync()
 {
     std::vector<std::pair<std::time_t, std::filesystem::path>> VecLogFiles;
 
-    for (auto& p : std::filesystem::directory_iterator(getFldName()))
+    for (auto& p : std::filesystem::directory_iterator(Utility::getFldName()))
     {
         std::time_t tt = to_time_t(std::filesystem::last_write_time(p.path()));
         VecLogFiles.emplace_back(tt, p.path());

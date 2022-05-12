@@ -11,7 +11,6 @@
 #include <mutex>
 #include <condition_variable>
 
-
 #include <queue>
 #include <string>
 
@@ -104,13 +103,7 @@ private:
      * @brief Get the name of the logger file
      * @return "Log-dd.mm.yy.txt"
      */
-    std::string getFileName();
-
-    /**
-     * @brief Get the name of the logger folder
-     * @return "Log\\"
-     */
-    static std::string getFldName();
+    std::string genDateTimeFileName() const;
 
     /**
      * @brief Loop to synchronize all threads

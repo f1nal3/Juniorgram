@@ -87,4 +87,17 @@ inline timestamp_t millisecondsSinceEpoch() noexcept
     return std::chrono::duration_cast<std::chrono::milliseconds>(timeSinceEpoch).count();
 }
 
+std::string getCurrentDate()
+{
+    using std::chrono::system_clock;
+
+    std::string stringifyedDate(20, '\0');
+    std::time_t raw_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    std::tm time    = safe_localtime(raw_time);
+
+    std::strftime(stringifyedDate.data(), stringifyedDate.size(), "%d.%m.%Y", &time);
+
+    return stringifyedDate;
+}
+
 }  /// namespace UtilityTime
