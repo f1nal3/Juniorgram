@@ -184,8 +184,7 @@ std::string FileLogger::getCurrentDate()
     struct tm* timeinfo = &tt;
 =======
     std::tm    tt       = Utility::safe_localtime(raw_time);
-    struct tm* timeInfo = &tt;
->>>>>>> 2ad2644 (Act of purification code.)
+    struct tm* timeinfo = &tt;
 
     char buf[24] = {0};
 
