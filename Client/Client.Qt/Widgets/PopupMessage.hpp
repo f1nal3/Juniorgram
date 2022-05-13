@@ -15,6 +15,7 @@ public:
     
     ~PopupMessage() override = default;
 
+    void setShowTime(int newShowTime);
 public slots:
     void popupShow() override;
 
@@ -26,7 +27,8 @@ private slots:
     void hide();
 
 private:
-    QGridLayout              _layout;
+    QGridLayout             _layout;
     QPropertyAnimation      _animation;
     std::unique_ptr<QTimer> _timer;
+    int                     _showTime = 3000;
 };
