@@ -127,6 +127,15 @@ target_link_libraries(${TARGET}
 target_include_directories(${TARGET}
         PUBLIC $<TARGET_PROPERTY:DataAccess.SQLite,SOURCE_DIR>/..)
 
+if (COVERAGE_MODE)
+    get_target_property(target_cc_options ${TARGET} COMPILE_OPTIONS)
+    get_target_property(target_ll_options ${TARGET} LINK_OPTIONS)
+
+    list(REMOVE_ITEM target_cc_options "--coverage" "-g" "-O0")
+    list(REMOVE_ITEM target_ll_options "--coverage")
+    set_property(TARGET ${TARGET} PROPERTY COMPILE_OPTIONS ${target_cc_options})
+    set_property(TARGET ${TARGET} PROPERTY LINK_OPTIONS ${target_ll_options})
+endif()
 # This needs to be an install or after install operation
 # At this point it disrupts CI build so I commented it out =)
 
