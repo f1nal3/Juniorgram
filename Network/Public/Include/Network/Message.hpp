@@ -10,6 +10,7 @@
 
 #include "Connection.hpp"
 #include <Utility/Utility.hpp>
+#include <Utility/UtilityTime.hpp>
 
 namespace Network
 {
