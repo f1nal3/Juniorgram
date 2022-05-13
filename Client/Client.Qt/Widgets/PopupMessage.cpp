@@ -25,7 +25,9 @@ PopupMessage::PopupMessage(QWidget* parent)
         "margin-left: 10px;"
         "margin-right: 10px; }");
 
-    _layout.addWidget(&getPopupLabel(), 0, 0);
+    int row = 0;
+    int column = 0;
+    _layout.addWidget(&getPopupLabel(), row, column);
     setLayout(&_layout);
 
     _timer = std::make_unique<QTimer>();
@@ -40,15 +42,22 @@ void PopupMessage::paintEvent(QPaintEvent* event)
     painter.setRenderHint(QPainter::Antialiasing);
 
     QRect roundedRect;
-    roundedRect.setX(rect().x() + 5);
-    roundedRect.setY(rect().y() + 5);
-    roundedRect.setWidth(rect().width() - 10);
-    roundedRect.setHeight(rect().height() - 10);
 
-    painter.setBrush(QBrush(QColor(0, 0, 0, 180)));
+    int offsetXY = 5;
+    roundedRect.setX(rect().x() + offsetXY);
+    roundedRect.setY(rect().y() + offsetXY);
+
+    int offsetWH = 10;
+    roundedRect.setWidth(rect().width() - offsetWH);
+    roundedRect.setHeight(rect().height() - offsetWH);
+
+    auto black = QColor(0, 0, 0, 180);
+    painter.setBrush(QBrush(black));
     painter.setPen(Qt::NoPen);
 
-    painter.drawRoundedRect(roundedRect, 10, 10);
+    int xRadius = 10;
+    int yRadius = 10;
+    painter.drawRoundedRect(roundedRect, xRadius, yRadius);
 }
 
 void PopupMessage::popupShow()
@@ -62,7 +71,7 @@ void PopupMessage::popupShow()
     QWidget::show();
 
     _animation.start();
-    _timer->start(3000);
+    _timer->start(_showTime);
 }
 
 void PopupMessage::hideAnimation()
@@ -80,4 +89,9 @@ void PopupMessage::hide()
     {
         QWidget::hide();
     }
+}
+
+void PopupMessage::setShowTime(int newShowTime) 
+{ 
+    _showTime = newShowTime;
 }
