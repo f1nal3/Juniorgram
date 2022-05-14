@@ -15,6 +15,7 @@
 namespace Network
 {
 class Connection;
+
         using std::chrono::milliseconds;
         using std::chrono::duration_cast;
 

@@ -100,9 +100,8 @@ void Client::pingServer() const
 {
     Network::Message message;
     message.mHeader.mMessageType = MessageType::ServerPing;
-    
-    auto timeNow = RTC::to_time_t(RTC::now());
-    timeNow      = message.mHeader.mTimestamp;
+    message.mHeader.mTimestamp = RTC::to_time_t(RTC::now());
+
     send(message);
 }
 
@@ -322,7 +321,7 @@ void Client::loop()
 
             case MessageType::ServerMessage:
             {
-                // @todo add handling
+                // TODO add handling 
                 uint64_t clientID = 0;
                 onServerMessage(clientID);
             }
