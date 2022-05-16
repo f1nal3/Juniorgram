@@ -6,7 +6,7 @@
 
 int main(int argc, const char** argv)
 {
-    uint16_t port;
+    uint16_t port = 0;
     try
     {
         ArgumentParser parser(argc, argv);
@@ -14,7 +14,10 @@ int main(int argc, const char** argv)
     }
     catch (const std::runtime_error& e)
     {
-        Base::Logger::FileLogger::getInstance().log(e.what(), Base::Logger::LogLevel::ERR);
+        Base::Logger::FileLogger::getInstance().log
+        (
+            e.what(), Base::Logger::LogLevel::ERR
+        );
     }
     Server::Server server(port);
     server.start();
