@@ -27,7 +27,7 @@ public:
     
     ~PopupMessage() override = default;
 
-    void setShowTime(unsigned int newShowTime);
+    void setAnimationDuration(unsigned int newAnimationDuration);
 public slots:
     void popupShow() override;
 
