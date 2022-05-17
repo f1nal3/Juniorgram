@@ -92,16 +92,18 @@ void PopupMessage::hideAnimation()
 
 void PopupMessage::hide()
 {
-    float transparent = 0.0;
-    if (getPopupOpacity() == transparent)
+    auto  notVisible  = popupMessageAnimation::getAnimationValue(popupMessageAnimation::Animation::NOT_VISIBLE);
+
+    if (getPopupOpacity() == notVisible)
     {
         QWidget::hide();
     }
 }
 
-void PopupMessage::setShowTime(unsigned int newShowTime) 
+void PopupMessage::setAnimationDuration(unsigned int newAnimationDuration) 
 { 
-    _animationDuration = newShowTime; }
+    _animationDuration = newAnimationDuration; 
+}
 
 
 double popupMessageAnimation::getAnimationValue(Animation animation) 
