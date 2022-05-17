@@ -8,6 +8,24 @@
 
 #include "AbstractPopupMessage.hpp"
 
+enum class Animation
+{
+    NOT_VISIBLE,
+    VISIBLE
+};
+
+double getAnimationValue(Animation animation) 
+{
+    if (animation == Animation::VISIBLE) 
+    {
+        return 1.0;
+    }
+    else
+    {
+        return 0.0;
+    }
+}
+
 class PopupMessage : public AbstractPopupMessage
 {
 public:
@@ -15,7 +33,7 @@ public:
     
     ~PopupMessage() override = default;
 
-    void setShowTime(int newShowTime);
+    void setShowTime(unsigned int newShowTime);
 public slots:
     void popupShow() override;
 
@@ -30,5 +48,5 @@ private:
     QGridLayout             _layout;
     QPropertyAnimation      _animation;
     std::unique_ptr<QTimer> _timer;
-    int                     _showTime = 3000;
+    int                     _animationDuration = 3000;
 };
