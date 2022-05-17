@@ -62,36 +62,37 @@ void PopupMessage::paintEvent(QPaintEvent* event)
 
 void PopupMessage::popupShow()
 {
-    setWindowOpacity(0.0);
+    qreal transparent = 0.0;
+    setWindowOpacity(transparent);
 
     _animation.setDuration(150);
-    _animation.setStartValue(0.0);
-    _animation.setEndValue(1.0);
+    _animation.setStartValue(getAnimationValue(Animation::NOT_VISIBLE));
+    _animation.setEndValue(getAnimationValue(Animation::VISIBLE));
 
     QWidget::show();
 
     _animation.start();
-    _timer->start(_showTime);
+    _timer->start(_animationDuration);
 }
 
 void PopupMessage::hideAnimation()
 {
     _timer->stop();
     _animation.setDuration(1000);
-    _animation.setStartValue(1.0);
-    _animation.setEndValue(0.0);
+    _animation.setStartValue(getAnimationValue(Animation::VISIBLE));
+    _animation.setEndValue(getAnimationValue(Animation::NOT_VISIBLE));
     _animation.start();
 }
 
 void PopupMessage::hide()
 {
-    if (getPopupOpacity() == 0.0)
+    int transparent = 0.0;
+    if (getPopupOpacity() == transparent)
     {
         QWidget::hide();
     }
 }
 
-void PopupMessage::setShowTime(int newShowTime) 
+void PopupMessage::setShowTime(unsigned int newShowTime) 
 { 
-    _showTime = newShowTime;
-}
+    _animationDuration = newShowTime; }
