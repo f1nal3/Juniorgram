@@ -8,23 +8,17 @@
 
 #include "AbstractPopupMessage.hpp"
 
-enum class Animation
+namespace popupMessageAnimation
 {
-    NOT_VISIBLE,
-    VISIBLE
-};
+    enum class Animation
+    {
+        NOT_VISIBLE,
+        VISIBLE
+    };
 
-double getAnimationValue(Animation animation) 
-{
-    if (animation == Animation::VISIBLE) 
-    {
-        return 1.0;
-    }
-    else
-    {
-        return 0.0;
-    }
-}
+    double getAnimationValue(Animation animation);
+
+}  // namespace PopupMessageAnimation
 
 class PopupMessage : public AbstractPopupMessage
 {

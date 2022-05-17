@@ -65,9 +65,12 @@ void PopupMessage::popupShow()
     qreal transparent = 0.0;
     setWindowOpacity(transparent);
 
+    auto visible    = popupMessageAnimation::getAnimationValue(popupMessageAnimation::Animation::VISIBLE);
+    auto notVisible = popupMessageAnimation::getAnimationValue(popupMessageAnimation::Animation::NOT_VISIBLE);
+
     _animation.setDuration(150);
-    _animation.setStartValue(getAnimationValue(Animation::NOT_VISIBLE));
-    _animation.setEndValue(getAnimationValue(Animation::VISIBLE));
+    _animation.setStartValue(notVisible);
+    _animation.setEndValue(visible);
 
     QWidget::show();
 
@@ -77,10 +80,13 @@ void PopupMessage::popupShow()
 
 void PopupMessage::hideAnimation()
 {
+    auto visible    = popupMessageAnimation::getAnimationValue(popupMessageAnimation::Animation::VISIBLE);
+    auto notVisible = popupMessageAnimation::getAnimationValue(popupMessageAnimation::Animation::NOT_VISIBLE);
+
     _timer->stop();
     _animation.setDuration(1000);
-    _animation.setStartValue(getAnimationValue(Animation::VISIBLE));
-    _animation.setEndValue(getAnimationValue(Animation::NOT_VISIBLE));
+    _animation.setStartValue(visible);
+    _animation.setEndValue(notVisible);
     _animation.start();
 }
 
@@ -96,3 +102,16 @@ void PopupMessage::hide()
 void PopupMessage::setShowTime(unsigned int newShowTime) 
 { 
     _animationDuration = newShowTime; }
+
+
+double popupMessageAnimation::getAnimationValue(Animation animation) 
+{
+    if (animation == Animation::VISIBLE)
+    {
+        return 1.0;
+    }
+    else
+    {
+        return 0.0;
+    }
+}
