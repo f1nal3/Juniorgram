@@ -92,7 +92,7 @@ void PopupMessage::hideAnimation()
 
 void PopupMessage::hide()
 {
-    int transparent = 0.0;
+    float transparent = 0.0;
     if (getPopupOpacity() == transparent)
     {
         QWidget::hide();
