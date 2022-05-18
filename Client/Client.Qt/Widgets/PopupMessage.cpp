@@ -13,6 +13,8 @@ PopupMessage::PopupMessage(QWidget* parent)
     setAttribute(Qt::WA_TranslucentBackground);
     setAttribute(Qt::WA_ShowWithoutActivating);
 
+    setWindowOpacity(_transparent);
+
     _animation.setTargetObject(this);
     _animation.setPropertyName("popupOpacity");
     connect(&_animation, &QAbstractAnimation::finished, this, &PopupMessage::hide);
@@ -25,9 +27,7 @@ PopupMessage::PopupMessage(QWidget* parent)
         "margin-left: 10px;"
         "margin-right: 10px; }");
 
-    int row = 0;
-    int column = 0;
-    _layout.addWidget(&getPopupLabel(), row, column);
+    _layout.addWidget(&getPopupLabel(), _row, _column);
     setLayout(&_layout);
 
     _timer = std::make_unique<QTimer>();
@@ -43,34 +43,24 @@ void PopupMessage::paintEvent(QPaintEvent* event)
 
     QRect roundedRect;
 
-    int offsetXY = 5;
-    roundedRect.setX(rect().x() + offsetXY);
-    roundedRect.setY(rect().y() + offsetXY);
+    roundedRect.setX(rect().x() + _offsetXY);
+    roundedRect.setY(rect().y() + _offsetXY);
 
-    int offsetWH = 10;
-    roundedRect.setWidth(rect().width() - offsetWH);
-    roundedRect.setHeight(rect().height() - offsetWH);
+    roundedRect.setWidth(rect().width() - _offsetWH);
+    roundedRect.setHeight(rect().height() - _offsetWH);
 
-    auto black = QColor(0, 0, 0, 180);
-    painter.setBrush(QBrush(black));
+    painter.setBrush(QBrush(_black));
     painter.setPen(Qt::NoPen);
 
-    int xRadius = 10;
-    int yRadius = 10;
-    painter.drawRoundedRect(roundedRect, xRadius, yRadius);
+    painter.drawRoundedRect(roundedRect, _xRadius, _yRadius);
 }
 
 void PopupMessage::popupShow()
 {
-    qreal transparent = 0.0;
-    setWindowOpacity(transparent);
 
-    auto visible    = popupMessageAnimation::getAnimationValue(popupMessageAnimation::Animation::VISIBLE);
-    auto notVisible = popupMessageAnimation::getAnimationValue(popupMessageAnimation::Animation::NOT_VISIBLE);
-
-    _animation.setDuration(150);
-    _animation.setStartValue(notVisible);
-    _animation.setEndValue(visible);
+    _animation.setDuration(_animationValue.animationTimeShow);
+    _animation.setStartValue(_animationValue.not_transparent);
+    _animation.setEndValue(_animationValue.transparent);
 
     QWidget::show();
 
@@ -80,40 +70,21 @@ void PopupMessage::popupShow()
 
 void PopupMessage::hideAnimation()
 {
-    auto visible    = popupMessageAnimation::getAnimationValue(popupMessageAnimation::Animation::VISIBLE);
-    auto notVisible = popupMessageAnimation::getAnimationValue(popupMessageAnimation::Animation::NOT_VISIBLE);
-
     _timer->stop();
-    _animation.setDuration(1000);
-    _animation.setStartValue(visible);
-    _animation.setEndValue(notVisible);
+    _animation.setDuration(_animationValue.animationTimeHide);
+    _animation.setStartValue(_animationValue.transparent);
+    _animation.setEndValue(_animationValue.not_transparent);
     _animation.start();
 }
 
 void PopupMessage::hide()
 {
-    auto  notVisible  = popupMessageAnimation::getAnimationValue(popupMessageAnimation::Animation::NOT_VISIBLE);
-
-    if (getPopupOpacity() == notVisible)
+    if (getPopupOpacity() == _animationValue.not_transparent)
     {
         QWidget::hide();
     }
 }
 
-void PopupMessage::setAnimationDuration(unsigned int newAnimationDuration) 
-{ 
+void PopupMessage::setAnimationDuration(uint32_t newAnimationDuration) { 
     _animationDuration = newAnimationDuration; 
-}
-
-
-double popupMessageAnimation::getAnimationValue(Animation animation) 
-{
-    if (animation == Animation::VISIBLE)
-    {
-        return 1.0;
-    }
-    else
-    {
-        return 0.0;
-    }
 }
