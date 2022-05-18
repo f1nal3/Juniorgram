@@ -8,18 +8,6 @@
 
 #include "AbstractPopupMessage.hpp"
 
-namespace popupMessageAnimation
-{
-    enum class Animation
-    {
-        NOT_VISIBLE,
-        VISIBLE
-    };
-
-    double getAnimationValue(Animation animation);
-
-}  // namespace PopupMessageAnimation
-
 class PopupMessage : public AbstractPopupMessage
 {
 public:
@@ -27,7 +15,7 @@ public:
     
     ~PopupMessage() override = default;
 
-    void setAnimationDuration(unsigned int newAnimationDuration);
+    void setAnimationDuration(uint32_t newAnimationDuration);
 public slots:
     void popupShow() override;
 
@@ -43,4 +31,25 @@ private:
     QPropertyAnimation      _animation;
     std::unique_ptr<QTimer> _timer;
     int                     _animationDuration = 3000;
+
+    //
+    int _row            = 0;
+    int _column         = 0;
+    int _offsetXY       = 5;
+    int _offsetWH       = 10;
+    int _xRadius        = 10;
+    int _yRadius        = 10;
+    qreal _transparent  = 0.0;
+    QColor _black       = QColor(0, 0, 0, 180);
+
+    AnimationValue _animationValue;
+};
+
+struct AnimationValue
+{
+    int animationTimeShow = 150;
+    int animationTimeHide = 1000;
+
+    double transparent = 0.0;
+    double not_transparent = 1.0;
 };
