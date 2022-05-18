@@ -1,8 +1,8 @@
 #include "ArgumentParser.hpp"
 
-ArgumentParser::ArgumentParser(int argc, const char** argv, const KeysValidator& validator)
+ArgumentParser::ArgumentParser(int argc, const char** argv, const KeysValidator& validator) :
+    _validator(validator)
 {
-    this->_validator = validator;
     std::vector<std::string> tempParams(&argv[0], &argv[argc]);
 
     for (auto&& param : tempParams)
@@ -64,7 +64,7 @@ void ArgumentParser::validateArgumentsAmount(std::vector<std::string>& params) c
 {
     const auto amountOfKeysWithValueAndPath =
         std::count_if(params.begin(), params.end(),
-                      [this](std::string& param) { return _validator.doKeyNeedValue(param); });
+                      [this](const std::string& param) { return _validator.doKeyNeedValue(param); });
 
     if (amountOfKeysWithValueAndPath % 2 == 0 || params.size() == 1)
         throw std::runtime_error("Bad arguments amount");
@@ -107,5 +107,5 @@ void ArgumentParser::tryPushToMap(const std::string& key, const std::string& val
     if (!isInteger(value))
         throw std::runtime_error("key " + key + " has invalid value");
 
-    _arguments.emplace(key, stoi(value));
+    _arguments.try_emplace(key, stoi(value));
 }

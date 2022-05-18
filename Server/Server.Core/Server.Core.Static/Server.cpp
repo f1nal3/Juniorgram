@@ -48,7 +48,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::ChannelListRequest:
         {
-            channelListRequest(client, message);
+            channelListRequest(client);
         }
         break;
 
@@ -120,7 +120,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::ChannelSubscriptionListRequest:
         {
-            channelSubscriptionListRequest(client, message);
+            channelSubscriptionListRequest(client);
         }
         break;
 
@@ -149,13 +149,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         break;
     }
 }
-Server::Server(const uint16_t& port)
-    :_acceptor(_context, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port)),
-     _IDCounter(10000),
-     _criticalQueueSize(100),
-     _newThreadsCount(std::thread::hardware_concurrency()),
-     _postgreManager
-     (std::make_unique<PostgreRepositoryManager>(PostgreAdapter::getInstance<PostgreAdapter>()))
+Server::Server(const uint16_t& port):
+     _acceptor(_context, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port))
 {
 }
 
@@ -176,7 +171,8 @@ void Server::start()
 
     Base::Logger::FileLogger::getInstance().log
     (
-        "[SERVER] Started!", Base::Logger::LogLevel::INFO
+        "[SERVER] Started!", 
+        Base::Logger::LogLevel::INFO
     );
 }
 
@@ -198,16 +194,17 @@ void Server::stop()
 
     Base::Logger::FileLogger::getInstance().log
     (
-        "[SERVER] Stopped!", Base::Logger::LogLevel::INFO
+        "[SERVER] Stopped!",
+        Base::Logger::LogLevel::INFO
     );
 }
 
 void Server::waitForClientConnection()
-{
-    _acceptor.async_accept([this](std::error_code error, asio::ip::tcp::socket socket) { acceptingClientConnection(error,socket); });
+{   
+    _acceptor.async_accept([this](const std::error_code error, asio::ip::tcp::socket socket) { acceptingClientConnection(error,socket); });
 }
 
-void Server::acceptingClientConnection(std::error_code& error, asio::ip::tcp::socket& socket)
+void Server::acceptingClientConnection(const std::error_code& error, asio::ip::tcp::socket& socket)
 {
     if (!error)
     {
@@ -216,7 +213,8 @@ void Server::acceptingClientConnection(std::error_code& error, asio::ip::tcp::so
 
         Base::Logger::FileLogger::getInstance().log
         (
-            "[SERVER] New Connection: " + outputPoint.str(), Base::Logger::LogLevel::INFO
+            "[SERVER] New Connection: " + outputPoint.str(),
+            Base::Logger::LogLevel::INFO
         );
 
         auto newConnection = 
@@ -230,14 +228,16 @@ void Server::acceptingClientConnection(std::error_code& error, asio::ip::tcp::so
             Base::Logger::FileLogger::getInstance().log
             (
                 "[" + std::to_string(_connectionsPointers.back()->getID()) 
-                + "] Connection Approved", Base::Logger::LogLevel::INFO
+                + "] Connection Approved", 
+                Base::Logger::LogLevel::INFO
             );
         }
         else
         {
             Base::Logger::FileLogger::getInstance().log
             (
-                "[-----] Connection Denied", Base::Logger::LogLevel::INFO
+                "[-----] Connection Denied", 
+                Base::Logger::LogLevel::INFO
             );
         }
     }
@@ -245,7 +245,8 @@ void Server::acceptingClientConnection(std::error_code& error, asio::ip::tcp::so
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[SERVER] New Connection Error: " + error.message(), Base::Logger::LogLevel::ERR
+            "[SERVER] New Connection Error: " + error.message(), 
+            Base::Logger::LogLevel::ERR
         );
     }
 
@@ -322,7 +323,7 @@ void Server::update(size_t maxMessages, bool wait)
     }
 }
 
-void Server::checkServerPing(const std::shared_ptr<Connection>& client, Message& message)
+void Server::checkServerPing(const std::shared_ptr<Connection>& client, const Message& message) const
 {
     using namespace DataAccess;
 
@@ -340,7 +341,7 @@ void Server::checkServerPing(const std::shared_ptr<Connection>& client, Message&
     client->send(message);
 }
 
-void Server::readAllMessage(const std::shared_ptr<Connection>& client, Message& message)
+void Server::readAllMessage(const std::shared_ptr<Connection>& client, const Message& message)
 {
     using namespace DataAccess;
 
@@ -357,12 +358,12 @@ void Server::readAllMessage(const std::shared_ptr<Connection>& client, Message& 
    
     Message messageHandler;
     messageHandler.mHeader.mMessageType = Message::MessageType::ServerMessage;
+    
     // msg << client->getID();
-
     messageAllClients(messageHandler, client);
 }
 
-void Server::channelListRequest(const std::shared_ptr<Connection>& client, Message& message)
+void Server::channelListRequest(const std::shared_ptr<Connection>& client) const
 {
     using namespace DataAccess;
 
@@ -377,7 +378,7 @@ void Server::channelListRequest(const std::shared_ptr<Connection>& client, Messa
     client->send(messageHandler);
 }
 
-void Server::messageHistoryRequest(const std::shared_ptr<Connection>& client, Message& message)
+void Server::messageHistoryRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
     using namespace DataAccess;
 
@@ -394,11 +395,11 @@ void Server::messageHistoryRequest(const std::shared_ptr<Connection>& client, Me
     client->send(messageHandler);
 }
 
-void Server::messageStoreRequest(const std::shared_ptr<Connection>& client, Message& message)
+void Server::messageStoreRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
     using namespace DataAccess;
 
-    auto messageInfo      = std::any_cast<Network::MessageInfo>(message.mBody);
+    auto messageInfo     = std::any_cast<Network::MessageInfo>(message.mBody);
     messageInfo.senderID = client->getUserID();
     messageInfo.message  = Utility::removeSpaces(messageInfo.message);
     messageInfo.time     = UtilityTime::millisecondsSinceEpoch();
@@ -414,7 +415,7 @@ void Server::messageStoreRequest(const std::shared_ptr<Connection>& client, Mess
     client->send(answerForClient);
 }
 
-void Server::replyHistoryRequest(const std::shared_ptr<Connection>& client, Message& message)
+void Server::replyHistoryRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
     using namespace DataAccess;
 
@@ -431,11 +432,11 @@ void Server::replyHistoryRequest(const std::shared_ptr<Connection>& client, Mess
     client->send(replyMsg);
 }
 
-void Server::replyStoreRequest(const std::shared_ptr<Connection>& client, Message& message) 
+void Server::replyStoreRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
     using namespace DataAccess;
 
-    auto replyInfo      = std::any_cast<Network::ReplyInfo>(message.mBody);
+    auto replyInfo     = std::any_cast<Network::ReplyInfo>(message.mBody);
     replyInfo.senderID = client->getUserID();
     replyInfo.message  = Utility::removeSpaces(replyInfo.message);
 
@@ -450,11 +451,11 @@ void Server::replyStoreRequest(const std::shared_ptr<Connection>& client, Messag
     client->send(answerForClient);
 }
 
-void Server::messageDeleteRequest(const std::shared_ptr<Connection>& client, Message& message)
+void Server::messageDeleteRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
     using namespace DataAccess;
 
-    auto messageInfo      = std::any_cast<Network::MessageInfo>(message.mBody);
+    auto messageInfo     = std::any_cast<Network::MessageInfo>(message.mBody);
     messageInfo.senderID = client->getUserID();
 
     auto futureResult = _postgreManager->pushRequest(&IMessagesRepository::deleteMessage, fmt(messageInfo));
@@ -467,11 +468,11 @@ void Server::messageDeleteRequest(const std::shared_ptr<Connection>& client, Mes
     client->send(answerForClient);
 }
 
-void Server::messageEditRequest(const std::shared_ptr<Connection>& client, Message& message)
+void Server::messageEditRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
     using namespace DataAccess;
 
-    auto messageInfo      = std::any_cast<Network::MessageInfo>(message.mBody);
+    auto messageInfo     = std::any_cast<Network::MessageInfo>(message.mBody);
     messageInfo.senderID = client->getUserID();
 
     auto futureResult = _postgreManager->pushRequest(&IMessagesRepository::editMessage, fmt(messageInfo));
@@ -484,11 +485,11 @@ void Server::messageEditRequest(const std::shared_ptr<Connection>& client, Messa
     client->send(answerForClient);
 }
 
-void Server::messageReactionRequest(const std::shared_ptr<Connection>& client, Message& message) 
+void Server::messageReactionRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
     using namespace DataAccess;
 
-    auto messageInfo      = std::any_cast<Network::MessageInfo>(message.mBody);
+    auto messageInfo     = std::any_cast<Network::MessageInfo>(message.mBody);
     messageInfo.senderID = client->getUserID();
 
     auto futureResult = _postgreManager->pushRequest(&IMessagesRepository::updateMessageReactions, fmt(messageInfo));
@@ -501,7 +502,7 @@ void Server::messageReactionRequest(const std::shared_ptr<Connection>& client, M
     client->send(answerForClient);
 }
 
-void Server::registrationRequest(const std::shared_ptr<Connection>& client, Message& message)
+void Server::registrationRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
     using namespace DataAccess;
 
@@ -518,7 +519,7 @@ void Server::registrationRequest(const std::shared_ptr<Connection>& client, Mess
     client->send(messageToClient);
 }
 
-void Server::loginRequest(const std::shared_ptr<Connection>& client, Message& message) 
+void Server::loginRequest(const std::shared_ptr<Connection>& client, Message& message) const 
 {
     using namespace DataAccess;
 
@@ -531,7 +532,8 @@ void Server::loginRequest(const std::shared_ptr<Connection>& client, Message& me
 
     Base::Logger::FileLogger::getInstance().log
     (
-        "DEBUG: userID=" + std::to_string(userID), Base::Logger::LogLevel::DEBUG
+        "DEBUG: userID=" + std::to_string(userID), 
+        Base::Logger::LogLevel::DEBUG
     );
 
     Message messageToClient;
@@ -546,18 +548,19 @@ void Server::loginRequest(const std::shared_ptr<Connection>& client, Message& me
 
         Base::Logger::FileLogger::getInstance().log
         (
-            "User " + std::to_string(userID) + " logged in.", Base::Logger::LogLevel::INFO
+            "User " + std::to_string(userID) + " logged in.", 
+            Base::Logger::LogLevel::INFO
         );
     }
 }
 
-void Server::channelLeaveRequest(const std::shared_ptr<Connection>& client, Message& message)
+void Server::channelLeaveRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
     using namespace DataAccess;
 
     Network::ChannelLeaveInfo channelLeaveInfo;
 
-    auto channelName              = std::any_cast<std::string>(message.mBody);
+    auto channelName             = std::any_cast<std::string>(message.mBody);
     channelLeaveInfo.creatorID   = client->getUserID();
     channelLeaveInfo.channelName = channelName;
 
@@ -571,11 +574,11 @@ void Server::channelLeaveRequest(const std::shared_ptr<Connection>& client, Mess
     client->send(messageToClient);
 }
 
-void Server::channelSubscribeRequest(const std::shared_ptr<Connection>& client, Message& message)
+void Server::channelSubscribeRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
     using namespace DataAccess;
 
-    auto channelInfo    = std::any_cast<Network::ChannelSubscriptionInfo>(message.mBody);
+    auto channelInfo   = std::any_cast<Network::ChannelSubscriptionInfo>(message.mBody);
     channelInfo.userID = client->getUserID();
 
     auto futureResult = _postgreManager->pushRequest(&IChannelsRepository::subscribeToChannel, fmt(channelInfo));
@@ -589,7 +592,7 @@ void Server::channelSubscribeRequest(const std::shared_ptr<Connection>& client, 
     client->send(messageToClient);
 }
 
-void Server::channelSubscriptionListRequest(const std::shared_ptr<Connection>& client, Message& message) 
+void Server::channelSubscriptionListRequest(const std::shared_ptr<Connection>& client) const 
 {
     using namespace DataAccess;
 
@@ -605,13 +608,13 @@ void Server::channelSubscriptionListRequest(const std::shared_ptr<Connection>& c
     client->send(messageToClient);
 }
 
-void Server::channelDeleteRequest(const std::shared_ptr<Connection>& client, Message& message) 
+void Server::channelDeleteRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
     using namespace DataAccess;
 
     Network::ChannelDeleteInfo channelDeleteInfo;
 
-    auto channelName               = std::any_cast<std::string>(message.mBody);
+    auto channelName              = std::any_cast<std::string>(message.mBody);
     channelDeleteInfo.creatorID   = client->getUserID();
     channelDeleteInfo.channelName = channelName;
 
@@ -625,13 +628,13 @@ void Server::channelDeleteRequest(const std::shared_ptr<Connection>& client, Mes
     client->send(messageToClient);
 }
 
-void Server::channelCreateRequest(const std::shared_ptr<Connection>& client, Message& message)
+void Server::channelCreateRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
     using namespace DataAccess;
 
     Network::ChannelInfo newChannelInfo;
 
-    auto channelName            = std::any_cast<std::string>(message.mBody);
+    auto channelName           = std::any_cast<std::string>(message.mBody);
     newChannelInfo.creatorID   = client->getUserID();
     newChannelInfo.channelName = channelName;
 
@@ -645,7 +648,7 @@ void Server::channelCreateRequest(const std::shared_ptr<Connection>& client, Mes
     client->send(messageToClient);
 }
 
-void Server::directMessageCreateRequest(const std::shared_ptr<Connection>& client, Message& message) 
+void Server::directMessageCreateRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
     using namespace DataAccess;
 
@@ -659,11 +662,12 @@ void Server::directMessageCreateRequest(const std::shared_ptr<Connection>& clien
     messageToClient.mBody = std::make_any<Utility::DirectMessageStatus>(futureResult.get());
     client->send(messageToClient);
 }
-void Server::defaultRequest()
+void Server::defaultRequest() const
 { 
     Base::Logger::FileLogger::getInstance().log
     (
-        "Unknown command received", Base::Logger::LogLevel::ERR
+        "Unknown command received", 
+        Base::Logger::LogLevel::ERR
     );
 }
 }  /// namespace Server

@@ -16,7 +16,8 @@ int main(int argc, const char** argv)
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            e.what(), Base::Logger::LogLevel::ERR
+            e.what(), 
+            Base::Logger::LogLevel::ERR
         );
     }
     Server::Server server(port);

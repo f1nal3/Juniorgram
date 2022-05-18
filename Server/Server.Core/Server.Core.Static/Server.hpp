@@ -31,16 +31,17 @@ namespace Server
 class Server
 {
 private:
-    uint64_t _IDCounter;
-    uint64_t _criticalQueueSize;
-    uint64_t _newThreadsCount;
+    uint64_t _IDCounter         = 10000;
+    uint64_t _criticalQueueSize = 100;
+    uint64_t _newThreadsCount   = std::thread::hardware_concurrency();
 
     asio::io_context                                       _context;
     asio::ip::tcp::acceptor                                _acceptor;
-    std::deque<std::shared_ptr<Network::Connection>>       _connectionsPointers;
-    Network::SafeQueue<Network::Message>                   _incomingMessagesQueue;
+    std::deque<std::shared_ptr<Connection>>                _connectionsPointers;
+    SafeQueue<Message>                                     _incomingMessagesQueue;
     std::deque<std::thread>                                _threads;
-    std::unique_ptr<DataAccess::PostgreRepositoryManager>  _postgreManager;
+    std::unique_ptr<DataAccess::PostgreRepositoryManager>  _postgreManager =
+        std::make_unique<PostgreRepositoryManager>(PostgreAdapter::getInstance<PostgreAdapter>());
 
 private:
     /**
@@ -65,7 +66,7 @@ public:
     /**
     * @brief Explicit constructor
     * @param const uint16_t& port
-    * @details Uses incoming port value from ArgumentParser
+    * @details Uses incoming port value from ArgumentParser.
     */
     explicit Server(const uint16_t& port);
     /**
@@ -93,7 +94,7 @@ public:
     /**
     * @bried Method for accepting to a client, works asynchronously.
     */
-    void acceptingClientConnection(std::error_code& error, asio::ip::tcp::socket& socket);
+    void acceptingClientConnection(const std::error_code& error, asio::ip::tcp::socket& socket);
 
     /**
      * @brief Method for sending the message from client.
@@ -113,138 +114,133 @@ public:
      */
     void update(std::size_t maxMessages = std::numeric_limits<size_t>::max(), bool wait = true);
 
-public:
     /**
      * @brief The method for checking of server ping.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
      * @param Message& message - for use the message header functionality.
      */
-    void checkServerPing(const std::shared_ptr<Connection>& client, Message& message);
+    void checkServerPing(const std::shared_ptr<Connection>& client, const Message& message) const;
 
     /**
      * @brief The method for checking of receiving all messages by the client.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
      * @param Message& message - for use the message header functionality.
      */
-    void readAllMessage(const std::shared_ptr<Connection>& client, Message& message);
+    void readAllMessage(const std::shared_ptr<Connection>& client, const Message& message);
 
     /**
      * @brief The method of checking for a channel list.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
-     * @param Message& message - for use the message header functionality.
      */
-    void channelListRequest(const std::shared_ptr<Connection>& client, Message& message);
+    void channelListRequest(const std::shared_ptr<Connection>& client) const;
 
     /**
      * @brief The method for checking message history extraction.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
      * @param Message& message - for use the message header functionality.
      */
-    void messageHistoryRequest(const std::shared_ptr<Connection>& client, Message& message);
+    void messageHistoryRequest(const std::shared_ptr<Connection>& client, Message& message) const;
 
     /**
      * @brief The method for checking the retrieval of stored messages.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
      * @param Message& message - for use the message header functionality.
      */
-    void messageStoreRequest(const std::shared_ptr<Connection>& client, Message& message);
+    void messageStoreRequest(const std::shared_ptr<Connection>& client, Message& message) const;
 
     /**
      * @brief The method for checking answer history extraction.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
      * @param Message& message - for use the message header functionality.
      */
-    void replyHistoryRequest(const std::shared_ptr<Connection>& client, Message& message);
+    void replyHistoryRequest(const std::shared_ptr<Connection>& client, Message& message) const;
 
     /**
      * @brief The method for checking repeatly the retrieval of stored messages.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
      * @param Message& message - for use the message header functionality.
      */
-    void replyStoreRequest(const std::shared_ptr<Connection>& client, Message& message);
+    void replyStoreRequest(const std::shared_ptr<Connection>& client, Message& message) const;
 
     /**
      * @brief The method for checking of deletion a message request.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
      * @param Message& message - for use the message header functionality.
      */
-    void messageDeleteRequest(const std::shared_ptr<Connection>& client, Message& message);
+    void messageDeleteRequest(const std::shared_ptr<Connection>& client, Message& message) const;
 
     /**
      * @brief The method for checking the editing of a query.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
      * @param Message& message - for use the message header functionality.
      */
-    void messageEditRequest(const std::shared_ptr<Connection>& client, Message& message);
+    void messageEditRequest(const std::shared_ptr<Connection>& client, Message& message) const;
 
     /**
      * @brief The method for checking the reaction.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
      * @param Message& message - for use the message header functionality.
      */
-    void messageReactionRequest(const std::shared_ptr<Connection>& client, Message& message);
+    void messageReactionRequest(const std::shared_ptr<Connection>& client, Message& message) const;
 
     /**
      * @brief The method for checking the registration request.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
      * @param Message& message - for use the message header functionality.
      */
-    void registrationRequest(const std::shared_ptr<Connection>& client, Message& message);
+    void registrationRequest(const std::shared_ptr<Connection>& client, Message& message) const;
 
     /**
      * @brief The method for checking the logging request.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
      * @param Message& message - for use the message header functionality.
      */
-    void loginRequest(const std::shared_ptr<Connection>& client, Message& message);
+    void loginRequest(const std::shared_ptr<Connection>& client, Message& message) const;
 
     /**
      * @brief The method for checking the exit from the channel.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
      * @param Message& message - for use the message header functionality.
      */
-    void channelLeaveRequest(const std::shared_ptr<Connection>& client, Message& message);
+    void channelLeaveRequest(const std::shared_ptr<Connection>& client, Message& message) const;
 
     /**
      * @brief The method for verifying a channel subscription.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
      * @param Message& message - for use the message header functionality.
      */
-    void channelSubscribeRequest(const std::shared_ptr<Connection>& client, Message& message);
+    void channelSubscribeRequest(const std::shared_ptr<Connection>& client, Message& message) const;
 
     /**
      * @brief The method for checking the verification of users subscribed to a channel.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
-     * @param Message& message - for use the message header functionality.
      */
-    void channelSubscriptionListRequest(const std::shared_ptr<Connection>& client, Message& message);
+    void channelSubscriptionListRequest(const std::shared_ptr<Connection>& client) const;
 
     /**
      * @brief The method of checking the deletion of a channel.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
      * @param Message& message - for use the message header functionality.
      */
-    void channelDeleteRequest(const std::shared_ptr<Connection>& client, Message& message);
+    void channelDeleteRequest(const std::shared_ptr<Connection>& client, Message& message) const;
 
     /**
      * @brief The method of checking the creation of a channel.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
      * @param Message& message - for use the message header functionality.
      */
-    void channelCreateRequest(const std::shared_ptr<Connection>& client, Message& message);
+    void channelCreateRequest(const std::shared_ptr<Connection>& client, Message& message) const;
 
     /**
      * @brief The method for checking direct messages received by the user.
      * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
      * @param Message& message - for use the message header functionality.
      */
-    void directMessageCreateRequest(const std::shared_ptr<Connection>& client, Message& message);
+    void directMessageCreateRequest(const std::shared_ptr<Connection>& client, Message& message) const;
 
     /**
      * @brief The method for getting default request.
-     * @param const std::shared_ptr<Connection>& client - for connect messages to the client or server.
-     * @param Message& message - for use the message header functionality.
      */
-    void defaultRequest();
+    void defaultRequest() const;
 };
 }  /// namespace Server
