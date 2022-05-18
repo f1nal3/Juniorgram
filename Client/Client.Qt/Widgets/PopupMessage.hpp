@@ -8,6 +8,15 @@
 
 #include "AbstractPopupMessage.hpp"
 
+struct AnimationValue
+{
+    int animationTimeShow = 150;
+    int animationTimeHide = 1000;
+
+    double transparent     = 0.0;
+    double not_transparent = 1.0;
+};
+
 class PopupMessage : public AbstractPopupMessage
 {
 public:
@@ -43,13 +52,4 @@ private:
     QColor _black       = QColor(0, 0, 0, 180);
 
     AnimationValue _animationValue;
-};
-
-struct AnimationValue
-{
-    int animationTimeShow = 150;
-    int animationTimeHide = 1000;
-
-    double transparent = 0.0;
-    double not_transparent = 1.0;
 };
