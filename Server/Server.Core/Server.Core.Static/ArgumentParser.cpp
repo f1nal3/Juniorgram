@@ -107,5 +107,5 @@ void ArgumentParser::tryPushToMap(const std::string& key, const std::string& val
     if (!isInteger(value))
         throw std::runtime_error("key " + key + " has invalid value");
 
-    _arguments.emplace(key, stoi(value));
+    _arguments.try_emplace(key, stoi(value));
 }

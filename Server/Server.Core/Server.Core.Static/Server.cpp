@@ -5,13 +5,13 @@
 
 namespace Server
 {
-    using namespace DataAccess;
-    using Network::Connection;
-    using Network::Message;
-    using Network::SafeQueue;
-    using Base::Logger::FileLogger;
-    using Base::Logger::LogLevel;
-    using UtilityTime::safe_localtime;
+using namespace DataAccess;
+using Network::Connection;
+using Network::Message;
+using Network::SafeQueue;
+using Base::Logger::FileLogger;
+using Base::Logger::LogLevel;
+using UtilityTime::safe_localtime;
 
 bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
 {

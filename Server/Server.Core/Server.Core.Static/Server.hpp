@@ -19,10 +19,10 @@ class PostgreRepositoryManager;
 
 namespace Server
 {
-    using Network::Connection;
-    using Network::Message;
-    using Network::SafeQueue;
-    using DataAccess::PostgreRepositoryManager;
+using Network::Connection;
+using Network::Message;
+using Network::SafeQueue;
+using DataAccess::PostgreRepositoryManager;
 
 /**
  *  @class Server class
