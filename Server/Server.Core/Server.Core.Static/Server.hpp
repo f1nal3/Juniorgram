@@ -22,6 +22,7 @@ namespace Server
     using Network::Connection;
     using Network::Message;
     using Network::SafeQueue;
+    using DataAccess::PostgreRepositoryManager;
 
 /**
  *  @class Server class
@@ -40,8 +41,7 @@ private:
     std::deque<std::shared_ptr<Connection>>                _connectionsPointers;
     SafeQueue<Message>                                     _incomingMessagesQueue;
     std::deque<std::thread>                                _threads;
-    std::unique_ptr<DataAccess::PostgreRepositoryManager>  _postgreManager =
-        std::make_unique<PostgreRepositoryManager>(PostgreAdapter::getInstance<PostgreAdapter>());
+    std::unique_ptr<PostgreRepositoryManager>              _postgreManager;
 
 private:
     /**
@@ -92,8 +92,8 @@ public:
     void waitForClientConnection();
 
     /**
-    * @bried Method for accepting to a client, works asynchronously.
-    */
+     * @bried Method for accepting to a client, works asynchronously.
+     */
     void acceptingClientConnection(const std::error_code& error, asio::ip::tcp::socket& socket);
 
     /**
@@ -243,4 +243,4 @@ public:
      */
     void defaultRequest() const;
 };
-}  /// namespace Server
+}  // namespace Server

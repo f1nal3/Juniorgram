@@ -5,11 +5,12 @@
 
 namespace Server
 {
+    using namespace DataAccess;
     using Network::Connection;
     using Network::Message;
     using Network::SafeQueue;
-    using DataAccess::PostgreAdapter;
-    using DataAccess::PostgreRepositoryManager;
+    using Base::Logger::FileLogger;
+    using Base::Logger::LogLevel;
     using UtilityTime::safe_localtime;
 
 bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
@@ -22,10 +23,10 @@ bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
 
 void Server::onClientDisconnect(const std::shared_ptr<Connection>& client)
 {
-    Base::Logger::FileLogger::getInstance().log
+    FileLogger::getInstance().log
     (
         "Removing client [" + std::to_string(client->getID()) + "]", 
-        Base::Logger::LogLevel::INFO
+        LogLevel::INFO
     );
 }
 
@@ -149,8 +150,9 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         break;
     }
 }
-Server::Server(const uint16_t& port):
-     _acceptor(_context, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port))
+Server::Server(const uint16_t& port) :
+     _acceptor(_context, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port)),
+     _postgreManager(std::make_unique<PostgreRepositoryManager>(PostgreAdapter::getInstance<PostgreAdapter>()))
 {
 }
 
@@ -169,10 +171,10 @@ void Server::start()
     }
     _postgreManager->handleRequests();
 
-    Base::Logger::FileLogger::getInstance().log
+    FileLogger::getInstance().log
     (
         "[SERVER] Started!", 
-        Base::Logger::LogLevel::INFO
+        LogLevel::INFO
     );
 }
 
@@ -192,16 +194,16 @@ void Server::stop()
 
     _threads.clear();
 
-    Base::Logger::FileLogger::getInstance().log
+    FileLogger::getInstance().log
     (
         "[SERVER] Stopped!",
-        Base::Logger::LogLevel::INFO
+        LogLevel::INFO
     );
 }
 
 void Server::waitForClientConnection()
 {   
-    _acceptor.async_accept([this](const std::error_code error, asio::ip::tcp::socket socket) { acceptingClientConnection(error,socket); });
+    _acceptor.async_accept([this](const std::error_code error, asio::ip::tcp::socket socket) { acceptingClientConnection(error, socket); });
 }
 
 void Server::acceptingClientConnection(const std::error_code& error, asio::ip::tcp::socket& socket)
@@ -211,10 +213,10 @@ void Server::acceptingClientConnection(const std::error_code& error, asio::ip::t
         std::ostringstream outputPoint;
         outputPoint << socket.remote_endpoint();
 
-        Base::Logger::FileLogger::getInstance().log
+        FileLogger::getInstance().log
         (
             "[SERVER] New Connection: " + outputPoint.str(),
-            Base::Logger::LogLevel::INFO
+            LogLevel::INFO
         );
 
         auto newConnection = 
@@ -225,28 +227,28 @@ void Server::acceptingClientConnection(const std::error_code& error, asio::ip::t
             _connectionsPointers.emplace_back(std::move(newConnection));
             _connectionsPointers.back()->connectToClient(_IDCounter++);
 
-            Base::Logger::FileLogger::getInstance().log
+            FileLogger::getInstance().log
             (
                 "[" + std::to_string(_connectionsPointers.back()->getID()) 
                 + "] Connection Approved", 
-                Base::Logger::LogLevel::INFO
+                LogLevel::INFO
             );
         }
         else
         {
-            Base::Logger::FileLogger::getInstance().log
+            FileLogger::getInstance().log
             (
-                "[-----] Connection Denied", 
-                Base::Logger::LogLevel::INFO
+                "[SERVER] Connection Denied", 
+                LogLevel::INFO
             );
         }
     }
     else
     {
-        Base::Logger::FileLogger::getInstance().log
+        FileLogger::getInstance().log
         (
             "[SERVER] New Connection Error: " + error.message(), 
-            Base::Logger::LogLevel::ERR
+            LogLevel::ERR
         );
     }
 
@@ -325,17 +327,15 @@ void Server::update(size_t maxMessages, bool wait)
 
 void Server::checkServerPing(const std::shared_ptr<Connection>& client, const Message& message) const
 {
-    using namespace DataAccess;
-
     std::tm formattedTimestamp = UtilityTime::safe_localtime(message.mHeader.mTimestamp);
 
     std::ostringstream timeOutput;
     timeOutput << std::put_time(&formattedTimestamp, "%F %T");
 
-    Base::Logger::FileLogger::getInstance().log
+    FileLogger::getInstance().log
     (
         "[" + timeOutput.str() + "][" + std::to_string(client->getID()) + "]: Server Ping",
-                                                Base::Logger::LogLevel::INFO
+                                                LogLevel::INFO
     );
 
     client->send(message);
@@ -343,17 +343,15 @@ void Server::checkServerPing(const std::shared_ptr<Connection>& client, const Me
 
 void Server::readAllMessage(const std::shared_ptr<Connection>& client, const Message& message)
 {
-    using namespace DataAccess;
-
     std::tm formattedTimestamp = UtilityTime::safe_localtime(message.mHeader.mTimestamp);
 
     std::ostringstream timeOutput;
     timeOutput << std::put_time(&formattedTimestamp, "%F %T");
 
-    Base::Logger::FileLogger::getInstance().log
+    FileLogger::getInstance().log
     (
         "[" + timeOutput.str() + "][" + std::to_string(client->getID()) + "]: Message All\n",
-                                                Base::Logger::LogLevel::INFO
+                                                LogLevel::INFO
     );
    
     Message messageHandler;
@@ -365,8 +363,6 @@ void Server::readAllMessage(const std::shared_ptr<Connection>& client, const Mes
 
 void Server::channelListRequest(const std::shared_ptr<Connection>& client) const
 {
-    using namespace DataAccess;
-
     auto futureResult = _postgreManager->pushRequest(&IChannelsRepository::getAllChannelsList);
 
     Message messageHandler;
@@ -380,8 +376,6 @@ void Server::channelListRequest(const std::shared_ptr<Connection>& client) const
 
 void Server::messageHistoryRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    using namespace DataAccess;
-
     auto channelID = std::any_cast<std::uint64_t>(message.mBody);
 
     auto futureResult = _postgreManager->pushRequest(&IMessagesRepository::getMessageHistory, DataAccess::fmt(channelID));
@@ -397,8 +391,6 @@ void Server::messageHistoryRequest(const std::shared_ptr<Connection>& client, Me
 
 void Server::messageStoreRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    using namespace DataAccess;
-
     auto messageInfo     = std::any_cast<Network::MessageInfo>(message.mBody);
     messageInfo.senderID = client->getUserID();
     messageInfo.message  = Utility::removeSpaces(messageInfo.message);
@@ -417,8 +409,6 @@ void Server::messageStoreRequest(const std::shared_ptr<Connection>& client, Mess
 
 void Server::replyHistoryRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    using namespace DataAccess;
-
     auto channelID = std::any_cast<std::uint64_t>(message.mBody);
 
     auto futureResult = _postgreManager->pushRequest(&IRepliesRepository::getReplyHistory, fmt(channelID));
@@ -434,8 +424,6 @@ void Server::replyHistoryRequest(const std::shared_ptr<Connection>& client, Mess
 
 void Server::replyStoreRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    using namespace DataAccess;
-
     auto replyInfo     = std::any_cast<Network::ReplyInfo>(message.mBody);
     replyInfo.senderID = client->getUserID();
     replyInfo.message  = Utility::removeSpaces(replyInfo.message);
@@ -453,8 +441,6 @@ void Server::replyStoreRequest(const std::shared_ptr<Connection>& client, Messag
 
 void Server::messageDeleteRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    using namespace DataAccess;
-
     auto messageInfo     = std::any_cast<Network::MessageInfo>(message.mBody);
     messageInfo.senderID = client->getUserID();
 
@@ -470,8 +456,6 @@ void Server::messageDeleteRequest(const std::shared_ptr<Connection>& client, Mes
 
 void Server::messageEditRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    using namespace DataAccess;
-
     auto messageInfo     = std::any_cast<Network::MessageInfo>(message.mBody);
     messageInfo.senderID = client->getUserID();
 
@@ -487,8 +471,6 @@ void Server::messageEditRequest(const std::shared_ptr<Connection>& client, Messa
 
 void Server::messageReactionRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    using namespace DataAccess;
-
     auto messageInfo     = std::any_cast<Network::MessageInfo>(message.mBody);
     messageInfo.senderID = client->getUserID();
 
@@ -504,8 +486,6 @@ void Server::messageReactionRequest(const std::shared_ptr<Connection>& client, M
 
 void Server::registrationRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    using namespace DataAccess;
-
     auto replyInfo = std::any_cast<Network::RegistrationInfo>(message.mBody);
 
     auto futureResult = _postgreManager->pushRequest(&IRegisterRepository::registerUser, fmt(replyInfo));
@@ -521,8 +501,6 @@ void Server::registrationRequest(const std::shared_ptr<Connection>& client, Mess
 
 void Server::loginRequest(const std::shared_ptr<Connection>& client, Message& message) const 
 {
-    using namespace DataAccess;
-
     auto loginInfo = std::any_cast<Network::LoginInfo>(message.mBody);
 
     auto futureResult = _postgreManager->pushRequest(&ILoginRepository::loginUser, fmt(loginInfo));
@@ -530,10 +508,10 @@ void Server::loginRequest(const std::shared_ptr<Connection>& client, Message& me
     auto userID          = futureResult.get();
     auto loginSuccessful = userID != 0;
 
-    Base::Logger::FileLogger::getInstance().log
+    FileLogger::getInstance().log
     (
         "DEBUG: userID=" + std::to_string(userID), 
-        Base::Logger::LogLevel::DEBUG
+        LogLevel::DEBUG
     );
 
     Message messageToClient;
@@ -546,18 +524,16 @@ void Server::loginRequest(const std::shared_ptr<Connection>& client, Message& me
     {
         client->setUserID(userID);
 
-        Base::Logger::FileLogger::getInstance().log
+        FileLogger::getInstance().log
         (
             "User " + std::to_string(userID) + " logged in.", 
-            Base::Logger::LogLevel::INFO
+            LogLevel::INFO
         );
     }
 }
 
 void Server::channelLeaveRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    using namespace DataAccess;
-
     Network::ChannelLeaveInfo channelLeaveInfo;
 
     auto channelName             = std::any_cast<std::string>(message.mBody);
@@ -576,8 +552,6 @@ void Server::channelLeaveRequest(const std::shared_ptr<Connection>& client, Mess
 
 void Server::channelSubscribeRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    using namespace DataAccess;
-
     auto channelInfo   = std::any_cast<Network::ChannelSubscriptionInfo>(message.mBody);
     channelInfo.userID = client->getUserID();
 
@@ -594,8 +568,6 @@ void Server::channelSubscribeRequest(const std::shared_ptr<Connection>& client, 
 
 void Server::channelSubscriptionListRequest(const std::shared_ptr<Connection>& client) const 
 {
-    using namespace DataAccess;
-
     const auto userID = client->getUserID();
 
     auto futureResult = _postgreManager->pushRequest(&IChannelsRepository::getChannelSubscriptionList, fmt(userID));
@@ -610,8 +582,6 @@ void Server::channelSubscriptionListRequest(const std::shared_ptr<Connection>& c
 
 void Server::channelDeleteRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    using namespace DataAccess;
-
     Network::ChannelDeleteInfo channelDeleteInfo;
 
     auto channelName              = std::any_cast<std::string>(message.mBody);
@@ -630,8 +600,6 @@ void Server::channelDeleteRequest(const std::shared_ptr<Connection>& client, Mes
 
 void Server::channelCreateRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    using namespace DataAccess;
-
     Network::ChannelInfo newChannelInfo;
 
     auto channelName           = std::any_cast<std::string>(message.mBody);
@@ -650,8 +618,6 @@ void Server::channelCreateRequest(const std::shared_ptr<Connection>& client, Mes
 
 void Server::directMessageCreateRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    using namespace DataAccess;
-
     auto secondUser = std::any_cast<std::uint64_t>(message.mBody);
 
     auto futureResult = _postgreManager->pushRequest(&IDirectMessageRepository::addDirectChat, fmt(client->getUserID()), fmt(secondUser));
@@ -664,10 +630,10 @@ void Server::directMessageCreateRequest(const std::shared_ptr<Connection>& clien
 }
 void Server::defaultRequest() const
 { 
-    Base::Logger::FileLogger::getInstance().log
+    FileLogger::getInstance().log
     (
         "Unknown command received", 
-        Base::Logger::LogLevel::ERR
+        LogLevel::ERR
     );
 }
-}  /// namespace Server
+}  // namespace Server
