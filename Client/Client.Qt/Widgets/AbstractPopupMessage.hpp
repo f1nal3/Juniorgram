@@ -30,6 +30,15 @@ public:
 
     QLabel& getPopupLabel();
 
+    struct AnimationValue
+    {
+        int animationTimeShow = 150;
+        int animationTimeHide = 1000;
+
+        double transparent     = 1.0;
+        double not_transparent = 0.0;
+    };
+
 private:
     float _popupOpacity;
     QLabel _label;

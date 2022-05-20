@@ -27,7 +27,7 @@ PopupMessage::PopupMessage(QWidget* parent)
         "margin-left: 10px;"
         "margin-right: 10px; }");
 
-    _layout.addWidget(&getPopupLabel(), _row, _column);
+    _layout.addWidget(&getPopupLabel(), _row_widgetPosition, _column_widgetPosition);
     setLayout(&_layout);
 
     _timer = std::make_unique<QTimer>();
