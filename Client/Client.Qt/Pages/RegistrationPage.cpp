@@ -50,8 +50,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
 
         if (email.empty() || login.empty() || password.empty() || repeatPassword.empty())
         {
-            Base::Logger::FileLogger::getInstance().log("Some field is empty", Base::Logger::LogLevel::WARNING);
-            _popupMessage->setPopupText("Some field is empty");
+            Base::Logger::FileLogger::getInstance().log("Some of the fields are empty", Base::Logger::LogLevel::WARNING);
+            _popupMessage->setPopupText("Some of the fields are empty");
             _popupMessage->popupShow();
             onResume();
 

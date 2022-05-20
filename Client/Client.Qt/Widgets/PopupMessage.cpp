@@ -69,7 +69,7 @@ void PopupMessage::popupShow()
 }
 
 void PopupMessage::hideAnimation()
-{
+{ 
     _timer->stop();
     _animation.setDuration(_animationValue.animationTimeHide);
     _animation.setStartValue(_animationValue.transparent);

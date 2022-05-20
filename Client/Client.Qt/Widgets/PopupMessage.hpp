@@ -39,7 +39,6 @@ private:
     QGridLayout             _layout;
     QPropertyAnimation      _animation;
     std::unique_ptr<QTimer> _timer;
-    int                     _animationDuration = 3000;
 
     int _animationDuration = 3000;
     int _row               = 0;
