@@ -11,10 +11,10 @@
 struct AnimationValue
 {
     int animationTimeShow = 150;
-    int animationTimeHide = 1000;
+    int  animationTimeHide = 1000;
 
-    double transparent     = 0.0;
-    double not_transparent = 1.0;
+    double transparent     = 1.0;
+    double not_transparent = 0.0;
 };
 
 class PopupMessage : public AbstractPopupMessage
@@ -39,17 +39,16 @@ private:
     QGridLayout             _layout;
     QPropertyAnimation      _animation;
     std::unique_ptr<QTimer> _timer;
-    int                     _animationDuration = 3000;
 
-    //
-    int _row            = 0;
-    int _column         = 0;
-    int _offsetXY       = 5;
-    int _offsetWH       = 10;
-    int _xRadius        = 10;
-    int _yRadius        = 10;
-    qreal _transparent  = 0.0;
-    QColor _black       = QColor(0, 0, 0, 180);
+    int _animationDuration = 3000;
+    int _row               = 0;
+    int _column            = 0;
+    int _offsetXY          = 5;
+    int _offsetWH          = 10;
+    int _xRadius           = 10;
+    int _yRadius           = 10;
+    qreal _transparent     = 0.0;
+    QColor _black          = QColor(0, 0, 0, 180);
 
-    AnimationValue _animationValue;
+    const AnimationValue _animationValue;
 };
