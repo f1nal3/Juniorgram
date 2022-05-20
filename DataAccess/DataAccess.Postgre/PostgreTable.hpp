@@ -26,4 +26,4 @@ public:
     PostgreTable(const std::string& tableName, std::string_view options)
         : QueryBuilder(Utility::DatabaseType::DB_POSTGRE, tableName, PostgreAdapter::getInstance<PostgreAdapter>(options)) {}
 };
-}  // namespace DataAccess
+}  /// namespace DataAccess

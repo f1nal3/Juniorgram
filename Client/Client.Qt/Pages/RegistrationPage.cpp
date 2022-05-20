@@ -50,8 +50,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
 
         if (email.empty() || login.empty() || password.empty() || repeatPassword.empty())
         {
-            Base::Logger::FileLogger::getInstance().log("Some field is empty", Base::Logger::LogLevel::WARNING);
-            _popupMessage->setPopupText("Some field is empty");
+            Base::Logger::FileLogger::getInstance().log("Some of the fields are empty", Base::Logger::LogLevel::WARNING);
+            _popupMessage->setPopupText("Some of the fields are empty");
             _popupMessage->popupShow();
             onResume();
 
@@ -60,8 +60,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
 
         if (password != repeatPassword)
         {
-            Base::Logger::FileLogger::getInstance().log("Passwords are different", Base::Logger::LogLevel::WARNING);
-            _popupMessage->setPopupText("Passwords are different");
+            Base::Logger::FileLogger::getInstance().log("passwords are different", Base::Logger::LogLevel::WARNING);
+            _popupMessage->setPopupText("passwords are different");
             _popupMessage->popupShow();
             onResume();
 
@@ -70,8 +70,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
 
         if (!isLoginValid(login))
         {
-            Base::Logger::FileLogger::getInstance().log("Login is not valid", Base::Logger::LogLevel::WARNING);
-            _popupMessage->setPopupText("Login is not valid");
+            Base::Logger::FileLogger::getInstance().log("login is not valid", Base::Logger::LogLevel::WARNING);
+            _popupMessage->setPopupText("login is not valid");
             _popupMessage->popupShow();
             onResume();
 
@@ -80,8 +80,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
 
         if (!isEmailValid(email))
         {
-            Base::Logger::FileLogger::getInstance().log("Email is not valid", Base::Logger::LogLevel::WARNING);
-            _popupMessage->setPopupText("Email is not valid");
+            Base::Logger::FileLogger::getInstance().log("email is not valid", Base::Logger::LogLevel::WARNING);
+            _popupMessage->setPopupText("email is not valid");
             _popupMessage->popupShow();
             onResume();
 
@@ -90,8 +90,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         
         if(!isPasswordValid(password))
         {
-            Base::Logger::FileLogger::getInstance().log("Password is not valid", Base::Logger::LogLevel::WARNING);
-            _popupMessage->setPopupText("Password is not valid");
+            Base::Logger::FileLogger::getInstance().log("password is not valid", Base::Logger::LogLevel::WARNING);
+            _popupMessage->setPopupText("password is not valid");
             _popupMessage->popupShow();
             onResume();
 
@@ -155,3 +155,4 @@ void RegistrationPage::onRegistration(Utility::RegistrationCodes code)
         }
     }
 }
+

@@ -1,30 +1,19 @@
 #include "FileLogger.hpp"
 #include <algorithm>
-#include <chrono>
-#include <cstdlib>
-#include <ctime>
 #include <map>
 #include <vector>
 #include <iostream>
 
+#include <Utility/Utility.hpp>
+#include "Utility/UtilityTime.hpp"
+
 using namespace Base::Logger;
+using UtilityTime::safe_localtime;
 
-std::string FileLogger::stringifyLogLvl(const LogLevel level)
+FileLogger& FileLogger::getInstance()
 {
-    std::string                                  result   = "NONE";
-    const static std::map<LogLevel, std::string> LevelMap = {
-        {LogLevel::ERR, "ERROR"},
-        {LogLevel::WARNING, "WARNING"},
-        {LogLevel::INFO, "INFO"},
-        {LogLevel::DEBUG, "DEBUG"},
-    };
-
-    auto it = LevelMap.find(level);
-    if (it != LevelMap.end())
-    {
-        result = it->second;
-    }
-    return result;
+    static FileLogger self;
+    return self;
 }
 
 FileLogger::FileLogger() { _loggerThread = std::thread(&FileLogger::run, this); }
@@ -38,15 +27,9 @@ FileLogger::~FileLogger()
     }
 }
 
-FileLogger& FileLogger::getInstance()
-{
-    static FileLogger self;
-    return self;
-}
-
 void FileLogger::init(const std::string& filename, const LogOutput output = LogOutput::EVERYWHERE)
 {
-    _fileName = filename;
+    _fileNamePrefix = filename;
     _output   = output;
 }
 
@@ -54,7 +37,7 @@ void FileLogger::open()
 {
     if (_output == LogOutput::EVERYWHERE || _output == LogOutput::FILE)
     {
-        _file.open(getFldName() + std::string{"\\"} + getFileName(), std::ios::app);
+        _file.open(Utility::getFldPath() + "\\" + genDateTimeFileName(), std::ios::app);
         fileSync();
         _isOpened = _file.is_open();
 
@@ -82,8 +65,10 @@ void FileLogger::stop()
 
 void FileLogger::log(const std::string& msg, const LogLevel level)
 {
-    std::string result = wrapValue(timestamp(), _blockWrapper) + " " + wrapValue(threadID(), _blockWrapper) + " " +
-                         wrapValue(stringifyLogLvl(level), _blockWrapper) + " " + msg;
+    std::string result = wrapValue(timestamp(), _blockWrapper) + " " 
+                       + wrapValue(threadID(),  _blockWrapper) + " " 
+                       + wrapValue(stringifyLogLvl(level), _blockWrapper) + " " 
+                       + msg;
 
     std::lock_guard<std::mutex> lk(_mutex);
     _msgQueue.push(result);
@@ -97,8 +82,7 @@ std::string FileLogger::timestamp()
 
     time_t raw_time = system_clock::to_time_t(tp);
 
-    std::tm  tt       = Utility::safe_localtime(raw_time);
-    std::tm* timeinfo = &tt;
+    std::tm  tt       = safe_localtime(raw_time);
     auto     ms       = std::chrono::duration_cast<std::chrono::microseconds>(tp.time_since_epoch()) % 1000;
 
     const unsigned sizeBuffer      = 26;
@@ -106,7 +90,7 @@ std::string FileLogger::timestamp()
 
     /// MinGW will warning if we put this string directly
     std::string_view timeFormat = "%F %T";
-    std::strftime(buf, sizeBuffer, timeFormat.data(), timeinfo);
+    std::strftime(buf, sizeBuffer, timeFormat.data(), &tt);
 
     std::string str = std::string(buf);
 
@@ -115,6 +99,7 @@ std::string FileLogger::timestamp()
 
     return ss.str();
 }
+
 std::string FileLogger::threadID()
 {
     std::stringstream ss;
@@ -143,79 +128,72 @@ void FileLogger::run()
         _inputWait.wait(lock, [&]() { return _stop || !_msgQueue.empty(); });
 
         // Stop if needed
-        if (_stop)
-        {
-            break;
-        }
+        if (_stop) break;
 
         std::string msg = std::move(_msgQueue.front());
         _msgQueue.pop();
 
-        if (_output == LogOutput::CONSOLE)
+        switch (_output)
         {
-            std::cout << msg << std::endl;
-        }
-        else if (_output == LogOutput::FILE)
-        {
-            open();
-            _file << msg << std::endl;
-            close();
-        }
-        else
-        {
-            open();
-            std::cout << msg << std::endl;
-            _file << msg << std::endl;
-            close();
+            case Base::Logger::LogOutput::CONSOLE:
+                std::cout << msg << std::endl;
+                break;
+            case Base::Logger::LogOutput::FILE:
+                open();
+                _file << msg << std::endl;
+                close();
+                break;
+            case Base::Logger::LogOutput::EVERYWHERE:
+                open();
+                std::cout << msg << std::endl;
+                _file << msg << std::endl;
+                close();
+                break;
+            default:
+                break;
         }
     }
 }
 
-std::string FileLogger::getCurrentDate()
+std::string FileLogger::genDateTimeFileName() const
 {
-    using std::chrono::system_clock;
-
-    system_clock::time_point tp = system_clock::now();
-
-    time_t raw_time = system_clock::to_time_t(tp);
-
-    std::tm    tt       = Utility::safe_localtime(raw_time);
-    struct tm* timeinfo = &tt;
-
-    char buf[24] = {0};
-
-    strftime(buf, 24, "%d.%m.%Y", timeinfo);
-
-    return std::string(buf);
+    return _fileNamePrefix + UtilityTime::getStringifiedCurrentDate() + ".log";
 }
 
-std::string FileLogger::getFileName()
+void FileLogger::fileSync() const
 {
-    return _fileName + getCurrentDate() + ".txt";
-}
+    using hz = std::pair<std::time_t, std::filesystem::path>;
+    std::vector<hz> listLogFiles;
 
-std::string FileLogger::getFldName()
-{
-    std::filesystem::path path = "Log";
-    std::filesystem::create_directory(path);
-    return path.string();
-}
-
-void FileLogger::fileSync()
-{
-    std::vector<std::pair<std::time_t, std::filesystem::path>> VecLogFiles;
-
-    for (auto& p : std::filesystem::directory_iterator(getFldName()))
+    for (auto& p : std::filesystem::directory_iterator(Utility::getFldPath()))
     {
         std::time_t tt = to_time_t(std::filesystem::last_write_time(p.path()));
-        VecLogFiles.push_back(std::make_pair(tt, p.path()));
+        listLogFiles.emplace_back(tt, p.path());
     }
 
-    sort(VecLogFiles.rbegin(), VecLogFiles.rend());
+    sort(listLogFiles.rbegin(), listLogFiles.rend());
 
-    while (VecLogFiles.size() > lifeTime)
+    while (listLogFiles.size() > lifeTime)
     {
-        std::filesystem::remove(VecLogFiles.back().second);
-        VecLogFiles.pop_back();
+        std::filesystem::remove(listLogFiles.back().second);
+        listLogFiles.pop_back();
     }
+}
+
+std::string FileLogger::stringifyLogLvl(const LogLevel level)
+{
+    std::string                                  result   = "NONE";
+    const static std::map<LogLevel, std::string> LevelMap = {
+        {LogLevel::ERR, "ERROR"},
+        {LogLevel::WARNING, "WARNING"},
+        {LogLevel::INFO, "INFO"},
+        {LogLevel::DEBUG, "DEBUG"},
+    };
+
+    auto it = LevelMap.find(level);
+    if (it != LevelMap.end())
+    {
+        result = it->second;
+    }
+    return result;
 }

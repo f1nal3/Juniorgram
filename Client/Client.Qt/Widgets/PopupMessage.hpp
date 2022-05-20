@@ -11,10 +11,10 @@
 struct AnimationValue
 {
     int animationTimeShow = 150;
-    int animationTimeHide = 1000;
+    int  animationTimeHide = 1000;
 
-    double transparent     = 0.0;
-    double not_transparent = 1.0;
+    double transparent     = 1.0;
+    double not_transparent = 0.0;
 };
 
 class PopupMessage : public AbstractPopupMessage
@@ -50,5 +50,5 @@ private:
     qreal _transparent  = 0.0;
     QColor _black       = QColor(0, 0, 0, 180);
 
-    AnimationValue _animationValue;
+    const AnimationValue _animationValue;
 };

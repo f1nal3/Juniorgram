@@ -2,6 +2,8 @@
 [![Windows Build](https://github.com/f1nal3/Juniorgram/actions/workflows/Windows%20Build.yml/badge.svg?branch=master)](https://github.com/f1nal3/Juniorgram/actions/workflows/Windows%20Build.yml)
 [![GCC Linux Build](https://github.com/f1nal3/Juniorgram/actions/workflows/GCC%20Linux%20Build.yml/badge.svg)](https://github.com/f1nal3/Juniorgram/actions/workflows/GCC%20Linux%20Build.yml)
 [![Documentation](https://github.com/f1nal3/Juniorgram/actions/workflows/documentation.yml/badge.svg?branch=master)](https://github.com/f1nal3/Juniorgram/actions/workflows/documentation.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=f1nal3_Juniorgram&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=f1nal3_Juniorgram)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=f1nal3_Juniorgram&metric=coverage)](https://sonarcloud.io/summary/new_code?id=f1nal3_Juniorgram)
 
 ![](https://i.ibb.co/sC8WJQs/logo2.png)
 

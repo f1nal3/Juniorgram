@@ -16,7 +16,7 @@ PopupMessage::PopupMessage(QWidget* parent)
     setWindowOpacity(_transparent);
 
     _animation.setTargetObject(this);
-    _animation.setPropertyName("popupOpacity");
+    _animation.setPropertyName("_popupOpacity");
     connect(&_animation, &QAbstractAnimation::finished, this, &PopupMessage::hide);
 
     getPopupLabel().setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
@@ -69,7 +69,7 @@ void PopupMessage::popupShow()
 }
 
 void PopupMessage::hideAnimation()
-{
+{ 
     _timer->stop();
     _animation.setDuration(_animationValue.animationTimeHide);
     _animation.setStartValue(_animationValue.transparent);

@@ -4,7 +4,7 @@
 
 using Catch::Contains;
 
-void ExceptionThrowerMock()
+[[noreturn]] static void ExceptionThrowerMock()
 {
     throw Utility::NotImplementedException("Not implemented", __FILE__, __LINE__);
 }

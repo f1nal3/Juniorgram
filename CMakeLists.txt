@@ -31,6 +31,10 @@ if (ENABLE_CCACHE)
     include(Ccache)
 endif()
 
+if (COVERAGE_MODE)
+    include(Coverage)
+endif()
+
 enable_testing()
 
 add_subdirectory(Test)

@@ -4,33 +4,33 @@ namespace DataAccess
 {
     std::shared_ptr<PostgreAdapter> PostgreAdapter::Instance(const std::string_view& options)
     {
-        std::scoped_lock<std::mutex> lock(ms_static_mutex);
+        std::scoped_lock<std::mutex> lock(_staticMutex);
 
-        if (msp_instance == nullptr)
+        if (_instance == nullptr)
         {
-            msp_instance = std::shared_ptr<PostgreAdapter>(new PostgreAdapter(options.empty() ? ms_defaultOptions : options));
+            _instance = std::shared_ptr<PostgreAdapter>(new PostgreAdapter(options.empty() ? _defaultOptions : options));
         }
 
-        return msp_instance;
+        return _instance;
     }
 
     pqxx::connection& PostgreAdapter::getConnection(void) 
     {
-        return *m_connection; 
+        return *_connection; 
     }
 
     bool PostgreAdapter::isConnected(void) const 
     {
-        return m_connection->is_open(); 
+        return _connection->is_open(); 
     }
 
     std::optional<std::any> PostgreAdapter::query(const std::string_view& query)
     {
-        std::scoped_lock<std::mutex> lock(m_query_mutex);
+        std::scoped_lock<std::mutex> lock(_queryMutex);
 
         if (this->isConnected())
         {
-            pqxx::work work{ *m_connection };
+            pqxx::work work{ *_connection };
 
             auto res = work.exec(query);
             work.commit();
@@ -50,8 +50,8 @@ namespace DataAccess
 
     void PostgreAdapter::closeConnection(void) 
     { 
-        msp_instance.reset();
-        m_connection.reset();
+        _instance.reset();
+        _connection.reset();
     }
 
 }

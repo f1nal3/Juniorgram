@@ -10,4 +10,4 @@ class PostgreRepositoryContainer : public AbstractRepositoryContainer
 public:
     PostgreRepositoryContainer(std::shared_ptr<IAdapter> adapter) : AbstractRepositoryContainer(adapter) {}
 };
-}  // namespace DataAccess
+}  /// namespace DataAccess

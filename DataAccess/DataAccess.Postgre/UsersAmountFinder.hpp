@@ -1,6 +1,7 @@
 #pragma once
-#include "PostgreTable.hpp"
 #include <Network/Primitives.hpp>
+
+#include "PostgreTable.hpp"
 
 /** @class UsersAmountFinder.
  *   @brief UsersAmountFinder class.
@@ -11,12 +12,12 @@ class UsersAmountFinder
 protected:
     using Table = DataAccess::PostgreTable;
 
-    std::unique_ptr<Table> pTable;
+    std::unique_ptr<Table> _pTable;
 
-    UsersAmountFinder(Table* pt) : pTable(pt) {}
+    UsersAmountFinder(Table* pTable) : _pTable(pTable) {}
 
 public:
-    UsersAmountFinder() : pTable(std::make_unique<Table>("users")) {}
+    UsersAmountFinder() : _pTable(std::make_unique<Table>("users")) {}
 
     virtual ~UsersAmountFinder() = default;
 

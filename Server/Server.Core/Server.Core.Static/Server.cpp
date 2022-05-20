@@ -7,6 +7,7 @@
 using Network::Connection;
 using Network::Message;
 using Network::SafeQueue;
+using UtilityTime::safe_localtime;
 
 namespace Server
 {
@@ -31,14 +32,11 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 {
     using namespace DataAccess;
 
-    const auto currentTime     = std::chrono::system_clock::now();
-    message.mHeader.mTimestamp = currentTime;
-
     switch (message.mHeader.mMessageType)
     {
         case Network::Message::MessageType::ServerPing:
         {
-            std::tm formattedTimestamp = Utility::safe_localtime(std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
+            std::tm formattedTimestamp = safe_localtime(message.mHeader.mTimestamp);
             
             std::ostringstream out;
             out << std::put_time(&formattedTimestamp, "%F %T");
@@ -55,7 +53,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
         case Network::Message::MessageType::MessageAll:
         {
-            std::tm formattedTimestamp = Utility::safe_localtime(std::chrono::system_clock::to_time_t(message.mHeader.mTimestamp));
+            std::tm formattedTimestamp = safe_localtime(message.mHeader.mTimestamp);
 
             std::ostringstream out;
             out << std::put_time(&formattedTimestamp, "%F %T");
@@ -109,7 +107,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
             auto mi     = std::any_cast<Network::MessageInfo>(message.mBody);
             mi.senderID = client->getUserID();
             mi.message  = Utility::removeSpaces(mi.message);
-            mi.time     = Utility::millisecondsSinceEpoch();
+            mi.time     = UtilityTime::millisecondsSinceEpoch();
 
             auto future = mPostgreManager->pushRequest(&IMessagesRepository::storeMessage, fmt(mi));
 
