@@ -57,6 +57,7 @@ void PopupMessage::paintEvent(QPaintEvent* event)
 
 void PopupMessage::popupShow()
 {
+
     _animation.setDuration(_animationValue.animationTimeShow);
     _animation.setStartValue(_animationValue.not_transparent);
     _animation.setEndValue(_animationValue.transparent);
