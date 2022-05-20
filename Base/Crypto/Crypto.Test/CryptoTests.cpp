@@ -13,6 +13,7 @@ TEST_CASE("Cryptopp test", "[dummy]")
         auto shouldBe = std::string{"910C8F08EDC485FD882502A907912C57BEA192373A585DC742A36B6583CDA252"}; 
 
         REQUIRE(result == shouldBe);
+        REQUIRE_NOTHROW(SHA_256("Password", "login"));
     }
 
     SECTION("Generation of secret KEY") { 
@@ -21,6 +22,7 @@ TEST_CASE("Cryptopp test", "[dummy]")
 
         auto key = chiper->generateKey();
         REQUIRE(key.size() == defAESkeyLenght);
+        REQUIRE_NOTHROW(chiper->generateKey());
 
     }
 
@@ -37,6 +39,8 @@ TEST_CASE("Cryptopp test", "[dummy]")
         REQUIRE(encryptedMsg != msg);
         REQUIRE(encryptedMsg != decryptedMsg);
         REQUIRE(decryptedMsg == msg);
+        REQUIRE_NOTHROW(chiper->encrypt(msg, key));
+        REQUIRE_NOTHROW(chiper->decrypt(encryptedMsg, key));
     }
   
 }
