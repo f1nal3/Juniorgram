@@ -40,7 +40,7 @@ private:
     QPropertyAnimation      _animation;
     std::unique_ptr<QTimer> _timer;
 
-    int                     _animationDuration = 3000;
+    int _animationDuration = 3000;
     int _row            = 0;
     int _column         = 0;
     int _offsetXY       = 5;
