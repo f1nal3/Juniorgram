@@ -9,7 +9,6 @@ TEST_CASE("PostgreAdapter test", "[dummy]")
 { 
 	SECTION("Checking our near-constructor stuff")
 	{
-		REQUIRE_THROWS(PostgreAdapter::Instance("somethingwrong"));
 		REQUIRE_THROWS(PostgreAdapter::Instance("1_*14_0aV&"));
 
 		REQUIRE_NOTHROW(PostgreAdapter::Instance());
@@ -34,7 +33,7 @@ TEST_CASE("PostgreAdapter test", "[dummy]")
 		REQUIRE(ourBadAdapter.get()->isConnected());
 		REQUIRE(ourBadAdapter.get()!=nullptr);
 
-		auto dbName = std::string_view{"juniorgram"};
+		auto dbName = std::string_view{"testdb"};
 		REQUIRE(ourBadAdapter.get()->getConnection().dbname() == dbName);
 	}
 
