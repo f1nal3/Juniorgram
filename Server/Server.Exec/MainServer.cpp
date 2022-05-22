@@ -6,7 +6,7 @@
 
 int main(int argc, const char** argv)
 {
-    uint16_t port = 0;
+    uint16_t port;
     try
     {
         ArgumentParser parser(argc, argv);
