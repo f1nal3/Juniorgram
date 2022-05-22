@@ -44,7 +44,7 @@ TEST_CASE("PostgreAdapter test", "[dummy]")
 
 	SECTION("Check our query")
 	{
-		auto ourAdapter = PostgreAdapter::Instance();
+		auto ourAdapter = PostgreAdapter::Instance(DBOptions::test);
 		auto ourQuery = std::string_view{"SELECT * FROM users"};
 
 		//REQUIRE_NOTHROW(ourAdapter.get()->query(ourQuery));
