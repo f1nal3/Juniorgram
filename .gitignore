@@ -9,7 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
-./CMakeSettings.json
+CMakeSettings.json
 
 
 # User-specific files (MonoDevelop/Xamarin Studio)
@@ -370,3 +370,4 @@ FodyWeavers.xsd
 
 # .DS_Store
 *.DS_Store*
+Client/Client.Core/Client.Core.Static/CMakeLists.txt

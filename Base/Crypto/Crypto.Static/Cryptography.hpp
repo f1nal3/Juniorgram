@@ -3,6 +3,10 @@
 #include <memory>
 #include <string>
 
+#include <cryptopp/hex.h>
+#include <cryptopp/modes.h>
+#include <cryptopp/osrng.h>
+
 namespace Base::Crypto
 {
 struct ICipher
@@ -24,6 +28,9 @@ struct AESCipher : ICipher
     std::string generateKey() override;
     std::string encrypt(const std::string& data, const std::string& key) override;
     std::string decrypt(const std::string& cipherData, const std::string& key) override;
+
+    CryptoPP::ECB_Mode<CryptoPP::AES>::Encryption encryptor;
+    CryptoPP::ECB_Mode<CryptoPP::AES>::Decryption decryptor;
 };
 
 struct AESFactory : ICiphersFactory
