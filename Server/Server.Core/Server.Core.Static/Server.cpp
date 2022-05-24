@@ -6,17 +6,12 @@
 namespace Server
 {
 using namespace DataAccess;
-using Network::Connection;
-using Network::Message;
-using Network::SafeQueue;
-using Base::Logger::FileLogger;
-using Base::Logger::LogLevel;
 using UtilityTime::safe_localtime;
 
 bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
 {
-    Network::Message message;
-    message.mHeader.mMessageType = Network::Message::MessageType::ServerAccept;
+    Message message;
+    message.mHeader.mMessageType = Message::MessageType::ServerAccept;
     client->send(message);
     return true;
 }
@@ -35,109 +30,109 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 
     switch (message.mHeader.mMessageType)
     {
-        case Network::Message::MessageType::ServerPing:
+        case Message::MessageType::ServerPing:
         {
             checkServerPing(client, message);
         }
         break;
 
-        case Network::Message::MessageType::MessageAll:
+        case Message::MessageType::MessageAll:
         {
             readAllMessage(client, message);
         }
         break;
 
-        case Network::Message::MessageType::ChannelListRequest:
+        case Message::MessageType::ChannelListRequest:
         {
             channelListRequest(client);
         }
         break;
 
-        case Network::Message::MessageType::MessageHistoryRequest:
+        case Message::MessageType::MessageHistoryRequest:
         {
             messageHistoryRequest(client, message);
         }
         break;
 
-        case Network::Message::MessageType::MessageStoreRequest:
+        case Message::MessageType::MessageStoreRequest:
         {
             messageStoreRequest(client, message);
         }
         break;
 
-        case Network::Message::MessageType::ReplyHistoryRequest:
+        case Message::MessageType::ReplyHistoryRequest:
         {
             replyHistoryRequest(client, message);
         }
         break;
 
-        case Network::Message::MessageType::ReplyStoreRequest:
+        case Message::MessageType::ReplyStoreRequest:
         {
             replyStoreRequest(client, message);
         }
         break;
 
-        case Network::Message::MessageType::MessageDeleteRequest:
+        case Message::MessageType::MessageDeleteRequest:
         {
             messageDeleteRequest(client, message);
         }
         break;
 
-        case Network::Message::MessageType::MessageEditRequest:
+        case Message::MessageType::MessageEditRequest:
         {
             messageEditRequest(client, message);
         }
         break;
 
-        case Network::Message::MessageType::MessageReactionRequest:
+        case Message::MessageType::MessageReactionRequest:
         {
             messageReactionRequest(client, message);
         }
         break;
 
-        case Network::Message::MessageType::RegistrationRequest:
+        case Message::MessageType::RegistrationRequest:
         {
             registrationRequest(client, message);
         }
         break;
 
-        case Network::Message::MessageType::LoginRequest:
+        case Message::MessageType::LoginRequest:
         {
             loginRequest(client, message);
         }
         break;
 
-        case Network::Message::MessageType::ChannelLeaveRequest:
+        case Message::MessageType::ChannelLeaveRequest:
         {
             channelLeaveRequest(client, message);
         }
         break;
 
-        case Network::Message::MessageType::ChannelSubscribeRequest:
+        case Message::MessageType::ChannelSubscribeRequest:
         {
             channelSubscribeRequest(client, message);
         }
         break;
 
-        case Network::Message::MessageType::ChannelSubscriptionListRequest:
+        case Message::MessageType::ChannelSubscriptionListRequest:
         {
             channelSubscriptionListRequest(client);
         }
         break;
 
-        case Network::Message::MessageType::ChannelDeleteRequest:
+        case Message::MessageType::ChannelDeleteRequest:
         {
             channelDeleteRequest(client, message);
         }
         break;
 
-        case Network::Message::MessageType::ChannelCreateRequest:
+        case Message::MessageType::ChannelCreateRequest:
         {
             channelCreateRequest(client, message);
         }
         break;
 
-        case Network::Message::MessageType::DirectMessageCreateRequest:
+        case Message::MessageType::DirectMessageCreateRequest:
         {
             directMessageCreateRequest(client, message);
         }
@@ -151,7 +146,7 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
     }
 }
 Server::Server(const uint16_t& port) :
-     _acceptor(_context, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port)),
+     _acceptor(_context, tcp::endpoint(tcp::v4(), port)),
      _postgreManager(std::make_unique<PostgreRepositoryManager>(PostgreAdapter::getInstance<PostgreAdapter>()))
 {
 }
@@ -203,10 +198,10 @@ void Server::stop()
 
 void Server::waitForClientConnection()
 {   
-    _acceptor.async_accept([this](const std::error_code error, asio::ip::tcp::socket socket) { acceptingClientConnection(error, socket); });
+    _acceptor.async_accept([this](const std::error_code error, tcp::socket socket) { acceptingClientConnection(error, socket); });
 }
 
-void Server::acceptingClientConnection(const std::error_code& error, asio::ip::tcp::socket& socket)
+void Server::acceptingClientConnection(const std::error_code& error, tcp::socket& socket)
 {
     if (!error)
     {
@@ -225,7 +220,7 @@ void Server::acceptingClientConnection(const std::error_code& error, asio::ip::t
         if (onClientConnect(newConnection))
         {
             _connectionsPointers.emplace_back(std::move(newConnection));
-            _connectionsPointers.back()->connectToClient(_IDCounter++);
+            _connectionsPointers.back()->connectToClient(_idCounter++);
 
             FileLogger::getInstance().log
             (
@@ -321,7 +316,7 @@ void Server::update(size_t maxMessages, bool wait)
         Message messageInfo = _incomingMessagesQueue.pop_front();
 
         onMessage(messageInfo.mRemote, messageInfo);
-        ++messagesCount;
+        messagesCount++;
     }
 }
 
@@ -446,7 +441,7 @@ void Server::messageDeleteRequest(const std::shared_ptr<Connection>& client, Mes
 
     auto futureResult = _postgreManager->pushRequest(&IMessagesRepository::deleteMessage, fmt(messageInfo));
 
-    Network::Message answerForClient;
+    Message answerForClient;
     answerForClient.mHeader.mMessageType = Message::MessageType::MessageDeleteAnswer;
 
     const auto deletingMessageCode = futureResult.get();

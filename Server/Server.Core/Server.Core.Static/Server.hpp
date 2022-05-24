@@ -19,9 +19,12 @@ class PostgreRepositoryManager;
 
 namespace Server
 {
-using Network::Connection;
+using asio::ip::tcp;
 using Network::Message;
 using Network::SafeQueue;
+using Network::Connection;
+using Base::Logger::LogLevel;
+using Base::Logger::FileLogger;
 using DataAccess::PostgreRepositoryManager;
 
 /**
@@ -32,12 +35,12 @@ using DataAccess::PostgreRepositoryManager;
 class Server
 {
 private:
-    uint64_t _IDCounter         = 10000;
+    uint64_t _idCounter         = 10000;
     uint64_t _criticalQueueSize = 100;
     uint64_t _newThreadsCount   = std::thread::hardware_concurrency();
 
     asio::io_context                                       _context;
-    asio::ip::tcp::acceptor                                _acceptor;
+    tcp::acceptor                                          _acceptor;
     std::deque<std::shared_ptr<Connection>>                _connectionsPointers;
     SafeQueue<Message>                                     _incomingMessagesQueue;
     std::deque<std::thread>                                _threads;
