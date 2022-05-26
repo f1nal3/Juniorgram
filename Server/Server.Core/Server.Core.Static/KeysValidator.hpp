@@ -6,8 +6,9 @@
 
 /**
  * @class KeysValidator class.
- * @brief Class is used to validate incoming keys
- * @details A class that checks given arguments for correctness. Contains the validation logic and a list of all arguments that work for all operating systems
+ * @brief Class is used to validate incoming keys.
+ * @details A class that checks given arguments for correctness. 
+ *  Contains the validation logic and a list of all arguments that work for all operating systems.
  */
 class KeysValidator
 {
@@ -21,26 +22,26 @@ private:
      */
     struct Keys
     {
-        const std::string listenedPort = "-p";
-        const std::string fileDB       = "-d";
+        const std::string _listenedPort = "-p";
+        const std::string _fileDB       = "-d";
     };
 
 private:
-    std::vector<std::string> validKeys;
-    std::vector<std::string> keysWithoutValues;
+    std::vector<std::string> _validKeys;
+    std::vector<std::string> _keysWithoutValues;
 
 public:
-    const Keys keys;
+    const Keys _keys;
     /**
      * @brief It's default noexcept constructor
      * @details Used to initialize vectors with already valid keys to compare them with the incoming keys
      */
     KeysValidator() noexcept
     {
-        validKeys.emplace_back(keys.listenedPort);
-        validKeys.emplace_back(keys.fileDB);
+        _validKeys.emplace_back(_keys._listenedPort);
+        _validKeys.emplace_back(_keys._fileDB);
 
-        keysWithoutValues.emplace_back(keys.fileDB);
+        _keysWithoutValues.emplace_back(_keys._fileDB);
     }
     /**
      * @brief The custom constructor initialized by extra arguments
@@ -50,9 +51,9 @@ public:
      */
     KeysValidator(const initList& validkeysList, const initList& keysWithoutValuesList) noexcept : KeysValidator()
     {
-        for (auto&& key : validkeysList) validKeys.emplace_back(key);
+        for (auto&& key : validkeysList) _validKeys.emplace_back(key);
 
-        for (auto&& key : keysWithoutValuesList) keysWithoutValues.emplace_back(key);
+        for (auto&& key : keysWithoutValuesList) _keysWithoutValues.emplace_back(key);
     }
 
     /**
@@ -62,7 +63,7 @@ public:
      */
     bool doKeyNeedValue(const std::string& incomingKey) const noexcept
     {
-        return std::find(keysWithoutValues.begin(), keysWithoutValues.end(), incomingKey) == keysWithoutValues.end();
+        return std::find(_keysWithoutValues.begin(), _keysWithoutValues.end(), incomingKey) == _keysWithoutValues.end();
     }
 
     /**
@@ -72,14 +73,14 @@ public:
      */
     bool isKeyValid(const std::string& incomingKey) const noexcept
     {
-        return std::find(validKeys.begin(), validKeys.end(), incomingKey) != validKeys.end();
+        return std::find(_validKeys.begin(), _validKeys.end(), incomingKey) != _validKeys.end();
     }
 
     KeysValidator& operator=(const KeysValidator& validator)
     {
-        this->validKeys = validator.validKeys;
+        this->_validKeys = validator._validKeys;
 
-        this->keysWithoutValues = validator.keysWithoutValues;
+        this->_keysWithoutValues = validator._keysWithoutValues;
 
         return *this;
     }
