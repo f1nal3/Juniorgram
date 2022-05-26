@@ -45,6 +45,9 @@ TEST_CASE("PostgreAdapter test", "[dummy]")
 
 		REQUIRE_NOTHROW(ourAdapter.get()->query(ourQuery));
 
+		auto ourBadAdapter = PostgreAdapter::Instance("hostaddr=127.0.0.1 port=5352 dbname=ERRORDB user=user");
+
+		REQUIRE_THROWS(ourBadAdapter.get()->query(ourQuery));
 		REQUIRE(ourAdapter.get()->query(ourQuery)== std::nullopt);
 	}
 }
