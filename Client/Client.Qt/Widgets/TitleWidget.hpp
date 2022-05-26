@@ -9,6 +9,10 @@
 #include "Widgets/AbstractButton.hpp"
 #include "Widgets/PopupWidget.hpp"
 
+/////////
+
+#include "Widgets/DropDownMenu.hpp"
+
 class CaptionButton;
 class BioButton;
 
@@ -144,4 +148,7 @@ public:
 private:
     std::unique_ptr<PopupWidget>    _popup;
     std::unique_ptr<SettingsWidget> _settingsWidget;
+
+    ///////
+    std::unique_ptr<DropDownMenu> _dropDownMenu;
 };

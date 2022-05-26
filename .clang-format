@@ -11,7 +11,6 @@ AlignConsecutiveAssignments: true
 AlignConsecutiveDeclarations: true
 AlignOperands: Align
 AllowShortBlocksOnASingleLine: Never
-AllowShortFunctionsOnASingleLine: None
 AlwaysBreakTemplateDeclarations: Yes
 AccessModifierOffset: -4
 BreakBeforeBraces: Custom
@@ -27,4 +26,3 @@ BraceWrapping:
   AfterStruct: true
   AfterUnion: true
   BeforeCatch: true
-  SplitEmptyFunction: true

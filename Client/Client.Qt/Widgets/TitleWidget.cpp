@@ -178,22 +178,32 @@ BioButton::BioButton(QWidget* parent, bool) : CaptionButton(parent)
     _popup          = std::make_unique<PopupWidget>(this);
     _settingsWidget = std::make_unique<SettingsWidget>();
 
+    ///
+
+    _dropDownMenu = std::make_unique<DropDownMenu>(this);
+
     setClickCallback([=]() {
         auto globalPoint = mapToGlobal(QPoint(0, height()));
 
         // Creating menu
-        auto menu = std::make_unique<Menu>();
+        //auto menu = std::make_unique<Menu>();
+        auto menu = std::make_unique<QMenu>();
 
         // Adding options
         menu->addAction("Username: Add format here WWWWWWWWWWWWWWWWWWWWWWWWWWW", []() {});
         menu->addSeparator();
         menu->addAction("Settings", [=](){ _settingsWidget->show(); });
         menu->addSeparator();
-        menu->addAction("Quit", []() { oApp->setAppState(App::AppState::LoginForm); });
+        menu->addAction("Quit", [&]() {
+            _dropDownMenu->hide();
+            oApp->setAppState(App::AppState::LoginForm);
+        });
 
-        _popup->setMenu(std::move(menu));
+        //_popup->setMenu(std::move(menu));
+        _dropDownMenu->setDropDownMenu(std::move(menu));
 
         // Now show the menu
-        _popup->popup(QPoint(globalPoint.x(), globalPoint.y() + 1));
+        //_popup->popup(QPoint(globalPoint.x(), globalPoint.y() + 1));
+        _dropDownMenu->showDropDownMenu(QPoint(globalPoint.x(), globalPoint.y() + 1));
     });
 }
