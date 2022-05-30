@@ -33,7 +33,6 @@ void DropDownMenu::paintEvent(QPaintEvent *event)
     rectRegion.setHeight(rect().height());
     rectRegion.setWidth(rect().width());
 
-
     painter.setBrush(QBrush(QColor(Qt::black)));
     painter.setPen(Qt::NoPen);
 

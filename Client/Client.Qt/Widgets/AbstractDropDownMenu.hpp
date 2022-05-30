@@ -1,14 +1,14 @@
 #pragma once
 
 #include <QWidget>
-#include <QMenu>
+#include "Menu.hpp"
 
 class IDropDownMenu
 {
 public:
     virtual ~IDropDownMenu() = default;
 
-    virtual void setDropDownMenu(std::unique_ptr<QMenu> newMenu) = 0;
+    virtual void setDropDownMenu(std::unique_ptr<Menu> newMenu) = 0;
     virtual void showDropDownMenu(QPoint position) = 0;
 };
 
@@ -20,11 +20,11 @@ public:
     explicit AbstractDropDownMenu(QWidget *parent = nullptr);
     ~AbstractDropDownMenu() override = default;
 
-    void setDropDownMenu(std::unique_ptr<QMenu> newMenu) override;
+    void setDropDownMenu(std::unique_ptr<Menu> newMenu) override;
     void showDropDownMenu(QPoint position) override;
 
-    const QMenu& getDropDownMenu();
+    const Menu& getDropDownMenu();
 
 protected:
-    std::unique_ptr<QMenu> _menu;
+    std::unique_ptr<Menu> _menu;
 };

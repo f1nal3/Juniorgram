@@ -5,22 +5,11 @@ AbstractDropDownMenu::AbstractDropDownMenu(QWidget *parent)
 {
 }
 
-void AbstractDropDownMenu::setDropDownMenu(std::unique_ptr<QMenu> newMenu)
+void AbstractDropDownMenu::setDropDownMenu(std::unique_ptr<Menu> newMenu)
 {
     _menu = std::move(newMenu);
-
     _menu->setParent(this);
-
-    _menu->setStyleSheet("QMenu"
-                         "{"
-                         "background-color: transparent;"
-                         "border: 0px;"
-                         "color: white"
-                         "}"
-                         "QMenu::item:selected"
-                         "{"
-                         "background: rgba(100, 100, 100, 150);"
-                         "}");
+    _menu->setTriggeredCallback([&](const CallbackData&) { hide(); });
 }
 
 void AbstractDropDownMenu::showDropDownMenu(QPoint position)
@@ -29,7 +18,7 @@ void AbstractDropDownMenu::showDropDownMenu(QPoint position)
     QWidget::show();
 }
 
-const QMenu& AbstractDropDownMenu::getDropDownMenu()
+const Menu& AbstractDropDownMenu::getDropDownMenu()
 {
     return *_menu;
 }
