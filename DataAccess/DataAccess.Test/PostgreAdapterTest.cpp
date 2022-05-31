@@ -42,12 +42,10 @@ TEST_CASE("PostgreAdapter test", "[dummy]")
 	{
 		auto ourAdapter = PostgreAdapter::Instance(DBOptions::test);
 		auto ourQuery = std::string_view{"SELECT * FROM users"};
-
+		auto ourBadQuery = std::string_view{ "something * 123wrong" };
 		REQUIRE_NOTHROW(ourAdapter.get()->query(ourQuery));
 
-		auto ourBadAdapter = PostgreAdapter::Instance("hostaddr=127.0.0.1 port=5352 dbname=ERRORDB user=user");
-
-		REQUIRE_THROWS(ourBadAdapter.get()->query(ourQuery));
+		REQUIRE_THROWS(ourAdapter.get()->query(ourBadQuery));
 		REQUIRE(ourAdapter.get()->query(ourQuery)== std::nullopt);
 	}
 }
