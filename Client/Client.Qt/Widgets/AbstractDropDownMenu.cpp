@@ -17,8 +17,3 @@ void AbstractDropDownMenu::showDropDownMenu(QPoint position)
     setGeometry(QRect(position, QSize(width(), height())));
     QWidget::show();
 }
-
-const Menu& AbstractDropDownMenu::getDropDownMenu()
-{
-    return *_menu;
-}

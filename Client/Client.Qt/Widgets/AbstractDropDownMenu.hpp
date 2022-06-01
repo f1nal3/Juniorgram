@@ -21,10 +21,8 @@ public:
     ~AbstractDropDownMenu() override = default;
 
     void setDropDownMenu(std::unique_ptr<Menu> newMenu) override;
+
     void showDropDownMenu(QPoint position) override;
-
-    const Menu& getDropDownMenu();
-
 protected:
     std::unique_ptr<Menu> _menu;
 };
