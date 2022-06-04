@@ -33,7 +33,6 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 		auto testTable = std::make_unique<PostgreTable>("users", testAdapter);
 
 		testTable->Delete()->Where("login = '" + std::string(testLogin) + "'")->And("email = '" + std::string(testEmail) + "'")->execute();
-		//auto deleteResult = testTable->Select()->columns({ "COUNT(*)" })->Where("login = " + std::string(testLogin))->And("email = " + std::string(testEmail))->execute();
 		auto findUser = testTable->Select()->columns({ "login" })->Where("login = '" + std::string(testLogin) + "'")->execute();
 
 		REQUIRE(findUser.has_value() == 0);
