@@ -33,116 +33,116 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         case Message::MessageType::ServerPing:
         {
             checkServerPing(client, message);
+            break;
         }
-        break;
 
         case Message::MessageType::MessageAll:
         {
             readAllMessage(client, message);
+            break;
         }
-        break;
 
         case Message::MessageType::ChannelListRequest:
         {
             channelListRequest(client);
+            break;
         }
-        break;
 
         case Message::MessageType::MessageHistoryRequest:
         {
             messageHistoryRequest(client, message);
+            break;
         }
-        break;
 
         case Message::MessageType::MessageStoreRequest:
         {
             messageStoreRequest(client, message);
+            break;
         }
-        break;
 
         case Message::MessageType::ReplyHistoryRequest:
         {
             replyHistoryRequest(client, message);
+            break;
         }
-        break;
 
         case Message::MessageType::ReplyStoreRequest:
         {
             replyStoreRequest(client, message);
+            break;
         }
-        break;
 
         case Message::MessageType::MessageDeleteRequest:
         {
             messageDeleteRequest(client, message);
+            break;
         }
-        break;
 
         case Message::MessageType::MessageEditRequest:
         {
             messageEditRequest(client, message);
+            break;
         }
-        break;
 
         case Message::MessageType::MessageReactionRequest:
         {
             messageReactionRequest(client, message);
+            break;
         }
-        break;
 
         case Message::MessageType::RegistrationRequest:
         {
             registrationRequest(client, message);
+            break;
         }
-        break;
 
         case Message::MessageType::LoginRequest:
         {
             loginRequest(client, message);
+            break;
         }
-        break;
 
         case Message::MessageType::ChannelLeaveRequest:
         {
             channelLeaveRequest(client, message);
+            break;
         }
-        break;
 
         case Message::MessageType::ChannelSubscribeRequest:
         {
             channelSubscribeRequest(client, message);
+            break;
         }
-        break;
 
         case Message::MessageType::ChannelSubscriptionListRequest:
         {
             channelSubscriptionListRequest(client);
+            break;
         }
-        break;
 
         case Message::MessageType::ChannelDeleteRequest:
         {
             channelDeleteRequest(client, message);
+            break;
         }
-        break;
 
         case Message::MessageType::ChannelCreateRequest:
         {
             channelCreateRequest(client, message);
+            break;
         }
-        break;
 
         case Message::MessageType::DirectMessageCreateRequest:
         {
             directMessageCreateRequest(client, message);
+            break;
         }
-        break;
 
         default:
         {
             defaultRequest();
+            break;
         }
-        break;
     }
 }
 Server::Server(const uint16_t& port) :
@@ -623,6 +623,7 @@ void Server::directMessageCreateRequest(const std::shared_ptr<Connection>& clien
     messageToClient.mBody = std::make_any<Utility::DirectMessageStatus>(futureResult.get());
     client->send(messageToClient);
 }
+
 void Server::defaultRequest() const
 { 
     FileLogger::getInstance().log
