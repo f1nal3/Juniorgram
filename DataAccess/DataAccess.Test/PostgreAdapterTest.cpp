@@ -11,6 +11,7 @@ TEST_CASE("PostgreAdapter test", "[dummy]")
 	{
 		REQUIRE_NOTHROW(PostgreAdapter::Instance());
 		REQUIRE_NOTHROW(PostgreAdapter::Instance(DBOptions::real));
+		REQUIRE_NOTHROW(PostgreAdapter::Instance(""));
 	}
 
 	SECTION("Check our connection")
