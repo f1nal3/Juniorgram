@@ -1,4 +1,4 @@
-# Improving debugging by bat files{#improvedebug}
+# Improving debugging by bat files {#improvedebug}
 
 If you do not want to use your terminal enormous amount of times while you are debugging or testing new features it can help you
 
