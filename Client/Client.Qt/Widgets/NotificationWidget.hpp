@@ -5,18 +5,18 @@
 #include "Menu.hpp"
 
 /**
- * @class PopupWidget
- * @brief Widget to show popup menu(modal)
+ * @class NotificationWidget
+ * @brief Widget to show notification menu(modal)
  */
-class PopupWidget : public QWidget
+class NotificationWidget : public QWidget
 {
     Q_OBJECT
 public:
     /**
-     * @brief Constructor for popup widget
-     * @param parent Parent popup
+     * @brief Constructor for notification widget
+     * @param parent Parent notification
      */
-    explicit PopupWidget(QWidget* parent = nullptr);
+    explicit NotificationWidget(QWidget* parent = nullptr);
 
     /**
      * @brief Set owned menu
@@ -29,13 +29,13 @@ public:
      */
     void setDeleteOnHide(bool deleteOnHide);
     /**
-     * @brief Show popup menu
+     * @brief Show notification menu
      * @param globalPoint Global globalPoint
      */
 
     void setMessage(QString text);
 
-    void popup(const QPoint& globalPoint);
+    void notification(const QPoint& globalPoint);
 
 protected:
     /**
@@ -54,4 +54,4 @@ private:
     bool                  _deleteOnHide = false;
 };
 
-void messageOut(std::shared_ptr<PopupWidget> popupWidget, QString text);
+void messageOut(std::shared_ptr<NotificationWidget> notificationWidget, QString text);

@@ -65,8 +65,8 @@ set(UI_WIDGETS_SOURCES
         Widgets/MessageWidget.hpp
         Widgets/Page.cpp
         Widgets/Page.hpp
-        Widgets/PopupWidget.cpp
-        Widgets/PopupWidget.hpp
+        Widgets/NotificationWidget.cpp
+        Widgets/NotificationWidget.hpp
         Widgets/ReactionLayout.cpp
         Widgets/ReactionLayout.hpp
         Widgets/ReplyWidget.cpp
@@ -79,10 +79,10 @@ set(UI_WIDGETS_SOURCES
         Widgets/TextEdit.hpp
         Widgets/TitleWidget.cpp
         Widgets/TitleWidget.hpp
-        Widgets/AbstractPopupMessage.cpp
-        Widgets/AbstractPopupMessage.hpp
-        Widgets/PopupMessage.cpp
-        Widgets/PopupMessage.hpp)
+        Widgets/AbstractNotificationMessage.cpp
+        Widgets/AbstractNotificationMessage.hpp
+        Widgets/NotificationMessage.cpp
+        Widgets/NotificationMessage.hpp)
 
 set(PAGES_SOURCES
         Pages/ChannelCreationPage.cpp

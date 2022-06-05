@@ -175,7 +175,7 @@ void CaptionButton::updateWidget()
 
 BioButton::BioButton(QWidget* parent, bool) : CaptionButton(parent)
 {
-    _popup          = std::make_unique<PopupWidget>(this);
+    _notification   = std::make_unique<NotificationWidget>(this);
     _settingsWidget = std::make_unique<SettingsWidget>();
 
     setClickCallback([=]() {
@@ -191,9 +191,9 @@ BioButton::BioButton(QWidget* parent, bool) : CaptionButton(parent)
         menu->addSeparator();
         menu->addAction("Quit", []() { oApp->setAppState(App::AppState::LoginForm); });
 
-        _popup->setMenu(std::move(menu));
+        _notification->setMenu(std::move(menu));
 
         // Now show the menu
-        _popup->popup(QPoint(globalPoint.x(), globalPoint.y() + 1));
+        _notification->notification(QPoint(globalPoint.x(), globalPoint.y() + 1));
     });
 }

@@ -1,4 +1,4 @@
-#include "PopupWidget.hpp"
+#include "NotificationWidget.hpp"
 
 #include <QPainter>
 #include <QScreen>
@@ -6,7 +6,7 @@
 
 #include "Application.hpp"
 
-PopupWidget::PopupWidget(QWidget* parent) : QWidget(parent), _innerMenu(nullptr)
+NotificationWidget::NotificationWidget(QWidget* parent) : QWidget(parent), _innerMenu(nullptr)
 {
     setWindowFlags(Qt::WindowFlags(Qt::FramelessWindowHint) | Qt::Popup | Qt::BypassWindowManagerHint | Qt::NoDropShadowWindowHint);
     setMouseTracking(true);
@@ -16,7 +16,7 @@ PopupWidget::PopupWidget(QWidget* parent) : QWidget(parent), _innerMenu(nullptr)
     setAttribute(Qt::WA_TranslucentBackground, true);
 }
 
-void PopupWidget::paintEvent(QPaintEvent* event)
+void NotificationWidget::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event);
     QPainter painter(this);
@@ -26,12 +26,12 @@ void PopupWidget::paintEvent(QPaintEvent* event)
     painter.drawRect(0, 0, width(), height());
 }
 
-void PopupWidget::hideEvent(QHideEvent*)
+void NotificationWidget::hideEvent(QHideEvent*)
 {
     if (_deleteOnHide) deleteLater();
 }
 
-void PopupWidget::setMessage(QString text) 
+void NotificationWidget::setMessage(QString text) 
 { 
     if (!_messageText)
     {
@@ -43,7 +43,7 @@ void PopupWidget::setMessage(QString text)
     }
 }
 
-void PopupWidget::popup(const QPoint& globalPoint)
+void NotificationWidget::notification(const QPoint& globalPoint)
 {
     if (_innerMenu)
     {
@@ -55,7 +55,7 @@ void PopupWidget::popup(const QPoint& globalPoint)
     if (!screen) return;
     auto p = globalPoint;
     auto w = screen->availableGeometry();
-    // Make sure popup is on screen
+    // Make sure notification is on screen
     if (p.x() + width() > w.right())
     {
         p.rx() -= p.x() + width() - w.right();
@@ -64,17 +64,17 @@ void PopupWidget::popup(const QPoint& globalPoint)
     show();
 }
 
-void PopupWidget::setMenu(std::unique_ptr<Menu> menu)
+void NotificationWidget::setMenu(std::unique_ptr<Menu> menu)
 {
     _innerMenu = std::move(menu);
     _innerMenu->setParent(this);
     _innerMenu->setTriggeredCallback([=](const CallbackData&) { hide(); });
 }
-void PopupWidget::setDeleteOnHide(bool deleteOnHide) { _deleteOnHide = deleteOnHide; }
+void NotificationWidget::setDeleteOnHide(bool deleteOnHide) { _deleteOnHide = deleteOnHide; }
 
-void messageOut(std::shared_ptr<PopupWidget> popupWidget, QString text)
+void messageOut(std::shared_ptr<NotificationWidget> notificationWidget, QString text)
 {
-    popupWidget->resize(400, 150);
-    popupWidget->setMessage(text);
-    popupWidget->popup(QPoint(960 - 400 / 2, 540 - 150 / 2));  //alignment near the center
+    notificationWidget->resize(400, 150);
+    notificationWidget->setMessage(text);
+    notificationWidget->notification(QPoint(960 - 400 / 2, 540 - 150 / 2));  // alignment near the center
 }

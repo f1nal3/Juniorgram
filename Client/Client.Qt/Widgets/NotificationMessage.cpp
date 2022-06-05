@@ -1,11 +1,11 @@
-#include "PopupMessage.hpp"
+#include "NotificationMessage.hpp"
 #include <QPainter>
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QDebug>
 
-PopupMessage::PopupMessage(QWidget* parent) 
-    : AbstractPopupMessage(parent)
+NotificationMessage::NotificationMessage(QWidget* parent) 
+    : AbstractNotificationMessage(parent)
 {
     setWindowFlags(Qt::FramelessWindowHint | 
                    Qt::Tool | 
@@ -16,25 +16,25 @@ PopupMessage::PopupMessage(QWidget* parent)
     setWindowOpacity(_transparent);
 
     _animation.setTargetObject(this);
-    _animation.setPropertyName("_popupOpacity");
-    connect(&_animation, &QAbstractAnimation::finished, this, &PopupMessage::hide);
+    _animation.setPropertyName("_notificationOpacity");
+    connect(&_animation, &QAbstractAnimation::finished, this, &NotificationMessage::hide);
 
-    getPopupLabel().setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    getPopupLabel().setStyleSheet(
+    getNotificationLabel().setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    getNotificationLabel().setStyleSheet(
         "QLabel { color : white; "
         "margin-top: 6px;"
         "margin-bottom: 6px;"
         "margin-left: 10px;"
         "margin-right: 10px; }");
 
-    _layout.addWidget(&getPopupLabel(), _row_widgetPosition, _column_widgetPosition);
+    _layout.addWidget(&getNotificationLabel(), _row_widgetPosition, _column_widgetPosition);
     setLayout(&_layout);
 
     _timer = std::make_unique<QTimer>();
-    connect(_timer.get(), &QTimer::timeout, this, &PopupMessage::hideAnimation);
+    connect(_timer.get(), &QTimer::timeout, this, &NotificationMessage::hideAnimation);
 }
 
-void PopupMessage::paintEvent(QPaintEvent* event)
+void NotificationMessage::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event)
 
@@ -55,7 +55,7 @@ void PopupMessage::paintEvent(QPaintEvent* event)
     painter.drawRoundedRect(roundedRect, _xRadius, _yRadius);
 }
 
-void PopupMessage::popupShow()
+void NotificationMessage::notificationShow()
 {
 
     _animation.setDuration(_animationValue.animationTimeShow);
@@ -68,7 +68,7 @@ void PopupMessage::popupShow()
     _timer->start(_animationDuration);
 }
 
-void PopupMessage::hideAnimation()
+void NotificationMessage::hideAnimation()
 { 
     _timer->stop();
     _animation.setDuration(_animationValue.animationTimeHide);
@@ -77,14 +77,14 @@ void PopupMessage::hideAnimation()
     _animation.start();
 }
 
-void PopupMessage::hide()
+void NotificationMessage::hide()
 {
-    if (getPopupOpacity() == _animationValue.not_transparent)
+    if (getNotificationOpacity() == _animationValue.not_transparent)
     {
         QWidget::hide();
     }
 }
 
-void PopupMessage::setAnimationDuration(uint32_t newAnimationDuration) { 
+void NotificationMessage::setAnimationDuration(uint32_t newAnimationDuration) { 
     _animationDuration = newAnimationDuration; 
 }

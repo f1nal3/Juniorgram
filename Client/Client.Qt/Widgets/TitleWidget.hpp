@@ -7,7 +7,7 @@
 
 #include "SettingsWidget.hpp"
 #include "Widgets/AbstractButton.hpp"
-#include "Widgets/PopupWidget.hpp"
+#include "Widgets/NotificationWidget.hpp"
 
 class CaptionButton;
 class BioButton;
@@ -142,6 +142,6 @@ public:
     explicit BioButton(QWidget* parent = nullptr, bool inCaption = true);
 
 private:
-    std::unique_ptr<PopupWidget>    _popup;
+    std::unique_ptr<NotificationWidget> _notification;
     std::unique_ptr<SettingsWidget> _settingsWidget;
 };

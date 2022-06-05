@@ -6,18 +6,18 @@
 
 #include <memory>
 
-#include "AbstractPopupMessage.hpp"
+#include "AbstractNotificationMessage.hpp"
 
-class PopupMessage : public AbstractPopupMessage
+class NotificationMessage : public AbstractNotificationMessage
 {
 public:
-    explicit PopupMessage(QWidget* parent = nullptr);
+    explicit NotificationMessage(QWidget* parent = nullptr);
     
-    ~PopupMessage() override = default;
+    ~NotificationMessage() override = default;
 
     void setAnimationDuration(uint32_t newAnimationDuration);
 public slots:
-    void popupShow() override;
+    void notificationShow() override;
 
 protected:
     void paintEvent(QPaintEvent* event) override;
@@ -41,5 +41,5 @@ private:
     qreal _transparent          = 0.0;
     QColor _black               = QColor(0, 0, 0, 180);
 
-    const AbstractPopupMessage::AnimationValue _animationValue;
+    const AbstractNotificationMessage::AnimationValue _animationValue;
 };

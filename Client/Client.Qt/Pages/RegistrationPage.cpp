@@ -19,7 +19,7 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
     _backButton          = std::make_unique<FlatButton>(this, "Back");
 
     _logoWidget = std::make_unique<LogoWidget>(this);
-    _popupMessage = std::make_unique<PopupMessage>(this);
+    _notificationMessage = std::make_unique<NotificationMessage>(this);
 
     _registrationHotkey = std::make_unique<QShortcut>
     (
@@ -51,8 +51,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (email.empty() || login.empty() || password.empty() || repeatPassword.empty())
         {
             Base::Logger::FileLogger::getInstance().log("Some of the fields are empty", Base::Logger::LogLevel::WARNING);
-            _popupMessage->setPopupText("Some of the fields are empty");
-            _popupMessage->popupShow();
+            _notificationMessage->setNotificationText("Some of the fields are empty");
+            _notificationMessage->notificationShow();
             onResume();
 
             return;
@@ -61,8 +61,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (password != repeatPassword)
         {
             Base::Logger::FileLogger::getInstance().log("Passwords are different", Base::Logger::LogLevel::WARNING);
-            _popupMessage->setPopupText("Passwords are different");
-            _popupMessage->popupShow();
+            _notificationMessage->setNotificationText("Passwords are different");
+            _notificationMessage->notificationShow();
             onResume();
 
             return;
@@ -71,8 +71,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (!isLoginValid(login))
         {
             Base::Logger::FileLogger::getInstance().log("Login is not valid", Base::Logger::LogLevel::WARNING);
-            _popupMessage->setPopupText("Login is not valid");
-            _popupMessage->popupShow();
+            _notificationMessage->setNotificationText("Login is not valid");
+            _notificationMessage->notificationShow();
             onResume();
 
             return;
@@ -81,8 +81,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if (!isEmailValid(email))
         {
             Base::Logger::FileLogger::getInstance().log("Email is not valid", Base::Logger::LogLevel::WARNING);
-            _popupMessage->setPopupText("Email is not valid");
-            _popupMessage->popupShow();
+            _notificationMessage->setNotificationText("Email is not valid");
+            _notificationMessage->notificationShow();
             onResume();
 
             return;
@@ -91,8 +91,8 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
         if(!isPasswordValid(password))
         {
             Base::Logger::FileLogger::getInstance().log("Password is not valid", Base::Logger::LogLevel::WARNING);
-            _popupMessage->setPopupText("Password is not valid");
-            _popupMessage->popupShow();
+            _notificationMessage->setNotificationText("Password is not valid");
+            _notificationMessage->notificationShow();
             onResume();
 
             return;
@@ -135,22 +135,22 @@ void RegistrationPage::onRegistration(Utility::RegistrationCodes code)
         if (code == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
         {
             Base::Logger::FileLogger::getInstance().log("Email already exists", Base::Logger::LogLevel::WARNING);
-            _popupMessage->setPopupText("Email already exists");
-            _popupMessage->popupShow();
+            _notificationMessage->setNotificationText("Email already exists");
+            _notificationMessage->notificationShow();
             onResume();
         }
         else if (code == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS)
         {
             Base::Logger::FileLogger::getInstance().log("Username already taken", Base::Logger::LogLevel::WARNING);
-            _popupMessage->setPopupText("Username already taken");
-            _popupMessage->popupShow();
+            _notificationMessage->setNotificationText("Username already taken");
+            _notificationMessage->notificationShow();
             onResume();
         }
         else
         {
             Base::Logger::FileLogger::getInstance().log("Unknown code", Base::Logger::LogLevel::WARNING);
-            _popupMessage->setPopupText("Unknown code");
-            _popupMessage->popupShow();
+            _notificationMessage->setNotificationText("Unknown code");
+            _notificationMessage->notificationShow();
             onResume();
         }
     }
