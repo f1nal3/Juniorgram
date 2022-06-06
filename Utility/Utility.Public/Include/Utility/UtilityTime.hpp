@@ -1,14 +1,14 @@
 #pragma once
 
 #include <iostream>
+#include <iomanip>
+#include <string>
 #include <fstream>
 #include <sstream>
-#include <string>
 #include <chrono>
 #include <ctime>
-#include <cctype>
 #include <type_traits>
-#include <iomanip>
+#include <cctype>
 #include <mutex>
 
 namespace UtilityTime
@@ -47,7 +47,7 @@ inline std::tm safe_localtime(const std::time_t& time)
 }
 
 /**
-*@brief Current time display function.
+* @brief Current time display function.
 */
 inline void consoleLogTimestamp()
 {
@@ -62,7 +62,10 @@ inline void consoleLogTimestamp()
 }
 
 /**
- *@brief Returns the current time in formatted form.
+ * @brief Returns the current time in formatted form.
+ * @details std::strftime converts the date and time information /
+ * from a given calendar time time to a null-terminated multibyte /
+ * character string timeStampStr according to format string format.
  */
 inline std::string getTimeNow()
 {
@@ -86,6 +89,9 @@ inline timestamp_t millisecondsSinceEpoch() noexcept
 
 /**
 * @brief Converts and returns the current time to the date format ("%d.%m.%Y").
+* @details std::strftime converts the date and time information /
+* from a given calendar time time to a null-terminated multibyte /
+* character string stringifyedDate according to format string format.
 */
 inline std::string getStringifiedCurrentDate()
 {
