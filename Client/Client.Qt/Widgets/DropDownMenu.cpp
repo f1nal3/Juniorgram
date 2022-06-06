@@ -11,12 +11,6 @@ DropDownMenu::DropDownMenu(QWidget *parent)
     setAttribute(Qt::WA_TranslucentBackground);
 }
 
-void DropDownMenu::showDropDownMenu(QPoint position)
-{
-    setGeometry(QRect(position, QSize(width(), height())));
-    QWidget::show();
-}
-
 void DropDownMenu::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event);

@@ -5,11 +5,11 @@ AbstractDropDownMenu::AbstractDropDownMenu(QWidget *parent)
 {
 }
 
-void AbstractDropDownMenu::setDropDownMenu(std::unique_ptr<Menu> newMenu)
+void AbstractDropDownMenu::setMenu(std::unique_ptr<Menu> newMenu)
 {
     _menu = std::move(newMenu);
     _menu->setParent(this);
-    _menu->setTriggeredCallback([&](const CallbackData&) { hide(); });
+    _menu->setTriggeredCallback([this](const CallbackData&) { hide(); });
 }
 
 void AbstractDropDownMenu::showDropDownMenu(QPoint position)

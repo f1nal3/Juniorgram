@@ -178,7 +178,7 @@ BioButton::BioButton(QWidget* parent, bool) : CaptionButton(parent)
     _dropDownMenu = std::make_unique<DropDownMenu>(this);
     _settingsWidget = std::make_unique<SettingsWidget>();
 
-    setClickCallback([&]() {
+    setClickCallback([this]() {
         auto globalPoint = mapToGlobal(QPoint(0, height()));
 
         // Creating menu
@@ -187,11 +187,11 @@ BioButton::BioButton(QWidget* parent, bool) : CaptionButton(parent)
         // Adding options
         menu->addAction("Username: Add format here", []() {});
         menu->addSeparator();
-        menu->addAction("Settings", [&](){ _settingsWidget->show(); });
+        menu->addAction("Settings", [this](){ _settingsWidget->show(); });
         menu->addSeparator();
-        menu->addAction("Quit", [&]() { oApp->setAppState(App::AppState::LoginForm); });
+        menu->addAction("Quit", []() { oApp->setAppState(App::AppState::LoginForm); });
 
-        _dropDownMenu->setDropDownMenu(std::move(menu));
+        _dropDownMenu->setMenu(std::move(menu));
 
         // Displacement in pixels of the dropdown menu relative to the top-left corner of the BioButton
         int displacement = 1;
