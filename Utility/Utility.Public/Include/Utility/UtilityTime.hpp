@@ -1,37 +1,35 @@
 #pragma once
 
-#include <cctype>
-#include <ctime>
-#include <string>
-#include <type_traits>
-#include <chrono>
-#include <fstream>
-#include <iomanip>
 #include <iostream>
-#include <mutex>
+#include <iomanip>
+#include <string>
+#include <fstream>
 #include <sstream>
-
+#include <chrono>
+#include <ctime>
+#include <type_traits>
+#include <cctype>
+#include <mutex>
 
 namespace UtilityTime
 {
-/*
+/**
 * @brief RTC - real time clock
 */
 using RTC = std::chrono::system_clock; 
 
-/*
- * @timestamp_t - alias that make more understantable format of keeping server-client timestamp represantation
+/**
+ * @brief timestamp_t - alias that make more understantable format of keeping server-client timestamp represantation.
  */
 using timestamp_t = std::uint64_t;
 
 /**
  * @brief Wrapper for OS implementations of thread-safe std::localtime.
- * @details std::localtime return static internal std::tm internally, so it is not thread-safe.
+ * @details std::localtime return static internal std::tm internally, /
+ * so it is not thread-safe and we use platform-dependant versions.
  */
 inline std::tm safe_localtime(const std::time_t& time)
 {
-    // std::localtime is not thread safe, so we use platform-dependant versions.
-
     std::tm formatted_time{};
 
 #if defined(_MSC_VER)
@@ -49,7 +47,7 @@ inline std::tm safe_localtime(const std::time_t& time)
 }
 
 /**
-*@brief Current time display function.
+* @brief Current time display function.
 */
 inline void consoleLogTimestamp()
 {
@@ -64,7 +62,10 @@ inline void consoleLogTimestamp()
 }
 
 /**
- *@brief Returns the current time in formatted form.
+ * @brief Returns the current time in formatted form.
+ * @details std::strftime converts the date and time information /
+ * from a given calendar time time to a null-terminated multibyte /
+ * character string timeStampStr according to format string format.
  */
 inline std::string getTimeNow()
 {
@@ -86,6 +87,12 @@ inline timestamp_t millisecondsSinceEpoch() noexcept
     return std::chrono::duration_cast<std::chrono::milliseconds>(timeSinceEpoch).count();
 }
 
+/**
+* @brief Converts and returns the current time to the date format ("%d.%m.%Y").
+* @details std::strftime converts the date and time information /
+* from a given calendar time time to a null-terminated multibyte /
+* character string stringifyedDate according to format string format.
+*/
 inline std::string getStringifiedCurrentDate()
 {
     using std::chrono::system_clock;
@@ -98,5 +105,4 @@ inline std::string getStringifiedCurrentDate()
 
     return stringifyedDate;
 }
-
-}  /// namespace UtilityTime
+}  // namespace UtilityTime
