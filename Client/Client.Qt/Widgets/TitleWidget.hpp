@@ -7,10 +7,6 @@
 
 #include "SettingsWidget.hpp"
 #include "Widgets/AbstractButton.hpp"
-#include "Widgets/PopupWidget.hpp"
-
-/////////
-
 #include "Widgets/DropDownMenu.hpp"
 
 class CaptionButton;
