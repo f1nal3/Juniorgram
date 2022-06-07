@@ -3,6 +3,7 @@ set(OUTPUT_NAME Utility.Test)
 
 set(SOURCE_FILES 
     ExceptionTest.cpp
+    UtilityTest.cpp
     )
 
 add_executable(${TARGET} ${SOURCE_FILES})
