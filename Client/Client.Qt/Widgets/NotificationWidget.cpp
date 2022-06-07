@@ -6,7 +6,7 @@
 
 #include "Application.hpp"
 
-NotificationWidget::NotificationWidget(QWidget* parent) : QWidget(parent), _innerMenu(nullptr)
+NotificationWidget::NotificationWidget(QWidget* parent) : QWidget(parent)
 {
     setWindowFlags(Qt::WindowFlags(Qt::FramelessWindowHint) | Qt::Popup | Qt::BypassWindowManagerHint | Qt::NoDropShadowWindowHint);
     setMouseTracking(true);
@@ -18,7 +18,7 @@ NotificationWidget::NotificationWidget(QWidget* parent) : QWidget(parent), _inne
 
 void NotificationWidget::paintEvent(QPaintEvent* event)
 {
-    Q_UNUSED(event);
+    Q_UNUSED(event)
     QPainter painter(this);
     QColor   inputField(0x35, 0x35, 0x35);
     painter.setBrush(inputField);
@@ -51,12 +51,11 @@ void NotificationWidget::notification(const QPoint& globalPoint)
         resize(_innerMenu->width(), _innerMenu->height() + 20);
         _innerMenu->show();
     }
-    auto screen = oApp->screenAt(globalPoint);
+    auto screen = Application::screenAt(globalPoint);
     if (!screen) return;
     auto p = globalPoint;
-    auto w = screen->availableGeometry();
     // Make sure notification is on screen
-    if (p.x() + width() > w.right())
+    if (auto w = screen->availableGeometry(); p.x() + width() > w.right())
     {
         p.rx() -= p.x() + width() - w.right();
     }
@@ -68,7 +67,7 @@ void NotificationWidget::setMenu(std::unique_ptr<Menu> menu)
 {
     _innerMenu = std::move(menu);
     _innerMenu->setParent(this);
-    _innerMenu->setTriggeredCallback([=](const CallbackData&) { hide(); });
+    _innerMenu->setTriggeredCallback([this](const CallbackData&) { this->hide(); });
 }
 void NotificationWidget::setDeleteOnHide(bool deleteOnHide) { _deleteOnHide = deleteOnHide; }
 

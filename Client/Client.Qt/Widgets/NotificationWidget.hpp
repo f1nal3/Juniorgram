@@ -50,8 +50,8 @@ protected:
 
 private:
     std::unique_ptr<QLabel> _messageText;
-    std::unique_ptr<Menu> _innerMenu;
-    bool                  _deleteOnHide = false;
+    std::unique_ptr<Menu>   _innerMenu    = nullptr;
+    bool                    _deleteOnHide = false;
 };
 
 void messageOut(std::shared_ptr<NotificationWidget> notificationWidget, QString text);
