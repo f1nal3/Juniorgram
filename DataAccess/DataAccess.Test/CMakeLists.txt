@@ -7,7 +7,8 @@ set(SOURCE_FILES
         RepositoryFunctionsTest.cpp
         TestPostgreRepository.hpp
         TestUsersAmountFinder.hpp
-        PostgreAdapterTest.cpp)
+        PostgreAdapterTest.cpp
+        PostgreRepositoriesTest.cpp)
 
 add_executable(${TARGET} ${SOURCE_FILES})
 

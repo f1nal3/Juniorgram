@@ -17,9 +17,14 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 	auto testLogin{ "anotheruser" };
 	auto testPassHash{ "65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5" };
 
+	auto testTable = std::make_unique<PostgreTable>("users", PostgreAdapter::Instance());
+
 	SECTION("Register repository")
 	{
+		REQUIRE_NOTHROW(RegisterRepository(PostgreAdapter::Instance()));
 		RegisterRepository testRegisterRepos(PostgreAdapter::Instance());
+		
+		
 
 		SECTION("Register user") 
 		{
@@ -40,8 +45,32 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 	SECTION("Login repository")
 	{
+		REQUIRE_NOTHROW(LoginRepository(PostgreAdapter::Instance()));
 		LoginRepository testLoginRepos(PostgreAdapter::Instance());
+		auto testUserID = testTable->Select()->columns({ "id" })->Where("login='" + std::string(testLogin) + "'")->execute().value();
 
+		SECTION("Logging")
+		{
+			Network::LoginInfo testUser(testLogin, testPassHash);
+			REQUIRE(testLoginRepos.loginUser(testUser) == testUserID[0][0].as<uint64_t>());
+		}
+		SECTION("Let's try to login with invalid values")
+		{
+			auto testBadHash{ "asdt24rersdf*_fs9dfs" };
+			Network::LoginInfo testBadUser(testLogin, testBadHash);
+			REQUIRE(testLoginRepos.loginUser(testBadUser) == 0);
+		}
+	}
+
+	SECTION("Channels repository")
+	{
+		REQUIRE_NOTHROW(ChannelsRepository(PostgreAdapter::Instance()));
+		ChannelsRepository testChannelRepos(PostgreAdapter::Instance());
+
+		SECTION("Get all channels")
+		{
+
+		}
 	}
 
 	SECTION("Delete user")
