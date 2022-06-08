@@ -36,6 +36,6 @@ You can use .bat files to run server or server & client on your own PC already w
 	exit
 	```
 
-3. Find path to server.exec.exe and client.qt.exe
+3. Find path to Server.Exec.exe and Client.Qt.exe and copy them
 4. Replace <your_paths> on yours
 5. All other points are the same as above
