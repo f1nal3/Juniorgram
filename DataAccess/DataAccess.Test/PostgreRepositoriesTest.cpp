@@ -91,7 +91,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 		SECTION("Create channel")
 		{
 			auto testUserID = testTable->Select()->columns({ "id" })
-				Network::ChannelInfo testChannel(, 1, "testChannel");
+			//Network::ChannelInfo testChannel(, 1, "testChannel");
 		}
 
 		SECTION("Get all channels")
