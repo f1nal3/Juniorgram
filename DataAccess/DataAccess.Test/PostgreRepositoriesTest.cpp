@@ -1,5 +1,6 @@
 #include <catch2/catch.hpp>
 
+#include "DataAccess.Postgre/DataBaseOptions.hpp"
 #include "DataAccess.Postgre/PostgreAdapter.hpp"
 #include "DataAccess.Postgre/PostgreRepositories.hpp"
 
@@ -17,16 +18,18 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 	auto testLogin{ "anotheruser" };
 	auto testPassHash{ "65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5" };
 
-	auto testTable = std::make_unique<PostgreTable>("users", PostgreAdapter::Instance());
+	auto testTable = std::make_unique<PostgreTable>("users", PostgreAdapter::Instance(DBOptions::test));
 
 	SECTION("Register repository")
 	{
-		REQUIRE_NOTHROW(RegisterRepository(PostgreAdapter::Instance()));
-		RegisterRepository testRegisterRepos(PostgreAdapter::Instance());
-		
-		
+		SECTION("Register repos constructor")
+		{
+			REQUIRE_NOTHROW(RegisterRepository(PostgreAdapter::Instance()));
+		}
 
-		SECTION("Register user") 
+		RegisterRepository testRegisterRepos(PostgreAdapter::Instance());
+
+		SECTION("Register user")
 		{
 			Network::RegistrationInfo ourUser(testEmail, testLogin, testPassHash);
 			REQUIRE(testRegisterRepos.registerUser(ourUser) == Utility::RegistrationCodes::SUCCESS);
@@ -45,7 +48,11 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 	SECTION("Login repository")
 	{
-		REQUIRE_NOTHROW(LoginRepository(PostgreAdapter::Instance()));
+		SECTION("Login repos constructor")
+		{
+			REQUIRE_NOTHROW(LoginRepository(PostgreAdapter::Instance()));
+		}
+
 		LoginRepository testLoginRepos(PostgreAdapter::Instance());
 		auto testUserID = testTable->Select()->columns({ "id" })->Where("login='" + std::string(testLogin) + "'")->execute().value();
 
@@ -53,22 +60,43 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 		{
 			Network::LoginInfo testUser(testLogin, testPassHash);
 			REQUIRE(testLoginRepos.loginUser(testUser) == testUserID[0][0].as<uint64_t>());
+
+			REQUIRE_NOTHROW(testLoginRepos.loginUser(testUser));
 		}
 		SECTION("Let's try to login with invalid values")
 		{
 			auto testBadHash{ "asdt24rersdf*_fs9dfs" };
 			Network::LoginInfo testBadUser(testLogin, testBadHash);
 			REQUIRE(testLoginRepos.loginUser(testBadUser) == 0);
+
+			REQUIRE_NOTHROW(testLoginRepos.loginUser(testBadUser));
 		}
 	}
 
+
 	SECTION("Channels repository")
 	{
-		REQUIRE_NOTHROW(ChannelsRepository(PostgreAdapter::Instance()));
+		SECTION("Channels repos constructor")
+		{
+			REQUIRE_NOTHROW(ChannelsRepository(PostgreAdapter::Instance()));
+		}
+
 		ChannelsRepository testChannelRepos(PostgreAdapter::Instance());
+
+		SECTION("getAllChannels but no one exists")
+		{
+			REQUIRE(testChannelRepos.getAllChannelsList().size() == 0);
+		}
+
+		SECTION("Create channel")
+		{
+			auto testUserID = testTable->Select()->columns({ "id" })
+				Network::ChannelInfo testChannel(, 1, "testChannel");
+		}
 
 		SECTION("Get all channels")
 		{
+			REQUIRE_NOTHROW(testChannelRepos.getAllChannelsList());
 
 		}
 	}
