@@ -69,8 +69,8 @@ set(UI_WIDGETS_SOURCES
         Widgets/MessageWidget.hpp
         Widgets/Page.cpp
         Widgets/Page.hpp
-        Widgets/PopupWidget.cpp
-        Widgets/PopupWidget.hpp
+        Widgets/NotificationWidget.cpp
+        Widgets/NotificationWidget.hpp
         Widgets/ReactionLayout.cpp
         Widgets/ReactionLayout.hpp
         Widgets/ReplyWidget.cpp
@@ -83,8 +83,10 @@ set(UI_WIDGETS_SOURCES
         Widgets/TextEdit.hpp
         Widgets/TitleWidget.cpp
         Widgets/TitleWidget.hpp
-        Widgets/PopupSystemMessage.cpp
-        Widgets/PopupSystemMessage.hpp)
+        Widgets/AbstractNotificationMessage.cpp
+        Widgets/AbstractNotificationMessage.hpp
+        Widgets/NotificationMessage.cpp
+        Widgets/NotificationMessage.hpp)
 
 set(PAGES_SOURCES
         Pages/ChannelCreationPage.cpp
@@ -124,7 +126,7 @@ elseif (UNIX AND NOT APPLE)
 endif ()
 
 target_link_libraries(${TARGET}
-        PRIVATE Qt::Widgets Qt::Gui ${EXTRA_LIBS} CONAN_PKG::asio
+        PRIVATE Qt5::Widgets Qt5::Gui ${EXTRA_LIBS} asio::asio
         PUBLIC Network.Public Client.Core.Static Utility.Public DataAccess.SQLite)
 
 

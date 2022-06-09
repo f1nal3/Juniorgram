@@ -13,4 +13,4 @@ struct IMasterRepository
     virtual ~IMasterRepository() = default;
 };
 
-}  // namespace DataAccess
+}  /// namespace DataAccess

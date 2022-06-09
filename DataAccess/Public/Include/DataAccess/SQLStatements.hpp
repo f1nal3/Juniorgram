@@ -1,10 +1,12 @@
 #pragma once
-#include <Utility/Exception.hpp>
-#include <Utility/SQLUtility.hpp>
 #include <any>
 #include <iostream>
 #include <optional>
 #include <sstream>
+
+#include <Utility/Exception.hpp>
+#include <Utility/SQLUtility.hpp>
+#include "FileLogger.hpp"
 
 namespace DataAccess
 {
@@ -190,7 +192,7 @@ public:
      * @brief Return SQL statement type.
      * @return ST_SELECT, ST_INSERT, ST_UPDATE, ST_DELETE
      */
-    virtual Utility::SQLStatement getStatementType(void) const noexcept final { return _statementType; }
+    Utility::SQLStatement getStatementType(void) const noexcept  { return _statementType; }
     /**
      * @brief Method that returns current SQL query string.
      *  This method for subqueries basically.
@@ -203,7 +205,7 @@ public:
      *    table.'SQLSTATEMENT'()->execute(); /// Here SQL query string will be clear.
      * @encode
      */
-    virtual const std::string getStringQuery(void) const noexcept final { return _queryStream.str(); }
+    std::string getStringQuery(void) const noexcept { return _queryStream.str(); }
     /**
      * @brief Method that executes SQL string.
      * For technical reasons,
@@ -237,14 +239,12 @@ public:
                 throw Utility::OperationDBException("Database connection failure!", __FILE__, __LINE__);
             }
         }
-        /*catch (const pqxx::sql_error& err)
-        {
-            std::cerr << err.what() << '\n';
-            std::cerr << err.query() << '\n';
-        }*/
+
         catch (const std::exception& err)
         {
-            std::cerr << err.what() << '\n';
+            Base::Logger::FileLogger::getInstance().log(
+                std::string(err.what() + '\n'),
+                Base::Logger::LogLevel::ERR);
         }
 
         this->rollback();
@@ -259,7 +259,7 @@ public:
      *  table.'SQLSTATEMENT'()->rollback();
      * @endcode
      */
-    virtual void rollback(void) final { SQLBase<ResultType>::_currentBuilder.clearStatement(); }
+    void rollback(void) { SQLBase<ResultType>::_currentBuilder.clearStatement(); }
 
 protected:
     void privateCheckForLastSymbol(void)
@@ -768,4 +768,4 @@ public:
     SQLDelete(SQLDelete&&) = delete;
     SQLDelete& operator=(SQLDelete&&) = delete;
 };
-}  // namespace DataAccess
+}  /// namespace DataAccess

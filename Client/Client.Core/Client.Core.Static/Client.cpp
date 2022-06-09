@@ -10,6 +10,8 @@
 namespace Network
 {
 using MessageType = Network::Message::MessageType;
+using UtilityTime::RTC;
+using UtilityTime::timestamp_t;
 
 Client::~Client() { disconnectFromServer(); }
 
@@ -17,12 +19,12 @@ bool Client::connectToServer(const std::string_view& host, const uint16_t port)
 {
     if (host != ServerInfo::Address::remote && host != ServerInfo::Address::local)
     {
-        std::cerr << "Bad server address" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("Bad server address", Base::Logger::LogLevel::ERR);
         return false;
     }
     if (port != ServerInfo::Port::test && port != ServerInfo::Port::production)
     {
-        std::cerr << "Bad port value" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("Bad port value", Base::Logger::LogLevel::ERR);
         return false;
     }
 
@@ -47,7 +49,11 @@ bool Client::connectToServer(const std::string_view& host, const uint16_t port)
     }
     catch (std::exception& exception)
     {
-        std::cerr << "Client Exception: " << exception.what() << "\n";
+        Base::Logger::FileLogger::getInstance().log
+        (
+            "Client Exception: " + std::string(exception.what()), 
+            Base::Logger::LogLevel::ERR
+        );
         return false;
     }
     return true;
@@ -94,9 +100,8 @@ void Client::pingServer() const
 {
     Network::Message message;
     message.mHeader.mMessageType = MessageType::ServerPing;
+    message.mHeader.mTimestamp = RTC::to_time_t(RTC::now());
 
-    auto timeNow = std::chrono::system_clock::now();
-    timeNow      = message.mHeader.mTimestamp;
     send(message);
 }
 
@@ -286,11 +291,8 @@ void Client::loop()
 {
     while (!_incomingMessagesQueue.empty())
     {
-        const Message message = _incomingMessagesQueue.pop_front();
-        auto          convertTime = std::chrono::system_clock::to_time_t;
-        std::tm       output_time = Utility::safe_localtime(convertTime(message.mHeader.mTimestamp));
-
-        std::cout << "[" << std::put_time(&output_time, "%F %T%z") << "]\n";
+        const Message message     = _incomingMessagesQueue.pop_front();
+        UtilityTime::consoleLogTimestamp();
 
         switch (message.mHeader.mMessageType)
         {
@@ -310,16 +312,16 @@ void Client::loop()
 
             case MessageType::ServerPing:
             {
-                std::chrono::system_clock::time_point timeNow = std::chrono::system_clock::now();
-                std::chrono::system_clock::time_point timeThen;
-                timeThen = message.mHeader.mTimestamp;
+                
+                timestamp_t timeNow  = RTC::to_time_t(RTC::now());
+                timestamp_t timeThen = message.mHeader.mTimestamp;
                 onServerPing(std::chrono::duration<double>(timeNow - timeThen).count());
             }
             break;
 
             case MessageType::ServerMessage:
             {
-                // T\todo add handling
+                // TODO add handling 
                 uint64_t clientID = 0;
                 onServerMessage(clientID);
             }
@@ -420,7 +422,11 @@ void Client::loop()
             break;
 
             default:
-                std::cerr << "[Client][Warning] unimplemented[" << uint32_t(message.mHeader.mMessageType) << "]\n";
+                Base::Logger::FileLogger::getInstance().log
+                (
+                    "Unimplemented[" + std::to_string(uint32_t(message.mHeader.mMessageType)) + "]", 
+                    Base::Logger::LogLevel::WARNING
+                );
         }
     }
 }
@@ -428,113 +434,119 @@ void Client::loop()
 void Client::onLoginAnswer(bool success)
 {
     (void)(success);
-    std::cerr << "[Client][Warning] login answer is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("Login answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
-void Client::onServerAccepted() { std::cerr << "[Client][Warning] server accepted is not implemented\n"; }
+void Client::onServerAccepted()
+{
+    Base::Logger::FileLogger::getInstance().log("Server accepted is not implemented", Base::Logger::LogLevel::WARNING);
+}
 
 void Client::onServerPing(double timestamp)
 {
     (void)(timestamp);
-    std::cerr << "[Client][Warning] server ping is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("Server ping is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
 void Client::onServerMessage(const uint64_t clientId)
 {
     (void)(clientId);
-    std::cerr << "[Client][Warning] server message is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("Server message is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
 void Client::onChannelListRequest(const std::vector<Network::ChannelInfo>& channels)
 {
     (void)(channels);
-    std::cerr << "[Client][Warning] channel list request is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("Channel list request is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
 void Client::onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages)
 {
     (void)(messages);
-    std::cerr << "[Client][Warning] message history answer is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("Message history answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
 void Client::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode)
 {
     (void)(storingMessageCode);
-    std::cerr << "[Client][Warning] message store answer is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("Message store answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
 void Client::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
 {
     (void)(registrationCode);
-    std::cerr << "[Client][Warning] registration answer is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("Registration answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
 void Client::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState)
 {
     (void)(deletingState);
-    std::cerr << "[Client][Warning] onUserMessageDeleteAnswer answer is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("User message delete answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
 void Client::onMessageReactionAnswer(const Utility::ReactionMessageCodes reactionState)
 {
     (void)(reactionState);
-    std::cerr << "[Client][Warning] onMessageReaction answer is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("Message reaction answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
-void Client::onDisconnect() { std::cerr << "[Client][Warning] onDisconnect is not implemented\n"; }
+void Client::onDisconnect() 
+{ 
+    Base::Logger::FileLogger::getInstance().log("Disconnect is not implemented", Base::Logger::LogLevel::WARNING);
+}
 
 void Client::onMessageSendFailed(const Message& message) const
 {
     (void)(message);
-    std::cerr << "[Client][Warning] onMessageSendFailed is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("Message send failed is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
 void Client::onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies)
 {
     (void)(replies);
-    std::cerr << "[Client][Warning] reply answer is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("Reply history answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
 void Client::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
 {
     (void)(storingReplyCode);
-    std::cerr << "[Client][Warning] reply store answer is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("Reply store answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
 void Client::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode)
 {
     (void)(ChannelLeaveCode);
-    std::cerr << "[Client][Warning] leave channel answer is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("Leave channel answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
 void Client::onChannelSubscribingAnswer(Utility::ChannelSubscribingCodes subscribingChannelCode)
 {
     (void)(subscribingChannelCode);
-    std::cerr << "[Client][Warning] subscribing channel is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("Subscribing channel answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
 void Client::onChannelSubscribingListAnswer(std::vector<uint64_t> subscribingChannelList)
 {
     (void)(subscribingChannelList);
-    std::cerr << "[Client][Warning] subscribing channel list is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("Subscribing channel list answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
 void Client::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode)
 {
     (void)(channelDeleteCode);
-    std::cerr << "[Client][Warning] leave channel answer is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("Delete channel answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
 void Client::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode)
 {
     (void)(channelCreateCode);
-    std::cerr << "[Client][Warning] create channel answer is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("Create channel answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
 void Client::onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer)
 {
     (void)(directMessageCreateAnswer);
-    std::cerr << "[Client][Warning] direct message create answer is not implemented\n";
+    Base::Logger::FileLogger::getInstance().log("Direct message create answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
 }  // namespace Network

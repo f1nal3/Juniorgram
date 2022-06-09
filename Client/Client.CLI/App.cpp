@@ -9,21 +9,41 @@ App::~App()
     if (isConnected())
     {
         disconnectFromServer();
-        std::cout << "Server Down\n";
+
+        Base::Logger::FileLogger::getInstance().log("Server Down", Base::Logger::LogLevel::INFO);
     }
 }
 
-void App::onServerAccepted() { std::cout << "Server Accepted Connection\n"; }
+void App::onServerAccepted() 
+{
+    Base::Logger::FileLogger::getInstance().log("Server Accepted Connection", Base::Logger::LogLevel::INFO);
+}
 
-void App::onServerPing(double timestamp) { std::cout << "Ping: " << timestamp << "\n"; }
+void App::onServerPing(double timestamp) 
+{ 
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Ping: " + std::to_string(timestamp), 
+        Base::Logger::LogLevel::INFO
+    );
+}
 
-void App::onServerMessage(const uint64_t clientId) { std::cout << "Hello from [" << clientId << "]\n"; }
+void App::onServerMessage(const uint64_t clientId) 
+{ 
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Hello from [" + std::to_string(clientId) + "]", 
+        Base::Logger::LogLevel::INFO
+    );
+}
 
 void App::onChannelListRequest(const std::vector<Network::ChannelInfo>& channels)
 {
     for (const auto& item : channels)
     {
-        std::cout << item.channelName << '\n';
+        std::ostringstream out;
+        out << item.channelName;
+        Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::INFO);
     }
 }
 
@@ -31,15 +51,15 @@ void App::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode)
 {
     if (storingMessageCode == Utility::StoringMessageCodes::SUCCESS)
     {
-        std::cout << "SUCCESS sending" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("SUCCESS sending", Base::Logger::LogLevel::INFO);
     }
     else if (storingMessageCode == Utility::StoringMessageCodes::FAILED)
     {
-        std::cout << "FAILED sending" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("FAILED sending", Base::Logger::LogLevel::ERR);
     }
     else
     {
-        std::cout << "Unknown StoringMessageCode" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("Unknown StoringMessageCode", Base::Logger::LogLevel::WARNING);
     }
 }
 
@@ -47,15 +67,15 @@ void App::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deleting
 {
     if(deletingState == Utility::DeletingMessageCodes::SUCCESS)
     {
-        std::cout << "SUCCESS deleting" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("SUCCESS deleting", Base::Logger::LogLevel::INFO);
     }
     else if (deletingState == Utility::DeletingMessageCodes::FAILED)
     {
-        std::cout << "FAILED deleting" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("FAILED deleting", Base::Logger::LogLevel::ERR);
     }
     else
     {
-        std::cout << "Unknown StoringMessageCode" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("Unknown StoringMessageCode", Base::Logger::LogLevel::WARNING);
     }
 }
 
@@ -63,7 +83,9 @@ void App::onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messag
 {
     for (const auto& item : messages)
     {
-        std::cout << item.message << '\n';
+        std::ostringstream out;
+        out << item.message;
+        Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::INFO);
     }
 }
 
@@ -71,18 +93,18 @@ void App::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
 {
     if (registrationCode == Utility::RegistrationCodes::SUCCESS)
     {
-        std::cout << "User was added" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("User was added", Base::Logger::LogLevel::INFO);
     }
     else if (registrationCode == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS)
     {
-        std::cout << "User with such login already exists" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("User with such login already exists", Base::Logger::LogLevel::WARNING);
     }
     else if (registrationCode == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
     {
-        std::cout << "User with such email already exists" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("User with such email already exists", Base::Logger::LogLevel::WARNING);
     }
     else
     {
-        std::cout << "Unknown RegistrationCode" << std::endl;
+        Base::Logger::FileLogger::getInstance().log("Unknown RegistrationCode", Base::Logger::LogLevel::WARNING);
     }
 }

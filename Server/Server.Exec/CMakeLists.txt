@@ -1,5 +1,5 @@
 set(TARGET Server.Exec)
-set(OUTPUT_NAME Juniorgram.Server.Exec)
+set(OUTPUT_NAME ${PROJECT}.Server.Exec)
 
 set(SOURCE_FILES
     MainServer.cpp)
@@ -12,13 +12,13 @@ add_executable(${TARGET} ${SOURCE_FILES})
 
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
-target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} CONAN_PKG::asio CONAN_PKG::yas)
+target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} asio::asio yas::yas)
 target_link_libraries(${TARGET} PUBLIC Server.Core.Static)
 target_link_libraries(${TARGET} PUBLIC Network.Public Utility.Public)
 
 install(TARGETS ${TARGET}
         CONFIGURATIONS Debug
-        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Server/Debug)
+        RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin/)
 install(TARGETS ${TARGET}
         CONFIGURATIONS Release
-        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Server/Release)
+        RUNTIME DESTINATION ${CMAKE_BINARY_DIR}/bin/)

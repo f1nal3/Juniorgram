@@ -1,0 +1,111 @@
+name: GCC Linux Build Sonar
+
+on:
+  push:
+    branches: [ master, dev ]
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [dev]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SONAR_SCANNER_VERSION: 4.7.0.2747
+      SONAR_SERVER_URL: "https://sonarcloud.io"
+      BUILD_WRAPPER_OUT_DIR: /home/runner/.build_wrapper_out/
+    strategy:
+      matrix:
+        BUILD_TYPE: [Debug]
+    
+    services:
+      postgres:
+        image: postgres
+        env:
+           POSTGRES_USER: postgres
+           POSTGRES_PASSWORD: postgres
+           POSTGRES_DB: testdb
+           POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+        - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+          java-version: 11
+
+    - name: Download and set up sonar-scanner
+      env:
+        SONAR_SCANNER_DOWNLOAD_URL: https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${{ env.SONAR_SCANNER_VERSION }}-linux.zip
+      run: |
+          mkdir -p $HOME/.sonar
+          curl -sSLo $HOME/.sonar/sonar-scanner.zip ${{ env.SONAR_SCANNER_DOWNLOAD_URL }} 
+          unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+          echo "$HOME/.sonar/sonar-scanner-${{ env.SONAR_SCANNER_VERSION }}-linux/bin" >> $GITHUB_PATH
+
+    - name: Download and set up build-wrapper
+      env:
+          BUILD_WRAPPER_DOWNLOAD_URL: ${{ env.SONAR_SERVER_URL }}/static/cpp/build-wrapper-linux-x86.zip
+      run: |
+          curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip ${{ env.BUILD_WRAPPER_DOWNLOAD_URL }}
+          unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
+          echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
+
+    - name: Install dependencies
+      run: sudo apt-get install libgl-dev 
+           
+    - name: Python setup
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+        architecture: 'x64'
+        
+    - name: Get prerequisites
+      run: python -m pip install conan==1.45 cmake gcovr==5.0
+
+    - name: Cache Conan packages
+      id: conan-cache
+      uses: actions/cache@v2
+      with:
+        path: '/home/runner/.conan/*'
+        key: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
+        restore-keys: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
+
+    - name: Remove Xorg package
+      run: CONAN_SYSREQUIRES_MODE=enabled conan remove xorg -f
+
+    - name: Install Xorg
+      run:  conan install xorg/system@
+      
+    - name: Configure CMake
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} -DCOVERAGE_MODE:BOOL=True
+
+    - name: Build using build-wrapper 
+      run: |
+        build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}}
+        
+    - name: Install
+      run: cmake --install /home/runner/work/Juniorgram/Juniorgram/build
+      
+    - name: Prepare Database
+      run: psql --username=postgres --host=localhost -d testdb -f ./Utility/SQL/Database_Scheme.sql
+
+    - name: Test
+      working-directory: ${{github.workspace}}/build  
+      run: ctest -C ${{matrix.BUILD_TYPE}} --output-on-failure
+      
+    - name: Compute Code Coverage
+      working-directory: ${{github.workspace}}/build
+      run: gcovr -r ../ --sonarqube ${{github.workspace}}/build/coverage.xml --exclude-unreachable-branches --exclude-throw-branches
+
+    - name: Run sonar-scanner
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: |
+          sonar-scanner --define sonar.host.url="${{ env.SONAR_SERVER_URL }}" --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"

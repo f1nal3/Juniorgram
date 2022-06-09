@@ -1,12 +1,13 @@
 set(TARGET Utility.Public)
-set(OUTPUT_NAME Juniorgram.Utility.Public)
+set(OUTPUT_NAME ${PROJECT}.Utility.Public)
 
 set(SOURCE_FILES
         Include/Utility/Exception.hpp
         Include/Utility/SQLUtility.hpp
         Include/Utility/WarningSuppression.hpp
         Include/Utility/UserDataValidation.hpp
-        Include/Utility/Utility.hpp)
+        Include/Utility/Utility.hpp
+        Include/Utility/UtilityTime.hpp)
 
 add_library(${TARGET} INTERFACE)
 target_sources(${TARGET} INTERFACE ${SOURCE_FILES})

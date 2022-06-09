@@ -4,6 +4,8 @@
 #include "Network/Message.hpp"
 #include "Network/SafeQueue.hpp"
 
+#include <FileLogger.hpp>
+
 namespace Network
 {
 /**

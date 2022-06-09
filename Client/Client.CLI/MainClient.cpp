@@ -106,7 +106,7 @@ int main(int argc, char** argv)
 
                 if (email.empty() || login.empty() || password.empty() || repeatPassword.empty())
                 {
-                    std::cout << "some field is empty" << std::endl;
+                    Base::Logger::FileLogger::getInstance().log("some field is empty", Base::Logger::LogLevel::WARNING);
 
                     future = std::async(std::launch::async, GetLineFromCin);
                     continue;
@@ -114,7 +114,8 @@ int main(int argc, char** argv)
 
                 if (password != repeatPassword)
                 {
-                    std::cout << "passwords are different" << std::endl;
+                    Base::Logger::FileLogger::getInstance().log("passwords are different", Base::Logger::LogLevel::WARNING);
+
 
                     future = std::async(std::launch::async, GetLineFromCin);
                     continue;
@@ -123,7 +124,8 @@ int main(int argc, char** argv)
                 using namespace UserDataValidation;
                 if (!isLoginValid(login))
                 {
-                    std::cout << "login is not valid" << std::endl;
+                    Base::Logger::FileLogger::getInstance().log("login is not valid", Base::Logger::LogLevel::WARNING);
+
 
                     future = std::async(std::launch::async, GetLineFromCin);
                     continue;
@@ -131,7 +133,8 @@ int main(int argc, char** argv)
 
                 if (!isEmailValid(email))
                 {
-                    std::cout << "email is not valid" << std::endl;
+                    Base::Logger::FileLogger::getInstance().log("email is not valid", Base::Logger::LogLevel::WARNING);
+
 
                     future = std::async(std::launch::async, GetLineFromCin);
                     continue;
@@ -139,7 +142,8 @@ int main(int argc, char** argv)
 
                 if (!isPasswordValid(password))
                 {
-                    std::cout << "password is not valid" << std::endl;
+                    Base::Logger::FileLogger::getInstance().log("password is not valid", Base::Logger::LogLevel::WARNING);
+
 
                     future = std::async(std::launch::async, GetLineFromCin);
                     continue;

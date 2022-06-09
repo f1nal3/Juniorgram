@@ -1,5 +1,4 @@
 #pragma once
-
 #include <any>
 #include <memory>
 #include <optional>
@@ -22,10 +21,7 @@ public:
     * @return Adapter instance: std::shared_ptr<...>
     */
     template <typename T>
-    static std::shared_ptr<T> getInstance(const std::string_view& options = {})
-    {
-        return T::Instance(options);
-    }
+    static std::shared_ptr<T> getInstance(const std::string_view& options = {}) { return T::Instance(options); }
 
     virtual std::optional<std::any> query(const std::string_view& query) = 0;
 
@@ -35,4 +31,4 @@ public:
 
     virtual ~IAdapter() {}
 };
-}  // namespace DataAccess
+}  /// namespace DataAccess

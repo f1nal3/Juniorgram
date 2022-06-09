@@ -1,9 +1,8 @@
 #include "ArgumentParser.hpp"
 
-
-ArgumentParser::ArgumentParser(int argc, const char** argv, const KeysValidator& validator)
+ArgumentParser::ArgumentParser(int argc, const char** argv, const KeysValidator& validator) :
+    _validator(validator)
 {
-    this->validator = validator;
     std::vector<std::string> tempParams(&argv[0], &argv[argc]);
 
     for (auto&& param : tempParams)
@@ -38,8 +37,8 @@ ArgumentParser::ArgumentParser(int argc, const char** argv, const KeysValidator&
         tryPushToMap(key, value);
     }
 
-    bool listenedPort = isKeyExist(validator.keys.listenedPort);
-    bool fileDB       = isKeyExist(validator.keys.fileDB);
+    bool listenedPort = isKeyExist(validator._keys._listenedPort);
+    bool fileDB       = isKeyExist(validator._keys._fileDB);
 
     if (listenedPort && fileDB) 
         throw std::runtime_error("Simultaneous existence both listenedPort and fileDB keys is forbidden. Use only one key.");
@@ -50,10 +49,10 @@ ArgumentParser::ArgumentParser(int argc, const char** argv, const KeysValidator&
 
 uint16_t ArgumentParser::getPort() const
 {
-    if (!isKeyExist(validator.keys.listenedPort)) 
+    if (!isKeyExist(_validator._keys._listenedPort)) 
         throw std::runtime_error("FileDB doesn't have a port");
 
-    int32_t port = arguments.find(validator.keys.listenedPort)->second;
+    int32_t port = _arguments.find(_validator._keys._listenedPort)->second;
 
     if (port < std::numeric_limits<uint16_t>::min() || port > std::numeric_limits<uint16_t>::max())
         throw std::runtime_error("Port value is too small or big");
@@ -65,7 +64,7 @@ void ArgumentParser::validateArgumentsAmount(std::vector<std::string>& params) c
 {
     const auto amountOfKeysWithValueAndPath =
         std::count_if(params.begin(), params.end(),
-                      [this](std::string& param) { return validator.doKeyNeedValue(param); });
+                      [this](const std::string& param) { return _validator.doKeyNeedValue(param); });
 
     if (amountOfKeysWithValueAndPath % 2 == 0 || params.size() == 1)
         throw std::runtime_error("Bad arguments amount");
@@ -108,5 +107,5 @@ void ArgumentParser::tryPushToMap(const std::string& key, const std::string& val
     if (!isInteger(value))
         throw std::runtime_error("key " + key + " has invalid value");
 
-    arguments.emplace(key, stoi(value));
+    _arguments.try_emplace(key, stoi(value));
 }

@@ -7,7 +7,7 @@
 #include <utility>
 
 #include "Application.hpp"
-#include "PopupWidget.hpp"
+#include "NotificationWidget.hpp"
 #include "Widgets/ChatHistory.hpp"
 #include "Widgets/ReactionLayout.hpp"
 
@@ -18,8 +18,8 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
 {   
     _menuBtn = std::make_unique<FlatButton>(this, "Menu", getStyle().button);
     _menuBtn->setClickCallback([=]() {
-        auto popup = new PopupWidget();
-        popup->setDeleteOnHide(true);
+        auto notification = new NotificationWidget();
+        notification->setDeleteOnHide(true);
         auto       messageMenu   = std::make_unique<Menu>();
         const auto menuReactions = new ReactionLayout(this, 400, 0, true);
 
@@ -31,10 +31,10 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
 
         // T\todo implement a better way to delete a message "through server"
         messageMenu->addAction("Delete message", [=]() { onDelete(); });
-        popup->setMenu(std::move(messageMenu));
+        notification->setMenu(std::move(messageMenu));
 
         auto globalPoint = mapToGlobal(QPoint(_menuBtn->x(), _menuBtn->height()));
-        popup->popup(QPoint(globalPoint.x(), globalPoint.y() + 1));
+        notification->notification(QPoint(globalPoint.x(), globalPoint.y() + 1));
     });
 
     _reactions = std::make_unique<ReactionLayout>(this);

@@ -19,7 +19,7 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
     _backButton          = std::make_unique<FlatButton>(this, "Back");
 
     _logoWidget = std::make_unique<LogoWidget>(this);
-    _popupSystemMessage = std::make_unique<PopupSystemMessage>(this);
+    _notificationMessage = std::make_unique<NotificationMessage>(this);
 
     _registrationHotkey = std::make_unique<QShortcut>
     (
@@ -50,9 +50,9 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
 
         if (email.empty() || login.empty() || password.empty() || repeatPassword.empty())
         {
-            std::cout << "some field is empty" << std::endl;
-            _popupSystemMessage->setPopupText("some field is empty");
-            _popupSystemMessage->show();
+            Base::Logger::FileLogger::getInstance().log("Some of the fields are empty", Base::Logger::LogLevel::WARNING);
+            _notificationMessage->setNotificationText("Some of the fields are empty");
+            _notificationMessage->notificationShow();
             onResume();
 
             return;
@@ -60,9 +60,9 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
 
         if (password != repeatPassword)
         {
-            std::cout << "passwords are different" << std::endl;
-            _popupSystemMessage->setPopupText("passwords are different");
-            _popupSystemMessage->show();
+            Base::Logger::FileLogger::getInstance().log("Passwords are different", Base::Logger::LogLevel::WARNING);
+            _notificationMessage->setNotificationText("Passwords are different");
+            _notificationMessage->notificationShow();
             onResume();
 
             return;
@@ -70,9 +70,9 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
 
         if (!isLoginValid(login))
         {
-            std::cout << "login is not valid" << std::endl;
-            _popupSystemMessage->setPopupText("login is not valid");
-            _popupSystemMessage->show();
+            Base::Logger::FileLogger::getInstance().log("Login is not valid", Base::Logger::LogLevel::WARNING);
+            _notificationMessage->setNotificationText("Login is not valid");
+            _notificationMessage->notificationShow();
             onResume();
 
             return;
@@ -80,19 +80,19 @@ RegistrationPage::RegistrationPage(QWidget* parent) : Page(parent)
 
         if (!isEmailValid(email))
         {
-            std::cout << "email is not valid" << std::endl;
-            _popupSystemMessage->setPopupText("email is not valid");
-            _popupSystemMessage->show();
+            Base::Logger::FileLogger::getInstance().log("Email is not valid", Base::Logger::LogLevel::WARNING);
+            _notificationMessage->setNotificationText("Email is not valid");
+            _notificationMessage->notificationShow();
             onResume();
 
             return;
         }
-
-        if (!isPasswordValid(password))
+        
+        if(!isPasswordValid(password))
         {
-            std::cout << "password is not valid" << std::endl;
-            _popupSystemMessage->setPopupText("password is not valid");
-            _popupSystemMessage->show();
+            Base::Logger::FileLogger::getInstance().log("Password is not valid", Base::Logger::LogLevel::WARNING);
+            _notificationMessage->setNotificationText("Password is not valid");
+            _notificationMessage->notificationShow();
             onResume();
 
             return;
@@ -134,23 +134,23 @@ void RegistrationPage::onRegistration(Utility::RegistrationCodes code)
 
         if (code == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS)
         {
-            std::cout << "Email already exists" << std::endl;
-            _popupSystemMessage->setPopupText("Email already exists");
-            _popupSystemMessage->show();
+            Base::Logger::FileLogger::getInstance().log("Email already exists", Base::Logger::LogLevel::WARNING);
+            _notificationMessage->setNotificationText("Email already exists");
+            _notificationMessage->notificationShow();
             onResume();
         }
         else if (code == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS)
         {
-            std::cout << "Username already taken" << std::endl;
-            _popupSystemMessage->setPopupText("Username already taken");
-            _popupSystemMessage->show();
+            Base::Logger::FileLogger::getInstance().log("Username already taken", Base::Logger::LogLevel::WARNING);
+            _notificationMessage->setNotificationText("Username already taken");
+            _notificationMessage->notificationShow();
             onResume();
         }
         else
         {
-            std::cout << "Unknown code" << std::endl;
-            _popupSystemMessage->setPopupText("Unknown code");
-            _popupSystemMessage->show();
+            Base::Logger::FileLogger::getInstance().log("Unknown code", Base::Logger::LogLevel::WARNING);
+            _notificationMessage->setNotificationText("Unknown code");
+            _notificationMessage->notificationShow();
             onResume();
         }
     }
