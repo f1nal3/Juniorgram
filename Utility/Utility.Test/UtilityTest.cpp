@@ -2,6 +2,8 @@
 
 #include "Utility/Utility.hpp"
 
+using Catch::Matchers::EndsWith;
+
 TEST_CASE("Test removeSpaces")
 {
     std::string checkString("abcd def zxq");
@@ -19,12 +21,11 @@ TEST_CASE("Test getFldPath")
 {
     SECTION("Input selected not-existent path")
     {
-        std::string_view path = "E:\\Log";
-        REQUIRE(Utility::getFldPath(path) == path);
+        REQUIRE_THAT(Utility::getFldPath("Logs"), EndsWith("Logs"));
     }
     SECTION("Input selected existing path")
     {
-        REQUIRE(Utility::getFldPath() ==
-                std::filesystem::absolute("E:\\C++\\Juniorgram\\out\\build\\x64-Debug\\Utility\\Utility.Test\\Log").string());
+        REQUIRE_THAT(Utility::getFldPath("Logs"), EndsWith("Logs"));
     }
+    std::filesystem::remove("Logs");
 }
