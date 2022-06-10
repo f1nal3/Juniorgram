@@ -1,5 +1,8 @@
+#define __STDC_WANT_LIB_EXT1__ 1
+
 #include <catch2/catch.hpp>
-#include <ctime>
+#include <time.h>
+#include <conio.h>
 
 #include "Utility/UtilityTime.hpp"
 
@@ -12,18 +15,19 @@ TEST_CASE("consoleLogTimestamp test")
     std::cout.rdbuf(output_time.rdbuf());              // substitute internal std::cout buffer with buffer of 'local' object
 
     //getting the time
-    std::chrono::system_clock::time_point currentTime = std::chrono::system_clock::now();
+    std::chrono::system_clock::time_point current_time = std::chrono::system_clock::now();
     UtilityTime::consoleLogTimestamp();
 
     std::cout.rdbuf(cout_buff);                 // go back to old buffer
 
-    std::chrono::system_clock::time_point  now    = std::chrono::system_clock::now();
-    std::time_t                            now_time_t  = std::chrono::system_clock::to_time_t(now);
-    std::tm                                now_tm     = *std::localtime(&now_time_t);
+    std::time_t current_time_time_t = std::chrono::system_clock::to_time_t(current_time);
+    std::tm current_time_tm;
 
-    char                                   checkTime[26];
+    localtime_s(&current_time_tm, &current_time_time_t);
 
-    std::strftime(checkTime, sizeof(checkTime), "%Y-%m-%d %H:%M:%S%z", &now_tm);
+    std::string checkTime(25, '\0');
 
-    REQUIRE_THAT(output_time.str(), Contains(checkTime));
+    std::strftime(checkTime.data(), checkTime.size(), "%Y-%m-%d %H:%M:%S%z", &current_time_tm);
+
+    REQUIRE_THAT(output_time.str(), Contains(checkTime.data()));
 }
