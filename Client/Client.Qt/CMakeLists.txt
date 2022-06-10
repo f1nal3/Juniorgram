@@ -33,8 +33,10 @@ set(STYLE_SOURCES
 set(UI_WIDGETS_SOURCES
         Widgets/AbstractButton.cpp
         Widgets/AbstractButton.hpp
-        Widgets/AbstractMessageWidget.hpp
+        Widgets/AbstractDropDownMenu.cpp
+        Widgets/AbstractDropDownMenu.hpp
         Widgets/AbstractMessageWidget.cpp
+        Widgets/AbstractMessageWidget.hpp
         Widgets/Buttons.cpp
         Widgets/Buttons.hpp
         Widgets/ChannelListWidget.cpp
@@ -47,6 +49,8 @@ set(UI_WIDGETS_SOURCES
         Widgets/ChatWidget.hpp
         Widgets/ComboBox.cpp
         Widgets/ComboBox.hpp
+        Widgets/DropDownMenu.cpp
+        Widgets/DropDownMenu.hpp
         Widgets/InputFields.cpp
         Widgets/InputFields.hpp
         Widgets/Label.cpp
