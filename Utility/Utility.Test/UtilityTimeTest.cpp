@@ -2,7 +2,6 @@
 
 #include <catch2/catch.hpp>
 #include <time.h>
-#include <conio.h>
 
 #include "Utility/UtilityTime.hpp"
 
@@ -24,7 +23,16 @@ TEST_CASE("consoleLogTimestamp test")
     std::time_t current_time_time_t = SysTime::to_time_t(current_time);
     std::tm current_time_tm;
 
+#if defined(_MSC_VER)
     localtime_s(&current_time_tm, &current_time_time_t);
+#elif defined(__unix__)
+    localtime_r(&current_time_time_t, &current_time_tm);
+#else
+    static std::mutex           mu;
+    std::lock_guard<std::mutex> lock(mu);
+
+    current_time_tm = *std::localtime(&current_time_time_t);
+#endif
 
     std::string checkTime(25, '\0');
 
