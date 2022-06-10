@@ -1,5 +1,3 @@
-#define __STDC_WANT_LIB_EXT1__ 1
-
 #include <catch2/catch.hpp>
 #include <time.h>
 
