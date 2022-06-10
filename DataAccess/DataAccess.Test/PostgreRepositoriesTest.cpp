@@ -18,7 +18,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 	auto testLogin{ "anotheruser" };
 	auto testPassHash{ "65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5" };
 
-	auto testTable = std::make_unique<PostgreTable>("users", PostgreAdapter::Instance(DBOptions::test));
+	auto testTable = std::make_unique<PostgreTable>("users", PostgreAdapter::Instance());
 
 	SECTION("Register repository")
 	{
@@ -90,7 +90,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 		SECTION("Create channel")
 		{
-			auto testUserID = testTable->Select()->columns({ "id" })
+			auto testUserID = testTable->Select()->columns({ "id" })->Where("login = '" + std::string(testLogin) + "'")->execute();
 			//Network::ChannelInfo testChannel(, 1, "testChannel");
 		}
 
