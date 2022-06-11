@@ -73,15 +73,23 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 		}
 	}
 
-
 	SECTION("Channels repository")
 	{
+		auto testUserID = testTable->Select()->columns({ "id" })
+			->Where("login = '" + std::string(testLogin) + "'")
+			->execute().value()[0][0].as<uint64_t>();
+
+		auto testChannelName{ "testChannel" };
+
 		SECTION("Channels repos constructor")
 		{
 			REQUIRE_NOTHROW(ChannelsRepository(PostgreAdapter::Instance()));
 		}
 
 		ChannelsRepository testChannelRepos(PostgreAdapter::Instance());
+
+		///if we have no one channel there return 1 as ID of channel, else return last + 1
+		auto testChannelID = testChannelRepos.getAllChannelsList().size() == 0 ? 1 : (testChannelRepos.getAllChannelsList().back().channelID + 1);
 
 		SECTION("getAllChannels but no one exists")
 		{
@@ -90,25 +98,56 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 		SECTION("Create channel")
 		{
-			auto testUserID = testTable->Select()->columns({ "id" })->Where("login = '" + std::string(testLogin) + "'")->execute();
-			//Network::ChannelInfo testChannel(, 1, "testChannel");
+			Network::ChannelInfo testChannel(testUserID, testChannelID, testChannelName);
+
+			SECTION("Create new channel with valid data")
+			{
+				REQUIRE(testChannelRepos.createChannel(testChannel) == Utility::ChannelCreateCodes::SUCCESS);
+			}
+
+			SECTION("Let's try to create channel with data of already existing channel")
+			{
+				REQUIRE(testChannelRepos.createChannel(testChannel) == Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED);
+			}
+
+			SECTION("Try to make an error")
+			{
+				auto testChannelBadID{ 2 };
+				auto testChannelBadName{ "testBadChannel" };
+				//Network::ChannelInfo testBadChannel(0, testChannelBadID, testChannelBadName);
+			}
+
 		}
 
 		SECTION("Get all channels")
 		{
 			REQUIRE_NOTHROW(testChannelRepos.getAllChannelsList());
+		}
+
+		SECTION("Leave channel")
+		{
+			Network::ChannelLeaveInfo testLeaveChannel(testUserID, testChannelID, testChannelName);
+			REQUIRE(testChannelRepos.leaveChannel(testLeaveChannel) == Utility::ChannelLeaveCodes::SUCCESS);
+		}
+
+		SECTION("Delete channel")
+		{
+			Network::ChannelDeleteInfo testDeleteChannelInfo(testUserID, testChannelID, testChannelName);
+
+			SECTION("Deleting already existing channel")
+			{
+				REQUIRE(testChannelRepos.deleteChannel(testDeleteChannelInfo) == Utility::ChannelDeleteCode::SUCCESS);
+			}
 
 		}
 	}
 
 	SECTION("Delete user")
 	{
-		auto testAdapter = PostgreAdapter::Instance();
-		auto testTable = std::make_unique<PostgreTable>("users", testAdapter);
-
-		testTable->Delete()->Where("login = '" + std::string(testLogin) + "'")->And("email = '" + std::string(testEmail) + "'")->execute();
+		testTable->Delete()->Where("login = '" + std::string(testLogin) + "'")/*->And("email = '" + std::string(testEmail) + "'")*/->execute();
 		auto findUser = testTable->Select()->columns({ "login" })->Where("login = '" + std::string(testLogin) + "'")->execute();
 
+		REQUIRE(findUser.value()[0][0].as<std::string_view>() != testLogin);
 		REQUIRE(findUser.has_value() == 0);
 	}
 
