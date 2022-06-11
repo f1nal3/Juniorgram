@@ -121,11 +121,13 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 		SECTION("Get all channels")
 		{
+			//todo  REQUIRE(channels.size()>0)
 			REQUIRE_NOTHROW(testChannelRepos.getAllChannelsList());
 		}
 
 		SECTION("Leave channel")
 		{
+			//todo  try to leave channel with invalid data
 			Network::ChannelLeaveInfo testLeaveChannel(testUserID, testChannelID, testChannelName);
 			REQUIRE(testChannelRepos.leaveChannel(testLeaveChannel) == Utility::ChannelLeaveCodes::SUCCESS);
 		}
@@ -147,7 +149,6 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 		testTable->Delete()->Where("login = '" + std::string(testLogin) + "'")/*->And("email = '" + std::string(testEmail) + "'")*/->execute();
 		auto findUser = testTable->Select()->columns({ "login" })->Where("login = '" + std::string(testLogin) + "'")->execute();
 
-		REQUIRE(findUser.value()[0][0].as<std::string_view>() != testLogin);
 		REQUIRE(findUser.has_value() == 0);
 	}
 
