@@ -5,6 +5,7 @@ set(SOURCE_FILES
     ExceptionTest.cpp
     UtilityTest.cpp
     UtilityTimeTest.cpp
+    UserDataValidationTest.cpp
     )
 
 add_executable(${TARGET} ${SOURCE_FILES})
