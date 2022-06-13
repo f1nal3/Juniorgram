@@ -19,12 +19,18 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 	auto testPassHash{ "65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5" };
 
 	auto testTable = std::make_unique<PostgreTable>("users", PostgreAdapter::Instance());
+	auto testInstance = PostgreAdapter::Instance();
 
 	SECTION("Register repository")
 	{
 		SECTION("Register repos constructor")
 		{
 			REQUIRE_NOTHROW(RegisterRepository(PostgreAdapter::Instance()));
+		}
+
+		SECTION("Register repos constructor but reference already used")
+		{
+			REQUIRE_NOTHROW(RegisterRepository(testInstance));
 		}
 
 		RegisterRepository testRegisterRepos(PostgreAdapter::Instance());
@@ -217,12 +223,31 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 		}
 	}
 
+	SECTION("Direct message repository")
+	{
+		SECTION("Direct message repos constructor")
+		{
+			REQUIRE_NOTHROW(DirectMessageRepository(PostgreAdapter::Instance()));
+		}
+
+		DirectMessageRepository testDirectMessageRepos(PostgreAdapter::Instance());
+
+		SECTION("Creating direct chat")
+		{
+			SECTION("Null sender id")
+			{
+				auto testSenderID{ 0 }, testReceiverID{ 1 };
+				REQUIRE(testDirectMessageRepos.addDirectChat(testSenderID, testReceiverID) == Utility::DirectMessageStatus::FAILED);
+			}
+
+		}
+	}
+
 	SECTION("Delete user")
 	{
 		testTable->Delete()->Where("login = '" + std::string(testLogin) + "'")->And("email = '" + std::string(testEmail) + "'")->execute();
 		auto findUser = testTable->Select()->columns({ "login" })->Where("login = '" + std::string(testLogin) + "'")->execute();
-
-		
+	
 		REQUIRE(!findUser.has_value());
 	}
 }
