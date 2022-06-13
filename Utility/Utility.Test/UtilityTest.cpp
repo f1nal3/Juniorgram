@@ -6,15 +6,22 @@ using Catch::Matchers::EndsWith;
 
 TEST_CASE("Test removeSpaces")
 {
-    std::string checkString("abcd def zxq");
+    std::string ExpectingString("abcd def zxq");
+
     std::string ususalString("abcd    def     zxq");
+    REQUIRE(Utility::removeSpaces(ususalString) == ExpectingString);
+
     std::string startEndSpacesString("     abcd    def     zxq     ");
+    REQUIRE(Utility::removeSpaces(startEndSpacesString) == ExpectingString);
+
+    std::string ExpectingEmptyString("");
+
     std::string manySpacesString("     ");
+    REQUIRE(Utility::removeSpaces(manySpacesString) == ExpectingEmptyString);
+
     std::string emptyString("");
-    REQUIRE(Utility::removeSpaces(ususalString) == checkString);
-    REQUIRE(Utility::removeSpaces(startEndSpacesString) == checkString);
-    REQUIRE(Utility::removeSpaces(manySpacesString) == "");
-    REQUIRE(Utility::removeSpaces(emptyString) == "");
+    REQUIRE(Utility::removeSpaces(emptyString) == ExpectingEmptyString);
+
 }
 
 TEST_CASE("Test getFldPath")

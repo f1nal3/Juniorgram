@@ -4,7 +4,7 @@
 #include "Utility/UtilityTime.hpp"
 
 using Catch::Matchers::Contains;
-using SysTime= std::chrono::system_clock;
+using std::chrono::system_clock;
 
 TEST_CASE("consoleLogTimestamp test")
 {
@@ -13,12 +13,12 @@ TEST_CASE("consoleLogTimestamp test")
     std::cout.rdbuf(outputTime.rdbuf());               // substitute internal std::cout buffer with buffer of 'local' object
 
     //getting the time
-    SysTime::time_point currentTime = SysTime::now();
+    system_clock::time_point currentTime = system_clock::now();
     UtilityTime::consoleLogTimestamp();
 
     std::cout.rdbuf(coutBuff);  // go back to old buffer
 
-    std::time_t currentTime_time_t = SysTime::to_time_t(currentTime);
+    std::time_t currentTime_time_t = system_clock::to_time_t(currentTime);
     std::tm     currentTime_tm;
 
 #if defined(_MSC_VER)
