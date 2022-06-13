@@ -35,7 +35,7 @@ jobs:
         architecture: 'x64'
         
     - name: Get prerequisites
-      run: python -m pip install conan==1.45 cmake && sudo apt install clang-12 clang-tidy libgl-dev
+      run: python -m pip install conan==1.49.0 cmake && sudo apt install clang-12 clang-tidy libgl-dev
 
     - name: Cache Conan packages
       id: conan-cache
@@ -48,7 +48,7 @@ jobs:
     - name: Remove Xorg package
       run: CONAN_SYSREQUIRES_MODE=enabled conan remove xorg -f
     - name: Install Xorg
-      run:  conan install xorg/system@
+      run:  CONAN_SYSREQUIRES_MODE=enabled conan install xorg/system@
       
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_EXPORT_COMPILE_COMMANDS=true
