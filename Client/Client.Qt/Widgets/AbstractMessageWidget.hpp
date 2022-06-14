@@ -33,10 +33,10 @@ signals:
 
 protected:
     // Getters and setters for derived classes
-    uint64_t getUserID()             const { return _userID; };
-    uint64_t getMessageID()          const { return _messageID; }
-    const QString&  getMessageText() const { return _messageText; }
-    const QString&  getUserName()    const { return _userName; }
+    uint64_t getUserID()                   const { return _userID; };
+    virtual uint64_t getMessageID()        const { return _messageID; }
+    const QString&  getMessageText()       const { return _messageText; }
+    const QString&  getUserName()          const { return _userName; }
 
     const Style::MessageWidget& getStyle() const { return _st; }
 
