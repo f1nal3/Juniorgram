@@ -47,7 +47,7 @@ void ChannelListWidget::showChannelListWindow()
     _listWidgetChannels->show();
 }
 
-std::shared_ptr<ListWidget> ChannelListWidget::getChannelList() { return _channelList; }
+std::shared_ptr<ListWidget> ChannelListWidget::getChannelList() const { return _channelList; }
 
 void ChannelListWidget::showChannelCreationWindow()
 {

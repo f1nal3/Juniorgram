@@ -29,7 +29,7 @@ public slots:
 
 public:
     /// Returns channel list
-    std::shared_ptr<ListWidget> getChannelList();
+    std::shared_ptr<ListWidget> getChannelList() const;
 
 private:
     std::unique_ptr<ChannelListPage>     _listWidgetChannels;
