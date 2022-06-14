@@ -33,13 +33,12 @@ signals:
     void deleteChannelClick();
 
 private slots:
-    void leaveChannel();
-    void deleteChannel();
+    void leaveChannel() const;
+    void deleteChannel() const;
 
 private:
-    void updateLayout();
+    void updateLayout() const;
 
-private:
     std::unique_ptr<FlatButton> _leaveChannel;
     std::unique_ptr<FlatButton> _deleteChannel;
     QString _channelName;

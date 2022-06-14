@@ -20,7 +20,7 @@ ChannelBar::ChannelBar(QWidget* parent, QString channelName /* const Models::Cha
                      + st::defaultMargin);           // bottom margin
 }
 
-void ChannelBar::updateLayout()
+void ChannelBar::updateLayout() const
 {
     const auto& size = this->size();
     _deleteChannel->move(st::defaultMargin, st::defaultMargin);
@@ -46,7 +46,7 @@ void ChannelBar::paintEvent(QPaintEvent*)
 
 void ChannelBar::resizeEvent(QResizeEvent*) { updateLayout(); }
 
-void ChannelBar::leaveChannel()
+void ChannelBar::leaveChannel() const
 {
     if (oApp->connectionManager()->isConnected())
     {
@@ -58,7 +58,7 @@ void ChannelBar::leaveChannel()
     }
 }
 
-void ChannelBar::deleteChannel()
+void ChannelBar::deleteChannel() const
 {
     if (oApp->connectionManager()->isConnected())
     {
