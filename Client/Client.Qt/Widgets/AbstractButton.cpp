@@ -19,7 +19,7 @@ void AbstractButton::enterEvent(QEvent* event)
 
 void AbstractButton::setOver(bool over, AbstractButton::StateChanger source)
 {
-    Q_UNUSED(source);
+    Q_UNUSED(source)
     if (over && !(_state & StateFlag::Over))
     {
         auto was = _state;
@@ -47,7 +47,7 @@ void AbstractButton::mouseMoveEvent(QMouseEvent* mouseEvent)
     }
 }
 
-void AbstractButton::setDisabled(bool disabled)
+void AbstractButton::setButtonDisabled(bool disabled)
 {
     auto was = _state;
     if (disabled && !(_state & StateFlag::Disabled))
@@ -65,16 +65,13 @@ void AbstractButton::setDisabled(bool disabled)
 void AbstractButton::mousePressEvent(QMouseEvent* mouseEvent)
 {
     checkIfOver(mouseEvent->pos());
-    if (mouseEvent->buttons() & Qt::LeftButton)
+    if ((mouseEvent->buttons() & Qt::LeftButton) && ((_state & StateFlag::Over) && !(_state & StateFlag::Down)))
     {
-        if ((_state & StateFlag::Over) && !(_state & StateFlag::Down))
-        {
-            auto was = _state;
-            _state |= StateFlag::Down;
-            onStateChanged(was, StateChanger::ByPress);
+        auto was = _state;
+        _state |= StateFlag::Down;
+        onStateChanged(was, StateChanger::ByPress);
 
-            mouseEvent->accept();
-        }
+        mouseEvent->accept();
     }
 }
 

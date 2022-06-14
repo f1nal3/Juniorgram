@@ -36,7 +36,7 @@ public:
      * @brief Enable/disable this button
      * @param disabled Enable/disable this button
      */
-    void setDisabled(bool disabled = true);
+    void setButtonDisabled(bool disabled = true);
     /**
      * @brief Sets a callback on button click
      * @param callback Callback function
@@ -67,7 +67,6 @@ protected:
     /// Handle mouse release event
     void mouseReleaseEvent(QMouseEvent* mouseEvent) override;
 
-protected:
     /// Button states
     enum class StateFlag
     {
@@ -99,8 +98,8 @@ protected:
      */
     virtual void onStateChanged(State was, StateChanger source)
     {
-        Q_UNUSED(was);
-        Q_UNUSED(source);
+        Q_UNUSED(was)
+        Q_UNUSED(source)
     }
 
     /**
