@@ -94,7 +94,8 @@ private:
     QPoint      _dragStart;
     QScrollBar* _connected;
 
-    int32_t _startFrom = 0, _scrollMax = 0;
+    int32_t _startFrom = 0;
+    int32_t _scrollMax = 0;
 
     int    _hideIn = 0;
     QTimer _hideTimer;
@@ -158,7 +159,7 @@ public:
      * @brief Scrolls to make widget visible
      * @param widget Widget to which we are scrolling
      */
-    void scrollToWidget(QWidget* widget);
+    void scrollToWidget(const QWidget* widget) const;
 
     /// Update scrollbars
     void updateBars();
@@ -169,7 +170,7 @@ public:
      * @param newMax new range
      * @param vertical vertical?
      */
-    void rangeChanged(int oldMax, int newMax, bool vertical);
+    void rangeChanged(int oldMax, int newMax, bool vertical) const;
 
     /**
      * @brief Takes control on widget
@@ -200,7 +201,7 @@ public Q_SLOTS:
     /**
      * @brief Scroll to toTop but not bottom as toBottom
      */
-    void scrollToY(int toTop, int toBottom = -1);
+    void scrollToY(int toTop, int toBottom = -1) const;
     /**
      * @brief Disable scrolling by user
      * @param dis Disable scrolling?
@@ -234,7 +235,8 @@ protected:
 private:
     const Style::ScrollArea& _st;
 
-    ScrollBar _horizontalBar, _verticalBar;
+    ScrollBar _horizontalBar;
+    ScrollBar _verticalBar;
 
     bool _touchEnabled      = false;
     bool _disabled          = false;
@@ -242,5 +244,6 @@ private:
 
     std::unique_ptr<QWidget> _widget;
 
-    int _horizontalValue, _verticalValue;
+    int _horizontalValue;
+    int _verticalValue;
 };
