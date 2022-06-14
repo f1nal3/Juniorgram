@@ -11,6 +11,7 @@ using DataAccess::LoginRepository;
 using DataAccess::MessagesRepository;
 using DataAccess::PostgreAdapter;
 using DataAccess::PostgreTable;
+using DataAccess::RepliesRepository;
 
 TEST_CASE("PostgreRepositories test", "[dummy]")
 {
@@ -168,7 +169,6 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 				auto testDeleteResult =testTable->Delete()->Where("login = '" + std::string(testNewUserLogin) + "'")->And("email = '" + std::string(testNewUserEmail) + "'")->execute();
 				REQUIRE(!testDeleteResult.has_value());
-
 			}
 		}
 
@@ -236,15 +236,53 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 		{
 			SECTION("Null sender id")
 			{
-				auto testSenderID{ 0 }, testReceiverID{ 1 };
+				auto testSenderID{ 0 };
+				auto testReceiverID{ 1 };
+
 				REQUIRE(testDirectMessageRepos.addDirectChat(testSenderID, testReceiverID) == Utility::DirectMessageStatus::FAILED);
 			}
 
-			SECTION("Direct chat")
+			SECTION("Try to make it failed")
 			{
+				auto testSenderID{ 1 };
+				auto testReceiverID{ 2 };
 
+				REQUIRE_THROWS(testDirectMessageRepos.addDirectChat(testSenderID, testReceiverID));
+			}
+
+			SECTION("Another failed creating")
+			{
+				auto testSenderID{ 1 };
+				auto testReceiverID{ 0 };
+
+				REQUIRE_THROWS(testDirectMessageRepos.addDirectChat(testSenderID, testReceiverID)); 
+			}
+
+			SECTION("Let's create direct chat")
+			{
+				
 			}
 		}
+	}
+	
+	SECTION("Message repository")
+	{
+		SECTION("Message repos constructor")
+		{
+			REQUIRE_NOTHROW(MessagesRepository(PostgreAdapter::Instance()));
+		}
+
+		MessagesRepository testMessageRepos(PostgreAdapter::Instance());
+	}
+
+	SECTION("Replies repository")
+	{
+		SECTION("Reply repos constructor")
+		{
+			REQUIRE_NOTHROW(RepliesRepository(PostgreAdapter::Instance()));
+		}
+
+		RepliesRepository testReplyRepos(PostgreAdapter::Instance());
 	}
 
 	SECTION("Delete user")
