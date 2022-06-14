@@ -55,7 +55,7 @@ TEST_CASE("Password validation test")
 {
     SECTION("Input valid password")
     {
-        std::string rightPassword("1996a*nton-Anton%ov_34");
+        std::string rightPassword("dgdfgAFS5623-sgsd");
         REQUIRE(UserDataValidation::isPasswordValid(rightPassword) == true);
     }
 
