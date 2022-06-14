@@ -10,9 +10,9 @@ Page::Page(QWidget* parent) : QFrame(parent)
     connect(ReceiverManager::instance(), &ReceiverManager::onDisconnect, this, &Page::onResume);
 }
 
-void Page::onResume() { _loading->stop(); }
+void Page::onResume() const { _loading->stop(); }
 
-void Page::onPause() { _loading->start(); }
+void Page::onPause() const { _loading->start(); }
 
 void Page::resizeEvent(QResizeEvent*) { _loading->resize(size()); }
 

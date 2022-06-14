@@ -15,9 +15,9 @@ public:
     explicit Page(QWidget* parent = nullptr);
 public slots:
     /// Resume widget
-    void onResume();
+    void onResume() const;
     /// Pause widget/scrolling
-    void onPause();
+    void onPause() const;
 signals:
     /// Returns back on navigator stack
     void back();
