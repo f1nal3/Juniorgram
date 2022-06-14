@@ -28,7 +28,7 @@ private:
     /// Original size of logo
     [[nodiscard]] QSize bestFit() const { return _logo->size(); }
 
-private:
+    // variable field
     std::unique_ptr<QPixmap> _logo;
-    double                   _part;
+    double                   _part = 40;
 };
