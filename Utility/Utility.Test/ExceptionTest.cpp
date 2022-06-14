@@ -4,19 +4,23 @@
 
 using Catch::Contains;
 
-[[noreturn]] static void ExceptionThrowerMock(){
+[[noreturn]] static void ExceptionThrowerMock()
+{
     throw Utility::NotImplementedException("Not implemented", __FILE__, __LINE__);
 }
 
-void NoExceptionMock() {
+void NoExceptionMock()
+{
     Utility::NotImplementedException("Implemented", __FILE__, __LINE__);
 }
 
-[[noreturn]] static void OperationDBExceptionMock() { 
+[[noreturn]] static void OperationDBExceptionMock()
+{
     throw Utility::OperationDBException("DB error operation", __FILE__, __LINE__); 
 }
 
-void OperationDBNoExceptionMock() {
+void OperationDBNoExceptionMock()
+{
     Utility::NotImplementedException("DB success operation", __FILE__, __LINE__);
 }
 
