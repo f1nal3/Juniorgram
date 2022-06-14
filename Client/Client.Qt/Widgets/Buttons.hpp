@@ -67,8 +67,8 @@ protected:
     /// Update on state change
     void onStateChanged(State was, StateChanger source) override
     {
-        Q_UNUSED(was);
-        Q_UNUSED(source);
+        Q_UNUSED(was)
+        Q_UNUSED(source)
         update();
     }
 
