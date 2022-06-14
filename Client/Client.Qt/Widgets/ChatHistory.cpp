@@ -5,7 +5,7 @@
 #include <QPainter>
 #include <QtEvents>
 
-ChatHistory::ChatHistory(QWidget* parent) : QWidget(parent), _messageList()
+ChatHistory::ChatHistory(QWidget* parent) : QWidget(parent)
 {
     _messageList.reserve(1024);
     _messages.reserve(1024);
@@ -34,19 +34,19 @@ void ChatHistory::addReply(const Models::ReplyInfo& replyInfo)
 
     auto history = _scrollArea->widget();
 
-    auto replyMsg = new ReplyMessageWidget(history, QString::fromStdString(replyInfo._message), replyInfo._msgID,
-                                           QString::fromStdString(replyInfo._userLogin), replyInfo._senderID);
+    std::unique_ptr<ReplyMessageWidget> replyMsg = std::make_unique<ReplyMessageWidget>(history, QString::fromStdString(replyInfo._message), replyInfo._msgID,
+                                                                                         QString::fromStdString(replyInfo._userLogin), replyInfo._senderID);
 
     replyMsg->show();
     replyMsg->resize(history->width() - 25, replyMsg->expectedHeight());
     history->setMinimumHeight(history->minimumHeight() + replyMsg->expectedHeight() + 10);
 
-    _replyList.insert(std::make_pair(int32_t(replyInfo._msgIdOwner), std::unique_ptr<ReplyMessageWidget>(replyMsg)));
+    _replyList.try_emplace(static_cast<int32_t>(replyInfo._msgIdOwner), replyMsg);
     _replies.push_back(replyInfo);
 
-    connect(replyMsg, &ReplyMessageWidget::geometryChanged, this, [=](int diff) {
+    connect(replyMsg.get(), &ReplyMessageWidget::geometryChanged, this, [history, this](int diff) mutable {
         history->setMinimumHeight(history->minimumHeight() + diff);
-        updateLayout(true);
+        this->updateLayout(true);
     });
 
     updateLayout();
@@ -76,37 +76,37 @@ void ChatHistory::addMessage(const Models::MessageInfo& messageInfo)
         }
     }
 
-    auto msg = new MessageWidget(history, QString::fromStdString(messageInfo._message), messageInfo._senderID, messageInfo._msgID,
-                                 messageInfo._time, QString::fromStdString(messageInfo._userLogin));
+    std::unique_ptr<MessageWidget> msg = std::make_unique<MessageWidget>(history, QString::fromStdString(messageInfo._message), messageInfo._senderID, messageInfo._msgID,
+                                                                         messageInfo._time, QString::fromStdString(messageInfo._userLogin));
 
     msg->setReactionMap(messageInfo._reactions);
     msg->show();
     msg->resize(history->width() - 25, msg->expectedHeight());
     history->setMinimumHeight(history->minimumHeight() + msg->expectedHeight() + 10);
 
-    _messageList.push_back(std::unique_ptr<MessageWidget>(msg));
+    _messageList.push_back(msg);
     _messages.push_back(messageInfo);
 
     std::sort(_messageList.begin(), _messageList.end(), [](const std::unique_ptr<MessageWidget>& lhs, const std::unique_ptr<MessageWidget>& rhs)
         { return *lhs < *rhs;  });
 
-    connect(msg, &MessageWidget::createReplySignal, this, &ChatHistory::createReplySignal);
+    connect(msg.get(), &MessageWidget::createReplySignal, this, &ChatHistory::createReplySignal);
 
-    connect(msg, &MessageWidget::geometryChanged, this, [=](int diff) {
+    connect(msg.get(), &MessageWidget::geometryChanged, this, [history, this](int diff) {
         history->setMinimumHeight(history->minimumHeight() + diff);
-        updateLayout(true);
+        this->updateLayout(true);
     });
 
     updateLayout();
 
-    _scrollArea->scrollToWidget(msg);
+    _scrollArea->scrollToWidget(msg.get());
 
     emit messageAdded();
 }
 
-void ChatHistory::deleteMessage(const uint64_t userId, const uint64_t messageId)
+void ChatHistory::deleteMessage(const uint64_t userId, const uint64_t messageId) const
 {
-    for (auto& msg : _messageList)
+    for (const auto& msg : _messageList)
     {
         if (msg->isTheMessage(messageId, userId)) msg->onDelete();
     }
@@ -132,18 +132,17 @@ void ChatHistory::updateLayout(bool beenResized)
     if (_messageList.empty()) return;
     auto bottom = _scrollArea->scrollHeight();
 
-    int diff = _scrollArea->scrollTop();
-    int y    = diff;
+    int diff      = _scrollArea->scrollTop();
 
     if (_left >= 0)
     {
         auto it = _replyList.find(int(_messageList[_left]->getMessageID()));
-        y       = _messageList[_left]->pos().y();
+        int diff_temp = _messageList[_left]->pos().y();
         if (it != _replyList.end())
         {
-            y = it->second->pos().y();
+            diff_temp = it->second->pos().y();
         }
-        diff -= y;
+        diff -= diff_temp;
     }
     auto it = _replyList.rbegin();
     for (int i = int(_messageList.size()) - 1; i >= 0; i--)
@@ -221,7 +220,7 @@ void ChatHistory::resizeVisible()
             if (bWidth || bHeight) it->second->resize(width, it->second->expectedHeight());
         }
 
-        auto& msg = _messageList[index];
+        const auto& msg = _messageList[index];
         bHeight   = msg->expectedHeight() != msg->height();
         bWidth    = msg->width() != width;
         resized |= bHeight || bWidth;
@@ -234,34 +233,16 @@ void ChatHistory::resizeVisible()
 
 std::pair<int, int> ChatHistory::findVisible() const
 {
-    int left   = 0;
-    int right  = int(_messageList.size());
-    int top    = _scrollArea->scrollTop();
-    int bottom = top + _scrollArea->height();
-    {
-        int  middle = 0;
-        auto it     = _replyList.find(int(_messageList[(right - left) / 2]->getMessageID()));
-        middle      = _messageList[(right - left) / 2]->pos().y();
-        if (it != _replyList.end())
-        {
-            middle = it->second->pos().y();
-        }
-        auto isBetween = [](int p, int t, int b) { return p >= t && p <= b; };
-        while (!isBetween(middle, top, bottom) && (right - left) > 1)
-        {
-            if (middle < top) left = (right + left) / 2;
-            if (middle > top) right = (right + left) / 2;
-            it     = _replyList.find(int(_messageList[(right - left) / 2]->getMessageID()));
-            middle = _messageList[(right - left) / 2]->pos().y();
-            if (it != _replyList.end())
-            {
-                middle = it->second->pos().y();
-            }
-        }
-    }
+    int left    = 0;
+    auto right  = int(_messageList.size());
+    int top     = _scrollArea->scrollTop();
+    int bottom  = top + _scrollArea->height();
+
+    aligment(left, right, top, bottom);
+
     int middle = (right + left) / 2;
     int index  = middle;
-    int size   = int(_messageList.size());
+    auto size   = static_cast<int>(_messageList.size());
 
     int sizeHeight = 0;
 
@@ -305,4 +286,27 @@ std::pair<int, int> ChatHistory::findVisible() const
 
     left = index;
     return {left, right};
+}
+
+void ChatHistory::aligment(int left, int right, int top, int bottom) const 
+{
+    int  middle = 0;
+    auto it     = _replyList.find(int(_messageList[(right - left) / 2]->getMessageID()));
+    middle      = _messageList[(right - left) / 2]->pos().y();
+    if (it != _replyList.end())
+    {
+        middle = it->second->pos().y();
+    }
+    auto isBetween = [](int p, int t, int b) { return p >= t && p <= b; };
+    while (!isBetween(middle, top, bottom) && (right - left) > 1)
+    {
+        if (middle < top) left = (right + left) / 2;
+        if (middle > top) right = (right + left) / 2;
+        it     = _replyList.find(int(_messageList[(right - left) / 2]->getMessageID()));
+        middle = _messageList[(right - left) / 2]->pos().y();
+        if (it != _replyList.end())
+        {
+            middle = it->second->pos().y();
+        }
+    }
 }

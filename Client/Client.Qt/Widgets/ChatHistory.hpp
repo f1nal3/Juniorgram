@@ -44,7 +44,7 @@ public:
      * @param userId Message user ID
      * @param messageId Message ID
      */
-    void deleteMessage(uint64_t userId, uint64_t messageId);
+    void deleteMessage(uint64_t userId, uint64_t messageId) const;
 
 protected:
     /**
@@ -74,13 +74,14 @@ private:
      */
     void updateLayout(bool beenResized = false);
 
+    void aligment(int left, int right, int top, int bottom) const;
+
     /**
      * @brief Finds visible messages
      * @return Left and right visible messages
      */
     [[nodiscard]] std::pair<int, int> findVisible() const;
 
-private:
     bool                                                   _alreadyScrolling = false;
     std::int32_t                                           _left             = -1;
     std::unique_ptr<ScrollArea>                            _scrollArea;
