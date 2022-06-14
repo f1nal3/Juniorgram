@@ -22,20 +22,20 @@ TitleWidget::TitleWidget(QWidget* parent, const Style::TitleBar& st) : QWidget(p
 
     connect(window()->windowHandle(), &QWindow::windowStateChanged, this, [=](Qt::WindowState state) { windowStateChanged(state); });
 
-    _maximizeButton->setClickCallback([=]() {
+    _maximizeButton->setClickCallback([parent, this]() {
         if (parent->isMaximized())
-            window()->setWindowState(Qt::WindowNoState);
+            this->window()->setWindowState(Qt::WindowNoState);
         else
-            window()->setWindowState(Qt::WindowMaximized);
-        _maximizeButton->clearState();
+            this->window()->setWindowState(Qt::WindowMaximized);
+        this->_maximizeButton->clearState();
     });
-    _closeButton->setClickCallback([=]() {
+    _closeButton->setClickCallback([parent, this]() {
         parent->deleteLater();
-        _closeButton->clearState();
+        this->_closeButton->clearState();
     });
-    _minimizeButton->setClickCallback([=]() {
+    _minimizeButton->setClickCallback([parent, this]() {
         parent->showMinimized();
-        _minimizeButton->clearState();
+        this->_minimizeButton->clearState();
     });
     setMinimumWidth(_minimizeButton->width() + _maximizeButton->width() + _closeButton->width() + _bioButton->width());
 }
@@ -56,7 +56,7 @@ void TitleWidget::resizeEvent(QResizeEvent*)
 
 void TitleWidget::mousePressEvent(QMouseEvent*) { parentWidget()->window()->windowHandle()->startSystemMove(); }
 
-void TitleWidget::showBioButton(bool show)
+void TitleWidget::showBioButton(bool show) const
 {
     if (show)
         _bioButton->show();
@@ -64,7 +64,7 @@ void TitleWidget::showBioButton(bool show)
         _bioButton->hide();
 }
 
-bool TitleWidget::setBioButtonIcon(const Style::icon* icon) { return _bioButton->setIcon(icon); }
+bool TitleWidget::setBioButtonIcon(const Style::icon* icon) const { return _bioButton->setIcon(icon); }
 
 void TitleWidget::mouseDoubleClickEvent(QMouseEvent*)
 {
@@ -153,9 +153,9 @@ void CaptionButton::setStyle(const Style::TitleBarButton* newSt)
 
 bool CaptionButton::setIcon(const Style::icon* icon)
 {
-    if (icon != nullptr)
+    if ((icon != nullptr) && (icon->size().width() != icon->size().height()))
     {
-        if (icon->size().width() != icon->size().height()) return false;
+        return false;
     }
     _iconOverride = icon;
     return true;

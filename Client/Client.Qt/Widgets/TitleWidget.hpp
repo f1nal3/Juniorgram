@@ -29,13 +29,13 @@ public:
      * @brief show bio-button
      * @param show show bio-button?
      */
-    void showBioButton(bool show = true);
+    void showBioButton(bool show = true) const;
     /**
      * @brief Set a new bio-button icon
      * @param icon A new icon (nullptr removes icon)
      * @return icon has been set?
      */
-    bool setBioButtonIcon(const Style::icon* icon);
+    bool setBioButtonIcon(const Style::icon* icon) const;
 
 protected:
     /// Handle paint
