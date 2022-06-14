@@ -8,7 +8,7 @@ using Catch::Contains;
     throw Utility::NotImplementedException("Not implemented", __FILE__, __LINE__);
 }
 
-[[noreturn]] static void NoExceptionMock() {
+void NoExceptionMock() {
     Utility::NotImplementedException("Implemented", __FILE__, __LINE__);
 }
 
@@ -16,8 +16,8 @@ using Catch::Contains;
     throw Utility::OperationDBException("DB error operation", __FILE__, __LINE__); 
 }
 
-[[noreturn]] static void OperationDBNoExceptionMock() {
-    Utility::OperationDBException("DB success operation", __FILE__, __LINE__);
+void OperationDBNoExceptionMock() {
+    Utility::NotImplementedException("DB success operation", __FILE__, __LINE__);
 }
 
 TEST_CASE("Test NotImplementedException format", "[Utility.Exception]")
