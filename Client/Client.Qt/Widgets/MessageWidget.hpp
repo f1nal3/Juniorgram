@@ -27,7 +27,7 @@ public:
     };
 
     /// Message flags
-    typedef QFlags<MessageFlag> MessageFlags;
+    using MessageFlags = QFlags<MessageFlag>;
 
     /**
      * @brief constructor for displaying a message from a user on the screen.
@@ -79,7 +79,7 @@ public:
      * @brief Method for get ID of message.
      * @return Message ID in the format uint64_t
      */
-    uint64_t getMessageID() const { return AbstractMessageWidget::getMessageID(); }
+    uint64_t getMessageID() const override { return AbstractMessageWidget::getMessageID(); }
 
     /**
      * @brief Compares MessageWidgets by their message's send time
@@ -99,7 +99,7 @@ public slots:
     /**
      * @brief Method for updating message reactions
      */
-    void onReaction(const std::uint32_t reactionID);
+    void onReaction(const std::uint32_t reactionID) const;
 
 signals:
     void createReplySignal(QString messageText, QString username, uint64_t messageId);
@@ -109,9 +109,9 @@ protected:
     void resizeEvent(QResizeEvent* e) override;
 
 private:
-    void clearMessage();
+    void clearMessage() const;
 
-private:
+// variable field
     std::unique_ptr<FlatButton>     _menuBtn;
     std::unique_ptr<FlatButton>     _reactionsBtn;
     std::unique_ptr<ReactionLayout> _reactions;

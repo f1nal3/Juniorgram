@@ -21,12 +21,12 @@ MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId,
         auto notification = new NotificationWidget();
         notification->setDeleteOnHide(true);
         auto       messageMenu   = std::make_unique<Menu>();
-        const auto menuReactions = new ReactionLayout(this, 400, 0, true);
+        const auto menuReactions = std::make_shared<ReactionLayout>(this, 400, 0, true);
 
-        connect(menuReactions, &ReactionLayout::onClick,
+        connect(menuReactions.get(), &ReactionLayout::onClick,
                 this, &MessageWidget::onReaction);
 
-        messageMenu->addAction(menuReactions);
+        messageMenu->addAction(menuReactions.get());
         messageMenu->addSeparator();
 
         // T\todo implement a better way to delete a message "through server"
@@ -61,7 +61,7 @@ void MessageWidget::paintEvent(QPaintEvent* e)
     p.setFont(getStyle().fontname);
     if (_messageFlags & MessageFlag::Deleted)
     {
-        QString dltmsg = QString("Message was deleted");
+        auto dltmsg = QString("Message was deleted");
         p.drawText(QRect(margin, margin, getStyle().fontname->width(dltmsg), getStyle().fontname->height), dltmsg, Style::al_center);
         return;
     }
@@ -90,7 +90,7 @@ void MessageWidget::resizeEvent(QResizeEvent* e)
     int replyButtonX = width() - getStyle().radius - _menuBtn->width() - _replyBtn->width() - 2;
     _replyBtn->move(replyButtonX, getStyle().radius);
     getFmtMessageText()->resize(width() - getStyle().radius * 4 - 1, getFmtMessageText()->document()->size().height());
-    _reactions->move(getStyle().radius * 2, getFmtMessageText()->y() + getFmtMessageText()->document()->size().height() + getStyle().radius);
+    _reactions->move(getStyle().radius * 2, static_cast<int>(getFmtMessageText()->y() + getFmtMessageText()->document()->size().height() + getStyle().radius));
 
     if (expectedHeight() != height())
     {
@@ -108,7 +108,7 @@ void MessageWidget::onDelete()
     oApp->connectionManager()->userMessageDelete(getMessageID());
 }
 
-void MessageWidget::onReaction(const std::uint32_t reactionID)
+void MessageWidget::onReaction(const std::uint32_t reactionID) const
 {
     oApp->connectionManager()->userMessageReaction(getMessageID(), reactionID);
 }
@@ -143,7 +143,7 @@ void MessageWidget::setReactionMap(const std::map<uint32_t, uint32_t>& newReacti
     update();
 }
 
-void MessageWidget::clearMessage()
+void MessageWidget::clearMessage() const
 {
     getFmtMessageText()->hide();
     _menuBtn->hide();
@@ -157,7 +157,7 @@ int MessageWidget::expectedHeight() const
     {
         return getStyle().fontname->height + getStyle().radius * 2;
     }
-    return getStyle().radius * 7 + getStyle().fontname->height + getFmtMessageText()->document()->size().height() + _reactions->layoutSize().height();
+    return static_cast<int>(getStyle().radius * 7 + getStyle().fontname->height + getFmtMessageText()->document()->size().height() + _reactions->layoutSize().height());
 }
 
 void MessageWidget::createReply() { emit createReplySignal(getMessageText(), getUserName(), getMessageID()); }
