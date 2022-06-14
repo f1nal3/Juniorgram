@@ -29,7 +29,7 @@ public:
     uint64_t getUserId() const { return _userId; };
 
     /// Expected height of Reply Widget
-    int expectedHeight();
+    int expectedHeight() const;
     /// Set reply
     void setReply(QString messageText, QString username, uint64_t messageId);
     /// Return message

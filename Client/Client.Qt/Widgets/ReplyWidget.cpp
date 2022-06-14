@@ -7,11 +7,11 @@
 ReplyWidget::ReplyWidget(QWidget* parent, const Style::MessageWidget& st) : QWidget(parent), _st(st)
 {
     _closeReplyButton = std::make_unique<FlatButton>(this, "Close", _st.button);
-    _closeReplyButton->setClickCallback([&]() { close(); });
+    _closeReplyButton->setClickCallback([this]() { this->close(); });
     resize(width(), expectedHeight());
 }
 
-int ReplyWidget::expectedHeight() { return _st.radius * 5 + _st.fontname->height + _st.fonttext->height; }
+int ReplyWidget::expectedHeight() const{ return _st.radius * 5 + _st.fontname->height + _st.fonttext->height; }
 
 void ReplyWidget::paintEvent(QPaintEvent* e)
 {
