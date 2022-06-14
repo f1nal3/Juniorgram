@@ -6,6 +6,9 @@
 #include <QPainter>
 #include <QRegularExpressionValidator>
 #include <QtEvents>
+#include <memory>
+
+
 
 #include "Style/StyleBasic.hpp"
 
@@ -15,6 +18,10 @@ class InputStyle : public QCommonStyle
 {
 public:
     InputStyle() { setParent(QCoreApplication::instance()); }
+
+    InputStyle(InputStyle& inputStyle) = delete;
+    InputStyle& operator=(InputStyle const& inputStyle) = delete;
+    InputStyle& operator=(InputStyle const&& inputStyle) = delete;
 
     void drawPrimitive(PrimitiveElement element, const QStyleOption* option, QPainter* painter,
                        const QWidget* widget = nullptr) const override
@@ -26,21 +33,15 @@ public:
     }
     QRect subElementRect(SubElement r, const QStyleOption* opt, const QWidget* widget = nullptr) const override
     {
-        switch (r)
+        if (r == SE_LineEditContents)
         {
-            case SE_LineEditContents:
-            {
                 const auto w = widget ? qobject_cast<const InputClass*>(widget) : nullptr;
                 return w ? w->getTextRect() : QCommonStyle::subElementRect(r, opt, widget);
-                break;
-            }
-            default:
-                break;
         }
         return QCommonStyle::subElementRect(r, opt, widget);
     }
 
-    static InputStyle<InputClass>* instance()
+    static std::shared_ptr<InputStyle<InputClass>> instance()
     {
         if (!_instance)
         {
@@ -48,7 +49,7 @@ public:
             {
                 return nullptr;
             }
-            _instance = new InputStyle<InputClass>();
+            _instance = std::make_shared<InputStyle<InputClass>>();
         }
         return _instance;
     }
@@ -56,19 +57,19 @@ public:
     ~InputStyle() override { _instance = nullptr; }
 
 private:
-    static InputStyle<InputClass>* _instance;
+    static std::shared_ptr<InputStyle<InputClass>> _instance;
 };
 
 template <typename InputClass>
-InputStyle<InputClass>* InputStyle<InputClass>::_instance = nullptr;
+std::shared_ptr<InputStyle<InputClass>> InputStyle<InputClass>::_instance = nullptr;
 
 FlatInput::FlatInput(QWidget* parent, const QString& placeholder, bool password) : QLineEdit(parent)
 {
     setFont(st::defaultFont);
-    auto* regexpvalidator = new QRegularExpressionValidator;
-    regexpvalidator->setRegularExpression(QRegularExpression("[a-zA-Z0-9._]+@[a-zA-Z0-9]+.[a-zA-Z]+"));
-    setValidator(regexpvalidator);
-    setStyle(InputStyle<FlatInput>::instance());
+    auto regexpValidator = std::make_shared<QRegularExpressionValidator>();
+    regexpValidator->setRegularExpression(QRegularExpression("[a-zA-Z0-9._]+@[a-zA-Z0-9]+.[a-zA-Z]+"));
+    setValidator(regexpValidator.get());
+    setStyle(InputStyle<FlatInput>::instance().get());
     auto p = palette();
     p.setColor(QPalette::Window, Qt::white);
     p.setColor(QPalette::Text, Qt::white);
