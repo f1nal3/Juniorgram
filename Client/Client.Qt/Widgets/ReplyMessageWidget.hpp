@@ -22,7 +22,6 @@ public:
     ReplyMessageWidget(QWidget* history, QString message, uint64_t messageId, QString username, uint64_t userId = uint64_t(),
                        const Style::MessageWidget& st = st::defaultMessageWidget);
 
-public:
     /// Possible height of message widget
     int expectedHeight() const override;
 

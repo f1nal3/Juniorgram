@@ -10,7 +10,7 @@ ReplyMessageWidget::ReplyMessageWidget(QWidget* history, QString message, uint64
 int ReplyMessageWidget::expectedHeight() const
 {
     if (!getFmtMessageText()) return 0;
-    return getStyle().radius * 7 + getStyle().fontname->height + getFmtMessageText()->document()->size().height();
+    return static_cast<int>(getStyle().radius * 7 + getStyle().fontname->height + getFmtMessageText()->document()->size().height());
 }
 
 void ReplyMessageWidget::paintEvent(QPaintEvent* e)
@@ -39,7 +39,7 @@ void ReplyMessageWidget::resizeEvent(QResizeEvent* e)
 {
     emit geometryChanged(e->size().height() - e->oldSize().height());
 
-    getFmtMessageText()->resize(width() - getStyle().radius * 4 - 1, getFmtMessageText()->document()->size().height());
+    getFmtMessageText()->resize(width() - getStyle().radius * 4 - 1, static_cast<int>(getFmtMessageText()->document()->size().height()));
 
     if (expectedHeight() != height())
     {
