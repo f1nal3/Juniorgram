@@ -12,12 +12,9 @@
 LoadingSpinner::LoadingSpinner(QWidget* parent, bool disableParentWhenSpinning, const Style::LoadingSpinner& st)
     : QWidget(parent), _st(st), _disableParentWhenSpinning(disableParentWhenSpinning)
 {
-    _currentCounter = 0;
-    _isSpinning     = false;
-
     _timer = std::make_unique<QTimer>(this);
     connect(_timer.get(), SIGNAL(timeout()), this, SLOT(rotate()));
-    _timer->setInterval(1000 / (_st.numberOfLines * _st.revolutionsPerSecond));
+    _timer->setInterval(static_cast<int>(1000.0 / (_st.numberOfLines * _st.revolutionsPerSecond)));
     updateSize();
     hide();
 }
@@ -120,8 +117,8 @@ QColor LoadingSpinner::currentLineColor(int countDistance, int numOfLines, doubl
     {
         return color;
     }
-    int distanceThreshold = static_cast<int>(ceil((numOfLines - 1) * trailFadePerc));
-    if (countDistance > distanceThreshold)
+
+    if (auto distanceThreshold = static_cast<int>(ceil((numOfLines - 1) * trailFadePerc)); distanceThreshold < countDistance)
     {
         color.setAlphaF(_st.minimumTrailOpacity);
     }

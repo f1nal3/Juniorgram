@@ -47,10 +47,10 @@ private:
     /// Put on center of page
     void updatePosition();
 
-private:
+    //variable field
     const Style::LoadingSpinner& _st;
     std::unique_ptr<QTimer>      _timer;
     bool                         _disableParentWhenSpinning;
-    int32_t                      _currentCounter;
-    bool                         _isSpinning;
+    int32_t                      _currentCounter = 0;
+    bool                         _isSpinning = false;
 };
