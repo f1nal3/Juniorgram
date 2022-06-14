@@ -39,11 +39,12 @@ TEST_CASE("PostgreAdapter test", "[dummy]")
 		auto ourAdapter = PostgreAdapter::Instance();
 
 		REQUIRE_NOTHROW(ourAdapter->closeConnection());
+		REQUIRE(!ourAdapter->isConnected());
 	}
 
 	SECTION("Check our query")
 	{
-		auto ourAdapter = PostgreAdapter::Instance();
+		auto ourAdapter = PostgreAdapter::Instance(DBOptions::test);
 		auto ourQuery = std::string_view{"SELECT * FROM users"};
 		auto ourBadQuery = std::string_view{ "something * 123wrong" };
 		REQUIRE_NOTHROW(ourAdapter.get()->query(ourQuery));
