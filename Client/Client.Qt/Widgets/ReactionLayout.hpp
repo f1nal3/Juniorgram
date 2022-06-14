@@ -66,7 +66,9 @@ signals:
     void onClick(const std::uint32_t reactionID);
 
 private:
-    uint64_t _channelId, _userId, _msgId;
+    uint64_t _channelId;
+    uint64_t _userId;
+    uint64_t _msgId;
     /// First: reaction_id | Second: reaction_button
     std::map<uint32_t, std::unique_ptr<IconButton>> _reactions;
 

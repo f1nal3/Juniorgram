@@ -6,8 +6,9 @@
 
 namespace
 {
-std::map<uint32_t, const Style::icon> _icons;
+    std::map<uint32_t, const Style::icon> _icons;
 }
+
 
 ReactionLayout::ReactionLayout(QWidget* parent, const uint32_t maxWidth, const uint32_t spacing, bool isMenu)
     : QWidget(parent), _maxWidth(maxWidth), _spacing(Style::valueDPIScale(isMenu ? 4 : spacing)), _isMenu(isMenu)
@@ -103,8 +104,8 @@ void ReactionLayout::remodelLayout()
                     std::make_unique<IconButton>(this, QString(""), st::reactionIconButtonInMenu);
 
                 _reactions[item.first]->setIcon(&_icons[item.first]);
-                _reactions[item.first]->setClickCallback([=]() { clicked({ nullptr, y(), 0, true });
-                                                                 emit onClick(item.first); });
+                _reactions[item.first]->setClickCallback([item, this]() { this->clicked({ nullptr, y(), 0, true });
+                                                                 emit this->onClick(item.first); });
             }
 
             else if (_zeroVisible || item.second > 0)
@@ -112,8 +113,8 @@ void ReactionLayout::remodelLayout()
                 _reactions[item.first] = std::make_unique<IconButton>(this, QString("%1").arg(item.second), st::reactionIconButton);
 
                 _reactions[item.first]->setIcon(&_icons[item.first]);
-                _reactions[item.first]->setClickCallback([=]() { clicked({ nullptr, y(), 0, true }); 
-                                                                 emit onClick(item.first); });
+                _reactions[item.first]->setClickCallback([item, this]() { this->clicked({ nullptr, y(), 0, true }); 
+                                                                 emit this->onClick(item.first); });
             }
         }
     }
