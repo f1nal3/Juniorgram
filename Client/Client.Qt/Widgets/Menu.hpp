@@ -84,7 +84,7 @@ public:
     void handleMousePress(QPoint globalPosition);
 
     void setMouseReleaseDelegate(std::function<void(QPoint globalPosition)> delegate) { _mouseReleaseDelegate = std::move(delegate); }
-    void handleMouseRelease(QPoint globalPosition);
+    void handleMouseRelease(QPoint globalPosition) const;
 
     /**
      * @brief Finds currently selected
@@ -96,7 +96,7 @@ public:
      */
     void clearSelection();
     void setSelected(int32_t selected);
-    void updateSelected(const QPoint& globalPosition);
+    void updateSelected(const QPoint& globalPosition) const;
 
 protected:
     void mousePressEvent(QMouseEvent* event) override;
