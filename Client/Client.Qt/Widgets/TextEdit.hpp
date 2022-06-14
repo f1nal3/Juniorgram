@@ -29,10 +29,10 @@ public:
     [[nodiscard]] QString getText() const;
 
     /// Expected height of Text Edit
-    int expectedHeight();
+    int expectedHeight() const;
 
     /// clear text
-    void clear();
+    void clear() const;
     /// Destructor for text edit
     ~TextEdit() override;
 
@@ -47,16 +47,16 @@ signals:
     void textChanged();
 
 private slots:
-    void styleButtonClick(const QString& symbolStart, const QString& symbolEnd);
+    void styleButtonClick(const QString& symbolStart, const QString& symbolEnd) const;
 
 private:
-    void delSymbolsInSelection(QString& text, int& start, int& end, int symbolSize);
-    void delSymbolsOutSelection(QString& text, int& start, int& end, int symbolSize);
-    void insertSymbolsInSelection(QTextCursor& cursor, int& start, int& end, int symbolSize, const QString& symbolStart,
-                                  const QString& symbolEnd);
-    void selectText(QTextCursor& cursor, int start, int end);
+    void delSymbolsInSelection(QString& text, int start, int end, int symbolSize) const;
+    void delSymbolsOutSelection(QString& text, int start, int end, int symbolSize) const;
+    void insertSymbolsInSelection(QTextCursor& cursor, int start, int end, int symbolSize, const QString& symbolStart,
+                                  const QString& symbolEnd) const;
+    void selectText(QTextCursor& cursor, int start, int end) const;
 
-private:
+// variable field
     Settings& _settings;
 
     const int     _symbolSize           = 3;

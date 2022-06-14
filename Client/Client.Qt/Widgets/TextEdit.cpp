@@ -36,10 +36,10 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent), _settings(Settings::getIn
 
     setLayout(_mainVerticalLayout.get());
 
-    _boldnessButton->setClickCallback([&]() { styleButtonClick(_boldSymbolOpen, _boldSymbolClose); });
-    _italicButton->setClickCallback([&]() { styleButtonClick(_italicSymbolOpen, _italicSymbolClose); });
-    _underlineButton->setClickCallback([&]() { styleButtonClick(_underlineSymbolOpen, _underlineSymbolClose); });
-    _sendButton->setClickCallback([&]() { sendButtonClick(); });
+    _boldnessButton->setClickCallback([this]() { this->styleButtonClick(this->_boldSymbolOpen, this->_boldSymbolClose); });
+    _italicButton->setClickCallback([this]() { this->styleButtonClick(this->_italicSymbolOpen, this->_italicSymbolClose); });
+    _underlineButton->setClickCallback([this]() { this->styleButtonClick(this->_underlineSymbolOpen, this->_underlineSymbolClose); });
+    _sendButton->setClickCallback([this]() { this->sendButtonClick(); });
     
     connect(_messageInput.get(), &FlatTextEdit::textChanged, this, &TextEdit::textChanged);
 
@@ -47,11 +47,11 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent), _settings(Settings::getIn
     setMinimumHeight(Style::valueDPIScale(100));
 }
 
-int TextEdit::expectedHeight()
+int TextEdit::expectedHeight() const
 {
-    return _boldnessButton->height() + _messageInput->document()->size().height() + _mainVerticalLayout->margin() +
+    return static_cast<int>(_boldnessButton->height() + _messageInput->document()->size().height() + _mainVerticalLayout->margin() +
            _messageInput->contentsMargins().top() + _messageInput->contentsMargins().bottom() + contentsMargins().top() +
-           contentsMargins().bottom();
+           contentsMargins().bottom());
 }
 
 void TextEdit::sendButtonClick()
@@ -63,7 +63,7 @@ void TextEdit::sendButtonClick()
     }
 }
 
-void TextEdit::styleButtonClick(const QString& symbolStart, const QString& symbolEnd)
+void TextEdit::styleButtonClick(const QString& symbolStart, const QString& symbolEnd) const
 {
     QTextCursor cursor = _messageInput->textCursor();
 
@@ -96,33 +96,34 @@ void TextEdit::styleButtonClick(const QString& symbolStart, const QString& symbo
     }
 }
 
-void TextEdit::delSymbolsInSelection(QString& text, int& start, int& end, int symbolSize)
+void TextEdit::delSymbolsInSelection(QString& text, int start, int end, int symbolSize) const
 {
     text.replace(end - (symbolSize + 1), symbolSize + 1, "");
     text.replace(start, symbolSize, "");
     _messageInput->setPlainText(text);
 }
 
-void TextEdit::delSymbolsOutSelection(QString& text, int& start, int& end, int symbolSize)
+void TextEdit::delSymbolsOutSelection(QString& text, int start, int end, int symbolSize)const
 {
     text.replace(end, symbolSize + 1, "");
     text.replace(start - symbolSize, symbolSize, "");
     _messageInput->setPlainText(text);
 }
 
-void TextEdit::insertSymbolsInSelection(QTextCursor& cursor, int& start, int& end, int symbolSize, const QString& symbolStart,
-                                        const QString& symbolEnd)
+void TextEdit::insertSymbolsInSelection(QTextCursor& cursor, int start, int end, int symbolSize, const QString& symbolStart,
+                                        const QString& symbolEnd) const
 {
     cursor.setPosition(start);
     cursor.insertText(symbolStart);
     end += symbolSize;
 
-    cursor.setPosition((end));
+    cursor.setPosition(end);
     cursor.insertText(symbolEnd);
     end += symbolSize + 1;
+    cursor.setPosition(end);
 }
 
-void TextEdit::selectText(QTextCursor& cursor, int start, int end)
+void TextEdit::selectText(QTextCursor& cursor, int start, int end) const
 {
     cursor.setPosition(start, QTextCursor::MoveAnchor);
     cursor.setPosition(end, QTextCursor::KeepAnchor);
@@ -131,6 +132,6 @@ void TextEdit::selectText(QTextCursor& cursor, int start, int end)
 
 QString TextEdit::getText() const { return _messageInput->toPlainText(); }
 
-void TextEdit::clear() { _messageInput->clear(); }
+void TextEdit::clear() const { _messageInput->clear(); }
 
 TextEdit::~TextEdit() { _horizontalButtonLayout->removeItem(_horizontalButtonSpacer.get()); }
