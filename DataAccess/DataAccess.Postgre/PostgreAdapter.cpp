@@ -6,9 +6,9 @@ namespace DataAccess
     {
         std::scoped_lock<std::mutex> lock(_staticMutex);
 
-        if (_instance == nullptr)
+        if (_instance == nullptr) 
         {
-            _instance = std::shared_ptr<PostgreAdapter>(new PostgreAdapter(options.empty() ? _defaultOptions : options));
+            _instance = std::make_shared<PostgreAdapter>(PostgreAdapter(options.empty() ? _defaultOptions : options));
         }
 
         return _instance;

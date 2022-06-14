@@ -4,9 +4,7 @@ set(OUTPUT_NAME Server.Core.Static)
 set(SOURCE_FILES
     Server.hpp
 	Server.cpp
-	ArgumentParser.hpp
-	ArgumentParser.cpp
-	KeysValidator.hpp)
+	ArgParser.hpp)
 
 if(WIN32)
 	list(APPEND EXTRA_LIBS ws2_32 wsock32)
@@ -23,6 +21,7 @@ target_include_directories(${TARGET} PRIVATE
 
 
 target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} asio::asio yas::yas DataAccess.Postgre)
+target_link_libraries(${TARGET} PUBLIC ${EXTRA_LIBS} argparse::argparse)
 target_link_libraries(${TARGET} PUBLIC Network.Public DataAccess.Public Utility.Public Base.Logger.Static)
 
 set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)

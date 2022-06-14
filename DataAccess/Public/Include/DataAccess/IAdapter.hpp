@@ -12,11 +12,11 @@ public:
     /**
     * @brief Method for getting Adapter instances. \
     * @details This method return the instance with your options. \
-    *	 Like: dbname=... user=... hostaddr=... port=... ... . \
+    *	 Like: dbname=... user=... password = ... hostaddr=... port=... ... . \
     *	 There are another options like: ssh, password, etc. \
     *	 This options must be passed as a single string. \
     *	 By default: \
-    *     (dbname=juniorgram user=postgres hostaddr=127.0.0.1 port=5432).
+    *     (dbname=juniorgram password=postgres user=postgres hostaddr=127.0.0.1 port=5432).
     * @param Params for connecting to the database.
     * @return Adapter instance: std::shared_ptr<...>
     */

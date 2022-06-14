@@ -9,7 +9,6 @@ set(SOURCE_FILES
 	PostgreRepositoryContainer.hpp
     PostgreRepositoryManager.hpp
     PostgreTable.hpp
-    DataBaseOptions.hpp
     UsersAmountFinder.hpp
     UsersAmountFinder.cpp)
 
@@ -19,4 +18,4 @@ set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
 target_link_libraries(${TARGET}
         PUBLIC PostgreSQL::pq libpqxx::libpqxx
-        PUBLIC Utility.Public DataAccess.Public Network.Public)
+        PUBLIC Utility.Public DataAccess.Public Network.Public Server.Core.Static)

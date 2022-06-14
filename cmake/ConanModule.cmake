@@ -20,12 +20,14 @@ conan_cmake_configure(REQUIRES asio/1.18.1
                                expat/2.2.10
                                catch2/2.13.8
                                libtool/2.4.6
-                               libpq/13.6
+                               libpq/14.2
                                libpqxx/7.7.3
                                nlohmann_json/3.9.1
                                yas/7.0.5
                                qt/5.15.2
-                    GENERATORS cmake_find_package_multi)
+                               argparse/2.4
+                    GENERATORS cmake_find_package_multi
+                    OPTIONS qt:shared=True)
 
 # This detects system settings such as platform, compiler, etc.
 # Those can be overridden, see conan.cmake github for documentation.
@@ -50,3 +52,4 @@ find_package(PostgreSQL REQUIRED)
 find_package(libpqxx REQUIRED)
 find_package(nlohmann_json REQUIRED)
 find_package(yas REQUIRED)
+find_package(argparse REQUIRED)

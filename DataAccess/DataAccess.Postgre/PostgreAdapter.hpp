@@ -6,8 +6,7 @@
 
 #include <Utility/Exception.hpp>
 #include <DataAccess/IAdapter.hpp>
-
-#include "DataBaseOptions.hpp"
+#include "ArgParser.hpp"
 
 namespace DataAccess
 {
@@ -20,7 +19,7 @@ class PostgreAdapter final : public IAdapter
 private:
     inline static std::mutex                        _staticMutex{};
     inline static std::shared_ptr<PostgreAdapter>   _instance{};
-    inline static constexpr std::string_view        _defaultOptions = DBOptions::real;
+    inline static std::string_view                  _defaultOptions = ArgParser::getArguments();
 
     std::mutex                                      _queryMutex;
     std::unique_ptr<pqxx::connection>               _connection;
