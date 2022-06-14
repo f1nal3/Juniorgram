@@ -7,11 +7,11 @@
 
 ItemBase::ItemBase(QWidget* parent, const Style::Menu&) : AbstractButton(parent)
 {
-    setClickCallback([=]() {
-        if (isEnabled())
+    setClickCallback([this]() {
+        if (this->isEnabled())
         {
-            action()->trigger();
-            clicked({action(), y(), _index, isSelected()});
+            this->action()->trigger();
+            this->clickedMouse({this->action(), y(), _index, this->isSelected()});
         }
     });
     installEventFilter(this);
@@ -85,7 +85,7 @@ void Separator::paintEvent(QPaintEvent*)
     p.fillRect(_padding.left(), _padding.top(), width() - _padding.left() - _padding.right(), _lineWidth, _fg);
 }
 
-MenuItem::MenuItem(QWidget* parent, const Style::Menu& st, QAction* action, const Style::icon* icon, const Style::icon* iconOver)
+MenuItem::MenuItem(QWidget* parent, const Style::Menu& st, const QAction* action, const Style::icon* icon, const Style::icon* iconOver)
     : ItemBase(parent, st),
       _action(action),
       _st(st),
@@ -98,7 +98,7 @@ MenuItem::MenuItem(QWidget* parent, const Style::Menu& st, QAction* action, cons
     resize(parent->width(), contentHeight());
     processAction();
 
-    connect(_action, &QAction::changed, [=] { processAction(); });
+    connect(_action, &QAction::changed, [this] { this->processAction(); });
 }
 
 int32_t MenuItem::contentHeight() const { return _height; }
@@ -119,7 +119,6 @@ void MenuItem::paintEvent(QPaintEvent*)
         p.fillRect(0, 0, width(), _height, _st.itemBg);
     }
     p.fillRect(0, 0, width(), _height, selected ? _st.itemBgOver : _st.itemBg);
-
     p.setPen(isSelected() ? _st.itemFgOver : (enabled ? _st.itemFg : _st.itemFgDisabled));
     p.setFont(_st.itemFont);
     const auto textRect = QRect(_st.itemPadding.left(), _st.itemPadding.top(), _textWidth, _st.itemFont->height);

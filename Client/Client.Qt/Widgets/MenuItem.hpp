@@ -31,7 +31,7 @@ public:
     [[nodiscard]] virtual int contentHeight() const = 0;
 
 signals:
-    void clicked(const CallbackData& data);
+    void clickedMouse(const CallbackData& data);
     void selected(const CallbackData& data);
 
 protected:
@@ -58,7 +58,7 @@ private:
 class MenuItem : public ItemBase
 {
 public:
-    MenuItem(QWidget* parent, const Style::Menu& st, QAction* action, const Style::icon* icon, const Style::icon* iconOver);
+    MenuItem(QWidget* parent, const Style::Menu& st, const QAction* action, const Style::icon* icon, const Style::icon* iconOver);
 
     [[nodiscard]] QAction* action() const override;
     [[nodiscard]] bool     isEnabled() const override;
@@ -71,7 +71,7 @@ protected:
 private:
     void processAction();
 
-private:
+// variable field
     QString            _text;
     const QAction*     _action;
     const Style::Menu& _st;
