@@ -240,7 +240,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 				REQUIRE(testDirectMessageRepos.addDirectChat(testSenderID, testReceiverID) == Utility::DirectMessageStatus::FAILED);
 			}
 
-			SECTION("")
+			SECTION("Direct chat")
 			{
 
 			}
