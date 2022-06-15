@@ -183,3 +183,4 @@ inline std::string getFldPath(std::string_view folderPath = "Log")
 }
 
 }  // namespace Utility
+
