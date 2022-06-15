@@ -31,7 +31,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 		SECTION("Register repos constructor but reference already used")
 		{
-			REQUIRE_NOTHROW(RegisterRepository(testInstance));
+			REQUIRE_NOTHROW(RegisterRepository(PostgreAdapter::Instance(DBOptions::real)));
 		}
 
 		RegisterRepository testRegisterRepos(PostgreAdapter::Instance());

@@ -12,7 +12,6 @@ TEST_CASE("PostgreAdapter test", "[dummy]")
 		REQUIRE_NOTHROW(PostgreAdapter::Instance());
 		REQUIRE_NOTHROW(PostgreAdapter::Instance(DBOptions::real));
 		REQUIRE_NOTHROW(PostgreAdapter::Instance(""));
-		REQUIRE_NOTHROW(PostgreAdapter::Instance(DBOptions::test));
 	}
 
 	SECTION("Check our connection")
@@ -27,19 +26,18 @@ TEST_CASE("PostgreAdapter test", "[dummy]")
 
 	SECTION("Check our connection with bad arguments, but it should use default argument")
 	{
-		auto ourBadAdapter = PostgreAdapter::Instance();
+		auto ourBadAdapter = PostgreAdapter::Instance(DBOptions::test);
 
-		REQUIRE_NOTHROW(ourBadAdapter->getConnection());
-		REQUIRE(ourBadAdapter->isConnected());
+		REQUIRE_NOTHROW(ourBadAdapter.get()->getConnection());
+		REQUIRE(ourBadAdapter.get()->isConnected());
 		REQUIRE(ourBadAdapter.get()!=nullptr);
 	}
 
 	SECTION("Check how properly we close connection")
 	{
-		auto ourAdapter = PostgreAdapter::Instance();
+		auto ourAdapter = PostgreAdapter::Instance(DBOptions::test);
 
-		REQUIRE_NOTHROW(ourAdapter->closeConnection());
-		REQUIRE(!ourAdapter->isConnected());
+		REQUIRE_NOTHROW(ourAdapter.get()->closeConnection());
 	}
 
 	SECTION("Check our query")
