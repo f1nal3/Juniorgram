@@ -13,6 +13,17 @@ using DataAccess::PostgreAdapter;
 using DataAccess::PostgreTable;
 using DataAccess::RepliesRepository;
 
+using Utility::ChannelCreateCodes;
+using Utility::ChannelDeleteCode;
+using Utility::ChannelLeaveCodes;
+using Utility::ChannelSubscribingCodes;
+using Utility::RegistrationCodes;
+using Utility::DirectMessageStatus;
+using Utility::StoringMessageCodes;
+using Utility::DeletingMessageCodes;
+using Utility::EditingMessageCodes;
+using Utility::ReactionMessageCodes;
+
 TEST_CASE("PostgreRepositories test", "[dummy]")
 {
 	auto testEmail{ "anotheruser@gmail.com" };
@@ -29,9 +40,9 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 			REQUIRE_NOTHROW(RegisterRepository(PostgreAdapter::Instance()));
 		}
 
-		SECTION("Register repos constructor but reference already used")
+		SECTION("Register repos constructor with empty argument")
 		{
-			REQUIRE_NOTHROW(RegisterRepository(PostgreAdapter::Instance(DBOptions::real)));
+			REQUIRE_NOTHROW(RegisterRepository(PostgreAdapter::Instance("")));
 		}
 
 		RegisterRepository testRegisterRepos(PostgreAdapter::Instance());
@@ -39,17 +50,18 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 		SECTION("Register user")
 		{
 			Network::RegistrationInfo ourUser(testEmail, testLogin, testPassHash);
-			REQUIRE(testRegisterRepos.registerUser(ourUser) == Utility::RegistrationCodes::SUCCESS);
+			REQUIRE(testRegisterRepos.registerUser(ourUser) == RegistrationCodes::SUCCESS);
 		}
+
 		SECTION("Trying to register new user with data of already existing user")
 		{
 			auto newTestLogin{ "newuser" };
 			Network::RegistrationInfo badUserEmail(testEmail, newTestLogin, testPassHash);
-			REQUIRE(testRegisterRepos.registerUser(badUserEmail) == Utility::RegistrationCodes::EMAIL_ALREADY_EXISTS);
+			REQUIRE(testRegisterRepos.registerUser(badUserEmail) == RegistrationCodes::EMAIL_ALREADY_EXISTS);
 
 			auto newTestEmail{ "newuser@gmail.com" };
 			Network::RegistrationInfo badUserLogin(newTestEmail, testLogin, testPassHash);
-			REQUIRE(testRegisterRepos.registerUser(badUserLogin) == Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS);
+			REQUIRE(testRegisterRepos.registerUser(badUserLogin) == RegistrationCodes::LOGIN_ALREADY_EXISTS);
 		}
 	}
 
@@ -89,7 +101,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 		ChannelsRepository testChannelRepos(PostgreAdapter::Instance());
 		auto testChannelName{ "testChannel" };
 		///if we have no one channel in DB -> return 1 as ID of channel, else -> return lastID
-		auto testChannelID = testChannelRepos.getAllChannelsList().empty() ? 1 : (testChannelRepos.getAllChannelsList().back().channelID );
+		auto testChannelID = testChannelRepos.getAllChannelsList().empty() ? 1 : (testChannelRepos.getAllChannelsList().back().channelID);
 
 		SECTION("Channels repos constructor")
 		{
@@ -113,12 +125,12 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 			SECTION("Create new channel with valid data")
 			{
-				REQUIRE(testChannelRepos.createChannel(testChannel) == Utility::ChannelCreateCodes::SUCCESS);
+				REQUIRE(testChannelRepos.createChannel(testChannel) == ChannelCreateCodes::SUCCESS);
 			}
 
 			SECTION("Let's try to create channel with data of already existing channel")
 			{
-				REQUIRE(testChannelRepos.createChannel(testChannel) == Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED);
+				REQUIRE(testChannelRepos.createChannel(testChannel) == ChannelCreateCodes::CHANNEL_ALREADY_CREATED);
 			}
 
 			SECTION("Try to make an error")
@@ -147,7 +159,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 			SECTION("What if our user has already signed to channel")
 			{
-				REQUIRE(testChannelRepos.subscribeToChannel(testSubsInfo) == Utility::ChannelSubscribingCodes::CHANNEL_HAS_ALREADY_BEEN_SIGNED);
+				REQUIRE(testChannelRepos.subscribeToChannel(testSubsInfo) == ChannelSubscribingCodes::CHANNEL_HAS_ALREADY_BEEN_SIGNED);
 			}
 
 			SECTION("Create new user and sign it to our channel")
@@ -155,20 +167,108 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 				RegisterRepository testRegNewUser(PostgreAdapter::Instance());
 
 				auto testNewUserHash{ "asdadagfdgdfgdfgdfg" };
-				auto testNewUserLogin{"seconduser"};
+				auto testNewUserLogin{ "seconduser" };
 				auto testNewUserEmail{ "seconduser@gmail.com" };
 
 				Network::RegistrationInfo testRegNewInfo(testNewUserEmail, testNewUserLogin, testNewUserHash);
 				testRegNewUser.registerUser(testRegNewInfo);
 				testSubsInfo.userID = testTable->Select()->columns({ "id" })->Where("login ='" + std::string(testNewUserLogin) + "'")->execute().value()[0][0].as<uint16_t>();
 
-				REQUIRE(testChannelRepos.subscribeToChannel(testSubsInfo) == Utility::ChannelSubscribingCodes::SUCCESS);
+				REQUIRE(testChannelRepos.subscribeToChannel(testSubsInfo) == ChannelSubscribingCodes::SUCCESS);
 
 				Network::ChannelLeaveInfo testNewLeaveInfo(testSubsInfo.userID, testChannelID, testChannelName);
-				REQUIRE(testChannelRepos.leaveChannel(testNewLeaveInfo) == Utility::ChannelLeaveCodes::SUCCESS);
+				REQUIRE(testChannelRepos.leaveChannel(testNewLeaveInfo) == ChannelLeaveCodes::SUCCESS);
 
-				auto testDeleteResult =testTable->Delete()->Where("login = '" + std::string(testNewUserLogin) + "'")->And("email = '" + std::string(testNewUserEmail) + "'")->execute();
+				auto testDeleteResult = testTable->Delete()->Where("login = '" + std::string(testNewUserLogin) + "'")->And("email = '" + std::string(testNewUserEmail) + "'")->execute();
 				REQUIRE(!testDeleteResult.has_value());
+			}
+		}
+
+		SECTION("Message repository")
+		{
+			SECTION("Message repos constructor")
+			{
+				REQUIRE_NOTHROW(MessagesRepository(PostgreAdapter::Instance()));
+			}
+
+			MessagesRepository testMessageRepos(PostgreAdapter::Instance());
+			auto testMessageText{ "Hello everyone!" };
+
+			SECTION("getMessageHistory")
+			{
+				SECTION("Message history but it's empty")
+				{
+					REQUIRE(testMessageRepos.getMessageHistory(testChannelID).empty());
+				}
+			}
+
+			SECTION("Functionality with message")
+			{
+				Network::MessageInfo testMessage(testChannelID, testMessageText);
+				testMessage.senderID = testUserID;
+
+				SECTION("Success storing")
+				{
+					REQUIRE(testMessageRepos.storeMessage(testMessage) == StoringMessageCodes::SUCCESS);
+				}
+
+				SECTION("We've stored message, let's check our message history")
+				{
+					//when time conversion bug will fixed, this section should be changed on REQUIRE_FALSE
+					REQUIRE_THROWS(testMessageRepos.getMessageHistory(testChannelID).empty());
+				}
+
+				SECTION("Storing message but channel does not exist")
+				{
+					REQUIRE_THROWS(testMessageRepos.storeMessage(Network::MessageInfo(0, testMessageText)));
+				}
+
+				SECTION("Try to edit the message")
+				{
+					testTable->changeTable("msgs");
+
+					testMessage.msgID = testTable->Select()
+						->columns({ "*" })
+						->Where("sender_id = " + std::to_string(testUserID))
+						->And("msg ='" + std::string(testMessageText) + "'")
+						->execute().value()[0][0].as<uint64_t>();
+
+					REQUIRE(testMessageRepos.editMessage(testMessage) == EditingMessageCodes::SUCCESS);
+
+					testTable->changeTable("users");
+				}
+
+				SECTION("Try to edit message which does not exist")
+				{
+					testMessage.senderID = 0;
+					REQUIRE(testMessageRepos.editMessage(testMessage) == EditingMessageCodes::FAILED);
+				}
+
+				SECTION("Update message reactions")
+				{
+					testMessage.reactions.clear();
+
+					REQUIRE(testMessageRepos.updateMessageReactions(testMessage) == ReactionMessageCodes::FAILED);
+				}
+			}
+
+			
+			SECTION("Let's delete message")
+			{
+				SECTION("Delete already existing message")
+				{
+					Network::MessageInfo testDeleteMessage(testChannelID, testMessageText);
+
+					REQUIRE(testMessageRepos.deleteMessage(testDeleteMessage) == DeletingMessageCodes::SUCCESS);
+				}
+
+				SECTION("Let's delete message which does not exist, but our function works perfectly")
+				{
+					Network::MessageInfo testDeleteBadMessage(testChannelID, testMessageText);
+					testDeleteBadMessage.msgID = 0;
+
+					REQUIRE(testMessageRepos.deleteMessage(testDeleteBadMessage) == DeletingMessageCodes::SUCCESS);
+				}
 			}
 		}
 
@@ -178,20 +278,20 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 			{
 				auto testBadChannelName{ "g780gqfa80ybfdasfb" };
 				Network::ChannelLeaveInfo testBadLeave(testUserID, testChannelID, testBadChannelName);
-				REQUIRE(testChannelRepos.leaveChannel(testBadLeave) == Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND);
+				REQUIRE(testChannelRepos.leaveChannel(testBadLeave) == ChannelLeaveCodes::CHANNEL_NOT_FOUND);
 			}
 
 			SECTION("Leave with invalid id")
 			{
 				auto testBadChannelCreatorID{ 0 };
 				Network::ChannelLeaveInfo testBadLeave(testBadChannelCreatorID, testChannelID, testChannelName);
-				REQUIRE(testChannelRepos.leaveChannel(testBadLeave) == Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND);
+				REQUIRE(testChannelRepos.leaveChannel(testBadLeave) == ChannelLeaveCodes::CHANNEL_NOT_FOUND);
 			}
 
 			SECTION("Leave with valid data")
 			{
 				Network::ChannelLeaveInfo testLeaveChannel(testUserID, testChannelID, testChannelName);
-				REQUIRE(testChannelRepos.leaveChannel(testLeaveChannel) == Utility::ChannelLeaveCodes::SUCCESS);
+				REQUIRE(testChannelRepos.leaveChannel(testLeaveChannel) == ChannelLeaveCodes::SUCCESS);
 			}
 		}
 
@@ -239,7 +339,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 				auto testSenderID{ 0 };
 				auto testReceiverID{ 1 };
 
-				REQUIRE(testDirectMessageRepos.addDirectChat(testSenderID, testReceiverID) == Utility::DirectMessageStatus::FAILED);
+				REQUIRE(testDirectMessageRepos.addDirectChat(testSenderID, testReceiverID) == DirectMessageStatus::FAILED);
 			}
 
 			SECTION("Try to make it failed")
@@ -255,24 +355,9 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 				auto testSenderID{ 1 };
 				auto testReceiverID{ 0 };
 
-				REQUIRE_THROWS(testDirectMessageRepos.addDirectChat(testSenderID, testReceiverID)); 
-			}
-
-			SECTION("Let's create direct chat")
-			{
-				
+				REQUIRE_THROWS(testDirectMessageRepos.addDirectChat(testSenderID, testReceiverID));
 			}
 		}
-	}
-	
-	SECTION("Message repository")
-	{
-		SECTION("Message repos constructor")
-		{
-			REQUIRE_NOTHROW(MessagesRepository(PostgreAdapter::Instance()));
-		}
-
-		MessagesRepository testMessageRepos(PostgreAdapter::Instance());
 	}
 
 	SECTION("Replies repository")
@@ -289,7 +374,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 	{
 		testTable->Delete()->Where("login = '" + std::string(testLogin) + "'")->And("email = '" + std::string(testEmail) + "'")->execute();
 		auto findUser = testTable->Select()->columns({ "login" })->Where("login = '" + std::string(testLogin) + "'")->execute();
-	
+
 		REQUIRE(!findUser.has_value());
 	}
 }
