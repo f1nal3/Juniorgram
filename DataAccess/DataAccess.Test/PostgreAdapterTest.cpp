@@ -12,7 +12,6 @@ TEST_CASE("PostgreAdapter test", "[dummy]")
 		REQUIRE_NOTHROW(PostgreAdapter::Instance());
 		REQUIRE_NOTHROW(PostgreAdapter::Instance(DBOptions::real));
 		REQUIRE_NOTHROW(PostgreAdapter::Instance(""));
-		REQUIRE_NOTHROW(PostgreAdapter::Instance(DBOptions::test));
 	}
 
 	auto ourAdapter = PostgreAdapter::Instance(DBOptions::test);
