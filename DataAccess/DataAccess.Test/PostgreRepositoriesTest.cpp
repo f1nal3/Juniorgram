@@ -32,11 +32,18 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 	auto testTable = std::make_unique<PostgreTable>("users", PostgreAdapter::Instance());
 
+	auto testInstance = PostgreAdapter::Instance();
+
 	SECTION("Register repository")
 	{
 		SECTION("Register repos constructor")
 		{
 			REQUIRE_NOTHROW(RegisterRepository(PostgreAdapter::Instance()));
+		}
+
+		SECTION("Register repos constructor but reference already used")
+		{
+			REQUIRE_NOTHROW(RegisterRepository(PostgreAdapter::Instance(DBOptions::real)));
 		}
 
 		RegisterRepository testRegisterRepos(PostgreAdapter::Instance(DBOptions::test));
