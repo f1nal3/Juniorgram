@@ -40,11 +40,6 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 			REQUIRE_NOTHROW(RegisterRepository(PostgreAdapter::Instance()));
 		}
 
-		SECTION("Register repos constructor with empty argument")
-		{
-			REQUIRE_NOTHROW(RegisterRepository(PostgreAdapter::Instance("")));
-		}
-
 		RegisterRepository testRegisterRepos(PostgreAdapter::Instance());
 
 		SECTION("Register user")
