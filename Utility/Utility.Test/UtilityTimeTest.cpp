@@ -12,7 +12,6 @@ TEST_CASE("consoleLogTimestamp test")
     auto               coutBuff = std::cout.rdbuf();  // save pointer to std::cout buffer
     std::cout.rdbuf(outputTime.rdbuf());               // substitute internal std::cout buffer with buffer of 'local' object
 
-    //getting the time
     system_clock::time_point currentTime = system_clock::now();
     UtilityTime::consoleLogTimestamp();
 
