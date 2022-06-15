@@ -31,7 +31,6 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 	auto testPassHash{ "65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5" };
 
 	auto testTable = std::make_unique<PostgreTable>("users", PostgreAdapter::Instance());
-	auto testInstance = PostgreAdapter::Instance();
 
 	SECTION("Register repository")
 	{
@@ -40,7 +39,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 			REQUIRE_NOTHROW(RegisterRepository(PostgreAdapter::Instance()));
 		}
 
-		RegisterRepository testRegisterRepos(PostgreAdapter::Instance());
+		RegisterRepository testRegisterRepos(PostgreAdapter::Instance(DBOptions::test));
 
 		SECTION("Register user")
 		{
