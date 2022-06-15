@@ -20,6 +20,18 @@ TEST_CASE("Login validation test")
 
         std::string shortLogin("keke");
         REQUIRE(UserDataValidation::isLoginValid(shortLogin) == false);
+
+        std::string emptyLogin("");
+        REQUIRE(UserDataValidation::isLoginValid(emptyLogin) == false);
+    }
+
+    SECTION("Exception is not expected")
+    {
+        REQUIRE_NOTHROW(UserDataValidation::isLoginValid("test"));
+
+        REQUIRE_NOTHROW(UserDataValidation::isLoginValid("Test123"));
+
+        REQUIRE_NOTHROW(UserDataValidation::isLoginValid(""));
     }
 }
 
@@ -47,6 +59,18 @@ TEST_CASE("Email validation test")
 
         std::string shortDomainEmail("65sfksdfsdlf@epam.c");
         REQUIRE(UserDataValidation::isEmailValid(shortDomainEmail) == false);
+
+        std::string emptyEmail("");
+        REQUIRE(UserDataValidation::isEmailValid(emptyEmail) == false);
+    }
+
+    SECTION("Exception is not expected")
+    {
+        REQUIRE_NOTHROW(UserDataValidation::isEmailValid("Anton3_antonov4@epam.com"));
+
+        REQUIRE_NOTHROW(UserDataValidation::isEmailValid("65sfksdfsdlf@epam.com"));
+
+        REQUIRE_NOTHROW(UserDataValidation::isEmailValid(""));
     }
 }
 
@@ -72,5 +96,17 @@ TEST_CASE("Password validation test")
 
         std::string shortPass("53AAbe");
         REQUIRE(UserDataValidation::isPasswordValid(shortPass) == false);
+
+        std::string emptyPass("");
+        REQUIRE(UserDataValidation::isPasswordValid(emptyPass) == false);
+    }
+
+    SECTION("Exception is not expected")
+    {
+        REQUIRE_NOTHROW(UserDataValidation::isPasswordValid("dgdfgAFS5623-sgsd"));
+
+        REQUIRE_NOTHROW(UserDataValidation::isPasswordValid("AAAfgdfABBB"));
+
+        REQUIRE_NOTHROW(UserDataValidation::isPasswordValid(""));
     }
 }
