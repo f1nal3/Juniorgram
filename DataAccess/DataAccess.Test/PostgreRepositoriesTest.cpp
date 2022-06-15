@@ -30,20 +30,18 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 	auto testLogin{ "anotheruser" };
 	auto testPassHash{ "65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5" };
 
-	auto testTable = std::make_unique<PostgreTable>("users", PostgreAdapter::Instance());
-
-	auto testInstance = PostgreAdapter::Instance();
+	auto testTable = std::make_unique<PostgreTable>("users", PostgreAdapter::Instance(DBOptions::test));
 
 	SECTION("Register repository")
 	{
 		SECTION("Register repos constructor")
 		{
-			REQUIRE_NOTHROW(RegisterRepository(PostgreAdapter::Instance()));
+			REQUIRE_NOTHROW(RegisterRepository(PostgreAdapter::Instance(DBOptions::test)));
 		}
 
 		SECTION("Register repos constructor but reference already used")
 		{
-			REQUIRE_NOTHROW(RegisterRepository(PostgreAdapter::Instance(DBOptions::real)));
+			REQUIRE_NOTHROW(RegisterRepository(PostgreAdapter::Instance()));
 		}
 
 		RegisterRepository testRegisterRepos(PostgreAdapter::Instance(DBOptions::test));
