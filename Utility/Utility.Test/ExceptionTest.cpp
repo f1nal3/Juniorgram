@@ -21,7 +21,7 @@ void NoExceptionMock()
 
 void OperationDBNoExceptionMock()
 {
-    Utility::NotImplementedException("DB success operation", __FILE__, __LINE__);
+    Utility::OperationDBException("DB success operation", __FILE__, __LINE__);
 }
 
 TEST_CASE("Test NotImplementedException format", "[Utility.Exception]")
