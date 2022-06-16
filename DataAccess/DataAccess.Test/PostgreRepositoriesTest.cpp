@@ -23,6 +23,7 @@ using Utility::StoringMessageCodes;
 using Utility::DeletingMessageCodes;
 using Utility::EditingMessageCodes;
 using Utility::ReactionMessageCodes;
+using Utility::StoringReplyCodes;
 
 TEST_CASE("PostgreRepositories test", "[dummy]")
 {
@@ -30,7 +31,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 	auto testLogin{ "anotheruser" };
 	auto testPassHash{ "65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5" };
 
-	auto testTable = std::make_unique<PostgreTable>("users", PostgreAdapter::Instance());
+	auto testTable = std::make_unique<PostgreTable>("users", PostgreAdapter::Instance(/*DBOptions::test*/));
 
 	SECTION("Register repository")
 	{
@@ -102,7 +103,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 		}
 	}
 
-	SECTION("Channels repository")
+	SECTION("Channels repository and other repositories connected pretty close to channels")
 	{
 		auto testUserID = testTable->Select()->columns({ "id" })
 			->Where("login = '" + std::string(testLogin) + "'")
@@ -154,12 +155,12 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 		SECTION("Get all channels but at least one must exist")
 		{
-			REQUIRE(!testChannelRepos.getAllChannelsList().empty());
+			REQUIRE_FALSE(testChannelRepos.getAllChannelsList().empty());
 		}
 
 		SECTION("Let's get channels subscription list")
 		{
-			REQUIRE(!testChannelRepos.getChannelSubscriptionList(testUserID).empty());
+			REQUIRE_FALSE(testChannelRepos.getChannelSubscriptionList(testUserID).empty());
 		}
 
 		SECTION("Subcribe to channel")
@@ -190,7 +191,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 				REQUIRE(testChannelRepos.leaveChannel(testNewLeaveInfo) == ChannelLeaveCodes::SUCCESS);
 
 				auto testDeleteResult = testTable->Delete()->Where("login = '" + std::string(testNewUserLogin) + "'")->And("email = '" + std::string(testNewUserEmail) + "'")->execute();
-				REQUIRE(!testDeleteResult.has_value());
+				REQUIRE_FALSE(testDeleteResult.has_value());
 			}
 		}
 
@@ -221,8 +222,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 				SECTION("Functionality with message")
 				{
-					//when time conversion bug will fixed, this section should be changed on REQUIRE_FALSE
-					REQUIRE_THROWS(testMessageRepos.getMessageHistory(testChannelID).empty());
+					REQUIRE_FALSE(testMessageRepos.getMessageHistory(testChannelID).empty());
 				}
 
 				#if defined(_MSC_VER)
@@ -251,6 +251,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 				{
 					testMessage.senderID = 0;
 					REQUIRE(testMessageRepos.editMessage(testMessage) == EditingMessageCodes::FAILED);
+					testMessage.senderID = testUserID;
 				}
 
 				SECTION("Update message reactions")
@@ -261,10 +262,79 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 						REQUIRE(testMessageRepos.updateMessageReactions(testMessage) == ReactionMessageCodes::FAILED);
 					}
 
-					SECTION("Update reactions with valid stickers")
+					SECTION("Update reactions with invalid stickers")
 					{
-						testMessage.reactions.emplace(std::pair<uint32_t, uint32_t>(7, 2));
 						REQUIRE(testMessageRepos.updateMessageReactions(testMessage) == ReactionMessageCodes::FAILED);
+						testMessage.reactions.clear();
+					}
+
+					SECTION("Almost good sticker, but id does not exist")
+					{
+						testMessage.reactions.emplace(std::pair<uint32_t, uint32_t>(8, std::numeric_limits<std::uint32_t>::max()));
+						REQUIRE(testMessageRepos.updateMessageReactions(testMessage) == ReactionMessageCodes::FAILED);
+					}
+
+					SECTION("Another sticker to our message")
+					{
+						testMessage.reactions.emplace(std::pair<uint32_t, uint32_t>(2, std::numeric_limits<std::uint32_t>::max()));
+						REQUIRE(testMessageRepos.updateMessageReactions(testMessage) == ReactionMessageCodes::SUCCESS);
+					}
+
+					SECTION("Let's delete reaction from message")
+					{
+						testMessage.reactions.emplace(std::pair<uint32_t, uint32_t>(2, std::numeric_limits<std::uint32_t>::max()));
+						REQUIRE(testMessageRepos.updateMessageReactions(testMessage) == ReactionMessageCodes::SUCCESS);
+					}
+				}
+
+				SECTION("Replies repository")
+				{
+					SECTION("Reply repos constructor")
+					{
+						REQUIRE_NOTHROW(RepliesRepository(PostgreAdapter::Instance()));
+					}
+
+					RepliesRepository testReplyRepos(PostgreAdapter::Instance());
+
+					SECTION("Let's get empty reply history")
+					{
+						REQUIRE(testReplyRepos.getReplyHistory(testChannelID).empty());
+					}
+
+					SECTION("Let's store reply")
+					{
+						auto testReplyText{ "Hello to you" };
+						Network::ReplyInfo testReply(testChannelID, testReplyText);
+
+						SECTION("Bad reply")
+						{
+							REQUIRE(testReplyRepos.storeReply(testReply) == StoringReplyCodes::FAILED);
+						}
+
+						testTable->changeTable("msgs");
+
+						testReply.msgID = testTable->Select()
+							->columns({ "*" })
+							->Where("sender_id = " + std::to_string(testUserID))
+							->And("msg ='" + std::string(testMessageText) + "'")
+							->execute().value()[0][0].as<uint64_t>();
+
+						testReply.senderID = testUserID;
+						testReply.userLogin = testLogin;
+						testReply.msgIdOwner = testUserID;
+
+						testTable->changeTable("users");
+
+						SECTION("Good reply")
+						{
+							REQUIRE(testReplyRepos.storeReply(testReply) == StoringReplyCodes::SUCCESS);
+						}
+
+						SECTION("Mostly good reply but channel does not exist")
+						{
+							testReply.channelID = 0;
+							REQUIRE(testReplyRepos.storeReply(testReply) == StoringReplyCodes::FAILED);
+						}
 					}
 				}
 			}
@@ -390,16 +460,6 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 				REQUIRE_THROWS(testDirectMessageRepos.addDirectChat(testSenderID, testReceiverID));
 			}
 		}
-	}
-
-	SECTION("Replies repository")
-	{
-		SECTION("Reply repos constructor")
-		{
-			REQUIRE_NOTHROW(RepliesRepository(PostgreAdapter::Instance()));
-		}
-
-		RepliesRepository testReplyRepos(PostgreAdapter::Instance());
 	}
 
 	SECTION("Delete user")
