@@ -11,6 +11,9 @@ TEST_CASE("Test removeSpaces")
     std::string ususalString("abcd    def     zxq");
     REQUIRE(Utility::removeSpaces(ususalString) == ExpectingString);
 
+    std::string newlineString("abcd    def     zxq\n");
+    REQUIRE(Utility::removeSpaces(newlineString) == ExpectingString);
+
     std::string startEndSpacesString("     abcd    def     zxq     ");
     REQUIRE(Utility::removeSpaces(startEndSpacesString) == ExpectingString);
 
@@ -21,7 +24,6 @@ TEST_CASE("Test removeSpaces")
 
     std::string emptyString("");
     REQUIRE(Utility::removeSpaces(emptyString) == ExpectingEmptyString);
-
 }
 
 TEST_CASE("Test getFldPath")
