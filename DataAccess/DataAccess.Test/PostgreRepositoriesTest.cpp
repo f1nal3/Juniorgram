@@ -30,7 +30,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 	auto testLogin{ "anotheruser" };
 	auto testPassHash{ "65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5" };
 
-	auto testTable = std::make_unique<PostgreTable>("users", PostgreAdapter::Instance(DBOptions::test));
+	auto testTable = std::make_unique<PostgreTable>("users", PostgreAdapter::Instance());
 
 	SECTION("Register repository")
 	{
@@ -77,15 +77,26 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 		SECTION("Logging")
 		{
 			Network::LoginInfo testUser(testLogin, testPassHash);
-			REQUIRE(testLoginRepos.loginUser(testUser) == testUserID[0][0].as<uint64_t>());
 
-			REQUIRE_NOTHROW(testLoginRepos.loginUser(testUser));
+			SECTION("Valid login")
+			{
+				REQUIRE(testLoginRepos.loginUser(testUser) == testUserID[0][0].as<uint64_t>());
+				REQUIRE_NOTHROW(testLoginRepos.loginUser(testUser));
+			}
 		}
+
 		SECTION("Let's try to login with invalid values")
 		{
 			auto testBadHash{ "asdt24rersdf*_fs9dfs" };
 			Network::LoginInfo testBadUser(testLogin, testBadHash);
 			REQUIRE(testLoginRepos.loginUser(testBadUser) == 0);
+
+			REQUIRE_NOTHROW(testLoginRepos.loginUser(testBadUser));
+		}
+
+		SECTION("Waiting an exception, but it have been catchen by try-catch block")
+		{
+			Network::LoginInfo testBadUser("nooneexist*-_123&^", testPassHash);
 
 			REQUIRE_NOTHROW(testLoginRepos.loginUser(testBadUser));
 		}
@@ -191,36 +202,35 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 			}
 
 			MessagesRepository testMessageRepos(PostgreAdapter::Instance());
-			auto testMessageText{ "Hello everyone!" };
 
-			SECTION("getMessageHistory")
+			auto testMessageText{ "Hello everyone!" };
+			Network::MessageInfo testMessage(testChannelID, testMessageText);
+			testMessage.senderID = testUserID;
+
+			SECTION("We've stored message, let's check our message history")
 			{
 				SECTION("Message history but it's empty")
 				{
 					REQUIRE(testMessageRepos.getMessageHistory(testChannelID).empty());
 				}
-			}
-
-			SECTION("Functionality with message")
-			{
-				Network::MessageInfo testMessage(testChannelID, testMessageText);
-				testMessage.senderID = testUserID;
 
 				SECTION("Success storing")
 				{
 					REQUIRE(testMessageRepos.storeMessage(testMessage) == StoringMessageCodes::SUCCESS);
 				}
 
-				SECTION("We've stored message, let's check our message history")
+				SECTION("Functionality with message")
 				{
 					//when time conversion bug will fixed, this section should be changed on REQUIRE_FALSE
 					REQUIRE_THROWS(testMessageRepos.getMessageHistory(testChannelID).empty());
 				}
 
+				#if defined(_MSC_VER)
 				SECTION("Storing message but channel does not exist")
 				{
 					REQUIRE_THROWS(testMessageRepos.storeMessage(Network::MessageInfo(0, testMessageText)));
 				}
+				#endif
 
 				SECTION("Try to edit the message")
 				{
@@ -245,13 +255,20 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 				SECTION("Update message reactions")
 				{
-					testMessage.reactions.clear();
+					SECTION("Fail to update message reactions")
+					{
+						testMessage.reactions.clear();
+						REQUIRE(testMessageRepos.updateMessageReactions(testMessage) == ReactionMessageCodes::FAILED);
+					}
 
-					REQUIRE(testMessageRepos.updateMessageReactions(testMessage) == ReactionMessageCodes::FAILED);
+					SECTION("Update reactions with valid stickers")
+					{
+						testMessage.reactions.emplace(std::pair<uint32_t, uint32_t>(7, 2));
+						REQUIRE(testMessageRepos.updateMessageReactions(testMessage) == ReactionMessageCodes::FAILED);
+					}
 				}
 			}
 
-			
 			SECTION("Let's delete message")
 			{
 				SECTION("Delete already existing message")
@@ -315,6 +332,22 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 			SECTION("Deleting already existing channel")
 			{
+				MessagesRepository testRepos(PostgreAdapter::Instance());
+				Network::MessageInfo testMessage(testChannelID, "Hello");
+				
+				testTable->changeTable("msgs");
+
+
+				testMessage.senderID = testUserID;
+				testRepos.storeMessage(testMessage);
+
+				testMessage.msgID = testTable->Select()
+					->columns({ "*" })
+					->Where("sender_id = " + std::to_string(testUserID))
+					->And("msg ='" + std::string("Hello") + "'")
+					->execute().value()[0][0].as<uint64_t>();
+				
+
 				Network::ChannelDeleteInfo testDeleteChannelInfo(testUserID, testChannelID, testChannelName);
 
 				REQUIRE(testChannelRepos.deleteChannel(testDeleteChannelInfo) == Utility::ChannelDeleteCode::SUCCESS);
