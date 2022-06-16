@@ -335,6 +335,11 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 							testReply.channelID = 0;
 							REQUIRE(testReplyRepos.storeReply(testReply) == StoringReplyCodes::FAILED);
 						}
+
+						SECTION("Get not empty reply history")
+						{
+							REQUIRE_FALSE(testReplyRepos.getReplyHistory(testChannelID).empty());
+						}
 					}
 				}
 			}
