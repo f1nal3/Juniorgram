@@ -49,3 +49,15 @@ TEST_CASE("Test OperationDBException format", "[Utility.Exception]")
         REQUIRE_NOTHROW(OperationDBNoExceptionMock());
     }
 }
+
+TEST_CASE("Test formatExceptionMessage")
+{
+    std::string message  = "Test exception";
+    std::string filename = "ExpectionFile.txt";
+    uint16_t    line     = 3;
+
+    REQUIRE_THAT(Utility::formatExceptionMessage(message, filename, line),
+                 Contains(message.data()) && Contains(filename.data()) && Contains(std::to_string(line).data()));
+
+    REQUIRE_NOTHROW(Utility::formatExceptionMessage(message, filename, line));
+}
