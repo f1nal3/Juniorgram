@@ -55,4 +55,3 @@ inline bool isPasswordValid(const std::string& password)
 }
 
 }  // namespace UserDataValidation
-

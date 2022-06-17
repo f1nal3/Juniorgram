@@ -58,4 +58,3 @@ protected:
     std::uint16_t _line;
 };
 }  // namespace Utility
-

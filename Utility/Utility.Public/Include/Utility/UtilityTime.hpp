@@ -106,4 +106,3 @@ inline std::string getStringifiedCurrentDate()
     return stringifyedDate;
 }
 }  // namespace UtilityTime
-
