@@ -23,6 +23,9 @@ TEST_CASE("Login validation test")
 
         std::string emptyLogin("");
         REQUIRE(UserDataValidation::isLoginValid(emptyLogin) == false);
+
+        std::string specSymbolsLogin("#$%^&*+-!");
+        REQUIRE(UserDataValidation::isLoginValid(specSymbolsLogin) == false);
     }
 
     SECTION("Exception is not expected")
@@ -62,6 +65,9 @@ TEST_CASE("Email validation test")
 
         std::string emptyEmail("");
         REQUIRE(UserDataValidation::isEmailValid(emptyEmail) == false);
+
+        std::string specSymbolsEmail("#$%^&*+-!@!#$&^.#^$");
+        REQUIRE(UserDataValidation::isEmailValid(specSymbolsEmail) == false);
     }
 
     SECTION("Exception is not expected")
@@ -73,7 +79,6 @@ TEST_CASE("Email validation test")
         REQUIRE_NOTHROW(UserDataValidation::isEmailValid(""));
     }
 }
-
 
 TEST_CASE("Password validation test")
 {
@@ -99,6 +104,9 @@ TEST_CASE("Password validation test")
 
         std::string emptyPass("");
         REQUIRE(UserDataValidation::isPasswordValid(emptyPass) == false);
+
+        std::string specSymbolsPass("#$%^&*+-!#$&^#^$");
+        REQUIRE(UserDataValidation::isPasswordValid(specSymbolsPass) == false);
     }
 
     SECTION("Exception is not expected")
