@@ -370,4 +370,3 @@ FodyWeavers.xsd
 
 # .DS_Store
 *.DS_Store*
-Client/Client.Core/Client.Core.Static/CMakeLists.txt

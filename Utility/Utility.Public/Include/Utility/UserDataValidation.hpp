@@ -16,7 +16,7 @@ namespace UserDataValidation
  */
 inline bool isLoginValid(const std::string& login)
 {
-    const std::regex pattern("([a-z]{1})([a-z0-9_-]{4,})");
+    const std::regex pattern("([a-zA-Z]{1})([a-zA-Z0-9_-]{4,})");
     return std::regex_match(login, pattern);
 }
 
