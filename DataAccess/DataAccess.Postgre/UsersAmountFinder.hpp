@@ -44,4 +44,4 @@ public:
      *   @return users amount with the same users data.
      */
     std::uint16_t findUsersAmountWithAllSameData(const Network::RegistrationInfo& ri) const;
-}; 
+};

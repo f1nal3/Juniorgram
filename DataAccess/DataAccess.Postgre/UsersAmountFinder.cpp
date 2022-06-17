@@ -30,4 +30,4 @@ std::uint16_t UsersAmountFinder::findUsersAmountWithAllSameData(const Network::R
                                                  "' and login='" + ri.login +
                                                  "' and password_hash='" + ri.passwordHash + 
                                                  "'");
-} 
+}
