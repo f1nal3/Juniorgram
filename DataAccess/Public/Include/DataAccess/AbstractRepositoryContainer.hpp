@@ -64,4 +64,4 @@ public:
         return std::dynamic_pointer_cast<TInterface>(_container[typeInfo]);
     }
 };
-}  /// namespace DataAccess 
+}  /// namespace DataAccess

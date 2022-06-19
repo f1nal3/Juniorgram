@@ -38,4 +38,4 @@ public:
      */
     virtual void removeMessages(std::vector<MessageInfo>& messages) = 0;
 };
-}  /// namespace DataAccess 
+}  /// namespace DataAccess
