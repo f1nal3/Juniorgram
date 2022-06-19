@@ -13,7 +13,7 @@ namespace DataAccess
 {
 /**
  * @class QueryBuilder
- * @brief QueryBuilder class.
+ * @brief QueryBuilder class. 
  */
 template <typename ResultType>
 class QueryBuilder

@@ -14,7 +14,7 @@ template <typename ResultType>
 class QueryBuilder;
 
 /**
- * @class SQLWhereCondition
+ * @class SQLWhereCondition 
  * @brief SQLWhereCondition class.
  * @details This class is a secondary. It needs for \
  *    SQLSelect, SQLUpdate and SQLUpdate. \
