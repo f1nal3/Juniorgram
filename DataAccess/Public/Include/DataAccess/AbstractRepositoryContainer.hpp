@@ -11,7 +11,7 @@
 
 namespace DataAccess
 {
-/* @class AbstractRepositoryContainer
+/* @class AbstractRepositoryContainer 
  *  @brief An abstract class for server and client global repositories.
  */
 class AbstractRepositoryContainer

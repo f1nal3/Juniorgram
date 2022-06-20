@@ -7,7 +7,7 @@
 
 namespace DataAccess
 {
-/** @class IRepository
+/** @class IRepository 
  *  @brief An interface for repository
  *  @details see https://github.com/f1nal3/Juniorgram/wiki/IRepository-scheme for additional details
  */
