@@ -25,7 +25,7 @@ TEST_CASE("PostgreAdapter test", "[dummy]")
 
 	SECTION("Check our connection with bad arguments, but it should use default argument")
 	{
-		auto ourBadAdapter = PostgreAdapter::Instance(DBOptions::test);
+		auto ourBadAdapter = PostgreAdapter::Instance();
 
 		REQUIRE_NOTHROW(ourBadAdapter.get()->getConnection());
 		REQUIRE(ourBadAdapter.get()->isConnected());
