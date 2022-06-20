@@ -85,10 +85,10 @@ private:
     bool                                                   _alreadyScrolling = false;
     std::int32_t                                           _left             = -1;
     std::unique_ptr<ScrollArea>                            _scrollArea;
-    std::map<int32_t, std::unique_ptr<ReplyMessageWidget>> _replyList;
-    std::vector<std::unique_ptr<MessageWidget>>            _messageList;
-    std::vector<Models::MessageInfo>                       _messages;
-    std::vector<Models::ReplyInfo>                         _replies;
+    std::map<int32_t, std::shared_ptr<ReplyMessageWidget>> _replyList;
+    std::vector<std::shared_ptr<MessageWidget>>            _messageList;
+    std::vector<Models::MessageInfo>                      _messages;
+    std::vector<Models::ReplyInfo>                        _replies;
     std::uint64_t                                          _userId    = 0;
     std::uint64_t                                          _messageId = 0;
 };

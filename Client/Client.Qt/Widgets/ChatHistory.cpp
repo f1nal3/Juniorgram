@@ -34,7 +34,7 @@ void ChatHistory::addReply(const Models::ReplyInfo& replyInfo)
 
     auto history = _scrollArea->widget();
 
-    std::unique_ptr<ReplyMessageWidget> replyMsg = std::make_unique<ReplyMessageWidget>(history, QString::fromStdString(replyInfo._message), replyInfo._msgID,
+    auto replyMsg = std::make_shared<ReplyMessageWidget>(history, QString::fromStdString(replyInfo._message), replyInfo._msgID,
                                                                                          QString::fromStdString(replyInfo._userLogin), replyInfo._senderID);
 
     replyMsg->show();
@@ -62,7 +62,7 @@ void ChatHistory::addMessage(const Models::MessageInfo& messageInfo)
     {
         if (copy->_reactions != messageInfo._reactions)
         {
-            auto widgetCopy = std::find_if(_messageList.begin(), _messageList.end(), [messageInfo](const std::unique_ptr<MessageWidget>& mw)
+            auto widgetCopy = std::find_if(_messageList.begin(), _messageList.end(), [messageInfo](const std::shared_ptr<MessageWidget>& mw)
                                         { return mw->isTheMessage(messageInfo._msgID, messageInfo._senderID); });
 
             history->setMinimumHeight(history->minimumHeight() - (*widgetCopy)->height() - 10);
@@ -76,7 +76,7 @@ void ChatHistory::addMessage(const Models::MessageInfo& messageInfo)
         }
     }
 
-    std::unique_ptr<MessageWidget> msg = std::make_unique<MessageWidget>(history, QString::fromStdString(messageInfo._message), messageInfo._senderID, messageInfo._msgID,
+    auto msg = std::make_shared<MessageWidget>(history, QString::fromStdString(messageInfo._message), messageInfo._senderID, messageInfo._msgID,
                                                                          messageInfo._time, QString::fromStdString(messageInfo._userLogin));
 
     msg->setReactionMap(messageInfo._reactions);
@@ -87,7 +87,7 @@ void ChatHistory::addMessage(const Models::MessageInfo& messageInfo)
     _messageList.push_back(msg);
     _messages.push_back(messageInfo);
 
-    std::sort(_messageList.begin(), _messageList.end(), [](const std::unique_ptr<MessageWidget>& lhs, const std::unique_ptr<MessageWidget>& rhs)
+    std::sort(_messageList.begin(), _messageList.end(), [](const std::shared_ptr<MessageWidget>& lhs, const std::shared_ptr<MessageWidget>& rhs)
         { return *lhs < *rhs;  });
 
     connect(msg.get(), &MessageWidget::createReplySignal, this, &ChatHistory::createReplySignal);
