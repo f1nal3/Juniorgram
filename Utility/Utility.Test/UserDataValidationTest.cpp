@@ -8,15 +8,18 @@ TEST_CASE("Login validation test")
     {
         std::string rightLogin("some_nick34");
         REQUIRE(UserDataValidation::isLoginValid(rightLogin) == true);
+
+        std::string upcaseLetterLogin("ABCDXF");
+        REQUIRE(UserDataValidation::isLoginValid(upcaseLetterLogin) == true);
+
+        std::string mixedLettersLogin("abcdXF");
+        REQUIRE(UserDataValidation::isLoginValid(mixedLettersLogin) == true);
     }
 
     SECTION("Input invalid login")
     {
         std::string firstNumberLogin("5fgbo");
         REQUIRE(UserDataValidation::isLoginValid(firstNumberLogin) == false);
-
-        std::string upcaseLetterLogin("abcdXF");
-        REQUIRE(UserDataValidation::isLoginValid(upcaseLetterLogin) == false);
 
         std::string shortLogin("keke");
         REQUIRE(UserDataValidation::isLoginValid(shortLogin) == false);
