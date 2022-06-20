@@ -76,14 +76,3 @@ TEST_CASE("FutureResult", "[dummy]")
 	}
 }
 
-TEST_CASE("PostgreRepositoryManager", "[dummy]")
-{
-	using DataAccess::PostgreRepositoryManager;
-	using DataAccess::PostgreAdapter;
-
-	SECTION("PostgreRepositoryManager constructor")
-	{
-		//REQUIRE_NOTHROW(PostgreRepositoryManager(PostgreAdapter::Instance()));
-	}
-
-}
