@@ -19,7 +19,8 @@ target_link_libraries(${TARGET}
         PRIVATE ${EXTRA_LIBS} asio::asio yas::yas
         PUBLIC Network.Public 
         PUBLIC Base.Crypto.Static 
-        PUBLIC Base.Logger.Static)
+        PUBLIC Base.Logger.Static
+        PUBLIC Base.Models.Public)
 
 set_target_properties(${TARGET} PROPERTIES
     LINKER_LANGUAGE CXX

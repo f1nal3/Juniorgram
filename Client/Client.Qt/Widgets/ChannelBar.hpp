@@ -1,6 +1,7 @@
 #pragma once
 
-#include <Network/Primitives.hpp>
+//#include <Network/Primitives.hpp>!!!
+#include <Models/PrimitivesNEW.hpp>
 #include <QWidget>
 
 #include "Buttons.hpp"
