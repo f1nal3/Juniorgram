@@ -42,7 +42,7 @@ enum class SQLJoinType : std::uint8_t
 template <typename T, typename... Args>
 T* make_statement(Args&&... args)
 {
-    return std::unique_ptr<T>(new T(std::forward<Args>(args)...)).get();
+    return new T(std::forward<Args>(args)...);
 }
 
 template <typename T>
