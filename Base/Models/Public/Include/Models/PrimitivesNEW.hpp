@@ -87,7 +87,7 @@ public:
  * @ref ChannelSubscriptionInfo structure
  */
 template <typename Archive>
-void serialize(Archive& ar, Network::ChannelSubscriptionInfo& o)
+void serialize(Archive& ar, Base::Models::ChannelSubscriptionInfo& o)
 {
     ar& o.channelID;
 }
@@ -159,7 +159,7 @@ struct RegistrationInfo
 
 /// Serialize method for serialize registration info for each field
 template <typename Archive>
-void serialize(Archive& ar, Network::RegistrationInfo& o)
+void serialize(Archive& ar, Base::Models::RegistrationInfo& o)
 {
     ar& o.email& o.login& o.passwordHash;
 }
@@ -213,7 +213,7 @@ struct MessageInfo
 
 /// Serialize method for serialize Message Info for each field
 template <typename Archive>
-void serialize(Archive& ar, Network::MessageInfo& o)
+void serialize(Archive& ar, Base::Models::MessageInfo& o)
 {
     ar& o.channelID& o.senderID& o.msgID& o.message& o.reactions& o.time& o.userLogin;
 }
@@ -261,9 +261,9 @@ struct ReplyInfo
 
 /// Serialize method for serialize ReplyInfo for each field
 template <typename Archive>
-void serialize(Archive& ar, Network::ReplyInfo& o)
+void serialize(Archive& ar, Base::Models::ReplyInfo& o)
 {
     ar& o.channelID& o.message& o.msgID& o.senderID& o.msgIdOwner& o.userLogin;
 }
 
-}  // namespace Network
+}  // namespace Base::Models

@@ -3,7 +3,7 @@
 #include <limits>
 
 #include <Crypto.Static/Cryptography.hpp>
-#include <Network/Primitives.hpp>
+//#include <Network/Primitives.hpp>!!!
 
 #include "ServerInfo.hpp"
 
@@ -329,14 +329,14 @@ void Client::loop()
 
             case MessageType::ChannelListRequest:
             {
-                auto channels = std::any_cast<std::vector<Network::ChannelInfo>>(message.mBody);
+                auto channels = std::any_cast<std::vector<Base::Models::ChannelInfo>>(message.mBody);
                 onChannelListRequest(channels);
             }
             break;
 
             case MessageType::MessageHistoryAnswer:
             {
-                auto messages = std::any_cast<std::vector<Network::MessageInfo>>(message.mBody);
+                auto messages = std::any_cast<std::vector<Base::Models::MessageInfo>>(message.mBody);
                 onMessageHistoryAnswer(messages);
             }
             break;
@@ -364,7 +364,7 @@ void Client::loop()
 
             case MessageType::ReplyHistoryAnswer:
             {
-                auto replies = std::any_cast<std::vector<Network::ReplyInfo>>(message.mBody);
+                auto replies = std::any_cast<std::vector<Base::Models::ReplyInfo>>(message.mBody);
                 onReplyHistoryAnswer(replies);
             }
             break;
@@ -454,13 +454,13 @@ void Client::onServerMessage(const uint64_t clientId)
     Base::Logger::FileLogger::getInstance().log("Server message is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
-void Client::onChannelListRequest(const std::vector<Network::ChannelInfo>& channels)
+void Client::onChannelListRequest(const std::vector<Base::Models::ChannelInfo>& channels)
 {
     (void)(channels);
     Base::Logger::FileLogger::getInstance().log("Channel list request is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
-void Client::onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages)
+void Client::onMessageHistoryAnswer(const std::vector<Base::Models::MessageInfo>& messages)
 {
     (void)(messages);
     Base::Logger::FileLogger::getInstance().log("Message history answer is not implemented", Base::Logger::LogLevel::WARNING);
@@ -501,7 +501,7 @@ void Client::onMessageSendFailed(const Message& message) const
     Base::Logger::FileLogger::getInstance().log("Message send failed is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
-void Client::onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies)
+void Client::onReplyHistoryAnswer(const std::vector<Base::Models::ReplyInfo>& replies)
 {
     (void)(replies);
     Base::Logger::FileLogger::getInstance().log("Reply history answer is not implemented", Base::Logger::LogLevel::WARNING);

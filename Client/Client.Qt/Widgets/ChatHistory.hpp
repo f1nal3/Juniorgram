@@ -1,6 +1,7 @@
 #pragma once
 
-#include <Network/Primitives.hpp>
+//#include <Network/Primitives.hpp>!!!
+#include <Models/PrimitivesNEW.hpp>
 #include <QWidget>
 #include <vector>
 
@@ -26,13 +27,13 @@ public:
      * @brief Adds a new message to history
      * @param Network::MessageInfo& messageInfo
      */
-    void addMessage(const Network::MessageInfo& messageInfo);
+    void addMessage(const Base::Models::MessageInfo& messageInfo);
 
     /**
      * @brief Add a new reply to history
      * @param Network::ReplyInfo& replyInfo
      */
-    void addReply(const Network::ReplyInfo& replyInfo);
+    void addReply(const Base::Models::ReplyInfo& replyInfo);
 
     /**
      * @brief Clears all chat
@@ -86,8 +87,8 @@ private:
     std::unique_ptr<ScrollArea>                            _scrollArea;
     std::map<int32_t, std::unique_ptr<ReplyMessageWidget>> _replyList;
     std::vector<std::unique_ptr<MessageWidget>>            _messageList;
-    std::vector<Network::MessageInfo>                      _messages;
-    std::vector<Network::ReplyInfo>                        _replies;
+    std::vector<Base::Models::MessageInfo>                 _messages;
+    std::vector<Base::Models::ReplyInfo>                   _replies;
     std::uint64_t                                          _userId    = 0;
     std::uint64_t                                          _messageId = 0;
 };

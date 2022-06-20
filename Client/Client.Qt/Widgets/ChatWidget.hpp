@@ -1,5 +1,6 @@
 #pragma once
-#include <Network/Primitives.hpp>
+//#include <Network/Primitives.hpp>!!!
+#include <Models/PrimitivesNEW.hpp>
 
 #include "Widgets/ChannelBar.hpp"
 #include "Widgets/InputFields.hpp"
@@ -39,8 +40,8 @@ protected:
 private slots:
     void newMessage(const QString& messageText);
     void setReply(QString messageText, QString username, uint64_t messageId);
-    void addMessages(const std::vector<Network::MessageInfo>& messages);
-    void addReplies(const std::vector<Network::ReplyInfo>& replies);
+    void addMessages(const std::vector<Base::Models::MessageInfo>& messages);
+    void addReplies(const std::vector<Base::Models::ReplyInfo>& replies);
 
     void requestMessages() const;
     void updateLayout();

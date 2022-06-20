@@ -24,7 +24,7 @@ void ChatHistory::clear()
     _replyList.clear();
 }
 
-void ChatHistory::addReply(const Network::ReplyInfo& replyInfo)
+void ChatHistory::addReply(const Base::Models::ReplyInfo& replyInfo)
 {
     auto copy = std::find(_replies.begin(), _replies.end(), replyInfo);
     if (copy != _replies.end())
@@ -52,7 +52,7 @@ void ChatHistory::addReply(const Network::ReplyInfo& replyInfo)
     updateLayout();
 }
 
-void ChatHistory::addMessage(const Network::MessageInfo& messageInfo)
+void ChatHistory::addMessage(const Base::Models::MessageInfo& messageInfo)
 {
     auto copy = std::find(_messages.begin(), _messages.end(), messageInfo);
 
