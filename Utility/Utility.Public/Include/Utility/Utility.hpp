@@ -125,7 +125,7 @@ using ReactionMessageCodes  = GeneralCodes;
  * @details Removes whitespaces at the beginning and the end of input string, replaces whitespace
  *          sequences with a single space or newline (if sequence contains a newline)
  */
-inline std::string removeSpaces(const std::string& input)
+inline std::string removeSpaces(std::string_view input)
 {
     auto isSpace = [](char c) -> bool { return std::isspace(static_cast<unsigned char>(c)); };
 
@@ -137,9 +137,7 @@ inline std::string removeSpaces(const std::string& input)
 
     while (sequenceStart < input.end())
     {
-        bool spaceSequence = isSpace(*sequenceStart);
-
-        if (spaceSequence)
+        if (bool spaceSequence = isSpace(*sequenceStart))
         {
             char singleSpace = ' ';
 
