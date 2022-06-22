@@ -225,12 +225,12 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 					REQUIRE_FALSE(testMessageRepos.getMessageHistory(testChannelID).empty());
 				}
 
-				#if defined(_MSC_VER)
+				//#if defined(_MSC_VER)
 				SECTION("Storing message but channel does not exist")
 				{
 					REQUIRE_THROWS(testMessageRepos.storeMessage(Network::MessageInfo(0, testMessageText)));
 				}
-				#endif
+				//#endif
 
 				SECTION("Try to edit the message")
 				{
