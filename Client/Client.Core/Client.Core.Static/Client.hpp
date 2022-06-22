@@ -4,7 +4,7 @@
 #include "Network/Message.hpp"
 #include "Network/SafeQueue.hpp"
 
-#include <Models/PrimitivesNEW.hpp>
+#include <Models/Primitives.hpp>
 
 #include <FileLogger.hpp>
 

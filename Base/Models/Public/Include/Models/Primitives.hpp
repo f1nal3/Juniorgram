@@ -46,7 +46,7 @@ public:
 
 /// Serialize method which serialize each field
 template <typename Archive>
-void serialize(Archive& ar, Network::ChannelInfo& o)
+void serialize(Archive& ar, Base::Models::ChannelInfo& o)
 {
     ar& o.creatorID& o.channelID& o.channelName;
 }
