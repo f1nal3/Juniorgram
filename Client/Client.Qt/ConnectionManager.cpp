@@ -51,19 +51,19 @@ void ConnectionManager::onServerMessage(const uint64_t clientId)
 
 void ConnectionManager::onChannelListRequest(const std::vector<Base::Models::ChannelInfo>& channels)
 {
-    qRegisterMetaType<std::vector<Network::ChannelInfo>>("std::vector<Network::ChannelInfo>");
+    qRegisterMetaType<std::vector<Base::Models::ChannelInfo>>("std::vector<Network::ChannelInfo>");
     emit ReceiverManager::instance()->onChannelListRequest(channels);
 }
 
 void ConnectionManager::onMessageHistoryAnswer(const std::vector<Base::Models::MessageInfo>& messages)
 {
-    qRegisterMetaType<std::vector<Network::MessageInfo>>("std::vector<Network::MessageInfo>");
+    qRegisterMetaType<std::vector<Base::Models::MessageInfo>>("std::vector<Network::MessageInfo>");
     emit ReceiverManager::instance()->onMessageHistoryAnswer(messages);
 }
 
 void ConnectionManager::onReplyHistoryAnswer(const std::vector<Base::Models::ReplyInfo>& replies)
 {
-    qRegisterMetaType<std::vector<Network::ReplyInfo>>("std::vector<Network::ReplyInfo>");
+    qRegisterMetaType<std::vector<Base::Models::ReplyInfo>>("std::vector<Network::ReplyInfo>");
     emit ReceiverManager::instance()->onReplyHistoryAnswer(replies);
 }
 

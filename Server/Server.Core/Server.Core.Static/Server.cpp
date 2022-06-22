@@ -364,7 +364,7 @@ void Server::channelListRequest(const std::shared_ptr<Connection>& client) const
     messageHandler.mHeader.mMessageType = Message::MessageType::ChannelListRequest;
 
     auto channelList     = futureResult.get();
-    messageHandler.mBody = std::make_any<std::vector<Network::ChannelInfo>>(channelList);
+    messageHandler.mBody = std::make_any<std::vector<Base::Models::ChannelInfo>>(channelList);
 
     client->send(messageHandler);
 }
@@ -380,13 +380,13 @@ void Server::messageHistoryRequest(const std::shared_ptr<Connection>& client, Me
 
     auto messageHistory = futureResult.get();
 
-    messageHandler.mBody = std::make_any<std::vector<Network::MessageInfo>>(messageHistory);
+    messageHandler.mBody = std::make_any<std::vector<Base::Models::MessageInfo>>(messageHistory);
     client->send(messageHandler);
 }
 
 void Server::messageStoreRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    auto messageInfo     = std::any_cast<Network::MessageInfo>(message.mBody);
+    auto messageInfo     = std::any_cast<Base::Models::MessageInfo>(message.mBody);
     messageInfo.senderID = client->getUserID();
     messageInfo.message  = Utility::removeSpaces(messageInfo.message);
     messageInfo.time     = UtilityTime::millisecondsSinceEpoch();
@@ -413,13 +413,13 @@ void Server::replyHistoryRequest(const std::shared_ptr<Connection>& client, Mess
 
     auto replyHistory = futureResult.get();
 
-    replyMsg.mBody = std::make_any<std::vector<Network::ReplyInfo>>(replyHistory);
+    replyMsg.mBody = std::make_any<std::vector<Base::Models::ReplyInfo>>(replyHistory);
     client->send(replyMsg);
 }
 
 void Server::replyStoreRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    auto replyInfo     = std::any_cast<Network::ReplyInfo>(message.mBody);
+    auto replyInfo     = std::any_cast<Base::Models::ReplyInfo>(message.mBody);
     replyInfo.senderID = client->getUserID();
     replyInfo.message  = Utility::removeSpaces(replyInfo.message);
 
@@ -436,7 +436,7 @@ void Server::replyStoreRequest(const std::shared_ptr<Connection>& client, Messag
 
 void Server::messageDeleteRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    auto messageInfo     = std::any_cast<Network::MessageInfo>(message.mBody);
+    auto messageInfo     = std::any_cast<Base::Models::MessageInfo>(message.mBody);
     messageInfo.senderID = client->getUserID();
 
     auto futureResult = _postgreManager->pushRequest(&IMessagesRepository::deleteMessage, fmt(messageInfo));
@@ -451,7 +451,7 @@ void Server::messageDeleteRequest(const std::shared_ptr<Connection>& client, Mes
 
 void Server::messageEditRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    auto messageInfo     = std::any_cast<Network::MessageInfo>(message.mBody);
+    auto messageInfo     = std::any_cast<Base::Models::MessageInfo>(message.mBody);
     messageInfo.senderID = client->getUserID();
 
     auto futureResult = _postgreManager->pushRequest(&IMessagesRepository::editMessage, fmt(messageInfo));
@@ -466,7 +466,7 @@ void Server::messageEditRequest(const std::shared_ptr<Connection>& client, Messa
 
 void Server::messageReactionRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    auto messageInfo     = std::any_cast<Network::MessageInfo>(message.mBody);
+    auto messageInfo     = std::any_cast<Base::Models::MessageInfo>(message.mBody);
     messageInfo.senderID = client->getUserID();
 
     auto futureResult = _postgreManager->pushRequest(&IMessagesRepository::updateMessageReactions, fmt(messageInfo));
@@ -481,7 +481,7 @@ void Server::messageReactionRequest(const std::shared_ptr<Connection>& client, M
 
 void Server::registrationRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    auto replyInfo = std::any_cast<Network::RegistrationInfo>(message.mBody);
+    auto replyInfo = std::any_cast<Base::Models::RegistrationInfo>(message.mBody);
 
     auto futureResult = _postgreManager->pushRequest(&IRegisterRepository::registerUser, fmt(replyInfo));
 
@@ -496,7 +496,7 @@ void Server::registrationRequest(const std::shared_ptr<Connection>& client, Mess
 
 void Server::loginRequest(const std::shared_ptr<Connection>& client, Message& message) const 
 {
-    auto loginInfo = std::any_cast<Network::LoginInfo>(message.mBody);
+    auto loginInfo = std::any_cast<Base::Models::LoginInfo>(message.mBody);
 
     auto futureResult = _postgreManager->pushRequest(&ILoginRepository::loginUser, fmt(loginInfo));
 
@@ -529,7 +529,7 @@ void Server::loginRequest(const std::shared_ptr<Connection>& client, Message& me
 
 void Server::channelLeaveRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    Network::ChannelLeaveInfo channelLeaveInfo;
+    Base::Models::ChannelLeaveInfo channelLeaveInfo;
 
     auto channelName             = std::any_cast<std::string>(message.mBody);
     channelLeaveInfo.creatorID   = client->getUserID();
@@ -547,7 +547,7 @@ void Server::channelLeaveRequest(const std::shared_ptr<Connection>& client, Mess
 
 void Server::channelSubscribeRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    auto channelInfo   = std::any_cast<Network::ChannelSubscriptionInfo>(message.mBody);
+    auto channelInfo   = std::any_cast<Base::Models::ChannelSubscriptionInfo>(message.mBody);
     channelInfo.userID = client->getUserID();
 
     auto futureResult = _postgreManager->pushRequest(&IChannelsRepository::subscribeToChannel, fmt(channelInfo));
@@ -577,7 +577,7 @@ void Server::channelSubscriptionListRequest(const std::shared_ptr<Connection>& c
 
 void Server::channelDeleteRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    Network::ChannelDeleteInfo channelDeleteInfo;
+    Base::Models::ChannelDeleteInfo channelDeleteInfo;
 
     auto channelName              = std::any_cast<std::string>(message.mBody);
     channelDeleteInfo.creatorID   = client->getUserID();
@@ -595,7 +595,7 @@ void Server::channelDeleteRequest(const std::shared_ptr<Connection>& client, Mes
 
 void Server::channelCreateRequest(const std::shared_ptr<Connection>& client, Message& message) const
 {
-    Network::ChannelInfo newChannelInfo;
+    Base::Models::ChannelInfo newChannelInfo;
 
     auto channelName           = std::any_cast<std::string>(message.mBody);
     newChannelInfo.creatorID   = client->getUserID();

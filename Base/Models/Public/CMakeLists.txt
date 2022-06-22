@@ -2,7 +2,7 @@ set(TARGET Base.Models.Public)
 set(OUTPUT_NAME ${PROJECT}.Base.Models.Public)
 
 set(SOURCE_FILES
-        Include/Models/PrimitivesNEW.hpp)
+        Include/Models/Primitives.hpp)
 
 add_library(${TARGET} INTERFACE)
 

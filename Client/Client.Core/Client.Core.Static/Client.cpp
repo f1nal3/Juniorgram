@@ -3,7 +3,6 @@
 #include <limits>
 
 #include <Crypto.Static/Cryptography.hpp>
-//#include <Network/Primitives.hpp>!!!
 
 #include "ServerInfo.hpp"
 
@@ -153,11 +152,11 @@ void Client::storeMessage(const std::string& message, const uint64_t channelID) 
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::MessageStoreRequest;
 
-    Network::MessageInfo mi;
+    Base::Models::MessageInfo mi;
     mi.message   = message;
     mi.channelID = channelID;
 
-    networkMessage.mBody = std::make_any<Network::MessageInfo>(mi);
+    networkMessage.mBody = std::make_any<Base::Models::MessageInfo>(mi);
     send(networkMessage);
 }
 
@@ -166,12 +165,12 @@ void Client::storeReply(const std::string& message, uint64_t channelID, uint64_t
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ReplyStoreRequest;
 
-    Network::ReplyInfo ri;
+    Base::Models::ReplyInfo ri;
     ri.message   = message;
     ri.channelID = channelID;
     ri.msgID     = msgID;
 
-    networkMessage.mBody = std::make_any<Network::ReplyInfo>(ri);
+    networkMessage.mBody = std::make_any<Base::Models::ReplyInfo>(ri);
     send(networkMessage);
 }
 
@@ -180,11 +179,11 @@ void Client::userRegistration(const std::string& email, const std::string& login
     // Generating password's hash which are based on login. It lets us to insert different users
     // with the same passwords.
     const std::string         pwdHash = Base::Hashing::SHA_256(password, login);
-    Network::RegistrationInfo ri(email, login, pwdHash);
+    Base::Models::RegistrationInfo ri(email, login, pwdHash);
 
     Network::Message message;
     message.mHeader.mMessageType = MessageType::RegistrationRequest;
-    message.mBody                = std::make_any<RegistrationInfo>(ri);
+    message.mBody                = std::make_any<Base::Models::RegistrationInfo>(ri);
 
     send(message);
 }
@@ -192,11 +191,11 @@ void Client::userRegistration(const std::string& email, const std::string& login
 void Client::userAuthorization(const std::string& login, const std::string& password) const
 {
     const std::string pwdHash = Base::Hashing::SHA_256(password, login);
-    LoginInfo         loginInfo(login, pwdHash);
+    Base::Models::LoginInfo loginInfo(login, pwdHash);
 
     Message message;
     message.mHeader.mMessageType = MessageType::LoginRequest;
-    message.mBody                = std::make_any<LoginInfo>(loginInfo);
+    message.mBody                = std::make_any<Base::Models::LoginInfo>(loginInfo);
 
     send(message);
 }
@@ -210,23 +209,23 @@ void Client::messageAll() const
 
 void Client::userMessageDelete(const uint64_t messageID) const
 {
-    Network::MessageInfo mi;
+    Base::Models::MessageInfo mi;
     mi.msgID = messageID;
 
     Network::Message message;
     message.mHeader.mMessageType = MessageType::MessageDeleteRequest;
-    message.mBody                = std::make_any<Network::MessageInfo>(mi);
+    message.mBody                = std::make_any<Base::Models::MessageInfo>(mi);
     send(message);
 }
 
 void Client::userMessageDelete(const std::string& messageText) const
 {
-    Network::MessageInfo mi;
+    Base::Models::MessageInfo mi;
     mi.message = messageText;
 
     Network::Message message;
     message.mHeader.mMessageType = MessageType::MessageDeleteRequest;
-    message.mBody                = std::make_any<Network::MessageInfo>(mi);
+    message.mBody                = std::make_any<Base::Models::MessageInfo>(mi);
     send(message);
 }
 
@@ -235,9 +234,9 @@ void Client::subscriptionChannel(const std::uint64_t channelID) const
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ChannelSubscribeRequest;
 
-    Network::ChannelSubscriptionInfo ri;
+    Base::Models::ChannelSubscriptionInfo ri;
     ri.channelID         = channelID;
-    networkMessage.mBody = std::make_any<Network::ChannelSubscriptionInfo>(ri);
+    networkMessage.mBody = std::make_any<Base::Models::ChannelSubscriptionInfo>(ri);
     send(networkMessage);
 }
 
@@ -274,7 +273,7 @@ void Client::createDirectChat(uint64_t receiverId) const
 
 void Client::userMessageReaction(const std::uint64_t messageID, const std::uint32_t reactionID) const
 {
-    Network::MessageInfo mi;
+    Base::Models::MessageInfo mi;
     mi.msgID = messageID;
 
     // using max uint32_t as special value
@@ -282,7 +281,7 @@ void Client::userMessageReaction(const std::uint64_t messageID, const std::uint3
     
     Network::Message message;
     message.mHeader.mMessageType = MessageType::MessageReactionRequest;
-    message.mBody                = std::make_any<Network::MessageInfo>(mi);
+    message.mBody                = std::make_any<Base::Models::MessageInfo>(mi);
 
     send(message);
 }

@@ -37,7 +37,7 @@ void App::onServerMessage(const uint64_t clientId)
     );
 }
 
-void App::onChannelListRequest(const std::vector<Network::ChannelInfo>& channels)
+void App::onChannelListRequest(const std::vector<Base::Models::ChannelInfo>& channels)
 {
     for (const auto& item : channels)
     {
@@ -79,7 +79,7 @@ void App::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deleting
     }
 }
 
-void App::onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages)
+void App::onMessageHistoryAnswer(const std::vector<Base::Models::MessageInfo>& messages)
 {
     for (const auto& item : messages)
     {

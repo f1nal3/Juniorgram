@@ -6,15 +6,15 @@
 
 namespace DataAccess
 {
-std::vector<Network::ChannelInfo> ChannelsRepository::getAllChannelsList()
+std::vector<Base::Models::ChannelInfo> ChannelsRepository::getAllChannelsList()
 {
     _pTable->changeTable("channels");
     auto channelListRow = _pTable->Select()->columns({"*"})->execute();
 
-    std::vector<Network::ChannelInfo> result;
+    std::vector<Base::Models::ChannelInfo> result;
     if (channelListRow.has_value())
     {
-        Network::ChannelInfo channelInfo;
+        Base::Models::ChannelInfo channelInfo;
         for (auto&& value : channelListRow.value())
         {
             channelInfo.channelID   = value[0].as<std::uint64_t>();
@@ -29,7 +29,7 @@ std::vector<Network::ChannelInfo> ChannelsRepository::getAllChannelsList()
     return result;
 }
 
-Utility::ChannelLeaveCodes ChannelsRepository::leaveChannel(const Network::ChannelLeaveInfo& channel)
+Utility::ChannelLeaveCodes ChannelsRepository::leaveChannel(const Base::Models::ChannelLeaveInfo& channel)
 {
     _pTable->changeTable("channels");
     auto findIdChannel = _pTable->Select()->columns({"id"})->Where("channel_name = '" + channel.channelName + "'")->execute();
@@ -82,7 +82,7 @@ Utility::ChannelLeaveCodes ChannelsRepository::leaveChannel(const Network::Chann
     return Utility::ChannelLeaveCodes::SUCCESS;
 }
 
-Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Network::ChannelDeleteInfo& channel)
+Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Base::Models::ChannelDeleteInfo& channel)
 {
     _pTable->changeTable("channels");
     auto findChannel = _pTable->Select()->columns({"creator_id, id"})->Where("channel_name = '" + channel.channelName + "'")->execute();
@@ -145,7 +145,7 @@ Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Network::Chan
     return Utility::ChannelDeleteCode::SUCCESS;
 }
 
-Utility::ChannelCreateCodes ChannelsRepository::createChannel(const Network::ChannelInfo& channel)
+Utility::ChannelCreateCodes ChannelsRepository::createChannel(const Base::Models::ChannelInfo& channel)
 {
     _pTable->changeTable("channels");
     auto findChannel = _pTable->Select()->columns({"channel_name"})->Where("channel_name = '" + channel.channelName + "'")->execute();
@@ -195,7 +195,7 @@ Utility::ChannelCreateCodes ChannelsRepository::createChannel(const Network::Cha
     return Utility::ChannelCreateCodes::SUCCESS;
 }
 
-std::uint64_t LoginRepository::loginUser(const Network::LoginInfo& loginInfo)
+std::uint64_t LoginRepository::loginUser(const Base::Models::LoginInfo& loginInfo)
 {
     try
     {
@@ -226,9 +226,9 @@ std::uint64_t LoginRepository::loginUser(const Network::LoginInfo& loginInfo)
     }
 }
 
-std::vector<Network::MessageInfo> MessagesRepository::getMessageHistory(const std::uint64_t channelID)
+std::vector<Base::Models::MessageInfo> MessagesRepository::getMessageHistory(const std::uint64_t channelID)
 {
-    std::vector<Network::MessageInfo> result;
+    std::vector<Base::Models::MessageInfo> result;
 
     _pTable->changeTable("msgs");
     auto messageHistoryRow = _pTable->Select()
@@ -248,7 +248,7 @@ std::vector<Network::MessageInfo> MessagesRepository::getMessageHistory(const st
 
     if (messageHistoryRow.has_value())
     {
-        Network::MessageInfo mi;
+        Base::Models::MessageInfo mi;
         mi.channelID = channelID;
 
         for (auto&& value : messageHistoryRow.value())
@@ -274,7 +274,7 @@ std::vector<Network::MessageInfo> MessagesRepository::getMessageHistory(const st
     return result;
 }
 
-Utility::StoringMessageCodes MessagesRepository::storeMessage(const Network::MessageInfo& mi)
+Utility::StoringMessageCodes MessagesRepository::storeMessage(const Base::Models::MessageInfo& mi)
 {
     const auto firstResult = insertMessageIntoMessagesTable(mi);
     if (!firstResult.has_value())
@@ -318,7 +318,7 @@ Utility::StoringMessageCodes MessagesRepository::storeMessage(const Network::Mes
     return Utility::StoringMessageCodes::SUCCESS;
 }
 
-Utility::DeletingMessageCodes MessagesRepository::deleteMessage(const Network::MessageInfo& mi)
+Utility::DeletingMessageCodes MessagesRepository::deleteMessage(const Base::Models::MessageInfo& mi)
 {
     _pTable->changeTable("msgs");
     _pTable->Delete()->Where("msg_id=" + std::to_string(mi.msgID))->Or("msg='" + mi.message + "'")->execute();
@@ -339,7 +339,7 @@ Utility::DeletingMessageCodes MessagesRepository::deleteMessage(const Network::M
     return Utility::DeletingMessageCodes::FAILED;
 }
 
-std::optional<pqxx::result> MessagesRepository::insertMessageIntoMessagesTable(const Network::MessageInfo& mi)
+std::optional<pqxx::result> MessagesRepository::insertMessageIntoMessagesTable(const Base::Models::MessageInfo& mi)
 {
     auto adapter = _pTable->getAdapter();
 
@@ -364,7 +364,7 @@ std::optional<pqxx::result> MessagesRepository::insertIDIntoMessageReactionsTabl
     return _pTable->Insert()->columns(std::pair{"msg_id", messageID})->returning({"msg_id"})->execute();
 }
 
-Utility::EditingMessageCodes MessagesRepository::editMessage(const Network::MessageInfo& mi)
+Utility::EditingMessageCodes MessagesRepository::editMessage(const Base::Models::MessageInfo& mi)
 {
     _pTable->changeTable("msgs");
 
@@ -393,7 +393,7 @@ Utility::EditingMessageCodes MessagesRepository::editMessage(const Network::Mess
     return Utility::EditingMessageCodes::SUCCESS;
 }
 
-Utility::RegistrationCodes RegisterRepository::registerUser(const Network::RegistrationInfo& ri)
+Utility::RegistrationCodes RegisterRepository::registerUser(const Base::Models::RegistrationInfo& ri)
 {
     static UsersAmountFinder finder;
     // Check on existing of login and email in repository.
@@ -430,7 +430,7 @@ Utility::RegistrationCodes RegisterRepository::registerUser(const Network::Regis
     return Utility::RegistrationCodes::SUCCESS;
 }
 
-Utility::ReactionMessageCodes MessagesRepository::updateMessageReactions(const Network::MessageInfo& mi)
+Utility::ReactionMessageCodes MessagesRepository::updateMessageReactions(const Base::Models::MessageInfo& mi)
 {
     using Utility::ReactionMessageCodes;
 
@@ -493,9 +493,9 @@ Utility::ReactionMessageCodes MessagesRepository::updateMessageReactions(const N
     return ReactionMessageCodes::SUCCESS;
 }
 
-std::vector<Network::ReplyInfo>   RepliesRepository::getReplyHistory(const std::uint64_t channelID)
+std::vector<Base::Models::ReplyInfo> RepliesRepository::getReplyHistory(const std::uint64_t channelID)
 {
-        std::vector<Network::ReplyInfo> result;
+    std::vector<Base::Models::ReplyInfo> result;
 
         _pTable->changeTable("replies");
         auto replyHistoryRow =
@@ -507,7 +507,7 @@ std::vector<Network::ReplyInfo>   RepliesRepository::getReplyHistory(const std::
                 ->execute();
         if (replyHistoryRow.has_value())
         {
-            Network::ReplyInfo ri;
+            Base::Models::ReplyInfo ri;
             ri.channelID = channelID;
             for (auto i = 0; i < replyHistoryRow.value().size(); ++i)
             {
@@ -527,7 +527,7 @@ std::vector<Network::ReplyInfo>   RepliesRepository::getReplyHistory(const std::
     return result;
 }
 
-Utility::ChannelSubscribingCodes ChannelsRepository::subscribeToChannel(const Network::ChannelSubscriptionInfo& channel)
+Utility::ChannelSubscribingCodes ChannelsRepository::subscribeToChannel(const Base::Models::ChannelSubscriptionInfo& channel)
 {
     _pTable->changeTable("user_channels");
     auto channel_id              = std::to_string(channel.channelID);
@@ -596,7 +596,7 @@ std::vector<uint64_t> ChannelsRepository::getChannelSubscriptionList(uint64_t us
     return result;
 }
 
-Utility::StoringReplyCodes RepliesRepository::storeReply(const Network::ReplyInfo& rsi)
+Utility::StoringReplyCodes RepliesRepository::storeReply(const Base::Models::ReplyInfo& rsi)
 {
     const auto firstResult = insertReplyIntoRepliesTable(rsi);
     if (!firstResult.has_value())
@@ -627,7 +627,7 @@ Utility::StoringReplyCodes RepliesRepository::storeReply(const Network::ReplyInf
     return Utility::StoringReplyCodes::SUCCESS;
 }
 
-std::optional<pqxx::result> RepliesRepository::insertReplyIntoRepliesTable(const Network::ReplyInfo& rsi)
+std::optional<pqxx::result> RepliesRepository::insertReplyIntoRepliesTable(const Base::Models::ReplyInfo& rsi)
 {
     _pTable->changeTable("msgs");
     auto lastMsgID = _pTable->Select()->columns({"MAX(msg_id)"})->execute();

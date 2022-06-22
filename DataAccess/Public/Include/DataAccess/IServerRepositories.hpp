@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-#include <Network/Primitives.hpp>
+#include <Models/Primitives.hpp>
 #include <Utility/Utility.hpp>
 
 #include "IMasterRepository.hpp"
@@ -15,19 +15,19 @@ namespace DataAccess
 struct IMessagesRepository : IMasterRepository
 {
     /// Pure Virtual method to get Message History
-    virtual std::vector<Network::MessageInfo> getMessageHistory(const std::uint64_t channelID) = 0;
+    virtual std::vector<Base::Models::MessageInfo> getMessageHistory(const std::uint64_t channelID) = 0;
 
     /// Pure Virtual method to store Message
-    virtual Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& mi) = 0;
+    virtual Utility::StoringMessageCodes storeMessage(const Base::Models::MessageInfo& mi) = 0;
 
     /// Pure Virtual method to delete Message
-    virtual Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) = 0;
+    virtual Utility::DeletingMessageCodes deleteMessage(const Base::Models::MessageInfo& mi) = 0;
 
     /// Pure Virtual method for editing Message
-    virtual Utility::EditingMessageCodes editMessage(const Network::MessageInfo& mi) = 0;
+    virtual Utility::EditingMessageCodes editMessage(const Base::Models::MessageInfo& mi) = 0;
     
     /// Pure Virtual method for updating message reactions
-    virtual Utility::ReactionMessageCodes updateMessageReactions(const Network::MessageInfo& mi) = 0;
+    virtual Utility::ReactionMessageCodes updateMessageReactions(const Base::Models::MessageInfo& mi) = 0;
 
     /// Default virtual destructor
     virtual ~IMessagesRepository() = default;
@@ -39,10 +39,10 @@ struct IMessagesRepository : IMasterRepository
 struct IRepliesRepository : IMasterRepository
 {
     /// Virtual method to get Reply History
-    virtual std::vector<Network::ReplyInfo> getReplyHistory(const std::uint64_t channelID) = 0;
+    virtual std::vector<Base::Models::ReplyInfo> getReplyHistory(const std::uint64_t channelID) = 0;
 
     /// Virtual method to store Reply message
-    virtual Utility::StoringReplyCodes storeReply(const Network::ReplyInfo& rsi) = 0;
+    virtual Utility::StoringReplyCodes storeReply(const Base::Models::ReplyInfo& rsi) = 0;
 
     /// Default virtual destructor
     virtual ~IRepliesRepository() = default;
@@ -54,17 +54,17 @@ struct IRepliesRepository : IMasterRepository
 struct IChannelsRepository : IMasterRepository
 {
     /// Virtual method to get channel List
-    virtual std::vector<Network::ChannelInfo> getAllChannelsList()                              = 0;
+    virtual std::vector<Base::Models::ChannelInfo> getAllChannelsList() = 0;
     /// Virtual method to delete channel
-    virtual Utility::ChannelDeleteCode deleteChannel(const Network::ChannelDeleteInfo& channel) = 0;
+    virtual Utility::ChannelDeleteCode deleteChannel(const Base::Models::ChannelDeleteInfo& channel) = 0;
 
     /// Virtual method to create channel
-    virtual Utility::ChannelCreateCodes createChannel(const Network::ChannelInfo& channel) = 0;
+    virtual Utility::ChannelCreateCodes createChannel(const Base::Models::ChannelInfo& channel) = 0;
 
     /// Virtual method to leave channel
-    virtual Utility::ChannelLeaveCodes leaveChannel(const Network::ChannelLeaveInfo& channel)                    = 0;
+    virtual Utility::ChannelLeaveCodes leaveChannel(const Base::Models::ChannelLeaveInfo& channel) = 0;
     /// Virtual method for channel subscription
-    virtual Utility::ChannelSubscribingCodes subscribeToChannel(const Network::ChannelSubscriptionInfo& channel) = 0;
+    virtual Utility::ChannelSubscribingCodes subscribeToChannel(const Base::Models::ChannelSubscriptionInfo& channel) = 0;
     /// Virtual method to get list of subscribed channels
     virtual std::vector<uint64_t> getChannelSubscriptionList(uint64_t userID) = 0;
 
@@ -91,7 +91,7 @@ struct IDirectMessageRepository : IMasterRepository
 struct IRegisterRepository : IMasterRepository
 {
     /// Virtual method to register User
-    virtual Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) = 0;
+    virtual Utility::RegistrationCodes registerUser(const Base::Models::RegistrationInfo& ri) = 0;
 
     /// Default virtual destructor
     ~IRegisterRepository() override = default;
@@ -103,7 +103,7 @@ struct IRegisterRepository : IMasterRepository
 struct ILoginRepository : IMasterRepository
 {
     /// Virtual method for login User
-    virtual std::uint64_t loginUser(const Network::LoginInfo& li) = 0;
+    virtual std::uint64_t loginUser(const Base::Models::LoginInfo& li) = 0;
 
     /// Default virtual destructor
     virtual ~ILoginRepository() = default;

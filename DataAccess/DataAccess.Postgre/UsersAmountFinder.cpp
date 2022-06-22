@@ -1,7 +1,5 @@
 #include "UsersAmountFinder.hpp"
 
-#include <Network/Primitives.hpp>
-
 #include "PostgreTable.hpp"
 
 std::uint16_t UsersAmountFinder::findUsersAmountWithSameTableAttribute(const std::string& condition) const
@@ -24,7 +22,7 @@ std::uint16_t UsersAmountFinder::findUsersAmountWithSameEmail(const std::string&
     return findUsersAmountWithSameTableAttribute("email='" + email + "'");
 }
 
-std::uint16_t UsersAmountFinder::findUsersAmountWithAllSameData(const Network::RegistrationInfo& ri) const
+std::uint16_t UsersAmountFinder::findUsersAmountWithAllSameData(const Base::Models::RegistrationInfo& ri) const
 {
     return findUsersAmountWithSameTableAttribute("email='" + ri.email + 
                                                  "' and login='" + ri.login +

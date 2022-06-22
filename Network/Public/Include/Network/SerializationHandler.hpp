@@ -37,7 +37,7 @@ public:
                     break;
 
                 case Message::MessageType::ChannelListRequest:
-                    state = processOutcomingMessageBody<std::vector<ChannelInfo>>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::vector<Base::Models::ChannelInfo>>(bodyBuffer, message.mBody);
                     break;
 
                 case Message::MessageType::MessageHistoryRequest:
@@ -45,11 +45,11 @@ public:
                     break;
 
                 case Message::MessageType::MessageHistoryAnswer:
-                    state = processOutcomingMessageBody<std::vector<MessageInfo>>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::vector<Base::Models::MessageInfo>>(bodyBuffer, message.mBody);
                     break;
 
                 case Message::MessageType::MessageStoreRequest:
-                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Base::Models::MessageInfo>(bodyBuffer, message.mBody);
                     break;
 
                 case Message::MessageType::MessageStoreAnswer:
@@ -61,11 +61,11 @@ public:
                     break;
 
                 case Message::MessageType::ReplyHistoryAnswer:
-                    state = processOutcomingMessageBody<std::vector<ReplyInfo>>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::vector<Base::Models::ReplyInfo>>(bodyBuffer, message.mBody);
                     break;
 
                 case Message::MessageType::ReplyStoreRequest:
-                    state = processOutcomingMessageBody<ReplyInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Base::Models::ReplyInfo>(bodyBuffer, message.mBody);
                     break;
 
                 case Message::MessageType::ReplyStoreAnswer:
@@ -73,7 +73,7 @@ public:
                     break;
 
                 case Message::MessageType::MessageDeleteRequest:
-                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Base::Models::MessageInfo>(bodyBuffer, message.mBody);
                     break;
 
                 case Message::MessageType::MessageDeleteAnswer:
@@ -81,7 +81,7 @@ public:
                     break;
                     
                 case Message::MessageType::MessageEditRequest:
-                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Base::Models::MessageInfo>(bodyBuffer, message.mBody);
                     break;
 
                 case Message::MessageType::MessageEditAnswer:
@@ -89,7 +89,7 @@ public:
                     break;       
 
                 case Message::MessageType::MessageReactionRequest:
-                    state = processOutcomingMessageBody<MessageInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Base::Models::MessageInfo>(bodyBuffer, message.mBody);
                     break;
 
                 case Message::MessageType::MessageReactionAnswer:
@@ -97,7 +97,7 @@ public:
                     break;
                     
                 case Message::MessageType::RegistrationRequest:
-                    state = processOutcomingMessageBody<RegistrationInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Base::Models::RegistrationInfo>(bodyBuffer, message.mBody);
                     break;
 
                 case Message::MessageType::RegistrationAnswer:
@@ -105,7 +105,7 @@ public:
                     break;
 
                 case Message::MessageType::LoginRequest:
-                    state = processOutcomingMessageBody<LoginInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Base::Models::LoginInfo>(bodyBuffer, message.mBody);
                     break;
 
                 case Message::MessageType::LoginAnswer:
@@ -120,7 +120,7 @@ public:
                     state = processOutcomingMessageBody<Utility::ChannelLeaveCodes>(bodyBuffer, message.mBody);
                     break;
                 case Message::MessageType::ChannelSubscribeRequest:
-                    state = processOutcomingMessageBody<ChannelSubscriptionInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Base::Models::ChannelSubscriptionInfo>(bodyBuffer, message.mBody);
                     break;
 
                 case Message::MessageType::ChannelSubscribeAnswer:
@@ -128,7 +128,7 @@ public:
                     break;
 
                 case Message::MessageType::ChannelSubscriptionListRequest:
-                    state = processOutcomingMessageBody<ChannelSubscriptionInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Base::Models::ChannelSubscriptionInfo>(bodyBuffer, message.mBody);
                     break;
 
                 case Message::MessageType::ChannelSubscriptionListAnswer:
@@ -196,7 +196,7 @@ public:
                 break;
             case Message::MessageType::ChannelListRequest:
             {
-                state = processIncomingMessageBody<std::vector<ChannelInfo>>(buffer, message);
+                state = processIncomingMessageBody<std::vector<Base::Models::ChannelInfo>>(buffer, message);
                 break;
             }
             case Message::MessageType::MessageHistoryRequest:
@@ -206,12 +206,12 @@ public:
             }
             case Message::MessageType::MessageHistoryAnswer:
             {
-                state = processIncomingMessageBody<std::vector<MessageInfo>>(buffer, message);
+                state = processIncomingMessageBody<std::vector<Base::Models::MessageInfo>>(buffer, message);
                 break;
             }
             case Message::MessageType::MessageStoreRequest:
             {
-                state = processIncomingMessageBody<MessageInfo>(buffer, message);
+                state = processIncomingMessageBody<Base::Models::MessageInfo>(buffer, message);
                 break;
             }
             case Message::MessageType::MessageStoreAnswer:
@@ -226,12 +226,12 @@ public:
             }
             case Message::MessageType::ReplyHistoryAnswer:
             {
-                state = processIncomingMessageBody<std::vector<ReplyInfo>>(buffer, message);
+                state = processIncomingMessageBody<std::vector<Base::Models::ReplyInfo>>(buffer, message);
                 break;
             }
             case Message::MessageType::ReplyStoreRequest:
             {
-                state = processIncomingMessageBody<ReplyInfo>(buffer, message);
+                state = processIncomingMessageBody<Base::Models::ReplyInfo>(buffer, message);
                 break;
             }
             case Message::MessageType::ReplyStoreAnswer:
@@ -241,7 +241,7 @@ public:
             }
             case Message::MessageType::MessageDeleteRequest:
             {
-                state = processIncomingMessageBody<Network::MessageInfo>(buffer, message);
+                state = processIncomingMessageBody<Base::Models::MessageInfo>(buffer, message);
                 break;
             }
             case Message::MessageType::MessageDeleteAnswer:
@@ -251,7 +251,7 @@ public:
             }
             case Message::MessageType::MessageReactionRequest:
             {
-                state = processIncomingMessageBody<MessageInfo>(buffer, message);
+                state = processIncomingMessageBody<Base::Models::MessageInfo>(buffer, message);
                 break;
             }
             case Message::MessageType::MessageReactionAnswer:
@@ -261,7 +261,7 @@ public:
             }
             case Message::MessageType::RegistrationRequest:
             {
-                state = processIncomingMessageBody<RegistrationInfo>(buffer, message);
+                state = processIncomingMessageBody<Base::Models::RegistrationInfo>(buffer, message);
                 break;
             }
             case Message::MessageType::RegistrationAnswer:
@@ -271,7 +271,7 @@ public:
             }
             case Message::MessageType::LoginRequest:
             {
-                state = processIncomingMessageBody<LoginInfo>(buffer, message);
+                state = processIncomingMessageBody<Base::Models::LoginInfo>(buffer, message);
                 break;
             }
             case Message::MessageType::LoginAnswer:
@@ -293,7 +293,7 @@ public:
 
             case Message::MessageType::ChannelSubscribeRequest:
             {
-                state = processIncomingMessageBody<ChannelSubscriptionInfo>(buffer, message);
+                state = processIncomingMessageBody<Base::Models::ChannelSubscriptionInfo>(buffer, message);
                 break;
             }
             case Message::MessageType::ChannelSubscribeAnswer:
@@ -303,7 +303,7 @@ public:
             }
             case Message::MessageType::ChannelSubscriptionListRequest:
             {
-                state = processIncomingMessageBody<ChannelSubscriptionInfo>(buffer, message);
+                state = processIncomingMessageBody<Base::Models::ChannelSubscriptionInfo>(buffer, message);
                 break;
             }
             case Message::MessageType::ChannelSubscriptionListAnswer:
