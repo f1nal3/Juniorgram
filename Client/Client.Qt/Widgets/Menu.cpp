@@ -27,7 +27,7 @@ QAction* Menu::addAction(QWidget* widget)
 {
     const auto action = std::make_shared<QWidgetAction>(this);
     action->setDefaultWidget(widget);
-    _actions.emplace_back(action);
+    _actions.emplace_back(action.get());
 
     const auto item = std::make_shared<WidgetItem>(this, action.get());
 

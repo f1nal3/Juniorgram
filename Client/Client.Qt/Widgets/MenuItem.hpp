@@ -31,7 +31,7 @@ public:
     [[nodiscard]] virtual int contentHeight() const = 0;
 
 signals:
-    void clickedMouse(const CallbackData& data);
+    void clicked(const CallbackData& data);
     void selected(const CallbackData& data);
 
 protected:

@@ -11,7 +11,7 @@ ItemBase::ItemBase(QWidget* parent, const Style::Menu&) : AbstractButton(parent)
         if (this->isEnabled())
         {
             this->action()->trigger();
-            this->clickedMouse({this->action(), y(), _index, this->isSelected()});
+            this->clicked({this->action(), y(), _index, this->isSelected()});
         }
     });
     installEventFilter(this);
@@ -68,7 +68,7 @@ Separator::Separator(QWidget* parent, const Style::Menu& st, QAction* action)
       _height(_padding.top() + _lineWidth + _padding.bottom()),
       _action(action)
 {
-    resize(parent->width(), contentHeight());
+    resize(parent->width(), Separator::contentHeight());
 }
 
 QAction* Separator::action() const { return _action; }
@@ -95,7 +95,7 @@ MenuItem::MenuItem(QWidget* parent, const Style::Menu& st, const QAction* action
 {
     setPointerCursor(false);
 
-    resize(parent->width(), contentHeight());
+    resize(parent->width(), MenuItem::contentHeight());
     processAction();
 
     connect(_action, &QAction::changed, [this] { this->processAction(); });
