@@ -9,7 +9,10 @@ set(SOURCE_FILES
         UsersAmountFinderTest.cpp 
         PostgreRepositoryManagerTest.cpp 
         PostgreRepositoriesContainerTest.cpp 
-        PostgreTableTest.cpp)
+        PostgreTableTest.cpp
+        QueryBuilderTest.cpp
+        AbstractRepositoryContainerTest.cpp
+        )
 
 add_executable(${TARGET} ${SOURCE_FILES})
 
