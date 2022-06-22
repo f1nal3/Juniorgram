@@ -11,7 +11,7 @@ set(SOURCE_FILES
         PostgreRepositoriesContainerTest.cpp 
         PostgreTableTest.cpp
         QueryBuilderTest.cpp
-        AbstractRepositoryContainerTest.cpp
+        #AbstractRepositoryContainerTest.cpp
         )
 
 add_executable(${TARGET} ${SOURCE_FILES})
