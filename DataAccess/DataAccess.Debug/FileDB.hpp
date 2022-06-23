@@ -13,7 +13,7 @@
 
 namespace DataAccess
 {
-    /** @class      FileDB 
+    /** @class      FileDB
     * 
      *  @brief      A simple file database for debugging.
      * 

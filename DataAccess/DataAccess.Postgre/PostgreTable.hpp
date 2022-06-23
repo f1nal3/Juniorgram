@@ -6,7 +6,7 @@
 namespace DataAccess
 {
 /**
- * @class PostgreTable 
+ * @class PostgreTable
  * @brief Postgre table class.
  * @details You can see some examples below for how to use it.
  * @code
