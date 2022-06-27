@@ -20,7 +20,7 @@ target_link_libraries(${TARGET}
         PUBLIC Network.Public 
         PUBLIC Base.Crypto.Static 
         PUBLIC Base.Logger.Static
-        PUBLIC Base.Models.Public)
+        PUBLIC Models.Public)
 
 set_target_properties(${TARGET} PROPERTIES
     LINKER_LANGUAGE CXX

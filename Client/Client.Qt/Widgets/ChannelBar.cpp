@@ -1,7 +1,7 @@
 #include "ChannelBar.hpp"
 
 #include <QPainter>
-ChannelBar::ChannelBar(QWidget* parent, QString channelName /* const Base::Models::ChannelInfo& info*/)
+ChannelBar::ChannelBar(QWidget* parent, QString channelName /* const Models::ChannelInfo& info*/)
     : QWidget(parent), _channelName(channelName)
 {
     _leaveChannel  = std::make_unique<FlatButton>(this, "Leave");

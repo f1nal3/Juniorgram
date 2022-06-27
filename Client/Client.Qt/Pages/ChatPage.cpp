@@ -33,7 +33,7 @@ void ChatPage::chosenChannelHandler()
     (
         ChannelListPage::channels.begin(),
         ChannelListPage::channels.end(),
-        [&channelName](const Base::Models::ChannelInfo& channel) { return channel.channelName == channelName; }
+        [&channelName](const Models::ChannelInfo& channel) { return channel.channelName == channelName; }
     );
     Base::Logger::FileLogger::getInstance().log
     (

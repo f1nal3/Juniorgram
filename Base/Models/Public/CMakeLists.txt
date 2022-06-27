@@ -1,5 +1,5 @@
-set(TARGET Base.Models.Public)
-set(OUTPUT_NAME ${PROJECT}.Base.Models.Public)
+set(TARGET Models.Public)
+set(OUTPUT_NAME ${PROJECT}.Models.Public)
 
 set(SOURCE_FILES
         Include/Models/Primitives.hpp)

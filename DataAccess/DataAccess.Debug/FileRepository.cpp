@@ -10,12 +10,12 @@ FileRepository::FileRepository()
     _database = std::make_unique<FileDB>("Debug"); 
 }
 
-std::vector<Base::Models::ChannelInfo> FileRepository::getAllChannelsList()
+std::vector<Models::ChannelInfo> FileRepository::getAllChannelsList()
 {
     auto rows = _database->select("channels");
-    std::vector<Base::Models::ChannelInfo> channels;
+    std::vector<Models::ChannelInfo> channels;
 
-    Base::Models::ChannelInfo channelInfo;
+    Models::ChannelInfo channelInfo;
     for (const auto& row : rows)
     {
         channelInfo.creatorID = row.at("creator_id");
@@ -27,15 +27,15 @@ std::vector<Base::Models::ChannelInfo> FileRepository::getAllChannelsList()
     return channels;
 }
 
-std::vector<Base::Models::MessageInfo> FileRepository::getMessageHistoryForUser(const std::uint64_t channelID)
+std::vector<Models::MessageInfo> FileRepository::getMessageHistoryForUser(const std::uint64_t channelID)
 {
     auto rows = _database->select("channel_msgs", [channelID](const nlohmann::ordered_json& row) {
         return row.at("channel_id") == channelID ? true : false;
     });
 
-    std::vector<Base::Models::MessageInfo> messages;
+    std::vector<Models::MessageInfo> messages;
 
-    Base::Models::MessageInfo mi;
+    Models::MessageInfo mi;
     mi.channelID = channelID;
     for (auto&& row : rows)
     {

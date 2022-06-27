@@ -142,9 +142,9 @@ protected:
     virtual void onServerMessage(const uint64_t clientId);
     /// Channel List Request handler
     //virtual void onChannelListRequest(const std::vector<Network::ChannelInfo>& channels);
-    virtual void onChannelListRequest(const std::vector<Base::Models::ChannelInfo>& channels);
+    virtual void onChannelListRequest(const std::vector<Models::ChannelInfo>& channels);
     /// Message History Answer handler
-    virtual void onMessageHistoryAnswer(const std::vector<Base::Models::MessageInfo>& messages);
+    virtual void onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages);
     /// Message Store Answer handler
     virtual void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode);
     /// Message Delete Answer handler
@@ -152,7 +152,7 @@ protected:
     /// Registration Answer handler
     virtual void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
     /// Reply History Answer heandler
-    virtual void onReplyHistoryAnswer(const std::vector<Base::Models::ReplyInfo>& replies);
+    virtual void onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& replies);
     /// Reply Store Answer handler
     virtual void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
     /// Channel leave Answer handler
