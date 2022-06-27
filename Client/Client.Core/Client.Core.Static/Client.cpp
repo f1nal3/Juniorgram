@@ -152,11 +152,11 @@ void Client::storeMessage(const std::string& message, const uint64_t channelID) 
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::MessageStoreRequest;
 
-    Base::Models::MessageInfo mi;
+    Models::MessageInfo mi;
     mi.message   = message;
     mi.channelID = channelID;
 
-    networkMessage.mBody = std::make_any<Base::Models::MessageInfo>(mi);
+    networkMessage.mBody = std::make_any<Models::MessageInfo>(mi);
     send(networkMessage);
 }
 
@@ -165,12 +165,12 @@ void Client::storeReply(const std::string& message, uint64_t channelID, uint64_t
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ReplyStoreRequest;
 
-    Base::Models::ReplyInfo ri;
+    Models::ReplyInfo ri;
     ri.message   = message;
     ri.channelID = channelID;
     ri.msgID     = msgID;
 
-    networkMessage.mBody = std::make_any<Base::Models::ReplyInfo>(ri);
+    networkMessage.mBody = std::make_any<Models::ReplyInfo>(ri);
     send(networkMessage);
 }
 
@@ -179,11 +179,11 @@ void Client::userRegistration(const std::string& email, const std::string& login
     // Generating password's hash which are based on login. It lets us to insert different users
     // with the same passwords.
     const std::string         pwdHash = Base::Hashing::SHA_256(password, login);
-    Base::Models::RegistrationInfo ri(email, login, pwdHash);
+    Models::RegistrationInfo ri(email, login, pwdHash);
 
     Network::Message message;
     message.mHeader.mMessageType = MessageType::RegistrationRequest;
-    message.mBody                = std::make_any<Base::Models::RegistrationInfo>(ri);
+    message.mBody                = std::make_any<Models::RegistrationInfo>(ri);
 
     send(message);
 }
@@ -191,11 +191,11 @@ void Client::userRegistration(const std::string& email, const std::string& login
 void Client::userAuthorization(const std::string& login, const std::string& password) const
 {
     const std::string pwdHash = Base::Hashing::SHA_256(password, login);
-    Base::Models::LoginInfo loginInfo(login, pwdHash);
+    Models::LoginInfo loginInfo(login, pwdHash);
 
     Message message;
     message.mHeader.mMessageType = MessageType::LoginRequest;
-    message.mBody                = std::make_any<Base::Models::LoginInfo>(loginInfo);
+    message.mBody                = std::make_any<Models::LoginInfo>(loginInfo);
 
     send(message);
 }
@@ -209,23 +209,23 @@ void Client::messageAll() const
 
 void Client::userMessageDelete(const uint64_t messageID) const
 {
-    Base::Models::MessageInfo mi;
+    Models::MessageInfo mi;
     mi.msgID = messageID;
 
     Network::Message message;
     message.mHeader.mMessageType = MessageType::MessageDeleteRequest;
-    message.mBody                = std::make_any<Base::Models::MessageInfo>(mi);
+    message.mBody                = std::make_any<Models::MessageInfo>(mi);
     send(message);
 }
 
 void Client::userMessageDelete(const std::string& messageText) const
 {
-    Base::Models::MessageInfo mi;
+    Models::MessageInfo mi;
     mi.message = messageText;
 
     Network::Message message;
     message.mHeader.mMessageType = MessageType::MessageDeleteRequest;
-    message.mBody                = std::make_any<Base::Models::MessageInfo>(mi);
+    message.mBody                = std::make_any<Models::MessageInfo>(mi);
     send(message);
 }
 
@@ -234,9 +234,9 @@ void Client::subscriptionChannel(const std::uint64_t channelID) const
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ChannelSubscribeRequest;
 
-    Base::Models::ChannelSubscriptionInfo ri;
+    Models::ChannelSubscriptionInfo ri;
     ri.channelID         = channelID;
-    networkMessage.mBody = std::make_any<Base::Models::ChannelSubscriptionInfo>(ri);
+    networkMessage.mBody = std::make_any<Models::ChannelSubscriptionInfo>(ri);
     send(networkMessage);
 }
 
@@ -273,7 +273,7 @@ void Client::createDirectChat(uint64_t receiverId) const
 
 void Client::userMessageReaction(const std::uint64_t messageID, const std::uint32_t reactionID) const
 {
-    Base::Models::MessageInfo mi;
+    Models::MessageInfo mi;
     mi.msgID = messageID;
 
     // using max uint32_t as special value
@@ -281,7 +281,7 @@ void Client::userMessageReaction(const std::uint64_t messageID, const std::uint3
     
     Network::Message message;
     message.mHeader.mMessageType = MessageType::MessageReactionRequest;
-    message.mBody                = std::make_any<Base::Models::MessageInfo>(mi);
+    message.mBody                = std::make_any<Models::MessageInfo>(mi);
 
     send(message);
 }
@@ -328,14 +328,14 @@ void Client::loop()
 
             case MessageType::ChannelListRequest:
             {
-                auto channels = std::any_cast<std::vector<Base::Models::ChannelInfo>>(message.mBody);
+                auto channels = std::any_cast<std::vector<Models::ChannelInfo>>(message.mBody);
                 onChannelListRequest(channels);
             }
             break;
 
             case MessageType::MessageHistoryAnswer:
             {
-                auto messages = std::any_cast<std::vector<Base::Models::MessageInfo>>(message.mBody);
+                auto messages = std::any_cast<std::vector<Models::MessageInfo>>(message.mBody);
                 onMessageHistoryAnswer(messages);
             }
             break;
@@ -363,7 +363,7 @@ void Client::loop()
 
             case MessageType::ReplyHistoryAnswer:
             {
-                auto replies = std::any_cast<std::vector<Base::Models::ReplyInfo>>(message.mBody);
+                auto replies = std::any_cast<std::vector<Models::ReplyInfo>>(message.mBody);
                 onReplyHistoryAnswer(replies);
             }
             break;
@@ -453,13 +453,13 @@ void Client::onServerMessage(const uint64_t clientId)
     Base::Logger::FileLogger::getInstance().log("Server message is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
-void Client::onChannelListRequest(const std::vector<Base::Models::ChannelInfo>& channels)
+void Client::onChannelListRequest(const std::vector<Models::ChannelInfo>& channels)
 {
     (void)(channels);
     Base::Logger::FileLogger::getInstance().log("Channel list request is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
-void Client::onMessageHistoryAnswer(const std::vector<Base::Models::MessageInfo>& messages)
+void Client::onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages)
 {
     (void)(messages);
     Base::Logger::FileLogger::getInstance().log("Message history answer is not implemented", Base::Logger::LogLevel::WARNING);
@@ -500,7 +500,7 @@ void Client::onMessageSendFailed(const Message& message) const
     Base::Logger::FileLogger::getInstance().log("Message send failed is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
-void Client::onReplyHistoryAnswer(const std::vector<Base::Models::ReplyInfo>& replies)
+void Client::onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& replies)
 {
     (void)(replies);
     Base::Logger::FileLogger::getInstance().log("Reply history answer is not implemented", Base::Logger::LogLevel::WARNING);

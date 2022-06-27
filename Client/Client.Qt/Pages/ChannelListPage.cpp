@@ -67,7 +67,7 @@ void ChannelListPage::addChannelToChannelListWidget()
             (
                 channels.begin(),
                 channels.end(),
-                [channel](const Base::Models::ChannelInfo& i) { return i.channelName == channel; }
+                [channel](const Models::ChannelInfo& i) { return i.channelName == channel; }
             );
         if (oApp->connectionManager()->isConnected())
         {
@@ -78,7 +78,7 @@ void ChannelListPage::addChannelToChannelListWidget()
     _widgetChannelList->sortItems();
 }
 
-void ChannelListPage::setChannels(const std::vector<Base::Models::ChannelInfo>& newChannels)
+void ChannelListPage::setChannels(const std::vector<Models::ChannelInfo>& newChannels)
 {
     channels = newChannels;
     updateChannelList();
@@ -96,7 +96,7 @@ void ChannelListPage::addSubscribedChannelToMainChannelWidget(const std::vector<
             (
                 channels.begin(), 
                 channels.end(), 
-                [channel](Base::Models::ChannelInfo i) { return i.channelID == channel; }
+                [channel](Models::ChannelInfo i) { return i.channelID == channel; }
             );
         channelsSubscribeVector.push_back(findChannel->channelName);
         _channelList->setCurrentRow(row);
