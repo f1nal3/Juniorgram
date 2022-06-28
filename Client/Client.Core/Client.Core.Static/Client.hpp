@@ -141,7 +141,6 @@ protected:
     /// Server Message handler
     virtual void onServerMessage(const uint64_t clientId);
     /// Channel List Request handler
-    //virtual void onChannelListRequest(const std::vector<Network::ChannelInfo>& channels);
     virtual void onChannelListRequest(const std::vector<Models::ChannelInfo>& channels);
     /// Message History Answer handler
     virtual void onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages);
