@@ -25,7 +25,6 @@ struct ChannelInfo
     /// channel name string variable
     std::string channelName;
 
-public:
     /// Default ChannelInfo constructor
     ChannelInfo() = default;
 
@@ -66,12 +65,11 @@ struct ChannelSubscriptionInfo
     /// user ID uint64_t variable
     std::uint64_t userID;
 
-public:
     /// Default ChannelInfo constructor
     ChannelSubscriptionInfo() = default;
 
     /// ChannelInfo constructor with initializing list
-    ChannelSubscriptionInfo(const std::uint64_t channelID) : channelID(channelID) {}
+    explicit ChannelSubscriptionInfo(const std::uint64_t channelID) : channelID(channelID) {}
     /// Default ChannelSubscriptionInfo destructor
     ~ChannelSubscriptionInfo() = default;
 

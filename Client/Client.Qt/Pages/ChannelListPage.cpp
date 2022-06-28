@@ -67,7 +67,7 @@ void ChannelListPage::addChannelToChannelListWidget()
             (
                 channels.begin(),
                 channels.end(),
-                [channel](const Models::ChannelInfo& i) { return i.channelName == channel; }
+                [&channel](const Models::ChannelInfo& i) { return i.channelName == channel; }
             );
         if (oApp->connectionManager()->isConnected())
         {
