@@ -14,22 +14,22 @@ TEST_CASE("PostgreAdapter test", "[dummy]")
 		REQUIRE_NOTHROW(PostgreAdapter::Instance(""));
 	}
 
-	auto ourAdapter = PostgreAdapter::Instance(DBOptions::test);
+	auto testAdapter = PostgreAdapter::Instance(DBOptions::test);
 
 	SECTION("Check our connection")
 	{
-		REQUIRE_NOTHROW(ourAdapter->getConnection());
-		REQUIRE(ourAdapter.get()!=nullptr);
-		REQUIRE(ourAdapter->isConnected());
+		REQUIRE_NOTHROW(testAdapter->getConnection());
+		REQUIRE(testAdapter.get()!=nullptr);
+		REQUIRE(testAdapter->isConnected());
 	}
 
 	SECTION("Check our connection with bad arguments, but it should use default argument")
 	{
-		auto ourBadAdapter = PostgreAdapter::Instance();
+		auto testBadAdapter = PostgreAdapter::Instance();
 
-		REQUIRE_NOTHROW(ourBadAdapter.get()->getConnection());
-		REQUIRE(ourBadAdapter.get()->isConnected());
-		REQUIRE(ourBadAdapter.get()!=nullptr);
+		REQUIRE_NOTHROW(testBadAdapter.get()->getConnection());
+		REQUIRE(testBadAdapter.get()->isConnected());
+		REQUIRE(testBadAdapter.get()!=nullptr);
 	}
 
 	SECTION("Check our query")
@@ -37,13 +37,13 @@ TEST_CASE("PostgreAdapter test", "[dummy]")
 		auto ourQuery = std::string_view{"SELECT * FROM users"};
 		auto ourBadQuery = std::string_view{ "something * 123wrong" };
 
-		REQUIRE_NOTHROW(ourAdapter.get()->query(ourQuery));
-		REQUIRE_THROWS(ourAdapter->query(ourBadQuery));
-		REQUIRE(ourAdapter->query(ourQuery)== std::nullopt);
+		REQUIRE_NOTHROW(testAdapter.get()->query(ourQuery));
+		REQUIRE_THROWS(testAdapter->query(ourBadQuery));
+		REQUIRE(testAdapter->query(ourQuery)== std::nullopt);
 	}
 
 	SECTION("Check how properly we close connection")
 	{
-		REQUIRE_NOTHROW(ourAdapter.get()->closeConnection());
+		REQUIRE_NOTHROW(testAdapter.get()->closeConnection());
 	}
 }

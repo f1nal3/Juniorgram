@@ -13,6 +13,7 @@ TEST_CASE("UsersAmountFinder", "[dummy]")
 	{
 		REQUIRE_NOTHROW(UsersAmountFinder());
 	}
+
 	auto testTable = std::make_unique<PostgreTable>("users", PostgreAdapter::Instance(DBOptions::test));
 	UsersAmountFinder testFinder;
 	auto testCondition{ "login = 'anotheruser'" };
@@ -65,8 +66,4 @@ TEST_CASE("UsersAmountFinder", "[dummy]")
 	{
 		REQUIRE(testFinder.findUsersAmountWithAllSameData(testRegInfo) == 1);
 	}
-
-	testTable->Delete()->Where("login = '" + std::string(testLogin) + "'")->And("email = '" + std::string(testEmail) + "'")->execute();
-	auto findUser = testTable->Select()->columns({ "login" })->Where("login = '" + std::string(testLogin) + "'")->execute();
-
 }
