@@ -96,7 +96,7 @@ void ChannelListPage::addSubscribedChannelToMainChannelWidget(const std::vector<
             (
                 channels.begin(), 
                 channels.end(), 
-                [channel](Models::ChannelInfo i) { return i.channelID == channel; }
+                [&channel](const Models::ChannelInfo& i) { return i.channelID == channel; }
             );
         channelsSubscribeVector.push_back(findChannel->channelName);
         _channelList->setCurrentRow(row);
