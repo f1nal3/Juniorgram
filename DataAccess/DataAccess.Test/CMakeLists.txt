@@ -4,9 +4,15 @@ set(OUTPUT_NAME DataAccess.Test)
 set(SOURCE_FILES
         DataAccessTest.cpp
         FileDBTest.cpp
-        RepositoryFunctionsTest.cpp
-        TestPostgreRepository.hpp
-        TestUsersAmountFinder.hpp)
+        PostgreAdapterTest.cpp
+        PostgreRepositoriesTest.cpp
+        UsersAmountFinderTest.cpp 
+        PostgreRepositoryManagerTest.cpp 
+        PostgreRepositoriesContainerTest.cpp 
+        PostgreTableTest.cpp
+        QueryBuilderTest.cpp
+        AbstractRepositoryContainerTest.cpp
+        )
 
 add_executable(${TARGET} ${SOURCE_FILES})
 

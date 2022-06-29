@@ -237,7 +237,7 @@ TEST_CASE("Row operations")
 	SECTION("Remove")
 	{
 		REQUIRE_THROWS(database->remove("badtable"));
-		REQUIRE_NOTHROW(database->remove("users", [](const nlohmann::ordered_json& j) { return j.at("id") == -8;}));
+		REQUIRE_NOTHROW(database->remove("users", [](const nlohmann::ordered_json& j) { return j.at("id") == 0;}));
         REQUIRE_NOTHROW(database->remove("users"));
 
 		std::fstream fileStream;
