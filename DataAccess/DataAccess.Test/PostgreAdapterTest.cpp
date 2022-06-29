@@ -34,12 +34,12 @@ TEST_CASE("PostgreAdapter test", "[dummy]")
 
 	SECTION("Check our query")
 	{
-		auto ourQuery = std::string_view{"SELECT * FROM users"};
-		auto ourBadQuery = std::string_view{ "something * 123wrong" };
+		auto testQuery = std::string_view{"SELECT * FROM users"};
+		auto testBadQuery = std::string_view{ "something * 123wrong" };
 
-		REQUIRE_NOTHROW(testAdapter.get()->query(ourQuery));
-		REQUIRE_THROWS(testAdapter->query(ourBadQuery));
-		REQUIRE(testAdapter->query(ourQuery)== std::nullopt);
+		REQUIRE_NOTHROW(testAdapter.get()->query(testQuery));
+		REQUIRE_THROWS(testAdapter->query(testBadQuery));
+		REQUIRE(testAdapter->query(testQuery)== std::nullopt);
 	}
 
 	SECTION("Check how properly we close connection")
