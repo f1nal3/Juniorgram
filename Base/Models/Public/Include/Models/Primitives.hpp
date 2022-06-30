@@ -45,7 +45,7 @@ struct ChannelInfo
 
 /// Serialize method which serialize each field
 template <typename Archive>
-void serialize(Archive& ar, Models::ChannelInfo&& o)
+void serialize(Archive& ar, Models::ChannelInfo& o)
 {
     ar& o.creatorID& o.channelID& o.channelName;
 }
@@ -85,7 +85,7 @@ struct ChannelSubscriptionInfo
  * @ref ChannelSubscriptionInfo structure
  */
 template <typename Archive>
-void serialize(Archive& ar, Models::ChannelSubscriptionInfo&& o)
+void serialize(Archive& ar, Models::ChannelSubscriptionInfo& o)
 {
     ar& o.channelID;
 }
@@ -113,7 +113,7 @@ struct LoginInfo
  * @brief helper function for serializing @ref LoginInfo structure
  */
 template <typename Archive>
-void serialize(Archive& ar, LoginInfo&& o)
+void serialize(Archive& ar, Models::LoginInfo& o)
 {
     ar& o.login& o.pwdHash;
 }
@@ -157,7 +157,7 @@ struct RegistrationInfo
 
 /// Serialize method for serialize registration info for each field
 template <typename Archive>
-void serialize(Archive& ar, Models::RegistrationInfo&& o)
+void serialize(Archive& ar, Models::RegistrationInfo& o)
 {
     ar& o.email& o.login& o.passwordHash;
 }
@@ -211,7 +211,7 @@ struct MessageInfo
 
 /// Serialize method for serialize Message Info for each field
 template <typename Archive>
-void serialize(Archive& ar, Models::MessageInfo&& o)
+void serialize(Archive& ar, Models::MessageInfo& o)
 {
     ar& o.channelID& o.senderID& o.msgID& o.message& o.reactions& o.time& o.userLogin;
 }
@@ -259,7 +259,7 @@ struct ReplyInfo
 
 /// Serialize method for serialize ReplyInfo for each field
 template <typename Archive>
-void serialize(Archive& ar, Models::ReplyInfo&& o)
+void serialize(Archive& ar, Models::ReplyInfo& o)
 {
     ar& o.channelID& o.message& o.msgID& o.senderID& o.msgIdOwner& o.userLogin;
 }
