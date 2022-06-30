@@ -31,7 +31,7 @@ public:
 
     [[nodiscard]] const char* what() const noexcept override { return _msg.c_str(); }
 
-protected:
+private:
     std::string   _msg;
     std::string   _file;
     std::uint16_t _line;
@@ -52,7 +52,7 @@ public:
 
     [[nodiscard]] const char* what() const noexcept override { return _msg.c_str(); }
 
-protected:
+private:
     std::string   _msg;
     std::string   _file;
     std::uint16_t _line;

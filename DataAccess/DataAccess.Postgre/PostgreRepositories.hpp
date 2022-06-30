@@ -24,7 +24,7 @@ struct ChannelsRepository final : IChannelsRepository, AbstractPostgreRepository
     Utility::ChannelDeleteCode  deleteChannel(const Models::ChannelDeleteInfo& channel) final;
     Utility::ChannelCreateCodes createChannel(const Models::ChannelInfo& channel) final;
 
-    ~ChannelsRepository() final = default;
+    ~ChannelsRepository() override = default;
 };
 
 struct DirectMessageRepository final : IDirectMessageRepository, AbstractPostgreRepository
@@ -33,8 +33,8 @@ struct DirectMessageRepository final : IDirectMessageRepository, AbstractPostgre
     {
         _pTable = std::make_unique<PostgreTable>("channels", adapter);
     }
-    Utility::DirectMessageStatus addDirectChat(uint64_t user_id, uint64_t receiverId) final;
-    ~DirectMessageRepository() final = default;
+    Utility::DirectMessageStatus addDirectChat(uint64_t user_id, uint64_t receiverId) override;
+    ~DirectMessageRepository() override = default;
 };
 
 struct LoginRepository : ILoginRepository, AbstractPostgreRepository
@@ -56,7 +56,7 @@ struct MessagesRepository final : IMessagesRepository, AbstractPostgreRepository
     Utility::EditingMessageCodes           editMessage(const Models::MessageInfo& mi) final;
     Utility::ReactionMessageCodes          updateMessageReactions(const Models::MessageInfo& mi) final;
 
-    ~MessagesRepository() final = default;
+    ~MessagesRepository() override = default;
 
 private:
     std::optional<pqxx::result> insertMessageIntoMessagesTable(const Models::MessageInfo& msi);
@@ -70,7 +70,7 @@ struct RegisterRepository final : IRegisterRepository, AbstractPostgreRepository
 
     Utility::RegistrationCodes registerUser(const Models::RegistrationInfo& ri) final;
 
-    ~RegisterRepository() final = default;
+    ~RegisterRepository() override = default;
 };
 
 
@@ -81,7 +81,7 @@ struct RepliesRepository final : IRepliesRepository, AbstractPostgreRepository
     std::vector<Models::ReplyInfo>       getReplyHistory(const std::uint64_t channelID) final;
     Utility::StoringReplyCodes           storeReply(const Models::ReplyInfo& rsi) final;
 
-    ~RepliesRepository() final = default;
+    ~RepliesRepository() override = default;
 
 private:
     std::optional<pqxx::result> insertIDsIntoChannelRepliesTable(const std::uint64_t channelID, const std::uint64_t replyID);

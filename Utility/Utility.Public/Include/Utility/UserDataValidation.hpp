@@ -10,7 +10,7 @@ namespace UserDataValidation
  * @return true if login is valid.
  * @details Login must have: /
  *   -First char is a letter; /
- *   -Lowercase letters; /
+ *   -Lowercase and uppercase letters; /
  *   -Minimum 5 chars. /
  * Example: login = 'some_nick34'.
  */
