@@ -369,9 +369,9 @@ Utility::EditingMessageCodes MessagesRepository::editMessage(const Models::Messa
     _pTable->changeTable("msgs");
 
     auto isPresentInTable = _pTable->Select()
-                                ->columns({"*"})
+                                ->columns({ "*" })
                                 ->Where("msg_id=" + std::to_string(mi.msgID))
-                                ->And("msg.sender_id" + std::to_string(mi.senderID))
+                                ->And("sender_id=" + std::to_string(mi.senderID))
                                 ->execute();
     if (!isPresentInTable.has_value())
     {

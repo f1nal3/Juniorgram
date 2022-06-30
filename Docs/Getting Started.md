@@ -22,18 +22,6 @@ Recommended install:
 
  - Windows/Linux: `` $ pip install conan``
 
-3. Install Qt 5.15.2
- 
- - Set your CMAKE_PREFIX_PATH and QT_QPA_PLATFORM_PLUGIN_PATH environment variable to the Qt5 installation prefix.
- Example:
- 
- ![image](https://user-images.githubusercontent.com/57706182/117034264-ca95ea00-ad0b-11eb-8e64-5e38bf20a305.png)
- ![image](https://user-images.githubusercontent.com/57706182/117034299-d4b7e880-ad0b-11eb-9165-f911b13a5e7c.png)
-
- - You may install Qt Desktop or other versions.
-
----
-
 [CMake](https://cmake.org)
 
 CMake is a cross-platform, open-source build system generator. 
@@ -48,13 +36,15 @@ Install CMake:
 
 ## Windows: 
 
-## Visual Studio 2019:
+## Visual Studio 2019/2022:
  1. Clone this repository or download as Zip from Github.
  2. Run Visual Studio and open this repository as folder. It will automatically detect the root CMakeLists.txt and execute it, after which you can start/debug the server and client sides.
 
 ## Linux:
 
-Qt Creator:
+__Qt Creator__ or __Visual Code__:
 
  1. Clone this repository or download as Zip from Github.
  2. Run Qt Creator and open the root CMakeLists.txt. It will automatically detect the root CMakeLists.txt and execute it, after which you can start/debug the server and client sides.
+
+ 
