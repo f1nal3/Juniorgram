@@ -58,7 +58,7 @@ void FileLogger::close()
 
 void FileLogger::stop()
 {
-    std::lock_guard<std::mutex> lk(_mutex);
+    std::unique_lock<std::mutex> lk(_mutex);
     _stop = true;
     _inputWait.notify_one();
 }
@@ -70,7 +70,7 @@ void FileLogger::log(const std::string& msg, const LogLevel level)
                        + wrapValue(stringifyLogLvl(level), _blockWrapper) + " " 
                        + msg;
 
-    std::lock_guard<std::mutex> lk(_mutex);
+    std::unique_lock<std::mutex> lock(_mutex);
     _msgQueue.push(result);
     _inputWait.notify_one();
 }

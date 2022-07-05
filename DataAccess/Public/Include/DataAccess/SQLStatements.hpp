@@ -243,7 +243,7 @@ public:
         catch (const std::exception& err)
         {
             Base::Logger::FileLogger::getInstance().log(
-                std::string(err.what() + '\n'),
+                std::string(std::string(err.what()) + '\n'),
                 Base::Logger::LogLevel::ERR);
         }
 
