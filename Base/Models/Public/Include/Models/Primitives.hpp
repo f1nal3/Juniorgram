@@ -113,7 +113,7 @@ struct LoginInfo
  * @brief helper function for serializing @ref LoginInfo structure
  */
 template <typename Archive>
-void serialize(Archive& ar, LoginInfo& o)
+void serialize(Archive& ar, Models::LoginInfo& o)
 {
     ar& o.login& o.pwdHash;
 }
