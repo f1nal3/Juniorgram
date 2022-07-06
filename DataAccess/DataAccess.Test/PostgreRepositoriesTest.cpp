@@ -49,18 +49,18 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 		SECTION("Register user")
 		{
-			Network::RegistrationInfo ourUser(testEmail, testLogin, testPassHash);
+			Models::RegistrationInfo ourUser(testEmail, testLogin, testPassHash);
 			REQUIRE(testRegisterRepos.registerUser(ourUser) == RegistrationCodes::SUCCESS);
 		}
 
 		SECTION("Trying to register new user with data of already existing user")
 		{
 			auto newTestLogin{ "newuser" };
-			Network::RegistrationInfo badUserEmail(testEmail, newTestLogin, testPassHash);
+			Models::RegistrationInfo badUserEmail(testEmail, newTestLogin, testPassHash);
 			REQUIRE(testRegisterRepos.registerUser(badUserEmail) == RegistrationCodes::EMAIL_ALREADY_EXISTS);
 
 			auto newTestEmail{ "newuser@gmail.com" };
-			Network::RegistrationInfo badUserLogin(newTestEmail, testLogin, testPassHash);
+			Models::RegistrationInfo badUserLogin(newTestEmail, testLogin, testPassHash);
 			REQUIRE(testRegisterRepos.registerUser(badUserLogin) == RegistrationCodes::LOGIN_ALREADY_EXISTS);
 		}
 	}
@@ -77,7 +77,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 		SECTION("Logging")
 		{
-			Network::LoginInfo testUser(testLogin, testPassHash);
+			Models::LoginInfo testUser(testLogin, testPassHash);
 
 			SECTION("Valid login")
 			{
@@ -89,7 +89,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 		SECTION("Let's try to login with invalid values")
 		{
 			auto testBadHash{ "asdt24rersdf*_fs9dfs" };
-			Network::LoginInfo testBadUser(testLogin, testBadHash);
+			Models::LoginInfo testBadUser(testLogin, testBadHash);
 			REQUIRE(testLoginRepos.loginUser(testBadUser) == 0);
 
 			REQUIRE_NOTHROW(testLoginRepos.loginUser(testBadUser));
@@ -97,7 +97,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 		SECTION("Waiting an exception, but it have been catchen by try-catch block")
 		{
-			Network::LoginInfo testBadUser("nooneexist*-_123&^", testPassHash);
+			Models::LoginInfo testBadUser("nooneexist*-_123&^", testPassHash);
 
 			REQUIRE_NOTHROW(testLoginRepos.loginUser(testBadUser));
 		}
@@ -132,7 +132,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 		SECTION("Create channel")
 		{
-			Network::ChannelInfo testChannel(testUserID, testChannelID, testChannelName);
+			Models::ChannelInfo testChannel(testUserID, testChannelID, testChannelName);
 
 			SECTION("Create new channel with valid data")
 			{
@@ -148,7 +148,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 			{
 				auto testChannelBadID{ 0 };
 				auto testChannelBadName{ "" };
-				Network::ChannelInfo testBadChannel(0, testChannelBadID, testChannelBadName);
+				Models::ChannelInfo testBadChannel(0, testChannelBadID, testChannelBadName);
 				REQUIRE_THROWS(testChannelRepos.createChannel(testBadChannel));
 			}
 		}
@@ -165,7 +165,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 		SECTION("Subcribe to channel")
 		{
-			Network::ChannelSubscriptionInfo testSubsInfo(testChannelID);
+			Models::ChannelSubscriptionInfo testSubsInfo(testChannelID);
 			testSubsInfo.userID = testUserID;
 
 			SECTION("What if our user has already signed to channel")
@@ -181,13 +181,13 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 				auto testNewUserLogin{ "seconduser" };
 				auto testNewUserEmail{ "seconduser@gmail.com" };
 
-				Network::RegistrationInfo testRegNewInfo(testNewUserEmail, testNewUserLogin, testNewUserHash);
+				Models::RegistrationInfo testRegNewInfo(testNewUserEmail, testNewUserLogin, testNewUserHash);
 				testRegNewUser.registerUser(testRegNewInfo);
 				testSubsInfo.userID = testTable->Select()->columns({ "id" })->Where("login ='" + std::string(testNewUserLogin) + "'")->execute().value()[0][0].as<uint16_t>();
 
 				REQUIRE(testChannelRepos.subscribeToChannel(testSubsInfo) == ChannelSubscribingCodes::SUCCESS);
 
-				Network::ChannelLeaveInfo testNewLeaveInfo(testSubsInfo.userID, testChannelID, testChannelName);
+				Models::ChannelLeaveInfo testNewLeaveInfo(testSubsInfo.userID, testChannelID, testChannelName);
 				REQUIRE(testChannelRepos.leaveChannel(testNewLeaveInfo) == ChannelLeaveCodes::SUCCESS);
 
 				auto testDeleteResult = testTable->Delete()->Where("login = '" + std::string(testNewUserLogin) + "'")->And("email = '" + std::string(testNewUserEmail) + "'")->execute();
@@ -205,7 +205,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 			MessagesRepository testMessageRepos(PostgreAdapter::Instance());
 
 			auto testMessageText{ "Hello everyone!" };
-			Network::MessageInfo testMessage(testChannelID, testMessageText);
+			Models::MessageInfo testMessage(testChannelID, testMessageText);
 			testMessage.senderID = testUserID;
 
 			SECTION("We've stored message, let's check our message history")
@@ -228,7 +228,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 				#if defined(_MSC_VER)
 				SECTION("Storing message but channel does not exist")
 				{
-					REQUIRE_THROWS(testMessageRepos.storeMessage(Network::MessageInfo(0, testMessageText)));
+					REQUIRE_THROWS(testMessageRepos.storeMessage(Models::MessageInfo(0, testMessageText)));
 				}
 				#endif
 
@@ -304,7 +304,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 					SECTION("Let's store reply")
 					{
 						auto testReplyText{ "Hello to you" };
-						Network::ReplyInfo testReply(testChannelID, testReplyText);
+						Models::ReplyInfo testReply(testChannelID, testReplyText);
 
 						SECTION("Bad reply")
 						{
@@ -348,14 +348,14 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 			{
 				SECTION("Delete already existing message")
 				{
-					Network::MessageInfo testDeleteMessage(testChannelID, testMessageText);
+					Models::MessageInfo testDeleteMessage(testChannelID, testMessageText);
 
 					REQUIRE(testMessageRepos.deleteMessage(testDeleteMessage) == DeletingMessageCodes::SUCCESS);
 				}
 
 				SECTION("Let's delete message which does not exist, but our function works perfectly")
 				{
-					Network::MessageInfo testDeleteBadMessage(testChannelID, testMessageText);
+					Models::MessageInfo testDeleteBadMessage(testChannelID, testMessageText);
 					testDeleteBadMessage.msgID = 0;
 
 					REQUIRE(testMessageRepos.deleteMessage(testDeleteBadMessage) == DeletingMessageCodes::SUCCESS);
@@ -368,20 +368,20 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 			SECTION("Leave with invalid channel name")
 			{
 				auto testBadChannelName{ "g780gqfa80ybfdasfb" };
-				Network::ChannelLeaveInfo testBadLeave(testUserID, testChannelID, testBadChannelName);
+				Models::ChannelLeaveInfo testBadLeave(testUserID, testChannelID, testBadChannelName);
 				REQUIRE(testChannelRepos.leaveChannel(testBadLeave) == ChannelLeaveCodes::CHANNEL_NOT_FOUND);
 			}
 
 			SECTION("Leave with invalid id")
 			{
 				auto testBadChannelCreatorID{ 0 };
-				Network::ChannelLeaveInfo testBadLeave(testBadChannelCreatorID, testChannelID, testChannelName);
+				Models::ChannelLeaveInfo testBadLeave(testBadChannelCreatorID, testChannelID, testChannelName);
 				REQUIRE(testChannelRepos.leaveChannel(testBadLeave) == ChannelLeaveCodes::CHANNEL_NOT_FOUND);
 			}
 
 			SECTION("Leave with valid data")
 			{
-				Network::ChannelLeaveInfo testLeaveChannel(testUserID, testChannelID, testChannelName);
+				Models::ChannelLeaveInfo testLeaveChannel(testUserID, testChannelID, testChannelName);
 				REQUIRE(testChannelRepos.leaveChannel(testLeaveChannel) == ChannelLeaveCodes::SUCCESS);
 			}
 		}
@@ -393,14 +393,14 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 				SECTION("Invalid channel name")
 				{
 					auto testBadChannelName{ "asdasdasdasdasdadw213*" };
-					Network::ChannelDeleteInfo testBadDeleteInfo(testUserID, testChannelID, testBadChannelName);
+					Models::ChannelDeleteInfo testBadDeleteInfo(testUserID, testChannelID, testBadChannelName);
 					REQUIRE(testChannelRepos.deleteChannel(testBadDeleteInfo) == Utility::ChannelDeleteCode::CHANNEL_NOT_FOUND);
 				}
 
 				SECTION("Trying to delete channel when user is not owner")
 				{
 					auto testNotOwnerUserID{ UINT64_MAX };
-					Network::ChannelDeleteInfo testBadDeleteInfo(testNotOwnerUserID, testChannelID, testChannelName);
+					Models::ChannelDeleteInfo testBadDeleteInfo(testNotOwnerUserID, testChannelID, testChannelName);
 					REQUIRE(testChannelRepos.deleteChannel(testBadDeleteInfo) == Utility::ChannelDeleteCode::CHANNEL_IS_NOT_USER);
 				}
 			}
@@ -408,7 +408,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 			SECTION("Deleting already existing channel")
 			{
 				MessagesRepository testRepos(PostgreAdapter::Instance());
-				Network::MessageInfo testMessage(testChannelID, "Hello");
+				Models::MessageInfo testMessage(testChannelID, "Hello");
 				
 				testTable->changeTable("msgs");
 
@@ -423,7 +423,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 					->execute().value()[0][0].as<uint64_t>();
 				
 
-				Network::ChannelDeleteInfo testDeleteChannelInfo(testUserID, testChannelID, testChannelName);
+				Models::ChannelDeleteInfo testDeleteChannelInfo(testUserID, testChannelID, testChannelName);
 
 				REQUIRE(testChannelRepos.deleteChannel(testDeleteChannelInfo) == Utility::ChannelDeleteCode::SUCCESS);
 			}
