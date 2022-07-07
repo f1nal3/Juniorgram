@@ -11,7 +11,8 @@
 namespace DataAccess
 {
 /**
-* @brief The IMessagesRepository abstract subclass from IMasterRepository.
+* @class IMessagesRepository
+* @brief Implements message processing
 */
 struct IMessagesRepository : IMasterRepository
 {
@@ -65,7 +66,8 @@ struct IMessagesRepository : IMasterRepository
 };
 
 /**
- * @brief The IRepliesRepository abstract subclass from IMasterRepository
+ * @class IRepliesRepository
+ * @brief Implements repies processing
  */
 struct IRepliesRepository : IMasterRepository
 {
@@ -90,7 +92,8 @@ struct IRepliesRepository : IMasterRepository
 };
 
 /**
- * @brief The IChannelsRepository abstract subclass from IMasterRepository
+ * @class IChannelsRepository
+ * @brief Implements channels processing
  */
 struct IChannelsRepository : IMasterRepository
 {
@@ -137,7 +140,8 @@ struct IChannelsRepository : IMasterRepository
 };
 
 /**
- * @brief The IChannelsRepository abstract subclass from IMasterRepository
+ * @class IDirectMessageRepository
+ * @brief Implements personal chat processing
  */
 struct IDirectMessageRepository : IMasterRepository
 {
@@ -155,7 +159,8 @@ struct IDirectMessageRepository : IMasterRepository
 };
 
 /**
- * @brief The IRegisterRepository abstract subclass from IMasterRepository
+ * @class IRegisterRepository
+ * @brief Implements user registration
  */
 struct IRegisterRepository : IMasterRepository
 {
@@ -178,7 +183,8 @@ struct IRegisterRepository : IMasterRepository
 };
 
 /**
- * @brief The ILoginRepository abstract subclass from IMasterRepository
+ * @class ILoginRepository
+ * @brief Implements user authorization
  */
 struct ILoginRepository : IMasterRepository
 {

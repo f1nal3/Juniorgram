@@ -7,6 +7,12 @@
 
 namespace DataAccess
 {
+    /**
+    * @class IAdapter
+    * @brief An abstract class manages the connection to database
+    * @details Class manages the connection to database, stores options,
+    *  which are used for connecting to database,
+    */
 class IAdapter
 {
 public:

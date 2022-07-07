@@ -14,7 +14,9 @@ namespace DataAccess
 {
 /**
  * @class QueryBuilder
- * @brief QueryBuilder class.
+ * @brief Generates SQL query.
+ * @details The class forms and saves SQL query.
+ *  The class saves current table and type of database.
  */
 template <typename ResultType>
 class QueryBuilder

@@ -7,7 +7,9 @@ namespace DataAccess
 {
 
 /**
+*  @class IMasterRepository
  * @brief The IMasterRepository base abstract class
+ * @details Class used as a base for client and server sides
  */
 struct IMasterRepository
 {

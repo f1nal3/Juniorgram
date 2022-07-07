@@ -6,7 +6,12 @@
 namespace DataAccess
 {
 struct MessageInfo;
-
+    /**
+    * @class IMessageRepository
+    * @brief Client message repository
+    * @details Contains methods for client side for
+    *  message management
+    */
 class IMessageRepository : public IMasterRepository
 {
 public:
