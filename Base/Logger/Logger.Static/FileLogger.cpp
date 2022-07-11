@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include <iostream>
+#include <functional>
 
 #include <Utility/Utility.hpp>
 #include "Utility/UtilityTime.hpp"
@@ -65,6 +66,7 @@ void FileLogger::stop()
 
 void FileLogger::log(const std::string& msg, const LogLevel level)
 {
+
     std::string result = wrapValue(timestamp(), _blockWrapper) + " " 
                        + wrapValue(threadID(),  _blockWrapper) + " " 
                        + wrapValue(stringifyLogLvl(level), _blockWrapper) + " " 
@@ -196,4 +198,24 @@ std::string FileLogger::stringifyLogLvl(const LogLevel level)
         result = it->second;
     }
     return result;
+}
+
+void FileLogger::error(const std::string& message)
+{
+    log(message, LogLevel::ERR);
+}
+
+void FileLogger::warning(const std::string& message)
+{
+    log(message, LogLevel::WARNING);
+}
+
+void FileLogger::info(const std::string& message)
+{
+    log(message, LogLevel::INFO);
+}
+
+void FileLogger::debug(const std::string& message)
+{
+    log(message, LogLevel::DEBUG);
 }
