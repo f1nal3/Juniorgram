@@ -83,7 +83,7 @@ public:
 private:
     /**
     * @brief constructor.
-    * @details Initialyze Server object. After you steel need to initialyze network and database connection.
+    * @details Initialize Server object. After you steel need to initialize network and database connection.
     */
     Server();
     void initRepository(std::unique_ptr<PostgreRepositoryManager> postgreManager);

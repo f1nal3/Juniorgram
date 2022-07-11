@@ -1,8 +1,9 @@
 set(TARGET Server.Test)
 set(OUTPUT_NAME Server.Test)
 
-set(SOURCE_FILES)
-        #ArgumentParserTests.cpp)
+set(SOURCE_FILES
+        ServerTest.cpp
+)
 
 add_executable(${TARGET} ${SOURCE_FILES})
 

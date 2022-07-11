@@ -10,7 +10,7 @@
 
 /**
  * @class ArgumentParser.
- * @brief This class parses agruments with which application is started.
+ * @brief This class parses arguments with which application is started.
  * @details
  * For example: "your_path -p 65001". 
  * Ignoring your_path because it isn't necessary.

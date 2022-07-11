@@ -28,7 +28,7 @@ public:
     *    (it's because I designed the interface badly). 
     *    Instead use getInstance method.
     *   @param options - Connection options.
-    *   @return Pointer to current instanse of Postgre adapter.
+    *   @return Pointer to current instance of Postgre adapter.
     */
     static std::shared_ptr<PostgreAdapter> Instance(const std::string_view& options = {});
 
@@ -45,7 +45,7 @@ public:
 
     virtual ~PostgreAdapter() {}
 public:
-    /** @brief Method for executing SQL quries.
+    /** @brief Method for executing SQL quires.
     *   @details You shouldn't use this method because it's 
     *    low level accessing the database. Use it if you 
     *    want something specific from database, instead use PostgreTable. 

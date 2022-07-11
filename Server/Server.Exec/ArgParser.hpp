@@ -5,7 +5,7 @@
 
 /**
  * @class ArgParser.
- * @brief This class parses agruments with which application is started.
+ * @brief This class parses arguments with which application is started.
  * @details
  * For example: "--port 5432 --dbname juniorgram --hostaddr 127.0.0.1 --user postgres --password postgres".
  * Sending the port to the Server class constructor and list of all arguments to the PostgreAdapter Instance Method.
@@ -39,8 +39,8 @@ public:
         //_arguments = "";
         _program    = argparse::ArgumentParser("ServerArguments", "0.6", argparse::default_arguments::none);
         
-        _program.add_description("Server side of juniorgrab messanger. Just have a fun!");
-        _program.add_epilog("Some part of programm could be gluchennie.");
+        _program.add_description("Server side of juniorgram messenger. Just have a fun!");
+        _program.add_epilog("Some part of program could be gluchennie.");
 
         _program.add_argument("-p","--port")
             .default_value("5432")
