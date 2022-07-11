@@ -1,7 +1,7 @@
-project(DataAccess LANGUAGES CXX)
-
 set(TARGET DataAccess)
-set(FOLDER "DataAccess")
+set(FOLDER ${TARGET})
+
+project(${TARGET} LANGUAGES CXX)
 
 add_subdirectory(Public)
 add_subdirectory(DataAccess.Debug)

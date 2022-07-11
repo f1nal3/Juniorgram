@@ -18,7 +18,7 @@ add_executable(${TARGET} ${SOURCE_FILES})
 
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
-target_link_libraries(${TARGET} PUBLIC
+target_link_libraries(${TARGET} PRIVATE
         PostgreSQL::pq
         libpqxx::libpqxx
         Precompiled.Catch2.Main

@@ -132,7 +132,7 @@ public:
  * @brief   PostgreRepositoryManager controls handler for repository requests.
  * @details Controls push to queue and further processing of requests (have own thread for it).
  */
-class PostgreRepositoryManager
+class PostgreRepositoryManager : public IMasterRepository
 {
 private:
     std::unique_ptr<AbstractRepositoryContainer> _repositories;
