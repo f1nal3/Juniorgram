@@ -2,7 +2,10 @@ set(TARGET Server.Exec)
 set(OUTPUT_NAME ${PROJECT}.Server.Exec)
 
 set(SOURCE_FILES
-    MainServer.cpp)
+    MainServer.cpp
+    ArgParser.hpp
+   
+    )
 
 if(WIN32)
     set(EXTRA_LIBS ws2_32 wsock32)
@@ -12,7 +15,7 @@ add_executable(${TARGET} ${SOURCE_FILES})
 
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
-target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} asio::asio yas::yas)
+target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} asio::asio yas::yas argparse::argparse)
 target_link_libraries(${TARGET} PUBLIC Server.Core.Static)
 target_link_libraries(${TARGET} PUBLIC Network.Public Utility.Public)
 
