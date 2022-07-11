@@ -116,3 +116,13 @@ TEST_CASE("Change the valid log levels")
     REQUIRE(log.stringifyLogLvl(LogLevel::INFO) == "INFO");
     REQUIRE(log.stringifyLogLvl(LogLevel::DEBUG) == "DEBUG");
 }
+
+TEST_CASE("Special methods for improved logging")
+{
+    auto& testLogger = FileLogger::getInstance();
+
+    REQUIRE_NOTHROW(testLogger.debug("Test debug message\n"));
+    REQUIRE_NOTHROW(testLogger.error("Test error message\n"));;
+    REQUIRE_NOTHROW(testLogger.info("Test info message\n"));
+    REQUIRE_NOTHROW(testLogger.warning("Test warning message\n"));
+}

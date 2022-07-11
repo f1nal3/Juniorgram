@@ -59,20 +59,19 @@ void FileLogger::close()
 
 void FileLogger::stop()
 {
-    std::unique_lock<std::mutex> lk(_mutex);
+    std::unique_lock lk(_mutex);
     _stop = true;
     _inputWait.notify_one();
 }
 
 void FileLogger::log(const std::string& msg, const LogLevel level)
 {
-
     std::string result = wrapValue(timestamp(), _blockWrapper) + " " 
                        + wrapValue(threadID(),  _blockWrapper) + " " 
                        + wrapValue(stringifyLogLvl(level), _blockWrapper) + " " 
                        + msg;
 
-    std::unique_lock<std::mutex> lock(_mutex);
+    std::unique_lock lock(_mutex);
     _msgQueue.push(result);
     _inputWait.notify_one();
 }
