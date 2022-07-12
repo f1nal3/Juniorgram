@@ -153,8 +153,8 @@ void Client::storeMessage(const std::string& message, const uint64_t channelID) 
     networkMessage.mHeader.mMessageType = MessageType::MessageStoreRequest;
 
     Models::MessageInfo mi;
-    mi.message   = message;
-    mi.channelID = channelID;
+    mi._message   = message;
+    mi._channelID = channelID;
 
     networkMessage.mBody = std::make_any<Models::MessageInfo>(mi);
     send(networkMessage);
@@ -166,9 +166,9 @@ void Client::storeReply(const std::string& message, uint64_t channelID, uint64_t
     networkMessage.mHeader.mMessageType = MessageType::ReplyStoreRequest;
 
     Models::ReplyInfo ri;
-    ri.message   = message;
-    ri.channelID = channelID;
-    ri.msgID     = msgID;
+    ri._message   = message;
+    ri._channelID = channelID;
+    ri._msgID     = msgID;
 
     networkMessage.mBody = std::make_any<Models::ReplyInfo>(ri);
     send(networkMessage);
@@ -210,7 +210,7 @@ void Client::messageAll() const
 void Client::userMessageDelete(const uint64_t messageID) const
 {
     Models::MessageInfo mi;
-    mi.msgID = messageID;
+    mi._msgID = messageID;
 
     Network::Message message;
     message.mHeader.mMessageType = MessageType::MessageDeleteRequest;
@@ -221,7 +221,7 @@ void Client::userMessageDelete(const uint64_t messageID) const
 void Client::userMessageDelete(const std::string& messageText) const
 {
     Models::MessageInfo mi;
-    mi.message = messageText;
+    mi._message = messageText;
 
     Network::Message message;
     message.mHeader.mMessageType = MessageType::MessageDeleteRequest;
@@ -235,7 +235,7 @@ void Client::subscriptionChannel(const std::uint64_t channelID) const
     networkMessage.mHeader.mMessageType = MessageType::ChannelSubscribeRequest;
 
     Models::ChannelSubscriptionInfo ri;
-    ri.channelID         = channelID;
+    ri._channelID         = channelID;
     networkMessage.mBody = std::make_any<Models::ChannelSubscriptionInfo>(ri);
     send(networkMessage);
 }
@@ -274,10 +274,10 @@ void Client::createDirectChat(uint64_t receiverId) const
 void Client::userMessageReaction(const std::uint64_t messageID, const std::uint32_t reactionID) const
 {
     Models::MessageInfo mi;
-    mi.msgID = messageID;
+    mi._msgID = messageID;
 
     // using max uint32_t as special value
-    mi.reactions[reactionID] = std::numeric_limits<std::uint32_t>::max();
+    mi._reactions[reactionID] = std::numeric_limits<std::uint32_t>::max();
     
     Network::Message message;
     message.mHeader.mMessageType = MessageType::MessageReactionRequest;

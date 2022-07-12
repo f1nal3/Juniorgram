@@ -42,7 +42,7 @@ void App::onChannelListRequest(const std::vector<Models::ChannelInfo>& channels)
     for (const auto& item : channels)
     {
         std::ostringstream out;
-        out << item.channelName;
+        out << item._channelName;
         Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::INFO);
     }
 }
@@ -84,7 +84,7 @@ void App::onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& message
     for (const auto& item : messages)
     {
         std::ostringstream out;
-        out << item.message;
+        out << item._message;
         Base::Logger::FileLogger::getInstance().log(out.str(), Base::Logger::LogLevel::INFO);
     }
 }

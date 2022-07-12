@@ -34,14 +34,14 @@ void ChatHistory::addReply(const Models::ReplyInfo& replyInfo)
 
     auto history = _scrollArea->widget();
 
-    auto replyMsg = new ReplyMessageWidget(history, QString::fromStdString(replyInfo.message), replyInfo.msgID,
-                                           QString::fromStdString(replyInfo.userLogin), replyInfo.senderID);
+    auto replyMsg = new ReplyMessageWidget(history, QString::fromStdString(replyInfo._message), replyInfo._msgID,
+                                           QString::fromStdString(replyInfo._userLogin), replyInfo._senderID);
 
     replyMsg->show();
     replyMsg->resize(history->width() - 25, replyMsg->expectedHeight());
     history->setMinimumHeight(history->minimumHeight() + replyMsg->expectedHeight() + 10);
 
-    _replyList.insert(std::make_pair(int32_t(replyInfo.msgIdOwner), std::unique_ptr<ReplyMessageWidget>(replyMsg)));
+    _replyList.insert(std::make_pair(int32_t(replyInfo._msgIdOwner), std::unique_ptr<ReplyMessageWidget>(replyMsg)));
     _replies.push_back(replyInfo);
 
     connect(replyMsg, &ReplyMessageWidget::geometryChanged, this, [=](int diff) {
@@ -60,10 +60,10 @@ void ChatHistory::addMessage(const Models::MessageInfo& messageInfo)
 
     if (copy != _messages.end())
     {
-        if (copy->reactions != messageInfo.reactions)
+        if (copy->_reactions != messageInfo._reactions)
         {
             auto widgetCopy = std::find_if(_messageList.begin(), _messageList.end(), [messageInfo](const std::unique_ptr<MessageWidget>& mw)
-                                        { return mw->isTheMessage(messageInfo.msgID, messageInfo.senderID); });
+                                        { return mw->isTheMessage(messageInfo._msgID, messageInfo._senderID); });
 
             history->setMinimumHeight(history->minimumHeight() - (*widgetCopy)->height() - 10);
 
@@ -76,10 +76,10 @@ void ChatHistory::addMessage(const Models::MessageInfo& messageInfo)
         }
     }
 
-    auto msg = new MessageWidget(history, QString::fromStdString(messageInfo.message), messageInfo.senderID, messageInfo.msgID,
-                                 messageInfo.time, QString::fromStdString(messageInfo.userLogin));
+    auto msg = new MessageWidget(history, QString::fromStdString(messageInfo._message), messageInfo._senderID, messageInfo._msgID,
+                                 messageInfo._time, QString::fromStdString(messageInfo._userLogin));
 
-    msg->setReactionMap(messageInfo.reactions);
+    msg->setReactionMap(messageInfo._reactions);
     msg->show();
     msg->resize(history->width() - 25, msg->expectedHeight());
     history->setMinimumHeight(history->minimumHeight() + msg->expectedHeight() + 10);

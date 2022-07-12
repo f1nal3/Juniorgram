@@ -19,18 +19,18 @@ namespace Models
 struct ChannelInfo
 {
     /// creator ID uint64_t variable
-    std::uint64_t creatorID;
+    std::uint64_t _creatorID;
     /// channel ID uint64_t variable
-    std::uint64_t channelID;
+    std::uint64_t _channelID;
     /// channel name string variable
-    std::string channelName;
+    std::string _channelName;
 
     /// Default ChannelInfo constructor
     ChannelInfo() = default;
 
     /// ChannelInfo constructor with initializing list
-    ChannelInfo(const std::uint64_t creatorID, const std::uint64_t channelID, const std::string& channelName)
-        : creatorID(creatorID), channelID(channelID), channelName(channelName)
+    ChannelInfo(const std::uint64_t creatorID_, const std::uint64_t channelID_, const std::string& channelName_)
+        : _creatorID(creatorID_), _channelID(channelID_), _channelName(channelName_)
     {
     }
     /// Default ChannelInfo destructor
@@ -39,7 +39,9 @@ struct ChannelInfo
     /// Operator == to compare channels info
     friend bool operator==(const ChannelInfo& first, const ChannelInfo& second)
     {
-        return first.channelID == second.channelID && first.creatorID == second.creatorID && first.channelName == second.channelName;
+        return first._channelID   == second._channelID &&
+               first._creatorID   == second._creatorID &&
+               first._channelName == second._channelName;
     }
 };
 
@@ -47,7 +49,7 @@ struct ChannelInfo
 template <typename Archive>
 void serialize(Archive& ar, Models::ChannelInfo& o)
 {
-    ar& o.creatorID& o.channelID& o.channelName;
+    ar& o._creatorID& o._channelID& o._channelName;
 }
 
 using ChannelDeleteInfo = ChannelInfo;
@@ -61,22 +63,23 @@ using ChannelLeaveInfo  = ChannelInfo;
 struct ChannelSubscriptionInfo
 {
     /// channel ID uint64_t variable
-    std::uint64_t channelID;
+    std::uint64_t _channelID;
     /// user ID uint64_t variable
-    std::uint64_t userID;
+    std::uint64_t _userID;
 
     /// Default ChannelInfo constructor
     ChannelSubscriptionInfo() = default;
 
     /// ChannelInfo constructor with initializing list
-    explicit ChannelSubscriptionInfo(const std::uint64_t channelID) : channelID(channelID) {}
+    explicit ChannelSubscriptionInfo(const std::uint64_t channelID_) : _channelID(channelID_) {}
     /// Default ChannelSubscriptionInfo destructor
     ~ChannelSubscriptionInfo() = default;
 
     /// Operator == to compare channel info
     friend bool operator==(const ChannelSubscriptionInfo& first, const ChannelSubscriptionInfo& second)
     {
-        return first.channelID == second.channelID && first.userID == second.userID;
+        return first._channelID == second._channelID &&
+               first._userID    == second._userID;
     }
 };
 
@@ -87,7 +90,7 @@ struct ChannelSubscriptionInfo
 template <typename Archive>
 void serialize(Archive& ar, Models::ChannelSubscriptionInfo& o)
 {
-    ar& o.channelID;
+    ar& o._channelID;
 }
 
 /**
@@ -96,15 +99,15 @@ void serialize(Archive& ar, Models::ChannelSubscriptionInfo& o)
 struct LoginInfo
 {
     /// user's login as string variable
-    std::string login;
+    std::string _login;
     /// pwdHash hash of user's password as string variable
-    std::string pwdHash;
+    std::string _pwdHash;
     /// Default LoginInfo constructor
     LoginInfo()                 = default;
     /// Default LoginInfo copy constructor
     LoginInfo(const LoginInfo&) = default;
     /// LoginInfo constructor with initializing list
-    explicit LoginInfo(const std::string& login, const std::string& passwordHash) : login(login), pwdHash(passwordHash) {}
+    explicit LoginInfo(const std::string& login_, const std::string& passwordHash_) : _login(login_), _pwdHash(passwordHash_) {}
     /// Default LoginInfo destructor
     ~LoginInfo() = default;
 };
@@ -115,7 +118,7 @@ struct LoginInfo
 template <typename Archive>
 void serialize(Archive& ar, Models::LoginInfo& o)
 {
-    ar& o.login& o.pwdHash;
+    ar& o._login& o._pwdHash;
 }
 
 /**
@@ -125,17 +128,17 @@ void serialize(Archive& ar, Models::LoginInfo& o)
 struct RegistrationInfo
 {
     /// email string variable
-    std::string email;
+    std::string _email;
     /// login string variable
-    std::string login;
+    std::string _login;
     /// passwordHash string variable
-    std::string passwordHash;
+    std::string _passwordHash;
     /// Default RegistrationInfo constructor
     RegistrationInfo() = default;
 
     /// RegistrationInfo constructor with initializing list
-    explicit RegistrationInfo(const std::string& email, const std::string& login, const std::string& passwordHash)
-        : email(email), login(login), passwordHash(passwordHash)
+    explicit RegistrationInfo(const std::string& email_, const std::string& login_, const std::string& passwordHash_)
+        : _email(email_), _login(login_), _passwordHash(passwordHash_)
     {
     }
 
@@ -148,10 +151,11 @@ struct RegistrationInfo
     RegistrationInfo& operator=(const RegistrationInfo& other) = default;
 
     /// Operator == to compare registration info
-    friend bool operator==(const RegistrationInfo& registrationInfo1, const RegistrationInfo& registrationInfo2)
+    friend bool operator==(const RegistrationInfo& first, const RegistrationInfo& second)
     {
-        return registrationInfo1.email == registrationInfo2.email && registrationInfo1.login == registrationInfo2.login &&
-               registrationInfo1.passwordHash == registrationInfo2.passwordHash;
+        return first._email        == second._email &&
+               first._login        == second._login &&
+               first._passwordHash == second._passwordHash;
     }
 };
 
@@ -159,7 +163,7 @@ struct RegistrationInfo
 template <typename Archive>
 void serialize(Archive& ar, Models::RegistrationInfo& o)
 {
-    ar& o.email& o.login& o.passwordHash;
+    ar& o._email& o._login& o._passwordHash;
 }
 
 /**
@@ -170,26 +174,26 @@ void serialize(Archive& ar, Models::RegistrationInfo& o)
 struct MessageInfo
 {
     /// channel ID uint64_t variable
-    std::uint64_t channelID;
+    std::uint64_t _channelID;
     /// message string variable
-    std::string message;
+    std::string _message;
     /// msg ID uint64_t variable
-    std::uint64_t msgID;
+    std::uint64_t _msgID;
     /// sender ID uint64_t variable
-    std::uint64_t senderID;
+    std::uint64_t _senderID;
     /// user Login string variable
-    std::string userLogin;
+    std::string _userLogin;
     /// recipient ID uint64_t variable
-    std::uint64_t recipientID;
+    std::uint64_t _recipientID;
     /// time in milliseconds since Epoch (1970-01-01 00:00:00 UTC)
-    UtilityTime::timestamp_t time = UtilityTime::millisecondsSinceEpoch();
+    UtilityTime::timestamp_t _time = UtilityTime::millisecondsSinceEpoch();
     /// reactions (reaction_id, reaction_count)
-    std::map<std::uint32_t, std::uint32_t> reactions = {};
+    std::map<std::uint32_t, std::uint32_t> _reactions = {};
 
     /// Default MessageIndo constructor
     MessageInfo() = default;
     /// MessageIndo constructor with initializing list
-    explicit MessageInfo(const uint64_t channelID, const std::string& text) : channelID(channelID), message(text) {}
+    explicit MessageInfo(const uint64_t channelID_, const std::string& message_) : _channelID(channelID_), _message(message_) {}
     /// Default MessageIndo copy constructor
     MessageInfo(const MessageInfo&) = default;
     /// Default MessageIndo destructor
@@ -198,14 +202,17 @@ struct MessageInfo
     /// Operator == to compare Message Info
     friend bool operator==(const MessageInfo& first, const MessageInfo& second)
     {
-        return first.message == second.message && first.channelID == second.channelID && first.time == second.time &&
-               first.msgID == second.msgID && first.userLogin == second.userLogin;
+        return first._message   == second._message   &&
+               first._channelID == second._channelID &&
+               first._time      == second._time      &&
+               first._msgID     == second._msgID     &&
+               first._userLogin == second._userLogin;
     }
 
     /// Operator < to compare MessageInfo
     friend bool operator<(const MessageInfo& lhs, const MessageInfo& rhs) 
     {
-        return lhs.time < rhs.time;
+        return lhs._time < rhs._time;
     }
 };
 
@@ -213,7 +220,7 @@ struct MessageInfo
 template <typename Archive>
 void serialize(Archive& ar, Models::MessageInfo& o)
 {
-    ar& o.channelID& o.senderID& o.msgID& o.message& o.reactions& o.time& o.userLogin;
+    ar& o._channelID& o._senderID& o._msgID& o._message& o._reactions& o._time& o._userLogin;
 }
 
 /**
@@ -224,22 +231,22 @@ void serialize(Archive& ar, Models::MessageInfo& o)
 struct ReplyInfo
 {
     /// channel ID uint64_t variable
-    std::uint64_t channelID;
+    std::uint64_t _channelID;
     /// message string variable
-    std::string message;
+    std::string _message;
     /// msg ID uint64_t variable
-    std::uint64_t msgID;
+    std::uint64_t _msgID;
     /// msg ID owner uint64_t variable
-    std::uint64_t msgIdOwner;
+    std::uint64_t _msgIdOwner;
     /// sender ID uint64_t variable
-    std::uint64_t senderID;
+    std::uint64_t _senderID;
     /// user Login string variable
-    std::string userLogin;
+    std::string _userLogin;
     /// Default ReplyInfo constructor
     ReplyInfo() = default;
 
     /// ReplyInfo constructor with initializing list
-    explicit ReplyInfo(const std::uint64_t& channelID, const std::string& text) : channelID(channelID), message(text) {}
+    explicit ReplyInfo(const std::uint64_t& channelID_, const std::string& message_) : _channelID(channelID_), _message(message_) {}
     /// Default Reply copy constructor
     ReplyInfo(const ReplyInfo&) = default;
     /// Default ReplyInfo destructor
@@ -248,12 +255,12 @@ struct ReplyInfo
     /// Operator == to compare Reply Info
     friend bool operator==(const ReplyInfo& first, const ReplyInfo& second)
     {
-        return first.message    == second.message    &&
-               first.msgID      == second.msgID      &&
-               first.senderID   == second.senderID   &&
-               first.msgIdOwner == second.msgIdOwner &&
-               first.channelID  == second.channelID  &&
-               first.userLogin  == second.userLogin;
+        return first._message    == second._message    &&
+               first._msgID      == second._msgID      &&
+               first._senderID   == second._senderID   &&
+               first._msgIdOwner == second._msgIdOwner &&
+               first._channelID  == second._channelID  &&
+               first._userLogin  == second._userLogin;
     }
 };
 
@@ -261,7 +268,7 @@ struct ReplyInfo
 template <typename Archive>
 void serialize(Archive& ar, Models::ReplyInfo& o)
 {
-    ar& o.channelID& o.message& o.msgID& o.senderID& o.msgIdOwner& o.userLogin;
+    ar& o._channelID& o._message& o._msgID& o._senderID& o._msgIdOwner& o._userLogin;
 }
 
 }  // namespace Models

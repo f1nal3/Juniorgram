@@ -33,11 +33,11 @@ void ChatPage::chosenChannelHandler()
     (
         ChannelListPage::channels.begin(),
         ChannelListPage::channels.end(),
-        [&channelName](const Models::ChannelInfo& channel) { return channel.channelName == channelName; }
+        [&channelName](const Models::ChannelInfo& channel) { return channel._channelName == channelName; }
     );
     Base::Logger::FileLogger::getInstance().log
     (
-        channel->channelName + " id: " + std::to_string(channel->channelID),
+        channel->_channelName + " id: " + std::to_string(channel->_channelID),
         Base::Logger::LogLevel::INFO
     );
 
@@ -53,8 +53,8 @@ void ChatPage::chosenChannelHandler()
     
     if (!chatExists)
     {
-        auto chatWidget = new ChatWidget(channel->channelName);
-        chatWidget->setChannelID(channel->channelID);
+        auto chatWidget = new ChatWidget(channel->_channelName);
+        chatWidget->setChannelID(channel->_channelID);
         _chatSwitchWidget->addWidget(chatWidget);
         connect(chatWidget, &ChatWidget::removeChannel, this, [this, chatWidget]()
         {
@@ -66,8 +66,8 @@ void ChatPage::chosenChannelHandler()
     else
     {
         auto chatWidget = dynamic_cast<ChatWidget*>(_chatSwitchWidget->widget(chatIndex));
-        chatWidget->setChannelID(channel->channelID);
-        chatWidget->setChannelName(channel->channelName);
+        chatWidget->setChannelID(channel->_channelID);
+        chatWidget->setChannelName(channel->_channelName);
     }
     _chatSwitchWidget->setCurrentIndex(chatIndex);
 }

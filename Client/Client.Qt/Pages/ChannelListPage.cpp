@@ -52,7 +52,7 @@ void ChannelListPage::updateChannelList()
     _channelList->clear();
     for (const auto& channel : channels)
     {
-        _channelList->addItem(QString::fromStdString(channel.channelName));
+        _channelList->addItem(QString::fromStdString(channel._channelName));
     }
     onResume();
 }
@@ -67,11 +67,11 @@ void ChannelListPage::addChannelToChannelListWidget()
             (
                 channels.begin(),
                 channels.end(),
-                [&channel](const Models::ChannelInfo& i) { return i.channelName == channel; }
+                [&channel](const Models::ChannelInfo& i) { return i._channelName == channel; }
             );
         if (oApp->connectionManager()->isConnected())
         {
-            oApp->connectionManager()->subscriptionChannel(channelInfo->channelID);
+            oApp->connectionManager()->subscriptionChannel(channelInfo->_channelID);
         }
         _widgetChannelList->addItem(_channelList->takeItem(_channelList->currentRow()));
     }
@@ -96,13 +96,13 @@ void ChannelListPage::addSubscribedChannelToMainChannelWidget(const std::vector<
             (
                 channels.begin(), 
                 channels.end(), 
-                [&channel](const Models::ChannelInfo& i) { return i.channelID == channel; }
+                [&channel](const Models::ChannelInfo& i) { return i._channelID == channel; }
             );
-        channelsSubscribeVector.push_back(findChannel->channelName);
+        channelsSubscribeVector.push_back(findChannel->_channelName);
         _channelList->setCurrentRow(row);
         while (_channelList->currentRow() != -1)
         {
-            if (_channelList->item(_channelList->currentRow())->text().toStdString() == findChannel->channelName)
+            if (_channelList->item(_channelList->currentRow())->text().toStdString() == findChannel->_channelName)
             {
                 _widgetChannelList->addItem(_channelList->takeItem((_channelList->currentRow())));
                 break;

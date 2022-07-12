@@ -18,9 +18,9 @@ std::vector<Models::ChannelInfo> FileRepository::getAllChannelsList()
     Models::ChannelInfo channelInfo;
     for (const auto& row : rows)
     {
-        channelInfo.creatorID = row.at("creator_id");
-        channelInfo.channelName = row.at("channel_name");
-        channelInfo.channelID   = row.at("id");
+        channelInfo._creatorID = row.at("creator_id");
+        channelInfo._channelName = row.at("channel_name");
+        channelInfo._channelID   = row.at("id");
         channels.emplace_back(channelInfo);
     }
 
@@ -36,13 +36,13 @@ std::vector<Models::MessageInfo> FileRepository::getMessageHistoryForUser(const 
     std::vector<Models::MessageInfo> messages;
 
     Models::MessageInfo mi;
-    mi.channelID = channelID;
+    mi._channelID = channelID;
     for (auto&& row : rows)
     {
-        mi.message   = row.at("msg");
-        mi.time      = row.at("send_time");
-        mi.senderID  = row.at("sender_id");
-        mi.userLogin  = row.at("username");
+        mi._message   = row.at("msg");
+        mi._time      = row.at("send_time");
+        mi._senderID  = row.at("sender_id");
+        mi._userLogin  = row.at("username");
         messages.emplace_back(mi);
     }
 

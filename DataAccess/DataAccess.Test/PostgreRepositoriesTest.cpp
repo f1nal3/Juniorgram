@@ -112,7 +112,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 		ChannelsRepository testChannelRepos(PostgreAdapter::Instance());
 		auto testChannelName{ "testChannel" };
 		///if we have no one channel in DB -> return 1 as ID of channel, else -> return lastID
-		auto testChannelID = testChannelRepos.getAllChannelsList().empty() ? 1 : (testChannelRepos.getAllChannelsList().back().channelID);
+		auto testChannelID = testChannelRepos.getAllChannelsList().empty() ? 1 : (testChannelRepos.getAllChannelsList().back()._channelID);
 
 		SECTION("Channels repos constructor")
 		{
@@ -166,7 +166,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 		SECTION("Subcribe to channel")
 		{
 			Models::ChannelSubscriptionInfo testSubsInfo(testChannelID);
-			testSubsInfo.userID = testUserID;
+			testSubsInfo._userID = testUserID;
 
 			SECTION("What if our user has already signed to channel")
 			{
@@ -183,11 +183,11 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 				Models::RegistrationInfo testRegNewInfo(testNewUserEmail, testNewUserLogin, testNewUserHash);
 				testRegNewUser.registerUser(testRegNewInfo);
-				testSubsInfo.userID = testTable->Select()->columns({ "id" })->Where("login ='" + std::string(testNewUserLogin) + "'")->execute().value()[0][0].as<uint16_t>();
+				testSubsInfo._userID = testTable->Select()->columns({ "id" })->Where("login ='" + std::string(testNewUserLogin) + "'")->execute().value()[0][0].as<uint16_t>();
 
 				REQUIRE(testChannelRepos.subscribeToChannel(testSubsInfo) == ChannelSubscribingCodes::SUCCESS);
 
-				Models::ChannelLeaveInfo testNewLeaveInfo(testSubsInfo.userID, testChannelID, testChannelName);
+				Models::ChannelLeaveInfo testNewLeaveInfo(testSubsInfo._userID, testChannelID, testChannelName);
 				REQUIRE(testChannelRepos.leaveChannel(testNewLeaveInfo) == ChannelLeaveCodes::SUCCESS);
 
 				auto testDeleteResult = testTable->Delete()->Where("login = '" + std::string(testNewUserLogin) + "'")->And("email = '" + std::string(testNewUserEmail) + "'")->execute();
@@ -206,7 +206,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 			auto testMessageText{ "Hello everyone!" };
 			Models::MessageInfo testMessage(testChannelID, testMessageText);
-			testMessage.senderID = testUserID;
+			testMessage._senderID = testUserID;
 
 			SECTION("We've stored message, let's check our message history")
 			{
@@ -236,7 +236,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 				{
 					testTable->changeTable("msgs");
 
-					testMessage.msgID = testTable->Select()
+					testMessage._msgID = testTable->Select()
 						->columns({ "*" })
 						->Where("sender_id = " + std::to_string(testUserID))
 						->And("msg ='" + std::string(testMessageText) + "'")
@@ -249,40 +249,40 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 				SECTION("Try to edit message which does not exist")
 				{
-					testMessage.senderID = 0;
+					testMessage._senderID = 0;
 					REQUIRE(testMessageRepos.editMessage(testMessage) == EditingMessageCodes::FAILED);
-					testMessage.senderID = testUserID;
+					testMessage._senderID = testUserID;
 				}
 
 				SECTION("Update message reactions")
 				{
 					SECTION("Fail to update message reactions")
 					{
-						testMessage.reactions.clear();
+						testMessage._reactions.clear();
 						REQUIRE(testMessageRepos.updateMessageReactions(testMessage) == ReactionMessageCodes::FAILED);
 					}
 
 					SECTION("Update reactions with invalid stickers")
 					{
 						REQUIRE(testMessageRepos.updateMessageReactions(testMessage) == ReactionMessageCodes::FAILED);
-						testMessage.reactions.clear();
+						testMessage._reactions.clear();
 					}
 
 					SECTION("Almost good sticker, but id does not exist")
 					{
-						testMessage.reactions.emplace(std::pair<uint32_t, uint32_t>(8, std::numeric_limits<std::uint32_t>::max()));
+						testMessage._reactions.emplace(std::pair<uint32_t, uint32_t>(8, std::numeric_limits<std::uint32_t>::max()));
 						REQUIRE(testMessageRepos.updateMessageReactions(testMessage) == ReactionMessageCodes::FAILED);
 					}
 
 					SECTION("Another sticker to our message")
 					{
-						testMessage.reactions.emplace(std::pair<uint32_t, uint32_t>(2, std::numeric_limits<std::uint32_t>::max()));
+						testMessage._reactions.emplace(std::pair<uint32_t, uint32_t>(2, std::numeric_limits<std::uint32_t>::max()));
 						REQUIRE(testMessageRepos.updateMessageReactions(testMessage) == ReactionMessageCodes::SUCCESS);
 					}
 
 					SECTION("Let's delete reaction from message")
 					{
-						testMessage.reactions.emplace(std::pair<uint32_t, uint32_t>(2, std::numeric_limits<std::uint32_t>::max()));
+						testMessage._reactions.emplace(std::pair<uint32_t, uint32_t>(2, std::numeric_limits<std::uint32_t>::max()));
 						REQUIRE(testMessageRepos.updateMessageReactions(testMessage) == ReactionMessageCodes::SUCCESS);
 					}
 				}
@@ -313,15 +313,15 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 						testTable->changeTable("msgs");
 
-						testReply.msgID = testTable->Select()
+						testReply._msgID = testTable->Select()
 							->columns({ "*" })
 							->Where("sender_id = " + std::to_string(testUserID))
 							->And("msg ='" + std::string(testMessageText) + "'")
 							->execute().value()[0][0].as<uint64_t>();
 
-						testReply.senderID = testUserID;
-						testReply.userLogin = testLogin;
-						testReply.msgIdOwner = testUserID;
+						testReply._senderID = testUserID;
+						testReply._userLogin = testLogin;
+						testReply._msgIdOwner = testUserID;
 
 						testTable->changeTable("users");
 
@@ -332,7 +332,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 
 						SECTION("Mostly good reply but channel does not exist")
 						{
-							testReply.channelID = 0;
+							testReply._channelID = 0;
 							REQUIRE(testReplyRepos.storeReply(testReply) == StoringReplyCodes::FAILED);
 						}
 
@@ -356,7 +356,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 				SECTION("Let's delete message which does not exist, but our function works perfectly")
 				{
 					Models::MessageInfo testDeleteBadMessage(testChannelID, testMessageText);
-					testDeleteBadMessage.msgID = 0;
+					testDeleteBadMessage._msgID = 0;
 
 					REQUIRE(testMessageRepos.deleteMessage(testDeleteBadMessage) == DeletingMessageCodes::SUCCESS);
 				}
@@ -413,10 +413,10 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 				testTable->changeTable("msgs");
 
 
-				testMessage.senderID = testUserID;
+				testMessage._senderID = testUserID;
 				testRepos.storeMessage(testMessage);
 
-				testMessage.msgID = testTable->Select()
+				testMessage._msgID = testTable->Select()
 					->columns({ "*" })
 					->Where("sender_id = " + std::to_string(testUserID))
 					->And("msg ='" + std::string("Hello") + "'")

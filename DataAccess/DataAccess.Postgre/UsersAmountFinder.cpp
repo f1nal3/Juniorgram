@@ -24,8 +24,8 @@ std::uint16_t UsersAmountFinder::findUsersAmountWithSameEmail(const std::string&
 
 std::uint16_t UsersAmountFinder::findUsersAmountWithAllSameData(const Models::RegistrationInfo& ri) const
 {
-    return findUsersAmountWithSameTableAttribute("email='" + ri.email + 
-                                                 "' and login='" + ri.login +
-                                                 "' and password_hash='" + ri.passwordHash + 
+    return findUsersAmountWithSameTableAttribute("email='" + ri._email + 
+                                                 "' and login='" + ri._login +
+                                                 "' and password_hash='" + ri._passwordHash + 
                                                  "'");
 }
