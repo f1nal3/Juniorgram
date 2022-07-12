@@ -77,7 +77,7 @@ public:
 
     /*
     * @brief Method used to say that's going to be a possible error
-*   * @param const std::string& -> incoming message, that should describe situation or progress
+    * @param const std::string& -> incoming message, that should describe situation or progress
     */
     void warning(const std::string& message);
 
