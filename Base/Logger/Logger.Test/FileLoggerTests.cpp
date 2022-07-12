@@ -122,7 +122,7 @@ TEST_CASE("Special methods for improved logging")
     auto& testLogger = FileLogger::getInstance();
 
     REQUIRE_NOTHROW(testLogger.debug("Test debug message\n"));
-    REQUIRE_NOTHROW(testLogger.error("Test error message\n"));;
+    REQUIRE_NOTHROW(testLogger.error("Test error message\n"));
     REQUIRE_NOTHROW(testLogger.info("Test info message\n"));
     REQUIRE_NOTHROW(testLogger.warning("Test warning message\n"));
 }
