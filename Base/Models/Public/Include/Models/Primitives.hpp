@@ -19,9 +19,9 @@ namespace Models
 struct ChannelInfo
 {
     /// creator ID uint64_t variable
-    std::uint64_t _creatorID;
+    std::uint64_t _creatorID{0};
     /// channel ID uint64_t variable
-    std::uint64_t _channelID;
+    std::uint64_t _channelID{0};
     /// channel name string variable
     std::string _channelName;
 
@@ -63,9 +63,9 @@ using ChannelLeaveInfo  = ChannelInfo;
 struct ChannelSubscriptionInfo
 {
     /// channel ID uint64_t variable
-    std::uint64_t _channelID;
+    std::uint64_t _channelID{0};
     /// user ID uint64_t variable
-    std::uint64_t _userID;
+    std::uint64_t _userID{0};
 
     /// Default ChannelInfo constructor
     ChannelSubscriptionInfo() = default;
@@ -174,17 +174,17 @@ void serialize(Archive& ar, Models::RegistrationInfo& o)
 struct MessageInfo
 {
     /// channel ID uint64_t variable
-    std::uint64_t _channelID;
+    std::uint64_t _channelID{0};
     /// message string variable
     std::string _message;
     /// msg ID uint64_t variable
-    std::uint64_t _msgID;
+    std::uint64_t _msgID{0};
     /// sender ID uint64_t variable
-    std::uint64_t _senderID;
+    std::uint64_t _senderID{0};
     /// user Login string variable
     std::string _userLogin;
     /// recipient ID uint64_t variable
-    std::uint64_t _recipientID;
+    std::uint64_t _recipientID{0};
     /// time in milliseconds since Epoch (1970-01-01 00:00:00 UTC)
     UtilityTime::timestamp_t _time = UtilityTime::millisecondsSinceEpoch();
     /// reactions (reaction_id, reaction_count)
@@ -231,15 +231,15 @@ void serialize(Archive& ar, Models::MessageInfo& o)
 struct ReplyInfo
 {
     /// channel ID uint64_t variable
-    std::uint64_t _channelID;
+    std::uint64_t _channelID{0};
     /// message string variable
     std::string _message;
     /// msg ID uint64_t variable
-    std::uint64_t _msgID;
+    std::uint64_t _msgID{0};
     /// msg ID owner uint64_t variable
-    std::uint64_t _msgIdOwner;
+    std::uint64_t _msgIdOwner{0};
     /// sender ID uint64_t variable
-    std::uint64_t _senderID;
+    std::uint64_t _senderID{0};
     /// user Login string variable
     std::string _userLogin;
     /// Default ReplyInfo constructor
