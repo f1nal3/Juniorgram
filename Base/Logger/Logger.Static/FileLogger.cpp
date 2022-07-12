@@ -72,7 +72,7 @@ void FileLogger::log(const std::string& msg, const LogLevel level)
                        + msg;
 
     std::unique_lock lock(_mutex);
-    _msgQueue.push(result);
+    _msgQueue.push_back(result);
     _inputWait.notify_one();
 }
 
@@ -131,9 +131,8 @@ void FileLogger::run()
         // Stop if needed
         if (_stop) break;
 
-        std::string msg = std::move(_msgQueue.front());
-        _msgQueue.pop();
-
+        std::string msg = _msgQueue.pop_front();
+        
         switch (_output)
         {
             case Base::Logger::LogOutput::CONSOLE:
