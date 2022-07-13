@@ -1,17 +1,43 @@
 set(TARGET Server.Test)
+
 set(OUTPUT_NAME Server.Test)
 
 set(SOURCE_FILES
-        ArgumentParserTests.cpp)
+        ArgumentParserTests.cpp
+        ServerConnectionTests.cpp
+		MockObjects/MockClient.hpp 
+        MockObjects/MockClient.cpp
+		MockObjects/MockPostgreRepository.hpp
+		MockObjects/MockPostgreRepository.cpp
+		TestUtility/TestUtility.hpp
+        )
+
+include_directories(MockObjects)
+include_directories(TestUtility)
 
 add_executable(${TARGET} ${SOURCE_FILES})
 
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
-target_link_libraries(${TARGET} PUBLIC 
+target_link_libraries(${TARGET}
+PUBLIC 
     Precompiled.Catch2.Main
     Network.Public 
-    Server.Core.Static)
+    Server.Core.Static
+    DataAccess.Debug
+    yas::yas
+    asio::asio
+	PostgreSQL::pq 
+    libpqxx::libpqxx    
+    Utility.Public
+    Base.Crypto.Static
+	)
+
+target_include_directories(${TARGET} PRIVATE
+	$<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
+
+target_include_directories(${TARGET} PUBLIC 
+	$<TARGET_PROPERTY:Client.Core,SOURCE_DIR>/..)
 
 target_compile_definitions(${TARGET} PRIVATE CATCH_CONFIG_FAST_COMPILE)
 target_precompile_headers(${TARGET} REUSE_FROM Precompiled.Catch2.Test)
