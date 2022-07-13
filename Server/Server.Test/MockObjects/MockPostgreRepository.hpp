@@ -1,6 +1,5 @@
 #pragma once 
 
-#include <FileLogger.hpp>
 #include <DataAccess.Postgre/PostgreTable.hpp>
 #include <DataAccess/IAdapter.hpp>
 #include <DataAccess.Postgre/UsersAmountFinder.hpp>
@@ -9,6 +8,7 @@
 #include <Network/Connection.hpp>
 #include <Network/Primitives.hpp>
 #include <Cryptography.hpp>
+#include <FileLogger.hpp>
 
 namespace MockRepository
 {

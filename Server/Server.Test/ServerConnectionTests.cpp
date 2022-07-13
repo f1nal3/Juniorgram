@@ -12,44 +12,26 @@ using Network::Message;
 using Client     = MockClient::MockClient;
 using testServer = Server::Server;
 using milliseconds = std::chrono::milliseconds;
+using TestUtility::testSendingMessages;
+using TestUtility::testServerUpdating;
 
 TEST_CASE("Workflow startup server")
 {
     uint16_t       testPort;
     testServer serverTest(testPort);
-    unsigned int            countOfUpdate = 0;
-    bool                    serverWork    = true;
 
     CHECK_NOTHROW(serverTest.start());
 
-    Client mockClient;
-
-    std::thread threadServer([&]() {
-        while (true)
-        {
-            ++countOfUpdate;
-            if (countOfUpdate > 2)
-            {
-                serverTest.stop();
-                break;
-            }
-            serverTest.update();
-        }
-
+    std::thread threadServer([&serverTest]() {
+        testServerUpdating(serverTest);
         REQUIRE_NOTHROW(serverTest.stop());
     });
 
-    std::thread threadMockClient([&]() {
-        std::this_thread::sleep_for(milliseconds(10000));
-        mockClient.connectToServer(ServerInfo::Address::local, testPort);
-        std::this_thread::sleep_for(milliseconds(5000));
+    Client mockClient;
 
-        Message message;
-        TestUtility::messageInstance(message, Message::MessageType::ServerMessage);
-        mockClient.send(message);
-        std::this_thread::sleep_for(milliseconds(5000));
-        mockClient.send(Message());
-        std::this_thread::sleep_for(milliseconds(5000));
+    std::thread threadMockClient([&]() {
+        mockClient.connectToServer(ServerInfo::Address::local, testPort);
+        CHECK_NOTHROW(testSendingMessages(mockClient, Message(), Message::MessageType::ServerMessage));
         mockClient.disconnectFromServer();
     });
 
@@ -74,38 +56,16 @@ TEST_CASE("Check server ping")
     uint16_t       testPort;
     testServer serverTest(testPort); 
 
-    Client mockClient;
-    unsigned int  countOfUpdate = 0;
-    bool             serverWork = true;
-
-   std::thread threadServer([&serverTest, &serverWork, &countOfUpdate]() {
+   std::thread threadServer([&serverTest]() {
         serverTest.start();
-
-        while (serverWork)
-        {
-            ++countOfUpdate;
-            if (countOfUpdate > 2)
-            {
-                serverWork = false;
-                serverTest.stop();
-                break;
-            }
-            std::this_thread::sleep_for(milliseconds(1000));
-            serverTest.update();
-        }
+        testServerUpdating(serverTest);
    });
 
-   std::thread threadMockClient([&mockClient, &testPort]() {
-       std::this_thread::sleep_for(milliseconds(10000));
-       mockClient.connectToServer(ServerInfo::Address::local, testPort);
-       std::this_thread::sleep_for(milliseconds(5000));
+   Client mockClient;
 
-       Message message;
-       TestUtility::messageInstance(message, Message::MessageType::ServerPing);
-       CHECK_NOTHROW(mockClient.send(message));
-       std::this_thread::sleep_for(milliseconds(5000));
-       REQUIRE_NOTHROW(mockClient.send(Message()));
-       std::this_thread::sleep_for(milliseconds(5000));
+   std::thread threadMockClient([&mockClient, &testPort]() {
+       mockClient.connectToServer(ServerInfo::Address::local, testPort);
+       CHECK_NOTHROW(testSendingMessages(mockClient, Message(),Message::MessageType::ServerPing));
        mockClient.disconnectFromServer();
    });
 
@@ -118,39 +78,16 @@ TEST_CASE("Check registration request of server")
     uint16_t   testPort;
     testServer serverTest(testPort);
 
-    unsigned int        countOfUpdate = 0;
-    bool                serverWork    = true;
-
-    Client mockClient;
-
-    std::thread threadServer([&serverTest,&serverWork,&countOfUpdate]() {
+    std::thread threadServer([&serverTest]() {
         serverTest.start();
-
-        while (true)
-        {
-            ++countOfUpdate;
-            if (countOfUpdate > 2)
-            {
-                serverWork = false;
-                serverTest.stop();
-                break;
-            }
-            std::this_thread::sleep_for(milliseconds(1000));
-            serverTest.update();
-        }
+        testServerUpdating(serverTest);
     });
 
-    std::thread threadMockClient([&mockClient,&testPort]() {
-        std::this_thread::sleep_for(milliseconds(10000));
-        mockClient.connectToServer(ServerInfo::Address::local, testPort);
-        std::this_thread::sleep_for(milliseconds(5000));
+     Client mockClient;
 
-        Message message;
-        TestUtility::messageInstance(message, Message::MessageType::RegistrationRequest);
-        CHECK_NOTHROW(mockClient.send(message));
-        std::this_thread::sleep_for(milliseconds(5000));
-        REQUIRE_NOTHROW(mockClient.send(Message()));
-        std::this_thread::sleep_for(milliseconds(5000));
+    std::thread threadMockClient([&mockClient,&testPort]() {
+        mockClient.connectToServer(ServerInfo::Address::local, testPort);
+        CHECK_NOTHROW(testSendingMessages(mockClient, Message(), Message::MessageType::RegistrationRequest));
         mockClient.disconnectFromServer();
     });
 
@@ -162,39 +99,17 @@ TEST_CASE("Check login request of server")
 {
     uint16_t   testPort;
     testServer serverTest(testPort);
-    unsigned int        countOfUpdate = 0;
-    bool                serverWork    = true;
 
-    Client mockClient;
-
-    std::thread threadServer([&serverTest, &serverWork, &countOfUpdate]() {
+    std::thread threadServer([&serverTest]() {
         serverTest.start();
-
-        while (true)
-        {
-            ++countOfUpdate;
-            if (countOfUpdate > 2)
-            {
-                serverWork = false;
-                serverTest.stop();
-                break;
-            }
-            std::this_thread::sleep_for(milliseconds(1000));
-            serverTest.update();
-        }
+        testServerUpdating(serverTest);
     });
-
+    
+    Client mockClient;
+    
     std::thread threadMockClient([&mockClient, &testPort]() {
-        std::this_thread::sleep_for(milliseconds(10000));
         mockClient.connectToServer(ServerInfo::Address::local, testPort);
-        std::this_thread::sleep_for(milliseconds(5000));
-
-        Message message;
-        TestUtility::messageInstance(message, Message::MessageType::LoginRequest);
-        CHECK_NOTHROW(mockClient.send(message));
-        std::this_thread::sleep_for(milliseconds(5000));
-        REQUIRE_NOTHROW(mockClient.send(Message()));
-        std::this_thread::sleep_for(milliseconds(5000));
+        CHECK_NOTHROW(testSendingMessages(mockClient, Message(), Message::MessageType::LoginRequest));
         mockClient.disconnectFromServer();
     });
 
@@ -250,39 +165,17 @@ TEST_CASE("Check message history request of server")
 {
     uint16_t   testPort;
     testServer serverTest(testPort);
-    unsigned int        countOfUpdate = 0;
-    bool                serverWork    = true;
 
+    std::thread threadServer([&serverTest]() {
+        serverTest.start();
+        testServerUpdating(serverTest);
+    });
+    
     Client mockClient;
 
-    std::thread threadServer([&serverTest, &serverWork, &countOfUpdate]() {
-        serverTest.start();
-
-        while (true)
-        {
-            ++countOfUpdate;
-            if (countOfUpdate > 2)
-            {
-                serverWork = false;
-                serverTest.stop();
-                break;
-            }
-            std::this_thread::sleep_for(milliseconds(1000));
-            serverTest.update();
-        }
-    });
-
     std::thread threadMockClient([&mockClient, &testPort]() {
-        std::this_thread::sleep_for(milliseconds(10000));
         mockClient.connectToServer(ServerInfo::Address::local, testPort);
-        std::this_thread::sleep_for(milliseconds(5000));
-
-        Message message;
-        TestUtility::messageInstance(message, Message::MessageType::MessageHistoryRequest);
-        CHECK_NOTHROW(mockClient.send(message));
-        std::this_thread::sleep_for(milliseconds(5000));
-        REQUIRE_NOTHROW(mockClient.send(Message()));
-        std::this_thread::sleep_for(milliseconds(5000));
+        CHECK_NOTHROW(testSendingMessages(mockClient, Message(), Message::MessageType::MessageHistoryRequest));
         mockClient.disconnectFromServer();
     });
 
@@ -338,39 +231,17 @@ TEST_CASE("Check all messages from server side")
 {
     uint16_t   testPort;
     testServer serverTest(testPort);
-    unsigned int        countOfUpdate = 0;
-    bool                serverWork    = true;
 
-    Client mockClient;
-
-    std::thread threadServer([&serverTest, &serverWork, &countOfUpdate]() {
+    std::thread threadServer([&serverTest]() {
         serverTest.start();
-
-        while (true)
-        {
-            ++countOfUpdate;
-            if (countOfUpdate > 2)
-            {
-                serverWork = false;
-                serverTest.stop();
-                break;
-            }
-            std::this_thread::sleep_for(milliseconds(1000));
-            serverTest.update();
-        }
+        testServerUpdating(serverTest);
     });
 
+    Client mockClient;
+    
     std::thread threadMockClient([&mockClient, &testPort]() {
-        std::this_thread::sleep_for(milliseconds(10000));
         mockClient.connectToServer(ServerInfo::Address::local, testPort);
-        std::this_thread::sleep_for(milliseconds(5000));
-
-        Message message;
-        TestUtility::messageInstance(message, Message::MessageType::MessageAll);
-        CHECK_NOTHROW(mockClient.send(message));
-        std::this_thread::sleep_for(milliseconds(5000));
-        REQUIRE_NOTHROW(mockClient.send(Message()));
-        std::this_thread::sleep_for(milliseconds(5000));
+        CHECK_NOTHROW(testSendingMessages(mockClient, Message(), Message::MessageType::MessageAll));
         mockClient.disconnectFromServer();
     });
 
@@ -382,39 +253,17 @@ TEST_CASE("Check message store request from server side")
 {
     uint16_t   testPort;
     testServer serverTest(testPort);
-    unsigned int        countOfUpdate = 0;
-    bool                serverWork    = true;
 
-    Client mockClient;
-
-    std::thread threadServer([&serverTest, &serverWork, &countOfUpdate]() {
+    std::thread threadServer([&serverTest]() {
         serverTest.start();
-
-        while (true)
-        {
-            ++countOfUpdate;
-            if (countOfUpdate > 2)
-            {
-                serverWork = false;
-                serverTest.stop();
-                break;
-            }
-            std::this_thread::sleep_for(milliseconds(1000));
-            serverTest.update();
-        }
+        testServerUpdating(serverTest);
     });
 
+    Client mockClient;
+   
     std::thread threadMockClient([&mockClient, &testPort]() {
-        std::this_thread::sleep_for(milliseconds(10000));
         mockClient.connectToServer(ServerInfo::Address::local, testPort);
-        std::this_thread::sleep_for(milliseconds(5000));
-
-        Message message;
-        TestUtility::messageInstance(message, Message::MessageType::MessageStoreRequest);
-        CHECK_NOTHROW(mockClient.send(message));
-        std::this_thread::sleep_for(milliseconds(5000));
-        REQUIRE_NOTHROW(mockClient.send(Message()));
-        std::this_thread::sleep_for(milliseconds(5000));
+        CHECK_NOTHROW(testSendingMessages(mockClient, Message(), Message::MessageType::MessageStoreRequest));
         mockClient.disconnectFromServer();
     });
 
@@ -426,39 +275,17 @@ TEST_CASE("Check message reaction request from server side")
 {
     uint16_t   testPort;
     testServer serverTest(testPort);
-    unsigned int        countOfUpdate = 0;
-    bool                serverWork    = true;
 
-    Client mockClient;
-
-    std::thread threadServer([&serverTest, &serverWork, &countOfUpdate]() {
+    std::thread threadServer([&serverTest]() {
         serverTest.start();
-
-        while (true)
-        {
-            ++countOfUpdate;
-            if (countOfUpdate > 2)
-            {
-                serverWork = false;
-                serverTest.stop();
-                break;
-            }
-            std::this_thread::sleep_for(milliseconds(1000));
-            serverTest.update();
-        }
+        testServerUpdating(serverTest);
     });
 
+    Client mockClient;
+   
     std::thread threadMockClient([&mockClient, &testPort]() {
-        std::this_thread::sleep_for(milliseconds(10000));
         mockClient.connectToServer(ServerInfo::Address::local, testPort);
-        std::this_thread::sleep_for(milliseconds(5000));
-
-        Message message;
-        TestUtility::messageInstance(message, Message::MessageType::MessageReactionRequest);
-        CHECK_NOTHROW(mockClient.send(message));
-        std::this_thread::sleep_for(milliseconds(5000));
-        REQUIRE_NOTHROW(mockClient.send(Message()));
-        std::this_thread::sleep_for(milliseconds(5000));
+        CHECK_NOTHROW(testSendingMessages(mockClient, Message(), Message::MessageType::MessageReactionRequest));
         mockClient.disconnectFromServer();
     });
 
@@ -513,39 +340,17 @@ TEST_CASE("Check message delete request from server side")
 {
     uint16_t   testPort;
     testServer serverTest(testPort);
-    unsigned int        countOfUpdate = 0;
-    bool                serverWork    = true;
+
+    std::thread threadServer([&serverTest]() {
+        serverTest.start();
+        testServerUpdating(serverTest);
+    });
 
     Client mockClient;
 
-    std::thread threadServer([&serverTest, &serverWork, &countOfUpdate]() {
-        serverTest.start();
-
-        while (true)
-        {
-            ++countOfUpdate;
-            if (countOfUpdate > 2)
-            {
-                serverWork = false;
-                serverTest.stop();
-                break;
-            }
-            std::this_thread::sleep_for(milliseconds(1000));
-            serverTest.update();
-        }
-    });
-
     std::thread threadMockClient([&mockClient, &testPort]() {
-        std::this_thread::sleep_for(milliseconds(10000));
         mockClient.connectToServer(ServerInfo::Address::local, testPort);
-        std::this_thread::sleep_for(milliseconds(5000));
-
-        Message message;
-        TestUtility::messageInstance(message, Message::MessageType::MessageDeleteRequest);
-        CHECK_NOTHROW(mockClient.send(message));
-        std::this_thread::sleep_for(milliseconds(5000));
-        REQUIRE_NOTHROW(mockClient.send(Message()));
-        std::this_thread::sleep_for(milliseconds(5000));
+        CHECK_NOTHROW(testSendingMessages(mockClient, Message(), Message::MessageType::MessageDeleteRequest));
         mockClient.disconnectFromServer();
     });
 
@@ -600,39 +405,17 @@ TEST_CASE("Check channel subscribe request from server side")
 {
     uint16_t   testPort;
     testServer serverTest(testPort);
-    unsigned int        countOfUpdate = 0;
-    bool                serverWork    = true;
+
+    std::thread threadServer([&serverTest]() {
+        serverTest.start();
+        testServerUpdating(serverTest);
+    });
 
     Client mockClient;
 
-    std::thread threadServer([&serverTest, &serverWork, &countOfUpdate]() {
-        serverTest.start();
-
-        while (true)
-        {
-            ++countOfUpdate;
-            if (countOfUpdate > 2)
-            {
-                serverWork = false;
-                serverTest.stop();
-                break;
-            }
-            std::this_thread::sleep_for(milliseconds(1000));
-            serverTest.update();
-        }
-    });
-
-    std::thread threadMockClient([&mockClient,&testPort]() {
-        std::this_thread::sleep_for(milliseconds(10000));
+    std::thread threadMockClient([&mockClient, &testPort]() {
         mockClient.connectToServer(ServerInfo::Address::local, testPort);
-        std::this_thread::sleep_for(milliseconds(5000));
-
-        Message message;
-        TestUtility::messageInstance(message, Message::MessageType::ChannelSubscribeRequest);
-        CHECK_NOTHROW(mockClient.send(message));
-        std::this_thread::sleep_for(milliseconds(5000));
-        REQUIRE_NOTHROW(mockClient.send(Message()));
-        std::this_thread::sleep_for(milliseconds(5000));
+        CHECK_NOTHROW(testSendingMessages(mockClient, Message(), Message::MessageType::ChannelSubscribeRequest));
         mockClient.disconnectFromServer();
     });
 
@@ -644,39 +427,17 @@ TEST_CASE("Check channel leave request from server side")
 {
     uint16_t   testPort;
     testServer serverTest(testPort);
-    unsigned int        countOfUpdate = 0;
-    bool                serverWork    = true;
+
+    std::thread threadServer([&serverTest]() {
+        serverTest.start();
+        testServerUpdating(serverTest);
+    });
 
     Client mockClient;
 
-    std::thread threadServer([&serverTest, &serverWork, &countOfUpdate]() {
-        serverTest.start();
-
-        while (true)
-        {
-            ++countOfUpdate;
-            if (countOfUpdate > 2)
-            {
-                serverWork = false;
-                serverTest.stop();
-                break;
-            }
-            std::this_thread::sleep_for(milliseconds(1000));
-            serverTest.update();
-        }
-    });
-
-    std::thread threadMockClient([&mockClient,&testPort]() {
-        std::this_thread::sleep_for(milliseconds(10000));
+    std::thread threadMockClient([&mockClient, &testPort]() {
         mockClient.connectToServer(ServerInfo::Address::local, testPort);
-        std::this_thread::sleep_for(milliseconds(5000));
-
-        Message message;
-        TestUtility::messageInstance(message, Message::MessageType::ChannelLeaveRequest);
-        CHECK_NOTHROW(mockClient.send(message));
-        std::this_thread::sleep_for(milliseconds(5000));
-        REQUIRE_NOTHROW(mockClient.send(Message()));
-        std::this_thread::sleep_for(milliseconds(5000));
+        CHECK_NOTHROW(testSendingMessages(mockClient, Message(), Message::MessageType::ChannelLeaveRequest));
         mockClient.disconnectFromServer();
     });
 
@@ -688,39 +449,17 @@ TEST_CASE("Check channel delete request from server side")
 {
     uint16_t   testPort;
     testServer serverTest(testPort);
-    unsigned int        countOfUpdate = 0;
-    bool                serverWork    = true;
+
+    std::thread threadServer([&serverTest]() {
+        serverTest.start();
+        testServerUpdating(serverTest);
+    });
 
     Client mockClient;
 
-    std::thread threadServer([&serverTest, &serverWork, &countOfUpdate]() {
-        serverTest.start();
-
-        while (true)
-        {
-            ++countOfUpdate;
-            if (countOfUpdate > 2)
-            {
-                serverWork = false;
-                serverTest.stop();
-                break;
-            }
-            std::this_thread::sleep_for(milliseconds(1000));
-            serverTest.update();
-        }
-    });
-
-    std::thread threadMockClient([&mockClient,&testPort]() {
-        std::this_thread::sleep_for(milliseconds(10000));
+    std::thread threadMockClient([&mockClient, &testPort]() {
         mockClient.connectToServer(ServerInfo::Address::local, testPort);
-        std::this_thread::sleep_for(milliseconds(5000));
-
-        Message message;
-        TestUtility::messageInstance(message, Message::MessageType::ChannelDeleteRequest);
-        CHECK_NOTHROW(mockClient.send(message));
-        std::this_thread::sleep_for(milliseconds(5000));
-        REQUIRE_NOTHROW(mockClient.send(Message()));
-        std::this_thread::sleep_for(milliseconds(5000));
+        CHECK_NOTHROW(testSendingMessages(mockClient, Message(), Message::MessageType::ChannelDeleteRequest));
         mockClient.disconnectFromServer();
     });
 
@@ -732,37 +471,17 @@ TEST_CASE("Check default request of server side")
 {
     uint16_t   testPort;
     testServer serverTest(testPort);
-    unsigned int        countOfUpdate = 0;
-    bool                serverWork    = true;
+
+    std::thread threadServer([&serverTest]() {
+        serverTest.start();
+        testServerUpdating(serverTest);
+    });
 
     Client mockClient;
 
-    std::thread threadServer([&serverTest, &serverWork, &countOfUpdate]() {
-        serverTest.start();
-
-        while (true)
-        {
-            serverWork = false;
-            ++countOfUpdate;
-            if (countOfUpdate > 2)
-            {
-                serverTest.stop();
-                break;
-            }
-            std::this_thread::sleep_for(milliseconds(1000));
-            serverTest.update();
-        }
-    });
-
-    std::thread threadMockClient([&mockClient,&testPort]() {
-        std::this_thread::sleep_for(milliseconds(10000));
+    std::thread threadMockClient([&mockClient, &testPort]() {
         mockClient.connectToServer(ServerInfo::Address::local, testPort);
-        std::this_thread::sleep_for(milliseconds(5000));
-
-        CHECK_NOTHROW(mockClient.send(Message()));
-        std::this_thread::sleep_for(milliseconds(5000));
-        REQUIRE_NOTHROW(mockClient.send(Message()));
-        std::this_thread::sleep_for(milliseconds(5000));
+        CHECK_NOTHROW(testSendingMessages(mockClient, Message(), Message::MessageType(666)));
         mockClient.disconnectFromServer();
     });
 

@@ -14,9 +14,14 @@ using Connection       = Network::Connection;
 using MessageInfo      = Network::MessageInfo;
 using RegistrationInfo = Network::RegistrationInfo;
 using RTC              = std::chrono::system_clock;
+using milliseconds     = std::chrono::milliseconds;
+using Client           = MockClient::MockClient;
+using testServer       = Server::Server;
+using MessageType      = Message::MessageType;
+
 using Network::SafeQueue;
 
-Message& messageInstance(Message& message,const Message::MessageType& messageType)
+Message& messageInstance(Message& message,const MessageType& messageType)
 {
     const std::string testEmail    = "demonstakingoverme@epam.co";
     const std::string testLogin    = "memorisecodead";
@@ -185,5 +190,40 @@ Message& messageInstance(Message& message,const Message::MessageType& messageTyp
         }
     }
     return message;
+}
+
+Client& testSendingMessages(Client& mockClient, Message message, const MessageType mesgType)
+{
+    std::this_thread::sleep_for(milliseconds(5000));
+    messageInstance(message, mesgType);
+
+    mockClient.send(message);
+    std::this_thread::sleep_for(milliseconds(5000));
+
+    mockClient.send(Message());
+    std::this_thread::sleep_for(milliseconds(5000));
+
+    return mockClient;
+}
+
+testServer& testServerUpdating(testServer& serverTest)
+{
+    unsigned int countOfUpdate = 0;
+    bool         serverWork    = true;
+
+    while (serverWork)
+    {
+        ++countOfUpdate;
+        if (countOfUpdate > 2)
+        {
+            serverWork = false;
+            serverTest.stop();
+            break;
+        }
+        std::this_thread::sleep_for(milliseconds(1000));
+        serverTest.update();
+    }
+
+    return serverTest;
 }
 }  // namespace TestUtility
