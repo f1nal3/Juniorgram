@@ -3,6 +3,8 @@
 #include "Server.hpp"
 #include "DataAccess.Postgre/PostgreRepositoryManager.hpp"
 
+//For sonar view
+
 namespace Server
 {
 using namespace DataAccess;
