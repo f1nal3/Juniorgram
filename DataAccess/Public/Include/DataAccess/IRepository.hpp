@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-#include <Network/Primitives.hpp>
+#include <Models/Primitives.hpp>
 #include <Utility/Utility.hpp>
 
 namespace DataAccess
@@ -18,7 +18,7 @@ public:
      * @brief Draft method for getting all channel list from the server.
      * @return channels list as vector of ChannelInfo.
      */
-    virtual std::vector<Network::ChannelInfo> getAllChannelsList() = 0;
+    virtual std::vector<Models::ChannelInfo> getAllChannelsList() = 0;
 
     /**
      * @brief Draft method for getting history for a specific user. \
@@ -26,12 +26,12 @@ public:
      * @param channelID - channel's id from which we want to get message history.
      * @return List of messages as vector of MessageInfo.
      */
-    virtual std::vector<Network::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
+    virtual std::vector<Models::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
 
 	  /**
 	   * @brief Draft method for getting history for a specific user.
 	   */
-	virtual std::vector<Network::ReplyInfo>   getReplyHistoryForUser(const std::uint64_t channelID) = 0;
+    virtual std::vector<Models::ReplyInfo> getReplyHistoryForUser(const std::uint64_t channelID) = 0;
     
     /**  @brief Method for storing message.
      *   @param Network::MessageInfo which contains message's data for storing in repository.
@@ -39,21 +39,21 @@ public:
      *   Storing successful - StoringMessageCodes::SUCCESS. /
      *   Storing failed     - StoringMessageCodes::FAILED.
      */
-    virtual Utility::StoringMessageCodes storeMessage(const Network::MessageInfo& msi) = 0;
+    virtual Utility::StoringMessageCodes storeMessage(const Models::MessageInfo& msi) = 0;
   
     /**
      * @brief storeReply
      * @param rsi
      * @return
      */
-    virtual Utility::StoringReplyCodes storeReply(const Network::ReplyInfo& rsi) = 0;
+    virtual Utility::StoringReplyCodes storeReply(const Models::ReplyInfo& rsi) = 0;
     
     /**
      * @brief deleteMessage
      * @param mi
      * @return
      */
-    virtual Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo& mi) = 0;
+    virtual Utility::DeletingMessageCodes deleteMessage(const Models::MessageInfo& mi) = 0;
 
     /**
      * @brief method for editing message
@@ -62,7 +62,7 @@ public:
      * Storing successful - StoringMessageCodes::SUCCESS. /
      * Storing failed     - StoringMessageCodes::FAILED.
      */
-    virtual Utility::EditingMessageCodes editMessage(const Network::MessageInfo& mi) = 0;
+    virtual Utility::EditingMessageCodes editMessage(const Models::MessageInfo& mi) = 0;
     
     /**  @brief Method for updating message reactions
      *   @param Network::MessageInfo which contains message's reaction map(id, count) with changed reaction count set to uint32_t max
@@ -70,7 +70,7 @@ public:
      *   Update successful - ReactionMessageCodes::SUCCESS. /
      *   Update failed     - ReactionMessageCodes::FAILED.
      */
-    virtual Utility::ReactionMessageCodes updateMessageReactions(const Network::MessageInfo& mi) = 0;
+    virtual Utility::ReactionMessageCodes updateMessageReactions(const Models::MessageInfo& mi) = 0;
 
     /**  @brief Method for user registration.
      *   @param RegistrationMessage which contains user data for registration.
@@ -81,7 +81,7 @@ public:
      *   The user already exists - RegistrationCodes::EMAIL_ALREADY_EXISTS OR /
      *   RegistrationCodes::LOGIN_ALREADY_EXISTS.
      */
-    virtual Utility::RegistrationCodes registerUser(const Network::RegistrationInfo& ri) const = 0;
+    virtual Utility::RegistrationCodes registerUser(const Models::RegistrationInfo& ri) const = 0;
     /**
      * @brief attempts to login a user with the provided login by checking privided hash with the one stored.
      * @param login user login as string

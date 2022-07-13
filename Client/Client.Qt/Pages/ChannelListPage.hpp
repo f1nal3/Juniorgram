@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Network/Primitives.hpp>
+#include <Models/Primitives.hpp>
 #include <QVBoxLayout>
 #include <QWidget>
 #include <QShortcut>
@@ -26,14 +26,14 @@ public slots:
 
 public:
     /// T\todo rework channel list in main window to make this private
-    inline static std::vector<Network::ChannelInfo> channels;
+    inline static std::vector<Models::ChannelInfo> channels;
 
 private:
     void updateLayout();
 
 private slots:
     /// set channels
-    void setChannels(const std::vector<Network::ChannelInfo>& channels_);
+    void setChannels(const std::vector<Models::ChannelInfo>& channels_);
     /// Adds selected channel to main window
     void addChannelToChannelListWidget();
     /// Adds subscribed channel to main window

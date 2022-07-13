@@ -3,7 +3,7 @@
 #include <QObject>
 
 #include "Client.hpp"
-#include "Network/Primitives.hpp"
+#include <Models/Primitives.hpp>
 #include "ServerInfo.hpp"
 
 /// Login status
@@ -40,9 +40,9 @@ signals:
     /// Server Message handler
     void onServerMessage(const uint64_t clientId);
     /// Channel List Request handler
-    void onChannelListRequest(const std::vector<Network::ChannelInfo>& channels);
+    void onChannelListRequest(const std::vector<Models::ChannelInfo>& channels);
     /// Message History Answer handler
-    void onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages);
+    void onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages);
     /// Message Store Answer handler
     void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode);
     /// Registration Answer handler
@@ -50,7 +50,7 @@ signals:
     /// User Message Delete Answer handler
     void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingCode);
     /// Reply History Answer handler
-    void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies);
+    void onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& replies);
     /// Reply Store Answer handler
     void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
     /// Channel leave Answer handler
@@ -103,9 +103,9 @@ protected:
     /// Server Message handler
     void onServerMessage(const uint64_t clientId) override;
     /// Channel List Request handler
-    void onChannelListRequest(const std::vector<Network::ChannelInfo>& channels) override;
+    void onChannelListRequest(const std::vector<Models::ChannelInfo>& channels) override;
     /// Message History Answer handler
-    void onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages) override;
+    void onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages) override;
     /// Message Store Answer handler
     void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode) override;
     /// Registration Answer handler
@@ -113,7 +113,7 @@ protected:
     /// User Message Delete Answer handler
     void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) override;
     /// Reply History Answer handler
-    void onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies) override;
+    void onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& replies) override;
     /// Reply Store Answer handler
     void onReplyStoreAnswer(const Utility::StoringReplyCodes storingReplyCode) override;
     /// Channel leave Answer handler
