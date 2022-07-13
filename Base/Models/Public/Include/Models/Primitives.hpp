@@ -19,9 +19,9 @@ namespace Models
 struct ChannelInfo
 {
     /// creator ID uint64_t variable
-    std::uint64_t _creatorID{0};
+    std::uint64_t _creatorID;
     /// channel ID uint64_t variable
-    std::uint64_t _channelID{0};
+    std::uint64_t _channelID;
     /// channel name string variable
     std::string _channelName;
 
@@ -63,9 +63,9 @@ using ChannelLeaveInfo  = ChannelInfo;
 struct ChannelSubscriptionInfo
 {
     /// channel ID uint64_t variable
-    std::uint64_t _channelID{0};
+    std::uint64_t _channelID;
     /// user ID uint64_t variable
-    std::uint64_t _userID{0};
+    std::uint64_t _userID;
 
     /// Default ChannelInfo constructor
     ChannelSubscriptionInfo() = default;
@@ -174,13 +174,13 @@ void serialize(Archive& ar, Models::RegistrationInfo& o)
 struct MessageInfo
 {
     /// channel ID uint64_t variable
-    std::uint64_t _channelID{0};
+    std::uint64_t _channelID;
     /// message string variable
     std::string _message;
     /// msg ID uint64_t variable
     std::uint64_t _msgID{0};
     /// sender ID uint64_t variable
-    std::uint64_t _senderID{0};
+    std::uint64_t _senderID;
     /// user Login string variable
     std::string _userLogin;
     /// recipient ID uint64_t variable
@@ -231,7 +231,7 @@ void serialize(Archive& ar, Models::MessageInfo& o)
 struct ReplyInfo
 {
     /// channel ID uint64_t variable
-    std::uint64_t _channelID{0};
+    std::uint64_t _channelID;
     /// message string variable
     std::string _message;
     /// msg ID uint64_t variable
