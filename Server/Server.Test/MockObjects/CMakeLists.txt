@@ -26,6 +26,7 @@ PUBLIC
 	PostgreSQL::pq 
     libpqxx::libpqxx    
     Utility.Public
+	Models.Public
 	Base.Crypto.Static
     )
 
@@ -34,6 +35,5 @@ target_include_directories(${TARGET} PRIVATE
 
 target_include_directories(${TARGET} PUBLIC 
 	$<TARGET_PROPERTY:Client.Core,SOURCE_DIR>/..)
-
 
 set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)

@@ -2,17 +2,17 @@
 
 #include <Utility/UtilityTime.hpp>
 #include <Network/Connection.hpp>
-#include <Network/Primitives.hpp>
+#include <Models/Primitives.hpp>
 #include <Cryptography.hpp>
 
 namespace TestUtility
 {
 using Message          = Network::Message;
-using LoginInfo        = Network::LoginInfo;
-using ReplyInfo        = Network::ReplyInfo;
+using LoginInfo        = Models::LoginInfo;
+using ReplyInfo        = Models::ReplyInfo;
 using Connection       = Network::Connection;
-using MessageInfo      = Network::MessageInfo;
-using RegistrationInfo = Network::RegistrationInfo;
+using MessageInfo      = Models::MessageInfo;
+using RegistrationInfo = Models::RegistrationInfo;
 using RTC              = std::chrono::system_clock;
 using milliseconds     = std::chrono::milliseconds;
 using Client           = MockClient::MockClient;
@@ -67,18 +67,18 @@ Message& messageInstance(Message& message,const MessageType& messageType)
 
         case Message::MessageType::ChannelSubscriptionListRequest:
         {
-            message.mBody = std::make_any<Network::ChannelSubscriptionInfo>(testChannelID);
+            message.mBody = std::make_any<Models::ChannelSubscriptionInfo>(testChannelID);
 
             break;
         }
 
         case Message::MessageType::ChannelSubscribeRequest:
         {
-            Network::ChannelSubscriptionInfo info;
-            info.channelID = testChannelID;
-            info.userID    = testUserID;
+            Models::ChannelSubscriptionInfo info;
+            info._channelID = testChannelID;
+            info._userID    = testUserID;
 
-            message.mBody = std::any_cast<Network::ChannelSubscriptionInfo>(info);
+            message.mBody = std::any_cast<Models::ChannelSubscriptionInfo>(info);
 
             break;
         }
@@ -103,9 +103,9 @@ Message& messageInstance(Message& message,const MessageType& messageType)
         case Message::MessageType::ReplyStoreRequest:
         {
             ReplyInfo replyInfo;
-            replyInfo.channelID = testChannelID;
-            replyInfo.message   = testMessage;
-            replyInfo.msgID     = testMsgID;
+            replyInfo._channelID = testChannelID;
+            replyInfo._message   = testMessage;
+            replyInfo._msgID     = testMsgID;
 
             message.mBody       = std::make_any<ReplyInfo>(replyInfo);
 
@@ -115,8 +115,8 @@ Message& messageInstance(Message& message,const MessageType& messageType)
         case Message::MessageType::MessageReactionRequest:
         {
             MessageInfo messageInfo;
-            messageInfo.msgID                     = testMsgID;
-            messageInfo.reactions[testReactionID] = std::numeric_limits<uint32_t>::max();
+            messageInfo._msgID                     = testMsgID;
+            messageInfo._reactions[testReactionID] = std::numeric_limits<uint32_t>::max();
 
             message.mBody                         = std::make_any<MessageInfo>(messageInfo);
 
@@ -140,8 +140,8 @@ Message& messageInstance(Message& message,const MessageType& messageType)
         case Message::MessageType::MessageStoreRequest:
         {
             MessageInfo messageInfo;
-            messageInfo.message   = testMessage;
-            messageInfo.channelID = testChannelID;
+            messageInfo._message   = testMessage;
+            messageInfo._channelID = testChannelID;
 
             message.mBody         = std::make_any<MessageInfo>(messageInfo);
 
@@ -151,8 +151,8 @@ Message& messageInstance(Message& message,const MessageType& messageType)
         case Message::MessageType::MessageEditRequest:
         {
             MessageInfo info;
-            info.msgID     = testMsgID;
-            info.channelID = testChannelID;
+            info._msgID     = testMsgID;
+            info._channelID = testChannelID;
 
             message.mBody  = std::make_any<MessageInfo>(info);
 
@@ -162,7 +162,7 @@ Message& messageInstance(Message& message,const MessageType& messageType)
         case Message::MessageType::MessageDeleteRequest:
         {
             MessageInfo info;
-            info.channelID = testChannelID;
+            info._channelID = testChannelID;
 
             message.mBody  = std::make_any<MessageInfo>(info);
 
@@ -171,9 +171,9 @@ Message& messageInstance(Message& message,const MessageType& messageType)
 
         case Message::MessageType::ChannelDeleteRequest:
         {
-            Network::ChannelDeleteInfo channelDeleteInfo;
-            channelDeleteInfo.creatorID   = testUserID;
-            channelDeleteInfo.channelName = testChannelName;
+            Models::ChannelDeleteInfo channelDeleteInfo;
+            channelDeleteInfo._creatorID   = testUserID;
+            channelDeleteInfo._channelName = testChannelName;
 
             message.mBody                 = std::make_any<std::string>(testChannelName);
 
@@ -182,9 +182,9 @@ Message& messageInstance(Message& message,const MessageType& messageType)
 
         case Message::MessageType::ChannelListRequest:
         {
-            std::vector<Network::ChannelInfo> testChannelList;
+            std::vector<Models::ChannelInfo> testChannelList;
 
-            message.mBody = std::make_any<std::vector<Network::ChannelInfo>>(testChannelList);
+            message.mBody = std::make_any<std::vector<Models::ChannelInfo>>(testChannelList);
 
             break;
         }

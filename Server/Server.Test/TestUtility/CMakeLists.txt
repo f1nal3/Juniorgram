@@ -20,6 +20,7 @@ PUBLIC
 	PostgreSQL::pq
     libpqxx::libpqxx    
     Utility.Public
+	Models.Public
 	Base.Crypto.Static
     )
 

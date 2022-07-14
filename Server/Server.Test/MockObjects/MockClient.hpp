@@ -8,7 +8,7 @@
 
 #include <Utility/UtilityTime.hpp>
 #include <Network/Connection.hpp>
-#include <Network/Primitives.hpp>
+#include <Models/Primitives.hpp>
 #include <Client.Core/Client.Core.Static/ServerInfo.hpp>
 
 #include <MockPostgreRepository.hpp>
@@ -18,11 +18,11 @@ namespace MockClient
 using asio::io_context;
 using asio::ip::tcp;
 using Network::Connection;
-using Network::LoginInfo;
+using Models::LoginInfo;
 using Network::Message;
-using Network::MessageInfo;
-using Network::RegistrationInfo;
-using Network::ReplyInfo;
+using Models::MessageInfo;
+using Models::RegistrationInfo;
+using Models::ReplyInfo;
 using Network::SafeQueue;
 using RTC = std::chrono::system_clock;
 using UtilityTime::timestamp_t;
@@ -65,10 +65,10 @@ protected:
     void onServerMessage(const uint64_t clientID) const;
 
     /// Channel List Request handler
-    void onChannelListRequest(const std::vector<Network::ChannelInfo>& channels) const;
+    void onChannelListRequest(const std::vector<Models::ChannelInfo>& channels) const;
 
     /// Message History Answer handler
-    void onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages) const;
+    void onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages) const;
 
     /// Message Store Answer handler
     void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode) const;

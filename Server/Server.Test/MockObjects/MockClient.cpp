@@ -164,7 +164,7 @@ void MockClient::onServerMessage(const uint64_t clientID) const
     );
 }
 
-void MockClient::onChannelListRequest(const std::vector<Network::ChannelInfo>& channels) const
+void MockClient::onChannelListRequest(const std::vector<Models::ChannelInfo>& channels) const
 {
     auto result = Utility::StoringReplyCodes::SUCCESS;
     if (!channels.empty())
@@ -186,7 +186,7 @@ void MockClient::onChannelListRequest(const std::vector<Network::ChannelInfo>& c
      }
 }
 
-void MockClient::onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages) const
+void MockClient::onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages) const
 {
     auto result = Utility::StoringMessageCodes::SUCCESS;
     if (!messages.empty())
@@ -566,14 +566,14 @@ void MockClient::loop()
 
             case Message::MessageType::ChannelListRequest:
             {
-                auto channels = std::any_cast<std::vector<Network::ChannelInfo>>(message.mBody);
+                auto channels = std::any_cast<std::vector<Models::ChannelInfo>>(message.mBody);
                 onChannelListRequest(channels);
             }
             break;
 
             case Message::MessageType::MessageHistoryAnswer:
             {
-                auto messages = std::any_cast<std::vector<Network::MessageInfo>>(message.mBody);
+                auto messages = std::any_cast<std::vector<Models::MessageInfo>>(message.mBody);
                 onMessageHistoryAnswer(messages);
             }
             break;

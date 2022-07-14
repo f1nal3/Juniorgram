@@ -6,7 +6,7 @@
 #include <DataAccess/IServerRepositories.hpp>
 
 #include <Network/Connection.hpp>
-#include <Network/Primitives.hpp>
+#include <Models/Primitives.hpp>
 #include <Cryptography.hpp>
 #include <FileLogger.hpp>
 
@@ -34,12 +34,12 @@ struct testChannelsRepository : AbstractPostgreRepository, IChannelRepository
         _pTable = std::make_unique<PostgreTable>("users", adapter);
     }
 
-    Utility::ChannelDeleteCode        deleteChannel(Network::ChannelDeleteInfo& channel) const;
-    Utility::ChannelCreateCodes       createChannel(Network::ChannelInfo& channel) const;
-    Utility::ChannelLeaveCodes        leaveChannel(Network::ChannelLeaveInfo& channel) const;
-    Utility::ChannelSubscribingCodes  subscribeToChannel(Network::ChannelSubscriptionInfo& channel) const;
+    Utility::ChannelDeleteCode        deleteChannel(Models::ChannelDeleteInfo& channel) const;
+    Utility::ChannelCreateCodes       createChannel(Models::ChannelInfo& channel) const;
+    Utility::ChannelLeaveCodes        leaveChannel(Models::ChannelLeaveInfo& channel) const;
+    Utility::ChannelSubscribingCodes  subscribeToChannel(Models::ChannelSubscriptionInfo& channel) const;
     std::vector<uint64_t>             getChannelSubscriptionList(uint64_t userID) const;
-    std::vector<Network::ChannelInfo> getAllChannelsList() const;
+    std::vector<Models::ChannelInfo>  getAllChannelsList() const;
 
     ~testChannelsRepository() = default;
 };
@@ -75,16 +75,16 @@ struct testMessagesRepository : AbstractPostgreRepository, IMessagesRepository
         _pTable = std::make_unique<PostgreTable>("users", adapter);
     }
 
-    Utility::DeletingMessageCodes     deleteMessage(Network::MessageInfo& mi) const;
-    Utility::ReactionMessageCodes     updateMessageReactions(Network::MessageInfo& mi) const;
-    Utility::EditingMessageCodes      editMessage(Network::MessageInfo& mi) const;
-    Utility::StoringMessageCodes      storeMessage(Network::MessageInfo& msi) const;
-    std::vector<Network::MessageInfo> getMessageHistoryForUser(std::uint64_t channelID) const;
+    Utility::DeletingMessageCodes     deleteMessage(Models::MessageInfo& mi) const;
+    Utility::ReactionMessageCodes     updateMessageReactions(Models::MessageInfo& mi) const;
+    Utility::EditingMessageCodes      editMessage(Models::MessageInfo& mi) const;
+    Utility::StoringMessageCodes      storeMessage(Models::MessageInfo& msi) const;
+    std::vector<Models::MessageInfo>  getMessageHistoryForUser(std::uint64_t channelID) const;
 
     ~testMessagesRepository() = default;
 
 private:
-    std::optional<pqxx::result> insertMessageIntoMessagesTable(const Network::MessageInfo& msi) const;
+    std::optional<pqxx::result> insertMessageIntoMessagesTable(const Models::MessageInfo& msi) const;
     std::optional<pqxx::result> insertIDsIntoChannelMessagesTable(const std::uint64_t channelID, const std::uint64_t messageID) const; 
     std::optional<pqxx::result> insertIDIntoMessageReactionsTable(const std::uint64_t messageID) const;
 };
@@ -96,7 +96,7 @@ struct testRegisterRepository : AbstractPostgreRepository, IRegisterRepository
         _pTable = std::make_unique<PostgreTable>("users", adapter);
     }
 
-    Utility::RegistrationCodes registerUser(Network::RegistrationInfo& ri) const;
+    Utility::RegistrationCodes registerUser(Models::RegistrationInfo& ri) const;
 
     ~testRegisterRepository() = default;
 };
@@ -108,13 +108,13 @@ struct testRepliesRepository : AbstractPostgreRepository, IRepliesRepository
         _pTable = std::make_unique<PostgreTable>("msgs", adapter); 
     }
 
-    std::vector<Network::ReplyInfo> getReplyHistoryForUser(const std::uint64_t channelID) const;
-    Utility::StoringReplyCodes      storeReply(const Network::ReplyInfo& rsi) const;
+    std::vector<Models::ReplyInfo> getReplyHistoryForUser(const std::uint64_t channelID) const;
+    Utility::StoringReplyCodes     storeReply(const Models::ReplyInfo& rsi) const;
 
     ~testRepliesRepository() = default;
 
 private:
     std::optional<pqxx::result> insertIDsIntoChannelRepliesTable(const std::uint64_t channelID, const std::uint64_t replyID) const;
-    std::optional<pqxx::result> insertReplyIntoRepliesTable(const Network::ReplyInfo& rsi) const;
+    std::optional<pqxx::result> insertReplyIntoRepliesTable(const Models::ReplyInfo& rsi) const;
 };
 }  // namespace MockRepository
