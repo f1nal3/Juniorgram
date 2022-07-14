@@ -45,10 +45,10 @@ void ChatWidget::newMessage(const QString& messageText)
     }
 }
 
-void ChatWidget::addMessages(const std::vector<Network::MessageInfo>& messages)
+void ChatWidget::addMessages(const std::vector<Models::MessageInfo>& messages)
 {
     if (messages.empty()) return;
-    if (messages.front().channelID != _channelID) return;  // It could be messages for other channel
+    if (messages.front()._channelID != _channelID) return;  // It could be messages for other channel
 
     for (const auto& message : messages)
     {
@@ -56,10 +56,10 @@ void ChatWidget::addMessages(const std::vector<Network::MessageInfo>& messages)
     }
 }
 
-void ChatWidget::addReplies(const std::vector<Network::ReplyInfo>& replies)
+void ChatWidget::addReplies(const std::vector<Models::ReplyInfo>& replies)
 {
     if (replies.empty()) return;
-    if (replies.front().channelID != _channelID) return;  // It could be replies for other channel
+    if (replies.front()._channelID != _channelID) return;  // It could be replies for other channel
 
     for (const auto& reply : replies)
     {

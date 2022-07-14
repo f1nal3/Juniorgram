@@ -1,5 +1,6 @@
 #pragma once
-#include <Network/Primitives.hpp>
+
+#include <Models/Primitives.hpp>
 
 #include "PostgreTable.hpp"
 
@@ -43,5 +44,5 @@ public:
      *   @param Network::RegistrationInfo& - users info.
      *   @return users amount with the same users data.
      */
-    std::uint16_t findUsersAmountWithAllSameData(const Network::RegistrationInfo& ri) const;
+    std::uint16_t findUsersAmountWithAllSameData(const Models::RegistrationInfo& ri) const;
 };

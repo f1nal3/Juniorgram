@@ -37,7 +37,7 @@ TEST_CASE("UsersAmountFinder", "[dummy]")
 		REQUIRE(testFinder.findUsersAmountWithSameEmail(testEmail) == 0);
 	}
 
-	Network::RegistrationInfo testRegInfo(testEmail, testLogin, testPassHash);
+	Models::RegistrationInfo testRegInfo(testEmail, testLogin, testPassHash);
 
 	SECTION("Find users with same all data")
 	{

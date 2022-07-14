@@ -57,9 +57,9 @@ int main(int argc, char** argv)
             {
                 Network::Message message;                                  
 
-                Network::MessageInfo msg;
-                msg.message   = "123";
-                message.mBody = std::any_cast<Network::MessageInfo>(msg);
+                Models::MessageInfo msg;
+                msg._message   = "123";
+                message.mBody = std::any_cast<Models::MessageInfo>(msg);
 
                 clientApp.send(message);
                 cmd = "";
@@ -68,9 +68,9 @@ int main(int argc, char** argv)
             {
                 Network::Message message;
 
-                Network::MessageInfo msg;
-                msg.message   = "123";
-                message.mBody = std::any_cast<Network::MessageInfo>(msg);
+                Models::MessageInfo msg;
+                msg._message   = "123";
+                message.mBody = std::any_cast<Models::MessageInfo>(msg);
 
                 clientApp.send(message);
             }

@@ -30,13 +30,13 @@ protected:
     /// Server message handler
     void onServerMessage(const uint64_t clientId) override;
     /// Channel list request handler
-    void onChannelListRequest(const std::vector<Network::ChannelInfo>& channels) override;
+    void onChannelListRequest(const std::vector<Models::ChannelInfo>& channels) override;
     /// Message store answer handler
     void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode) override;
     /// Message delete answer handler
     void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) override;
     /// Message history answer handler
-    void onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages) override;
+    void onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages) override;
     /// Registration answer handler
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode) override;
 };

@@ -49,21 +49,21 @@ void ConnectionManager::onServerMessage(const uint64_t clientId)
     emit ReceiverManager::instance()->onServerMessage(clientId);
 }
 
-void ConnectionManager::onChannelListRequest(const std::vector<Network::ChannelInfo>& channels)
+void ConnectionManager::onChannelListRequest(const std::vector<Models::ChannelInfo>& channels)
 {
-    qRegisterMetaType<std::vector<Network::ChannelInfo>>("std::vector<Network::ChannelInfo>");
+    qRegisterMetaType<std::vector<Models::ChannelInfo>>("std::vector<Network::ChannelInfo>");
     emit ReceiverManager::instance()->onChannelListRequest(channels);
 }
 
-void ConnectionManager::onMessageHistoryAnswer(const std::vector<Network::MessageInfo>& messages)
+void ConnectionManager::onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages)
 {
-    qRegisterMetaType<std::vector<Network::MessageInfo>>("std::vector<Network::MessageInfo>");
+    qRegisterMetaType<std::vector<Models::MessageInfo>>("std::vector<Network::MessageInfo>");
     emit ReceiverManager::instance()->onMessageHistoryAnswer(messages);
 }
 
-void ConnectionManager::onReplyHistoryAnswer(const std::vector<Network::ReplyInfo>& replies)
+void ConnectionManager::onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& replies)
 {
-    qRegisterMetaType<std::vector<Network::ReplyInfo>>("std::vector<Network::ReplyInfo>");
+    qRegisterMetaType<std::vector<Models::ReplyInfo>>("std::vector<Network::ReplyInfo>");
     emit ReceiverManager::instance()->onReplyHistoryAnswer(replies);
 }
 
