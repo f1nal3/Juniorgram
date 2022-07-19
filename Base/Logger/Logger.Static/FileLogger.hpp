@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Logger/ILogger.hpp>
+#include "Network/SafeQueue.hpp"
 
 #include <sstream>
 #include <fstream>
@@ -27,21 +28,17 @@ public:
     static FileLogger& getInstance();
 
     /**
-     * @brief Initialization of the current class object
-     * @param filename std::string name to write data
-     * @param output LogOutput - the place where the data will be displayed
-     */
+    * @brief Initialization of the current class object
+    * @param filename std::string name to write data
+    * @param output LogOutput - the place where the data will be displayed
+    */
     void init(const std::string& filename, LogOutput output);
 
-    /**
-     * @brief Opening the current class file
+     /**
+     * @brief Stringify the log level to its name
+     * @param level LogLevel - element of LogLevel enumeration that should be stringify
      */
-    void open();
-
-    /**
-     * @brief Closing the current class file
-     */
-    void close();
+    static std::string stringifyLogLvl(LogLevel level);
 
     /**
      * @brief Log entry
@@ -64,17 +61,6 @@ public:
     }
 
     /**
-     * @brief Fun to stop the thread
-     */
-    void stop();
-
-    /**
-     * @brief Stringify the log level to its name
-     * @param level LogLevel - element of LogLevel enumeration that should be stringify
-     */
-    static std::string stringifyLogLvl(LogLevel level);
-
-    /**
      * @brief Deleted copy constructor in singleton pattern purpose
      */
     FileLogger(const FileLogger&) = delete;
@@ -83,6 +69,31 @@ public:
      * @brief Deleted assigning operator in singleton pattern purpose
      */
     FileLogger& operator=(const FileLogger&) = delete;
+
+    /*
+    * @brief Method used to say that's going to be an error
+    * @param const std::string& -> incoming message, that should describe situation or progress
+    */
+    void error(const std::string& message);
+
+    /*
+    * @brief Method used to say that's going to be a possible error
+    * @param const std::string& -> incoming message, that should describe situation or progress
+    */
+    void warning(const std::string& message);
+
+    /*
+    * @brief Method used to say general information
+    * @param const std::string& -> incoming message, that should describe situation or progress
+    */
+    void info(const std::string& message);
+
+    /*
+    * @brief Method used to say general information detailing debug progress
+    * @param const std::string& -> incoming message, that should describe situation or progress
+    */
+    void debug(const std::string& message);
+
 private:
     FileLogger();
     ~FileLogger() override;
@@ -125,6 +136,21 @@ private:
      * @return [value]
      */
     static std::string wrapValue(const std::string& value, const BlockWrapper& blockWrapper);
+
+    /**
+     * @brief Opening the current class file
+     */
+    void open();
+
+    /**
+     * @brief Closing the current class file
+     */
+    void close();
+
+    /**
+    * @brief Fun to stop the thread
+    */
+    void stop();
     
 private:
     std::string  _fileNamePrefix{"Log-"};
@@ -135,10 +161,10 @@ private:
 
     bool _isOpened = false;
 
-    std::thread             _loggerThread;
-    std::condition_variable _inputWait;
-    std::mutex              _mutex;
-    std::queue<std::string> _msgQueue;
-    bool                    _stop = false;
+    std::thread                          _loggerThread;
+    std::condition_variable              _inputWait;
+    std::mutex                           _mutex;
+    Network::SafeQueue<std::string>      _msgQueue;
+    bool                                 _stop = false;
 };
 }  // namespace Base::Logger

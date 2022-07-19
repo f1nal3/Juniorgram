@@ -56,7 +56,7 @@ Utility::ChannelLeaveCodes ChannelsRepository::leaveChannel(const Models::Channe
         if (result.has_value())
         {
             Base::Logger::FileLogger::getInstance().log(
-                '[' + "channel id: " +
+                "[channel id: " +
                 std::to_string(findChannel.value()[0][1].as<std::uint64_t>()) +
                 "] Leaving from channel by user id " +
                 std::to_string(findChannel.value()[0][0].as<std::uint64_t>()) + " failed\n",
@@ -74,7 +74,7 @@ Utility::ChannelLeaveCodes ChannelsRepository::leaveChannel(const Models::Channe
         return Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND;
     }
     Base::Logger::FileLogger::getInstance().log(
-        '[' + "channel id: " +
+        "[channel id: " +
         std::to_string(findIdChannel.value()[0][0].as<std::uint64_t>()) +
         "] Leaving from channel is successful\n",
         Base::Logger::LogLevel::INFO);
@@ -100,7 +100,7 @@ Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Models::Chann
     if (creatorlID != channel._creatorID)
     {
         Base::Logger::FileLogger::getInstance().log(
-            '['+ "channel id: " + std::to_string(channelID) + 
+             "[channel id: " + std::to_string(channelID) + 
             "] User id " + std::to_string(creatorlID) +
             " is not the creator of this channel\n",
             Base::Logger::LogLevel::INFO);
@@ -130,7 +130,7 @@ Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Models::Chann
     if (result.has_value())
     {
         Base::Logger::FileLogger::getInstance().log(
-            '[' + "channel id: " + std::to_string(channelID) +
+            "[channel id: " + std::to_string(channelID) +
             "] Deleting channel was failed\n",
             Base::Logger::LogLevel::ERR);
 
@@ -138,7 +138,7 @@ Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Models::Chann
     }
 
     Base::Logger::FileLogger::getInstance().log(
-        '[' + "channel id: " + std::to_string(channelID) +
+        "[channel id: " + std::to_string(channelID) +
         "] Deleting channel was successful\n",
         Base::Logger::LogLevel::INFO);
 
@@ -188,8 +188,8 @@ Utility::ChannelCreateCodes ChannelsRepository::createChannel(const Models::Chan
     _pTable->Insert()->columns(SubscribNewChannelData)->execute();
 
     Base::Logger::FileLogger::getInstance().log(
-        '['+ "channel id: " + std::to_string(IDNewChannel) +
-        "] Creating channel was successful\n",
+        std::string("[channel id: " + std::to_string(IDNewChannel) +
+        "] Creating channel was successful\n" ),
         Base::Logger::LogLevel::INFO);
 
     return Utility::ChannelCreateCodes::SUCCESS;
@@ -219,7 +219,7 @@ std::uint64_t LoginRepository::loginUser(const Models::LoginInfo& loginInfo)
     catch (const std::exception& e)
     {
         Base::Logger::FileLogger::getInstance().log(
-            std::string(e.what() +'\n'),
+            std::string(std::string(e.what()) +'\n'),
             Base::Logger::LogLevel::ERR);
 
         return 0;
@@ -267,7 +267,7 @@ std::vector<Models::MessageInfo> MessagesRepository::getMessageHistory(const std
         }
     }
      Base::Logger::FileLogger::getInstance().log(
-        '[' + "channel id: " + std::to_string(channelID) + 
+        "[channel id: " + std::to_string(channelID) + 
         "] Message history was successfully given to client\n",
         Base::Logger::LogLevel::INFO);
 
@@ -280,7 +280,7 @@ Utility::StoringMessageCodes MessagesRepository::storeMessage(const Models::Mess
     if (!firstResult.has_value())
     {
         Base::Logger::FileLogger::getInstance().log(
-            '[' + "channel id:" + std::to_string(mi._channelID) +
+            "[channel id:" + std::to_string(mi._channelID) +
             "] Inserting message into 'msgs' table failed\n",
             Base::Logger::LogLevel::ERR);
 
@@ -291,9 +291,9 @@ Utility::StoringMessageCodes MessagesRepository::storeMessage(const Models::Mess
 
     const auto secondResult = insertIDsIntoChannelMessagesTable(mi._channelID, currentMessageID);
     if (!secondResult.has_value())
-    {
+	{
         Base::Logger::FileLogger::getInstance().log(
-            '[' + "channel id: " + std::to_string(mi._channelID) 
+            "[channel id: " + std::to_string(mi._channelID) 
             + "] Inserting message into 'channel_messages' table failed\n",
             Base::Logger::LogLevel::ERR);
        
@@ -304,14 +304,14 @@ Utility::StoringMessageCodes MessagesRepository::storeMessage(const Models::Mess
     if (!thirdResult.has_value())
     {
         Base::Logger::FileLogger::getInstance().log(
-            '[' + "channel id: " + std::to_string(mi._channelID) +
+            "[channel id: " + std::to_string(mi._channelID) +
             "] Inserting message into 'msg_reactions' table failed\n",
             Base::Logger::LogLevel::ERR);
 
         return Utility::StoringMessageCodes::FAILED;
     }
     Base::Logger::FileLogger::getInstance().log(
-        '['+ "channel id: " + std::to_string(mi._channelID) +
+        "[channel id: " + std::to_string(mi._channelID) +
         "] Message have stored successfully\n",
         Base::Logger::LogLevel::INFO);
 
@@ -376,7 +376,7 @@ Utility::EditingMessageCodes MessagesRepository::editMessage(const Models::Messa
     if (!isPresentInTable.has_value())
     {
         Base::Logger::FileLogger::getInstance().log(
-            '[' +"channel id: "+ std::to_string(mi._channelID) +']' +
+            "[channel id: "+ std::to_string(mi._channelID) +']' +
             " Editing message failed because message was not found\n",
             Base::Logger::LogLevel::ERR);
 
@@ -386,7 +386,7 @@ Utility::EditingMessageCodes MessagesRepository::editMessage(const Models::Messa
     _pTable->Update()->fields(std::pair{"msg", mi._message})->Where("msg_id=" + std::to_string(mi._msgID))->execute();
 
      Base::Logger::FileLogger::getInstance().log(
-        '[' + "channel id: " + std::to_string(mi._channelID) + ']' +
+        "[channel id: " + std::to_string(mi._channelID) + ']' +
         " Editing message was successful\n",
         Base::Logger::LogLevel::INFO);
 
@@ -462,7 +462,7 @@ Utility::ReactionMessageCodes MessagesRepository::updateMessageReactions(const M
     {
         Base::Logger::FileLogger::getInstance().log(
             "Reaction with id: " + std::to_string(reactionID) +
-            "is not supported by server\n",
+            " is not supported by server\n",
             Base::Logger::LogLevel::ERR);
 
         return ReactionMessageCodes::FAILED;

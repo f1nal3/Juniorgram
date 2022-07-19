@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include <iostream>
+#include <functional>
 
 #include <Utility/Utility.hpp>
 #include "Utility/UtilityTime.hpp"
@@ -58,7 +59,7 @@ void FileLogger::close()
 
 void FileLogger::stop()
 {
-    std::lock_guard<std::mutex> lk(_mutex);
+    std::unique_lock lk(_mutex);
     _stop = true;
     _inputWait.notify_one();
 }
@@ -70,8 +71,8 @@ void FileLogger::log(const std::string& msg, const LogLevel level)
                        + wrapValue(stringifyLogLvl(level), _blockWrapper) + " " 
                        + msg;
 
-    std::lock_guard<std::mutex> lk(_mutex);
-    _msgQueue.push(result);
+    std::unique_lock lock(_mutex);
+    _msgQueue.push_back(result);
     _inputWait.notify_one();
 }
 
@@ -130,9 +131,8 @@ void FileLogger::run()
         // Stop if needed
         if (_stop) break;
 
-        std::string msg = std::move(_msgQueue.front());
-        _msgQueue.pop();
-
+        std::string msg = _msgQueue.pop_front();
+        
         switch (_output)
         {
             case Base::Logger::LogOutput::CONSOLE:
@@ -196,4 +196,24 @@ std::string FileLogger::stringifyLogLvl(const LogLevel level)
         result = it->second;
     }
     return result;
+}
+
+void FileLogger::error(const std::string& message)
+{
+    log(message, LogLevel::ERR);
+}
+
+void FileLogger::warning(const std::string& message)
+{
+    log(message, LogLevel::WARNING);
+}
+
+void FileLogger::info(const std::string& message)
+{
+    log(message, LogLevel::INFO);
+}
+
+void FileLogger::debug(const std::string& message)
+{
+    log(message, LogLevel::DEBUG);
 }
