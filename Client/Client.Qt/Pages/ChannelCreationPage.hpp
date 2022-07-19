@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Network/Primitives.hpp>
+#include <Models/Primitives.hpp>
 #include <QVBoxLayout>
 #include <QWidget>
 
