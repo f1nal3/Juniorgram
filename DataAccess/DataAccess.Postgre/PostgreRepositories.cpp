@@ -188,7 +188,8 @@ Utility::ChannelCreateCodes ChannelsRepository::createChannel(const Network::Cha
     _pTable->Insert()->columns(SubscribNewChannelData)->execute();
 
     Base::Logger::FileLogger::getInstance().log(
-        std::string("Creating channel was successful\n"),
+        std::string("[channel id: " + std::to_string(IDNewChannel) +
+        "] Creating channel was successful\n" ),
         Base::Logger::LogLevel::INFO);
 
     return Utility::ChannelCreateCodes::SUCCESS;
