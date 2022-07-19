@@ -130,7 +130,7 @@ Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Network::Chan
     if (result.has_value())
     {
         Base::Logger::FileLogger::getInstance().log(
-            '[' + "channel id: " + std::to_string(channelID) +
+            "[channel id: " + std::to_string(channelID) +
             "] Deleting channel was failed\n",
             Base::Logger::LogLevel::ERR);
 
@@ -279,7 +279,7 @@ Utility::StoringMessageCodes MessagesRepository::storeMessage(const Network::Mes
     if (!firstResult.has_value())
     {
         Base::Logger::FileLogger::getInstance().log(
-            '[' + "channel id:" + std::to_string(mi.channelID) +
+            "[channel id:" + std::to_string(mi.channelID) +
             "] Inserting message into 'msgs' table failed\n",
             Base::Logger::LogLevel::ERR);
 
@@ -292,7 +292,7 @@ Utility::StoringMessageCodes MessagesRepository::storeMessage(const Network::Mes
     if (!secondResult.has_value())
 	{
         Base::Logger::FileLogger::getInstance().log(
-            '[' + "channel id: " + std::to_string(mi.channelID) 
+            "[channel id: " + std::to_string(mi.channelID) 
             + "] Inserting message into 'channel_messages' table failed\n",
             Base::Logger::LogLevel::ERR);
        
@@ -303,7 +303,7 @@ Utility::StoringMessageCodes MessagesRepository::storeMessage(const Network::Mes
     if (!thirdResult.has_value())
     {
         Base::Logger::FileLogger::getInstance().log(
-            '[' + "channel id: " + std::to_string(mi.channelID) +
+            "[channel id: " + std::to_string(mi.channelID) +
             "] Inserting message into 'msg_reactions' table failed\n",
             Base::Logger::LogLevel::ERR);
 
