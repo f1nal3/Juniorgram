@@ -2,7 +2,7 @@
 
 #include "Network/Connection.hpp"
 #include "Network/Message.hpp"
-#include "Network/SafeQueue.hpp"
+#include "Utility/SafeQueue.hpp"
 
 #include <Models/Primitives.hpp>
 
@@ -32,7 +32,7 @@ public:
     void send(const Message& message) const;
 
     /// Incoming message queue
-    SafeQueue<Message>& incoming() { return _incomingMessagesQueue; }
+    Utility::SafeQueue<Message>& incoming() { return _incomingMessagesQueue; }
 
     /// Handler
     void loop();
@@ -177,6 +177,6 @@ private:
 
     std::unique_ptr<Connection> _connection;
 
-    SafeQueue<Message> _incomingMessagesQueue;
+    Utility::SafeQueue<Message> _incomingMessagesQueue;
 };
 }  // namespace Network

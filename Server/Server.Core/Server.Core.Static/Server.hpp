@@ -10,7 +10,7 @@
 
 #include "Network/Connection.hpp"
 #include "Network/Message.hpp"
-#include "Network/SafeQueue.hpp"
+#include "Utility/SafeQueue.hpp"
 
 namespace DataAccess
 {
@@ -21,7 +21,7 @@ namespace Server
 {
 using asio::ip::tcp;
 using Network::Message;
-using Network::SafeQueue;
+using Utility::SafeQueue;
 using Network::Connection;
 using Base::Logger::LogLevel;
 using Base::Logger::FileLogger;
