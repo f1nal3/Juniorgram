@@ -255,7 +255,7 @@ void MockClient::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes d
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] SUCCESS DELETING", 
+            "[CLIENT] Success deleting", 
             Base::Logger::LogLevel::INFO
         );
     }
@@ -263,7 +263,7 @@ void MockClient::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes d
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] FAILED DELETING", 
+            "[CLIENT] Failed deleting", 
             Base::Logger::LogLevel::INFO
         );
     }
@@ -283,7 +283,7 @@ void MockClient::onMessageReactionAnswer(const Utility::ReactionMessageCodes rea
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] Reaction update SUCCESS", 
+            "[CLIENT] Reaction update success", 
             Base::Logger::LogLevel::INFO
         );
     }
@@ -303,7 +303,7 @@ void MockClient::onEditMessageAnswer(Utility::EditingMessageCodes reactionState)
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] SUCCESS editing message",
+            "[CLIENT] Success editing message",
             Base::Logger::LogLevel::INFO
         );
     }
@@ -341,7 +341,7 @@ void MockClient::onReplyHistoryAnswer(Utility::StoringReplyCodes storingReplyCod
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] SUCCESS sending",
+            "[CLIENT] Success sending",
             Base::Logger::LogLevel::INFO
         );
     }
@@ -349,7 +349,7 @@ void MockClient::onReplyHistoryAnswer(Utility::StoringReplyCodes storingReplyCod
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] FAILED sending",
+            "[CLIENT] Failed sending",
             Base::Logger::LogLevel::INFO
         );
     }
@@ -361,7 +361,7 @@ void MockClient::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] SUCCESS sending", 
+            "[CLIENT] Success sending", 
             Base::Logger::LogLevel::INFO
         );
     }
@@ -369,7 +369,7 @@ void MockClient::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] FAILED sending", 
+            "[CLIENT] Failed sending", 
             Base::Logger::LogLevel::INFO
         );
     }
@@ -381,7 +381,7 @@ void MockClient::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCod
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] SUCCESS LEAVING",
+            "[CLIENT] Success leaving",
             Base::Logger::LogLevel::INFO
         );
     }
@@ -389,7 +389,7 @@ void MockClient::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCod
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] FAILED LEAVING", 
+            "[CLIENT] Failed leaving", 
             Base::Logger::LogLevel::INFO
         );
     }
@@ -397,7 +397,7 @@ void MockClient::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCod
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] CHANNEL NOT FOUND", 
+            "[CLIENT] Channel not found", 
             Base::Logger::LogLevel::INFO
         );
     }
@@ -409,7 +409,7 @@ void MockClient::onChannelSubscribingAnswer(Utility::ChannelSubscribingCodes sub
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] SUCCESS SUBSCRIBING",
+            "[CLIENT] Success subscribing",
             Base::Logger::LogLevel::INFO
         );
     }
@@ -417,7 +417,7 @@ void MockClient::onChannelSubscribingAnswer(Utility::ChannelSubscribingCodes sub
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] FAILED SUBSCRIBING", 
+            "[CLIENT] Failed subscribing", 
             Base::Logger::LogLevel::INFO
         );
     }
@@ -449,7 +449,7 @@ void MockClient::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteC
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] SUCCESS DELETING",
+            "[CLIENT] Success deleting",
             Base::Logger::LogLevel::INFO
         );
     }
@@ -457,7 +457,7 @@ void MockClient::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteC
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] FAILED DELETING", 
+            "[CLIENT] Failed deleting", 
             Base::Logger::LogLevel::INFO
         );
     }
@@ -465,7 +465,7 @@ void MockClient::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteC
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] CHANNEL NOT FOUND", 
+            "[CLIENT] Channel not found", 
             Base::Logger::LogLevel::INFO
         );
     }
@@ -473,7 +473,7 @@ void MockClient::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteC
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] CHANNEL DOES NOT BELONG TO THE USER", 
+            "[CLIENT] Channel doesn't belong to the user", 
             Base::Logger::LogLevel::INFO
         );
     }
@@ -485,7 +485,7 @@ void MockClient::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreate
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] SUCCESS CREATING", 
+            "[CLIENT] Success creating", 
             Base::Logger::LogLevel::INFO
         );
     }
@@ -493,7 +493,7 @@ void MockClient::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreate
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] FAILD CREATING", 
+            "[CLIENT] Faild creating", 
             Base::Logger::LogLevel::INFO
         );
     }
@@ -501,7 +501,7 @@ void MockClient::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreate
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] CHANNEL ALREADY CREATE",
+            "[CLIENT] Channel already create",
             Base::Logger::LogLevel::INFO
         );
     }
@@ -513,7 +513,7 @@ void MockClient::onDirectMessageCreateAnswer(Utility::DirectMessageStatus direct
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] SUCCESS CREATING", 
+            "[CLIENT] Success creating", 
             Base::Logger::LogLevel::INFO
         );
     }
@@ -521,7 +521,7 @@ void MockClient::onDirectMessageCreateAnswer(Utility::DirectMessageStatus direct
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] FAILED CREATING", 
+            "[CLIENT] Failed creating", 
             Base::Logger::LogLevel::INFO
         );
     }

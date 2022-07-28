@@ -4,10 +4,11 @@
 #include <Network/Connection.hpp>
 #include <Models/Primitives.hpp>
 #include <Cryptography.hpp>
+#include <chrono>
 
 namespace TestUtility
 {
-using Message          = Network::Message;
+using Network::Message;
 using LoginInfo        = Models::LoginInfo;
 using ReplyInfo        = Models::ReplyInfo;
 using Connection       = Network::Connection;
@@ -18,10 +19,9 @@ using milliseconds     = std::chrono::milliseconds;
 using Client           = MockClient::MockClient;
 using testServer       = Server::Server;
 using MessageType      = Message::MessageType;
-
 using Network::SafeQueue;
 
-Message& messageInstance(Message& message,const MessageType& messageType)
+Message& messageInstance(Message& message, const MessageType messageType)
 {
     const std::string testEmail    = "demonstakingoverme@epam.co";
     const std::string testLogin    = "memorisecodead";
@@ -29,12 +29,12 @@ Message& messageInstance(Message& message,const MessageType& messageType)
     const std::string testPWDHash  = Base::Hashing::SHA_256(testPassword, testLogin);
 
     const std::string testChannelName = "testServer";
-    const std::string testMessage     = "Hello, juniorgram!";
+    const std::string testMessage     = "Hello, juniorgram!!";
     const uint16_t    testReactionID  = 0;
     uint64_t          testChannelID   = 1;
-    uint64_t          testMsgID       = 7;
+    uint64_t          testMsgID       = 2;
     uint64_t          testReceiverID  = 1;
-    uint64_t          testUserID      = 0;
+    uint64_t          testUserID      = 1;
 
     message.mHeader.mMessageType = messageType;
     message.mHeader.mTimestamp   = RTC::to_time_t(RTC::now());
@@ -74,27 +74,23 @@ Message& messageInstance(Message& message,const MessageType& messageType)
 
         case Message::MessageType::ChannelSubscribeRequest:
         {
-            Models::ChannelSubscriptionInfo info;
-            info._channelID = testChannelID;
-            info._userID    = testUserID;
-
-            message.mBody = std::any_cast<Models::ChannelSubscriptionInfo>(info);
+            Models::ChannelSubscriptionInfo messageInfo(testChannelID);       
+            messageInfo._userID    = testUserID;
+            message.mBody          = std::any_cast<Models::ChannelSubscriptionInfo>(messageInfo);
 
             break;
         }
 
         case Message::MessageType::ChannelLeaveRequest:
         {
-            std::string info = testChannelName;
-
-            message.mBody    = std::make_any<std::string>(info);
+            std::string messageInfo = testChannelName;
+            message.mBody           = std::make_any<std::string>(messageInfo);
 
             break;
         }
 
         case Message::MessageType::ReplyHistoryRequest:
         {
-
             message.mBody = std::make_any<uint64_t>(testChannelID);
 
             break;
@@ -102,12 +98,9 @@ Message& messageInstance(Message& message,const MessageType& messageType)
 
         case Message::MessageType::ReplyStoreRequest:
         {
-            ReplyInfo replyInfo;
-            replyInfo._channelID = testChannelID;
-            replyInfo._message   = testMessage;
+            ReplyInfo replyInfo(testChannelID,testMessage);
             replyInfo._msgID     = testMsgID;
-
-            message.mBody       = std::make_any<ReplyInfo>(replyInfo);
+            message.mBody        = std::make_any<ReplyInfo>(replyInfo);
 
             break;
         }
@@ -117,8 +110,7 @@ Message& messageInstance(Message& message,const MessageType& messageType)
             MessageInfo messageInfo;
             messageInfo._msgID                     = testMsgID;
             messageInfo._reactions[testReactionID] = std::numeric_limits<uint32_t>::max();
-
-            message.mBody                         = std::make_any<MessageInfo>(messageInfo);
+            message.mBody                          = std::make_any<MessageInfo>(messageInfo);
 
             break;
         }
@@ -139,32 +131,26 @@ Message& messageInstance(Message& message,const MessageType& messageType)
 
         case Message::MessageType::MessageStoreRequest:
         {
-            MessageInfo messageInfo;
-            messageInfo._message   = testMessage;
-            messageInfo._channelID = testChannelID;
-
-            message.mBody         = std::make_any<MessageInfo>(messageInfo);
+            MessageInfo messageInfo(testChannelID,testMessage);
+            message.mBody = std::make_any<MessageInfo>(messageInfo);
 
             break;
         }
 
         case Message::MessageType::MessageEditRequest:
         {
-            MessageInfo info;
-            info._msgID     = testMsgID;
-            info._channelID = testChannelID;
-
-            message.mBody  = std::make_any<MessageInfo>(info);
+            MessageInfo messageInfo(testChannelID,testMessage);
+            messageInfo._senderID = testUserID;
+            messageInfo._msgID    = testMsgID;
+            message.mBody           = std::make_any<MessageInfo>(messageInfo);
 
             break;
         }
 
         case Message::MessageType::MessageDeleteRequest:
         {
-            MessageInfo info;
-            info._channelID = testChannelID;
-
-            message.mBody  = std::make_any<MessageInfo>(info);
+            MessageInfo messageInfo(testChannelID,testMessage);
+            message.mBody = std::make_any<MessageInfo>(messageInfo);
 
             break;
         }
@@ -174,8 +160,7 @@ Message& messageInstance(Message& message,const MessageType& messageType)
             Models::ChannelDeleteInfo channelDeleteInfo;
             channelDeleteInfo._creatorID   = testUserID;
             channelDeleteInfo._channelName = testChannelName;
-
-            message.mBody                 = std::make_any<std::string>(testChannelName);
+            message.mBody                  = std::make_any<std::string>(testChannelName);
 
             break;
         }
@@ -183,7 +168,6 @@ Message& messageInstance(Message& message,const MessageType& messageType)
         case Message::MessageType::ChannelListRequest:
         {
             std::vector<Models::ChannelInfo> testChannelList;
-
             message.mBody = std::make_any<std::vector<Models::ChannelInfo>>(testChannelList);
 
             break;
@@ -192,29 +176,28 @@ Message& messageInstance(Message& message,const MessageType& messageType)
     return message;
 }
 
-Client& testSendingMessages(Client& mockClient, Message message, const MessageType mesgType)
+Client& testSendingMessages(Client& mockClient, const MessageType mesgType)
 {
-    std::this_thread::sleep_for(milliseconds(5000));
+    Message message;
+
+    std::this_thread::sleep_for(milliseconds(1000));
     messageInstance(message, mesgType);
-
     mockClient.send(message);
-    std::this_thread::sleep_for(milliseconds(5000));
-
-    mockClient.send(Message());
-    std::this_thread::sleep_for(milliseconds(5000));
+    std::this_thread::sleep_for(milliseconds(7000));
 
     return mockClient;
 }
 
 testServer& testServerUpdating(testServer& serverTest)
 {
-    unsigned int countOfUpdate = 0;
-    bool         serverWork    = true;
+    unsigned int countOfUpdate        = 0;
+    unsigned int iterationOfServer    = 1;
+    bool         serverWork           = true;
 
     while (serverWork)
     {
         ++countOfUpdate;
-        if (countOfUpdate > 2)
+        if (countOfUpdate > iterationOfServer)
         {
             serverWork = false;
             serverTest.stop();
