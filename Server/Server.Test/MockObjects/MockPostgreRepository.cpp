@@ -881,6 +881,7 @@ Utility::DirectMessageStatus testDirectMessageRepository::addDirectChat(uint64_t
     {
         auto cId       = std::any_cast<pqxx::result>(result.value());
         auto channelId = std::to_string(cId[0][0].as<uint64_t>());
+
         adapter->query("INSERT INTO user_channels VALUES (" + minUserId + "," + channelId + "), ("
             + maxUserId + "," + channelId + ")ON CONFLICT DO NOTHING;");
 

@@ -27,7 +27,7 @@ protected:
     std::unique_ptr<PostgreTable> _pTable;
 };
 
-struct testChannelsRepository : AbstractPostgreRepository, IChannelRepository
+struct testChannelsRepository final : AbstractPostgreRepository, IChannelRepository
 {
     explicit testChannelsRepository(const std::shared_ptr<IAdapter>& adapter)
     {
@@ -44,7 +44,7 @@ struct testChannelsRepository : AbstractPostgreRepository, IChannelRepository
     ~testChannelsRepository() = default;
 };
 
-struct testDirectMessageRepository : AbstractPostgreRepository, IDirectMessageRepository
+struct testDirectMessageRepository final : AbstractPostgreRepository, IDirectMessageRepository
 {
     explicit testDirectMessageRepository(const std::shared_ptr<IAdapter>& adapter)
     {
@@ -56,7 +56,7 @@ struct testDirectMessageRepository : AbstractPostgreRepository, IDirectMessageRe
     ~testDirectMessageRepository() = default;
 };
 
-struct testLoginRepository : AbstractPostgreRepository, ILoginRepository
+struct testLoginRepository final : AbstractPostgreRepository, ILoginRepository
 {
     explicit testLoginRepository(const std::shared_ptr<IAdapter>& adapter)
     {
@@ -68,7 +68,7 @@ struct testLoginRepository : AbstractPostgreRepository, ILoginRepository
     ~testLoginRepository() = default;
 };
 
-struct testMessagesRepository : AbstractPostgreRepository, IMessagesRepository
+struct testMessagesRepository final : AbstractPostgreRepository, IMessagesRepository
 {
     explicit testMessagesRepository(const std::shared_ptr<IAdapter>& adapter)
     {
@@ -89,7 +89,7 @@ private:
     std::optional<pqxx::result> insertIDIntoMessageReactionsTable(const std::uint64_t messageID) const;
 };
 
-struct testRegisterRepository : AbstractPostgreRepository, IRegisterRepository
+struct testRegisterRepository final : AbstractPostgreRepository, IRegisterRepository
 {
     explicit testRegisterRepository(const std::shared_ptr<IAdapter>& adapter)
     {
@@ -101,7 +101,7 @@ struct testRegisterRepository : AbstractPostgreRepository, IRegisterRepository
     ~testRegisterRepository() = default;
 };
 
-struct testRepliesRepository : AbstractPostgreRepository, IRepliesRepository
+struct testRepliesRepository final: AbstractPostgreRepository, IRepliesRepository
 {
     explicit testRepliesRepository(const std::shared_ptr<IAdapter>& adapter)
     {
