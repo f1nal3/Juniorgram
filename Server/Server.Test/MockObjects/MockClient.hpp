@@ -146,7 +146,7 @@ protected:
     /**
     * @brief Method for signaling of channel subscription list answer.
     */
-    void onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList) const;
+    void onChannelSubscribingListAnswer(const std::vector<uint64_t>& subscribingChannelList) const;
 
     /**
     * @brief Method for signaling of channel delete answer.

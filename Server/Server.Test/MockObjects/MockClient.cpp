@@ -166,7 +166,6 @@ void MockClient::onServerMessage(const uint64_t clientID) const
 
 void MockClient::onChannelListRequest(const std::vector<Models::ChannelInfo>& channels) const
 {
-    auto result = Utility::StoringReplyCodes::SUCCESS;
     if (!channels.empty())
     {
         Base::Logger::FileLogger::getInstance().log
@@ -177,7 +176,6 @@ void MockClient::onChannelListRequest(const std::vector<Models::ChannelInfo>& ch
     }
     else
     {
-        result = Utility::StoringReplyCodes::FAILED;        
         Base::Logger::FileLogger::getInstance().log
         (
             "[CLIENT] Channel list isn't implemented!",
@@ -188,7 +186,6 @@ void MockClient::onChannelListRequest(const std::vector<Models::ChannelInfo>& ch
 
 void MockClient::onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages) const
 {
-    auto result = Utility::StoringMessageCodes::SUCCESS;
     if (!messages.empty())
     {
         Base::Logger::FileLogger::getInstance().log
@@ -199,7 +196,6 @@ void MockClient::onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& 
     }
     else
     {
-        result = Utility::StoringMessageCodes::FAILED;
         Base::Logger::FileLogger::getInstance().log
         (
             "[CLIENT] Message history isn't implemented!",
@@ -423,7 +419,7 @@ void MockClient::onChannelSubscribingAnswer(Utility::ChannelSubscribingCodes sub
     }
 }
 
-void MockClient::onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList) const
+void MockClient::onChannelSubscribingListAnswer(const std::vector<uint64_t>& subscribingChannelList) const
 {
     if (!subscribingChannelList.empty())
     {
