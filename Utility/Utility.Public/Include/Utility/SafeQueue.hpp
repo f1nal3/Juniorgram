@@ -5,11 +5,12 @@
 #include <mutex>
 #include <thread>
 
+/// namespace Utility
 namespace Utility
 {
 template <typename T>
 /**
- * @brief The tamplate SafeQueue class
+ * @brief The template SafeQueue class
  */
 class SafeQueue
 {
@@ -29,21 +30,27 @@ public:
     /// SafeQueue destructor for clear method
     ~SafeQueue() { clear(); }
 
-    /// Method for access to front value
+    /**
+     * @Method for access to front value
+     */
     const T& front()
     {
         std::scoped_lock scopedLock(_ScopedMutex);
         return _RawQueue.front();
     }
 
-    /// Method for access to back value
+    /**
+     * @Method for access to back value
+     */
     const T& back()
     {
         std::scoped_lock scopedLock(_ScopedMutex);
         return _RawQueue.back();
     }
 
-    /// Method to remove front value
+    /**
+     * @Method to remove front value
+     */
     T pop_front()
     {
         std::scoped_lock scopedLock(_ScopedMutex);
@@ -52,7 +59,9 @@ public:
         return result;
     }
 
-    /// Method to remove back value
+    /** 
+     * @Method to remove back value
+     */
     T pop_back()
     {
         std::scoped_lock scopedLock(_ScopedMutex);
@@ -61,7 +70,9 @@ public:
         return result;
     }
 
-    /// Method to add back value
+    /** 
+     * @Method for adding a value to the end
+     */
     void push_back(const T& item)
     {
         std::scoped_lock scopedLock(_ScopedMutex);
@@ -71,7 +82,9 @@ public:
         _Block.notify_one();
     }
 
-    /// Method to add front value
+    /** 
+     * @Method to add front value
+     */
     void push_front(const T& item)
     {
         std::scoped_lock scopedLock(_ScopedMutex);
@@ -81,28 +94,36 @@ public:
         _Block.notify_one();
     }
 
-    /// Method for checking if a SafeQueue is empty
+    /**
+     * @Method for checking if the SafeQueue is empty
+     */
     bool empty()
     {
         std::scoped_lock scopedLock(_ScopedMutex);
         return _RawQueue.empty();
     }
 
-    /// Method for return size
+    /**
+     * @Method for return size
+     */
     size_t size()
     {
         std::scoped_lock scopedLock(_ScopedMutex);
         return _RawQueue.size();
     }
 
-    /// Method for clear SafeQueue
+    /**
+     * @Method for clear SafeQueue
+     */
     void clear()
     {
         std::scoped_lock scopedLock(_ScopedMutex);
         _RawQueue.clear();
     }
 
-    /// Method to wait which uses condition variable
+    /**
+     * @Method to wait which uses condition variable
+     */
     void wait()
     {
         while (empty())
@@ -112,4 +133,4 @@ public:
         }
     }
 };
-}  // namespace Utility
+}  /// namespace Utility
