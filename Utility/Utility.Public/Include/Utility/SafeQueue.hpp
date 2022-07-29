@@ -15,10 +15,10 @@ template <typename T>
 class SafeQueue
 {
 private:
-    std::mutex              _ScopedMutex, _UniqueMutex;
-    std::condition_variable _Block;
+    std::mutex              _scopedMutex, _uniqueMutex;
+    std::condition_variable _block;
 
-    std::deque<T> _RawQueue;
+    std::deque<T> _rawQueue;
 
 public:
     /// Default SafeQueue constructor
@@ -35,8 +35,8 @@ public:
      */
     const T& front()
     {
-        std::scoped_lock scopedLock(_ScopedMutex);
-        return _RawQueue.front();
+        std::scoped_lock scopedLock(_scopedMutex);
+        return _rawQueue.front();
     }
 
     /**
@@ -44,8 +44,8 @@ public:
      */
     const T& back()
     {
-        std::scoped_lock scopedLock(_ScopedMutex);
-        return _RawQueue.back();
+        std::scoped_lock scopedLock(_scopedMutex);
+        return _rawQueue.back();
     }
 
     /**
@@ -53,9 +53,9 @@ public:
      */
     T pop_front()
     {
-        std::scoped_lock scopedLock(_ScopedMutex);
-        T                result = std::move(_RawQueue.front());
-        _RawQueue.pop_front();
+        std::scoped_lock scopedLock(_scopedMutex);
+        T                result = std::move(_rawQueue.front());
+        _rawQueue.pop_front();
         return result;
     }
 
@@ -64,9 +64,9 @@ public:
      */
     T pop_back()
     {
-        std::scoped_lock scopedLock(_ScopedMutex);
-        T                result = std::move(_RawQueue.back());
-        _RawQueue.pop_back();
+        std::scoped_lock scopedLock(_scopedMutex);
+        T                result = std::move(_rawQueue.back());
+        _rawQueue.pop_back();
         return result;
     }
 
@@ -75,11 +75,11 @@ public:
      */
     void push_back(const T& item)
     {
-        std::scoped_lock scopedLock(_ScopedMutex);
-        _RawQueue.emplace_back(std::move(item));
+        std::scoped_lock scopedLock(_scopedMutex);
+        _rawQueue.emplace_back(std::move(item));
 
-        std::unique_lock<std::mutex> uniqueLock(_UniqueMutex);
-        _Block.notify_one();
+        std::unique_lock<std::mutex> uniqueLock(_uniqueMutex);
+        _block.notify_one();
     }
 
     /** 
@@ -87,11 +87,11 @@ public:
      */
     void push_front(const T& item)
     {
-        std::scoped_lock scopedLock(_ScopedMutex);
-        _RawQueue.emplace_front(std::move(item));
+        std::scoped_lock scopedLock(_scopedMutex);
+        _rawQueue.emplace_front(std::move(item));
 
-        std::unique_lock<std::mutex> uniqueLock(_UniqueMutex);
-        _Block.notify_one();
+        std::unique_lock<std::mutex> uniqueLock(_uniqueMutex);
+        _block.notify_one();
     }
 
     /**
@@ -99,8 +99,8 @@ public:
      */
     bool empty()
     {
-        std::scoped_lock scopedLock(_ScopedMutex);
-        return _RawQueue.empty();
+        std::scoped_lock scopedLock(_scopedMutex);
+        return _rawQueue.empty();
     }
 
     /**
@@ -108,8 +108,8 @@ public:
      */
     size_t size()
     {
-        std::scoped_lock scopedLock(_ScopedMutex);
-        return _RawQueue.size();
+        std::scoped_lock scopedLock(_scopedMutex);
+        return _rawQueue.size();
     }
 
     /**
@@ -117,8 +117,8 @@ public:
      */
     void clear()
     {
-        std::scoped_lock scopedLock(_ScopedMutex);
-        _RawQueue.clear();
+        std::scoped_lock scopedLock(_scopedMutex);
+        _rawQueue.clear();
     }
 
     /**
@@ -128,8 +128,8 @@ public:
     {
         while (empty())
         {
-            std::unique_lock<std::mutex> uniqueLock(_UniqueMutex);
-            _Block.wait(uniqueLock);
+            std::unique_lock<std::mutex> uniqueLock(_uniqueMutex);
+            _block.wait(uniqueLock);
         }
     }
 };
