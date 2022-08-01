@@ -5,7 +5,7 @@
 #include <mutex>
 #include <thread>
 
-/// namespace Utility
+
 namespace Utility
 {
 template <typename T>
@@ -21,13 +21,19 @@ private:
     std::deque<T> _rawQueue;
 
 public:
-    /// Default SafeQueue constructor
+    /**
+     * @Default SafeQueue constructor
+     */
     SafeQueue() = default;
 
-    /// SafeQueue copy constructor delete
+    /** 
+     * @SafeQueue copy constructor delete
+     */ 
     SafeQueue(const SafeQueue<T>& other) = delete;
 
-    /// SafeQueue destructor for clear method
+    /**
+     * @SafeQueue destructor for clear method
+     */
     ~SafeQueue() { clear(); }
 
     /**
