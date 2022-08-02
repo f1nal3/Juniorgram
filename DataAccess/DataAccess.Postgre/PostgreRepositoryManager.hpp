@@ -10,7 +10,6 @@
 #include <DataAccess/AbstractRepositoryContainer.hpp>
 #include <DataAccess/IServerRepositories.hpp>
 #include <DataAccess/RepositoryRequest.hpp>
-#include <DataAccess/FutureResult.hpp>
 
 #include "PostgreRepositories.hpp"
 #include "PostgreRepositoryContainer.hpp"
