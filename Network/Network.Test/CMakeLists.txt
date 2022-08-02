@@ -5,6 +5,7 @@ set(SOURCE_FILES
         BinarySerializeTest.cpp
         TimestampTest.cpp
         ConnectionTest.cpp
+        SerializationHandlerTest.cpp
         )
 
 if (WIN32)
