@@ -1,6 +1,6 @@
 #include "UsersAmountFinder.hpp"
 
-#include "PostgreTable.hpp"
+#include "PostgreQuery.hpp"
 
 std::uint16_t UsersAmountFinder::findUsersAmountWithSameTableAttribute(const std::string& condition) const
 {
