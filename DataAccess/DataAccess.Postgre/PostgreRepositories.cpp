@@ -434,10 +434,12 @@ Utility::ReactionMessageCodes MessagesRepository::updateMessageReactions(const M
 {
     using Utility::ReactionMessageCodes;
 
+    /*!!!
     /*
     * @todo move reactionNames to Base
-    */
+    * /
     const std::vector<std::string> reactionNames = { "likes", "dislikes", "fires", "cats", "smiles" };
+    !!!*/
 
     auto reactionInfo = std::find_if(mi._reactions.cbegin(), mi._reactions.cend(),
         [](std::pair<std::uint32_t, std::uint32_t> p) { return p.second == std::numeric_limits<std::uint32_t>::max(); });
@@ -454,9 +456,9 @@ Utility::ReactionMessageCodes MessagesRepository::updateMessageReactions(const M
     std::uint32_t reactionID = reactionInfo->first;
     std::string reactionName = "NULL";
 
-    if (reactionID < reactionNames.size())
+    if (reactionID < Models::reactionNames.size())
     {
-        reactionName = reactionNames[reactionID];
+        reactionName = Models::reactionNames[reactionID];
     }
     else
     {

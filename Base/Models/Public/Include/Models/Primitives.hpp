@@ -11,6 +11,8 @@
 
 namespace Models
 {
+const std::vector<std::string> reactionNames = {"likes", "dislikes", "fires", "cats", "smiles"};
+
 /**
  * @brief The ChannelInfo struct
  * @details Channel Info struct for information about channels
