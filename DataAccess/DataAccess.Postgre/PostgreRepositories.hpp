@@ -38,7 +38,8 @@ struct DirectMessageRepository final : IDirectMessageRepository, AbstractPostgre
         _pTable = std::make_unique<PostgreQuery>("channels", adapter);
     }
 
-    Utility::DirectMessageStatus addDirectChat(uint64_t user_id, uint64_t receiverId) override;
+    Utility::DirectMessageStatus addDirectChat(uint64_t user_id, uint64_t receiverID) override;
+
     ~DirectMessageRepository() override = default;
 };
 
@@ -62,15 +63,15 @@ struct MessagesRepository final : IMessagesRepository, AbstractPostgreRepository
     }
 
     std::vector<Models::MessageInfo>       getMessageHistory(const std::uint64_t channelID) override;
-    Utility::StoringMessageCodes           storeMessage(const Models::MessageInfo& mi) override;
-    Utility::DeletingMessageCodes          deleteMessage(const Models::MessageInfo& mi) override;
-    Utility::EditingMessageCodes           editMessage(const Models::MessageInfo& mi) override;
-    Utility::ReactionMessageCodes          updateMessageReactions(const Models::MessageInfo& mi) override;
+    Utility::StoringMessageCodes           storeMessage(const Models::MessageInfo& messageInfo) override;
+    Utility::DeletingMessageCodes          deleteMessage(const Models::MessageInfo& messageInfo) override;
+    Utility::EditingMessageCodes           editMessage(const Models::MessageInfo& messageInfo) override;
+    Utility::ReactionMessageCodes          updateMessageReactions(const Models::MessageInfo& messageInfo) override;
 
     ~MessagesRepository() override = default;
 
 private:
-    std::optional<pqxx::result> insertMessageIntoMessagesTable(const Models::MessageInfo& msi);
+    std::optional<pqxx::result> insertMessageIntoMessagesTable(const Models::MessageInfo& messageInfo);
     std::optional<pqxx::result> insertIDsIntoChannelMessagesTable(const std::uint64_t channelID, const std::uint64_t messageID);
     std::optional<pqxx::result> insertIDIntoMessageReactionsTable(const std::uint64_t messageID);
 };
@@ -82,11 +83,10 @@ struct RegisterRepository final : IRegisterRepository, AbstractPostgreRepository
         _pTable = std::make_unique<PostgreQuery>("users", adapter); 
     }
 
-    Utility::RegistrationCodes registerUser(const Models::RegistrationInfo& ri) override;
+    Utility::RegistrationCodes registerUser(const Models::RegistrationInfo& regInfo) override;
 
     ~RegisterRepository() override = default;
 };
-
 
 struct RepliesRepository final : IRepliesRepository, AbstractPostgreRepository
 {
@@ -96,12 +96,12 @@ struct RepliesRepository final : IRepliesRepository, AbstractPostgreRepository
     }
 
     std::vector<Models::ReplyInfo>       getReplyHistory(const std::uint64_t channelID) override;
-    Utility::StoringReplyCodes           storeReply(const Models::ReplyInfo& rsi) override;
+    Utility::StoringReplyCodes           storeReply(const Models::ReplyInfo& replyInfo) override;
 
     ~RepliesRepository() override = default;
 
 private:
     std::optional<pqxx::result> insertIDsIntoChannelRepliesTable(const std::uint64_t channelID, const std::uint64_t replyID);
-    std::optional<pqxx::result> insertReplyIntoRepliesTable(const Models::ReplyInfo& rsi);
+    std::optional<pqxx::result> insertReplyIntoRepliesTable(const Models::ReplyInfo& replyInfo);
 };
 }  // namespace DataAccess
