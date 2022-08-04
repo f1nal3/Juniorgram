@@ -1,16 +1,20 @@
 #pragma once
+
 #include <iostream>
 #include <memory>
 
 namespace DataAccess
 {
+
 /**
  * @brief The IMasterRepository base abstract class
  */
 struct IMasterRepository
 {
-    /// Default virtual destructor
+    /**
+    * @brief virtual destructor.
+    */
     virtual ~IMasterRepository() = default;
 };
 
-}  /// namespace DataAccess
+}  // namespace DataAccess
