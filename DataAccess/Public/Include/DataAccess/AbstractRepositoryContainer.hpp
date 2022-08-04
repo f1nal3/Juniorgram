@@ -14,7 +14,7 @@ namespace DataAccess
 {
 /* @class AbstractRepositoryContainer
  * @brief An abstract class for server and client global repositories.
- * @details Consists adapter to chosen database, and map of  registered repositories.
+ * @details Consists of adapter to chosen database, and map of  registered repositories.
  *  This class used for registration and getting registered repositories,
  *  determined by further inheritance
  */

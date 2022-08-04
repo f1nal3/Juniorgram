@@ -67,7 +67,7 @@ struct IMessagesRepository : IMasterRepository
 
 /**
  * @class IRepliesRepository
- * @brief Implements repies processing
+ * @brief Implements replies processing
  */
 struct IRepliesRepository : IMasterRepository
 {
