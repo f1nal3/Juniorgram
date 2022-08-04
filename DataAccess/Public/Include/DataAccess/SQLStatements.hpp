@@ -1,4 +1,5 @@
 #pragma once
+
 #include <any>
 #include <iostream>
 #include <optional>
@@ -32,7 +33,6 @@ public:
 
     virtual ~SQLWhereCondition(void) = default;
 
-public:
     /**
      * @brief Like common SQL 'where' condition.
      * @param condition - SQL condition, but it is not required \
@@ -46,6 +46,7 @@ public:
 
         return _statement;
     }
+
     /**
      * @brief Like common SQL 'and' condition. This condition \
      *    need for continue the SQL query after like: limit, beetween, etc.
@@ -60,6 +61,7 @@ public:
 
         return _statement;
     }
+
     /**
      * @brief Like common SQL 'or' condition. This condition \
      *   need for continue the SQL query after like: limit, beetween, etc.
@@ -74,6 +76,7 @@ public:
 
         return _statement;
     }
+
     /**
      * @brief In condition.
      * @param anotherStatement - another SQL statement, \
@@ -88,6 +91,7 @@ public:
 
         return _statement;
     }
+
     /**
      * @brief In condition.
      * @param valueList - checking from list of values.
@@ -108,6 +112,7 @@ public:
 
         return _statement;
     }
+
     /**
      * @brief Beeween condition.
      * @param left - start of the range.
@@ -123,6 +128,7 @@ public:
 
         return _statement;
     }
+
     /**
      * @brief Like condition.
      * @param pattern - see this for info: \
@@ -188,11 +194,13 @@ public:
     }
 
 public:
+
     /**
      * @brief Return SQL statement type.
      * @return ST_SELECT, ST_INSERT, ST_UPDATE, ST_DELETE
      */
     Utility::SQLStatement getStatementType(void) const noexcept  { return _statementType; }
+
     /**
      * @brief Method that returns current SQL query string.
      *  This method for subqueries basically.
@@ -206,6 +214,7 @@ public:
      * @encode
      */
     std::string getStringQuery(void) const noexcept { return _queryStream.str(); }
+
     /**
      * @brief Method that executes SQL string.
      * For technical reasons,
@@ -242,15 +251,18 @@ public:
 
         catch (const std::exception& err)
         {
-            Base::Logger::FileLogger::getInstance().log(
+            Base::Logger::FileLogger::getInstance().log
+            (
                 std::string(std::string(err.what()) + '\n'),
-                Base::Logger::LogLevel::ERR);
+                Base::Logger::LogLevel::ERR
+            );
         }
 
         this->rollback();
 
         return std::nullopt;
     }
+
     /**
      * @brief Method that clear SQL query string.
      * @code
@@ -307,6 +319,7 @@ public:
     SQLSelect& operator=(SQLSelect&&) = delete;
 
 public:
+
     /**
      * @brief Columns that you need to return from database.
      * @details You must point columns that you need, like:
@@ -332,6 +345,7 @@ public:
     }
 
 public:
+
     /**
      * @brief Method for limiting returned SQL rows.
      * @details For example limit 5 offset 2 return: \
@@ -348,6 +362,7 @@ public:
 
         return this;
     }
+
     /**
      * @brief Method for selecting rows by columns in alphabetic order.
      * @details Use desc = true, if you wanna select in reverse order.
@@ -374,6 +389,7 @@ public:
 
         return this;
     }
+
     /**
      * @brief Method that select only distinct(different) values.
      * @warning You must use it only before columns method!
@@ -385,6 +401,7 @@ public:
 
         return this;
     }
+
     /**
      * @brief Method that select join tables.
      * @param join - join type (Check SQLJoinType enum)
@@ -450,6 +467,7 @@ public:
 
         return this;
     }
+
     /**
      * @brief Method for using instead of where with aggregate functions.
      * @code
@@ -463,6 +481,7 @@ public:
      * @param condition - string SQL condition
      * @return Current SQLSelect pointer object to continue SQL query
      */
+
     SQLSelect* having(const std::string& condition)
     {
         SQLBase<ResultType>::privateCheckForLastSymbol();
@@ -471,6 +490,7 @@ public:
 
         return this;
     }
+
     /**
      * @brief Method for a condition between a single column
      *  and a range of other values (any of the values).
@@ -487,6 +507,7 @@ public:
 
         return this;
     }
+
     /**
      * @brief Method for a condition between a single column
      *    and a range of other values (a of the values).
@@ -526,6 +547,7 @@ public:
     SQLInsert& operator=(SQLInsert&&) = delete;
 
 public:
+
     /**
      * @brief Insert one row into table.
      * @details Inserting all columns into a row.
@@ -555,6 +577,7 @@ public:
 
         return this;
     }
+
     /**
      * @brief Insert one row into table.
      * @details Inserting columns into a row as tuple. \
@@ -588,6 +611,7 @@ public:
 
         return this;
     }
+
     /**
      * @brief Insert rows into table.
      * @details Inserting several columns into a row as pairs. \
@@ -618,6 +642,7 @@ public:
 
         return this;
     }
+
     /**
      * @brief Insert rows into table.
      * @details Inserting several columns into a row as tuple of pairs. \
@@ -654,6 +679,7 @@ public:
     }
 
 public:
+
     /**
      * @brief Returning columns from table after insert.
      * @param columnList - list of columns that need to return.
@@ -700,6 +726,7 @@ public:
     SQLUpdate& operator=(SQLUpdate&&) = delete;
 
 public:
+
     /**
      * @brief Updating fields with new data.
      * @param columnData - pairs with column names by first \
@@ -719,6 +746,7 @@ public:
 
         return this;
     }
+
     /**
      * @brief Updating fields with new data.
      * @param columnData - tuple of pairs.

@@ -153,7 +153,6 @@ public:
 
     ~PostgreRepositoryManager() { _repositoryRequestsHandler.join(); }
 
-public:
     /**
      * @brief   Exists for add methods in the queue.
      *		    Pass all arguments (args) through 'fmt()' function!!!
