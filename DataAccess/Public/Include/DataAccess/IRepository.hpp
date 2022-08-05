@@ -15,6 +15,7 @@ namespace DataAccess
 class IRepository
 {
 public:
+
     /**
     * @brief draft method for getting all channel list from the server.
     * @return channels list as vector of ChannelInfo.
@@ -44,7 +45,7 @@ public:
     virtual Utility::StoringMessageCodes storeMessage(const Models::MessageInfo& messageInfo) = 0;
   
     /**
-    * @brief storeReply.
+    * @brief Method for store replying message.
     * @param replyInfo.
     * @return return The return value of the method is one of the StoringMessageCodes (enum): /
     * Storing successful - StoringMessageCodes::SUCCESS. /

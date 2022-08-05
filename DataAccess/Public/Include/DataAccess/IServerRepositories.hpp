@@ -148,10 +148,10 @@ struct IDirectMessageRepository : IMasterRepository
     */
     virtual Utility::DirectMessageStatus addDirectChat(uint64_t user_id, uint64_t directMessageInfo) = 0;
 
-    ///**
-    //* @brief virtual destructor.
-    //*/
-    //virtual ~IDirectMessageRepository() = default;
+    /**
+    * @brief virtual destructor.
+    */
+    virtual ~IDirectMessageRepository() = default;
 };
 
 /**

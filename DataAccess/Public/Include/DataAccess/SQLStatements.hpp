@@ -796,4 +796,4 @@ public:
     SQLDelete(SQLDelete&&) = delete;
     SQLDelete& operator=(SQLDelete&&) = delete;
 };
-}  /// namespace DataAccess
+}  // namespace DataAccess
