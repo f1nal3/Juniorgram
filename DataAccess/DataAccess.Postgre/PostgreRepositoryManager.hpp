@@ -1,13 +1,13 @@
 #pragma once
-#include "DataAccess.Postgre/PostgreRepositoryContainer.hpp"
+#include "PostgreRepositoryContainer.hpp"
 
-#include <DataAccess/IRepositoryManager.hpp>
+#include <DataAccess/AbstractRepositoryManager.hpp>
 
 namespace DataAccess
 {
 /**
  * @class   PostgreRepositoryManager
- * @brief   PostgreRepositoryManager controls handler for repository requests.
+ * @brief   The specific instance of IRepositoryManager
  * @details Controls push to queue and further processing of requests (have own thread for it).
  */
 class PostgreRepositoryManager: public IRepositoryManager<PostgreRepositoryContainer>

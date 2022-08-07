@@ -26,10 +26,13 @@ namespace DataAccess
     *                 (For fundamental types like int, float, etc - by value, all other - by const ref).
     */
     template <typename Type>
-    std::conditional_t<std::is_fundamental_v<Type>, std::remove_reference_t<Type>, const Type&> fmt(const Type& ref) {
-        return ref;
-    }
+    std::conditional_t<std::is_fundamental_v<Type>, std::remove_reference_t<Type>, const Type&> fmt(const Type& ref) {return ref;}
 
+    /**
+    * @class   IRepositoryManager
+    * @brief   IRepositoryManager is template class, which realization controls handler for repository requests.
+    * @details Controls push to queue and further processing of requests (have own thread for it).
+    */
     template <typename TRepositoryContainer>
     class IRepositoryManager
     {
