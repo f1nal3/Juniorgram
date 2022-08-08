@@ -79,10 +79,6 @@ jobs:
     - name: Remove Xorg package
       run: CONAN_SYSREQUIRES_MODE=enabled conan remove xorg -f
 
-
-    - name: Install system package manager
-      run:  conan install .. -c tools.system.package_manager:mode=install
-
     - name: Install Xorg
       run:  CONAN_SYSREQUIRES_MODE=enabled conan install xorg/system@
       
