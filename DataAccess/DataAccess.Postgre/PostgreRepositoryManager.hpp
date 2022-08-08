@@ -13,7 +13,7 @@ namespace DataAccess
 class PostgreRepositoryManager: public IRepositoryManager<PostgreRepositoryContainer>
 {
 public:
-	explicit PostgreRepositoryManager(const std::shared_ptr<IAdapter>& repositoryContainer = PostgreAdapter::getInstance<PostgreAdapter>())
+	explicit PostgreRepositoryManager(const std::shared_ptr<IAdapter>& repositoryContainer)
 		: IRepositoryManager(repositoryContainer) {}
 };
 }  /// namespace DataAccess 
