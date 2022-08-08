@@ -3,6 +3,7 @@ set(OUTPUT_NAME ${PROJECT}.DataAccess.Public)
 
 set(SOURCE_FILES
         Include/DataAccess/AbstractRepositoryContainer.hpp
+        Include/DataAccess/AbstractRepositoryManager.hpp
         Include/DataAccess/IAdapter.hpp
         Include/DataAccess/IClientRepositories.hpp
         Include/DataAccess/IMasterRepository.hpp
