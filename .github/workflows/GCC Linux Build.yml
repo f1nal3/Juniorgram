@@ -53,10 +53,7 @@ jobs:
       run: CONAN_SYSREQUIRES_MODE=enabled conan remove xorg -f
 
     - name: Install Xorg
-      run: |
-        -c tools.system.package_manager:mode=install
-        CONAN_SYSREQUIRES_MODE=enabled conan install xorg/system@
-
+      run:  CONAN_SYSREQUIRES_MODE=enabled conan install xorg/system@
       
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}}
