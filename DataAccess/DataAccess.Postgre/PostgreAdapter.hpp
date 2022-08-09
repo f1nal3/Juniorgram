@@ -87,4 +87,4 @@ public:
     void closeConnection(void) override;
 };
 
-} /// namespace DataAccess
+} // namespace DataAccess
