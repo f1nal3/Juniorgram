@@ -21,7 +21,7 @@ class FileLogger : ILogger
 public:
     using BlockWrapper = std::pair<std::string, std::string>;
 
-    /**
+     /**
      * @brief Gets an object of the current class
      * @return object Logger
      */
@@ -119,6 +119,7 @@ private:
      * @return time format [yyyy.mm.dd. hh.mm.ss.ms]
      */
     static std::string timestamp();
+
     /**
      * @brief Marks to current thread
      * @return curent thread in string format

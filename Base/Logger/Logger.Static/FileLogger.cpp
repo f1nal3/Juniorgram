@@ -66,10 +66,10 @@ void FileLogger::stop()
 
 void FileLogger::log(const std::string& msg, const LogLevel level)
 {
-    std::string result = wrapValue(timestamp(), _blockWrapper) + " " 
-                       + wrapValue(threadID(),  _blockWrapper) + " " 
-                       + wrapValue(stringifyLogLvl(level), _blockWrapper) + " " 
-                       + msg;
+    std::string result = wrapValue(timestamp(), _blockWrapper) +
+        " " + wrapValue(threadID(), _blockWrapper) + 
+        " " + wrapValue(stringifyLogLvl(level), _blockWrapper) +
+        " " + msg;
 
     std::unique_lock lock(_mutex);
     _msgQueue.push_back(result);
@@ -78,25 +78,28 @@ void FileLogger::log(const std::string& msg, const LogLevel level)
 
 std::string FileLogger::timestamp()
 {
+    using std::chrono::duration_cast;
+    using std::chrono::milliseconds;
     using std::chrono::system_clock;
-    system_clock::time_point tp = system_clock::now();
+    using UtilityTime::RTC;
+    using UtilityTime::timestamp_t;
 
-    time_t raw_time = system_clock::to_time_t(tp);
+    timestamp_t logMilliseconds = duration_cast<milliseconds>(RTC::now().time_since_epoch()).count() % 1000;
+    timestamp_t rawTime         = system_clock::to_time_t(RTC::now());
 
-    std::tm  tt       = safe_localtime(raw_time);
-    auto     ms       = std::chrono::duration_cast<std::chrono::microseconds>(tp.time_since_epoch()) % 1000;
+    std::tm safeTime = safe_localtime(rawTime);
 
     const unsigned sizeBuffer      = 26;
     char           buf[sizeBuffer] = {0};
 
     /// MinGW will warning if we put this string directly
     std::string_view timeFormat = "%F %T";
-    std::strftime(buf, sizeBuffer, timeFormat.data(), &tt);
+    std::strftime(buf, sizeBuffer, timeFormat.data(), &safeTime);
 
     std::string str = std::string(buf);
 
     std::stringstream ss;
-    ss << str << "." << std::setfill('0') << std::setw(3) << ms.count();
+    ss << str << "." << std::setfill('0') << std::setw(3) << logMilliseconds;
 
     return ss.str();
 }
