@@ -84,7 +84,8 @@ std::string FileLogger::timestamp()
     using UtilityTime::RTC;
     using UtilityTime::timestamp_t;
 
-    timestamp_t logMilliseconds = duration_cast<milliseconds>(RTC::now().time_since_epoch()).count() % 1000;
+    timestamp_t secDivider      = 1000;
+    timestamp_t logMilliseconds = duration_cast<milliseconds>(RTC::now().time_since_epoch()).count() % secDivider;
     timestamp_t rawTime         = system_clock::to_time_t(RTC::now());
 
     std::tm safeTime = safe_localtime(rawTime);
