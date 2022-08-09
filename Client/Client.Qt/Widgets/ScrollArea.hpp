@@ -46,7 +46,7 @@ private Q_SLOTS:
     void onRangeChanged();
     /// time to hide
     void onHideTimer();
-
+   
 protected:
     /// Handle paint
     void paintEvent(QPaintEvent* e) override;
@@ -72,16 +72,36 @@ private:
      * @param over Is mouse over?
      */
     void setOver(bool over);
+
     /**
      * @brief Is mouse over bar?
      * @param overBar is mouse over bar?
      */
     void setOverBar(bool overBar);
+
     /**
      * @brief Does mouse been pressed on bar
      * @param moving
      */
     void setMoving(bool moving);
+
+    /**
+     * @brief returns the new location of the scrollbar if it has been changed
+     * @param scrollValue
+     * @param canvasValue
+     * @param areaValue
+     */
+    constexpr int  getLocation(int scrollValue, int canvasValue,int areaValue);
+
+    /**
+     * @brief returns the new location of the left corner of the scrollbar if it has been changed
+     * @param scrollValueMax 
+     * @param canvasValue
+     * @param lValue
+     * @param scrollValue
+     */
+    constexpr int getLeftCorner(int scrollValueMax, int canvasValue, int lValue, int scrollValue);
+   
 
     const Style::ScrollArea* _st;
 
