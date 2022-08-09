@@ -5,7 +5,7 @@
 using DataAccess::PostgreAdapter;
 using DataAccess::PostgreQuery;
 
-TEST_CASE("PostgreTable", "[dummy]")
+TEST_CASE("PostgreQuery", "[dummy]")
 {
 	SECTION("Default constructor")
 	{
