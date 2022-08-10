@@ -17,13 +17,13 @@ class IRepository
 public:
 
     /**
-    * @brief draft method for getting all channel list from the server.
+    * @brief Draft method for getting all channel list from the server.
     * @return channels list as vector of ChannelInfo.
     */
     virtual std::vector<Models::ChannelInfo> getAllChannelsList() = 0;
 
     /**
-    * @brief draft method for getting history for a specific user. \
+    * @brief Draft method for getting history for a specific user. \
     * History is all messages that a marked as "non-delivered" for this user.
     * @param channelID - channel's id from which we want to get message history.
     * @return List of messages as vector of MessageInfo.

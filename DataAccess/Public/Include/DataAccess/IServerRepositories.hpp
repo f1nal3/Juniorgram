@@ -16,7 +16,7 @@ namespace DataAccess
 struct IMessagesRepository : IMasterRepository
 {
     /**
-    * @brief virtual method for getting history. \
+    * @brief virtual method for getting history. /
     * @param channelID - channel's id from which we want to get message history.
     * @return List of messages as vector of MessageInfo.
     */
