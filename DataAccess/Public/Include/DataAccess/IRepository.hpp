@@ -47,23 +47,23 @@ public:
     /**
     * @brief Method for store replying message.
     * @param replyInfo.
-    * @return return The return value of the method is one of the StoringMessageCodes (enum): /
+    * @return The return value of the method is one of the StoringMessageCodes (enum): /
     * Storing successful - StoringMessageCodes::SUCCESS. /
     * Storing failed     - StoringMessageCodes::FAILED.
     */
     virtual Utility::StoringReplyCodes storeReply(const Models::ReplyInfo& replyInfo) = 0;
     
     /**
-    * @brief method for deleting message.
+    * @brief Method for deleting message.
     * @param messageInfo.
-    * @return return The return value of the method is one of the StoringMessageCodes (enum): /
+    * @return The return value of the method is one of the StoringMessageCodes (enum): /
     * Deleting successful - StoringMessageCodes::SUCCESS. /
     * Deleting failed     - StoringMessageCodes::FAILED.
     */
     virtual Utility::DeletingMessageCodes deleteMessage(const Models::MessageInfo& messageInfo) = 0;
 
     /**
-    * @brief method for editing message
+    * @brief Method for editing message
     * @param emi as MessageInfo which contains message's data.
     * @return The return value of the method is one of the StoringMessageCodes (enum): /
     * Editing successful - StoringMessageCodes::SUCCESS. /
@@ -93,7 +93,7 @@ public:
     virtual Utility::RegistrationCodes registerUser(const Models::RegistrationInfo& regInfo) const = 0;
 
     /**
-    * @brief attempts to login a user with the provided login by checking privided hash with the one stored.
+    * @brief Attempts to login a user with the provided login by checking privided hash with the one stored.
     * @param login user login as string
     * @param pwdHash password hash
     * @return userID if provided hash is the same as stored in repository, 0 stands for failed login
