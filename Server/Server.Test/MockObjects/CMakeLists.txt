@@ -1,5 +1,4 @@
 set(TARGET MockObjects)
-
 set(OUTPUT_NAME MockObjects)
 
 set(SOURCE_FILES
@@ -7,6 +6,8 @@ set(SOURCE_FILES
 	MockClient.cpp
 	MockPostgreRepository.hpp
 	MockPostgreRepository.cpp
+	MockPostgreQuery.hpp
+	MockPostgreAdapter.hpp
 	TestUtility/TestUtility.hpp
 	)
 
@@ -34,6 +35,6 @@ target_include_directories(${TARGET} PRIVATE
 	$<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
 
 target_include_directories(${TARGET} PUBLIC 
-	$<TARGET_PROPERTY:Client.Core,SOURCE_DIR>/..)
+	$<TARGET_PROPERTY:Client.Core,SOURCE_DIR>/..)	
 
 set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)

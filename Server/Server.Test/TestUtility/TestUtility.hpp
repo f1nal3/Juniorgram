@@ -27,10 +27,10 @@ Message& messageInstance(Message& message, const MessageType messageType)
     const std::string testLogin    = "memorisecodead";
     const std::string testPassword = "12juniorgramMargroinuj";
     const std::string testPWDHash  = Base::Hashing::SHA_256(testPassword, testLogin);
-
     const std::string testChannelName = "testServer";
     const std::string testMessage     = "Hello, juniorgram!!";
-    const uint16_t    testReactionID  = 0;
+
+    uint16_t          testReactionID  = 0;
     uint64_t          testChannelID   = 1;
     uint64_t          testMsgID       = 2;
     uint64_t          testReceiverID  = 1;
@@ -192,14 +192,14 @@ testServer& testServerUpdating(testServer& serverTest)
 {
     unsigned int countOfUpdate        = 0;
     unsigned int iterationOfServer    = 1;
-    bool         serverWork           = true;
+    bool         serverWorkflow       = true;
 
-    while (serverWork)
+    while (serverWorkflow)
     {
         ++countOfUpdate;
         if (countOfUpdate > iterationOfServer)
         {
-            serverWork = false;
+            serverWorkflow = false;
             serverTest.stop();
             break;
         }

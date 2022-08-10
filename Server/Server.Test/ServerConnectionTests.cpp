@@ -162,7 +162,7 @@ TEST_CASE("Check message history request of server")
     threadMockClient.join();
     threadServer.join();
 }
-// 
+
 TEST_CASE("Check direct message create request from server side")
 {
     uint16_t   testPort;
@@ -294,7 +294,7 @@ TEST_CASE("Check message delete request from server side")
     threadMockClient.join();
     threadServer.join();
 }
-//
+
 TEST_CASE("Check channel list request from server side")
 {
     uint16_t   testPort;
@@ -414,6 +414,7 @@ TEST_CASE("Check disconnect from client")
 
     asio::io_context            testContext;
     Network::SafeQueue<Message> testIncomingMessagesQueue;
+
     CHECK_NOTHROW(serverTest.messageClient(std::shared_ptr<Network::Connection>(std::make_shared<Network::Connection>
     (
         Network::Connection::OwnerType::CLIENT, testContext, 

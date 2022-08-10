@@ -8,7 +8,10 @@ set(SOURCE_FILES
 		MockObjects/MockClient.hpp 
         MockObjects/MockClient.cpp
 		MockObjects/MockPostgreRepository.hpp
+        MockObjects/MockPostgreAdapter.hpp
+        MockObjects/MockPostgreQuery.hpp
 		MockObjects/MockPostgreRepository.cpp
+        MockObjects/MockPostgreAdapter.cpp
 		TestUtility/TestUtility.hpp
         )
 
@@ -38,7 +41,7 @@ target_include_directories(${TARGET} PRIVATE
 	$<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
 
 target_include_directories(${TARGET} PUBLIC 
-	$<TARGET_PROPERTY:Client.Core,SOURCE_DIR>/..)
+	$<TARGET_PROPERTY:Client.Core,SOURCE_DIR>/..)	
 
 target_compile_definitions(${TARGET} PRIVATE CATCH_CONFIG_FAST_COMPILE)
 target_precompile_headers(${TARGET} REUSE_FROM Precompiled.Catch2.Test)

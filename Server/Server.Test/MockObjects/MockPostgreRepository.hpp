@@ -1,9 +1,9 @@
 #pragma once 
 
-#include <DataAccess.Postgre/PostgreTable.hpp>
 #include <DataAccess/IAdapter.hpp>
 #include <DataAccess.Postgre/UsersAmountFinder.hpp>
 #include <DataAccess/IServerRepositories.hpp>
+#include <MockPostgreQuery.hpp>
 
 #include <Network/Connection.hpp>
 #include <Models/Primitives.hpp>
@@ -21,17 +21,17 @@ using IMessagesRepository      = DataAccess::IMessagesRepository;
 using IRegisterRepository      = DataAccess::IRegisterRepository;
 using IRepliesRepository       = DataAccess::IRepliesRepository;
 
-struct AbstractPostgreRepository
+struct MockAbstractPostgreRepository
 {
 protected:
-    std::unique_ptr<PostgreTable> _pTable;
+    std::unique_ptr<MockPostgreQuery> _pTable;
 };
 
-struct testChannelsRepository final : AbstractPostgreRepository, IChannelRepository
+struct ChannelsRepository final : IChannelRepository, MockAbstractPostgreRepository
 {
-    explicit testChannelsRepository(const std::shared_ptr<IAdapter>& adapter)
+    explicit ChannelsRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        _pTable = std::make_unique<PostgreTable>("users", adapter);
+        _pTable = std::make_unique<MockPostgreQuery>("users", adapter);
     }
 
     Utility::ChannelDeleteCode        deleteChannel(Models::ChannelDeleteInfo& channel) const;
@@ -41,38 +41,38 @@ struct testChannelsRepository final : AbstractPostgreRepository, IChannelReposit
     std::vector<uint64_t>             getChannelSubscriptionList(uint64_t userID) const;
     std::vector<Models::ChannelInfo>  getAllChannelsList() const;
 
-    ~testChannelsRepository() = default;
+    ~ChannelsRepository() = default;
 };
 
-struct testDirectMessageRepository final : AbstractPostgreRepository, IDirectMessageRepository
+struct DirectMessageRepository final : IDirectMessageRepository, MockAbstractPostgreRepository
 {
-    explicit testDirectMessageRepository(const std::shared_ptr<IAdapter>& adapter)
+    explicit DirectMessageRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        _pTable = std::make_unique<PostgreTable>("channels", adapter);
+        _pTable = std::make_unique<MockPostgreQuery>("channels", adapter);
     }
 
     Utility::DirectMessageStatus addDirectChat(uint64_t user_id, uint64_t receiverId) const;
 
-    ~testDirectMessageRepository() = default;
+    ~DirectMessageRepository() = default;
 };
 
-struct testLoginRepository final : AbstractPostgreRepository, ILoginRepository
+struct LoginRepository final : ILoginRepository, MockAbstractPostgreRepository
 {
-    explicit testLoginRepository(const std::shared_ptr<IAdapter>& adapter)
+    explicit LoginRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        _pTable = std::make_unique<PostgreTable>("users", adapter); 
+        _pTable = std::make_unique<MockPostgreQuery>("users", adapter); 
     }
 
     std::uint64_t loginUser(std::string& login, std::string& pwdHash) const;
 
-    ~testLoginRepository() = default;
+    ~LoginRepository() = default;
 };
 
-struct testMessagesRepository final : AbstractPostgreRepository, IMessagesRepository
+struct MessagesRepository final : IMessagesRepository, MockAbstractPostgreRepository
 {
-    explicit testMessagesRepository(const std::shared_ptr<IAdapter>& adapter)
+    explicit MessagesRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        _pTable = std::make_unique<PostgreTable>("users", adapter);
+        _pTable = std::make_unique<MockPostgreQuery>("users", adapter);
     }
 
     Utility::DeletingMessageCodes     deleteMessage(Models::MessageInfo& mi) const;
@@ -81,7 +81,7 @@ struct testMessagesRepository final : AbstractPostgreRepository, IMessagesReposi
     Utility::StoringMessageCodes      storeMessage(Models::MessageInfo& msi) const;
     std::vector<Models::MessageInfo>  getMessageHistoryForUser(std::uint64_t channelID) const;
 
-    ~testMessagesRepository() = default;
+    ~MessagesRepository() = default;
 
 private:
     std::optional<pqxx::result> insertMessageIntoMessagesTable(const Models::MessageInfo& msi) const;
@@ -89,29 +89,29 @@ private:
     std::optional<pqxx::result> insertIDIntoMessageReactionsTable(const std::uint64_t messageID) const;
 };
 
-struct testRegisterRepository final : AbstractPostgreRepository, IRegisterRepository
+struct RegisterRepository final : IRegisterRepository, MockAbstractPostgreRepository
 {
-    explicit testRegisterRepository(const std::shared_ptr<IAdapter>& adapter)
+    explicit RegisterRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        _pTable = std::make_unique<PostgreTable>("users", adapter);
+        _pTable = std::make_unique<MockPostgreQuery>("users", adapter);
     }
 
     Utility::RegistrationCodes registerUser(Models::RegistrationInfo& ri) const;
 
-    ~testRegisterRepository() = default;
+    ~RegisterRepository() = default;
 };
 
-struct testRepliesRepository final: AbstractPostgreRepository, IRepliesRepository
+struct RepliesRepository final : IRepliesRepository, MockAbstractPostgreRepository
 {
-    explicit testRepliesRepository(const std::shared_ptr<IAdapter>& adapter)
+    explicit RepliesRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        _pTable = std::make_unique<PostgreTable>("msgs", adapter); 
+        _pTable = std::make_unique<MockPostgreQuery>("msgs", adapter); 
     }
 
     std::vector<Models::ReplyInfo> getReplyHistoryForUser(const std::uint64_t channelID) const;
     Utility::StoringReplyCodes     storeReply(const Models::ReplyInfo& rsi) const;
 
-    ~testRepliesRepository() = default;
+    ~RepliesRepository() = default;
 
 private:
     std::optional<pqxx::result> insertIDsIntoChannelRepliesTable(const std::uint64_t channelID, const std::uint64_t replyID) const;
