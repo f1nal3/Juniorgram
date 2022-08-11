@@ -28,32 +28,32 @@ using RTC = std::chrono::system_clock;
 using UtilityTime::timestamp_t;
 
 /**
- *  @class MockClient.
- *  @brief This class is designed to emulate a client connection.
- *  @details Uses std::asio tools.
- */
+*  @class MockClient.
+*  @brief This class is designed to emulate a client connection.
+*  @details Uses std::asio tools.
+*/
 class MockClient
 {
 public:
     /**
-     * @brief Method for connecting to server.
-     * @param host means as ip address.
-     */
+    * @brief Method for connecting to server.
+    * @param host means as ip address.
+    */
     bool connectToServer(const std::string_view& host, const uint16_t port);
 
     /**
-     * @brief Method for disconnecting from server.
-     */
+    * @brief Method for disconnecting from server.
+    */
     void disconnectFromServer();
 
     /**
-     * @brief Method for checking connection to server.
-     */
+    * @brief Method for checking connection to server.
+    */
     bool isConnected() const;
 
     /**
-     * @brief Method for sending message to server.
-     */
+    * @brief Method for sending message to server.
+    */
     void send(const Message& message) const;
 
     /**

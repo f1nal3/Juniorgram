@@ -183,7 +183,7 @@ Client& testSendingMessages(Client& mockClient, const MessageType mesgType)
     std::this_thread::sleep_for(milliseconds(1000));
     messageInstance(message, mesgType);
     mockClient.send(message);
-    std::this_thread::sleep_for(milliseconds(7000));
+    std::this_thread::sleep_for(milliseconds(4000));
 
     return mockClient;
 }
