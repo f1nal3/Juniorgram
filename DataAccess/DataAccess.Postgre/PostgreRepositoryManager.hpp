@@ -10,7 +10,7 @@ namespace DataAccess
  * @brief   The specific(Postgre) instance of IRepositoryManager
  * @details Controls push to queue and further processing of requests (have own thread for it).
  */
-class PostgreRepositoryManager: public IRepositoryManager<PostgreRepositoryContainer>
+class PostgreRepositoryManager: public IRepositoryManager
 {
 public:
 	explicit PostgreRepositoryManager(const std::shared_ptr<IAdapter>& repositoryContainer)

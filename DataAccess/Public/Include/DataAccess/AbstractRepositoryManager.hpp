@@ -33,22 +33,21 @@ namespace DataAccess
     * @brief   IRepositoryManager is template class, which realization controls handler for repository requests.
     * @details Controls push to queue and further processing of requests (have own thread for it).
     */
-    template <typename TRepositoryContainer>
     class IRepositoryManager
     {
     private:
-        std::unique_ptr<TRepositoryContainer>        _repositories;
-        std::priority_queue<RepositoryRequest>       _queue;
+        std::unique_ptr<AbstractRepositoryContainer>        _repositories;
+        std::priority_queue<RepositoryRequest>              _queue;
 
-        std::mutex                                   _queueMutex;
-        std::condition_variable                      _queueCV;
+        std::mutex                                          _queueMutex;
+        std::condition_variable                             _queueCV;
 
-        std::atomic<bool>                            _handlerState;
-        std::thread                                  _repositoryRequestsHandler;
+        std::atomic<bool>                                   _handlerState;
+        std::thread                                          _repositoryRequestsHandler;
 
     public:
         explicit IRepositoryManager(const std::shared_ptr<IAdapter>& repositoryContainer)
-            :_repositories(std::make_unique<TRepositoryContainer>(repositoryContainer)),
+            :_repositories(std::make_unique<AbstractRepositoryContainer>(repositoryContainer)),
             _queue(),
             _queueMutex(),
             _handlerState(true)
