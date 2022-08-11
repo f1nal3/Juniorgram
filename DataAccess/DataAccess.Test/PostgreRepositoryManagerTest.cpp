@@ -1,6 +1,8 @@
 #include <catch2/catch.hpp>
 
-#include "DataAccess.Postgre/PostgreRepositoryManager.hpp"
+#include <DataAccess.Postgre/PostgreRepositoryManager.hpp>
+
+#include "DataAccess/RepositoryRequest.hpp"
 
 TEST_CASE("fmt method", "[dummy]")
 {
