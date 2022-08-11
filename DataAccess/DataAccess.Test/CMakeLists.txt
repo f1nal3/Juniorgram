@@ -9,7 +9,7 @@ set(SOURCE_FILES
         UsersAmountFinderTest.cpp 
         PostgreRepositoryManagerTest.cpp 
         PostgreRepositoriesContainerTest.cpp 
-        PostgreTableTest.cpp
+        PostgreQueryTest.cpp
         QueryBuilderTest.cpp
         AbstractRepositoryContainerTest.cpp
         )
