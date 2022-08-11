@@ -11,8 +11,8 @@
 namespace DataAccess
 {
 /**
- * @brief The IMessagesRepository abstract subclass from IMasterRepository.
- */
+* @brief The IMessagesRepository abstract subclass from IMasterRepository.
+*/
 struct IMessagesRepository : IMasterRepository
 {
     /**
