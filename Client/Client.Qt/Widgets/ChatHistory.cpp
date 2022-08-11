@@ -40,7 +40,6 @@ void ChatHistory::addReply(const Models::ReplyInfo& replyInfo)
     replyMsg->show();
     replyMsg->resize(history->width() - 25, replyMsg->expectedHeight());
     history->setMinimumHeight(history->minimumHeight() + replyMsg->expectedHeight() + 10);
-
     _replyList.try_emplace(static_cast<int32_t>(replyInfo._msgIdOwner), replyMsg);
     _replies.push_back(replyInfo);
 

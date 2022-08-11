@@ -61,10 +61,10 @@ void ScrollBar::updateBar(bool)
     }
     else
     {
-        int scrollWidth = area()->scrollWidth();
+        int scrollWidth  = area()->scrollWidth();
         int canvasWidth  = width();
         int       width         = area()->width();
-        int       lWidth    = getLocation(scrollWidth, canvasWidth,width);
+        int       lWidth        = getLocation(scrollWidth, canvasWidth,width);
         const int minWidth      = 30;
         if (lWidth >= canvasWidth || !area()->scrollLeftMax() || canvasWidth < minWidth)
         {

@@ -127,7 +127,7 @@ endif ()
 
 target_link_libraries(${TARGET}
         PRIVATE Qt5::Widgets Qt5::Gui ${EXTRA_LIBS} asio::asio
-        PUBLIC Network.Public Client.Core.Static Utility.Public DataAccess.SQLite)
+        PUBLIC Network.Public Client.Core.Static Utility.Public DataAccess.SQLite Models.Public)
 
 
 target_include_directories(${TARGET}
