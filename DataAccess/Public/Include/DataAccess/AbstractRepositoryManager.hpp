@@ -42,15 +42,12 @@ namespace DataAccess
         std::mutex                                          _queueMutex;
         std::condition_variable                             _queueCV;
 
-        std::atomic<bool>                                   _handlerState;
-        std::thread                                          _repositoryRequestsHandler;
+        std::atomic<bool>                                   _handlerState = true;
+        std::thread                                         _repositoryRequestsHandler;
 
     public:
         explicit IRepositoryManager(const std::shared_ptr<IAdapter>& repositoryContainer)
-            :_repositories(std::make_unique<AbstractRepositoryContainer>(repositoryContainer)),
-            _queue(),
-            _queueMutex(),
-            _handlerState(true)
+            :_repositories(std::make_unique<AbstractRepositoryContainer>(repositoryContainer))
         {
             this->privateRegisterRepositories();
         }
@@ -77,7 +74,7 @@ namespace DataAccess
             static_assert(std::is_member_function_pointer_v<MethodReference<TIRepository, TReturn, TArgs...>>,
                 "You passed not a method reference!");
 
-            std::unique_lock<std::mutex> lock(_queueMutex);
+            std::unique_lock lock(_queueMutex);
 
             RepositoryRequest     request = this->privateCreateRequest<priority>(methodRef, std::forward<TArgs>(args)...);
             FutureResult<TReturn> futureResult(request.getFutureFromTask());
@@ -141,9 +138,9 @@ namespace DataAccess
          */
         std::optional<RepositoryRequest> privatePopRequest() noexcept
         {
-            std::unique_lock<std::mutex> lock(_queueMutex);
+            std::unique_lock lock(_queueMutex);
 
-            _queueCV.wait(lock, [&]() { return !empty() || !_handlerState; });
+            _queueCV.wait(lock, [this]() { return !empty() || !_handlerState; });
 
             if ( !_handlerState || empty() ) return {};
 
@@ -156,7 +153,7 @@ namespace DataAccess
         /**
          * @brief Needs to register all repositories in repository container.
          */
-        void privateRegisterRepositories()
+        void privateRegisterRepositories() const
         {
             _repositories->registerRepository<IChannelsRepository, ChannelsRepository>();
             _repositories->registerRepository<ILoginRepository, LoginRepository>();

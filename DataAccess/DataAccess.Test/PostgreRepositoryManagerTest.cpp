@@ -78,3 +78,11 @@ TEST_CASE("FutureResult", "[dummy]")
 	}
 }
 
+TEST_CASE("PostgreRepositoryManager", "[duumy]")
+{
+	SECTION("Constructor check")
+	{
+		using namespace DataAccess;
+		REQUIRE_NOTHROW(PostgreRepositoryManager(PostgreAdapter::Instance()));
+	}
+}
