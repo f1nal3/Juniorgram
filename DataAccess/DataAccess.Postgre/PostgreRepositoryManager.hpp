@@ -7,7 +7,7 @@ namespace DataAccess
 {
 /**
  * @class   PostgreRepositoryManager
- * @brief   The specific instance of IRepositoryManager
+ * @brief   The specific(Postgre) instance of IRepositoryManager
  * @details Controls push to queue and further processing of requests (have own thread for it).
  */
 class PostgreRepositoryManager: public IRepositoryManager<PostgreRepositoryContainer>
