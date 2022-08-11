@@ -18,13 +18,13 @@ public:
      * @brief Constructor for chat widget
      * @param parent Parent widget
      */
-    explicit ChatWidget(std::string channelName, QWidget* parent = nullptr);
+    explicit ChatWidget(std::string_view channelName, QWidget* parent = nullptr);
     /**
      * @brief Method for chat widget
      * @param ID of channel. It's format uint64_t
      */
     void setChannelID(const std::uint64_t channelID) { _channelID = channelID; }
-    void setChannelName(const std::string channelName) 
+    void setChannelName(std::string_view channelName) 
     { 
         _channelName = channelName;
         _channelBar->setChannelName(QString::fromStdString(_channelName));
@@ -37,13 +37,13 @@ protected:
     void resizeEvent(QResizeEvent* event) override;
 
 private slots:
-    void newMessage(const QString& messageText);
-    void setReply(QString messageText, QString username, uint64_t messageId);
-    void addMessages(const std::vector<Models::MessageInfo>& messages);
-    void addReplies(const std::vector<Models::ReplyInfo>& replies);
+    void newMessage(const QString& messageText) const;
+    void setReply(QString messageText, QString username, uint64_t messageId) const;
+    void addMessages(const std::vector<Models::MessageInfo>& messages) const;
+    void addReplies(const std::vector<Models::ReplyInfo>& replies)const ;
 
     void requestMessages() const;
-    void updateLayout();
+    void updateLayout() const;
 
 signals:
     /// On delete button click

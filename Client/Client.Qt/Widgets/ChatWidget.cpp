@@ -6,7 +6,7 @@
 #include "Application.hpp"
 #include "ChatHistory.hpp"
 
-ChatWidget::ChatWidget(std::string channelName, QWidget* parent) : QWidget(parent), _channelName(channelName)
+ChatWidget::ChatWidget(std::string_view channelName, QWidget* parent) : QWidget(parent), _channelName(channelName)
 {
     setContentsMargins(0, 0, 0, 0);
 
@@ -16,9 +16,9 @@ ChatWidget::ChatWidget(std::string channelName, QWidget* parent) : QWidget(paren
     _replyWidget  = std::make_unique<ReplyWidget>(this);
     _requestTimer = std::make_unique<QTimer>();
     connect(_requestTimer.get(), &QTimer::timeout, this, &ChatWidget::requestMessages);
-    connect(_channelBar.get(), &ChannelBar::leaveChannelClick, this, [&]() {
+    connect(_channelBar.get(), &ChannelBar::leaveChannelClick, this, [this]() {
         this->close();
-        emit removeChannel();
+        emit this->removeChannel();
     });
     /// Once in a second
     _requestTimer->start(1000);
@@ -28,14 +28,14 @@ ChatWidget::ChatWidget(std::string channelName, QWidget* parent) : QWidget(paren
     connect(_chatHistory.get(), &ChatHistory::createReplySignal, this, &ChatWidget::setReply);
     connect(_textEdit.get(), &TextEdit::sendMessage, this, &ChatWidget::newMessage);
 
-    connect(_replyWidget.get(), &ReplyWidget::visibilityChanged, [=](bool) { updateLayout(); });
-    connect(_textEdit.get(), &TextEdit::textChanged, [=]() { updateLayout(); });
+    connect(_replyWidget.get(), &ReplyWidget::visibilityChanged, [this](bool) { this->updateLayout(); });
+    connect(_textEdit.get(), &TextEdit::textChanged, [this]() { this->updateLayout(); });
 
     connect(ReceiverManager::instance(), &ReceiverManager::onReplyHistoryAnswer, this, &ChatWidget::addReplies);
     connect(ReceiverManager::instance(), &ReceiverManager::onMessageHistoryAnswer, this, &ChatWidget::addMessages);
 }
 
-void ChatWidget::newMessage(const QString& messageText)
+void ChatWidget::newMessage(const QString& messageText) const
 {
     oApp->connectionManager()->storeMessage(messageText.toStdString(), _channelID);
     if (!_replyWidget->isHidden())
@@ -45,7 +45,7 @@ void ChatWidget::newMessage(const QString& messageText)
     }
 }
 
-void ChatWidget::addMessages(const std::vector<Models::MessageInfo>& messages)
+void ChatWidget::addMessages(const std::vector<Models::MessageInfo>& messages) const
 {
     if (messages.empty()) return;
     if (messages.front()._channelID != _channelID) return;  // It could be messages for other channel
@@ -56,7 +56,7 @@ void ChatWidget::addMessages(const std::vector<Models::MessageInfo>& messages)
     }
 }
 
-void ChatWidget::addReplies(const std::vector<Models::ReplyInfo>& replies)
+void ChatWidget::addReplies(const std::vector<Models::ReplyInfo>& replies) const
 {
     if (replies.empty()) return;
     if (replies.front()._channelID != _channelID) return;  // It could be replies for other channel
@@ -76,13 +76,13 @@ void ChatWidget::requestMessages() const
     }
 }
 
-void ChatWidget::setReply(QString messageText, QString username, uint64_t messageId)
+void ChatWidget::setReply(QString messageText, QString username, uint64_t messageId) const
 {
     _replyWidget->setReply(std::move(messageText), std::move(username), messageId);
     _replyWidget->show();
 }
 
-void ChatWidget::updateLayout()
+void ChatWidget::updateLayout() const
 {
     const auto& size = this->size();
     _replyWidget->setFixedWidth(size.width());  // Reply on whole width
