@@ -77,12 +77,3 @@ TEST_CASE("FutureResult", "[dummy]")
 		REQUIRE_THROWS(testFutureResult.get());
 	}
 }
-
-TEST_CASE("PostgreRepositoryManager", "[duumy]")
-{
-	SECTION("Constructor check")
-	{
-		using namespace DataAccess;
-		REQUIRE_NOTHROW(PostgreRepositoryManager(PostgreAdapter::Instance()));
-	}
-}
