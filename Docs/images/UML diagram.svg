@@ -3,7 +3,7 @@
 <!-- Создано Microsoft Visio, экспорт SVG UML diagram.svg Page-1 -->
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
 		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="90.0433in" height="16.0354in"
-		viewBox="0 0 6483.12 1154.55" xml:space="preserve" color-interpolation-filters="sRGB" class="st27">
+		viewBox="0 0 6483.12 1154.55" xml:space="preserve" color-interpolation-filters="sRGB" class="st28">
 	<v:documentProperties v:langID="1049" v:metric="true" v:viewMarkup="false">
 		<v:userDefs>
 			<v:ud v:nameU="msvNoAutoConnect" v:prompt="" v:val="VT0(0):26"/>
@@ -27,18 +27,19 @@
 		.st13 {fill:#4672c4;font-family:Calibri;font-size:0.833336em}
 		.st14 {fill:#5880c9;stroke:#c7c8c8;stroke-width:0.25}
 		.st15 {marker-start:url(#mrkr22-895);stroke:#4672c4;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
-		.st16 {fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-width:7.2}
+		.st16 {fill:#ffffff;stroke:none;stroke-linecap:butt}
 		.st17 {fill:#3c63ac;font-family:Calibri;font-size:0.666664em}
 		.st18 {marker-end:url(#mrkr12-904);stroke:#4672c4;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
-		.st19 {marker-end:url(#mrkr14-7);stroke:#4672c4;stroke-dasharray:7,5;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
-		.st20 {stroke:#4672c4;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
-		.st21 {fill:#4672c4;stroke:none;stroke-width:0.25}
-		.st22 {fill:#ffffff;font-family:Calibri;font-size:1.00001em;font-style:italic}
-		.st23 {fill:#feffff;font-family:Calibri;font-size:1.00001em;font-style:italic}
-		.st24 {fill:#3c63ac}
-		.st25 {stroke:#30518f;stroke-width:0.75}
-		.st26 {fill:#ffffff;stroke:#30518f;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
-		.st27 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+		.st19 {fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-width:7.2}
+		.st20 {marker-end:url(#mrkr14-7);stroke:#4672c4;stroke-dasharray:7,5;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st21 {stroke:#4672c4;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st22 {fill:#4672c4;stroke:none;stroke-width:0.25}
+		.st23 {fill:#ffffff;font-family:Calibri;font-size:1.00001em;font-style:italic}
+		.st24 {fill:#feffff;font-family:Calibri;font-size:1.00001em;font-style:italic}
+		.st25 {fill:#3c63ac}
+		.st26 {stroke:#30518f;stroke-width:0.75}
+		.st27 {fill:#ffffff;stroke:#30518f;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st28 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
 	]]>
 	</style>
 
@@ -5590,11 +5591,11 @@
 				<v:ud v:nameU="Test" v:prompt="" v:val="VT0(0):5"/>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(3.9118499650037):1"/>
-				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(PostgreTable)"/>
+				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(PostgreQuery)"/>
 				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT5(#c8c8c8)"/>
 			</v:userDefs>
 			<title>Занятие.765</title>
-			<desc>PostgreTable</desc>
+			<desc>PostgreQuery</desc>
 			<g id="shape766-823" v:mID="766" v:groupContext="shape">
 				<title>Лист.766</title>
 				<v:userDefs>
@@ -5618,7 +5619,7 @@
 					<v:ud v:nameU="Spacer" v:prompt="" v:val="VT0(0):26"/>
 					<v:ud v:nameU="UsableHgt" v:prompt="" v:val="VT0(0.43616263699002):1"/>
 					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(ИмяКласса)"/>
-					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(PostgreTable)"/>
+					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(PostgreQuery)"/>
 				</v:userDefs>
 				<path d="M0 1154.55 L303.31 1154.55 L303.31 1123.15 L0 1123.15 L0 1154.55 Z" class="st5"/>
 			</g>
@@ -5637,7 +5638,7 @@
 			<g id="shape765-828" v:mID="765" v:groupContext="groupContent">
 				<v:textBlock v:margins="rect(8.5,4,8.5,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="151.654" cy="1094.34" width="303.31" height="31.4037"/>
-				<text x="119.82" y="1097.94" class="st8" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreTable</text>			</g>
+				<text x="118.15" y="1097.94" class="st8" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreQuery</text>			</g>
 		</g>
 		<g id="shape770-830" v:mID="770" v:groupContext="shape" transform="translate(5929.51,-505.807)">
 			<title>Участник.770</title>
@@ -6029,7 +6030,7 @@
 				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="262.389" cy="1104.8" width="40" height="17.6036"/>
 				<path d="M0 1139.07 L0 1138.71 L0 1118.55 L423.78 1118.55 L423.78 982.88" class="st15"/>
-				<rect v:rectContext="textBkgnd" x="247.637" y="1100" width="29.5038" height="9.59985" class="st16"/>
+				<rect v:rectContext="textBkgnd" x="247.637" y="1100" width="29.5038" height="9.59985" class="st19"/>
 				<text x="247.64" y="1107.2" class="st17" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>_adapter</text>			</g>
 		</g>
 		<g id="group1177-913" transform="translate(2488.25,-552.045)" v:mID="1177" v:groupContext="group" v:layerMember="1">
@@ -6084,8 +6085,8 @@
 			<g id="shape1182-922" v:mID="1182" v:groupContext="groupContent" v:layerMember="1">
 				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="35.2558" cy="1103.38" width="72.33" height="17.6036"/>
-				<path d="M-6.91 1154.55 L-6.91 1118.55 L-7.26 1118.55 L-7.26 1057.06" class="st19"/>
-				<rect v:rectContext="textBkgnd" x="4.00026" y="1098.58" width="62.5114" height="9.59985" class="st16"/>
+				<path d="M-6.91 1154.55 L-6.91 1118.55 L-7.26 1118.55 L-7.26 1057.06" class="st20"/>
+				<rect v:rectContext="textBkgnd" x="4.00026" y="1098.58" width="62.5114" height="9.59985" class="st19"/>
 				<text x="4" y="1105.78" class="st17" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>T = PostgreAdapter</text>			</g>
 		</g>
 		<g id="group1202-929" transform="translate(2936.83,-552.045)" v:mID="1202" v:groupContext="group" v:layerMember="1">
@@ -6275,7 +6276,7 @@
 				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="113.598" cy="1044.23" width="97.12" height="17.6036"/>
 				<path d="M0 1154.55 L-0 1059.12 L707.17 1059.12 L707.17 1021.83" class="st1"/>
-				<rect v:rectContext="textBkgnd" x="69.9487" y="1039.43" width="87.2998" height="9.59985" class="st16"/>
+				<rect v:rectContext="textBkgnd" x="69.9487" y="1039.43" width="87.2998" height="9.59985" class="st19"/>
 				<text x="69.95" y="1046.63" class="st17" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>T = SQLSelect&#60;ResultType&#62;</text>			</g>
 		</g>
 		<g id="group1327-979" transform="translate(4556.13,-744.218)" v:mID="1327" v:groupContext="group" v:layerMember="1">
@@ -6506,7 +6507,7 @@
 			</v:userDefs>
 			<title>Реализация интерфейса.1372</title>
 			<g id="shape1372-1034" v:mID="1372" v:groupContext="groupContent" v:layerMember="1">
-				<path d="M0 1154.55 L0 1119.85 L67.32 1119.85 L67.32 732.98" class="st19"/>
+				<path d="M0 1154.55 L0 1119.85 L67.32 1119.85 L67.32 732.98" class="st20"/>
 			</g>
 		</g>
 		<g id="group1377-1039" transform="translate(5216.6,-324.083)" v:mID="1377" v:groupContext="group" v:layerMember="1">
@@ -6529,7 +6530,7 @@
 			</v:userDefs>
 			<title>Реализация интерфейса.1377</title>
 			<g id="shape1377-1040" v:mID="1377" v:groupContext="groupContent" v:layerMember="1">
-				<path d="M0 1154.55 L0 1118.55 L-69.45 1118.55 L-69.45 777.63 L23.39 777.63 L23.39 732.98" class="st19"/>
+				<path d="M0 1154.55 L0 1118.55 L-69.45 1118.55 L-69.45 777.63 L23.39 777.63 L23.39 732.98" class="st20"/>
 			</g>
 		</g>
 		<g id="group1382-1045" transform="translate(4872.19,-324.083)" v:mID="1382" v:groupContext="group" v:layerMember="1">
@@ -6552,7 +6553,7 @@
 			</v:userDefs>
 			<title>Реализация интерфейса.1382</title>
 			<g id="shape1382-1046" v:mID="1382" v:groupContext="groupContent" v:layerMember="1">
-				<path d="M0 1154.55 L0 1117.78 L-36.85 1117.78 L-36.85 745.67" class="st19"/>
+				<path d="M0 1154.55 L0 1117.78 L-36.85 1117.78 L-36.85 745.67" class="st20"/>
 			</g>
 		</g>
 		<g id="group1387-1051" transform="translate(4509.35,-324.083)" v:mID="1387" v:groupContext="group" v:layerMember="1">
@@ -6575,7 +6576,7 @@
 			</v:userDefs>
 			<title>Реализация интерфейса.1387</title>
 			<g id="shape1387-1052" v:mID="1387" v:groupContext="groupContent" v:layerMember="1">
-				<path d="M0 1154.55 L0 1114.99 L118.28 1114.99 L118.28 742.14" class="st19"/>
+				<path d="M0 1154.55 L0 1114.99 L118.28 1114.99 L118.28 742.14" class="st20"/>
 			</g>
 		</g>
 		<g id="group1392-1057" transform="translate(4145.1,-356.929)" v:mID="1392" v:groupContext="group" v:layerMember="1">
@@ -6599,7 +6600,7 @@
 			</v:userDefs>
 			<title>Реализация интерфейса.1392</title>
 			<g id="shape1392-1058" v:mID="1392" v:groupContext="groupContent" v:layerMember="1">
-				<path d="M0 1154.55 L157.32 1154.55 L157.32 813.82" class="st19"/>
+				<path d="M0 1154.55 L157.32 1154.55 L157.32 813.82" class="st20"/>
 			</g>
 		</g>
 		<g id="group1397-1063" transform="translate(3799.28,-324.083)" v:mID="1397" v:groupContext="group" v:layerMember="1">
@@ -6622,7 +6623,7 @@
 			</v:userDefs>
 			<title>Реализация интерфейса.1397</title>
 			<g id="shape1397-1064" v:mID="1397" v:groupContext="groupContent" v:layerMember="1">
-				<path d="M0 1154.55 L0 1118.4 L65.76 1118.4 L65.76 792.98" class="st19"/>
+				<path d="M0 1154.55 L0 1118.4 L65.76 1118.4 L65.76 792.98" class="st20"/>
 			</g>
 		</g>
 		<g id="group1402-1069" transform="translate(3799.28,-324.083)" v:mID="1402" v:groupContext="group" v:layerMember="1">
@@ -6797,8 +6798,8 @@
 			<g id="shape1437-1106" v:mID="1437" v:groupContext="groupContent" v:layerMember="1">
 				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="-38.2677" cy="1124.11" width="40" height="17.6036"/>
-				<path d="M0 1154.55 L0 1134.32 L-75.12 1134.32 L-75.12 922.69 L-94.96 922.69" class="st20"/>
-				<rect v:rectContext="textBkgnd" x="-51.2364" y="1119.31" width="25.9373" height="9.59985" class="st16"/>
+				<path d="M0 1154.55 L0 1134.32 L-75.12 1134.32 L-75.12 922.69 L-94.96 922.69" class="st21"/>
+				<rect v:rectContext="textBkgnd" x="-51.2364" y="1119.31" width="25.9373" height="9.59985" class="st19"/>
 				<text x="-51.24" y="1126.51" class="st17" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>_pTable</text>			</g>
 		</g>
 		<g id="group1442-1111" transform="translate(6078.33,-567.811)" v:mID="1442" v:groupContext="group" v:layerMember="1">
@@ -6825,8 +6826,8 @@
 			<g id="shape1442-1112" v:mID="1442" v:groupContext="groupContent" v:layerMember="1">
 				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="131.811" cy="1124.54" width="40" height="17.6036"/>
-				<path d="M0 1154.55 L0 1134.32 L174.33 1134.32 L174.33 1014.64" class="st20"/>
-				<rect v:rectContext="textBkgnd" x="118.842" y="1119.74" width="25.9373" height="9.59985" class="st16"/>
+				<path d="M0 1154.55 L0 1134.32 L174.33 1134.32 L174.33 1014.64" class="st21"/>
+				<rect v:rectContext="textBkgnd" x="118.842" y="1119.74" width="25.9373" height="9.59985" class="st19"/>
 				<text x="118.84" y="1126.94" class="st17" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>_pTable</text>			</g>
 		</g>
 		<g id="group1447-1117" transform="translate(6078.33,-476.134)" v:mID="1447" v:groupContext="group" v:layerMember="1">
@@ -6856,7 +6857,7 @@
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 			</v:userDefs>
-			<path d="M8.52 1154.55 L17.04 1149.85 L8.52 1145.15 L0 1149.85 L8.52 1154.55 Z" class="st21"/>
+			<path d="M8.52 1154.55 L17.04 1149.85 L8.52 1145.15 L0 1149.85 L8.52 1154.55 Z" class="st22"/>
 		</g>
 		<g id="group1543-1125" transform="translate(2190.97,-848.409)" v:mID="1543" v:groupContext="group" v:layerMember="1">
 			<v:userDefs>
@@ -6882,8 +6883,8 @@
 			<g id="shape1543-1126" v:mID="1543" v:groupContext="groupContent" v:layerMember="1">
 				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="101.367" cy="1110.61" width="40" height="17.6036"/>
-				<path d="M0 1154.55 L0 1118.55 L297.28 1118.55 L297.28 1065.51" class="st20"/>
-				<rect v:rectContext="textBkgnd" x="89.0898" y="1105.81" width="24.5544" height="9.59985" class="st16"/>
+				<path d="M0 1154.55 L0 1118.55 L297.28 1118.55 L297.28 1065.51" class="st21"/>
+				<rect v:rectContext="textBkgnd" x="89.0898" y="1105.81" width="24.5544" height="9.59985" class="st19"/>
 				<text x="89.09" y="1113.01" class="st17" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>_queue</text>			</g>
 		</g>
 		<g id="shape1549-1131" v:mID="1549" v:groupContext="shape" transform="translate(1762.18,323.181) rotate(-90)">
@@ -6891,7 +6892,7 @@
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 			</v:userDefs>
-			<path d="M8.52 1154.55 L17.04 1149.85 L8.52 1145.15 L0 1149.85 L8.52 1154.55 Z" class="st21"/>
+			<path d="M8.52 1154.55 L17.04 1149.85 L8.52 1145.15 L0 1149.85 L8.52 1154.55 Z" class="st22"/>
 		</g>
 		<g id="group1550-1133" transform="translate(2912.03,-848.409)" v:mID="1550" v:groupContext="group" v:layerMember="1">
 			<v:userDefs>
@@ -6917,8 +6918,8 @@
 			<g id="shape1550-1134" v:mID="1550" v:groupContext="groupContent" v:layerMember="1">
 				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="-215.185" cy="1109.2" width="52.59" height="17.6036"/>
-				<path d="M0 1154.55 L0 1118.55 L-423.78 1118.55 L-423.78 1065.51" class="st20"/>
-				<rect v:rectContext="textBkgnd" x="-236.571" y="1104.4" width="42.7731" height="9.59985" class="st16"/>
+				<path d="M0 1154.55 L0 1118.55 L-423.78 1118.55 L-423.78 1065.51" class="st21"/>
+				<rect v:rectContext="textBkgnd" x="-236.571" y="1104.4" width="42.7731" height="9.59985" class="st19"/>
 				<text x="-236.57" y="1111.6" class="st17" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>_repositories</text>			</g>
 		</g>
 		<g id="shape1562-1139" v:mID="1562" v:groupContext="shape" transform="translate(2237.03,-1108.2)">
@@ -6927,91 +6928,91 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="89.2913" cy="1140.38" width="178.59" height="28.3465"/>
 			<rect x="0" y="1126.2" width="178.583" height="28.3465" class="st3"/>
-			<text x="9.75" y="1143.98" class="st22" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>AbstractRepositoryManager.hpp</text>		</g>
+			<text x="9.75" y="1143.98" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>AbstractRepositoryManager.hpp</text>		</g>
 		<g id="shape1563-1142" v:mID="1563" v:groupContext="shape" transform="translate(2805.73,-1038.69)">
 			<title>Лист.1563</title>
 			<desc>FutureResult.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="53.8582" cy="1140.38" width="107.72" height="28.3465"/>
 			<rect x="0" y="1126.2" width="107.716" height="28.3465" class="st3"/>
-			<text x="12.3" y="1143.98" class="st22" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>FutureResult.hpp</text>		</g>
+			<text x="12.3" y="1143.98" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>FutureResult.hpp</text>		</g>
 		<g id="shape1564-1145" v:mID="1564" v:groupContext="shape" transform="translate(2719.28,-828.567)">
 			<title>Лист.1564</title>
 			<desc>AbstractRepositoryContainer.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="89.2913" cy="1140.38" width="178.59" height="28.3465"/>
 			<rect x="0" y="1126.2" width="178.583" height="28.3465" class="st3"/>
-			<text x="8.37" y="1143.98" class="st22" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>AbstractRepositoryContainer.hpp</text>		</g>
+			<text x="8.37" y="1143.98" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>AbstractRepositoryContainer.hpp</text>		</g>
 		<g id="shape1565-1148" v:mID="1565" v:groupContext="shape" transform="translate(2388.31,-542.268)">
 			<title>Лист.1565</title>
 			<desc>IAdapter.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="37.5792" cy="1143.35" width="75.16" height="22.4037"/>
 			<rect x="0" y="1132.15" width="75.1584" height="22.4037" class="st5"/>
-			<text x="5.64" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IAdapter.hpp</text>		</g>
+			<text x="5.64" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IAdapter.hpp</text>		</g>
 		<g id="shape1566-1151" v:mID="1566" v:groupContext="shape" transform="translate(3277.2,-823.228)">
 			<title>Лист.1566</title>
 			<desc>IClientRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="63.9213" cy="1142.73" width="127.85" height="23.6503"/>
 			<rect x="0" y="1130.9" width="127.843" height="23.6503" class="st5"/>
-			<text x="8.07" y="1146.33" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IClientRepositories.hpp</text>		</g>
+			<text x="8.07" y="1146.33" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IClientRepositories.hpp</text>		</g>
 		<g id="shape1567-1154" v:mID="1567" v:groupContext="shape" transform="translate(3527.37,-1109.2)">
 			<title>Лист.1567</title>
 			<desc>IMasterRepository.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="61.5442" cy="1143.35" width="123.09" height="22.4037"/>
 			<rect x="0" y="1132.15" width="123.088" height="22.4037" class="st5"/>
-			<text x="5.95" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IMasterRepository.hpp</text>		</g>
+			<text x="5.95" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IMasterRepository.hpp</text>		</g>
 		<g id="shape1568-1157" v:mID="1568" v:groupContext="shape" transform="translate(4044.12,-823.852)">
 			<title>Лист.1568</title>
 			<desc>IServerRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="63.721" cy="1143.35" width="127.45" height="22.4037"/>
 			<rect x="0" y="1132.15" width="127.442" height="22.4037" class="st5"/>
-			<text x="6.49" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
+			<text x="6.49" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
 		<g id="shape1569-1160" v:mID="1569" v:groupContext="shape" transform="translate(4728.33,-823.403)">
 			<title>Лист.1569</title>
 			<desc>IServerRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="63.721" cy="1144.88" width="127.45" height="19.3376"/>
 			<rect x="0" y="1135.21" width="127.442" height="19.3376" class="st5"/>
-			<text x="6.49" y="1148.48" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
+			<text x="6.49" y="1148.48" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
 		<g id="shape1570-1163" v:mID="1570" v:groupContext="shape" transform="translate(3656.69,-823.852)">
 			<title>Лист.1570</title>
 			<desc>IServerRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="63.721" cy="1143.35" width="127.45" height="22.4037"/>
 			<rect x="0" y="1132.15" width="127.442" height="22.4037" class="st5"/>
-			<text x="6.49" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
+			<text x="6.49" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
 		<g id="shape1571-1166" v:mID="1571" v:groupContext="shape" transform="translate(4395.97,-820.336)">
 			<title>Лист.1571</title>
 			<desc>IServerRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="63.721" cy="1143.35" width="127.45" height="22.4037"/>
 			<rect x="0" y="1132.15" width="127.442" height="22.4037" class="st5"/>
-			<text x="6.49" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
+			<text x="6.49" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
 		<g id="shape1572-1169" v:mID="1572" v:groupContext="shape" transform="translate(5074.87,-820.336)">
 			<title>Лист.1572</title>
 			<desc>IServerRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="63.721" cy="1143.35" width="127.45" height="22.4037"/>
 			<rect x="0" y="1132.15" width="127.442" height="22.4037" class="st5"/>
-			<text x="6.49" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
+			<text x="6.49" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
 		<g id="shape1573-1172" v:mID="1573" v:groupContext="shape" transform="translate(5433.45,-820.336)">
 			<title>Лист.1573</title>
 			<desc>IServerRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="63.721" cy="1143.35" width="127.45" height="22.4037"/>
 			<rect x="0" y="1132.15" width="127.442" height="22.4037" class="st5"/>
-			<text x="6.49" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
+			<text x="6.49" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
 		<g id="shape1574-1175" v:mID="1574" v:groupContext="shape" transform="translate(1378.04,-825.732)">
 			<title>Лист.1574</title>
 			<desc>QueryBuilder.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="48.7123" cy="1143.35" width="97.43" height="22.4037"/>
 			<rect x="0" y="1132.15" width="97.4246" height="22.4037" class="st5"/>
-			<text x="6.16" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>QueryBuilder.hpp</text>		</g>
+			<text x="6.16" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>QueryBuilder.hpp</text>		</g>
 		<g id="group1575-1178" transform="translate(1504.93,-1011.63)" v:mID="1575" v:groupContext="group" v:layerMember="1">
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
@@ -7038,7 +7039,7 @@
 				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="96.9287" cy="1274.87" width="47.36" height="17.6036"/>
 				<path d="M15.48 1154.55 L15.84 1154.55 L70.57 1154.55 L70.57 1334.55" class="st15"/>
-				<rect v:rectContext="textBkgnd" x="78.1596" y="1270.07" width="37.5384" height="9.59985" class="st16"/>
+				<rect v:rectContext="textBkgnd" x="78.1596" y="1270.07" width="37.5384" height="9.59985" class="st19"/>
 				<text x="78.16" y="1277.27" class="st17" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>_statement</text>			</g>
 		</g>
 		<g id="shape1580-1186" v:mID="1580" v:groupContext="shape" transform="translate(1195.95,-1115.07)">
@@ -7047,133 +7048,133 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="53.5698" cy="1143.35" width="107.14" height="22.4037"/>
 			<rect x="0" y="1132.15" width="107.14" height="22.4037" class="st5"/>
-			<text x="5.86" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>SQLStatements.hpp</text>		</g>
+			<text x="5.86" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>SQLStatements.hpp</text>		</g>
 		<g id="shape1581-1189" v:mID="1581" v:groupContext="shape" transform="translate(743.26,-1112.03)">
 			<title>Лист.1581</title>
 			<desc>SQLStatements.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="53.5698" cy="1143.35" width="107.14" height="22.4037"/>
 			<rect x="0" y="1132.15" width="107.14" height="22.4037" class="st5"/>
-			<text x="5.86" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>SQLStatements.hpp</text>		</g>
+			<text x="5.86" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>SQLStatements.hpp</text>		</g>
 		<g id="shape1582-1192" v:mID="1582" v:groupContext="shape" transform="translate(633.914,-825.732)">
 			<title>Лист.1582</title>
 			<desc>SQLStatements.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="53.5698" cy="1143.35" width="107.14" height="22.4037"/>
 			<rect x="0" y="1132.15" width="107.14" height="22.4037" class="st5"/>
-			<text x="5.86" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>SQLStatements.hpp</text>		</g>
+			<text x="5.86" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>SQLStatements.hpp</text>		</g>
 		<g id="shape1583-1195" v:mID="1583" v:groupContext="shape" transform="translate(911.142,-825.732)">
 			<title>Лист.1583</title>
 			<desc>SQLStatements.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="53.5698" cy="1143.35" width="107.14" height="22.4037"/>
 			<rect x="0" y="1132.15" width="107.14" height="22.4037" class="st5"/>
-			<text x="5.86" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>SQLStatements.hpp</text>		</g>
+			<text x="5.86" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>SQLStatements.hpp</text>		</g>
 		<g id="shape1584-1198" v:mID="1584" v:groupContext="shape" transform="translate(24.04,-825.732)">
 			<title>Лист.1584</title>
 			<desc>SQLStatements.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="53.5698" cy="1143.35" width="107.14" height="22.4037"/>
 			<rect x="0" y="1132.15" width="107.14" height="22.4037" class="st5"/>
-			<text x="5.86" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>SQLStatements.hpp</text>		</g>
+			<text x="5.86" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>SQLStatements.hpp</text>		</g>
 		<g id="shape1585-1201" v:mID="1585" v:groupContext="shape" transform="translate(344.213,-825.732)">
 			<title>Лист.1585</title>
 			<desc>SQLStatements.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="53.5698" cy="1143.35" width="107.14" height="22.4037"/>
 			<rect x="0" y="1132.15" width="107.14" height="22.4037" class="st5"/>
-			<text x="5.86" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>SQLStatements.hpp</text>		</g>
+			<text x="5.86" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>SQLStatements.hpp</text>		</g>
 		<g id="shape1586-1204" v:mID="1586" v:groupContext="shape" transform="translate(2315.34,-318.331)">
 			<title>Лист.1586</title>
 			<desc>PostgreAdapter.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="54.589" cy="1143.35" width="109.18" height="22.4037"/>
 			<rect x="0" y="1132.15" width="109.178" height="22.4037" class="st5"/>
-			<text x="5.63" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreAdapter.hpp</text>		</g>
+			<text x="5.63" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreAdapter.hpp</text>		</g>
 		<g id="shape1587-1207" v:mID="1587" v:groupContext="shape" transform="translate(5801.95,-826.006)">
 			<title>Лист.1587</title>
 			<desc>PostgreRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="65.1097" cy="1143.35" width="130.22" height="22.4037"/>
 			<rect x="0" y="1132.15" width="130.219" height="22.4037" class="st5"/>
-			<text x="6.09" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositories.hpp</text>		</g>
+			<text x="6.09" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositories.hpp</text>		</g>
 		<g id="shape1588-1210" v:mID="1588" v:groupContext="shape" transform="translate(3656.13,-318.331)">
 			<title>Лист.1588</title>
 			<desc>PostgreRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="65.1097" cy="1143.35" width="130.22" height="22.4037"/>
 			<rect x="0" y="1132.15" width="130.219" height="22.4037" class="st5"/>
-			<text x="6.09" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositories.hpp</text>		</g>
+			<text x="6.09" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositories.hpp</text>		</g>
 		<g id="shape1589-1213" v:mID="1589" v:groupContext="shape" transform="translate(4373.03,-319.4)">
 			<title>Лист.1589</title>
 			<desc>PostgreRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="65.1097" cy="1143.35" width="130.22" height="22.4037"/>
 			<rect x="0" y="1132.15" width="130.219" height="22.4037" class="st5"/>
-			<text x="6.09" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositories.hpp</text>		</g>
+			<text x="6.09" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositories.hpp</text>		</g>
 		<g id="shape1590-1216" v:mID="1590" v:groupContext="shape" transform="translate(5390.93,-321.165)">
 			<title>Лист.1590</title>
 			<desc>PostgreRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="65.1097" cy="1143.35" width="130.22" height="22.4037"/>
 			<rect x="0" y="1132.15" width="130.219" height="22.4037" class="st5"/>
-			<text x="6.09" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositories.hpp</text>		</g>
+			<text x="6.09" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositories.hpp</text>		</g>
 		<g id="shape1591-1219" v:mID="1591" v:groupContext="shape" transform="translate(3973.61,-318.331)">
 			<title>Лист.1591</title>
 			<desc>PostgreRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="65.1097" cy="1143.35" width="130.22" height="22.4037"/>
 			<rect x="0" y="1132.15" width="130.219" height="22.4037" class="st5"/>
-			<text x="6.09" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositories.hpp</text>		</g>
+			<text x="6.09" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositories.hpp</text>		</g>
 		<g id="shape1592-1222" v:mID="1592" v:groupContext="shape" transform="translate(5079.12,-321.165)">
 			<title>Лист.1592</title>
 			<desc>PostgreRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="65.1097" cy="1143.35" width="130.22" height="22.4037"/>
 			<rect x="0" y="1132.15" width="130.219" height="22.4037" class="st5"/>
-			<text x="6.09" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositories.hpp</text>		</g>
+			<text x="6.09" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositories.hpp</text>		</g>
 		<g id="shape1593-1225" v:mID="1593" v:groupContext="shape" transform="translate(4710.61,-319.4)">
 			<title>Лист.1593</title>
 			<desc>PostgreRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="65.1097" cy="1143.35" width="130.22" height="22.4037"/>
 			<rect x="0" y="1132.15" width="130.219" height="22.4037" class="st5"/>
-			<text x="6.09" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositories.hpp</text>		</g>
+			<text x="6.09" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositories.hpp</text>		</g>
 		<g id="shape1594-1228" v:mID="1594" v:groupContext="shape" transform="translate(2747.62,-548.074)">
 			<title>Лист.1594</title>
 			<desc>PostgreRepositoryContainer.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="85.1225" cy="1143.35" width="170.25" height="22.4037"/>
 			<rect x="0" y="1132.15" width="170.245" height="22.4037" class="st5"/>
-			<text x="6.22" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositoryContainer.hpp</text>		</g>
+			<text x="6.22" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositoryContainer.hpp</text>		</g>
 		<g id="shape1595-1231" v:mID="1595" v:groupContext="shape" transform="translate(1798.02,-785.496)">
 			<title>Лист.1595</title>
 			<desc>RepositoryRequest.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="62.0079" cy="1143.35" width="124.02" height="22.4037"/>
 			<rect x="0" y="1132.15" width="124.016" height="22.4037" class="st5"/>
-			<text x="5.91" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>RepositoryRequest.hpp</text>		</g>
+			<text x="5.91" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>RepositoryRequest.hpp</text>		</g>
 		<g id="shape1602-1234" v:mID="1602" v:groupContext="shape" transform="translate(2017.7,-826.006)">
 			<title>Лист.1602</title>
 			<desc>RepositoryRequest.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="62.0079" cy="1143.35" width="124.02" height="22.4037"/>
 			<rect x="0" y="1132.15" width="124.016" height="22.4037" class="st5"/>
-			<text x="5.91" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>RepositoryRequest.hpp</text>		</g>
+			<text x="5.91" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>RepositoryRequest.hpp</text>		</g>
 		<g id="shape1603-1237" v:mID="1603" v:groupContext="shape" transform="translate(5929.51,-545.408)">
 			<title>Лист.1603</title>
-			<desc>PostgreTable.hpp</desc>
+			<desc>PostgreQuery.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="48.1642" cy="1143.35" width="96.33" height="22.4037"/>
 			<rect x="0" y="1132.15" width="96.3285" height="22.4037" class="st5"/>
-			<text x="5.53" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreTable.hpp</text>		</g>
+			<text x="4.19" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreQuery.hpp</text>		</g>
 		<g id="shape1604-1240" v:mID="1604" v:groupContext="shape" transform="translate(6091.09,-826.006)">
 			<title>Лист.1604</title>
 			<desc>UsersAmountFinder.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="65.2094" cy="1143.35" width="130.42" height="22.4037"/>
 			<rect x="0" y="1132.15" width="130.419" height="22.4037" class="st5"/>
-			<text x="6.3" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>UsersAmountFinder.hpp</text>		</g>
+			<text x="6.3" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>UsersAmountFinder.hpp</text>		</g>
 		<g id="group1605-1243" transform="translate(3517.58,-1081.12)" v:mID="1605" v:groupContext="group" v:layerMember="1">
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
@@ -7199,7 +7200,7 @@
 				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="-348.149" cy="1449.63" width="44.93" height="17.6036"/>
 				<path d="M-15.48 1154.55 L-15.84 1154.55 L-312.17 1154.55 L-312.17 1458 L-411.38 1458" class="st15"/>
-				<rect v:rectContext="textBkgnd" x="-365.703" y="1444.83" width="35.109" height="9.59985" class="st16"/>
+				<rect v:rectContext="textBkgnd" x="-365.703" y="1444.83" width="35.109" height="9.59985" class="st19"/>
 				<text x="-365.7" y="1452.03" class="st17" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>_container</text>			</g>
 		</g>
 		<g id="group1614-1251" transform="translate(1703.06,-984.472)" v:mID="1614" v:groupContext="group">
@@ -7327,7 +7328,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="40.3626" cy="1143.35" width="80.73" height="22.4037"/>
 			<rect x="0" y="1132.15" width="80.7251" height="22.4037" class="st5"/>
-			<text x="5.69" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>SQLUtility.hpp</text>		</g>
+			<text x="5.69" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>SQLUtility.hpp</text>		</g>
 		<g id="group1627-1272" transform="translate(1504.93,-1025.25)" v:mID="1627" v:groupContext="group" v:layerMember="1">
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
@@ -7358,42 +7359,42 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="31.046" cy="1143.35" width="62.1" height="22.4037"/>
 			<rect x="0" y="1132.15" width="62.092" height="22.4037" class="st5"/>
-			<text x="5.59" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Utility.hpp</text>		</g>
+			<text x="5.59" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Utility.hpp</text>		</g>
 		<g id="shape1633-1281" v:mID="1633" v:groupContext="shape" transform="translate(3886.32,-551.045)">
 			<title>Лист.1633</title>
 			<desc>Utility.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="31.046" cy="1143.35" width="62.1" height="22.4037"/>
 			<rect x="0" y="1132.15" width="62.092" height="22.4037" class="st5"/>
-			<text x="5.59" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Utility.hpp</text>		</g>
+			<text x="5.59" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Utility.hpp</text>		</g>
 		<g id="shape1634-1284" v:mID="1634" v:groupContext="shape" transform="translate(4108.2,-551.045)">
 			<title>Лист.1634</title>
 			<desc>Utility.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="31.046" cy="1143.35" width="62.1" height="22.4037"/>
 			<rect x="0" y="1132.15" width="62.092" height="22.4037" class="st5"/>
-			<text x="5.59" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Utility.hpp</text>		</g>
+			<text x="5.59" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Utility.hpp</text>		</g>
 		<g id="shape1635-1287" v:mID="1635" v:groupContext="shape" transform="translate(4351.71,-551.045)">
 			<title>Лист.1635</title>
 			<desc>Utility.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="31.046" cy="1143.35" width="62.1" height="22.4037"/>
 			<rect x="0" y="1132.15" width="62.092" height="22.4037" class="st5"/>
-			<text x="5.59" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Utility.hpp</text>		</g>
+			<text x="5.59" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Utility.hpp</text>		</g>
 		<g id="shape1636-1290" v:mID="1636" v:groupContext="shape" transform="translate(4674.79,-551.045)">
 			<title>Лист.1636</title>
 			<desc>Utility.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="31.046" cy="1143.35" width="62.1" height="22.4037"/>
 			<rect x="0" y="1132.15" width="62.092" height="22.4037" class="st5"/>
-			<text x="5.59" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Utility.hpp</text>		</g>
+			<text x="5.59" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Utility.hpp</text>		</g>
 		<g id="shape1637-1293" v:mID="1637" v:groupContext="shape" transform="translate(5169.76,-551.045)">
 			<title>Лист.1637</title>
 			<desc>Utility.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="31.046" cy="1143.35" width="62.1" height="22.4037"/>
 			<rect x="0" y="1132.15" width="62.092" height="22.4037" class="st5"/>
-			<text x="5.59" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Utility.hpp</text>		</g>
+			<text x="5.59" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Utility.hpp</text>		</g>
 		<g id="group1664-1296" transform="translate(2383.37,-767.722)" v:mID="1664" v:groupContext="group">
 			<v:userDefs>
 				<v:ud v:nameU="msvStructureType" v:prompt="" v:val="VT4(List)"/>
@@ -7544,7 +7545,7 @@
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="83.0482" cy="1143.35" width="166.1" height="22.4037"/>
 			<rect x="0" y="1132.15" width="166.096" height="22.4037" class="st5"/>
-			<text x="5.53" y="1146.95" class="st23" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositoryManager.hpp</text>		</g>
+			<text x="5.53" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PostgreRepositoryManager.hpp</text>		</g>
 		<g id="group1689-1317" transform="translate(2014.87,-750.589)" v:mID="1689" v:groupContext="group" v:layerMember="1">
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
@@ -7589,9 +7590,9 @@
 			<g id="shape784-1324" v:mID="784" v:groupContext="groupContent">
 				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="130.394" cy="1141.8" width="260.79" height="22.4037"/>
-				<path d="M0 1154.55 L260.79 1154.55 L260.79 1137.54 L252.28 1129.04 L0 1129.04 L0 1154.55 Z" class="st24"/>
-				<path d="M256.54 1133.29 L176.21 1119.37" class="st25"/>
-				<path d="M0 1154.55 L260.79 1154.55 L260.79 1137.54 L252.28 1129.04 L0 1129.04 L0 1154.55" class="st25"/>
+				<path d="M0 1154.55 L260.79 1154.55 L260.79 1137.54 L252.28 1129.04 L0 1129.04 L0 1154.55 Z" class="st25"/>
+				<path d="M256.54 1133.29 L176.21 1119.37" class="st26"/>
+				<path d="M0 1154.55 L260.79 1154.55 L260.79 1137.54 L252.28 1129.04 L0 1129.04 L0 1154.55" class="st26"/>
 				<text x="10.75" y="1145.4" class="st6" v:langID="1033"><v:paragraph v:horizAlign="2"/><v:tabList/>using MethodReference = TReturn (TIRepository::*)(TArgs...)</text>			</g>
 			<g id="shape785-1329" v:mID="785" v:groupContext="shape" transform="translate(252.283,-17.0079)">
 				<title>Лист.785</title>
@@ -7599,7 +7600,7 @@
 					<v:ud v:nameU="FoldSize" v:prompt="" v:val="VT0(0.11811023622047):24"/>
 				</v:userDefs>
 				<path d="M0 1154.55 L8.5 1154.55 L8.5 1155.4 L8.5 1154.55 L0 1146.05 L-0.85 1146.05 L0 1146.05 L0 1154.55 Z"
-						class="st26"/>
+						class="st27"/>
 			</g>
 		</g>
 	</g>
