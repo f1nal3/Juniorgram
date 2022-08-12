@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Logger/ILogger.hpp>
-#include "Network/SafeQueue.hpp"
+#include "Utility/SafeQueue.hpp"
 
 #include <sstream>
 #include <fstream>
@@ -165,7 +165,7 @@ private:
     std::thread                          _loggerThread;
     std::condition_variable              _inputWait;
     std::mutex                           _mutex;
-    Network::SafeQueue<std::string>      _msgQueue;
+    Utility::SafeQueue<std::string>      _msgQueue;
     bool                                 _stop = false;
 };
 }  // namespace Base::Logger
