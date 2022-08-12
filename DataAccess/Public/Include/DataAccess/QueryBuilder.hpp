@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 #include <string>
 
@@ -63,6 +64,7 @@ public:
 
         return dynamic_cast<SQLSelect<ResultType>*>(_statement);
     }
+
     /**
      * @brief SQL insert query.
      * @return SQLInsert pointer.
@@ -84,6 +86,7 @@ public:
 
         return dynamic_cast<SQLInsert<ResultType>*>(_statement);
     }
+
     /**
      * @brief SQL update query.
      * @return SQLUpdate pointer.
@@ -105,6 +108,7 @@ public:
 
         return dynamic_cast<SQLUpdate<ResultType>*>(_statement);
     }
+
     /**
      * @brief SQL delete query.
      * @return SQLDelete pointer.
@@ -141,6 +145,7 @@ public:
 
         _tableName = newTableName;
     }
+
     /**
      * @brief Changing table.
      * @param newTableName - new name of the table.
@@ -164,4 +169,4 @@ public:
         _statement = nullptr;
     }
 };
-}  /// namespace DataAccess
+}  // namespace DataAccess

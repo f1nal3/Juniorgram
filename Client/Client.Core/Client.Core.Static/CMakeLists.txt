@@ -18,6 +18,7 @@ target_include_directories(${TARGET}
 target_link_libraries(${TARGET}
         PRIVATE ${EXTRA_LIBS} asio::asio yas::yas
         PUBLIC Network.Public 
+        PUBLIC Utility.Public
         PUBLIC Base.Crypto.Static 
         PUBLIC Base.Logger.Static
         PUBLIC Models.Public)

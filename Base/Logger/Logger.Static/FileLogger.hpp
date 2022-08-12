@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Logger/ILogger.hpp>
-#include "Network/SafeQueue.hpp"
+#include "Utility/SafeQueue.hpp"
 
 #include <sstream>
 #include <fstream>
@@ -21,7 +21,7 @@ class FileLogger : ILogger
 public:
     using BlockWrapper = std::pair<std::string, std::string>;
 
-    /**
+     /**
      * @brief Gets an object of the current class
      * @return object Logger
      */
@@ -119,6 +119,7 @@ private:
      * @return time format [yyyy.mm.dd. hh.mm.ss.ms]
      */
     static std::string timestamp();
+
     /**
      * @brief Marks to current thread
      * @return curent thread in string format
@@ -164,7 +165,7 @@ private:
     std::thread                          _loggerThread;
     std::condition_variable              _inputWait;
     std::mutex                           _mutex;
-    Network::SafeQueue<std::string>      _msgQueue;
+    Utility::SafeQueue<std::string>      _msgQueue;
     bool                                 _stop = false;
 };
 }  // namespace Base::Logger

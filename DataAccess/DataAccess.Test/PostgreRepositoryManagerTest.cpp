@@ -1,6 +1,8 @@
 #include <catch2/catch.hpp>
 
-#include "DataAccess.Postgre/PostgreRepositoryManager.hpp"
+#include <DataAccess.Postgre/PostgreRepositoryManager.hpp>
+
+#include "DataAccess/RepositoryRequest.hpp"
 
 TEST_CASE("fmt method", "[dummy]")
 {
@@ -75,4 +77,3 @@ TEST_CASE("FutureResult", "[dummy]")
 		REQUIRE_THROWS(testFutureResult.get());
 	}
 }
-

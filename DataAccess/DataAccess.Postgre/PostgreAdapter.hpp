@@ -1,4 +1,5 @@
 #pragma once
+
 #include <mutex>
 #include <memory>
 
@@ -11,6 +12,7 @@
 
 namespace DataAccess
 {
+
 /** @class PostgreAdapter
 *   @brief Adapter class for working with PostgreSQL. 
 *   This is a thread safe singleton.
@@ -25,7 +27,20 @@ private:
     std::mutex                                      _queryMutex;
     std::unique_ptr<pqxx::connection>               _connection;
 
+protected:
+    PostgreAdapter(const std::string_view& options) 
+        : _connection{std::make_unique<pqxx::connection>(pqxx::zview(options))} {}
+
 public:
+
+    PostgreAdapter(const PostgreAdapter& other) = delete;
+    PostgreAdapter& operator=(const PostgreAdapter& other) = delete;
+
+    PostgreAdapter(PostgreAdapter&& other) = delete;
+    PostgreAdapter& operator=(PostgreAdapter&& other) = delete;
+
+    virtual ~PostgreAdapter() {}
+
     /** @brief Method that creates new instance of Adapter. 
     *    It needs for technical purposes. Don't use it 
     *    (it's because I designed the interface badly). 
@@ -35,28 +50,15 @@ public:
     */
     static std::shared_ptr<PostgreAdapter> Instance(const std::string_view& options = {});
 
-protected:
-    PostgreAdapter(const std::string_view& options) 
-        : _connection{std::make_unique<pqxx::connection>(pqxx::zview(options))} {}
-
-public:
-    PostgreAdapter(const PostgreAdapter& other) = delete;
-    PostgreAdapter& operator=(const PostgreAdapter& other) = delete;
-
-    PostgreAdapter(PostgreAdapter&& other) = delete;
-    PostgreAdapter& operator=(PostgreAdapter&& other) = delete;
-
-    virtual ~PostgreAdapter() {}
-public:
     /** @brief Method for executing SQL quries.
     *   @details You shouldn't use this method because it's 
     *    low level accessing the database. Use it if you 
-    *    want something specific from database, instead use PostgreTable. 
+    *    want something specific from database, instead use PostgreQuery. 
     *    If you want to insert some strings, big text 
     *    or a timestamp you must wrap the string/text by single quotes. 
     *    You don't have to put ';' at the end of query.
     *   @code 
-    *   ...->query("SELECT * FROM table_name WHERE name = 'Alex'");
+    *   ...->query("SELECT * FROM table_name WHERE name = 'memorisecodead'");
     *   @endcode
     *   @param SQL query in the form of string.
     *   @return Optional result.
@@ -84,5 +86,4 @@ public:
     */
     void closeConnection(void) override;
 };
-
-} /// namespace DataAccess
+} // namespace DataAccess
