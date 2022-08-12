@@ -2,10 +2,10 @@
 
 #include <iostream>
 
-#include <DataAccess.Postgre/PostgreTable.hpp>
+#include <DataAccess.Postgre/PostgreQuery.hpp>
 #include <DataAccess.Postgre/DataBaseOptions.hpp>
 
-DataAccess::PostgreTable test("testing", DBOptions::test);
+DataAccess::PostgreQuery test("testing", DBOptions::test);
 
 TEST_CASE("Select[Where]", "[PostgreAbstractionLayout]")
 { 
