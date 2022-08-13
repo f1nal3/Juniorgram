@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Utility/UtilityTime.hpp>
+#include <Utility/SafeQueue.hpp>
 #include <Network/Connection.hpp>
 #include <Models/Primitives.hpp>
 #include <Cryptography.hpp>
@@ -19,7 +20,7 @@ using milliseconds     = std::chrono::milliseconds;
 using Client           = MockClient::MockClient;
 using testServer       = Server::Server;
 using MessageType      = Message::MessageType;
-using Network::SafeQueue;
+using Utility::SafeQueue;
 
 Message& messageInstance(Message& message, const MessageType messageType)
 {
@@ -183,7 +184,7 @@ Client& testSendingMessages(Client& mockClient, const MessageType mesgType)
     std::this_thread::sleep_for(milliseconds(1000));
     messageInstance(message, mesgType);
     mockClient.send(message);
-    std::this_thread::sleep_for(milliseconds(4000));
+    std::this_thread::sleep_for(milliseconds(1000));
 
     return mockClient;
 }

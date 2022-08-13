@@ -13,7 +13,6 @@
 namespace MockRepository
 {
 using IAdapter                 = DataAccess::IAdapter;
-using PostgreTable             = DataAccess::PostgreTable;
 using IChannelRepository       = DataAccess::IChannelsRepository;
 using IDirectMessageRepository = DataAccess::IDirectMessageRepository;
 using ILoginRepository         = DataAccess::ILoginRepository;

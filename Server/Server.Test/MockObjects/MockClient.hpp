@@ -7,6 +7,7 @@
 #include <future>
 
 #include <Utility/UtilityTime.hpp>
+#include <Utility/SafeQueue.hpp>
 #include <Network/Connection.hpp>
 #include <Models/Primitives.hpp>
 #include <Client.Core/Client.Core.Static/ServerInfo.hpp>
@@ -23,7 +24,7 @@ using Network::Message;
 using Models::MessageInfo;
 using Models::RegistrationInfo;
 using Models::ReplyInfo;
-using Network::SafeQueue;
+using Utility::SafeQueue;
 using RTC = std::chrono::system_clock;
 using UtilityTime::timestamp_t;
 

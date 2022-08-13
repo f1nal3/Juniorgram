@@ -413,7 +413,7 @@ TEST_CASE("Check disconnect from client")
     REQUIRE_NOTHROW(serverTest.start());
 
     asio::io_context            testContext;
-    Network::SafeQueue<Message> testIncomingMessagesQueue;
+    Utility::SafeQueue<Message> testIncomingMessagesQueue;
 
     CHECK_NOTHROW(serverTest.messageClient(std::shared_ptr<Network::Connection>(std::make_shared<Network::Connection>
     (
