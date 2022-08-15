@@ -1,17 +1,15 @@
 set(TARGET Server.Test)
-
 set(OUTPUT_NAME Server.Test)
 
 set(SOURCE_FILES
         ArgumentParserTests.cpp
-        ServerConnectionTests.cpp
+        ServerMessagesTests.cpp
+		ServerTests.cpp
 		MockObjects/MockClient.hpp 
         MockObjects/MockClient.cpp
 		MockObjects/MockPostgreRepository.hpp
         MockObjects/MockPostgreAdapter.hpp
         MockObjects/MockPostgreQuery.hpp
-		MockObjects/MockPostgreRepository.cpp
-        MockObjects/MockPostgreAdapter.cpp
 		TestUtility/TestUtility.hpp
         )
 

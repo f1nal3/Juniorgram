@@ -1,5 +1,4 @@
 set(TARGET TestUtility)
-
 set(OUTPUT_NAME TestUtility)
 
 set(SOURCE_FILES
@@ -16,13 +15,13 @@ PUBLIC
     Server.Core.Static
     DataAccess.Debug
     yas::yas
-    asio::asio
-	PostgreSQL::pq
-    libpqxx::libpqxx    
+    asio::asio   
     Utility.Public
 	Models.Public
 	Base.Crypto.Static
     )
+
+include_directories(MockObjects)
 
 target_include_directories(${TARGET} PRIVATE
 	$<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)

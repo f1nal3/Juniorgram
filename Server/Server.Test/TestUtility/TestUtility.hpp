@@ -4,7 +4,11 @@
 #include <Utility/SafeQueue.hpp>
 #include <Network/Connection.hpp>
 #include <Models/Primitives.hpp>
+
 #include <Cryptography.hpp>
+#include <MockClient.hpp>
+#include <Server.hpp>
+
 #include <chrono>
 
 namespace TestUtility
@@ -60,8 +64,8 @@ Message& messageInstance(Message& message, const MessageType messageType)
 
         case Message::MessageType::ChannelCreateRequest:
         {
-            std::string info = testChannelName;
-            message.mBody    = std::make_any<std::string>(info);
+            std::string channelInfo = testChannelName;
+            message.mBody           = std::make_any<std::string>(channelInfo);
 
             break;
         }
