@@ -11,43 +11,71 @@
 #include "Widgets/ChatHistory.hpp"
 #include "Widgets/ReactionLayout.hpp"
 
+//MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId, uint64_t messageId, qint64 utc, QString username,
+//                             const Style::MessageWidget& st)
+//    : AbstractMessageWidget(history, message, messageId, username, userId, st) 
+//    , _datetime(QDateTime::fromMSecsSinceEpoch(utc))
+//{   
+//    _menuBtn = std::make_unique<FlatButton>(this, "Menu", getStyle().button);
+//    _menuBtn->setClickCallback([=]() {
+//        auto notification = new NotificationWidget();
+//        notification->setDeleteOnHide(true);
+//        auto       messageMenu   = std::make_unique<Menu>();
+//        const auto menuReactions = std::make_shared<ReactionLayout>(this, 400, 0, true);
+//
+//        connect(menuReactions.get(), &ReactionLayout::onClick,
+//                this, &MessageWidget::onReaction);
+//
+//        messageMenu->addAction(menuReactions.get());
+//        messageMenu->addSeparator();
+//
+//        // T\todo implement a better way to delete a message "through server"
+//        messageMenu->addAction("Delete message", [=]() { onDelete(); });
+//        notification->setMenu(std::move(messageMenu));
+//
+//        auto globalPoint = mapToGlobal(QPoint(_menuBtn->x(), _menuBtn->height()));
+//        notification->notification(QPoint(globalPoint.x(), globalPoint.y() + 1));
+//    });
+//
+//    _reactions = std::make_unique<ReactionLayout>(this);
+//    
+//    connect(_reactions.get(), &ReactionLayout::onClick,
+//            this, &MessageWidget::onReaction);
+//
+//    _replyBtn = std::make_unique<FlatButton>(this, "Reply", getStyle().button);
+//    _replyBtn->setClickCallback([&](){ createReply(); });
+//
+//    resize(width(), expectedHeight());
+//}
 MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId, uint64_t messageId, qint64 utc, QString username,
                              const Style::MessageWidget& st)
-    : AbstractMessageWidget(history, message, messageId, username, userId, st) 
-    , _datetime(QDateTime::fromMSecsSinceEpoch(utc))
-{   
+    : AbstractMessageWidget(history, message, messageId, username, userId, st), _datetime(QDateTime::fromMSecsSinceEpoch(utc))
+{
     _menuBtn = std::make_unique<FlatButton>(this, "Menu", getStyle().button);
     _menuBtn->setClickCallback([=]() {
         auto notification = new NotificationWidget();
         notification->setDeleteOnHide(true);
         auto       messageMenu   = std::make_unique<Menu>();
-        const auto menuReactions = std::make_shared<ReactionLayout>(this, 400, 0, true);
+        const auto menuReactions = new ReactionLayout(this, 400, 0, true);
 
-        connect(menuReactions.get(), &ReactionLayout::onClick,
-                this, &MessageWidget::onReaction);
+        connect(menuReactions, &ReactionLayout::onClick, this, &MessageWidget::onReaction);
 
-        messageMenu->addAction(menuReactions.get());
+        messageMenu->addAction(menuReactions);
         messageMenu->addSeparator();
 
         // T\todo implement a better way to delete a message "through server"
         messageMenu->addAction("Delete message", [=]() { onDelete(); });
         notification->setMenu(std::move(messageMenu));
-
         auto globalPoint = mapToGlobal(QPoint(_menuBtn->x(), _menuBtn->height()));
         notification->notification(QPoint(globalPoint.x(), globalPoint.y() + 1));
     });
-
     _reactions = std::make_unique<ReactionLayout>(this);
-    
-    connect(_reactions.get(), &ReactionLayout::onClick,
-            this, &MessageWidget::onReaction);
 
+    connect(_reactions.get(), &ReactionLayout::onClick, this, &MessageWidget::onReaction);
     _replyBtn = std::make_unique<FlatButton>(this, "Reply", getStyle().button);
-    _replyBtn->setClickCallback([&](){ createReply(); });
-
+    _replyBtn->setClickCallback([&]() { createReply(); });
     resize(width(), expectedHeight());
 }
-
 void MessageWidget::paintEvent(QPaintEvent* e)
 {
     QPainter p(this);

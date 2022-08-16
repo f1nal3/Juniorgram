@@ -8,13 +8,18 @@
 
 #include "ReactionLayout.hpp"
 
+//QAction* CreateAction(QWidget* actionparent, const QString& text, std::function<void()>&& callback)
+//{
+//    const auto action = std::make_shared<QAction>(text, actionparent);
+//    QWidget::connect(action.get(), &QAction::triggered, action.get(), std::move(callback), Qt::QueuedConnection);
+//    return action.get();
+//}
 QAction* CreateAction(QWidget* actionparent, const QString& text, std::function<void()>&& callback)
 {
-    const auto action = std::make_shared<QAction>(text, actionparent);
-    QWidget::connect(action.get(), &QAction::triggered, action.get(), std::move(callback), Qt::QueuedConnection);
-    return action.get();
+    const auto action = new QAction(text, actionparent);
+    actionparent->connect(action, &QAction::triggered, action, std::move(callback), Qt::QueuedConnection);
+    return action;
 }
-
 Menu::Menu(QWidget* parent, const Style::Menu& st) : QWidget(parent), _st(st)
 {
     setMouseTracking(true);
@@ -23,29 +28,53 @@ Menu::Menu(QWidget* parent, const Style::Menu& st) : QWidget(parent), _st(st)
 
 void Menu::paintEvent(QPaintEvent* paintEvent) { QWidget::paintEvent(paintEvent); }
 
+//QAction* Menu::addAction(QWidget* widget)
+//{
+//    const auto action = std::make_shared<QWidgetAction>(this);
+//    action->setDefaultWidget(widget);
+//    _actions.emplace_back(action.get());
+//
+//    const auto item = std::make_shared<WidgetItem>(this, action.get());
+//
+//    const int top = _items.empty() ? 0 : _items.back()->y() + _items.back()->contentHeight();
+//    item->move(0, top);
+//    item->show();
+//
+//    connect(dynamic_cast<ReactionLayout*>(widget), &ReactionLayout::clicked, [this](const CallbackData& callbackData) {
+//        if (this->_triggeredCallback)
+//        {
+//            this->_triggeredCallback(callbackData);
+//        }
+//    });
+//
+//    _items.push_back(std::unique_ptr<ItemBase>(item.get()));
+//    resize(width(), _items.empty() ? 0 : _items.back()->y() + widget->height());
+//
+//    return action.get();
+//}
 QAction* Menu::addAction(QWidget* widget)
 {
-    const auto action = std::make_shared<QWidgetAction>(this);
+    const auto action = new QWidgetAction(this);
     action->setDefaultWidget(widget);
-    _actions.emplace_back(action.get());
+    _actions.emplace_back(action);
 
-    const auto item = std::make_shared<WidgetItem>(this, action.get());
+    const auto item = new WidgetItem(this, action);
 
     const int top = _items.empty() ? 0 : _items.back()->y() + _items.back()->contentHeight();
     item->move(0, top);
     item->show();
 
-    connect(dynamic_cast<ReactionLayout*>(widget), &ReactionLayout::clicked, [this](const CallbackData& callbackData) {
-        if (this->_triggeredCallback)
+    connect(dynamic_cast<ReactionLayout*>(widget), &ReactionLayout::clicked, [=](const CallbackData& callbackData) {
+        if (_triggeredCallback)
         {
-            this->_triggeredCallback(callbackData);
+            _triggeredCallback(callbackData);
         }
     });
 
-    _items.push_back(std::unique_ptr<ItemBase>(item.get()));
+    _items.push_back(std::unique_ptr<ItemBase>(item));
     resize(width(), _items.empty() ? 0 : _items.back()->y() + widget->height());
 
-    return action.get();
+    return action;
 }
 
 QAction* Menu::addAction(const QString& text, std::function<void()>&& callback, const Style::icon* icon, const Style::icon* iconOver)
@@ -64,15 +93,21 @@ QAction* Menu::addAction(QAction* action, const Style::icon* icon, const Style::
     return addAction(std::move(item));
 }
 
+//QAction* Menu::addSeparator()
+//{
+//    const auto separator = std::make_unique<QAction>(this);
+//    separator->setSeparator(true);
+//    auto item = std::make_unique<Separator>(this, _st);
+//    return addAction(std::move(item));
+//}
 QAction* Menu::addSeparator()
 {
-    const auto separator = std::make_unique<QAction>(this);
+    const auto separator = new QAction(this);
     separator->setSeparator(true);
     auto item = std::make_unique<Separator>(this, _st);
     return addAction(std::move(item));
 }
-
-QAction* Menu::addAction(std::unique_ptr<ItemBase> widget)
+    /*QAction* Menu::addAction(std::unique_ptr<ItemBase> widget)
 {
     const auto action = widget->action();
     _actions.emplace_back(action);
@@ -103,8 +138,36 @@ QAction* Menu::addAction(std::unique_ptr<ItemBase> widget)
     resize(width(), _items.empty() ? 0 : _items.back()->y() + _items.back()->height());
 
     return action;
-}
+}*/
+QAction* Menu::addAction(std::unique_ptr<ItemBase> widget)
+{
+    const auto action = widget->action();
+    _actions.emplace_back(action);
+    widget->setParent(this);
+    const int top = _items.empty() ? 0 : _items.back()->y() + _items.back()->contentHeight();
+    widget->move(0, top);
+    widget->show();
 
+    widget->setIndex(int32_t(_items.size()));
+
+    connect(widget.get(), &ItemBase::clicked, [=](const CallbackData& callbackData) {
+        if (_triggeredCallback)
+        {
+            _triggeredCallback(callbackData);
+        }
+    });
+
+    connect(widget.get(), &ItemBase::selected, [=](const CallbackData& callbackData) {
+        if (_activatedCallback)
+        {
+            _activatedCallback(callbackData);
+        }
+    });
+
+    _items.push_back(std::move(widget));
+    resize(width(), _items.empty() ? 0 : _items.back()->y() + _items.back()->height());
+    return action;
+}
 void Menu::hideEvent(QHideEvent* hideEvent)
 {
     if (parentWidget())
