@@ -91,7 +91,7 @@ private:
      * @param canvasValue
      * @param areaValue
      */
-    constexpr int  getLocation(int scrollValue, int canvasValue,int areaValue);
+    constexpr int  getLocation(int scrollValue, int canvasValue,int areaValue) const;
 
     /**
      * @brief returns the new location of the left corner of the scrollbar if it has been changed
@@ -100,7 +100,7 @@ private:
      * @param lValue
      * @param scrollValue
      */
-    constexpr int getLeftCorner(int scrollValueMax, int canvasValue, int lValue, int scrollValue);
+    constexpr int getLeftCorner(int scrollValueMax, int canvasValue, int lValue, int scrollValue) const;
    
 
     const Style::ScrollArea* _st;

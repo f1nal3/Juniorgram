@@ -218,12 +218,12 @@ void ScrollBar::setMoving(bool moving)
     }
 }
 
-constexpr int ScrollBar::getLocation(int scrollValue, int canvasValue,int areaValue)
+constexpr int ScrollBar::getLocation(int scrollValue, int canvasValue,int areaValue) const
 {
     return (scrollValue ? static_cast<int32_t>((canvasValue * static_cast<int64_t>(areaValue)) / scrollValue) : 0);
 }
 
-constexpr int ScrollBar::getLeftCorner(int scrollValueMax,int canvasValue,int lValue,int scrollValue) 
+constexpr int ScrollBar::getLeftCorner(int scrollValueMax,int canvasValue,int lValue,int scrollValue) const
 {
     return (scrollValueMax ? static_cast<int32_t>(((canvasValue - lValue) * static_cast<int64_t>(scrollValue)) / scrollValueMax) : 0);
 }
