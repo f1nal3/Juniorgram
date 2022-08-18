@@ -1,5 +1,5 @@
-set(TARGET Tests)
-set(OUTPUT_NAME Tests)
+set(TARGET Server.Tests)
+set(OUTPUT_NAME Server.Tests)
 
 set(SOURCE_FILES
         ArgumentParserTests.cpp
