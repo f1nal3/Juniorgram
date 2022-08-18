@@ -1,8 +1,8 @@
 #include <catch2/catch.hpp>
-#include <thread>
-
+#include <MockObjects/MockClient.hpp>
 #include <Server.hpp>
-#include <MockClient.hpp>
+
+#include <thread>
 
 using Client           = MockClient::MockClient;
 using Message          = Network::Message;

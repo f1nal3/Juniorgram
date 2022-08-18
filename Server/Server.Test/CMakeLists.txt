@@ -1,47 +1,10 @@
+project(Server LANGUAGES CXX)
+
 set(TARGET Server.Test)
-set(OUTPUT_NAME Server.Test)
+set(FOLDER Server.Test)
 
-set(SOURCE_FILES
-        ArgumentParserTests.cpp
-        ServerMessagesTests.cpp
-		ServerTests.cpp
-		MockObjects/MockClient.hpp 
-        MockObjects/MockClient.cpp
-		MockObjects/MockPostgreRepository.hpp
-        MockObjects/MockPostgreAdapter.hpp
-        MockObjects/MockPostgreQuery.hpp
-		TestUtility/TestUtility.hpp
-        )
+add_subdirectory(Tests)
+add_subdirectory(TestUtility)
+add_subdirectory(MockObjects)
 
-include_directories(MockObjects)
-include_directories(TestUtility)
-
-add_executable(${TARGET} ${SOURCE_FILES})
-
-set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
-
-target_link_libraries(${TARGET}
-PUBLIC 
-    Precompiled.Catch2.Main
-    Network.Public 
-    Server.Core.Static
-    DataAccess.Debug
-    yas::yas
-    asio::asio
-	PostgreSQL::pq 
-    libpqxx::libpqxx    
-    Utility.Public
-    Models.Public
-    Base.Crypto.Static
-	)
-
-target_include_directories(${TARGET} PRIVATE
-	$<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
-
-target_include_directories(${TARGET} PUBLIC 
-	$<TARGET_PROPERTY:Client.Core,SOURCE_DIR>/..)	
-
-target_compile_definitions(${TARGET} PRIVATE CATCH_CONFIG_FAST_COMPILE)
-target_precompile_headers(${TARGET} REUSE_FROM Precompiled.Catch2.Test)
-
-add_test(NAME ${OUTPUT_NAME} COMMAND ${TARGET})
+add_library(${TARGET} INTERFACE)

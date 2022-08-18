@@ -2,7 +2,7 @@
 
 #include <DataAccess/QueryBuilder.hpp>
 #include <DataAccess/IAdapter.hpp>
-#include <MockPostgreAdapter.hpp>
+#include "MockPostgreAdapter.hpp"
 
 namespace MockRepository
 {

@@ -3,7 +3,7 @@
 #include <DataAccess/IAdapter.hpp>
 #include <DataAccess.Postgre/UsersAmountFinder.hpp>
 #include <DataAccess/IServerRepositories.hpp>
-#include <MockPostgreQuery.hpp>
+#include "MockPostgreQuery.hpp"
 
 #include <Network/Connection.hpp>
 #include <Models/Primitives.hpp>

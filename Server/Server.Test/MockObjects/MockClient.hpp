@@ -12,7 +12,7 @@
 #include <Models/Primitives.hpp>
 #include <Client.Core/Client.Core.Static/ServerInfo.hpp>
 
-#include <MockPostgreRepository.hpp>
+#include "MockPostgreRepository.hpp"
 
 namespace MockClient
 {

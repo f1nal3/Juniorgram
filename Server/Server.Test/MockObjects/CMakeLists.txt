@@ -8,10 +8,7 @@ set(SOURCE_FILES
 	MockPostgreRepository.cpp
 	MockPostgreQuery.hpp
 	MockPostgreAdapter.hpp
-	TestUtility/TestUtility.hpp
 	)
-
-include_directories(TestUtility)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
@@ -30,10 +27,10 @@ PUBLIC
 	Models.Public
 	Base.Crypto.Static
     )
-
+target_include_directories(${TARGET}
+    INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(${TARGET} PRIVATE
 	$<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
-
 target_include_directories(${TARGET} PUBLIC 
 	$<TARGET_PROPERTY:Client.Core,SOURCE_DIR>/..)	
 
