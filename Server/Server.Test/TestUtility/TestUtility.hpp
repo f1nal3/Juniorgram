@@ -6,8 +6,8 @@
 #include <Models/Primitives.hpp>
 
 #include <Cryptography.hpp>
-#include <MockClient.hpp>
 #include <Server.hpp>
+#include <MockObjects/MockClient.hpp>
 
 #include <chrono>
 
@@ -26,7 +26,7 @@ using testServer       = Server::Server;
 using MessageType      = Message::MessageType;
 using Utility::SafeQueue;
 
-Message& messageInstance(Message& message, const MessageType messageType)
+inline Message& messageInstance(Message& message, const MessageType messageType)
 {
     const std::string testEmail    = "demonstakingoverme@epam.co";
     const std::string testLogin    = "memorisecodead";
@@ -181,7 +181,7 @@ Message& messageInstance(Message& message, const MessageType messageType)
     return message;
 }
 
-Client& testSendingMessages(Client& mockClient, const MessageType mesgType)
+inline Client& testSendingMessages(Client& mockClient, const MessageType mesgType)
 {
     Message message;
 
@@ -193,7 +193,7 @@ Client& testSendingMessages(Client& mockClient, const MessageType mesgType)
     return mockClient;
 }
 
-testServer& testServerUpdating(testServer& serverTest)
+inline testServer& testServerUpdating(testServer& serverTest)
 {
     unsigned int countOfUpdate        = 0;
     unsigned int iterationOfServer    = 1;

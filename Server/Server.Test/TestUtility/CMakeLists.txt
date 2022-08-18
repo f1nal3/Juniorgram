@@ -1,13 +1,16 @@
 set(TARGET TestUtility)
 set(OUTPUT_NAME TestUtility)
 
-set(SOURCE_FILES
+set(SOURCE_FILES 
 	TestUtility.hpp
 	)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
-set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
+target_include_directories(${TARGET}
+    INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${TARGET} PUBLIC 
+	$<TARGET_PROPERTY:Client.Core,SOURCE_DIR>/..)
 
 target_link_libraries(${TARGET} 
 PUBLIC
@@ -21,12 +24,6 @@ PUBLIC
 	Base.Crypto.Static
     )
 
-include_directories(MockObjects)
-
-target_include_directories(${TARGET} PRIVATE
-	$<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
-
-target_include_directories(${TARGET} PUBLIC 
-	$<TARGET_PROPERTY:Client.Core,SOURCE_DIR>/..)
-
-set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)
+set_target_properties(${TARGET} PROPERTIES
+    LINKER_LANGUAGE CXX
+    FOLDER ${FOLDER})
