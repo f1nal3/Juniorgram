@@ -249,6 +249,16 @@ public:
                 state = processIncomingMessageBody<Utility::DeletingMessageCodes>(buffer, message);
                 break;
             }
+            case Message::MessageType::MessageEditRequest:
+            {
+                state = processIncomingMessageBody<Models::MessageInfo>(buffer, message);
+                break;
+            }
+            case Message::MessageType::MessageEditAnswer:
+            {
+                state = processIncomingMessageBody<Utility::EditingMessageCodes>(buffer, message);
+                break;
+            }
             case Message::MessageType::MessageReactionRequest:
             {
                 state = processIncomingMessageBody<Models::MessageInfo>(buffer, message);
