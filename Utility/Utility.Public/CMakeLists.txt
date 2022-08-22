@@ -7,6 +7,7 @@ set(SOURCE_FILES
         Include/Utility/WarningSuppression.hpp
         Include/Utility/UserDataValidation.hpp
         Include/Utility/Utility.hpp
+        Include/Utility/SafeQueue.hpp
         Include/Utility/UtilityTime.hpp)
 
 add_library(${TARGET} INTERFACE)
