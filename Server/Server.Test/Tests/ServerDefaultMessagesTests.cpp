@@ -1,9 +1,10 @@
+#define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
 #include <TestUtility/TestUtility.hpp>
 
 #include <thread>
 
-using Client      = MockClient::MockClient;
+using Client      = Network::Client;
 using Message     = Network::Message;
 using testServer  = Server::Server;
 using MessageType = Message::MessageType;
@@ -13,20 +14,19 @@ using TestUtility::testServerUpdating;
 
 TEST_CASE("Check server ping")
 {
-    uint16_t   testPort;
-    testServer serverTest(testPort);
+    testServer serverTest(ServerInfo::Port::test);
 
     std::thread threadServer([&serverTest]() {
         serverTest.start();
         testServerUpdating(serverTest);
     });
 
-    Client mockClient;
+    Client Client;
 
-    std::thread threadMockClient([&mockClient, &testPort]() {
-        mockClient.connectToServer(ServerInfo::Address::local, testPort);
-        CHECK_NOTHROW(testSendingMessages(mockClient, MessageType::ServerPing));
-        mockClient.disconnectFromServer();
+    std::thread threadMockClient([&Client]() {
+        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
+        CHECK_NOTHROW(testSendingMessages(Client, MessageType::ServerPing));
+        Client.disconnectFromServer();
     });
 
     threadMockClient.join();
@@ -35,21 +35,20 @@ TEST_CASE("Check server ping")
 
 TEST_CASE("Check default request of server side")
 {
-    uint16_t   testPort;
-    testServer serverTest(testPort);
+    testServer serverTest(ServerInfo::Port::test);
 
     std::thread threadServer([&serverTest]() {
         serverTest.start();
         testServerUpdating(serverTest);
     });
 
-    Client        mockClient;
+    Client        Client;
     const int16_t failedType = 666;
 
-    std::thread threadMockClient([&mockClient, &testPort, &failedType]() {
-        mockClient.connectToServer(ServerInfo::Address::local, testPort);
-        CHECK_NOTHROW(testSendingMessages(mockClient, MessageType(failedType)));
-        mockClient.disconnectFromServer();
+    std::thread threadMockClient([&Client, &failedType]() {
+        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
+        CHECK_NOTHROW(testSendingMessages(Client, MessageType(failedType)));
+        Client.disconnectFromServer();
     });
 
     threadMockClient.join();

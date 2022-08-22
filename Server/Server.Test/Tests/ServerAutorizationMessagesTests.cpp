@@ -1,9 +1,10 @@
+#define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
 #include <TestUtility/TestUtility.hpp>
 
 #include <thread>
 
-using Client      = MockClient::MockClient;
+using Client      = Network::Client;
 using Message     = Network::Message;
 using testServer  = Server::Server;
 using MessageType = Message::MessageType;
@@ -13,20 +14,19 @@ using TestUtility::testServerUpdating;
 
 TEST_CASE("Check registration request of server")
 {
-    uint16_t   testPort;
-    testServer serverTest(testPort);
+    testServer serverTest(ServerInfo::Port::test);
 
     std::thread threadServer([&serverTest]() {
         serverTest.start();
         testServerUpdating(serverTest);
     });
 
-    Client mockClient;
+    Client Client;
 
-    std::thread threadMockClient([&mockClient, &testPort]() {
-        mockClient.connectToServer(ServerInfo::Address::local, testPort);
-        CHECK_NOTHROW(testSendingMessages(mockClient, MessageType::RegistrationRequest));
-        mockClient.disconnectFromServer();
+    std::thread threadMockClient([&Client]() {
+        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
+        CHECK_NOTHROW(testSendingMessages(Client, MessageType::RegistrationRequest));
+        Client.disconnectFromServer();
     });
 
     threadMockClient.join();
@@ -35,20 +35,19 @@ TEST_CASE("Check registration request of server")
 
 TEST_CASE("Check login request of server")
 {
-    uint16_t   testPort;
-    testServer serverTest(testPort);
+    testServer serverTest(ServerInfo::Port::test);
 
     std::thread threadServer([&serverTest]() {
         serverTest.start();
         testServerUpdating(serverTest);
     });
 
-    Client mockClient;
+    Client Client;
 
-    std::thread threadMockClient([&mockClient, &testPort]() {
-        mockClient.connectToServer(ServerInfo::Address::local, testPort);
-        CHECK_NOTHROW(testSendingMessages(mockClient, MessageType::LoginRequest));
-        mockClient.disconnectFromServer();
+    std::thread threadMockClient([&Client]() {
+        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
+        CHECK_NOTHROW(testSendingMessages(Client, MessageType::LoginRequest));
+        Client.disconnectFromServer();
     });
 
     threadMockClient.join();

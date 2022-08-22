@@ -1,29 +1,30 @@
+#define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
-#include <MockObjects/MockClient.hpp>
+#include <Client.Core/Client.Core.Static/Client.hpp>
+#include <Client.Core/Client.Core.Static/ServerInfo.hpp>
 #include <Server.hpp>
 
 #include <thread>
 
-using Client           = MockClient::MockClient;
+using Client           = Network::Client;
 using Message          = Network::Message;
 using testServer       = Server::Server;
 using MessageType      = Message::MessageType;
 
 TEST_CASE("Workflow startup server")
 {
-    uint16_t   testPort;
-    testServer serverTest(testPort);
+    testServer serverTest(ServerInfo::Port::test);
 
     std::thread threadServer([&serverTest]() {
         CHECK_NOTHROW(serverTest.start());
         REQUIRE_NOTHROW(serverTest.stop());
     });
 
-    Client mockClient;
+    Client Client;
 
-    std::thread threadMockClient([&mockClient, &testPort]() {
-        CHECK_NOTHROW(mockClient.connectToServer(ServerInfo::Address::local, testPort));
-        REQUIRE_NOTHROW(mockClient.disconnectFromServer());
+    std::thread threadMockClient([&Client]() {
+        CHECK_NOTHROW(Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test));
+        REQUIRE_NOTHROW(Client.disconnectFromServer());
     });
 
     threadMockClient.join();
@@ -44,8 +45,7 @@ restoreWarning
 
 TEST_CASE("Check disconnect from client")
 {
-    uint16_t   testPort;
-    testServer serverTest(testPort);
+    testServer serverTest(ServerInfo::Port::test);
 
     REQUIRE_NOTHROW(serverTest.start());
 

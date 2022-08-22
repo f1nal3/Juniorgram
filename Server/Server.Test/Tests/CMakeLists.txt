@@ -10,10 +10,7 @@ set(SOURCE_FILES
 		ServerWorkflowTests.cpp
 		)
 
-include_directories(TestUtility)
-include_directories(MockObjects)
-
-add_executable(${TARGET} ${SOURCE_FILES} ${HEADER_FILES})
+add_executable(${TARGET} ${SOURCE_FILES})
 
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
@@ -38,7 +35,7 @@ target_include_directories(${TARGET} PRIVATE
 target_include_directories(${TARGET} PUBLIC 
 	$<TARGET_PROPERTY:Client.Core,SOURCE_DIR>/..)		
 target_include_directories(${TARGET} PUBLIC 
-	$<TARGET_PROPERTY:TestUtility,SOURCE_DIR>/..)	
+	$<TARGET_PROPERTY:Utility.test,SOURCE_DIR>/..)	
 	
 target_compile_definitions(${TARGET} PRIVATE CATCH_CONFIG_FAST_COMPILE)
 target_precompile_headers(${TARGET} REUSE_FROM Precompiled.Catch2.Test)

@@ -5,9 +5,10 @@
 #include <Network/Connection.hpp>
 #include <Models/Primitives.hpp>
 
-#include <Cryptography.hpp>
 #include <Server.hpp>
-#include <MockObjects/MockClient.hpp>
+#include <Client.Core/Client.Core.Static/Client.hpp>
+#include <Client.Core/Client.Core.Static/ServerInfo.hpp>
+#include <Cryptography.hpp>
 
 #include <chrono>
 
@@ -21,7 +22,7 @@ using MessageInfo      = Models::MessageInfo;
 using RegistrationInfo = Models::RegistrationInfo;
 using RTC              = std::chrono::system_clock;
 using milliseconds     = std::chrono::milliseconds;
-using Client           = MockClient::MockClient;
+using Client           = Network::Client;
 using testServer       = Server::Server;
 using MessageType      = Message::MessageType;
 using Utility::SafeQueue;
