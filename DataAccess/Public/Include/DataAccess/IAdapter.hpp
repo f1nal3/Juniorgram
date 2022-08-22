@@ -1,4 +1,5 @@
 #pragma once
+
 #include <any>
 #include <memory>
 #include <optional>
@@ -31,4 +32,4 @@ public:
 
     virtual ~IAdapter() {}
 };
-}  /// namespace DataAccess
+}  // namespace DataAccess

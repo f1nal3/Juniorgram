@@ -1,4 +1,5 @@
 #pragma once
+
 #include <map>
 #include <memory>
 #include <stdexcept>
@@ -11,7 +12,7 @@
 
 namespace DataAccess
 {
-/* @class AbstractRepositoryContainer
+/*  @class AbstractRepositoryContainer
  *  @brief An abstract class for server and client global repositories.
  */
 class AbstractRepositoryContainer
@@ -64,4 +65,4 @@ public:
         return std::dynamic_pointer_cast<TInterface>(_container[typeInfo]);
     }
 };
-}  /// namespace DataAccess
+}  // namespace DataAccess

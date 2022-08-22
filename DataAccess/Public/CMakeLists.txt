@@ -3,13 +3,16 @@ set(OUTPUT_NAME ${PROJECT}.DataAccess.Public)
 
 set(SOURCE_FILES
         Include/DataAccess/AbstractRepositoryContainer.hpp
+        Include/DataAccess/AbstractRepositoryManager.hpp
         Include/DataAccess/IAdapter.hpp
         Include/DataAccess/IClientRepositories.hpp
         Include/DataAccess/IMasterRepository.hpp
         Include/DataAccess/IRepository.hpp
         Include/DataAccess/IServerRepositories.hpp
         Include/DataAccess/SQLStatements.hpp
-        Include/DataAccess/QueryBuilder.hpp)
+        Include/DataAccess/QueryBuilder.hpp
+        Include/DataAccess/RepositoryRequest.hpp
+        Include/DataAccess/FutureResult.hpp)
 
 add_library(${TARGET} INTERFACE)
 

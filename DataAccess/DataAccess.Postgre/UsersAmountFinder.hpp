@@ -2,7 +2,7 @@
 
 #include <Models/Primitives.hpp>
 
-#include "PostgreTable.hpp"
+#include "PostgreQuery.hpp"
 
 /** @class UsersAmountFinder.
  *   @brief UsersAmountFinder class.
@@ -11,7 +11,7 @@
 class UsersAmountFinder
 {
 protected:
-    using Table = DataAccess::PostgreTable;
+    using Table = DataAccess::PostgreQuery;
 
     std::unique_ptr<Table> _pTable;
 

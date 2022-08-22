@@ -18,7 +18,7 @@
 #include "EncryptionHandler.hpp"
 #include "Handler.hpp"
 #include "Message.hpp"
-#include "SafeQueue.hpp"
+#include "Utility/SafeQueue.hpp"
 #include "SerializationHandler.hpp"
 #include "Utility/Utility.hpp"
 #include "Utility/WarningSuppression.hpp"
@@ -26,6 +26,7 @@
 
 namespace Network
 {
+   
 /** @class Connection
  *  @brief Connection managment class
  *  @details see https://github.com/f1nal3/Juniorgram/wiki/Legacy-Frontend-network \
@@ -62,9 +63,9 @@ private:
     asio::io_context::strand _writeStrand;
 
     /// References to the incoming queue of the parent object
-    SafeQueue<Message>& mIncomingMessagesQueueLink;
+    Utility::SafeQueue<Message>& mIncomingMessagesQueueLink;
     /// Queue all messages to be sent to the remote side of this connection
-    SafeQueue<Message> mOutcomingMessagesQueue;
+    Utility::SafeQueue<Message> mOutcomingMessagesQueue;
 
     /// Buffer to store the part of incoming message while it is read
     Message mMessageBuffer;
@@ -280,7 +281,7 @@ public:
      * @param incomingMessagesQueueLink - reference to the incoming message queue
      */
     Connection(const OwnerType& owner, asio::io_context& contextLink, asio::ip::tcp::socket socket,
-               SafeQueue<Message>& incomingMessagesQueueLink)
+               Utility::SafeQueue<Message>& incomingMessagesQueueLink)
         : mOwner(owner), mSocket(std::move(socket)), mContextLink(contextLink), _readStrand(contextLink), _writeStrand(contextLink), 
             mIncomingMessagesQueueLink(incomingMessagesQueueLink)
     {
