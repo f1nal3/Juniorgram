@@ -31,7 +31,6 @@ signals:
     /// Signal for change reply message geometry
     void geometryChanged(int);
 
-//protected:
 public:
     // Getters and setters for derived classes
     uint64_t getUserID()                   const { return _userID; };
