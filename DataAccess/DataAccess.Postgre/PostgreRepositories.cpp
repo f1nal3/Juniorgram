@@ -430,14 +430,15 @@ Utility::RegistrationCodes RegisterRepository::registerUser(const Models::Regist
     return Utility::RegistrationCodes::SUCCESS;
 }
 
-Utility::ReactionMessageCodes MessagesRepository::updateMessageReactions(const Models::MessageInfo& mi)
+Utility::ReactionMessageCodes MessagesRepository::updateMessageReactions(const Models::MessageInfo& messageInfo)
 {
     using Utility::ReactionMessageCodes;
 
-    auto reactionInfo = std::find_if(mi._reactions.cbegin(), mi._reactions.cend(),
+    auto reactionInfo =
+        std::find_if(messageInfo._reactions.cbegin(), messageInfo._reactions.cend(),
         [](std::pair<std::uint32_t, std::uint32_t> p) { return p.second == std::numeric_limits<std::uint32_t>::max(); });
 
-    if (reactionInfo == mi._reactions.end())
+    if (reactionInfo == messageInfo._reactions.end())
     {
         Base::Logger::FileLogger::getInstance().log(
             "Updating message reaction failed because providing reaction was not found\n",
@@ -466,19 +467,21 @@ Utility::ReactionMessageCodes MessagesRepository::updateMessageReactions(const M
     auto adapter = _pTable->getAdapter();
 
     _pTable->changeTable("msg_reactions");
-    std::optional<pqxx::result> userQueryResult =
-        _pTable->Select()->columns({ "*" })->Where("msg_id=" + std::to_string(mi._msgID))
-        ->And(std::to_string(mi._senderID) + " = ANY(" + reactionName + ");")->execute();
+    std::optional<pqxx::result> userQueryResult = _pTable->Select()
+                                                      ->columns({"*"})
+                                                      ->Where("msg_id=" + std::to_string(messageInfo._msgID))
+                                                      ->And(std::to_string(messageInfo._senderID) + " = ANY(" + reactionName + ");")
+                                                      ->execute();
 
     if (userQueryResult.has_value())
     {
-        adapter->query("UPDATE msg_reactions SET " + reactionName
-            + " = array_remove(" + reactionName + ", " + std::to_string(mi._senderID) + ") WHERE msg_id = " + std::to_string(mi._msgID) + ";");
+        adapter->query("UPDATE msg_reactions SET " + reactionName + " = array_remove(" + reactionName + ", " +
+                       std::to_string(messageInfo._senderID) + ") WHERE msg_id = " + std::to_string(messageInfo._msgID) + ";");
     }
     else
     {
-        adapter->query("UPDATE msg_reactions SET " + reactionName
-            + " = array_append(" + reactionName + ", " + std::to_string(mi._senderID) + ") WHERE msg_id = " + std::to_string(mi._msgID) + ";");
+        adapter->query("UPDATE msg_reactions SET " + reactionName + " = array_append(" + reactionName + ", " +
+                       std::to_string(messageInfo._senderID) + ") WHERE msg_id = " + std::to_string(messageInfo._msgID) + ";");
     }
 
     Base::Logger::FileLogger::getInstance().log(
