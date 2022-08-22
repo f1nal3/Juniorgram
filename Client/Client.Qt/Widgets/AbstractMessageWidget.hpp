@@ -31,10 +31,11 @@ signals:
     /// Signal for change reply message geometry
     void geometryChanged(int);
 
-protected:
+//protected:
+public:
     // Getters and setters for derived classes
     uint64_t getUserID()                   const { return _userID; };
-    virtual uint64_t getMessageID()        const { return _messageID; }
+    uint64_t getMessageID()                const { return _messageID; }
     const QString&  getMessageText()       const { return _messageText; }
     const QString&  getUserName()          const { return _userName; }
 
