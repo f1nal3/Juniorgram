@@ -24,11 +24,13 @@ public:
     explicit JuniorgramException(const char* msg_, const char* file_, std::uint16_t line_)
         : _msg(formatExceptionMessage(msg_, file_, line_)) , _file(file_), _line(line_)
     {
+        Base::Logger::FileLogger::getInstance().error(_msg);
     }
 
     explicit JuniorgramException(const std::string& msg_, const char* file_, std::uint16_t line_)
         : _msg(formatExceptionMessage(msg_, file_, line_)), _file(file_), _line(line_)
     {
+        Base::Logger::FileLogger::getInstance().error(_msg);
     }
 
     [[nodiscard]] const char* what() const noexcept override { return _msg.c_str(); }
@@ -45,11 +47,13 @@ public:
     explicit NotImplementedException(const char* msg_, const char* file_, std::uint16_t line_)
         : JuniorgramException(msg_, file_, line_)
     {
+        Base::Logger::FileLogger::getInstance().error(_msg);
     }
 
     explicit NotImplementedException(const std::string& msg_, const char* file_, std::uint16_t line_)
         : JuniorgramException(msg_, file_, line_)
     {
+        Base::Logger::FileLogger::getInstance().error(_msg);
     }
 };
 
