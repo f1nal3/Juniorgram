@@ -18,12 +18,12 @@ struct ScrollArea
 {
     /// width: pixels
     int width;
-    /// deltat: pixels
-    int deltat;
-    /// deltab: pixels
-    int deltab;
-    /// deltax: pixels
-    int deltax;
+    /// deltaT: pixels
+    int deltaT;
+    /// deltaB: pixels
+    int deltaB;
+    /// deltaX: pixels
+    int deltaX;
     /// bg: Style::color
     Style::color bg;
     /// bgOver: Style::color

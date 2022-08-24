@@ -24,8 +24,8 @@ ScrollBar::ScrollBar(ScrollArea* parent, bool vertical, const Style::ScrollArea*
 
 void ScrollBar::updateSize()
 {
-    setGeometry(_vertical ? QRect(area()->width() - _st->width, _st->deltat, _st->width, area()->height() - _st->deltat - _st->deltab)
-                          : QRect(_st->deltat, area()->height() - _st->width, area()->width() - _st->deltat - _st->deltab, _st->width));
+    setGeometry(_vertical ? QRect(area()->width() - _st->width, _st->deltaT, _st->width, area()->height() - _st->deltaT - _st->deltaB)
+                          : QRect(_st->deltaT, area()->height() - _st->width, area()->width() - _st->deltaT - _st->deltaB, _st->width));
 }
 
 void ScrollBar::updateBar(bool)
@@ -57,7 +57,7 @@ void ScrollBar::updateBar(bool)
         int leftCorner   = getLeftCorner(scrollTopMax, canvasHeight, lHeight, scrollTop);
         if (leftCorner > canvasHeight - lHeight) leftCorner = canvasHeight - lHeight;
 
-        newBar = QRect(_st->deltax, leftCorner, width() - 2 * _st->deltax, lHeight);
+        newBar = QRect(_st->deltaX, leftCorner, width() - 2 * _st->deltaX, lHeight);
     }
     else
     {
@@ -78,7 +78,7 @@ void ScrollBar::updateBar(bool)
         int leftCorner    = getLeftCorner(scrollLeftMax, canvasWidth, lWidth, scrollLeft);
         if (leftCorner > canvasWidth - lWidth) leftCorner = canvasWidth - lWidth;
 
-        newBar = QRect(leftCorner, _st->deltax, lWidth, height() - 2 * _st->deltax);
+        newBar = QRect(leftCorner, _st->deltaX, lWidth, height() - 2 * _st->deltaX);
     }
     if (newBar != _bar)
     {
@@ -114,10 +114,10 @@ void ScrollBar::paintEvent(QPaintEvent*)
     if (opacity == 0.) return;
 
     QPainter p(this);
-    auto delta_l = _vertical ? _st->deltax : 0;
-    auto delta_r = _vertical ? _st->deltax : 0;
-    auto delta_t = _vertical ? 0 : _st->deltax;
-    auto delta_b = _vertical ? 0 : _st->deltax;
+    auto deltaL = _vertical ? _st->deltaX : 0;
+    auto deltaR = _vertical ? _st->deltaX : 0;
+    auto deltaT = _vertical ? 0 : _st->deltaX;
+    auto deltaB = _vertical ? 0 : _st->deltaX;
     p.setPen(Qt::NoPen);
     auto bg = (_over || _moving) ? _st->bgOver->color : _st->bg->color;
     bg.setAlpha(static_cast<int>(bg.alpha() * opacity));
@@ -127,13 +127,13 @@ void ScrollBar::paintEvent(QPaintEvent*)
     {
         p.setRenderHint(QPainter::Antialiasing);
         p.setBrush(bg);
-        p.drawRoundedRect(QRect(delta_l, delta_t, width() - delta_l - delta_r, height() - delta_t - delta_b), _st->round, _st->round);
+        p.drawRoundedRect(QRect(deltaL, deltaT, width() - deltaL - deltaR, height() - deltaT - deltaB), _st->round, _st->round);
         p.setBrush(bar);
         p.drawRoundedRect(_bar, _st->round, _st->round);
     }
     else
     {
-        p.fillRect(QRect(delta_l, delta_t, width() - delta_l - delta_r, height() - delta_t - delta_b), bg);
+        p.fillRect(QRect(deltaL, deltaT, width() - deltaL - deltaR, height() - deltaT - deltaB), bg);
         p.fillRect(_bar, bar);
     }
 }
@@ -281,8 +281,8 @@ void ScrollBar::mousePressEvent(QMouseEvent* e)
         int32_t val = _vertical ? e->pos().y() : e->pos().x();
         int32_t division = _vertical ? height() : width();
 
-        val         = (val <= _st->deltat) ? 0 : (val - _st->deltat);
-        division         = (division <= _st->deltat + _st->deltab) ? 1 : (division - _st->deltat - _st->deltab);
+        val         = (val <= _st->deltaT) ? 0 : (val - _st->deltaT);
+        division         = (division <= _st->deltaT + _st->deltaB) ? 1 : (division - _st->deltaT - _st->deltaB);
         _startFrom  = _vertical ? static_cast<int32_t>((val * static_cast<int64_t>(area()->scrollTopMax())) / division)
                                 : ((val * area()->scrollLeftMax()) / division);
         _connected->setValue(_startFrom);
