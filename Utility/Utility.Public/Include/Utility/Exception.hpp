@@ -24,13 +24,11 @@ public:
     explicit JuniorgramException(const char* msg_, const char* file_, std::uint16_t line_)
         : _msg(formatExceptionMessage(msg_, file_, line_)) , _file(file_), _line(line_)
     {
-        Base::Logger::FileLogger::getInstance().error(_msg);
     }
 
     explicit JuniorgramException(const std::string& msg_, const char* file_, std::uint16_t line_)
         : _msg(formatExceptionMessage(msg_, file_, line_)), _file(file_), _line(line_)
     {
-        Base::Logger::FileLogger::getInstance().error(_msg);
     }
 
     [[nodiscard]] const char* what() const noexcept override { return _msg.c_str(); }
@@ -47,11 +45,32 @@ public:
     explicit NotImplementedException(const char* msg_, const char* file_, std::uint16_t line_)
         : JuniorgramException(msg_, file_, line_)
     {
-        Base::Logger::FileLogger::getInstance().error(_msg);
     }
 
     explicit NotImplementedException(const std::string& msg_, const char* file_, std::uint16_t line_)
         : JuniorgramException(msg_, file_, line_)
+    {
+    }
+
+    [[nodiscard]] const char* what() const noexcept override { return _msg.c_str(); }
+
+private:
+    std::string   _msg;
+    std::string   _file;
+    std::uint16_t _line;
+};
+
+class LoggingException : public std::exception
+{
+public:
+    explicit LoggingException(const char* msg, const char* file, std::uint16_t line)
+        : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
+    {
+        Base::Logger::FileLogger::getInstance().error(_msg);
+    }
+
+    explicit LoggingException(const std::string& msg, const char* file, std::uint16_t line)
+        : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
     {
         Base::Logger::FileLogger::getInstance().error(_msg);
     }
