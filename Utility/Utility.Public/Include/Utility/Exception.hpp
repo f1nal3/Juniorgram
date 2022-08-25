@@ -22,12 +22,16 @@ class JuniorgramException : public std::exception
 {
 public:
     explicit JuniorgramException(const char* msg_, const char* file_, std::uint16_t line_)
-        : _msg(formatExceptionMessage(msg_, file_, line_)) , _file(file_), _line(line_)
+        : _msg(formatExceptionMessage(msg_, file_, line_))
+        , _file(file_)
+        , _line(line_)
     {
     }
 
     explicit JuniorgramException(const std::string& msg_, const char* file_, std::uint16_t line_)
-        : _msg(formatExceptionMessage(msg_, file_, line_)), _file(file_), _line(line_)
+        : _msg(formatExceptionMessage(msg_, file_, line_))
+        , _file(file_)
+        , _line(line_)
     {
     }
 
@@ -42,52 +46,13 @@ protected:
 class NotImplementedException : public JuniorgramException
 {
 public:
-    explicit NotImplementedException(const char* msg_, const char* file_, std::uint16_t line_)
-        : JuniorgramException(msg_, file_, line_)
-    {
-    }
-
-    explicit NotImplementedException(const std::string& msg_, const char* file_, std::uint16_t line_)
-        : JuniorgramException(msg_, file_, line_)
-    {
-    }
-
-    [[nodiscard]] const char* what() const noexcept override { return _msg.c_str(); }
-
-private:
-    std::string   _msg;
-    std::string   _file;
-    std::uint16_t _line;
-};
-
-class LoggingException : public std::exception
-{
-public:
-    explicit LoggingException(const char* msg, const char* file, std::uint16_t line)
-        : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
-    {
-        Base::Logger::FileLogger::getInstance().error(_msg);
-    }
-
-    explicit LoggingException(const std::string& msg, const char* file, std::uint16_t line)
-        : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
-    {
-        Base::Logger::FileLogger::getInstance().error(_msg);
-    }
+    using JuniorgramException::JuniorgramException;
 };
 
 class OperationDBException : public JuniorgramException
 {
 public:
-    explicit OperationDBException(const char* msg_, const char* file_, std::uint16_t line_)
-        : JuniorgramException(msg_, file_, line_) 
-    {
-    }
-
-    explicit OperationDBException(const std::string& msg_, const char* file_, std::uint16_t line_)
-        : JuniorgramException(msg_, file_, line_)
-    {
-    }
+    using JuniorgramException::JuniorgramException;
 };
 
 class LoggingException : public JuniorgramException
@@ -96,13 +61,13 @@ public:
     explicit LoggingException(const char* msg_, const char* file_, std::uint16_t line_)
         : JuniorgramException(msg_, file_, line_)
     {
-        Base::Logger::FileLogger::getInstance().error(_msg);
+        Base::Logger::FileLogger::getInstance().error(JuniorgramException::what());
     }
 
     explicit LoggingException(const std::string& msg_, const char* file_, std::uint16_t line_)
         : JuniorgramException(msg_, file_, line_)
     {
-        Base::Logger::FileLogger::getInstance().error(_msg);     
+        Base::Logger::FileLogger::getInstance().error(JuniorgramException::what());     
     }
 };
 }  // namespace Utility
