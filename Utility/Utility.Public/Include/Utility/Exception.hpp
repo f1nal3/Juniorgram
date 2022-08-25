@@ -24,13 +24,11 @@ public:
     explicit NotImplementedException(const char* msg, const char* file, std::uint16_t line)
         : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
     {
-        Base::Logger::FileLogger::getInstance().error(_msg);
     }
 
     explicit NotImplementedException(const std::string& msg, const char* file, std::uint16_t line)
         : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
     {
-        Base::Logger::FileLogger::getInstance().error(_msg);
     }
 
     [[nodiscard]] const char* what() const noexcept override { return _msg.c_str(); }
@@ -47,10 +45,31 @@ public:
     explicit OperationDBException(const char* msg, const char* file, std::uint16_t line)
         : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
     {
-        Base::Logger::FileLogger::getInstance().error(_msg);
     }
 
     explicit OperationDBException(const std::string& msg, const char* file, std::uint16_t line)
+        : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
+    {
+    }
+
+    [[nodiscard]] const char* what() const noexcept override { return _msg.c_str(); }
+
+private:
+    std::string   _msg;
+    std::string   _file;
+    std::uint16_t _line;
+};
+
+class LoggingException : public std::exception
+{
+public:
+    explicit LoggingException(const char* msg, const char* file, std::uint16_t line)
+        : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
+    {
+        Base::Logger::FileLogger::getInstance().error(_msg);
+    }
+
+    explicit LoggingException(const std::string& msg, const char* file, std::uint16_t line)
         : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
     {
         Base::Logger::FileLogger::getInstance().error(_msg);
