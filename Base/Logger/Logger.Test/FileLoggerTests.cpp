@@ -3,6 +3,7 @@
 #include "Logger.Static/FileLogger.hpp"
 #include "Utility/UtilityTime.hpp"
 #include <Utility/Utility.hpp>
+#include <Utility/Exception.hpp>
 
 using namespace Base::Logger;
 using UtilityTime::safe_localtime;
@@ -126,3 +127,21 @@ TEST_CASE("Special methods for improved logging")
     REQUIRE_NOTHROW(testLogger.info("Test info message\n"));
     REQUIRE_NOTHROW(testLogger.warning("Test warning message\n"));
 }
+
+TEST_CASE("Logging and throw exception method")
+{
+    auto& testLogger              = FileLogger::getInstance();
+    const char* filename          = "FileLoggerTest.cpp";
+    
+    std::exception* someException = new std::exception("Something wrong in std::exception");
+    REQUIRE_THROWS(testLogger.logAndThrow(filename, 136, someException));
+    delete someException;
+    
+    someException = new Utility::NotImplementedException( "Something wrong in Utility::NotImplementedException", filename, 140);
+    REQUIRE_THROWS(testLogger.logAndThrow(filename, 141, someException));
+    delete someException;
+    
+    someException = new Utility::OperationDBException("Something wrong in Utility::OperationDBException", filename, 144);
+    REQUIRE_THROWS(testLogger.logAndThrow(filename, 145, someException));
+    delete someException;
+ }
