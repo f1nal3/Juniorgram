@@ -21,6 +21,4 @@ PUBLIC
 	Client.Core.Static
     )
 	
-set_target_properties(${TARGET} PROPERTIES
-    LINKER_LANGUAGE CXX
-    FOLDER ${FOLDER})
+set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX)

@@ -1,13 +1,12 @@
 #pragma once
 
-#include <Utility/UtilityTime.hpp>
 #include <Utility/SafeQueue.hpp>
 #include <Network/Connection.hpp>
 #include <Models/Primitives.hpp>
 
 #include <Server.hpp>
-#include <Client.Core/Client.Core.Static/Client.hpp>
-#include <Client.Core/Client.Core.Static/ServerInfo.hpp>
+#include <Client.hpp>
+#include <ServerInfo.hpp>
 #include <Cryptography.hpp>
 
 #include <chrono>
