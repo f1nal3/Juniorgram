@@ -17,7 +17,7 @@ TEST_CASE("Check registration request of server")
     Client Client;
 
     std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);
+        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
         CHECK_NOTHROW(testSendingMessages(Client, MessageType::RegistrationRequest));
         Client.disconnectFromServer();
     });
@@ -38,7 +38,7 @@ TEST_CASE("Check login request of server")
     Client Client;
 
     std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);
+        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
         CHECK_NOTHROW(testSendingMessages(Client, MessageType::LoginRequest));
         Client.disconnectFromServer();
     });

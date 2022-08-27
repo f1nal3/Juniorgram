@@ -17,7 +17,7 @@ TEST_CASE("Check message history request of server")
     Client Client;
 
     std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);
+        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
         CHECK_NOTHROW(testSendingMessages(Client, MessageType::MessageHistoryRequest));
         Client.disconnectFromServer();
     });
@@ -38,7 +38,7 @@ TEST_CASE("Check direct message create request from server side")
     Client Client;
 
     std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);
+        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
         CHECK_NOTHROW(testSendingMessages(Client, MessageType::DirectMessageCreateRequest));
         Client.disconnectFromServer();
     });
@@ -59,7 +59,7 @@ TEST_CASE("Check all messages from server side")
     Client Client;
 
     std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);
+        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
         CHECK_NOTHROW(testSendingMessages(Client, MessageType::MessageAll));
         Client.disconnectFromServer();
     });
@@ -80,7 +80,7 @@ TEST_CASE("Check message store request from server side")
     Client Client;
 
     std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);
+        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
         CHECK_NOTHROW(testSendingMessages(Client, MessageType::MessageStoreRequest));
         Client.disconnectFromServer();
     });
@@ -101,7 +101,7 @@ TEST_CASE("Check message reaction request from server side")
     Client Client;
 
     std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);
+        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
         CHECK_NOTHROW(testSendingMessages(Client, MessageType::MessageReactionRequest));
         Client.disconnectFromServer();
     });
@@ -122,7 +122,7 @@ TEST_CASE("Check message edit from server side")
     Client Client;
 
     std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);
+        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
         CHECK_NOTHROW(testSendingMessages(Client, MessageType::MessageEditRequest));
         Client.disconnectFromServer();
     });
@@ -143,7 +143,7 @@ TEST_CASE("Check message delete request from server side")
     Client Client;
 
     std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);
+        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
         CHECK_NOTHROW(testSendingMessages(Client, MessageType::MessageDeleteRequest));
         Client.disconnectFromServer();
     });

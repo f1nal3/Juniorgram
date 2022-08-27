@@ -80,7 +80,7 @@ TEST_CASE("Check channel leave request from server side")
     Client Client;
 
     std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);
+        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
         CHECK_NOTHROW(testSendingMessages(Client, MessageType::ChannelLeaveRequest));
         Client.disconnectFromServer();
     });
@@ -101,7 +101,7 @@ TEST_CASE("Check channel delete request from server side")
     Client Client;
 
     std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);
+        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
         CHECK_NOTHROW(testSendingMessages(Client, MessageType::ChannelDeleteRequest));
         Client.disconnectFromServer();
     });

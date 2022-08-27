@@ -17,7 +17,7 @@ TEST_CASE("Check server ping")
     Client Client;
 
     std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);
+        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
         CHECK_NOTHROW(testSendingMessages(Client, MessageType::ServerPing));
         Client.disconnectFromServer();
     });
@@ -39,7 +39,7 @@ TEST_CASE("Check default request of server side")
     const int16_t failedType = 666;
 
     std::thread threadMockClient([&Client, &failedType]() {
-        Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);
+        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
         CHECK_NOTHROW(testSendingMessages(Client, MessageType(failedType)));
         Client.disconnectFromServer();
     });
