@@ -25,8 +25,9 @@ using Client           = Network::Client;
 using testServer       = Server::Server;
 using MessageType      = Message::MessageType;
 using Utility::SafeQueue;
+using namespace std::placeholders;
 
-inline Message& messageInstance(Message& message, const MessageType messageType)
+Message& messageInstance(Message& message, const MessageType messageType)
 {
     const std::string testEmail    = "demonstakingoverme@epam.co";
     const std::string testLogin    = "memorisecodead";
@@ -181,23 +182,28 @@ inline Message& messageInstance(Message& message, const MessageType messageType)
     return message;
 }
 
-inline Client& testSendingMessages(Client& mockClient, const MessageType mesgType)
+Client& testSendingMessages(Client& Client, const MessageType mesgType)
 {
     Message message;
+    std::mutex scopedMutex;
 
+    std::scoped_lock scopedLock(scopedMutex);
     std::this_thread::sleep_for(milliseconds(1000));
     messageInstance(message, mesgType);
-    mockClient.send(message);
+    Client.send(message);
     std::this_thread::sleep_for(milliseconds(1000));
 
-    return mockClient;
+    return Client;
 }
 
-inline testServer& testServerUpdating(testServer& serverTest)
+testServer& testServerUpdating(testServer& serverTest)
 {
     unsigned int countOfUpdate        = 0;
     unsigned int iterationOfServer    = 1;
     bool         serverWorkflow       = true;
+
+    std::mutex       scopedMutex;
+    std::scoped_lock scopedLock(scopedMutex);
 
     while (serverWorkflow)
     {
@@ -213,5 +219,27 @@ inline testServer& testServerUpdating(testServer& serverTest)
     }
 
     return serverTest;
+}
+
+auto bindOfSendingMessage(Client &Client, const MessageType mesgType)
+{
+    auto sendingMessage = std::bind
+    (
+        &testSendingMessages,
+        _1, _2
+    );
+
+   return &sendingMessage(Client,mesgType);
+}
+
+auto bindOfConnectToServer(Client &Client)
+{
+    auto connectToServer = std::bind
+    (
+        &Client::connectToServer, &Client, 
+        ServerInfo::Address::remote, ServerInfo::Port::test
+    );
+
+    return connectToServer();
 }
 }  // namespace TestUtility

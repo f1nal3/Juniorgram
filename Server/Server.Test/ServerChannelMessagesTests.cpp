@@ -9,16 +9,18 @@ TEST_CASE("Check channel create request of server")
 {
     testServer serverTest(ServerInfo::Port::test);
 
-    std::thread threadServer([&serverTest]() {
+    std::thread threadServer([&serverTest]()
+    {
         serverTest.start();
         testServerUpdating(serverTest);
     });
 
     Client Client;
 
-    std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);
-        CHECK_NOTHROW(testSendingMessages(Client, MessageType::ChannelCreateRequest));
+    std::thread threadMockClient([&Client]()
+    {
+        bindOfConnectToServer(Client);
+        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelCreateRequest));
         Client.disconnectFromServer();
     });
 
@@ -30,16 +32,18 @@ TEST_CASE("Check channel list request from server side")
 {
     testServer serverTest(ServerInfo::Port::test);
 
-    std::thread threadServer([&serverTest]() {
+    std::thread threadServer([&serverTest]()
+    {
         serverTest.start();
         testServerUpdating(serverTest);
     });
 
     Client Client;
 
-    std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);
-        CHECK_NOTHROW(testSendingMessages(Client, MessageType::ChannelListRequest));
+    std::thread threadMockClient([&Client]()
+    {
+        bindOfConnectToServer(Client);
+        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelListRequest));
         Client.disconnectFromServer();
     });
 
@@ -51,16 +55,18 @@ TEST_CASE("Check channel subscribe request from server side")
 {
     testServer serverTest(ServerInfo::Port::test);
 
-    std::thread threadServer([&serverTest]() {
+    std::thread threadServer([&serverTest]()
+    {
         serverTest.start();
         testServerUpdating(serverTest);
     });
 
     Client Client;
 
-    std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test);
-        CHECK_NOTHROW(testSendingMessages(Client, MessageType::ChannelSubscribeRequest));
+    std::thread threadMockClient([&Client]()
+    {
+        bindOfConnectToServer(Client);
+        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelSubscribeRequest));
         Client.disconnectFromServer();
     });
 
@@ -72,16 +78,18 @@ TEST_CASE("Check channel leave request from server side")
 {
     testServer serverTest(ServerInfo::Port::test);
 
-    std::thread threadServer([&serverTest]() {
+    std::thread threadServer([&serverTest]()
+    {
         serverTest.start();
         testServerUpdating(serverTest);
     });
 
     Client Client;
 
-    std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
-        CHECK_NOTHROW(testSendingMessages(Client, MessageType::ChannelLeaveRequest));
+    std::thread threadMockClient([&Client]()
+    {
+        bindOfConnectToServer(Client);
+        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelLeaveRequest));
         Client.disconnectFromServer();
     });
 
@@ -93,16 +101,18 @@ TEST_CASE("Check channel delete request from server side")
 {
     testServer serverTest(ServerInfo::Port::test);
 
-    std::thread threadServer([&serverTest]() {
+    std::thread threadServer([&serverTest]()
+    {
         serverTest.start();
         testServerUpdating(serverTest);
     });
 
     Client Client;
 
-    std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
-        CHECK_NOTHROW(testSendingMessages(Client, MessageType::ChannelDeleteRequest));
+    std::thread threadMockClient([&Client]()
+    {
+        bindOfConnectToServer(Client);
+        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelDeleteRequest));
         Client.disconnectFromServer();
     });
 

@@ -22,7 +22,7 @@ TEST_CASE("Workflow startup server")
     Client Client;
 
     std::thread threadMockClient([&Client]() {
-        CHECK_NOTHROW(Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test));
+        CHECK_NOTHROW(Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test));
         REQUIRE_NOTHROW(Client.disconnectFromServer());
     });
 

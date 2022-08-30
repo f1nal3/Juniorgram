@@ -9,16 +9,18 @@ TEST_CASE("Check registration request of server")
 {
     testServer serverTest(ServerInfo::Port::test);
 
-    std::thread threadServer([&serverTest]() {
+    std::thread threadServer([&serverTest]()
+    {
         serverTest.start();
         testServerUpdating(serverTest);
     });
 
     Client Client;
 
-    std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
-        CHECK_NOTHROW(testSendingMessages(Client, MessageType::RegistrationRequest));
+    std::thread threadMockClient([&Client]()
+    {
+        bindOfConnectToServer(Client);
+        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::RegistrationRequest));
         Client.disconnectFromServer();
     });
 
@@ -30,16 +32,18 @@ TEST_CASE("Check login request of server")
 {
     testServer serverTest(ServerInfo::Port::test);
 
-    std::thread threadServer([&serverTest]() {
+    std::thread threadServer([&serverTest]()
+    {
         serverTest.start();
         testServerUpdating(serverTest);
     });
 
     Client Client;
 
-    std::thread threadMockClient([&Client]() {
-        Client.connectToServer(ServerInfo::Address::local, ServerInfo::Port::test);
-        CHECK_NOTHROW(testSendingMessages(Client, MessageType::LoginRequest));
+    std::thread threadMockClient([&Client]() 
+    {
+        bindOfConnectToServer(Client);
+        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::LoginRequest));
         Client.disconnectFromServer();
     });
 
