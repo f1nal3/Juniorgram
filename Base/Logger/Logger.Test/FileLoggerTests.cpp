@@ -132,8 +132,26 @@ TEST_CASE("Logging and throw exception method")
 {
     auto& testLogger              = FileLogger::getInstance();
     const char* filename          = "FileLoggerTest.cpp";
-    
-    std::exception* someException = new std::exception("Something wrong in std::exception");
+    std::exception* someException;
+
+#ifdef _WIN32
+    someException = new std::exception("Something wrong in std::exception");
+#else // bacause std::exception has no _Data for std::exception.what() in GCC and CLANG
+    class MyTestException : public std::exception
+    {
+    public:
+        explicit MyTestException(std::string msg_) : _msg(msg_) {}
+        explicit MyTestException(const char* msg_) : _msg(msg_) {}
+
+        [[nodiscard]] const char* what() const noexcept override { return _msg.c_str(); }
+
+    private:
+        std::string _msg{""};
+    };
+
+    someException = new MyTestException("Something wrong in MyTestException");
+#endif
+
     REQUIRE_THROWS(testLogger.logAndThrow(filename, 136, someException));
     delete someException;
     

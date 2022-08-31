@@ -70,31 +70,31 @@ public:
      */
     FileLogger& operator=(const FileLogger&) = delete;
 
-    /*
+    /**
      * @brief Method used to say that's going to be an error
      * @param const std::string& -> incoming message, that should describe situation or progress
      */
     void error(const std::string& message);
 
-    /*
+    /**
      * @brief Method used to say that's going to be a possible error
      * @param const std::string& -> incoming message, that should describe situation or progress
      */
     void warning(const std::string& message);
 
-    /*
+    /**
      * @brief Method used to say general information
      * @param const std::string& -> incoming message, that should describe situation or progress
      */
     void info(const std::string& message);
 
-    /*
+    /**
      * @brief Method used to say general information detailing debug progress
      * @param const std::string& -> incoming message, that should describe situation or progress
      */
     void debug(const std::string& message);
 
-    /*
+    /**
      * @brief Method used to say some information and to throw an exception
      * @param const char* -> name of file where the event took place
      * @param std::uint16_t -> line of the file where event took place

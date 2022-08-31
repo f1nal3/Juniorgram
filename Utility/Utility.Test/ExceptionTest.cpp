@@ -24,6 +24,16 @@ void OperationDBNoExceptionMock()
     Utility::OperationDBException("DB success operation", __FILE__, __LINE__);
 }
 
+[[noreturn]] static void LoggingExceptionMock()
+{ 
+    throw Utility::LoggingException("Something went wrong", __FILE__, __LINE__);
+}
+
+void LoggingNoExceptionMock()
+{ 
+    Utility::LoggingException("Logging without throw", __FILE__, __LINE__);
+}
+
 TEST_CASE("Test NotImplementedException format", "[Utility.Exception]")
 {
     SECTION("Exception is expected")
@@ -50,10 +60,23 @@ TEST_CASE("Test OperationDBException format", "[Utility.Exception]")
     }
 }
 
+TEST_CASE("Test LoggingException format", "[Utility.Exception]")
+{
+    SECTION("Exception is expected")
+    {
+        REQUIRE_THROWS_WITH(LoggingExceptionMock(), Contains("Something went wrong") && Contains("ExceptionTest.cpp"));
+    }
+
+    SECTION("Exception is not expected") 
+    { 
+        REQUIRE_NOTHROW(LoggingNoExceptionMock()); 
+    }
+}
+
 TEST_CASE("Test formatExceptionMessage")
 {
     std::string message  = "Test exception";
-    std::string filename = "ExpectionFile.txt";
+    std::string filename = "ExceptionTest.txt";
     uint16_t    line     = 3;
 
     REQUIRE_THAT(Utility::formatExceptionMessage(message, filename, line),
