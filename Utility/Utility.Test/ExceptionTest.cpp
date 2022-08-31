@@ -6,18 +6,17 @@ using Catch::Contains;
 
 [[noreturn]] static void JuniorgramExceptionThrowerMock()
 {
-    throw Utility::JuniorgramException("JuniorgramException error", __FILE__, __LINE__);
+    throw Utility::JuniorgramException("JuniorgramException throw", __FILE__, __LINE__);
 }
 
 void JuniorgramExceptionNoExceptionWithConstCharConstructorMock()
 {
-    Utility::JuniorgramException(std::string("JuniorgramException success"), __FILE__, __LINE__);
-    Utility::JuniorgramException("JuniorgramException success", __FILE__, __LINE__);
+    Utility::JuniorgramException("JuniorgramException no throw", __FILE__, __LINE__);
 }
 
 void JuniorgramExceptionNoExceptionWithStringConstructorMock()
 {
-    Utility::JuniorgramException(std::string("JuniorgramException success"), __FILE__, __LINE__);
+    Utility::JuniorgramException(std::string("JuniorgramException no throw"), __FILE__, __LINE__);
 }
 
 void JuniorgramExceptionNoExceptionWithEmptyStringConstructorMock()
@@ -47,7 +46,7 @@ void OperationDBNoExceptionMock()
 
 [[noreturn]] static void LoggingExceptionMock()
 {
-    throw Utility::LoggingException("Something went wrong", __FILE__, __LINE__);
+    throw Utility::LoggingException("Logging and throw", __FILE__, __LINE__);
 }
 
 void LoggingNoExceptionMock()
@@ -59,7 +58,7 @@ TEST_CASE("Test JuniorgramException format", "[Utility.Exception]")
 {
     SECTION("Exception is expected")
     {
-        REQUIRE_THROWS_WITH(JuniorgramExceptionThrowerMock(), Contains("JuniorgramException error") && Contains("ExceptionTest.cpp"));
+        REQUIRE_THROWS_WITH(JuniorgramExceptionThrowerMock(), Contains("JuniorgramException throw") && Contains("ExceptionTest.cpp"));
     }
 
     SECTION("No exception expected, constructor runs with \"const char*\" parameters.")
@@ -84,7 +83,11 @@ TEST_CASE("Test NotImplementedException format", "[Utility.Exception]")
     {
         REQUIRE_THROWS_WITH(ExceptionThrowerMock(), Contains("Not implemented") && Contains("ExceptionTest.cpp"));
     }
-    SECTION("Exception is not expected") { REQUIRE_NOTHROW(NoExceptionMock()); }
+
+    SECTION("Exception is not expected")
+    {
+        REQUIRE_NOTHROW(NoExceptionMock());
+    }
 }
 
 TEST_CASE("Test OperationDBException format", "[Utility.Exception]")
@@ -93,16 +96,24 @@ TEST_CASE("Test OperationDBException format", "[Utility.Exception]")
     {
         REQUIRE_THROWS_WITH(OperationDBExceptionMock(), Contains("DB error operation") && Contains("ExceptionTest.cpp"));
     }
-    SECTION("Exception is not expected") { REQUIRE_NOTHROW(OperationDBNoExceptionMock()); }
+
+    SECTION("Exception is not expected")
+    {
+        REQUIRE_NOTHROW(OperationDBNoExceptionMock());
+    }
 }
 
 TEST_CASE("Test LoggingException format", "[Utility.Exception]")
 {
     SECTION("Exception is expected")
     {
-        REQUIRE_THROWS_WITH(LoggingExceptionMock(), Contains("Something went wrong") && Contains("ExceptionTest.cpp"));
+        REQUIRE_THROWS_WITH(LoggingExceptionMock(), Contains("Logging and throw") && Contains("ExceptionTest.cpp"));
     }
-    SECTION("Exception is not expected") { REQUIRE_NOTHROW(LoggingNoExceptionMock()); }
+
+    SECTION("Exception is not expected")
+    {
+        REQUIRE_NOTHROW(LoggingNoExceptionMock());
+    }
 }
 
 TEST_CASE("Test formatExceptionMessage")
