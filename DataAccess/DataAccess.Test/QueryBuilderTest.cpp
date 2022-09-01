@@ -9,7 +9,7 @@ using DataAccess::IAdapter;
 
 TEST_CASE("QueryBuilder cover", "[dummy]")
 {
-	QueryBuilder<pqxx::result> testQueryBuilder(Utility::DatabaseType::DB_POSTGRE, "users",
+    QueryBuilder<pqxx::result> testQueryBuilder(Utility::DatabaseType::DB_POSTGRE, "users",
 								IAdapter::getInstance<DataAccess::PostgreAdapter>(DBOptions::test));
 
 	SECTION("Try to initialize the reference and catch the exception")

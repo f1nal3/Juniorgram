@@ -1,9 +1,9 @@
 #pragma once
 
-#include <iostream>
-#include <string>
-
+#include <DataAccess/IQuery.hpp>
+#include <DataAccess/IBuilder.hpp>
 #include <DataAccess/IAdapter.hpp>
+
 #include <Utility/Exception.hpp>
 #include <Utility/SQLUtility.hpp>
 #include <Utility/Utility.hpp>
@@ -13,41 +13,39 @@
 namespace DataAccess
 {
 /**
- * @class QueryBuilder
- * @brief QueryBuilder class.
- */
+* @class QueryBuilder
+* @brief QueryBuilder class.
+*/
 template <typename ResultType>
-class QueryBuilder
+class QueryBuilder : public IQuery, public IBuilder<ResultType>
 {
 private:
-    Utility::DatabaseType       _databaseType;
-    std::string                 _tableName;
-    SQLBase<ResultType>*        _statement;
+    Utility::DatabaseType _databaseType;
+    std::string           _tableName;
+    SQLBase<ResultType>*  _statement;
 
 protected:
-    std::shared_ptr<IAdapter>   _adapter;
+    std::shared_ptr<IAdapter> _adapter;
 
 public:
     QueryBuilder(Utility::DatabaseType type, const std::string& tableName, std::shared_ptr<IAdapter> adapter)
-        : _databaseType{ type }, _tableName{ tableName }, _statement{ nullptr }, _adapter{ adapter } {}
+        : _databaseType{type}, _tableName{tableName}, _statement{nullptr}, _adapter{adapter}
+    {
+    }
 
     virtual ~QueryBuilder(void) { this->clearStatement(); }
 
 public:
     QueryBuilder() = delete;
 
-    QueryBuilder(const QueryBuilder&) = delete;
-    QueryBuilder(QueryBuilder&&)      = delete;
+    QueryBuilder(const QueryBuilder&)   = delete;
+    QueryBuilder(QueryBuilder&&)        = delete;
 
-    QueryBuilder& operator=(const QueryBuilder&) = delete;
-    QueryBuilder& operator=(QueryBuilder&&) = delete;
+    QueryBuilder& operator=(const QueryBuilder&)   = delete;
+    QueryBuilder& operator=(QueryBuilder&&)      = delete;
 
 public:
-    /**
-     * @brief SQL select query.
-     * @return SQLSelect pointer.
-     */
-    SQLSelect<ResultType>* Select(void)
+    SQLSelect<ResultType>* Select() override
     {
         if (_statement != nullptr)
         {
@@ -69,7 +67,7 @@ public:
      * @brief SQL insert query.
      * @return SQLInsert pointer.
      */
-    SQLInsert<ResultType>* Insert(void)
+    SQLInsert<ResultType>* Insert() override
     {
         if (_statement != nullptr)
         {
@@ -91,7 +89,7 @@ public:
      * @brief SQL update query.
      * @return SQLUpdate pointer.
      */
-    SQLUpdate<ResultType>* Update(void)
+    SQLUpdate<ResultType>* Update() override
     {
         if (_statement != nullptr)
         {
@@ -113,7 +111,7 @@ public:
      * @brief SQL delete query.
      * @return SQLDelete pointer.
      */
-    SQLDelete<ResultType>* Delete(void)
+    SQLDelete<ResultType>* Delete() override
     {
         if (_statement != nullptr)
         {
@@ -136,7 +134,7 @@ public:
      * @brief Changing table.
      * @param newTableName - new name of the table.
      */
-    void changeTable(const char* newTableName) noexcept
+    void changeTable(const char* newTableName) noexcept override
     {
         if (_statement != nullptr)
         {
@@ -150,23 +148,24 @@ public:
      * @brief Changing table.
      * @param newTableName - new name of the table.
      */
-    void changeTable(const std::string& newTableName) noexcept { changeTable(newTableName.c_str()); }
+    void changeTable(const std::string& newTableName) noexcept override { changeTable(newTableName.c_str()); }
 
 public:
     /**
      * @brief Get postgreAdapter object.
      * @return PostgreAdapter.
      */
-    [[nodiscard]] std::shared_ptr<IAdapter> getAdapter(void) const noexcept { return _adapter; }
+    [[nodiscard]] std::shared_ptr<IAdapter> getAdapter() const noexcept override { return _adapter; }
 
-    [[nodiscard]] Utility::DatabaseType getDatabaseType(void) const noexcept { return _databaseType; }
+    [[nodiscard]] Utility::DatabaseType getDatabaseType() const noexcept override { return _databaseType; }
 
-    [[nodiscard]] const std::string& getCurrentTableName(void) const noexcept { return _tableName; }
+    [[nodiscard]] const std::string& getCurrentTableName() const noexcept override { return _tableName; }
 
-    void clearStatement()
+    void clearStatement() override
     {
         delete _statement;
         _statement = nullptr;
     }
 };
+
 }  // namespace DataAccess

@@ -163,9 +163,9 @@ template <typename ResultType>
 class SQLBase
 {
 protected:
-    Utility::SQLStatement     _statementType;
+    Utility::SQLStatement            _statementType;
     QueryBuilder<ResultType>& _currentBuilder;
-    std::ostringstream        _queryStream;
+    std::ostringstream               _queryStream;
 
 public:
     SQLBase(Utility::SQLStatement statement, QueryBuilder<ResultType>& table)
@@ -304,8 +304,8 @@ class SQLSelect : public SQLBase<ResultType>, public SQLWhereCondition<SQLSelect
 public:
     SQLSelect(QueryBuilder<ResultType>& table)
         : SQLBase<ResultType>(Utility::SQLStatement::ST_SELECT, table), SQLWhereCondition<SQLSelect<ResultType>>(this)
-    {
-    }
+        {
+        }
 
     virtual ~SQLSelect(void) = default;
 
@@ -711,8 +711,8 @@ class SQLUpdate : public SQLBase<ResultType>, public SQLWhereCondition<SQLUpdate
 public:
     SQLUpdate(QueryBuilder<ResultType>& table)
         : SQLBase<ResultType>(Utility::SQLStatement::ST_UPDATE, table), SQLWhereCondition<SQLUpdate<ResultType>>(this)
-    {
-    }
+        {
+        }
 
     virtual ~SQLUpdate(void) = default;
 
