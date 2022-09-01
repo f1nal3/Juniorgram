@@ -27,7 +27,7 @@ using MessageType      = Message::MessageType;
 using Utility::SafeQueue;
 using namespace std::placeholders;
 
-Message& messageInstance(Message& message, const MessageType messageType)
+inline Message& messageInstance(Message& message, const MessageType messageType)
 {
     const std::string testEmail    = "demonstakingoverme@epam.co";
     const std::string testLogin    = "memorisecodead";
@@ -182,7 +182,7 @@ Message& messageInstance(Message& message, const MessageType messageType)
     return message;
 }
 
-Client& testSendingMessages(Client& Client, const MessageType mesgType)
+inline Client& testSendingMessages(Client& Client, const MessageType mesgType)
 {
     Message message;
     std::mutex scopedMutex;
@@ -196,7 +196,7 @@ Client& testSendingMessages(Client& Client, const MessageType mesgType)
     return Client;
 }
 
-testServer& testServerUpdating(testServer& serverTest)
+inline testServer& testServerUpdating(testServer& serverTest)
 {
     unsigned int countOfUpdate        = 0;
     unsigned int iterationOfServer    = 1;
@@ -221,7 +221,7 @@ testServer& testServerUpdating(testServer& serverTest)
     return serverTest;
 }
 
-auto bindOfSendingMessage(Client &Client, const MessageType mesgType)
+inline decltype(auto) bindOfSendingMessage(Client& Client, const MessageType mesgType)
 {
     auto sendingMessage = std::bind
     (
@@ -232,7 +232,7 @@ auto bindOfSendingMessage(Client &Client, const MessageType mesgType)
    return &sendingMessage(Client,mesgType);
 }
 
-auto bindOfConnectToServer(Client &Client)
+inline auto bindOfConnectToServer(Client& Client)
 {
     auto connectToServer = std::bind
     (
