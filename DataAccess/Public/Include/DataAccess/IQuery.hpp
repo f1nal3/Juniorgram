@@ -1,6 +1,7 @@
 #pragma once
 
 #include <DataAccess/IAdapter.hpp>
+
 #include <Utility/Exception.hpp>
 #include <Utility/SQLUtility.hpp>
 #include <Utility/Utility.hpp>

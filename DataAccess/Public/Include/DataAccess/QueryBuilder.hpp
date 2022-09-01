@@ -33,7 +33,7 @@ public:
     {
     }
 
-    virtual ~QueryBuilder(void) { this->clearStatement(); }
+    virtual ~QueryBuilder() { this->clearStatement(); }
 
 public:
     QueryBuilder() = delete;
