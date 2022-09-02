@@ -15,9 +15,12 @@ namespace DataAccess
 /**
 * @class QueryBuilder
 * @brief QueryBuilder class.
+*   Class implements SQL queries, \
+*   such as Select, Insert, Update, \
+*   Delete and returns the corresponding object.
 */
 template <typename ResultType>
-class QueryBuilder : public IQuery, public IBuilder<ResultType>
+class QueryBuilder : public IQuery<ResultType>, public IBuilder
 {
 private:
     Utility::DatabaseType _databaseType;
@@ -42,16 +45,24 @@ public:
     QueryBuilder(QueryBuilder&&)        = delete;
 
     QueryBuilder& operator=(const QueryBuilder&)   = delete;
-    QueryBuilder& operator=(QueryBuilder&&)      = delete;
+    QueryBuilder& operator=(QueryBuilder&&)        = delete;
 
 public:
+    /**
+    * @brief SQL select query.
+    * @return SQLSelect pointer.
+    */
     SQLSelect<ResultType>* Select() override
     {
         if (_statement != nullptr)
         {
             if (_statement->getStatementType() != Utility::SQLStatement::ST_SELECT)
             {
-                throw Utility::OperationDBException("Previous query wasn't executed or rollbacked!", __FILE__, __LINE__);
+                throw Utility::OperationDBException
+                (
+                    "Previous query wasn't executed or rollbacked!",
+                    __FILE__, __LINE__
+                );
             }
         }
         else
@@ -64,16 +75,20 @@ public:
     }
 
     /**
-     * @brief SQL insert query.
-     * @return SQLInsert pointer.
-     */
+    * @brief SQL insert query.
+    * @return SQLInsert pointer.
+    */
     SQLInsert<ResultType>* Insert() override
     {
         if (_statement != nullptr)
         {
             if (_statement->getStatementType() != Utility::SQLStatement::ST_INSERT)
             {
-                throw Utility::OperationDBException("Previous query wasn't executed or rollbacked!", __FILE__, __LINE__);
+                throw Utility::OperationDBException
+                (
+                    "Previous query wasn't executed or rollbacked!", 
+                    __FILE__, __LINE__
+                );
             }
         }
         else
@@ -86,16 +101,20 @@ public:
     }
 
     /**
-     * @brief SQL update query.
-     * @return SQLUpdate pointer.
-     */
+    * @brief SQL update query.
+    * @return SQLUpdate pointer.
+    */
     SQLUpdate<ResultType>* Update() override
     {
         if (_statement != nullptr)
         {
             if (_statement->getStatementType() != Utility::SQLStatement::ST_UPDATE)
             {
-                throw Utility::OperationDBException("Previous query wasn't executed or rollbacked!", __FILE__, __LINE__);
+                throw Utility::OperationDBException
+                (
+                    "Previous query wasn't executed or rollbacked!",
+                    __FILE__, __LINE__
+                );
             }
         }
         else
@@ -108,16 +127,20 @@ public:
     }
 
     /**
-     * @brief SQL delete query.
-     * @return SQLDelete pointer.
-     */
+    * @brief SQL delete query.
+    * @return SQLDelete pointer.
+    */
     SQLDelete<ResultType>* Delete() override
     {
         if (_statement != nullptr)
         {
             if (_statement->getStatementType() != Utility::SQLStatement::ST_DELETE)
             {
-                throw Utility::OperationDBException("Previous query wasn't executed or rollbacked!", __FILE__, __LINE__);
+                throw Utility::OperationDBException
+                (
+                    "Previous query wasn't executed or rollbacked!",
+                    __FILE__, __LINE__
+                );
             }
         }
         else
@@ -131,9 +154,9 @@ public:
 
 public:
     /**
-     * @brief Changing table.
-     * @param newTableName - new name of the table.
-     */
+    * @brief Changing table.
+    * @param newTableName - new name of the table.
+    */
     void changeTable(const char* newTableName) noexcept override
     {
         if (_statement != nullptr)
@@ -145,27 +168,49 @@ public:
     }
 
     /**
-     * @brief Changing table.
-     * @param newTableName - new name of the table.
-     */
-    void changeTable(const std::string& newTableName) noexcept override { changeTable(newTableName.c_str()); }
+    * @brief Changing table.
+    * @param newTableName - new name of the table.
+    */
+    void changeTable(const std::string& newTableName) noexcept override
+    {
+        changeTable(newTableName.c_str()); 
+    }
 
 public:
     /**
-     * @brief Get postgreAdapter object.
-     * @return PostgreAdapter.
+    * @brief Get postgreAdapter object.
+    * @return PostgreAdapter.
+    */
+    [[nodiscard]] std::shared_ptr<IAdapter> getAdapter() const noexcept override 
+    {
+        return _adapter; 
+    }
+
+    /**
+    * @brief Get database type.
+    * @return DatabaseType.
+    */
+    [[nodiscard]] Utility::DatabaseType getDatabaseType() const noexcept override
+    {
+        return _databaseType; 
+    }
+
+     /**
+     * @brief Get current table name.
+     * @return tableName.
      */
-    [[nodiscard]] std::shared_ptr<IAdapter> getAdapter() const noexcept override { return _adapter; }
+    [[nodiscard]] const std::string& getCurrentTableName() const noexcept override 
+    {
+        return _tableName; 
+    }
 
-    [[nodiscard]] Utility::DatabaseType getDatabaseType() const noexcept override { return _databaseType; }
-
-    [[nodiscard]] const std::string& getCurrentTableName() const noexcept override { return _tableName; }
-
+    /**
+    * @brief clear SQL statements
+    */
     void clearStatement() override
     {
         delete _statement;
         _statement = nullptr;
     }
 };
-
 }  // namespace DataAccess

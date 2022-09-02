@@ -11,18 +11,26 @@
 namespace DataAccess
 {
 /**
- * @class IQuery
- * @brief IQuery class.
- */
-
+* @class IQuery
+* @brief IQuery interface.
+*/
+template <typename ResultType>
 class IQuery
 {
 public:
-    virtual [[nodiscard]] std::shared_ptr<IAdapter> getAdapter() const noexcept = 0;
+    virtual SQLSelect<ResultType>* Select() = 0;
 
-    virtual [[nodiscard]] Utility::DatabaseType getDatabaseType() const noexcept = 0;
+    virtual SQLInsert<ResultType>* Insert() = 0;
 
-    virtual [[nodiscard]] const std::string& getCurrentTableName() const noexcept = 0;
+    virtual SQLUpdate<ResultType>* Update() = 0;
+
+    virtual SQLDelete<ResultType>* Delete() = 0;
+
+    virtual void changeTable(const char* newTableName) noexcept = 0;
+
+    virtual void changeTable(const std::string& newTableName) noexcept = 0;
+
+    virtual void clearStatement() = 0;
 
     virtual ~IQuery() = default;
 };
