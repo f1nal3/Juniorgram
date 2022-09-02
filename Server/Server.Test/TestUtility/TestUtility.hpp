@@ -1,34 +1,29 @@
 #pragma once
 
-#include <Utility/SafeQueue.hpp>
-#include <Network/Connection.hpp>
-#include <Models/Primitives.hpp>
-
 #include <Server.hpp>
-#include <Client.hpp>
-#include <ServerInfo.hpp>
+#include <MockClient.hpp>
 #include <Cryptography.hpp>
-
-#include <chrono>
 
 namespace TestUtility
 {
 using Network::Message;
+using Utility::SafeQueue;
+using namespace std::placeholders;
+
+using RTC              = std::chrono::system_clock;
+using milliseconds     = std::chrono::milliseconds;
+using Client           = MockClient::MockClient;
+using testServer       = Server::Server;
+using MessageType      = Message::MessageType;
+
+inline Message& messageInstance(Message& message, const MessageType messageType)
+{
 using LoginInfo        = Models::LoginInfo;
 using ReplyInfo        = Models::ReplyInfo;
 using Connection       = Network::Connection;
 using MessageInfo      = Models::MessageInfo;
 using RegistrationInfo = Models::RegistrationInfo;
-using RTC              = std::chrono::system_clock;
-using milliseconds     = std::chrono::milliseconds;
-using Client           = Network::Client;
-using testServer       = Server::Server;
-using MessageType      = Message::MessageType;
-using Utility::SafeQueue;
-using namespace std::placeholders;
 
-inline Message& messageInstance(Message& message, const MessageType messageType)
-{
     const std::string testEmail    = "demonstakingoverme@epam.co";
     const std::string testLogin    = "memorisecodead";
     const std::string testPassword = "12juniorgramMargroinuj";
@@ -120,7 +115,7 @@ inline Message& messageInstance(Message& message, const MessageType messageType)
 
             break;
         }
-
+        
         case Message::MessageType::DirectMessageCreateRequest:
         {
             message.mBody = std::make_any<uint64_t>(testReceiverID);
@@ -229,15 +224,16 @@ inline decltype(auto) bindOfSendingMessage(Client& Client, const MessageType mes
         _1, _2
     );
 
-   return &sendingMessage(Client,mesgType);
+   return sendingMessage(Client,mesgType);
 }
 
 inline auto bindOfConnectToServer(Client& Client)
 {
+    using namespace ServerInfo;
     auto connectToServer = std::bind
     (
         &Client::connectToServer, &Client, 
-        ServerInfo::Address::remote, ServerInfo::Port::test
+        Address::remote, Port::test
     );
 
     return connectToServer();

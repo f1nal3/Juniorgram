@@ -1,8 +1,6 @@
 #include <catch2/catch.hpp>
 #include <TestUtility.hpp>
 
-#include <thread>
-
 using namespace TestUtility;
 
 TEST_CASE("Check channel create request of server")

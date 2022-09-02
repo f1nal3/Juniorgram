@@ -15,7 +15,7 @@ add_executable(${TARGET} ${SOURCE_FILES})
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
 include_directories(TestUtility)
-include_directories(MockObjects)
+add_subdirectory(MockObjects)
 
 target_link_libraries(${TARGET}
 PUBLIC 
@@ -31,7 +31,11 @@ PUBLIC
     Models.Public
     Base.Crypto.Static
 	Client.Core.Static
+    MockObjects
 	)
+
+ target_include_directories(${TARGET} PRIVATE
+	 $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
 
 target_compile_definitions(${TARGET} PRIVATE CATCH_CONFIG_FAST_COMPILE)
 target_precompile_headers(${TARGET} REUSE_FROM Precompiled.Catch2.Test)

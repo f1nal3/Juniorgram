@@ -1,9 +1,8 @@
 #include <catch2/catch.hpp>
-#include <Client.hpp>
-#include <ServerInfo.hpp>
-#include <Server.hpp>
 
-#include <thread>
+#include <Client.hpp>
+#include <Server.hpp>
+#include <ServerInfo.hpp>
 
 using Client           = Network::Client;
 using Message          = Network::Message;
