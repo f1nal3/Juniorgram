@@ -68,7 +68,7 @@ public:
         else
         {
             _statement = Utility::make_statement<SQLSelect<ResultType>>(*this);
-            *_statement << "select ";
+            *_statement << " select ";
         }
 
         return dynamic_cast<SQLSelect<ResultType>*>(_statement);
@@ -94,7 +94,7 @@ public:
         else
         {
             _statement = Utility::make_statement<SQLInsert<ResultType>>(*this);
-            *_statement << "insert into " << this->getCurrentTableName();
+            *_statement << " insert into " << this->getCurrentTableName();
         }
 
         return dynamic_cast<SQLInsert<ResultType>*>(_statement);
@@ -120,7 +120,7 @@ public:
         else
         {
             _statement = Utility::make_statement<SQLUpdate<ResultType>>(*this);
-            *_statement << "update " << this->getCurrentTableName();
+            *_statement << " update " << this->getCurrentTableName();
         }
 
         return dynamic_cast<SQLUpdate<ResultType>*>(_statement);
@@ -146,7 +146,7 @@ public:
         else
         {
             _statement = Utility::make_statement<SQLDelete<ResultType>>(*this);
-            *_statement << "delete from " << this->getCurrentTableName();
+            *_statement << " delete from " << this->getCurrentTableName();
         }
 
         return dynamic_cast<SQLDelete<ResultType>*>(_statement);
