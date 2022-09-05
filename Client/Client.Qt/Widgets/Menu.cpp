@@ -1,10 +1,7 @@
 #include "Menu.hpp"
 
 #include <QAction>
-#include <QWidgetAction>
 #include <QtEvents>
-#include <Style/Styles.hpp>
-#include <memory>
 
 #include "ReactionLayout.hpp"
 

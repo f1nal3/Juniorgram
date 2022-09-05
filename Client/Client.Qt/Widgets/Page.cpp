@@ -6,7 +6,7 @@
 Page::Page(QWidget* parent) : QFrame(parent)
 {
     _loading = std::make_unique<LoadingSpinner>(this);
-    /// T\todo disconnect notification
+    /// \todo disconnect notification
     connect(ReceiverManager::instance(), &ReceiverManager::onDisconnect, this, &Page::onResume);
 }
 

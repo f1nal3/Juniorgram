@@ -47,7 +47,6 @@ private:
     /// Put on center of page
     void updatePosition();
 
-    //variable field
     const Style::LoadingSpinner& _st;
     std::unique_ptr<QTimer>      _timer;
     bool                         _disableParentWhenSpinning;

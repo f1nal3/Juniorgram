@@ -3,13 +3,11 @@
 #include <QDebug>
 #include <QPainter>
 #include <QtEvents>
-#include <Style/Styles.hpp>
 #include <utility>
 
 #include "Application.hpp"
 #include "NotificationWidget.hpp"
 #include "Widgets/ChatHistory.hpp"
-#include "Widgets/ReactionLayout.hpp"
 
 MessageWidget::MessageWidget(QWidget* history, QString message, uint64_t userId, uint64_t messageId, qint64 utc, QString username,
                              const Style::MessageWidget& st)

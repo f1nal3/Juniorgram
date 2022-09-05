@@ -25,9 +25,9 @@ public:
     /// Remove copy constructor
     Palette(const Palette& other) = delete;
 
-    /// T\todo implement this
+    /// \todo implement this
     QByteArray save() const;
-    /// T\todo implement this
+    /// \todo implement this
     bool load(const QByteArray& cache);
 
     /// Set result

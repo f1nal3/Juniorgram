@@ -25,7 +25,7 @@ public slots:
     void requestChannels();
 
 public:
-    /// T\todo rework channel list in main window to make this private
+    /// \todo rework channel list in main window to make this private
     inline static std::vector<Models::ChannelInfo> channels;
 
 private:
