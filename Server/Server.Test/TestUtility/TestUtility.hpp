@@ -186,7 +186,7 @@ inline Client& testSendingMessages(Client& Client, const MessageType mesgType)
     std::this_thread::sleep_for(milliseconds(1000));
     messageInstance(message, mesgType);
     Client.send(message);
-    std::this_thread::sleep_for(milliseconds(1000));
+    std::this_thread::sleep_for(milliseconds(5000));
 
     return Client;
 }
@@ -196,9 +196,6 @@ inline testServer& testServerUpdating(testServer& serverTest)
     unsigned int countOfUpdate        = 0;
     unsigned int iterationOfServer    = 1;
     bool         serverWorkflow       = true;
-
-    std::mutex       scopedMutex;
-    std::scoped_lock scopedLock(scopedMutex);
 
     while (serverWorkflow)
     {
