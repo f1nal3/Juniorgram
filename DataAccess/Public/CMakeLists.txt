@@ -12,7 +12,8 @@ set(SOURCE_FILES
         Include/DataAccess/SQLStatements.hpp
         Include/DataAccess/QueryBuilder.hpp
         Include/DataAccess/RepositoryRequest.hpp
-        Include/DataAccess/FutureResult.hpp)
+        Include/DataAccess/FutureResult.hpp
+        Include/DataAccess/AbstractRepositories.hpp)
 
 add_library(${TARGET} INTERFACE)
 

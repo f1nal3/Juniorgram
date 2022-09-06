@@ -1,5 +1,6 @@
 #pragma once
 #include <utility>
+#include <winsqlite/winsqlite3.h>
 
 #include <DataAccess/QueryBuilder.hpp>
 
@@ -20,7 +21,7 @@ namespace DataAccess
  *  LiteTable("tableName4").Delete()->where("condition")->...->execute()/OR/getQuery();
  * @endcode
  */
-class LiteTable : public QueryBuilder<QSqlQuery>
+class LiteTable : public QueryBuilder<>
 {
 public:
     /// Base constructor with adapter
