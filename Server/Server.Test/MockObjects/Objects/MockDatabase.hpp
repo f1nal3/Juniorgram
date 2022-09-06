@@ -44,15 +44,6 @@ protected:
         _connection{std::make_unique<pqxx::connection>(pqxx::zview(options))} {}
 
 public:
-    MockDatabase(const MockDatabase& other) = delete;
-    MockDatabase& operator=(const MockDatabase& other) = delete;
-
-    MockDatabase(MockDatabase&& other) = delete;
-    MockDatabase& operator=(MockDatabase&& other) = delete;
-
-    virtual ~MockDatabase() {}
-
-public:
 
     /**
     * @brief Method for executing SQL quries.
@@ -76,14 +67,14 @@ public:
     * database. You probably won't need it.
     * @return pqxx::Connection object.
     */
-    pqxx::connection& getConnection(void);
+    pqxx::connection& getConnection();
 
     /* 
     * @brief Method for checking the connection to the db.
     * @details Inside, it getConnection().is_open().
     * @return True - if connected. False - if not connected.
     */
-    bool isConnected(void) const override;
+    bool isConnected() const override;
 
     /** 
     * @brief Method for closing connection.
@@ -92,6 +83,6 @@ public:
     * of this class and after call this method, you may have
     * 'dangling' pointers.
     */
-    void closeConnection(void) override;
+    void closeConnection() override;
 };
 }  // namespace MockDatabase
