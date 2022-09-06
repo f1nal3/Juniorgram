@@ -50,6 +50,6 @@ private:
     const Style::LoadingSpinner& _st;
     std::unique_ptr<QTimer>      _timer;
     bool                         _disableParentWhenSpinning;
-    int32_t                      _currentCounter = 0;
+    uint16_t                     _currentCounter = 0;
     bool                         _isSpinning = false;
 };
