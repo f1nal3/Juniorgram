@@ -177,18 +177,15 @@ using RegistrationInfo = Models::RegistrationInfo;
     return message;
 }
 
-inline Client& testSendingMessages(Client& Client, const MessageType mesgType)
+inline void testSendingMessages(Client& Client, const MessageType mesgType)
 {
     Message message;
     std::mutex scopedMutex;
 
     std::scoped_lock scopedLock(scopedMutex);
-    std::this_thread::sleep_for(milliseconds(1000));
     messageInstance(message, mesgType);
-    Client.send(message);
     std::this_thread::sleep_for(milliseconds(5000));
-
-    return Client;
+    Client.send(message);
 }
 
 inline testServer& testServerUpdating(testServer& serverTest)
@@ -219,7 +216,7 @@ inline decltype(auto) bindOfSendingMessage(Client& Client, const MessageType mes
         &testSendingMessages,
         _1, _2
     );
-
+    
    return sendingMessage(Client,mesgType);
 }
 
@@ -229,7 +226,7 @@ inline auto bindOfConnectToServer(Client& Client)
     auto connectToServer = std::bind
     (
         &Client::connectToServer, &Client, 
-        Address::remote, Port::test
+        Address::local, Port::test
     );
 
     return connectToServer();

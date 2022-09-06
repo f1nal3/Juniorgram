@@ -1,32 +1,19 @@
 #include <catch2/catch.hpp>
+#include <TestUtility.hpp>
 
-#include <Client.hpp>
-#include <Server.hpp>
-#include <ServerInfo.hpp>
-
-using Client           = Network::Client;
-using Message          = Network::Message;
-using testServer       = Server::Server;
-using MessageType      = Message::MessageType;
+using namespace TestUtility;
 
 TEST_CASE("Workflow startup server")
 {
+    Client     Client;
     testServer serverTest(ServerInfo::Port::test);
 
-    std::thread threadServer([&serverTest]() {
-        CHECK_NOTHROW(serverTest.start());
-        REQUIRE_NOTHROW(serverTest.stop());
-    });
-
-    Client Client;
-
-    std::thread threadMockClient([&Client]() {
-        CHECK_NOTHROW(Client.connectToServer(ServerInfo::Address::remote, ServerInfo::Port::test));
-        REQUIRE_NOTHROW(Client.disconnectFromServer());
-    });
-
-    threadMockClient.join();
-    threadServer.join();
+    CHECK_NOTHROW(serverTest.start());
+    if (bindOfConnectToServer(Client) == true)
+    {
+        bindOfSendingMessage(Client, MessageType::ServerAccept);
+    }
+    REQUIRE_NOTHROW(testServerUpdating(serverTest));
 }
 
 suppressWarning(4244, "-Wconversion")

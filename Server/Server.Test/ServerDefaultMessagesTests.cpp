@@ -5,47 +5,29 @@ using namespace TestUtility;
 
 TEST_CASE("Check server ping")
 {
+    Client     Client;
     testServer serverTest(ServerInfo::Port::test);
 
-    std::thread threadServer([&serverTest]()
-    {
-        serverTest.start();
-        testServerUpdating(serverTest);
-    });
+    serverTest.start();
 
-    Client Client;
-
-    std::thread threadMockClient([&Client]()
+    if (bindOfConnectToServer(Client) == true)
     {
-        bindOfConnectToServer(Client);
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ServerPing));
-        Client.disconnectFromServer();
-    });
-
-    threadMockClient.join();
-    threadServer.join();
+    }
+    testServerUpdating(serverTest);
 }
 
 TEST_CASE("Check default request of server side")
 {
+    Client     Client;
     testServer serverTest(ServerInfo::Port::test);
-
-    std::thread threadServer([&serverTest]()
-    {
-        serverTest.start();
-        testServerUpdating(serverTest);
-    });
-
-    Client        Client;
     const int16_t failedType = 666;
 
-    std::thread threadMockClient([&Client, &failedType]()
-    {
-        bindOfConnectToServer(Client);
-        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType(failedType)));
-        Client.disconnectFromServer();
-    });
+    serverTest.start();
 
-    threadMockClient.join();
-    threadServer.join();
+    if (bindOfConnectToServer(Client) == true)
+    {
+        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType(failedType)));
+    }
+    testServerUpdating(serverTest);
 }

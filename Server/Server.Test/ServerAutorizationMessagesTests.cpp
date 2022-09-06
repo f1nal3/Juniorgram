@@ -5,46 +5,28 @@ using namespace TestUtility;
 
 TEST_CASE("Check registration request of server")
 {
+    Client     Client;
     testServer serverTest(ServerInfo::Port::test);
 
-    std::thread threadServer([&serverTest]()
-    {
-        serverTest.start();
-        testServerUpdating(serverTest);
-    });
+    serverTest.start();
 
-    Client Client;
-
-    std::thread threadMockClient([&Client]()
+    if (bindOfConnectToServer(Client) == true)
     {
-        bindOfConnectToServer(Client);
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::RegistrationRequest));
-        Client.disconnectFromServer();
-    });
-
-    threadMockClient.join();
-    threadServer.join();
+    }
+    testServerUpdating(serverTest);
 }
 
 TEST_CASE("Check login request of server")
 {
+    Client     Client;
     testServer serverTest(ServerInfo::Port::test);
 
-    std::thread threadServer([&serverTest]()
-    {
-        serverTest.start();
-        testServerUpdating(serverTest);
-    });
+    serverTest.start();
 
-    Client Client;
-
-    std::thread threadMockClient([&Client]() 
+    if (bindOfConnectToServer(Client) == true)
     {
-        bindOfConnectToServer(Client);
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::LoginRequest));
-        Client.disconnectFromServer();
-    });
-
-    threadMockClient.join();
-    threadServer.join();
+    }
+    testServerUpdating(serverTest);
 }
