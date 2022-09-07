@@ -63,7 +63,7 @@ struct LoginRepository final : ILoginRepository, MockAbstractRepository
         _pTable = std::make_unique<Query>("users", adapter); 
     }
 
-    std::uint64_t loginUser(std::string& login, std::string& pwdHash) const;
+    std::uint64_t loginUser(std::string login, std::string pwdHash) const;
 
     ~LoginRepository() = default;
 };

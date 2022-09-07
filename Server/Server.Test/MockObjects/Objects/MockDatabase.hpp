@@ -22,29 +22,27 @@ class MockDatabase final : public IAdapter
 private:
     inline static std::mutex                          _staticMutex{};
     inline static std::shared_ptr<MockDatabase>       _instance{};
-    inline static constexpr std::string_view          _defaultOptions = DBOptions::test;
+    static constexpr std::string_view                 _defaultOptions = DBOptions::test;
 
     std::mutex                        _queryMutex;
     std::unique_ptr<pqxx::connection> _connection;
 
 public:
-
     /** 
     * @brief Method that creates new instance of Adapter.
     * It needs for technical purposes. Don't use it
     * (it's because I designed the interface badly).
     * Instead use getInstance method.
     * @param options - Connection options.
-    * @return Pointer to current instanse of Postgre adapter.
+    * @return Pointer to current instanse of adapter.
     */
     static std::shared_ptr<MockDatabase> Instance(const std::string_view& options = {});
 
 protected:
-    MockDatabase(const std::string_view& options) :
+    explicit MockDatabase(const std::string_view& options) :
         _connection{std::make_unique<pqxx::connection>(pqxx::zview(options))} {}
 
 public:
-
     /**
     * @brief Method for executing SQL quries.
     * @details You shouldn't use this method because it's

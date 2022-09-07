@@ -21,10 +21,11 @@ TEST_CASE("Check channel list request from server side")
 {
     Client     Client;
     testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client) == true)
+    if (bindOfConnectToServer(Client) == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelListRequest));
     }
@@ -35,10 +36,11 @@ TEST_CASE("Check channel subscribe request from server side")
 {
     Client     Client;
     testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client) == true)
+    if (bindOfConnectToServer(Client) == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelSubscribeRequest));
     }
@@ -49,10 +51,11 @@ TEST_CASE("Check channel leave request from server side")
 {
     Client     Client;
     testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client) == true)
+    if (bindOfConnectToServer(Client) == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelLeaveRequest));
     }
@@ -63,10 +66,11 @@ TEST_CASE("Check channel delete request from server side")
 {
     Client     Client;
     testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client) == true)
+    if (bindOfConnectToServer(Client) == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelDeleteRequest));
     }

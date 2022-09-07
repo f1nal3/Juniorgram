@@ -8,7 +8,6 @@ namespace TestUtility
 {
 using Network::Message;
 using Utility::SafeQueue;
-using namespace std::placeholders;
 
 using RTC              = std::chrono::system_clock;
 using milliseconds     = std::chrono::milliseconds;
@@ -20,7 +19,6 @@ inline Message& messageInstance(Message& message, const MessageType messageType)
 {
 using LoginInfo        = Models::LoginInfo;
 using ReplyInfo        = Models::ReplyInfo;
-using Connection       = Network::Connection;
 using MessageInfo      = Models::MessageInfo;
 using RegistrationInfo = Models::RegistrationInfo;
 
@@ -214,7 +212,7 @@ inline decltype(auto) bindOfSendingMessage(Client& Client, const MessageType mes
     auto sendingMessage = std::bind
     (
         &testSendingMessages,
-        _1, _2
+        std::placeholders::_1, std::placeholders::_2
     );
     
    return sendingMessage(Client,mesgType);

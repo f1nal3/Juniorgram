@@ -191,7 +191,7 @@ void MockClient::onMessageReactionAnswer(const Utility::ReactionMessageCodes rea
     }
 }
 
-void MockClient::onEditMessageAnswer(Utility::EditingMessageCodes reactionState)
+void MockClient::onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const
 {
     if (reactionState == Utility::EditingMessageCodes::SUCCESS)
     {
@@ -220,7 +220,7 @@ void MockClient::onDisconnect()
     );
 }
 
-void MockClient::onMessageSendFailed()
+void MockClient::onMessageSendFailed(const Message& message) const
 {
     Base::Logger::FileLogger::getInstance().log
     (
@@ -229,24 +229,14 @@ void MockClient::onMessageSendFailed()
     );
 }
 
-void MockClient::onReplyHistoryAnswer(Utility::StoringReplyCodes storingReplyCode)
+void MockClient::onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& replies)
 {
-    if (storingReplyCode == Utility::StoringReplyCodes::SUCCESS)
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[CLIENT] Success sending",
-            Base::Logger::LogLevel::INFO
-        );
-    }
-    else if (storingReplyCode == Utility::StoringReplyCodes::FAILED)
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[CLIENT] Failed sending",
-            Base::Logger::LogLevel::INFO
-        );
-    }
+    (void)(replies);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Reply history answer is implemented", 
+        Base::Logger::LogLevel::INFO
+    );
 }
 
 void MockClient::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
@@ -317,7 +307,7 @@ void MockClient::onChannelSubscribingAnswer(Utility::ChannelSubscribingCodes sub
     }
 }
 
-void MockClient::onChannelSubscribingListAnswer(const std::vector<uint64_t>& subscribingChannelList)
+void MockClient::onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList)
 {
     if (!subscribingChannelList.empty())
     {

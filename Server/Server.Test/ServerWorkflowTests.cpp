@@ -7,9 +7,10 @@ TEST_CASE("Workflow startup server")
 {
     Client     Client;
     testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
 
     CHECK_NOTHROW(serverTest.start());
-    if (bindOfConnectToServer(Client) == true)
+    if (bindOfConnectToServer(Client) == acceptingConnection)
     {
         bindOfSendingMessage(Client, MessageType::ServerAccept);
     }

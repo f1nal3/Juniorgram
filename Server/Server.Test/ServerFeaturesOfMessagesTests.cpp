@@ -7,10 +7,11 @@ TEST_CASE("Check message history request of server")
 {
     Client Client;
     testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client) == true)
+    if (bindOfConnectToServer(Client) == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::MessageHistoryRequest));
     }
@@ -35,10 +36,11 @@ TEST_CASE("Check all messages from server side")
 {
     Client     Client;
     testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client) == true)
+    if (bindOfConnectToServer(Client) == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::MessageAll));
     }
@@ -49,10 +51,11 @@ TEST_CASE("Check message store request from server side")
 {
     Client     Client;
     testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client) == true)
+    if (bindOfConnectToServer(Client) == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::MessageStoreRequest));
     }
@@ -63,10 +66,11 @@ TEST_CASE("Check message reaction request from server side")
 {
     Client     Client;
     testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client) == true)
+    if (bindOfConnectToServer(Client) == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::MessageReactionRequest));
     }
@@ -77,10 +81,11 @@ TEST_CASE("Check message edit from server side")
 {
     Client     Client;
     testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client) == true)
+    if (bindOfConnectToServer(Client) == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::MessageEditRequest));
     }
@@ -91,10 +96,11 @@ TEST_CASE("Check message delete request from server side")
 {
     Client     Client;
     testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client) == true)
+    if (bindOfConnectToServer(Client) == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::MessageDeleteRequest));
     }

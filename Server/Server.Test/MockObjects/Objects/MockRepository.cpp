@@ -156,7 +156,7 @@ std::vector<Models::ReplyInfo> RepliesRepository::getReplyHistoryForUser(std::ui
         replyInfo._channelID = channelID;
         for (auto i = 0; i < replyHistoryRow.value().size(); ++i)
         {
-            replyInfo._senderID = replyHistoryRow.value()[i][0].as<std::uint64_t>();
+            replyInfo._senderID   = replyHistoryRow.value()[i][0].as<std::uint64_t>();
             replyInfo._msgIdOwner = replyHistoryRow.value()[i][1].as<std::uint64_t>();
             replyInfo._msgID      = replyHistoryRow.value()[i][2].as<std::uint64_t>();
             replyInfo._message    = replyHistoryRow.value()[i][3].as<std::string>();
@@ -474,7 +474,7 @@ Utility::RegistrationCodes RegisterRepository::registerUser(Models::Registration
     return Utility::RegistrationCodes::SUCCESS;
 }
 
-std::uint64_t LoginRepository::loginUser([[maybe_unused]] std::string& login, [[maybe_unused]] std::string& pwdHash) const
+std::uint64_t LoginRepository::loginUser([[maybe_unused]] std::string login, [[maybe_unused]] std::string pwdHash) const
 {
     try
     {

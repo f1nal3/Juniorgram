@@ -7,10 +7,11 @@ TEST_CASE("Check registration request of server")
 {
     Client     Client;
     testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client) == true)
+    if (bindOfConnectToServer(Client) == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::RegistrationRequest));
     }
@@ -21,10 +22,11 @@ TEST_CASE("Check login request of server")
 {
     Client     Client;
     testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client) == true)
+    if (bindOfConnectToServer(Client) == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::LoginRequest));
     }

@@ -7,10 +7,11 @@ TEST_CASE("Check server ping")
 {
     Client     Client;
     testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client) == true)
+    if (bindOfConnectToServer(Client) == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ServerPing));
     }
@@ -22,10 +23,11 @@ TEST_CASE("Check default request of server side")
     Client     Client;
     testServer serverTest(ServerInfo::Port::test);
     const int16_t failedType = 666;
+    bool          acceptingConnection = true;
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client) == true)
+    if (bindOfConnectToServer(Client) == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType(failedType)));
     }
