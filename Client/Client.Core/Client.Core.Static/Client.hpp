@@ -162,6 +162,8 @@ protected:
     virtual void onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList);
     /// Channel delete Answer handler
     virtual void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
+    /// Channel edit Answer handler
+    virtual void onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const;
     /// Channel create Answer handler
     virtual void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
     /// Direct message create Answer handler
