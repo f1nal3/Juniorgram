@@ -6,12 +6,12 @@ set(SOURCE_FILES
         LiteAdapter.hpp
         LiteTable.hpp
         LiteRepositoryContainer.hpp
-        LiteRepositories.hpp)
+        LiteRepositories.hpp
+        LiteRepositories.cpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
 target_link_libraries(${TARGET}
-        PUBLIC winsqlite3
-        PUBLIC DataAccess.Public Utility.Public)
+        PUBLIC Qt5::Sql DataAccess.Public Utility.Public)

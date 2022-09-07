@@ -1,7 +1,10 @@
 #pragma once
 #include <memory>
 #include <mutex>
-#include <winsqlite/winsqlite3.h>
+
+#include <QtSql/QSql>
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
 
 #include <DataAccess/IAdapter.hpp>
 #include <Utility/Exception.hpp>
@@ -17,6 +20,8 @@ namespace DataAccess
 class LiteAdapter : public IAdapter
 {
 public:
+    Q_DISABLE_COPY_MOVE(LiteAdapter)
+
     /// Default destructor
     ~LiteAdapter() override = default;
 
@@ -67,9 +72,9 @@ private:
     inline static std::mutex                   _mtx{};
     inline static std::shared_ptr<LiteAdapter> _sqliteInstance{};
 
-    inline static constexpr std::string_view   _DBName = "SQLiteDB.sqlite3";
+    inline static constexpr std::string_view   _DBName = "SQLiteDB.db";
 
-    std::unique_ptr<sqlite3>                   _dbConnection;
+    std::unique_ptr<QSqlDatabase>              _dbConnection;
     std::mutex                                 _queryMTX;
 };
 }  /// namespace DataAccess
