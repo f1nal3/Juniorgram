@@ -1,58 +1,107 @@
 #pragma once
 
-#include <DataAccess/AbstractRepositories.hpp>
+#include <DataAccess/IServerRepositories.hpp>
 
 #include "PostgreQuery.hpp"
 #include "UsersAmountFinder.hpp"
 
 namespace DataAccess
 {
-    using Utility::DatabaseType;
-
-struct PostgreChannelsRepository final : ChannelsRepository<pqxx::result>
+struct AbstractPostgreRepository
 {
-    explicit PostgreChannelsRepository(const std::shared_ptr<IAdapter>& adapter, DatabaseType typeDB = DatabaseType::DB_POSTGRE) 
-        : ChannelsRepository<pqxx::result>(adapter,typeDB) {}
-    ~PostgreChannelsRepository() override = default;
+protected:
+    std::unique_ptr<PostgreQuery> _pTable;
 };
 
-struct PostgreDirectMessageRepository final : DirectMessageRepository<pqxx::result>
+struct ChannelsRepository final : IChannelsRepository, AbstractPostgreRepository
 {
-    explicit PostgreDirectMessageRepository(const std::shared_ptr<IAdapter>& adapter, DatabaseType typeDB = DatabaseType::DB_POSTGRE)
-        : DirectMessageRepository(adapter,typeDB) {}
-
-    ~PostgreDirectMessageRepository() override = default;
-};
-
-struct PostgreLoginRepository final : LoginRepository<pqxx::result>
-{
-    explicit PostgreLoginRepository(const std::shared_ptr<IAdapter>& adapter, DatabaseType typeDB = DatabaseType::DB_POSTGRE)
-        : LoginRepository<pqxx::result>(adapter,typeDB) {}
+    explicit ChannelsRepository(const std::shared_ptr<IAdapter>& adapter) 
+    {
+        _pTable = std::make_unique<PostgreQuery>("users", adapter); 
+    }
     
-    ~PostgreLoginRepository() = default;
+    std::vector<Models::ChannelInfo>       getAllChannelsList() override;
+    Utility::ChannelLeaveCodes             leaveChannel(const Models::ChannelLeaveInfo& channel) override;
+    Utility::ChannelSubscribingCodes       subscribeToChannel(const Models::ChannelSubscriptionInfo& channel) override;
+    std::vector<uint64_t>                  getChannelSubscriptionList(uint64_t userID) override;
+
+    Utility::ChannelDeleteCode  deleteChannel(const Models::ChannelDeleteInfo& channel) override;
+    Utility::ChannelCreateCodes createChannel(const Models::ChannelInfo& channel) override;
+
+    ~ChannelsRepository() override = default;
 };
 
-struct PostgreMessagesRepository final : MessagesRepository<pqxx::result>
+struct DirectMessageRepository final : IDirectMessageRepository, AbstractPostgreRepository
 {
-    explicit PostgreMessagesRepository(const std::shared_ptr<IAdapter>& adapter, DatabaseType typeDB = DatabaseType::DB_POSTGRE)
-        : MessagesRepository<pqxx::result>(adapter,typeDB) {}
-    
-    ~PostgreMessagesRepository() override = default;
+    explicit DirectMessageRepository(const std::shared_ptr<IAdapter>& adapter)
+    {
+        _pTable = std::make_unique<PostgreQuery>("channels", adapter);
+    }
+
+    Utility::DirectMessageStatus addDirectChat(uint64_t user_id, uint64_t receiverID) override;
+
+    ~DirectMessageRepository() override = default;
 };
 
-struct PostgreRegisterRepository final : RegisterRepository<pqxx::result>
+struct LoginRepository : ILoginRepository, AbstractPostgreRepository
 {
-    explicit PostgreRegisterRepository(const std::shared_ptr<IAdapter>& adapter, DatabaseType typeDB = DatabaseType::DB_POSTGRE)
-        : RegisterRepository<pqxx::result>(adapter,typeDB) {}
+    explicit LoginRepository(const std::shared_ptr<IAdapter>& adapter) 
+    {
+        _pTable = std::make_unique<PostgreQuery>("users", adapter); 
+    }
 
-    ~PostgreRegisterRepository() override = default;
+    std::uint64_t loginUser(const Models::LoginInfo& loginInfo) override;
+
+    ~LoginRepository() = default;
 };
 
-struct PostgreRepliesRepository final : RepliesRepository<pqxx::result>
+struct MessagesRepository final : IMessagesRepository, AbstractPostgreRepository
 {
-    explicit PostgreRepliesRepository(const std::shared_ptr<IAdapter>& adapter, DatabaseType typeDB = DatabaseType::DB_POSTGRE)
-        : RepliesRepository<pqxx::result>(adapter,typeDB) {}
+    explicit MessagesRepository(const std::shared_ptr<IAdapter>& adapter) 
+    {
+        _pTable = std::make_unique<PostgreQuery>("users", adapter); 
+    }
 
-    ~PostgreRepliesRepository() override = default;
+    std::vector<Models::MessageInfo>       getMessageHistory(const std::uint64_t channelID) override;
+    Utility::StoringMessageCodes           storeMessage(const Models::MessageInfo& messageInfo) override;
+    Utility::DeletingMessageCodes          deleteMessage(const Models::MessageInfo& messageInfo) override;
+    Utility::EditingMessageCodes           editMessage(const Models::MessageInfo& messageInfo) override;
+    Utility::ReactionMessageCodes          updateMessageReactions(const Models::MessageInfo& messageInfo) override;
+
+    ~MessagesRepository() override = default;
+
+private:
+    std::optional<pqxx::result> insertMessageIntoMessagesTable(const Models::MessageInfo& messageInfo);
+    std::optional<pqxx::result> insertIDsIntoChannelMessagesTable(const std::uint64_t channelID, const std::uint64_t messageID);
+    std::optional<pqxx::result> insertIDIntoMessageReactionsTable(const std::uint64_t messageID);
+};
+
+struct RegisterRepository final : IRegisterRepository, AbstractPostgreRepository
+{
+    explicit RegisterRepository(const std::shared_ptr<IAdapter>& adapter)
+    {
+        _pTable = std::make_unique<PostgreQuery>("users", adapter); 
+    }
+
+    Utility::RegistrationCodes registerUser(const Models::RegistrationInfo& regInfo) override;
+
+    ~RegisterRepository() override = default;
+};
+
+struct RepliesRepository final : IRepliesRepository, AbstractPostgreRepository
+{
+    explicit RepliesRepository(const std::shared_ptr<IAdapter>& adapter)
+    {
+        _pTable = std::make_unique<PostgreQuery>("msgs", adapter);
+    }
+
+    std::vector<Models::ReplyInfo>       getReplyHistory(const std::uint64_t channelID) override;
+    Utility::StoringReplyCodes           storeReply(const Models::ReplyInfo& replyInfo) override;
+
+    ~RepliesRepository() override = default;
+
+private:
+    std::optional<pqxx::result> insertIDsIntoChannelRepliesTable(const std::uint64_t channelID, const std::uint64_t replyID);
+    std::optional<pqxx::result> insertReplyIntoRepliesTable(const Models::ReplyInfo& replyInfo);
 };
 }  // namespace DataAccess

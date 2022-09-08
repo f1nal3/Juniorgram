@@ -5,6 +5,7 @@ set(SOURCE_FILES
     PostgreAdapter.hpp
     PostgreAdapter.cpp
     PostgreRepositories.hpp
+    PostgreRepositories.cpp
 	PostgreRepositoryContainer.hpp
     PostgreRepositoryManager.hpp
     PostgreQuery.hpp

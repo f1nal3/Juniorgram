@@ -25,6 +25,7 @@ conan_cmake_configure(REQUIRES asio/1.18.1
                                nlohmann_json/3.9.1
                                yas/7.0.5
                                qt/5.15.2
+                               OPTIONS Qt:shared=True
                     GENERATORS cmake_find_package_multi)
 
 # This detects system settings such as platform, compiler, etc.

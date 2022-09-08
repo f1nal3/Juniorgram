@@ -33,7 +33,6 @@ namespace DataAccess
     * @brief   IRepositoryManager is template class, which realization controls handler for repository requests.
     * @details Controls push to queue and further processing of requests (have own thread for it).
     */
-
     class IRepositoryManager
     {
     private:
@@ -154,15 +153,14 @@ namespace DataAccess
         /**
          * @brief Needs to register all repositories in repository container.
          */
-
         void privateRegisterRepositories() const
         {
-            _repositories->registerRepository<IChannelsRepository, PostgreChannelsRepository>();
-            _repositories->registerRepository<ILoginRepository, PostgreLoginRepository>();
-            _repositories->registerRepository<IMessagesRepository, PostgreMessagesRepository>();
-            _repositories->registerRepository<IRegisterRepository, PostgreRegisterRepository>();
-            _repositories->registerRepository<IRepliesRepository, PostgreRepliesRepository>();
-            _repositories->registerRepository<IDirectMessageRepository, PostgreDirectMessageRepository>();
+            _repositories->registerRepository<IChannelsRepository, ChannelsRepository>();
+            _repositories->registerRepository<ILoginRepository, LoginRepository>();
+            _repositories->registerRepository<IMessagesRepository, MessagesRepository>();
+            _repositories->registerRepository<IRegisterRepository, RegisterRepository>();
+            _repositories->registerRepository<IRepliesRepository, RepliesRepository>();
+            _repositories->registerRepository<IDirectMessageRepository, DirectMessageRepository>();
         }
     };
 }
