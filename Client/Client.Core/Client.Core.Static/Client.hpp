@@ -157,7 +157,7 @@ protected:
     /// Channel leave Answer handler
     virtual void onChannelLeaveAnswer(Utility::ChannelLeaveCodes channelLeaveCode);
     /// Channel subscription Answer handler
-    virtual void onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode);
+    virtual void onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes& subscribingChannelCode);
     /// Channel subscription list Answer handler
     virtual void onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList);
     /// Channel delete Answer handler

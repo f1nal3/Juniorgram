@@ -518,7 +518,7 @@ void Client::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode)
     Base::Logger::FileLogger::getInstance().log("Leave channel answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
-void Client::onChannelSubscribingAnswer(Utility::ChannelSubscribingCodes subscribingChannelCode)
+void Client::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes& subscribingChannelCode)
 {
     (void)(subscribingChannelCode);
     Base::Logger::FileLogger::getInstance().log("Subscribing channel answer is not implemented", Base::Logger::LogLevel::WARNING);

@@ -38,7 +38,6 @@ public:
     */
     static std::shared_ptr<MockDatabase> Instance(const std::string_view& options = {});
 
-protected:
     explicit MockDatabase(const std::string_view& options) :
         _connection{std::make_unique<pqxx::connection>(pqxx::zview(options))} {}
 

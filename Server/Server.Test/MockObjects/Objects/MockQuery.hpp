@@ -10,16 +10,16 @@ using DataAccess::IAdapter;
 using Database = MockDatabase::MockDatabase;
 
 /**
- * @class PostgreTable
- * @brief Postgre table class.
+ * @class MockQuery
+ * @brief MockQuery class.
  * @details You can see some examples below for how to use it.
  * @code
- *    MockPostgreQuery("tableName1").Select()->columns({"column1", "column2",
- * ...})->where("condition")->...->execute()/OR/getQuery(); MockPostgreQuery("tableName2").Insert()->field(1,
+ *    MockQuery("tableName1").Select()->columns({"column1", "column2",
+ * ...})->where("condition")->...->execute()/OR/getQuery(); MockQuery("tableName2").Insert()->field(1,
  * "a")->field(...)->...->returning({"column1", "column2", ...})->execute()/OR/getQuery();
- *    MockPostgreQuery("tableName3").Update()->fields(pair{"column1", 1}, pair{"column2",
+ *    MockQuery("tableName3").Update()->fields(pair{"column1", 1}, pair{"column2",
  * "strData"})->where("condition")->...->execute()/OR/getQuery();
- *    MockPostgreQuery("tableName4").Delete()->where("condition")->...->execute()/OR/getQuery();
+ *    MockQuery("tableName4").Delete()->where("condition")->...->execute()/OR/getQuery();
  * @endcode
  */
 class MockQuery : public QueryBuilder<pqxx::result>

@@ -14,8 +14,9 @@ using milliseconds     = std::chrono::milliseconds;
 using Client           = MockClient::MockClient;
 using testServer       = Server::Server;
 using MessageType      = Message::MessageType;
+typedef const MessageType testMessageType;
 
-inline Message& messageInstance(Message& message, const MessageType messageType)
+inline Message& messageInstance(Message& message, testMessageType messageType)
 {
 using LoginInfo        = Models::LoginInfo;
 using ReplyInfo        = Models::ReplyInfo;
@@ -24,7 +25,7 @@ using RegistrationInfo = Models::RegistrationInfo;
 
     const std::string testEmail    = "demonstakingoverme@epam.co";
     const std::string testLogin    = "memorisecodead";
-    const std::string testPassword = "12juniorgramMargroinuj";
+    const std::string testPassword = "357c7b8b8a69d5728f5b7e3af3e5f3c6c1e097a7";
     const std::string testPWDHash  = Base::Hashing::SHA_256(testPassword, testLogin);
     const std::string testChannelName = "testServer";
     const std::string testMessage     = "Hello, juniorgram!!";
@@ -175,7 +176,7 @@ using RegistrationInfo = Models::RegistrationInfo;
     return message;
 }
 
-inline void testSendingMessages(Client& Client, const MessageType mesgType)
+inline void testSendingMessages(Client& Client, const testMessageType mesgType)
 {
     Message message;
     std::mutex scopedMutex;
@@ -197,7 +198,6 @@ inline testServer& testServerUpdating(testServer& serverTest)
         ++countOfUpdate;
         if (countOfUpdate > iterationOfServer)
         {
-            serverWorkflow = false;
             serverTest.stop();
             break;
         }
@@ -207,7 +207,7 @@ inline testServer& testServerUpdating(testServer& serverTest)
     return serverTest;
 }
 
-inline decltype(auto) bindOfSendingMessage(Client& Client, const MessageType mesgType)
+inline decltype(auto) bindOfSendingMessage(Client& Client, testMessageType mesgType)
 {
     auto sendingMessage = std::bind
     (

@@ -1,14 +1,8 @@
 #pragma once 
 
 #include <DataAccess/IAdapter.hpp>
-#include <DataAccess.Postgre/UsersAmountFinder.hpp>
 #include <DataAccess/IServerRepositories.hpp>
 #include "MockQuery.hpp"
-
-#include <Network/Connection.hpp>
-#include <Models/Primitives.hpp>
-#include <Cryptography.hpp>
-#include <FileLogger.hpp>
 
 namespace MockRepository
 {
@@ -27,94 +21,94 @@ protected:
     std::unique_ptr<Query> _pTable;
 };
 
-struct ChannelsRepository final : IChannelRepository, MockAbstractRepository
+struct testChannelsRepository final : IChannelRepository, MockAbstractRepository
 {
-    explicit ChannelsRepository(const std::shared_ptr<IAdapter>& adapter)
+    explicit testChannelsRepository(const std::shared_ptr<IAdapter>& adapter)
     {
         _pTable = std::make_unique<Query>("users", adapter);
     }
 
-    Utility::ChannelDeleteCode        deleteChannel(Models::ChannelDeleteInfo& channel) const;
-    Utility::ChannelCreateCodes       createChannel(Models::ChannelInfo& channel) const;
-    Utility::ChannelLeaveCodes        leaveChannel(Models::ChannelLeaveInfo& channel) const;
-    Utility::ChannelSubscribingCodes  subscribeToChannel(Models::ChannelSubscriptionInfo& channel) const;
-    std::vector<uint64_t>             getChannelSubscriptionList(uint64_t userID) const;
-    std::vector<Models::ChannelInfo>  getAllChannelsList() const;
+    Utility::ChannelDeleteCode        deleteChannel(const Models::ChannelDeleteInfo& channel) override;
+    Utility::ChannelCreateCodes       createChannel(const Models::ChannelInfo& channel) override;
+    Utility::ChannelLeaveCodes        leaveChannel(const Models::ChannelLeaveInfo& channel) override;
+    Utility::ChannelSubscribingCodes  subscribeToChannel(const Models::ChannelSubscriptionInfo& channel) override;
+    std::vector<uint64_t>             getChannelSubscriptionList(const uint64_t userID) override;
+    std::vector<Models::ChannelInfo>  getAllChannelsList() override;
 
-    ~ChannelsRepository() = default;
+    ~testChannelsRepository() = default;
 };
 
-struct DirectMessageRepository final : IDirectMessageRepository, MockAbstractRepository
+struct testDirectMessageRepository final : IDirectMessageRepository, MockAbstractRepository
 {
-    explicit DirectMessageRepository(const std::shared_ptr<IAdapter>& adapter)
+    explicit testDirectMessageRepository(const std::shared_ptr<IAdapter>& adapter)
     {
         _pTable = std::make_unique<Query>("channels", adapter);
     }
 
-    Utility::DirectMessageStatus addDirectChat(uint64_t user_id, uint64_t receiverId) const;
+    Utility::DirectMessageStatus addDirectChat(uint64_t userID, uint64_t receiverID) override;
 
-    ~DirectMessageRepository() = default;
+    ~testDirectMessageRepository() = default;
 };
 
-struct LoginRepository final : ILoginRepository, MockAbstractRepository
+struct testLoginRepository final : ILoginRepository, MockAbstractRepository
 {
-    explicit LoginRepository(const std::shared_ptr<IAdapter>& adapter)
+    explicit testLoginRepository(const std::shared_ptr<IAdapter>& adapter)
     { 
         _pTable = std::make_unique<Query>("users", adapter); 
     }
 
-    std::uint64_t loginUser(std::string login, std::string pwdHash) const;
+    std::uint64_t loginUser(const Models::LoginInfo& loginInfo) override;
 
-    ~LoginRepository() = default;
+    ~testLoginRepository() = default;
 };
 
-struct MessagesRepository final : IMessagesRepository, MockAbstractRepository
+struct testMessagesRepository final : IMessagesRepository, MockAbstractRepository
 {
-    explicit MessagesRepository(const std::shared_ptr<IAdapter>& adapter)
+    explicit testMessagesRepository(const std::shared_ptr<IAdapter>& adapter)
     {
         _pTable = std::make_unique<Query>("users", adapter);
     }
 
-    Utility::DeletingMessageCodes     deleteMessage(Models::MessageInfo& mi) const;
-    Utility::ReactionMessageCodes     updateMessageReactions(Models::MessageInfo& mi) const;
-    Utility::EditingMessageCodes      editMessage(Models::MessageInfo& mi) const;
-    Utility::StoringMessageCodes      storeMessage(Models::MessageInfo& msi) const;
-    std::vector<Models::MessageInfo>  getMessageHistoryForUser(std::uint64_t channelID) const;
+    Utility::DeletingMessageCodes     deleteMessage(const Models::MessageInfo& messageInfo) override;
+    Utility::ReactionMessageCodes     updateMessageReactions(const Models::MessageInfo& messageInfo) override;
+    Utility::EditingMessageCodes      editMessage(const Models::MessageInfo& messageInfo) override;
+    Utility::StoringMessageCodes      storeMessage(const Models::MessageInfo& messageInfo) override;
+    std::vector<Models::MessageInfo>  getMessageHistory(const std::uint64_t channelID) override;
 
-    ~MessagesRepository() = default;
+    ~testMessagesRepository() = default;
 
 private:
-    std::optional<pqxx::result> insertMessageIntoMessagesTable(const Models::MessageInfo& msi) const;
-    std::optional<pqxx::result> insertIDsIntoChannelMessagesTable(const std::uint64_t channelID, const std::uint64_t messageID) const; 
-    std::optional<pqxx::result> insertIDIntoMessageReactionsTable(const std::uint64_t messageID) const;
+    std::optional<pqxx::result> testInsertMessageIntoMessagesTable(const Models::MessageInfo& messageInfo);
+    std::optional<pqxx::result> testInsertIDsIntoChannelMessagesTable(const std::uint64_t channelID, const std::uint64_t messageID); 
+    std::optional<pqxx::result> testInsertIDIntoMessageReactionsTable(const std::uint64_t messageID);
 };
 
-struct RegisterRepository final : IRegisterRepository, MockAbstractRepository
+struct testRegisterRepository final : IRegisterRepository, MockAbstractRepository
 {
-    explicit RegisterRepository(const std::shared_ptr<IAdapter>& adapter)
+    explicit testRegisterRepository(const std::shared_ptr<IAdapter>& adapter)
     {
         _pTable = std::make_unique<Query>("users", adapter);
     }
 
-    Utility::RegistrationCodes registerUser(Models::RegistrationInfo& ri) const;
+    Utility::RegistrationCodes registerUser(const Models::RegistrationInfo& regInfo) override;
 
-    ~RegisterRepository() = default;
+    ~testRegisterRepository() = default;
 };
 
-struct RepliesRepository final : IRepliesRepository, MockAbstractRepository
+struct testRepliesRepository final : IRepliesRepository, MockAbstractRepository
 {
-    explicit RepliesRepository(const std::shared_ptr<IAdapter>& adapter)
+    explicit testRepliesRepository(const std::shared_ptr<IAdapter>& adapter)
     { 
         _pTable = std::make_unique<Query>("msgs", adapter); 
     }
 
-    std::vector<Models::ReplyInfo> getReplyHistoryForUser(const std::uint64_t channelID) const;
-    Utility::StoringReplyCodes     storeReply(const Models::ReplyInfo& rsi) const;
+    std::vector<Models::ReplyInfo> getReplyHistory(const std::uint64_t channelID) override;
+    Utility::StoringReplyCodes     storeReply(const Models::ReplyInfo& replyInfo) override;
 
-    ~RepliesRepository() = default;
+    ~testRepliesRepository() = default;
 
 private:
-    std::optional<pqxx::result> insertIDsIntoChannelRepliesTable(const std::uint64_t channelID, const std::uint64_t replyID) const;
-    std::optional<pqxx::result> insertReplyIntoRepliesTable(const Models::ReplyInfo& rsi) const;
+    std::optional<pqxx::result> testInsertIDsIntoChannelRepliesTable(const std::uint64_t channelID, const std::uint64_t replyID) ;
+    std::optional<pqxx::result> testInsertReplyIntoRepliesTable(const Models::ReplyInfo& replyInfo);
 };
 }  // namespace MockRepository
