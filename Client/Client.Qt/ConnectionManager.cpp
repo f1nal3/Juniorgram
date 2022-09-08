@@ -160,7 +160,7 @@ void ConnectionManager::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelL
     emit ReceiverManager::instance()->onChannelLeaveAnswer(ChannelLeaveCode);
 }
 
-void ConnectionManager::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode)
+void ConnectionManager::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes& subscribingChannelCode)
 {
     if (subscribingChannelCode == Utility::ChannelSubscribingCodes::SUCCESS)
     {
@@ -200,6 +200,20 @@ void ConnectionManager::onChannelDeleteAnswer(Utility::ChannelDeleteCode channel
     }
     qRegisterMetaType<Utility::ChannelDeleteCode>("Utility::ChannelDeleteCode");
     emit ReceiverManager::instance()->onChannelDeleteAnswer(channelDeleteCode);
+}
+
+void ConnectionManager::onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const
+{
+    if (reactionState == Utility::EditingMessageCodes::SUCCESS)
+    {
+        Base::Logger::FileLogger::getInstance().log("Success editing", Base::Logger::LogLevel::INFO);
+    }
+    else
+    {
+        Base::Logger::FileLogger::getInstance().log("Failed editing", Base::Logger::LogLevel::ERR);
+    }
+    qRegisterMetaType<Utility::EditingMessageCodes>("Utility::EditingMessageCodes");
+    emit ReceiverManager::instance()->onEditMessageAnswer(reactionState);
 }
 
 void ConnectionManager::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode)

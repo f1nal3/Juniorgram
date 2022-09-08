@@ -56,11 +56,13 @@ signals:
     /// Channel leave Answer handler
     void onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode);
     /// Channel subscription Answer handler
-    void onChannelSubscriptionAnswer(const Utility::ChannelSubscribingCodes channelSubscribingCodes);
+    void onChannelSubscriptionAnswer(const Utility::ChannelSubscribingCodes& channelSubscribingCodes);
     /// Channel subscription list Answer handler
     void onChannelSubscriptionListAnswer(const std::vector<uint64_t> channelSubscriptionList);
     /// Channel delete Answer handler
     void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
+    /// Channel edit Answer handler
+    void onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const;
     /// Channel create Answer handler
     void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
     /// Direct message create Answer handler
@@ -119,11 +121,13 @@ protected:
     /// Channel leave Answer handler
     void onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode) override;
     /// Channel subscription Answer handler
-    void onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode) override;
+    void onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes& subscribingChannelCode) override;
     /// Channel subscription list Answer handler
     void onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList) override;
     /// Channel delete Answer handler
     void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode) override;
+    /// Channel edit Answer handler
+    void onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const override;
     /// Channel create Answer handler
     void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode) override;
     /// Direct message create Answer handler

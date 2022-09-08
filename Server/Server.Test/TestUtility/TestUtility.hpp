@@ -14,9 +14,8 @@ using milliseconds     = std::chrono::milliseconds;
 using Client           = MockClient::MockClient;
 using testServer       = Server::Server;
 using MessageType      = Message::MessageType;
-typedef const MessageType testMessageType;
 
-inline Message& messageInstance(Message& message, testMessageType messageType)
+inline Message& messageInstance(Message& message, MessageType messageType)
 {
 using LoginInfo        = Models::LoginInfo;
 using ReplyInfo        = Models::ReplyInfo;
@@ -176,7 +175,7 @@ using RegistrationInfo = Models::RegistrationInfo;
     return message;
 }
 
-inline void testSendingMessages(Client& Client, const testMessageType mesgType)
+inline void testSendingMessages(Client& Client, const MessageType mesgType)
 {
     Message message;
     std::mutex scopedMutex;
@@ -207,7 +206,7 @@ inline testServer& testServerUpdating(testServer& serverTest)
     return serverTest;
 }
 
-inline decltype(auto) bindOfSendingMessage(Client& Client, testMessageType mesgType)
+inline decltype(auto) bindOfSendingMessage(Client& Client, MessageType mesgType)
 {
     auto sendingMessage = std::bind
     (
