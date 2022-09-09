@@ -1,7 +1,7 @@
 #pragma once
 
 #include <DataAccess/IServerRepositories.hpp>
-
+#include <DataAccess.Postgre/UsersAmountFinder.hpp>
 #include "QueryBuilder.hpp"
 
 namespace DataAccess
@@ -19,7 +19,7 @@ struct ChannelsRepository : IChannelsRepository, AbstractRepository<TResultType>
 {
     explicit ChannelsRepository(const std::shared_ptr<IAdapter>& adapter, Utility::DatabaseType typeDB) 
     { 
-        _pTable = std::make_unique<QueryBuilder<TResultType>>(typeDB,"users", adapter); 
+        AbstractRepository<TResultType>::_pTable = std::make_unique<QueryBuilder<TResultType>>(typeDB,"users", adapter); 
     }
 
     std::vector<Models::ChannelInfo> getAllChannelsList() override
@@ -212,6 +212,7 @@ struct ChannelsRepository : IChannelsRepository, AbstractRepository<TResultType>
 
         return Utility::ChannelDeleteCode::SUCCESS;
     }
+
     Utility::ChannelCreateCodes createChannel(const Models::ChannelInfo& channel) override
     {
         _pTable->changeTable("channels");
@@ -249,7 +250,7 @@ struct DirectMessageRepository: IDirectMessageRepository, AbstractRepository<TRe
 {
     explicit DirectMessageRepository(const std::shared_ptr<IAdapter>& adapter, Utility::DatabaseType typeDB)
     {
-        _pTable = std::make_unique<QueryBuilder<TResultType>>(typeDB,"channels", adapter);
+        AbstractRepository<TResultType>::_pTable = std::make_unique<QueryBuilder<TResultType>>(typeDB, "channels", adapter);
     }
 
     Utility::DirectMessageStatus addDirectChat(uint64_t user_id, uint64_t receiverID) override 
@@ -299,7 +300,7 @@ struct LoginRepository : ILoginRepository, AbstractRepository<TResultType>
 {
     explicit LoginRepository(const std::shared_ptr<IAdapter>& adapter, Utility::DatabaseType typeDB)
     {
-        _pTable = std::make_unique<QueryBuilder<TResultType>>(typeDB,"users", adapter);
+        AbstractRepository<TResultType>::_pTable = std::make_unique<QueryBuilder<TResultType>>(typeDB, "users", adapter);
     }
 
     std::uint64_t loginUser(const Models::LoginInfo& loginInfo) override 
@@ -338,7 +339,7 @@ struct MessagesRepository: IMessagesRepository, AbstractRepository<TResultType>
 {
     explicit MessagesRepository(const std::shared_ptr<IAdapter>& adapter, Utility::DatabaseType typeDB) 
     { 
-        _pTable = std::make_unique<QueryBuilder<TResultType>>(typeDB,"users", adapter);
+        AbstractRepository<TResultType>::_pTable = std::make_unique<QueryBuilder<TResultType>>(typeDB, "users", adapter);
     }
 
     std::vector<Models::MessageInfo> getMessageHistory(const std::uint64_t channelID) override
@@ -561,7 +562,8 @@ struct RegisterRepository: IRegisterRepository, AbstractRepository<TResultType>
 {
     explicit RegisterRepository(const std::shared_ptr<IAdapter>& adapter, Utility::DatabaseType typeDB) 
     { 
-        _pTable = std::make_unique<QueryBuilder<TResultType>>(typeDB,"users", adapter); }
+        AbstractRepository<TResultType>::_pTable = std::make_unique<QueryBuilder<TResultType>>(typeDB, "users", adapter);
+    }
 
     Utility::RegistrationCodes registerUser(const Models::RegistrationInfo& regInfo) override
     {
@@ -604,7 +606,7 @@ struct RepliesRepository: IRepliesRepository, AbstractRepository<TResultType>
 {
     explicit RepliesRepository(const std::shared_ptr<IAdapter>& adapter, Utility::DatabaseType typeDB) 
     { 
-        _pTable = std::make_unique<QueryBuilder<TResultType>>(typeDB,"msgs", adapter);
+        AbstractRepository<TResultType>::_pTable = std::make_unique<QueryBuilder<TResultType>>(typeDB, "msgs", adapter);
     }
 
     std::vector<Models::ReplyInfo> getReplyHistory(const std::uint64_t channelID) override
