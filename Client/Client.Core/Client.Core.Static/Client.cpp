@@ -320,7 +320,7 @@ void Client::loop()
 
             case MessageType::ServerMessage:
             {
-                // TODO add handling 
+                /// \todo add handling 
                 uint64_t clientID = 0;
                 onServerMessage(clientID);
             }
@@ -524,7 +524,7 @@ void Client::onChannelSubscribingAnswer(Utility::ChannelSubscribingCodes subscri
     Base::Logger::FileLogger::getInstance().log("Subscribing channel answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
-void Client::onChannelSubscribingListAnswer(std::vector<uint64_t> subscribingChannelList)
+void Client::onChannelSubscribingListAnswer(const std::vector<uint64_t>& subscribingChannelList)
 {
     (void)(subscribingChannelList);
     Base::Logger::FileLogger::getInstance().log("Subscribing channel list answer is not implemented", Base::Logger::LogLevel::WARNING);
