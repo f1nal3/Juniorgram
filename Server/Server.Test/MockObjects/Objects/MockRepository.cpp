@@ -3,6 +3,7 @@
 #include <DataAccess.Postgre/UsersAmountFinder.hpp>
 #include <Network/Connection.hpp>
 #include <Models/Primitives.hpp>
+
 #include <Cryptography.hpp>
 #include <FileLogger.hpp>
 
@@ -20,15 +21,11 @@ std::vector<Models::ChannelInfo> testChannelsRepository::getAllChannelsList()
 
     auto adapter = _pTable->getAdapter();
     auto insertResult =
-        adapter->query
-        (
-            "INSERT INTO channels(channelID, channelName, creatorID) VALUES (" 
-            + std::to_string(channelInfo._channelID) + "," 
-            + channelInfo._channelName + ", " + std::to_string(channelInfo._creatorID)
-        );
+        adapter->query("INSERT INTO channels(channelID, channelName, creatorID) VALUES (" + std::to_string(channelInfo._channelID) + "," +
+                       channelInfo._channelName + ", " + std::to_string(channelInfo._creatorID));
 
     std::vector<Models::ChannelInfo> result;
-    if (channelListRow.has_value())
+    if (channelListRow; channelListRow.has_value())
     {
         for (auto&& value : channelListRow.value())
         {
@@ -58,7 +55,7 @@ std::vector<uint64_t> testChannelsRepository::getChannelSubscriptionList(const u
         ->execute();
 
     std::vector<uint64_t> result;
-    if (listSubscriptionChannel.has_value())
+    if (listSubscriptionChannel; listSubscriptionChannel.has_value())
     {
         for (auto&& value : listSubscriptionChannel.value())
         {
@@ -113,7 +110,7 @@ std::vector<Models::MessageInfo> testMessagesRepository::getMessageHistory(const
          ", " + std::to_string(messageInfo._reactions[4])
     );
 
-    if (messageHistoryRow.has_value())
+    if (messageHistoryRow; messageHistoryRow.has_value())
     {
         messageInfo._channelID = channelID;
 
@@ -148,6 +145,7 @@ std::vector<Models::ReplyInfo> testRepliesRepository::getReplyHistory(std::uint6
     std::vector<Models::ReplyInfo> result;
 
     _pTable->changeTable("replies");
+
     auto replyHistoryRow =
         _pTable->Select()
             ->columns({"replies.sender_id, replies.msg_id_owner, replies.msg_id_ref, replies.msg, users.login, users.id"})
@@ -156,7 +154,7 @@ std::vector<Models::ReplyInfo> testRepliesRepository::getReplyHistory(std::uint6
             ->Where("channel_replies.channel_id = " + std::to_string(channelID))
             ->execute();
 
-    if (replyHistoryRow.has_value())
+    if (replyHistoryRow; replyHistoryRow.has_value())
     {
         Models::ReplyInfo replyInfo;
         replyInfo._channelID = channelID;
@@ -196,9 +194,9 @@ Utility::StoringMessageCodes testMessagesRepository::storeMessage(const Models::
     }
 
     const auto currentMessageID = firstResult.value()[0][0].as<std::uint64_t>();
+    const auto secondResult     = testInsertIDsIntoChannelMessagesTable(messageInfo._channelID, currentMessageID);
 
-    const auto secondResult = testInsertIDsIntoChannelMessagesTable(messageInfo._channelID, currentMessageID);
-    if (!secondResult.has_value())
+    if (secondResult; !secondResult.has_value())
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -211,7 +209,8 @@ Utility::StoringMessageCodes testMessagesRepository::storeMessage(const Models::
     }
 
     const auto thirdResult = testInsertIDIntoMessageReactionsTable(currentMessageID);
-    if (!thirdResult.has_value())
+
+    if (thirdResult; !thirdResult.has_value())
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -247,9 +246,8 @@ Utility::StoringReplyCodes testRepliesRepository::storeReply(const Models::Reply
     }
 
     const auto currentReplyID = firstResult.value()[0][0].as<std::uint64_t>();
-
-    const auto secondResult = testInsertIDsIntoChannelRepliesTable(replyInfo._channelID, currentReplyID);
-    if (!secondResult.has_value())
+    const auto secondResult   = testInsertIDsIntoChannelRepliesTable(replyInfo._channelID, currentReplyID);
+    if (secondResult; !secondResult.has_value())
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -275,12 +273,11 @@ Utility::DeletingMessageCodes testMessagesRepository::deleteMessage(const Models
     _pTable->Delete()->Where("msg_id=" + std::to_string(messageInfo._msgID))
            ->Or("msg='" + messageInfo._message + "'")->execute();
 
-    auto messagesAmountResult = _pTable->Select()
-        ->columns({"COUNT(*)"})
-        ->Where("msg_id=" + std::to_string(messageInfo._msgID))
-        ->execute();
+    auto messagesAmountResult =
+        _pTable->Select()->columns({"COUNT(*)"})
+        ->Where("msg_id=" + std::to_string(messageInfo._msgID))->execute();
 
-    if (messagesAmountResult.value()[0][0].as<std::uint64_t>() == 0)
+    if (messagesAmountResult; messagesAmountResult.value()[0][0].as<std::uint64_t>() == 0)
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -315,7 +312,7 @@ Utility::EditingMessageCodes testMessagesRepository::editMessage(const Models::M
         messageInfo._message + "," + std::to_string(messageInfo._msgID) + 
         ", " + std::to_string(messageInfo._senderID));
 
-    if (!isPresentInTable.has_value())
+    if (isPresentInTable; !isPresentInTable.has_value())
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -386,13 +383,14 @@ Utility::ReactionMessageCodes testMessagesRepository::updateMessageReactions(con
     }
 
     _pTable->changeTable("msg_reactions");
-    std::optional<pqxx::result> userQueryResult = _pTable->Select()
-              ->columns({"*"})
-              ->Where("msg_id=" + std::to_string(messageInfo._msgID))
-              ->And(std::to_string(messageInfo._senderID) + " = ANY(" + reactionName + ");")
-              ->execute();
 
-    if (userQueryResult.has_value())
+    std::optional<pqxx::result> userQueryResult = _pTable->Select()
+                                                      ->columns({"*"})
+                                                      ->Where("msg_id=" + std::to_string(messageInfo._msgID))
+                                                      ->And(std::to_string(messageInfo._senderID) + " = ANY(" + reactionName + ");")
+                                                      ->execute();
+
+    if (userQueryResult; userQueryResult.has_value())
     {
         adapter->query("UPDATE msg_reactions SET " + reactionName + " = array_remove("
             + reactionName + ", " + std::to_string(messageInfo._senderID) +
@@ -467,10 +465,12 @@ std::uint64_t testLoginRepository::loginUser(const Models::LoginInfo& loginInfo)
     try
     {
         _pTable->changeTable("users");
+
         auto queryResult = _pTable->Select()->columns({"password_hash", "id"})
             ->Where("login='" + loginInfo._login + "'")->execute().value();
 
         auto adapter      = _pTable->getAdapter();
+
         auto insertResult = adapter->query("INSERT INTO users(login, pwdHash) VALUES (" 
             + loginInfo._login + "," + loginInfo._pwdHash);
 
@@ -490,11 +490,11 @@ std::uint64_t testLoginRepository::loginUser(const Models::LoginInfo& loginInfo)
             return 0;
         }
     }
-    catch (...)
+    catch (const std::exception& e)
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "User logged is implemented\n",
+            e.what(),
             Base::Logger::LogLevel::ERR
         );
 
@@ -505,10 +505,9 @@ std::uint64_t testLoginRepository::loginUser(const Models::LoginInfo& loginInfo)
 Utility::ChannelDeleteCode testChannelsRepository::deleteChannel(const Models::ChannelDeleteInfo& channel)
 {
     _pTable->changeTable("channels");
+
     auto findChannel = _pTable->Select()
-        ->columns({"creator_id, id"})
-        ->Where("channel_name = '" + channel._channelName + "'")
-        ->execute();
+        ->columns({"creator_id, id"})->Where("channel_name = '" + channel._channelName + "'")->execute();
 
     std::string testChannelName{"testServer"};
     std::any_cast<std::string>(channel._channelName) = testChannelName;
@@ -526,6 +525,7 @@ Utility::ChannelDeleteCode testChannelsRepository::deleteChannel(const Models::C
 
     auto creatorlID = findChannel.value()[0][0].as<uint64_t>();
     auto channelID  = findChannel.value()[0][1].as<uint64_t>();
+
     if (creatorlID != channel._creatorID)
     {
         Base::Logger::FileLogger::getInstance().log
@@ -539,6 +539,7 @@ Utility::ChannelDeleteCode testChannelsRepository::deleteChannel(const Models::C
     }
 
     _pTable->changeTable("channel_msgs");
+
     auto msgs = _pTable->Select()
         ->columns({"msg_id"})
         ->Where("channel_id = " + std::to_string(channelID))
@@ -548,7 +549,7 @@ Utility::ChannelDeleteCode testChannelsRepository::deleteChannel(const Models::C
            ->Where("channel_id = " + std::to_string(channelID))
            ->execute();
 
-    if (msgs.has_value())
+    if (msgs; msgs.has_value())
     {
         _pTable->changeTable("msgs");
         for (auto&& msg : msgs.value())
@@ -558,12 +559,13 @@ Utility::ChannelDeleteCode testChannelsRepository::deleteChannel(const Models::C
     }
 
     _pTable->changeTable("channels");
-    auto result = _pTable->Delete()
-                         ->Where("channel_name = '" + channel._channelName + "'")
-                         ->And("creator_id = " + std::to_string(channel._creatorID))
-                         ->execute();
 
-    if (result.has_value())
+    auto result = _pTable->Delete()
+                      ->Where("channel_name = '" + channel._channelName + "'")
+                      ->And("creator_id = " + std::to_string(channel._creatorID))
+                      ->execute();
+
+    if (result; result.has_value())
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -588,15 +590,15 @@ Utility::ChannelDeleteCode testChannelsRepository::deleteChannel(const Models::C
 Utility::ChannelCreateCodes testChannelsRepository::createChannel(const Models::ChannelInfo& channel)
 {
     _pTable->changeTable("channels");
+
     auto findChannel = _pTable->Select()
-        ->columns({"channel_name"})
-        ->Where("channel_name = '" + channel._channelName + "'")
-        ->execute();
+        ->columns({"channel_name"})->Where("channel_name = '" + channel._channelName + "'")->execute();
 
     std::string testChannelName{"testServer"};
     std::any_cast<std::string>(channel._channelName) = testChannelName;
 
     auto adapter      = _pTable->getAdapter();
+
     auto insertResult = adapter->query("INSERT INTO channels(channelName) VALUES (" + channel._channelName);
 
     if (findChannel.has_value() && findChannel.value()[0][0].as<std::string>() == channel._channelName)
@@ -618,9 +620,8 @@ Utility::ChannelCreateCodes testChannelsRepository::createChannel(const Models::
         std::pair{"user_limit", 1'000'000}
     };
 
-    auto result = _pTable->Insert()->columns(channelData)->execute();
-
-    if (result.has_value())
+    if (auto result = _pTable->Insert()->columns(channelData)->execute(); 
+        result.has_value())
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -632,20 +633,14 @@ Utility::ChannelCreateCodes testChannelsRepository::createChannel(const Models::
         return Utility::ChannelCreateCodes::FAILED;
     }
 
-    auto newChannel   = _pTable->Select()
-        ->columns({"id"})
-        ->Where("channel_name = '" 
-        + channel._channelName + "'")
-        ->execute();
+    auto newChannel = _pTable->Select()
+        ->columns({"id"})->Where("channel_name = '" + channel._channelName + "'")->execute();
 
     auto IDNewChannel = newChannel.value()[0][0].as<uint64_t>();
 
     std::tuple SubscribNewChannelData
     {
-        std::pair
-        {
-        "user_id", channel._creatorID},
-        std::pair{"channel_id", IDNewChannel}
+        std::pair{"user_id", channel._creatorID}, std::pair { "channel_id", IDNewChannel }
     };
 
     _pTable->changeTable("user_channels");
@@ -664,6 +659,7 @@ Utility::ChannelCreateCodes testChannelsRepository::createChannel(const Models::
 Utility::ChannelLeaveCodes testChannelsRepository::leaveChannel(const Models::ChannelLeaveInfo& channel)
 {
     _pTable->changeTable("channels");
+
     auto findIdChannel = _pTable->Select()
         ->columns({"id"})
         ->Where("channel_name = '" + channel._channelName + "'")
@@ -671,7 +667,7 @@ Utility::ChannelLeaveCodes testChannelsRepository::leaveChannel(const Models::Ch
 
     _pTable->changeTable("user_channels");
 
-    if (!findIdChannel.has_value())
+    if (findIdChannel; !findIdChannel.has_value())
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -681,20 +677,20 @@ Utility::ChannelLeaveCodes testChannelsRepository::leaveChannel(const Models::Ch
 
         return Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND;
     }
-    auto findChannel = _pTable->Select()
-                           ->columns({"*"})
-                           ->Where("user_id = " + std::to_string(channel._creatorID) + " AND " +
-                            "channel_id = " + std::to_string(findIdChannel.value()[0][0].as<std::uint64_t>()))
-                           ->execute();
 
-    if (findChannel.has_value())
+    if (auto findChannel = _pTable->Select()
+                               ->columns({"*"})
+                               ->Where("user_id = " + std::to_string(channel._creatorID) + " AND " +
+                                       "channel_id = " + std::to_string(findIdChannel.value()[0][0].as<std::uint64_t>()))
+                               ->execute();
+        findChannel.has_value())
     {
         auto result = _pTable->Delete()
                           ->Where("user_id = " + std::to_string(findChannel.value()[0][0].as<std::uint64_t>()) + " AND " +
                                   "channel_id = " + std::to_string(findChannel.value()[0][1].as<std::uint64_t>()))
                           ->execute();
 
-        if (result.has_value())
+        if (result; result.has_value())
         {
             Base::Logger::FileLogger::getInstance().log
             (
@@ -731,6 +727,7 @@ Utility::ChannelSubscribingCodes testChannelsRepository::subscribeToChannel(cons
 {
     _pTable->changeTable("user_channels");
     auto channel_id              = std::to_string(channel._channelID);
+
     auto listSubscriptionChannel = _pTable->Select()
                                        ->columns({"*"})
                                        ->Where("channel_id = " + channel_id)
@@ -739,7 +736,7 @@ Utility::ChannelSubscribingCodes testChannelsRepository::subscribeToChannel(cons
                                              ") < (SELECT user_limit FROM channels WHERE id=" + channel_id + ")")
                                        ->execute();
 
-    if (listSubscriptionChannel.has_value() && (listSubscriptionChannel.value()[0][0].as<std::uint64_t>() == channel._userID) &&
+    if (listSubscriptionChannel;listSubscriptionChannel.has_value() && (listSubscriptionChannel.value()[0][0].as<std::uint64_t>() == channel._userID) &&
             (listSubscriptionChannel.value()[0][1].as<std::uint64_t>() == channel._channelID))
     {
             Base::Logger::FileLogger::getInstance().log
@@ -758,7 +755,8 @@ Utility::ChannelSubscribingCodes testChannelsRepository::subscribeToChannel(cons
     };
 
     auto result = _pTable->Insert()->columns(userData)->execute();
-    if (result.has_value())
+
+    if (result; result.has_value())
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -789,11 +787,8 @@ std::optional<pqxx::result> testRepliesRepository::testInsertIDsIntoChannelRepli
     };
 
     _pTable->changeTable("channel_replies");
-    return _pTable
-        ->Insert()
-        ->columns(dataForChannelReplies)
-        ->returning({"channel_id"})
-        ->execute();
+
+    return _pTable->Insert()->columns(dataForChannelReplies)->returning({"channel_id"})->execute();
 }
 
 std::optional<pqxx::result> testRepliesRepository::testInsertReplyIntoRepliesTable(const Models::ReplyInfo& rsi)
@@ -808,10 +803,8 @@ std::optional<pqxx::result> testRepliesRepository::testInsertReplyIntoRepliesTab
     };
 
     _pTable->changeTable("replies");
-    return _pTable->Insert()
-        ->columns(dataForReplies)
-        ->returning({"msg_id_owner"})
-        ->execute();
+
+    return _pTable->Insert()->columns(dataForReplies)->returning({"msg_id_owner"})->execute();
 }
 
 std::optional<pqxx::result> testMessagesRepository::testInsertMessageIntoMessagesTable(const Models::MessageInfo& msi)
@@ -830,16 +823,15 @@ std::optional<pqxx::result> testMessagesRepository::testInsertIDsIntoChannelMess
 {
     std::tuple dataForChannelMsgs{std::pair{"channel_id", channelID}, std::pair{"msg_id", messageID}};
     _pTable->changeTable("channel_msgs");
+
     return _pTable->Insert()->columns(dataForChannelMsgs)->returning({"channel_id"})->execute();
 }
 
 std::optional<pqxx::result> testMessagesRepository::testInsertIDIntoMessageReactionsTable(const std::uint64_t messageID)
 {
     _pTable->changeTable("msg_reactions");
-    return _pTable->Insert()->columns
-    (std::pair {"msg_id", messageID})
-        ->returning({"msg_id"})
-        ->execute();
+
+    return _pTable->Insert()->columns(std::pair {"msg_id", messageID})->returning({"msg_id"})->execute();
 }
 
 Utility::DirectMessageStatus testDirectMessageRepository::addDirectChat(uint64_t userID, uint64_t receiverID)
@@ -873,7 +865,7 @@ Utility::DirectMessageStatus testDirectMessageRepository::addDirectChat(uint64_t
         + minUserId + ", " + maxUserId + "),'sha384'),'base64');"
     );
 
-    if (result.has_value())
+    if (result; result.has_value())
     {
         auto cId       = std::any_cast<pqxx::result>(result.value());
         auto channelId = std::to_string(cId[0][0].as<uint64_t>());

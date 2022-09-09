@@ -2,6 +2,7 @@
 
 #include <DataAccess/IAdapter.hpp>
 #include <DataAccess/IServerRepositories.hpp>
+
 #include "MockQuery.hpp"
 
 namespace MockRepository
@@ -35,7 +36,7 @@ struct testChannelsRepository final : IChannelRepository, MockAbstractRepository
     std::vector<uint64_t>             getChannelSubscriptionList(const uint64_t userID) override;
     std::vector<Models::ChannelInfo>  getAllChannelsList() override;
 
-    ~testChannelsRepository() = default;
+    ~testChannelsRepository() override = default;
 };
 
 struct testDirectMessageRepository final : IDirectMessageRepository, MockAbstractRepository
@@ -47,7 +48,7 @@ struct testDirectMessageRepository final : IDirectMessageRepository, MockAbstrac
 
     Utility::DirectMessageStatus addDirectChat(uint64_t userID, uint64_t receiverID) override;
 
-    ~testDirectMessageRepository() = default;
+    ~testDirectMessageRepository() override = default;
 };
 
 struct testLoginRepository final : ILoginRepository, MockAbstractRepository
@@ -59,7 +60,7 @@ struct testLoginRepository final : ILoginRepository, MockAbstractRepository
 
     std::uint64_t loginUser(const Models::LoginInfo& loginInfo) override;
 
-    ~testLoginRepository() = default;
+    ~testLoginRepository() override = default;
 };
 
 struct testMessagesRepository final : IMessagesRepository, MockAbstractRepository
@@ -75,7 +76,7 @@ struct testMessagesRepository final : IMessagesRepository, MockAbstractRepositor
     Utility::StoringMessageCodes      storeMessage(const Models::MessageInfo& messageInfo) override;
     std::vector<Models::MessageInfo>  getMessageHistory(const std::uint64_t channelID) override;
 
-    ~testMessagesRepository() = default;
+    ~testMessagesRepository() override = default;
 
 private:
     std::optional<pqxx::result> testInsertMessageIntoMessagesTable(const Models::MessageInfo& messageInfo);
@@ -92,7 +93,7 @@ struct testRegisterRepository final : IRegisterRepository, MockAbstractRepositor
 
     Utility::RegistrationCodes registerUser(const Models::RegistrationInfo& regInfo) override;
 
-    ~testRegisterRepository() = default;
+    ~testRegisterRepository() override = default;
 };
 
 struct testRepliesRepository final : IRepliesRepository, MockAbstractRepository
@@ -105,7 +106,7 @@ struct testRepliesRepository final : IRepliesRepository, MockAbstractRepository
     std::vector<Models::ReplyInfo> getReplyHistory(const std::uint64_t channelID) override;
     Utility::StoringReplyCodes     storeReply(const Models::ReplyInfo& replyInfo) override;
 
-    ~testRepliesRepository() = default;
+    ~testRepliesRepository() override = default;
 
 private:
     std::optional<pqxx::result> testInsertIDsIntoChannelRepliesTable(const std::uint64_t channelID, const std::uint64_t replyID) ;

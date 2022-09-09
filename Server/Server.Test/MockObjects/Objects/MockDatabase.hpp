@@ -41,7 +41,6 @@ public:
     explicit MockDatabase(const std::string_view& options) :
         _connection{std::make_unique<pqxx::connection>(pqxx::zview(options))} {}
 
-public:
     /**
     * @brief Method for executing SQL quries.
     * @details You shouldn't use this method because it's

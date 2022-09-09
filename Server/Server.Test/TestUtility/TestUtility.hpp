@@ -188,11 +188,21 @@ using RegistrationInfo = Models::RegistrationInfo;
 
             break;
         }
+        default:
+        {
+            Base::Logger::FileLogger::getInstance().log
+            (
+                "Unimplemented[" + std::to_string
+                (uint32_t(message.mHeader.mMessageType)) + "]",
+                Base::Logger::LogLevel::WARNING
+            );
+            break;
+        }
     }
     return message;
 }
 
-inline void testSendingMessages(Client& Client, const MessageType mesgType)
+inline void testSendingMessages(const Client& Client, const MessageType mesgType)
 {
     Message message;
     std::mutex scopedMutex;
