@@ -15,6 +15,21 @@ using Client           = MockClient::MockClient;
 using testServer       = Server::Server;
 using MessageType      = Message::MessageType;
 
+struct UserInfo
+{
+    UserInfo()          = default;
+    virtual ~UserInfo() = default;
+
+    const std::string& getUserLogin() const { return testLogin; }
+    const std::string& getUserEmail() const { return testEmail; }
+    const std::string& getUserPassword() const { return testPSWD; }
+
+private:
+    const std::string testEmail    = "demonstakingoverme@epam.co";
+    const std::string testLogin    = "memorisecodead";
+    const std::string testPSWD     = "12juniorgramMargroinuj";
+};
+
 inline Message& messageInstance(Message& message, MessageType messageType)
 {
 using LoginInfo        = Models::LoginInfo;
@@ -22,10 +37,12 @@ using ReplyInfo        = Models::ReplyInfo;
 using MessageInfo      = Models::MessageInfo;
 using RegistrationInfo = Models::RegistrationInfo;
 
-    const std::string testEmail    = "demonstakingoverme@epam.co";
-    const std::string testLogin    = "memorisecodead";
-    const std::string testPassword = "357c7b8b8a69d5728f5b7e3af3e5f3c6c1e097a7";
-    const std::string testPWDHash  = Base::Hashing::SHA_256(testPassword, testLogin);
+    UserInfo          userInfo;
+    const std::string testPWDHash     = Base::Hashing::SHA_256
+    (
+        userInfo.getUserPassword(), userInfo.getUserLogin()
+    );
+
     const std::string testChannelName = "testServer";
     const std::string testMessage     = "Hello, juniorgram!!";
 
@@ -42,7 +59,7 @@ using RegistrationInfo = Models::RegistrationInfo;
     {
         case Message::MessageType::RegistrationRequest:
         {
-            RegistrationInfo registrationInfo(testEmail, testLogin, testPWDHash);
+            RegistrationInfo registrationInfo(userInfo.getUserEmail(), userInfo.getUserLogin(), testPWDHash);
             message.mBody = std::make_any<RegistrationInfo>(registrationInfo);
 
             break;
@@ -50,7 +67,7 @@ using RegistrationInfo = Models::RegistrationInfo;
 
         case Message::MessageType::LoginRequest:
         {
-            LoginInfo loginInfo(testLogin, testPWDHash);
+            LoginInfo loginInfo(userInfo.getUserLogin(), testPWDHash);
             message.mBody = std::make_any<LoginInfo>(loginInfo);
 
             break;
