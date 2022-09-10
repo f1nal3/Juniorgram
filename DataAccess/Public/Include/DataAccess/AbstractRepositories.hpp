@@ -25,7 +25,7 @@ struct ChannelsRepository : IChannelsRepository, AbstractRepository<TResultType>
     std::vector<Models::ChannelInfo> getAllChannelsList() override
     {
         AbstractRepository<TResultType>::_pTable_->changeTable("channels");
-        auto channelListRow = _pTable->Select()->columns({"*"})->execute();
+        auto channelListRow = AbstractRepository<TResultType>::_pTable->Select()->columns({"*"})->execute();
 
         std::vector<Models::ChannelInfo> result;
         if (channelListRow.has_value())
@@ -46,9 +46,12 @@ struct ChannelsRepository : IChannelsRepository, AbstractRepository<TResultType>
 
     Utility::ChannelLeaveCodes leaveChannel(const Models::ChannelLeaveInfo& channel) override
     {
-        _pTable->changeTable("channels");
-        auto findIdChannel = _pTable->Select()->columns({"id"})->Where("channel_name = '" + channel._channelName + "'")->execute();
-        _pTable->changeTable("user_channels");
+        AbstractRepository<TResultType>::_pTable->changeTable("channels");
+        auto findIdChannel = AbstractRepository<TResultType>::_pTable->Select()
+                                 ->columns({"id"})
+                                 ->Where("channel_name = '" + channel._channelName + "'")
+                                 ->execute();
+        AbstractRepository<TResultType>::_pTable->changeTable("user_channels");
         if (!findIdChannel.has_value())
         {
             Base::Logger::FileLogger::getInstance().log("Leaving from channel failed because channel was not found\n ",
@@ -56,14 +59,14 @@ struct ChannelsRepository : IChannelsRepository, AbstractRepository<TResultType>
 
             return Utility::ChannelLeaveCodes::CHANNEL_NOT_FOUND;
         }
-        auto findChannel = _pTable->Select()
+        auto findChannel = AbstractRepository<TResultType>::_pTable->Select()
                                ->columns({"*"})
                                ->Where("user_id = " + std::to_string(channel._creatorID) + " AND " +
                                        "channel_id = " + std::to_string(findIdChannel.value()[0][0].as<std::uint64_t>()))
                                ->execute();
         if (findChannel.has_value())
         {
-            auto result = _pTable->Delete()
+            auto result = AbstractRepository<TResultType>::_pTable->Delete()
                               ->Where("user_id = " + std::to_string(findChannel.value()[0][0].as<std::uint64_t>()) + " AND " +
                                       "channel_id = " + std::to_string(findChannel.value()[0][1].as<std::uint64_t>()))
                               ->execute();
@@ -93,9 +96,9 @@ struct ChannelsRepository : IChannelsRepository, AbstractRepository<TResultType>
 
     Utility::ChannelSubscribingCodes subscribeToChannel(const Models::ChannelSubscriptionInfo& channel) override
     {
-        _pTable->changeTable("user_channels");
+        AbstractRepository<TResultType>::_pTable->changeTable("user_channels");
         auto channel_id              = std::to_string(channel._channelID);
-        auto listSubscriptionChannel = _pTable->Select()
+        auto listSubscriptionChannel = AbstractRepository<TResultType>::_pTable->Select()
                                            ->columns({"*"})
                                            ->Where("channel_id = " + channel_id)
                                            ->And("user_id = " + std::to_string(channel._userID))
@@ -117,7 +120,7 @@ struct ChannelsRepository : IChannelsRepository, AbstractRepository<TResultType>
         // Preparing data for inserting a signed channel.
         std::tuple userData{std::pair{"user_id", channel._userID}, std::pair{"channel_id", channel._channelID}};
 
-        auto result = _pTable->Insert()->columns(userData)->execute();
+        auto result = AbstractRepository<TResultType>::_pTable->Insert()->columns(userData)->execute();
         if (result.has_value())
         {
             Base::Logger::FileLogger::getInstance().log(
@@ -135,9 +138,12 @@ struct ChannelsRepository : IChannelsRepository, AbstractRepository<TResultType>
 
     std::vector<uint64_t> getChannelSubscriptionList(uint64_t userID) override
     {
-        _pTable->changeTable("user_channels");
+        AbstractRepository<TResultType>::_pTable->changeTable("user_channels");
         /// T\todo add limit check
-        auto listSubscriptionChannel = _pTable->Select()->columns({"channel_id"})->Where("user_id = " + std::to_string(userID))->execute();
+        auto listSubscriptionChannel = AbstractRepository<TResultType>::_pTable->Select()
+                                           ->columns({"channel_id"})
+                                           ->Where("user_id = " + std::to_string(userID))
+                                           ->execute();
 
         std::vector<uint64_t> result;
         if (listSubscriptionChannel.has_value())
@@ -159,9 +165,11 @@ struct ChannelsRepository : IChannelsRepository, AbstractRepository<TResultType>
 
     Utility::ChannelDeleteCode deleteChannel(const Models::ChannelDeleteInfo& channel) override
     {
-        _pTable->changeTable("channels");
-        auto findChannel =
-            _pTable->Select()->columns({"creator_id, id"})->Where("channel_name = '" + channel._channelName + "'")->execute();
+        AbstractRepository<TResultType>::_pTable->changeTable("channels");
+        auto findChannel = AbstractRepository<TResultType>::_pTable->Select()
+                               ->columns({"creator_id, id"})
+                               ->Where("channel_name = '" + channel._channelName + "'")
+                               ->execute();
         if (!findChannel.has_value())
         {
             Base::Logger::FileLogger::getInstance().log("Deleting channel failed because channel was not found\n ",
@@ -181,21 +189,26 @@ struct ChannelsRepository : IChannelsRepository, AbstractRepository<TResultType>
             return Utility::ChannelDeleteCode::CHANNEL_IS_NOT_USER;
         }
 
-        _pTable->changeTable("channel_msgs");
-        auto msgs = _pTable->Select()->columns({"msg_id"})->Where("channel_id = " + std::to_string(channelID))->execute();
+        AbstractRepository<TResultType>::_pTable->changeTable("channel_msgs");
+        auto msgs = AbstractRepository<TResultType>::_pTable->Select()
+                        ->columns({"msg_id"})
+                        ->Where("channel_id = " + std::to_string(channelID))
+                        ->execute();
 
         _pTable->Delete()->Where("channel_id = " + std::to_string(channelID))->execute();
         if (msgs.has_value())
         {
-            _pTable->changeTable("msgs");
+            AbstractRepository<TResultType>::_pTable->changeTable("msgs");
             for (auto&& msg : msgs.value())
             {
-                _pTable->Delete()->Where("msg_id = " + std::to_string(msg[0].as<std::uint64_t>()))->execute();
+                AbstractRepository<TResultType>::_pTable->Delete()
+                    ->Where("msg_id = " + std::to_string(msg[0].as<std::uint64_t>()))
+                    ->execute();
             }
         }
 
-        _pTable->changeTable("channels");
-        auto result = _pTable->Delete()
+        AbstractRepository<TResultType>::_pTable->changeTable("channels");
+        auto result = AbstractRepository<TResultType>::_pTable->Delete()
                           ->Where("channel_name = '" + channel._channelName + "'")
                           ->And("creator_id = " + std::to_string(channel._creatorID))
                           ->execute();
@@ -215,8 +228,11 @@ struct ChannelsRepository : IChannelsRepository, AbstractRepository<TResultType>
 
     Utility::ChannelCreateCodes createChannel(const Models::ChannelInfo& channel) override
     {
-        _pTable->changeTable("channels");
-        auto findChannel = _pTable->Select()->columns({"channel_name"})->Where("channel_name = '" + channel._channelName + "'")->execute();
+        AbstractRepository<TResultType>::_pTable->changeTable("channels");
+        auto findChannel = AbstractRepository<TResultType>::_pTable->Select()
+                               ->columns({"channel_name"})
+                               ->Where("channel_name = '" + channel._channelName + "'")
+                               ->execute();
         if (findChannel.has_value())
         {
             if (findChannel.value()[0][0].as<std::string>() == channel._channelName)
@@ -231,7 +247,7 @@ struct ChannelsRepository : IChannelsRepository, AbstractRepository<TResultType>
         std::tuple channelData{std::pair{"channel_name", channel._channelName}, std::pair{"creator_id", channel._creatorID},
                                std::pair{"user_limit", 1'000'000}};
 
-        auto result = _pTable->Insert()->columns(channelData)->execute();
+        auto result = AbstractRepository<TResultType>::_pTable->Insert()->columns(channelData)->execute();
 
         if (result.has_value())
         {
@@ -262,8 +278,8 @@ struct DirectMessageRepository: IDirectMessageRepository, AbstractRepository<TRe
             return Utility::DirectMessageStatus::FAILED;
         }
 
-        _pTable->changeTable("channels");
-        auto adapter   = _pTable->getAdapter();
+        AbstractRepository<TResultType>::_pTable->changeTable("channels");
+        auto adapter   = AbstractRepository<TResultType>::_pTable->getAdapter();
         auto minUserId = std::to_string(std::min(user_id, receiverID));
         auto maxUserId = std::to_string(std::max(user_id, receiverID));
 
@@ -307,9 +323,12 @@ struct LoginRepository : ILoginRepository, AbstractRepository<TResultType>
     {
         try
         {
-            _pTable->changeTable("users");
-            auto queryResult =
-                _pTable->Select()->columns({"password_hash", "id"})->Where("login='" + loginInfo._login + "'")->execute().value();
+            AbstractRepository<TResultType>::_pTable->changeTable("users");
+            auto queryResult = AbstractRepository<TResultType>::_pTable->Select()
+                                   ->columns({"password_hash", "id"})
+                                   ->Where("login='" + loginInfo._login + "'")
+                                   ->execute()
+                                   .value();
 
             if (std::string(queryResult[0][0].c_str()) == loginInfo._pwdHash)
             {
@@ -346,8 +365,8 @@ struct MessagesRepository: IMessagesRepository, AbstractRepository<TResultType>
     {
         std::vector<Models::MessageInfo> result;
 
-        _pTable->changeTable("msgs");
-        auto messageHistoryRow = _pTable->Select()
+        AbstractRepository<TResultType>::_pTable->changeTable("msgs");
+        auto messageHistoryRow = AbstractRepository<TResultType>::_pTable->Select()
                                      ->columns({"msgs.msg_id, msgs.sender_id, extract(epoch from msgs.send_time) * 1000, msgs.msg, "
                                                 "users.login, users.id, "
                                                 "coalesce(array_length(msg_reactions.likes, 1), 0), "
@@ -430,11 +449,16 @@ struct MessagesRepository: IMessagesRepository, AbstractRepository<TResultType>
 
     Utility::DeletingMessageCodes    deleteMessage(const Models::MessageInfo& messageInfo) override
     {
-        _pTable->changeTable("msgs");
-        _pTable->Delete()->Where("msg_id=" + std::to_string(messageInfo._msgID))->Or("msg='" + messageInfo._message + "'")->execute();
+        AbstractRepository<TResultType>::_pTable->changeTable("msgs");
+        AbstractRepository<TResultType>::_pTable->Delete()
+            ->Where("msg_id=" + std::to_string(messageInfo._msgID))
+            ->Or("msg='" + messageInfo._message + "'")
+            ->execute();
 
-        auto messagesAmountResult =
-            _pTable->Select()->columns({"COUNT(*)"})->Where("msg_id=" + std::to_string(messageInfo._msgID))->execute();
+        auto messagesAmountResult = AbstractRepository<TResultType>::_pTable->Select()
+                                        ->columns({"COUNT(*)"})
+                                        ->Where("msg_id=" + std::to_string(messageInfo._msgID))
+                                        ->execute();
 
         if (messagesAmountResult.value()[0][0].as<std::uint64_t>() == 0)
         {
@@ -449,8 +473,8 @@ struct MessagesRepository: IMessagesRepository, AbstractRepository<TResultType>
 
     Utility::EditingMessageCodes     editMessage(const Models::MessageInfo& messageInfo) override
     {
-        _pTable->changeTable("msgs");
-        auto isPresentInTable = _pTable->Select()
+        AbstractRepository<TResultType>::_pTable->changeTable("msgs");
+        auto isPresentInTable = AbstractRepository<TResultType>::_pTable->Select()
                                     ->columns({"*"})
                                     ->Where("msg_id=" + std::to_string(messageInfo._msgID))
                                     ->And("sender_id=" + std::to_string(messageInfo._senderID))
@@ -464,7 +488,10 @@ struct MessagesRepository: IMessagesRepository, AbstractRepository<TResultType>
             return Utility::EditingMessageCodes::FAILED;
         }
 
-        _pTable->Update()->fields(std::pair{"msg", messageInfo._message})->Where("msg_id=" + std::to_string(messageInfo._msgID))->execute();
+        AbstractRepository<TResultType>::_pTable->Update()
+            ->fields(std::pair{"msg", messageInfo._message})
+            ->Where("msg_id=" + std::to_string(messageInfo._msgID))
+            ->execute();
 
         Base::Logger::FileLogger::getInstance().log(
             "[channel id: " + std::to_string(messageInfo._channelID) + ']' + " Editing message was successful\n",
@@ -504,10 +531,10 @@ struct MessagesRepository: IMessagesRepository, AbstractRepository<TResultType>
             return ReactionMessageCodes::FAILED;
         }
 
-        auto adapter = _pTable->getAdapter();
+        auto adapter = AbstractRepository<TResultType>::_pTable->getAdapter();
 
-        _pTable->changeTable("msg_reactions");
-        std::optional<pqxx::result> userQueryResult = _pTable->Select()
+        AbstractRepository<TResultType>::_pTable->changeTable("msg_reactions");
+        std::optional<TResultType> userQueryResult = AbstractRepository<TResultType>::_pTable->Select()
                                                           ->columns({"*"})
                                                           ->Where("msg_id=" + std::to_string(messageInfo._msgID))
                                                           ->And(std::to_string(messageInfo._senderID) + " = ANY(" + reactionName + ");")
@@ -534,7 +561,7 @@ struct MessagesRepository: IMessagesRepository, AbstractRepository<TResultType>
 private:
     std::optional<TResultType> insertMessageIntoMessagesTable(const Models::MessageInfo& messageInfo)
     {
-        auto adapter = _pTable->getAdapter();
+        auto adapter = AbstractRepository<TResultType>::_pTable->getAdapter();
 
         auto result = adapter->query("INSERT INTO msgs(sender_id, send_time, msg) VALUES (" + std::to_string(messageInfo._senderID) +
                                      ", to_timestamp(" + std::to_string(messageInfo._time) + " / 1000.0) AT TIME ZONE 'utc', " +
@@ -546,14 +573,17 @@ private:
     std::optional<TResultType> insertIDsIntoChannelMessagesTable(const std::uint64_t channelID, const std::uint64_t messageID) 
     {
         std::tuple dataForChannelMsgs{std::pair{"channel_id", channelID}, std::pair{"msg_id", messageID}};
-        _pTable->changeTable("channel_msgs");
-        return _pTable->Insert()->columns(dataForChannelMsgs)->returning({"channel_id"})->execute();
+        AbstractRepository<TResultType>::_pTable->changeTable("channel_msgs");
+        return AbstractRepository<TResultType>::_pTable->Insert()->columns(dataForChannelMsgs)->returning({"channel_id"})->execute();
     }
 
     std::optional<TResultType> insertIDIntoMessageReactionsTable(const std::uint64_t messageID)
     {
-        _pTable->changeTable("msg_reactions");
-        return _pTable->Insert()->columns(std::pair{"msg_id", messageID})->returning({"msg_id"})->execute();
+        AbstractRepository<TResultType>::_pTable->changeTable("msg_reactions");
+        return AbstractRepository<TResultType>::_pTable->Insert()
+            ->columns(std::pair{"msg_id", messageID})
+            ->returning({"msg_id"})
+            ->execute();
     }
 };
 
@@ -590,8 +620,8 @@ struct RegisterRepository: IRegisterRepository, AbstractRepository<TResultType>
                             std::pair{"password_hash", regInfo._passwordHash}};
 
         // Insert new user.
-        _pTable->changeTable("users");
-        _pTable->Insert()->columns(userData)->execute();
+        AbstractRepository<TResultType>::_pTable->changeTable("users");
+        AbstractRepository<TResultType>::_pTable->Insert()->columns(userData)->execute();
 
         Base::Logger::FileLogger::getInstance().log("User successfully registered\n", Base::Logger::LogLevel::INFO);
 
@@ -613,9 +643,9 @@ struct RepliesRepository: IRepliesRepository, AbstractRepository<TResultType>
     {
         std::vector<Models::ReplyInfo> result;
 
-        _pTable->changeTable("replies");
+        AbstractRepository<TResultType>::_pTable->changeTable("replies");
         auto replyHistoryRow =
-            _pTable->Select()
+            AbstractRepository<TResultType>::_pTable->Select()
                 ->columns({"replies.sender_id, replies.msg_id_owner, replies.msg_id_ref, replies.msg, users.login, users.id"})
                 ->join(Utility::SQLJoinType::J_INNER, "channel_replies", "channel_replies.msg_id_owner = replies.msg_id_owner")
                 ->join(Utility::SQLJoinType::J_INNER, "users", "users.id = replies.sender_id")
@@ -675,21 +705,21 @@ private:
     {
         std::tuple dataForChannelReplies{std::pair{"channel_id", channelID}, std::pair{"msg_id_owner", replyID}};
 
-        _pTable->changeTable("channel_replies");
-        return _pTable->Insert()->columns(dataForChannelReplies)->returning({"channel_id"})->execute();
+        AbstractRepository<TResultType>::_pTable->changeTable("channel_replies");
+        return AbstractRepository<TResultType>::_pTable->Insert()->columns(dataForChannelReplies)->returning({"channel_id"})->execute();
     }
 
     std::optional<TResultType> insertReplyIntoRepliesTable(const Models::ReplyInfo& replyInfo) 
     {
-        _pTable->changeTable("msgs");
-        auto lastMsgID = _pTable->Select()->columns({"MAX(msg_id)"})->execute();
+        AbstractRepository<TResultType>::_pTable->changeTable("msgs");
+        auto lastMsgID = AbstractRepository<TResultType>::_pTable->Select()->columns({"MAX(msg_id)"})->execute();
 
         std::tuple dataForReplies{std::pair{"sender_id", replyInfo._senderID},
                                   std::pair{"msg_id_owner", lastMsgID.value()[0][0].as<std::uint64_t>()},
                                   std::pair{"msg_id_ref", replyInfo._msgID}, std::pair{"msg", replyInfo._message}};
 
-        _pTable->changeTable("replies");
-        return _pTable->Insert()->columns(dataForReplies)->returning({"msg_id_owner"})->execute();
+        AbstractRepository<TResultType>::_pTable->changeTable("replies");
+        return AbstractRepository<TResultType>::_pTable->Insert()->columns(dataForReplies)->returning({"msg_id_owner"})->execute();
     }
 };
 }  // namespace DataAccess
