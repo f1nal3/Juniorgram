@@ -24,7 +24,7 @@ struct ChannelsRepository : IChannelsRepository, AbstractRepository<TResultType>
 
     std::vector<Models::ChannelInfo> getAllChannelsList() override
     {
-        AbstractRepository<TResultType>::_pTable_->changeTable("channels");
+        AbstractRepository<TResultType>::_pTable->changeTable("channels");
         auto channelListRow = AbstractRepository<TResultType>::_pTable->Select()->columns({"*"})->execute();
 
         std::vector<Models::ChannelInfo> result;
