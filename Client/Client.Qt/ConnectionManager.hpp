@@ -61,6 +61,8 @@ signals:
     void onChannelSubscriptionListAnswer(const std::vector<uint64_t> channelSubscriptionList);
     /// Channel delete Answer handler
     void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
+    /// Channel edit Answer handler
+    void onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const;
     /// Channel create Answer handler
     void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
     /// Direct message create Answer handler
@@ -124,6 +126,8 @@ protected:
     void onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList) override;
     /// Channel delete Answer handler
     void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode) override;
+    /// Channel edit Answer handler
+    void onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const override;
     /// Channel create Answer handler
     void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode) override;
     /// Direct message create Answer handler
