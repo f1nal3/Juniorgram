@@ -119,6 +119,9 @@ signals:
     /**
     * @brief Channel create Answer handler.
     */
+    /// Channel edit Answer handler
+    void onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const;
+    /// Channel create Answer handler
     void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
 
     /**
@@ -240,6 +243,7 @@ protected:
     * @brief Channel delete Answer handler.
     */
     void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode) override;
+    void onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const override;
 
     /**
     * @brief Channel create Answer handler.

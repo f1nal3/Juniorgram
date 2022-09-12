@@ -253,6 +253,11 @@ protected:
     * @brief Channel delete Answer handler.
     */
     virtual void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
+
+    /**
+    * @brief Channel edit Answer handler.
+    */ 
+    virtual void onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const;
  
     /**
     * @brief Channel create Answer handler.

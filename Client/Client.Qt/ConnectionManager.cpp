@@ -202,6 +202,20 @@ void ConnectionManager::onChannelDeleteAnswer(Utility::ChannelDeleteCode channel
     emit ReceiverManager::instance()->onChannelDeleteAnswer(channelDeleteCode);
 }
 
+void ConnectionManager::onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const
+{
+    if (reactionState == Utility::EditingMessageCodes::SUCCESS)
+    {
+        Base::Logger::FileLogger::getInstance().log("Success editing", Base::Logger::LogLevel::INFO);
+    }
+    else
+    {
+        Base::Logger::FileLogger::getInstance().log("Failed editing", Base::Logger::LogLevel::ERR);
+    }
+    qRegisterMetaType<Utility::EditingMessageCodes>("Utility::EditingMessageCodes");
+    emit ReceiverManager::instance()->onEditMessageAnswer(reactionState);
+}
+
 void ConnectionManager::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode)
 {
     if (channelCreateCode == Utility::ChannelCreateCodes::SUCCESS)

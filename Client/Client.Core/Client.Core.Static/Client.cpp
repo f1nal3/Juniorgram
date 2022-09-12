@@ -536,6 +536,12 @@ void Client::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode)
     Base::Logger::FileLogger::getInstance().log("Delete channel answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
+void Client::onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const
+{
+    (void)(reactionState);
+    Base::Logger::FileLogger::getInstance().log("Editing message answer is not implemented", Base::Logger::LogLevel::WARNING);
+}
+
 void Client::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode)
 {
     (void)(channelCreateCode);
