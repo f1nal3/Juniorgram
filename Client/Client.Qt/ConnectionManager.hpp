@@ -117,11 +117,13 @@ signals:
     void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
  
     /**
+    * @brief Message edit Answer handler.
+    */
+    void onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const;
+
+    /**
     * @brief Channel create Answer handler.
     */
-    /// Channel edit Answer handler
-    void onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const;
-    /// Channel create Answer handler
     void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
 
     /**
@@ -243,6 +245,10 @@ protected:
     * @brief Channel delete Answer handler.
     */
     void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode) override;
+
+    /*
+    * @brief Message edit Answer handler.
+    */
     void onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const override;
 
     /**
