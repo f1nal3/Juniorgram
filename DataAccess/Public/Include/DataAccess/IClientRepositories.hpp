@@ -9,8 +9,10 @@ struct MessageInfo;
     /**
     * @class IMessageRepository
     * @brief Client message repository
-    * @details Contains methods for client side for
-    *  message management
+    * @details Contains methods for client side for message management.
+    * This class is used for message handling on client side. Class determines
+    * functions, which client can execute. Implementation of methods for each
+    * type of database is individual.
     */
 class IMessageRepository : public IMasterRepository
 {

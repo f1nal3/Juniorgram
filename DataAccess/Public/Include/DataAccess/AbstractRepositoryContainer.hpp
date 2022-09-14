@@ -14,9 +14,11 @@ namespace DataAccess
 {
 /* @class AbstractRepositoryContainer
  * @brief An abstract class for server and client global repositories.
- * @details Consists of adapter to chosen database, and map of  registered repositories.
- *  This class used for registration and getting registered repositories,
- *  determined by further inheritance
+ * @details Consists of adapter to chosen database, and map of registered repositories.
+ * This class provide registration of repositories, and getting them. Requirement for repository registration:
+ * interface for your repository is exists (e.g. you have LoginRepository that inherit its interface - ILoginRepository,
+ * so you can register LoginRepository). You can get the repository by specifying its interface
+ * (e.g. getRepository<ILoginRepository>()).
  */
 class AbstractRepositoryContainer
 {

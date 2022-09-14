@@ -10,8 +10,9 @@ namespace DataAccess
     /**
     * @class IAdapter
     * @brief An abstract class manages the connection to database
-    * @details Class manages the connection to database, stores options,
-    *  which are used for connecting to database,
+    * @details Class allows connect to database and disconnect from it,
+    * can return options, which are used for connecting to database.
+    * Every database have its own adapter, which is implementation of IAdapter.
     */
 class IAdapter
 {
@@ -30,6 +31,10 @@ public:
     template <typename T>
     static std::shared_ptr<T> getInstance(const std::string_view& options = {}) { return T::Instance(options); }
 
+    /**
+    * @brief Method for executing SQL queries.
+    * @details For more details, see PostgreAdapter.hpp
+    */
     virtual std::optional<std::any> query(const std::string_view& query) = 0;
 
     virtual bool isConnected(void) const = 0;

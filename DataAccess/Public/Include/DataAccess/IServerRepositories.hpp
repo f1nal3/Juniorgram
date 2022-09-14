@@ -12,7 +12,9 @@ namespace DataAccess
 {
 /**
 * @class IMessagesRepository
-* @brief Implements message processing
+* @brief Implements message processing on server side.
+* @Class include methods for working with messages from database
+* (e.g. adding, deleting, editing, getting messages)
 */
 struct IMessagesRepository : IMasterRepository
 {

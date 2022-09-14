@@ -17,10 +17,10 @@ class QueryBuilder;
 /**
 * @class SQLWhereCondition
 * @brief SQLWhereCondition class.
-* @details This class is a secondary. It needs for \
-* SQLSelect, SQLUpdate and SQLDelete. \
+* @details This class is a secondary. It needs for
+* SQLSelect, SQLUpdate and SQLDelete.
 * This class using for 'where' condition from SQL
-* @warning You shouldn't use it itself. Only from QueryCreator class.
+* @warning You shouldn't use it itself. Only from QueryBuilder class.
 */
 template <class T>
 class SQLWhereCondition
