@@ -13,7 +13,7 @@ void ConnectionManager::init()
 {
     Settings::getInstance().beginGroup("ConnectionSettings");
     std::string host = Settings::getInstance().value("address").toString().toStdString();
-    auto port = Settings::getInstance().value("port").toInt();
+    int port = Settings::getInstance().value("port").toInt();
     Settings::getInstance().endGroup();
 
     connectToServer

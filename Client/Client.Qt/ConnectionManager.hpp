@@ -8,7 +8,9 @@
 
 /**
 * @class enum class LoginState.
-* @brief LoginState class for gives condition.
+* @brief The LoginState class for getting \ 
+*        the authorization status of the user. \
+*        (Used in Client.Qt).
 */
 enum class LoginState
 {
@@ -149,9 +151,11 @@ class ConnectionManager : public Network::Client
 public:
     ConnectionManager();
 
-    /// \todo should be in Client Core
+    /// T\todo should be in client core
     /**
-    * @brief LoginState class for gives condition.
+    * @brief The LoginState class for getting \
+    *        the authorization status of the user. \
+    *        (Used in Client.Qt).
     */
     inline static LoginState loginState;
 
