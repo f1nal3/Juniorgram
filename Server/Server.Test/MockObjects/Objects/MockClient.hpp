@@ -111,7 +111,7 @@ protected:
     /**
     * @brief Method for signaling of channel subscription list answer.
     */
-    void onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList) override;
+    void onChannelSubscribingListAnswer(const std::vector<uint64_t>& subscribingChannelList) const /*override*/;
 
     /**
     * @brief Method for signaling of channel delete answer.

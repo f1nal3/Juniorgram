@@ -18,7 +18,7 @@ using MessageType      = Message::MessageType;
 struct UserInfo
 {
     UserInfo()          = default;
-    virtual ~UserInfo() = default;
+    ~UserInfo() = default;
 
     const std::string& getUserLogin() const { return testLogin; }
     const std::string& getUserEmail() const { return testEmail; }
@@ -30,7 +30,7 @@ private:
     const std::string testPSWD     = "12juniorgramMargroinuj";
 };
 
-inline Message& messageInstance(Message& message, MessageType messageType)
+inline Message& messageInstance(Message& message, MessageType messageType) noexcept
 {
 using LoginInfo        = Models::LoginInfo;
 using ReplyInfo        = Models::ReplyInfo;
@@ -202,7 +202,7 @@ using RegistrationInfo = Models::RegistrationInfo;
     return message;
 }
 
-inline void testSendingMessages(const Client& Client, const MessageType mesgType)
+inline void testSendingMessages(const Client& Client, const MessageType mesgType) noexcept
 {
     Message message;
     std::mutex scopedMutex;
@@ -213,13 +213,13 @@ inline void testSendingMessages(const Client& Client, const MessageType mesgType
     Client.send(message);
 }
 
-inline testServer& testServerUpdating(testServer& serverTest)
+inline testServer& testServerUpdating(testServer& serverTest) noexcept
 {
     unsigned int countOfUpdate        = 0;
     unsigned int iterationOfServer    = 1;
-    bool         serverWorkflow       = true;
+    bool         isConnected          = true;
 
-    while (serverWorkflow)
+    while (isConnected)
     {
         ++countOfUpdate;
         if (countOfUpdate > iterationOfServer)
@@ -233,7 +233,7 @@ inline testServer& testServerUpdating(testServer& serverTest)
     return serverTest;
 }
 
-inline decltype(auto) bindOfSendingMessage(Client& Client, MessageType mesgType)
+inline decltype(auto) bindOfSendingMessage(Client& Client, MessageType mesgType) noexcept
 {
     auto sendingMessage = std::bind
     (
@@ -244,7 +244,7 @@ inline decltype(auto) bindOfSendingMessage(Client& Client, MessageType mesgType)
    return sendingMessage(Client,mesgType);
 }
 
-inline auto bindOfConnectToServer(Client& Client)
+inline auto bindOfConnectToServer(Client& Client) noexcept
 {
     using namespace ServerInfo;
     auto connectToServer = std::bind

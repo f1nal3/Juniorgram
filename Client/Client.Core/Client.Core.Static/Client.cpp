@@ -538,7 +538,7 @@ void Client::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode)
 
 void Client::onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const
 {
-    (void)(reactionState); 
+    (void)(reactionState);
     Base::Logger::FileLogger::getInstance().log("Editing message answer is not implemented", Base::Logger::LogLevel::WARNING);
 }
 
