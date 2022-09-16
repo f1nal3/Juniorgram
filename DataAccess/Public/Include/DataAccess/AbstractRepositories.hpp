@@ -33,8 +33,8 @@ struct ChannelsRepository : IChannelsRepository, AbstractRepository<TResultType>
             Models::ChannelInfo channelInfo;
             for (auto&& value : channelListRow.value())
             {
-                channelInfo._channelID   = value[0].as<std::uint64_t>();
-                channelInfo._channelName = value[1].as<std::string>();
+                channelInfo._channelID   = value[0].get<uint64_t>().value();
+                channelInfo._channelName = value[1].as<std::uint64_t>();
                 channelInfo._creatorID   = value[2].as<std::uint64_t>();
                 result.push_back(channelInfo);
             }
