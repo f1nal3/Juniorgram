@@ -221,9 +221,3 @@ void FileLogger::debug(const std::string& message)
 {
     log(message, LogLevel::DEBUG);
 }
-
-void FileLogger::logAndThrow(const char* filename, std::uint16_t line, std::exception* exception, LogLevel severity)
-{
-    log('"' + std::string(exception->what()) + "\" on line " + std::to_string(line) + " in the file " + filename, severity);
-    throw exception;
-}

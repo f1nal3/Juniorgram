@@ -55,7 +55,7 @@ TEST_CASE("Checking the corresponding lvl log")
     SECTION("Create log file")
     {
         FileLogger& loger = FileLogger::getInstance();
-        loger.log("Test: creat new log", LogLevel::DEBUG);
+        loger.log("Test: create new log", LogLevel::DEBUG);
         pauseForRecording();
     }
 
@@ -68,7 +68,7 @@ TEST_CASE("Log in debug creates log file")
     {
         {
             FileLogger& loger = FileLogger::getInstance();
-            loger.log("Test: creat new log", LogLevel::DEBUG);
+            loger.log("Test: create new log", LogLevel::DEBUG);
             pauseForRecording();
         }
     }
@@ -99,7 +99,7 @@ TEST_CASE("Checking the number of log files in a directory")
     {
         FileLogger& log = FileLogger::getInstance();
         log.init("Test-", LogOutput::EVERYWHERE);
-        log.log("Test: creat new log", LogLevel::DEBUG);
+        log.log("Test: create new log", LogLevel::DEBUG);
         pauseForRecording();
     }
 
@@ -135,7 +135,7 @@ TEST_CASE("Logging and throw exception method")
     std::exception* someException;
 
 #ifdef _WIN32
-    someException = new std::exception("Something wrong in std::exception");
+    someException = new std::exception("Test std::exception");
 #else // bacause std::exception has no _Data for std::exception.what() in GCC and CLANG
     class MyTestException : public std::exception
     {
@@ -149,17 +149,20 @@ TEST_CASE("Logging and throw exception method")
         std::string _msg{""};
     };
 
-    someException = new MyTestException("Something wrong in MyTestException");
+    someException = new MyTestException("Test MyTestException (not WIN32 compilers)");
 #endif
-
-    REQUIRE_THROWS(testLogger.logAndThrow(filename, 136, someException));
+    
+    //REQUIRE_THROWS(testLogger.logAndThrow(filename, 136, *someException));
+    REQUIRE_THROWS(testLogger.logAndThrowShort(*someException));
     delete someException;
     
-    someException = new Utility::NotImplementedException( "Something wrong in Utility::NotImplementedException", filename, 140);
-    REQUIRE_THROWS(testLogger.logAndThrow(filename, 141, someException));
+    someException = new Utility::NotImplementedException("Test Utility::NotImplementedException", filename, 140);
+    //REQUIRE_THROWS(testLogger.logAndThrow(filename, 141, *someException));
+    REQUIRE_THROWS(testLogger.logAndThrowShort(*someException));
     delete someException;
     
-    someException = new Utility::OperationDBException("Something wrong in Utility::OperationDBException", filename, 144);
-    REQUIRE_THROWS(testLogger.logAndThrow(filename, 145, someException));
+    someException = new Utility::OperationDBException("Test Utility::OperationDBException", filename, 144);
+    //REQUIRE_THROWS(testLogger.logAndThrow(filename, 145, *someException));
+    REQUIRE_THROWS(testLogger.logAndThrowShort(*someException));
     delete someException;
  }

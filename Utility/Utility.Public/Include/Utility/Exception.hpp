@@ -13,7 +13,7 @@ inline std::string formatExceptionMessage(const std::string& msg, const std::str
 {
     std::stringstream ss;
 
-    ss << msg << "\n in file: " << file << "\n on the line: " << line << std::endl;
+    ss << msg << " in file: " << file << " on the line: " << line << std::endl;
 
     return ss.str();
 }

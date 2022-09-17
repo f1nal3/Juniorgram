@@ -98,10 +98,26 @@ public:
      * @brief Method used to say some information and to throw an exception
      * @param const char* -> name of file where the event took place
      * @param std::uint16_t -> line of the file where event took place
-     * @param std::exception* -> polymorphic exception object
+     * @param T -> std::exception based object to next throw
      * @param LogLevel - level of message
      */
-    void logAndThrow(const char* filename, std::uint16_t line, std::exception* exception, LogLevel severity = LogLevel::DEBUG);
+    template <class T>
+    typename std::enable_if<std::is_base_of<std::exception, T>::value, void>::type
+    logAndThrow(const char* filename, std::uint16_t line, const T& exception, LogLevel severity = LogLevel::DEBUG)
+    {
+        log('"' + std::string(exception.what()) + "\" on line " + std::to_string(line) + " in the file " + filename, severity);
+        throw exception;
+    }
+
+    /**
+     * @brief Alias specified method to FileLogger::logAndThrow
+     * @param T -> std::exception based object to next throw
+     */
+    template<typename T>
+    auto logAndThrowShort(const T& arg)
+    {
+        logAndThrow<T>(__FILE__, __LINE__, arg);
+    }
 
 private:
     FileLogger();
