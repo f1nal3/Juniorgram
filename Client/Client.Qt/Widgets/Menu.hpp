@@ -1,7 +1,7 @@
 #pragma once
-#include <memory>
+#include<memory>
+#include "ReactionLayout.hpp"
 
-#include "MenuItem.hpp"
 
 /**
  * @class Menu

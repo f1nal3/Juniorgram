@@ -24,18 +24,18 @@ TitleWidget::TitleWidget(QWidget* parent, const Style::TitleBar& st) : QWidget(p
 
     _maximizeButton->setClickCallback([parent, this]() {
         if (parent->isMaximized())
-            this->window()->setWindowState(Qt::WindowNoState);
+            window()->setWindowState(Qt::WindowNoState);
         else
-            this->window()->setWindowState(Qt::WindowMaximized);
-        this->_maximizeButton->clearState();
+            window()->setWindowState(Qt::WindowMaximized);
+        _maximizeButton->clearState();
     });
     _closeButton->setClickCallback([parent, this]() {
         parent->deleteLater();
-        this->_closeButton->clearState();
+        _closeButton->clearState();
     });
     _minimizeButton->setClickCallback([parent, this]() {
         parent->showMinimized();
-        this->_minimizeButton->clearState();
+        _minimizeButton->clearState();
     });
     setMinimumWidth(_minimizeButton->width() + _maximizeButton->width() + _closeButton->width() + _bioButton->width());
 }

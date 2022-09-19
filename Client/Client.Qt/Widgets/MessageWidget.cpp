@@ -3,7 +3,6 @@
 #include <QDebug>
 #include <QPainter>
 #include <QtEvents>
-#include <utility>
 
 #include "Application.hpp"
 #include "NotificationWidget.hpp"

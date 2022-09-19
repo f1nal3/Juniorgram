@@ -1,9 +1,7 @@
 #pragma once
 #include <QDateTime>
-#include <memory>
 
 #include "Widgets/Buttons.hpp"
-#include "Widgets/InputFields.hpp"
 #include "Widgets/ReactionLayout.hpp"
 #include "Widgets/ReplyWidget.hpp"
 #include "Widgets/AbstractMessageWidget.hpp"
@@ -105,7 +103,6 @@ protected:
 private:
     void clearMessage() const;
 
-// variable field
     std::unique_ptr<FlatButton>     _menuBtn;
     std::unique_ptr<FlatButton>     _reactionsBtn;
     std::unique_ptr<ReactionLayout> _reactions;

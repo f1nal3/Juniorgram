@@ -3,7 +3,6 @@
 #include <QAction>
 #include <QtEvents>
 
-#include "ReactionLayout.hpp"
 
 QAction* CreateAction(QWidget* actionparent, const QString& text, std::function<void()>&& callback)
 {

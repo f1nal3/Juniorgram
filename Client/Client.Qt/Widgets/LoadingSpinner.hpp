@@ -51,5 +51,5 @@ private:
     std::unique_ptr<QTimer>      _timer;
     bool                         _disableParentWhenSpinning;
     uint16_t                     _currentCounter = 0;
-    bool                         _isSpinning = false;
+    bool                         _isSpinning     = false;
 };

@@ -56,7 +56,6 @@ private:
                                   const QString& symbolEnd) const;
     void selectText(QTextCursor& cursor, int start, int end) const;
 
-// variable field
     Settings& _settings;
 
     const int     _symbolSize           = 3;

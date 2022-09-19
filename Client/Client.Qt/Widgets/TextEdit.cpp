@@ -36,10 +36,10 @@ TextEdit::TextEdit(QWidget* parent) : QWidget(parent), _settings(Settings::getIn
 
     setLayout(_mainVerticalLayout.get());
 
-    _boldnessButton->setClickCallback([this]() { this->styleButtonClick(this->_boldSymbolOpen, this->_boldSymbolClose); });
-    _italicButton->setClickCallback([this]() { this->styleButtonClick(this->_italicSymbolOpen, this->_italicSymbolClose); });
-    _underlineButton->setClickCallback([this]() { this->styleButtonClick(this->_underlineSymbolOpen, this->_underlineSymbolClose); });
-    _sendButton->setClickCallback([this]() { this->sendButtonClick(); });
+    _boldnessButton->setClickCallback([this]()  { styleButtonClick(_boldSymbolOpen,_boldSymbolClose); });
+    _italicButton->setClickCallback([this]()    { styleButtonClick(_italicSymbolOpen,_italicSymbolClose); });
+    _underlineButton->setClickCallback([this]() { styleButtonClick(_underlineSymbolOpen,_underlineSymbolClose); });
+    _sendButton->setClickCallback([this]()      { sendButtonClick(); });
     
     connect(_messageInput.get(), &FlatTextEdit::textChanged, this, &TextEdit::textChanged);
 
