@@ -312,7 +312,6 @@ void Client::loop()
 
             case MessageType::ServerPing:
             {
-                
                 timestamp_t timeNow  = RTC::to_time_t(RTC::now());
                 timestamp_t timeThen = message.mHeader.mTimestamp;
                 onServerPing(std::chrono::duration<double>(timeNow - timeThen).count());
