@@ -132,16 +132,16 @@ TEST_CASE("Logging and throw exception method")
 {
     auto& testLogger              = FileLogger::getInstance();
     const char* filename          = "FileLoggerTest.cpp";
-    std::exception* someException;
+    std::unique_ptr<std::exception> someException;
 
+/// because std::exception has no _Data for std::exception.what() in GCC and CLANG
 #ifdef _WIN32
-    someException = new std::exception("Test std::exception");
-#else // bacause std::exception has no _Data for std::exception.what() in GCC and CLANG
+    someException = std::make_unique<std::exception>("Test std::exception");
+#else
     class MyTestException : public std::exception
     {
     public:
-        explicit MyTestException(std::string msg_) : _msg(msg_) {}
-        explicit MyTestException(const char* msg_) : _msg(msg_) {}
+        explicit MyTestException(std::string&& msg_) : _msg(msg_) {}
 
         [[nodiscard]] const char* what() const noexcept override { return _msg.c_str(); }
 
@@ -149,20 +149,14 @@ TEST_CASE("Logging and throw exception method")
         std::string _msg{""};
     };
 
-    someException = new MyTestException("Test MyTestException (not WIN32 compilers)");
+    someException = std::make_unique<MyTestException>(std::move(std::string("Test MyTestException (not WIN32 compilers)")));
 #endif
     
-    //REQUIRE_THROWS(testLogger.logAndThrow(filename, 136, *someException));
-    REQUIRE_THROWS(testLogger.logAndThrowShort(*someException));
-    delete someException;
+    REQUIRE_THROWS(testLogger.logAndThrow(filename, __LINE__, *someException));
     
-    someException = new Utility::NotImplementedException("Test Utility::NotImplementedException", filename, 140);
-    //REQUIRE_THROWS(testLogger.logAndThrow(filename, 141, *someException));
-    REQUIRE_THROWS(testLogger.logAndThrowShort(*someException));
-    delete someException;
+    someException = std::make_unique<Utility::NotImplementedException>("Test Utility::NotImplementedException", filename, __LINE__);
+    REQUIRE_THROWS(testLogger.logAndThrow(filename, __LINE__, *someException));
     
-    someException = new Utility::OperationDBException("Test Utility::OperationDBException", filename, 144);
-    //REQUIRE_THROWS(testLogger.logAndThrow(filename, 145, *someException));
-    REQUIRE_THROWS(testLogger.logAndThrowShort(*someException));
-    delete someException;
+    someException = std::make_unique<Utility::OperationDBException>("Test Utility::OperationDBException", filename, __LINE__);
+    REQUIRE_THROWS(testLogger.logAndThrow(filename, __LINE__, *someException));
  }

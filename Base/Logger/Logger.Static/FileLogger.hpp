@@ -102,21 +102,11 @@ public:
      * @param LogLevel - level of message
      */
     template <class T>
-    typename std::enable_if<std::is_base_of<std::exception, T>::value, void>::type
+    typename std::enable_if_t<std::is_base_of_v<std::exception, T>, void>
     logAndThrow(const char* filename, std::uint16_t line, const T& exception, LogLevel severity = LogLevel::DEBUG)
     {
         log('"' + std::string(exception.what()) + "\" on line " + std::to_string(line) + " in the file " + filename, severity);
         throw exception;
-    }
-
-    /**
-     * @brief Alias specified method to FileLogger::logAndThrow
-     * @param T -> std::exception based object to next throw
-     */
-    template<typename T>
-    auto logAndThrowShort(const T& arg)
-    {
-        logAndThrow<T>(__FILE__, __LINE__, arg);
     }
 
 private:
