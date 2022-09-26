@@ -16,12 +16,22 @@ bool Client::connectToServer(const std::string_view& host, const uint16_t port)
 {
     if (host != ServerInfo::Address::remote && host != ServerInfo::Address::local)
     {
-        Base::Logger::FileLogger::getInstance().log("Bad server address", Base::Logger::LogLevel::ERR);
+        Base::Logger::FileLogger::getInstance().log
+        (
+            "Bad server address", 
+            Base::Logger::LogLevel::ERR
+        );
+
         return false;
     }
     if (port != ServerInfo::Port::test && port != ServerInfo::Port::production)
     {
-        Base::Logger::FileLogger::getInstance().log("Bad port value", Base::Logger::LogLevel::ERR);
+        Base::Logger::FileLogger::getInstance().log
+        (
+            "Bad port value",
+            Base::Logger::LogLevel::ERR
+        );
+
         return false;
     }
 
@@ -277,7 +287,6 @@ void Client::userMessageReaction(const std::uint64_t messageID, const std::uint3
 {
     Models::MessageInfo messageInfo;
     messageInfo._msgID = messageID;
-
     messageInfo._reactions[reactionID] = std::numeric_limits<std::uint32_t>::max();
     
     Network::Message message;

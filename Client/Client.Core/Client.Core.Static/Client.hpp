@@ -3,9 +3,7 @@
 #include "Network/Connection.hpp"
 #include "Network/Message.hpp"
 #include "Utility/SafeQueue.hpp"
-
 #include <Models/Primitives.hpp>
-
 #include <FileLogger.hpp>
 
 namespace Network
@@ -13,9 +11,9 @@ namespace Network
 /**
 * @class Client
 * @brief Class for handling connection.
-* @details Sends requests to the server. \
-*   This class contains methods for sending messages to the server \
-*   and header methods for processing responses from the server.
+* @details Client establishes a connection to the server, 
+*   Sends and processes requests of a certain type of messages to the database. \
+*   Contains virtual method headers for handling responses from the server.
 */
 class Client
 {
@@ -49,9 +47,8 @@ public:
     [[nodiscard]] bool isConnected() const;
 
     /**
-    * @brief Sends a message to server.
-    * @param const Message& message - is sent an initialized header \
-    *   message with its own body. 
+    * @brief Sends an initialized header message to the server.
+    * @details You can see the message types in the Message header file.
     */ 
     void send(const Message& message) const;
 
@@ -64,160 +61,148 @@ public:
 
     /**
     * @brief Loop that handle incoming messages.
-    * @details Every type of message have specific function handler, \
-    *   which in the process of processing the incoming message from the server goes \
-    *   in a loop for further processing of the response from the client.
+    * @details Handler function to process the server response message \
+    *   for the subsequent response from the client.
+    *   (You can see the message types in the Message header file).
     */ 
     void loop();
 
     /**
-    * @brief Ping a server.
-    * @details This function handler of specific message type. \
-    *   Sends a request to check the status of the connection to the server.
-    */ 
+    * @brief Checking the server network transmission delay status.
+    * @details Method that sends a request to check \
+    *   the status of the connection with the server.
+    */
     void pingServer() const;
 
     /**
-    * @brief Create direct chat.
-    * @details This function handler of specific message type. \
-    *   Sends a request to create direct chat.
+    * @brief Sends a request to create direct chat.
+    * @details receiverID is necessary for proper chat creation.
     */ 
     void createDirectChat(uint64_t receiverId) const;
 
     /**
-    * @brief Ask for channel list.
-    * @details This function handler of specific message type. \
-    *   Sends a request to ask for channel list.
+    * @brief Sends a request to ask for channel list. 
     */ 
     void askForChannelList() const;
 
     /**
-    * @brief Ask for channel subscription list.
-    * @details This function handler of specific message type. \
-    *   Sends a request to ask for channel subscription list.
+    * @brief Sends a request to ask for channel subscription list.
     */ 
     void askForChannelSubscriptionList() const;
 
     /**
-    * @brief Ask for channel message history.
-    * @details This function handler of specific message type. \
-    *   Sends a request to ask for message history.
+    * @brief Sends a request to ask for message history.
+    * @param channelID for the correct answer to getting the story.
     */
     void askForMessageHistory(uint64_t channelID) const;
 
     /**
-    * @brief Ask for reply message history.
-    * @details This function handler of specific message type. \
-    *   Sends a request to ask for reply history.
+    * @brief Sends a request to ask for reply history.
+    * @param channelID is needed to get a response \
+    *   from a particular channel.
     */
     void askForReplyHistory(uint64_t channelID) const;
 
     /**
-    * @brief Sends a none message to all clients.
-    * @details This function handler of specific message type. \
-    *   Sends a request for output all messages. 
+    * @brief Sends a request for output all messages.
     */
     void messageAll() const;
 
     /**
     * @brief Delete user's message.
-    * @details This function handler of specific message type. \
-    *   Sends a request to delete message from client side.
+    * @param messageID is his number at which the message will be deleted.
     */
     void userMessageDelete(const std::uint64_t messageID) const;
 
     /**
     * @brief Delete user's message.
-    * @details This function handler of specific message type. \
-    *   Sends a request to delete message from client side.
+    * @param messageText is message that will be deleted.
+    * @details Overloading a function with the messageID parameter.
     */
     void userMessageDelete(const std::string& messageText) const;
 
     /**
-    * @brief Sending the ID of the subscribed channel.
-    * @details This function handler of specific message type. \
-    *   Sends a request to subscription channel.
+    * @brief Sends a request to subscription channel.
+    * @param ChannelID for the correct action of the subscription.
     */
     void subscriptionChannel(const std::uint64_t channelID) const;
 
     /**
-    * @brief Sending the name of the leave channel.
-    * @details This function handler of specific message type. \
-    *   Sends a request to leave channel.
+    * @brief Sends a request to leave channel.
+    * @param channelName is necessary to correctly exit 
+    *   the channel with the correct name.
     */
     void leaveChannel(const std::string_view& channelName) const;
 
     /**
-    * @brief Sending the name of the delete channel.
-    * @details This function handler of specific message type. \
-    *   Sends a request to delete channel.
+    * @brief Sends a request to delete channel.   
+    * @param channelName is necessary to correctly delete 
+    *   a channel with the desired name.
     */
     void deleteChannel(const std::string_view& channelName) const;
 
     /**
-    * @brief Sending the info of the created channel.
-    * @details This function handler of specific message type. \
-    *   Sends a request to create channel.
+    * @brief Sends a request to create channel.
+    * @param channelName is necessary to correctly create 
+    *   a channel with the desired name.
     */
     void createChannel(const std::string_view& channelName) const;
 
     /**
-    * @brief Send a message to server.
-    * @details This function handler of specific message type.\
-    *   Sends a request to store message.
+    * @brief Sends a request to store message.
+    * @param channelID and it's message are necessary \
+    *   to correctly request message storage. 
     */
     void storeMessage(const std::string& message, uint64_t channelID) const;
 
     /**
-    * @brief Send a reply to server.
-    * @details This function handler of specific message type.\
-    *   Sends a request to store reply.
+    * @brief Sends a request to store reply.
+    * @param channelID, message and its msgID are necessary needed \
+    *   to properly request a response from the database \
+    *   to retrieve a stored message. 
     */
     void storeReply(const std::string& message, uint64_t channelID, uint64_t msgID) const;
 
     /**
-    * @brief Send an registration request to server.
-    * @details This function handler of specific message type. \
-    *   Generating a SHA_256 hash of the password based on the login.\
-    *   Sends a request to registration of user.
+    * @brief Sends a request to registration of user.
+    * @param login and password are needed to hash the password to a certain user. \
+    *   Email is necessary to assign a user to it and to restore the account \
+    *   in case the password is lost.
     */
     void userRegistration(const std::string& email, const std::string& login, const std::string& password) const;
 
     /**
-    * @brief Send an authorization request to server.
-    * @details This function handler of specific message type. \
-    *   Sends a request to authorization of user. \
-    *   Allows us to enter different users with the same password.
+    * @brief Sends a request to authorization of user.
+    * @param login and password are needed to hash the password to a certain user.
+    * @details Allows us to enter different users with the same password. 
     */
     void userAuthorization(const std::string& login, const std::string& password) const;
 
     /**
-    * @brief Send user reaction change to database.
-    * @details This function handler of specific message type.
-    * @param Reaction ID as std::uint32_t reactionID. \
-    *   Using max uint32_t as special value.
+    * @brief A method that sends a query to the database to change the reaction state.
+    * @details Supported reaction IDs are 0(likes), 1(dislikes), 2(fires), 3(cats), 4(smiles). \
+    *   (You can see a list of reactions in the header file Primitives).
     */
     void userMessageReaction(const std::uint64_t messageID, const std::uint32_t reactionID) const;
 
 protected:
     /**
     * @brief Disconnect handler.
-    * @details This function handler outputs \
-    *   the response to the disconnect from the server.
+    * @details This function handler outputs the response \
+    *   to the disconnect from the server.
     */
     virtual void onDisconnect();
 
     /**
     * @brief Message send failure handler.
-    * @details This function handler outputs \
-    *   the response to an incorrect message being sent.
+    * @details This function handler outputs the response \
+    *   to an incorrect message being sent.
     */
     virtual void onMessageSendFailed(const Message& message) const;
 
     /**
     * @brief Login Answer handler.
-    * @details This function handler outputs \
-    *   the authorization response.
+    * @details This function handler outputs the authorization response.
     */
     virtual void onLoginAnswer(bool success);
 
@@ -296,7 +281,8 @@ protected:
  
     /**
     * @brief Channel subscription list Answer handler.
-    * @details This function handler outputs message of channel subscribing list answer response.
+    * @details This function handler outputs message of channel \
+    *   subscribing list answer response.
     */
     virtual void onChannelSubscribingListAnswer(const std::vector<uint64_t>& subscribingChannelList);
 
@@ -332,6 +318,7 @@ protected:
     
 private:
     bool _serverAccept = false;
+
     asio::io_context _context;
     std::thread      _contextThread;
     std::unique_ptr<Connection> _connection;
