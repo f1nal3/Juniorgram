@@ -21,13 +21,13 @@ inline std::string formatExceptionMessage(const std::string& msg, const std::str
 class NotImplementedException : public std::exception
 {
 public:
-    explicit NotImplementedException(const char* msg, const char* file, std::uint16_t line)
-        : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
+    explicit NotImplementedException(const char* msg_, const char* file_, std::uint16_t line_)
+        : _msg(formatExceptionMessage(msg_, file_, line_)), _file(file_), _line(line_)
     {
     }
 
-    explicit NotImplementedException(const std::string& msg, const char* file, std::uint16_t line)
-        : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
+    explicit NotImplementedException(const std::string& msg_, const char* file_, std::uint16_t line_)
+        : _msg(formatExceptionMessage(msg_, file_, line_)), _file(file_), _line(line_)
     {
     }
 
@@ -42,13 +42,13 @@ private:
 class OperationDBException : public std::exception
 {
 public:
-    explicit OperationDBException(const char* msg, const char* file, std::uint16_t line)
-        : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
+    explicit OperationDBException(const char* msg_, const char* file_, std::uint16_t line_)
+        : _msg(formatExceptionMessage(msg_, file_, line_)), _file(file_), _line(line_)
     {
     }
 
-    explicit OperationDBException(const std::string& msg, const char* file, std::uint16_t line)
-        : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
+    explicit OperationDBException(const std::string& msg_, const char* file_, std::uint16_t line_)
+        : _msg(formatExceptionMessage(msg_, file_, line_)), _file(file_), _line(line_)
     {
     }
 
@@ -63,14 +63,14 @@ private:
 class LoggingException : public std::exception
 {
 public:
-    explicit LoggingException(const char* msg, const char* file, std::uint16_t line)
-        : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
+    explicit LoggingException(const char* msg_, const char* file_, std::uint16_t line_)
+        : _msg(formatExceptionMessage(msg_, file_, line_)), _file(file_), _line(line_)
     {
         Base::Logger::FileLogger::getInstance().error(_msg);
     }
 
-    explicit LoggingException(const std::string& msg, const char* file, std::uint16_t line)
-        : _msg(formatExceptionMessage(msg, file, line)), _file(file), _line(line)
+    explicit LoggingException(const std::string& msg_, const char* file_, std::uint16_t line_)
+        : _msg(formatExceptionMessage(msg_, file_, line_)), _file(file_), _line(line_)
     {
         Base::Logger::FileLogger::getInstance().error(_msg);
     }

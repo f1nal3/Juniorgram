@@ -141,7 +141,7 @@ TEST_CASE("Logging and throw exception method")
     class MyTestException : public std::exception
     {
     public:
-        explicit MyTestException(std::string&& msg_) : _msg(msg_) {}
+        explicit MyTestException(std::string&& msg_) : _msg(std::move(msg_)) {}
 
         [[nodiscard]] const char* what() const noexcept override { return _msg.c_str(); }
 
@@ -149,7 +149,7 @@ TEST_CASE("Logging and throw exception method")
         std::string _msg{""};
     };
 
-    someException = std::make_unique<MyTestException>(std::move(std::string("Test MyTestException (not WIN32 compilers)")));
+    someException = std::make_unique<MyTestException>(std::string("Test MyTestException (not WIN32 compilers)"));
 #endif
     
     REQUIRE_THROWS(testLogger.logAndThrow(filename, __LINE__, *someException));
