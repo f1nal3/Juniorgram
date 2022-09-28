@@ -18,12 +18,12 @@ class IAdapter
 {
 public:
     /**
-    * @brief Method for getting Adapter instances. \
-    * @details This method return the instance with your options. \
-    *	 Like: dbname=... user=... hostaddr=... port=... ... . \
-    *	 There are another options like: ssh, password, etc. \
-    *	 This options must be passed as a single string. \
-    *	 By default: \
+    * @brief Method for getting Adapter instances.
+    * @details This method return the instance with your options. \n
+    *	 Like: dbname=... user=... hostaddr=... port=... ... . \n
+    *	 There are another options like: ssh, password, etc.
+    *	 This options must be passed as a single string.
+    *	 By default:
     *     (dbname=juniorgram user=postgres hostaddr=127.0.0.1 port=5432).
     * @param Params for connecting to the database.
     * @return Adapter instance: std::shared_ptr<...>
@@ -33,7 +33,9 @@ public:
 
     /**
     * @brief Method for executing SQL queries.
-    * @details For more details, see PostgreAdapter.hpp
+    * @details This method use raw SQL query, so it isn`t recommended to use this function,
+    * because every type of database has own interface for creating queries.
+    * Usage example you can see in PostgreAdapter.hpp.
     */
     virtual std::optional<std::any> query(const std::string_view& query) = 0;
 

@@ -16,9 +16,9 @@ namespace DataAccess
  * @class QueryBuilder
  * @brief Supportive class for constructing SQL query.
  * @details The class forms and saves SQL query, current
- * table and type of database. Class provides methods, which repeat
- * rules of SQL instructions, allows to create queries by calling methods
- * one by one. Examples for postgre database you can see in PosgreQuery.hpp
+ * table and type of database. Class provides interface, which is as close as possible
+ * to the classical SQL queries. This is achieved by calling methods one by one.
+ * Examples for postgre database you can see in PosgreQuery.hpp
  */
 template <typename ResultType>
 class QueryBuilder

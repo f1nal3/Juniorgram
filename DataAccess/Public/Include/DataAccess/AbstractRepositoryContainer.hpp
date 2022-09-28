@@ -35,8 +35,7 @@ public:
 
     /**
      * @brief Method for register new repositories.
-     *  (You should pass, firstly, an interface and
-     *  after an implementation of this repository)
+     * @warning You should pass, firstly, an interface and after an implementation of this repository
      */
     template <typename TInterface, typename TRepository>
     void registerRepository(void)
@@ -55,7 +54,7 @@ public:
 
     /**
      * @brief Method for get a repositories.
-     *  (You should pass an interface)
+     * @warning You should pass an interface
      */
     template <typename TInterface>
     std::shared_ptr<TInterface> getRepository(void)

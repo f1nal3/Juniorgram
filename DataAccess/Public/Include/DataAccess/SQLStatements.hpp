@@ -35,7 +35,7 @@ public:
 
     /**
     * @brief Like common SQL 'where' condition.
-    * @param condition - SQL condition, but it is not required \
+    * @param condition - SQL condition, but it is not required
     * @return Current SQLSTATEMENT pointer object to continue SQL query.
     */
     T* Where(const std::string& condition = {})
@@ -48,9 +48,9 @@ public:
     }
 
     /**
-    * @brief Like common SQL 'and' condition. This condition \
+    * @brief Like common SQL 'and' condition. This condition
     *    need for continue the SQL query after like: limit, beetween, etc.
-    * @param condition - SQL condition, but it is not required. \
+    * @param condition - SQL condition, but it is not required.
     * @return Current SQLSTATEMENT pointer object to continue SQL query.
     */
     T* And(const std::string& condition = {})
@@ -63,9 +63,9 @@ public:
     }
 
     /**
-    * @brief Like common SQL 'or' condition. This condition \
+    * @brief Like common SQL 'or' condition. This condition
     * need for continue the SQL query after like: limit, beetween, etc.
-    * @param condition - SQL condition, but it is not required. \
+    * @param condition - SQL condition, but it is not required.
     * @return Current SQLSTATEMENT pointer object to continue SQL query.
     */
     T* Or(const std::string& condition = {})
@@ -79,8 +79,8 @@ public:
 
     /**
     * @brief In condition.
-    * @param anotherStatement - another SQL statement, \
-    *  that you can receive from 'getQuery()' method.
+    * @param anotherStatement - another SQL statement,
+    * that you can receive from 'getQuery()' method.
     * @return Current SQLSTATEMENT pointer object to continue SQL query.
     */
     T* In(const std::string& anotherStatement)
@@ -131,8 +131,8 @@ public:
 
     /**
     * @brief Like condition.
-    * @param pattern - see this for info: \
-    * https://www.w3schools.com/sql/sql_like.asp, \
+    * @param pattern - see this for info: \n
+    * https://www.w3schools.com/sql/sql_like.asp, \n
     * https://www.w3schools.com/sql/sql_wildcards.asp
     * @return Current SQLSTATEMENT pointer object to continue SQL query.
     */
@@ -222,7 +222,7 @@ public:
     *   where you want to put the result:
     *   pqxx::result or SQLiteResultType.
     *   Maybe it can be fixed in the near future.
-    * @warning Be careful with timestamps. That can only be c_str!!!
+    * @warning Be careful with timestamps. That can only be c_str!
     * @details This method clear SQL query string after call it.
     * @return Optional object pqxx::result or SQLiteResultObject
     *    For pqxx::result check here:
@@ -348,7 +348,7 @@ public:
 
     /**
     * @brief Method for limiting returned SQL rows.
-    * @details For example limit 5 offset 2 return: \
+    * @details For example limit 5 offset 2 return: \n
     *    row3, row4, row5, row6, row7.
     * @param limit - how much rows that you need
     *    offset - from what row start limit
@@ -580,7 +580,7 @@ public:
 
     /**
     * @brief Insert one row into table.
-    * @details Inserting columns into a row as tuple. \
+    * @details Inserting columns into a row as tuple.
     * @code
     *   ...->field(tupleName1)->field(tupleName2)...;
     * @endcode
@@ -614,9 +614,8 @@ public:
 
     /**
     * @brief Insert rows into table.
-    * @details Inserting several columns into a row as pairs. \
-    *   You don't have to wrap columnName by quotes, \
-    *   BUT you must wrap data strings.
+    * @details Inserting several columns into a row as pairs.
+    * @warning You don't have to wrap columnName by quotes, but you must wrap data strings.
     * @code
     *   ...->columns(pair{"Column1", 1}, pair{"Column2", "data"})->field(data)->...;
     * @endcode
@@ -645,8 +644,8 @@ public:
 
     /**
     * @brief Insert rows into table.
-    * @details Inserting several columns into a row as tuple of pairs. \
-    *   You don't have to wrap columnName by quotes. \
+    * @details Inserting several columns into a row as tuple of pairs.
+    * @warning You don't have to wrap columnName by quotes.
     * @code
     *   ...->columns(tupleName1)->field(data)->...;
     * @endcode
@@ -729,8 +728,7 @@ public:
 
     /**
     * @brief Updating fields with new data.
-    * @param columnData - pairs with column names by first \
-    *  and the data by second.
+    * @param columnData - pairs with column names by first and the data by second.
     * @return Current SQLUpdate pointer object to continue SQL query.
     */
     template <typename ColumnType = const char*, typename... Args>

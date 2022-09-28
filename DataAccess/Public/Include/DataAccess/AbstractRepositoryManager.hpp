@@ -19,11 +19,9 @@ namespace DataAccess
     using MethodReference = TReturn(TIRepository::*)(TArgs...);
 
     /**
-    * @brief  fmt function uses for converting arguments,
-    *          that you pass to repository method to correct from.
+    * @brief  fmt function uses for converting arguments, that you pass to repository method to correct from.
     * @param  ref - argument that is passing to repository method.
-    * @return Return correct format argument.
-    *                 (For fundamental types like int, float, etc - by value, all other - by const ref).
+    * @return Return correct format argument: for fundamental types like int, float, etc - by value, all other - by const ref.
     */
     template <typename Type>
     std::conditional_t<std::is_fundamental_v<Type>, std::remove_reference_t<Type>, const Type&> fmt(const Type& ref) {return ref;}
@@ -58,12 +56,12 @@ namespace DataAccess
 
     public:
         /**
-         * @brief   Exists for add methods in the queue.
-         *		    Pass all arguments (args) through 'fmt()' function!!!
-         * @param   (Template arg) priority - priority of request.
-         * @param   MethodReference - just a pointer to member function needed to add to the queue.
-         * @param   args - list of args that passing to member function.
-         * @return  Return future object from repository member function.
+         * @brief Exists for add methods in the queue.
+         *	@warning Pass all arguments (args) through 'fmt()' function
+         * @param (Template arg) priority - priority of request.
+         * @param MethodReference - just a pointer to member function needed to add to the queue.
+         * @param args - list of args that passing to member function.
+         * @return Return future object from repository member function.
          */
         template <ePriority priority = ePriority::_15, typename TIRepository, typename TReturn, typename... TArgs>
         FutureResult<TReturn> pushRequest(const MethodReference<TIRepository, TReturn, TArgs...>& methodRef, TArgs&&... args)

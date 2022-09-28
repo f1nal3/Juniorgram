@@ -23,7 +23,7 @@ public:
     virtual std::vector<Models::ChannelInfo> getAllChannelsList() = 0;
 
     /**
-    * @brief Draft method for getting history for a specific user. \
+    * @brief Draft method for getting history for a specific user. \n
     * History is all messages that a marked as "non-delivered" for this user.
     * @param channelID - channel's id from which we want to get message history.
     * @return List of messages as vector of MessageInfo.
@@ -38,8 +38,8 @@ public:
     /**  
     * @brief Method for storing message.
     * @param Network::MessageInfo which contains message's data for storing in repository.
-    * @return The return value of the method is one of the StoringMessageCodes (enum): /
-    * Storing successful - StoringMessageCodes::SUCCESS. /
+    * @return The return value of the method is one of the StoringMessageCodes (enum): \n
+    * Storing successful - StoringMessageCodes::SUCCESS. \n
     * Storing failed     - StoringMessageCodes::FAILED.
     */
     virtual Utility::StoringMessageCodes storeMessage(const Models::MessageInfo& messageInfo) = 0;
@@ -47,8 +47,8 @@ public:
     /**
     * @brief Method for store replying message.
     * @param replyInfo.
-    * @return The return value of the method is one of the StoringMessageCodes (enum): /
-    * Storing successful - StoringMessageCodes::SUCCESS. /
+    * @return The return value of the method is one of the StoringMessageCodes (enum): \n
+    * Storing successful - StoringMessageCodes::SUCCESS. \n
     * Storing failed     - StoringMessageCodes::FAILED.
     */
     virtual Utility::StoringReplyCodes storeReply(const Models::ReplyInfo& replyInfo) = 0;
@@ -56,8 +56,8 @@ public:
     /**
     * @brief Method for deleting message.
     * @param messageInfo.
-    * @return The return value of the method is one of the StoringMessageCodes (enum): /
-    * Deleting successful - StoringMessageCodes::SUCCESS. /
+    * @return The return value of the method is one of the StoringMessageCodes (enum): \n
+    * Deleting successful - StoringMessageCodes::SUCCESS. \n
     * Deleting failed     - StoringMessageCodes::FAILED.
     */
     virtual Utility::DeletingMessageCodes deleteMessage(const Models::MessageInfo& messageInfo) = 0;
@@ -65,8 +65,8 @@ public:
     /**
     * @brief Method for editing message
     * @param emi as MessageInfo which contains message's data.
-    * @return The return value of the method is one of the StoringMessageCodes (enum): /
-    * Editing successful - StoringMessageCodes::SUCCESS. /
+    * @return The return value of the method is one of the StoringMessageCodes (enum): \n
+    * Editing successful - StoringMessageCodes::SUCCESS. \n
     * Editing failed     - StoringMessageCodes::FAILED.
     */
     virtual Utility::EditingMessageCodes editMessage(const Models::MessageInfo& messageInfo) = 0;
@@ -74,8 +74,8 @@ public:
     /**  
     * @brief Method for updating message reactions
     * @param Network::MessageInfo which contains message's reaction map(id, count) with changed reaction count set to uint32_t max
-    * @return The return value of the method is one of the ReactionMessageCodes (enum): /
-    * Update successful - ReactionMessageCodes::SUCCESS. /
+    * @return The return value of the method is one of the ReactionMessageCodes (enum): \n
+    * Update successful - ReactionMessageCodes::SUCCESS. \n
     * Update failed     - ReactionMessageCodes::FAILED.
     */
     virtual Utility::ReactionMessageCodes updateMessageReactions(const Models::MessageInfo& messageInfo) = 0;
@@ -83,11 +83,11 @@ public:
     /**  
     * @brief Method for user registration.
     * @param RegistrationMessage which contains user data for registration.
-    * @details Generation password's hash in which login is a salt. It lets us /
+    * @details Generation password's hash in which login is a salt. It lets us
     * to insert different users with the same passwords.
-    * @return The return value of the method is one of the RegistrationCodes (enum). /
-    * Registration successful - RegistrationCodes::SUCCESS. /
-    * The user already exists - RegistrationCodes::EMAIL_ALREADY_EXISTS OR /
+    * @return The return value of the method is one of the RegistrationCodes (enum). \n
+    * Registration successful - RegistrationCodes::SUCCESS. \n
+    * The user already exists - RegistrationCodes::EMAIL_ALREADY_EXISTS OR
     * RegistrationCodes::LOGIN_ALREADY_EXISTS.
     */
     virtual Utility::RegistrationCodes registerUser(const Models::RegistrationInfo& regInfo) const = 0;
