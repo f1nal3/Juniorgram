@@ -70,8 +70,6 @@ struct Message
      */
     struct MessageHeader
     {
-
-
         MessageType                 mMessageType = MessageType();
         std::uint32_t               mBodySize    = std::uint32_t();
         UtilityTime::timestamp_t    mTimestamp   = duration_cast<milliseconds>(UtilityTime::RTC::now().time_since_epoch()).count();

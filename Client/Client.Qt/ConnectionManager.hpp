@@ -6,7 +6,12 @@
 #include <Models/Primitives.hpp>
 #include "ServerInfo.hpp"
 
-/// Login status
+/**
+* @class enum class LoginState.
+* @brief The LoginState class for getting \ 
+*        the authorization status of the user. \
+*        (Used in Client.Qt).
+*/
 enum class LoginState
 {
     SUCCESS,
@@ -15,59 +20,122 @@ enum class LoginState
 };
 
 /**
- * @class ReceiverManager
- * @brief Class to make signal/slots possible
- */
+* @class ReceiverManager
+* @brief Class to make signal/slots possible.
+*/
 class ReceiverManager : public QObject
 {
     Q_OBJECT
 public:
-    /// Constructor for Receiver manager
+    /**
+    * @brief Constructor for Receiver manager.
+    */
     ReceiverManager();
-    /// Instance of receiver manager
+
+    /**
+    * @brief Instance of receiver manager.
+    */
     inline static ReceiverManager* instance() { return self; }
 
 signals:
-    /// Disconnect handler
+    /**
+    * @brief Disconnect handler.
+    */
     void onDisconnect();
 
-    /// Login Answer handler
+    /**
+    * @brief Login Answer handler.
+    */
     void onLoginAnswer(bool success);
-    /// Server Accepted handler
+
+    /**
+    * @brief Server Accepted handler.
+    */
     void onServerAccepted();
-    /// Server Ping handler
+
+    /**
+    * @brief Server Ping handler.
+    */
     void onServerPing(double timestamp);
-    /// Server Message handler
+
+    /**
+    * @brief Server Message handler.
+    */
     void onServerMessage(const uint64_t clientId);
-    /// Channel List Request handler
+ 
+    /**
+    * @brief Channel List Request handler.
+    */
     void onChannelListRequest(const std::vector<Models::ChannelInfo>& channels);
-    /// Message History Answer handler
+
+    /**
+    * @brief Message History Answer handler.
+    */
     void onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages);
-    /// Message Store Answer handler
+
+    /**
+    * @brief Message Store Answer handler.
+    */
     void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode);
-    /// Registration Answer handler
+ 
+    /**
+    * @brief Registration Answer handler.
+    */
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
-    /// User Message Delete Answer handler
+
+    /**
+    * @brief User Message Delete Answer handler.
+    */
     void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingCode);
-    /// Reply History Answer handler
+
+    /**
+    * @brief Reply History Answer handler.
+    */
     void onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& replies);
-    /// Reply Store Answer handler
+
+    /**
+    * @brief Reply Store Answer handler.
+    */
     void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode);
-    /// Channel leave Answer handler
+
+    /**
+    * @brief Channel leave Answer handler.
+    */
     void onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode);
-    /// Channel subscription Answer handler
+
+    /**
+    * @brief Channel subscription Answer handler.
+    */
     void onChannelSubscriptionAnswer(const Utility::ChannelSubscribingCodes channelSubscribingCodes);
-    /// Channel subscription list Answer handler
-    void onChannelSubscriptionListAnswer(const std::vector<uint64_t> channelSubscriptionList);
-    /// Channel delete Answer handler
+
+    /**
+    * @brief Channel subscription list Answer handler.
+    */
+    void onChannelSubscriptionListAnswer(const std::vector<uint64_t>& channelSubscriptionList);
+ 
+    /**
+    * @brief Channel delete Answer handler.
+    */
     void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
-    /// Channel edit Answer handler
+ 
+    /**
+    * @brief Message edit Answer handler.
+    */
     void onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const;
-    /// Channel create Answer handler
+
+    /**
+    * @brief Channel create Answer handler.
+    */
     void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode);
-    /// Direct message create Answer handler
+
+    /**
+    * @brief Direct message create Answer handler.
+    */
     void onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer);
-    /// Reaction update answer handler
+
+    /**
+    * @brief Reaction update answer handler.
+    */
     void onMessageReactionAnswer(const Utility::ReactionMessageCodes reactionCode);
 
 private:
@@ -75,65 +143,135 @@ private:
 };
 
 /**
- * @class ConnectionManager
- * @brief Class to send messages to server and handle message from server
- */
+* @class ConnectionManager
+* @brief Class to send messages to server and handle message from server
+*/
 class ConnectionManager : public Network::Client
 {
 public:
     ConnectionManager();
 
-    /// \todo: should be in client core
-    /// Login status
+    /// T\todo should be in client core
+    /**
+    * @brief The LoginState class for getting \
+    *        the authorization status of the user. \
+    *        (Used in Client.Qt).
+    */
     inline static LoginState loginState;
 
-    /// Initialize connection to server
+    /**
+    * @brief Initialize connection to server.
+    */
     void init();
-    /// Default behavior
-    virtual ~ConnectionManager() = default;
+
+    /**
+    * @brief Default behavior.
+    */
+    ~ConnectionManager() override = default;
 
 protected:
-    /// Disconnect handler
+    /**
+    * @brief  Disconnect handler.
+    */
     void onDisconnect() override;
 
-    /// Login Answer handler
+    /**
+    * @brief Login Answer handler.
+    */
     void onLoginAnswer(bool success) override;
-    /// Server Accepted handler
+
+    /**
+    * @brief Server Accepted handler.
+    */
     void onServerAccepted() override;
-    /// Server Ping handler
+
+    /**
+    * @brief Server Ping handler.
+    */
     void onServerPing(double timestamp) override;
-    /// Server Message handler
+
+    /**
+    * @brief Server Message handler.
+    */
     void onServerMessage(const uint64_t clientId) override;
-    /// Channel List Request handler
+
+    /**
+    * @brief Channel List Request handler.
+    */
     void onChannelListRequest(const std::vector<Models::ChannelInfo>& channels) override;
-    /// Message History Answer handler
+
+    /**
+    * @brief Message History Answer handler.
+    */ 
     void onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages) override;
-    /// Message Store Answer handler
+
+    /**
+    * @brief Message Store Answer handler.
+    */ 
     void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode) override;
-    /// Registration Answer handler
+
+    /**
+    * @brief Registration Answer handler.
+    */ 
     void onRegistrationAnswer(Utility::RegistrationCodes registrationCode) override;
-    /// User Message Delete Answer handler
+
+    /**
+    * @brief User Message Delete Answer handler.
+    */ 
     void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) override;
-    /// Reply History Answer handler
+
+    /**
+    * @brief Reply History Answer handler.
+    */ 
     void onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& replies) override;
-    /// Reply Store Answer handler
+
+    /**
+    * @brief Reply Store Answer handler.
+    */ 
     void onReplyStoreAnswer(const Utility::StoringReplyCodes storingReplyCode) override;
-    /// Channel leave Answer handler
+
+    /**
+    * @brief Channel leave Answer handler.
+    */ 
     void onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode) override;
-    /// Channel subscription Answer handler
+
+    /**
+    * @brief Channel subscription Answer handler.
+    */ 
     void onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode) override;
-    /// Channel subscription list Answer handler
-    void onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList) override;
-    /// Channel delete Answer handler
+
+    /**
+    * @brief Channel subscription list Answer handler.
+    */
+    void onChannelSubscribingListAnswer(const std::vector<uint64_t>& subscribingChannelList) override;
+
+    /**
+    * @brief Channel delete Answer handler.
+    */
     void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode) override;
-    /// Channel edit Answer handler
+
+    /*
+    * @brief Message edit Answer handler.
+    */
     void onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const override;
-    /// Channel create Answer handler
+
+    /**
+    * @brief Channel create Answer handler.
+    */
     void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode) override;
-    /// Direct message create Answer handler
+
+    /**
+    * @brief Direct message create Answer handler.
+    */
     void onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer) override;
-    /// Reaction update answer handler
+
+    /**
+    * @brief Reaction update answer handler.
+    */ 
     void onMessageReactionAnswer(const Utility::ReactionMessageCodes reactionCode) override;
 
-    void configureConnectionProperties();
+    /**
+    * @brief configurator of connection properties.
+    */ 
+    void configureConnectionProperties() const;
 };
