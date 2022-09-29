@@ -11,9 +11,11 @@ namespace Network
 /**
 * @class Client
 * @brief Class for handling connection.
-* @details Client establishes a connection to the server, 
-*   Sends and processes requests of a certain type of messages to the database. \
-*   Contains virtual method headers for handling responses from the server.
+* @details The application core, which is a typical client in a client-server architecture. \
+*    The class manages the connection and provides a communication interface to the server side by providing a set of methods (API). \
+*    Each such function defines the data and order of actions that are needed to perform some functionality. \
+*    However, an option is provided to send messages manually.(@see send) \
+*    See the list of API functions and their descriptions in the class methods.
 */
 class Client
 {
@@ -69,8 +71,10 @@ public:
 
     /**
     * @brief Checking the server network transmission delay status.
-    * @details Method that sends a request to check \
-    *   the status of the connection with the server.
+    * @details The central method in which most of the work of the client kernel takes place.
+    *   The function is an infinite loop that waits for messages to appear in the message queue.
+    *   Messages are divided into types and a different handler is called for each type.
+    *   In the case of a non-registered type, an issue is logged and the work continues.
     */
     void pingServer() const;
 
