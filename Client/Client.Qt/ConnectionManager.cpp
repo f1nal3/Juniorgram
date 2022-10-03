@@ -13,7 +13,7 @@ void ConnectionManager::init()
 {
     Settings::getInstance().beginGroup("ConnectionSettings");
     std::string host = Settings::getInstance().value("address").toString().toStdString();
-    auto port = Settings::getInstance().value("port").toInt();
+    int port = Settings::getInstance().value("port").toInt();
     Settings::getInstance().endGroup();
 
     connectToServer
@@ -174,7 +174,7 @@ void ConnectionManager::onChannelSubscribingAnswer(const Utility::ChannelSubscri
     emit ReceiverManager::instance()->onChannelSubscriptionAnswer(subscribingChannelCode);
 }
 
-void ConnectionManager::onChannelSubscribingListAnswer(const std::vector<uint64_t> subscribingChannelList)
+void ConnectionManager::onChannelSubscribingListAnswer(const std::vector<uint64_t>& subscribingChannelList)
 {
     qRegisterMetaType<std::vector<uint64_t>>("std::vector<uint64_t>");
     emit ReceiverManager::instance()->onChannelSubscriptionListAnswer(subscribingChannelList);
@@ -256,7 +256,7 @@ void ConnectionManager::onDisconnect()
     emit ReceiverManager::instance()->onDisconnect();
 }
 
-void ConnectionManager::configureConnectionProperties()
+void ConnectionManager::configureConnectionProperties() const
 {
     using Values = std::map<QString, QVariant>;
 

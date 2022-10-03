@@ -1,10 +1,8 @@
 #include "Client.hpp"
+#include "ServerInfo.hpp"
 
 #include <limits>
-
 #include <Crypto.Static/Cryptography.hpp>
-
-#include "ServerInfo.hpp"
 
 namespace Network
 {
@@ -18,19 +16,30 @@ bool Client::connectToServer(const std::string_view& host, const uint16_t port)
 {
     if (host != ServerInfo::Address::remote && host != ServerInfo::Address::local)
     {
-        Base::Logger::FileLogger::getInstance().log("Bad server address", Base::Logger::LogLevel::ERR);
+        Base::Logger::FileLogger::getInstance().log
+        (
+            "Bad server address", 
+            Base::Logger::LogLevel::ERR
+        );
+
         return false;
     }
     if (port != ServerInfo::Port::test && port != ServerInfo::Port::production)
     {
-        Base::Logger::FileLogger::getInstance().log("Bad port value", Base::Logger::LogLevel::ERR);
+        Base::Logger::FileLogger::getInstance().log
+        (
+            "Bad port value",
+            Base::Logger::LogLevel::ERR
+        );
+
         return false;
     }
 
     asio::ip::tcp::resolver resolver(_context);
 
     using OwnerType = Connection::OwnerType;
-    _connection     = std::make_unique<Connection>(OwnerType::CLIENT, _context, asio::ip::tcp::socket(_context), _incomingMessagesQueue);
+    _connection     = std::make_unique<Connection>(OwnerType::CLIENT, _context, 
+        asio::ip::tcp::socket(_context), _incomingMessagesQueue);
 
     try
     {
@@ -46,7 +55,7 @@ bool Client::connectToServer(const std::string_view& host, const uint16_t port)
             onDisconnect();
         });
     }
-    catch (std::exception& exception)
+    catch (const std::exception& exception)
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -84,6 +93,11 @@ bool Client::isConnected() const
     return false;
 }
 
+Utility::SafeQueue<Message>& Client::incoming()
+{
+    return _incomingMessagesQueue;
+}
+
 void Client::send(const Message& message) const
 {
     if (isConnected())
@@ -118,14 +132,14 @@ void Client::askForChannelSubscriptionList() const
     send(message);
 }
 
-void Client::deleteChannel(const std::string channelName) const
+void Client::deleteChannel(const std::string_view& channelName) const
 {
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ChannelDeleteRequest;
 
-    std::string ri;
-    ri                   = channelName;
-    networkMessage.mBody = std::make_any<std::string>(ri);
+    std::string replyInfo;
+    replyInfo            = channelName;
+    networkMessage.mBody = std::make_any<std::string>(replyInfo);
     send(networkMessage);
 }
 
@@ -152,11 +166,11 @@ void Client::storeMessage(const std::string& message, const uint64_t channelID) 
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::MessageStoreRequest;
 
-    Models::MessageInfo mi;
-    mi._message   = message;
-    mi._channelID = channelID;
+    Models::MessageInfo messageInfo;
+    messageInfo._message   = message;
+    messageInfo._channelID = channelID;
 
-    networkMessage.mBody = std::make_any<Models::MessageInfo>(mi);
+    networkMessage.mBody = std::make_any<Models::MessageInfo>(messageInfo);
     send(networkMessage);
 }
 
@@ -165,25 +179,23 @@ void Client::storeReply(const std::string& message, uint64_t channelID, uint64_t
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ReplyStoreRequest;
 
-    Models::ReplyInfo ri;
-    ri._message   = message;
-    ri._channelID = channelID;
-    ri._msgID     = msgID;
+    Models::ReplyInfo replyInfo;
+    replyInfo._message   = message;
+    replyInfo._channelID = channelID;
+    replyInfo._msgID     = msgID;
 
-    networkMessage.mBody = std::make_any<Models::ReplyInfo>(ri);
+    networkMessage.mBody = std::make_any<Models::ReplyInfo>(replyInfo);
     send(networkMessage);
 }
 
 void Client::userRegistration(const std::string& email, const std::string& login, const std::string& password) const
 {
-    // Generating password's hash which are based on login. It lets us to insert different users
-    // with the same passwords.
     const std::string         pwdHash = Base::Hashing::SHA_256(password, login);
-    Models::RegistrationInfo ri(email, login, pwdHash);
+    Models::RegistrationInfo regInfo(email, login, pwdHash);
 
     Network::Message message;
     message.mHeader.mMessageType = MessageType::RegistrationRequest;
-    message.mBody                = std::make_any<Models::RegistrationInfo>(ri);
+    message.mBody                = std::make_any<Models::RegistrationInfo>(regInfo);
 
     send(message);
 }
@@ -209,23 +221,23 @@ void Client::messageAll() const
 
 void Client::userMessageDelete(const uint64_t messageID) const
 {
-    Models::MessageInfo mi;
-    mi._msgID = messageID;
+    Models::MessageInfo messageInfo;
+    messageInfo._msgID = messageID;
 
     Network::Message message;
     message.mHeader.mMessageType = MessageType::MessageDeleteRequest;
-    message.mBody                = std::make_any<Models::MessageInfo>(mi);
+    message.mBody                = std::make_any<Models::MessageInfo>(messageInfo);
     send(message);
 }
 
 void Client::userMessageDelete(const std::string& messageText) const
 {
-    Models::MessageInfo mi;
-    mi._message = messageText;
+    Models::MessageInfo messageInfo;
+    messageInfo._message = messageText;
 
     Network::Message message;
     message.mHeader.mMessageType = MessageType::MessageDeleteRequest;
-    message.mBody                = std::make_any<Models::MessageInfo>(mi);
+    message.mBody                = std::make_any<Models::MessageInfo>(messageInfo);
     send(message);
 }
 
@@ -234,31 +246,31 @@ void Client::subscriptionChannel(const std::uint64_t channelID) const
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ChannelSubscribeRequest;
 
-    Models::ChannelSubscriptionInfo ri;
-    ri._channelID         = channelID;
-    networkMessage.mBody = std::make_any<Models::ChannelSubscriptionInfo>(ri);
+    Models::ChannelSubscriptionInfo replyInfo;
+    replyInfo._channelID = channelID;
+    networkMessage.mBody = std::make_any<Models::ChannelSubscriptionInfo>(replyInfo);
     send(networkMessage);
 }
 
-void Client::leaveChannel(const std::string channelName) const
+void Client::leaveChannel(const std::string_view& channelName) const
 {
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ChannelLeaveRequest;
 
-    std::string ri;
-    ri                   = channelName;
-    networkMessage.mBody = std::make_any<std::string>(ri);
+    std::string replyInfo;
+    replyInfo            = channelName;
+    networkMessage.mBody = std::make_any<std::string>(replyInfo);
     send(networkMessage);
 }
 
-void Client::createChannel(const std::string channelName) const
+void Client::createChannel(const std::string_view& channelName) const
 {
     Network::Message networkMessage;
     networkMessage.mHeader.mMessageType = MessageType::ChannelCreateRequest;
 
-    std::string ri;
-    ri                   = channelName;
-    networkMessage.mBody = std::make_any<std::string>(ri);
+    std::string replyInfo;
+    replyInfo            = channelName;
+    networkMessage.mBody = std::make_any<std::string>(replyInfo);
     send(networkMessage);
 }
 
@@ -273,15 +285,13 @@ void Client::createDirectChat(uint64_t receiverId) const
 
 void Client::userMessageReaction(const std::uint64_t messageID, const std::uint32_t reactionID) const
 {
-    Models::MessageInfo mi;
-    mi._msgID = messageID;
-
-    // using max uint32_t as special value
-    mi._reactions[reactionID] = std::numeric_limits<std::uint32_t>::max();
+    Models::MessageInfo messageInfo;
+    messageInfo._msgID = messageID;
+    messageInfo._reactions[reactionID] = std::numeric_limits<std::uint32_t>::max();
     
     Network::Message message;
     message.mHeader.mMessageType = MessageType::MessageReactionRequest;
-    message.mBody                = std::make_any<Models::MessageInfo>(mi);
+    message.mBody                = std::make_any<Models::MessageInfo>(messageInfo);
 
     send(message);
 }
@@ -311,7 +321,6 @@ void Client::loop()
 
             case MessageType::ServerPing:
             {
-                
                 timestamp_t timeNow  = RTC::to_time_t(RTC::now());
                 timestamp_t timeThen = message.mHeader.mTimestamp;
                 onServerPing(std::chrono::duration<double>(timeNow - timeThen).count());
@@ -320,7 +329,7 @@ void Client::loop()
 
             case MessageType::ServerMessage:
             {
-                // TODO add handling 
+                /// T\todo add handling 
                 uint64_t clientID = 0;
                 onServerMessage(clientID);
             }
@@ -328,70 +337,81 @@ void Client::loop()
 
             case MessageType::ChannelListRequest:
             {
-                auto channels = std::any_cast<std::vector<Models::ChannelInfo>>(message.mBody);
-                onChannelListRequest(channels);
+                auto channelsLists = std::any_cast<std::vector<Models::ChannelInfo>>(message.mBody);
+                onChannelListRequest(channelsLists);
             }
             break;
 
             case MessageType::MessageHistoryAnswer:
             {
-                auto messages = std::any_cast<std::vector<Models::MessageInfo>>(message.mBody);
-                onMessageHistoryAnswer(messages);
+                auto historyMessages = std::any_cast<std::vector<Models::MessageInfo>>(message.mBody);
+                onMessageHistoryAnswer(historyMessages);
             }
             break;
 
             case MessageType::MessageStoreAnswer:
             {
-                auto code = std::any_cast<Utility::StoringMessageCodes>(message.mBody);
-                onMessageStoreAnswer(code);
+                auto storeCode = std::any_cast<Utility::StoringMessageCodes>(message.mBody);
+                onMessageStoreAnswer(storeCode);
             }
             break;
 
             case MessageType::RegistrationAnswer:
             {
-                auto code = std::any_cast<Utility::RegistrationCodes>(message.mBody);
-                onRegistrationAnswer(code);
+                auto registrationCode = std::any_cast<Utility::RegistrationCodes>(message.mBody);
+                onRegistrationAnswer(registrationCode);
             }
             break;
 
             case MessageType::MessageDeleteAnswer:
             {
-                auto messageInfo = std::any_cast<Utility::DeletingMessageCodes>(message.mBody);
-                onUserMessageDeleteAnswer(messageInfo);
+                auto messageDeleteInfo = std::any_cast<Utility::DeletingMessageCodes>(message.mBody);
+                onUserMessageDeleteAnswer(messageDeleteInfo);
+            }
+            break;
+
+            case MessageType::MessageEditAnswer:
+            {
+                auto messageEditInfo = std::any_cast<Utility::EditingMessageCodes>(message.mBody);
+                onEditMessageAnswer(messageEditInfo);
             }
             break;
 
             case MessageType::ReplyHistoryAnswer:
             {
-                auto replies = std::any_cast<std::vector<Models::ReplyInfo>>(message.mBody);
-                onReplyHistoryAnswer(replies);
+                auto repliesHistory = std::any_cast<std::vector<Models::ReplyInfo>>(message.mBody);
+                onReplyHistoryAnswer(repliesHistory);
             }
             break;
 
             case MessageType::ReplyStoreAnswer:
             {
-                auto code = std::any_cast<Utility::StoringReplyCodes>(message.mBody);
-                onReplyStoreAnswer(code);
+                auto replyStoreCode = std::any_cast<Utility::StoringReplyCodes>(message.mBody);
+                onReplyStoreAnswer(replyStoreCode);
             }
             break;
+
             case MessageType::ChannelSubscribeAnswer:
             {
-                auto code = std::any_cast<Utility::ChannelSubscribingCodes>(message.mBody);
-                onChannelSubscribingAnswer(code);
+                auto subscribeCode = std::any_cast<Utility::ChannelSubscribingCodes>(message.mBody);
+                onChannelSubscribingAnswer(subscribeCode);
             }
             break;
+
             case MessageType::ChannelLeaveAnswer:
             {
-                auto ChannelLeaveCode = std::any_cast<Utility::ChannelLeaveCodes>(message.mBody);
-                onChannelLeaveAnswer(ChannelLeaveCode);
+                auto channelLeaveCode = std::any_cast<Utility::ChannelLeaveCodes>(message.mBody);
+                onChannelLeaveAnswer(channelLeaveCode);
             }
             break;
+
             case MessageType::ChannelSubscriptionListAnswer:
             {
                 auto channelsList = std::any_cast<std::vector<uint64_t>>(message.mBody);
                 onChannelSubscribingListAnswer(channelsList);
             }
             break;
+
             case MessageType::ChannelDeleteAnswer:
             {
                 auto channelDeleteCode = std::any_cast<Utility::ChannelDeleteCode>(message.mBody);
@@ -408,8 +428,8 @@ void Client::loop()
             
             case MessageType::MessageReactionAnswer:
             {
-                auto messageInfo = std::any_cast<Utility::ReactionMessageCodes>(message.mBody);
-                onMessageReactionAnswer(messageInfo);
+                auto messageReactionCode = std::any_cast<Utility::ReactionMessageCodes>(message.mBody);
+                onMessageReactionAnswer(messageReactionCode);
             }
             break;
 
@@ -433,125 +453,208 @@ void Client::loop()
 void Client::onLoginAnswer(bool success)
 {
     (void)(success);
-    Base::Logger::FileLogger::getInstance().log("Login answer is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Login answer is not implemented", 
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onServerAccepted()
 {
-    Base::Logger::FileLogger::getInstance().log("Server accepted is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Server accepted is not implemented",
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onServerPing(double timestamp)
 {
     (void)(timestamp);
-    Base::Logger::FileLogger::getInstance().log("Server ping is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Server ping is not implemented",
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onServerMessage(const uint64_t clientId)
 {
     (void)(clientId);
-    Base::Logger::FileLogger::getInstance().log("Server message is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Server message is not implemented",
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onChannelListRequest(const std::vector<Models::ChannelInfo>& channels)
 {
     (void)(channels);
-    Base::Logger::FileLogger::getInstance().log("Channel list request is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Channel list request is not implemented",
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages)
 {
     (void)(messages);
-    Base::Logger::FileLogger::getInstance().log("Message history answer is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Message history answer is not implemented",
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode)
 {
     (void)(storingMessageCode);
-    Base::Logger::FileLogger::getInstance().log("Message store answer is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Message store answer is not implemented", 
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
 {
     (void)(registrationCode);
-    Base::Logger::FileLogger::getInstance().log("Registration answer is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Registration answer is not implemented",
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState)
 {
     (void)(deletingState);
-    Base::Logger::FileLogger::getInstance().log("User message delete answer is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "User message delete answer is not implemented",
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onMessageReactionAnswer(const Utility::ReactionMessageCodes reactionState)
 {
     (void)(reactionState);
-    Base::Logger::FileLogger::getInstance().log("Message reaction answer is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Message reaction answer is not implemented",
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onDisconnect() 
 { 
-    Base::Logger::FileLogger::getInstance().log("Disconnect is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Disconnect is not implemented", 
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onMessageSendFailed(const Message& message) const
 {
     (void)(message);
-    Base::Logger::FileLogger::getInstance().log("Message send failed is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Message send failed is not implemented",
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& replies)
 {
     (void)(replies);
-    Base::Logger::FileLogger::getInstance().log("Reply history answer is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Reply history answer is not implemented", 
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
 {
     (void)(storingReplyCode);
-    Base::Logger::FileLogger::getInstance().log("Reply store answer is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Reply store answer is not implemented", 
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode)
 {
     (void)(ChannelLeaveCode);
-    Base::Logger::FileLogger::getInstance().log("Leave channel answer is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Leave channel answer is not implemented",
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes& subscribingChannelCode)
 {
     (void)(subscribingChannelCode);
-    Base::Logger::FileLogger::getInstance().log("Subscribing channel answer is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Subscribing channel answer is not implemented", 
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
-void Client::onChannelSubscribingListAnswer(std::vector<uint64_t> subscribingChannelList)
+void Client::onChannelSubscribingListAnswer(const std::vector<uint64_t>& subscribingChannelList)
 {
     (void)(subscribingChannelList);
-    Base::Logger::FileLogger::getInstance().log("Subscribing channel list answer is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Subscribing channel list answer is not implemented",
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode)
 {
     (void)(channelDeleteCode);
-    Base::Logger::FileLogger::getInstance().log("Delete channel answer is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Delete channel answer is not implemented",
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const
 {
     (void)(reactionState);
-    Base::Logger::FileLogger::getInstance().log("Editing message answer is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Editing message answer is not implemented",
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode)
 {
     (void)(channelCreateCode);
-    Base::Logger::FileLogger::getInstance().log("Create channel answer is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Create channel answer is not implemented",
+        Base::Logger::LogLevel::WARNING
+    );
 }
 
 void Client::onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer)
 {
     (void)(directMessageCreateAnswer);
-    Base::Logger::FileLogger::getInstance().log("Direct message create answer is not implemented", Base::Logger::LogLevel::WARNING);
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Direct message create answer is not implemented",
+        Base::Logger::LogLevel::WARNING
+    );
 }
-
 }  // namespace Network
