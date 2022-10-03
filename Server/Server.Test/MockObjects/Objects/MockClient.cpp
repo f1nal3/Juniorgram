@@ -287,7 +287,7 @@ void MockClient::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCod
     }
 }
 
-void MockClient::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes& subscribingChannelCode)
+void MockClient::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode)
 {
     if (subscribingChannelCode == Utility::ChannelSubscribingCodes::SUCCESS)
     {

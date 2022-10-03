@@ -160,7 +160,7 @@ void ConnectionManager::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelL
     emit ReceiverManager::instance()->onChannelLeaveAnswer(ChannelLeaveCode);
 }
 
-void ConnectionManager::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes& subscribingChannelCode)
+void ConnectionManager::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode)
 {
     if (subscribingChannelCode == Utility::ChannelSubscribingCodes::SUCCESS)
     {

@@ -598,7 +598,7 @@ void Client::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode)
     );
 }
 
-void Client::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes& subscribingChannelCode)
+void Client::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode)
 {
     (void)(subscribingChannelCode);
     Base::Logger::FileLogger::getInstance().log

@@ -22,10 +22,11 @@ TEST_CASE("Check message history request of server")
 //{
 //    Client     Client;
 //    testServer serverTest(ServerInfo::Port::test);
+//    bool       acceptingConnection = true;
 //
 //    serverTest.start();
 //
-//    if (bindOfConnectToServer(Client) == true)
+//    if (bindOfConnectToServer(Client) == acceptingConnection)
 //    {
 //        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::DirectMessageCreateRequest));
 //    }

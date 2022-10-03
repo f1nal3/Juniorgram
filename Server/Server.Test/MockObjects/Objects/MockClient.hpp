@@ -106,7 +106,7 @@ protected:
     /**
     * @brief Method for signaling of channel subscription answer.
     */
-    void onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes &subscribingChannelCode) override;
+    void onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode) override;
 
     /**
     * @brief Method for signaling of channel subscription list answer.

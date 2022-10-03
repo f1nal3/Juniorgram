@@ -17,7 +17,7 @@ using MessageType      = Message::MessageType;
 
 struct UserInfo
 {
-    UserInfo()          = default;
+    UserInfo() = default;
     ~UserInfo() = default;
 
     const std::string& getUserLogin() const { return testLogin; }
@@ -25,10 +25,10 @@ struct UserInfo
     const std::string& getUserPassword() const { return testPSWD; }
 
 private:
-    const std::string testEmail    = "demonstakingoverme@epam.co";
-    const std::string testLogin    = "memorisecodead";
-    const std::string testPSWD     = "12juniorgramMargroinuj";
-};
+    const std::string testEmail = "demonstakingoverme@epam.co";
+    const std::string testLogin{"memorisecodead"};
+    const std::string testPSWD{"12juniorgramMargroinuj"};
+};  
 
 inline Message& messageInstance(Message& message, MessageType messageType) noexcept
 {
@@ -37,8 +37,8 @@ using ReplyInfo        = Models::ReplyInfo;
 using MessageInfo      = Models::MessageInfo;
 using RegistrationInfo = Models::RegistrationInfo;
 
-    UserInfo          userInfo;
-    const std::string testPWDHash     = Base::Hashing::SHA_256
+    UserInfo userInfo;
+    const std::string testPWDHash = Base::Hashing::SHA_256
     (
         userInfo.getUserPassword(), userInfo.getUserLogin()
     );
@@ -46,11 +46,11 @@ using RegistrationInfo = Models::RegistrationInfo;
     const std::string testChannelName = "testServer";
     const std::string testMessage     = "Hello, juniorgram!!";
 
-    uint16_t          testReactionID  = 0;
-    uint64_t          testChannelID   = 1;
-    uint64_t          testMsgID       = 2;
-    uint64_t          testReceiverID  = 1;
-    uint64_t          testUserID      = 1;
+    constexpr uint16_t           testReactionID  = 0;
+    constexpr uint64_t           testMsgID       = 2;
+    constexpr uint64_t           testReceiverID  = 1;
+    constexpr uint64_t           testUserID      = 1;
+    constexpr uint64_t           testChannelID   = 1;
 
     message.mHeader.mMessageType = messageType;
     message.mHeader.mTimestamp   = RTC::to_time_t(RTC::now());
@@ -75,7 +75,7 @@ using RegistrationInfo = Models::RegistrationInfo;
 
         case Message::MessageType::ChannelCreateRequest:
         {
-            std::string channelInfo = testChannelName;
+            std::string_view channelInfo = testChannelName;
             message.mBody           = std::make_any<std::string>(channelInfo);
 
             break;
@@ -99,7 +99,7 @@ using RegistrationInfo = Models::RegistrationInfo;
 
         case Message::MessageType::ChannelLeaveRequest:
         {
-            std::string messageInfo = testChannelName;
+            std::string_view messageInfo = testChannelName;
             message.mBody           = std::make_any<std::string>(messageInfo);
 
             break;
@@ -155,7 +155,7 @@ using RegistrationInfo = Models::RegistrationInfo;
 
         case Message::MessageType::MessageEditRequest:
         {
-            MessageInfo messageInfo(testChannelID,testMessage);
+            MessageInfo messageInfo(testChannelID, testMessage);
             messageInfo._senderID = testUserID;
             messageInfo._msgID    = testMsgID;
             message.mBody           = std::make_any<MessageInfo>(messageInfo);
@@ -165,7 +165,7 @@ using RegistrationInfo = Models::RegistrationInfo;
 
         case Message::MessageType::MessageDeleteRequest:
         {
-            MessageInfo messageInfo(testChannelID,testMessage);
+            MessageInfo messageInfo(testChannelID, testMessage);
             message.mBody = std::make_any<MessageInfo>(messageInfo);
 
             break;
@@ -213,7 +213,7 @@ inline void testSendingMessages(const Client& Client, const MessageType mesgType
     Client.send(message);
 }
 
-inline testServer& testServerUpdating(testServer& serverTest) noexcept
+inline constexpr testServer& testServerUpdating(testServer& serverTest) noexcept
 {
     unsigned int countOfUpdate        = 0;
     unsigned int iterationOfServer    = 1;
