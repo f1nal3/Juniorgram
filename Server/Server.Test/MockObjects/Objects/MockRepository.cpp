@@ -157,13 +157,14 @@ std::vector<Models::ReplyInfo> testRepliesRepository::getReplyHistory(std::uint6
     {
         Models::ReplyInfo replyInfo;
         replyInfo._channelID = channelID;
-        for (auto i = 0; i < replyHistoryRow.value().size(); ++i)
+
+        for (auto& replyResult : replyHistoryRow.value())
         {
-            replyInfo._senderID   = replyHistoryRow.value()[i][0].as<std::uint64_t>();
-            replyInfo._msgIdOwner = replyHistoryRow.value()[i][1].as<std::uint64_t>();
-            replyInfo._msgID      = replyHistoryRow.value()[i][2].as<std::uint64_t>();
-            replyInfo._message    = replyHistoryRow.value()[i][3].as<std::string>();
-            replyInfo._userLogin  = replyHistoryRow.value()[i][4].as<std::string>();
+            replyInfo._senderID   = replyHistoryRow.value()[replyResult.size()][0].as<std::uint64_t>();
+            replyInfo._msgIdOwner = replyHistoryRow.value()[replyResult.size()][1].as<std::uint64_t>();
+            replyInfo._msgID      = replyHistoryRow.value()[replyResult.size()][2].as<std::uint64_t>();
+            replyInfo._message    = replyHistoryRow.value()[replyResult.size()][3].as<std::string>();
+            replyInfo._userLogin  = replyHistoryRow.value()[replyResult.size()][4].as<std::string>();
             result.emplace_back(replyInfo);
         }
     }

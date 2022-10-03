@@ -307,7 +307,7 @@ void MockClient::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCod
     }
 }
 
-void MockClient::onChannelSubscribingListAnswer(const std::vector<uint64_t>& subscribingChannelList) const
+void MockClient::onChannelSubscribingListAnswer(const std::vector<uint64_t>& subscribingChannelList)
 {
     if (!subscribingChannelList.empty())
     {

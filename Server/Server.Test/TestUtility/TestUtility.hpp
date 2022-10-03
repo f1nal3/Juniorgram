@@ -213,7 +213,7 @@ inline void testSendingMessages(const Client& Client, const MessageType mesgType
     Client.send(message);
 }
 
-inline constexpr testServer& testServerUpdating(testServer& serverTest) noexcept
+constexpr testServer& testServerUpdating(testServer& serverTest) noexcept
 {
     unsigned int countOfUpdate        = 0;
     unsigned int iterationOfServer    = 1;
