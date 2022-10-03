@@ -156,17 +156,17 @@ std::vector<Models::ReplyInfo> testRepliesRepository::getReplyHistory(std::uint6
         replyHistoryRow.has_value())
     {
         Models::ReplyInfo replyInfo;
-        replyInfo._channelID = channelID;
+        //replyInfo._channelID = channelID;
 
-        for (auto& replyResult : replyHistoryRow.value())
-        {
-            replyInfo._senderID   = replyHistoryRow.value()[replyResult.size()][0].as<std::uint64_t>();
-            replyInfo._msgIdOwner = replyHistoryRow.value()[replyResult.size()][1].as<std::uint64_t>();
-            replyInfo._msgID      = replyHistoryRow.value()[replyResult.size()][2].as<std::uint64_t>();
-            replyInfo._message    = replyHistoryRow.value()[replyResult.size()][3].as<std::string>();
-            replyInfo._userLogin  = replyHistoryRow.value()[replyResult.size()][4].as<std::string>();
-            result.emplace_back(replyInfo);
-        }
+        //for (auto& replyResult : replyHistoryRow.value())
+        //{
+        //    replyInfo._senderID   = replyHistoryRow.value()[replyResult.size()][0].as<std::uint64_t>();
+        //    replyInfo._msgIdOwner = replyHistoryRow.value()[replyResult.size()][1].as<std::uint64_t>();
+        //    replyInfo._msgID      = replyHistoryRow.value()[replyResult.size()][2].as<std::uint64_t>();
+        //    replyInfo._message    = replyHistoryRow.value()[replyResult.size()][3].as<std::string>();
+        //    replyInfo._userLogin  = replyHistoryRow.value()[replyResult.size()][4].as<std::string>();
+        //    result.emplace_back(replyInfo);
+        //}
     }
 
     Base::Logger::FileLogger::getInstance().log

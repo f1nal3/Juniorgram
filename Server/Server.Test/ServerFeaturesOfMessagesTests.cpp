@@ -3,6 +3,21 @@
 
 using namespace TestUtility;
 
+TEST_CASE("Check all messages from server side")
+{
+    Client     Client;
+    testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
+
+    serverTest.start();
+
+    if (bindOfConnectToServer(Client) == acceptingConnection)
+    {
+        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::MessageAll));
+    }
+    testServerUpdating(serverTest);
+}
+
 TEST_CASE("Check message history request of server")
 {
     Client Client;
@@ -14,6 +29,21 @@ TEST_CASE("Check message history request of server")
     if (bindOfConnectToServer(Client) == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::MessageHistoryRequest));
+    }
+    testServerUpdating(serverTest);
+}
+
+TEST_CASE("Check reply message history request of server")
+{
+    Client     Client;
+    testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
+
+    serverTest.start();
+
+    if (bindOfConnectToServer(Client) == acceptingConnection)
+    {
+        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ReplyHistoryRequest));
     }
     testServerUpdating(serverTest);
 }
@@ -33,21 +63,6 @@ TEST_CASE("Check message history request of server")
 //    testServerUpdating(serverTest);
 //}
 
-TEST_CASE("Check all messages from server side")
-{
-    Client     Client;
-    testServer serverTest(ServerInfo::Port::test);
-    bool       acceptingConnection = true;
-
-    serverTest.start();
-
-    if (bindOfConnectToServer(Client) == acceptingConnection)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::MessageAll));
-    }
-    testServerUpdating(serverTest);
-}
-
 TEST_CASE("Check message store request from server side")
 {
     Client     Client;
@@ -59,6 +74,21 @@ TEST_CASE("Check message store request from server side")
     if (bindOfConnectToServer(Client) == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::MessageStoreRequest));
+    }
+    testServerUpdating(serverTest);
+}
+
+TEST_CASE("Check reply message store request from server side")
+{
+    Client     Client;
+    testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
+
+    serverTest.start();
+
+    if (bindOfConnectToServer(Client) == acceptingConnection)
+    {
+        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ReplyStoreRequest));
     }
     testServerUpdating(serverTest);
 }
