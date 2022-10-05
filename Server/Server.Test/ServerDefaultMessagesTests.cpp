@@ -22,7 +22,8 @@ TEST_CASE("Check default request of server side")
 {
     Client     Client;
     testServer serverTest(ServerInfo::Port::test);
-    const int16_t failedType = 666;
+
+    constexpr auto failedType         = int16_t(666);
     bool          acceptingConnection = true;
 
     serverTest.start();

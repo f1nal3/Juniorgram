@@ -3,20 +3,22 @@
 
 using namespace TestUtility;
 
-//TEST_CASE("Check channel create request of server")
-//{
-//    Client     Client;
-//    testServer serverTest(ServerInfo::Port::test);
-//    bool       acceptingConnection = true;
-//      
-//    serverTest.start();
-//
-//    if (bindOfConnectToServer(Client) == acceptingConnection)
-//    {
-//        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelCreateRequest));
-//    }
-//    testServerUpdating(serverTest);
-//}
+/*
+TEST_CASE("Check channel create request of server")
+{
+    Client     Client;
+    testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
+      
+    serverTest.start();
+
+    if (bindOfConnectToServer(Client) == acceptingConnection)
+    {
+        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelCreateRequest));
+    }
+    testServerUpdating(serverTest);
+}
+*/
 
 TEST_CASE("Check channel list request from server side")
 {
@@ -48,20 +50,22 @@ TEST_CASE("Check channel subscribe request from server side")
     testServerUpdating(serverTest);
 }
 
-//TEST_CASE("Check channel subscription list request from server side")
-//{
-//    Client     Client;
-//    testServer serverTest(ServerInfo::Port::test);
-//    bool       acceptingConnection = true;
-//
-//    serverTest.start();
-//
-//    if (bindOfConnectToServer(Client) == acceptingConnection)
-//    {
-//        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelSubscriptionListRequest));
-//    }
-//    testServerUpdating(serverTest);
-//}
+/*
+TEST_CASE("Check channel subscription list request from server side")
+{
+    Client     Client;
+    testServer serverTest(ServerInfo::Port::test);
+    bool       acceptingConnection = true;
+
+    serverTest.start();
+
+    if (bindOfConnectToServer(Client) == acceptingConnection)
+    {
+        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelSubscriptionListRequest));
+    }
+    testServerUpdating(serverTest);
+}
+*/
 
 TEST_CASE("Check channel leave request from server side")
 {

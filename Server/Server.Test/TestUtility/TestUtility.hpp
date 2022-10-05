@@ -6,14 +6,12 @@
 
 namespace TestUtility
 {
-using Network::Message;
-using Utility::SafeQueue;
-
 using RTC              = std::chrono::system_clock;
-using milliseconds     = std::chrono::milliseconds;
 using Client           = MockClient::MockClient;
+using Message          = Network::Message;
 using testServer       = Server::Server;
 using MessageType      = Message::MessageType;
+using milliseconds     = std::chrono::milliseconds;
 
 struct UserInfo
 {
@@ -247,7 +245,7 @@ inline decltype(auto) bindOfSendingMessage(Client& Client, MessageType mesgType)
 inline auto bindOfConnectToServer(Client& Client) noexcept
 {
     using namespace ServerInfo;
-    auto connectToServer = std::bind
+    const auto connectToServer = std::bind
     (
         &Client::connectToServer, &Client, 
         Address::local, Port::test

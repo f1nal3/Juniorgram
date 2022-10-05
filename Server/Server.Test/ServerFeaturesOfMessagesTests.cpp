@@ -48,20 +48,21 @@ TEST_CASE("Check reply message history request of server")
     testServerUpdating(serverTest);
 }
 
-//TEST_CASE("Check direct message create request from server side")
-//{
-//    Client     Client;
-//    testServer serverTest(ServerInfo::Port::test);
-//    bool       acceptingConnection = true;
-//
-//    serverTest.start();
-//
-//    if (bindOfConnectToServer(Client) == acceptingConnection)
-//    {
-//        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::DirectMessageCreateRequest));
-//    }
-//    testServerUpdating(serverTest);
-//}
+/* TEST_CASE("Check direct message create request from server side")
+/  {
+/    Client     Client;
+/    testServer serverTest(ServerInfo::Port::test);
+/    bool       acceptingConnection = true;
+/
+/    serverTest.start();
+/
+/    if (bindOfConnectToServer(Client) == acceptingConnection)
+/    {
+/        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::DirectMessageCreateRequest));
+/    }
+/    testServerUpdating(serverTest);
+/   }
+*/
 
 TEST_CASE("Check message store request from server side")
 {
