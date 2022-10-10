@@ -28,7 +28,7 @@ private:
     const std::string testPSWD{"12juniorgramMargroinuj"};
 };  
 
-inline Message& messageInstance(Message& message, MessageType messageType) noexcept
+inline Message& messageInit(Message& message, MessageType messageType) noexcept
 {
 using LoginInfo        = Models::LoginInfo;
 using ReplyInfo        = Models::ReplyInfo;
@@ -206,7 +206,7 @@ inline void testSendingMessages(const Client& Client, const MessageType mesgType
     std::mutex scopedMutex;
 
     std::scoped_lock scopedLock(scopedMutex);
-    messageInstance(message, mesgType);
+    messageInit(message, mesgType);
     std::this_thread::sleep_for(milliseconds(5000));
     Client.send(message);
 }
