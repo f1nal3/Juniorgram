@@ -21,7 +21,7 @@ class FileLogger : ILogger
 public:
     using BlockWrapper = std::pair<std::string, std::string>;
 
-     /**
+    /**
      * @brief Gets an object of the current class
      * @return object Logger
      */

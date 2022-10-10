@@ -130,27 +130,11 @@ TEST_CASE("Special methods for improved logging")
 
 TEST_CASE("Logging and throw exception method")
 {
-    auto& testLogger              = FileLogger::getInstance();
-    const char* filename          = "FileLoggerTest.cpp";
-    std::unique_ptr<std::exception> someException;
+    auto& testLogger         = FileLogger::getInstance();
+    const char* filename     = "FileLoggerTest.cpp";
+    std::unique_ptr<Utility::JuniorgramException> someException;
 
-/// because std::exception has no _Data for std::exception.what() in GCC and CLANG
-#ifdef _WIN32
-    someException = std::make_unique<std::exception>("Test std::exception");
-#else
-    class MyTestException : public std::exception
-    {
-    public:
-        explicit MyTestException(std::string&& msg_) : _msg(std::move(msg_)) {}
-
-        [[nodiscard]] const char* what() const noexcept override { return _msg.c_str(); }
-
-    private:
-        std::string _msg{""};
-    };
-
-    someException = std::make_unique<MyTestException>(std::string("Test MyTestException (not WIN32 compilers)"));
-#endif
+    someException = std::make_unique<Utility::JuniorgramException>("Test Utility::JuniorgramException", filename, __LINE__);
     
     REQUIRE_THROWS(testLogger.logAndThrow(filename, __LINE__, *someException));
     
