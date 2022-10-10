@@ -233,10 +233,11 @@ constexpr testServer& testServerUpdating(testServer& serverTest) noexcept
 
 inline decltype(auto) bindOfSendingMessage(Client& Client, MessageType mesgType) noexcept
 {
+    using namespace std::placeholders;
     auto sendingMessage = std::bind
     (
         &testSendingMessages,
-        std::placeholders::_1, std::placeholders::_2
+        _1, _2
     );
     
    return sendingMessage(Client,mesgType);
