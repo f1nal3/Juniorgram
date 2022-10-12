@@ -9,8 +9,7 @@ struct MessageInfo;
     /**
     * @class IMessageRepository
     * @brief Client message repository
-    * @details Contains methods for client side for message management.
-    * Class determines functions, which client can execute. \n
+    * @details Class determines functions, which client can execute. It will be used in future. \n
     * Implementation of methods for each type of database is individual.
     */
 class IMessageRepository : public IMasterRepository
@@ -18,14 +17,16 @@ class IMessageRepository : public IMasterRepository
 public:
 
     /**
-     * @brief If message doesn't exist it will be created
-     * @details If message exist a new one will be ignored
+     * @brief Function for adding message
+     * @details If message doesn't exist it will be created \n
+     * If message exist a new one will be ignored
      */
     virtual void addMessages(std::vector<MessageInfo>& messages) = 0;
 
     /**
-     * @brief If message doesn't exist it will be created
-     * @details If message exist it will be overridden
+     * @brief Function for editing message
+     * @details If message doesn't exist it will be created\n
+     * If message exist it will be overridden
      */
     virtual void editMessages(std::vector<MessageInfo>& messages) = 0;
 

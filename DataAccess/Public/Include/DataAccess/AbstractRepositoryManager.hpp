@@ -19,17 +19,18 @@ namespace DataAccess
     using MethodReference = TReturn(TIRepository::*)(TArgs...);
 
     /**
-    * @brief  fmt function uses for converting arguments, that you pass to repository method to correct from.
-    * @param  ref - argument that is passing to repository method.
+    * @brief fmt function uses for converting arguments, that you pass to repository method to correct form.
+    * @param ref argument that is passing to repository method.
     * @return Return correct format argument: for fundamental types like int, float, etc - by value, all other - by const ref.
     */
     template <typename Type>
     std::conditional_t<std::is_fundamental_v<Type>, std::remove_reference_t<Type>, const Type&> fmt(const Type& ref) {return ref;}
 
     /**
-    * @class   IRepositoryManager
-    * @brief   IRepositoryManager is template class, which realization controls handler for repository requests.
-    * @details Controls push to queue and further processing of requests (have own thread for it).
+    * @class IRepositoryManager
+    * @brief IRepositoryManager is template class, which realization controls handler for repository requests.
+    * @details Class controls pushing to queue and further processing of requests (have own thread for it).
+    * Requests with the highest priority are at the top of the queue.
     */
     class IRepositoryManager
     {
@@ -57,8 +58,8 @@ namespace DataAccess
     public:
         /**
          * @brief Exists for add methods in the queue.
-         *	@warning Pass all arguments (args) through 'fmt()' function
-         * @param (Template arg) priority - priority of request.
+         * @warning Pass all arguments (args) through 'fmt()' function
+         * @param (Template arg) priority - priority of request. By default, this is equal to the maximum priority.
          * @param MethodReference - just a pointer to member function needed to add to the queue.
          * @param args - list of args that passing to member function.
          * @return Return future object from repository member function.

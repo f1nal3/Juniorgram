@@ -16,7 +16,7 @@ class QueryBuilder;
 
 /**
 * @class SQLWhereCondition
-* @brief SQLWhereCondition class.
+* @brief Provides interface for constructing conditions in SQL query
 * @details This class is a secondary. It needs for
 * SQLSelect, SQLUpdate and SQLDelete.
 * This class using for 'where' condition from SQL
@@ -115,7 +115,7 @@ public:
 
     /**
     * @brief Beeween condition.
-    * @param left - start of the range.
+    * @param left - start of the range. \n
     *  right - end of the range.
     * @return Current SQLSTATEMENT pointer object to continue SQL query.
     */
@@ -155,9 +155,10 @@ private:
 /**
 * @class SQLBase
 * @brief SQLBase abstraction class.
-* @details This class has 4 non-overloaded inherited methods.
-* @warning Like a SQLWhereCondition
-* you shouldn't use it itself.
+* @details This class has 4 non-overloaded inherited methods. This is singleton.
+* Class used as a base for interfaces of SQL operations (for SQLSelect, SQLUpdate, SQLDelete, SQLInsert)
+* and allows QueryBuilder handle any type of query.
+* @warning Like a SQLWhereCondition you shouldn't use it itself.
 */
 template <typename ResultType>
 class SQLBase
@@ -291,8 +292,8 @@ protected:
 
 /**
  * @class SQLSelect
- * @brief SQLSelect class.
- * @details It likes common SQL select condition.
+ * @brief Provides interface for selection operations.
+ * @details It likes common SQL select condition. This is singleton.
  * @warning After call it you must call the method 'columns'
  *    (BUT distinct is exception)
  *    and give it columns that you need to return.
@@ -526,8 +527,8 @@ public:
 
 /**
 * @class SQLInsert
-* @brief SQLInsert class.
-* @details It likes common SQL insert condition.
+* @brief Provides interface for insertion operations.
+* @details It likes common SQL insert condition. This is singleton.
 */
 template <typename ResultType>
 class SQLInsert : public SQLBase<ResultType>
@@ -701,8 +702,8 @@ public:
 
 /**
 * @class SQLUpdate
-* @brief SQLUpdate class.
-* @details It likes common SQL update condition.
+* @brief Provides interface for updation operations.
+* @details It likes common SQL update condition. This is singleton.
 */
 template <typename ResultType>
 class SQLUpdate : public SQLBase<ResultType>, public SQLWhereCondition<SQLUpdate<ResultType>>
@@ -771,8 +772,8 @@ public:
 
 /**
 * @class SQLDelete
-* @brief SQLDelete class.
-* @details It likes common SQL delete condition.
+* @brief Provides interface for deletion operations.
+* @details It likes common SQL delete condition. This is singleton.
 */
 template <typename ResultType>
 class SQLDelete : public SQLBase<ResultType>, public SQLWhereCondition<SQLDelete<ResultType>>

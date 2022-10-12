@@ -23,7 +23,7 @@ public:
     virtual std::vector<Models::ChannelInfo> getAllChannelsList() = 0;
 
     /**
-    * @brief Draft method for getting history for a specific user. \n
+    * @brief Draft method of getting history for a specific user. \n
     * History is all messages that a marked as "non-delivered" for this user.
     * @param channelID - channel's id from which we want to get message history.
     * @return List of messages as vector of MessageInfo.
@@ -31,7 +31,7 @@ public:
     virtual std::vector<Models::MessageInfo> getMessageHistoryForUser(const std::uint64_t channelID) = 0;
 
 	/**
-	* @brief draft method for getting history for a specific user.
+	* @brief Draft method of getting history for a specific user.
 	*/
     virtual std::vector<Models::ReplyInfo> getReplyHistoryForUser(const std::uint64_t channelID) = 0;
     
