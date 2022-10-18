@@ -124,6 +124,9 @@ TEST_CASE("Test formatExceptionMessage")
 
     REQUIRE_THAT(Utility::formatExceptionMessage(message, filename, line),
                  Contains(message.data()) && Contains(filename.data()) && Contains(std::to_string(line).data()));
+    
+    REQUIRE_THAT(Utility::formatExceptionMessage(message.c_str(), filename.c_str(), line),
+                 Contains(message.data()) && Contains(filename.data()) && Contains(std::to_string(line).data()));
 
     REQUIRE_NOTHROW(Utility::formatExceptionMessage("", "", 0));
 
