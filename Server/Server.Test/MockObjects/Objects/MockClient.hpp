@@ -1,14 +1,8 @@
 #pragma once
 
-#include <asio.hpp>
-#include <future>
-
-#include <Utility/SafeQueue.hpp>
-#include <Network/Connection.hpp>
-#include <Models/Primitives.hpp>
-
-#include <Client.hpp>
-#include <ServerInfo.hpp>
+#include "asio.hpp"
+#include "Client.hpp"
+#include "ServerInfo.hpp"
 
 namespace MockClient
 {

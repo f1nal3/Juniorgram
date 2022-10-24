@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Server.hpp>
-#include <MockClient.hpp>
-#include <Cryptography.hpp>
+#include "Server.hpp"
+#include "MockClient.hpp"
+#include "Cryptography.hpp"
 
 namespace TestUtility
 {
