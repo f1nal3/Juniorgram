@@ -3,6 +3,7 @@
 #include "Logger.Static/FileLogger.hpp"
 #include "Utility/UtilityTime.hpp"
 #include <Utility/Utility.hpp>
+#include <Utility/Exception.hpp>
 
 using namespace Base::Logger;
 using UtilityTime::safe_localtime;
@@ -54,7 +55,7 @@ TEST_CASE("Checking the corresponding lvl log")
     SECTION("Create log file")
     {
         FileLogger& loger = FileLogger::getInstance();
-        loger.log("Test: creat new log", LogLevel::DEBUG);
+        loger.log("Test: create new log", LogLevel::DEBUG);
         pauseForRecording();
     }
 
@@ -67,7 +68,7 @@ TEST_CASE("Log in debug creates log file")
     {
         {
             FileLogger& loger = FileLogger::getInstance();
-            loger.log("Test: creat new log", LogLevel::DEBUG);
+            loger.log("Test: create new log", LogLevel::DEBUG);
             pauseForRecording();
         }
     }
@@ -98,7 +99,7 @@ TEST_CASE("Checking the number of log files in a directory")
     {
         FileLogger& log = FileLogger::getInstance();
         log.init("Test-", LogOutput::EVERYWHERE);
-        log.log("Test: creat new log", LogLevel::DEBUG);
+        log.log("Test: create new log", LogLevel::DEBUG);
         pauseForRecording();
     }
 
@@ -126,3 +127,20 @@ TEST_CASE("Special methods for improved logging")
     REQUIRE_NOTHROW(testLogger.info("Test info message\n"));
     REQUIRE_NOTHROW(testLogger.warning("Test warning message\n"));
 }
+
+TEST_CASE("Logging and throw exception method")
+{
+    auto& testLogger         = FileLogger::getInstance();
+    const char* filename     = "FileLoggerTest.cpp";
+    std::unique_ptr<Utility::JuniorgramException> someException;
+
+    someException = std::make_unique<Utility::JuniorgramException>("Test Utility::JuniorgramException", filename, __LINE__);
+    
+    REQUIRE_THROWS(testLogger.logAndThrow(filename, __LINE__, *someException));
+    
+    someException = std::make_unique<Utility::NotImplementedException>("Test Utility::NotImplementedException", filename, __LINE__);
+    REQUIRE_THROWS(testLogger.logAndThrow(filename, __LINE__, *someException));
+    
+    someException = std::make_unique<Utility::OperationDBException>("Test Utility::OperationDBException", filename, __LINE__);
+    REQUIRE_THROWS(testLogger.logAndThrow(filename, __LINE__, *someException));
+ }
