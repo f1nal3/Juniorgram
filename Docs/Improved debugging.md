@@ -32,10 +32,10 @@ You can use .bat files to run server or server & client on your own PC already w
 	echo %time%
 	timeout 1 > NUL
 	echo %time%
-	start "" "<your_path_to_client.qt.exe>"
+	start "" "<your_path_to_client.**.exe>"
 	exit
 	```
 
-3. Find path to Server.Exec.exe and Client.Qt.exe and copy them
+3. Find path to Server.Exec.exe and Client.**.exe and copy them
 4. Replace <your_paths> on yours
 5. All other points are the same as above

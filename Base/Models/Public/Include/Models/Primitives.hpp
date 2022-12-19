@@ -5,6 +5,7 @@
 #include <cstring>
 #include <map>
 #include <string>
+#include <vector>
 
 #include <Utility/Utility.hpp>
 #include <Utility/UtilityTime.hpp>

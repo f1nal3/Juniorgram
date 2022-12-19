@@ -42,9 +42,9 @@ Install CMake:
 
 ## Linux:
 
-__Qt Creator__ or __Visual Code__:
+__Visual Code__:
 
  1. Clone this repository or download as Zip from Github.
- 2. Run Qt Creator and open the root CMakeLists.txt. It will automatically detect the root CMakeLists.txt and execute it, after which you can start/debug the server and client sides.
+ 2. Run VS Code and open the root CMakeLists.txt. It will automatically detect the root CMakeLists.txt and execute it, after which you can start/debug the server and client sides.
 
  
