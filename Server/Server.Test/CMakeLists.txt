@@ -8,33 +8,36 @@ set(SOURCE_FILES
 		ServerChannelMessagesTests.cpp
 		ServerAutorizationMessagesTests.cpp
 		ServerWorkflowTests.cpp
-		)
+		
+		MockObjects/MockClient.cpp
+		MockObjects/MockDatabase.cpp
+		MockObjects/MockRepository.cpp)
 
-add_executable(${TARGET} ${SOURCE_FILES})
+set(HEADER_FILES
+	MockObjects/MockQuery.hpp
+	MockObjects/MockClient.hpp
+	MockObjects/MockDatabase.hpp
+	MockObjects/MockRepository.hpp
+	)
+
+add_executable(${TARGET} ${SOURCE_FILES} ${HEADER_FILES})
 
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
 include_directories(TestUtility)
-add_subdirectory(MockObjects)
 
 target_link_libraries(${TARGET}
 PUBLIC 
-    Precompiled.Catch2.Main
-    Network.Public 
+    Precompiled.Catch2.Main 
     Server.Core.Static
+	Client.Core.Static
     DataAccess.Debug
-    yas::yas
-    asio::asio
 	PostgreSQL::pq 
     libpqxx::libpqxx    
-    Utility.Public
-    Models.Public
-    Base.Crypto.Static
-	Client.Core.Static
-    MockObjects
+	asio::asio
 	)
 
- target_include_directories(${TARGET} PRIVATE
+ target_include_directories(${TARGET} PUBLIC
 	 $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
 
 target_compile_definitions(${TARGET} PRIVATE CATCH_CONFIG_FAST_COMPILE)
