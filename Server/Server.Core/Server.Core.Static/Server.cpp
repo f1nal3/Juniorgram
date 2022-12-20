@@ -149,7 +149,14 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
 }
 Server::Server(const uint16_t& port) :
      _acceptor(_context, tcp::endpoint(tcp::v4(), port)),
-     _postgreManager(std::make_unique<PostgreRepositoryManager>(PostgreAdapter::getInstance<PostgreAdapter>()))
+     _postgreManager(std::make_unique<PostgreRepositoryManager>
+         (PostgreAdapter::getInstance<PostgreAdapter>()))
+{
+}
+
+Server::Server(const uint16_t& port, std::unique_ptr<PostgreRepositoryManager> RepMngr) noexcept :
+    _acceptor(_context, tcp::endpoint(tcp::v4(), port)),
+    _postgreManager(std::move(RepMngr))
 {
 }
 

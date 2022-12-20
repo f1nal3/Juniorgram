@@ -72,6 +72,9 @@ public:
     * @details Uses incoming port value from ArgumentParser.
     */
     explicit Server(const uint16_t& port);
+
+    Server(const uint16_t& port, std::unique_ptr<PostgreRepositoryManager> RepMngr) noexcept;
+
     /**
     * @brief Destructor
     */
