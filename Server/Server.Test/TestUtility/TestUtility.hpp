@@ -1,8 +1,10 @@
 #pragma once
 
 #include "Server.hpp"
-#include "MockClient.hpp"
+#include "../MockObjects/MockClient.hpp"
 #include "Cryptography.hpp"
+
+#include <DataAccess.Postgre/PostgreRepositoryManager.hpp>
 
 namespace TestUtility
 {

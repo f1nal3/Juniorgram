@@ -1,12 +1,16 @@
 #include <catch2/catch.hpp>
 #include "TestUtility.hpp"
+#include "../MockObjects/MockDatabase.hpp"
 
 using namespace TestUtility;
 
 TEST_CASE("Workflow startup server")
 {
     Client     Client;
-    testServer serverTest(ServerInfo::Port::test);
+    testServer serverTest(ServerInfo::Port::test, 
+        std::make_unique<DataAccess::PostgreRepositoryManager>
+        (MockDatabase::MockDatabase::getInstance<MockDatabase::MockDatabase>()));
+
     bool       acceptingConnection = true;
 
     CHECK_NOTHROW(serverTest.start());
@@ -22,7 +26,9 @@ suppressWarning(4242, "-Wconversion")
 TEST_CASE("Workflow fail startup server")
 {    
     uint32_t       testBadPort = 6666666;
-    testServer     badServer(testBadPort);   
+    testServer badServer(testBadPort, 
+        std::make_unique<DataAccess::PostgreRepositoryManager>
+        (MockDatabase::MockDatabase::getInstance<MockDatabase::MockDatabase>()));   
 
     CHECK_NOTHROW(badServer.start()); 
 }
@@ -31,7 +37,9 @@ restoreWarning
 
 TEST_CASE("Check disconnect from client")
 {
-    testServer serverTest(ServerInfo::Port::test);
+    testServer serverTest(ServerInfo::Port::test, 
+        std::make_unique<DataAccess::PostgreRepositoryManager>
+        (MockDatabase::MockDatabase::getInstance<MockDatabase::MockDatabase>()));
 
     REQUIRE_NOTHROW(serverTest.start());
 
