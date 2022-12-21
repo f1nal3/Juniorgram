@@ -37,7 +37,7 @@ PUBLIC
 	asio::asio
 	)
 
- target_include_directories(${TARGET} PUBLIC
+ target_include_directories(${TARGET} PRIVATE
 	 $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
 
 target_compile_definitions(${TARGET} PRIVATE CATCH_CONFIG_FAST_COMPILE)
