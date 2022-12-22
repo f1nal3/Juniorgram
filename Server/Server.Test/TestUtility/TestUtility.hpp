@@ -258,12 +258,12 @@ inline auto bindOfConnectToServer(Client& Client,
     return connectionInit();
 }
 
-inline constexpr uint16_t getTestingPort() 
+constexpr uint16_t getTestingPort() 
 {
     return ServerInfo::Port::test;
 }
 
-inline constexpr std::string_view getTestingAddress()
+constexpr std::string_view getTestingAddress()
 {
     return ServerInfo::Address::local;
 }
