@@ -2,6 +2,7 @@
 
 #include "Server.hpp"
 #include "../MockObjects/MockClient.hpp"
+#include "../MockObjects/MockDatabase.hpp"
 #include "Cryptography.hpp"
 
 #include <DataAccess.Postgre/PostgreRepositoryManager.hpp>
@@ -202,7 +203,7 @@ using RegistrationInfo = Models::RegistrationInfo;
     return message;
 }
 
-inline void testSendingMessages(const Client& Client, const MessageType mesgType) noexcept
+inline void [[nodiscard]] testSendingMessages(const Client& Client, const MessageType mesgType) noexcept
 {
     Message message;
     std::mutex scopedMutex;
@@ -236,7 +237,7 @@ constexpr testServer& testServerUpdating(testServer& serverTest) noexcept
 inline decltype(auto) bindOfSendingMessage(Client& Client, MessageType mesgType) noexcept
 {
     using namespace std::placeholders;
-    auto sendingMessage = std::bind
+    const auto sendingMessage = std::bind
     (
         &testSendingMessages,
         _1, _2
@@ -245,15 +246,33 @@ inline decltype(auto) bindOfSendingMessage(Client& Client, MessageType mesgType)
    return sendingMessage(Client,mesgType);
 }
 
-inline auto bindOfConnectToServer(Client& Client) noexcept
+inline auto bindOfConnectToServer(Client& Client, 
+    const std::string_view& address, const uint16_t port) noexcept
 {
-    using namespace ServerInfo;
-    const auto connectToServer = std::bind
+    const auto connectionInit = std::bind
     (
         &Client::connectToServer, &Client, 
-        Address::local, Port::test
+        address, port
     );
 
-    return connectToServer();
+    return connectionInit();
+}
+
+inline constexpr uint16_t getTestingPort() 
+{
+    return ServerInfo::Port::test;
+}
+
+inline constexpr std::string_view getTestingAddress()
+{
+    return ServerInfo::Address::local;
+}
+
+inline auto getTestingDatabase() noexcept
+{
+    std::unique_ptr<DataAccess::PostgreRepositoryManager> testDatabase =
+        std::make_unique<DataAccess::PostgreRepositoryManager>(MockDatabase::MockDatabase::getInstance<MockDatabase::MockDatabase>());
+
+    return testDatabase;
 }
 }  // namespace TestUtility
