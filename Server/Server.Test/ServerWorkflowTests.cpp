@@ -1,20 +1,18 @@
 #include <catch2/catch.hpp>
 #include "TestUtility.hpp"
-#include "../MockObjects/MockDatabase.hpp"
 
 using namespace TestUtility;
+
+constexpr bool acceptingConnection = true;
 
 TEST_CASE("Workflow startup server")
 {
     Client     Client;
-    testServer serverTest(ServerInfo::Port::test, 
-        std::make_unique<DataAccess::PostgreRepositoryManager>
-        (MockDatabase::MockDatabase::getInstance<MockDatabase::MockDatabase>()));
-
-    bool       acceptingConnection = true;
+    testServer serverTest(getTestingPort(), getTestingDatabase());
 
     CHECK_NOTHROW(serverTest.start());
-    if (bindOfConnectToServer(Client) == acceptingConnection)
+    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort())
+        == acceptingConnection)
     {
         bindOfSendingMessage(Client, MessageType::ServerAccept);
     }
@@ -26,9 +24,7 @@ suppressWarning(4242, "-Wconversion")
 TEST_CASE("Workflow fail startup server")
 {    
     uint32_t       testBadPort = 6666666;
-    testServer badServer(testBadPort, 
-        std::make_unique<DataAccess::PostgreRepositoryManager>
-        (MockDatabase::MockDatabase::getInstance<MockDatabase::MockDatabase>()));   
+    testServer badServer(testBadPort, getTestingDatabase());   
 
     CHECK_NOTHROW(badServer.start()); 
 }
@@ -37,9 +33,7 @@ restoreWarning
 
 TEST_CASE("Check disconnect from client")
 {
-    testServer serverTest(ServerInfo::Port::test, 
-        std::make_unique<DataAccess::PostgreRepositoryManager>
-        (MockDatabase::MockDatabase::getInstance<MockDatabase::MockDatabase>()));
+    testServer serverTest(getTestingPort(), getTestingDatabase());
 
     REQUIRE_NOTHROW(serverTest.start());
 
