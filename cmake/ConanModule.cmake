@@ -24,7 +24,6 @@ conan_cmake_configure(REQUIRES asio/1.18.1
                                libpqxx/7.7.3
                                nlohmann_json/3.9.1
                                yas/7.0.5
-                               qt/5.15.2
                     GENERATORS cmake_find_package_multi)
 
 # This detects system settings such as platform, compiler, etc.
@@ -41,12 +40,9 @@ list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}/Conan)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
 
 # List of find_packages for each external library that we use.
-# TODO: Qt has HINT due to legacy CI issues. Need to check if this persists.
-find_package(Qt5 COMPONENTS Widgets Core Gui Sql REQUIRED HINTS "/opt/Qt/5.15.2/gcc_64/lib/cmake/Qt5/")
 find_package(asio REQUIRED)
 find_package(Catch2 REQUIRED)
 find_package(cryptopp REQUIRED)
-find_package(PostgreSQL REQUIRED)
 find_package(libpqxx REQUIRED)
 find_package(nlohmann_json REQUIRED)
 find_package(yas REQUIRED)

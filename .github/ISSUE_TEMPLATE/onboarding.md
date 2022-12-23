@@ -5,7 +5,6 @@ An instant messaging messenger is being developed. Development includes both the
 * C++17
 * ASIO
 * SQL
-* Qt (rejected  since v0.7)
 
 ### Used tools:
 **CMake** build system, **Conan** package manager, **PostgreSQL** and **SQLite** DBMS
@@ -24,4 +23,3 @@ An instant messaging messenger is being developed. Development includes both the
            - Network
 
 #### Optional
-- Install Qt 5.12 via conan
