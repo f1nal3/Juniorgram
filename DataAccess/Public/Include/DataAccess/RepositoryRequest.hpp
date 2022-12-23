@@ -29,8 +29,8 @@ namespace DataAccess
     };
 
     /**
-     * @brief   RepositoryRequest object uses for storing request in one container.
-     *		    It is just a wrapper for std::packaged_task.
+     * @brief RepositoryRequest object uses for storing request in one container.
+     * It is just a wrapper for std::packaged_task.
      * @details It is also stores a priority of this request.
      */
     struct RepositoryRequest

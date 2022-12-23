@@ -16,11 +16,11 @@ class QueryBuilder;
 
 /**
 * @class SQLWhereCondition
-* @brief SQLWhereCondition class.
-* @details This class is a secondary. It needs for \
-* SQLSelect, SQLUpdate and SQLUpdate. \
+* @brief Provides interface for constructing conditions in SQL query
+* @details This class is a secondary. It needs for
+* SQLSelect, SQLUpdate and SQLDelete.
 * This class using for 'where' condition from SQL
-* @warning You shouldn't use it itself. Only from QueryCreator class.
+* @warning You shouldn't use it itself. Only from QueryBuilder class.
 */
 template <class T>
 class SQLWhereCondition
@@ -35,7 +35,7 @@ public:
 
     /**
     * @brief Like common SQL 'where' condition.
-    * @param condition - SQL condition, but it is not required \
+    * @param condition - SQL condition, but it is not required
     * @return Current SQLSTATEMENT pointer object to continue SQL query.
     */
     T* Where(const std::string& condition = {})
@@ -48,9 +48,9 @@ public:
     }
 
     /**
-    * @brief Like common SQL 'and' condition. This condition \
+    * @brief Like common SQL 'and' condition. This condition
     *    need for continue the SQL query after like: limit, beetween, etc.
-    * @param condition - SQL condition, but it is not required. \
+    * @param condition - SQL condition, but it is not required.
     * @return Current SQLSTATEMENT pointer object to continue SQL query.
     */
     T* And(const std::string& condition = {})
@@ -63,9 +63,9 @@ public:
     }
 
     /**
-    * @brief Like common SQL 'or' condition. This condition \
+    * @brief Like common SQL 'or' condition. This condition
     * need for continue the SQL query after like: limit, beetween, etc.
-    * @param condition - SQL condition, but it is not required. \
+    * @param condition - SQL condition, but it is not required.
     * @return Current SQLSTATEMENT pointer object to continue SQL query.
     */
     T* Or(const std::string& condition = {})
@@ -79,8 +79,8 @@ public:
 
     /**
     * @brief In condition.
-    * @param anotherStatement - another SQL statement, \
-    *  that you can receive from 'getQuery()' method.
+    * @param anotherStatement - another SQL statement,
+    * that you can receive from 'getQuery()' method.
     * @return Current SQLSTATEMENT pointer object to continue SQL query.
     */
     T* In(const std::string& anotherStatement)
@@ -115,7 +115,7 @@ public:
 
     /**
     * @brief Beeween condition.
-    * @param left - start of the range.
+    * @param left - start of the range. \n
     *  right - end of the range.
     * @return Current SQLSTATEMENT pointer object to continue SQL query.
     */
@@ -131,8 +131,8 @@ public:
 
     /**
     * @brief Like condition.
-    * @param pattern - see this for info: \
-    * https://www.w3schools.com/sql/sql_like.asp, \
+    * @param pattern - see this for info: \n
+    * https://www.w3schools.com/sql/sql_like.asp, \n
     * https://www.w3schools.com/sql/sql_wildcards.asp
     * @return Current SQLSTATEMENT pointer object to continue SQL query.
     */
@@ -155,9 +155,10 @@ private:
 /**
 * @class SQLBase
 * @brief SQLBase abstraction class.
-* @details This class has 4 non-overloaded inherited methods.
-* @warning Like a SQLWhereCondition
-* you shouldn't use it itself.
+* @details This class has 4 non-overloaded inherited methods. This is singleton.
+* Class used as a base for interfaces of SQL operations (for SQLSelect, SQLUpdate, SQLDelete, SQLInsert)
+* and allows QueryBuilder handle any type of query.
+* @warning Like a SQLWhereCondition you shouldn't use it itself.
 */
 template <typename ResultType>
 class SQLBase
@@ -222,7 +223,7 @@ public:
     *   where you want to put the result:
     *   pqxx::result or SQLiteResultType.
     *   Maybe it can be fixed in the near future.
-    * @warning Be careful with timestamps. That can only be c_str!!!
+    * @warning Be careful with timestamps. That can only be c_str!
     * @details This method clear SQL query string after call it.
     * @return Optional object pqxx::result or SQLiteResultObject
     *    For pqxx::result check here:
@@ -291,8 +292,8 @@ protected:
 
 /**
  * @class SQLSelect
- * @brief SQLSelect class.
- * @details It likes common SQL select condition.
+ * @brief Provides interface for selection operations.
+ * @details It likes common SQL select condition. This is singleton.
  * @warning After call it you must call the method 'columns'
  *    (BUT distinct is exception)
  *    and give it columns that you need to return.
@@ -348,7 +349,7 @@ public:
 
     /**
     * @brief Method for limiting returned SQL rows.
-    * @details For example limit 5 offset 2 return: \
+    * @details For example limit 5 offset 2 return: \n
     *    row3, row4, row5, row6, row7.
     * @param limit - how much rows that you need
     *    offset - from what row start limit
@@ -526,8 +527,8 @@ public:
 
 /**
 * @class SQLInsert
-* @brief SQLInsert class.
-* @details It likes common SQL insert condition.
+* @brief Provides interface for insertion operations.
+* @details It likes common SQL insert condition. This is singleton.
 */
 template <typename ResultType>
 class SQLInsert : public SQLBase<ResultType>
@@ -580,7 +581,7 @@ public:
 
     /**
     * @brief Insert one row into table.
-    * @details Inserting columns into a row as tuple. \
+    * @details Inserting columns into a row as tuple.
     * @code
     *   ...->field(tupleName1)->field(tupleName2)...;
     * @endcode
@@ -614,9 +615,8 @@ public:
 
     /**
     * @brief Insert rows into table.
-    * @details Inserting several columns into a row as pairs. \
-    *   You don't have to wrap columnName by quotes, \
-    *   BUT you must wrap data strings.
+    * @details Inserting several columns into a row as pairs.
+    * @warning You don't have to wrap columnName by quotes, but you must wrap data strings.
     * @code
     *   ...->columns(pair{"Column1", 1}, pair{"Column2", "data"})->field(data)->...;
     * @endcode
@@ -645,8 +645,8 @@ public:
 
     /**
     * @brief Insert rows into table.
-    * @details Inserting several columns into a row as tuple of pairs. \
-    *   You don't have to wrap columnName by quotes. \
+    * @details Inserting several columns into a row as tuple of pairs.
+    * @warning You don't have to wrap columnName by quotes.
     * @code
     *   ...->columns(tupleName1)->field(data)->...;
     * @endcode
@@ -702,8 +702,8 @@ public:
 
 /**
 * @class SQLUpdate
-* @brief SQLUpdate class.
-* @details It likes common SQL update condition.
+* @brief Provides interface for updation operations.
+* @details It likes common SQL update condition. This is singleton.
 */
 template <typename ResultType>
 class SQLUpdate : public SQLBase<ResultType>, public SQLWhereCondition<SQLUpdate<ResultType>>
@@ -729,8 +729,7 @@ public:
 
     /**
     * @brief Updating fields with new data.
-    * @param columnData - pairs with column names by first \
-    *  and the data by second.
+    * @param columnData - pairs with column names by first and the data by second.
     * @return Current SQLUpdate pointer object to continue SQL query.
     */
     template <typename ColumnType = const char*, typename... Args>
@@ -773,8 +772,8 @@ public:
 
 /**
 * @class SQLDelete
-* @brief SQLDelete class.
-* @details It likes common SQL delete condition.
+* @brief Provides interface for deletion operations.
+* @details It likes common SQL delete condition. This is singleton.
 */
 template <typename ResultType>
 class SQLDelete : public SQLBase<ResultType>, public SQLWhereCondition<SQLDelete<ResultType>>

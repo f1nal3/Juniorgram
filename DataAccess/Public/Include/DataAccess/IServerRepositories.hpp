@@ -11,7 +11,13 @@
 namespace DataAccess
 {
 /**
-* @brief The IMessagesRepository abstract subclass from IMasterRepository.
+* @class IMessagesRepository
+* @brief Implements message processing on server side.
+* @details The class specify, which information it process. It include methods
+* for working with messages from database (e.g. adding, deleting, editing, getting messages). \n
+* Message - is an object of MessageInfo class. As least it contains the sender
+* and semantic message. \n
+* The class used as base of implementation message processing for each type of database.
 */
 struct IMessagesRepository : IMasterRepository
 {
@@ -25,8 +31,8 @@ struct IMessagesRepository : IMasterRepository
     /**
     * @brief Virtual method for storing message.
     * @param Network::MessageInfo which contains message's data for storing in repository.
-    * @return The return value of the method is one of the StoringMessageCodes (enum): /
-    * Storing successful - StoringMessageCodes::SUCCESS. /
+    * @return The return value of the method is one of the StoringMessageCodes (enum): \n
+    * Storing successful - StoringMessageCodes::SUCCESS. \n
     * Storing failed     - StoringMessageCodes::FAILED.
     */
     virtual Utility::StoringMessageCodes storeMessage(const Models::MessageInfo& messageInfo) = 0;
@@ -34,8 +40,8 @@ struct IMessagesRepository : IMasterRepository
     /**
     * @brief Virtual method for deleting message.
     * @param messageInfo.
-    * @return The return value of the method is one of the StoringMessageCodes (enum): /
-    * Deleting successful - StoringMessageCodes::SUCCESS. /
+    * @return The return value of the method is one of the StoringMessageCodes (enum): \n
+    * Deleting successful - StoringMessageCodes::SUCCESS. \n
     * Deleting failed     - StoringMessageCodes::FAILED.
     */
     virtual Utility::DeletingMessageCodes deleteMessage(const Models::MessageInfo& messageInfo) = 0;
@@ -43,8 +49,8 @@ struct IMessagesRepository : IMasterRepository
     /**
     * @brief Virtual method for editing message.
     * @param emi as MessageInfo which contains message's data.
-    * @return The return value of the method is one of the StoringMessageCodes (enum): /
-    * Editing successful - StoringMessageCodes::SUCCESS. /
+    * @return The return value of the method is one of the StoringMessageCodes (enum): \n
+    * Editing successful - StoringMessageCodes::SUCCESS. \n
     * Editing failed     - StoringMessageCodes::FAILED.
     */
     virtual Utility::EditingMessageCodes editMessage(const Models::MessageInfo& messageInfo) = 0;
@@ -52,8 +58,8 @@ struct IMessagesRepository : IMasterRepository
     /**
     * @brief Virtual method for updating message reactions
     * @param Network::MessageInfo which contains message's reaction map(id, count) with changed reaction count set to uint32_t max
-    * @return The return value of the method is one of the ReactionMessageCodes (enum): /
-    * Update successful - ReactionMessageCodes::SUCCESS. /
+    * @return The return value of the method is one of the ReactionMessageCodes (enum): \n
+    * Update successful - ReactionMessageCodes::SUCCESS. \n
     * Update failed     - ReactionMessageCodes::FAILED.
     */
     virtual Utility::ReactionMessageCodes updateMessageReactions(const Models::MessageInfo& messageInfo) = 0;
@@ -65,7 +71,10 @@ struct IMessagesRepository : IMasterRepository
 };
 
 /**
- * @brief The IRepliesRepository abstract subclass from IMasterRepository
+ * @class IRepliesRepository
+ * @brief Implements replies processing
+ * @details The class is similar to IMessagesRepository, but processing object is replies on messages
+ * (object of ReplyInfo class).
  */
 struct IRepliesRepository : IMasterRepository
 {
@@ -77,8 +86,8 @@ struct IRepliesRepository : IMasterRepository
     /**
     * @brief Virtual method for store reply.
     * @param replyInfo.
-    * @return The return value of the method is one of the StoringMessageCodes (enum): /
-    * Storing successful - StoringMessageCodes::SUCCESS. /
+    * @return The return value of the method is one of the StoringMessageCodes (enum): \n
+    * Storing successful - StoringMessageCodes::SUCCESS. \n
     * Storing failed     - StoringMessageCodes::FAILED.
     */
     virtual Utility::StoringReplyCodes storeReply(const Models::ReplyInfo& replyInfo) = 0;
@@ -90,7 +99,10 @@ struct IRepliesRepository : IMasterRepository
 };
 
 /**
- * @brief The IChannelsRepository abstract subclass from IMasterRepository
+ * @class IChannelsRepository
+ * @brief Implements channels processing
+ * @details The class is similar to IMessagesRepository, but processing object is message channels
+ * (object of ChannelInfo class).
  */
 struct IChannelsRepository : IMasterRepository
 {
@@ -137,7 +149,9 @@ struct IChannelsRepository : IMasterRepository
 };
 
 /**
- * @brief The IChannelsRepository abstract subclass from IMasterRepository
+ * @class IDirectMessageRepository
+ * @brief Implements personal chat processing
+ * @details The class is similar to IMessagesRepository, but processing object is message in personal chat.
  */
 struct IDirectMessageRepository : IMasterRepository
 {
@@ -155,18 +169,21 @@ struct IDirectMessageRepository : IMasterRepository
 };
 
 /**
- * @brief The IRegisterRepository abstract subclass from IMasterRepository
+ * @class IRegisterRepository
+ * @brief Implements user registration
+ * @details The class is similar to IMessagesRepository, but processing object is registation information
+ * (object of RegistrationInfo class).
  */
 struct IRegisterRepository : IMasterRepository
 {
     /**
     * @brief Method for user registration.
     * @param RegistrationMessage which contains user data for registration.
-    * @details Generation password's hash in which login is a salt. It lets us /
+    * @details Generation password's hash in which login is a salt. It lets us
     * to insert different users with the same passwords.
-    * @return The return value of the method is one of the RegistrationCodes (enum). /
-    * Registration successful - RegistrationCodes::SUCCESS. /
-    * The user already exists - RegistrationCodes::EMAIL_ALREADY_EXISTS OR /
+    * @return The return value of the method is one of the RegistrationCodes (enum). \n
+    * Registration successful - RegistrationCodes::SUCCESS. \n
+    * The user already exists - RegistrationCodes::EMAIL_ALREADY_EXISTS OR
     * RegistrationCodes::LOGIN_ALREADY_EXISTS.
     */
     virtual Utility::RegistrationCodes registerUser(const Models::RegistrationInfo& regInfo) = 0;
@@ -178,7 +195,10 @@ struct IRegisterRepository : IMasterRepository
 };
 
 /**
- * @brief The ILoginRepository abstract subclass from IMasterRepository
+ * @class ILoginRepository
+ * @brief Implements user authorization
+ * @details The class is similar to IMessagesRepository, but it handles logining
+ * (object of LoginInfo class).
  */
 struct ILoginRepository : IMasterRepository
 {
