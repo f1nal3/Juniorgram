@@ -3,12 +3,14 @@ set(OUTPUT_NAME MockObjectsFiles)
 
 set(SOURCE_FILES
     MockQuery.hpp
-	MockDatabase.hpp
-	MockDatabase.cpp
 	MockClient.cpp
 	MockClient.hpp
+	MockDatabase.hpp
+	MockDatabase.cpp
 	MockRepository.hpp
-	MockRepository.cpp)
+	MockRepository.cpp
+	TestRepositoryManager.hpp
+	TestIRepositoryManager.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
