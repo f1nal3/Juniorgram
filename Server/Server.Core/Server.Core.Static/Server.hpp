@@ -12,9 +12,6 @@
 #include "Network/Message.hpp"
 #include "Utility/SafeQueue.hpp"
 
-//#include "DataAccess.Postgre/PostgreRepositoryManager.hpp"
-#include "DataAccess/AbstractRepositoryManager.hpp"
-
 namespace DataAccess
 {
 class PostgreRepositoryManager;
