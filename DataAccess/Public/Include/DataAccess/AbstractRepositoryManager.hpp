@@ -12,6 +12,7 @@
 #include "RepositoryRequest.hpp"
 
 #include <DataAccess.Postgre/PostgreRepositories.hpp>
+#include "../MockObjects/Objects/MockObjectsFiles/MockRepository.hpp"
 
 namespace DataAccess
 {
