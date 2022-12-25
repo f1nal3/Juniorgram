@@ -21,9 +21,6 @@ using Utility::SafeQueue;
 class MockClient : public Client
 {
 public:
-    /**
-    * @brief Dummy virtual destructor.
-    */
     virtual ~MockClient() = default;
 
 protected:

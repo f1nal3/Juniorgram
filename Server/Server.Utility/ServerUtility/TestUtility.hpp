@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Server.hpp"
-#include "../MockObjects/MockClient.hpp"
-#include "../MockObjects/MockDatabase.hpp"
+#include <MockObjectsFiles/MockDatabase.hpp>
+#include <MockObjectsFiles/MockClient.hpp>
+
 #include "Cryptography.hpp"
 
 #include <DataAccess.Postgre/PostgreRepositoryManager.hpp>
