@@ -29,7 +29,7 @@ PUBLIC
  target_include_directories(${TARGET} PRIVATE
 	 $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
  target_include_directories(${TARGET} PRIVATE
-	 $<TARGET_PROPERTY:MockObjectsFiles,SOURCE_DIR>/..)
+	 $<TARGET_PROPERTY:TestObjectsFiles,SOURCE_DIR>/..)
  target_include_directories(${TARGET} PRIVATE
 	 $<TARGET_PROPERTY:Server.Utility.Test,SOURCE_DIR>/..)
 

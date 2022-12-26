@@ -19,6 +19,6 @@ PUBLIC
  target_include_directories(${TARGET} PRIVATE
 	 $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
  target_include_directories(${TARGET} PRIVATE
-	  $<TARGET_PROPERTY:MockObjectsFiles,SOURCE_DIR>/..)
+	  $<TARGET_PROPERTY:TestObjectsFiles,SOURCE_DIR>/..)
 	 
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})

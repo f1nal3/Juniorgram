@@ -12,6 +12,8 @@
 #include "Network/Message.hpp"
 #include "Utility/SafeQueue.hpp"
 
+#include "DataAccess.Postgre/PostgreRepositoryManager.hpp"
+
 namespace DataAccess
 {
 class PostgreRepositoryManager;
@@ -255,7 +257,6 @@ public:
     {
         _context.stop();
         _repoManager->stopHandler();
-        // _repoManager->stopHandler();
 
         for (std::thread& thread : _threads)
         {

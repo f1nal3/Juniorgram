@@ -305,10 +305,10 @@ Utility::EditingMessageCodes testMessagesRepository::editMessage(const Models::M
                                 ->execute();
 
     auto adapter      = _pTable->getAdapter();
-    auto insertResult = adapter->query("INSERT INTO msgs(message, msgID, senderID) VALUES ("
-        + std::to_string(messageInfo._channelID) + "," +
-        messageInfo._message + "," + std::to_string(messageInfo._msgID) + 
-        ", " + std::to_string(messageInfo._senderID));
+    //auto insertResult = adapter->query("INSERT INTO msgs(message, msgID, senderID) VALUES ("
+    //    + std::to_string(messageInfo._channelID) + "," +
+    //    messageInfo._message + "," + std::to_string(messageInfo._msgID) + 
+    //    ", " + std::to_string(messageInfo._senderID));
 
     if (!isPresentInTable.has_value())
     {

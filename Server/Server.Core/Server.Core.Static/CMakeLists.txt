@@ -17,8 +17,8 @@ set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
 target_include_directories(${TARGET}
     INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
-target_include_directories(${TARGET} PRIVATE
-     $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
+target_include_directories(${TARGET} PUBLIC
+    $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
 
 target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} asio::asio yas::yas)
 target_link_libraries(${TARGET} PUBLIC Network.Public DataAccess.Public DataAccess.Postgre Utility.Public Base.Logger.Static)

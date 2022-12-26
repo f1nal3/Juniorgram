@@ -1,14 +1,12 @@
 #pragma once
 
 #include "Server.hpp"
-//#include "MockObjectsFiles/MockServer.hpp"
-#include <MockObjectsFiles/MockDatabase.hpp>
-#include <MockObjectsFiles/MockClient.hpp>
+#include <TestObjectsFiles/TestDatabase.hpp>
+#include <TestObjectsFiles/TestClient.hpp>
 
 #include "Cryptography.hpp"
 
-//#include <DataAccess.Postgre/PostgreRepositoryManager.hpp>
-#include <MockObjectsFiles/TestRepositoryManager.hpp>
+#include <TestObjectsFiles/TestRepositoryManager.hpp>
 
 namespace TestDataAccess
 {
@@ -17,10 +15,12 @@ class TestRepositoryManager;
 
 namespace TestUtility
 {
+using Database         = TestDatabase::TestDatabase;
+using RepoManager      = TestDataAccess::TestRepositoryManager;
 using RTC              = std::chrono::system_clock;
-using Client           = MockClient::MockClient;
+using Client           = TestClient::TestClient;
 using Message          = Network::Message;
-using testServer       = Server::Server<TestDataAccess::TestRepositoryManager>;
+using testServer       = Server::Server<RepoManager>;
 using MessageType      = Message::MessageType;
 using milliseconds     = std::chrono::milliseconds;
 
@@ -278,10 +278,8 @@ constexpr std::string_view getTestingAddress()
 
 inline auto getTestingDatabase() noexcept
 {
- /*   std::unique_ptr<DataAccess::PostgreRepositoryManager> testDatabase =
-        std::make_unique<DataAccess::PostgreRepositoryManager>(MockDatabase::MockDatabase::getInstance<MockDatabase::MockDatabase>());*/
-    std::unique_ptr<TestDataAccess::TestRepositoryManager> testDatabase =
-        std::make_unique<TestDataAccess::TestRepositoryManager>(MockDatabase::MockDatabase::getInstance<MockDatabase::MockDatabase>());
+    std::unique_ptr<RepoManager> testDatabase =
+        std::make_unique<RepoManager>(Database::getInstance<Database>());
 
     return testDatabase;
 }

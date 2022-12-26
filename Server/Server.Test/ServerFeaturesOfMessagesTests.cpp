@@ -51,22 +51,22 @@ constexpr bool acceptingConnection = true;
 //}
 
 ///
- TEST_CASE("Check direct message create request from server side")
-  {
-    Client     Client;
-    testServer serverTest(getTestingPort(), getTestingDatabase());
-
-    serverTest.start();
-
-    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort()) 
-        == acceptingConnection)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::DirectMessageCreateRequest));
-    }
-    testServerUpdating(serverTest);
-   }
-
+// TEST_CASE("Check direct message create request from server side")
+//  {
+//    Client     Client;
+//    testServer serverTest(getTestingPort(), getTestingDatabase());
 //
+//    serverTest.start();
+//
+//    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort()) 
+//        == acceptingConnection)
+//    {
+//        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::DirectMessageCreateRequest));
+//    }
+//    testServerUpdating(serverTest);
+//   }
+//
+// ///
 //TEST_CASE("Check message store request from server side")
 //{
 //    Client     Client;
@@ -96,7 +96,7 @@ constexpr bool acceptingConnection = true;
 //    }
 //    testServerUpdating(serverTest);
 //}
-//
+
 //TEST_CASE("Check message reaction request from server side")
 //{
 //    Client     Client;
@@ -111,33 +111,33 @@ constexpr bool acceptingConnection = true;
 //    }
 //    testServerUpdating(serverTest);
 //}
-//
-//TEST_CASE("Check message edit from server side")
-//{
-//    Client     Client;
-//    testServer serverTest(getTestingPort(), getTestingDatabase());
-//
-//    serverTest.start();
-//
-//    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort()) 
-//        == acceptingConnection)
-//    {
-//        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::MessageEditRequest));
-//    }
-//    testServerUpdating(serverTest);
-//}
-//
-//TEST_CASE("Check message delete request from server side")
-//{
-//    Client     Client;
-//    testServer serverTest(getTestingPort(), getTestingDatabase());
-//
-//    serverTest.start();
-//
-//    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort()) 
-//        == acceptingConnection)
-//    {
-//        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::MessageDeleteRequest));
-//    }
-//    testServerUpdating(serverTest);
-//}
+
+TEST_CASE("Check message edit from server side")
+{
+    Client     Client;
+    testServer serverTest(getTestingPort(), getTestingDatabase());
+
+    serverTest.start();
+
+    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort()) 
+        == acceptingConnection)
+    {
+        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::MessageEditRequest));
+    }
+    testServerUpdating(serverTest);
+}
+
+TEST_CASE("Check message delete request from server side")
+{
+    Client     Client;
+    testServer serverTest(getTestingPort(), getTestingDatabase());
+
+    serverTest.start();
+
+    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort()) 
+        == acceptingConnection)
+    {
+        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::MessageDeleteRequest));
+    }
+    testServerUpdating(serverTest);
+}
