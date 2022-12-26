@@ -19,6 +19,6 @@ public:
 	explicit PostgreRepositoryManager(const std::shared_ptr<IAdapter>& repositoryContainer)
 		: IRepositoryManager(repositoryContainer) {}
 	
-	~PostgreRepositoryManager(){}
+	~PostgreRepositoryManager() = default;
 };
 }  // namespace DataAccess 

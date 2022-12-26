@@ -43,7 +43,6 @@ public:
         _repositoryRequestsHandler.join();
     }
 
-public:
     template <DataAccess::ePriority priority = DataAccess::ePriority::_15, typename TIRepository, typename TReturn, typename... TArgs>
     DataAccess::FutureResult<TReturn> pushRequest(const MethodReference<TIRepository, TReturn, TArgs...>& methodRef, TArgs&&... args)
     {

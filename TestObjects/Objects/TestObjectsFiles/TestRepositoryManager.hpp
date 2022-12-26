@@ -6,7 +6,7 @@
 
 namespace TestDataAccess
 {
-class TestIRepositoryManager;
+using TestDataAccess::TestIRepositoryManager;
 
 class TestRepositoryManager : public TestIRepositoryManager
 {
@@ -18,6 +18,6 @@ public:
     {
     }
 
-    ~TestRepositoryManager() {}
+   virtual ~TestRepositoryManager() = default;
 };
 }  // namespace TestDataAccess
