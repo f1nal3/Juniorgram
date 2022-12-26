@@ -211,7 +211,7 @@ using RegistrationInfo = Models::RegistrationInfo;
     return message;
 }
 
-inline void [[nodiscard]] testSendingMessages(const Client& Client, const MessageType mesgType) noexcept
+inline void testSendingMessages(const Client& Client, const MessageType mesgType) noexcept
 {
     Message message;
     std::mutex scopedMutex;
