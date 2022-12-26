@@ -22,7 +22,7 @@ class TestDatabase final : public IAdapter
 private:
     inline static std::mutex                          _staticMutex{};
     inline static std::shared_ptr<TestDatabase> _instance{};
-    static constexpr std::string_view                 _defaultOptions = DBOptions::real;
+    static constexpr std::string_view                 _defaultOptions = DBOptions::test;
 
     std::mutex                        _queryMutex;
     std::unique_ptr<pqxx::connection> _connection;
