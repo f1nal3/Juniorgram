@@ -1,4 +1,4 @@
-#include "MockRepository.hpp"
+#include "TestRepositories.hpp"
 
 #include "DataAccess.Postgre/UsersAmountFinder.hpp"
 #include "Network/Connection.hpp"
@@ -7,7 +7,7 @@
 #include "Cryptography.hpp"
 #include "FileLogger.hpp"
 
-namespace MockRepository
+namespace TestRepositories
 {
 std::vector<Models::ChannelInfo> testChannelsRepository::getAllChannelsList()
 {
@@ -102,13 +102,13 @@ std::vector<Models::MessageInfo> testMessagesRepository::getMessageHistory(const
     messageInfo._reactions[4] = {1};
 
     auto adapter      = _pTable->getAdapter();
-    auto insertResult = adapter->query
-    (
-        "INSERT INTO msgs(msgID, senderID, time, message, userLogin, reactions) VALUES (" +
-         std::to_string(messageInfo._msgID) + "," + std::to_string(messageInfo._senderID) + ", " +
-         std::to_string(messageInfo._time) + ", " + messageInfo._message + ", " + messageInfo._userLogin +
-         ", " + std::to_string(messageInfo._reactions[4])
-    );
+    //auto insertResult = adapter->query
+    //(
+    //    "INSERT INTO msgs(msgID, senderID, time, message, userLogin, reactions) VALUES (" +
+    //     std::to_string(messageInfo._msgID) + "," + std::to_string(messageInfo._senderID) + ", " +
+    //     std::to_string(messageInfo._time) + ", " + messageInfo._message + ", " + messageInfo._userLogin +
+    //     ", " + std::to_string(messageInfo._reactions[4])
+    //);
 
     if (messageHistoryRow.has_value())
     {

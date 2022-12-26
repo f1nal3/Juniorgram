@@ -1,10 +1,9 @@
 #pragma once
 
 #include "DataAccess/AbstractRepositoryContainer.hpp"
-#include "DataAccess/IServerRepositories.hpp"
 #include "DataAccess/RepositoryRequest.hpp"
 
-#include "MockRepository.hpp"
+#include "TestRepositories.hpp"
 
 namespace TestDataAccess
 {
@@ -116,12 +115,12 @@ private:
 
     void privateRegisterTestRepositories() 
     {
-        _repositories->registerRepository<DataAccess::IChannelsRepository, MockRepository::testChannelsRepository>();
-        _repositories->registerRepository<DataAccess::ILoginRepository, MockRepository::testLoginRepository>();
-        _repositories->registerRepository<DataAccess::IMessagesRepository, MockRepository::testMessagesRepository>();
-        _repositories->registerRepository<DataAccess::IRegisterRepository, MockRepository::testRegisterRepository>();
-        _repositories->registerRepository<DataAccess::IRepliesRepository, MockRepository::testRepliesRepository>();
-        _repositories->registerRepository<DataAccess::IDirectMessageRepository, MockRepository::testDirectMessageRepository>();
+        _repositories->registerRepository<DataAccess::IChannelsRepository, TestRepositories::testChannelsRepository>();
+        _repositories->registerRepository<DataAccess::ILoginRepository, TestRepositories::testLoginRepository>();
+        _repositories->registerRepository<DataAccess::IMessagesRepository, TestRepositories::testMessagesRepository>();
+        _repositories->registerRepository<DataAccess::IRegisterRepository, TestRepositories::testRegisterRepository>();
+        _repositories->registerRepository<DataAccess::IRepliesRepository, TestRepositories::testRepliesRepository>();
+        _repositories->registerRepository<DataAccess::IDirectMessageRepository, TestRepositories::testDirectMessageRepository>();
     }
 };
 } // namespace TestDataAccess

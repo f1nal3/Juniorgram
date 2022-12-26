@@ -1,8 +1,8 @@
-#include "MockClient.hpp"
+#include "TestClient.hpp"
 
-namespace MockClient
+namespace TestClient
 {
-void MockClient::onLoginAnswer(bool success)
+void TestClient::onLoginAnswer(bool success)
 {
     enum class LoginState
     {
@@ -35,7 +35,7 @@ void MockClient::onLoginAnswer(bool success)
     }
 }
 
-void MockClient::onServerAccepted()
+void TestClient::onServerAccepted()
 {
     Base::Logger::FileLogger::getInstance().log
     (
@@ -44,7 +44,7 @@ void MockClient::onServerAccepted()
     );
 }
 
-void MockClient::onServerPing(double timestamp)
+void TestClient::onServerPing(double timestamp)
 {
     Base::Logger::FileLogger::getInstance().log
     (
@@ -53,7 +53,7 @@ void MockClient::onServerPing(double timestamp)
     );
 }
 
-void MockClient::onServerMessage(const uint64_t clientID)
+void TestClient::onServerMessage(const uint64_t clientID)
 {
     Base::Logger::FileLogger::getInstance().log
     (
@@ -62,7 +62,7 @@ void MockClient::onServerMessage(const uint64_t clientID)
     );
 }
 
-void MockClient::onChannelListRequest(const std::vector<Models::ChannelInfo>& channels)
+void TestClient::onChannelListRequest(const std::vector<Models::ChannelInfo>& channels)
 {
     if (!channels.empty())
     {
@@ -82,7 +82,7 @@ void MockClient::onChannelListRequest(const std::vector<Models::ChannelInfo>& ch
      }
 }
 
-void MockClient::onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages)
+void TestClient::onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages)
 {
     if (!messages.empty())
     {
@@ -102,7 +102,7 @@ void MockClient::onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& 
     }
 }
 
-void MockClient::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode)
+void TestClient::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode)
 {
     if (storingMessageCode == Utility::StoringMessageCodes::SUCCESS)
     {
@@ -122,7 +122,7 @@ void MockClient::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessag
     }
 }
 
-void MockClient::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
+void TestClient::onRegistrationAnswer(Utility::RegistrationCodes registrationCode)
 {
    
     if (registrationCode == Utility::RegistrationCodes::SUCCESS)
@@ -143,7 +143,7 @@ void MockClient::onRegistrationAnswer(Utility::RegistrationCodes registrationCod
     }
 }
 
-void MockClient::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState)
+void TestClient::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState)
 {
     if (deletingState == Utility::DeletingMessageCodes::SUCCESS)
     {
@@ -171,7 +171,7 @@ void MockClient::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes d
     }
 }
 
-void MockClient::onMessageReactionAnswer(const Utility::ReactionMessageCodes reactionState)
+void TestClient::onMessageReactionAnswer(const Utility::ReactionMessageCodes reactionState)
 {
     if (reactionState == Utility::ReactionMessageCodes::SUCCESS)
     {
@@ -191,7 +191,7 @@ void MockClient::onMessageReactionAnswer(const Utility::ReactionMessageCodes rea
     }
 }
 
-void MockClient::onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const
+void TestClient::onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const
 {
     if (reactionState == Utility::EditingMessageCodes::SUCCESS)
     {
@@ -211,7 +211,7 @@ void MockClient::onEditMessageAnswer(Utility::EditingMessageCodes reactionState)
     }
 }
 
-void MockClient::onDisconnect()
+void TestClient::onDisconnect()
 {
     Base::Logger::FileLogger::getInstance().log
     (
@@ -220,7 +220,7 @@ void MockClient::onDisconnect()
     );
 }
 
-void MockClient::onMessageSendFailed(const Message& message) const
+void TestClient::onMessageSendFailed(const Message& message) const
 {
     Base::Logger::FileLogger::getInstance().log
     (
@@ -229,7 +229,7 @@ void MockClient::onMessageSendFailed(const Message& message) const
     );
 }
 
-void MockClient::onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& replies)
+void TestClient::onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& replies)
 {
     (void)(replies);
     Base::Logger::FileLogger::getInstance().log
@@ -239,7 +239,7 @@ void MockClient::onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& repl
     );
 }
 
-void MockClient::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
+void TestClient::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
 {
     if (storingReplyCode == Utility::StoringReplyCodes::SUCCESS)
     {
@@ -259,7 +259,7 @@ void MockClient::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
     }
 }
 
-void MockClient::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode)
+void TestClient::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode)
 {
     if (ChannelLeaveCode == Utility::ChannelLeaveCodes::SUCCESS)
     {
@@ -287,7 +287,7 @@ void MockClient::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCod
     }
 }
 
-void MockClient::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode)
+void TestClient::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode)
 {
     if (subscribingChannelCode == Utility::ChannelSubscribingCodes::SUCCESS)
     {
@@ -307,7 +307,7 @@ void MockClient::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCod
     }
 }
 
-void MockClient::onChannelSubscribingListAnswer(const std::vector<uint64_t>& subscribingChannelList)
+void TestClient::onChannelSubscribingListAnswer(const std::vector<uint64_t>& subscribingChannelList)
 {
     if (!subscribingChannelList.empty())
     {
@@ -327,7 +327,7 @@ void MockClient::onChannelSubscribingListAnswer(const std::vector<uint64_t>& sub
     }
 }
 
-void MockClient::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode)
+void TestClient::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode)
 {
     if (channelDeleteCode == Utility::ChannelDeleteCode::SUCCESS)
     {
@@ -363,7 +363,7 @@ void MockClient::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteC
     }
 }
 
-void MockClient::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode)
+void TestClient::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode)
 {
     if (channelCreateCode == Utility::ChannelCreateCodes::SUCCESS)
     {
@@ -391,7 +391,7 @@ void MockClient::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreate
     }
 }
 
-void MockClient::onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer)
+void TestClient::onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer)
 {
     if (directMessageCreateAnswer == Utility::DirectMessageStatus::SUCCESS)
     {
@@ -410,4 +410,4 @@ void MockClient::onDirectMessageCreateAnswer(Utility::DirectMessageStatus direct
         );
     }
 }
-}  // namespace MockClient
+}  // namespace TestClient

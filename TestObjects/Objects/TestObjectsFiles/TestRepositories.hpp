@@ -3,9 +3,9 @@
 #include <DataAccess/IAdapter.hpp>
 #include <DataAccess/IServerRepositories.hpp>
 
-#include "MockQuery.hpp"
+#include "TestQuery.hpp"
 
-namespace MockRepository
+namespace TestRepositories
 {
 using IAdapter                 = DataAccess::IAdapter;
 using IChannelRepository       = DataAccess::IChannelsRepository;
@@ -14,15 +14,15 @@ using ILoginRepository         = DataAccess::ILoginRepository;
 using IMessagesRepository      = DataAccess::IMessagesRepository;
 using IRegisterRepository      = DataAccess::IRegisterRepository;
 using IRepliesRepository       = DataAccess::IRepliesRepository;
-using Query                    = MockQuery::MockQuery;
+using Query                    = TestQuery::TestQuery;
 
-struct MockAbstractRepository
+struct TestAbstractRepository
 {
 protected:
     std::unique_ptr<Query> _pTable;
 };
 
-struct testChannelsRepository final : IChannelRepository, MockAbstractRepository
+struct testChannelsRepository final : IChannelRepository, TestAbstractRepository
 {
     explicit testChannelsRepository(const std::shared_ptr<IAdapter>& adapter)
     {
@@ -39,7 +39,7 @@ struct testChannelsRepository final : IChannelRepository, MockAbstractRepository
     ~testChannelsRepository() override = default;
 };
 
-struct testDirectMessageRepository final : IDirectMessageRepository, MockAbstractRepository
+struct testDirectMessageRepository final : IDirectMessageRepository, TestAbstractRepository
 {
     explicit testDirectMessageRepository(const std::shared_ptr<IAdapter>& adapter)
     {
@@ -51,7 +51,7 @@ struct testDirectMessageRepository final : IDirectMessageRepository, MockAbstrac
     ~testDirectMessageRepository() override = default;
 };
 
-struct testLoginRepository final : ILoginRepository, MockAbstractRepository
+struct testLoginRepository final : ILoginRepository, TestAbstractRepository
 {
     explicit testLoginRepository(const std::shared_ptr<IAdapter>& adapter)
     { 
@@ -63,7 +63,7 @@ struct testLoginRepository final : ILoginRepository, MockAbstractRepository
     ~testLoginRepository() override = default;
 };
 
-struct testMessagesRepository final : IMessagesRepository, MockAbstractRepository
+struct testMessagesRepository final : IMessagesRepository, TestAbstractRepository
 {
     explicit testMessagesRepository(const std::shared_ptr<IAdapter>& adapter)
     {
@@ -84,7 +84,7 @@ private:
     std::optional<pqxx::result> testInsertIDIntoMessageReactionsTable(const std::uint64_t messageID);
 };
 
-struct testRegisterRepository final : IRegisterRepository, MockAbstractRepository
+struct testRegisterRepository final : IRegisterRepository, TestAbstractRepository
 {
     explicit testRegisterRepository(const std::shared_ptr<IAdapter>& adapter)
     {
@@ -96,7 +96,7 @@ struct testRegisterRepository final : IRegisterRepository, MockAbstractRepositor
     ~testRegisterRepository() override = default;
 };
 
-struct testRepliesRepository final : IRepliesRepository, MockAbstractRepository
+struct testRepliesRepository final : IRepliesRepository, TestAbstractRepository
 {
     explicit testRepliesRepository(const std::shared_ptr<IAdapter>& adapter)
     { 
@@ -112,4 +112,4 @@ private:
     std::optional<pqxx::result> testInsertIDsIntoChannelRepliesTable(const std::uint64_t channelID, const std::uint64_t replyID) ;
     std::optional<pqxx::result> testInsertReplyIntoRepliesTable(const Models::ReplyInfo& replyInfo);
 };
-}  // namespace MockRepository
+}  // namespace TestRepositories

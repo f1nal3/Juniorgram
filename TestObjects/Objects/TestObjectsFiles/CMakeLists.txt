@@ -1,14 +1,14 @@
-set(TARGET MockObjectsFiles)
-set(OUTPUT_NAME MockObjectsFiles)
+set(TARGET TestObjectsFiles)
+set(OUTPUT_NAME TestObjectsFiles)
 
 set(SOURCE_FILES
-    MockQuery.hpp
-	MockClient.cpp
-	MockClient.hpp
-	MockDatabase.hpp
-	MockDatabase.cpp
-	MockRepository.hpp
-	MockRepository.cpp
+    TestQuery.hpp
+	TestClient.cpp
+	TestClient.hpp
+	TestDatabase.hpp
+	TestDatabase.cpp
+	TestRepositories.hpp
+	TestRepositories.cpp
 	TestRepositoryManager.hpp
 	TestIRepositoryManager.hpp)
 

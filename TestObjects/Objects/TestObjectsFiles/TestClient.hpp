@@ -4,7 +4,7 @@
 #include "Client.hpp"
 #include "ServerInfo.hpp"
 
-namespace MockClient
+namespace TestClient
 {
 using asio::io_context;
 using asio::ip::tcp;
@@ -14,14 +14,14 @@ using Network::Message;
 using Utility::SafeQueue;
 
 /**
-*  @class MockClient.
+*  @class TestClient.
 *  @brief This class is designed to emulate a client connection.
 *  @details Uses std::asio tools.
 */
-class MockClient : public Client
+class TestClient : public Client
 {
 public:
-    virtual ~MockClient() = default;
+    virtual ~TestClient() = default;
 
 protected:
     /**

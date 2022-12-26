@@ -1,20 +1,20 @@
-#include "MockDatabase.hpp"
+#include "TestDatabase.hpp"
 
-namespace MockDatabase
+namespace TestDatabase
 {
-std::shared_ptr<MockDatabase> MockDatabase::Instance(const std::string_view& options)
+std::shared_ptr<TestDatabase> TestDatabase::Instance(const std::string_view& options)
 {
     std::scoped_lock<std::mutex> lock(_staticMutex);
 
     if (_instance == nullptr)
     {
-        _instance = std::shared_ptr<MockDatabase>(std::make_shared<MockDatabase>(options.empty() ? _defaultOptions : options));
+        _instance = std::shared_ptr<TestDatabase>(std::make_shared<TestDatabase>(options.empty() ? _defaultOptions : options));
     }
 
     return _instance;
 }
 
-std::optional<std::any> MockDatabase::query(const std::string_view& query)
+std::optional<std::any> TestDatabase::query(const std::string_view& query)
 {
     std::scoped_lock<std::mutex> lock(_queryMutex);
 
@@ -42,19 +42,19 @@ std::optional<std::any> MockDatabase::query(const std::string_view& query)
     return std::nullopt;
 }
 
-void MockDatabase::closeConnection()
+void TestDatabase::closeConnection()
 {
     _instance.reset();
     _connection.reset();
 }
 
-pqxx::connection& MockDatabase::getConnection() 
+pqxx::connection& TestDatabase::getConnection() 
 {
     return *_connection; 
 }
 
-bool MockDatabase::isConnected() const 
+bool TestDatabase::isConnected() const 
 {
     return _connection->is_open(); 
 }
-}  // namespace MockDatabase
+}  // namespace TestDatabase

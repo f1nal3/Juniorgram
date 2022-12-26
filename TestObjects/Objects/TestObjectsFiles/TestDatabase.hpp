@@ -9,20 +9,20 @@
 
 #include <DataAccess.Postgre/DataBaseOptions.hpp>
 
-namespace MockDatabase
+namespace TestDatabase
 {
 using DataAccess::IAdapter;
 
 /** 
-* @class MockDatabase.
+* @class TestDatabase.
 * This is a thread safe singleton.
 */
-class MockDatabase final : public IAdapter
+class TestDatabase final : public IAdapter
 {
 private:
     inline static std::mutex                          _staticMutex{};
-    inline static std::shared_ptr<MockDatabase>       _instance{};
-    static constexpr std::string_view                 _defaultOptions = DBOptions::test;
+    inline static std::shared_ptr<TestDatabase> _instance{};
+    static constexpr std::string_view                 _defaultOptions = DBOptions::real;
 
     std::mutex                        _queryMutex;
     std::unique_ptr<pqxx::connection> _connection;
@@ -36,9 +36,9 @@ public:
     * @param options - Connection options.
     * @return Pointer to current instanse of adapter.
     */
-    static std::shared_ptr<MockDatabase> Instance(const std::string_view& options = {});
+    static std::shared_ptr<TestDatabase> Instance(const std::string_view& options = {});
 
-    explicit MockDatabase(const std::string_view& options) :
+    explicit TestDatabase(const std::string_view& options) :
         _connection{std::make_unique<pqxx::connection>(pqxx::zview(options))} {}
 
     /**

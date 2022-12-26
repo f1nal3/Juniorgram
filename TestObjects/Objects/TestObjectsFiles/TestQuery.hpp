@@ -1,17 +1,17 @@
 #pragma once
 
 #include <DataAccess/QueryBuilder.hpp>
-#include "MockDatabase.hpp"
+#include "TestDatabase.hpp"
 
-namespace MockQuery
+namespace TestQuery
 {
 using DataAccess::QueryBuilder;
 using DataAccess::IAdapter;
-using Database = MockDatabase::MockDatabase;
+using Database = TestDatabase::TestDatabase;
 
 /**
- * @class MockQuery
- * @brief MockQuery class.
+ * @class TestQuery
+ * @brief TestQuery class.
  * @details You can see some examples below for how to use it.
  * @code
  *    MockQuery("tableName1").Select()->columns({"column1", "column2",
@@ -22,14 +22,14 @@ using Database = MockDatabase::MockDatabase;
  *    MockQuery("tableName4").Delete()->where("condition")->...->execute()/OR/getQuery();
  * @endcode
  */
-class MockQuery : public QueryBuilder<pqxx::result>
+class TestQuery : public QueryBuilder<pqxx::result>
 {
 public:
-    MockQuery(const std::string& tableName, std::shared_ptr<IAdapter> adapter = Database::getInstance<Database>())
+    TestQuery(const std::string& tableName, std::shared_ptr<IAdapter> adapter = Database::getInstance<Database>())
         : QueryBuilder(Utility::DatabaseType::DB_POSTGRE, tableName, adapter)
     {
     }
-    MockQuery(const std::string& tableName, std::string_view options)
+    TestQuery(const std::string& tableName, std::string_view options)
         : QueryBuilder(Utility::DatabaseType::DB_POSTGRE, tableName, Database::getInstance<Database>(options))
     {
     }
