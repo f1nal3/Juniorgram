@@ -34,7 +34,7 @@ struct UserInfo
     const std::string& getUserPassword() const { return testPSWD; }
 
 private:
-    const std::string testEmail = "demonstakingoverme@epam.co";
+    const std::string testEmail{"demonstakingoverme@epam.co"};
     const std::string testLogin{"memorisecodead"};
     const std::string testPSWD{"12juniorgramMargroinuj"};
 };  

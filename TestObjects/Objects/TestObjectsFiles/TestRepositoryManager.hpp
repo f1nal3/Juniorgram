@@ -13,7 +13,7 @@ class TestRepositoryManager : public TestIRepositoryManager
 public:
     TestRepositoryManager() = default;
 
-    explicit TestRepositoryManager(const std::shared_ptr<DataAccess::IAdapter>& repositoryContainer) 
+    explicit TestRepositoryManager(const std::shared_ptr<IAdapter>& repositoryContainer) 
         : TestIRepositoryManager(repositoryContainer)
     {
     }

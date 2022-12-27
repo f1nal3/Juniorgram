@@ -13,7 +13,8 @@ template <typename TIRepository, typename TReturn, typename... TArgs>
 using MethodReference = TReturn (TIRepository::*)(TArgs...);
 
 template <typename Type>
-std::conditional_t<std::is_fundamental_v<Type>, std::remove_reference_t<Type>, const Type&> fmt(const Type& ref)
+std::conditional_t<std::is_fundamental_v<Type>, std::remove_reference_t<Type>, 
+    const Type&> fmt(const Type& ref)
 {
     return ref;
 }
@@ -21,8 +22,8 @@ std::conditional_t<std::is_fundamental_v<Type>, std::remove_reference_t<Type>, c
 class TestIRepositoryManager
 {
 private:
-    std::unique_ptr<DataAccess::AbstractRepositoryContainer> _repositories;
-    std::priority_queue<DataAccess::RepositoryRequest>       _queue;
+    std::unique_ptr<AbstractRepositoryContainer>             _repositories;
+    std::priority_queue<RepositoryRequest>                   _queue;
 
     std::mutex                                               _queueMutex;
     std::condition_variable                                  _queueCV;
@@ -33,18 +34,19 @@ private:
 public:
     TestIRepositoryManager() = default;
 
-    explicit TestIRepositoryManager(const std::shared_ptr<DataAccess::IAdapter>& repositoryContainer)
-        : _repositories(std::make_unique<DataAccess::AbstractRepositoryContainer>(repositoryContainer)) 
+    explicit TestIRepositoryManager(const std::shared_ptr<IAdapter>& repositoryContainer)
+        : _repositories(std::make_unique<AbstractRepositoryContainer>(repositoryContainer)) 
     {
         this->privateRegisterTestRepositories();
     }
+
     virtual ~TestIRepositoryManager()
     {
         _repositoryRequestsHandler.join();
     }
 
-    template <DataAccess::ePriority priority = DataAccess::ePriority::_15, typename TIRepository, typename TReturn, typename... TArgs>
-    DataAccess::FutureResult<TReturn> pushRequest(const MethodReference<TIRepository, TReturn, TArgs...>& methodRef, TArgs&&... args)
+    template <ePriority priority = ePriority::_15, typename TIRepository, typename TReturn, typename... TArgs>
+    FutureResult<TReturn> pushRequest(const MethodReference<TIRepository, TReturn, TArgs...>& methodRef, TArgs&&... args)
     {
         static_assert(std::is_base_of_v<DataAccess::IMasterRepository, TIRepository>, "Current type is not implement IMasterRepository!");
         static_assert(std::is_polymorphic_v<TIRepository> && std::is_abstract_v<TIRepository>,
@@ -54,8 +56,9 @@ public:
 
         std::unique_lock lock(_queueMutex);
 
-        DataAccess::RepositoryRequest request = this->privateCreateRequest<priority>(methodRef, std::forward<TArgs>(args)...);
-        DataAccess::FutureResult<TReturn> futureResult(request.getFutureFromTask());
+        RepositoryRequest request = this->privateCreateRequest<priority>
+            (methodRef, std::forward<TArgs>(args)...);
+        FutureResult<TReturn> futureResult(request.getFutureFromTask());
 
         _queue.push(std::move(request));
         _queueCV.notify_one();
@@ -82,8 +85,8 @@ public:
     }
 
 private:
-    template <DataAccess::ePriority priority, typename TIRepository, typename TReturn, typename... TArgs>
-    DataAccess::RepositoryRequest privateCreateRequest(const MethodReference<TIRepository, TReturn, TArgs...>& methodRef, TArgs&&... args)
+    template <ePriority priority, typename TIRepository, typename TReturn, typename... TArgs>
+    RepositoryRequest privateCreateRequest(const MethodReference<TIRepository, TReturn, TArgs...>& methodRef, TArgs&&... args)
     {
         auto iRepository = _repositories->getRepository<TIRepository>();
 
@@ -94,11 +97,7 @@ private:
         return RepositoryRequest(priority, task);
     }
 
-    /**
-     * @brief  Extract request from queue.
-     * @return Repository request.
-     */
-    std::optional<DataAccess::RepositoryRequest> privatePopRequest() noexcept
+    std::optional<RepositoryRequest> privatePopRequest() noexcept
     {
         std::unique_lock lock(_queueMutex);
 
@@ -106,7 +105,7 @@ private:
 
         if (!_handlerState || empty()) return {};
 
-        DataAccess::RepositoryRequest request = std::move(const_cast<DataAccess::RepositoryRequest&>(_queue.top()));
+        RepositoryRequest request = std::move(const_cast<RepositoryRequest&>(_queue.top()));
         _queue.pop();
 
         return request;
@@ -114,12 +113,12 @@ private:
 
     void privateRegisterTestRepositories() 
     {
-        _repositories->registerRepository<DataAccess::IChannelsRepository, TestRepositories::testChannelsRepository>();
-        _repositories->registerRepository<DataAccess::ILoginRepository, TestRepositories::testLoginRepository>();
-        _repositories->registerRepository<DataAccess::IMessagesRepository, TestRepositories::testMessagesRepository>();
-        _repositories->registerRepository<DataAccess::IRegisterRepository, TestRepositories::testRegisterRepository>();
-        _repositories->registerRepository<DataAccess::IRepliesRepository, TestRepositories::testRepliesRepository>();
-        _repositories->registerRepository<DataAccess::IDirectMessageRepository, TestRepositories::testDirectMessageRepository>();
+        _repositories->registerRepository<IChannelsRepository, TestRepositories::testChannelsRepository>();
+        _repositories->registerRepository<ILoginRepository, TestRepositories::testLoginRepository>();
+        _repositories->registerRepository<IMessagesRepository, TestRepositories::testMessagesRepository>();
+        _repositories->registerRepository<IRegisterRepository, TestRepositories::testRegisterRepository>();
+        _repositories->registerRepository<IRepliesRepository, TestRepositories::testRepliesRepository>();
+        _repositories->registerRepository<IDirectMessageRepository, TestRepositories::testDirectMessageRepository>();
     }
 };
 } // namespace TestDataAccess

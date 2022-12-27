@@ -77,11 +77,6 @@ struct testMessagesRepository final : IMessagesRepository, TestAbstractRepositor
     std::vector<Models::MessageInfo>  getMessageHistory(const std::uint64_t channelID) override;
 
     ~testMessagesRepository() override = default;
-
-private:
-    std::optional<pqxx::result> testInsertMessageIntoMessagesTable(const Models::MessageInfo& messageInfo);
-    std::optional<pqxx::result> testInsertIDsIntoChannelMessagesTable(const std::uint64_t channelID, const std::uint64_t messageID); 
-    std::optional<pqxx::result> testInsertIDIntoMessageReactionsTable(const std::uint64_t messageID);
 };
 
 struct testRegisterRepository final : IRegisterRepository, TestAbstractRepository
@@ -107,9 +102,5 @@ struct testRepliesRepository final : IRepliesRepository, TestAbstractRepository
     Utility::StoringReplyCodes     storeReply(const Models::ReplyInfo& replyInfo) override;
 
     ~testRepliesRepository() override = default;
-
-private:
-    std::optional<pqxx::result> testInsertIDsIntoChannelRepliesTable(const std::uint64_t channelID, const std::uint64_t replyID) ;
-    std::optional<pqxx::result> testInsertReplyIntoRepliesTable(const Models::ReplyInfo& replyInfo);
 };
 }  // namespace TestRepositories
