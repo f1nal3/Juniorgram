@@ -12,7 +12,8 @@ TEST_CASE("Check registration request of server")
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort()) == acceptingConnection)
+    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort()) 
+        == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::RegistrationRequest));
     }
@@ -26,7 +27,8 @@ TEST_CASE("Check login request of server")
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort()) == acceptingConnection)
+    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort())
+        == acceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::LoginRequest));
     }
