@@ -1,5 +1,5 @@
 #include <catch2/catch.hpp>
-#include "ServerUtility/TestUtility.hpp"
+#include "TestUtility.hpp"
 
 using namespace TestUtility;
 
@@ -26,7 +26,6 @@ TEST_CASE("Check default request of server side")
     testServer serverTest(getTestingPort(), getTestingDatabase());
 
     constexpr auto failedType         = int16_t(666);
-    bool          acceptingConnection = true;
 
     serverTest.start();
 

@@ -1,5 +1,5 @@
 #include <catch2/catch.hpp>
-#include "ServerUtility/TestUtility.hpp"
+#include "TestUtility.hpp"
 
 using namespace TestUtility;
 
