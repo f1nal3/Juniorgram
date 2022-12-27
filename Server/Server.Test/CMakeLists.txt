@@ -8,12 +8,13 @@ set(SOURCE_FILES
 		ServerChannelMessagesTests.cpp
 		ServerAutorizationMessagesTests.cpp
 		ServerWorkflowTests.cpp)
+		
+set(HEADER_FILES
+		TestUtility.hpp)
 
-add_executable(${TARGET} ${SOURCE_FILES})
+add_executable(${TARGET} ${SOURCE_FILES} ${HEADER_FILES})
 
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
-
-# include_directories(TestUtility)
 
 target_link_libraries(${TARGET}
 PUBLIC 
@@ -29,9 +30,7 @@ PUBLIC
  target_include_directories(${TARGET} PRIVATE
 	 $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
  target_include_directories(${TARGET} PRIVATE
-	 $<TARGET_PROPERTY:TestObjectsFiles,SOURCE_DIR>/..)
- target_include_directories(${TARGET} PRIVATE
-	 $<TARGET_PROPERTY:Server.Utility.Test,SOURCE_DIR>/..)
+	 $<TARGET_PROPERTY:MockObjectsFiles,SOURCE_DIR>/..)
 
 target_compile_definitions(${TARGET} PRIVATE CATCH_CONFIG_FAST_COMPILE)
 target_precompile_headers(${TARGET} REUSE_FROM Precompiled.Catch2.Test)

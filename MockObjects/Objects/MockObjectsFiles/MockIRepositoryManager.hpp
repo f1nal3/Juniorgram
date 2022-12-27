@@ -3,9 +3,9 @@
 #include "DataAccess/AbstractRepositoryContainer.hpp"
 #include "DataAccess/RepositoryRequest.hpp"
 
-#include "TestRepositories.hpp"
+#include "MockRepositories.hpp"
 
-namespace TestDataAccess
+namespace MockDataAccess
 {
 using namespace DataAccess;
 
@@ -19,7 +19,7 @@ std::conditional_t<std::is_fundamental_v<Type>, std::remove_reference_t<Type>,
     return ref;
 }
 
-class TestIRepositoryManager
+class MockIRepositoryManager
 {
 private:
     std::unique_ptr<AbstractRepositoryContainer>             _repositories;
@@ -32,15 +32,15 @@ private:
     std::thread                                              _repositoryRequestsHandler;
 
 public:
-    TestIRepositoryManager() = default;
+    MockIRepositoryManager() = default;
 
-    explicit TestIRepositoryManager(const std::shared_ptr<IAdapter>& repositoryContainer)
+    explicit MockIRepositoryManager(const std::shared_ptr<IAdapter>& repositoryContainer)
         : _repositories(std::make_unique<AbstractRepositoryContainer>(repositoryContainer)) 
     {
         this->privateRegisterTestRepositories();
     }
 
-    virtual ~TestIRepositoryManager()
+    virtual ~MockIRepositoryManager()
     {
         _repositoryRequestsHandler.join();
     }
@@ -113,12 +113,12 @@ private:
 
     void privateRegisterTestRepositories() 
     {
-        _repositories->registerRepository<IChannelsRepository, TestRepositories::testChannelsRepository>();
-        _repositories->registerRepository<ILoginRepository, TestRepositories::testLoginRepository>();
-        _repositories->registerRepository<IMessagesRepository, TestRepositories::testMessagesRepository>();
-        _repositories->registerRepository<IRegisterRepository, TestRepositories::testRegisterRepository>();
-        _repositories->registerRepository<IRepliesRepository, TestRepositories::testRepliesRepository>();
-        _repositories->registerRepository<IDirectMessageRepository, TestRepositories::testDirectMessageRepository>();
+        _repositories->registerRepository<IChannelsRepository, MockRepositories::testChannelsRepository>();
+        _repositories->registerRepository<ILoginRepository, MockRepositories::testLoginRepository>();
+        _repositories->registerRepository<IMessagesRepository, MockRepositories::testMessagesRepository>();
+        _repositories->registerRepository<IRegisterRepository, MockRepositories::testRegisterRepository>();
+        _repositories->registerRepository<IRepliesRepository, MockRepositories::testRepliesRepository>();
+        _repositories->registerRepository<IDirectMessageRepository, MockRepositories::testDirectMessageRepository>();
     }
 };
-} // namespace TestDataAccess
+} // namespace MockDataAccess

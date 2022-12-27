@@ -1,6 +1,6 @@
 project(Objects LANGUAGES CXX)
 
-add_subdirectory(TestObjectsFiles)
+add_subdirectory(MockObjectsFiles)
 
 set(TARGET Objects)
 

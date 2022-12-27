@@ -1,4 +1,4 @@
-#include "TestRepositories.hpp"
+#include "MockRepositories.hpp"
 
 #include "DataAccess.Postgre/UsersAmountFinder.hpp"
 #include "Network/Connection.hpp"
@@ -7,7 +7,7 @@
 #include "Cryptography.hpp"
 #include "FileLogger.hpp"
 
-namespace TestRepositories
+namespace MockRepositories
 {
 std::vector<Models::ChannelInfo> testChannelsRepository::getAllChannelsList()
 {

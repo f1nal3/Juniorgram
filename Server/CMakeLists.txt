@@ -6,6 +6,5 @@ set(FOLDER Server)
 add_subdirectory(Server.Exec)
 add_subdirectory(Server.Test)
 add_subdirectory(Server.Core)
-add_subdirectory(Server.Utility)
 
 add_library(${TARGET} INTERFACE)

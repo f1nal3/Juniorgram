@@ -3,9 +3,9 @@
 #include <DataAccess/IAdapter.hpp>
 #include <DataAccess/IServerRepositories.hpp>
 
-#include "TestQuery.hpp"
+#include "MockQuery.hpp"
 
-namespace TestRepositories
+namespace MockRepositories
 {
 using IAdapter                 = DataAccess::IAdapter;
 using IChannelRepository       = DataAccess::IChannelsRepository;
@@ -14,7 +14,7 @@ using ILoginRepository         = DataAccess::ILoginRepository;
 using IMessagesRepository      = DataAccess::IMessagesRepository;
 using IRegisterRepository      = DataAccess::IRegisterRepository;
 using IRepliesRepository       = DataAccess::IRepliesRepository;
-using Query                    = TestQuery::TestQuery;
+using Query                    = MockQuery::MockQuery;
 
 struct TestAbstractRepository
 {

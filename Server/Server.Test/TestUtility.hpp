@@ -1,24 +1,23 @@
 #pragma once
 
 #include "Server.hpp"
-#include <TestObjectsFiles/TestDatabase.hpp>
-#include <TestObjectsFiles/TestClient.hpp>
+#include <MockObjectsFiles/MockDatabase.hpp>
+#include <MockObjectsFiles/MockClient.hpp>
+#include <MockObjectsFiles/MockRepositoryManager.hpp>
 
 #include "Cryptography.hpp"
 
-#include <TestObjectsFiles/TestRepositoryManager.hpp>
-
-namespace TestDataAccess
+namespace MockDataAccess
 {
-class TestRepositoryManager;
+class MockRepositoryManager;
 }
 
 namespace TestUtility
 {
-using Database         = TestDatabase::TestDatabase;
-using RepoManager      = TestDataAccess::TestRepositoryManager;
+using Database         = MockDatabase::MockDatabase;
+using RepoManager      = MockDataAccess::MockRepositoryManager;
 using RTC              = std::chrono::system_clock;
-using Client           = TestClient::TestClient;
+using Client           = MockClient::MockClient;
 using Message          = Network::Message;
 using testServer       = Server::Server<RepoManager>;
 using MessageType      = Message::MessageType;

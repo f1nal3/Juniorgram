@@ -19,4 +19,4 @@ set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
 target_link_libraries(${TARGET}
         PUBLIC PostgreSQL::pq libpqxx::libpqxx
-        PUBLIC Utility.Public DataAccess.Public Network.Public Models.Public TestObjectsFiles)
+        PUBLIC Utility.Public DataAccess.Public Network.Public Models.Public MockObjectsFiles)
