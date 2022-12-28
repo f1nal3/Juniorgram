@@ -8,7 +8,7 @@ namespace DataAccess
 
         if (_instance == nullptr)
         {
-            _instance = std::shared_ptr<PostgreAdapter>(new PostgreAdapter(options.empty() ? _defaultOptions : options));
+            _instance = std::shared_ptr<PostgreAdapter>(new PostgreAdapter(options));
         }
 
         return _instance;

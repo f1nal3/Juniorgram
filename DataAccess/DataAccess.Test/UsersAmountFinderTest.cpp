@@ -2,6 +2,7 @@
 
 #include <DataAccess.Postgre/UsersAmountFinder.hpp>
 #include <DataAccess.Postgre/PostgreRepositories.hpp>
+#include "DataAccess.Postgre/DataBaseOptions.hpp"
 
 using DataAccess::PostgreQuery;
 using DataAccess::PostgreAdapter;

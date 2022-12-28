@@ -1,12 +1,77 @@
 #include <future>
 
 #include "Server.hpp"
-#include "DataAccess.Postgre/PostgreRepositoryManager.hpp"
+
 
 namespace Server
 {
 using namespace DataAccess;
 using UtilityTime::safe_localtime;
+
+
+
+Server::Server() { /* do nothing*/ }
+
+
+void Server::initRepository(std::unique_ptr<PostgreRepositoryManager> postgreManager)
+{
+    _postgreManager.swap(postgreManager);
+}
+
+void Server::initConnection(const uint16_t port) 
+{ 
+    _acceptor = std::make_unique<tcp::acceptor> (_context, tcp::endpoint(tcp::v4(), port)); 
+}
+
+Server::~Server() { stop(); }
+
+void Server::start()
+{
+    waitForClientConnection();
+
+    size_t threadsCount = std::thread::hardware_concurrency();
+    threadsCount > 1 ? --threadsCount : threadsCount = 1;
+    
+    for (size_t i = 0; i < threadsCount; ++i)
+    {
+        _threads.emplace_back(std::thread([this]() { _context.run(); }));
+    }
+    _postgreManager->handleRequests();
+
+    FileLogger::getInstance().log
+    (
+        "[SERVER] Started!", 
+        LogLevel::INFO
+    );
+}
+
+void Server::stop()
+{
+    _context.stop();
+
+    _postgreManager->stopHandler();
+
+    for (std::thread& thread : _threads)
+    {
+        if (thread.joinable())
+        {
+            thread.join();
+        }
+    }
+
+    _threads.clear();
+
+    FileLogger::getInstance().log
+    (
+        "[SERVER] Stopped!",
+        LogLevel::INFO
+    );
+}
+
+void Server::waitForClientConnection()
+{   
+    _acceptor->async_accept([this](const std::error_code error, tcp::socket socket) { acceptingClientConnection(error, socket); });
+}
 
 bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
 {
@@ -23,6 +88,55 @@ void Server::onClientDisconnect(const std::shared_ptr<Connection>& client)
         "Removing client [" + std::to_string(client->getID()) + "]", 
         LogLevel::INFO
     );
+}
+
+void Server::acceptingClientConnection(const std::error_code& error, tcp::socket& socket)
+{
+    if (!error)
+    {
+        std::ostringstream outputPoint;
+        outputPoint << socket.remote_endpoint();
+
+        FileLogger::getInstance().log
+        (
+            "[SERVER] New Connection: " + outputPoint.str(),
+            LogLevel::INFO
+        );
+
+        auto newConnection = 
+            std::make_shared<Connection>(Connection::OwnerType::SERVER, _context, std::move(socket), _incomingMessagesQueue);
+
+        if (onClientConnect(newConnection))
+        {
+            _connectionsPointers.emplace_back(std::move(newConnection));
+            _connectionsPointers.back()->connectToClient(_idCounter++);
+
+            FileLogger::getInstance().log
+            (
+                "[" + std::to_string(_connectionsPointers.back()->getID()) 
+                + "] Connection Approved", 
+                LogLevel::INFO
+            );
+        }
+        else
+        {
+            FileLogger::getInstance().log
+            (
+                "[SERVER] Connection Denied", 
+                LogLevel::INFO
+            );
+        }
+    }
+    else
+    {
+        FileLogger::getInstance().log
+        (
+            "[SERVER] New Connection Error: " + error.message(), 
+            LogLevel::ERR
+        );
+    }
+
+    waitForClientConnection();
 }
 
 void Server::onMessage(const std::shared_ptr<Connection>& client, Message& message)
@@ -145,112 +259,8 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, Message& messa
         }
     }
 }
-Server::Server(const uint16_t& port) :
-     _acceptor(_context, tcp::endpoint(tcp::v4(), port)),
-     _postgreManager(std::make_unique<PostgreRepositoryManager>(PostgreAdapter::getInstance<PostgreAdapter>()))
-{
-}
 
-Server::~Server() { stop(); }
-
-void Server::start()
-{
-    waitForClientConnection();
-
-    size_t threadsCount = std::thread::hardware_concurrency();
-    threadsCount > 1 ? --threadsCount : threadsCount = 1;
-    
-    for (size_t i = 0; i < threadsCount; ++i)
-    {
-        _threads.emplace_back(std::thread([this]() { _context.run(); }));
-    }
-    _postgreManager->handleRequests();
-
-    FileLogger::getInstance().log
-    (
-        "[SERVER] Started!", 
-        LogLevel::INFO
-    );
-}
-
-void Server::stop()
-{
-    _context.stop();
-
-    _postgreManager->stopHandler();
-
-    for (std::thread& thread : _threads)
-    {
-        if (thread.joinable())
-        {
-            thread.join();
-        }
-    }
-
-    _threads.clear();
-
-    FileLogger::getInstance().log
-    (
-        "[SERVER] Stopped!",
-        LogLevel::INFO
-    );
-}
-
-void Server::waitForClientConnection()
-{   
-    _acceptor.async_accept([this](const std::error_code error, tcp::socket socket) { acceptingClientConnection(error, socket); });
-}
-
-void Server::acceptingClientConnection(const std::error_code& error, tcp::socket& socket)
-{
-    if (!error)
-    {
-        std::ostringstream outputPoint;
-        outputPoint << socket.remote_endpoint();
-
-        FileLogger::getInstance().log
-        (
-            "[SERVER] New Connection: " + outputPoint.str(),
-            LogLevel::INFO
-        );
-
-        auto newConnection = 
-            std::make_shared<Connection>(Connection::OwnerType::SERVER, _context, std::move(socket), _incomingMessagesQueue);
-
-        if (onClientConnect(newConnection))
-        {
-            _connectionsPointers.emplace_back(std::move(newConnection));
-            _connectionsPointers.back()->connectToClient(_idCounter++);
-
-            FileLogger::getInstance().log
-            (
-                "[" + std::to_string(_connectionsPointers.back()->getID()) 
-                + "] Connection Approved", 
-                LogLevel::INFO
-            );
-        }
-        else
-        {
-            FileLogger::getInstance().log
-            (
-                "[SERVER] Connection Denied", 
-                LogLevel::INFO
-            );
-        }
-    }
-    else
-    {
-        FileLogger::getInstance().log
-        (
-            "[SERVER] New Connection Error: " + error.message(), 
-            LogLevel::ERR
-        );
-    }
-
-    waitForClientConnection();
-}
-
-void Server::messageClient(std::shared_ptr<Connection> client, const Message& message)
+void Server::messageClient(std::shared_ptr<Connection> client, const Message& message) const
 {
     if (client != nullptr && client->isConnected())
     {
@@ -260,40 +270,10 @@ void Server::messageClient(std::shared_ptr<Connection> client, const Message& me
     {
         onClientDisconnect(client);
 
-        client.reset();
+       // client.reset();
 
-        _connectionsPointers.erase(std::remove(_connectionsPointers.begin(), _connectionsPointers.end(), client),
-                                   _connectionsPointers.end());
-    }
-}
-
-void Server::messageAllClients(const Message& message, const std::shared_ptr<Connection>& exceptionClient)
-{
-    bool deadConnectionExist = false;
-
-    for (auto& client : _connectionsPointers)
-    {
-        if (client != nullptr && client->isConnected())
-        {
-            if (client != exceptionClient)
-            {
-                client->send(message);
-            }
-        }
-        else
-        {
-            onClientDisconnect(client);
-
-            client.reset();
-
-            deadConnectionExist = true;
-        }
-    }
-
-    if (deadConnectionExist)
-    {
-        _connectionsPointers.erase(std::remove(_connectionsPointers.begin(), _connectionsPointers.end(), nullptr),
-                                   _connectionsPointers.end());
+        //_connectionsPointers.erase(std::remove(_connectionsPointers.begin(), _connectionsPointers.end(), client),
+         //                          _connectionsPointers.end());
     }
 }
 
@@ -320,7 +300,40 @@ void Server::update(size_t maxMessages, bool wait)
     }
 }
 
-void Server::checkServerPing(const std::shared_ptr<Connection>& client, const Message& message) const
+void Server::messageAllClients(std::shared_ptr<Connection> exceptionClient, const Message& message) const
+{
+   // bool deadConnectionExist = false;
+
+    for (auto& client : _connectionsPointers)
+    {
+        if (client != nullptr && client->isConnected())
+        {
+            if (client != exceptionClient)
+            {
+                client->send(message);
+            }
+        }
+        /*
+        else
+        {
+            onClientDisconnect(client);
+
+            client.reset();
+
+            deadConnectionExist = true;
+        }
+        */
+    }
+    /*
+    if (deadConnectionExist)
+    {
+        _connectionsPointers.erase(std::remove(_connectionsPointers.begin(), _connectionsPointers.end(), nullptr),
+                                   _connectionsPointers.end());
+    }
+    */
+}
+
+void Server::checkServerPing(std::shared_ptr<Connection> client, const Message& message) const
 {
     std::tm formattedTimestamp = UtilityTime::safe_localtime(message.mHeader.mTimestamp);
 
@@ -336,7 +349,7 @@ void Server::checkServerPing(const std::shared_ptr<Connection>& client, const Me
     client->send(message);
 }
 
-void Server::readAllMessage(const std::shared_ptr<Connection>& client, const Message& message)
+void Server::readAllMessage(std::shared_ptr<Connection> client, const Message& message) const
 {
     std::tm formattedTimestamp = UtilityTime::safe_localtime(message.mHeader.mTimestamp);
 
@@ -353,10 +366,10 @@ void Server::readAllMessage(const std::shared_ptr<Connection>& client, const Mes
     messageHandler.mHeader.mMessageType = Message::MessageType::ServerMessage;
     
     // msg << client->getID();
-    messageAllClients(messageHandler, client);
+    messageAllClients(client, messageHandler);
 }
 
-void Server::channelListRequest(const std::shared_ptr<Connection>& client) const
+void Server::channelListRequest(std::shared_ptr<Connection> client) const
 {
     auto futureResult = _postgreManager->pushRequest(&IChannelsRepository::getAllChannelsList);
 
@@ -369,7 +382,7 @@ void Server::channelListRequest(const std::shared_ptr<Connection>& client) const
     client->send(messageHandler);
 }
 
-void Server::messageHistoryRequest(const std::shared_ptr<Connection>& client, Message& message) const
+void Server::messageHistoryRequest( std::shared_ptr<Connection> client, const Message& message) const
 {
     auto channelID = std::any_cast<std::uint64_t>(message.mBody);
 
@@ -384,7 +397,7 @@ void Server::messageHistoryRequest(const std::shared_ptr<Connection>& client, Me
     client->send(messageHandler);
 }
 
-void Server::messageStoreRequest(const std::shared_ptr<Connection>& client, Message& message) const
+void Server::messageStoreRequest( std::shared_ptr<Connection> client, const Message& message) const
 {
     auto messageInfo     = std::any_cast<Models::MessageInfo>(message.mBody);
     messageInfo._senderID = client->getUserID();
@@ -402,7 +415,7 @@ void Server::messageStoreRequest(const std::shared_ptr<Connection>& client, Mess
     client->send(answerForClient);
 }
 
-void Server::replyHistoryRequest(const std::shared_ptr<Connection>& client, Message& message) const
+void Server::replyHistoryRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto channelID = std::any_cast<std::uint64_t>(message.mBody);
 
@@ -417,7 +430,7 @@ void Server::replyHistoryRequest(const std::shared_ptr<Connection>& client, Mess
     client->send(replyMsg);
 }
 
-void Server::replyStoreRequest(const std::shared_ptr<Connection>& client, Message& message) const
+void Server::replyStoreRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto replyInfo     = std::any_cast<Models::ReplyInfo>(message.mBody);
     replyInfo._senderID = client->getUserID();
@@ -434,7 +447,7 @@ void Server::replyStoreRequest(const std::shared_ptr<Connection>& client, Messag
     client->send(answerForClient);
 }
 
-void Server::messageDeleteRequest(const std::shared_ptr<Connection>& client, Message& message) const
+void Server::messageDeleteRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto messageInfo     = std::any_cast<Models::MessageInfo>(message.mBody);
     messageInfo._senderID = client->getUserID();
@@ -449,7 +462,7 @@ void Server::messageDeleteRequest(const std::shared_ptr<Connection>& client, Mes
     client->send(answerForClient);
 }
 
-void Server::messageEditRequest(const std::shared_ptr<Connection>& client, Message& message) const
+void Server::messageEditRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto messageInfo     = std::any_cast<Models::MessageInfo>(message.mBody);
     messageInfo._senderID = client->getUserID();
@@ -464,7 +477,7 @@ void Server::messageEditRequest(const std::shared_ptr<Connection>& client, Messa
     client->send(answerForClient);
 }
 
-void Server::messageReactionRequest(const std::shared_ptr<Connection>& client, Message& message) const
+void Server::messageReactionRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto messageInfo     = std::any_cast<Models::MessageInfo>(message.mBody);
     messageInfo._senderID = client->getUserID();
@@ -479,7 +492,7 @@ void Server::messageReactionRequest(const std::shared_ptr<Connection>& client, M
     client->send(answerForClient);
 }
 
-void Server::registrationRequest(const std::shared_ptr<Connection>& client, Message& message) const
+void Server::registrationRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto replyInfo = std::any_cast<Models::RegistrationInfo>(message.mBody);
 
@@ -494,7 +507,7 @@ void Server::registrationRequest(const std::shared_ptr<Connection>& client, Mess
     client->send(messageToClient);
 }
 
-void Server::loginRequest(const std::shared_ptr<Connection>& client, Message& message) const 
+void Server::loginRequest( std::shared_ptr<Connection> client, const Message& message) const 
 {
     auto loginInfo = std::any_cast<Models::LoginInfo>(message.mBody);
 
@@ -527,7 +540,7 @@ void Server::loginRequest(const std::shared_ptr<Connection>& client, Message& me
     }
 }
 
-void Server::channelLeaveRequest(const std::shared_ptr<Connection>& client, Message& message) const
+void Server::channelLeaveRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     Models::ChannelLeaveInfo channelLeaveInfo;
 
@@ -545,7 +558,7 @@ void Server::channelLeaveRequest(const std::shared_ptr<Connection>& client, Mess
     client->send(messageToClient);
 }
 
-void Server::channelSubscribeRequest(const std::shared_ptr<Connection>& client, Message& message) const
+void Server::channelSubscribeRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto channelInfo   = std::any_cast<Models::ChannelSubscriptionInfo>(message.mBody);
     channelInfo._userID = client->getUserID();
@@ -561,7 +574,7 @@ void Server::channelSubscribeRequest(const std::shared_ptr<Connection>& client, 
     client->send(messageToClient);
 }
 
-void Server::channelSubscriptionListRequest(const std::shared_ptr<Connection>& client) const 
+void Server::channelSubscriptionListRequest( std::shared_ptr<Connection> client) const 
 {
     const auto userID = client->getUserID();
 
@@ -575,7 +588,7 @@ void Server::channelSubscriptionListRequest(const std::shared_ptr<Connection>& c
     client->send(messageToClient);
 }
 
-void Server::channelDeleteRequest(const std::shared_ptr<Connection>& client, Message& message) const
+void Server::channelDeleteRequest( std::shared_ptr<Connection> client, const Message& message) const
 {
     Models::ChannelDeleteInfo channelDeleteInfo;
 
@@ -593,7 +606,7 @@ void Server::channelDeleteRequest(const std::shared_ptr<Connection>& client, Mes
     client->send(messageToClient);
 }
 
-void Server::channelCreateRequest(const std::shared_ptr<Connection>& client, Message& message) const
+void Server::channelCreateRequest( std::shared_ptr<Connection> client, const Message& message) const
 {
     Models::ChannelInfo newChannelInfo;
 
@@ -611,7 +624,7 @@ void Server::channelCreateRequest(const std::shared_ptr<Connection>& client, Mes
     client->send(messageToClient);
 }
 
-void Server::directMessageCreateRequest(const std::shared_ptr<Connection>& client, Message& message) const
+void Server::directMessageCreateRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto secondUser = std::any_cast<std::uint64_t>(message.mBody);
 

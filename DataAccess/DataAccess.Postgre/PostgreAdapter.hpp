@@ -8,8 +8,6 @@
 #include <Utility/Exception.hpp>
 #include <DataAccess/IAdapter.hpp>
 
-#include "DataBaseOptions.hpp"
-
 namespace DataAccess
 {
 
@@ -22,10 +20,19 @@ class PostgreAdapter final : public IAdapter
 private:
     inline static std::mutex                        _staticMutex{};
     inline static std::shared_ptr<PostgreAdapter>   _instance{};
-    inline static constexpr std::string_view        _defaultOptions = DBOptions::real;
 
     std::mutex                                      _queryMutex;
     std::unique_ptr<pqxx::connection>               _connection;
+
+public:
+    /** @brief Method that creates new instance of Adapter. 
+    *    It needs for technical purposes. Don't use it 
+    *    (it's because I designed the interface badly). 
+    *    Instead use getInstance method.
+    *   @param options - Connection options.
+    *   @return Pointer to current instance of Postgre adapter.
+    */
+    static std::shared_ptr<PostgreAdapter> Instance(const std::string_view& options = {});
 
 protected:
     PostgreAdapter(const std::string_view& options) 
