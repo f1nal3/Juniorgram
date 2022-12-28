@@ -24,16 +24,6 @@ private:
     std::mutex                                      _queryMutex;
     std::unique_ptr<pqxx::connection>               _connection;
 
-public:
-    /** @brief Method that creates new instance of Adapter. 
-    *    It needs for technical purposes. Don't use it 
-    *    (it's because I designed the interface badly). 
-    *    Instead use getInstance method.
-    *   @param options - Connection options.
-    *   @return Pointer to current instance of Postgre adapter.
-    */
-    static std::shared_ptr<PostgreAdapter> Instance(const std::string_view& options = {});
-
 protected:
     PostgreAdapter(const std::string_view& options) 
         : _connection{std::make_unique<pqxx::connection>(pqxx::zview(options))} {}

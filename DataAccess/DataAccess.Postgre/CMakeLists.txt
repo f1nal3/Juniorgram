@@ -25,7 +25,7 @@ add_library(${TARGET} STATIC ${SOURCE_FILES})
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
 target_link_libraries(${TARGET}
-        PRIVATE PostgreSQL::pq libpqxx::libpqxx
+        PUBLIC PostgreSQL::PostgreSQL libpqxx::pqxx
         PUBLIC Utility.Public DataAccess.Public Network.Public)
 
 target_include_directories(${TARGET}

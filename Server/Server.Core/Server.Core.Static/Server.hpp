@@ -48,7 +48,7 @@ class Server : public Network::iAPI
     friend Builder::ServerBuilder;
 
 public:
-     APPLY_API_METHODS;
+     APPLY_API_METHODS
 
 public: 
     /**

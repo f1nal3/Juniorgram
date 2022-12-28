@@ -27,7 +27,7 @@ target_link_libraries(${TARGET} PRIVATE
         Utility.Public)
 
 target_include_directories(${TARGET} PRIVATE
-        $<TARGET_PROPERTY:DataAccess.Postgre, SOURCE_DIR>/..)
+        $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
 
 target_compile_definitions(${TARGET} PRIVATE CATCH_CONFIG_FAST_COMPILE)
 target_precompile_headers(${TARGET} REUSE_FROM Precompiled.Catch2.Test)

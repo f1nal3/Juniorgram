@@ -1,6 +1,7 @@
 #include <catch2/catch.hpp>
 
 #include "DataAccess.Postgre/PostgreQuery.hpp"
+#include "DataBaseOptions.hpp"
 
 using DataAccess::PostgreAdapter;
 using DataAccess::PostgreQuery;

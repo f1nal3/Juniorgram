@@ -2,11 +2,11 @@
 
 #include "Network/Connection.hpp"
 #include "Network/Message.hpp"
-#include "Network/SafeQueue.hpp"
+#include "Utility/SafeQueue.hpp"
 
 using ClientConn = const std::shared_ptr<Network::Connection>&;
 
-#define APPLY_API_METHODS ;\
+#define APPLY_API_METHODS \
             void messageClient                  (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
             void messageAllClients              (std::shared_ptr<Network::Connection> exceptionConnection,const Message& message) const override;   \
             void checkServerPing                (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
@@ -179,6 +179,6 @@ namespace Network{
          */
         virtual void defaultRequest() const = 0;
 
-        virtual iAPI::~iAPI() = default;
+        virtual ~iAPI() = default;
         };
 }
