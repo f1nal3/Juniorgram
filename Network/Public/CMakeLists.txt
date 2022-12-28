@@ -11,13 +11,14 @@ set(SOURCE_FILES
     Include/Network/YasSerializer.hpp
     Include/Network/iAPI.hpp)
 
-add_library(${TARGET} INTERFACE)
+add_library(${TARGET} INTERFACE ${SOURCE_FILES})
 
 target_sources(${TARGET} INTERFACE ${SOURCE_FILES})
 
 target_include_directories(${TARGET} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/Include)
 
-target_link_libraries(${TARGET} INTERFACE Utility.Public 
-                                            yas::yas 
+target_link_libraries(${TARGET} INTERFACE yas::yas 
+                                            asio::asio
+                                            Utility.Public 
                                             Base.Logger.Static 
                                             Models.Public)
