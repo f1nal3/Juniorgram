@@ -8,7 +8,7 @@
 #include <memory>
 #include <vector>
 
-#include "Connection.hpp"
+#include "Network/Connection.hpp"
 #include <Utility/Utility.hpp>
 #include <Utility/UtilityTime.hpp>
 

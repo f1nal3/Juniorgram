@@ -1,6 +1,6 @@
 #pragma once
+#include "Network/YasSerializer.hpp"
 #include "Network/Message.hpp"
-#include "YasSerializer.hpp"
 
 namespace Network
 {
@@ -36,7 +36,7 @@ public:
     virtual Handler*               setNext(Handler* handler)                                                      = 0;
 
     /**
-     * @brief Virtual method for preprocessing of outcoming messages.
+     * @brief Virtual method for preprocessing of outgoing messages.
      * @param message - buffer that contains data that should be preprocessed.
      * @param bodyBuffer - buffer that will contain preprocessed body.
      */
@@ -75,7 +75,7 @@ public:
     }
 
     /**
-     * @brief Method for preprocessing of outcoming messages.
+     * @brief Method for preprocessing of outgoing messages.
      * @param message - buffer that contains data that should be preprocessed.
      * @param bodyBuffer - buffer that will contain preprocessed body.
      */

@@ -10,7 +10,7 @@ class EncryptionHandler : public AbstractHandler
 {
 public:
     /**
-     * @brief Method for encryption of outcoming messages.
+     * @brief Method for encryption of outgoing messages.
      * @param message - buffer that contains data that should be encrypted.
      * @param headerBuffer - buffer that will contain encrypted header.
      * @param bodyBuffer - buffer that will contain encrypted body.

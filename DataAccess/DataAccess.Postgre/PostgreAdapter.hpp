@@ -43,7 +43,7 @@ public:
     *    (it's because I designed the interface badly). 
     *    Instead use getInstance method.
     *   @param options - Connection options.
-    *   @return Pointer to current instanse of Postgre adapter.
+    *   @return Pointer to current instance of Postgre adapter.
     */
     static std::shared_ptr<PostgreAdapter> Instance(const std::string_view& options = {});
 
@@ -55,7 +55,7 @@ public:
     *    or a timestamp you must wrap the string/text by single quotes. 
     *    You don't have to put ';' at the end of query.
     *   @code 
-    *   ...->query("SELECT * FROM table_name WHERE name = 'memorisecodead'");
+    *   ...->query("SELECT * FROM table_name WHERE name = 'username'");
     *   @endcode
     *   @param SQL query in the form of string.
     *   @return Optional result.

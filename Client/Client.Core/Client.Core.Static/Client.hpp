@@ -29,8 +29,8 @@ public:
 
     /**
     * @brief Connect to server with IP(host) and Port(port).
-    * @param const std::string_view& host - for identifing and accepting ip address, \
-    * @param const uint16_t port - for accepting & identifing of port.
+    * @param const std::string_view& host - for identifying and accepting ip address, \
+    * @param const uint16_t port - for accepting & identifying of port.
     */
     bool connectToServer(const std::string_view& host, const uint16_t port);
 
@@ -260,7 +260,7 @@ protected:
     virtual void onRegistrationAnswer(Utility::RegistrationCodes registrationCode);
 
     /**
-    * @brief Reply History Answer heandler.
+    * @brief Reply History Answer handler.
     * @details This function handler outputs reply history answer response.
     */
     virtual void onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& replies);
@@ -292,7 +292,7 @@ protected:
 
     /**
     * @brief Channel delete Answer handler.
-    * @details This function handler outputs message of detele answer response.
+    * @details This function handler outputs message of delete answer response.
     */
     virtual void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode);
 
