@@ -7,14 +7,14 @@ constexpr bool acceptingConnection = true;
 
 TEST_CASE("Workflow startup server")
 {
-    Client     Client;
+    Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
 
     CHECK_NOTHROW(serverTest.start());
-    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort())
+    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
         == acceptingConnection)
     {
-        bindOfSendingMessage(Client, MessageType::ServerAccept);
+        bindOfSendingMessage(mockClient, MessageType::ServerAccept);
     }
     REQUIRE_NOTHROW(testServerUpdating(serverTest));
 }

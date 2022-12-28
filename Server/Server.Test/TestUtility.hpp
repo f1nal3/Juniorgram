@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Server.hpp"
+#include <Server.hpp>
 #include <MockObjectsFiles/MockDatabase.hpp>
 #include <MockObjectsFiles/MockClient.hpp>
 #include <MockObjectsFiles/MockRepositoryManager.hpp>
@@ -277,7 +277,7 @@ constexpr std::string_view getTestingAddress()
 
 inline auto getTestingDatabase() noexcept
 {
-    std::unique_ptr<RepoManager> testDatabase =
+    auto testDatabase =
         std::make_unique<RepoManager>(Database::getInstance<Database>());
 
     return testDatabase;

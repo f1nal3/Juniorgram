@@ -40,7 +40,7 @@ public:
         this->privateRegisterTestRepositories();
     }
 
-    virtual ~MockIRepositoryManager()
+    ~MockIRepositoryManager()
     {
         _repositoryRequestsHandler.join();
     }

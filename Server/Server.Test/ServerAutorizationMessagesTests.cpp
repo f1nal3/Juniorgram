@@ -7,30 +7,30 @@ constexpr bool acceptingConnection = true;
 
 TEST_CASE("Check registration request of server")
 {
-    Client     Client;
+    Client     mockClient;
     testServer serverTest(getTestingPort(),getTestingDatabase());
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort()) 
+    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
         == acceptingConnection)
     {
-        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::RegistrationRequest));
+        CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::RegistrationRequest));
     }
     testServerUpdating(serverTest);
 }
 
 TEST_CASE("Check login request of server")
 {
-    Client     Client;
+    Client     mockClient;
     testServer serverTest(getTestingPort(),getTestingDatabase());
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort())
+    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
         == acceptingConnection)
     {
-        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::LoginRequest));
+        CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::LoginRequest));
     }
     testServerUpdating(serverTest);
 }

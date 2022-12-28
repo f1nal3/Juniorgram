@@ -21,7 +21,7 @@ using Utility::SafeQueue;
 class MockClient : public Client
 {
 public:
-    virtual ~MockClient() = default;
+    ~MockClient() override = default;
 
 protected:
     /**

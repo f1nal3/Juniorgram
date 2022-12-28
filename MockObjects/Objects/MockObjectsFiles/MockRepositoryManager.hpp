@@ -18,6 +18,6 @@ public:
     {
     }
 
-   virtual ~MockRepositoryManager() = default;
+    ~MockRepositoryManager() = default;
 };
 }  // namespace MockDataAccess

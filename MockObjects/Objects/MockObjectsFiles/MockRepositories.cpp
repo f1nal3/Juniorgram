@@ -149,7 +149,7 @@ Utility::EditingMessageCodes testMessagesRepository::editMessage(const Models::M
     Models::MessageInfo mesgInfo;
     mesgInfo._msgID    = 2;
 
-    if (messageInfo._msgID == messageInfo._msgID )
+    if (mesgInfo._msgID == messageInfo._msgID)
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -253,6 +253,7 @@ Utility::ChannelLeaveCodes testChannelsRepository::leaveChannel(const Models::Ch
 {
     Models::ChannelLeaveInfo testChannelInfo;
     testChannelInfo._channelName = "testServer";
+
     if (testChannelInfo._channelName == channel._channelName)
     {
         Base::Logger::FileLogger::getInstance().log

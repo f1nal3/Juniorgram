@@ -7,90 +7,90 @@ constexpr bool acceptingConnection = true;
 
 TEST_CASE("Check channel create request of server")
 {
-    Client     Client;
+    Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
       
     serverTest.start();
 
-    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort())
+    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
         == acceptingConnection)
     {
-        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelCreateRequest));
+        CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ChannelCreateRequest));
     }
     testServerUpdating(serverTest);
 }
 
 TEST_CASE("Check channel list request from server side")
 {
-    Client     Client;
+    Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort())
+    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
         == acceptingConnection)
     {
-        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelListRequest));
+        CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ChannelListRequest));
     }
     testServerUpdating(serverTest);
 }
 
 TEST_CASE("Check channel subscribe request from server side")
 {
-    Client     Client;
+    Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort())
+    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
         == acceptingConnection)
     {
-        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelSubscribeRequest));
+        CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ChannelSubscribeRequest));
     }
     testServerUpdating(serverTest);
 }
 
 TEST_CASE("Check channel subscription list request from server side")
 {
-    Client     Client;
+    Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort())
+    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
         == acceptingConnection)
     {
-        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelSubscriptionListRequest));
+        CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ChannelSubscriptionListRequest));
     }
     testServerUpdating(serverTest);
 }
 
 TEST_CASE("Check channel leave request from server side")
 {
-    Client     Client;
+    Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort())
+    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
         == acceptingConnection)
     {
-        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelLeaveRequest));
+        CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ChannelLeaveRequest));
     }
     testServerUpdating(serverTest);
 }
 
 TEST_CASE("Check channel delete request from server side")
 {
-    Client     Client;
+    Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
 
     serverTest.start();
 
-    if (bindOfConnectToServer(Client, getTestingAddress(), getTestingPort()) 
+    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
         == acceptingConnection)
     {
-        CHECK_NOTHROW(bindOfSendingMessage(Client, MessageType::ChannelDeleteRequest));
+        CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ChannelDeleteRequest));
     }
     testServerUpdating(serverTest);
 }
