@@ -5,14 +5,14 @@
 #include <optional>
 #include <sstream>
 
-#include <Utility/Exception.hpp>
-#include <Utility/SQLUtility.hpp>
+#include "Utility/SQLUtility.hpp"
+#include "Utility/JGExceptions.hpp"
 #include "FileLogger.hpp"
 
 namespace DataAccess
 {
 template <typename ResultType>
-class QueryBuilder;
+class AbstractQueryBuilder;
 
 /**
 * @class SQLWhereCondition
@@ -36,7 +36,7 @@ public:
     /**
     * @brief Like common SQL 'where' condition.
     * @param condition - SQL condition, but it is not required
-    * @return Current SQLSTATEMENT pointer object to continue SQL query.
+    * @return Current SQLStatement pointer object to continue SQL query.
     */
     T* Where(const std::string& condition = {})
     {
@@ -49,9 +49,9 @@ public:
 
     /**
     * @brief Like common SQL 'and' condition. This condition
-    *    need for continue the SQL query after like: limit, beetween, etc.
+    *    need for continue the SQL query after like: limit, between, etc.
     * @param condition - SQL condition, but it is not required.
-    * @return Current SQLSTATEMENT pointer object to continue SQL query.
+    * @return Current SQLStatement pointer object to continue SQL query.
     */
     T* And(const std::string& condition = {})
     {
@@ -64,9 +64,9 @@ public:
 
     /**
     * @brief Like common SQL 'or' condition. This condition
-    * need for continue the SQL query after like: limit, beetween, etc.
+    * need for continue the SQL query after like: limit, between, etc.
     * @param condition - SQL condition, but it is not required.
-    * @return Current SQLSTATEMENT pointer object to continue SQL query.
+    * @return Current SQLStatement pointer object to continue SQL query.
     */
     T* Or(const std::string& condition = {})
     {
@@ -81,7 +81,7 @@ public:
     * @brief In condition.
     * @param anotherStatement - another SQL statement,
     * that you can receive from 'getQuery()' method.
-    * @return Current SQLSTATEMENT pointer object to continue SQL query.
+    * @return Current SQLStatement pointer object to continue SQL query.
     */
     T* In(const std::string& anotherStatement)
     {
@@ -95,7 +95,7 @@ public:
     /**
     * @brief In condition.
     * @param valueList - checking from list of values.
-    * @return Current SQLSTATEMENT pointer object to continue SQL query.
+    * @return Current SQLStatement pointer object to continue SQL query.
     */
     T* In(const std::initializer_list<std::string>& valueList)
     {
@@ -114,10 +114,10 @@ public:
     }
 
     /**
-    * @brief Beeween condition.
+    * @brief Between condition.
     * @param left - start of the range. \n
     *  right - end of the range.
-    * @return Current SQLSTATEMENT pointer object to continue SQL query.
+    * @return Current SQLStatement pointer object to continue SQL query.
     */
     template <typename ValueType>
     T* Between(ValueType left, ValueType right)
@@ -134,7 +134,7 @@ public:
     * @param pattern - see this for info: \n
     * https://www.w3schools.com/sql/sql_like.asp, \n
     * https://www.w3schools.com/sql/sql_wildcards.asp
-    * @return Current SQLSTATEMENT pointer object to continue SQL query.
+    * @return Current SQLStatement pointer object to continue SQL query.
     */
     T* Like(const std::string& pattern)
     {
@@ -165,11 +165,11 @@ class SQLBase
 {
 protected:
     Utility::SQLStatement     _statementType;
-    QueryBuilder<ResultType>& _currentBuilder;
+    AbstractQueryBuilder<ResultType>& _currentBuilder;
     std::ostringstream        _queryStream;
 
 public:
-    SQLBase(Utility::SQLStatement statement, QueryBuilder<ResultType>& table)
+    SQLBase(Utility::SQLStatement statement, AbstractQueryBuilder<ResultType>& table)
         : _statementType{statement}, _currentBuilder{table}, _queryStream{}
     {
     }
@@ -204,14 +204,14 @@ public:
 
     /**
     * @brief Method that returns current SQL query string.
-    *  This method for subqueries basically.
+    *  This method for subquery basically.
     * @return SQL query string
     * @warning Don't clear SQL string if you use it.
     * After getQuery you whatever can call method execute.
     * @code
     *    QueryBuilder table("tableName");
-    *    table.'SQLSTATEMENT'()->getQuery();
-    *    table.'SQLSTATEMENT'()->execute(); /// Here SQL query string will be clear.
+    *    table.'SQLStatement'()->getQuery();
+    *    table.'SQLStatement'()->execute(); /// Here SQL query string will be clear.
     * @encode
     */
     std::string getStringQuery(void) const noexcept { return _queryStream.str(); }
@@ -268,8 +268,8 @@ public:
     * @brief Method that clear SQL query string.
     * @code
     *  QueryBuilder table("tableName");
-    *  table.'SQLSTATEMENT'()->qetQuery();
-    *  table.'SQLSTATEMENT'()->rollback();
+    *  table.'SQLStatement'()->qetQuery();
+    *  table.'SQLStatement'()->rollback();
     * @endcode
     */
     void rollback(void) { SQLBase<ResultType>::_currentBuilder.clearStatement(); }
@@ -280,7 +280,7 @@ protected:
         if (*(SQLBase<ResultType>::_queryStream.str().end() - 1) != ' ') SQLBase<ResultType>::_queryStream << " ";
     }
 
-    void privateCorrectFormating(void)
+    void privateCorrectFormatting(void)
     {
         std::string queryBuffer = SQLBase<ResultType>::_queryStream.str();
         queryBuffer.erase(queryBuffer.end() - 2, queryBuffer.end());
@@ -303,7 +303,7 @@ template <typename ResultType>
 class SQLSelect : public SQLBase<ResultType>, public SQLWhereCondition<SQLSelect<ResultType>>
 {
 public:
-    SQLSelect(QueryBuilder<ResultType>& table)
+    SQLSelect(AbstractQueryBuilder<ResultType>& table)
         : SQLBase<ResultType>(Utility::SQLStatement::ST_SELECT, table), SQLWhereCondition<SQLSelect<ResultType>>(this)
     {
     }
@@ -330,7 +330,7 @@ public:
     * @details Or, for all columns from table use:
     * @code
     *   ...->columns({"*"})->...;
-    * @param Inintializer_list<string> of columns that you need.
+    * @param Initializer_list<string> of columns that you need.
     * @return Current SQLSelect pointer object to continue SQL query.
     */
     SQLSelect* columns(const std::initializer_list<std::string>& columnList)
@@ -373,7 +373,7 @@ public:
     *    ...->orderBy({"column1", "column2", ...})->...;
     *    ...->orderBy({"*"})->...;
     * @endcode
-    * @retunrn Current SQLSelect pointer object to continue SQL query
+    * @return Current SQLSelect pointer object to continue SQL query
     */
     SQLSelect* orderBy(const std::initializer_list<std::string>& columnList, bool desc = false)
     {
@@ -475,7 +475,7 @@ public:
      *    SELECT Employees.LastName, COUNT(Orders.OrderID) AS NumberOfOrders
      *    FROM Orders
      *    INNER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
-     *    WHERE LastName = 'Davolio' OR LastName = 'Fuller'
+     *    WHERE LastName = 'LastName1' OR LastName = 'Fuller'
      *    GROUP BY LastName
      *    HAVING COUNT(Orders.OrderID) > 25;
      * @endcode
@@ -495,7 +495,7 @@ public:
     /**
     * @brief Method for a condition between a single column
     *  and a range of other values (any of the values).
-    * @details It's equivolent of:
+    * @details It's equivalent of:
     *    x = ANY (a,b,c) -> x = a OR b OR c
     * @param SQL subQuery string
     * @return Current SQLSelect pointer object to continue SQL query
@@ -534,7 +534,7 @@ template <typename ResultType>
 class SQLInsert : public SQLBase<ResultType>
 {
 public:
-    SQLInsert(QueryBuilder<ResultType>& table) : SQLBase<ResultType>(Utility::SQLStatement::ST_INSERT, table) {}
+    SQLInsert(AbstractQueryBuilder<ResultType>& table) : SQLBase<ResultType>(Utility::SQLStatement::ST_INSERT, table) {}
 
     virtual ~SQLInsert(void) = default;
 
@@ -572,7 +572,7 @@ public:
 
         ((SQLBase<ResultType>::_queryStream << Utility::CheckForSQLSingleQuotesProblem(data) << ", "), ...);
 
-        this->SQLBase<ResultType>::privateCorrectFormating();
+        this->SQLBase<ResultType>::privateCorrectFormatting();
 
         SQLBase<ResultType>::_queryStream << ")";
 
@@ -585,7 +585,7 @@ public:
     * @code
     *   ...->field(tupleName1)->field(tupleName2)...;
     * @endcode
-    * @param Taple with data.
+    * @param Table with data.
     * @return Current SQLInsert pointer object to continue SQL query.
     */
     template <typename... DataType>
@@ -606,7 +606,7 @@ public:
             },
             dataList);
 
-        this->SQLBase<ResultType>::privateCorrectFormating();
+        this->SQLBase<ResultType>::privateCorrectFormatting();
 
         SQLBase<ResultType>::_queryStream << ")";
 
@@ -629,14 +629,14 @@ public:
         SQLBase<ResultType>::_queryStream << "(";
         ((SQLBase<ResultType>::_queryStream << columnData.first << ", "), ...);
 
-        this->SQLBase<ResultType>::privateCorrectFormating();
+        this->SQLBase<ResultType>::privateCorrectFormatting();
 
         SQLBase<ResultType>::_queryStream << ")";
 
         SQLBase<ResultType>::_queryStream << " values(";
         ((SQLBase<ResultType>::_queryStream << Utility::CheckForSQLSingleQuotesProblem(columnData.second) << ", "), ...);
 
-        this->SQLBase<ResultType>::privateCorrectFormating();
+        this->SQLBase<ResultType>::privateCorrectFormatting();
 
         SQLBase<ResultType>::_queryStream << ")";
 
@@ -660,7 +660,7 @@ public:
         std::apply([this](const auto&... tupleArgs) { ((SQLBase<ResultType>::_queryStream << tupleArgs.first << ", "), ...); },
                    columnDataList);
 
-        this->SQLBase<ResultType>::privateCorrectFormating();
+        this->SQLBase<ResultType>::privateCorrectFormatting();
 
         SQLBase<ResultType>::_queryStream << ")";
 
@@ -671,7 +671,7 @@ public:
             },
             columnDataList);
 
-        this->SQLBase<ResultType>::privateCorrectFormating();
+        this->SQLBase<ResultType>::privateCorrectFormatting();
 
         SQLBase<ResultType>::_queryStream << ")";
 
@@ -702,14 +702,14 @@ public:
 
 /**
 * @class SQLUpdate
-* @brief Provides interface for updation operations.
+* @brief Provides interface for updating operations.
 * @details It likes common SQL update condition. This is singleton.
 */
 template <typename ResultType>
 class SQLUpdate : public SQLBase<ResultType>, public SQLWhereCondition<SQLUpdate<ResultType>>
 {
 public:
-    SQLUpdate(QueryBuilder<ResultType>& table)
+    SQLUpdate(AbstractQueryBuilder<ResultType>& table)
         : SQLBase<ResultType>(Utility::SQLStatement::ST_UPDATE, table), SQLWhereCondition<SQLUpdate<ResultType>>(this)
     {
     }
@@ -741,7 +741,7 @@ public:
                                             << ", "),
          ...);
 
-        this->SQLBase<ResultType>::privateCorrectFormating();
+        this->SQLBase<ResultType>::privateCorrectFormatting();
 
         return this;
     }
@@ -764,7 +764,7 @@ public:
             },
             columnData);
 
-        this->SQLBase<ResultType>::privateCorrectFormating();
+        this->SQLBase<ResultType>::privateCorrectFormatting();
 
         return this;
     }
@@ -779,7 +779,7 @@ template <typename ResultType>
 class SQLDelete : public SQLBase<ResultType>, public SQLWhereCondition<SQLDelete<ResultType>>
 {
 public:
-    explicit SQLDelete(QueryBuilder<ResultType>& table)
+    explicit SQLDelete(AbstractQueryBuilder<ResultType>& table)
         : SQLBase<ResultType>(Utility::SQLStatement::ST_DELETE, table), SQLWhereCondition<SQLDelete<ResultType>>(this)
         {
         }

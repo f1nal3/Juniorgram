@@ -5,7 +5,7 @@
 
 #include <pqxx/pqxx>
 
-#include <Utility/Exception.hpp>
+#include <Utility/JGExceptions.hpp>
 #include <DataAccess/IAdapter.hpp>
 
 namespace DataAccess

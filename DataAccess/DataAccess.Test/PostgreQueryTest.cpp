@@ -4,17 +4,17 @@
 #include "DataBaseOptions.hpp"
 
 using DataAccess::PostgreAdapter;
-using DataAccess::PostgreQuery;
+using DataAccess::PGQueryBuilder;
 
-TEST_CASE("PostgreQuery", "[dummy]")
+TEST_CASE("PGQueryBuilder", "[dummy]")
 {
 	SECTION("Default constructor")
 	{
-		REQUIRE_NOTHROW(PostgreQuery("users"));
+		REQUIRE_NOTHROW(PGQueryBuilder("users"));
 	}
 
 	SECTION("No default condition in constructor")
 	{
-		REQUIRE_NOTHROW(PostgreQuery("users"), PostgreAdapter::Instance(DBOptions::test));
+		REQUIRE_NOTHROW(PGQueryBuilder("users"), PostgreAdapter::Instance(DBOptions::test));
 	}
 }

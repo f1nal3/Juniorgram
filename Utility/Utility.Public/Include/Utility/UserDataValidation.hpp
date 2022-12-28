@@ -28,7 +28,7 @@ inline bool isLoginValid(const std::string& login)
  *   -have first char like letter; /
  *   -maintain the following rule: /
  *     Some chars + '@' + some chars(mail provider) + '.' + lowercase
- *     lettets (miminmum - 2; maximum - 4). /
+ *     letters (minimum - 2; maximum - 4). /
  * Example: email = 'Anton3_antonov4@epam.com'.
  */
 inline bool isEmailValid(const std::string& email)

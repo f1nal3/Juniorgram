@@ -21,6 +21,12 @@ target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} asio::asio yas::yas  Netwo
 target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
 
+
+target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} asio::asio yas::yas DataAccess.Postgre
+								PUBLIC  Network.Public 
+										DataAccess.Public 
+										Utility.Public 
+										Base.Logger.Static)
 target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:DataAccess.Public,SOURCE_DIR>/..)
 

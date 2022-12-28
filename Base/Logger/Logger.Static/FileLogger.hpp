@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Logger/ILogger.hpp>
+#include "Logger/ILogger.hpp"
 #include "Utility/SafeQueue.hpp"
 
 #include <sstream>

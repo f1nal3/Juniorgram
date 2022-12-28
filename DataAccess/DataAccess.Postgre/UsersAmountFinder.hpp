@@ -11,7 +11,7 @@
 class UsersAmountFinder
 {
 protected:
-    using Table = DataAccess::PostgreQuery;
+    using Table = DataAccess::PGQueryBuilder;
 
     std::unique_ptr<Table> _pTable;
 

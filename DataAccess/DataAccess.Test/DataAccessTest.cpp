@@ -5,7 +5,7 @@
 #include <DataAccess.Postgre/PostgreQuery.hpp>
 #include <DataAccess.Postgre/DataBaseOptions.hpp>
 
-DataAccess::PostgreQuery test("testing", DBOptions::test);
+DataAccess::PGQueryBuilder test("testing", DBOptions::test);
 
 TEST_CASE("Select[Where]", "[PostgreAbstractionLayout]")
 { 

@@ -8,10 +8,8 @@
 #include <type_traits>
 
 #include "AbstractRepositoryContainer.hpp"
-#include "IServerRepositories.hpp"
 #include "RepositoryRequest.hpp"
 
-#include <DataAccess.Postgre/PostgreRepositories.hpp>
 
 namespace DataAccess
 {
@@ -34,7 +32,7 @@ namespace DataAccess
     */
     class IRepositoryManager
     {
-    private:
+    protected   :
         std::unique_ptr<AbstractRepositoryContainer>        _repositories;
         std::priority_queue<RepositoryRequest>              _queue;
 
@@ -45,15 +43,17 @@ namespace DataAccess
         std::thread                                         _repositoryRequestsHandler;
 
     public:
-        explicit IRepositoryManager(const std::shared_ptr<IAdapter>& repositoryContainer)
-            :_repositories(std::make_unique<AbstractRepositoryContainer>(repositoryContainer))
-        {
-            this->privateRegisterRepositories();
-        }
+        IRepositoryManager(){}
 
-        ~IRepositoryManager() {
+        virtual ~IRepositoryManager() {
             _repositoryRequestsHandler.join();
         }
+
+
+        IRepositoryManager(const IRepositoryManager&)            = delete;
+        IRepositoryManager(IRepositoryManager&&)                 = delete;
+        IRepositoryManager& operator=(const IRepositoryManager&) = delete;
+        IRepositoryManager& operator=(IRepositoryManager&&)      = delete;
 
     public:
         /**
@@ -152,14 +152,7 @@ namespace DataAccess
         /**
          * @brief Needs to register all repositories in repository container.
          */
-        void privateRegisterRepositories() const
-        {
-            _repositories->registerRepository<IChannelsRepository, ChannelsRepository>();
-            _repositories->registerRepository<ILoginRepository, LoginRepository>();
-            _repositories->registerRepository<IMessagesRepository, MessagesRepository>();
-            _repositories->registerRepository<IRegisterRepository, RegisterRepository>();
-            _repositories->registerRepository<IRepliesRepository, RepliesRepository>();
-            _repositories->registerRepository<IDirectMessageRepository, DirectMessageRepository>();
-        }
+        virtual void registerRepositories() const  = 0;
+
     };
 }

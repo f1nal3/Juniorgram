@@ -1,6 +1,6 @@
 #include <catch2/catch.hpp>
 
-#include "Utility/Exception.hpp"
+#include "Utility/JGExceptions.hpp"
 
 using Catch::Contains;
 

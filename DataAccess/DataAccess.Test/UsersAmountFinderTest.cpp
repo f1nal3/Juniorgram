@@ -4,7 +4,7 @@
 #include <DataAccess.Postgre/PostgreRepositories.hpp>
 #include "DataAccess.Postgre/DataBaseOptions.hpp"
 
-using DataAccess::PostgreQuery;
+using DataAccess::PGQueryBuilder;
 using DataAccess::PostgreAdapter;
 using DataAccess::RegisterRepository;
 
@@ -15,7 +15,7 @@ TEST_CASE("UsersAmountFinder", "[dummy]")
 		REQUIRE_NOTHROW(UsersAmountFinder());
 	}
 
-	auto              testTable = std::make_unique<PostgreQuery>("users", PostgreAdapter::Instance(DBOptions::test));
+	auto              testTable = std::make_unique<PGQueryBuilder>("users", PostgreAdapter::Instance(DBOptions::test));
 	UsersAmountFinder testFinder;
 	auto testCondition{ "login = 'anotheruser'" };
 

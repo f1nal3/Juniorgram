@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <string>
 #include <map>
 #include <memory>
@@ -21,7 +22,7 @@ namespace Server::Builder
             return *this;
         }
 
-        Server* ServerBuilder::make()
+        Server* make()
         {
             auto obj = new Server();
                                    
@@ -30,7 +31,7 @@ namespace Server::Builder
             {
                 if (arg.first != "--port")
                 {
-                    for (int i = 0; i < arg.first.length(); ++i)
+                    for (size_t i = 0; i < arg.first.length(); ++i)
                     {
                         if (arg.first[i] != '-')
                         {

@@ -40,7 +40,7 @@ public:
 private:
     std::string   _msg;
     std::string   _file;
-    [[maybe_unused]]std::uint16_t _line;
+    [[maybe_unused]] std::uint16_t _line;
 };
 
 class NotImplementedException : public JuniorgramException

@@ -3,10 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include <DataAccess/IAdapter.hpp>
-#include <Utility/Exception.hpp>
-#include <Utility/SQLUtility.hpp>
-#include <Utility/Utility.hpp>
+#include "IAdapter.hpp"
 
 #include "SQLStatements.hpp"
 
@@ -18,10 +15,10 @@ namespace DataAccess
  * @details The class forms and saves SQL query, current
  * table and type of database. Class provides interface, which is as close as possible
  * to the classical SQL queries. This is achieved by calling methods one by one.
- * Examples for postgre database you can see in PosgreQuery.hpp
+ * Examples for postgre database you can see in PostgreQuery.hpp
  */
 template <typename ResultType>
-class QueryBuilder
+class AbstractQueryBuilder
 {
 private:
     Utility::DatabaseType       _databaseType;
@@ -32,19 +29,19 @@ protected:
     std::shared_ptr<IAdapter>   _adapter;
 
 public:
-    QueryBuilder(Utility::DatabaseType type, const std::string& tableName, std::shared_ptr<IAdapter> adapter)
+    AbstractQueryBuilder(Utility::DatabaseType type, const std::string& tableName, std::shared_ptr<IAdapter> adapter)
         : _databaseType{ type }, _tableName{ tableName }, _statement{ nullptr }, _adapter{ adapter } {}
 
-    virtual ~QueryBuilder(void) { this->clearStatement(); }
+    virtual ~AbstractQueryBuilder(void) { this->clearStatement(); }
 
 public:
-    QueryBuilder() = delete;
+    AbstractQueryBuilder() = delete;
 
-    QueryBuilder(const QueryBuilder&) = delete;
-    QueryBuilder(QueryBuilder&&)      = delete;
+    AbstractQueryBuilder(const AbstractQueryBuilder&) = delete;
+    AbstractQueryBuilder(AbstractQueryBuilder&&)      = delete;
 
-    QueryBuilder& operator=(const QueryBuilder&) = delete;
-    QueryBuilder& operator=(QueryBuilder&&) = delete;
+    AbstractQueryBuilder& operator=(const AbstractQueryBuilder&) = delete;
+    AbstractQueryBuilder& operator=(AbstractQueryBuilder&&) = delete;
 
 public:
     /**
@@ -57,7 +54,7 @@ public:
         {
             if (_statement->getStatementType() != Utility::SQLStatement::ST_SELECT)
             {
-                throw Utility::OperationDBException("Previous query wasn't executed or rollbacked!", __FILE__, __LINE__);
+                throw Utility::OperationDBException("Previous query wasn't executed or rollbacks!", __FILE__, __LINE__);
             }
         }
         else
@@ -79,7 +76,7 @@ public:
         {
             if (_statement->getStatementType() != Utility::SQLStatement::ST_INSERT)
             {
-                throw Utility::OperationDBException("Previous query wasn't executed or rollbacked!", __FILE__, __LINE__);
+                throw Utility::OperationDBException("Previous query wasn't executed or rollbacks!", __FILE__, __LINE__);
             }
         }
         else
@@ -101,7 +98,7 @@ public:
         {
             if (_statement->getStatementType() != Utility::SQLStatement::ST_UPDATE)
             {
-                throw Utility::OperationDBException("Previous query wasn't executed or rollbacked!", __FILE__, __LINE__);
+                throw Utility::OperationDBException("Previous query wasn't executed or rollbacks!", __FILE__, __LINE__);
             }
         }
         else
@@ -123,7 +120,7 @@ public:
         {
             if (_statement->getStatementType() != Utility::SQLStatement::ST_DELETE)
             {
-                throw Utility::OperationDBException("Previous query wasn't executed or rollbacked!", __FILE__, __LINE__);
+                throw Utility::OperationDBException("Previous query wasn't executed or rollbacks!", __FILE__, __LINE__);
             }
         }
         else
