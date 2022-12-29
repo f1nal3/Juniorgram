@@ -22,7 +22,7 @@ std::vector<Models::ChannelInfo> testChannelsRepository::getAllChannelsList()
 
     Base::Logger::FileLogger::getInstance().log
     (
-        "All channels are successfully given to client\n",
+        "[MockRepositories]: All channels are successfully given to client\n",
         Base::Logger::LogLevel::INFO
     );
     return result;
@@ -38,7 +38,7 @@ std::vector<uint64_t> testChannelsRepository::getChannelSubscriptionList(const u
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "List of subscriptions of channel id: " 
+            "[MockRepositories]: List of subscriptions of channel id: " 
             + std::to_string(userID)
             + " was successfully given\n",
             Base::Logger::LogLevel::INFO
@@ -63,7 +63,7 @@ std::vector<Models::MessageInfo> testMessagesRepository::getMessageHistory(const
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            '[' + "channel id: " + std::to_string(channelID) 
+            "[MockRepositories]: [channel id: " + std::to_string(channelID) 
             + "] Message history was successfully given to client\n",
             Base::Logger::LogLevel::INFO
         );
@@ -83,7 +83,7 @@ std::vector<Models::ReplyInfo> testRepliesRepository::getReplyHistory(std::uint6
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "Reply history was successfully given\n",
+            "[MockRepositories]: Reply history was successfully given\n",
             Base::Logger::LogLevel::INFO
         );
         result.emplace_back(replyInfo);
@@ -100,7 +100,7 @@ Utility::StoringMessageCodes testMessagesRepository::storeMessage(const Models::
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            '[' + "channel id: " + std::to_string(messageInfo._channelID)
+            "[MockRepositories]: [channel id: " + std::to_string(messageInfo._channelID)
             + "] Message have stored successfully\n",
             Base::Logger::LogLevel::INFO
         );
@@ -118,7 +118,7 @@ Utility::StoringReplyCodes testRepliesRepository::storeReply(const Models::Reply
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[channel id: " + std::to_string(replyInfo._channelID) 
+            "[MockRepositories]: [channel id: " + std::to_string(replyInfo._channelID) 
             + "] Reply successfully stored in database\n", 
             Base::Logger::LogLevel::INFO
         );
@@ -136,7 +136,7 @@ Utility::DeletingMessageCodes testMessagesRepository::deleteMessage(const Models
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "Message have deleted successfully\n", 
+            "[MockRepositories]: Message have deleted successfully\n", 
             Base::Logger::LogLevel::INFO
         );
         return Utility::DeletingMessageCodes::SUCCESS;
@@ -153,7 +153,7 @@ Utility::EditingMessageCodes testMessagesRepository::editMessage(const Models::M
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "Message have edited successfully\n", 
+            "[MockRepositories]: Message have edited successfully\n", 
             Base::Logger::LogLevel::INFO
         );
         return Utility::EditingMessageCodes::SUCCESS;
@@ -170,7 +170,7 @@ Utility::ReactionMessageCodes testMessagesRepository::updateMessageReactions(con
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "Message reactions updated\n", 
+            "[MockRepositories]: Message reactions updated\n", 
             Base::Logger::LogLevel::INFO
         );
 
@@ -188,7 +188,7 @@ Utility::RegistrationCodes testRegisterRepository::registerUser(const Models::Re
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "User successfully registered\n",
+            "[MockRepositories]: User successfully registered\n",
             Base::Logger::LogLevel::INFO
         );
         return Utility::RegistrationCodes::SUCCESS;
@@ -205,7 +205,7 @@ std::uint64_t testLoginRepository::loginUser(const Models::LoginInfo& loginInfo)
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "User successfully logging\n",
+            "[MockRepositories]: User successfully logging\n",
             Base::Logger::LogLevel::INFO
         );
         return 1;
@@ -222,7 +222,7 @@ Utility::ChannelDeleteCode testChannelsRepository::deleteChannel(const Models::C
    {
         Base::Logger::FileLogger::getInstance().log
         (
-            '[' + "channel id: " + std::to_string(channel._channelID) 
+            "[MockRepositories]: [channel id: " + std::to_string(channel._channelID) 
             + "] Deleting channel was successful\n",
             Base::Logger::LogLevel::INFO
         );
@@ -240,7 +240,7 @@ Utility::ChannelCreateCodes testChannelsRepository::createChannel(const Models::
    {
         Base::Logger::FileLogger::getInstance().log
         (
-            '[' + "channel id: " + std::to_string(channel._channelID) 
+            "[MockRepositories]: [channel id: " + std::to_string(channel._channelID) 
             + "] Creating channel was successful\n",
             Base::Logger::LogLevel::INFO
         );
@@ -258,7 +258,7 @@ Utility::ChannelLeaveCodes testChannelsRepository::leaveChannel(const Models::Ch
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            '[' + "channel id: " + std::to_string(channel._channelID) 
+            "[MockRepositories]: [channel id: " + std::to_string(channel._channelID) 
             + "] Leaving from channel is successful\n",
             Base::Logger::LogLevel::INFO
         );
@@ -276,7 +276,7 @@ Utility::ChannelSubscribingCodes testChannelsRepository::subscribeToChannel(cons
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[channel id: " + std::to_string(channel._channelID) 
+            "[MockRepositories]: [channel id: " + std::to_string(channel._channelID) 
             + "] User successfully subscribed to the channel\n",
             Base::Logger::LogLevel::INFO
         );
@@ -296,7 +296,7 @@ Utility::DirectMessageStatus testDirectMessageRepository::addDirectChat(uint64_t
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "Direct chat successfully created\n", 
+            "[MockRepositories]: Direct chat successfully created\n", 
             Base::Logger::LogLevel::INFO
         );
         return Utility::DirectMessageStatus::SUCCESS;

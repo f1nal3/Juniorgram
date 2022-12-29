@@ -67,7 +67,7 @@ public:
     *   for the subsequent response from the client.
     *   (You can see the message types in the Message header file).
     */ 
-    void loop();
+    virtual void loop();
 
     /**
     * @brief Checking the server network transmission delay status.

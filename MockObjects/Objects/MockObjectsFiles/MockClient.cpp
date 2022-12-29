@@ -2,6 +2,10 @@
 
 namespace MockClient
 {
+using MessageType = Network::Message::MessageType;
+using UtilityTime::timestamp_t;
+using UtilityTime::RTC;
+
 void MockClient::onLoginAnswer(bool success)
 {
     enum class LoginState
