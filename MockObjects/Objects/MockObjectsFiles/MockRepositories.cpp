@@ -100,7 +100,8 @@ Utility::StoringMessageCodes testMessagesRepository::storeMessage(const Models::
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[MockRepositories]: [channel id: " + std::to_string(messageInfo._channelID)
+            "[MockRepositories]: [creator ID: " + std::to_string(messageInfo._channelID) 
+            + "] [message ID: " + std::to_string(messageInfo._msgID) 
             + "] Message have stored successfully\n",
             Base::Logger::LogLevel::INFO
         );
@@ -118,7 +119,8 @@ Utility::StoringReplyCodes testRepliesRepository::storeReply(const Models::Reply
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[MockRepositories]: [channel id: " + std::to_string(replyInfo._channelID) 
+            "[MockRepositories]: [channel ID: " + std::to_string(replyInfo._channelID) 
+            + "] [message: " + replyInfo._message 
             + "] Reply successfully stored in database\n", 
             Base::Logger::LogLevel::INFO
         );
@@ -222,7 +224,8 @@ Utility::ChannelDeleteCode testChannelsRepository::deleteChannel(const Models::C
    {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[MockRepositories]: [channel id: " + std::to_string(channel._channelID) 
+            "[MockRepositories]: [creator ID: " + std::to_string(channel._creatorID) 
+            + "] [channel name: " + channel._channelName 
             + "] Deleting channel was successful\n",
             Base::Logger::LogLevel::INFO
         );
@@ -240,7 +243,8 @@ Utility::ChannelCreateCodes testChannelsRepository::createChannel(const Models::
    {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[MockRepositories]: [channel id: " + std::to_string(channel._channelID) 
+            "[MockRepositories]: [creator ID: " + std::to_string(channel._creatorID) 
+            + "] [channel name: " + channel._channelName 
             + "] Creating channel was successful\n",
             Base::Logger::LogLevel::INFO
         );
@@ -258,7 +262,8 @@ Utility::ChannelLeaveCodes testChannelsRepository::leaveChannel(const Models::Ch
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[MockRepositories]: [channel id: " + std::to_string(channel._channelID) 
+            "[MockRepositories]: [creator ID: " + std::to_string(channel._creatorID) 
+            + "] [channel name: " + channel._channelName 
             + "] Leaving from channel is successful\n",
             Base::Logger::LogLevel::INFO
         );
@@ -276,7 +281,8 @@ Utility::ChannelSubscribingCodes testChannelsRepository::subscribeToChannel(cons
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[MockRepositories]: [channel id: " + std::to_string(channel._channelID) 
+            "[MockRepositories]: [creator ID: " + std::to_string(channel._channelID) 
+            + "] [User ID: " + std::to_string(channel._userID) 
             + "] User successfully subscribed to the channel\n",
             Base::Logger::LogLevel::INFO
         );

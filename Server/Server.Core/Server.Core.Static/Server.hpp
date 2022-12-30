@@ -28,14 +28,13 @@ using Network::Connection;
 using Base::Logger::LogLevel;
 using Base::Logger::FileLogger;
 using UtilityTime::safe_localtime;
-using namespace DataAccess;
 
 /**
  *  @class Server class
  *  @brief This class does all logic which is needed to run the server.
  *  @details Uses std::asio tools.
  */
-template <typename TManager = PostgreRepositoryManager>
+template <typename TManager = DataAccess::PostgreRepositoryManager>
 class Server
 {
 private:
@@ -209,7 +208,7 @@ public:
     explicit Server(const uint16_t& port) :
         _acceptor(_context, tcp::endpoint(tcp::v4(), port)),
         _repoManager(std::make_unique<TManager>
-            (PostgreAdapter::getInstance<PostgreAdapter>()))
+            (DataAccess::PostgreAdapter::getInstance<DataAccess::PostgreAdapter>()))
     {
     }
     
@@ -218,6 +217,11 @@ public:
         _repoManager(std::move(manager))
     {
     }
+
+    Server(Server& otherServer)                   = delete;
+    Server& operator=(const Server& otherServer)  = delete;
+    Server(Server&& otherServer) noexcept         = delete;
+    Server const& operator=(Server&& otherServer) = delete;
 
     /**
     * @brief Destructor
@@ -469,7 +473,7 @@ public:
      */
     void channelListRequest(const std::shared_ptr<Connection>& client) const
     {
-        auto futureResult = _repoManager->pushRequest(&IChannelsRepository::getAllChannelsList);
+        auto futureResult = _repoManager->pushRequest(&DataAccess::IChannelsRepository::getAllChannelsList);
 
         Message messageHandler;
         messageHandler.mHeader.mMessageType = Message::MessageType::ChannelListRequest;
@@ -489,7 +493,8 @@ public:
     {
         auto channelID = std::any_cast<std::uint64_t>(message.mBody);
 
-        auto futureResult = _repoManager->pushRequest(&IMessagesRepository::getMessageHistory, DataAccess::fmt(channelID));
+        auto futureResult = _repoManager->pushRequest(&DataAccess::IMessagesRepository::getMessageHistory, 
+            DataAccess::fmt(channelID));
 
         Message messageHandler;
         messageHandler.mHeader.mMessageType = Message::MessageType::MessageHistoryAnswer;
@@ -512,7 +517,8 @@ public:
         messageInfo._message  = Utility::removeSpaces(messageInfo._message);
         messageInfo._time     = UtilityTime::millisecondsSinceEpoch();
 
-        auto futureResult = _repoManager->pushRequest(&IMessagesRepository::storeMessage, fmt(messageInfo));
+        auto futureResult = _repoManager->pushRequest(&DataAccess::IMessagesRepository::storeMessage, 
+            DataAccess::fmt(messageInfo));
 
         Message answerForClient;
         answerForClient.mHeader.mMessageType = Message::MessageType::MessageStoreAnswer;
@@ -532,7 +538,8 @@ public:
     {
         auto channelID = std::any_cast<std::uint64_t>(message.mBody);
 
-        auto futureResult = _repoManager->pushRequest(&IRepliesRepository::getReplyHistory, fmt(channelID));
+        auto futureResult = _repoManager->pushRequest(&DataAccess::IRepliesRepository::getReplyHistory, 
+            DataAccess::fmt(channelID));
 
         Message replyMsg;
         replyMsg.mHeader.mMessageType = Message::MessageType::ReplyHistoryAnswer;
@@ -554,7 +561,8 @@ public:
         replyInfo._senderID = client->getUserID();
         replyInfo._message  = Utility::removeSpaces(replyInfo._message);
 
-        auto futureResult = _repoManager->pushRequest(&IRepliesRepository::storeReply, fmt(replyInfo));
+        auto futureResult = _repoManager->pushRequest(&DataAccess::IRepliesRepository::storeReply, 
+            DataAccess::fmt(replyInfo));
 
         Message answerForClient;
         answerForClient.mHeader.mMessageType = Message::MessageType::ReplyStoreAnswer;
@@ -575,7 +583,8 @@ public:
         auto messageInfo      = std::any_cast<Models::MessageInfo>(message.mBody);
         messageInfo._senderID = client->getUserID();
 
-        auto futureResult = _repoManager->pushRequest(&IMessagesRepository::deleteMessage, fmt(messageInfo));
+        auto futureResult = _repoManager->pushRequest(&DataAccess::IMessagesRepository::deleteMessage,
+            DataAccess::fmt(messageInfo));
 
         Message answerForClient;
         answerForClient.mHeader.mMessageType = Message::MessageType::MessageDeleteAnswer;
@@ -595,7 +604,8 @@ public:
         auto messageInfo      = std::any_cast<Models::MessageInfo>(message.mBody);
         messageInfo._senderID = client->getUserID();
 
-        auto futureResult = _repoManager->pushRequest(&IMessagesRepository::editMessage, fmt(messageInfo));
+        auto futureResult = _repoManager->pushRequest(&DataAccess::IMessagesRepository::editMessage, 
+            DataAccess::fmt(messageInfo));
 
         Message answerForClient;
         answerForClient.mHeader.mMessageType = Message::MessageType::MessageEditAnswer;
@@ -615,7 +625,8 @@ public:
         auto messageInfo      = std::any_cast<Models::MessageInfo>(message.mBody);
         messageInfo._senderID = client->getUserID();
 
-        auto futureResult = _repoManager->pushRequest(&IMessagesRepository::updateMessageReactions, fmt(messageInfo));
+        auto futureResult = _repoManager->pushRequest(&DataAccess::IMessagesRepository::updateMessageReactions, 
+            DataAccess::fmt(messageInfo));
 
         Message answerForClient;
         answerForClient.mHeader.mMessageType = Message::MessageType::MessageReactionAnswer;
@@ -635,7 +646,8 @@ public:
     {
         auto replyInfo = std::any_cast<Models::RegistrationInfo>(message.mBody);
 
-        auto futureResult = _repoManager->pushRequest(&IRegisterRepository::registerUser, fmt(replyInfo));
+        auto futureResult = _repoManager->pushRequest(&DataAccess::IRegisterRepository::registerUser, 
+            DataAccess::fmt(replyInfo));
 
         Message messageToClient;
         messageToClient.mHeader.mMessageType = Message::MessageType::RegistrationAnswer;
@@ -655,7 +667,8 @@ public:
     {
         auto loginInfo = std::any_cast<Models::LoginInfo>(message.mBody);
 
-        auto futureResult = _repoManager->pushRequest(&ILoginRepository::loginUser, fmt(loginInfo));
+        auto futureResult = _repoManager->pushRequest(&DataAccess::ILoginRepository::loginUser, 
+            DataAccess::fmt(loginInfo));
 
         auto userID          = futureResult.get();
         auto loginSuccessful = userID != 0;
@@ -697,7 +710,8 @@ public:
         channelLeaveInfo._creatorID   = client->getUserID();
         channelLeaveInfo._channelName = channelName;
 
-        auto futureResult = _repoManager->pushRequest(&IChannelsRepository::leaveChannel, fmt(channelLeaveInfo));
+        auto futureResult = _repoManager->pushRequest(&DataAccess::IChannelsRepository::leaveChannel, 
+            DataAccess::fmt(channelLeaveInfo));
 
         Message messageToClient;
         messageToClient.mHeader.mMessageType = Message::MessageType::ChannelLeaveAnswer;
@@ -717,7 +731,8 @@ public:
         auto channelInfo    = std::any_cast<Models::ChannelSubscriptionInfo>(message.mBody);
         channelInfo._userID = client->getUserID();
 
-        auto futureResult = _repoManager->pushRequest(&IChannelsRepository::subscribeToChannel, fmt(channelInfo));
+        auto futureResult = _repoManager->pushRequest(&DataAccess::IChannelsRepository::subscribeToChannel,
+            DataAccess::fmt(channelInfo));
 
         Message messageToClient;
         messageToClient.mHeader.mMessageType = Message::MessageType::ChannelSubscribeAnswer;
@@ -736,7 +751,8 @@ public:
     {
         const auto userID = client->getUserID();
 
-        auto futureResult = _repoManager->pushRequest(&IChannelsRepository::getChannelSubscriptionList, fmt(userID));
+        auto futureResult = _repoManager->pushRequest(&DataAccess::IChannelsRepository::getChannelSubscriptionList,
+            DataAccess::fmt(userID));
 
         Message messageToClient;
         messageToClient.mHeader.mMessageType = Message::MessageType::ChannelSubscriptionListAnswer;
@@ -759,7 +775,8 @@ public:
         channelDeleteInfo._creatorID   = client->getUserID();
         channelDeleteInfo._channelName = channelName;
 
-        auto futureResult = _repoManager->pushRequest(&IChannelsRepository::deleteChannel, fmt(channelDeleteInfo));
+        auto futureResult = _repoManager->pushRequest(&DataAccess::IChannelsRepository::deleteChannel,
+            DataAccess::fmt(channelDeleteInfo));
 
         Message messageToClient;
         messageToClient.mHeader.mMessageType = Message::MessageType::ChannelDeleteAnswer;
@@ -782,7 +799,7 @@ public:
         newChannelInfo._creatorID   = client->getUserID();
         newChannelInfo._channelName = channelName;
 
-        auto futureResult = _repoManager->pushRequest(&IChannelsRepository::createChannel, fmt(newChannelInfo));
+        auto futureResult = _repoManager->pushRequest(&DataAccess::IChannelsRepository::createChannel, DataAccess::fmt(newChannelInfo));
 
         Message messageToClient;
         messageToClient.mHeader.mMessageType = Message::MessageType::ChannelCreateAnswer;
@@ -801,7 +818,9 @@ public:
     {
         auto secondUser = std::any_cast<std::uint64_t>(message.mBody);
 
-        auto futureResult = _repoManager->pushRequest(&IDirectMessageRepository::addDirectChat, fmt(client->getUserID()), fmt(secondUser));
+        auto futureResult = _repoManager->pushRequest(&DataAccess::IDirectMessageRepository::addDirectChat,
+                                                      DataAccess::fmt(client->getUserID()),
+                                                      DataAccess::fmt(secondUser));
 
         Message messageToClient;
         messageToClient.mHeader.mMessageType = Message::MessageType::DirectMessageCreateAnswer;

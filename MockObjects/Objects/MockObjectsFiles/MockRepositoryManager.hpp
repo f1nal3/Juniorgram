@@ -13,7 +13,7 @@ class MockRepositoryManager : public MockIRepositoryManager
 public:
     MockRepositoryManager() = default;
 
-    explicit MockRepositoryManager(const std::shared_ptr<IAdapter>& repositoryContainer) 
+    explicit MockRepositoryManager(const std::shared_ptr<DataAccess::IAdapter>& repositoryContainer) 
         : MockIRepositoryManager(repositoryContainer)
     {
     }
