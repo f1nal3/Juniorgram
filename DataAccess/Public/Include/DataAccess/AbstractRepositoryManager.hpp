@@ -10,7 +10,6 @@
 #include "AbstractRepositoryContainer.hpp"
 #include "RepositoryRequest.hpp"
 
-
 namespace DataAccess
 {
 template <typename TIRepository, typename TReturn, typename... TArgs>
@@ -27,6 +26,7 @@ std::conditional_t<std::is_fundamental_v<Type>, std::remove_reference_t<Type>, c
     return ref;
 }
 
+
 /**
  * @class IRepositoryManager
  * @brief IRepositoryManager is template class, which realization controls handler for repository requests.
@@ -35,19 +35,17 @@ std::conditional_t<std::is_fundamental_v<Type>, std::remove_reference_t<Type>, c
  */
 class IRepositoryManager
 {
-protected:
-    std::unique_ptr<AbstractRepositoryContainer> _repositories;
-    std::priority_queue<RepositoryRequest>       _queue;
-
-    std::mutex              _queueMutex;
-    std::condition_variable _queueCV;
-
-    std::atomic<bool> _handlerState = true;
-    std::thread       _repositoryRequestsHandler;
-
 public:
-    IRepositoryManager() {}
 
+    IRepositoryManager() {};
+
+    void init(std::unique_ptr<AbstractRepositoryContainer> repositories){
+        _repositories = std::move(repositories);
+    }
+    
+    /**
+     * @brief Destroy the IRepositoryManager object but before synchronize all threads.
+     */
     virtual ~IRepositoryManager() { _repositoryRequestsHandler.join(); }
 
     IRepositoryManager(const IRepositoryManager&)            = delete;
@@ -55,7 +53,6 @@ public:
     IRepositoryManager& operator=(const IRepositoryManager&) = delete;
     IRepositoryManager& operator=(IRepositoryManager&&)      = delete;
 
-public:
     /**
      * @brief Exists for add methods in the queue.
      * @warning Pass all arguments (args) through 'fmt()' function
@@ -75,7 +72,7 @@ public:
 
         std::unique_lock lock(_queueMutex);
 
-        RepositoryRequest     request = this->privateCreateRequest<priority>(methodRef, std::forward<TArgs>(args)...);
+        RepositoryRequest     request = this->createRequest<priority>(methodRef, std::forward<TArgs>(args)...);
         FutureResult<TReturn> futureResult(request.getFutureFromTask());
 
         _queue.push(std::move(request));
@@ -101,7 +98,7 @@ public:
         _repositoryRequestsHandler = std::thread([this]() {
             while (_handlerState)
             {
-                auto request = this->privatePopRequest();
+                auto request = this->popRequest();
                 if (request.has_value()) request.value()();
             }
         });
@@ -118,7 +115,7 @@ public:
 
 private:
     template <ePriority priority, typename TIRepository, typename TReturn, typename... TArgs>
-    RepositoryRequest privateCreateRequest(const MethodReference<TIRepository, TReturn, TArgs...>& methodRef, TArgs&&... args)
+    RepositoryRequest createRequest(const MethodReference<TIRepository, TReturn, TArgs...>& methodRef, TArgs&&... args)
     {
         auto iRepository = _repositories->getRepository<TIRepository>();
 
@@ -133,7 +130,7 @@ private:
      * @brief  Extract request from queue.
      * @return Repository request.
      */
-    std::optional<RepositoryRequest> privatePopRequest() noexcept
+    std::optional<RepositoryRequest> popRequest() noexcept
     {
         std::unique_lock lock(_queueMutex);
 
@@ -147,9 +144,14 @@ private:
         return request;
     }
 
-    /**
-     * @brief Needs to register all repositories in repository container.
-     */
-    virtual void registerRepositories() const = 0;
+private:
+    std::unique_ptr<AbstractRepositoryContainer> _repositories;
+    std::priority_queue<RepositoryRequest>       _queue;
+
+    std::mutex              _queueMutex;
+    std::condition_variable _queueCV;
+
+    std::atomic<bool> _handlerState = true;
+    std::thread       _repositoryRequestsHandler;
 };
 }  // namespace DataAccess

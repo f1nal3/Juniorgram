@@ -6,12 +6,10 @@
 #include <memory>
 #include <thread>
 
-#include <FileLogger.hpp>
-#include "Network/iAPI.hpp"
-#include "PostgreRepositoryManager.hpp"
-
 #include "Network/Connection.hpp"
 #include "Network/Message.hpp"
+#include "Network/iAPI.hpp"
+#include "PostgreRepositoryManager.hpp"
 #include "Utility/SafeQueue.hpp"
 
 namespace DataAccess
@@ -22,38 +20,35 @@ class PostgreRepositoryManager;
 namespace Server
 {
 using asio::ip::tcp;
+using Network::Connection;
 using Network::Message;
 using Utility::SafeQueue;
-using Network::Connection;
-using Base::Logger::LogLevel;
-using Base::Logger::FileLogger;
-using DataAccess::PostgreRepositoryManager;
+using RepoManager_uptr = std::unique_ptr<DataAccess::IRepositoryManager>;
 
-/**
- * @brief 
- * 
- */
+// back forward declaration ServerBuilder
 namespace Builder
 {
-    class ServerBuilder;
+class ServerBuilder;
 }
 
 /**
- *  @class Server class
+ *  @class Server
  *  @brief This class does all logic which is needed to run the server.
- *  @details Uses std::asio tools.
+ *  @details This object is directly the root of the back-end. The main task
+ *           is to communicate with clients, accepting messages from them, processing
+ *           them according to certain logic prescribed in the handler functions (there is a
+ *           handler for each type of message), and returning the result back to the client.
+ *           See the API documentation in a file "Network/iAPI.h"
+ *           The Server object is created through a special helper class, see ServerBuilder
  */
 class Server : public Network::iAPI
 {
     friend Builder::ServerBuilder;
 
 public:
-     APPLY_API_METHODS
-
-public: 
     /**
-    * @brief Destructor
-    */
+     * @brief Destructor
+     */
     ~Server();
 
     /**
@@ -61,7 +56,7 @@ public:
      */
     void start();
 
-    //void registerRepositories();
+    // void registerRepositories();
 
     /**
      * @brief Method to stop the server.
@@ -69,31 +64,42 @@ public:
     void stop();
 
     /**
+     * @brief Method for updating messages.
+     * @param std::size_t limit and bool for method wait() in SafeQueue.
+     */
+    void update(std::size_t maxMessages = std::numeric_limits<size_t>::max(), bool wait = true);
+
+private:
+    /**
      * @brief Method for connecting to a client, works asynchronously.
      */
     void waitForClientConnection();
-
-    /**
-         * @brief Method for updating messages.
-         * @param std::size_t limit and bool for method wait() in SafeQueue.
-         */
-    void update(std::size_t maxMessages = std::numeric_limits<size_t>::max(), bool wait = true);
 
     /**
      * @brief Method for accepting to a client, works asynchronously.
      */
     void acceptingClientConnection(const std::error_code& error, asio::ip::tcp::socket& socket);
 
-private:
     /**
-    * @brief constructor.
-    * @details Initialize Server object. After you steel need to initialize network and database connection.
-    */
-    Server();
-    void initRepository(std::unique_ptr<PostgreRepositoryManager> postgreManager);
+     * @brief Default constructor.
+     * @details Initialize Server object. After you steel need to initialize network and database connection.
+     */
+    Server() = default;
+
+    /**
+     * @brief Setter for purpose of initialize IRepository dependency
+     *
+     * @param repoManager - pointer to instance of dependency repository
+     */
+    void initRepository(RepoManager_uptr repoManager);
+
+    /**
+     * @brief Setter for purpose of initialize host port. This is how the endpoint is configured.
+     *
+     * @param port - digital representation of port
+     */
     void initConnection(const uint16_t port);
 
-private:
     /**
      * @brief Method for sending the message connecting to the server.
      * @param Connection management class as std::shared_ptr<Network::Connection>&.
@@ -108,20 +114,26 @@ private:
 
     /**
      * @brief Method used to process messages.
-     * @param Connection management class as std::shared_ptr<Network::Connection>& and Network::Message& class.
+     * @param client management class as std::shared_ptr<Network::Connection>& and Network::Message& class.
+     * @param message body of message
      */
     void onMessage(const std::shared_ptr<Connection>& client, Message& message);
+
+    /**
+     *  This macros apply all method from api and avoid you from routine of handwriting
+     */
+    APPLY_API_METHODS
 
 private:
     uint64_t _idCounter         = 10000;
     uint64_t _criticalQueueSize = 100;
     uint64_t _newThreadsCount   = std::thread::hardware_concurrency();
 
-    asio::io_context                                       _context;
-    std::unique_ptr <tcp::acceptor>                        _acceptor;
-    std::deque<std::shared_ptr<Connection>>                _connectionsPointers;
-    SafeQueue<Message>                                     _incomingMessagesQueue;
-    std::deque<std::thread>                                _threads;
-    std::unique_ptr<PostgreRepositoryManager>              _postgreManager;
+    asio::io_context                        _context;
+    std::unique_ptr<tcp::acceptor>          _acceptor;
+    std::deque<std::shared_ptr<Connection>> _connectionsPointers;
+    SafeQueue<Message>                      _incomingMessagesQueue;
+    std::deque<std::thread>                 _threads;
+    RepoManager_uptr                        _repoManager;
 };
 }  // namespace Server

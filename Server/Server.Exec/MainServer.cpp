@@ -11,12 +11,13 @@ int main(int argc, const char** argv)
     ArgParser parser(argc, argv);
     auto server = ServerBuilder()
                                  .setValue(parser.getPair("--port"))
-                                 .setValue(parser.getPair("--dbport"))
                                  .setValue(parser.getPair("--hostaddr"))
+                                 .setValue(parser.getPair("--dbport"))
                                  .setValue(parser.getPair("--dbname"))
-                                 .setValue(parser.getPair("--user"))
-                                 .setValue(parser.getPair("--password"))
-                                 .make();
+                                 .setValue(parser.getPair("--dbuser"))
+                                 .setValue(parser.getPair("--dbpassword"))
+                                // .setValue("repo", new DataAccess::PostgreRepositoryManager())
+                                 .makeServerRAII();
 
     server->start();
 

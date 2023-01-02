@@ -4,6 +4,7 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <tuple>
 #include <typeinfo>
 #include <utility>
 
@@ -12,7 +13,7 @@
 
 namespace DataAccess
 {
-    
+
 /* @class AbstractRepositoryContainer
  * @brief An abstract class for server and client global repositories.
  * @details Consists of adapter to chosen database, and map of registered repositories.
@@ -27,10 +28,6 @@ public:
     using RealType = std::string;
     using IType    = std::shared_ptr<IMasterRepository>;
 
-protected:
-    std::shared_ptr<IAdapter> _adapter;
-    std::map<RealType, IType> _container;
-
 public:
     explicit AbstractRepositoryContainer(std::shared_ptr<IAdapter> adapter) : _adapter(std::move(adapter)), _container() {}
 
@@ -41,6 +38,7 @@ public:
     template <typename TInterface, typename TRepository>
     void registerRepository(void)
     {
+        //TODO check that they are all child of IMasterRepository
         static_assert(std::is_base_of_v<TInterface, TRepository>, "Repository does not implement current Interface!");
 
         const char* typeInfo = typeid(TInterface).name();
@@ -69,5 +67,9 @@ public:
 
         return std::dynamic_pointer_cast<TInterface>(_container[typeInfo]);
     }
+
+private:
+    std::shared_ptr<IAdapter> _adapter;
+    std::map<RealType, IType> _container;
 };
 }  // namespace DataAccess
