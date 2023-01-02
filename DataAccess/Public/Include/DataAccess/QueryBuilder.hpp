@@ -4,7 +4,6 @@
 #include <string>
 
 #include "IAdapter.hpp"
-
 #include "SQLStatements.hpp"
 
 namespace DataAccess
@@ -21,16 +20,16 @@ template <typename ResultType>
 class AbstractQueryBuilder
 {
 private:
-    Utility::DatabaseType       _databaseType;
-    std::string                 _tableName;
-    SQLBase<ResultType>*        _statement;
-
-protected:
-    std::shared_ptr<IAdapter>   _adapter;
+    Utility::DatabaseType     _databaseType;
+    std::string               _tableName;
+    SQLBase<ResultType>*      _statement;
+    std::shared_ptr<IAdapter> _adapter;
 
 public:
     AbstractQueryBuilder(Utility::DatabaseType type, const std::string& tableName, std::shared_ptr<IAdapter> adapter)
-        : _databaseType{ type }, _tableName{ tableName }, _statement{ nullptr }, _adapter{ adapter } {}
+        : _databaseType{type}, _tableName{tableName}, _statement{nullptr}, _adapter{adapter}
+    {
+    }
 
     virtual ~AbstractQueryBuilder(void) { this->clearStatement(); }
 
@@ -41,7 +40,7 @@ public:
     AbstractQueryBuilder(AbstractQueryBuilder&&)      = delete;
 
     AbstractQueryBuilder& operator=(const AbstractQueryBuilder&) = delete;
-    AbstractQueryBuilder& operator=(AbstractQueryBuilder&&) = delete;
+    AbstractQueryBuilder& operator=(AbstractQueryBuilder&&)      = delete;
 
 public:
     /**

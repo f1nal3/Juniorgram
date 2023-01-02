@@ -26,7 +26,6 @@ std::conditional_t<std::is_fundamental_v<Type>, std::remove_reference_t<Type>, c
     return ref;
 }
 
-
 /**
  * @class IRepositoryManager
  * @brief IRepositoryManager is template class, which realization controls handler for repository requests.
@@ -36,13 +35,10 @@ std::conditional_t<std::is_fundamental_v<Type>, std::remove_reference_t<Type>, c
 class IRepositoryManager
 {
 public:
+    IRepositoryManager() = default;
 
-    IRepositoryManager() {};
+    void init(std::unique_ptr<AbstractRepositoryContainer> repositories) { _repositories = std::move(repositories); }
 
-    void init(std::unique_ptr<AbstractRepositoryContainer> repositories){
-        _repositories = std::move(repositories);
-    }
-    
     /**
      * @brief Destroy the IRepositoryManager object but before synchronize all threads.
      */
