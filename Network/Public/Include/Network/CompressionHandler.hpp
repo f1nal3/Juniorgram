@@ -10,7 +10,7 @@ class CompressionHandler : public AbstractHandler
 {
 public:
     /**
-     * @brief Method for compression of outgoing messages.
+     * @brief Method for compression of outcoming messages.
      * @param message - buffer that contains data that should be compressed.
      * @param headerBuffer - buffer that will contain compressed header.
      * @param bodyBuffer - buffer that will contain compressed body.

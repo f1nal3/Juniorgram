@@ -65,7 +65,7 @@ private:
     /// References to the incoming queue of the parent object
     Utility::SafeQueue<Message>& mIncomingMessagesQueueLink;
     /// Queue all messages to be sent to the remote side of this connection
-    Utility::SafeQueue<Message> mOutgoingMessagesQueue;
+    Utility::SafeQueue<Message> mOutcomingMessagesQueue;
 
     /// Buffer to store the part of incoming message while it is read
     Message mMessageBuffer;
@@ -86,25 +86,25 @@ private:
 
         SerializationHandler handler;
         handler.setNext(new CompressionHandler())->setNext(new EncryptionHandler());
-        MessageProcessingState result = handler.handleOutcomingMessage(mOutgoingMessagesQueue.front(), bodyBuffer);
+        MessageProcessingState result = handler.handleOutcomingMessage(mOutcomingMessagesQueue.front(), bodyBuffer);
 
-        Network::Message::MessageHeader outgoingMessageHeader = mOutgoingMessagesQueue.front().mHeader;
-        outgoingMessageHeader.mBodySize                       = static_cast<uint32_t>(bodyBuffer.size);
+        Network::Message::MessageHeader outcomingMessageHeader = mOutcomingMessagesQueue.front().mHeader;
+        outcomingMessageHeader.mBodySize                       = static_cast<uint32_t>(bodyBuffer.size);
 
         if (result == MessageProcessingState::SUCCESS)
         {
             const auto writeHeaderHandler = [this, bodyBuffer](std::error_code error) {
                 if (!error)
                 {
-                    if (mOutgoingMessagesQueue.front().mBody.has_value())
+                    if (mOutcomingMessagesQueue.front().mBody.has_value())
                     {
                         writeBody(bodyBuffer);
                     }
                     else
                     {
-                        mOutgoingMessagesQueue.pop_front();
+                        mOutcomingMessagesQueue.pop_front();
 
-                        if (!mOutgoingMessagesQueue.empty())
+                        if (!mOutcomingMessagesQueue.empty())
                         {
                             writeHeader();
                         }
@@ -118,7 +118,7 @@ private:
                 }
             };
 
-            asio::async_write(mSocket, asio::buffer(&outgoingMessageHeader, sizeof(Message::MessageHeader)),
+            asio::async_write(mSocket, asio::buffer(&outcomingMessageHeader, sizeof(Message::MessageHeader)),
                               asio::bind_executor(_writeStrand, std::bind(writeHeaderHandler, std::placeholders::_1)));
         }
     }
@@ -139,9 +139,9 @@ private:
         const auto writeBodyHandler = [this](std::error_code error) {
             if (!error)
             {
-                mOutgoingMessagesQueue.pop_front();
+                mOutcomingMessagesQueue.pop_front();
 
-                if (!mOutgoingMessagesQueue.empty())
+                if (!mOutcomingMessagesQueue.empty())
                 {
                     writeHeader();
                 }
@@ -363,7 +363,7 @@ public:
 
     /**
      * @brief Method for sending messages.
-     * @details The message is added to the queue of outgoing messages. If there are no messages /
+     * @details The message is added to the queue of outcoming messages. If there are no messages /
      * available to be written, then the process of writing the message at the front of the queue /
      * is started.
      * @param message - link on message for sending
@@ -371,9 +371,9 @@ public:
     void send(const Message& message)
     {
         asio::post(_writeStrand, [this, message]() {
-            bool isMessageExist = !mOutgoingMessagesQueue.empty();
+            bool isMessageExist = !mOutcomingMessagesQueue.empty();
 
-            mOutgoingMessagesQueue.push_back(message);
+            mOutcomingMessagesQueue.push_back(message);
 
             if (!isMessageExist)
             {

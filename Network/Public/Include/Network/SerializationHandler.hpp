@@ -12,7 +12,7 @@ class SerializationHandler : public AbstractHandler
 {
 public:
     /**
-     * @brief Method for serialization of outgoing messages.
+     * @brief Method for serialization of outcoming messages.
      * @param message - buffer that contains data that should be serialized.
      * @param bodyBuffer - buffer that will contain serialized body.
      */
