@@ -33,7 +33,7 @@ restoreWarning
 
 TEST_CASE("Check disconnect from client")
 {
-    testServer serverTest(getTestingPort());
+    testServer serverTest(getTestingPort(), getTestingDatabase());
 
     REQUIRE_NOTHROW(serverTest.start());
 
