@@ -5,7 +5,7 @@ using namespace TestUtility;
 
 constexpr bool acceptingConnection = true;
 
-TEST_CASE("Check channel create request of server")
+TEST_CASE("Workflow of checking channel create request of server")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
@@ -20,7 +20,7 @@ TEST_CASE("Check channel create request of server")
     testServerUpdating(serverTest);
 }
 
-TEST_CASE("Check channel list request from server side")
+TEST_CASE("Workflow of checking channel list request from server side")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
@@ -35,7 +35,7 @@ TEST_CASE("Check channel list request from server side")
     testServerUpdating(serverTest);
 }
 
-TEST_CASE("Check channel subscribe request from server side")
+TEST_CASE("Workflow of checking channel subscribe request from server side")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
@@ -50,7 +50,7 @@ TEST_CASE("Check channel subscribe request from server side")
     testServerUpdating(serverTest);
 }
 
-TEST_CASE("Check channel subscription list request from server side")
+TEST_CASE("Workflow of checking channel subscription list request from server side")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
@@ -65,7 +65,7 @@ TEST_CASE("Check channel subscription list request from server side")
     testServerUpdating(serverTest);
 }
 
-TEST_CASE("Check channel leave request from server side")
+TEST_CASE("Workflow of checking channel leave request from server side")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
@@ -80,7 +80,7 @@ TEST_CASE("Check channel leave request from server side")
     testServerUpdating(serverTest);
 }
 
-TEST_CASE("Check channel delete request from server side")
+TEST_CASE("Workflow of checking channel delete request from server side")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());

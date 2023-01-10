@@ -21,7 +21,7 @@ TEST_CASE("Workflow startup server")
 
 suppressWarning(4244, "-Wconversion")
 suppressWarning(4242, "-Wconversion")
-TEST_CASE("Workflow fail startup server")
+TEST_CASE("Workflow fail startup of server with bad port")
 {    
     uint32_t       testBadPort = 6666666;
     testServer badServer(testBadPort, getTestingDatabase());   
@@ -31,7 +31,7 @@ TEST_CASE("Workflow fail startup server")
 restoreWarning
 restoreWarning
 
-TEST_CASE("Check disconnect from client")
+TEST_CASE("Workflow of server disconnect from client")
 {
     testServer serverTest(getTestingPort(), getTestingDatabase());
 
@@ -40,11 +40,14 @@ TEST_CASE("Check disconnect from client")
     asio::io_context            testContext;
     Utility::SafeQueue<Message> testIncomingMessagesQueue;
 
-    CHECK_NOTHROW(serverTest.messageClient
+    CHECK_NOTHROW
+    (
+        serverTest.messageClient
     (
     std::shared_ptr<Network::Connection>(std::make_shared<Network::Connection>
     (
         Network::Connection::OwnerType::CLIENT, testContext,
         asio::ip::tcp::socket(testContext), testIncomingMessagesQueue)), Message()
-    ));
+    )
+    );
 }

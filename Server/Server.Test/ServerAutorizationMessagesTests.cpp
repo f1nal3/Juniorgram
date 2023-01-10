@@ -5,7 +5,7 @@ using namespace TestUtility;
 
 constexpr bool acceptingConnection = true;
 
-TEST_CASE("Check registration request of server")
+TEST_CASE("Workflow of checking registration request of server")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(),getTestingDatabase());
@@ -20,7 +20,7 @@ TEST_CASE("Check registration request of server")
     testServerUpdating(serverTest);
 }
 
-TEST_CASE("Check login request of server")
+TEST_CASE("Workflow of checking login request of server")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(),getTestingDatabase());

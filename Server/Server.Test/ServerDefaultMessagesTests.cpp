@@ -5,7 +5,7 @@ using namespace TestUtility;
 
 constexpr bool acceptingConnection = true;
 
-TEST_CASE("Check server ping")
+TEST_CASE("Workflow of checking server ping")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
@@ -20,7 +20,7 @@ TEST_CASE("Check server ping")
     testServerUpdating(serverTest);
 }
 
-TEST_CASE("Check default request of server side")
+TEST_CASE("Workflow of checking default request of server side")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());

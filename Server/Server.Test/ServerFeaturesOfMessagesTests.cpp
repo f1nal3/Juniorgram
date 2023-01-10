@@ -5,7 +5,7 @@ using namespace TestUtility;
 
 constexpr bool acceptingConnection = true;
 
-TEST_CASE("Check all messages from server side")
+TEST_CASE("Workflow of checking all messages from server side")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
@@ -20,7 +20,7 @@ TEST_CASE("Check all messages from server side")
     testServerUpdating(serverTest);
 }
 
-TEST_CASE("Check message history request of server")
+TEST_CASE("Workflow of checking message history request of server")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
@@ -35,7 +35,7 @@ TEST_CASE("Check message history request of server")
     testServerUpdating(serverTest);
 }
 
-TEST_CASE("Check reply message history request of server")
+TEST_CASE("Workflow of checking reply message history request of server")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
@@ -51,7 +51,7 @@ TEST_CASE("Check reply message history request of server")
 }
 
 
- TEST_CASE("Check direct message create request from server side")
+ TEST_CASE("Workflow of checking direct message create request from server side")
   {
     Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
@@ -66,7 +66,7 @@ TEST_CASE("Check reply message history request of server")
     testServerUpdating(serverTest);
    }
 
-TEST_CASE("Check message store request from server side")
+TEST_CASE("Workflow of checking message store request from server side")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
@@ -81,7 +81,7 @@ TEST_CASE("Check message store request from server side")
     testServerUpdating(serverTest);
 }
 
-TEST_CASE("Check reply message store request from server side")
+TEST_CASE("Workflow of checking reply message store request from server side")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
@@ -96,7 +96,7 @@ TEST_CASE("Check reply message store request from server side")
     testServerUpdating(serverTest);
 }
 
-TEST_CASE("Check message reaction request from server side")
+TEST_CASE("Workflow of checking message reaction request from server side")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
@@ -111,7 +111,7 @@ TEST_CASE("Check message reaction request from server side")
     testServerUpdating(serverTest);
 }
 
-TEST_CASE("Check message edit from server side")
+TEST_CASE("Workflow of checking message edit from server side")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());
@@ -126,7 +126,7 @@ TEST_CASE("Check message edit from server side")
     testServerUpdating(serverTest);
 }
 
-TEST_CASE("Check message delete request from server side")
+TEST_CASE("Workflow of checking message delete request from server side")
 {
     Client     mockClient;
     testServer serverTest(getTestingPort(), getTestingDatabase());

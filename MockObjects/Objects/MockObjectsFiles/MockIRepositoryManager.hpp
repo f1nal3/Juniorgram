@@ -103,9 +103,10 @@ private:
 
         if (!_handlerState || empty()) return {};
 
+        DataAccess::RepositoryRequest result(std::move(const_cast<DataAccess::RepositoryRequest&>(_queue.top())));
         _queue.pop();
 
-        return std::move(const_cast<DataAccess::RepositoryRequest&>(_queue.top()));
+        return result;
     }
 
     void privateRegisterTestRepositories() 
