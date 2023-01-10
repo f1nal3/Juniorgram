@@ -64,7 +64,7 @@ std::vector<Models::MessageInfo> testMessagesRepository::getMessageHistory(const
         Base::Logger::FileLogger::getInstance().log
         (
             "[MockRepositories]: [channel id: " + std::to_string(channelID) 
-            + "] Message history was successfully given to client\n",
+            + "]: Message history was successfully given to client\n",
             Base::Logger::LogLevel::INFO
         );
         result.push_back(messageInfo);
@@ -102,7 +102,7 @@ Utility::StoringMessageCodes testMessagesRepository::storeMessage(const Models::
         (
             "[MockRepositories]: [creator ID: " + std::to_string(messageInfo._channelID) 
             + "] [message ID: " + std::to_string(messageInfo._msgID) 
-            + "] Message have stored successfully\n",
+            + "]: Message have stored successfully\n",
             Base::Logger::LogLevel::INFO
         );
         return Utility::StoringMessageCodes::SUCCESS;
@@ -121,7 +121,7 @@ Utility::StoringReplyCodes testRepliesRepository::storeReply(const Models::Reply
         (
             "[MockRepositories]: [channel ID: " + std::to_string(replyInfo._channelID) 
             + "] [message: " + replyInfo._message 
-            + "] Reply successfully stored in database\n", 
+            + "]: Reply successfully stored in database\n", 
             Base::Logger::LogLevel::INFO
         );
         return Utility::StoringReplyCodes::SUCCESS;
@@ -226,7 +226,7 @@ Utility::ChannelDeleteCode testChannelsRepository::deleteChannel(const Models::C
         (
             "[MockRepositories]: [creator ID: " + std::to_string(channel._creatorID) 
             + "] [channel name: " + channel._channelName 
-            + "] Deleting channel was successful\n",
+            + "]: Deleting channel was successful\n",
             Base::Logger::LogLevel::INFO
         );
         return Utility::ChannelDeleteCode::SUCCESS;
@@ -245,7 +245,7 @@ Utility::ChannelCreateCodes testChannelsRepository::createChannel(const Models::
         (
             "[MockRepositories]: [creator ID: " + std::to_string(channel._creatorID) 
             + "] [channel name: " + channel._channelName 
-            + "] Creating channel was successful\n",
+            + "]: Creating channel was successful\n",
             Base::Logger::LogLevel::INFO
         );
         return Utility::ChannelCreateCodes::SUCCESS;
@@ -264,7 +264,7 @@ Utility::ChannelLeaveCodes testChannelsRepository::leaveChannel(const Models::Ch
         (
             "[MockRepositories]: [creator ID: " + std::to_string(channel._creatorID) 
             + "] [channel name: " + channel._channelName 
-            + "] Leaving from channel is successful\n",
+            + "]: Leaving from channel is successful\n",
             Base::Logger::LogLevel::INFO
         );
         return Utility::ChannelLeaveCodes::SUCCESS;
@@ -283,7 +283,7 @@ Utility::ChannelSubscribingCodes testChannelsRepository::subscribeToChannel(cons
         (
             "[MockRepositories]: [creator ID: " + std::to_string(channel._channelID) 
             + "] [User ID: " + std::to_string(channel._userID) 
-            + "] User successfully subscribed to the channel\n",
+            + "]: User successfully subscribed to the channel\n",
             Base::Logger::LogLevel::INFO
         );
 
@@ -294,11 +294,11 @@ Utility::ChannelSubscribingCodes testChannelsRepository::subscribeToChannel(cons
 }
 
 Utility::DirectMessageStatus testDirectMessageRepository::addDirectChat(uint64_t userID, uint64_t receiverID)
-{    
+{
     constexpr uint64_t testUserID = 1;
-    constexpr uint64_t testreceiverID = 1;
 
-    if ((testUserID == userID) && (testreceiverID == receiverID))
+    if (constexpr uint64_t testReceiverID = 1;
+        testUserID == userID && receiverID == testReceiverID)
     {
         Base::Logger::FileLogger::getInstance().log
         (

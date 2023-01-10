@@ -6,18 +6,12 @@
 
 namespace MockDataAccess
 {
-using MockDataAccess::MockIRepositoryManager;
-
 class MockRepositoryManager : public MockIRepositoryManager
 {
 public:
+using MockDataAccess::MockIRepositoryManager::MockIRepositoryManager;
+
     MockRepositoryManager() = default;
-
-    explicit MockRepositoryManager(const std::shared_ptr<DataAccess::IAdapter>& repositoryContainer) 
-        : MockIRepositoryManager(repositoryContainer)
-    {
-    }
-
     ~MockRepositoryManager() = default;
 };
 }  // namespace MockDataAccess

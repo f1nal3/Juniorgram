@@ -38,7 +38,7 @@ public:
         this->privateRegisterTestRepositories();
     }
 
-    ~MockIRepositoryManager()
+    virtual ~MockIRepositoryManager() 
     {
         _repositoryRequestsHandler.join();
     }
@@ -103,10 +103,11 @@ private:
 
         if (!_handlerState || empty()) return {};
 
-        DataAccess::RepositoryRequest request = std::move(const_cast<DataAccess::RepositoryRequest&>(_queue.top()));
+        DataAccess::RepositoryRequest result(std::move
+            (const_cast<DataAccess::RepositoryRequest&>(_queue.top())));
         _queue.pop();
 
-        return request;
+        return result;
     }
 
     void privateRegisterTestRepositories() 

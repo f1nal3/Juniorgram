@@ -18,7 +18,9 @@ using Query                    = MockQuery::MockQuery;
 
 struct TestAbstractRepository
 {
-protected:
+public:
+    std::unique_ptr<Query>& getTable() { return _pTable; }
+private:
     std::unique_ptr<Query> _pTable;
 };
 
@@ -26,7 +28,7 @@ struct testChannelsRepository final : IChannelRepository, TestAbstractRepository
 {
     explicit testChannelsRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        _pTable = std::make_unique<Query>("users", adapter);
+        getTable() = std::make_unique<Query>("users", adapter);
     }
 
     Utility::ChannelDeleteCode        deleteChannel(const Models::ChannelDeleteInfo& channel) override;
@@ -43,7 +45,7 @@ struct testDirectMessageRepository final : IDirectMessageRepository, TestAbstrac
 {
     explicit testDirectMessageRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        _pTable = std::make_unique<Query>("channels", adapter);
+        getTable() = std::make_unique<Query>("channels", adapter);
     }
 
     Utility::DirectMessageStatus addDirectChat(uint64_t userID, uint64_t receiverID) override;
@@ -55,7 +57,7 @@ struct testLoginRepository final : ILoginRepository, TestAbstractRepository
 {
     explicit testLoginRepository(const std::shared_ptr<IAdapter>& adapter)
     { 
-        _pTable = std::make_unique<Query>("users", adapter); 
+        getTable() = std::make_unique<Query>("users", adapter); 
     }
 
     std::uint64_t loginUser(const Models::LoginInfo& loginInfo) override;
@@ -67,7 +69,7 @@ struct testMessagesRepository final : IMessagesRepository, TestAbstractRepositor
 {
     explicit testMessagesRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        _pTable = std::make_unique<Query>("users", adapter);
+        getTable() = std::make_unique<Query>("users", adapter);
     }
 
     Utility::DeletingMessageCodes     deleteMessage(const Models::MessageInfo& messageInfo) override;
@@ -83,7 +85,7 @@ struct testRegisterRepository final : IRegisterRepository, TestAbstractRepositor
 {
     explicit testRegisterRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        _pTable = std::make_unique<Query>("users", adapter);
+        getTable() = std::make_unique<Query>("users", adapter);
     }
 
     Utility::RegistrationCodes registerUser(const Models::RegistrationInfo& regInfo) override;
@@ -95,7 +97,7 @@ struct testRepliesRepository final : IRepliesRepository, TestAbstractRepository
 {
     explicit testRepliesRepository(const std::shared_ptr<IAdapter>& adapter)
     { 
-        _pTable = std::make_unique<Query>("msgs", adapter); 
+        getTable() = std::make_unique<Query>("msgs", adapter); 
     }
 
     std::vector<Models::ReplyInfo> getReplyHistory(const std::uint64_t channelID) override;
