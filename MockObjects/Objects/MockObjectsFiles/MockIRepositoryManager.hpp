@@ -103,20 +103,18 @@ private:
 
         if (!_handlerState || empty()) return {};
 
-        DataAccess::RepositoryRequest result(std::move
-            (const_cast<DataAccess::RepositoryRequest&>(_queue.top())));
         _queue.pop();
 
-        return result;
+        return std::move(const_cast<DataAccess::RepositoryRequest&>(_queue.top()));
     }
 
     void privateRegisterTestRepositories() 
     {
         _repositories->registerRepository<DataAccess::IChannelsRepository, MockRepositories::testChannelsRepository>();
-        _repositories->registerRepository<DataAccess::ILoginRepository, MockRepositories::testLoginRepository>();
+        _repositories->registerRepository<DataAccess::ILoginRepository,    MockRepositories::testLoginRepository>();
         _repositories->registerRepository<DataAccess::IMessagesRepository, MockRepositories::testMessagesRepository>();
         _repositories->registerRepository<DataAccess::IRegisterRepository, MockRepositories::testRegisterRepository>();
-        _repositories->registerRepository<DataAccess::IRepliesRepository, MockRepositories::testRepliesRepository>();
+        _repositories->registerRepository<DataAccess::IRepliesRepository,  MockRepositories::testRepliesRepository>();
         _repositories->registerRepository<DataAccess::IDirectMessageRepository, MockRepositories::testDirectMessageRepository>();
     }
 };

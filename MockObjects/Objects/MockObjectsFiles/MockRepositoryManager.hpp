@@ -11,7 +11,7 @@ class MockRepositoryManager : public MockIRepositoryManager
 public:
 using MockDataAccess::MockIRepositoryManager::MockIRepositoryManager;
 
-    MockRepositoryManager() = default;
-    ~MockRepositoryManager() = default;
+    MockRepositoryManager()           = default;
+    ~MockRepositoryManager() override = default;
 };
 }  // namespace MockDataAccess
