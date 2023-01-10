@@ -22,7 +22,7 @@ class PostgreAdapter final : public IAdapter
 private:
     inline static std::mutex                        _staticMutex{};
     inline static std::shared_ptr<PostgreAdapter>   _instance{};
-    inline static constexpr std::string_view        _defaultOptions = DBOptions::test;
+    inline static constexpr std::string_view        _defaultOptions = DBOptions::real;
 
     std::mutex                                      _queryMutex;
     std::unique_ptr<pqxx::connection>               _connection;
