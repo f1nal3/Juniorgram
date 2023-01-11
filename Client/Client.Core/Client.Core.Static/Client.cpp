@@ -10,7 +10,7 @@ using MessageType = Network::Message::MessageType;
 using UtilityTime::RTC;
 using UtilityTime::timestamp_t;
 
-Client::~Client() { disconnectFromServer(); }
+Client::~Client() noexcept { disconnectFromServer(); }
 
 bool Client::connectToServer(const std::string_view& host, const uint16_t port)
 {

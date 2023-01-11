@@ -12,8 +12,13 @@
 
 namespace DataAccess
 {
-/*  @class AbstractRepositoryContainer
- *  @brief An abstract class for server and client global repositories.
+/* @class AbstractRepositoryContainer
+ * @brief An abstract class for server and client global repositories.
+ * @details Consists of adapter to chosen database, and map of registered repositories.
+ * This class provide registration of repositories, and getting them. Requirement for repository registration:
+ * interface for your repository is exists (e.g. you have LoginRepository that inherit its interface - ILoginRepository,
+ * so you can register LoginRepository). You can get the repository by specifying its interface
+ * (e.g. getRepository<ILoginRepository>()).
  */
 class AbstractRepositoryContainer
 {
@@ -30,8 +35,7 @@ public:
 
     /**
      * @brief Method for register new repositories.
-     *  (You should pass, firstly, an interface and
-     *  after an implementation of this repository)
+     * @warning You should pass, firstly, an interface and after an implementation of this repository
      */
     template <typename TInterface, typename TRepository>
     void registerRepository(void)
@@ -50,7 +54,7 @@ public:
 
     /**
      * @brief Method for get a repositories.
-     *  (You should pass an interface)
+     * @warning You should pass an interface
      */
     template <typename TInterface>
     std::shared_ptr<TInterface> getRepository(void)

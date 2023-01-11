@@ -19,5 +19,5 @@ cmake --build .
 In the host system:
 ```sh
 # Run GUI client:
-./build/bin/Client.Qt
+./build/bin/Client.**
 ```

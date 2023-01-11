@@ -396,6 +396,7 @@ std::optional<pqxx::result> MessagesRepository::insertMessageIntoMessagesTable(c
 {
     auto adapter = _pTable->getAdapter();
 
+    /// \todo Remove raw queries
     auto result = adapter->query("INSERT INTO msgs(sender_id, send_time, msg) VALUES ("
         + std::to_string(messageInfo._senderID) + ", to_timestamp("
         + std::to_string(messageInfo._time) + " / 1000.0) AT TIME ZONE 'utc', " +
@@ -538,7 +539,7 @@ Utility::ReactionMessageCodes MessagesRepository::updateMessageReactions(const M
                                                       ->Where("msg_id=" + std::to_string(messageInfo._msgID))
                                                       ->And(std::to_string(messageInfo._senderID) + " = ANY(" + reactionName + ");")
                                                       ->execute();
-
+    /// \todo Remove raw queries
     if (userQueryResult.has_value())
     {
         adapter->query("UPDATE msg_reactions SET " + reactionName + " = array_remove(" + reactionName + ", " +
@@ -753,7 +754,7 @@ Utility::DirectMessageStatus DirectMessageRepository::addDirectChat(uint64_t use
     auto adapter   = _pTable->getAdapter();
     auto minUserId = std::to_string(std::min(user_id, receiverID));
     auto maxUserId = std::to_string(std::max(user_id, receiverID));
-
+    /// \todo Remove raw queries
     auto result    = adapter
         ->query("create extension if not exists pgcrypto;\n"
               "INSERT INTO channels VALUES (DEFAULT, encode(digest(concat(" +
