@@ -25,6 +25,7 @@ PUBLIC
 	PostgreSQL::pq 
     libpqxx::libpqxx    
 	asio::asio
+	MockObjectsFiles
 	)
 
  target_include_directories(${TARGET} PRIVATE
