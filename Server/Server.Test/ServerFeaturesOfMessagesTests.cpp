@@ -3,8 +3,6 @@
 
 using namespace TestUtility;
 
-constexpr bool acceptingConnection = true;
-
 TEST_CASE("Workflow of checking all messages from server side")
 {
     Client     mockClient;
@@ -13,7 +11,7 @@ TEST_CASE("Workflow of checking all messages from server side")
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::MessageAll));
     }
@@ -28,7 +26,7 @@ TEST_CASE("Workflow of checking message history request of server")
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::MessageHistoryRequest));
     }
@@ -43,7 +41,7 @@ TEST_CASE("Workflow of checking reply message history request of server")
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ReplyHistoryRequest));
     }
@@ -59,7 +57,7 @@ TEST_CASE("Workflow of checking reply message history request of server")
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::DirectMessageCreateRequest));
     }
@@ -74,7 +72,7 @@ TEST_CASE("Workflow of checking message store request from server side")
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::MessageStoreRequest));
     }
@@ -89,7 +87,7 @@ TEST_CASE("Workflow of checking reply message store request from server side")
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ReplyStoreRequest));
     }
@@ -104,7 +102,7 @@ TEST_CASE("Workflow of checking message reaction request from server side")
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::MessageReactionRequest));
     }
@@ -119,7 +117,7 @@ TEST_CASE("Workflow of checking message edit from server side")
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::MessageEditRequest));
     }
@@ -134,7 +132,7 @@ TEST_CASE("Workflow of checking message delete request from server side")
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::MessageDeleteRequest));
     }

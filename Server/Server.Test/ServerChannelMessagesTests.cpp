@@ -3,8 +3,6 @@
 
 using namespace TestUtility;
 
-constexpr bool acceptingConnection = true;
-
 TEST_CASE("Workflow of checking channel create request of server")
 {
     Client     mockClient;
@@ -13,7 +11,7 @@ TEST_CASE("Workflow of checking channel create request of server")
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ChannelCreateRequest));
     }
@@ -28,7 +26,7 @@ TEST_CASE("Workflow of checking channel list request from server side")
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ChannelListRequest));
     }
@@ -43,7 +41,7 @@ TEST_CASE("Workflow of checking channel subscribe request from server side")
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ChannelSubscribeRequest));
     }
@@ -58,7 +56,7 @@ TEST_CASE("Workflow of checking channel subscription list request from server si
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ChannelSubscriptionListRequest));
     }
@@ -73,7 +71,7 @@ TEST_CASE("Workflow of checking channel leave request from server side")
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ChannelLeaveRequest));
     }
@@ -88,7 +86,7 @@ TEST_CASE("Workflow of checking channel delete request from server side")
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ChannelDeleteRequest));
     }

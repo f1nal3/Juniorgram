@@ -23,6 +23,8 @@ using testServer       = Server::Server<RepoManager>;
 using MessageType      = Message::MessageType;
 using milliseconds     = std::chrono::milliseconds;
 
+constexpr bool testAcceptingConnection = true;
+
 struct UserInfo
 {
     UserInfo() = default;

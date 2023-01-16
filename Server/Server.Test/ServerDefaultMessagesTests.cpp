@@ -3,8 +3,6 @@
 
 using namespace TestUtility;
 
-constexpr bool acceptingConnection = true;
-
 TEST_CASE("Workflow of checking server ping")
 {
     Client     mockClient;
@@ -13,7 +11,7 @@ TEST_CASE("Workflow of checking server ping")
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ServerPing));
     }
@@ -30,7 +28,7 @@ TEST_CASE("Workflow of checking default request of server side")
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType(failedType)));
     }

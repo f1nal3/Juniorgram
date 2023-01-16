@@ -3,17 +3,15 @@
 
 using namespace TestUtility;
 
-constexpr bool acceptingConnection = true;
-
 TEST_CASE("Workflow of checking registration request of server")
 {
     Client     mockClient;
-    testServer serverTest(getTestingPort(),getTestingDatabase());
+    testServer serverTest(getTestingPort(), getTestingDatabase());
 
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::RegistrationRequest));
     }
@@ -28,7 +26,7 @@ TEST_CASE("Workflow of checking login request of server")
     serverTest.start();
 
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::LoginRequest));
     }

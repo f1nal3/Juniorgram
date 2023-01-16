@@ -3,8 +3,6 @@
 
 using namespace TestUtility;
 
-constexpr bool acceptingConnection = true;
-
 TEST_CASE("Workflow startup server")
 {
     Client     mockClient;
@@ -12,7 +10,7 @@ TEST_CASE("Workflow startup server")
 
     CHECK_NOTHROW(serverTest.start());
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == acceptingConnection)
+        == testAcceptingConnection)
     {
         bindOfSendingMessage(mockClient, MessageType::ServerAccept);
     }
