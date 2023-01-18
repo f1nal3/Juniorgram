@@ -92,7 +92,7 @@ void MockClient::onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& 
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] Message history is successfully!",
+            "[CLIENT] Message history is taken successfully!",
             Base::Logger::LogLevel::INFO
         );
     }
@@ -120,7 +120,7 @@ void MockClient::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessag
     {
          Base::Logger::FileLogger::getInstance().log
         (
-            "[CLIENT] Message not sent!:(!", 
+            "[CLIENT] Message not sent!", 
             Base::Logger::LogLevel::INFO
         );
     }
