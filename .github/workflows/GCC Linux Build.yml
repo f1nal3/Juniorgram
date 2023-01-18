@@ -49,12 +49,6 @@ jobs:
         key: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
         restore-keys: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
 
-    - name: Remove Xorg package
-      run: CONAN_SYSREQUIRES_MODE=enabled conan remove xorg -f
-
-    - name: Install Xorg
-      run:  CONAN_SYSREQUIRES_MODE=enabled conan install xorg/system@ -c tools.system.package_manager:mode=install -c tools.system.package_manager:sudo=True
-
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}}
 
