@@ -9,7 +9,6 @@
             void messageAllClients              (std::shared_ptr<Network::Connection> exceptionConnection,const Message& message) const override;   \
             void checkServerPing                (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
             void readAllMessage                 (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
-            void channelListRequest             (std::shared_ptr<Network::Connection> clientConnection)   const override;                           \
             void messageHistoryRequest          (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
             void messageStoreRequest            (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
             void replyHistoryRequest            (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
@@ -21,15 +20,16 @@
             void loginRequest                   (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
             void channelLeaveRequest            (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
             void channelSubscribeRequest        (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
-            void channelSubscriptionListRequest (std::shared_ptr<Network::Connection> clientConnection)   const override;                           \
             void channelDeleteRequest           (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
             void channelCreateRequest           (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
             void directMessageCreateRequest     (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
+            void channelListRequest             (std::shared_ptr<Network::Connection> clientConnection) const override;                           \
+            void channelSubscriptionListRequest (std::shared_ptr<Network::Connection> clientConnection) const override;                           \
             void defaultRequest                 () const override;
 
 namespace Network
 {
-    class IClientAPI
+    class iAPI
     {
         public:
         /**
@@ -173,6 +173,6 @@ namespace Network
          */
         virtual void defaultRequest() const = 0;
 
-        virtual ~IClientAPI() = default;
+        virtual ~iAPI() = default;
     };
 } // namespace Network

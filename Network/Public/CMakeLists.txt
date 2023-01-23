@@ -9,7 +9,7 @@ set(SOURCE_FILES
     Include/Network/Message.hpp
     Include/Network/SerializationHandler.hpp
     Include/Network/YasSerializer.hpp
-    Include/Network/IClientAPI.hpp)
+    Include/Network/iAPI.hpp)
 
 add_library(${TARGET} INTERFACE ${SOURCE_FILES})
 

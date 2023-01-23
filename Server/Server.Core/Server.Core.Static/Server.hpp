@@ -8,7 +8,7 @@
 
 #include "Network/Connection.hpp"
 #include "Network/Message.hpp"
-#include "Network/IClientAPI.hpp"
+#include "Network/iAPI.hpp"
 #include "PostgreRepositoryManager.hpp"
 #include "Utility/SafeQueue.hpp"
 
@@ -43,7 +43,7 @@ class ServerBuilder;
  *           See the API documentation in a file "Network/iAPI.h"
  *           The Server object is created through a special helper class, see ServerBuilder
  */
-class Server : public Network::IClientAPI
+class Server : public Network::iAPI
 {
     friend Builder::ServerBuilder;
 
