@@ -40,7 +40,7 @@ public:
         _argParser.add_epilog("Some parts of the program may be configured by default.");
 
         _argParser.add_argument("--serverport")
-            .default_value(std::string{"65001"}) 
+            .default_value<std::string>("65001") 
             .help("Set the port value for server needs")
             .action([](const std::string& value) -> uint16_t {
                 uint16_t port = std::stoi(value);
@@ -58,7 +58,7 @@ public:
             });
 
         _argParser.add_argument("--port")
-            .default_value(std::string{"5432"})
+            .default_value<std::string>("5432")
             .help("Set the database port value")
             .action([](const std::string& value) -> uint16_t {
                 uint16_t port = std::stoi(value);
@@ -75,7 +75,7 @@ public:
             });
 
         _argParser.add_argument("--dbname")
-            .default_value(std::string{"juniorgram"})
+            .default_value<std::string>("juniorgram")
             .help("set the name of database")
             .action([](const std::string& value) {
                 const std::vector<std::string> choices = {"juniorgram", "testdb"};
@@ -87,7 +87,7 @@ public:
             });
 
         _argParser.add_argument("--hostaddr")
-            .default_value(std::string{"127.0.0.1"})
+            .default_value<std::string>("127.0.0.1")
             .help("set the host address (optional argument)")
             .action([](const std::string& value) {
                 const std::vector<std::string> choices = {"127.0.0.1"};
@@ -99,11 +99,11 @@ public:
             });
 
         _argParser.add_argument("--user")
-            .default_value(std::string{"postgres"})
+            .default_value<std::string>("postgres")
             .help("enter the user name (optional argument)");
 
         _argParser.add_argument("--password")
-            .default_value(std::string{"postgres"})
+            .default_value<std::string>("postgres")
             .help("enter the user password (optional argument)");
 
         _argParser.add_argument("-h", "--help")
