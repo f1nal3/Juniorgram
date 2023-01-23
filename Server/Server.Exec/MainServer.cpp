@@ -9,21 +9,21 @@ using Server::Builder::ServerBuilder;
 int main(int argc, const char** argv)
 {
     ArgParser parser(argc, argv);
-    auto server = ServerBuilder()
-                                 .setValue(parser.getPair("--port"))
-                                 .setValue(parser.getPair("--hostaddr"))
-                                 .setValue(parser.getPair("--dbport"))
+    auto serverBuild = ServerBuilder()
+                                 .setValue(parser.getPair("--serverport"))
                                  .setValue(parser.getPair("--dbname"))
-                                 .setValue(parser.getPair("--dbuser"))
-                                 .setValue(parser.getPair("--dbpassword"))
-                                // .setValue("repo", new DataAccess::PostgreRepositoryManager())
-                                 .makeServerRAII();
+                                 .setValue(parser.getPair("--hostaddr"))
+                                 .setValue(parser.getPair("--port"))
+                                 .setValue(parser.getPair("--user"))
+                                 .setValue(parser.getPair("--password"))
+                                 /*.setValue("managerName")*/
+                                 .serverInit();
 
-    server->start();
+    serverBuild->start();
 
     while (true)
     {
-        server->update();
+        serverBuild->update();
     }
     return 0;
 }

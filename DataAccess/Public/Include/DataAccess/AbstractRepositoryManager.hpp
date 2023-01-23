@@ -6,6 +6,7 @@
 #include <mutex>
 #include <queue>
 #include <type_traits>
+#include <tuple>
 
 #include "AbstractRepositoryContainer.hpp"
 #include "RepositoryRequest.hpp"

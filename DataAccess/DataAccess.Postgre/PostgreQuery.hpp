@@ -1,6 +1,6 @@
 #pragma once
 
-#include <DataAccess/QueryBuilder.hpp>
+#include <DataAccess/AbstractQueryBuilder.hpp>
 
 #include "PostgreAdapter.hpp"
 

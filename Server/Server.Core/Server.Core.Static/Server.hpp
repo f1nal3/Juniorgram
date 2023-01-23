@@ -8,7 +8,7 @@
 
 #include "Network/Connection.hpp"
 #include "Network/Message.hpp"
-#include "Network/iAPI.hpp"
+#include "Network/IClientAPI.hpp"
 #include "PostgreRepositoryManager.hpp"
 #include "Utility/SafeQueue.hpp"
 
@@ -23,9 +23,11 @@ using asio::ip::tcp;
 using Network::Connection;
 using Network::Message;
 using Utility::SafeQueue;
-using RepoManager_uptr = std::unique_ptr<DataAccess::IRepositoryManager>;
+using RepoManagerPtr = std::unique_ptr<DataAccess::IRepositoryManager>;
 
-// back forward declaration ServerBuilder
+/*
+* @brief declaration of ServerBuilder.
+*/
 namespace Builder
 {
 class ServerBuilder;
@@ -41,7 +43,7 @@ class ServerBuilder;
  *           See the API documentation in a file "Network/iAPI.h"
  *           The Server object is created through a special helper class, see ServerBuilder
  */
-class Server : public Network::iAPI
+class Server : public Network::IClientAPI
 {
     friend Builder::ServerBuilder;
 
@@ -85,13 +87,13 @@ private:
      * @details Initialize Server object. After you steel need to initialize network and database connection.
      */
     Server() = default;
-
+    
     /**
      * @brief Setter for purpose of initialize IRepository dependency
      *
      * @param repoManager - pointer to instance of dependency repository
      */
-    void initRepository(RepoManager_uptr repoManager);
+    void initRepository(RepoManagerPtr repoManager);
 
     /**
      * @brief Setter for purpose of initialize host port. This is how the endpoint is configured.
@@ -117,7 +119,7 @@ private:
      * @param client management class as std::shared_ptr<Network::Connection>& and Network::Message& class.
      * @param message body of message
      */
-    void onMessage(const std::shared_ptr<Connection>& client, Message& message);
+    void onMessage(const std::shared_ptr<Connection>& client, const Message& message);
 
     /**
      *  This macros apply all method from api and avoid you from routine of handwriting
@@ -134,6 +136,6 @@ private:
     std::deque<std::shared_ptr<Connection>> _connectionsPointers;
     SafeQueue<Message>                      _incomingMessagesQueue;
     std::deque<std::thread>                 _threads;
-    RepoManager_uptr                        _repoManager;
+    RepoManagerPtr                          _repoManager;
 };
 }  // namespace Server

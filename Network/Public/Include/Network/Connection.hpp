@@ -46,29 +46,25 @@ public:
     };
 
 private:
-    /// Connection "owner"
-    OwnerType mOwner = OwnerType::SERVER;
-    /// Connection id
-    std::uint64_t mConnectionID = uint64_t();
-    std::uint64_t userID        = 1;
+    OwnerType _owner = OwnerType::SERVER;
 
-    /// Unique socket to remote
-    asio::ip::tcp::socket mSocket;
-    /// Overall context for the whole asio instance
-    asio::io_context& mContextLink;
+    std::uint64_t _connectionID  = uint64_t();
+    std::uint64_t _userID        = 1;
 
-    /// Strand to protect read operations
+    /*@details Unique socket to remote. */
+    asio::ip::tcp::socket _socket;
+    /* @details Overall context for the whole asio instance. */
+    asio::io_context& _contextLink;
+    /* @details Strand to protect read operations. */
     asio::io_context::strand _readStrand;
-    /// Strand to protect write operations
+    /* @details Strand to protect write operations. */
     asio::io_context::strand _writeStrand;
-
-    /// References to the incoming queue of the parent object
-    Utility::SafeQueue<Message>& mIncomingMessagesQueueLink;
-    /// Queue all messages to be sent to the remote side of this connection
-    Utility::SafeQueue<Message> mOutcomingMessagesQueue;
-
-    /// Buffer to store the part of incoming message while it is read
-    Message mMessageBuffer;
+    /* @details References to the incoming queue of the parent object. */
+    Utility::SafeQueue<Message>& _incomingMessagesQueueLink;
+    /* @details Queue all messages to be sent to the remote side of this connection. */
+    Utility::SafeQueue<Message> _outcomingMessagesQueue;
+    /* @details Buffer to store the part of incoming message while it is read. */
+    Message _messageBuffer;
 
     /**
      * @brief Method for sending message header.
@@ -86,9 +82,9 @@ private:
 
         SerializationHandler handler;
         handler.setNext(new CompressionHandler())->setNext(new EncryptionHandler());
-        MessageProcessingState result = handler.handleOutcomingMessage(mOutcomingMessagesQueue.front(), bodyBuffer);
+        MessageProcessingState result = handler.handleOutcomingMessage(_outcomingMessagesQueue.front(), bodyBuffer);
 
-        Network::Message::MessageHeader outcomingMessageHeader = mOutcomingMessagesQueue.front().mHeader;
+        Network::Message::MessageHeader outcomingMessageHeader = _outcomingMessagesQueue.front().mHeader;
         outcomingMessageHeader.mBodySize                       = static_cast<uint32_t>(bodyBuffer.size);
 
         if (result == MessageProcessingState::SUCCESS)
@@ -96,15 +92,15 @@ private:
             const auto writeHeaderHandler = [this, bodyBuffer](std::error_code error) {
                 if (!error)
                 {
-                    if (mOutcomingMessagesQueue.front().mBody.has_value())
+                    if (_outcomingMessagesQueue.front().mBody.has_value())
                     {
                         writeBody(bodyBuffer);
                     }
                     else
                     {
-                        mOutcomingMessagesQueue.pop_front();
+                        _outcomingMessagesQueue.pop_front();
 
-                        if (!mOutcomingMessagesQueue.empty())
+                        if (!_outcomingMessagesQueue.empty())
                         {
                             writeHeader();
                         }
@@ -112,13 +108,16 @@ private:
                 }
                 else
                 {
-                    Base::Logger::FileLogger::getInstance().log('[' + std::to_string(mConnectionID) + "] Write Header Fail.\n",
-                                                                Base::Logger::LogLevel::ERR);
-                    mSocket.close();
+                    Base::Logger::FileLogger::getInstance().log
+                    (
+                        '[' + std::to_string(_connectionID) 
+                        + "] Write Header Fail.\n", Base::Logger::LogLevel::ERR
+                    );
+                    _socket.close();
                 }
             };
 
-            asio::async_write(mSocket, asio::buffer(&outcomingMessageHeader, sizeof(Message::MessageHeader)),
+            asio::async_write(_socket, asio::buffer(&outcomingMessageHeader, sizeof(Message::MessageHeader)),
                               asio::bind_executor(_writeStrand, std::bind(writeHeaderHandler, std::placeholders::_1)));
         }
     }
@@ -139,22 +138,25 @@ private:
         const auto writeBodyHandler = [this](std::error_code error) {
             if (!error)
             {
-                mOutcomingMessagesQueue.pop_front();
+                _outcomingMessagesQueue.pop_front();
 
-                if (!mOutcomingMessagesQueue.empty())
+                if (!_outcomingMessagesQueue.empty())
                 {
                     writeHeader();
                 }
             }
             else
             {
-                Base::Logger::FileLogger::getInstance().log('[' + std::to_string(mConnectionID) + "] Write Body Fail.\n",
-                                                            Base::Logger::LogLevel::ERR);
-                mSocket.close();
+                Base::Logger::FileLogger::getInstance().log
+                (
+                    '[' + std::to_string(_connectionID) 
+                    + "] Write Body Fail.\n", Base::Logger::LogLevel::ERR
+                );
+                _socket.close();
             }
         };
 
-        asio::async_write(mSocket, asio::buffer(buffer.data.get(), buffer.size),
+        asio::async_write(_socket, asio::buffer(buffer.data.get(), buffer.size),
                           asio::bind_executor(_writeStrand, std::bind(writeBodyHandler, std::placeholders::_1)));
     }
 
@@ -175,9 +177,9 @@ private:
         const auto readHeaderHandler = [this](std::error_code error) {
             if (!error)
             {
-                if (mMessageBuffer.mHeader.mBodySize > 0)
+                if (_messageBuffer.mHeader.mBodySize > 0)
                 {
-                    readBody(mMessageBuffer.mHeader.mBodySize);
+                    readBody(_messageBuffer.mHeader.mBodySize);
                 }
                 else
                 {
@@ -186,13 +188,16 @@ private:
             }
             else
             {
-                Base::Logger::FileLogger::getInstance().log('[' + std::to_string(mConnectionID) + "] Read Header Fail.\n",
-                                                            Base::Logger::LogLevel::ERR);
-                mSocket.close();
+                Base::Logger::FileLogger::getInstance().log
+                (
+                    '[' + std::to_string(_connectionID) 
+                    + "] Read Header Fail.\n", Base::Logger::LogLevel::ERR
+                );
+                _socket.close();
             }
         };
 
-        asio::async_read(mSocket, asio::buffer(&mMessageBuffer.mHeader, sizeof(Message::MessageHeader)),
+        asio::async_read(_socket, asio::buffer(&_messageBuffer.mHeader, sizeof(Message::MessageHeader)),
                          asio::bind_executor(_readStrand, std::bind(readHeaderHandler, std::placeholders::_1)));
     }
 
@@ -216,7 +221,7 @@ private:
             {
                 EncryptionHandler handler;
                 handler.setNext(new CompressionHandler())->setNext(new SerializationHandler());
-                MessageProcessingState result = handler.handleIncomingMessageBody(buffer, mMessageBuffer);
+                MessageProcessingState result = handler.handleIncomingMessageBody(buffer, _messageBuffer);
 
                 if (result == MessageProcessingState::SUCCESS)
                 {
@@ -225,13 +230,16 @@ private:
             }
             else
             {
-                Base::Logger::FileLogger::getInstance().log('[' + std::to_string(mConnectionID) + "] Read Body Fail.\n",
-                                                            Base::Logger::LogLevel::ERR);
-                mSocket.close();
+                Base::Logger::FileLogger::getInstance().log
+                (
+                    '[' + std::to_string(_connectionID) 
+                    + "] Read Body Fail.\n", Base::Logger::LogLevel::ERR
+                );
+                _socket.close();
             }
         };
 
-        asio::async_read(mSocket, asio::buffer(buffer.data.get(), buffer.size),
+        asio::async_read(_socket, asio::buffer(buffer.data.get(), buffer.size),
                          asio::bind_executor(_readStrand, std::bind(readBodyHandler, std::placeholders::_1)));
     }
 
@@ -245,14 +253,14 @@ private:
      */
     void addToIncomingMessageQueue()
     {
-        if (mOwner == OwnerType::SERVER)
+        if (_owner == OwnerType::SERVER)
         {
-            mMessageBuffer.mRemote = this->shared_from_this();
-            mIncomingMessagesQueueLink.push_back(mMessageBuffer);
+            _messageBuffer.mRemote = this->shared_from_this();
+            _incomingMessagesQueueLink.push_back(_messageBuffer);
         }
         else
         {
-            mIncomingMessagesQueueLink.push_back(mMessageBuffer);
+            _incomingMessagesQueueLink.push_back(_messageBuffer);
         }
 
         readHeader();
@@ -270,12 +278,12 @@ public:
      */
     Connection(const OwnerType& owner, asio::io_context& contextLink, asio::ip::tcp::socket socket,
                Utility::SafeQueue<Message>& incomingMessagesQueueLink)
-        : mOwner(owner),
-          mSocket(std::move(socket)),
-          mContextLink(contextLink),
+        : _owner(owner),
+          _socket(std::move(socket)),
+          _contextLink(contextLink),
           _readStrand(contextLink),
           _writeStrand(contextLink),
-          mIncomingMessagesQueueLink(incomingMessagesQueueLink)
+          _incomingMessagesQueueLink(incomingMessagesQueueLink)
     {
     }
 
@@ -285,20 +293,20 @@ public:
      * whole system.
      * @return mId - connection id.
      */
-    std::uint64_t getID() const { return mConnectionID; }
+    std::uint64_t getID() const { return _connectionID; }
 
     /**
      * @brief Method for accessing userID associated with this connection
      * @details ID gets assigned to connection on successful login
      * @return userID as stored in repository
      */
-    std::uint64_t getUserID() const { return userID; }
+    std::uint64_t getUserID() const { return _userID; }
 
     /**
      * @brief Method for setting userID for this connection
      * @param id userID from repository
      */
-    void setUserID(std::uint64_t id) { userID = id; }
+    void setUserID(std::uint64_t id) { _userID = id; }
 
     /**
      * @brief Method for connection to clients from server side.
@@ -307,11 +315,11 @@ public:
      */
     void connectToClient(const uint64_t uid = uint64_t())
     {
-        if (mOwner == OwnerType::SERVER)
+        if (_owner == OwnerType::SERVER)
         {
-            if (mSocket.is_open())
+            if (_socket.is_open())
             {
-                mConnectionID = uid;
+                _connectionID = uid;
                 readHeader();
             }
         }
@@ -325,9 +333,11 @@ public:
      */
     void connectToServer(const asio::ip::tcp::resolver::results_type& endpoint)
     {
-        if (mOwner == OwnerType::CLIENT)
+        if (_owner == OwnerType::CLIENT)
         {
-            asio::async_connect(mSocket, endpoint, [this](std::error_code ec, [[maybe_unused]] asio::ip::tcp::endpoint epoint) {
+            asio::async_connect(_socket, endpoint, [this](std::error_code ec, 
+                [[maybe_unused]] asio::ip::tcp::endpoint epoint) 
+            {
                 if (!ec)
                 {
                     readHeader();
@@ -348,7 +358,7 @@ public:
     {
         if (isConnected())
         {
-            asio::post(mContextLink, [this]() { mSocket.close(); });
+            asio::post(_contextLink, [this]() { _socket.close(); });
         }
     }
 
@@ -356,7 +366,7 @@ public:
      * @brief Method for checking if current socket is open.
      * @return if current socket is open (true/false).
      */
-    bool isConnected() const { return mSocket.is_open(); }
+    bool isConnected() const { return _socket.is_open(); }
 
     /**
      * @brief Method for sending messages.
@@ -368,9 +378,9 @@ public:
     void send(const Message& message)
     {
         asio::post(_writeStrand, [this, message]() {
-            bool isMessageExist = !mOutcomingMessagesQueue.empty();
+            bool isMessageExist = !_outcomingMessagesQueue.empty();
 
-            mOutcomingMessagesQueue.push_back(message);
+            _outcomingMessagesQueue.push_back(message);
 
             if (!isMessageExist)
             {

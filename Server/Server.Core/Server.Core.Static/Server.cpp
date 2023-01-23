@@ -50,10 +50,11 @@ void Server::stop()
 
 void Server::waitForClientConnection()
 {
-    _acceptor->async_accept([this](const std::error_code error, tcp::socket socket) { acceptingClientConnection(error, socket); });
+    _acceptor->async_accept([this](const std::error_code error, tcp::socket socket) 
+        { acceptingClientConnection(error, socket); });
 }
 
-void Server::initRepository(RepoManager_uptr repoManager) { _repoManager.swap(repoManager); }
+void Server::initRepository(RepoManagerPtr repoManager) { _repoManager.swap(repoManager); }
 
 void Server::initConnection(const uint16_t port) { _acceptor = std::make_unique<tcp::acceptor>(_context, tcp::endpoint(tcp::v4(), port)); }
 
@@ -87,8 +88,11 @@ void Server::acceptingClientConnection(const std::error_code& error, tcp::socket
             _connectionsPointers.emplace_back(std::move(newConnection));
             _connectionsPointers.back()->connectToClient(_idCounter++);
 
-            FileLogger::getInstance().log("[" + std::to_string(_connectionsPointers.back()->getID()) + "] Connection Approved",
-                                          LogLevel::INFO);
+            FileLogger::getInstance().log
+            (
+                "[" + std::to_string(_connectionsPointers.back()->getID()) 
+                + "] Connection Approved", LogLevel::INFO
+            );
         }
         else
         {
@@ -103,7 +107,7 @@ void Server::acceptingClientConnection(const std::error_code& error, tcp::socket
     waitForClientConnection();
 }
 
-void Server::onMessage(const std::shared_ptr<Connection>& client, Message& message)
+void Server::onMessage(const std::shared_ptr<Connection>& client, const Message& message)
 {
     switch (message.mHeader.mMessageType)
     {
@@ -235,9 +239,7 @@ void Server::messageClient(std::shared_ptr<Connection> client, const Message& me
 
         client.reset();
 
-        /// \todo still need investigation
-        // _connectionsPointers.erase(std::remove(_connectionsPointers.begin(), _connectionsPointers.end(), client),
-        //                            _connectionsPointers.end());
+        _connectionsPointers.empty();
     }
 }
 
@@ -266,7 +268,7 @@ void Server::update(size_t maxMessages, bool wait)
 
 void Server::messageAllClients(std::shared_ptr<Connection> exceptionClient, const Message& message) const
 {
-    // bool deadConnectionExist = false;
+    bool deadConnectionExist = false;
 
     for (auto& client : _connectionsPointers)
     {
@@ -277,25 +279,20 @@ void Server::messageAllClients(std::shared_ptr<Connection> exceptionClient, cons
                 client->send(message);
             }
         }
-        /// \todo need investigation
-        /*
         else
         {
             onClientDisconnect(client);
+            client->disconnect();
 
-            client.reset();
+            FileLogger::getInstance().log
+            (
+                "[Other connections exists: " 
+                + std::to_string(client.use_count()) + "]"
+            );
 
             deadConnectionExist = true;
         }
-        */
     }
-    /*
-    if (deadConnectionExist)
-    {
-        _connectionsPointers.erase(std::remove(_connectionsPointers.begin(), _connectionsPointers.end(), nullptr),
-                                   _connectionsPointers.end());
-    }
-    */
 }
 
 void Server::checkServerPing(std::shared_ptr<Connection> client, const Message& message) const
@@ -305,7 +302,12 @@ void Server::checkServerPing(std::shared_ptr<Connection> client, const Message& 
     std::ostringstream timeOutput;
     timeOutput << std::put_time(&formattedTimestamp, "%F %T");
 
-    FileLogger::getInstance().log("[" + timeOutput.str() + "][" + std::to_string(client->getID()) + "]: Server Ping", LogLevel::INFO);
+    FileLogger::getInstance().log
+    (
+        "[" + timeOutput.str() 
+        + "][" + std::to_string(client->getID())
+        + "]: Server Ping", LogLevel::INFO
+    );
 
     client->send(message);
 }
@@ -317,12 +319,15 @@ void Server::readAllMessage(std::shared_ptr<Connection> client, const Message& m
     std::ostringstream timeOutput;
     timeOutput << std::put_time(&formattedTimestamp, "%F %T");
 
-    FileLogger::getInstance().log("[" + timeOutput.str() + "][" + std::to_string(client->getID()) + "]: Message All\n", LogLevel::INFO);
+    FileLogger::getInstance().log
+    (
+        "[" + timeOutput.str() 
+        + "][" + std::to_string(client->getID()) 
+        + "]: Message All\n", LogLevel::INFO
+    );
 
     Message messageHandler;
-    messageHandler.mHeader.mMessageType = Message::MessageType::ServerMessage;
-
-    // msg << client->getID();
+    messageHandler.mHeader.mMessageType = Message::MessageType::ServerMessage;    
     messageAllClients(client, messageHandler);
 }
 
@@ -485,7 +490,11 @@ void Server::loginRequest(std::shared_ptr<Connection> client, const Message& mes
     {
         client->setUserID(userID);
 
-        FileLogger::getInstance().log("User " + std::to_string(userID) + " logged in.", LogLevel::INFO);
+        FileLogger::getInstance().log
+        (
+            "User " + std::to_string(userID) 
+            + " logged in.", LogLevel::INFO
+        );
     }
 }
 
@@ -586,5 +595,12 @@ void Server::directMessageCreateRequest(std::shared_ptr<Connection> client, cons
     client->send(messageToClient);
 }
 
-void Server::defaultRequest() const { FileLogger::getInstance().log("Unknown command received", LogLevel::ERR); }
+void Server::defaultRequest() const 
+{
+    FileLogger::getInstance().log
+    (
+        "Unknown command received", 
+        LogLevel::ERR
+    ); 
+}
 }  // namespace Server

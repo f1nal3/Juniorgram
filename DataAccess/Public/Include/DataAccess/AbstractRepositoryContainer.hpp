@@ -4,7 +4,6 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
-#include <tuple>
 #include <typeinfo>
 #include <utility>
 
@@ -13,13 +12,12 @@
 
 namespace DataAccess
 {
-
 /* @class AbstractRepositoryContainer
  * @brief An abstract class for server and client global repositories.
  * @details Consists of adapter to chosen database, and map of registered repositories.
  * This class provide registration of repositories, and getting them. Requirement for repository registration:
  * interface for your repository is exists (e.g. you have LoginRepository that inherit its interface - ILoginRepository,
- * so you can register LoginRepository). You can get the repository by specifying its interface
+ * so you can register LoginRepository). You can get the repository by specifying its interface.
  * (e.g. getRepository<ILoginRepository>()).
  */
 class AbstractRepositoryContainer
@@ -28,15 +26,15 @@ public:
     using RealType = std::string;
     using IType    = std::shared_ptr<IMasterRepository>;
 
-public:
-    explicit AbstractRepositoryContainer(std::shared_ptr<IAdapter> adapter) : _adapter(std::move(adapter)), _container() {}
+    explicit AbstractRepositoryContainer(std::shared_ptr<IAdapter> adapter) :
+        _adapter(std::move(adapter)), _container() {}
 
     /**
      * @brief Method for register new repositories.
      * @warning You should pass, firstly, an interface and after an implementation of this repository
      */
     template <typename TInterface, typename TRepository>
-    void registerRepository(void)
+    void registerRepository()
     {
         //TODO check that they are all child of IMasterRepository
         static_assert(std::is_base_of_v<TInterface, TRepository>, "Repository does not implement current Interface!");
@@ -56,7 +54,7 @@ public:
      * @warning You should pass an interface
      */
     template <typename TInterface>
-    std::shared_ptr<TInterface> getRepository(void)
+    std::shared_ptr<TInterface> getRepository()
     {
         const char* typeInfo = typeid(TInterface).name();
 

@@ -10,13 +10,12 @@
 
 namespace Server::Builder
 {
-
 /**
- * @brief Class builder of Server
- * @details Class based on builder pattern for creation instances of @link Server @endlink
- * @todo Think of a more elegant repository initialization interface
+ * @brief Class builder of Server.
+ * @details Class based on builder pattern for creation instances of @link Server @endlink.
  */
-class ServerBuilder {
+class ServerBuilder 
+{
 public:
     ServerBuilder()  = default;
     ~ServerBuilder() = default;
@@ -33,56 +32,54 @@ public:
         return *this;
     }
 
-    Server* makeServer() noexcept
+    Server* makeServer()
     {
-        auto obj = new Server();
-
         // form a string with the configuration for connecting to the database
-        std::string options = "";
-        for (const auto& arg : _arguments)
+        std::string dbOptions = "";
+        for (const auto& [firstArg, secondArg] : _arguments)
         {
-            if (arg.first != "--port")
+            if (firstArg != "--serverport")
             {
-                for (size_t i = 0; i < arg.first.length(); ++i)
+                for (size_t i = 0; i < firstArg.length(); ++i)
                 {
-                    if (arg.first[i] != '-')
+                    if (firstArg[i] != '-')
                     {
-                        options += arg.first[i];
+                        dbOptions += firstArg[i];
                     }
                 }
-                options += "=";
-                options += arg.second;
-                options += " ";
+                dbOptions += "=";
+                dbOptions += secondArg;
+                dbOptions += " ";
             }
         }
+        
+        auto server = new Server();
 
-        const char* dbOptions = options.c_str();
-        using DataAccess::IAdapter;
         if (!_repository)
         {
-            auto up_repo = std::make_unique<DataAccess::PostgreRepositoryManager>(IAdapter::getInstance<DataAccess::PostgreAdapter>(dbOptions));
-            obj->initRepository(std::move(up_repo));
+            auto repoManager = std::make_unique<DataAccess::PostgreRepositoryManager>(
+                DataAccess::IAdapter::getInstance<DataAccess::PostgreAdapter>(dbOptions));
+            server->initRepository(std::move(repoManager));
         }
         else
         {
-            obj->initRepository(std::move(_repository));
+            server->initRepository(std::move(_repository));
         }
 
-        // initialize host port
-        uint16_t port = std::stoi(_arguments["--port"]);
-        obj->initConnection(port);
+        uint16_t port = std::stoi(_arguments["--serverport"]);
+        server->initConnection(port);
 
-        return obj;
+        return server;
     }
 
-    std::unique_ptr<Server> makeServerRAII() noexcept
+    std::unique_ptr<Server> serverInit()
     {
-        std::unique_ptr<Server> uptr(makeServer());
-        return uptr;
+        std::unique_ptr<Server> ptr(makeServer());
+        return ptr;
     }
 
 private:
     std::map<std::string, std::string>  _arguments;
-    RepoManager_uptr                    _repository;
+    RepoManagerPtr                      _repository;
 };
 }  // namespace Server::Builder

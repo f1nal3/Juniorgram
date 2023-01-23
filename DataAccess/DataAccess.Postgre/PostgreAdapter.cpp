@@ -14,12 +14,12 @@ namespace DataAccess
         return _instance;
     }
 
-    pqxx::connection& PostgreAdapter::getConnection(void) 
+    pqxx::connection& PostgreAdapter::getConnection() 
     {
         return *_connection; 
     }
 
-    bool PostgreAdapter::isConnected(void) const 
+    bool PostgreAdapter::isConnected() const 
     {
         return _connection->is_open(); 
     }
@@ -48,10 +48,10 @@ namespace DataAccess
         return std::nullopt;
     }
 
-    void PostgreAdapter::closeConnection(void) 
+    void PostgreAdapter::closeConnection() 
     { 
         _instance.reset();
         _connection.reset();
     }
 
-} ///namespace DataAccess
+} // namespace DataAccess
