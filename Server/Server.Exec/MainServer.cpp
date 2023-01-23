@@ -17,7 +17,7 @@ int main(int argc, const char** argv)
                                  .setValue(parser.getPair("--user"))
                                  .setValue(parser.getPair("--password"))
                                  /*.setValue("managerName")*/
-                                 .serverInit();
+                                 .makeServer();
 
     serverBuild->start();
 

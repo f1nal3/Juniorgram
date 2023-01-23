@@ -32,7 +32,14 @@ public:
         return *this;
     }
 
-    Server* makeServer()
+    std::unique_ptr<Server> makeServer()
+    {
+        std::unique_ptr<Server> ptr(make());
+        return ptr;
+    }
+
+private:
+    Server* make()
     {
         // form a string with the configuration for connecting to the database
         std::string dbOptions = "";
@@ -72,13 +79,6 @@ public:
         return server;
     }
 
-    std::unique_ptr<Server> serverInit()
-    {
-        std::unique_ptr<Server> ptr(makeServer());
-        return ptr;
-    }
-
-private:
     std::map<std::string, std::string>  _arguments;
     RepoManagerPtr                      _repository;
 };
