@@ -10,7 +10,7 @@ set(SOURCE_FILES
         PostgreRepositoryManagerTest.cpp 
         PostgreRepositoriesContainerTest.cpp 
         PostgreQueryTest.cpp
-        QueryBuilderTest.cpp
+        AbstractQueryBuilderTest.cpp
         AbstractRepositoryContainerTest.cpp
         )
 

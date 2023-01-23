@@ -10,7 +10,7 @@ set(SOURCE_FILES
         Include/DataAccess/IRepository.hpp
         Include/DataAccess/IServerRepositories.hpp
         Include/DataAccess/SQLStatements.hpp
-        Include/DataAccess/QueryBuilder.hpp
+        Include/DataAccess/AbstractQueryBuilder.hpp
         Include/DataAccess/RepositoryRequest.hpp
         Include/DataAccess/FutureResult.hpp)
 

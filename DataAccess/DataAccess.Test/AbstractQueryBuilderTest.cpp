@@ -1,6 +1,6 @@
 #include <catch2/catch.hpp>
 
-#include "DataAccess/QueryBuilder.hpp"
+#include "DataAccess/AbstractQueryBuilder.hpp"
 #include "DataAccess.Postgre/DataBaseOptions.hpp"
 #include "DataAccess.Postgre/PostgreAdapter.hpp"
 

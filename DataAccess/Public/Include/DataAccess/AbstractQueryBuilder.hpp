@@ -14,7 +14,7 @@ namespace DataAccess
  * @details The class forms and saves SQL query, current
  * table and type of database. Class provides interface, which is as close as possible
  * to the classical SQL queries. This is achieved by calling methods one by one.
- * Examples for postgre database you can see in PostgreQuery.hpp
+ * Examples for postgre database you can see in PostgreQueryBuilder.hpp
  */
 template <typename ResultType>
 class AbstractQueryBuilder
@@ -31,7 +31,7 @@ public:
     {
     }
 
-    virtual ~AbstractQueryBuilder(void) { this->clearStatement(); }
+    virtual ~AbstractQueryBuilder() { this->clearStatement(); }
 
 public:
     AbstractQueryBuilder() = delete;
@@ -47,7 +47,7 @@ public:
      * @brief SQL select query.
      * @return SQLSelect pointer.
      */
-    SQLSelect<ResultType>* Select(void)
+    SQLSelect<ResultType>* Select()
     {
         if (_statement != nullptr)
         {
@@ -69,7 +69,7 @@ public:
      * @brief SQL insert query.
      * @return SQLInsert pointer.
      */
-    SQLInsert<ResultType>* Insert(void)
+    SQLInsert<ResultType>* Insert()
     {
         if (_statement != nullptr)
         {
@@ -91,7 +91,7 @@ public:
      * @brief SQL update query.
      * @return SQLUpdate pointer.
      */
-    SQLUpdate<ResultType>* Update(void)
+    SQLUpdate<ResultType>* Update()
     {
         if (_statement != nullptr)
         {
@@ -113,7 +113,7 @@ public:
      * @brief SQL delete query.
      * @return SQLDelete pointer.
      */
-    SQLDelete<ResultType>* Delete(void)
+    SQLDelete<ResultType>* Delete()
     {
         if (_statement != nullptr)
         {
@@ -157,11 +157,11 @@ public:
      * @brief Get postgreAdapter object.
      * @return PostgreAdapter.
      */
-    [[nodiscard]] std::shared_ptr<IAdapter> getAdapter(void) const noexcept { return _adapter; }
+    [[nodiscard]] std::shared_ptr<IAdapter> getAdapter() const noexcept { return _adapter; }
 
-    [[nodiscard]] Utility::DatabaseType getDatabaseType(void) const noexcept { return _databaseType; }
+    [[nodiscard]] Utility::DatabaseType getDatabaseType() const noexcept { return _databaseType; }
 
-    [[nodiscard]] const std::string& getCurrentTableName(void) const noexcept { return _tableName; }
+    [[nodiscard]] const std::string& getCurrentTableName() const noexcept { return _tableName; }
 
     void clearStatement()
     {
