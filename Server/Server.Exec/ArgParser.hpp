@@ -129,12 +129,6 @@ public:
             );
             std::exit(1);
         }
-        catch (const std::runtime_error& err)
-        {
-            std::cerr << err.what() << std::endl;
-            std::cerr << _argParser;
-            std::exit(1);
-        }
     }  
 
     std::pair<std::string, std::string> getPair(const std::string parameter) noexcept
