@@ -21,14 +21,14 @@ public:
     MessageFiller()  = default;
     ~MessageFiller() = default;
 
-    void setLoginInfo(LoginInfo& logInfo);
-    void setRegistrationInfo(RegistrationInfo& regInfo);
-    void setChannelInfo(ChannelInfo& chanInfo);
-    void setChannelLeaveInfo(ChannelLeaveInfo& chanInfo);
-    void setChannelDeleteInfo(ChannelDeleteInfo& chanInfo);
-    void setChannelSubscriptionInfo(ChannelSubscriptionInfo& chanInfo); 
-    void setReplyInfo(ReplyInfo& repInfo);
-    void setMessageInfo(MessageInfo& mesgInfo);
+    void setLoginInfo(const LoginInfo& logInfo);
+    void setRegistrationInfo(const RegistrationInfo& regInfo);
+    void setChannelInfo(const ChannelInfo& chanInfo);
+    void setChannelLeaveInfo(const ChannelLeaveInfo& chanInfo);
+    void setChannelDeleteInfo(const ChannelDeleteInfo& chanInfo);
+    void setChannelSubscriptionInfo(const ChannelSubscriptionInfo& chanInfo); 
+    void setReplyInfo(const ReplyInfo& repInfo);
+    void setMessageInfo(const MessageInfo& mesgInfo);
 
     LoginInfo&               getLoginInfo();
     RegistrationInfo&        getRegistrationInfo();

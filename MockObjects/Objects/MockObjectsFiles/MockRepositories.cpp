@@ -43,9 +43,9 @@ std::vector<uint64_t> testChannelsRepository::getChannelSubscriptionList(const u
 std::vector<Models::MessageInfo> testMessagesRepository::getMessageHistory(const std::uint64_t channelID)
 {
     std::vector<Models::MessageInfo> result;
-    Models::MessageInfo messageInfo(getMessageFiller().getMessageInfo());
 
-    if (channelID == messageInfo._channelID)
+    if (Models::MessageInfo messageInfo(getMessageFiller().getMessageInfo()); 
+        channelID == messageInfo._channelID)
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -62,9 +62,8 @@ std::vector<Models::ReplyInfo> testRepliesRepository::getReplyHistory(std::uint6
 {
     std::vector<Models::ReplyInfo> result;
 
-    Models::ReplyInfo replyInfo(getMessageFiller().getReplyInfo());
-
-    if (channelID == replyInfo._channelID)
+    if (Models::ReplyInfo replyInfo(getMessageFiller().getReplyInfo()); 
+        channelID == replyInfo._channelID)
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -78,9 +77,8 @@ std::vector<Models::ReplyInfo> testRepliesRepository::getReplyHistory(std::uint6
 
 Utility::StoringMessageCodes testMessagesRepository::storeMessage(const Models::MessageInfo& messageInfo)
 {
-    Models::MessageInfo testMessageInfo(getMessageFiller().getMessageInfo());
-
-    if (messageInfo._channelID == testMessageInfo._channelID)
+    if (Models::MessageInfo testMessageInfo(getMessageFiller().getMessageInfo()); 
+        messageInfo._channelID == testMessageInfo._channelID)
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -96,9 +94,8 @@ Utility::StoringMessageCodes testMessagesRepository::storeMessage(const Models::
 
 Utility::StoringReplyCodes testRepliesRepository::storeReply(const Models::ReplyInfo& replyInfo)
 {
-    Models::ReplyInfo testReplyInfo(getMessageFiller().getReplyInfo());
-
-    if (replyInfo._channelID == testReplyInfo._channelID)
+    if (Models::ReplyInfo testReplyInfo(getMessageFiller().getReplyInfo()); 
+        replyInfo._channelID == testReplyInfo._channelID)
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -114,9 +111,8 @@ Utility::StoringReplyCodes testRepliesRepository::storeReply(const Models::Reply
 
 Utility::DeletingMessageCodes testMessagesRepository::deleteMessage(const Models::MessageInfo& messageInfo)
 {
-    Models::MessageInfo testMessageInfo(getMessageFiller().getMessageInfo());
-
-    if (messageInfo._msgID == testMessageInfo._msgID)
+    if (Models::MessageInfo testMessageInfo(getMessageFiller().getMessageInfo()); 
+        messageInfo._msgID == testMessageInfo._msgID)
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -130,9 +126,8 @@ Utility::DeletingMessageCodes testMessagesRepository::deleteMessage(const Models
 
 Utility::EditingMessageCodes testMessagesRepository::editMessage(const Models::MessageInfo& messageInfo)
 {
-    Models::MessageInfo mesgInfo(getMessageFiller().getMessageInfo());
-
-    if (mesgInfo._msgID == messageInfo._msgID)
+    if (Models::MessageInfo mesgInfo(getMessageFiller().getMessageInfo()); 
+        mesgInfo._msgID == messageInfo._msgID)
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -146,9 +141,8 @@ Utility::EditingMessageCodes testMessagesRepository::editMessage(const Models::M
 
 Utility::ReactionMessageCodes testMessagesRepository::updateMessageReactions(const Models::MessageInfo& messageInfo)
 {
-    Models::MessageInfo testMessageInfo(getMessageFiller().getMessageInfo());
-
-    if (testMessageInfo._msgID == messageInfo._msgID)
+    if (Models::MessageInfo testMessageInfo(getMessageFiller().getMessageInfo()); 
+        testMessageInfo._msgID == messageInfo._msgID)
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -163,9 +157,8 @@ Utility::ReactionMessageCodes testMessagesRepository::updateMessageReactions(con
 
 Utility::RegistrationCodes testRegisterRepository::registerUser(const Models::RegistrationInfo& regInfo)
 {
-    Models::RegistrationInfo testRegInfo(getMessageFiller().getRegistrationInfo());
-
-    if (testRegInfo._login == regInfo._login)
+    if (Models::RegistrationInfo testRegInfo(getMessageFiller().getRegistrationInfo()); 
+        testRegInfo._login == regInfo._login)
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -179,9 +172,8 @@ Utility::RegistrationCodes testRegisterRepository::registerUser(const Models::Re
 
 std::uint64_t testLoginRepository::loginUser(const Models::LoginInfo& loginInfo)
 { 
-    Models::LoginInfo testLogInfo(getMessageFiller().getLoginInfo());
-
-    if (testLogInfo._login == loginInfo._login)
+    if (Models::LoginInfo testLogInfo(getMessageFiller().getLoginInfo()); 
+        testLogInfo._login == loginInfo._login)
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -195,9 +187,8 @@ std::uint64_t testLoginRepository::loginUser(const Models::LoginInfo& loginInfo)
 
 Utility::ChannelDeleteCode testChannelsRepository::deleteChannel(const Models::ChannelDeleteInfo& channel)
 {
-    Models::ChannelDeleteInfo channelInfo(getMessageFiller().getChannelDeleteInfo());
-
-   if (channelInfo._channelName == channel._channelName)
+   if (Models::ChannelDeleteInfo channelInfo(getMessageFiller().getChannelDeleteInfo()); 
+       channelInfo._channelName == channel._channelName)
    {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -213,9 +204,8 @@ Utility::ChannelDeleteCode testChannelsRepository::deleteChannel(const Models::C
 
 Utility::ChannelCreateCodes testChannelsRepository::createChannel(const Models::ChannelInfo& channel)
 {
-   Models::ChannelInfo channelInfo(getMessageFiller().getChannelInfo());
-
-   if (channelInfo._channelName == channel._channelName)
+   if (Models::ChannelInfo channelInfo(getMessageFiller().getChannelInfo()); 
+       channelInfo._channelName == channel._channelName)
    {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -231,9 +221,8 @@ Utility::ChannelCreateCodes testChannelsRepository::createChannel(const Models::
 
 Utility::ChannelLeaveCodes testChannelsRepository::leaveChannel(const Models::ChannelLeaveInfo& channel)
 {
-   Models::ChannelLeaveInfo channelInfo(getMessageFiller().getChannelLeaveInfo());
-
-    if (channelInfo._channelName == channel._channelName)
+    if (Models::ChannelLeaveInfo channelInfo(getMessageFiller().getChannelLeaveInfo()); 
+        channelInfo._channelName == channel._channelName)
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -249,9 +238,8 @@ Utility::ChannelLeaveCodes testChannelsRepository::leaveChannel(const Models::Ch
 
 Utility::ChannelSubscribingCodes testChannelsRepository::subscribeToChannel(const Models::ChannelSubscriptionInfo& channel)
 {
-    Models::ChannelSubscriptionInfo channelInfo(getMessageFiller().getChannelSubscriptionInfo());
-
-    if (channelInfo._channelID == channel._channelID)
+    if (Models::ChannelSubscriptionInfo channelInfo(getMessageFiller().getChannelSubscriptionInfo());
+        channelInfo._channelID == channel._channelID)
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -269,9 +257,9 @@ Utility::ChannelSubscribingCodes testChannelsRepository::subscribeToChannel(cons
 
 Utility::DirectMessageStatus testDirectMessageRepository::addDirectChat(uint64_t userID, uint64_t receiverID)
 {
-    uint16_t testUserID = getMessageFiller().getMessageInfo()._senderID;
+    uint64_t testUserID = getMessageFiller().getMessageInfo()._senderID;
 
-    if (uint16_t testReceiverID = getMessageFiller().getMessageInfo()._recipientID;
+    if (uint64_t testReceiverID = getMessageFiller().getMessageInfo()._recipientID;
         testUserID == userID && receiverID == testReceiverID)
     {
         Base::Logger::FileLogger::getInstance().log
