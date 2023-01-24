@@ -49,8 +49,6 @@ __Visual Code__:
 
  #### 3. Workflows and guides
 
- 1. Workflow
-    Workflow.md
+ 1. [Workflow](Workflow.md)
 
- 2. Style guide
-    Style_guide.md
+ 2. [Style guide](Style_guide.md)
