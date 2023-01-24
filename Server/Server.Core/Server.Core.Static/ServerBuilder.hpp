@@ -43,19 +43,19 @@ private:
     {
         // form a string with the configuration for connecting to the database
         std::string dbOptions = "";
-        for (const auto& [firstArg, secondArg] : _arguments)
+        for (const auto& [beginArg, endArg] : _arguments)
         {
-            if (firstArg != "--serverport")
+            if (beginArg != "--serverport")
             {
-                for (size_t i = 0; i < firstArg.length(); ++i)
+                for (size_t i = 0; i < beginArg.length(); ++i)
                 {
-                    if (firstArg[i] != '-')
+                    if (beginArg[i] != '-')
                     {
-                        dbOptions += firstArg[i];
+                        dbOptions += beginArg[i];
                     }
                 }
                 dbOptions += "=";
-                dbOptions += secondArg;
+                dbOptions += endArg;
                 dbOptions += " ";
             }
         }

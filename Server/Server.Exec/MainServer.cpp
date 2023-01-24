@@ -9,21 +9,20 @@ using Server::Builder::ServerBuilder;
 int main(int argc, const char** argv)
 {
     ArgParser parser(argc, argv);
-    auto serverBuild = ServerBuilder()
+    auto server = ServerBuilder()
                                  .setValue(parser.getPair("--serverport"))
                                  .setValue(parser.getPair("--dbname"))
                                  .setValue(parser.getPair("--hostaddr"))
                                  .setValue(parser.getPair("--port"))
                                  .setValue(parser.getPair("--user"))
                                  .setValue(parser.getPair("--password"))
-                                 /*.setValue("managerName")*/
                                  .makeServer();
 
-    serverBuild->start();
+    server->start();
 
     while (true)
     {
-        serverBuild->update();
+        server->update();
     }
     return 0;
 }

@@ -2,8 +2,7 @@ set(TARGET Server.Exec)
 set(OUTPUT_NAME ${PROJECT}.Server.Exec)
 
 set(SOURCE_FILES
-    MainServer.cpp
-    ArgParser.hpp)
+    MainServer.cpp)
 
 if(WIN32)
     set(EXTRA_LIBS ws2_32 wsock32)
@@ -13,11 +12,11 @@ add_executable(${TARGET} ${SOURCE_FILES})
 
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
-target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} 
-                                        argparse::argparse
-                                PUBLIC  Server.Core.Static
-                                        Network.Public 
-                                        Utility.Public)
+target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} argparse::argparse)
+
+target_link_libraries(${TARGET} PUBLIC  Server.Core.Static
+										Network.Public 
+										Utility.Public)
 
 install(TARGETS ${TARGET}
         CONFIGURATIONS Debug

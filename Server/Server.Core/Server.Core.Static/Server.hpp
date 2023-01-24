@@ -10,6 +10,7 @@
 #include "Network/Message.hpp"
 #include "Network/iAPI.hpp"
 #include "PostgreRepositoryManager.hpp"
+
 #include "Utility/SafeQueue.hpp"
 
 namespace DataAccess
@@ -26,7 +27,7 @@ using Utility::SafeQueue;
 using RepoManagerPtr = std::unique_ptr<DataAccess::IRepositoryManager>;
 
 /*
-* @brief declaration of ServerBuilder.
+* @brief Declaration of ServerBuilder.
 */
 namespace Builder
 {
