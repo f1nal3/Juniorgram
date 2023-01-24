@@ -1,15 +1,20 @@
 #pragma once
 
 #include <Server.hpp>
+
 #include <MockObjectsFiles/MockDatabase.hpp>
 #include <MockObjectsFiles/MockClient.hpp>
 #include <MockObjectsFiles/MockRepositoryManager.hpp>
-
-#include "Cryptography.hpp"
+#include "MockObjectsFiles/MessageFiller.hpp"
 
 namespace MockDataAccess
 {
 class MockRepositoryManager;
+}
+
+namespace MesgFiller
+{
+class MessageFiller;
 }
 
 namespace TestUtility
@@ -22,54 +27,33 @@ using Message          = Network::Message;
 using testServer       = Server::Server<RepoManager>;
 using MessageType      = Message::MessageType;
 using milliseconds     = std::chrono::milliseconds;
+using MessageFiller    = MesgFiller::MessageFiller;
+
+using LoginInfo               = Models::LoginInfo;
+using ReplyInfo               = Models::ReplyInfo;
+using MessageInfo             = Models::MessageInfo;
+using RegistrationInfo        = Models::RegistrationInfo;
+using ChannelSubscriptionInfo = Models::ChannelSubscriptionInfo;
+using ChannelDeleteInfo       = Models::ChannelDeleteInfo;
+using ChannelLeaveInfo        = Models::ChannelLeaveInfo;
+using ChannelInfo             = Models::ChannelInfo;
+
 
 constexpr bool testAcceptingConnection = true;
 
-struct UserInfo
-{
-    UserInfo() = default;
-    ~UserInfo() = default;
-
-    const std::string& getUserLogin() const { return testLogin; }
-    const std::string& getUserEmail() const { return testEmail; }
-    const std::string& getUserPassword() const { return testPSWD; }
-
-private:
-    const std::string testEmail{"demonstakingoverme@epam.co"};
-    const std::string testLogin{"memorisecodead"};
-    const std::string testPSWD{"12juniorgramMargroinuj"};
-};  
-
 inline Message& messageInit(Message& message, MessageType messageType) noexcept
 {
-using LoginInfo        = Models::LoginInfo;
-using ReplyInfo        = Models::ReplyInfo;
-using MessageInfo      = Models::MessageInfo;
-using RegistrationInfo = Models::RegistrationInfo;
-
-    UserInfo userInfo;
-    const std::string testPWDHash = Base::Hashing::SHA_256
-    (
-        userInfo.getUserPassword(), userInfo.getUserLogin()
-    );
-
-    const std::string testChannelName = "testServer";
-    const std::string testMessage     = "Hello, juniorgram!!";
-
-    constexpr uint16_t           testReactionID  = 0;
-    constexpr uint64_t           testMsgID       = 2;
-    constexpr uint64_t           testReceiverID  = 1;
-    constexpr uint64_t           testUserID      = 1;
-    constexpr uint64_t           testChannelID   = 1;
-
     message.mHeader.mMessageType = messageType;
     message.mHeader.mTimestamp   = RTC::to_time_t(RTC::now());
+    
+    MessageFiller mesgFiller;
+    mesgFiller.fillAllMessages();
 
     switch (messageType)
     {
         case Message::MessageType::RegistrationRequest:
         {
-            RegistrationInfo registrationInfo(userInfo.getUserEmail(), userInfo.getUserLogin(), testPWDHash);
+            RegistrationInfo registrationInfo(mesgFiller.getRegistrationInfo());
             message.mBody = std::make_any<RegistrationInfo>(registrationInfo);
 
             break;
@@ -77,7 +61,7 @@ using RegistrationInfo = Models::RegistrationInfo;
 
         case Message::MessageType::LoginRequest:
         {
-            LoginInfo loginInfo(userInfo.getUserLogin(), testPWDHash);
+            LoginInfo loginInfo(mesgFiller.getLoginInfo());
             message.mBody = std::make_any<LoginInfo>(loginInfo);
 
             break;
@@ -85,23 +69,23 @@ using RegistrationInfo = Models::RegistrationInfo;
 
         case Message::MessageType::ChannelCreateRequest:
         {
-            std::string_view channelInfo = testChannelName;
-            message.mBody           = std::make_any<std::string>(channelInfo);
+            std::string_view channelInfo = mesgFiller.getChannelInfo()._channelName;
+            message.mBody = std::make_any<std::string>(channelInfo);
 
             break;
         }
 
         case Message::MessageType::ChannelSubscriptionListRequest:
         {
-            message.mBody = std::make_any<Models::ChannelSubscriptionInfo>(testChannelID);
+            message.mBody = std::make_any<Models::ChannelSubscriptionInfo>
+                (mesgFiller.getChannelInfo()._channelID);
 
             break;
         }
 
         case Message::MessageType::ChannelSubscribeRequest:
         {
-            Models::ChannelSubscriptionInfo messageInfo(testChannelID);       
-            messageInfo._userID    = testUserID;
+            Models::ChannelSubscriptionInfo messageInfo(mesgFiller.getChannelSubscriptionInfo());       
             message.mBody          = std::any_cast<Models::ChannelSubscriptionInfo>(messageInfo);
 
             break;
@@ -109,55 +93,52 @@ using RegistrationInfo = Models::RegistrationInfo;
 
         case Message::MessageType::ChannelLeaveRequest:
         {
-            std::string_view messageInfo = testChannelName;
-            message.mBody           = std::make_any<std::string>(messageInfo);
+            std::string_view messageInfo = mesgFiller.getChannelLeaveInfo()._channelName;
+            message.mBody = std::make_any<std::string>(messageInfo);
 
             break;
         }
 
         case Message::MessageType::ReplyHistoryRequest:
         {
-            message.mBody = std::make_any<uint64_t>(testChannelID);
+            message.mBody = std::make_any<uint64_t>(mesgFiller.getChannelInfo()._channelID);
 
             break;
         }
 
         case Message::MessageType::ReplyStoreRequest:
         {
-            ReplyInfo replyInfo(testChannelID,testMessage);
-            replyInfo._msgID     = testMsgID;
-            message.mBody        = std::make_any<ReplyInfo>(replyInfo);
+            ReplyInfo replyInfo(mesgFiller.getReplyInfo());
+            message.mBody    = std::make_any<ReplyInfo>(replyInfo);
 
             break;
         }
 
         case Message::MessageType::MessageReactionRequest:
         {
-            MessageInfo messageInfo;
-            messageInfo._msgID                     = testMsgID;
-            messageInfo._reactions[testReactionID] = std::numeric_limits<uint32_t>::max();
-            message.mBody                          = std::make_any<MessageInfo>(messageInfo);
+            MessageInfo messageInfo(mesgFiller.getMessageInfo());
+            message.mBody = std::make_any<MessageInfo>(messageInfo);
 
             break;
         }
         
         case Message::MessageType::DirectMessageCreateRequest:
         {
-            message.mBody = std::make_any<uint64_t>(testReceiverID);
+            message.mBody = std::make_any<uint64_t>(mesgFiller.getMessageInfo()._recipientID);
 
             break;
         }
 
         case Message::MessageType::MessageHistoryRequest:
         {
-            message.mBody = std::make_any<uint64_t>(testChannelID);
+            message.mBody = std::make_any<uint64_t>(mesgFiller.getChannelInfo()._channelID);
 
             break;
         }
 
         case Message::MessageType::MessageStoreRequest:
         {
-            MessageInfo messageInfo(testChannelID,testMessage);
+            MessageInfo messageInfo(mesgFiller.getMessageInfo());
             message.mBody = std::make_any<MessageInfo>(messageInfo);
 
             break;
@@ -165,17 +146,15 @@ using RegistrationInfo = Models::RegistrationInfo;
 
         case Message::MessageType::MessageEditRequest:
         {
-            MessageInfo messageInfo(testChannelID, testMessage);
-            messageInfo._senderID = testUserID;
-            messageInfo._msgID    = testMsgID;
-            message.mBody           = std::make_any<MessageInfo>(messageInfo);
+            MessageInfo messageInfo(mesgFiller.getMessageInfo());
+            message.mBody         = std::make_any<MessageInfo>(messageInfo);
 
             break;
         }
 
         case Message::MessageType::MessageDeleteRequest:
         {
-            MessageInfo messageInfo(testChannelID, testMessage);
+            MessageInfo messageInfo(mesgFiller.getMessageInfo());
             message.mBody = std::make_any<MessageInfo>(messageInfo);
 
             break;
@@ -183,10 +162,8 @@ using RegistrationInfo = Models::RegistrationInfo;
 
         case Message::MessageType::ChannelDeleteRequest:
         {
-            Models::ChannelDeleteInfo channelDeleteInfo;
-            channelDeleteInfo._creatorID   = testUserID;
-            channelDeleteInfo._channelName = testChannelName;
-            message.mBody                  = std::make_any<std::string>(testChannelName);
+            Models::ChannelDeleteInfo channelDeleteInfo(mesgFiller.getChannelDeleteInfo());
+            message.mBody = std::make_any<std::string>(channelDeleteInfo._channelName);
 
             break;
         }

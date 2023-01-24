@@ -7,6 +7,9 @@ set(SOURCE_FILES
 	MockClient.hpp
 	MockDatabase.hpp
 	MockDatabase.cpp
+	MessageFiller.hpp
+	MessageFiller.cpp
+	TestMessagesOptions.hpp
 	MockRepositories.hpp
 	MockRepositories.cpp
 	MockRepositoryManager.hpp
