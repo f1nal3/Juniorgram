@@ -52,3 +52,9 @@ __Visual Code__:
  1. [Workflow](Workflow.md)
 
  2. [Style guide](Style_guide.md)
+
+ #### 4. Various
+
+ 1. [Local server setup](Setup server on localhost.md)
+
+ 2. [Debugging](Improved debugging.md)
