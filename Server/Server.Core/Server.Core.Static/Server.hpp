@@ -41,8 +41,8 @@ class ServerBuilder;
  *           is to communicate with clients, accepting messages from them, processing
  *           them according to certain logic prescribed in the handler functions (there is a
  *           handler for each type of message), and returning the result back to the client.
- *           See the API documentation in a file "Network/iAPI.h"
- *           The Server object is created through a special helper class, see ServerBuilder
+ *           See the API documentation in a file "Network/iAPI.h".
+ *           The Server object is created through a special helper class, see ServerBuilder.
  */
 class Server : public Network::iAPI
 {
@@ -139,4 +139,4 @@ private:
     std::deque<std::thread>                 _threads;
     RepoManagerPtr                          _repoManager;
 };
-}  // namespace Server
+}  /// namespace Server

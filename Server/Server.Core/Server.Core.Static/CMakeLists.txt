@@ -5,7 +5,6 @@ set(SOURCE_FILES
     Server.hpp
 	Server.cpp
 	ArgParser.hpp
-	ArgParser.cpp
     ServerBuilder.hpp)
 
 if(WIN32)
@@ -13,8 +12,6 @@ if(WIN32)
 endif()
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
-
-set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE CXX FOLDER ${FOLDER})
 
 target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS}
 										argparse::argparse
@@ -25,6 +22,9 @@ target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS}
 										Base.Logger.Static
                                 PUBLIC	DataAccess.Postgre  
 										DataAccess.Public)
+
+set_target_properties(${TARGET} PROPERTIES LINKER_LANGUAGE 
+								CXX FOLDER ${FOLDER})
 
 target_include_directories(${TARGET} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
 									 PRIVATE $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..

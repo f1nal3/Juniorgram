@@ -39,7 +39,7 @@ public:
     }
 
 private:
-    Server* make()
+    Server* make() noexcept
     {
         // form a string with the configuration for connecting to the database
         std::string dbOptions = "";
@@ -73,7 +73,7 @@ private:
             server->initRepository(std::move(_repository));
         }
 
-        uint16_t port = std::stoi(_arguments["--serverport"]);
+        uint16_t port = static_cast<uint16_t>(std::stoi(_arguments["--serverport"]));
         server->initConnection(port);
 
         return server;
@@ -82,4 +82,4 @@ private:
     std::map<std::string, std::string>  _arguments;
     RepoManagerPtr                      _repository;
 };
-}  // namespace Server::Builder
+}  /// namespace Server::Builder
