@@ -1,6 +1,6 @@
 #pragma once
+#include "Network/YasSerializer.hpp"
 #include "Network/Message.hpp"
-#include "YasSerializer.hpp"
 
 namespace Network
 {

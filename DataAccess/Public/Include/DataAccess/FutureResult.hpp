@@ -1,5 +1,8 @@
 #pragma once
 
+#include <any>
+#include <future>
+
 namespace DataAccess
 {
     using RawFuture = std::future<std::any>;
@@ -27,4 +30,4 @@ namespace DataAccess
         }
     };
     
-} /// namespace DataAccess
+} // namespace DataAccess

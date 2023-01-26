@@ -20,10 +20,11 @@ conan_cmake_configure(REQUIRES asio/1.18.1
                                expat/2.2.10
                                catch2/2.13.8
                                libtool/2.4.6
-                               libpq/13.6
-                               libpqxx/7.7.3
+                               libpq/14.5
+                               libpqxx/7.7.4
                                nlohmann_json/3.9.1
                                yas/7.0.5
+                               argparse/2.4
                     GENERATORS cmake_find_package_multi)
 
 # This detects system settings such as platform, compiler, etc.
@@ -46,3 +47,4 @@ find_package(cryptopp REQUIRED)
 find_package(libpqxx REQUIRED)
 find_package(nlohmann_json REQUIRED)
 find_package(yas REQUIRED)
+find_package(argparse REQUIRED)

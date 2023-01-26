@@ -32,7 +32,7 @@ TEST_CASE("Constructor argument parser")
         CHECK_THROWS_AS(ArgumentParser(static_cast<int>(args.size()), args.data()), std::exception);
     }
 
-    SECTION("Invalid arguments keys throw an exeption")
+    SECTION("Invalid arguments keys throw an exception")
     {
         {
             std::vector<const char*> args = {"path_to_project", "any_key", "641", "-d"};

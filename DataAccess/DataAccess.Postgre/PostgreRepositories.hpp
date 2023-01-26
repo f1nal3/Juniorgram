@@ -10,14 +10,14 @@ namespace DataAccess
 struct AbstractPostgreRepository
 {
 protected:
-    std::unique_ptr<PostgreQuery> _pTable;
+    std::unique_ptr<PGQueryBuilder> _pTable;
 };
 
 struct ChannelsRepository final : IChannelsRepository, AbstractPostgreRepository
 {
     explicit ChannelsRepository(const std::shared_ptr<IAdapter>& adapter) 
     {
-        _pTable = std::make_unique<PostgreQuery>("users", adapter); 
+        _pTable = std::make_unique<PGQueryBuilder>("users", adapter); 
     }
     
     std::vector<Models::ChannelInfo>       getAllChannelsList() override;
@@ -35,7 +35,7 @@ struct DirectMessageRepository final : IDirectMessageRepository, AbstractPostgre
 {
     explicit DirectMessageRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        _pTable = std::make_unique<PostgreQuery>("channels", adapter);
+        _pTable = std::make_unique<PGQueryBuilder>("channels", adapter);
     }
 
     Utility::DirectMessageStatus addDirectChat(uint64_t user_id, uint64_t receiverID) override;
@@ -47,7 +47,7 @@ struct LoginRepository : ILoginRepository, AbstractPostgreRepository
 {
     explicit LoginRepository(const std::shared_ptr<IAdapter>& adapter) 
     {
-        _pTable = std::make_unique<PostgreQuery>("users", adapter); 
+        _pTable = std::make_unique<PGQueryBuilder>("users", adapter); 
     }
 
     std::uint64_t loginUser(const Models::LoginInfo& loginInfo) override;
@@ -59,7 +59,7 @@ struct MessagesRepository final : IMessagesRepository, AbstractPostgreRepository
 {
     explicit MessagesRepository(const std::shared_ptr<IAdapter>& adapter) 
     {
-        _pTable = std::make_unique<PostgreQuery>("users", adapter); 
+        _pTable = std::make_unique<PGQueryBuilder>("users", adapter); 
     }
 
     std::vector<Models::MessageInfo>       getMessageHistory(const std::uint64_t channelID) override;
@@ -80,7 +80,7 @@ struct RegisterRepository final : IRegisterRepository, AbstractPostgreRepository
 {
     explicit RegisterRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        _pTable = std::make_unique<PostgreQuery>("users", adapter); 
+        _pTable = std::make_unique<PGQueryBuilder>("users", adapter); 
     }
 
     Utility::RegistrationCodes registerUser(const Models::RegistrationInfo& regInfo) override;
@@ -92,7 +92,7 @@ struct RepliesRepository final : IRepliesRepository, AbstractPostgreRepository
 {
     explicit RepliesRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        _pTable = std::make_unique<PostgreQuery>("msgs", adapter);
+        _pTable = std::make_unique<PGQueryBuilder>("msgs", adapter);
     }
 
     std::vector<Models::ReplyInfo>       getReplyHistory(const std::uint64_t channelID) override;

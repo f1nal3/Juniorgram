@@ -19,7 +19,7 @@ namespace UtilityTime
 using RTC = std::chrono::system_clock; 
 
 /**
- * @brief timestamp_t - alias that make more understantable format of keeping server-client timestamp represantation.
+ * @brief timestamp_t - alias that make more understandable format of keeping server-client timestamp representation.
  */
 using timestamp_t = std::uint64_t;
 
@@ -91,18 +91,18 @@ inline timestamp_t millisecondsSinceEpoch() noexcept
 * @brief Converts and returns the current time to the date format ("%d.%m.%Y").
 * @details std::strftime converts the date and time information /
 * from a given calendar time time to a null-terminated multibyte /
-* character string stringifyedDate according to format string format.
+* character string stringifyDate according to format string format.
 */
 inline std::string getStringifiedCurrentDate()
 {
     using std::chrono::system_clock;
 
-    std::string stringifyedDate(20, '\0');
+    std::string stringifyDate(20, '\0');
     std::time_t raw_time = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     std::tm time    = safe_localtime(raw_time);
 
-    std::strftime(stringifyedDate.data(), stringifyedDate.size(), "%d.%m.%Y", &time);
+    std::strftime(stringifyDate.data(), stringifyDate.size(), "%d.%m.%Y", &time);
 
-    return stringifyedDate;
+    return stringifyDate;
 }
 }  // namespace UtilityTime

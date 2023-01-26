@@ -1,7 +1,8 @@
 #pragma once
-#include "PostgreRepositoryContainer.hpp"
-
 #include <DataAccess/AbstractRepositoryManager.hpp>
+
+#include "PostgreRepositoryContainer.hpp"
+#include "PostgreRepositories.hpp"
 
 namespace DataAccess
 {
@@ -13,7 +14,17 @@ namespace DataAccess
 class PostgreRepositoryManager: public IRepositoryManager
 {
 public:
-	explicit PostgreRepositoryManager(const std::shared_ptr<IAdapter>& repositoryContainer)
-		: IRepositoryManager(repositoryContainer) {}
+    explicit PostgreRepositoryManager(const std::shared_ptr<IAdapter> repositoryContainer)
+    {
+        auto repo = std::make_unique<AbstractRepositoryContainer>(repositoryContainer);
+        repo->registerRepository<IChannelsRepository,   ChannelsRepository>();
+        repo->registerRepository<ILoginRepository,      LoginRepository>();
+        repo->registerRepository<IMessagesRepository,   MessagesRepository>();
+        repo->registerRepository<IRegisterRepository,   RegisterRepository>();
+        repo->registerRepository<IRepliesRepository,    RepliesRepository>();
+        repo->registerRepository<IDirectMessageRepository, DirectMessageRepository>();
+        
+        IRepositoryManager::init(std::move(repo));
+    }
 };
-}  /// namespace DataAccess 
+}  // namespace DataAccess

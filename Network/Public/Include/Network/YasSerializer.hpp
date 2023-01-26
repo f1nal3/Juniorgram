@@ -53,7 +53,8 @@ namespace Network
         {
             try
             {
-                suppressWarning(4127, "-Wtype-limits") msg = yas::save<flags>(data);
+                suppressWarning(4127, "-Wtype-limits") 
+                msg = yas::save<flags>(data);
                 restoreWarning
             }
             catch (const std::exception& e)

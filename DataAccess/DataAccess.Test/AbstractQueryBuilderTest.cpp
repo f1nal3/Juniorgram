@@ -1,15 +1,15 @@
 #include <catch2/catch.hpp>
 
-#include "DataAccess/QueryBuilder.hpp"
+#include "DataAccess/AbstractQueryBuilder.hpp"
 #include "DataAccess.Postgre/DataBaseOptions.hpp"
 #include "DataAccess.Postgre/PostgreAdapter.hpp"
 
-using DataAccess::QueryBuilder;
+using DataAccess::AbstractQueryBuilder;
 using DataAccess::IAdapter;
 
 TEST_CASE("QueryBuilder cover", "[dummy]")
 {
-	QueryBuilder<pqxx::result> testQueryBuilder(Utility::DatabaseType::DB_POSTGRE, "users",
+	AbstractQueryBuilder<pqxx::result> testQueryBuilder(Utility::DatabaseType::DB_POSTGRE, "users",
 								IAdapter::getInstance<DataAccess::PostgreAdapter>(DBOptions::test));
 
 	SECTION("Try to initialize the reference and catch the exception")

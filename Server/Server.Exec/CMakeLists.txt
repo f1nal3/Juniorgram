@@ -10,11 +10,13 @@ endif()
 
 add_executable(${TARGET} ${SOURCE_FILES})
 
-set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
+target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} 
+                                        argparse::argparse
+                                PUBLIC  Server.Core.Static
+										Network.Public 
+										Utility.Public)
 
-target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} asio::asio yas::yas)
-target_link_libraries(${TARGET} PUBLIC Server.Core.Static)
-target_link_libraries(${TARGET} PUBLIC Network.Public Utility.Public)
+set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
 install(TARGETS ${TARGET}
         CONFIGURATIONS Debug

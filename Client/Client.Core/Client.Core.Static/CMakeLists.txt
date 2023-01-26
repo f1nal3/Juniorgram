@@ -12,16 +12,17 @@ endif ()
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
-target_include_directories(${TARGET}
-        INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${TARGET} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(${TARGET}
-        PRIVATE ${EXTRA_LIBS} asio::asio yas::yas
+        PRIVATE ${EXTRA_LIBS} 
+                asio::asio 
+                yas::yas
         PUBLIC Network.Public 
-        PUBLIC Utility.Public
-        PUBLIC Base.Crypto.Static 
-        PUBLIC Base.Logger.Static
-        PUBLIC Models.Public)
+                Utility.Public
+                Base.Crypto.Static 
+                Base.Logger.Static
+                Models.Public)
 
 set_target_properties(${TARGET} PROPERTIES
     LINKER_LANGUAGE CXX

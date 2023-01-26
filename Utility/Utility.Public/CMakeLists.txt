@@ -2,7 +2,7 @@ set(TARGET Utility.Public)
 set(OUTPUT_NAME ${PROJECT}.Utility.Public)
 
 set(SOURCE_FILES
-        Include/Utility/Exception.hpp
+        Include/Utility/JGExceptions.hpp
         Include/Utility/SQLUtility.hpp
         Include/Utility/WarningSuppression.hpp
         Include/Utility/UserDataValidation.hpp
@@ -10,7 +10,7 @@ set(SOURCE_FILES
         Include/Utility/SafeQueue.hpp
         Include/Utility/UtilityTime.hpp)
 
-add_library(${TARGET} INTERFACE)
+add_library(${TARGET} INTERFACE ${SOURCE_FILES})
 target_sources(${TARGET} INTERFACE ${SOURCE_FILES})
 target_include_directories(${TARGET} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/Include)
 

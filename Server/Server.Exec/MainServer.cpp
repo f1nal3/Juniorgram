@@ -1,36 +1,28 @@
 #include <iostream>
 #include <stdexcept>
 
-#include <Server.hpp>
-#include <ArgumentParser.hpp>
+#include "ServerBuilder.hpp"
+#include "ArgParser.hpp"
+
+using Server::Builder::ServerBuilder;
 
 int main(int argc, const char** argv)
 {
-    using Base::Logger::LogLevel;
-    using Base::Logger::FileLogger;
+    ArgParser parser(argc, argv);
+    auto server = ServerBuilder()
+                                 .setValue(parser.getPair("--serverport"))
+                                 .setValue(parser.getPair("--dbname"))
+                                 .setValue(parser.getPair("--hostaddr"))
+                                 .setValue(parser.getPair("--port"))
+                                 .setValue(parser.getPair("--user"))
+                                 .setValue(parser.getPair("--password"))
+                                 .makeServer();
 
-    uint16_t port;
-
-    try
-    {
-        ArgumentParser parser(argc, argv);
-        port = parser.getPort();
-    }
-    catch (const std::runtime_error& e)
-    {
-        FileLogger::getInstance().log
-        (
-            e.what(), 
-            LogLevel::ERR
-        );
-    }
-
-    Server::Server server(port);
-    server.start();
+    server->start();
 
     while (true)
     {
-        server.update();
+        server->update();
     }
     return 0;
 }
