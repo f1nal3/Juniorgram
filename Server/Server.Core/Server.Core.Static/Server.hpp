@@ -24,7 +24,7 @@ using asio::ip::tcp;
 using Network::Connection;
 using Network::Message;
 using Utility::SafeQueue;
-using RepoManagerPtr = std::unique_ptr<DataAccess::IRepositoryManager>;
+using RepoManagerUPtr = std::unique_ptr<DataAccess::IRepositoryManager>;
 
 /*
 * @brief Declaration of ServerBuilder.
@@ -94,7 +94,7 @@ private:
      *
      * @param repoManager - pointer to instance of dependency repository
      */
-    void initRepository(RepoManagerPtr repoManager);
+    void initRepository(RepoManagerUPtr repoManager);
 
     /**
      * @brief Setter for purpose of initialize host port. This is how the endpoint is configured.
@@ -137,6 +137,6 @@ private:
     std::deque<std::shared_ptr<Connection>> _connectionsPointers;
     SafeQueue<Message>                      _incomingMessagesQueue;
     std::deque<std::thread>                 _threads;
-    RepoManagerPtr                          _repoManager;
+    RepoManagerUPtr                          _repoManager;
 };
 }  /// namespace Server

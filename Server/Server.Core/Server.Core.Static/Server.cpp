@@ -54,7 +54,7 @@ void Server::waitForClientConnection()
         { acceptingClientConnection(error, socket); });
 }
 
-void Server::initRepository(RepoManagerPtr repoManager) { _repoManager.swap(repoManager); }
+void Server::initRepository(RepoManagerUPtr repoManager) { _repoManager.swap(repoManager); }
 
 void Server::initConnection(const uint16_t port) { _acceptor = std::make_unique<tcp::acceptor>(_context, tcp::endpoint(tcp::v4(), port)); }
 

@@ -43,19 +43,19 @@ private:
     {
         // form a string with the configuration for connecting to the database
         std::string dbOptions = "";
-        for (const auto& [beginArg, endArg] : _arguments)
+        for (const auto& [configName, configValue] : _arguments)
         {
-            if (beginArg != "--serverport")
+            if (configName != "--serverport")
             {
-                for (size_t i = 0; i < beginArg.length(); ++i)
+                for (size_t i = 0; i < configName.length(); ++i)
                 {
-                    if (beginArg[i] != '-')
+                    if (configName[i] != '-')
                     {
-                        dbOptions += beginArg[i];
+                        dbOptions += configName[i];
                     }
                 }
                 dbOptions += "=";
-                dbOptions += endArg;
+                dbOptions += configValue;
                 dbOptions += " ";
             }
         }
@@ -80,6 +80,6 @@ private:
     }
 
     std::map<std::string, std::string>  _arguments;
-    RepoManagerPtr                      _repository;
+    RepoManagerUPtr                      _repository;
 };
 }  /// namespace Server::Builder
