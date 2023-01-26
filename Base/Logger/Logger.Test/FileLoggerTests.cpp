@@ -3,7 +3,7 @@
 #include "Logger.Static/FileLogger.hpp"
 #include "Utility/UtilityTime.hpp"
 #include <Utility/Utility.hpp>
-#include <Utility/Exception.hpp>
+#include <Utility/JGExceptions.hpp>
 
 using namespace Base::Logger;
 using UtilityTime::safe_localtime;
@@ -54,8 +54,8 @@ TEST_CASE("Checking the corresponding lvl log")
 {
     SECTION("Create log file")
     {
-        FileLogger& loger = FileLogger::getInstance();
-        loger.log("Test: create new log", LogLevel::DEBUG);
+        FileLogger& logger = FileLogger::getInstance();
+        logger.log("Test: create new log", LogLevel::DEBUG);
         pauseForRecording();
     }
 
@@ -67,8 +67,8 @@ TEST_CASE("Log in debug creates log file")
     SECTION("Create some log")
     {
         {
-            FileLogger& loger = FileLogger::getInstance();
-            loger.log("Test: create new log", LogLevel::DEBUG);
+            FileLogger& logger = FileLogger::getInstance();
+            logger.log("Test: create new log", LogLevel::DEBUG);
             pauseForRecording();
         }
     }

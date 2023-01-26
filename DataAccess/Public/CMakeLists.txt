@@ -10,15 +10,14 @@ set(SOURCE_FILES
         Include/DataAccess/IRepository.hpp
         Include/DataAccess/IServerRepositories.hpp
         Include/DataAccess/SQLStatements.hpp
-        Include/DataAccess/QueryBuilder.hpp
+        Include/DataAccess/AbstractQueryBuilder.hpp
         Include/DataAccess/RepositoryRequest.hpp
         Include/DataAccess/FutureResult.hpp)
 
-add_library(${TARGET} INTERFACE)
+add_library(${TARGET} INTERFACE ${SOURCE_FILES})
 
 target_sources(${TARGET} INTERFACE ${SOURCE_FILES})
 
-target_include_directories(${TARGET}
-        INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/Include)
+target_link_libraries(${TARGET} INTERFACE Models.Public Utility.Public)
 
-target_link_libraries(${TARGET} INTERFACE Models.Public)
+target_include_directories(${TARGET} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/Include/)

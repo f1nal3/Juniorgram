@@ -47,4 +47,14 @@ __Visual Code__:
  1. Clone this repository or download as Zip from Github.
  2. Run VS Code and open the root CMakeLists.txt. It will automatically detect the root CMakeLists.txt and execute it, after which you can start/debug the server and client sides.
 
- 
+ #### 3. Workflows and guides
+
+ 1. [Workflow](Workflow.md)
+
+ 2. [Style guide](Style_guide.md)
+
+ #### 4. Various
+
+ 1. [Local server setup](Setup server on localhost.md)
+
+ 2. [Debugging](Improved debugging.md)

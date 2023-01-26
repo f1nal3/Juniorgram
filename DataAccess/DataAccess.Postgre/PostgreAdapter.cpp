@@ -8,18 +8,18 @@ namespace DataAccess
 
         if (_instance == nullptr)
         {
-            _instance = std::shared_ptr<PostgreAdapter>(new PostgreAdapter(options.empty() ? _defaultOptions : options));
+            _instance = std::shared_ptr<PostgreAdapter>(new PostgreAdapter(options));
         }
 
         return _instance;
     }
 
-    pqxx::connection& PostgreAdapter::getConnection(void) 
+    pqxx::connection& PostgreAdapter::getConnection() 
     {
         return *_connection; 
     }
 
-    bool PostgreAdapter::isConnected(void) const 
+    bool PostgreAdapter::isConnected() const 
     {
         return _connection->is_open(); 
     }
@@ -48,10 +48,10 @@ namespace DataAccess
         return std::nullopt;
     }
 
-    void PostgreAdapter::closeConnection(void) 
+    void PostgreAdapter::closeConnection() 
     { 
         _instance.reset();
         _connection.reset();
     }
 
-} ///namespace DataAccess
+} // namespace DataAccess

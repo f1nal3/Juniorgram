@@ -3254,7 +3254,7 @@
 					<v:ud v:nameU="Rounding" v:prompt="" v:val="VT0(0.11811023622047):24"/>
 					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(параметр)"/>
 					<v:ud v:nameU="TemplateParm" v:prompt="" v:val="VT0(1):5"/>
-					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(ResultType DataType... ColumnType = string)"/>
+					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(ResultTypeDataType...ColumnType = string)"/>
 				</v:userDefs>
 				<v:textBlock v:margins="rect(2,4,2,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="46.8975" cy="1134.55" width="93.8" height="40.0037"/>
@@ -3414,7 +3414,7 @@
 					<v:ud v:nameU="Rounding" v:prompt="" v:val="VT0(0.11811023622047):24"/>
 					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(параметр)"/>
 					<v:ud v:nameU="TemplateParm" v:prompt="" v:val="VT0(1):5"/>
-					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(ResultType Args...&#10;ColumnType = string)"/>
+					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(ResultTypeArgs...&#10;ColumnType = string)"/>
 				</v:userDefs>
 				<v:textBlock v:margins="rect(2,4,2,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="46.8975" cy="1134.55" width="93.8" height="40.0037"/>
@@ -3572,7 +3572,7 @@
 					<v:ud v:nameU="Rounding" v:prompt="" v:val="VT0(0.11811023622047):24"/>
 					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(параметр)"/>
 					<v:ud v:nameU="TemplateParm" v:prompt="" v:val="VT0(1):5"/>
-					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(ResultType Args...&#10;ColumnType = string)"/>
+					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(ResultTypeArgs...&#10;ColumnType = string)"/>
 				</v:userDefs>
 				<v:textBlock v:margins="rect(2,4,2,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="46.8975" cy="1134.55" width="93.8" height="40.0037"/>
@@ -5474,7 +5474,7 @@
 					<v:ud v:nameU="Rounding" v:prompt="" v:val="VT0(0.11811023622047):24"/>
 					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(параметр)"/>
 					<v:ud v:nameU="TemplateParm" v:prompt="" v:val="VT0(1):5"/>
-					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(TIRepository TReturn&#10;TArgs...)"/>
+					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(TIRepositoryTReturn&#10;TArgs...)"/>
 				</v:userDefs>
 				<v:textBlock v:margins="rect(2,4,2,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="30.7157" cy="1134.55" width="61.44" height="40.0037"/>
@@ -7307,7 +7307,7 @@
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
-				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(ST_SELECT ST_INSERT ST_UPDATE ST_DELETE)"/>
+				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(ST_SELECTST_INSERTST_UPDATEST_DELETE)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT5(#4672c4)"/>

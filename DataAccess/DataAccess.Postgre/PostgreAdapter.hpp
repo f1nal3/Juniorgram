@@ -5,10 +5,8 @@
 
 #include <pqxx/pqxx>
 
-#include <Utility/Exception.hpp>
+#include <Utility/JGExceptions.hpp>
 #include <DataAccess/IAdapter.hpp>
-
-#include "DataBaseOptions.hpp"
 
 namespace DataAccess
 {
@@ -22,7 +20,6 @@ class PostgreAdapter final : public IAdapter
 private:
     inline static std::mutex                        _staticMutex{};
     inline static std::shared_ptr<PostgreAdapter>   _instance{};
-    inline static constexpr std::string_view        _defaultOptions = DBOptions::real;
 
     std::mutex                                      _queryMutex;
     std::unique_ptr<pqxx::connection>               _connection;
@@ -46,7 +43,7 @@ public:
     *    (it's because I designed the interface badly). 
     *    Instead use getInstance method.
     *   @param options - Connection options.
-    *   @return Pointer to current instanse of Postgre adapter.
+    *   @return Pointer to current instance of Postgre adapter.
     */
     static std::shared_ptr<PostgreAdapter> Instance(const std::string_view& options = {});
 
@@ -58,7 +55,7 @@ public:
     *    or a timestamp you must wrap the string/text by single quotes. 
     *    You don't have to put ';' at the end of query.
     *   @code 
-    *   ...->query("SELECT * FROM table_name WHERE name = 'memorisecodead'");
+    *   ...->query("SELECT * FROM table_name WHERE name = 'username'");
     *   @endcode
     *   @param SQL query in the form of string.
     *   @return Optional result.
