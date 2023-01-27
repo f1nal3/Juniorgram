@@ -1,11 +1,17 @@
 #pragma once
 
-#include <Server.hpp>
+#include <ArgParser.hpp>
+#include <ServerBuilder.hpp>
 
 #include <MockObjectsFiles/MockDatabase.hpp>
 #include <MockObjectsFiles/MockClient.hpp>
 #include <MockObjectsFiles/MockRepositoryManager.hpp>
-#include "MockObjectsFiles/MessageFiller.hpp"
+#include <MockObjectsFiles/MessageFiller.hpp>
+
+namespace Builder
+{
+class ServerBuilder;
+}
 
 namespace MockDataAccess
 {
@@ -24,10 +30,11 @@ using RepoManager      = MockDataAccess::MockRepositoryManager;
 using RTC              = std::chrono::system_clock;
 using Client           = MockClient::MockClient;
 using Message          = Network::Message;
-using testServer       = Server::Server<RepoManager>;
+using TestServer       = std::unique_ptr<Server::Server>;
 using MessageType      = Message::MessageType;
 using milliseconds     = std::chrono::milliseconds;
 using MessageFiller    = MesgFiller::MessageFiller;
+using ServerBuilder    = Server::Builder::ServerBuilder;
 
 using LoginInfo               = Models::LoginInfo;
 using ReplyInfo               = Models::ReplyInfo;
@@ -37,7 +44,6 @@ using ChannelSubscriptionInfo = Models::ChannelSubscriptionInfo;
 using ChannelDeleteInfo       = Models::ChannelDeleteInfo;
 using ChannelLeaveInfo        = Models::ChannelLeaveInfo;
 using ChannelInfo             = Models::ChannelInfo;
-
 
 constexpr bool testAcceptingConnection = true;
 
@@ -200,7 +206,7 @@ inline void testSendingMessages(const Client& Client, const MessageType mesgType
     Client.send(message);
 }
 
-constexpr testServer& testServerUpdating(testServer& serverTest) noexcept
+constexpr TestServer& testServerUpdating(TestServer& serverTest) noexcept
 {
     unsigned int countOfUpdate        = 0;
     unsigned int iterationOfServer    = 1;
@@ -211,10 +217,10 @@ constexpr testServer& testServerUpdating(testServer& serverTest) noexcept
         ++countOfUpdate;
         if (countOfUpdate > iterationOfServer)
         {
-            serverTest.stop();
+            serverTest->stop();
             break;
         }
-        serverTest.update();
+        serverTest->update();
     }
 
     return serverTest;
@@ -243,6 +249,21 @@ inline auto bindOfConnectToServer(Client& Client,
 
     return connectionInit();
 }
+//
+//TestServer makeTestServer(int argc, const char** argv)
+//{
+//    ArgParser  parser(argc, argv);
+//    TestServer server = ServerBuilder()
+//                      .setValue(parser.getPair("--serverport"))
+//                      .setValue(parser.getPair("--dbname"))
+//                      .setValue(parser.getPair("--hostaddr"))
+//                      .setValue(parser.getPair("--port"))
+//                      .setValue(parser.getPair("--user"))
+//                      .setValue(parser.getPair("--password"))
+//                      .makeServer();
+//
+//    return server;
+//}
 
 constexpr uint16_t getTestingPort() 
 {
@@ -256,9 +277,8 @@ constexpr std::string_view getTestingAddress()
 
 inline auto getTestingDatabase() noexcept
 {
-    auto testDatabase =
-        std::make_unique<RepoManager>(Database::getInstance<Database>());
-
+    auto testDatabase 
+        = std::make_unique<RepoManager>(Database::getInstance<Database>());
     return testDatabase;
 }
 }  // namespace TestUtility

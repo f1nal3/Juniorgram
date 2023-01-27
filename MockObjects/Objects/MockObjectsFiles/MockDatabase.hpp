@@ -1,7 +1,7 @@
 #pragma once
 
 #include <DataAccess/IAdapter.hpp>
-#include <Utility/Exception.hpp>
+#include <Utility/JGExceptions.hpp>
 
 #include <memory>
 #include <mutex>

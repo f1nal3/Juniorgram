@@ -8,7 +8,8 @@ std::shared_ptr<MockDatabase> MockDatabase::Instance(const std::string_view& opt
 
     if (_instance == nullptr)
     {
-        _instance = std::shared_ptr<MockDatabase>(std::make_shared<MockDatabase>(options.empty() ? _defaultOptions : options));
+        _instance = std::shared_ptr<MockDatabase>
+            (std::make_shared<MockDatabase>(options.empty() ? _defaultOptions : options));
     }
 
     return _instance;

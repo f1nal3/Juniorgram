@@ -2,7 +2,6 @@ set(TARGET Server.Test)
 set(OUTPUT_NAME Server.Test)
 
 set(SOURCE_FILES
-        ArgumentParserTests.cpp
 		ServerFeaturesOfMessagesTests.cpp
 		ServerDefaultMessagesTests.cpp
 		ServerChannelMessagesTests.cpp
@@ -16,17 +15,16 @@ add_executable(${TARGET} ${SOURCE_FILES} ${HEADER_FILES})
 
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
-target_link_libraries(${TARGET}
-PUBLIC 
-    Precompiled.Catch2.Main 
-    Server.Core.Static
-	Client.Core.Static
-    DataAccess.Debug
-	PostgreSQL::pq 
-    libpqxx::libpqxx    
-	asio::asio
-	MockObjectsFiles
-	)
+target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIB}
+				argparse::argparse
+				libpqxx::libpqxx    
+				asio::asio
+		PUBLIC  Precompiled.Catch2.Main 
+				Server.Core.Static
+				Client.Core.Static
+				DataAccess.Debug
+				PostgreSQL::pq 
+				MockObjectsFiles)
 
  target_include_directories(${TARGET} PRIVATE
 	 $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)

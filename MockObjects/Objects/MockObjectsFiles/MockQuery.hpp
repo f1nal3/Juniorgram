@@ -1,11 +1,11 @@
 #pragma once
 
-#include <DataAccess/QueryBuilder.hpp>
+#include <DataAccess/AbstractQueryBuilder.hpp>
 #include "MockDatabase.hpp"
 
 namespace MockQuery
 {
-using DataAccess::QueryBuilder;
+using DataAccess::AbstractQueryBuilder;
 using DataAccess::IAdapter;
 using Database = MockDatabase::MockDatabase;
 
@@ -22,16 +22,12 @@ using Database = MockDatabase::MockDatabase;
  *    MockQuery("tableName4").Delete()->where("condition")->...->execute()/OR/getQuery();
  * @endcode
  */
-class MockQuery : public QueryBuilder<pqxx::result>
+class MockQuery : public AbstractQueryBuilder<pqxx::result>
 {
 public:
     MockQuery(const std::string& tableName, std::shared_ptr<IAdapter> adapter = Database::getInstance<Database>())
-        : QueryBuilder(Utility::DatabaseType::DB_POSTGRE, tableName, adapter)
-    {
-    }
+        : AbstractQueryBuilder(Utility::DatabaseType::DB_POSTGRE, tableName, adapter){}
     MockQuery(const std::string& tableName, std::string_view options)
-        : QueryBuilder(Utility::DatabaseType::DB_POSTGRE, tableName, Database::getInstance<Database>(options))
-    {
-    }
+        : AbstractQueryBuilder(Utility::DatabaseType::DB_POSTGRE, tableName, Database::getInstance<Database>(options)){}
 };
 }  // namespace MockQuery

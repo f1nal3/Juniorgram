@@ -6,12 +6,19 @@
 
 namespace MockDataAccess
 {
-class MockRepositoryManager : public MockIRepositoryManager
+class MockRepositoryManager : public DataAccess::IRepositoryManager
 {
 public:
-using MockDataAccess::MockIRepositoryManager::MockIRepositoryManager;
-
-    MockRepositoryManager()           = default;
-    ~MockRepositoryManager() override = default;
+    explicit MockRepositoryManager(const std::shared_ptr<DataAccess::IAdapter> repositoryContainer)
+    {
+        auto repo = std::make_unique<DataAccess::AbstractRepositoryContainer>(repositoryContainer);
+        repo->registerRepository<DataAccess::IChannelsRepository, MockRepositories::testChannelsRepository>();
+        repo->registerRepository<DataAccess::ILoginRepository, MockRepositories::testLoginRepository>();
+        repo->registerRepository<DataAccess::IMessagesRepository, MockRepositories::testMessagesRepository>();
+        repo->registerRepository<DataAccess::IRegisterRepository, MockRepositories::testRegisterRepository>();
+        repo->registerRepository<DataAccess::IRepliesRepository, MockRepositories::testRepliesRepository>();
+        repo->registerRepository<DataAccess::IDirectMessageRepository, MockRepositories::testDirectMessageRepository>();
+        IRepositoryManager::init(std::move(repo));
+    }
 };
 }  // namespace MockDataAccess
