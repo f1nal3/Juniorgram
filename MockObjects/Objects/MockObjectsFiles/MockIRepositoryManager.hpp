@@ -32,7 +32,8 @@ class MockIRepositoryManager
 public:
     MockIRepositoryManager() = default;
 
-    void init(std::unique_ptr<DataAccess::AbstractRepositoryContainer> repositories) { _repositories = std::move(repositories); }
+    void init(std::unique_ptr<DataAccess::AbstractRepositoryContainer> repositories) 
+    { _repositories = std::move(repositories); }
 
     /**
      * @brief Destroy the IRepositoryManager object but before synchronize all threads.
@@ -55,7 +56,7 @@ public:
     template <DataAccess::ePriority priority = DataAccess::ePriority::_15, typename TIRepository, typename TReturn, typename... TArgs>
     DataAccess::FutureResult<TReturn> pushRequest(const MethodReference<TIRepository, TReturn, TArgs...>& methodRef, TArgs&&... args)
     {
-        static_assert(std::is_base_of_v<IMasterRepository, TIRepository>, "Current type is not implement IMasterRepository!");
+        static_assert(std::is_base_of_v<DataAccess::IMasterRepository, TIRepository>, "Current type is not implement IMasterRepository!");
         static_assert(std::is_polymorphic_v<TIRepository> && std::is_abstract_v<TIRepository>,
                       "Current type is not polymorphic or abstract!");
         static_assert(std::is_member_function_pointer_v<MethodReference<TIRepository, TReturn, TArgs...>>,
@@ -63,8 +64,8 @@ public:
 
         std::unique_lock lock(_queueMutex);
 
-        RepositoryRequest     request = this->createRequest<priority>(methodRef, std::forward<TArgs>(args)...);
-        FutureResult<TReturn> futureResult(request.getFutureFromTask());
+        DataAccess::RepositoryRequest     request = this->createRequest<priority>(methodRef, std::forward<TArgs>(args)...);
+        DataAccess::FutureResult<TReturn> futureResult(request.getFutureFromTask());
 
         _queue.push(std::move(request));
         _queueCV.notify_one();
@@ -110,11 +111,11 @@ private:
     {
         auto iRepository = _repositories->getRepository<TIRepository>();
 
-        RequestTask task([iRepository, methodRef, args = std::make_tuple(std::forward<TArgs>(args)...)]() mutable -> std::any {
+        DataAccess::RequestTask task([iRepository, methodRef, args = std::make_tuple(std::forward<TArgs>(args)...)]() mutable -> std::any {
             return std::apply(methodRef, std::tuple_cat(std::make_tuple(iRepository), std::move(args)));
         });
 
-        return RepositoryRequest(priority, task);
+        return DataAccess::RepositoryRequest(priority, task);
     }
 
     /**
