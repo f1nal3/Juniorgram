@@ -5,9 +5,9 @@ using namespace TestUtility;
 
 TEST_CASE("Workflow of checking registration request of server")
 {
-    //int testArgc = 6;
-    //const char* testArgv[] = {"65001", "juniorgram", "127.0.0.1", "5432", "postgres", "123123"};
-    ArgParser  parser(__argc, const_cast<const char**>(__argv));
+    int testArgc = 1;
+    const char* testArgv[]{"path_to_project"};
+    ArgParser parser(testArgc, testArgv);
     TestServer server = ServerBuilder()
                                         .setValue(parser.getPair("--serverport"))
                                         .setValue(parser.getPair("--dbname"))
