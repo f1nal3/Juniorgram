@@ -1,6 +1,5 @@
 #pragma once
 
-#include <ArgParser.hpp>
 #include <ServerBuilder.hpp>
 
 #include <MockObjectsFiles/MockDatabase.hpp>

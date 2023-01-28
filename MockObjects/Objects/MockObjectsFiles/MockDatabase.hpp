@@ -7,7 +7,7 @@
 #include <mutex>
 #include <pqxx/pqxx>
 
-#include <DataAccess.Postgre/DataBaseOptions.hpp>
+#include "TestDatabaseOptions.hpp"
 
 namespace MockDatabase
 {
@@ -22,7 +22,7 @@ class MockDatabase final : public IAdapter
 private:
     inline static std::mutex                          _staticMutex{};
     inline static std::shared_ptr<MockDatabase>       _instance{};
-    static constexpr std::string_view                 _defaultOptions = DBOptions::test;
+    static constexpr std::string_view                 _defaultOptions = TestDBOptions::testProperties;
 
     std::mutex                        _queryMutex;
     std::unique_ptr<pqxx::connection> _connection;
