@@ -21,7 +21,10 @@ namespace MesgFiller
 {
 class MessageFiller;
 }
-
+/**
+* @brief namespace Test Utility.
+* @details This namespace is for testing the server.
+*/
 namespace TestUtility
 {
 using Database         = MockDatabase::MockDatabase;
@@ -47,10 +50,16 @@ using ChannelInfo             = Models::ChannelInfo;
 
 constexpr bool testAcceptingConnection = true;
 
-struct TestPairFlags
+/**
+* @brief struct ConfigArguments.
+* @details Designed to receive arguments from the ServerBuilder.
+*          This structure has only get methods. If you want to change the values of the arguments, /
+*                                                  you can do it manually in the private section.
+*/
+struct ConfigArguments
 {
-    TestPairFlags()  = default;
-    ~TestPairFlags() = default;
+    ConfigArguments() = default;
+    ~ConfigArguments() = default;
 
     PairArguments& getServerPortArguments() { return serverPortPair; }
     PairArguments& getBadServerPortArguments() { return badServerPortPair; }
@@ -70,7 +79,13 @@ private:
     PairArguments  passwordPair{"--password", "postgres"};
 };
 
-inline Message& messageInit(Message& message, MessageType messageType) noexcept
+/**
+* @brief Method for making message.
+* @details This method takes the body of an empty message as well as its type. /
+*                      After receiving the type, the message is filled with data.
+* @param Message& message(message body), MessageType messageType(type of message).
+*/
+inline Message& makeMessage(Message& message, MessageType messageType) noexcept
 {
     message.mHeader.mMessageType = messageType;
     message.mHeader.mTimestamp   = RTC::to_time_t(RTC::now());
@@ -218,18 +233,30 @@ inline Message& messageInit(Message& message, MessageType messageType) noexcept
     return message;
 }
 
+/**
+* @brief Method for sending messages to client part.
+* @details Another method (makeMessage) is called inside the method to generate the message. /
+*          After the message is generated, it is sent to the client side for further processing.
+* @param const Client& Client(Client object), const MessageType mesgType(type of message).
+*/
 inline void testSendingMessages(const Client& Client, const MessageType mesgType) noexcept
 {
     Message message;
     std::mutex scopedMutex;
 
     std::scoped_lock scopedLock(scopedMutex);
-    messageInit(message, mesgType);
+    makeMessage(message, mesgType);
     std::this_thread::sleep_for(milliseconds(5000));
     Client.send(message);
 }
 
-constexpr TestServer& testServerUpdating(TestServer& serverTest) noexcept
+/**
+* @brief Method for updating server.
+* @details The logic of this method counts on one server update to handle one message from the client side. /
+*          After acceptance, the server gives its response and stops it's work.
+* @param TestServer& server(test server).
+*/
+constexpr TestServer& testServerUpdating(TestServer& server) noexcept
 {
     unsigned int countOfUpdate        = 0;
     unsigned int iterationOfServer    = 1;
@@ -240,15 +267,21 @@ constexpr TestServer& testServerUpdating(TestServer& serverTest) noexcept
         ++countOfUpdate;
         if (countOfUpdate > iterationOfServer)
         {
-            serverTest->stop();
+            server->stop();
             break;
         }
-        serverTest->update();
+        server->update();
     }
 
-    return serverTest;
+    return server;
 }
 
+/**
+* @brief Message binding method.
+* @details This method binds method arguments to initialize the testSendingMessages method.
+*          It simplifies the code and makes it compact. /
+* @param Client& Client(Client object), MessageType mesgType(type of message).
+*/
 inline decltype(auto) bindOfSendingMessage(Client& Client, MessageType mesgType) noexcept
 {
     using namespace std::placeholders;
@@ -261,6 +294,13 @@ inline decltype(auto) bindOfSendingMessage(Client& Client, MessageType mesgType)
    return sendingMessage(Client,mesgType);
 }
 
+/**
+* @brief Connect to server binding method.
+* @details This method binds method arguments to initialize the Client::connectToServer method./
+*          It simplifies the code and makes it compact.
+* @param Client& Client(Client object), const std::string_view& address(ip adress for connection), /
+*        const uint16_t port(port for connection).
+*/
 inline auto bindOfConnectToServer(Client& Client, 
     const std::string_view& address, const uint16_t port) noexcept
 {
@@ -273,47 +313,73 @@ inline auto bindOfConnectToServer(Client& Client,
     return connectionInit();
 }
 
+/**
+* @brief Method for getting a test database.
+* @details This database is a mock object that is used for testing. 
+*          The database is registered through the MockRepositoryManager(RepoManager), / 
+*                          which internally initializes repositories. 
+*/
 inline auto getTestDatabase() noexcept
 {
     auto testDatabase = std::make_unique<RepoManager>(Database::getInstance<Database>());
     return testDatabase;
 }
 
+/**
+* @brief Method for configuring the test server.
+* @details The server is configured through the ServerBuilder. 
+*          The arguments that we set for testing are in the ConfigArguments structure.
+*          If you need to set other arguments, you can do so in the ConfigArguments structure.
+*/
 inline auto makeTestServer() noexcept
 {
-    TestPairFlags pairFlags;
+    ConfigArguments configArgs;
     TestServer testServer = ServerBuilder()
-                                    .setValue(pairFlags.getServerPortArguments())
-                                    .setValue(pairFlags.getDatabaseArguments())
-                                    .setValue(pairFlags.getHostAddrArguments())
-                                    .setValue(pairFlags.getDatabasePortArguments())
-                                    .setValue(pairFlags.getDatabaseUserArguments())
-                                    .setValue(pairFlags.getDatabasePasswordArguments())
-                                    .setValue(getTestDatabase().release())
-                                    .makeServer();
-    return testServer;
-}
-
-inline auto makeTestBadServer() noexcept
-{
-    TestPairFlags pairFlags;
-    TestServer    testServer = ServerBuilder()
-                                .setValue(pairFlags.getBadServerPortArguments())
-                                .setValue(pairFlags.getDatabaseArguments())
-                                .setValue(pairFlags.getHostAddrArguments())
-                                .setValue(pairFlags.getDatabasePortArguments())
-                                .setValue(pairFlags.getDatabaseUserArguments())
-                                .setValue(pairFlags.getDatabasePasswordArguments())
+                                .setValue(configArgs.getServerPortArguments())
+                                .setValue(configArgs.getDatabaseArguments())
+                                .setValue(configArgs.getHostAddrArguments())
+                                .setValue(configArgs.getDatabasePortArguments())
+                                .setValue(configArgs.getDatabaseUserArguments())
+                                .setValue(configArgs.getDatabasePasswordArguments())
                                 .setValue(getTestDatabase().release())
                                 .makeServer();
     return testServer;
 }
 
+/**
+* @brief Method for configuring the test bad server.
+* @details The server is configured through the ServerBuilder. 
+*          The arguments that we set for testing are in the ConfigArguments structure.
+*          If you need to set other arguments, you can do so in the ConfigArguments structure.
+*/
+inline auto makeTestBadServer() noexcept
+{
+    ConfigArguments configArgs;
+    TestServer      testServer = ServerBuilder()
+                                .setValue(configArgs.getBadServerPortArguments())
+                                .setValue(configArgs.getDatabaseArguments())
+                                .setValue(configArgs.getHostAddrArguments())
+                                .setValue(configArgs.getDatabasePortArguments())
+                                .setValue(configArgs.getDatabaseUserArguments())
+                                .setValue(configArgs.getDatabasePasswordArguments())
+                                .setValue(getTestDatabase().release())
+                                .makeServer();
+    return testServer;
+}
+
+/**
+* @brief Method for getting a test port.
+* @details The return value comes from the namespace with the given values.
+*/
 constexpr uint16_t getTestingPort() 
 {
     return ServerInfo::Port::test;
 }
 
+/**
+* @brief Method for getting a test address.
+* @details The return value comes from the namespace with the given values.
+*/
 constexpr std::string_view getTestingAddress()
 {
     return ServerInfo::Address::local;
