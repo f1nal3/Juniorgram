@@ -14,9 +14,9 @@ using Network::Message;
 using Utility::SafeQueue;
 
 /**
-*  @class MockClient.
-*  @brief This class is designed to emulate a client connection.
-*  @details Uses std::asio tools.
+* @brief MockClient class.
+* @details This class is designed to emulate a client connection. /
+*          Uses std::asio tools.
 */
 class MockClient : public Client
 {
