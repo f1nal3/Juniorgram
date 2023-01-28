@@ -35,6 +35,7 @@ using MessageType      = Message::MessageType;
 using milliseconds     = std::chrono::milliseconds;
 using MessageFiller    = MesgFiller::MessageFiller;
 using ServerBuilder    = Server::Builder::ServerBuilder;
+using PairArguments    = std::pair<std::string, std::string>;
 
 using LoginInfo               = Models::LoginInfo;
 using ReplyInfo               = Models::ReplyInfo;
@@ -45,10 +46,30 @@ using ChannelDeleteInfo       = Models::ChannelDeleteInfo;
 using ChannelLeaveInfo        = Models::ChannelLeaveInfo;
 using ChannelInfo             = Models::ChannelInfo;
 
-inline int         configArgc = 1;
-inline const char* configArgv[]{"path_to_project"};
-
 constexpr bool testAcceptingConnection = true;
+
+struct TestPairFlags
+{
+    TestPairFlags()  = default;
+    ~TestPairFlags() = default;
+
+    PairArguments& getServerPortArguments() { return serverPortPair; }
+    PairArguments& getBadServerPortArguments() { return badServerPortPair; }
+    PairArguments& getDatabaseArguments() { return dbnamePair; }
+    PairArguments& getHostAddrArguments() { return hostPair; }
+    PairArguments& getDatabasePortArguments() { return dbportPair; }
+    PairArguments& getDatabaseUserArguments() { return userPair; }
+    PairArguments& getDatabasePasswordArguments() { return passwordPair; }
+
+private:
+    PairArguments  serverPortPair{"--serverport", "65001"};
+    PairArguments  badServerPortPair{"--serverport", "666666"};
+    PairArguments  dbnamePair{"--dbname", "juniorgram"};
+    PairArguments  hostPair{"--hostaddr", "127.0.0.1"};
+    PairArguments  dbportPair{"--port", "5432"};
+    PairArguments  userPair{"--user", "postgres"};
+    PairArguments  passwordPair{"--password", "postgres"};
+};
 
 inline Message& messageInit(Message& message, MessageType messageType) noexcept
 {
@@ -253,6 +274,42 @@ inline auto bindOfConnectToServer(Client& Client,
     return connectionInit();
 }
 
+inline auto getTestDatabase() noexcept
+{
+    auto testDatabase = std::make_unique<RepoManager>(Database::getInstance<Database>());
+    return testDatabase;
+}
+
+inline auto makeTestServer() noexcept
+{
+    TestPairFlags pairFlags;
+    TestServer testServer = ServerBuilder()
+                                    .setValue(pairFlags.getServerPortArguments())
+                                    .setValue(pairFlags.getDatabaseArguments())
+                                    .setValue(pairFlags.getHostAddrArguments())
+                                    .setValue(pairFlags.getDatabasePortArguments())
+                                    .setValue(pairFlags.getDatabaseUserArguments())
+                                    .setValue(pairFlags.getDatabasePasswordArguments())
+                                    .setValue(getTestDatabase().release())
+                                    .makeServer();
+    return testServer;
+}
+
+inline auto makeTestBadServer() noexcept
+{
+    TestPairFlags pairFlags;
+    TestServer    testServer = ServerBuilder()
+                                .setValue(pairFlags.getBadServerPortArguments())
+                                .setValue(pairFlags.getDatabaseArguments())
+                                .setValue(pairFlags.getHostAddrArguments())
+                                .setValue(pairFlags.getDatabasePortArguments())
+                                .setValue(pairFlags.getDatabaseUserArguments())
+                                .setValue(pairFlags.getDatabasePasswordArguments())
+                                .setValue(getTestDatabase().release())
+                                .makeServer();
+    return testServer;
+}
+
 constexpr uint16_t getTestingPort() 
 {
     return ServerInfo::Port::test;
@@ -261,12 +318,5 @@ constexpr uint16_t getTestingPort()
 constexpr std::string_view getTestingAddress()
 {
     return ServerInfo::Address::local;
-}
-
-inline auto getTestingDatabase() noexcept
-{
-    auto testDatabase 
-        = std::make_unique<RepoManager>(Database::getInstance<Database>());
-    return testDatabase;
 }
 }  // namespace TestUtility

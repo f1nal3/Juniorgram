@@ -6,46 +6,28 @@ using namespace TestUtility;
 TEST_CASE("Workflow of checking server ping")
 {
     Client     mockClient;
-    ArgParser  parser(configArgc, configArgv);
-    TestServer server = ServerBuilder()
-                            .setValue(parser.getPair("--serverport"))
-                            .setValue(parser.getPair("--dbname"))
-                            .setValue(parser.getPair("--hostaddr"))
-                            .setValue(parser.getPair("--port"))
-                            .setValue(parser.getPair("--user"))
-                            .setValue(parser.getPair("--password"))
-                            .setValue(getTestingDatabase().release())
-                            .makeServer();
-    server->start();
+    auto       testServer = makeTestServer();
 
+    testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ServerPing));
     }
-    testServerUpdating(server);
+    testServerUpdating(testServer);
 }
 
 TEST_CASE("Workflow of checking default request of server side")
 {
     Client     mockClient;
-    ArgParser  parser(configArgc, configArgv);
-    TestServer server = ServerBuilder()
-                            .setValue(parser.getPair("--serverport"))
-                            .setValue(parser.getPair("--dbname"))
-                            .setValue(parser.getPair("--hostaddr"))
-                            .setValue(parser.getPair("--port"))
-                            .setValue(parser.getPair("--user"))
-                            .setValue(parser.getPair("--password"))
-                            .setValue(getTestingDatabase().release())
-                            .makeServer();
-    server->start();
+    auto       testServer = makeTestServer();
+    constexpr auto failedType = int16_t(666);
 
-    constexpr auto failedType         = int16_t(666);
+    testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType(failedType)));
     }
-    testServerUpdating(server);
+    testServerUpdating(testServer);
 }
