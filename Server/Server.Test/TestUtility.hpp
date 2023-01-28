@@ -45,6 +45,9 @@ using ChannelDeleteInfo       = Models::ChannelDeleteInfo;
 using ChannelLeaveInfo        = Models::ChannelLeaveInfo;
 using ChannelInfo             = Models::ChannelInfo;
 
+inline int         configArgc = 1;
+inline const char* configArgv[]{"path_to_project"};
+
 constexpr bool testAcceptingConnection = true;
 
 inline Message& messageInit(Message& message, MessageType messageType) noexcept
@@ -249,21 +252,6 @@ inline auto bindOfConnectToServer(Client& Client,
 
     return connectionInit();
 }
-//
-//TestServer makeTestServer(int argc, const char** argv)
-//{
-//    ArgParser  parser(argc, argv);
-//    TestServer server = ServerBuilder()
-//                      .setValue(parser.getPair("--serverport"))
-//                      .setValue(parser.getPair("--dbname"))
-//                      .setValue(parser.getPair("--hostaddr"))
-//                      .setValue(parser.getPair("--port"))
-//                      .setValue(parser.getPair("--user"))
-//                      .setValue(parser.getPair("--password"))
-//                      .makeServer();
-//
-//    return server;
-//}
 
 constexpr uint16_t getTestingPort() 
 {

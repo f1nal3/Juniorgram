@@ -2,7 +2,7 @@
 #include <DataAccess/AbstractRepositoryManager.hpp>
 
 #include "DataAccess.Postgre/PostgreRepositoryContainer.hpp"
-#include "MockIRepositoryManager.hpp"
+#include "MockRepositories.hpp"
 
 namespace MockDataAccess
 {
