@@ -39,6 +39,9 @@ using MessageFiller    = MesgFiller::MessageFiller;
 using ServerBuilder    = Server::Builder::ServerBuilder;
 using PairArguments    = std::pair<std::string, std::string>;
 
+/**
+* @brief These names are for messages.
+*/
 using LoginInfo               = Models::LoginInfo;
 using ReplyInfo               = Models::ReplyInfo;
 using MessageInfo             = Models::MessageInfo;
