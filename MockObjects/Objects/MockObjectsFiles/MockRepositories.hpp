@@ -18,16 +18,28 @@ using IRepliesRepository       = DataAccess::IRepliesRepository;
 using MessageFiller            = MesgFiller::MessageFiller;
 using Query                    = MockQuery::MockQuery;
 
+/**
+* @brief class TestAbstractRepository.
+* @details Designed to query a specific repository. /
+*          The class contains two members: /
+*          std::unique_ptr<Query> _pTable(for creating a query), /
+*          MessageFiller _mesgFiller(for filling repository messages with data). 
+*/
 struct TestAbstractRepository
 {
 public:
     std::unique_ptr<Query>& getTable() { return _pTable; }
-    MessageFiller&          getMessageFiller() { return mesgFiller; }
+    MessageFiller&          getMessageFiller() { return _mesgFiller; }
 private:
     std::unique_ptr<Query> _pTable;
-    MessageFiller          mesgFiller;
+    MessageFiller          _mesgFiller;
 };
 
+/**
+* @brief class testChannelsRepository.
+* @details Inherited from IChannelRepository class (for overriding methods related to this repository) \
+*          and TestAbstractRepository(class to create a request to the repository).  
+*/
 struct testChannelsRepository final : IChannelRepository, TestAbstractRepository
 {
     explicit testChannelsRepository(const std::shared_ptr<IAdapter>& adapter)
@@ -49,6 +61,11 @@ struct testChannelsRepository final : IChannelRepository, TestAbstractRepository
     ~testChannelsRepository() override = default;
 };
 
+/**
+* @brief class testDirectMessageRepository.
+* @details Inherited from IDirectMessageRepository class (for overriding methods related to this repository) \
+*          and TestAbstractRepository(class to create a request to the repository).  
+*/
 struct testDirectMessageRepository final : IDirectMessageRepository, TestAbstractRepository
 {
     explicit testDirectMessageRepository(const std::shared_ptr<IAdapter>& adapter)
@@ -62,6 +79,11 @@ struct testDirectMessageRepository final : IDirectMessageRepository, TestAbstrac
     ~testDirectMessageRepository() override = default;
 };
 
+/**
+* @brief class testLoginRepository.
+* @details Inherited from ILoginRepository class (for overriding methods related to this repository) \
+*          and TestAbstractRepository(class to create a request to the repository).  
+*/
 struct testLoginRepository final : ILoginRepository, TestAbstractRepository
 {
     explicit testLoginRepository(const std::shared_ptr<IAdapter>& adapter)
@@ -75,6 +97,11 @@ struct testLoginRepository final : ILoginRepository, TestAbstractRepository
     ~testLoginRepository() override = default;
 };
 
+/**
+* @brief class testMessagesRepository.
+* @details Inherited from IMessagesRepository class (for overriding methods related to this repository) \
+*          and TestAbstractRepository(class to create a request to the repository).  
+*/
 struct testMessagesRepository final : IMessagesRepository, TestAbstractRepository
 {
     explicit testMessagesRepository(const std::shared_ptr<IAdapter>& adapter)
@@ -92,6 +119,11 @@ struct testMessagesRepository final : IMessagesRepository, TestAbstractRepositor
     ~testMessagesRepository() override = default;
 };
 
+/**
+* @brief class testRegisterRepository.
+* @details Inherited from IRegisterRepository class (for overriding methods related to this repository) \
+*          and TestAbstractRepository(class to create a request to the repository).  
+*/
 struct testRegisterRepository final : IRegisterRepository, TestAbstractRepository
 {
     explicit testRegisterRepository(const std::shared_ptr<IAdapter>& adapter)
@@ -105,6 +137,11 @@ struct testRegisterRepository final : IRegisterRepository, TestAbstractRepositor
     ~testRegisterRepository() override = default;
 };
 
+/**
+* @brief class testRepliesRepository.
+* @details Inherited from IRepliesRepository class (for overriding methods related to this repository) \
+*          and TestAbstractRepository(class to create a request to the repository).  
+*/
 struct testRepliesRepository final : IRepliesRepository, TestAbstractRepository
 {
     explicit testRepliesRepository(const std::shared_ptr<IAdapter>& adapter)
