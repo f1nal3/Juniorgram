@@ -15,6 +15,11 @@ using ChannelDeleteInfo       = Models::ChannelDeleteInfo;
 using ChannelLeaveInfo        = Models::ChannelLeaveInfo;
 using ChannelInfo             = Models::ChannelInfo;
 
+/**
+* @brief MessageFiller class.
+* @details This class is for filling the body of messages as well as taking them. /
+*          We can fill the message individually or all at once.
+*/
 class MessageFiller
 {
 public:

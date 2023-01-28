@@ -6,6 +6,11 @@
 
 namespace MockDataAccess
 {
+/**
+* @brief class MockRepositoryManager.
+* @details The specific(Postgre) instance of IRepositoryManager. /
+*          Controls push to queue and further processing of requests (have own thread for it).
+*/
 class MockRepositoryManager : public DataAccess::IRepositoryManager
 {
 public:

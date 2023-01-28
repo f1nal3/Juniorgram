@@ -278,8 +278,8 @@ constexpr TestServer& testServerUpdating(TestServer& server) noexcept
 
 /**
 * @brief Message binding method.
-* @details This method binds method arguments to initialize the testSendingMessages method.
-*          It simplifies the code and makes it compact. /
+* @details This method binds method arguments to initialize the testSendingMessages method. /
+*          It simplifies the code and makes it compact. 
 * @param Client& Client(Client object), MessageType mesgType(type of message).
 */
 inline decltype(auto) bindOfSendingMessage(Client& Client, MessageType mesgType) noexcept
