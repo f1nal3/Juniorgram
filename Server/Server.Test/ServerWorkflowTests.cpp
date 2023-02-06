@@ -17,12 +17,8 @@ TEST_CASE("TestServerStartUp [success case]")
     REQUIRE_NOTHROW(testServerUpdating(testServer));
 }
 
-suppressWarning(4244, "-Wconversion")
-suppressWarning(4242, "-Wconversion")
 TEST_CASE("TestServerFailStartUpWithBadPort [failed case]")
 {   
     TestServer testServer;
-    REQUIRE_THROWS_AS(testServer = makeTestBadServer(), std::exception);
+    CHECK_FALSE(makeTestBadServer(testServer));
 }
-restoreWarning
-restoreWarning

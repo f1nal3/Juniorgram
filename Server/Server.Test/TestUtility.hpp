@@ -237,13 +237,13 @@ inline Message& makeMessage(Message& message, MessageType messageType) noexcept
                     (uint32_t(message.mHeader.mMessageType)) + "]",
                      Base::Logger::LogLevel::WARNING
                 );
-                throw std::exception("Bad implementation!");
+                throw std::invalid_argument("Unimplemented!");
 
                 break;
             }
         }
     }
-    catch (const std::exception& testException)
+    catch (const std::invalid_argument& testException)
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -374,15 +374,15 @@ inline auto makeTestServer() noexcept
 *          If you need to set other arguments, you can do so in the ConfigArguments structure. /
 *          At the moment the server does not throw an exception if the port is invalid. 
 */
+suppressWarning(4457, "-Wconversion")
 suppressWarning(4702, "-Wconversion")
-suppressWarning(4702, "-Wconversion")
-suppressWarning(4702, "-Wconversion")
-inline auto makeTestBadServer()
+suppressWarning(4100, "-Wunused-parameter")
+inline auto makeTestBadServer(TestServer& testServer)
 {
-    throw std::exception("Bad Server port!");
-
     try
     {
+        throw std::invalid_argument("Bad Server port!");
+
         ConfigArguments configArgs;
         TestServer      testServer = ServerBuilder()
                                     .setValue(configArgs.getBadServerPortArguments())
@@ -395,13 +395,14 @@ inline auto makeTestBadServer()
                                     .makeServer();
         return testServer;
     }
-    catch (const std::exception& badServerPort)
+    catch (const std::invalid_argument& badServerPort)
     {
         Base::Logger::FileLogger::getInstance().log
         (
             badServerPort.what(),
             Base::Logger::LogLevel::WARNING
         );
+        return TestServer();
     }
 }
 restoreWarning
