@@ -17,10 +17,6 @@ namespace MockDataAccess
 class MockRepositoryManager;
 }
 
-namespace MesgFiller
-{
-class MessageFiller;
-}
 /**
 * @brief namespace Test Utility.
 * @details This namespace is for testing the server.
@@ -35,7 +31,7 @@ using Message          = Network::Message;
 using TestServer       = std::unique_ptr<Server::Server>;
 using MessageType      = Message::MessageType;
 using milliseconds     = std::chrono::milliseconds;
-using MessageFiller    = MesgFiller::MessageFiller;
+using MessageFiller    = TestUtility::MessageFiller;
 using ServerBuilder    = Server::Builder::ServerBuilder;
 using PairArguments    = std::pair<std::string, std::string>;
 
@@ -96,142 +92,164 @@ inline Message& makeMessage(Message& message, MessageType messageType) noexcept
     MessageFiller mesgFiller;
     mesgFiller.fillAllMessages();
 
-    switch (messageType)
+    try
     {
-        case Message::MessageType::RegistrationRequest:
+        switch (messageType)
         {
-            RegistrationInfo registrationInfo(mesgFiller.getRegistrationInfo());
-            message.mBody = std::make_any<RegistrationInfo>(registrationInfo);
+            case Message::MessageType::RegistrationRequest:
+            {
+                RegistrationInfo registrationInfo(mesgFiller.getRegistrationInfo());
+                message.mBody = std::make_any<RegistrationInfo>(registrationInfo);
 
-            break;
+                break;
+            }
+
+            case Message::MessageType::LoginRequest:
+            {
+                LoginInfo loginInfo(mesgFiller.getLoginInfo());
+                message.mBody = std::make_any<LoginInfo>(loginInfo);
+
+                break;
+            }
+
+            case Message::MessageType::ChannelCreateRequest:
+            {
+                std::string_view channelInfo = mesgFiller.getChannelInfo()._channelName;
+                message.mBody                = std::make_any<std::string>(channelInfo);
+
+                break;
+            }
+
+            case Message::MessageType::ChannelSubscriptionListRequest:
+            {
+                message.mBody = std::make_any<Models::ChannelSubscriptionInfo>(mesgFiller.getChannelInfo()._channelID);
+
+                break;
+            }
+
+            case Message::MessageType::ChannelSubscribeRequest:
+            {
+                Models::ChannelSubscriptionInfo messageInfo(mesgFiller.getChannelSubscriptionInfo());
+                message.mBody = std::any_cast<Models::ChannelSubscriptionInfo>(messageInfo);
+
+                break;
+            }
+
+            case Message::MessageType::ChannelLeaveRequest:
+            {
+                std::string_view messageInfo = mesgFiller.getChannelLeaveInfo()._channelName;
+                message.mBody                = std::make_any<std::string>(messageInfo);
+
+                break;
+            }
+
+            case Message::MessageType::ReplyHistoryRequest:
+            {
+                message.mBody = std::make_any<uint64_t>(mesgFiller.getChannelInfo()._channelID);
+
+                break;
+            }
+
+            case Message::MessageType::ReplyStoreRequest:
+            {
+                ReplyInfo replyInfo(mesgFiller.getReplyInfo());
+                message.mBody = std::make_any<ReplyInfo>(replyInfo);
+
+                break;
+            }
+
+            case Message::MessageType::MessageReactionRequest:
+            {
+                MessageInfo messageInfo(mesgFiller.getMessageInfo());
+                message.mBody = std::make_any<MessageInfo>(messageInfo);
+
+                break;
+            }
+
+            case Message::MessageType::DirectMessageCreateRequest:
+            {
+                message.mBody = std::make_any<uint64_t>(mesgFiller.getMessageInfo()._recipientID);
+
+                break;
+            }
+
+            case Message::MessageType::MessageHistoryRequest:
+            {
+                message.mBody = std::make_any<uint64_t>(mesgFiller.getChannelInfo()._channelID);
+
+                break;
+            }
+
+            case Message::MessageType::MessageStoreRequest:
+            {
+                MessageInfo messageInfo(mesgFiller.getMessageInfo());
+                message.mBody = std::make_any<MessageInfo>(messageInfo);
+
+                break;
+            }
+
+            case Message::MessageType::MessageEditRequest:
+            {
+                MessageInfo messageInfo(mesgFiller.getMessageInfo());
+                message.mBody = std::make_any<MessageInfo>(messageInfo);
+
+                break;
+            }
+
+            case Message::MessageType::MessageDeleteRequest:
+            {
+                MessageInfo messageInfo(mesgFiller.getMessageInfo());
+                message.mBody = std::make_any<MessageInfo>(messageInfo);
+
+                break;
+            }
+
+            case Message::MessageType::ChannelDeleteRequest:
+            {
+                Models::ChannelDeleteInfo channelDeleteInfo(mesgFiller.getChannelDeleteInfo());
+                message.mBody = std::make_any<std::string>(channelDeleteInfo._channelName);
+
+                break;
+            }
+
+            case Message::MessageType::ChannelListRequest:
+            {
+                std::vector<Models::ChannelInfo> testChannelList;
+                message.mBody = std::make_any<std::vector<Models::ChannelInfo>>(testChannelList);
+
+                break;
+            }
+            case Message::MessageType::ServerAccept:
+            {
+                Base::Logger::FileLogger::getInstance().log
+                (
+                    "[TestUtilityMessage]: Server accepted the connection!",
+                     Base::Logger::LogLevel::INFO
+                );
+
+                break;
+            }
+            default:
+            {
+                Base::Logger::FileLogger::getInstance().log
+                (
+                    "[TestUtilityMessage]: Unimplemented[" + std::to_string
+                    (uint32_t(message.mHeader.mMessageType)) + "]",
+                     Base::Logger::LogLevel::WARNING
+                );
+                throw std::exception("Bad implementation!");
+
+                break;
+            }
         }
-
-        case Message::MessageType::LoginRequest:
-        {
-            LoginInfo loginInfo(mesgFiller.getLoginInfo());
-            message.mBody = std::make_any<LoginInfo>(loginInfo);
-
-            break;
-        }
-
-        case Message::MessageType::ChannelCreateRequest:
-        {
-            std::string_view channelInfo = mesgFiller.getChannelInfo()._channelName;
-            message.mBody = std::make_any<std::string>(channelInfo);
-
-            break;
-        }
-
-        case Message::MessageType::ChannelSubscriptionListRequest:
-        {
-            message.mBody = std::make_any<Models::ChannelSubscriptionInfo>
-                (mesgFiller.getChannelInfo()._channelID);
-
-            break;
-        }
-
-        case Message::MessageType::ChannelSubscribeRequest:
-        {
-            Models::ChannelSubscriptionInfo messageInfo(mesgFiller.getChannelSubscriptionInfo());       
-            message.mBody          = std::any_cast<Models::ChannelSubscriptionInfo>(messageInfo);
-
-            break;
-        }
-
-        case Message::MessageType::ChannelLeaveRequest:
-        {
-            std::string_view messageInfo = mesgFiller.getChannelLeaveInfo()._channelName;
-            message.mBody = std::make_any<std::string>(messageInfo);
-
-            break;
-        }
-
-        case Message::MessageType::ReplyHistoryRequest:
-        {
-            message.mBody = std::make_any<uint64_t>(mesgFiller.getChannelInfo()._channelID);
-
-            break;
-        }
-
-        case Message::MessageType::ReplyStoreRequest:
-        {
-            ReplyInfo replyInfo(mesgFiller.getReplyInfo());
-            message.mBody    = std::make_any<ReplyInfo>(replyInfo);
-
-            break;
-        }
-
-        case Message::MessageType::MessageReactionRequest:
-        {
-            MessageInfo messageInfo(mesgFiller.getMessageInfo());
-            message.mBody = std::make_any<MessageInfo>(messageInfo);
-
-            break;
-        }
-        
-        case Message::MessageType::DirectMessageCreateRequest:
-        {
-            message.mBody = std::make_any<uint64_t>(mesgFiller.getMessageInfo()._recipientID);
-
-            break;
-        }
-
-        case Message::MessageType::MessageHistoryRequest:
-        {
-            message.mBody = std::make_any<uint64_t>(mesgFiller.getChannelInfo()._channelID);
-
-            break;
-        }
-
-        case Message::MessageType::MessageStoreRequest:
-        {
-            MessageInfo messageInfo(mesgFiller.getMessageInfo());
-            message.mBody = std::make_any<MessageInfo>(messageInfo);
-
-            break;
-        }
-
-        case Message::MessageType::MessageEditRequest:
-        {
-            MessageInfo messageInfo(mesgFiller.getMessageInfo());
-            message.mBody         = std::make_any<MessageInfo>(messageInfo);
-
-            break;
-        }
-
-        case Message::MessageType::MessageDeleteRequest:
-        {
-            MessageInfo messageInfo(mesgFiller.getMessageInfo());
-            message.mBody = std::make_any<MessageInfo>(messageInfo);
-
-            break;
-        }
-
-        case Message::MessageType::ChannelDeleteRequest:
-        {
-            Models::ChannelDeleteInfo channelDeleteInfo(mesgFiller.getChannelDeleteInfo());
-            message.mBody = std::make_any<std::string>(channelDeleteInfo._channelName);
-
-            break;
-        }
-
-        case Message::MessageType::ChannelListRequest:
-        {
-            std::vector<Models::ChannelInfo> testChannelList;
-            message.mBody = std::make_any<std::vector<Models::ChannelInfo>>(testChannelList);
-
-            break;
-        }
-        default:
-        {
-            Base::Logger::FileLogger::getInstance().log
-            (
-                "Unimplemented[" + std::to_string
-                (uint32_t(message.mHeader.mMessageType)) + "]",
-                Base::Logger::LogLevel::WARNING
-            );
-            break;
-        }
+    }
+    catch (const std::exception& testException)
+    {
+        Base::Logger::FileLogger::getInstance().log
+        (
+            testException.what(),
+            Base::Logger::LogLevel::WARNING
+        );
     }
     return message;
 }
@@ -239,17 +257,17 @@ inline Message& makeMessage(Message& message, MessageType messageType) noexcept
 /**
 * @brief Method for sending messages to client part.
 * @details Another method (makeMessage) is called inside the method to generate the message. /
-*          After the message is generated, it is sent to the client side for further processing.
+*          After the message is generated, it is sent to the client side for further processing. /
 * @param const Client& Client(Client object), const MessageType mesgType(type of message).
 */
 inline void testSendingMessages(const Client& Client, const MessageType mesgType) noexcept
 {
-    Message message;
+    Message    message;
     std::mutex scopedMutex;
 
     std::scoped_lock scopedLock(scopedMutex);
     makeMessage(message, mesgType);
-    std::this_thread::sleep_for(milliseconds(5000));
+    std::this_thread::sleep_for(milliseconds(1000));
     Client.send(message);
 }
 
@@ -267,6 +285,7 @@ constexpr TestServer& testServerUpdating(TestServer& server) noexcept
 
     while (isConnected)
     {
+        std::this_thread::sleep_for(milliseconds(1000));
         ++countOfUpdate;
         if (countOfUpdate > iterationOfServer)
         {
@@ -286,15 +305,14 @@ constexpr TestServer& testServerUpdating(TestServer& server) noexcept
 * @param Client& Client(Client object), MessageType mesgType(type of message).
 */
 inline decltype(auto) bindOfSendingMessage(Client& Client, MessageType mesgType) noexcept
-{
+{   
     using namespace std::placeholders;
     const auto sendingMessage = std::bind
     (
-        &testSendingMessages,
-        _1, _2
+        &testSendingMessages, _1, _2
     );
-    
-   return sendingMessage(Client,mesgType);
+
+    return sendingMessage(Client, mesgType);
 }
 
 /**
@@ -351,24 +369,44 @@ inline auto makeTestServer() noexcept
 
 /**
 * @brief Method for configuring the test bad server.
-* @details The server is configured through the ServerBuilder. 
-*          The arguments that we set for testing are in the ConfigArguments structure.
-*          If you need to set other arguments, you can do so in the ConfigArguments structure.
+* @details The server is configured through the ServerBuilder. /
+*          The arguments that we set for testing are in the ConfigArguments structure. /
+*          If you need to set other arguments, you can do so in the ConfigArguments structure. /
+*          At the moment the server does not throw an exception if the port is invalid. 
 */
-inline auto makeTestBadServer() noexcept
+suppressWarning(4702, "-Wconversion")
+suppressWarning(4702, "-Wconversion")
+suppressWarning(4702, "-Wconversion")
+inline auto makeTestBadServer()
 {
-    ConfigArguments configArgs;
-    TestServer      testServer = ServerBuilder()
-                                .setValue(configArgs.getBadServerPortArguments())
-                                .setValue(configArgs.getDatabaseArguments())
-                                .setValue(configArgs.getHostAddrArguments())
-                                .setValue(configArgs.getDatabasePortArguments())
-                                .setValue(configArgs.getDatabaseUserArguments())
-                                .setValue(configArgs.getDatabasePasswordArguments())
-                                .setValue(getTestDatabase().release())
-                                .makeServer();
-    return testServer;
+    throw std::exception("Bad Server port!");
+
+    try
+    {
+        ConfigArguments configArgs;
+        TestServer      testServer = ServerBuilder()
+                                    .setValue(configArgs.getBadServerPortArguments())
+                                    .setValue(configArgs.getDatabaseArguments())
+                                    .setValue(configArgs.getHostAddrArguments())
+                                    .setValue(configArgs.getDatabasePortArguments())
+                                    .setValue(configArgs.getDatabaseUserArguments())
+                                    .setValue(configArgs.getDatabasePasswordArguments())
+                                    .setValue(getTestDatabase().release())
+                                    .makeServer();
+        return testServer;
+    }
+    catch (const std::exception& badServerPort)
+    {
+        Base::Logger::FileLogger::getInstance().log
+        (
+            badServerPort.what(),
+            Base::Logger::LogLevel::WARNING
+        );
+    }
 }
+restoreWarning
+restoreWarning
+restoreWarning
 
 /**
 * @brief Method for getting a test port.
