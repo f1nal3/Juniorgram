@@ -11,8 +11,8 @@ set(SOURCE_FILES
 	MessageFiller.cpp
 	MockRepositories.hpp
 	MockRepositories.cpp
-	TestMessagesOptions.hpp
-	TestDatabaseOptions.hpp
+	MockMessagesOptions.hpp
+	MockDatabaseOptions.hpp
 	MockRepositoryManager.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
