@@ -4,7 +4,9 @@
 #include <DataAccess/IServerRepositories.hpp>
 
 #include "MockQuery.hpp"
-#include "MessageFiller.hpp"
+#include "Models/Primitives.hpp"
+
+#include "FileLogger.hpp"
 
 namespace MockRepositories
 {
@@ -15,144 +17,134 @@ using ILoginRepository         = DataAccess::ILoginRepository;
 using IMessagesRepository      = DataAccess::IMessagesRepository;
 using IRegisterRepository      = DataAccess::IRegisterRepository;
 using IRepliesRepository       = DataAccess::IRepliesRepository;
-using MessageFiller            = MesgFiller::MessageFiller;
 using Query                    = MockQuery::MockQuery;
 
 /**
-* @brief class TestAbstractRepository.
-* @details Designed to query a specific repository. /
-*          The class contains two members: /
-*          std::unique_ptr<Query> _pTable(for creating a query), /
-*          MessageFiller _mesgFiller(for filling repository messages with data). 
+* @brief struct MockChannelsRepository.
+* @details Inherited from IChannelRepository struct (for overriding methods related to this repository).
 */
-struct TestAbstractRepository
+struct MockChannelsRepository final : IChannelRepository
 {
 public:
-    std::unique_ptr<Query>& getTable() { return _pTable; }
-    MessageFiller&          getMessageFiller() { return _mesgFiller; }
+    explicit MockChannelsRepository(const std::shared_ptr<IAdapter>& adapter)
+    {
+        _mockQuery = std::make_unique<Query>(adapter);
+    }
+
+    ~MockChannelsRepository() override = default;
+
 private:
-    std::unique_ptr<Query> _pTable;
-    MessageFiller          _mesgFiller;
+    Utility::ChannelDeleteCode       deleteChannel(const Models::ChannelDeleteInfo& channel) override;
+    Utility::ChannelCreateCodes      createChannel(const Models::ChannelInfo& channel) override;
+    Utility::ChannelLeaveCodes       leaveChannel(const Models::ChannelLeaveInfo& channel) override;
+    Utility::ChannelSubscribingCodes subscribeToChannel(const Models::ChannelSubscriptionInfo& channel) override;
+    std::vector<uint64_t>            getChannelSubscriptionList(const uint64_t userID) override;
+    std::vector<Models::ChannelInfo> getAllChannelsList() override;
+
+    std::unique_ptr<Query> _mockQuery;
 };
 
 /**
-* @brief class testChannelsRepository.
-* @details Inherited from IChannelRepository class (for overriding methods related to this repository) \
-*          and TestAbstractRepository(class to create a request to the repository).  
+* @brief struct MockDirectMessageRepository.
+* @details Inherited from IDirectMessageRepository struct (for overriding methods related to this repository).
 */
-struct testChannelsRepository final : IChannelRepository, TestAbstractRepository
+struct MockDirectMessageRepository final : IDirectMessageRepository
 {
-    explicit testChannelsRepository(const std::shared_ptr<IAdapter>& adapter)
+public:
+    explicit MockDirectMessageRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        getTable() = std::make_unique<Query>("users", adapter);
-        getMessageFiller().fillChannelInfo();
-        getMessageFiller().fillChannelLeaveInfo();
-        getMessageFiller().fillChannelDeleteInfo();
-        getMessageFiller().fillChannelSubscriptionInfo();
+        _mockQuery = std::make_unique<Query>(adapter);
     }
 
-    Utility::ChannelDeleteCode        deleteChannel(const Models::ChannelDeleteInfo& channel) override;
-    Utility::ChannelCreateCodes       createChannel(const Models::ChannelInfo& channel) override;
-    Utility::ChannelLeaveCodes        leaveChannel(const Models::ChannelLeaveInfo& channel) override;
-    Utility::ChannelSubscribingCodes  subscribeToChannel(const Models::ChannelSubscriptionInfo& channel) override;
-    std::vector<uint64_t>             getChannelSubscriptionList(const uint64_t userID) override;
-    std::vector<Models::ChannelInfo>  getAllChannelsList() override;
+    ~MockDirectMessageRepository() override = default;
 
-    ~testChannelsRepository() override = default;
-};
-
-/**
-* @brief class testDirectMessageRepository.
-* @details Inherited from IDirectMessageRepository class (for overriding methods related to this repository) \
-*          and TestAbstractRepository(class to create a request to the repository).  
-*/
-struct testDirectMessageRepository final : IDirectMessageRepository, TestAbstractRepository
-{
-    explicit testDirectMessageRepository(const std::shared_ptr<IAdapter>& adapter)
-    {
-        getTable() = std::make_unique<Query>("channels", adapter);
-        getMessageFiller().fillMessageInfo();
-    }
-
+private:
     Utility::DirectMessageStatus addDirectChat(uint64_t userID, uint64_t receiverID) override;
 
-    ~testDirectMessageRepository() override = default;
+    std::unique_ptr<Query> _mockQuery;
 };
 
 /**
-* @brief class testLoginRepository.
-* @details Inherited from ILoginRepository class (for overriding methods related to this repository) \
-*          and TestAbstractRepository(class to create a request to the repository).  
+* @brief struct MockLoginRepository.
+* @details Inherited from ILoginRepository struct (for overriding methods related to this repository).
 */
-struct testLoginRepository final : ILoginRepository, TestAbstractRepository
+struct MockLoginRepository final : ILoginRepository
 {
-    explicit testLoginRepository(const std::shared_ptr<IAdapter>& adapter)
+public:
+    explicit MockLoginRepository(const std::shared_ptr<IAdapter>& adapter)
     { 
-        getTable() = std::make_unique<Query>("users", adapter); 
-        getMessageFiller().fillLoginInfo();
+        _mockQuery = std::make_unique<Query>(adapter); 
     }
 
+    ~MockLoginRepository() override = default;
+
+private:
     std::uint64_t loginUser(const Models::LoginInfo& loginInfo) override;
 
-    ~testLoginRepository() override = default;
+    std::unique_ptr<Query> _mockQuery;
 };
 
 /**
-* @brief class testMessagesRepository.
-* @details Inherited from IMessagesRepository class (for overriding methods related to this repository) \
-*          and TestAbstractRepository(class to create a request to the repository).  
+* @brief struct MockMessagesRepository.
+* @details Inherited from IMessagesRepository struct (for overriding methods related to this repository). 
 */
-struct testMessagesRepository final : IMessagesRepository, TestAbstractRepository
+struct MockMessagesRepository final : IMessagesRepository
 {
-    explicit testMessagesRepository(const std::shared_ptr<IAdapter>& adapter)
+public:
+    explicit MockMessagesRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        getTable() = std::make_unique<Query>("users", adapter);
-        getMessageFiller().fillMessageInfo();
+        _mockQuery = std::make_unique<Query>(adapter);
     }
 
-    Utility::DeletingMessageCodes     deleteMessage(const Models::MessageInfo& messageInfo) override;
-    Utility::ReactionMessageCodes     updateMessageReactions(const Models::MessageInfo& messageInfo) override;
-    Utility::EditingMessageCodes      editMessage(const Models::MessageInfo& messageInfo) override;
-    Utility::StoringMessageCodes      storeMessage(const Models::MessageInfo& messageInfo) override;
-    std::vector<Models::MessageInfo>  getMessageHistory(const std::uint64_t channelID) override;
+    ~MockMessagesRepository() override = default;
 
-    ~testMessagesRepository() override = default;
+private:
+    Utility::DeletingMessageCodes    deleteMessage(const Models::MessageInfo& messageInfo) override;
+    Utility::ReactionMessageCodes    updateMessageReactions(const Models::MessageInfo& messageInfo) override;
+    Utility::EditingMessageCodes     editMessage(const Models::MessageInfo& messageInfo) override;
+    Utility::StoringMessageCodes     storeMessage(const Models::MessageInfo& messageInfo) override;
+    std::vector<Models::MessageInfo> getMessageHistory(const std::uint64_t channelID) override;
+
+    std::unique_ptr<Query> _mockQuery;
 };
 
 /**
-* @brief class testRegisterRepository.
-* @details Inherited from IRegisterRepository class (for overriding methods related to this repository) \
-*          and TestAbstractRepository(class to create a request to the repository).  
+* @brief struct MockRegisterRepository.
+* @details Inherited from IRegisterRepository struct (for overriding methods related to this repository). 
 */
-struct testRegisterRepository final : IRegisterRepository, TestAbstractRepository
+struct MockRegisterRepository final : IRegisterRepository
 {
-    explicit testRegisterRepository(const std::shared_ptr<IAdapter>& adapter)
+public:
+    explicit MockRegisterRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        getTable() = std::make_unique<Query>("users", adapter);
-        getMessageFiller().fillRegistrationInfo();
+        _mockQuery = std::make_unique<Query>(adapter);
     }
 
+    ~MockRegisterRepository() override = default;
+
+private:
     Utility::RegistrationCodes registerUser(const Models::RegistrationInfo& regInfo) override;
 
-    ~testRegisterRepository() override = default;
+    std::unique_ptr<Query> _mockQuery;
 };
 
 /**
-* @brief class testRepliesRepository.
-* @details Inherited from IRepliesRepository class (for overriding methods related to this repository) \
-*          and TestAbstractRepository(class to create a request to the repository).  
+* @brief struct MockRepliesRepository.
+* @details Inherited from IRepliesRepository struct (for overriding methods related to this repository).
 */
-struct testRepliesRepository final : IRepliesRepository, TestAbstractRepository
+struct MockRepliesRepository final : IRepliesRepository
 {
-    explicit testRepliesRepository(const std::shared_ptr<IAdapter>& adapter)
+public:
+    explicit MockRepliesRepository(const std::shared_ptr<IAdapter>& adapter)
     { 
-        getTable() = std::make_unique<Query>("msgs", adapter); 
-        getMessageFiller().fillReplyInfo();
+        _mockQuery = std::make_unique<Query>(adapter); 
     }
+    ~MockRepliesRepository() override = default;
 
+private:
     std::vector<Models::ReplyInfo> getReplyHistory(const std::uint64_t channelID) override;
     Utility::StoringReplyCodes     storeReply(const Models::ReplyInfo& replyInfo) override;
 
-    ~testRepliesRepository() override = default;
+    std::unique_ptr<Query> _mockQuery;
 };
-}  // namespace TestRepositories
+}  // namespace MockRepositories
