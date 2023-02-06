@@ -17,12 +17,12 @@ public:
     explicit MockRepositoryManager(const std::shared_ptr<DataAccess::IAdapter> repositoryContainer)
     {
         auto repo = std::make_unique<DataAccess::AbstractRepositoryContainer>(repositoryContainer);
-        repo->registerRepository<DataAccess::IChannelsRepository, MockRepositories::testChannelsRepository>();
-        repo->registerRepository<DataAccess::ILoginRepository, MockRepositories::testLoginRepository>();
-        repo->registerRepository<DataAccess::IMessagesRepository, MockRepositories::testMessagesRepository>();
-        repo->registerRepository<DataAccess::IRegisterRepository, MockRepositories::testRegisterRepository>();
-        repo->registerRepository<DataAccess::IRepliesRepository, MockRepositories::testRepliesRepository>();
-        repo->registerRepository<DataAccess::IDirectMessageRepository, MockRepositories::testDirectMessageRepository>();
+        repo->registerRepository<DataAccess::IChannelsRepository,      MockRepositories::MockChannelsRepository>();
+        repo->registerRepository<DataAccess::ILoginRepository,         MockRepositories::MockLoginRepository>();
+        repo->registerRepository<DataAccess::IMessagesRepository,      MockRepositories::MockMessagesRepository>();
+        repo->registerRepository<DataAccess::IRegisterRepository,      MockRepositories::MockRegisterRepository>();
+        repo->registerRepository<DataAccess::IRepliesRepository,       MockRepositories::MockRepliesRepository>();
+        repo->registerRepository<DataAccess::IDirectMessageRepository, MockRepositories::MockDirectMessageRepository>();
         IRepositoryManager::init(std::move(repo));
     }
 };
