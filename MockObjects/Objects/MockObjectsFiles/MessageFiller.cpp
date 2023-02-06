@@ -66,7 +66,8 @@ void MessageFiller::setMessageInfo(const MessageInfo& mesgInfo)
 
 LoginInfo& MessageFiller::getLoginInfo()
 {
-    return _loginInfo; }
+    return _loginInfo; 
+}
 
 RegistrationInfo& MessageFiller::getRegistrationInfo()
 {
@@ -111,6 +112,7 @@ void MessageFiller::fillLoginInfo()
 
     setLoginInfo(loginInfo);
 }
+
 void MessageFiller::fillRegistrationInfo()
 {
     RegistrationInfo regInfo;

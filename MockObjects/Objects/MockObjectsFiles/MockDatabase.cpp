@@ -2,7 +2,7 @@
 
 namespace MockDatabase
 {
-std::shared_ptr<MockDatabase> MockDatabase::Instance(const std::string_view& options)
+std::shared_ptr<MockDatabase> MockDatabase::Instance([[maybe_unused]] const std::string_view& options)
 {
     std::scoped_lock<std::mutex> lock(_staticMutex);
 

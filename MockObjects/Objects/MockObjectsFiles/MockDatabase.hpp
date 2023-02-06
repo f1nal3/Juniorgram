@@ -29,7 +29,7 @@ public:
     MockDatabase(MockDatabase&& other)            = delete;
     MockDatabase& operator=(MockDatabase&& other) = delete;
 
-    virtual ~MockDatabase() override = default;
+    ~MockDatabase() override = default;
 
     std::optional<std::any> query(const std::string_view& query) override;
 
