@@ -9,7 +9,7 @@ TEST_CASE("TestServerPingRequest [success case]")
     auto       testServer = makeTestServer();
 
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
+    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ServerPing));

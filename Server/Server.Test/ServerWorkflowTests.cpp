@@ -3,12 +3,13 @@
 
 using namespace TestUtility;
 
-TEST_CASE("TestServerStartUp [success case]")
+TEST_CASE("TestServerStartingUp [success case]")
 {
     Client     mockClient;
-    auto       testServer = makeTestServer();
+    TestServer testServer;
 
-    CHECK_NOTHROW(testServer->start());
+    CHECK_NOTHROW(testServer = makeTestServer());
+    REQUIRE_NOTHROW(testServer->start());
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
         == testAcceptingConnection)
     {
@@ -17,7 +18,7 @@ TEST_CASE("TestServerStartUp [success case]")
     REQUIRE_NOTHROW(testServerUpdating(testServer));
 }
 
-TEST_CASE("TestServerFailStartUpWithBadPort [failed case]")
+TEST_CASE("TestServerFailStartingUpWithBadPort [failed case]")
 {   
     TestServer testServer;
     CHECK_FALSE(makeTestBadServer(testServer));

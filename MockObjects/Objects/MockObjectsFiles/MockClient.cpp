@@ -189,7 +189,7 @@ void MockClient::onMessageReactionAnswer(const Utility::ReactionMessageCodes rea
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[MockClient] Reaction updating FAILED", 
+            "[MockClient] Reaction updating failed", 
             Base::Logger::LogLevel::INFO
         );
     }

@@ -3,7 +3,7 @@
 
 using namespace TestUtility;
 
-TEST_CASE("TestServerRegistrationRequest(success case)")
+TEST_CASE("TestServerRegistrationRequest [success case]")
 {
     Client      mockClient;
     auto        testServer = makeTestServer();
@@ -17,7 +17,7 @@ TEST_CASE("TestServerRegistrationRequest(success case)")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("TestServerLoggingRequest(success case)")
+TEST_CASE("TestServerLoggingRequest [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();
