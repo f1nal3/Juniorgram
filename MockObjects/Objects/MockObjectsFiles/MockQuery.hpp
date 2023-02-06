@@ -10,7 +10,7 @@ using Database = MockDatabase::MockDatabase;
 class MockQuery
 {
 public: 
-    MockQuery(std::shared_ptr<IAdapter> adapter = Database::getInstance<Database>())
+    explicit MockQuery(std::shared_ptr<IAdapter> adapter = Database::getInstance<Database>())
     : _mockAdapter(adapter){}
 
     std::shared_ptr<IAdapter>& getQuery() { return _mockAdapter; }

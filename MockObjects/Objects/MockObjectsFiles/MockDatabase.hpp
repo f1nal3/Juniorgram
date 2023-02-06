@@ -18,7 +18,7 @@ using TestUtility::MockRepositoryInstance;
 class MockDatabase final : public IAdapter
 {
 public:
-    static std::shared_ptr<MockDatabase> Instance(const std::string_view& options = {});
+    static std::shared_ptr<MockDatabase> Instance([[maybe_unused]] const std::string_view& options = {});
  
     explicit MockDatabase(const std::string_view& options) :
         _connection(std::make_unique<MockRepositoryInstance>(options)) {}
@@ -29,13 +29,13 @@ public:
     MockDatabase(MockDatabase&& other)            = delete;
     MockDatabase& operator=(MockDatabase&& other) = delete;
 
-    virtual ~MockDatabase() = default;
+    virtual ~MockDatabase() override = default;
 
-    std::optional<std::any> query(const std::string_view& query);
+    std::optional<std::any> query(const std::string_view& query) override;
 
-    bool isConnected() const;
+    bool isConnected() const override;
 
-    void closeConnection();
+    void closeConnection() override;
 
 private:
     inline static std::mutex                    _staticMutex{};

@@ -384,7 +384,7 @@ inline auto makeTestBadServer(TestServer& testServer)
         throw std::invalid_argument("Bad Server port!");
 
         ConfigArguments configArgs;
-        TestServer      testServer = ServerBuilder()
+        testServer = ServerBuilder()
                                     .setValue(configArgs.getBadServerPortArguments())
                                     .setValue(configArgs.getDatabaseArguments())
                                     .setValue(configArgs.getHostAddrArguments())
@@ -393,7 +393,7 @@ inline auto makeTestBadServer(TestServer& testServer)
                                     .setValue(configArgs.getDatabasePasswordArguments())
                                     .setValue(getTestDatabase().release())
                                     .makeServer();
-        return testServer;
+        return testServer.get();
     }
     catch (const std::invalid_argument& badServerPort)
     {
@@ -402,7 +402,7 @@ inline auto makeTestBadServer(TestServer& testServer)
             badServerPort.what(),
             Base::Logger::LogLevel::WARNING
         );
-        return TestServer();
+        return TestServer().get();
     }
 }
 restoreWarning

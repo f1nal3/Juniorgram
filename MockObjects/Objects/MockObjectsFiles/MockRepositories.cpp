@@ -5,11 +5,10 @@ namespace MockRepositories
 std::vector<Models::ChannelInfo> MockChannelsRepository::getAllChannelsList()
 {
     Models::ChannelInfo channelInfo;
-    auto query = _mockQuery->getQuery()->query(channelInfo._channelName);
 
-    if (query.has_value())
+    if (auto query = _mockQuery->getQuery()->query(channelInfo._channelName); 
+        query.has_value())
     {
-        
         Base::Logger::FileLogger::getInstance().log
         (
              "[MockRepositories]: All channels are successfully given to client!\n",
@@ -21,9 +20,8 @@ std::vector<Models::ChannelInfo> MockChannelsRepository::getAllChannelsList()
 
 std::vector<uint64_t> MockChannelsRepository::getChannelSubscriptionList(const uint64_t userID)
 {
-    auto query = _mockQuery->getQuery()->query(std::to_string(userID));
-
-     if (query.has_value())
+     if (auto query = _mockQuery->getQuery()->query(std::to_string(userID)); 
+         query.has_value())
      {
          Base::Logger::FileLogger::getInstance().log
          (
@@ -38,9 +36,8 @@ std::vector<uint64_t> MockChannelsRepository::getChannelSubscriptionList(const u
 
 std::vector<Models::MessageInfo> MockMessagesRepository::getMessageHistory(const std::uint64_t channelID)
 {
-    auto query = _mockQuery->getQuery()->query(std::to_string(channelID));
-
-    if (query.has_value())
+    if (auto query = _mockQuery->getQuery()->query(std::to_string(channelID)); 
+        query.has_value())
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -54,9 +51,8 @@ std::vector<Models::MessageInfo> MockMessagesRepository::getMessageHistory(const
 
 std::vector<Models::ReplyInfo> MockRepliesRepository::getReplyHistory(std::uint64_t channelID)
 {
-    auto query = _mockQuery->getQuery()->query(std::to_string(channelID));
-
-     if (query.has_value())
+     if (auto query = _mockQuery->getQuery()->query(std::to_string(channelID)); 
+         query.has_value())
      {
          Base::Logger::FileLogger::getInstance().log
          (
@@ -69,9 +65,8 @@ std::vector<Models::ReplyInfo> MockRepliesRepository::getReplyHistory(std::uint6
 
 Utility::StoringMessageCodes MockMessagesRepository::storeMessage(const Models::MessageInfo& messageInfo)
 {
-    auto query = _mockQuery->getQuery()->query(std::to_string(messageInfo._channelID));
-
-    if (query.has_value())
+    if (auto query = _mockQuery->getQuery()->query(std::to_string(messageInfo._channelID)); 
+        query.has_value())
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -87,9 +82,8 @@ Utility::StoringMessageCodes MockMessagesRepository::storeMessage(const Models::
 
 Utility::StoringReplyCodes MockRepliesRepository::storeReply(const Models::ReplyInfo& replyInfo)
 {
-    auto query = _mockQuery->getQuery()->query(std::to_string(replyInfo._channelID));
-
-    if (query.has_value())
+    if (auto query = _mockQuery->getQuery()->query(std::to_string(replyInfo._channelID)); 
+        query.has_value())
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -105,9 +99,8 @@ Utility::StoringReplyCodes MockRepliesRepository::storeReply(const Models::Reply
 
 Utility::DeletingMessageCodes MockMessagesRepository::deleteMessage(const Models::MessageInfo& messageInfo)
 {
-   auto query = _mockQuery->getQuery()->query(std::to_string(messageInfo._msgID));
-
-   if (query.has_value())
+   if (auto query = _mockQuery->getQuery()->query(std::to_string(messageInfo._msgID)); 
+       query.has_value())
    {
        Base::Logger::FileLogger::getInstance().log
        (
@@ -121,9 +114,8 @@ Utility::DeletingMessageCodes MockMessagesRepository::deleteMessage(const Models
 
 Utility::EditingMessageCodes MockMessagesRepository::editMessage(const Models::MessageInfo& messageInfo)
 {
-    auto query = _mockQuery->getQuery()->query(std::to_string(messageInfo._msgID));
-
-    if (query.has_value())
+    if (auto query = _mockQuery->getQuery()->query(std::to_string(messageInfo._msgID)); 
+        query.has_value())
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -137,9 +129,8 @@ Utility::EditingMessageCodes MockMessagesRepository::editMessage(const Models::M
 
 Utility::ReactionMessageCodes MockMessagesRepository::updateMessageReactions(const Models::MessageInfo& messageInfo)
 {
-    auto query = _mockQuery->getQuery()->query(std::to_string(messageInfo._msgID));
-
-     if (query.has_value())
+     if (auto query = _mockQuery->getQuery()->query(std::to_string(messageInfo._msgID)); 
+         query.has_value())
      {
          Base::Logger::FileLogger::getInstance().log
          (
@@ -154,9 +145,8 @@ Utility::ReactionMessageCodes MockMessagesRepository::updateMessageReactions(con
 
 Utility::RegistrationCodes MockRegisterRepository::registerUser(const Models::RegistrationInfo& regInfo)
 {
-    auto query = _mockQuery->getQuery()->query(regInfo._login);
-
-    if (query.has_value())
+    if (auto query = _mockQuery->getQuery()->query(regInfo._login); 
+        query.has_value())
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -170,9 +160,8 @@ Utility::RegistrationCodes MockRegisterRepository::registerUser(const Models::Re
 
 std::uint64_t MockLoginRepository::loginUser(const Models::LoginInfo& loginInfo)
 {
-    auto query = _mockQuery->getQuery()->query(loginInfo._login);
-
-   if (query.has_value())
+   if (auto query = _mockQuery->getQuery()->query(loginInfo._login); 
+       query.has_value())
    {
        Base::Logger::FileLogger::getInstance().log
        (
@@ -186,9 +175,8 @@ std::uint64_t MockLoginRepository::loginUser(const Models::LoginInfo& loginInfo)
 
 Utility::ChannelDeleteCode MockChannelsRepository::deleteChannel(const Models::ChannelDeleteInfo& channel)
 {
-    auto query = _mockQuery->getQuery()->query(channel._channelName);
-
-     if (query.has_value())
+     if (auto query = _mockQuery->getQuery()->query(channel._channelName); 
+         query.has_value())
     {
          Base::Logger::FileLogger::getInstance().log
          (
@@ -204,9 +192,8 @@ Utility::ChannelDeleteCode MockChannelsRepository::deleteChannel(const Models::C
 
 Utility::ChannelCreateCodes MockChannelsRepository::createChannel(const Models::ChannelInfo& channel)
 {
-    auto query = _mockQuery->getQuery()->query(channel._channelName);
-
-     if (query.has_value())
+     if (auto query = _mockQuery->getQuery()->query(channel._channelName); 
+         query.has_value())
      {
           Base::Logger::FileLogger::getInstance().log
           (
@@ -222,9 +209,8 @@ Utility::ChannelCreateCodes MockChannelsRepository::createChannel(const Models::
 
 Utility::ChannelLeaveCodes MockChannelsRepository::leaveChannel(const Models::ChannelLeaveInfo& channel)
 {
-    auto query = _mockQuery->getQuery()->query(channel._channelName);
-
-    if (query.has_value())
+    if (auto query = _mockQuery->getQuery()->query(channel._channelName); 
+        query.has_value())
      {
          Base::Logger::FileLogger::getInstance().log
          (
@@ -240,9 +226,8 @@ Utility::ChannelLeaveCodes MockChannelsRepository::leaveChannel(const Models::Ch
 
 Utility::ChannelSubscribingCodes MockChannelsRepository::subscribeToChannel(const Models::ChannelSubscriptionInfo& channel)
 {
-     auto query = _mockQuery->getQuery()->query(std::to_string(channel._channelID));
-
-     if (query.has_value())
+     if (auto query = _mockQuery->getQuery()->query(std::to_string(channel._channelID)); 
+         query.has_value())
      {
          Base::Logger::FileLogger::getInstance().log
          (
@@ -259,10 +244,10 @@ Utility::ChannelSubscribingCodes MockChannelsRepository::subscribeToChannel(cons
 
 Utility::DirectMessageStatus MockDirectMessageRepository::addDirectChat(uint64_t userID, uint64_t receiverID)
 {
-    auto firstQuery = _mockQuery->getQuery()->query(std::to_string(userID));
-    auto secondQuery = _mockQuery->getQuery()->query(std::to_string(receiverID)); 
+     auto firstQuery = _mockQuery->getQuery()->query(std::to_string(userID));
 
-    if (firstQuery.has_value() && secondQuery.has_value())
+    if (auto secondQuery = _mockQuery->getQuery()->query(std::to_string(receiverID)); 
+        firstQuery.has_value() && secondQuery.has_value())
     {
         Base::Logger::FileLogger::getInstance().log
         (
