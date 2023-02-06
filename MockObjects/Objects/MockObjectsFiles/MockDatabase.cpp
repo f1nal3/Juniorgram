@@ -9,7 +9,7 @@ std::shared_ptr<MockDatabase> MockDatabase::Instance(const std::string_view& opt
     if (_instance == nullptr)
     {
         _instance = std::shared_ptr<MockDatabase>
-            (std::make_shared<MockDatabase>(options.empty() ? _defaultOptions : options));
+            (std::make_shared<MockDatabase>(TestUtility::testProperties));
     }
 
     return _instance;
@@ -17,45 +17,16 @@ std::shared_ptr<MockDatabase> MockDatabase::Instance(const std::string_view& opt
 
 std::optional<std::any> MockDatabase::query(const std::string_view& query)
 {
-    std::scoped_lock<std::mutex> lock(_queryMutex);
-
-    if (this->isConnected())
-    {
-        pqxx::work work{*_connection};
-
-        auto res = work.exec(query);
-        work.commit();
-
-        if (!res.empty())
-        {
-            return std::optional{std::any{res}};
-        }
-    }
-    else
-    {
-        throw Utility::OperationDBException
-        (
-            "Connection with database was released!",
-            __FILE__, __LINE__
-        );
-    }
-
-    return std::nullopt;
-}
-
-void MockDatabase::closeConnection()
-{
-    _instance.reset();
-    _connection.reset();
-}
-
-pqxx::connection& MockDatabase::getConnection() 
-{
-    return *_connection; 
+    return _connection->getStorageData().emplace_back(query);
 }
 
 bool MockDatabase::isConnected() const 
 {
-    return _connection->is_open(); 
+    return _connection.get();
+}
+
+void MockDatabase::closeConnection() 
+{
+    return _connection.reset();
 }
 }  // namespace MockDatabase
