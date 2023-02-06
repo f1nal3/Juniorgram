@@ -2,9 +2,9 @@
 
 #include <Models/Primitives.hpp>
 
-#include "TestMessagesOptions.hpp"
+#include "MockMessagesOptions.hpp"
 
-namespace MesgFiller
+namespace TestUtility
 {
 using LoginInfo               = Models::LoginInfo;
 using ReplyInfo               = Models::ReplyInfo;
@@ -26,15 +26,6 @@ public:
     MessageFiller()  = default;
     ~MessageFiller() = default;
 
-    void setLoginInfo(const LoginInfo& logInfo);
-    void setRegistrationInfo(const RegistrationInfo& regInfo);
-    void setChannelInfo(const ChannelInfo& chanInfo);
-    void setChannelLeaveInfo(const ChannelLeaveInfo& chanInfo);
-    void setChannelDeleteInfo(const ChannelDeleteInfo& chanInfo);
-    void setChannelSubscriptionInfo(const ChannelSubscriptionInfo& chanInfo); 
-    void setReplyInfo(const ReplyInfo& repInfo);
-    void setMessageInfo(const MessageInfo& mesgInfo);
-
     LoginInfo&               getLoginInfo();
     RegistrationInfo&        getRegistrationInfo();
     ChannelInfo&             getChannelInfo();
@@ -55,6 +46,15 @@ public:
     void fillAllMessages();
 
 private:
+    void                    setLoginInfo(const LoginInfo& logInfo);
+    void                    setRegistrationInfo(const RegistrationInfo& regInfo);
+    void                    setChannelInfo(const ChannelInfo& chanInfo);
+    void                    setChannelLeaveInfo(const ChannelLeaveInfo& chanInfo);
+    void                    setChannelDeleteInfo(const ChannelDeleteInfo& chanInfo);
+    void                    setChannelSubscriptionInfo(const ChannelSubscriptionInfo& chanInfo);
+    void                    setReplyInfo(const ReplyInfo& repInfo);
+    void                    setMessageInfo(const MessageInfo& mesgInfo);
+
     LoginInfo               _loginInfo;
     RegistrationInfo        _regInfo;
     ChannelInfo             _channelInfo;

@@ -1,48 +1,48 @@
 #include "MessageFiller.hpp"
 
-namespace MesgFiller
+namespace TestUtility
 {
-void MessageFiller::MessageFiller::setLoginInfo(const LoginInfo& logInfo)
+void MessageFiller::setLoginInfo(const LoginInfo& logInfo)
 {
     _loginInfo._login   = logInfo._login;
     _loginInfo._pwdHash = logInfo._pwdHash;
 }
 
-void MessageFiller::MessageFiller::setRegistrationInfo(const RegistrationInfo& regInfo)
+void MessageFiller::setRegistrationInfo(const RegistrationInfo& regInfo)
 {
     _regInfo._login        = regInfo._login;
     _regInfo._email        = regInfo._email;
     _regInfo._passwordHash = regInfo._passwordHash;
 }
 
-void MessageFiller::MessageFiller::setChannelInfo(const ChannelInfo& chanInfo)
+void MessageFiller::setChannelInfo(const ChannelInfo& chanInfo)
 {
     _channelInfo._channelID   = chanInfo._channelID;
     _channelInfo._channelName = chanInfo._channelName;
     _channelInfo._creatorID   = chanInfo._creatorID;
 }
 
-void MessageFiller::MessageFiller::setChannelLeaveInfo(const ChannelLeaveInfo& chanInfo)
+void MessageFiller::setChannelLeaveInfo(const ChannelLeaveInfo& chanInfo)
 {
     _channelLeaveInfo._channelID   = chanInfo._channelID;
     _channelLeaveInfo._channelName = chanInfo._channelName;
     _channelLeaveInfo._creatorID   = chanInfo._creatorID;
 }
 
-void MessageFiller::MessageFiller::setChannelDeleteInfo(const ChannelDeleteInfo& chanInfo)
+void MessageFiller::setChannelDeleteInfo(const ChannelDeleteInfo& chanInfo)
 {
     _channelDelInfo._channelID   = chanInfo._channelID;
     _channelDelInfo._channelName = chanInfo._channelName;
     _channelDelInfo._creatorID   = chanInfo._creatorID;
 }
 
-void MessageFiller::MessageFiller::setChannelSubscriptionInfo(const ChannelSubscriptionInfo& chanInfo)
+void MessageFiller::setChannelSubscriptionInfo(const ChannelSubscriptionInfo& chanInfo)
 {
     _channelSubInfo._channelID = chanInfo._channelID;
     _channelSubInfo._userID    = chanInfo._userID;
 }
 
-void MessageFiller::MessageFiller::setReplyInfo(const ReplyInfo& repInfo)
+void MessageFiller::setReplyInfo(const ReplyInfo& repInfo)
 {
     _replyInfo._channelID  = repInfo._channelID;
     _replyInfo._message    = repInfo._message;
@@ -52,7 +52,7 @@ void MessageFiller::MessageFiller::setReplyInfo(const ReplyInfo& repInfo)
     _replyInfo._userLogin  = repInfo._userLogin;
 }
 
-void MessageFiller::MessageFiller::setMessageInfo(const MessageInfo& mesgInfo)
+void MessageFiller::setMessageInfo(const MessageInfo& mesgInfo)
 {
     _messageInfo._channelID   = mesgInfo._channelID;
     _messageInfo._message     = mesgInfo._message;
