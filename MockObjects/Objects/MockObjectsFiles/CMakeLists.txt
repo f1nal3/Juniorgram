@@ -21,9 +21,7 @@ target_link_libraries(${TARGET}
 PUBLIC 
     Server.Core.Static
 	Client.Core.Static
-    DataAccess.Debug
-	PostgreSQL::pq 
-    libpqxx::libpqxx    
+    DataAccess.Debug   
 	asio::asio)
 	
  target_include_directories(${TARGET} PRIVATE

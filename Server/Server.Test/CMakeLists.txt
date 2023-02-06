@@ -16,14 +16,12 @@ add_executable(${TARGET} ${SOURCE_FILES} ${HEADER_FILES})
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
 target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIB}
-				argparse::argparse
-				libpqxx::libpqxx    
+				argparse::argparse 
 				asio::asio
 		PUBLIC  Precompiled.Catch2.Main 
 				Server.Core.Static
 				Client.Core.Static
 				DataAccess.Debug
-				PostgreSQL::pq 
 				MockObjectsFiles)
 
  target_include_directories(${TARGET} PRIVATE
