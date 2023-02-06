@@ -3,7 +3,7 @@
 
 using namespace TestUtility;
 
-TEST_CASE("Workflow of checking all messages from server side")
+TEST_CASE("TestServerGivingAllMessagesRequest [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();
@@ -17,7 +17,7 @@ TEST_CASE("Workflow of checking all messages from server side")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("Workflow of checking message history request of server")
+TEST_CASE("TestServerHistoryRequest [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();
@@ -31,7 +31,7 @@ TEST_CASE("Workflow of checking message history request of server")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("Workflow of checking reply message history request of server")
+TEST_CASE("TestServerReplyingHistoryRequest [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();
@@ -46,7 +46,7 @@ TEST_CASE("Workflow of checking reply message history request of server")
 }
 
 
- TEST_CASE("Workflow of checking direct message create request from server side")
+ TEST_CASE("TestServerCreatingDirectMessage [success case]")
   {
     Client     mockClient;
     auto       testServer = makeTestServer();
@@ -60,7 +60,7 @@ TEST_CASE("Workflow of checking reply message history request of server")
     testServerUpdating(testServer);
    }
 
-TEST_CASE("Workflow of checking message store request from server side")
+TEST_CASE("TestServerStoreRequest [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();
@@ -74,7 +74,7 @@ TEST_CASE("Workflow of checking message store request from server side")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("Workflow of checking reply message store request from server side")
+TEST_CASE("TestServerReplyingStoreRequest [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();
@@ -88,7 +88,7 @@ TEST_CASE("Workflow of checking reply message store request from server side")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("Workflow of checking message reaction request from server side")
+TEST_CASE("TestServerReactionRequest [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();
@@ -102,7 +102,7 @@ TEST_CASE("Workflow of checking message reaction request from server side")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("Workflow of checking message edit from server side")
+TEST_CASE("TestServerMessageEditingRequest [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();
@@ -116,7 +116,7 @@ TEST_CASE("Workflow of checking message edit from server side")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("Workflow of checking message delete request from server side")
+TEST_CASE("TestServerMessageDeletingRequest [success case]")
 {
     Client     mockClient;
     auto   testServer = makeTestServer();

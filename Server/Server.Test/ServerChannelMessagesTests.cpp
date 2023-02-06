@@ -3,7 +3,7 @@
 
 using namespace TestUtility;
 
-TEST_CASE("Workflow of checking channel create request of server")
+TEST_CASE("TestServer—hannel—reatingRequest [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();
@@ -17,7 +17,7 @@ TEST_CASE("Workflow of checking channel create request of server")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("Workflow of checking channel list request from server side")
+TEST_CASE("TestServer—hannelListRequest [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();
@@ -31,7 +31,7 @@ TEST_CASE("Workflow of checking channel list request from server side")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("Workflow of checking channel subscribe request from server side")
+TEST_CASE("TestServer—hannelSubscribingRequest [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();
@@ -45,7 +45,7 @@ TEST_CASE("Workflow of checking channel subscribe request from server side")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("Workflow of checking channel subscription list request from server side")
+TEST_CASE("TestServer—hannelSubscriptionListRequest [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();
@@ -59,7 +59,7 @@ TEST_CASE("Workflow of checking channel subscription list request from server si
     testServerUpdating(testServer);
 }
 
-TEST_CASE("Workflow of checking channel leave request from server side")
+TEST_CASE("TestServer—hannelLeavingRequest [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();
@@ -73,7 +73,7 @@ TEST_CASE("Workflow of checking channel leave request from server side")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("Workflow of checking channel delete request from server side")
+TEST_CASE("TestServer—hannelDeletingRequest [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();

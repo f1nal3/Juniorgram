@@ -3,7 +3,7 @@
 
 using namespace TestUtility;
 
-TEST_CASE("Workflow startup server")
+TEST_CASE("TestServerStartUp [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();
@@ -19,10 +19,10 @@ TEST_CASE("Workflow startup server")
 
 suppressWarning(4244, "-Wconversion")
 suppressWarning(4242, "-Wconversion")
-TEST_CASE("Workflow fail startup of server with bad port")
-{    
-    auto           testServer  = makeTestBadServer();
-    CHECK_NOTHROW(testServer->start());
+TEST_CASE("TestServerFailStartUpWithBadPort [failed case]")
+{   
+    TestServer testServer;
+    REQUIRE_THROWS_AS(testServer = makeTestBadServer(), std::exception);
 }
 restoreWarning
 restoreWarning

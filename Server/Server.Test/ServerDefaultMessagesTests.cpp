@@ -3,7 +3,7 @@
 
 using namespace TestUtility;
 
-TEST_CASE("Workflow of checking server ping")
+TEST_CASE("TestServerPingRequest [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();
@@ -17,7 +17,7 @@ TEST_CASE("Workflow of checking server ping")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("Workflow of checking default request of server side")
+TEST_CASE("TestServerErrorDefaultRequest [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();
