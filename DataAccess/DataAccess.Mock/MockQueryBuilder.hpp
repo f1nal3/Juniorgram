@@ -10,7 +10,14 @@ namespace MockObject
 {
 using DataAccess::IAdapter;
 
-template <typename QueryType = MockObject::MockRepositoryStorage>
+/**
+* @brief MockQueryBuilder class.
+* @details This class is designed to manage requests coming from repositories. /
+*          The SelectAndPushData method checks for the correct repository data table and /
+*          adds it for storage (database table emulation), /
+*          as well as the data can be taken from the table.
+*/
+template <typename QueryType = MockRepositoryStorage>
 class MockQueryBuilder
 {
 public:
@@ -31,6 +38,10 @@ public:
 
     std::optional<std::any> SelectAndPushData(const std::string_view& repoName, const std::string_view& repoInfo)
     {
+        if (!_adapter->query(repoName).has_value())
+        {
+            return _adapter.get();
+        }
         return _adapter->query(repoName)->emplace<std::string>(repoInfo);
     }
 

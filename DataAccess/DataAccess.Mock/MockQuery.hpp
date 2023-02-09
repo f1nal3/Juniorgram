@@ -10,6 +10,11 @@ using MockObject::MockRepositoryInstance;
 using Database = MockObject::MockDatabase;
 using QueryBuilder = MockObject::MockQueryBuilder<MockRepositoryInstance>;
 
+/**
+* @brief MockQuery class.
+* @details Designed to initialize the database adapter with \
+*          the subsequent possible use of methods to process data in the repository.
+*/
 class MockQuery : public QueryBuilder
 {
 public: 

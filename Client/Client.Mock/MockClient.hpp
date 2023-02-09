@@ -1,22 +1,18 @@
 #pragma once
 
-#include "asio.hpp"
 #include "Client.hpp"
 #include "ServerInfo.hpp"
 
 namespace MockObject
 {
-using asio::io_context;
-using asio::ip::tcp;
 using Network::Connection;
 using Network::Client;
 using Network::Message;
-using Utility::SafeQueue;
 
 /**
 * @brief MockClient class.
-* @details This class is designed to emulate a client connection. /
-*          Uses std::asio tools.
+* @details Mock client is intended to indicate the actions processed by the server. /
+*          The response methods to a certain message are redefined.
 */
 class MockClient : public Client
 {

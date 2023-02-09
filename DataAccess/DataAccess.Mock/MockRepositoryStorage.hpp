@@ -6,6 +6,9 @@
 
 namespace MockObject
 {
+/**
+* @brief A table for storing channel data in the repository.
+*/
 struct MockChannelsRepositoryData
 {
     MockChannelsRepositoryData()  = default;
@@ -21,6 +24,9 @@ private:
     std::string _testCreatorID;
 };
 
+/**
+ * @brief A table for storing replies data in the repository.
+ */
 struct MockRepliesRepositoryData
 {
     MockRepliesRepositoryData()  = default;
@@ -39,6 +45,9 @@ private:
     std::string _testLogin;
 };
 
+/**
+ * @brief A table for storing messages data in the repository.
+ */
 struct MockDirectMessageRepositoryData
 {
     MockDirectMessageRepositoryData()  = default;
@@ -53,6 +62,9 @@ private:
     std::string _testSenderID;
 };
 
+/**
+ * @brief A table for storing channel messages data in the repository.
+ */
 struct MockMessagesRepositoryData
 {
     MockMessagesRepositoryData()  = default;
@@ -72,6 +84,9 @@ private:
     std::string _testLogin;
 };
 
+/**
+ * @brief A table for storing registration data in the repository.
+ */
 struct MockRegisterRepositoryData
 {
     MockRegisterRepositoryData()  = default;
@@ -87,6 +102,9 @@ private:
     std::string _testPWDHash{Base::Hashing::SHA_256(_testPSWD, _testLogin)};
 };
 
+/**
+ * @brief A table for storing login data in the repository.
+ */
 struct MockLoginRepositoryData
 {
     MockLoginRepositoryData()  = default;
@@ -102,6 +120,11 @@ private:
     std::string _testPSWD;
 };
 
+/**
+* @brief MockRepositoryStorage class.
+* @details Designed to initialize tables (data strings) that /
+*          emulate database storage for a specific repository.
+*/
 struct MockRepositoryStorage
 {
     MockRepositoryStorage()  = default;

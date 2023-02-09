@@ -11,6 +11,11 @@ std::shared_ptr<MockDatabase> MockDatabase::Instance([[maybe_unused]] const std:
         _instance = std::shared_ptr<MockDatabase>
             (std::make_shared<MockDatabase>(TestUtility::testProperties));
     }
+    else
+    {
+        _instance = std::shared_ptr<MockDatabase>
+            (std::make_shared<MockDatabase>(options));
+    }
 
     return _instance;
 }

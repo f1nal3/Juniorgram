@@ -24,15 +24,14 @@ class MockRepositoryManager;
 */
 namespace TestUtility
 {
-using Database         = MockObject::MockDatabase;
-using RepoManager      = MockObject::MockRepositoryManager;
 using RTC              = std::chrono::system_clock;
 using Client           = MockObject::MockClient;
 using Message          = Network::Message;
+using Database         = MockObject::MockDatabase;
 using TestServer       = std::unique_ptr<Server::Server>;
+using RepoManager      = MockObject::MockRepositoryManager;
 using MessageType      = Message::MessageType;
 using milliseconds     = std::chrono::milliseconds;
-using MessageFiller    = TestUtility::MessageFiller;
 using ServerBuilder    = Server::Builder::ServerBuilder;
 using PairArguments    = std::pair<std::string, std::string>;
 
@@ -78,11 +77,11 @@ struct ConfigArguments
 private:
     PairArguments  serverPortPair{"--serverport", "65001"};
     PairArguments  badServerPortPair{"--serverport", "666666"};
-    PairArguments  dbnamePair{"--dbname", "juniorgram"};
+    PairArguments  dbnamePair{"--dbname", "mockdb"};
     PairArguments  hostPair{"--hostaddr", "127.0.0.1"};
     PairArguments  dbportPair{"--port", "5432"};
-    PairArguments  userPair{"--user", "postgres"};
-    PairArguments  passwordPair{"--password", "postgres"};
+    PairArguments  userPair{"--user", "tester"};
+    PairArguments  passwordPair{"--password", "tester"};
 };
 
 /**
@@ -260,6 +259,12 @@ inline Message& makeMessage(Message& message, MessageType messageType) noexcept
     return message;
 }
 
+/**
+* @brief Method for making bad message.
+* @details This method takes the body of an empty message as well as its type. /
+*                      After receiving the type, the message is filled with data.
+* @param Message& message(message body), MessageType messageType(type of message).
+*/
 inline Message& makePoorMessage(Message& message, MessageType messageType) noexcept
 {
     message.mHeader.mMessageType = messageType;
@@ -445,7 +450,8 @@ inline Message& makePoorMessage(Message& message, MessageType messageType) noexc
 * @brief Method for sending messages to client part.
 * @details Another method (makeMessage) is called inside the method to generate the message. /
 *          After the message is generated, it is sent to the client side for further processing. /
-* @param const Client& Client(Client object), const MessageType mesgType(type of message).
+* @param const Client& Client(Client object), const MessageType mesgType(type of message), /
+*        const TypeOfMessageBody mesgBody(Body properties for testing).
 */
 inline void testSendingMessages(const Client& Client, const MessageType mesgType, const TypeOfMessageBody mesgBody) noexcept
 {
@@ -498,7 +504,8 @@ constexpr TestServer& testServerUpdating(TestServer& server) noexcept
 * @brief Message binding method.
 * @details This method binds method arguments to initialize the testSendingMessages method. /
 *          It simplifies the code and makes it compact. 
-* @param Client& Client(Client object), MessageType mesgType(type of message).
+* @param Client& Client(Client object), MessageType mesgType(type of message), /
+*        const TypeOfMessageBody mesgBody(Body properties for testing).
 */
 inline decltype(auto) bindOfSendingMessage(Client& Client, MessageType mesgType, const TypeOfMessageBody mesgBody) noexcept
 {   

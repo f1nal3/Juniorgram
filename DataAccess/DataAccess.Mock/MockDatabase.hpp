@@ -14,7 +14,7 @@ using MockObject::MockRepositoryInstance;
 * @brief class MockDatabase.
 * @detail This is a thread safe singleton. /
 *         Inherited from IAdapter class - The abstract class controls /
-*         the connection to the database.
+*         the connection to the mock database.
 */
 class MockDatabase final : public IAdapter
 {

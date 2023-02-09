@@ -232,7 +232,7 @@ TEST_CASE("TestServerMessageEditingFailedRequest [success case]")
 TEST_CASE("TestServerMessageDeletingRequest [success case]")
 {
     Client     mockClient;
-    auto   testServer = makeTestServer();
+    auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
@@ -247,7 +247,7 @@ TEST_CASE("TestServerMessageDeletingRequest [success case]")
 TEST_CASE("TestServerMessageDeletingFailedRequest [success case]")
 {
     Client     mockClient;
-    auto   testServer = makeTestServer();
+    auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 

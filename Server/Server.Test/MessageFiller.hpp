@@ -43,6 +43,7 @@ public:
     void fillChannelSubscriptionInfo();
     void fillReplyInfo();
     void fillMessageInfo();
+
     void fillAllMessages();
 
 private:

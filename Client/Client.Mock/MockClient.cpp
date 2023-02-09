@@ -8,19 +8,8 @@ using UtilityTime::RTC;
 
 void MockClient::onLoginAnswer(bool success)
 {
-    enum class LoginState
-    {
-        SUCCESS,
-        IN_PROGRESS,
-        FAILED
-    };
-
-    static LoginState loginState;
-
     if (success)
     {
-        loginState = LoginState::SUCCESS;
-
         Base::Logger::FileLogger::getInstance().log
         (
             "[MockClient] The user is logged in!", 
@@ -29,8 +18,6 @@ void MockClient::onLoginAnswer(bool success)
     }
     else
     {
-        loginState = LoginState::FAILED;
-
         Base::Logger::FileLogger::getInstance().log
         (
             "[MockClient] User is not logged in!", 
