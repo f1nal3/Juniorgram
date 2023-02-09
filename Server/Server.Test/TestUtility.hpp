@@ -403,6 +403,30 @@ inline Message& makePoorMessage(Message& message, MessageType messageType) noexc
 
                 break;
             }
+
+            case Message::MessageType::ServerAccept:
+            {
+                Base::Logger::FileLogger::getInstance().log
+                (
+                    "[TestUtilityMessage]: Server didn't accepted the connection!",
+                     Base::Logger::LogLevel::INFO
+                );
+
+                break;
+            }
+
+            default:
+            {
+                Base::Logger::FileLogger::getInstance().log
+                (
+                    "[TestUtilityMessage]: Bad implemented[" + std::to_string
+                    (uint32_t(message.mHeader.mMessageType)) + "]",
+                     Base::Logger::LogLevel::WARNING
+                );
+                throw std::invalid_argument("Bad implemented!");
+
+                break;
+            }
         }
     }
     catch (const std::invalid_argument& testBadException)

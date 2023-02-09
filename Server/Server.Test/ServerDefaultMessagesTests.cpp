@@ -2,6 +2,7 @@
 #include "TestUtility.hpp"
 
 using namespace TestUtility;
+using TestUtility::TypeOfMessageBody;
 
 TEST_CASE("TestServerPingRequest [success case]")
 {
@@ -12,7 +13,8 @@ TEST_CASE("TestServerPingRequest [success case]")
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
         == testAcceptingConnection)
     {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ServerPing, StrongBody));
+        CHECK_NOTHROW(bindOfSendingMessage(mockClient,
+            MessageType::ServerPing, TypeOfMessageBody::StrongBody));
     }
     testServerUpdating(testServer);
 }
@@ -27,7 +29,8 @@ TEST_CASE("TestServerErrorDefaultRequest [success case]")
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
         == testAcceptingConnection)
     {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType(failedType),PoorBody));
+        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
+            MessageType(failedType), TypeOfMessageBody::PoorBody));
     }
     testServerUpdating(testServer);
 }

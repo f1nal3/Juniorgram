@@ -2,6 +2,7 @@
 #include "TestUtility.hpp"
 
 using namespace TestUtility;
+using TestUtility::TypeOfMessageBody;
 
 TEST_CASE("TestServerGivingAllMessagesRequest [success case]")
 {
@@ -13,7 +14,7 @@ TEST_CASE("TestServerGivingAllMessagesRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::MessageAll, StrongBody));
+            MessageType::MessageAll, TypeOfMessageBody::StrongBody));
     }
     testServerUpdating(testServer);
 }
@@ -28,7 +29,7 @@ TEST_CASE("TestServerHistoryRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient,
-            MessageType::MessageHistoryRequest, StrongBody));
+            MessageType::MessageHistoryRequest, TypeOfMessageBody::StrongBody));
     }
     testServerUpdating(testServer);
 }
@@ -43,7 +44,7 @@ TEST_CASE("TestServerHistoryFailedRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::MessageHistoryRequest, PoorBody));
+            MessageType::MessageHistoryRequest, TypeOfMessageBody::PoorBody));
     }
     testServerUpdating(testServer);
 }
@@ -58,7 +59,7 @@ TEST_CASE("TestServerReplyingHistoryRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ReplyHistoryRequest , StrongBody));
+            MessageType::ReplyHistoryRequest, TypeOfMessageBody::StrongBody));
     }
     testServerUpdating(testServer);
 }
@@ -73,7 +74,7 @@ TEST_CASE("TestServerReplyingHistoryFailedRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ReplyHistoryRequest , PoorBody));
+            MessageType::ReplyHistoryRequest, TypeOfMessageBody::PoorBody));
     }
     testServerUpdating(testServer);
 }
@@ -88,7 +89,7 @@ TEST_CASE("TestServerCreatingDirectMessage [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::DirectMessageCreateRequest, StrongBody));
+            MessageType::DirectMessageCreateRequest, TypeOfMessageBody::StrongBody));
     }
     testServerUpdating(testServer);
 }
@@ -103,7 +104,7 @@ TEST_CASE("TestServerCreatingFailedDirectMessage [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::DirectMessageCreateRequest, PoorBody));
+            MessageType::DirectMessageCreateRequest, TypeOfMessageBody::PoorBody));
     }
     testServerUpdating(testServer);
 }
@@ -118,7 +119,7 @@ TEST_CASE("TestServerMessageStoreRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::MessageStoreRequest, StrongBody));
+            MessageType::MessageStoreRequest, TypeOfMessageBody::StrongBody));
     }
     testServerUpdating(testServer);
 }
@@ -133,7 +134,7 @@ TEST_CASE("TestServerMessageStoreFailedRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::MessageStoreRequest, PoorBody));
+            MessageType::MessageStoreRequest, TypeOfMessageBody::PoorBody));
     }
     testServerUpdating(testServer);
 }
@@ -148,7 +149,7 @@ TEST_CASE("TestServerReplyingStoreRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient,
-            MessageType::ReplyStoreRequest, StrongBody));
+            MessageType::ReplyStoreRequest, TypeOfMessageBody::StrongBody));
     }
     testServerUpdating(testServer);
 }
@@ -163,7 +164,7 @@ TEST_CASE("TestServerReplyingStoreFailedRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient,
-            MessageType::ReplyStoreRequest, PoorBody));
+            MessageType::ReplyStoreRequest, TypeOfMessageBody::PoorBody));
     }
     testServerUpdating(testServer);
 }
@@ -178,7 +179,7 @@ TEST_CASE("TestServerReactionRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient,
-            MessageType::MessageReactionRequest, StrongBody));
+            MessageType::MessageReactionRequest, TypeOfMessageBody::StrongBody));
     }
     testServerUpdating(testServer);
 }
@@ -193,7 +194,7 @@ TEST_CASE("TestServerReactionFailedRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient,
-            MessageType::MessageReactionRequest, PoorBody));
+            MessageType::MessageReactionRequest, TypeOfMessageBody::PoorBody));
     }
     testServerUpdating(testServer);
 }
@@ -208,7 +209,7 @@ TEST_CASE("TestServerMessageEditingRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::MessageEditRequest, StrongBody));
+            MessageType::MessageEditRequest, TypeOfMessageBody::StrongBody));
     }
     testServerUpdating(testServer);
 }
@@ -223,7 +224,7 @@ TEST_CASE("TestServerMessageEditingFailedRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::MessageEditRequest, PoorBody));
+            MessageType::MessageEditRequest, TypeOfMessageBody::PoorBody));
     }
     testServerUpdating(testServer);
 }
@@ -238,7 +239,7 @@ TEST_CASE("TestServerMessageDeletingRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient,
-            MessageType::MessageDeleteRequest, StrongBody));
+            MessageType::MessageDeleteRequest, TypeOfMessageBody::StrongBody));
     }
     testServerUpdating(testServer);
 }
@@ -253,7 +254,7 @@ TEST_CASE("TestServerMessageDeletingFailedRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::MessageDeleteRequest, PoorBody));
+            MessageType::MessageDeleteRequest, TypeOfMessageBody::PoorBody));
     }
     testServerUpdating(testServer);
 }

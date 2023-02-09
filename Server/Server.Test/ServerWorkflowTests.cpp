@@ -2,6 +2,7 @@
 #include "TestUtility.hpp"
 
 using namespace TestUtility;
+using TestUtility::TypeOfMessageBody;
 
 TEST_CASE("TestServerStartingUp [success case]")
 {
@@ -13,7 +14,8 @@ TEST_CASE("TestServerStartingUp [success case]")
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
         == testAcceptingConnection)
     {
-        bindOfSendingMessage(mockClient, MessageType::ServerAccept, StrongBody);
+        bindOfSendingMessage(mockClient, 
+            MessageType::ServerAccept, TypeOfMessageBody::StrongBody);
     }
     REQUIRE_NOTHROW(testServerUpdating(testServer));
 }

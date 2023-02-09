@@ -2,6 +2,7 @@
 #include "TestUtility.hpp"
 
 using namespace TestUtility;
+using TestUtility::TypeOfMessageBody;
 
 TEST_CASE("TestServer—hannel—reatingRequest [success case]")
 {
@@ -13,7 +14,7 @@ TEST_CASE("TestServer—hannel—reatingRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelCreateRequest, StrongBody));
+            MessageType::ChannelCreateRequest, TypeOfMessageBody::StrongBody));
     }
     testServerUpdating(testServer);
 }
@@ -28,7 +29,7 @@ TEST_CASE("TestServer—hannel—reatingFailedRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelCreateRequest, PoorBody));
+            MessageType::ChannelCreateRequest, TypeOfMessageBody::PoorBody));
     }
     testServerUpdating(testServer);
 }
@@ -43,7 +44,7 @@ TEST_CASE("TestServer—hannelListRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelListRequest, StrongBody));
+            MessageType::ChannelListRequest, TypeOfMessageBody::StrongBody));
     }
     testServerUpdating(testServer);
 }
@@ -58,7 +59,7 @@ TEST_CASE("TestServer—hannelSubscribingRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelSubscribeRequest, StrongBody));
+            MessageType::ChannelSubscribeRequest, TypeOfMessageBody::StrongBody));
     }
     testServerUpdating(testServer);
 }
@@ -72,8 +73,8 @@ TEST_CASE("TestServer—hannelSubscribingFailedRequest [success case]")
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
         == testAcceptingConnection)
     {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient,
-            MessageType::ChannelSubscribeRequest, PoorBody));
+        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
+            MessageType::ChannelSubscribeRequest, TypeOfMessageBody::PoorBody));
     }
     testServerUpdating(testServer);
 }
@@ -88,7 +89,7 @@ TEST_CASE("TestServer—hannelSubscriptionListRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelSubscriptionListRequest, StrongBody));
+            MessageType::ChannelSubscriptionListRequest, TypeOfMessageBody::StrongBody));
     }
     testServerUpdating(testServer);
 }
@@ -103,7 +104,7 @@ TEST_CASE("TestServer—hannelLeavingRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelLeaveRequest, StrongBody));
+            MessageType::ChannelLeaveRequest, TypeOfMessageBody::StrongBody));
     }
     testServerUpdating(testServer);
 }
@@ -118,7 +119,7 @@ TEST_CASE("TestServer—hannelLeavingFailedRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelLeaveRequest, PoorBody));
+            MessageType::ChannelLeaveRequest, TypeOfMessageBody::PoorBody));
     }
     testServerUpdating(testServer);
 }
@@ -133,7 +134,7 @@ TEST_CASE("TestServer—hannelDeletingRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelDeleteRequest, StrongBody));
+            MessageType::ChannelDeleteRequest, TypeOfMessageBody::StrongBody));
     }
     testServerUpdating(testServer);
 }
@@ -148,7 +149,7 @@ TEST_CASE("TestServer—hannelDeletingFailedRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelDeleteRequest, PoorBody));
+            MessageType::ChannelDeleteRequest, TypeOfMessageBody::PoorBody));
     }
     testServerUpdating(testServer);
 }
