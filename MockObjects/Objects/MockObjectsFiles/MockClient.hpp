@@ -4,7 +4,7 @@
 #include "Client.hpp"
 #include "ServerInfo.hpp"
 
-namespace MockClient
+namespace MockObject
 {
 using asio::io_context;
 using asio::ip::tcp;
@@ -129,4 +129,4 @@ protected:
     */
     void onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const override;
 };
-}  // namespace MockClient
+}  // namespace MockObject

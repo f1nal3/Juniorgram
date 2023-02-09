@@ -107,8 +107,8 @@ MessageInfo& MessageFiller::getMessageInfo()
 void MessageFiller::fillLoginInfo()
 {
     LoginInfo loginInfo;
-    loginInfo._login   = TestMessagesOptions::testLogin;
-    loginInfo._pwdHash = TestMessagesOptions::testPWDHash;
+    loginInfo._login   = testLogin;
+    loginInfo._pwdHash = testPWDHash;
 
     setLoginInfo(loginInfo);
 }
@@ -116,68 +116,68 @@ void MessageFiller::fillLoginInfo()
 void MessageFiller::fillRegistrationInfo()
 {
     RegistrationInfo regInfo;
-    regInfo._email        = TestMessagesOptions::testEmail;
-    regInfo._login        = TestMessagesOptions::testLogin;
-    regInfo._passwordHash = TestMessagesOptions::testPWDHash;
+    regInfo._email        = testEmail;
+    regInfo._login        = testLogin;
+    regInfo._passwordHash = testPWDHash;
 
     setRegistrationInfo(regInfo);
 }
 void MessageFiller::fillChannelInfo()
 {
     ChannelInfo channelInfo;
-    channelInfo._channelID   = TestMessagesOptions::testChannelID;
-    channelInfo._channelName = TestMessagesOptions::testChannelName;
-    channelInfo._creatorID   = TestMessagesOptions::testCreatorID;
+    channelInfo._channelID   = testChannelID;
+    channelInfo._channelName = testChannelName;
+    channelInfo._creatorID   = testCreatorID;
 
     setChannelInfo(channelInfo);
 }
 void MessageFiller::fillChannelLeaveInfo()
 {
     ChannelLeaveInfo leaveInfo;
-    leaveInfo._channelID   = TestMessagesOptions::testChannelID;
-    leaveInfo._channelName = TestMessagesOptions::testChannelName;
-    leaveInfo._creatorID   = TestMessagesOptions::testCreatorID;
+    leaveInfo._channelID   = testChannelID;
+    leaveInfo._channelName = testChannelName;
+    leaveInfo._creatorID   = testCreatorID;
 
     setChannelLeaveInfo(leaveInfo);
 }
 void MessageFiller::fillChannelDeleteInfo()
 {
     ChannelDeleteInfo deleteInfo;
-    deleteInfo._channelID   = TestMessagesOptions::testChannelID;
-    deleteInfo._channelName = TestMessagesOptions::testChannelName;
-    deleteInfo._creatorID   = TestMessagesOptions::testCreatorID;
+    deleteInfo._channelID   = testChannelID;
+    deleteInfo._channelName = testChannelName;
+    deleteInfo._creatorID   = testCreatorID;
 
     setChannelDeleteInfo(deleteInfo);
 }
 void MessageFiller::fillChannelSubscriptionInfo()
 {
     ChannelSubscriptionInfo subInfo;
-    subInfo._channelID = TestMessagesOptions::testChannelID;
-    subInfo._userID    = TestMessagesOptions::testUserID;
+    subInfo._channelID = testChannelID;
+    subInfo._userID    = testUserID;
 
     setChannelSubscriptionInfo(subInfo);
 }
 void MessageFiller::fillReplyInfo()
 {
     ReplyInfo repInfo;
-    repInfo._channelID  = TestMessagesOptions::testChannelID;
-    repInfo._message    = TestMessagesOptions::testMessage;
-    repInfo._msgID      = TestMessagesOptions::testUserID;
-    repInfo._senderID   = TestMessagesOptions::testSenderID;
-    repInfo._msgIdOwner = TestMessagesOptions::testMsgIDOwner;
-    repInfo._userLogin  = TestMessagesOptions::testLogin;
+    repInfo._channelID  = testChannelID;
+    repInfo._message    = testMessage;
+    repInfo._msgID      = testUserID;
+    repInfo._senderID   = testSenderID;
+    repInfo._msgIdOwner = testMsgIDOwner;
+    repInfo._userLogin  = testLogin;
 
     setReplyInfo(repInfo);
 }
 void MessageFiller::fillMessageInfo()
 {
     MessageInfo mesgInfo;
-    mesgInfo._channelID   = TestMessagesOptions::testChannelID;
-    mesgInfo._message     = TestMessagesOptions::testMessage;
-    mesgInfo._msgID       = TestMessagesOptions::testMsgID;
-    mesgInfo._recipientID = TestMessagesOptions::testRecipientID;
-    mesgInfo._senderID    = TestMessagesOptions::testSenderID;
-    mesgInfo._userLogin   = TestMessagesOptions::testLogin;
+    mesgInfo._channelID   = testChannelID;
+    mesgInfo._message     = testMessage;
+    mesgInfo._msgID       = testMsgID;
+    mesgInfo._recipientID = testRecipientID;
+    mesgInfo._senderID    = testSenderID;
+    mesgInfo._userLogin   = testLogin;
 
     setMessageInfo(mesgInfo);
 }
@@ -192,4 +192,4 @@ void MessageFiller::fillAllMessages()
     fillReplyInfo();
     fillMessageInfo();
 }
-}  // namespace MessageFiller
+}  // namespace TestUtility

@@ -1,6 +1,6 @@
 #include "MockDatabase.hpp"
 
-namespace MockDatabase
+namespace MockObject
 {
 std::shared_ptr<MockDatabase> MockDatabase::Instance([[maybe_unused]] const std::string_view& options)
 {
@@ -59,4 +59,4 @@ void MockDatabase::closeConnection()
 {
     return _connection.reset();
 }
-}  // namespace MockDatabase
+}  // namespace MockObject

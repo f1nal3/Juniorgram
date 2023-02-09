@@ -18,21 +18,6 @@ TEST_CASE("TestServerGivingAllMessagesRequest [success case]")
     testServerUpdating(testServer);
 }
 
-//TEST_CASE("TestServerGivingAllMessagesFailedRequest [success case]")
-//{
-//    Client     mockClient;
-//    auto       testServer = makeTestServer();
-//
-//    testServer->start();
-//    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-//        == testAcceptingConnection)
-//    {
-//        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-//            MessageType::MessageAll, PoorBody));
-//    }
-//    testServerUpdating(testServer);
-//}
-
 TEST_CASE("TestServerHistoryRequest [success case]")
 {
     Client     mockClient;

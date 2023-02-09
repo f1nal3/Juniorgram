@@ -5,7 +5,7 @@
 * @brief namespace with data for testing. 
 * @details Used in TestUtility.hpp to emulate user input. 
 */
-namespace TestMessagesOptions
+namespace TestUtility
 {
 const std::string testLogin{"tester"};
 const std::string testPSWD{"password"};
@@ -23,4 +23,4 @@ constexpr uint16_t    testChannelID{1};
 constexpr uint16_t    testCreatorID{1};
 constexpr uint16_t    testSenderID{1};
 constexpr uint16_t    testMsgIDOwner{1};
-}  // namespace TestMessagesOptions
+}  // namespace TestUtility

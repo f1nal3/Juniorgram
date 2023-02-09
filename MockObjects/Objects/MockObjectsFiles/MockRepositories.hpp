@@ -8,7 +8,7 @@
 
 #include "FileLogger.hpp"
 
-namespace MockRepositories
+namespace MockObject
 {
 using IAdapter                 = DataAccess::IAdapter;
 using IChannelRepository       = DataAccess::IChannelsRepository;
@@ -17,7 +17,6 @@ using ILoginRepository         = DataAccess::ILoginRepository;
 using IMessagesRepository      = DataAccess::IMessagesRepository;
 using IRegisterRepository      = DataAccess::IRegisterRepository;
 using IRepliesRepository       = DataAccess::IRepliesRepository;
-using Query                    = MockQuery::MockQuery;
 
 /**
 * @brief struct MockChannelsRepository.
@@ -29,7 +28,7 @@ struct MockChannelsRepository final : IChannelRepository
 public:
     explicit MockChannelsRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        _mockQuery = std::make_unique<Query>("channels", adapter);
+        _mockQuery = std::make_unique<MockQuery>("channels", adapter);
     }
 
     ~MockChannelsRepository() override = default;
@@ -42,7 +41,7 @@ private:
     std::vector<uint64_t>            getChannelSubscriptionList(const uint64_t userID) override;
     std::vector<Models::ChannelInfo> getAllChannelsList() override;
 
-    std::unique_ptr<Query> _mockQuery;
+    std::unique_ptr<MockQuery> _mockQuery;
 };
 
 /**
@@ -55,7 +54,7 @@ struct MockDirectMessageRepository final : IDirectMessageRepository
 public:
     explicit MockDirectMessageRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        _mockQuery = std::make_unique<Query>("direct_msgs", adapter);
+        _mockQuery = std::make_unique<MockQuery>("direct_msgs", adapter);
     }
 
     ~MockDirectMessageRepository() override = default;
@@ -63,7 +62,7 @@ public:
 private:
     Utility::DirectMessageStatus addDirectChat(uint64_t userID, uint64_t receiverID) override;
 
-    std::unique_ptr<Query> _mockQuery;
+    std::unique_ptr<MockQuery> _mockQuery;
 };
 
 /**
@@ -76,7 +75,7 @@ struct MockLoginRepository final : ILoginRepository
 public:
     explicit MockLoginRepository(const std::shared_ptr<IAdapter>& adapter)
     { 
-        _mockQuery = std::make_unique<Query>("user_login", adapter); 
+        _mockQuery = std::make_unique<MockQuery>("user_login", adapter); 
     }
 
     ~MockLoginRepository() override = default;
@@ -84,7 +83,7 @@ public:
 private:
     std::uint64_t loginUser(const Models::LoginInfo& loginInfo) override;
 
-    std::unique_ptr<Query> _mockQuery;
+    std::unique_ptr<MockQuery> _mockQuery;
 };
 
 /**
@@ -97,7 +96,7 @@ struct MockMessagesRepository final : IMessagesRepository
 public:
     explicit MockMessagesRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        _mockQuery = std::make_unique<Query>("msgs", adapter);
+        _mockQuery = std::make_unique<MockQuery>("msgs", adapter);
     }
 
     ~MockMessagesRepository() override = default;
@@ -109,7 +108,7 @@ private:
     Utility::StoringMessageCodes     storeMessage(const Models::MessageInfo& messageInfo) override;
     std::vector<Models::MessageInfo> getMessageHistory(const std::uint64_t channelID) override;
 
-    std::unique_ptr<Query> _mockQuery;
+    std::unique_ptr<MockQuery> _mockQuery;
 };
 
 /**
@@ -122,7 +121,7 @@ struct MockRegisterRepository final : IRegisterRepository
 public:
     explicit MockRegisterRepository(const std::shared_ptr<IAdapter>& adapter)
     {
-        _mockQuery = std::make_unique<Query>("user_registration", adapter);
+        _mockQuery = std::make_unique<MockQuery>("user_registration", adapter);
     }
 
     ~MockRegisterRepository() override = default;
@@ -130,7 +129,7 @@ public:
 private:
     Utility::RegistrationCodes registerUser(const Models::RegistrationInfo& regInfo) override;
 
-    std::unique_ptr<Query> _mockQuery;
+    std::unique_ptr<MockQuery> _mockQuery;
 };
 
 /**
@@ -143,7 +142,7 @@ struct MockRepliesRepository final : IRepliesRepository
 public:
     explicit MockRepliesRepository(const std::shared_ptr<IAdapter>& adapter)
     { 
-        _mockQuery = std::make_unique<Query>("replies", adapter); 
+        _mockQuery = std::make_unique<MockQuery>("replies", adapter); 
     }
     ~MockRepliesRepository() override = default;
 
@@ -151,6 +150,6 @@ private:
     std::vector<Models::ReplyInfo> getReplyHistory(const std::uint64_t channelID) override;
     Utility::StoringReplyCodes     storeReply(const Models::ReplyInfo& replyInfo) override;
 
-    std::unique_ptr<Query> _mockQuery;
+    std::unique_ptr<MockQuery> _mockQuery;
 };
-}  // namespace MockRepositories
+}  // namespace MockObject

@@ -1,6 +1,6 @@
 #include "MockClient.hpp"
 
-namespace MockClient
+namespace MockObject
 {
 using MessageType = Network::Message::MessageType;
 using UtilityTime::timestamp_t;
@@ -409,4 +409,4 @@ void MockClient::onDirectMessageCreateAnswer(Utility::DirectMessageStatus direct
         );
     }
 }
-}  // namespace MockClient
+}  // namespace MockObject

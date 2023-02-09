@@ -64,4 +64,4 @@ private:
     ReplyInfo               _replyInfo;
     MessageInfo             _messageInfo;
 };
-}  // namespace MesgFiller
+}  // namespace TestUtility

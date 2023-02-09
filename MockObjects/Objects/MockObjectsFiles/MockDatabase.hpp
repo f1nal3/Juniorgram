@@ -5,7 +5,7 @@
 #include "MockDatabaseOptions.hpp"
 #include "MockRepositoryInstance.hpp"
 
-namespace MockDatabase
+namespace MockObject
 {
 using DataAccess::IAdapter;
 using MockObject::MockRepositoryInstance;
@@ -45,4 +45,4 @@ private:
     std::mutex                                  _queryMutex;
     std::unique_ptr<MockRepositoryInstance>     _connection;
 };
-}  // namespace MockDatabase
+}  // namespace MockObject

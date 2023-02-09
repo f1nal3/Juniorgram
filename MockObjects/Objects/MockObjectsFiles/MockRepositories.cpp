@@ -1,6 +1,6 @@
 #include "MockRepositories.hpp"
 
-namespace MockRepositories
+namespace MockObject
 {
 std::vector<Models::ChannelInfo> MockChannelsRepository::getAllChannelsList()
 {
@@ -254,4 +254,4 @@ Utility::DirectMessageStatus MockDirectMessageRepository::addDirectChat(uint64_t
     }
     return Utility::DirectMessageStatus::FAILED;
 }
-}  // namespace MockRepositories
+}  // namespace MockObject

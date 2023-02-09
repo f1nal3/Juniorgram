@@ -23,10 +23,10 @@ class MockRepositoryManager;
 */
 namespace TestUtility
 {
-using Database         = MockDatabase::MockDatabase;
-using RepoManager      = MockDataAccess::MockRepositoryManager;
+using Database         = MockObject::MockDatabase;
+using RepoManager      = MockObject::MockRepositoryManager;
 using RTC              = std::chrono::system_clock;
-using Client           = MockClient::MockClient;
+using Client           = MockObject::MockClient;
 using Message          = Network::Message;
 using TestServer       = std::unique_ptr<Server::Server>;
 using MessageType      = Message::MessageType;
@@ -49,7 +49,7 @@ using ChannelInfo             = Models::ChannelInfo;
 
 constexpr bool testAcceptingConnection = true;
 
-enum TypeOfMessageBody
+enum class TypeOfMessageBody
 {
     PoorBody,
     StrongBody
@@ -272,7 +272,7 @@ inline Message& makePoorMessage(Message& message, MessageType messageType) noexc
             {
                 RegistrationInfo registrationInfo;
                 registrationInfo._login = "";
-                message.mBody = std::make_any<RegistrationInfo>(registrationInfo);
+                message.mBody           = std::make_any<RegistrationInfo>(registrationInfo);
 
                 break;
             }
@@ -281,7 +281,7 @@ inline Message& makePoorMessage(Message& message, MessageType messageType) noexc
             {
                 LoginInfo loginInfo;
                 loginInfo._login = "";
-                message.mBody = std::make_any<LoginInfo>(loginInfo);
+                message.mBody    = std::make_any<LoginInfo>(loginInfo);
 
                 break;
             }
@@ -309,7 +309,7 @@ inline Message& makePoorMessage(Message& message, MessageType messageType) noexc
                 Models::ChannelSubscriptionInfo messageInfo;
                 messageInfo._channelID = 0;
                 messageInfo._userID    = 0;
-                message.mBody = std::any_cast<Models::ChannelSubscriptionInfo>(messageInfo);
+                message.mBody          = std::any_cast<Models::ChannelSubscriptionInfo>(messageInfo);
 
                 break;
             }
@@ -333,7 +333,7 @@ inline Message& makePoorMessage(Message& message, MessageType messageType) noexc
             {
                 ReplyInfo replyInfo;
                 replyInfo._channelID = 0;
-                message.mBody = std::make_any<ReplyInfo>(replyInfo);
+                message.mBody        = std::make_any<ReplyInfo>(replyInfo);
 
                 break;
             }
@@ -342,7 +342,7 @@ inline Message& makePoorMessage(Message& message, MessageType messageType) noexc
             {
                 MessageInfo messageInfo;
                 messageInfo._msgID = 0;
-                message.mBody = std::make_any<MessageInfo>(messageInfo);
+                message.mBody      = std::make_any<MessageInfo>(messageInfo);
 
                 break;
             }
@@ -365,7 +365,7 @@ inline Message& makePoorMessage(Message& message, MessageType messageType) noexc
             {
                 MessageInfo messageInfo;
                 messageInfo._channelID = 0;
-                message.mBody = std::make_any<MessageInfo>(messageInfo);
+                message.mBody          = std::make_any<MessageInfo>(messageInfo);
 
                 break;
             }
@@ -374,7 +374,7 @@ inline Message& makePoorMessage(Message& message, MessageType messageType) noexc
             {
                 MessageInfo messageInfo;
                 messageInfo._msgID = 0;
-                message.mBody = std::make_any<MessageInfo>(messageInfo);
+                message.mBody      = std::make_any<MessageInfo>(messageInfo);
 
                 break;
             }
@@ -383,7 +383,7 @@ inline Message& makePoorMessage(Message& message, MessageType messageType) noexc
             {
                 MessageInfo messageInfo;
                 messageInfo._msgID = 0;
-                message.mBody = std::make_any<MessageInfo>(messageInfo);
+                message.mBody      = std::make_any<MessageInfo>(messageInfo);
 
                 break;
             }
@@ -392,7 +392,7 @@ inline Message& makePoorMessage(Message& message, MessageType messageType) noexc
             {
                 Models::ChannelDeleteInfo channelDeleteInfo;
                 channelDeleteInfo._channelID = 0;
-                message.mBody = std::make_any<std::string>(channelDeleteInfo._channelName);
+                message.mBody                = std::make_any<std::string>(channelDeleteInfo._channelName);
 
                 break;
             }
@@ -403,35 +403,13 @@ inline Message& makePoorMessage(Message& message, MessageType messageType) noexc
 
                 break;
             }
-            case Message::MessageType::ServerAccept:
-            {
-                Base::Logger::FileLogger::getInstance().log
-                (
-                    "[TestUtilityMessage]: Server accepted the connection!",
-                     Base::Logger::LogLevel::INFO
-                );
-
-                break;
-            }
-            default:
-            {
-                Base::Logger::FileLogger::getInstance().log
-                (
-                    "[TestUtilityMessage]: Unimplemented[" + std::to_string
-                    (uint32_t(message.mHeader.mMessageType)) + "]",
-                     Base::Logger::LogLevel::WARNING
-                );
-                throw std::invalid_argument("Unimplemented!");
-
-                break;
-            }
         }
     }
-    catch (const std::invalid_argument& testException)
+    catch (const std::invalid_argument& testBadException)
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            testException.what(),
+            testBadException.what(),
             Base::Logger::LogLevel::WARNING
         );
     }

@@ -6,7 +6,7 @@
 #include <DataAccess/IAdapter.hpp>
 #include "MockRepositoryInstance.hpp"
 
-namespace MockQueryBuilder
+namespace MockObject
 {
 using DataAccess::IAdapter;
 
@@ -41,4 +41,4 @@ private:
     std::string               _tableName;
     std::string               _databaseType;
 };
-}  // namespace MockQueryBuilder
+}  // namespace MockObject

@@ -4,7 +4,7 @@
 #include "DataAccess.Postgre/PostgreRepositoryContainer.hpp"
 #include "MockRepositories.hpp"
 
-namespace MockDataAccess
+namespace MockObject
 {
 /**
 * @brief class MockRepositoryManager.
@@ -17,13 +17,13 @@ public:
     explicit MockRepositoryManager(const std::shared_ptr<DataAccess::IAdapter> repositoryContainer)
     {
         auto repo = std::make_unique<DataAccess::AbstractRepositoryContainer>(repositoryContainer);
-        repo->registerRepository<DataAccess::IChannelsRepository,      MockRepositories::MockChannelsRepository>();
-        repo->registerRepository<DataAccess::ILoginRepository,         MockRepositories::MockLoginRepository>();
-        repo->registerRepository<DataAccess::IMessagesRepository,      MockRepositories::MockMessagesRepository>();
-        repo->registerRepository<DataAccess::IRegisterRepository,      MockRepositories::MockRegisterRepository>();
-        repo->registerRepository<DataAccess::IRepliesRepository,       MockRepositories::MockRepliesRepository>();
-        repo->registerRepository<DataAccess::IDirectMessageRepository, MockRepositories::MockDirectMessageRepository>();
+        repo->registerRepository<DataAccess::IChannelsRepository,      MockChannelsRepository>();
+        repo->registerRepository<DataAccess::ILoginRepository,         MockLoginRepository>();
+        repo->registerRepository<DataAccess::IMessagesRepository,      MockMessagesRepository>();
+        repo->registerRepository<DataAccess::IRegisterRepository,      MockRegisterRepository>();
+        repo->registerRepository<DataAccess::IRepliesRepository,       MockRepliesRepository>();
+        repo->registerRepository<DataAccess::IDirectMessageRepository, MockDirectMessageRepository>();
         IRepositoryManager::init(std::move(repo));
     }
 };
-}  // namespace MockDataAccess
+}  // namespace MockObject
