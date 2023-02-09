@@ -1,20 +1,19 @@
 #pragma once
 
 #include "MockDatabase.hpp"
+#include "MockQueryBuilder.hpp"
 
 namespace MockQuery
 {
 using DataAccess::IAdapter;
+using TestUtility::MockRepositoryInstance;
 using Database = MockDatabase::MockDatabase;
+using QueryBuilder = MockQueryBuilder::MockQueryBuilder<MockRepositoryInstance>;
 
-class MockQuery
+class MockQuery : public QueryBuilder
 {
 public: 
-    explicit MockQuery(std::shared_ptr<IAdapter> adapter = Database::getInstance<Database>())
-    : _mockAdapter(adapter){}
-
-    std::shared_ptr<IAdapter>& getQuery() { return _mockAdapter; }
-private:
-    std::shared_ptr<IAdapter> _mockAdapter;
+    explicit MockQuery(const std::string& tableName, std::shared_ptr<IAdapter> adapter = Database::getInstance<Database>())
+        : MockQueryBuilder("MockDatabase", tableName, adapter) {}
 };
 }  // namespace MockQuery

@@ -17,7 +17,37 @@ std::shared_ptr<MockDatabase> MockDatabase::Instance([[maybe_unused]] const std:
 
 std::optional<std::any> MockDatabase::query(const std::string_view& query)
 {
-    return _connection->getStorageData().emplace_back(query);
+    if (query == "channels")
+    {
+        return _connection->getChannelsRepoData().getStorageData();
+    }
+
+    if (query == "replies")
+    {
+        return _connection->getRepliesRepoData().getStorageData();
+    }
+
+    if (query == "direct_msgs")
+    {
+        return _connection->getDirectMessageRepoData().getStorageData();
+    }
+
+    if (query == "msgs")
+    {
+        return _connection->getMessageRepoData().getStorageData();
+    }
+
+    if (query == "user_registration")
+    {
+        return _connection->getRegisterRepoData().getStorageData();
+    }
+
+    if (query == "user_login")
+    {
+        return _connection->getLoginRepoData().getStorageData();
+    }
+
+    return std::vector<std::string>();
 }
 
 bool MockDatabase::isConnected() const 

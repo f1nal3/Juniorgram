@@ -83,16 +83,16 @@ void MockClient::onChannelListRequest(const std::vector<Models::ChannelInfo>& ch
             "[MockClient] Channel list isn't implemented!",
             Base::Logger::LogLevel::INFO
         );
-     }
+    }
 }
 
 void MockClient::onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages)
 {
-    if (!messages.empty())
+    if (messages.empty())
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[MockClient] Message history is taken successfully!",
+            "[MockClient] Message history isn't implemented!",
             Base::Logger::LogLevel::INFO
         );
     }
@@ -100,7 +100,7 @@ void MockClient::onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& 
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[MockClient] Message history isn't implemented!",
+            "[MockClient] Message history is taken successfully!",
             Base::Logger::LogLevel::INFO
         );
     }
@@ -120,7 +120,7 @@ void MockClient::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessag
     {
          Base::Logger::FileLogger::getInstance().log
         (
-            "[MockClient] Message not sent!", 
+            "[MockClient] Message didn't sent!", 
             Base::Logger::LogLevel::INFO
         );
     }
@@ -236,12 +236,22 @@ void MockClient::onMessageSendFailed(const Message& message) const
 
 void MockClient::onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& replies)
 {
-    (void)(replies);
-    Base::Logger::FileLogger::getInstance().log
-    (
-        "[MockClient] Reply history answer is implemented!", 
-        Base::Logger::LogLevel::INFO
-    );
+    if (!replies.empty())
+    {
+        Base::Logger::FileLogger::getInstance().log
+        (
+            "[MockClient] Reply history answer is implemented!", 
+            Base::Logger::LogLevel::INFO
+        );
+    }
+    else
+    {
+        Base::Logger::FileLogger::getInstance().log
+        (
+            "[MockClient] Reply history answer isn't implemented!", 
+            Base::Logger::LogLevel::INFO
+        );
+    }
 }
 
 void MockClient::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
@@ -347,22 +357,6 @@ void MockClient::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteC
         Base::Logger::FileLogger::getInstance().log
         (
             "[MockClient] Failed deleting!", 
-            Base::Logger::LogLevel::INFO
-        );
-    }
-    else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_NOT_FOUND)
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[MockClient] Channel not found!", 
-            Base::Logger::LogLevel::INFO
-        );
-    }
-    else if (channelDeleteCode == Utility::ChannelDeleteCode::CHANNEL_IS_NOT_USER)
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[MockClient] Channel doesn't belong to the user!", 
             Base::Logger::LogLevel::INFO
         );
     }
