@@ -2,10 +2,11 @@
 
 #include <ServerBuilder.hpp>
 
-#include <MockObjectsFiles/MockDatabase.hpp>
-#include <MockObjectsFiles/MockClient.hpp>
-#include <MockObjectsFiles/MockRepositoryManager.hpp>
-#include <MockObjectsFiles/MessageFiller.hpp>
+#include <DataAccess.Mock/MockDatabase.hpp>
+#include <DataAccess.Mock/MockRepositoryManager.hpp>
+#include <Client.Mock/MockClient.hpp>
+
+#include "MessageFiller.hpp"
 
 namespace Builder
 {

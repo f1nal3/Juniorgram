@@ -1,18 +1,13 @@
-set(TARGET MockObjectsFiles)
-set(OUTPUT_NAME MockObjectsFiles)
+set(TARGET DataAccess.Mock)
+set(OUTPUT_NAME DataAccess.Mock)
 
 set(SOURCE_FILES
     MockQuery.hpp
-	MockClient.cpp
-	MockClient.hpp
 	MockDatabase.hpp
 	MockDatabase.cpp
-	MessageFiller.hpp
-	MessageFiller.cpp
 	MockQueryBuilder.hpp
 	MockRepositories.hpp
 	MockRepositories.cpp
-	MockMessagesOptions.hpp
 	MockDatabaseOptions.hpp
 	MockRepositoryInstance.hpp
 	MockRepositoryStorage.hpp
@@ -21,11 +16,10 @@ set(SOURCE_FILES
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
 target_link_libraries(${TARGET}
-PUBLIC 
+PUBLIC
+	Base.Crypto.Static
     Server.Core.Static
-	Client.Core.Static
-    DataAccess.Debug   
-	asio::asio)
+    DataAccess.Debug)
 	
  target_include_directories(${TARGET} PRIVATE
 	 $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)

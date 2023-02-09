@@ -8,10 +8,13 @@ set(SOURCE_FILES
 		ServerAutorizationMessagesTests.cpp
 		ServerWorkflowTests.cpp)
 		
-set(HEADER_FILES
-		TestUtility.hpp)
+set(TEST_SOURCE_FILES
+		TestUtility.hpp
+		MessageFiller.hpp
+		MessageFiller.cpp
+		MockMessagesOptions.hpp)
 
-add_executable(${TARGET} ${SOURCE_FILES} ${HEADER_FILES})
+add_executable(${TARGET} ${SOURCE_FILES} ${TEST_SOURCE_FILES})
 
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
@@ -20,14 +23,13 @@ target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIB}
 				asio::asio
 		PUBLIC  Precompiled.Catch2.Main 
 				Server.Core.Static
-				Client.Core.Static
-				DataAccess.Debug
-				MockObjectsFiles)
+				DataAccess.Mock
+				Client.Mock)
 
  target_include_directories(${TARGET} PRIVATE
 	 $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)
  target_include_directories(${TARGET} PRIVATE
-	 $<TARGET_PROPERTY:MockObjectsFiles,SOURCE_DIR>/..)
+	 $<TARGET_PROPERTY:Client.Core,SOURCE_DIR>/..)
 
 target_compile_definitions(${TARGET} PRIVATE CATCH_CONFIG_FAST_COMPILE)
 target_precompile_headers(${TARGET} REUSE_FROM Precompiled.Catch2.Test)
