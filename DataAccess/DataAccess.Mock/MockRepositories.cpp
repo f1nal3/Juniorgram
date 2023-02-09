@@ -254,4 +254,4 @@ Utility::DirectMessageStatus MockDirectMessageRepository::addDirectChat(uint64_t
     }
     return Utility::DirectMessageStatus::FAILED;
 }
-}  // namespace MockObject
+}  /// namespace MockObject

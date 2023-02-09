@@ -59,4 +59,4 @@ void MockDatabase::closeConnection()
 {
     return _connection.reset();
 }
-}  // namespace MockObject
+}  /// namespace MockObject

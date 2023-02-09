@@ -152,4 +152,4 @@ private:
 
     std::unique_ptr<MockQuery> _mockQuery;
 };
-}  // namespace MockObject
+}  /// namespace MockObject

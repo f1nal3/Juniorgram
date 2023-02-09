@@ -122,4 +122,4 @@ private:
     MockRegisterRepositoryData      _regData;
     MockLoginRepositoryData         _loginData;
 };
-}  // namespace MockObject
+}  /// namespace MockObject

@@ -385,4 +385,4 @@ void MockClient::onDirectMessageCreateAnswer(Utility::DirectMessageStatus direct
         );
     }
 }
-}  // namespace MockObject
+}  /// namespace MockObject

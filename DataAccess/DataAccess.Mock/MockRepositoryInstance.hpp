@@ -11,4 +11,4 @@ struct MockRepositoryInstance : public MockRepositoryStorage
 private:
     std::string_view _repoProperties;
 };
-}  // namespace MockObject
+}  /// namespace MockObject

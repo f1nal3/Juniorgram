@@ -41,4 +41,4 @@ private:
     std::string               _tableName;
     std::string               _databaseType;
 };
-}  // namespace MockObject
+}  /// namespace MockObject

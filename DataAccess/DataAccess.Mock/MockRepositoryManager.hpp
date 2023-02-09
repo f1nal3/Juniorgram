@@ -26,4 +26,4 @@ public:
         IRepositoryManager::init(std::move(repo));
     }
 };
-}  // namespace MockObject
+}  /// namespace MockObject

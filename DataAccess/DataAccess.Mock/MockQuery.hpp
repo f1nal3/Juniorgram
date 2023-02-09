@@ -16,4 +16,4 @@ public:
     explicit MockQuery(const std::string& tableName, std::shared_ptr<IAdapter> adapter = Database::getInstance<Database>())
         : MockQueryBuilder("MockDatabase", tableName, adapter) {}
 };
-}  // namespace MockObject
+}  /// namespace MockObject

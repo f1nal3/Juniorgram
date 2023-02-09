@@ -45,4 +45,4 @@ private:
     std::mutex                                  _queryMutex;
     std::unique_ptr<MockRepositoryInstance>     _connection;
 };
-}  // namespace MockObject
+}  /// namespace MockObject

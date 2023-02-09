@@ -129,4 +129,4 @@ protected:
     */
     void onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const override;
 };
-}  // namespace MockObject
+}  /// namespace MockObject

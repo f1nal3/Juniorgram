@@ -23,4 +23,4 @@ constexpr uint16_t    testChannelID{1};
 constexpr uint16_t    testCreatorID{1};
 constexpr uint16_t    testSenderID{1};
 constexpr uint16_t    testMsgIDOwner{1};
-}  // namespace TestUtility
+}  /// namespace TestUtility
