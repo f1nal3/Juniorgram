@@ -9,6 +9,7 @@ set(SOURCE_FILES
 	MockDatabase.cpp
 	MessageFiller.hpp
 	MessageFiller.cpp
+	MockQueryBuilder.hpp
 	MockRepositories.hpp
 	MockRepositories.cpp
 	MockMessagesOptions.hpp
