@@ -13,7 +13,7 @@ TEST_CASE("TestServerStartingUp [success case]")
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
         == testAcceptingConnection)
     {
-        bindOfSendingMessage(mockClient, MessageType::ServerAccept);
+        bindOfSendingMessage(mockClient, MessageType::ServerAccept, StrongBody);
     }
     REQUIRE_NOTHROW(testServerUpdating(testServer));
 }

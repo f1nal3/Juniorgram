@@ -12,7 +12,7 @@ TEST_CASE("TestServerPingRequest [success case]")
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
         == testAcceptingConnection)
     {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ServerPing));
+        CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType::ServerPing, StrongBody));
     }
     testServerUpdating(testServer);
 }
@@ -27,7 +27,7 @@ TEST_CASE("TestServerErrorDefaultRequest [success case]")
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
         == testAcceptingConnection)
     {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType(failedType)));
+        CHECK_NOTHROW(bindOfSendingMessage(mockClient, MessageType(failedType),PoorBody));
     }
     testServerUpdating(testServer);
 }
