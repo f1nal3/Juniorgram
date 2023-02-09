@@ -3,11 +3,12 @@
 #include <DataAccess/IAdapter.hpp>
 #include <Utility/JGExceptions.hpp>
 #include "MockDatabaseOptions.hpp"
+#include "MockRepositoryInstance.hpp"
 
 namespace MockDatabase
 {
 using DataAccess::IAdapter;
-using TestUtility::MockRepositoryInstance;
+using MockObject::MockRepositoryInstance;
 
 /** 
 * @brief class MockDatabase.

@@ -4,13 +4,13 @@
 #include <string>
 
 #include <DataAccess/IAdapter.hpp>
-#include "MockDatabaseOptions.hpp"
+#include "MockRepositoryInstance.hpp"
 
 namespace MockQueryBuilder
 {
 using DataAccess::IAdapter;
 
-template <typename QueryType = TestUtility::MockRepositoryData>
+template <typename QueryType = MockObject::MockRepositoryStorage>
 class MockQueryBuilder
 {
 public:

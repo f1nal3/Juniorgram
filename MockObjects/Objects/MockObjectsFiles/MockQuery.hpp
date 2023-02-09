@@ -6,7 +6,7 @@
 namespace MockQuery
 {
 using DataAccess::IAdapter;
-using TestUtility::MockRepositoryInstance;
+using MockObject::MockRepositoryInstance;
 using Database = MockDatabase::MockDatabase;
 using QueryBuilder = MockQueryBuilder::MockQueryBuilder<MockRepositoryInstance>;
 
