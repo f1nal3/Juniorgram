@@ -122,6 +122,7 @@ void MessageFiller::fillRegistrationInfo()
 
     setRegistrationInfo(regInfo);
 }
+
 void MessageFiller::fillChannelInfo()
 {
     ChannelInfo channelInfo;
@@ -131,6 +132,7 @@ void MessageFiller::fillChannelInfo()
 
     setChannelInfo(channelInfo);
 }
+
 void MessageFiller::fillChannelLeaveInfo()
 {
     ChannelLeaveInfo leaveInfo;
@@ -140,6 +142,7 @@ void MessageFiller::fillChannelLeaveInfo()
 
     setChannelLeaveInfo(leaveInfo);
 }
+
 void MessageFiller::fillChannelDeleteInfo()
 {
     ChannelDeleteInfo deleteInfo;
@@ -149,6 +152,7 @@ void MessageFiller::fillChannelDeleteInfo()
 
     setChannelDeleteInfo(deleteInfo);
 }
+
 void MessageFiller::fillChannelSubscriptionInfo()
 {
     ChannelSubscriptionInfo subInfo;
@@ -157,6 +161,7 @@ void MessageFiller::fillChannelSubscriptionInfo()
 
     setChannelSubscriptionInfo(subInfo);
 }
+
 void MessageFiller::fillReplyInfo()
 {
     ReplyInfo repInfo;
@@ -169,6 +174,7 @@ void MessageFiller::fillReplyInfo()
 
     setReplyInfo(repInfo);
 }
+
 void MessageFiller::fillMessageInfo()
 {
     MessageInfo mesgInfo;
@@ -181,6 +187,7 @@ void MessageFiller::fillMessageInfo()
 
     setMessageInfo(mesgInfo);
 }
+
 void MessageFiller::fillAllMessages() 
 {
     fillLoginInfo();

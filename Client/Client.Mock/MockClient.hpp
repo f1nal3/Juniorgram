@@ -5,7 +5,6 @@
 
 namespace MockObject
 {
-using Network::Connection;
 using Network::Client;
 using Network::Message;
 
