@@ -4,7 +4,7 @@
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
-TEST_CASE("TestServerRegistrationRequest [success case]")
+TEST_CASE("TestServerRegistrationFailedRequest [success case]")
 {
     Client      mockClient;
     auto        testServer = makeTestServer();
@@ -14,12 +14,12 @@ TEST_CASE("TestServerRegistrationRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::RegistrationRequest, MessageBody::ExpensiveBody));
+            MessageType::RegistrationRequest, MessageBody::PoorBody));
     }
     testServerUpdating(testServer);
 }
 
-TEST_CASE("TestServerLoggingRequest [success case]")
+TEST_CASE("TestServerLoggingFailedRequest [success case]")
 {
     Client     mockClient;
     auto       testServer = makeTestServer();
@@ -29,7 +29,7 @@ TEST_CASE("TestServerLoggingRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient,
-            MessageType::LoginRequest, MessageBody::ExpensiveBody));
+            MessageType::LoginRequest, MessageBody::PoorBody));
     }
     testServerUpdating(testServer);
 }

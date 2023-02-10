@@ -2,7 +2,7 @@
 #include "TestUtility.hpp"
 
 using namespace TestUtility;
-using TestUtility::TypeOfMessageBody;
+using TestUtility::MessageBody;
 
 TEST_CASE("TestServerStartingUp [success case]")
 {
@@ -15,7 +15,7 @@ TEST_CASE("TestServerStartingUp [success case]")
         == testAcceptingConnection)
     {
         bindOfSendingMessage(mockClient, 
-            MessageType::ServerAccept, TypeOfMessageBody::StrongBody);
+            MessageType::ServerAccept, MessageBody::ExpensiveBody);
     }
     REQUIRE_NOTHROW(testServerUpdating(testServer));
 }

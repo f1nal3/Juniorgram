@@ -2,7 +2,7 @@
 #include "TestUtility.hpp"
 
 using namespace TestUtility;
-using TestUtility::TypeOfMessageBody;
+using TestUtility::MessageBody;
 
 TEST_CASE("TestServerÑhannelÑreatingRequest [success case]")
 {
@@ -14,22 +14,7 @@ TEST_CASE("TestServerÑhannelÑreatingRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelCreateRequest, TypeOfMessageBody::StrongBody));
-    }
-    testServerUpdating(testServer);
-}
-
-TEST_CASE("TestServerÑhannelÑreatingFailedRequest [success case]")
-{
-    Client      mockClient;
-    auto        testServer = makeTestServer();
-
-    testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == testAcceptingConnection)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelCreateRequest, TypeOfMessageBody::PoorBody));
+            MessageType::ChannelCreateRequest, MessageBody::ExpensiveBody));
     }
     testServerUpdating(testServer);
 }
@@ -44,7 +29,7 @@ TEST_CASE("TestServerÑhannelListRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelListRequest, TypeOfMessageBody::StrongBody));
+            MessageType::ChannelListRequest, MessageBody::ExpensiveBody));
     }
     testServerUpdating(testServer);
 }
@@ -59,22 +44,7 @@ TEST_CASE("TestServerÑhannelSubscribingRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelSubscribeRequest, TypeOfMessageBody::StrongBody));
-    }
-    testServerUpdating(testServer);
-}
-
-TEST_CASE("TestServerÑhannelSubscribingFailedRequest [success case]")
-{
-    Client      mockClient;
-    auto        testServer = makeTestServer();
-
-    testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == testAcceptingConnection)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelSubscribeRequest, TypeOfMessageBody::PoorBody));
+            MessageType::ChannelSubscribeRequest, MessageBody::ExpensiveBody));
     }
     testServerUpdating(testServer);
 }
@@ -89,7 +59,7 @@ TEST_CASE("TestServerÑhannelSubscriptionListRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelSubscriptionListRequest, TypeOfMessageBody::StrongBody));
+            MessageType::ChannelSubscriptionListRequest, MessageBody::ExpensiveBody));
     }
     testServerUpdating(testServer);
 }
@@ -104,22 +74,7 @@ TEST_CASE("TestServerÑhannelLeavingRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelLeaveRequest, TypeOfMessageBody::StrongBody));
-    }
-    testServerUpdating(testServer);
-}
-
-TEST_CASE("TestServerÑhannelLeavingFailedRequest [success case]")
-{
-    Client      mockClient;
-    auto        testServer = makeTestServer();
-
-    testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == testAcceptingConnection)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelLeaveRequest, TypeOfMessageBody::PoorBody));
+            MessageType::ChannelLeaveRequest, MessageBody::ExpensiveBody));
     }
     testServerUpdating(testServer);
 }
@@ -134,22 +89,7 @@ TEST_CASE("TestServerÑhannelDeletingRequest [success case]")
         == testAcceptingConnection)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelDeleteRequest, TypeOfMessageBody::StrongBody));
-    }
-    testServerUpdating(testServer);
-}
-
-TEST_CASE("TestServerÑhannelDeletingFailedRequest [success case]")
-{
-    Client     mockClient;
-    auto       testServer = makeTestServer();
-
-    testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == testAcceptingConnection)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelDeleteRequest, TypeOfMessageBody::PoorBody));
+            MessageType::ChannelDeleteRequest, MessageBody::ExpensiveBody));
     }
     testServerUpdating(testServer);
 }

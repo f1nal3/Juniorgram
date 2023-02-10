@@ -6,8 +6,11 @@ set(SOURCE_FILES
 		ServerDefaultMessagesTests.cpp
 		ServerChannelMessagesTests.cpp
 		ServerAutorizationMessagesTests.cpp
-		ServerWorkflowTests.cpp)
-		
+		ServerWorkflowTests.cpp
+		ServerAutorizationFailedMessagesTests.cpp
+		ServerChanneFailedMessagesTests.cpp
+		ServerFeaturesOfFailedMessagesTests.cpp)
+
 set(TEST_SOURCE_FILES
 		TestUtility.hpp
 		MessageFiller.hpp
