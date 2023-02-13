@@ -25,11 +25,11 @@ class MockRepositoryManager;
 namespace TestUtility
 {
 using RTC              = std::chrono::system_clock;
-using Client           = MockObject::MockClient;
+using TestClient       = MockObject::MockClient;
 using Message          = Network::Message;
-using Database         = MockObject::MockDatabase;
+using TestDatabase     = MockObject::MockDatabase;
 using TestServer       = std::unique_ptr<Server::Server>;
-using RepoManager      = MockObject::MockRepositoryManager;
+using TestRepoManager  = MockObject::MockRepositoryManager;
 using MessageType      = Message::MessageType;
 using milliseconds     = std::chrono::milliseconds;
 using ServerBuilder    = Server::Builder::ServerBuilder;
@@ -47,8 +47,14 @@ using ChannelDeleteInfo       = Models::ChannelDeleteInfo;
 using ChannelLeaveInfo        = Models::ChannelLeaveInfo;
 using ChannelInfo             = Models::ChannelInfo;
 
-constexpr bool testAcceptingConnection = true;
+constexpr bool CONNECTION_SUCCESSFULLY = true;
 
+/**
+* @brief enum class MessageBody
+* @details This enum class is designed to index the initialization of the message body: / 
+*          Poor - bad body initialized with empty to test failed tests.
+*          Expensive - body with testable data for successful tests.
+*/
 enum class MessageBody
 {
     PoorBody,
@@ -440,10 +446,10 @@ inline Message& makePoorMessage(Message& message, MessageType messageType) noexc
 * @brief Method for sending messages to client part.
 * @details Another method (makeMessage) is called inside the method to generate the message. /
 *          After the message is generated, it is sent to the client side for further processing. /
-* @param const Client& Client(Client object), const MessageType mesgType(type of message), /
+* @param const TestClient& Client(Client object), const MessageType mesgType(type of message), /
 *        const MessageBody mesgBody(Body properties for testing).
 */
-inline void testSendingMessages(const Client& Client, const MessageType mesgType, const MessageBody mesgBody) noexcept
+inline void testSendingMessages(const TestClient& Client, const MessageType mesgType, const MessageBody mesgBody) noexcept
 {
     Message    message;
     std::mutex scopedMutex;
@@ -494,10 +500,10 @@ constexpr TestServer& testServerUpdating(TestServer& server) noexcept
 * @brief Message binding method.
 * @details This method binds method arguments to initialize the testSendingMessages method. /
 *          It simplifies the code and makes it compact. 
-* @param Client& Client(Client object), MessageType mesgType(type of message), /
+* @param TestClient& Client(Client object), MessageType mesgType(type of message), /
 *        const MessageBody mesgBody(Body properties for testing).
 */
-inline decltype(auto) bindOfSendingMessage(Client& Client, MessageType mesgType, const MessageBody mesgBody) noexcept
+inline decltype(auto) bindOfSendingMessage(TestClient& Client, MessageType mesgType, const MessageBody mesgBody) noexcept
 {   
     using namespace std::placeholders;
     if (mesgBody == MessageBody::PoorBody)
@@ -521,15 +527,15 @@ inline decltype(auto) bindOfSendingMessage(Client& Client, MessageType mesgType,
 * @brief Connect to server binding method.
 * @details This method binds method arguments to initialize the Client::connectToServer method./
 *          It simplifies the code and makes it compact.
-* @param Client& Client(Client object), const std::string_view& address(ip adress for connection), /
+* @param TestClient& Client(Client object), const std::string_view& address(ip adress for connection), /
 *        const uint16_t port(port for connection).
 */
-inline auto bindOfConnectToServer(Client& Client, 
+inline auto bindOfConnectToServer(TestClient& Client, 
     const std::string_view& address, const uint16_t port) noexcept
 {
     const auto connectionInit = std::bind
     (
-        &Client::connectToServer, &Client, 
+        &TestClient::connectToServer, &Client, 
         address, port
     );
 
@@ -539,12 +545,12 @@ inline auto bindOfConnectToServer(Client& Client,
 /**
 * @brief Method for getting a test database.
 * @details This database is a mock object that is used for testing. 
-*          The database is registered through the MockRepositoryManager(RepoManager), / 
+*          The database is registered through the MockRepositoryManager(TestRepoManager), / 
 *                          which internally initializes repositories. 
 */
 inline auto getTestDatabase() noexcept
 {
-    auto testDatabase = std::make_unique<RepoManager>(Database::getInstance<Database>());
+    auto testDatabase = std::make_unique<TestRepoManager>(TestDatabase::getInstance<TestDatabase>());
     return testDatabase;
 }
 

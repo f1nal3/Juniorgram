@@ -12,10 +12,10 @@ set(SOURCE_FILES
 		ServerFeaturesOfFailedMessagesTests.cpp)
 
 set(TEST_SOURCE_FILES
-		TestUtility.hpp
-		MessageFiller.hpp
-		MessageFiller.cpp
-		MockMessagesOptions.hpp)
+		Utilities/TestUtility.hpp
+		Utilities/MessageFiller.hpp
+		Utilities/MessageFiller.cpp
+		Utilities/MockMessagesOptions.hpp)
 
 add_executable(${TARGET} ${SOURCE_FILES} ${TEST_SOURCE_FILES})
 

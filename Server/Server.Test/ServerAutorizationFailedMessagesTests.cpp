@@ -1,17 +1,17 @@
 #include <catch2/catch.hpp>
-#include "TestUtility.hpp"
+#include "Utilities/TestUtility.hpp"
 
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
 TEST_CASE("TestServerRegistrationFailedRequest [success case]")
 {
-    Client      mockClient;
+    TestClient  mockClient;
     auto        testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
             MessageType::RegistrationRequest, MessageBody::PoorBody));
@@ -21,12 +21,12 @@ TEST_CASE("TestServerRegistrationFailedRequest [success case]")
 
 TEST_CASE("TestServerLoggingFailedRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient,
             MessageType::LoginRequest, MessageBody::PoorBody));

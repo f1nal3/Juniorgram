@@ -1,17 +1,17 @@
 #include <catch2/catch.hpp>
-#include "TestUtility.hpp"
+#include "Utilities/TestUtility.hpp"
 
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
 TEST_CASE("TestServerPingRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient,
             MessageType::ServerPing, MessageBody::ExpensiveBody));
@@ -21,13 +21,13 @@ TEST_CASE("TestServerPingRequest [success case]")
 
 TEST_CASE("TestServerErrorDefaultRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
     constexpr auto failedType = int16_t(666);
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
             MessageType(failedType), MessageBody::PoorBody));

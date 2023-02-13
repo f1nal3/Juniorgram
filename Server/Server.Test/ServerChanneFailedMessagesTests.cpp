@@ -1,18 +1,17 @@
 #include <catch2/catch.hpp>
-
-#include "TestUtility.hpp"
+#include "Utilities/TestUtility.hpp"
 
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
-TEST_CASE("TestServerÑhannelÑreatingFailedRequest [success case]")
+TEST_CASE("TestServerChannelCreatingFailedRequest [success case]")
 {
-    Client      mockClient;
+    TestClient  mockClient;
     auto        testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
             MessageType::ChannelCreateRequest, MessageBody::PoorBody));
@@ -20,14 +19,14 @@ TEST_CASE("TestServerÑhannelÑreatingFailedRequest [success case]")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("TestServerÑhannelSubscribingFailedRequest [success case]")
+TEST_CASE("TestServerChannelSubscribingFailedRequest [success case]")
 {
-    Client      mockClient;
+    TestClient  mockClient;
     auto        testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
             MessageType::ChannelSubscribeRequest, MessageBody::PoorBody));
@@ -35,14 +34,14 @@ TEST_CASE("TestServerÑhannelSubscribingFailedRequest [success case]")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("TestServerÑhannelLeavingFailedRequest [success case]")
+TEST_CASE("TestServerChannelLeavingFailedRequest [success case]")
 {
-    Client      mockClient;
+    TestClient  mockClient;
     auto        testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
             MessageType::ChannelLeaveRequest, MessageBody::PoorBody));
@@ -50,14 +49,14 @@ TEST_CASE("TestServerÑhannelLeavingFailedRequest [success case]")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("TestServerÑhannelDeletingFailedRequest [success case]")
+TEST_CASE("TestServerChannelDeletingFailedRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
             MessageType::ChannelDeleteRequest, MessageBody::PoorBody));

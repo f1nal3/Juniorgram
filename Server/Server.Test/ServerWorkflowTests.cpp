@@ -1,18 +1,18 @@
 #include <catch2/catch.hpp>
-#include "TestUtility.hpp"
+#include "Utilities/TestUtility.hpp"
 
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
 TEST_CASE("TestServerStartingUp [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     TestServer testServer;
 
     CHECK_NOTHROW(testServer = makeTestServer());
     REQUIRE_NOTHROW(testServer->start());
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         bindOfSendingMessage(mockClient, 
             MessageType::ServerAccept, MessageBody::ExpensiveBody);

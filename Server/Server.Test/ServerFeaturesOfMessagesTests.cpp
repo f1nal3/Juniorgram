@@ -1,17 +1,17 @@
 #include <catch2/catch.hpp>
-#include "TestUtility.hpp"
+#include "Utilities/TestUtility.hpp"
 
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
 TEST_CASE("TestServerGivingAllMessagesRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
             MessageType::MessageAll, MessageBody::ExpensiveBody));
@@ -21,12 +21,12 @@ TEST_CASE("TestServerGivingAllMessagesRequest [success case]")
 
 TEST_CASE("TestServerHistoryRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient,
             MessageType::MessageHistoryRequest, MessageBody::ExpensiveBody));
@@ -36,12 +36,12 @@ TEST_CASE("TestServerHistoryRequest [success case]")
 
 TEST_CASE("TestServerReplyingHistoryRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
             MessageType::ReplyHistoryRequest, MessageBody::ExpensiveBody));
@@ -51,12 +51,12 @@ TEST_CASE("TestServerReplyingHistoryRequest [success case]")
 
 TEST_CASE("TestServerCreatingDirectMessage [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
             MessageType::DirectMessageCreateRequest, MessageBody::ExpensiveBody));
@@ -66,12 +66,12 @@ TEST_CASE("TestServerCreatingDirectMessage [success case]")
 
 TEST_CASE("TestServerMessageStoreRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
             MessageType::MessageStoreRequest, MessageBody::ExpensiveBody));
@@ -81,12 +81,12 @@ TEST_CASE("TestServerMessageStoreRequest [success case]")
 
 TEST_CASE("TestServerReplyingStoreRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient,
             MessageType::ReplyStoreRequest, MessageBody::ExpensiveBody));
@@ -96,12 +96,12 @@ TEST_CASE("TestServerReplyingStoreRequest [success case]")
 
 TEST_CASE("TestServerReactionRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient,
             MessageType::MessageReactionRequest, MessageBody::ExpensiveBody));
@@ -111,12 +111,12 @@ TEST_CASE("TestServerReactionRequest [success case]")
 
 TEST_CASE("TestServerMessageEditingRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
             MessageType::MessageEditRequest, MessageBody::ExpensiveBody));
@@ -126,12 +126,12 @@ TEST_CASE("TestServerMessageEditingRequest [success case]")
 
 TEST_CASE("TestServerMessageDeletingRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient,
             MessageType::MessageDeleteRequest, MessageBody::ExpensiveBody));

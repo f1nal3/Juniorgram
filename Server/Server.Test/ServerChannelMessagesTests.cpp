@@ -1,17 +1,17 @@
 #include <catch2/catch.hpp>
-#include "TestUtility.hpp"
+#include "Utilities/TestUtility.hpp"
 
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
-TEST_CASE("TestServerÑhannelÑreatingRequest [success case]")
+TEST_CASE("TestServerChannelCreatingRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
             MessageType::ChannelCreateRequest, MessageBody::ExpensiveBody));
@@ -19,14 +19,14 @@ TEST_CASE("TestServerÑhannelÑreatingRequest [success case]")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("TestServerÑhannelListRequest [success case]")
+TEST_CASE("TestServerChannelListRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
             MessageType::ChannelListRequest, MessageBody::ExpensiveBody));
@@ -34,14 +34,14 @@ TEST_CASE("TestServerÑhannelListRequest [success case]")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("TestServerÑhannelSubscribingRequest [success case]")
+TEST_CASE("TestServerChannelSubscribingRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
             MessageType::ChannelSubscribeRequest, MessageBody::ExpensiveBody));
@@ -49,14 +49,14 @@ TEST_CASE("TestServerÑhannelSubscribingRequest [success case]")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("TestServerÑhannelSubscriptionListRequest [success case]")
+TEST_CASE("TestServerChannelSubscriptionListRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
             MessageType::ChannelSubscriptionListRequest, MessageBody::ExpensiveBody));
@@ -64,14 +64,14 @@ TEST_CASE("TestServerÑhannelSubscriptionListRequest [success case]")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("TestServerÑhannelLeavingRequest [success case]")
+TEST_CASE("TestServerChannelLeavingRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
             MessageType::ChannelLeaveRequest, MessageBody::ExpensiveBody));
@@ -79,14 +79,14 @@ TEST_CASE("TestServerÑhannelLeavingRequest [success case]")
     testServerUpdating(testServer);
 }
 
-TEST_CASE("TestServerÑhannelDeletingRequest [success case]")
+TEST_CASE("TestServerChannelDeletingRequest [success case]")
 {
-    Client     mockClient;
+    TestClient mockClient;
     auto       testServer = makeTestServer();
 
     testServer->start();
     if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == testAcceptingConnection)
+        == CONNECTION_SUCCESSFULLY)
     {
         CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
             MessageType::ChannelDeleteRequest, MessageBody::ExpensiveBody));
