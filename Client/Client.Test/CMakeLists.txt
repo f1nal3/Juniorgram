@@ -1,9 +1,10 @@
-set(TARGET Client.Mock)
-set(OUTPUT_NAME Client.Mock)
+set(TARGET Client.Test)
+set(OUTPUT_NAME Client.Test)
 
 set(SOURCE_FILES
-	MockClient.hpp
-	MockClient.cpp)
+	TestClient.hpp
+	TestClient.cpp
+	TestServerInfo.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
