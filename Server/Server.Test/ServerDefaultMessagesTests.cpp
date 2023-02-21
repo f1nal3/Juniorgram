@@ -13,7 +13,7 @@ TEST_CASE("TestServerPingRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage,
+    const auto& messageInstance = makeMessage(validMessage,
         MessageType::ServerPing, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -32,7 +32,7 @@ TEST_CASE("TestServerFailedDefaultRequest [success case]")
     Message validMessage;
     constexpr auto failedType = int16_t(666);
 
-    auto    messageInstance = makeMessage(validMessage,
+    const auto& messageInstance = makeMessage(validMessage,
         MessageType(failedType), MessageBody::InvalidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 

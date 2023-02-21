@@ -13,7 +13,7 @@ TEST_CASE("TestServerChannelFailedCreatingRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message invalidMessage;
-    auto    messageInstance = makeMessage(invalidMessage, 
+    const auto& messageInstance = makeMessage(invalidMessage, 
         MessageType::ChannelCreateRequest, MessageBody::InvalidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -30,7 +30,7 @@ TEST_CASE("TestServerChannelFailedSubscribingRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message invalidMessage;
-    auto    messageInstance = makeMessage(invalidMessage, 
+    const auto& messageInstance = makeMessage(invalidMessage, 
         MessageType::ChannelSubscribeRequest, MessageBody::InvalidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -47,7 +47,7 @@ TEST_CASE("TestServerChannelFailedLeavingRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message invalidMessage;
-    auto    messageInstance = makeMessage(invalidMessage, 
+    const auto& messageInstance = makeMessage(invalidMessage, 
         MessageType::ChannelLeaveRequest, MessageBody::InvalidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -64,7 +64,7 @@ TEST_CASE("TestServerChannelFailedDeletingRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message invalidMessage;
-    auto    messageInstance = makeMessage(invalidMessage, 
+    const auto& messageInstance = makeMessage(invalidMessage, 
         MessageType::ChannelDeleteRequest, MessageBody::InvalidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 

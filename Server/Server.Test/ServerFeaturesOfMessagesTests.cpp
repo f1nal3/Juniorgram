@@ -13,7 +13,7 @@ TEST_CASE("TestServerGivingAllMessagesRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage, 
+    const auto& messageInstance = makeMessage(validMessage, 
         MessageType::MessageAll, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -30,7 +30,7 @@ TEST_CASE("TestServerHistoryRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage, 
+    const auto& messageInstance = makeMessage(validMessage, 
         MessageType::MessageHistoryRequest, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -50,7 +50,7 @@ TEST_CASE("TestServerReplyingHistoryRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage, 
+    const auto& messageInstance = makeMessage(validMessage, 
         MessageType::ReplyHistoryRequest, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -70,7 +70,7 @@ TEST_CASE("TestServerCreatingDirectMessage [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage, 
+    const auto& messageInstance = makeMessage(validMessage, 
         MessageType::DirectMessageCreateRequest, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -90,7 +90,7 @@ TEST_CASE("TestServerMessageStoreRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage, 
+    const auto& messageInstance = makeMessage(validMessage, 
         MessageType::MessageStoreRequest, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -110,7 +110,7 @@ TEST_CASE("TestServerReplyingStoreRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage, 
+    const auto& messageInstance = makeMessage(validMessage, 
         MessageType::ReplyStoreRequest, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -130,7 +130,7 @@ TEST_CASE("TestServerReactionRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage, 
+    const auto& messageInstance = makeMessage(validMessage, 
         MessageType::MessageReactionRequest, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -150,7 +150,7 @@ TEST_CASE("TestServerMessageEditingRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage, 
+    const auto& messageInstance = makeMessage(validMessage, 
         MessageType::MessageEditRequest, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -170,7 +170,7 @@ TEST_CASE("TestServerMessageDeletingRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage, 
+    const auto& messageInstance = makeMessage(validMessage, 
         MessageType::MessageDeleteRequest, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 

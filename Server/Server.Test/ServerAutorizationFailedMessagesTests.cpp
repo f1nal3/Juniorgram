@@ -13,7 +13,7 @@ TEST_CASE("TestServerFailedRegistrationRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message invalidMessage;
-    auto    messageInstance = makeMessage(invalidMessage, 
+    const auto& messageInstance = makeMessage(invalidMessage, 
         MessageType::RegistrationRequest, MessageBody::InvalidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -30,7 +30,7 @@ TEST_CASE("TestServerFailedLogInRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message invalidMessage;
-    auto    messageInstance = makeMessage(invalidMessage,
+    const auto& messageInstance = makeMessage(invalidMessage,
         MessageType::LoginRequest, MessageBody::InvalidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 

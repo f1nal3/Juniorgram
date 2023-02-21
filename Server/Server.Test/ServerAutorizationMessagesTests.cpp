@@ -13,7 +13,7 @@ TEST_CASE("TestServerRegistrationRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage, 
+    const auto& messageInstance = makeMessage(validMessage, 
         MessageType::RegistrationRequest, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -33,7 +33,7 @@ TEST_CASE("TestServerLogInRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test); 
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage,
+    const auto& messageInstance = makeMessage(validMessage,
         MessageType::LoginRequest, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 

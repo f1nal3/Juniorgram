@@ -13,7 +13,7 @@ TEST_CASE("TestServerChannelCreatingRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage, 
+    const auto& messageInstance = makeMessage(validMessage, 
         MessageType::ChannelCreateRequest, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -33,7 +33,7 @@ TEST_CASE("TestServerChannelListRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage, 
+    const auto& messageInstance = makeMessage(validMessage, 
         MessageType::ChannelListRequest, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -53,7 +53,7 @@ TEST_CASE("TestServerChannelSubscribingRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage, 
+    const auto& messageInstance = makeMessage(validMessage, 
         MessageType::ChannelSubscribeRequest, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -73,7 +73,7 @@ TEST_CASE("TestServerChannelSubscriptionListRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage, 
+    const auto& messageInstance = makeMessage(validMessage, 
         MessageType::ChannelSubscriptionListRequest, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -93,7 +93,7 @@ TEST_CASE("TestServerChannelLeavingRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage, 
+    const auto& messageInstance = makeMessage(validMessage, 
         MessageType::ChannelLeaveRequest, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
@@ -113,7 +113,7 @@ TEST_CASE("TestServerChannelDeletingRequest [success case]")
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
     Message validMessage;
-    auto    messageInstance = makeMessage(validMessage, 
+    const auto& messageInstance = makeMessage(validMessage, 
         MessageType::ChannelDeleteRequest, MessageBody::ValidBody);
     CHECK_NOTHROW(client.send(messageInstance));
 
