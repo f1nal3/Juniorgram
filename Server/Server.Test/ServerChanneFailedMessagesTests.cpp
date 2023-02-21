@@ -4,62 +4,70 @@
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
-TEST_CASE("TestServerChannelCreatingFailedRequest [success case]")
+TEST_CASE("TestServerChannelFailedCreatingRequest [success case]")
 {
-    TestClient  mockClient;
-    auto        testServer = makeTestServer();
-
+    auto testServer = makeTestServer();
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelCreateRequest, MessageBody::PoorBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message invalidMessage;
+    auto    messageInstance = makeMessage(invalidMessage, 
+        MessageType::ChannelCreateRequest, MessageBody::InvalidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    testServer->update();
+    testServer->stop();
 }
 
-TEST_CASE("TestServerChannelSubscribingFailedRequest [success case]")
+TEST_CASE("TestServerChannelFailedSubscribingRequest [success case]")
 {
-    TestClient  mockClient;
-    auto        testServer = makeTestServer();
-
+    auto testServer = makeTestServer();
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelSubscribeRequest, MessageBody::PoorBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message invalidMessage;
+    auto    messageInstance = makeMessage(invalidMessage, 
+        MessageType::ChannelSubscribeRequest, MessageBody::InvalidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    testServer->update();
+    testServer->stop();
 }
 
-TEST_CASE("TestServerChannelLeavingFailedRequest [success case]")
+TEST_CASE("TestServerChannelFailedLeavingRequest [success case]")
 {
-    TestClient  mockClient;
-    auto        testServer = makeTestServer();
-
+    auto testServer = makeTestServer();
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelLeaveRequest, MessageBody::PoorBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message invalidMessage;
+    auto    messageInstance = makeMessage(invalidMessage, 
+        MessageType::ChannelLeaveRequest, MessageBody::InvalidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    testServer->update();
+    testServer->stop();
 }
 
-TEST_CASE("TestServerChannelDeletingFailedRequest [success case]")
+TEST_CASE("TestServerChannelFailedDeletingRequest [success case]")
 {
-    TestClient mockClient;
-    auto       testServer = makeTestServer();
-
+    auto testServer = makeTestServer();
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ChannelDeleteRequest, MessageBody::PoorBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message invalidMessage;
+    auto    messageInstance = makeMessage(invalidMessage, 
+        MessageType::ChannelDeleteRequest, MessageBody::InvalidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    testServer->update();
+    testServer->stop();
 }

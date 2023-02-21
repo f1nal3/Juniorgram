@@ -4,32 +4,36 @@
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
-TEST_CASE("TestServerRegistrationFailedRequest [success case]")
+TEST_CASE("TestServerFailedRegistrationRequest [success case]")
 {
-    TestClient  mockClient;
-    auto        testServer = makeTestServer();
-
+    auto testServer = makeTestServer();
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::RegistrationRequest, MessageBody::PoorBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message invalidMessage;
+    auto    messageInstance = makeMessage(invalidMessage, 
+        MessageType::RegistrationRequest, MessageBody::InvalidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    testServer->update();
+    testServer->stop();
 }
 
-TEST_CASE("TestServerLoggingFailedRequest [success case]")
+TEST_CASE("TestServerFailedLogInRequest [success case]")
 {
-    TestClient mockClient;
-    auto       testServer = makeTestServer();
-
+    auto testServer = makeTestServer();
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient,
-            MessageType::LoginRequest, MessageBody::PoorBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message invalidMessage;
+    auto    messageInstance = makeMessage(invalidMessage,
+        MessageType::LoginRequest, MessageBody::InvalidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    testServer->update();
+    testServer->stop();
 }

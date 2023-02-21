@@ -6,31 +6,36 @@ using TestUtility::MessageBody;
 
 TEST_CASE("TestServerPingRequest [success case]")
 {
-    TestClient mockClient;
-    auto       testServer = makeTestServer();
-
+    auto testServer = makeTestServer();
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient,
-            MessageType::ServerPing, MessageBody::ExpensiveBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message validMessage;
+    auto    messageInstance = makeMessage(validMessage,
+        MessageType::ServerPing, MessageBody::ValidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    CHECK_NOTHROW(testServer->update());
+    REQUIRE_NOTHROW(testServer->stop());
 }
 
-TEST_CASE("TestServerErrorDefaultRequest [success case]")
+TEST_CASE("TestServerFailedDefaultRequest [success case]")
 {
-    TestClient mockClient;
-    auto       testServer = makeTestServer();
+    auto testServer = makeTestServer();
+    testServer->start();
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message validMessage;
     constexpr auto failedType = int16_t(666);
 
-    testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType(failedType), MessageBody::PoorBody));
-    }
-    testServerUpdating(testServer);
+    auto    messageInstance = makeMessage(validMessage,
+        MessageType(failedType), MessageBody::InvalidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    CHECK_NOTHROW(testServer->update());
+    REQUIRE_NOTHROW(testServer->stop());
 }

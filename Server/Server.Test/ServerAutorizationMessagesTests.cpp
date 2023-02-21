@@ -6,30 +6,40 @@ using TestUtility::MessageBody;
 
 TEST_CASE("TestServerRegistrationRequest [success case]")
 {
-    TestClient  mockClient;
-    auto        testServer = makeTestServer();
-
+    auto testServer = makeTestServer();
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::RegistrationRequest, MessageBody::ExpensiveBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message validMessage;
+    auto    messageInstance = makeMessage(validMessage, 
+        MessageType::RegistrationRequest, MessageBody::ValidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    auto regInfo = std::any_cast<RegistrationInfo>(validMessage.mBody);
+    REQUIRE(regInfo._login == testLogin);
+
+    testServer->update();
+    testServer->stop();
 }
 
-TEST_CASE("TestServerLoggingRequest [success case]")
+TEST_CASE("TestServerLogInRequest [success case]")
 {
-    TestClient mockClient;
     auto       testServer = makeTestServer();
-
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient,
-            MessageType::LoginRequest, MessageBody::ExpensiveBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test); 
+
+    Message validMessage;
+    auto    messageInstance = makeMessage(validMessage,
+        MessageType::LoginRequest, MessageBody::ValidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    auto loginInfo = std::any_cast<LoginInfo>(validMessage.mBody);
+    REQUIRE(loginInfo._login == testLogin);
+    
+    testServer->update();
+    testServer->stop();
 }

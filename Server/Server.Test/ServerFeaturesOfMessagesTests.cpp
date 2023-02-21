@@ -6,135 +6,177 @@ using TestUtility::MessageBody;
 
 TEST_CASE("TestServerGivingAllMessagesRequest [success case]")
 {
-    TestClient mockClient;
-    auto       testServer = makeTestServer();
-
+    auto testServer = makeTestServer();
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::MessageAll, MessageBody::ExpensiveBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message validMessage;
+    auto    messageInstance = makeMessage(validMessage, 
+        MessageType::MessageAll, MessageBody::ValidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    testServer->update();
+    testServer->stop();
 }
 
 TEST_CASE("TestServerHistoryRequest [success case]")
 {
-    TestClient mockClient;
-    auto       testServer = makeTestServer();
-
+    auto testServer = makeTestServer();
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient,
-            MessageType::MessageHistoryRequest, MessageBody::ExpensiveBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message validMessage;
+    auto    messageInstance = makeMessage(validMessage, 
+        MessageType::MessageHistoryRequest, MessageBody::ValidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    auto channelInfo = std::any_cast<uint64_t>(validMessage.mBody);
+    REQUIRE(channelInfo == testChannelID);
+
+    testServer->update();
+    testServer->stop();
 }
 
 TEST_CASE("TestServerReplyingHistoryRequest [success case]")
 {
-    TestClient mockClient;
-    auto       testServer = makeTestServer();
-
+    auto testServer = makeTestServer();
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::ReplyHistoryRequest, MessageBody::ExpensiveBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message validMessage;
+    auto    messageInstance = makeMessage(validMessage, 
+        MessageType::ReplyHistoryRequest, MessageBody::ValidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    auto channelInfo = std::any_cast<uint64_t>(validMessage.mBody);
+    REQUIRE(channelInfo == testChannelID);
+
+    testServer->update();
+    testServer->stop();
 }
 
 TEST_CASE("TestServerCreatingDirectMessage [success case]")
 {
-    TestClient mockClient;
-    auto       testServer = makeTestServer();
-
+    auto testServer = makeTestServer();
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::DirectMessageCreateRequest, MessageBody::ExpensiveBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message validMessage;
+    auto    messageInstance = makeMessage(validMessage, 
+        MessageType::DirectMessageCreateRequest, MessageBody::ValidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    auto channelInfo = std::any_cast<uint64_t>(validMessage.mBody);
+    REQUIRE(channelInfo == testRecipientID);
+
+    testServer->update();
+    testServer->stop();
 }
 
 TEST_CASE("TestServerMessageStoreRequest [success case]")
 {
-    TestClient mockClient;
-    auto       testServer = makeTestServer();
-
+    auto testServer = makeTestServer();
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::MessageStoreRequest, MessageBody::ExpensiveBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message validMessage;
+    auto    messageInstance = makeMessage(validMessage, 
+        MessageType::MessageStoreRequest, MessageBody::ValidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    auto channelInfo = std::any_cast<MessageInfo>(validMessage.mBody);
+    REQUIRE(channelInfo._channelID == testChannelID);
+
+    testServer->update();
+    testServer->stop();
 }
 
 TEST_CASE("TestServerReplyingStoreRequest [success case]")
 {
-    TestClient mockClient;
-    auto       testServer = makeTestServer();
-
+    auto testServer = makeTestServer();
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient,
-            MessageType::ReplyStoreRequest, MessageBody::ExpensiveBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message validMessage;
+    auto    messageInstance = makeMessage(validMessage, 
+        MessageType::ReplyStoreRequest, MessageBody::ValidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    auto channelInfo = std::any_cast<ReplyInfo>(validMessage.mBody);
+    REQUIRE(channelInfo._channelID == testChannelID);
+
+    testServer->update();
+    testServer->stop();
 }
 
 TEST_CASE("TestServerReactionRequest [success case]")
 {
-    TestClient mockClient;
-    auto       testServer = makeTestServer();
-
+    auto testServer = makeTestServer();
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort())
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient,
-            MessageType::MessageReactionRequest, MessageBody::ExpensiveBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message validMessage;
+    auto    messageInstance = makeMessage(validMessage, 
+        MessageType::MessageReactionRequest, MessageBody::ValidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    auto channelInfo = std::any_cast<MessageInfo>(validMessage.mBody);
+    REQUIRE(channelInfo._msgID == testMsgID);
+
+    testServer->update();
+    testServer->stop();
 }
 
 TEST_CASE("TestServerMessageEditingRequest [success case]")
 {
-    TestClient mockClient;
-    auto       testServer = makeTestServer();
-
+    auto testServer = makeTestServer();
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient, 
-            MessageType::MessageEditRequest, MessageBody::ExpensiveBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message validMessage;
+    auto    messageInstance = makeMessage(validMessage, 
+        MessageType::MessageEditRequest, MessageBody::ValidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    auto channelInfo = std::any_cast<MessageInfo>(validMessage.mBody);
+    REQUIRE(channelInfo._msgID == testMsgID);
+
+    testServer->update();
+    testServer->stop();
 }
 
 TEST_CASE("TestServerMessageDeletingRequest [success case]")
 {
-    TestClient mockClient;
-    auto       testServer = makeTestServer();
-
+    auto testServer = makeTestServer();
     testServer->start();
-    if (bindOfConnectToServer(mockClient, getTestingAddress(), getTestingPort()) 
-        == CONNECTION_SUCCESSFULLY)
-    {
-        CHECK_NOTHROW(bindOfSendingMessage(mockClient,
-            MessageType::MessageDeleteRequest, MessageBody::ExpensiveBody));
-    }
-    testServerUpdating(testServer);
+
+    TestClient client;
+    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+
+    Message validMessage;
+    auto    messageInstance = makeMessage(validMessage, 
+        MessageType::MessageDeleteRequest, MessageBody::ValidBody);
+    CHECK_NOTHROW(client.send(messageInstance));
+
+    auto channelInfo = std::any_cast<MessageInfo>(validMessage.mBody);
+    REQUIRE(channelInfo._msgID == testMsgID);
+
+    testServer->update();
+    testServer->stop();
 }
