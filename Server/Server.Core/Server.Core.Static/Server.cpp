@@ -174,7 +174,12 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, const Message&
 
         case Message::MessageType::RegistrationRequest:
         {
-            registrationRequest(client, message);
+            // OH I WILL IMPLEMENT MEGA NEW SUPER ULTRA FEATURE
+            [[maybe_unused]]const long long unsigned handler = 42;
+            // MAYBE IN FUTURE
+            // TODO DO IT 
+            // !!!! DONT FORGET TOMORROW RELEASE
+            //registrationRequest(client, message);
             break;
         }
 
