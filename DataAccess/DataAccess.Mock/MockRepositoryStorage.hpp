@@ -23,14 +23,14 @@ struct MockRepositoryStorage
     MockRepositoryStorage()  = default;
     ~MockRepositoryStorage() = default;
 
-    ChannelInfo&                     getChannelsRepoData() { return _channelsData; }
+    ChannelInfo&                     getChannelsRepoData() { return _channelData; }
     ReplyInfo&                       getRepliesRepoData() { return _repliesData; }
     MessageInfo&                     getMessageRepoData() { return _messgData; }
     RegistrationInfo&                getRegisterRepoData() { return _regData; }
     LoginInfo&                       getLoginRepoData() { return _loginData; }
 
 private:
-    ChannelInfo                     _channelsData;
+    ChannelInfo                     _channelData;
     ReplyInfo                       _repliesData;
     MessageInfo                     _messgData;
     RegistrationInfo                _regData;

@@ -120,7 +120,6 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 
             break;
         }
-
         case Message::MessageType::LoginRequest:
         {
             if (messageBody == MessageBody::InvalidBody)
@@ -136,7 +135,6 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 
             break;
         }
-
         case Message::MessageType::ChannelCreateRequest:
         {
             if (messageBody == MessageBody::InvalidBody)
@@ -151,7 +149,6 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 
             break;
         }
-
         case Message::MessageType::ChannelSubscriptionListRequest:
         {
             if (messageBody == MessageBody::InvalidBody)
@@ -167,7 +164,6 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 
             break;
         }
-
         case Message::MessageType::ChannelSubscribeRequest:
         {
             if (messageBody == MessageBody::InvalidBody)
@@ -184,7 +180,6 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 
             break;
         }
-
         case Message::MessageType::ChannelLeaveRequest:
         {
             if (messageBody == MessageBody::InvalidBody)
@@ -199,7 +194,6 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 
             break;
         }
-
         case Message::MessageType::ReplyHistoryRequest:
         {
             if (messageBody == MessageBody::InvalidBody)
@@ -212,7 +206,6 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 
             break;
         }
-
         case Message::MessageType::ReplyStoreRequest:
         {
             if (messageBody == MessageBody::InvalidBody)
@@ -228,7 +221,6 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 
             break;
         }
-
         case Message::MessageType::MessageReactionRequest:
         {
             if (messageBody == MessageBody::InvalidBody)
@@ -244,7 +236,6 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 
             break;
         }
-
         case Message::MessageType::DirectMessageCreateRequest:
         {
             if (messageBody == MessageBody::InvalidBody)
@@ -257,7 +248,6 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 
             break;
         }
-
         case Message::MessageType::MessageHistoryRequest:
         {
             if (messageBody == MessageBody::InvalidBody)
@@ -270,7 +260,6 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 
             break;
         }
-
         case Message::MessageType::MessageStoreRequest:
         {
             if (messageBody == MessageBody::InvalidBody)
@@ -286,7 +275,6 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 
             break;
         }
-
         case Message::MessageType::MessageEditRequest:
         {
             if (messageBody == MessageBody::InvalidBody)
@@ -302,7 +290,6 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 
             break;
         }
-
         case Message::MessageType::MessageDeleteRequest:
         {
             if (messageBody == MessageBody::InvalidBody)
@@ -318,7 +305,6 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 
             break;
         }
-
         case Message::MessageType::ChannelDeleteRequest:
         {
             if (messageBody == MessageBody::InvalidBody)
@@ -334,7 +320,6 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 
             break;
         }
-
         case Message::MessageType::ChannelListRequest:
         {
             if (messageBody == MessageBody::InvalidBody)

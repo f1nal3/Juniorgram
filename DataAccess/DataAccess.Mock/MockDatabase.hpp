@@ -2,6 +2,7 @@
 
 #include <DataAccess/IAdapter.hpp>
 #include <Utility/JGExceptions.hpp>
+
 #include "MockDatabaseOptions.hpp"
 #include "MockRepositoryInstance.hpp"
 
@@ -19,10 +20,12 @@ using MockObject::MockRepositoryInstance;
 class MockDatabase final : public IAdapter
 {
 public:
-    static std::shared_ptr<MockDatabase> Instance([[maybe_unused]] const std::string_view& options = {});
+    static std::shared_ptr<MockDatabase> Instance(const std::string_view& options);
  
     explicit MockDatabase(const std::string_view& options) :
-        _connection(std::make_unique<MockRepositoryInstance>(options)) {}
+        _connection(std::make_unique<MockRepositoryInstance>(options)) 
+    {    
+    }
 
     MockDatabase(const MockDatabase& other)            = delete;
     MockDatabase& operator=(const MockDatabase& other) = delete;
@@ -39,10 +42,7 @@ public:
     ~MockDatabase() override = default;
 
 private:
-    inline static std::mutex                    _staticMutex{};
     inline static std::shared_ptr<MockDatabase> _instance{};
-
-    std::mutex                                  _queryMutex;
-    std::unique_ptr<MockRepositoryInstance>     _connection;
+    std::unique_ptr<MockRepositoryInstance>     _connection{};
 };
 }  /// namespace MockObject

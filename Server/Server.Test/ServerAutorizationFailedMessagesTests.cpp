@@ -33,7 +33,7 @@ TEST_CASE("TestServerFailedLogInRequest [success case]")
     const auto& messageInstance = makeMessage(invalidMessage,
         MessageType::LoginRequest, MessageBody::InvalidBody);
     CHECK_NOTHROW(client.send(messageInstance));
-
+    
     testServer->update();
     testServer->stop();
 }

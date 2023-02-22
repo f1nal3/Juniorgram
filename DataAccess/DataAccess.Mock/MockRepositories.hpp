@@ -18,6 +18,15 @@ using IMessagesRepository      = DataAccess::IMessagesRepository;
 using IRegisterRepository      = DataAccess::IRegisterRepository;
 using IRepliesRepository       = DataAccess::IRepliesRepository;
 
+using LoginInfo               = Models::LoginInfo;
+using ReplyInfo               = Models::ReplyInfo;
+using MessageInfo             = Models::MessageInfo;
+using RegistrationInfo        = Models::RegistrationInfo;
+using ChannelInfo             = Models::ChannelInfo;
+using ChannelDeleteInfo       = Models::ChannelDeleteInfo;
+using ChannelLeaveInfo        = Models::ChannelLeaveInfo;
+using ChannelSubscriptionInfo = Models::ChannelSubscriptionInfo;
+
 /**
 * @brief struct MockChannelsRepository.
 * @details Inherited from IChannelRepository struct /
@@ -34,10 +43,10 @@ public:
     ~MockChannelsRepository() override = default;
 
 private:
-    Utility::ChannelDeleteCode       deleteChannel(const Models::ChannelDeleteInfo& channel) override;
-    Utility::ChannelCreateCodes      createChannel(const Models::ChannelInfo& channel) override;
-    Utility::ChannelLeaveCodes       leaveChannel(const Models::ChannelLeaveInfo& channel) override;
-    Utility::ChannelSubscribingCodes subscribeToChannel(const Models::ChannelSubscriptionInfo& channel) override;
+    Utility::ChannelDeleteCode       deleteChannel(const ChannelDeleteInfo& channel) override;
+    Utility::ChannelCreateCodes      createChannel(const ChannelInfo& channel) override;
+    Utility::ChannelLeaveCodes       leaveChannel(const ChannelLeaveInfo& channel) override;
+    Utility::ChannelSubscribingCodes subscribeToChannel(const ChannelSubscriptionInfo& channel) override;
     std::vector<uint64_t>            getChannelSubscriptionList(const uint64_t userID) override;
     std::vector<Models::ChannelInfo> getAllChannelsList() override;
 
@@ -81,7 +90,7 @@ public:
     ~MockLoginRepository() override = default;
 
 private:
-    std::uint64_t loginUser(const Models::LoginInfo& loginInfo) override;
+    std::uint64_t loginUser(const LoginInfo& loginInfo) override;
 
     std::unique_ptr<MockQuery> _mockQuery;
 };
@@ -102,11 +111,11 @@ public:
     ~MockMessagesRepository() override = default;
 
 private:
-    Utility::DeletingMessageCodes    deleteMessage(const Models::MessageInfo& messageInfo) override;
-    Utility::ReactionMessageCodes    updateMessageReactions(const Models::MessageInfo& messageInfo) override;
-    Utility::EditingMessageCodes     editMessage(const Models::MessageInfo& messageInfo) override;
-    Utility::StoringMessageCodes     storeMessage(const Models::MessageInfo& messageInfo) override;
-    std::vector<Models::MessageInfo> getMessageHistory(const std::uint64_t channelID) override;
+    Utility::DeletingMessageCodes    deleteMessage(const MessageInfo& messageInfo) override;
+    Utility::ReactionMessageCodes    updateMessageReactions(const MessageInfo& messageInfo) override;
+    Utility::EditingMessageCodes     editMessage(const MessageInfo& messageInfo) override;
+    Utility::StoringMessageCodes     storeMessage(const MessageInfo& messageInfo) override;
+    std::vector<Models::MessageInfo> getMessageHistory(const uint64_t channelID) override;
 
     std::unique_ptr<MockQuery> _mockQuery;
 };
@@ -127,7 +136,7 @@ public:
     ~MockRegisterRepository() override = default;
 
 private:
-    Utility::RegistrationCodes registerUser(const Models::RegistrationInfo& regInfo) override;
+    Utility::RegistrationCodes registerUser(const RegistrationInfo& regInfo) override;
 
     std::unique_ptr<MockQuery> _mockQuery;
 };
@@ -147,8 +156,8 @@ public:
     ~MockRepliesRepository() override = default;
 
 private:
-    std::vector<Models::ReplyInfo> getReplyHistory(const std::uint64_t channelID) override;
-    Utility::StoringReplyCodes     storeReply(const Models::ReplyInfo& replyInfo) override;
+    std::vector<Models::ReplyInfo> getReplyHistory(const uint64_t channelID) override;
+    Utility::StoringReplyCodes     storeReply(const ReplyInfo& replyInfo) override;
 
     std::unique_ptr<MockQuery> _mockQuery;
 };
