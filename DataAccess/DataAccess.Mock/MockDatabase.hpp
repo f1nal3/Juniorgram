@@ -30,13 +30,13 @@ public:
     MockDatabase(MockDatabase&& other)            = delete;
     MockDatabase& operator=(MockDatabase&& other) = delete;
 
-    ~MockDatabase() override = default;
-
     std::optional<std::any> query(const std::string_view& query) override;
 
     bool isConnected() const override;
 
     void closeConnection() override;
+
+    ~MockDatabase() override = default;
 
 private:
     inline static std::mutex                    _staticMutex{};

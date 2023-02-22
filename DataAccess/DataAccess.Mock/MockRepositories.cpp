@@ -155,9 +155,9 @@ Utility::ChannelSubscribingCodes MockChannelsRepository::subscribeToChannel(cons
 
 Utility::DirectMessageStatus MockDirectMessageRepository::addDirectChat(uint64_t userID, uint64_t receiverID)
 {
-     auto firstQuery = _mockQuery->SelectAndPushData("direct_msgs", std::to_string(userID));
+     auto firstQuery = _mockQuery->SelectAndPushData("msgs", std::to_string(userID));
 
-    if (auto secondQuery = _mockQuery->SelectAndPushData("direct_msgs", std::to_string(receiverID)); 
+    if (auto secondQuery = _mockQuery->SelectAndPushData("msgs", std::to_string(receiverID)); 
         firstQuery.has_value() && userID != 0 && secondQuery.has_value() && receiverID != 0)
     {
         return Utility::DirectMessageStatus::SUCCESS;

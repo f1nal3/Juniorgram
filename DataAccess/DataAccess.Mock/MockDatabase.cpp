@@ -24,32 +24,23 @@ std::optional<std::any> MockDatabase::query(const std::string_view& query)
 {
     if (query == "channels")
     {
-        return _connection->getChannelsRepoData().getStorageData();
+        return _connection->getChannelsRepoData();
     }
-
     if (query == "replies")
     {
-        return _connection->getRepliesRepoData().getStorageData();
+        return _connection->getRepliesRepoData();
     }
-
-    if (query == "direct_msgs")
-    {
-        return _connection->getDirectMessageRepoData().getStorageData();
-    }
-
     if (query == "msgs")
     {
-        return _connection->getMessageRepoData().getStorageData();
+        return _connection->getMessageRepoData();
     }
-
     if (query == "user_registration")
     {
-        return _connection->getRegisterRepoData().getStorageData();
+        return _connection->getRegisterRepoData();
     }
-
     if (query == "user_login")
     {
-        return _connection->getLoginRepoData().getStorageData();
+        return _connection->getLoginRepoData();
     }
 
     return std::vector<std::string>();
