@@ -355,8 +355,7 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 inline auto getTestDatabase() noexcept
 {
     auto testDatabase = std::make_unique<TestRepoManager>
-        (TestDatabase::getInstance<TestDatabase>());
-
+        (TestDatabase::getInstance<TestDatabase>(TestUtility::testProperties));
     return testDatabase;
 }
 

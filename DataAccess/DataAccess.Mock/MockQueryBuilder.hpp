@@ -21,20 +21,17 @@ template <typename QueryType = MockRepositoryStorage>
 class MockQueryBuilder
 {
 public:
-    MockQueryBuilder(const std::string& type, const std::string& tableName, std::shared_ptr<IAdapter> adapter)
-        : _databaseType{type}, _tableName{tableName}, _adapter{adapter}
-    {
-    }
-
+    MockQueryBuilder() = delete;
     virtual ~MockQueryBuilder() = default;
 
-    MockQueryBuilder() = delete;
+    MockQueryBuilder(const std::string& type, const std::string& tableName, std::shared_ptr<IAdapter> adapter)
+        : _databaseType{type}, _tableName{tableName}, _adapter{adapter} {}
 
-    MockQueryBuilder(const MockQueryBuilder&) = delete;
-    MockQueryBuilder(MockQueryBuilder&&)      = delete;
+    MockQueryBuilder(const MockQueryBuilder&)  = delete;
+    const MockQueryBuilder(MockQueryBuilder&&) = delete;
 
-    MockQueryBuilder& operator=(const MockQueryBuilder&) = delete;
-    MockQueryBuilder& operator=(MockQueryBuilder&&)      = delete;
+    MockQueryBuilder& operator=(const MockQueryBuilder&) noexcept = delete;
+    MockQueryBuilder& operator=(MockQueryBuilder&&) noexcept      = delete;
 
     std::any SelectRepoAndQueryPush(const std::string_view& repoName, 
         const std::string_view& query, const std::any& repoInfo)

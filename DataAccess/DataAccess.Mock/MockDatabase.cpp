@@ -4,16 +4,19 @@ namespace MockObject
 {
 std::shared_ptr<MockDatabase> MockDatabase::Instance(const std::string_view& options)
 {
+    std::scoped_lock<std::mutex> lock(_staticMutex);
+
     if (_instance == nullptr)
     {
-        _instance = std::make_shared<MockDatabase>(options);
+        _instance = std::shared_ptr<MockDatabase>(new MockDatabase(options));
     }
+
     return _instance;
 }
 
-std::optional<std::any> MockDatabase::query(const std::string_view& query)
+[[maybe_unused]] std::optional<std::any> MockDatabase::query(const std::string_view& query) 
 {
-    return std::vector<std::string>().emplace_back(query);
+    return std::optional<std::any>();
 }
 
 bool MockDatabase::isConnected() const 

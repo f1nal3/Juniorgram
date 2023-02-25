@@ -6,23 +6,26 @@
 
 namespace MockObject
 {
+using DataAccess::IRepositoryManager;
+using DataAccess::AbstractRepositoryContainer;
+
 /**
 * @brief class MockRepositoryManager.
 * @details The specific(Postgre) instance of IRepositoryManager. /
 *          Controls push to queue and further processing of requests (have own thread for it).
 */
-class MockRepositoryManager : public DataAccess::IRepositoryManager
+class MockRepositoryManager : public IRepositoryManager
 {
 public:
-    explicit MockRepositoryManager(const std::shared_ptr<DataAccess::IAdapter> repositoryContainer)
+    explicit MockRepositoryManager(const std::shared_ptr<IAdapter> repositoryContainer)
     {
-        auto repo = std::make_unique<DataAccess::AbstractRepositoryContainer>(repositoryContainer);
-        repo->registerRepository<DataAccess::IChannelsRepository,      MockChannelsRepository>();
-        repo->registerRepository<DataAccess::ILoginRepository,         MockLoginRepository>();
-        repo->registerRepository<DataAccess::IMessagesRepository,      MockMessagesRepository>();
-        repo->registerRepository<DataAccess::IRegisterRepository,      MockRegisterRepository>();
-        repo->registerRepository<DataAccess::IRepliesRepository,       MockRepliesRepository>();
-        repo->registerRepository<DataAccess::IDirectMessageRepository, MockDirectMessageRepository>();
+        auto repo = std::make_unique<AbstractRepositoryContainer>(repositoryContainer);
+        repo->registerRepository<IChannelRepository,       MockChannelsRepository>();
+        repo->registerRepository<ILoginRepository,         MockLoginRepository>();
+        repo->registerRepository<IMessagesRepository,      MockMessagesRepository>();
+        repo->registerRepository<IRegisterRepository,      MockRegisterRepository>();
+        repo->registerRepository<IRepliesRepository,       MockRepliesRepository>();
+        repo->registerRepository<IDirectMessageRepository, MockDirectMessageRepository>();
         IRepositoryManager::init(std::move(repo));
     }
 };
