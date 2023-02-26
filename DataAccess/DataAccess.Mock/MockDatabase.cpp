@@ -16,7 +16,7 @@ std::shared_ptr<MockDatabase> MockDatabase::Instance(const std::string_view& opt
 
 [[maybe_unused]] std::optional<std::any> MockDatabase::query(const std::string_view& query) 
 {
-    return std::optional<std::any>();
+    return std::optional<std::any>().emplace(query);
 }
 
 bool MockDatabase::isConnected() const 

@@ -25,11 +25,11 @@ private:
 public:
     static std::shared_ptr<MockDatabase> Instance(const std::string_view& options);
 
-    MockDatabase(const MockDatabase&)                  = delete;
-    const MockDatabase& operator=(const MockDatabase&) = delete;
+    MockDatabase(const MockDatabase& other)                  = delete;
+    MockDatabase& operator=(const MockDatabase& other)       = delete;
 
-    MockDatabase(MockDatabase&&) noexcept            = delete;
-    MockDatabase& operator=(MockDatabase&&) noexcept = delete;
+    MockDatabase(MockDatabase&& other) noexcept            = delete;
+    MockDatabase& operator=(MockDatabase&& other) noexcept = delete;
 
     [[maybe_unused]] std::optional<std::any> query(const std::string_view& query) override;
     bool isConnected() const override;

@@ -27,14 +27,14 @@ public:
     MockQueryBuilder(const std::string& type, const std::string& tableName, std::shared_ptr<IAdapter> adapter)
         : _databaseType{type}, _tableName{tableName}, _adapter{adapter} {}
 
-    MockQueryBuilder(const MockQueryBuilder&)  = delete;
-    const MockQueryBuilder(MockQueryBuilder&&) = delete;
+    MockQueryBuilder(const MockQueryBuilder& other)  = delete;
+    MockQueryBuilder(MockQueryBuilder&& other)       = delete;
 
-    MockQueryBuilder& operator=(const MockQueryBuilder&) noexcept = delete;
-    MockQueryBuilder& operator=(MockQueryBuilder&&) noexcept      = delete;
+    MockQueryBuilder& operator=(const MockQueryBuilder& other) noexcept = delete;
+    MockQueryBuilder& operator=(MockQueryBuilder&& other) noexcept      = delete;
 
     std::any SelectRepoAndQueryPush(const std::string_view& repoName, 
-        const std::string_view& query, const std::any& repoInfo)
+        const std::string_view& query, const std::any& repoInfo) const
     {
         if (repoName == "channels")
         {
