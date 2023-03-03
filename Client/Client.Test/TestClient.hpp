@@ -5,11 +5,18 @@
 #include <FileLogger.hpp>
 
 #include "TestServerInfo.hpp"
+#include <optional>
 
 namespace TestObject
 {
 using Network::Message;
 using Network::Connection;
+
+enum class MessageResult
+{
+    InvalidBody,
+    Success
+};
 
 /**
 * @brief TestClient class.
@@ -38,6 +45,10 @@ public:
     */ 
     void send(const Message& message) const;
 
+    std::vector<MessageResult> getMessageResult() const;
+
+    void countOfErrorResults();
+
     /**
     * @brief TestClient virtual destructor.
     * @details The virtual destructor calls the disconnectFromServer method, \
@@ -59,97 +70,99 @@ protected:
     /**
     * @brief Method for signaling of login answer.
     */
-    void onLoginAnswer(bool success) const;
+    std::optional<MessageResult> onLoginAnswer(bool success) const;
 
     /**
     * @brief Method for signaling of server accepting.
     */
-    void onServerAccepted() const;
+    std::optional<MessageResult> onServerAccepted() const;
 
     /**
     * @brief Method for signaling of server ping.
     */
-    void onServerPing(double timestamp) const;
+    std::optional<MessageResult> onServerPing(double timestamp) const;
 
     /**
     * @brief Method for signaling of server message.
     */
-    void onServerMessage(const uint64_t clientID) const;
+    std::optional<MessageResult> onServerMessage(const uint64_t clientID) const;
 
     /**
     * @brief Method for signaling of channel list request.
     */
-    void onChannelListRequest(const std::vector<Models::ChannelInfo>& channels) const;
+    std::optional<MessageResult> onChannelListRequest(const std::vector<Models::ChannelInfo>& channels) const;
 
     /**
     * @brief Method for signaling of message history answer.
     */
-    void onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages) const;
+    std::optional<MessageResult> onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages) const;
 
     /**
     * @brief Method for signaling of message store answer.
     */
-    void onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode) const;
+    std::optional<MessageResult> onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode) const;
 
     /**
     * @brief Method for signaling of message delete answer.
     */
-    void onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) const;
+    std::optional<MessageResult> onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) const;
 
     /**
     * @brief Method for signaling of registration answer.
     */
-    void onRegistrationAnswer(Utility::RegistrationCodes registrationCode) const;
+    std::optional<MessageResult> onRegistrationAnswer(Utility::RegistrationCodes registrationCode) const;
 
     /**
     * @brief Method for signaling of reply history answer.
     */
-    void onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& replies) const;
+    std::optional<MessageResult> onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& replies) const;
 
     /**
     * @brief Method for signaling of reply store answer.
     */
-    void onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode) const;
+    std::optional<MessageResult> onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode) const;
 
     /**
     * @brief Method for signaling of channel leave answer.
     */
-    void onChannelLeaveAnswer(Utility::ChannelLeaveCodes channelLeaveCode) const;
+    std::optional<MessageResult> onChannelLeaveAnswer(Utility::ChannelLeaveCodes channelLeaveCode) const;
 
     /**
     * @brief Method for signaling of channel subscription answer.
     */
-    void onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode) const;
+    std::optional<MessageResult> onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode) const;
 
     /**
     * @brief Method for signaling of channel subscription list answer.
     */
-    void onChannelSubscribingListAnswer(const std::vector<uint64_t>& subscribingChannelList) const;
+    std::optional<MessageResult> onChannelSubscribingListAnswer(const std::vector<uint64_t>& subscribingChannelList) const;
 
     /**
     * @brief Method for signaling of channel delete answer.
     */
-    void onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode) const;
+    std::optional<MessageResult> onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode) const;
 
     /**
     * @brief Method for signaling of channel create answer.
     */
-    void onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode) const;
+    std::optional<MessageResult> onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode) const;
 
     /**
     * @brief Method for signaling of direct message create answer.
     */
-    void onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer) const;
+    std::optional<MessageResult> onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer) const;
 
     /**
     * @brief Method for signaling of reaction answer.
     */
-    void onMessageReactionAnswer(Utility::ReactionMessageCodes reactionState) const;
+    std::optional<MessageResult> onMessageReactionAnswer(Utility::ReactionMessageCodes reactionState) const;
 
     /**
     * @brief Method for signaling of edit message answer.
     */
-    void onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const;
+    std::optional<MessageResult> onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const;
+
+    std::optional<MessageResult> defaultAnswer() const;
 
 private:
     /**
@@ -166,6 +179,8 @@ private:
     */ 
     [[nodiscard]] bool isConnected() const;
 
+    void MessageResultIsError(std::optional<MessageResult>&& result);
+
     /**
     * @brief Method checks the connection to the server. 
     * @defails Until the connection is established, \
@@ -181,9 +196,11 @@ private:
     bool               checkConnectionArguments(const std::string_view& host, const uint16_t port) const;
 
     bool                                 _serverAccept = false;
+    inline static uint8_t                _countOfError{0}; 
     asio::io_context                     _context;
-    std::thread                          _contextThread;
     std::unique_ptr<Network::Connection> _connection;
+    std::thread                          _contextThread;
+    std::vector<MessageResult>           _messageResponce;
     Utility::SafeQueue<Message>          _incomingMessagesQueue;
 };
 }  /// namespace TestObject

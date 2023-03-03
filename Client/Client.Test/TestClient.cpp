@@ -54,6 +54,7 @@ void TestClient::disconnectFromServer()
     }
 
     _context.stop();
+    _countOfError = 0;
 
     if (_contextThread.get_id() != std::this_thread::get_id()
         && (_contextThread.joinable()))
@@ -85,6 +86,27 @@ void TestClient::send(const Message& message) const
     }
 }
 
+std::vector<MessageResult> TestClient::getMessageResult() const
+{
+    return _messageResponce; 
+}
+
+void TestClient::countOfErrorResults() 
+{
+    for (const auto errorContainer: _messageResponce)
+    {
+        if (errorContainer == MessageResult::InvalidBody)
+        {
+            ++_countOfError;
+        }
+    }
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "Count of Error Results:[" + std::to_string(_countOfError) + "]",
+        Base::Logger::LogLevel::INFO
+    );
+}
+
 bool TestClient::checkConnectionArguments(const std::string_view& host, const uint16_t port) const
 {
     if (host != TestServerInfo::Address::local || port != TestServerInfo::Port::test)
@@ -94,7 +116,6 @@ bool TestClient::checkConnectionArguments(const std::string_view& host, const ui
             "Bad arguments", 
             Base::Logger::LogLevel::ERR
         );
-
         return false;
     }
     return true;
@@ -110,6 +131,18 @@ bool TestClient::checkServerAcception()
     return _serverAccept;
 }
 
+void TestClient::MessageResultIsError(std::optional<MessageResult>&& result)
+{
+    if (result != MessageResult::Success)
+    {
+        _messageResponce.emplace_back(result.value());
+    }
+    else
+    {
+        _messageResponce.emplace_back(MessageResult::Success);
+    }
+}
+
 void TestClient::noose()
 {
      while (!_incomingMessagesQueue.empty())
@@ -117,26 +150,28 @@ void TestClient::noose()
         UtilityTime::consoleLogTimestamp();
         const Message message     = _incomingMessagesQueue.pop_front();
 
+        std::optional<MessageResult> Result;
+
         switch (message.mHeader.mMessageType)
         {
             case MessageType::ServerAccept:
             {
                 _serverAccept = true;
-                onServerAccepted();
+                Result = onServerAccepted();
             }
             break;
 
             case MessageType::RegistrationAnswer:
             {
                 auto registrationCode = std::any_cast<Utility::RegistrationCodes>(message.mBody);
-                onRegistrationAnswer(registrationCode);
+                Result = onRegistrationAnswer(registrationCode);
             }
             break;
 
             case MessageType::LoginAnswer:
             {
                 auto loginSuccessful = std::any_cast<bool>(message.mBody);
-                onLoginAnswer(loginSuccessful);
+                Result = onLoginAnswer(loginSuccessful);
             }
             break;
 
@@ -144,130 +179,126 @@ void TestClient::noose()
             {
                 timestamp_t timeNow  = RTC::to_time_t(RTC::now());
                 timestamp_t timeThen = message.mHeader.mTimestamp;
-                onServerPing(std::chrono::duration<double>(timeNow - timeThen).count());
+                Result = onServerPing(std::chrono::duration<double>(timeNow - timeThen).count());
             }
             break;
 
             case MessageType::ServerMessage:
             {
                 uint64_t clientID = 0;
-                onServerMessage(clientID);
+                Result = onServerMessage(clientID);
             }
             break;
 
             case MessageType::MessageHistoryAnswer:
             {
                 auto historyMessages = std::any_cast<std::vector<Models::MessageInfo>>(message.mBody);
-                onMessageHistoryAnswer(historyMessages);
+                Result = onMessageHistoryAnswer(historyMessages);
             }
             break;
 
             case MessageType::MessageStoreAnswer:
             {
                 auto storeCode = std::any_cast<Utility::StoringMessageCodes>(message.mBody);
-                onMessageStoreAnswer(storeCode);
+                Result = onMessageStoreAnswer(storeCode);
             }
             break;
 
             case MessageType::MessageDeleteAnswer:
             {
                 auto messageDeleteInfo = std::any_cast<Utility::DeletingMessageCodes>(message.mBody);
-                onUserMessageDeleteAnswer(messageDeleteInfo);
+                Result = onUserMessageDeleteAnswer(messageDeleteInfo);
             }
             break;
 
             case MessageType::MessageEditAnswer:
             {
                 auto messageEditInfo = std::any_cast<Utility::EditingMessageCodes>(message.mBody);
-                onEditMessageAnswer(messageEditInfo);
+                Result = onEditMessageAnswer(messageEditInfo);
             }
             break;
 
             case MessageType::MessageReactionAnswer:
             {
                 auto messageReactionCode = std::any_cast<Utility::ReactionMessageCodes>(message.mBody);
-                onMessageReactionAnswer(messageReactionCode);
+                Result = onMessageReactionAnswer(messageReactionCode);
             }
             break;
 
             case MessageType::DirectMessageCreateAnswer:
             {
                 auto directMessageCreateAnswer = std::any_cast<Utility::DirectMessageStatus>(message.mBody);
-                onDirectMessageCreateAnswer(directMessageCreateAnswer);
+                Result = onDirectMessageCreateAnswer(directMessageCreateAnswer);
             }
             break;
 
             case MessageType::ReplyHistoryAnswer:
             {
                 auto repliesHistory = std::any_cast<std::vector<Models::ReplyInfo>>(message.mBody);
-                onReplyHistoryAnswer(repliesHistory);
+                Result = onReplyHistoryAnswer(repliesHistory);
             }
             break;
 
             case MessageType::ReplyStoreAnswer:
             {
                 auto replyStoreCode = std::any_cast<Utility::StoringReplyCodes>(message.mBody);
-                onReplyStoreAnswer(replyStoreCode);
+                Result = onReplyStoreAnswer(replyStoreCode);
             }
             break;
 
             case MessageType::ChannelListRequest:
             {
                 auto channelsLists = std::any_cast<std::vector<Models::ChannelInfo>>(message.mBody);
-                onChannelListRequest(channelsLists);
+                Result = onChannelListRequest(channelsLists);
             }
             break;
 
             case MessageType::ChannelSubscriptionListAnswer:
             {
                 auto channelsList = std::any_cast<std::vector<uint64_t>>(message.mBody);
-                onChannelSubscribingListAnswer(channelsList);
+                Result = onChannelSubscribingListAnswer(channelsList);
             }
             break;
 
             case MessageType::ChannelSubscribeAnswer:
             {
                 auto subscribeCode = std::any_cast<Utility::ChannelSubscribingCodes>(message.mBody);
-                onChannelSubscribingAnswer(subscribeCode);
+                Result = onChannelSubscribingAnswer(subscribeCode);
             }
             break;
 
             case MessageType::ChannelCreateAnswer:
             {
                 auto channelCreateCode = std::any_cast<Utility::ChannelCreateCodes>(message.mBody);
-                onChannelCreateAnswer(channelCreateCode);
+                Result = onChannelCreateAnswer(channelCreateCode);
             }
             break;
             
             case MessageType::ChannelDeleteAnswer:
             {
                 auto channelDeleteCode = std::any_cast<Utility::ChannelDeleteCode>(message.mBody);
-                onChannelDeleteAnswer(channelDeleteCode);
+                Result = onChannelDeleteAnswer(channelDeleteCode);
             }
             break;
 
             case MessageType::ChannelLeaveAnswer:
             {
                 auto channelLeaveCode = std::any_cast<Utility::ChannelLeaveCodes>(message.mBody);
-                onChannelLeaveAnswer(channelLeaveCode);
+                Result = onChannelLeaveAnswer(channelLeaveCode);
             }
             break;
 
             default:
             {
-                Base::Logger::FileLogger::getInstance().log
-                (
-                    "Unimplemented Message[" 
-                    + std::to_string(uint32_t(message.mHeader.mMessageType)) + "]",
-                    Base::Logger::LogLevel::WARNING
-                );
+                Result = defaultAnswer();
             }
             break;
         }
+        MessageResultIsError(Result.value()); 
      }
 }
 
-void TestClient::onLoginAnswer(bool success) const
+std::optional<MessageResult> TestClient::onLoginAnswer(bool success) const
 {
     if (success)
     {
@@ -276,45 +307,74 @@ void TestClient::onLoginAnswer(bool success) const
             "[TestClient] The user is logged in!", 
             Base::Logger::LogLevel::INFO
         );
+        return MessageResult::Success;
     }
-    else
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[TestClient] User isn't logged in!", 
+        Base::Logger::LogLevel::ERR
+    );
+    return MessageResult::InvalidBody;
+}
+
+std::optional<MessageResult> TestClient::onServerAccepted() const
+{
+    if (_serverAccept != true)
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[TestClient] User is not logged in!", 
-            Base::Logger::LogLevel::INFO
+            "[TestClient] Server didn't accept the connection!", 
+            Base::Logger::LogLevel::ERR
         );
+        return MessageResult::InvalidBody;
     }
-}
-
-void TestClient::onServerAccepted() const
-{
     Base::Logger::FileLogger::getInstance().log
     (
         "[TestClient] Server accepted the connection!", 
         Base::Logger::LogLevel::INFO
     );
+    return MessageResult::Success;
 }
 
-void TestClient::onServerPing(double timestamp) const
+std::optional<MessageResult> TestClient::onServerPing(double timestamp) const
 {
+    if (timestamp < 0)
+    {
+        Base::Logger::FileLogger::getInstance().log
+        (
+            "[TestClient] Bad timestamp: " + std::to_string(timestamp), 
+            Base::Logger::LogLevel::ERR
+        );
+        return MessageResult::InvalidBody;
+    }
     Base::Logger::FileLogger::getInstance().log
     (
         "[TestClient] Ping: " + std::to_string(timestamp), 
         Base::Logger::LogLevel::INFO
     );
+    return MessageResult::Success;
 }
 
-void TestClient::onServerMessage(const uint64_t clientID) const
+std::optional<MessageResult> TestClient::onServerMessage(const uint64_t clientID) const
 {
+    if (clientID < 0 )
+    {
+        Base::Logger::FileLogger::getInstance().log
+        (
+            "[TestClient] Bad Client ID [" + std::to_string(clientID) + "]", 
+            Base::Logger::LogLevel::ERR
+        );
+        return MessageResult::InvalidBody;
+    }
     Base::Logger::FileLogger::getInstance().log
     (
         "[TestClient] Hello from [" + std::to_string(clientID) + "]", 
         Base::Logger::LogLevel::INFO
     );
+    return MessageResult::Success;
 }
 
-void TestClient::onChannelListRequest(const std::vector<Models::ChannelInfo>& channels) const
+std::optional<MessageResult> TestClient::onChannelListRequest(const std::vector<Models::ChannelInfo>& channels) const
 {
     if (!channels.empty())
     {
@@ -323,18 +383,17 @@ void TestClient::onChannelListRequest(const std::vector<Models::ChannelInfo>& ch
             "[TestClient] Channel list sent successfully!",
             Base::Logger::LogLevel::INFO
         );
+        return MessageResult::Success;
     }
-    else
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[TestClient] Channel list isn't implemented!",
-            Base::Logger::LogLevel::INFO
-        );
-    }
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[TestClient] Channel list isn't implemented!",
+        Base::Logger::LogLevel::ERR
+    );
+    return MessageResult::InvalidBody;
 }
 
-void TestClient::onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages) const
+std::optional<MessageResult> TestClient::onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& messages) const
 {
     if (messages.empty())
     {
@@ -343,18 +402,17 @@ void TestClient::onMessageHistoryAnswer(const std::vector<Models::MessageInfo>& 
             "[TestClient] Message history isn't implemented!",
             Base::Logger::LogLevel::INFO
         );
+        return MessageResult::InvalidBody;
     }
-    else
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[TestClient] Message history is taken successfully!",
-            Base::Logger::LogLevel::INFO
-        );
-    }
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[TestClient] Message history is taken successfully!", 
+        Base::Logger::LogLevel::ERR
+    );
+    return MessageResult::Success;
 }
 
-void TestClient::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode) const
+std::optional<MessageResult> TestClient::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessageCode) const
 {
     if (storingMessageCode == Utility::StoringMessageCodes::SUCCESS)
     {
@@ -363,18 +421,17 @@ void TestClient::onMessageStoreAnswer(Utility::StoringMessageCodes storingMessag
             "[TestClient] Message sent successfully!",
             Base::Logger::LogLevel::INFO
         );
+        return MessageResult::Success;
     }
-    else
-    {
-         Base::Logger::FileLogger::getInstance().log
-        (
-            "[TestClient] Message didn't sent!", 
-            Base::Logger::LogLevel::INFO
-        );
-    }
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[TestClient] Message didn't sent!", 
+        Base::Logger::LogLevel::ERR
+    );
+    return MessageResult::InvalidBody;
 }
 
-void TestClient::onRegistrationAnswer(Utility::RegistrationCodes registrationCode) const
+std::optional<MessageResult> TestClient::onRegistrationAnswer(Utility::RegistrationCodes registrationCode) const
 {
     if (registrationCode == Utility::RegistrationCodes::SUCCESS)
     {
@@ -383,18 +440,17 @@ void TestClient::onRegistrationAnswer(Utility::RegistrationCodes registrationCod
             "[TestClient] A user has registered!", 
             Base::Logger::LogLevel::INFO
         );
+        return MessageResult::Success;
     }
-    else
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[TestClient] The user already exists!", 
-            Base::Logger::LogLevel::INFO
-        );
-    }
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[TestClient] The user doesn't exist!",
+        Base::Logger::LogLevel::ERR
+    );
+    return MessageResult::InvalidBody;
 }
 
-void TestClient::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) const
+std::optional<MessageResult> TestClient::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes deletingState) const
 {
     if (deletingState == Utility::DeletingMessageCodes::SUCCESS)
     {
@@ -403,18 +459,17 @@ void TestClient::onUserMessageDeleteAnswer(const Utility::DeletingMessageCodes d
             "[TestClient] Success deleting!", 
             Base::Logger::LogLevel::INFO
         );
+        return MessageResult::Success;
     }
-    else
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[TestClient] Failed deleting!", 
-            Base::Logger::LogLevel::INFO
-        );
-    }
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[TestClient] Failed deleting!", 
+        Base::Logger::LogLevel::ERR
+    );
+    return MessageResult::InvalidBody;
 }
 
-void TestClient::onMessageReactionAnswer(const Utility::ReactionMessageCodes reactionState) const
+std::optional<MessageResult> TestClient::onMessageReactionAnswer(const Utility::ReactionMessageCodes reactionState) const
 {
     if (reactionState == Utility::ReactionMessageCodes::SUCCESS)
     {
@@ -423,18 +478,17 @@ void TestClient::onMessageReactionAnswer(const Utility::ReactionMessageCodes rea
             "[TestClient] Reaction updating success!", 
             Base::Logger::LogLevel::INFO
         );
+        return MessageResult::Success;
     }
-    else
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[TestClient] Reaction updating failed", 
-            Base::Logger::LogLevel::INFO
-        );
-    }
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[TestClient] Reaction updating failed",
+        Base::Logger::LogLevel::ERR
+    );
+    return MessageResult::InvalidBody;
 }
 
-void TestClient::onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const
+std::optional<MessageResult> TestClient::onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const
 {
     if (reactionState == Utility::EditingMessageCodes::SUCCESS)
     {
@@ -443,15 +497,24 @@ void TestClient::onEditMessageAnswer(Utility::EditingMessageCodes reactionState)
             "[TestClient] Success editing message!",
             Base::Logger::LogLevel::INFO
         );
+        return MessageResult::Success;
     }
-    else
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[TestClient] Bad editing message!",
-            Base::Logger::LogLevel::INFO
-        );
-    }
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[TestClient] Bad editing message!", 
+        Base::Logger::LogLevel::ERR
+    );
+    return MessageResult::InvalidBody;
+}
+
+std::optional<MessageResult> TestClient::defaultAnswer() const
+{
+     Base::Logger::FileLogger::getInstance().log
+     (
+        "Unimplemented Message",
+        Base::Logger::LogLevel::ERR
+     );
+     return MessageResult::InvalidBody;
 }
 
 void TestClient::onDisconnect() const
@@ -469,11 +532,11 @@ void TestClient::onMessageSendFailed(const Message& message) const
     Base::Logger::FileLogger::getInstance().log
     (   
         "[TestClient] Message send failed is not implemented!", 
-        Base::Logger::LogLevel::INFO
+        Base::Logger::LogLevel::ERR
     );
 }
 
-void TestClient::onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& replies) const
+std::optional<MessageResult> TestClient::onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& replies) const
 {
     if (!replies.empty())
     {
@@ -482,18 +545,17 @@ void TestClient::onReplyHistoryAnswer(const std::vector<Models::ReplyInfo>& repl
             "[TestClient] Reply history answer is implemented!", 
             Base::Logger::LogLevel::INFO
         );
+        return MessageResult::Success;
     }
-    else
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[TestClient] Reply history answer isn't implemented!", 
-            Base::Logger::LogLevel::INFO
-        );
-    }
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[TestClient] Reply history answer isn't implemented!", 
+        Base::Logger::LogLevel::ERR
+    );
+    return MessageResult::InvalidBody;
 }
 
-void TestClient::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode) const
+std::optional<MessageResult> TestClient::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode) const
 {
     if (storingReplyCode == Utility::StoringReplyCodes::SUCCESS)
     {
@@ -502,18 +564,17 @@ void TestClient::onReplyStoreAnswer(Utility::StoringReplyCodes storingReplyCode)
             "[TestClient] Success sending!", 
             Base::Logger::LogLevel::INFO
         );
+        return MessageResult::Success;
     }
-    else
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[TestClient] Failed sending!", 
-            Base::Logger::LogLevel::INFO
-        );
-    }
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[TestClient] Failed sending!",
+        Base::Logger::LogLevel::ERR
+    );
+    return MessageResult::InvalidBody;
 }
 
-void TestClient::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode) const
+std::optional<MessageResult> TestClient::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCode) const
 {
     if (ChannelLeaveCode == Utility::ChannelLeaveCodes::SUCCESS)
     {
@@ -522,18 +583,17 @@ void TestClient::onChannelLeaveAnswer(Utility::ChannelLeaveCodes ChannelLeaveCod
             "[TestClient] Success leaving!",
             Base::Logger::LogLevel::INFO
         );
+        return MessageResult::Success;
     }
-    else
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[TestClient] Failed leaving!", 
-            Base::Logger::LogLevel::INFO
-        );
-    }
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[TestClient] Failed leaving!",
+        Base::Logger::LogLevel::ERR
+    );
+    return MessageResult::InvalidBody;
 }
 
-void TestClient::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode) const
+std::optional<MessageResult> TestClient::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCodes subscribingChannelCode) const
 {
     if (subscribingChannelCode == Utility::ChannelSubscribingCodes::SUCCESS)
     {
@@ -542,18 +602,17 @@ void TestClient::onChannelSubscribingAnswer(const Utility::ChannelSubscribingCod
             "[TestClient] Success subscribing",
             Base::Logger::LogLevel::INFO
         );
+        return MessageResult::Success;
     }
-    else
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[TestClient] Failed subscribing", 
-            Base::Logger::LogLevel::INFO
-        );
-    }
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[TestClient] Failed subscribing",
+        Base::Logger::LogLevel::ERR
+    );
+    return MessageResult::InvalidBody;
 }
 
-void TestClient::onChannelSubscribingListAnswer(const std::vector<uint64_t>& subscribingChannelList) const
+std::optional<MessageResult> TestClient::onChannelSubscribingListAnswer(const std::vector<uint64_t>& subscribingChannelList) const
 {
     if (!subscribingChannelList.empty())
     {
@@ -562,18 +621,17 @@ void TestClient::onChannelSubscribingListAnswer(const std::vector<uint64_t>& sub
             "[TestClient] Channel subscribing list is successfully!", 
             Base::Logger::LogLevel::INFO
         );
+        return MessageResult::Success;
     }
-    else
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[TestClient] Channel subscribing list isn't implementet!", 
-            Base::Logger::LogLevel::INFO
-        );
-    }
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[TestClient] Channel subscribing list isn't implementet!", 
+        Base::Logger::LogLevel::ERR
+    );
+    return MessageResult::InvalidBody;
 }
 
-void TestClient::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode) const
+std::optional<MessageResult> TestClient::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteCode) const
 {
     if (channelDeleteCode == Utility::ChannelDeleteCode::SUCCESS)
     {
@@ -582,18 +640,17 @@ void TestClient::onChannelDeleteAnswer(Utility::ChannelDeleteCode channelDeleteC
             "[TestClient] Success deleting!",
             Base::Logger::LogLevel::INFO
         );
+        return MessageResult::Success;
     }
-    else
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[TestClient] Failed deleting!", 
-            Base::Logger::LogLevel::INFO
-        );
-    }
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[TestClient] Failed deleting!", 
+        Base::Logger::LogLevel::ERR
+    );
+    return MessageResult::InvalidBody;
 }
 
-void TestClient::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode) const
+std::optional<MessageResult> TestClient::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreateCode) const
 {
     if (channelCreateCode == Utility::ChannelCreateCodes::SUCCESS)
     {
@@ -602,18 +659,17 @@ void TestClient::onChannelCreateAnswer(Utility::ChannelCreateCodes channelCreate
             "[TestClient] Success creating!", 
             Base::Logger::LogLevel::INFO
         );
+        return MessageResult::Success;
     }
-    else
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[TestClient] Faild creating!", 
-            Base::Logger::LogLevel::INFO
-        );
-    }
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[TestClient] Failed creating!",
+        Base::Logger::LogLevel::ERR
+    );
+    return MessageResult::InvalidBody;
 }
 
-void TestClient::onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer) const
+std::optional<MessageResult> TestClient::onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMessageCreateAnswer) const
 {
     if (directMessageCreateAnswer == Utility::DirectMessageStatus::SUCCESS)
     {
@@ -622,14 +678,13 @@ void TestClient::onDirectMessageCreateAnswer(Utility::DirectMessageStatus direct
             "[TestClient] Success creating!", 
             Base::Logger::LogLevel::INFO
         );
+        return MessageResult::Success;
     }
-    else
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "[TestClient] Failed creating!", 
-            Base::Logger::LogLevel::INFO
-        );
-    }
+    Base::Logger::FileLogger::getInstance().log
+    (
+        "[TestClient] Failed creating!",
+        Base::Logger::LogLevel::ERR
+    );
+    return MessageResult::InvalidBody;
 }
 }  /// namespace TestObject
