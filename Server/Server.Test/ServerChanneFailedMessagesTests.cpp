@@ -4,7 +4,7 @@
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
-TEST_CASE("TestServerChannelFailedCreatingRequest [success case]")
+TEST_CASE("Channel request procedures [Server][Failed]")
 {
     auto testServer = makeTestServer();
     testServer->start();
@@ -12,62 +12,63 @@ TEST_CASE("TestServerChannelFailedCreatingRequest [success case]")
     TestClient client;
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
-    Message invalidMessage;
-    const auto& messageInstance = makeMessage(invalidMessage, 
-        MessageType::ChannelCreateRequest, MessageBody::InvalidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
+    SECTION("Failed request to create a channel")
+    {
+        Message     invalidMessage;
+        const auto& messageInstance = makeMessage(invalidMessage, 
+            MessageType::ChannelCreateRequest, MessageBody::InvalidBody);
 
-    testServer->update();
-    testServer->stop();
-}
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-TEST_CASE("TestServerChannelFailedSubscribingRequest [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::InvalidBody);
+        testServer->stop();
+    }
 
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+    SECTION("Failed request subscription to channel")
+    {
+        Message     invalidMessage;
+        const auto& messageInstance = makeMessage(invalidMessage, 
+            MessageType::ChannelSubscribeRequest, MessageBody::InvalidBody);
 
-    Message invalidMessage;
-    const auto& messageInstance = makeMessage(invalidMessage, 
-        MessageType::ChannelSubscribeRequest, MessageBody::InvalidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    testServer->update();
-    testServer->stop();
-}
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::InvalidBody);
+        testServer->stop();
+    }
+    
+    SECTION("Failed request to leave from channel")
+    {
+        Message     invalidMessage;
+        const auto& messageInstance = makeMessage(invalidMessage, 
+            MessageType::ChannelLeaveRequest, MessageBody::InvalidBody);
 
-TEST_CASE("TestServerChannelFailedLeavingRequest [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::InvalidBody);
+        testServer->stop();
+    }
 
-    Message invalidMessage;
-    const auto& messageInstance = makeMessage(invalidMessage, 
-        MessageType::ChannelLeaveRequest, MessageBody::InvalidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
+    SECTION("Failed request to delete a channel")
+    {
+        Message     invalidMessage;
+        const auto& messageInstance = makeMessage(invalidMessage, 
+            MessageType::ChannelDeleteRequest, MessageBody::InvalidBody);
 
-    testServer->update();
-    testServer->stop();
-}
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-TEST_CASE("TestServerChannelFailedDeletingRequest [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
-
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
-
-    Message invalidMessage;
-    const auto& messageInstance = makeMessage(invalidMessage, 
-        MessageType::ChannelDeleteRequest, MessageBody::InvalidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
-
-    testServer->update();
-    testServer->stop();
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::InvalidBody);
+        testServer->stop();
+    }
 }

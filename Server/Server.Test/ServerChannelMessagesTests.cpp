@@ -4,7 +4,7 @@
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
-TEST_CASE("TestServerChannelCreatingRequest [success case]")
+TEST_CASE("Channel request procedures [Server][Success]")
 {
     auto testServer = makeTestServer();
     testServer->start();
@@ -12,114 +12,93 @@ TEST_CASE("TestServerChannelCreatingRequest [success case]")
     TestClient client;
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage, 
-        MessageType::ChannelCreateRequest, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
+    SECTION("Successful request to create a channel")
+    {
+        Message     validMessage;
+        const auto& messageInstance = makeMessage(validMessage, 
+            MessageType::ChannelCreateRequest, MessageBody::ValidBody);
 
-    auto channelInfo = std::any_cast<std::string>(validMessage.mBody);
-    REQUIRE(channelInfo == testChannelName);
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    testServer->update();
-    testServer->stop();
-}
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 
-TEST_CASE("TestServerChannelListRequest [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
+    SECTION("Successful request subscription to channel")
+    {
+        Message     validMessage;
+        const auto& messageInstance = makeMessage(validMessage,
+            MessageType::ChannelSubscribeRequest, MessageBody::ValidBody);
 
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage, 
-        MessageType::ChannelListRequest, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 
-    auto channelInfo = std::any_cast<std::vector<ChannelInfo>>(validMessage.mBody);
-    REQUIRE(channelInfo.data()->_channelID == 0);
+    SECTION("Successful request subscription list from channel ")
+    {
+        Message     validMessage;
+        const auto& messageInstance = makeMessage(validMessage,
+            MessageType::ChannelSubscriptionListRequest, MessageBody::ValidBody);
 
-    testServer->update();
-    testServer->stop();
-}
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-TEST_CASE("TestServerChannelSubscribingRequest [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+    SECTION("Successful request channel list")
+    {
+        Message     validMessage;
+        const auto& messageInstance = makeMessage(validMessage,
+            MessageType::ChannelListRequest, MessageBody::ValidBody);
 
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage, 
-        MessageType::ChannelSubscribeRequest, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    auto channelInfo = std::any_cast<ChannelSubscriptionInfo>(validMessage.mBody);
-    REQUIRE(channelInfo._channelID == testChannelID);
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 
-    testServer->update();
-    testServer->stop();
-}
+    SECTION("Successful request to leave from channel")
+    {
+        Message     validMessage;
+        const auto& messageInstance = makeMessage(validMessage, 
+            MessageType::ChannelLeaveRequest, MessageBody::ValidBody);
 
-TEST_CASE("TestServerChannelSubscriptionListRequest [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage, 
-        MessageType::ChannelSubscriptionListRequest, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
+    SECTION("Successful request to delete a channel")
+    {
+        Message     validMessage;
+        const auto& messageInstance = makeMessage(validMessage,
+            MessageType::ChannelDeleteRequest, MessageBody::ValidBody);
 
-    auto channelInfo = std::any_cast<ChannelSubscriptionInfo>(validMessage.mBody);
-    REQUIRE(channelInfo._channelID == testChannelID);
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    testServer->update();
-    testServer->stop();
-}
-
-TEST_CASE("TestServerChannelLeavingRequest [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
-
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
-
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage, 
-        MessageType::ChannelLeaveRequest, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
-
-    auto channelInfo = std::any_cast<std::string>(validMessage.mBody);
-    REQUIRE(channelInfo == testChannelName);
-
-    testServer->update();
-    testServer->stop();
-}
-
-TEST_CASE("TestServerChannelDeletingRequest [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
-
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
-
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage, 
-        MessageType::ChannelDeleteRequest, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
-
-    auto channelInfo = std::any_cast<std::string>(validMessage.mBody);
-    REQUIRE(channelInfo == testChannelName);
-
-    testServer->update();
-    testServer->stop();
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 }

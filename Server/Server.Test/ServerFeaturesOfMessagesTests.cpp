@@ -4,179 +4,146 @@
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
-TEST_CASE("TestServerGivingAllMessagesRequest [success case]")
+TEST_CASE("Message request procedures [Server][Success]")
 {
-    auto testServer = makeTestServer();
+	auto testServer = makeTestServer();
     testServer->start();
 
     TestClient client;
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage, 
-        MessageType::MessageAll, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
+    SECTION("Successful request to receive all messages")
+    {
+        Message     validMessage;
+        const auto& messageInstance = makeMessage(validMessage,
+            MessageType::MessageAll, MessageBody::ValidBody);
 
-    testServer->update();
-    testServer->stop();
-}
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-TEST_CASE("TestServerHistoryRequest [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+    SECTION("Successful message history request")
+    {
+        Message validMessage;
+        const auto& messageInstance = makeMessage(validMessage, 
+            MessageType::MessageHistoryRequest, MessageBody::ValidBody);
 
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage, 
-        MessageType::MessageHistoryRequest, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    auto channelInfo = std::any_cast<uint64_t>(validMessage.mBody);
-    REQUIRE(channelInfo == testChannelID);
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 
-    testServer->update();
-    testServer->stop();
-}
+    SECTION("Successful reply message history request")
+    {
+        Message validMessage;
+        const auto& messageInstance = makeMessage(validMessage, 
+            MessageType::ReplyHistoryRequest, MessageBody::ValidBody);
 
-TEST_CASE("TestServerReplyingHistoryRequest [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage, 
-        MessageType::ReplyHistoryRequest, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
+    SECTION("Successful direct message request")
+    {
+        Message     validMessage;
+        const auto& messageInstance = makeMessage(validMessage, 
+            MessageType::DirectMessageCreateRequest, MessageBody::ValidBody);
 
-    auto channelInfo = std::any_cast<uint64_t>(validMessage.mBody);
-    REQUIRE(channelInfo == testChannelID);
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    testServer->update();
-    testServer->stop();
-}
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 
-TEST_CASE("TestServerCreatingDirectMessage [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
+    SECTION("Successful message store request")
+    {
+        Message     validMessage;
+        const auto& messageInstance = makeMessage(validMessage, 
+            MessageType::MessageStoreRequest, MessageBody::ValidBody);
 
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage, 
-        MessageType::DirectMessageCreateRequest, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 
-    auto channelInfo = std::any_cast<uint64_t>(validMessage.mBody);
-    REQUIRE(channelInfo == testRecipientID);
+    SECTION("Successful reply message store request")
+    {
+        Message     validMessage;
+        const auto& messageInstance = makeMessage(validMessage, 
+            MessageType::ReplyStoreRequest, MessageBody::ValidBody);
 
-    testServer->update();
-    testServer->stop();
-}
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-TEST_CASE("TestServerMessageStoreRequest [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+    SECTION("Successful message reaction request")
+    {
+        Message     validMessage;
+        const auto& messageInstance = makeMessage(validMessage, 
+            MessageType::MessageReactionRequest, MessageBody::ValidBody);
 
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage, 
-        MessageType::MessageStoreRequest, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    auto channelInfo = std::any_cast<MessageInfo>(validMessage.mBody);
-    REQUIRE(channelInfo._channelID == testChannelID);
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 
-    testServer->update();
-    testServer->stop();
-}
+    SECTION("Successful message edit request")
+    {
+        Message     validMessage;
+        const auto& messageInstance = makeMessage(validMessage, 
+            MessageType::MessageEditRequest, MessageBody::ValidBody);
 
-TEST_CASE("TestServerReplyingStoreRequest [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage, 
-        MessageType::ReplyStoreRequest, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
+    SECTION("Successful message delete request")
+    {
+        Message     validMessage;
+        const auto& messageInstance = makeMessage(validMessage, 
+            MessageType::MessageDeleteRequest, MessageBody::ValidBody);
 
-    auto channelInfo = std::any_cast<ReplyInfo>(validMessage.mBody);
-    REQUIRE(channelInfo._channelID == testChannelID);
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    testServer->update();
-    testServer->stop();
-}
-
-TEST_CASE("TestServerReactionRequest [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
-
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
-
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage, 
-        MessageType::MessageReactionRequest, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
-
-    auto channelInfo = std::any_cast<MessageInfo>(validMessage.mBody);
-    REQUIRE(channelInfo._msgID == testMsgID);
-
-    testServer->update();
-    testServer->stop();
-}
-
-TEST_CASE("TestServerMessageEditingRequest [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
-
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
-
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage, 
-        MessageType::MessageEditRequest, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
-
-    auto channelInfo = std::any_cast<MessageInfo>(validMessage.mBody);
-    REQUIRE(channelInfo._msgID == testMsgID);
-
-    testServer->update();
-    testServer->stop();
-}
-
-TEST_CASE("TestServerMessageDeletingRequest [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
-
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
-
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage, 
-        MessageType::MessageDeleteRequest, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
-
-    auto channelInfo = std::any_cast<MessageInfo>(validMessage.mBody);
-    REQUIRE(channelInfo._msgID == testMsgID);
-
-    testServer->update();
-    testServer->stop();
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 }

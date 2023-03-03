@@ -4,7 +4,7 @@
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
-TEST_CASE("TestServerRegistrationRequest [success case]")
+TEST_CASE("Autorization request procedures [Server][Success]")
 {
     auto testServer = makeTestServer();
     testServer->start();
@@ -12,34 +12,33 @@ TEST_CASE("TestServerRegistrationRequest [success case]")
     TestClient client;
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage, 
-        MessageType::RegistrationRequest, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
+    SECTION("Successful Registration Request")
+    {
+        Message     validMessage;
+        const auto& messageInstance = makeMessage(validMessage, 
+            MessageType::RegistrationRequest, MessageBody::ValidBody);
 
-    auto regInfo = std::any_cast<RegistrationInfo>(validMessage.mBody);
-    REQUIRE(regInfo._login == testLogin);
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    testServer->update();
-    testServer->stop();
-}
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() 
+            == TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 
-TEST_CASE("TestServerLogInRequest [success case]")
-{
-    auto       testServer = makeTestServer();
-    testServer->start();
+    SECTION("Successful Logged In Request")
+    {
+        Message     validMessage;
+        const auto& messageInstance = makeMessage(validMessage, 
+            MessageType::LoginRequest, MessageBody::ValidBody);
 
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test); 
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage,
-        MessageType::LoginRequest, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
-
-    auto loginInfo = std::any_cast<LoginInfo>(validMessage.mBody);
-    REQUIRE(loginInfo._login == testLogin);
-    
-    testServer->update();
-    testServer->stop();
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() 
+            == TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 }

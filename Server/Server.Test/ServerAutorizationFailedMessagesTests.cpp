@@ -4,7 +4,7 @@
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
-TEST_CASE("TestServerFailedRegistrationRequest [success case]")
+TEST_CASE("Autorization request procedures [Server][Failed]")
 {
     auto testServer = makeTestServer();
     testServer->start();
@@ -12,28 +12,33 @@ TEST_CASE("TestServerFailedRegistrationRequest [success case]")
     TestClient client;
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
-    Message invalidMessage;
-    const auto& messageInstance = makeMessage(invalidMessage, 
+    SECTION("Failed Registration Request")
+    {
+        Message invalidMessage;
+        const auto& messageInstance = makeMessage(invalidMessage, 
         MessageType::RegistrationRequest, MessageBody::InvalidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
 
-    testServer->update();
-    testServer->stop();
-}
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-TEST_CASE("TestServerFailedLogInRequest [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() 
+            == TestObject::MessageResult::InvalidBody);
+        testServer->stop();
+    }
 
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
-
-    Message invalidMessage;
-    const auto& messageInstance = makeMessage(invalidMessage,
+    SECTION("Failed Logged In Request")
+    {
+        Message invalidMessage;
+        const auto& messageInstance = makeMessage(invalidMessage,
         MessageType::LoginRequest, MessageBody::InvalidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
-    
-    testServer->update();
-    testServer->stop();
+
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
+
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() 
+            == TestObject::MessageResult::InvalidBody);
+        testServer->stop();
+    }
 }

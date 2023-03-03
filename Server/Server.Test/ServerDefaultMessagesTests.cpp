@@ -4,38 +4,43 @@
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
-TEST_CASE("TestServerPingRequest [success case]")
+TEST_CASE("Default request procedures [Server][Success]")
 {
     auto testServer = makeTestServer();
     testServer->start();
 
     TestClient client;
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+    
+    SECTION("Successful request to check a ping")
+    {
+        Message     validMessage;
+        const auto& messageInstance = makeMessage(validMessage, 
+            MessageType::ServerPing, MessageBody::ValidBody);
+        
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    Message validMessage;
-    const auto& messageInstance = makeMessage(validMessage,
-        MessageType::ServerPing, MessageBody::ValidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() ==
+            TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 
-    CHECK_NOTHROW(testServer->update());
-    REQUIRE_NOTHROW(testServer->stop());
-}
+    SECTION("Successful default request answer")
+    {
+        Message invalidMessage;
+        constexpr auto failedType = int16_t(666);
 
-TEST_CASE("TestServerFailedDefaultRequest [success case]")
-{
-    auto testServer = makeTestServer();
-    testServer->start();
+        const auto& messageInstance = makeMessage(invalidMessage,
+            MessageType(failedType), MessageBody::InvalidBody);
 
-    TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+        CHECK_NOTHROW(client.send(messageInstance));
+        testServer->update();
 
-    Message validMessage;
-    constexpr auto failedType = int16_t(666);
-
-    const auto& messageInstance = makeMessage(validMessage,
-        MessageType(failedType), MessageBody::InvalidBody);
-    CHECK_NOTHROW(client.send(messageInstance));
-
-    CHECK_NOTHROW(testServer->update());
-    REQUIRE_NOTHROW(testServer->stop());
+        Sleep(1000);
+        REQUIRE(client.getMessageResult().back() ==
+            TestObject::MessageResult::Success);
+        testServer->stop();
+    }
 }
