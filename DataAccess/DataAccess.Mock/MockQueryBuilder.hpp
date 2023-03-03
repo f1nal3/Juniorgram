@@ -81,6 +81,10 @@ public:
         }
         if (repoName == "msgs")
         {
+            if (query == "userID")
+            {
+                _storage.getMessageRepoData()._senderID = std::any_cast<uint64_t>(repoInfo);
+            }
             if (query == "channelID")
             {
                 _storage.getMessageRepoData()._channelID = std::any_cast<uint64_t>(repoInfo);

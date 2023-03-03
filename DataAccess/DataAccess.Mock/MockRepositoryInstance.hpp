@@ -6,7 +6,7 @@ namespace MockObject
 {
 /**
 * @brief MockRepositoryInstance class.
-* @details Designed to initialize database options and tables to store repository data.
+* @details Designed to emulate initialize database options and tables to store repository data.
 */
 struct MockRepositoryInstance : public MockRepositoryStorage
 {

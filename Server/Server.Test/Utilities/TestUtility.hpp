@@ -244,6 +244,7 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
                 break;
             }
 
+            message.mBody = std::make_any<uint64_t>(mesgFiller.getMessageInfo()._senderID);
             message.mBody = std::make_any<uint64_t>(mesgFiller.getMessageInfo()._recipientID);
 
             break;
