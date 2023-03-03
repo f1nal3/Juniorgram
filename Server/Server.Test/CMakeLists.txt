@@ -2,14 +2,11 @@ set(TARGET Server.Test)
 set(OUTPUT_NAME Server.Test)
 
 set(SOURCE_FILES
-		ServerFeaturesOfMessagesTests.cpp
-		ServerDefaultMessagesTests.cpp
-		ServerChannelMessagesTests.cpp
-		ServerAutorizationMessagesTests.cpp
-		ServerWorkflowTests.cpp
-		ServerAutorizationFailedMessagesTests.cpp
-		ServerChanneFailedMessagesTests.cpp
-		ServerFeaturesOfFailedMessagesTests.cpp)
+		ServerMessageProcedures.cpp
+		ServerDefaultProcedures.cpp
+		ServerChannelProcedures.cpp
+		ServerWorkflowProcedures.cpp
+		ServerAutorizationProcedures.cpp)
 
 set(TEST_SOURCE_FILES
 		Utilities/TestUtility.hpp

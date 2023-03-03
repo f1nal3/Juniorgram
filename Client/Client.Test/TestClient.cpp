@@ -91,7 +91,7 @@ std::vector<MessageResult> TestClient::getMessageResult() const
     return _messageResponce; 
 }
 
-void TestClient::countOfErrorResults() 
+void TestClient::countOfErrorResults() const
 {
     for (const auto errorContainer: _messageResponce)
     {
@@ -131,7 +131,7 @@ bool TestClient::checkServerAcception()
     return _serverAccept;
 }
 
-void TestClient::MessageResultIsError(std::optional<MessageResult>&& result)
+void TestClient::MessageResultIsError(std::optional<MessageResult> result)
 {
     if (result != MessageResult::Success)
     {
@@ -357,21 +357,21 @@ std::optional<MessageResult> TestClient::onServerPing(double timestamp) const
 
 std::optional<MessageResult> TestClient::onServerMessage(const uint64_t clientID) const
 {
-    if (clientID < 0 )
+    if (clientID > 0)
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[TestClient] Bad Client ID [" + std::to_string(clientID) + "]", 
-            Base::Logger::LogLevel::ERR
+            "[TestClient] Hello from [" + std::to_string(clientID) + "]", 
+            Base::Logger::LogLevel::INFO
         );
-        return MessageResult::InvalidBody;
+        return MessageResult::Success;
     }
     Base::Logger::FileLogger::getInstance().log
     (
-        "[TestClient] Hello from [" + std::to_string(clientID) + "]", 
-        Base::Logger::LogLevel::INFO
+        "[TestClient] Bad Client ID [" + std::to_string(clientID) + "]", 
+        Base::Logger::LogLevel::ERR
     );
-    return MessageResult::Success;
+    return MessageResult::InvalidBody;
 }
 
 std::optional<MessageResult> TestClient::onChannelListRequest(const std::vector<Models::ChannelInfo>& channels) const

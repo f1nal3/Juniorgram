@@ -47,7 +47,7 @@ public:
 
     std::vector<MessageResult> getMessageResult() const;
 
-    void countOfErrorResults();
+    void countOfErrorResults() const;
 
     /**
     * @brief TestClient virtual destructor.
@@ -179,7 +179,7 @@ private:
     */ 
     [[nodiscard]] bool isConnected() const;
 
-    void MessageResultIsError(std::optional<MessageResult>&& result);
+    void MessageResultIsError(std::optional<MessageResult> result);
 
     /**
     * @brief Method checks the connection to the server. 
