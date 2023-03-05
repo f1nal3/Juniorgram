@@ -1,5 +1,6 @@
 #include <catch2/catch.hpp>
 #include "Utilities/TestUtility.hpp"
+#include "Utilities/WaitFor.hpp"
 
 using namespace TestUtility;
 using TestUtility::MessageBody;
@@ -12,6 +13,8 @@ TEST_CASE("Autorization request procedures [Server][Success]")
     TestClient client;
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
+    WaitFor waiter(milliseconds(1000));
+
     SECTION("Successful Registration Request")
     {
         Message     validMessage;
@@ -21,7 +24,7 @@ TEST_CASE("Autorization request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
+        waiter.wait();
         REQUIRE(client.getMessageResult().back() 
             == TestObject::MessageResult::Success);
         testServer->stop();
@@ -36,7 +39,7 @@ TEST_CASE("Autorization request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
+        waiter.wait();
         REQUIRE(client.getMessageResult().back() 
             == TestObject::MessageResult::Success);
         testServer->stop();
@@ -51,6 +54,8 @@ TEST_CASE("Autorization request procedures [Server][Failed]")
     TestClient client;
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
+    WaitFor waiter(milliseconds(1000));
+
     SECTION("Failed Registration Request")
     {
         Message invalidMessage;
@@ -60,7 +65,7 @@ TEST_CASE("Autorization request procedures [Server][Failed]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
+        waiter.wait();
         REQUIRE(client.getMessageResult().back() 
             == TestObject::MessageResult::InvalidBody);
         testServer->stop();
@@ -75,7 +80,7 @@ TEST_CASE("Autorization request procedures [Server][Failed]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
+        waiter.wait();
         REQUIRE(client.getMessageResult().back() 
             == TestObject::MessageResult::InvalidBody);
         testServer->stop();

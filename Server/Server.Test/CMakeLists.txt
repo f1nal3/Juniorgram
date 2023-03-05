@@ -9,6 +9,7 @@ set(SOURCE_FILES
 		ServerAutorizationProcedures.cpp)
 
 set(TEST_SOURCE_FILES
+		Utilities/WaitFor.hpp
 		Utilities/TestUtility.hpp
 		Utilities/MessageFiller.hpp
 		Utilities/MessageFiller.cpp

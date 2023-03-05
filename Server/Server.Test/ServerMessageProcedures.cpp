@@ -1,5 +1,6 @@
 #include <catch2/catch.hpp>
 #include "Utilities/TestUtility.hpp"
+#include "Utilities/WaitFor.hpp"
 
 using namespace TestUtility;
 using TestUtility::MessageBody;
@@ -12,6 +13,8 @@ TEST_CASE("Message request procedures [Server][Success]")
     TestClient client;
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
+    WaitFor waiter(milliseconds(1000));
+
     SECTION("Successful request to receive all messages")
     {
         Message     validMessage;
@@ -21,7 +24,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
+        waiter.wait();
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -36,7 +39,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
+        waiter.wait();
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -51,7 +54,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
+        waiter.wait();
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -66,7 +69,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
+        waiter.wait();
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -81,7 +84,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
+        waiter.wait();
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -96,7 +99,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
+        waiter.wait();
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -111,7 +114,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
+        waiter.wait();
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -126,7 +129,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
+        waiter.wait();
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -141,7 +144,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
+        waiter.wait();
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -156,107 +159,125 @@ TEST_CASE("Message request procedures [Server][Failed]")
     TestClient client;
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
+    WaitFor waiter(milliseconds(1000));
+
     SECTION("Failed message history request")
     {
         Message     invalidMessage;
-        const auto& messageInstance = makeMessage(invalidMessage, MessageType::MessageHistoryRequest, MessageBody::InvalidBody);
+        const auto& messageInstance = makeMessage(invalidMessage,
+            MessageType::MessageHistoryRequest, MessageBody::InvalidBody);
 
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
-        REQUIRE(client.getMessageResult().back() == TestObject::MessageResult::InvalidBody);
+        waiter.wait();
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::InvalidBody);
         testServer->stop();
     }
 
     SECTION("Failed reply message history request")
     {
         Message     invalidMessage;
-        const auto& messageInstance = makeMessage(invalidMessage, MessageType::ReplyHistoryRequest, MessageBody::InvalidBody);
+        const auto& messageInstance = makeMessage(invalidMessage,
+            MessageType::ReplyHistoryRequest, MessageBody::InvalidBody);
 
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
-        REQUIRE(client.getMessageResult().back() == TestObject::MessageResult::InvalidBody);
+        waiter.wait();
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::InvalidBody);
         testServer->stop();
     }
 
     SECTION("Failed direct message request")
     {
         Message     invalidMessage;
-        const auto& messageInstance = makeMessage(invalidMessage, MessageType::DirectMessageCreateRequest, MessageBody::InvalidBody);
+        const auto& messageInstance = makeMessage(invalidMessage,
+            MessageType::DirectMessageCreateRequest, MessageBody::InvalidBody);
 
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
-        REQUIRE(client.getMessageResult().back() == TestObject::MessageResult::InvalidBody);
+        waiter.wait();
+        REQUIRE(client.getMessageResult().back() ==
+            TestObject::MessageResult::InvalidBody);
         testServer->stop();
     }
 
     SECTION("Failed message store request")
     {
         Message     invalidMessage;
-        const auto& messageInstance = makeMessage(invalidMessage, MessageType::MessageStoreRequest, MessageBody::InvalidBody);
+        const auto& messageInstance = makeMessage(invalidMessage,
+            MessageType::MessageStoreRequest, MessageBody::InvalidBody);
 
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
-        REQUIRE(client.getMessageResult().back() == TestObject::MessageResult::InvalidBody);
+        waiter.wait();
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::InvalidBody);
         testServer->stop();
     }
 
     SECTION("Failed reply message store request")
     {
         Message     invalidMessage;
-        const auto& messageInstance = makeMessage(invalidMessage, MessageType::ReplyStoreRequest, MessageBody::InvalidBody);
+        const auto& messageInstance = makeMessage(invalidMessage,
+            MessageType::ReplyStoreRequest, MessageBody::InvalidBody);
 
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
-        REQUIRE(client.getMessageResult().back() == TestObject::MessageResult::InvalidBody);
+        waiter.wait();
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::InvalidBody);
         testServer->stop();
     }
 
     SECTION("Failed message reaction request")
     {
         Message     invalidMessage;
-        const auto& messageInstance = makeMessage(invalidMessage, MessageType::MessageReactionRequest, MessageBody::InvalidBody);
+        const auto& messageInstance = makeMessage(invalidMessage,
+            MessageType::MessageReactionRequest, MessageBody::InvalidBody);
 
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
-        REQUIRE(client.getMessageResult().back() == TestObject::MessageResult::InvalidBody);
+        waiter.wait();
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::InvalidBody);
         testServer->stop();
     }
 
     SECTION("Failed message edit request")
     {
         Message     invalidMessage;
-        const auto& messageInstance = makeMessage(invalidMessage, MessageType::MessageEditRequest, MessageBody::InvalidBody);
+        const auto& messageInstance = makeMessage(invalidMessage,
+            MessageType::MessageEditRequest, MessageBody::InvalidBody);
 
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
-        REQUIRE(client.getMessageResult().back() == TestObject::MessageResult::InvalidBody);
+        waiter.wait();
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::InvalidBody);
         testServer->stop();
     }
 
     SECTION("Failed message delete request")
     {
         Message     invalidMessage;
-        const auto& messageInstance = makeMessage(invalidMessage, MessageType::MessageDeleteRequest, MessageBody::InvalidBody);
+        const auto& messageInstance = makeMessage(invalidMessage,
+            MessageType::MessageDeleteRequest, MessageBody::InvalidBody);
 
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
-        Sleep(1000);
-        REQUIRE(client.getMessageResult().back() == TestObject::MessageResult::InvalidBody);
+        waiter.wait();
+        REQUIRE(client.getMessageResult().back() == 
+            TestObject::MessageResult::InvalidBody);
         testServer->stop();
     }
 }
