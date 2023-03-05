@@ -19,7 +19,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage,
             MessageType::MessageAll, MessageBody::ValidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -36,7 +36,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage, 
             MessageType::MessageHistoryRequest, MessageBody::ValidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -53,7 +53,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage, 
             MessageType::ReplyHistoryRequest, MessageBody::ValidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -70,7 +70,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage, 
             MessageType::DirectMessageCreateRequest, MessageBody::ValidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -87,7 +87,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage, 
             MessageType::MessageStoreRequest, MessageBody::ValidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -104,7 +104,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage, 
             MessageType::ReplyStoreRequest, MessageBody::ValidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -121,7 +121,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage, 
             MessageType::MessageReactionRequest, MessageBody::ValidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -138,7 +138,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage, 
             MessageType::MessageEditRequest, MessageBody::ValidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -155,7 +155,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage, 
             MessageType::MessageDeleteRequest, MessageBody::ValidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -181,7 +181,7 @@ TEST_CASE("Message request procedures [Server][Failed]")
         const auto& messageInstance = makeMessage(invalidMessage,
             MessageType::MessageHistoryRequest, MessageBody::InvalidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -198,7 +198,7 @@ TEST_CASE("Message request procedures [Server][Failed]")
         const auto& messageInstance = makeMessage(invalidMessage,
             MessageType::ReplyHistoryRequest, MessageBody::InvalidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -215,7 +215,7 @@ TEST_CASE("Message request procedures [Server][Failed]")
         const auto& messageInstance = makeMessage(invalidMessage,
             MessageType::DirectMessageCreateRequest, MessageBody::InvalidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -232,7 +232,7 @@ TEST_CASE("Message request procedures [Server][Failed]")
         const auto& messageInstance = makeMessage(invalidMessage,
             MessageType::MessageStoreRequest, MessageBody::InvalidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -249,7 +249,7 @@ TEST_CASE("Message request procedures [Server][Failed]")
         const auto& messageInstance = makeMessage(invalidMessage,
             MessageType::ReplyStoreRequest, MessageBody::InvalidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -266,7 +266,7 @@ TEST_CASE("Message request procedures [Server][Failed]")
         const auto& messageInstance = makeMessage(invalidMessage,
             MessageType::MessageReactionRequest, MessageBody::InvalidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -283,7 +283,7 @@ TEST_CASE("Message request procedures [Server][Failed]")
         const auto& messageInstance = makeMessage(invalidMessage,
             MessageType::MessageEditRequest, MessageBody::InvalidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -300,7 +300,7 @@ TEST_CASE("Message request procedures [Server][Failed]")
         const auto& messageInstance = makeMessage(invalidMessage,
             MessageType::MessageDeleteRequest, MessageBody::InvalidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));

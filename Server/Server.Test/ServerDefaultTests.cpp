@@ -19,7 +19,7 @@ TEST_CASE("Default request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage, 
             MessageType::ServerPing, MessageBody::ValidBody);
         
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -38,7 +38,7 @@ TEST_CASE("Default request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(invalidMessage,
             MessageType(failedType), MessageBody::InvalidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));

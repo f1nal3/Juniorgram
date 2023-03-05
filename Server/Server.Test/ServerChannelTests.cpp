@@ -19,7 +19,7 @@ TEST_CASE("Channel request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage, 
             MessageType::ChannelCreateRequest, MessageBody::ValidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -36,7 +36,7 @@ TEST_CASE("Channel request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage,
             MessageType::ChannelSubscribeRequest, MessageBody::ValidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -53,7 +53,7 @@ TEST_CASE("Channel request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage,
             MessageType::ChannelSubscriptionListRequest, MessageBody::ValidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -70,7 +70,7 @@ TEST_CASE("Channel request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage,
             MessageType::ChannelListRequest, MessageBody::ValidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -87,7 +87,7 @@ TEST_CASE("Channel request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage, 
             MessageType::ChannelLeaveRequest, MessageBody::ValidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -104,7 +104,7 @@ TEST_CASE("Channel request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage,
             MessageType::ChannelDeleteRequest, MessageBody::ValidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -130,7 +130,7 @@ TEST_CASE("Channel request procedures [Server][Failed]")
         const auto& messageInstance = makeMessage(invalidMessage, 
             MessageType::ChannelCreateRequest, MessageBody::InvalidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -147,7 +147,7 @@ TEST_CASE("Channel request procedures [Server][Failed]")
         const auto& messageInstance = makeMessage(invalidMessage, 
             MessageType::ChannelSubscribeRequest, MessageBody::InvalidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -164,7 +164,7 @@ TEST_CASE("Channel request procedures [Server][Failed]")
         const auto& messageInstance = makeMessage(invalidMessage, 
             MessageType::ChannelLeaveRequest, MessageBody::InvalidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -181,7 +181,7 @@ TEST_CASE("Channel request procedures [Server][Failed]")
         const auto& messageInstance = makeMessage(invalidMessage, 
             MessageType::ChannelDeleteRequest, MessageBody::InvalidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));

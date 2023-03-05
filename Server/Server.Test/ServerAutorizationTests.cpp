@@ -19,7 +19,7 @@ TEST_CASE("Autorization request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage, 
             MessageType::RegistrationRequest, MessageBody::ValidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -36,7 +36,7 @@ TEST_CASE("Autorization request procedures [Server][Success]")
         const auto& messageInstance = makeMessage(validMessage, 
             MessageType::LoginRequest, MessageBody::ValidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -62,7 +62,7 @@ TEST_CASE("Autorization request procedures [Server][Failed]")
         const auto& messageInstance = makeMessage(invalidMessage, 
         MessageType::RegistrationRequest, MessageBody::InvalidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
@@ -79,7 +79,7 @@ TEST_CASE("Autorization request procedures [Server][Failed]")
         const auto& messageInstance = makeMessage(invalidMessage,
         MessageType::LoginRequest, MessageBody::InvalidBody);
 
-        CHECK_NOTHROW(client.send(messageInstance));
+        client.send(messageInstance);
         testServer->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
