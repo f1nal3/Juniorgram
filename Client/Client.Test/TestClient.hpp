@@ -1,17 +1,25 @@
 #pragma once
 
-#include "Network/Connection.hpp"
-#include <Models/Primitives.hpp>
+#include <optional>
+
 #include <FileLogger.hpp>
+#include <Models/Primitives.hpp>
+#include "Network/Connection.hpp"
 
 #include "TestServerInfo.hpp"
-#include <optional>
 
 namespace TestObject
 {
 using Network::Message;
 using Network::Connection;
 
+/**
+* @brief enum class to identify the result of messages, /
+*        after they have been processed on the client side.
+* @details The results of the messages may be as follows: /
+*          InvalidBody - poorly formed message. /
+*          Success     - correctly formed message.
+*/
 enum class MessageResult
 {
     InvalidBody,
@@ -26,15 +34,15 @@ class TestClient
 public:
     /**
     * @brief Connect to server with IP(host) and Port(port).
-    * @param const std::string_view& host - for identifying and accepting ip address, \
+    * @param const std::string_view& host - for identifying and accepting ip address, /
     * @param const uint16_t port - for accepting & identifying of port.
     */
     bool connectToServer(const std::string_view& host, const uint16_t port);
     
     /**
     * @brief Disconnect from server.
-    * @details This method stop connection to remote host. \
-    *   Also, it reset all context and jobs that related with TestClient. \
+    * @details This method stop connection to remote host. /
+    *   Also, it reset all context and jobs that related with TestClient. /
     *   This method call in destructor, so in general way it is not used.
     */ 
     void disconnectFromServer();
@@ -45,13 +53,22 @@ public:
     */ 
     void send(const Message& message) const;
 
+    /**
+    * @brief Method to get a container with the results of message processing.
+    * @details The results of the messages may be as follows: /
+    *          InvalidBody - poorly formed message. /
+    *          Success     - correctly formed message.
+    */
     std::vector<MessageResult> getMessageResult() const;
 
-    void countOfErrorResults() const;
+    /**
+    * @brief Method of counting bad messages.
+    */
+    void countOfErrorResults();
 
     /**
     * @brief TestClient virtual destructor.
-    * @details The virtual destructor calls the disconnectFromServer method, \
+    * @details The virtual destructor calls the disconnectFromServer method, /
     *    which checks the connection to the server. 
     */
     virtual ~TestClient() noexcept;
@@ -162,12 +179,15 @@ protected:
     */
     std::optional<MessageResult> onEditMessageAnswer(Utility::EditingMessageCodes reactionState) const;
 
+    /**
+    * @brief Method for signaling of default message answer.
+    */
     std::optional<MessageResult> defaultAnswer() const;
 
 private:
     /**
     * @brief Noose that handle incoming messages.
-    * @details Handler function to process the server response message \
+    * @details Handler function to process the server response message /
     *   for the subsequent response from the client.
     *   (You can see the message types in the Message header file).
     */ 
@@ -179,24 +199,31 @@ private:
     */ 
     [[nodiscard]] bool isConnected() const;
 
+    /**
+    * @brief Method for checking a message for a negative result.
+    * @details The container stores both negative and positive results of processing, /
+    *          in order to identify problems of message formation or, /
+    *          conversely, to verify the correct formation of messages.
+    * @param std::optional<MessageResult> result - 
+    */
     void MessageResultIsError(std::optional<MessageResult> result);
 
     /**
     * @brief Method checks the connection to the server. 
-    * @defails Until the connection is established, \
+    * @defails Until the connection is established, /
     *          no further work will be done.
     */
     bool               checkServerAcception();
 
     /**
     * @brief Method checks if the received arguments to connect to the server are correct.
-    * @param const std::string_view& host - for identifying and accepting ip address, \
+    * @param const std::string_view& host - for identifying and accepting ip address, /
     * @param const uint16_t port - for accepting & identifying of port.
     */
     bool               checkConnectionArguments(const std::string_view& host, const uint16_t port) const;
 
     bool                                 _serverAccept = false;
-    inline static uint8_t                _countOfError{0}; 
+    uint8_t                              _countOfError; 
     asio::io_context                     _context;
     std::unique_ptr<Network::Connection> _connection;
     std::thread                          _contextThread;

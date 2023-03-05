@@ -10,34 +10,37 @@
 *          By default, the template works with milliseconds.
 */
 template<typename TimeType = std::chrono::milliseconds>
-class WaitFor
+class WaitForTime
 {
 public:
-    explicit WaitFor(TimeType timeForWait) :
+    explicit WaitForTime(TimeType timeForWait) :
         waitTime(timeForWait) {}
 
-    WaitFor(WaitFor& other)                   = delete;
-    WaitFor& operator=(const WaitFor& other)  = delete;
-    WaitFor(WaitFor&& other) noexcept         = delete;
-    WaitFor const& operator=(WaitFor&& other) = delete;
+    WaitForTime(WaitForTime& other)                   = delete;
+    WaitForTime& operator=(const WaitForTime& other)  = delete;
+    WaitForTime(WaitForTime&& other) noexcept         = delete;
+    WaitForTime const& operator=(WaitForTime&& other) = delete;
 
-    ~WaitFor() { waitTime = TimeType(0); }
+    ~WaitForTime() = default;
 
     void wait()
     {
-        bool IsSleep = true;
-        while (IsSleep)
+        isSleep   = true;
+        startTime = std::chrono::system_clock::now();
+
+        while (isSleep)
         {
             auto currentTime = std::chrono::system_clock::now();
             auto elapsedTime = std::chrono::duration_cast<TimeType>(currentTime - startTime);
             if (elapsedTime.count() > waitTime.count())
             {
-                IsSleep = false;
+                isSleep = false;
             }
         }
     }
 
 private:
+    bool                                  isSleep;
     TimeType                              waitTime;
-    std::chrono::system_clock::time_point startTime = std::chrono::system_clock::now();
+    std::chrono::system_clock::time_point startTime;
 };

@@ -1,6 +1,6 @@
 #include <catch2/catch.hpp>
 #include "Utilities/TestUtility.hpp"
-#include "Utilities/WaitFor.hpp"
+#include "Utilities/WaitForTime.hpp"
 
 using namespace TestUtility;
 using TestUtility::MessageBody;
@@ -12,8 +12,6 @@ TEST_CASE("Default request procedures [Server][Success]")
 
     TestClient client;
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
-
-    WaitFor waiter(milliseconds(1000));
     
     SECTION("Successful request to check a ping")
     {
@@ -24,7 +22,9 @@ TEST_CASE("Default request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() ==
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -41,7 +41,9 @@ TEST_CASE("Default request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() ==
             TestObject::MessageResult::Success);
         testServer->stop();

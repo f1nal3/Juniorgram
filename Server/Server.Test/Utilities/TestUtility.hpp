@@ -31,7 +31,6 @@ using TestDatabase     = MockObject::MockDatabase;
 using TestServer       = std::unique_ptr<Server::Server>;
 using TestRepoManager  = MockObject::MockRepositoryManager;
 using MessageType      = Message::MessageType;
-using milliseconds     = std::chrono::milliseconds;
 using ServerBuilder    = Server::Builder::ServerBuilder;
 using PairArguments    = std::pair<std::string, std::string>;
 

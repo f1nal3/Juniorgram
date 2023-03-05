@@ -1,6 +1,6 @@
 #include <catch2/catch.hpp>
 #include "Utilities/TestUtility.hpp"
-#include "Utilities/WaitFor.hpp"
+#include "Utilities/WaitForTime.hpp"
 
 using namespace TestUtility;
 using TestUtility::MessageBody;
@@ -13,8 +13,6 @@ TEST_CASE("Message request procedures [Server][Success]")
     TestClient client;
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
-    WaitFor waiter(milliseconds(1000));
-
     SECTION("Successful request to receive all messages")
     {
         Message     validMessage;
@@ -24,7 +22,9 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -39,7 +39,9 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -54,7 +56,9 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -69,7 +73,9 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -84,7 +90,9 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -99,7 +107,9 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -114,7 +124,9 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -129,7 +141,9 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -144,7 +158,9 @@ TEST_CASE("Message request procedures [Server][Success]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::Success);
         testServer->stop();
@@ -159,8 +175,6 @@ TEST_CASE("Message request procedures [Server][Failed]")
     TestClient client;
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
-    WaitFor waiter(milliseconds(1000));
-
     SECTION("Failed message history request")
     {
         Message     invalidMessage;
@@ -170,7 +184,9 @@ TEST_CASE("Message request procedures [Server][Failed]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::InvalidBody);
         testServer->stop();
@@ -185,7 +201,9 @@ TEST_CASE("Message request procedures [Server][Failed]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::InvalidBody);
         testServer->stop();
@@ -200,7 +218,9 @@ TEST_CASE("Message request procedures [Server][Failed]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() ==
             TestObject::MessageResult::InvalidBody);
         testServer->stop();
@@ -215,7 +235,9 @@ TEST_CASE("Message request procedures [Server][Failed]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::InvalidBody);
         testServer->stop();
@@ -230,7 +252,9 @@ TEST_CASE("Message request procedures [Server][Failed]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::InvalidBody);
         testServer->stop();
@@ -245,7 +269,9 @@ TEST_CASE("Message request procedures [Server][Failed]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::InvalidBody);
         testServer->stop();
@@ -260,7 +286,9 @@ TEST_CASE("Message request procedures [Server][Failed]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::InvalidBody);
         testServer->stop();
@@ -275,7 +303,9 @@ TEST_CASE("Message request procedures [Server][Failed]")
         CHECK_NOTHROW(client.send(messageInstance));
         testServer->update();
 
+        WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
+
         REQUIRE(client.getMessageResult().back() == 
             TestObject::MessageResult::InvalidBody);
         testServer->stop();

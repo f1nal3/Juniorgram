@@ -2,14 +2,14 @@ set(TARGET Server.Test)
 set(OUTPUT_NAME Server.Test)
 
 set(SOURCE_FILES
-		ServerMessageProcedures.cpp
-		ServerDefaultProcedures.cpp
-		ServerChannelProcedures.cpp
-		ServerWorkflowProcedures.cpp
-		ServerAutorizationProcedures.cpp)
+		ServerMessageTests.cpp
+		ServerDefaultTests.cpp
+		ServerChannelTests.cpp
+		ServerWorkflowTests.cpp
+		ServerAutorizationTests.cpp)
 
 set(TEST_SOURCE_FILES
-		Utilities/WaitFor.hpp
+		Utilities/WaitForTime.hpp
 		Utilities/TestUtility.hpp
 		Utilities/MessageFiller.hpp
 		Utilities/MessageFiller.cpp

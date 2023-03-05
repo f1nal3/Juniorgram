@@ -91,7 +91,7 @@ std::vector<MessageResult> TestClient::getMessageResult() const
     return _messageResponce; 
 }
 
-void TestClient::countOfErrorResults() const
+void TestClient::countOfErrorResults()
 {
     for (const auto errorContainer: _messageResponce)
     {
