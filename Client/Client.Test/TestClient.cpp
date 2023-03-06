@@ -333,7 +333,7 @@ std::optional<MessageResult> TestClient::onServerAccepted() const
         "[TestClient] Server accepted the connection!", 
         Base::Logger::LogLevel::INFO
     );
-    return MessageResult::Success;
+    return MessageResult::ServerAccept;
 }
 
 std::optional<MessageResult> TestClient::onServerPing(double timestamp) const

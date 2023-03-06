@@ -17,12 +17,14 @@ using Network::Connection;
 * @brief enum class to identify the result of messages, /
 *        after they have been processed on the client side.
 * @details The results of the messages may be as follows: /
-*          InvalidBody - poorly formed message. /
-*          Success     - correctly formed message.
+*          InvalidBody  - poorly formed message. /
+*          ServerAccept - signals the result of the connection to the server. /
+*          Success      - correctly formed message.
 */
 enum class MessageResult
 {
     InvalidBody,
+    ServerAccept,
     Success
 };
 
@@ -57,6 +59,7 @@ public:
     * @brief Method to get a container with the results of message processing.
     * @details The results of the messages may be as follows: /
     *          InvalidBody - poorly formed message. /
+    *          ServerAccept - signals the result of the connection to the server. /
     *          Success     - correctly formed message.
     */
     std::vector<MessageResult> getMessageResult() const;
