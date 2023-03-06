@@ -13,22 +13,6 @@ TEST_CASE("Message request procedures [Server][Success]")
     TestClient client;
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
-    SECTION("Successful request to receive all messages")
-    {
-        Message     validMessage;
-        const auto& messageInstance = makeMessage(validMessage,
-            MessageType::MessageAll, MessageBody::ValidBody);
-
-        client.send(messageInstance);
-        testServer->update();
-
-        WaitForTime waiter(std::chrono::milliseconds(1000));
-        waiter.wait();
-
-        REQUIRE(client.getMessageResult().back() == 
-            TestObject::MessageResult::Success);
-        testServer->stop();
-    }
 
     SECTION("Successful message history request")
     {

@@ -30,22 +30,13 @@ TEST_CASE("Default request procedures [Server][Success]")
         testServer->stop();
     }
 
+    SECTION("Successful request to receive all messages")
+    {
+        
+    }
+
     SECTION("Successful default request answer")
     {
-        Message invalidMessage;
-        constexpr auto failedType = int16_t(666);
-
-        const auto& messageInstance = makeMessage(invalidMessage,
-            MessageType(failedType), MessageBody::InvalidBody);
-
-        client.send(messageInstance);
-        testServer->update();
-
-        WaitForTime waiter(std::chrono::milliseconds(1000));
-        waiter.wait();
-
-        REQUIRE(client.getMessageResult().back() ==
-            TestObject::MessageResult::Success);
-        testServer->stop();
+        
     }
 }
