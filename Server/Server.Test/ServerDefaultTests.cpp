@@ -29,14 +29,4 @@ TEST_CASE("Default request procedures [Server][Success]")
             TestObject::MessageResult::Success);
         testServer->stop();
     }
-
-    SECTION("Successful request to receive all messages")
-    {
-        
-    }
-
-    SECTION("Successful default request answer")
-    {
-        
-    }
 }
