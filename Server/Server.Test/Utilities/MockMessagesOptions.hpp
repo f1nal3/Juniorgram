@@ -3,7 +3,7 @@
 #include "Cryptography.hpp"
 /**
 * @brief namespace with data for testing. 
-* @details Used in TestUtility.hpp to emulate user input. 
+* @details Used in TestUtility.hpp to emulate user data. 
 */
 namespace TestUtility
 {
