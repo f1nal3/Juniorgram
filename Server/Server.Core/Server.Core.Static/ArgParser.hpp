@@ -28,7 +28,8 @@ public:
     /**
      * @brief Used to take parameters from main function.
      * @details Parses arguments which were set when application was run.
-     * @param int argc(amount of arguments), const char** argv(C-string arguments).
+     * @param int argc(amount of arguments),
+     * @param const char** argv(C-string arguments).
      */
     explicit ArgParser(int argc, const char** argv) 
     {

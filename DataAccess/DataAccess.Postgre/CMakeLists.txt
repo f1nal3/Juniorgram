@@ -26,7 +26,7 @@ set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 
 target_link_libraries(${TARGET}
         PUBLIC PostgreSQL::pq libpqxx::pqxx
-        PUBLIC Utility.Public DataAccess.Public Network.Public Models.Public)
+        PUBLIC Utility.Public DataAccess.Public Network.Public Models.Public Server.Core.Static)
 
 target_include_directories(${TARGET}
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/)

@@ -7,6 +7,7 @@
 #include <string>
 
 #include "Server.hpp"
+#include "AbstractServerBuilder.hpp"
 
 namespace Server::Builder
 {
@@ -64,8 +65,8 @@ private:
 
         if (!_repository)
         {
-            auto repoManager = std::make_unique<DataAccess::PostgreRepositoryManager>(
-                DataAccess::IAdapter::getInstance<DataAccess::PostgreAdapter>(dbOptions));
+            RepoManagerUPtr repoManager = std::make_unique<DataAccess::PostgreRepositoryManager>();
+            repoManager->GetConnectionOptions(dbOptions);
             server->initRepository(std::move(repoManager));
         }
         else
@@ -80,6 +81,6 @@ private:
     }
 
     std::map<std::string, std::string>  _arguments;
-    RepoManagerUPtr                      _repository;
+    RepoManagerUPtr                     _repository;
 };
 }  /// namespace Server::Builder

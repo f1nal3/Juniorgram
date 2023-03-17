@@ -14,16 +14,19 @@ namespace DataAccess
 class PostgreRepositoryManager: public IRepositoryManager
 {
 public:
-    explicit PostgreRepositoryManager(const std::shared_ptr<IAdapter> repositoryContainer)
+    PostgreRepositoryManager(){}
+
+    void GetConnectionOptions(std::string options)
     {
-        auto repo = std::make_unique<AbstractRepositoryContainer>(repositoryContainer);
-        repo->registerRepository<IChannelsRepository,   ChannelsRepository>();
-        repo->registerRepository<ILoginRepository,      LoginRepository>();
-        repo->registerRepository<IMessagesRepository,   MessagesRepository>();
-        repo->registerRepository<IRegisterRepository,   RegisterRepository>();
-        repo->registerRepository<IRepliesRepository,    RepliesRepository>();
+        auto container = IAdapter::getInstance<DataAccess::PostgreAdapter>(options);
+        auto repo      = std::make_unique<AbstractRepositoryContainer>(container);
+        repo->registerRepository<IChannelsRepository, ChannelsRepository>();
+        repo->registerRepository<ILoginRepository, LoginRepository>();
+        repo->registerRepository<IMessagesRepository, MessagesRepository>();
+        repo->registerRepository<IRegisterRepository, RegisterRepository>();
+        repo->registerRepository<IRepliesRepository, RepliesRepository>();
         repo->registerRepository<IDirectMessageRepository, DirectMessageRepository>();
-        
+    
         IRepositoryManager::init(std::move(repo));
     }
 };

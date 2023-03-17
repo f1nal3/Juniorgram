@@ -11,6 +11,8 @@
 #include "AbstractRepositoryContainer.hpp"
 #include "RepositoryRequest.hpp"
 
+#include "AbstractServerBuilder.hpp"
+
 namespace DataAccess
 {
 template <typename TIRepository, typename TReturn, typename... TArgs>
@@ -33,7 +35,7 @@ std::conditional_t<std::is_fundamental_v<Type>, std::remove_reference_t<Type>, c
  * @details Class controls pushing to queue and further processing of requests (have own thread for it).
  * Requests with the highest priority are at the top of the queue.
  */
-class IRepositoryManager
+class IRepositoryManager : public Server::Builder::IServerBuilder
 {
 public:
     IRepositoryManager() = default;
@@ -109,6 +111,8 @@ public:
         _handlerState = false;
         _queueCV.notify_one();
     }
+
+    virtual void GetConnectionOptions(std::string options) = 0;
 
 private:
     template <ePriority priority, typename TIRepository, typename TReturn, typename... TArgs>
