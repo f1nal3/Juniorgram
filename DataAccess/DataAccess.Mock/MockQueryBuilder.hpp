@@ -12,7 +12,7 @@ using DataAccess::IAdapter;
 
 /**
 * @brief MockQueryBuilder class.
-* @details This class is designed to manage requests coming from repositories. /
+* @details This class is designed to manage requests coming from repositories. 
 *          The SelectRepoAndQueryPush method checks for the correct repository data table and /
 *          adds it for storage (database table emulation), /
 *          as well as the data can be taken from the table.

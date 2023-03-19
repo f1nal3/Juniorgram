@@ -1,5 +1,5 @@
-set(TARGET Client.Test)
-set(OUTPUT_NAME Client.Test)
+set(TARGET Client.TestObject)
+set(OUTPUT_NAME Client.TestObject)
 
 set(SOURCE_FILES
 	TestClient.hpp

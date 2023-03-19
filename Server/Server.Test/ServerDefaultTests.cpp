@@ -26,7 +26,7 @@ TEST_CASE("Default request procedures [Server][Success]")
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() ==
-            TestObject::MessageResult::Success);
+             Client::TestObject::MessageResult::Success);
         testServer->stop();
     }
 }

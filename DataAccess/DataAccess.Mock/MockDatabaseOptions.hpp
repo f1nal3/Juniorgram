@@ -2,7 +2,7 @@
 
 #include <string_view>
 
-namespace TestUtility
+namespace MockObject
 {
 /**
 * @brief Mock properties for connecting to database.

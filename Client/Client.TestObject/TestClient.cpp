@@ -1,6 +1,6 @@
 #include "TestClient.hpp"
 
-namespace TestObject
+namespace Client::TestObject
 {
 using MessageType = Network::Message::MessageType;
 using UtilityTime::timestamp_t;
@@ -147,7 +147,6 @@ void TestClient::noose()
 {
      while (!_incomingMessagesQueue.empty())
      {
-        UtilityTime::consoleLogTimestamp();
         const Message message     = _incomingMessagesQueue.pop_front();
 
         std::optional<MessageResult> Result;
@@ -687,4 +686,4 @@ std::optional<MessageResult> TestClient::onDirectMessageCreateAnswer(Utility::Di
     );
     return MessageResult::InvalidBody;
 }
-}  /// namespace TestObject
+}  /// namespace  Client::TestObject

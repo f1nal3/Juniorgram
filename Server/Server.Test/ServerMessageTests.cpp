@@ -27,7 +27,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
-            TestObject::MessageResult::Success);
+             Client::TestObject::MessageResult::Success);
         testServer->stop();
     }
 
@@ -44,7 +44,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
-            TestObject::MessageResult::Success);
+             Client::TestObject::MessageResult::Success);
         testServer->stop();
     }
 
@@ -61,7 +61,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
-            TestObject::MessageResult::Success);
+             Client::TestObject::MessageResult::Success);
         testServer->stop();
     }
 
@@ -78,7 +78,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
-            TestObject::MessageResult::Success);
+             Client::TestObject::MessageResult::Success);
         testServer->stop();
     }
 
@@ -95,7 +95,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
-            TestObject::MessageResult::Success);
+             Client::TestObject::MessageResult::Success);
         testServer->stop();
     }
 
@@ -112,7 +112,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
-            TestObject::MessageResult::Success);
+             Client::TestObject::MessageResult::Success);
         testServer->stop();
     }
 
@@ -129,7 +129,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
-            TestObject::MessageResult::Success);
+             Client::TestObject::MessageResult::Success);
         testServer->stop();
     }
 
@@ -146,7 +146,7 @@ TEST_CASE("Message request procedures [Server][Success]")
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
-            TestObject::MessageResult::Success);
+             Client::TestObject::MessageResult::Success);
         testServer->stop();
     }
 }
@@ -172,7 +172,7 @@ TEST_CASE("Message request procedures [Server][Failed]")
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
-            TestObject::MessageResult::InvalidBody);
+             Client::TestObject::MessageResult::InvalidBody);
         testServer->stop();
     }
 
@@ -189,7 +189,7 @@ TEST_CASE("Message request procedures [Server][Failed]")
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
-            TestObject::MessageResult::InvalidBody);
+             Client::TestObject::MessageResult::InvalidBody);
         testServer->stop();
     }
 
@@ -206,7 +206,7 @@ TEST_CASE("Message request procedures [Server][Failed]")
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() ==
-            TestObject::MessageResult::InvalidBody);
+             Client::TestObject::MessageResult::InvalidBody);
         testServer->stop();
     }
 
@@ -223,7 +223,7 @@ TEST_CASE("Message request procedures [Server][Failed]")
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
-            TestObject::MessageResult::InvalidBody);
+             Client::TestObject::MessageResult::InvalidBody);
         testServer->stop();
     }
 
@@ -240,7 +240,7 @@ TEST_CASE("Message request procedures [Server][Failed]")
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
-            TestObject::MessageResult::InvalidBody);
+             Client::TestObject::MessageResult::InvalidBody);
         testServer->stop();
     }
 
@@ -257,7 +257,7 @@ TEST_CASE("Message request procedures [Server][Failed]")
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
-            TestObject::MessageResult::InvalidBody);
+             Client::TestObject::MessageResult::InvalidBody);
         testServer->stop();
     }
 
@@ -274,7 +274,7 @@ TEST_CASE("Message request procedures [Server][Failed]")
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
-            TestObject::MessageResult::InvalidBody);
+             Client::TestObject::MessageResult::InvalidBody);
         testServer->stop();
     }
 
@@ -291,7 +291,7 @@ TEST_CASE("Message request procedures [Server][Failed]")
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
-            TestObject::MessageResult::InvalidBody);
+             Client::TestObject::MessageResult::InvalidBody);
         testServer->stop();
     }
 }

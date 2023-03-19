@@ -8,7 +8,7 @@
 
 #include "TestServerInfo.hpp"
 
-namespace TestObject
+namespace Client::TestObject
 {
 using Network::Message;
 using Network::Connection;
@@ -16,7 +16,7 @@ using Network::Connection;
 /**
 * @brief enum class to identify the result of messages, /
 *        after they have been processed on the client side.
-* @details The results of the messages may be as follows: /
+* @details The results of the messages may be as follows: 
 *          InvalidBody  - poorly formed message. /
 *          ServerAccept - signals the result of the connection to the server. /
 *          Success      - correctly formed message.
@@ -58,9 +58,9 @@ public:
     /**
     * @brief Method to get a container with the results of message processing.
     * @details The results of the messages may be as follows: /
-    *          InvalidBody - poorly formed message. /
+    *          InvalidBody  - poorly formed message. /
     *          ServerAccept - signals the result of the connection to the server. /
-    *          Success     - correctly formed message.
+    *          Success      - correctly formed message.
     */
     std::vector<MessageResult> getMessageResult() const;
 
@@ -194,7 +194,7 @@ private:
     *   for the subsequent response from the client.
     *   (You can see the message types in the Message header file).
     */ 
-    void               noose();
+    void noose();
 
     /**
     * @brief Checking the server connection.
@@ -207,7 +207,7 @@ private:
     * @details The container stores both negative and positive results of processing, /
     *          in order to identify problems of message formation or, /
     *          conversely, to verify the correct formation of messages.
-    * @param std::optional<MessageResult> result - 
+    * @param std::optional<MessageResult> result - result of message processing.
     */
     void MessageResultIsError(std::optional<MessageResult> result);
 
@@ -216,14 +216,14 @@ private:
     * @defails Until the connection is established, /
     *          no further work will be done.
     */
-    bool               checkServerAcception();
+    bool checkServerAcception();
 
     /**
     * @brief Method checks if the received arguments to connect to the server are correct.
     * @param const std::string_view& host - for identifying and accepting ip address, /
     * @param const uint16_t port - for accepting & identifying of port.
     */
-    bool               checkConnectionArguments(const std::string_view& host, const uint16_t port) const;
+    bool checkConnectionArguments(const std::string_view& host, const uint16_t port) const;
 
     bool                                 _serverAccept = false;
     uint8_t                              _countOfError; 
@@ -233,4 +233,4 @@ private:
     std::vector<MessageResult>           _messageResponce;
     Utility::SafeQueue<Message>          _incomingMessagesQueue;
 };
-}  /// namespace TestObject
+}  /// namespace  Client::TestObject

@@ -13,7 +13,7 @@ using MockObject::MockRepositoryInstance;
 
 /** 
 * @brief class MockDatabase.
-* @detail This is a thread safe singleton. /
+* @detail This is a thread safe singleton.
 *         Inherited from IAdapter class - The abstract class controls /
 *         the connection to the mock database.
 */
@@ -22,17 +22,20 @@ class MockDatabase final : public IAdapter
 private:
     explicit MockDatabase(const std::string_view& options) : 
         _connection(std::make_unique<MockRepositoryInstance>(options)) {}
-public:
-    static std::shared_ptr<MockDatabase> Instance(const std::string_view& options);
 
-    MockDatabase(const MockDatabase& other)                  = delete;
-    MockDatabase& operator=(const MockDatabase& other)       = delete;
+    MockDatabase(const MockDatabase& other)            = delete;
+    MockDatabase& operator=(const MockDatabase& other) = delete;
 
     MockDatabase(MockDatabase&& other) noexcept            = delete;
     MockDatabase& operator=(MockDatabase&& other) noexcept = delete;
 
+public:
+    static std::shared_ptr<MockDatabase> Instance(const std::string_view& options);
+
     [[maybe_unused]] std::optional<std::any> query(const std::string_view& query) override;
+
     bool isConnected() const override;
+
     void closeConnection() override;
 
     virtual ~MockDatabase() { _instance.reset(); }

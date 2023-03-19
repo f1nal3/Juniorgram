@@ -124,7 +124,7 @@ Utility::ReactionMessageCodes MockMessagesRepository::updateMessageReactions(con
 
 Utility::RegistrationCodes MockRegisterRepository::registerUser(const RegistrationInfo& regInfo)
 {
-    if (auto query = _mockQuery->SelectRepoAndQueryPush("user_registration", "login", regInfo._login); 
+    if (auto query = _mockQuery->SelectRepoAndQueryPush("user_registration", "login", regInfo._login);
         regInfo._login != "")
     {
         if (_mockQuery->getStorage().getRegisterRepoData()._login == regInfo._login)

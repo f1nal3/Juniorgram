@@ -25,7 +25,7 @@ target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIB}
 		PUBLIC  Precompiled.Catch2.Main 
 				Server.Core.Static
 				DataAccess.Mock
-				Client.Test)
+				Client.TestObject)
 
  target_include_directories(${TARGET} PRIVATE
 	 $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)

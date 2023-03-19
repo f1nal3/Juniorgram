@@ -4,7 +4,7 @@
 
 #include <DataAccess.Mock/MockDatabase.hpp>
 #include <DataAccess.Mock/MockRepositoryManager.hpp>
-#include <Client.Test/TestClient.hpp>
+#include <Client.TestObject/TestClient.hpp>
 
 #include "MessageFiller.hpp"
 
@@ -25,7 +25,7 @@ class MockRepositoryManager;
 namespace TestUtility
 {
 using RTC              = std::chrono::system_clock;
-using TestClient       = TestObject::TestClient;
+using TestClient       = Client::TestObject::TestClient;
 using Message          = Network::Message;
 using TestDatabase     = MockObject::MockDatabase;
 using TestServer       = std::unique_ptr<Server::Server>;
@@ -48,7 +48,7 @@ using ChannelInfo             = Models::ChannelInfo;
 
 /**
 * @brief enum class MessageBody
-* @details This enum class is designed to index the initialization of the message body: / 
+* @details This enum class is designed to index the initialization of the message body: 
 *          Invalid - bad body initialized with empty to test failed tests. /
 *          Valid   - body with testable data for successful tests.
 */
@@ -93,8 +93,8 @@ inline ConfigArguments configArgs;
 * @brief Method for making message.
 * @details This method takes the body of an empty message as well as its type. /
 *                      After receiving the type, the message is filled with data.
-* @param Message& message(message body), MessageType messageType(type of message), 
-*        MessageBody messageBody(body of message). /
+* @param Message& message(message body), MessageType messageType(type of message), /
+*        MessageBody messageBody(body of message). 
 */
 inline Message& makeMessage(Message& message, MessageType messageType, MessageBody messageBody) noexcept
 {
@@ -350,14 +350,14 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 
 /**
 * @brief Method for getting a test database.
-* @details This database is a mock object that is used for testing. 
+* @details This database is a mock object that is used for testing. /
 *          The database is registered through the MockRepositoryManager(TestRepoManager), / 
 *                          which internally initializes repositories. 
 */
 inline auto getTestDatabase() noexcept
 {
     auto testDatabase = std::make_unique<TestRepoManager>
-        (TestDatabase::getInstance<TestDatabase>(TestUtility::TestProperties));
+        (TestDatabase::getInstance<TestDatabase>(MockObject::TestProperties));
     return testDatabase;
 }
 
