@@ -25,7 +25,7 @@ public:
     virtual ~MockQueryBuilder() = default;
 
     MockQueryBuilder(std::shared_ptr<IAdapter> adapter, const std::string& type, const std::string& tableName)
-        : _adapter{adapter}, _databaseType{type}, _tableName{tableName} {}
+        : _adapter{adapter},  _tableName{tableName}, _databaseType{type} {}
 
     MockQueryBuilder(const MockQueryBuilder& other)  = delete;
     MockQueryBuilder(MockQueryBuilder&& other)       = delete;
