@@ -87,6 +87,8 @@ private:
     PairArguments  passwordPair{"--password", "tester"};
 };
 
+inline ConfigArguments configArgs;
+
 /**
 * @brief Method for making message.
 * @details This method takes the body of an empty message as well as its type. /
@@ -355,19 +357,18 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
 inline auto getTestDatabase() noexcept
 {
     auto testDatabase = std::make_unique<TestRepoManager>
-        (TestDatabase::getInstance<TestDatabase>(TestUtility::testProperties));
+        (TestDatabase::getInstance<TestDatabase>(TestUtility::TestProperties));
     return testDatabase;
 }
 
 /**
 * @brief Method for configuring the test server.
-* @details The server is configured through the ServerBuilder. 
-*          The arguments that we set for testing are in the ConfigArguments structure.
+* @details The server is configured through the ServerBuilder. /
+*          The arguments that we set for testing are in the ConfigArguments structure. /
 *          If you need to set other arguments, you can do so in the ConfigArguments structure.
 */
 inline auto makeTestServer() noexcept
 {
-    ConfigArguments configArgs;
     TestServer testServer = ServerBuilder()
                                 .setValue(configArgs.getServerPortArguments())
                                 .setValue(configArgs.getDatabaseArguments())
@@ -377,28 +378,6 @@ inline auto makeTestServer() noexcept
                                 .setValue(configArgs.getDatabasePasswordArguments())
                                 .setValue(getTestDatabase().release())
                                 .makeServer();
-    return testServer;
-}
-
-/**
-* @brief Method for configuring the bad test server.
-* @details The server is configured through the ServerBuilder. /
-*          The arguments that we set for testing are in the ConfigArguments structure. /
-*          If you need to set other arguments, you can do so in the ConfigArguments structure. /
-*          At the moment the server does not throw an exception if the port is invalid. 
-*/
-inline auto makeBadTestServer()
-{
-    ConfigArguments configArgs;
-    TestServer testServer = ServerBuilder()
-                        .setValue(configArgs.getBadServerPortArguments())
-                        .setValue(configArgs.getDatabaseArguments())
-                        .setValue(configArgs.getHostAddrArguments())
-                        .setValue(configArgs.getDatabasePortArguments())
-                        .setValue(configArgs.getDatabaseUserArguments())
-                        .setValue(configArgs.getDatabasePasswordArguments())
-                        .setValue(getTestDatabase().release())
-                        .makeServer();
     return testServer;
 }
 }  /// namespace TestUtility
