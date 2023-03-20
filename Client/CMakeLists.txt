@@ -5,6 +5,7 @@ set(FOLDER "Client")
 
 add_subdirectory(Client.Core)
 add_subdirectory(Client.CLI)
+add_subdirectory(Client.TestObject)
 
 add_library(${TARGET} INTERFACE)
 
