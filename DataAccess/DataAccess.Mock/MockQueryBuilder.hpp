@@ -34,27 +34,27 @@ public:
     MockQueryBuilder& operator=(MockQueryBuilder&& other) noexcept      = delete;
 
     std::any SelectRepoAndQueryPush(const std::string_view repoName, 
-        std::any query, const std::any& repoInfo) const
+        std::any table, const std::any& repoInfo) const
     {
         if (repoName == "channels")
         {
-            _storage.checkChannelTable(std::any_cast<TableChannelRepository>(query), repoInfo);
+            _storage.checkChannelTable(std::any_cast<TableChannelRepository>(table), repoInfo);
         }
         if (repoName == "replies")
         {
-            _storage.checkRepliesTable(std::any_cast<TableRepliesRepository>(query), repoInfo);
+            _storage.checkRepliesTable(std::any_cast<TableRepliesRepository>(table), repoInfo);
         }
         if (repoName == "msgs")
         {
-            _storage.checkMessagesTable(std::any_cast<TableMessagesRepository>(query), repoInfo);
+            _storage.checkMessagesTable(std::any_cast<TableMessagesRepository>(table), repoInfo);
         }
         if (repoName == "user_registration")
         {
-            _storage.checkRegistrationTable(std::any_cast<TableRegistrationRepository>(query), repoInfo);
+            _storage.checkRegistrationTable(std::any_cast<TableRegistrationRepository>(table), repoInfo);
         }
         if (repoName == "user_login")
         {
-            _storage.checkLoginTable(std::any_cast<TableLoginRepository>(query), repoInfo);
+            _storage.checkLoginTable(std::any_cast<TableLoginRepository>(table), repoInfo);
         }
 
         return _storage;

@@ -5,7 +5,6 @@
 #include "FileLogger.hpp"
 #include "Logger/ILogger.hpp"
 
-// sonar view
 namespace Server
 {
 using namespace DataAccess;

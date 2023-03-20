@@ -147,6 +147,7 @@ void TestClient::noose()
 {
      while (!_incomingMessagesQueue.empty())
      {
+        UtilityTime::consoleLogTimestamp();
         const Message message     = _incomingMessagesQueue.pop_front();
 
         std::optional<MessageResult> Result;
