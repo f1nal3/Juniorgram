@@ -33,124 +33,30 @@ public:
     MockQueryBuilder& operator=(const MockQueryBuilder& other) noexcept = delete;
     MockQueryBuilder& operator=(MockQueryBuilder&& other) noexcept      = delete;
 
-    std::any SelectRepoAndQueryPush(const std::string_view& repoName, 
-        const std::string_view& query, const std::any& repoInfo) const
+    std::any SelectRepoAndQueryPush(const std::string_view repoName, 
+        std::any query, const std::any& repoInfo) const
     {
         if (repoName == "channels")
         {
-            if (query == "userID")
-            {
-                _storage.getChannelsRepoData()._creatorID = std::any_cast<uint64_t>(repoInfo);
-                return _storage.getChannelsRepoData();
-            }
-            if (query == "channelName")
-            {
-                _storage.getChannelsRepoData()._channelName = std::any_cast<std::string>(repoInfo);
-                return _storage.getChannelsRepoData();
-            }
-            if (query == "channelID")
-            {
-                _storage.getChannelsRepoData()._channelID = std::any_cast<uint64_t>(repoInfo);
-                return _storage.getChannelsRepoData();
-            }
-            return _storage.getChannelsRepoData();
+            _storage.checkChannelTable(std::any_cast<TableChannelRepository>(query), repoInfo);
         }
         if (repoName == "replies")
         {
-            if (query == "channelID")
-            {
-                _storage.getRepliesRepoData()._channelID = std::any_cast<uint64_t>(repoInfo);
-                return _storage.getRepliesRepoData();
-            }
-            if (query == "message")
-            {
-                _storage.getRepliesRepoData()._message = std::any_cast<std::string>(repoInfo);
-                return _storage.getRepliesRepoData();
-            }
-            if (query == "messageID")
-            {
-                _storage.getRepliesRepoData()._msgID = std::any_cast<uint64_t>(repoInfo);
-                return _storage.getRepliesRepoData();
-            }
-            if (query == "userLogin")
-            {
-                _storage.getRepliesRepoData()._userLogin = std::any_cast<std::string>(repoInfo);
-                return _storage.getRepliesRepoData();
-            }
-            return _storage.getRepliesRepoData();
+            _storage.checkRepliesTable(std::any_cast<TableRepliesRepository>(query), repoInfo);
         }
         if (repoName == "msgs")
         {
-            if (query == "userID")
-            {
-                _storage.getMessageRepoData()._senderID = std::any_cast<uint64_t>(repoInfo);
-            }
-            if (query == "channelID")
-            {
-                _storage.getMessageRepoData()._channelID = std::any_cast<uint64_t>(repoInfo);
-                return _storage.getMessageRepoData();
-            }
-            if (query == "channelID")
-            {
-                _storage.getMessageRepoData()._message = std::any_cast<std::string>(repoInfo);
-                return _storage.getMessageRepoData();
-            }
-            if (query == "messageID")
-            {
-                _storage.getMessageRepoData()._msgID = std::any_cast<uint64_t>(repoInfo);
-                return _storage.getMessageRepoData();
-            }
-            if (query == "reactions")
-            {
-                _storage.getMessageRepoData()._reactions 
-                    = std::any_cast<std::map<uint32_t, uint32_t>>(repoInfo);
-                return _storage.getMessageRepoData();
-            }
-            if (query == "recipientID")
-            {
-                _storage.getMessageRepoData()._recipientID = std::any_cast<uint64_t>(repoInfo);
-                return _storage.getMessageRepoData();
-            }
-            if (query == "userLogin")
-            {
-                _storage.getMessageRepoData()._userLogin = std::any_cast<std::string>(repoInfo);
-                return _storage.getMessageRepoData();
-            }
-            return _storage.getMessageRepoData();
+            _storage.checkMessagesTable(std::any_cast<TableMessagesRepository>(query), repoInfo);
         }
         if (repoName == "user_registration")
         {
-            if (query == "login")
-            {
-                _storage.getRegisterRepoData()._login = std::any_cast<std::string>(repoInfo);
-                return _storage.getRegisterRepoData();
-            }
-            if (query == "email")
-            {
-                _storage.getRegisterRepoData()._email = std::any_cast<std::string>(repoInfo);
-                return _storage.getRegisterRepoData();
-            }
-            if (query == "password")
-            {
-                _storage.getRegisterRepoData()._passwordHash = std::any_cast<std::string>(repoInfo);
-                return _storage.getRegisterRepoData();
-            }
-            return _storage.getRegisterRepoData();
+            _storage.checkRegistrationTable(std::any_cast<TableRegistrationRepository>(query), repoInfo);
         }
         if (repoName == "user_login")
         {
-            if (query == "login")
-            {
-                _storage.getLoginRepoData()._login = std::any_cast<std::string>(repoInfo);
-                return _storage.getLoginRepoData();
-            }
-            if (query == "passwordHash")
-            {
-                _storage.getLoginRepoData()._pwdHash = std::any_cast<std::string>(repoInfo);
-                return _storage.getLoginRepoData();
-            }
-            return _storage.getLoginRepoData();
+            _storage.checkLoginTable(std::any_cast<TableLoginRepository>(query), repoInfo);
         }
+
         return _storage;
     }
 

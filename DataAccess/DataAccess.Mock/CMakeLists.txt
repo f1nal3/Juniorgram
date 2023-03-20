@@ -3,6 +3,7 @@ set(OUTPUT_NAME DataAccess.Mock)
 
 set(SOURCE_FILES
     MockQuery.hpp
+	MockTables.hpp
 	MockDatabase.hpp
 	MockDatabase.cpp
 	MockQueryBuilder.hpp

@@ -5,7 +5,8 @@ namespace MockObject
 std::vector<Models::ChannelInfo> MockChannelsRepository::getAllChannelsList()
 {
     std::vector<std::any> channelsList;
-    channelsList.emplace_back(_mockQuery->SelectRepoAndQueryPush("channels", "channelName", std::string("testServer")));
+    channelsList.emplace_back(_mockQuery->SelectRepoAndQueryPush("channels",
+        TableChannelRepository::ChanneName, std::string("testServer")));
     if (!channelsList.empty())
     {
         return std::vector<ChannelInfo>(1);
@@ -15,7 +16,8 @@ std::vector<Models::ChannelInfo> MockChannelsRepository::getAllChannelsList()
 
 std::vector<uint64_t> MockChannelsRepository::getChannelSubscriptionList(const uint64_t userID)
 {
-    if (auto query = _mockQuery->SelectRepoAndQueryPush("channels", "userID", userID); userID > 0)
+    if (auto query = _mockQuery->SelectRepoAndQueryPush("channels",
+        TableChannelRepository::UserID, userID); userID > 0)
     {   
         if (_mockQuery->getStorage().getChannelsRepoData()._creatorID == userID)
         {
@@ -28,7 +30,8 @@ std::vector<uint64_t> MockChannelsRepository::getChannelSubscriptionList(const u
 
 std::vector<Models::MessageInfo> MockMessagesRepository::getMessageHistory(const uint64_t channelID)
 {
-    if (auto query = _mockQuery->SelectRepoAndQueryPush("channels", "channelID", channelID); channelID > 0)
+    if (auto query = _mockQuery->SelectRepoAndQueryPush("channels", 
+        TableChannelRepository::ChannelID, channelID); channelID > 0)
     {
         if (_mockQuery->getStorage().getChannelsRepoData()._channelID == channelID)
         {
@@ -41,7 +44,8 @@ std::vector<Models::MessageInfo> MockMessagesRepository::getMessageHistory(const
 
 std::vector<Models::ReplyInfo> MockRepliesRepository::getReplyHistory(uint64_t channelID)
 {
-    if (auto query = _mockQuery->SelectRepoAndQueryPush("replies", "channelID", channelID); channelID > 0)
+    if (auto query = _mockQuery->SelectRepoAndQueryPush("replies", 
+        TableRepliesRepository::ChannelID, channelID); channelID > 0)
     {
         if (_mockQuery->getStorage().getRepliesRepoData()._channelID == channelID)
         {
@@ -54,7 +58,8 @@ std::vector<Models::ReplyInfo> MockRepliesRepository::getReplyHistory(uint64_t c
 
 Utility::StoringMessageCodes MockMessagesRepository::storeMessage(const MessageInfo& messageInfo)
 {
-    if (auto query = _mockQuery->SelectRepoAndQueryPush("msgs", "channelID", messageInfo._channelID); 
+    if (auto query = _mockQuery->SelectRepoAndQueryPush("msgs",
+        TableMessagesRepository::ChannelID, messageInfo._channelID); 
         messageInfo._channelID > 0)
     {
         if (_mockQuery->getStorage().getMessageRepoData()._channelID == messageInfo._channelID)
@@ -68,7 +73,8 @@ Utility::StoringMessageCodes MockMessagesRepository::storeMessage(const MessageI
 
 Utility::StoringReplyCodes MockRepliesRepository::storeReply(const ReplyInfo& replyInfo)
 {
-    if (auto query = _mockQuery->SelectRepoAndQueryPush("replies", "channelID", replyInfo._channelID); 
+    if (auto query = _mockQuery->SelectRepoAndQueryPush("replies", 
+        TableRepliesRepository::ChannelID, replyInfo._channelID); 
         replyInfo._channelID > 0)
     {
         if (_mockQuery->getStorage().getRepliesRepoData()._channelID == replyInfo._channelID)
@@ -82,7 +88,8 @@ Utility::StoringReplyCodes MockRepliesRepository::storeReply(const ReplyInfo& re
 
 Utility::DeletingMessageCodes MockMessagesRepository::deleteMessage(const MessageInfo& messageInfo)
 {
-    if (auto query = _mockQuery->SelectRepoAndQueryPush("msgs", "messageID", messageInfo._msgID); 
+    if (auto query = _mockQuery->SelectRepoAndQueryPush("msgs", 
+        TableMessagesRepository::MessageID, messageInfo._msgID); 
         messageInfo._msgID > 0)
     {
         if (_mockQuery->getStorage().getMessageRepoData()._msgID == messageInfo._msgID)
@@ -96,7 +103,8 @@ Utility::DeletingMessageCodes MockMessagesRepository::deleteMessage(const Messag
 
 Utility::EditingMessageCodes MockMessagesRepository::editMessage(const MessageInfo& messageInfo)
 {
-    if (auto query = _mockQuery->SelectRepoAndQueryPush("msgs", "messageID", messageInfo._msgID); 
+    if (auto query = _mockQuery->SelectRepoAndQueryPush("msgs", 
+        TableMessagesRepository::MessageID, messageInfo._msgID); 
         messageInfo._msgID > 0)
     {
         if (_mockQuery->getStorage().getMessageRepoData()._msgID == messageInfo._msgID)
@@ -110,7 +118,8 @@ Utility::EditingMessageCodes MockMessagesRepository::editMessage(const MessageIn
 
 Utility::ReactionMessageCodes MockMessagesRepository::updateMessageReactions(const MessageInfo& messageInfo)
 {
-    if (auto query = _mockQuery->SelectRepoAndQueryPush("msgs", "messageID", messageInfo._msgID);
+    if (auto query = _mockQuery->SelectRepoAndQueryPush("msgs",
+        TableMessagesRepository::MessageID, messageInfo._msgID);
         messageInfo._msgID > 0)
     {
         if (_mockQuery->getStorage().getMessageRepoData()._msgID == messageInfo._msgID)
@@ -124,7 +133,8 @@ Utility::ReactionMessageCodes MockMessagesRepository::updateMessageReactions(con
 
 Utility::RegistrationCodes MockRegisterRepository::registerUser(const RegistrationInfo& regInfo)
 {
-    if (auto query = _mockQuery->SelectRepoAndQueryPush("user_registration", "login", regInfo._login);
+    if (auto query = _mockQuery->SelectRepoAndQueryPush("user_registration",
+        TableRegistrationRepository::UserLogin, regInfo._login);
         regInfo._login != "")
     {
         if (_mockQuery->getStorage().getRegisterRepoData()._login == regInfo._login)
@@ -138,7 +148,8 @@ Utility::RegistrationCodes MockRegisterRepository::registerUser(const Registrati
 
 std::uint64_t MockLoginRepository::loginUser(const LoginInfo& loginInfo)
 {
-    if (auto query = _mockQuery->SelectRepoAndQueryPush("user_login", "login", loginInfo._login);
+    if (auto query = _mockQuery->SelectRepoAndQueryPush("user_login",
+        TableLoginRepository::UserLogin, loginInfo._login);
         loginInfo._login != "")
     {
         if (_mockQuery->getStorage().getLoginRepoData()._login == loginInfo._login)
@@ -152,7 +163,8 @@ std::uint64_t MockLoginRepository::loginUser(const LoginInfo& loginInfo)
 
 Utility::ChannelDeleteCode MockChannelsRepository::deleteChannel(const ChannelDeleteInfo& channel)
 {
-    if (auto query = _mockQuery->SelectRepoAndQueryPush("channels", "channelName", channel._channelName); 
+    if (auto query = _mockQuery->SelectRepoAndQueryPush("channels", 
+        TableChannelRepository::ChanneName, channel._channelName); 
         channel._channelName != "")
     {
         if (_mockQuery->getStorage().getChannelsRepoData()._channelName == channel._channelName)
@@ -166,7 +178,8 @@ Utility::ChannelDeleteCode MockChannelsRepository::deleteChannel(const ChannelDe
 
 Utility::ChannelCreateCodes MockChannelsRepository::createChannel(const ChannelInfo& channel)
 {
-    if (auto query = _mockQuery->SelectRepoAndQueryPush("channels", "channelName", channel._channelName); 
+    if (auto query = _mockQuery->SelectRepoAndQueryPush("channels", 
+        TableChannelRepository::ChanneName, channel._channelName); 
         channel._channelName != "")
     {
         if (_mockQuery->getStorage().getChannelsRepoData()._channelName == channel._channelName)
@@ -180,7 +193,8 @@ Utility::ChannelCreateCodes MockChannelsRepository::createChannel(const ChannelI
 
 Utility::ChannelLeaveCodes MockChannelsRepository::leaveChannel(const ChannelLeaveInfo& channel)
 {
-    if (auto query = _mockQuery->SelectRepoAndQueryPush("channels", "channelName", channel._channelName);
+    if (auto query = _mockQuery->SelectRepoAndQueryPush("channels",
+        TableChannelRepository::ChanneName, channel._channelName);
         channel._channelName != "")
     {
         if (_mockQuery->getStorage().getChannelsRepoData()._channelName == channel._channelName)
@@ -194,7 +208,8 @@ Utility::ChannelLeaveCodes MockChannelsRepository::leaveChannel(const ChannelLea
 
 Utility::ChannelSubscribingCodes MockChannelsRepository::subscribeToChannel(const ChannelSubscriptionInfo& channel)
 {
-    if (auto query = _mockQuery->SelectRepoAndQueryPush("channels", "userID", channel._userID); 
+    if (auto query = _mockQuery->SelectRepoAndQueryPush("channels", 
+        TableChannelRepository::UserID, channel._userID); 
          query.has_value() && channel._channelID > 0)
     {
         if(_mockQuery->getStorage().getChannelsRepoData()._creatorID == channel._channelID)
@@ -208,9 +223,11 @@ Utility::ChannelSubscribingCodes MockChannelsRepository::subscribeToChannel(cons
 
 Utility::DirectMessageStatus MockDirectMessageRepository::addDirectChat(uint64_t userID, uint64_t receiverID)
 {
-    auto firstQuery = _mockQuery->SelectRepoAndQueryPush("msgs", "userID", userID);
+    auto firstQuery = _mockQuery->SelectRepoAndQueryPush("msgs", 
+        TableMessagesRepository::UserID, userID);
 
-    if (auto secondQuery = _mockQuery->SelectRepoAndQueryPush("msgs", "recipientID", receiverID); 
+    if (auto secondQuery = _mockQuery->SelectRepoAndQueryPush("msgs", 
+        TableMessagesRepository::RecipientID, receiverID); 
         userID != 0 && receiverID != 0)
     {
         if (_mockQuery->getStorage().getMessageRepoData()._senderID == userID && 
