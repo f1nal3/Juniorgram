@@ -132,11 +132,8 @@ public:
      */
     void wait()
     {
-        while (empty())
-        {
-            std::unique_lock<std::mutex> uniqueLock(_uniqueMutex);
-            _block.wait(uniqueLock);
-        }
+        std::unique_lock<std::mutex> uniqueLock(_uniqueMutex);
+        _block.wait(uniqueLock, [this]{ return !empty();});
     }
 };
 }  /// namespace Utility

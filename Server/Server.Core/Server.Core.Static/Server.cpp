@@ -268,8 +268,6 @@ void Server::update(size_t maxMessages, bool wait)
 
 void Server::messageAllClients(std::shared_ptr<Connection> exceptionClient, const Message& message) const
 {
-    bool deadConnectionExist = false;
-
     for (auto& client : _connectionsPointers)
     {
         if (client != nullptr && client->isConnected())
@@ -289,8 +287,6 @@ void Server::messageAllClients(std::shared_ptr<Connection> exceptionClient, cons
                 "[Other connections exists: " 
                 + std::to_string(client.use_count()) + "]"
             );
-
-            deadConnectionExist = true;
         }
     }
 }
