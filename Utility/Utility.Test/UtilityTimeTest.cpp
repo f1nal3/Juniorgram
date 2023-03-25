@@ -10,7 +10,7 @@ TEST_CASE("consoleLogTimestamp test")
 {
     std::ostringstream outputTime;
     auto               coutBuff = std::cout.rdbuf();  // save pointer to std::cout buffer
-    std::cout.rdbuf(outputTime.rdbuf());               // substitute internal std::cout buffer with buffer of 'local' object
+    std::cout.rdbuf(outputTime.rdbuf());              // substitute internal std::cout buffer with buffer of 'local' object
 
     system_clock::time_point currentTime = system_clock::now();
     UtilityTime::consoleLogTimestamp();
@@ -23,7 +23,7 @@ TEST_CASE("consoleLogTimestamp test")
 #if defined(_MSC_VER)
     localtime_s(&currentTime_tm, &currentTime_time_t);
 #elif defined(__unix__)
-    localtime_r(&currentTime_time_t, &currentTime_tm);
+    localtime_r(&currentTime_tm, &currentTime_time_t);
 #else
     static std::mutex           mu;
     std::lock_guard<std::mutex> lock(mu);
