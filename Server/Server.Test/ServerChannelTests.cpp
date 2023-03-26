@@ -5,7 +5,7 @@
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
-TEST_CASE("Channel request procedures [Server][Success]")
+TEST_CASE("Correct channel request procedures [Server][Success]")
 {
     auto testServer = makeTestServer();
     testServer->start();
@@ -116,7 +116,7 @@ TEST_CASE("Channel request procedures [Server][Success]")
     }
 }
 
-TEST_CASE("Channel request procedures [Server][Failed]")
+TEST_CASE("Incorrect channel request procedures [Server][Failed]")
 {
     auto testServer = makeTestServer();
     testServer->start();
