@@ -37,3 +37,6 @@ target_compile_definitions(${TARGET} PRIVATE CATCH_CONFIG_FAST_COMPILE)
 target_precompile_headers(${TARGET} REUSE_FROM Precompiled.Catch2.Test)
 
 add_test(NAME ${OUTPUT_NAME} COMMAND ${TARGET})
+
+install(TARGETS ${TARGET}
+        RUNTIME DESTINATION ${TEST_INSTALL_DIR})
