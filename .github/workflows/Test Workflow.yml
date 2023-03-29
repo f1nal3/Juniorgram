@@ -1,0 +1,75 @@
+name: TEST GCC Linux Build
+
+on:
+  push:
+    branches: [ dev, master ]
+  pull_request:
+    branches: [ dev, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        BUILD_TYPE: [Debug, Release] 
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: sudo apt-get install libgl-dev 
+           
+    - name: Python setup
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+        architecture: 'x64'
+        
+    - name: Get prerequisites
+      run: python -m pip install conan==1.59 cmake
+
+    - name: Cache Conan packages
+      id: conan-cache
+      uses: actions/cache@v2
+      with:
+        path: '/home/runner/.conan/*'
+        key: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
+        restore-keys: ${{ runner.os }}${{matrix.BUILD_TYPE}}-conan
+
+    - name: Configure CMake
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}}
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}}
+    
+    - name: Install
+      run: cmake --install /home/runner/work/Juniorgram/Juniorgram/build
+   
+    - name: Archive executables executable
+      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'
+      uses: actions/upload-artifact@v2
+      with:
+        name: juniorgram_executables_${{matrix.BUILD_TYPE}}
+        path: ./build/bin/
+  
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        BUILD_TYPE: [Debug, Release] 
+  
+    services:
+      postgres:
+        image: postgres
+        env:
+           POSTGRES_USER: postgres
+           POSTGRES_PASSWORD: postgres
+           POSTGRES_DB: testdb
+           POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+        - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+        - name: Download all workflow run artifacts
+          uses: actions/download-artifact@v3
