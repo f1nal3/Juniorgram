@@ -29,7 +29,7 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
 
     SECTION("Duplicated keys in arguments throw an exception")
     {
-        std::vector<const char*> args = {"juniorgram", "--any_flag", "any_flag", "any_flag"};
+        std::vector<const char*> args = {"juniorgram", "--any_flag", "--any_flag", "--any_flag"};
         CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
     }
 }
