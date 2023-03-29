@@ -1,4 +1,4 @@
-# Cryptography system
+# Cryptography system {#cryptography}
 ### Authentication
 
 The main idea of the architecture is the ability to configure the connection at the stage of its creation.
