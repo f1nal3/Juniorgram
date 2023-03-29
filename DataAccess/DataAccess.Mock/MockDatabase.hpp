@@ -38,7 +38,7 @@ public:
 
     void closeConnection() override;
 
-    virtual ~MockDatabase() { _instance.reset(); }
+    ~MockDatabase() override { _instance.reset(); }
 
 private:
     inline static std::shared_ptr<MockDatabase> _instance{};

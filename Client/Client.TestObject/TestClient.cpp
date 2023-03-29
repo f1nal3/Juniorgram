@@ -33,7 +33,7 @@ bool TestClient::connectToServer(const std::string_view& host, const uint16_t po
             onDisconnect();
         });
     }
-    catch (const std::exception& exception)
+    catch (const std::runtime_error& exception)
     {
         Base::Logger::FileLogger::getInstance().log
         (
