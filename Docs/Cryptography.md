@@ -16,7 +16,7 @@ Also, this architecture will work for any symmetric encryption algorithm if the 
 
 The diagram below shows how the parts of the cryptographic system interact with each other and with the server.
 
-![crypto_authentication](./images/crypto_authentication.svg)
+<img src="./images/crypto_authentication.svg" alt="crypto_authentication" />
 
 The dependencies shown in the diagram make it possible to configure the security elements separately: the encryption method, the key creation protocol, the key confirmation protocol, the connection verification algorithm - which allows you to configure the connection in a variety of ways.
 
@@ -24,7 +24,7 @@ The dependencies shown in the diagram make it possible to configure the security
 
 The diagram below shows how the application sides will be connected.
 
-![crypto_connection](./images/crypto_connection.svg)
+<img src="./images/crypto_connection.svg" alt="crypto_connection" />
 
 Connection stages:
 
