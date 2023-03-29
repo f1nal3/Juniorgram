@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Создано Microsoft Visio, экспорт SVG Connection setup algorithm.svg Страница-1 -->
+<!-- Создано Microsoft Visio, экспорт SVG crypto_authentication.svg Page-1 -->
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
-		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="13.9748in" height="26.109in"
-		viewBox="0 0 1006.19 1879.85" xml:space="preserve" color-interpolation-filters="sRGB" class="st16">
-	<v:documentProperties v:langID="1049" v:metric="true" v:viewMarkup="false"/>
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="16.0354in" height="27.1339in"
+		viewBox="0 0 1154.55 1953.64" xml:space="preserve" color-interpolation-filters="sRGB" class="st17">
+	<v:documentProperties v:langID="1049" v:metric="true" v:viewMarkup="false">
+		<v:userDefs>
+			<v:ud v:nameU="msvNoAutoConnect" v:prompt="" v:val="VT0(0):26"/>
+		</v:userDefs>
+	</v:documentProperties>
 
 	<style type="text/css">
 	<![CDATA[
-		.st1 {fill:#000000;fill-opacity:0.14;stroke:none;stroke-width:0.25}
-		.st2 {fill:#000000;font-family:Calibri;font-size:1.5em}
-		.st3 {font-size:1em}
-		.st4 {fill:#ffffff;stroke:#000000;stroke-width:0.25}
-		.st5 {fill:#000000;font-family:Calibri;font-size:1.16666em}
-		.st6 {font-size:1em;font-weight:bold}
-		.st7 {fill:#000000;font-family:Calibri;font-size:1.16666em;font-weight:bold}
-		.st8 {font-size:1em;font-weight:normal}
-		.st9 {marker-end:url(#mrkr4-79);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
-		.st10 {fill:#000000;fill-opacity:1;stroke:#000000;stroke-opacity:1;stroke-width:0.28409090909091}
-		.st11 {marker-end:url(#mrkr4-79);marker-start:url(#mrkr4-86);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
-		.st12 {fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-width:7.2}
-		.st13 {fill:none;stroke:none;stroke-width:0.25}
-		.st14 {fill:#000000;font-family:Calibri;font-size:1.99999em}
-		.st15 {fill:#000000;font-family:Calibri;font-size:1.5em;font-weight:bold}
-		.st16 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+		.st1 {fill:#ffffff;stroke:none;stroke-width:0.25}
+		.st2 {fill:#000000;fill-opacity:0.14;stroke:none;stroke-width:0.25}
+		.st3 {fill:#000000;font-family:Calibri;font-size:1.5em}
+		.st4 {font-size:1em}
+		.st5 {fill:#ffffff;stroke:#000000;stroke-width:0.25}
+		.st6 {fill:#000000;font-family:Calibri;font-size:1.16666em}
+		.st7 {font-size:1em;font-weight:bold}
+		.st8 {fill:#000000;font-family:Calibri;font-size:1.16666em;font-weight:bold}
+		.st9 {font-size:1em;font-weight:normal}
+		.st10 {marker-end:url(#mrkr4-81);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st11 {fill:#000000;fill-opacity:1;stroke:#000000;stroke-opacity:1;stroke-width:0.28409090909091}
+		.st12 {marker-end:url(#mrkr4-81);marker-start:url(#mrkr4-88);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st13 {fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-width:7.2}
+		.st14 {fill:none;stroke:none;stroke-width:0.25}
+		.st15 {fill:#000000;font-family:Calibri;font-size:1.99999em}
+		.st16 {fill:#000000;font-family:Calibri;font-size:1.5em;font-weight:bold}
+		.st17 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
 	]]>
 	</style>
 
@@ -31,22 +36,45 @@
 		<g id="lend4">
 			<path d="M 2 1 L 0 0 L 2 -1 L 2 1 " style="stroke:none"/>
 		</g>
-		<marker id="mrkr4-79" class="st10" v:arrowType="4" v:arrowSize="2" v:setback="7.04" refX="-7.04" orient="auto"
+		<marker id="mrkr4-81" class="st11" v:arrowType="4" v:arrowSize="2" v:setback="7.04" refX="-7.04" orient="auto"
 				markerUnits="strokeWidth" overflow="visible">
 			<use xlink:href="#lend4" transform="scale(-3.52,-3.52) "/>
 		</marker>
-		<marker id="mrkr4-86" class="st10" v:arrowType="4" v:arrowSize="2" v:setback="6.68" refX="6.68" orient="auto"
+		<marker id="mrkr4-88" class="st11" v:arrowType="4" v:arrowSize="2" v:setback="6.68" refX="6.68" orient="auto"
 				markerUnits="strokeWidth" overflow="visible">
 			<use xlink:href="#lend4" transform="scale(3.52) "/>
 		</marker>
 	</defs>
-	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+	<g v:mID="4" v:index="1" v:groupContext="backgroundPage">
+		<v:userDefs>
+			<v:ud v:nameU="msvThemeOrder" v:val="VT0(0):26"/>
+			<v:ud v:nameU="msvVisioCreated" v:prompt="" v:val="VT0(0):26"/>
+		</v:userDefs>
+		<title>Фон Visio-1</title>
+		<v:pageProperties width="16.0354" height="27.1339" v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24"
+				v:shadowOffsetX="8.50394" v:shadowOffsetY="-8.50394"/>
+		<g id="shape1-1" v:mID="1" v:groupContext="shape">
+			<title>Сплошная</title>
+			<v:userDefs>
+				<v:ud v:nameU="Background" v:val="VT0(0):26"/>
+				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
+				<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(DoNotContain)"/>
+				<v:ud v:nameU="msvVisioCreated" v:prompt="" v:val="VT0(0):26"/>
+			</v:userDefs>
+			<rect x="0" y="0" width="1154.55" height="1953.64" class="st1"/>
+		</g>
+	</g>
+	<g v:mID="0" v:index="2" v:groupContext="foregroundPage">
+		<v:userDefs>
+			<v:ud v:nameU="msvThemeOrder" v:val="VT0(0):26"/>
+		</v:userDefs>
 		<title>Страница-1</title>
 		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
 				v:shadowOffsetY="-8.50394"/>
-		<v:layer v:name="Соединительная линия" v:index="0"/>
-		<g id="shape1-1" v:mID="1" v:groupContext="shape" transform="translate(220.738,-830.801)">
-			<title>Лист.1</title>
+		<v:layer v:name="Выноска" v:index="0"/>
+		<v:layer v:name="Соединительная линия" v:index="1"/>
+		<g id="shape544-3" v:mID="544" v:groupContext="shape" transform="translate(308.126,-871.937)">
+			<title>Лист.544</title>
 			<desc>There are the same parameters for generation</desc>
 			<v:userDefs>
 				<v:ud v:nameU="CTypeTopLeftSnip" v:prompt="" v:val="VT0(0):5"/>
@@ -67,347 +95,347 @@
 				<v:ud v:nameU="BotRightOffset" v:prompt="" v:val="VT0(0):1"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="222.52" cy="1823.15" width="445.04" height="113.386"/>
-			<path d="M0 1879.85 L445.04 1879.85 L445.04 1766.46 L0 1766.46 L0 1879.85 Z" class="st1"/>
-			<text x="173.09" y="1806.95" class="st2" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>There are the <v:newlineChar/><tspan
-						x="158.68" dy="1.2em" class="st3">same parameters<v:newlineChar/></tspan><tspan x="169.93" dy="1.2em"
-						class="st3">for generation</tspan></text>		</g>
-		<g id="shape2-6" v:mID="2" v:groupContext="shape" transform="translate(532.727,-1745.54)">
+			<v:textRect cx="222.52" cy="1896.94" width="445.04" height="113.386"/>
+			<path d="M0 1953.64 L445.04 1953.64 L445.04 1840.25 L0 1840.25 L0 1953.64 Z" class="st2"/>
+			<text x="173.09" y="1880.74" class="st3" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>There are the <v:newlineChar/><tspan
+						x="158.68" dy="1.2em" class="st4">same parameters<v:newlineChar/></tspan><tspan x="169.93" dy="1.2em"
+						class="st4">for generation</tspan></text>		</g>
+		<g id="shape545-8" v:mID="545" v:groupContext="shape" transform="translate(620.114,-1786.68)">
 			<title>Прямоугольник.350</title>
 			<desc>Server starts</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="56.6929" cy="1837.33" width="113.39" height="85.0394"/>
-			<rect x="0" y="1794.81" width="113.386" height="85.0394" class="st4"/>
-			<text x="20.93" y="1841.53" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server starts</text>		</g>
-		<g id="shape3-9" v:mID="3" v:groupContext="shape" transform="translate(532.727,-1624.5)">
+			<v:textRect cx="56.6929" cy="1911.12" width="113.39" height="85.0394"/>
+			<rect x="0" y="1868.6" width="113.386" height="85.0394" class="st5"/>
+			<text x="20.93" y="1915.32" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server starts</text>		</g>
+		<g id="shape546-11" v:mID="546" v:groupContext="shape" transform="translate(620.114,-1665.64)">
 			<title>Прямоугольник.351</title>
 			<desc>Loading/generation it`s private and public key</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="56.6929" cy="1837.33" width="113.39" height="85.0394"/>
-			<rect x="0" y="1794.81" width="113.386" height="85.0394" class="st4"/>
-			<text x="31.75" y="1816.33" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Loading/<tspan
-						x="15.33" dy="1.2em" class="st3">generation it`s </tspan><tspan x="5.55" dy="1.2em" class="st3">private and public </tspan><tspan
-						x="46.86" dy="1.2em" class="st3">key</tspan></text>		</g>
-		<g id="shape4-15" v:mID="4" v:groupContext="shape" transform="translate(532.727,-1511.12)">
+			<v:textRect cx="56.6929" cy="1911.12" width="113.39" height="85.0394"/>
+			<rect x="0" y="1868.6" width="113.386" height="85.0394" class="st5"/>
+			<text x="31.75" y="1890.12" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Loading/<tspan
+						x="15.33" dy="1.2em" class="st4">generation it`s </tspan><tspan x="5.55" dy="1.2em" class="st4">private and public </tspan><tspan
+						x="46.86" dy="1.2em" class="st4">key</tspan></text>		</g>
+		<g id="shape547-17" v:mID="547" v:groupContext="shape" transform="translate(620.114,-1552.25)">
 			<title>Прямоугольник.353</title>
 			<desc>Waiting connection with client</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="56.6929" cy="1837.33" width="113.39" height="85.0394"/>
-			<rect x="0" y="1794.81" width="113.386" height="85.0394" class="st4"/>
-			<text x="34.58" y="1824.73" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Waiting <tspan
-						x="10.71" dy="1.2em" class="st3">connection with </tspan><tspan x="41.01" dy="1.2em" class="st3">client</tspan></text>		</g>
-		<g id="shape5-20" v:mID="5" v:groupContext="shape" transform="translate(532.727,-1392.1)">
+			<v:textRect cx="56.6929" cy="1911.12" width="113.39" height="85.0394"/>
+			<rect x="0" y="1868.6" width="113.386" height="85.0394" class="st5"/>
+			<text x="34.58" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Waiting <tspan
+						x="10.71" dy="1.2em" class="st4">connection with </tspan><tspan x="41.01" dy="1.2em" class="st4">client</tspan></text>		</g>
+		<g id="shape548-22" v:mID="548" v:groupContext="shape" transform="translate(620.114,-1433.23)">
 			<title>Прямоугольник.354</title>
 			<desc>Server sends: - connectionId - public server key</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="56.6929" cy="1837.33" width="113.39" height="85.0394"/>
-			<rect x="0" y="1794.81" width="113.386" height="85.0394" class="st4"/>
-			<text x="18.7" y="1824.73" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server sends:<v:newlineChar/><tspan
-						x="15.76" dy="1.2em" class="st3">-</tspan> connectionId<v:newlineChar/><tspan x="5.02" dy="1.2em"
-						class="st3">-</tspan> public server key</text>		</g>
-		<g id="shape6-25" v:mID="6" v:groupContext="shape" transform="translate(240.581,-1745.54)">
+			<v:textRect cx="56.6929" cy="1911.12" width="113.39" height="85.0394"/>
+			<rect x="0" y="1868.6" width="113.386" height="85.0394" class="st5"/>
+			<text x="18.7" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server sends:<v:newlineChar/><tspan
+						x="15.76" dy="1.2em" class="st4">-</tspan> connectionId<v:newlineChar/><tspan x="5.02" dy="1.2em"
+						class="st4">-</tspan> public server key</text>		</g>
+		<g id="shape549-27" v:mID="549" v:groupContext="shape" transform="translate(327.968,-1786.68)">
 			<title>Прямоугольник.355</title>
 			<desc>Clients starts</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="56.6929" cy="1837.33" width="113.39" height="85.0394"/>
-			<rect x="0" y="1794.81" width="113.386" height="85.0394" class="st4"/>
-			<text x="19.96" y="1841.53" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Clients starts</text>		</g>
-		<g id="shape7-28" v:mID="7" v:groupContext="shape" transform="translate(240.581,-1511.12)">
+			<v:textRect cx="56.6929" cy="1911.12" width="113.39" height="85.0394"/>
+			<rect x="0" y="1868.6" width="113.386" height="85.0394" class="st5"/>
+			<text x="19.96" y="1915.32" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Clients starts</text>		</g>
+		<g id="shape550-30" v:mID="550" v:groupContext="shape" transform="translate(327.968,-1552.25)">
 			<title>Прямоугольник.356</title>
 			<desc>Client want to connect</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="56.6929" cy="1837.33" width="113.39" height="85.0394"/>
-			<rect x="0" y="1794.81" width="113.386" height="85.0394" class="st4"/>
-			<text x="16.66" y="1833.13" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client want to <tspan
-						x="33.9" dy="1.2em" class="st3">connect</tspan></text>		</g>
-		<g id="shape8-32" v:mID="8" v:groupContext="shape" transform="translate(240.581,-1392.1)">
+			<v:textRect cx="56.6929" cy="1911.12" width="113.39" height="85.0394"/>
+			<rect x="0" y="1868.6" width="113.386" height="85.0394" class="st5"/>
+			<text x="16.66" y="1906.92" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client want to <tspan
+						x="33.9" dy="1.2em" class="st4">connect</tspan></text>		</g>
+		<g id="shape551-34" v:mID="551" v:groupContext="shape" transform="translate(327.968,-1433.23)">
 			<title>Прямоугольник.357</title>
 			<desc>Client gets data</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="56.6929" cy="1837.33" width="113.39" height="85.0394"/>
-			<rect x="0" y="1794.81" width="113.386" height="85.0394" class="st4"/>
-			<text x="12.49" y="1841.53" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client gets data</text>		</g>
-		<g id="shape9-35" v:mID="9" v:groupContext="shape" transform="translate(183.888,-1256)">
+			<v:textRect cx="56.6929" cy="1911.12" width="113.39" height="85.0394"/>
+			<rect x="0" y="1868.6" width="113.386" height="85.0394" class="st5"/>
+			<text x="12.49" y="1915.32" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client gets data</text>		</g>
+		<g id="shape552-37" v:mID="552" v:groupContext="shape" transform="translate(271.275,-1297.13)">
 			<title>Прямоугольник.358</title>
 			<desc>Client calculates hash(clientPasswordHash+connection ID+ publ...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="113.386" cy="1837.33" width="226.78" height="85.0394"/>
-			<rect x="0" y="1794.81" width="226.772" height="85.0394" class="st4"/>
-			<text x="67.27" y="1824.73" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client calculates <tspan
-						x="5.49" dy="1.2em" class="st3">hash(clientPasswordHash+connection </tspan><tspan x="52.17" dy="1.2em"
-						class="st3">ID+ public server key)</tspan></text>		</g>
-		<g id="shape10-40" v:mID="10" v:groupContext="shape" transform="translate(476.034,-1241.82)">
+			<v:textRect cx="113.386" cy="1911.12" width="226.78" height="85.0394"/>
+			<rect x="0" y="1868.6" width="226.772" height="85.0394" class="st5"/>
+			<text x="67.27" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client calculates <tspan
+						x="5.49" dy="1.2em" class="st4">hash(clientPasswordHash+connection </tspan><tspan x="52.17" dy="1.2em"
+						class="st4">ID+ public server key)</tspan></text>		</g>
+		<g id="shape553-42" v:mID="553" v:groupContext="shape" transform="translate(563.421,-1282.96)">
 			<title>Прямоугольник.361</title>
 			<desc>Server calculates ServerHash = hash(clientPasswordHash+connec...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="113.386" cy="1823.15" width="226.78" height="113.386"/>
-			<rect x="0" y="1766.46" width="226.772" height="113.386" class="st4"/>
-			<text x="65.5" y="1785.35" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server calculates <v:newlineChar/><tspan
-						x="75.25" dy="1.2em" class="st6">ServerHash </tspan>= <tspan x="5.49" dy="1.2em" class="st3">hash(clientPasswordHash+connection </tspan><tspan
-						x="52.17" dy="1.2em" class="st3">ID+ public server key)<v:newlineChar/></tspan><tspan x="30.17" dy="1.2em"
-						class="st3">clientPasswordHash get from </tspan><tspan x="87.41" dy="1.2em" class="st3">database</tspan></text>		</g>
-		<g id="shape11-48" v:mID="11" v:groupContext="shape" transform="translate(183.888,-1114.27)">
+			<v:textRect cx="113.386" cy="1896.94" width="226.78" height="113.386"/>
+			<rect x="0" y="1840.25" width="226.772" height="113.386" class="st5"/>
+			<text x="65.5" y="1859.15" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server calculates <v:newlineChar/><tspan
+						x="75.25" dy="1.2em" class="st7">ServerHash </tspan>= <tspan x="5.49" dy="1.2em" class="st4">hash(clientPasswordHash+connection </tspan><tspan
+						x="52.17" dy="1.2em" class="st4">ID+ public server key)<v:newlineChar/></tspan><tspan x="30.17" dy="1.2em"
+						class="st4">clientPasswordHash get from </tspan><tspan x="87.41" dy="1.2em" class="st4">database</tspan></text>		</g>
+		<g id="shape554-50" v:mID="554" v:groupContext="shape" transform="translate(271.275,-1155.4)">
 			<title>Прямоугольник.362</title>
 			<desc>Client encrypt calculated hash with public server key encrypt...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="113.386" cy="1837.33" width="226.78" height="85.0394"/>
-			<rect x="0" y="1794.81" width="226.772" height="85.0394" class="st4"/>
-			<text x="13.75" y="1816.33" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client encrypt calculated hash with <tspan
-						x="65.44" dy="1.2em" class="st3">public server key<v:newlineChar/></tspan><tspan x="13.85" dy="1.2em"
-						class="st6">encryptedHash </tspan>= encrypt(hash(...))<v:newlineChar/><tspan x="54.34" dy="1.2em"
-						class="st3">And send it to server</tspan></text>		</g>
-		<g id="shape12-54" v:mID="12" v:groupContext="shape" transform="translate(476.034,-1114.27)">
+			<v:textRect cx="113.386" cy="1911.12" width="226.78" height="85.0394"/>
+			<rect x="0" y="1868.6" width="226.772" height="85.0394" class="st5"/>
+			<text x="13.75" y="1890.12" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client encrypt calculated hash with <tspan
+						x="65.44" dy="1.2em" class="st4">public server key<v:newlineChar/></tspan><tspan x="13.85" dy="1.2em"
+						class="st7">encryptedHash </tspan>= encrypt(hash(...))<v:newlineChar/><tspan x="54.34" dy="1.2em"
+						class="st4">And send it to server</tspan></text>		</g>
+		<g id="shape555-56" v:mID="555" v:groupContext="shape" transform="translate(563.421,-1155.4)">
 			<title>Прямоугольник.363</title>
 			<desc>Server decrypt received encryptedHash with it`s private key d...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="113.386" cy="1837.33" width="226.78" height="85.0394"/>
-			<rect x="0" y="1794.81" width="226.772" height="85.0394" class="st4"/>
-			<text x="45.95" y="1824.73" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server decrypt received <tspan
-						x="11.9" dy="1.2em" class="st6">encryptedHash </tspan>with it`s private key<v:newlineChar/><tspan x="14.32"
-						dy="1.2em" class="st6">decryptedHash </tspan>= decrypt(hash(…))  </text>		</g>
-		<g id="shape13-59" v:mID="13" v:groupContext="shape" transform="translate(779.164,-1114.27)">
+			<v:textRect cx="113.386" cy="1911.12" width="226.78" height="85.0394"/>
+			<rect x="0" y="1868.6" width="226.772" height="85.0394" class="st5"/>
+			<text x="45.95" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server decrypt received <tspan
+						x="11.9" dy="1.2em" class="st7">encryptedHash </tspan>with it`s private key<v:newlineChar/><tspan x="14.32"
+						dy="1.2em" class="st7">decryptedHash </tspan>= decrypt(hash(…))  </text>		</g>
+		<g id="shape556-61" v:mID="556" v:groupContext="shape" transform="translate(866.551,-1155.4)">
 			<title>Прямоугольник.365</title>
 			<desc>ServerHash and decryptedHash are similar?</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="113.386" cy="1837.33" width="226.78" height="85.0394"/>
-			<rect x="0" y="1794.81" width="226.772" height="85.0394" class="st4"/>
-			<text x="11.69" y="1833.13" class="st7" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>ServerHash<tspan
-						class="st8"> </tspan><tspan class="st8">and </tspan>decryptedHash <tspan class="st8">are </tspan><tspan
-						x="91.2" dy="1.2em" class="st8">similar?</tspan></text>		</g>
-		<g id="shape14-66" v:mID="14" v:groupContext="shape" transform="translate(846.486,-958.36)">
+			<v:textRect cx="113.386" cy="1911.12" width="226.78" height="85.0394"/>
+			<rect x="0" y="1868.6" width="226.772" height="85.0394" class="st5"/>
+			<text x="11.69" y="1906.92" class="st8" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>ServerHash<tspan
+						class="st9"> </tspan><tspan class="st9">and </tspan>decryptedHash <tspan class="st9">are </tspan><tspan
+						x="91.2" dy="1.2em" class="st9">similar?</tspan></text>		</g>
+		<g id="shape557-68" v:mID="557" v:groupContext="shape" transform="translate(933.874,-999.496)">
 			<title>Прямоугольник.368</title>
 			<desc>Abort connection</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="46.063" cy="1837.33" width="92.13" height="85.0394"/>
-			<rect x="0" y="1794.81" width="92.126" height="85.0394" class="st4"/>
-			<text x="29.86" y="1833.13" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Abort <tspan
-						x="14.29" dy="1.2em" class="st3">connection</tspan></text>		</g>
-		<g id="shape15-70" v:mID="15" v:groupContext="shape" transform="translate(531.486,-958.36)">
+			<v:textRect cx="46.063" cy="1911.12" width="92.13" height="85.0394"/>
+			<rect x="0" y="1868.6" width="92.126" height="85.0394" class="st5"/>
+			<text x="29.86" y="1906.92" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Abort <tspan
+						x="14.29" dy="1.2em" class="st4">connection</tspan></text>		</g>
+		<g id="shape558-72" v:mID="558" v:groupContext="shape" transform="translate(618.874,-999.496)">
 			<title>Прямоугольник.369</title>
 			<desc>Accept connection</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="56.6929" cy="1837.33" width="113.39" height="85.0394"/>
-			<rect x="0" y="1794.81" width="113.386" height="85.0394" class="st4"/>
-			<text x="37.22" y="1833.13" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Accept <tspan
-						x="24.92" dy="1.2em" class="st3">connection</tspan></text>		</g>
-		<g id="shape16-74" v:mID="16" v:groupContext="shape" v:layerMember="0" transform="translate(290.187,-1745.54)">
-			<title>Лист.16</title>
-			<path d="M7.09 1879.85 L7.09 2022.19" class="st9"/>
+			<v:textRect cx="56.6929" cy="1911.12" width="113.39" height="85.0394"/>
+			<rect x="0" y="1868.6" width="113.386" height="85.0394" class="st5"/>
+			<text x="37.22" y="1906.92" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Accept <tspan
+						x="24.92" dy="1.2em" class="st4">connection</tspan></text>		</g>
+		<g id="shape559-76" v:mID="559" v:groupContext="shape" v:layerMember="1" transform="translate(377.575,-1786.68)">
+			<title>Лист.559</title>
+			<path d="M7.09 1953.64 L7.09 2095.98" class="st10"/>
 		</g>
-		<g id="shape17-80" v:mID="17" v:groupContext="shape" v:layerMember="0" transform="translate(353.967,-1546.55)">
-			<title>Лист.17</title>
-			<path d="M6.68 1872.76 L7.04 1872.76 L171.72 1872.76" class="st11"/>
+		<g id="shape560-82" v:mID="560" v:groupContext="shape" v:layerMember="1" transform="translate(441.354,-1587.69)">
+			<title>Лист.560</title>
+			<path d="M6.68 1946.55 L7.04 1946.55 L171.72 1946.55" class="st12"/>
 		</g>
-		<g id="shape18-88" v:mID="18" v:groupContext="shape" v:layerMember="0" transform="translate(582.333,-1745.54)">
-			<title>Лист.18</title>
-			<path d="M7.09 1879.85 L7.09 1908.81" class="st9"/>
+		<g id="shape561-90" v:mID="561" v:groupContext="shape" v:layerMember="1" transform="translate(669.72,-1786.68)">
+			<title>Лист.561</title>
+			<path d="M7.09 1953.64 L7.09 1982.6" class="st10"/>
 		</g>
-		<g id="shape19-93" v:mID="19" v:groupContext="shape" v:layerMember="0" transform="translate(582.333,-1624.5)">
-			<title>Лист.19</title>
-			<path d="M7.09 1879.85 L7.09 1901.15" class="st9"/>
+		<g id="shape562-95" v:mID="562" v:groupContext="shape" v:layerMember="1" transform="translate(669.72,-1665.64)">
+			<title>Лист.562</title>
+			<path d="M7.09 1953.64 L7.09 1974.94" class="st10"/>
 		</g>
-		<g id="shape20-98" v:mID="20" v:groupContext="shape" v:layerMember="0" transform="translate(582.333,-1511.12)">
-			<title>Лист.20</title>
-			<path d="M7.09 1879.85 L7.09 1906.79" class="st9"/>
+		<g id="shape563-100" v:mID="563" v:groupContext="shape" v:layerMember="1" transform="translate(669.72,-1552.25)">
+			<title>Лист.563</title>
+			<path d="M7.09 1953.64 L7.09 1980.58" class="st10"/>
 		</g>
-		<g id="shape21-103" v:mID="21" v:groupContext="shape" v:layerMember="0" transform="translate(532.727,-1427.53)">
-			<title>Лист.21</title>
-			<path d="M0 1872.76 L-171.72 1872.76" class="st9"/>
+		<g id="shape564-105" v:mID="564" v:groupContext="shape" v:layerMember="1" transform="translate(620.114,-1468.67)">
+			<title>Лист.564</title>
+			<path d="M0 1946.55 L-171.72 1946.55" class="st10"/>
 		</g>
-		<g id="shape22-108" v:mID="22" v:groupContext="shape" v:layerMember="0" transform="translate(596.506,-1392.1)">
-			<title>Лист.22</title>
-			<path d="M-7.09 1879.85 L-7.09 1909.69" class="st9"/>
+		<g id="shape565-110" v:mID="565" v:groupContext="shape" v:layerMember="1" transform="translate(683.894,-1433.23)">
+			<title>Лист.565</title>
+			<path d="M-7.09 1953.64 L-7.09 1983.48" class="st10"/>
 		</g>
-		<g id="shape23-113" v:mID="23" v:groupContext="shape" v:layerMember="0" transform="translate(304.36,-1392.1)">
-			<title>Лист.23</title>
-			<path d="M-7.09 1879.85 L-7.09 1923.87" class="st9"/>
+		<g id="shape566-115" v:mID="566" v:groupContext="shape" v:layerMember="1" transform="translate(391.748,-1433.23)">
+			<title>Лист.566</title>
+			<path d="M-7.09 1953.64 L-7.09 1997.66" class="st10"/>
 		</g>
-		<g id="shape24-118" v:mID="24" v:groupContext="shape" v:layerMember="0" transform="translate(290.187,-1256)">
-			<title>Лист.24</title>
-			<path d="M7.09 1879.85 L7.09 1929.5" class="st9"/>
+		<g id="shape567-120" v:mID="567" v:groupContext="shape" v:layerMember="1" transform="translate(377.575,-1297.13)">
+			<title>Лист.567</title>
+			<path d="M7.09 1953.64 L7.09 2003.29" class="st10"/>
 		</g>
-		<g id="shape25-123" v:mID="25" v:groupContext="shape" v:layerMember="0" transform="translate(410.66,-1149.7)">
-			<title>Лист.25</title>
-			<path d="M0 1872.76 L58.33 1872.76" class="st9"/>
+		<g id="shape568-125" v:mID="568" v:groupContext="shape" v:layerMember="1" transform="translate(498.047,-1190.83)">
+			<title>Лист.568</title>
+			<path d="M0 1946.55 L58.33 1946.55" class="st10"/>
 		</g>
-		<g id="shape26-128" v:mID="26" v:groupContext="shape" v:layerMember="0" transform="translate(582.333,-1241.82)">
-			<title>Лист.26</title>
-			<path d="M7.09 1879.85 L7.09 1915.33" class="st9"/>
+		<g id="shape569-130" v:mID="569" v:groupContext="shape" v:layerMember="1" transform="translate(669.72,-1282.96)">
+			<title>Лист.569</title>
+			<path d="M7.09 1953.64 L7.09 1989.12" class="st10"/>
 		</g>
-		<g id="shape27-133" v:mID="27" v:groupContext="shape" v:layerMember="0" transform="translate(702.805,-1149.7)">
-			<title>Лист.27</title>
-			<path d="M0 1872.76 L69.32 1872.76" class="st9"/>
+		<g id="shape570-135" v:mID="570" v:groupContext="shape" v:layerMember="1" transform="translate(790.193,-1190.83)">
+			<title>Лист.570</title>
+			<path d="M0 1946.55 L69.32 1946.55" class="st10"/>
 		</g>
-		<g id="shape28-138" v:mID="28" v:groupContext="shape" v:layerMember="0" transform="translate(885.463,-1114.27)">
-			<title>Лист.28</title>
+		<g id="shape571-140" v:mID="571" v:groupContext="shape" v:layerMember="1" transform="translate(972.85,-1155.4)">
+			<title>Лист.571</title>
 			<desc>No</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="26.3622" cy="1925.4" width="70.01" height="24.8035"/>
-			<path d="M7.09 1879.85 L7.09 1943.67" class="st9"/>
-			<rect v:rectContext="textBkgnd" x="18.1524" y="1917" width="16.4199" height="16.8" class="st12"/>
-			<text x="18.15" y="1929.6" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>No</text>		</g>
-		<g id="shape29-145" v:mID="29" v:groupContext="shape" v:layerMember="0" transform="translate(892.549,-1114.27)">
-			<title>Лист.29</title>
+			<v:textRect cx="26.3622" cy="1999.19" width="70.01" height="24.8035"/>
+			<path d="M7.09 1953.64 L7.09 2017.46" class="st10"/>
+			<rect v:rectContext="textBkgnd" x="18.1524" y="1990.79" width="16.4199" height="16.8" class="st13"/>
+			<text x="18.15" y="2003.39" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>No</text>		</g>
+		<g id="shape572-147" v:mID="572" v:groupContext="shape" v:layerMember="1" transform="translate(979.937,-1155.4)">
+			<title>Лист.572</title>
 			<desc>Yes</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="-130.348" cy="1908.19" width="70.01" height="24.8035"/>
-			<path d="M0 1879.85 L0 1922.37 L-304.37 1922.37 L-304.37 1943.67" class="st9"/>
-			<rect v:rectContext="textBkgnd" x="-139.98" y="1899.79" width="19.2637" height="16.8" class="st12"/>
-			<text x="-139.98" y="1912.39" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Yes</text>		</g>
-		<g id="shape30-152" v:mID="30" v:groupContext="shape" transform="translate(240.581,-844.974)">
+			<v:textRect cx="-130.348" cy="1981.98" width="70.01" height="24.8035"/>
+			<path d="M0 1953.64 L0 1996.16 L-304.37 1996.16 L-304.37 2017.46" class="st10"/>
+			<rect v:rectContext="textBkgnd" x="-139.98" y="1973.58" width="19.2637" height="16.8" class="st13"/>
+			<text x="-139.98" y="1986.18" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Yes</text>		</g>
+		<g id="shape573-154" v:mID="573" v:groupContext="shape" transform="translate(327.968,-886.11)">
 			<title>Прямоугольник.402</title>
 			<desc>Generating public and private key</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="56.6929" cy="1837.33" width="113.39" height="85.0394"/>
-			<rect x="0" y="1794.81" width="113.386" height="85.0394" class="st4"/>
-			<text x="6.13" y="1833.13" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Generating public <tspan
-						x="12.92" dy="1.2em" class="st3">and private key</tspan></text>		</g>
-		<g id="shape31-156" v:mID="31" v:groupContext="shape" transform="translate(531.486,-844.974)">
+			<v:textRect cx="56.6929" cy="1911.12" width="113.39" height="85.0394"/>
+			<rect x="0" y="1868.6" width="113.386" height="85.0394" class="st5"/>
+			<text x="6.13" y="1906.92" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Generating public <tspan
+						x="12.92" dy="1.2em" class="st4">and private key</tspan></text>		</g>
+		<g id="shape574-158" v:mID="574" v:groupContext="shape" transform="translate(618.874,-886.11)">
 			<title>Прямоугольник.403</title>
 			<desc>Generating public and private key</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="56.6929" cy="1837.33" width="113.39" height="85.0394"/>
-			<rect x="0" y="1794.81" width="113.386" height="85.0394" class="st4"/>
-			<text x="6.13" y="1833.13" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Generating public <tspan
-						x="12.92" dy="1.2em" class="st3">and private key</tspan></text>		</g>
-		<g id="shape32-160" v:mID="32" v:groupContext="shape" v:layerMember="0" transform="translate(531.486,-1000.88)">
-			<title>Лист.32</title>
-			<path d="M0 1879.85 L-234.21 1879.85 L-234.21 1943.67" class="st9"/>
+			<v:textRect cx="56.6929" cy="1911.12" width="113.39" height="85.0394"/>
+			<rect x="0" y="1868.6" width="113.386" height="85.0394" class="st5"/>
+			<text x="6.13" y="1906.92" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Generating public <tspan
+						x="12.92" dy="1.2em" class="st4">and private key</tspan></text>		</g>
+		<g id="shape575-162" v:mID="575" v:groupContext="shape" v:layerMember="1" transform="translate(618.874,-1042.02)">
+			<title>Лист.575</title>
+			<path d="M0 1953.64 L-234.21 1953.64 L-234.21 2017.46" class="st10"/>
 		</g>
-		<g id="shape33-165" v:mID="33" v:groupContext="shape" v:layerMember="0" transform="translate(581.093,-958.36)">
-			<title>Лист.33</title>
-			<path d="M7.09 1879.85 L7.09 1901.15" class="st9"/>
+		<g id="shape576-167" v:mID="576" v:groupContext="shape" v:layerMember="1" transform="translate(668.48,-999.496)">
+			<title>Лист.576</title>
+			<path d="M7.09 1953.64 L7.09 1974.94" class="st10"/>
 		</g>
-		<g id="shape34-170" v:mID="34" v:groupContext="shape" transform="translate(221.274,-1855.45)">
-			<title>Лист.34</title>
+		<g id="shape577-172" v:mID="577" v:groupContext="shape" transform="translate(308.661,-1896.58)">
+			<title>Лист.577</title>
 			<desc>Client side</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="76" cy="1869.85" width="152" height="20"/>
-			<rect x="0" y="1859.85" width="152" height="20" class="st13"/>
-			<text x="25.36" y="1877.05" class="st14" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client side</text>		</g>
-		<g id="shape35-173" v:mID="35" v:groupContext="shape" transform="translate(513.42,-1855.45)">
-			<title>Лист.35</title>
+			<v:textRect cx="76" cy="1943.64" width="152" height="20"/>
+			<rect x="0" y="1933.64" width="152" height="20" class="st14"/>
+			<text x="25.36" y="1950.84" class="st15" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client side</text>		</g>
+		<g id="shape578-175" v:mID="578" v:groupContext="shape" transform="translate(600.807,-1896.58)">
+			<title>Лист.578</title>
 			<desc>Server side</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="76" cy="1869.85" width="152" height="20"/>
-			<rect x="0" y="1859.85" width="152" height="20" class="st13"/>
-			<text x="22.32" y="1877.05" class="st14" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server side</text>		</g>
-		<g id="shape36-176" v:mID="36" v:groupContext="shape" transform="translate(240.581,-717.415)">
+			<v:textRect cx="76" cy="1943.64" width="152" height="20"/>
+			<rect x="0" y="1933.64" width="152" height="20" class="st14"/>
+			<text x="22.32" y="1950.84" class="st15" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server side</text>		</g>
+		<g id="shape579-178" v:mID="579" v:groupContext="shape" transform="translate(327.968,-758.551)">
 			<title>Прямоугольник.411</title>
 			<desc>Sending client public key to server</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="56.6929" cy="1837.33" width="113.39" height="85.0394"/>
-			<rect x="0" y="1794.81" width="113.386" height="85.0394" class="st4"/>
-			<text x="16.8" y="1824.73" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Sending client <tspan
-						x="20.45" dy="1.2em" class="st3">public key to </tspan><tspan x="38.95" dy="1.2em" class="st3">server</tspan></text>		</g>
-		<g id="shape37-181" v:mID="37" v:groupContext="shape" transform="translate(531.486,-717.415)">
+			<v:textRect cx="56.6929" cy="1911.12" width="113.39" height="85.0394"/>
+			<rect x="0" y="1868.6" width="113.386" height="85.0394" class="st5"/>
+			<text x="16.8" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Sending client <tspan
+						x="20.45" dy="1.2em" class="st4">public key to </tspan><tspan x="38.95" dy="1.2em" class="st4">server</tspan></text>		</g>
+		<g id="shape580-183" v:mID="580" v:groupContext="shape" transform="translate(618.874,-758.551)">
 			<title>Прямоугольник.412</title>
 			<desc>Sending server public key to client</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="56.6929" cy="1837.33" width="113.39" height="85.0394"/>
-			<rect x="0" y="1794.81" width="113.386" height="85.0394" class="st4"/>
-			<text x="14.73" y="1824.73" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Sending server <tspan
-						x="20.45" dy="1.2em" class="st3">public key to </tspan><tspan x="41.01" dy="1.2em" class="st3">client</tspan></text>		</g>
-		<g id="shape38-186" v:mID="38" v:groupContext="shape" v:layerMember="0" transform="translate(353.967,-752.848)">
-			<title>Лист.38</title>
-			<path d="M6.68 1872.76 L7.04 1872.76 L170.48 1872.76" class="st11"/>
+			<v:textRect cx="56.6929" cy="1911.12" width="113.39" height="85.0394"/>
+			<rect x="0" y="1868.6" width="113.386" height="85.0394" class="st5"/>
+			<text x="14.73" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Sending server <tspan
+						x="20.45" dy="1.2em" class="st4">public key to </tspan><tspan x="41.01" dy="1.2em" class="st4">client</tspan></text>		</g>
+		<g id="shape581-188" v:mID="581" v:groupContext="shape" v:layerMember="1" transform="translate(441.354,-793.984)">
+			<title>Лист.581</title>
+			<path d="M6.68 1946.55 L7.04 1946.55 L170.48 1946.55" class="st12"/>
 		</g>
-		<g id="shape39-193" v:mID="39" v:groupContext="shape" v:layerMember="0" transform="translate(290.187,-844.974)">
-			<title>Лист.39</title>
-			<path d="M7.09 1879.85 L7.09 1915.33" class="st9"/>
+		<g id="shape582-195" v:mID="582" v:groupContext="shape" v:layerMember="1" transform="translate(377.575,-886.11)">
+			<title>Лист.582</title>
+			<path d="M7.09 1953.64 L7.09 1989.12" class="st10"/>
 		</g>
-		<g id="shape40-198" v:mID="40" v:groupContext="shape" v:layerMember="0" transform="translate(595.266,-844.974)">
-			<title>Лист.40</title>
-			<path d="M-7.09 1879.85 L-7.09 1915.33" class="st9"/>
+		<g id="shape583-200" v:mID="583" v:groupContext="shape" v:layerMember="1" transform="translate(682.653,-886.11)">
+			<title>Лист.583</title>
+			<path d="M-7.09 1953.64 L-7.09 1989.12" class="st10"/>
 		</g>
-		<g id="shape41-203" v:mID="41" v:groupContext="shape" transform="translate(183.888,-604.03)">
+		<g id="shape584-205" v:mID="584" v:groupContext="shape" transform="translate(271.275,-645.165)">
 			<title>Прямоугольник.418</title>
 			<desc>Calculating shared secret (session key) ClientKey = agree(cli...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="113.386" cy="1837.33" width="226.78" height="85.0394"/>
-			<rect x="0" y="1794.81" width="226.772" height="85.0394" class="st4"/>
-			<text x="4.27" y="1824.73" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Calculating shared secret (session key) <v:newlineChar/><tspan
-						x="13.32" dy="1.2em" class="st6">ClientKey </tspan>= agree(clientPrivateKey, <tspan x="66.08" dy="1.2em"
-						class="st3">serverPublicKey) </tspan> </text>		</g>
-		<g id="shape42-208" v:mID="42" v:groupContext="shape" transform="translate(466.289,-604.03)">
+			<v:textRect cx="113.386" cy="1911.12" width="226.78" height="85.0394"/>
+			<rect x="0" y="1868.6" width="226.772" height="85.0394" class="st5"/>
+			<text x="4.27" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Calculating shared secret (session key) <v:newlineChar/><tspan
+						x="13.32" dy="1.2em" class="st7">ClientKey </tspan>= agree(clientPrivateKey, <tspan x="66.08" dy="1.2em"
+						class="st4">serverPublicKey) </tspan> </text>		</g>
+		<g id="shape585-210" v:mID="585" v:groupContext="shape" transform="translate(553.677,-645.165)">
 			<title>Прямоугольник.419</title>
 			<desc>Calculating shared secret (session key) ServerKey = agree(ser...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="121.89" cy="1837.33" width="243.78" height="85.0394"/>
-			<rect x="0" y="1794.81" width="243.78" height="85.0394" class="st4"/>
-			<text x="12.78" y="1824.73" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Calculating shared secret (session key) <v:newlineChar/><tspan
-						x="15.62" dy="1.2em" class="st6">ServerKey </tspan>= agree(servertPrivateKey, <tspan x="76.66" dy="1.2em"
-						class="st3">clientPublicKey) </tspan> </text>		</g>
-		<g id="shape43-213" v:mID="43" v:groupContext="shape" v:layerMember="0" transform="translate(290.187,-717.415)">
-			<title>Лист.43</title>
-			<path d="M7.09 1879.85 L7.09 1901.15" class="st9"/>
+			<v:textRect cx="121.89" cy="1911.12" width="243.78" height="85.0394"/>
+			<rect x="0" y="1868.6" width="243.78" height="85.0394" class="st5"/>
+			<text x="12.78" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Calculating shared secret (session key) <v:newlineChar/><tspan
+						x="15.62" dy="1.2em" class="st7">ServerKey </tspan>= agree(servertPrivateKey, <tspan x="76.66" dy="1.2em"
+						class="st4">clientPublicKey) </tspan> </text>		</g>
+		<g id="shape586-215" v:mID="586" v:groupContext="shape" v:layerMember="1" transform="translate(377.575,-758.551)">
+			<title>Лист.586</title>
+			<path d="M7.09 1953.64 L7.09 1974.94" class="st10"/>
 		</g>
-		<g id="shape44-218" v:mID="44" v:groupContext="shape" v:layerMember="0" transform="translate(581.093,-717.415)">
-			<title>Лист.44</title>
-			<path d="M7.09 1879.85 L7.09 1901.15" class="st9"/>
+		<g id="shape587-220" v:mID="587" v:groupContext="shape" v:layerMember="1" transform="translate(668.48,-758.551)">
+			<title>Лист.587</title>
+			<path d="M7.09 1953.64 L7.09 1974.94" class="st10"/>
 		</g>
-		<g id="shape45-223" v:mID="45" v:groupContext="shape" transform="translate(183.888,-554.459)">
-			<title>Лист.45</title>
+		<g id="shape588-225" v:mID="588" v:groupContext="shape" transform="translate(271.275,-595.595)">
+			<title>Лист.588</title>
 			<desc>If everything ended correctly, ClientKey == ServerKey</desc>
 			<v:userDefs>
 				<v:ud v:nameU="CTypeTopLeftSnip" v:prompt="" v:val="VT0(0):5"/>
@@ -428,45 +456,45 @@
 				<v:ud v:nameU="BotRightOffset" v:prompt="" v:val="VT0(0):1"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="262.205" cy="1858.62" width="524.41" height="42.4488"/>
-			<path d="M0 1879.85 L524.41 1879.85 L524.41 1837.4 L0 1837.4 L0 1879.85 Z" class="st1"/>
-			<text x="154.43" y="1853.22" class="st2" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>If everything ended correctly, <v:newlineChar/><tspan
-						x="176.1" dy="1.2em" class="st6">ClientKey</tspan> == <tspan class="st6">ServerKey</tspan></text>		</g>
-		<g id="shape46-228" v:mID="46" v:groupContext="shape" transform="translate(176.801,-377.258)">
+			<v:textRect cx="262.205" cy="1932.41" width="524.41" height="42.4488"/>
+			<path d="M0 1953.64 L524.41 1953.64 L524.41 1911.19 L0 1911.19 L0 1953.64 Z" class="st2"/>
+			<text x="154.43" y="1927.01" class="st3" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>If everything ended correctly, <v:newlineChar/><tspan
+						x="176.1" dy="1.2em" class="st7">ClientKey</tspan> == <tspan class="st7">ServerKey</tspan></text>		</g>
+		<g id="shape589-230" v:mID="589" v:groupContext="shape" transform="translate(264.189,-418.394)">
 			<title>Прямоугольник.424</title>
 			<desc>Client encrypt testMessage with ClientKey EncryptedMsg = encr...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="120.472" cy="1837.33" width="240.95" height="85.0394"/>
-			<rect x="0" y="1794.81" width="240.945" height="85.0394" class="st4"/>
-			<text x="28.19" y="1816.33" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client encrypt <tspan
-						class="st6">testMessage</tspan> with <tspan x="92.95" dy="1.2em" class="st6">ClientKey<v:newlineChar/></tspan><tspan
-						x="9.53" dy="1.2em" class="st6">EncryptedMsg</tspan> = encrypt(<tspan class="st6">testMessage</tspan>)<v:newlineChar/><tspan
-						x="61.43" dy="1.2em" class="st3">And send it to server </tspan> </text>		</g>
-		<g id="shape47-236" v:mID="47" v:groupContext="shape" transform="translate(463.455,-377.258)">
+			<v:textRect cx="120.472" cy="1911.12" width="240.95" height="85.0394"/>
+			<rect x="0" y="1868.6" width="240.945" height="85.0394" class="st5"/>
+			<text x="28.19" y="1890.12" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client encrypt <tspan
+						class="st7">testMessage</tspan> with <tspan x="92.95" dy="1.2em" class="st7">ClientKey<v:newlineChar/></tspan><tspan
+						x="9.53" dy="1.2em" class="st7">EncryptedMsg</tspan> = encrypt(<tspan class="st7">testMessage</tspan>)<v:newlineChar/><tspan
+						x="61.43" dy="1.2em" class="st4">And send it to server </tspan> </text>		</g>
+		<g id="shape590-238" v:mID="590" v:groupContext="shape" transform="translate(550.842,-418.394)">
 			<title>Прямоугольник.425</title>
 			<desc>Server decrypt EncryptedMsg with ServerKey DecryptedMsg = enc...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="124.724" cy="1837.33" width="249.45" height="85.0394"/>
-			<rect x="0" y="1794.81" width="249.449" height="85.0394" class="st4"/>
-			<text x="25.77" y="1824.73" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server decrypt <tspan
-						class="st6">EncryptedMsg</tspan> with <tspan x="95.41" dy="1.2em" class="st6">ServerKey<v:newlineChar/></tspan><tspan
-						x="6.54" dy="1.2em" class="st6">DecryptedMsg</tspan> = encrypt(<tspan class="st6">EncryptedMsg</tspan> )  </text>		</g>
-		<g id="shape48-243" v:mID="48" v:groupContext="shape" v:layerMember="0" transform="translate(290.187,-604.03)">
-			<title>Лист.48</title>
-			<path d="M7.09 1879.85 L7.09 2014.54" class="st9"/>
+			<v:textRect cx="124.724" cy="1911.12" width="249.45" height="85.0394"/>
+			<rect x="0" y="1868.6" width="249.449" height="85.0394" class="st5"/>
+			<text x="25.77" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server decrypt <tspan
+						class="st7">EncryptedMsg</tspan> with <tspan x="95.41" dy="1.2em" class="st7">ServerKey<v:newlineChar/></tspan><tspan
+						x="6.54" dy="1.2em" class="st7">DecryptedMsg</tspan> = encrypt(<tspan class="st7">EncryptedMsg</tspan> )  </text>		</g>
+		<g id="shape591-245" v:mID="591" v:groupContext="shape" v:layerMember="1" transform="translate(377.575,-645.165)">
+			<title>Лист.591</title>
+			<path d="M7.09 1953.64 L7.09 2088.33" class="st10"/>
 		</g>
-		<g id="shape49-248" v:mID="49" v:groupContext="shape" v:layerMember="0" transform="translate(581.093,-604.03)">
-			<title>Лист.49</title>
-			<path d="M7.09 1879.85 L7.09 2014.54" class="st9"/>
+		<g id="shape592-250" v:mID="592" v:groupContext="shape" v:layerMember="1" transform="translate(668.48,-645.165)">
+			<title>Лист.592</title>
+			<path d="M7.09 1953.64 L7.09 2088.33" class="st10"/>
 		</g>
-		<g id="shape50-253" v:mID="50" v:groupContext="shape" transform="translate(183.888,-490.644)">
-			<title>Лист.50</title>
+		<g id="shape593-255" v:mID="593" v:groupContext="shape" transform="translate(271.275,-531.78)">
+			<title>Лист.593</title>
 			<desc>testMessage is known to both</desc>
 			<v:userDefs>
 				<v:ud v:nameU="CTypeTopLeftSnip" v:prompt="" v:val="VT0(0):5"/>
@@ -487,154 +515,154 @@
 				<v:ud v:nameU="BotRightOffset" v:prompt="" v:val="VT0(0):1"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="262.205" cy="1858.62" width="524.41" height="42.4488"/>
-			<path d="M0 1879.85 L524.41 1879.85 L524.41 1837.4 L0 1837.4 L0 1879.85 Z" class="st1"/>
-			<text x="151.59" y="1864.02" class="st15" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>testMessage<tspan
-						class="st8"> </tspan><tspan class="st8">is known to both</tspan></text>		</g>
-		<g id="shape51-258" v:mID="51" v:groupContext="shape" transform="translate(492.333,-239.589)">
+			<v:textRect cx="262.205" cy="1932.41" width="524.41" height="42.4488"/>
+			<path d="M0 1953.64 L524.41 1953.64 L524.41 1911.19 L0 1911.19 L0 1953.64 Z" class="st2"/>
+			<text x="151.59" y="1937.81" class="st16" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>testMessage<tspan
+						class="st9"> </tspan><tspan class="st9">is known to both</tspan></text>		</g>
+		<g id="shape594-260" v:mID="594" v:groupContext="shape" transform="translate(579.72,-280.724)">
 			<title>Прямоугольник.430</title>
 			<desc>DecryptedMsg and testMessage are similar? Server send true/fa...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="95.8464" cy="1837.33" width="191.7" height="85.0394"/>
-			<rect x="0" y="1794.81" width="191.693" height="85.0394" class="st4"/>
-			<text x="41.19" y="1816.33" class="st7" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>DecryptedMsg <tspan
-						class="st8">and </tspan><tspan x="24.52" dy="1.2em" class="st3">testMessage </tspan><tspan class="st8">are similar?<v:newlineChar/><v:newlineChar/></tspan><tspan
-						x="8.04" dy="2.4em" class="st8">Server send true/false to client</tspan></text>		</g>
-		<g id="shape52-265" v:mID="52" v:groupContext="shape" v:layerMember="0" transform="translate(417.746,-412.691)">
-			<title>Лист.52</title>
-			<path d="M0 1872.76 L38.67 1872.76" class="st9"/>
+			<v:textRect cx="95.8464" cy="1911.12" width="191.7" height="85.0394"/>
+			<rect x="0" y="1868.6" width="191.693" height="85.0394" class="st5"/>
+			<text x="41.19" y="1890.12" class="st8" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>DecryptedMsg <tspan
+						class="st9">and </tspan><tspan x="24.52" dy="1.2em" class="st4">testMessage </tspan><tspan class="st9">are similar?<v:newlineChar/><v:newlineChar/></tspan><tspan
+						x="8.04" dy="2.4em" class="st9">Server send true/false to client</tspan></text>		</g>
+		<g id="shape595-267" v:mID="595" v:groupContext="shape" v:layerMember="1" transform="translate(505.134,-453.827)">
+			<title>Лист.595</title>
+			<path d="M0 1946.55 L38.67 1946.55" class="st10"/>
 		</g>
-		<g id="shape53-270" v:mID="53" v:groupContext="shape" v:layerMember="0" transform="translate(595.266,-377.258)">
-			<title>Лист.53</title>
-			<path d="M-7.09 1879.85 L-7.09 1925.44" class="st9"/>
+		<g id="shape596-272" v:mID="596" v:groupContext="shape" v:layerMember="1" transform="translate(682.653,-418.394)">
+			<title>Лист.596</title>
+			<path d="M-7.09 1953.64 L-7.09 1999.23" class="st10"/>
 		</g>
-		<g id="shape54-275" v:mID="54" v:groupContext="shape" v:layerMember="0" transform="translate(684.026,-282.108)">
-			<title>Лист.54</title>
+		<g id="shape597-277" v:mID="597" v:groupContext="shape" v:layerMember="1" transform="translate(771.413,-323.244)">
+			<title>Лист.597</title>
 			<desc>No</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="15.3007" cy="1865.67" width="70.01" height="24.8035"/>
-			<path d="M0 1879.85 L123.18 1879.85 L123.18 1664.18" class="st9"/>
-			<rect v:rectContext="textBkgnd" x="7.09086" y="1857.27" width="16.4199" height="16.8" class="st12"/>
-			<text x="7.09" y="1869.87" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>No</text>		</g>
-		<g id="shape55-282" v:mID="55" v:groupContext="shape" v:layerMember="0" transform="translate(492.333,-275.022)">
-			<title>Лист.55</title>
+			<v:textRect cx="15.3007" cy="1939.46" width="70.01" height="24.8035"/>
+			<path d="M0 1953.64 L123.18 1953.64 L123.18 1737.97" class="st10"/>
+			<rect v:rectContext="textBkgnd" x="7.09086" y="1931.06" width="16.4199" height="16.8" class="st13"/>
+			<text x="7.09" y="1943.66" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>No</text>		</g>
+		<g id="shape598-284" v:mID="598" v:groupContext="shape" v:layerMember="1" transform="translate(579.72,-316.157)">
+			<title>Лист.598</title>
 			<desc>Sending result</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="-53.3267" cy="1854.15" width="92.19" height="24.8035"/>
-			<path d="M0 1872.76 L-103.29 1872.76" class="st9"/>
-			<rect v:rectContext="textBkgnd" x="-93.8328" y="1845.75" width="81.0124" height="16.8" class="st12"/>
-			<text x="-93.83" y="1858.35" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Sending result</text>		</g>
-		<g id="shape56-289" v:mID="56" v:groupContext="shape" transform="translate(212.541,-239.589)">
+			<v:textRect cx="-53.3267" cy="1927.94" width="92.19" height="24.8035"/>
+			<path d="M0 1946.55 L-103.29 1946.55" class="st10"/>
+			<rect v:rectContext="textBkgnd" x="-93.8328" y="1919.54" width="81.0124" height="16.8" class="st13"/>
+			<text x="-93.83" y="1932.14" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Sending result</text>		</g>
+		<g id="shape599-291" v:mID="599" v:groupContext="shape" transform="translate(299.929,-280.724)">
 			<title>Прямоугольник.441</title>
 			<desc>Client checks answer from server on key validity. Is key valid?</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="84.7324" cy="1837.33" width="169.47" height="85.0394"/>
-			<rect x="0" y="1794.81" width="169.465" height="85.0394" class="st4"/>
-			<text x="9.98" y="1824.73" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client checks answer from <tspan
-						x="5.24" dy="1.2em" class="st3">server on key validity. Is key </tspan><tspan x="68.08" dy="1.2em"
-						class="st3">valid?</tspan></text>		</g>
-		<g id="shape57-294" v:mID="57" v:groupContext="shape" v:layerMember="0" transform="translate(212.541,-282.108)">
-			<title>Лист.57</title>
+			<v:textRect cx="84.7324" cy="1911.12" width="169.47" height="85.0394"/>
+			<rect x="0" y="1868.6" width="169.465" height="85.0394" class="st5"/>
+			<text x="9.98" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client checks answer from <tspan
+						x="5.24" dy="1.2em" class="st4">server on key validity. Is key </tspan><tspan x="68.08" dy="1.2em"
+						class="st4">valid?</tspan></text>		</g>
+		<g id="shape600-296" v:mID="600" v:groupContext="shape" v:layerMember="1" transform="translate(299.929,-323.244)">
+			<title>Лист.600</title>
 			<desc>No</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="-15.4745" cy="1861.23" width="70.01" height="24.8035"/>
-			<path d="M0 1879.85 L-127.56 1879.85 L-127.56 1664.18" class="st9"/>
-			<rect v:rectContext="textBkgnd" x="-23.6843" y="1852.83" width="16.4199" height="16.8" class="st12"/>
-			<text x="-23.68" y="1865.43" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>No</text>		</g>
-		<g id="shape58-301" v:mID="58" v:groupContext="shape" transform="translate(503.447,-102.297)">
+			<v:textRect cx="-15.4745" cy="1935.02" width="70.01" height="24.8035"/>
+			<path d="M0 1953.64 L-127.56 1953.64 L-127.56 1737.97" class="st10"/>
+			<rect v:rectContext="textBkgnd" x="-23.6843" y="1926.62" width="16.4199" height="16.8" class="st13"/>
+			<text x="-23.68" y="1939.22" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>No</text>		</g>
+		<g id="shape601-303" v:mID="601" v:groupContext="shape" transform="translate(590.834,-143.433)">
 			<title>Прямоугольник.445</title>
 			<desc>Save shared secret while connection is active Will be saved i...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="84.7324" cy="1827.89" width="169.47" height="103.91"/>
-			<rect x="0" y="1775.94" width="169.465" height="103.91" class="st4"/>
-			<text x="14.58" y="1790.09" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Save shared secret while <tspan
-						x="28.54" dy="1.2em" class="st3">connection is active<v:newlineChar/></tspan><tspan x="40.08" dy="1.2em"
-						class="st3">Will be saved in </tspan><tspan x="12.61" dy="1.2em" class="st3">SessionKeyHolder as new </tspan><tspan
-						x="59.17" dy="1.2em" class="st3">record in </tspan><tspan x="8.31" dy="1.2em" class="st3">map&#60;userId,sharedSecret&#62;</tspan></text>		</g>
-		<g id="shape59-309" v:mID="59" v:groupContext="shape" transform="translate(212.541,-121.168)">
+			<v:textRect cx="84.7324" cy="1901.68" width="169.47" height="103.91"/>
+			<rect x="0" y="1849.73" width="169.465" height="103.91" class="st5"/>
+			<text x="14.58" y="1863.88" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Save shared secret while <tspan
+						x="28.54" dy="1.2em" class="st4">connection is active<v:newlineChar/></tspan><tspan x="40.08" dy="1.2em"
+						class="st4">Will be saved in </tspan><tspan x="12.61" dy="1.2em" class="st4">SessionKeyHolder as new </tspan><tspan
+						x="59.17" dy="1.2em" class="st4">record in </tspan><tspan x="8.31" dy="1.2em" class="st4">map&#60;userId,sharedSecret&#62;</tspan></text>		</g>
+		<g id="shape602-311" v:mID="602" v:groupContext="shape" transform="translate(299.929,-162.304)">
 			<title>Прямоугольник.449</title>
 			<desc>Save shared secret while connection is active Will be saved i...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="84.7324" cy="1837.33" width="169.47" height="85.0394"/>
-			<rect x="0" y="1794.81" width="169.465" height="85.0394" class="st4"/>
-			<text x="14.58" y="1816.33" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Save shared secret while <tspan
-						x="28.54" dy="1.2em" class="st3">connection is active<v:newlineChar/></tspan><tspan x="40.08" dy="1.2em"
-						class="st3">Will be saved in </tspan><tspan x="34.03" dy="1.2em" class="st3">SessionKeyHolder</tspan></text>		</g>
-		<g id="shape60-315" v:mID="60" v:groupContext="shape" v:layerMember="0" transform="translate(290.187,-239.589)">
-			<title>Лист.60</title>
+			<v:textRect cx="84.7324" cy="1911.12" width="169.47" height="85.0394"/>
+			<rect x="0" y="1868.6" width="169.465" height="85.0394" class="st5"/>
+			<text x="14.58" y="1890.12" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Save shared secret while <tspan
+						x="28.54" dy="1.2em" class="st4">connection is active<v:newlineChar/></tspan><tspan x="40.08" dy="1.2em"
+						class="st4">Will be saved in </tspan><tspan x="34.03" dy="1.2em" class="st4">SessionKeyHolder</tspan></text>		</g>
+		<g id="shape603-317" v:mID="603" v:groupContext="shape" v:layerMember="1" transform="translate(377.575,-280.724)">
+			<title>Лист.603</title>
 			<desc>Yes</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="21.2598" cy="1898.08" width="70" height="24.8035"/>
-			<path d="M7.09 1879.85 L7.09 1906.19" class="st9"/>
-			<rect v:rectContext="textBkgnd" x="11.6281" y="1889.68" width="19.2637" height="16.8" class="st12"/>
-			<text x="11.63" y="1902.28" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Yes</text>		</g>
-		<g id="shape61-322" v:mID="61" v:groupContext="shape" v:layerMember="0" transform="translate(595.266,-239.589)">
-			<title>Лист.61</title>
+			<v:textRect cx="21.2598" cy="1971.87" width="70" height="24.8035"/>
+			<path d="M7.09 1953.64 L7.09 1979.98" class="st10"/>
+			<rect v:rectContext="textBkgnd" x="11.6281" y="1963.47" width="19.2637" height="16.8" class="st13"/>
+			<text x="11.63" y="1976.07" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Yes</text>		</g>
+		<g id="shape604-324" v:mID="604" v:groupContext="shape" v:layerMember="1" transform="translate(682.653,-280.724)">
+			<title>Лист.604</title>
 			<desc>Yes</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="13.8192" cy="1894.73" width="70.01" height="24.8035"/>
-			<path d="M-7.09 1879.85 L-7.09 1906.19" class="st9"/>
-			<rect v:rectContext="textBkgnd" x="4.18741" y="1886.33" width="19.2637" height="16.8" class="st12"/>
-			<text x="4.19" y="1898.93" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Yes</text>		</g>
-		<g id="shape62-329" v:mID="62" v:groupContext="shape" transform="translate(363.587,-0.25)">
+			<v:textRect cx="13.8192" cy="1968.52" width="70.01" height="24.8035"/>
+			<path d="M-7.09 1953.64 L-7.09 1979.98" class="st10"/>
+			<rect v:rectContext="textBkgnd" x="4.18741" y="1960.12" width="19.2637" height="16.8" class="st13"/>
+			<text x="4.19" y="1972.72" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Yes</text>		</g>
+		<g id="shape605-331" v:mID="605" v:groupContext="shape" transform="translate(450.975,-41.3858)">
 			<title>Прямоугольник.453</title>
 			<desc>Ready for work</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="84.7324" cy="1837.33" width="169.47" height="85.0394"/>
-			<rect x="0" y="1794.81" width="169.465" height="85.0394" class="st4"/>
-			<text x="41.5" y="1841.53" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Ready for work</text>		</g>
-		<g id="shape63-332" v:mID="63" v:groupContext="shape" v:layerMember="0" transform="translate(297.274,-121.168)">
-			<title>Лист.63</title>
-			<path d="M0 1879.85 L0 1958.24 L59.27 1958.24" class="st9"/>
+			<v:textRect cx="84.7324" cy="1911.12" width="169.47" height="85.0394"/>
+			<rect x="0" y="1868.6" width="169.465" height="85.0394" class="st5"/>
+			<text x="41.5" y="1915.32" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Ready for work</text>		</g>
+		<g id="shape606-334" v:mID="606" v:groupContext="shape" v:layerMember="1" transform="translate(384.661,-162.304)">
+			<title>Лист.606</title>
+			<path d="M0 1953.64 L0 2032.04 L59.27 2032.04" class="st10"/>
 		</g>
-		<g id="shape64-337" v:mID="64" v:groupContext="shape" v:layerMember="0" transform="translate(588.179,-102.297)">
-			<title>Лист.64</title>
-			<path d="M0 1879.85 L0 1939.37 L-48.09 1939.37" class="st9"/>
+		<g id="shape607-339" v:mID="607" v:groupContext="shape" v:layerMember="1" transform="translate(675.567,-143.433)">
+			<title>Лист.607</title>
+			<path d="M0 1953.64 L0 2013.17 L-48.09 2013.17" class="st10"/>
 		</g>
-		<g id="shape65-342" v:mID="65" v:groupContext="shape" transform="translate(722.471,-504.817)">
+		<g id="shape608-344" v:mID="608" v:groupContext="shape" transform="translate(809.858,-545.953)">
 			<title>Прямоугольник.456</title>
 			<desc>if the connection failed twice, close the connection</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="84.7324" cy="1837.33" width="169.47" height="85.0394"/>
-			<rect x="0" y="1794.81" width="169.465" height="85.0394" class="st4"/>
-			<text x="19.1" y="1833.13" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>if the connection failed <tspan
-						x="7.09" dy="1.2em" class="st3">twice, close the connection</tspan></text>		</g>
-		<g id="shape66-346" v:mID="66" v:groupContext="shape" transform="translate(0.25,-504.817)">
+			<v:textRect cx="84.7324" cy="1911.12" width="169.47" height="85.0394"/>
+			<rect x="0" y="1868.6" width="169.465" height="85.0394" class="st5"/>
+			<text x="19.1" y="1906.92" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>if the connection failed <tspan
+						x="7.09" dy="1.2em" class="st4">twice, close the connection</tspan></text>		</g>
+		<g id="shape609-348" v:mID="609" v:groupContext="shape" transform="translate(87.6374,-545.953)">
 			<title>Прямоугольник.457</title>
 			<desc>if the connection failed twice, close the connection</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
-			<v:textRect cx="84.7324" cy="1837.33" width="169.47" height="85.0394"/>
-			<rect x="0" y="1794.81" width="169.465" height="85.0394" class="st4"/>
-			<text x="19.1" y="1833.13" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>if the connection failed <tspan
-						x="7.09" dy="1.2em" class="st3">twice, close the connection</tspan></text>		</g>
-		<g id="shape67-350" v:mID="67" v:groupContext="shape" v:layerMember="0" transform="translate(84.9824,-589.856)">
-			<title>Лист.67</title>
-			<path d="M0 1879.85 L0 1582.21 L148.56 1582.21" class="st9"/>
+			<v:textRect cx="84.7324" cy="1911.12" width="169.47" height="85.0394"/>
+			<rect x="0" y="1868.6" width="169.465" height="85.0394" class="st5"/>
+			<text x="19.1" y="1906.92" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>if the connection failed <tspan
+						x="7.09" dy="1.2em" class="st4">twice, close the connection</tspan></text>		</g>
+		<g id="shape610-352" v:mID="610" v:groupContext="shape" v:layerMember="1" transform="translate(172.37,-630.992)">
+			<title>Лист.610</title>
+			<path d="M0 1953.64 L0 1656 L148.56 1656" class="st10"/>
 		</g>
-		<g id="shape68-355" v:mID="68" v:groupContext="shape" v:layerMember="0" transform="translate(807.203,-589.856)">
-			<title>Лист.68</title>
-			<path d="M0 1879.85 L0 1582.21 L-155.29 1582.21" class="st9"/>
+		<g id="shape611-357" v:mID="611" v:groupContext="shape" v:layerMember="1" transform="translate(894.591,-630.992)">
+			<title>Лист.611</title>
+			<path d="M0 1953.64 L0 1656 L-155.29 1656" class="st10"/>
 		</g>
 	</g>
 </svg>
