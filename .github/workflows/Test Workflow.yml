@@ -46,8 +46,7 @@ jobs:
     - name: Install
       run: cmake --install /home/runner/work/Juniorgram/Juniorgram/build
    
-    - name: Archive executables executable
-      if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    - name: Archive executables
       uses: actions/upload-artifact@v2
       with:
         name: juniorgram_executables_${{matrix.BUILD_TYPE}}

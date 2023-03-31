@@ -15,8 +15,4 @@ target_link_libraries(${TARGET} PUBLIC Network.Public
                                 PRIVATE ${EXTRA_LIBS} asio::asio yas::yas)
 
 install(TARGETS ${TARGET}
-        CONFIGURATIONS Debug
-        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Client/Debug)
-install(TARGETS ${TARGET}
-        CONFIGURATIONS Release
-        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/Client/Release)
+        RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/)
