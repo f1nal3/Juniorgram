@@ -72,3 +72,8 @@ jobs:
 
         - name: Download all workflow run artifacts
           uses: actions/download-artifact@v3
+          with:
+            name: juniorgram_executables_${{matrix.BUILD_TYPE}}
+        
+        - name: list
+          run: ls -R
