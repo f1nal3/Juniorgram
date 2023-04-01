@@ -103,11 +103,6 @@ TEST_CASE("Method of obtaining a pair of arguments of the argparser [ArgParser][
         REQUIRE(parser.getPair("--password") == passwordPair);
     }
 
-    SECTION("Getting an argument from a failed pair")
-    {
-        REQUIRE_THROWS_AS(parser.getPair(std::any_cast<std::string>(int("serverport"))), std::exception);
-    }
-
     SECTION("Taking a bad flag") 
     { 
         CHECK_THROWS_AS(parser.getPair("any_flag"), std::exception);
