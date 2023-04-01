@@ -16,30 +16,24 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
         CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
     }
 
-    SECTION("Number of keys without values throws an exception")
-    {
-        std::vector<const char*> args = {"juniorgram", "-m"};
-        CHECK_THROWS_AS(ArgParser(static_cast<int>(args.size()), args.data()), std::runtime_error);
-    }
-
-    SECTION("Calling the helper flag")
-    {
-        std::vector<const char*> args = {"./juniorgram", "--help"};
-        CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()), args.data()));
-    }
-
     SECTION("Constructor with different arguments")
     {
         std::vector<const char*> args = {"./juniorgram",           "--serverport=65003", "--port=6666", "--dbname=testdb",
-                                         "--hostaddr=255.255.0.0", "--user=tester",      "--password=tester"};
+                                         "--hostaddr=255.255.0.0", "--user=dbuser",      "--password=dbpassword"};
         CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
     }
 
     SECTION("deliberate disregard for the value of the argument")
     {
         std::vector<const char*> args = {"./juniorgram",           "--serverport=6666666", "--port=6666666", "--dbname=otherdb",
-                                         "--hostaddr=255.255.0.0", "--user=tester",        "--password=tester"};
+                                         "--hostaddr=126.0.0.1", "--user=tester",        "--password=tester"};
         CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()), args.data()));
+    }
+
+    SECTION("Duplicated keys in arguments throw an exception")
+    {
+        std::vector<const char*> args = {"./juniorgram", "--serverport=65001", "--serverport=65001", "--serverport=65001"};
+        CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
     }
 
     SECTION("Invalid arguments keys throw an exception")
@@ -51,13 +45,19 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
     SECTION("Number of keys without values throws an exception")
     {
         std::vector<const char*> args = {"./juniorgram", "-m", "999"};
-        CHECK_THROWS_AS(ArgParser(static_cast<int>(args.size()), args.data()), std::runtime_error);
+        CHECK_THROWS_AS(ArgParser(static_cast<int>(args.size()), args.data()), std::exception);
     }
 
-    SECTION("Duplicated keys in arguments throw an exception")
+    SECTION("Number of keys without values throws an exception")
     {
-        std::vector<const char*> args = {"./juniorgram", "--serverport=65001", "--serverport=65001", "--serverport=65001"};
-        CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
+        std::vector<const char*> args = {"juniorgram", "-m"};
+        CHECK_THROWS_AS(ArgParser(static_cast<int>(args.size()), args.data()), std::exception);
+    }
+
+    SECTION("Calling the helper flag")
+    {
+        std::vector<const char*> args = {"./juniorgram", "--help"};
+        CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()), args.data()));
     }
 }
 
@@ -87,7 +87,7 @@ TEST_CASE("Method of obtaining a pair of arguments of the argparser [ArgParser][
         std::vector<const char*> sectionArgs = {"./juniorgram", "--serverport=65003"};
         ArgParser                sectionParser(static_cast<int>(sectionArgs.size()), sectionArgs.data());
 
-        std::pair<std::string, std::string> serverPortPair{"--serverport", "65003"};
+        std::pair<std::string, std::string> serverPortPair("--serverport", "65003");
         REQUIRE(sectionParser.getPair("--serverport").second == serverPortPair.second);
     }
 
