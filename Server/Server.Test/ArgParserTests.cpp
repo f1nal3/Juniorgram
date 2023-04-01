@@ -59,7 +59,7 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Failed]")
 
     SECTION("Parsing incorrectly filled arguments")
     {
-        std::vector<const char*> args { "66666", "test_flag", "126.0.0.1", "8989" };
+        std::vector<const char*> args { "66666", "test_flag", "password", "8989" };
         CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
     }
 
