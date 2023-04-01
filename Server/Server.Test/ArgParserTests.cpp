@@ -16,6 +16,12 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
         CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
     }
 
+    SECTION("Calling the helper flag")
+    {
+        std::vector<const char*> args = {"./juniorgram", "--help"};
+        CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()), args.data()));
+    }
+
     SECTION("Constructor with different arguments")
     {
         std::vector<const char*> args = {"./juniorgram", "--serverport=65003", "--port=6666", 
@@ -34,6 +40,12 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
     {
         std::vector<const char*> args = {"./juniorgram", "-m", "any_flag=test", "666666"};
         CHECK_THROWS_AS(ArgParser(static_cast<int>(args.size()), args.data()), std::exception);
+    }
+
+    SECTION("Number of keys without values throws an exception")
+    {
+        std::vector<const char*> args = {"./juniorgram", "-m", "999"};
+        CHECK_THROWS_AS(ArgParser(static_cast<int>(args.size()), args.data()), std::runtime_error);
     }
 
     SECTION("Duplicated keys in arguments throw an exception")
@@ -64,7 +76,7 @@ TEST_CASE("Method of obtaining a pair of arguments of the argparser [ArgParser][
         REQUIRE(parser.getPair("--serverport") == serverPortPair);
     }
 
-    SECTION("Check the server port flag pair with the other argument")
+    SECTION("Check the any flag pair with the other argument")
     {
         std::vector<const char*> sectionArgs = {"./juniorgram", "--serverport=65003"};
         ArgParser                sectionParser(static_cast<int>(sectionArgs.size()), sectionArgs.data());
