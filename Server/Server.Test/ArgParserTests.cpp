@@ -29,12 +29,12 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
         CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
     }
 
-    //SECTION("Number limit 1")
-    //{
-    //    std::vector<const char*> args = {"./juniorgram", "--serverport=6666666", "--port=6666666",
-    //        "--dbname=otherdb", "--hostaddr=255.255.0.0", "--user=tester", "--password=tester"};
-    //    CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
-    //}
+    SECTION("deliberate disregard for the value of the argument")
+    {
+        std::vector<const char*> args = {"./juniorgram", "--serverport=6666666", "--port=6666666",
+            "--dbname=otherdb", "--hostaddr=255.255.0.0", "--user=tester", "--password=tester"};
+        CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
+    }
 	
     SECTION("Invalid arguments keys throw an exception")
     {
