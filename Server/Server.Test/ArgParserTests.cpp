@@ -62,6 +62,42 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Failed]")
         std::vector<const char*> args { "66666", "test_flag", "126.0.0.1", "8989" };
         CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
     }
+
+    SECTION("Bad parsing 1")
+    {
+        std::vector<const char*> args{"--serverport:serverport"};
+        CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
+    }
+
+    SECTION("Bad parsing 2")
+    {
+        std::vector<const char*> args{"--port:port"};
+        CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
+    }
+
+    SECTION("Bad parsing 3")
+    {
+        std::vector<const char*> args{"--dbname:666"};
+        CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
+    }
+
+    SECTION("Bad parsing 4")
+    {
+        std::vector<const char*> args{"--hostaddr:hostaddr"};
+        CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
+    }
+
+    SECTION("Bad parsing 5")
+    {
+        std::vector<const char*> args{"--user:|||"};
+        CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
+    }
+
+    SECTION("Bad parsing 6")
+    {
+        std::vector<const char*> args{"--password:|||"};
+        CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
+    }
 }
 
 TEST_CASE("Method of obtaining a pair of arguments of the argparser [ArgParser][Success]")
