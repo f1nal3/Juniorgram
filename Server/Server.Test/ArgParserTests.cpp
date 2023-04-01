@@ -16,6 +16,12 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
         CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
     }
 
+    SECTION("Number of keys without values throws an exception")
+    {
+        std::vector<const char*> args = {"juniorgram", "-m"};
+        CHECK_THROWS_AS(ArgParser(static_cast<int>(args.size()), args.data()), std::runtime_error);
+    }
+
     SECTION("Calling the helper flag")
     {
         std::vector<const char*> args = {"./juniorgram", "--help"};
@@ -29,13 +35,48 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
         CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
     }
 
-    SECTION("deliberate disregard for the value of the argument")
+    SECTION("deliberate disregard for the value of the argument of a server port")
     {
-        std::vector<const char*> args = {"./juniorgram", "--serverport=6666666", "--port=6666666",
-            "--dbname=otherdb", "--hostaddr=255.255.0.0", "--user=tester", "--password=tester"};
+        std::vector<const char*> args = {"./juniorgram", "--serverport=6666666"};
+        CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
+    }
+
+    SECTION("deliberate disregard for the value of the argument of a database port")
+    {   
+        std::vector<const char*> args = {"./juniorgram", "--port=6666666"};
+        CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
+    }
+
+    SECTION("deliberate disregard for the value of the argument of a database")
+    {
+        {
+            std::vector<const char*> args = {"./juniorgram", "--dbname=testdb"};
+            CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()), args.data()));
+        }
+        {
+            std::vector<const char*> args = {"./juniorgram", "--dbname=otherdb"};
+            CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()), args.data()));
+        }
+    }
+
+    SECTION("deliberate disregard for the value of the argument of a host address")
+    {
+        std::vector<const char*> args = {"./juniorgram", "--hostaddr=255.255.0.0"};
         CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
     }
 	
+    SECTION("deliberate disregard for the value of the argument of a database user")
+    {   
+        std::vector<const char*> args = {"./juniorgram", "--user=tester"};
+        CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
+    }
+
+    SECTION("deliberate disregard for the value of the argument of a database password")
+    {
+        std::vector<const char*> args = {"./juniorgram", "--password=tester"};
+        CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
+    }
+
     SECTION("Invalid arguments keys throw an exception")
     {
         std::vector<const char*> args = {"./juniorgram", "-m", "any_flag=test", "666666"};
