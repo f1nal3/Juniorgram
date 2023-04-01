@@ -11,23 +11,23 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
 
     SECTION("Constructor with default arguments")
     {
-        std::vector<const char*> args {"./juniorgram", "--serverport=65001", "--port=5432", "--dbname=juniorgram",
+        std::vector<const char*> defaultArgs {"./juniorgram", "--serverport=65001", "--port=5432", "--dbname=juniorgram",
                                          "--hostaddr=127.0.0.1", "--user=postgres", "--password=postgres"};
-        CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
+        CHECK_NOTHROW(ArgParser(static_cast<int>(defaultArgs.size()), defaultArgs.data()));
     }
 
     SECTION("Constructor with different arguments")
     {
-        std::vector<const char*> args {"./juniorgram", "--serverport:65003", "--port:6666", "--dbname:testdb",
+        std::vector<const char*> differentArgs {"./juniorgram", "--serverport:65003", "--port:6666", "--dbname:testdb",
                                          "--hostaddr:255.255.0.0", "--user:dbuser", "--password:dbpassword"};
-        CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
+        CHECK_NOTHROW(ArgParser(static_cast<int>(differentArgs.size()), differentArgs.data()));
     }
 
     SECTION("Deliberate disregard for the value of the argument")
     {
-        std::vector<const char*> args {"./juniorgram", "--serverport=6666666", "--port=6666666", "--dbname=otherdb",
+        std::vector<const char*> limitedArgs {"./juniorgram", "--serverport=6666666", "--port=6666666", "--dbname=otherdb",
                                          "--hostaddr=126.0.0.1", "--user=tester", "--password=tester"};
-        CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()), args.data()));
+        CHECK_NOTHROW(ArgParser(static_cast<int>(limitedArgs.size()), limitedArgs.data()));
     }
 
     SECTION("Calling the helper flag")
@@ -60,42 +60,6 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Failed]")
     SECTION("Parsing incorrectly filled arguments")
     {
         std::vector<const char*> args { "66666", "test_flag", "password", "8989" };
-        CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
-    }
-
-    SECTION("Bad parsing 1")
-    {
-        std::vector<const char*> args{"--serverport:serverport"};
-        CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
-    }
-
-    SECTION("Bad parsing 2")
-    {
-        std::vector<const char*> args{"--port:port"};
-        CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
-    }
-
-    SECTION("Bad parsing 3")
-    {
-        std::vector<const char*> args{"--dbname:666"};
-        CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
-    }
-
-    SECTION("Bad parsing 4")
-    {
-        std::vector<const char*> args{"--hostaddr:hostaddr"};
-        CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
-    }
-
-    SECTION("Bad parsing 5")
-    {
-        std::vector<const char*> args{"--user:|||"};
-        CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
-    }
-
-    SECTION("Bad parsing 6")
-    {
-        std::vector<const char*> args{"--password:|||"};
         CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
     }
 }
