@@ -5,54 +5,72 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
 {
     SECTION("Default constructor")
     {
-        std::vector<const char*> args = {"juniorgram"};
+        std::vector<const char*> args = {"./juniorgram"};
         CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()), args.data()));
     }
 
-    SECTION("Number of keys without values throws an exception")
+    SECTION("Constructor with default arguments")
     {
-        std::vector<const char*> args = {"juniorgram", "--any_flag"};
-        CHECK_THROWS_AS(ArgParser(static_cast<int>(args.size()), args.data()), std::runtime_error);
+        std::vector<const char*> args = {"./juniorgram", "--serverport=65001", "--port=5432", 
+            "--dbname=juniorgram", "--hostaddr=127.0.0.1", "--user=postgres", "--password=postgres"};
+        CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
     }
 
-    SECTION("Number of keys without values throws an exception")
+    SECTION("Constructor with different arguments")
     {
-        std::vector<const char*> args = {"juniorgram", "-m", "999"};
-        CHECK_THROWS_AS(ArgParser(static_cast<int>(args.size()), args.data()), std::runtime_error);
+        std::vector<const char*> args = {"./juniorgram", "--serverport=65003", "--port=6666", 
+            "--dbname=testdb", "--hostaddr=255.255.0.0", "--user=tester", "--password=tester"};
+        CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
     }
+
+    //SECTION("Number limit 1")
+    //{
+    //    std::vector<const char*> args = {"./juniorgram", "--serverport=6666666", "--port=6666666",
+    //        "--dbname=otherdb", "--hostaddr=255.255.0.0", "--user=tester", "--password=tester"};
+    //    CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
+    //}
 	
     SECTION("Invalid arguments keys throw an exception")
     {
-        std::vector<const char*> args = {"juniorgram", "-m", "--any_flag", "666666"};
-        CHECK_THROWS_AS(ArgParser(static_cast<int>(args.size()), args.data()), std::runtime_error);
+        std::vector<const char*> args = {"./juniorgram", "-m", "any_flag=test", "666666"};
+        CHECK_THROWS_AS(ArgParser(static_cast<int>(args.size()), args.data()), std::exception);
     }
 
     SECTION("Duplicated keys in arguments throw an exception")
     {
-        std::vector<const char*> args = {"juniorgram", "--any_flag", "--any_flag", "--any_flag"};
+        std::vector<const char*> args = {"./juniorgram", "--serverport=65001", "--serverport=65001", "--serverport=65001"};
         CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
     }
 }
 
 TEST_CASE("Method of obtaining a pair of arguments of the argparser [ArgParser][Success]")
 { 
-    std::vector<const char*> args = {"juniorgram"};
+    std::vector<const char*> args = {"./juniorgram"};
     ArgParser                parser(static_cast<int>(args.size()), args.data());
 
     SECTION("Getting arguments with default pairs")
     {
-        CHECK_NOTHROW(parser.getPair("--serverport"));
-        CHECK_NOTHROW(parser.getPair("--dbname"));
-        CHECK_NOTHROW(parser.getPair("--hostaddr"));
-        CHECK_NOTHROW(parser.getPair("--port"));
-        CHECK_NOTHROW(parser.getPair("--user"));
-        CHECK_NOTHROW(parser.getPair("--password"));
+        CHECK_NOTHROW(parser.getPair("serverport"));
+        CHECK_NOTHROW(parser.getPair("dbname"));
+        CHECK_NOTHROW(parser.getPair("hostaddr"));
+        CHECK_NOTHROW(parser.getPair("port"));
+        CHECK_NOTHROW(parser.getPair("user"));
+        CHECK_NOTHROW(parser.getPair("password"));
     }
     
     SECTION("Check the server port flag pair with the default argument") 
     { 
         std::pair<std::string,std::string> serverPortPair{"--serverport", "65001"};
         REQUIRE(parser.getPair("--serverport") == serverPortPair);
+    }
+
+    SECTION("Check the server port flag pair with the other argument")
+    {
+        std::vector<const char*> sectionArgs = {"./juniorgram", "--serverport=65003"};
+        ArgParser                sectionParser(static_cast<int>(sectionArgs.size()), sectionArgs.data());
+
+        std::pair<std::string, std::string> serverPortPair{"--serverport", "65003"};
+        REQUIRE(sectionParser.getPair("--serverport").second == serverPortPair.second);
     }
 
     SECTION("Check the database flag pair with the default argument")
@@ -85,8 +103,13 @@ TEST_CASE("Method of obtaining a pair of arguments of the argparser [ArgParser][
         REQUIRE(parser.getPair("--password") == passwordPair);
     }
 
+    SECTION("Getting an argument from a failed pair")
+    {
+        REQUIRE_THROWS_AS(parser.getPair(std::any_cast<std::string>(int("serverport"))), std::exception);
+    }
+
     SECTION("Taking a bad flag") 
     { 
-        CHECK_THROWS_AS(parser.getPair("--any_flag"), std::exception);
+        CHECK_THROWS_AS(parser.getPair("any_flag"), std::exception);
     }
 }
