@@ -11,46 +11,49 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
 
     SECTION("Constructor with default arguments")
     {
-        std::vector<const char*> args = {"./juniorgram",         "--serverport=65001", "--port=5432", "--dbname=juniorgram",
-                                         "--hostaddr=127.0.0.1", "--user=postgres",    "--password=postgres"};
+        std::vector<const char*> args = {"./juniorgram", "--serverport=65001", "--port=5432", "--dbname=juniorgram",
+                                         "--hostaddr=127.0.0.1", "--user=postgres", "--password=postgres"};
         CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
     }
 
     SECTION("Constructor with different arguments")
     {
-        std::vector<const char*> args = {"./juniorgram",           "--serverport=65003", "--port=6666", "--dbname=testdb",
-                                         "--hostaddr=255.255.0.0", "--user=dbuser",      "--password=dbpassword"};
+        std::vector<const char*> args = {"./juniorgram", "--serverport:65003", "--port:6666", "--dbname:testdb",
+                                         "--hostaddr:255.255.0.0", "--user:dbuser", "--password:dbpassword"};
         CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()),args.data()));
     }
 
-    SECTION("deliberate disregard for the value of the argument")
+    SECTION("Deliberate disregard for the value of the argument")
     {
-        std::vector<const char*> args = {"./juniorgram",           "--serverport=6666666", "--port=6666666", "--dbname=otherdb",
-                                         "--hostaddr=126.0.0.1", "--user=tester",        "--password=tester"};
+        std::vector<const char*> args = {"./juniorgram", "--serverport=6666666", "--port=6666666", "--dbname=otherdb",
+                                         "--hostaddr=126.0.0.1", "--user=tester", "--password=tester"};
         CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()), args.data()));
     }
 
+    SECTION("Calling the helper flag")
+    {
+        std::vector<const char*> args = {"./juniorgram", "--help"};
+        CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()), args.data()));
+    }
+}
+
+TEST_CASE("Constructor of ArgParser [ArgParser][Failed]")
+{
     SECTION("Duplicated keys in arguments throw an exception")
     {
-        std::vector<const char*> args = {"./juniorgram", "--serverport=65001", "--serverport=65001", "--serverport=65001"};
+        std::vector<const char*> args = {"./juniorgram", "--serverport=65001", "--serverport=65001"};
         CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
     }
 
     SECTION("Invalid arguments keys throw an exception")
     {
-        std::vector<const char*> args = {"./juniorgram", "-m", "any_flag=test", "666666"};
+        std::vector<const char*> args = {"./juniorgram", "any_flag", "test_flag"};
         CHECK_THROWS_AS(ArgParser(static_cast<int>(args.size()), args.data()), std::exception);
     }
 
     SECTION("Number of keys without values throws an exception")
     {
         std::vector<const char*> args = {"./juniorgram", "-m", "999"};
-        CHECK_THROWS_AS(ArgParser(static_cast<int>(args.size()), args.data()), std::exception);
-    }
-
-    SECTION("Number of keys without values throws an exception")
-    {
-        std::vector<const char*> args = {"juniorgram", "-m"};
         CHECK_THROWS_AS(ArgParser(static_cast<int>(args.size()), args.data()), std::exception);
     }
 
