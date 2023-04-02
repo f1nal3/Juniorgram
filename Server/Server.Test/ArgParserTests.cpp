@@ -43,8 +43,14 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
 
     SECTION("Calling the helper flag")
     {
-        std::vector<const char*> args {"./juniorgram", "--help"};
-        CHECK_NOTHROW(ArgParser(static_cast<int>(args.size()), args.data()));
+        std::vector<const char*> helperArgs {"./juniorgram", "--help"};
+        CHECK_NOTHROW(ArgParser(static_cast<int>(helperArgs.size()), helperArgs.data()));
+    }
+
+    SECTION("Calling the other helper flag")
+    {
+        std::vector<const char*> helperArgs{"./juniorgram", "-h"};
+        CHECK_NOTHROW(ArgParser(static_cast<int>(helperArgs.size()), helperArgs.data()));
     }
 }
 
