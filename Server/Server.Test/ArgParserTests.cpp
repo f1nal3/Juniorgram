@@ -11,23 +11,23 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
 
     SECTION("Constructor with default arguments and default initialization")
     {
-        std::vector<const char*> defaultArgs {"./juniorgram", 
+       std::vector<const char*> defaultArgs {"./juniorgram", 
                                               "--serverport=65001", 
                                               "--port=5432", "--dbname=juniorgram",
                                               "--hostaddr=127.0.0.1", 
                                               "--user=postgres", "--password=postgres"};
-        CHECK_NOTHROW(ArgParser(static_cast<int>(defaultArgs.size()), defaultArgs.data()));
+       CHECK_NOTHROW(ArgParser(static_cast<int>(defaultArgs.size()), defaultArgs.data()));
     }
 
     SECTION("Constructor with other initialization")
     {
         std::vector<const char*> otherDefaultArgs{"./juniorgram",
-                                             "--serverport", "65001",
-                                             "--port", "5432",
+                                             "--serverport", "65003",
+                                             "--port", "6432",
                                              "--dbname", "testdb",
-                                             "--hostaddr", "127.0.0.1",
-                                             "--user", "postgres", 
-                                             "--password", "postgres"};
+                                             "--hostaddr", "200.0.0.1",
+                                             "--user", "user", 
+                                             "--password", "user"};
         CHECK_NOTHROW(ArgParser(static_cast<int>(otherDefaultArgs.size()), otherDefaultArgs.data()));
     }
 
