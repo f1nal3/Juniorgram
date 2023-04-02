@@ -24,7 +24,7 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
         std::vector<const char*> otherDefaultArgs{"./juniorgram",
                                              "--serverport", "65001",
                                              "--port", "5432",
-                                             "--dbname", "juniorgram",
+                                             "--dbname", "testdb",
                                              "--hostaddr", "127.0.0.1",
                                              "--user", "postgres", 
                                              "--password", "postgres"};
@@ -52,26 +52,35 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Failed]")
 {
     SECTION("Duplicated keys in arguments throw an exception")
     {
-        std::vector<const char*> args {"./juniorgram", "--serverport=65001", "--serverport=65001"};
-        CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
+        std::vector<const char*> failedArgs {"./juniorgram", "--serverport=65001", "--serverport=65001"};
+        CHECK_THROWS(ArgParser(static_cast<int>(failedArgs.size()), failedArgs.data()));
     }
 
     SECTION("Invalid arguments keys throw an exception")
     {
-        std::vector<const char*> args {"./juniorgram", "any_flag", "test_flag"};
-        CHECK_THROWS_AS(ArgParser(static_cast<int>(args.size()), args.data()), std::exception);
+        std::vector<const char*> failedArgs {"./juniorgram", "any_flag", "test_flag"};
+        CHECK_THROWS_AS(ArgParser(static_cast<int>(failedArgs.size()), failedArgs.data()), std::exception);
     }
 
     SECTION("Number of keys without values throws an exception")
     {
-        std::vector<const char*> args {"./juniorgram", "-m", "999"};
-        CHECK_THROWS_AS(ArgParser(static_cast<int>(args.size()), args.data()), std::exception);
+        std::vector<const char*> failedArgs {"./juniorgram", "-m", "999"};
+        CHECK_THROWS_AS(ArgParser(static_cast<int>(failedArgs.size()), failedArgs.data()), std::exception);
     }
 
     SECTION("Parsing incorrectly filled arguments")
-    {
-        std::vector<const char*> args { "66666", "test_flag", "password", "8989" };
-        CHECK_THROWS(ArgParser(static_cast<int>(args.size()), args.data()));
+    { 
+        std::vector<const char*> failedArgs {"./juniorgram", 
+                                             "serverport=test_key", "port=test_key", 
+                                             "dbname=test_key",     "hostaddr=test_key",
+                                             "user=test_key",       "password=test_key"};
+        CHECK_THROWS(ArgParser(static_cast<int>(failedArgs.size()), failedArgs.data()));
+    }
+
+    SECTION("Parsing an unknown argument")
+    { 
+        std::vector<const char*> failedArgs {"./juniorgram", "--test_flag=666"};
+        CHECK_THROWS(ArgParser(static_cast<int>(failedArgs.size()), failedArgs.data()));
     }
 }
 
