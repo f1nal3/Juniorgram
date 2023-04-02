@@ -1,4 +1,5 @@
 #include <catch2/catch.hpp>
+
 #include <ArgParser.hpp>
 
 TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
@@ -47,7 +48,7 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
         CHECK_NOTHROW(ArgParser(static_cast<int>(helperArgs.size()), helperArgs.data()));
     }
 
-    SECTION("Calling the other helper flag")
+    SECTION("Calling the abridged version of helper flag")
     {
         std::vector<const char*> helperArgs{"./juniorgram", "-h"};
         CHECK_NOTHROW(ArgParser(static_cast<int>(helperArgs.size()), helperArgs.data()));
@@ -109,9 +110,10 @@ TEST_CASE("Method of obtaining a pair of arguments of the argparser [ArgParser][
     {
         std::vector<const char*> sectionArgs = {"./juniorgram", "--serverport=65003"};
         ArgParser                sectionParser(static_cast<int>(sectionArgs.size()), sectionArgs.data());
+        REQUIRE_NOTHROW(sectionParser);
 
-        std::pair<std::string, std::string> serverPortPair{"--serverport", "65003"};
-        REQUIRE(sectionParser.getPair("--serverport").second == serverPortPair.second);
+        std::pair<std::string, std::string> otherPair{"--serverport", "65003"};
+        REQUIRE(sectionParser.getPair("--serverport").second == otherPair.second);
     }
 
     SECTION("Check the database flag pair with the default argument")
