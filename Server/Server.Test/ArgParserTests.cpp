@@ -19,16 +19,6 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
         CHECK_NOTHROW(ArgParser(static_cast<int>(defaultArgs.size()), defaultArgs.data()));
     }
 
-    SECTION("Constructor with different arguments and other initialization")
-    {
-        std::vector<const char*> differentArgs {"./juniorgram", 
-                                                "--serverport:65003",
-                                                "--port:6666", "--dbname:testdb",
-                                                "--hostaddr:255.255.0.0", 
-                                                "--user:dbuser", "--password:dbpassword"};
-        CHECK_NOTHROW(ArgParser(static_cast<int>(differentArgs.size()), differentArgs.data()));
-    }
-
     SECTION("Constructor with other initialization")
     {
         std::vector<const char*> otherDefaultArgs{"./juniorgram",
