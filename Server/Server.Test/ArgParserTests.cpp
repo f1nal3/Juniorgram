@@ -25,7 +25,7 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
                                              "--serverport", "65003",
                                              "--port", "6432",
                                              "--dbname", "testdb",
-                                             "--hostaddr", "200.0.0.1",
+                                             "--hostaddr", "0.0.0.0",
                                              "--user", "user", 
                                              "--password", "user"};
         CHECK_NOTHROW(ArgParser(static_cast<int>(otherDefaultArgs.size()), otherDefaultArgs.data()));
