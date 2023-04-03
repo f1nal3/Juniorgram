@@ -8,7 +8,7 @@ set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CXX_EXTENSIONS off)
 
-# Oprions
+# Options
 option(ENABLE_CCACHE        "Enable the usage of Ccache."           ON)
 option(ENABLE_WARNINGS      "Enable to add warnings to a target."   ON)
 
