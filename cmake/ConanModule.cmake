@@ -34,7 +34,9 @@ conan_cmake_install(PATH_OR_REFERENCE .
                     REMOTE conancenter
                     BUILD missing
                     INSTALL_FOLDER ${CMAKE_BINARY_DIR}/Conan
-                    SETTINGS ${settings})
+                    SETTINGS ${settings}
+                    ENV "F77=no"
+                    ENV "FCs=no")
 
 # Append the folder with
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}/Conan)
