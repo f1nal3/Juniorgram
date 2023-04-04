@@ -46,11 +46,6 @@ public:
                 auto port = static_cast<uint32_t>(std::stoi(value));
                 if (port > std::numeric_limits<uint16_t>::max())
                 {
-                    Base::Logger::FileLogger::getInstance().log
-                    (
-                        "Bad port value", 
-                        Base::Logger::LogLevel::ERR
-                    );
                     return std::to_string(65001);
                 }
                 return std::to_string(port);
@@ -63,11 +58,6 @@ public:
                 auto port = static_cast<uint32_t>(std::stoi(value));
                 if (port > std::numeric_limits<uint16_t>::max())
                 {
-                    Base::Logger::FileLogger::getInstance().log
-                    (
-                        "Bad DataBase port value", 
-                        Base::Logger::LogLevel::ERR
-                    );
                     return std::to_string(5432);
                 }
                 return std::to_string(port);
