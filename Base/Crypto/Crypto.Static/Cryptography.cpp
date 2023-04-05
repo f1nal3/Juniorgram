@@ -1,7 +1,6 @@
 #include "Cryptography.hpp"
 
 
-using CryptoPP::SHA256;
 using CryptoPP::AutoSeededRandomPool;
 using CryptoPP::SecByteBlock;
 using CryptoPP::ECB_Mode;
@@ -50,13 +49,3 @@ std::string AESCipher::decrypt(const std::string& cipherData, const std::string&
     return decryptedData;
 }
 }  // namespace Base::Crypto
-
-std::string Base::Hashing::SHA_256(const std::string& plainText, const std::string& componentForSalt)
-{ 
-    SHA256 hash;
-    std::string digest;
-    auto stream = new HashFilter(hash, new HexEncoder(new StringSink(digest)));
-    StringSource strSrc(componentForSalt + plainText, true, stream);
-
-    return digest;
-}

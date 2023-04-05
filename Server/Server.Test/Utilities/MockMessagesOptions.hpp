@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cryptography.hpp"
+#include "Hashing.hpp"
 /**
 * @brief namespace with data for testing. 
 * @details Used in TestUtility.hpp to emulate user data. 

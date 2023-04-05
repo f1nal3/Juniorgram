@@ -2,7 +2,7 @@
 #include "ServerInfo.hpp"
 
 #include <limits>
-#include <Crypto.Static/Cryptography.hpp>
+#include <Crypto.Static/Hashing.hpp>
 
 namespace Network
 {

@@ -1,5 +1,6 @@
 #include <catch2/catch.hpp>
 #include "Crypto.Static/Cryptography.hpp"
+#include "Crypto.Static/Hashing.hpp"
 
 using Base::Hashing::SHA_256;
 using Base::Crypto::AESFactory;
