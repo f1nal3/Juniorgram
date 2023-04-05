@@ -2,8 +2,6 @@ set(TARGET Base.Crypto.Static)
 set(OUTPUT_NAME Base.Crypto.Static)
 
 set(SOURCE_FILES
-    Cryptography.hpp
-    Cryptography.cpp
     Hashing.hpp
     Hashing.cpp)
 
