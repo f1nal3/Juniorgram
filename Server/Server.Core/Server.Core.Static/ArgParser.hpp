@@ -7,7 +7,7 @@
 * @class ArgParser.
 * @brief This class parses arguments with which application is started.
 * @details
-* For example: "--serverport=65001 --port=5432 --dbname=juniorgram --hostaddr=127.0.0.1 --user=postgres --password=postgres".
+* For example: "--serverport=65001", "--port=5432", "--dbname=juniorgram", "--hostaddr=127.0.0.1", "--user=postgres", "--password=postgres".
 * Sending the port to the Server class constructor and list of all arguments to the PostgreAdapter Instance Method.
 */
 class ArgParser
