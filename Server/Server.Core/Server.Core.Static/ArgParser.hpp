@@ -134,7 +134,7 @@ public:
     * @details Pairs arguments with their values.
     * @param const std::string parameter(argument name).
     */
-    std::pair<std::string, std::string> getPair(const std::string parameter) 
+    std::pair<std::string, std::string> getPair(const std::string parameter) const
     {
         std::pair<std::string, std::string> args = 
             std::make_pair(parameter, _argParser.get(parameter));

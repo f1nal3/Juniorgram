@@ -7,6 +7,7 @@
 #include <string>
 
 #include "Server.hpp"
+#include "SettingsManager.hpp"
 
 namespace Server::Builder
 {
@@ -14,23 +15,15 @@ namespace Server::Builder
  * @brief Class builder of Server.
  * @details Class based on builder pattern for creation instances of @link Server @endlink.
  */
-class ServerBuilder 
+class ServerBuilder
 {
 public:
     ServerBuilder()  = default;
     ~ServerBuilder() = default;
 
-    inline ServerBuilder& setValue(std::pair<std::string, std::string> keyValue)
-    {
-        _arguments.insert(keyValue);
-        return *this;
-    }
-
-    inline ServerBuilder& setValue(DataAccess::IRepositoryManager* repoManager)
-    {
-        _repository.reset(repoManager);
-        return *this;
-    }
+    explicit ServerBuilder(const SettingsManager& settingsManager)
+        : _settingsManager(settingsManager)
+    {}
 
     std::unique_ptr<Server> makeServer()
     {
@@ -41,31 +34,12 @@ public:
 private:
     Server* make() noexcept
     {
-        // form a string with the configuration for connecting to the database
-        std::string dbOptions = "";
-        for (const auto& [configName, configValue] : _arguments)
-        {
-            if (configName != "--serverport")
-            {
-                for (size_t i = 0; i < configName.length(); ++i)
-                {
-                    if (configName[i] != '-')
-                    {
-                        dbOptions += configName[i];
-                    }
-                }
-                dbOptions += "=";
-                dbOptions += configValue;
-                dbOptions += " ";
-            }
-        }
-        
         auto server = new Server();
 
         if (!_repository)
         {
             auto repoManager = std::make_unique<DataAccess::PostgreRepositoryManager>(
-                DataAccess::IAdapter::getInstance<DataAccess::PostgreAdapter>(dbOptions));
+                DataAccess::IAdapter::getInstance<DataAccess::PostgreAdapter>(_settingsManager.GetConnectionOptions()));
             server->initRepository(std::move(repoManager));
         }
         else
@@ -73,13 +47,13 @@ private:
             server->initRepository(std::move(_repository));
         }
 
-        uint16_t port = static_cast<uint16_t>(std::stoi(_arguments["--serverport"]));
+        uint16_t port = static_cast<uint16_t>(std::stoi(_settingsManager.GetServerPort()));
         server->initConnection(port);
 
         return server;
     }
 
-    std::map<std::string, std::string>  _arguments;
-    RepoManagerUPtr                      _repository;
+    SettingsManager     _settingsManager;
+    RepoManagerUPtr     _repository;
 };
 }  /// namespace Server::Builder
