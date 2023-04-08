@@ -5,6 +5,13 @@
 class Settings
 {
 public:
+    Settings() = default;
+
+    Settings(const Settings&)            = default;
+    Settings(Settings&&)                 = default;
+    Settings& operator=(const Settings&) = default;
+    Settings& operator=(Settings&&)      = default;
+
     explicit Settings(const ArgParser& parser)
     {
         _serverPort     = parser.getPair("--serverport").second;
@@ -14,6 +21,13 @@ public:
         _dbUser         = parser.getPair("--user").second;
         _dbPassword     = parser.getPair("--password").second;
     }
+
+    void SetServerPort(std::string serverPort)      { _serverPort   = serverPort; }
+    void SetHostAddress(std::string hostAddress)    { _hostAddress  = hostAddress; }
+    void SetDBName(std::string dbName)              { _dbName       = dbName; }
+    void SetDBPort(std::string dbPort)              { _dbPort       = dbPort; }
+    void SetDBUser(std::string dbUser)              { _dbUser       = dbUser; }
+    void SetDBPassword(std::string dbPassword)      { _dbPassword   = dbPassword; }
 
     std::string ServerPort() const  { return _serverPort; }
     std::string HostAddress() const { return _hostAddress; }

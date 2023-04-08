@@ -18,15 +18,15 @@ TEST_CASE("Successfull Server start up [Server][Success]")
 
 TEST_CASE("Server start up with bad port [Server][Failed]")
 {   
-    TestServer testServer = ServerBuilder()
-                                .setValue(configArgs.getBadServerPortArguments())
-                                .setValue(configArgs.getDatabaseArguments())
-                                .setValue(configArgs.getHostAddrArguments())
-                                .setValue(configArgs.getDatabasePortArguments())
-                                .setValue(configArgs.getDatabaseUserArguments())
-                                .setValue(configArgs.getDatabasePasswordArguments())
-                                .setValue(getTestDatabase().release())
-                                .makeServer();
+    Settings settings;
+    settings.SetServerPort(configArgs.getServerPortArguments().second);
+    settings.SetDBName(configArgs.getDatabaseArguments().second);
+    settings.SetHostAddress(configArgs.getHostAddrArguments().second);
+    settings.SetDBPort(configArgs.getDatabasePortArguments().second);
+    settings.SetDBUser(configArgs.getDatabaseUserArguments().second);
+    settings.SetDBPassword(configArgs.getDatabasePasswordArguments().second);
+
+    TestServer testServer = ServerBuilder(SettingsManager(settings)).makeServer();
 
     SECTION("Comparison of the specified port with the expected bad port")
     {
