@@ -87,14 +87,6 @@ private:
     */
     Server() = default;
 
-    Server(Server const&)                     = delete;
-
-    Server(Server&&)                          = delete;
-
-    Server operator=(Server const&)           = delete;
-
-    Server operator=(Server&&)                = delete;
-    
     /**
     * @brief Setter for purpose of initialize IRepository dependency
     *
