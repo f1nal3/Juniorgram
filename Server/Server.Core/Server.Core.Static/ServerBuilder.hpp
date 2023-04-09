@@ -47,7 +47,7 @@ private:
         {
             if (configName != "--serverport")
             {
-                for (size_t i = 0; i < configName.length(); ++i)
+                for (size_t i = 0; i < configName.length(); i++)
                 {
                     if (configName[i] != '-')
                     {
@@ -60,7 +60,7 @@ private:
             }
         }
         
-        auto server = new Server();
+        auto server = std::unique_ptr<Server>{new Server()};
 
         if (!_repository)
         {
@@ -73,13 +73,13 @@ private:
             server->initRepository(std::move(_repository));
         }
 
-        uint16_t port = static_cast<uint16_t>(std::stoi(_arguments["--serverport"]));
+        auto port = static_cast<uint16_t>(std::stoi(_arguments["--serverport"]));
         server->initConnection(port);
 
-        return server;
+        return server.release();
     }
 
     std::map<std::string, std::string>  _arguments;
-    RepoManagerUPtr                      _repository;
+    RepoManagerUPtr                     _repository;
 };
 }  /// namespace Server::Builder
