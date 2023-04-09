@@ -42,7 +42,7 @@ public:
         _argParser.add_argument("--serverport")
             .default_value<std::string>("65001")
             .help("Set the port value for server needs")
-            .action([](const std::string& value) -> std::string {
+            .action([](const std::string& value){
                 auto port = static_cast<uint32_t>(std::stoi(value));
                 if (port > std::numeric_limits<uint16_t>::max())
                 {
@@ -54,7 +54,7 @@ public:
         _argParser.add_argument("--port")
             .default_value<std::string>("5432")
             .help("Set the database port value")
-            .action([](const std::string& value) -> std::string {
+            .action([](const std::string& value){
                 auto port = static_cast<uint32_t>(std::stoi(value));
                 if (port > std::numeric_limits<uint16_t>::max())
                 {
@@ -67,8 +67,8 @@ public:
             .default_value<std::string>("juniorgram")
             .help("set the name of database")
             .action([](const std::string& value) {
-                const std::vector<std::string> choices = {"juniorgram", "testdb"};
-                if (std::find(choices.begin(), choices.end(), value) != choices.end())
+                if (const std::vector<std::string> choices = {"juniorgram", "testdb"};
+                    std::find(choices.begin(), choices.end(), value) != choices.end())
                 {
                     return value;
                 }
@@ -79,8 +79,8 @@ public:
             .default_value<std::string>("127.0.0.1")
             .help("set the host address (optional argument)")
             .action([](const std::string& value) {
-                const std::vector<std::string> choices = {"127.0.0.1"};
-                if (std::find(choices.begin(), choices.end(), value) != choices.end())
+                if (const std::vector<std::string> choices = {"127.0.0.1"};
+                    std::find(choices.begin(), choices.end(), value) != choices.end())
                 {
                     return value;
                 }
@@ -122,9 +122,9 @@ public:
     /**
     * @brief Used to bind the argument and its value.
     * @details Pairs arguments with their values.
-    * @param const std::string parameter(argument name).
+    * @param std::string const parameter(argument name).
     */
-    std::pair<std::string, std::string> getPair(const std::string parameter) 
+    std::pair<std::string, std::string> getPair(std::string const& parameter) const
     {
         std::pair<std::string, std::string> args = 
             std::make_pair(parameter, _argParser.get(parameter));
