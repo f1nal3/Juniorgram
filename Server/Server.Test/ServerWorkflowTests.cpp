@@ -7,7 +7,6 @@ using TestUtility::MessageBody;
 TEST_CASE("Successfull Server start up [Server][Success]")
 {
     auto testServer = makeTestServer();
-    REQUIRE_NOTHROW(makeTestServer());
 
     SECTION("Comparison of the specified port with the expected port")
     {
