@@ -47,7 +47,7 @@ private:
         {
             if (configName != "--serverport")
             {
-                for (size_t i = 0; i < configName.length(); i++)
+                for (size_t i = 0; i < configName.length(); ++i)
                 {
                     if (configName[i] != '-')
                     {
