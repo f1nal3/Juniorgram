@@ -222,7 +222,7 @@ private:
         yas::shared_buffer buffer;
         buffer.resize(bodySize);
 
-        const auto readBodyHandler = [this, buffer](std::error_code error) {
+        const auto readBodyHandler = [this, &buffer](std::error_code error) {
             if (!error)
             {
                 EncryptionHandler handler;
