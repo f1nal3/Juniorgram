@@ -12,7 +12,7 @@ namespace Base::Hashing
     using CryptoPP::StringSink;
     using CryptoPP::StringSource;
 
-    std::string Base::Hashing::SHA_256(const std::string& plainText, const std::string& componentForSalt)
+    std::string SHA_256(const std::string& plainText, const std::string& componentForSalt)
     {
         SHA256       hash;
         std::string  digest;

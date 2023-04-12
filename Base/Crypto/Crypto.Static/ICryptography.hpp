@@ -13,6 +13,6 @@ class ICryptography
 public:
     virtual Utility::GeneralCodes encrypt(const Message& message, yas::shared_buffer& bodyBuffer) = 0;
     virtual Utility::GeneralCodes decrypt(yas::shared_buffer& buffer, Message& message)           = 0;
-    virtual ~ICryptography()                                                                      = 0 {};
+    virtual ~ICryptography()                                                                      = default;
 };
 }
