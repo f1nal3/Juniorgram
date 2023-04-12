@@ -57,6 +57,8 @@ private:
     std::uint64_t _connectionID  = uint64_t();
     std::uint64_t _userID        = 1;
 
+    std::unique_ptr<Base::Crypto::ICryptography> _cryptoAlgorithm;
+
     /*@details Unique socket to remote. */
     asio::ip::tcp::socket _socket;
     /* @details Overall context for the whole asio instance. */
@@ -394,5 +396,7 @@ public:
             }
         });
     }
+
+    void setEncryption(std::unique_ptr<Base::Crypto::ICryptography> algorithm) { _cryptoAlgorithm = std::move(algorithm); };
 };
 }  // namespace Network

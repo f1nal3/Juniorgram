@@ -121,9 +121,17 @@ public:
         buffer = decryptedBody;
     }
 
-    void setAuthenticationData(std::string authData_) { _authData = authData_; };
+    AES_GCM& setAuthenticationData(std::string authData_)
+    {
+        _authData = authData_;
+        return *this;
+    };
 
-    void setUserID(std::uint64_t userID_) { _userID = userID_; };
+    AES_GCM& setUserID(std::uint64_t userID_)
+    {
+        _userID = userID_;
+        return *this;
+    };
 
 private:
     static const uint8_t TAG_SIZE = 16;

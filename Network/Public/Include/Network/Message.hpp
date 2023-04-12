@@ -108,6 +108,6 @@ struct Message
 template <typename Archive>
 void serialize(Archive& ar, Message::MessageHeader& o)
 {
-    ar& o.mMessageType& o.mBodySize& o.mTimestamp;
+    ar& o.mMessageType& o.mBodySize& o.mTimestamp& std::string(reinterpret_cast<const char*>(o.mIv.data()), o.mIv.size());
 }
 }  // namespace Network
