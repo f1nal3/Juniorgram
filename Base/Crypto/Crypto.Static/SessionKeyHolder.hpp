@@ -51,7 +51,7 @@ public:
         }
     };
     /// @brief Client's method for getting key
-    SecByteBlock getKey() const { 
+    SecByteBlock getKey() const {
         if (_owner == Owner::CLIENT)
         {
             return std::any_cast<SecByteBlock>(_keyHolder); 

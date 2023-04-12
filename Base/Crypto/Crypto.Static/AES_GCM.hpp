@@ -3,8 +3,8 @@
 #include <cryptopp/aes.h>
 #include <cryptopp/gcm.h>
 #include <cryptopp/filters.h>
-#include <Utility/JGExceptions.hpp>
 
+#include "Utility/JGExceptions.hpp"
 #include "ICryptography.hpp"
 
 namespace Base::Crypto::Symmetric
