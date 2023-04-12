@@ -1,5 +1,8 @@
 #pragma once
 #include "Handler.hpp"
+#include "SessionKeyHolder.hpp"
+#include "ICryptography.hpp"
+#include "AES_GCM.hpp"
 
 namespace Network
 {
