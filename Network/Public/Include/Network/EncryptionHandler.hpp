@@ -1,8 +1,5 @@
 #pragma once
 #include "Handler.hpp"
-#include "SessionKeyHolder.hpp"
-#include "ICryptography.hpp"
-#include "AES_GCM.hpp"
 
 namespace Network
 {
@@ -37,7 +34,7 @@ public:
      * @param buffer - buffer that contains data that should be decrypted.
      * @param messageHeader - variable that will contain decrypted message body.
      */
-    MessageProcessingState handleIncomingMessageBody(yas::shared_buffer& buffer, Message& message) override
+    MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
     {
         // body decryption
 

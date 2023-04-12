@@ -180,7 +180,7 @@ public:
      * @param buffer - buffer that contains data that should be deserialized.
      * @param messageHeader - variable that will contain deserialized message body.
      */
-    MessageProcessingState handleIncomingMessageBody(yas::shared_buffer& buffer, Message& message) override
+    MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
     {
         SerializedState state = SerializedState::FAILURE;
 
