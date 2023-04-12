@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <memory>
 #include <vector>
+#include <cryptopp/secblock.h>
 
 #include "Network/Connection.hpp"
 #include <Utility/Utility.hpp>
@@ -73,6 +74,9 @@ struct Message
         MessageType                 mMessageType = MessageType();
         std::uint32_t               mBodySize    = std::uint32_t();
         UtilityTime::timestamp_t    mTimestamp   = duration_cast<milliseconds>(UtilityTime::RTC::now().time_since_epoch()).count();
+
+        /// Initial vector
+        CryptoPP::SecByteBlock mIv;
     };
 
     /// Connection variable

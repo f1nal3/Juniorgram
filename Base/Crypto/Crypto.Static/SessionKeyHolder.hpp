@@ -106,6 +106,8 @@ public:
         }
     };
 
+    Owner getOwner() { return _owner; };
+
 private:
     /** @brief _keyHolder contains session key(s)
     * @detail Depending on the party _keyHolder can contain:
