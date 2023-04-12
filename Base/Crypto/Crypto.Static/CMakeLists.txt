@@ -4,7 +4,9 @@ set(OUTPUT_NAME Base.Crypto.Static)
 set(SOURCE_FILES
     Hashing.hpp
     Hashing.cpp
-    SessionKeyHolder.hpp)
+    SessionKeyHolder.hpp
+    ICryptography.hpp
+    AES_GCM.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
