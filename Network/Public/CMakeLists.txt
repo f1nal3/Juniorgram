@@ -21,4 +21,5 @@ target_link_libraries(${TARGET} INTERFACE yas::yas
                                             asio::asio
                                             Utility.Public 
                                             Base.Logger.Static 
-                                            Models.Public)
+                                            Models.Public
+                                            Base.Crypto.Static)
