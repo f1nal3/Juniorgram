@@ -33,17 +33,20 @@ public:
             yas::shared_buffer                  encryptedBody(bodyBuffer.size);
             GCM<AES, GCM_2K_Tables>::Encryption encryptor;
 
-            if (keyHolder::Instance().getOwner() == Owner::SERVER)
             {
-                SecByteBlock clientKey = keyHolder::Instance().getUserKey(_userID);
-                encryptor.SetKeyWithIV(clientKey.begin(), clientKey.size(),
-                    message.mHeader.mIv.begin(), message.mHeader.mIv.size());
-            }
-            else
-            {
-                SecByteBlock userKey = keyHolder::Instance().getKey();
-                encryptor.SetKeyWithIV(userKey.begin(), userKey.size(),
-                    message.mHeader.mIv.begin(), message.mHeader.mIv.size());
+                SecByteBlock key;
+                SecByteBlock initVec(reinterpret_cast<const byte*>(message.mHeader.mIv.data()), message.mHeader.mIv.size());
+
+                if (keyHolder::Instance().getOwner() == Owner::SERVER)
+                {
+                    key = keyHolder::Instance().getUserKey(_userID);
+                    encryptor.SetKeyWithIV(key.begin(), key.size(), initVec.begin(), initVec.size());
+                }
+                else
+                {
+                    key = keyHolder::Instance().getKey();
+                    encryptor.SetKeyWithIV(key.begin(), key.size(), initVec.begin(), initVec.size());
+                }
             }
 
             AuthenticatedEncryptionFilter authEncFilter(encryptor,
@@ -70,17 +73,20 @@ public:
     {
         GCM<AES, GCM_2K_Tables>::Decryption decryptor;
 
-        if (keyHolder::Instance().getOwner() == Owner::SERVER)
         {
-            SecByteBlock clientKey = keyHolder::Instance().getUserKey(_userID);
-            decryptor.SetKeyWithIV(clientKey.begin(), clientKey.size(),
-                message.mHeader.mIv.begin(), message.mHeader.mIv.size());
-        }
-        else
-        {
-            SecByteBlock userKey = keyHolder::Instance().getKey();
-            decryptor.SetKeyWithIV(userKey.begin(), userKey.size(),
-                message.mHeader.mIv.begin(), message.mHeader.mIv.size());
+            SecByteBlock key;
+            SecByteBlock initVec(reinterpret_cast<const byte*>(message.mHeader.mIv.data()), message.mHeader.mIv.size());
+
+            if (keyHolder::Instance().getOwner() == Owner::SERVER)
+            {
+                key = keyHolder::Instance().getUserKey(_userID);
+                decryptor.SetKeyWithIV(key.begin(), key.size(), initVec.begin(), initVec.size());
+            }
+            else
+            {
+                key = keyHolder::Instance().getKey();
+                decryptor.SetKeyWithIV(key.begin(), key.size(), initVec.begin(), initVec.size());
+            }
         }
 
         AuthenticatedDecryptionFilter authDecrFilter(decryptor, NULL,

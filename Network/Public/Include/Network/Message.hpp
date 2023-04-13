@@ -76,7 +76,7 @@ struct Message
         UtilityTime::timestamp_t    mTimestamp   = duration_cast<milliseconds>(UtilityTime::RTC::now().time_since_epoch()).count();
 
         /// Initial vector
-        CryptoPP::SecByteBlock mIv;
+        std::string mIv;
     };
 
     /// Connection variable
@@ -108,6 +108,6 @@ struct Message
 template <typename Archive>
 void serialize(Archive& ar, Message::MessageHeader& o)
 {
-    ar& o.mMessageType& o.mBodySize& o.mTimestamp& std::string(reinterpret_cast<const char*>(o.mIv.data()), o.mIv.size());
+    ar& o.mMessageType& o.mBodySize& o.mTimestamp& o.mIv;
 }
 }  // namespace Network

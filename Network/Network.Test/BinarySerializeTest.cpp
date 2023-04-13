@@ -11,6 +11,7 @@
 #include "Network/YasSerializer.hpp"
 #include <Models/Primitives.hpp>
 
+
 TEST_CASE("Test binary serialization & deserialization of plain types", "[YasSerializer]")
 {
     SECTION("Checking serialization & deserialization of int type")
@@ -155,6 +156,7 @@ TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSe
         serializedValue.mTimestamp   = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
         serializedValue.mMessageType = Network::Message::MessageType::ChannelListRequest;
         serializedValue.mBodySize    = 30;
+        serializedValue.mIv          = std::string("MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIB");
 
         yas::shared_buffer buffer;
         Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
@@ -167,6 +169,7 @@ TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSe
         REQUIRE(serializedValue.mTimestamp == deserializedValue.mTimestamp);
         REQUIRE(serializedValue.mMessageType == deserializedValue.mMessageType);
         REQUIRE(serializedValue.mBodySize == deserializedValue.mBodySize);
+        REQUIRE(serializedValue.mIv == deserializedValue.mIv);
     }
 
     SECTION("Checking serialization & deserialization of custom type ChannelInfo")
