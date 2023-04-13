@@ -8,9 +8,6 @@ All subsequent statements work for the following cryptography configuration:
 
 - Key exchange protocol: ECDH
 
-- Checking the correctness of the shared key: sending a message with a known content ([NIST SP 800-152](https://csrc.nist.rip/external/nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-152.pdf), paragraph 6.6.3) 
-
-- Connection verification: The idea is taken from [Towards Securing Client-Server Connections against.pdf](https://www.mihaiordean.com/articles/JEq8FDkHdZX6.pdf) (the same [file](./Towards%20Securing%20Client-Server%20Connections%20against.pdf)).
 
 Also, this architecture will work for any symmetric encryption algorithm if the generated shared key is used as the key encryption key.
 
