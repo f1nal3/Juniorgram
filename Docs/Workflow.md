@@ -8,8 +8,7 @@
 7. Performer asks for a new task.
 
 # Git workflow
-\image html workflow.png
-
+![WorkflowImage](workflow.png "Workflow")
 
 # Global delivery
 The development of the application is broken down into some intermediate steps. Each stage is described in a specific milestone. When all the tasks nested in the current cycle have been completed, a procedure for capturing the changes is initiated. This procedure is called a release. 
