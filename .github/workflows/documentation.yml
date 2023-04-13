@@ -19,9 +19,6 @@ jobs:
       with:
           doxyfile-path: ./Doxyfile
           working-directory: .
-      
-    - name: Changing location of documentation folder
-      run: sudo mv ./docs/docs/* ./coverage/docs/
 
     - name: GH Pages Deployment
       uses: peaceiris/actions-gh-pages@v3
