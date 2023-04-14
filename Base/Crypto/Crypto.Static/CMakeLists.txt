@@ -6,7 +6,9 @@ set(SOURCE_FILES
     Hashing.cpp
     SessionKeyHolder.hpp
     ICryptography.hpp
-    AES_GCM.hpp)
+    AES_GCM.hpp
+    KeyPairManager.hpp
+    ByteBlockGenerator.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 

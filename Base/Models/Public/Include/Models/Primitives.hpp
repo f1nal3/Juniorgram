@@ -6,6 +6,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <cryptopp/rsa.h>
 
 #include <Utility/Utility.hpp>
 #include <Utility/UtilityTime.hpp>
@@ -273,5 +274,11 @@ void serialize(Archive& ar, Models::ReplyInfo& o)
 {
     ar& o._channelID& o._message& o._msgID& o._senderID& o._msgIdOwner& o._userLogin;
 }
+
+struct RSAKeyPair
+{
+    CryptoPP::RSA::PublicKey  publicKey;
+    CryptoPP::RSA::PrivateKey  privateKey;
+};
 
 }  // namespace Models
