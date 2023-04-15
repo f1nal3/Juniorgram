@@ -16,14 +16,14 @@ using CryptoPP::StringSink;
 using CryptoPP::FileSink;
 using CryptoPP::FileSource;
 
-/* @class KeyPairManager
+/* @class RSAKeyManager
 * @brief Class for managing RSA keys
 * @details Provide saving, loading keys to/from strong specified file; contains key pair.
 */
-class KeyPairManager
+class RSAKeyManager
 {
 public:
-    KeyPairManager() { loadKeyPair(); };
+    RSAKeyManager() { loadKeyPair(); };
 
     /* @brief Method for getting public server key
     * @return public server key as std::string

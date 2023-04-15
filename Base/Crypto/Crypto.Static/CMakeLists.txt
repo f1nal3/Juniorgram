@@ -7,7 +7,7 @@ set(SOURCE_FILES
     SessionKeyHolder.hpp
     ICryptography.hpp
     AES_GCM.hpp
-    KeyPairManager.hpp
+    RSAKeyManager.hpp
     RSAKeyGenerator.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
