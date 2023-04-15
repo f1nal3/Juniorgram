@@ -12,6 +12,9 @@ namespace Base
 {
 using Base::Logger::FileLogger;
 using Utility::GeneralCodes;
+using Generators::RSAKeyGenerator;
+using Models::RSAKeyPair;
+using CryptoPP::AutoSeededRandomPool;
 using CryptoPP::StringSink;
 using CryptoPP::FileSink;
 using CryptoPP::FileSource;

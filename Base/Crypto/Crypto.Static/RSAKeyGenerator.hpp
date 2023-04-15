@@ -6,7 +6,7 @@
 #include "Utility/Utility.hpp"
 #include "Utility/JGExceptions.hpp"
 
-namespace Base
+namespace Base::Generators
 {
 using CryptoPP::AutoSeededRandomPool;
 using CryptoPP::RSA;
