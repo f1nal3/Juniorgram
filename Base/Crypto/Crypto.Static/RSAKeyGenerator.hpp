@@ -19,17 +19,28 @@ using Models::RSAKeyPair;
 class RSAKeyGenerator
 {
 public:
+    /*@enum RSASecurityStrength
+    * @brief Determines length of RSA key
+    * @details Look here: https://www.keylength.com/en/4/
+    */
+    enum RSASecurityStrength : uint32_t
+    {
+        _128 = 3072,
+        _192 = 7680,
+        _256 = 15360,
+    };
+
     /// @brief Method for generating key pair
     RSAKeyPair generateRSAKeyPair()
     {
         RSAKeyPair           rsaKeyPair;
         AutoSeededRandomPool randPool;
 
-        rsaKeyPair.privateKey.GenerateRandomWithKeySize(randPool, 3072);
+        rsaKeyPair.privateKey.GenerateRandomWithKeySize(randPool, _128);
         rsaKeyPair.publicKey = RSA::PublicKey(rsaKeyPair.privateKey);
         return rsaKeyPair;
     }
     /// @brief Method for generating public key based on private key
     RSA::PublicKey generateRSAPublicKey(const RSA::PrivateKey& privateKey) { return RSA::PublicKey(privateKey); };
 };
-};  // namespace Base
+};  // namespace Base::Generators
