@@ -8,7 +8,7 @@ set(SOURCE_FILES
     ICryptography.hpp
     AES_GCM.hpp
     KeyPairManager.hpp
-    ByteBlockGenerator.hpp)
+    RSAKeyGenerator.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 

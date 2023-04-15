@@ -5,7 +5,7 @@
 #include <cryptopp/filters.h>
 #include <cryptopp/files.h>
 
-#include "ByteBlockGenerator.hpp"
+#include "RSAKeyGenerator.hpp"
 #include "Models/Primitives.hpp"
 
 namespace Base
@@ -81,13 +81,13 @@ private:
             else
             {
                 FileLogger::getInstance().log("Invalid (probably compromised) private key", Base::Logger::LogLevel::WARNING);
-                _keyPair = ByteBlockGenerator().generateRSAKeyPair();
+                _keyPair = RSAKeyGenerator().generateRSAKeyPair();
             }
         }
         else
         {
             FileLogger::getInstance().log("Private key not founded", Base::Logger::LogLevel::INFO);
-            _keyPair = ByteBlockGenerator().generateRSAKeyPair();
+            _keyPair = RSAKeyGenerator().generateRSAKeyPair();
         }
     }
 
@@ -113,7 +113,7 @@ private:
             !publicKeyLoaded || !_keyPair.publicKey.Validate(randPool, ValidationLevel::BALANCED))
         {
             FileLogger::getInstance().log("Public key not founded or invalid", Base::Logger::LogLevel::INFO);
-            _keyPair.publicKey = ByteBlockGenerator().generateRSAPublicKey(_keyPair.privateKey);
+            _keyPair.publicKey = RSAKeyGenerator().generateRSAPublicKey(_keyPair.privateKey);
         }
         publicKeyOutputFile.close();
     }
