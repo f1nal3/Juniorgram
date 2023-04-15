@@ -16,6 +16,10 @@ using CryptoPP::StringSink;
 using CryptoPP::FileSink;
 using CryptoPP::FileSource;
 
+/* @class KeyPairManager
+* @brief Class for managing RSA keys
+* @details Provide saving, loading keys to/from strong specified file; contains key pair.
+*/
 class KeyPairManager
 {
 public:
@@ -35,7 +39,9 @@ public:
 private:
     /// Contains public and private keys
     RSAKeyPair                          _keyPair;
+    /// Name of file to save private RSA key
     const std::string                   PRIVATE_KEY_FILE{"juniorgram.rsa"};
+    /// Name of file to save public RSA key
     const std::string                   PUBLIC_KEY_FILE{PRIVATE_KEY_FILE + ".pub"};
 
     /* @enum ValidationLevel
