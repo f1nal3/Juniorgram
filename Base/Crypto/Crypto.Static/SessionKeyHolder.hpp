@@ -47,69 +47,40 @@ public:
     /** @brief Client's method of setting key
      * @detail This method is used to set the key when connecting or updating the key
      */
-    void setKey(SecByteBlock newKey)
-    {
-        if (_owner == Owner::CLIENT)
-        {
-            _keyHolder = newKey;
-        }
-    };
+    void setKey(SecByteBlock newKey) { _keyHolder = std::make_any<SecByteBlock>(newKey); };
+
     /// @brief Client's method for getting key
-    SecByteBlock getKey() const
-    {
-        if (_owner == Owner::CLIENT)
-        {
-            return std::any_cast<SecByteBlock>(_keyHolder);
-        }
-    };
+    SecByteBlock getKey() const { return std::any_cast<SecByteBlock>(_keyHolder); };
 
     /// @brief Server's method to set client key on connection
     void addUserKey(SecByteBlock newKey, uint64_t userId)
     {
-        if (_owner == Owner::SERVER)
-        {
-            std::any_cast<Map_UserKey>(&_keyHolder)->insert(Pair_UserKey(userId, newKey));
-        }
+        std::any_cast<Map_UserKey>(&_keyHolder)->insert(Pair_UserKey(userId, newKey));
     };
     /** @brief Server's method for refreshing user's key
     * @details Method finds already connected user and change the key without the need to add a new user-key pair \
-    * This is draft method. It requires reaction to unsuccessful key update and determination of default return value.
+    * This is draft method. It requires reaction to unsuccessful key update.
     */
     Utility::GeneralCodes refreshUserKey(SecByteBlock newKey, const uint64_t& userId)
     {
-        if (_owner == Owner::SERVER)
+        if (auto findedUser = std::any_cast<Map_UserKey>(&_keyHolder)->find(userId);
+            findedUser != std::any_cast<Map_UserKey>(&_keyHolder)->end())
         {
-            if (auto findedUser = std::any_cast<Map_UserKey>(&_keyHolder)->find(userId);
-                findedUser != std::any_cast<Map_UserKey>(&_keyHolder)->end())
-            {
-                findedUser->second = newKey;
-                return Utility::GeneralCodes::SUCCESS;
-            }
-            else
-            {
-                Base::Logger::FileLogger::getInstance().log(
-                    std::string("Cannot refresh session key for userId = ") + std::to_string(userId),
-                    Base::Logger::LogLevel::ERR);
-                return Utility::GeneralCodes::FAILED;
-            }
+            findedUser->second = newKey;
+            return Utility::GeneralCodes::SUCCESS;
         }
-    }
+        else
+        {
+            Base::Logger::FileLogger::getInstance().log(
+                std::string("Cannot refresh session key for userId = ") + std::to_string(userId),
+                Base::Logger::LogLevel::ERR);
+        }
+        return Utility::GeneralCodes::FAILED;
+    };
     /// @brief Server's method of removing user session key by user ID
-    void removeUserKey(const uint64_t& userId)
-    {
-        if (_owner == Owner::SERVER)
-        {
-            std::any_cast<Map_UserKey>(&_keyHolder)->erase(userId);
-        }
-    };
+    void removeUserKey(const uint64_t& userId) { std::any_cast<Map_UserKey>(&_keyHolder)->erase(userId); };
 
-    SecByteBlock getUserKey(const uint64_t& userId)
-    {
-        if (_owner == Owner::SERVER)
-        {
-            return std::any_cast<Map_UserKey>(_keyHolder).find(userId)->second;
-        }
-    };
+    SecByteBlock getUserKey(const uint64_t& userId) { return std::any_cast<Map_UserKey>(_keyHolder).find(userId)->second; };
 
     Owner getOwner() { return _owner; };
 
