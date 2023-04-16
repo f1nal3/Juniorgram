@@ -11,6 +11,7 @@
 #include "Network/Message.hpp"
 #include "Network/iAPI.hpp"
 #include "PostgreRepositoryManager.hpp"
+#include "RSAKeyManager.hpp"
 
 #include "Utility/SafeQueue.hpp"
 
@@ -27,6 +28,8 @@ using Network::Message;
 using Utility::SafeQueue;
 using Network::MessageResult;
 using RepoManagerUPtr = std::unique_ptr<DataAccess::IRepositoryManager>;
+using RSAKeyManagerSPtr = std::shared_ptr<Base::RSAKeyManager>;
+
 /*
 * @brief Declaration of ServerBuilder.
 */
@@ -151,5 +154,6 @@ private:
     std::deque<std::thread>                 _threads;
     std::unique_ptr<tcp::acceptor>          _acceptor;
     RepoManagerUPtr                         _repoManager;
+    RSAKeyManagerSPtr                       _rsaKeyManager;
 };
 }  /// namespace Server
