@@ -5,6 +5,7 @@
 #include <cryptopp/filters.h>
 #include <cryptopp/files.h>
 
+#include "FileLogger.hpp"
 #include "RSAKeyGenerator.hpp"
 #include "Models/Primitives.hpp"
 
@@ -19,7 +20,7 @@ using CryptoPP::StringSink;
 using CryptoPP::FileSink;
 using CryptoPP::FileSource;
 
-/* @class RSAKeyManager
+/** @class RSAKeyManager
 * @brief Class for managing RSA keys
 * @details Provide saving, loading keys to/from strong specified file; contains key pair.
 */
@@ -28,7 +29,7 @@ class RSAKeyManager
 public:
     RSAKeyManager() { loadKeyPair(); };
 
-    /* @brief Method for getting public server key
+    /** @brief Method for getting public server key
     * @return public server key as std::string
     */
     std::string getPublicServerKey()
@@ -47,7 +48,7 @@ private:
     /// Name of file to save public RSA key
     const std::string                   PUBLIC_KEY_FILE{PRIVATE_KEY_FILE + ".pub"};
 
-    /* @enum ValidationLevel
+    /** @enum ValidationLevel
     * @details Determines, which checks will be performed by CryptoPP library. \
     * For more info: https://www.cryptopp.com/wiki/Keys_and_Formats#Validating_Keys
     */
@@ -62,8 +63,8 @@ private:
     /// @brief Method for loading key pair
     void loadKeyPair() { loadPrivateKey(); };
 
-    /* @brief Method for loading private key from a file
-    * @details Method loads private RSA key from file "PRIVATE_KEY_FILE". The following situations are possible:
+    /** @brief Method for loading private key from a file
+    * @details Method loads private RSA key from file "PRIVATE_KEY_FILE". The following situations are possible: \
     * - File not found and private key not loaded -> generate new key pair \
     * - Private key loaded, but invalid -> generate new key pair \
     * - Private key loaded and valid -> load public key
@@ -100,8 +101,8 @@ private:
         }
     }
 
-     /* @brief Method for loading public key from a file
-     * @details Method loads public RSA key from file "PUBLIC_KEY_FILE". The following situations are possible:
+     /** @brief Method for loading public key from a file
+     * @details Method loads public RSA key from file "PUBLIC_KEY_FILE". The following situations are possible: \
      * - Public key not loaded  -> generate a public key based on the uploaded private key  \
      * - File not found -> generate a public key based on the uploaded private key  \
      * - Public key loaded and valid -> end of key loading
@@ -127,8 +128,8 @@ private:
         publicKeyOutputFile.close();
     }
 
-    /* @brief Method for saving rsa keys in files
-    * @details Work steps:
+    /** @brief Method for saving rsa keys in files
+    * @details Work steps: \
     * 1. Save private key. If saving the private key fails, the public key is not saved too.
     * 2. Save public key.
     */
@@ -139,7 +140,7 @@ private:
             savePublicKey();
         }
     };
-    /* @brief Method for saving private RSA key in file "PRIVATE_KEY_FILE"
+    /** @brief Method for saving private RSA key in file "PRIVATE_KEY_FILE"
     * @details Saves the private key by completely overwriting the file. Failed private key saving does not
     * startup public key saving.
     */
@@ -162,7 +163,7 @@ private:
         return GeneralCodes::SUCCESS;
     }
 
-    /* @brief Method for saving public RSA key in file "PUBLIC_KEY_FILE"
+    /** @brief Method for saving public RSA key in file "PUBLIC_KEY_FILE"
      * @details Saves the public key by completely overwriting the file. Failed public key saving does nothing.
      */
     void savePublicKey()

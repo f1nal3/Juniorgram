@@ -4,7 +4,7 @@
 #include <cryptopp/gcm.h>
 #include <cryptopp/filters.h>
 
-#include "Utility/JGExceptions.hpp"
+#include "FileLogger.hpp"
 #include "ICryptography.hpp"
 
 namespace Base::Crypto::Symmetric
@@ -22,6 +22,10 @@ namespace Base::Crypto::Symmetric
     using CryptoPP::AAD_CHANNEL;
     using CryptoPP::DEFAULT_CHANNEL;
 
+/** @class AES_GCM
+* @brief Encryption class according to the AES GCM algorithm
+* @details Uses key from SessionKeyHolder and initial vector from MessageHeader.
+*/
 class AES_GCM : public Base::Crypto::ICryptography
 {
 public:
@@ -99,7 +103,11 @@ public:
 
         if (buffer.size != encryptedBody.size + msgAuthCode.size || TAG_SIZE != msgAuthCode.size)
         {
-            throw Utility::JuniorgramException("Message splitting error", __FILE__, __LINE__);
+            using Base::Logger::FileLogger;
+            using Base::Logger::LogLevel;
+
+            FileLogger::getInstance().log("Message splitting error", LogLevel::ERR);
+            return Utility::GeneralCodes::FAILED;
         }
 
         authDecrFilter.ChannelPut(DEFAULT_CHANNEL, reinterpret_cast<const byte*>(msgAuthCode.data.get()), msgAuthCode.size);
@@ -140,8 +148,12 @@ public:
     };
 
 private:
+    /** @brief Authentification tag
+    * @details Tag with default size. It is not recommended to use a shorter tag,
+    * because these are truncated 128-bit (16-bytes) tags.
+    */
     static const uint8_t TAG_SIZE = 16;
     std::string _authData;      //hash of _userID
     std::uint64_t _userID;
 };
-}
+}  // namespace Base::Crypto::Symmetric

@@ -10,6 +10,9 @@ using CryptoPP::SecByteBlock;
 using Pair_UserKey = std::pair<uint64_t, SecByteBlock>;
 using Map_UserKey  = std::map<uint64_t, SecByteBlock>;
 
+/** @enum Owner
+ * @brief Determines content in SessionKeyHolder class
+ */
 enum class Owner
 {
     SERVER,
@@ -51,14 +54,15 @@ public:
         }
     };
     /// @brief Client's method for getting key
-    SecByteBlock getKey() const {
+    SecByteBlock getKey() const
+    {
         if (_owner == Owner::CLIENT)
         {
-            return std::any_cast<SecByteBlock>(_keyHolder); 
+            return std::any_cast<SecByteBlock>(_keyHolder);
         }
     };
 
-    /// @brief Server's method to set client key on connection 
+    /// @brief Server's method to set client key on connection
     void addUserKey(SecByteBlock newKey, uint64_t userId)
     {
         if (_owner == Owner::SERVER)
@@ -67,9 +71,9 @@ public:
         }
     };
     /** @brief Server's method for refreshing user's key
-    * @details Method finds already connected user and change the key without the need to add a new user-key pair \
-    * This is draft method. It requires reaction to unsuccessful key update and determination of default return value.
-    */
+     * @details Method finds already connected user and change the key without the need to add a new user-key pair \
+     * This is draft method. It requires reaction to unsuccessful key update and determination of default return value.
+     */
     Utility::GeneralCodes refreshUserKey(SecByteBlock newKey, const uint64_t& userId)
     {
         if (_owner == Owner::SERVER)
@@ -83,8 +87,7 @@ public:
             else
             {
                 Base::Logger::FileLogger::getInstance().log(
-                    std::string("Cannot refresh session key for userId = ") + std::to_string(userId), 
-                    Base::Logger::LogLevel::ERR);
+                    std::string("Cannot refresh session key for userId = ") + std::to_string(userId), Base::Logger::LogLevel::ERR);
                 return Utility::GeneralCodes::FAILED;
             }
         }
@@ -110,17 +113,16 @@ public:
 
 private:
     /** @brief _keyHolder contains session key(s)
-    * @detail Depending on the party _keyHolder can contain:
-    * - map<User,Key> on server-side
-    * - Key on client-side
-    */
+     * @detail Depending on the party _keyHolder can contain:
+     * - map<User,Key> on server-side
+     * - Key on client-side
+     */
     std::any _keyHolder;
     /// @brief The owner determines which functionality will be available and what the _keyHolder will contain
-    Owner    _owner                           = Owner::SERVER;
+    Owner _owner                              = Owner::SERVER;
     SessionKeyHolder()                        = default;
     ~SessionKeyHolder()                       = default;
     SessionKeyHolder(const SessionKeyHolder&) = delete;
     SessionKeyHolder& operator=(const SessionKeyHolder&) = delete;
 };
-}
-
+}  // namespace Base
