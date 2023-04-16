@@ -133,6 +133,7 @@ public:
         authDecrFilter.Get(reinterpret_cast<byte*>(decryptedBody.data.get()), countBytesForReading);
 
         buffer = decryptedBody;
+        return Utility::GeneralCodes::SUCCESS;
     }
 
     AES_GCM& setAuthenticationData(std::string authData_)
