@@ -440,6 +440,12 @@ void Client::loop()
             }
             break;
 
+            case MessageType::RequestOnConnectionAnswer:
+            {
+                auto connectionInfo = std::any_cast<Models::ConnectionInfo>(message.mBody);
+                onRequestOnConnectionAnswer(connectionInfo);
+            }
+
             default:
                 Base::Logger::FileLogger::getInstance().log
                 (
@@ -657,4 +663,6 @@ void Client::onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMess
         Base::Logger::LogLevel::WARNING
     );
 }
+
+void Client::onRequestOnConnectionAnswer(Models::ConnectionInfo connectionInfo) { _connectionInfo = connectionInfo; };
 }  // namespace Network

@@ -227,7 +227,7 @@ void serialize(Archive& ar, Models::MessageInfo& o)
     ar& o._channelID& o._senderID& o._msgID& o._message& o._reactions& o._time& o._userLogin;
 }
 
-/**
+ /**
  * @brief The ReplyInfo struct
  * @details Reply Info contains channel ID, message, message ID,
  *          sender ID, msgIdOwner and sender ID.
@@ -273,6 +273,37 @@ template <typename Archive>
 void serialize(Archive& ar, Models::ReplyInfo& o)
 {
     ar& o._channelID& o._message& o._msgID& o._senderID& o._msgIdOwner& o._userLogin;
+}
+
+/**
+ * @brief The ConnectoinInfo struct
+ * @details Contains information, which will be used to verify connection(and client too)
+ */
+struct ConnectionInfo
+{
+    /// connection ID uint64_t variable
+    std::uint64_t _connectionID;
+    /// public server key, used to encrypt verification hash
+    std::string _publicServerKey;
+    /// Default ConnectoinInfo constructor
+    ConnectionInfo() = default;
+
+    /// ConnectoinInfo constructor with initializing list
+    explicit ConnectionInfo(const std::uint64_t& connectionID_, const std::string& _publicServerKey_)
+        : _connectionID(connectionID_), _publicServerKey(_publicServerKey_)
+    {
+    }
+    /// Default ConnectoinInfo copy constructor
+    ConnectionInfo(const ConnectionInfo&) = default;
+    /// Default ConnectoinInfo destructor
+    ~ConnectionInfo() = default;
+};
+
+/// Serialize method for serialize ConnectoinInfo for each field
+template <typename Archive>
+void serialize(Archive& ar, Models::ConnectionInfo& o)
+{
+    ar& o._connectionID& o._publicServerKey;
 }
 
 struct RSAKeyPair

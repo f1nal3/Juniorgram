@@ -70,6 +70,7 @@ void Server::initConnection(const uint16_t port) { _acceptor = std::make_unique<
 
 bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
 {
+    //there should connection verifing
     Message message;
     message.mHeader.mMessageType = Message::MessageType::ServerAccept;
     client->send(message);
@@ -213,6 +214,13 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, const Message&
             Result = directMessageCreateRequest(client, message);
             break;
         }
+
+        case Message::MessageType::RequestOnConnection:
+        {
+            directRequestOnConnection(client);
+            break;
+        }
+
         default:
         {
             Result = defaultRequest();
@@ -538,6 +546,7 @@ std::optional<Network::MessageResult> Server::registrationRequest(std::shared_pt
 
 std::optional<Network::MessageResult> Server::loginRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
+
     auto loginInfo = std::any_cast<Models::LoginInfo>(message.mBody);
 
     auto futureResult = _repoManager->pushRequest(&ILoginRepository::loginUser, fmt(loginInfo));
@@ -706,7 +715,20 @@ std::optional<Network::MessageResult> Server::directMessageCreateRequest(std::sh
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::defaultRequest() const
+std::optional<MessageResult> Server::directRequestOnConnection(std::shared_ptr<Network::Connection> client) const
+{
+    Message messageToClient;
+    messageToClient.mHeader.mMessageType = Message::MessageType::RequestOnConnectionAnswer;
+
+    Models::ConnectionInfo connectionInfo;
+    connectionInfo._connectionID   = client->getID();
+    connectionInfo._publicServerKey = _rsaKeyManager->getPublicServerKeyStr();
+
+    messageToClient.mBody = std::make_any<Models::ConnectionInfo>(connectionInfo);
+    client->send(messageToClient);
+}
+
+void Server::defaultRequest() const 
 {
     FileLogger::getInstance().log
     (

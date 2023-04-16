@@ -7,7 +7,6 @@
 #include <iomanip>
 #include <memory>
 #include <vector>
-#include <cryptopp/secblock.h>
 
 #include "Network/Connection.hpp"
 #include <Utility/Utility.hpp>
@@ -62,7 +61,9 @@ struct Message
         DirectMessageCreateRequest,
         DirectMessageCreateAnswer,
         MessageReactionRequest,
-        MessageReactionAnswer
+        MessageReactionAnswer,
+        RequestOnConnection,
+        RequestOnConnectionAnswer
     };
 
     /**

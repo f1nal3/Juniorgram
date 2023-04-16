@@ -319,9 +319,24 @@ protected:
     * @details This function handler outputs message of reaction answer response.
     */
     virtual void onMessageReactionAnswer(Utility::ReactionMessageCodes reactionState);
+
+    /**
+     * @brief Reaction on received information about connection with server
+     * @details This function saves information in Client::_connectionInfo
+     */
+    virtual void onRequestOnConnectionAnswer(Models::ConnectionInfo connectionInfo);
     
 private:
     bool _serverAccept = false;
+
+    /**
+    * @brief Contains information about connection
+    * @details Contains info, which used to generate verification hash, which will be a confirmation
+    * that server is interacting with real client. Stored all the time while the client app is running: it
+    * allows client to change account without new request of public server key \
+    * More: https://github.com/f1nal3/Juniorgram/blob/dev/Docs/Cryptography.md
+    */
+    Models::ConnectionInfo _connectionInfo;
 
     asio::io_context _context;
     std::thread      _contextThread;
