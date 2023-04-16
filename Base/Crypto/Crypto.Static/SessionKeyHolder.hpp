@@ -2,6 +2,7 @@
 #include <map>
 #include <cryptopp/secblock.h>
 
+#include "FileLogger.hpp"
 #include "Utility/Utility.hpp"
 
 namespace Base
