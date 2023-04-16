@@ -3,6 +3,8 @@
 #include <cryptopp/osrng.h>
 #include <cryptopp/rsa.h>
 
+#include "Models/Primitives.hpp"
+
 namespace Base::Generators
 {
 using CryptoPP::AutoSeededRandomPool;

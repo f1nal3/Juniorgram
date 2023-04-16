@@ -1,8 +1,6 @@
 #include <catch2/catch.hpp>
 #include "Crypto.Static/Hashing.hpp"
-#include "SessionKeyHolder.hpp"
-#include "ICryptography.hpp"
-#include "AES_GCM.hpp"
+#include "Crypto.Static/RSA.hpp"
 
 using Base::Hashing::SHA_256;
 

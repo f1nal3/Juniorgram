@@ -14,10 +14,6 @@ target_link_libraries(${TARGET} PUBLIC
 
 target_include_directories(${TARGET} PRIVATE
     $<TARGET_PROPERTY:Base.Crypto.Static,SOURCE_DIR>/..)
-target_include_directories(${TARGET} PRIVATE
-    $<TARGET_PROPERTY:Network.Public,SOURCE_DIR>/Include)
-target_include_directories(${TARGET} PRIVATE
-    $<TARGET_PROPERTY:Utility.Public,SOURCE_DIR>/Include)
 
 add_test(NAME ${OUTPUT_NAME} COMMAND ${TARGET})
 

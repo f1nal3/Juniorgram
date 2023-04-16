@@ -13,7 +13,9 @@ set(SOURCE_FILES
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
-target_link_libraries(${TARGET} PUBLIC cryptopp::cryptopp)
+target_link_libraries(${TARGET} PUBLIC cryptopp::cryptopp
+    Models.Public
+    Utility.Public)
 
 set_target_properties(${TARGET} PROPERTIES
     LINKER_LANGUAGE CXX
