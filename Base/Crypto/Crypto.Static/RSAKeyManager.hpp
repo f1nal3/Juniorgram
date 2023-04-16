@@ -1,6 +1,5 @@
 #pragma once
 
-#include <string>
 #include <fstream>
 #include <cryptopp/filters.h>
 #include <cryptopp/files.h>
@@ -32,13 +31,15 @@ public:
     /** @brief Method for getting public server key
     * @return public server key as std::string
     */
-    std::string getPublicServerKey()
+    std::string getPublicServerKeyStr()
     {
         std::string publicKeyStr;
         StringSink  stringSink(publicKeyStr);
         _keyPair.publicKey.DEREncode(stringSink);
         return publicKeyStr;
     };
+    /// @brief Getter for private server key
+    CryptoPP::RSA::PrivateKey getPrivateKey() { return _keyPair.privateKey; };
 
 private:
     /// Contains public and private keys
