@@ -27,7 +27,6 @@ public:
     /// @brief Encrytion function
     std::string encrypt(const std::string& hashForEncrypt, const std::string& publicServerKeyStr)
     {
-        AutoSeededRandomPool randPool;
         std::string enctyptedHash;
 
         CryptoPP::RSA::PublicKey publicServerKey;
@@ -37,7 +36,7 @@ public:
         RSAES<OAEP<SHA256>>::Encryptor encryptor(publicServerKey);
 
         StringSource strSource(hashForEncrypt, true,
-            new PK_EncryptorFilter(randPool, encryptor,
+            new PK_EncryptorFilter(_randPool, encryptor,
                 new StringSink(enctyptedHash)));
 
         return enctyptedHash;
@@ -45,16 +44,18 @@ public:
 
     std::string decrypt(const std::string& hashForDecrypt, CryptoPP::RSA::PrivateKey publicServerKey)
     {
-        AutoSeededRandomPool randPool;
         std::string          decryptedHash;
 
         RSAES<OAEP<SHA256>>::Decryptor decryptor(publicServerKey);
 
         StringSource strSource(hashForDecrypt, true,
-            new PK_DecryptorFilter(randPool, decryptor,
+            new PK_DecryptorFilter(_randPool, decryptor,
                 new StringSink(decryptedHash)));
 
         return decryptedHash;
     }
+
+private:
+    AutoSeededRandomPool _randPool;
 };
 };  // namespace Base::Crypto::Asymmetric

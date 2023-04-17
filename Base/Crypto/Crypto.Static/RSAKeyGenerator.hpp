@@ -22,9 +22,8 @@ public:
     RSAKeyPair generateRSAKeyPair()
     {
         RSAKeyPair           rsaKeyPair;
-        AutoSeededRandomPool randPool;
 
-        rsaKeyPair.privateKey.GenerateRandomWithKeySize(randPool, _128);
+        rsaKeyPair.privateKey.GenerateRandomWithKeySize(_randPool, _128);
         rsaKeyPair.publicKey = RSA::PublicKey(rsaKeyPair.privateKey);
         return rsaKeyPair;
     }
@@ -32,6 +31,8 @@ public:
     RSA::PublicKey generateRSAPublicKey(const RSA::PrivateKey& privateKey) { return RSA::PublicKey(privateKey); };
 
 private:
+    AutoSeededRandomPool _randPool;
+
     /** @enum RSASecurityStrength
      * @brief Determines length of RSA key
      * @details Look here: https://www.keylength.com/en/4/
