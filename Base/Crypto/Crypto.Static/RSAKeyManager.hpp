@@ -4,7 +4,6 @@
 #include <cryptopp/filters.h>
 #include <cryptopp/files.h>
 
-#include "FileLogger.hpp"
 #include "RSAKeyGenerator.hpp"
 #include "Models/Primitives.hpp"
 
