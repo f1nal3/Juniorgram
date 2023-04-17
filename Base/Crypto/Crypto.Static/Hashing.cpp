@@ -21,4 +21,13 @@ namespace Base::Hashing
 
         return digest;
     }
+
+    std::string SHA_256(const std::string& plainText)
+    {
+        SHA256       sha256;
+        std::string  hashedValue;
+        StringSource(plainText, true, new HashFilter(sha256, new StringSink(hashedValue)));
+
+        return hashedValue;
+    }
 }  // namespace Base::Hashing

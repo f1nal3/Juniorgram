@@ -9,7 +9,9 @@ set(SOURCE_FILES
     AES_GCM.hpp
     RSAKeyManager.hpp
     RSAKeyGenerator.hpp
-    RSA.hpp)
+    RSA.hpp
+    IConnectionVerifier.hpp
+    HashVerifier.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
