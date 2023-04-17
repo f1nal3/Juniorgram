@@ -36,6 +36,9 @@ public:
                 case Message::MessageType::ServerMessage:
                     break;
 
+                case Message::MessageType::RequestOnConnection:
+                    break;
+
                 case Message::MessageType::ChannelListRequest:
                     state = processOutcomingMessageBody<std::vector<Models::ChannelInfo>>(bodyBuffer, message.mBody);
                     break;
@@ -158,6 +161,10 @@ public:
                     state = processOutcomingMessageBody<Utility::DirectMessageStatus>(bodyBuffer, message.mBody);
                     break;
 
+                case Message::MessageType::RequestOnConnectionAnswer:
+                    state = processOutcomingMessageBody<Models::ConnectionInfo>(bodyBuffer, message.mBody);
+                    break;
+
                 default:
                     break;
             }
@@ -193,6 +200,8 @@ public:
             case Message::MessageType::MessageAll:
                 break;
             case Message::MessageType::ServerMessage:
+                break;
+            case Message::MessageType::RequestOnConnection:
                 break;
             case Message::MessageType::ChannelListRequest:
             {
@@ -351,6 +360,12 @@ public:
             case Message::MessageType::DirectMessageCreateAnswer:
             {
                 state = processIncomingMessageBody<Utility::DirectMessageStatus>(buffer, message);
+                break;
+            }
+
+            case Message::MessageType::RequestOnConnectionAnswer:
+            {
+                state = processIncomingMessageBody<Models::ConnectionInfo>(buffer, message);
                 break;
             }
             default:
