@@ -27,8 +27,7 @@ public:
     /// @brief Encrytion function
     std::string encrypt(const std::string& hashForEncrypt, const std::string& publicServerKeyStr)
     {
-        std::string enctyptedHash;
-
+        std::string              enctyptedHash;
         CryptoPP::RSA::PublicKey publicServerKey;
         StringSource             stringSource(publicServerKeyStr, true);
         publicServerKey.BERDecode(stringSource);
@@ -42,11 +41,10 @@ public:
         return enctyptedHash;
     }
 
-    std::string decrypt(const std::string& hashForDecrypt, CryptoPP::RSA::PrivateKey publicServerKey)
+    std::string decrypt(const std::string& hashForDecrypt, const CryptoPP::RSA::PrivateKey& privateServerKey)
     {
-        std::string          decryptedHash;
-
-        RSAES<OAEP<SHA256>>::Decryptor decryptor(publicServerKey);
+        std::string                    decryptedHash;
+        RSAES<OAEP<SHA256>>::Decryptor decryptor(privateServerKey);
 
         StringSource strSource(hashForDecrypt, true,
             new PK_DecryptorFilter(_randPool, decryptor,

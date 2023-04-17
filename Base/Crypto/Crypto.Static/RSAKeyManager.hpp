@@ -25,8 +25,6 @@ using CryptoPP::FileSource;
 class RSAKeyManager
 {
 public:
-    RSAKeyManager() { loadKeyPair(); };
-
     /** @brief Method for getting public server key
     * @return public server key as std::string
     */
@@ -37,6 +35,23 @@ public:
         _keyPair.publicKey.DEREncode(stringSink);
         return publicKeyStr;
     };
+
+    /// @brief Method for loading key pair
+    void loadKeyPair() { loadPrivateKey(); };
+
+    /** @brief Method for saving rsa keys in files
+     * @details Work steps: \
+     * 1. Save private key. If saving the private key fails, the public key is not saved too.
+     * 2. Save public key.
+     */
+    void saveKeyPair()
+    {
+        if (savePrivateKey() == GeneralCodes::SUCCESS)
+        {
+            savePublicKey();
+        }
+    };
+
     /// @brief Getter for private server key
     CryptoPP::RSA::PrivateKey getPrivateKey() { return _keyPair.privateKey; };
 
@@ -59,9 +74,6 @@ private:
         BALANCED,
         HARD
     };
-
-    /// @brief Method for loading key pair
-    void loadKeyPair() { loadPrivateKey(); };
 
     /** @brief Method for loading private key from a file
     * @details Method loads private RSA key from file "PRIVATE_KEY_FILE". The following situations are possible: \
@@ -128,18 +140,6 @@ private:
         publicKeyOutputFile.close();
     }
 
-    /** @brief Method for saving rsa keys in files
-    * @details Work steps: \
-    * 1. Save private key. If saving the private key fails, the public key is not saved too.
-    * 2. Save public key.
-    */
-    void saveKeyPair()
-    {
-        if (savePrivateKey() == GeneralCodes::SUCCESS)
-        {
-            savePublicKey();
-        }
-    };
     /** @brief Method for saving private RSA key in file "PRIVATE_KEY_FILE"
     * @details Saves the private key by completely overwriting the file. Failed private key saving does not
     * startup public key saving.

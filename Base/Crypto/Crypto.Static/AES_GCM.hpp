@@ -5,6 +5,7 @@
 #include <cryptopp/filters.h>
 
 #include "FileLogger.hpp"
+#include "Hashing.hpp"
 #include "ICryptography.hpp"
 
 namespace Base::Crypto::Symmetric
@@ -29,6 +30,12 @@ namespace Base::Crypto::Symmetric
 class AES_GCM : public Base::Crypto::ICryptography
 {
 public:
+    AES_GCM(uint64_t userId_, const std::string& login_) :
+        _userID(userId_),
+        _authData(Base::Hashing::SHA_256(login_))
+    {
+    };
+
     //in Connection::writeHeader
     Utility::GeneralCodes encrypt(const std::string& initVector, yas::shared_buffer& bodyBuffer) override
     {
@@ -118,14 +125,16 @@ public:
             authDecrFilter.ChannelMessageEnd(AAD_CHANNEL);
             authDecrFilter.ChannelMessageEnd(DEFAULT_CHANNEL);
         }
-        catch (CryptoPP::Exception& e)
+        catch (CryptoPP::Exception& exception)
         {
-            std::cerr << e.what() << std::endl;
+            Base::Logger::FileLogger::getInstance().log(exception.what(), Base::Logger::LogLevel::ERR);
             return Utility::GeneralCodes::FAILED;
         }
         if (!authDecrFilter.GetLastResult())
         {
-            ///@todo Implement decryption exception, after its processing message must be ignored
+            Base::Logger::FileLogger::getInstance().log("Data integrity of message is violated", Base::Logger::LogLevel::ERR);
+            return Utility::GeneralCodes::FAILED;
+
         }
         auto               countBytesForReading = authDecrFilter.MaxRetrievable();
         yas::shared_buffer decryptedBody(countBytesForReading);
@@ -135,25 +144,13 @@ public:
         return Utility::GeneralCodes::SUCCESS;
     }
 
-    AES_GCM& setAuthenticationData(std::string authData_)
-    {
-        _authData = authData_;
-        return *this;
-    };
-
-    AES_GCM& setUserID(std::uint64_t userID_)
-    {
-        _userID = userID_;
-        return *this;
-    };
-
 private:
     /** @brief Authentification tag
     * @details Tag with default size. It is not recommended to use a shorter tag,
     * because these are truncated 128-bit (16-bytes) tags.
     */
     static const uint8_t TAG_SIZE = 16;
-    std::string _authData;      //hash of _userID
+    std::string _authData;      //hash of username
     std::uint64_t _userID;
 };
 }  // namespace Base::Crypto::Symmetric

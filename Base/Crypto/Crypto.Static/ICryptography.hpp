@@ -15,10 +15,10 @@ namespace Base::Crypto
 class ICryptography
 {
 public:
-    /// @brief Method for encryption. Gets params from EncrytptionHandler::handleOutcomingMessage
-    virtual Utility::GeneralCodes encrypt(const std::string& message, yas::shared_buffer& bodyBuffer) = 0;
-    /// @brief Method for decryption. Gets params from EncrytptionHandler::handleIncomingMessage
-    virtual Utility::GeneralCodes decrypt(yas::shared_buffer& buffer, const std::string& message) = 0;
+    /// @brief Method for encryption. Gets params from EncryptionHandler::handleOutcomingMessage
+    virtual Utility::GeneralCodes encrypt(const std::string& initVector, yas::shared_buffer& bodyBuffer) = 0;
+    /// @brief Method for decryption. Gets params from EncryptionHandler::handleIncomingMessage
+    virtual Utility::GeneralCodes decrypt(yas::shared_buffer& buffer, const std::string& initVector) = 0;
     virtual ~ICryptography()                                                            = default;
 };
 }  // namespace Base::Crypto
