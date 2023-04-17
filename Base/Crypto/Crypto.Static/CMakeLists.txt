@@ -16,6 +16,7 @@ set(SOURCE_FILES
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
 target_link_libraries(${TARGET} PUBLIC cryptopp::cryptopp
+    Network.Public
     Models.Public
     Utility.Public)
 

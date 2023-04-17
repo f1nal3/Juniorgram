@@ -2,12 +2,9 @@
 
 #include "Network/YasSerializer.hpp"
 #include "Utility/Utility.hpp"
-#include "Network/Message.hpp"
 
 namespace Base::Crypto
 {
-using Network::Message;
-
 /** @class ICryptography
  * @brief Interface for encryption schemes
  * @detatils The intreface provides access to encryption and decryption for EncryptionHandler class.
@@ -18,10 +15,10 @@ using Network::Message;
 class ICryptography
 {
 public:
-    /// @brief Method for encryption. Repeats params of EncrytptionHandler::handleOutcomingMessage
-    virtual Utility::GeneralCodes encrypt(const Message& message, yas::shared_buffer& bodyBuffer) = 0;
-    /// @brief Method for decryption. Repeats params of EncrytptionHandler::handleIncomingMessage
-    virtual Utility::GeneralCodes decrypt(yas::shared_buffer& buffer, Message& message) = 0;
+    /// @brief Method for encryption. Gets params from EncrytptionHandler::handleOutcomingMessage
+    virtual Utility::GeneralCodes encrypt(const std::string& message, yas::shared_buffer& bodyBuffer) = 0;
+    /// @brief Method for decryption. Gets params from EncrytptionHandler::handleIncomingMessage
+    virtual Utility::GeneralCodes decrypt(yas::shared_buffer& buffer, const std::string& message) = 0;
     virtual ~ICryptography()                                                            = default;
 };
 }  // namespace Base::Crypto

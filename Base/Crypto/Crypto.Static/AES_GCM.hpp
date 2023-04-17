@@ -30,7 +30,7 @@ class AES_GCM : public Base::Crypto::ICryptography
 {
 public:
     //in Connection::writeHeader
-    Utility::GeneralCodes encrypt(const Message& message, yas::shared_buffer& bodyBuffer) override
+    Utility::GeneralCodes encrypt(const std::string& initVector, yas::shared_buffer& bodyBuffer) override
     {
         try
         {
@@ -39,7 +39,7 @@ public:
 
             {
                 SecByteBlock key;
-                SecByteBlock initVec(reinterpret_cast<const byte*>(message.mHeader.mIv.data()), message.mHeader.mIv.size());
+                SecByteBlock initVec(reinterpret_cast<const byte*>(initVector.data()), initVector.size());
 
                 if (keyHolder::Instance().getOwner() == Owner::SERVER)
                 {
@@ -73,13 +73,12 @@ public:
         return Utility::GeneralCodes::SUCCESS;
     }
     //in Connection::readBody
-    Utility::GeneralCodes decrypt(yas::shared_buffer& buffer, Message& message) override
+    Utility::GeneralCodes decrypt(yas::shared_buffer& buffer, const std::string& initVector) override
     {
         GCM<AES, GCM_2K_Tables>::Decryption decryptor;
-
         {
             SecByteBlock key;
-            SecByteBlock initVec(reinterpret_cast<const byte*>(message.mHeader.mIv.data()), message.mHeader.mIv.size());
+            SecByteBlock initVec(reinterpret_cast<const byte*>(initVector.data()), initVector.size());
 
             if (keyHolder::Instance().getOwner() == Owner::SERVER)
             {

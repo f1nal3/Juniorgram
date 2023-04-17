@@ -2,6 +2,9 @@
 #include "Crypto.Static/Hashing.hpp"
 #include "Crypto.Static/RSA.hpp"
 #include "Crypto.Static/SessionKeyHolder.hpp"
+#include "Crypto.Static/RSAKeyManager.hpp"
+#include "Crypto.Static/HashVerifier.hpp"
+#include "Crypto.Static/ByteBlockGenerator.hpp"
 #include "Crypto.Static/AES_GCM.hpp"
 
 using Base::Hashing::SHA_256;
