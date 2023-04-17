@@ -6,6 +6,7 @@
 #include <memory>
 #include <thread>
 #include <optional>
+#include <random>
 
 #include "Network/Connection.hpp"
 #include "Network/Message.hpp"
@@ -29,6 +30,7 @@ using Utility::SafeQueue;
 using Network::MessageResult;
 using RepoManagerUPtr = std::unique_ptr<DataAccess::IRepositoryManager>;
 using RSAKeyManagerSPtr = std::shared_ptr<Base::RSAKeyManager>;
+using UInt64Dist = std::uniform_int_distribution<uint64_t>;
 
 /*
 * @brief Declaration of ServerBuilder.
@@ -143,9 +145,13 @@ private:
      */
     APPLY_API_METHODS
 
-    uint64_t _idCounter         = 10000;
+private:
     uint64_t _criticalQueueSize = 100;
     uint64_t _newThreadsCount   = std::thread::hardware_concurrency();
+
+    std::random_device _randDevice;
+    std::mt19937       _randGenerator = std::mt19937(_randDevice());
+    UInt64Dist         _distance      = UInt64Dist(10000, 100000);
 
     asio::io_context                        _context;
     std::vector<MessageResult>              _messageResponce;

@@ -97,7 +97,7 @@ void Server::acceptingClientConnection(const std::error_code& error, tcp::socket
         if (onClientConnect(newConnection))
         {
             _connectionsPointers.emplace_back(std::move(newConnection));
-            _connectionsPointers.back()->connectToClient(_idCounter++);
+            _connectionsPointers.back()->connectToClient(_distance(_randGenerator));
 
             FileLogger::getInstance().log
             (
