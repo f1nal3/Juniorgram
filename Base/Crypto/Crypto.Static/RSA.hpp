@@ -1,12 +1,12 @@
 #pragma once
 
 #include <cryptopp/sha.h>
-
-#include "RSAKeyManager.hpp"
+#include <cryptopp/osrng.h>
+#include <cryptopp/rsa.h>
+#include <cryptopp/filters.h>
 
 namespace Base::Crypto::Asymmetric
 {
-    using Base::RSAKeyManager;
     using CryptoPP::AutoSeededRandomPool;
     using CryptoPP::RSAES;
     using CryptoPP::OAEP;
@@ -14,6 +14,7 @@ namespace Base::Crypto::Asymmetric
     using CryptoPP::PK_EncryptorFilter;
     using CryptoPP::PK_DecryptorFilter;
     using CryptoPP::StringSource;
+    using CryptoPP::StringSink;
 
 /** @class RSA
 * @brief Encryption class according to the RSA algorithm
