@@ -31,9 +31,21 @@ using CryptoPP::FileSource;
 class RSAKeyManager
 {
 public:
+    RSAKeyManager() = default;
+
+    /** @brief Constructor that allows you to change the name of the file in which the keys will be saved
+     * @param filename Name of file for private RSA key; filename for public key is filename + ".pub"
+     */
+
+    RSAKeyManager(const std::string& filename)
+    {
+        PRIVATE_KEY_FILE = filename;
+        PUBLIC_KEY_FILE  = filename + ".pub";
+    };
     /** @brief Method for getting public server key
     * @return public server key as std::string
     */
+
     std::string getPublicServerKeyStr()
     {
         std::string publicKeyStr;
@@ -65,9 +77,9 @@ private:
     /// Contains public and private keys
     RSAKeyPair                          _keyPair;
     /// Name of file to save private RSA key
-    const std::string                   PRIVATE_KEY_FILE{"juniorgram.rsa"};
+    std::string                         PRIVATE_KEY_FILE{"juniorgram.rsa"};
     /// Name of file to save public RSA key
-    const std::string                   PUBLIC_KEY_FILE{PRIVATE_KEY_FILE + ".pub"};
+    std::string                         PUBLIC_KEY_FILE{"juniorgram.rsa.pub"};
 
     /** @enum ValidationLevel
     * @details Determines, which checks will be performed by CryptoPP library. \
