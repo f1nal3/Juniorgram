@@ -118,17 +118,19 @@ private:
         {
             if (AutoSeededRandomPool randPool; _keyPair.privateKey.Validate(randPool, ValidationLevel::HARD))
             {
+                Base::Logger::FileLogger::getInstance().log("[SERVER] Private key loaded from file successfully",
+                                                            Base::Logger::LogLevel::INFO);
                 loadPublicKey();
             }
             else
             {
-                FileLogger::getInstance().log("Invalid (probably compromised) private key", Base::Logger::LogLevel::WARNING);
+                FileLogger::getInstance().log("[SERVER] Invalid (probably compromised) private key", Base::Logger::LogLevel::WARNING);
                 _keyPair = RSAKeyGenerator().generateRSAKeyPair();
             }
         }
         else
         {
-            FileLogger::getInstance().log("Private key not founded", Base::Logger::LogLevel::INFO);
+            FileLogger::getInstance().log("[SERVER] Private key not founded", Base::Logger::LogLevel::INFO);
             _keyPair = RSAKeyGenerator().generateRSAKeyPair();
         }
     }
@@ -156,8 +158,12 @@ private:
         if (AutoSeededRandomPool randPool;
             !publicKeyLoaded || !_keyPair.publicKey.Validate(randPool, ValidationLevel::BALANCED))
         {
-            FileLogger::getInstance().log("Public key not founded or invalid", Base::Logger::LogLevel::INFO);
+            FileLogger::getInstance().log("[SERVER] Public key not founded or invalid", Base::Logger::LogLevel::INFO);
             _keyPair.publicKey = RSAKeyGenerator().generateRSAPublicKey(_keyPair.privateKey);
+        }
+        else
+        {
+            FileLogger::getInstance().log("[SERVER] Public key loaded from file successfully", Base::Logger::LogLevel::INFO);
         }
         publicKeyOutputFile.close();
     }
@@ -175,13 +181,12 @@ private:
 
             FileSink privateKeySink(PRIVATE_KEY_FILE.c_str() /*ios::trunc*/);
             _keyPair.privateKey.DEREncode(privateKeySink);
-            Base::Logger::FileLogger::getInstance().log("Private key saved in file successfully", Base::Logger::LogLevel::INFO);
+            Base::Logger::FileLogger::getInstance().log("[SERVER] Private key saved in file successfully", Base::Logger::LogLevel::INFO);
         }
         else
         {
             Base::Logger::FileLogger::getInstance().log(
-                "Failure to save private key to a file, so the public key will not be saved too.",
-                Base::Logger::LogLevel::ERR);
+                "[SERVER] Failure to save private key to a file, so the public key will not be saved too.", Base::Logger::LogLevel::ERR);
             return GeneralCodes::FAILED;
         }
         privateKeyInputFile.close();
@@ -200,12 +205,12 @@ private:
 
             FileSink publicKeySink(PUBLIC_KEY_FILE.c_str() /*ios::trunc*/);
             _keyPair.publicKey.DEREncode(publicKeySink);
-            Base::Logger::FileLogger::getInstance().log("Public key saved in file successfully", Base::Logger::LogLevel::INFO);
+            Base::Logger::FileLogger::getInstance().log("[SERVER] Public key saved in file successfully", Base::Logger::LogLevel::INFO);
         }
         else
         {
-            Base::Logger::FileLogger::getInstance().log(
-                "The public key could not be saved to a file", Base::Logger::LogLevel::ERR);
+            Base::Logger::FileLogger::getInstance().log("[SERVER] The public key could not be saved to a file",
+                                                        Base::Logger::LogLevel::ERR);
         }
         publicKeyInputFile.close();
     }
