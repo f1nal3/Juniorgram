@@ -392,6 +392,13 @@ inline auto makeTestServer() noexcept
     settings.SetDBPort(configArgs.getDatabasePortArguments().second);
     settings.SetDBUser(configArgs.getDatabaseUserArguments().second);
     settings.SetDBPassword(configArgs.getDatabasePasswordArguments().second);
+    
+    //settings.SetServerPort("65001");
+    //settings.SetDBName("juniorgram");
+    //settings.SetHostAddress("127.0.0.1");
+    //settings.SetDBPort("5432");
+    //settings.SetDBUser("postgres");
+    //settings.SetDBPassword("BrayanPGSQLPass@00");
 
     TestServer testServer = ServerBuilder(SettingsManager(settings)).makeServer();
 

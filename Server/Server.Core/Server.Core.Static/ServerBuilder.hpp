@@ -38,8 +38,30 @@ private:
 
         if (!_repository)
         {
-            auto repoManager = std::make_unique<DataAccess::PostgreRepositoryManager>(
-                DataAccess::IAdapter::getInstance<DataAccess::PostgreAdapter>(_settingsManager.GetConnectionOptions()));
+            //std::string str         = "dbname=juniorgram hostaddr=127.0.0.1 password=BrayanPGSQLPass@00 port=5432 user=postgres";
+            std::string str         = "dbname=mockdb hostaddr=127.0.0.1 password=tester port=5432 user=tester";
+            auto        repoManager = std::make_unique<DataAccess::PostgreRepositoryManager>(
+                //DataAccess::IAdapter::getInstance<DataAccess::PostgreAdapter>(_settingsManager.GetConnectionOptions()));
+                DataAccess::IAdapter::getInstance<DataAccess::PostgreAdapter>(str));
+            /** /
+            _settings = {
+            _serverPort = "65001"
+            _hostAddress = "127.0.0.1"
+            _dbName = "mockdb"
+            _dbPort = "5432"
+            _dbUser = "tester"
+            _dbPassword = "tester"
+            }
+
+            _settings = {
+            _serverPort = "65001"
+            _hostAddress = "127.0.0.1"
+            _dbName = "juniorgram"
+            _dbPort = "5432"
+            _dbUser = "postgres"
+            _dbPassword = "BrayanPGSQLPass@00"
+            }
+            /**/
             server->initRepository(std::move(repoManager));
         }
         else
