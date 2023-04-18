@@ -20,7 +20,13 @@ using CryptoPP::FileSource;
 
 /** @class RSAKeyManager
 * @brief Class for managing RSA keys
-* @details Provide saving, loading keys to/from strong specified file; contains key pair.
+* @details Provide saving, loading keys to/from strong specified file; contains long-term key pair.
+* @warning That's why code for saving and loading keys is a bit strange: by trial and error I found out, that using FileSource(ifstream)
+* throws error in BERDecode (why so, I do not know; I found only one example of such use, and the person couldn't get it to work:
+* https://stackoverflow.com/questions/58493934/how-to-sign-a-file-via-crypto-and-rsa). Using FileSink(ofstream) does not cause
+* problems, but if you call FileSource(c-style filename) for reading file, which was be saved with FileSink(ofstream), you will get
+* BERDecode error too. FileSource does not allow to check the existence of the file (error will be thrown inside the library),
+* so for first launch you should check file existence.
 */
 class RSAKeyManager
 {
@@ -88,7 +94,9 @@ private:
         std::ifstream privateKeyOutputFile(PRIVATE_KEY_FILE);
         if (privateKeyOutputFile.is_open())
         {
-            FileSource privateKeySource(privateKeyOutputFile, true);
+            privateKeyOutputFile.close();
+
+            FileSource privateKeySource(PRIVATE_KEY_FILE.c_str(), true);
             _keyPair.privateKey.BERDecode(privateKeySource);
             privateKeyLoaded = true;
         }
@@ -126,7 +134,9 @@ private:
         std::ifstream publicKeyOutputFile(PUBLIC_KEY_FILE);
         if (publicKeyOutputFile.is_open())
         {
-            FileSource publicKeySource(publicKeyOutputFile, true);
+            publicKeyOutputFile.close();
+
+            FileSource publicKeySource(PUBLIC_KEY_FILE.c_str(), true);
             _keyPair.publicKey.BERDecode(publicKeySource);
             publicKeyLoaded = true;
         }
@@ -149,8 +159,11 @@ private:
         std::ofstream privateKeyInputFile(PRIVATE_KEY_FILE);
         if (privateKeyInputFile.is_open())
         {
-            FileSink privateKeySink(privateKeyInputFile /*ios::trunc*/);
+            privateKeyInputFile.close();
+
+            FileSink privateKeySink(PRIVATE_KEY_FILE.c_str() /*ios::trunc*/);
             _keyPair.privateKey.DEREncode(privateKeySink);
+            Base::Logger::FileLogger::getInstance().log("Private key saved in file successfully", Base::Logger::LogLevel::INFO);
         }
         else
         {
@@ -171,8 +184,11 @@ private:
         std::ofstream publicKeyInputFile(PUBLIC_KEY_FILE);
         if (publicKeyInputFile.is_open())
         {
-            FileSink publicKeySink(publicKeyInputFile /*ios::trunc*/);
+            publicKeyInputFile.close();
+
+            FileSink publicKeySink(PUBLIC_KEY_FILE.c_str() /*ios::trunc*/);
             _keyPair.publicKey.DEREncode(publicKeySink);
+            Base::Logger::FileLogger::getInstance().log("Public key saved in file successfully", Base::Logger::LogLevel::INFO);
         }
         else
         {
