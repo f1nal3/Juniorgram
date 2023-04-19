@@ -385,23 +385,15 @@ inline auto getTestDatabase() noexcept
 */
 inline auto makeTestServer() noexcept
 {
-    Settings   settings;
-    settings.SetServerPort(configArgs.getServerPortArguments().second);
-    settings.SetDBName(configArgs.getDatabaseArguments().second);
-    settings.SetHostAddress(configArgs.getHostAddrArguments().second);
-    settings.SetDBPort(configArgs.getDatabasePortArguments().second);
-    settings.SetDBUser(configArgs.getDatabaseUserArguments().second);
-    settings.SetDBPassword(configArgs.getDatabasePasswordArguments().second);
-    settings.SetRepoManager(getTestDatabase().release());
-    
-    //settings.SetServerPort("65001");
-    //settings.SetDBName("juniorgram");
-    //settings.SetHostAddress("127.0.0.1");
-    //settings.SetDBPort("5432");
-    //settings.SetDBUser("postgres");
-    //settings.SetDBPassword("BrayanPGSQLPass@00");
-
-    TestServer testServer = ServerBuilder(SettingsManager(settings)).makeServer();
+    TestServer testServer = ServerBuilder()
+                                .setValue(configArgs.getServerPortArguments())
+                                .setValue(configArgs.getDatabaseArguments())
+                                .setValue(configArgs.getHostAddrArguments())
+                                .setValue(configArgs.getDatabasePortArguments())
+                                .setValue(configArgs.getDatabaseUserArguments())
+                                .setValue(configArgs.getDatabasePasswordArguments())
+                                .setValue(getTestDatabase().release())
+                                .makeServer();
 
     return testServer;
 }

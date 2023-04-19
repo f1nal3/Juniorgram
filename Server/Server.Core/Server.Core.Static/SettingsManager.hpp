@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Settings.hpp"
+//#include "Settings.hpp"
 
 class SettingsManager
 {
@@ -12,23 +12,36 @@ public:
     SettingsManager& operator=(const SettingsManager&)  = default;
     SettingsManager& operator=(SettingsManager&&)       = default;
 
-    explicit SettingsManager(const Settings& settings)
-        : _settings(settings)
-    {}
+    inline void setValue(std::pair<std::string, std::string> keyValue)
+    {
+        _settings.insert(keyValue);
+    }
 
     std::string GetConnectionOptions() const
     {
-        return std::string("dbname="      + _settings.DBName() +
-                           " hostaddr="   + _settings.HostAddress() +
-                           " password="   + _settings.DBPassword() +
-                           " port="       + _settings.DBPort() +
-                           " user="       + _settings.DBUser());
+        std::string dbOptions = "";
+        for (const auto& [configName, configValue] : _settings)
+        {
+            if (configName != "--serverport")
+            {
+                for (size_t i = 0; i < configName.length(); ++i)
+                {
+                    if (configName[i] != '-')
+                    {
+                        dbOptions += configName[i];
+                    }
+                }
+                dbOptions += "=";
+                dbOptions += configValue;
+                dbOptions += " ";
+            }
+        }
+
+        return dbOptions;
     }
 
-    std::string GetServerPort() const { return _settings.ServerPort(); }
-
-    DataAccess::IRepositoryManager* GetRepoManager() const { return _settings.RepoManager(); }
+    std::string GetServerPort() const { return _settings.find("--serverport")->second; }
 
 private:
-    Settings _settings;
+    std::map<std::string, std::string> _settings;
 };

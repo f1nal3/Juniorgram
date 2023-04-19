@@ -21,9 +21,17 @@ public:
     ServerBuilder()  = default;
     ~ServerBuilder() = default;
 
-    explicit ServerBuilder(const SettingsManager& settingsManager)
-        : _settingsManager(settingsManager)
-    {}
+    inline ServerBuilder& setValue(std::pair<std::string, std::string> keyValue)
+    {
+        _settingsManager.setValue(keyValue);
+        return *this;
+    }
+
+    inline ServerBuilder& setValue(DataAccess::IRepositoryManager* repoManager)
+    {
+        _repository.reset(repoManager);
+        return *this;
+    }
 
     std::unique_ptr<Server> makeServer()
     {
@@ -35,31 +43,11 @@ private:
     Server* make() noexcept
     {
         auto server = std::unique_ptr<Server>(new Server());
-        _repository.reset(_settingsManager.GetRepoManager());
 
         if (!_repository)
         {
             auto        repoManager = std::make_unique<DataAccess::PostgreRepositoryManager>
                 (DataAccess::IAdapter::getInstance<DataAccess::PostgreAdapter>(_settingsManager.GetConnectionOptions()));
-            /** /
-            _settings = {
-            _serverPort = "65001"
-            _hostAddress = "127.0.0.1"
-            _dbName = "mockdb"
-            _dbPort = "5432"
-            _dbUser = "tester"
-            _dbPassword = "tester"
-            }
-
-            _settings = {
-            _serverPort = "65001"
-            _hostAddress = "127.0.0.1"
-            _dbName = "juniorgram"
-            _dbPort = "5432"
-            _dbUser = "postgres"
-            _dbPassword = "BrayanPGSQLPass@00"
-            }
-            /**/
             server->initRepository(std::move(repoManager));
         }
         else

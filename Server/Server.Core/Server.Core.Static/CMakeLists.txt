@@ -6,7 +6,6 @@ set(SOURCE_FILES
 	Server.cpp
 	ArgParser.hpp
     ServerBuilder.hpp
-    Settings.hpp
     SettingsManager.hpp)
 
 if(WIN32)

@@ -10,7 +10,7 @@ TEST_CASE("Successfull Server start up [Server][Success]")
 
     SECTION("Comparison of the specified port with the expected port")
     {
-        REQUIRE(std::stoi(configArgs.getServerPortArguments().second) 
+        REQUIRE(std::stoi(configArgs.getServerPortArguments().second)
             == TestServerInfo::Port::test);
     }
     CHECK_NOTHROW(testServer->start());
@@ -18,21 +18,19 @@ TEST_CASE("Successfull Server start up [Server][Success]")
 
 TEST_CASE("Server start up with bad port [Server][Failed]")
 {   
-    Settings settings;
-
-    settings.SetServerPort(configArgs.getBadServerPortArguments().second);
-    settings.SetDBName(configArgs.getDatabaseArguments().second);
-    settings.SetHostAddress(configArgs.getHostAddrArguments().second);
-    settings.SetDBPort(configArgs.getDatabasePortArguments().second);
-    settings.SetDBUser(configArgs.getDatabaseUserArguments().second);
-    settings.SetDBPassword(configArgs.getDatabasePasswordArguments().second);
-    settings.SetRepoManager(getTestDatabase().release());
-
-    TestServer testServer = ServerBuilder(SettingsManager(settings)).makeServer();
+    TestServer testServer = ServerBuilder()
+                                .setValue(configArgs.getBadServerPortArguments())
+                                .setValue(configArgs.getDatabaseArguments())
+                                .setValue(configArgs.getHostAddrArguments())
+                                .setValue(configArgs.getDatabasePortArguments())
+                                .setValue(configArgs.getDatabaseUserArguments())
+                                .setValue(configArgs.getDatabasePasswordArguments())
+                                .setValue(getTestDatabase().release())
+                                .makeServer();
 
     SECTION("Comparison of the specified port with the expected bad port")
     {
-        REQUIRE_FALSE(std::stoi(configArgs.getBadServerPortArguments().second) 
+        REQUIRE_FALSE(std::stoi(configArgs.getBadServerPortArguments().second)
             == TestServerInfo::Port::test);
     }
     CHECK_NOTHROW(testServer->start());
