@@ -11,7 +11,9 @@ set(SOURCE_FILES
     RSAKeyGenerator.hpp
     RSA.hpp
     IConnectionVerifier.hpp
-    HashVerifier.hpp)
+    HashVerifier.hpp
+    IKeyAgreement.hpp
+    ECDH.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
