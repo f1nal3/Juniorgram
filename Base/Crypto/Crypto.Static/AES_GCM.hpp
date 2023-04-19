@@ -4,6 +4,7 @@
 #include <cryptopp/gcm.h>
 #include <cryptopp/filters.h>
 
+#include "SessionKeyHolder.hpp"
 #include "FileLogger.hpp"
 #include "Hashing.hpp"
 #include "ICryptography.hpp"
@@ -36,7 +37,9 @@ public:
     {
     };
 
-    //in Connection::writeHeader
+    /** @brief Method for encrypting data
+    * @details Designed for use in EncryptionHandler
+    */
     Utility::GeneralCodes encrypt(const std::string& initVector, yas::shared_buffer& bodyBuffer) override
     {
         try
@@ -79,7 +82,10 @@ public:
         }
         return Utility::GeneralCodes::SUCCESS;
     }
-    //in Connection::readBody
+
+    /** @brief Method for decrypting data
+     * @details Designed for use in EncryptionHandler
+     */
     Utility::GeneralCodes decrypt(yas::shared_buffer& buffer, const std::string& initVector) override
     {
         GCM<AES, GCM_2K_Tables>::Decryption decryptor;
