@@ -2,6 +2,8 @@
 
 #include "ArgParser.hpp"
 
+#include <PostgreRepositoryManager.hpp>
+
 class Settings
 {
 public:
@@ -28,15 +30,19 @@ public:
     void SetDBPort(std::string dbPort)              { _dbPort       = dbPort; }
     void SetDBUser(std::string dbUser)              { _dbUser       = dbUser; }
     void SetDBPassword(std::string dbPassword)      { _dbPassword   = dbPassword; }
+    void SetRepoManager(DataAccess::IRepositoryManager* repoManager) { _repoManager = repoManager; }
 
-    std::string ServerPort() const  { return _serverPort; }
-    std::string HostAddress() const { return _hostAddress; }
-    std::string DBName() const      { return _dbName; }
-    std::string DBPort() const      { return _dbPort; }
-    std::string DBUser() const      { return _dbUser; }
-    std::string DBPassword() const  { return _dbPassword; }
+    std::string ServerPort() const                      { return _serverPort; }
+    std::string HostAddress() const                     { return _hostAddress; }
+    std::string DBName() const                          { return _dbName; }
+    std::string DBPort() const                          { return _dbPort; }
+    std::string DBUser() const                          { return _dbUser; }
+    std::string DBPassword() const                      { return _dbPassword; }
+    DataAccess::IRepositoryManager* RepoManager() const { return _repoManager; }
 
 private:
+    DataAccess::IRepositoryManager* _repoManager;
+
     std::string         _serverPort;
     std::string         _hostAddress;
     std::string         _dbName;

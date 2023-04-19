@@ -34,15 +34,13 @@ public:
 private:
     Server* make() noexcept
     {
-        auto server = new Server();
+        auto server = std::unique_ptr<Server>(new Server());
+        _repository.reset(_settingsManager.GetRepoManager());
 
         if (!_repository)
         {
-            //std::string str         = "dbname=juniorgram hostaddr=127.0.0.1 password=BrayanPGSQLPass@00 port=5432 user=postgres";
-            std::string str         = "dbname=mockdb hostaddr=127.0.0.1 password=tester port=5432 user=tester";
-            auto        repoManager = std::make_unique<DataAccess::PostgreRepositoryManager>(
-                //DataAccess::IAdapter::getInstance<DataAccess::PostgreAdapter>(_settingsManager.GetConnectionOptions()));
-                DataAccess::IAdapter::getInstance<DataAccess::PostgreAdapter>(str));
+            auto        repoManager = std::make_unique<DataAccess::PostgreRepositoryManager>
+                (DataAccess::IAdapter::getInstance<DataAccess::PostgreAdapter>(_settingsManager.GetConnectionOptions()));
             /** /
             _settings = {
             _serverPort = "65001"
@@ -72,7 +70,7 @@ private:
         uint16_t port = static_cast<uint16_t>(std::stoi(_settingsManager.GetServerPort()));
         server->initConnection(port);
 
-        return server;
+        return server.release();
     }
 
     SettingsManager     _settingsManager;

@@ -27,6 +27,8 @@ public:
 
     std::string GetServerPort() const { return _settings.ServerPort(); }
 
+    DataAccess::IRepositoryManager* GetRepoManager() const { return _settings.RepoManager(); }
+
 private:
     Settings _settings;
 };

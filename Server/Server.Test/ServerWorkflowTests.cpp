@@ -19,12 +19,14 @@ TEST_CASE("Successfull Server start up [Server][Success]")
 TEST_CASE("Server start up with bad port [Server][Failed]")
 {   
     Settings settings;
-    settings.SetServerPort(configArgs.getServerPortArguments().second);
+
+    settings.SetServerPort(configArgs.getBadServerPortArguments().second);
     settings.SetDBName(configArgs.getDatabaseArguments().second);
     settings.SetHostAddress(configArgs.getHostAddrArguments().second);
     settings.SetDBPort(configArgs.getDatabasePortArguments().second);
     settings.SetDBUser(configArgs.getDatabaseUserArguments().second);
     settings.SetDBPassword(configArgs.getDatabasePasswordArguments().second);
+    settings.SetRepoManager(getTestDatabase().release());
 
     TestServer testServer = ServerBuilder(SettingsManager(settings)).makeServer();
 

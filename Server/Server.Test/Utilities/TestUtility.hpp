@@ -392,6 +392,7 @@ inline auto makeTestServer() noexcept
     settings.SetDBPort(configArgs.getDatabasePortArguments().second);
     settings.SetDBUser(configArgs.getDatabaseUserArguments().second);
     settings.SetDBPassword(configArgs.getDatabasePasswordArguments().second);
+    settings.SetRepoManager(getTestDatabase().release());
     
     //settings.SetServerPort("65001");
     //settings.SetDBName("juniorgram");
