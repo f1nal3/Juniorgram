@@ -5,6 +5,7 @@
 #include <iostream>
 #include <memory>
 #include <thread>
+#include <optional>
 
 #include "Network/Connection.hpp"
 #include "Network/Message.hpp"
@@ -24,8 +25,8 @@ using asio::ip::tcp;
 using Network::Connection;
 using Network::Message;
 using Utility::SafeQueue;
+using Network::MessageResult;
 using RepoManagerUPtr = std::unique_ptr<DataAccess::IRepositoryManager>;
-
 /*
 * @brief Declaration of ServerBuilder.
 */
@@ -58,8 +59,6 @@ public:
      * @brief Method to start the server.
      */
     void start();
-
-    // void registerRepositories();
 
     /**
      * @brief Method to stop the server.
@@ -123,6 +122,20 @@ private:
     void onMessage(const std::shared_ptr<Connection>& client, const Message& message);
 
     /**
+     * @brief Method to check message result after that server answered to message.
+     */
+    void checkMessageResult(std::optional<MessageResult> result);
+
+
+    /**
+     * @brief Method to get a container with the results of message processing.
+     * @details The results of the messages may be as follows:
+     *          InvalidBody  - poorly formed message. /
+     *          Success      - correctly formed message.
+     */
+    std::vector<MessageResult> getMessageResult() const;
+
+    /**
      *  This macros apply all method from api and avoid you from routine of handwriting
      */
     APPLY_API_METHODS
@@ -133,10 +146,11 @@ private:
     uint64_t _newThreadsCount   = std::thread::hardware_concurrency();
 
     asio::io_context                        _context;
-    std::unique_ptr<tcp::acceptor>          _acceptor;
+    std::vector<MessageResult>              _messageResponce;
     std::deque<std::shared_ptr<Connection>> _connectionsPointers;
     SafeQueue<Message>                      _incomingMessagesQueue;
     std::deque<std::thread>                 _threads;
-    RepoManagerUPtr                          _repoManager;
+    std::unique_ptr<tcp::acceptor>          _acceptor;
+    RepoManagerUPtr                         _repoManager;
 };
 }  /// namespace Server
