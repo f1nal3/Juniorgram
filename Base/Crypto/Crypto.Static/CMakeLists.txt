@@ -13,7 +13,8 @@ set(SOURCE_FILES
     IConnectionVerifier.hpp
     HashVerifier.hpp
     IKeyAgreement.hpp
-    ECDH.hpp)
+    ECDH.hpp
+    KeyConfirmation.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 

@@ -7,6 +7,7 @@
 #include "Crypto.Static/ByteBlockGenerator.hpp"
 #include "Crypto.Static/AES_GCM.hpp"
 #include "Crypto.Static/ECDH.hpp"
+#include "Crypto.Static/KeyConfirmation.hpp"
 
 using Base::Hashing::SHA_256;
 
