@@ -16,6 +16,8 @@ Server::~Server() { stop(); }
 
 void Server::start()
 {
+    _rsaKeyManager->loadKeyPair();
+
     waitForClientConnection();
 
     size_t threadsCount = std::thread::hardware_concurrency();
@@ -44,6 +46,8 @@ void Server::stop()
     _context.stop();
 
     _repoManager->stopHandler();
+
+    _rsaKeyManager->saveKeyPair();
 
     for (std::thread& thread : _threads)
     {

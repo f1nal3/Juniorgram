@@ -14,6 +14,7 @@
 #include "PostgreRepositoryManager.hpp"
 #include "RSAKeyManager.hpp"
 
+
 #include "Utility/SafeQueue.hpp"
 
 namespace DataAccess
@@ -160,6 +161,6 @@ private:
     std::deque<std::thread>                 _threads;
     std::unique_ptr<tcp::acceptor>          _acceptor;
     RepoManagerUPtr                         _repoManager;
-    RSAKeyManagerSPtr                       _rsaKeyManager;
+    RSAKeyManagerSPtr                       _rsaKeyManager = std::make_shared<Base::RSAKeyManager>();
 };
 }  /// namespace Server
