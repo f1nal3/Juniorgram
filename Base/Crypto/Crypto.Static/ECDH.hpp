@@ -34,39 +34,50 @@ public:
     /// @brief Method for (re)generating temporary keys
     void generateKeys() { createEphemeralKeys(); };
 
-    /** @Method Method for calculating shared key of client and server.
-    * @details Method places shared key in SessionKeyHolder.
-    * @param publicOthersideKeyStr public key, received from other side
-    * @param othersideId ID of otherside. If set by default, it means that the method was called by the client side
+    /** @brief Server's method for calculating shared key
+    * @details Method places shared key in SessionKeyHolder for client with clientId.
     */
-    bool calculateSharedKey(const std::string& publicOthersideKeyStr, uint64_t othersideId = 0)
-	{
+    bool calculateSharedKey(const std::string& publicClientKeyStr, uint64_t clientId = 0)
+    {
+        SecByteBlock sharedKey(_domain.AgreedValueLength());
+        SecByteBlock publicOthersideKey(reinterpret_cast<const byte*>(publicClientKeyStr.data()), publicClientKeyStr.size());
+
+        bool correctness = _domain.Agree(sharedKey, _privateKey, publicOthersideKey);
+        if (correctness)
+        {
+            SessionKeyHolder::Instance().addUserKey(cutInHalf(sharedKey), clientId);
+            FileLogger::getInstance().log("Session key for userId = " + std::to_string(clientId) + "is setted",
+                                          Base::Logger::LogLevel::INFO);
+        }
+        else
+        {
+            FileLogger::getInstance().log("Failed to reach shared secret", Base::Logger::LogLevel::ERR);
+        }
+        clearKeys();
+        return correctness;
+    }
+
+    /** @brief Client's method for calculating shared key
+    * @details Method places shared key in SessionKeyHolder.
+    */
+    bool calculateSharedKey(const std::string& publicOthersideKeyStr)
+    {
         SecByteBlock sharedKey(_domain.AgreedValueLength());
         SecByteBlock publicOthersideKey(reinterpret_cast<const byte*>(publicOthersideKeyStr.data()), publicOthersideKeyStr.size());
 
         bool correctness = _domain.Agree(sharedKey, _privateKey, publicOthersideKey);
         if (correctness)
         {
-            SecByteBlock sessionKey = cutInHalf(sharedKey);
-            clearKeys();
-            if (!othersideId)
-            {
-                SessionKeyHolder::Instance().setKey(sessionKey);
-                FileLogger::getInstance().log("Session key is setted", Base::Logger::LogLevel::INFO);
-            }
-            else
-            {
-                SessionKeyHolder::Instance().addUserKey(sessionKey, othersideId);
-                FileLogger::getInstance().log("Session key for userId = " + std::to_string(othersideId) + "is setted",
-                                              Base::Logger::LogLevel::INFO);
-            }
+            SessionKeyHolder::Instance().setKey(cutInHalf(sharedKey));
+            FileLogger::getInstance().log("Session key is setted", Base::Logger::LogLevel::INFO);
         }
         else
         {
             FileLogger::getInstance().log("Failed to reach shared secret", Base::Logger::LogLevel::ERR);
         }
+        clearKeys();
         return correctness;
-	}
+    }
 
 private:
     AutoSeededRandomPool _randPool;
