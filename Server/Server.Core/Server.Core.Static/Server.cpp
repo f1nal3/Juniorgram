@@ -5,6 +5,7 @@
 #include "FileLogger.hpp"
 #include "Logger/ILogger.hpp"
 #include <Models/Models.hpp>
+#include "AES_GCM.hpp"
 
 namespace Server
 {
@@ -568,9 +569,10 @@ std::optional<Network::MessageResult> Server::loginRequest(std::shared_ptr<Conne
 
         client->send(answerForClient);
 
-        if (loginSuccessful)
-        {
-            client->setUserID(userID);
+    if (loginSuccessful)
+    {
+        client->setUserID(userID);
+        client->setEncryption(std::make_shared<Base::Crypto::Symmetric::AES_GCM>(userID, loginInfo._login));
 
             FileLogger::getInstance().log("User " + std::to_string(userID) + " logged in.", LogLevel::INFO);
         }

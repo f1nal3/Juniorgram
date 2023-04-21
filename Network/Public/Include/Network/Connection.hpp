@@ -57,7 +57,7 @@ private:
     std::uint64_t _connectionID  = uint64_t();
     std::uint64_t _userID        = 1;
 
-    std::unique_ptr<Base::Crypto::ICryptography> _cryptoAlgorithm;
+    std::shared_ptr<Base::Crypto::ICryptography> _cryptoAlgorithm;
 
     /*@details Unique socket to remote. */
     asio::ip::tcp::socket _socket;
@@ -89,7 +89,7 @@ private:
         yas::shared_buffer bodyBuffer;
 
         SerializationHandler handler;
-        handler.setNext(new CompressionHandler())->setNext(new EncryptionHandler());
+        handler.setNext(new CompressionHandler())->setNext(new EncryptionHandler(_cryptoAlgorithm));
         MessageProcessingState result = handler.handleOutcomingMessage(_outcomingMessagesQueue.front(), bodyBuffer);
 
         Network::Message::MessageHeader outcomingMessageHeader = _outcomingMessagesQueue.front().mHeader;
@@ -227,7 +227,7 @@ private:
         const auto readBodyHandler = [this, buffer](std::error_code error) {
             if (!error)
             {
-                EncryptionHandler handler;
+                EncryptionHandler handler(_cryptoAlgorithm);
                 handler.setNext(new CompressionHandler())->setNext(new SerializationHandler());
                 MessageProcessingState result = handler.handleIncomingMessageBody(buffer, _messageBuffer);
 
@@ -397,6 +397,6 @@ public:
         });
     }
 
-    void setEncryption(std::unique_ptr<Base::Crypto::ICryptography> algorithm) { _cryptoAlgorithm = std::move(algorithm); };
+    void setEncryption(std::shared_ptr<Base::Crypto::ICryptography> algorithm) { _cryptoAlgorithm = std::move(algorithm); };
 };
 }  // namespace Network

@@ -1,7 +1,7 @@
 #pragma once
 #include "Handler.hpp"
 #include "SessionKeyHolder.hpp"
-#include "AES_GCM.hpp"
+#include "ICryptography.hpp"
 
 namespace Network
 {
@@ -10,7 +10,13 @@ namespace Network
  */
 class EncryptionHandler : public AbstractHandler
 {
+    std::shared_ptr<Base::Crypto::ICryptography> _cryptoAlgorithm;
+
 public:
+    EncryptionHandler(std::shared_ptr<Base::Crypto::ICryptography> cryptoAlgorithm_) :
+        _cryptoAlgorithm(cryptoAlgorithm_)
+    {
+    };
     /**
      * @brief Method for encryption of outcoming messages.
      * @param message - buffer that contains data that should be encrypted.
@@ -19,10 +25,7 @@ public:
      */
     MessageProcessingState handleOutcomingMessage(const Message& message, yas::shared_buffer& bodyBuffer) override
     {
-        // Message::MessageHeader messageHeader = message.mHeader;
-        // body encryption
-        // messageHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
-        // header encryption
+        _cryptoAlgorithm->encrypt(message.mHeader.mIv, bodyBuffer);
 
         if (this->nextHandler)
         {
@@ -38,11 +41,12 @@ public:
      */
     MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
     {
-        // body decryption
+        yas::shared_buffer decryptedBuffer = buffer;
+        _cryptoAlgorithm->decrypt(decryptedBuffer, message.mHeader.mIv);
 
         if (this->nextHandler)
         {
-            this->nextHandler->handleIncomingMessageBody(buffer, message);
+            this->nextHandler->handleIncomingMessageBody(decryptedBuffer, message);
         }
         return MessageProcessingState::SUCCESS;
     }
