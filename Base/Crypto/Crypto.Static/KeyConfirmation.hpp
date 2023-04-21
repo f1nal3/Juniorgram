@@ -14,7 +14,7 @@ public:
     KeyConfirmation(const T& verificationUnit_): _verificationUnit(verificationUnit_)
     {
     };
-        /// @brief Method returns specific object used to verify the keyT
+    /// @brief Method returns specific object used to verify the keyT
     getVerificationUnit() const { return _verificationUnit; };
     /** @brief Method for comparing received test object with correct verification object
     * @details You need to overload operator== for template class, if there is none
