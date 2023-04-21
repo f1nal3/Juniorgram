@@ -15,7 +15,7 @@ public:
     {
     };
     /// @brief Method returns specific object used to verify the keyT
-    getVerificationUnit() const { return _verificationUnit; };
+    T getVerificationUnit() const { return _verificationUnit; };
     /** @brief Method for comparing received test object with correct verification object
     * @details You need to overload operator== for template class, if there is none
     */
