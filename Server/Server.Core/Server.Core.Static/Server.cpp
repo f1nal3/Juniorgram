@@ -116,7 +116,7 @@ void Server::acceptingClientConnection(const std::error_code& error, tcp::socket
     waitForClientConnection();
 }
 
-void Server::onMessage(const std::shared_ptr<Connection>& client, const Message& message)
+void Server::onMessage(const std::shared_ptr<Connection>& client, const Message& message) const
 {
     std::optional<Network::MessageResult> Result;
 

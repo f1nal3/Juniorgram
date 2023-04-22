@@ -112,7 +112,7 @@ TEST_CASE("Method of obtaining a pair of arguments of the argparser [ArgParser][
         ArgParser                sectionParser(static_cast<int>(sectionArgs.size()), sectionArgs.data());
         REQUIRE_NOTHROW(sectionParser);
 
-        std::pair<std::string, std::string> otherPair{"--serverport", "65003"};
+        auto otherPair = std::make_pair("--serverport", "65003");
         REQUIRE(sectionParser.getPair("--serverport").second == otherPair.second);
     }
 
