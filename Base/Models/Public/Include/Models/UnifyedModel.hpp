@@ -44,7 +44,7 @@ public:
     {
     }
 
-    constexpr std::string getModelName() const noexcept { return _modelName; }
+    const std::string getModelName() const noexcept { return _modelName; }
 
     const size_t enumToNum(TEnum anyEnum) const noexcept
     {

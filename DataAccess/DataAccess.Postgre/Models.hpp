@@ -19,12 +19,12 @@ public:
     UserRegistration(const std::string& modelName = "users", 
                         Models::FieldNames names = {"email,login,password_hash"},
                         size_t amountFields = 3):
-                        PostgreModel<RegInfo>(modelName, names, amountFields)
+                        PostgreModel(modelName, names, amountFields)
     {
         this->init();
     }
 
-    RegInfo getNumEnum(size_t num) const override
+    virtual RegInfo getNumEnum(size_t num) const override
     {
         switch (num)
         {
@@ -63,7 +63,7 @@ public:
         this->init();
     }
 
-    UserInfo getNumEnum(size_t num)const override
+    virtual UserInfo getNumEnum(size_t num)const override
     {
         switch (num)
         {
