@@ -6,7 +6,9 @@ set(LIBRARY_OUTPUT_NAME ${TARGET})
 set(HEADERS
     PostgreAdapter.hpp
     PostgreRepositories.hpp
-    UsersAmountFinder.hpp)
+    UsersAmountFinder.hpp
+    PostgreModel.hpp
+    Models.hpp)
 
 set(HEADERS_ONLY
     PostgreRepositoryContainer.hpp

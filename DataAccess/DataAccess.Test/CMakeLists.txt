@@ -12,9 +12,10 @@ set(SOURCE_FILES
         PostgreQueryTest.cpp
         AbstractQueryBuilderTest.cpp
         AbstractRepositoryContainerTest.cpp
+        PostgreModelsTest.cpp
         )
 
-add_executable(${TARGET} ${SOURCE_FILES})
+add_executable(${TARGET} ${SOURCE_FILES} )
 
 set_target_properties(${TARGET} PROPERTIES FOLDER ${FOLDER})
 

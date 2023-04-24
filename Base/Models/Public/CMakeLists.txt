@@ -2,7 +2,8 @@ set(TARGET Models.Public)
 set(OUTPUT_NAME ${PROJECT}.Models.Public)
 
 set(SOURCE_FILES
-        Include/Models/Primitives.hpp)
+        Include/Models/Primitives.hpp
+        Include/Models/UnifyedModel.hpp)
 
 add_library(${TARGET} INTERFACE)
 
