@@ -16,6 +16,7 @@ using Base::RSAKeyGenerator;
 using Models::RSAKeyPair;
 using Base::Generators::ByteBlockGenerator;
 using Base::Verifiers::HashVerifier;
+using Base::KeyConfirmators::KeyConfirmation;
 
 TEST_CASE("Hash functions test", "[dummy]")
 {
@@ -134,3 +135,12 @@ TEST_CASE("HashVerifier test", "[dummy]")
     REQUIRE(verifyingString != anotherVerifyingString);
     REQUIRE_NOTHROW(hashVerifier.calculateVerifyingHash("hashOfPassword", connInfo));
 };
+
+TEST_CASE("KeyConfirmation test", "[dummy]") {
+    std::string                  verificationUnit{"unitToCheck"};
+    KeyConfirmation<std::string> keyConfirmator(verificationUnit);
+
+    REQUIRE(keyConfirmator.compareWithTestUnit(verificationUnit));
+    REQUIRE_NOTHROW(KeyConfirmation<std::string>(verificationUnit));
+    REQUIRE_NOTHROW(keyConfirmator.compareWithTestUnit(verificationUnit));
+}
