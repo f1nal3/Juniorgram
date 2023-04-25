@@ -17,18 +17,25 @@ using Models::RSAKeyPair;
 
 TEST_CASE("Hash functions test", "[dummy]")
 {
-    SECTION("SHA_256 method testing")
+    SECTION("SHA_256 method with salt testing")
     {
-
         auto result = SHA_256("Password", "login");
         auto shouldBe = std::string{"910C8F08EDC485FD882502A907912C57BEA192373A585DC742A36B6583CDA252"}; 
 
         REQUIRE(result == shouldBe);
         REQUIRE_NOTHROW(SHA_256("Password", "login"));
     }
+
+    SECTION("SHA_256 method without salt testing")
+    {
+        auto result   = SHA_256("Password");
+        auto shouldBe = std::string{"E7CF3EF4F17C3999A94F2C6F612E8A888E5B1026878E4E19398B23BD38EC221A"};
+        REQUIRE(result == shouldBe);
+        REQUIRE_NOTHROW(SHA_256("Password"));
+    }
 }
 
-TEST_CASE("RSA encoding test", "[dummy]")
+TEST_CASE("RSA components test", "[dummy]")
 {
     auto testKeySize = RSAKeyGenerator::RSASecurityStrength::test;
 

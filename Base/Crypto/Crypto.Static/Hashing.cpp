@@ -26,7 +26,7 @@ namespace Base::Hashing
     {
         SHA256       sha256;
         std::string  hashedValue;
-        StringSource(plainText, true, new HashFilter(sha256, new StringSink(hashedValue)));
+        StringSource(plainText, true, new HashFilter(sha256, new HexEncoder(new StringSink(hashedValue))));
 
         return hashedValue;
     }
