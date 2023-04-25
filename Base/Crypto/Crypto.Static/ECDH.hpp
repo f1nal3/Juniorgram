@@ -28,7 +28,7 @@ namespace Base::KeyAgreement
 * @details The class generates temporary keys for subsequent generation of shared key (secret).
 * Before placing the shared key in the session key storage, class can process it.
 */
-class ECDH : public IKeyAgreement
+class ECDH final: public IKeyAgreement
 {
 public:
     /// @brief Method for (re)generating temporary keys

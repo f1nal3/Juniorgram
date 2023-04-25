@@ -28,7 +28,7 @@ namespace Base::Crypto::Symmetric
 * @brief Encryption class according to the AES GCM algorithm
 * @details Uses key from SessionKeyHolder and initial vector from MessageHeader.
 */
-class AES_GCM : public Base::Crypto::ICryptography
+class AES_GCM final : public Base::Crypto::ICryptography
 {
 public:
     AES_GCM(uint64_t userId_, const std::string& login_) :
@@ -40,7 +40,7 @@ public:
     /** @brief Method for encrypting data
     * @details Designed for use in EncryptionHandler
     */
-    Utility::GeneralCodes encrypt(const std::string& initVector, yas::shared_buffer& bodyBuffer) override
+    Utility::GeneralCodes encrypt(const std::string& initVector, yas::shared_buffer& bodyBuffer)
     {
         try
         {
@@ -86,7 +86,7 @@ public:
     /** @brief Method for decrypting data
      * @details Designed for use in EncryptionHandler
      */
-    Utility::GeneralCodes decrypt(yas::shared_buffer& buffer, const std::string& initVector) override
+    Utility::GeneralCodes decrypt(yas::shared_buffer& buffer, const std::string& initVector)
     {
         GCM<AES, GCM_2K_Tables>::Decryption decryptor;
         {

@@ -10,7 +10,7 @@ namespace Base::Verifiers
 * https://github.com/f1nal3/Juniorgram/blob/dev/Docs/Towards%20Securing%20Client-Server%20Connections%20against.pdf
 * @details Uses user's password hash; server's connection ID and it's public key.
 */
-class HashVerifier : public IConnectionVerifier
+class HashVerifier final : public IConnectionVerifier
 {
     std::string calculateVerifyingHash(const std::string& pwdHash, const ConnectionInfo& connInfo)
     {
