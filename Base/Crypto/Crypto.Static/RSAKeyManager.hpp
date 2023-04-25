@@ -46,13 +46,7 @@ public:
     /** @brief Method for getting public server key
     * @return public server key as std::string
     */
-    std::string getPublicServerKeyStr()
-    {
-        std::string publicKeyStr;
-        StringSink  stringSink(publicKeyStr);
-        _keyPair.publicKey.DEREncode(stringSink);
-        return publicKeyStr;
-    };
+    std::string getPublicServerKeyStr() { return _keyPair.getPublicKeyAsString(); };
 
     /// @brief Method for loading key pair
     void loadKeyPair() { loadPrivateKey(); };
@@ -118,7 +112,7 @@ private:
         {
             if (AutoSeededRandomPool randPool; _keyPair.privateKey.Validate(randPool, ValidationLevel::HARD))
             {
-                Base::Logger::FileLogger::getInstance().log("[SERVER] Private key loaded from file successfully",
+                FileLogger::getInstance().log("[SERVER] Private key loaded from file successfully",
                                                             Base::Logger::LogLevel::INFO);
                 loadPublicKey();
             }
@@ -181,11 +175,11 @@ private:
 
             FileSink privateKeySink(PRIVATE_KEY_FILE.c_str() /*ios::trunc*/);
             _keyPair.privateKey.DEREncode(privateKeySink);
-            Base::Logger::FileLogger::getInstance().log("[SERVER] Private key saved in file successfully", Base::Logger::LogLevel::INFO);
+            FileLogger::getInstance().log("[SERVER] Private key saved in file successfully", Base::Logger::LogLevel::INFO);
         }
         else
         {
-            Base::Logger::FileLogger::getInstance().log(
+            FileLogger::getInstance().log(
                 "[SERVER] Failure to save private key to a file, so the public key will not be saved too.", Base::Logger::LogLevel::ERR);
             return GeneralCodes::FAILED;
         }
@@ -205,12 +199,11 @@ private:
 
             FileSink publicKeySink(PUBLIC_KEY_FILE.c_str() /*ios::trunc*/);
             _keyPair.publicKey.DEREncode(publicKeySink);
-            Base::Logger::FileLogger::getInstance().log("[SERVER] Public key saved in file successfully", Base::Logger::LogLevel::INFO);
+            FileLogger::getInstance().log("[SERVER] Public key saved in file successfully", Base::Logger::LogLevel::INFO);
         }
         else
         {
-            Base::Logger::FileLogger::getInstance().log("[SERVER] The public key could not be saved to a file",
-                                                        Base::Logger::LogLevel::ERR);
+            FileLogger::getInstance().log("[SERVER] The public key could not be saved to a file", Base::Logger::LogLevel::ERR);
         }
         publicKeyInputFile.close();
     }
