@@ -124,7 +124,7 @@ private:
         }
         else
         {
-            FileLogger::getInstance().log("[SERVER] Private key not founded", Base::Logger::LogLevel::INFO);
+            FileLogger::getInstance().log("[SERVER] Private key not found", Base::Logger::LogLevel::INFO);
             _keyPair = RSAKeyGenerator().generateRSAKeyPair();
         }
     }
@@ -152,7 +152,7 @@ private:
         if (AutoSeededRandomPool randPool;
             !publicKeyLoaded || !_keyPair.publicKey.Validate(randPool, ValidationLevel::BALANCED))
         {
-            FileLogger::getInstance().log("[SERVER] Public key not founded or invalid", Base::Logger::LogLevel::INFO);
+            FileLogger::getInstance().log("[SERVER] Public key not found or invalid", Base::Logger::LogLevel::INFO);
             _keyPair.publicKey = RSAKeyGenerator().generateRSAPublicKey(_keyPair.privateKey);
         }
         else
