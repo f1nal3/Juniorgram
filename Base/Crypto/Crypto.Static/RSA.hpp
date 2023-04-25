@@ -5,8 +5,11 @@
 #include <cryptopp/rsa.h>
 #include <cryptopp/filters.h>
 
+#include "FileLogger.hpp"
+
 namespace Base::Crypto::Asymmetric
 {
+    using Base::Logger::FileLogger;
     using CryptoPP::AutoSeededRandomPool;
     using CryptoPP::RSAES;
     using CryptoPP::OAEP;
@@ -24,34 +27,36 @@ namespace Base::Crypto::Asymmetric
 class RSA
 {
 public:
-    /// @brief Encrytion function
-    std::string encrypt(const std::string& hashForEncrypt, const std::string& publicServerKeyStr)
+    /// @brief Encryption function
+    std::string encrypt(const std::string& dataForEncrypt, const CryptoPP::RSA::PublicKey& publicServerKey)
     {
-        std::string              enctyptedHash;
-        CryptoPP::RSA::PublicKey publicServerKey;
-        StringSource             stringSource(publicServerKeyStr, true);
-        publicServerKey.BERDecode(stringSource);
-
+        std::string                    enctyptedData;
         RSAES<OAEP<SHA256>>::Encryptor encryptor(publicServerKey);
 
-        StringSource strSource(hashForEncrypt, true,
-            new PK_EncryptorFilter(_randPool, encryptor,
-                new StringSink(enctyptedHash)));
+        if (!encryptor.FixedMaxPlaintextLength())
+        {
+            FileLogger::getInstance().log("[RSA] Invalid public key", Base::Logger::LogLevel::ERR);
+            return "";
+        }
 
-        return enctyptedHash;
+        StringSource strSource(dataForEncrypt, true,
+            new PK_EncryptorFilter(_randPool, encryptor,
+                new StringSink(enctyptedData)));
+
+        return enctyptedData;
     }
 
-    /// @brief Decrytion function
-    std::string decrypt(const std::string& hashForDecrypt, const CryptoPP::RSA::PrivateKey& privateServerKey)
+    /// @brief Decryption function
+    std::string decrypt(const std::string& dataForDecrypt, const CryptoPP::RSA::PrivateKey& privateServerKey)
     {
-        std::string                    decryptedHash;
+        std::string                    decryptedData;
         RSAES<OAEP<SHA256>>::Decryptor decryptor(privateServerKey);
 
-        StringSource strSource(hashForDecrypt, true,
+        StringSource strSource(dataForDecrypt, true,
             new PK_DecryptorFilter(_randPool, decryptor,
-                new StringSink(decryptedHash)));
+                new StringSink(decryptedData)));
 
-        return decryptedHash;
+        return decryptedData;
     }
 
 private:
