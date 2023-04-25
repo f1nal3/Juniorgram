@@ -22,9 +22,7 @@ public:
 };
 
 template <typename TKey, typename TData = std::string, typename Comp = Comparator<TKey>>
-class Map : public std::map<TKey, TData, Comp>
-{
-};
+using Map = std::map<TKey, TData, Comp>;
 
 template <class TEnum, class TResult>
 class UnifyedModel
@@ -36,7 +34,7 @@ private:
 
 protected:
     Map<TEnum>       _data;
-    FieldData<TEnum> _fieldData;  /// maybe vector<tuple<T,size_t,string>> -> map<T,std::pair<size_t,string>> faster access
+    FieldData<TEnum> _fieldData;
 
 public:
     UnifyedModel(const std::string& modelName, FieldNames names, size_t amountFields)
@@ -44,9 +42,9 @@ public:
     {
     }
 
-    const std::string getModelName() const noexcept { return _modelName; }
+    const std::string& getModelName() const noexcept { return _modelName; }
 
-    const size_t enumToNum(TEnum anyEnum) const noexcept
+    size_t enumToNum(TEnum anyEnum) const noexcept
     {
         return std::get<1>(*std::find_if(_fieldData.begin(), _fieldData.end(), [anyEnum](std::tuple<TEnum, size_t, std::string> tpl) {
             if (std::get<0>(tpl) == anyEnum)
