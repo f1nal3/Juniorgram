@@ -64,14 +64,6 @@ public:
         }));
     }
 
-    const std::vector<TEnum>& getAllFields()
-    {
-        std::vector<TEnum> temp;
-        for (size_t i{0}; i < _fieldData.size(); ++i) temp.emplace_back(std::get<0>(_fieldData[i]));
-
-        return temp;
-    }
-
     virtual void fillMap(const TResult& response) = 0;  
 
     std::string& operator[](TEnum anyEnum) { return _data[anyEnum]; }
