@@ -36,16 +36,15 @@ public:
     /** @brief Constructor that allows you to change the name of the file in which the keys will be saved
      * @param filename Name of file for private RSA key; filename for public key is filename + ".pub"
      */
-
     RSAKeyManager(const std::string& filename)
     {
         PRIVATE_KEY_FILE = filename;
         PUBLIC_KEY_FILE  = filename + ".pub";
     };
+
     /** @brief Method for getting public server key
     * @return public server key as std::string
     */
-
     std::string getPublicServerKeyStr()
     {
         std::string publicKeyStr;
