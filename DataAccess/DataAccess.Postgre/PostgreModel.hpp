@@ -6,7 +6,7 @@
 
 namespace DataAccess
 {
-template <class TEnum, class TResult = pqxx::result>
+template <class TEnum, class TResult = pqxx::const_result_iterator>
 class PostgreModel : public Models::UnifyedModel<TEnum, TResult>
 {
 public:
@@ -18,10 +18,9 @@ public:
 public:
     virtual void fillMap(const TResult& responce) override
     {
-        auto iter      = responce.begin();
         auto fieldIter = this->_fieldData.begin();
 
-        for (auto innerIter = iter.begin(); innerIter != iter.end(); ++innerIter, ++fieldIter)
+        for (auto innerIter = responce.begin(); innerIter != responce.end(); ++innerIter, ++fieldIter)
         {
             this->_data[std::get<0>(*fieldIter)] = innerIter.template as<std::string>();
         }
