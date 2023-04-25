@@ -77,7 +77,7 @@ struct ConfigArguments
     const PairArguments& getDatabaseUserArguments() const { return userPair; }
     const PairArguments& getDatabasePasswordArguments() const { return passwordPair; }
 
-    const Server::Builder::Settings getSettings() const
+    Server::Builder::Settings getSettings() const
     {
         return Server::Builder::Settings()
                                     .SetValue(getServerPortArguments())

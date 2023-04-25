@@ -139,7 +139,7 @@ public:
     * @brief Used to generate Settings class object
     * @details Fills Settings class object with the current parameter values
     */
-    const Server::Builder::Settings GetSettings() const
+    Server::Builder::Settings GetSettings() const
     {
         auto GetPair = [this](const std::string& str)
                        {
