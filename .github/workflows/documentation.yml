@@ -8,46 +8,25 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     
-    - uses: actions/setup-python@v2
+    - uses: actions/setup-python@v3
       with:
           python-version: 3.7
-          
-    - name: Install coverage tools
-      run: |
-        pip3 install coverxygen
-        sudo apt-get -y install lcov
-    
-    - name: Creating folder structure
-      run : | 
-        sudo mkdir coverage      
-        sudo mkdir ./coverage/docs
-        sudo mkdir ./coverage/docs/doc_coverage
         
     - name: Doxygen Action
       uses: mattnotmitt/doxygen-action@v1.1.0
       with:
           doxyfile-path: ./Doxyfile
           working-directory: .
-      
-    - name: Changing location of documentation folder
-      run: sudo mv ./docs/docs/* ./coverage/docs/
-
-    - name: Generating Coverage Info
-      run: |
-        python3 -m coverxygen --xml-dir ./docs/xml --src-dir . --scope public,protected --kind enum,typedef,variable,function,signal,slot,class,struct,union, --output doc-coverage.info
-        sudo mv doc-coverage.info ./coverage/docs/doc_coverage
-
-    - name: Generate HTML
-      run: sudo genhtml -s --no-function-coverage --no-branch-coverage ./coverage/docs/doc_coverage/doc-coverage.info -o ./coverage/docs/doc_coverage
 
     - name: GH Pages Deployment
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./coverage
+        publish_dir: ./docs
         enable_jekyll: false
         allow_empty_commit: false
         force_orphan: true
         publish_branch: github-pages
+        

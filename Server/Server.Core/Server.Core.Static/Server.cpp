@@ -29,6 +29,15 @@ void Server::start()
     FileLogger::getInstance().log("[SERVER] Started!", LogLevel::INFO);
 }
 
+void Server::checkMessageResult(std::optional<MessageResult> result)
+{
+    if (result != MessageResult::Success)
+    {
+        _messageResponce.emplace_back(result.value());
+    }
+    _messageResponce.emplace_back(MessageResult::Success);
+}
+
 void Server::stop()
 {
     _context.stop();
@@ -107,139 +116,126 @@ void Server::acceptingClientConnection(const std::error_code& error, tcp::socket
     waitForClientConnection();
 }
 
-void Server::onMessage(const std::shared_ptr<Connection>& client, const Message& message)
+void Server::onMessage(const std::shared_ptr<Connection>& client, const Message& message) const
 {
+    std::optional<Network::MessageResult> Result;
+
     switch (message.mHeader.mMessageType)
     {
         case Message::MessageType::ServerPing:
         {
-            checkServerPing(client, message);
+            Result = checkServerPing(client, message);
             break;
         }
-
         case Message::MessageType::MessageAll:
         {
-            readAllMessage(client, message);
+            Result = readAllMessage(client, message);
             break;
         }
-
         case Message::MessageType::ChannelListRequest:
         {
-            channelListRequest(client);
+            Result = channelListRequest(client);
             break;
         }
-
         case Message::MessageType::MessageHistoryRequest:
         {
-            messageHistoryRequest(client, message);
+            Result = messageHistoryRequest(client, message);
             break;
         }
-
         case Message::MessageType::MessageStoreRequest:
         {
-            messageStoreRequest(client, message);
+            Result = messageStoreRequest(client, message);
             break;
         }
-
         case Message::MessageType::ReplyHistoryRequest:
         {
-            replyHistoryRequest(client, message);
+            Result = replyHistoryRequest(client, message);
             break;
         }
-
         case Message::MessageType::ReplyStoreRequest:
         {
-            replyStoreRequest(client, message);
+            Result = replyStoreRequest(client, message);
             break;
         }
-
         case Message::MessageType::MessageDeleteRequest:
         {
-            messageDeleteRequest(client, message);
+            Result = messageDeleteRequest(client, message);
             break;
         }
-
         case Message::MessageType::MessageEditRequest:
         {
-            messageEditRequest(client, message);
+            Result = messageEditRequest(client, message);
             break;
         }
-
         case Message::MessageType::MessageReactionRequest:
         {
-            messageReactionRequest(client, message);
+            Result = messageReactionRequest(client, message);
             break;
         }
-
         case Message::MessageType::RegistrationRequest:
         {
-            registrationRequest(client, message);
+            Result = registrationRequest(client, message);
             break;
         }
-
         case Message::MessageType::LoginRequest:
         {
-            loginRequest(client, message);
+            Result = loginRequest(client, message);
             break;
         }
-
         case Message::MessageType::ChannelLeaveRequest:
         {
-            channelLeaveRequest(client, message);
+            Result = channelLeaveRequest(client, message);
             break;
         }
-
         case Message::MessageType::ChannelSubscribeRequest:
         {
-            channelSubscribeRequest(client, message);
+            Result = channelSubscribeRequest(client, message);
             break;
         }
-
         case Message::MessageType::ChannelSubscriptionListRequest:
         {
-            channelSubscriptionListRequest(client);
+            Result = channelSubscriptionListRequest(client);
             break;
         }
-
         case Message::MessageType::ChannelDeleteRequest:
         {
-            channelDeleteRequest(client, message);
+            Result = channelDeleteRequest(client, message);
             break;
         }
-
         case Message::MessageType::ChannelCreateRequest:
         {
-            channelCreateRequest(client, message);
+            Result = channelCreateRequest(client, message);
             break;
         }
-
         case Message::MessageType::DirectMessageCreateRequest:
         {
-            directMessageCreateRequest(client, message);
+            Result = directMessageCreateRequest(client, message);
             break;
         }
-
         default:
         {
-            defaultRequest();
+            Result = defaultRequest();
             break;
         }
     }
 }
 
-void Server::messageClient(std::shared_ptr<Connection> client, const Message& message) const
+std::vector<MessageResult> Server::getMessageResult() const { return _messageResponce; }
+
+std::optional<MessageResult> Server::messageClient(std::shared_ptr<Connection> client, const Message& message) const
 {
     if (client != nullptr && client->isConnected())
     {
         client->send(message);
+
+        return MessageResult::Success;
     }
     else
     {
         onClientDisconnect(client);
-
         client.reset();
 
-        _connectionsPointers.empty();
+        return MessageResult::InvalidBody;
     }
 }
 
@@ -266,7 +262,7 @@ void Server::update(size_t maxMessages, bool wait)
     }
 }
 
-void Server::messageAllClients(std::shared_ptr<Connection> exceptionClient, const Message& message) const
+std::optional<MessageResult> Server::messageAllClients(std::shared_ptr<Connection> exceptionClient, const Message& message) const
 {
     for (auto& client : _connectionsPointers)
     {
@@ -275,6 +271,8 @@ void Server::messageAllClients(std::shared_ptr<Connection> exceptionClient, cons
             if (client != exceptionClient)
             {
                 client->send(message);
+
+                return MessageResult::Success;
             }
         }
         else
@@ -287,75 +285,102 @@ void Server::messageAllClients(std::shared_ptr<Connection> exceptionClient, cons
                 "[Other connections exists: " 
                 + std::to_string(client.use_count()) + "]"
             );
+
+            return MessageResult::InvalidBody;
         }
     }
 }
 
-void Server::checkServerPing(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Server::checkServerPing(std::shared_ptr<Connection> client, const Message& message) const
 {
     std::tm formattedTimestamp = UtilityTime::safe_localtime(message.mHeader.mTimestamp);
 
     std::ostringstream timeOutput;
     timeOutput << std::put_time(&formattedTimestamp, "%F %T");
 
-    FileLogger::getInstance().log
-    (
-        "[" + timeOutput.str() 
-        + "][" + std::to_string(client->getID())
-        + "]: Server Ping", LogLevel::INFO
-    );
+    if (message.mHeader.mMessageType == Message::MessageType::ServerPing)
+    {
+        FileLogger::getInstance().log
+        (
+            "[" + timeOutput.str() 
+            + "][" + std::to_string(client->getID())
+            + "]: Server Ping", LogLevel::INFO
+        );
 
-    client->send(message);
+        client->send(message);
+
+        return MessageResult::Success;
+    }
+    return MessageResult::InvalidBody;
 }
 
-void Server::readAllMessage(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Server::readAllMessage(std::shared_ptr<Connection> client, const Message& message) const
 {
     std::tm formattedTimestamp = UtilityTime::safe_localtime(message.mHeader.mTimestamp);
 
     std::ostringstream timeOutput;
     timeOutput << std::put_time(&formattedTimestamp, "%F %T");
 
-    FileLogger::getInstance().log
-    (
-        "[" + timeOutput.str() 
-        + "][" + std::to_string(client->getID()) 
-        + "]: Message All\n", LogLevel::INFO
-    );
+    if (message.mHeader.mMessageType == Message::MessageType::MessageAll)
+    {
+        FileLogger::getInstance().log
+        (
+            "[" + timeOutput.str() 
+            + "][" + std::to_string(client->getID()) 
+            + "]: Message All\n", LogLevel::INFO
+        );
 
-    Message messageHandler;
-    messageHandler.mHeader.mMessageType = Message::MessageType::ServerMessage;    
-    messageAllClients(client, messageHandler);
+        Message answerForClient;
+        answerForClient.mHeader.mMessageType = Message::MessageType::ServerMessage;    
+
+        messageAllClients(client, answerForClient);
+
+        return MessageResult::Success;
+    }
+    return MessageResult::InvalidBody;
 }
 
-void Server::channelListRequest(std::shared_ptr<Connection> client) const
+std::optional<Network::MessageResult> Server::channelListRequest(std::shared_ptr<Connection> client) const
 {
     auto futureResult = _repoManager->pushRequest(&IChannelsRepository::getAllChannelsList);
 
-    Message messageHandler;
-    messageHandler.mHeader.mMessageType = Message::MessageType::ChannelListRequest;
+    Message answerForClient;
+    answerForClient.mHeader.mMessageType = Message::MessageType::ChannelListRequest;
 
-    auto channelList     = futureResult.get();
-    messageHandler.mBody = std::make_any<std::vector<Models::ChannelInfo>>(channelList);
+    auto channelList                    = futureResult.get();
+    answerForClient.mBody = std::make_any<std::vector<Models::ChannelInfo>>(channelList);
 
-    client->send(messageHandler);
+    if (answerForClient.mHeader.mMessageType == Message::MessageType::ChannelListRequest)
+    {
+        client->send(answerForClient);
+
+        return MessageResult::Success;
+    }
+    return MessageResult::InvalidBody;
 }
 
-void Server::messageHistoryRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Server::messageHistoryRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto channelID = std::any_cast<std::uint64_t>(message.mBody);
 
     auto futureResult = _repoManager->pushRequest(&IMessagesRepository::getMessageHistory, DataAccess::fmt(channelID));
 
-    Message messageHandler;
-    messageHandler.mHeader.mMessageType = Message::MessageType::MessageHistoryAnswer;
+    Message answerForClient;
+    answerForClient.mHeader.mMessageType = Message::MessageType::MessageHistoryAnswer;
 
-    auto messageHistory = futureResult.get();
+    if (message.mHeader.mMessageType == Message::MessageType::MessageHistoryRequest)
+    {
+        auto messageHistory = futureResult.get();
+        answerForClient.mBody = std::make_any<std::vector<Models::MessageInfo>>(messageHistory);
 
-    messageHandler.mBody = std::make_any<std::vector<Models::MessageInfo>>(messageHistory);
-    client->send(messageHandler);
+        client->send(answerForClient);
+
+        return MessageResult::Success;
+    }
+    return MessageResult::InvalidBody;
 }
 
-void Server::messageStoreRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Server::messageStoreRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto messageInfo      = std::any_cast<Models::MessageInfo>(message.mBody);
     messageInfo._senderID = client->getUserID();
@@ -367,28 +392,40 @@ void Server::messageStoreRequest(std::shared_ptr<Connection> client, const Messa
     Message answerForClient;
     answerForClient.mHeader.mMessageType = Message::MessageType::MessageStoreAnswer;
 
-    auto messageStoringCode = futureResult.get();
+    if (message.mHeader.mMessageType == Message::MessageType::MessageStoreRequest)
+    {
+        auto messageStoringCode = futureResult.get();
+        answerForClient.mBody = std::make_any<Utility::StoringMessageCodes>(messageStoringCode);
 
-    answerForClient.mBody = std::make_any<Utility::StoringMessageCodes>(messageStoringCode);
-    client->send(answerForClient);
+        client->send(answerForClient);
+
+        return MessageResult::Success;
+    }
+    return MessageResult::InvalidBody;
 }
 
-void Server::replyHistoryRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Server::replyHistoryRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto channelID = std::any_cast<std::uint64_t>(message.mBody);
 
     auto futureResult = _repoManager->pushRequest(&IRepliesRepository::getReplyHistory, fmt(channelID));
 
-    Message replyMsg;
-    replyMsg.mHeader.mMessageType = Message::MessageType::ReplyHistoryAnswer;
+    Message answerForClient;
+    answerForClient.mHeader.mMessageType = Message::MessageType::ReplyHistoryAnswer;
 
-    auto replyHistory = futureResult.get();
+    if (message.mHeader.mMessageType == Message::MessageType::ReplyHistoryRequest)
+    {
+        auto replyHistory = futureResult.get();
+        answerForClient.mBody = std::make_any<std::vector<Models::ReplyInfo>>(replyHistory);
 
-    replyMsg.mBody = std::make_any<std::vector<Models::ReplyInfo>>(replyHistory);
-    client->send(replyMsg);
+        client->send(answerForClient);
+
+        return MessageResult::Success;
+    }
+    return MessageResult::InvalidBody;
 }
 
-void Server::replyStoreRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Server::replyStoreRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto replyInfo      = std::any_cast<Models::ReplyInfo>(message.mBody);
     replyInfo._senderID = client->getUserID();
@@ -399,13 +436,19 @@ void Server::replyStoreRequest(std::shared_ptr<Connection> client, const Message
     Message answerForClient;
     answerForClient.mHeader.mMessageType = Message::MessageType::ReplyStoreAnswer;
 
-    auto replyStoringCode = futureResult.get();
+    if (message.mHeader.mMessageType == Message::MessageType::ReplyStoreRequest)
+    {
+        auto replyStoringCode = futureResult.get();
+        answerForClient.mBody = std::make_any<Utility::StoringReplyCodes>(replyStoringCode);
 
-    answerForClient.mBody = std::make_any<Utility::StoringReplyCodes>(replyStoringCode);
-    client->send(answerForClient);
+        client->send(answerForClient);
+
+        return MessageResult::Success;
+    }
+    return MessageResult::InvalidBody;
 }
 
-void Server::messageDeleteRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Server::messageDeleteRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto messageInfo      = std::any_cast<Models::MessageInfo>(message.mBody);
     messageInfo._senderID = client->getUserID();
@@ -415,12 +458,19 @@ void Server::messageDeleteRequest(std::shared_ptr<Connection> client, const Mess
     Message answerForClient;
     answerForClient.mHeader.mMessageType = Message::MessageType::MessageDeleteAnswer;
 
-    const auto deletingMessageCode = futureResult.get();
-    answerForClient.mBody          = std::make_any<Utility::DeletingMessageCodes>(deletingMessageCode);
-    client->send(answerForClient);
+    if (message.mHeader.mMessageType == Message::MessageType::MessageDeleteRequest)
+    {
+        const auto deletingMessageCode = futureResult.get();
+        answerForClient.mBody          = std::make_any<Utility::DeletingMessageCodes>(deletingMessageCode);
+
+        client->send(answerForClient);
+
+        return MessageResult::Success;
+    }
+    return MessageResult::InvalidBody;
 }
 
-void Server::messageEditRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Server::messageEditRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto messageInfo      = std::any_cast<Models::MessageInfo>(message.mBody);
     messageInfo._senderID = client->getUserID();
@@ -430,12 +480,19 @@ void Server::messageEditRequest(std::shared_ptr<Connection> client, const Messag
     Message answerForClient;
     answerForClient.mHeader.mMessageType = Message::MessageType::MessageEditAnswer;
 
-    const auto editingMessageCode = futureResult.get();
-    answerForClient.mBody         = std::make_any<Utility::EditingMessageCodes>(editingMessageCode);
-    client->send(answerForClient);
+    if (message.mHeader.mMessageType == Message::MessageType::MessageEditRequest)
+    {
+        const auto editingMessageCode = futureResult.get();
+        answerForClient.mBody         = std::make_any<Utility::EditingMessageCodes>(editingMessageCode);
+
+        client->send(answerForClient);
+
+        return MessageResult::Success;
+    }
+    return MessageResult::InvalidBody;
 }
 
-void Server::messageReactionRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Server::messageReactionRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto messageInfo      = std::any_cast<Models::MessageInfo>(message.mBody);
     messageInfo._senderID = client->getUserID();
@@ -445,56 +502,71 @@ void Server::messageReactionRequest(std::shared_ptr<Connection> client, const Me
     Message answerForClient;
     answerForClient.mHeader.mMessageType = Message::MessageType::MessageReactionAnswer;
 
-    const auto reactionMessageCode = futureResult.get();
-    answerForClient.mBody          = std::make_any<Utility::ReactionMessageCodes>(reactionMessageCode);
-    client->send(answerForClient);
+    if (message.mHeader.mMessageType == Message::MessageType::MessageReactionRequest)
+    {
+        const auto reactionMessageCode = futureResult.get();
+        answerForClient.mBody          = std::make_any<Utility::ReactionMessageCodes>(reactionMessageCode);
+
+        client->send(answerForClient);
+
+        return MessageResult::Success;
+    }
+    return MessageResult::InvalidBody;
 }
 
-void Server::registrationRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Server::registrationRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto replyInfo = std::any_cast<Models::RegistrationInfo>(message.mBody);
 
     auto futureResult = _repoManager->pushRequest(&IRegisterRepository::registerUser, fmt(replyInfo));
 
-    Message messageToClient;
-    messageToClient.mHeader.mMessageType = Message::MessageType::RegistrationAnswer;
+    Message answerForClient;
+    answerForClient.mHeader.mMessageType = Message::MessageType::RegistrationAnswer;
 
-    auto registrationCode = futureResult.get();
+    if (message.mHeader.mMessageType == Message::MessageType::RegistrationRequest)
+    {
+        auto registrationCode = futureResult.get();
+        answerForClient.mBody = std::make_any<Utility::RegistrationCodes>(registrationCode);
 
-    messageToClient.mBody = std::make_any<Utility::RegistrationCodes>(registrationCode);
-    client->send(messageToClient);
+        client->send(answerForClient);
+
+        return MessageResult::Success;
+    }
+    return MessageResult::InvalidBody;
 }
 
-void Server::loginRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Server::loginRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto loginInfo = std::any_cast<Models::LoginInfo>(message.mBody);
 
     auto futureResult = _repoManager->pushRequest(&ILoginRepository::loginUser, fmt(loginInfo));
 
-    auto userID          = futureResult.get();
-    auto loginSuccessful = userID != 0;
-
-    FileLogger::getInstance().log("DEBUG: userID=" + std::to_string(userID), LogLevel::DEBUG);
-
-    Message messageToClient;
-    messageToClient.mHeader.mMessageType = Message::MessageType::LoginAnswer;
-    messageToClient.mBody                = std::make_any<bool>(loginSuccessful);
-
-    client->send(messageToClient);
-
-    if (loginSuccessful)
+    if (message.mHeader.mMessageType == Message::MessageType::LoginRequest)
     {
-        client->setUserID(userID);
+        auto userID          = futureResult.get();
+        auto loginSuccessful = userID != 0;
 
-        FileLogger::getInstance().log
-        (
-            "User " + std::to_string(userID) 
-            + " logged in.", LogLevel::INFO
-        );
+        FileLogger::getInstance().log("DEBUG: userID=" + std::to_string(userID), LogLevel::DEBUG);
+
+        Message answerForClient;
+        answerForClient.mHeader.mMessageType = Message::MessageType::LoginAnswer;
+        answerForClient.mBody                = std::make_any<bool>(loginSuccessful);
+
+        client->send(answerForClient);
+
+        if (loginSuccessful)
+        {
+            client->setUserID(userID);
+
+            FileLogger::getInstance().log("User " + std::to_string(userID) + " logged in.", LogLevel::INFO);
+        }
+
+        return MessageResult::Success;
     }
+    return MessageResult::InvalidBody;
 }
 
-void Server::channelLeaveRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Server::channelLeaveRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     Models::ChannelLeaveInfo channelLeaveInfo;
 
@@ -503,46 +575,67 @@ void Server::channelLeaveRequest(std::shared_ptr<Connection> client, const Messa
     channelLeaveInfo._channelName = channelName;
 
     auto futureResult = _repoManager->pushRequest(&IChannelsRepository::leaveChannel, fmt(channelLeaveInfo));
+    
+    Message answerForClient;
+    answerForClient.mHeader.mMessageType = Message::MessageType::ChannelLeaveAnswer;
 
-    Message messageToClient;
-    messageToClient.mHeader.mMessageType = Message::MessageType::ChannelLeaveAnswer;
+    if (message.mHeader.mMessageType == Message::MessageType::ChannelLeaveRequest)
+    {
+        auto subscribingChannelCodes = futureResult.get();
+        answerForClient.mBody        = std::make_any<Utility::ChannelLeaveCodes>(subscribingChannelCodes);
 
-    auto subscribingChannelCodes = futureResult.get();
-    messageToClient.mBody        = std::make_any<Utility::ChannelLeaveCodes>(subscribingChannelCodes);
-    client->send(messageToClient);
+        client->send(answerForClient);
+
+        return MessageResult::Success;
+    }
+    return MessageResult::InvalidBody;
 }
 
-void Server::channelSubscribeRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Server::channelSubscribeRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto channelInfo    = std::any_cast<Models::ChannelSubscriptionInfo>(message.mBody);
     channelInfo._userID = client->getUserID();
 
     auto futureResult = _repoManager->pushRequest(&IChannelsRepository::subscribeToChannel, fmt(channelInfo));
 
-    Message messageToClient;
-    messageToClient.mHeader.mMessageType = Message::MessageType::ChannelSubscribeAnswer;
+    Message answerForClient;
+    answerForClient.mHeader.mMessageType = Message::MessageType::ChannelSubscribeAnswer;
 
-    auto subscribingChannelCodes = futureResult.get();
+    if (message.mHeader.mMessageType == Message::MessageType::ChannelSubscribeRequest)
+    {
+        auto subscribingChannelCodes = futureResult.get();
 
-    messageToClient.mBody = std::make_any<Utility::ChannelSubscribingCodes>(subscribingChannelCodes);
-    client->send(messageToClient);
+        answerForClient.mBody = std::make_any<Utility::ChannelSubscribingCodes>(subscribingChannelCodes);
+
+        client->send(answerForClient);
+
+        return MessageResult::Success;
+    }
+    return MessageResult::InvalidBody;
 }
 
-void Server::channelSubscriptionListRequest(std::shared_ptr<Connection> client) const
+std::optional<Network::MessageResult> Server::channelSubscriptionListRequest(std::shared_ptr<Connection> client) const
 {
     const auto userID = client->getUserID();
 
     auto futureResult = _repoManager->pushRequest(&IChannelsRepository::getChannelSubscriptionList, fmt(userID));
 
-    Message messageToClient;
-    messageToClient.mHeader.mMessageType = Message::MessageType::ChannelSubscriptionListAnswer;
+    Message answerForClient;
+    answerForClient.mHeader.mMessageType = Message::MessageType::ChannelSubscriptionListAnswer;
 
     auto subscribingChannelCodes = futureResult.get();
-    messageToClient.mBody        = std::make_any<std::vector<uint64_t>>(subscribingChannelCodes);
-    client->send(messageToClient);
+    answerForClient.mBody        = std::make_any<std::vector<uint64_t>>(subscribingChannelCodes);
+
+    if (answerForClient.mHeader.mMessageType == Message::MessageType::ChannelSubscriptionListAnswer)
+    {
+        client->send(answerForClient);
+
+        return MessageResult::Success;
+    }
+    return MessageResult::InvalidBody;
 }
 
-void Server::channelDeleteRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Server::channelDeleteRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     Models::ChannelDeleteInfo channelDeleteInfo;
 
@@ -552,15 +645,22 @@ void Server::channelDeleteRequest(std::shared_ptr<Connection> client, const Mess
 
     auto futureResult = _repoManager->pushRequest(&IChannelsRepository::deleteChannel, fmt(channelDeleteInfo));
 
-    Message messageToClient;
-    messageToClient.mHeader.mMessageType = Message::MessageType::ChannelDeleteAnswer;
+    Message answerForClient;
+    answerForClient.mHeader.mMessageType = Message::MessageType::ChannelDeleteAnswer;
 
-    auto deletedChannelCodes = futureResult.get();
-    messageToClient.mBody    = std::make_any<Utility::ChannelDeleteCode>(deletedChannelCodes);
-    client->send(messageToClient);
+    if (message.mHeader.mMessageType == Message::MessageType::ChannelDeleteRequest)
+    {
+        auto deletedChannelCodes = futureResult.get();
+        answerForClient.mBody    = std::make_any<Utility::ChannelDeleteCode>(deletedChannelCodes);
+
+        client->send(answerForClient);
+
+        return MessageResult::Success;
+    }
+    return MessageResult::InvalidBody;
 }
 
-void Server::channelCreateRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Server::channelCreateRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     Models::ChannelInfo newChannelInfo;
 
@@ -570,33 +670,48 @@ void Server::channelCreateRequest(std::shared_ptr<Connection> client, const Mess
 
     auto futureResult = _repoManager->pushRequest(&IChannelsRepository::createChannel, fmt(newChannelInfo));
 
-    Message messageToClient;
-    messageToClient.mHeader.mMessageType = Message::MessageType::ChannelCreateAnswer;
+    Message answerForClient;
+    answerForClient.mHeader.mMessageType = Message::MessageType::ChannelCreateAnswer;
 
-    auto channelCreateCode = futureResult.get();
-    messageToClient.mBody  = std::make_any<Utility::ChannelCreateCodes>(channelCreateCode);
-    client->send(messageToClient);
+    if (message.mHeader.mMessageType == Message::MessageType::ChannelCreateRequest)
+    {
+        auto channelCreateCode = futureResult.get();
+        answerForClient.mBody  = std::make_any<Utility::ChannelCreateCodes>(channelCreateCode);
+
+        client->send(answerForClient);
+
+        return MessageResult::Success;
+    }
+    return MessageResult::InvalidBody;
 }
 
-void Server::directMessageCreateRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Server::directMessageCreateRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto secondUser = std::any_cast<std::uint64_t>(message.mBody);
 
     auto futureResult = _repoManager->pushRequest(&IDirectMessageRepository::addDirectChat, fmt(client->getUserID()), fmt(secondUser));
 
-    Message messageToClient;
-    messageToClient.mHeader.mMessageType = Message::MessageType::DirectMessageCreateAnswer;
+    Message answerForClient;
+    answerForClient.mHeader.mMessageType = Message::MessageType::DirectMessageCreateAnswer;
 
-    messageToClient.mBody = std::make_any<Utility::DirectMessageStatus>(futureResult.get());
-    client->send(messageToClient);
+    if (message.mHeader.mMessageType == Message::MessageType::DirectMessageCreateRequest)
+    {
+        answerForClient.mBody = std::make_any<Utility::DirectMessageStatus>(futureResult.get());
+
+        client->send(answerForClient);
+
+        return MessageResult::Success;
+    }
+    return MessageResult::InvalidBody;
 }
 
-void Server::defaultRequest() const 
+std::optional<Network::MessageResult> Server::defaultRequest() const
 {
     FileLogger::getInstance().log
     (
         "Unknown command received", 
         LogLevel::ERR
-    ); 
+    );
+    return MessageResult::InvalidBody;
 }
 }  // namespace Server
