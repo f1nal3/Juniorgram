@@ -1029,7 +1029,21 @@ EXAMPLE_RECURSIVE      = NO
 # that contain images that are to be included in the documentation (see the
 # \image command).
 
-IMAGE_PATH             =
+IMAGE_PATH             = Docs/images/crypto_authentication.svg \
+                         Docs/images/crypto_authentication.vsdx \
+                         Docs/images/crypto_connection.svg \
+                         Docs/images/crypto_connection.vsdx \
+                         Docs/images/DA_repository.svg \
+                         Docs/images/DA_repository.vsdx \
+                         "Docs/images/image (1).png" \
+                         "Docs/images/image (6).png" \
+                         Docs/images/image.png \
+                         "Docs/images/Screenshot 2022-06-29 155313.png" \
+                         Docs/images/SequenceOfTesting.svg \
+                         Docs/images/SequenceOfTesting.vsdx \
+                         Docs/images/ServerTestModules.svg \
+                         Docs/images/ServerTestModules.vsdx \
+                         Docs/images/workflow.png
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should
 # invoke to filter for each input file. Doxygen will invoke the filter program
