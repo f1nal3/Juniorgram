@@ -7,7 +7,7 @@ namespace Base::Crypto
 {
 /** @class ICryptography
  * @brief Interface for encryption schemes
- * @detatils The intreface provides access to encryption and decryption for EncryptionHandler class.
+ * @details The intreface provides access to encryption and decryption for EncryptionHandler class.
  * Object contained in Connection class and provide changing encryption algorithm at runtime.
  * Due to https://github.com/f1nal3/Juniorgram/blob/dev/Docs/Cryptography.md the typical use is
  * selection encryption scheme on creating Connection.

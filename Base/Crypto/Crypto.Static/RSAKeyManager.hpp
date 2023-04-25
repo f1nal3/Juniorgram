@@ -21,8 +21,9 @@ using CryptoPP::FileSource;
 /** @class RSAKeyManager
 * @brief Class for managing RSA keys
 * @details Provide saving, loading keys to/from strong specified file; contains long-term key pair.
-* @warning That's why code for saving and loading keys is a bit strange: by trial and error I found out, that using FileSource(ifstream)
-* throws error in BERDecode (why so, I do not know; I found only one example of such use, and the person couldn't get it to work:
+* @warning That's why code for saving and loading keys is a bit strange (about using fstream only to verify the existence of a file):
+* by trial and error I found out, that using FileSource(ifstream) throws error in BERDecode
+* (why so, I do not know; I found only one example of such use, and the person couldn't get it to work:
 * https://stackoverflow.com/questions/58493934/how-to-sign-a-file-via-crypto-and-rsa). Using FileSink(ofstream) does not cause
 * problems, but if you call FileSource(c-style filename) for reading file, which was be saved with FileSink(ofstream), you will get
 * BERDecode error too. FileSource does not allow to check the existence of the file (error will be thrown inside the library),
