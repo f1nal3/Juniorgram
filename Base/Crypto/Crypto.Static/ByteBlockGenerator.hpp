@@ -15,6 +15,7 @@ namespace Base::Generators
 */
 class ByteBlockGenerator
 {
+public:
     /** @brief Method for generating block of bytes with
     * @param blockSize size of byte block, in bytes
     */
