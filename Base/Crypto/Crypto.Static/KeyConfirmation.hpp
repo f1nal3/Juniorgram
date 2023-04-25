@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Base::KeyConfirmation
+namespace Base::KeyConfirmators
 {
 /** @class KeyConfirmation
 * @brief Interface for key confirmation protocol
