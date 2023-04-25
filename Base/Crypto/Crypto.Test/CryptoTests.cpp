@@ -14,6 +14,8 @@ using Base::Crypto::Asymmetric::RSA;
 using Base::RSAKeyManager;
 using Base::RSAKeyGenerator;
 using Models::RSAKeyPair;
+using Base::Generators::ByteBlockGenerator;
+using Base::Verifiers::HashVerifier;
 
 TEST_CASE("Hash functions test", "[dummy]")
 {
@@ -86,6 +88,9 @@ TEST_CASE("RSA components test", "[dummy]")
 
         REQUIRE(privateKeyStr == samePrivateKeyStr);
         REQUIRE(rsaKeyManager.getPublicServerKeyStr() == sameRsaKeyManager.getPublicServerKeyStr());
+
+        remove("juniorgram.test");
+        remove("juniorgram.test.pub");
     }
 
     SECTION("RSA encryption test")
@@ -102,3 +107,30 @@ TEST_CASE("RSA components test", "[dummy]")
         REQUIRE_NOTHROW(rsa.decrypt(encryptedData, keyPair.privateKey));
     };
 }
+
+TEST_CASE("ByteBlockGenerator test", "[dummy]")
+{
+    SECTION("Check on randomness")
+    {
+        ByteBlockGenerator generator;
+        auto block1 = generator.generateBlock(8);
+        auto block2 = generator.generateBlock(8);
+
+        REQUIRE(block1 != block2);
+    }
+}
+
+TEST_CASE("HashVerifier test", "[dummy]")
+{
+    Models::ConnectionInfo connInfo;
+    connInfo._connectionID    = 1;
+    connInfo._publicServerKey = std::string("publicServerKey");
+    HashVerifier hashVerifier;
+    auto         verifyingString        = hashVerifier.calculateVerifyingHash("hashOfPassword", connInfo);
+    auto         sameVerifyingString    = hashVerifier.calculateVerifyingHash("hashOfPassword", connInfo);
+    auto         anotherVerifyingString = hashVerifier.calculateVerifyingHash("hashOfPass", connInfo);
+
+    REQUIRE(verifyingString == sameVerifyingString);
+    REQUIRE(verifyingString != anotherVerifyingString);
+    REQUIRE_NOTHROW(hashVerifier.calculateVerifyingHash("hashOfPassword", connInfo));
+};
