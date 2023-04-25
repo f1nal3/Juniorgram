@@ -12,6 +12,7 @@ namespace Base::Verifiers
 */
 class HashVerifier final : public IConnectionVerifier
 {
+public:
     std::string calculateVerifyingHash(const std::string& pwdHash, const ConnectionInfo& connInfo)
     {
         return SHA_256(pwdHash + std::to_string(connInfo._connectionID) + connInfo._publicServerKey);
