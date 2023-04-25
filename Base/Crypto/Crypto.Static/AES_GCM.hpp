@@ -156,7 +156,7 @@ private:
     * because these are truncated 128-bit (16-bytes) tags.
     */
     static const uint8_t TAG_SIZE = 16;
-    std::string _authData;      //hash of username
-    std::uint64_t _userID;
+    std::string          _authData;  // hash of username
+    std::uint64_t        _userID;
 };
 }  // namespace Base::Crypto::Symmetric
