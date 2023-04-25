@@ -734,7 +734,7 @@ std::optional<MessageResult> Server::directRequestOnConnection(std::shared_ptr<N
     client->send(messageToClient);
 }
 
-void Server::defaultRequest() const 
+std::optional<MessageResult> Server::defaultRequest() const
 {
     FileLogger::getInstance().log
     (
