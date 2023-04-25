@@ -1,52 +1,31 @@
 #pragma once
 
-#include "ArgParser.hpp"
-
-#include <PostgreRepositoryManager.hpp>
+namespace Server::Builder
+{
+struct ParamType
+{
+    constexpr static char* ServerPort  = "--serverport";
+    constexpr static char* HostAddress = "--hostaddr";
+    constexpr static char* DBName      = "--dbname";
+    constexpr static char* DBPort      = "--port";
+    constexpr static char* DBUser      = "--user";
+    constexpr static char* DBPassword  = "--password";
+};
 
 class Settings
 {
 public:
     Settings() = default;
 
-    Settings(const Settings&)            = default;
-    Settings(Settings&&)                 = default;
-    Settings& operator=(const Settings&) = default;
-    Settings& operator=(Settings&&)      = default;
-
-    explicit Settings(const ArgParser& parser)
+    inline Settings& SetValue(std::pair<std::string, std::string> value)
     {
-        _serverPort     = parser.getPair("--serverport").second;
-        _hostAddress    = parser.getPair("--hostaddr").second;
-        _dbName         = parser.getPair("--dbname").second;
-        _dbPort         = parser.getPair("--port").second;
-        _dbUser         = parser.getPair("--user").second;
-        _dbPassword     = parser.getPair("--password").second;
+        _settings.emplace(value);
+        return *this;
     }
 
-    void SetServerPort(std::string serverPort)      { _serverPort   = serverPort; }
-    void SetHostAddress(std::string hostAddress)    { _hostAddress  = hostAddress; }
-    void SetDBName(std::string dbName)              { _dbName       = dbName; }
-    void SetDBPort(std::string dbPort)              { _dbPort       = dbPort; }
-    void SetDBUser(std::string dbUser)              { _dbUser       = dbUser; }
-    void SetDBPassword(std::string dbPassword)      { _dbPassword   = dbPassword; }
-    void SetRepoManager(DataAccess::IRepositoryManager* repoManager) { _repoManager = repoManager; }
-
-    std::string ServerPort() const                      { return _serverPort; }
-    std::string HostAddress() const                     { return _hostAddress; }
-    std::string DBName() const                          { return _dbName; }
-    std::string DBPort() const                          { return _dbPort; }
-    std::string DBUser() const                          { return _dbUser; }
-    std::string DBPassword() const                      { return _dbPassword; }
-    DataAccess::IRepositoryManager* RepoManager() const { return _repoManager; }
+    const std::string& GetValue(std::string key) const { return _settings.at(key); }
 
 private:
-    DataAccess::IRepositoryManager* _repoManager;
-
-    std::string         _serverPort;
-    std::string         _hostAddress;
-    std::string         _dbName;
-    std::string         _dbPort;
-    std::string         _dbUser;
-    std::string         _dbPassword;
+    std::map<std::string, std::string> _settings;
 };
+}  /// namespace Server::Builder

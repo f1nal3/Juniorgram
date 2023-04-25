@@ -5,18 +5,12 @@
 #include "ArgParser.hpp"
 
 using Server::Builder::ServerBuilder;
+using Server::Builder::SettingsManager;
 
 int main(int argc, const char** argv)
 {
     ArgParser parser(argc, argv);
-    auto      server = ServerBuilder()
-                      .setValue(parser.getPair("--serverport"))
-                      .setValue(parser.getPair("--dbname"))
-                      .setValue(parser.getPair("--hostaddr"))
-                      .setValue(parser.getPair("--port"))
-                      .setValue(parser.getPair("--user"))
-                      .setValue(parser.getPair("--password"))
-                      .makeServer();
+    auto      server = ServerBuilder(SettingsManager(parser.GetSettings())).makeServer();
 
     server->start();
 

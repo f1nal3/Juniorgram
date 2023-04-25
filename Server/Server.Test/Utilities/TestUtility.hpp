@@ -385,14 +385,19 @@ inline auto getTestDatabase() noexcept
 */
 inline auto makeTestServer() noexcept
 {
-    TestServer testServer = ServerBuilder()
-                                .setValue(configArgs.getServerPortArguments())
-                                .setValue(configArgs.getDatabaseArguments())
-                                .setValue(configArgs.getHostAddrArguments())
-                                .setValue(configArgs.getDatabasePortArguments())
-                                .setValue(configArgs.getDatabaseUserArguments())
-                                .setValue(configArgs.getDatabasePasswordArguments())
-                                .setValue(getTestDatabase().release())
+    using Server::Builder::Settings;
+    using Server::Builder::SettingsManager;
+
+    Settings testSettings = Settings()
+                            .SetValue(configArgs.getServerPortArguments())
+                            .SetValue(configArgs.getDatabaseArguments())
+                            .SetValue(configArgs.getHostAddrArguments())
+                            .SetValue(configArgs.getDatabasePortArguments())
+                            .SetValue(configArgs.getDatabaseUserArguments())
+                            .SetValue(configArgs.getDatabasePasswordArguments());
+
+    TestServer testServer = ServerBuilder(SettingsManager(testSettings))
+                                .SetMockRepo(getTestDatabase().release())
                                 .makeServer();
 
     return testServer;

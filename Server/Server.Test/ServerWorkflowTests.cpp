@@ -18,14 +18,19 @@ TEST_CASE("Successfull Server start up [Server][Success]")
 
 TEST_CASE("Server start up with bad port [Server][Failed]")
 {   
-    TestServer testServer = ServerBuilder()
-                                .setValue(configArgs.getBadServerPortArguments())
-                                .setValue(configArgs.getDatabaseArguments())
-                                .setValue(configArgs.getHostAddrArguments())
-                                .setValue(configArgs.getDatabasePortArguments())
-                                .setValue(configArgs.getDatabaseUserArguments())
-                                .setValue(configArgs.getDatabasePasswordArguments())
-                                .setValue(getTestDatabase().release())
+    using Server::Builder::Settings;
+    using Server::Builder::SettingsManager;
+
+    Settings testSettings = Settings()
+                                .SetValue(configArgs.getServerPortArguments())
+                                .SetValue(configArgs.getDatabaseArguments())
+                                .SetValue(configArgs.getHostAddrArguments())
+                                .SetValue(configArgs.getDatabasePortArguments())
+                                .SetValue(configArgs.getDatabaseUserArguments())
+                                .SetValue(configArgs.getDatabasePasswordArguments());
+
+    TestServer testServer = ServerBuilder(SettingsManager(testSettings))                                
+                                .SetMockRepo(getTestDatabase().release())
                                 .makeServer();
 
     SECTION("Comparison of the specified port with the expected bad port")

@@ -19,15 +19,16 @@ class ServerBuilder
 {
 public:
     ServerBuilder()  = default;
+    explicit ServerBuilder(SettingsManager settingsManager) : _settingsManager(settingsManager) {}
+
     ~ServerBuilder() = default;
 
-    inline ServerBuilder& setValue(std::pair<std::string, std::string> keyValue)
-    {
-        _settingsManager.setValue(keyValue);
-        return *this;
-    }
-
-    inline ServerBuilder& setValue(DataAccess::IRepositoryManager* repoManager)
+    /**
+    * @brief Sets up a specific RepositoryManager
+    * @details Allows to set a specific RepositoryManager
+    * @warning This method is to MockTest only! It may disappear in future.
+    */
+    inline ServerBuilder& SetMockRepo(DataAccess::IRepositoryManager* repoManager)
     {
         _repository.reset(repoManager);
         return *this;
@@ -46,16 +47,13 @@ private:
 
         if (!_repository)
         {
-            auto        repoManager = std::make_unique<DataAccess::PostgreRepositoryManager>
+            _repository = std::make_unique<DataAccess::PostgreRepositoryManager>
                 (DataAccess::IAdapter::getInstance<DataAccess::PostgreAdapter>(_settingsManager.GetConnectionOptions()));
-            server->initRepository(std::move(repoManager));
         }
-        else
-        {
-            server->initRepository(std::move(_repository));
-        }
+       
+        server->initRepository(std::move(_repository));
 
-        uint16_t port = static_cast<uint16_t>(std::stoi(_settingsManager.GetServerPort()));
+        uint16_t port = static_cast<uint16_t>(stoi(_settingsManager.GetServerPort()));
         server->initConnection(port);
 
         return server.release();

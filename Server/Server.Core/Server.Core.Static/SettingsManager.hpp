@@ -1,47 +1,37 @@
 #pragma once
 
-//#include "Settings.hpp"
+#include "Settings.hpp"
 
+namespace Server::Builder
+{
 class SettingsManager
 {
 public:
     SettingsManager() = default;
 
-    SettingsManager(const SettingsManager&)             = default;
-    SettingsManager(SettingsManager&&)                  = default;
-    SettingsManager& operator=(const SettingsManager&)  = default;
-    SettingsManager& operator=(SettingsManager&&)       = default;
+    SettingsManager(Settings settings) : _settings(settings) {}
+    
+    void Reset(Settings settings) { _settings = settings; }
 
-    inline void setValue(std::pair<std::string, std::string> keyValue)
-    {
-        _settings.insert(keyValue);
-    }
-
+    /**
+    * @brief Generates connection string
+    * @details In this case, for now, connection string to Postgre DB only
+    */
     std::string GetConnectionOptions() const
     {
-        std::string dbOptions = "";
-        for (const auto& [configName, configValue] : _settings)
-        {
-            if (configName != "--serverport")
-            {
-                for (size_t i = 0; i < configName.length(); ++i)
-                {
-                    if (configName[i] != '-')
-                    {
-                        dbOptions += configName[i];
-                    }
-                }
-                dbOptions += "=";
-                dbOptions += configValue;
-                dbOptions += " ";
-            }
-        }
-
-        return dbOptions;
+        return std::string("dbname="    + _settings.GetValue(ParamType::DBName) +
+                           " hostaddr=" + _settings.GetValue(ParamType::HostAddress) +
+                           " password=" + _settings.GetValue(ParamType::DBPassword) +
+                           " port="     + _settings.GetValue(ParamType::DBPort) +
+                           " user="     + _settings.GetValue(ParamType::DBUser));
+    }
+    
+    std::string GetServerPort() const
+    {
+        return _settings.GetValue(ParamType::ServerPort);
     }
 
-    std::string GetServerPort() const { return _settings.find("--serverport")->second; }
-
 private:
-    std::map<std::string, std::string> _settings;
+    Settings _settings;
 };
+}  /// namespace Server::Builder
