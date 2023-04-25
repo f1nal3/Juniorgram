@@ -37,7 +37,7 @@ public:
     /** @brief Server's method for calculating shared key
     * @details Method places shared key in SessionKeyHolder for client with clientId.
     */
-    bool calculateSharedKey(const std::string& publicClientKeyStr, uint64_t clientId = 0)
+    bool calculateSharedKey(const std::string& publicClientKeyStr, uint64_t clientId)
     {
         SecByteBlock sharedKey(_domain.AgreedValueLength());
         SecByteBlock publicOthersideKey(reinterpret_cast<const byte*>(publicClientKeyStr.data()), publicClientKeyStr.size());
