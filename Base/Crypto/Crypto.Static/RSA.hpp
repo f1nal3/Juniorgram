@@ -41,6 +41,7 @@ public:
         return enctyptedHash;
     }
 
+    /// @brief Decrytion function
     std::string decrypt(const std::string& hashForDecrypt, const CryptoPP::RSA::PrivateKey& privateServerKey)
     {
         std::string                    decryptedHash;
