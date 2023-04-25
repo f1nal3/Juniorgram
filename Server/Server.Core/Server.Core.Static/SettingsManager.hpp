@@ -9,9 +9,9 @@ class SettingsManager
 public:
     SettingsManager() = default;
 
-    SettingsManager(Settings settings) : _settings(settings) {}
+    explicit SettingsManager(const Settings& settings) : _settings(settings) {}
     
-    void Reset(Settings settings) { _settings = settings; }
+    void Reset(const Settings& settings) { _settings = settings; }
 
     /**
     * @brief Generates connection string
@@ -19,7 +19,7 @@ public:
     */
     std::string GetConnectionOptions() const
     {
-        return std::string("dbname="    + _settings.GetValue(ParamType::DBName) +
+        return std::string("dbname=" + _settings.GetValue(ParamType::DBName) +
                            " hostaddr=" + _settings.GetValue(ParamType::HostAddress) +
                            " password=" + _settings.GetValue(ParamType::DBPassword) +
                            " port="     + _settings.GetValue(ParamType::DBPort) +

@@ -18,18 +18,9 @@ TEST_CASE("Successfull Server start up [Server][Success]")
 
 TEST_CASE("Server start up with bad port [Server][Failed]")
 {   
-    using Server::Builder::Settings;
     using Server::Builder::SettingsManager;
 
-    Settings testSettings = Settings()
-                                .SetValue(configArgs.getServerPortArguments())
-                                .SetValue(configArgs.getDatabaseArguments())
-                                .SetValue(configArgs.getHostAddrArguments())
-                                .SetValue(configArgs.getDatabasePortArguments())
-                                .SetValue(configArgs.getDatabaseUserArguments())
-                                .SetValue(configArgs.getDatabasePasswordArguments());
-
-    TestServer testServer = ServerBuilder(SettingsManager(testSettings))                                
+    TestServer testServer = ServerBuilder(SettingsManager(configArgs.getSettings()))                                
                                 .SetMockRepo(getTestDatabase().release())
                                 .makeServer();
 

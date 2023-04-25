@@ -19,13 +19,13 @@ public:
 
     inline Settings& SetValue(std::pair<std::string, std::string> value)
     {
-        _settings.emplace(value);
+        _settings.insert_or_assign(value.first, value.second);
         return *this;
     }
 
-    const std::string& GetValue(std::string key) const { return _settings.at(key); }
+    const std::string& GetValue(const std::string& key) const { return _settings.at(key); }
 
 private:
-    std::map<std::string, std::string> _settings;
+    std::map<std::string, std::string, std::less<>> _settings;
 };
 }  /// namespace Server::Builder

@@ -77,6 +77,17 @@ struct ConfigArguments
     const PairArguments& getDatabaseUserArguments() const { return userPair; }
     const PairArguments& getDatabasePasswordArguments() const { return passwordPair; }
 
+    const Server::Builder::Settings getSettings() const
+    {
+        return Server::Builder::Settings()
+                                    .SetValue(getServerPortArguments())
+                                    .SetValue(getDatabaseArguments())
+                                    .SetValue(getHostAddrArguments())
+                                    .SetValue(getDatabasePortArguments())
+                                    .SetValue(getDatabaseUserArguments())
+                                    .SetValue(getDatabasePasswordArguments());
+    }
+
 private:
     const PairArguments serverPortPair{"--serverport", "65001"};
     const PairArguments badServerPortPair{"--serverport", "666666"};
@@ -385,20 +396,11 @@ inline auto getTestDatabase() noexcept
 */
 inline auto makeTestServer() noexcept
 {
-    using Server::Builder::Settings;
     using Server::Builder::SettingsManager;
 
-    Settings testSettings = Settings()
-                            .SetValue(configArgs.getServerPortArguments())
-                            .SetValue(configArgs.getDatabaseArguments())
-                            .SetValue(configArgs.getHostAddrArguments())
-                            .SetValue(configArgs.getDatabasePortArguments())
-                            .SetValue(configArgs.getDatabaseUserArguments())
-                            .SetValue(configArgs.getDatabasePasswordArguments());
-
-    TestServer testServer = ServerBuilder(SettingsManager(testSettings))
-                                .SetMockRepo(getTestDatabase().release())
-                                .makeServer();
+    TestServer testServer = ServerBuilder(SettingsManager(configArgs.getSettings()))
+                            .SetMockRepo(getTestDatabase().release())
+                            .makeServer();
 
     return testServer;
 }

@@ -19,7 +19,7 @@ class ServerBuilder
 {
 public:
     ServerBuilder()  = default;
-    explicit ServerBuilder(SettingsManager settingsManager) : _settingsManager(settingsManager) {}
+    explicit ServerBuilder(const SettingsManager& settingsManager) : _settingsManager(settingsManager) {}
 
     ~ServerBuilder() = default;
 
@@ -53,7 +53,7 @@ private:
        
         server->initRepository(std::move(_repository));
 
-        uint16_t port = static_cast<uint16_t>(stoi(_settingsManager.GetServerPort()));
+        auto port = static_cast<uint16_t>(stoi(_settingsManager.GetServerPort()));
         server->initConnection(port);
 
         return server.release();
