@@ -60,10 +60,10 @@ public:
     /** @brief Client's method for calculating shared key
     * @details Method places shared key in SessionKeyHolder.
     */
-    bool calculateSharedKey(const std::string& publicOthersideKeyStr)
+    bool calculateSharedKey(const std::string& publicServerKeyStr)
     {
         SecByteBlock sharedKey(_domain.AgreedValueLength());
-        SecByteBlock publicOthersideKey(reinterpret_cast<const byte*>(publicOthersideKeyStr.data()), publicOthersideKeyStr.size());
+        SecByteBlock publicOthersideKey(reinterpret_cast<const byte*>(publicServerKeyStr.data()), publicServerKeyStr.size());
 
         bool correctness = _domain.Agree(sharedKey, _privateKey, publicOthersideKey);
         if (correctness)
@@ -78,6 +78,8 @@ public:
         clearKeys();
         return correctness;
     }
+
+    std::string getPublicKey() { return std::string(reinterpret_cast<const char*>(_publicKey.data()), _publicKey.size()); };
 
 private:
     AutoSeededRandomPool _randPool;
