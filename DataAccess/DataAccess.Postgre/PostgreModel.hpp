@@ -7,11 +7,11 @@
 namespace DataAccess
 {
 template <class TEnum, class TResult = pqxx::result>
-class PostgreModel : public Models::UnifyiedModel<TEnum, TResult>
+class PostgreModel : public Models::UnifyedModel<TEnum, TResult>
 {
 public:
     PostgreModel(const std::string& modelName, Models::FieldNames names, size_t amountFields)
-        : Models::UnifyiedModel<TEnum, TResult>(modelName, names, amountFields)
+        : Models::UnifyedModel<TEnum, TResult>(modelName, names, amountFields)
     {
     }
 

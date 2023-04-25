@@ -27,7 +27,7 @@ class Map : public std::map<TKey, TData, Comp>
 };
 
 template <class TEnum, class TResult>
-class UnifyiedModel
+class UnifyedModel
 {
 private:
     std::string              _modelName;
@@ -39,7 +39,7 @@ protected:
     FieldData<TEnum> _fieldData;  /// maybe vector<tuple<T,size_t,string>> -> map<T,std::pair<size_t,string>> faster access
 
 public:
-    UnifyiedModel(const std::string& modelName, FieldNames names, size_t amountFields)
+    UnifyedModel(const std::string& modelName, FieldNames names, size_t amountFields)
         : _modelName(modelName), _amountOfFields(amountFields), _fieldNames(names)
     {
     }
@@ -78,7 +78,7 @@ public:
 
     std::string& operator[](TEnum anyEnum) { return _data[anyEnum]; }
 
-    virtual ~UnifyiedModel() = default;
+    virtual ~UnifyedModel() = default;
 
 protected:
     void init()
