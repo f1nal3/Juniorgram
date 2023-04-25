@@ -721,7 +721,7 @@ std::optional<Network::MessageResult> Server::directMessageCreateRequest(std::sh
     return MessageResult::InvalidBody;
 }
 
-std::optional<MessageResult> Server::directRequestOnConnection(std::shared_ptr<Network::Connection> client) const
+void Server::directRequestOnConnection(std::shared_ptr<Network::Connection> client) const
 {
     Message messageToClient;
     messageToClient.mHeader.mMessageType = Message::MessageType::RequestOnConnectionAnswer;
