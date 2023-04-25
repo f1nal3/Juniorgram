@@ -115,11 +115,8 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
                 message.mBody           = std::make_any<RegistrationInfo>(registrationInfo);
                 break;
             }
-            else
-            {
-                RegistrationInfo registrationInfo(mesgFiller.getRegistrationInfo());
-                message.mBody = std::make_any<RegistrationInfo>(registrationInfo);
-            }
+            RegistrationInfo registrationInfo(mesgFiller.getRegistrationInfo());
+            message.mBody = std::make_any<RegistrationInfo>(registrationInfo);
             break;
         }
         case Message::MessageType::LoginRequest:
@@ -131,11 +128,8 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
                 message.mBody    = std::make_any<LoginInfo>(loginInfo);
                 break;
             }
-            else
-            {
-                LoginInfo loginInfo(mesgFiller.getLoginInfo());
-                message.mBody = std::make_any<LoginInfo>(loginInfo);
-            }
+            LoginInfo loginInfo(mesgFiller.getLoginInfo());
+            message.mBody = std::make_any<LoginInfo>(loginInfo);
             break;
         }
         case Message::MessageType::ChannelCreateRequest:
@@ -146,11 +140,8 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
                 message.mBody                = std::make_any<std::string>(channelInfo);
                 break;
             }
-            else
-            {
-                std::string_view channelInfo = mesgFiller.getChannelInfo()._channelName;
-                message.mBody                = std::make_any<std::string>(channelInfo);
-            }
+            std::string_view channelInfo = mesgFiller.getChannelInfo()._channelName;
+            message.mBody                = std::make_any<std::string>(channelInfo);
             break;
         }
         case Message::MessageType::ChannelSubscriptionListRequest:
@@ -163,10 +154,7 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
                 message.mBody          = std::make_any<ChannelSubscriptionInfo>(channelInfo);
                 break;
             }
-            else
-            {
-                message.mBody = std::make_any<ChannelSubscriptionInfo>(mesgFiller.getChannelInfo()._channelID);
-            }
+            message.mBody = std::make_any<ChannelSubscriptionInfo>(mesgFiller.getChannelInfo()._channelID);
             break;
         }
         case Message::MessageType::ChannelSubscribeRequest:
@@ -179,11 +167,8 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
                 message.mBody          = std::any_cast<ChannelSubscriptionInfo>(messageInfo);
                 break;
             }
-            else
-            {
-                Models::ChannelSubscriptionInfo messageInfo(mesgFiller.getChannelSubscriptionInfo());
-                message.mBody = std::any_cast<ChannelSubscriptionInfo>(messageInfo);
-            }
+            Models::ChannelSubscriptionInfo messageInfo(mesgFiller.getChannelSubscriptionInfo());
+            message.mBody = std::any_cast<ChannelSubscriptionInfo>(messageInfo);
             break;
         }
         case Message::MessageType::ChannelLeaveRequest:
@@ -194,11 +179,8 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
                 message.mBody                = std::make_any<std::string>(messageInfo);
                 break;
             }
-            else
-            {
-                std::string_view messageInfo = mesgFiller.getChannelLeaveInfo()._channelName;
-                message.mBody                = std::make_any<std::string>(messageInfo);
-            }
+            std::string_view messageInfo = mesgFiller.getChannelLeaveInfo()._channelName;
+            message.mBody                = std::make_any<std::string>(messageInfo);
             break;
         }
         case Message::MessageType::ReplyHistoryRequest:
@@ -208,10 +190,7 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
                 message.mBody = std::make_any<uint64_t>(0);
                 break;
             }
-            else
-            {
-                message.mBody = std::make_any<uint64_t>(mesgFiller.getChannelInfo()._channelID);
-            }
+            message.mBody = std::make_any<uint64_t>(mesgFiller.getChannelInfo()._channelID);
             break;
         }
         case Message::MessageType::ReplyStoreRequest:
@@ -223,11 +202,8 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
                 message.mBody        = std::make_any<ReplyInfo>(replyInfo);
                 break;
             }
-            else
-            {
-                ReplyInfo replyInfo(mesgFiller.getReplyInfo());
-                message.mBody = std::make_any<ReplyInfo>(replyInfo);
-            }
+            ReplyInfo replyInfo(mesgFiller.getReplyInfo());
+            message.mBody = std::make_any<ReplyInfo>(replyInfo);
             break;
         }
         case Message::MessageType::MessageReactionRequest:
@@ -239,11 +215,8 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
                 message.mBody      = std::make_any<MessageInfo>(messageInfo);
                 break;
             }
-            else
-            {
-                MessageInfo messageInfo(mesgFiller.getMessageInfo());
-                message.mBody = std::make_any<MessageInfo>(messageInfo);
-            }
+            MessageInfo messageInfo(mesgFiller.getMessageInfo());
+            message.mBody = std::make_any<MessageInfo>(messageInfo);
             break;
         }
         case Message::MessageType::DirectMessageCreateRequest:
@@ -253,11 +226,8 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
                 message.mBody = std::make_any<uint64_t>(0);
                 break;
             }
-            else
-            {
-                message.mBody = std::make_any<uint64_t>(mesgFiller.getMessageInfo()._senderID);
-                message.mBody = std::make_any<uint64_t>(mesgFiller.getMessageInfo()._recipientID);
-            }
+            message.mBody = std::make_any<uint64_t>(mesgFiller.getMessageInfo()._senderID);
+            message.mBody = std::make_any<uint64_t>(mesgFiller.getMessageInfo()._recipientID);
             break;
         }
         case Message::MessageType::MessageHistoryRequest:
@@ -267,10 +237,7 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
                 message.mBody = std::make_any<uint64_t>(0);
                 break;
             }
-            else
-            {
-                message.mBody = std::make_any<uint64_t>(mesgFiller.getChannelInfo()._channelID);
-            }
+            message.mBody = std::make_any<uint64_t>(mesgFiller.getChannelInfo()._channelID);
             break;
         }
         case Message::MessageType::MessageStoreRequest:
@@ -282,11 +249,8 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
                 message.mBody          = std::make_any<MessageInfo>(messageInfo);
                 break;
             }
-            else
-            {
-                MessageInfo messageInfo(mesgFiller.getMessageInfo());
-                message.mBody = std::make_any<MessageInfo>(messageInfo);
-            }
+            MessageInfo messageInfo(mesgFiller.getMessageInfo());
+            message.mBody = std::make_any<MessageInfo>(messageInfo);
             break;
         }
         case Message::MessageType::MessageEditRequest:
@@ -298,11 +262,8 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
                 message.mBody      = std::make_any<MessageInfo>(messageInfo);
                 break;
             }
-            else
-            {
-                MessageInfo messageInfo(mesgFiller.getMessageInfo());
-                message.mBody = std::make_any<MessageInfo>(messageInfo);
-            }
+            MessageInfo messageInfo(mesgFiller.getMessageInfo());
+            message.mBody = std::make_any<MessageInfo>(messageInfo);
             break;
         }
         case Message::MessageType::MessageDeleteRequest:
@@ -314,11 +275,8 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
                 message.mBody      = std::make_any<MessageInfo>(messageInfo);
                 break;
             }
-            else
-            {
-                MessageInfo messageInfo(mesgFiller.getMessageInfo());
-                message.mBody = std::make_any<MessageInfo>(messageInfo);
-            }
+            MessageInfo messageInfo(mesgFiller.getMessageInfo());
+            message.mBody = std::make_any<MessageInfo>(messageInfo);
             break;
         }
         case Message::MessageType::ChannelDeleteRequest:
@@ -330,11 +288,8 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
                 message.mBody                = std::make_any<std::string>(channelDeleteInfo._channelName);
                 break;
             }
-            else
-            {
-                Models::ChannelDeleteInfo channelDeleteInfo(mesgFiller.getChannelDeleteInfo());
-                message.mBody = std::make_any<std::string>(channelDeleteInfo._channelName);
-            }
+            Models::ChannelDeleteInfo channelDeleteInfo(mesgFiller.getChannelDeleteInfo());
+            message.mBody = std::make_any<std::string>(channelDeleteInfo._channelName);
             break;
         }
         case Message::MessageType::ChannelListRequest:
@@ -344,10 +299,7 @@ inline Message& makeMessage(Message& message, MessageType messageType, MessageBo
                 message.mBody = std::make_any<std::vector<ChannelInfo>>(0);
                 break;
             }
-            else
-            {
-                message.mBody = std::make_any<std::vector<ChannelInfo>>(mesgFiller.getChannelInfo()._channelID);
-            }
+            message.mBody = std::make_any<std::vector<ChannelInfo>>(mesgFiller.getChannelInfo()._channelID);
             break;
         }
         default:
