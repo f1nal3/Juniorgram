@@ -1,6 +1,7 @@
 #pragma once
 #include "PostgreModel.hpp"
 #include <FileLogger.hpp>
+#include <map>
 
 namespace DataAccess
 {
@@ -55,12 +56,16 @@ enum class UserInfo : uint16_t
 class User : public PostgreModel<UserInfo>
 {
 public:
-    User(const std::string& modelName = "users",
-        Models::FieldNames names = { "id", "email", "login", "password_hash" },
-        size_t amountFields = 4) :
-        PostgreModel(modelName, names, amountFields)
+    User(   const std::string& modelName = "users",
+            Models::FieldNames names = { "id", "email", "login", "password_hash" }):
+            PostgreModel(modelName, names, names.size())
+            {this->init();}
+
+    User(std::initializer_list<std::string> fillFields) : User()
     {
-        this->init();
+        auto fieldIter = this->_fieldData.begin();
+        for (auto fillIter = fillFields.begin(); fillIter != fillFields.end(); ++fieldIter, ++fillIter)
+            this->_data[std::get<0>(*fieldIter)] = *fillIter;
     }
 
     virtual UserInfo getNumEnum(size_t num)const override
