@@ -9,9 +9,9 @@ class SettingsManager
 public:
     SettingsManager() = default;
 
-    explicit SettingsManager(const Settings& settings) : _settings(settings) {}
+    explicit SettingsManager(std::unique_ptr<Settings> settings) : _settings(std::move(settings)) {}
     
-    void Reset(const Settings& settings) { _settings = settings; }
+    void Reset(std::unique_ptr<Settings> settings) { _settings = std::move(settings); }
 
     /**
     * @brief Generates connection string
@@ -19,19 +19,19 @@ public:
     */
     std::string GetConnectionOptions() const
     {
-        return std::string("dbname=" + _settings.GetValue(ParamType::DBName) +
-                           " hostaddr=" + _settings.GetValue(ParamType::HostAddress) +
-                           " password=" + _settings.GetValue(ParamType::DBPassword) +
-                           " port="     + _settings.GetValue(ParamType::DBPort) +
-                           " user="     + _settings.GetValue(ParamType::DBUser));
+        return std::string("dbname="    + _settings->GetValue(ParamType::DBName) +
+                           " hostaddr=" + _settings->GetValue(ParamType::HostAddress) +
+                           " password=" + _settings->GetValue(ParamType::DBPassword) +
+                           " port="     + _settings->GetValue(ParamType::DBPort) +
+                           " user="     + _settings->GetValue(ParamType::DBUser));
     }
     
-    std::string GetServerPort() const
+    uint16_t GetServerPort() const
     {
-        return _settings.GetValue(ParamType::ServerPort);
+        return static_cast<uint16_t>(std::stoul(_settings->GetValue(ParamType::ServerPort)));
     }
 
 private:
-    Settings _settings;
+    std::unique_ptr<Settings> _settings;
 };
 }  /// namespace Server::Builder

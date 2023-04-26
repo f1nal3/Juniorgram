@@ -4,12 +4,12 @@ namespace Server::Builder
 {
 struct ParamType
 {
-    constexpr static char* ServerPort  = "--serverport";
-    constexpr static char* HostAddress = "--hostaddr";
-    constexpr static char* DBName      = "--dbname";
-    constexpr static char* DBPort      = "--port";
-    constexpr static char* DBUser      = "--user";
-    constexpr static char* DBPassword  = "--password";
+    constexpr static char const* ServerPort  = "--serverport";
+    constexpr static char const* HostAddress = "--hostaddr";
+    constexpr static char const* DBName      = "--dbname";
+    constexpr static char const* DBPort      = "--port";
+    constexpr static char const* DBUser      = "--user";
+    constexpr static char const* DBPassword  = "--password";
 };
 
 class Settings
@@ -23,7 +23,15 @@ public:
         return *this;
     }
 
-    const std::string& GetValue(const std::string& key) const { return _settings.at(key); }
+    const std::string& GetValue(const std::string& key) const
+    {
+        if (_settings.find(key) != _settings.end())
+        {
+            return _settings.at(key);
+        }
+
+        return std::string();
+    }
 
 private:
     std::map<std::string, std::string, std::less<>> _settings;

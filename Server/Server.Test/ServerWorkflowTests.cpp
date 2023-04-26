@@ -20,9 +20,9 @@ TEST_CASE("Server start up with bad port [Server][Failed]")
 {   
     using Server::Builder::SettingsManager;
 
-    TestServer testServer = ServerBuilder(SettingsManager(configArgs.getSettings()))                                
-                                .SetMockRepo(getTestDatabase().release())
-                                .makeServer();
+    TestServer testServer = ServerBuilder(std::make_unique<SettingsManager>(configArgs.getSettings()))                                
+                                          .SetRepoManager(getTestDatabase().release())
+                                          .makeServer();
 
     SECTION("Comparison of the specified port with the expected bad port")
     {

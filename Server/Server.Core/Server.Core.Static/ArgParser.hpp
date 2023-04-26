@@ -139,19 +139,21 @@ public:
     * @brief Used to generate Settings class object
     * @details Fills Settings class object with the current parameter values
     */
-    Server::Builder::Settings GetSettings() const
+    std::unique_ptr<Server::Builder::Settings> GetSettings() const
     {
         auto GetPair = [this](const std::string& str)
                        {
                            return std::pair<std::string, std::string>(str, _argParser.get(str));
                        };
 
-        return Server::Builder::Settings().SetValue(GetPair(ParamType::ServerPort))
-                                          .SetValue(GetPair(ParamType::HostAddress))
-                                          .SetValue(GetPair(ParamType::DBName))
-                                          .SetValue(GetPair(ParamType::DBPort))
-                                          .SetValue(GetPair(ParamType::DBUser))
-                                          .SetValue(GetPair(ParamType::DBPassword));
+        auto result = std::make_unique<Server::Builder::Settings>();
+        (*result).SetValue(GetPair(ParamType::ServerPort))
+                 .SetValue(GetPair(ParamType::HostAddress))
+                 .SetValue(GetPair(ParamType::DBName))
+                 .SetValue(GetPair(ParamType::DBPort))
+                 .SetValue(GetPair(ParamType::DBUser))
+                 .SetValue(GetPair(ParamType::DBPassword));
+        return result;
     }
 
 private:

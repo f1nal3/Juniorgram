@@ -77,15 +77,16 @@ struct ConfigArguments
     const PairArguments& getDatabaseUserArguments() const { return userPair; }
     const PairArguments& getDatabasePasswordArguments() const { return passwordPair; }
 
-    Server::Builder::Settings getSettings() const
+     std::unique_ptr<Server::Builder::Settings> getSettings() const
     {
-        return Server::Builder::Settings()
-                                    .SetValue(getServerPortArguments())
-                                    .SetValue(getDatabaseArguments())
-                                    .SetValue(getHostAddrArguments())
-                                    .SetValue(getDatabasePortArguments())
-                                    .SetValue(getDatabaseUserArguments())
-                                    .SetValue(getDatabasePasswordArguments());
+        auto result = std::make_unique<Server::Builder::Settings>();
+        (*result).SetValue(getServerPortArguments())
+                 .SetValue(getDatabaseArguments())
+                 .SetValue(getHostAddrArguments())
+                 .SetValue(getDatabasePortArguments())
+                 .SetValue(getDatabaseUserArguments())
+                 .SetValue(getDatabasePasswordArguments());
+        return result;
     }
 
 private:
@@ -350,8 +351,8 @@ inline auto makeTestServer() noexcept
 {
     using Server::Builder::SettingsManager;
 
-    TestServer testServer = ServerBuilder(SettingsManager(configArgs.getSettings()))
-                            .SetMockRepo(getTestDatabase().release())
+    TestServer testServer = ServerBuilder(std::make_unique<SettingsManager>(configArgs.getSettings()))
+                            .SetRepoManager(getTestDatabase().release())
                             .makeServer();
 
     return testServer;
