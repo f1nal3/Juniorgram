@@ -10,8 +10,8 @@ template <class TEnum, class TResult = pqxx::const_result_iterator>
 class PostgreModel : public Models::UnifyedModel<TEnum, TResult>
 {
 public:
-    PostgreModel(const std::string& modelName, Models::FieldNames names, size_t amountFields)
-        : Models::UnifyedModel<TEnum, TResult>(modelName, names, amountFields)
+    PostgreModel(const std::string& modelName, size_t amountFields)
+        : Models::UnifyedModel<TEnum, TResult>(modelName, amountFields)
     {
     }
 
@@ -22,7 +22,7 @@ public:
 
         for (auto innerIter = responce.begin(); innerIter != responce.end(); ++innerIter, ++fieldIter)
         {
-            this->_data[std::get<0>(*fieldIter)] = innerIter.template as<std::string>();
+            this->_data[fieldIter->first] = innerIter.template as<std::string>();
         }
     }
 

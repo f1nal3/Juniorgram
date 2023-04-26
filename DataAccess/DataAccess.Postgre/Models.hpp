@@ -18,11 +18,10 @@ enum class RegInfo : uint16_t
 class UserRegistration : public PostgreModel<RegInfo>
 {
 public:
-    UserRegistration(const std::string& modelName = "users", Models::FieldNames names = {"email,login,password_hash"},
-                     size_t amountFields = 3)
-        : PostgreModel(modelName, names, amountFields)
+    UserRegistration(const std::string& modelName = "users", Models::FieldNames names = {"email,login,password_hash"})
+        : PostgreModel(modelName, names.size())
     {
-        this->init();
+        this->init(names);
     }
 
     virtual RegInfo getNumEnum(size_t num) const override
@@ -55,17 +54,17 @@ enum class UserInfo : uint16_t
 class User : public PostgreModel<UserInfo>
 {
 public:
-    User(const std::string& modelName = "users", Models::FieldNames names = { "id", "email", "login", "password_hash" })
-        : PostgreModel(modelName, names, names.size())
+    User(const std::string& modelName = "users", const Models::FieldNames& names = { "id", "email", "login", "password_hash" })
+        : PostgreModel(modelName, names.size())
     {
-        this->init();
+        this->init(names);
     }
 
     explicit User(std::initializer_list<std::string> fillFields) : User()
     {
         auto fieldIter = this->_fieldData.begin();
         for (auto fillIter = fillFields.begin(); fillIter != fillFields.end(); ++fieldIter, ++fillIter)
-            this->_data[std::get<0>(*fieldIter)] = *fillIter;
+            this->_data[fieldIter->first] = *fillIter;
     }
 
     virtual UserInfo getNumEnum(size_t num) const override
@@ -100,10 +99,10 @@ enum class ChannelInfo : uint16_t
 class Channel : public PostgreModel<ChannelInfo>
 {
 public:
-    Channel(const std::string& modelName = "channels", Models::FieldNames names = { "id", "channel_name", "creator_id", "user_limit" })
-        : PostgreModel(modelName, names, names.size())
+    Channel(const std::string& modelName = "channels", const Models::FieldNames& names = { "id", "channel_name", "creator_id", "user_limit" })
+        : PostgreModel(modelName, names.size())
     {
-        this->init();
+        this->init(names);
     }
 
     /*
@@ -131,7 +130,10 @@ protected:
             case 3:
                 return ChannelInfo::CHANNEL_USER_LIMIT;
             default:
+            {
                 FileLogger::getInstance().error("Undefined integer income");
+                return {};
+            }
         }
     }
 };

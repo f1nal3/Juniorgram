@@ -30,38 +30,22 @@ class UnifyedModel
 private:
     std::string              _modelName;
     size_t                   _amountOfFields;
-    std::vector<std::string> _fieldNames;
 
 protected:
     Map<TEnum>       _data;
-    FieldData<TEnum> _fieldData;
+    Map<TEnum>       _fieldData;
 
 public:
-    UnifyedModel(const std::string& modelName, FieldNames names, size_t amountFields)
-        : _modelName(modelName), _amountOfFields(amountFields), _fieldNames(names)
+    UnifyedModel(const std::string& modelName, size_t amountFields)
+        : _modelName(modelName), _amountOfFields(amountFields)
     {
     }
 
     const std::string& getModelName() const noexcept { return _modelName; }
 
-    size_t enumToNum(TEnum anyEnum) const noexcept
+    const std::string& fieldName(TEnum anyEnum) noexcept
     {
-        return std::get<1>(*std::find_if(_fieldData.begin(), _fieldData.end(), [anyEnum](std::tuple<TEnum, size_t, std::string> tpl) {
-            if (std::get<0>(tpl) == anyEnum)
-                return true;
-            else
-                return false;
-        }));
-    }
-
-    const std::string& fieldName(TEnum anyEnum) const noexcept
-    {
-        return std::get<2>(*std::find_if(_fieldData.begin(), _fieldData.end(), [anyEnum](std::tuple<TEnum, size_t, std::string> tpl) {
-            if (std::get<0>(tpl) == anyEnum)
-                return true;
-            else
-                return false;
-        }));
+        return _fieldData[anyEnum];
     }
 
     virtual void fillMap(const TResult& response) = 0;  
@@ -71,17 +55,17 @@ public:
     virtual ~UnifyedModel() = default;
 
 protected:
-    void init()
+    void init(const FieldNames& fieldNames)
     {
         size_t counter{0};
         while (counter < _amountOfFields)
         {
-            _fieldData.emplace_back(std::make_tuple<TEnum, size_t, std::string>(this->getNumEnum(counter), std::move(counter),
-                                                                                (_fieldNames.begin() + counter)->c_str()));
+            _fieldData.insert(std::pair<TEnum, std::string>(this->getNumEnum(counter),
+                                                                  *(fieldNames.begin() + counter)));
+
             _data.insert(std::pair<TEnum, std::string>(this->getNumEnum(counter), std::string{}));
             ++counter;
         }
-        _fieldNames.clear();
     }
 
 private:
