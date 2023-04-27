@@ -13,7 +13,7 @@ There are a sufficient number of types of testing, such as unit tests, integrati
 
 Integration testing is a type of testing where software modules are combined logically and tested as a group. In our case the group is: server, client, database.
 
-![module_one](ServerTestModules.svg "Server Test Modules")
+![module_one](./images/ServerTestModules.svg "Server Test Modules")
 
 As shown in the graph the modules are interconnected. In fact: we have to test their interconnection.
 
@@ -34,7 +34,7 @@ By creating mock objects, you reduce the complexity of the object itself and als
 ### Testing:
 Testing takes place as follows: 
 
-![module_second](SequenceOfTesting.svg "Sequence of Server Testing")
+![module_second](./images/SequenceOfTesting.svg "Sequence of Server Testing")
 
 Test Order:
 - The client sends a message to the server.
