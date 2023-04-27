@@ -2,6 +2,7 @@
 #include <pqxx/pqxx>
 #include <algorithm>
 #include <map>
+#include <string>
 #include <Models/UnifyedModel.hpp>
 
 namespace DataAccess
@@ -18,12 +19,10 @@ public:
 public:
     virtual void fillMap(const TResult& responce) override
     {
-        auto fieldIter = this->_fieldData.begin();
-
-        for (auto innerIter = responce.begin(); innerIter != responce.end(); ++innerIter, ++fieldIter)
-        {
-            this->_data[fieldIter->first] = innerIter.template as<std::string>();
-        }
+        std::for_each(responce.begin(), responce.end(), [this,responce](const auto& field)
+                      {
+                          this->_data[this->toEnum(field.name())] = field.template as<std::string>();                         
+                      });
     }
 
 protected:

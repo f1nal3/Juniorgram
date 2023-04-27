@@ -35,14 +35,35 @@ TEST_CASE("Check user registration", "[dummy]")
 
     SECTION("We want to fill the table once", "Check how properly map fills")
     {
-        User testUser;
-
-        auto responce = testTable->Select()->columns({"*"})->Where("id = '1'")->execute();
-        if (responce.has_value())
+        SECTION("All fields at once")
         {
-            testUser.fillMap(responce->begin());
+            User testUser;
 
-            REQUIRE(testUser[UserInfo::ID] == "1");
+            auto responce = testTable->Select()->columns({ "*" })->Where("id = '1'")->execute();
+
+            if (responce.has_value())
+            {
+                testUser.fillMap(responce->begin());
+
+                REQUIRE(testUser[UserInfo::ID] == "1");
+            }
+        }
+        SECTION("We define fields")
+        {
+            User testUser;
+
+            auto responce = testTable->Select()->
+                columns({ testUser.fieldName(UserInfo::EMAIL)
+                        , testUser.fieldName(UserInfo::LOGIN) })->
+                Where(testUser.fieldName(UserInfo::ID) + " = '3'")->execute();
+           
+            if (responce.has_value())
+            {
+                REQUIRE_NOTHROW(testUser.fillMap(responce->begin()));
+
+                REQUIRE(testUser[UserInfo::LOGIN] == "aboba3");
+                REQUIRE(testUser[UserInfo::ID] == "");
+            }
         }
     }
 };

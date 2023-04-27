@@ -32,8 +32,8 @@ private:
     size_t                   _amountOfFields;
 
 protected:
-    Map<TEnum>       _data;
-    Map<TEnum>       _fieldData;
+    mutable Map<TEnum>       _data;
+    Map<TEnum>               _fieldData;
 
 public:
     UnifyedModel(const std::string& modelName, size_t amountFields)
@@ -51,6 +51,17 @@ public:
     virtual void fillMap(const TResult& response) = 0;  
 
     std::string& operator[](TEnum anyEnum) { return _data[anyEnum]; }
+
+    TEnum toEnum(const std::string& fieldName)
+    {
+        return std::find_if(_fieldData.begin(), _fieldData.end(), [fieldName](auto pair)
+                                      {
+                                          if (pair.second == fieldName)
+                                              return true;
+                                          else
+                                              return false;
+                                      })->first;
+    }
 
     virtual ~UnifyedModel() = default;
 

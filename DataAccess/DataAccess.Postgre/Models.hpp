@@ -60,7 +60,7 @@ public:
         this->init(names);
     }
 
-    explicit User(std::initializer_list<std::string> fillFields) : User()
+    explicit User(std::vector<std::string> fillFields) : User()
     {
         auto fieldIter = this->_fieldData.begin();
         for (auto fillIter = fillFields.begin(); fillIter != fillFields.end(); ++fieldIter, ++fillIter)
@@ -106,7 +106,7 @@ public:
     }
 
     /*
-    * @details Possible will be moved into sepate method in UnifyedModel or smth like that because it consists only of templates, so it may be used by any model
+    * @details Possibly will be moved into sepate method in UnifyedModel or smth like that because it consists only of templates, so it may be used by any model
     */
     explicit Channel(const std::vector<std::pair<ChannelInfo, std::string>>& insertData) : Channel()
     {
