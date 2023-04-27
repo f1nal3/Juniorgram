@@ -17,9 +17,9 @@ public:
     }
 
 public:
-    virtual void fillMap(const TResult& responce) override
+    void fillMap(const TResult& responce) override
     {
-        std::for_each(responce.begin(), responce.end(), [this,responce](const auto& field)
+        std::for_each(responce.begin(), responce.end(), [this](const auto& field)
                       {
                           this->_data[this->toEnum(field.name())] = field.template as<std::string>();                         
                       });
