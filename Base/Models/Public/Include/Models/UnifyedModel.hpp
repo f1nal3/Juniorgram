@@ -54,7 +54,7 @@ public:
 
     TEnum toEnum(const std::string& fieldName)
     {
-        return std::find_if(_fieldData.begin(), _fieldData.end(), [fieldName](auto pair)
+        return std::find_if(_fieldData.begin(), _fieldData.end(), [&fieldName](auto pair)
                                       {
                                           if (pair.second == fieldName)
                                               return true;
