@@ -4,8 +4,6 @@
 #include <cryptopp/gcm.h>
 #include <cryptopp/filters.h>
 
-#include "SessionKeyHolder.hpp"
-#include "FileLogger.hpp"
 #include "Hashing.hpp"
 #include "ICryptography.hpp"
 
