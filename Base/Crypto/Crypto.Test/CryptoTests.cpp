@@ -17,6 +17,9 @@ using Models::RSAKeyPair;
 using Base::Generators::ByteBlockGenerator;
 using Base::Verifiers::HashVerifier;
 using Base::KeyConfirmators::KeyConfirmation;
+using Base::Crypto::Symmetric::AES_GCM;
+using CryptoPP::SecByteBlock;
+using Network::EncryptionState;
 
 TEST_CASE("Hash functions test", "[dummy]")
 {
@@ -143,4 +146,55 @@ TEST_CASE("KeyConfirmation test", "[dummy]") {
     REQUIRE(keyConfirmator.compareWithTestUnit(verificationUnit));
     REQUIRE_NOTHROW(KeyConfirmation<std::string>(verificationUnit));
     REQUIRE_NOTHROW(keyConfirmator.compareWithTestUnit(verificationUnit));
+}
+
+TEST_CASE("AES GCM test", "[dummy]")
+{
+    std::string        plainMessage{"Message"};
+    std::string        authData{"authentificationData"};
+    AES_GCM            aesGcm;
+    ByteBlockGenerator generator;
+
+    SecByteBlock key = generator.generateBlock(CryptoPP::AES::DEFAULT_KEYLENGTH);
+    SecByteBlock iv  = generator.generateBlock(12);
+
+    SECTION("Sended message has not any problems")
+    {
+        /// before encryption cipheredTextBuffer == plainMessage
+        yas::shared_buffer cipheredTextBuffer(plainMessage.data(), plainMessage.size());
+
+        REQUIRE(aesGcm.encrypt(cipheredTextBuffer, key, iv, authData) == EncryptionState::SUCCESS);
+
+        // cipheredTextBuffer is send to other side; before decryption cipheredTextBuffer == decryptedTextBuffer
+        yas::shared_buffer decryptedTextBuffer(cipheredTextBuffer);
+
+        REQUIRE(aesGcm.decrypt(decryptedTextBuffer, key, iv, authData) == EncryptionState::SUCCESS);
+
+        std::string decryptedMessage(decryptedTextBuffer.data.get(), decryptedTextBuffer.size);
+
+        REQUIRE(decryptedMessage == plainMessage);
+    }
+
+    SECTION("Sended message has integration or verification problems")
+    {
+        /// before encryption cipheredTextBuffer == plainMessage
+        yas::shared_buffer cipheredTextBuffer(plainMessage.data(), plainMessage.size());
+
+        REQUIRE(aesGcm.encrypt(cipheredTextBuffer, key, iv, authData) == EncryptionState::SUCCESS);
+
+        // Attack the first and last byte of the encrypted data and tag
+        if (cipheredTextBuffer.size > 1)
+        {
+            *cipheredTextBuffer.data.get() |= 0x0F;
+            *(cipheredTextBuffer.data.get() + cipheredTextBuffer.size - 1) |= 0x0F;
+        }
+
+        yas::shared_buffer decryptedTextBuffer(cipheredTextBuffer);
+
+        REQUIRE(aesGcm.decrypt(decryptedTextBuffer, key, iv, authData) == EncryptionState::FAILURE);
+
+        std::string decryptedMessage(decryptedTextBuffer.data.get(), decryptedTextBuffer.size);
+
+        REQUIRE(decryptedMessage != plainMessage);
+    }
 }
