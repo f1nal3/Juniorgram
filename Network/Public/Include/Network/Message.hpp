@@ -78,6 +78,8 @@ struct Message
 
         /// Initial vector
         std::string mIv;
+        /// Authentification data
+        std::string mAuthData;
     };
 
     /// Connection variable
@@ -109,6 +111,6 @@ struct Message
 template <typename Archive>
 void serialize(Archive& ar, Message::MessageHeader& o)
 {
-    ar& o.mMessageType& o.mBodySize& o.mTimestamp& o.mIv;
+    ar& o.mMessageType& o.mBodySize& o.mTimestamp& o.mIv& o.mAuthData;
 }
 }  // namespace Network

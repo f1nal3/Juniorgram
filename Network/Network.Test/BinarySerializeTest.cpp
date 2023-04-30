@@ -157,6 +157,7 @@ TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSe
         serializedValue.mMessageType = Network::Message::MessageType::ChannelListRequest;
         serializedValue.mBodySize    = 30;
         serializedValue.mIv          = std::string("MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIB");
+        serializedValue.mAuthData          = std::string("AuthData");
 
         yas::shared_buffer buffer;
         Network::SerializedState state = Network::YasSerializer::serialize(buffer, serializedValue);
@@ -170,6 +171,7 @@ TEST_CASE("Test binary serialization & deserialization of custom types", "[YasSe
         REQUIRE(serializedValue.mMessageType == deserializedValue.mMessageType);
         REQUIRE(serializedValue.mBodySize == deserializedValue.mBodySize);
         REQUIRE(serializedValue.mIv == deserializedValue.mIv);
+        REQUIRE(serializedValue.mAuthData == deserializedValue.mAuthData);
     }
 
     SECTION("Checking serialization & deserialization of custom type ChannelInfo")
