@@ -572,10 +572,9 @@ std::optional<Network::MessageResult> Server::loginRequest(std::shared_ptr<Conne
     if (loginSuccessful)
     {
         client->setUserID(userID);
-        client->setEncryption(std::make_shared<Base::Crypto::Symmetric::AES_GCM>(userID, loginInfo._login));
 
-            FileLogger::getInstance().log("User " + std::to_string(userID) + " logged in.", LogLevel::INFO);
-        }
+        FileLogger::getInstance().log("User " + std::to_string(userID) + " logged in.", LogLevel::INFO);
+     }
 
         return MessageResult::Success;
     }

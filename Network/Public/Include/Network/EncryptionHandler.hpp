@@ -25,8 +25,6 @@ public:
      */
     MessageProcessingState handleOutcomingMessage(const Message& message, yas::shared_buffer& bodyBuffer) override
     {
-        _cryptoAlgorithm->encrypt(message.mHeader.mIv, bodyBuffer);
-
         if (this->nextHandler)
         {
             this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
@@ -41,12 +39,9 @@ public:
      */
     MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
     {
-        yas::shared_buffer decryptedBuffer = buffer;
-        _cryptoAlgorithm->decrypt(decryptedBuffer, message.mHeader.mIv);
-
         if (this->nextHandler)
         {
-            this->nextHandler->handleIncomingMessageBody(decryptedBuffer, message);
+            this->nextHandler->handleIncomingMessageBody(buffer, message);
         }
         return MessageProcessingState::SUCCESS;
     }
