@@ -25,7 +25,7 @@ public:
         this->init(names);
     }
 
-    virtual RegInfo getNumEnum(size_t num) const override
+    RegInfo getNumEnum(size_t num) const override
     {
         switch (num)
         {
@@ -70,7 +70,7 @@ public:
             this->_data[fieldIter->first] = *fillIter;
     }
 
-    virtual UserInfo getNumEnum(size_t num) const override
+    UserInfo getNumEnum(size_t num) const override
     {
         switch (num)
         {
@@ -113,14 +113,14 @@ public:
     */
     explicit Channel(const std::vector<std::pair<ChannelInfo, std::string>>& insertData) : Channel()
     {
-        for (auto iter = insertData.begin(); iter != insertData.end(); ++iter)
-        {
-            this->_data[iter->first] = iter->second;
-        }
+        std::for_each(insertData.begin(), insertData.end(), [this](const auto& pair)
+                      {
+                          _data[pair.first] = pair.second;
+                      });
     }
 
 protected:
-    virtual ChannelInfo getNumEnum(size_t num) const override
+    ChannelInfo getNumEnum(size_t num) const override
     {
         switch (num)
         {
