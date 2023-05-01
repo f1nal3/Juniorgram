@@ -10,7 +10,8 @@ using Base::Logger::FileLogger;
 
 enum class RegInfo : uint16_t
 {
-    EMAIL = 0,
+    ID= 0,
+    EMAIL,
     LOGIN,
     PASSHASH
 };
@@ -18,7 +19,7 @@ enum class RegInfo : uint16_t
 class UserRegistration : public PostgreModel<RegInfo>
 {
 public:
-    UserRegistration(const std::string& modelName = "users", Models::FieldNames names = {"email,login,password_hash"})
+    UserRegistration(const std::string& modelName = "users", Models::FieldNames names = { "id","email","login","password_hash" })
         : PostgreModel(modelName, names.size())
     {
         this->init(names);
@@ -29,10 +30,12 @@ public:
         switch (num)
         {
             case 0:
-                return RegInfo::EMAIL;
+                return RegInfo::ID;
             case 1:
-                return RegInfo::LOGIN;
+                return RegInfo::EMAIL;
             case 2:
+                return RegInfo::LOGIN;
+            case 3:
                 return RegInfo::PASSHASH;
             default:
             {

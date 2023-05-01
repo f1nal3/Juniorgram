@@ -15,7 +15,7 @@ using DataAccess::ChannelInfo;
 using DataAccess::PostgreAdapter;
 using DataAccess::PGQueryBuilder;
 
-TEST_CASE("Check user registration", "[dummy]")
+TEST_CASE("Check model usage", "[dummy]")
 {
     auto testTable = std::make_unique<PGQueryBuilder>("users", PostgreAdapter::Instance(DBOptions::test));
 

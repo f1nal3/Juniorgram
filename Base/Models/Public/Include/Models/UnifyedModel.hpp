@@ -27,14 +27,6 @@ using Map = std::map<TKey, TData, Comp>;
 template <class TEnum, class TResult>
 class UnifyedModel
 {
-private:
-    std::string              _modelName;
-    size_t                   _amountOfFields;
-
-protected:
-    mutable Map<TEnum>       _data;
-    Map<TEnum>               _fieldData;
-
 public:
     UnifyedModel(const std::string& modelName, size_t amountFields)
         : _modelName(modelName), _amountOfFields(amountFields)
@@ -86,5 +78,14 @@ private:
      * @returns Object of specific enum class
      */
     virtual TEnum getNumEnum(size_t num) const = 0;
+
+private:
+    std::string              _modelName;
+    size_t                   _amountOfFields;
+
+protected:
+    mutable Map<TEnum>       _data;
+    Map<TEnum>               _fieldData;
+
 };
 }  // namespace Models

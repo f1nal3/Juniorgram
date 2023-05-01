@@ -17,7 +17,7 @@ public:
     }
 
 public:
-    void fillMap(const TResult& responce) override
+    void fillMap(const TResult& responce) final
     {
         std::for_each(responce.begin(), responce.end(), [this](const auto& field)
                       {
