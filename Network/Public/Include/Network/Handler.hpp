@@ -4,18 +4,20 @@
 
 namespace Network
 {
-/** @enum MessageProcessingState
- *  @brief Successful or not result of message preprocessing
- */
+/** 
+* @enum MessageProcessingState
+* @brief Successful or not result of message preprocessing
+*/
 enum class MessageProcessingState
 {
     SUCCESS,  /// successful message processing
     FAILURE   /// unsuccessful message processing
 };
 
-/** @class Handler
- *  @brief interface for handler class for message preprocessing.
- */
+/** 
+* @class Handler
+* @brief interface for handler class for message preprocessing.
+*/
 class Handler
 {
 public:
@@ -36,23 +38,24 @@ public:
     virtual Handler*               setNext(Handler* handler)                                                      = 0;
 
     /**
-     * @brief Virtual method for preprocessing of outcoming messages.
-     * @param message - buffer that contains data that should be preprocessed.
-     * @param bodyBuffer - buffer that will contain preprocessed body.
-     */
+    * @brief Virtual method for preprocessing of outcoming messages.
+    * @param message - buffer that contains data that should be preprocessed.
+    * @param bodyBuffer - buffer that will contain preprocessed body.
+    */
     virtual MessageProcessingState handleOutcomingMessage(const Message& message, yas::shared_buffer& bodyBuffer) = 0;
 
     /**
-     * @brief Virtual method for preprocessing of incoming message bodies.
-     * @param buffer - buffer that contains data that should be preprocessed.
-     * @param message - variable that will contain preprocessed message body.
-     */
+    * @brief Virtual method for preprocessing of incoming message bodies.
+    * @param buffer - buffer that contains data that should be preprocessed.
+    * @param message - variable that will contain preprocessed message body.
+    */
     virtual MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message)   = 0;
 };
 
-/** @class AbstractHandler
- *  @brief handler class for message preprocessing
- */
+/** 
+* @class AbstractHandler
+* @brief handler class for message preprocessing
+*/
 class AbstractHandler : public Handler
 {
 protected:
@@ -64,10 +67,10 @@ public:
     virtual ~AbstractHandler() { delete nextHandler; }
 
     /**
-     * @brief Method for setting next handler fot message preprocessing.
-     * @param handler - next handler fot message preprocessing.
-     * @return handler - next handler fot message preprocessing.
-     */
+    * @brief Method for setting next handler fot message preprocessing.
+    * @param handler - next handler fot message preprocessing.
+    * @return handler - next handler fot message preprocessing.
+    */
     Handler* setNext(Handler* handler) override
     {
         this->nextHandler = handler;
@@ -75,10 +78,10 @@ public:
     }
 
     /**
-     * @brief Method for preprocessing of outcoming messages.
-     * @param message - buffer that contains data that should be preprocessed.
-     * @param bodyBuffer - buffer that will contain preprocessed body.
-     */
+    * @brief Method for preprocessing of outcoming messages.
+    * @param message - buffer that contains data that should be preprocessed.
+    * @param bodyBuffer - buffer that will contain preprocessed body.
+    */
     MessageProcessingState handleOutcomingMessage(const Message& message, yas::shared_buffer& bodyBuffer) override
     {
         if (this->nextHandler)
@@ -89,10 +92,10 @@ public:
     }
 
     /**
-     * @brief Method for preprocessing of incoming message bodies.
-     * @param buffer - buffer that contains data that should be preprocessed.
-     * @param message - variable that will contain preprocessed message body.
-     */
+    * @brief Method for preprocessing of incoming message bodies.
+    * @param buffer - buffer that contains data that should be preprocessed.
+    * @param message - variable that will contain preprocessed message body.
+    */
     MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
     {
         if (this->nextHandler)
@@ -102,4 +105,4 @@ public:
         return MessageProcessingState::SUCCESS;
     }
 };
-}  // namespace Network
+}  /// namespace Network

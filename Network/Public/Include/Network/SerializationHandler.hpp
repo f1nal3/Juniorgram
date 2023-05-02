@@ -5,17 +5,17 @@
 namespace Network
 {
 /**
- * @class SerializationHandler
- * @brief handler class for messages serialization.
- */
+* @class SerializationHandler
+* @brief handler class for messages serialization.
+*/
 class SerializationHandler : public AbstractHandler
 {
 public:
     /**
-     * @brief Method for serialization of outcoming messages.
-     * @param message - buffer that contains data that should be serialized.
-     * @param bodyBuffer - buffer that will contain serialized body.
-     */
+    * @brief Method for serialization of outcoming messages.
+    * @param message - buffer that contains data that should be serialized.
+    * @param bodyBuffer - buffer that will contain serialized body.
+    */
     MessageProcessingState handleOutcomingMessage(const Message& message, yas::shared_buffer& bodyBuffer) override
     {
         SerializedState state = SerializedState::SUCCESS;
@@ -176,10 +176,10 @@ public:
     }
 
     /**
-     * @brief Method for deserialization of incoming message bodies.
-     * @param buffer - buffer that contains data that should be deserialized.
-     * @param messageHeader - variable that will contain deserialized message body.
-     */
+    * @brief Method for deserialization of incoming message bodies.
+    * @param buffer - buffer that contains data that should be deserialized.
+    * @param messageHeader - variable that will contain deserialized message body.
+    */
     MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
     {
         SerializedState state = SerializedState::FAILURE;
@@ -415,4 +415,4 @@ private:
         }
     }
 };
-}  // namespace Network
+}  /// namespace Network
