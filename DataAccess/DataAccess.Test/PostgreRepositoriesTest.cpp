@@ -137,19 +137,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 			SECTION("Create new channel with valid data")
 			{
 				REQUIRE(testChannelRepos.createChannel(testChannel) == ChannelCreateCodes::SUCCESS);
-			}
-
-			SECTION("Creating channel via new creating method")
-			{
-				using DataAccess::ChannelInfo;
-
-				DataAccess::Channel testNewChannel{
-					{ ChannelInfo::CREATOR_ID, std::to_string(testUserID)},
-					{ ChannelInfo::CHANNEL_NAME, "newTestChannel" },
-					{ ChannelInfo::CHANNEL_USER_LIMIT, "10000"} };
-
-				REQUIRE(testChannelRepos.newCreateChannel(testNewChannel) == ChannelCreateCodes::SUCCESS);
-			}
+			}			
 
 			SECTION("Let's try to create channel with data of already existing channel")
 			{

@@ -41,8 +41,6 @@ TEST_CASE("Check model usage", "[dummy]")
         }
     }
 
-    
-
     SECTION("We want to fill the table once", "Check how properly map fills")
     {
         SECTION("All fields at once")
@@ -119,6 +117,20 @@ TEST_CASE("ChannelModel", "Check how easily we can use this model in PGRepos")
                     execute();
 
                 REQUIRE(findIdChannel.has_value()); // Expands to end of function due to existing of channel
+            }
+
+            SECTION("Good attempt", "Via new method")
+            {
+                using DataAccess::ChannelInfo;
+
+                DataAccess::Channel testNewChannel{
+                    { ChannelInfo::CREATOR_ID, "3"},
+                    { ChannelInfo::CHANNEL_NAME, "newTestChannel" },
+                    { ChannelInfo::CHANNEL_USER_LIMIT, "10000"} };
+
+
+                DataAccess::ChannelsRepository testChannelRepos(DataAccess::PostgreAdapter::Instance());
+                REQUIRE(testChannelRepos.newCreateChannel(testNewChannel) == Utility::ChannelCreateCodes::SUCCESS);
             }
         }
     };
