@@ -19,7 +19,7 @@ public:
 
     inline Settings& SetValue(std::pair<std::string, std::string> value)
     {
-        _settings.insert_or_assign(value.first, value.second);
+        _settings.try_emplace(value.first, value.second);
         return *this;
     }
 
