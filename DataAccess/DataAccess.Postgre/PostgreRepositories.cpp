@@ -204,8 +204,10 @@ Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const DataAcces
         return Utility::ChannelCreateCodes::FAILED;
     }
 
-    auto newChannelID = _pTable->Select()->columns({channel.fieldName(ChannelInfo::CHANNEL_ID)})
-        ->Where("channel_name = '" + channel[ChannelInfo::CHANNEL_NAME] + "'")->execute();
+    auto newChannelID = _pTable->Select()
+        ->columns({channel.fieldName(ChannelInfo::CHANNEL_ID)})
+        ->Where(channel.fieldName(ChannelInfo::CHANNEL_NAME)+ " = '" + channel[ChannelInfo::CHANNEL_NAME] + "'")
+        ->execute();
 
     channel.fillMap(newChannelID->begin());
 

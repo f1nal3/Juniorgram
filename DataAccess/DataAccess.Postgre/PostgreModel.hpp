@@ -23,11 +23,6 @@ public:
         {
             this->_data[this->toEnum(respIter.name())] = respIter.template as<std::string>();
         }
-
-        /*std::for_each(responce.begin(), responce.end(), [=](const auto& field)
-                      {
-                          this->_data[this->toEnum(field.name())] = field.template as<std::string>();                         
-                      });*/
     }
 
 protected:

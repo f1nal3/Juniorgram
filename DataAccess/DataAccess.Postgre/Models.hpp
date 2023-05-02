@@ -25,7 +25,7 @@ public:
         this->init(names);
     }
 
-    RegInfo getNumEnum(size_t num) const override
+    RegInfo getNumEnum(size_t num) const final
     {
         switch (num)
         {
@@ -70,7 +70,7 @@ public:
             this->_data[fieldIter->first] = *fillIter;
     }
 
-    UserInfo getNumEnum(size_t num) const override
+    UserInfo getNumEnum(size_t num) const final
     {
         switch (num)
         {
@@ -120,7 +120,7 @@ public:
     }
 
 protected:
-    ChannelInfo getNumEnum(size_t num) const override
+    ChannelInfo getNumEnum(size_t num) const final
     {
         switch (num)
         {
