@@ -35,16 +35,16 @@ public:
 
     const std::string& getModelName() const noexcept { return _modelName; }
 
-    const std::string& fieldName(TEnum anyEnum) noexcept
+    const std::string& fieldName(TEnum anyEnum) const noexcept
     {
         return _fieldData[anyEnum];
     }
 
-    virtual void fillMap(const TResult& response) = 0;  
+    virtual void fillMap(const TResult& response) const = 0;  
 
-    std::string& operator[](TEnum anyEnum) { return _data[anyEnum]; }
+    std::string& operator[](TEnum anyEnum) const { return _data[anyEnum]; }
 
-    TEnum toEnum(const std::string& fieldName)
+    TEnum toEnum(const std::string& fieldName) const 
     {
         return std::find_if(_fieldData.begin(), _fieldData.end(), [&fieldName](auto pair)
                                       {
@@ -85,7 +85,7 @@ private:
 
 protected:
     mutable Map<TEnum>       _data;
-    Map<TEnum>               _fieldData;
+    mutable Map<TEnum>       _fieldData;
 
 };
 }  // namespace Models

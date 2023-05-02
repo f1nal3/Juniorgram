@@ -47,6 +47,7 @@ private:
     Utility::ChannelCreateCodes      createChannel(const ChannelInfo& channel) override;
     Utility::ChannelLeaveCodes       leaveChannel(const ChannelLeaveInfo& channel) override;
     Utility::ChannelSubscribingCodes subscribeToChannel(const ChannelSubscriptionInfo& channel) override;
+    Utility::ChannelCreateCodes      newCreateChannel(const DataAccess::Channel& channel) override;
     std::vector<uint64_t>            getChannelSubscriptionList(const uint64_t userID) override;
     std::vector<Models::ChannelInfo> getAllChannelsList() override;
 

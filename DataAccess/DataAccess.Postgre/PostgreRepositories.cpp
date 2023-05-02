@@ -166,6 +166,65 @@ Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Models::Chann
     return Utility::ChannelDeleteCode::SUCCESS;
 }
 
+Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const DataAccess::Channel& channel)
+{
+    _pTable->changeTable("channels");
+
+    auto findChannel = _pTable->Select()
+        ->columns({ "channel_name" })
+        ->Where("channel_name = '" + channel[ChannelInfo::CHANNEL_NAME] + "'")
+        ->execute();
+
+    if (findChannel.has_value())
+    {
+        Base::Logger::FileLogger::getInstance().log
+        (
+            "Creating channel '" + channel[ChannelInfo::CHANNEL_NAME] +
+            "' failed since this channel exists\n",
+            Base::Logger::LogLevel::INFO
+        );
+        return Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED;
+    }
+
+    std::tuple channelData{ std::pair{channel.fieldName(ChannelInfo::CHANNEL_NAME), channel[ChannelInfo::CHANNEL_NAME]},
+                            std::pair{channel.fieldName(ChannelInfo::CREATOR_ID), channel[ChannelInfo::CREATOR_ID]},
+                            std::pair{channel.fieldName(ChannelInfo::CHANNEL_USER_LIMIT), channel[ChannelInfo::CHANNEL_USER_LIMIT]}
+    };
+
+    auto result = _pTable->Insert()->columns(channelData)->execute();
+
+    if (result.has_value())
+    {
+        Base::Logger::FileLogger::getInstance().log
+        (
+            "Creating channel '" + channel[ChannelInfo::CHANNEL_NAME] +
+            "' failed due to error with adding in channels table\n",
+            Base::Logger::LogLevel::ERR
+        );
+        return Utility::ChannelCreateCodes::FAILED;
+    }
+
+    auto newChannelID = _pTable->Select()->columns({channel.fieldName(ChannelInfo::CHANNEL_ID)})
+        ->Where("channel_name = '" + channel[ChannelInfo::CHANNEL_NAME] + "'")->execute();
+
+    channel.fillMap(newChannelID->begin());
+
+    std::tuple SubscribNewChannelData{ std::pair{"user_id", channel[ChannelInfo::CREATOR_ID]},
+                                      std::pair{"channel_id", channel[ChannelInfo::CHANNEL_ID]}};
+
+    _pTable->changeTable("user_channels");
+    _pTable->Insert()->columns(SubscribNewChannelData)->execute();
+
+    Base::Logger::FileLogger::getInstance().log
+    (
+        std::string("[channel id: " + channel[ChannelInfo::CHANNEL_ID] +
+                    "] Creating channel was successful\n"),
+        Base::Logger::LogLevel::INFO
+    );
+
+    return Utility::ChannelCreateCodes::SUCCESS;
+}
+
 Utility::ChannelCreateCodes ChannelsRepository::createChannel(const Models::ChannelInfo& channel)
 {
     _pTable->changeTable("channels");

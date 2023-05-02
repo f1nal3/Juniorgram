@@ -17,12 +17,17 @@ public:
     }
 
 public:
-    void fillMap(const TResult& responce) final
+    void fillMap(const TResult& responce) const final
     {
-        std::for_each(responce.begin(), responce.end(), [this](const auto& field)
+        for (auto respIter = responce.begin(); respIter != responce.end(); ++respIter)
+        {
+            this->_data[this->toEnum(respIter.name())] = respIter.template as<std::string>();
+        }
+
+        /*std::for_each(responce.begin(), responce.end(), [=](const auto& field)
                       {
                           this->_data[this->toEnum(field.name())] = field.template as<std::string>();                         
-                      });
+                      });*/
     }
 
 protected:

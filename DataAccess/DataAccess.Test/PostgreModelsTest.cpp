@@ -31,7 +31,17 @@ TEST_CASE("Check model usage", "[dummy]")
         auto responce = testTable->Insert()->columns(insertData)->execute();
 
         REQUIRE_FALSE(responce.has_value());
+
+        SECTION("Check const with mutable")
+        {
+            auto testLogin = "newAbobus";
+            testUser[UserInfo::LOGIN] = testLogin;
+
+            REQUIRE(testUser[UserInfo::LOGIN] == testLogin);
+        }
     }
+
+    
 
     SECTION("We want to fill the table once", "Check how properly map fills")
     {
@@ -48,6 +58,7 @@ TEST_CASE("Check model usage", "[dummy]")
                 REQUIRE(testUser[UserInfo::ID] == "1");
             }
         }
+
         SECTION("We define fields")
         {
             User testUser;

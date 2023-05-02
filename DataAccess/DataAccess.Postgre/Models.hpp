@@ -111,7 +111,7 @@ public:
     /*
     * @details Possibly will be moved into sepate method in UnifyedModel or smth like that because it consists only of templates, so it may be used by any model
     */
-    explicit Channel(const std::vector<std::pair<ChannelInfo, std::string>>& insertData) : Channel()
+    explicit Channel(const std::initializer_list<std::pair<ChannelInfo, std::string>>& insertData) : Channel()
     {
         std::for_each(insertData.begin(), insertData.end(), [this](const auto& pair)
                       {
