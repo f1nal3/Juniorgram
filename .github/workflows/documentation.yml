@@ -21,7 +21,9 @@ jobs:
           working-directory: .
           
     - name: debug
-      run: ls -a
+      run: |
+          ls -a
+          dir
 
     - name: GH Pages Deployment
       uses: peaceiris/actions-gh-pages@v3
