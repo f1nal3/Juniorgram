@@ -23,7 +23,7 @@ jobs:
     - name: debug
       run: |
           ls -a
-          dir
+          pwd
 
     - name: GH Pages Deployment
       uses: peaceiris/actions-gh-pages@v3
