@@ -19,6 +19,9 @@ jobs:
       with:
           doxyfile-path: ./Doxyfile
           working-directory: .
+          
+    - name: debug
+      run: ls -a
 
     - name: GH Pages Deployment
       uses: peaceiris/actions-gh-pages@v3
