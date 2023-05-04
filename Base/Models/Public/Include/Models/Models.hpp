@@ -4,47 +4,10 @@
 #include <map>
 #include <utility>
 
-namespace DataAccess
+namespace Models
 {
 using Base::Logger::FileLogger;
 
-enum class RegInfo : uint16_t
-{
-    ID= 0,
-    EMAIL,
-    LOGIN,
-    PASSHASH
-};
-
-class UserRegistration : public PostgreModel<RegInfo>
-{
-public:
-    UserRegistration(const std::string& modelName = "users", Models::FieldNames names = { "id","email","login","password_hash" })
-        : PostgreModel(modelName, names.size())
-    {
-        this->init(names);
-    }
-
-    RegInfo getNumEnum(size_t num) const final
-    {
-        switch (num)
-        {
-            case 0:
-                return RegInfo::ID;
-            case 1:
-                return RegInfo::EMAIL;
-            case 2:
-                return RegInfo::LOGIN;
-            case 3:
-                return RegInfo::PASSHASH;
-            default:
-            {
-                FileLogger::getInstance().error("Undefined integer income");
-                return {};
-            }
-        }
-    }
-};
 
 enum class UserInfo : uint16_t
 {
@@ -54,11 +17,12 @@ enum class UserInfo : uint16_t
     PASSHASH
 };
 
-class User : public PostgreModel<UserInfo>
+template<template<typename> class RepositoryType, class TEnum = UserInfo>
+class User : public RepositoryType<TEnum>
 {
 public:
     User(const std::string& modelName = "users", const Models::FieldNames& names = { "id", "email", "login", "password_hash" })
-        : PostgreModel(modelName, names.size())
+        : RepositoryType<TEnum>(modelName, names.size())
     {
         this->init(names);
     }
@@ -91,7 +55,8 @@ public:
     }
 };
 
-enum class ChannelInfo : uint16_t
+
+enum class ChannelData : uint16_t
 {
     CHANNEL_ID = 0,
     CHANNEL_NAME,
@@ -99,11 +64,12 @@ enum class ChannelInfo : uint16_t
     CHANNEL_USER_LIMIT
 };
 
-class Channel : public PostgreModel<ChannelInfo>
+template<template<typename> class RepositoryType, class TEnum = ChannelData>
+class Channel : public RepositoryType<TEnum>
 {
 public:
     Channel(const std::string& modelName = "channels", const Models::FieldNames& names = { "id", "channel_name", "creator_id", "user_limit" })
-        : PostgreModel(modelName, names.size())
+        : RepositoryType<TEnum>(modelName, names.size())
     {
         this->init(names);
     }
@@ -111,7 +77,7 @@ public:
     /*
     * @details Possibly will be moved into sepate method in UnifyedModel or smth like that because it consists only of templates, so it may be used by any model
     */
-    explicit Channel(const std::initializer_list<std::pair<ChannelInfo, std::string>>& insertData) : Channel()
+    Channel(const std::vector<std::pair<TEnum, std::string>>& insertData) : Channel()
     {
         std::for_each(insertData.begin(), insertData.end(), [this](const auto& pair)
                       {
@@ -120,18 +86,18 @@ public:
     }
 
 protected:
-    ChannelInfo getNumEnum(size_t num) const final
+    ChannelData getNumEnum(size_t num) const final
     {
         switch (num)
         {
             case 0: 
-                return ChannelInfo::CHANNEL_ID;
+                return ChannelData::CHANNEL_ID;
             case 1:
-                return ChannelInfo::CHANNEL_NAME;
+                return ChannelData::CHANNEL_NAME;
             case 2:
-                return ChannelInfo::CREATOR_ID;
+                return ChannelData::CREATOR_ID;
             case 3:
-                return ChannelInfo::CHANNEL_USER_LIMIT;
+                return ChannelData::CHANNEL_USER_LIMIT;
             default:
             {
                 FileLogger::getInstance().error("Undefined integer income");
@@ -140,4 +106,4 @@ protected:
         }
     }
 };
-}  // namespace DataAccess
+}  // namespace Models

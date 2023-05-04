@@ -6,10 +6,7 @@
 
 namespace Models
 {
-using FieldNames = std::initializer_list<std::string>;
-
-template <typename Enum>
-using FieldData = std::vector<std::tuple<Enum, size_t, std::string>>;
+using FieldNames = std::vector<std::string>;
 
 template <typename TKey>
 class Comparator
@@ -24,12 +21,12 @@ public:
 template <typename TKey, typename TData = std::string, typename Comp = Comparator<TKey>>
 using Map = std::map<TKey, TData, Comp>;
 
-template <class TEnum, class TResult>
-class UnifyedModel
+
+template <class TEnum,class TResult>
+class UnifiedModel
 {
 public:
-    UnifyedModel(const std::string& modelName, size_t amountFields)
-        : _modelName(modelName), _amountOfFields(amountFields)
+    UnifiedModel(const std::string& modelName, size_t amountFields): _modelName(modelName), _amountOfFields(amountFields)
     {
     }
 
@@ -40,22 +37,11 @@ public:
         return _fieldData[anyEnum];
     }
 
-    virtual void fillMap(const TResult& response) const = 0;  
+    virtual void fill(const TResult& response) const = 0;  
 
     std::string& operator[](TEnum anyEnum) const { return _data[anyEnum]; }
-
-    TEnum toEnum(const std::string& fieldName) const 
-    {
-        return std::find_if(_fieldData.begin(), _fieldData.end(), [&fieldName](auto pair)
-                                      {
-                                          if (pair.second == fieldName)
-                                              return true;
-                                          else
-                                              return false;
-                                      })->first;
-    }
-
-    virtual ~UnifyedModel() = default;
+   
+    virtual ~UnifiedModel() = default;
 
 protected:
     void init(const FieldNames& fieldNames)
@@ -71,6 +57,17 @@ protected:
         }
     }
 
+    TEnum toEnum(const std::string& fieldName) const
+    {
+        return std::find_if(_fieldData.begin(), _fieldData.end(), [&fieldName](auto pair)
+                            {
+                                if (pair.second == fieldName)
+                                    return true;
+                                else
+                                    return false;
+                            })->first;
+    }
+
 private:
     /*
      * @method getNumEnum
@@ -78,7 +75,7 @@ private:
      * @returns Object of specific enum class
      */
     virtual TEnum getNumEnum(size_t num) const = 0;
-
+  
 private:
     std::string              _modelName;
     size_t                   _amountOfFields;

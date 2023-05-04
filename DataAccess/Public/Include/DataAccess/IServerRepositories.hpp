@@ -5,7 +5,7 @@
 
 #include <Models/Primitives.hpp>
 #include <Utility/Utility.hpp>
-#include <Models.hpp>
+#include <Models/Models.hpp>
 
 #include "IMasterRepository.hpp"
 
@@ -107,7 +107,7 @@ struct IRepliesRepository : IMasterRepository
  */
 struct IChannelsRepository : IMasterRepository
 {
-    virtual Utility::ChannelCreateCodes newCreateChannel(const DataAccess::Channel& channel) = 0;
+    //virtual Utility::ChannelCreateCodes newCreateChannel(const Models::Channel& channel) = 0;
     /**
     * @brief  Virtual method for getting all channel list from the server.
     * @return channels list as vector of ChannelInfo.
