@@ -81,7 +81,7 @@ public:
     {
         std::for_each(insertData.begin(), insertData.end(), [this](const auto& pair)
                       {
-                          _data[pair.first] = pair.second;
+                          this->_data[pair.first] = pair.second;
                       });
     }
 
