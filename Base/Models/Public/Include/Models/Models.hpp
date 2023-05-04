@@ -17,8 +17,8 @@ enum class UserInfo : uint16_t
     PASSHASH
 };
 
-template<template<typename> class RepositoryType, class TEnum = UserInfo>
-class User : public RepositoryType<TEnum>
+template<template<typename ...TArgs> class RepositoryType, class TEnum = UserInfo, typename... Args>
+class User : public RepositoryType<TEnum, Args...>
 {
 public:
     User(const std::string& modelName = "users", const Models::FieldNames& names = { "id", "email", "login", "password_hash" })
@@ -27,11 +27,12 @@ public:
         this->init(names);
     }
 
-    explicit User(std::vector<std::string> fillFields) : User()
+    User(const std::vector<std::pair<TEnum, std::string>>& insertData) : User()
     {
-        auto fieldIter = this->_fieldData.begin();
-        for (auto fillIter = fillFields.begin(); fillIter != fillFields.end(); ++fieldIter, ++fillIter)
-            this->_data[fieldIter->first] = *fillIter;
+        std::for_each(insertData.begin(), insertData.end(), [this](const auto& pair)
+                      {
+                          this->_data[pair.first] = pair.second;
+                      });
     }
 
     UserInfo getNumEnum(size_t num) const final
@@ -64,8 +65,8 @@ enum class ChannelData : uint16_t
     CHANNEL_USER_LIMIT
 };
 
-template<template<typename> class RepositoryType, class TEnum = ChannelData>
-class Channel : public RepositoryType<TEnum>
+template<template<typename ...TArgs> class RepositoryType, class TEnum = ChannelData, typename... Args>
+class Channel : public RepositoryType<TEnum, Args...>
 {
 public:
     Channel(const std::string& modelName = "channels", const Models::FieldNames& names = { "id", "channel_name", "creator_id", "user_limit" })
@@ -77,7 +78,7 @@ public:
     /*
     * @details Possibly will be moved into sepate method in UnifyedModel or smth like that because it consists only of templates, so it may be used by any model
     */
-    Channel(const std::vector<std::pair<TEnum, std::string>>& insertData) : Channel()
+    explicit Channel(const std::vector<std::pair<TEnum, std::string>>& insertData) : Channel()
     {
         std::for_each(insertData.begin(), insertData.end(), [this](const auto& pair)
                       {
