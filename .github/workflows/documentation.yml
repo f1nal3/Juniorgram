@@ -15,7 +15,7 @@ jobs:
           python-version: 3.7
         
     - name: Doxygen Action
-      uses: mattnotmitt/doxygen-action@v1.1.0
+      uses: mattnotmitt/doxygen-action@edge
       with:
           doxyfile-path: ./Doxyfile
           working-directory: .
@@ -29,7 +29,7 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: Docs
+        publish_dir: ./Docs
         enable_jekyll: false
         allow_empty_commit: false
         force_orphan: true
