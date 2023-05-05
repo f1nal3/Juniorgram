@@ -6,7 +6,6 @@
 #include "DataAccess.Postgre/DataBaseOptions.hpp"
 #include "DataAccess.Postgre/PostgreRepositories.hpp"
 #include "PostgreModel.hpp"
-#include "PostgreFactory.hpp"
 #include <Models/UnifyedModel.hpp>
 
 
@@ -18,7 +17,6 @@ using Models::Channel;
 using Models::ChannelData;
 
 using DataAccess::PostgreModel;
-using DataAccess::PostgreFactory;
 
 using DataAccess::PostgreAdapter;
 using DataAccess::PGQueryBuilder;
