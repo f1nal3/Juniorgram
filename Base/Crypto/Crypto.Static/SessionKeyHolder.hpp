@@ -8,6 +8,9 @@
 
 namespace Base
 {
+using Utility::GeneralCodes;
+using Base::Logger::FileLogger;
+using Base::Logger::LogLevel;
 using CryptoPP::SecByteBlock;
 using Pair_UserKey = std::pair<uint64_t, SecByteBlock>;
 using Map_UserKey  = std::map<uint64_t, SecByteBlock>;
@@ -47,9 +50,9 @@ public:
         }
         else
         {
-            Base::Logger::FileLogger::getInstance().log(
+            FileLogger::getInstance().log(
                 std::string("Cannot get session key for userId = ") + std::to_string(userId),
-                Base::Logger::LogLevel::ERR);
+                LogLevel::ERR);
         }
         return SecByteBlock(0);
     }
@@ -60,21 +63,21 @@ public:
     /** @brief Method for refreshing user's key
     * @details Method finds already connected user and change the key without the need to add a new user-key pair.
     */
-    Utility::GeneralCodes refreshKey(SecByteBlock newKey, uint64_t userId)
+    GeneralCodes refreshKey(SecByteBlock newKey, uint64_t userId)
     {
         if (auto findedUser = _keysContainer.find(userId);
             findedUser !=_keysContainer.end())
         {
             findedUser->second = newKey;
-            return Utility::GeneralCodes::SUCCESS;
+            return GeneralCodes::SUCCESS;
         }
         else
         {
-            Base::Logger::FileLogger::getInstance().log(
+            FileLogger::getInstance().log(
                 std::string("Cannot refresh session key for userId = ") + std::to_string(userId),
-                Base::Logger::LogLevel::ERR);
+                LogLevel::ERR);
         }
-        return Utility::GeneralCodes::FAILED;
+        return GeneralCodes::FAILED;
     }
 
 private:
@@ -84,4 +87,4 @@ private:
     SessionKeyHolder(const SessionKeyHolder&) = delete;
     SessionKeyHolder& operator=(const SessionKeyHolder&) = delete;
 };
-};  // namespace Base
+}  // namespace Base
