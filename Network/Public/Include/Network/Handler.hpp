@@ -35,7 +35,7 @@ public:
     virtual ~Handler()            = default;
 
     /// Virtual Handler method for preprocessing next handler
-    virtual Handler*               setNext(Handler* handler)                                                      = 0;
+    virtual std::shared_ptr<Handler> setNext(std::unique_ptr<Handler> handler)                                                      = 0;
 
     /**
     * @brief Virtual method for preprocessing of outcoming messages.
@@ -59,21 +59,17 @@ public:
 class AbstractHandler : public Handler
 {
 protected:
-    Handler* nextHandler;
+    std::shared_ptr<Handler> nextHandler = nullptr;
 
 public:
-    AbstractHandler() : nextHandler(nullptr) {}
-
-    virtual ~AbstractHandler() { delete nextHandler; }
-
     /**
     * @brief Method for setting next handler fot message preprocessing.
     * @param handler - next handler fot message preprocessing.
     * @return handler - next handler fot message preprocessing.
     */
-    Handler* setNext(Handler* handler) override
+    std::shared_ptr<Handler> setNext(std::unique_ptr<Handler> handler) override
     {
-        this->nextHandler = handler;
+        this->nextHandler = std::move(handler);
         return this->nextHandler;
     }
 

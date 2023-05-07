@@ -41,9 +41,7 @@ namespace Network
         YasSerializer& operator=(const YasSerializer&) = delete;
         YasSerializer& operator=(YasSerializer&&) = delete;
 
-    private:
         constexpr static std::size_t flags = yas::mem | yas::binary | yas::no_header;
-
     public:
         /**
         * @brief Method for binary serialization of messages.

@@ -371,7 +371,7 @@ public:
 
 private:
     template <typename T>
-    SerializedState processOutcomingMessageBody(yas::shared_buffer& bodyBuffer, const std::any messageBody)
+    SerializedState processOutcomingMessageBody(yas::shared_buffer& bodyBuffer, const std::any messageBody)const
     {
         try
         {
@@ -389,7 +389,7 @@ private:
     }
 
     template <typename T>
-    SerializedState processIncomingMessageBody(const yas::shared_buffer& bodyBuffer, Message& message)
+    SerializedState processIncomingMessageBody(const yas::shared_buffer& bodyBuffer, Message& message)const
     {
         try
         {

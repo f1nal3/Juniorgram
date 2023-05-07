@@ -89,7 +89,7 @@ private:
         yas::shared_buffer bodyBuffer;
 
         SerializationHandler handler;
-        handler.setNext(new CompressionHandler())->setNext(new EncryptionHandler());
+        handler.setNext(std::make_unique<CompressionHandler>())->setNext(std::make_unique<EncryptionHandler>());
         MessageProcessingState result = handler.handleOutcomingMessage(_outcomingMessagesQueue.front(), bodyBuffer);
 
         Network::Message::MessageHeader outcomingMessageHeader = _outcomingMessagesQueue.front().mHeader;
@@ -228,7 +228,7 @@ private:
             if (!error)
             {
                 EncryptionHandler handler;
-                handler.setNext(new CompressionHandler())->setNext(new SerializationHandler());
+                handler.setNext(std::make_unique<CompressionHandler>())->setNext(std::make_unique<SerializationHandler>());
                 MessageProcessingState result = handler.handleIncomingMessageBody(buffer, _messageBuffer);
 
                 if (result == MessageProcessingState::SUCCESS)
@@ -323,13 +323,10 @@ public:
     */
     void connectToClient(const uint64_t uid = uint64_t())
     {
-        if (_owner == OwnerType::SERVER)
+        if (_owner == OwnerType::SERVER && _socket.is_open())
         {
-            if (_socket.is_open())
-            {
-                _connectionID = uid;
-                readHeader();
-            }
+            _connectionID = uid;
+            readHeader();
         }
     }
 
