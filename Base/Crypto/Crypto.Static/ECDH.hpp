@@ -1,101 +1,63 @@
 #pragma once
 
 #include <cryptopp/osrng.h>
-#include <cryptopp/secblock.h>
 #include <cryptopp/eccrypto.h>
 #include <cryptopp/oids.h>
 #include <cryptopp/asn.h>
 
-#include "SessionKeyHolder.hpp"
 #include "IKeyAgreement.hpp"
 #include "FileLogger.hpp"
 
 namespace Base::KeyAgreement
 {
-    using Base::Logger::FileLogger;
-    using Base::SessionKeyHolder;
-    using Base::Hashing::SHA_256;
-    using CryptoPP::ASN1::secp256r1;
-    using CryptoPP::AutoSeededRandomPool;
-    using CryptoPP::SecByteBlock;
-    using CryptoPP::OID;
-    using CryptoPP::byte;
-    using CryptoPP::ECP;
-    using Domain =  CryptoPP::ECDH<ECP>::Domain;
+using Base::Hashing::SHA_256;
+using Base::Logger::FileLogger;
+using CryptoPP::AutoSeededRandomPool;
+using CryptoPP::byte;
+using CryptoPP::ECP;
+using CryptoPP::OID;
+using CryptoPP::ASN1::secp256r1;
+using Domain = CryptoPP::ECDH<ECP>::Domain;
 
 /** @class ECDH
-* @brief Class implements Elliptic Curve Diffie-Hellman key agreement
-* @details The class generates temporary keys for subsequent generation of shared key (secret).
-* Before placing the shared key in the session key storage, class can process it.
-*/
-class ECDH final: public IKeyAgreement
+ * @brief Class implements Elliptic Curve Diffie-Hellman key agreement
+ * @details The class generates temporary keys for subsequent generation of shared key (secret).
+ * Before placing the shared key in the session key storage, class can process it.
+ */
+class ECDH final : public IKeyAgreement
 {
 public:
-    /// @brief Method for (re)generating temporary keys
-    void generateKeys() { createEphemeralKeys(); };
-
-    /** @brief Server's method for calculating shared key
-    * @details Method places shared key in SessionKeyHolder for client with clientId.
-    */
-    bool calculateSharedKey(const std::string& publicClientKeyStr, uint64_t clientId)
-    {
-        SecByteBlock sharedKey(_domain.AgreedValueLength());
-        SecByteBlock publicOthersideKey(reinterpret_cast<const byte*>(publicClientKeyStr.data()), publicClientKeyStr.size());
-
-        bool correctness = _domain.Agree(sharedKey, _privateKey, publicOthersideKey);
-        if (correctness)
-        {
-            SessionKeyHolder::Instance().addUserKey(cutInHalf(sharedKey), clientId);
-            FileLogger::getInstance().log("Session key for userId = " + std::to_string(clientId) + "is setted",
-                                          Base::Logger::LogLevel::INFO);
-        }
-        else
-        {
-            FileLogger::getInstance().log("Failed to reach shared secret", Base::Logger::LogLevel::ERR);
-        }
-        clearKeys();
-        return correctness;
-    }
-
-    /** @brief Client's method for calculating shared key
-    * @details Method places shared key in SessionKeyHolder.
-    */
-    bool calculateSharedKey(const std::string& publicServerKeyStr)
-    {
-        SecByteBlock sharedKey(_domain.AgreedValueLength());
-        SecByteBlock publicOthersideKey(reinterpret_cast<const byte*>(publicServerKeyStr.data()), publicServerKeyStr.size());
-
-        bool correctness = _domain.Agree(sharedKey, _privateKey, publicOthersideKey);
-        if (correctness)
-        {
-            SessionKeyHolder::Instance().setKey(cutInHalf(sharedKey));
-            FileLogger::getInstance().log("Session key is setted", Base::Logger::LogLevel::INFO);
-        }
-        else
-        {
-            FileLogger::getInstance().log("Failed to reach shared secret", Base::Logger::LogLevel::ERR);
-        }
-        clearKeys();
-        return correctness;
-    }
-
-    std::string getPublicKey() { return std::string(reinterpret_cast<const char*>(_publicKey.data()), _publicKey.size()); };
-
-private:
-    AutoSeededRandomPool _randPool;
-    SecByteBlock         _privateKey, _publicKey;
-    /// Defines a curve for calculating the public key
-    OID                  _curve  = secp256r1();
-    Domain               _domain = Domain(_curve);
-
-    /// @brief Method for (re)generating private and public keys for further creating shared key
-    inline void createEphemeralKeys()
+    /// @brief Method for (re)generating temporary(ephemeral) keys
+    void generateKeys()
     {
         _privateKey.New(_domain.PrivateKeyLength());
         _publicKey.New(_domain.PublicKeyLength());
 
         _domain.GenerateKeyPair(_randPool, _privateKey, _publicKey);
+    };
+
+    /// @brief Method for calculating shared key
+    SecByteBlock calculateSharedKey(const SecByteBlock& publicOthersideKey)
+    {
+        SecByteBlock sharedKey(_domain.AgreedValueLength());
+
+        bool correctness = _domain.Agree(sharedKey, _privateKey, publicOthersideKey);
+        clearKeys();
+        if (correctness)
+        {
+            return cutInHalf(sharedKey);
+        }
+        else
+        {
+            FileLogger::getInstance().log("Failed to reach ECDH shared secret", Base::Logger::LogLevel::ERR);
+        }
+        return SecByteBlock(0);
     }
+
+private:
+    AutoSeededRandomPool _randPool;
+    OID                  _curve  = secp256r1();  /// defines a curve for calculating the public key
+    Domain               _domain = Domain(_curve);
 
     /// @brief Method clears keys after generation shared key (it does not matter, successful or unsuccessful)
     inline void clearKeys()
