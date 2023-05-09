@@ -36,7 +36,7 @@ public:
         _domain.GenerateKeyPair(_randPool, _privateKey, _publicKey);
     };
 
-    /// @brief Method for calculating shared key
+    /// @brief Method for calculating shared key. After generation, temporary keys are deleted.
     SecByteBlock calculateSharedKey(const SecByteBlock& publicOthersideKey)
     {
         SecByteBlock sharedKey(_domain.AgreedValueLength());
