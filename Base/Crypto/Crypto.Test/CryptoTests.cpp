@@ -18,6 +18,7 @@ using Base::Generators::ByteBlockGenerator;
 using Base::Verifiers::HashVerifier;
 using Base::KeyConfirmators::KeyConfirmation;
 using Base::Crypto::Symmetric::AES_GCM;
+using Base::KeyAgreement::ECDH;
 using CryptoPP::SecByteBlock;
 using Network::EncryptionState;
 
@@ -197,4 +198,19 @@ TEST_CASE("AES GCM test", "[dummy]")
 
         REQUIRE(decryptedMessage != plainMessage);
     }
+}
+
+TEST_CASE("ECDH test", "[dummy]")
+{
+    ECDH side1, side2;
+    side1.generateKeys();
+    side2.generateKeys();
+
+    SecByteBlock sendedPublicKeyOfSide1 = side1.getPublicKey();
+    SecByteBlock sendedPublicKeyOfSide2 = side2.getPublicKey();
+
+    SecByteBlock sharedSecretSide1 = side1.calculateSharedKey(sendedPublicKeyOfSide2);
+    SecByteBlock sharedSecretSide2 = side2.calculateSharedKey(sendedPublicKeyOfSide1);
+
+    REQUIRE(sharedSecretSide1 == sharedSecretSide2);
 }
