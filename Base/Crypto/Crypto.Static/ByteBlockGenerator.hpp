@@ -34,4 +34,4 @@ public:
 private:
     AutoSeededRandomPool _generator;
 };
-};  // namespace Base::Generators
+}  // namespace Base::Generators

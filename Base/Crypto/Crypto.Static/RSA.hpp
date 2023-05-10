@@ -62,4 +62,4 @@ public:
 private:
     AutoSeededRandomPool _randPool;
 };
-};  // namespace Base::Crypto::Asymmetric
+}  // namespace Base::Crypto::Asymmetric

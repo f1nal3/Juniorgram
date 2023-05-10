@@ -26,4 +26,4 @@ public:
 protected:
     SecByteBlock _privateKey, _publicKey;
 };
-};  // namespace Base::KeyAgreement
+}  // namespace Base::KeyAgreement

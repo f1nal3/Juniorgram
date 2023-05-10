@@ -18,4 +18,4 @@ class IConnectionVerifier
 public:
     virtual std::string calculateVerifyingHash(const std::string& pwdHash, const ConnectionInfo& connInfo) = 0;
 };
-};  // namespace Base::Verifiers
+}  // namespace Base::Verifiers
