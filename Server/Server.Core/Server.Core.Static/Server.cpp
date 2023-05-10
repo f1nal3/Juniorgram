@@ -75,10 +75,10 @@ void Server::initConnection(const uint16_t port) { _acceptor = std::make_unique<
 
 bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
 {
-    //there should connection verifing
     Message message;
     message.mHeader.mMessageType = Message::MessageType::ServerAccept;
     client->send(message);
+
     return true;
 }
 

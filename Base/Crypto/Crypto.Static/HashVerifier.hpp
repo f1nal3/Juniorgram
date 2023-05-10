@@ -1,3 +1,5 @@
+#pragma once
+
 #include "IConnectionVerifier.hpp"
 #include "Hashing.hpp"
 

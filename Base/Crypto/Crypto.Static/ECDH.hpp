@@ -10,7 +10,6 @@
 
 namespace Base::KeyAgreement
 {
-using Base::Hashing::SHA_256;
 using Base::Logger::FileLogger;
 using CryptoPP::AutoSeededRandomPool;
 using CryptoPP::byte;
