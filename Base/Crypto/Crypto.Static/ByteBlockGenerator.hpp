@@ -9,13 +9,18 @@ namespace Base::Generators
 	using CryptoPP::AutoSeededRandomPool;
 
 /** @class ByteBlockGenerator
-* @brief Random generator of CryptoPP::SecByteBlock
-* @details Class uses AutoSeededRandomPool, because:
-* https://stackoverflow.com/questions/55889143/when-should-i-use-autoseededrandompool-and-not-nonblockingrng
+* @brief Random generator of CryptoPP::SecByteBlock. This is singleton.
 */
 class ByteBlockGenerator
 {
 public:
+    /// @brief Method to get singleton object
+    static ByteBlockGenerator& Instance()
+    {
+        static ByteBlockGenerator singleton;
+        return singleton;
+    }
+
     /** @brief Method for generating block of bytes with
     * @param blockSize size of byte block, in bytes
     */

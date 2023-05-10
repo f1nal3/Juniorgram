@@ -118,9 +118,8 @@ TEST_CASE("ByteBlockGenerator test", "[dummy]")
 {
     SECTION("Check on randomness")
     {
-        ByteBlockGenerator generator;
-        auto block1 = generator.generateBlock(8);
-        auto block2 = generator.generateBlock(8);
+        auto block1 = ByteBlockGenerator::Instance().generateBlock(8);
+        auto block2 = ByteBlockGenerator::Instance().generateBlock(8);
 
         REQUIRE(block1 != block2);
     }
@@ -155,10 +154,9 @@ TEST_CASE("AES GCM test", "[dummy]")
     std::string        plainMessage{"Message"};
     std::string        authData{"authentificationData"};
     AES_GCM            aesGcm;
-    ByteBlockGenerator generator;
 
-    SecByteBlock key = generator.generateBlock(CryptoPP::AES::DEFAULT_KEYLENGTH);
-    SecByteBlock iv  = generator.generateBlock(12);
+    SecByteBlock key = ByteBlockGenerator::Instance().generateBlock(CryptoPP::AES::DEFAULT_KEYLENGTH);
+    SecByteBlock iv  = ByteBlockGenerator::Instance().generateBlock(12);
 
     SECTION("Sended message has not any problems")
     {
@@ -221,8 +219,8 @@ TEST_CASE("SessionKeyHolder test")
     using Utility::GeneralCodes;
 
     SessionKeyHolder::Instance();
-    SecByteBlock testKey = ByteBlockGenerator().generateBlock(8);
-    SecByteBlock newKey  = ByteBlockGenerator().generateBlock(8);
+    SecByteBlock testKey = ByteBlockGenerator::Instance().generateBlock(8);
+    SecByteBlock newKey  = ByteBlockGenerator::Instance().generateBlock(8);
     uint64_t     userId  = 1;
 
     SECTION("Correct situations", "[dummy]")
