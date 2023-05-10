@@ -38,7 +38,21 @@ public:
     * @param newKey key is result of key agreement protocol
     * @param userId id, which is contained in Connection class
     */
-    void setKey(SecByteBlock newKey, uint64_t userId) { _keysContainer.insert(Pair_UserKey(userId, newKey)); }
+    GeneralCodes setKey(SecByteBlock&& newKey, const uint64_t& userId)
+    {
+        auto result    = _keysContainer.insert(Pair_UserKey(userId, std::move(newKey)));
+        bool isSuccess = result.second;
+
+        if (!isSuccess)
+        {
+            FileLogger::getInstance().log(
+                std::string("Cannot set session key for userId = ") + std::to_string(userId),
+                LogLevel::ERR);
+            return GeneralCodes::FAILED;
+        }
+
+        return GeneralCodes::SUCCESS;
+    }
 
     /// @brief Method of getting session key by user ID
     SecByteBlock getKey(const uint64_t& userId) const
@@ -58,17 +72,26 @@ public:
     }
 
     /// @brief Method of removing session key by user ID
-    void removeKey(const uint64_t& userId) { _keysContainer.erase(userId); }
+    void removeKey(const uint64_t& userId)
+    {
+        auto countOfRemovedElem = _keysContainer.erase(userId);
+        if (!countOfRemovedElem)
+        {
+            FileLogger::getInstance().log(
+                std::string("Cannot remove session key for userId = ") + std::to_string(userId),
+                LogLevel::ERR);
+        }
+    }
 
     /** @brief Method for refreshing user's key
     * @details Method finds already connected user and change the key without the need to add a new user-key pair.
     */
-    GeneralCodes refreshKey(SecByteBlock newKey, uint64_t userId)
+    GeneralCodes refreshKey(SecByteBlock&& newKey, const uint64_t& userId)
     {
         if (auto findedUser = _keysContainer.find(userId);
             findedUser !=_keysContainer.end())
         {
-            findedUser->second = newKey;
+            findedUser->second = std::move(newKey);
             return GeneralCodes::SUCCESS;
         }
         else
