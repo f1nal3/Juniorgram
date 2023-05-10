@@ -19,6 +19,7 @@ using Base::Verifiers::HashVerifier;
 using Base::KeyConfirmators::KeyConfirmation;
 using Base::Crypto::Symmetric::AES_GCM;
 using Base::KeyAgreement::ECDH;
+using Base::SessionKeyHolder;
 using CryptoPP::SecByteBlock;
 using Network::EncryptionState;
 
@@ -213,4 +214,39 @@ TEST_CASE("ECDH test", "[dummy]")
     SecByteBlock sharedSecretSide2 = side2.calculateSharedKey(sendedPublicKeyOfSide1);
 
     REQUIRE(sharedSecretSide1 == sharedSecretSide2);
+}
+
+TEST_CASE("SessionKeyHolder test")
+{
+    using Utility::GeneralCodes;
+
+    SessionKeyHolder::Instance();
+    SecByteBlock testKey = ByteBlockGenerator().generateBlock(8);
+    SecByteBlock newKey  = ByteBlockGenerator().generateBlock(8);
+    uint64_t     userId  = 1;
+
+    SECTION("Correct situations", "[dummy]")
+    {
+        SecByteBlock sameTestKey = testKey;
+        SecByteBlock sameNewKey  = newKey;
+
+        REQUIRE_NOTHROW(SessionKeyHolder::Instance());
+        REQUIRE(SessionKeyHolder::Instance().setKey(std::move(sameTestKey), userId) == GeneralCodes::SUCCESS);
+        REQUIRE(SessionKeyHolder::Instance().getKey(userId) == testKey);
+        REQUIRE(SessionKeyHolder::Instance().refreshKey(std::move(sameNewKey), userId) == GeneralCodes::SUCCESS);
+        REQUIRE_NOTHROW(SessionKeyHolder::Instance().removeKey(userId));
+    }
+
+    SECTION("Incorrect situations", "[dummy]")
+    {
+        uint64_t     incorrectUserId = userId + 5;
+        SecByteBlock sameTestKey     = testKey;
+        SecByteBlock sameNewKey      = newKey;
+        SessionKeyHolder::Instance().setKey(std::move(sameTestKey), userId);
+
+        REQUIRE(SessionKeyHolder::Instance().setKey(std::move(sameTestKey), userId) == GeneralCodes::FAILED);
+        REQUIRE(SessionKeyHolder::Instance().getKey(incorrectUserId).empty() == true);
+        REQUIRE(SessionKeyHolder::Instance().refreshKey(std::move(sameNewKey), incorrectUserId) == GeneralCodes::FAILED);
+        REQUIRE_NOTHROW(SessionKeyHolder::Instance().removeKey(incorrectUserId));
+    }
 }
