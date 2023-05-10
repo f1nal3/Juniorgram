@@ -30,7 +30,7 @@ using Network::Message;
 using Utility::SafeQueue;
 using Network::MessageResult;
 using RepoManagerUPtr = std::unique_ptr<DataAccess::IRepositoryManager>;
-using RSAKeyManagerSPtr = std::shared_ptr<Base::RSAKeyManager>;
+using RSAKeyManagerUPtr = std::unique_ptr<Base::RSAKeyManager>;
 using UInt64Dist = std::uniform_int_distribution<uint64_t>;
 
 /*
@@ -161,6 +161,6 @@ private:
     std::deque<std::thread>                 _threads;
     std::unique_ptr<tcp::acceptor>          _acceptor;
     RepoManagerUPtr                         _repoManager;
-    RSAKeyManagerSPtr                       _rsaKeyManager = std::make_shared<Base::RSAKeyManager>();
+    RSAKeyManagerUPtr                       _rsaKeyManager = std::make_unique<Base::RSAKeyManager>();
 };
 }  /// namespace Server
