@@ -36,7 +36,7 @@ public:
                 case Message::MessageType::ServerMessage:
                     break;
 
-                case Message::MessageType::RequestOnConnection:
+                case Message::MessageType::ConnectionInfoRequest:
                     break;
 
                 case Message::MessageType::ChannelListRequest:
@@ -161,7 +161,7 @@ public:
                     state = processOutcomingMessageBody<Utility::DirectMessageStatus>(bodyBuffer, message.mBody);
                     break;
 
-                case Message::MessageType::RequestOnConnectionAnswer:
+                case Message::MessageType::ConnectionInfoAnswer:
                     state = processOutcomingMessageBody<Models::ConnectionInfo>(bodyBuffer, message.mBody);
                     break;
 
@@ -201,7 +201,7 @@ public:
                 break;
             case Message::MessageType::ServerMessage:
                 break;
-            case Message::MessageType::RequestOnConnection:
+            case Message::MessageType::ConnectionInfoRequest:
                 break;
             case Message::MessageType::ChannelListRequest:
             {
@@ -363,7 +363,7 @@ public:
                 break;
             }
 
-            case Message::MessageType::RequestOnConnectionAnswer:
+            case Message::MessageType::ConnectionInfoAnswer:
             {
                 state = processIncomingMessageBody<Models::ConnectionInfo>(buffer, message);
                 break;

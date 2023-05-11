@@ -62,8 +62,8 @@ struct Message
         DirectMessageCreateAnswer,
         MessageReactionRequest,
         MessageReactionAnswer,
-        RequestOnConnection,
-        RequestOnConnectionAnswer
+        ConnectionInfoRequest,
+        ConnectionInfoAnswer
     };
 
     /**
