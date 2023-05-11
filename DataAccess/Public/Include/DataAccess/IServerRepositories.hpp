@@ -215,7 +215,7 @@ struct IRegisterRepository : IMasterRepository
 struct ILoginRepository : IMasterRepository
 {
     /**
-    * @brief Attempts to login a user with the provided login by checking privided hash with the one stored.
+    * @brief Attempts to login a user with the provided login by checking provided hash with the one stored.
     * @param loginInfo Struct, that contains user login and verifying hash
     * @param connInfo Struct, that contains public server key and connection ID
     * @return userID if provided hash is the same as calulated by IConnectionVerifier, 0 stands for failed login

@@ -405,6 +405,7 @@ public:
     {
         _connVerifierAlgorithm = std::move(connVerifier);
     }
+
     std::shared_ptr<Base::Verifiers::IConnectionVerifier> getConnectionVerifier() const
     {
         return _connVerifierAlgorithm;

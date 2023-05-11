@@ -21,7 +21,7 @@ public:
     /// @brief Method for (re)generating pair of temporary keys
     virtual void generateKeys() = 0;
 
-    SecByteBlock getPublicKey() { return _publicKey; };
+    SecByteBlock getPublicKey() { return _publicKey; }
 
 protected:
     SecByteBlock _privateKey, _publicKey;
