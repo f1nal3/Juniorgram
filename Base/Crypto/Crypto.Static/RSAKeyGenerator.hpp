@@ -6,12 +6,37 @@
 #include "FileLogger.hpp"
 #include "Models/Primitives.hpp"
 
+namespace Base
+{
+    struct RSAKeyPair
+    {
+        CryptoPP::RSA::PublicKey  publicKey;
+        CryptoPP::RSA::PrivateKey  privateKey;
+
+        std::string getPublicKeyAsString()
+        {
+            std::string publicKeyStr;
+            CryptoPP::StringSink  stringSink(publicKeyStr);
+            publicKey.DEREncode(stringSink);
+            return publicKeyStr;
+        }
+
+        CryptoPP::RSA::PublicKey getPublicKeyFromString(const std::string& publicServerKeyStr)
+        {
+            CryptoPP::StringSource   stringSource(publicServerKeyStr, true);
+            CryptoPP::RSA::PublicKey publicServerKey;
+            publicServerKey.BERDecode(stringSource);
+            return publicServerKey;
+        }
+    };
+}
+
 namespace Base::Generators
 {
 using Base::Logger::FileLogger;
 using CryptoPP::AutoSeededRandomPool;
 using CryptoPP::RSA;
-using Models::RSAKeyPair;
+using Base::RSAKeyPair;
 
 /** @class RSAKeyGenerator
  * @brief Generator of RSA keys

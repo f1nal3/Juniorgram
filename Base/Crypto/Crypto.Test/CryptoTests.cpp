@@ -13,7 +13,7 @@ using Base::Hashing::SHA_256;
 using Base::Crypto::Asymmetric::RSA;
 using Base::RSAKeyManager;
 using Base::RSAKeyGenerator;
-using Models::RSAKeyPair;
+using Base::RSAKeyPair;
 using Base::Generators::ByteBlockGenerator;
 using Base::Verifiers::HashVerifier;
 using Base::KeyConfirmators::KeyConfirmation;

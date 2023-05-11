@@ -6,7 +6,6 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <cryptopp/rsa.h>
 
 #include <Utility/Utility.hpp>
 #include <Utility/UtilityTime.hpp>
@@ -305,26 +304,4 @@ void serialize(Archive& ar, Models::ConnectionInfo& o)
 {
     ar& o._connectionID& o._publicServerKey;
 }
-
-struct RSAKeyPair
-{
-    CryptoPP::RSA::PublicKey  publicKey;
-    CryptoPP::RSA::PrivateKey  privateKey;
-
-    std::string getPublicKeyAsString()
-    {
-        std::string publicKeyStr;
-        CryptoPP::StringSink  stringSink(publicKeyStr);
-        publicKey.DEREncode(stringSink);
-        return publicKeyStr;
-    }
-
-    CryptoPP::RSA::PublicKey getPublicKeyFromString(const std::string& publicServerKeyStr)
-    {
-        CryptoPP::StringSource   stringSource(publicServerKeyStr, true);
-        CryptoPP::RSA::PublicKey publicServerKey;
-        publicServerKey.BERDecode(stringSource);
-        return publicServerKey;
-    }
-};
 }  // namespace Models
