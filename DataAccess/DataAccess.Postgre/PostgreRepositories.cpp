@@ -1,4 +1,5 @@
 #include "PostgreRepositories.hpp"
+#include "IConnectionVerifier.hpp"
 
 #include <FileLogger.hpp>
 #include <limits>
@@ -260,8 +261,17 @@ Utility::ChannelCreateCodes ChannelsRepository::createChannel(const Models::Chan
     return Utility::ChannelCreateCodes::SUCCESS;
 }
 
-std::uint64_t LoginRepository::loginUser(const Models::LoginInfo& loginInfo)
+std::uint64_t LoginRepository::loginUser(
+    const Models::LoginInfo& loginInfo,
+    const Models::ConnectionInfo& connInfo,
+    std::shared_ptr<Base::Verifiers::IConnectionVerifier> verifier
+    )
 {
+    if (verifier.get() == nullptr) {
+        Base::Logger::FileLogger::getInstance().log(std::string("Connection verifier in not defined"), Base::Logger::LogLevel::ERR);
+        return 0;
+    }
+
     try
     {
         _pTable->changeTable("users");
@@ -270,7 +280,9 @@ std::uint64_t LoginRepository::loginUser(const Models::LoginInfo& loginInfo)
             ->Where("login='" + loginInfo._login + "'")
             ->execute().value();
 
-        if (std::string(queryResult[0][0].c_str()) == loginInfo._pwdHash)
+        std::string verifyingString = verifier->calculateVerifyingHash(std::string(queryResult[0][0].c_str()), connInfo);
+
+        if (verifyingString == loginInfo._verifyingHash)
         {
             Base::Logger::FileLogger::getInstance().log(
                 std::to_string(queryResult[0][1].as<std::uint64_t>()) +

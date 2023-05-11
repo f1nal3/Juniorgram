@@ -20,6 +20,9 @@ namespace Network
 class Client
 {
 public:
+
+    Client::Client();
+
     /**
     * @brief Client virtual destructor.
     * @details The virtual destructor calls the disconnectFromServer method, \
@@ -324,7 +327,7 @@ protected:
      * @brief Reaction on received information about connection with server
      * @details This function saves information in Client::_connectionInfo
      */
-    virtual void onRequestOnConnectionAnswer(Models::ConnectionInfo connectionInfo);
+    virtual void onConnectionInfoAnswer(Models::ConnectionInfo connectionInfo);
     
 private:
     bool _serverAccept = false;

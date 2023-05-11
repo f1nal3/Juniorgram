@@ -10,6 +10,8 @@ using MessageType = Network::Message::MessageType;
 using UtilityTime::RTC;
 using UtilityTime::timestamp_t;
 
+Client::Client() { connectToServer(ServerInfo::Address::remote, ServerInfo::Port::production); }
+
 Client::~Client() noexcept { disconnectFromServer(); }
 
 bool Client::connectToServer(const std::string_view& host, const uint16_t port)
@@ -440,11 +442,12 @@ void Client::loop()
             }
             break;
 
-            case MessageType::RequestOnConnectionAnswer:
+            case MessageType::ConnectionInfoAnswer:
             {
                 auto connectionInfo = std::any_cast<Models::ConnectionInfo>(message.mBody);
-                onRequestOnConnectionAnswer(connectionInfo);
+                onConnectionInfoAnswer(connectionInfo);
             }
+            break;
 
             default:
                 Base::Logger::FileLogger::getInstance().log
@@ -468,10 +471,14 @@ void Client::onLoginAnswer(bool success)
 
 void Client::onServerAccepted()
 {
+    Message requestOnConnectionInfo;
+    requestOnConnectionInfo.mHeader.mMessageType = Message::MessageType::ConnectionInfoRequest;
+    _connection->send(requestOnConnectionInfo);
+
     Base::Logger::FileLogger::getInstance().log
     (
-        "Server accepted is not implemented",
-        Base::Logger::LogLevel::WARNING
+        "Server accepts connection",
+        Base::Logger::LogLevel::INFO
     );
 }
 
@@ -664,5 +671,10 @@ void Client::onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMess
     );
 }
 
-void Client::onRequestOnConnectionAnswer(Models::ConnectionInfo connectionInfo) { _connectionInfo = connectionInfo; };
+void Client::onConnectionInfoAnswer(Models::ConnectionInfo connectionInfo)
+{
+    _connectionInfo = connectionInfo;
+
+    _connection->setConnectionVerifier(std::make_shared<Base::Verifiers::HashVerifier>());
+}
 }  // namespace Network

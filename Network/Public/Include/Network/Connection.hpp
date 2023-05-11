@@ -23,6 +23,7 @@
 #include "Utility/Utility.hpp"
 #include "Utility/WarningSuppression.hpp"
 #include "YasSerializer.hpp"
+#include "HashVerifier.hpp"
 
 namespace Network
 {
@@ -57,7 +58,8 @@ private:
     std::uint64_t _connectionID  = uint64_t();
     std::uint64_t _userID        = 1;
 
-    std::shared_ptr<Base::Crypto::ICryptography> _cryptoAlgorithm;
+    std::shared_ptr<Base::Crypto::ICryptography>          _cryptoAlgorithm;
+    std::shared_ptr<Base::Verifiers::IConnectionVerifier> _connVerifierAlgorithm;
 
     /*@details Unique socket to remote. */
     asio::ip::tcp::socket _socket;
@@ -398,5 +400,15 @@ public:
     }
 
     void setEncryption(std::shared_ptr<Base::Crypto::ICryptography> algorithm) { _cryptoAlgorithm = std::move(algorithm); };
+
+    void setConnectionVerifier(std::shared_ptr<Base::Verifiers::IConnectionVerifier> connVerifier)
+    {
+        _connVerifierAlgorithm = std::move(connVerifier);
+    }
+
+    std::shared_ptr<Base::Verifiers::IConnectionVerifier> getConnectionVerifier() const
+    {
+        return _connVerifierAlgorithm;
+    }
 };
 }  // namespace Network

@@ -25,7 +25,7 @@
             std::optional<Network::MessageResult> directMessageCreateRequest     (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
             std::optional<Network::MessageResult> channelListRequest             (std::shared_ptr<Network::Connection> clientConnection) const override;                           \
             std::optional<Network::MessageResult> channelSubscriptionListRequest (std::shared_ptr<Network::Connection> clientConnection) const override;                           \
-            void                                  directRequestOnConnection(std::shared_ptr<Network::Connection> client) const override;                                         \
+            void                                  directConnectionInfoRequest(std::shared_ptr<Network::Connection> client) const override;                                         \
             std::optional<Network::MessageResult> defaultRequest() const override;
 
 namespace Network
@@ -173,7 +173,7 @@ namespace Network
          * @brief The method for sending needed infomation to verify connection
          * @param const std::shared_ptr<Connection>& client - for sending answer to the client.
          */
-        virtual void directRequestOnConnection(std::shared_ptr<Network::Connection> client) const = 0;
+        virtual void directConnectionInfoRequest(std::shared_ptr<Network::Connection> client) const = 0;
 
         /**
          * @brief The method for getting default request.

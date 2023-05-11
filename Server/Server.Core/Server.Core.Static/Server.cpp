@@ -6,6 +6,7 @@
 #include "Logger/ILogger.hpp"
 #include <Models/Models.hpp>
 #include "AES_GCM.hpp"
+#include "HashVerifier.hpp"
 
 namespace Server
 {
@@ -220,9 +221,9 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, const Message&
             break;
         }
 
-        case Message::MessageType::RequestOnConnection:
+        case Message::MessageType::ConnectionInfoRequest:
         {
-            directRequestOnConnection(client);
+            directConnectionInfoRequest(client);
             break;
         }
 
@@ -554,7 +555,10 @@ std::optional<Network::MessageResult> Server::loginRequest(std::shared_ptr<Conne
 
     auto loginInfo = std::any_cast<Models::LoginInfo>(message.mBody);
 
-    auto futureResult = _repoManager->pushRequest(&ILoginRepository::loginUser, fmt(loginInfo));
+    auto futureResult = _repoManager->pushRequest(&ILoginRepository::loginUser,
+        fmt(loginInfo),
+        fmt(Models::ConnectionInfo(client->getID(), _rsaKeyManager->getPublicServerKeyStr())),
+        client->getConnectionVerifier());
 
     if (message.mHeader.mMessageType == Message::MessageType::LoginRequest)
     {
@@ -720,10 +724,12 @@ std::optional<Network::MessageResult> Server::directMessageCreateRequest(std::sh
     return MessageResult::InvalidBody;
 }
 
-void Server::directRequestOnConnection(std::shared_ptr<Network::Connection> client) const
+void Server::directConnectionInfoRequest(std::shared_ptr<Network::Connection> client) const
 {
+    client->setConnectionVerifier(std::make_shared<Base::Verifiers::HashVerifier>());
+
     Message messageToClient;
-    messageToClient.mHeader.mMessageType = Message::MessageType::RequestOnConnectionAnswer;
+    messageToClient.mHeader.mMessageType = Message::MessageType::ConnectionInfoAnswer;
 
     Models::ConnectionInfo connectionInfo;
     connectionInfo._connectionID   = client->getID();
