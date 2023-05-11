@@ -104,14 +104,14 @@ struct LoginInfo
 {
     /// user's login as string variable
     std::string _login;
-    /// pwdHash hash of user's password as string variable
-    std::string _pwdHash;
+    /// hash to authentificate user
+    std::string _verifyingHash;
     /// Default LoginInfo constructor
     LoginInfo()                 = default;
     /// Default LoginInfo copy constructor
     LoginInfo(const LoginInfo&) = default;
     /// LoginInfo constructor with initializing list
-    explicit LoginInfo(const std::string& login_, const std::string& passwordHash_) : _login(login_), _pwdHash(passwordHash_) {}
+    explicit LoginInfo(const std::string& login_, const std::string& verifyingHash_) : _login(login_), _verifyingHash(verifyingHash_) {}
     /// Default LoginInfo destructor
     ~LoginInfo() = default;
 };
@@ -122,7 +122,7 @@ struct LoginInfo
 template <typename Archive>
 void serialize(Archive& ar, Models::LoginInfo& o)
 {
-    ar& o._login& o._pwdHash;
+    ar& o._login& o._verifyingHash;
 }
 
 /**

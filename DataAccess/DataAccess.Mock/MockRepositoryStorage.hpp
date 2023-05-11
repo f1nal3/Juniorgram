@@ -150,7 +150,7 @@ struct MockRepositoryStorage
                 return getLoginRepoData();
                 break;
             case TableLoginRepository::PasswordHash:
-                getLoginRepoData()._pwdHash = std::any_cast<std::string>(repoInfo);
+                getLoginRepoData()._verifyingHash = std::any_cast<std::string>(repoInfo);
                 return getLoginRepoData();
                 break;
             default:
