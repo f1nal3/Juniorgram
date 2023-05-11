@@ -399,13 +399,12 @@ public:
         });
     }
 
-    void setEncryption(std::shared_ptr<Base::Crypto::ICryptography> algorithm) { _cryptoAlgorithm = std::move(algorithm); };
+    void setEncryption(std::shared_ptr<Base::Crypto::ICryptography> encryption) { _cryptoAlgorithm = std::move(encryption); }
 
     void setConnectionVerifier(std::shared_ptr<Base::Verifiers::IConnectionVerifier> connVerifier)
     {
         _connVerifierAlgorithm = std::move(connVerifier);
     }
-
     std::shared_ptr<Base::Verifiers::IConnectionVerifier> getConnectionVerifier() const
     {
         return _connVerifierAlgorithm;
