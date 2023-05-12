@@ -227,6 +227,12 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, const Message&
             break;
         }
 
+        case Message::MessageType::KeyAgreement:
+        {
+            directKeyAgreement(client, message);
+            break;
+        }
+
         default:
         {
             Result = defaultRequest();
@@ -736,6 +742,53 @@ void Server::directConnectionInfoRequest(std::shared_ptr<Network::Connection> cl
     connectionInfo._publicServerKey = _rsaKeyManager->getPublicServerKeyStr();
 
     messageToClient.mBody = std::make_any<Models::ConnectionInfo>(connectionInfo);
+    client->send(messageToClient);
+}
+
+void Server::directKeyAgreement(std::shared_ptr<Network::Connection> client, const Message& message) const
+{
+    using CryptoPP::SecByteBlock;
+    using CryptoPP::byte;
+
+    auto userKeyAgreementInfo = std::any_cast<Models::KeyAgreementInfo>(message.mBody);
+
+    if (userKeyAgreementInfo._attempt > 2) {
+        FileLogger::getInstance().log(
+            std::string("Client id= " + std::to_string(client->getID()) + " exhausted attempts to generate an encryption key"),
+            LogLevel::ERR);
+
+        client->disconnect();
+        return;
+    }
+    if (client->getKeyAgreement().get() == nullptr)
+    {
+        client->setKeyAgreement(std::make_shared<Base::KeyAgreement::ECDH>());
+    }
+    client->getKeyAgreement()->generateKeys();
+
+    SecByteBlock publicUserKey(reinterpret_cast<const byte*>(userKeyAgreementInfo._publicKey.data()),
+                               userKeyAgreementInfo._publicKey.size());
+
+    SecByteBlock sharedSecret = client->getKeyAgreement()->calculateSharedKey(publicUserKey);
+
+    Message messageToClient;
+    messageToClient.mHeader.mMessageType = Message::MessageType::KeyAgreement;
+
+    Models::KeyAgreementInfo serverKeyAgreementInfo(userKeyAgreementInfo._attempt + 1);
+
+    if (!sharedSecret.empty())
+    {
+        Base::SessionKeyHolder::Instance().setKey(std::move(sharedSecret), client->getUserID());
+
+        CryptoPP::SecByteBlock publicServerKey = client->getKeyAgreement()->getPublicKey();
+        std::string publicServerKeyStr(reinterpret_cast<const char*>(publicServerKey.data()),
+            publicServerKey.size());
+
+        serverKeyAgreementInfo._publicKey = publicServerKeyStr;
+
+    }
+    messageToClient.mBody = std::make_any<Models::KeyAgreementInfo>(serverKeyAgreementInfo);
+
     client->send(messageToClient);
 }
 

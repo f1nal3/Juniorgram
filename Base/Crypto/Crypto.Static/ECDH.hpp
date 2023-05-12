@@ -35,13 +35,16 @@ public:
         _domain.GenerateKeyPair(_randPool, _privateKey, _publicKey);
     };
 
-    /// @brief Method for calculating shared key. After generation, temporary keys are deleted.
+    /* @brief Method for calculating shared key.
+    * @return Success: some shared key with 128 bits size \
+    * Failure: empty SecByteBlock object
+    */
     SecByteBlock calculateSharedKey(const SecByteBlock& publicOthersideKey)
     {
         SecByteBlock sharedKey(_domain.AgreedValueLength());
 
         bool correctness = _domain.Agree(sharedKey, _privateKey, publicOthersideKey);
-        clearKeys();
+
         if (correctness)
         {
             return cutInHalf(sharedKey);

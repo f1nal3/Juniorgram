@@ -142,6 +142,12 @@ private:
     std::vector<MessageResult> getMessageResult() const;
 
     /**
+    * @brief The method for processing key agreement
+    * @details Method receive public user key, sends server public key and calculate shared key, which places in SessionKeyHolder.
+    */
+    void directKeyAgreement(std::shared_ptr<Network::Connection> client, const Message& message) const;
+
+    /**
      *  This macros apply all method from api and avoid you from routine of handwriting
      */
     APPLY_API_METHODS

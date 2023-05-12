@@ -63,7 +63,8 @@ struct Message
         MessageReactionRequest,
         MessageReactionAnswer,
         ConnectionInfoRequest,
-        ConnectionInfoAnswer
+        ConnectionInfoAnswer,
+        KeyAgreement
     };
 
     /**

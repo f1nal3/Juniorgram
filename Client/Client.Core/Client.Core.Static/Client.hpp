@@ -328,6 +328,12 @@ protected:
      * @details This function saves information in Client::_connectionInfo
      */
     virtual void onConnectionInfoAnswer(Models::ConnectionInfo connectionInfo);
+
+    /**
+     * @brief Reaction on key agreement information from server
+     * @details This function handles received data in KeyAgreementInfo
+     */
+    virtual void onKeyAgreement(const Models::KeyAgreementInfo& serverKeyAgreementInfo);
     
 private:
     bool _serverAccept = false;

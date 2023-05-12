@@ -24,6 +24,7 @@
 #include "Utility/WarningSuppression.hpp"
 #include "YasSerializer.hpp"
 #include "HashVerifier.hpp"
+#include "ECDH.hpp"
 
 namespace Network
 {
@@ -60,6 +61,7 @@ private:
 
     std::shared_ptr<Base::Crypto::ICryptography>          _cryptoAlgorithm;
     std::shared_ptr<Base::Verifiers::IConnectionVerifier> _connVerifierAlgorithm;
+    std::shared_ptr<Base::KeyAgreement::IKeyAgreement> _keyAgreementAlgorithm;
 
     /*@details Unique socket to remote. */
     asio::ip::tcp::socket _socket;
@@ -409,6 +411,13 @@ public:
     std::shared_ptr<Base::Verifiers::IConnectionVerifier> getConnectionVerifier() const
     {
         return _connVerifierAlgorithm;
+    }
+
+    void setKeyAgreement(std::shared_ptr<Base::KeyAgreement::ECDH> keyAgreement) { _keyAgreementAlgorithm = std::move(keyAgreement); }
+
+    std::shared_ptr<Base::KeyAgreement::IKeyAgreement> getKeyAgreement() const
+    {
+        return _keyAgreementAlgorithm;
     }
 };
 }  // namespace Network

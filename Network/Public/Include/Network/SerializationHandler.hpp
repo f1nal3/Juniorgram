@@ -165,6 +165,10 @@ public:
                     state = processOutcomingMessageBody<Models::ConnectionInfo>(bodyBuffer, message.mBody);
                     break;
 
+                case Message::MessageType::KeyAgreement:
+                    state = processOutcomingMessageBody<Models::KeyAgreementInfo>(bodyBuffer, message.mBody);
+                    break;
+
                 default:
                     break;
             }
@@ -368,6 +372,13 @@ public:
                 state = processIncomingMessageBody<Models::ConnectionInfo>(buffer, message);
                 break;
             }
+
+            case Message::MessageType::KeyAgreement:
+            {
+                state = processIncomingMessageBody<Models::KeyAgreementInfo>(buffer, message);
+                break;
+            }
+
             default:
                 break;
         }

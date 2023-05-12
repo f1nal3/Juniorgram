@@ -288,11 +288,11 @@ struct ConnectionInfo
     ConnectionInfo() = default;
 
     /// ConnectoinInfo constructor with initializing list
-    explicit ConnectionInfo(const std::uint64_t& connectionID_, const std::string& _publicServerKey_)
-        : _connectionID(connectionID_), _publicServerKey(_publicServerKey_)
+    explicit ConnectionInfo(const std::uint64_t& connectionID_, const std::string& publicServerKey_)
+        : _connectionID(connectionID_), _publicServerKey(publicServerKey_)
     {
     }
-    /// Default ConnectoinInfo copy constructor
+    /// Default ConnectionInfo copy constructor
     ConnectionInfo(const ConnectionInfo&) = default;
     /// Default ConnectoinInfo destructor
     ~ConnectionInfo() = default;
@@ -303,5 +303,35 @@ template <typename Archive>
 void serialize(Archive& ar, Models::ConnectionInfo& o)
 {
     ar& o._connectionID& o._publicServerKey;
+}
+
+/**
+ * @brief The KeyAgreementInfo struct
+ * @details Contains count of attempts and public key
+ */
+struct KeyAgreementInfo
+{
+    std::uint8_t    _attempt = 1;
+    std::string     _publicKey;
+    //@todo ENUM for selecting key agreement protocol
+
+    KeyAgreementInfo() = default;
+
+    /// KeyAgreementInfo constructor with initializing list
+    explicit KeyAgreementInfo(const std::uint8_t& attempt_, const std::string& publicKey_ = std::string(""))
+        : _attempt(attempt_), _publicKey(publicKey_)
+    {
+    }
+    /// Default KeyAgreementInfo copy constructor
+    KeyAgreementInfo(const KeyAgreementInfo&) = default;
+    /// Default KeyAgreementInfo destructor
+    ~KeyAgreementInfo() = default;
+};
+
+/// Serialize method for serialize KeyAgreementInfo for each field
+template <typename Archive>
+void serialize(Archive& ar, Models::KeyAgreementInfo& o)
+{
+    ar& o._attempt& o._publicKey;
 }
 }  // namespace Models

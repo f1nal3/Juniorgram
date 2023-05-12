@@ -3,6 +3,7 @@
 
 #include <limits>
 #include <Crypto.Static/Hashing.hpp>
+#include <Crypto.Static/ECDH.hpp>
 
 namespace Network
 {
@@ -449,6 +450,13 @@ void Client::loop()
             }
             break;
 
+            case MessageType::KeyAgreement:
+            {
+                auto keyAgreementInfo = std::any_cast<Models::KeyAgreementInfo>(message.mBody);
+                onKeyAgreement(keyAgreementInfo);
+            }
+            break;
+
             default:
                 Base::Logger::FileLogger::getInstance().log
                 (
@@ -461,12 +469,32 @@ void Client::loop()
 
 void Client::onLoginAnswer(bool success)
 {
-    (void)(success);
-    Base::Logger::FileLogger::getInstance().log
-    (
-        "Login answer is not implemented", 
-        Base::Logger::LogLevel::WARNING
-    );
+    if (success)
+    {
+        _connection->setKeyAgreement(std::make_unique<Base::KeyAgreement::ECDH>());
+        _connection->getKeyAgreement()->generateKeys();
+
+        Network::Message message;
+        message.mHeader.mMessageType = Network::Message::MessageType::KeyAgreement;
+
+        CryptoPP::SecByteBlock publicClientKey = _connection->getKeyAgreement()->getPublicKey();
+        std::string publicClientKeyStr(reinterpret_cast<const char*>(publicClientKey.data()), publicClientKey.size());
+
+        Models::KeyAgreementInfo keyAgreementInfo;
+        keyAgreementInfo._publicKey = publicClientKeyStr;
+
+        message.mBody = std::make_any<Models::KeyAgreementInfo>(keyAgreementInfo);
+
+        send(message);
+    }
+    else
+    {
+        Base::Logger::FileLogger::getInstance().log
+        (
+            "Login denied",
+            Base::Logger::LogLevel::INFO
+        );
+    }
 }
 
 void Client::onServerAccepted()
@@ -676,5 +704,44 @@ void Client::onConnectionInfoAnswer(Models::ConnectionInfo connectionInfo)
     _connectionInfo = connectionInfo;
 
     _connection->setConnectionVerifier(std::make_shared<Base::Verifiers::HashVerifier>());
+}
+
+void Client::onKeyAgreement(const Models::KeyAgreementInfo& serverKeyAgreementInfo)
+{
+    bool isSharedSecretCalculated = false;
+    CryptoPP::SecByteBlock sharedSecret;
+
+    if (!serverKeyAgreementInfo._publicKey.empty())
+    {
+        std::string publicServerKeyStr = serverKeyAgreementInfo._publicKey;
+        CryptoPP::SecByteBlock publicServerKey(reinterpret_cast<const CryptoPP::byte*>(publicServerKeyStr.data()), publicServerKeyStr.size());
+        sharedSecret = _connection->getKeyAgreement()->calculateSharedKey(publicServerKey);
+
+        isSharedSecretCalculated = !sharedSecret.empty();
+    }
+    else
+    {
+        Base::FileLogger::getInstance().log(
+            std::string("Empty public server key. Current attempt: " + std::to_string(serverKeyAgreementInfo._attempt)),
+            Base::LogLevel::WARNING);
+    }
+    if (isSharedSecretCalculated && !serverKeyAgreementInfo._publicKey.empty())
+    {
+        Base::SessionKeyHolder::Instance().setKey(std::move(sharedSecret), _connection->getUserID());
+    }
+    else
+    {
+        Network::Message message;
+        message.mHeader.mMessageType = Network::Message::MessageType::KeyAgreement;
+
+        CryptoPP::SecByteBlock publicClientKey = _connection->getKeyAgreement()->getPublicKey();
+        std::string publicClientKeyStr(reinterpret_cast<const char*>(publicClientKey.data()), publicClientKey.size());
+
+        Models::KeyAgreementInfo clientkeyAgreementInfo(serverKeyAgreementInfo._attempt, publicClientKeyStr);
+
+        message.mBody = std::make_any<Models::KeyAgreementInfo>(clientkeyAgreementInfo);
+
+        send(message);
+    }
 }
 }  // namespace Network
