@@ -22,16 +22,3 @@ TEST_CASE("SetRepoManager of the ServerBuilder [ServerBuilder][Success]")
         CHECK_NOTHROW(serverBuilder.SetRepoManager(nullptr));
     }
 }
-
-/** /
-TEST_CASE("MakeServer of the ServerBuilder [ServerBuilder][Success]")
-{
-    SECTION("Trying to make a Server")
-    {
-        //Тут нужно сделать тест метода MakeServer
-        ServerBuilder serverBuilder(std::make_unique<SettingsManager>());
-
-        CHECK_NOTHROW(serverBuilder.SetRepoManager(nullptr));
-    }
-}
-/**/

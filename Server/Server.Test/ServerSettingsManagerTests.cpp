@@ -19,7 +19,7 @@ TEST_CASE("Reset method of the SettingsManager [SettingsManager][Success]")
     SECTION("Changing private Settings field")
     {
         std::unique_ptr<Settings> nullSettings = nullptr;
-        std::unique_ptr<Settings> someSettings = std::make_unique<Settings>();
+        auto someSettings = std::make_unique<Settings>();
         
         SettingsManager testSettingsManager(std::move(nullSettings));
 
@@ -31,7 +31,7 @@ TEST_CASE("GetConnectionOptions method of the SettingsManager [SettingsManager][
 {
     SECTION("Checking GetConnectionOptions line")
     {
-        std::unique_ptr<Settings> defaultSettings = std::make_unique<Settings>();
+        auto defaultSettings = std::make_unique<Settings>();
         (*defaultSettings.get()).SetValue(std::make_pair(ParamType::DBPort, "DBPort"))
                                 .SetValue(std::make_pair(ParamType::DBName, "DBName"))
                                 .SetValue(std::make_pair(ParamType::HostAddress, "HostAddr"))
@@ -49,7 +49,7 @@ TEST_CASE("GetServerPort method of the SettingsManager [SettingsManager][Success
 {
     SECTION("Checking GetServerPort return")
     {
-        std::unique_ptr<Settings> defaultSettings = std::make_unique<Settings>();
+        auto defaultSettings = std::make_unique<Settings>();
         (*defaultSettings.get()).SetValue(std::make_pair(ParamType::ServerPort, "65001"));
         
         SettingsManager testSettingsManager(std::move(defaultSettings));

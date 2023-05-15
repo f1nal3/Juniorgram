@@ -25,14 +25,14 @@ public:
         return *this;
     }
 
-    const std::string GetValue(const std::string& key) const
+    std::string GetValue(const std::string& key) const
     {
         if (_settings.find(key) != _settings.end())
         {
             return _settings.at(key);
         }
 
-        return "";
+        return std::string();
     }
 
 private:
