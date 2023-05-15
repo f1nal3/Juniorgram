@@ -353,7 +353,7 @@ inline auto makeTestServer() noexcept
 
     TestServer testServer = ServerBuilder(std::make_unique<SettingsManager>(configArgs.getSettings()))
                             .SetRepoManager(getTestDatabase().release())
-                            .makeServer();
+                            .MakeServer();
 
     return testServer;
 }

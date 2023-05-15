@@ -22,7 +22,7 @@ TEST_CASE("Server start up with bad port [Server][Failed]")
 
     TestServer testServer = ServerBuilder(std::make_unique<SettingsManager>(configArgs.getSettings()))                                
                                           .SetRepoManager(getTestDatabase().release())
-                                          .makeServer();
+                                          .MakeServer();
 
     SECTION("Comparison of the specified port with the expected bad port")
     {

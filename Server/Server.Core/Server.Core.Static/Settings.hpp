@@ -1,5 +1,7 @@
 #pragma once
 
+#include <map>
+
 namespace Server::Builder
 {
 struct ParamType
@@ -23,14 +25,14 @@ public:
         return *this;
     }
 
-    const std::string& GetValue(const std::string& key) const
+    const std::string GetValue(const std::string& key) const
     {
         if (_settings.find(key) != _settings.end())
         {
             return _settings.at(key);
         }
 
-        return std::string();
+        return "";
     }
 
 private:

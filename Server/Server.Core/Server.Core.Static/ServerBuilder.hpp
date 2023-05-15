@@ -34,7 +34,7 @@ public:
         return *this;
     }
 
-    std::unique_ptr<Server> makeServer()
+    std::unique_ptr<Server> MakeServer()
     {
         std::unique_ptr<Server> ptr(make());
         return ptr;

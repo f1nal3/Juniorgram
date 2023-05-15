@@ -10,7 +10,7 @@ using Server::Builder::SettingsManager;
 int main(int argc, const char** argv)
 {
     ArgParser parser(argc, argv);
-    auto      server = ServerBuilder(std::make_unique<SettingsManager>(parser.GetSettings())).makeServer();
+    auto      server = ServerBuilder(std::make_unique<SettingsManager>(parser.GetSettings())).MakeServer();
 
     server->start();
 

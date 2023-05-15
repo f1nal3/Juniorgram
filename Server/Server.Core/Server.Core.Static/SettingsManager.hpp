@@ -11,7 +11,7 @@ public:
 
     explicit SettingsManager(std::unique_ptr<Settings> settings) : _settings(std::move(settings)) {}
     
-    void Reset(std::unique_ptr<Settings> settings) { _settings = std::move(settings); }
+    void Reset(std::unique_ptr<Settings> settings) { _settings.reset(settings.release()); }
 
     /**
     * @brief Generates connection string
