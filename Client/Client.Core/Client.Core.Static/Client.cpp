@@ -208,8 +208,10 @@ void Client::userAuthorization(const std::string& login, const std::string& pass
 {
     _connection->setAuthentificationData(login);
 
-    const std::string pwdHash = Base::Hashing::SHA_256(password, login);
-    Models::LoginInfo loginInfo(login, pwdHash);
+    const std::string pwdHash       = Base::Hashing::SHA_256(password, login);
+    const std::string verifyingHash = _connection->getConnectionVerifier()->calculateVerifyingHash(pwdHash, _connectionInfo);
+
+    Models::LoginInfo loginInfo(login, verifyingHash);
 
     Message message;
     message.mHeader.mMessageType = MessageType::LoginRequest;
