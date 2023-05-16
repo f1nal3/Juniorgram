@@ -21,7 +21,7 @@ class Client
 {
 public:
 
-    Client::Client();
+    Client();
 
     /**
     * @brief Client virtual destructor.
