@@ -92,7 +92,10 @@ public:
     ~MockLoginRepository() override = default;
 
 private:
-    std::uint64_t loginUser(const LoginInfo& loginInfo) override;
+    std::uint64_t loginUser(
+        const Models::LoginInfo& loginInfo,
+        const Models::ConnectionInfo& connInfo,
+        std::shared_ptr<Base::Verifiers::IConnectionVerifier> verifier) override;
 
     std::unique_ptr<MockQuery> _mockQuery;
 };

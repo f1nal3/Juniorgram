@@ -146,7 +146,10 @@ Utility::RegistrationCodes MockRegisterRepository::registerUser(const Registrati
     return Utility::RegistrationCodes::LOGIN_ALREADY_EXISTS;
 }
 
-std::uint64_t MockLoginRepository::loginUser(const LoginInfo& loginInfo)
+std::uint64_t MockLoginRepository::loginUser(
+    const Models::LoginInfo& loginInfo,
+    const Models::ConnectionInfo& connInfo,
+    std::shared_ptr<Base::Verifiers::IConnectionVerifier> verifier)
 {
     if (auto query = _mockQuery->SelectRepoAndQueryPush("user_login",
         TableLoginRepository::UserLogin, loginInfo._login);
