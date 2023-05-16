@@ -169,6 +169,14 @@ public:
                     state = processOutcomingMessageBody<Models::KeyAgreementInfo>(bodyBuffer, message.mBody);
                     break;
 
+                case Message::MessageType::KeyConfirmation:
+                    state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
+                    break;
+
+                case Message::MessageType::KeyConfirmationAnswer:
+                    state = processOutcomingMessageBody<bool>(bodyBuffer, message.mBody);
+                    break;
+
                 default:
                     break;
             }
@@ -194,7 +202,6 @@ public:
     MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
     {
         SerializedState state = SerializedState::FAILURE;
-
         switch (message.mHeader.mMessageType)
         {
             case Message::MessageType::ServerAccept:
@@ -378,7 +385,17 @@ public:
                 state = processIncomingMessageBody<Models::KeyAgreementInfo>(buffer, message);
                 break;
             }
+            case Message::MessageType::KeyConfirmation:
+            {
+                state = processIncomingMessageBody<std::string>(buffer, message);
+                break;
+            }
 
+            case Message::MessageType::KeyConfirmationAnswer:
+            {
+                state = processIncomingMessageBody<bool>(buffer, message);
+                break;
+            }
             default:
                 break;
         }

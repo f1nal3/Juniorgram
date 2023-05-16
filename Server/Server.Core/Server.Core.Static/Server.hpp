@@ -148,6 +148,12 @@ private:
     void directKeyAgreement(std::shared_ptr<Network::Connection> client, const Message& message) const;
 
     /**
+    * @brief The method for processing key confirmation
+    * @details Method to check correctness of calculated shared key by client.
+    */
+    void directKeyConfirmation(std::shared_ptr<Network::Connection> client, const Message& message) const;
+
+    /**
      *  This macros apply all method from api and avoid you from routine of handwriting
      */
     APPLY_API_METHODS

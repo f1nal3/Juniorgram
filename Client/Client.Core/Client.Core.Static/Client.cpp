@@ -4,6 +4,7 @@
 #include <limits>
 #include <Crypto.Static/Hashing.hpp>
 #include <Crypto.Static/ECDH.hpp>
+#include <Crypto.Static/AES_GCM.hpp>
 
 namespace Network
 {
@@ -205,6 +206,8 @@ void Client::userRegistration(const std::string& email, const std::string& login
 
 void Client::userAuthorization(const std::string& login, const std::string& password) const
 {
+    _connection->setAuthentificationData(login);
+
     const std::string pwdHash = Base::Hashing::SHA_256(password, login);
     Models::LoginInfo loginInfo(login, pwdHash);
 
@@ -457,6 +460,13 @@ void Client::loop()
             }
             break;
 
+            case MessageType::KeyConfirmationAnswer:
+            {
+                auto isKeyConfirmed = std::any_cast<bool>(message.mBody);
+                onKeyConfirmationAnswer(isKeyConfirmed);
+            }
+            break;
+
             default:
                 Base::Logger::FileLogger::getInstance().log
                 (
@@ -472,20 +482,8 @@ void Client::onLoginAnswer(bool success)
     if (success)
     {
         _connection->setKeyAgreement(std::make_unique<Base::KeyAgreement::ECDH>());
-        _connection->getKeyAgreement()->generateKeys();
 
-        Network::Message message;
-        message.mHeader.mMessageType = Network::Message::MessageType::KeyAgreement;
-
-        CryptoPP::SecByteBlock publicClientKey = _connection->getKeyAgreement()->getPublicKey();
-        std::string publicClientKeyStr(reinterpret_cast<const char*>(publicClientKey.data()), publicClientKey.size());
-
-        Models::KeyAgreementInfo keyAgreementInfo;
-        keyAgreementInfo._publicKey = publicClientKeyStr;
-
-        message.mBody = std::make_any<Models::KeyAgreementInfo>(keyAgreementInfo);
-
-        send(message);
+        sendKeyAgreementMessage(1);
     }
     else
     {
@@ -721,27 +719,64 @@ void Client::onKeyAgreement(const Models::KeyAgreementInfo& serverKeyAgreementIn
     }
     else
     {
-        Base::FileLogger::getInstance().log(
-            std::string("Empty public server key. Current attempt: " + std::to_string(serverKeyAgreementInfo._attempt)),
-            Base::LogLevel::WARNING);
+        Base::FileLogger::getInstance().log("Empty public server key. ", Base::LogLevel::WARNING);
     }
+
     if (isSharedSecretCalculated && !serverKeyAgreementInfo._publicKey.empty())
     {
         Base::SessionKeyHolder::Instance().setKey(std::move(sharedSecret), _connection->getUserID());
+
+        _connection->setEncryption(std::make_shared<Base::Crypto::Symmetric::AES_GCM>());
+        _connection->setKeyConfirmator(std::make_shared<Base::KeyConfirmators::KeyConfirmation<> >());
+
+        Message messageToConfirmSharedKey;
+        messageToConfirmSharedKey.mHeader.mMessageType = Message::MessageType::KeyConfirmation;
+        messageToConfirmSharedKey.mBody = std::make_any<std::string>(_connection->getKeyConfirmator()->getVerificationUnit());
+
+        send(messageToConfirmSharedKey);
     }
     else
     {
-        Network::Message message;
-        message.mHeader.mMessageType = Network::Message::MessageType::KeyAgreement;
+        Base::FileLogger::getInstance().log(
+            std::string("Try to generate encryption key again. Current attempt: " + std::to_string(serverKeyAgreementInfo._attempt)),
+            Base::LogLevel::WARNING);
 
-        CryptoPP::SecByteBlock publicClientKey = _connection->getKeyAgreement()->getPublicKey();
-        std::string publicClientKeyStr(reinterpret_cast<const char*>(publicClientKey.data()), publicClientKey.size());
-
-        Models::KeyAgreementInfo clientkeyAgreementInfo(serverKeyAgreementInfo._attempt, publicClientKeyStr);
-
-        message.mBody = std::make_any<Models::KeyAgreementInfo>(clientkeyAgreementInfo);
-
-        send(message);
+        sendKeyAgreementMessage(serverKeyAgreementInfo._attempt + 1);
     }
 }
+
+void Client::onKeyConfirmationAnswer(bool isKeyConfirmed)
+{
+    if (isKeyConfirmed)
+    {
+        Base::Logger::FileLogger::getInstance().log("Server has the same enryption key", Base::LogLevel::INFO);
+
+        _connection->getKeyAgreement().~shared_ptr();
+    }
+    else
+    {
+        Base::Logger::FileLogger::getInstance().log("Server does not confrim, that it has the same encrpytion key with client",
+                                                    Base::LogLevel::WARNING);
+
+        sendKeyAgreementMessage(1);
+    }
+}
+
+void Client::sendKeyAgreementMessage(std::uint8_t attempt)
+{
+    _connection->getKeyAgreement()->generateKeys();
+
+    Message message;
+    message.mHeader.mMessageType = Message::MessageType::KeyAgreement;
+
+    CryptoPP::SecByteBlock publicClientKey = _connection->getKeyAgreement()->getPublicKey();
+    std::string publicClientKeyStr(reinterpret_cast<const char*>(publicClientKey.data()), publicClientKey.size());
+
+    Models::KeyAgreementInfo keyAgreementInfo(attempt, publicClientKeyStr);
+
+    message.mBody = std::make_any<Models::KeyAgreementInfo>(keyAgreementInfo);
+
+    send(message);
+}
+
 }  // namespace Network

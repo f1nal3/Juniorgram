@@ -7,6 +7,7 @@
 #include <Models/Models.hpp>
 #include "AES_GCM.hpp"
 #include "HashVerifier.hpp"
+#include "AES_GCM.hpp"
 
 namespace Server
 {
@@ -230,6 +231,12 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, const Message&
         case Message::MessageType::KeyAgreement:
         {
             directKeyAgreement(client, message);
+            break;
+        }
+
+        case Message::MessageType::KeyConfirmation:
+        {
+            directKeyConfirmation(client, message);
             break;
         }
 
@@ -562,9 +569,9 @@ std::optional<Network::MessageResult> Server::loginRequest(std::shared_ptr<Conne
     auto loginInfo = std::any_cast<Models::LoginInfo>(message.mBody);
 
     auto futureResult = _repoManager->pushRequest(&ILoginRepository::loginUser,
-        fmt(loginInfo),
-        fmt(Models::ConnectionInfo(client->getID(), _rsaKeyManager->getPublicServerKeyStr())),
-        client->getConnectionVerifier());
+                                                  fmt(loginInfo),
+                                                  fmt(Models::ConnectionInfo(client->getID(),_rsaKeyManager->getPublicServerKeyStr())),
+                                                  client->getConnectionVerifier());
 
     if (message.mHeader.mMessageType == Message::MessageType::LoginRequest)
     {
@@ -577,14 +584,15 @@ std::optional<Network::MessageResult> Server::loginRequest(std::shared_ptr<Conne
         answerForClient.mHeader.mMessageType = Message::MessageType::LoginAnswer;
         answerForClient.mBody                = std::make_any<bool>(loginSuccessful);
 
+        if (loginSuccessful)
+        {
+            client->setUserID(userID);
+            client->setAuthentificationData(loginInfo._login);
+
+            FileLogger::getInstance().log("User " + std::to_string(userID) + " logged in.", LogLevel::INFO);
+        }
+
         client->send(answerForClient);
-
-    if (loginSuccessful)
-    {
-        client->setUserID(userID);
-
-        FileLogger::getInstance().log("User " + std::to_string(userID) + " logged in.", LogLevel::INFO);
-     }
 
         return MessageResult::Success;
     }
@@ -752,7 +760,8 @@ void Server::directKeyAgreement(std::shared_ptr<Network::Connection> client, con
 
     auto userKeyAgreementInfo = std::any_cast<Models::KeyAgreementInfo>(message.mBody);
 
-    if (userKeyAgreementInfo._attempt > 2) {
+    if (userKeyAgreementInfo._attempt > 2)
+    {
         FileLogger::getInstance().log(
             std::string("Client id= " + std::to_string(client->getID()) + " exhausted attempts to generate an encryption key"),
             LogLevel::ERR);
@@ -774,7 +783,7 @@ void Server::directKeyAgreement(std::shared_ptr<Network::Connection> client, con
     Message messageToClient;
     messageToClient.mHeader.mMessageType = Message::MessageType::KeyAgreement;
 
-    Models::KeyAgreementInfo serverKeyAgreementInfo(userKeyAgreementInfo._attempt + 1);
+    Models::KeyAgreementInfo serverKeyAgreementInfo(userKeyAgreementInfo._attempt);
 
     if (!sharedSecret.empty())
     {
@@ -786,10 +795,35 @@ void Server::directKeyAgreement(std::shared_ptr<Network::Connection> client, con
 
         serverKeyAgreementInfo._publicKey = publicServerKeyStr;
 
+        client->setEncryption(std::make_shared<Base::Crypto::Symmetric::AES_GCM>());
+        client->setKeyConfirmator(std::make_shared<Base::KeyConfirmators::KeyConfirmation<> >());
+
     }
     messageToClient.mBody = std::make_any<Models::KeyAgreementInfo>(serverKeyAgreementInfo);
 
     client->send(messageToClient);
+}
+
+void Server::directKeyConfirmation(std::shared_ptr<Network::Connection> client, const Message& message) const
+{
+    bool isKeyConfirmed = client->getKeyConfirmator()->compareWithTestUnit(std::any_cast<std::string>(message.mBody));
+
+    if (isKeyConfirmed)
+    {
+        FileLogger::getInstance().log("Encryption key for userId = " + std::to_string(client->getUserID()) + " is confirmed",
+                                      LogLevel::INFO);
+    }
+    else
+    {
+        FileLogger::getInstance().log("Encryption key for userId = " + std::to_string(client->getUserID()) + " is not confirmed",
+                                      LogLevel::WARNING);
+    }
+
+    Message confirmationMessage;
+    confirmationMessage.mHeader.mMessageType = Message::MessageType::KeyConfirmationAnswer;
+    confirmationMessage.mBody = std::make_any<bool>(isKeyConfirmed);
+
+    client->send(confirmationMessage);
 }
 
 std::optional<MessageResult> Server::defaultRequest() const

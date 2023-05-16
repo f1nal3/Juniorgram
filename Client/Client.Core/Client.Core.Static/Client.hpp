@@ -334,8 +334,21 @@ protected:
      * @details This function handles received data in KeyAgreementInfo
      */
     virtual void onKeyAgreement(const Models::KeyAgreementInfo& serverKeyAgreementInfo);
+
+    /**
+     * @brief Reaction on server response about match of its encryption key with the client's
+     * @details This function checks server's answer. If key confirmed, client and server have same encryption key,
+     * otherwise client generates new keys in IKeyAgreement, sends public key to server to try generate encryption key
+     * again.
+     */
+    virtual void onKeyConfirmationAnswer(bool isKeyConfirmed);
     
 private:
+    /** @brief Method for sending KeyAgreement message
+    * @details Method call in situations: after success login, failed key agreement and failed key confirmation
+    */
+    void sendKeyAgreementMessage(std::uint8_t attempt);
+
     bool _serverAccept = false;
 
     /**
