@@ -1,5 +1,3 @@
-project(Service.Core LANGUAGES CXX)
-
 set(TARGET Service.Core)
 set(FOLDER Service.Core)
 

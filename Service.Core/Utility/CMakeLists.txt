@@ -1,5 +1,3 @@
-project(Utility LANGUAGES CXX)
-
 set(TARGET Utility)
 set(FOLDER Service.Core/Utility)
 

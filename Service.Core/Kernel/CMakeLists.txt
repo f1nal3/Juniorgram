@@ -1,7 +1,5 @@
-project(Kernel LANGUAGES CXX)
-
-set(TARGET ${PROJECT_NAME})
-set(FOLDER Service.Core/${PROJECT_NAME})
+set(TARGET Kernel)
+set(FOLDER Service.Core/${TARGET})
 
 add_subdirectory(Kernel.Core)
 add_subdirectory(Kernel.Test)

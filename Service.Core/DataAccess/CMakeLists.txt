@@ -1,5 +1,3 @@
-project(DataAccess LANGUAGES CXX)
-
 set(TARGET DataAccess)
 set(FOLDER Service.Core/DataAccess)
 

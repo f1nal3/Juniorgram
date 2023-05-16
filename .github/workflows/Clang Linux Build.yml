@@ -51,7 +51,7 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config ${{matrix.BUILD_TYPE}}
 
     - name: Prepare Database
-      run: psql --username=postgres --host=localhost -d testdb -f ./Utility/SQL/Database_Scheme.sql
+      run: psql --username=postgres --host=localhost -d testdb -f ./Service.Core/Utility/SQL/Database_Scheme.sql
 
     - name: Test
       working-directory: ${{github.workspace}}/build

@@ -1,7 +1,5 @@
-project(Kernel.Core LANGUAGES CXX)
-
-set(TARGET ${PROJECT_NAME})
-set(OUTPUT_NAME ${PROJECT_NAME})
+set(TARGET Kernel.Core)
+set(OUTPUT_NAME ${TARGET})
 
 set(SOURCE_FILES
     Server.hpp

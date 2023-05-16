@@ -1,5 +1,3 @@
-project(Models LANGUAGES CXX)
-
 add_subdirectory(Public)
 
 set(TARGET Models)
