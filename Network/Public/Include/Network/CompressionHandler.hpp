@@ -24,7 +24,7 @@ public:
 
         if (this->nextHandler)
         {
-            this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
+            return this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
         }
         return MessageProcessingState::SUCCESS;
     }
@@ -40,7 +40,7 @@ public:
 
         if (this->nextHandler)
         {
-            this->nextHandler->handleIncomingMessageBody(buffer, message);
+            return this->nextHandler->handleIncomingMessageBody(buffer, message);
         }
         return MessageProcessingState::SUCCESS;
     }
