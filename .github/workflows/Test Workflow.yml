@@ -76,5 +76,11 @@ jobs:
         with:
           name: juniorgram_executables_${{matrix.BUILD_TYPE}}
         
-      - name: list
-        run: ls -R
+      - name: Run tests
+        run: |
+          for i in *
+          do
+          chmod +x ./$i
+          ./$i -s
+          done
+        working-directory: ./test/
