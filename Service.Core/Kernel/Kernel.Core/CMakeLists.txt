@@ -1,5 +1,7 @@
-set(TARGET Server.Core.Static)
-set(OUTPUT_NAME Server.Core.Static)
+project(Kernel.Core LANGUAGES CXX)
+
+set(TARGET ${PROJECT_NAME})
+set(OUTPUT_NAME ${PROJECT_NAME})
 
 set(SOURCE_FILES
     Server.hpp

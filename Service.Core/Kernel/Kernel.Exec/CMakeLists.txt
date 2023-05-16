@@ -1,5 +1,5 @@
-set(TARGET Server.Exec)
-set(OUTPUT_NAME ${PROJECT}.Server.Exec)
+set(TARGET Kernel.Exec)
+set(OUTPUT_NAME ${PROJECT}.Kernel.Exec)
 
 set(SOURCE_FILES
     MainServer.cpp)
@@ -12,7 +12,7 @@ add_executable(${TARGET} ${SOURCE_FILES})
 
 target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIBS} 
                                         argparse::argparse
-                                PUBLIC  Server.Core.Static
+                                PUBLIC  Kernel.Core
 										Network.Public 
 										Utility.Public)
 
