@@ -1,6 +1,6 @@
 #include <catch2/catch.hpp>
-#include "Utilities/TestUtility.hpp"
-#include "Utilities/WaitForTime.hpp"
+#include "TestUtils/TestUtility.hpp"
+#include "TestUtils/WaitForTime.hpp"
 
 using namespace TestUtility;
 using TestUtility::MessageBody;

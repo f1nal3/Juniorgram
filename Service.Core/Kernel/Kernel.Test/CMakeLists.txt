@@ -10,11 +10,14 @@ set(SOURCE_FILES
 		ServerAutorizationTests.cpp)
 
 set(TEST_SOURCE_FILES
-		Utilities/WaitForTime.hpp
-		Utilities/TestUtility.hpp
-		Utilities/MessageFiller.hpp
-		Utilities/MessageFiller.cpp
-		Utilities/MockMessagesOptions.hpp)
+		TestUtils/WaitForTime.hpp
+		TestUtils/TestUtility.hpp
+		TestUtils/MessageFiller.hpp
+		TestUtils/MessageFiller.cpp
+		TestUtils/MockMessagesOptions.hpp 
+		TestUtils/MockClient.cpp
+		TestUtils/MockClient.hpp
+		TestUtils/TestServerInfo.hpp)
 
 add_executable(${TARGET} ${SOURCE_FILES} ${TEST_SOURCE_FILES})
 
@@ -24,9 +27,8 @@ target_link_libraries(${TARGET} PRIVATE ${EXTRA_LIB}
 				argparse::argparse 
 				asio::asio
 		PUBLIC  Precompiled.Catch2.Main 
-				Kernel.Core.Static
-				DataAccess.Mock
-				Client.TestObject)
+				Kernel.Core
+				DataAccess.Mock)
 
  target_include_directories(${TARGET} PRIVATE
 	 $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)

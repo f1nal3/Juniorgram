@@ -4,7 +4,7 @@
 
 #include <DataAccess.Mock/MockDatabase.hpp>
 #include <DataAccess.Mock/MockRepositoryManager.hpp>
-#include <Client.TestObject/TestClient.hpp>
+#include "MockClient.hpp"
 
 #include "MessageFiller.hpp"
 

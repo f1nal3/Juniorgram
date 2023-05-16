@@ -1,5 +1,5 @@
 #include <catch2/catch.hpp>
-#include "Utilities/TestUtility.hpp"
+#include "TestUtils/TestUtility.hpp"
 
 using namespace TestUtility;
 using TestUtility::MessageBody;
