@@ -1,7 +1,5 @@
-project(Precompiled LANGUAGES CXX)
+set(TARGET Precompiled)
 
 add_subdirectory(Catch2)
-
-set(TARGET Precompiled)
 
 add_library(${TARGET} INTERFACE)

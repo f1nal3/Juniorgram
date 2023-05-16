@@ -51,7 +51,7 @@ jobs:
     - name: Create Test Database
       run: |
         & $env:PGBIN\createdb --owner=postgres testdb
-        & $env:PGBIN\psql --username=postgres --host=localhost -d testdb -f ./Utility/SQL/Database_Scheme.sql
+        & $env:PGBIN\psql --username=postgres --host=localhost -d testdb -f ./Src/Service.Core/Utility/SQL/Database_Scheme.sql
         & $env:PGBIN\psql --username=postgres --host=localhost --list testdb
 
     - name: Test
