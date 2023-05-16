@@ -1,7 +1,7 @@
 project(DataAccess LANGUAGES CXX)
 
 set(TARGET DataAccess)
-set(FOLDER "DataAccess")
+set(FOLDER Service.Core/DataAccess)
 
 add_subdirectory(Public)
 add_subdirectory(DataAccess.Debug)

@@ -17,10 +17,10 @@ set(SOURCE_FILES
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
 target_link_libraries(${TARGET}
-PUBLIC
-	Base.Crypto.Static
-    Server.Core.Static
-    DataAccess.Debug)
+						PUBLIC
+							Base.Crypto.Static
+							Kernel.Core
+							DataAccess.Debug)
 	
  target_include_directories(${TARGET} PRIVATE
 	 $<TARGET_PROPERTY:DataAccess.Postgre,SOURCE_DIR>/..)

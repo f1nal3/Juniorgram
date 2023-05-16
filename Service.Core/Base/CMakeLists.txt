@@ -1,7 +1,7 @@
 project(Base LANGUAGES CXX)
 
 set(TARGET Base)
-set(FOLDER "Base")
+set(FOLDER Service.Core/Base)
 
 add_subdirectory(Logger)
 add_subdirectory(Crypto)

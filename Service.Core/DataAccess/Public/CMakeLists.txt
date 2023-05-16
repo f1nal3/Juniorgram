@@ -16,6 +16,9 @@ set(SOURCE_FILES
 
 add_library(${TARGET} INTERFACE ${SOURCE_FILES})
 
+set_target_properties(${TARGET} PROPERTIES 
+                            FOLDER ${FOLDER})
+
 target_sources(${TARGET} INTERFACE ${SOURCE_FILES})
 
 target_link_libraries(${TARGET} INTERFACE Models.Public Utility.Public)
