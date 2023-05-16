@@ -38,4 +38,4 @@ endif()
 enable_testing()
 
 add_subdirectory(Test)
-add_subdirectory(Service.Core)
+add_subdirectory(Src)
