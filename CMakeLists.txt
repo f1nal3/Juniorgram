@@ -39,7 +39,6 @@ enable_testing()
 
 add_subdirectory(Test)
 add_subdirectory(Base)
-add_subdirectory(Client)
 add_subdirectory(DataAccess)
 add_subdirectory(Network)
 add_subdirectory(Server)
