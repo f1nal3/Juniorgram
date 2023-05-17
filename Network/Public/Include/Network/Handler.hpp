@@ -72,33 +72,5 @@ public:
         this->nextHandler = std::move(handler);
         return this->nextHandler;
     }
-
-    /**
-    * @brief Method for preprocessing of outcoming messages.
-    * @param message - buffer that contains data that should be preprocessed.
-    * @param bodyBuffer - buffer that will contain preprocessed body.
-    */
-    MessageProcessingState handleOutcomingMessage(const Message& message, yas::shared_buffer& bodyBuffer) override
-    {
-        if (this->nextHandler)
-        {
-            this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
-        }
-        return MessageProcessingState::SUCCESS;
-    }
-
-    /**
-    * @brief Method for preprocessing of incoming message bodies.
-    * @param buffer - buffer that contains data that should be preprocessed.
-    * @param message - variable that will contain preprocessed message body.
-    */
-    MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
-    {
-        if (this->nextHandler)
-        {
-            this->nextHandler->handleIncomingMessageBody(buffer, message);
-        }
-        return MessageProcessingState::SUCCESS;
-    }
 };
 }  /// namespace Network
