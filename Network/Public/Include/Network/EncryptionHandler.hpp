@@ -18,7 +18,7 @@ class EncryptionHandler : public AbstractHandler
 
 public:
     EncryptionHandler(std::shared_ptr<Base::Crypto::ICryptography> cryptoAlgorithm_, std::uint64_t userId_)
-        : _cryptoAlgorithm(cryptoAlgorithm_), _userId(userId_)
+        : _userId(userId_), _cryptoAlgorithm(cryptoAlgorithm_)
     {
     };
     /**
