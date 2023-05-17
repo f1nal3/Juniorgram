@@ -14,7 +14,8 @@ set(SOURCE_FILES
     HashVerifier.hpp
     IKeyAgreement.hpp
     ECDH.hpp
-    KeyConfirmation.hpp)
+    KeyConfirmation.hpp
+    CryptoPrimitives.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 

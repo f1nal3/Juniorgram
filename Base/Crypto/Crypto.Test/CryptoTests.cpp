@@ -3,6 +3,7 @@
 #include "Crypto.Static/RSA.hpp"
 #include "Crypto.Static/SessionKeyHolder.hpp"
 #include "Crypto.Static/RSAKeyManager.hpp"
+#include "Crypto.Static/CryptoPrimitives.hpp"
 #include "Crypto.Static/HashVerifier.hpp"
 #include "Crypto.Static/ByteBlockGenerator.hpp"
 #include "Crypto.Static/AES_GCM.hpp"
@@ -13,7 +14,7 @@ using Base::Hashing::SHA_256;
 using Base::Crypto::Asymmetric::RSA;
 using Base::RSAKeyManager;
 using Base::RSAKeyGenerator;
-using Base::RSAKeyPair;
+using Base::Crypto::Primitives::RSAKeyPair;
 using Base::Generators::ByteBlockGenerator;
 using Base::Verifiers::HashVerifier;
 using Base::KeyConfirmators::KeyConfirmation;

@@ -4,38 +4,14 @@
 #include <cryptopp/rsa.h>
 
 #include "FileLogger.hpp"
-
-namespace Base
-{
-    struct RSAKeyPair
-    {
-        CryptoPP::RSA::PublicKey  publicKey;
-        CryptoPP::RSA::PrivateKey privateKey;
-
-        std::string getPublicKeyAsString()
-        {
-            std::string publicKeyStr;
-            CryptoPP::StringSink stringSink(publicKeyStr);
-            publicKey.DEREncode(stringSink);
-            return publicKeyStr;
-        }
-
-        static CryptoPP::RSA::PublicKey getPublicKeyFromString(const std::string& publicServerKeyStr)
-        {
-            CryptoPP::StringSource stringSource(publicServerKeyStr, true);
-            CryptoPP::RSA::PublicKey publicServerKey;
-            publicServerKey.BERDecode(stringSource);
-            return publicServerKey;
-        }
-    };
-}  // namespace Base
+#include "CryptoPrimitives.hpp"
 
 namespace Base::Generators
 {
 using Base::Logger::FileLogger;
 using CryptoPP::AutoSeededRandomPool;
 using CryptoPP::RSA;
-using Base::RSAKeyPair;
+using Base::Crypto::Primitives::RSAKeyPair;
 
 /** @class RSAKeyGenerator
  * @brief Generator of RSA keys

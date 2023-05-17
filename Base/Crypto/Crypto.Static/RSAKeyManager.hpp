@@ -5,11 +5,11 @@
 #include <cryptopp/files.h>
 
 #include "RSAKeyGenerator.hpp"
-#include "Models/Primitives.hpp"
 
 namespace Base
 {
 using Base::Logger::FileLogger;
+using Base::Crypto::Primitives::RSAKeyPair;
 using Utility::GeneralCodes;
 using Generators::RSAKeyGenerator;
 using CryptoPP::AutoSeededRandomPool;
