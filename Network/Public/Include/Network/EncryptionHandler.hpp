@@ -389,7 +389,11 @@ private:
         CryptoPP::SecByteBlock key = Base::SessionKeyHolder::Instance().getKey(_userId);
         CryptoPP::SecByteBlock initVector(reinterpret_cast<const CryptoPP::byte*>(msgHeader.mIv.data()), msgHeader.mIv.size());
 
-        return _cryptoAlgorithm->encrypt(buffer, key, initVector, msgHeader.mAuthData);
+        if (!key.empty())
+        {
+            return _cryptoAlgorithm->encrypt(buffer, key, initVector, msgHeader.mAuthData);
+        }
+        return EncryptionState::FAILURE;
     }
 
     EncryptionState decryptIncomingMessageBody(yas::shared_buffer& buffer, const Message::MessageHeader& msgHeader)
@@ -397,7 +401,11 @@ private:
         CryptoPP::SecByteBlock key = Base::SessionKeyHolder::Instance().getKey(_userId);
         CryptoPP::SecByteBlock initVector(reinterpret_cast<const CryptoPP::byte*>(msgHeader.mIv.data()), msgHeader.mIv.size());
 
-        return _cryptoAlgorithm->decrypt(buffer, key, initVector, msgHeader.mAuthData);
+        if (!key.empty())
+        {
+            return _cryptoAlgorithm->decrypt(buffer, key, initVector, msgHeader.mAuthData);
+        }
+        return EncryptionState::FAILURE;
     }
 };
 }  // namespace Network
