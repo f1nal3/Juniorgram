@@ -16,6 +16,10 @@ using Models::ConnectionInfo;
 class IConnectionVerifier
 {
 public:
+    /* @brief Method to calculate hash to verify connection
+    * @param pwdHash Result of overloaded Base::Hashing::SHA256(std::string, std::string)
+    * @param connInfo Struct contains information about current connection with server.
+    */
     virtual std::string calculateVerifyingHash(const std::string& pwdHash, const ConnectionInfo& connInfo) = 0;
 };
 }  // namespace Base::Verifiers

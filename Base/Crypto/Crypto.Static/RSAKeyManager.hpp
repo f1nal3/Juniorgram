@@ -52,7 +52,7 @@ public:
 
     /** @brief Method for saving rsa keys in files
      * @details Work steps: \
-     * 1. Save private key. If saving the private key fails, the public key is not saved too.
+     * 1. Save private key. If saving the private key fails, the public key is not saved too. \
      * 2. Save public key.
      */
     void saveKeyPair()
