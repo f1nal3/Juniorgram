@@ -799,6 +799,8 @@ void Server::directKeyAgreement(std::shared_ptr<Network::Connection> client, con
 
         client->setEncryption(std::make_shared<Base::Crypto::Symmetric::AES_GCM>());
         client->setKeyConfirmator(std::make_shared<Base::KeyConfirmators::KeyConfirmation<> >());
+
+        client->getKeyAgreement().~shared_ptr();
     }
     else
     {

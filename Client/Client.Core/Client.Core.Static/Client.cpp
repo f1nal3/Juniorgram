@@ -738,6 +738,8 @@ void Client::onKeyAgreement(const Models::KeyAgreementInfo& serverKeyAgreementIn
         _connection->setEncryption(std::make_shared<Base::Crypto::Symmetric::AES_GCM>());
         _connection->setKeyConfirmator(std::make_shared<Base::KeyConfirmators::KeyConfirmation<> >());
 
+        _connection->getKeyAgreement().~shared_ptr();
+
         Message messageToConfirmSharedKey;
         messageToConfirmSharedKey.mHeader.mMessageType = Message::MessageType::KeyConfirmation;
         messageToConfirmSharedKey.mBody = std::make_any<std::string>(_connection->getKeyConfirmator()->getVerificationUnit());
