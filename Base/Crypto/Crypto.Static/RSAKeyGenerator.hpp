@@ -63,8 +63,8 @@ public:
         RSAKeyPair rsaKeyPair;
 
         FileLogger::getInstance().log("Start generating private and public keys. It will take some time", Base::Logger::LogLevel::INFO);
-        AutoSeededRandomPool _randPool;
-        rsaKeyPair.privateKey.GenerateRandomWithKeySize(_randPool, _secStrength);
+        AutoSeededRandomPool _randomGenerator;
+        rsaKeyPair.privateKey.GenerateRandomWithKeySize(_randomGenerator, _secStrength);
         rsaKeyPair.publicKey = RSA::PublicKey(rsaKeyPair.privateKey);
         FileLogger::getInstance().log("Private and public key generation finished", Base::Logger::LogLevel::INFO);
 

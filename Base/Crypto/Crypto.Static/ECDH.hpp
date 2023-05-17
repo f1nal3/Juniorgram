@@ -32,7 +32,7 @@ public:
         _privateKey.New(_domain.PrivateKeyLength());
         _publicKey.New(_domain.PublicKeyLength());
 
-        _domain.GenerateKeyPair(_randPool, _privateKey, _publicKey);
+        _domain.GenerateKeyPair(_randomGenerator, _privateKey, _publicKey);
     };
 
     /* @brief Method for calculating shared key.
@@ -57,7 +57,7 @@ public:
     }
 
 private:
-    AutoSeededRandomPool _randPool;
+    AutoSeededRandomPool _randomGenerator;
     OID                  _curve  = secp256r1();  /// defines a curve for calculating the public key
     Domain               _domain = Domain(_curve);
 

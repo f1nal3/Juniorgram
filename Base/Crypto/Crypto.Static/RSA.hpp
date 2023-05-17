@@ -40,8 +40,7 @@ public:
         }
 
         StringSource strSource(dataForEncrypt, true,
-            new PK_EncryptorFilter(_randPool, encryptor,
-                new StringSink(enctyptedData)));
+            new PK_EncryptorFilter(_randomGenerator, encryptor, new StringSink(enctyptedData)));
 
         return enctyptedData;
     }
@@ -53,13 +52,12 @@ public:
         RSAES<OAEP<SHA256>>::Decryptor decryptor(privateServerKey);
 
         StringSource strSource(dataForDecrypt, true,
-            new PK_DecryptorFilter(_randPool, decryptor,
-                new StringSink(decryptedData)));
+            new PK_DecryptorFilter(_randomGenerator, decryptor, new StringSink(decryptedData)));
 
         return decryptedData;
     }
 
 private:
-    AutoSeededRandomPool _randPool;
+    AutoSeededRandomPool _randomGenerator;
 };
 }  // namespace Base::Crypto::Asymmetric
