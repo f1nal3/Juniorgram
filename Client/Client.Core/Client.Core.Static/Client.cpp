@@ -489,7 +489,8 @@ void Client::onLoginAnswer(bool success)
     {
         _connection->setKeyAgreement(std::make_unique<Base::KeyAgreement::ECDH>());
 
-        sendKeyAgreementMessage(1);
+        Message generateSharedKey = constructKeyAgreementMessage(1);
+        send(generateSharedKey);
     }
     else
     {
@@ -748,7 +749,8 @@ void Client::onKeyAgreement(const Models::KeyAgreementInfo& serverKeyAgreementIn
             std::string("Try to generate encryption key again. Current attempt: " + std::to_string(serverKeyAgreementInfo._attempt)),
             Base::LogLevel::WARNING);
 
-        sendKeyAgreementMessage(serverKeyAgreementInfo._attempt + 1);
+        Message tryToGenerateSharedKeyAgain = constructKeyAgreementMessage(serverKeyAgreementInfo._attempt + 1);
+        send(tryToGenerateSharedKeyAgain);
     }
 }
 
@@ -765,11 +767,12 @@ void Client::onKeyConfirmationAnswer(bool isKeyConfirmed)
         Base::Logger::FileLogger::getInstance().log("Server does not confrim, that it has the same encrpytion key with client",
                                                     Base::LogLevel::WARNING);
 
-        sendKeyAgreementMessage(1);
+        Message tryToGenerateSharedKeyAgain = constructKeyAgreementMessage(1);
+        send(tryToGenerateSharedKeyAgain);
     }
 }
 
-void Client::sendKeyAgreementMessage(std::uint8_t attempt)
+inline Message Client::constructKeyAgreementMessage(std::uint8_t attempt)
 {
     _connection->getKeyAgreement()->generateKeys();
 
@@ -783,7 +786,7 @@ void Client::sendKeyAgreementMessage(std::uint8_t attempt)
 
     message.mBody = std::make_any<Models::KeyAgreementInfo>(keyAgreementInfo);
 
-    send(message);
+    return message;
 }
 
 }  // namespace Network

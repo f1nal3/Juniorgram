@@ -344,10 +344,10 @@ protected:
     virtual void onKeyConfirmationAnswer(bool isKeyConfirmed);
     
 private:
-    /** @brief Method for sending KeyAgreement message
-    * @details Method call in situations: after success login, failed key agreement and failed key confirmation
+    /** @brief Method for constructing KeyAgreement message
+    * @details Method is called in situations: after success login, failed key agreement and failed key confirmation
     */
-    void sendKeyAgreementMessage(std::uint8_t attempt);
+    inline Message constructKeyAgreementMessage(std::uint8_t attempt);
 
     bool _serverAccept = false;
 
