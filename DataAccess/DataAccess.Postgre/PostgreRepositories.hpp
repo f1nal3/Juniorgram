@@ -62,10 +62,9 @@ struct LoginRepository : ILoginRepository, AbstractPostgreRepository
         _pTable = std::make_unique<PGQueryBuilder>("users", adapter); 
     }
 
-    std::uint64_t LoginRepository::loginUser(
-        const Models::LoginInfo& loginInfo,
-        const Models::ConnectionInfo& connInfo,
-        std::shared_ptr<Base::Verifiers::IConnectionVerifier> verifier) override;
+    std::uint64_t loginUser(const Models::LoginInfo& loginInfo,
+                            const Models::ConnectionInfo& connInfo,
+                            std::shared_ptr<Base::Verifiers::IConnectionVerifier> verifier) override;
 
     ~LoginRepository() = default;
 };

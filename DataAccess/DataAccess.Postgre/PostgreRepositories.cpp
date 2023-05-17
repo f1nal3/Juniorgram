@@ -261,11 +261,9 @@ Utility::ChannelCreateCodes ChannelsRepository::createChannel(const Models::Chan
     return Utility::ChannelCreateCodes::SUCCESS;
 }
 
-std::uint64_t LoginRepository::loginUser(
-    const Models::LoginInfo& loginInfo,
-    const Models::ConnectionInfo& connInfo,
-    std::shared_ptr<Base::Verifiers::IConnectionVerifier> verifier
-    )
+std::uint64_t LoginRepository::loginUser(const Models::LoginInfo& loginInfo,
+                                         const Models::ConnectionInfo& connInfo,
+                                         std::shared_ptr<Base::Verifiers::IConnectionVerifier> verifier)
 {
     if (verifier.get() == nullptr) {
         Base::Logger::FileLogger::getInstance().log(std::string("Connection verifier in not defined"), Base::Logger::LogLevel::ERR);
