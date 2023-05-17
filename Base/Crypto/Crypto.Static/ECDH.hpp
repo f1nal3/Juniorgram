@@ -61,13 +61,6 @@ private:
     OID                  _curve  = secp256r1();  /// defines a curve for calculating the public key
     Domain               _domain = Domain(_curve);
 
-    /// @brief Method clears keys after generation shared key (it does not matter, successful or unsuccessful)
-    inline void clearKeys()
-    {
-        _privateKey.CleanNew(0);
-        _publicKey.CleanNew(0);
-    }
-
     /// @brief Optional method for preparation shared key berofe placing it to session key storage
     inline SecByteBlock cutInHalf(const SecByteBlock& keyToCut, bool useXor = true)
     {
