@@ -5,6 +5,8 @@
 #include <Crypto.Static/Hashing.hpp>
 #include <Crypto.Static/ECDH.hpp>
 #include <Crypto.Static/AES_GCM.hpp>
+#include <Crypto.Static/RSAKeyGenerator.hpp>
+#include <Crypto.Static/RSA.hpp>
 
 namespace Network
 {
@@ -210,8 +212,10 @@ void Client::userAuthorization(const std::string& login, const std::string& pass
 
     const std::string pwdHash       = Base::Hashing::SHA_256(password, login);
     const std::string verifyingHash = _connection->getConnectionVerifier()->calculateVerifyingHash(pwdHash, _connectionInfo);
+    const std::string encryptedVerifyingHash =
+        Base::Crypto::Asymmetric::RSA().encrypt(verifyingHash, Base::RSAKeyPair().getPublicKeyFromString(_connectionInfo._publicServerKey));
 
-    Models::LoginInfo loginInfo(login, verifyingHash);
+    Models::LoginInfo loginInfo(login, encryptedVerifyingHash);
 
     Message message;
     message.mHeader.mMessageType = MessageType::LoginRequest;

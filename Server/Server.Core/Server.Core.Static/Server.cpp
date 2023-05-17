@@ -8,6 +8,8 @@
 #include "AES_GCM.hpp"
 #include "HashVerifier.hpp"
 #include "AES_GCM.hpp"
+#include "RSA.hpp"
+#include "RSAKeyGenerator.hpp"
 
 namespace Server
 {
@@ -567,6 +569,8 @@ std::optional<Network::MessageResult> Server::loginRequest(std::shared_ptr<Conne
 {
 
     auto loginInfo = std::any_cast<Models::LoginInfo>(message.mBody);
+
+    loginInfo._verifyingHash = Base::Crypto::Asymmetric::RSA().decrypt(loginInfo._verifyingHash, _rsaKeyManager->getPrivateKey());
 
     auto futureResult = _repoManager->pushRequest(&ILoginRepository::loginUser,
                                                   fmt(loginInfo),
