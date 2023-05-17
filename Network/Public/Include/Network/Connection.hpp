@@ -384,6 +384,7 @@ public:
         {
             asio::post(_contextLink, [this]() { _socket.close(); });
         }
+        Base::SessionKeyHolder::Instance().removeKey(getUserID());
     }
 
     /**
