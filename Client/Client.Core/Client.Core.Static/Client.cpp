@@ -707,7 +707,7 @@ void Client::onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMess
     );
 }
 
-void Client::onConnectionInfoAnswer(Models::ConnectionInfo connectionInfo)
+void Client::onConnectionInfoAnswer(const Models::ConnectionInfo& connectionInfo)
 {
     _connectionInfo = connectionInfo;
 

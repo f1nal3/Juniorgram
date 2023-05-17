@@ -327,7 +327,7 @@ protected:
      * @brief Reaction on received information about connection with server
      * @details This function saves information in Client::_connectionInfo
      */
-    virtual void onConnectionInfoAnswer(Models::ConnectionInfo connectionInfo);
+    virtual void onConnectionInfoAnswer(const Models::ConnectionInfo& connectionInfo);
 
     /**
      * @brief Reaction on key agreement information from server
