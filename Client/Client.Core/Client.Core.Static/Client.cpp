@@ -213,7 +213,7 @@ void Client::userAuthorization(const std::string& login, const std::string& pass
     const std::string pwdHash       = Base::Hashing::SHA_256(password, login);
     const std::string verifyingHash = _connection->getConnectionVerifier()->calculateVerifyingHash(pwdHash, _connectionInfo);
     const std::string encryptedVerifyingHash =
-        Base::Crypto::Asymmetric::RSA().encrypt(verifyingHash, Base::RSAKeyPair().getPublicKeyFromString(_connectionInfo._publicServerKey));
+        Base::Crypto::Asymmetric::RSA().encrypt(verifyingHash, Base::RSAKeyPair::getPublicKeyFromString(_connectionInfo._publicServerKey));
 
     Models::LoginInfo loginInfo(login, encryptedVerifyingHash);
 
