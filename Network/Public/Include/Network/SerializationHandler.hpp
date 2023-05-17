@@ -159,6 +159,7 @@ public:
                     break;
 
                 default:
+                    state = SerializedState::FAILURE;
                     break;
             }
         }
@@ -187,12 +188,16 @@ public:
         switch (message.mHeader.mMessageType)
         {
             case Message::MessageType::ServerAccept:
+                state = SerializedState::SUCCESS;
                 break;
             case Message::MessageType::ServerPing:
+                state = SerializedState::SUCCESS;
                 break;
             case Message::MessageType::MessageAll:
+                state = SerializedState::SUCCESS;
                 break;
             case Message::MessageType::ServerMessage:
+                state = SerializedState::SUCCESS;
                 break;
             case Message::MessageType::ChannelListRequest:
             {
