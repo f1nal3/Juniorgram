@@ -215,13 +215,16 @@ void Client::userAuthorization(const std::string& login, const std::string& pass
     const std::string encryptedVerifyingHash =
         Base::Crypto::Asymmetric::RSA().encrypt(verifyingHash, Base::RSAKeyPair::getPublicKeyFromString(_connectionInfo._publicServerKey));
 
-    Models::LoginInfo loginInfo(login, encryptedVerifyingHash);
+    if (!encryptedVerifyingHash.empty())
+    {
+        Models::LoginInfo loginInfo(login, encryptedVerifyingHash);
 
-    Message message;
-    message.mHeader.mMessageType = MessageType::LoginRequest;
-    message.mBody                = std::make_any<Models::LoginInfo>(loginInfo);
+        Message message;
+        message.mHeader.mMessageType = MessageType::LoginRequest;
+        message.mBody                = std::make_any<Models::LoginInfo>(loginInfo);
 
-    send(message);
+        send(message);
+    }
 }
 
 void Client::messageAll() const
