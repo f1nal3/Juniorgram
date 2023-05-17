@@ -724,10 +724,9 @@ void Client::onKeyAgreement(const Models::KeyAgreementInfo& serverKeyAgreementIn
         Base::FileLogger::getInstance().log("Empty public server key. ", Base::LogLevel::WARNING);
     }
 
-    if (isSharedSecretCalculated && !serverKeyAgreementInfo._publicKey.empty())
+    if (isSharedSecretCalculated && !serverKeyAgreementInfo._publicKey.empty() &&
+        Base::SessionKeyHolder::Instance().setKey(std::move(sharedSecret), _connection->getUserID()) == Utility::GeneralCodes::SUCCESS)
     {
-        Base::SessionKeyHolder::Instance().setKey(std::move(sharedSecret), _connection->getUserID());
-
         _connection->setEncryption(std::make_shared<Base::Crypto::Symmetric::AES_GCM>());
         _connection->setKeyConfirmator(std::make_shared<Base::KeyConfirmators::KeyConfirmation<> >());
 
@@ -739,6 +738,8 @@ void Client::onKeyAgreement(const Models::KeyAgreementInfo& serverKeyAgreementIn
     }
     else
     {
+        Base::SessionKeyHolder::Instance().Instance().removeKey(_connection->getUserID());
+
         Base::FileLogger::getInstance().log(
             std::string("Try to generate encryption key again. Current attempt: " + std::to_string(serverKeyAgreementInfo._attempt)),
             Base::LogLevel::WARNING);

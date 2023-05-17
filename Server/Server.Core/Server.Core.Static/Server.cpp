@@ -785,19 +785,20 @@ void Server::directKeyAgreement(std::shared_ptr<Network::Connection> client, con
 
     Models::KeyAgreementInfo serverKeyAgreementInfo(userKeyAgreementInfo._attempt);
 
-    if (!sharedSecret.empty())
+    if (!sharedSecret.empty() &&
+        Base::SessionKeyHolder::Instance().setKey(std::move(sharedSecret), client->getUserID()) == Utility::GeneralCodes::SUCCESS)
     {
-        Base::SessionKeyHolder::Instance().setKey(std::move(sharedSecret), client->getUserID());
-
         CryptoPP::SecByteBlock publicServerKey = client->getKeyAgreement()->getPublicKey();
-        std::string publicServerKeyStr(reinterpret_cast<const char*>(publicServerKey.data()),
-            publicServerKey.size());
+        std::string publicServerKeyStr(reinterpret_cast<const char*>(publicServerKey.data()), publicServerKey.size());
 
         serverKeyAgreementInfo._publicKey = publicServerKeyStr;
 
         client->setEncryption(std::make_shared<Base::Crypto::Symmetric::AES_GCM>());
         client->setKeyConfirmator(std::make_shared<Base::KeyConfirmators::KeyConfirmation<> >());
-
+    }
+    else
+    {
+        Base::SessionKeyHolder::Instance().removeKey(client->getUserID());
     }
     messageToClient.mBody = std::make_any<Models::KeyAgreementInfo>(serverKeyAgreementInfo);
 
