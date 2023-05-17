@@ -31,7 +31,9 @@ Connection stages:
 
 ### Some details of current implementation
 
-- Default key sizes at 128 security bits ( [info](https://www.keylength.com/en/4/) ):
+- Shared key = shared secret = encryption key
+
+- Default key sizes at 128 security bits ([info](https://www.keylength.com/en/4/)):
   - AES - 128 bits (column "Symmetric Key")
   - ECDH - 256 bits (column "Elliptic Curve")
   - RSA - 3072 bits (column "Factoring Modulus")
@@ -45,4 +47,4 @@ To reduce the size from ECDH 256 bits to AES 128 bits, used optional function EC
   2. Content Encryption Key (CEK).
 
 In our cryptography system the CEK is hash of ECDH result and contains in SessionKeyHolder. (for more information, read 1st paragraph of [ECDH](https://ru.wikipedia.org/wiki/Протокол_Диффи_—_Хеллмана_на_эллиптических_кривых) and [Key derivation function](https://ru.wikipedia.org/wiki/Функция_формирования_ключа)).
-- Key pair implies public and private RSA key
+- RSAKeyPair implies public and private RSA keys
