@@ -21,7 +21,7 @@ public:
     /** @brief Method for comparing received test object with correct verification object
     * @details You need to overload operator== for template class, if there is none
     */
-    bool compareWithTestUnit(const T& objToCompare) { return objToCompare == _verificationUnit; };
+    bool compareWithVerificationUnit(const T& objToCompare) { return objToCompare == _verificationUnit; };
 
 protected:
     const T _verificationUnit = "testMessage123";

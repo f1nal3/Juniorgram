@@ -144,9 +144,9 @@ TEST_CASE("KeyConfirmation test", "[dummy]") {
     std::string                  verificationUnit{"unitToCheck"};
     KeyConfirmation<std::string> keyConfirmator(verificationUnit);
 
-    REQUIRE(keyConfirmator.compareWithTestUnit(verificationUnit));
+    REQUIRE(keyConfirmator.compareWithVerificationUnit(verificationUnit));
     REQUIRE_NOTHROW(KeyConfirmation<std::string>(verificationUnit));
-    REQUIRE_NOTHROW(keyConfirmator.compareWithTestUnit(verificationUnit));
+    REQUIRE_NOTHROW(keyConfirmator.compareWithVerificationUnit(verificationUnit));
 }
 
 TEST_CASE("AES GCM test", "[dummy]")

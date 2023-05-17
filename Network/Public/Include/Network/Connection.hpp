@@ -63,8 +63,8 @@ private:
     std::uint64_t _userID        = 1;
     std::string   _authentificationData;
 
-    std::shared_ptr<Base::Crypto::ICryptography>              _cryptoAlgorithm;
-    std::shared_ptr<Base::Verifiers::IConnectionVerifier>     _connVerifierAlgorithm;
+    std::shared_ptr<Base::Crypto::ICryptography>              _encryptionAlgorithm;
+    std::shared_ptr<Base::Verifiers::IConnectionVerifier>     _connectionVerificationAlgorithm;
     std::shared_ptr<Base::KeyAgreement::IKeyAgreement>        _keyAgreementAlgorithm;
     std::shared_ptr<Base::KeyConfirmators::KeyConfirmation<>> _keyConfirmationAlgorithm;
 
@@ -106,8 +106,7 @@ private:
         CryptoPP::SecByteBlock initVector  = Base::Generators::ByteBlockGenerator::Instance().generateBlock(12);
         outcomingMessage.mHeader.mIv       = std::string(reinterpret_cast<const char*>(initVector.data()), initVector.size());
 
-        handler.setNext(new CompressionHandler())
-            ->setNext(new EncryptionHandler(_cryptoAlgorithm, getUserID()));
+        handler.setNext(new CompressionHandler())->setNext(new EncryptionHandler(_encryptionAlgorithm, getUserID()));
         MessageProcessingState result = handler.handleOutcomingMessage(outcomingMessage, bodyBuffer);
 
         outcomingMessage.mHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
@@ -244,7 +243,7 @@ private:
         const auto readBodyHandler = [this, buffer](std::error_code error) {
             if (!error)
             {
-                EncryptionHandler handler(_cryptoAlgorithm, getUserID());
+                EncryptionHandler handler(_encryptionAlgorithm, getUserID());
                 handler.setNext(new CompressionHandler())->setNext(new SerializationHandler());
                 MessageProcessingState result = handler.handleIncomingMessageBody(buffer, _messageBuffer);
 
@@ -414,16 +413,16 @@ public:
         });
     }
 
-    void setEncryption(std::shared_ptr<Base::Crypto::ICryptography> encryption) { _cryptoAlgorithm = std::move(encryption); }
+    void setEncryption(std::shared_ptr<Base::Crypto::ICryptography> encryption) { _encryptionAlgorithm = std::move(encryption); }
 
     void setConnectionVerifier(std::shared_ptr<Base::Verifiers::IConnectionVerifier> connVerifier)
     {
-        _connVerifierAlgorithm = std::move(connVerifier);
+        _connectionVerificationAlgorithm = std::move(connVerifier);
     }
 
     std::shared_ptr<Base::Verifiers::IConnectionVerifier> getConnectionVerifier() const
     {
-        return _connVerifierAlgorithm;
+        return _connectionVerificationAlgorithm;
     }
 
     void setKeyAgreement(std::shared_ptr<Base::KeyAgreement::ECDH> keyAgreement) { _keyAgreementAlgorithm = std::move(keyAgreement); }

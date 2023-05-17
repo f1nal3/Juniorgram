@@ -807,7 +807,7 @@ void Server::directKeyAgreement(std::shared_ptr<Network::Connection> client, con
 
 void Server::directKeyConfirmation(std::shared_ptr<Network::Connection> client, const Message& message) const
 {
-    bool isKeyConfirmed = client->getKeyConfirmator()->compareWithTestUnit(std::any_cast<std::string>(message.mBody));
+    bool isKeyConfirmed = client->getKeyConfirmator()->compareWithVerificationUnit(std::any_cast<std::string>(message.mBody));
 
     if (isKeyConfirmed)
     {
