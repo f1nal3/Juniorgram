@@ -3,6 +3,26 @@
 
 using namespace TestUtility;
 using TestUtility::MessageBody;
+using Server::Builder::SettingsManager;
+using Server::Builder::SettingsManager;
+
+TEST_CASE("Constructor of the ServerBuilder [ServerBuilder][Success]")
+{
+    SECTION("Constructing with parameters")
+    {
+        CHECK_NOTHROW(ServerBuilder(std::make_unique<SettingsManager>()));
+    }
+}
+
+TEST_CASE("SetRepoManager of the ServerBuilder [ServerBuilder][Success]")
+{
+    SECTION("Setting another value")
+    {
+        ServerBuilder serverBuilder(std::make_unique<SettingsManager>());
+
+        CHECK_NOTHROW(serverBuilder.SetRepoManager(nullptr));
+    }
+}
 
 TEST_CASE("Successfull Server start up [Server][Success]")
 {
