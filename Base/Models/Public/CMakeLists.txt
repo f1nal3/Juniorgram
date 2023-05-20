@@ -5,7 +5,6 @@ set(SOURCE_FILES
         Include/Models/Primitives.hpp
         Include/Models/UnifyedModel.hpp
         Include/Models/Models.hpp
-        Include/Models/ModelFactory.hpp
 )
 
 add_library(${TARGET} INTERFACE)

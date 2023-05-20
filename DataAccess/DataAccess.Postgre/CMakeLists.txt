@@ -12,7 +12,8 @@ set(HEADERS
 set(HEADERS_ONLY
     PostgreRepositoryContainer.hpp
     PostgreRepositoryManager.hpp
-    PostgreQuery.hpp)
+    PostgreQuery.hpp
+    PGModels.hpp)
 
 set(SOURCES
     PostgreAdapter.cpp

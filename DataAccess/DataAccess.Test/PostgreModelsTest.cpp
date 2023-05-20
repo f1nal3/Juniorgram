@@ -1,20 +1,20 @@
 #include <catch2/catch.hpp>
 
 #include <Models/Models.hpp>
-#include <Models/ModelFactory.hpp>
 #include "DataAccess.Postgre/PostgreAdapter.hpp"
 #include "DataAccess.Postgre/DataBaseOptions.hpp"
 #include "DataAccess.Postgre/PostgreRepositories.hpp"
 #include "PGModelFiller.hpp"
 #include <Models/UnifyedModel.hpp>
+#include "DataAccess.Postgre/PGModels.hpp"
 
 
-using Models::User;
+using DataAccess::PGUser;
 using Models::UserInfo;
-using Models::ModelFactory;
 
-using Models::Channel;
+
 using Models::ChannelData;
+using DataAccess::PGChannel;
 
 using DataAccess::PGModelFiller;
 
@@ -28,7 +28,7 @@ TEST_CASE("Check model usage", "[dummy]")
 
     SECTION("Wanna add a user", "Kinda a 'userRegistration method in repos'")
     {
-        User<PGModelFiller> testUser({ {UserInfo::ID,"3"},
+        PGUser testUser({ {UserInfo::ID,"3"},
                                     {UserInfo::EMAIL,"aboba3@gmail.com"},
                                     {UserInfo::LOGIN,"aboba3"},
                                     {UserInfo::PASSHASH,"kindahash3"} });
@@ -55,7 +55,7 @@ TEST_CASE("Check model usage", "[dummy]")
     {
         SECTION("All fields at once")
         {
-            User<PGModelFiller> testUser;
+            PGUser testUser;
 
             auto responce = testTable->Select()->columns({ "*" })->Where("id = '1'")->execute();
 
@@ -69,7 +69,7 @@ TEST_CASE("Check model usage", "[dummy]")
 
         SECTION("We define fields")
         {
-            User<PGModelFiller> testUser;
+            PGUser testUser;
 
             auto responce = testTable->Select()->
                 columns({ testUser.fieldName(UserInfo::EMAIL)
@@ -95,7 +95,7 @@ TEST_CASE("ChannelModel", "Check how easily we can use this model in PGRepos")
     {
         std::string testChannelName = { "myFirstChannel" };
 
-        Channel<PGModelFiller> testChannel({
+        PGChannel testChannel({
             {ChannelData::CHANNEL_NAME, testChannelName},
             {ChannelData::CHANNEL_USER_LIMIT, "1000"},
             {ChannelData::CREATOR_ID, "3"} });
@@ -132,7 +132,7 @@ TEST_CASE("ChannelModel", "Check how easily we can use this model in PGRepos")
             SECTION("Good attempt", "Via new method")
             {
                 
-                Channel<PGModelFiller> testNewChannel({
+                PGChannel testNewChannel({
                     { ChannelData::CREATOR_ID, "3"},
                     { ChannelData::CHANNEL_NAME, "newTestChannel" },
                     { ChannelData::CHANNEL_USER_LIMIT, "10000"} });
