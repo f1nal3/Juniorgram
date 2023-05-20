@@ -7,7 +7,7 @@ set(HEADERS
     PostgreAdapter.hpp
     PostgreRepositories.hpp
     UsersAmountFinder.hpp
-    PostgreModel.hpp)
+    PGModelFiller.hpp)
 
 set(HEADERS_ONLY
     PostgreRepositoryContainer.hpp

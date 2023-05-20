@@ -1,5 +1,6 @@
 #pragma once
-#include "PostgreModel.hpp"
+
+#include "UnifyedModel.hpp"
 #include <FileLogger.hpp>
 #include <map>
 #include <utility>

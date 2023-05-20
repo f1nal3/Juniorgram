@@ -8,10 +8,10 @@
 namespace DataAccess
 {
 template <class TEnum, class TResult = pqxx::const_result_iterator>
-class PostgreModel : public Models::UnifiedModel<TEnum, TResult>
+class PGModelFiller : public Models::UnifiedModel<TEnum, TResult>
 {
 public:
-    PostgreModel(const std::string& modelName, size_t amountFields)
+    PGModelFiller(const std::string& modelName, size_t amountFields)
         : Models::UnifiedModel<TEnum, TResult>(modelName, amountFields)
     {
     }
