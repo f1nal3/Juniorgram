@@ -139,7 +139,7 @@ TEST_CASE("ChannelModel", "Check how easily we can use this model in PGRepos")
 
 
                 DataAccess::ChannelsRepository testChannelRepos(DataAccess::PostgreAdapter::Instance());
-                //REQUIRE(testChannelRepos.newCreateChannel(testNewChannel) == Utility::ChannelCreateCodes::SUCCESS);
+                REQUIRE(testChannelRepos.newCreateChannel(testNewChannel) == Utility::ChannelCreateCodes::SUCCESS);
             }
         }
     };

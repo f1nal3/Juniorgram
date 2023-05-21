@@ -3,6 +3,7 @@
 #include <DataAccess/IServerRepositories.hpp>
 
 #include "PostgreQuery.hpp"
+#include "PGModels.hpp"
 #include "UsersAmountFinder.hpp"
 
 namespace DataAccess
@@ -27,7 +28,7 @@ struct ChannelsRepository final : IChannelsRepository, AbstractPostgreRepository
 
     Utility::ChannelDeleteCode  deleteChannel(const Models::ChannelDeleteInfo& channel) override;
     Utility::ChannelCreateCodes createChannel(const Models::ChannelInfo& channel) override;
-    //Utility::ChannelCreateCodes newCreateChannel(const Models::Channel<PostgreModel>& channel) override;
+    Utility::ChannelCreateCodes newCreateChannel(const DataAccess::PGChannel& channel);
 
     ~ChannelsRepository() override = default;
 };

@@ -28,7 +28,7 @@ public:
         this->init(names);
     }
 
-    User(const std::vector<std::pair<TEnum, std::string>>& insertData) : User()
+    explicit User(const std::vector<std::pair<TEnum, std::string>>& insertData) : User()
     {
         std::for_each(insertData.begin(), insertData.end(), [this](const auto& pair)
                       {
