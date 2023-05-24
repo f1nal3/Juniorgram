@@ -1,4 +1,4 @@
-# Cryptography system {#cryptography}
+# Cryptography system
 ### Authentication
 
 The main idea of the architecture is the ability to configure the connection at the stage of its creation.
@@ -8,15 +8,12 @@ All subsequent statements work for the following cryptography configuration:
 
 - Key exchange protocol: ECDH
 
-- Checking the correctness of the shared key: sending a message with a known content ([NIST SP 800-152](https://csrc.nist.rip/external/nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-152.pdf), paragraph 6.6.3) 
-
-- Connection verification: The idea is taken from [Towards Securing Client-Server Connections against.pdf](https://www.mihaiordean.com/articles/JEq8FDkHdZX6.pdf) (the same [file](./Towards%20Securing%20Client-Server%20Connections%20against.pdf)).
 
 Also, this architecture will work for any symmetric encryption algorithm if the generated shared key is used as the key encryption key.
 
 The diagram below shows how the parts of the cryptographic system interact with each other and with the server.
 
-<img src="./images/crypto_authentication.svg" alt="crypto_authentication" />
+![crypto_one](./images/crypto_authentication.svg "Crypto authentication")
 
 The dependencies shown in the diagram make it possible to configure the security elements separately: the encryption method, the key creation protocol, the key confirmation protocol, the connection verification algorithm - which allows you to configure the connection in a variety of ways.
 
@@ -24,7 +21,7 @@ The dependencies shown in the diagram make it possible to configure the security
 
 The diagram below shows how the application sides will be connected.
 
-<img src="./images/crypto_connection.svg" alt="crypto_connection" />
+![crypto_two](./images/crypto_connection.svg "Crypto connection")
 
 Connection stages:
 

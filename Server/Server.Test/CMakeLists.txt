@@ -2,6 +2,7 @@ set(TARGET Server.Test)
 set(OUTPUT_NAME Server.Test)
 
 set(SOURCE_FILES
+		ArgParserTests.cpp
 		ServerMessageTests.cpp
 		ServerDefaultTests.cpp
 		ServerChannelTests.cpp
