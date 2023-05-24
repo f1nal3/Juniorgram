@@ -6,14 +6,14 @@
 
 namespace DataAccess
 {
-	class PGChannel: public Models::Channel<PGModelFiller> 
+	class PGChannel final: public Models::Channel<PGModelFiller> 
 	{
 	public:
 		explicit PGChannel(const std::vector<std::pair<Models::ChannelData, std::string>>& insertData): Channel(insertData) {}
 		PGChannel() = default;
 	};
 
-	class PGUser : public Models::User<PGModelFiller>
+	class PGUser final: public Models::User<PGModelFiller>
 	{
 	public:
 		explicit PGUser(const std::vector<std::pair<Models::UserInfo, std::string>>& insertData): User(insertData) {}

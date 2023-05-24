@@ -24,7 +24,6 @@ public:
             this->_data[this->toEnum(respIter.name())] = respIter.template as<std::string>();
         }
     }
-    using type = TResult;
 protected:
     virtual TEnum getNumEnum(size_t) const = 0;
 };

@@ -169,7 +169,7 @@ Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Models::Chann
     return Utility::ChannelDeleteCode::SUCCESS;
 }
 
-Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const DataAccess::PGChannel& channel)
+Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const Models::Channel<DataAccess::PGModelFiller>& channel)
 {
     using Models::ChannelData;
 

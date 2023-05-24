@@ -12,7 +12,8 @@ set(SOURCE_FILES
 	MockDatabaseOptions.hpp
 	MockRepositoryInstance.hpp
 	MockRepositoryStorage.hpp
-	MockRepositoryManager.hpp)
+	MockRepositoryManager.hpp
+	MockModelFiller.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 

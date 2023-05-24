@@ -329,7 +329,7 @@ void Server::readAllMessage(std::shared_ptr<Connection> client, const Message& m
 
 void Server::channelListRequest(std::shared_ptr<Connection> client) const
 {
-    auto futureResult = _repoManager->pushRequest(&IChannelsRepository::getAllChannelsList);
+    auto futureResult = _repoManager->pushRequest(&IChannelsRepository<DataAccess::PGModelFiller>::getAllChannelsList);
 
     Message messageHandler;
     messageHandler.mHeader.mMessageType = Message::MessageType::ChannelListRequest;
@@ -502,7 +502,7 @@ void Server::channelLeaveRequest(std::shared_ptr<Connection> client, const Messa
     channelLeaveInfo._creatorID   = client->getUserID();
     channelLeaveInfo._channelName = channelName;
 
-    auto futureResult = _repoManager->pushRequest(&IChannelsRepository::leaveChannel, fmt(channelLeaveInfo));
+    auto futureResult = _repoManager->pushRequest(&IChannelsRepository<DataAccess::PGModelFiller>::leaveChannel, fmt(channelLeaveInfo));
 
     Message messageToClient;
     messageToClient.mHeader.mMessageType = Message::MessageType::ChannelLeaveAnswer;
@@ -517,7 +517,7 @@ void Server::channelSubscribeRequest(std::shared_ptr<Connection> client, const M
     auto channelInfo    = std::any_cast<Models::ChannelSubscriptionInfo>(message.mBody);
     channelInfo._userID = client->getUserID();
 
-    auto futureResult = _repoManager->pushRequest(&IChannelsRepository::subscribeToChannel, fmt(channelInfo));
+    auto futureResult = _repoManager->pushRequest(&IChannelsRepository<DataAccess::PGModelFiller>::subscribeToChannel, fmt(channelInfo));
 
     Message messageToClient;
     messageToClient.mHeader.mMessageType = Message::MessageType::ChannelSubscribeAnswer;
@@ -532,7 +532,7 @@ void Server::channelSubscriptionListRequest(std::shared_ptr<Connection> client) 
 {
     const auto userID = client->getUserID();
 
-    auto futureResult = _repoManager->pushRequest(&IChannelsRepository::getChannelSubscriptionList, fmt(userID));
+    auto futureResult = _repoManager->pushRequest(&IChannelsRepository<DataAccess::PGModelFiller>::getChannelSubscriptionList, fmt(userID));
 
     Message messageToClient;
     messageToClient.mHeader.mMessageType = Message::MessageType::ChannelSubscriptionListAnswer;
@@ -550,7 +550,7 @@ void Server::channelDeleteRequest(std::shared_ptr<Connection> client, const Mess
     channelDeleteInfo._creatorID   = client->getUserID();
     channelDeleteInfo._channelName = channelName;
 
-    auto futureResult = _repoManager->pushRequest(&IChannelsRepository::deleteChannel, fmt(channelDeleteInfo));
+    auto futureResult = _repoManager->pushRequest(&IChannelsRepository<DataAccess::PGModelFiller>::deleteChannel, fmt(channelDeleteInfo));
 
     Message messageToClient;
     messageToClient.mHeader.mMessageType = Message::MessageType::ChannelDeleteAnswer;
@@ -568,7 +568,7 @@ void Server::channelCreateRequest(std::shared_ptr<Connection> client, const Mess
     newChannelInfo._creatorID   = client->getUserID();
     newChannelInfo._channelName = channelName;
 
-    auto futureResult = _repoManager->pushRequest(&IChannelsRepository::createChannel, fmt(newChannelInfo));
+    auto futureResult = _repoManager->pushRequest(&IChannelsRepository<DataAccess::PGModelFiller>::createChannel, fmt(newChannelInfo));
 
     Message messageToClient;
     messageToClient.mHeader.mMessageType = Message::MessageType::ChannelCreateAnswer;
