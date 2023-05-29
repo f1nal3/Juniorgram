@@ -105,10 +105,9 @@ struct IRepliesRepository : IMasterRepository
  * @details The class is similar to IMessagesRepository, but processing object is message channels
  * (object of ChannelInfo class).
  */
-template<template<typename ...Args>class TRepository>
+
 struct IChannelsRepository : IMasterRepository
 {
-    //virtual Utility::ChannelCreateCodes newCreateChannel(const Models::Channel& channel) = 0;
     /**
     * @brief  Virtual method for getting all channel list from the server.
     * @return channels list as vector of ChannelInfo.
@@ -145,7 +144,8 @@ struct IChannelsRepository : IMasterRepository
     */
     virtual std::vector<uint64_t> getChannelSubscriptionList(uint64_t userID) = 0;
 
-    virtual Utility::ChannelCreateCodes newCreateChannel(const Models::Channel<TRepository>& channel) = 0;
+
+    virtual Utility::ChannelCreateCodes newCreateChannel(Models::Channel<>& channel) = 0;
 
     /**
     * @brief virtual destructor.

@@ -21,8 +21,7 @@ public:
 template <typename TKey, typename TData = std::string, typename Comp = Comparator<TKey>>
 using Map = std::map<TKey, TData, Comp>;
 
-
-template <class TEnum,class TResult>
+template <typename TEnum>
 class UnifiedModel
 {
 public:
@@ -37,11 +36,20 @@ public:
         return _fieldData[anyEnum];
     }
 
-    virtual void fill(const TResult& response) const = 0;  
-
     std::string& operator[](TEnum anyEnum) const { return _data[anyEnum]; }
    
     virtual ~UnifiedModel() = default;
+
+    TEnum toEnum(const std::string& fieldName) const
+    {
+        return std::find_if(_fieldData.begin(), _fieldData.end(), [&fieldName](auto pair)
+                            {
+                                if (pair.second == fieldName)
+                                    return true;
+                                else
+                                    return false;
+                            })->first;
+    }
 
 protected:
     void init(const FieldNames& fieldNames)
@@ -55,17 +63,6 @@ protected:
             _data.insert(std::pair<TEnum, std::string>(this->getNumEnum(counter), std::string{}));
             ++counter;
         }
-    }
-
-    TEnum toEnum(const std::string& fieldName) const
-    {
-        return std::find_if(_fieldData.begin(), _fieldData.end(), [&fieldName](auto pair)
-                            {
-                                if (pair.second == fieldName)
-                                    return true;
-                                else
-                                    return false;
-                            })->first;
     }
 
 private:

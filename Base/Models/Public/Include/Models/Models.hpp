@@ -9,7 +9,6 @@ namespace Models
 {
 using Base::Logger::FileLogger;
 
-
 enum class UserInfo : uint16_t
 {
     ID = 0,
@@ -18,13 +17,13 @@ enum class UserInfo : uint16_t
     PASSHASH
 };
 
-template<template<typename ...TArgs> class RepositoryType, class TEnum = UserInfo, typename... Args>
-class User : public RepositoryType<TEnum, Args...>
+template<typename TEnum = UserInfo>
+class User : public UnifiedModel<TEnum>
 {
 public:
     User(const std::string& modelName = "users", const Models::FieldNames& names = { "id", "email", "login", "password_hash" })
-        : RepositoryType<TEnum>(modelName, names.size())
-    {
+        : UnifiedModel<TEnum>(modelName, names.size())
+    {     
         this->init(names);
     }
 
@@ -66,18 +65,18 @@ enum class ChannelData : uint16_t
     CHANNEL_USER_LIMIT
 };
 
-template<template<typename ...TArgs> class RepositoryType, class TEnum = ChannelData, typename... Args>
-class Channel : public RepositoryType<TEnum, Args...>
+template<typename TEnum = ChannelData>
+class Channel : public UnifiedModel<ChannelData>
 {
 public:
     Channel(const std::string& modelName = "channels", const Models::FieldNames& names = { "id", "channel_name", "creator_id", "user_limit" })
-        : RepositoryType<TEnum>(modelName, names.size())
+        :UnifiedModel<ChannelData>(modelName, names.size())
     {
         this->init(names);
     }
 
     /*
-    * @details Possibly will be moved into sepate method in UnifyedModel or smth like that because it consists only of templates, so it may be used by any model
+    * @details Possibly will be moved into sepate method in UnifiedModel or smth like that because it consists only of templates, so it may be used by any model
     */
     explicit Channel(const std::vector<std::pair<TEnum, std::string>>& insertData) : Channel()
     {

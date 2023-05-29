@@ -1,23 +1,17 @@
 #include <catch2/catch.hpp>
 
-#include <Models/Models.hpp>
 #include "DataAccess.Postgre/PostgreAdapter.hpp"
 #include "DataAccess.Postgre/DataBaseOptions.hpp"
 #include "DataAccess.Postgre/PostgreRepositories.hpp"
-#include "PGModelFiller.hpp"
+
+#include <Models/Models.hpp>
 #include <Models/UnifyedModel.hpp>
-#include "DataAccess.Postgre/PGModels.hpp"
 
+#include "PGModelFiller.hpp"
 
-using DataAccess::PGUser;
 using Models::UserInfo;
-
-
 using Models::ChannelData;
-using DataAccess::PGChannel;
-
 using DataAccess::PGModelFiller;
-
 using DataAccess::PostgreAdapter;
 using DataAccess::PGQueryBuilder;
 
@@ -26,9 +20,11 @@ TEST_CASE("Check model usage", "[dummy]")
 {
     auto testTable = std::make_unique<PGQueryBuilder>("users", PostgreAdapter::Instance(DBOptions::test));
 
+    PGModelFiller testFiller;
+
     SECTION("Wanna add a user", "Kinda a 'userRegistration method in repos'")
     {
-        PGUser testUser({ {UserInfo::ID,"3"},
+        Models::User testUser({ {UserInfo::ID,"3"},
                                     {UserInfo::EMAIL,"aboba3@gmail.com"},
                                     {UserInfo::LOGIN,"aboba3"},
                                     {UserInfo::PASSHASH,"kindahash3"} });
@@ -55,13 +51,14 @@ TEST_CASE("Check model usage", "[dummy]")
     {
         SECTION("All fields at once")
         {
-            PGUser testUser;
-
+            Models::User testUser;
+            
             auto responce = testTable->Select()->columns({ "*" })->Where("id = '1'")->execute();
 
             if (responce.has_value())
             {
-                testUser.fill(responce->begin());
+                testFiller.fill(responce->begin(), &testUser);
+                
 
                 REQUIRE(testUser[UserInfo::ID] == "1");
             }
@@ -69,7 +66,7 @@ TEST_CASE("Check model usage", "[dummy]")
 
         SECTION("We define fields")
         {
-            PGUser testUser;
+            Models::User testUser;
 
             auto responce = testTable->Select()->
                 columns({ testUser.fieldName(UserInfo::EMAIL)
@@ -78,7 +75,7 @@ TEST_CASE("Check model usage", "[dummy]")
            
             if (responce.has_value())
             {
-                REQUIRE_NOTHROW(testUser.fill(responce->begin()));
+                REQUIRE_NOTHROW(testFiller.fill(responce->begin(), &testUser));
 
                 REQUIRE(testUser[UserInfo::LOGIN] == "aboba3");
                 REQUIRE(testUser[UserInfo::ID] == "");
@@ -95,7 +92,7 @@ TEST_CASE("ChannelModel", "Check how easily we can use this model in PGRepos")
     {
         std::string testChannelName = { "myFirstChannel" };
 
-        PGChannel testChannel({
+        Models::Channel testChannel({
             {ChannelData::CHANNEL_NAME, testChannelName},
             {ChannelData::CHANNEL_USER_LIMIT, "1000"},
             {ChannelData::CREATOR_ID, "3"} });
@@ -132,7 +129,7 @@ TEST_CASE("ChannelModel", "Check how easily we can use this model in PGRepos")
             SECTION("Good attempt", "Via new method")
             {
                 
-                PGChannel testNewChannel({
+                Models::Channel testNewChannel({
                     { ChannelData::CREATOR_ID, "3"},
                     { ChannelData::CHANNEL_NAME, "newTestChannel" },
                     { ChannelData::CHANNEL_USER_LIMIT, "10000"} });

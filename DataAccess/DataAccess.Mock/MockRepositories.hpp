@@ -5,14 +5,14 @@
 
 #include "MockQuery.hpp"
 #include "Models/Primitives.hpp"
-#include "MockModelFiller.hpp"
+#include <Models/Models.hpp>
 
 #include "FileLogger.hpp"
 
 namespace MockObject
 {
 using IAdapter                 = DataAccess::IAdapter;
-//using IChannelRepository       = DataAccess::IChannelsRepository;
+using IChannelRepository       = DataAccess::IChannelsRepository;
 using IDirectMessageRepository = DataAccess::IDirectMessageRepository;
 using ILoginRepository         = DataAccess::ILoginRepository;
 using IMessagesRepository      = DataAccess::IMessagesRepository;
@@ -33,7 +33,7 @@ using ChannelSubscriptionInfo = Models::ChannelSubscriptionInfo;
 * @details Inherited from IChannelRepository struct /
 *   (for overriding methods related to this repository).
 */
-struct MockChannelsRepository final : DataAccess::IChannelsRepository<MockModelFiller>
+struct MockChannelsRepository final : DataAccess::IChannelsRepository
 {
 public:
     explicit MockChannelsRepository(const std::shared_ptr<IAdapter>& adapter)
@@ -48,7 +48,7 @@ private:
     Utility::ChannelCreateCodes      createChannel(const ChannelInfo& channel) override;
     Utility::ChannelLeaveCodes       leaveChannel(const ChannelLeaveInfo& channel) override;
     Utility::ChannelSubscribingCodes subscribeToChannel(const ChannelSubscriptionInfo& channel) override;
-    Utility::ChannelCreateCodes      newCreateChannel(const Models::Channel<MockModelFiller>& channel) override { return Utility::ChannelCreateCodes::SUCCESS; }
+    Utility::ChannelCreateCodes      newCreateChannel(Models::Channel<>& channel) override { return Utility::ChannelCreateCodes::SUCCESS; }
     std::vector<uint64_t>            getChannelSubscriptionList(const uint64_t userID) override;
     std::vector<Models::ChannelInfo> getAllChannelsList() override;
 

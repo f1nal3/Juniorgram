@@ -3,7 +3,6 @@
 #include <DataAccess/IServerRepositories.hpp>
 
 #include "PostgreQuery.hpp"
-#include "PGModels.hpp"
 #include "UsersAmountFinder.hpp"
 #include "PGModelFiller.hpp"
 
@@ -15,7 +14,7 @@ protected:
     std::unique_ptr<PGQueryBuilder> _pTable;
 };
 
-struct ChannelsRepository final : IChannelsRepository<DataAccess::PGModelFiller>, AbstractPostgreRepository
+struct ChannelsRepository final : IChannelsRepository, AbstractPostgreRepository
 {
     explicit ChannelsRepository(const std::shared_ptr<IAdapter>& adapter) 
     {
@@ -29,7 +28,7 @@ struct ChannelsRepository final : IChannelsRepository<DataAccess::PGModelFiller>
 
     Utility::ChannelDeleteCode  deleteChannel(const Models::ChannelDeleteInfo& channel) override;
     Utility::ChannelCreateCodes createChannel(const Models::ChannelInfo& channel) override;
-    Utility::ChannelCreateCodes newCreateChannel(const Models::Channel<DataAccess::PGModelFiller>& channel) override;
+    Utility::ChannelCreateCodes newCreateChannel(Models::Channel<>& channel) override;
 
     ~ChannelsRepository() override = default;
 };

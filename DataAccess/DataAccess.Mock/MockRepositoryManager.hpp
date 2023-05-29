@@ -20,7 +20,7 @@ public:
     explicit MockRepositoryManager(const std::shared_ptr<IAdapter> repositoryContainer)
     {
         auto repo = std::make_unique<AbstractRepositoryContainer>(repositoryContainer);
-        repo->registerRepository<DataAccess::IChannelsRepository<MockModelFiller>,       MockChannelsRepository>();
+        repo->registerRepository<IChannelRepository,       MockChannelsRepository>();
         repo->registerRepository<ILoginRepository,         MockLoginRepository>();
         repo->registerRepository<IMessagesRepository,      MockMessagesRepository>();
         repo->registerRepository<IRegisterRepository,      MockRegisterRepository>();

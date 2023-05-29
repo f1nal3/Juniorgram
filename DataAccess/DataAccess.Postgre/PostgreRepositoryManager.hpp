@@ -17,7 +17,7 @@ public:
     explicit PostgreRepositoryManager(const std::shared_ptr<IAdapter> repositoryContainer)
     {
         auto repo = std::make_unique<AbstractRepositoryContainer>(repositoryContainer);
-        repo->registerRepository<IChannelsRepository<DataAccess::PGModelFiller>,   ChannelsRepository>();
+        repo->registerRepository<IChannelsRepository,   ChannelsRepository>();
         repo->registerRepository<ILoginRepository,      LoginRepository>();
         repo->registerRepository<IMessagesRepository,   MessagesRepository>();
         repo->registerRepository<IRegisterRepository,   RegisterRepository>();
