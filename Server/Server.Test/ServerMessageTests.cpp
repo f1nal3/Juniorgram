@@ -13,7 +13,6 @@ TEST_CASE("Message request procedures [Server][Success]")
     TestClient client;
     client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
 
-
     SECTION("Successful message history request")
     {
         Message validMessage;

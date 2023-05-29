@@ -27,6 +27,12 @@
 namespace Network
 {
 
+enum class MessageResult
+{
+    InvalidBody,
+    Success
+};
+
 /** @class Connection
  *  @brief Connection management class
  *  @details see https://github.com/f1nal3/Juniorgram/wiki/Legacy-Frontend-network \
