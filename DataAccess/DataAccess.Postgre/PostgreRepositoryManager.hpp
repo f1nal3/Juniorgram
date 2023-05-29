@@ -26,7 +26,5 @@ public:
         
         IRepositoryManager::init(std::move(repo));
     }
-
-    
 };
 }  // namespace DataAccess

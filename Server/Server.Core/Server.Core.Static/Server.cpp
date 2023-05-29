@@ -574,7 +574,7 @@ std::optional<Network::MessageResult> Server::channelLeaveRequest(std::shared_pt
     channelLeaveInfo._creatorID   = client->getUserID();
     channelLeaveInfo._channelName = channelName;
 
-    auto futureResult = _repoManager->pushRequest(&IChannelsRepository<DataAccess::PGModelFiller>::leaveChannel, fmt(channelLeaveInfo));
+    auto futureResult = _repoManager->pushRequest(&IChannelsRepository::leaveChannel, fmt(channelLeaveInfo));
    
     Message answerForClient;
     answerForClient.mHeader.mMessageType = Message::MessageType::ChannelLeaveAnswer;

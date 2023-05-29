@@ -137,7 +137,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 			SECTION("Create new channel with valid data")
 			{
 				REQUIRE(testChannelRepos.createChannel(testChannel) == ChannelCreateCodes::SUCCESS);
-			}			
+			}
 
 			SECTION("Let's try to create channel with data of already existing channel")
 			{
