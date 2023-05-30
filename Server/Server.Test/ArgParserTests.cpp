@@ -162,20 +162,20 @@ TEST_CASE("Method for generating an object of the Settings class [ArgParser][Suc
     ArgParser                parserDefault(static_cast<int>(args.size()), args.data());
     using Server::Builder::Settings;
     Settings                 settingsDefault = Settings()
-                                                .SetValue(std::make_pair(ParamType::ServerPort,  "65001"     ))
-                                                .SetValue(std::make_pair(ParamType::DBPort,      "5432"      ))
-                                                .SetValue(std::make_pair(ParamType::DBName,      "juniorgram"))
-                                                .SetValue(std::make_pair(ParamType::HostAddress, "127.0.0.1" ))
-                                                .SetValue(std::make_pair(ParamType::DBUser,      "postgres"  ))
-                                                .SetValue(std::make_pair(ParamType::DBPassword,  "postgres"  ));
+                                                .setValue(std::make_pair(ParamType::ServerPort,  "65001"     ))
+                                                .setValue(std::make_pair(ParamType::DBPort,      "5432"      ))
+                                                .setValue(std::make_pair(ParamType::DBName,      "juniorgram"))
+                                                .setValue(std::make_pair(ParamType::HostAddress, "127.0.0.1" ))
+                                                .setValue(std::make_pair(ParamType::DBUser,      "postgres"  ))
+                                                .setValue(std::make_pair(ParamType::DBPassword,  "postgres"  ));
 
     SECTION("Object of the Settings class is equal with ArgParser::GetSettings()")
     {
-        REQUIRE(parserDefault.GetSettings().get()->GetValue(ParamType::ServerPort ) == settingsDefault.GetValue(ParamType::ServerPort ));
-        REQUIRE(parserDefault.GetSettings().get()->GetValue(ParamType::DBPort     ) == settingsDefault.GetValue(ParamType::DBPort     ));
-        REQUIRE(parserDefault.GetSettings().get()->GetValue(ParamType::DBName     ) == settingsDefault.GetValue(ParamType::DBName     ));
-        REQUIRE(parserDefault.GetSettings().get()->GetValue(ParamType::HostAddress) == settingsDefault.GetValue(ParamType::HostAddress));
-        REQUIRE(parserDefault.GetSettings().get()->GetValue(ParamType::DBUser     ) == settingsDefault.GetValue(ParamType::DBUser     ));
-        REQUIRE(parserDefault.GetSettings().get()->GetValue(ParamType::DBPassword ) == settingsDefault.GetValue(ParamType::DBPassword ));
+        REQUIRE(parserDefault.getSettings().get()->getValue(ParamType::ServerPort ) == settingsDefault.getValue(ParamType::ServerPort ));
+        REQUIRE(parserDefault.getSettings().get()->getValue(ParamType::DBPort     ) == settingsDefault.getValue(ParamType::DBPort     ));
+        REQUIRE(parserDefault.getSettings().get()->getValue(ParamType::DBName     ) == settingsDefault.getValue(ParamType::DBName     ));
+        REQUIRE(parserDefault.getSettings().get()->getValue(ParamType::HostAddress) == settingsDefault.getValue(ParamType::HostAddress));
+        REQUIRE(parserDefault.getSettings().get()->getValue(ParamType::DBUser     ) == settingsDefault.getValue(ParamType::DBUser     ));
+        REQUIRE(parserDefault.getSettings().get()->getValue(ParamType::DBPassword ) == settingsDefault.getValue(ParamType::DBPassword ));
     }
 }

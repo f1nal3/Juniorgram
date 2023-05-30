@@ -20,21 +20,22 @@ class ServerBuilder
 public:
     ServerBuilder()  = default;
     explicit ServerBuilder(std::unique_ptr<SettingsManager> settingsManager) : _settingsManager(std::move(settingsManager)) {}
-
+    
     ~ServerBuilder() = default;
 
     /**
     * @brief Sets up a specific RepositoryManager
     * @details Allows to set a specific RepositoryManager
+    *          Note: Changes the owner of the argument resource
     * @warning For now, this method is only used for MockTest! This may be changed in the future.
     */
-    inline ServerBuilder& SetRepoManager(DataAccess::IRepositoryManager* repoManager)
+    ServerBuilder& setRepoManager(std::unique_ptr<DataAccess::IRepositoryManager> repoManager)
     {
-        _repository.reset(repoManager);
+        _repository = std::move(repoManager);
         return *this;
     }
 
-    std::unique_ptr<Server> MakeServer()
+    std::unique_ptr<Server> makeServer()
     {
         std::unique_ptr<Server> ptr(make());
         return ptr;
@@ -48,12 +49,12 @@ private:
         if (!_repository)
         {
             _repository = std::make_unique<DataAccess::PostgreRepositoryManager>
-                (DataAccess::IAdapter::getInstance<DataAccess::PostgreAdapter>(_settingsManager->GetConnectionOptions()));
+                (DataAccess::IAdapter::getInstance<DataAccess::PostgreAdapter>(_settingsManager->getConnectionOptions()));
         }
        
         server->initRepository(std::move(_repository));
 
-        auto port = _settingsManager->GetServerPort();
+        auto port = _settingsManager->getServerPort();
         server->initConnection(port);
 
         return server.release();

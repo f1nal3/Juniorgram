@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include "FileLogger.hpp"
 
 namespace Server::Builder
 {
@@ -14,25 +15,49 @@ struct ParamType
     constexpr static char const* DBPassword  = "--password";
 };
 
+/**
+ * @class Settings
+ * @brief Class for collecting and storing parameters.
+ * @details Class can take a parameter, store it in a map and provide it.
+ */
 class Settings
 {
 public:
     Settings() = default;
 
-    inline Settings& SetValue(std::pair<std::string, std::string> value)
+    /**
+     * @brief Setting up parameter method.
+     * @details Sets the value of <value.second> in the map with the key <value.first>.
+     *          If a key is contained in map, a value won't be changed. But, it will register this case.
+     * @param const std::pair<std::string, std::string>& value /
+     *        In other words: pair<key, value>
+     */
+    Settings& setValue(const std::pair<std::string, std::string>& value)
     {
-        _settings.try_emplace(value.first, value.second);
+        if (!_settings.try_emplace(value.first, value.second).second)
+        {
+            Base::Logger::FileLogger::getInstance().log
+            (
+                "[Settings::setValue]: Write error! Parameter with key \"" + value.first + "\" already exists.",
+                Base::Logger::LogLevel::WARNING
+            );
+        }
         return *this;
     }
 
-    std::string GetValue(const std::string& key) const
+    /**
+     * @brief Getting up parameter method.
+     * @details Gets a value with the <key> from the map \
+     *          If a key does not exist in the map, it will return an empty std::string.
+     * @param const std::string& key
+     */
+    std::string getValue(const std::string& key) const
     {
-        if (_settings.find(key) != _settings.end())
+        if (auto it = _settings.find(key); it != _settings.end())
         {
-            return _settings.at(key);
+            return it->second;
         }
-
-        return std::string();
+        return {};
     }
 
 private:

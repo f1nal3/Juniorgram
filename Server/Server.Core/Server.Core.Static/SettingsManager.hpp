@@ -1,9 +1,15 @@
 #pragma once
 
 #include "Settings.hpp"
+#include "ArgParser.hpp"
 
 namespace Server::Builder
 {
+/**
+ * @class SettingsManager
+ * @brief Class for managing server builder settings.
+ * @details Class can take parameter sets and provide a port and connection string
+ */
 class SettingsManager
 {
 public:
@@ -11,24 +17,38 @@ public:
 
     explicit SettingsManager(std::unique_ptr<Settings> settings) : _settings(std::move(settings)) {}
     
-    void Reset(std::unique_ptr<Settings> settings) { _settings.reset(settings.release()); }
+    explicit SettingsManager(const ArgParser& parser) : _settings(std::move(parser.getSettings())) {}
 
     /**
-    * @brief Generates connection string
-    * @details In this case, for now, connection string to Postgre DB only
-    */
-    std::string GetConnectionOptions() const
+     * @brief Method to set new Settings.
+     * @details Sets a new collection of the parameters.
+     *          Note: Changes the owner of the argument resource
+     * @param std::unique_ptr<Settings> settings
+     */
+    void reset(std::unique_ptr<Settings> settings) { _settings = std::move(settings); }
+
+    /**
+     * @brief Method to generate connection string
+     * @details It generates string to connect to the DB.
+     *          In this case, for now, connection string to Postgre DB only.
+     *          In the future, this may be a method template for connecting to different DB.
+     */
+    std::string getConnectionOptions() const
     {
-        return std::string("dbname="    + _settings->GetValue(ParamType::DBName) +
-                           " hostaddr=" + _settings->GetValue(ParamType::HostAddress) +
-                           " password=" + _settings->GetValue(ParamType::DBPassword) +
-                           " port="     + _settings->GetValue(ParamType::DBPort) +
-                           " user="     + _settings->GetValue(ParamType::DBUser));
+        return std::string("dbname="    + _settings->getValue(ParamType::DBName) +
+                           " hostaddr=" + _settings->getValue(ParamType::HostAddress) +
+                           " password=" + _settings->getValue(ParamType::DBPassword) +
+                           " port="     + _settings->getValue(ParamType::DBPort) +
+                           " user="     + _settings->getValue(ParamType::DBUser));
     }
     
-    uint16_t GetServerPort() const
+    /**
+     * @brief Method to get a server port
+     * @details It provides a server port
+     */
+    uint16_t getServerPort() const
     {
-        return static_cast<uint16_t>(std::stoul(_settings->GetValue(ParamType::ServerPort)));
+        return static_cast<uint16_t>(std::stoul(_settings->getValue(ParamType::ServerPort)));
     }
 
 private:

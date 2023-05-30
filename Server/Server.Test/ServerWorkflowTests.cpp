@@ -4,7 +4,6 @@
 using namespace TestUtility;
 using TestUtility::MessageBody;
 using Server::Builder::SettingsManager;
-using Server::Builder::SettingsManager;
 
 TEST_CASE("Constructor of the ServerBuilder [ServerBuilder][Success]")
 {
@@ -20,7 +19,7 @@ TEST_CASE("SetRepoManager of the ServerBuilder [ServerBuilder][Success]")
     {
         ServerBuilder serverBuilder(std::make_unique<SettingsManager>());
 
-        CHECK_NOTHROW(serverBuilder.SetRepoManager(nullptr));
+        CHECK_NOTHROW(serverBuilder.setRepoManager(nullptr));
     }
 }
 
@@ -40,9 +39,10 @@ TEST_CASE("Server start up with bad port [Server][Failed]")
 {   
     using Server::Builder::SettingsManager;
 
-    TestServer testServer = ServerBuilder(std::make_unique<SettingsManager>(configArgs.getSettings()))                                
-                                          .SetRepoManager(getTestDatabase().release())
-                                          .MakeServer();
+     auto      settingsManager = std::make_unique<SettingsManager>(configArgs.getSettings());
+    TestServer testServer      = ServerBuilder(std::move(settingsManager))
+                                          .setRepoManager(getTestDatabase())
+                                          .makeServer();
 
     SECTION("Comparison of the specified port with the expected bad port")
     {

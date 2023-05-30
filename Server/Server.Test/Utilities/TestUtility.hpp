@@ -80,12 +80,12 @@ struct ConfigArguments
      std::unique_ptr<Server::Builder::Settings> getSettings() const
     {
         auto result = std::make_unique<Server::Builder::Settings>();
-        (*result).SetValue(getServerPortArguments())
-                 .SetValue(getDatabaseArguments())
-                 .SetValue(getHostAddrArguments())
-                 .SetValue(getDatabasePortArguments())
-                 .SetValue(getDatabaseUserArguments())
-                 .SetValue(getDatabasePasswordArguments());
+        (*result).setValue(getServerPortArguments())
+                 .setValue(getDatabaseArguments())
+                 .setValue(getHostAddrArguments())
+                 .setValue(getDatabasePortArguments())
+                 .setValue(getDatabaseUserArguments())
+                 .setValue(getDatabasePasswordArguments());
         return result;
     }
 
@@ -351,9 +351,10 @@ inline auto makeTestServer() noexcept
 {
     using Server::Builder::SettingsManager;
 
-    TestServer testServer = ServerBuilder(std::make_unique<SettingsManager>(configArgs.getSettings()))
-                            .SetRepoManager(getTestDatabase().release())
-                            .MakeServer();
+    auto       settingsManager = std::make_unique<SettingsManager>(configArgs.getSettings());
+    TestServer testServer = ServerBuilder(std::move(settingsManager))
+                            .setRepoManager(getTestDatabase())
+                            .makeServer();
 
     return testServer;
 }

@@ -23,7 +23,7 @@ TEST_CASE("Reset method of the SettingsManager [SettingsManager][Success]")
         
         SettingsManager testSettingsManager(std::move(nullSettings));
 
-        CHECK_NOTHROW(testSettingsManager.Reset(std::move(someSettings))); 
+        CHECK_NOTHROW(testSettingsManager.reset(std::move(someSettings))); 
     }
 }
 
@@ -32,16 +32,16 @@ TEST_CASE("GetConnectionOptions method of the SettingsManager [SettingsManager][
     SECTION("Checking GetConnectionOptions line")
     {
         auto defaultSettings = std::make_unique<Settings>();
-        (*defaultSettings.get()).SetValue(std::make_pair(ParamType::DBPort, "DBPort"))
-                                .SetValue(std::make_pair(ParamType::DBName, "DBName"))
-                                .SetValue(std::make_pair(ParamType::HostAddress, "HostAddr"))
-                                .SetValue(std::make_pair(ParamType::DBUser, "DBUser"))
-                                .SetValue(std::make_pair(ParamType::DBPassword, "DBPass"));
+        (*defaultSettings.get()).setValue(std::make_pair(ParamType::DBPort, "DBPort"))
+                                .setValue(std::make_pair(ParamType::DBName, "DBName"))
+                                .setValue(std::make_pair(ParamType::HostAddress, "HostAddr"))
+                                .setValue(std::make_pair(ParamType::DBUser, "DBUser"))
+                                .setValue(std::make_pair(ParamType::DBPassword, "DBPass"));
 
         SettingsManager testSettingsManager(std::move(defaultSettings));
         std::string     checkString{"dbname=DBName hostaddr=HostAddr password=DBPass port=DBPort user=DBUser"};
 
-        REQUIRE(testSettingsManager.GetConnectionOptions() == checkString);
+        REQUIRE(testSettingsManager.getConnectionOptions() == checkString);
     }
 }
 
@@ -50,10 +50,10 @@ TEST_CASE("GetServerPort method of the SettingsManager [SettingsManager][Success
     SECTION("Checking GetServerPort return")
     {
         auto defaultSettings = std::make_unique<Settings>();
-        (*defaultSettings.get()).SetValue(std::make_pair(ParamType::ServerPort, "65001"));
+        (*defaultSettings.get()).setValue(std::make_pair(ParamType::ServerPort, "65001"));
         
         SettingsManager testSettingsManager(std::move(defaultSettings));
 
-        REQUIRE(testSettingsManager.GetServerPort() == 65001);
+        REQUIRE(testSettingsManager.getServerPort() == 65001);
     }
 }
