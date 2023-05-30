@@ -28,7 +28,7 @@ struct ChannelsRepository final : IChannelsRepository, AbstractPostgreRepository
 
     Utility::ChannelDeleteCode  deleteChannel(const Models::ChannelDeleteInfo& channel) override;
     Utility::ChannelCreateCodes createChannel(const Models::ChannelInfo& channel) override;
-    Utility::ChannelCreateCodes newCreateChannel(Models::Channel<>& channel) override;
+    Utility::ChannelCreateCodes newCreateChannel(const Models::Channel<>& channel) override;
 
     ~ChannelsRepository() override = default;
 };

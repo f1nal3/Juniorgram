@@ -145,7 +145,7 @@ struct IChannelsRepository : IMasterRepository
     virtual std::vector<uint64_t> getChannelSubscriptionList(uint64_t userID) = 0;
 
 
-    virtual Utility::ChannelCreateCodes newCreateChannel(Models::Channel<>& channel) = 0;
+    virtual Utility::ChannelCreateCodes newCreateChannel(const Models::Channel<>& channel) = 0;
 
     /**
     * @brief virtual destructor.

@@ -168,7 +168,7 @@ Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Models::Chann
     return Utility::ChannelDeleteCode::SUCCESS;
 }
 
-Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(Models::Channel<>& channel)
+Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const Models::Channel<>& channel)
 {
     using Models::ChannelData;
     

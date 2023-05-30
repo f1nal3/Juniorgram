@@ -32,7 +32,7 @@ public:
 
     std::string_view getModelName() const noexcept { return _modelName; }
 
-    std::string fieldName(TEnum anyEnum) noexcept
+    std::string fieldName(TEnum anyEnum)const noexcept
     {
         return { _fieldData[anyEnum].begin(),_fieldData[anyEnum].end()};
     }
@@ -79,8 +79,8 @@ private:
     size_t                   _amountOfFields;
 
 protected:
-    mutable Map<TEnum>                _data;
-    Map<TEnum,std::string_view>       _fieldData;
+    mutable Map<TEnum>                        _data;
+    mutable Map<TEnum,std::string_view>       _fieldData;
 
 };
 }  // namespace Models
