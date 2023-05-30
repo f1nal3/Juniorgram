@@ -3,10 +3,11 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <string_view>
 
 namespace Models
 {
-using FieldNames = std::vector<std::string>;
+using FieldNames = std::vector<std::string_view>;
 
 template <typename TKey>
 class Comparator
@@ -25,22 +26,22 @@ template <typename TEnum>
 class UnifiedModel
 {
 public:
-    UnifiedModel(const std::string& modelName, size_t amountFields): _modelName(modelName), _amountOfFields(amountFields)
+    UnifiedModel(std::string_view modelName, size_t amountFields): _modelName(modelName), _amountOfFields(amountFields)
     {
     }
 
-    const std::string& getModelName() const noexcept { return _modelName; }
+    std::string_view getModelName() const noexcept { return _modelName; }
 
-    const std::string& fieldName(TEnum anyEnum) const noexcept
+    const std::string& fieldName(TEnum anyEnum) noexcept
     {
-        return _fieldData[anyEnum];
+        return std::string{ _fieldData[anyEnum] };
     }
 
     std::string& operator[](TEnum anyEnum) const { return _data[anyEnum]; }
    
     virtual ~UnifiedModel() = default;
 
-    TEnum toEnum(const std::string& fieldName) const
+    TEnum toEnum(std::string_view fieldName) const
     {
         return std::find_if(_fieldData.begin(), _fieldData.end(), [&fieldName](auto pair)
                             {
@@ -57,8 +58,8 @@ protected:
         size_t counter{0};
         while (counter < _amountOfFields)
         {
-            _fieldData.insert(std::pair<TEnum, std::string>(this->getNumEnum(counter),
-                                                                  *(fieldNames.begin() + counter)));
+            _fieldData.insert(std::pair<TEnum, std::string_view>(this->getNumEnum(counter),
+                                                                   fieldNames[counter]));
 
             _data.insert(std::pair<TEnum, std::string>(this->getNumEnum(counter), std::string{}));
             ++counter;
@@ -74,12 +75,12 @@ private:
     virtual TEnum getNumEnum(size_t num) const = 0;
   
 private:
-    std::string              _modelName;
+    std::string_view         _modelName;
     size_t                   _amountOfFields;
 
 protected:
-    mutable Map<TEnum>       _data;
-    mutable Map<TEnum>       _fieldData;
+    mutable Map<TEnum>                _data;
+    Map<TEnum,std::string_view>       _fieldData;
 
 };
 }  // namespace Models

@@ -21,7 +21,7 @@ template<typename TEnum = UserInfo>
 class User : public UnifiedModel<TEnum>
 {
 public:
-    User(const std::string& modelName = "users", const Models::FieldNames& names = { "id", "email", "login", "password_hash" })
+    User(std::string_view modelName = "users", const Models::FieldNames& names = { "id", "email", "login", "password_hash" })
         : UnifiedModel<TEnum>(modelName, names.size())
     {     
         this->init(names);
@@ -34,6 +34,7 @@ public:
                           this->_data[pair.first] = pair.second;
                       });
     }
+protected:
 
     UserInfo getNumEnum(size_t num) const final
     {
@@ -69,7 +70,7 @@ template<typename TEnum = ChannelData>
 class Channel : public UnifiedModel<ChannelData>
 {
 public:
-    Channel(const std::string& modelName = "channels", const Models::FieldNames& names = { "id", "channel_name", "creator_id", "user_limit" })
+    Channel(std::string_view modelName = "channels", const Models::FieldNames& names = { "id", "channel_name", "creator_id", "user_limit" })
         :UnifiedModel<ChannelData>(modelName, names.size())
     {
         this->init(names);

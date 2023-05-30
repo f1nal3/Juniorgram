@@ -16,9 +16,9 @@ public:
     
 public:
     template <typename TEnum, class TResult = pqxx::const_result_iterator>
-    void fill(const TResult& responce, Models::UnifiedModel<TEnum>* model) const
+    void fill(const TResult& response, Models::UnifiedModel<TEnum>* model) const
     {
-        for (auto respIter = responce.begin(); respIter != responce.end(); ++respIter)
+        for (auto respIter = response.begin(); respIter != response.end(); ++respIter)
         {
             (*model)[model->toEnum(respIter.name())] = respIter.template as<std::string>();
         }

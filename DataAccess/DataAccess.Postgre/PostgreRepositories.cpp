@@ -215,7 +215,7 @@ Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(Models::Channel
         ->Where(channel.fieldName(ChannelData::CHANNEL_NAME)+ " = '" + channel[ChannelData::CHANNEL_NAME] + "'")
         ->execute();
 
-    filler.fill<ChannelData>(newChannelID->begin(), &channel);
+    filler.fill(newChannelID->begin(), &channel);
     
 
     std::tuple SubscribNewChannelData{ std::pair{"user_id", channel[ChannelData::CREATOR_ID]},
