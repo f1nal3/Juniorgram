@@ -27,11 +27,9 @@ public:
 
     explicit User(const std::vector<std::pair<TEnum, std::string>>& insertData) : User()
     {
-        std::for_each(insertData.begin(), insertData.end(), [this](const auto& pair)
-                      {
-                          this->_data[pair.first] = pair.second;
-                      });
+        this->fillStartFields(insertData);
     }
+
 protected:
 
     UserInfo getNumEnum(size_t num) const final
@@ -64,20 +62,17 @@ class Channel : public UnifiedModel<ChannelData>
 {
 public:
     Channel(std::string_view modelName = "channels", const Models::FieldNames& names = { "id", "channel_name", "creator_id", "user_limit" })
-        :UnifiedModel<ChannelData>(modelName, names.size())
+        :UnifiedModel<TEnum>(modelName, names.size())
     {
         this->init(names);
     }
 
     /*
-    * @details Possibly will be moved into sepate method in UnifiedModel or smth like that because it consists only of templates, so it may be used by any model
+    * @details Used to create an object and fill it with data at the same time, useful at server side when transfering raw data to the object
     */
     explicit Channel(const std::vector<std::pair<TEnum, std::string>>& insertData) : Channel()
     {
-        std::for_each(insertData.begin(), insertData.end(), [this](const auto& pair)
-                      {
-                          this->_data[pair.first] = pair.second;
-                      });
+        this->fillStartFields(insertData);
     }
 
 protected:

@@ -29,7 +29,7 @@ public:
     UnifiedModel(std::string_view modelName, size_t amountFields): _modelName(modelName), _amountOfFields(amountFields)
     {
     }
-
+    
     std::string_view getModelName() const noexcept { return _modelName; }
 
     std::string fieldName(TEnum anyEnum)const noexcept
@@ -53,6 +53,15 @@ public:
     }
 
 protected:
+    void fillStartFields(const std::vector<std::pair<TEnum, std::string>>& insertData)
+    {
+        std::for_each(insertData.begin(), insertData.end(), [this](const auto& pair)
+                      {
+                          this->_data[pair.first] = pair.second;
+                      });
+    }
+
+        
     void init(const FieldNames& fieldNames)
     {
         size_t counter{0};
@@ -78,7 +87,7 @@ private:
     std::string_view         _modelName;
     size_t                   _amountOfFields;
 
-protected:
+private:
     mutable Map<TEnum>                        _data;
     mutable Map<TEnum,std::string_view>       _fieldData;
 
