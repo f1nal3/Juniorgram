@@ -116,26 +116,25 @@ TEST_CASE("ChannelModel", "Check how easily we can use this model in PGRepos")
 
         SECTION("An attempt to imitate createChannel method")
         {
+            DataAccess::ChannelsRepository testChannelRepos(DataAccess::PostgreAdapter::Instance());
+
             SECTION("Bad attempt")
             {
-                auto findIdChannel = testTable->Select()->
-                    columns({ testChannel.fieldName(ChannelData::CHANNEL_NAME) })->
-                    Where(testChannel.fieldName(ChannelData::CHANNEL_NAME) + " = '" + testChannel[ChannelData::CHANNEL_NAME] + "'")->
-                    execute();
+                Models::Channel testBadChannel({
+                    { ChannelData::CREATOR_ID, "3"},
+                    { ChannelData::CHANNEL_NAME, testChannel[ChannelData::CHANNEL_NAME]},
+                    { ChannelData::CHANNEL_USER_LIMIT, "10000"} });
 
-                REQUIRE(findIdChannel.has_value()); // Expands to end of function due to existing of channel
+                REQUIRE(testChannelRepos.newCreateChannel(testBadChannel) == Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED);
             }
 
             SECTION("Good attempt", "Via new method")
-            {
-                
+            {                
                 Models::Channel testNewChannel({
                     { ChannelData::CREATOR_ID, "3"},
                     { ChannelData::CHANNEL_NAME, "newTestChannel" },
                     { ChannelData::CHANNEL_USER_LIMIT, "10000"} });
-
-
-                DataAccess::ChannelsRepository testChannelRepos(DataAccess::PostgreAdapter::Instance());
+               
                 REQUIRE(testChannelRepos.newCreateChannel(testNewChannel) == Utility::ChannelCreateCodes::SUCCESS);
             }
         }

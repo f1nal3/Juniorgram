@@ -38,12 +38,10 @@ public:
     }
 
     std::string& operator[](TEnum anyEnum) const { return _data[anyEnum]; }
-   
-    virtual ~UnifiedModel() = default;
-
+     
     TEnum toEnum(std::string_view fieldName) const
     {
-        return std::find_if(_fieldData.begin(), _fieldData.end(), [&fieldName](auto pair)
+        return std::find_if(_fieldData.begin(), _fieldData.end(), [&fieldName](const auto& pair)
                             {
                                 if (pair.second == fieldName)
                                     return true;
@@ -51,6 +49,8 @@ public:
                                     return false;
                             })->first;
     }
+
+    virtual ~UnifiedModel() = default;
 
 protected:
     void fillStartFields(const std::vector<std::pair<TEnum, std::string>>& insertData)
@@ -60,8 +60,7 @@ protected:
                           this->_data[pair.first] = pair.second;
                       });
     }
-
-        
+      
     void init(const FieldNames& fieldNames)
     {
         size_t counter{0};
@@ -87,9 +86,7 @@ private:
     std::string_view         _modelName;
     size_t                   _amountOfFields;
 
-private:
     mutable Map<TEnum>                        _data;
     mutable Map<TEnum,std::string_view>       _fieldData;
-
 };
 }  // namespace Models

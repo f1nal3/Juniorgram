@@ -31,7 +31,6 @@ public:
     }
 
 protected:
-
     UserInfo getNumEnum(size_t num) const final
     {
         switch (num)
@@ -58,7 +57,7 @@ enum class ChannelData : uint16_t
 };
 
 template<typename TEnum = ChannelData>
-class Channel : public UnifiedModel<ChannelData>
+class Channel : public UnifiedModel<TEnum>
 {
 public:
     Channel(std::string_view modelName = "channels", const Models::FieldNames& names = { "id", "channel_name", "creator_id", "user_limit" })
