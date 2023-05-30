@@ -32,9 +32,9 @@ public:
 
     std::string_view getModelName() const noexcept { return _modelName; }
 
-    const std::string& fieldName(TEnum anyEnum) noexcept
+    std::string fieldName(TEnum anyEnum) noexcept
     {
-        return std::string{ _fieldData[anyEnum] };
+        return { _fieldData[anyEnum].begin(),_fieldData[anyEnum].end()};
     }
 
     std::string& operator[](TEnum anyEnum) const { return _data[anyEnum]; }
