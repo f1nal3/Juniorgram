@@ -14,17 +14,16 @@ class PGModelFiller
 public:
     PGModelFiller() = default;
     
-public:
     template <typename TEnum, class TResult = pqxx::const_result_iterator>
     void fill(const TResult& response, Models::UnifiedModel<TEnum>* model) const
     {
-        for (auto respIter = response.begin(); respIter != response.end(); ++respIter)
-        {
-            (*model)[model->toEnum(respIter.name())] = respIter.template as<std::string>();
-        }
+        if(!std::empty(response))
+            for (auto respIter = std::begin(response); respIter != std::end(response); ++respIter)
+            {
+                (*model)[model->toEnum(respIter.name())] = respIter.template as<std::string>();
+            }
     }
 
-public:
     ~PGModelFiller() = default;
 };
 }  // namespace DataAccess

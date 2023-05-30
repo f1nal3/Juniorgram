@@ -1,14 +1,12 @@
 #pragma once
 
 #include "UnifyedModel.hpp"
-#include <FileLogger.hpp>
+
 #include <map>
 #include <utility>
 
 namespace Models
 {
-using Base::Logger::FileLogger;
-
 enum class UserInfo : uint16_t
 {
     ID = 0,
@@ -47,12 +45,7 @@ protected:
             case 2:
                 return UserInfo::LOGIN;
             case 3:
-                return UserInfo::PASSHASH;
-            default:
-            {
-                FileLogger::getInstance().error("Undefined integer income");
-                return {};
-            }
+                return UserInfo::PASSHASH;           
         }
     }
 };
@@ -100,11 +93,6 @@ protected:
                 return ChannelData::CREATOR_ID;
             case 3:
                 return ChannelData::CHANNEL_USER_LIMIT;
-            default:
-            {
-                FileLogger::getInstance().error("Undefined integer income");
-                return {};
-            }
         }
     }
 };
