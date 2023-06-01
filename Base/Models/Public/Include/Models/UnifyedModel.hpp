@@ -5,9 +5,12 @@
 #include <string>
 #include <string_view>
 
+#include <DataAccess/SQLStatements.hpp>
+
 namespace Models
 {
 using FieldNames = std::vector<std::string_view>;
+using InsertData = std::vector<std::pair<std::string_view, std::string_view>>;
 
 template <typename TKey>
 class Comparator
@@ -19,12 +22,12 @@ public:
     }
 };
 
-template <typename TKey, typename TData = std::string, typename Comp = Comparator<TKey>>
-using Map = std::map<TKey, TData, Comp>;
+template <typename TKey, typename Comp = Comparator<TKey>>
+using Map = std::map<TKey, std::pair<std::string_view, std::string>, Comp>;
 
 template <typename TEnum>
 class UnifiedModel
-{
+{ 
 public:
     UnifiedModel(std::string_view modelName, size_t amountFields): _modelName(modelName), _amountOfFields(amountFields)
     {
@@ -34,20 +37,34 @@ public:
 
     std::string fieldName(TEnum anyEnum)const noexcept
     {
-        return { _fieldData[anyEnum].begin(),_fieldData[anyEnum].end()};
+        return { _data[anyEnum].first.begin(), _data[anyEnum].first.end() };
     }
 
-    std::string& operator[](TEnum anyEnum) const { return _data[anyEnum]; }
-     
+    std::string& operator[](TEnum anyEnum) const { return _data[anyEnum].second; }
+    
     TEnum toEnum(std::string_view fieldName) const
     {
-        return std::find_if(_fieldData.begin(), _fieldData.end(), [&fieldName](const auto& pair)
+        return std::find_if(_data.begin(), _data.end(), [&fieldName](const auto& pair)
                             {
-                                if (pair.second == fieldName)
+                                if (pair.second.first == fieldName)
                                     return true;
                                 else
                                     return false;
                             })->first;
+    }
+
+    InsertData makeColumnDataPair() const
+    {
+        InsertData pairs;
+        pairs.reserve(_amountOfFields);
+
+        std::for_each(_data.begin(), _data.end(), [&pairs](const auto& pair)
+                      {
+                          if (!std::empty(pair.second.second))
+                              pairs.emplace_back(pair.second);
+                      }
+        );
+        return pairs;
     }
 
     virtual ~UnifiedModel() = default;
@@ -57,21 +74,14 @@ protected:
     {
         std::for_each(insertData.begin(), insertData.end(), [this](const auto& pair)
                       {
-                          this->_data[pair.first] = pair.second;
+                          this->_data[pair.first].second = pair.second;
                       });
     }
       
     void init(const FieldNames& fieldNames)
-    {
-        size_t counter{0};
-        while (counter < _amountOfFields)
-        {
-            _fieldData.insert(std::pair<TEnum, std::string_view>(this->getNumEnum(counter),
-                                                                   fieldNames[counter]));
-
-            _data.insert(std::pair<TEnum, std::string>(this->getNumEnum(counter), std::string{}));
-            ++counter;
-        }
+    {       
+        for (size_t counter{ 0 }; counter < _amountOfFields; ++counter)
+            _data.insert({ this->getNumEnum(counter), {fieldNames[counter], std::string{}} });
     }
 
 private:
@@ -86,7 +96,6 @@ private:
     std::string_view         _modelName;
     size_t                   _amountOfFields;
 
-    mutable Map<TEnum>                        _data;
-    mutable Map<TEnum,std::string_view>       _fieldData;
+    mutable Map <TEnum>      _data;
 };
 }  // namespace Models

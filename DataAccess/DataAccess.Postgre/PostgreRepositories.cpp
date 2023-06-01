@@ -192,12 +192,7 @@ Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const Models::C
         return Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED;
     }
 
-    std::tuple channelData{ std::pair{channel.fieldName(ChannelData::CHANNEL_NAME), channel[ChannelData::CHANNEL_NAME]},
-                            std::pair{channel.fieldName(ChannelData::CREATOR_ID), channel[ChannelData::CREATOR_ID]},
-                            std::pair{channel.fieldName(ChannelData::CHANNEL_USER_LIMIT), channel[ChannelData::CHANNEL_USER_LIMIT]}
-    };
-
-    auto result = _pTable->Insert()->columns(channelData)->execute();
+    auto result = _pTable->Insert()->columns(&channel)->execute();
 
     if (result.has_value())
     {
