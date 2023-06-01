@@ -42,7 +42,10 @@ protected:
             case 2:
                 return UserInfo::LOGIN;
             case 3:
-                return UserInfo::PASSHASH;           
+                return UserInfo::PASSHASH;
+            default:
+                Base::Logger::FileLogger::getInstance().
+                    error("Overrided method does not deal with this amount of fields given in constructor");
         }
     }
 };
@@ -87,6 +90,9 @@ protected:
                 return ChannelData::CREATOR_ID;
             case 3:
                 return ChannelData::CHANNEL_USER_LIMIT;
+            default:
+                Base::Logger::FileLogger::getInstance().
+                    error("Overrided method does not deal with this amount of fields given in constructor");
         }
     }
 };

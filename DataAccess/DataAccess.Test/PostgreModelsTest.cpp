@@ -138,6 +138,5 @@ TEST_CASE("ChannelModel", "Check how easily we can use this model in PGRepos")
                 REQUIRE(testChannelRepos.newCreateChannel(testNewChannel) == Utility::ChannelCreateCodes::SUCCESS);
             }
         }
-    };
-
+    }
 };
