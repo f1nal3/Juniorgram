@@ -4,6 +4,7 @@
 
 #include "FileLogger.hpp"
 #include "Logger/ILogger.hpp"
+#include <Models/Models.hpp>
 
 namespace Server
 {
@@ -662,13 +663,13 @@ std::optional<Network::MessageResult> Server::channelDeleteRequest(std::shared_p
 
 std::optional<Network::MessageResult> Server::channelCreateRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
-    Models::ChannelInfo newChannelInfo;
+    using Models::ChannelData;
 
-    auto channelName            = std::any_cast<std::string>(message.mBody);
-    newChannelInfo._creatorID   = client->getUserID();
-    newChannelInfo._channelName = channelName;
+    Models::Channel<> newChannelInfo({
+                                   {ChannelData::CHANNEL_NAME, std::any_cast<std::string>(message.mBody)},
+                                   {ChannelData::CREATOR_ID, std::to_string(client->getUserID())}});
 
-    auto futureResult = _repoManager->pushRequest(&IChannelsRepository::createChannel, fmt(newChannelInfo));
+    auto futureResult = _repoManager->pushRequest(&IChannelsRepository::newCreateChannel, fmt(newChannelInfo));
 
     Message answerForClient;
     answerForClient.mHeader.mMessageType = Message::MessageType::ChannelCreateAnswer;
