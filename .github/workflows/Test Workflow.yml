@@ -75,6 +75,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: juniorgram_executables_${{matrix.BUILD_TYPE}}
+      
+      - name: Prepare Database
+        run: psql --username=postgres --host=localhost -d testdb -f ./Juniorgram/Utility/SQL/Database_Scheme.sql
         
       - name: Run tests
         run: |
