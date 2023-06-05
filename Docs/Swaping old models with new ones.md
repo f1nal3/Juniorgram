@@ -6,7 +6,7 @@
 
 ### 1.1 If this class does not exist.
 
-> You **must** know the **name** of the model(table), **how many fields** it has and their names
+> You __**must**__ know the __**name**__ of the model(table), __**how many fields**__ it has and their names
 
 > While you are creating the model, everything you write should be located in file mentioned above
 
@@ -49,9 +49,8 @@ public:
 
 - After that, inside **protected** scope, override method **getNumEnum**
 - Syntax -> TEnum getNumEnum(size_t) const final
-- If you make every
 
-> You must make the order of names that you put inside default constructor and switch below totally equal, the amount likewise
+> You __**must**__ make the __**order of names**__ that you put inside __**default constructor and switch**__ below totally __**equal**__, the amount likewise
 
 ```
 protected:
@@ -93,11 +92,10 @@ After:
 > Also you must change logic inside Mock, but that's simple one, rules will be described below
 
 
-## 3. Changing the repository method
+## 3. Changing the repository method. Main improvements that you can do
 
-### Main improvements:
 
-- You don't need to write the hard-coded name of the table:
+### - You don't need to write the hard-coded name of the table:
 
 Before:
 ```
@@ -109,7 +107,8 @@ After:
     _pTable->changeTable(channel.getModelName());
 ```
 
-- No more raw strings inside QueryBuilder:
+
+### - No more raw strings inside QueryBuilder methods:
 
 Before:
 ```
@@ -127,7 +126,8 @@ After:
         ->execute();
 ```
 
-- No more any type of casts inside method logic
+
+### - No more any type of casts inside method logic
 
 > This task has moved to the separate class - ModelFiller (right now only PGFiller)
 > This class knows how to cast and what to cast, and fills model with it
@@ -146,7 +146,8 @@ After:
 > We use __returningObjectName__->begin() only when we need to fill only one model or returning value consists of one iterator
 > Otherwise create a loop to fill a vector of models
 
-- No more tuples inside method logic
+
+### - No more tuples inside method logic
 
 > Insert method can use the object itself to build the query
 
