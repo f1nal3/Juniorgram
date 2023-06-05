@@ -32,8 +32,6 @@ TEST_CASE("Check model usage", "[dummy]")
                                     {UserInfo::LOGIN,"aboba3"},
                                     {UserInfo::PASSHASH,"kindahash3"} });
 
-
-
         auto responce = testTable->Insert()->columns(&testUser)->execute();
 
         REQUIRE_FALSE(responce.has_value());

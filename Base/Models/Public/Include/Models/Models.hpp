@@ -126,9 +126,9 @@ protected:
         switch (num)
         {
             case 0: 
-                return UserChannelsData::CHANNEL_ID;
-            case 1: 
                 return UserChannelsData::USER_ID;
+            case 1: 
+                return UserChannelsData::CHANNEL_ID;
             default:
                 Base::Logger::FileLogger::getInstance().
                     error("Overrided method does not deal with this amount of fields given in constructor");
