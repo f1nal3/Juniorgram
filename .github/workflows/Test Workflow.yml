@@ -51,6 +51,12 @@ jobs:
       with:
         name: juniorgram_executables_${{matrix.BUILD_TYPE}}
         path: ./build/bin/
+
+    - name: Table script
+      uses: actions/upload-artifact@v2
+      with:
+        name: script
+        path: ./Utility/SQL/Database_Scheme.sqls
   
   test:
     runs-on: ubuntu-latest
@@ -73,11 +79,9 @@ jobs:
     steps:
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v3
-        with:
-          name: juniorgram_executables_${{matrix.BUILD_TYPE}}
       
       - name: Prepare Database
-        run: psql --username=postgres --host=localhost -d testdb -f ./Juniorgram/Utility/SQL/Database_Scheme.sql
+        run: psql --username=postgres --host=localhost -d testdb -f ./Database_Scheme.sql
         
       - name: Run tests
         run: |
