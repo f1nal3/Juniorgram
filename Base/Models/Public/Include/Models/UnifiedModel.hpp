@@ -33,7 +33,7 @@ public:
     {
     }
     
-    std::string_view getModelName() const noexcept { return _modelName; }
+    const char* getModelName() const noexcept { return _modelName.data(); }
 
     std::string resolveName(TEnum anyEnum)const noexcept
     {

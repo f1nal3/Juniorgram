@@ -180,7 +180,7 @@ Utility::ChannelCreateCodes MockChannelsRepository::newCreateChannel(const Model
 {
     using Models::New::ChannelData;
 
-    if (auto query = _mockQuery->SelectRepoAndQueryPush("channels",
+    if (auto query = _mockQuery->SelectRepoAndQueryPush(channel.getModelName(),
                                                         TableChannelRepository::ChanneName, channel[ChannelData::CHANNEL_NAME]);
         channel[ChannelData::CHANNEL_NAME] != "")
     {

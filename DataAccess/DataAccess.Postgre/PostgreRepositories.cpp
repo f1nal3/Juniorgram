@@ -174,7 +174,7 @@ Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const Models::N
     using Models::New::UserChannelsData;
     PGModelFiller filler;
 
-    _pTable->changeTable(channel.getModelName().data());
+    _pTable->changeTable(channel.getModelName());
 
     auto findChannel = _pTable->Select()
         ->columns({ channel.resolveName(ChannelData::CHANNEL_NAME)})
@@ -182,28 +182,12 @@ Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const Models::N
         ->execute();
 
     if (findChannel.has_value())
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "Creating channel '" + channel[ChannelData::CHANNEL_NAME] +
-            "' failed since this channel exists\n",
-            Base::Logger::LogLevel::INFO
-        );
-        return Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED;
-    }
+        return Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED;   
 
     auto result = _pTable->Insert()->columns(&channel)->execute();
 
     if (result.has_value())
-    {
-        Base::Logger::FileLogger::getInstance().log
-        (
-            "Creating channel '" + channel[ChannelData::CHANNEL_NAME] +
-            "' failed due to error with adding in channels table\n",
-            Base::Logger::LogLevel::ERR
-        );
         return Utility::ChannelCreateCodes::FAILED;
-    }
 
     auto newChannelID = _pTable->Select()
         ->columns({channel.resolveName(ChannelData::CHANNEL_ID)})
@@ -213,19 +197,12 @@ Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const Models::N
     filler.fill(newChannelID->begin(), &channel);
     
     Models::New::UserChannels userChannels({
-        {UserChannelsData::USER_ID,channel[ChannelData::CREATOR_ID]},
+        {UserChannelsData::USER_ID, channel[ChannelData::CREATOR_ID]},
         {UserChannelsData::CHANNEL_ID, channel[ChannelData::CHANNEL_ID]}});
 
-    _pTable->changeTable(userChannels.getModelName().data());
+    _pTable->changeTable(userChannels.getModelName());
 
     _pTable->Insert()->columns(&userChannels)->execute();
-
-    Base::Logger::FileLogger::getInstance().log
-    (
-        std::string("[channel id: " + channel[ChannelData::CHANNEL_ID] +
-                    "] Creating channel was successful\n"),
-        Base::Logger::LogLevel::INFO
-    );
 
     return Utility::ChannelCreateCodes::SUCCESS;
 }
