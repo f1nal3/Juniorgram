@@ -1,11 +1,11 @@
 #pragma once
 
-#include "UnifyedModel.hpp"
+#include "UnifiedModel.hpp"
 
 #include <map>
 #include <utility>
 
-namespace Models
+namespace Models::New
 {
 enum class UserInfo : uint16_t
 {
@@ -50,7 +50,6 @@ protected:
     }
 };
 
-
 enum class ChannelData : uint16_t
 {
     CHANNEL_ID = 0,
@@ -60,7 +59,7 @@ enum class ChannelData : uint16_t
 };
 
 template<typename TEnum = ChannelData>
-class Channel : public UnifiedModel<TEnum>
+class Channel: public UnifiedModel<TEnum>
 {
 public:
     Channel(std::string_view modelName = "channels", const Models::FieldNames& names = { "id", "channel_name", "creator_id", "user_limit" })
@@ -90,6 +89,46 @@ protected:
                 return ChannelData::CREATOR_ID;
             case 3:
                 return ChannelData::CHANNEL_USER_LIMIT;
+            default:
+                Base::Logger::FileLogger::getInstance().
+                    error("Overrided method does not deal with this amount of fields given in constructor");
+        }
+    }
+};
+
+enum class UserChannelsData
+{
+    USER_ID,
+    CHANNEL_ID
+};
+
+template<typename TEnum = UserChannelsData>
+class UserChannels: public UnifiedModel<TEnum>
+{
+public:
+    UserChannels(std::string_view modelName = "user_channels", const Models::FieldNames& names = { "user_id", "channel_id" })
+        :UnifiedModel<TEnum>(modelName, names.size())
+    {
+        this->init(names);
+    }
+
+    /*
+    * @details Used to create an object and fill it with data at the same time, useful at server side when transfering raw data to the object
+    */
+    explicit UserChannels(const std::vector<std::pair<TEnum, std::string>>& insertData) : UserChannels()
+    {
+        this->fillStartFields(insertData);
+    }
+
+protected:
+    UserChannelsData getNumEnum(size_t num) const final
+    {
+        switch (num)
+        {
+            case 0: 
+                return UserChannelsData::CHANNEL_ID;
+            case 1: 
+                return UserChannelsData::USER_ID;
             default:
                 Base::Logger::FileLogger::getInstance().
                     error("Overrided method does not deal with this amount of fields given in constructor");
