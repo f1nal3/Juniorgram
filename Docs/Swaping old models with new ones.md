@@ -6,7 +6,7 @@
 
 ### 1.1 If this class does not exist.
 
-> You __**must**__ know the __**name**__ of the model(table), __**how many fields**__ it has and their names
+> You ***must*** know the ***name*** of the model(table), ***how many fields*** it has and their names
 
 > While you are creating the model, everything you write should be located in file mentioned above
 
@@ -50,7 +50,7 @@ public:
 - After that, inside **protected** scope, override method **getNumEnum**
 - Syntax -> TEnum getNumEnum(size_t) const final
 
-> You __**must**__ make the __**order of names**__ that you put inside __**default constructor and switch**__ below totally __**equal**__, the amount likewise
+> You ***must*** make the ***order of names*** that you put inside ***default constructor and switch*** below totally ***equal***, the amount likewise
 
 ```
 protected:
