@@ -90,4 +90,4 @@ jobs:
           chmod +x ./$i
           ./$i -s
           done
-        working-directory: ./test/
+        working-directory: ./juniorgram_executables_${{matrix.BUILD_TYPE}}/test/
