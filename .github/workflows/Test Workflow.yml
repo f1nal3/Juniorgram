@@ -56,7 +56,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: script
-        path: ./Utility/SQL/Database_Scheme.sqls
+        path: ./Utility/SQL/Database_Scheme.sql
   
   test:
     runs-on: ubuntu-latest
@@ -81,7 +81,7 @@ jobs:
         uses: actions/download-artifact@v3
       
       - name: Prepare Database
-        run: psql --username=postgres --host=localhost -d testdb -f ./Database_Scheme.sql
+        run: psql --username=postgres --host=localhost -d testdb -f ./script/Database_Scheme.sql
         
       - name: Run tests
         run: |
