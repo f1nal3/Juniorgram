@@ -663,9 +663,9 @@ std::optional<Network::MessageResult> Server::channelDeleteRequest(std::shared_p
 
 std::optional<Network::MessageResult> Server::channelCreateRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
-    using Models::ChannelData;
+    using Models::New::ChannelData;
 
-    Models::Channel<> newChannelInfo({
+    Models::New::Channel<> newChannelInfo({
                                    {ChannelData::CHANNEL_NAME, std::any_cast<std::string>(message.mBody)},
                                    {ChannelData::CREATOR_ID, std::to_string(client->getUserID())}});
 

@@ -8,7 +8,7 @@
 #include "Utility/SQLUtility.hpp"
 #include "Utility/JGExceptions.hpp"
 #include "FileLogger.hpp"
-#include <Models/UnifyedModel.hpp>
+#include <Models/UnifiedModel.hpp>
 
 namespace DataAccess
 {

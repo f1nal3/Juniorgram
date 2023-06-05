@@ -168,17 +168,17 @@ Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Models::Chann
     return Utility::ChannelDeleteCode::SUCCESS;
 }
 
-Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const Models::Channel<>& channel)
+Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const Models::New::Channel<>& channel)
 {
-    using Models::ChannelData;
-    
+    using Models::New::ChannelData;
+    using Models::New::UserChannelsData;
     PGModelFiller filler;
 
-    _pTable->changeTable("channels");
+    _pTable->changeTable(channel.getModelName().data());
 
     auto findChannel = _pTable->Select()
-        ->columns({ "channel_name" })
-        ->Where("channel_name = '" + channel[ChannelData::CHANNEL_NAME] + "'")
+        ->columns({ channel.resolveName(ChannelData::CHANNEL_NAME)})
+        ->Where(channel.resolveName(ChannelData::CHANNEL_NAME)+ "= '" + channel[ChannelData::CHANNEL_NAME] + "'")
         ->execute();
 
     if (findChannel.has_value())
@@ -206,18 +206,19 @@ Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const Models::C
     }
 
     auto newChannelID = _pTable->Select()
-        ->columns({channel.fieldName(ChannelData::CHANNEL_ID)})
-        ->Where(channel.fieldName(ChannelData::CHANNEL_NAME)+ " = '" + channel[ChannelData::CHANNEL_NAME] + "'")
+        ->columns({channel.resolveName(ChannelData::CHANNEL_ID)})
+        ->Where(channel.resolveName(ChannelData::CHANNEL_NAME)+ " = '" + channel[ChannelData::CHANNEL_NAME] + "'")
         ->execute();
 
     filler.fill(newChannelID->begin(), &channel);
     
+    Models::New::UserChannels userChannels({
+        {UserChannelsData::USER_ID,channel[ChannelData::CREATOR_ID]},
+        {UserChannelsData::CHANNEL_ID, channel[ChannelData::CHANNEL_ID]}});
 
-    std::tuple SubscribNewChannelData{ std::pair{"user_id", channel[ChannelData::CREATOR_ID]},
-                                      std::pair{"channel_id", channel[ChannelData::CHANNEL_ID]}};
+    _pTable->changeTable(userChannels.getModelName().data());
 
-    _pTable->changeTable("user_channels");
-    _pTable->Insert()->columns(SubscribNewChannelData)->execute();
+    _pTable->Insert()->columns(&userChannels)->execute();
 
     Base::Logger::FileLogger::getInstance().log
     (

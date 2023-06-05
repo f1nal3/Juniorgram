@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <map>
 #include <string>
-#include <Models/UnifyedModel.hpp>
+#include <Models/UnifiedModel.hpp>
 
 
 namespace DataAccess

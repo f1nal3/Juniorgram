@@ -176,9 +176,9 @@ Utility::ChannelDeleteCode MockChannelsRepository::deleteChannel(const ChannelDe
     return Utility::ChannelDeleteCode::FAILED;
 }
 
-Utility::ChannelCreateCodes MockChannelsRepository::newCreateChannel(const Models::Channel<>& channel)
+Utility::ChannelCreateCodes MockChannelsRepository::newCreateChannel(const Models::New::Channel<>& channel)
 {
-    using Models::ChannelData;
+    using Models::New::ChannelData;
 
     if (auto query = _mockQuery->SelectRepoAndQueryPush("channels",
                                                         TableChannelRepository::ChanneName, channel[ChannelData::CHANNEL_NAME]);

@@ -5,12 +5,14 @@
 #include "DataAccess.Postgre/PostgreRepositories.hpp"
 
 #include <Models/Models.hpp>
-#include <Models/UnifyedModel.hpp>
+#include <Models/UnifiedModel.hpp>
 
 #include "PGModelFiller.hpp"
 
-using Models::UserInfo;
-using Models::ChannelData;
+using Models::New::UserInfo;
+using Models::New::ChannelData;
+using Models::New::User;
+using Models::New::Channel;
 using DataAccess::PGModelFiller;
 using DataAccess::PostgreAdapter;
 using DataAccess::PGQueryBuilder;
@@ -21,37 +23,27 @@ TEST_CASE("Check model usage", "[dummy]")
     auto testTable = std::make_unique<PGQueryBuilder>("users", PostgreAdapter::Instance(DBOptions::test));
 
     PGModelFiller testFiller;
-
+    
     SECTION("Wanna add a user", "Kinda a 'userRegistration method in repos'")
     {
-        Models::User testUser({ {UserInfo::ID,"3"},
+        
+        User testUser({ {UserInfo::ID,"3"},
                                     {UserInfo::EMAIL,"aboba3@gmail.com"},
                                     {UserInfo::LOGIN,"aboba3"},
                                     {UserInfo::PASSHASH,"kindahash3"} });
 
-        std::tuple insertData{std::pair{testUser.fieldName(UserInfo::ID), testUser[UserInfo::ID]},
-                              std::pair{testUser.fieldName(UserInfo::EMAIL), testUser[UserInfo::EMAIL]},
-                              std::pair{testUser.fieldName(UserInfo::LOGIN), testUser[UserInfo::LOGIN]},
-                              std::pair{testUser.fieldName(UserInfo::PASSHASH), testUser[UserInfo::PASSHASH]}};
 
-        auto responce = testTable->Insert()->columns(insertData)->execute();
+
+        auto responce = testTable->Insert()->columns(&testUser)->execute();
 
         REQUIRE_FALSE(responce.has_value());
-
-        SECTION("Check const with mutable")
-        {
-            auto testLogin = "newAbobus";
-            testUser[UserInfo::LOGIN] = testLogin;
-
-            REQUIRE(testUser[UserInfo::LOGIN] == testLogin);
-        }
     }
 
     SECTION("We want to fill the table once", "Check how properly map fills")
     {
         SECTION("All fields at once")
         {
-            Models::User testUser;
+            User testUser;
             
             auto responce = testTable->Select()->columns({ "*" })->Where("id = '1'")->execute();
 
@@ -66,12 +58,12 @@ TEST_CASE("Check model usage", "[dummy]")
 
         SECTION("We define fields")
         {
-            Models::User testUser;
+            User testUser;
 
             auto responce = testTable->Select()->
-                columns({ testUser.fieldName(UserInfo::EMAIL)
-                        , testUser.fieldName(UserInfo::LOGIN) })->
-                Where(testUser.fieldName(UserInfo::ID) + " = '3'")->execute();
+                columns({ testUser.resolveName(UserInfo::EMAIL)
+                        , testUser.resolveName(UserInfo::LOGIN) })->
+                Where(testUser.resolveName(UserInfo::ID) + " = '3'")->execute();
            
             if (responce.has_value())
             {
@@ -92,15 +84,10 @@ TEST_CASE("ChannelModel", "Check how easily we can use this model in PGRepos")
     {
         std::string testChannelName = { "myFirstChannel" };
 
-        Models::Channel testChannel({
+        Channel testChannel({
             {ChannelData::CHANNEL_NAME, testChannelName},
             {ChannelData::CHANNEL_USER_LIMIT, "1000"},
             {ChannelData::CREATOR_ID, "3"} });
-
-        std::tuple insertData = {
-                std::pair{testChannel.fieldName(ChannelData::CHANNEL_NAME),testChannel[ChannelData::CHANNEL_NAME]},
-                std::pair{testChannel.fieldName(ChannelData::CREATOR_ID), testChannel[ChannelData::CREATOR_ID]},
-                std::pair{testChannel.fieldName(ChannelData::CHANNEL_USER_LIMIT),testChannel[ChannelData::CHANNEL_USER_LIMIT]} };
 
         SECTION("Model constructor test")
         {
@@ -109,7 +96,7 @@ TEST_CASE("ChannelModel", "Check how easily we can use this model in PGRepos")
         
         SECTION("Adding channel in DB")
         {          
-            auto result = testTable->Insert()->columns(insertData)->execute();
+            auto result = testTable->Insert()->columns(&testChannel)->execute();
 
             REQUIRE_FALSE(result.has_value());
         }
@@ -120,7 +107,7 @@ TEST_CASE("ChannelModel", "Check how easily we can use this model in PGRepos")
 
             SECTION("Bad attempt")
             {
-                Models::Channel testBadChannel({
+                Channel testBadChannel({
                     { ChannelData::CREATOR_ID, "3"},
                     { ChannelData::CHANNEL_NAME, testChannel[ChannelData::CHANNEL_NAME]},
                     { ChannelData::CHANNEL_USER_LIMIT, "10000"} });
@@ -130,7 +117,7 @@ TEST_CASE("ChannelModel", "Check how easily we can use this model in PGRepos")
 
             SECTION("Good attempt", "Via new method")
             {                
-                Models::Channel testNewChannel({
+                Channel testNewChannel({
                     { ChannelData::CREATOR_ID, "3"},
                     { ChannelData::CHANNEL_NAME, "newTestChannel" },
                     { ChannelData::CHANNEL_USER_LIMIT, "10000"} });
