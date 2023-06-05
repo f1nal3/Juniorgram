@@ -35,7 +35,7 @@ public:
     
     std::string_view getModelName() const noexcept { return _modelName; }
 
-    std::string fieldName(TEnum anyEnum)const noexcept
+    std::string resolveName(TEnum anyEnum)const noexcept
     {
         return { _data[anyEnum].first.begin(), _data[anyEnum].first.end() };
     }
