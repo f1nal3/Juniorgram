@@ -1,4 +1,4 @@
-project(TestLANGUAGES CXX)
+project(Test LANGUAGES CXX)
 
 set(TARGET Test)
 set(FOLDER Test)

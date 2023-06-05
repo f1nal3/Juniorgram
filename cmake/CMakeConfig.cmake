@@ -6,3 +6,6 @@ set(CMAKE_VERBOSE_MAKEFILE OFF)
 
 # For those VSCode users
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
+
+# Destination for installing test executables
+set(TEST_INSTALL_DIR ${CMAKE_BINARY_DIR}/bin/test)

@@ -16,3 +16,6 @@ target_include_directories(${TARGET} PRIVATE
         $<TARGET_PROPERTY:Base.Crypto.Static,SOURCE_DIR>/..)
 
 add_test(NAME ${OUTPUT_NAME} COMMAND ${TARGET})
+
+install(TARGETS ${TARGET}
+        RUNTIME DESTINATION ${TEST_INSTALL_DIR})
