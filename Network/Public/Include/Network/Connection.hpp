@@ -14,15 +14,10 @@
 #include <functional>
 #include <iostream>
 
-#include "Network/CompressionHandler.hpp"
-#include "Network/EncryptionHandler.hpp"
-#include "Network/Handler.hpp"
-#include "Network/Message.hpp"
-#include "Network/SerializationHandler.hpp"
 #include "Utility/SafeQueue.hpp"
 #include "Utility/Utility.hpp"
 #include "Utility/WarningSuppression.hpp"
-#include "YasSerializer.hpp"
+#include "CombiningHandlers.hpp"
 
 namespace Network
 {
@@ -88,9 +83,8 @@ private:
     {
         yas::shared_buffer bodyBuffer;
 
-        SerializationHandler handler;
-        handler.setNext(std::make_unique<CompressionHandler>())->setNext(std::make_unique<EncryptionHandler>());
-        MessageProcessingState result = handler.handleOutcomingMessage(_outcomingMessagesQueue.front(), bodyBuffer);
+        CombiningHandlers handler;
+        auto result =     handler(_outcomingMessagesQueue.front(), bodyBuffer);
 
         Network::Message::MessageHeader outcomingMessageHeader = _outcomingMessagesQueue.front().mHeader;
         outcomingMessageHeader.mBodySize                       = static_cast<uint32_t>(bodyBuffer.size);
@@ -227,9 +221,8 @@ private:
         const auto readBodyHandler = [this, buffer](std::error_code error) {
             if (!error)
             {
-                EncryptionHandler handler;
-                handler.setNext(std::make_unique<CompressionHandler>())->setNext(std::make_unique<SerializationHandler>());
-                MessageProcessingState result = handler.handleIncomingMessageBody(buffer, _messageBuffer);
+                CombiningHandlers handler;
+                auto result =     handler(buffer, _messageBuffer);
 
                 if (result == MessageProcessingState::SUCCESS)
                 {
