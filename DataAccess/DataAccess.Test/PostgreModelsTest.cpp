@@ -13,6 +13,7 @@ using Models::New::UserInfo;
 using Models::New::ChannelData;
 using Models::New::User;
 using Models::New::Channel;
+using Models::New::UserChannels;
 using DataAccess::PGModelFiller;
 using DataAccess::PostgreAdapter;
 using DataAccess::PGQueryBuilder;
@@ -49,7 +50,6 @@ TEST_CASE("Check model usage", "[dummy]")
             {
                 testFiller.fill(responce->begin(), &testUser);
                 
-
                 REQUIRE(testUser[UserInfo::ID] == "1");
             }
         }
@@ -74,54 +74,70 @@ TEST_CASE("Check model usage", "[dummy]")
     }
 };
 
-TEST_CASE("ChannelModel", "Check how easily we can use this model in PGRepos")
+TEST_CASE("Check how easily we can use models in PGRepos", "[Channel model]")
 {
     auto testTable = std::make_unique<PGQueryBuilder>("channels", PostgreAdapter::Instance(DBOptions::test));
 
-    SECTION("Creating channel")
+    std::string testChannelName = { "myFirstChannel" };
+
+    Channel testChannel({
+        {ChannelData::CHANNEL_NAME, testChannelName},
+        {ChannelData::CHANNEL_USER_LIMIT, "1000"},
+        {ChannelData::CREATOR_ID, "3"} });
+
+    SECTION("Model operator[] test")
     {
-        std::string testChannelName = { "myFirstChannel" };
+        REQUIRE(testChannel[ChannelData::CHANNEL_NAME] == testChannelName);
+    }
 
-        Channel testChannel({
-            {ChannelData::CHANNEL_NAME, testChannelName},
-            {ChannelData::CHANNEL_USER_LIMIT, "1000"},
-            {ChannelData::CREATOR_ID, "3"} });
+    SECTION("Adding channel in DB")
+    {
+        auto result = testTable->Insert()->columns(&testChannel)->execute();
 
-        SECTION("Model constructor test")
+        REQUIRE_FALSE(result.has_value());
+    }
+
+    SECTION("An attempt to imitate createChannel method")
+    {
+        DataAccess::ChannelsRepository testChannelRepos(DataAccess::PostgreAdapter::Instance());
+
+        SECTION("Bad attempt")
         {
-            REQUIRE(testChannel[ChannelData::CHANNEL_NAME] == testChannelName);
-        }
-        
-        SECTION("Adding channel in DB")
-        {          
-            auto result = testTable->Insert()->columns(&testChannel)->execute();
+            Channel testBadChannel({
+                { ChannelData::CREATOR_ID, "3"},
+                { ChannelData::CHANNEL_NAME, testChannel[ChannelData::CHANNEL_NAME]},
+                { ChannelData::CHANNEL_USER_LIMIT, "10000"} });
 
-            REQUIRE_FALSE(result.has_value());
+            REQUIRE(testChannelRepos.newCreateChannel(testBadChannel) == Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED);
         }
 
-        SECTION("An attempt to imitate createChannel method")
+        SECTION("Good attempt", "Via new method")
         {
-            DataAccess::ChannelsRepository testChannelRepos(DataAccess::PostgreAdapter::Instance());
+            Channel testNewChannel({
+                { ChannelData::CREATOR_ID, "3"},
+                { ChannelData::CHANNEL_NAME, "newTestChannel" },
+                { ChannelData::CHANNEL_USER_LIMIT, "10000"} });
 
-            SECTION("Bad attempt")
-            {
-                Channel testBadChannel({
-                    { ChannelData::CREATOR_ID, "3"},
-                    { ChannelData::CHANNEL_NAME, testChannel[ChannelData::CHANNEL_NAME]},
-                    { ChannelData::CHANNEL_USER_LIMIT, "10000"} });
+            REQUIRE(testChannelRepos.newCreateChannel(testNewChannel) == Utility::ChannelCreateCodes::SUCCESS);
 
-                REQUIRE(testChannelRepos.newCreateChannel(testBadChannel) == Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED);
-            }
-
-            SECTION("Good attempt", "Via new method")
-            {                
-                Channel testNewChannel({
-                    { ChannelData::CREATOR_ID, "3"},
-                    { ChannelData::CHANNEL_NAME, "newTestChannel" },
-                    { ChannelData::CHANNEL_USER_LIMIT, "10000"} });
-               
-                REQUIRE(testChannelRepos.newCreateChannel(testNewChannel) == Utility::ChannelCreateCodes::SUCCESS);
-            }
         }
     }
 };
+
+TEST_CASE("Going throw default in getNumEnum via bad constructor params", "[All models]")
+{
+    SECTION("Channel model")
+    {
+        REQUIRE_NOTHROW(Channel("Absolutely bad constructor, do not override default one", { "fakeFieldOne","fakeFieldTwo", "fakeFieldThree", "fakeFieldFour", "fakeFieldFive"}));
+    }
+
+    SECTION("User model")
+    {
+        REQUIRE_NOTHROW(User("Absolutely bad constructor, do not override default one", { "fakeFieldOne","fakeFieldTwo", "fakeFieldThree", "fakeFieldFour", "fakeFieldFive" }));
+    }
+
+    SECTION("UserChannels model")
+    {
+        REQUIRE_NOTHROW(UserChannels("Absolutely bad constructor, do not override default one", { "fakeFieldOne","fakeFieldTwo", "fakeFieldThree", "fakeFieldFour", "fakeFieldFive" }));
+    }
+}
