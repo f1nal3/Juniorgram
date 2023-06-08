@@ -33,8 +33,18 @@ public:
     {
     }
     
+    /*
+    * @brief Method getModelName
+    * @param None
+    * @return const char* -> name of the model (equal to name of the table)
+    */
     const char* getModelName() const noexcept { return _modelName.data(); }
 
+    /*
+    * @brief Method resolveName
+    * @param TEnum anyEnum -> Specific enum entity for the class
+    * @return std::string -> field name
+    */
     std::string resolveName(TEnum anyEnum)const noexcept
     {
         return { _data[anyEnum].first.begin(), _data[anyEnum].first.end() };
@@ -42,6 +52,12 @@ public:
 
     std::string& operator[](TEnum anyEnum) const { return _data[anyEnum].second; }
     
+    /*
+    * @brief Method toEnum
+    * @param string_view fieldName
+    * @return TEnum -> Field of specific enum, in other words returns first object from relation pair <EnumField, fieldName>
+    * @details Used in PGModelFiller for automated access in pqxx::row
+    */
     TEnum toEnum(std::string_view fieldName) const
     {
         return std::find_if(_data.begin(), _data.end(), [&fieldName](const auto& pair)
@@ -53,6 +69,12 @@ public:
                             })->first;
     }
 
+    /*
+    * @brief Method makeColumnDataPair
+    * @param None
+    * @returns Vector of pairs <field_name, field_value>
+    * @details Used in QueryBuilder to make relations between models and SQLInsert more object-related
+    */
     InsertData makeColumnDataPair() const
     {
         InsertData pairs;
@@ -70,6 +92,11 @@ public:
     virtual ~UnifiedModel() = default;
 
 protected:
+    /*
+    * @brief Method fillStartFields
+    * @param vector of pair<TEnum, std::string> where string - value of field, enum - what field is it
+    * @details Used to fill class variable which holds data with incoming one
+    */
     void fillStartFields(const std::vector<std::pair<TEnum, std::string>>& insertData)
     {
         std::for_each(insertData.begin(), insertData.end(), [this](const auto& pair)
@@ -77,7 +104,12 @@ protected:
                           this->_data[pair.first].second = pair.second;
                       });
     }
-      
+    
+    /*
+    * @brief Method init
+    * @param const FieldNames& fieldNames -> vector of pairs of enum<->field name
+    * @details Used to initialize class field(map) with specific enum of model and model field names
+    */
     void init(const FieldNames& fieldNames)
     {       
         for (size_t counter{ 0 }; counter < _amountOfFields; ++counter)
@@ -86,7 +118,7 @@ protected:
 
 private:
     /*
-     * @method getNumEnum
+     * @brief Method getNumEnum
      * @param size_t num -> used to find all objects from specific enum class
      * @returns Object of specific enum class
      */
