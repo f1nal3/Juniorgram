@@ -1,6 +1,4 @@
 #include "PostgreRepositories.hpp"
-#include <Models/Models.hpp>
-#include <PGModelFiller.hpp>
 
 #include <FileLogger.hpp>
 #include <limits>
@@ -170,10 +168,6 @@ Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Models::Chann
 
 Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const Models::New::Channel<>& channel)
 {
-    using Models::New::ChannelData;
-    using Models::New::UserChannelsData;
-    PGModelFiller filler;
-
     _pTable->changeTable(channel.getModelName());
 
     auto findChannel = _pTable->Select()
@@ -194,7 +188,7 @@ Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const Models::N
         ->Where(channel.resolveName(ChannelData::CHANNEL_NAME)+ " = '" + channel[ChannelData::CHANNEL_NAME] + "'")
         ->execute();
 
-    filler.fill(newChannelID->begin(), &channel);
+    _filler->fill(newChannelID->begin(), &channel);
     
     Models::New::UserChannels userChannels({
         {UserChannelsData::USER_ID, channel[ChannelData::CREATOR_ID]},

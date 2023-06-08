@@ -140,7 +140,7 @@ Before('findChannel' - is a returning object from _pTable->...->execute()):
 
 After:
 ```
-    filler.fill(findChannel->begin(), &channel);
+    _filler->fill(findChannel->begin(), &channel);
 ```
 
 > We use __returningObjectName__->begin() only when we need to fill only one model or returning value consists of one iterator
