@@ -44,8 +44,12 @@ protected:
             case 3:
                 return UserInfo::PASSHASH;
             default:
+            {
                 Base::Logger::FileLogger::getInstance().
                     error("Overrided method does not deal with this amount of fields given in constructor");
+                throw std::exception("Overriding default params in constructor was unsuccessful");
+            }
+                
         }
     }
 };
@@ -89,9 +93,12 @@ protected:
                 return ChannelData::CREATOR_ID;
             case 3:
                 return ChannelData::CHANNEL_USER_LIMIT;
-            default:
+            default:          
+            {
                 Base::Logger::FileLogger::getInstance().
                     error("Overrided method does not deal with this amount of fields given in constructor");
+                throw std::exception("Overriding default params in constructor was unsuccessful");
+            }
         }
     }
 };
@@ -130,8 +137,11 @@ protected:
             case 1: 
                 return UserChannelsData::CHANNEL_ID;
             default:
+            {
                 Base::Logger::FileLogger::getInstance().
                     error("Overrided method does not deal with this amount of fields given in constructor");
+                throw std::exception("Overriding default params in constructor was unsuccessful");
+            }
         }
     }
 };

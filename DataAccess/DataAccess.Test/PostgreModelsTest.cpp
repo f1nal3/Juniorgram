@@ -128,16 +128,16 @@ TEST_CASE("Going throw default in getNumEnum via bad constructor params", "[All 
 {
     SECTION("Channel model")
     {
-        REQUIRE_NOTHROW(Channel("Absolutely bad constructor, do not override default one", { "fakeFieldOne","fakeFieldTwo", "fakeFieldThree", "fakeFieldFour", "fakeFieldFive"}));
+        REQUIRE_THROWS(Channel("Absolutely bad constructor, do not override default one", { "fakeFieldOne","fakeFieldTwo", "fakeFieldThree", "fakeFieldFour", "fakeFieldFive"}));
     }
 
     SECTION("User model")
     {
-        REQUIRE_NOTHROW(User("Absolutely bad constructor, do not override default one", { "fakeFieldOne","fakeFieldTwo", "fakeFieldThree", "fakeFieldFour", "fakeFieldFive" }));
+        REQUIRE_THROWS(User("Absolutely bad constructor, do not override default one", { "fakeFieldOne","fakeFieldTwo", "fakeFieldThree", "fakeFieldFour", "fakeFieldFive" }));
     }
 
     SECTION("UserChannels model")
     {
-        REQUIRE_NOTHROW(UserChannels("Absolutely bad constructor, do not override default one", { "fakeFieldOne","fakeFieldTwo", "fakeFieldThree", "fakeFieldFour", "fakeFieldFive" }));
+        REQUIRE_THROWS(UserChannels("Absolutely bad constructor, do not override default one", { "fakeFieldOne","fakeFieldTwo", "fakeFieldThree", "fakeFieldFour", "fakeFieldFive" }));
     }
 }
