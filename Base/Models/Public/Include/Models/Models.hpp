@@ -47,7 +47,7 @@ protected:
             {
                 Base::Logger::FileLogger::getInstance().
                     error("Overrided method does not deal with this amount of fields given in constructor");
-                throw std::exception("Overriding default params in constructor was unsuccessful");
+                throw std::invalid_argument("Overriding default params in constructor was unsuccessful");
             }
                 
         }
@@ -97,7 +97,7 @@ protected:
             {
                 Base::Logger::FileLogger::getInstance().
                     error("Overrided method does not deal with this amount of fields given in constructor");
-                throw std::exception("Overriding default params in constructor was unsuccessful");
+                throw std::invalid_argument("Overriding default params in constructor was unsuccessful");
             }
         }
     }
@@ -140,7 +140,7 @@ protected:
             {
                 Base::Logger::FileLogger::getInstance().
                     error("Overrided method does not deal with this amount of fields given in constructor");
-                throw std::exception("Overriding default params in constructor was unsuccessful");
+                throw std::invalid_argument("Overriding default params in constructor was unsuccessful");
             }
         }
     }
