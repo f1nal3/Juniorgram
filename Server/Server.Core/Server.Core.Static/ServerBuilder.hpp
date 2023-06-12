@@ -12,9 +12,9 @@
 namespace Server::Builder
 {
 /**
- * @brief Class builder of Server.
- * @details Class based on builder pattern for creation instances of @link Server @endlink.
- */
+* @brief Class builder of Server.
+* @details Class based on builder pattern for creation instances of @link Server @endlink.
+*/
 class ServerBuilder
 {
 public:
@@ -35,6 +35,10 @@ public:
         return *this;
     }
 
+    /**
+    * @brief Creates a server according to specific settings
+    * @datails Uses private method
+    */
     std::unique_ptr<Server> makeServer()
     {
         std::unique_ptr<Server> ptr(make());
@@ -42,6 +46,10 @@ public:
     }
 
 private:
+    /**
+    * @brief Creates a server according to specific settings
+    * @datails It first creates a RepositoryManager and then a server with it.
+    */
     Server* make() noexcept
     {
         auto server = std::unique_ptr<Server>(new Server());

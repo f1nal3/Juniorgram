@@ -8,9 +8,14 @@ using Server::Builder::ParamType;
 
 TEST_CASE("Constructor of the SettingsManager [SettingsManager][Success]")
 {
-    SECTION("Constructing with parameters")
+    SECTION("Constructing with SettingsManager argument") { CHECK_NOTHROW(SettingsManager(std::make_unique<Settings>())); }
+
+    SECTION("Constructing with ArgParser argument")
     {
-        CHECK_NOTHROW(SettingsManager(std::make_unique<Settings>()));
+        std::vector<const char*> args{"SomeEmptyVector"};
+        ArgParser                parserDefault(static_cast<int>(args.size()), args.data());
+
+        CHECK_NOTHROW(SettingsManager(parserDefault));
     }
 }
 

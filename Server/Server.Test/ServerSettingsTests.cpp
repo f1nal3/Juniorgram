@@ -4,38 +4,29 @@
 
 using Server::Builder::Settings;
 
-TEST_CASE("SetValue method of the Settings [Settings][Success]")
+SCENARIO("Settings can set and get a value", "[Settings]")
 {
-    Settings testSettings;
-
-    SECTION("Addition of the new KEY with new VALUE")
+    GIVEN("Empty settings object")
     {
-        CHECK_NOTHROW(testSettings.setValue(std::make_pair("SomeKey", "SomeValue")));
-    }
+        Settings testSettings;
 
-    SECTION("Addition of the existing KEY with new VALUE")
-    {
-        testSettings.setValue(std::make_pair("SomeKey", "SomeValue"));
-        CHECK_NOTHROW(testSettings.setValue(std::make_pair("SomeKey", "NEWSomeValue")));
-        REQUIRE(testSettings.getValue("SomeKey") != "NEWSomeValue");
+        WHEN("Some value has been set to object by unused key")
+        {
+            CHECK_NOTHROW(testSettings.setValue(std::make_pair("TestKey", "TestValue")));
+
+            THEN("We can get value from object by existing key") { REQUIRE(testSettings.getValue("TestKey") == "TestValue"); }
+
+            THEN("We'll get an empty std::string object when trying to get a value with unused key")
+            {
+                REQUIRE(testSettings.getValue("UnusedKey") == std::string());
+            }
+
+            THEN("Setting a value using an existing key is not an error.")
+            {
+                CHECK_NOTHROW(testSettings.setValue(std::make_pair("TestKey", "TestNewValue")));
+                AND_THEN("New value isn't set.") { REQUIRE(testSettings.getValue("TestKey") != "TestNewValue"); }
+            }
+        }
     }
 }
-
-TEST_CASE("GetValue method of the Settings [Settings][Success]")
-{
-    Settings testSettings;
-
-    testSettings.setValue(std::make_pair("SomeKey", "SomeValue"));
-
-    SECTION("Return a VALUE with existing KEY")
-    {
-        CHECK_NOTHROW(testSettings.getValue("SomeKey"));
-        REQUIRE(testSettings.getValue("SomeKey") == std::string("SomeValue"));
-    }
-
-    SECTION("Return a VALUE with non existing KEY")
-    {
-        CHECK_NOTHROW(testSettings.getValue("SomeOtherKey"));
-        REQUIRE(testSettings.getValue("SomeOtherKey").empty());
-    }
-}
+ 

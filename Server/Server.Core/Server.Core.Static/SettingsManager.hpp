@@ -6,10 +6,10 @@
 namespace Server::Builder
 {
 /**
- * @class SettingsManager
- * @brief Class for managing server builder settings.
- * @details Class can take parameter sets and provide a port and connection string
- */
+* @class SettingsManager
+* @brief ServerBuilder settings class provider.
+* @details Contains the high-level logic to transformation of the base parameters.
+*/
 class SettingsManager
 {
 public:
@@ -17,22 +17,22 @@ public:
 
     explicit SettingsManager(std::unique_ptr<Settings> settings) : _settings(std::move(settings)) {}
     
-    explicit SettingsManager(const ArgParser& parser) : _settings(std::move(parser.getSettings())) {}
+    explicit SettingsManager(const ArgParser& parser) : _settings(parser.getSettings()) {}
 
     /**
-     * @brief Method to set new Settings.
-     * @details Sets a new collection of the parameters.
-     *          Note: Changes the owner of the argument resource
-     * @param std::unique_ptr<Settings> settings
-     */
+    * @brief Method to set new Settings.
+    * @details Sets a new collection of the parameters.
+    *          Note: Changes the owner of the argument resource
+    * @param std::unique_ptr<Settings> settings
+    */
     void reset(std::unique_ptr<Settings> settings) { _settings = std::move(settings); }
 
     /**
-     * @brief Method to generate connection string
-     * @details It generates string to connect to the DB.
-     *          In this case, for now, connection string to Postgre DB only.
-     *          In the future, this may be a method template for connecting to different DB.
-     */
+    * @brief Method to generate connection string
+    * @details It generates string to connect to the DB.
+    *          In this case, for now, connection string to Postgre DB only.
+    *          In the future, this may be a method template for connecting to different DB.
+    */
     std::string getConnectionOptions() const
     {
         return std::string("dbname="    + _settings->getValue(ParamType::DBName) +
@@ -43,9 +43,9 @@ public:
     }
     
     /**
-     * @brief Method to get a server port
-     * @details It provides a server port
-     */
+    * @brief Method to get a server port
+    * @details It provides a server port
+    */
     uint16_t getServerPort() const
     {
         return static_cast<uint16_t>(std::stoul(_settings->getValue(ParamType::ServerPort)));
