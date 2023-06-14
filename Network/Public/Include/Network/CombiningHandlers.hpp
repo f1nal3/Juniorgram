@@ -17,7 +17,7 @@ namespace Network
 		* @param message    - buffer that contains data that should be serialized, compressed and encrypted.
 		* @param bodyBuffer - buffer that will contain serialized, compressed and encrypted body.
 		*/
-		MessageProcessingState operator()(const Message& message,yas::shared_buffer& bodyBuffer)
+		MessageProcessingState operator()(const Message& message,yas::shared_buffer& bodyBuffer) const
 		{
 			auto serializationHandler = std::make_unique<SerializationHandler>();
 			auto compressionHandler   = std::make_unique<CompressionHandler>();
@@ -34,7 +34,7 @@ namespace Network
 		* @param buffer - buffer that contains data that should be decrypted, decompressed and deserialized.
 		* @param message - variable that will contain decrypted, decompressed and deserialized message body.
 		*/
-		MessageProcessingState operator()(const yas::shared_buffer buffer, Message& message)
+		MessageProcessingState operator()(const yas::shared_buffer buffer, Message& message) const
 		{
 			auto encryptionHandler    = std::make_unique<EncryptionHandler>();
 			auto compressionHandler   = std::make_unique<CompressionHandler>();
