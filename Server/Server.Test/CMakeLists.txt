@@ -7,7 +7,9 @@ set(SOURCE_FILES
 		ServerDefaultTests.cpp
 		ServerChannelTests.cpp
 		ServerWorkflowTests.cpp
-		ServerAutorizationTests.cpp)
+		ServerAutorizationTests.cpp
+        ServerSettingsTests.cpp
+        ServerSettingsManagerTests.cpp)
 
 set(TEST_SOURCE_FILES
 		Utilities/WaitForTime.hpp

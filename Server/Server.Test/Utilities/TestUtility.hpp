@@ -77,6 +77,18 @@ struct ConfigArguments
     const PairArguments& getDatabaseUserArguments() const { return userPair; }
     const PairArguments& getDatabasePasswordArguments() const { return passwordPair; }
 
+     std::unique_ptr<Server::Builder::Settings> getSettings() const
+    {
+        auto result = std::make_unique<Server::Builder::Settings>();
+        (*result).setValue(getServerPortArguments())
+                 .setValue(getDatabaseArguments())
+                 .setValue(getHostAddrArguments())
+                 .setValue(getDatabasePortArguments())
+                 .setValue(getDatabaseUserArguments())
+                 .setValue(getDatabasePasswordArguments());
+        return result;
+    }
+
 private:
     const PairArguments serverPortPair{"--serverport", "65001"};
     const PairArguments badServerPortPair{"--serverport", "666666"};
@@ -337,15 +349,13 @@ inline auto getTestDatabase() noexcept
 */
 inline auto makeTestServer() noexcept
 {
-    TestServer testServer = ServerBuilder()
-                                .setValue(configArgs.getServerPortArguments())
-                                .setValue(configArgs.getDatabaseArguments())
-                                .setValue(configArgs.getHostAddrArguments())
-                                .setValue(configArgs.getDatabasePortArguments())
-                                .setValue(configArgs.getDatabaseUserArguments())
-                                .setValue(configArgs.getDatabasePasswordArguments())
-                                .setValue(getTestDatabase().release())
-                                .makeServer();
+    using Server::Builder::SettingsManager;
+
+    auto       settingsManager = std::make_unique<SettingsManager>(configArgs.getSettings());
+    TestServer testServer = ServerBuilder(std::move(settingsManager))
+                            .setRepoManager(getTestDatabase())
+                            .makeServer();
+
     return testServer;
 }
 }  /// namespace TestUtility

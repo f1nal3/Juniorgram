@@ -7,31 +7,38 @@
 #include <string>
 
 #include "Server.hpp"
+#include "SettingsManager.hpp"
 
 namespace Server::Builder
 {
 /**
- * @brief Class builder of Server.
- * @details Class based on builder pattern for creation instances of @link Server @endlink.
- */
-class ServerBuilder 
+* @brief Class builder of Server.
+* @details Class based on builder pattern for creation instances of @link Server @endlink.
+*/
+class ServerBuilder
 {
 public:
     ServerBuilder()  = default;
+    explicit ServerBuilder(std::unique_ptr<SettingsManager> settingsManager) : _settingsManager(std::move(settingsManager)) {}
+    
     ~ServerBuilder() = default;
 
-    inline ServerBuilder& setValue(std::pair<std::string, std::string> keyValue)
+    /**
+    * @brief Sets up a specific RepositoryManager
+    * @details Allows to set a specific RepositoryManager
+    *          Note: Changes the owner of the argument resource
+    * @warning For now, this method is only used for MockTest! This may be changed in the future.
+    */
+    ServerBuilder& setRepoManager(std::unique_ptr<DataAccess::IRepositoryManager> repoManager)
     {
-        _arguments.insert(keyValue);
+        _repository = std::move(repoManager);
         return *this;
     }
 
-    inline ServerBuilder& setValue(DataAccess::IRepositoryManager* repoManager)
-    {
-        _repository.reset(repoManager);
-        return *this;
-    }
-
+    /**
+    * @brief Creates a server according to specific settings
+    * @datails Uses private method
+    */
     std::unique_ptr<Server> makeServer()
     {
         std::unique_ptr<Server> ptr(make());
@@ -39,47 +46,29 @@ public:
     }
 
 private:
+    /**
+    * @brief Creates a server according to specific settings
+    * @datails It first creates a RepositoryManager and then a server with it.
+    */
     Server* make() noexcept
     {
-        // form a string with the configuration for connecting to the database
-        std::string dbOptions = "";
-        for (const auto& [configName, configValue] : _arguments)
-        {
-            if (configName != "--serverport")
-            {
-                for (size_t i = 0; i < configName.length(); ++i)
-                {
-                    if (configName[i] != '-')
-                    {
-                        dbOptions += configName[i];
-                    }
-                }
-                dbOptions += "=";
-                dbOptions += configValue;
-                dbOptions += " ";
-            }
-        }
-        
-        auto server = std::unique_ptr<Server>{new Server()};
+        auto server = std::unique_ptr<Server>(new Server());
 
         if (!_repository)
         {
-            auto repoManager = std::make_unique<DataAccess::PostgreRepositoryManager>(
-                DataAccess::IAdapter::getInstance<DataAccess::PostgreAdapter>(dbOptions));
-            server->initRepository(std::move(repoManager));
+            _repository = std::make_unique<DataAccess::PostgreRepositoryManager>
+                (DataAccess::IAdapter::getInstance<DataAccess::PostgreAdapter>(_settingsManager->getConnectionOptions()));
         }
-        else
-        {
-            server->initRepository(std::move(_repository));
-        }
+       
+        server->initRepository(std::move(_repository));
 
-        auto port = static_cast<uint16_t>(std::stoi(_arguments["--serverport"]));
+        auto port = _settingsManager->getServerPort();
         server->initConnection(port);
 
         return server.release();
     }
 
-    std::map<std::string, std::string>  _arguments;
+    std::unique_ptr<SettingsManager>    _settingsManager;
     RepoManagerUPtr                     _repository;
 };
 }  /// namespace Server::Builder

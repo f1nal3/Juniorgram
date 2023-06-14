@@ -400,14 +400,14 @@ std::optional<MessageResult> TestClient::onMessageHistoryAnswer(const std::vecto
         Base::Logger::FileLogger::getInstance().log
         (
             "[TestClient] Message history isn't implemented!",
-            Base::Logger::LogLevel::INFO
+            Base::Logger::LogLevel::ERR
         );
         return MessageResult::InvalidBody;
     }
     Base::Logger::FileLogger::getInstance().log
     (
         "[TestClient] Message history is taken successfully!", 
-        Base::Logger::LogLevel::ERR
+        Base::Logger::LogLevel::INFO
     );
     return MessageResult::Success;
 }

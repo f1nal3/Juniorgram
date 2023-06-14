@@ -2,6 +2,9 @@
 
 #include <argparse/argparse.hpp>
 #include <FileLogger.hpp>
+#include <Settings.hpp>
+
+using Server::Builder::ParamType;
 
 /**
 * @class ArgParser.
@@ -39,7 +42,7 @@ public:
         _argParser.add_description("Server side of juniorgram messenger. Just have a fun!");
         _argParser.add_epilog("Some parts of the program may be configured by default.");
 
-        _argParser.add_argument("--serverport")
+        _argParser.add_argument(ParamType::ServerPort)
             .default_value<std::string>("65001")
             .help("Set the port value for server needs")
             .action([](const std::string& value){
@@ -51,7 +54,7 @@ public:
                 return std::to_string(port);
             });
 
-        _argParser.add_argument("--port")
+        _argParser.add_argument(ParamType::DBPort)
             .default_value<std::string>("5432")
             .help("Set the database port value")
             .action([](const std::string& value){
@@ -63,7 +66,7 @@ public:
                 return std::to_string(port);
             });
 
-        _argParser.add_argument("--dbname")
+        _argParser.add_argument(ParamType::DBName)
             .default_value<std::string>("juniorgram")
             .help("set the name of database")
             .action([](const std::string& value) {
@@ -75,7 +78,7 @@ public:
                 return std::string{"juniorgram"};
             });
 
-        _argParser.add_argument("--hostaddr")
+        _argParser.add_argument(ParamType::HostAddress)
             .default_value<std::string>("127.0.0.1")
             .help("set the host address (optional argument)")
             .action([](const std::string& value) {
@@ -87,11 +90,11 @@ public:
                 return std::string{"127.0.0.1"};
             });
 
-        _argParser.add_argument("--user")
+        _argParser.add_argument(ParamType::DBUser)
             .default_value<std::string>("postgres")
             .help("enter the user name (optional argument)");
 
-        _argParser.add_argument("--password")
+        _argParser.add_argument(ParamType::DBPassword)
             .default_value<std::string>("postgres")
             .help("enter the user password (optional argument)");
 
@@ -124,11 +127,33 @@ public:
     * @details Pairs arguments with their values.
     * @param std::string const parameter(argument name).
     */
+
     std::pair<std::string, std::string> getPair(std::string const& parameter) const
     {
         std::pair<std::string, std::string> args = 
             std::make_pair(parameter, _argParser.get(parameter));
         return args;
+    }
+    
+    /**
+    * @brief Used to generate Settings class object
+    * @details Fills Settings class object with the current parameter values and returns it
+    */
+    std::unique_ptr<Server::Builder::Settings> getSettings() const
+    {
+        auto getPair = [this](const std::string& str)
+                       {
+                           return std::pair<std::string, std::string>(str, _argParser.get(str));
+                       };
+
+        auto result = std::make_unique<Server::Builder::Settings>();
+        (*result).setValue(getPair(ParamType::ServerPort))
+                 .setValue(getPair(ParamType::HostAddress))
+                 .setValue(getPair(ParamType::DBName))
+                 .setValue(getPair(ParamType::DBPort))
+                 .setValue(getPair(ParamType::DBUser))
+                 .setValue(getPair(ParamType::DBPassword));
+        return result;
     }
 
 private:

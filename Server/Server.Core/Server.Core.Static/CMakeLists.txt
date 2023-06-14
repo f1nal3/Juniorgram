@@ -5,7 +5,9 @@ set(SOURCE_FILES
     Server.hpp
 	Server.cpp
 	ArgParser.hpp
-    ServerBuilder.hpp)
+    ServerBuilder.hpp
+    Settings.hpp
+    SettingsManager.hpp)
 
 if(WIN32)
 	list(APPEND EXTRA_LIBS ws2_32 wsock32)

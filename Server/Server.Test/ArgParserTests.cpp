@@ -13,22 +13,24 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
     SECTION("Constructor with default arguments and default initialization")
     {
        std::vector<const char*> defaultArgs {"./juniorgram", 
-                                              "--serverport=65001", 
-                                              "--port=5432", "--dbname=juniorgram",
-                                              "--hostaddr=127.0.0.1", 
-                                              "--user=postgres", "--password=postgres"};
+                                             "--serverport=65001", 
+                                             "--port=5432",
+                                             "--dbname=juniorgram",
+                                             "--hostaddr=127.0.0.1", 
+                                             "--user=postgres",
+                                             "--password=postgres"};
        CHECK_NOTHROW(ArgParser(static_cast<int>(defaultArgs.size()), defaultArgs.data()));
     }
 
     SECTION("Constructor with other initialization")
     {
         std::vector<const char*> otherDefaultArgs{"./juniorgram",
-                                             "--serverport", "65003",
-                                             "--port", "6432",
-                                             "--dbname", "testdb",
-                                             "--hostaddr", "0.0.0.0",
-                                             "--user", "user", 
-                                             "--password", "user"};
+                                                  "--serverport", "65003",
+                                                  "--port", "6432",
+                                                  "--dbname", "testdb",
+                                                  "--hostaddr", "0.0.0.0",
+                                                  "--user", "user", 
+                                                  "--password", "user"};
         CHECK_NOTHROW(ArgParser(static_cast<int>(otherDefaultArgs.size()), otherDefaultArgs.data()));
     }
 
@@ -36,9 +38,11 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
     {
         std::vector<const char*> limitedArgs {"./juniorgram", 
                                               "--serverport=6666666", 
-                                              "--port=6666666", "--dbname=otherdb",
+                                              "--port=6666666",
+                                              "--dbname=otherdb",
                                               "--hostaddr=126.0.0.1", 
-                                              "--user=tester", "--password=tester"};
+                                              "--user=tester",
+                                              "--password=tester"};
         CHECK_NOTHROW(ArgParser(static_cast<int>(limitedArgs.size()), limitedArgs.data()));
     }
 
@@ -149,5 +153,29 @@ TEST_CASE("Method of obtaining a pair of arguments of the argparser [ArgParser][
     SECTION("Taking a bad flag") 
     { 
         CHECK_THROWS_AS(parser.getPair("any_flag"), std::exception);
+    }
+}
+
+TEST_CASE("Method for generating an object of the Settings class [ArgParser][Success]")
+{
+    std::vector<const char*> args{"./juniorgram"};
+    ArgParser                parserDefault(static_cast<int>(args.size()), args.data());
+    using Server::Builder::Settings;
+    Settings                 settingsDefault = Settings()
+                                                .setValue(std::make_pair(ParamType::ServerPort,  "65001"     ))
+                                                .setValue(std::make_pair(ParamType::DBPort,      "5432"      ))
+                                                .setValue(std::make_pair(ParamType::DBName,      "juniorgram"))
+                                                .setValue(std::make_pair(ParamType::HostAddress, "127.0.0.1" ))
+                                                .setValue(std::make_pair(ParamType::DBUser,      "postgres"  ))
+                                                .setValue(std::make_pair(ParamType::DBPassword,  "postgres"  ));
+
+    SECTION("Object of the Settings class is equal with ArgParser::GetSettings()")
+    {
+        REQUIRE(parserDefault.getSettings().get()->getValue(ParamType::ServerPort ) == settingsDefault.getValue(ParamType::ServerPort ));
+        REQUIRE(parserDefault.getSettings().get()->getValue(ParamType::DBPort     ) == settingsDefault.getValue(ParamType::DBPort     ));
+        REQUIRE(parserDefault.getSettings().get()->getValue(ParamType::DBName     ) == settingsDefault.getValue(ParamType::DBName     ));
+        REQUIRE(parserDefault.getSettings().get()->getValue(ParamType::HostAddress) == settingsDefault.getValue(ParamType::HostAddress));
+        REQUIRE(parserDefault.getSettings().get()->getValue(ParamType::DBUser     ) == settingsDefault.getValue(ParamType::DBUser     ));
+        REQUIRE(parserDefault.getSettings().get()->getValue(ParamType::DBPassword ) == settingsDefault.getValue(ParamType::DBPassword ));
     }
 }
