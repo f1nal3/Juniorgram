@@ -80,6 +80,8 @@ public:
         this->fillStartFields(insertData);
     }
 
+    Channel(Channel&& channel) noexcept = default;
+
 protected:
     ChannelData getNumEnum(size_t num) const final
     {
