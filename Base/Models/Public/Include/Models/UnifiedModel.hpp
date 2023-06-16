@@ -34,12 +34,7 @@ public:
     {
     }
     
-    UnifiedModel(const UnifiedModel& other) 
-    {
-        _data = other._data;
-        _amountOfFields = other._amountOfFields;
-        _modelName = other._modelName;
-    }
+    UnifiedModel(const UnifiedModel& other): _data(other._data), _amountOfFields(other._amountOfFields), _modelName(other._modelName) {}
 
     UnifiedModel(UnifiedModel<TEnum>&& other) noexcept
     {
@@ -49,6 +44,27 @@ public:
         _modelName = std::move(other._modelName);
         
         _amountOfFields = std::move(other._amountOfFields);
+    }
+
+    UnifiedModel& operator=(const UnifiedModel& other)
+    {
+        _data = other._data;
+        _modelName = other._modelName;
+        _amountOfFields = other._amountOfFields;
+
+        return *this;
+    }
+
+    UnifiedModel& operator=(UnifiedModel&& other) noexcept
+    {
+        _data = std::move(other._data);
+        other._data.clear();
+
+        _modelName = std::move(other._modelName);
+
+        _amountOfFields = std::move(other._amountOfFields);
+
+        return *this;
     }
 
     /*
@@ -132,15 +148,6 @@ protected:
     {       
         for (size_t counter{ 0 }; counter < _amountOfFields; ++counter)
             _data.insert({ this->getNumEnum(counter), {fieldNames[counter], std::string{}} });
-    }
-
-    template <template<typename> class Derived>
-    void moveOperation(Derived<TEnum>&& other) noexcept
-    {
-        if (std::is_base_of_v<UnifiedModel<TEnum>, Derived<TEnum>>)
-        {
-            _data = std::move(other._data);
-        }
     }
 
 private:
