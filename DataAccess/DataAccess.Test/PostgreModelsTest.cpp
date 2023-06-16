@@ -97,20 +97,6 @@ TEST_CASE("Check how easily we can use models in PGRepos", "[Channel model]")
         REQUIRE_FALSE(result.has_value());
     }
 
-    SECTION("Testing operator=")
-    {
-        Channel copyChannel;
-        Channel moveChannel;
-
-        REQUIRE_NOTHROW(copyChannel = testChannel);
-        REQUIRE(copyChannel[ChannelData::CREATOR_ID] == "3");
-
-        REQUIRE_NOTHROW(moveChannel = std::move(testChannel));
-        REQUIRE(moveChannel[ChannelData::CREATOR_ID] == "3");
-
-        
-    }
-
     SECTION("An attempt to imitate createChannel method")
     {
         DataAccess::ChannelsRepository testChannelRepos(DataAccess::PostgreAdapter::Instance());

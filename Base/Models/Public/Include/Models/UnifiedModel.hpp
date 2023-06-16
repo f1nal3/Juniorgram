@@ -4,7 +4,6 @@
 #include <vector>
 #include <string>
 #include <string_view>
-#include <type_traits>
 
 #include <DataAccess/SQLStatements.hpp>
 
@@ -34,39 +33,6 @@ public:
     {
     }
     
-    UnifiedModel(const UnifiedModel& other): _data(other._data), _amountOfFields(other._amountOfFields), _modelName(other._modelName) {}
-
-    UnifiedModel(UnifiedModel<TEnum>&& other) noexcept
-    {
-        _data = std::move(other._data);
-        other._data.clear();
-
-        _modelName = std::move(other._modelName);
-        
-        _amountOfFields = std::move(other._amountOfFields);
-    }
-
-    UnifiedModel& operator=(const UnifiedModel& other)
-    {
-        _data = other._data;
-        _modelName = other._modelName;
-        _amountOfFields = other._amountOfFields;
-
-        return *this;
-    }
-
-    UnifiedModel& operator=(UnifiedModel&& other) noexcept
-    {
-        _data = std::move(other._data);
-        other._data.clear();
-
-        _modelName = std::move(other._modelName);
-
-        _amountOfFields = std::move(other._amountOfFields);
-
-        return *this;
-    }
-
     /*
     * @brief Method getModelName
     * @param None

@@ -80,22 +80,6 @@ public:
         this->fillStartFields(insertData);
     }
 
-    Channel(const Channel& other): UnifiedModel<TEnum>(other)
-    {}
-
-    Channel(Channel&& other) noexcept: UnifiedModel<TEnum>(std::move(other))
-    {}
-
-    Channel& operator=(const Channel& other)
-    {
-        return static_cast<Channel&>(UnifiedModel<TEnum>::operator=(other));
-    }
-
-    Channel& operator=(Channel&& other) noexcept
-    {
-        return static_cast<Channel&>(UnifiedModel<TEnum>::operator=(std::move(other)));
-    }
-
 protected:
     ChannelData getNumEnum(size_t num) const final
     {
