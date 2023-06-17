@@ -164,3 +164,19 @@ After:
 ```
     auto result = _pTable->Insert()->columns(&channel)->execute();
 ```
+
+## 4. Changes at server side
+
+### You should find in Server.cpp the request which uses the old method from IServerRepositories
+
+> If you've created the new method based on the old one, everything that you must do is swap old model with new one and fill it and change names of methods
+
+```
+    Models::New::Channel<> newChannelInfo({
+                                   {ChannelData::CHANNEL_NAME, std::any_cast<std::string>(message.mBody)},
+                                   {ChannelData::CREATOR_ID, std::to_string(client->getUserID())}});
+
+    auto futureResult = _repoManager->pushRequest(&IChannelsRepository::newCreateChannel, fmt(newChannelInfo));
+```
+
+> If you've re-built a method, just swap a model like in example above and change model in fmt call, the name of method doesn't change

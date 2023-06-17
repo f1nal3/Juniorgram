@@ -144,7 +144,11 @@ struct IChannelsRepository : IMasterRepository
     */
     virtual std::vector<uint64_t> getChannelSubscriptionList(uint64_t userID) = 0;
 
-
+    /*
+    * @brief Virtual method for creating channel 
+    * @return Special code for seccess or failed leaving
+    * @details That's second version of this method with new models. Can be used as old one
+    */
     virtual Utility::ChannelCreateCodes newCreateChannel(const Models::New::Channel<>& channel) = 0;
 
     /**

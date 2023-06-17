@@ -38,14 +38,14 @@ public:
     * @param None
     * @return constexpr char* -> name of the model (equal to name of the table)
     */
-    constexpr char* getModelName() const noexcept { return _modelName.data(); }
+    constexpr const char* getModelName() const noexcept { return _modelName.data(); }
 
     /*
     * @brief Method resolveName
     * @param TEnum anyEnum -> Specific enum entity for the class
     * @return std::string -> field name
     */
-    std::string resolveName(TEnum anyEnum)const noexcept
+    std::string resolveName(TEnum anyEnum) const noexcept
     {
         return { _data[anyEnum].first.begin(), _data[anyEnum].first.end() };
     }

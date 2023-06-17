@@ -72,9 +72,6 @@ public:
         this->init(names);
     }
 
-    /*
-    * @details Used to create an object and fill it with data at the same time, useful at server side when transfering raw data to the object
-    */
     explicit Channel(const std::vector<std::pair<TEnum, std::string>>& insertData) : Channel()
     {
         this->fillStartFields(insertData);
@@ -119,9 +116,6 @@ public:
         this->init(names);
     }
 
-    /*
-    * @details Used to create an object and fill it with data at the same time, useful at server side when transfering raw data to the object
-    */
     explicit UserChannels(const std::vector<std::pair<TEnum, std::string>>& insertData) : UserChannels()
     {
         this->fillStartFields(insertData);
