@@ -18,7 +18,7 @@ class Comparator
 public:
     bool operator()(const TKey& first, const TKey& second) const noexcept
     {
-        return static_cast<size_t>(first) < static_cast<size_t>(second);
+        return std::underlying_type_t<TKey>(first) < std::underlying_type_t<TKey>(second);
     }
 };
 
@@ -36,9 +36,9 @@ public:
     /*
     * @brief Method getModelName
     * @param None
-    * @return const char* -> name of the model (equal to name of the table)
+    * @return constexpr char* -> name of the model (equal to name of the table)
     */
-    const char* getModelName() const noexcept { return _modelName.data(); }
+    constexpr char* getModelName() const noexcept { return _modelName.data(); }
 
     /*
     * @brief Method resolveName
@@ -60,7 +60,7 @@ public:
     */
     TEnum toEnum(std::string_view fieldName) const
     {
-        return std::find_if(_data.begin(), _data.end(), [&fieldName](const auto& pair)
+        return std::find_if(_data.cbegin(), _data.cend(), [&fieldName](const auto& pair)
                             {
                                 if (pair.second.first == fieldName)
                                     return true;
@@ -80,7 +80,7 @@ public:
         InsertData pairs;
         pairs.reserve(_amountOfFields);
 
-        std::for_each(_data.begin(), _data.end(), [&pairs](const auto& pair)
+        std::for_each(_data.cbegin(), _data.cend(), [&pairs](const auto& pair)
                       {
                           if (!std::empty(pair.second.second))
                               pairs.emplace_back(pair.second);
@@ -99,7 +99,7 @@ protected:
     */
     void fillStartFields(const std::vector<std::pair<TEnum, std::string>>& insertData)
     {
-        std::for_each(insertData.begin(), insertData.end(), [this](const auto& pair)
+        std::for_each(insertData.cbegin(), insertData.cend(), [this](const auto& pair)
                       {
                           this->_data[pair.first].second = pair.second;
                       });

@@ -18,7 +18,7 @@ public:
     void fill(const TResult& response, const Models::UnifiedModel<TEnum>* model) const
     {
         if(!std::empty(response))
-            for (auto respIter = std::begin(response); respIter != std::end(response); ++respIter)
+            for (auto respIter = std::cbegin(response); respIter != std::cend(response); ++respIter)
             {
                 (*model)[model->toEnum(respIter.name())] = respIter.template as<std::string>();
             }
