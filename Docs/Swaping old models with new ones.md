@@ -13,7 +13,7 @@
 - First of all you should create enum class in which all fields wiil be represented as enum
 
 Example:
-```
+```c++
 enum class BookData
 {
 	AUTHOR,
@@ -29,7 +29,7 @@ enum class BookData
 
 > Defined template type(enum class) is the one which is in charge almost of everything at start level
 
-```
+```c++
 template <TEnum = BookData>
 class Book: public UnifiedModel<TEnum>
 {
@@ -52,7 +52,7 @@ public:
 
 > You ***must*** make the ***order of names*** that you put inside ***default constructor and switch*** below totally ***equal***, the amount likewise
 
-```
+```c++
 protected:
 TEnum getNumEnum(size_t num)const final
 {
@@ -79,13 +79,13 @@ TEnum getNumEnum(size_t num)const final
 
 Example:
 
-Before:
-```
-    virtual Utility::ChannelCreateCodes createChannel(const Models::ChannelInfo& channel) = 0;
-```
 
-After:
-```
+```c++
+/// Before
+    virtual Utility::ChannelCreateCodes createChannel(const Models::ChannelInfo& channel) = 0;
+
+
+/// After
     virtual Utility::ChannelCreateCodes createChannel(const Models::New::Channel<>& channel) = 0;
 ```
 
@@ -98,11 +98,11 @@ After:
 ### - You don't need to write the hard-coded name of the table:
 
 
-```
-/// Before:
+```c++
+/// Before
     _pTable->changeTable("channels");
 
-/// After:
+/// After
     _pTable->changeTable(channel.getModelName());
 ```
 
@@ -110,7 +110,7 @@ After:
 ### - No more raw strings inside QueryBuilder methods:
 
 Before:
-```
+```c++
     auto findChannel = _pTable->Select()
         ->columns({"channel_name"})
         ->Where("channel_name = '" + channel._channelName + "'")
@@ -118,7 +118,7 @@ Before:
 ```
 
 After:
-```
+```c++
     auto findChannel = _pTable->Select()
         ->columns({ channel.resolveName(ChannelData::CHANNEL_NAME)})
         ->Where(channel.resolveName(ChannelData::CHANNEL_NAME)+ "= '" + channel[ChannelData::CHANNEL_NAME] + "'")
@@ -132,13 +132,13 @@ After:
 > This class knows how to cast and what to cast, and fills model with it
 
 Before('findChannel' - is a returning object from _pTable->...->execute()):
-```
+```c++
     auto creatorlID  = findChannel.value()[0][0].as<uint64_t>();
     auto channelID   = findChannel.value()[0][1].as<uint64_t>();
 ```
 
 After:
-```
+```c++
     _filler->fill(findChannel->begin(), &channel);
 ```
 
@@ -151,7 +151,7 @@ After:
 > Insert method can use the object itself to build the query
 
 Before:
-```
+```c++
     std::tuple channelData{std::pair{"channel_name", channel._channelName},
                            std::pair{"creator_id", channel._creatorID},
                            std::pair{"user_limit", 1'000'000}};
@@ -160,7 +160,7 @@ Before:
 ```
 
 After:
-```
+```c++
     auto result = _pTable->Insert()->columns(&channel)->execute();
 ```
 
@@ -170,7 +170,7 @@ After:
 
 > If you've created the new method based on the old one, everything that you must do is swap old model with new one and fill it and change names of methods
 
-```
+```c++
     Models::New::Channel<> newChannelInfo({
                                    {ChannelData::CHANNEL_NAME, std::any_cast<std::string>(message.mBody)},
                                    {ChannelData::CREATOR_ID, std::to_string(client->getUserID())}});
