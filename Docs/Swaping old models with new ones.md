@@ -22,12 +22,12 @@ enum class BookData
 };
 ```
 
-- Create a template class with talking name, inheritance the basic template class **UnifiedModel**
+- Create a template class with talking name, inherit the basic template class **UnifiedModel**
 - Make a template argument as a default one with enum class which you've created
-- Create two constructors - default and __filling__
+- Create two constructors - default and __filling__, which is going fill your class field with some data
 - Follow the example
 
-> Template is the one that is in charge almost of everything at start level
+> Defined template type(enum class) is the one which is in charge almost of everything at start level
 
 ```
 template <TEnum = BookData>
@@ -54,7 +54,7 @@ public:
 
 ```
 protected:
-BookData getNumEnum(size_t num)const final
+TEnum getNumEnum(size_t num)const final
 {
     switch(num)
     {
@@ -97,13 +97,12 @@ After:
 
 ### - You don't need to write the hard-coded name of the table:
 
-Before:
-```
-    _pTable->changeTable("channels");
-```
 
-After:
 ```
+/// Before:
+    _pTable->changeTable("channels");
+
+/// After:
     _pTable->changeTable(channel.getModelName());
 ```
 
@@ -129,7 +128,7 @@ After:
 
 ### - No more any type of casts inside method logic
 
-> This task has moved to the separate class - ModelFiller (right now only PGFiller)
+> This task has moved to the separate class - ModelFiller (That's a general name for this type of classes, right now only PGFiller exists)
 > This class knows how to cast and what to cast, and fills model with it
 
 Before('findChannel' - is a returning object from _pTable->...->execute()):

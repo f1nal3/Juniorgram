@@ -122,8 +122,10 @@ struct IChannelsRepository : IMasterRepository
 
     /**
     * @brief  Virtual method for creating channel.
+    * @details Deprecated due to new method with same logic but new mechanics
     * @return special code for success or failed creating.
     */
+    [[deprecated("Use newCreateChannel instead of this\n")]]
     virtual Utility::ChannelCreateCodes createChannel(const Models::ChannelInfo& channel) = 0;
 
     /**
