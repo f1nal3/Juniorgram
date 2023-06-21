@@ -25,8 +25,10 @@ public:
         if (this->nextHandler)
         {
             this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
+            return MessageProcessingState::SUCCESS;
         }
-        return MessageProcessingState::SUCCESS;
+        return MessageProcessingState::FAILURE;
+        
     }
 
     /**
@@ -41,8 +43,9 @@ public:
         if (this->nextHandler)
         {
             this->nextHandler->handleIncomingMessageBody(buffer, message);
+             return MessageProcessingState::SUCCESS;
         }
-        return MessageProcessingState::SUCCESS;
+        return MessageProcessingState::FAILURE;
     }
 };
 }  // namespace Network

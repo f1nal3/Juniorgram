@@ -3,7 +3,10 @@ set(OUTPUT_NAME Network.Test)
 
 set(SOURCE_FILES
         BinarySerializeTest.cpp
-        TimestampTest.cpp)
+        TimestampTest.cpp
+        SerializationHandlerTest.cpp
+        CompressionHandlerTest.cpp
+        EncryptionHandlerTest.cpp)
 
 if (WIN32)
     set(EXTRA_LIBS ws2_32 wsock32)
