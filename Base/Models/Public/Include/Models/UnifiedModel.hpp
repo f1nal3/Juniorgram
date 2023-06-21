@@ -11,6 +11,10 @@ namespace Models::V2
 using FieldNames = std::vector<std::string_view>;
 using InsertData = std::vector<std::pair<std::string_view, std::string_view>>;
 
+/*
+* @brief class Comparator, functor
+* @details Used to be a specific comparator for the map which is going to use different enum classes
+*/
 template <typename TKey>
 class Comparator
 {
@@ -21,6 +25,11 @@ public:
     }
 };
 
+/*
+* @brief Special type for storing data in the model
+* @details Consists of pair, where key is enum class field, and second is pair too
+* Second pair is field <-> value for directly storing data
+*/
 template <typename TKey, typename Comp = Comparator<TKey>>
 using Map = std::map<TKey, std::pair<std::string_view, std::string>, Comp>;
 
@@ -46,10 +55,10 @@ public:
     */
     std::string resolveName(TEnum anyEnum) const noexcept
     {
-        return { _data[anyEnum].first.begin(), _data[anyEnum].first.end() };
+        return { _data.at(anyEnum).first.begin(), _data.at(anyEnum).first.end() };
     }
 
-    std::string& operator[](TEnum anyEnum) const { return _data[anyEnum].second; }
+    std::string& operator[](TEnum anyEnum) const { return _data.at(anyEnum).second; }
     
     /*
     * @brief Method toEnum
@@ -100,7 +109,7 @@ protected:
     {
         std::for_each(insertData.cbegin(), insertData.cend(), [this](const auto& pair)
                       {
-                          this->_data[pair.first].second = pair.second;
+                          this->_data.at(pair.first).second = pair.second;
                       });
     }
     
@@ -112,7 +121,7 @@ protected:
     void init(const FieldNames& fieldNames)
     {       
         for (size_t counter{ 0 }; counter < _amountOfFields; ++counter)
-            _data.insert({ this->getNumEnum(counter), {fieldNames[counter], std::string{}} });
+            _data.insert({ this->getNumEnum(counter), {fieldNames.at(counter), std::string{}} });
     }
 
 private:
