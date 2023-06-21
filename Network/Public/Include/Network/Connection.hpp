@@ -68,8 +68,6 @@ private:
     Utility::SafeQueue<Message> _outcomingMessagesQueue;
     /* @details Buffer to store the part of incoming message while it is read. */
     Message _messageBuffer;
-    /* @details handler that is needed to combine all the handlers to preprocess the message. */
-    CombiningHandlers handler;
 
     /**
     * @brief Method for sending message header.
@@ -85,7 +83,7 @@ private:
     {
         yas::shared_buffer bodyBuffer;
 
-        auto result = handler(_outcomingMessagesQueue.front(), bodyBuffer);
+        auto result = CombiningHandlers::handleOutcomingMessage(_outcomingMessagesQueue.front(), bodyBuffer);
 
         Network::Message::MessageHeader outcomingMessageHeader = _outcomingMessagesQueue.front().mHeader;
         outcomingMessageHeader.mBodySize                       = static_cast<uint32_t>(bodyBuffer.size);
@@ -222,7 +220,7 @@ private:
         const auto readBodyHandler = [this, buffer](std::error_code error) {
             if (!error)
             {
-                auto result = handler(buffer, _messageBuffer);
+                auto result = CombiningHandlers::handleIncomingMessage(buffer, _messageBuffer);
 
                 if (result == MessageProcessingState::SUCCESS)
                 {

@@ -6,7 +6,10 @@ namespace Network
 {
 /** 
 * @enum MessageProcessingState
-* @brief Successful or not result of message preprocessing
+* @brief Flag showing the result of message processing.
+* @details If the message processing result is successful /
+* SUCCESS will be returned. /
+* Else will be returned FAILURE.
 */
 enum class MessageProcessingState
 {
