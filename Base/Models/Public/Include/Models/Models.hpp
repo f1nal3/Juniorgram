@@ -5,7 +5,7 @@
 #include <map>
 #include <utility>
 
-namespace Models::New
+namespace Models::V2
 {
 enum class UserInfo : uint16_t
 {
@@ -19,7 +19,7 @@ template<typename TEnum = UserInfo>
 class User : public UnifiedModel<TEnum>
 {
 public:
-    User(std::string_view modelName = "users", const Models::FieldNames& names = { "id", "email", "login", "password_hash" })
+    User(std::string_view modelName = "users", const Models::V2::FieldNames& names = { "id", "email", "login", "password_hash" })
         : UnifiedModel<TEnum>(modelName, names.size())
     {     
         this->init(names);
@@ -66,7 +66,7 @@ template<typename TEnum = ChannelData>
 class Channel: public UnifiedModel<TEnum>
 {
 public:
-    Channel(std::string_view modelName = "channels", const Models::FieldNames& names = { "id", "channel_name", "creator_id", "user_limit" })
+    Channel(std::string_view modelName = "channels", const Models::V2::FieldNames& names = { "id", "channel_name", "creator_id", "user_limit" })
         :UnifiedModel<TEnum>(modelName, names.size())
     {
         this->init(names);
@@ -110,7 +110,7 @@ template<typename TEnum = UserChannelsData>
 class UserChannels: public UnifiedModel<TEnum>
 {
 public:
-    UserChannels(std::string_view modelName = "user_channels", const Models::FieldNames& names = { "user_id", "channel_id" })
+    UserChannels(std::string_view modelName = "user_channels", const Models::V2::FieldNames& names = { "user_id", "channel_id" })
         :UnifiedModel<TEnum>(modelName, names.size())
     {
         this->init(names);

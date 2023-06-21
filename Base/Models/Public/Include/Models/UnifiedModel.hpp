@@ -7,7 +7,7 @@
 
 #include <DataAccess/SQLStatements.hpp>
 
-namespace Models
+namespace Models::V2
 {
 using FieldNames = std::vector<std::string_view>;
 using InsertData = std::vector<std::pair<std::string_view, std::string_view>>;

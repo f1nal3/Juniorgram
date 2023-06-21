@@ -151,7 +151,7 @@ struct IChannelsRepository : IMasterRepository
     * @return Special code for seccess or failed leaving
     * @details That's second version of this method with new models. Can be used as old one
     */
-    virtual Utility::ChannelCreateCodes newCreateChannel(const Models::New::Channel<>& channel) = 0;
+    virtual Utility::ChannelCreateCodes newCreateChannel(const Models::V2::Channel<>& channel) = 0;
 
     /**
     * @brief virtual destructor.

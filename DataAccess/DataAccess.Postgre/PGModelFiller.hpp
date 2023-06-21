@@ -15,7 +15,7 @@ public:
     PGModelFiller() = default;
     
     template <typename TEnum, class TResult = pqxx::const_result_iterator>
-    void fill(const TResult& response, const Models::UnifiedModel<TEnum>* model) const
+    void fill(const TResult& response, const Models::V2::UnifiedModel<TEnum>* model) const
     {
         if(!std::empty(response))
             for (auto respIter = std::cbegin(response); respIter != std::cend(response); ++respIter)

@@ -9,11 +9,11 @@
 
 #include "PGModelFiller.hpp"
 
-using Models::New::UserInfo;
-using Models::New::ChannelData;
-using Models::New::User;
-using Models::New::Channel;
-using Models::New::UserChannels;
+using Models::V2::UserInfo;
+using Models::V2::ChannelData;
+using Models::V2::User;
+using Models::V2::Channel;
+using Models::V2::UserChannels;
 using DataAccess::PGModelFiller;
 using DataAccess::PostgreAdapter;
 using DataAccess::PGQueryBuilder;

@@ -166,7 +166,7 @@ Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Models::Chann
     return Utility::ChannelDeleteCode::SUCCESS;
 }
 
-Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const Models::New::Channel<>& channel)
+Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const Models::V2::Channel<>& channel)
 {
     _pTable->changeTable(channel.getModelName());
 
@@ -190,7 +190,7 @@ Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const Models::N
 
     _filler->fill(newChannelID->begin(), &channel);
     
-    Models::New::UserChannels userChannels({
+    Models::V2::UserChannels userChannels({
         {UserChannelsData::USER_ID, channel[ChannelData::CREATOR_ID]},
         {UserChannelsData::CHANNEL_ID, channel[ChannelData::CHANNEL_ID]}});
 

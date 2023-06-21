@@ -8,8 +8,8 @@
 
 namespace DataAccess
 {
-    using Models::New::ChannelData;
-    using Models::New::UserChannelsData;
+    using Models::V2::ChannelData;
+    using Models::V2::UserChannelsData;
 
 struct AbstractPostgreRepository
 {
@@ -38,7 +38,7 @@ struct ChannelsRepository final : IChannelsRepository, AbstractPostgreRepository
 
     Utility::ChannelDeleteCode  deleteChannel(const Models::ChannelDeleteInfo& channel) override;
     Utility::ChannelCreateCodes createChannel(const Models::ChannelInfo& channel) override;
-    Utility::ChannelCreateCodes newCreateChannel(const Models::New::Channel<>& channel) override;
+    Utility::ChannelCreateCodes newCreateChannel(const Models::V2::Channel<>& channel) override;
 
     ~ChannelsRepository() override = default;
 };

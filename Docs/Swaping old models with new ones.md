@@ -86,7 +86,7 @@ Example:
 
 
 /// After
-    virtual Utility::ChannelCreateCodes createChannel(const Models::New::Channel<>& channel) = 0;
+    virtual Utility::ChannelCreateCodes createChannel(const Models::V2::Channel<>& channel) = 0;
 ```
 
 > Also you must change logic inside Mock, but that's simple one, rules will be described below
@@ -171,7 +171,7 @@ After:
 > If you've created the new method based on the old one, everything that you must do is swap old model with new one and fill it and change names of methods
 
 ```c++
-    Models::New::Channel<> newChannelInfo({
+    Models::V2::Channel<> newChannelInfo({
                                    {ChannelData::CHANNEL_NAME, std::any_cast<std::string>(message.mBody)},
                                    {ChannelData::CREATOR_ID, std::to_string(client->getUserID())}});
 
