@@ -5,6 +5,8 @@
 #include <map>
 #include <utility>
 
+#include <FileLogger.hpp>
+
 namespace Models::V2
 {
 enum class UserInfo : uint16_t
