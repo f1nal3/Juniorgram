@@ -657,9 +657,8 @@ public:
                       });
 
         this->SQLBase<ResultType>::privateCorrectFormatting();
-        SQLBase<ResultType>::_queryStream << ")";
 
-        SQLBase<ResultType>::_queryStream << " values(";
+        SQLBase<ResultType>::_queryStream << ") values(";
 
         std::for_each(std::begin(pairs), std::end(pairs), [&](const auto& pair)
                       {

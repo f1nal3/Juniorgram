@@ -5,7 +5,6 @@
 #include <string>
 #include <string_view>
 
-#include <DataAccess/SQLStatements.hpp>
 
 namespace Models::V2
 {
