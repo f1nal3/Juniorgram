@@ -4,18 +4,29 @@
 
 #include "PostgreQuery.hpp"
 #include "UsersAmountFinder.hpp"
+#include "PGModelFiller.hpp"
 
 namespace DataAccess
 {
+    using Models::V2::ChannelData;
+    using Models::V2::UserChannelsData;
+
 struct AbstractPostgreRepository
 {
 protected:
     std::unique_ptr<PGQueryBuilder> _pTable;
+    std::unique_ptr<PGModelFiller> _filler;
+
+public:
+    AbstractPostgreRepository()
+    {
+        _filler = std::make_unique<PGModelFiller>();
+    }
 };
 
 struct ChannelsRepository final : IChannelsRepository, AbstractPostgreRepository
 {
-    explicit ChannelsRepository(const std::shared_ptr<IAdapter>& adapter) 
+    explicit ChannelsRepository(const std::shared_ptr<IAdapter>& adapter): AbstractPostgreRepository()
     {
         _pTable = std::make_unique<PGQueryBuilder>("users", adapter); 
     }
@@ -27,13 +38,14 @@ struct ChannelsRepository final : IChannelsRepository, AbstractPostgreRepository
 
     Utility::ChannelDeleteCode  deleteChannel(const Models::ChannelDeleteInfo& channel) override;
     Utility::ChannelCreateCodes createChannel(const Models::ChannelInfo& channel) override;
+    Utility::ChannelCreateCodes newCreateChannel(const Models::V2::Channel<>& channel) override;
 
     ~ChannelsRepository() override = default;
 };
 
 struct DirectMessageRepository final : IDirectMessageRepository, AbstractPostgreRepository
 {
-    explicit DirectMessageRepository(const std::shared_ptr<IAdapter>& adapter)
+    explicit DirectMessageRepository(const std::shared_ptr<IAdapter>& adapter) : AbstractPostgreRepository()
     {
         _pTable = std::make_unique<PGQueryBuilder>("channels", adapter);
     }
@@ -45,7 +57,7 @@ struct DirectMessageRepository final : IDirectMessageRepository, AbstractPostgre
 
 struct LoginRepository : ILoginRepository, AbstractPostgreRepository
 {
-    explicit LoginRepository(const std::shared_ptr<IAdapter>& adapter) 
+    explicit LoginRepository(const std::shared_ptr<IAdapter>& adapter) : AbstractPostgreRepository()
     {
         _pTable = std::make_unique<PGQueryBuilder>("users", adapter); 
     }
@@ -57,7 +69,7 @@ struct LoginRepository : ILoginRepository, AbstractPostgreRepository
 
 struct MessagesRepository final : IMessagesRepository, AbstractPostgreRepository
 {
-    explicit MessagesRepository(const std::shared_ptr<IAdapter>& adapter) 
+    explicit MessagesRepository(const std::shared_ptr<IAdapter>& adapter) : AbstractPostgreRepository()
     {
         _pTable = std::make_unique<PGQueryBuilder>("users", adapter); 
     }
@@ -78,7 +90,7 @@ private:
 
 struct RegisterRepository final : IRegisterRepository, AbstractPostgreRepository
 {
-    explicit RegisterRepository(const std::shared_ptr<IAdapter>& adapter)
+    explicit RegisterRepository(const std::shared_ptr<IAdapter>& adapter) : AbstractPostgreRepository()
     {
         _pTable = std::make_unique<PGQueryBuilder>("users", adapter); 
     }
@@ -90,7 +102,7 @@ struct RegisterRepository final : IRegisterRepository, AbstractPostgreRepository
 
 struct RepliesRepository final : IRepliesRepository, AbstractPostgreRepository
 {
-    explicit RepliesRepository(const std::shared_ptr<IAdapter>& adapter)
+    explicit RepliesRepository(const std::shared_ptr<IAdapter>& adapter) : AbstractPostgreRepository()
     {
         _pTable = std::make_unique<PGQueryBuilder>("msgs", adapter);
     }

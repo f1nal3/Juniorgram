@@ -176,6 +176,23 @@ Utility::ChannelDeleteCode MockChannelsRepository::deleteChannel(const ChannelDe
     return Utility::ChannelDeleteCode::FAILED;
 }
 
+Utility::ChannelCreateCodes MockChannelsRepository::newCreateChannel(const Models::V2::Channel<>& channel)
+{
+    using Models::V2::ChannelData;
+
+    if (auto query = _mockQuery->SelectRepoAndQueryPush(channel.getModelName(),
+                                                        TableChannelRepository::ChanneName, channel[ChannelData::CHANNEL_NAME]);
+        channel[ChannelData::CHANNEL_NAME] != "")
+    {
+        if (_mockQuery->getStorage().getChannelsRepoData()._channelName == channel[ChannelData::CHANNEL_NAME])
+        {
+            return Utility::ChannelCreateCodes::SUCCESS;
+        }
+        return Utility::ChannelCreateCodes::FAILED;
+    }
+    return Utility::ChannelCreateCodes::FAILED;
+}
+
 Utility::ChannelCreateCodes MockChannelsRepository::createChannel(const ChannelInfo& channel)
 {
     if (auto query = _mockQuery->SelectRepoAndQueryPush("channels", 

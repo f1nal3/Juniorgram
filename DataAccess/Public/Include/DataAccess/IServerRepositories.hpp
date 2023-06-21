@@ -5,6 +5,7 @@
 
 #include <Models/Primitives.hpp>
 #include <Utility/Utility.hpp>
+#include <Models/Models.hpp>
 
 #include "IMasterRepository.hpp"
 
@@ -104,6 +105,7 @@ struct IRepliesRepository : IMasterRepository
  * @details The class is similar to IMessagesRepository, but processing object is message channels
  * (object of ChannelInfo class).
  */
+
 struct IChannelsRepository : IMasterRepository
 {
     /**
@@ -120,8 +122,10 @@ struct IChannelsRepository : IMasterRepository
 
     /**
     * @brief  Virtual method for creating channel.
+    * @details Deprecated due to new method with same logic but new mechanics
     * @return special code for success or failed creating.
     */
+    [[deprecated("Use newCreateChannel instead of this\n")]]
     virtual Utility::ChannelCreateCodes createChannel(const Models::ChannelInfo& channel) = 0;
 
     /**
@@ -141,6 +145,13 @@ struct IChannelsRepository : IMasterRepository
     * @return channels list as vector of uint64_t.
     */
     virtual std::vector<uint64_t> getChannelSubscriptionList(uint64_t userID) = 0;
+
+    /*
+    * @brief Virtual method for creating channel 
+    * @return Special code for seccess or failed leaving
+    * @details That's second version of this method with new models. Can be used as old one
+    */
+    virtual Utility::ChannelCreateCodes newCreateChannel(const Models::V2::Channel<>& channel) = 0;
 
     /**
     * @brief virtual destructor.
