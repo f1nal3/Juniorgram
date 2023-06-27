@@ -1,5 +1,5 @@
 ### About the app
-An instant messaging messenger is being developed. Development includes both the client (so far only the desktop version for the most common operating systems) and the server parts.
+An instant messaging messenger is being developed. Development includes both the client (so far only the desktop version for the most common operating systems) and the kernel parts.
 
 ### Main technology stack:
 * C++17
@@ -18,7 +18,7 @@ An instant messaging messenger is being developed. Development includes both the
 - [ ] 5. Read at project wiki code style conversation 
 - [ ] 6. Check out with the main parts (modules) of the code
            - Client
-           - Server
+           - Kernel
            - Data Access
            - Network
 

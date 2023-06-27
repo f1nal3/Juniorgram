@@ -102,14 +102,14 @@
 						class="st4">for generation</tspan></text>		</g>
 		<g id="shape545-8" v:mID="545" v:groupContext="shape" transform="translate(620.114,-1786.68)">
 			<title>Прямоугольник.350</title>
-			<desc>Server starts</desc>
+			<desc>Kernel starts</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="56.6929" cy="1911.12" width="113.39" height="85.0394"/>
 			<rect x="0" y="1868.6" width="113.386" height="85.0394" class="st5"/>
-			<text x="20.93" y="1915.32" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server starts</text>		</g>
+			<text x="20.93" y="1915.32" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Kernel starts</text>		</g>
 		<g id="shape546-11" v:mID="546" v:groupContext="shape" transform="translate(620.114,-1665.64)">
 			<title>Прямоугольник.351</title>
 			<desc>Loading/generation it`s private and public key</desc>
@@ -135,16 +135,16 @@
 						x="10.71" dy="1.2em" class="st4">connection with </tspan><tspan x="41.01" dy="1.2em" class="st4">client</tspan></text>		</g>
 		<g id="shape548-22" v:mID="548" v:groupContext="shape" transform="translate(620.114,-1433.23)">
 			<title>Прямоугольник.354</title>
-			<desc>Server sends: - connectionId - public server key</desc>
+			<desc>Kernel sends: - connectionId - public kernel key</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="56.6929" cy="1911.12" width="113.39" height="85.0394"/>
 			<rect x="0" y="1868.6" width="113.386" height="85.0394" class="st5"/>
-			<text x="18.7" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server sends:<v:newlineChar/><tspan
+			<text x="18.7" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Kernel sends:<v:newlineChar/><tspan
 						x="15.76" dy="1.2em" class="st4">-</tspan> connectionId<v:newlineChar/><tspan x="5.02" dy="1.2em"
-						class="st4">-</tspan> public server key</text>		</g>
+						class="st4">-</tspan> public kernel key</text>		</g>
 		<g id="shape549-27" v:mID="549" v:groupContext="shape" transform="translate(327.968,-1786.68)">
 			<title>Прямоугольник.355</title>
 			<desc>Clients starts</desc>
@@ -187,23 +187,23 @@
 			<rect x="0" y="1868.6" width="226.772" height="85.0394" class="st5"/>
 			<text x="67.27" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client calculates <tspan
 						x="5.49" dy="1.2em" class="st4">hash(clientPasswordHash+connection </tspan><tspan x="52.17" dy="1.2em"
-						class="st4">ID+ public server key)</tspan></text>		</g>
+						class="st4">ID+ public kernel key)</tspan></text>		</g>
 		<g id="shape553-42" v:mID="553" v:groupContext="shape" transform="translate(563.421,-1282.96)">
 			<title>Прямоугольник.361</title>
-			<desc>Server calculates ServerHash = hash(clientPasswordHash+connec...</desc>
+			<desc>Kernel calculates KernelHash = hash(clientPasswordHash+connec...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="113.386" cy="1896.94" width="226.78" height="113.386"/>
 			<rect x="0" y="1840.25" width="226.772" height="113.386" class="st5"/>
-			<text x="65.5" y="1859.15" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server calculates <v:newlineChar/><tspan
-						x="75.25" dy="1.2em" class="st7">ServerHash </tspan>= <tspan x="5.49" dy="1.2em" class="st4">hash(clientPasswordHash+connection </tspan><tspan
-						x="52.17" dy="1.2em" class="st4">ID+ public server key)<v:newlineChar/></tspan><tspan x="30.17" dy="1.2em"
+			<text x="65.5" y="1859.15" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Kernel calculates <v:newlineChar/><tspan
+						x="75.25" dy="1.2em" class="st7">KernelHash </tspan>= <tspan x="5.49" dy="1.2em" class="st4">hash(clientPasswordHash+connection </tspan><tspan
+						x="52.17" dy="1.2em" class="st4">ID+ public kernel key)<v:newlineChar/></tspan><tspan x="30.17" dy="1.2em"
 						class="st4">clientPasswordHash get from </tspan><tspan x="87.41" dy="1.2em" class="st4">database</tspan></text>		</g>
 		<g id="shape554-50" v:mID="554" v:groupContext="shape" transform="translate(271.275,-1155.4)">
 			<title>Прямоугольник.362</title>
-			<desc>Client encrypt calculated hash with public server key encrypt...</desc>
+			<desc>Client encrypt calculated hash with public kernel key encrypt...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
@@ -211,31 +211,31 @@
 			<v:textRect cx="113.386" cy="1911.12" width="226.78" height="85.0394"/>
 			<rect x="0" y="1868.6" width="226.772" height="85.0394" class="st5"/>
 			<text x="13.75" y="1890.12" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client encrypt calculated hash with <tspan
-						x="65.44" dy="1.2em" class="st4">public server key<v:newlineChar/></tspan><tspan x="13.85" dy="1.2em"
+						x="65.44" dy="1.2em" class="st4">public kernel key<v:newlineChar/></tspan><tspan x="13.85" dy="1.2em"
 						class="st7">encryptedHash </tspan>= encrypt(hash(...))<v:newlineChar/><tspan x="54.34" dy="1.2em"
-						class="st4">And send it to server</tspan></text>		</g>
+						class="st4">And send it to kernel</tspan></text>		</g>
 		<g id="shape555-56" v:mID="555" v:groupContext="shape" transform="translate(563.421,-1155.4)">
 			<title>Прямоугольник.363</title>
-			<desc>Server decrypt received encryptedHash with it`s private key d...</desc>
+			<desc>Kernel decrypt received encryptedHash with it`s private key d...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="113.386" cy="1911.12" width="226.78" height="85.0394"/>
 			<rect x="0" y="1868.6" width="226.772" height="85.0394" class="st5"/>
-			<text x="45.95" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server decrypt received <tspan
+			<text x="45.95" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Kernel decrypt received <tspan
 						x="11.9" dy="1.2em" class="st7">encryptedHash </tspan>with it`s private key<v:newlineChar/><tspan x="14.32"
 						dy="1.2em" class="st7">decryptedHash </tspan>= decrypt(hash(…))  </text>		</g>
 		<g id="shape556-61" v:mID="556" v:groupContext="shape" transform="translate(866.551,-1155.4)">
 			<title>Прямоугольник.365</title>
-			<desc>ServerHash and decryptedHash are similar?</desc>
+			<desc>KernelHash and decryptedHash are similar?</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="113.386" cy="1911.12" width="226.78" height="85.0394"/>
 			<rect x="0" y="1868.6" width="226.772" height="85.0394" class="st5"/>
-			<text x="11.69" y="1906.92" class="st8" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>ServerHash<tspan
+			<text x="11.69" y="1906.92" class="st8" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>KernelHash<tspan
 						class="st9"> </tspan><tspan class="st9">and </tspan>decryptedHash <tspan class="st9">are </tspan><tspan
 						x="91.2" dy="1.2em" class="st9">similar?</tspan></text>		</g>
 		<g id="shape557-68" v:mID="557" v:groupContext="shape" transform="translate(933.874,-999.496)">
@@ -363,14 +363,14 @@
 			<text x="25.36" y="1950.84" class="st15" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client side</text>		</g>
 		<g id="shape578-175" v:mID="578" v:groupContext="shape" transform="translate(600.807,-1896.58)">
 			<title>Лист.578</title>
-			<desc>Server side</desc>
+			<desc>Kernel side</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="76" cy="1943.64" width="152" height="20"/>
 			<rect x="0" y="1933.64" width="152" height="20" class="st14"/>
-			<text x="22.32" y="1950.84" class="st15" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server side</text>		</g>
+			<text x="22.32" y="1950.84" class="st15" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Kernel side</text>		</g>
 		<g id="shape579-178" v:mID="579" v:groupContext="shape" transform="translate(327.968,-758.551)">
 			<title>Прямоугольник.411</title>
-			<desc>Sending client public key to server</desc>
+			<desc>Sending client public key to kernel</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
@@ -378,17 +378,17 @@
 			<v:textRect cx="56.6929" cy="1911.12" width="113.39" height="85.0394"/>
 			<rect x="0" y="1868.6" width="113.386" height="85.0394" class="st5"/>
 			<text x="16.8" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Sending client <tspan
-						x="20.45" dy="1.2em" class="st4">public key to </tspan><tspan x="38.95" dy="1.2em" class="st4">server</tspan></text>		</g>
+						x="20.45" dy="1.2em" class="st4">public key to </tspan><tspan x="38.95" dy="1.2em" class="st4">kernel</tspan></text>		</g>
 		<g id="shape580-183" v:mID="580" v:groupContext="shape" transform="translate(618.874,-758.551)">
 			<title>Прямоугольник.412</title>
-			<desc>Sending server public key to client</desc>
+			<desc>Sending kernel public key to client</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="56.6929" cy="1911.12" width="113.39" height="85.0394"/>
 			<rect x="0" y="1868.6" width="113.386" height="85.0394" class="st5"/>
-			<text x="14.73" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Sending server <tspan
+			<text x="14.73" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Sending kernel <tspan
 						x="20.45" dy="1.2em" class="st4">public key to </tspan><tspan x="41.01" dy="1.2em" class="st4">client</tspan></text>		</g>
 		<g id="shape581-188" v:mID="581" v:groupContext="shape" v:layerMember="1" transform="translate(441.354,-793.984)">
 			<title>Лист.581</title>
@@ -413,10 +413,10 @@
 			<rect x="0" y="1868.6" width="226.772" height="85.0394" class="st5"/>
 			<text x="4.27" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Calculating shared secret (session key) <v:newlineChar/><tspan
 						x="13.32" dy="1.2em" class="st7">ClientKey </tspan>= agree(clientPrivateKey, <tspan x="66.08" dy="1.2em"
-						class="st4">serverPublicKey) </tspan> </text>		</g>
+						class="st4">kernelPublicKey) </tspan> </text>		</g>
 		<g id="shape585-210" v:mID="585" v:groupContext="shape" transform="translate(553.677,-645.165)">
 			<title>Прямоугольник.419</title>
-			<desc>Calculating shared secret (session key) ServerKey = agree(ser...</desc>
+			<desc>Calculating shared secret (session key) KernelKey = agree(ser...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
@@ -424,7 +424,7 @@
 			<v:textRect cx="121.89" cy="1911.12" width="243.78" height="85.0394"/>
 			<rect x="0" y="1868.6" width="243.78" height="85.0394" class="st5"/>
 			<text x="12.78" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Calculating shared secret (session key) <v:newlineChar/><tspan
-						x="15.62" dy="1.2em" class="st7">ServerKey </tspan>= agree(servertPrivateKey, <tspan x="76.66" dy="1.2em"
+						x="15.62" dy="1.2em" class="st7">KernelKey </tspan>= agree(kerneltPrivateKey, <tspan x="76.66" dy="1.2em"
 						class="st4">clientPublicKey) </tspan> </text>		</g>
 		<g id="shape586-215" v:mID="586" v:groupContext="shape" v:layerMember="1" transform="translate(377.575,-758.551)">
 			<title>Лист.586</title>
@@ -436,7 +436,7 @@
 		</g>
 		<g id="shape588-225" v:mID="588" v:groupContext="shape" transform="translate(271.275,-595.595)">
 			<title>Лист.588</title>
-			<desc>If everything ended correctly, ClientKey == ServerKey</desc>
+			<desc>If everything ended correctly, ClientKey == KernelKey</desc>
 			<v:userDefs>
 				<v:ud v:nameU="CTypeTopLeftSnip" v:prompt="" v:val="VT0(0):5"/>
 				<v:ud v:nameU="CTypeTopRightSnip" v:prompt="" v:val="VT0(0):5"/>
@@ -459,7 +459,7 @@
 			<v:textRect cx="262.205" cy="1932.41" width="524.41" height="42.4488"/>
 			<path d="M0 1953.64 L524.41 1953.64 L524.41 1911.19 L0 1911.19 L0 1953.64 Z" class="st2"/>
 			<text x="154.43" y="1927.01" class="st3" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>If everything ended correctly, <v:newlineChar/><tspan
-						x="176.1" dy="1.2em" class="st7">ClientKey</tspan> == <tspan class="st7">ServerKey</tspan></text>		</g>
+						x="176.1" dy="1.2em" class="st7">ClientKey</tspan> == <tspan class="st7">KernelKey</tspan></text>		</g>
 		<g id="shape589-230" v:mID="589" v:groupContext="shape" transform="translate(264.189,-418.394)">
 			<title>Прямоугольник.424</title>
 			<desc>Client encrypt testMessage with ClientKey EncryptedMsg = encr...</desc>
@@ -472,18 +472,18 @@
 			<text x="28.19" y="1890.12" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client encrypt <tspan
 						class="st7">testMessage</tspan> with <tspan x="92.95" dy="1.2em" class="st7">ClientKey<v:newlineChar/></tspan><tspan
 						x="9.53" dy="1.2em" class="st7">EncryptedMsg</tspan> = encrypt(<tspan class="st7">testMessage</tspan>)<v:newlineChar/><tspan
-						x="61.43" dy="1.2em" class="st4">And send it to server </tspan> </text>		</g>
+						x="61.43" dy="1.2em" class="st4">And send it to kernel </tspan> </text>		</g>
 		<g id="shape590-238" v:mID="590" v:groupContext="shape" transform="translate(550.842,-418.394)">
 			<title>Прямоугольник.425</title>
-			<desc>Server decrypt EncryptedMsg with ServerKey DecryptedMsg = enc...</desc>
+			<desc>Kernel decrypt EncryptedMsg with KernelKey DecryptedMsg = enc...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="124.724" cy="1911.12" width="249.45" height="85.0394"/>
 			<rect x="0" y="1868.6" width="249.449" height="85.0394" class="st5"/>
-			<text x="25.77" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server decrypt <tspan
-						class="st7">EncryptedMsg</tspan> with <tspan x="95.41" dy="1.2em" class="st7">ServerKey<v:newlineChar/></tspan><tspan
+			<text x="25.77" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Kernel decrypt <tspan
+						class="st7">EncryptedMsg</tspan> with <tspan x="95.41" dy="1.2em" class="st7">KernelKey<v:newlineChar/></tspan><tspan
 						x="6.54" dy="1.2em" class="st7">DecryptedMsg</tspan> = encrypt(<tspan class="st7">EncryptedMsg</tspan> )  </text>		</g>
 		<g id="shape591-245" v:mID="591" v:groupContext="shape" v:layerMember="1" transform="translate(377.575,-645.165)">
 			<title>Лист.591</title>
@@ -521,7 +521,7 @@
 						class="st9"> </tspan><tspan class="st9">is known to both</tspan></text>		</g>
 		<g id="shape594-260" v:mID="594" v:groupContext="shape" transform="translate(579.72,-280.724)">
 			<title>Прямоугольник.430</title>
-			<desc>DecryptedMsg and testMessage are similar? Server send true/fa...</desc>
+			<desc>DecryptedMsg and testMessage are similar? Kernel send true/fa...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
@@ -530,7 +530,7 @@
 			<rect x="0" y="1868.6" width="191.693" height="85.0394" class="st5"/>
 			<text x="41.19" y="1890.12" class="st8" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>DecryptedMsg <tspan
 						class="st9">and </tspan><tspan x="24.52" dy="1.2em" class="st4">testMessage </tspan><tspan class="st9">are similar?<v:newlineChar/><v:newlineChar/></tspan><tspan
-						x="8.04" dy="2.4em" class="st9">Server send true/false to client</tspan></text>		</g>
+						x="8.04" dy="2.4em" class="st9">Kernel send true/false to client</tspan></text>		</g>
 		<g id="shape595-267" v:mID="595" v:groupContext="shape" v:layerMember="1" transform="translate(505.134,-453.827)">
 			<title>Лист.595</title>
 			<path d="M0 1946.55 L38.67 1946.55" class="st10"/>
@@ -557,7 +557,7 @@
 			<text x="-93.83" y="1932.14" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Sending result</text>		</g>
 		<g id="shape599-291" v:mID="599" v:groupContext="shape" transform="translate(299.929,-280.724)">
 			<title>Прямоугольник.441</title>
-			<desc>Client checks answer from server on key validity. Is key valid?</desc>
+			<desc>Client checks answer from kernel on key validity. Is key valid?</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
@@ -565,7 +565,7 @@
 			<v:textRect cx="84.7324" cy="1911.12" width="169.47" height="85.0394"/>
 			<rect x="0" y="1868.6" width="169.465" height="85.0394" class="st5"/>
 			<text x="9.98" y="1898.52" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client checks answer from <tspan
-						x="5.24" dy="1.2em" class="st4">server on key validity. Is key </tspan><tspan x="68.08" dy="1.2em"
+						x="5.24" dy="1.2em" class="st4">kernel on key validity. Is key </tspan><tspan x="68.08" dy="1.2em"
 						class="st4">valid?</tspan></text>		</g>
 		<g id="shape600-296" v:mID="600" v:groupContext="shape" v:layerMember="1" transform="translate(299.929,-323.244)">
 			<title>Лист.600</title>

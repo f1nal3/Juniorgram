@@ -59,8 +59,8 @@ UInt8 day = (s[8] - '0') * 10 + (s[9] - '0');
 ``` cpp
 if (elapsed_ns)
     message << " ("
-        << rows_read_on_server * 1000000000 / elapsed_ns << " rows/s., "
-        << bytes_read_on_server * 1000.0 / elapsed_ns << " MB/s.) ";
+        << rows_read_on_kernel * 1000000000 / elapsed_ns << " rows/s., "
+        << bytes_read_on_kernel * 1000.0 / elapsed_ns << " MB/s.) ";
 ```
 
 **9.** Внутри строки можно, выполнять выравнивание с помощью пробелов.

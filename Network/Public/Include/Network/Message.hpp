@@ -27,10 +27,10 @@ struct Message
     /// Enum class for Message Type
     enum class MessageType : std::uint32_t
     {
-        ServerAccept,
-        ServerPing,
+        KernelAccept,
+        KernelPing,
         MessageAll,
-        ServerMessage,
+        KernelMessage,
         ChannelListRequest,
         MessageHistoryRequest,
         MessageHistoryAnswer,

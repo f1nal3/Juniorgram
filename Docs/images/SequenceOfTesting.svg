@@ -41,14 +41,14 @@
 			<text x="21.44" y="82.7" class="st2" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Client</text>		</g>
 		<g id="shape2-4" v:mID="2" v:groupContext="shape" transform="translate(281.872,-7.82204)">
 			<title>Круг.2</title>
-			<desc>Server</desc>
+			<desc>Kernel</desc>
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:val="VT0(15):26"/>
 			</v:userDefs>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="56.6929" cy="73.7008" width="99.22" height="85.0394"/>
 			<path d="M0 73.7 A56.6929 56.6929 0 0 1 113.39 73.7 A56.6929 56.6929 0 1 1 0 73.7 Z" class="st1"/>
-			<text x="17.64" y="82.7" class="st2" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server</text>		</g>
+			<text x="17.64" y="82.7" class="st2" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Kernel</text>		</g>
 		<g id="shape4-7" v:mID="4" v:groupContext="shape" transform="translate(256.615,183.02) rotate(180)">
 			<title>Современная стрелка</title>
 			<desc>1</desc>

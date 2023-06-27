@@ -11,8 +11,8 @@ namespace Network
 /**
 * @class Client
 * @brief Class for handling connection.
-* @details The application core, which is a typical client in a client-server architecture. \
-*    The class manages the connection and provides a communication interface to the server side by providing a set of methods (API). \
+* @details The application core, which is a typical client in a client-kernel architecture. \
+*    The class manages the connection and provides a communication interface to the kernel side by providing a set of methods (API). \
 *    Each such function defines the data and order of actions that are needed to perform some functionality. \
 *    However, an option is provided to send messages manually.(@see send) \
 *    See the list of API functions and their descriptions in the class methods.
@@ -22,34 +22,34 @@ class Client
 public:
     /**
     * @brief Client virtual destructor.
-    * @details The virtual destructor calls the disconnectFromServer method, \
-    *    which checks the connection to the server. 
+    * @details The virtual destructor calls the disconnectFromKernel method, \
+    *    which checks the connection to the kernel. 
     */
     virtual ~Client() noexcept;
 
     /**
-    * @brief Connect to server with IP(host) and Port(port).
+    * @brief Connect to kernel with IP(host) and Port(port).
     * @param const std::string_view& host - for identifying and accepting ip address, \
     * @param const uint16_t port - for accepting & identifying of port.
     */
-    bool connectToServer(const std::string_view& host, const uint16_t port);
+    bool connectToKernel(const std::string_view& host, const uint16_t port);
 
     /**
-    * @brief Disconnect from server.
+    * @brief Disconnect from kernel.
     * @details This method stop connection to remote host. \
     *   Also, it reset all context and jobs that related with Client. \
     *   This method call in destructor, so in general way it is not used.
     */ 
-    void disconnectFromServer();
+    void disconnectFromKernel();
 
     /**
-    * @brief Checking the server connection.
+    * @brief Checking the kernel connection.
     * @details Returns true if connection is established.
     */ 
     [[nodiscard]] bool isConnected() const;
 
     /**
-    * @brief Sends an initialized header message to the server.
+    * @brief Sends an initialized header message to the kernel.
     * @details You can see the message types in the Message header file.
     */ 
     void send(const Message& message) const;
@@ -63,20 +63,20 @@ public:
 
     /**
     * @brief Loop that handle incoming messages.
-    * @details Handler function to process the server response message \
+    * @details Handler function to process the kernel response message \
     *   for the subsequent response from the client.
     *   (You can see the message types in the Message header file).
     */ 
     void loop();
 
     /**
-    * @brief Checking the server network transmission delay status.
+    * @brief Checking the kernel network transmission delay status.
     * @details The central method in which most of the work of the client kernel takes place.
     *   The function is an infinite loop that waits for messages to appear in the message queue.
     *   Messages are divided into types and a different handler is called for each type.
     *   In the case of a non-registered type, an issue is logged and the work continues.
     */
-    void pingServer() const;
+    void pingKernel() const;
 
     /**
     * @brief Sends a request to create direct chat.
@@ -193,7 +193,7 @@ protected:
     /**
     * @brief Disconnect handler.
     * @details This function handler outputs the response \
-    *   to the disconnect from the server.
+    *   to the disconnect from the kernel.
     */
     virtual void onDisconnect();
 
@@ -211,23 +211,23 @@ protected:
     virtual void onLoginAnswer(bool success);
 
     /**
-    * @brief Server Accepted handler.
+    * @brief Kernel Accepted handler.
     * @details This function handler outputs the response \
-    *   on accepting the connection to the server.
+    *   on accepting the connection to the kernel.
     */
-    virtual void onServerAccepted();
+    virtual void onKernelAccepted();
 
     /**
-    * @brief Server Ping handler.
+    * @brief Kernel Ping handler.
     * @details This function handler outputs the ping status response.
     */
-    virtual void onServerPing(double timestamp);
+    virtual void onKernelPing(double timestamp);
 
     /**
-    * @brief Server Message handler.
-    * @details This function handler outputs the message response from the server.
+    * @brief Kernel Message handler.
+    * @details This function handler outputs the message response from the kernel.
     */
-    virtual void onServerMessage(const uint64_t clientId);
+    virtual void onKernelMessage(const uint64_t clientId);
 
     /**
     * @brief Channel List Request handler.
@@ -321,7 +321,7 @@ protected:
     virtual void onMessageReactionAnswer(Utility::ReactionMessageCodes reactionState);
     
 private:
-    bool _serverAccept = false;
+    bool _kernelAccept = false;
 
     asio::io_context _context;
     std::thread      _contextThread;

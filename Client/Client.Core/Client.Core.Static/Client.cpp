@@ -1,5 +1,5 @@
 #include "Client.hpp"
-#include "ServerInfo.hpp"
+#include "KernelInfo.hpp"
 
 #include <limits>
 #include <Crypto.Static/Cryptography.hpp>
@@ -10,21 +10,21 @@ using MessageType = Network::Message::MessageType;
 using UtilityTime::RTC;
 using UtilityTime::timestamp_t;
 
-Client::~Client() noexcept { disconnectFromServer(); }
+Client::~Client() noexcept { disconnectFromKernel(); }
 
-bool Client::connectToServer(const std::string_view& host, const uint16_t port)
+bool Client::connectToKernel(const std::string_view& host, const uint16_t port)
 {
-    if (host != ServerInfo::Address::remote && host != ServerInfo::Address::local)
+    if (host != KernelInfo::Address::remote && host != KernelInfo::Address::local)
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "Bad server address", 
+            "Bad kernel address", 
             Base::Logger::LogLevel::ERR
         );
 
         return false;
     }
-    if (port != ServerInfo::Port::test && port != ServerInfo::Port::production)
+    if (port != KernelInfo::Port::test && port != KernelInfo::Port::production)
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -45,13 +45,13 @@ bool Client::connectToServer(const std::string_view& host, const uint16_t port)
     {
         /// Auto = asio::ip::tcp::resolver::results_type
         auto endpoints = resolver.resolve(host, std::to_string(port));
-        _connection->connectToServer(endpoints);
+        _connection->connectToKernel(endpoints);
         _contextThread = std::thread([=]() {
             while (_context.run_one())
             {
                 loop();
             }
-            _serverAccept = false;
+            _kernelAccept = false;
             onDisconnect();
         });
     }
@@ -67,7 +67,7 @@ bool Client::connectToServer(const std::string_view& host, const uint16_t port)
     return true;
 }
 
-void Client::disconnectFromServer()
+void Client::disconnectFromKernel()
 {
     if (isConnected())
     {
@@ -88,7 +88,7 @@ bool Client::isConnected() const
 {
     if (_connection != nullptr)
     {
-        return _connection->isConnected() && _serverAccept;
+        return _connection->isConnected() && _kernelAccept;
     }
     return false;
 }
@@ -109,10 +109,10 @@ void Client::send(const Message& message) const
         onMessageSendFailed(message);
     }
 }
-void Client::pingServer() const
+void Client::pingKernel() const
 {
     Network::Message message;
-    message.mHeader.mMessageType = MessageType::ServerPing;
+    message.mHeader.mMessageType = MessageType::KernelPing;
     message.mHeader.mTimestamp = RTC::to_time_t(RTC::now());
 
     send(message);
@@ -312,26 +312,26 @@ void Client::loop()
             }
             break;
 
-            case MessageType::ServerAccept:
+            case MessageType::KernelAccept:
             {
-                _serverAccept = true;
-                onServerAccepted();
+                _kernelAccept = true;
+                onKernelAccepted();
             }
             break;
 
-            case MessageType::ServerPing:
+            case MessageType::KernelPing:
             {
                 timestamp_t timeNow  = RTC::to_time_t(RTC::now());
                 timestamp_t timeThen = message.mHeader.mTimestamp;
-                onServerPing(std::chrono::duration<double>(timeNow - timeThen).count());
+                onKernelPing(std::chrono::duration<double>(timeNow - timeThen).count());
             }
             break;
 
-            case MessageType::ServerMessage:
+            case MessageType::KernelMessage:
             {
                 /// T\todo add handling 
                 uint64_t clientID = 0;
-                onServerMessage(clientID);
+                onKernelMessage(clientID);
             }
             break;
 
@@ -460,31 +460,31 @@ void Client::onLoginAnswer(bool success)
     );
 }
 
-void Client::onServerAccepted()
+void Client::onKernelAccepted()
 {
     Base::Logger::FileLogger::getInstance().log
     (
-        "Server accepted is not implemented",
+        "Kernel accepted is not implemented",
         Base::Logger::LogLevel::WARNING
     );
 }
 
-void Client::onServerPing(double timestamp)
+void Client::onKernelPing(double timestamp)
 {
     (void)(timestamp);
     Base::Logger::FileLogger::getInstance().log
     (
-        "Server ping is not implemented",
+        "Kernel ping is not implemented",
         Base::Logger::LogLevel::WARNING
     );
 }
 
-void Client::onServerMessage(const uint64_t clientId)
+void Client::onKernelMessage(const uint64_t clientId)
 {
     (void)(clientId);
     Base::Logger::FileLogger::getInstance().log
     (
-        "Server message is not implemented",
+        "Kernel message is not implemented",
         Base::Logger::LogLevel::WARNING
     );
 }

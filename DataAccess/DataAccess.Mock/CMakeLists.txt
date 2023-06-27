@@ -19,7 +19,7 @@ add_library(${TARGET} STATIC ${SOURCE_FILES})
 target_link_libraries(${TARGET}
 PUBLIC
 	Base.Crypto.Static
-    Server.Core.Static
+    Kernel.Core.Static
     DataAccess.Debug)
 	
  target_include_directories(${TARGET} PRIVATE

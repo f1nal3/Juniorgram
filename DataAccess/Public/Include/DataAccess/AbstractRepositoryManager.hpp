@@ -86,7 +86,7 @@ public:
 
     // \todo: Do better handler
     // (Probably, will be better to create thread pool
-    // and use it for server and manager).
+    // and use it for kernel and manager).
     /**
      * @brief   Requests handler.
      * @details Creates inside itself a thread that handle all requests in queue.

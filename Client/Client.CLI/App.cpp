@@ -1,25 +1,25 @@
 #include "App.hpp"
 
-#include "ServerInfo.hpp"
+#include "KernelInfo.hpp"
 
-App::App(/* args */) { connectToServer(ServerInfo::Address::remote, ServerInfo::Port::production); }
+App::App(/* args */) { connectToKernel(KernelInfo::Address::remote, KernelInfo::Port::production); }
 
 App::~App()
 {
     if (isConnected())
     {
-        disconnectFromServer();
+        disconnectFromKernel();
 
-        Base::Logger::FileLogger::getInstance().log("Server Down", Base::Logger::LogLevel::INFO);
+        Base::Logger::FileLogger::getInstance().log("Kernel Down", Base::Logger::LogLevel::INFO);
     }
 }
 
-void App::onServerAccepted() 
+void App::onKernelAccepted() 
 {
-    Base::Logger::FileLogger::getInstance().log("Server Accepted Connection", Base::Logger::LogLevel::INFO);
+    Base::Logger::FileLogger::getInstance().log("Kernel Accepted Connection", Base::Logger::LogLevel::INFO);
 }
 
-void App::onServerPing(double timestamp) 
+void App::onKernelPing(double timestamp) 
 { 
     Base::Logger::FileLogger::getInstance().log
     (
@@ -28,7 +28,7 @@ void App::onServerPing(double timestamp)
     );
 }
 
-void App::onServerMessage(const uint64_t clientId) 
+void App::onKernelMessage(const uint64_t clientId) 
 { 
     Base::Logger::FileLogger::getInstance().log
     (

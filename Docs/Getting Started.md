@@ -38,14 +38,14 @@ Install CMake:
 
 ## Visual Studio 2019/2022:
  1. Clone this repository or download as Zip from Github.
- 2. Run Visual Studio and open this repository as folder. It will automatically detect the root CMakeLists.txt and execute it, after which you can start/debug the server and client sides.
+ 2. Run Visual Studio and open this repository as folder. It will automatically detect the root CMakeLists.txt and execute it, after which you can start/debug the kernel and client sides.
 
 ## Linux:
 
 __Visual Code__:
 
  1. Clone this repository or download as Zip from Github.
- 2. Run VS Code and open the root CMakeLists.txt. It will automatically detect the root CMakeLists.txt and execute it, after which you can start/debug the server and client sides.
+ 2. Run VS Code and open the root CMakeLists.txt. It will automatically detect the root CMakeLists.txt and execute it, after which you can start/debug the kernel and client sides.
 
  #### 3. Workflows and guides
 
@@ -55,6 +55,6 @@ __Visual Code__:
 
  #### 4. Various
 
- 1. [Local server setup](Setup server on localhost.md)
+ 1. [Local kernel setup](Setup kernel on localhost.md)
 
  2. [Debugging](Improved debugging.md)

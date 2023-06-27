@@ -112,7 +112,7 @@ that defines the size of the buffer, and a variable used as a counter of bytes r
 2. Define a callback function that will be called when an asynchronous reading 
 operation is completed.
 3. In a client application, allocate and open an active TCP socket, and then, connect it to 
-a remote application. In a server application, obtain a connected active TCP socket by 
+a remote application. In a kernel application, obtain a connected active TCP socket by 
 accepting a connection request.
 4. Allocate a buffer big enough for the expected message to fit in.
 5. Initiate an asynchronous reading operation by calling the socket's async_read_
@@ -363,7 +363,7 @@ variable used as a counter of bytes written.
 2. Define a callback function that will be called when the asynchronous writing 
 operation is completed.
 3. In a client application, allocate and open an active TCP socket and connect it to a 
-remote application. In a server application, obtain a connected active TCP socket by 
+remote application. In a kernel application, obtain a connected active TCP socket by 
 accepting a connection request.
 4. Allocate a buffer and fill it with data that is to be written to the socket.
 5. Initiate an asynchronous writing operation by calling the socket's async_write_
@@ -759,7 +759,7 @@ the ```asio::mutable_buffer``` class.
 
 <h5> Code Example </h5>
 
-Let's imagine a hypothetical situation, where we want to receive 16 bytes long messages from the server. However, we do not have 
+Let's imagine a hypothetical situation, where we want to receive 16 bytes long messages from the kernel. However, we do not have 
 a buffer that can fit the entire message. Instead, we have three buffers: 6, 3, and 7 bytes long. To create a buffer in which we 
 can receive 16 bytes of data, we can join our three small buffers into a composite one. This is how we do it in the following code: 
 
@@ -802,8 +802,8 @@ Cpp-netlib offers the following implementations:
   * Network protocol message parsers - a collection of parsers which generate message objects from strings.
   * Adapters and Wrappers - a collection of Adapters and wrappers aimed towards making the message type STL 
   friendly.
-  * Network protocol client and server implementations - a collection of network protocol implementations 
-  that include embeddable client and server types.
+  * Network protocol client and kernel implementations - a collection of network protocol implementations 
+  that include embeddable client and kernel types.
 
 * [libtorrent](https://www.rasterbar.com/products/libtorrent/) -  a feature complete C++ bittorrent implementation 
 focusing on efficiency and scalability. It runs on embedded devices as well as desktops. It comes with a simple bittorrent client demonstrating the use of the library.

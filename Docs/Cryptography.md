@@ -11,7 +11,7 @@ All subsequent statements work for the following cryptography configuration:
 
 Also, this architecture will work for any symmetric encryption algorithm if the generated shared key is used as the key encryption key.
 
-The diagram below shows how the parts of the cryptographic system interact with each other and with the server.
+The diagram below shows how the parts of the cryptographic system interact with each other and with the kernel.
 
 ![crypto_one](./images/crypto_authentication.svg "Crypto authentication")
 
@@ -26,6 +26,6 @@ The diagram below shows how the application sides will be connected.
 Connection stages:
 
 1. Setting up an anonymous connection.
-2. Connection verification. If it fails, the server cannot be sure that it is working with a real client.
-3. If the client has confirmed that he is the one the server knows, a shared key is generated (used for symmetric encryption).
-4. As a result of generation, both the client and the server have a key, but they cannot be sure that the other side has exactly the same one. To do this, the client sends an encrypted message with known content. If the server decrypted and received the correct values, it is assumed that both parties received the same key.
+2. Connection verification. If it fails, the kernel cannot be sure that it is working with a real client.
+3. If the client has confirmed that he is the one the kernel knows, a shared key is generated (used for symmetric encryption).
+4. As a result of generation, both the client and the kernel have a key, but they cannot be sure that the other side has exactly the same one. To do this, the client sends an encrypted message with known content. If the kernel decrypted and received the correct values, it is assumed that both parties received the same key.

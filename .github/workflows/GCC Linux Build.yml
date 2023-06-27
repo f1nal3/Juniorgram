@@ -65,12 +65,12 @@ jobs:
       working-directory: ${{github.workspace}}/build  
       run: ctest -C ${{matrix.BUILD_TYPE}} --output-on-failure
    
-    - name: Archive server executable
+    - name: Archive kernel executable
       if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'
       uses: actions/upload-artifact@v2
       with:
-        name: juniorgram-server
-        path: ./build/bin/Server.Exec
+        name: juniorgram-kernel
+        path: ./build/bin/Kernel.Exec
         
     - name: Setup SSH
       if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'
@@ -96,9 +96,9 @@ jobs:
           ssh jg_host 'sudo systemctl stop juniorgram.test.service '
           ssh jg_host 'sudo rm juniorgram.test' 
     
-    - name: Upload server to Host
+    - name: Upload kernel to Host
       if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'    
-      run: scp ./build/bin/Server.Exec jg_host:/home/jg_admin/juniorgram.test
+      run: scp ./build/bin/Kernel.Exec jg_host:/home/jg_admin/juniorgram.test
         
     - name: Start JG Service
       if: matrix.BUILD_TYPE == 'Release' && github.event_name == 'push' && github.ref == 'refs/heads/dev'

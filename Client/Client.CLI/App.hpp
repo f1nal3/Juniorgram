@@ -5,14 +5,14 @@
  * @class App(Client.CLI)
  * @brief App(Client.CLI) class which allows
  *        you to work with the console
- *        and process messages from the server.
+ *        and process messages from the kernel.
  */
 class App : public Network::Client
 {
 public:
     /**
      * @brief App(Client.CLI) constructor.
-     * @details Connects to the server by address and port.
+     * @details Connects to the kernel by address and port.
      */
     App(/* args */);
 
@@ -23,12 +23,12 @@ public:
     ~App();
 
 protected:
-    /// Server accepted handler
-    void onServerAccepted() override;
-    /// Server ping handler
-    void onServerPing(double timestamp) override;
-    /// Server message handler
-    void onServerMessage(const uint64_t clientId) override;
+    /// Kernel accepted handler
+    void onKernelAccepted() override;
+    /// Kernel ping handler
+    void onKernelPing(double timestamp) override;
+    /// Kernel message handler
+    void onKernelMessage(const uint64_t clientId) override;
     /// Channel list request handler
     void onChannelListRequest(const std::vector<Models::ChannelInfo>& channels) override;
     /// Message store answer handler

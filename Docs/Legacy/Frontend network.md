@@ -7,7 +7,7 @@
 <hr>
 
 ```c++
-OwnerType mOwner = OwnerType::SERVER 
+OwnerType mOwner = OwnerType::KERNEL
 ```
 the "owner" decides how some of the connection behaves.
 
@@ -83,7 +83,7 @@ If we can't read the body from the socket we display an error message - "[<clien
 ```c++
 void addToIncomingMessageQueue() 
 ```
-once a full message is received, add it to the incoming queue. Shove it in queue, converting it to an "owned message", by initializing with the a shared pointer from this connection object for Server side and without shared pointer from this for Client side. Next we call ReadHeader() to read other messages.
+once a full message is received, add it to the incoming queue. Shove it in queue, converting it to an "owned message", by initializing with the a shared pointer from this connection object for Kernel side and without shared pointer from this for Client side. Next we call ReadHeader() to read other messages.
 
 <hr>
 
@@ -104,14 +104,14 @@ this ID is used system wide - its how clients will understand other clients whol
 ```c++
 void connectToClient(const uint64_t& uid = uint64_t()) 
 ```
-this func allows only Server side connect to other Clients.
+this func allows only Kernel side connect to other Clients.
 
 <hr>
 
 ```c++
-void connectToServer(const asio::ip::tcp::resolver::results_type& endpoint) 
+void connectToKernel(const asio::ip::tcp::resolver::results_type& endpoint) 
 ```
-only clients can connect to servers. And make a request asio attempts to connect to an endpoint.
+only clients can connect to kernels. And make a request asio attempts to connect to an endpoint.
 
 <hr>
 
@@ -132,7 +132,7 @@ check if current socket is open.
 ```c++
 void send(const Message& message) 
 ```
-send a message, connections are one-to-one so no need to specifiy the target, for a Client, the target is the Server and vice versa.
+send a message, connections are one-to-one so no need to specifiy the target, for a Client, the target is the Kernel and vice versa.
 
 If the queue has a message in it, then we must assume that it is in the process of asynchronously being written. Either way add the message to the queue to be output. If no messages were available to be written, then start the process of writing the message at the front of the queue.
 
@@ -140,7 +140,7 @@ If the queue has a message in it, then we must assume that it is in the process 
 
 ## Attributes:
 
-std::shared_ptr<Connection> mRemote = nullptr - on a server, the owner would be the client that sent the message, on a client the owner would be the server.
+std::shared_ptr<Connection> mRemote = nullptr - on a kernel, the owner would be the client that sent the message, on a client the owner would be the kernel.
 
 MessageHeader mHeader - header of the message.
 
@@ -190,13 +190,13 @@ uint32_t mBodySize = uint32_t() - current size of message part.
 
 ## MessageType
 
-ServerAccept - server has accepted a connection.
+KernelAccept - kernel has accepted a connection.
 
-ServerPing - the time response from server.
+KernelPing - the time response from kernel.
 
 MessageAll - to send a message to all clients.
 
-ServerMessage - (plug) some message for server.
+KernelMessage - (plug) some message for kernel.
 
 
 # Diagrams

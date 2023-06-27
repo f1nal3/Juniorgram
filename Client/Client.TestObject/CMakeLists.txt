@@ -4,7 +4,7 @@ set(OUTPUT_NAME Client.TestObject)
 set(SOURCE_FILES
 	TestClient.hpp
 	TestClient.cpp
-	TestServerInfo.hpp)
+	TestKernelInfo.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 

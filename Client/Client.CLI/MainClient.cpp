@@ -50,7 +50,7 @@ int main(int argc, char** argv)
 
             if (cmd == "p")
             {
-                clientApp.pingServer();
+                clientApp.pingKernel();
                 cmd = "";
             }
             else if (cmd == "s")
@@ -154,7 +154,7 @@ int main(int argc, char** argv)
             else if (cmd == "q")
             {
                 quit = true;
-                clientApp.disconnectFromServer();
+                clientApp.disconnectFromKernel();
                 continue;
             }
             // Set a new line. Subtle race condition between the previous line

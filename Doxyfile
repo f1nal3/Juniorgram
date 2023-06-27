@@ -1041,8 +1041,8 @@ IMAGE_PATH             = Docs/images/crypto_authentication.svg \
                          "Docs/images/Screenshot 2022-06-29 155313.png" \
                          Docs/images/SequenceOfTesting.svg \
                          Docs/images/SequenceOfTesting.vsdx \
-                         Docs/images/ServerTestModules.svg \
-                         Docs/images/ServerTestModules.vsdx \
+                         Docs/images/KernelTestModules.svg \
+                         Docs/images/KernelTestModules.vsdx \
                          Docs/images/workflow.png
 
 # The INPUT_FILTER tag can be used to specify a program that doxygen should

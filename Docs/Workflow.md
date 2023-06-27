@@ -12,4 +12,4 @@
 
 # Global delivery
 The development of the application is broken down into some intermediate steps. Each stage is described in a specific milestone. When all the tasks nested in the current cycle have been completed, a procedure for capturing the changes is initiated. This procedure is called a release. 
-It commits to the main branch and starts the CI/CD procedure which sends the updated binaries to the server.
+It commits to the main branch and starts the CI/CD procedure which sends the updated binaries to the kernel.

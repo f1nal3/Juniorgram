@@ -6,9 +6,9 @@ using MessageType = Network::Message::MessageType;
 using UtilityTime::timestamp_t;
 using UtilityTime::RTC;
 
-TestClient::~TestClient() noexcept { disconnectFromServer(); }
+TestClient::~TestClient() noexcept { disconnectFromKernel(); }
 
-bool TestClient::connectToServer(const std::string_view& host, const uint16_t port)
+bool TestClient::connectToKernel(const std::string_view& host, const uint16_t port)
 { 
     checkConnectionArguments(host, port);
 
@@ -20,16 +20,16 @@ bool TestClient::connectToServer(const std::string_view& host, const uint16_t po
     try
     {
         auto endpoints = resolver.resolve(host, std::to_string(port));
-        _connection->connectToServer(endpoints);
+        _connection->connectToKernel(endpoints);
 
-        checkServerAcception();
+        checkKernelAcception();
 
         _contextThread = std::thread([this]() {
             while (_context.run_one())
             {
                 noose();
             }
-            _serverAccept = false;
+            _kernelAccept = false;
             onDisconnect();
         });
     }
@@ -46,7 +46,7 @@ bool TestClient::connectToServer(const std::string_view& host, const uint16_t po
     return true; 
 }
 
-void TestClient::disconnectFromServer()
+void TestClient::disconnectFromKernel()
 {
     if (isConnected())
     {
@@ -69,7 +69,7 @@ bool TestClient::isConnected() const
 {
     if (_connection != nullptr)
     {
-        return _connection->isConnected() && _serverAccept;
+        return _connection->isConnected() && _kernelAccept;
     }
     return false;
 }
@@ -109,7 +109,7 @@ void TestClient::countOfErrorResults()
 
 bool TestClient::checkConnectionArguments(const std::string_view& host, const uint16_t port) const
 {
-    if (host != TestServerInfo::Address::local || port != TestServerInfo::Port::test)
+    if (host != TestKernelInfo::Address::local || port != TestKernelInfo::Port::test)
     {
         Base::Logger::FileLogger::getInstance().log
         (
@@ -121,14 +121,14 @@ bool TestClient::checkConnectionArguments(const std::string_view& host, const ui
     return true;
 }
 
-bool TestClient::checkServerAcception()
+bool TestClient::checkKernelAcception()
 {
-    while (_serverAccept == false)
+    while (_kernelAccept == false)
     {
         _context.run_one();
         noose();
     }
-    return _serverAccept;
+    return _kernelAccept;
 }
 
 void TestClient::MessageResultIsError(std::optional<MessageResult> result)
@@ -154,10 +154,10 @@ void TestClient::noose()
 
         switch (message.mHeader.mMessageType)
         {
-            case MessageType::ServerAccept:
+            case MessageType::KernelAccept:
             {
-                _serverAccept = true;
-                Result = onServerAccepted();
+                _kernelAccept = true;
+                Result = onKernelAccepted();
             }
             break;
 
@@ -175,18 +175,18 @@ void TestClient::noose()
             }
             break;
 
-            case MessageType::ServerPing:
+            case MessageType::KernelPing:
             {
                 timestamp_t timeNow  = RTC::to_time_t(RTC::now());
                 timestamp_t timeThen = message.mHeader.mTimestamp;
-                Result = onServerPing(std::chrono::duration<double>(timeNow - timeThen).count());
+                Result = onKernelPing(std::chrono::duration<double>(timeNow - timeThen).count());
             }
             break;
 
-            case MessageType::ServerMessage:
+            case MessageType::KernelMessage:
             {
                 uint64_t clientID = 0;
-                Result = onServerMessage(clientID);
+                Result = onKernelMessage(clientID);
             }
             break;
 
@@ -317,26 +317,26 @@ std::optional<MessageResult> TestClient::onLoginAnswer(bool success) const
     return MessageResult::InvalidBody;
 }
 
-std::optional<MessageResult> TestClient::onServerAccepted() const
+std::optional<MessageResult> TestClient::onKernelAccepted() const
 {
-    if (_serverAccept != true)
+    if (_kernelAccept != true)
     {
         Base::Logger::FileLogger::getInstance().log
         (
-            "[TestClient] Server didn't accept the connection!", 
+            "[TestClient] Kernel didn't accept the connection!", 
             Base::Logger::LogLevel::ERR
         );
         return MessageResult::InvalidBody;
     }
     Base::Logger::FileLogger::getInstance().log
     (
-        "[TestClient] Server accepted the connection!", 
+        "[TestClient] Kernel accepted the connection!", 
         Base::Logger::LogLevel::INFO
     );
-    return MessageResult::ServerAccept;
+    return MessageResult::KernelAccept;
 }
 
-std::optional<MessageResult> TestClient::onServerPing(double timestamp) const
+std::optional<MessageResult> TestClient::onKernelPing(double timestamp) const
 {
     if (timestamp < 0)
     {
@@ -355,7 +355,7 @@ std::optional<MessageResult> TestClient::onServerPing(double timestamp) const
     return MessageResult::Success;
 }
 
-std::optional<MessageResult> TestClient::onServerMessage(const uint64_t clientID) const
+std::optional<MessageResult> TestClient::onKernelMessage(const uint64_t clientID) const
 {
     if (clientID > 0)
     {
@@ -521,7 +521,7 @@ void TestClient::onDisconnect() const
 {
     Base::Logger::FileLogger::getInstance().log
     (
-        "[TestClient] You've been disconnected from server!", 
+        "[TestClient] You've been disconnected from kernel!", 
         Base::Logger::LogLevel::INFO
     );
 }

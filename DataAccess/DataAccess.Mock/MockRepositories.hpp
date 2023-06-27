@@ -1,7 +1,7 @@
 #pragma once 
 
 #include <DataAccess/IAdapter.hpp>
-#include <DataAccess/IServerRepositories.hpp>
+#include <DataAccess/IKernelRepositories.hpp>
 
 #include "MockQuery.hpp"
 #include "Models/Primitives.hpp"

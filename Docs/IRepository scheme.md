@@ -6,7 +6,7 @@ IRepository is an interface for a more abstract approach to Databases.
 
 We need a constant way to access any data storage that we might use.
 So far the use cases are:
-* PostgreSQL for storing data on the server side
+* PostgreSQL for storing data on the kernel side
 * MySQLite for storing data on the client side
 * File Database Mock used for debug purposes
 

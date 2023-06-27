@@ -462,12 +462,12 @@
 				<v:ud v:nameU="StereoType" v:prompt="" v:val="VT0(1):5"/>
 				<v:ud v:nameU="TextOffset" v:prompt="" v:val="VT0(0.22227273084852):1"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(5.8417205704724):1"/>
-				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(IMessagesRepository(Server))"/>
+				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(IMessagesRepository(Kernel))"/>
 				<v:ud v:nameU="HdrHgt" v:prompt="" v:val="VT0(0.59593536783854):1"/>
 				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT5(#c8c8c8)"/>
 			</v:userDefs>
 			<title>Занятие.56</title>
-			<desc>IMessagesRepository(Server)</desc>
+			<desc>IMessagesRepository(Kernel)</desc>
 			<g id="shape57-57" v:mID="57" v:groupContext="shape">
 				<title>Лист.57</title>
 				<v:userDefs>
@@ -494,7 +494,7 @@
 					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(ИмяКласса)"/>
 					<v:ud v:nameU="StereoType" v:prompt="" v:val="VT0(1):5"/>
 					<v:ud v:nameU="UsableHgt" v:prompt="" v:val="VT0(0.59593536783854):1"/>
-					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(IMessagesRepository(Server))"/>
+					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(IMessagesRepository(Kernel))"/>
 				</v:userDefs>
 				<path d="M0 1154.55 L336.26 1154.55 L336.26 1111.64 L0 1111.64 L0 1154.55 Z" class="st5"/>
 			</g>
@@ -526,7 +526,7 @@
 			<g id="shape56-65" v:mID="56" v:groupContext="groupContent">
 				<v:textBlock v:margins="rect(4,4,8.5,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="168.13" cy="1060.59" width="336.26" height="26.9037"/>
-				<text x="97.25" y="1061.94" class="st8" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IMessagesRepository(Server)</text>			</g>
+				<text x="97.25" y="1061.94" class="st8" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IMessagesRepository(Kernel)</text>			</g>
 		</g>
 		<g id="shape61-67" v:mID="61" v:groupContext="shape" transform="translate(4044.12,-773.891)">
 			<title>Участник.61</title>
@@ -6967,46 +6967,46 @@
 			<text x="5.95" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IMasterRepository.hpp</text>		</g>
 		<g id="shape1568-1158" v:mID="1568" v:groupContext="shape" transform="translate(4044.12,-823.852)">
 			<title>Лист.1568</title>
-			<desc>IServerRepositories.hpp</desc>
+			<desc>IKernelRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="63.721" cy="1143.35" width="127.45" height="22.4037"/>
 			<rect x="0" y="1132.15" width="127.442" height="22.4037" class="st5"/>
-			<text x="6.49" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
+			<text x="6.49" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IKernelRepositories.hpp</text>		</g>
 		<g id="shape1569-1161" v:mID="1569" v:groupContext="shape" transform="translate(4728.33,-823.403)">
 			<title>Лист.1569</title>
-			<desc>IServerRepositories.hpp</desc>
+			<desc>IKernelRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="63.721" cy="1144.88" width="127.45" height="19.3376"/>
 			<rect x="0" y="1135.21" width="127.442" height="19.3376" class="st5"/>
-			<text x="6.49" y="1148.48" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
+			<text x="6.49" y="1148.48" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IKernelRepositories.hpp</text>		</g>
 		<g id="shape1570-1164" v:mID="1570" v:groupContext="shape" transform="translate(3656.69,-823.852)">
 			<title>Лист.1570</title>
-			<desc>IServerRepositories.hpp</desc>
+			<desc>IKernelRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="63.721" cy="1143.35" width="127.45" height="22.4037"/>
 			<rect x="0" y="1132.15" width="127.442" height="22.4037" class="st5"/>
-			<text x="6.49" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
+			<text x="6.49" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IKernelRepositories.hpp</text>		</g>
 		<g id="shape1571-1167" v:mID="1571" v:groupContext="shape" transform="translate(4395.97,-820.336)">
 			<title>Лист.1571</title>
-			<desc>IServerRepositories.hpp</desc>
+			<desc>IKernelRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="63.721" cy="1143.35" width="127.45" height="22.4037"/>
 			<rect x="0" y="1132.15" width="127.442" height="22.4037" class="st5"/>
-			<text x="6.49" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
+			<text x="6.49" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IKernelRepositories.hpp</text>		</g>
 		<g id="shape1572-1170" v:mID="1572" v:groupContext="shape" transform="translate(5074.87,-820.336)">
 			<title>Лист.1572</title>
-			<desc>IServerRepositories.hpp</desc>
+			<desc>IKernelRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="63.721" cy="1143.35" width="127.45" height="22.4037"/>
 			<rect x="0" y="1132.15" width="127.442" height="22.4037" class="st5"/>
-			<text x="6.49" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
+			<text x="6.49" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IKernelRepositories.hpp</text>		</g>
 		<g id="shape1573-1173" v:mID="1573" v:groupContext="shape" transform="translate(5433.45,-820.336)">
 			<title>Лист.1573</title>
-			<desc>IServerRepositories.hpp</desc>
+			<desc>IKernelRepositories.hpp</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="63.721" cy="1143.35" width="127.45" height="22.4037"/>
 			<rect x="0" y="1132.15" width="127.442" height="22.4037" class="st5"/>
-			<text x="6.49" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IServerRepositories.hpp</text>		</g>
+			<text x="6.49" y="1146.95" class="st24" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>IKernelRepositories.hpp</text>		</g>
 		<g id="shape1574-1176" v:mID="1574" v:groupContext="shape" transform="translate(1378.04,-825.732)">
 			<title>Лист.1574</title>
 			<desc>QueryBuilder.hpp</desc>

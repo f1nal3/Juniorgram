@@ -369,7 +369,7 @@
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="MemberName" v:prompt=""
-						v:val="VT4(+ addKey(newKey: SecByteBlock) // for client&#10;+ addKey(userId: uint64_t, newKey: SecByteBlock) // for server&#10;+ getKey(): SecByteBlock // for client&#10;+ getKey(userId: unit64_t): SecByteBlock // for server&#10;&#10;This is Meyer`s singleton.&#10;For server &#34;sessionKey&#34; is map&#60;userId, SecByteBlock&#62;, for client - SecByteBlock)"/>
+						v:val="VT4(+ addKey(newKey: SecByteBlock) // for client&#10;+ addKey(userId: uint64_t, newKey: SecByteBlock) // for kernel&#10;+ getKey(): SecByteBlock // for client&#10;+ getKey(userId: unit64_t): SecByteBlock // for kernel&#10;&#10;This is Meyer`s singleton.&#10;For kernel &#34;sessionKey&#34; is map&#60;userId, SecByteBlock&#62;, for client - SecByteBlock)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT5(#4672c4)"/>
@@ -383,11 +383,11 @@
 			<rect x="0" y="632.5" width="274.961" height="96.0039" class="st6"/>
 			<rect x="0" y="632.5" width="274.961" height="96.0039" class="st7"/>
 			<text x="8.5" y="641.5" class="st10" v:langID="1033"><v:paragraph/><v:tabList/>+ addKey(newKey: SecByteBlock) // for client<v:newlineChar/><tspan
-						x="8.5" dy="1.2em" class="st11">+ addKey(userId: uint64_t, newKey: SecByteBlock) // for server<v:newlineChar/></tspan><tspan
+						x="8.5" dy="1.2em" class="st11">+ addKey(userId: uint64_t, newKey: SecByteBlock) // for kernel<v:newlineChar/></tspan><tspan
 						x="8.5" dy="1.2em" class="st11">+ getKey(): SecByteBlock // for client<v:newlineChar/></tspan><tspan
-						x="8.5" dy="1.2em" class="st11">+ getKey(userId: unit64_t): SecByteBlock // for server<v:newlineChar/><v:newlineChar/></tspan><tspan
+						x="8.5" dy="1.2em" class="st11">+ getKey(userId: unit64_t): SecByteBlock // for kernel<v:newlineChar/><v:newlineChar/></tspan><tspan
 						x="8.5" dy="2.4em" class="st11">This is Meyer`s singleton.<v:newlineChar/></tspan><tspan x="8.5" dy="1.2em"
-						class="st11">For server &#34;sessionKey&#34; is map&#60;userId, SecByteBlock&#62;, for client </tspan>- <tspan
+						class="st11">For kernel &#34;sessionKey&#34; is map&#60;userId, SecByteBlock&#62;, for client </tspan>- <tspan
 						x="8.5" dy="1.2em" class="st11">SecByteBlock</tspan></text>		</g>
 		<g id="shape34-50" v:mID="34" v:groupContext="shape" transform="translate(2792.19,-488.335)">
 			<title>Пакет (свернутый)</title>
@@ -2191,7 +2191,7 @@
 		</g>
 		<g id="shape235-315" v:mID="235" v:groupContext="shape" transform="translate(871.937,-243.572)">
 			<title>Участник.235</title>
-			<desc>- connectionId: uint64_t - passwordHash - publicServerKey</desc>
+			<desc>- connectionId: uint64_t - passwordHash - publicKernelKey</desc>
 			<v:userDefs>
 				<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(Member)"/>
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(-имя участника)"/>
@@ -2204,7 +2204,7 @@
 				<v:ud v:nameU="BackLineColor" v:prompt="" v:val="VT5(0)"/>
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
-				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(- connectionId: uint64_t&#10;- passwordHash&#10;- publicServerKey)"/>
+				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(- connectionId: uint64_t&#10;- passwordHash&#10;- publicKernelKey)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT5(#4672c4)"/>
@@ -2219,7 +2219,7 @@
 			<rect x="0" y="692.5" width="178.583" height="36.0037" class="st7"/>
 			<text x="8.5" y="701.5" class="st10" v:langID="1033"><v:paragraph/><v:tabList/>- connectionId: uint64_t<v:newlineChar/><tspan
 						x="8.5" dy="1.2em" class="st11">-</tspan> passwordHash<v:newlineChar/><tspan x="8.5" dy="1.2em"
-						class="st11">-</tspan> publicServerKey</text>		</g>
+						class="st11">-</tspan> publicKernelKey</text>		</g>
 		<g id="shape236-321" v:mID="236" v:groupContext="shape" transform="translate(871.937,-240.737)">
 			<title>Разделитель.236</title>
 			<v:userDefs>
@@ -2644,7 +2644,7 @@
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="MemberName" v:prompt=""
-						v:val="VT4(+ saveKeyPair()&#10;+ loadKeyPair()&#10;+ generateKeyPair()&#10;+ getPublicServerKey(): SecByteBlock&#10;&#10;This class only for server key pair!)"/>
+						v:val="VT4(+ saveKeyPair()&#10;+ loadKeyPair()&#10;+ generateKeyPair()&#10;+ getPublicKernelKey(): SecByteBlock&#10;&#10;This class only for kernel key pair!)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT5(#4672c4)"/>
@@ -2659,8 +2659,8 @@
 			<rect x="0" y="656.5" width="178.583" height="72.0038" class="st7"/>
 			<text x="8.5" y="665.5" class="st10" v:langID="1033"><v:paragraph/><v:tabList/>+ saveKeyPair()<v:newlineChar/><v:paragraph/><tspan
 						x="8.5" dy="1.2em" class="st11">+ loadKeyPair()<v:newlineChar/><v:paragraph/></tspan><tspan x="8.5"
-						dy="1.2em" class="st11">+ generateKeyPair()<v:newlineChar/></tspan><tspan x="8.5" dy="1.2em" class="st11">+ getPublicServerKey(): SecByteBlock<v:newlineChar/><v:newlineChar/></tspan><tspan
-						x="8.5" dy="2.4em" class="st11">This class only for server key pair!</tspan></text>		</g>
+						dy="1.2em" class="st11">+ generateKeyPair()<v:newlineChar/></tspan><tspan x="8.5" dy="1.2em" class="st11">+ getPublicKernelKey(): SecByteBlock<v:newlineChar/><v:newlineChar/></tspan><tspan
+						x="8.5" dy="2.4em" class="st11">This class only for kernel key pair!</tspan></text>		</g>
 		<g id="group293-394" transform="translate(137.055,-501.007)" v:mID="293" v:groupContext="group">
 			<v:userDefs>
 				<v:ud v:nameU="msvStructureType" v:prompt="" v:val="VT4(List)"/>
@@ -2688,11 +2688,11 @@
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="AdjustWidthIfNoMemberPresent" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(5.4416847123181):1"/>
-				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(Server)"/>
+				<v:ud v:nameU="EntityName" v:prompt="" v:val="VT4(Kernel)"/>
 				<v:ud v:nameU="BackGrndLine" v:prompt="" v:val="VT5(#c8c8c8)"/>
 			</v:userDefs>
 			<title>Занятие.43.293</title>
-			<desc>Server</desc>
+			<desc>Kernel</desc>
 			<g id="shape294-395" v:mID="294" v:groupContext="shape">
 				<title>Лист.294</title>
 				<v:userDefs>
@@ -2716,7 +2716,7 @@
 					<v:ud v:nameU="Spacer" v:prompt="" v:val="VT0(0):26"/>
 					<v:ud v:nameU="UsableHgt" v:prompt="" v:val="VT0(0.43616263699002):1"/>
 					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(ИмяКласса)"/>
-					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(Server)"/>
+					<v:ud v:nameU="UmlRole" v:prompt="" v:val="VT4(Kernel)"/>
 				</v:userDefs>
 				<path d="M0 728.5 L184.25 728.5 L184.25 697.1 L0 697.1 L0 728.5 Z" class="st4"/>
 			</g>
@@ -2735,7 +2735,7 @@
 			<g id="shape293-400" v:mID="293" v:groupContext="groupContent">
 				<v:textBlock v:margins="rect(8.5,4,8.5,4)" v:tabSpace="42.5197"/>
 				<v:textRect cx="92.126" cy="620.291" width="184.26" height="31.4037"/>
-				<text x="76.5" y="623.89" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Server</text>			</g>
+				<text x="76.5" y="623.89" class="st5" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>Kernel</text>			</g>
 		</g>
 		<g id="shape298-402" v:mID="298" v:groupContext="shape" transform="translate(139.89,-578.68)">
 			<title>Участник.298</title>
@@ -2781,7 +2781,7 @@
 		</g>
 		<g id="shape300-409" v:mID="300" v:groupContext="shape" transform="translate(139.89,-503.842)">
 			<title>Участник.300</title>
-			<desc>Loading key pair in Server::start from disk. If file with key...</desc>
+			<desc>Loading key pair in Kernel::start from disk. If file with key...</desc>
 			<v:userDefs>
 				<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(Member)"/>
 				<v:ud v:nameU="MemberName" v:prompt="" v:val="VT4(-имя участника)"/>
@@ -2795,7 +2795,7 @@
 				<v:ud v:nameU="IsInstance" v:prompt="" v:val="VT0(0):5"/>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="MemberName" v:prompt=""
-						v:val="VT4(&#10;Loading key pair in Server::start from disk. If file with keys isn`t exists, calls generateKeyPair().&#10;Saving key pair in Server:stop in file on disk.)"/>
+						v:val="VT4(&#10;Loading key pair in Kernel::start from disk. If file with keys isn`t exists, calls generateKeyPair().&#10;Saving key pair in Kernel:stop in file on disk.)"/>
 				<v:ud v:nameU="ContainerMargin" v:prompt="" v:val="VT0(0.039370078740157):24"/>
 				<v:ud v:nameU="WidthMin" v:prompt="" v:val="VT0(0):26"/>
 				<v:ud v:nameU="DarkerColor" v:prompt="" v:val="VT5(#4672c4)"/>
@@ -2808,17 +2808,17 @@
 			<v:textRect cx="89.2913" cy="692.502" width="178.59" height="72.0038"/>
 			<rect x="0" y="656.5" width="178.583" height="72.0038" class="st6"/>
 			<rect x="0" y="656.5" width="178.583" height="72.0038" class="st7"/>
-			<text x="8.5" y="677.5" class="st10" v:langID="1033"><v:paragraph/><v:tabList/><v:newlineChar/>Loading key pair in Server::start from <tspan
+			<text x="8.5" y="677.5" class="st10" v:langID="1033"><v:paragraph/><v:tabList/><v:newlineChar/>Loading key pair in Kernel::start from <tspan
 						x="8.5" dy="1.2em" class="st11">disk. If file with keys isn`t exists, calls </tspan><tspan x="8.5"
-						dy="1.2em" class="st11">generateKeyPair().<v:newlineChar/></tspan><tspan x="8.5" dy="1.2em" class="st11">Saving key pair in Server:stop in file on </tspan><tspan
+						dy="1.2em" class="st11">generateKeyPair().<v:newlineChar/></tspan><tspan x="8.5" dy="1.2em" class="st11">Saving key pair in Kernel:stop in file on </tspan><tspan
 						x="8.5" dy="1.2em" class="st11">disk.</tspan></text>		</g>
 		<g id="shape313-417" v:mID="313" v:groupContext="shape" transform="translate(606.898,-100.513)">
 			<title>Лист.313</title>
-			<desc>These entities exist only in Client::connectToServer and Serv...</desc>
+			<desc>These entities exist only in Client::connectToKernel and Serv...</desc>
 			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
 			<v:textRect cx="722.835" cy="678.898" width="1445.67" height="99.2126"/>
 			<rect x="0" y="629.291" width="1445.67" height="99.2126" class="st20"/>
-			<text x="282.04" y="686.1" class="st21" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>These entities exist only in Client::connectToServer and Server::acceptingClientConnection</text>		</g>
+			<text x="282.04" y="686.1" class="st21" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>These entities exist only in Client::connectToKernel and Kernel::acceptingClientConnection</text>		</g>
 		<g id="group320-420" transform="translate(321.307,-555.878)" v:mID="320" v:groupContext="group" v:layerMember="1">
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>

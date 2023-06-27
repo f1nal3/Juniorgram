@@ -42,17 +42,17 @@ class Connection : public std::enable_shared_from_this<Connection>
 {
 public:
     /** @enum OwnerType
-     *  @brief A connection is "owned" by either a server or a client. /
+     *  @brief A connection is "owned" by either a kernel or a client. /
         And its behaviour is slightly different between the two.
      */
     enum class OwnerType
     {
-        SERVER,  /// owner is server
+        KERNEL,  /// owner is kernel
         CLIENT   /// owner is client
     };
 
 private:
-    OwnerType _owner = OwnerType::SERVER;
+    OwnerType _owner = OwnerType::KERNEL;
 
     std::uint64_t _connectionID  = uint64_t();
     std::uint64_t _userID        = 1;
@@ -253,13 +253,13 @@ private:
      * @brief Method for adding to the connection incoming message queue.
      * @details When a full message is received, it is added to the incoming queue. /
      * It is shoved in the queue, converting to an "owned message", by initializing with /
-     * the a shared pointer from this connection object for Server side /
+     * the a shared pointer from this connection object for Kernel side /
      * and without shared pointer from this for Client side. /
      * Next method readHeader() is called to read other messages.
      */
     void addToIncomingMessageQueue()
     {
-        if (_owner == OwnerType::SERVER)
+        if (_owner == OwnerType::KERNEL)
         {
             _messageBuffer.mRemote = this->shared_from_this();
             _incomingMessagesQueueLink.push_back(_messageBuffer);
@@ -315,13 +315,13 @@ public:
     void setUserID(std::uint64_t id) { _userID = id; }
 
     /**
-     * @brief Method for connection to clients from server side.
-     * @details Only server side is allowed to connect to other clients.
+     * @brief Method for connection to clients from kernel side.
+     * @details Only kernel side is allowed to connect to other clients.
      * @param uid - connection id
      */
     void connectToClient(const uint64_t uid = uint64_t())
     {
-        if (_owner == OwnerType::SERVER)
+        if (_owner == OwnerType::KERNEL)
         {
             if (_socket.is_open())
             {
@@ -332,12 +332,12 @@ public:
     }
 
     /**
-     * @brief Method for connection to server from client side.
-     * @details Only clients can connect to servers and make a request asio attempts \
+     * @brief Method for connection to kernel from client side.
+     * @details Only clients can connect to kernels and make a request asio attempts \
      * to connect to an endpoint.
      * @param endpoint - result type returned by resolver
      */
-    void connectToServer(const asio::ip::tcp::resolver::results_type& endpoint)
+    void connectToKernel(const asio::ip::tcp::resolver::results_type& endpoint)
     {
         if (_owner == OwnerType::CLIENT)
         {

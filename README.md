@@ -20,8 +20,8 @@ A C++ messenger for learning purposes in EPAM Brest C++ R&D Lab
 
 See @ref gettingstarted for more info on build setup and installation.
 
-### Setting server on a local machine
+### Setting kernel on a local machine
 
- See @ref localserversetup for a guide on running the server on your local machine.
+ See @ref localkernelsetup for a guide on running the kernel on your local machine.
 
 [Documentation Coverage](https://f1nal3.github.io/Juniorgram/doc_coverage/index.html)
