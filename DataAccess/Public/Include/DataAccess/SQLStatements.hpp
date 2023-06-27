@@ -8,6 +8,7 @@
 #include "Utility/SQLUtility.hpp"
 #include "Utility/JGExceptions.hpp"
 #include "FileLogger.hpp"
+#include <Models/UnifiedModel.hpp>
 
 namespace DataAccess
 {
@@ -638,6 +639,33 @@ public:
 
         this->SQLBase<ResultType>::privateCorrectFormatting();
 
+        SQLBase<ResultType>::_queryStream << ")";
+
+        return this;
+    }
+
+    template<typename TEnum, template<typename>class TModel>
+    SQLInsert* columns(const TModel<TEnum>* model)
+    {
+        auto pairs = model->makeColumnDataPair();
+
+        SQLBase<ResultType>::_queryStream << "(";
+
+        std::for_each(std::begin(pairs), std::end(pairs), [&](const auto& pair)
+                      {
+                          (SQLBase<ResultType>::_queryStream << pair.first << ", ");
+                      });
+
+        this->SQLBase<ResultType>::privateCorrectFormatting();
+
+        SQLBase<ResultType>::_queryStream << ") values(";
+
+        std::for_each(std::begin(pairs), std::end(pairs), [&](const auto& pair)
+                      {
+                          (SQLBase<ResultType>::_queryStream << Utility::CheckForSQLSingleQuotesProblem(pair.second) << ", ");
+                      });
+
+        this->SQLBase<ResultType>::privateCorrectFormatting();
         SQLBase<ResultType>::_queryStream << ")";
 
         return this;

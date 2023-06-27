@@ -166,6 +166,41 @@ Utility::ChannelDeleteCode ChannelsRepository::deleteChannel(const Models::Chann
     return Utility::ChannelDeleteCode::SUCCESS;
 }
 
+Utility::ChannelCreateCodes ChannelsRepository::newCreateChannel(const Models::V2::Channel<>& channel)
+{
+    _pTable->changeTable(channel.getModelName());
+
+    auto findChannel = _pTable->Select()
+        ->columns({ channel.resolveName(ChannelData::CHANNEL_NAME)})
+        ->Where(channel.resolveName(ChannelData::CHANNEL_NAME)+ "= '" + channel[ChannelData::CHANNEL_NAME] + "'")
+        ->execute();
+
+    if (findChannel.has_value())
+        return Utility::ChannelCreateCodes::CHANNEL_ALREADY_CREATED;   
+
+    auto result = _pTable->Insert()->columns(&channel)->execute();
+
+    if (result.has_value())
+        return Utility::ChannelCreateCodes::FAILED;
+
+    auto newChannelID = _pTable->Select()
+        ->columns({channel.resolveName(ChannelData::CHANNEL_ID)})
+        ->Where(channel.resolveName(ChannelData::CHANNEL_NAME)+ " = '" + channel[ChannelData::CHANNEL_NAME] + "'")
+        ->execute();
+
+    _filler->fill(newChannelID->begin(), &channel);
+    
+    Models::V2::UserChannels userChannels({
+        {UserChannelsData::USER_ID, channel[ChannelData::CREATOR_ID]},
+        {UserChannelsData::CHANNEL_ID, channel[ChannelData::CHANNEL_ID]}});
+
+    _pTable->changeTable(userChannels.getModelName());
+
+    _pTable->Insert()->columns(&userChannels)->execute();
+
+    return Utility::ChannelCreateCodes::SUCCESS;
+}
+
 Utility::ChannelCreateCodes ChannelsRepository::createChannel(const Models::ChannelInfo& channel)
 {
     _pTable->changeTable("channels");
