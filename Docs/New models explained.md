@@ -150,7 +150,7 @@ It led to quite strange structure - template inheritance.
     };
 ```
 
-There ***RepositoryType*** was a class, which was directly inherited base class and also this class implemented filling logic.  
+There *RepositoryType* was a class, which was directly inherited base class and also this class implemented filling logic.  
 However, it didn't work well with other project stuff that's why I decided to reject it and think about simpler solution.
 I moved filling logic to another class 'ModelFiller'. I wanted to create it polymorphic, but I faced the same issue - I have to know two template params at different moments of time.
 It can be easily solved if it may be possible to create template pure virtual method which will be overrided in derived, but c++ doesn't allow it.  
