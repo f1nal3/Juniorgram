@@ -17,11 +17,11 @@ namespace Network
 		* @param source      - buffer that contains data that should be serialized, compressed and encrypted.
 		* @param destination - buffer that will contain serialized, compressed and encrypted body.
 		*/
-		static MessageProcessingState handleOutcomingMessage(const Message& source,yas::shared_buffer& destination)
+		static MessageProcessingState makeHandler(const Message& source,yas::shared_buffer& destination)
 		{
-			static auto serializationHandler = std::make_unique<SerializationHandler>();
-			static auto compressionHandler   = std::make_unique<CompressionHandler>();
-			static auto encryptionHandler    = std::make_unique<EncryptionHandler>();
+			auto serializationHandler = std::make_unique<SerializationHandler>();
+			auto compressionHandler   = std::make_unique<CompressionHandler>();
+			auto encryptionHandler    = std::make_unique<EncryptionHandler>();
 
 			serializationHandler->setNext(compressionHandler.get());
 			compressionHandler-> setNext(encryptionHandler.get());
@@ -31,19 +31,19 @@ namespace Network
 
 		/**
 		* @brief Method for decryption, decompression and deserialization of incoming message bodies.
-		* @param destination - buffer that contains data that should be decrypted, decompressed and deserialized.
-		* @param source      - variable that will contain decrypted, decompressed and deserialized message body.
+		* @param source      - buffer that contains data that should be decrypted, decompressed and deserialized.
+		* @param destination - variable that will contain decrypted, decompressed and deserialized message body.
 		*/
-		static MessageProcessingState handleIncomingMessage(const yas::shared_buffer destination, Message& source)
+		static MessageProcessingState makeHandler(const yas::shared_buffer source, Message& destination)
 		{
-			static auto encryptionHandler    = std::make_unique<EncryptionHandler>();
-			static auto compressionHandler   = std::make_unique<CompressionHandler>();
-			static auto serializationHandler = std::make_unique<SerializationHandler>();
+			auto encryptionHandler    = std::make_unique<EncryptionHandler>();
+			auto compressionHandler   = std::make_unique<CompressionHandler>();
+			auto serializationHandler = std::make_unique<SerializationHandler>();
 
 			encryptionHandler->setNext(compressionHandler.get());
 			compressionHandler->setNext(serializationHandler.get());
 
-			return compressionHandler->handleIncomingMessageBody(destination, source);
+			return compressionHandler->handleIncomingMessageBody(source, destination);
 		}
 	};
 }

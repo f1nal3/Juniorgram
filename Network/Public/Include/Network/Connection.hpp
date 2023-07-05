@@ -83,7 +83,7 @@ private:
     {
         yas::shared_buffer bodyBuffer;
 
-        auto result = CombiningHandlers::handleOutcomingMessage(_outcomingMessagesQueue.front(), bodyBuffer);
+        auto result = CombiningHandlers::makeHandler(_outcomingMessagesQueue.front(), bodyBuffer);
 
         Network::Message::MessageHeader outcomingMessageHeader = _outcomingMessagesQueue.front().mHeader;
         outcomingMessageHeader.mBodySize                       = static_cast<uint32_t>(bodyBuffer.size);
@@ -220,7 +220,7 @@ private:
         const auto readBodyHandler = [this, buffer](std::error_code error) {
             if (!error)
             {
-                auto result = CombiningHandlers::handleIncomingMessage(buffer, _messageBuffer);
+                auto result = CombiningHandlers::makeHandler(buffer, _messageBuffer);
 
                 if (result == MessageProcessingState::SUCCESS)
                 {
