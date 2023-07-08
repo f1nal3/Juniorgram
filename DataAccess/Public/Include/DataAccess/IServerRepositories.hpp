@@ -225,6 +225,8 @@ struct ILoginRepository : IMasterRepository
         const Models::ConnectionInfo& connInfo,
         std::shared_ptr<Base::Verifiers::IConnectionVerifier> verifier) = 0;
 
+    //virtual std::uint64_t loginUser(const Models::LoginInfo& loginInfo) = 0;
+
     /**
     * @brief virtual destructor.
     */
