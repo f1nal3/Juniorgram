@@ -35,7 +35,6 @@ TEST_CASE("Hash functions test", "[hashing]")
 
             REQUIRE(result == shouldBe);
             REQUIRE_NOTHROW(SHA_256("Password", "login"));
-            std::cout << "Section 1\n";
         }
 
         SECTION("withSalt", "SHA_256 method without salt testing")
@@ -44,7 +43,6 @@ TEST_CASE("Hash functions test", "[hashing]")
             auto shouldBe = std::string{"E7CF3EF4F17C3999A94F2C6F612E8A888E5B1026878E4E19398B23BD38EC221A"};
             REQUIRE(result == shouldBe);
             REQUIRE_NOTHROW(SHA_256("Password"));
-            std::cout << "Section 2\n";
         }
     }
 }
