@@ -126,23 +126,27 @@ TEST_CASE("ByteBlockGenerator test", "[dummy]")
     }
 }
 
-TEST_CASE("HashVerifier test", "[dummy]")
+TEST_CASE("ConnectionVerifiers test")
 {
-    Models::ConnectionInfo connInfo;
-    connInfo._connectionID    = 1;
-    connInfo._publicServerKey = std::string("publicServerKey");
-    HashVerifier hashVerifier;
-    auto         verifyingString        = hashVerifier.calculateVerifyingHash("hashOfPassword", connInfo);
-    auto         sameVerifyingString    = hashVerifier.calculateVerifyingHash("hashOfPassword", connInfo);
-    auto         anotherVerifyingString = hashVerifier.calculateVerifyingHash("hashOfPass", connInfo);
+    SECTION("HashVerifier test", "[dummy]")
+    {
+        Models::ConnectionInfo connInfo;
+        connInfo._connectionID    = 1;
+        connInfo._publicServerKey = std::string("publicServerKey");
+        HashVerifier hashVerifier;
+        auto verifyingString        = hashVerifier.calculateVerifyingHash("hashOfPassword", connInfo);
+        auto sameVerifyingString    = hashVerifier.calculateVerifyingHash("hashOfPassword", connInfo);
+        auto anotherVerifyingString = hashVerifier.calculateVerifyingHash("hashOfPass", connInfo);
 
-    REQUIRE(verifyingString == sameVerifyingString);
-    REQUIRE(verifyingString != anotherVerifyingString);
-    REQUIRE_NOTHROW(hashVerifier.calculateVerifyingHash("hashOfPassword", connInfo));
-};
+        REQUIRE(verifyingString == sameVerifyingString);
+        REQUIRE(verifyingString != anotherVerifyingString);
+        REQUIRE_NOTHROW(hashVerifier.calculateVerifyingHash("hashOfPassword", connInfo));
+    };
+}
 
-TEST_CASE("KeyConfirmation test", "[dummy]") {
-    std::string                  verificationUnit{"unitToCheck"};
+TEST_CASE("KeyConfirmation test", "[dummy]")
+{
+    std::string verificationUnit{"unitToCheck"};
     KeyConfirmation<std::string> keyConfirmator(verificationUnit);
 
     REQUIRE(keyConfirmator.compareWithVerificationUnit(verificationUnit));
@@ -150,69 +154,75 @@ TEST_CASE("KeyConfirmation test", "[dummy]") {
     REQUIRE_NOTHROW(keyConfirmator.compareWithVerificationUnit(verificationUnit));
 }
 
-TEST_CASE("AES GCM test", "[dummy]")
+TEST_CASE("Symmetric encryption test")
 {
-    std::string        plainMessage{"Message"};
-    std::string        authData{"authentificationData"};
-    AES_GCM            aesGcm;
-
-    SecByteBlock key = ByteBlockGenerator::Instance().generateBlock(CryptoPP::AES::DEFAULT_KEYLENGTH);
-    SecByteBlock iv  = ByteBlockGenerator::Instance().generateBlock(12);
-
-    SECTION("Sended message has not any problems")
+    SECTION("AES GCM test", "[dummy]")
     {
-        /// before encryption cipheredTextBuffer == plainMessage
-        yas::shared_buffer cipheredTextBuffer(plainMessage.data(), plainMessage.size());
+        std::string plainMessage{"Message"};
+        std::string authData{"authentificationData"};
+        AES_GCM aesGcm;
 
-        REQUIRE(aesGcm.encrypt(cipheredTextBuffer, key, iv, authData) == EncryptionState::SUCCESS);
+        SecByteBlock key = ByteBlockGenerator::Instance().generateBlock(CryptoPP::AES::DEFAULT_KEYLENGTH);
+        SecByteBlock iv  = ByteBlockGenerator::Instance().generateBlock(12);
 
-        // cipheredTextBuffer is send to other side; before decryption cipheredTextBuffer == decryptedTextBuffer
-        yas::shared_buffer decryptedTextBuffer(cipheredTextBuffer);
-
-        REQUIRE(aesGcm.decrypt(decryptedTextBuffer, key, iv, authData) == EncryptionState::SUCCESS);
-
-        std::string decryptedMessage(decryptedTextBuffer.data.get(), decryptedTextBuffer.size);
-
-        REQUIRE(decryptedMessage == plainMessage);
-    }
-
-    SECTION("Sended message has integration or verification problems")
-    {
-        /// before encryption cipheredTextBuffer == plainMessage
-        yas::shared_buffer cipheredTextBuffer(plainMessage.data(), plainMessage.size());
-
-        REQUIRE(aesGcm.encrypt(cipheredTextBuffer, key, iv, authData) == EncryptionState::SUCCESS);
-
-        // Attack the first and last byte of the encrypted data and tag
-        if (cipheredTextBuffer.size > 1)
+        SECTION("Sended message has not any problems")
         {
-            *cipheredTextBuffer.data.get() |= 0x0F;
-            *(cipheredTextBuffer.data.get() + cipheredTextBuffer.size - 1) |= 0x0F;
+            /// before encryption cipheredTextBuffer == plainMessage
+            yas::shared_buffer cipheredTextBuffer(plainMessage.data(), plainMessage.size());
+
+            REQUIRE(aesGcm.encrypt(cipheredTextBuffer, key, iv, authData) == EncryptionState::SUCCESS);
+
+            // cipheredTextBuffer is send to other side; before decryption cipheredTextBuffer == decryptedTextBuffer
+            yas::shared_buffer decryptedTextBuffer(cipheredTextBuffer);
+
+            REQUIRE(aesGcm.decrypt(decryptedTextBuffer, key, iv, authData) == EncryptionState::SUCCESS);
+
+            std::string decryptedMessage(decryptedTextBuffer.data.get(), decryptedTextBuffer.size);
+
+            REQUIRE(decryptedMessage == plainMessage);
         }
 
-        yas::shared_buffer decryptedTextBuffer(cipheredTextBuffer);
+        SECTION("Sended message has integration or verification problems")
+        {
+            /// before encryption cipheredTextBuffer == plainMessage
+            yas::shared_buffer cipheredTextBuffer(plainMessage.data(), plainMessage.size());
 
-        REQUIRE(aesGcm.decrypt(decryptedTextBuffer, key, iv, authData) == EncryptionState::FAILURE);
+            REQUIRE(aesGcm.encrypt(cipheredTextBuffer, key, iv, authData) == EncryptionState::SUCCESS);
 
-        std::string decryptedMessage(decryptedTextBuffer.data.get(), decryptedTextBuffer.size);
+            // Attack the first and last byte of the encrypted data and tag
+            if (cipheredTextBuffer.size > 1)
+            {
+                *cipheredTextBuffer.data.get() |= 0x0F;
+                *(cipheredTextBuffer.data.get() + cipheredTextBuffer.size - 1) |= 0x0F;
+            }
 
-        REQUIRE(decryptedMessage != plainMessage);
+            yas::shared_buffer decryptedTextBuffer(cipheredTextBuffer);
+
+            REQUIRE(aesGcm.decrypt(decryptedTextBuffer, key, iv, authData) == EncryptionState::FAILURE);
+
+            std::string decryptedMessage(decryptedTextBuffer.data.get(), decryptedTextBuffer.size);
+
+            REQUIRE(decryptedMessage != plainMessage);
+        }
     }
 }
 
-TEST_CASE("ECDH test", "[dummy]")
+TEST_CASE("KeyAgreement test")
 {
-    ECDH side1, side2;
-    side1.generateKeys();
-    side2.generateKeys();
+    SECTION("ECDH test", "[dummy]")
+    {
+        ECDH side1, side2;
+        side1.generateKeys();
+        side2.generateKeys();
 
-    SecByteBlock sendedPublicKeyOfSide1 = side1.getPublicKey();
-    SecByteBlock sendedPublicKeyOfSide2 = side2.getPublicKey();
+        SecByteBlock sendedPublicKeyOfSide1 = side1.getPublicKey();
+        SecByteBlock sendedPublicKeyOfSide2 = side2.getPublicKey();
 
-    SecByteBlock sharedSecretSide1 = side1.calculateSharedKey(sendedPublicKeyOfSide2);
-    SecByteBlock sharedSecretSide2 = side2.calculateSharedKey(sendedPublicKeyOfSide1);
+        SecByteBlock sharedSecretSide1      = side1.calculateSharedKey(sendedPublicKeyOfSide2);
+        SecByteBlock sharedSecretSide2      = side2.calculateSharedKey(sendedPublicKeyOfSide1);
 
-    REQUIRE(sharedSecretSide1 == sharedSecretSide2);
+        REQUIRE(sharedSecretSide1 == sharedSecretSide2);
+    }
 }
 
 TEST_CASE("SessionKeyHolder test")
