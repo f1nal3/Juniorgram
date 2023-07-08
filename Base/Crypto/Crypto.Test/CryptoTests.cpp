@@ -24,31 +24,36 @@ using Base::SessionKeyHolder;
 using CryptoPP::SecByteBlock;
 using Network::EncryptionState;
 
-TEST_CASE("Hash functions test", "[dummy]")
+TEST_CASE("Hash functions test", "[hashing]")
 {
-    SECTION("SHA_256 method with salt testing")
+    SECTION("sha256")
     {
-        auto result = SHA_256("Password", "login");
-        auto shouldBe = std::string{"910C8F08EDC485FD882502A907912C57BEA192373A585DC742A36B6583CDA252"}; 
+        SECTION("noSalt", "SHA_256 method with salt testing")
+        {
+            auto result   = SHA_256("Password", "login");
+            auto shouldBe = std::string{"910C8F08EDC485FD882502A907912C57BEA192373A585DC742A36B6583CDA252"};
 
-        REQUIRE(result == shouldBe);
-        REQUIRE_NOTHROW(SHA_256("Password", "login"));
-    }
+            REQUIRE(result == shouldBe);
+            REQUIRE_NOTHROW(SHA_256("Password", "login"));
+            std::cout << "Section 1\n";
+        }
 
-    SECTION("SHA_256 method without salt testing")
-    {
-        auto result   = SHA_256("Password");
-        auto shouldBe = std::string{"E7CF3EF4F17C3999A94F2C6F612E8A888E5B1026878E4E19398B23BD38EC221A"};
-        REQUIRE(result == shouldBe);
-        REQUIRE_NOTHROW(SHA_256("Password"));
+        SECTION("withSalt", "SHA_256 method without salt testing")
+        {
+            auto result   = SHA_256("Password");
+            auto shouldBe = std::string{"E7CF3EF4F17C3999A94F2C6F612E8A888E5B1026878E4E19398B23BD38EC221A"};
+            REQUIRE(result == shouldBe);
+            REQUIRE_NOTHROW(SHA_256("Password"));
+            std::cout << "Section 2\n";
+        }
     }
 }
 
-TEST_CASE("RSA components test", "[dummy]")
+TEST_CASE("RSA components test", "[rsa]")
 {
     auto testKeySize = RSAKeyGenerator::RSASecurityStrength::test;
 
-    SECTION("RSAKeyGenerator test")
+    SECTION("keyGenerator", "RSAKeyGenerator test")
     {
         using CryptoPP::StringSink;
 
@@ -69,7 +74,7 @@ TEST_CASE("RSA components test", "[dummy]")
         REQUIRE(publicKeyStr == publicRsaKeyToCompareStr);
     }
 
-    SECTION("RSAKeyManager test")
+    SECTION("keyManager", "RSAKeyManager test")
     {
         using CryptoPP::StringSink;
 
@@ -100,7 +105,7 @@ TEST_CASE("RSA components test", "[dummy]")
         remove("juniorgram.test.pub");
     }
 
-    SECTION("RSA encryption test")
+    SECTION("encryption", "RSA encryption test")
     {
         std::string testMessage{"testMessage123"};
         RSA rsa;
@@ -115,7 +120,7 @@ TEST_CASE("RSA components test", "[dummy]")
     };
 }
 
-TEST_CASE("ByteBlockGenerator test", "[dummy]")
+TEST_CASE("ByteBlockGenerator test", "[byteGenerator]")
 {
     SECTION("Check on randomness")
     {
@@ -126,9 +131,9 @@ TEST_CASE("ByteBlockGenerator test", "[dummy]")
     }
 }
 
-TEST_CASE("ConnectionVerifiers test")
+TEST_CASE("ConnectionVerifiers test", "[connectionVerifiers]")
 {
-    SECTION("HashVerifier test", "[dummy]")
+    SECTION("hashVerifier", "HashVerifier test")
     {
         Models::ConnectionInfo connInfo;
         connInfo._connectionID    = 1;
@@ -144,7 +149,7 @@ TEST_CASE("ConnectionVerifiers test")
     };
 }
 
-TEST_CASE("KeyConfirmation test", "[dummy]")
+TEST_CASE("KeyConfirmation test", "[keyConfirmation]")
 {
     std::string verificationUnit{"unitToCheck"};
     KeyConfirmation<std::string> keyConfirmator(verificationUnit);
@@ -156,60 +161,63 @@ TEST_CASE("KeyConfirmation test", "[dummy]")
 
 TEST_CASE("Symmetric encryption test")
 {
-    SECTION("AES GCM test", "[dummy]")
+    SECTION("aes")
     {
-        std::string plainMessage{"Message"};
-        std::string authData{"authentificationData"};
-        AES_GCM aesGcm;
-
-        SecByteBlock key = ByteBlockGenerator::Instance().generateBlock(CryptoPP::AES::DEFAULT_KEYLENGTH);
-        SecByteBlock iv  = ByteBlockGenerator::Instance().generateBlock(12);
-
-        SECTION("Sended message has not any problems")
+        SECTION("gcm", "AES GCM test")
         {
-            /// before encryption cipheredTextBuffer == plainMessage
-            yas::shared_buffer cipheredTextBuffer(plainMessage.data(), plainMessage.size());
+            std::string plainMessage{"Message"};
+            std::string authData{"authentificationData"};
+            AES_GCM aesGcm;
 
-            REQUIRE(aesGcm.encrypt(cipheredTextBuffer, key, iv, authData) == EncryptionState::SUCCESS);
+            SecByteBlock key = ByteBlockGenerator::Instance().generateBlock(CryptoPP::AES::DEFAULT_KEYLENGTH);
+            SecByteBlock iv  = ByteBlockGenerator::Instance().generateBlock(12);
 
-            // cipheredTextBuffer is send to other side; before decryption cipheredTextBuffer == decryptedTextBuffer
-            yas::shared_buffer decryptedTextBuffer(cipheredTextBuffer);
-
-            REQUIRE(aesGcm.decrypt(decryptedTextBuffer, key, iv, authData) == EncryptionState::SUCCESS);
-
-            std::string decryptedMessage(decryptedTextBuffer.data.get(), decryptedTextBuffer.size);
-
-            REQUIRE(decryptedMessage == plainMessage);
-        }
-
-        SECTION("Sended message has integration or verification problems")
-        {
-            /// before encryption cipheredTextBuffer == plainMessage
-            yas::shared_buffer cipheredTextBuffer(plainMessage.data(), plainMessage.size());
-
-            REQUIRE(aesGcm.encrypt(cipheredTextBuffer, key, iv, authData) == EncryptionState::SUCCESS);
-
-            // Attack the first and last byte of the encrypted data and tag
-            if (cipheredTextBuffer.size > 1)
+            SECTION("correctly", "Sended message has not any problems")
             {
-                *cipheredTextBuffer.data.get() |= 0x0F;
-                *(cipheredTextBuffer.data.get() + cipheredTextBuffer.size - 1) |= 0x0F;
+                /// before encryption cipheredTextBuffer == plainMessage
+                yas::shared_buffer cipheredTextBuffer(plainMessage.data(), plainMessage.size());
+
+                REQUIRE(aesGcm.encrypt(cipheredTextBuffer, key, iv, authData) == EncryptionState::SUCCESS);
+
+                // cipheredTextBuffer is send to other side; before decryption cipheredTextBuffer == decryptedTextBuffer
+                yas::shared_buffer decryptedTextBuffer(cipheredTextBuffer);
+
+                REQUIRE(aesGcm.decrypt(decryptedTextBuffer, key, iv, authData) == EncryptionState::SUCCESS);
+
+                std::string decryptedMessage(decryptedTextBuffer.data.get(), decryptedTextBuffer.size);
+
+                REQUIRE(decryptedMessage == plainMessage);
             }
 
-            yas::shared_buffer decryptedTextBuffer(cipheredTextBuffer);
+            SECTION("incorrectly", "Sended message has integration or verification problems")
+            {
+                /// before encryption cipheredTextBuffer == plainMessage
+                yas::shared_buffer cipheredTextBuffer(plainMessage.data(), plainMessage.size());
 
-            REQUIRE(aesGcm.decrypt(decryptedTextBuffer, key, iv, authData) == EncryptionState::FAILURE);
+                REQUIRE(aesGcm.encrypt(cipheredTextBuffer, key, iv, authData) == EncryptionState::SUCCESS);
 
-            std::string decryptedMessage(decryptedTextBuffer.data.get(), decryptedTextBuffer.size);
+                // Attack the first and last byte of the encrypted data and tag
+                if (cipheredTextBuffer.size > 1)
+                {
+                    *cipheredTextBuffer.data.get() |= 0x0F;
+                    *(cipheredTextBuffer.data.get() + cipheredTextBuffer.size - 1) |= 0x0F;
+                }
 
-            REQUIRE(decryptedMessage != plainMessage);
+                yas::shared_buffer decryptedTextBuffer(cipheredTextBuffer);
+
+                REQUIRE(aesGcm.decrypt(decryptedTextBuffer, key, iv, authData) == EncryptionState::FAILURE);
+
+                std::string decryptedMessage(decryptedTextBuffer.data.get(), decryptedTextBuffer.size);
+
+                REQUIRE(decryptedMessage != plainMessage);
+            }
         }
     }
 }
 
-TEST_CASE("KeyAgreement test")
+TEST_CASE("KeyAgreement test", "[keyAgreement]")
 {
-    SECTION("ECDH test", "[dummy]")
+    SECTION("ecdh", "ECDH test")
     {
         ECDH side1, side2;
         side1.generateKeys();
@@ -225,7 +233,7 @@ TEST_CASE("KeyAgreement test")
     }
 }
 
-TEST_CASE("SessionKeyHolder test")
+TEST_CASE("SessionKeyHolder test", "[encryptionKeyHolder]")
 {
     using Utility::GeneralCodes;
 
@@ -234,7 +242,7 @@ TEST_CASE("SessionKeyHolder test")
     SecByteBlock newKey  = ByteBlockGenerator::Instance().generateBlock(8);
     uint64_t     userId  = 1;
 
-    SECTION("Correct situations", "[dummy]")
+    SECTION("correctly", "Correct situations")
     {
         SecByteBlock sameTestKey = testKey;
         SecByteBlock sameNewKey  = newKey;
@@ -246,7 +254,7 @@ TEST_CASE("SessionKeyHolder test")
         REQUIRE_NOTHROW(SessionKeyHolder::Instance().removeKey(userId));
     }
 
-    SECTION("Incorrect situations", "[dummy]")
+    SECTION("incorrectly", "Incorrect situations")
     {
         uint64_t     incorrectUserId = userId + 5;
         SecByteBlock sameTestKey     = testKey;
