@@ -2,20 +2,20 @@ set(TARGET Base.Crypto.Static)
 set(OUTPUT_NAME Base.Crypto.Static)
 
 set(SOURCE_FILES
+    AES_GCM.hpp
+    CryptoPrimitives.hpp
+    ECDH.hpp
     Hashing.hpp
     Hashing.cpp
-    SessionKeyHolder.hpp
-    ICryptography.hpp
-    AES_GCM.hpp
-    RSAKeyManager.hpp
-    RSAKeyGenerator.hpp
-    RSA.hpp
-    IConnectionVerifier.hpp
     HashVerifier.hpp
+    IConnectionVerifier.hpp
+    ICryptography.hpp
     IKeyAgreement.hpp
-    ECDH.hpp
     KeyConfirmation.hpp
-    CryptoPrimitives.hpp)
+    RSA.hpp
+    RSAKeyGenerator.hpp
+    RSAKeyManager.hpp
+    SessionKeyHolder.hpp)
 
 add_library(${TARGET} STATIC ${SOURCE_FILES})
 
