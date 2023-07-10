@@ -30,7 +30,7 @@ public:
     /// @brief Encryption function
     std::string encrypt(const std::string& dataForEncrypt, const CryptoPP::RSA::PublicKey& publicServerKey)
     {
-        std::string                    enctyptedData;
+        std::string                    encryptedData;
         RSAES<OAEP<SHA256>>::Encryptor encryptor(publicServerKey);
 
         if (!encryptor.FixedMaxPlaintextLength())
@@ -40,9 +40,9 @@ public:
         }
 
         StringSource strSource(dataForEncrypt, true,
-            new PK_EncryptorFilter(_randomGenerator, encryptor, new StringSink(enctyptedData)));
+            new PK_EncryptorFilter(_randomGenerator, encryptor, new StringSink(encryptedData)));
 
-        return enctyptedData;
+        return encryptedData;
     }
 
     /// @brief Decryption function

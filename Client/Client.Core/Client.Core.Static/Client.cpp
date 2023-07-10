@@ -769,7 +769,7 @@ void Client::onKeyConfirmationAnswer(bool isKeyConfirmed)
     }
     else
     {
-        Base::Logger::FileLogger::getInstance().log("Server does not confrim, that it has the same encrpytion key with client",
+        Base::Logger::FileLogger::getInstance().log("Server does not confirm, that it has the same encryption key with client",
                                                     Base::LogLevel::WARNING);
 
         Message tryToGenerateSharedKeyAgain = constructKeyAgreementMessage(1);

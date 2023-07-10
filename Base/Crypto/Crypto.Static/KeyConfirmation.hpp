@@ -4,7 +4,7 @@ namespace Base::KeyConfirmators
 {
 /** @class KeyConfirmation
 * @brief Interface for key confirmation protocol
-* @details Designed for used in Connection class to compare server's and client's keys after generating it
+* @details Designed for usage in Connection class to compare server's and client's keys after generating it
 * by IKeyAgreement
 */
 template <typename T = std::string>

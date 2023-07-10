@@ -21,7 +21,7 @@ public:
         return singleton;
     }
 
-    /** @brief Method for generating block of bytes with
+    /** @brief Method for generating block of bytes
     * @param blockSize size of byte block, in bytes
     */
     SecByteBlock generateBlock(size_t blockSize)
