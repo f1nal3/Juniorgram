@@ -14,12 +14,7 @@ namespace Base::Hashing
 
     std::string SHA_256(const std::string& plainText, const std::string& componentForSalt)
     {
-        SHA256       hash;
-        std::string  digest;
-        auto         stream = new HashFilter(hash, new HexEncoder(new StringSink(digest)));
-        StringSource strSrc(componentForSalt + plainText, true, stream);
-
-        return digest;
+        return SHA_256(componentForSalt + plainText);
     }
 
     std::string SHA_256(const std::string& plainText)
