@@ -120,6 +120,6 @@ private:
     * @details Tag with default size. It is not recommended to use a shorter tag,
     * because these are truncated 128-bit (16-bytes) tags.
     */
-    static const uint8_t TAG_SIZE = 16;
+    static constexpr uint8_t TAG_SIZE = 16;
 };
 }  // namespace Base::Crypto::Symmetric
