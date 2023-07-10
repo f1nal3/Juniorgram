@@ -103,7 +103,7 @@ private:
 
         outcomingMessage.mHeader.mAuthData = _authentificationData;
 
-        CryptoPP::SecByteBlock initVector  = Base::Generators::ByteBlockGenerator::Instance().generateBlock(12);
+        CryptoPP::SecByteBlock initVector  = Base::Generators::ByteBlockGenerator::Instance().generateBlock();
         outcomingMessage.mHeader.mIv       = std::string(reinterpret_cast<const char*>(initVector.data()), initVector.size());
 
         handler.setNext(new CompressionHandler())->setNext(new EncryptionHandler(_encryptionAlgorithm, getUserID()));

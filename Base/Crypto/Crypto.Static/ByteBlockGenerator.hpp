@@ -22,9 +22,9 @@ public:
     }
 
     /** @brief Method for generating block of bytes
-    * @param blockSize size of byte block, in bytes
+    * @param blockSize size of byte block, in bytes. Default value (12) is used in enryption; can be increased
     */
-    SecByteBlock generateBlock(size_t blockSize)
+    SecByteBlock generateBlock(size_t blockSize = 12)
     {
         SecByteBlock block(blockSize);
         _generator.GenerateBlock(block, blockSize);
