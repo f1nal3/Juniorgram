@@ -14,8 +14,6 @@ using MessageType = Network::Message::MessageType;
 using UtilityTime::RTC;
 using UtilityTime::timestamp_t;
 
-Client::Client() { connectToServer(ServerInfo::Address::remote, ServerInfo::Port::production); }
-
 Client::~Client() noexcept { disconnectFromServer(); }
 
 bool Client::connectToServer(const std::string_view& host, const uint16_t port)
@@ -712,6 +710,23 @@ void Client::onConnectionInfoAnswer(const Models::ConnectionInfo& connectionInfo
     _connectionInfo = connectionInfo;
 
     _connection->setConnectionVerifier(std::make_shared<Base::Verifiers::HashVerifier>());
+
+    // to remove
+    Message login;
+    login.mHeader.mMessageType = Message::MessageType::LoginRequest;
+
+    Models::LoginInfo logInfo;
+    logInfo._login         = "slavexx";
+    logInfo._verifyingHash = _connection->getConnectionVerifier()->calculateVerifyingHash(
+        std::string("7990F4864C67B7E5459F2607EA5EAFD81077C33C64BA2F3FFB27DDDD47C5E6E6"), _connectionInfo);
+    logInfo._verifyingHash = Base::Crypto::Asymmetric::RSA().encrypt(
+        logInfo._verifyingHash, Base::Crypto::Primitives::RSAKeyPair::getPublicKeyFromString(_connectionInfo._publicServerKey));
+    login.mBody = std::any_cast<Models::LoginInfo>(logInfo);
+
+    _connection->setAuthentificationData(logInfo._login);
+    _connection->send(login);
+    // to remove
+
 }
 
 void Client::onKeyAgreement(const Models::KeyAgreementInfo& serverKeyAgreementInfo)

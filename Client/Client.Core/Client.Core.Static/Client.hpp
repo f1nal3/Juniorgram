@@ -20,9 +20,6 @@ namespace Network
 class Client
 {
 public:
-
-    Client();
-
     /**
     * @brief Client virtual destructor.
     * @details The virtual destructor calls the disconnectFromServer method, \
