@@ -6,7 +6,6 @@
 #include <memory>
 #include <thread>
 #include <optional>
-#include <random>
 
 #include "Network/Connection.hpp"
 #include "Network/Message.hpp"
@@ -14,8 +13,8 @@
 #include "PostgreRepositoryManager.hpp"
 #include "RSAKeyManager.hpp"
 
-
 #include "Utility/SafeQueue.hpp"
+#include "Utility/Utility.hpp"
 
 namespace DataAccess
 {
@@ -31,7 +30,6 @@ using Utility::SafeQueue;
 using Network::MessageResult;
 using RepoManagerUPtr = std::unique_ptr<DataAccess::IRepositoryManager>;
 using RSAKeyManagerUPtr = std::unique_ptr<Base::RSAKeyManager>;
-using UInt64Dist = std::uniform_int_distribution<uint64_t>;
 
 /*
 * @brief Declaration of ServerBuilder.
@@ -162,9 +160,7 @@ private:
     uint64_t _criticalQueueSize = 100;
     uint64_t _newThreadsCount   = std::thread::hardware_concurrency();
 
-    std::random_device _randDevice;
-    std::mt19937       _randGenerator = std::mt19937(_randDevice());
-    UInt64Dist         _distance      = UInt64Dist(10000, 100000);
+    Utility::UniformIntGenerator<uint64_t> uInt64Generator;
 
     asio::io_context                        _context;
     std::vector<MessageResult>              _messageResponce;

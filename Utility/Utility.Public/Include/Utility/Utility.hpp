@@ -7,6 +7,7 @@
 #include <mutex>
 #include <type_traits>
 #include <filesystem>
+#include <random>
 
 namespace Utility
 {
@@ -179,5 +180,24 @@ inline std::string getFldPath(std::string_view folderPath = "Log")
         std::filesystem::create_directory(_path);
     return std::filesystem::absolute(_path).string();
 }
+
+/*@class UniformIntGenerator
+* @brief Generator of random integer numbers with uniform distribution, based on mersenne_twister_engine
+*/
+
+template <typename IntType>
+class UniformIntGenerator
+{
+public:
+    IntType getRandomInt(IntType min, IntType max)
+    {
+        std::uniform_int_distribution<IntType> _distance(min, max);
+        return _distance(_randGenerator);
+    }
+
+private:
+    std::random_device _randDevice;
+    std::mt19937 _randGenerator = std::mt19937(_randDevice());
+};
 
 }  // namespace Utility
