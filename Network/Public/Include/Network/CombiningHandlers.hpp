@@ -1,5 +1,5 @@
 #pragma once
-#include"Handler.hpp"
+#include "Handler.hpp"
 #include "Network/CompressionHandler.hpp"
 #include "Network/EncryptionHandler.hpp"
 #include "Network/SerializationHandler.hpp"
@@ -34,7 +34,7 @@ namespace Network
 		* @param source      - buffer that contains data that should be decrypted, decompressed and deserialized.
 		* @param destination - variable that will contain decrypted, decompressed and deserialized message body.
 		*/
-		static MessageProcessingState makeHandler(const yas::shared_buffer source, Message& destination)
+		static MessageProcessingState makeHandler(const yas::shared_buffer& source, Message& destination)
 		{
 			auto encryptionHandler    = std::make_unique<EncryptionHandler>();
 			auto compressionHandler   = std::make_unique<CompressionHandler>();

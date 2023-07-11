@@ -30,7 +30,7 @@ public:
     * @param buffer - buffer that contains data that should be decrypted.
     * @param messageHeader - variable that will contain decrypted message body.
     */
-    MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message) override
+    MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer& buffer, Message& message) override
     {
         /// body decryption
 

@@ -52,7 +52,7 @@ public:
     * @param buffer - buffer that contains data that should be preprocessed.
     * @param message - variable that will contain preprocessed message body.
     */
-    virtual MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer buffer, Message& message)   = 0;
+    virtual MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer& buffer, Message& message)   = 0;
 };
 
 /** 
