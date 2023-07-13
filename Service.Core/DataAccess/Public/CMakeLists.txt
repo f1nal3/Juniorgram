@@ -8,7 +8,7 @@ set(SOURCE_FILES
         Include/DataAccess/IClientRepositories.hpp
         Include/DataAccess/IMasterRepository.hpp
         Include/DataAccess/IRepository.hpp
-        Include/DataAccess/IServerRepositories.hpp
+        Include/DataAccess/IServiceRepositories.hpp
         Include/DataAccess/SQLStatements.hpp
         Include/DataAccess/AbstractQueryBuilder.hpp
         Include/DataAccess/RepositoryRequest.hpp

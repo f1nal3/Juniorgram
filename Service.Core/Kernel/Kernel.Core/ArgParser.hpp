@@ -7,8 +7,8 @@
 * @class ArgParser.
 * @brief This class parses arguments with which application is started.
 * @details
-* For example: "--serverport=65001", "--port=5432", "--dbname=juniorgram", "--hostaddr=127.0.0.1", "--user=postgres", "--password=postgres".
-* Sending the port to the Server class constructor and list of all arguments to the PostgreAdapter Instance Method.
+* For example: "--kernelport=65001", "--port=5432", "--dbname=juniorgram", "--hostaddr=127.0.0.1", "--user=postgres", "--password=postgres".
+* Sending the port to the Kernel class constructor and list of all arguments to the PostgreAdapter Instance Method.
 */
 class ArgParser
 {
@@ -32,16 +32,16 @@ public:
     */
     explicit ArgParser(int argc, const char** argv) 
     {
-        _argParser = argparse::ArgumentParser("ServerArguments", "0.6",
+        _argParser = argparse::ArgumentParser("KernelArguments", "0.6",
         argparse::default_arguments::none);
 
         _argParser.set_assign_chars("=");
-        _argParser.add_description("Server side of juniorgram messenger. Just have a fun!");
+        _argParser.add_description("Kernel side of juniorgram messenger. Just have a fun!");
         _argParser.add_epilog("Some parts of the program may be configured by default.");
 
-        _argParser.add_argument("--serverport")
+        _argParser.add_argument("--kernelport")
             .default_value<std::string>("65001")
-            .help("Set the port value for server needs")
+            .help("Set the port value for kernel needs")
             .action([](const std::string& value){
                 auto port = static_cast<uint32_t>(std::stoi(value));
                 if (port > std::numeric_limits<uint16_t>::max())

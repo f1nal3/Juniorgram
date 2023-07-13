@@ -2,10 +2,10 @@ set(TARGET Kernel.Core)
 set(OUTPUT_NAME ${TARGET})
 
 set(SOURCE_FILES
-    Server.hpp
-	Server.cpp
+    Kernel.hpp
+	Kernel.cpp
 	ArgParser.hpp
-    ServerBuilder.hpp)
+    KernelBuilder.hpp)
 
 if(WIN32)
 	list(APPEND EXTRA_LIBS ws2_32 wsock32)

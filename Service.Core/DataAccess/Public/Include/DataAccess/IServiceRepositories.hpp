@@ -12,7 +12,7 @@ namespace DataAccess
 {
 /**
 * @class IMessagesRepository
-* @brief Implements message processing on server side.
+* @brief Implements message processing on service side.
 * @details The class specify, which information it process. It include methods
 * for working with messages from database (e.g. adding, deleting, editing, getting messages). \n
 * Message - is an object of MessageInfo class. As least it contains the sender
@@ -107,7 +107,7 @@ struct IRepliesRepository : IMasterRepository
 struct IChannelsRepository : IMasterRepository
 {
     /**
-    * @brief  Virtual method for getting all channel list from the server.
+    * @brief  Virtual method for getting all channel list from the service.
     * @return channels list as vector of ChannelInfo.
     */
     virtual std::vector<Models::ChannelInfo> getAllChannelsList() = 0;

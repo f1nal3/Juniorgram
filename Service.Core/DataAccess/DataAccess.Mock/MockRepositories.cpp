@@ -6,7 +6,7 @@ std::vector<Models::ChannelInfo> MockChannelsRepository::getAllChannelsList()
 {
     std::vector<std::any> channelsList;
     channelsList.emplace_back(_mockQuery->SelectRepoAndQueryPush("channels",
-        TableChannelRepository::ChanneName, std::string("testServer")));
+        TableChannelRepository::ChanneName, std::string("testService")));
     if (!channelsList.empty())
     {
         return std::vector<ChannelInfo>(1);

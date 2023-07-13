@@ -1,19 +1,19 @@
-#include "Server.hpp"
+#include "Kernel.hpp"
 
 #include <future>
 
 #include "FileLogger.hpp"
 #include "Logger/ILogger.hpp"
 
-namespace Server
+namespace Kernel
 {
 using namespace DataAccess;
 using Base::Logger::FileLogger;
 using Base::Logger::LogLevel;
 
-Server::~Server() { stop(); }
+Kernel::~Kernel() { stop(); }
 
-void Server::start()
+void Kernel::start()
 {
     waitForClientConnection();
 
@@ -26,10 +26,10 @@ void Server::start()
     }
     _repoManager->handleRequests();
 
-    FileLogger::getInstance().log("[SERVER] Started!", LogLevel::INFO);
+    FileLogger::getInstance().log("[KERNEL] Started!", LogLevel::INFO);
 }
 
-void Server::checkMessageResult(std::optional<MessageResult> result)
+void Kernel::checkMessageResult(std::optional<MessageResult> result)
 {
     if (result != MessageResult::Success)
     {
@@ -38,7 +38,7 @@ void Server::checkMessageResult(std::optional<MessageResult> result)
     _messageResponce.emplace_back(MessageResult::Success);
 }
 
-void Server::stop()
+void Kernel::stop()
 {
     _context.stop();
 
@@ -54,43 +54,43 @@ void Server::stop()
 
     _threads.clear();
 
-    FileLogger::getInstance().log("[SERVER] Stopped!", LogLevel::INFO);
+    FileLogger::getInstance().log("[KERNEL] Stopped!", LogLevel::INFO);
 }
 
-void Server::waitForClientConnection()
+void Kernel::waitForClientConnection()
 {
     _acceptor->async_accept([this](const std::error_code error, tcp::socket socket) 
         { acceptingClientConnection(error, socket); });
 }
 
-void Server::initRepository(RepoManagerUPtr repoManager) { _repoManager.swap(repoManager); }
+void Kernel::initRepository(RepoManagerUPtr repoManager) { _repoManager.swap(repoManager); }
 
-void Server::initConnection(const uint16_t port) { _acceptor = std::make_unique<tcp::acceptor>(_context, tcp::endpoint(tcp::v4(), port)); }
+void Kernel::initConnection(const uint16_t port) { _acceptor = std::make_unique<tcp::acceptor>(_context, tcp::endpoint(tcp::v4(), port)); }
 
-bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
+bool Kernel::onClientConnect(const std::shared_ptr<Connection>& client)
 {
     Message message;
-    message.mHeader.mMessageType = Message::MessageType::ServerAccept;
+    message.mHeader.mMessageType = Message::MessageType::KernelAccept;
     client->send(message);
     return true;
 }
 
-void Server::onClientDisconnect(const std::shared_ptr<Connection>& client)
+void Kernel::onClientDisconnect(const std::shared_ptr<Connection>& client)
 {
     FileLogger::getInstance().log("Removing client [" + std::to_string(client->getID()) + "]", LogLevel::INFO);
 }
 
-void Server::acceptingClientConnection(const std::error_code& error, tcp::socket& socket)
+void Kernel::acceptingClientConnection(const std::error_code& error, tcp::socket& socket)
 {
     if (!error)
     {
         std::ostringstream outputPoint;
         outputPoint << socket.remote_endpoint();
 
-        FileLogger::getInstance().log("[SERVER] New Connection: " + outputPoint.str(), LogLevel::INFO);
+        FileLogger::getInstance().log("[KERNEL] New Connection: " + outputPoint.str(), LogLevel::INFO);
 
         auto newConnection =
-            std::make_shared<Connection>(Connection::OwnerType::SERVER, _context, std::move(socket), _incomingMessagesQueue);
+            std::make_shared<Connection>(Connection::OwnerType::SERVICE, _context, std::move(socket), _incomingMessagesQueue);
 
         if (onClientConnect(newConnection))
         {
@@ -105,26 +105,26 @@ void Server::acceptingClientConnection(const std::error_code& error, tcp::socket
         }
         else
         {
-            FileLogger::getInstance().log("[SERVER] Connection Denied", LogLevel::INFO);
+            FileLogger::getInstance().log("[KERNEL] Connection Denied", LogLevel::INFO);
         }
     }
     else
     {
-        FileLogger::getInstance().log("[SERVER] New Connection Error: " + error.message(), LogLevel::ERR);
+        FileLogger::getInstance().log("[KERNEL] New Connection Error: " + error.message(), LogLevel::ERR);
     }
 
     waitForClientConnection();
 }
 
-void Server::onMessage(const std::shared_ptr<Connection>& client, const Message& message) const
+void Kernel::onMessage(const std::shared_ptr<Connection>& client, const Message& message) const
 {
     std::optional<Network::MessageResult> Result;
 
     switch (message.mHeader.mMessageType)
     {
-        case Message::MessageType::ServerPing:
+        case Message::MessageType::KernelPing:
         {
-            Result = checkServerPing(client, message);
+            Result = checkKernelPing(client, message);
             break;
         }
         case Message::MessageType::MessageAll:
@@ -220,9 +220,9 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, const Message&
     }
 }
 
-std::vector<MessageResult> Server::getMessageResult() const { return _messageResponce; }
+std::vector<MessageResult> Kernel::getMessageResult() const { return _messageResponce; }
 
-std::optional<MessageResult> Server::messageClient(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<MessageResult> Kernel::messageClient(std::shared_ptr<Connection> client, const Message& message) const
 {
     if (client != nullptr && client->isConnected())
     {
@@ -239,7 +239,7 @@ std::optional<MessageResult> Server::messageClient(std::shared_ptr<Connection> c
     }
 }
 
-void Server::update(size_t maxMessages, bool wait)
+void Kernel::update(size_t maxMessages, bool wait)
 {
     if (wait) _incomingMessagesQueue.wait();
 
@@ -262,7 +262,7 @@ void Server::update(size_t maxMessages, bool wait)
     }
 }
 
-std::optional<MessageResult> Server::messageAllClients(std::shared_ptr<Connection> exceptionClient, const Message& message) const
+std::optional<MessageResult> Kernel::messageAllClients(std::shared_ptr<Connection> exceptionClient, const Message& message) const
 {
     for (auto& client : _connectionsPointers)
     {
@@ -291,20 +291,20 @@ std::optional<MessageResult> Server::messageAllClients(std::shared_ptr<Connectio
     }
 }
 
-std::optional<Network::MessageResult> Server::checkServerPing(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::checkKernelPing(std::shared_ptr<Connection> client, const Message& message) const
 {
     std::tm formattedTimestamp = UtilityTime::safe_localtime(message.mHeader.mTimestamp);
 
     std::ostringstream timeOutput;
     timeOutput << std::put_time(&formattedTimestamp, "%F %T");
 
-    if (message.mHeader.mMessageType == Message::MessageType::ServerPing)
+    if (message.mHeader.mMessageType == Message::MessageType::KernelPing)
     {
         FileLogger::getInstance().log
         (
             "[" + timeOutput.str() 
             + "][" + std::to_string(client->getID())
-            + "]: Server Ping", LogLevel::INFO
+            + "]: Kernel Ping", LogLevel::INFO
         );
 
         client->send(message);
@@ -314,7 +314,7 @@ std::optional<Network::MessageResult> Server::checkServerPing(std::shared_ptr<Co
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::readAllMessage(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::readAllMessage(std::shared_ptr<Connection> client, const Message& message) const
 {
     std::tm formattedTimestamp = UtilityTime::safe_localtime(message.mHeader.mTimestamp);
 
@@ -331,7 +331,7 @@ std::optional<Network::MessageResult> Server::readAllMessage(std::shared_ptr<Con
         );
 
         Message answerForClient;
-        answerForClient.mHeader.mMessageType = Message::MessageType::ServerMessage;    
+        answerForClient.mHeader.mMessageType = Message::MessageType::KernelMessage;    
 
         messageAllClients(client, answerForClient);
 
@@ -340,7 +340,7 @@ std::optional<Network::MessageResult> Server::readAllMessage(std::shared_ptr<Con
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::channelListRequest(std::shared_ptr<Connection> client) const
+std::optional<Network::MessageResult> Kernel::channelListRequest(std::shared_ptr<Connection> client) const
 {
     auto futureResult = _repoManager->pushRequest(&IChannelsRepository::getAllChannelsList);
 
@@ -359,7 +359,7 @@ std::optional<Network::MessageResult> Server::channelListRequest(std::shared_ptr
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::messageHistoryRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::messageHistoryRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto channelID = std::any_cast<std::uint64_t>(message.mBody);
 
@@ -380,7 +380,7 @@ std::optional<Network::MessageResult> Server::messageHistoryRequest(std::shared_
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::messageStoreRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::messageStoreRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto messageInfo      = std::any_cast<Models::MessageInfo>(message.mBody);
     messageInfo._senderID = client->getUserID();
@@ -404,7 +404,7 @@ std::optional<Network::MessageResult> Server::messageStoreRequest(std::shared_pt
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::replyHistoryRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::replyHistoryRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto channelID = std::any_cast<std::uint64_t>(message.mBody);
 
@@ -425,7 +425,7 @@ std::optional<Network::MessageResult> Server::replyHistoryRequest(std::shared_pt
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::replyStoreRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::replyStoreRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto replyInfo      = std::any_cast<Models::ReplyInfo>(message.mBody);
     replyInfo._senderID = client->getUserID();
@@ -448,7 +448,7 @@ std::optional<Network::MessageResult> Server::replyStoreRequest(std::shared_ptr<
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::messageDeleteRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::messageDeleteRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto messageInfo      = std::any_cast<Models::MessageInfo>(message.mBody);
     messageInfo._senderID = client->getUserID();
@@ -470,7 +470,7 @@ std::optional<Network::MessageResult> Server::messageDeleteRequest(std::shared_p
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::messageEditRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::messageEditRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto messageInfo      = std::any_cast<Models::MessageInfo>(message.mBody);
     messageInfo._senderID = client->getUserID();
@@ -492,7 +492,7 @@ std::optional<Network::MessageResult> Server::messageEditRequest(std::shared_ptr
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::messageReactionRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::messageReactionRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto messageInfo      = std::any_cast<Models::MessageInfo>(message.mBody);
     messageInfo._senderID = client->getUserID();
@@ -514,7 +514,7 @@ std::optional<Network::MessageResult> Server::messageReactionRequest(std::shared
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::registrationRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::registrationRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto replyInfo = std::any_cast<Models::RegistrationInfo>(message.mBody);
 
@@ -535,7 +535,7 @@ std::optional<Network::MessageResult> Server::registrationRequest(std::shared_pt
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::loginRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::loginRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto loginInfo = std::any_cast<Models::LoginInfo>(message.mBody);
 
@@ -566,7 +566,7 @@ std::optional<Network::MessageResult> Server::loginRequest(std::shared_ptr<Conne
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::channelLeaveRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::channelLeaveRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     Models::ChannelLeaveInfo channelLeaveInfo;
 
@@ -591,7 +591,7 @@ std::optional<Network::MessageResult> Server::channelLeaveRequest(std::shared_pt
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::channelSubscribeRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::channelSubscribeRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto channelInfo    = std::any_cast<Models::ChannelSubscriptionInfo>(message.mBody);
     channelInfo._userID = client->getUserID();
@@ -614,7 +614,7 @@ std::optional<Network::MessageResult> Server::channelSubscribeRequest(std::share
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::channelSubscriptionListRequest(std::shared_ptr<Connection> client) const
+std::optional<Network::MessageResult> Kernel::channelSubscriptionListRequest(std::shared_ptr<Connection> client) const
 {
     const auto userID = client->getUserID();
 
@@ -635,7 +635,7 @@ std::optional<Network::MessageResult> Server::channelSubscriptionListRequest(std
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::channelDeleteRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::channelDeleteRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     Models::ChannelDeleteInfo channelDeleteInfo;
 
@@ -660,7 +660,7 @@ std::optional<Network::MessageResult> Server::channelDeleteRequest(std::shared_p
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::channelCreateRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::channelCreateRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     Models::ChannelInfo newChannelInfo;
 
@@ -685,7 +685,7 @@ std::optional<Network::MessageResult> Server::channelCreateRequest(std::shared_p
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::directMessageCreateRequest(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::directMessageCreateRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
     auto secondUser = std::any_cast<std::uint64_t>(message.mBody);
 
@@ -705,7 +705,7 @@ std::optional<Network::MessageResult> Server::directMessageCreateRequest(std::sh
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::defaultRequest() const
+std::optional<Network::MessageResult> Kernel::defaultRequest() const
 {
     FileLogger::getInstance().log
     (
@@ -714,4 +714,4 @@ std::optional<Network::MessageResult> Server::defaultRequest() const
     );
     return MessageResult::InvalidBody;
 }
-}  // namespace Server
+}  // namespace Kernel

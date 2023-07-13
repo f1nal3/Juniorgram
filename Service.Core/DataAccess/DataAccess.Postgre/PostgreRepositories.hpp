@@ -1,6 +1,6 @@
 #pragma once
 
-#include <DataAccess/IServerRepositories.hpp>
+#include <DataAccess/IServiceRepositories.hpp>
 
 #include "PostgreQuery.hpp"
 #include "UsersAmountFinder.hpp"
