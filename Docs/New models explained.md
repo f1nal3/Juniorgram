@@ -1,17 +1,19 @@
-# Adding to DAO & Repository ORM-models
+# Adding ORM-models system to existing DAO & Repository
+
 
 ## Intro
 
-We've created a strucure of Data access object(DAO) and it worked. However, at the same time it created a problem.
-Inside business logic we're having a lot of casts and references. In general, it's almost impossible to understand them from day one.  
-Also, this code is too dirty and includes a lot of casts, working with raw return type and so on, therefore it's difficult to support it.
-This stuff must not be in business logic, I mentioned that the most of problems where at the side of models. They are the problem that causes us to use this dirty stuff.
-Thus, new models are created.
+Since ur project uses database, we needed to be able to manage storing data.  
+At the time of implementation of new model's system, we were using DAO & Repository pattern. This stuff worked well and clearly, but at the same time something was left unimproved.
+'Something' was our models system, which wasn't the most convenient way, but the simplest one. All that forced us to use different casts and dealing with raw types inside business logic.  
+Thereby, code became unpleasurable and unclear, therefore it's difficult to support it.
+In addition, all this casts and raw types must not be in business logic, they must be hidden from user. I decided that it can be fixed by creating new model system.  
+Thus, new models system are created.
 
-## New models
+## Why new models system
 
-The problem of old ones was their fields. Old model was a structure with defined fields, they are mapping fields(columns) from DB. That's the most obvious solution ever.
-Take a look how it is (I've chosen the worst example)
+The problem of old one was that directly models were compile-time structures with defined fields. They represent fields(columns) from DB. That's the most obvious solution ever.
+Take a look of usage example (I've chosen the worst example);
 
 ```c++
     messageInfo._msgID = value[0].as<std::uint64_t>();
@@ -26,17 +28,25 @@ Take a look how it is (I've chosen the worst example)
     messageInfo._reactions[4] = value[10].as<std::uint32_t>();
 ```
 
-Looks terrible, isn't it?
+Looks terrible, doesn't it?
 
-However, this solution also means that we cannot make it automated. No doubt, we can do it, but let's simply look how it will be.  
+> 'value' above is variable of raw return type, which is multi-dimensional array with specific interface
+
+However, using old models also means that we cannot make it automated. No doubt, we can do it, but let's simply look how it will be.  
 Just imagine that we have 10 models, they represent 10 tables from DB. We want to erase all casts from business logic.
 So, this means that we need to write 10 overrided methods which will do the cast work. Cool, but what if we need to cast only a part of it? How to define what fields we want to cast?
 Of course, it also means that we have to write a lot of similar code inside this overridings.
 
-It means that's going to be too expensive to make them, and even more expensive if we need to support and expand this stuff.
+Resulting, we have next:
+- Old system cannot be automated
+- It's difficult to support it
+- It's difficult to expand this system
+- User must know how to work with raw return types 
 
-It led to the new system that should be:
-- Able to use cast 
+It means that's going to be too expensive to have old system.
+
+All of this led to the new system that should be:
+- Able to use cast, but it should be hidden from user
 - Able to store data as a field
 - Able to be expanded and supported
 
@@ -44,8 +54,8 @@ It led to the new system that should be:
 
 The question was how to hold data if we're not going to have any fields like fields in old models. Also, it's easy to understand that there will be a lot of field calling.
 I mean, like we want to initialize a field and there're a lot of this. That's why I've chosen a map because it's cheaper to use than a vector when we call a field.
-If that's a map, we need use a key for this map. Using a __size_t__ or __std::string/string_view__ isn't a best option there.  
-Endpoint user must know names of fields, that isn't convinient way. So, we've chosen an enum class that includes names of fields and at the same time it can be a key for the map.
+If that's a map, we need use a key for this map. Using a __size_t__ or __std::string/string_view__ isn't a best option there.
+Endpoint user must know names of fields, that isn't convinient way. So, we've chosen an enum class that includes names of fields and at the same time it can be a key for the map.  
 Quite simple at the start. It's obvious that we're going to have a lot common logic inside models, therefore we need to create a kind of base class that can hold this common logic.
 It's called UnifiedModel. Also, it has a template parameter which is enum class for specific model(table). 
 
@@ -119,7 +129,7 @@ The usage of them is similar with previous models. In general we have the same f
 The internal realization is container and therefore we can use container advantages when we need to fill fields by incoming data(non-DB). I mean we can create automated initialization and it has done.  
 Eventually, for user it's the same model, but with different field access, but other entities may use it as a container.
 
-> ***_data**** is a main data storing field 
+> ***_data**** is a main data storing field.
 
 ```c++
     TEnum toEnum(std::string_view fieldName) const
