@@ -8,11 +8,11 @@ At the time of implementation of new model's system, we were using DAO & Reposit
 'Something' was our models system, which wasn't the most convenient way, but the simplest one. All that forced us to use different casts and dealing with raw types inside business logic.  
 Thereby, code became unpleasurable and unclear, therefore it's difficult to support it.
 In addition, all this casts and raw types must not be in business logic, they must be hidden from user. I decided that it can be fixed by creating new model system.  
-Thus, new models system are created.
+Thus, new model system is created.
 
-## Why new models system
+## Why new model system
 
-The problem of old one was that directly models were compile-time structures with defined fields. They represent fields(columns) from DB. That's the most obvious solution ever.
+The problem of old system was that directly models were compile-time structures with defined fields. They represent fields(columns) from DB. That's the most obvious solution ever.
 Take a look of usage example (I've chosen the worst example);
 
 ```c++
@@ -30,7 +30,7 @@ Take a look of usage example (I've chosen the worst example);
 
 Looks terrible, doesn't it?
 
-> 'value' above is variable of raw return type, which is multi-dimensional array with specific interface
+> 'value' above is variable of raw return type, which is multi-dimensional array with specific interface.
 
 However, using old models also means that we cannot make it automated. No doubt, we can do it, but let's simply look how it will be.  
 Just imagine that we have 10 models, they represent 10 tables from DB. We want to erase all casts from business logic.
@@ -43,71 +43,141 @@ Resulting, we have next:
 - It's difficult to expand this system
 - User must know how to work with raw return types 
 
-It means that's going to be too expensive to have old system.
+It means that's going to be too expensive to have old system in the future.
 
 All of this led to the new system that should be:
 - Able to use cast, but it should be hidden from user
 - Able to store data as a field
 - Able to be expanded and supported
 
+
 ## Base model
 
-The question was how to hold data if we're not going to have any fields like fields in old models. Also, it's easy to understand that there will be a lot of field calling.
-I mean, like we want to initialize a field and there're a lot of this. That's why I've chosen a map because it's cheaper to use than a vector when we call a field.
-If that's a map, we need use a key for this map. Using a __size_t__ or __std::string/string_view__ isn't a best option there.
-Endpoint user must know names of fields, that isn't convinient way. So, we've chosen an enum class that includes names of fields and at the same time it can be a key for the map.  
+The question was how to hold data if we're not going to have any fields like fields in old models. Plus, it's easy to understand that there will be a lot of calls of fields.
+Like situation, when user wants to initialize a field by any incoming data. That led my mind to use a container as a data storage. I've chosen a map for this purpose, because it's cheaper to use than a vector when user wants to get access to the field.
+Therefore, we need to use a key for the map. Using a __size_t__ or __std::string/string_view__ isn't a best option there.
+User must know names of fields, that isn't convinient way. So, I've chosen an enum that includes names of fields and at the same time it can be a key for the map.    
 Quite simple at the start. It's obvious that we're going to have a lot common logic inside models, therefore we need to create a kind of base class that can hold this common logic.
-It's called UnifiedModel. Also, it has a template parameter which is enum class for specific model(table). 
+In addition, somehow we need to instance what kind of model it's going to be. Plus, we have to choose enum for the specific model/class. I decided that making a template parameter which will instance a specific model is the best option there.
+So, I've created a base class called 'UnifiedModel' with template parameter. It's in charge of defining what model it is and at the same time it's a key for the map.  
 
-> Also this class has a pure virtual function, so it makes the whole class abstract
+> Also this class has a pure virtual function, so it makes the whole class abstract.
 
-This class consists of some non-common methods, let's look at them
+Everything that user needs to use is something that gives him access to the fields. Because, base class includes only container as a data storage, I decided to define operator[] as a main method which gives access.  
+I have to mention, that's not all methods. Thanks to them all system can be automated.  
+
+Let's look at them:
+
+### TEnum getEnumField(size_t num) const = 0;
 
 ```c++
-    template <typename TEnum> /// Method isn't a template one, only class, this template used there to underline usage of template parameter
-    virtual TEnum getNumEnum(size_t num) const = 0;
+    template <typename TEnum>
+    class UnifiedModel
+    {
+        ...
+    protected:
+        virtual TEnum getEnumField(size_t num) const = 0;
+        ...
+    }
 ```
 
-This method is needed to fill the map with the same key with 'fields'.  
-They are represented as fields of enum class. It can be compared with creating a list of candies of different colors, but by the same producer (like Roshen).  
-Thus, we always know what candy do we need right now. But at this level we don't know anything about candies so this method must be overrided by derived class.  
+This method is used in method 'init()' which is described below, to get enum field from size_t counter. This enum field will be a unique key for the map.
+
+
+### void init(const FieldNames& fieldNames)
 
 ```c++
+...
+    using FieldNames = std::vector<std::string_view>;
+...
+template<typename TEnum>
+class UnifiedModel
+{
+    ...
+protected:
     void init(const FieldNames& fieldNames)
     {       
         for (size_t counter{ 0 }; counter < _amountOfFields; ++counter)
             _data.insert({ this->getNumEnum(counter), {fieldNames[counter], std::string{}} });
     }
+    ...
+}
 ```
 
-This method used in derived default class constructor to fill a map with incoming specification.
+This method designed to be used in derived default class constructor to fill a map with fields of enum.
 
-> The order of incoming fieldNames and order in getNumEnum overriding must be the same. Otherwise, you can get a situation when you want to initialize 'email', but you do 'password'
+- '_data' is a main storage unit - map
+- The order of incoming fieldNames and order in getEnumField overriding must be the same. Otherwise, you can get a situation when you want to initialize 'email', but you do 'password'
+
+
+### TEnum toEnum(std::string_view fieldName) const
 
 ```c++
-    template <typename TEnum> /// Method isn't a template one, only class, this template used there to underline usage of template parameter
+template<typename TEnum>
+class UnifiedModel
+{
+    ...
+public:
     TEnum toEnum(std::string_view fieldName) const
+    {
+        return std::find_if(_data.cbegin(), _data.cend(), [&fieldName](const auto& pair)
+                            {
+                                if (pair.second.first == fieldName)
+                                    return true;
+                                else
+                                    return false;
+                            })->first;
+    }
+    ...
+}
 ```
 
-Method is designed to make filling magic possible at the PGRepository side. It converts incoming fieldName in enum field to get access to field. 
-This fieldName comes from pqxx as a part of returning of SQL query. Also, makes possible dealing with DAO by model.
+Method is designed to make automated and hidden casts possible at the PGRepository side. It converts incoming fieldName in enum field to get access to field.
+This fieldName comes from pqxx as a part of answer from DB. Also, makes possible dealing 
 
-```
+### InsertData makeColumnDataPair() const
+
+```c++
     using InsertData = std::vector<std::pair<std::string_view, std::string_view>>;
+    ...
+    template<typename TEnum>
+    class UnifiedModel
+    {
+    ...
+    public:
     InsertData makeColumnDataPair() const
+    {
+        InsertData pairs;
+        pairs.reserve(_amountOfFields);
+
+        std::for_each(_data.cbegin(), _data.cend(), [&pairs](const auto& pair)
+                      {
+                          if (!std::empty(pair.second.second))
+                              pairs.emplace_back(pair.second);
+                      }
+        );
+        return pairs;
+    }
+    ...
+}
 ```
 
-This one is designed to make read-only pairs of <column_name, field_value>. Used inside DAO methods, but the best performance we can see inside Repository logic.  
-Before, when we wanted to insert something by DAO, we're creating tuple of pairs just inside business logic and that looked awful. Just old dependency.  
-Thus, method makes possible to transfer only model in DAO API. Therefore, the whole stuff looks more ORM like and no more tuples.  
+> Also, compiler uses there NRVO (named return value optimization).
+
+This one is designed to make read-only pairs of <field_name, field_value>. Used inside DAO methods, but the best performance for user we can see inside Repository logic.  
+Before, when we wanted to insert something in DB by DAO, we were creating tuple of pairs just inside business logic and that looked quite awful.  
+Thus, method makes possible to transfer only model in DAO interface. Moreover, the whole stuff looks more ORM and no more tuples there.  
 
 ```c++
     _pTable->Insert()->columns(&userChannels)->execute();
 ```
 
+
+### Mutable base class field
+
 Eventually, I have to mention 'mutable' near main class variable.  
 I tried to avoid it but it will cause more changes at more sides of project, so the best case was to make it mutable. Let me describe why.  
-In any of our repository we transfer our model as const reference, so everything that I can do without mutable is to create a new model inside a method and copy/move data from argument model.
+In any of our repositories we transfer our model as const reference. It means, that user can't change this model and therefore can't change fields. So, everything that I can do without mutable is to create a new model inside a method and copy/move data from argument model.
 Also, I have to mention that not only from there we use const reference, but at server side too. There is a special method called 'fmt' which is used to make const reference. 
 Creating a new model inside this repository method looks quite ugly, because we already have an object.
 Other choice was to make data field mutable and define methods which are operating data as 'const', even when it's not going to be const, like 'operator[]'.
@@ -121,7 +191,7 @@ Other choice was to make data field mutable and define methods which are operati
     /// channelDeleteInfo -> model that transfers as an argument in repository method
 ```
 
-## Directly models
+## Specific models
 
 Obviously, that endpoint models inherit base class, override pure virtual method and define template argument, represent table from DB and so on.  
 Also, they are totally independent from any DB. It can be used everywhere.  
