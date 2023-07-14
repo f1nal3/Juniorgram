@@ -208,8 +208,10 @@ Eventually, for user it's the same model, but with different field access, but o
 
 ## Filling models
 
-At the begginning I wanted to build Data-Mapper pattern. It claims that models are in charge of filling themselves. Simultaneously, it causes a lot of problems.  
-Main, but not the most difficult one was single responsibility problem. I mean that base class was in charge of casts and storing data. That's not so good. Only one task must stay.  
+> Filling is almost casting, but more general, because filling includes many casts.
+
+At the beginning I wanted to make casting logic at the side of models. However, it caused serious problems.  
+Main, but not the most difficult one was single responsibility problem. I mean that the base class was in charge of casts and storing data. That's not so good. Only one task must stay.  
 Also, it declares that base abstract class must have 2 template arguments, the first for enum, the second for raw return type, but we need to know them at different steps of usage.  
 From the one hand, we must know template for enum and those links to that we must know what kind of model we want to use. From the other hand, we must know raw return type, the second template parameter, but we don't know when we must know this.
 Probably, we would like to know what return type to use at the beggining of the server, because at that step server connects to database and this return type is implicitly defined by this database, explicitly by library we're using.  
@@ -225,9 +227,9 @@ All that led to quite strange structure of templates - templated inheritance. It
     };
 ```
 
-There *RepositoryType* must be a class, which was directly inheriting base class and also implementing filling logic.  
+There *RepositoryType* must be a class, which was directly inheriting base class and also implementing casting logic.  
 However, it didn't work well with other project stuff that's why I decided to reject it and think about less sophisticated solution.
-I moved filling logic to another class called 'ModelFiller'. I wanted to create it polymorphic, but I faced the same issue - I have to know two template params at different moments of time.
-It can be easily solved if it may be possible to create template pure virtual method which will be overrided in derived, but C++ doesn't allow it.  
-So, I've just put this stuff into one class named PGFiller(which includes filling logic with return type from pqxx library) and made this class as a field of the base abstract class of the PG Repository.
+I moved casting logic to another class called 'ModelFiller'. I wanted to create it polymorphic, but I faced the same issue - I have to know two template params at different moments of time.
+It can be easily solved if it may be possible to create template pure virtual method which will be overrided in derived class, but C++ doesn't allow it.  
+So, I've just put this stuff into one class named PGFiller(which includes casting logic with return type from pqxx library) and made this class as a field of the base abstract class of the PG Repository.
 Like it was made to PGQuery.
