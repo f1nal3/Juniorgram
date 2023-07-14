@@ -1,18 +1,19 @@
-# Adding ORM-models system to existing DAO & Repository
-
+# Adding ORM-model system to existing DAO & Repository
 
 ## Intro
 
 Since ur project uses database, we needed to be able to manage storing data.  
-At the time of implementation of new model's system, we were using DAO & Repository pattern. This stuff worked well and clearly, but at the same time something was left unimproved.
-'Something' was our models system, which wasn't the most convenient way, but the simplest one. All that forced us to use different casts and dealing with raw types inside business logic.  
-Thereby, code became unpleasurable and unclear, therefore it's difficult to support it.
+At the time of implementation of new model system, we were using DAO & Repository pattern. This stuff worked well and clearly, but at the same time something was left unimproved.
+'Something' was our model system, which wasn't convenient to use, but the simplest one. All that forced us to use different casts and dealing with raw return types inside business logic.  
+Thereby, code became unpleasurable and unclear, therefore it's difficult to support it or understand, especially from day one.
 In addition, all this casts and raw types must not be in business logic, they must be hidden from user. I decided that it can be fixed by creating new model system.  
-Thus, new model system is created.
+Thus, new model system appears.
+
+Documentation about how to use it you can find [there](https://github.com/f1nal3/Juniorgram/blob/dev/Docs/Swaping%20old%20models%20with%20new%20ones.md).
 
 ## Why new model system
 
-The problem of old system was that directly models were compile-time structures with defined fields. They represent fields(columns) from DB. That's the most obvious solution ever.
+The problem of old system was that specific models were compile-time structures with defined fields. They represent fields(columns) from DB. That's the most obvious solution ever.
 Take a look of usage example (I've chosen the worst example);
 
 ```c++
@@ -43,9 +44,9 @@ Resulting, we have next:
 - It's difficult to expand this system
 - User must know how to work with raw return types 
 
-It means that's going to be too expensive to have old system in the future.
+All that means that's going to be too expensive to have old system in the future.
 
-All of this led to the new system that should be:
+It led to the new system that should be:
 - Able to use cast, but it should be hidden from user
 - Able to store data as a field
 - Able to be expanded and supported
@@ -53,8 +54,9 @@ All of this led to the new system that should be:
 
 ## Base model
 
-The question was how to hold data if we're not going to have any fields like fields in old models. Plus, it's easy to understand that there will be a lot of calls of fields.
-Like situation, when user wants to initialize a field by any incoming data. That led my mind to use a container as a data storage. I've chosen a map for this purpose, because it's cheaper to use than a vector when user wants to get access to the field.
+The question was how to hold data if we're not going to have any fields like defined fields in old model system. Plus, it's easy to understand that there will be a lot of calls of fields.
+Like situation, when user wants to initialize a field by any incoming data.  
+That led my mind to use a container as a data storage. I've chosen a map for this purpose, because it's cheaper to use than a vector when user wants to get access to the field.
 Therefore, we need to use a key for the map. Using a __size_t__ or __std::string/string_view__ isn't a best option there.
 User must know names of fields, that isn't convinient way. So, I've chosen an enum that includes names of fields and at the same time it can be a key for the map.    
 Quite simple at the start. It's obvious that we're going to have a lot common logic inside models, therefore we need to create a kind of base class that can hold this common logic.
@@ -63,12 +65,12 @@ So, I've created a base class called 'UnifiedModel' with template parameter. It'
 
 > Also this class has a pure virtual function, so it makes the whole class abstract.
 
-Everything that user needs to use is something that gives him access to the fields. Because, base class includes only container as a data storage, I decided to define operator[] as a main method which gives access.  
-I have to mention, that's not all methods. Thanks to them all system can be automated.  
+Everything that user needs to use is something that gives him access to the fields. So, base class includes only container as a data storage, I decided to define operator[] as a main method which gives access.  
+Of course, there're some non-common methods. Due to them all model system can be automated.  
 
 Let's look at them:
 
-### TEnum getEnumField(size_t num) const = 0;
+### virtual TEnum getEnumField(size_t num) const = 0;
 
 ```c++
     template <typename TEnum>
@@ -81,7 +83,7 @@ Let's look at them:
     }
 ```
 
-This method is used in method 'init()' which is described below, to get enum field from size_t counter. This enum field will be a unique key for the map.
+This method is used in method 'init()' which is described below, to get enum field from size_t counter. Enum field will be a unique key for the map.
 
 
 ### void init(const FieldNames& fieldNames)
@@ -104,7 +106,7 @@ protected:
 }
 ```
 
-This method designed to be used in derived default class constructor to fill a map with fields of enum.
+This method designed to be used in default derived class constructor to fill a map with fields of enum.
 
 - '_data' is a main storage unit - map
 - The order of incoming fieldNames and order in getEnumField overriding must be the same. Otherwise, you can get a situation when you want to initialize 'email', but you do 'password'
@@ -133,7 +135,8 @@ public:
 ```
 
 Method is designed to make automated and hidden casts possible at the PGRepository side. It converts incoming fieldName in enum field to get access to field.
-This fieldName comes from pqxx as a part of answer from DB. Also, makes possible dealing 
+This fieldName comes from pqxx as a part of answer from DB.
+
 
 ### InsertData makeColumnDataPair() const
 
@@ -177,50 +180,42 @@ Thus, method makes possible to transfer only model in DAO interface. Moreover, t
 
 Eventually, I have to mention 'mutable' near main class variable.  
 I tried to avoid it but it will cause more changes at more sides of project, so the best case was to make it mutable. Let me describe why.  
-In any of our repositories we transfer our model as const reference. It means, that user can't change this model and therefore can't change fields. So, everything that I can do without mutable is to create a new model inside a method and copy/move data from argument model.
-Also, I have to mention that not only from there we use const reference, but at server side too. There is a special method called 'fmt' which is used to make const reference. 
-Creating a new model inside this repository method looks quite ugly, because we already have an object.
-Other choice was to make data field mutable and define methods which are operating data as 'const', even when it's not going to be const, like 'operator[]'.
+In any of our repositories we usually transfer our model as const reference. It means, that user can't change this model and therefore can't change fields. So, everything that I can do without mutable is to create a new model inside a method and copy/move data from argument model.
 
 ```c++
     Utility::ChannelCreateCodes createChannel(const Models::ChannelInfo& channel) override;
 ```
+
+Also, I have to mention that not only from there we use const reference, but at server side too. There is a special method called 'fmt' which is used to make const reference. 
 
 ```c++
     auto futureResult = _repoManager->pushRequest(&IChannelsRepository::deleteChannel, fmt(channelDeleteInfo));
     /// channelDeleteInfo -> model that transfers as an argument in repository method
 ```
 
+Creating a new model inside this repository method looks quite ugly, because we already have an object.  
+Other choice was to make storage field mutable and define methods which are operating data as 'const', even when it's not going to be const, like operator[].
+
+
 ## Specific models
 
-Obviously, that endpoint models inherit base class, override pure virtual method and define template argument, represent table from DB and so on.  
-Also, they are totally independent from any DB. It can be used everywhere.  
+Obviously, that specific models inherit base class, override pure virtual method and define template argument, represent table from DB and so on.  
+Also, they are totally independent from any DB. It can be used in any repository.  
 The usage of them is similar with previous models. In general we have the same fields, but access there we get by overrided ***operator[]***, not by ***operator.***, which is cannot be overrided.
 The internal realization is container and therefore we can use container advantages when we need to fill fields by incoming data(non-DB). I mean we can create automated initialization and it has done.  
 Eventually, for user it's the same model, but with different field access, but other entities may use it as a container.
 
-> ***_data**** is a main data storing field.
-
-```c++
-    TEnum toEnum(std::string_view fieldName) const
-    {
-        return std::find_if(_data.cbegin(), _data.cend(), [&fieldName](const auto& pair)
-                            {
-                                if (pair.second.first == fieldName)
-                                    return true;
-                                else
-                                    return false;
-                            })->first;
-    }
-```
 
 ## Filling models
 
-At the begginning we've wanted to build Data-Mapper pattern. It claims that models are in charge of filling themselves. Simultaneously, it causes a lot of problems.  
-Main, but not the most difficult was single responsibility problem. I mean that class was filling and storing data and that's not so good. Only one task must stay.
-Also, it declares that base abstract class must have 2 template arguments, but we need to know them at different steps of usage.
-I mean that we need to know by what type we want to fill and probably we don't know when model uses specific filling type, but we always have to know another one, which describes the model by itself.  
-It led to quite strange structure - template inheritance.
+At the begginning I wanted to build Data-Mapper pattern. It claims that models are in charge of filling themselves. Simultaneously, it causes a lot of problems.  
+Main, but not the most difficult one was single responsibility problem. I mean that base class was in charge of casts and storing data. That's not so good. Only one task must stay.  
+Also, it declares that base abstract class must have 2 template arguments, the first for enum, the second for raw return type, but we need to know them at different steps of usage.  
+From the one hand, we must know template for enum and those links to that we must know what kind of model we want to use. From the other hand, we must know raw return type, the second template parameter, but we don't know when we must know this.
+Probably, we would like to know what return type to use at the beggining of the server, because at that step server connects to database and this return type is implicitly defined by this database, explicitly by library we're using.  
+All that led to quite strange structure of templates - templated inheritance. It declared, that I can use class 'User' which was representing table 'users' everywhere I can, but I have to define later the first argument of template.
+
+> Plus, it made all stuff which uses this specific models template too(especially repositry). Otherwise, how to define the first template argument?
 
 ```c++
     template<template<typename ...TArgs> class RepositoryType, class TEnum = UserInfo, typename... Args>
@@ -230,9 +225,9 @@ It led to quite strange structure - template inheritance.
     };
 ```
 
-There *RepositoryType* was a class, which was directly inherited base class and also this class implemented filling logic.  
-However, it didn't work well with other project stuff that's why I decided to reject it and think about simpler solution.
-I moved filling logic to another class 'ModelFiller'. I wanted to create it polymorphic, but I faced the same issue - I have to know two template params at different moments of time.
-It can be easily solved if it may be possible to create template pure virtual method which will be overrided in derived, but c++ doesn't allow it.  
-So, I just put this stuff into one class named PGFiller(which includes filling logic with return type from pqxx library) and made this class as a field of abstract class of PG Repository.
-Like it was made to PGQuery (PG query builder).
+There *RepositoryType* must be a class, which was directly inheriting base class and also implementing filling logic.  
+However, it didn't work well with other project stuff that's why I decided to reject it and think about less sophisticated solution.
+I moved filling logic to another class called 'ModelFiller'. I wanted to create it polymorphic, but I faced the same issue - I have to know two template params at different moments of time.
+It can be easily solved if it may be possible to create template pure virtual method which will be overrided in derived, but C++ doesn't allow it.  
+So, I've just put this stuff into one class named PGFiller(which includes filling logic with return type from pqxx library) and made this class as a field of the base abstract class of the PG Repository.
+Like it was made to PGQuery.
