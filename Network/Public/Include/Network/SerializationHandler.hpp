@@ -13,16 +13,16 @@ class SerializationHandler : public AbstractHandler
 public:
     /**
     * @brief Method for serialization of outcoming messages.
-    * @param message - buffer that contains data that should be serialized.
-    * @param bodyBuffer - buffer that will contain serialized body.
+    * @param source - variable that contains data that should be serialized.
+    * @param destination - buffer that will contain serialized message body.
     */
-    MessageProcessingState handleOutcomingMessage(const Message& message, yas::shared_buffer& bodyBuffer) override
+    MessageProcessingState handleOutcomingMessage(const Message& source, yas::shared_buffer& destination) override
     {
         SerializedState state = SerializedState::SUCCESS;
 
-        if (message.mBody.has_value())
+        if (source.mBody.has_value())
         {
-            switch (message.mHeader.mMessageType)
+            switch (source.mHeader.mMessageType)
             {
                 case Message::MessageType::ServerAccept:
                     break;
@@ -37,125 +37,125 @@ public:
                     break;
 
                 case Message::MessageType::ChannelListRequest:
-                    state = processOutcomingMessageBody<std::vector<Models::ChannelInfo>>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::vector<Models::ChannelInfo>>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::MessageHistoryRequest:
-                    state = processOutcomingMessageBody<std::uint64_t>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::uint64_t>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::MessageHistoryAnswer:
-                    state = processOutcomingMessageBody<std::vector<Models::MessageInfo>>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::vector<Models::MessageInfo>>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::MessageStoreRequest:
-                    state = processOutcomingMessageBody<Models::MessageInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Models::MessageInfo>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::MessageStoreAnswer:
-                    state = processOutcomingMessageBody<Utility::StoringMessageCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::StoringMessageCodes>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::ReplyHistoryRequest:
-                    state = processOutcomingMessageBody<std::uint64_t>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::uint64_t>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::ReplyHistoryAnswer:
-                    state = processOutcomingMessageBody<std::vector<Models::ReplyInfo>>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::vector<Models::ReplyInfo>>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::ReplyStoreRequest:
-                    state = processOutcomingMessageBody<Models::ReplyInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Models::ReplyInfo>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::ReplyStoreAnswer:
-                    state = processOutcomingMessageBody<Utility::StoringReplyCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::StoringReplyCodes>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::MessageDeleteRequest:
-                    state = processOutcomingMessageBody<Models::MessageInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Models::MessageInfo>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::MessageDeleteAnswer:
-                    state = processOutcomingMessageBody<Utility::DeletingMessageCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::DeletingMessageCodes>(destination, source.mBody);
                     break;
                     
                 case Message::MessageType::MessageEditRequest:
-                    state = processOutcomingMessageBody<Models::MessageInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Models::MessageInfo>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::MessageEditAnswer:
-                    state = processOutcomingMessageBody<Utility::EditingMessageCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::EditingMessageCodes>(destination, source.mBody);
                     break;       
 
                 case Message::MessageType::MessageReactionRequest:
-                    state = processOutcomingMessageBody<Models::MessageInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Models::MessageInfo>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::MessageReactionAnswer:
-                    state = processOutcomingMessageBody<Utility::ReactionMessageCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::ReactionMessageCodes>(destination, source.mBody);
                     break;
                     
                 case Message::MessageType::RegistrationRequest:
-                    state = processOutcomingMessageBody<Models::RegistrationInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Models::RegistrationInfo>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::RegistrationAnswer:
-                    state = processOutcomingMessageBody<Utility::RegistrationCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::RegistrationCodes>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::LoginRequest:
-                    state = processOutcomingMessageBody<Models::LoginInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Models::LoginInfo>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::LoginAnswer:
-                    state = processOutcomingMessageBody<bool>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<bool>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::ChannelLeaveRequest:
-                    state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::string>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::ChannelLeaveAnswer:
-                    state = processOutcomingMessageBody<Utility::ChannelLeaveCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::ChannelLeaveCodes>(destination, source.mBody);
                     break;
                 case Message::MessageType::ChannelSubscribeRequest:
-                    state = processOutcomingMessageBody<Models::ChannelSubscriptionInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Models::ChannelSubscriptionInfo>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::ChannelSubscribeAnswer:
-                    state = processOutcomingMessageBody<Utility::ChannelSubscribingCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::ChannelSubscribingCodes>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::ChannelSubscriptionListRequest:
-                    state = processOutcomingMessageBody<Models::ChannelSubscriptionInfo>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Models::ChannelSubscriptionInfo>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::ChannelSubscriptionListAnswer:
-                    state = processOutcomingMessageBody<std::vector<uint64_t>>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::vector<uint64_t>>(destination, source.mBody);
                     break;
                 case Message::MessageType::ChannelDeleteRequest:
-                    state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::string>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::ChannelDeleteAnswer:
-                    state = processOutcomingMessageBody<Utility::ChannelDeleteCode>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::ChannelDeleteCode>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::ChannelCreateRequest:
-                    state = processOutcomingMessageBody<std::string>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<std::string>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::ChannelCreateAnswer:
-                    state = processOutcomingMessageBody<Utility::ChannelCreateCodes>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::ChannelCreateCodes>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::DirectMessageCreateRequest:
-                    state = processOutcomingMessageBody<uint64_t>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<uint64_t>(destination, source.mBody);
                     break;
 
                 case Message::MessageType::DirectMessageCreateAnswer:
-                    state = processOutcomingMessageBody<Utility::DirectMessageStatus>(bodyBuffer, message.mBody);
+                    state = processOutcomingMessageBody<Utility::DirectMessageStatus>(destination, source.mBody);
                     break;
 
                 default:
@@ -167,7 +167,7 @@ public:
         {
             if (this->nextHandler)
             {
-                this->nextHandler->handleOutcomingMessage(message, bodyBuffer);
+                this->nextHandler->handleOutcomingMessage(source, destination);
             }
             return MessageProcessingState::SUCCESS;
         }
@@ -177,14 +177,14 @@ public:
 
     /**
     * @brief Method for deserialization of incoming message bodies.
-    * @param buffer - buffer that contains data that should be deserialized.
-    * @param messageHeader - variable that will contain deserialized message body.
+    * @param source - buffer that contains data that should be deserialized.
+    * @param destination - variable that will contain deserialized message body.
     */
-    MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer& buffer, Message& message) override
+    MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer& source, Message& destination) override
     {
         SerializedState state = SerializedState::FAILURE;
 
-        switch (message.mHeader.mMessageType)
+        switch (destination.mHeader.mMessageType)
         {
             case Message::MessageType::ServerAccept:
                 break;
@@ -196,161 +196,161 @@ public:
                 break;
             case Message::MessageType::ChannelListRequest:
             {
-                state = processIncomingMessageBody<std::vector<Models::ChannelInfo>>(buffer, message);
+                state = processIncomingMessageBody<std::vector<Models::ChannelInfo>>(source, destination);
                 break;
             }
             case Message::MessageType::MessageHistoryRequest:
             {
-                state = processIncomingMessageBody<std::uint64_t>(buffer, message);
+                state = processIncomingMessageBody<std::uint64_t>(source, destination);
                 break;
             }
             case Message::MessageType::MessageHistoryAnswer:
             {
-                state = processIncomingMessageBody<std::vector<Models::MessageInfo>>(buffer, message);
+                state = processIncomingMessageBody<std::vector<Models::MessageInfo>>(source, destination);
                 break;
             }
             case Message::MessageType::MessageStoreRequest:
             {
-                state = processIncomingMessageBody<Models::MessageInfo>(buffer, message);
+                state = processIncomingMessageBody<Models::MessageInfo>(source, destination);
                 break;
             }
             case Message::MessageType::MessageStoreAnswer:
             {
-                state = processIncomingMessageBody<Utility::StoringMessageCodes>(buffer, message);
+                state = processIncomingMessageBody<Utility::StoringMessageCodes>(source, destination);
                 break;
             }
             case Message::MessageType::ReplyHistoryRequest:
             {
-                state = processIncomingMessageBody<std::uint64_t>(buffer, message);
+                state = processIncomingMessageBody<std::uint64_t>(source, destination);
                 break;
             }
             case Message::MessageType::ReplyHistoryAnswer:
             {
-                state = processIncomingMessageBody<std::vector<Models::ReplyInfo>>(buffer, message);
+                state = processIncomingMessageBody<std::vector<Models::ReplyInfo>>(source, destination);
                 break;
             }
             case Message::MessageType::ReplyStoreRequest:
             {
-                state = processIncomingMessageBody<Models::ReplyInfo>(buffer, message);
+                state = processIncomingMessageBody<Models::ReplyInfo>(source, destination);
                 break;
             }
             case Message::MessageType::ReplyStoreAnswer:
             {
-                state = processIncomingMessageBody<Utility::StoringReplyCodes>(buffer, message);
+                state = processIncomingMessageBody<Utility::StoringReplyCodes>(source, destination);
                 break;
             }
             case Message::MessageType::MessageDeleteRequest:
             {
-                state = processIncomingMessageBody<Models::MessageInfo>(buffer, message);
+                state = processIncomingMessageBody<Models::MessageInfo>(source, destination);
                 break;
             }
             case Message::MessageType::MessageDeleteAnswer:
             {
-                state = processIncomingMessageBody<Utility::DeletingMessageCodes>(buffer, message);
+                state = processIncomingMessageBody<Utility::DeletingMessageCodes>(source, destination);
                 break;
             }
             case Message::MessageType::MessageEditRequest:
             {
-                state = processIncomingMessageBody<Models::MessageInfo>(buffer, message);
+                state = processIncomingMessageBody<Models::MessageInfo>(source, destination);
                 break;
             }
             case Message::MessageType::MessageEditAnswer:
             {
-                state = processIncomingMessageBody<Utility::EditingMessageCodes>(buffer, message);
+                state = processIncomingMessageBody<Utility::EditingMessageCodes>(source, destination);
                 break;
             }
             case Message::MessageType::MessageReactionRequest:
             {
-                state = processIncomingMessageBody<Models::MessageInfo>(buffer, message);
+                state = processIncomingMessageBody<Models::MessageInfo>(source, destination);
                 break;
             }
             case Message::MessageType::MessageReactionAnswer:
             {
-                state = processIncomingMessageBody<Utility::ReactionMessageCodes>(buffer, message);
+                state = processIncomingMessageBody<Utility::ReactionMessageCodes>(source, destination);
                 break;
             }
             case Message::MessageType::RegistrationRequest:
             {
-                state = processIncomingMessageBody<Models::RegistrationInfo>(buffer, message);
+                state = processIncomingMessageBody<Models::RegistrationInfo>(source, destination);
                 break;
             }
             case Message::MessageType::RegistrationAnswer:
             {
-                state = processIncomingMessageBody<Utility::RegistrationCodes>(buffer, message);
+                state = processIncomingMessageBody<Utility::RegistrationCodes>(source, destination);
                 break;
             }
             case Message::MessageType::LoginRequest:
             {
-                state = processIncomingMessageBody<Models::LoginInfo>(buffer, message);
+                state = processIncomingMessageBody<Models::LoginInfo>(source, destination);
                 break;
             }
             case Message::MessageType::LoginAnswer:
             {
-                state = processIncomingMessageBody<bool>(buffer, message);
+                state = processIncomingMessageBody<bool>(source, destination);
                 break;
             }
 
             case Message::MessageType::ChannelLeaveRequest:
             {
-                state = processIncomingMessageBody<std::string>(buffer, message);
+                state = processIncomingMessageBody<std::string>(source, destination);
                 break;
             }
             case Message::MessageType::ChannelLeaveAnswer:
             {
-                state = processIncomingMessageBody<Utility::ChannelLeaveCodes>(buffer, message);
+                state = processIncomingMessageBody<Utility::ChannelLeaveCodes>(source, destination);
                 break;
             }
 
             case Message::MessageType::ChannelSubscribeRequest:
             {
-                state = processIncomingMessageBody<Models::ChannelSubscriptionInfo>(buffer, message);
+                state = processIncomingMessageBody<Models::ChannelSubscriptionInfo>(source, destination);
                 break;
             }
             case Message::MessageType::ChannelSubscribeAnswer:
             {
-                state = processIncomingMessageBody<Utility::ChannelSubscribingCodes>(buffer, message);
+                state = processIncomingMessageBody<Utility::ChannelSubscribingCodes>(source, destination);
                 break;
             }
             case Message::MessageType::ChannelSubscriptionListRequest:
             {
-                state = processIncomingMessageBody<Models::ChannelSubscriptionInfo>(buffer, message);
+                state = processIncomingMessageBody<Models::ChannelSubscriptionInfo>(source, destination);
                 break;
             }
             case Message::MessageType::ChannelSubscriptionListAnswer:
             {
-                state = processIncomingMessageBody<std::vector<uint64_t>>(buffer, message);
+                state = processIncomingMessageBody<std::vector<uint64_t>>(source, destination);
                 break;
             }
             case Message::MessageType::ChannelCreateRequest:
             {
-                state = processIncomingMessageBody<std::string>(buffer, message);
+                state = processIncomingMessageBody<std::string>(source, destination);
                 break;
             }
             case Message::MessageType::ChannelCreateAnswer:
             {
-                state = processIncomingMessageBody<Utility::ChannelCreateCodes>(buffer, message);
+                state = processIncomingMessageBody<Utility::ChannelCreateCodes>(source, destination);
                 break;
             }
             case Message::MessageType::ChannelDeleteRequest:
             {
-                state = processIncomingMessageBody<std::string>(buffer, message);
+                state = processIncomingMessageBody<std::string>(source, destination);
                 break;
             }
             case Message::MessageType::ChannelDeleteAnswer:
             {
-                state = processIncomingMessageBody<Utility::ChannelDeleteCode>(buffer, message);
+                state = processIncomingMessageBody<Utility::ChannelDeleteCode>(source, destination);
                 break;
             }
 
             case Message::MessageType::DirectMessageCreateRequest:
             {
-                state = processIncomingMessageBody<uint64_t>(buffer, message);
+                state = processIncomingMessageBody<uint64_t>(source, destination);
                 break;
             }
 
             case Message::MessageType::DirectMessageCreateAnswer:
             {
-                state = processIncomingMessageBody<Utility::DirectMessageStatus>(buffer, message);
+                state = processIncomingMessageBody<Utility::DirectMessageStatus>(source, destination);
                 break;
             }
             default:
@@ -361,7 +361,7 @@ public:
         {
             if (this->nextHandler)
             {
-                this->nextHandler->handleIncomingMessageBody(buffer, message);
+                this->nextHandler->handleIncomingMessageBody(source, destination);
             }
             return MessageProcessingState::SUCCESS;
         }
@@ -371,11 +371,11 @@ public:
 
 private:
     template <typename T>
-    SerializedState processOutcomingMessageBody(yas::shared_buffer& bodyBuffer, const std::any messageBody) const
+    SerializedState processOutcomingMessageBody(yas::shared_buffer& destination, const std::any& source) const
     {
         try
         {
-            return YasSerializer::template serialize<T>(bodyBuffer, std::any_cast<T>(messageBody));
+            return YasSerializer::template serialize<T>(destination, std::any_cast<T>(source));
         }
         catch (const std::bad_any_cast& e)
         {
@@ -389,17 +389,17 @@ private:
     }
 
     template <typename T>
-    SerializedState processIncomingMessageBody(const yas::shared_buffer& bodyBuffer, Message& message) const
+    SerializedState processIncomingMessageBody(const yas::shared_buffer& source, Message& destination) const
     {
         try
         {
             T messageInfo;
 
-            SerializedState state = YasSerializer::template deserialize<T>(bodyBuffer, messageInfo);
+            SerializedState state = YasSerializer::template deserialize<T>(source, messageInfo);
 
             if (state == SerializedState::SUCCESS)
             {
-                message.mBody = std::make_any<T>(messageInfo);
+                destination.mBody = std::make_any<T>(messageInfo);
             }
 
             return state;

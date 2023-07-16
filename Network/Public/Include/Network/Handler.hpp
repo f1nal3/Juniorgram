@@ -42,17 +42,17 @@ public:
 
     /**
     * @brief Virtual method for preprocessing of outcoming messages.
-    * @param message - buffer that contains data that should be preprocessed.
-    * @param bodyBuffer - buffer that will contain preprocessed body.
+    * @param source - variable that contains data that should be preprocessed.
+    * @param destination - buffer that will contain preprocessed message body.
     */
-    virtual MessageProcessingState handleOutcomingMessage(const Message& message, yas::shared_buffer& bodyBuffer) = 0;
+    virtual MessageProcessingState handleOutcomingMessage(const Message& source, yas::shared_buffer& destination) = 0;
 
     /**
     * @brief Virtual method for preprocessing of incoming message bodies.
-    * @param buffer - buffer that contains data that should be preprocessed.
-    * @param message - variable that will contain preprocessed message body.
+    * @param source - buffer that contains data that should be preprocessed.
+    * @param destination - variable that will contain preprocessed message body.
     */
-    virtual MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer& buffer, Message& message)   = 0;
+    virtual MessageProcessingState handleIncomingMessageBody(const yas::shared_buffer& source, Message& destination)   = 0;
 };
 
 /** 

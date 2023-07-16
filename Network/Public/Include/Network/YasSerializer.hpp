@@ -45,16 +45,16 @@ namespace Network
     public:
         /**
         * @brief Method for binary serialization of messages.
-        * @param msg - buffer that will contain serialized message data.
-        * @param data - variable that contains data that should be serialized.
+        * @param destination - buffer that will contain serialized message body.
+        * @param source - variable that contains data that should be serialized.
         */
         template <typename T>
-        static SerializedState serialize(yas::shared_buffer& msg, const T& data)
+        static SerializedState serialize(yas::shared_buffer& destination, const T& source)
         {
             try
             {
                 suppressWarning(4127, "-Wtype-limits") 
-                msg = yas::save<flags>(data);
+                destination = yas::save<flags>(source);
                 restoreWarning
             }
             catch (const std::exception& e)
@@ -72,16 +72,16 @@ namespace Network
 
         /**
         * @brief Method for binary deserialization of messages.
-        * @param source - variable that contains data that should be deserialized.
-        * @param data - variable that will contain deserialized message data.
+        * @param source - buffer that contains data that should be deserialized.
+        * @param destination - variable that will contain deserialized message body.
         */
         template <typename T>
-        static SerializedState deserialize(const yas::shared_buffer source, T& data)
+        static SerializedState deserialize(const yas::shared_buffer& source, T& destination)
         {
             try
             {
                 suppressWarning(4127, "-Wtype-limits")
-					yas::load<flags>(source, data);
+					yas::load<flags>(source, destination);
                 restoreWarning
             }
             catch (const std::exception& e)
