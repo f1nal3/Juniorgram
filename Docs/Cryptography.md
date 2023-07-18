@@ -9,7 +9,7 @@ All subsequent statements work for the following cryptography configuration:
 - Checking the correctness of the shared key: sending a message with a known content ([NIST SP 800-152](https://csrc.nist.rip/external/nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-152.pdf), paragraph 6.6.3) 
 - Connection verification: The idea is taken from [Towards Securing Client-Server Connections against.pdf](https://www.mihaiordean.com/articles/JEq8FDkHdZX6.pdf) (the same [file](./Towards%20Securing%20Client-Server%20Connections%20against.pdf)).
 
-Also, this architecture will work for any symmetric encryption algorithm if the hash of generated shared key is used as the content encryption key (or, with with minor modifications, key encryption key).
+Also, this architecture will work for any symmetric encryption algorithm if the hash of generated shared key is used as the content encryption key (or, with minor modifications, key encryption key).
 
 The diagram below shows how the parts of the cryptographic system interact with each other and with the server.
 
