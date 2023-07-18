@@ -18,13 +18,13 @@ using Network::Connection;
 *        after they have been processed on the client side.
 * @details The results of the messages may be as follows: 
 *          InvalidBody  - poorly formed message. /
-*          ServerAccept - signals the result of the connection to the server. /
+*          KernelAccept - signals the result of the connection to the kernel. /
 *          Success      - correctly formed message.
 */
 enum class MessageResult
 {
     InvalidBody,
-    ServerAccept,
+    KernelAccept,
     Success
 };
 
@@ -35,22 +35,22 @@ class TestClient
 {
 public:
     /**
-    * @brief Connect to server with IP(host) and Port(port).
+    * @brief Connect to kernel with IP(host) and Port(port).
     * @param const std::string_view& host - for identifying and accepting ip address, /
     * @param const uint16_t port - for accepting & identifying of port.
     */
-    bool connectToServer(const std::string_view& host, const uint16_t port);
+    bool connectToKernel(const std::string_view& host, const uint16_t port);
     
     /**
-    * @brief Disconnect from server.
+    * @brief Disconnect from kernel.
     * @details This method stop connection to remote host. /
     *   Also, it reset all context and jobs that related with TestClient. /
     *   This method call in destructor, so in general way it is not used.
     */ 
-    void disconnectFromServer();
+    void disconnectFromKernel();
 
     /**
-    * @brief Sends an initialized header message to the server.
+    * @brief Sends an initialized header message to the kernel.
     * @details You can see the message types in the Message header file.
     */ 
     void send(const Message& message) const;
@@ -59,7 +59,7 @@ public:
     * @brief Method to get a container with the results of message processing.
     * @details The results of the messages may be as follows: /
     *          InvalidBody  - poorly formed message. /
-    *          ServerAccept - signals the result of the connection to the server. /
+    *          KernelAccept - signals the result of the connection to the kernel. /
     *          Success      - correctly formed message.
     */
     std::vector<MessageResult> getMessageResult() const;
@@ -71,19 +71,19 @@ public:
 
     /**
     * @brief TestClient virtual destructor.
-    * @details The virtual destructor calls the disconnectFromServer method, /
-    *    which checks the connection to the server. 
+    * @details The virtual destructor calls the disconnectFromKernel method, /
+    *    which checks the connection to the kernel. 
     */
     virtual ~TestClient() noexcept;
 
 protected:
     /**
-    * @brief Method for signaling of disconnect from server.
+    * @brief Method for signaling of disconnect from kernel.
     */
     void onDisconnect() const;
 
     /**
-    * @brief Method for signaling of sending message to server.
+    * @brief Method for signaling of sending message to kernel.
     */
     void onMessageSendFailed(const Message& message) const;
 
@@ -93,19 +93,19 @@ protected:
     std::optional<MessageResult> onLoginAnswer(bool success) const;
 
     /**
-    * @brief Method for signaling of server accepting.
+    * @brief Method for signaling of kernel accepting.
     */
-    std::optional<MessageResult> onServerAccepted() const;
+    std::optional<MessageResult> onKernelAccepted() const;
 
     /**
-    * @brief Method for signaling of server ping.
+    * @brief Method for signaling of kernel ping.
     */
     std::optional<MessageResult> onServerPing(double timestamp) const;
 
     /**
-    * @brief Method for signaling of server message.
+    * @brief Method for signaling of kernel message.
     */
-    std::optional<MessageResult> onServerMessage(const uint64_t clientID) const;
+    std::optional<MessageResult> onKernelMessage(const uint64_t clientID) const;
 
     /**
     * @brief Method for signaling of channel list request.
@@ -190,14 +190,14 @@ protected:
 private:
     /**
     * @brief Noose that handle incoming messages.
-    * @details Handler function to process the server response message /
+    * @details Handler function to process the kernel response message /
     *   for the subsequent response from the client.
     *   (You can see the message types in the Message header file).
     */ 
     void noose();
 
     /**
-    * @brief Checking the server connection.
+    * @brief Checking the kernel connection.
     * @details Returns true if connection is established.
     */ 
     [[nodiscard]] bool isConnected() const;
@@ -212,20 +212,20 @@ private:
     void MessageResultIsError(std::optional<MessageResult> result);
 
     /**
-    * @brief Method checks the connection to the server. 
+    * @brief Method checks the connection to the kernel. 
     * @defails Until the connection is established, /
     *          no further work will be done.
     */
-    bool checkServerAcception();
+    bool checkKernelAcception();
 
     /**
-    * @brief Method checks if the received arguments to connect to the server are correct.
+    * @brief Method checks if the received arguments to connect to the kernel are correct.
     * @param const std::string_view& host - for identifying and accepting ip address, /
     * @param const uint16_t port - for accepting & identifying of port.
     */
     bool checkConnectionArguments(const std::string_view& host, const uint16_t port) const;
 
-    bool                                 _serverAccept = false;
+    bool                                 _kernelAccept = false;
     uint8_t                              _countOfError; 
     asio::io_context                     _context;
     std::unique_ptr<Network::Connection> _connection;

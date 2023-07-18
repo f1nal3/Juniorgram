@@ -5,28 +5,28 @@
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
-TEST_CASE("Default request procedures [Server][Success]")
+TEST_CASE("Default request procedures", "[Kernel][Success]")
 {
-    auto testServer = makeTestServer();
-    testServer->start();
+    auto testKernel = makeTestKernel();
+    testKernel->start();
 
     TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+    client.connectToKernel(TestKernelInfo::Address::local, TestKernelInfo::Port::test);
     
     SECTION("Successful request to check a ping")
     {
         Message     validMessage;
         const auto& messageInstance = makeMessage(validMessage, 
-            MessageType::ServerPing, MessageBody::ValidBody);
+            MessageType::KernelPing, MessageBody::ValidBody);
         
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() ==
              Client::TestObject::MessageResult::Success);
-        testServer->stop();
+        testKernel->stop();
     }
 }

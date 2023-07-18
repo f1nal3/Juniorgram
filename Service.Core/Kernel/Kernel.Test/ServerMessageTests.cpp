@@ -5,13 +5,13 @@
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
-TEST_CASE("Message request procedures [Server][Success]")
+TEST_CASE("Message request procedures", "[Kernel][Success]")
 {
-	auto testServer = makeTestServer();
-    testServer->start();
+	auto testKernel = makeTestKernel();
+    testKernel->start();
 
     TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+    client.connectToKernel(TestKernelInfo::Address::local, TestKernelInfo::Port::test);
 
     SECTION("Successful message history request")
     {
@@ -20,14 +20,14 @@ TEST_CASE("Message request procedures [Server][Success]")
             MessageType::MessageHistoryRequest, MessageBody::ValidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::Success);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Successful reply message history request")
@@ -37,14 +37,14 @@ TEST_CASE("Message request procedures [Server][Success]")
             MessageType::ReplyHistoryRequest, MessageBody::ValidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::Success);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Successful direct message request")
@@ -54,14 +54,14 @@ TEST_CASE("Message request procedures [Server][Success]")
             MessageType::DirectMessageCreateRequest, MessageBody::ValidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::Success);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Successful message store request")
@@ -71,14 +71,14 @@ TEST_CASE("Message request procedures [Server][Success]")
             MessageType::MessageStoreRequest, MessageBody::ValidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::Success);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Successful reply message store request")
@@ -88,14 +88,14 @@ TEST_CASE("Message request procedures [Server][Success]")
             MessageType::ReplyStoreRequest, MessageBody::ValidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::Success);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Successful message reaction request")
@@ -105,14 +105,14 @@ TEST_CASE("Message request procedures [Server][Success]")
             MessageType::MessageReactionRequest, MessageBody::ValidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::Success);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Successful message edit request")
@@ -122,14 +122,14 @@ TEST_CASE("Message request procedures [Server][Success]")
             MessageType::MessageEditRequest, MessageBody::ValidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::Success);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Successful message delete request")
@@ -139,24 +139,24 @@ TEST_CASE("Message request procedures [Server][Success]")
             MessageType::MessageDeleteRequest, MessageBody::ValidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::Success);
-        testServer->stop();
+        testKernel->stop();
     }
 }
 
-TEST_CASE("Message request procedures [Server][Failed]")
+TEST_CASE("Message request procedures", "[Kernel][Failed]")
 {
-    auto testServer = makeTestServer();
-    testServer->start();
+    auto testKernel = makeTestKernel();
+    testKernel->start();
 
     TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+    client.connectToKernel(TestKernelInfo::Address::local, TestKernelInfo::Port::test);
 
     SECTION("Failed message history request")
     {
@@ -165,14 +165,14 @@ TEST_CASE("Message request procedures [Server][Failed]")
             MessageType::MessageHistoryRequest, MessageBody::InvalidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::InvalidBody);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Failed reply message history request")
@@ -182,14 +182,14 @@ TEST_CASE("Message request procedures [Server][Failed]")
             MessageType::ReplyHistoryRequest, MessageBody::InvalidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::InvalidBody);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Failed direct message request")
@@ -199,14 +199,14 @@ TEST_CASE("Message request procedures [Server][Failed]")
             MessageType::DirectMessageCreateRequest, MessageBody::InvalidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() ==
              Client::TestObject::MessageResult::InvalidBody);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Failed message store request")
@@ -216,14 +216,14 @@ TEST_CASE("Message request procedures [Server][Failed]")
             MessageType::MessageStoreRequest, MessageBody::InvalidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::InvalidBody);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Failed reply message store request")
@@ -233,14 +233,14 @@ TEST_CASE("Message request procedures [Server][Failed]")
             MessageType::ReplyStoreRequest, MessageBody::InvalidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::InvalidBody);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Failed message reaction request")
@@ -250,14 +250,14 @@ TEST_CASE("Message request procedures [Server][Failed]")
             MessageType::MessageReactionRequest, MessageBody::InvalidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::InvalidBody);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Failed message edit request")
@@ -267,14 +267,14 @@ TEST_CASE("Message request procedures [Server][Failed]")
             MessageType::MessageEditRequest, MessageBody::InvalidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::InvalidBody);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Failed message delete request")
@@ -284,13 +284,13 @@ TEST_CASE("Message request procedures [Server][Failed]")
             MessageType::MessageDeleteRequest, MessageBody::InvalidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::InvalidBody);
-        testServer->stop();
+        testKernel->stop();
     }
 }

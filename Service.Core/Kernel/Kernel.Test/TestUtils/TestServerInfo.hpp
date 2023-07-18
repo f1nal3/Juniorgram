@@ -1,6 +1,6 @@
 #include <string_view>
 
-namespace TestServerInfo
+namespace TestKernelInfo
 {
 	namespace Address
 	{
@@ -10,4 +10,4 @@ namespace TestServerInfo
 	{
 	constexpr std::uint16_t test = 65001;
 	}
-}  // namespace TestServerInfo
+}  // namespace TestKernelInfo

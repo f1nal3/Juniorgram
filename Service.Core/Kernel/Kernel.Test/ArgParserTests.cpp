@@ -13,7 +13,7 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
     SECTION("Constructor with default arguments and default initialization")
     {
        std::vector<const char*> defaultArgs {"./juniorgram", 
-                                              "--serverport=65001", 
+                                              "--kernelport=65001", 
                                               "--port=5432", "--dbname=juniorgram",
                                               "--hostaddr=127.0.0.1", 
                                               "--user=postgres", "--password=postgres"};
@@ -23,7 +23,7 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
     SECTION("Constructor with other initialization")
     {
         std::vector<const char*> otherDefaultArgs{"./juniorgram",
-                                             "--serverport", "65003",
+                                             "--kernelport", "65003",
                                              "--port", "6432",
                                              "--dbname", "testdb",
                                              "--hostaddr", "0.0.0.0",
@@ -35,7 +35,7 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Success]")
     SECTION("Deliberate disregard for the value of the argument")
     {
         std::vector<const char*> limitedArgs {"./juniorgram", 
-                                              "--serverport=6666666", 
+                                              "--kernelport=6666666", 
                                               "--port=6666666", "--dbname=otherdb",
                                               "--hostaddr=126.0.0.1", 
                                               "--user=tester", "--password=tester"};
@@ -59,7 +59,7 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Failed]")
 {
      SECTION("Duplicated keys in arguments throw an exception")
      {
-         std::vector<const char*> failedArgs {"./juniorgram", "--serverport=65001", "--serverport=65001"};
+         std::vector<const char*> failedArgs {"./juniorgram", "--kernelport=65001", "--kernelport=65001"};
          CHECK_THROWS(ArgParser(static_cast<int>(failedArgs.size()), failedArgs.data()));
      }
 
@@ -78,7 +78,7 @@ TEST_CASE("Constructor of ArgParser [ArgParser][Failed]")
      SECTION("Parsing incorrectly filled arguments")
      {
          std::vector<const char*> failedArgs {"./juniorgram",
-                                              "serverport=test_key", "port=test_key",
+                                              "kernelport=test_key", "port=test_key",
                                               "dbname=test_key",     "hostaddr=test_key",
                                               "user=test_key",       "password=test_key"};
          CHECK_THROWS(ArgParser(static_cast<int>(failedArgs.size()), failedArgs.data()));
@@ -92,7 +92,7 @@ TEST_CASE("Method of obtaining a pair of arguments of the argparser [ArgParser][
 
     SECTION("Getting arguments with default pairs")
     {
-        CHECK_NOTHROW(parser.getPair("serverport"));
+        CHECK_NOTHROW(parser.getPair("kernelport"));
         CHECK_NOTHROW(parser.getPair("dbname"));
         CHECK_NOTHROW(parser.getPair("hostaddr"));
         CHECK_NOTHROW(parser.getPair("port"));
@@ -100,20 +100,20 @@ TEST_CASE("Method of obtaining a pair of arguments of the argparser [ArgParser][
         CHECK_NOTHROW(parser.getPair("password"));
     }
     
-    SECTION("Check the server port flag pair with the default argument") 
+    SECTION("Check the kernel port flag pair with the default argument") 
     { 
-        std::pair<std::string,std::string> serverPortPair{"--serverport", "65001"};
-        REQUIRE(parser.getPair("--serverport") == serverPortPair);
+        std::pair<std::string,std::string> kernelPortPair{"--kernelport", "65001"};
+        REQUIRE(parser.getPair("--kernelport") == kernelPortPair);
     }
 
     SECTION("Check the any flag pair with the other argument")
     {
-        std::vector<const char*> sectionArgs = {"./juniorgram", "--serverport=65003"};
+        std::vector<const char*> sectionArgs = {"./juniorgram", "--kernelport=65003"};
         ArgParser                sectionParser(static_cast<int>(sectionArgs.size()), sectionArgs.data());
         REQUIRE_NOTHROW(sectionParser);
 
-        auto otherPair = std::make_pair("--serverport", "65003");
-        REQUIRE(sectionParser.getPair("--serverport").second == otherPair.second);
+        auto otherPair = std::make_pair("--kernelport", "65003");
+        REQUIRE(sectionParser.getPair("--kernelport").second == otherPair.second);
     }
 
     SECTION("Check the database flag pair with the default argument")
