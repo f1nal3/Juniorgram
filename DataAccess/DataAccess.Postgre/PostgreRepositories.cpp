@@ -1,5 +1,5 @@
 #include "PostgreRepositories.hpp"
-#include "IConnectionVerifier.hpp"
+#include "ConnectionVerifiers/IConnectionVerifier.hpp"
 
 #include <FileLogger.hpp>
 #include <limits>

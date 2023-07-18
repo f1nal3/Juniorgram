@@ -11,7 +11,7 @@
 #include "Network/Message.hpp"
 #include "Network/iAPI.hpp"
 #include "PostgreRepositoryManager.hpp"
-#include "RSAKeyManager.hpp"
+#include "RSA/RSAKeyManager.hpp"
 
 #include "Utility/SafeQueue.hpp"
 #include "Utility/Utility.hpp"

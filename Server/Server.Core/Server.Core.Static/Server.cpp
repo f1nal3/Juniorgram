@@ -5,10 +5,10 @@
 #include "FileLogger.hpp"
 #include "Logger/ILogger.hpp"
 #include <Models/Models.hpp>
-#include "AES_GCM.hpp"
-#include "HashVerifier.hpp"
-#include "RSA.hpp"
-#include "RSAKeyGenerator.hpp"
+#include "Encryption/AES_GCM.hpp"
+#include "ConnectionVerifiers/HashVerifier.hpp"
+#include "RSA/RSA.hpp"
+#include "RSA/RSAKeyGenerator.hpp"
 
 namespace Server
 {

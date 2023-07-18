@@ -8,7 +8,7 @@
 #include <Models/Models.hpp>
 
 #include "IMasterRepository.hpp"
-#include "IConnectionVerifier.hpp"
+#include "ConnectionVerifiers/IConnectionVerifier.hpp"
 
 namespace DataAccess
 {

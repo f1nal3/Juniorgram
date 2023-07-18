@@ -3,9 +3,9 @@
 
 #include <limits>
 #include <Crypto.Static/Hashing.hpp>
-#include <Crypto.Static/ECDH.hpp>
-#include <Crypto.Static/AES_GCM.hpp>
-#include <Crypto.Static/RSA.hpp>
+#include <Crypto.Static/KeyAgreement/ECDH.hpp>
+#include <Crypto.Static/Encryption/AES_GCM.hpp>
+#include <Crypto.Static/RSA/RSA.hpp>
 #include <Crypto.Static/CryptoPrimitives.hpp>
 
 namespace Network

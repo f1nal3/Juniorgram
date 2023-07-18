@@ -1,13 +1,13 @@
 #include <catch2/catch.hpp>
 #include "Crypto.Static/Hashing.hpp"
-#include "Crypto.Static/RSA.hpp"
+#include "Crypto.Static/RSA/RSA.hpp"
 #include "Crypto.Static/SessionKeyHolder.hpp"
-#include "Crypto.Static/RSAKeyManager.hpp"
+#include "Crypto.Static/RSA/RSAKeyManager.hpp"
 #include "Crypto.Static/CryptoPrimitives.hpp"
-#include "Crypto.Static/HashVerifier.hpp"
+#include "Crypto.Static/ConnectionVerifiers/HashVerifier.hpp"
 #include "Crypto.Static/ByteBlockGenerator.hpp"
-#include "Crypto.Static/AES_GCM.hpp"
-#include "Crypto.Static/ECDH.hpp"
+#include "Crypto.Static/Encryption/AES_GCM.hpp"
+#include "Crypto.Static/KeyAgreement/ECDH.hpp"
 #include "Crypto.Static/KeyConfirmation.hpp"
 
 using Base::Hashing::SHA_256;
