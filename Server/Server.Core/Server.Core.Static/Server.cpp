@@ -5,6 +5,10 @@
 #include "FileLogger.hpp"
 #include "Logger/ILogger.hpp"
 #include <Models/Models.hpp>
+#include "Encryption/AES_GCM.hpp"
+#include "ConnectionVerifiers/HashVerifier.hpp"
+#include "RSA/RSA.hpp"
+#include "RSA/RSAKeyGenerator.hpp"
 
 namespace Server
 {
@@ -16,6 +20,8 @@ Server::~Server() { stop(); }
 
 void Server::start()
 {
+    _rsaKeyManager->loadKeyPair();
+
     waitForClientConnection();
 
     size_t threadsCount = std::thread::hardware_concurrency();
@@ -45,6 +51,8 @@ void Server::stop()
 
     _repoManager->stopHandler();
 
+    _rsaKeyManager->saveKeyPair();
+
     for (std::thread& thread : _threads)
     {
         if (thread.joinable())
@@ -73,6 +81,7 @@ bool Server::onClientConnect(const std::shared_ptr<Connection>& client)
     Message message;
     message.mHeader.mMessageType = Message::MessageType::ServerAccept;
     client->send(message);
+
     return true;
 }
 
@@ -96,7 +105,7 @@ void Server::acceptingClientConnection(const std::error_code& error, tcp::socket
         if (onClientConnect(newConnection))
         {
             _connectionsPointers.emplace_back(std::move(newConnection));
-            _connectionsPointers.back()->connectToClient(_idCounter++);
+            _connectionsPointers.back()->connectToClient(uInt64Generator.getRandomInt(10000, 100000));
 
             FileLogger::getInstance().log
             (
@@ -213,6 +222,25 @@ void Server::onMessage(const std::shared_ptr<Connection>& client, const Message&
             Result = directMessageCreateRequest(client, message);
             break;
         }
+
+        case Message::MessageType::ConnectionInfoRequest:
+        {
+            directConnectionInfoRequest(client);
+            break;
+        }
+
+        case Message::MessageType::KeyAgreement:
+        {
+            directKeyAgreement(client, message);
+            break;
+        }
+
+        case Message::MessageType::KeyConfirmation:
+        {
+            directKeyConfirmation(client, message);
+            break;
+        }
+
         default:
         {
             Result = defaultRequest();
@@ -538,9 +566,15 @@ std::optional<Network::MessageResult> Server::registrationRequest(std::shared_pt
 
 std::optional<Network::MessageResult> Server::loginRequest(std::shared_ptr<Connection> client, const Message& message) const
 {
+
     auto loginInfo = std::any_cast<Models::LoginInfo>(message.mBody);
 
-    auto futureResult = _repoManager->pushRequest(&ILoginRepository::loginUser, fmt(loginInfo));
+    loginInfo._verifyingHash = Base::Crypto::Asymmetric::RSA().decrypt(loginInfo._verifyingHash, _rsaKeyManager->getPrivateKey());
+
+    auto futureResult = _repoManager->pushRequest(&ILoginRepository::loginUser,
+                                                  fmt(loginInfo),
+                                                  fmt(Models::ConnectionInfo(client->getID(),_rsaKeyManager->getPublicServerKeyStr())),
+                                                  client->getConnectionVerifier());
 
     if (message.mHeader.mMessageType == Message::MessageType::LoginRequest)
     {
@@ -553,14 +587,15 @@ std::optional<Network::MessageResult> Server::loginRequest(std::shared_ptr<Conne
         answerForClient.mHeader.mMessageType = Message::MessageType::LoginAnswer;
         answerForClient.mBody                = std::make_any<bool>(loginSuccessful);
 
-        client->send(answerForClient);
-
         if (loginSuccessful)
         {
             client->setUserID(userID);
+            client->setAuthentificationData(loginInfo._login);
 
             FileLogger::getInstance().log("User " + std::to_string(userID) + " logged in.", LogLevel::INFO);
         }
+
+        client->send(answerForClient);
 
         return MessageResult::Success;
     }
@@ -706,7 +741,98 @@ std::optional<Network::MessageResult> Server::directMessageCreateRequest(std::sh
     return MessageResult::InvalidBody;
 }
 
-std::optional<Network::MessageResult> Server::defaultRequest() const
+void Server::directConnectionInfoRequest(std::shared_ptr<Network::Connection> client) const
+{
+    client->setConnectionVerifier(std::make_shared<Base::Verifiers::HashVerifier>());
+
+    Message messageToClient;
+    messageToClient.mHeader.mMessageType = Message::MessageType::ConnectionInfoAnswer;
+
+    Models::ConnectionInfo connectionInfo;
+    connectionInfo._connectionID   = client->getID();
+    connectionInfo._publicServerKey = _rsaKeyManager->getPublicServerKeyStr();
+
+    messageToClient.mBody = std::make_any<Models::ConnectionInfo>(connectionInfo);
+    client->send(messageToClient);
+}
+
+void Server::directKeyAgreement(std::shared_ptr<Network::Connection> client, const Message& message) const
+{
+    using CryptoPP::SecByteBlock;
+    using CryptoPP::byte;
+
+    auto userKeyAgreementInfo = std::any_cast<Models::KeyAgreementInfo>(message.mBody);
+
+    if (userKeyAgreementInfo._attempt > 2)
+    {
+        FileLogger::getInstance().log(
+            std::string("Client id= " + std::to_string(client->getID()) + " exhausted attempts to generate an encryption key"),
+            LogLevel::ERR);
+
+        client->disconnect();
+        return;
+    }
+    if (client->getKeyAgreement().get() == nullptr)
+    {
+        client->setKeyAgreement(std::make_shared<Base::KeyAgreement::ECDH>());
+    }
+    client->getKeyAgreement()->generateKeys();
+
+    SecByteBlock publicUserKey(reinterpret_cast<const byte*>(userKeyAgreementInfo._publicKey.data()),
+                               userKeyAgreementInfo._publicKey.size());
+
+    SecByteBlock sharedSecret = client->getKeyAgreement()->calculateSharedKey(publicUserKey);
+
+    Message messageToClient;
+    messageToClient.mHeader.mMessageType = Message::MessageType::KeyAgreement;
+
+    Models::KeyAgreementInfo serverKeyAgreementInfo(userKeyAgreementInfo._attempt);
+
+    if (!sharedSecret.empty() &&
+        Base::SessionKeyHolder::Instance().setKey(std::move(sharedSecret), client->getUserID()) == Utility::GeneralCodes::SUCCESS)
+    {
+        CryptoPP::SecByteBlock publicServerKey = client->getKeyAgreement()->getPublicKey();
+        std::string publicServerKeyStr(reinterpret_cast<const char*>(publicServerKey.data()), publicServerKey.size());
+
+        serverKeyAgreementInfo._publicKey = publicServerKeyStr;
+
+        client->setEncryption(std::make_shared<Base::Crypto::Symmetric::AES_GCM>());
+        client->setKeyConfirmator(std::make_shared<Base::KeyConfirmators::KeyConfirmation<> >());
+
+        client->getKeyAgreement().~shared_ptr();
+    }
+    else
+    {
+        Base::SessionKeyHolder::Instance().removeKey(client->getUserID());
+    }
+    messageToClient.mBody = std::make_any<Models::KeyAgreementInfo>(serverKeyAgreementInfo);
+
+    client->send(messageToClient);
+}
+
+void Server::directKeyConfirmation(std::shared_ptr<Network::Connection> client, const Message& message) const
+{
+    bool isKeyConfirmed = client->getKeyConfirmator()->compareWithVerificationUnit(std::any_cast<std::string>(message.mBody));
+
+    if (isKeyConfirmed)
+    {
+        FileLogger::getInstance().log("Encryption key for userId = " + std::to_string(client->getUserID()) + " is confirmed",
+                                      LogLevel::INFO);
+    }
+    else
+    {
+        FileLogger::getInstance().log("Encryption key for userId = " + std::to_string(client->getUserID()) + " is not confirmed",
+                                      LogLevel::WARNING);
+    }
+
+    Message confirmationMessage;
+    confirmationMessage.mHeader.mMessageType = Message::MessageType::KeyConfirmationAnswer;
+    confirmationMessage.mBody = std::make_any<bool>(isKeyConfirmed);
+
+    client->send(confirmationMessage);
+}
+
+std::optional<MessageResult> Server::defaultRequest() const
 {
     FileLogger::getInstance().log
     (

@@ -13,7 +13,7 @@ target_link_libraries(${TARGET} PUBLIC
     Base.Crypto.Static)
 
 target_include_directories(${TARGET} PRIVATE
-        $<TARGET_PROPERTY:Base.Crypto.Static,SOURCE_DIR>/..)
+    $<TARGET_PROPERTY:Base.Crypto.Static,SOURCE_DIR>/..)
 
 add_test(NAME ${OUTPUT_NAME} COMMAND ${TARGET})
 

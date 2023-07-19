@@ -61,7 +61,12 @@ struct Message
         DirectMessageCreateRequest,
         DirectMessageCreateAnswer,
         MessageReactionRequest,
-        MessageReactionAnswer
+        MessageReactionAnswer,
+        ConnectionInfoRequest,
+        ConnectionInfoAnswer,
+        KeyAgreement,
+        KeyConfirmation,
+        KeyConfirmationAnswer
     };
 
     /**
@@ -73,6 +78,11 @@ struct Message
         MessageType                 mMessageType = MessageType();
         std::uint32_t               mBodySize    = std::uint32_t();
         UtilityTime::timestamp_t    mTimestamp   = duration_cast<milliseconds>(UtilityTime::RTC::now().time_since_epoch()).count();
+
+        /// Initial vector
+        std::string mIv;
+        /// Authentification data
+        std::string mAuthData;
     };
 
     /// Connection variable
@@ -104,6 +114,6 @@ struct Message
 template <typename Archive>
 void serialize(Archive& ar, Message::MessageHeader& o)
 {
-    ar& o.mMessageType& o.mBodySize& o.mTimestamp;
+    ar& o.mMessageType& o.mBodySize& o.mTimestamp& o.mIv& o.mAuthData;
 }
 }  // namespace Network

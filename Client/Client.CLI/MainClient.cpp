@@ -31,7 +31,7 @@ int main(int argc, char** argv)
     {
         queriesQueue.emplace(argv[argIndex]);
     }
-
+    //add command to send channel list request
     queriesQueue.emplace("cl");
 
     App  clientApp;

@@ -11,8 +11,10 @@
 #include "Network/Message.hpp"
 #include "Network/iAPI.hpp"
 #include "PostgreRepositoryManager.hpp"
+#include "RSA/RSAKeyManager.hpp"
 
 #include "Utility/SafeQueue.hpp"
+#include "Utility/Utility.hpp"
 
 namespace DataAccess
 {
@@ -27,6 +29,8 @@ using Network::Message;
 using Utility::SafeQueue;
 using Network::MessageResult;
 using RepoManagerUPtr = std::unique_ptr<DataAccess::IRepositoryManager>;
+using RSAKeyManagerUPtr = std::unique_ptr<Base::RSAKeyManager>;
+
 /*
 * @brief Declaration of ServerBuilder.
 */
@@ -136,13 +140,27 @@ private:
     std::vector<MessageResult> getMessageResult() const;
 
     /**
+    * @brief The method for processing key agreement
+    * @details Method receive public user key, sends server public key and calculate shared key, which places in SessionKeyHolder.
+    */
+    void directKeyAgreement(std::shared_ptr<Network::Connection> client, const Message& message) const;
+
+    /**
+    * @brief The method for processing key confirmation
+    * @details Method to check correctness of calculated shared key by client.
+    */
+    void directKeyConfirmation(std::shared_ptr<Network::Connection> client, const Message& message) const;
+
+    /**
      *  This macros apply all method from api and avoid you from routine of handwriting
      */
     APPLY_API_METHODS
 
-    uint64_t _idCounter         = 10000;
+private:
     uint64_t _criticalQueueSize = 100;
     uint64_t _newThreadsCount   = std::thread::hardware_concurrency();
+
+    Utility::UniformIntGenerator<uint64_t> uInt64Generator;
 
     asio::io_context                        _context;
     std::vector<MessageResult>              _messageResponce;
@@ -151,5 +169,6 @@ private:
     std::deque<std::thread>                 _threads;
     std::unique_ptr<tcp::acceptor>          _acceptor;
     RepoManagerUPtr                         _repoManager;
+    RSAKeyManagerUPtr                       _rsaKeyManager = std::make_unique<Base::RSAKeyManager>();
 };
 }  /// namespace Server

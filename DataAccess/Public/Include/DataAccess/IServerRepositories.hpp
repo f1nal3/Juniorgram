@@ -8,6 +8,7 @@
 #include <Models/Models.hpp>
 
 #include "IMasterRepository.hpp"
+#include "ConnectionVerifiers/IConnectionVerifier.hpp"
 
 namespace DataAccess
 {
@@ -214,12 +215,17 @@ struct IRegisterRepository : IMasterRepository
 struct ILoginRepository : IMasterRepository
 {
     /**
-    * @brief Attempts to login a user with the provided login by checking privided hash with the one stored.
-    * @param login user login as string
-    * @param pwdHash password hash
-    * @return userID if provided hash is the same as stored in repository, 0 stands for failed login
+    * @brief Attempts to login a user with the provided login by checking provided hash with the one stored.
+    * @param loginInfo Struct, that contains user login and verifying hash
+    * @param connInfo Struct, that contains public server key and connection ID
+    * @return userID if provided hash is the same as calulated by IConnectionVerifier, 0 stands for failed login
     */
-    virtual std::uint64_t loginUser(const Models::LoginInfo& loginInfo) = 0;
+    virtual std::uint64_t loginUser(
+        const Models::LoginInfo& loginInfo,
+        const Models::ConnectionInfo& connInfo,
+        std::shared_ptr<Base::Verifiers::IConnectionVerifier> verifier) = 0;
+
+    //virtual std::uint64_t loginUser(const Models::LoginInfo& loginInfo) = 0;
 
     /**
     * @brief virtual destructor.

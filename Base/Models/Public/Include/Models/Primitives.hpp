@@ -103,14 +103,14 @@ struct LoginInfo
 {
     /// user's login as string variable
     std::string _login;
-    /// pwdHash hash of user's password as string variable
-    std::string _pwdHash;
+    /// hash to authentificate user
+    std::string _verifyingHash;
     /// Default LoginInfo constructor
     LoginInfo()                 = default;
     /// Default LoginInfo copy constructor
     LoginInfo(const LoginInfo&) = default;
     /// LoginInfo constructor with initializing list
-    explicit LoginInfo(const std::string& login_, const std::string& passwordHash_) : _login(login_), _pwdHash(passwordHash_) {}
+    explicit LoginInfo(const std::string& login_, const std::string& verifyingHash_) : _login(login_), _verifyingHash(verifyingHash_) {}
     /// Default LoginInfo destructor
     ~LoginInfo() = default;
 };
@@ -121,7 +121,7 @@ struct LoginInfo
 template <typename Archive>
 void serialize(Archive& ar, Models::LoginInfo& o)
 {
-    ar& o._login& o._pwdHash;
+    ar& o._login& o._verifyingHash;
 }
 
 /**
@@ -226,7 +226,7 @@ void serialize(Archive& ar, Models::MessageInfo& o)
     ar& o._channelID& o._senderID& o._msgID& o._message& o._reactions& o._time& o._userLogin;
 }
 
-/**
+ /**
  * @brief The ReplyInfo struct
  * @details Reply Info contains channel ID, message, message ID,
  *          sender ID, msgIdOwner and sender ID.
@@ -274,4 +274,64 @@ void serialize(Archive& ar, Models::ReplyInfo& o)
     ar& o._channelID& o._message& o._msgID& o._senderID& o._msgIdOwner& o._userLogin;
 }
 
+/**
+ * @brief The ConnectoinInfo struct
+ * @details Contains information, which will be used to verify connection(and client too)
+ */
+struct ConnectionInfo
+{
+    /// connection ID uint64_t variable
+    std::uint64_t _connectionID;
+    /// public server key, used to encrypt verification hash
+    std::string _publicServerKey;
+    /// Default ConnectoinInfo constructor
+    ConnectionInfo() = default;
+
+    /// ConnectoinInfo constructor with initializing list
+    explicit ConnectionInfo(const std::uint64_t& connectionID_, const std::string& publicServerKey_)
+        : _connectionID(connectionID_), _publicServerKey(publicServerKey_)
+    {
+    }
+    /// Default ConnectionInfo copy constructor
+    ConnectionInfo(const ConnectionInfo&) = default;
+    /// Default ConnectoinInfo destructor
+    ~ConnectionInfo() = default;
+};
+
+/// Serialize method for serialize ConnectoinInfo for each field
+template <typename Archive>
+void serialize(Archive& ar, Models::ConnectionInfo& o)
+{
+    ar& o._connectionID& o._publicServerKey;
+}
+
+/**
+ * @brief The KeyAgreementInfo struct
+ * @details Contains count of attempts and public key
+ */
+struct KeyAgreementInfo
+{
+    std::uint8_t    _attempt = 1;
+    std::string     _publicKey;
+    //@todo ENUM for selecting key agreement protocol
+
+    KeyAgreementInfo() = default;
+
+    /// KeyAgreementInfo constructor with initializing list
+    explicit KeyAgreementInfo(const std::uint8_t& attempt_, const std::string& publicKey_ = std::string(""))
+        : _attempt(attempt_), _publicKey(publicKey_)
+    {
+    }
+    /// Default KeyAgreementInfo copy constructor
+    KeyAgreementInfo(const KeyAgreementInfo&) = default;
+    /// Default KeyAgreementInfo destructor
+    ~KeyAgreementInfo() = default;
+};
+
+/// Serialize method for serialize KeyAgreementInfo for each field
+template <typename Archive>
+void serialize(Archive& ar, Models::KeyAgreementInfo& o)
+{
+    ar& o._attempt& o._publicKey;
+}
 }  // namespace Models

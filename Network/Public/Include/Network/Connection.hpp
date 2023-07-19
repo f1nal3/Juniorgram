@@ -23,6 +23,11 @@
 #include "Utility/Utility.hpp"
 #include "Utility/WarningSuppression.hpp"
 #include "YasSerializer.hpp"
+#include "ConnectionVerifiers/HashVerifier.hpp"
+#include "KeyAgreement/ECDH.hpp"
+#include "KeyConfirmation.hpp"
+#include "ByteBlockGenerator.hpp"
+#include "KeyConfirmation.hpp"
 
 namespace Network
 {
@@ -56,6 +61,12 @@ private:
 
     std::uint64_t _connectionID  = uint64_t();
     std::uint64_t _userID        = 1;
+    std::string   _authentificationData;
+
+    std::shared_ptr<Base::Crypto::ICryptography>              _encryptionAlgorithm;
+    std::shared_ptr<Base::Verifiers::IConnectionVerifier>     _connectionVerificationAlgorithm;
+    std::shared_ptr<Base::KeyAgreement::IKeyAgreement>        _keyAgreementAlgorithm;
+    std::shared_ptr<Base::KeyConfirmators::KeyConfirmation<>> _keyConfirmationAlgorithm;
 
     /*@details Unique socket to remote. */
     asio::ip::tcp::socket _socket;
@@ -87,11 +98,18 @@ private:
         yas::shared_buffer bodyBuffer;
 
         SerializationHandler handler;
-        handler.setNext(new CompressionHandler())->setNext(new EncryptionHandler());
-        MessageProcessingState result = handler.handleOutcomingMessage(_outcomingMessagesQueue.front(), bodyBuffer);
 
-        Network::Message::MessageHeader outcomingMessageHeader = _outcomingMessagesQueue.front().mHeader;
-        outcomingMessageHeader.mBodySize                       = static_cast<uint32_t>(bodyBuffer.size);
+        Network::Message outcomingMessage = _outcomingMessagesQueue.front();
+
+        outcomingMessage.mHeader.mAuthData = _authentificationData;
+
+        CryptoPP::SecByteBlock initVector  = Base::Generators::ByteBlockGenerator::Instance().generateBlock();
+        outcomingMessage.mHeader.mIv       = std::string(reinterpret_cast<const char*>(initVector.data()), initVector.size());
+
+        handler.setNext(new CompressionHandler())->setNext(new EncryptionHandler(_encryptionAlgorithm, getUserID()));
+        MessageProcessingState result = handler.handleOutcomingMessage(outcomingMessage, bodyBuffer);
+
+        outcomingMessage.mHeader.mBodySize = static_cast<uint32_t>(bodyBuffer.size);
 
         if (result == MessageProcessingState::SUCCESS)
         {
@@ -123,7 +141,7 @@ private:
                 }
             };
 
-            asio::async_write(_socket, asio::buffer(&outcomingMessageHeader, sizeof(Message::MessageHeader)),
+            asio::async_write(_socket, asio::buffer(&outcomingMessage.mHeader, sizeof(Message::MessageHeader)),
                               asio::bind_executor(_writeStrand, std::bind(writeHeaderHandler, std::placeholders::_1)));
         }
     }
@@ -225,7 +243,7 @@ private:
         const auto readBodyHandler = [this, buffer](std::error_code error) {
             if (!error)
             {
-                EncryptionHandler handler;
+                EncryptionHandler handler(_encryptionAlgorithm, getUserID());
                 handler.setNext(new CompressionHandler())->setNext(new SerializationHandler());
                 MessageProcessingState result = handler.handleIncomingMessageBody(buffer, _messageBuffer);
 
@@ -366,6 +384,7 @@ public:
         {
             asio::post(_contextLink, [this]() { _socket.close(); });
         }
+        Base::SessionKeyHolder::Instance().removeKey(getUserID());
     }
 
     /**
@@ -394,5 +413,33 @@ public:
             }
         });
     }
+
+    void setEncryption(std::shared_ptr<Base::Crypto::ICryptography> encryption) { _encryptionAlgorithm = std::move(encryption); }
+
+    void setConnectionVerifier(std::shared_ptr<Base::Verifiers::IConnectionVerifier> connVerifier)
+    {
+        _connectionVerificationAlgorithm = std::move(connVerifier);
+    }
+
+    std::shared_ptr<Base::Verifiers::IConnectionVerifier> getConnectionVerifier() const
+    {
+        return _connectionVerificationAlgorithm;
+    }
+
+    void setKeyAgreement(std::shared_ptr<Base::KeyAgreement::ECDH> keyAgreement) { _keyAgreementAlgorithm = std::move(keyAgreement); }
+
+    std::shared_ptr<Base::KeyAgreement::IKeyAgreement> getKeyAgreement() const
+    {
+        return _keyAgreementAlgorithm;
+    }
+
+    void setAuthentificationData(const std::string& authData) { _authentificationData = authData; }
+
+    void setKeyConfirmator(std::shared_ptr <Base::KeyConfirmators::KeyConfirmation<std::string> > keyConfirmator)
+    {
+        _keyConfirmationAlgorithm = std::move(keyConfirmator);
+    }
+
+    std::shared_ptr<Base::KeyConfirmators::KeyConfirmation<>> getKeyConfirmator() { return _keyConfirmationAlgorithm; }
 };
 }  // namespace Network

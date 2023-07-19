@@ -5,7 +5,7 @@ namespace TestUtility
 void MessageFiller::setLoginInfo(const LoginInfo& logInfo)
 {
     _loginInfo._login   = logInfo._login;
-    _loginInfo._pwdHash = logInfo._pwdHash;
+    _loginInfo._verifyingHash = logInfo._verifyingHash;
 }
 
 void MessageFiller::setRegistrationInfo(const RegistrationInfo& regInfo)
@@ -108,7 +108,7 @@ void MessageFiller::fillLoginInfo()
 {
     LoginInfo loginInfo;
     loginInfo._login   = testLogin;
-    loginInfo._pwdHash = testPWDHash;
+    loginInfo._verifyingHash = testPWDHash;
 
     setLoginInfo(loginInfo);
 }

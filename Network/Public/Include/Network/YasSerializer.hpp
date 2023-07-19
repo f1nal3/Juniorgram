@@ -28,6 +28,15 @@ namespace Network
         FAILURE   /// unsuccessful serialization/deserialization
     };
 
+    /** @enum EncryptionState
+     *  @brief Successful or not result of encryption/decryption
+     */
+    enum class EncryptionState
+    {
+        SUCCESS,  /// successful encryption/decryption
+        FAILURE   /// unsuccessful encryption/decryption
+    };
+
     /** @class YasSerializer
      *  @brief binary serialization class using YAS library.
      */

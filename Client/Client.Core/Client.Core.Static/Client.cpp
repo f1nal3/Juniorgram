@@ -2,7 +2,11 @@
 #include "ServerInfo.hpp"
 
 #include <limits>
-#include <Crypto.Static/Cryptography.hpp>
+#include <Crypto.Static/Hashing.hpp>
+#include <Crypto.Static/KeyAgreement/ECDH.hpp>
+#include <Crypto.Static/Encryption/AES_GCM.hpp>
+#include <Crypto.Static/RSA/RSA.hpp>
+#include <Crypto.Static/CryptoPrimitives.hpp>
 
 namespace Network
 {
@@ -202,14 +206,23 @@ void Client::userRegistration(const std::string& email, const std::string& login
 
 void Client::userAuthorization(const std::string& login, const std::string& password) const
 {
-    const std::string pwdHash = Base::Hashing::SHA_256(password, login);
-    Models::LoginInfo loginInfo(login, pwdHash);
+    _connection->setAuthentificationData(login);
 
-    Message message;
-    message.mHeader.mMessageType = MessageType::LoginRequest;
-    message.mBody                = std::make_any<Models::LoginInfo>(loginInfo);
+    const std::string pwdHash       = Base::Hashing::SHA_256(password, login);
+    const std::string verifyingHash = _connection->getConnectionVerifier()->calculateVerifyingHash(pwdHash, _connectionInfo);
+    const std::string encryptedVerifyingHash = Base::Crypto::Asymmetric::RSA().encrypt(
+        verifyingHash, Base::Crypto::Primitives::RSAKeyPair::getPublicKeyFromString(_connectionInfo._publicServerKey));
 
-    send(message);
+    if (!encryptedVerifyingHash.empty())
+    {
+        Models::LoginInfo loginInfo(login, encryptedVerifyingHash);
+
+        Message message;
+        message.mHeader.mMessageType = MessageType::LoginRequest;
+        message.mBody                = std::make_any<Models::LoginInfo>(loginInfo);
+
+        send(message);
+    }
 }
 
 void Client::messageAll() const
@@ -440,6 +453,27 @@ void Client::loop()
             }
             break;
 
+            case MessageType::ConnectionInfoAnswer:
+            {
+                auto connectionInfo = std::any_cast<Models::ConnectionInfo>(message.mBody);
+                onConnectionInfoAnswer(connectionInfo);
+            }
+            break;
+
+            case MessageType::KeyAgreement:
+            {
+                auto keyAgreementInfo = std::any_cast<Models::KeyAgreementInfo>(message.mBody);
+                onKeyAgreement(keyAgreementInfo);
+            }
+            break;
+
+            case MessageType::KeyConfirmationAnswer:
+            {
+                auto isKeyConfirmed = std::any_cast<bool>(message.mBody);
+                onKeyConfirmationAnswer(isKeyConfirmed);
+            }
+            break;
+
             default:
                 Base::Logger::FileLogger::getInstance().log
                 (
@@ -452,20 +486,33 @@ void Client::loop()
 
 void Client::onLoginAnswer(bool success)
 {
-    (void)(success);
-    Base::Logger::FileLogger::getInstance().log
-    (
-        "Login answer is not implemented", 
-        Base::Logger::LogLevel::WARNING
-    );
+    if (success)
+    {
+        _connection->setKeyAgreement(std::make_unique<Base::KeyAgreement::ECDH>());
+
+        Message generateSharedKey = constructKeyAgreementMessage(1);
+        send(generateSharedKey);
+    }
+    else
+    {
+        Base::Logger::FileLogger::getInstance().log
+        (
+            "Login denied",
+            Base::Logger::LogLevel::INFO
+        );
+    }
 }
 
 void Client::onServerAccepted()
 {
+    Message requestOnConnectionInfo;
+    requestOnConnectionInfo.mHeader.mMessageType = Message::MessageType::ConnectionInfoRequest;
+    _connection->send(requestOnConnectionInfo);
+
     Base::Logger::FileLogger::getInstance().log
     (
-        "Server accepted is not implemented",
-        Base::Logger::LogLevel::WARNING
+        "Server accepts connection",
+        Base::Logger::LogLevel::INFO
     );
 }
 
@@ -657,4 +704,109 @@ void Client::onDirectMessageCreateAnswer(Utility::DirectMessageStatus directMess
         Base::Logger::LogLevel::WARNING
     );
 }
+
+void Client::onConnectionInfoAnswer(const Models::ConnectionInfo& connectionInfo)
+{
+    _connectionInfo = connectionInfo;
+
+    _connection->setConnectionVerifier(std::make_shared<Base::Verifiers::HashVerifier>());
+
+    // to remove
+    Message login;
+    login.mHeader.mMessageType = Message::MessageType::LoginRequest;
+
+    Models::LoginInfo logInfo;
+    logInfo._login         = "slavexx";
+    logInfo._verifyingHash = _connection->getConnectionVerifier()->calculateVerifyingHash(
+        std::string("7990F4864C67B7E5459F2607EA5EAFD81077C33C64BA2F3FFB27DDDD47C5E6E6"), _connectionInfo);
+    logInfo._verifyingHash = Base::Crypto::Asymmetric::RSA().encrypt(
+        logInfo._verifyingHash, Base::Crypto::Primitives::RSAKeyPair::getPublicKeyFromString(_connectionInfo._publicServerKey));
+    login.mBody = std::any_cast<Models::LoginInfo>(logInfo);
+
+    _connection->setAuthentificationData(logInfo._login);
+    _connection->send(login);
+    // to remove
+
+}
+
+void Client::onKeyAgreement(const Models::KeyAgreementInfo& serverKeyAgreementInfo)
+{
+    bool isSharedSecretCalculated = false;
+    CryptoPP::SecByteBlock sharedSecret;
+
+    if (!serverKeyAgreementInfo._publicKey.empty())
+    {
+        std::string publicServerKeyStr = serverKeyAgreementInfo._publicKey;
+        CryptoPP::SecByteBlock publicServerKey(reinterpret_cast<const CryptoPP::byte*>(publicServerKeyStr.data()), publicServerKeyStr.size());
+        sharedSecret = _connection->getKeyAgreement()->calculateSharedKey(publicServerKey);
+
+        isSharedSecretCalculated = !sharedSecret.empty();
+    }
+    else
+    {
+        Base::FileLogger::getInstance().log("Empty public server key. ", Base::LogLevel::WARNING);
+    }
+
+    if (isSharedSecretCalculated && !serverKeyAgreementInfo._publicKey.empty() &&
+        Base::SessionKeyHolder::Instance().setKey(std::move(sharedSecret), _connection->getUserID()) == Utility::GeneralCodes::SUCCESS)
+    {
+        _connection->setEncryption(std::make_shared<Base::Crypto::Symmetric::AES_GCM>());
+        _connection->setKeyConfirmator(std::make_shared<Base::KeyConfirmators::KeyConfirmation<> >());
+
+        _connection->getKeyAgreement().~shared_ptr();
+
+        Message messageToConfirmSharedKey;
+        messageToConfirmSharedKey.mHeader.mMessageType = Message::MessageType::KeyConfirmation;
+        messageToConfirmSharedKey.mBody = std::make_any<std::string>(_connection->getKeyConfirmator()->getVerificationUnit());
+
+        send(messageToConfirmSharedKey);
+    }
+    else
+    {
+        Base::SessionKeyHolder::Instance().Instance().removeKey(_connection->getUserID());
+
+        Base::FileLogger::getInstance().log(
+            std::string("Try to generate encryption key again. Current attempt: " + std::to_string(serverKeyAgreementInfo._attempt)),
+            Base::LogLevel::WARNING);
+
+        Message tryToGenerateSharedKeyAgain = constructKeyAgreementMessage(serverKeyAgreementInfo._attempt + 1);
+        send(tryToGenerateSharedKeyAgain);
+    }
+}
+
+void Client::onKeyConfirmationAnswer(bool isKeyConfirmed)
+{
+    if (isKeyConfirmed)
+    {
+        Base::Logger::FileLogger::getInstance().log("Server has the same enryption key", Base::LogLevel::INFO);
+
+        _connection->getKeyAgreement().~shared_ptr();
+    }
+    else
+    {
+        Base::Logger::FileLogger::getInstance().log("Server does not confirm, that it has the same encryption key with client",
+                                                    Base::LogLevel::WARNING);
+
+        Message tryToGenerateSharedKeyAgain = constructKeyAgreementMessage(1);
+        send(tryToGenerateSharedKeyAgain);
+    }
+}
+
+inline Message Client::constructKeyAgreementMessage(std::uint8_t attempt)
+{
+    _connection->getKeyAgreement()->generateKeys();
+
+    Message message;
+    message.mHeader.mMessageType = Message::MessageType::KeyAgreement;
+
+    CryptoPP::SecByteBlock publicClientKey = _connection->getKeyAgreement()->getPublicKey();
+    std::string publicClientKeyStr(reinterpret_cast<const char*>(publicClientKey.data()), publicClientKey.size());
+
+    Models::KeyAgreementInfo keyAgreementInfo(attempt, publicClientKeyStr);
+
+    message.mBody = std::make_any<Models::KeyAgreementInfo>(keyAgreementInfo);
+
+    return message;
+}
+
 }  // namespace Network

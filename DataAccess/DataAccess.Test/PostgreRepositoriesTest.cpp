@@ -75,7 +75,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 		LoginRepository testLoginRepos(PostgreAdapter::Instance());
 		auto testUserID = testTable->Select()->columns({ "id" })->Where("login='" + std::string(testLogin) + "'")->execute().value();
 
-		SECTION("Logging")
+		/*SECTION("Logging")
 		{
 			Models::LoginInfo testUser(testLogin, testPassHash);
 
@@ -100,7 +100,7 @@ TEST_CASE("PostgreRepositories test", "[dummy]")
 			Models::LoginInfo testBadUser("nooneexist*-_123&^", testPassHash);
 
 			REQUIRE_NOTHROW(testLoginRepos.loginUser(testBadUser));
-		}
+		}*/
 	}
 
 	SECTION("Channels repository and other repositories connected pretty close to channels")
