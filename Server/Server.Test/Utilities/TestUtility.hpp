@@ -90,7 +90,7 @@ struct ConfigArguments
     }
 
 private:
-    const PairArguments serverPortPair{"--serverport", "65001"};
+    const PairArguments serverPortPair{"--serverport", "65009"};
     const PairArguments badServerPortPair{"--serverport", "666666"};
     const PairArguments dbnamePair{"--dbname", "mockdb"};
     const PairArguments hostPair{"--hostaddr", "127.0.0.1"};
