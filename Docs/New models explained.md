@@ -31,9 +31,11 @@ Take a look of usage example (I've chosen the worst example);
 
 Looks terrible, doesn't it?
 
-> 'value' above is variable of raw return type, which is multi-dimensional array with specific interface.
+> ***value*** above is variable of raw return type, which is multi-dimensional array with specific interface.
 
-However, using old models also means that we cannot make it automated. No doubt, we can do it, but let's simply look how it will be.  
+> ***messageInfo*** above is object of old model with defined fields, which represents data about clients message.
+
+However, using old models also means that we cannot make casting logic automated. No doubt, we can do it, but let's simply look how it will be.  
 Just imagine that we have 10 models, they represent 10 tables from DB. We want to erase all casts from business logic.
 So, this means that we need to write 10 overrided methods which will do the cast work. Cool, but what if we need to cast only a part of it? How to define what fields we want to cast?
 Of course, it also means that we have to write a lot of similar code inside this overridings.
@@ -61,14 +63,16 @@ Therefore, we need to use a key for the map. Using a __size_t__ or __std::string
 User must know names of fields, that isn't convinient way. So, I've chosen an enum that includes names of fields and at the same time it can be a key for the map.    
 Quite simple at the start. It's obvious that we're going to have a lot common logic inside models, therefore we need to create a kind of base class that can hold this common logic.
 In addition, somehow we need to instance what kind of model it's going to be. Plus, we have to choose enum for the specific model/class. I decided that making a template parameter which will instance a specific model is the best option there.
-So, I've created a base class called 'UnifiedModel' with template parameter. It's in charge of defining what model it is and at the same time it's a key for the map.  
+So, I've created a base class called ***UnifiedModel*** with template parameter. It's in charge of defining what model it is and at the same time it's a key for the map.  
 
 > Also this class has a pure virtual function, so it makes the whole class abstract.
 
-Everything that user needs to use is something that gives him access to the fields. So, base class includes only container as a data storage, I decided to define operator[] as a main method which gives access.  
+Everything that user needs to use is something that gives him access to the fields. So, base class includes only container as a data storage, I decided to define ***operator[]*** as a main method which gives access.  
 Of course, there're some non-common methods. Due to them all model system can be automated.  
 
 Let's look at them:
+
+---
 
 ### virtual TEnum getEnumField(size_t num) const = 0;
 
@@ -83,8 +87,9 @@ Let's look at them:
     }
 ```
 
-This method is used in method 'init()' which is described below, to get enum field from size_t counter. Enum field will be a unique key for the map.
+This method is used in method ***init()*** which is described below, to get enum field from size_t counter. Enum field will be a unique key for the map.
 
+---
 
 ### void init(const FieldNames& fieldNames)
 
@@ -108,9 +113,12 @@ protected:
 
 This method designed to be used in default derived class constructor to fill a map with fields of enum.
 
-- '_data' is a main storage unit - map
-- The order of incoming fieldNames and order in getEnumField overriding must be the same. Otherwise, you can get a situation when you want to initialize 'email', but you do 'password'
+> Those ***fieldNames*** come from default argument of default constructor. It means, that user doesn't have to know them, but if user needs to create new model, he must know them.
 
+- ***_data*** is a main storage unit - map
+- The order of incoming ***fieldNames*** and order in ***getEnumField*** overriding must be the same. Otherwise, you can get a situation when you want to initialize 'email', but you do 'password'
+
+---
 
 ### TEnum toEnum(std::string_view fieldName) const
 
@@ -135,8 +143,9 @@ public:
 ```
 
 Method is designed to make automated and hidden casts possible at the PGRepository side. It converts incoming fieldName in enum field to get access to field.
-This fieldName comes from pqxx as a part of answer from DB.
+This fieldName comes from ***pqxx*** as a part of answer from DB. Probably can be used in every library, which has a column name as a part of responce.
 
+---
 
 ### InsertData makeColumnDataPair() const
 
@@ -167,14 +176,14 @@ This fieldName comes from pqxx as a part of answer from DB.
 
 > Also, compiler uses there NRVO (named return value optimization).
 
-This one is designed to make read-only pairs of <field_name, field_value>. Used inside DAO methods, but the best performance for user we can see inside Repository logic.  
-Before, when we wanted to insert something in DB by DAO, we were creating tuple of pairs just inside business logic and that looked quite awful.  
-Thus, method makes possible to transfer only model in DAO interface. Moreover, the whole stuff looks more ORM and no more tuples there.  
+This one is designed to make read-only pairs of <field_name, field_value>.  
+Method makes possible to transfer only model in DAO interface. Moreover, the whole stuff looks more ORM and no more tuples there.  
 
 ```c++
     _pTable->Insert()->columns(&userChannels)->execute();
 ```
 
+---
 
 ### Mutable base class field
 
@@ -194,28 +203,28 @@ Also, I have to mention that not only from there we use const reference, but at 
 ```
 
 Creating a new model inside this repository method looks quite ugly, because we already have an object.  
-Other choice was to make storage field mutable and define methods which are operating data as 'const', even when it's not going to be const, like operator[].
+Other choice was to make storage field mutable and define methods which are operating data as 'const', even when it's not going to be const, like ***operator[]***.
 
 
 ## Specific models
 
 Obviously, that specific models inherit base class, override pure virtual method and define template argument, represent table from DB and so on.  
 Also, they are totally independent from any DB. It can be used in any repository.  
-The usage of them is similar with previous models. In general we have the same fields, but access there we get by overrided ***operator[]***, not by ***operator.***, which is cannot be overrided.
+The usage of them is similar with previous models. In general we have the same fields, but access there we get by overrided ***operator[]***, not by ***operator.***(dot), which is cannot be overrided.
 The internal realization is container and therefore we can use container advantages when we need to fill fields by incoming data(non-DB). I mean we can create automated initialization and it has done.  
 Eventually, for user it's the same model, but with different field access, but other entities may use it as a container.
 
 
 ## Filling models
 
-> Filling is almost casting, but more general, because filling includes many casts.
+> Filling is almost casting, but more general, because filling includes many casts. So, when I say 'filling' it means cast.
 
 At the beginning I wanted to make casting logic at the side of models. However, it caused serious problems.  
 Main, but not the most difficult one was single responsibility problem. I mean that the base class was in charge of casts and storing data. That's not so good. Only one task must stay.  
 Also, it declares that base abstract class must have 2 template arguments, the first for enum, the second for raw return type, but we need to know them at different steps of usage.  
 From the one hand, we must know template for enum and those links to that we must know what kind of model we want to use. From the other hand, we must know raw return type, the second template parameter, but we don't know when we must know this.
 Probably, we would like to know what return type to use at the beggining of the server, because at that step server connects to database and this return type is implicitly defined by this database, explicitly by library we're using.  
-All that led to quite strange structure of templates - templated inheritance. It declared, that I can use class 'User' which was representing table 'users' everywhere I can, but I have to define later the first argument of template.
+All that led to quite strange structure of templates - templated inheritance. It declared, that I can use class ***User*** which was representing table 'users' everywhere I can, but I have to define later the first argument of template.
 
 > Plus, it made all stuff which uses this specific models template too(especially repositry). Otherwise, how to define the first template argument?
 
@@ -227,9 +236,9 @@ All that led to quite strange structure of templates - templated inheritance. It
     };
 ```
 
-There *RepositoryType* must be a class, which was directly inheriting base class and also implementing casting logic.  
+There ***RepositoryType*** must be a class, which was directly inheriting base class and also implementing casting logic.  
 However, it didn't work well with other project stuff that's why I decided to reject it and think about less sophisticated solution.
 I moved casting logic to another class called 'ModelFiller'. I wanted to create it polymorphic, but I faced the same issue - I have to know two template params at different moments of time.
 It can be easily solved if it may be possible to create template pure virtual method which will be overrided in derived class, but C++ doesn't allow it.  
-So, I've just put this stuff into one class named PGFiller(which includes casting logic with return type from pqxx library) and made this class as a field of the base abstract class of the PG Repository.
-Like it was made to PGQuery.
+So, I've just put this stuff into one class named ***PGFiller***(which includes casting logic with return type from pqxx library) and made this class as a field of the base abstract class of the PG Repository.
+Like it was made to ***PGQuery***.
