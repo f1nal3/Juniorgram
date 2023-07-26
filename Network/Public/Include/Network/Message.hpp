@@ -20,8 +20,8 @@ class Connection;
         using std::chrono::duration_cast;
 
 /**
- * @brief The Message struct
- */
+* @brief The Message struct
+*/
 struct Message
 {
     /// Enum class for Message Type
@@ -65,9 +65,9 @@ struct Message
     };
 
     /**
-     * @brief The MessageHeader struct
-     * @details Contain Message Type class, body size and timestamp.
-     */
+    * @brief The MessageHeader struct
+    * @details Contain Message Type class, body size and timestamp.
+    */
     struct MessageHeader
     {
         MessageType                 mMessageType = MessageType();
@@ -106,4 +106,4 @@ void serialize(Archive& ar, Message::MessageHeader& o)
 {
     ar& o.mMessageType& o.mBodySize& o.mTimestamp;
 }
-}  // namespace Network
+}  /// namespace Network

@@ -8,6 +8,7 @@ set(SOURCE_FILES
     Include/Network/Handler.hpp
     Include/Network/Message.hpp
     Include/Network/SerializationHandler.hpp
+    Include/Network/CombiningHandlers.hpp
     Include/Network/YasSerializer.hpp
     Include/Network/iAPI.hpp)
 

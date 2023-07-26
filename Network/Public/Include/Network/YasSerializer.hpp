@@ -19,18 +19,20 @@ restoreWarning
 
 namespace Network
 {
-    /** @enum SerializedState
-     *  @brief Successful or not result of serialization/deserialization
-     */
+    /** 
+    * @enum SerializedState
+    * @brief Successful or not result of serialization/deserialization
+    */
     enum class SerializedState
     {
         SUCCESS,  /// successful serialization/deserialization
         FAILURE   /// unsuccessful serialization/deserialization
     };
 
-    /** @class YasSerializer
-     *  @brief binary serialization class using YAS library.
-     */
+    /** 
+    * @class YasSerializer
+    * @brief binary serialization class using YAS library.
+    */
     class YasSerializer
     {
         YasSerializer()                     = delete;
@@ -39,22 +41,20 @@ namespace Network
         YasSerializer& operator=(const YasSerializer&) = delete;
         YasSerializer& operator=(YasSerializer&&) = delete;
 
-    private:
         constexpr static std::size_t flags = yas::mem | yas::binary | yas::no_header;
-
     public:
         /**
-         * @brief Method for binary serialization of messages.
-         * @param msg - buffer that will contain serialized message data.
-         * @param data - variable that contains data that should be serialized.
-         */
+        * @brief Method for binary serialization of messages.
+        * @param destination - buffer that will contain serialized message body.
+        * @param source - variable that contains data that should be serialized.
+        */
         template <typename T>
-        static SerializedState serialize(yas::shared_buffer& msg, const T& data)
+        static SerializedState serialize(yas::shared_buffer& destination, const T& source)
         {
             try
             {
                 suppressWarning(4127, "-Wtype-limits") 
-                msg = yas::save<flags>(data);
+                destination = yas::save<flags>(source);
                 restoreWarning
             }
             catch (const std::exception& e)
@@ -71,17 +71,17 @@ namespace Network
         }
 
         /**
-         * @brief Method for binary deserialization of messages.
-         * @param source - variable that contains data that should be deserialized.
-         * @param data - variable that will contain deserialized message data.
-         */
+        * @brief Method for binary deserialization of messages.
+        * @param source - buffer that contains data that should be deserialized.
+        * @param destination - variable that will contain deserialized message body.
+        */
         template <typename T>
-        static SerializedState deserialize(const yas::shared_buffer source, T& data)
+        static SerializedState deserialize(const yas::shared_buffer& source, T& destination)
         {
             try
             {
                 suppressWarning(4127, "-Wtype-limits")
-					yas::load<flags>(source, data);
+					yas::load<flags>(source, destination);
                 restoreWarning
             }
             catch (const std::exception& e)
