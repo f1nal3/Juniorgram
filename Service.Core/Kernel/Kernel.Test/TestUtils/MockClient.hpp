@@ -100,7 +100,7 @@ protected:
     /**
     * @brief Method for signaling of kernel ping.
     */
-    std::optional<MessageResult> onServerPing(double timestamp) const;
+    std::optional<MessageResult> onKernelPing(double timestamp) const;
 
     /**
     * @brief Method for signaling of kernel message.
