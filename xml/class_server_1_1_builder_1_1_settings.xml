@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_server_1_1_builder_1_1_settings" kind="class" language="C++" prot="public">
+    <compoundname>Server::Builder::Settings</compoundname>
+    <includes refid="_settings_8hpp" local="no">Settings.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_server_1_1_builder_1_1_settings_1a58ad1405752036ba01c28d9640dd29d6" prot="private" static="no" mutable="no">
+        <type>std::map&lt; std::string, std::string, std::less&lt;&gt; &gt;</type>
+        <definition>std::map&lt;std::string, std::string, std::less&lt;&gt; &gt; Server::Builder::Settings::_settings</definition>
+        <argsstring></argsstring>
+        <name>_settings</name>
+        <qualifiedname>Server::Builder::Settings::_settings</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Settings.hpp" line="64" column="14" bodyfile="Server/Server.Core/Server.Core.Static/Settings.hpp" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_server_1_1_builder_1_1_settings_1a92d9fa39225b135d9757b30ed619321c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Server::Builder::Settings::Settings</definition>
+        <argsstring>()=default</argsstring>
+        <name>Settings</name>
+        <qualifiedname>Server::Builder::Settings::Settings</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Settings.hpp" line="26" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_builder_1_1_settings_1a38ae203047447957d0f9519bfea6bd69" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_server_1_1_builder_1_1_settings" kindref="compound">Settings</ref> &amp;</type>
+        <definition>Settings &amp; Server::Builder::Settings::setValue</definition>
+        <argsstring>(const std::pair&lt; std::string, std::string &gt; &amp;value)</argsstring>
+        <name>setValue</name>
+        <qualifiedname>Server::Builder::Settings::setValue</qualifiedname>
+        <param>
+          <type>const std::pair&lt; std::string, std::string &gt; &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Setting up parameter method. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Takes a pair as an argument and stores it in the inner container. If the parameter is duplicated, skips the new value and logs this action. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>const</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>std::pair&lt;std::string, std::string&gt;&amp; value / In other words: pair&lt;key, value&gt; </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Settings.hpp" line="35" column="14" bodyfile="Server/Server.Core/Server.Core.Static/Settings.hpp" bodystart="35" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_builder_1_1_settings_1ab6aeb4af9d4b2afc6ae8699f8823df93" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string Server::Builder::Settings::getValue</definition>
+        <argsstring>(const std::string &amp;key) const</argsstring>
+        <name>getValue</name>
+        <qualifiedname>Server::Builder::Settings::getValue</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+<para>Getting up parameter method. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Gets a value with the &lt;key&gt; from the map \ If a key does not exist in the map, it will return an empty std::string. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>const</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>std::string&amp; key </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Settings.hpp" line="54" column="17" bodyfile="Server/Server.Core/Server.Core.Static/Settings.hpp" bodystart="54" bodyend="61"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Class container. Stores the required parameters for <ref refid="class_server_1_1_server" kindref="compound">Server</ref> class configuration. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Technically it&apos;s a wrapper over std::map. </para>
+    </detaileddescription>
+    <location file="Server/Server.Core/Server.Core.Static/Settings.hpp" line="23" column="1" bodyfile="Server/Server.Core/Server.Core.Static/Settings.hpp" bodystart="24" bodyend="65"/>
+    <listofallmembers>
+      <member refid="class_server_1_1_builder_1_1_settings_1a58ad1405752036ba01c28d9640dd29d6" prot="private" virt="non-virtual"><scope>Server::Builder::Settings</scope><name>_settings</name></member>
+      <member refid="class_server_1_1_builder_1_1_settings_1ab6aeb4af9d4b2afc6ae8699f8823df93" prot="public" virt="non-virtual"><scope>Server::Builder::Settings</scope><name>getValue</name></member>
+      <member refid="class_server_1_1_builder_1_1_settings_1a92d9fa39225b135d9757b30ed619321c" prot="public" virt="non-virtual"><scope>Server::Builder::Settings</scope><name>Settings</name></member>
+      <member refid="class_server_1_1_builder_1_1_settings_1a38ae203047447957d0f9519bfea6bd69" prot="public" virt="non-virtual"><scope>Server::Builder::Settings</scope><name>setValue</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

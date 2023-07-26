@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_b70fc2509127050d299058f2c03ed8d8" kind="dir">
+    <compoundname>DataAccess/DataAccess.Mock</compoundname>
+    <innerfile refid="_mock_database_8hpp">MockDatabase.hpp</innerfile>
+    <innerfile refid="_mock_database_options_8hpp">MockDatabaseOptions.hpp</innerfile>
+    <innerfile refid="_mock_query_8hpp">MockQuery.hpp</innerfile>
+    <innerfile refid="_mock_query_builder_8hpp">MockQueryBuilder.hpp</innerfile>
+    <innerfile refid="_mock_repositories_8hpp">MockRepositories.hpp</innerfile>
+    <innerfile refid="_mock_repository_instance_8hpp">MockRepositoryInstance.hpp</innerfile>
+    <innerfile refid="_mock_repository_manager_8hpp">MockRepositoryManager.hpp</innerfile>
+    <innerfile refid="_mock_repository_storage_8hpp">MockRepositoryStorage.hpp</innerfile>
+    <innerfile refid="_mock_tables_8hpp">MockTables.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="DataAccess/DataAccess.Mock/"/>
+  </compounddef>
+</doxygen>

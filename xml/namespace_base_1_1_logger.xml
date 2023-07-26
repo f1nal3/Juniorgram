@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_base_1_1_logger" kind="namespace" language="C++">
+    <compoundname>Base::Logger</compoundname>
+    <innerclass refid="class_base_1_1_logger_1_1_file_logger" prot="public">Base::Logger::FileLogger</innerclass>
+    <innerclass refid="class_base_1_1_logger_1_1_i_logger" prot="public">Base::Logger::ILogger</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="_i_logger_8hpp_1a81164f798797c22cb5d5e95a598280ce" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>LogLevel</name>
+        <qualifiedname>Base::Logger::LogLevel</qualifiedname>
+        <enumvalue id="_i_logger_8hpp_1a81164f798797c22cb5d5e95a598280ceacd22bad976363fdd1bfbf6759fede482" prot="public">
+          <name>ERR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i_logger_8hpp_1a81164f798797c22cb5d5e95a598280cea059e9861e0400dfbe05c98a841f3f96b" prot="public">
+          <name>WARNING</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i_logger_8hpp_1a81164f798797c22cb5d5e95a598280cea551b723eafd6a31d444fcb2f5920fbd3" prot="public">
+          <name>INFO</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i_logger_8hpp_1a81164f798797c22cb5d5e95a598280ceadc30ec20708ef7b0f641ef78b7880a15" prot="public">
+          <name>DEBUG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Valid log levels ERROR - Task cannot continue and component cannot function WARNING - Potential error or impending error INFO - General information outlining overall task progress DEBUG - General information detailing debug progress. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Logger/Public/Include/Logger/ILogger.hpp" line="14" column="5" bodyfile="Base/Logger/Public/Include/Logger/ILogger.hpp" bodystart="15" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="enum" id="_i_logger_8hpp_1a1eb71c863009d881077aa2f47203e4d8" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>LogOutput</name>
+        <qualifiedname>Base::Logger::LogOutput</qualifiedname>
+        <enumvalue id="_i_logger_8hpp_1a1eb71c863009d881077aa2f47203e4d8a4695859f52d337ca3d7020b2c8f7882a" prot="public">
+          <name>CONSOLE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i_logger_8hpp_1a1eb71c863009d881077aa2f47203e4d8a9fc5887c030f7a3e19821ebec457e719" prot="public">
+          <name>FILE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i_logger_8hpp_1a1eb71c863009d881077aa2f47203e4d8a5963db1a462151a72edb08f80e732cbe" prot="public">
+          <name>EVERYWHERE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Place of output of logged information CONSOLE - console output FILE - file output EVERYWHERE - output to console and file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Logger/Public/Include/Logger/ILogger.hpp" line="28" column="5" bodyfile="Base/Logger/Public/Include/Logger/ILogger.hpp" bodystart="29" bodyend="33"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="_i_logger_8hpp_1a9722bce81d2d7bc061e31c0fc9591f6e" prot="public" static="no" mutable="no">
+        <type>const uint64_t</type>
+        <definition>const uint64_t Base::Logger::lifeTime</definition>
+        <argsstring></argsstring>
+        <name>lifeTime</name>
+        <qualifiedname>Base::Logger::lifeTime</qualifiedname>
+        <initializer>= 7</initializer>
+        <briefdescription>
+<para>Required storage period for log files. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Logger/Public/Include/Logger/ILogger.hpp" line="38" column="20" bodyfile="Base/Logger/Public/Include/Logger/ILogger.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Base/Logger/Logger.Static/FileLogger.hpp" line="17" column="1"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_setup_01server_01on_01localhost_8md" kind="file" language="Markdown">
+    <compoundname>Setup server on localhost.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>Setting<sp/>up<sp/>server<sp/>on<sp/>a<sp/>local<sp/>machine<sp/>{#localserversetup}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">In<sp/>order<sp/>to<sp/>launch<sp/>a<sp/>server<sp/>locally<sp/>and<sp/>connect<sp/>to<sp/>it<sp/>you<sp/>have<sp/>to<sp/>go<sp/>over<sp/>these<sp/>3<sp/>steps:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Setup<sp/>database</highlight></codeline>
+<codeline><highlight class="normal">This<sp/>is<sp/>a<sp/>generic<sp/>algorithm,<sp/>a<sp/>more<sp/>specific<sp/>guide<sp/>on<sp/>pgAdmin<sp/>is<sp/>at<sp/>the<sp/>bottom<sp/>of<sp/>the<sp/>document.</highlight></codeline>
+<codeline><highlight class="normal">1.<sp/>Open<sp/>the<sp/>PostgreSQL<sp/>Tool<sp/>for<sp/>you<sp/>machine.(e.g.<sp/>pgAdmin<sp/>for<sp/>Windows)</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>Create<sp/>a<sp/>database<sp/>with<sp/>an<sp/>arbitrary<sp/>name.</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>Go<sp/>to<sp/>(Scheme<sp/>script)[https://github.com/f1nal3/Juniorgram/blob/master/Utility/SQL/Database_Scheme.sql]</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>Execute<sp/>the<sp/>script<sp/>from<sp/>previous<sp/>point<sp/>on<sp/>the<sp/>created<sp/>database.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Setup<sp/>server</highlight></codeline>
+<codeline><highlight class="normal">1.<sp/>Change<sp/>the<sp/>parameters<sp/>in<sp/>DataBaseOptions.hpp</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>```c++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>&quot;dbname<sp/>=<sp/>your_bdname<sp/>user<sp/>=<sp/>postgres<sp/>hostaddr<sp/>=<sp/>127.0.0.1<sp/>port<sp/>=<sp/>5432<sp/>password<sp/>=<sp/>your_password&quot;;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>```</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>Then<sp/>build<sp/>the<sp/>project.</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>Go<sp/>to<sp/>the<sp/>\<sp/>Juniorgram<sp/>\<sp/>Server<sp/>\<sp/>bin<sp/>\<sp/>Server<sp/>\<sp/>Debug<sp/>folder<sp/>and<sp/>run<sp/>cmd</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>Run<sp/>the<sp/>command<sp/>in<sp/>the<sp/>console:<sp/>Server.Exec.exe<sp/>-p<sp/>65001</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">You<sp/>can<sp/>also<sp/>launch<sp/>it<sp/>from<sp/>the<sp/>Visual<sp/>Studio(or<sp/>any<sp/>other<sp/>IDE)<sp/>as<sp/>long<sp/>as<sp/>you<sp/>specify<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>server<sp/>will<sp/>indicate<sp/>that<sp/>it&apos;s<sp/>running<sp/>correctly<sp/>in<sp/>the<sp/>console.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Setup<sp/>client</highlight></codeline>
+<codeline><highlight class="normal">1.<sp/>In<sp/>ServerInfo.cpp,<sp/>specify<sp/>the<sp/>address<sp/>of<sp/>the<sp/>local<sp/>host</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>```c++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>std::string_view<sp/>address<sp/>=<sp/>&quot;127.0.0.1&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>//and</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>constexpr<sp/>std::uint16_t<sp/>port<sp/>=<sp/>test_server;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>```</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>Build<sp/>the<sp/>Client</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>Launch<sp/>Client</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">That&apos;s<sp/>it,<sp/>if<sp/>the<sp/>server<sp/>is<sp/>launched<sp/>and<sp/>setup<sp/>correctly,<sp/>the<sp/>client<sp/>will<sp/>connect.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Working<sp/>with<sp/>pgAdmin:</highlight></codeline>
+<codeline><highlight class="normal">1.<sp/>Go<sp/>to<sp/>pgAdmin<sp/>after<sp/>copying<sp/>the<sp/>(Scheme<sp/>script)[https://github.com/f1nal3/Juniorgram/blob/master/Utility/SQL/Database_Scheme.sql].</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>Right-click<sp/>on<sp/>Databases<sp/>and<sp/>then<sp/>Create<sp/>/<sp/>Database<sp/>.</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>Create<sp/>a<sp/>table<sp/>with<sp/>an<sp/>arbitrary<sp/>name.</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>Next,<sp/>click<sp/>on<sp/>the<sp/>created<sp/>base<sp/>and<sp/>select<sp/>the<sp/>Query<sp/>Tool.</highlight></codeline>
+<codeline><highlight class="normal">5.<sp/>Paste<sp/>the<sp/>previously<sp/>copied<sp/>code<sp/>and<sp/>run<sp/>F5.</highlight></codeline>
+    </programlisting>
+    <location file="Docs/Setup server on localhost.md"/>
+  </compounddef>
+</doxygen>

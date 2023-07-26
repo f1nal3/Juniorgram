@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_base_1_1_hashing" kind="namespace" language="C++">
+    <compoundname>Base::Hashing</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_cryptography_8hpp_1a2530d1ee541dbc4809697db97ad939e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string Base::Hashing::SHA_256</definition>
+        <argsstring>(const std::string &amp;message, const std::string &amp;componentForSalt)</argsstring>
+        <name>SHA_256</name>
+        <qualifiedname>Base::Hashing::SHA_256</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>componentForSalt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Crypto/Crypto.Static/Cryptography.hpp" line="44" column="13" declfile="Base/Crypto/Crypto.Static/Cryptography.hpp" declline="44" declcolumn="13"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Base/Crypto/Crypto.Static/Cryptography.hpp" line="42" column="1"/>
+  </compounddef>
+</doxygen>

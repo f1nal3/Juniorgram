@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_96649bd689d69b039a3f536cb5d602eb" kind="dir">
+    <compoundname>Client/Client.CLI</compoundname>
+    <innerfile refid="_app_8hpp">App.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Client/Client.CLI/"/>
+  </compounddef>
+</doxygen>

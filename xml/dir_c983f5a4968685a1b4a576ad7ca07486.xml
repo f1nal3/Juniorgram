@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_c983f5a4968685a1b4a576ad7ca07486" kind="dir">
+    <compoundname>Utility/Utility.Public/Include/Utility</compoundname>
+    <innerfile refid="_j_g_exceptions_8hpp">JGExceptions.hpp</innerfile>
+    <innerfile refid="_safe_queue_8hpp">SafeQueue.hpp</innerfile>
+    <innerfile refid="_s_q_l_utility_8hpp">SQLUtility.hpp</innerfile>
+    <innerfile refid="_user_data_validation_8hpp">UserDataValidation.hpp</innerfile>
+    <innerfile refid="_utility_8hpp">Utility.hpp</innerfile>
+    <innerfile refid="_utility_time_8hpp">UtilityTime.hpp</innerfile>
+    <innerfile refid="_warning_suppression_8hpp">WarningSuppression.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Utility/Utility.Public/Include/Utility/"/>
+  </compounddef>
+</doxygen>

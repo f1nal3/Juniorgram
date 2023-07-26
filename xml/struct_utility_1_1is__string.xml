@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_utility_1_1is__string" kind="struct" language="C++" prot="public">
+    <compoundname>Utility::is_string</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::disjunction&lt; is_c_string&lt; T &gt;, is_std_string&lt; T &gt; &gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Utility::is_string&lt; T &gt;</label>
+        <link refid="struct_utility_1_1is__string"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::disjunction&lt; is_c_string&lt; T &gt;, is_std_string&lt; T &gt; &gt;</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Utility::is_string&lt; T &gt;</label>
+        <link refid="struct_utility_1_1is__string"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::disjunction&lt; is_c_string&lt; T &gt;, is_std_string&lt; T &gt; &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" line="73" column="1" bodyfile="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" bodystart="74" bodyend="75"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

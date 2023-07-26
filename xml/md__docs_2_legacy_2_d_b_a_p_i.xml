@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="md__docs_2_legacy_2_d_b_a_p_i" kind="page">
+    <compoundname>md__docs_2_legacy_2_d_b_a_p_i</compoundname>
+    <title>DBAPI</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><image type="html" name="https://trello-attachments.s3.amazonaws.com/5f99a9ec82d4661c1df02e5e/600x499/ff8b9282467aaa8afcf0d3a529d2316a/DB.png" inline="yes"></image>
+</para>
+<para><image type="html" name="https://trello-attachments.s3.amazonaws.com/5f973f301211050c1336cefc/813x567/22531f32ad348b1bc3d0d46aae4c4406/image.png" inline="yes"></image>
+ <linebreak/>
+</para>
+<para><image type="html" name="https://trello-attachments.s3.amazonaws.com/5f973f301211050c1336cefc/989x80/6980af534204c41644c1c0076cf839cf/image.png" inline="yes"></image>
+</para>
+<para>Одна из идей, как может выглядеть API к БД на сервере:</para>
+<para>БД содержит в себе информацию о зарегистрированных пользователях, конкретно login/email, password hash, token, refresh token, token_receipt_time.</para>
+<para>На данный момент это будет сырая версия API, при помощи которого пользователь сможешь зарегистрироваться. авторизоваться в нашем приложении. Далее БД можно будет расширить при желании как угодно.</para>
+<para>API будет, примерно, включать следующие функции :</para>
+<para>Response::ResponseCodes authorizeUser(const std::string &amp;LoginOrEmail,const std::string &amp;PasswordHash, std::string&amp; Token, std::string&amp; RefreshToken)</para>
+<para>LoginOrEmail - параметр, который содержит в себе либо login, либо email пользователя.</para>
+<para>PasswordHash - хэш-строка, полученная хэширования пароля. Функию хэширования можно брать любую(SHA1/SHA256/RIPEMD160 и т.д.)</para>
+<para>Token - хэш-строка, предназначенная для удостоверения личности. Она выдаётся пользователю после успешной авторизации в приложении. (<ulink url="https://ru.wikipedia.org/wiki/Токен_(авторизации)#:~:text=Часто">https://ru.wikipedia.org/wiki/Токен_(авторизации)#:~:text=Часто</ulink> используется для несанкционированного доступа,так и вместе с ним.)</para>
+<para>RefreshToken - хэш-строка, предназначенная для обновления токена пользователя, если время действия токена истекло.</para>
+<para>Возвращаемое значение функции один из кодов ResponseCodes(enum). К примеру, при успешной авторизации возвращает Response::ResponseCodes::SUCCESS. В ином случае Response::ResponseCodes::INCORRECT_AUTH_DATA.</para>
+<para>Response::ResponseCodes registerUser(const std::string &amp;Email, const std::string &amp;Login, const std::string &amp;Password, std::string&amp; Token, std::string&amp; refreshToken)</para>
+<para>Email - параметр, содержащий в себе email пользователя. Login - логин пользователя. Password - пароль пользователя. Token - см. выше. RefreshToken - см. выше.</para>
+<para>При успешной регистрации пользователя ему отдаются его Token и RefreshToken, которые присваиваются в передаваемые переменные Token и RefreshToken.</para>
+<para>Возвращаемое значение функции один из кодов ResponseCodes(enum). Регистрация успешна - Response::ResponseCodes::SUCCESS Пользователь уже существует - Response::ResponseCodes::USER_ALREADY_EXIST</para>
+<para>Response::ResponseCodes validateToken(std::string authToken);</para>
+<para>Функция, проверяющая не истёк ли Token, содержащийся в параметре authToken. Token имеет определённое время, в течении которого он валиден и мы знаем, что именно пользователь, который является владельцем токена может делать запросы на сервер, а не кто-то другой.</para>
+<para>Возвращаемое значение функции один из кодов ResponseCodes(enum). В случае, если строка с токеном пустая Response::ResponseCodes::INVALID_TOKEN Если токен истёк - Response::ResponseCodes::SESSION_EXPIRED; Если токен валидный, т.е. время его жизни не истекло - return Response::ResponseCodes::SUCCESS; В любом другом случае - Response::ResponseCodes::INVALID_TOKEN;</para>
+<para>Response::ResponseCodes logout(std::string Token)</para>
+<para>Метод, суть которого в удалении у конкретного пользователя в базе поля Token.</para>
+<para>Возвращаемое значение - Response::ResponseCodes::SUCCESS.</para>
+<para>int refreshToken(std::string&amp; Token, std::string&amp; RefreshToken)</para>
+<para>Функция, которая обновляет Token, по RefreshToken. Для чего эта функция: пользователь решил выйти из приложения, вызывается функция logout - и его токен перестаёт быть валидным и стирается в базе. Как только пользователь снова залогинился ему нужно получить Token заново. Берётся его Refresh_token(который хранится у него локально. В базе отдельной, или ещё каким образом) и делается автоматически запрос на обновление его токена на сервер. Сервер делает сравнение в базе по пришедшему Refresh_token и содержащемуся в базе, и если они совпали, то выдаёт новый токен пользователю. Следовательно, пользователь прошёл этап авторизации.</para>
+<para>Параметрами передаются хэш-строки.</para>
+<para>Response::ResponseCodes refresh(const std::string RefreshTokenDB, std::string newToken, std::string newRefreshToken)</para>
+<para>Функция для инициализации/обновления полей RefreshToken, Token, TokenReceiptTime(поле - время выдачи токена. Для того, чтобы можно было отследить, жив ли токен) . Инициализирует в базе поля Token и RefreshToken, TokenReceiptTime конкретного пользователя. </para>
+    </detaileddescription>
+    <location file="Docs/Legacy/DBAPI.md"/>
+  </compounddef>
+</doxygen>

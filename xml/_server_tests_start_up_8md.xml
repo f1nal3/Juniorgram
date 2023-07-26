@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_server_tests_start_up_8md" kind="file" language="Markdown">
+    <compoundname>ServerTestsStartUp.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>Server<sp/>integration<sp/>testing</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Introduction:</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>basic<sp/>idea<sp/>of<sp/>testing<sp/>is<sp/>to<sp/>test<sp/>the<sp/>functionality<sp/>of<sp/>the<sp/>object<sp/>under<sp/>test.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">There<sp/>are<sp/>a<sp/>sufficient<sp/>number<sp/>of<sp/>types<sp/>of<sp/>testing,<sp/>such<sp/>as<sp/>unit<sp/>tests,<sp/>integration<sp/>tests,<sp/>functional<sp/>tests,<sp/>and<sp/>so<sp/>on.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>The<sp/>main<sp/>rule<sp/>when<sp/>writing<sp/>tests:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*Write<sp/>tests<sp/>for<sp/>functionality,<sp/>not<sp/>write<sp/>functionality<sp/>for<sp/>tests.<sp/>Don&apos;t<sp/>forget<sp/>this.*</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>The<sp/>example<sp/>we&apos;re<sp/>looking<sp/>at<sp/>is<sp/>integration<sp/>testing<sp/>of<sp/>a<sp/>server.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Integration<sp/>testing<sp/>is<sp/>a<sp/>type<sp/>of<sp/>testing<sp/>where<sp/>software<sp/>modules<sp/>are<sp/>combined<sp/>logically<sp/>and<sp/>tested<sp/>as<sp/>a<sp/>group.<sp/>In<sp/>our<sp/>case<sp/>the<sp/>group<sp/>is:<sp/>server,<sp/>client,<sp/>database.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">![module_one](./images/ServerTestModules.svg<sp/>&quot;Server<sp/>Test<sp/>Modules&quot;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">As<sp/>shown<sp/>in<sp/>the<sp/>graph<sp/>the<sp/>modules<sp/>are<sp/>interconnected.<sp/>In<sp/>fact:<sp/>we<sp/>have<sp/>to<sp/>test<sp/>their<sp/>interconnection.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">It<sp/>is<sp/>too<sp/>resource<sp/>consuming<sp/>to<sp/>use<sp/>&quot;full&quot;<sp/>objects,<sp/>that&apos;s<sp/>why<sp/>mocs<sp/>come<sp/>to<sp/>the<sp/>rescue.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Mock<sp/>object:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Mock<sp/>is<sp/>&quot;parody&quot;<sp/>,<sp/>&quot;imitation&quot;.<sp/></highlight></codeline>
+<codeline><highlight class="normal">Creating<sp/>a<sp/>mock-object<sp/>is<sp/>a<sp/>simplified<sp/>analog<sp/>of<sp/>the<sp/>object<sp/>under<sp/>test.<sp/>The<sp/>object<sp/>has<sp/>the<sp/>necessary<sp/>functionality<sp/>to<sp/>be<sp/>tested,<sp/>as<sp/>well<sp/>as<sp/>being<sp/>a<sp/>simplified<sp/>version<sp/>of<sp/>itself.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">By<sp/>creating<sp/>mock<sp/>objects,<sp/>you<sp/>reduce<sp/>the<sp/>complexity<sp/>of<sp/>the<sp/>object<sp/>itself<sp/>and<sp/>also<sp/>simplify<sp/>testing.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Preparing<sp/>for<sp/>testing:<sp/></highlight></codeline>
+<codeline><highlight class="normal">-<sp/>First,<sp/>you<sp/>need<sp/>to<sp/>connect<sp/>to<sp/>the<sp/>mock<sp/>database.<sp/>The<sp/>[TestUtility.hpp<sp/>file](https://github.com/f1nal3/Juniorgram/blob/dev/Server/Server.Test/Utilities/TestUtility.hpp)<sp/>has<sp/>a<sp/>getTestDatabase()<sp/>method<sp/>to<sp/>initialize<sp/>the<sp/>database<sp/>and<sp/>work<sp/>with<sp/>it<sp/>further.<sp/></highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Connect<sp/>the<sp/>test<sp/>client<sp/>to<sp/>the<sp/>ip<sp/>address<sp/>of<sp/>your<sp/>server<sp/>in<sp/>the<sp/>[TestServerInfo.hpp](https://github.com/f1nal3/Juniorgram/blob/dev/Client/Client.TestObject/TestServerInfo.hpp)<sp/>file.<sp/></highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Make<sp/>sure<sp/>that<sp/>your<sp/>client<sp/>connects<sp/>to<sp/>the<sp/>server.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Testing:</highlight></codeline>
+<codeline><highlight class="normal">Testing<sp/>takes<sp/>place<sp/>as<sp/>follows:<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">![module_second](./images/SequenceOfTesting.svg<sp/>&quot;Sequence<sp/>of<sp/>Server<sp/>Testing&quot;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Test<sp/>Order:</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>The<sp/>client<sp/>sends<sp/>a<sp/>message<sp/>to<sp/>the<sp/>server.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>The<sp/>server<sp/>processes<sp/>the<sp/>message<sp/>coming<sp/>from<sp/>the<sp/>client<sp/>side.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>The<sp/>server<sp/>sends<sp/>the<sp/>message<sp/>to<sp/>the<sp/>database<sp/>to<sp/>check<sp/>the<sp/>data<sp/>for<sp/>correctness<sp/>and<sp/>subsequent<sp/>data<sp/>storage.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>The<sp/>server<sp/>generates<sp/>a<sp/>response<sp/>to<sp/>the<sp/>client.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>The<sp/>client<sp/>receives<sp/>and<sp/>gives<sp/>its<sp/>response<sp/>to<sp/>the<sp/>message.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>task<sp/>of<sp/>the<sp/>tests<sp/>is<sp/>to<sp/>check<sp/>the<sp/>correctness<sp/>of<sp/>the<sp/>routing<sp/>of<sp/>data<sp/>packets<sp/>from<sp/>the<sp/>client<sp/>to<sp/>the<sp/>server<sp/>side,<sp/></highlight></codeline>
+<codeline><highlight class="normal">as<sp/>well<sp/>as<sp/>their<sp/>further<sp/>processing<sp/>in<sp/>the<sp/>mock<sp/>database.<sp/></highlight></codeline>
+    </programlisting>
+    <location file="Docs/ServerTestsStartUp.md"/>
+  </compounddef>
+</doxygen>

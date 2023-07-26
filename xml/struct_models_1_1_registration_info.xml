@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_models_1_1_registration_info" kind="struct" language="C++" prot="public">
+    <compoundname>Models::RegistrationInfo</compoundname>
+    <includes refid="_primitives_8hpp" local="no">Primitives.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_models_1_1_registration_info_1a65fff04a4de921a4f0ab856eaa82ddd6" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Models::RegistrationInfo::_email</definition>
+        <argsstring></argsstring>
+        <name>_email</name>
+        <qualifiedname>Models::RegistrationInfo::_email</qualifiedname>
+        <briefdescription>
+<para>email string variable </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="134" column="17" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_registration_info_1aab8a9e6d43bfd2a2ca27212c61d396cf" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Models::RegistrationInfo::_login</definition>
+        <argsstring></argsstring>
+        <name>_login</name>
+        <qualifiedname>Models::RegistrationInfo::_login</qualifiedname>
+        <briefdescription>
+<para>login string variable </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="136" column="17" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_registration_info_1aa64856fffeb309d18518bed0585e2dda" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Models::RegistrationInfo::_passwordHash</definition>
+        <argsstring></argsstring>
+        <name>_passwordHash</name>
+        <qualifiedname>Models::RegistrationInfo::_passwordHash</qualifiedname>
+        <briefdescription>
+<para>passwordHash string variable </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="138" column="17" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_models_1_1_registration_info_1a2a529a45cc1edb514cc4fd686dcf3457" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Models::RegistrationInfo::RegistrationInfo</definition>
+        <argsstring>()=default</argsstring>
+        <name>RegistrationInfo</name>
+        <qualifiedname>Models::RegistrationInfo::RegistrationInfo</qualifiedname>
+        <briefdescription>
+<para>Default <ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref> constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="140" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_registration_info_1a037487f0fcd7174e60c7527213723541" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Models::RegistrationInfo::RegistrationInfo</definition>
+        <argsstring>(const std::string &amp;email_, const std::string &amp;login_, const std::string &amp;passwordHash_)</argsstring>
+        <name>RegistrationInfo</name>
+        <qualifiedname>Models::RegistrationInfo::RegistrationInfo</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>email_</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>login_</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>passwordHash_</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref> constructor with initializing list. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="143" column="14" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="143" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_registration_info_1a3086bd8c31a12ff19f1ef2c239a2af19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Models::RegistrationInfo::RegistrationInfo</definition>
+        <argsstring>(const RegistrationInfo &amp;)=default</argsstring>
+        <name>RegistrationInfo</name>
+        <qualifiedname>Models::RegistrationInfo::RegistrationInfo</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref> &amp;</type>
+        </param>
+        <briefdescription>
+<para>Default <ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref> copy constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="149" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_registration_info_1a2552a868c8c7e5c0e4ffd1dd68c937d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Models::RegistrationInfo::~RegistrationInfo</definition>
+        <argsstring>()=default</argsstring>
+        <name>~RegistrationInfo</name>
+        <qualifiedname>Models::RegistrationInfo::~RegistrationInfo</qualifiedname>
+        <briefdescription>
+<para>Default <ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref> destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="151" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_registration_info_1a95eff58ae7a5b2c20cd3077bc14cb872" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref> &amp;</type>
+        <definition>RegistrationInfo &amp; Models::RegistrationInfo::operator=</definition>
+        <argsstring>(const RegistrationInfo &amp;other)=default</argsstring>
+        <name>operator=</name>
+        <qualifiedname>Models::RegistrationInfo::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+<para>Default Registration copy assignment constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="154" column="22"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="struct_models_1_1_registration_info_1a21d7b9fc362dc8fa56e93343ffcb3a6f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool operator==</definition>
+        <argsstring>(const RegistrationInfo &amp;first, const RegistrationInfo &amp;second)</argsstring>
+        <name>operator==</name>
+        <qualifiedname>Models::RegistrationInfo::operator==</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref> &amp;</type>
+          <declname>first</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref> &amp;</type>
+          <declname>second</declname>
+        </param>
+        <briefdescription>
+<para>Operator == to compare registration info. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="157" column="17" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="157" bodyend="162"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref> struct. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Info about email, login and passwordHash. </para>
+    </detaileddescription>
+    <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="131" column="1" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="132" bodyend="163"/>
+    <listofallmembers>
+      <member refid="struct_models_1_1_registration_info_1a65fff04a4de921a4f0ab856eaa82ddd6" prot="public" virt="non-virtual"><scope>Models::RegistrationInfo</scope><name>_email</name></member>
+      <member refid="struct_models_1_1_registration_info_1aab8a9e6d43bfd2a2ca27212c61d396cf" prot="public" virt="non-virtual"><scope>Models::RegistrationInfo</scope><name>_login</name></member>
+      <member refid="struct_models_1_1_registration_info_1aa64856fffeb309d18518bed0585e2dda" prot="public" virt="non-virtual"><scope>Models::RegistrationInfo</scope><name>_passwordHash</name></member>
+      <member refid="struct_models_1_1_registration_info_1a95eff58ae7a5b2c20cd3077bc14cb872" prot="public" virt="non-virtual"><scope>Models::RegistrationInfo</scope><name>operator=</name></member>
+      <member refid="struct_models_1_1_registration_info_1a21d7b9fc362dc8fa56e93343ffcb3a6f" prot="public" virt="non-virtual"><scope>Models::RegistrationInfo</scope><name>operator==</name></member>
+      <member refid="struct_models_1_1_registration_info_1a2a529a45cc1edb514cc4fd686dcf3457" prot="public" virt="non-virtual"><scope>Models::RegistrationInfo</scope><name>RegistrationInfo</name></member>
+      <member refid="struct_models_1_1_registration_info_1a037487f0fcd7174e60c7527213723541" prot="public" virt="non-virtual"><scope>Models::RegistrationInfo</scope><name>RegistrationInfo</name></member>
+      <member refid="struct_models_1_1_registration_info_1a3086bd8c31a12ff19f1ef2c239a2af19" prot="public" virt="non-virtual"><scope>Models::RegistrationInfo</scope><name>RegistrationInfo</name></member>
+      <member refid="struct_models_1_1_registration_info_1a2552a868c8c7e5c0e4ffd1dd68c937d3" prot="public" virt="non-virtual"><scope>Models::RegistrationInfo</scope><name>~RegistrationInfo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

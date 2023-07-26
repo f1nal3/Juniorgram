@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_workflow_8md" kind="file" language="Markdown">
+    <compoundname>Workflow.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>The<sp/>work<sp/>on<sp/>the<sp/>project<sp/>is<sp/>structured<sp/>as<sp/>follows:</highlight></codeline>
+<codeline><highlight class="normal">1.<sp/>There<sp/>is<sp/>a<sp/>pool<sp/>of<sp/>tasks,<sp/>they<sp/>are<sp/>gradually<sp/>replenished.<sp/>You<sp/>can<sp/>find<sp/>those<sp/>in<sp/>our<sp/>main<sp/>project<sp/>on<sp/>Github.</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>During<sp/>meetings,<sp/>these<sp/>tasks<sp/>are<sp/>distributed<sp/>among<sp/>the<sp/>performers.<sp/>You<sp/>can<sp/>also<sp/>pick<sp/>one<sp/>that<sp/>you<sp/>see<sp/>fit,<sp/>just<sp/>don&apos;t<sp/>forget<sp/>to<sp/>assign<sp/>it<sp/>yo<sp/>yourself.</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>While<sp/>performing<sp/>the<sp/>task,<sp/>you<sp/>need<sp/>to<sp/>create<sp/>a<sp/>draft<sp/>pull<sp/>request,<sp/>where<sp/>you<sp/>need<sp/>to<sp/>put<sp/>your<sp/>works,<sp/>so<sp/>that<sp/>team<sp/>can<sp/>check<sp/>in<sp/>which<sp/>direction<sp/>the<sp/>development<sp/>is<sp/>moving.</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>When<sp/>the<sp/>developer<sp/>decides<sp/>that<sp/>the<sp/>work<sp/>is<sp/>finished,<sp/>he<sp/>withdraws<sp/>the<sp/>pull<sp/>request<sp/>from<sp/>the<sp/>draft<sp/>state.</highlight></codeline>
+<codeline><highlight class="normal">5.<sp/>The<sp/>code<sp/>is<sp/>checked<sp/>by<sp/>the<sp/>whole<sp/>team,<sp/>and<sp/>if<sp/>there<sp/>are<sp/>any<sp/>errors,<sp/>they<sp/>are<sp/>corrected.</highlight></codeline>
+<codeline><highlight class="normal">6.<sp/>After<sp/>permission<sp/>is<sp/>given<sp/>the<sp/>code<sp/>is<sp/>merged<sp/>into<sp/>the<sp/>dev<sp/>branch.</highlight></codeline>
+<codeline><highlight class="normal">7.<sp/>Performer<sp/>asks<sp/>for<sp/>a<sp/>new<sp/>task.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>Git<sp/>workflow</highlight></codeline>
+<codeline><highlight class="normal">![WorkflowImage](./images/workflow.png<sp/>&quot;Workflow&quot;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>Global<sp/>delivery</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>development<sp/>of<sp/>the<sp/>application<sp/>is<sp/>broken<sp/>down<sp/>into<sp/>some<sp/>intermediate<sp/>steps.<sp/>Each<sp/>stage<sp/>is<sp/>described<sp/>in<sp/>a<sp/>specific<sp/>milestone.<sp/>When<sp/>all<sp/>the<sp/>tasks<sp/>nested<sp/>in<sp/>the<sp/>current<sp/>cycle<sp/>have<sp/>been<sp/>completed,<sp/>a<sp/>procedure<sp/>for<sp/>capturing<sp/>the<sp/>changes<sp/>is<sp/>initiated.<sp/>This<sp/>procedure<sp/>is<sp/>called<sp/>a<sp/>release.<sp/></highlight></codeline>
+<codeline><highlight class="normal">It<sp/>commits<sp/>to<sp/>the<sp/>main<sp/>branch<sp/>and<sp/>starts<sp/>the<sp/>CI/CD<sp/>procedure<sp/>which<sp/>sends<sp/>the<sp/>updated<sp/>binaries<sp/>to<sp/>the<sp/>server.</highlight></codeline>
+    </programlisting>
+    <location file="Docs/Workflow.md"/>
+  </compounddef>
+</doxygen>

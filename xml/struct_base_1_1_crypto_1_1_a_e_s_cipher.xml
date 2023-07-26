@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_base_1_1_crypto_1_1_a_e_s_cipher" kind="struct" language="C++" prot="public">
+    <compoundname>Base::Crypto::AESCipher</compoundname>
+    <basecompoundref refid="struct_base_1_1_crypto_1_1_i_cipher" prot="public" virt="non-virtual">Base::Crypto::ICipher</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_base_1_1_crypto_1_1_a_e_s_cipher_1a608a626c0d7a78993cce26ad5fad41c6" prot="public" static="no" mutable="no">
+        <type>CryptoPP::ECB_Mode&lt; CryptoPP::AES &gt;::Encryption</type>
+        <definition>CryptoPP::ECB_Mode&lt;CryptoPP::AES&gt;::Encryption Base::Crypto::AESCipher::encryptor</definition>
+        <argsstring></argsstring>
+        <name>encryptor</name>
+        <qualifiedname>Base::Crypto::AESCipher::encryptor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Crypto/Crypto.Static/Cryptography.hpp" line="32" column="37" bodyfile="Base/Crypto/Crypto.Static/Cryptography.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_base_1_1_crypto_1_1_a_e_s_cipher_1af2ae7d15ce509d3ca1890e22154b387e" prot="public" static="no" mutable="no">
+        <type>CryptoPP::ECB_Mode&lt; CryptoPP::AES &gt;::Decryption</type>
+        <definition>CryptoPP::ECB_Mode&lt;CryptoPP::AES&gt;::Decryption Base::Crypto::AESCipher::decryptor</definition>
+        <argsstring></argsstring>
+        <name>decryptor</name>
+        <qualifiedname>Base::Crypto::AESCipher::decryptor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Crypto/Crypto.Static/Cryptography.hpp" line="33" column="37" bodyfile="Base/Crypto/Crypto.Static/Cryptography.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_base_1_1_crypto_1_1_a_e_s_cipher_1aa306040785115b343b4121bbbd683226" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string Base::Crypto::AESCipher::generateKey</definition>
+        <argsstring>() override</argsstring>
+        <name>generateKey</name>
+        <qualifiedname>Base::Crypto::AESCipher::generateKey</qualifiedname>
+        <reimplements refid="struct_base_1_1_crypto_1_1_i_cipher_1a81c2fe7557240adec4152c12073b4922">generateKey</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Crypto/Crypto.Static/Cryptography.hpp" line="28" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_base_1_1_crypto_1_1_a_e_s_cipher_1a31b1de0e3ce122acbdd28faa210f4302" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string Base::Crypto::AESCipher::encrypt</definition>
+        <argsstring>(const std::string &amp;data, const std::string &amp;key) override</argsstring>
+        <name>encrypt</name>
+        <qualifiedname>Base::Crypto::AESCipher::encrypt</qualifiedname>
+        <reimplements refid="struct_base_1_1_crypto_1_1_i_cipher_1aee65486cf58e58725c7f6301e8b17e41">encrypt</reimplements>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Crypto/Crypto.Static/Cryptography.hpp" line="29" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_base_1_1_crypto_1_1_a_e_s_cipher_1a86ca398d943a44926786584a1d9916a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string Base::Crypto::AESCipher::decrypt</definition>
+        <argsstring>(const std::string &amp;cipherData, const std::string &amp;key) override</argsstring>
+        <name>decrypt</name>
+        <qualifiedname>Base::Crypto::AESCipher::decrypt</qualifiedname>
+        <reimplements refid="struct_base_1_1_crypto_1_1_i_cipher_1aaefb0db00de3e2ea1c74a23b528f184c">decrypt</reimplements>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>cipherData</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Crypto/Crypto.Static/Cryptography.hpp" line="30" column="17"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Base::Crypto::AESCipher</label>
+        <link refid="struct_base_1_1_crypto_1_1_a_e_s_cipher"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Base::Crypto::ICipher</label>
+        <link refid="struct_base_1_1_crypto_1_1_i_cipher"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Base::Crypto::AESCipher</label>
+        <link refid="struct_base_1_1_crypto_1_1_a_e_s_cipher"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Base::Crypto::ICipher</label>
+        <link refid="struct_base_1_1_crypto_1_1_i_cipher"/>
+      </node>
+    </collaborationgraph>
+    <location file="Base/Crypto/Crypto.Static/Cryptography.hpp" line="26" column="1" bodyfile="Base/Crypto/Crypto.Static/Cryptography.hpp" bodystart="27" bodyend="34"/>
+    <listofallmembers>
+      <member refid="struct_base_1_1_crypto_1_1_a_e_s_cipher_1a86ca398d943a44926786584a1d9916a6" prot="public" virt="virtual"><scope>Base::Crypto::AESCipher</scope><name>decrypt</name></member>
+      <member refid="struct_base_1_1_crypto_1_1_a_e_s_cipher_1af2ae7d15ce509d3ca1890e22154b387e" prot="public" virt="non-virtual"><scope>Base::Crypto::AESCipher</scope><name>decryptor</name></member>
+      <member refid="struct_base_1_1_crypto_1_1_a_e_s_cipher_1a31b1de0e3ce122acbdd28faa210f4302" prot="public" virt="virtual"><scope>Base::Crypto::AESCipher</scope><name>encrypt</name></member>
+      <member refid="struct_base_1_1_crypto_1_1_a_e_s_cipher_1a608a626c0d7a78993cce26ad5fad41c6" prot="public" virt="non-virtual"><scope>Base::Crypto::AESCipher</scope><name>encryptor</name></member>
+      <member refid="struct_base_1_1_crypto_1_1_a_e_s_cipher_1aa306040785115b343b4121bbbd683226" prot="public" virt="virtual"><scope>Base::Crypto::AESCipher</scope><name>generateKey</name></member>
+      <member refid="struct_base_1_1_crypto_1_1_i_cipher_1a73588bb60fd9b689b127a6b907235878" prot="public" virt="virtual"><scope>Base::Crypto::AESCipher</scope><name>~ICipher</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

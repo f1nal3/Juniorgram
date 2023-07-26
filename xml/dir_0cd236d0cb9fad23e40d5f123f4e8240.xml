@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_0cd236d0cb9fad23e40d5f123f4e8240" kind="dir">
+    <compoundname>DataAccess/DataAccess.Debug</compoundname>
+    <innerfile refid="_file_d_b_8hpp">FileDB.hpp</innerfile>
+    <innerfile refid="_file_repository_8hpp">FileRepository.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="DataAccess/DataAccess.Debug/"/>
+  </compounddef>
+</doxygen>

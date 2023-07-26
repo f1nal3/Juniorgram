@@ -1,0 +1,369 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_users_amount_finder_8hpp" kind="file" language="C++">
+    <compoundname>UsersAmountFinder.hpp</compoundname>
+    <includes refid="_primitives_8hpp" local="no">Models/Primitives.hpp</includes>
+    <includes refid="_postgre_query_8hpp" local="yes">PostgreQuery.hpp</includes>
+    <includedby refid="_postgre_repositories_8hpp" local="yes">DataAccess/DataAccess.Postgre/PostgreRepositories.hpp</includedby>
+    <incdepgraph>
+      <node id="33">
+        <label>FileLogger.hpp</label>
+        <link refid="_file_logger_8hpp_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>Logger/ILogger.hpp</label>
+        <link refid="_i_logger_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Models/Primitives.hpp</label>
+        <link refid="_primitives_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>Models/UnifiedModel.hpp</label>
+        <link refid="_unified_model_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>PostgreAdapter.hpp</label>
+        <link refid="_postgre_adapter_8hpp_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>PostgreQuery.hpp</label>
+        <link refid="_postgre_query_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp</label>
+        <link refid="_users_amount_finder_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>DataAccess/AbstractQueryBuilder.hpp</label>
+        <link refid="_abstract_query_builder_8hpp_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>IAdapter.hpp</label>
+        <link refid="_i_adapter_8hpp_source"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>SQLStatements.hpp</label>
+        <link refid="_s_q_l_statements_8hpp_source"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>Utility/JGExceptions.hpp</label>
+        <link refid="_j_g_exceptions_8hpp_source"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>Utility/SQLUtility.hpp</label>
+        <link refid="_s_q_l_utility_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>Utility/SafeQueue.hpp</label>
+        <link refid="_safe_queue_8hpp_source"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>Utility/Utility.hpp</label>
+        <link refid="_utility_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>Utility/UtilityTime.hpp</label>
+        <link refid="_utility_time_8hpp_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>Utility/WarningSuppression.hpp</label>
+        <link refid="_warning_suppression_8hpp_source"/>
+      </node>
+      <node id="10">
+        <label>algorithm</label>
+      </node>
+      <node id="24">
+        <label>any</label>
+      </node>
+      <node id="11">
+        <label>cctype</label>
+      </node>
+      <node id="3">
+        <label>chrono</label>
+      </node>
+      <node id="36">
+        <label>condition_variable</label>
+      </node>
+      <node id="4">
+        <label>cstdint</label>
+      </node>
+      <node id="5">
+        <label>cstring</label>
+      </node>
+      <node id="12">
+        <label>ctime</label>
+      </node>
+      <node id="37">
+        <label>deque</label>
+      </node>
+      <node id="15">
+        <label>filesystem</label>
+      </node>
+      <node id="19">
+        <label>fstream</label>
+      </node>
+      <node id="18">
+        <label>iomanip</label>
+      </node>
+      <node id="17">
+        <label>iostream</label>
+      </node>
+      <node id="6">
+        <label>map</label>
+      </node>
+      <node id="25">
+        <label>memory</label>
+      </node>
+      <node id="13">
+        <label>mutex</label>
+      </node>
+      <node id="26">
+        <label>optional</label>
+      </node>
+      <node id="42">
+        <label>pqxx/pqxx</label>
+      </node>
+      <node id="39">
+        <label>queue</label>
+      </node>
+      <node id="20">
+        <label>sstream</label>
+      </node>
+      <node id="32">
+        <label>stdexcept</label>
+      </node>
+      <node id="7">
+        <label>string</label>
+      </node>
+      <node id="27">
+        <label>string_view</label>
+      </node>
+      <node id="38">
+        <label>thread</label>
+      </node>
+      <node id="14">
+        <label>type_traits</label>
+      </node>
+      <node id="8">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>DataAccess/DataAccess.Postgre/PostgreRepositories.hpp</label>
+        <link refid="_postgre_repositories_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess/DataAccess.Postgre/PostgreRepositoryManager.hpp</label>
+        <link refid="_postgre_repository_manager_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp</label>
+        <link refid="_users_amount_finder_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Server/Server.Core/Server.Core.Static/Server.hpp</label>
+        <link refid="_server_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Server/Server.Core/Server.Core.Static/ServerBuilder.hpp</label>
+        <link refid="_server_builder_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_users_amount_finder" prot="public">UsersAmountFinder</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Models/Primitives.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;PostgreQuery.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="class_users_amount_finder" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_users_amount_finder" kindref="compound">UsersAmountFinder</ref></highlight></codeline>
+<codeline lineno="12"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="class_data_access_1_1_p_g_query_builder" kindref="compound">Table</ref><sp/>=<sp/><ref refid="class_data_access_1_1_p_g_query_builder" kindref="compound">DataAccess::PGQueryBuilder</ref>;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unique_ptr&lt;Table&gt;<sp/>_pTable;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_users_amount_finder" kindref="compound">UsersAmountFinder</ref>(<ref refid="class_data_access_1_1_p_g_query_builder" kindref="compound">Table</ref>*<sp/>pTable)<sp/>:<sp/>_pTable(pTable)<sp/>{}</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_users_amount_finder" kindref="compound">UsersAmountFinder</ref>()<sp/>:<sp/>_pTable(std::make_unique&lt;Table&gt;(</highlight><highlight class="stringliteral">&quot;users&quot;</highlight><highlight class="normal">))<sp/>{}</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_users_amount_finder" kindref="compound">~UsersAmountFinder</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="class_users_amount_finder_1abbecfced62623d06e64a7b4425911386" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uint16_t<sp/><ref refid="class_users_amount_finder_1abbecfced62623d06e64a7b4425911386" kindref="member">findUsersAmountWithSameTableAttribute</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>condition)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="class_users_amount_finder_1aeb82ced63127e67612272b98e15fe3ec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uint16_t<sp/><ref refid="class_users_amount_finder_1aeb82ced63127e67612272b98e15fe3ec" kindref="member">findUsersAmountWithSameLogin</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>login)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="class_users_amount_finder_1a4f037ecbc1a60f360bc11f886668167b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uint16_t<sp/><ref refid="class_users_amount_finder_1a4f037ecbc1a60f360bc11f886668167b" kindref="member">findUsersAmountWithSameEmail</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>email)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="class_users_amount_finder_1addd7616ed446121968c768552c88f6b5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uint16_t<sp/><ref refid="class_users_amount_finder_1addd7616ed446121968c768552c88f6b5" kindref="member">findUsersAmountWithAllSameData</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_registration_info" kindref="compound">Models::RegistrationInfo</ref>&amp;<sp/>ri)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp"/>
+  </compounddef>
+</doxygen>

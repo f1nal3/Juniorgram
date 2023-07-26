@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_5c7ac13dd71de633d7c5e80d058a00e5" kind="dir">
+    <compoundname>Base/Logger/Logger.Static</compoundname>
+    <innerfile refid="_file_logger_8hpp">FileLogger.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Base/Logger/Logger.Static/"/>
+  </compounddef>
+</doxygen>

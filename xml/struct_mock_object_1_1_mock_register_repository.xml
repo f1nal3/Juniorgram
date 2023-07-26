@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_mock_object_1_1_mock_register_repository" kind="struct" language="C++" prot="public" final="yes">
+    <compoundname>MockObject::MockRegisterRepository</compoundname>
+    <basecompoundref refid="struct_data_access_1_1_i_register_repository" prot="public" virt="non-virtual">DataAccess::IRegisterRepository</basecompoundref>
+    <includes refid="_mock_repositories_8hpp" local="no">MockRepositories.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="struct_mock_object_1_1_mock_register_repository_1a5fde58be29b2c125a580a4da8fa4f769" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_mock_object_1_1_mock_query" kindref="compound">MockQuery</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;MockQuery&gt; MockObject::MockRegisterRepository::_mockQuery</definition>
+        <argsstring></argsstring>
+        <name>_mockQuery</name>
+        <qualifiedname>MockObject::MockRegisterRepository::_mockQuery</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="143" column="21" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_register_repository_1a7856bb556487492b8fd11e7b3ca039a0" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockRegisterRepository::MockRegisterRepository</definition>
+        <argsstring>(const std::shared_ptr&lt; IAdapter &gt; &amp;adapter)</argsstring>
+        <name>MockRegisterRepository</name>
+        <qualifiedname>MockObject::MockRegisterRepository::MockRegisterRepository</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt; &amp;</type>
+          <declname>adapter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="133" column="14" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="133" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_register_repository_1af279814add14f763bfdb8eba2f2b1028" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockRegisterRepository::~MockRegisterRepository</definition>
+        <argsstring>() override=default</argsstring>
+        <name>~MockRegisterRepository</name>
+        <qualifiedname>MockObject::MockRegisterRepository::~MockRegisterRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="138" column="5"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_register_repository_1afec81d05ab7bb0f54c6e9682d3bb0da9" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::RegistrationCodes</type>
+        <definition>Utility::RegistrationCodes MockObject::MockRegisterRepository::registerUser</definition>
+        <argsstring>(const RegistrationInfo &amp;regInfo) override</argsstring>
+        <name>registerUser</name>
+        <qualifiedname>MockObject::MockRegisterRepository::registerUser</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_register_repository_1adf6fcc00a3422d4e7d38468349c5426e">registerUser</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref> &amp;</type>
+          <declname>regInfo</declname>
+        </param>
+        <briefdescription>
+<para>Method for user registration. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RegistrationMessage</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>which contains user data for registration.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Generation password&apos;s hash in which login is a salt. It lets us to insert different users with the same passwords. <simplesect kind="return"><para>The return value of the method is one of the RegistrationCodes (enum). <linebreak/>
+Registration successful - RegistrationCodes::SUCCESS. <linebreak/>
+The user already exists - RegistrationCodes::EMAIL_ALREADY_EXISTS OR RegistrationCodes::LOGIN_ALREADY_EXISTS. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="141" column="32"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>struct <ref refid="struct_mock_object_1_1_mock_register_repository" kindref="compound">MockRegisterRepository</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Inherited from IRegisterRepository struct / (for overriding methods related to this repository). </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="2">
+        <label>IRegisterRepository</label>
+        <link refid="struct_data_access_1_1_i_register_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>MockObject::MockRegisterRepository</label>
+        <link refid="struct_mock_object_1_1_mock_register_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="2">
+        <label>IRegisterRepository</label>
+        <link refid="struct_data_access_1_1_i_register_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>MockObject::MockRegisterRepository</label>
+        <link refid="struct_mock_object_1_1_mock_register_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="130" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="131" bodyend="144"/>
+    <listofallmembers>
+      <member refid="struct_mock_object_1_1_mock_register_repository_1a5fde58be29b2c125a580a4da8fa4f769" prot="private" virt="non-virtual"><scope>MockObject::MockRegisterRepository</scope><name>_mockQuery</name></member>
+      <member refid="struct_mock_object_1_1_mock_register_repository_1a7856bb556487492b8fd11e7b3ca039a0" prot="public" virt="non-virtual"><scope>MockObject::MockRegisterRepository</scope><name>MockRegisterRepository</name></member>
+      <member refid="struct_mock_object_1_1_mock_register_repository_1afec81d05ab7bb0f54c6e9682d3bb0da9" prot="private" virt="virtual"><scope>MockObject::MockRegisterRepository</scope><name>registerUser</name></member>
+      <member refid="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" prot="public" virt="virtual"><scope>MockObject::MockRegisterRepository</scope><name>~IMasterRepository</name></member>
+      <member refid="struct_data_access_1_1_i_register_repository_1a591f781f60fbb0fab8ac78b9bc3e21ea" prot="public" virt="non-virtual"><scope>MockObject::MockRegisterRepository</scope><name>~IRegisterRepository</name></member>
+      <member refid="struct_mock_object_1_1_mock_register_repository_1af279814add14f763bfdb8eba2f2b1028" prot="public" virt="non-virtual"><scope>MockObject::MockRegisterRepository</scope><name>~MockRegisterRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

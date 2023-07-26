@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_performance_test_1_1_simple_timer" kind="class" language="C++" prot="public">
+    <compoundname>PerformanceTest::SimpleTimer</compoundname>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="class_performance_test_1_1_simple_timer_1a4acc27e4bbb7d4363efdcc5a741c7179" prot="private" static="no">
+        <type>std::chrono::high_resolution_clock</type>
+        <definition>using PerformanceTest::SimpleTimer::hsc =  std::chrono::high_resolution_clock</definition>
+        <argsstring></argsstring>
+        <name>hsc</name>
+        <qualifiedname>PerformanceTest::SimpleTimer::hsc</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/SimpleTimer.hpp" line="8" column="1" bodyfile="Test/PerformanceTest/SimpleTimer.hpp" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_performance_test_1_1_simple_timer_1ae2d97520da5f11a71254ceb49a298764" prot="private" static="no" mutable="no">
+        <type>hsc::time_point</type>
+        <definition>hsc::time_point PerformanceTest::SimpleTimer::_start</definition>
+        <argsstring></argsstring>
+        <name>_start</name>
+        <qualifiedname>PerformanceTest::SimpleTimer::_start</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/SimpleTimer.hpp" line="12" column="16" bodyfile="Test/PerformanceTest/SimpleTimer.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_performance_test_1_1_simple_timer_1aae9e7e96d97dd06cb361a39101082dbc" prot="private" static="no" mutable="no">
+        <type>hsc::time_point</type>
+        <definition>hsc::time_point PerformanceTest::SimpleTimer::_end</definition>
+        <argsstring></argsstring>
+        <name>_end</name>
+        <qualifiedname>PerformanceTest::SimpleTimer::_end</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/SimpleTimer.hpp" line="13" column="28" bodyfile="Test/PerformanceTest/SimpleTimer.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_performance_test_1_1_simple_timer_1a5f216424290d60703e74c16b5367bc2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PerformanceTest::SimpleTimer::SimpleTimer</definition>
+        <argsstring>()=default</argsstring>
+        <name>SimpleTimer</name>
+        <qualifiedname>PerformanceTest::SimpleTimer::SimpleTimer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/SimpleTimer.hpp" line="17" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_performance_test_1_1_simple_timer_1a3c08a8aed49b9a3e0b4dace75005ada9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PerformanceTest::SimpleTimer::~SimpleTimer</definition>
+        <argsstring>()=default</argsstring>
+        <name>~SimpleTimer</name>
+        <qualifiedname>PerformanceTest::SimpleTimer::~SimpleTimer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/SimpleTimer.hpp" line="18" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_performance_test_1_1_simple_timer_1af4628a09ad05fe91eb680f99b3948d0f" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PerformanceTest::SimpleTimer::start</definition>
+        <argsstring>(void) noexcept</argsstring>
+        <name>start</name>
+        <qualifiedname>PerformanceTest::SimpleTimer::start</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/SimpleTimer.hpp" line="20" column="6"/>
+      </memberdef>
+      <memberdef kind="function" id="class_performance_test_1_1_simple_timer_1a12aa5f69aff037f685dd7affd973fe36" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PerformanceTest::SimpleTimer::stop</definition>
+        <argsstring>(void) noexcept</argsstring>
+        <name>stop</name>
+        <qualifiedname>PerformanceTest::SimpleTimer::stop</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/SimpleTimer.hpp" line="21" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_performance_test_1_1_simple_timer_1a774bd8a0baf341ef17ff8dbf1d3eabb2" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PerformanceTest::SimpleTimer::reset</definition>
+        <argsstring>(void) noexcept</argsstring>
+        <name>reset</name>
+        <qualifiedname>PerformanceTest::SimpleTimer::reset</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/SimpleTimer.hpp" line="22" column="6"/>
+      </memberdef>
+      <memberdef kind="function" id="class_performance_test_1_1_simple_timer_1a53df5f543cff15c11bc1badc9d8ea2d0" prot="public" static="no" const="yes" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double PerformanceTest::SimpleTimer::elapsed</definition>
+        <argsstring>(void) const noexcept</argsstring>
+        <name>elapsed</name>
+        <qualifiedname>PerformanceTest::SimpleTimer::elapsed</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/SimpleTimer.hpp" line="24" column="8"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Test/PerformanceTest/SimpleTimer.hpp" line="6" column="1" bodyfile="Test/PerformanceTest/SimpleTimer.hpp" bodystart="7" bodyend="25"/>
+    <listofallmembers>
+      <member refid="class_performance_test_1_1_simple_timer_1aae9e7e96d97dd06cb361a39101082dbc" prot="private" virt="non-virtual"><scope>PerformanceTest::SimpleTimer</scope><name>_end</name></member>
+      <member refid="class_performance_test_1_1_simple_timer_1ae2d97520da5f11a71254ceb49a298764" prot="private" virt="non-virtual"><scope>PerformanceTest::SimpleTimer</scope><name>_start</name></member>
+      <member refid="class_performance_test_1_1_simple_timer_1a53df5f543cff15c11bc1badc9d8ea2d0" prot="public" virt="non-virtual"><scope>PerformanceTest::SimpleTimer</scope><name>elapsed</name></member>
+      <member refid="class_performance_test_1_1_simple_timer_1a4acc27e4bbb7d4363efdcc5a741c7179" prot="private" virt="non-virtual"><scope>PerformanceTest::SimpleTimer</scope><name>hsc</name></member>
+      <member refid="class_performance_test_1_1_simple_timer_1a774bd8a0baf341ef17ff8dbf1d3eabb2" prot="public" virt="non-virtual"><scope>PerformanceTest::SimpleTimer</scope><name>reset</name></member>
+      <member refid="class_performance_test_1_1_simple_timer_1a5f216424290d60703e74c16b5367bc2d" prot="public" virt="non-virtual"><scope>PerformanceTest::SimpleTimer</scope><name>SimpleTimer</name></member>
+      <member refid="class_performance_test_1_1_simple_timer_1af4628a09ad05fe91eb680f99b3948d0f" prot="public" virt="non-virtual"><scope>PerformanceTest::SimpleTimer</scope><name>start</name></member>
+      <member refid="class_performance_test_1_1_simple_timer_1a12aa5f69aff037f685dd7affd973fe36" prot="public" virt="non-virtual"><scope>PerformanceTest::SimpleTimer</scope><name>stop</name></member>
+      <member refid="class_performance_test_1_1_simple_timer_1a3c08a8aed49b9a3e0b4dace75005ada9" prot="public" virt="non-virtual"><scope>PerformanceTest::SimpleTimer</scope><name>~SimpleTimer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

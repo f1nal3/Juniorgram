@@ -1,0 +1,231 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_users_amount_finder" kind="class" language="C++" prot="public">
+    <compoundname>UsersAmountFinder</compoundname>
+    <includes refid="_users_amount_finder_8hpp" local="no">UsersAmountFinder.hpp</includes>
+      <sectiondef kind="protected-type">
+      <memberdef kind="typedef" id="class_users_amount_finder_1aac86c248e8cd487f16b20612d48cff0d" prot="protected" static="no">
+        <type><ref refid="class_data_access_1_1_p_g_query_builder" kindref="compound">DataAccess::PGQueryBuilder</ref></type>
+        <definition>using UsersAmountFinder::Table =  DataAccess::PGQueryBuilder</definition>
+        <argsstring></argsstring>
+        <name>Table</name>
+        <qualifiedname>UsersAmountFinder::Table</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp" line="14" column="5" bodyfile="DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_users_amount_finder_1af0a3b2a3e94d5f2d9c42706255c3985c" prot="protected" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_data_access_1_1_p_g_query_builder" kindref="compound">Table</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;Table&gt; UsersAmountFinder::_pTable</definition>
+        <argsstring></argsstring>
+        <name>_pTable</name>
+        <qualifiedname>UsersAmountFinder::_pTable</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp" line="16" column="21" bodyfile="DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_users_amount_finder_1aa0855e5fbf3f48e8bcc4c02979fe4738" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>UsersAmountFinder::UsersAmountFinder</definition>
+        <argsstring>(Table *pTable)</argsstring>
+        <name>UsersAmountFinder</name>
+        <qualifiedname>UsersAmountFinder::UsersAmountFinder</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_p_g_query_builder" kindref="compound">Table</ref> *</type>
+          <declname>pTable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp" line="18" column="5" bodyfile="DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp" bodystart="18" bodyend="18"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_users_amount_finder_1a24b46f49225b72c94d31bef07ae4af89" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>UsersAmountFinder::UsersAmountFinder</definition>
+        <argsstring>()</argsstring>
+        <name>UsersAmountFinder</name>
+        <qualifiedname>UsersAmountFinder::UsersAmountFinder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp" line="21" column="5" bodyfile="DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp" bodystart="21" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_users_amount_finder_1a6a18e9c619727d5cfb29799cfcb35d78" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual UsersAmountFinder::~UsersAmountFinder</definition>
+        <argsstring>()=default</argsstring>
+        <name>~UsersAmountFinder</name>
+        <qualifiedname>UsersAmountFinder::~UsersAmountFinder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp" line="23" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_users_amount_finder_1abbecfced62623d06e64a7b4425911386" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::uint16_t</type>
+        <definition>std::uint16_t UsersAmountFinder::findUsersAmountWithSameTableAttribute</definition>
+        <argsstring>(const std::string &amp;condition) const</argsstring>
+        <name>findUsersAmountWithSameTableAttribute</name>
+        <qualifiedname>UsersAmountFinder::findUsersAmountWithSameTableAttribute</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>condition</declname>
+        </param>
+        <briefdescription>
+<para>Common method which let us pull from DB users amount by some condition. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>condition</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- SQL condition. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>users amount with the same table attribute. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp" line="29" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_users_amount_finder_1aeb82ced63127e67612272b98e15fe3ec" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::uint16_t</type>
+        <definition>std::uint16_t UsersAmountFinder::findUsersAmountWithSameLogin</definition>
+        <argsstring>(const std::string &amp;login) const</argsstring>
+        <name>findUsersAmountWithSameLogin</name>
+        <qualifiedname>UsersAmountFinder::findUsersAmountWithSameLogin</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>login</declname>
+        </param>
+        <briefdescription>
+<para>Find users amount in DB by login. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>std::string&amp;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- user&apos;s login. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>users amount with the same login. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp" line="35" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_users_amount_finder_1a4f037ecbc1a60f360bc11f886668167b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::uint16_t</type>
+        <definition>std::uint16_t UsersAmountFinder::findUsersAmountWithSameEmail</definition>
+        <argsstring>(const std::string &amp;email) const</argsstring>
+        <name>findUsersAmountWithSameEmail</name>
+        <qualifiedname>UsersAmountFinder::findUsersAmountWithSameEmail</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>email</declname>
+        </param>
+        <briefdescription>
+<para>Find users amount in DB by email. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>std::string&amp;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- user&apos;s email. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>users amount with the same email. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp" line="41" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_users_amount_finder_1addd7616ed446121968c768552c88f6b5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::uint16_t</type>
+        <definition>std::uint16_t UsersAmountFinder::findUsersAmountWithAllSameData</definition>
+        <argsstring>(const Models::RegistrationInfo &amp;ri) const</argsstring>
+        <name>findUsersAmountWithAllSameData</name>
+        <qualifiedname>UsersAmountFinder::findUsersAmountWithAllSameData</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_models_1_1_registration_info" kindref="compound">Models::RegistrationInfo</ref> &amp;</type>
+          <declname>ri</declname>
+        </param>
+        <briefdescription>
+<para>Find all the same users. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Network::RegistrationInfo&amp;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- users info. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>users amount with the same users data. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp" line="47" column="19"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="class_users_amount_finder" kindref="compound">UsersAmountFinder</ref> class. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This class lets us find users amount in DataBase by some conditions. </para>
+    </detaileddescription>
+    <location file="DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp" line="11" column="1" bodyfile="DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp" bodystart="12" bodyend="48"/>
+    <listofallmembers>
+      <member refid="class_users_amount_finder_1af0a3b2a3e94d5f2d9c42706255c3985c" prot="protected" virt="non-virtual"><scope>UsersAmountFinder</scope><name>_pTable</name></member>
+      <member refid="class_users_amount_finder_1addd7616ed446121968c768552c88f6b5" prot="public" virt="non-virtual"><scope>UsersAmountFinder</scope><name>findUsersAmountWithAllSameData</name></member>
+      <member refid="class_users_amount_finder_1a4f037ecbc1a60f360bc11f886668167b" prot="public" virt="non-virtual"><scope>UsersAmountFinder</scope><name>findUsersAmountWithSameEmail</name></member>
+      <member refid="class_users_amount_finder_1aeb82ced63127e67612272b98e15fe3ec" prot="public" virt="non-virtual"><scope>UsersAmountFinder</scope><name>findUsersAmountWithSameLogin</name></member>
+      <member refid="class_users_amount_finder_1abbecfced62623d06e64a7b4425911386" prot="public" virt="non-virtual"><scope>UsersAmountFinder</scope><name>findUsersAmountWithSameTableAttribute</name></member>
+      <member refid="class_users_amount_finder_1aac86c248e8cd487f16b20612d48cff0d" prot="protected" virt="non-virtual"><scope>UsersAmountFinder</scope><name>Table</name></member>
+      <member refid="class_users_amount_finder_1aa0855e5fbf3f48e8bcc4c02979fe4738" prot="protected" virt="non-virtual"><scope>UsersAmountFinder</scope><name>UsersAmountFinder</name></member>
+      <member refid="class_users_amount_finder_1a24b46f49225b72c94d31bef07ae4af89" prot="public" virt="non-virtual"><scope>UsersAmountFinder</scope><name>UsersAmountFinder</name></member>
+      <member refid="class_users_amount_finder_1a6a18e9c619727d5cfb29799cfcb35d78" prot="public" virt="virtual"><scope>UsersAmountFinder</scope><name>~UsersAmountFinder</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

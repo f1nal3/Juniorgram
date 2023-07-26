@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_10d2400dee1078b16a852b5e5138ad78" kind="dir">
+    <compoundname>Base/Models/Public/Include</compoundname>
+    <innerdir refid="dir_0cd903dd38bc8c003c84a4d6c0f89301">Base/Models/Public/Include/Models</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Base/Models/Public/Include/"/>
+  </compounddef>
+</doxygen>

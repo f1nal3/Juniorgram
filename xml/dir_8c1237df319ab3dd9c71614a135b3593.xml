@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_8c1237df319ab3dd9c71614a135b3593" kind="dir">
+    <compoundname>Client/Client.Core</compoundname>
+    <innerdir refid="dir_2a172f0de0b461ab7a77068cc3759309">Client/Client.Core/Client.Core.Static</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Client/Client.Core/"/>
+  </compounddef>
+</doxygen>

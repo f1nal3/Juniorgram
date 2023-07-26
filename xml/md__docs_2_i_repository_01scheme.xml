@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="md__docs_2_i_repository_01scheme" kind="page">
+    <compoundname>md__docs_2_i_repository_01scheme</compoundname>
+    <title>Introduction</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md__docs_2_i_repository_01scheme_1autotoc_md12"/> IRepository is an interface for a more abstract approach to Databases.</para>
+<sect1 id="md__docs_2_i_repository_01scheme_1autotoc_md13">
+<title>Reasoning</title>
+<para>We need a constant way to access any data storage that we might use. So far the use cases are:<itemizedlist>
+<listitem><para>PostgreSQL for storing data on the server side</para>
+</listitem><listitem><para>MySQLite for storing data on the client side</para>
+</listitem><listitem><para>File Database Mock used for debug purposes</para>
+</listitem></itemizedlist>
+</para>
+<para>Since we mirror the way the data is stored - all of those points can share the same interface.</para>
+</sect1>
+<sect1 id="md__docs_2_i_repository_01scheme_1autotoc_md14">
+<title>Description</title>
+<para>IRepository dictates all possible cases for storing or getting data. Each counterpart described above implements IRepository via corresponding adapters.</para>
+</sect1>
+<sect1 id="md__docs_2_i_repository_01scheme_1autotoc_md15">
+<title>Schema for PostgreSQL case</title>
+<para><image type="html" name="https://i.ibb.co/54yzrzw/Screenshot-2021-03-15-at-23-49-42.png" alt="Basic Repository schema" inline="yes"></image>
+ </para>
+</sect1>
+    </detaileddescription>
+    <location file="Docs/IRepository scheme.md"/>
+  </compounddef>
+</doxygen>

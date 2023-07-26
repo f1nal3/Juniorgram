@@ -1,0 +1,376 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_i_server_repositories_8hpp" kind="file" language="C++">
+    <compoundname>IServerRepositories.hpp</compoundname>
+    <includes local="no">string</includes>
+    <includes local="no">vector</includes>
+    <includes refid="_primitives_8hpp" local="no">Models/Primitives.hpp</includes>
+    <includes refid="_utility_8hpp" local="no">Utility/Utility.hpp</includes>
+    <includes refid="_models_8hpp" local="no">Models/Models.hpp</includes>
+    <includes refid="_i_master_repository_8hpp" local="yes">IMasterRepository.hpp</includes>
+    <includedby refid="_mock_repositories_8hpp" local="no">DataAccess/DataAccess.Mock/MockRepositories.hpp</includedby>
+    <includedby refid="_postgre_repositories_8hpp" local="no">DataAccess/DataAccess.Postgre/PostgreRepositories.hpp</includedby>
+    <incdepgraph>
+      <node id="25">
+        <label>FileLogger.hpp</label>
+        <link refid="_file_logger_8hpp_source"/>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>Logger/ILogger.hpp</label>
+        <link refid="_i_logger_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>Models/Models.hpp</label>
+        <link refid="_models_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Models/Primitives.hpp</label>
+        <link refid="_primitives_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>UnifiedModel.hpp</label>
+        <link refid="_unified_model_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>IMasterRepository.hpp</label>
+        <link refid="_i_master_repository_8hpp_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>DataAccess/Public/Include/DataAccess/IServerRepositories.hpp</label>
+        <link refid="_i_server_repositories_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>Utility/SafeQueue.hpp</label>
+        <link refid="_safe_queue_8hpp_source"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>Utility/Utility.hpp</label>
+        <link refid="_utility_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>Utility/UtilityTime.hpp</label>
+        <link refid="_utility_time_8hpp_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>algorithm</label>
+      </node>
+      <node id="11">
+        <label>cctype</label>
+      </node>
+      <node id="5">
+        <label>chrono</label>
+      </node>
+      <node id="28">
+        <label>condition_variable</label>
+      </node>
+      <node id="6">
+        <label>cstdint</label>
+      </node>
+      <node id="7">
+        <label>cstring</label>
+      </node>
+      <node id="12">
+        <label>ctime</label>
+      </node>
+      <node id="29">
+        <label>deque</label>
+      </node>
+      <node id="15">
+        <label>filesystem</label>
+      </node>
+      <node id="19">
+        <label>fstream</label>
+      </node>
+      <node id="18">
+        <label>iomanip</label>
+      </node>
+      <node id="17">
+        <label>iostream</label>
+      </node>
+      <node id="8">
+        <label>map</label>
+      </node>
+      <node id="33">
+        <label>memory</label>
+      </node>
+      <node id="13">
+        <label>mutex</label>
+      </node>
+      <node id="31">
+        <label>queue</label>
+      </node>
+      <node id="20">
+        <label>sstream</label>
+      </node>
+      <node id="2">
+        <label>string</label>
+      </node>
+      <node id="23">
+        <label>string_view</label>
+      </node>
+      <node id="30">
+        <label>thread</label>
+      </node>
+      <node id="14">
+        <label>type_traits</label>
+      </node>
+      <node id="24">
+        <label>utility</label>
+      </node>
+      <node id="3">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>DataAccess/DataAccess.Mock/MockRepositories.hpp</label>
+        <link refid="_mock_repositories_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess/DataAccess.Mock/MockRepositoryManager.hpp</label>
+        <link refid="_mock_repository_manager_8hpp_source"/>
+      </node>
+      <node id="4">
+        <label>DataAccess/DataAccess.Postgre/PostgreRepositories.hpp</label>
+        <link refid="_postgre_repositories_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>DataAccess/DataAccess.Postgre/PostgreRepositoryManager.hpp</label>
+        <link refid="_postgre_repository_manager_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>DataAccess/Public/Include/DataAccess/IServerRepositories.hpp</label>
+        <link refid="_i_server_repositories_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Server/Server.Core/Server.Core.Static/Server.hpp</label>
+        <link refid="_server_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Server/Server.Core/Server.Core.Static/ServerBuilder.hpp</label>
+        <link refid="_server_builder_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_data_access_1_1_i_messages_repository" prot="public">DataAccess::IMessagesRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_i_replies_repository" prot="public">DataAccess::IRepliesRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_i_channels_repository" prot="public">DataAccess::IChannelsRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_i_direct_message_repository" prot="public">DataAccess::IDirectMessageRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_i_register_repository" prot="public">DataAccess::IRegisterRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_i_login_repository" prot="public">DataAccess::ILoginRepository</innerclass>
+    <innernamespace refid="namespace_data_access">DataAccess</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Models/Primitives.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Utility/Utility.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Models/Models.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;IMasterRepository.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">DataAccess</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="23" refid="struct_data_access_1_1_i_messages_repository" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_data_access_1_1_i_messages_repository" kindref="compound">IMessagesRepository</ref><sp/>:<sp/><ref refid="struct_data_access_1_1_i_master_repository" kindref="compound">IMasterRepository</ref></highlight></codeline>
+<codeline lineno="24"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="30" refid="struct_data_access_1_1_i_messages_repository_1a6082364cbb8ff63a96b43468ec650676" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::vector&lt;Models::MessageInfo&gt;<sp/><ref refid="struct_data_access_1_1_i_messages_repository_1a6082364cbb8ff63a96b43468ec650676" kindref="member">getMessageHistory</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::uint64_t<sp/>channelID)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="struct_data_access_1_1_i_messages_repository_1a095da3f629d3af9e728ad934e3591c62" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::StoringMessageCodes<sp/><ref refid="struct_data_access_1_1_i_messages_repository_1a095da3f629d3af9e728ad934e3591c62" kindref="member">storeMessage</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref>&amp;<sp/>messageInfo)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="struct_data_access_1_1_i_messages_repository_1a12b91f71dc1e67559dfe2f3c3dab9825" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::DeletingMessageCodes<sp/><ref refid="struct_data_access_1_1_i_messages_repository_1a12b91f71dc1e67559dfe2f3c3dab9825" kindref="member">deleteMessage</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref>&amp;<sp/>messageInfo)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="struct_data_access_1_1_i_messages_repository_1a7fc72c43885c8bd1daa662f039125234" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::EditingMessageCodes<sp/><ref refid="struct_data_access_1_1_i_messages_repository_1a7fc72c43885c8bd1daa662f039125234" kindref="member">editMessage</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref>&amp;<sp/>messageInfo)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="struct_data_access_1_1_i_messages_repository_1a36ed0a5d818ff5d7887402587cc72502" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::ReactionMessageCodes<sp/><ref refid="struct_data_access_1_1_i_messages_repository_1a36ed0a5d818ff5d7887402587cc72502" kindref="member">updateMessageReactions</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref>&amp;<sp/>messageInfo)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="struct_data_access_1_1_i_messages_repository_1a18bdd2e309cb9d005b339706a7af6b8f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="struct_data_access_1_1_i_messages_repository_1a18bdd2e309cb9d005b339706a7af6b8f" kindref="member">~IMessagesRepository</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80" refid="struct_data_access_1_1_i_replies_repository" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_data_access_1_1_i_replies_repository" kindref="compound">IRepliesRepository</ref><sp/>:<sp/><ref refid="struct_data_access_1_1_i_master_repository" kindref="compound">IMasterRepository</ref></highlight></codeline>
+<codeline lineno="81"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="85" refid="struct_data_access_1_1_i_replies_repository_1ac08449b6412c2f984b0deefc46b92c81" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::vector&lt;Models::ReplyInfo&gt;<sp/><ref refid="struct_data_access_1_1_i_replies_repository_1ac08449b6412c2f984b0deefc46b92c81" kindref="member">getReplyHistory</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::uint64_t<sp/>channelID)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="struct_data_access_1_1_i_replies_repository_1aed5833f5d6fdb99f5d338e8b4a126d4e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::StoringReplyCodes<sp/><ref refid="struct_data_access_1_1_i_replies_repository_1aed5833f5d6fdb99f5d338e8b4a126d4e" kindref="member">storeReply</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_reply_info" kindref="compound">Models::ReplyInfo</ref>&amp;<sp/>replyInfo)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="struct_data_access_1_1_i_replies_repository_1a22ac80294a2857cef2ffcfbb620ff8c2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="struct_data_access_1_1_i_replies_repository_1a22ac80294a2857cef2ffcfbb620ff8c2" kindref="member">~IRepliesRepository</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109" refid="struct_data_access_1_1_i_channels_repository" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_data_access_1_1_i_channels_repository" kindref="compound">IChannelsRepository</ref><sp/>:<sp/><ref refid="struct_data_access_1_1_i_master_repository" kindref="compound">IMasterRepository</ref></highlight></codeline>
+<codeline lineno="110"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="115" refid="struct_data_access_1_1_i_channels_repository_1ad2d80ae97c71ebad537151e701a5ebed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::vector&lt;Models::ChannelInfo&gt;<sp/><ref refid="struct_data_access_1_1_i_channels_repository_1ad2d80ae97c71ebad537151e701a5ebed" kindref="member">getAllChannelsList</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121" refid="struct_data_access_1_1_i_channels_repository_1abfe97a6baaf5d91ea13ebeac50092174" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::ChannelDeleteCode<sp/><ref refid="struct_data_access_1_1_i_channels_repository_1abfe97a6baaf5d91ea13ebeac50092174" kindref="member">deleteChannel</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelDeleteInfo</ref>&amp;<sp/>channel)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>[[deprecated(</highlight><highlight class="stringliteral">&quot;Use<sp/>newCreateChannel<sp/>instead<sp/>of<sp/>this\n&quot;</highlight><highlight class="normal">)]]</highlight></codeline>
+<codeline lineno="129" refid="struct_data_access_1_1_i_channels_repository_1a2e1b24ed29a6ba65bc9bf026fd75fc0c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::ChannelCreateCodes<sp/><ref refid="struct_data_access_1_1_i_channels_repository_1a2e1b24ed29a6ba65bc9bf026fd75fc0c" kindref="member">createChannel</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelInfo</ref>&amp;<sp/>channel)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135" refid="struct_data_access_1_1_i_channels_repository_1a40e680dcd48b1149962d27899788ced0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::ChannelLeaveCodes<sp/><ref refid="struct_data_access_1_1_i_channels_repository_1a40e680dcd48b1149962d27899788ced0" kindref="member">leaveChannel</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelLeaveInfo</ref>&amp;<sp/>channel)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141" refid="struct_data_access_1_1_i_channels_repository_1a3fd573c4c7352f47cf2569d630a850b2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::ChannelSubscribingCodes<sp/><ref refid="struct_data_access_1_1_i_channels_repository_1a3fd573c4c7352f47cf2569d630a850b2" kindref="member">subscribeToChannel</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_channel_subscription_info" kindref="compound">Models::ChannelSubscriptionInfo</ref>&amp;<sp/>channel)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147" refid="struct_data_access_1_1_i_channels_repository_1a3231716874e359c5a2034aa6f214be3c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::vector&lt;uint64_t&gt;<sp/><ref refid="struct_data_access_1_1_i_channels_repository_1a3231716874e359c5a2034aa6f214be3c" kindref="member">getChannelSubscriptionList</ref>(uint64_t<sp/>userID)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="150"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>@brief<sp/>Virtual<sp/>method<sp/>for<sp/>creating<sp/>channel<sp/></highlight></codeline>
+<codeline lineno="151"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>@return<sp/>Special<sp/>code<sp/>for<sp/>seccess<sp/>or<sp/>failed<sp/>leaving</highlight></codeline>
+<codeline lineno="152"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>@details<sp/>That&apos;s<sp/>second<sp/>version<sp/>of<sp/>this<sp/>method<sp/>with<sp/>new<sp/>models.<sp/>Can<sp/>be<sp/>used<sp/>as<sp/>old<sp/>one</highlight></codeline>
+<codeline lineno="153"><highlight class="comment"><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::ChannelCreateCodes<sp/>newCreateChannel(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_models_1_1_v2_1_1_channel" kindref="compound">Models::V2::Channel&lt;&gt;</ref>&amp;<sp/>channel)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159" refid="struct_data_access_1_1_i_channels_repository_1a3199c2dd4e3a8f56ef9542cbacbdc488" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="struct_data_access_1_1_i_channels_repository_1a3199c2dd4e3a8f56ef9542cbacbdc488" kindref="member">~IChannelsRepository</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167" refid="struct_data_access_1_1_i_direct_message_repository" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_data_access_1_1_i_direct_message_repository" kindref="compound">IDirectMessageRepository</ref><sp/>:<sp/><ref refid="struct_data_access_1_1_i_master_repository" kindref="compound">IMasterRepository</ref></highlight></codeline>
+<codeline lineno="168"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="174" refid="struct_data_access_1_1_i_direct_message_repository_1ad627a71cda95abd5cfdd0a72b338b84d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::DirectMessageStatus<sp/><ref refid="struct_data_access_1_1_i_direct_message_repository_1ad627a71cda95abd5cfdd0a72b338b84d" kindref="member">addDirectChat</ref>(uint64_t<sp/>user_id,<sp/>uint64_t<sp/>directMessageInfo)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179" refid="struct_data_access_1_1_i_direct_message_repository_1aa5912ff67e8de4541093acbc9af09c4d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="struct_data_access_1_1_i_direct_message_repository_1aa5912ff67e8de4541093acbc9af09c4d" kindref="member">~IDirectMessageRepository</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188" refid="struct_data_access_1_1_i_register_repository" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_data_access_1_1_i_register_repository" kindref="compound">IRegisterRepository</ref><sp/>:<sp/><ref refid="struct_data_access_1_1_i_master_repository" kindref="compound">IMasterRepository</ref></highlight></codeline>
+<codeline lineno="189"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="200" refid="struct_data_access_1_1_i_register_repository_1adf6fcc00a3422d4e7d38468349c5426e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::RegistrationCodes<sp/><ref refid="struct_data_access_1_1_i_register_repository_1adf6fcc00a3422d4e7d38468349c5426e" kindref="member">registerUser</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_registration_info" kindref="compound">Models::RegistrationInfo</ref>&amp;<sp/>regInfo)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205" refid="struct_data_access_1_1_i_register_repository_1a591f781f60fbb0fab8ac78b9bc3e21ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_i_register_repository_1a591f781f60fbb0fab8ac78b9bc3e21ea" kindref="member">~IRegisterRepository</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214" refid="struct_data_access_1_1_i_login_repository" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_data_access_1_1_i_login_repository" kindref="compound">ILoginRepository</ref><sp/>:<sp/><ref refid="struct_data_access_1_1_i_master_repository" kindref="compound">IMasterRepository</ref></highlight></codeline>
+<codeline lineno="215"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="222" refid="struct_data_access_1_1_i_login_repository_1a2044aff1e4c541d5f95d47f063c140ac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::uint64_t<sp/><ref refid="struct_data_access_1_1_i_login_repository_1a2044aff1e4c541d5f95d47f063c140ac" kindref="member">loginUser</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_login_info" kindref="compound">Models::LoginInfo</ref>&amp;<sp/>loginInfo)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227" refid="struct_data_access_1_1_i_login_repository_1ad9ab6939fb3654a08cc77c8548d2ea06" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="struct_data_access_1_1_i_login_repository_1ad9ab6939fb3654a08cc77c8548d2ea06" kindref="member">~ILoginRepository</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="229"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>DataAccess</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp"/>
+  </compounddef>
+</doxygen>

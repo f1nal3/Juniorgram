@@ -1,0 +1,415 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_network_1_1_message" kind="struct" language="C++" prot="public">
+    <compoundname>Network::Message</compoundname>
+    <includes refid="_message_8hpp" local="no">Message.hpp</includes>
+    <innerclass refid="struct_network_1_1_message_1_1_message_header" prot="public">Network::Message::MessageHeader</innerclass>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456d" prot="public" static="no" strong="yes">
+        <type>std::uint32_t</type>
+        <name>MessageType</name>
+        <qualifiedname>Network::Message::MessageType</qualifiedname>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da46d02400ff196f19b287bb2819accac7" prot="public">
+          <name>ServerAccept</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da50a422f2f449ac4fa609d07408c11536" prot="public">
+          <name>ServerPing</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dadbcbae06544d0948f8bede9ec0f6df34" prot="public">
+          <name>MessageAll</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da0f9905bfad400628389930a755d5a532" prot="public">
+          <name>ServerMessage</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dac1219168def15bf340522b1e51656e30" prot="public">
+          <name>ChannelListRequest</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456daaf4b0e2dc453d4c516faa8a36712e051" prot="public">
+          <name>MessageHistoryRequest</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456daceaaf79372706b5a2fb088abc9185d91" prot="public">
+          <name>MessageHistoryAnswer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da6b61e230b97f5e9596332fa058818a7e" prot="public">
+          <name>MessageStoreRequest</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dac5763ccd87214b4fb63e75a1a8d1fdc3" prot="public">
+          <name>MessageStoreAnswer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da631743f63473fe269cbd01a9c9219e8f" prot="public">
+          <name>RegistrationRequest</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dae3b023c404537b46353fa226b44f793f" prot="public">
+          <name>RegistrationAnswer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da2c0db2090a7c42a581b6bba549ae01b8" prot="public">
+          <name>LoginRequest</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da74a821ced5917d4c61e6ab8916f7ec00" prot="public">
+          <name>LoginAnswer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da93cfa7e52e9be49bfa31932f26d5ec95" prot="public">
+          <name>MessageDeleteRequest</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da07dce2241a8c98bad3139b81810aeb1e" prot="public">
+          <name>MessageDeleteAnswer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dae6b897c89bab34be021a93854a1baec6" prot="public">
+          <name>MessageEditRequest</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da4525b0cb09179d318f3d4be4b4df9eba" prot="public">
+          <name>MessageEditAnswer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456daed304752778a0fda5a4c2bc85377aea7" prot="public">
+          <name>ReplyHistoryRequest</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da5c23e28edb01393617fd50daa411147d" prot="public">
+          <name>ReplyHistoryAnswer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da01e0c0953008cfcec05369dcd263ce6d" prot="public">
+          <name>ReplyStoreRequest</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da2e1e87d6d3031a0b11e323508d8f6965" prot="public">
+          <name>ReplyStoreAnswer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da9ed9eac4a4ef7716fa4980133dfeae81" prot="public">
+          <name>ChannelLeaveRequest</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da7bdba18866add8b367b6617bc3400e97" prot="public">
+          <name>ChannelLeaveAnswer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dac44148e496d1499c58df9e97d395a99a" prot="public">
+          <name>ChannelSubscribeRequest</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da5f4848bf5a94060f84df7a3b48c792e8" prot="public">
+          <name>ChannelSubscribeAnswer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dab3d4cb742a50cb2d795a91074ec7cb3b" prot="public">
+          <name>ChannelSubscriptionListRequest</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da7a3920d092084561ff06294bcb8d689b" prot="public">
+          <name>ChannelSubscriptionListAnswer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dae65df7ab9be564c98d737484342234df" prot="public">
+          <name>ChannelDeleteRequest</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da92abc9382b98cb0d87a6c865f3c03a50" prot="public">
+          <name>ChannelDeleteAnswer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da61a1cd6a1e444d2bfc82d78ef19954d8" prot="public">
+          <name>ChannelCreateRequest</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da32883ecbc45483894e41ce6fa0ce2b21" prot="public">
+          <name>ChannelCreateAnswer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da5980849ca026855a396a231b6068bdb6" prot="public">
+          <name>DirectMessageCreateRequest</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dadb2b4a41122de5b669d18526f6d026d1" prot="public">
+          <name>DirectMessageCreateAnswer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da7769002e6b4a4bd8040d2f776eadf75c" prot="public">
+          <name>MessageReactionRequest</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dabe2f5aac7353865638a864c4b1ba6ea5" prot="public">
+          <name>MessageReactionAnswer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enum class for <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> Type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Message.hpp" line="28" column="5" bodyfile="Network/Public/Include/Network/Message.hpp" bodystart="29" bodyend="65"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_network_1_1_message_1afb4d988d987fcd7eab9921db8f6b83eb" prot="public" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="class_network_1_1_connection" kindref="compound">Connection</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;Connection&gt; Network::Message::mRemote</definition>
+        <argsstring></argsstring>
+        <name>mRemote</name>
+        <qualifiedname>Network::Message::mRemote</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+<para><ref refid="class_network_1_1_connection" kindref="compound">Connection</ref> variable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Message.hpp" line="79" column="21" bodyfile="Network/Public/Include/Network/Message.hpp" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_network_1_1_message_1abfbafaf33fdcf247818791f06dbd4d34" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_network_1_1_message_1_1_message_header" kindref="compound">MessageHeader</ref></type>
+        <definition>MessageHeader Network::Message::mHeader</definition>
+        <argsstring></argsstring>
+        <name>mHeader</name>
+        <qualifiedname>Network::Message::mHeader</qualifiedname>
+        <briefdescription>
+<para><ref refid="struct_network_1_1_message" kindref="compound">Message</ref> Header variable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Message.hpp" line="82" column="19" bodyfile="Network/Public/Include/Network/Message.hpp" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_network_1_1_message_1ad5767c08171fd8c7dc8d56f59079a0dc" prot="public" static="no" mutable="no">
+        <type>std::any</type>
+        <definition>std::any Network::Message::mBody</definition>
+        <argsstring></argsstring>
+        <name>mBody</name>
+        <qualifiedname>Network::Message::mBody</qualifiedname>
+        <briefdescription>
+<para><ref refid="struct_network_1_1_message" kindref="compound">Message</ref> Body variable. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Message.hpp" line="84" column="14" bodyfile="Network/Public/Include/Network/Message.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="struct_network_1_1_message_1a37aeccd5b32352b4f33ad66005c0d4b6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const Message &amp;message)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>Network::Message::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &amp;</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+<para>Stream for out message about message ID and Timestapm. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Message.hpp" line="87" column="12" bodyfile="Network/Public/Include/Network/Message.hpp" bodystart="87" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="friend" id="struct_network_1_1_message_1af775604cd3222a2de9e9238bec0d3f45" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool operator&lt;</definition>
+        <argsstring>(const Message &amp;lhs, const Message &amp;rhs)</argsstring>
+        <name>operator&lt;</name>
+        <qualifiedname>Network::Message::operator&lt;</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+<para>Operator &lt; for comparison timestamps. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Message.hpp" line="97" column="12" bodyfile="Network/Public/Include/Network/Message.hpp" bodystart="97" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="friend" id="struct_network_1_1_message_1a1d57e0d2e56e316e4d447dc8b2f08f44" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool operator&gt;</definition>
+        <argsstring>(const Message &amp;lhs, const Message &amp;rhs)</argsstring>
+        <name>operator&gt;</name>
+        <qualifiedname>Network::Message::operator&gt;</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+<para>Operator &gt; for comparison timestamps. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Message.hpp" line="100" column="17" bodyfile="Network/Public/Include/Network/Message.hpp" bodystart="100" bodyend="100"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> struct. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>Network::Message</label>
+        <link refid="struct_network_1_1_message"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>mHeader</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Network::Message::MessageHeader</label>
+        <link refid="struct_network_1_1_message_1_1_message_header"/>
+      </node>
+    </collaborationgraph>
+    <location file="Network/Public/Include/Network/Message.hpp" line="25" column="1" bodyfile="Network/Public/Include/Network/Message.hpp" bodystart="26" bodyend="101"/>
+    <listofallmembers>
+      <member refid="struct_network_1_1_message_1ad5767c08171fd8c7dc8d56f59079a0dc" prot="public" virt="non-virtual"><scope>Network::Message</scope><name>mBody</name></member>
+      <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456d" prot="public" virt="non-virtual"><scope>Network::Message</scope><name>MessageType</name></member>
+      <member refid="struct_network_1_1_message_1abfbafaf33fdcf247818791f06dbd4d34" prot="public" virt="non-virtual"><scope>Network::Message</scope><name>mHeader</name></member>
+      <member refid="struct_network_1_1_message_1afb4d988d987fcd7eab9921db8f6b83eb" prot="public" virt="non-virtual"><scope>Network::Message</scope><name>mRemote</name></member>
+      <member refid="struct_network_1_1_message_1af775604cd3222a2de9e9238bec0d3f45" prot="public" virt="non-virtual"><scope>Network::Message</scope><name>operator&lt;</name></member>
+      <member refid="struct_network_1_1_message_1a37aeccd5b32352b4f33ad66005c0d4b6" prot="public" virt="non-virtual"><scope>Network::Message</scope><name>operator&lt;&lt;</name></member>
+      <member refid="struct_network_1_1_message_1a1d57e0d2e56e316e4d447dc8b2f08f44" prot="public" virt="non-virtual"><scope>Network::Message</scope><name>operator&gt;</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

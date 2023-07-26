@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_data_access_1_1_file_repository" kind="class" language="C++" prot="public">
+    <compoundname>DataAccess::FileRepository</compoundname>
+    <basecompoundref refid="class_data_access_1_1_i_repository" prot="public" virt="non-virtual">DataAccess::IRepository</basecompoundref>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_data_access_1_1_file_repository_1a1b6a5b592d9355ee8253d128341e5fd3" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_data_access_1_1_file_d_b" kindref="compound">FileDB</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;FileDB&gt; DataAccess::FileRepository::_database</definition>
+        <argsstring></argsstring>
+        <name>_database</name>
+        <qualifiedname>DataAccess::FileRepository::_database</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileRepository.hpp" line="18" column="17" bodyfile="DataAccess/DataAccess.Debug/FileRepository.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_data_access_1_1_file_repository_1a186354d343fc68628ab822483f5fbc87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::FileRepository::FileRepository</definition>
+        <argsstring>()</argsstring>
+        <name>FileRepository</name>
+        <qualifiedname>DataAccess::FileRepository::FileRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileRepository.hpp" line="11" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_file_repository_1a59dea174405cf1773a05696544fff407" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual DataAccess::FileRepository::~FileRepository</definition>
+        <argsstring>()=default</argsstring>
+        <name>~FileRepository</name>
+        <qualifiedname>DataAccess::FileRepository::~FileRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileRepository.hpp" line="12" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_file_repository_1aa4dca0e8ba069b6445b9600ab586a156" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::vector&lt; <ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelInfo</ref> &gt;</type>
+        <definition>std::vector&lt; Models::ChannelInfo &gt; DataAccess::FileRepository::getAllChannelsList</definition>
+        <argsstring>() override</argsstring>
+        <name>getAllChannelsList</name>
+        <qualifiedname>DataAccess::FileRepository::getAllChannelsList</qualifiedname>
+        <reimplements refid="class_data_access_1_1_i_repository_1a119c064c3ede3a4c485c4cff39f9af75">getAllChannelsList</reimplements>
+        <briefdescription>
+<para>Draft method for getting all channel list from the server. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>channels list as vector of ChannelInfo. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileRepository.hpp" line="14" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_file_repository_1a6f10daf0f616c4128d69377a1e4ba189" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::vector&lt; <ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref> &gt;</type>
+        <definition>std::vector&lt; Models::MessageInfo &gt; DataAccess::FileRepository::getMessageHistoryForUser</definition>
+        <argsstring>(const std::uint64_t channelID) override</argsstring>
+        <name>getMessageHistoryForUser</name>
+        <qualifiedname>DataAccess::FileRepository::getMessageHistoryForUser</qualifiedname>
+        <reimplements refid="class_data_access_1_1_i_repository_1a9865744036d75920a5d0bb8854d60c5a">getMessageHistoryForUser</reimplements>
+        <param>
+          <type>const std::uint64_t</type>
+          <declname>channelID</declname>
+        </param>
+        <briefdescription>
+<para>Draft method of getting history for a specific user. <linebreak/>
+History is all messages that a marked as &quot;non-delivered&quot; for this user. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>channelID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- channel&apos;s id from which we want to get message history. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>List of messages as vector of MessageInfo. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileRepository.hpp" line="15" column="13"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>DataAccess::FileRepository</label>
+        <link refid="class_data_access_1_1_file_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DataAccess::IRepository</label>
+        <link refid="class_data_access_1_1_i_repository"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>DataAccess::FileRepository</label>
+        <link refid="class_data_access_1_1_file_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DataAccess::IRepository</label>
+        <link refid="class_data_access_1_1_i_repository"/>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Debug/FileRepository.hpp" line="8" column="1" bodyfile="DataAccess/DataAccess.Debug/FileRepository.hpp" bodystart="9" bodyend="19"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_file_repository_1a1b6a5b592d9355ee8253d128341e5fd3" prot="private" virt="non-virtual"><scope>DataAccess::FileRepository</scope><name>_database</name></member>
+      <member refid="class_data_access_1_1_i_repository_1af0699db752921628835d27acd4aa7e47" prot="public" virt="pure-virtual"><scope>DataAccess::FileRepository</scope><name>deleteMessage</name></member>
+      <member refid="class_data_access_1_1_i_repository_1acf0bb6369dc216b9b7a22809a56ee40e" prot="public" virt="pure-virtual"><scope>DataAccess::FileRepository</scope><name>editMessage</name></member>
+      <member refid="class_data_access_1_1_file_repository_1a186354d343fc68628ab822483f5fbc87" prot="public" virt="non-virtual"><scope>DataAccess::FileRepository</scope><name>FileRepository</name></member>
+      <member refid="class_data_access_1_1_file_repository_1aa4dca0e8ba069b6445b9600ab586a156" prot="public" virt="virtual"><scope>DataAccess::FileRepository</scope><name>getAllChannelsList</name></member>
+      <member refid="class_data_access_1_1_file_repository_1a6f10daf0f616c4128d69377a1e4ba189" prot="public" virt="virtual"><scope>DataAccess::FileRepository</scope><name>getMessageHistoryForUser</name></member>
+      <member refid="class_data_access_1_1_i_repository_1a1fdf7d4f7d11184e312863644a9b8e75" prot="public" virt="pure-virtual"><scope>DataAccess::FileRepository</scope><name>getReplyHistoryForUser</name></member>
+      <member refid="class_data_access_1_1_i_repository_1a1162586b0fe69fca0a2277ab91827cad" prot="public" virt="pure-virtual"><scope>DataAccess::FileRepository</scope><name>loginUser</name></member>
+      <member refid="class_data_access_1_1_i_repository_1a0f819bc5ed7f561389e28fb35f0757f2" prot="public" virt="pure-virtual"><scope>DataAccess::FileRepository</scope><name>registerUser</name></member>
+      <member refid="class_data_access_1_1_i_repository_1a7a34bb8134b58696ce2703457bfaead2" prot="public" virt="pure-virtual"><scope>DataAccess::FileRepository</scope><name>storeMessage</name></member>
+      <member refid="class_data_access_1_1_i_repository_1ab839a8b50a33a50e2bce291669eac706" prot="public" virt="pure-virtual"><scope>DataAccess::FileRepository</scope><name>storeReply</name></member>
+      <member refid="class_data_access_1_1_i_repository_1a194a02ea8e52185be9fd481621ffb155" prot="public" virt="pure-virtual"><scope>DataAccess::FileRepository</scope><name>updateMessageReactions</name></member>
+      <member refid="class_data_access_1_1_file_repository_1a59dea174405cf1773a05696544fff407" prot="public" virt="virtual"><scope>DataAccess::FileRepository</scope><name>~FileRepository</name></member>
+      <member refid="class_data_access_1_1_i_repository_1affda42ed5ba6e5cbb5578b00fd572818" prot="public" virt="virtual"><scope>DataAccess::FileRepository</scope><name>~IRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

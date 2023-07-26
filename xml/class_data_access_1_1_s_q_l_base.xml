@@ -1,0 +1,352 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_data_access_1_1_s_q_l_base" kind="class" language="C++" prot="public">
+    <compoundname>DataAccess::SQLBase</compoundname>
+    <derivedcompoundref refid="class_data_access_1_1_s_q_l_delete" prot="public" virt="non-virtual">DataAccess::SQLDelete&lt; ResultType &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_data_access_1_1_s_q_l_insert" prot="public" virt="non-virtual">DataAccess::SQLInsert&lt; ResultType &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_data_access_1_1_s_q_l_select" prot="public" virt="non-virtual">DataAccess::SQLSelect&lt; ResultType &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_data_access_1_1_s_q_l_update" prot="public" virt="non-virtual">DataAccess::SQLUpdate&lt; ResultType &gt;</derivedcompoundref>
+    <includes refid="_s_q_l_statements_8hpp" local="no">SQLStatements.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename ResultType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_data_access_1_1_s_q_l_base_1a2d80d4c7df26b7fb487610e87c57f014" prot="protected" static="no" mutable="no">
+        <type>Utility::SQLStatement</type>
+        <definition>Utility::SQLStatement DataAccess::SQLBase&lt; ResultType &gt;::_statementType</definition>
+        <argsstring></argsstring>
+        <name>_statementType</name>
+        <qualifiedname>DataAccess::SQLBase::_statementType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="168" column="31" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_data_access_1_1_s_q_l_base_1aba9311d0ab264cee686f5b45909a07c4" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_data_access_1_1_abstract_query_builder" kindref="compound">AbstractQueryBuilder</ref>&lt; ResultType &gt; &amp;</type>
+        <definition>AbstractQueryBuilder&lt;ResultType&gt;&amp; DataAccess::SQLBase&lt; ResultType &gt;::_currentBuilder</definition>
+        <argsstring></argsstring>
+        <name>_currentBuilder</name>
+        <qualifiedname>DataAccess::SQLBase::_currentBuilder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="169" column="26" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_data_access_1_1_s_q_l_base_1a9fee04b1953e779668c25cdd9bdeda8d" prot="protected" static="no" mutable="no">
+        <type>std::ostringstream</type>
+        <definition>std::ostringstream DataAccess::SQLBase&lt; ResultType &gt;::_queryStream</definition>
+        <argsstring></argsstring>
+        <name>_queryStream</name>
+        <qualifiedname>DataAccess::SQLBase::_queryStream</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="170" column="31" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_base_1a6ae75814a65cd9694ac4870deffedc58" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLBase&lt; ResultType &gt;::SQLBase</definition>
+        <argsstring>(Utility::SQLStatement statement, AbstractQueryBuilder&lt; ResultType &gt; &amp;table)</argsstring>
+        <name>SQLBase</name>
+        <qualifiedname>DataAccess::SQLBase::SQLBase</qualifiedname>
+        <param>
+          <type>Utility::SQLStatement</type>
+          <declname>statement</declname>
+        </param>
+        <param>
+          <type><ref refid="class_data_access_1_1_abstract_query_builder" kindref="compound">AbstractQueryBuilder</ref>&lt; ResultType &gt; &amp;</type>
+          <declname>table</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="173" column="5" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="173" bodyend="176"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_base_1a298ac24cccd355046b6ac9bf98448e84" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLBase&lt; ResultType &gt;::SQLBase</definition>
+        <argsstring>(void)=delete</argsstring>
+        <name>SQLBase</name>
+        <qualifiedname>DataAccess::SQLBase::SQLBase</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="179" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_base_1a495d8c8ca8ee9b089f290111f5a0cc46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLBase&lt; ResultType &gt;::SQLBase</definition>
+        <argsstring>(const SQLBase &amp;)=delete</argsstring>
+        <name>SQLBase</name>
+        <qualifiedname>DataAccess::SQLBase::SQLBase</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_s_q_l_base" kindref="compound">SQLBase</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="181" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_base_1afbfaf3b449cdca844c3545315f5e7890" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_base" kindref="compound">SQLBase</ref> &amp;</type>
+        <definition>SQLBase &amp; DataAccess::SQLBase&lt; ResultType &gt;::operator=</definition>
+        <argsstring>(const SQLBase &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::SQLBase::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_s_q_l_base" kindref="compound">SQLBase</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="182" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_base_1a58e74cbedb1db27f9f738d841501e9c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLBase&lt; ResultType &gt;::SQLBase</definition>
+        <argsstring>(SQLBase &amp;&amp;)=delete</argsstring>
+        <name>SQLBase</name>
+        <qualifiedname>DataAccess::SQLBase::SQLBase</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_s_q_l_base" kindref="compound">SQLBase</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="184" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_base_1a992593dadbec2399881fcc14a0a3c47b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_base" kindref="compound">SQLBase</ref> &amp;</type>
+        <definition>SQLBase &amp; DataAccess::SQLBase&lt; ResultType &gt;::operator=</definition>
+        <argsstring>(SQLBase &amp;&amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::SQLBase::operator=</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_s_q_l_base" kindref="compound">SQLBase</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="185" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_base_1a88f9119149b1285a93929606992b8f99" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual DataAccess::SQLBase&lt; ResultType &gt;::~SQLBase</definition>
+        <argsstring>(void)=default</argsstring>
+        <name>~SQLBase</name>
+        <qualifiedname>DataAccess::SQLBase::~SQLBase</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="187" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_base_1a30c597d39d45b4c30a6b817ad9394d2f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="class_data_access_1_1_s_q_l_base" kindref="compound">SQLBase</ref> &amp;</type>
+        <definition>SQLBase &amp; DataAccess::SQLBase&lt; ResultType &gt;::operator&lt;&lt;</definition>
+        <argsstring>(T &amp;&amp;data)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>DataAccess::SQLBase::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>T &amp;&amp;</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="191" column="5" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="191" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_base_1a6b1042754338bd511e2ca9d0f0201b4d" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>Utility::SQLStatement</type>
+        <definition>Utility::SQLStatement DataAccess::SQLBase&lt; ResultType &gt;::getStatementType</definition>
+        <argsstring>(void) const noexcept</argsstring>
+        <name>getStatementType</name>
+        <qualifiedname>DataAccess::SQLBase::getStatementType</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Return SQL statement type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>ST_SELECT, ST_INSERT, ST_UPDATE, ST_DELETE </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="204" column="27" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="204" bodyend="204"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_base_1a6444aee735ea7f6174e1669977d83fa8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::SQLBase&lt; ResultType &gt;::rollback</definition>
+        <argsstring>(void)</argsstring>
+        <name>rollback</name>
+        <qualifiedname>DataAccess::SQLBase::rollback</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Method that returns current SQL query string. This method for subquery basically. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>SQL query string </para>
+</simplesect>
+<simplesect kind="warning"><para>Don&apos;t clear SQL string if you use it. After getQuery you whatever can call method execute. <programlisting><codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="class_query_builder" kindref="compound">QueryBuilder</ref><sp/>table(</highlight><highlight class="stringliteral">&quot;tableName&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>table.</highlight><highlight class="stringliteral">&apos;SQLStatement&apos;</highlight><highlight class="normal">()-&gt;getQuery();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>table.</highlight><highlight class="stringliteral">&apos;SQLStatement&apos;</highlight><highlight class="normal">()-&gt;execute();<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>@encode</highlight></codeline>
+<codeline><highlight class="normal"><sp/>/</highlight></codeline>
+<codeline><highlight class="normal">std::string<sp/>getStringQuery(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">noexcept</highlight><highlight class="normal"><sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>_queryStream.str();<sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+</programlisting> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="276" column="10" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="276" bodyend="276"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_base_1a8e7b49572e3fe99855d7cb26d35ff042" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::SQLBase&lt; ResultType &gt;::privateCheckForLastSymbol</definition>
+        <argsstring>(void)</argsstring>
+        <name>privateCheckForLastSymbol</name>
+        <qualifiedname>DataAccess::SQLBase::privateCheckForLastSymbol</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="279" column="10" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="279" bodyend="282"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_base_1a6de1f009d5bfae63c06e691b8087c75e" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::SQLBase&lt; ResultType &gt;::privateCorrectFormatting</definition>
+        <argsstring>(void)</argsstring>
+        <name>privateCorrectFormatting</name>
+        <qualifiedname>DataAccess::SQLBase::privateCorrectFormatting</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="284" column="10" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="284" bodyend="291"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="class_data_access_1_1_s_q_l_base" kindref="compound">SQLBase</ref> abstraction class. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This class has 4 non-overloaded inherited methods. This is singleton. Class used as a base for interfaces of SQL operations (for <ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref>, <ref refid="class_data_access_1_1_s_q_l_update" kindref="compound">SQLUpdate</ref>, <ref refid="class_data_access_1_1_s_q_l_delete" kindref="compound">SQLDelete</ref>, <ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref>) and allows <ref refid="class_query_builder" kindref="compound">QueryBuilder</ref> handle any type of query. <simplesect kind="warning"><para>Like a <ref refid="class_data_access_1_1_s_q_l_where_condition" kindref="compound">SQLWhereCondition</ref> you shouldn&apos;t use it itself. </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>DataAccess::SQLBase&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_base"/>
+      </node>
+      <node id="2">
+        <label>DataAccess::SQLDelete&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_delete"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess::SQLInsert&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_insert"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>DataAccess::SQLSelect&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_select"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>DataAccess::SQLUpdate&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_update"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="165" column="1" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="166" bodyend="292"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_s_q_l_base_1aba9311d0ab264cee686f5b45909a07c4" prot="protected" virt="non-virtual"><scope>DataAccess::SQLBase</scope><name>_currentBuilder</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a9fee04b1953e779668c25cdd9bdeda8d" prot="protected" virt="non-virtual"><scope>DataAccess::SQLBase</scope><name>_queryStream</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a2d80d4c7df26b7fb487610e87c57f014" prot="protected" virt="non-virtual"><scope>DataAccess::SQLBase</scope><name>_statementType</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6b1042754338bd511e2ca9d0f0201b4d" prot="public" virt="non-virtual"><scope>DataAccess::SQLBase</scope><name>getStatementType</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a30c597d39d45b4c30a6b817ad9394d2f" prot="public" virt="non-virtual"><scope>DataAccess::SQLBase</scope><name>operator&lt;&lt;</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1afbfaf3b449cdca844c3545315f5e7890" prot="public" virt="non-virtual"><scope>DataAccess::SQLBase</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a992593dadbec2399881fcc14a0a3c47b" prot="public" virt="non-virtual"><scope>DataAccess::SQLBase</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a8e7b49572e3fe99855d7cb26d35ff042" prot="protected" virt="non-virtual"><scope>DataAccess::SQLBase</scope><name>privateCheckForLastSymbol</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6de1f009d5bfae63c06e691b8087c75e" prot="protected" virt="non-virtual"><scope>DataAccess::SQLBase</scope><name>privateCorrectFormatting</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6444aee735ea7f6174e1669977d83fa8" prot="public" virt="non-virtual"><scope>DataAccess::SQLBase</scope><name>rollback</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6ae75814a65cd9694ac4870deffedc58" prot="public" virt="non-virtual"><scope>DataAccess::SQLBase</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a298ac24cccd355046b6ac9bf98448e84" prot="public" virt="non-virtual"><scope>DataAccess::SQLBase</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a495d8c8ca8ee9b089f290111f5a0cc46" prot="public" virt="non-virtual"><scope>DataAccess::SQLBase</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a58e74cbedb1db27f9f738d841501e9c9" prot="public" virt="non-virtual"><scope>DataAccess::SQLBase</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a88f9119149b1285a93929606992b8f99" prot="public" virt="virtual"><scope>DataAccess::SQLBase</scope><name>~SQLBase</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

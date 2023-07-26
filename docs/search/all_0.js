@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['_5fchannelid_0',['_channelID',['../struct_models_1_1_channel_subscription_info.html#af1f7a36df4fa2c938862bad3ee544109',1,'Models::ChannelSubscriptionInfo::_channelID'],['../struct_models_1_1_message_info.html#abf05c5613f5e34f1be792d0cd08a2f3f',1,'Models::MessageInfo::_channelID'],['../struct_models_1_1_reply_info.html#aa9e1aee7fa708bdb7b31b9f8cf42e9cd',1,'Models::ReplyInfo::_channelID'],['../struct_models_1_1_channel_info.html#ab1897c74db5b92748853fc1ce1234ae8',1,'Models::ChannelInfo::_channelID']]],
+  ['_5fchannelname_1',['_channelName',['../struct_models_1_1_channel_info.html#a0717353b5a20d3e9a157875dd9722174',1,'Models::ChannelInfo']]],
+  ['_5fcreatorid_2',['_creatorID',['../struct_models_1_1_channel_info.html#a09fad2593a7cc2252185223b0f1ff366',1,'Models::ChannelInfo']]],
+  ['_5femail_3',['_email',['../struct_models_1_1_registration_info.html#a65fff04a4de921a4f0ab856eaa82ddd6',1,'Models::RegistrationInfo']]],
+  ['_5flogin_4',['_login',['../struct_models_1_1_login_info.html#a9a9f25c8ddcbcf97123d3d628ff64a21',1,'Models::LoginInfo::_login'],['../struct_models_1_1_registration_info.html#aab8a9e6d43bfd2a2ca27212c61d396cf',1,'Models::RegistrationInfo::_login']]],
+  ['_5fmessage_5',['_message',['../struct_models_1_1_message_info.html#ac6e4b0ac3270221152e18690fa41f6ad',1,'Models::MessageInfo::_message'],['../struct_models_1_1_reply_info.html#a90491ad89c1d1efe97c0889af3e279ee',1,'Models::ReplyInfo::_message']]],
+  ['_5fmsgid_6',['_msgID',['../struct_models_1_1_reply_info.html#ab4825771af50dad05220c2ffa7530fb0',1,'Models::ReplyInfo::_msgID'],['../struct_models_1_1_message_info.html#a897b88ac467f475f199522d97125b3de',1,'Models::MessageInfo::_msgID']]],
+  ['_5fmsgidowner_7',['_msgIdOwner',['../struct_models_1_1_reply_info.html#a2fa913e50020f73a95dd1898874fcdfa',1,'Models::ReplyInfo']]],
+  ['_5fpasswordhash_8',['_passwordHash',['../struct_models_1_1_registration_info.html#aa64856fffeb309d18518bed0585e2dda',1,'Models::RegistrationInfo']]],
+  ['_5fpwdhash_9',['_pwdHash',['../struct_models_1_1_login_info.html#a00e6960fb99fd49179ad1a0daab9f6f0',1,'Models::LoginInfo']]],
+  ['_5freactions_10',['_reactions',['../struct_models_1_1_message_info.html#a772cf148d81c824709eac15bf158bdb0',1,'Models::MessageInfo']]],
+  ['_5frecipientid_11',['_recipientID',['../struct_models_1_1_message_info.html#a4bd93f4f180fca37428ad9c6e02b122f',1,'Models::MessageInfo']]],
+  ['_5fsenderid_12',['_senderID',['../struct_models_1_1_message_info.html#a2ca9939602d1f638f72ca4d0361dad51',1,'Models::MessageInfo::_senderID'],['../struct_models_1_1_reply_info.html#a7b4b40da9dc9dec5885c60402fc6d5c7',1,'Models::ReplyInfo::_senderID']]],
+  ['_5ftime_13',['_time',['../struct_models_1_1_message_info.html#a1148352244f5a7c1e244b049994bcf06',1,'Models::MessageInfo']]],
+  ['_5fuserid_14',['_userID',['../struct_models_1_1_channel_subscription_info.html#a6bd3747064f536ee7f31a9175e268a9e',1,'Models::ChannelSubscriptionInfo']]],
+  ['_5fuserlogin_15',['_userLogin',['../struct_models_1_1_message_info.html#a248a9f2490a2e780f1a3803e9caf279b',1,'Models::MessageInfo::_userLogin'],['../struct_models_1_1_reply_info.html#a41cbe346844e5c690c3a75adb4273aef',1,'Models::ReplyInfo::_userLogin']]]
+];

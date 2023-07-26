@@ -1,0 +1,262 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_data_access" kind="namespace" language="C++">
+    <compoundname>DataAccess</compoundname>
+    <innerclass refid="struct_data_access_1_1_abstract_postgre_repository" prot="public">DataAccess::AbstractPostgreRepository</innerclass>
+    <innerclass refid="class_data_access_1_1_abstract_query_builder" prot="public">DataAccess::AbstractQueryBuilder</innerclass>
+    <innerclass refid="class_data_access_1_1_abstract_repository_container" prot="public">DataAccess::AbstractRepositoryContainer</innerclass>
+    <innerclass refid="struct_data_access_1_1_channels_repository" prot="public">DataAccess::ChannelsRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_direct_message_repository" prot="public">DataAccess::DirectMessageRepository</innerclass>
+    <innerclass refid="class_data_access_1_1_file_d_b" prot="public">DataAccess::FileDB</innerclass>
+    <innerclass refid="class_data_access_1_1_file_repository" prot="public">DataAccess::FileRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_future_result" prot="public">DataAccess::FutureResult</innerclass>
+    <innerclass refid="class_data_access_1_1_i_adapter" prot="public">DataAccess::IAdapter</innerclass>
+    <innerclass refid="struct_data_access_1_1_i_channels_repository" prot="public">DataAccess::IChannelsRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_i_direct_message_repository" prot="public">DataAccess::IDirectMessageRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_i_login_repository" prot="public">DataAccess::ILoginRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_i_master_repository" prot="public">DataAccess::IMasterRepository</innerclass>
+    <innerclass refid="class_data_access_1_1_i_message_repository" prot="public">DataAccess::IMessageRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_i_messages_repository" prot="public">DataAccess::IMessagesRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_i_register_repository" prot="public">DataAccess::IRegisterRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_i_replies_repository" prot="public">DataAccess::IRepliesRepository</innerclass>
+    <innerclass refid="class_data_access_1_1_i_repository" prot="public">DataAccess::IRepository</innerclass>
+    <innerclass refid="class_data_access_1_1_i_repository_manager" prot="public">DataAccess::IRepositoryManager</innerclass>
+    <innerclass refid="struct_data_access_1_1_login_repository" prot="public">DataAccess::LoginRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_messages_repository" prot="public">DataAccess::MessagesRepository</innerclass>
+    <innerclass refid="class_data_access_1_1_p_g_model_filler" prot="public">DataAccess::PGModelFiller</innerclass>
+    <innerclass refid="class_data_access_1_1_p_g_query_builder" prot="public">DataAccess::PGQueryBuilder</innerclass>
+    <innerclass refid="class_data_access_1_1_postgre_adapter" prot="public">DataAccess::PostgreAdapter</innerclass>
+    <innerclass refid="class_data_access_1_1_postgre_repository_container" prot="public">DataAccess::PostgreRepositoryContainer</innerclass>
+    <innerclass refid="class_data_access_1_1_postgre_repository_manager" prot="public">DataAccess::PostgreRepositoryManager</innerclass>
+    <innerclass refid="struct_data_access_1_1_register_repository" prot="public">DataAccess::RegisterRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_replies_repository" prot="public">DataAccess::RepliesRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_repository_request" prot="public">DataAccess::RepositoryRequest</innerclass>
+    <innerclass refid="class_data_access_1_1_s_q_l_base" prot="public">DataAccess::SQLBase</innerclass>
+    <innerclass refid="class_data_access_1_1_s_q_l_delete" prot="public">DataAccess::SQLDelete</innerclass>
+    <innerclass refid="class_data_access_1_1_s_q_l_insert" prot="public">DataAccess::SQLInsert</innerclass>
+    <innerclass refid="class_data_access_1_1_s_q_l_select" prot="public">DataAccess::SQLSelect</innerclass>
+    <innerclass refid="class_data_access_1_1_s_q_l_update" prot="public">DataAccess::SQLUpdate</innerclass>
+    <innerclass refid="class_data_access_1_1_s_q_l_where_condition" prot="public">DataAccess::SQLWhereCondition</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2" prot="public" static="no" strong="yes">
+        <type>std::uint8_t</type>
+        <name>ePriority</name>
+        <qualifiedname>DataAccess::ePriority</qualifiedname>
+        <enumvalue id="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a5d98ec0427152056397e9e35f357be87" prot="public">
+          <name>_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a26e3d8bac39f9313d584a6025bd7544d" prot="public">
+          <name>_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2af806252045a28179caaf0ec8f0b5f298" prot="public">
+          <name>_3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2ab49511be6fca00a500dc7cd69ecc6c58" prot="public">
+          <name>_4</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2afc85e0e9e785e1ac37df34f744769c5f" prot="public">
+          <name>_5</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2adfbfc4a9ddfbf50d6b3349e7a97f0101" prot="public">
+          <name>_6</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a56bb8449aba0e83c4cd30e57fab20c9d" prot="public">
+          <name>_7</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2add494b805517113d9d15b8adf0a09b5c" prot="public">
+          <name>_8</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a9748632a03a999f14fd0c94056c4aa24" prot="public">
+          <name>_9</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2af3e698f88ff5b6ae938c2f132de7cbaa" prot="public">
+          <name>_10</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a65ebaa601921630a636201c50f9db5cf" prot="public">
+          <name>_11</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a5dc05b6bd3d21df6ab11045c6338f2ae" prot="public">
+          <name>_12</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a20621213404294b8df68e3d1a01f7e84" prot="public">
+          <name>_13</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a05927382bcdb4de1da41ce1a3ea8b7ab" prot="public">
+          <name>_14</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a6accb40a7152ce9a3de6d04c7a6768c5" prot="public">
+          <name>_15</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Priority enum. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The more priority value the higher priority. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" line="12" column="5" bodyfile="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" bodystart="13" bodyend="29"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="_abstract_repository_manager_8hpp_1ae6e883ecc0c96c1f80fab8f52c55d3da" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>typename TIRepository</type>
+          </param>
+          <param>
+            <type>typename TReturn</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>TArgs</declname>
+            <defname>TArgs</defname>
+          </param>
+        </templateparamlist>
+        <type>TReturn(TIRepository::*)(TArgs...)</type>
+        <definition>using DataAccess::MethodReference = typedef TReturn (TIRepository::*)(TArgs...)</definition>
+        <argsstring></argsstring>
+        <name>MethodReference</name>
+        <qualifiedname>DataAccess::MethodReference</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="18" column="1" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_future_result_8hpp_1ab89b4791f475a5cdda3f55e7e27703b1" prot="public" static="no">
+        <type>std::future&lt; std::any &gt;</type>
+        <definition>using DataAccess::RawFuture = typedef std::future&lt;std::any&gt;</definition>
+        <argsstring></argsstring>
+        <name>RawFuture</name>
+        <qualifiedname>DataAccess::RawFuture</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/FutureResult.hpp" line="8" column="5" bodyfile="DataAccess/Public/Include/DataAccess/FutureResult.hpp" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_repository_request_8hpp_1aba36626f8bb0a07bf22b2e9ac452abe7" prot="public" static="no">
+        <type>std::packaged_task&lt; std::any(void)&gt;</type>
+        <definition>using DataAccess::RequestTask = typedef std::packaged_task&lt;std::any(void)&gt;</definition>
+        <argsstring></argsstring>
+        <name>RequestTask</name>
+        <qualifiedname>DataAccess::RequestTask</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" line="6" column="5" bodyfile="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_abstract_repository_manager_8hpp_1ad7eecab880df29c1d032ceb959d15273" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Type</type>
+          </param>
+        </templateparamlist>
+        <type>std::conditional_t&lt; std::is_fundamental_v&lt; Type &gt;, std::remove_reference_t&lt; Type &gt;, const Type &amp; &gt;</type>
+        <definition>std::conditional_t&lt; std::is_fundamental_v&lt; Type &gt;, std::remove_reference_t&lt; Type &gt;, const Type &amp; &gt; DataAccess::fmt</definition>
+        <argsstring>(const Type &amp;ref)</argsstring>
+        <name>fmt</name>
+        <qualifiedname>DataAccess::fmt</qualifiedname>
+        <param>
+          <type>const Type &amp;</type>
+          <declname>ref</declname>
+        </param>
+        <briefdescription>
+<para>fmt function uses for converting arguments, that you pass to repository method to correct form. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ref</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>argument that is passing to repository method. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return correct format argument: for fundamental types like int, float, etc - by value, all other - by const ref. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="26" column="20" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" bodystart="26" bodyend="29"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="14" column="1"/>
+  </compounddef>
+</doxygen>

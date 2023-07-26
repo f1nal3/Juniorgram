@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_mock_object_1_1_mock_repository_manager" kind="class" language="C++" prot="public">
+    <compoundname>MockObject::MockRepositoryManager</compoundname>
+    <basecompoundref refid="class_data_access_1_1_i_repository_manager" prot="public" virt="non-virtual">DataAccess::IRepositoryManager</basecompoundref>
+    <includes refid="_mock_repository_manager_8hpp" local="no">MockRepositoryManager.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_mock_object_1_1_mock_repository_manager_1aacd31a7122ab823f741f52feda997fc6" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockRepositoryManager::MockRepositoryManager</definition>
+        <argsstring>(const std::shared_ptr&lt; IAdapter &gt; repositoryContainer)</argsstring>
+        <name>MockRepositoryManager</name>
+        <qualifiedname>MockObject::MockRepositoryManager::MockRepositoryManager</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt;</type>
+          <declname>repositoryContainer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryManager.hpp" line="20" column="14" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryManager.hpp" bodystart="20" bodyend="30"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>class <ref refid="class_mock_object_1_1_mock_repository_manager" kindref="compound">MockRepositoryManager</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The specific(Postgre) instance of IRepositoryManager. / Controls push to queue and further processing of requests (have own thread for it). </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>DataAccess::IRepositoryManager</label>
+        <link refid="class_data_access_1_1_i_repository_manager"/>
+      </node>
+      <node id="1">
+        <label>MockObject::MockRepositoryManager</label>
+        <link refid="class_mock_object_1_1_mock_repository_manager"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>DataAccess::IRepositoryManager</label>
+        <link refid="class_data_access_1_1_i_repository_manager"/>
+      </node>
+      <node id="1">
+        <label>MockObject::MockRepositoryManager</label>
+        <link refid="class_mock_object_1_1_mock_repository_manager"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Mock/MockRepositoryManager.hpp" line="17" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryManager.hpp" bodystart="18" bodyend="31"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_i_repository_manager_1a3df2aa618b2b68efa9053cec7c7ec92b" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryManager</scope><name>empty</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1ab81ebddb08e4dd5b00f6a1a03a1da90e" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryManager</scope><name>handleRequests</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1adebde6e2ed0c441a0342f573a02a63cb" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryManager</scope><name>init</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1ada774e5ea0c7cc577df40196f0c307fe" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryManager</scope><name>IRepositoryManager</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a728dc49922980137048bd58fef2fc4b5" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryManager</scope><name>IRepositoryManager</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1ac187f52db71543e10cbfe24ecfcdea63" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryManager</scope><name>IRepositoryManager</name></member>
+      <member refid="class_mock_object_1_1_mock_repository_manager_1aacd31a7122ab823f741f52feda997fc6" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryManager</scope><name>MockRepositoryManager</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a02869d294c9ba1960de79658a40c59c0" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryManager</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1aeff4cc329711a4ef8087194f538cb3cb" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryManager</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a81bd2f415129a4a429f729701086250a" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryManager</scope><name>pushRequest</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a38859f8067b2c360a17f52bd379b4768" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryManager</scope><name>stopHandler</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1ad02af3035b342cd4f1fad79c8fe46394" prot="public" virt="virtual"><scope>MockObject::MockRepositoryManager</scope><name>~IRepositoryManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

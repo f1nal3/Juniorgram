@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_models_1_1_v2_1_1_user" kind="class" language="C++" prot="public">
+    <compoundname>Models::V2::User</compoundname>
+    <basecompoundref refid="class_models_1_1_v2_1_1_unified_model" prot="public" virt="non-virtual">Models::V2::UnifiedModel&lt; UserInfo &gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename TEnum</type>
+        <defval>UserInfo</defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_models_1_1_v2_1_1_user_1a52a109df950f87505834c1a9cc41c925" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Models::V2::User&lt; TEnum &gt;::User</definition>
+        <argsstring>(std::string_view modelName=&quot;users&quot;, const Models::V2::FieldNames &amp;names={ &quot;id&quot;, &quot;email&quot;, &quot;login&quot;, &quot;password_hash&quot; })</argsstring>
+        <name>User</name>
+        <qualifiedname>Models::V2::User::User</qualifiedname>
+        <param>
+          <type>std::string_view</type>
+          <declname>modelName</declname>
+          <defval>&quot;users&quot;</defval>
+        </param>
+        <param>
+          <type>const Models::V2::FieldNames &amp;</type>
+          <declname>names</declname>
+          <defval>{ &quot;id&quot;, &quot;email&quot;, &quot;login&quot;, &quot;password_hash&quot; }</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Models.hpp" line="24" column="5" bodyfile="Base/Models/Public/Include/Models/Models.hpp" bodystart="24" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_v2_1_1_user_1a0aa6521a51b183ce3320f548582e222a" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Models::V2::User&lt; TEnum &gt;::User</definition>
+        <argsstring>(const std::vector&lt; std::pair&lt; TEnum, std::string &gt; &gt; &amp;insertData)</argsstring>
+        <name>User</name>
+        <qualifiedname>Models::V2::User::User</qualifiedname>
+        <param>
+          <type>const std::vector&lt; std::pair&lt; TEnum, std::string &gt; &gt; &amp;</type>
+          <declname>insertData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Models.hpp" line="30" column="14" bodyfile="Base/Models/Public/Include/Models/Models.hpp" bodystart="30" bodyend="33"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_models_1_1_v2_1_1_user_1a842290123c719ff15afc45172526c289" prot="protected" static="no" const="yes" explicit="no" inline="yes" final="yes" virt="virtual">
+        <type>UserInfo</type>
+        <definition>UserInfo Models::V2::User&lt; TEnum &gt;::getNumEnum</definition>
+        <argsstring>(size_t num) const final</argsstring>
+        <name>getNumEnum</name>
+        <qualifiedname>Models::V2::User::getNumEnum</qualifiedname>
+        <reimplements refid="class_models_1_1_v2_1_1_unified_model_1a2c607c4060982065f818a1900c47dbfb">getNumEnum</reimplements>
+        <param>
+          <type>size_t</type>
+          <declname>num</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Models.hpp" line="36" column="14" bodyfile="Base/Models/Public/Include/Models/Models.hpp" bodystart="36" bodyend="56"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Models::V2::UnifiedModel&lt; TEnum &gt;</label>
+        <link refid="class_models_1_1_v2_1_1_unified_model"/>
+      </node>
+      <node id="1">
+        <label>Models::V2::User&lt; TEnum &gt;</label>
+        <link refid="class_models_1_1_v2_1_1_user"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Models::V2::UnifiedModel&lt; TEnum &gt;</label>
+        <link refid="class_models_1_1_v2_1_1_unified_model"/>
+      </node>
+      <node id="1">
+        <label>Models::V2::User&lt; TEnum &gt;</label>
+        <link refid="class_models_1_1_v2_1_1_user"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Base/Models/Public/Include/Models/Models.hpp" line="21" column="1" bodyfile="Base/Models/Public/Include/Models/Models.hpp" bodystart="22" bodyend="57"/>
+    <listofallmembers>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1a469f6f4b3c9d29053e31fdaf52bb18be" prot="protected" virt="non-virtual"><scope>Models::V2::User</scope><name>fillStartFields</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1a303c285c209733be4d085a821e085478" prot="public" virt="non-virtual"><scope>Models::V2::User</scope><name>getModelName</name></member>
+      <member refid="class_models_1_1_v2_1_1_user_1a842290123c719ff15afc45172526c289" prot="protected" virt="virtual"><scope>Models::V2::User</scope><name>getNumEnum</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1a425c7239061d7c89d67691deedf12fb7" prot="protected" virt="non-virtual"><scope>Models::V2::User</scope><name>init</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1a315ebb9492ccc41f8517fc9c918da577" prot="public" virt="non-virtual"><scope>Models::V2::User</scope><name>makeColumnDataPair</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1a6f8c5ed7b61bbffc3fe06d288c8c2c79" prot="public" virt="non-virtual"><scope>Models::V2::User</scope><name>operator[]</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1ad70e5326910d81365776ac50600b51b4" prot="public" virt="non-virtual"><scope>Models::V2::User</scope><name>resolveName</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1ad4dddf46212ec2954dab4fbeb7f97002" prot="public" virt="non-virtual"><scope>Models::V2::User</scope><name>toEnum</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1a0dd97508d26a00649ad0c36c9162e406" prot="public" virt="non-virtual"><scope>Models::V2::User</scope><name>UnifiedModel</name></member>
+      <member refid="class_models_1_1_v2_1_1_user_1a52a109df950f87505834c1a9cc41c925" prot="public" virt="non-virtual"><scope>Models::V2::User</scope><name>User</name></member>
+      <member refid="class_models_1_1_v2_1_1_user_1a0aa6521a51b183ce3320f548582e222a" prot="public" virt="non-virtual"><scope>Models::V2::User</scope><name>User</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1a053d4ad45d3d948411a5fa74e197eee7" prot="public" virt="virtual"><scope>Models::V2::User</scope><name>~UnifiedModel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

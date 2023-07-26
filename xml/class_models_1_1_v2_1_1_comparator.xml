@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_models_1_1_v2_1_1_comparator" kind="class" language="C++" prot="public">
+    <compoundname>Models::V2::Comparator</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename TKey</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_models_1_1_v2_1_1_comparator_1ac198d32a4d4abf3e797b2c25c74435c1" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Models::V2::Comparator&lt; TKey &gt;::operator()</definition>
+        <argsstring>(const TKey &amp;first, const TKey &amp;second) const noexcept</argsstring>
+        <name>operator()</name>
+        <qualifiedname>Models::V2::Comparator::operator()</qualifiedname>
+        <param>
+          <type>const TKey &amp;</type>
+          <declname>first</declname>
+        </param>
+        <param>
+          <type>const TKey &amp;</type>
+          <declname>second</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="22" column="10" bodyfile="Base/Models/Public/Include/Models/UnifiedModel.hpp" bodystart="22" bodyend="25"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="19" column="1" bodyfile="Base/Models/Public/Include/Models/UnifiedModel.hpp" bodystart="20" bodyend="26"/>
+    <listofallmembers>
+      <member refid="class_models_1_1_v2_1_1_comparator_1ac198d32a4d4abf3e797b2c25c74435c1" prot="public" virt="non-virtual"><scope>Models::V2::Comparator</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

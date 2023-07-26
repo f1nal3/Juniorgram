@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_network_1_1_abstract_handler" kind="class" language="C++" prot="public">
+    <compoundname>Network::AbstractHandler</compoundname>
+    <basecompoundref refid="class_network_1_1_handler" prot="public" virt="non-virtual">Network::Handler</basecompoundref>
+    <derivedcompoundref refid="class_network_1_1_compression_handler" prot="public" virt="non-virtual">Network::CompressionHandler</derivedcompoundref>
+    <derivedcompoundref refid="class_network_1_1_encryption_handler" prot="public" virt="non-virtual">Network::EncryptionHandler</derivedcompoundref>
+    <derivedcompoundref refid="class_network_1_1_serialization_handler" prot="public" virt="non-virtual">Network::SerializationHandler</derivedcompoundref>
+    <includes refid="_handler_8hpp" local="no">Handler.hpp</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_network_1_1_abstract_handler_1a7c44d70dfc1031f853a06487af2402fe" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_network_1_1_handler" kindref="compound">Handler</ref> *</type>
+        <definition>Handler* Network::AbstractHandler::nextHandler</definition>
+        <argsstring></argsstring>
+        <name>nextHandler</name>
+        <qualifiedname>Network::AbstractHandler::nextHandler</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Handler.hpp" line="65" column="13" bodyfile="Network/Public/Include/Network/Handler.hpp" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_network_1_1_abstract_handler_1ac08e0b26b9b6d954578ebedd433401e3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void Network::AbstractHandler::setNext</definition>
+        <argsstring>(Handler *handler) override</argsstring>
+        <name>setNext</name>
+        <qualifiedname>Network::AbstractHandler::setNext</qualifiedname>
+        <reimplements refid="class_network_1_1_handler_1a95d3091be58e0eaec6c6b2767b2de749">setNext</reimplements>
+        <param>
+          <type><ref refid="class_network_1_1_handler" kindref="compound">Handler</ref> *</type>
+          <declname>handler</declname>
+        </param>
+        <briefdescription>
+<para>Method for setting next handler fot message preprocessing. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- next handler fot message preprocessing. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>handler - next handler fot message preprocessing. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Handler.hpp" line="73" column="10" bodyfile="Network/Public/Include/Network/Handler.hpp" bodystart="73" bodyend="76"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>handler class for message preprocessing </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Network::AbstractHandler</label>
+        <link refid="class_network_1_1_abstract_handler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Network::CompressionHandler</label>
+        <link refid="class_network_1_1_compression_handler"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Network::EncryptionHandler</label>
+        <link refid="class_network_1_1_encryption_handler"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Network::Handler</label>
+        <link refid="class_network_1_1_handler"/>
+      </node>
+      <node id="5">
+        <label>Network::SerializationHandler</label>
+        <link refid="class_network_1_1_serialization_handler"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Network::AbstractHandler</label>
+        <link refid="class_network_1_1_abstract_handler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="2" relation="usage">
+          <edgelabel>nextHandler</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Network::Handler</label>
+        <link refid="class_network_1_1_handler"/>
+      </node>
+    </collaborationgraph>
+    <location file="Network/Public/Include/Network/Handler.hpp" line="62" column="1" bodyfile="Network/Public/Include/Network/Handler.hpp" bodystart="63" bodyend="77"/>
+    <listofallmembers>
+      <member refid="class_network_1_1_handler_1a3347420b2fb463aae3aadad8b1bfcc31" prot="public" virt="pure-virtual"><scope>Network::AbstractHandler</scope><name>handleIncomingMessageBody</name></member>
+      <member refid="class_network_1_1_handler_1a52afad677d3cda18be5d424475b89cb2" prot="public" virt="pure-virtual"><scope>Network::AbstractHandler</scope><name>handleOutcomingMessage</name></member>
+      <member refid="class_network_1_1_handler_1a5b0d27b200dca44a4fa12e76ad125e06" prot="public" virt="non-virtual"><scope>Network::AbstractHandler</scope><name>Handler</name></member>
+      <member refid="class_network_1_1_handler_1ae20002aef29f325c5102c9fa6f5b3a62" prot="public" virt="non-virtual"><scope>Network::AbstractHandler</scope><name>Handler</name></member>
+      <member refid="class_network_1_1_handler_1a14da12cf73099bce1bb5b09b57fae1a4" prot="public" virt="non-virtual"><scope>Network::AbstractHandler</scope><name>Handler</name></member>
+      <member refid="class_network_1_1_abstract_handler_1a7c44d70dfc1031f853a06487af2402fe" prot="protected" virt="non-virtual"><scope>Network::AbstractHandler</scope><name>nextHandler</name></member>
+      <member refid="class_network_1_1_handler_1a89e439ca63d065b8d070a74848893f3a" prot="public" virt="non-virtual"><scope>Network::AbstractHandler</scope><name>operator=</name></member>
+      <member refid="class_network_1_1_handler_1aa2da68b7aeb4c5ba8b1c49024fd3c3fa" prot="public" virt="non-virtual"><scope>Network::AbstractHandler</scope><name>operator=</name></member>
+      <member refid="class_network_1_1_abstract_handler_1ac08e0b26b9b6d954578ebedd433401e3" prot="public" virt="virtual"><scope>Network::AbstractHandler</scope><name>setNext</name></member>
+      <member refid="class_network_1_1_handler_1acedc859af138f19e1d8e9315cc233aaf" prot="public" virt="virtual"><scope>Network::AbstractHandler</scope><name>~Handler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

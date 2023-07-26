@@ -1,0 +1,380 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_app_8hpp" kind="file" language="C++">
+    <compoundname>App.hpp</compoundname>
+    <includes refid="_client_8hpp" local="no">Client.hpp</includes>
+    <includes local="no">string</includes>
+    <incdepgraph>
+      <node id="33">
+        <label>FileLogger.hpp</label>
+        <link refid="_file_logger_8hpp_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>Logger/ILogger.hpp</label>
+        <link refid="_i_logger_8hpp_source"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>Models/Primitives.hpp</label>
+        <link refid="_primitives_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Client/Client.CLI/App.hpp</label>
+        <link refid="_app_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Client.hpp</label>
+        <link refid="_client_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>CombiningHandlers.hpp</label>
+        <link refid="_combining_handlers_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>Network/CompressionHandler.hpp</label>
+        <link refid="_compression_handler_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Network/Connection.hpp</label>
+        <link refid="_connection_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>Network/EncryptionHandler.hpp</label>
+        <link refid="_encryption_handler_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>Handler.hpp</label>
+        <link refid="_handler_8hpp_source"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>Network/Message.hpp</label>
+        <link refid="_message_8hpp_source"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>Network/SerializationHandler.hpp</label>
+        <link refid="_serialization_handler_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>Network/YasSerializer.hpp</label>
+        <link refid="_yas_serializer_8hpp_source"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Utility/SafeQueue.hpp</label>
+        <link refid="_safe_queue_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>Utility/Utility.hpp</label>
+        <link refid="_utility_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>Utility/UtilityTime.hpp</label>
+        <link refid="_utility_time_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>Utility/WarningSuppression.hpp</label>
+        <link refid="_warning_suppression_8hpp_source"/>
+      </node>
+      <node id="14">
+        <label>algorithm</label>
+      </node>
+      <node id="46">
+        <label>any</label>
+      </node>
+      <node id="4">
+        <label>asio.hpp</label>
+      </node>
+      <node id="16">
+        <label>cctype</label>
+      </node>
+      <node id="5">
+        <label>chrono</label>
+      </node>
+      <node id="9">
+        <label>condition_variable</label>
+      </node>
+      <node id="39">
+        <label>cstdint</label>
+      </node>
+      <node id="47">
+        <label>cstdlib</label>
+      </node>
+      <node id="40">
+        <label>cstring</label>
+      </node>
+      <node id="17">
+        <label>ctime</label>
+      </node>
+      <node id="10">
+        <label>deque</label>
+      </node>
+      <node id="19">
+        <label>filesystem</label>
+      </node>
+      <node id="36">
+        <label>fstream</label>
+      </node>
+      <node id="6">
+        <label>functional</label>
+      </node>
+      <node id="44">
+        <label>iomanip</label>
+      </node>
+      <node id="7">
+        <label>iostream</label>
+      </node>
+      <node id="41">
+        <label>map</label>
+      </node>
+      <node id="48">
+        <label>memory</label>
+      </node>
+      <node id="11">
+        <label>mutex</label>
+      </node>
+      <node id="37">
+        <label>queue</label>
+      </node>
+      <node id="35">
+        <label>sstream</label>
+      </node>
+      <node id="15">
+        <label>string</label>
+      </node>
+      <node id="12">
+        <label>thread</label>
+      </node>
+      <node id="18">
+        <label>type_traits</label>
+      </node>
+      <node id="42">
+        <label>vector</label>
+      </node>
+      <node id="24">
+        <label>yas/binary_iarchive.hpp</label>
+      </node>
+      <node id="25">
+        <label>yas/binary_oarchive.hpp</label>
+      </node>
+      <node id="26">
+        <label>yas/buffers.hpp</label>
+      </node>
+      <node id="27">
+        <label>yas/mem_streams.hpp</label>
+      </node>
+      <node id="28">
+        <label>yas/object.hpp</label>
+      </node>
+      <node id="29">
+        <label>yas/serialize.hpp</label>
+      </node>
+      <node id="30">
+        <label>yas/std_types.hpp</label>
+      </node>
+      <node id="31">
+        <label>yas/types/std/string.hpp</label>
+      </node>
+      <node id="32">
+        <label>yas/types/std/vector.hpp</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="class_app" prot="public">App</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;Client.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="class_app" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_app" kindref="compound">App</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client" kindref="compound">Network::Client</ref></highlight></codeline>
+<codeline lineno="11"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="17" refid="class_app_1acb8cbf3e285b91d0170ffe87df5989c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_app_1acb8cbf3e285b91d0170ffe87df5989c5" kindref="member">App</ref>(</highlight><highlight class="comment">/*<sp/>args<sp/>*/</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="class_app_1a34f1f253b1cef5f4ecbac66eaf6964ec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_app_1a34f1f253b1cef5f4ecbac66eaf6964ec" kindref="member">~App</ref>();</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="27" refid="class_app_1a8c8856796470a956e15dbba11511524c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_app_1a8c8856796470a956e15dbba11511524c" kindref="member">onServerAccepted</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="29" refid="class_app_1ae489a55b944cf93f7aab2bb7dfa3d531" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_app_1ae489a55b944cf93f7aab2bb7dfa3d531" kindref="member">onServerPing</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>timestamp)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="31" refid="class_app_1a5387ee5d220572e4cf9c342da5216f27" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_app_1a5387ee5d220572e4cf9c342da5216f27" kindref="member">onServerMessage</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint64_t<sp/>clientId)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="33" refid="class_app_1a0dc29282425e8782a84975d692290188" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_app_1a0dc29282425e8782a84975d692290188" kindref="member">onChannelListRequest</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;Models::ChannelInfo&gt;&amp;<sp/>channels)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="35" refid="class_app_1a936e8b81ea1cf5dbf8f1554211f755fc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_app_1a936e8b81ea1cf5dbf8f1554211f755fc" kindref="member">onMessageStoreAnswer</ref>(Utility::StoringMessageCodes<sp/>storingMessageCode)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="37" refid="class_app_1a5196e694c55677c4771e6e6facb3c437" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_app_1a5196e694c55677c4771e6e6facb3c437" kindref="member">onUserMessageDeleteAnswer</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Utility::DeletingMessageCodes<sp/>deletingState)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="39" refid="class_app_1a936bfc88e0e0b997be3782edd213deff" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_app_1a936bfc88e0e0b997be3782edd213deff" kindref="member">onMessageHistoryAnswer</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;Models::MessageInfo&gt;&amp;<sp/>messages)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="41" refid="class_app_1a7b67645176d533b093954196cec31e52" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_app_1a7b67645176d533b093954196cec31e52" kindref="member">onRegistrationAnswer</ref>(Utility::RegistrationCodes<sp/>registrationCode)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="Client/Client.CLI/App.hpp"/>
+  </compounddef>
+</doxygen>

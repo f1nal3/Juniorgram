@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_base_1_1_logger_1_1_i_logger" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>Base::Logger::ILogger</compoundname>
+    <derivedcompoundref refid="class_base_1_1_logger_1_1_file_logger" prot="private" virt="non-virtual">Base::Logger::FileLogger</derivedcompoundref>
+    <includes refid="_i_logger_8hpp" local="no">ILogger.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_base_1_1_logger_1_1_i_logger_1aceca593feab614fdffe67cd196198f99" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void Base::Logger::ILogger::log</definition>
+        <argsstring>(const std::string &amp;msg, LogLevel severity)=0</argsstring>
+        <name>log</name>
+        <qualifiedname>Base::Logger::ILogger::log</qualifiedname>
+        <reimplementedby refid="class_base_1_1_logger_1_1_file_logger_1a14f120266747db9a061678430601b4c3">log</reimplementedby>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>msg</declname>
+        </param>
+        <param>
+          <type>LogLevel</type>
+          <declname>severity</declname>
+        </param>
+        <briefdescription>
+<para>Log entry. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>log message </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>severity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of message </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Logger/Public/Include/Logger/ILogger.hpp" line="51" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_base_1_1_logger_1_1_i_logger_1ae8830a306efd52bac239b4f21879ff6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual Base::Logger::ILogger::~ILogger</definition>
+        <argsstring>()=default</argsstring>
+        <name>~ILogger</name>
+        <qualifiedname>Base::Logger::ILogger::~ILogger</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Logger/Public/Include/Logger/ILogger.hpp" line="52" column="17"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>An interface for logger. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Base::Logger::FileLogger</label>
+        <link refid="class_base_1_1_logger_1_1_file_logger"/>
+        <childnode refid="1" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Base::Logger::ILogger</label>
+        <link refid="class_base_1_1_logger_1_1_i_logger"/>
+      </node>
+    </inheritancegraph>
+    <location file="Base/Logger/Public/Include/Logger/ILogger.hpp" line="43" column="5" bodyfile="Base/Logger/Public/Include/Logger/ILogger.hpp" bodystart="44" bodyend="53"/>
+    <listofallmembers>
+      <member refid="class_base_1_1_logger_1_1_i_logger_1aceca593feab614fdffe67cd196198f99" prot="public" virt="pure-virtual"><scope>Base::Logger::ILogger</scope><name>log</name></member>
+      <member refid="class_base_1_1_logger_1_1_i_logger_1ae8830a306efd52bac239b4f21879ff6c" prot="public" virt="virtual"><scope>Base::Logger::ILogger</scope><name>~ILogger</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

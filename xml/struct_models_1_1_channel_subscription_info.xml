@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_models_1_1_channel_subscription_info" kind="struct" language="C++" prot="public">
+    <compoundname>Models::ChannelSubscriptionInfo</compoundname>
+    <includes refid="_primitives_8hpp" local="no">Primitives.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_models_1_1_channel_subscription_info_1af1f7a36df4fa2c938862bad3ee544109" prot="public" static="no" mutable="no">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t Models::ChannelSubscriptionInfo::_channelID</definition>
+        <argsstring></argsstring>
+        <name>_channelID</name>
+        <qualifiedname>Models::ChannelSubscriptionInfo::_channelID</qualifiedname>
+        <briefdescription>
+<para>channel ID uint64_t variable </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="69" column="19" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_channel_subscription_info_1a6bd3747064f536ee7f31a9175e268a9e" prot="public" static="no" mutable="no">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t Models::ChannelSubscriptionInfo::_userID</definition>
+        <argsstring></argsstring>
+        <name>_userID</name>
+        <qualifiedname>Models::ChannelSubscriptionInfo::_userID</qualifiedname>
+        <briefdescription>
+<para>user ID uint64_t variable </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="71" column="19" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_models_1_1_channel_subscription_info_1a038c9a7f87c3e5794c6b7e85128ab48c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Models::ChannelSubscriptionInfo::ChannelSubscriptionInfo</definition>
+        <argsstring>()=default</argsstring>
+        <name>ChannelSubscriptionInfo</name>
+        <qualifiedname>Models::ChannelSubscriptionInfo::ChannelSubscriptionInfo</qualifiedname>
+        <briefdescription>
+<para>Default <ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelInfo</ref> constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="74" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_channel_subscription_info_1a6117eb6cc2b4bfdb1c640ff8427b1be7" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Models::ChannelSubscriptionInfo::ChannelSubscriptionInfo</definition>
+        <argsstring>(const std::uint64_t channelID_)</argsstring>
+        <name>ChannelSubscriptionInfo</name>
+        <qualifiedname>Models::ChannelSubscriptionInfo::ChannelSubscriptionInfo</qualifiedname>
+        <param>
+          <type>const std::uint64_t</type>
+          <declname>channelID_</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelInfo</ref> constructor with initializing list. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="77" column="14" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="77" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_channel_subscription_info_1aa5ee6ceb8184af64f0cabdf0506fbbce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Models::ChannelSubscriptionInfo::~ChannelSubscriptionInfo</definition>
+        <argsstring>()=default</argsstring>
+        <name>~ChannelSubscriptionInfo</name>
+        <qualifiedname>Models::ChannelSubscriptionInfo::~ChannelSubscriptionInfo</qualifiedname>
+        <briefdescription>
+<para>Default <ref refid="struct_models_1_1_channel_subscription_info" kindref="compound">ChannelSubscriptionInfo</ref> destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="79" column="5"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="struct_models_1_1_channel_subscription_info_1a6d1b8fede0775d0911075e81bb0cb29f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool operator==</definition>
+        <argsstring>(const ChannelSubscriptionInfo &amp;first, const ChannelSubscriptionInfo &amp;second)</argsstring>
+        <name>operator==</name>
+        <qualifiedname>Models::ChannelSubscriptionInfo::operator==</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_models_1_1_channel_subscription_info" kindref="compound">ChannelSubscriptionInfo</ref> &amp;</type>
+          <declname>first</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_models_1_1_channel_subscription_info" kindref="compound">ChannelSubscriptionInfo</ref> &amp;</type>
+          <declname>second</declname>
+        </param>
+        <briefdescription>
+<para>Operator == to compare channel info. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="82" column="17" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="82" bodyend="86"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_models_1_1_channel_subscription_info" kindref="compound">ChannelSubscriptionInfo</ref> struct. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Channel Info struct for information about the channel that the user subscribed. contain channel ID. </para>
+    </detaileddescription>
+    <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="66" column="1" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="67" bodyend="87"/>
+    <listofallmembers>
+      <member refid="struct_models_1_1_channel_subscription_info_1af1f7a36df4fa2c938862bad3ee544109" prot="public" virt="non-virtual"><scope>Models::ChannelSubscriptionInfo</scope><name>_channelID</name></member>
+      <member refid="struct_models_1_1_channel_subscription_info_1a6bd3747064f536ee7f31a9175e268a9e" prot="public" virt="non-virtual"><scope>Models::ChannelSubscriptionInfo</scope><name>_userID</name></member>
+      <member refid="struct_models_1_1_channel_subscription_info_1a038c9a7f87c3e5794c6b7e85128ab48c" prot="public" virt="non-virtual"><scope>Models::ChannelSubscriptionInfo</scope><name>ChannelSubscriptionInfo</name></member>
+      <member refid="struct_models_1_1_channel_subscription_info_1a6117eb6cc2b4bfdb1c640ff8427b1be7" prot="public" virt="non-virtual"><scope>Models::ChannelSubscriptionInfo</scope><name>ChannelSubscriptionInfo</name></member>
+      <member refid="struct_models_1_1_channel_subscription_info_1a6d1b8fede0775d0911075e81bb0cb29f" prot="public" virt="non-virtual"><scope>Models::ChannelSubscriptionInfo</scope><name>operator==</name></member>
+      <member refid="struct_models_1_1_channel_subscription_info_1aa5ee6ceb8184af64f0cabdf0506fbbce" prot="public" virt="non-virtual"><scope>Models::ChannelSubscriptionInfo</scope><name>~ChannelSubscriptionInfo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

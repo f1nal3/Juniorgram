@@ -1,0 +1,528 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_postgre_repositories_8hpp" kind="file" language="C++">
+    <compoundname>PostgreRepositories.hpp</compoundname>
+    <includes refid="_i_server_repositories_8hpp" local="no">DataAccess/IServerRepositories.hpp</includes>
+    <includes refid="_postgre_query_8hpp" local="yes">PostgreQuery.hpp</includes>
+    <includes refid="_users_amount_finder_8hpp" local="yes">UsersAmountFinder.hpp</includes>
+    <includes refid="_p_g_model_filler_8hpp" local="yes">PGModelFiller.hpp</includes>
+    <includedby refid="_postgre_repository_manager_8hpp" local="yes">DataAccess/DataAccess.Postgre/PostgreRepositoryManager.hpp</includedby>
+    <incdepgraph>
+      <node id="26">
+        <label>FileLogger.hpp</label>
+        <link refid="_file_logger_8hpp_source"/>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>Logger/ILogger.hpp</label>
+        <link refid="_i_logger_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>Models/Models.hpp</label>
+        <link refid="_models_8hpp_source"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Models/Primitives.hpp</label>
+        <link refid="_primitives_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>UnifiedModel.hpp</label>
+        <link refid="_unified_model_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>PGModelFiller.hpp</label>
+        <link refid="_p_g_model_filler_8hpp_source"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>PostgreAdapter.hpp</label>
+        <link refid="_postgre_adapter_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>PostgreQuery.hpp</label>
+        <link refid="_postgre_query_8hpp_source"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>DataAccess/DataAccess.Postgre/PostgreRepositories.hpp</label>
+        <link refid="_postgre_repositories_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>UsersAmountFinder.hpp</label>
+        <link refid="_users_amount_finder_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>DataAccess/AbstractQueryBuilder.hpp</label>
+        <link refid="_abstract_query_builder_8hpp_source"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>IAdapter.hpp</label>
+        <link refid="_i_adapter_8hpp_source"/>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>IMasterRepository.hpp</label>
+        <link refid="_i_master_repository_8hpp_source"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DataAccess/IServerRepositories.hpp</label>
+        <link refid="_i_server_repositories_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>SQLStatements.hpp</label>
+        <link refid="_s_q_l_statements_8hpp_source"/>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>Utility/JGExceptions.hpp</label>
+        <link refid="_j_g_exceptions_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>Utility/SQLUtility.hpp</label>
+        <link refid="_s_q_l_utility_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>Utility/SafeQueue.hpp</label>
+        <link refid="_safe_queue_8hpp_source"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>Utility/Utility.hpp</label>
+        <link refid="_utility_8hpp_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>Utility/UtilityTime.hpp</label>
+        <link refid="_utility_time_8hpp_source"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>Utility/WarningSuppression.hpp</label>
+        <link refid="_warning_suppression_8hpp_source"/>
+      </node>
+      <node id="11">
+        <label>algorithm</label>
+      </node>
+      <node id="38">
+        <label>any</label>
+      </node>
+      <node id="12">
+        <label>cctype</label>
+      </node>
+      <node id="6">
+        <label>chrono</label>
+      </node>
+      <node id="29">
+        <label>condition_variable</label>
+      </node>
+      <node id="7">
+        <label>cstdint</label>
+      </node>
+      <node id="8">
+        <label>cstring</label>
+      </node>
+      <node id="13">
+        <label>ctime</label>
+      </node>
+      <node id="30">
+        <label>deque</label>
+      </node>
+      <node id="16">
+        <label>filesystem</label>
+      </node>
+      <node id="20">
+        <label>fstream</label>
+      </node>
+      <node id="19">
+        <label>iomanip</label>
+      </node>
+      <node id="18">
+        <label>iostream</label>
+      </node>
+      <node id="9">
+        <label>map</label>
+      </node>
+      <node id="34">
+        <label>memory</label>
+      </node>
+      <node id="14">
+        <label>mutex</label>
+      </node>
+      <node id="39">
+        <label>optional</label>
+      </node>
+      <node id="46">
+        <label>pqxx/pqxx</label>
+      </node>
+      <node id="32">
+        <label>queue</label>
+      </node>
+      <node id="21">
+        <label>sstream</label>
+      </node>
+      <node id="44">
+        <label>stdexcept</label>
+      </node>
+      <node id="3">
+        <label>string</label>
+      </node>
+      <node id="24">
+        <label>string_view</label>
+      </node>
+      <node id="31">
+        <label>thread</label>
+      </node>
+      <node id="15">
+        <label>type_traits</label>
+      </node>
+      <node id="25">
+        <label>utility</label>
+      </node>
+      <node id="4">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>DataAccess/DataAccess.Postgre/PostgreRepositories.hpp</label>
+        <link refid="_postgre_repositories_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DataAccess/DataAccess.Postgre/PostgreRepositoryManager.hpp</label>
+        <link refid="_postgre_repository_manager_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Server/Server.Core/Server.Core.Static/Server.hpp</label>
+        <link refid="_server_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Server/Server.Core/Server.Core.Static/ServerBuilder.hpp</label>
+        <link refid="_server_builder_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_data_access_1_1_abstract_postgre_repository" prot="public">DataAccess::AbstractPostgreRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_channels_repository" prot="public">DataAccess::ChannelsRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_direct_message_repository" prot="public">DataAccess::DirectMessageRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_login_repository" prot="public">DataAccess::LoginRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_messages_repository" prot="public">DataAccess::MessagesRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_register_repository" prot="public">DataAccess::RegisterRepository</innerclass>
+    <innerclass refid="struct_data_access_1_1_replies_repository" prot="public">DataAccess::RepliesRepository</innerclass>
+    <innernamespace refid="namespace_data_access">DataAccess</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;DataAccess/IServerRepositories.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;PostgreQuery.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;UsersAmountFinder.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;PGModelFiller.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">DataAccess</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">Models::V2::ChannelData;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">Models::V2::UserChannelsData;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="struct_data_access_1_1_abstract_postgre_repository" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_data_access_1_1_abstract_postgre_repository" kindref="compound">AbstractPostgreRepository</ref></highlight></codeline>
+<codeline lineno="15"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unique_ptr&lt;PGQueryBuilder&gt;<sp/>_pTable;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unique_ptr&lt;PGModelFiller&gt;<sp/>_filler;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_abstract_postgre_repository" kindref="compound">AbstractPostgreRepository</ref>()</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_filler<sp/>=<sp/>std::make_unique&lt;PGModelFiller&gt;();</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="struct_data_access_1_1_channels_repository" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_data_access_1_1_channels_repository" kindref="compound">ChannelsRepository</ref><sp/>final<sp/>:<sp/><ref refid="struct_data_access_1_1_i_channels_repository" kindref="compound">IChannelsRepository</ref>,<sp/><ref refid="struct_data_access_1_1_abstract_postgre_repository" kindref="compound">AbstractPostgreRepository</ref></highlight></codeline>
+<codeline lineno="28"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="struct_data_access_1_1_channels_repository" kindref="compound">ChannelsRepository</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::shared_ptr&lt;IAdapter&gt;&amp;<sp/>adapter):<sp/><ref refid="struct_data_access_1_1_abstract_postgre_repository" kindref="compound">AbstractPostgreRepository</ref>()</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_pTable<sp/>=<sp/>std::make_unique&lt;PGQueryBuilder&gt;(</highlight><highlight class="stringliteral">&quot;users&quot;</highlight><highlight class="normal">,<sp/>adapter);<sp/></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="34" refid="struct_data_access_1_1_channels_repository_1ac97f3bfd2ab12cd66d9a7d0620fba8d9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;Models::ChannelInfo&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_channels_repository_1ac97f3bfd2ab12cd66d9a7d0620fba8d9" kindref="member">getAllChannelsList</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="35" refid="struct_data_access_1_1_channels_repository_1a5661565e06ef2e278429d38313b951c8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Utility::ChannelLeaveCodes<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_channels_repository_1a5661565e06ef2e278429d38313b951c8" kindref="member">leaveChannel</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelLeaveInfo</ref>&amp;<sp/>channel)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="36" refid="struct_data_access_1_1_channels_repository_1a39e4386b4acb4612ab1754ed6b824b48" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Utility::ChannelSubscribingCodes<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_channels_repository_1a39e4386b4acb4612ab1754ed6b824b48" kindref="member">subscribeToChannel</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_channel_subscription_info" kindref="compound">Models::ChannelSubscriptionInfo</ref>&amp;<sp/>channel)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="37" refid="struct_data_access_1_1_channels_repository_1aea6ebd419ed2fbeb65929ba1950ab70d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;uint64_t&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_channels_repository_1aea6ebd419ed2fbeb65929ba1950ab70d" kindref="member">getChannelSubscriptionList</ref>(uint64_t<sp/>userID)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="struct_data_access_1_1_channels_repository_1ab6c7a5e7cc4286f64332cb614dafc617" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Utility::ChannelDeleteCode<sp/><sp/><ref refid="struct_data_access_1_1_channels_repository_1ab6c7a5e7cc4286f64332cb614dafc617" kindref="member">deleteChannel</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelDeleteInfo</ref>&amp;<sp/>channel)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="40" refid="struct_data_access_1_1_channels_repository_1a26c59e6b6fa4da7543bf9322a93e588c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Utility::ChannelCreateCodes<sp/><ref refid="struct_data_access_1_1_channels_repository_1a26c59e6b6fa4da7543bf9322a93e588c" kindref="member">createChannel</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelInfo</ref>&amp;<sp/>channel)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>Utility::ChannelCreateCodes<sp/>newCreateChannel(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_models_1_1_v2_1_1_channel" kindref="compound">Models::V2::Channel&lt;&gt;</ref>&amp;<sp/>channel)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_channels_repository" kindref="compound">~ChannelsRepository</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="struct_data_access_1_1_direct_message_repository" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_data_access_1_1_direct_message_repository" kindref="compound">DirectMessageRepository</ref><sp/>final<sp/>:<sp/><ref refid="struct_data_access_1_1_i_direct_message_repository" kindref="compound">IDirectMessageRepository</ref>,<sp/><ref refid="struct_data_access_1_1_abstract_postgre_repository" kindref="compound">AbstractPostgreRepository</ref></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="struct_data_access_1_1_direct_message_repository" kindref="compound">DirectMessageRepository</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::shared_ptr&lt;IAdapter&gt;&amp;<sp/>adapter)<sp/>:<sp/><ref refid="struct_data_access_1_1_abstract_postgre_repository" kindref="compound">AbstractPostgreRepository</ref>()</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_pTable<sp/>=<sp/>std::make_unique&lt;PGQueryBuilder&gt;(</highlight><highlight class="stringliteral">&quot;channels&quot;</highlight><highlight class="normal">,<sp/>adapter);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="struct_data_access_1_1_direct_message_repository_1a987a2e7d62626db899a9d2c629804608" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Utility::DirectMessageStatus<sp/><ref refid="struct_data_access_1_1_direct_message_repository_1a987a2e7d62626db899a9d2c629804608" kindref="member">addDirectChat</ref>(uint64_t<sp/>user_id,<sp/>uint64_t<sp/>receiverID)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_direct_message_repository" kindref="compound">~DirectMessageRepository</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="struct_data_access_1_1_login_repository" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_data_access_1_1_login_repository" kindref="compound">LoginRepository</ref><sp/>:<sp/><ref refid="struct_data_access_1_1_i_login_repository" kindref="compound">ILoginRepository</ref>,<sp/><ref refid="struct_data_access_1_1_abstract_postgre_repository" kindref="compound">AbstractPostgreRepository</ref></highlight></codeline>
+<codeline lineno="59"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="struct_data_access_1_1_login_repository" kindref="compound">LoginRepository</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::shared_ptr&lt;IAdapter&gt;&amp;<sp/>adapter)<sp/>:<sp/><ref refid="struct_data_access_1_1_abstract_postgre_repository" kindref="compound">AbstractPostgreRepository</ref>()</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_pTable<sp/>=<sp/>std::make_unique&lt;PGQueryBuilder&gt;(</highlight><highlight class="stringliteral">&quot;users&quot;</highlight><highlight class="normal">,<sp/>adapter);<sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="struct_data_access_1_1_login_repository_1a9969335837ae7dc8a06eb8b9ddf9eb92" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uint64_t<sp/><ref refid="struct_data_access_1_1_login_repository_1a9969335837ae7dc8a06eb8b9ddf9eb92" kindref="member">loginUser</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_login_info" kindref="compound">Models::LoginInfo</ref>&amp;<sp/>loginInfo)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_login_repository" kindref="compound">~LoginRepository</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="struct_data_access_1_1_messages_repository" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_data_access_1_1_messages_repository" kindref="compound">MessagesRepository</ref><sp/>final<sp/>:<sp/><ref refid="struct_data_access_1_1_i_messages_repository" kindref="compound">IMessagesRepository</ref>,<sp/><ref refid="struct_data_access_1_1_abstract_postgre_repository" kindref="compound">AbstractPostgreRepository</ref></highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="struct_data_access_1_1_messages_repository" kindref="compound">MessagesRepository</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::shared_ptr&lt;IAdapter&gt;&amp;<sp/>adapter)<sp/>:<sp/><ref refid="struct_data_access_1_1_abstract_postgre_repository" kindref="compound">AbstractPostgreRepository</ref>()</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_pTable<sp/>=<sp/>std::make_unique&lt;PGQueryBuilder&gt;(</highlight><highlight class="stringliteral">&quot;users&quot;</highlight><highlight class="normal">,<sp/>adapter);<sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="struct_data_access_1_1_messages_repository_1a758b43576469ae4f54abc034a655e2b0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;Models::MessageInfo&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_messages_repository_1a758b43576469ae4f54abc034a655e2b0" kindref="member">getMessageHistory</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::uint64_t<sp/>channelID)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="78" refid="struct_data_access_1_1_messages_repository_1a8e02ece233133f7f90b7f2956f2e24e4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Utility::StoringMessageCodes<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_messages_repository_1a8e02ece233133f7f90b7f2956f2e24e4" kindref="member">storeMessage</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref>&amp;<sp/>messageInfo)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="79" refid="struct_data_access_1_1_messages_repository_1a33db313fa44b25588fb01549b3339247" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Utility::DeletingMessageCodes<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_messages_repository_1a33db313fa44b25588fb01549b3339247" kindref="member">deleteMessage</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref>&amp;<sp/>messageInfo)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="80" refid="struct_data_access_1_1_messages_repository_1a8f4861e1f2a3630e830bbc2bc4357fc1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Utility::EditingMessageCodes<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_messages_repository_1a8f4861e1f2a3630e830bbc2bc4357fc1" kindref="member">editMessage</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref>&amp;<sp/>messageInfo)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="81" refid="struct_data_access_1_1_messages_repository_1a8f9bcce576a67b87149123742dc053bb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Utility::ReactionMessageCodes<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_messages_repository_1a8f9bcce576a67b87149123742dc053bb" kindref="member">updateMessageReactions</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref>&amp;<sp/>messageInfo)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_messages_repository" kindref="compound">~MessagesRepository</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>std::optional&lt;pqxx::result&gt;<sp/>insertMessageIntoMessagesTable(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref>&amp;<sp/>messageInfo);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>std::optional&lt;pqxx::result&gt;<sp/>insertIDsIntoChannelMessagesTable(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::uint64_t<sp/>channelID,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::uint64_t<sp/>messageID);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>std::optional&lt;pqxx::result&gt;<sp/>insertIDIntoMessageReactionsTable(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::uint64_t<sp/>messageID);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="struct_data_access_1_1_register_repository" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_data_access_1_1_register_repository" kindref="compound">RegisterRepository</ref><sp/>final<sp/>:<sp/><ref refid="struct_data_access_1_1_i_register_repository" kindref="compound">IRegisterRepository</ref>,<sp/><ref refid="struct_data_access_1_1_abstract_postgre_repository" kindref="compound">AbstractPostgreRepository</ref></highlight></codeline>
+<codeline lineno="92"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="struct_data_access_1_1_register_repository" kindref="compound">RegisterRepository</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::shared_ptr&lt;IAdapter&gt;&amp;<sp/>adapter)<sp/>:<sp/><ref refid="struct_data_access_1_1_abstract_postgre_repository" kindref="compound">AbstractPostgreRepository</ref>()</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_pTable<sp/>=<sp/>std::make_unique&lt;PGQueryBuilder&gt;(</highlight><highlight class="stringliteral">&quot;users&quot;</highlight><highlight class="normal">,<sp/>adapter);<sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98" refid="struct_data_access_1_1_register_repository_1abe843088eb8493c0ed2c6a0cb8945268" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Utility::RegistrationCodes<sp/><ref refid="struct_data_access_1_1_register_repository_1abe843088eb8493c0ed2c6a0cb8945268" kindref="member">registerUser</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_registration_info" kindref="compound">Models::RegistrationInfo</ref>&amp;<sp/>regInfo)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_register_repository" kindref="compound">~RegisterRepository</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103" refid="struct_data_access_1_1_replies_repository" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_data_access_1_1_replies_repository" kindref="compound">RepliesRepository</ref><sp/>final<sp/>:<sp/><ref refid="struct_data_access_1_1_i_replies_repository" kindref="compound">IRepliesRepository</ref>,<sp/><ref refid="struct_data_access_1_1_abstract_postgre_repository" kindref="compound">AbstractPostgreRepository</ref></highlight></codeline>
+<codeline lineno="104"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="struct_data_access_1_1_replies_repository" kindref="compound">RepliesRepository</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::shared_ptr&lt;IAdapter&gt;&amp;<sp/>adapter)<sp/>:<sp/><ref refid="struct_data_access_1_1_abstract_postgre_repository" kindref="compound">AbstractPostgreRepository</ref>()</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_pTable<sp/>=<sp/>std::make_unique&lt;PGQueryBuilder&gt;(</highlight><highlight class="stringliteral">&quot;msgs&quot;</highlight><highlight class="normal">,<sp/>adapter);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110" refid="struct_data_access_1_1_replies_repository_1a1d660e6bdab961836e279b76c933121d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;Models::ReplyInfo&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_replies_repository_1a1d660e6bdab961836e279b76c933121d" kindref="member">getReplyHistory</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::uint64_t<sp/>channelID)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="111" refid="struct_data_access_1_1_replies_repository_1a838601d435e7a33db8f10a9cfa246994" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Utility::StoringReplyCodes<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_replies_repository_1a838601d435e7a33db8f10a9cfa246994" kindref="member">storeReply</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_reply_info" kindref="compound">Models::ReplyInfo</ref>&amp;<sp/>replyInfo)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_data_access_1_1_replies_repository" kindref="compound">~RepliesRepository</ref>()<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal"><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>std::optional&lt;pqxx::result&gt;<sp/>insertIDsIntoChannelRepliesTable(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::uint64_t<sp/>channelID,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::uint64_t<sp/>replyID);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>std::optional&lt;pqxx::result&gt;<sp/>insertReplyIntoRepliesTable(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_reply_info" kindref="compound">Models::ReplyInfo</ref>&amp;<sp/>replyInfo);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>DataAccess</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp"/>
+  </compounddef>
+</doxygen>

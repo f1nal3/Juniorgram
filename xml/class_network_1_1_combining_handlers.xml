@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_network_1_1_combining_handlers" kind="class" language="C++" prot="public">
+    <compoundname>Network::CombiningHandlers</compoundname>
+    <includes refid="_combining_handlers_8hpp" local="no">CombiningHandlers.hpp</includes>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_network_1_1_combining_handlers_1a76512ee464219895207b210b5513ad8c" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>MessageProcessingState</type>
+        <definition>static MessageProcessingState Network::CombiningHandlers::makeHandler</definition>
+        <argsstring>(const Message &amp;source, yas::shared_buffer &amp;destination)</argsstring>
+        <name>makeHandler</name>
+        <qualifiedname>Network::CombiningHandlers::makeHandler</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &amp;</type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type>yas::shared_buffer &amp;</type>
+          <declname>destination</declname>
+        </param>
+        <briefdescription>
+<para>Method for serialization, compression and encryption of outcoming messages. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- buffer that contains data that should be serialized, compressed and encrypted. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>destination</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- buffer that will contain serialized, compressed and encrypted body. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/CombiningHandlers.hpp" line="20" column="31" bodyfile="Network/Public/Include/Network/CombiningHandlers.hpp" bodystart="20" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_combining_handlers_1a6705c15751edb467b2e94d184291ab95" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>MessageProcessingState</type>
+        <definition>static MessageProcessingState Network::CombiningHandlers::makeHandler</definition>
+        <argsstring>(const yas::shared_buffer &amp;source, Message &amp;destination)</argsstring>
+        <name>makeHandler</name>
+        <qualifiedname>Network::CombiningHandlers::makeHandler</qualifiedname>
+        <param>
+          <type>const yas::shared_buffer &amp;</type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &amp;</type>
+          <declname>destination</declname>
+        </param>
+        <briefdescription>
+<para>Method for decryption, decompression and deserialization of incoming message bodies. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- buffer that contains data that should be decrypted, decompressed and deserialized. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>destination</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- variable that will contain decrypted, decompressed and deserialized message body. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/CombiningHandlers.hpp" line="37" column="31" bodyfile="Network/Public/Include/Network/CombiningHandlers.hpp" bodystart="37" bodyend="47"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>class that combines all handlers for message preprocessing. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Network/Public/Include/Network/CombiningHandlers.hpp" line="12" column="1" bodyfile="Network/Public/Include/Network/CombiningHandlers.hpp" bodystart="13" bodyend="48"/>
+    <listofallmembers>
+      <member refid="class_network_1_1_combining_handlers_1a76512ee464219895207b210b5513ad8c" prot="public" virt="non-virtual"><scope>Network::CombiningHandlers</scope><name>makeHandler</name></member>
+      <member refid="class_network_1_1_combining_handlers_1a6705c15751edb467b2e94d184291ab95" prot="public" virt="non-virtual"><scope>Network::CombiningHandlers</scope><name>makeHandler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

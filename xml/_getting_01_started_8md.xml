@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_getting_01_started_8md" kind="file" language="Markdown">
+    <compoundname>Getting Started.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>Getting<sp/>Started<sp/>{#gettingstarted}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">There<sp/>are<sp/>a<sp/>few<sp/>steps<sp/>to<sp/>get<sp/>up<sp/>and<sp/>running<sp/>on<sp/>own<sp/>system:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">####<sp/>1.<sp/>Software<sp/>dependencies</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">[Conan](https://conan.io/index.html)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>is<sp/>an<sp/>open<sp/>source,<sp/>decentralized<sp/>and<sp/>multi-platform<sp/>package<sp/>manager<sp/>for<sp/>C/C++.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Recommended<sp/>install:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>Install<sp/>Python:<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>Windows:<sp/>[Python<sp/>3.8.7.exe](https://www.python.org/ftp/python/3.8.7/python-3.8.7-amd64.exe)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>Linux:<sp/></highlight></codeline>
+<codeline><highlight class="normal">``$<sp/>sudo<sp/>apt-get<sp/>update``</highlight></codeline>
+<codeline><highlight class="normal">``$<sp/>sudo<sp/>apt-get<sp/>install<sp/>python3.8``</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">2.<sp/>Install<sp/>Conan:<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>Windows/Linux:<sp/>``<sp/>$<sp/>pip<sp/>install<sp/>conan``</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">[CMake](https://cmake.org)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">CMake<sp/>is<sp/>a<sp/>cross-platform,<sp/>open-source<sp/>build<sp/>system<sp/>generator.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Install<sp/>CMake:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>Windows:<sp/>[cmake-3.19.3-win64-x64.msi](https://github.com/Kitware/CMake/releases/download/v3.19.3/cmake-3.19.3-win32-x86.msi)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>-<sp/>Linux:<sp/>[cmake-3.19.3-Linux-x86_64.sh](https://github.com/Kitware/CMake/releases/download/v3.19.3/cmake-3.19.3-Linux-x86_64.sh)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">####<sp/>2.<sp/>Installation<sp/>process</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Windows:<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Visual<sp/>Studio<sp/>2019/2022:</highlight></codeline>
+<codeline><highlight class="normal"><sp/>1.<sp/>Clone<sp/>this<sp/>repository<sp/>or<sp/>download<sp/>as<sp/>Zip<sp/>from<sp/>Github.</highlight></codeline>
+<codeline><highlight class="normal"><sp/>2.<sp/>Run<sp/>Visual<sp/>Studio<sp/>and<sp/>open<sp/>this<sp/>repository<sp/>as<sp/>folder.<sp/>It<sp/>will<sp/>automatically<sp/>detect<sp/>the<sp/>root<sp/>CMakeLists.txt<sp/>and<sp/>execute<sp/>it,<sp/>after<sp/>which<sp/>you<sp/>can<sp/>start/debug<sp/>the<sp/>server<sp/>and<sp/>client<sp/>sides.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Linux:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">__Visual<sp/>Code__:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>1.<sp/>Clone<sp/>this<sp/>repository<sp/>or<sp/>download<sp/>as<sp/>Zip<sp/>from<sp/>Github.</highlight></codeline>
+<codeline><highlight class="normal"><sp/>2.<sp/>Run<sp/>VS<sp/>Code<sp/>and<sp/>open<sp/>the<sp/>root<sp/>CMakeLists.txt.<sp/>It<sp/>will<sp/>automatically<sp/>detect<sp/>the<sp/>root<sp/>CMakeLists.txt<sp/>and<sp/>execute<sp/>it,<sp/>after<sp/>which<sp/>you<sp/>can<sp/>start/debug<sp/>the<sp/>server<sp/>and<sp/>client<sp/>sides.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>####<sp/>3.<sp/>Workflows<sp/>and<sp/>guides</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>1.<sp/>[Workflow](Workflow.md)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>2.<sp/>[Style<sp/>guide](Style_guide.md)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>####<sp/>4.<sp/>Various</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>1.<sp/>[Local<sp/>server<sp/>setup](Setup<sp/>server<sp/>on<sp/>localhost.md)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>2.<sp/>[Debugging](Improved<sp/>debugging.md)</highlight></codeline>
+    </programlisting>
+    <location file="Docs/Getting Started.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_7b126d69a5a83e937c863a714c4b10c5" kind="dir">
+    <compoundname>Network/Public/Include/Network</compoundname>
+    <innerfile refid="_combining_handlers_8hpp">CombiningHandlers.hpp</innerfile>
+    <innerfile refid="_compression_handler_8hpp">CompressionHandler.hpp</innerfile>
+    <innerfile refid="_connection_8hpp">Connection.hpp</innerfile>
+    <innerfile refid="_encryption_handler_8hpp">EncryptionHandler.hpp</innerfile>
+    <innerfile refid="_handler_8hpp">Handler.hpp</innerfile>
+    <innerfile refid="i_a_p_i_8hpp">iAPI.hpp</innerfile>
+    <innerfile refid="_message_8hpp">Message.hpp</innerfile>
+    <innerfile refid="_serialization_handler_8hpp">SerializationHandler.hpp</innerfile>
+    <innerfile refid="_yas_serializer_8hpp">YasSerializer.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Network/Public/Include/Network/"/>
+  </compounddef>
+</doxygen>

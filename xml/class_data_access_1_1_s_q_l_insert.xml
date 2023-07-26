@@ -1,0 +1,423 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_data_access_1_1_s_q_l_insert" kind="class" language="C++" prot="public">
+    <compoundname>DataAccess::SQLInsert</compoundname>
+    <basecompoundref refid="class_data_access_1_1_s_q_l_base" prot="public" virt="non-virtual">DataAccess::SQLBase&lt; ResultType &gt;</basecompoundref>
+    <includes refid="_s_q_l_statements_8hpp" local="no">SQLStatements.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename ResultType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_insert_1a4469db30cdab83eb6d051128ff853182" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLInsert&lt; ResultType &gt;::SQLInsert</definition>
+        <argsstring>(AbstractQueryBuilder&lt; ResultType &gt; &amp;table)</argsstring>
+        <name>SQLInsert</name>
+        <qualifiedname>DataAccess::SQLInsert::SQLInsert</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_abstract_query_builder" kindref="compound">AbstractQueryBuilder</ref>&lt; ResultType &gt; &amp;</type>
+          <declname>table</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="538" column="5" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="538" bodyend="538"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_insert_1ac9a8f85aeb0350248bc3fea98dbbfda3" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual DataAccess::SQLInsert&lt; ResultType &gt;::~SQLInsert</definition>
+        <argsstring>(void)=default</argsstring>
+        <name>~SQLInsert</name>
+        <qualifiedname>DataAccess::SQLInsert::~SQLInsert</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="540" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_insert_1a315d7c1cb49a8d012f1509442e8e5160" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLInsert&lt; ResultType &gt;::SQLInsert</definition>
+        <argsstring>(void)=delete</argsstring>
+        <name>SQLInsert</name>
+        <qualifiedname>DataAccess::SQLInsert::SQLInsert</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="543" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_insert_1a92db928ffc4146ac2393616b13f34936" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLInsert&lt; ResultType &gt;::SQLInsert</definition>
+        <argsstring>(const SQLInsert &amp;)=delete</argsstring>
+        <name>SQLInsert</name>
+        <qualifiedname>DataAccess::SQLInsert::SQLInsert</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="545" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_insert_1ac6dcab763a812b684a3d3b2a519a4c48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> &amp;</type>
+        <definition>SQLInsert &amp; DataAccess::SQLInsert&lt; ResultType &gt;::operator=</definition>
+        <argsstring>(const SQLInsert &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::SQLInsert::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="546" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_insert_1a9134916b9020771d62e71a94266bccf4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLInsert&lt; ResultType &gt;::SQLInsert</definition>
+        <argsstring>(SQLInsert &amp;&amp;)=delete</argsstring>
+        <name>SQLInsert</name>
+        <qualifiedname>DataAccess::SQLInsert::SQLInsert</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="548" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_insert_1acc6a93aef39d3ae28d523594d25cf15c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> &amp;</type>
+        <definition>SQLInsert &amp; DataAccess::SQLInsert&lt; ResultType &gt;::operator=</definition>
+        <argsstring>(SQLInsert &amp;&amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::SQLInsert::operator=</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="549" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_insert_1a81f205544eb21e0485dd6263be34ad06" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename...</type>
+            <declname>DataType</declname>
+            <defname>DataType</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> *</type>
+        <definition>SQLInsert * DataAccess::SQLInsert&lt; ResultType &gt;::field</definition>
+        <argsstring>(const DataType &amp;... data)</argsstring>
+        <name>field</name>
+        <qualifiedname>DataAccess::SQLInsert::field</qualifiedname>
+        <param>
+          <type>const DataType &amp;...</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>Insert one row into table. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Inserting all columns into a row. <programlisting><codeline><highlight class="normal">...-&gt;<ref refid="class_data_access_1_1_s_q_l_insert_1a81f205544eb21e0485dd6263be34ad06" kindref="member">field</ref>(1,<sp/></highlight><highlight class="stringliteral">&quot;a&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;male&quot;</highlight><highlight class="normal">)-&gt;<ref refid="class_data_access_1_1_s_q_l_insert_1a81f205544eb21e0485dd6263be34ad06" kindref="member">field</ref>(2,<sp/></highlight><highlight class="stringliteral">&quot;b&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;female&quot;</highlight><highlight class="normal">)...;</highlight></codeline>
+</programlisting> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>list</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of row&apos;s columns. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current <ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> pointer object to continue SQL query. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="563" column="15" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="563" bodyend="581"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_insert_1a9b642a1992ac2315bf7a59c93a2ed7a9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename...</type>
+            <declname>DataType</declname>
+            <defname>DataType</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> *</type>
+        <definition>SQLInsert * DataAccess::SQLInsert&lt; ResultType &gt;::field</definition>
+        <argsstring>(const std::tuple&lt; DataType... &gt; &amp;dataList)</argsstring>
+        <name>field</name>
+        <qualifiedname>DataAccess::SQLInsert::field</qualifiedname>
+        <param>
+          <type>const std::tuple&lt; DataType... &gt; &amp;</type>
+          <declname>dataList</declname>
+        </param>
+        <briefdescription>
+<para>Insert one row into table. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Inserting columns into a row as tuple. <programlisting><codeline><highlight class="normal">...-&gt;<ref refid="class_data_access_1_1_s_q_l_insert_1a81f205544eb21e0485dd6263be34ad06" kindref="member">field</ref>(tupleName1)-&gt;<ref refid="class_data_access_1_1_s_q_l_insert_1a81f205544eb21e0485dd6263be34ad06" kindref="member">field</ref>(tupleName2)...;</highlight></codeline>
+</programlisting> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Table</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>with data. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current <ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> pointer object to continue SQL query. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="593" column="15" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="593" bodyend="615"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_insert_1af093307c65e03c701bc371b9b033fdb2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename ColumnType</type>
+            <defval>const char*</defval>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>DataType</declname>
+            <defname>DataType</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> *</type>
+        <definition>SQLInsert * DataAccess::SQLInsert&lt; ResultType &gt;::columns</definition>
+        <argsstring>(const std::pair&lt; ColumnType, DataType &gt; &amp;... columnData)</argsstring>
+        <name>columns</name>
+        <qualifiedname>DataAccess::SQLInsert::columns</qualifiedname>
+        <param>
+          <type>const std::pair&lt; ColumnType, DataType &gt; &amp;...</type>
+          <declname>columnData</declname>
+        </param>
+        <briefdescription>
+<para>Insert rows into table. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Inserting several columns into a row as pairs. <simplesect kind="warning"><para>You don&apos;t have to wrap columnName by quotes, but you must wrap data strings. <programlisting><codeline><highlight class="normal">...-&gt;<ref refid="class_data_access_1_1_s_q_l_insert_1af093307c65e03c701bc371b9b033fdb2" kindref="member">columns</ref>(pair{</highlight><highlight class="stringliteral">&quot;Column1&quot;</highlight><highlight class="normal">,<sp/>1},<sp/>pair{</highlight><highlight class="stringliteral">&quot;Column2&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;data&quot;</highlight><highlight class="normal">})-&gt;<ref refid="class_data_access_1_1_s_q_l_insert_1a81f205544eb21e0485dd6263be34ad06" kindref="member">field</ref>(data)-&gt;...;</highlight></codeline>
+</programlisting> </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Pairs.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current <ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> pointer object to continue SQL query. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="628" column="15" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="628" bodyend="645"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_insert_1a00257dddc73eb032cceae2f1ac73ab51" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename TEnum</type>
+          </param>
+          <param>
+            <type>template&lt; typename &gt;class</type>
+            <declname>TModel</declname>
+            <defname>TModel</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> *</type>
+        <definition>SQLInsert * DataAccess::SQLInsert&lt; ResultType &gt;::columns</definition>
+        <argsstring>(const TModel&lt; TEnum &gt; *model)</argsstring>
+        <name>columns</name>
+        <qualifiedname>DataAccess::SQLInsert::columns</qualifiedname>
+        <param>
+          <type>const TModel&lt; TEnum &gt; *</type>
+          <declname>model</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="648" column="15" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="648" bodyend="672"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_insert_1a3eb64b20a0460bb411813563bdede60c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename ColumnType</type>
+            <defval>const char*</defval>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>DataType</declname>
+            <defname>DataType</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> *</type>
+        <definition>SQLInsert * DataAccess::SQLInsert&lt; ResultType &gt;::columns</definition>
+        <argsstring>(const std::tuple&lt; std::pair&lt; ColumnType, DataType &gt;... &gt; &amp;columnDataList)</argsstring>
+        <name>columns</name>
+        <qualifiedname>DataAccess::SQLInsert::columns</qualifiedname>
+        <param>
+          <type>const std::tuple&lt; std::pair&lt; ColumnType, DataType &gt;... &gt; &amp;</type>
+          <declname>columnDataList</declname>
+        </param>
+        <briefdescription>
+<para>Insert rows into table. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Inserting several columns into a row as tuple of pairs. <simplesect kind="warning"><para>You don&apos;t have to wrap columnName by quotes. <programlisting><codeline><highlight class="normal">...-&gt;<ref refid="class_data_access_1_1_s_q_l_insert_1af093307c65e03c701bc371b9b033fdb2" kindref="member">columns</ref>(tupleName1)-&gt;<ref refid="class_data_access_1_1_s_q_l_insert_1a81f205544eb21e0485dd6263be34ad06" kindref="member">field</ref>(data)-&gt;...;</highlight></codeline>
+</programlisting> </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Tuple</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of pairs. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current <ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> pointer object to continue SQL query. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="685" column="15" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="685" bodyend="707"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_insert_1a8d53eef9610768a067d4ae0d8d3934f9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> *</type>
+        <definition>SQLInsert * DataAccess::SQLInsert&lt; ResultType &gt;::returning</definition>
+        <argsstring>(const std::initializer_list&lt; std::string &gt; &amp;columnList)</argsstring>
+        <name>returning</name>
+        <qualifiedname>DataAccess::SQLInsert::returning</qualifiedname>
+        <param>
+          <type>const std::initializer_list&lt; std::string &gt; &amp;</type>
+          <declname>columnList</declname>
+        </param>
+        <briefdescription>
+<para>Returning columns from table after insert. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>columnList</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- list of columns that need to return. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current <ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> pointer object to continue SQL query. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="716" column="15" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="716" bodyend="728"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interface for insertion operations. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>It likes common SQL insert condition. This is singleton. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>DataAccess::SQLBase&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_base"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::SQLInsert&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_insert"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>DataAccess::SQLBase&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_base"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::SQLInsert&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_insert"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="535" column="1" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="536" bodyend="729"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_s_q_l_base_1aba9311d0ab264cee686f5b45909a07c4" prot="protected" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>_currentBuilder</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a9fee04b1953e779668c25cdd9bdeda8d" prot="protected" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>_queryStream</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a2d80d4c7df26b7fb487610e87c57f014" prot="protected" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>_statementType</name></member>
+      <member refid="class_data_access_1_1_s_q_l_insert_1af093307c65e03c701bc371b9b033fdb2" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>columns</name></member>
+      <member refid="class_data_access_1_1_s_q_l_insert_1a00257dddc73eb032cceae2f1ac73ab51" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>columns</name></member>
+      <member refid="class_data_access_1_1_s_q_l_insert_1a3eb64b20a0460bb411813563bdede60c" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>columns</name></member>
+      <member refid="class_data_access_1_1_s_q_l_insert_1a81f205544eb21e0485dd6263be34ad06" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>field</name></member>
+      <member refid="class_data_access_1_1_s_q_l_insert_1a9b642a1992ac2315bf7a59c93a2ed7a9" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>field</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6b1042754338bd511e2ca9d0f0201b4d" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>getStatementType</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a30c597d39d45b4c30a6b817ad9394d2f" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>operator&lt;&lt;</name></member>
+      <member refid="class_data_access_1_1_s_q_l_insert_1ac6dcab763a812b684a3d3b2a519a4c48" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_insert_1acc6a93aef39d3ae28d523594d25cf15c" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1afbfaf3b449cdca844c3545315f5e7890" prot="public" virt="non-virtual" ambiguityscope="DataAccess::SQLBase::"><scope>DataAccess::SQLInsert</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a992593dadbec2399881fcc14a0a3c47b" prot="public" virt="non-virtual" ambiguityscope="DataAccess::SQLBase::"><scope>DataAccess::SQLInsert</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a8e7b49572e3fe99855d7cb26d35ff042" prot="protected" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>privateCheckForLastSymbol</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6de1f009d5bfae63c06e691b8087c75e" prot="protected" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>privateCorrectFormatting</name></member>
+      <member refid="class_data_access_1_1_s_q_l_insert_1a8d53eef9610768a067d4ae0d8d3934f9" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>returning</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6444aee735ea7f6174e1669977d83fa8" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>rollback</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6ae75814a65cd9694ac4870deffedc58" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a298ac24cccd355046b6ac9bf98448e84" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a495d8c8ca8ee9b089f290111f5a0cc46" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a58e74cbedb1db27f9f738d841501e9c9" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_insert_1a4469db30cdab83eb6d051128ff853182" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>SQLInsert</name></member>
+      <member refid="class_data_access_1_1_s_q_l_insert_1a315d7c1cb49a8d012f1509442e8e5160" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>SQLInsert</name></member>
+      <member refid="class_data_access_1_1_s_q_l_insert_1a92db928ffc4146ac2393616b13f34936" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>SQLInsert</name></member>
+      <member refid="class_data_access_1_1_s_q_l_insert_1a9134916b9020771d62e71a94266bccf4" prot="public" virt="non-virtual"><scope>DataAccess::SQLInsert</scope><name>SQLInsert</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a88f9119149b1285a93929606992b8f99" prot="public" virt="virtual"><scope>DataAccess::SQLInsert</scope><name>~SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_insert_1ac9a8f85aeb0350248bc3fea98dbbfda3" prot="public" virt="virtual"><scope>DataAccess::SQLInsert</scope><name>~SQLInsert</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,680 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_utility" kind="namespace" language="C++">
+    <compoundname>Utility</compoundname>
+    <innerclass refid="struct_utility_1_1is__c__string" prot="public">Utility::is_c_string</innerclass>
+    <innerclass refid="struct_utility_1_1is__char" prot="public">Utility::is_char</innerclass>
+    <innerclass refid="struct_utility_1_1is__char__or__string" prot="public">Utility::is_char_or_string</innerclass>
+    <innerclass refid="struct_utility_1_1is__std__string" prot="public">Utility::is_std_string</innerclass>
+    <innerclass refid="struct_utility_1_1is__string" prot="public">Utility::is_string</innerclass>
+    <innerclass refid="class_utility_1_1_juniorgram_exception" prot="public">Utility::JuniorgramException</innerclass>
+    <innerclass refid="class_utility_1_1_logging_exception" prot="public">Utility::LoggingException</innerclass>
+    <innerclass refid="class_utility_1_1_not_implemented_exception" prot="public">Utility::NotImplementedException</innerclass>
+    <innerclass refid="class_utility_1_1_operation_d_b_exception" prot="public">Utility::OperationDBException</innerclass>
+    <innerclass refid="class_utility_1_1_safe_queue" prot="public">Utility::SafeQueue</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="_s_q_l_utility_8hpp_1a467fc2b21b5a9d8b92c9453facf14c86" prot="public" static="no" strong="yes">
+        <type>std::uint8_t</type>
+        <name>DatabaseType</name>
+        <qualifiedname>Utility::DatabaseType</qualifiedname>
+        <enumvalue id="_s_q_l_utility_8hpp_1a467fc2b21b5a9d8b92c9453facf14c86a622979844bb414ee85d4395d70d3b922" prot="public">
+          <name>DB_POSTGRE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_s_q_l_utility_8hpp_1a467fc2b21b5a9d8b92c9453facf14c86af2ded1a980faf2e0c0275ed758d80b3e" prot="public">
+          <name>DB_LITE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Database type enum. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" line="12" column="1" bodyfile="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" bodystart="13" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="enum" id="_s_q_l_utility_8hpp_1afb8952ae7d96c1b937bdde787841d9c8" prot="public" static="no" strong="yes">
+        <type>std::uint8_t</type>
+        <name>SQLStatement</name>
+        <qualifiedname>Utility::SQLStatement</qualifiedname>
+        <enumvalue id="_s_q_l_utility_8hpp_1afb8952ae7d96c1b937bdde787841d9c8ae35036fa36e04f4be37e18787bc033be" prot="public">
+          <name>ST_SELECT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_s_q_l_utility_8hpp_1afb8952ae7d96c1b937bdde787841d9c8a1250cac29ce337afeb4aa55f2b5eb9a0" prot="public">
+          <name>ST_INSERT</name>
+          <briefdescription>
+<para>SELECT statement. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_s_q_l_utility_8hpp_1afb8952ae7d96c1b937bdde787841d9c8ae6b86466220f765c91340584d6a2f21c" prot="public">
+          <name>ST_UPDATE</name>
+          <briefdescription>
+<para>INSERT statement. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_s_q_l_utility_8hpp_1afb8952ae7d96c1b937bdde787841d9c8a7851f520169d337c45fe224eacc1dfb0" prot="public">
+          <name>ST_DELETE</name>
+          <briefdescription>
+<para>UPDATE statement. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>DELETE statement </para>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>SQL statements enum. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" line="22" column="1" bodyfile="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" bodystart="23" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="enum" id="_s_q_l_utility_8hpp_1a246dfab9cc6e95146431c447849a4bb2" prot="public" static="no" strong="yes">
+        <type>std::uint8_t</type>
+        <name>SQLJoinType</name>
+        <qualifiedname>Utility::SQLJoinType</qualifiedname>
+        <enumvalue id="_s_q_l_utility_8hpp_1a246dfab9cc6e95146431c447849a4bb2acb42922ef4cf9dc59b3dc3f64cc850c0" prot="public">
+          <name>J_INNER</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_s_q_l_utility_8hpp_1a246dfab9cc6e95146431c447849a4bb2a1b090181c77aba4816260c2ed7be5f37" prot="public">
+          <name>J_LEFT</name>
+          <briefdescription>
+<para>Standard inner sql join. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_s_q_l_utility_8hpp_1a246dfab9cc6e95146431c447849a4bb2af892fe0405cbee7e60e34278a5a356ea" prot="public">
+          <name>J_RIGHT</name>
+          <briefdescription>
+<para>Left sql join. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_s_q_l_utility_8hpp_1a246dfab9cc6e95146431c447849a4bb2a08500b15249eefdf6b00c1a264a4a149" prot="public">
+          <name>J_FULL</name>
+          <briefdescription>
+<para>Right sql join. </para>
+          </briefdescription>
+          <detaileddescription>
+<para>Full sql join </para>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>SQL join types enum. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>@enumSQLJoinType </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" line="34" column="1" bodyfile="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" bodystart="35" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="enum" id="_utility_8hpp_1a471f96b2c0eaaea73543cea5a140def8" prot="public" static="no" strong="yes">
+        <type>std::uint8_t</type>
+        <name>RegistrationCodes</name>
+        <qualifiedname>Utility::RegistrationCodes</qualifiedname>
+        <enumvalue id="_utility_8hpp_1a471f96b2c0eaaea73543cea5a140def8a2806d3c9c75bf59fbaa5775b2ca45820" prot="public">
+          <name>EMAIL_ALREADY_EXISTS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_utility_8hpp_1a471f96b2c0eaaea73543cea5a140def8a66a88097c8bcfee61f61b37c643e1968" prot="public">
+          <name>LOGIN_ALREADY_EXISTS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_utility_8hpp_1a471f96b2c0eaaea73543cea5a140def8ad0749aaba8b833466dfcbb0428e4f89c" prot="public">
+          <name>SUCCESS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enum for tracking registration status. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>RegistrationCodes registerUser(const Network::RegistrationInfo&amp; ri) const / return one of this codes. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/Utility.hpp" line="18" column="1" bodyfile="Utility/Utility.Public/Include/Utility/Utility.hpp" bodystart="19" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="enum" id="_utility_8hpp_1a05aafe6bf281bd8f3b980cb595ee371d" prot="public" static="no" strong="yes">
+        <type>std::uint8_t</type>
+        <name>GeneralCodes</name>
+        <qualifiedname>Utility::GeneralCodes</qualifiedname>
+        <enumvalue id="_utility_8hpp_1a05aafe6bf281bd8f3b980cb595ee371dad0749aaba8b833466dfcbb0428e4f89c" prot="public">
+          <name>SUCCESS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_utility_8hpp_1a05aafe6bf281bd8f3b980cb595ee371dab9e14d9b2886bcff408b85aefa780419" prot="public">
+          <name>FAILED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Template enum. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/Utility.hpp" line="28" column="1" bodyfile="Utility/Utility.Public/Include/Utility/Utility.hpp" bodystart="29" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="enum" id="_utility_8hpp_1a763d24b2dfa20cc3e77c31b3be47e6b8" prot="public" static="no" strong="yes">
+        <type>std::uint8_t</type>
+        <name>ChannelSubscribingCodes</name>
+        <qualifiedname>Utility::ChannelSubscribingCodes</qualifiedname>
+        <enumvalue id="_utility_8hpp_1a763d24b2dfa20cc3e77c31b3be47e6b8a0505d852034227a9b0034f526e98a29f" prot="public">
+          <name>CHANNEL_HAS_ALREADY_BEEN_SIGNED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_utility_8hpp_1a763d24b2dfa20cc3e77c31b3be47e6b8ad0749aaba8b833466dfcbb0428e4f89c" prot="public">
+          <name>SUCCESS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_utility_8hpp_1a763d24b2dfa20cc3e77c31b3be47e6b8ab9e14d9b2886bcff408b85aefa780419" prot="public">
+          <name>FAILED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enum for tracking channel&apos;s subscribe status. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Utility::ChannelSubscribeCodes. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/Utility.hpp" line="66" column="1" bodyfile="Utility/Utility.Public/Include/Utility/Utility.hpp" bodystart="67" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="enum" id="_utility_8hpp_1a3aff0d532c69272a3b5dacf508275569" prot="public" static="no" strong="yes">
+        <type>std::uint8_t</type>
+        <name>ChannelLeaveCodes</name>
+        <qualifiedname>Utility::ChannelLeaveCodes</qualifiedname>
+        <enumvalue id="_utility_8hpp_1a3aff0d532c69272a3b5dacf508275569a95cd0a4586c842b746f776a1d99d941a" prot="public">
+          <name>CHANNEL_NOT_FOUND</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_utility_8hpp_1a3aff0d532c69272a3b5dacf508275569ad0749aaba8b833466dfcbb0428e4f89c" prot="public">
+          <name>SUCCESS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_utility_8hpp_1a3aff0d532c69272a3b5dacf508275569ab9e14d9b2886bcff408b85aefa780419" prot="public">
+          <name>FAILED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enum for tracking channel leave status. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Utility::ChannelLeaveCodes leaveChannel(const std::string channelName) / return one of this codes. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/Utility.hpp" line="78" column="1" bodyfile="Utility/Utility.Public/Include/Utility/Utility.hpp" bodystart="79" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="enum" id="_utility_8hpp_1ab40041e61f9a37b7b26de0477139515f" prot="public" static="no" strong="yes">
+        <type>std::uint8_t</type>
+        <name>ChannelDeleteCode</name>
+        <qualifiedname>Utility::ChannelDeleteCode</qualifiedname>
+        <enumvalue id="_utility_8hpp_1ab40041e61f9a37b7b26de0477139515fa95cd0a4586c842b746f776a1d99d941a" prot="public">
+          <name>CHANNEL_NOT_FOUND</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_utility_8hpp_1ab40041e61f9a37b7b26de0477139515fa186759a9f30f6a4821d0e5144b24d3c7" prot="public">
+          <name>CHANNEL_IS_NOT_USER</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_utility_8hpp_1ab40041e61f9a37b7b26de0477139515fad0749aaba8b833466dfcbb0428e4f89c" prot="public">
+          <name>SUCCESS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_utility_8hpp_1ab40041e61f9a37b7b26de0477139515fab9e14d9b2886bcff408b85aefa780419" prot="public">
+          <name>FAILED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enum for tracking channel leave status. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Utility::ChannelDeleteCode deleteChannel(const std::string channelName) / return one of this codes. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/Utility.hpp" line="90" column="1" bodyfile="Utility/Utility.Public/Include/Utility/Utility.hpp" bodystart="91" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="enum" id="_utility_8hpp_1abff81c7980ed6a36c8e2107e38947386" prot="public" static="no" strong="yes">
+        <type>std::uint8_t</type>
+        <name>ChannelCreateCodes</name>
+        <qualifiedname>Utility::ChannelCreateCodes</qualifiedname>
+        <enumvalue id="_utility_8hpp_1abff81c7980ed6a36c8e2107e38947386ad3be884d6eb5733102d97d957185dd7c" prot="public">
+          <name>CHANNEL_ALREADY_CREATED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_utility_8hpp_1abff81c7980ed6a36c8e2107e38947386ad0749aaba8b833466dfcbb0428e4f89c" prot="public">
+          <name>SUCCESS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_utility_8hpp_1abff81c7980ed6a36c8e2107e38947386ab9e14d9b2886bcff408b85aefa780419" prot="public">
+          <name>FAILED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enum for tracking channel creating status. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Utility::ChannelCreateCodes createChannel(const Network::ChannelInfo&amp; channel) / return one of this codes. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/Utility.hpp" line="103" column="1" bodyfile="Utility/Utility.Public/Include/Utility/Utility.hpp" bodystart="104" bodyend="108"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="_utility_8hpp_1ab3474797cbf0cc52533503b182a49040" prot="public" static="no">
+        <type>GeneralCodes</type>
+        <definition>using Utility::StoringMessageCodes = typedef GeneralCodes</definition>
+        <argsstring></argsstring>
+        <name>StoringMessageCodes</name>
+        <qualifiedname>Utility::StoringMessageCodes</qualifiedname>
+        <briefdescription>
+<para>Enum for tracking message&apos;s storing status. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Utility::StoringMessageCodes storeMessage(const Network::MessageInfo&amp; mi) / return one of this codes. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/Utility.hpp" line="40" column="1" bodyfile="Utility/Utility.Public/Include/Utility/Utility.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_utility_8hpp_1a83ee27969cbcdc0d43b9532662db3937" prot="public" static="no">
+        <type>GeneralCodes</type>
+        <definition>using Utility::StoringReplyCodes = typedef GeneralCodes</definition>
+        <argsstring></argsstring>
+        <name>StoringReplyCodes</name>
+        <qualifiedname>Utility::StoringReplyCodes</qualifiedname>
+        <briefdescription>
+<para>Enum for tracking replies storing status. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Utility::StoringReplyCodes storeReply(const Network::ReplyInfo&amp; ri) / return one of this codes. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/Utility.hpp" line="47" column="1" bodyfile="Utility/Utility.Public/Include/Utility/Utility.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_utility_8hpp_1a918010c00c6da4960fee2edae6b40bf6" prot="public" static="no">
+        <type>GeneralCodes</type>
+        <definition>using Utility::DeletingMessageCodes = typedef GeneralCodes</definition>
+        <argsstring></argsstring>
+        <name>DeletingMessageCodes</name>
+        <qualifiedname>Utility::DeletingMessageCodes</qualifiedname>
+        <briefdescription>
+<para>Enum for tracking message&apos;s deleting status. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Utility::DeletingMessageCodes deleteMessage(const Network::MessageInfo&amp; mi) / return one of this codes. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/Utility.hpp" line="54" column="1" bodyfile="Utility/Utility.Public/Include/Utility/Utility.hpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_utility_8hpp_1aa9f77647b490610b85fe38e5ca214497" prot="public" static="no">
+        <type>GeneralCodes</type>
+        <definition>using Utility::EditingMessageCodes = typedef GeneralCodes</definition>
+        <argsstring></argsstring>
+        <name>EditingMessageCodes</name>
+        <qualifiedname>Utility::EditingMessageCodes</qualifiedname>
+        <briefdescription>
+<para>Enum for tracking message&apos;s editing status. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Utility::EditingMessageCodes editMessage(const Network::EditMessageInfo&amp; emi) / return one of this codes. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/Utility.hpp" line="60" column="1" bodyfile="Utility/Utility.Public/Include/Utility/Utility.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_utility_8hpp_1a4d8b15943b23b61b37edb14f3bdc256c" prot="public" static="no">
+        <type>GeneralCodes</type>
+        <definition>using Utility::DirectMessageStatus = typedef GeneralCodes</definition>
+        <argsstring></argsstring>
+        <name>DirectMessageStatus</name>
+        <qualifiedname>Utility::DirectMessageStatus</qualifiedname>
+        <briefdescription>
+<para>Direct message chat creation status. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/Utility.hpp" line="113" column="1" bodyfile="Utility/Utility.Public/Include/Utility/Utility.hpp" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_utility_8hpp_1af302a4b1e90e4b15de6d5610af61bc54" prot="public" static="no">
+        <type>GeneralCodes</type>
+        <definition>using Utility::ReactionMessageCodes = typedef GeneralCodes</definition>
+        <argsstring></argsstring>
+        <name>ReactionMessageCodes</name>
+        <qualifiedname>Utility::ReactionMessageCodes</qualifiedname>
+        <briefdescription>
+<para>enum for tracking message&apos;s reaction status </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Utility::ReactionMessageCodes updateMessageReactions(const Network::MessageInfo&amp; mi) / returns one of these codes. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/Utility.hpp" line="120" column="1" bodyfile="Utility/Utility.Public/Include/Utility/Utility.hpp" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="_s_q_l_utility_8hpp_1a5c59b13b33b29580e6f1b0ce41bd5da4" prot="public" static="no" constexpr="yes" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr bool</type>
+        <definition>constexpr bool Utility::is_char_v</definition>
+        <argsstring></argsstring>
+        <name>is_char_v</name>
+        <qualifiedname>Utility::is_char_v</qualifiedname>
+        <initializer>= <ref refid="struct_utility_1_1is__char" kindref="compound">is_char</ref>&lt;T&gt;::value</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" line="83" column="23" bodyfile="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_s_q_l_utility_8hpp_1ac79b948144e04346c7404100b6ade9fa" prot="public" static="no" constexpr="yes" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr bool</type>
+        <definition>constexpr bool Utility::is_string_v</definition>
+        <argsstring></argsstring>
+        <name>is_string_v</name>
+        <qualifiedname>Utility::is_string_v</qualifiedname>
+        <initializer>= <ref refid="struct_utility_1_1is__string" kindref="compound">is_string</ref>&lt;T&gt;::value</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" line="85" column="23" bodyfile="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_s_q_l_utility_8hpp_1a48d741c307f497ab5dd5e0fe2b15e477" prot="public" static="no" constexpr="yes" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr bool</type>
+        <definition>constexpr bool Utility::is_char_or_string_v</definition>
+        <argsstring></argsstring>
+        <name>is_char_or_string_v</name>
+        <qualifiedname>Utility::is_char_or_string_v</qualifiedname>
+        <initializer>= <ref refid="struct_utility_1_1is__char__or__string" kindref="compound">is_char_or_string</ref>&lt;T&gt;::value</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" line="87" column="23" bodyfile="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_j_g_exceptions_8hpp_1a49995d09f01834df439a95d9b2576844" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string Utility::formatExceptionMessage</definition>
+        <argsstring>(const std::string &amp;msg, const std::string &amp;file, std::uint16_t line)</argsstring>
+        <name>formatExceptionMessage</name>
+        <qualifiedname>Utility::formatExceptionMessage</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>msg</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>std::uint16_t</type>
+          <declname>line</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/JGExceptions.hpp" line="12" column="20" bodyfile="Utility/Utility.Public/Include/Utility/JGExceptions.hpp" bodystart="12" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="_s_q_l_utility_8hpp_1a509a45956dc2719e837086103e780f46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type>T *</type>
+        <definition>T * Utility::make_statement</definition>
+        <argsstring>(Args &amp;&amp;... args)</argsstring>
+        <name>make_statement</name>
+        <qualifiedname>Utility::make_statement</qualifiedname>
+        <param>
+          <type>Args &amp;&amp;...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" line="43" column="3" bodyfile="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" bodystart="43" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="_s_q_l_utility_8hpp_1a70bcfdcab03e964f5bd96d2631f7b51d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Utility::suppressWarning</definition>
+        <argsstring>(4505, &quot;-Winit-self&quot;) static void innerQuotes(std</argsstring>
+        <name>suppressWarning</name>
+        <qualifiedname>Utility::suppressWarning</qualifiedname>
+        <param>
+          <type>4505</type>
+        </param>
+        <param>
+          <type>&quot;-Winit-self&quot;</type>
+        </param>
+        <briefdescription>
+<para>Checking for inner quotes. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" line="89" column="1" bodyfile="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" bodystart="89" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="_s_q_l_utility_8hpp_1aa73e8b9ffe918debfa3fec41739205ea" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Utility::wrapStringByQuotes</definition>
+        <argsstring>(std::string &amp;arg)</argsstring>
+        <name>wrapStringByQuotes</name>
+        <qualifiedname>Utility::wrapStringByQuotes</qualifiedname>
+        <param>
+          <type>std::string &amp;</type>
+          <declname>arg</declname>
+        </param>
+        <briefdescription>
+<para>Wrapping whole string with quotes. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" line="103" column="14" bodyfile="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" bodystart="103" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="_s_q_l_utility_8hpp_1a1356dfb0c52760c856e9e51863eaca65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>restoreWarning auto</type>
+        <definition>restoreWarning auto Utility::CheckForSQLSingleQuotesProblem</definition>
+        <argsstring>(T &amp;&amp;arg)</argsstring>
+        <name>CheckForSQLSingleQuotesProblem</name>
+        <qualifiedname>Utility::CheckForSQLSingleQuotesProblem</qualifiedname>
+        <param>
+          <type>T &amp;&amp;</type>
+          <declname>arg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" line="107" column="10" bodyfile="Utility/Utility.Public/Include/Utility/SQLUtility.hpp" bodystart="107" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="_utility_8hpp_1a13b58f90357d7a5419164dedef8a82ed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string Utility::removeSpaces</definition>
+        <argsstring>(std::string_view input)</argsstring>
+        <name>removeSpaces</name>
+        <qualifiedname>Utility::removeSpaces</qualifiedname>
+        <param>
+          <type>std::string_view</type>
+          <declname>input</declname>
+        </param>
+        <briefdescription>
+<para>Removes redundant whitespaces. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>std::string - bunch of text that should be trimmed</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Removes whitespaces at the beginning and the end of input string, replaces whitespace sequences with a single space or newline (if sequence contains a newline) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/Utility.hpp" line="128" column="20" bodyfile="Utility/Utility.Public/Include/Utility/Utility.hpp" bodystart="128" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="_utility_8hpp_1a77c4b25535930ac13ea8599382477c82" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string Utility::getFldPath</definition>
+        <argsstring>(std::string_view folderPath=&quot;Log&quot;)</argsstring>
+        <name>getFldPath</name>
+        <qualifiedname>Utility::getFldPath</qualifiedname>
+        <param>
+          <type>std::string_view</type>
+          <declname>folderPath</declname>
+          <defval>&quot;Log&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Get the name of the logger folder. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>&quot;Log\\&quot; </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/Utility.hpp" line="175" column="20" bodyfile="Utility/Utility.Public/Include/Utility/Utility.hpp" bodystart="175" bodyend="181"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Utility/Utility.Public/Include/Utility/JGExceptions.hpp" line="9" column="1"/>
+  </compounddef>
+</doxygen>

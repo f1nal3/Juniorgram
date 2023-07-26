@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_91bf7e73ba0b778c71ba6c9a5c08a1af" kind="dir">
+    <compoundname>Server/Server.Core/Server.Core.Static</compoundname>
+    <innerfile refid="_arg_parser_8hpp">ArgParser.hpp</innerfile>
+    <innerfile refid="_server_8hpp">Server.hpp</innerfile>
+    <innerfile refid="_server_builder_8hpp">ServerBuilder.hpp</innerfile>
+    <innerfile refid="_settings_8hpp">Settings.hpp</innerfile>
+    <innerfile refid="_settings_manager_8hpp">SettingsManager.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Server/Server.Core/Server.Core.Static/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_data_access_1_1_register_repository" kind="struct" language="C++" prot="public" final="yes">
+    <compoundname>DataAccess::RegisterRepository</compoundname>
+    <basecompoundref refid="struct_data_access_1_1_i_register_repository" prot="public" virt="non-virtual">DataAccess::IRegisterRepository</basecompoundref>
+    <basecompoundref refid="struct_data_access_1_1_abstract_postgre_repository" prot="public" virt="non-virtual">DataAccess::AbstractPostgreRepository</basecompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_data_access_1_1_register_repository_1a895dff2607c66f856a6c1b7fcad1a8a0" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::RegisterRepository::RegisterRepository</definition>
+        <argsstring>(const std::shared_ptr&lt; IAdapter &gt; &amp;adapter)</argsstring>
+        <name>RegisterRepository</name>
+        <qualifiedname>DataAccess::RegisterRepository::RegisterRepository</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt; &amp;</type>
+          <declname>adapter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="93" column="14" bodyfile="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" bodystart="93" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_register_repository_1abe843088eb8493c0ed2c6a0cb8945268" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::RegistrationCodes</type>
+        <definition>Utility::RegistrationCodes DataAccess::RegisterRepository::registerUser</definition>
+        <argsstring>(const Models::RegistrationInfo &amp;regInfo) override</argsstring>
+        <name>registerUser</name>
+        <qualifiedname>DataAccess::RegisterRepository::registerUser</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_register_repository_1adf6fcc00a3422d4e7d38468349c5426e">registerUser</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_registration_info" kindref="compound">Models::RegistrationInfo</ref> &amp;</type>
+          <declname>regInfo</declname>
+        </param>
+        <briefdescription>
+<para>Method for user registration. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RegistrationMessage</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>which contains user data for registration.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Generation password&apos;s hash in which login is a salt. It lets us to insert different users with the same passwords. <simplesect kind="return"><para>The return value of the method is one of the RegistrationCodes (enum). <linebreak/>
+Registration successful - RegistrationCodes::SUCCESS. <linebreak/>
+The user already exists - RegistrationCodes::EMAIL_ALREADY_EXISTS OR RegistrationCodes::LOGIN_ALREADY_EXISTS. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="98" column="32"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_register_repository_1a752276c462536d1f4d8c6afd39e86798" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::RegisterRepository::~RegisterRepository</definition>
+        <argsstring>() override=default</argsstring>
+        <name>~RegisterRepository</name>
+        <qualifiedname>DataAccess::RegisterRepository::~RegisterRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="100" column="5"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>DataAccess::AbstractPostgreRepository</label>
+        <link refid="struct_data_access_1_1_abstract_postgre_repository"/>
+      </node>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="2">
+        <label>DataAccess::IRegisterRepository</label>
+        <link refid="struct_data_access_1_1_i_register_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>DataAccess::RegisterRepository</label>
+        <link refid="struct_data_access_1_1_register_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>DataAccess::AbstractPostgreRepository</label>
+        <link refid="struct_data_access_1_1_abstract_postgre_repository"/>
+      </node>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="2">
+        <label>DataAccess::IRegisterRepository</label>
+        <link refid="struct_data_access_1_1_i_register_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>DataAccess::RegisterRepository</label>
+        <link refid="struct_data_access_1_1_register_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="91" column="1" bodyfile="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" bodystart="92" bodyend="101"/>
+    <listofallmembers>
+      <member refid="struct_data_access_1_1_abstract_postgre_repository_1a1d33ed6bc3a61773bdf111b1bc5bc772" prot="protected" virt="non-virtual"><scope>DataAccess::RegisterRepository</scope><name>_filler</name></member>
+      <member refid="struct_data_access_1_1_abstract_postgre_repository_1ad83909ce308fd3f8c006fe341247f86e" prot="protected" virt="non-virtual"><scope>DataAccess::RegisterRepository</scope><name>_pTable</name></member>
+      <member refid="struct_data_access_1_1_abstract_postgre_repository_1a8629dc8a2dd6eaaa2de3f635a030e23f" prot="public" virt="non-virtual"><scope>DataAccess::RegisterRepository</scope><name>AbstractPostgreRepository</name></member>
+      <member refid="struct_data_access_1_1_register_repository_1a895dff2607c66f856a6c1b7fcad1a8a0" prot="public" virt="non-virtual"><scope>DataAccess::RegisterRepository</scope><name>RegisterRepository</name></member>
+      <member refid="struct_data_access_1_1_register_repository_1abe843088eb8493c0ed2c6a0cb8945268" prot="public" virt="virtual"><scope>DataAccess::RegisterRepository</scope><name>registerUser</name></member>
+      <member refid="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" prot="public" virt="virtual"><scope>DataAccess::RegisterRepository</scope><name>~IMasterRepository</name></member>
+      <member refid="struct_data_access_1_1_i_register_repository_1a591f781f60fbb0fab8ac78b9bc3e21ea" prot="public" virt="non-virtual"><scope>DataAccess::RegisterRepository</scope><name>~IRegisterRepository</name></member>
+      <member refid="struct_data_access_1_1_register_repository_1a752276c462536d1f4d8c6afd39e86798" prot="public" virt="non-virtual"><scope>DataAccess::RegisterRepository</scope><name>~RegisterRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

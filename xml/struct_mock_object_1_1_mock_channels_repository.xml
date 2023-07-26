@@ -1,0 +1,270 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_mock_object_1_1_mock_channels_repository" kind="struct" language="C++" prot="public" final="yes">
+    <compoundname>MockObject::MockChannelsRepository</compoundname>
+    <basecompoundref refid="struct_data_access_1_1_i_channels_repository" prot="public" virt="non-virtual">DataAccess::IChannelsRepository</basecompoundref>
+    <includes refid="_mock_repositories_8hpp" local="no">MockRepositories.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="struct_mock_object_1_1_mock_channels_repository_1ac3862e007c741a8fe1f6c82d8d72da12" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_mock_object_1_1_mock_query" kindref="compound">MockQuery</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;MockQuery&gt; MockObject::MockChannelsRepository::_mockQuery</definition>
+        <argsstring></argsstring>
+        <name>_mockQuery</name>
+        <qualifiedname>MockObject::MockChannelsRepository::_mockQuery</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="55" column="21" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_channels_repository_1aef13a4ccd10b05eec56613d18ceab730" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockChannelsRepository::MockChannelsRepository</definition>
+        <argsstring>(const std::shared_ptr&lt; IAdapter &gt; &amp;adapter)</argsstring>
+        <name>MockChannelsRepository</name>
+        <qualifiedname>MockObject::MockChannelsRepository::MockChannelsRepository</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt; &amp;</type>
+          <declname>adapter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="39" column="14" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="39" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_channels_repository_1a684e7af6c1b3356f6e9cf05e6c3e855b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockChannelsRepository::~MockChannelsRepository</definition>
+        <argsstring>() override=default</argsstring>
+        <name>~MockChannelsRepository</name>
+        <qualifiedname>MockObject::MockChannelsRepository::~MockChannelsRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="44" column="5"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_channels_repository_1ab5bca73d4225be7cf82ec09a9f57c7e6" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::ChannelDeleteCode</type>
+        <definition>Utility::ChannelDeleteCode MockObject::MockChannelsRepository::deleteChannel</definition>
+        <argsstring>(const ChannelDeleteInfo &amp;channel) override</argsstring>
+        <name>deleteChannel</name>
+        <qualifiedname>MockObject::MockChannelsRepository::deleteChannel</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_channels_repository_1abfe97a6baaf5d91ea13ebeac50092174">deleteChannel</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelDeleteInfo</ref> &amp;</type>
+          <declname>channel</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for deleting channel. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>special code for success or failed deleting. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="47" column="38"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_channels_repository_1ac20ca8704e291ab040fb1ed9c679aee5" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::ChannelCreateCodes</type>
+        <definition>Utility::ChannelCreateCodes MockObject::MockChannelsRepository::createChannel</definition>
+        <argsstring>(const ChannelInfo &amp;channel) override</argsstring>
+        <name>createChannel</name>
+        <qualifiedname>MockObject::MockChannelsRepository::createChannel</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_channels_repository_1a2e1b24ed29a6ba65bc9bf026fd75fc0c">createChannel</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelInfo</ref> &amp;</type>
+          <declname>channel</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for creating channel. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Deprecated due to new method with same logic but new mechanics <simplesect kind="return"><para>special code for success or failed creating. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="48" column="38"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_channels_repository_1ae57afc75d079075def12b974a0d7cd39" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::ChannelLeaveCodes</type>
+        <definition>Utility::ChannelLeaveCodes MockObject::MockChannelsRepository::leaveChannel</definition>
+        <argsstring>(const ChannelLeaveInfo &amp;channel) override</argsstring>
+        <name>leaveChannel</name>
+        <qualifiedname>MockObject::MockChannelsRepository::leaveChannel</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_channels_repository_1a40e680dcd48b1149962d27899788ced0">leaveChannel</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelLeaveInfo</ref> &amp;</type>
+          <declname>channel</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for leaving channel. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>special code for success or failed leaving. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="49" column="38"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_channels_repository_1acce2a6b1580689a41b02550d221c7690" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::ChannelSubscribingCodes</type>
+        <definition>Utility::ChannelSubscribingCodes MockObject::MockChannelsRepository::subscribeToChannel</definition>
+        <argsstring>(const ChannelSubscriptionInfo &amp;channel) override</argsstring>
+        <name>subscribeToChannel</name>
+        <qualifiedname>MockObject::MockChannelsRepository::subscribeToChannel</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_channels_repository_1a3fd573c4c7352f47cf2569d630a850b2">subscribeToChannel</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_channel_subscription_info" kindref="compound">ChannelSubscriptionInfo</ref> &amp;</type>
+          <declname>channel</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for subscribing to channel. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>special code for success or failed subscribing. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="50" column="38"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_channels_repository_1a459a26ce4d4b52ae9270df5568f7380e" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::ChannelCreateCodes</type>
+        <definition>Utility::ChannelCreateCodes MockObject::MockChannelsRepository::newCreateChannel</definition>
+        <argsstring>(const Models::V2::Channel&lt;&gt; &amp;channel) override</argsstring>
+        <name>newCreateChannel</name>
+        <qualifiedname>MockObject::MockChannelsRepository::newCreateChannel</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_channels_repository_1ae435ffc575f27398926189fb9ff3e936">newCreateChannel</reimplements>
+        <param>
+          <type>const <ref refid="class_models_1_1_v2_1_1_channel" kindref="compound">Models::V2::Channel</ref>&lt;&gt; &amp;</type>
+          <declname>channel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="51" column="38"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_channels_repository_1a0ebfdf7954c77b6f5742af1a68d4b805" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::vector&lt; uint64_t &gt;</type>
+        <definition>std::vector&lt; uint64_t &gt; MockObject::MockChannelsRepository::getChannelSubscriptionList</definition>
+        <argsstring>(const uint64_t userID) override</argsstring>
+        <name>getChannelSubscriptionList</name>
+        <qualifiedname>MockObject::MockChannelsRepository::getChannelSubscriptionList</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_channels_repository_1a3231716874e359c5a2034aa6f214be3c">getChannelSubscriptionList</reimplements>
+        <param>
+          <type>const uint64_t</type>
+          <declname>userID</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for getting channel subscription list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>channels list as vector of uint64_t. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="52" column="28"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_channels_repository_1acdea37a30d4a56a13305a3f134ea7a3c" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::vector&lt; <ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelInfo</ref> &gt;</type>
+        <definition>std::vector&lt; Models::ChannelInfo &gt; MockObject::MockChannelsRepository::getAllChannelsList</definition>
+        <argsstring>() override</argsstring>
+        <name>getAllChannelsList</name>
+        <qualifiedname>MockObject::MockChannelsRepository::getAllChannelsList</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_channels_repository_1ad2d80ae97c71ebad537151e701a5ebed">getAllChannelsList</reimplements>
+        <briefdescription>
+<para>Virtual method for getting all channel list from the server. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>channels list as vector of ChannelInfo. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="53" column="17"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>struct <ref refid="struct_mock_object_1_1_mock_channels_repository" kindref="compound">MockChannelsRepository</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Inherited from IChannelRepository struct / (for overriding methods related to this repository). </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>DataAccess::IChannelsRepository</label>
+        <link refid="struct_data_access_1_1_i_channels_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="1">
+        <label>MockObject::MockChannelsRepository</label>
+        <link refid="struct_mock_object_1_1_mock_channels_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>DataAccess::IChannelsRepository</label>
+        <link refid="struct_data_access_1_1_i_channels_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="1">
+        <label>MockObject::MockChannelsRepository</label>
+        <link refid="struct_mock_object_1_1_mock_channels_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="36" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="37" bodyend="56"/>
+    <listofallmembers>
+      <member refid="struct_mock_object_1_1_mock_channels_repository_1ac3862e007c741a8fe1f6c82d8d72da12" prot="private" virt="non-virtual"><scope>MockObject::MockChannelsRepository</scope><name>_mockQuery</name></member>
+      <member refid="struct_mock_object_1_1_mock_channels_repository_1ac20ca8704e291ab040fb1ed9c679aee5" prot="private" virt="virtual"><scope>MockObject::MockChannelsRepository</scope><name>createChannel</name></member>
+      <member refid="struct_mock_object_1_1_mock_channels_repository_1ab5bca73d4225be7cf82ec09a9f57c7e6" prot="private" virt="virtual"><scope>MockObject::MockChannelsRepository</scope><name>deleteChannel</name></member>
+      <member refid="struct_mock_object_1_1_mock_channels_repository_1acdea37a30d4a56a13305a3f134ea7a3c" prot="private" virt="virtual"><scope>MockObject::MockChannelsRepository</scope><name>getAllChannelsList</name></member>
+      <member refid="struct_mock_object_1_1_mock_channels_repository_1a0ebfdf7954c77b6f5742af1a68d4b805" prot="private" virt="virtual"><scope>MockObject::MockChannelsRepository</scope><name>getChannelSubscriptionList</name></member>
+      <member refid="struct_mock_object_1_1_mock_channels_repository_1ae57afc75d079075def12b974a0d7cd39" prot="private" virt="virtual"><scope>MockObject::MockChannelsRepository</scope><name>leaveChannel</name></member>
+      <member refid="struct_mock_object_1_1_mock_channels_repository_1aef13a4ccd10b05eec56613d18ceab730" prot="public" virt="non-virtual"><scope>MockObject::MockChannelsRepository</scope><name>MockChannelsRepository</name></member>
+      <member refid="struct_mock_object_1_1_mock_channels_repository_1a459a26ce4d4b52ae9270df5568f7380e" prot="private" virt="virtual"><scope>MockObject::MockChannelsRepository</scope><name>newCreateChannel</name></member>
+      <member refid="struct_mock_object_1_1_mock_channels_repository_1acce2a6b1580689a41b02550d221c7690" prot="private" virt="virtual"><scope>MockObject::MockChannelsRepository</scope><name>subscribeToChannel</name></member>
+      <member refid="struct_data_access_1_1_i_channels_repository_1a3199c2dd4e3a8f56ef9542cbacbdc488" prot="public" virt="virtual"><scope>MockObject::MockChannelsRepository</scope><name>~IChannelsRepository</name></member>
+      <member refid="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" prot="public" virt="virtual"><scope>MockObject::MockChannelsRepository</scope><name>~IMasterRepository</name></member>
+      <member refid="struct_mock_object_1_1_mock_channels_repository_1a684e7af6c1b3356f6e9cf05e6c3e855b" prot="public" virt="non-virtual"><scope>MockObject::MockChannelsRepository</scope><name>~MockChannelsRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

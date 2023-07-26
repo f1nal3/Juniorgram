@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_improved_01debugging_8md" kind="file" language="Markdown">
+    <compoundname>Improved debugging.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>Improving<sp/>debugging<sp/>by<sp/>bat<sp/>files<sp/>{#improvedebug}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">If<sp/>you<sp/>do<sp/>not<sp/>want<sp/>to<sp/>use<sp/>your<sp/>terminal<sp/>enormous<sp/>amount<sp/>of<sp/>times<sp/>while<sp/>you<sp/>are<sp/>debugging<sp/>or<sp/>testing<sp/>new<sp/>features<sp/>it<sp/>can<sp/>help<sp/>you</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">You<sp/>can<sp/>use<sp/>.bat<sp/>files<sp/>to<sp/>run<sp/>server<sp/>or<sp/>server<sp/>&amp;<sp/>client<sp/>on<sp/>your<sp/>own<sp/>PC<sp/>already<sp/>with<sp/>arguments<sp/>and<sp/>by<sp/>2<sp/>clicks<sp/>of<sp/>mouse</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">####<sp/>1.<sp/>Creation<sp/>of<sp/>server.start<sp/>.bat<sp/>file</highlight></codeline>
+<codeline><highlight class="normal">1.<sp/>Create<sp/>an<sp/>empty<sp/>.txt<sp/>file<sp/>where<sp/>you<sp/>wish</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>Copy<sp/>the<sp/>next<sp/>piece<sp/>of<sp/>text<sp/>and<sp/>paste<sp/>it<sp/>into<sp/>already<sp/>created<sp/>.txt<sp/>file</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>```c++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>echo<sp/>&quot;server.start&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>start<sp/>&quot;&quot;<sp/>&quot;&lt;your_path&gt;&quot;<sp/>-p<sp/>65001</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>exit</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">3.<sp/>Find<sp/>place<sp/>where<sp/>your<sp/>Server.Exec.exe<sp/>exists<sp/>and<sp/>copy<sp/>that<sp/>path</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>Replace<sp/>&lt;your_path&gt;<sp/>on<sp/>yours</highlight></codeline>
+<codeline><highlight class="normal">5.<sp/>File<sp/>-&gt;<sp/>Save<sp/>as<sp/></highlight></codeline>
+<codeline><highlight class="normal">6.<sp/>In<sp/>the<sp/>field<sp/>of<sp/>the<sp/>file<sp/>type<sp/>change<sp/>.txt<sp/>type<sp/>on<sp/>any<sp/>type</highlight></codeline>
+<codeline><highlight class="normal">7.<sp/>Add<sp/>to<sp/>the<sp/>end<sp/>of<sp/>file<sp/>name<sp/>&quot;.bat&quot;</highlight></codeline>
+<codeline><highlight class="normal">8.<sp/>Save</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">####<sp/>2.<sp/>Creation<sp/>of<sp/>server<sp/>&amp;<sp/>client<sp/>.bat<sp/>file</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>Create<sp/>an<sp/>empty<sp/>.txt<sp/>file<sp/>where<sp/>you<sp/>wish</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>Copy<sp/>the<sp/>next<sp/>piece<sp/>of<sp/>text<sp/>and<sp/>paste<sp/>it<sp/>into<sp/>.txt<sp/>file</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>```c++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>echo<sp/>&quot;server&amp;client&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>start<sp/>&quot;&quot;<sp/>&quot;&lt;your_path_to_server.exec.exe&gt;&quot;<sp/>-p<sp/>65001</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>echo<sp/>%time%</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>timeout<sp/>1<sp/>&gt;<sp/>NUL</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>echo<sp/>%time%</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>start<sp/>&quot;&quot;<sp/>&quot;&lt;your_path_to_client.**.exe&gt;&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>exit</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">3.<sp/>Find<sp/>path<sp/>to<sp/>Server.Exec.exe<sp/>and<sp/>Client.**.exe<sp/>and<sp/>copy<sp/>them</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>Replace<sp/>&lt;your_paths&gt;<sp/>on<sp/>yours</highlight></codeline>
+<codeline><highlight class="normal">5.<sp/>All<sp/>other<sp/>points<sp/>are<sp/>the<sp/>same<sp/>as<sp/>above</highlight></codeline>
+    </programlisting>
+    <location file="Docs/Improved debugging.md"/>
+  </compounddef>
+</doxygen>

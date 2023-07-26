@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_user_data_validation" kind="namespace" language="C++">
+    <compoundname>UserDataValidation</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_user_data_validation_8hpp_1a437158f09f1fcf17d0ea1ffd9218cf50" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool UserDataValidation::isLoginValid</definition>
+        <argsstring>(const std::string &amp;login)</argsstring>
+        <name>isLoginValid</name>
+        <qualifiedname>UserDataValidation::isLoginValid</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>login</declname>
+        </param>
+        <briefdescription>
+<para>Check user&apos;s login. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>string</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>login which contains user&apos;s login. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if login is valid.</para>
+</simplesect>
+Login must have: / -First char is a letter; / -Lowercase and uppercase letters; / -Minimum 5 chars. / Example: login = &apos;some_nick34&apos;. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/UserDataValidation.hpp" line="17" column="13" bodyfile="Utility/Utility.Public/Include/Utility/UserDataValidation.hpp" bodystart="17" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="_user_data_validation_8hpp_1abdacff79042f9c16819a200555580c5f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool UserDataValidation::isEmailValid</definition>
+        <argsstring>(const std::string &amp;email)</argsstring>
+        <name>isEmailValid</name>
+        <qualifiedname>UserDataValidation::isEmailValid</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>email</declname>
+        </param>
+        <briefdescription>
+<para>Check user&apos;s email on valid. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>string</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>email which contains user&apos;s email. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if email is valid.</para>
+</simplesect>
+Email must: / -have first char like letter; / -maintain the following rule: / Some chars + &apos;@&apos; + some chars(mail provider) + &apos;.&apos; + lowercase letters (minimum - 2; maximum - 4). / Example: email = &apos;<ulink url="mailto:Anton3_antonov4@epam.com">Anton3_antonov4@epam.com</ulink>&apos;. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/UserDataValidation.hpp" line="34" column="13" bodyfile="Utility/Utility.Public/Include/Utility/UserDataValidation.hpp" bodystart="34" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="_user_data_validation_8hpp_1a1430d1a1274ad58df9174ed704e72f99" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool UserDataValidation::isPasswordValid</definition>
+        <argsstring>(const std::string &amp;password)</argsstring>
+        <name>isPasswordValid</name>
+        <qualifiedname>UserDataValidation::isPasswordValid</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>password</declname>
+        </param>
+        <briefdescription>
+<para>Check user&apos;s password. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>string</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>password which contains user&apos;s password. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if password is valid.</para>
+</simplesect>
+Password must have: / -At least one uppercase letter; / -at least one lowercase letter; / -at least one number; / -minimum 8 characters. / Example: password = &apos;1996a*nton-Antonov_34&apos;. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/UserDataValidation.hpp" line="51" column="13" bodyfile="Utility/Utility.Public/Include/Utility/UserDataValidation.hpp" bodystart="51" bodyend="55"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Utility/Utility.Public/Include/Utility/UserDataValidation.hpp" line="5" column="1"/>
+  </compounddef>
+</doxygen>

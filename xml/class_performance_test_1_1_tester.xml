@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_performance_test_1_1_tester" kind="class" language="C++" prot="public">
+    <compoundname>PerformanceTest::Tester</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_performance_test_1_1_tester_1ad5fc4d00c0413d6b5f495e68bf1be09d" prot="private" static="no" mutable="no">
+        <type>const std::uint8_t</type>
+        <definition>const std::uint8_t PerformanceTest::Tester::_testsCount</definition>
+        <argsstring></argsstring>
+        <name>_testsCount</name>
+        <qualifiedname>PerformanceTest::Tester::_testsCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/Tester.hpp" line="26" column="20" bodyfile="Test/PerformanceTest/Tester.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_performance_test_1_1_tester_1ac550336105454444337172b6d464db6a" prot="private" static="no" mutable="no">
+        <type>const fs::path</type>
+        <definition>const fs::path PerformanceTest::Tester::_instancePath</definition>
+        <argsstring></argsstring>
+        <name>_instancePath</name>
+        <qualifiedname>PerformanceTest::Tester::_instancePath</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/Tester.hpp" line="27" column="20" bodyfile="Test/PerformanceTest/Tester.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_performance_test_1_1_tester_1a1027eac6c2efa824793a4df17a0ad8c2" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; PerformanceTest::Tester::_timestamps</definition>
+        <argsstring></argsstring>
+        <name>_timestamps</name>
+        <qualifiedname>PerformanceTest::Tester::_timestamps</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/Tester.hpp" line="29" column="13" bodyfile="Test/PerformanceTest/Tester.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_performance_test_1_1_tester_1a500fd9b02800cae3e8faac5a6fecbb0c" prot="private" static="no" mutable="no">
+        <type><ref refid="class_performance_test_1_1_simple_timer" kindref="compound">SimpleTimer</ref></type>
+        <definition>SimpleTimer PerformanceTest::Tester::_timer</definition>
+        <argsstring></argsstring>
+        <name>_timer</name>
+        <qualifiedname>PerformanceTest::Tester::_timer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/Tester.hpp" line="31" column="14" bodyfile="Test/PerformanceTest/Tester.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_performance_test_1_1_tester_1a29ed3bffa1ed11ac336d4bbe23b93c90" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; const char * &gt;</type>
+        <definition>std::vector&lt; const char * &gt; PerformanceTest::Tester::privateCreateArgs</definition>
+        <argsstring>(void) const</argsstring>
+        <name>privateCreateArgs</name>
+        <qualifiedname>PerformanceTest::Tester::privateCreateArgs</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/Tester.hpp" line="35" column="13"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_performance_test_1_1_tester_1a294aa4fc2d30d913ebc505b4cf2f02cb" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PerformanceTest::Tester::Tester</definition>
+        <argsstring>(const ArgumentParser &amp;parser)</argsstring>
+        <name>Tester</name>
+        <qualifiedname>PerformanceTest::Tester::Tester</qualifiedname>
+        <param>
+          <type>const <ref refid="class_performance_test_1_1_argument_parser" kindref="compound">ArgumentParser</ref> &amp;</type>
+          <declname>parser</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/Tester.hpp" line="39" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_performance_test_1_1_tester_1acf2bf65002eecef70ddc86807de6c806" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PerformanceTest::Tester::run</definition>
+        <argsstring>(void)</argsstring>
+        <name>run</name>
+        <qualifiedname>PerformanceTest::Tester::run</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/Tester.hpp" line="43" column="6"/>
+      </memberdef>
+      <memberdef kind="function" id="class_performance_test_1_1_tester_1a3eea1b9114f60ac06357a835e35da66c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PerformanceTest::Tester::printResult</definition>
+        <argsstring>(void) const</argsstring>
+        <name>printResult</name>
+        <qualifiedname>PerformanceTest::Tester::printResult</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/Tester.hpp" line="45" column="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Test/PerformanceTest/Tester.hpp" line="22" column="1" bodyfile="Test/PerformanceTest/Tester.hpp" bodystart="23" bodyend="46"/>
+    <listofallmembers>
+      <member refid="class_performance_test_1_1_tester_1ac550336105454444337172b6d464db6a" prot="private" virt="non-virtual"><scope>PerformanceTest::Tester</scope><name>_instancePath</name></member>
+      <member refid="class_performance_test_1_1_tester_1ad5fc4d00c0413d6b5f495e68bf1be09d" prot="private" virt="non-virtual"><scope>PerformanceTest::Tester</scope><name>_testsCount</name></member>
+      <member refid="class_performance_test_1_1_tester_1a500fd9b02800cae3e8faac5a6fecbb0c" prot="private" virt="non-virtual"><scope>PerformanceTest::Tester</scope><name>_timer</name></member>
+      <member refid="class_performance_test_1_1_tester_1a1027eac6c2efa824793a4df17a0ad8c2" prot="private" virt="non-virtual"><scope>PerformanceTest::Tester</scope><name>_timestamps</name></member>
+      <member refid="class_performance_test_1_1_tester_1a3eea1b9114f60ac06357a835e35da66c" prot="public" virt="non-virtual"><scope>PerformanceTest::Tester</scope><name>printResult</name></member>
+      <member refid="class_performance_test_1_1_tester_1a29ed3bffa1ed11ac336d4bbe23b93c90" prot="private" virt="non-virtual"><scope>PerformanceTest::Tester</scope><name>privateCreateArgs</name></member>
+      <member refid="class_performance_test_1_1_tester_1acf2bf65002eecef70ddc86807de6c806" prot="public" virt="non-virtual"><scope>PerformanceTest::Tester</scope><name>run</name></member>
+      <member refid="class_performance_test_1_1_tester_1a294aa4fc2d30d913ebc505b4cf2f02cb" prot="public" virt="non-virtual"><scope>PerformanceTest::Tester</scope><name>Tester</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,283 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_models_1_1_v2_1_1_unified_model" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>Models::V2::UnifiedModel</compoundname>
+    <derivedcompoundref refid="class_models_1_1_v2_1_1_channel" prot="public" virt="non-virtual">Models::V2::Channel&lt; TEnum &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_models_1_1_v2_1_1_user" prot="public" virt="non-virtual">Models::V2::User&lt; TEnum &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_models_1_1_v2_1_1_user_channels" prot="public" virt="non-virtual">Models::V2::UserChannels&lt; TEnum &gt;</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename TEnum</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_models_1_1_v2_1_1_unified_model_1af5e65c5b149075d9cc088151c7e3824a" prot="private" static="no" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view Models::V2::UnifiedModel&lt; TEnum &gt;::_modelName</definition>
+        <argsstring></argsstring>
+        <name>_modelName</name>
+        <qualifiedname>Models::V2::UnifiedModel::_modelName</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="136" column="30" bodyfile="Base/Models/Public/Include/Models/UnifiedModel.hpp" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_models_1_1_v2_1_1_unified_model_1a2478888290412b4ced11575af6ce9a70" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t Models::V2::UnifiedModel&lt; TEnum &gt;::_amountOfFields</definition>
+        <argsstring></argsstring>
+        <name>_amountOfFields</name>
+        <qualifiedname>Models::V2::UnifiedModel::_amountOfFields</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="137" column="30" bodyfile="Base/Models/Public/Include/Models/UnifiedModel.hpp" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_models_1_1_v2_1_1_unified_model_1aed60ff765da8936b79c75e36f4d3103a" prot="private" static="no" mutable="yes">
+        <type>Map&lt; TEnum &gt;</type>
+        <definition>Map&lt;TEnum&gt; Models::V2::UnifiedModel&lt; TEnum &gt;::_data</definition>
+        <argsstring></argsstring>
+        <name>_data</name>
+        <qualifiedname>Models::V2::UnifiedModel::_data</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="139" column="23" bodyfile="Base/Models/Public/Include/Models/UnifiedModel.hpp" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_models_1_1_v2_1_1_unified_model_1a0dd97508d26a00649ad0c36c9162e406" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Models::V2::UnifiedModel&lt; TEnum &gt;::UnifiedModel</definition>
+        <argsstring>(std::string_view modelName, size_t amountFields)</argsstring>
+        <name>UnifiedModel</name>
+        <qualifiedname>Models::V2::UnifiedModel::UnifiedModel</qualifiedname>
+        <param>
+          <type>std::string_view</type>
+          <declname>modelName</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>amountFields</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="40" column="5" bodyfile="Base/Models/Public/Include/Models/UnifiedModel.hpp" bodystart="40" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_v2_1_1_unified_model_1a303c285c209733be4d085a821e085478" prot="public" static="no" constexpr="yes" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>constexpr const char *</type>
+        <definition>constexpr const char * Models::V2::UnifiedModel&lt; TEnum &gt;::getModelName</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>getModelName</name>
+        <qualifiedname>Models::V2::UnifiedModel::getModelName</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="49" column="26" bodyfile="Base/Models/Public/Include/Models/UnifiedModel.hpp" bodystart="49" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_v2_1_1_unified_model_1ad70e5326910d81365776ac50600b51b4" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string Models::V2::UnifiedModel&lt; TEnum &gt;::resolveName</definition>
+        <argsstring>(TEnum anyEnum) const noexcept</argsstring>
+        <name>resolveName</name>
+        <qualifiedname>Models::V2::UnifiedModel::resolveName</qualifiedname>
+        <param>
+          <type>TEnum</type>
+          <declname>anyEnum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="56" column="17" bodyfile="Base/Models/Public/Include/Models/UnifiedModel.hpp" bodystart="56" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_v2_1_1_unified_model_1a6f8c5ed7b61bbffc3fe06d288c8c2c79" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string &amp;</type>
+        <definition>std::string &amp; Models::V2::UnifiedModel&lt; TEnum &gt;::operator[]</definition>
+        <argsstring>(TEnum anyEnum) const</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>Models::V2::UnifiedModel::operator[]</qualifiedname>
+        <param>
+          <type>TEnum</type>
+          <declname>anyEnum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="61" column="17" bodyfile="Base/Models/Public/Include/Models/UnifiedModel.hpp" bodystart="61" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_v2_1_1_unified_model_1ad4dddf46212ec2954dab4fbeb7f97002" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>TEnum</type>
+        <definition>TEnum Models::V2::UnifiedModel&lt; TEnum &gt;::toEnum</definition>
+        <argsstring>(std::string_view fieldName) const</argsstring>
+        <name>toEnum</name>
+        <qualifiedname>Models::V2::UnifiedModel::toEnum</qualifiedname>
+        <param>
+          <type>std::string_view</type>
+          <declname>fieldName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="69" column="11" bodyfile="Base/Models/Public/Include/Models/UnifiedModel.hpp" bodystart="69" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_v2_1_1_unified_model_1a315ebb9492ccc41f8517fc9c918da577" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>InsertData</type>
+        <definition>InsertData Models::V2::UnifiedModel&lt; TEnum &gt;::makeColumnDataPair</definition>
+        <argsstring>() const</argsstring>
+        <name>makeColumnDataPair</name>
+        <qualifiedname>Models::V2::UnifiedModel::makeColumnDataPair</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="86" column="16" bodyfile="Base/Models/Public/Include/Models/UnifiedModel.hpp" bodystart="86" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_v2_1_1_unified_model_1a053d4ad45d3d948411a5fa74e197eee7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual Models::V2::UnifiedModel&lt; TEnum &gt;::~UnifiedModel</definition>
+        <argsstring>()=default</argsstring>
+        <name>~UnifiedModel</name>
+        <qualifiedname>Models::V2::UnifiedModel::~UnifiedModel</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="100" column="13"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_models_1_1_v2_1_1_unified_model_1a469f6f4b3c9d29053e31fdaf52bb18be" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::V2::UnifiedModel&lt; TEnum &gt;::fillStartFields</definition>
+        <argsstring>(const std::vector&lt; std::pair&lt; TEnum, std::string &gt; &gt; &amp;insertData)</argsstring>
+        <name>fillStartFields</name>
+        <qualifiedname>Models::V2::UnifiedModel::fillStartFields</qualifiedname>
+        <param>
+          <type>const std::vector&lt; std::pair&lt; TEnum, std::string &gt; &gt; &amp;</type>
+          <declname>insertData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="108" column="10" bodyfile="Base/Models/Public/Include/Models/UnifiedModel.hpp" bodystart="108" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="class_models_1_1_v2_1_1_unified_model_1a425c7239061d7c89d67691deedf12fb7" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Models::V2::UnifiedModel&lt; TEnum &gt;::init</definition>
+        <argsstring>(const FieldNames &amp;fieldNames)</argsstring>
+        <name>init</name>
+        <qualifiedname>Models::V2::UnifiedModel::init</qualifiedname>
+        <param>
+          <type>const FieldNames &amp;</type>
+          <declname>fieldNames</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="121" column="10" bodyfile="Base/Models/Public/Include/Models/UnifiedModel.hpp" bodystart="121" bodyend="125"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_models_1_1_v2_1_1_unified_model_1a2c607c4060982065f818a1900c47dbfb" prot="private" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>TEnum</type>
+        <definition>virtual TEnum Models::V2::UnifiedModel&lt; TEnum &gt;::getNumEnum</definition>
+        <argsstring>(size_t num) const =0</argsstring>
+        <name>getNumEnum</name>
+        <qualifiedname>Models::V2::UnifiedModel::getNumEnum</qualifiedname>
+        <reimplementedby refid="class_models_1_1_v2_1_1_user_1a842290123c719ff15afc45172526c289">getNumEnum</reimplementedby>
+        <reimplementedby refid="class_models_1_1_v2_1_1_channel_1a0a6ed9cf00fcf03da5890bb44980e44b">getNumEnum</reimplementedby>
+        <reimplementedby refid="class_models_1_1_v2_1_1_user_channels_1a41bd3faebb5bd5a834c515f9ae061b2a">getNumEnum</reimplementedby>
+        <param>
+          <type>size_t</type>
+          <declname>num</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="133" column="19"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Models::V2::Channel&lt; TEnum &gt;</label>
+        <link refid="class_models_1_1_v2_1_1_channel"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Models::V2::UnifiedModel&lt; TEnum &gt;</label>
+        <link refid="class_models_1_1_v2_1_1_unified_model"/>
+      </node>
+      <node id="3">
+        <label>Models::V2::User&lt; TEnum &gt;</label>
+        <link refid="class_models_1_1_v2_1_1_user"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Models::V2::UserChannels&lt; TEnum &gt;</label>
+        <link refid="class_models_1_1_v2_1_1_user_channels"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="37" column="1" bodyfile="Base/Models/Public/Include/Models/UnifiedModel.hpp" bodystart="38" bodyend="140"/>
+    <listofallmembers>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1a2478888290412b4ced11575af6ce9a70" prot="private" virt="non-virtual"><scope>Models::V2::UnifiedModel</scope><name>_amountOfFields</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1aed60ff765da8936b79c75e36f4d3103a" prot="private" virt="non-virtual"><scope>Models::V2::UnifiedModel</scope><name>_data</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1af5e65c5b149075d9cc088151c7e3824a" prot="private" virt="non-virtual"><scope>Models::V2::UnifiedModel</scope><name>_modelName</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1a469f6f4b3c9d29053e31fdaf52bb18be" prot="protected" virt="non-virtual"><scope>Models::V2::UnifiedModel</scope><name>fillStartFields</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1a303c285c209733be4d085a821e085478" prot="public" virt="non-virtual"><scope>Models::V2::UnifiedModel</scope><name>getModelName</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1a2c607c4060982065f818a1900c47dbfb" prot="private" virt="pure-virtual"><scope>Models::V2::UnifiedModel</scope><name>getNumEnum</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1a425c7239061d7c89d67691deedf12fb7" prot="protected" virt="non-virtual"><scope>Models::V2::UnifiedModel</scope><name>init</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1a315ebb9492ccc41f8517fc9c918da577" prot="public" virt="non-virtual"><scope>Models::V2::UnifiedModel</scope><name>makeColumnDataPair</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1a6f8c5ed7b61bbffc3fe06d288c8c2c79" prot="public" virt="non-virtual"><scope>Models::V2::UnifiedModel</scope><name>operator[]</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1ad70e5326910d81365776ac50600b51b4" prot="public" virt="non-virtual"><scope>Models::V2::UnifiedModel</scope><name>resolveName</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1ad4dddf46212ec2954dab4fbeb7f97002" prot="public" virt="non-virtual"><scope>Models::V2::UnifiedModel</scope><name>toEnum</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1a0dd97508d26a00649ad0c36c9162e406" prot="public" virt="non-virtual"><scope>Models::V2::UnifiedModel</scope><name>UnifiedModel</name></member>
+      <member refid="class_models_1_1_v2_1_1_unified_model_1a053d4ad45d3d948411a5fa74e197eee7" prot="public" virt="virtual"><scope>Models::V2::UnifiedModel</scope><name>~UnifiedModel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

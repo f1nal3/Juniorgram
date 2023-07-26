@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_utility_1_1_not_implemented_exception" kind="class" language="C++" prot="public">
+    <compoundname>Utility::NotImplementedException</compoundname>
+    <basecompoundref refid="class_utility_1_1_juniorgram_exception" prot="public" virt="non-virtual">Utility::JuniorgramException</basecompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_utility_1_1_not_implemented_exception_1a220c631ba70051cdb71997fc6886e24f" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Utility::JuniorgramException::JuniorgramException</definition>
+        <argsstring>(const char *msg_, const char *file_, std::uint16_t line_)</argsstring>
+        <name>JuniorgramException</name>
+        <qualifiedname>Utility::NotImplementedException::JuniorgramException</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>msg_</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>file_</declname>
+        </param>
+        <param>
+          <type>std::uint16_t</type>
+          <declname>line_</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/JGExceptions.hpp" line="49" column="5" bodyfile="Utility/Utility.Public/Include/Utility/JGExceptions.hpp" bodystart="24" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="class_utility_1_1_not_implemented_exception_1ab071bf8af52dbf1d447a6ac82d344e0e" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Utility::JuniorgramException::JuniorgramException</definition>
+        <argsstring>(const std::string &amp;msg_, const char *file_, std::uint16_t line_)</argsstring>
+        <name>JuniorgramException</name>
+        <qualifiedname>Utility::NotImplementedException::JuniorgramException</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>msg_</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>file_</declname>
+        </param>
+        <param>
+          <type>std::uint16_t</type>
+          <declname>line_</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/JGExceptions.hpp" line="49" column="5" bodyfile="Utility/Utility.Public/Include/Utility/JGExceptions.hpp" bodystart="31" bodyend="36"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Utility::JuniorgramException</label>
+        <link refid="class_utility_1_1_juniorgram_exception"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Utility::NotImplementedException</label>
+        <link refid="class_utility_1_1_not_implemented_exception"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::exception</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Utility::JuniorgramException</label>
+        <link refid="class_utility_1_1_juniorgram_exception"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Utility::NotImplementedException</label>
+        <link refid="class_utility_1_1_not_implemented_exception"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::exception</label>
+      </node>
+    </collaborationgraph>
+    <location file="Utility/Utility.Public/Include/Utility/JGExceptions.hpp" line="46" column="1" bodyfile="Utility/Utility.Public/Include/Utility/JGExceptions.hpp" bodystart="47" bodyend="50"/>
+    <listofallmembers>
+      <member refid="class_utility_1_1_not_implemented_exception_1a220c631ba70051cdb71997fc6886e24f" prot="public" virt="non-virtual"><scope>Utility::NotImplementedException</scope><name>JuniorgramException</name></member>
+      <member refid="class_utility_1_1_not_implemented_exception_1ab071bf8af52dbf1d447a6ac82d344e0e" prot="public" virt="non-virtual"><scope>Utility::NotImplementedException</scope><name>JuniorgramException</name></member>
+      <member refid="class_utility_1_1_juniorgram_exception_1a5ec2c68f67a04d35bc7e6cf4204300b9" prot="public" virt="non-virtual"><scope>Utility::NotImplementedException</scope><name>what</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

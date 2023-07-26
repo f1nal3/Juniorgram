@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_performance_test_1_1_argument_parser" kind="class" language="C++" prot="public">
+    <compoundname>PerformanceTest::ArgumentParser</compoundname>
+    <innerclass refid="class_performance_test_1_1_argument_parser_1_1_validator" prot="private">PerformanceTest::ArgumentParser::Validator</innerclass>
+      <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="class_performance_test_1_1_argument_parser_1ab3f3dcd31a64b6810d916f5a0a4eb9a4" prot="private" static="no">
+        <type>eKeys</type>
+        <definition>using PerformanceTest::ArgumentParser::argument =  eKeys</definition>
+        <argsstring></argsstring>
+        <name>argument</name>
+        <qualifiedname>PerformanceTest::ArgumentParser::argument</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/ArgumentParser.hpp" line="23" column="9" bodyfile="Test/PerformanceTest/ArgumentParser.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_performance_test_1_1_argument_parser_1adcc5eab8d12b64db052196aa69fcc080" prot="private" static="no">
+        <type>std::variant&lt; fs::path, std::uint8_t &gt;</type>
+        <definition>using PerformanceTest::ArgumentParser::argumentValue =  std::variant&lt;fs::path, std::uint8_t&gt;</definition>
+        <argsstring></argsstring>
+        <name>argumentValue</name>
+        <qualifiedname>PerformanceTest::ArgumentParser::argumentValue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/ArgumentParser.hpp" line="24" column="9" bodyfile="Test/PerformanceTest/ArgumentParser.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_performance_test_1_1_argument_parser_1a1f4ea342c1c5b246ab2bd8f038e62e74" prot="private" static="no" mutable="no">
+        <type>std::map&lt; argument, argumentValue &gt;</type>
+        <definition>std::map&lt;argument, argumentValue&gt; PerformanceTest::ArgumentParser::_args</definition>
+        <argsstring></argsstring>
+        <name>_args</name>
+        <qualifiedname>PerformanceTest::ArgumentParser::_args</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/ArgumentParser.hpp" line="42" column="18" bodyfile="Test/PerformanceTest/ArgumentParser.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_performance_test_1_1_argument_parser_1a7fef1d42813b6bea704f2831d13c5671" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>argument</type>
+        <definition>argument PerformanceTest::ArgumentParser::privateParseArgument</definition>
+        <argsstring>(const std::string_view &amp;arg)</argsstring>
+        <name>privateParseArgument</name>
+        <qualifiedname>PerformanceTest::ArgumentParser::privateParseArgument</qualifiedname>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>arg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/ArgumentParser.hpp" line="46" column="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_performance_test_1_1_argument_parser_1ac33147fd2a7d11aa6f5d51c35069a7c0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>argumentValue</type>
+        <definition>argumentValue PerformanceTest::ArgumentParser::privateParseValue</definition>
+        <argsstring>(const argument arg, const std::string_view &amp;value)</argsstring>
+        <name>privateParseValue</name>
+        <qualifiedname>PerformanceTest::ArgumentParser::privateParseValue</qualifiedname>
+        <param>
+          <type>const argument</type>
+          <declname>arg</declname>
+        </param>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/ArgumentParser.hpp" line="47" column="23"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_performance_test_1_1_argument_parser_1abd1ff0a87692bce81696568ef878d539" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>PerformanceTest::ArgumentParser::ArgumentParser</definition>
+        <argsstring>(int argc, char **argv)</argsstring>
+        <name>ArgumentParser</name>
+        <qualifiedname>PerformanceTest::ArgumentParser::ArgumentParser</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>char **</type>
+          <declname>argv</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/ArgumentParser.hpp" line="51" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_performance_test_1_1_argument_parser_1a36fae7059f50dcd359a3aa5ed98b0e70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PerformanceTest::ArgumentParser::isArgumentDefind</definition>
+        <argsstring>(const argument key)</argsstring>
+        <name>isArgumentDefind</name>
+        <qualifiedname>PerformanceTest::ArgumentParser::isArgumentDefind</qualifiedname>
+        <param>
+          <type>const argument</type>
+          <declname>key</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/ArgumentParser.hpp" line="55" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_performance_test_1_1_argument_parser_1af4b7cb4eb9a6e462cba6600c40ef2955" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const fs::path &amp;</type>
+        <definition>const fs::path &amp; PerformanceTest::ArgumentParser::getPathArgument</definition>
+        <argsstring>(void) const</argsstring>
+        <name>getPathArgument</name>
+        <qualifiedname>PerformanceTest::ArgumentParser::getPathArgument</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/ArgumentParser.hpp" line="57" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_performance_test_1_1_argument_parser_1aa9e7a3ec44d7ed1f19306395b027f31f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::uint8_t</type>
+        <definition>std::uint8_t PerformanceTest::ArgumentParser::getCountArgument</definition>
+        <argsstring>(void) const</argsstring>
+        <name>getCountArgument</name>
+        <qualifiedname>PerformanceTest::ArgumentParser::getCountArgument</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/ArgumentParser.hpp" line="59" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_performance_test_1_1_argument_parser_1a78a6af686b36ea6307f55c3ddaf01129" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool PerformanceTest::ArgumentParser::getTestArgument</definition>
+        <argsstring>(void) const</argsstring>
+        <name>getTestArgument</name>
+        <qualifiedname>PerformanceTest::ArgumentParser::getTestArgument</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/ArgumentParser.hpp" line="61" column="25"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Test/PerformanceTest/ArgumentParser.hpp" line="19" column="1" bodyfile="Test/PerformanceTest/ArgumentParser.hpp" bodystart="20" bodyend="63"/>
+    <listofallmembers>
+      <member refid="class_performance_test_1_1_argument_parser_1a1f4ea342c1c5b246ab2bd8f038e62e74" prot="private" virt="non-virtual"><scope>PerformanceTest::ArgumentParser</scope><name>_args</name></member>
+      <member refid="class_performance_test_1_1_argument_parser_1ab3f3dcd31a64b6810d916f5a0a4eb9a4" prot="private" virt="non-virtual"><scope>PerformanceTest::ArgumentParser</scope><name>argument</name></member>
+      <member refid="class_performance_test_1_1_argument_parser_1abd1ff0a87692bce81696568ef878d539" prot="public" virt="non-virtual"><scope>PerformanceTest::ArgumentParser</scope><name>ArgumentParser</name></member>
+      <member refid="class_performance_test_1_1_argument_parser_1adcc5eab8d12b64db052196aa69fcc080" prot="private" virt="non-virtual"><scope>PerformanceTest::ArgumentParser</scope><name>argumentValue</name></member>
+      <member refid="class_performance_test_1_1_argument_parser_1aa9e7a3ec44d7ed1f19306395b027f31f" prot="public" virt="non-virtual"><scope>PerformanceTest::ArgumentParser</scope><name>getCountArgument</name></member>
+      <member refid="class_performance_test_1_1_argument_parser_1af4b7cb4eb9a6e462cba6600c40ef2955" prot="public" virt="non-virtual"><scope>PerformanceTest::ArgumentParser</scope><name>getPathArgument</name></member>
+      <member refid="class_performance_test_1_1_argument_parser_1a78a6af686b36ea6307f55c3ddaf01129" prot="public" virt="non-virtual"><scope>PerformanceTest::ArgumentParser</scope><name>getTestArgument</name></member>
+      <member refid="class_performance_test_1_1_argument_parser_1a36fae7059f50dcd359a3aa5ed98b0e70" prot="public" virt="non-virtual"><scope>PerformanceTest::ArgumentParser</scope><name>isArgumentDefind</name></member>
+      <member refid="class_performance_test_1_1_argument_parser_1a7fef1d42813b6bea704f2831d13c5671" prot="private" virt="non-virtual"><scope>PerformanceTest::ArgumentParser</scope><name>privateParseArgument</name></member>
+      <member refid="class_performance_test_1_1_argument_parser_1ac33147fd2a7d11aa6f5d51c35069a7c0" prot="private" virt="non-virtual"><scope>PerformanceTest::ArgumentParser</scope><name>privateParseValue</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

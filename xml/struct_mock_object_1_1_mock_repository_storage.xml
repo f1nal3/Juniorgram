@@ -1,0 +1,328 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_mock_object_1_1_mock_repository_storage" kind="struct" language="C++" prot="public">
+    <compoundname>MockObject::MockRepositoryStorage</compoundname>
+    <derivedcompoundref refid="struct_mock_object_1_1_mock_repository_instance" prot="public" virt="non-virtual">MockObject::MockRepositoryInstance</derivedcompoundref>
+    <includes refid="_mock_repository_storage_8hpp" local="no">MockRepositoryStorage.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="struct_mock_object_1_1_mock_repository_storage_1a6c60e19544489069e84873e8f6630bbc" prot="private" static="no" mutable="no">
+        <type><ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelInfo</ref></type>
+        <definition>ChannelInfo MockObject::MockRepositoryStorage::_channelData</definition>
+        <argsstring></argsstring>
+        <name>_channelData</name>
+        <qualifiedname>MockObject::MockRepositoryStorage::_channelData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="163" column="37" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mock_object_1_1_mock_repository_storage_1a4643a732d81672ef6c7b7bd0ee32ff12" prot="private" static="no" mutable="no">
+        <type><ref refid="struct_models_1_1_reply_info" kindref="compound">ReplyInfo</ref></type>
+        <definition>ReplyInfo MockObject::MockRepositoryStorage::_repliesData</definition>
+        <argsstring></argsstring>
+        <name>_repliesData</name>
+        <qualifiedname>MockObject::MockRepositoryStorage::_repliesData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="164" column="37" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mock_object_1_1_mock_repository_storage_1a1287e9ff65bfa9e35214687d1df3db68" prot="private" static="no" mutable="no">
+        <type><ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref></type>
+        <definition>MessageInfo MockObject::MockRepositoryStorage::_messgData</definition>
+        <argsstring></argsstring>
+        <name>_messgData</name>
+        <qualifiedname>MockObject::MockRepositoryStorage::_messgData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="165" column="37" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mock_object_1_1_mock_repository_storage_1a820c85cf51dc7b306e51f63d70c23fbc" prot="private" static="no" mutable="no">
+        <type><ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref></type>
+        <definition>RegistrationInfo MockObject::MockRepositoryStorage::_regData</definition>
+        <argsstring></argsstring>
+        <name>_regData</name>
+        <qualifiedname>MockObject::MockRepositoryStorage::_regData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="166" column="37" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mock_object_1_1_mock_repository_storage_1a3bc6a59c22df51348fb601f178cb2cbe" prot="private" static="no" mutable="no">
+        <type><ref refid="struct_models_1_1_login_info" kindref="compound">LoginInfo</ref></type>
+        <definition>LoginInfo MockObject::MockRepositoryStorage::_loginData</definition>
+        <argsstring></argsstring>
+        <name>_loginData</name>
+        <qualifiedname>MockObject::MockRepositoryStorage::_loginData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="167" column="37" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_repository_storage_1a0e48faad42fe2037ccdc4c48a112ed93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockRepositoryStorage::MockRepositoryStorage</definition>
+        <argsstring>()=default</argsstring>
+        <name>MockRepositoryStorage</name>
+        <qualifiedname>MockObject::MockRepositoryStorage::MockRepositoryStorage</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="25" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_repository_storage_1aa554f01815e5f68989df182912b07e49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockRepositoryStorage::~MockRepositoryStorage</definition>
+        <argsstring>()=default</argsstring>
+        <name>~MockRepositoryStorage</name>
+        <qualifiedname>MockObject::MockRepositoryStorage::~MockRepositoryStorage</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="26" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_repository_storage_1acb355af45d1d27ff2eecb6ce6678755c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelInfo</ref> &amp;</type>
+        <definition>ChannelInfo &amp; MockObject::MockRepositoryStorage::getChannelsRepoData</definition>
+        <argsstring>()</argsstring>
+        <name>getChannelsRepoData</name>
+        <qualifiedname>MockObject::MockRepositoryStorage::getChannelsRepoData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="28" column="37" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" bodystart="28" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_repository_storage_1a67c9c2d55177ea42b8ec4029cbef8a37" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="struct_models_1_1_reply_info" kindref="compound">ReplyInfo</ref> &amp;</type>
+        <definition>ReplyInfo &amp; MockObject::MockRepositoryStorage::getRepliesRepoData</definition>
+        <argsstring>()</argsstring>
+        <name>getRepliesRepoData</name>
+        <qualifiedname>MockObject::MockRepositoryStorage::getRepliesRepoData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="29" column="37" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" bodystart="29" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_repository_storage_1a247f4c764ec99fecfd2a308c35177ed9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref> &amp;</type>
+        <definition>MessageInfo &amp; MockObject::MockRepositoryStorage::getMessageRepoData</definition>
+        <argsstring>()</argsstring>
+        <name>getMessageRepoData</name>
+        <qualifiedname>MockObject::MockRepositoryStorage::getMessageRepoData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="30" column="37" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" bodystart="30" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_repository_storage_1a43835e72ad7a9e2b3c6f795e0a142c30" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref> &amp;</type>
+        <definition>RegistrationInfo &amp; MockObject::MockRepositoryStorage::getRegisterRepoData</definition>
+        <argsstring>()</argsstring>
+        <name>getRegisterRepoData</name>
+        <qualifiedname>MockObject::MockRepositoryStorage::getRegisterRepoData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="31" column="37" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" bodystart="31" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_repository_storage_1a9d9e21527a020e4751724734c775c8b0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="struct_models_1_1_login_info" kindref="compound">LoginInfo</ref> &amp;</type>
+        <definition>LoginInfo &amp; MockObject::MockRepositoryStorage::getLoginRepoData</definition>
+        <argsstring>()</argsstring>
+        <name>getLoginRepoData</name>
+        <qualifiedname>MockObject::MockRepositoryStorage::getLoginRepoData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="32" column="37" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" bodystart="32" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_repository_storage_1a4d1c54a17acd0a8c7525d09e849d2335" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelInfo</ref> &amp;</type>
+        <definition>ChannelInfo &amp; MockObject::MockRepositoryStorage::checkChannelTable</definition>
+        <argsstring>(TableChannelRepository table, const std::any &amp;repoInfo)</argsstring>
+        <name>checkChannelTable</name>
+        <qualifiedname>MockObject::MockRepositoryStorage::checkChannelTable</qualifiedname>
+        <param>
+          <type>TableChannelRepository</type>
+          <declname>table</declname>
+        </param>
+        <param>
+          <type>const std::any &amp;</type>
+          <declname>repoInfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="34" column="17" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" bodystart="34" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_repository_storage_1a3e7be0165155d5a47220f3b23fe7e49e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="struct_models_1_1_reply_info" kindref="compound">ReplyInfo</ref> &amp;</type>
+        <definition>ReplyInfo &amp; MockObject::MockRepositoryStorage::checkRepliesTable</definition>
+        <argsstring>(TableRepliesRepository table, const std::any &amp;repoInfo)</argsstring>
+        <name>checkRepliesTable</name>
+        <qualifiedname>MockObject::MockRepositoryStorage::checkRepliesTable</qualifiedname>
+        <param>
+          <type>TableRepliesRepository</type>
+          <declname>table</declname>
+        </param>
+        <param>
+          <type>const std::any &amp;</type>
+          <declname>repoInfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="59" column="15" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" bodystart="59" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_repository_storage_1a269f8a51ef4b0c4a90c3fec943e1fd5d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref> &amp;</type>
+        <definition>MessageInfo &amp; MockObject::MockRepositoryStorage::checkMessagesTable</definition>
+        <argsstring>(TableMessagesRepository table, const std::any &amp;repoInfo)</argsstring>
+        <name>checkMessagesTable</name>
+        <qualifiedname>MockObject::MockRepositoryStorage::checkMessagesTable</qualifiedname>
+        <param>
+          <type>TableMessagesRepository</type>
+          <declname>table</declname>
+        </param>
+        <param>
+          <type>const std::any &amp;</type>
+          <declname>repoInfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="85" column="17" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" bodystart="85" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_repository_storage_1a9409f219ee3e596d4b37513efcfa9487" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref> &amp;</type>
+        <definition>RegistrationInfo &amp; MockObject::MockRepositoryStorage::checkRegistrationTable</definition>
+        <argsstring>(TableRegistrationRepository table, const std::any &amp;repoInfo)</argsstring>
+        <name>checkRegistrationTable</name>
+        <qualifiedname>MockObject::MockRepositoryStorage::checkRegistrationTable</qualifiedname>
+        <param>
+          <type>TableRegistrationRepository</type>
+          <declname>table</declname>
+        </param>
+        <param>
+          <type>const std::any &amp;</type>
+          <declname>repoInfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="123" column="22" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" bodystart="123" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_repository_storage_1a9db3d3837479da4aa783c712fdaa3a5b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="struct_models_1_1_login_info" kindref="compound">LoginInfo</ref> &amp;</type>
+        <definition>LoginInfo &amp; MockObject::MockRepositoryStorage::checkLoginTable</definition>
+        <argsstring>(TableLoginRepository table, const std::any &amp;repoInfo)</argsstring>
+        <name>checkLoginTable</name>
+        <qualifiedname>MockObject::MockRepositoryStorage::checkLoginTable</qualifiedname>
+        <param>
+          <type>TableLoginRepository</type>
+          <declname>table</declname>
+        </param>
+        <param>
+          <type>const std::any &amp;</type>
+          <declname>repoInfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="145" column="15" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" bodystart="145" bodyend="161"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="struct_mock_object_1_1_mock_repository_storage" kindref="compound">MockRepositoryStorage</ref> class. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Designed to initialize tables (data strings) that / emulate database storage for a specific repository. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>MockObject::MockRepositoryInstance</label>
+        <link refid="struct_mock_object_1_1_mock_repository_instance"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>MockObject::MockRepositoryStorage</label>
+        <link refid="struct_mock_object_1_1_mock_repository_storage"/>
+      </node>
+    </inheritancegraph>
+    <location file="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" line="23" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp" bodystart="24" bodyend="168"/>
+    <listofallmembers>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a6c60e19544489069e84873e8f6630bbc" prot="private" virt="non-virtual"><scope>MockObject::MockRepositoryStorage</scope><name>_channelData</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a3bc6a59c22df51348fb601f178cb2cbe" prot="private" virt="non-virtual"><scope>MockObject::MockRepositoryStorage</scope><name>_loginData</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a1287e9ff65bfa9e35214687d1df3db68" prot="private" virt="non-virtual"><scope>MockObject::MockRepositoryStorage</scope><name>_messgData</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a820c85cf51dc7b306e51f63d70c23fbc" prot="private" virt="non-virtual"><scope>MockObject::MockRepositoryStorage</scope><name>_regData</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a4643a732d81672ef6c7b7bd0ee32ff12" prot="private" virt="non-virtual"><scope>MockObject::MockRepositoryStorage</scope><name>_repliesData</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a4d1c54a17acd0a8c7525d09e849d2335" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryStorage</scope><name>checkChannelTable</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a9db3d3837479da4aa783c712fdaa3a5b" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryStorage</scope><name>checkLoginTable</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a269f8a51ef4b0c4a90c3fec943e1fd5d" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryStorage</scope><name>checkMessagesTable</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a9409f219ee3e596d4b37513efcfa9487" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryStorage</scope><name>checkRegistrationTable</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a3e7be0165155d5a47220f3b23fe7e49e" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryStorage</scope><name>checkRepliesTable</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1acb355af45d1d27ff2eecb6ce6678755c" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryStorage</scope><name>getChannelsRepoData</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a9d9e21527a020e4751724734c775c8b0" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryStorage</scope><name>getLoginRepoData</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a247f4c764ec99fecfd2a308c35177ed9" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryStorage</scope><name>getMessageRepoData</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a43835e72ad7a9e2b3c6f795e0a142c30" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryStorage</scope><name>getRegisterRepoData</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a67c9c2d55177ea42b8ec4029cbef8a37" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryStorage</scope><name>getRepliesRepoData</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a0e48faad42fe2037ccdc4c48a112ed93" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryStorage</scope><name>MockRepositoryStorage</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1aa554f01815e5f68989df182912b07e49" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryStorage</scope><name>~MockRepositoryStorage</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

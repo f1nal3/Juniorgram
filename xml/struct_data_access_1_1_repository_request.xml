@@ -1,0 +1,241 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_data_access_1_1_repository_request" kind="struct" language="C++" prot="public">
+    <compoundname>DataAccess::RepositoryRequest</compoundname>
+    <includes refid="_repository_request_8hpp" local="no">RepositoryRequest.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="struct_data_access_1_1_repository_request_1a8bfc24f673e58010338f0f0d0ac27023" prot="private" static="no" mutable="no">
+        <type>ePriority</type>
+        <definition>ePriority DataAccess::RepositoryRequest::_priority</definition>
+        <argsstring></argsstring>
+        <name>_priority</name>
+        <qualifiedname>DataAccess::RepositoryRequest::_priority</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" line="39" column="21" bodyfile="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_data_access_1_1_repository_request_1ac9a0fa3cce983a5271b55b6fc06caca9" prot="private" static="no" mutable="no">
+        <type>RequestTask</type>
+        <definition>RequestTask DataAccess::RepositoryRequest::_task</definition>
+        <argsstring></argsstring>
+        <name>_task</name>
+        <qualifiedname>DataAccess::RepositoryRequest::_task</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" line="40" column="21" bodyfile="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_data_access_1_1_repository_request_1a245ab948119da4207dc37ba51ab2d669" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::RepositoryRequest::RepositoryRequest</definition>
+        <argsstring>(ePriority priority, RequestTask &amp;task)</argsstring>
+        <name>RepositoryRequest</name>
+        <qualifiedname>DataAccess::RepositoryRequest::RepositoryRequest</qualifiedname>
+        <param>
+          <type>ePriority</type>
+          <declname>priority</declname>
+        </param>
+        <param>
+          <type>RequestTask &amp;</type>
+          <declname>task</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" line="43" column="18" bodyfile="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_repository_request_1aa8a778ebfaeaba9f92d2c2609abd4dd0" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::RepositoryRequest::RepositoryRequest</definition>
+        <argsstring>(RepositoryRequest &amp;&amp;other) noexcept</argsstring>
+        <name>RepositoryRequest</name>
+        <qualifiedname>DataAccess::RepositoryRequest::RepositoryRequest</qualifiedname>
+        <param>
+          <type><ref refid="struct_data_access_1_1_repository_request" kindref="compound">RepositoryRequest</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" line="45" column="9" bodyfile="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" bodystart="45" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_repository_request_1a80889a6edd5bdc22d7958e304aa81665" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="struct_data_access_1_1_repository_request" kindref="compound">RepositoryRequest</ref> &amp;</type>
+        <definition>RepositoryRequest &amp; DataAccess::RepositoryRequest::operator=</definition>
+        <argsstring>(RepositoryRequest &amp;&amp;other) noexcept</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::RepositoryRequest::operator=</qualifiedname>
+        <param>
+          <type><ref refid="struct_data_access_1_1_repository_request" kindref="compound">RepositoryRequest</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" line="50" column="27" bodyfile="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" bodystart="50" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_repository_request_1a11bf0a57c325490656aaafc87263e741" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>ePriority</type>
+        <definition>ePriority DataAccess::RepositoryRequest::getPriority</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>getPriority</name>
+        <qualifiedname>DataAccess::RepositoryRequest::getPriority</qualifiedname>
+        <briefdescription>
+<para>Getter for priority from request. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>ePriority. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" line="63" column="19" bodyfile="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" bodystart="63" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_repository_request_1a06cdfdfa4595b2875b3a98c0096effd5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>RawFuture</type>
+        <definition>RawFuture DataAccess::RepositoryRequest::getFutureFromTask</definition>
+        <argsstring>()</argsstring>
+        <name>getFutureFromTask</name>
+        <qualifiedname>DataAccess::RepositoryRequest::getFutureFromTask</qualifiedname>
+        <briefdescription>
+<para>Getter for raw future from task. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>future&lt;any&gt;. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" line="71" column="19" bodyfile="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" bodystart="71" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_repository_request_1a9f6f647f51ec3c9ea0234415a5e8fbf4" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool DataAccess::RepositoryRequest::operator&gt;</definition>
+        <argsstring>(const RepositoryRequest &amp;task) const noexcept</argsstring>
+        <name>operator&gt;</name>
+        <qualifiedname>DataAccess::RepositoryRequest::operator&gt;</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_data_access_1_1_repository_request" kindref="compound">RepositoryRequest</ref> &amp;</type>
+          <declname>task</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" line="76" column="14" bodyfile="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" bodystart="76" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_repository_request_1a171fbd14f2c428de1381a5d094a266ce" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool DataAccess::RepositoryRequest::operator&lt;</definition>
+        <argsstring>(const RepositoryRequest &amp;task) const noexcept</argsstring>
+        <name>operator&lt;</name>
+        <qualifiedname>DataAccess::RepositoryRequest::operator&lt;</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_data_access_1_1_repository_request" kindref="compound">RepositoryRequest</ref> &amp;</type>
+          <declname>task</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" line="79" column="9" bodyfile="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" bodystart="79" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_repository_request_1aa30f95c7d6eefb3e09fe7f0d5c37c5f0" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool DataAccess::RepositoryRequest::operator==</definition>
+        <argsstring>(const RepositoryRequest &amp;task) const noexcept</argsstring>
+        <name>operator==</name>
+        <qualifiedname>DataAccess::RepositoryRequest::operator==</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_data_access_1_1_repository_request" kindref="compound">RepositoryRequest</ref> &amp;</type>
+          <declname>task</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" line="82" column="14" bodyfile="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" bodystart="82" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_repository_request_1a156df1db52f72876b4cb76c44e85e3de" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool DataAccess::RepositoryRequest::operator!=</definition>
+        <argsstring>(const RepositoryRequest &amp;task) const noexcept</argsstring>
+        <name>operator!=</name>
+        <qualifiedname>DataAccess::RepositoryRequest::operator!=</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_data_access_1_1_repository_request" kindref="compound">RepositoryRequest</ref> &amp;</type>
+          <declname>task</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" line="85" column="14" bodyfile="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" bodystart="85" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_repository_request_1a5a5a2480057d515b50e1af8aff6556dc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::RepositoryRequest::operator()</definition>
+        <argsstring>()</argsstring>
+        <name>operator()</name>
+        <qualifiedname>DataAccess::RepositoryRequest::operator()</qualifiedname>
+        <briefdescription>
+<para>Invoke operator for request task. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" line="92" column="21" bodyfile="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" bodystart="92" bodyend="94"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="struct_data_access_1_1_repository_request" kindref="compound">RepositoryRequest</ref> object uses for storing request in one container. It is just a wrapper for std::packaged_task. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>It is also stores a priority of this request. </para>
+    </detaileddescription>
+    <location file="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" line="36" column="5" bodyfile="DataAccess/Public/Include/DataAccess/RepositoryRequest.hpp" bodystart="37" bodyend="95"/>
+    <listofallmembers>
+      <member refid="struct_data_access_1_1_repository_request_1a8bfc24f673e58010338f0f0d0ac27023" prot="private" virt="non-virtual"><scope>DataAccess::RepositoryRequest</scope><name>_priority</name></member>
+      <member refid="struct_data_access_1_1_repository_request_1ac9a0fa3cce983a5271b55b6fc06caca9" prot="private" virt="non-virtual"><scope>DataAccess::RepositoryRequest</scope><name>_task</name></member>
+      <member refid="struct_data_access_1_1_repository_request_1a06cdfdfa4595b2875b3a98c0096effd5" prot="public" virt="non-virtual"><scope>DataAccess::RepositoryRequest</scope><name>getFutureFromTask</name></member>
+      <member refid="struct_data_access_1_1_repository_request_1a11bf0a57c325490656aaafc87263e741" prot="public" virt="non-virtual"><scope>DataAccess::RepositoryRequest</scope><name>getPriority</name></member>
+      <member refid="struct_data_access_1_1_repository_request_1a156df1db52f72876b4cb76c44e85e3de" prot="public" virt="non-virtual"><scope>DataAccess::RepositoryRequest</scope><name>operator!=</name></member>
+      <member refid="struct_data_access_1_1_repository_request_1a5a5a2480057d515b50e1af8aff6556dc" prot="public" virt="non-virtual"><scope>DataAccess::RepositoryRequest</scope><name>operator()</name></member>
+      <member refid="struct_data_access_1_1_repository_request_1a171fbd14f2c428de1381a5d094a266ce" prot="public" virt="non-virtual"><scope>DataAccess::RepositoryRequest</scope><name>operator&lt;</name></member>
+      <member refid="struct_data_access_1_1_repository_request_1a80889a6edd5bdc22d7958e304aa81665" prot="public" virt="non-virtual"><scope>DataAccess::RepositoryRequest</scope><name>operator=</name></member>
+      <member refid="struct_data_access_1_1_repository_request_1aa30f95c7d6eefb3e09fe7f0d5c37c5f0" prot="public" virt="non-virtual"><scope>DataAccess::RepositoryRequest</scope><name>operator==</name></member>
+      <member refid="struct_data_access_1_1_repository_request_1a9f6f647f51ec3c9ea0234415a5e8fbf4" prot="public" virt="non-virtual"><scope>DataAccess::RepositoryRequest</scope><name>operator&gt;</name></member>
+      <member refid="struct_data_access_1_1_repository_request_1a245ab948119da4207dc37ba51ab2d669" prot="public" virt="non-virtual"><scope>DataAccess::RepositoryRequest</scope><name>RepositoryRequest</name></member>
+      <member refid="struct_data_access_1_1_repository_request_1aa8a778ebfaeaba9f92d2c2609abd4dd0" prot="public" virt="non-virtual"><scope>DataAccess::RepositoryRequest</scope><name>RepositoryRequest</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

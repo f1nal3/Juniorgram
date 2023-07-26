@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_data_access_1_1_i_master_repository" kind="class" language="C++" prot="public">
+    <compoundname>DataAccess::IMasterRepository</compoundname>
+    <derivedcompoundref refid="struct_data_access_1_1_i_channels_repository" prot="public" virt="non-virtual">DataAccess::IChannelsRepository</derivedcompoundref>
+    <derivedcompoundref refid="struct_data_access_1_1_i_direct_message_repository" prot="public" virt="non-virtual">DataAccess::IDirectMessageRepository</derivedcompoundref>
+    <derivedcompoundref refid="struct_data_access_1_1_i_login_repository" prot="public" virt="non-virtual">DataAccess::ILoginRepository</derivedcompoundref>
+    <derivedcompoundref refid="class_data_access_1_1_i_message_repository" prot="public" virt="non-virtual">DataAccess::IMessageRepository</derivedcompoundref>
+    <derivedcompoundref refid="struct_data_access_1_1_i_messages_repository" prot="public" virt="non-virtual">DataAccess::IMessagesRepository</derivedcompoundref>
+    <derivedcompoundref refid="struct_data_access_1_1_i_register_repository" prot="public" virt="non-virtual">DataAccess::IRegisterRepository</derivedcompoundref>
+    <derivedcompoundref refid="struct_data_access_1_1_i_replies_repository" prot="public" virt="non-virtual">DataAccess::IRepliesRepository</derivedcompoundref>
+    <includes refid="_i_master_repository_8hpp" local="no">IMasterRepository.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual DataAccess::IMasterRepository::~IMasterRepository</definition>
+        <argsstring>()=default</argsstring>
+        <name>~IMasterRepository</name>
+        <qualifiedname>DataAccess::IMasterRepository::~IMasterRepository</qualifiedname>
+        <briefdescription>
+<para>virtual destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IMasterRepository.hpp" line="23" column="13"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_data_access_1_1_i_master_repository" kindref="compound">IMasterRepository</ref> base abstract class. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Class used as a base of interfaces for repositories on client and server sides. The class use polymorphism to registrate existing repositories. The repositories can be located at client or server sides. The name of repository is defined by class of object, which will be processed (e.g. <ref refid="struct_data_access_1_1_channels_repository" kindref="compound">ChannelsRepository</ref> handle object of ChannelInfo class). <linebreak/>
+Each database has it`s own full set of implemented repositories . </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>DataAccess::ChannelsRepository</label>
+        <link refid="struct_data_access_1_1_channels_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>DataAccess::DirectMessageRepository</label>
+        <link refid="struct_data_access_1_1_direct_message_repository"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DataAccess::IChannelsRepository</label>
+        <link refid="struct_data_access_1_1_i_channels_repository"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>DataAccess::IDirectMessageRepository</label>
+        <link refid="struct_data_access_1_1_i_direct_message_repository"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>DataAccess::ILoginRepository</label>
+        <link refid="struct_data_access_1_1_i_login_repository"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="11">
+        <label>DataAccess::IMessageRepository</label>
+        <link refid="class_data_access_1_1_i_message_repository"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>DataAccess::IMessagesRepository</label>
+        <link refid="struct_data_access_1_1_i_messages_repository"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>DataAccess::IRegisterRepository</label>
+        <link refid="struct_data_access_1_1_i_register_repository"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>DataAccess::IRepliesRepository</label>
+        <link refid="struct_data_access_1_1_i_replies_repository"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>DataAccess::LoginRepository</label>
+        <link refid="struct_data_access_1_1_login_repository"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>DataAccess::MessagesRepository</label>
+        <link refid="struct_data_access_1_1_messages_repository"/>
+        <childnode refid="12" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>DataAccess::RegisterRepository</label>
+        <link refid="struct_data_access_1_1_register_repository"/>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>DataAccess::RepliesRepository</label>
+        <link refid="struct_data_access_1_1_replies_repository"/>
+        <childnode refid="18" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>MockObject::MockChannelsRepository</label>
+        <link refid="struct_mock_object_1_1_mock_channels_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>MockObject::MockDirectMessageRepository</label>
+        <link refid="struct_mock_object_1_1_mock_direct_message_repository"/>
+        <childnode refid="5" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>MockObject::MockLoginRepository</label>
+        <link refid="struct_mock_object_1_1_mock_login_repository"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>MockObject::MockMessagesRepository</label>
+        <link refid="struct_mock_object_1_1_mock_messages_repository"/>
+        <childnode refid="12" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>MockObject::MockRegisterRepository</label>
+        <link refid="struct_mock_object_1_1_mock_register_repository"/>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>MockObject::MockRepliesRepository</label>
+        <link refid="struct_mock_object_1_1_mock_replies_repository"/>
+        <childnode refid="18" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="DataAccess/Public/Include/DataAccess/IMasterRepository.hpp" line="18" column="1" bodyfile="DataAccess/Public/Include/DataAccess/IMasterRepository.hpp" bodystart="19" bodyend="24"/>
+    <listofallmembers>
+      <member refid="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" prot="public" virt="virtual"><scope>DataAccess::IMasterRepository</scope><name>~IMasterRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

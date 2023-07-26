@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_server_info" kind="namespace" language="C++">
+    <compoundname>ServerInfo</compoundname>
+    <innernamespace refid="namespace_server_info_1_1_address">ServerInfo::Address</innernamespace>
+    <innernamespace refid="namespace_server_info_1_1_port">ServerInfo::Port</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Client/Client.Core/Client.Core.Static/ServerInfo.hpp" line="3" column="1"/>
+  </compounddef>
+</doxygen>

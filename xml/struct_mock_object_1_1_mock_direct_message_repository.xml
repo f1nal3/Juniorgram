@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_mock_object_1_1_mock_direct_message_repository" kind="struct" language="C++" prot="public" final="yes">
+    <compoundname>MockObject::MockDirectMessageRepository</compoundname>
+    <basecompoundref refid="struct_data_access_1_1_i_direct_message_repository" prot="public" virt="non-virtual">DataAccess::IDirectMessageRepository</basecompoundref>
+    <includes refid="_mock_repositories_8hpp" local="no">MockRepositories.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="struct_mock_object_1_1_mock_direct_message_repository_1a5c7316cc657f52c995f5be259278a423" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_mock_object_1_1_mock_query" kindref="compound">MockQuery</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;MockQuery&gt; MockObject::MockDirectMessageRepository::_mockQuery</definition>
+        <argsstring></argsstring>
+        <name>_mockQuery</name>
+        <qualifiedname>MockObject::MockDirectMessageRepository::_mockQuery</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="76" column="21" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_direct_message_repository_1a0a82f99ab281953dee09e9b05884cf55" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockDirectMessageRepository::MockDirectMessageRepository</definition>
+        <argsstring>(const std::shared_ptr&lt; IAdapter &gt; &amp;adapter)</argsstring>
+        <name>MockDirectMessageRepository</name>
+        <qualifiedname>MockObject::MockDirectMessageRepository::MockDirectMessageRepository</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt; &amp;</type>
+          <declname>adapter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="66" column="14" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="66" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_direct_message_repository_1af80b13eb00ab23c1e5d0a21d20d26b47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockDirectMessageRepository::~MockDirectMessageRepository</definition>
+        <argsstring>() override=default</argsstring>
+        <name>~MockDirectMessageRepository</name>
+        <qualifiedname>MockObject::MockDirectMessageRepository::~MockDirectMessageRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="71" column="5"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_direct_message_repository_1a269db192cfb009bd87291410cda612a9" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::DirectMessageStatus</type>
+        <definition>Utility::DirectMessageStatus MockObject::MockDirectMessageRepository::addDirectChat</definition>
+        <argsstring>(uint64_t userID, uint64_t receiverID) override</argsstring>
+        <name>addDirectChat</name>
+        <qualifiedname>MockObject::MockDirectMessageRepository::addDirectChat</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_direct_message_repository_1ad627a71cda95abd5cfdd0a72b338b84d">addDirectChat</reimplements>
+        <param>
+          <type>uint64_t</type>
+          <declname>user_id</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>directMessageInfo</declname>
+        </param>
+        <briefdescription>
+<para>Save a direct message from <emphasis>user_id</emphasis> to <emphasis>receiverID</emphasis> </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>user_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sender id </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>directMessageInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>receiver info </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="74" column="34"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>struct <ref refid="struct_mock_object_1_1_mock_direct_message_repository" kindref="compound">MockDirectMessageRepository</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Inherited from IDirectMessageRepository struct / (for overriding methods related to this repository). </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="2">
+        <label>IDirectMessageRepository</label>
+        <link refid="struct_data_access_1_1_i_direct_message_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>MockObject::MockDirectMessageRepository</label>
+        <link refid="struct_mock_object_1_1_mock_direct_message_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="2">
+        <label>IDirectMessageRepository</label>
+        <link refid="struct_data_access_1_1_i_direct_message_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>MockObject::MockDirectMessageRepository</label>
+        <link refid="struct_mock_object_1_1_mock_direct_message_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="63" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="64" bodyend="77"/>
+    <listofallmembers>
+      <member refid="struct_mock_object_1_1_mock_direct_message_repository_1a5c7316cc657f52c995f5be259278a423" prot="private" virt="non-virtual"><scope>MockObject::MockDirectMessageRepository</scope><name>_mockQuery</name></member>
+      <member refid="struct_mock_object_1_1_mock_direct_message_repository_1a269db192cfb009bd87291410cda612a9" prot="private" virt="virtual"><scope>MockObject::MockDirectMessageRepository</scope><name>addDirectChat</name></member>
+      <member refid="struct_mock_object_1_1_mock_direct_message_repository_1a0a82f99ab281953dee09e9b05884cf55" prot="public" virt="non-virtual"><scope>MockObject::MockDirectMessageRepository</scope><name>MockDirectMessageRepository</name></member>
+      <member refid="struct_data_access_1_1_i_direct_message_repository_1aa5912ff67e8de4541093acbc9af09c4d" prot="public" virt="virtual"><scope>MockObject::MockDirectMessageRepository</scope><name>~IDirectMessageRepository</name></member>
+      <member refid="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" prot="public" virt="virtual"><scope>MockObject::MockDirectMessageRepository</scope><name>~IMasterRepository</name></member>
+      <member refid="struct_mock_object_1_1_mock_direct_message_repository_1af80b13eb00ab23c1e5d0a21d20d26b47" prot="public" virt="non-virtual"><scope>MockObject::MockDirectMessageRepository</scope><name>~MockDirectMessageRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

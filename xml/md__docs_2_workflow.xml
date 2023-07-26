@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="md__docs_2_workflow" kind="page">
+    <compoundname>md__docs_2_workflow</compoundname>
+    <title>The work on the project is structured as follows:</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md__docs_2_workflow_1autotoc_md69"/><orderedlist>
+<listitem><para>There is a pool of tasks, they are gradually replenished. You can find those in our main project on Github.</para>
+</listitem><listitem><para>During meetings, these tasks are distributed among the performers. You can also pick one that you see fit, just don&apos;t forget to assign it yo yourself.</para>
+</listitem><listitem><para>While performing the task, you need to create a draft pull request, where you need to put your works, so that team can check in which direction the development is moving.</para>
+</listitem><listitem><para>When the developer decides that the work is finished, he withdraws the pull request from the draft state.</para>
+</listitem><listitem><para>The code is checked by the whole team, and if there are any errors, they are corrected.</para>
+</listitem><listitem><para>After permission is given the code is merged into the dev branch.</para>
+</listitem><listitem><para>Performer asks for a new task.</para>
+</listitem></orderedlist>
+</para>
+<sect1 id="md__docs_2_workflow_1autotoc_md70">
+<title>Git workflow</title>
+<para><image type="html" name="workflow.png" inline="yes">Workflow</image>
+ <image type="latex" name="workflow.png" inline="yes">Workflow</image>
+ <image type="rtf" name="workflow.png" inline="yes">Workflow</image>
+ <image type="docbook" name="workflow.png" inline="yes">Workflow</image>
+ <image type="xml" name="workflow.png" inline="yes">Workflow</image>
+</para>
+</sect1>
+<sect1 id="md__docs_2_workflow_1autotoc_md71">
+<title>Global delivery</title>
+<para>The development of the application is broken down into some intermediate steps. Each stage is described in a specific milestone. When all the tasks nested in the current cycle have been completed, a procedure for capturing the changes is initiated. This procedure is called a release. It commits to the main branch and starts the CI/CD procedure which sends the updated binaries to the server. </para>
+</sect1>
+    </detaileddescription>
+    <location file="Docs/Workflow.md"/>
+  </compounddef>
+</doxygen>

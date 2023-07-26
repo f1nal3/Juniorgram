@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_models_1_1_channel_info" kind="struct" language="C++" prot="public">
+    <compoundname>Models::ChannelInfo</compoundname>
+    <includes refid="_primitives_8hpp" local="no">Primitives.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_models_1_1_channel_info_1a09fad2593a7cc2252185223b0f1ff366" prot="public" static="no" mutable="no">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t Models::ChannelInfo::_creatorID</definition>
+        <argsstring></argsstring>
+        <name>_creatorID</name>
+        <qualifiedname>Models::ChannelInfo::_creatorID</qualifiedname>
+        <briefdescription>
+<para>creator ID uint64_t variable </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="25" column="19" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_channel_info_1ab1897c74db5b92748853fc1ce1234ae8" prot="public" static="no" mutable="no">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t Models::ChannelInfo::_channelID</definition>
+        <argsstring></argsstring>
+        <name>_channelID</name>
+        <qualifiedname>Models::ChannelInfo::_channelID</qualifiedname>
+        <briefdescription>
+<para>channel ID uint64_t variable </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="27" column="19" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_channel_info_1a0717353b5a20d3e9a157875dd9722174" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Models::ChannelInfo::_channelName</definition>
+        <argsstring></argsstring>
+        <name>_channelName</name>
+        <qualifiedname>Models::ChannelInfo::_channelName</qualifiedname>
+        <briefdescription>
+<para>channel name string variable </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="29" column="17" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_models_1_1_channel_info_1a6274f34b77f99910787b332901e904a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Models::ChannelInfo::ChannelInfo</definition>
+        <argsstring>()=default</argsstring>
+        <name>ChannelInfo</name>
+        <qualifiedname>Models::ChannelInfo::ChannelInfo</qualifiedname>
+        <briefdescription>
+<para>Default <ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelInfo</ref> constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="32" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_channel_info_1ad01d620fd6dc2236838ccc56ff296251" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Models::ChannelInfo::ChannelInfo</definition>
+        <argsstring>(const std::uint64_t creatorID_, const std::uint64_t channelID_, const std::string &amp;channelName_)</argsstring>
+        <name>ChannelInfo</name>
+        <qualifiedname>Models::ChannelInfo::ChannelInfo</qualifiedname>
+        <param>
+          <type>const std::uint64_t</type>
+          <declname>creatorID_</declname>
+        </param>
+        <param>
+          <type>const std::uint64_t</type>
+          <declname>channelID_</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>channelName_</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelInfo</ref> constructor with initializing list. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="35" column="5" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="35" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_channel_info_1a41e2637cc20afd6d445a994e5051d99f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Models::ChannelInfo::~ChannelInfo</definition>
+        <argsstring>()=default</argsstring>
+        <name>~ChannelInfo</name>
+        <qualifiedname>Models::ChannelInfo::~ChannelInfo</qualifiedname>
+        <briefdescription>
+<para>Default <ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelInfo</ref> destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="40" column="5"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="struct_models_1_1_channel_info_1a2f5024f75de57efca1d51fa6c9fab9c7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool operator==</definition>
+        <argsstring>(const ChannelInfo &amp;first, const ChannelInfo &amp;second)</argsstring>
+        <name>operator==</name>
+        <qualifiedname>Models::ChannelInfo::operator==</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelInfo</ref> &amp;</type>
+          <declname>first</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelInfo</ref> &amp;</type>
+          <declname>second</declname>
+        </param>
+        <briefdescription>
+<para>Operator == to compare channels info. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="43" column="17" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="43" bodyend="48"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelInfo</ref> struct. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Channel Info struct for information about channels contain creator ID, channel ID and channel Name. </para>
+    </detaileddescription>
+    <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="22" column="1" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="23" bodyend="49"/>
+    <listofallmembers>
+      <member refid="struct_models_1_1_channel_info_1ab1897c74db5b92748853fc1ce1234ae8" prot="public" virt="non-virtual"><scope>Models::ChannelInfo</scope><name>_channelID</name></member>
+      <member refid="struct_models_1_1_channel_info_1a0717353b5a20d3e9a157875dd9722174" prot="public" virt="non-virtual"><scope>Models::ChannelInfo</scope><name>_channelName</name></member>
+      <member refid="struct_models_1_1_channel_info_1a09fad2593a7cc2252185223b0f1ff366" prot="public" virt="non-virtual"><scope>Models::ChannelInfo</scope><name>_creatorID</name></member>
+      <member refid="struct_models_1_1_channel_info_1a6274f34b77f99910787b332901e904a9" prot="public" virt="non-virtual"><scope>Models::ChannelInfo</scope><name>ChannelInfo</name></member>
+      <member refid="struct_models_1_1_channel_info_1ad01d620fd6dc2236838ccc56ff296251" prot="public" virt="non-virtual"><scope>Models::ChannelInfo</scope><name>ChannelInfo</name></member>
+      <member refid="struct_models_1_1_channel_info_1a2f5024f75de57efca1d51fa6c9fab9c7" prot="public" virt="non-virtual"><scope>Models::ChannelInfo</scope><name>operator==</name></member>
+      <member refid="struct_models_1_1_channel_info_1a41e2637cc20afd6d445a994e5051d99f" prot="public" virt="non-virtual"><scope>Models::ChannelInfo</scope><name>~ChannelInfo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

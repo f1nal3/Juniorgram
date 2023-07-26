@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_mock_object_1_1_mock_query" kind="class" language="C++" prot="public">
+    <compoundname>MockObject::MockQuery</compoundname>
+    <basecompoundref refid="class_mock_object_1_1_mock_query_builder" prot="public" virt="non-virtual">MockObject::MockQueryBuilder&lt; MockRepositoryInstance &gt;</basecompoundref>
+    <includes refid="_mock_query_8hpp" local="no">MockQuery.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_mock_object_1_1_mock_query_1a4142da18c5e775dd66a5246f1e647834" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockQuery::MockQuery</definition>
+        <argsstring>(const std::string &amp;tableName, std::shared_ptr&lt; IAdapter &gt; adapter=Database::getInstance&lt; Database &gt;())</argsstring>
+        <name>MockQuery</name>
+        <qualifiedname>MockObject::MockQuery::MockQuery</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>tableName</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt;</type>
+          <declname>adapter</declname>
+          <defval><ref refid="class_data_access_1_1_i_adapter_1aad3b189624e653c7917361c978b98d90" kindref="member">Database::getInstance</ref>&lt; <ref refid="class_mock_object_1_1_mock_database" kindref="compound">Database</ref> &gt;()</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockQuery.hpp" line="21" column="14" bodyfile="DataAccess/DataAccess.Mock/MockQuery.hpp" bodystart="21" bodyend="22"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="class_mock_object_1_1_mock_query" kindref="compound">MockQuery</ref> class. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Designed to initialize the database adapter with \ the subsequent possible use of methods to process data in the repository. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>MockObject::MockQuery</label>
+        <link refid="class_mock_object_1_1_mock_query"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QueryBuilder</label>
+        <link refid="class_mock_object_1_1_mock_query_builder"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>MockObject::MockQuery</label>
+        <link refid="class_mock_object_1_1_mock_query"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>QueryBuilder</label>
+        <link refid="class_mock_object_1_1_mock_query_builder"/>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Mock/MockQuery.hpp" line="18" column="1" bodyfile="DataAccess/DataAccess.Mock/MockQuery.hpp" bodystart="19" bodyend="23"/>
+    <listofallmembers>
+      <member refid="class_mock_object_1_1_mock_query_builder_1ad0d2da9398358f0c0391fc74d4e9d5a8" prot="public" virt="non-virtual"><scope>MockObject::MockQuery</scope><name>getAdapter</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1a7791e8bd0929f230e57953278fa93c7b" prot="public" virt="non-virtual"><scope>MockObject::MockQuery</scope><name>getStorage</name></member>
+      <member refid="class_mock_object_1_1_mock_query_1a4142da18c5e775dd66a5246f1e647834" prot="public" virt="non-virtual"><scope>MockObject::MockQuery</scope><name>MockQuery</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1a73cba586521aed641ebce6936767be5e" prot="public" virt="non-virtual"><scope>MockObject::MockQuery</scope><name>MockQueryBuilder</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1af49df5b28dc648f683e17f060eb89256" prot="public" virt="non-virtual"><scope>MockObject::MockQuery</scope><name>MockQueryBuilder</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1a57c39aa5db60f341b8e1c4c614e69403" prot="public" virt="non-virtual"><scope>MockObject::MockQuery</scope><name>MockQueryBuilder</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1a01b9973a7a784c95920bf02a4a966652" prot="public" virt="non-virtual"><scope>MockObject::MockQuery</scope><name>MockQueryBuilder</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1a1a0faa63756e81147214f1a730091790" prot="public" virt="non-virtual"><scope>MockObject::MockQuery</scope><name>operator=</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1a62a7d8055a9b571dc000462a139f1fd7" prot="public" virt="non-virtual"><scope>MockObject::MockQuery</scope><name>operator=</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1af16283c15bd6540fc61c6cc35bcc2b68" prot="public" virt="non-virtual"><scope>MockObject::MockQuery</scope><name>SelectRepoAndQueryPush</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1aee4080dc71c32cf9ca7b8fa7413f00e8" prot="public" virt="virtual"><scope>MockObject::MockQuery</scope><name>~MockQueryBuilder</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

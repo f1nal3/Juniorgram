@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_99b16b1d518695d06512ebb3a7e5eefa" kind="dir">
+    <compoundname>Base/Logger</compoundname>
+    <innerdir refid="dir_5c7ac13dd71de633d7c5e80d058a00e5">Base/Logger/Logger.Static</innerdir>
+    <innerdir refid="dir_fa89e0e2be2276d401480dfd9fc63d21">Base/Logger/Public</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Base/Logger/"/>
+  </compounddef>
+</doxygen>

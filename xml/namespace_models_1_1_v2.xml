@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_models_1_1_v2" kind="namespace" language="C++">
+    <compoundname>Models::V2</compoundname>
+    <innerclass refid="class_models_1_1_v2_1_1_channel" prot="public">Models::V2::Channel</innerclass>
+    <innerclass refid="class_models_1_1_v2_1_1_comparator" prot="public">Models::V2::Comparator</innerclass>
+    <innerclass refid="class_models_1_1_v2_1_1_unified_model" prot="public">Models::V2::UnifiedModel</innerclass>
+    <innerclass refid="class_models_1_1_v2_1_1_user" prot="public">Models::V2::User</innerclass>
+    <innerclass refid="class_models_1_1_v2_1_1_user_channels" prot="public">Models::V2::UserChannels</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="_models_8hpp_1aea0b2b49eeddec54d11ebcb1d3976194" prot="public" static="no" strong="yes">
+        <type>uint16_t</type>
+        <name>UserInfo</name>
+        <qualifiedname>Models::V2::UserInfo</qualifiedname>
+        <enumvalue id="_models_8hpp_1aea0b2b49eeddec54d11ebcb1d3976194ab718adec73e04ce3ec720dd11a06a308" prot="public">
+          <name>ID</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_models_8hpp_1aea0b2b49eeddec54d11ebcb1d3976194a61a649a33f2869e5e35fbb7aff3a80d9" prot="public">
+          <name>EMAIL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_models_8hpp_1aea0b2b49eeddec54d11ebcb1d3976194a4976d7ca80f2cb54c1c7d5c87fb0c7ef" prot="public">
+          <name>LOGIN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_models_8hpp_1aea0b2b49eeddec54d11ebcb1d3976194a7999f7c631d421f6f2ec094004bf3c9e" prot="public">
+          <name>PASSHASH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Models.hpp" line="12" column="1" bodyfile="Base/Models/Public/Include/Models/Models.hpp" bodystart="13" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="enum" id="_models_8hpp_1acce7a547c5b111e9d104f65fdc0ecf0a" prot="public" static="no" strong="yes">
+        <type>uint16_t</type>
+        <name>ChannelData</name>
+        <qualifiedname>Models::V2::ChannelData</qualifiedname>
+        <enumvalue id="_models_8hpp_1acce7a547c5b111e9d104f65fdc0ecf0aaf2f9f6189ea89474c712f93d7e688f4b" prot="public">
+          <name>CHANNEL_ID</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_models_8hpp_1acce7a547c5b111e9d104f65fdc0ecf0aa04bbb92289a162e7076babba47d69ded" prot="public">
+          <name>CHANNEL_NAME</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_models_8hpp_1acce7a547c5b111e9d104f65fdc0ecf0aa3a8f3060f2e38be808f49fe4ef188925" prot="public">
+          <name>CREATOR_ID</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_models_8hpp_1acce7a547c5b111e9d104f65fdc0ecf0aaba856c4657d0ccdc1f5634dbbefdea50" prot="public">
+          <name>CHANNEL_USER_LIMIT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Models.hpp" line="59" column="1" bodyfile="Base/Models/Public/Include/Models/Models.hpp" bodystart="60" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="enum" id="_models_8hpp_1a1f399a288607b773a5d024ea10edb712" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>UserChannelsData</name>
+        <qualifiedname>Models::V2::UserChannelsData</qualifiedname>
+        <enumvalue id="_models_8hpp_1a1f399a288607b773a5d024ea10edb712a1b9efbab658fbd15557cf1c43bb89ff2" prot="public">
+          <name>USER_ID</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_models_8hpp_1a1f399a288607b773a5d024ea10edb712af2f9f6189ea89474c712f93d7e688f4b" prot="public">
+          <name>CHANNEL_ID</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Models.hpp" line="105" column="1" bodyfile="Base/Models/Public/Include/Models/Models.hpp" bodystart="106" bodyend="109"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="_unified_model_8hpp_1a75c8e4ffde0ea224a3d9364c0a9d9e33" prot="public" static="no">
+        <type>std::vector&lt; std::string_view &gt;</type>
+        <definition>using Models::V2::FieldNames = typedef std::vector&lt;std::string_view&gt;</definition>
+        <argsstring></argsstring>
+        <name>FieldNames</name>
+        <qualifiedname>Models::V2::FieldNames</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="11" column="1" bodyfile="Base/Models/Public/Include/Models/UnifiedModel.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_unified_model_8hpp_1ae183ce643a0f8df8abc78ea31d4c40bd" prot="public" static="no">
+        <type>std::vector&lt; std::pair&lt; std::string_view, std::string_view &gt; &gt;</type>
+        <definition>using Models::V2::InsertData = typedef std::vector&lt;std::pair&lt;std::string_view, std::string_view&gt; &gt;</definition>
+        <argsstring></argsstring>
+        <name>InsertData</name>
+        <qualifiedname>Models::V2::InsertData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="12" column="1" bodyfile="Base/Models/Public/Include/Models/UnifiedModel.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_unified_model_8hpp_1a6dec69bf6c0fb734c3a099a670dcf651" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>typename TKey</type>
+          </param>
+          <param>
+            <type>typename Comp</type>
+            <defval>Comparator&lt;TKey&gt;</defval>
+          </param>
+        </templateparamlist>
+        <type>std::map&lt; TKey, std::pair&lt; std::string_view, std::string &gt;, Comp &gt;</type>
+        <definition>using Models::V2::Map = typedef std::map&lt;TKey, std::pair&lt;std::string_view, std::string&gt;, Comp&gt;</definition>
+        <argsstring></argsstring>
+        <name>Map</name>
+        <qualifiedname>Models::V2::Map</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/UnifiedModel.hpp" line="34" column="1" bodyfile="Base/Models/Public/Include/Models/UnifiedModel.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Base/Models/Public/Include/Models/Models.hpp" line="10" column="1"/>
+  </compounddef>
+</doxygen>

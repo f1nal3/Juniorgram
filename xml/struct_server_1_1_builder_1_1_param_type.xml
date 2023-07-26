@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_server_1_1_builder_1_1_param_type" kind="struct" language="C++" prot="public">
+    <compoundname>Server::Builder::ParamType</compoundname>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="struct_server_1_1_builder_1_1_param_type_1a3765e5761312b652d03d06e3b8233aac" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr char const  *</type>
+        <definition>constexpr char const* Server::Builder::ParamType::ServerPort</definition>
+        <argsstring></argsstring>
+        <name>ServerPort</name>
+        <qualifiedname>Server::Builder::ParamType::ServerPort</qualifiedname>
+        <initializer>= &quot;--serverport&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Settings.hpp" line="10" column="33" bodyfile="Server/Server.Core/Server.Core.Static/Settings.hpp" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_server_1_1_builder_1_1_param_type_1a837ace5518c05e83a10808b1dd8a26d3" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr char const  *</type>
+        <definition>constexpr char const* Server::Builder::ParamType::HostAddress</definition>
+        <argsstring></argsstring>
+        <name>HostAddress</name>
+        <qualifiedname>Server::Builder::ParamType::HostAddress</qualifiedname>
+        <initializer>= &quot;--hostaddr&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Settings.hpp" line="11" column="33" bodyfile="Server/Server.Core/Server.Core.Static/Settings.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_server_1_1_builder_1_1_param_type_1a55ad4e0652c94e21dea6b9dc21d14f52" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr char const  *</type>
+        <definition>constexpr char const* Server::Builder::ParamType::DBName</definition>
+        <argsstring></argsstring>
+        <name>DBName</name>
+        <qualifiedname>Server::Builder::ParamType::DBName</qualifiedname>
+        <initializer>= &quot;--dbname&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Settings.hpp" line="12" column="33" bodyfile="Server/Server.Core/Server.Core.Static/Settings.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_server_1_1_builder_1_1_param_type_1a6c2adc77459f8fb867faf8bd663f4754" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr char const  *</type>
+        <definition>constexpr char const* Server::Builder::ParamType::DBPort</definition>
+        <argsstring></argsstring>
+        <name>DBPort</name>
+        <qualifiedname>Server::Builder::ParamType::DBPort</qualifiedname>
+        <initializer>= &quot;--port&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Settings.hpp" line="13" column="33" bodyfile="Server/Server.Core/Server.Core.Static/Settings.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_server_1_1_builder_1_1_param_type_1ae4a641926f63898ff7543903848f3c48" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr char const  *</type>
+        <definition>constexpr char const* Server::Builder::ParamType::DBUser</definition>
+        <argsstring></argsstring>
+        <name>DBUser</name>
+        <qualifiedname>Server::Builder::ParamType::DBUser</qualifiedname>
+        <initializer>= &quot;--user&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Settings.hpp" line="14" column="33" bodyfile="Server/Server.Core/Server.Core.Static/Settings.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_server_1_1_builder_1_1_param_type_1a2472bccb24b8b4475ff04b8335453e2e" prot="public" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr char const  *</type>
+        <definition>constexpr char const* Server::Builder::ParamType::DBPassword</definition>
+        <argsstring></argsstring>
+        <name>DBPassword</name>
+        <qualifiedname>Server::Builder::ParamType::DBPassword</qualifiedname>
+        <initializer>= &quot;--password&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Settings.hpp" line="15" column="33" bodyfile="Server/Server.Core/Server.Core.Static/Settings.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Server/Server.Core/Server.Core.Static/Settings.hpp" line="8" column="1" bodyfile="Server/Server.Core/Server.Core.Static/Settings.hpp" bodystart="9" bodyend="16"/>
+    <listofallmembers>
+      <member refid="struct_server_1_1_builder_1_1_param_type_1a55ad4e0652c94e21dea6b9dc21d14f52" prot="public" virt="non-virtual"><scope>Server::Builder::ParamType</scope><name>DBName</name></member>
+      <member refid="struct_server_1_1_builder_1_1_param_type_1a2472bccb24b8b4475ff04b8335453e2e" prot="public" virt="non-virtual"><scope>Server::Builder::ParamType</scope><name>DBPassword</name></member>
+      <member refid="struct_server_1_1_builder_1_1_param_type_1a6c2adc77459f8fb867faf8bd663f4754" prot="public" virt="non-virtual"><scope>Server::Builder::ParamType</scope><name>DBPort</name></member>
+      <member refid="struct_server_1_1_builder_1_1_param_type_1ae4a641926f63898ff7543903848f3c48" prot="public" virt="non-virtual"><scope>Server::Builder::ParamType</scope><name>DBUser</name></member>
+      <member refid="struct_server_1_1_builder_1_1_param_type_1a837ace5518c05e83a10808b1dd8a26d3" prot="public" virt="non-virtual"><scope>Server::Builder::ParamType</scope><name>HostAddress</name></member>
+      <member refid="struct_server_1_1_builder_1_1_param_type_1a3765e5761312b652d03d06e3b8233aac" prot="public" virt="non-virtual"><scope>Server::Builder::ParamType</scope><name>ServerPort</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

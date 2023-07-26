@@ -1,0 +1,830 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_deeping_01intro_01_a_s_i_o_8md" kind="file" language="Markdown">
+    <compoundname>Deeping intro ASIO.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">&lt;h1&gt;I/O<sp/>operations.&lt;br&gt;Boost.Asio&lt;/h1&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;h4&gt;CONTENT<sp/>&lt;/h4&gt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">[1.<sp/>I/O<sp/>operations](#IOoperations)<sp/>&lt;br&gt;</highlight></codeline>
+<codeline><highlight class="normal">[2.<sp/>Data<sp/>integrity](#dataIntegrity)<sp/>&lt;br&gt;</highlight></codeline>
+<codeline><highlight class="normal">[3.<sp/>Error<sp/>and<sp/>exception<sp/>handling](#errorHandling)<sp/>&lt;br&gt;</highlight></codeline>
+<codeline><highlight class="normal">[4.<sp/>Big<sp/>file<sp/>transmissions](#bigFileTransmissions)<sp/>&lt;br&gt;</highlight></codeline>
+<codeline><highlight class="normal">[5.<sp/>Usage<sp/>in<sp/>Open<sp/>Source<sp/>projects](#bigProjects)<sp/>&lt;br&gt;</highlight></codeline>
+<codeline><highlight class="normal">[6.<sp/>To<sp/>read](#toRead)<sp/>&lt;br&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;IOoperations&quot;&gt;&lt;h2&gt;[I/O<sp/>operations](#1)&lt;/h2&gt;&lt;/a&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;i&gt;I<sp/>will<sp/>consider<sp/>everything<sp/>with<sp/>the<sp/>example<sp/>of<sp/>asynchronous<sp/>networking<sp/>over<sp/>TCP/IP.<sp/>&lt;br&gt;<sp/>&lt;/i&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">There<sp/>are<sp/>several<sp/>functions<sp/>for<sp/>writing<sp/>and<sp/>reading<sp/>operations:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Basis<sp/>functions<sp/>that<sp/>perform<sp/>the<sp/>I/O<sp/>on<sp/>the<sp/>socket:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>```async_read_some(buffer,<sp/>handler)```</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>```async_write_some(buffer)```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Basis<sp/>functions<sp/>that<sp/>read<sp/>from<sp/>or<sp/>write<sp/>to<sp/>a<sp/>stream:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>```async_read(stream,<sp/>buffer<sp/>[,<sp/>completion],<sp/>handler)```</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>```async_write(stream,<sp/>buffer<sp/>[,<sp/>completion],<sp/>handler)```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">First,<sp/>note<sp/>that<sp/>the<sp/>first<sp/>argument<sp/>is<sp/>a<sp/>stream.<sp/>This<sp/>includes<sp/>sockets<sp/>but<sp/>is<sp/>not<sp/>limited.<sp/></highlight></codeline>
+<codeline><highlight class="normal">For<sp/>instance,<sp/>instead<sp/>of<sp/>a<sp/>socket,<sp/>you<sp/>can<sp/>use<sp/>a<sp/>Windows<sp/>file<sp/>handle.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Each<sp/>read<sp/>or<sp/>write<sp/>operation<sp/>will<sp/>end<sp/>when<sp/>one<sp/>of<sp/>these<sp/>conditions<sp/>occur:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>The<sp/>supplied<sp/>buffer<sp/>is<sp/>full<sp/>(for<sp/>read)<sp/>or<sp/>all<sp/>the<sp/>data<sp/>in<sp/>the<sp/>buffer<sp/>has<sp/>been<sp/>written<sp/>(for<sp/>write)</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>The<sp/>completion<sp/>function<sp/>returns<sp/>0<sp/>(if<sp/>you<sp/>supplied<sp/>one<sp/>such<sp/>function)</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>An<sp/>error<sp/>occurs</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;comletion&quot;&gt;&lt;h3&gt;<sp/>The<sp/>completion<sp/>&lt;/h3&gt;&lt;/a&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Signature:<sp/></highlight></codeline>
+<codeline><highlight class="normal">```c++<sp/></highlight></codeline>
+<codeline><highlight class="normal">size_t<sp/>completion(const<sp/>boost::system::error_code&amp;<sp/>err,<sp/>size_t<sp/>bytes_transfered);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">A<sp/>completion<sp/>condition<sp/>is<sp/>a<sp/>function<sp/>object<sp/>that<sp/>is<sp/>used<sp/>with<sp/>the<sp/>algorithms<sp/>```read```,<sp/>```async_read```,<sp/>```write```,<sp/>and<sp/></highlight></codeline>
+<codeline><highlight class="normal">```async_write```<sp/>to<sp/>determine<sp/>when<sp/>the<sp/>algorithm<sp/>has<sp/>completed<sp/>transferring<sp/>data.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">You<sp/>can<sp/>optionally<sp/>specify<sp/>a<sp/>completion<sp/>function.<sp/>It<sp/>is<sp/>called<sp/>after<sp/>each<sp/>successful<sp/>read,<sp/>and<sp/>tells<sp/>Boost.Asio<sp/></highlight></codeline>
+<codeline><highlight class="normal">if<sp/>the<sp/>```async_read```<sp/>operation<sp/>is<sp/>complete<sp/>(if<sp/>not,<sp/>it<sp/>will<sp/>continue<sp/>to<sp/>read).<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">When<sp/>this<sp/>completion<sp/>function<sp/>returns<sp/>0,<sp/>we<sp/>consider<sp/>the<sp/>read<sp/>operation<sp/>complete.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">If<sp/>it<sp/>returns<sp/>a<sp/>non-zero<sp/>value,<sp/>it<sp/>indicates<sp/>the<sp/>maximum<sp/>number<sp/>of<sp/>bytes<sp/>to<sp/>be<sp/>read<sp/>on<sp/>the<sp/>next<sp/>call<sp/>to<sp/></highlight></codeline>
+<codeline><highlight class="normal">the<sp/>stream&apos;s<sp/>```async_read_some```<sp/>operation.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Boost.Asio<sp/>comes<sp/>with<sp/>a<sp/>few<sp/>helper<sp/>completion<sp/>functors<sp/>as<sp/>well:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>transfer_at_least(n)</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>transfer_exactly(n)</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>transfer_all()</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;handler&quot;&gt;&lt;h3&gt;<sp/>The<sp/>handler<sp/>&lt;/h3&gt;&lt;/a&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Signature:<sp/></highlight></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>handler(const<sp/>boost::system::error_code&amp;<sp/>err,<sp/>size_t<sp/>bytes_transfered);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Each<sp/>asynchronous<sp/>operation<sp/>has<sp/>a<sp/>handler,<sp/>a<sp/>function<sp/>that<sp/>is<sp/>called<sp/>when<sp/>the<sp/>operation<sp/>has<sp/>completed.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">For<sp/>example,<sp/>the<sp/>```asio::async_read()```<sp/>function<sp/>initiates<sp/>the<sp/>operation<sp/>that<sp/>reads<sp/>the<sp/>data<sp/>from<sp/>the<sp/>socket<sp/>until<sp/></highlight></codeline>
+<codeline><highlight class="normal">the<sp/>buffer<sp/>passed<sp/>to<sp/>it<sp/>as<sp/>an<sp/>argument<sp/>is<sp/>full.<sp/>In<sp/>this<sp/>case,<sp/>the<sp/>callback<sp/>(in<sp/>our<sp/>case<sp/>it’s<sp/>called<sp/>handler)<sp/></highlight></codeline>
+<codeline><highlight class="normal">is<sp/>called<sp/>when<sp/>the<sp/>amount<sp/>of<sp/>data<sp/>read<sp/>is<sp/>equal<sp/>to<sp/>the<sp/>size<sp/>of<sp/>the<sp/>provided<sp/>buffer<sp/>or<sp/>when<sp/>an<sp/>error<sp/>occurs.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">You<sp/>can<sp/>specify<sp/>your<sp/>own<sp/>handler<sp/>implementation<sp/>and<sp/>bind<sp/>it<sp/>with<sp/>async_read.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Alias<sp/>for<sp/>the<sp/>error<sp/>handler<sp/>functor</highlight></codeline>
+<codeline><highlight class="normal">const<sp/>auto<sp/>myHandler<sp/>=<sp/>[this](std::error_code<sp/>error)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>realization</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">asio::async_read(stream,<sp/>socket,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bind(myHandler,<sp/>std::placeholders::_1));<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;reading&quot;&gt;&lt;h3&gt;<sp/>[Reading<sp/>from<sp/>a<sp/>TCP<sp/>socket<sp/>asynchronously](#1)<sp/>&lt;/h3&gt;&lt;/a&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;async_read_some&quot;&gt;&lt;h4&gt;<sp/>async_read_some()<sp/>&lt;/h4&gt;&lt;/a&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>most<sp/>basic<sp/>tool<sp/>used<sp/>to<sp/>asynchronously<sp/>read<sp/>data<sp/>from<sp/>a<sp/>TCP<sp/>socket<sp/>provided<sp/>by<sp/>the<sp/>Boost.Asio<sp/>library<sp/>is<sp/></highlight></codeline>
+<codeline><highlight class="normal">the<sp/>```async_read_some()```<sp/>method<sp/>of<sp/>the<sp/>```asio::ip::tcp::socket```<sp/>class.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Here<sp/>is<sp/>one<sp/>of<sp/>the<sp/>method&apos;s<sp/>overloads:</highlight></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">template&lt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>typename<sp/>MutableBufferSequence,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>typename<sp/>ReadHandler&gt;</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>async_read_some(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>const<sp/>MutableBufferSequence<sp/>&amp;<sp/>buffers,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ReadHandler<sp/>handler);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>```async_read_some()```<sp/>method<sp/>initiates<sp/>an<sp/>operation<sp/>that<sp/>is<sp/>intended<sp/>to<sp/>read<sp/>some<sp/>amount<sp/>of<sp/>data<sp/>from<sp/></highlight></codeline>
+<codeline><highlight class="normal">the<sp/>socket<sp/>to<sp/>the<sp/>buffer.<sp/>This<sp/>method<sp/>guarantees<sp/>that<sp/>&lt;b&gt;at<sp/>least<sp/>one<sp/>byte&lt;/b&gt;<sp/>will<sp/>be<sp/>read<sp/>during<sp/>the<sp/>corresponding<sp/></highlight></codeline>
+<codeline><highlight class="normal">asynchronous<sp/>operation<sp/>if<sp/>an<sp/>error<sp/>does<sp/>not<sp/>occur.<sp/>This<sp/>means<sp/>that,<sp/>in<sp/>a<sp/>general<sp/>case,<sp/>in<sp/>order<sp/>to<sp/>read<sp/>all<sp/></highlight></codeline>
+<codeline><highlight class="normal">the<sp/>data<sp/>from<sp/>the<sp/>socket,<sp/>we<sp/>may<sp/>need<sp/>to<sp/>perform<sp/>this<sp/>asynchronous<sp/>operation<sp/>several<sp/>times.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;h5&gt;<sp/>Algorithm<sp/>&lt;/h5&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>following<sp/>algorithm<sp/>describes<sp/>the<sp/>steps<sp/>required<sp/>to<sp/>implement<sp/>an<sp/>application,<sp/>which<sp/>reads<sp/>data<sp/>from<sp/></highlight></codeline>
+<codeline><highlight class="normal">a<sp/>socket<sp/>asynchronously.<sp/>Note<sp/>that<sp/>this<sp/>algorithm<sp/>provides<sp/>a<sp/>possible<sp/>way<sp/>to<sp/>implement<sp/>such<sp/>an<sp/>application.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>Define<sp/>a<sp/>data<sp/>structure<sp/>that<sp/>contains<sp/>a<sp/>pointer<sp/>to<sp/>a<sp/>socket<sp/>object,<sp/>a<sp/>buffer,<sp/>a<sp/>variable<sp/></highlight></codeline>
+<codeline><highlight class="normal">that<sp/>defines<sp/>the<sp/>size<sp/>of<sp/>the<sp/>buffer,<sp/>and<sp/>a<sp/>variable<sp/>used<sp/>as<sp/>a<sp/>counter<sp/>of<sp/>bytes<sp/>read.</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>Define<sp/>a<sp/>callback<sp/>function<sp/>that<sp/>will<sp/>be<sp/>called<sp/>when<sp/>an<sp/>asynchronous<sp/>reading<sp/></highlight></codeline>
+<codeline><highlight class="normal">operation<sp/>is<sp/>completed.</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>In<sp/>a<sp/>client<sp/>application,<sp/>allocate<sp/>and<sp/>open<sp/>an<sp/>active<sp/>TCP<sp/>socket,<sp/>and<sp/>then,<sp/>connect<sp/>it<sp/>to<sp/></highlight></codeline>
+<codeline><highlight class="normal">a<sp/>remote<sp/>application.<sp/>In<sp/>a<sp/>server<sp/>application,<sp/>obtain<sp/>a<sp/>connected<sp/>active<sp/>TCP<sp/>socket<sp/>by<sp/></highlight></codeline>
+<codeline><highlight class="normal">accepting<sp/>a<sp/>connection<sp/>request.</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>Allocate<sp/>a<sp/>buffer<sp/>big<sp/>enough<sp/>for<sp/>the<sp/>expected<sp/>message<sp/>to<sp/>fit<sp/>in.</highlight></codeline>
+<codeline><highlight class="normal">5.<sp/>Initiate<sp/>an<sp/>asynchronous<sp/>reading<sp/>operation<sp/>by<sp/>calling<sp/>the<sp/>socket&apos;s<sp/>async_read_</highlight></codeline>
+<codeline><highlight class="normal">some()<sp/>method,<sp/>specifying<sp/>a<sp/>function<sp/>defined<sp/>in<sp/>step<sp/>2<sp/>as<sp/>a<sp/>callback.</highlight></codeline>
+<codeline><highlight class="normal">6.<sp/>Call<sp/>the<sp/>run()<sp/>method<sp/>on<sp/>an<sp/>object<sp/>of<sp/>the<sp/>asio::io_service<sp/>class.</highlight></codeline>
+<codeline><highlight class="normal">7.<sp/>In<sp/>a<sp/>callback,<sp/>increase<sp/>the<sp/>counter<sp/>of<sp/>bytes<sp/>read.<sp/>If<sp/>the<sp/>number<sp/>of<sp/>bytes<sp/>read<sp/>is<sp/>less<sp/></highlight></codeline>
+<codeline><highlight class="normal">than<sp/>the<sp/>total<sp/>amount<sp/>of<sp/>bytes<sp/>to<sp/>be<sp/>read<sp/>(that<sp/>is,<sp/>the<sp/>size<sp/>of<sp/>an<sp/>expected<sp/>message),<sp/></highlight></codeline>
+<codeline><highlight class="normal">initiate<sp/>a<sp/>new<sp/>asynchronous<sp/>reading<sp/>operation<sp/>to<sp/>read<sp/>the<sp/>next<sp/>portion<sp/>of<sp/>data.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;h4&gt;<sp/>Code<sp/>example<sp/>&lt;/h4&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;asio.hpp&gt;</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;iostream&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Step<sp/>1.</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Keeps<sp/>objects<sp/>we<sp/>need<sp/>in<sp/>a<sp/>callback<sp/>to<sp/>identify<sp/>whether<sp/>all<sp/>data<sp/>has<sp/>been<sp/>read<sp/>from<sp/>the<sp/>socket<sp/>and<sp/>to</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>initiate<sp/>next<sp/>async<sp/>reading<sp/>operation<sp/>if<sp/>needed.</highlight></codeline>
+<codeline><highlight class="normal">struct<sp/>Session<sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::shared_ptr&lt;asio::ip::tcp::socket&gt;<sp/>sock;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::unique_ptr&lt;char[]&gt;<sp/>buf;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::size_t<sp/>total_bytes_read;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>unsigned<sp/>int<sp/>buf_size;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Step<sp/>2.</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Function<sp/>used<sp/>as<sp/>a<sp/>callback<sp/>for<sp/>asynchronous<sp/>reading<sp/>operation.<sp/>Check<sp/>if<sp/>all<sp/>data<sp/>has<sp/>been<sp/>read<sp/>from<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>socket<sp/>and<sp/>initiates<sp/>new<sp/>reading<sp/>operation<sp/>if<sp/>needed.</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>callback(const<sp/>asio::error_code&amp;<sp/>ec,<sp/>std::size_t<sp/>bytes_transferred,<sp/>std::shared_ptr&lt;Session&gt;<sp/>s)<sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(ec.value()<sp/>!=<sp/>0)<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logging::get()-&gt;error(&quot;Error<sp/>occurred!<sp/>Error<sp/>code<sp/>=<sp/>{}.<sp/>Message:<sp/>{}&quot;,<sp/>ec.value(),<sp/>ec.message());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>7.<sp/>Increasing<sp/>the<sp/>counter<sp/><sp/>of<sp/>bytes<sp/>read.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;total_bytes_read<sp/>+=<sp/>bytes_transferred;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(s-&gt;total_bytes_read<sp/>==<sp/>s-&gt;buf_size)<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logging::get()-&gt;info(&quot;Total<sp/>Bytes<sp/>Read<sp/>=<sp/>{}&quot;,<sp/>s-&gt;total_bytes_read);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;sock-&gt;async_read_some(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>asio::buffer(s-&gt;buf.get()<sp/>+<sp/>s-&gt;total_bytes_read,<sp/>s-&gt;buf_size<sp/>-<sp/>s-&gt;total_bytes_read),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::bind(callback,<sp/>std::placeholders::_1,<sp/>std::placeholders::_2,<sp/>s));</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">void<sp/>readFromSocket(std::shared_ptr&lt;asio::ip::tcp::socket&gt;<sp/>sock)<sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>auto<sp/>s<sp/>=<sp/>std::make_shared&lt;Session&gt;();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>4.<sp/>Allocating<sp/>the<sp/>buffer;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>unsigned<sp/>int<sp/>MESSAGE_SIZE<sp/>=<sp/>7;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;buf.reset(new<sp/>char[MESSAGE_SIZE]);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;total_bytes_read<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;sock<sp/>=<sp/>sock;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;buf_size<sp/>=<sp/>MESSAGE_SIZE;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>5.<sp/>Initiating<sp/>asynchronous<sp/>reading<sp/>operation.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;sock-&gt;async_read_some(asio::buffer(s-&gt;buf.get(),<sp/>s-&gt;buf_size),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::bind(callback,<sp/>std::placeholders::_1,<sp/>std::placeholders::_2,<sp/>s));</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">int<sp/>main()<sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>auto<sp/>console<sp/>=<sp/>logging::setup();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>raw_ip_address<sp/>=<sp/>&quot;127.0.0.1&quot;;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>unsigned<sp/>short<sp/>port_num<sp/>=<sp/>3333;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>try<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>asio::ip::tcp::endpoint<sp/>ep(asio::ip::address::from_string(raw_ip_address),<sp/>port_num);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>asio::io_service<sp/>ios;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>3.<sp/>Allocating,<sp/>opening<sp/>and<sp/>connecting<sp/>a<sp/>socket.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>auto<sp/>sock<sp/>=<sp/>std::make_shared&lt;asio::ip::tcp::socket&gt;(ios,<sp/>ep.protocol());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sock-&gt;connect(ep);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>readFromSocket(sock);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>6.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ios.run();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>catch<sp/>(asio::system_error&amp;<sp/>e)<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>console-&gt;error(&quot;Error<sp/>occurred!<sp/>Error<sp/>code<sp/>=<sp/>{}.<sp/>Message:<sp/>{}&quot;,<sp/>e.code(),<sp/>e.what());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>e.code().value();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>read<sp/>operation<sp/>```async_read_some```<sp/>may<sp/>not<sp/>read<sp/>all<sp/>of<sp/>the<sp/>requested<sp/>number<sp/>of<sp/>bytes.<sp/>Consider<sp/>using<sp/></highlight></codeline>
+<codeline><highlight class="normal">the<sp/>```async_read```<sp/>function<sp/>if<sp/>you<sp/>need<sp/>to<sp/>ensure<sp/>that<sp/>the<sp/>requested<sp/>amount<sp/>of<sp/>data<sp/>is<sp/>read<sp/>before<sp/>the<sp/>asynchronous<sp/></highlight></codeline>
+<codeline><highlight class="normal">operation<sp/>completes.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">In<sp/>last<sp/>boost<sp/>standards<sp/>this<sp/>function<sp/>is<sp/>&lt;b&gt;deduced&lt;/b&gt;.</highlight></codeline>
+<codeline><highlight class="normal">More<sp/>information<sp/>you<sp/>can<sp/>see<sp/>in<sp/>[Boost<sp/>Documentation](https://www.boost.org/doc/libs/1_76_0/doc/html/boost_asio/reference/basic_stream_socket/async_read_some.html).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;async_read&quot;&gt;&lt;h4&gt;<sp/>async_read()<sp/>&lt;/h4&gt;&lt;/a&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Although<sp/>the<sp/>async_read_some()<sp/>method<sp/>allows<sp/>asynchronously<sp/>reading<sp/>data<sp/>from<sp/>the<sp/>socket<sp/>or<sp/>the<sp/>stream,<sp/>the<sp/>solution<sp/></highlight></codeline>
+<codeline><highlight class="normal">based<sp/>on<sp/>it<sp/>is<sp/>somewhat<sp/>complex<sp/>and<sp/>error-prone.<sp/>Fortunately,<sp/>Boost.Asio<sp/>provides<sp/>a<sp/>more<sp/>convenient<sp/>way<sp/>to<sp/>asynchronously<sp/></highlight></codeline>
+<codeline><highlight class="normal">read<sp/>data<sp/>from<sp/>a<sp/>socket:<sp/>the<sp/>free<sp/>function<sp/>```asio::async_read()```.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Use<sp/>the<sp/>```async_read```<sp/>function<sp/>if<sp/>you<sp/>need<sp/>to<sp/>ensure<sp/>that<sp/>the<sp/>requested<sp/>amount<sp/>of<sp/>data<sp/>is<sp/>read<sp/>before<sp/>the<sp/>asynchronous<sp/></highlight></codeline>
+<codeline><highlight class="normal">operation<sp/>completes.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Let&apos;s<sp/>consider<sp/>one<sp/>of<sp/>its<sp/>overloads:</highlight></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">template&lt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>typename<sp/>AsyncReadStream,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>typename<sp/>MutableBufferSequence,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>typename<sp/>ReadHandler&gt;</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>async_read(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>AsyncReadStream<sp/>&amp;<sp/>s,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>const<sp/>MutableBufferSequence<sp/>&amp;<sp/>buffers,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ReadHandler<sp/>handler);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">More<sp/>overloads<sp/>you<sp/>can<sp/>see<sp/>in<sp/>[Boost<sp/>Documentation](https://www.boost.org/doc/libs/1_76_0/doc/html/boost_asio/reference/async_read.html).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;h4&gt;<sp/>Algorithm<sp/>&lt;/h4&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>asynchronous<sp/>reading<sp/>algorithm<sp/>is<sp/>the<sp/>same<sp/>as<sp/>when<sp/>using<sp/>the<sp/>function<sp/>```async_read_some```<sp/>except<sp/>for<sp/>item<sp/>7<sp/>of<sp/></highlight></codeline>
+<codeline><highlight class="normal">the<sp/>algorithm.<sp/>It<sp/>doesn&apos;t<sp/>exists.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;h4&gt;<sp/>Code<sp/>example<sp/>&lt;/h4&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;asio.hpp&gt;</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;iostream&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Step<sp/>1.</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Keeps<sp/>objects<sp/>we<sp/>need<sp/>in<sp/>a<sp/>callback<sp/>to<sp/>identify<sp/>whether<sp/>all<sp/>data<sp/>has<sp/>been<sp/>read<sp/>from<sp/>the<sp/>socket<sp/>and<sp/>to</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>initiate<sp/>next<sp/>async<sp/>reading<sp/>operation<sp/>if<sp/>needed.</highlight></codeline>
+<codeline><highlight class="normal">struct<sp/>Session<sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::shared_ptr&lt;asio::ip::tcp::socket&gt;<sp/>sock;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::unique_ptr&lt;char[]&gt;<sp/>buf;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>unsigned<sp/>int<sp/>buf_size;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Step<sp/>2.</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Function<sp/>used<sp/>as<sp/>a<sp/>callback<sp/>for<sp/>asynchronous<sp/>reading<sp/>operation.<sp/>Checks<sp/>if<sp/>all<sp/>data<sp/>has<sp/>been<sp/>read<sp/>from<sp/>the</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>socket<sp/>and<sp/>initiates<sp/>new<sp/>readnig<sp/>operation<sp/>if<sp/>needed.</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>callback(const<sp/>asio::error_code&amp;<sp/>ec,<sp/>std::size_t<sp/>bytes_transferred,<sp/>std::shared_ptr&lt;Session&gt;<sp/>s)<sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(ec.value()<sp/>!=<sp/>0)<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logging::get()-&gt;error(&quot;Error<sp/>occurred!<sp/>Error<sp/>code<sp/>=<sp/>{}.<sp/>Message:<sp/>{}&quot;,<sp/>ec.value(),<sp/>ec.message());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Here<sp/>we<sp/>know<sp/>that<sp/>the<sp/>reading<sp/>has<sp/>completed<sp/>successfully<sp/>and<sp/>the<sp/>buffer<sp/>is<sp/>full<sp/>with<sp/>data<sp/>read<sp/>from<sp/>the</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>socket.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>logging::get()-&gt;info(&quot;Total<sp/>Bytes<sp/>Read<sp/>=<sp/>{}&quot;,<sp/>bytes_transferred);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>logging::get()-&gt;info(&quot;Message:<sp/>{}&quot;,<sp/>std::string(s-&gt;buf.get()));</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">void<sp/>readFromSocket(std::shared_ptr&lt;asio::ip::tcp::socket&gt;<sp/>sock)<sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>auto<sp/>s<sp/>=<sp/>std::make_shared&lt;Session&gt;();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>unsigned<sp/>int<sp/>MESSAGE_SIZE<sp/>=<sp/>7;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>4.<sp/>Allocating<sp/>the<sp/>buffer.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;buf.reset(new<sp/>char[MESSAGE_SIZE]);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;sock<sp/>=<sp/>sock;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;buf_size<sp/>=<sp/>MESSAGE_SIZE;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>5.<sp/>Initiating<sp/>asynchronous<sp/>reading<sp/>opration.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>asio::async_read(*sock,<sp/>asio::buffer(s-&gt;buf.get(),<sp/>s-&gt;buf_size),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::bind(callback,<sp/>std::placeholders::_1,<sp/>std::placeholders::_2,<sp/>s));</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">int<sp/>main()<sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>auto<sp/>console<sp/>=<sp/>logging::setup();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>raw_ip_address<sp/>=<sp/>&quot;127.0.0.1&quot;;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>unsigned<sp/>short<sp/>port_num<sp/>=<sp/>3333;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>try<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>asio::ip::tcp::endpoint<sp/>ep(asio::ip::address::from_string(raw_ip_address),<sp/>port_num);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>asio::io_service<sp/>ios;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>3.<sp/>Allocating,<sp/>opening<sp/>and<sp/>connecting<sp/>a<sp/>socket.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>auto<sp/>sock<sp/>=<sp/>std::make_shared&lt;asio::ip::tcp::socket&gt;(ios,<sp/>ep.protocol());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sock-&gt;connect(ep);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>readFromSocket(sock);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>6.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ios.run();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>catch<sp/>(asio::system_error&amp;<sp/>e)<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>console-&gt;error(&quot;Error<sp/>occurred!<sp/>Error<sp/>code<sp/>=<sp/>{}.<sp/>Message:<sp/>{}&quot;,<sp/>e.code(),<sp/>e.what());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>e.code().value();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;writting&quot;&gt;&lt;h3&gt;<sp/>Writing<sp/>to<sp/>a<sp/>TCP<sp/>socket<sp/>asynchronously<sp/>&lt;/h3&gt;&lt;/a&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;async_write_some&quot;&gt;&lt;h4&gt;<sp/>async_write_some()<sp/>&lt;/h4&gt;&lt;/a&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>most<sp/>basic<sp/>tool<sp/>used<sp/>to<sp/>asynchronously<sp/>write<sp/>data<sp/>to<sp/>the<sp/>socket<sp/>provided<sp/>by<sp/>the<sp/>Boost.</highlight></codeline>
+<codeline><highlight class="normal">Asio<sp/>library<sp/>is<sp/>the<sp/>```async_write_some()```<sp/>method<sp/>of<sp/>the<sp/>```asio::ip::tcp::socket```<sp/>class.<sp/></highlight></codeline>
+<codeline><highlight class="normal">Let&apos;s<sp/>take<sp/>a<sp/>look<sp/>at<sp/>one<sp/>of<sp/>the<sp/>method&apos;s<sp/>overloads:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++<sp/></highlight></codeline>
+<codeline><highlight class="normal">template&lt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>typename<sp/>ConstBufferSequence,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>typename<sp/>WriteHandler&gt;</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>async_write_some(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>const<sp/>ConstBufferSequence<sp/>&amp;<sp/>buffers,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>WriteHandler<sp/>handler);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>```async_write_some()```<sp/>method<sp/>initiates<sp/>an<sp/>operation<sp/>that<sp/></highlight></codeline>
+<codeline><highlight class="normal">is<sp/>intended<sp/>to<sp/>write<sp/>some<sp/>amount<sp/>of<sp/>data<sp/>from<sp/>the<sp/>buffer<sp/>to<sp/>the<sp/>socket.<sp/>This<sp/>method<sp/></highlight></codeline>
+<codeline><highlight class="normal">guarantees<sp/>that<sp/>at<sp/>least<sp/>one<sp/>byte<sp/>will<sp/>be<sp/>written<sp/>during<sp/>the<sp/>corresponding<sp/>asynchronous<sp/></highlight></codeline>
+<codeline><highlight class="normal">operation<sp/>if<sp/>an<sp/>error<sp/>does<sp/>not<sp/>occur.<sp/>This<sp/>means<sp/>that,<sp/>in<sp/>a<sp/>general<sp/>case,<sp/>in<sp/>order<sp/>to<sp/>write<sp/>all<sp/></highlight></codeline>
+<codeline><highlight class="normal">the<sp/>data<sp/>available<sp/>in<sp/>the<sp/>buffer<sp/>to<sp/>the<sp/>socket,<sp/>we<sp/>may<sp/>need<sp/>to<sp/>perform<sp/>this<sp/>asynchronous<sp/></highlight></codeline>
+<codeline><highlight class="normal">operation<sp/>several<sp/>times.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;h5&gt;<sp/>Algorithm<sp/>&lt;/h5&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>following<sp/>algorithm<sp/>describes<sp/>the<sp/>steps<sp/>required<sp/>to<sp/>perform<sp/>and<sp/>implement<sp/>an<sp/></highlight></codeline>
+<codeline><highlight class="normal">application,<sp/>which<sp/>writes<sp/>data<sp/>to<sp/>a<sp/>TCP<sp/>socket<sp/>asynchronously.<sp/>Note<sp/>that<sp/>this<sp/>algorithm<sp/></highlight></codeline>
+<codeline><highlight class="normal">provides<sp/>a<sp/>possible<sp/>way<sp/>to<sp/>implement<sp/>such<sp/>an<sp/>application.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>Define<sp/>a<sp/>data<sp/>structure<sp/>that<sp/>contains<sp/>a<sp/>pointer<sp/>to<sp/>a<sp/>socket<sp/>object,<sp/>a<sp/>buffer,<sp/>and<sp/>a<sp/></highlight></codeline>
+<codeline><highlight class="normal">variable<sp/>used<sp/>as<sp/>a<sp/>counter<sp/>of<sp/>bytes<sp/>written.</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>Define<sp/>a<sp/>callback<sp/>function<sp/>that<sp/>will<sp/>be<sp/>called<sp/>when<sp/>the<sp/>asynchronous<sp/>writing<sp/></highlight></codeline>
+<codeline><highlight class="normal">operation<sp/>is<sp/>completed.</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>In<sp/>a<sp/>client<sp/>application,<sp/>allocate<sp/>and<sp/>open<sp/>an<sp/>active<sp/>TCP<sp/>socket<sp/>and<sp/>connect<sp/>it<sp/>to<sp/>a<sp/></highlight></codeline>
+<codeline><highlight class="normal">remote<sp/>application.<sp/>In<sp/>a<sp/>server<sp/>application,<sp/>obtain<sp/>a<sp/>connected<sp/>active<sp/>TCP<sp/>socket<sp/>by<sp/></highlight></codeline>
+<codeline><highlight class="normal">accepting<sp/>a<sp/>connection<sp/>request.</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>Allocate<sp/>a<sp/>buffer<sp/>and<sp/>fill<sp/>it<sp/>with<sp/>data<sp/>that<sp/>is<sp/>to<sp/>be<sp/>written<sp/>to<sp/>the<sp/>socket.</highlight></codeline>
+<codeline><highlight class="normal">5.<sp/>Initiate<sp/>an<sp/>asynchronous<sp/>writing<sp/>operation<sp/>by<sp/>calling<sp/>the<sp/>socket&apos;s<sp/>async_write_</highlight></codeline>
+<codeline><highlight class="normal">some()<sp/>method.<sp/>Specify<sp/>a<sp/>function<sp/>defined<sp/>in<sp/>step<sp/>2<sp/>as<sp/>a<sp/>callback.</highlight></codeline>
+<codeline><highlight class="normal">6.<sp/>Call<sp/>the<sp/>run()<sp/>method<sp/>on<sp/>an<sp/>object<sp/>of<sp/>the<sp/>asio::io_service<sp/>class.</highlight></codeline>
+<codeline><highlight class="normal">7.<sp/>In<sp/>a<sp/>callback,<sp/>increase<sp/>the<sp/>counter<sp/>of<sp/>bytes<sp/>written.<sp/>If<sp/>the<sp/>number<sp/>of<sp/>bytes<sp/>written<sp/>is<sp/></highlight></codeline>
+<codeline><highlight class="normal">less<sp/>than<sp/>the<sp/>total<sp/>amount<sp/>of<sp/>bytes<sp/>to<sp/>be<sp/>written,<sp/>initiate<sp/>a<sp/>new<sp/>asynchronous<sp/>writing<sp/></highlight></codeline>
+<codeline><highlight class="normal">operation<sp/>to<sp/>write<sp/>the<sp/>next<sp/>portion<sp/>of<sp/>the<sp/>data.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;h5&gt;<sp/>Code<sp/>example<sp/>&lt;/h5&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;asio.hpp&gt;</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;iostream&gt;</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;memory&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Step<sp/>1.</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Keeps<sp/>objects<sp/>we<sp/>need<sp/>in<sp/>a<sp/>callback<sp/>to<sp/>identify<sp/>whether<sp/>all<sp/>data<sp/>has<sp/>been<sp/>written<sp/>to<sp/>the<sp/>socket<sp/>and<sp/>to</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>initiate<sp/>next<sp/>async<sp/>writing<sp/>operation<sp/>if<sp/>needed.</highlight></codeline>
+<codeline><highlight class="normal">struct<sp/>Session<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::shared_ptr&lt;asio::ip::tcp::socket&gt;<sp/>sock;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>buf;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::size_t<sp/>total_bytes_written;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Step<sp/>2.</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Function<sp/>used<sp/>as<sp/>a<sp/>callback<sp/>for<sp/>asynchronous<sp/>writing<sp/>operation.<sp/>Checks<sp/>if<sp/>all<sp/>data<sp/>from<sp/>the<sp/>buffer<sp/>has<sp/>been</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>written<sp/>to<sp/>the<sp/>socket<sp/>and<sp/>initiates<sp/>new<sp/>asynchronous<sp/>writing<sp/>operation<sp/>if<sp/>needed.</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>callback(const<sp/>asio::error_code&amp;<sp/>ec,<sp/>std::size_t<sp/>bytes_transferred,<sp/>std::shared_ptr&lt;Session&gt;<sp/>s)<sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(ec.value()<sp/>!=<sp/>0)<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logging::get()-&gt;error(&quot;Error<sp/>occurred!<sp/>Error<sp/>code<sp/>=<sp/>{}.<sp/>Message:<sp/>{}&quot;,<sp/>ec.value(),<sp/>ec.message());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>7.<sp/>Increasing<sp/>y=the<sp/>counter<sp/>of<sp/>bytes<sp/>written.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;total_bytes_written<sp/>+=<sp/>bytes_transferred;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(s-&gt;total_bytes_written<sp/>==<sp/>s-&gt;buf.length())<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;sock-&gt;async_write_some(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>asio::buffer(s-&gt;buf.c_str()<sp/>+<sp/>s-&gt;total_bytes_written,<sp/>s-&gt;buf.length()<sp/>-<sp/>s-&gt;total_bytes_written),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::bind(callback,<sp/>std::placeholders::_1,<sp/>std::placeholders::_2,<sp/>s));</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">void<sp/>writeToSocket(std::shared_ptr&lt;asio::ip::tcp::socket&gt;<sp/>sock)<sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>We<sp/>need<sp/>the<sp/>Session<sp/>object<sp/>allocated<sp/>it<sp/>in<sp/>the<sp/>free<sp/>memory<sp/>and<sp/>not<sp/>on<sp/>the<sp/>stack;<sp/>it<sp/>must<sp/>live<sp/>until<sp/>the</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>callback<sp/>function<sp/>is<sp/>called.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>auto<sp/>s<sp/>=<sp/>std::make_shared&lt;Session&gt;();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>4.<sp/>Allocating<sp/>and<sp/>filling<sp/>the<sp/>buffer.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;buf<sp/>=<sp/>std::string(&quot;Hello\n&quot;);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;total_bytes_written<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;sock<sp/>=<sp/>sock;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>5.<sp/>Initiating<sp/>asynchronous<sp/>write<sp/>operation.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;sock-&gt;async_write_some(asio::buffer(s-&gt;buf),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::bind(callback,<sp/>std::placeholders::_1,<sp/>std::placeholders::_2,<sp/>s));</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">int<sp/>main()<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>auto<sp/>console<sp/>=<sp/>logging::setup();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>raw_ip_address<sp/>=<sp/>&quot;127.0.0.1&quot;;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>unsigned<sp/>short<sp/>port_num<sp/>=<sp/>3333;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>try<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>asio::ip::tcp::endpoint<sp/>ep(asio::ip::address::from_string(raw_ip_address),<sp/>port_num);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>asio::io_service<sp/>ios;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>3.<sp/>Allocating,<sp/>opening<sp/>and<sp/>connecting<sp/>a<sp/>socket.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>auto<sp/>sock<sp/>=<sp/>std::make_shared&lt;asio::ip::tcp::socket&gt;(ios,<sp/>ep.protocol());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sock-&gt;connect(ep);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>writeToSocket(sock);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>6.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>The<sp/>run()<sp/>method<sp/>blocks,<sp/>as<sp/>long<sp/>as,<sp/>at<sp/>least<sp/>one<sp/>pending<sp/>asynchronous<sp/>operation.<sp/>When<sp/>the<sp/>last</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>callback<sp/>of<sp/>the<sp/>last<sp/>pending<sp/>asynchronous<sp/>operation<sp/>is<sp/>completed,<sp/>this<sp/>method<sp/>returns.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ios.run();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>catch<sp/>(asio::system_error&amp;<sp/>e)<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>console-&gt;error(&quot;Error<sp/>occurred!<sp/>Error<sp/>code<sp/>=<sp/>{}.<sp/>Message:<sp/>{}&quot;,<sp/>e.code().value(),<sp/>e.what());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>e.code().value();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>write<sp/>operation<sp/>```async_write_some```<sp/>may<sp/>not<sp/>write<sp/>all<sp/>of<sp/>the<sp/>requested<sp/>number<sp/>of<sp/>bytes.<sp/>Consider<sp/>using<sp/></highlight></codeline>
+<codeline><highlight class="normal">the<sp/>```async_write```<sp/>function<sp/>if<sp/>you<sp/>need<sp/>to<sp/>ensure<sp/>that<sp/>the<sp/>requested<sp/>amount<sp/>of<sp/>data<sp/>is<sp/>written<sp/>before<sp/>the<sp/>asynchronous<sp/></highlight></codeline>
+<codeline><highlight class="normal">operation<sp/>completes.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">In<sp/>last<sp/>boost<sp/>standards<sp/>this<sp/>function<sp/>is<sp/>&lt;b&gt;deduced&lt;/b&gt;.</highlight></codeline>
+<codeline><highlight class="normal">More<sp/>information<sp/>you<sp/>can<sp/>see<sp/>in<sp/>[Boost<sp/>Documentation](https://www.boost.org/doc/libs/1_76_0/doc/html/boost_asio/reference/basic_stream_socket/async_write_some.html).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;async_write&quot;&gt;&lt;h4&gt;<sp/>async_write()<sp/>&lt;/h4&gt;&lt;/a&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Although<sp/>the<sp/>```async_write_some()```<sp/>method<sp/>allows<sp/>asynchronously<sp/>writing<sp/>data<sp/>to<sp/>the<sp/>socket,<sp/>the<sp/>solution<sp/>based<sp/>on<sp/></highlight></codeline>
+<codeline><highlight class="normal">it<sp/>is<sp/>somewhat<sp/>complex<sp/>and<sp/>error-prone.<sp/>Fortunately,<sp/>Boost.Asio<sp/>provides<sp/>a<sp/>more<sp/>convenient<sp/>way<sp/>to<sp/>asynchronously<sp/></highlight></codeline>
+<codeline><highlight class="normal">write<sp/>data<sp/>to<sp/>a<sp/>socket<sp/>using<sp/>the<sp/>free<sp/>function<sp/>asio::async_write().<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Let&apos;s<sp/>consider<sp/>one<sp/>of<sp/>its<sp/>overloads:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">template&lt;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>typename<sp/>AsyncWriteStream,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>typename<sp/>ConstBufferSequence,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>typename<sp/>WriteHandler&gt;</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>async_write(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>AsyncWriteStream<sp/>&amp;<sp/>s,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>const<sp/>ConstBufferSequence<sp/>&amp;<sp/>buffers,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>WriteHandler<sp/>handler);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;h4&gt;<sp/>Algorithm<sp/>&lt;/h4&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>asynchronous<sp/>write<sp/>algorithm<sp/>is<sp/>the<sp/>same<sp/>as<sp/>when<sp/>using<sp/>the<sp/>function<sp/>```async_write_some```<sp/>except<sp/>for<sp/>item<sp/>7<sp/>of<sp/></highlight></codeline>
+<codeline><highlight class="normal">the<sp/>algorithm.<sp/>It<sp/>doesn&apos;t<sp/>exists.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;h4&gt;<sp/>Code<sp/>example<sp/>&lt;/h4&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;asio.hpp&gt;</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;iostream&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">using<sp/>namespace<sp/>boost;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Step<sp/>1.</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Keeps<sp/>objects<sp/>we<sp/>need<sp/>in<sp/>a<sp/>callback<sp/>to</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>identify<sp/>whether<sp/>all<sp/>data<sp/>has<sp/>been<sp/>written</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>to<sp/>the<sp/>socket<sp/>and<sp/>to<sp/>initiate<sp/>next<sp/>async</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>writing<sp/>operatino<sp/>if<sp/>needed.</highlight></codeline>
+<codeline><highlight class="normal">struct<sp/>Session<sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::shared_ptr&lt;asio::ip::tcp::socket&gt;<sp/>sock;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>buf;</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>Step<sp/>2.</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>Function<sp/>used<sp/>as<sp/>a<sp/>callback<sp/>for<sp/>asynchronous<sp/>writing<sp/>operation.<sp/>Checks<sp/>if<sp/>all<sp/>data<sp/>from<sp/>the<sp/>buffer<sp/>has<sp/>been</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>written<sp/>to<sp/>the<sp/>socket<sp/>and<sp/>initiates<sp/>new<sp/>writting<sp/>operation<sp/>if<sp/>needed.</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>callback(const<sp/>asio::error_code&amp;<sp/>ec,<sp/>std::size_t<sp/>bytes_transferred,<sp/>std::shared_ptr&lt;Session&gt;<sp/>s)<sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(ec.value()<sp/>!=<sp/>0)<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logging::get()-&gt;error(&quot;Error<sp/>occurred!<sp/>Error<sp/>code<sp/>=<sp/>{}.<sp/>Message:<sp/>{}&quot;,<sp/>ec.value(),<sp/>ec.message());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Here<sp/>we<sp/>know<sp/>that<sp/>all<sp/>the<sp/>data<sp/>has<sp/>been<sp/>written<sp/>to<sp/>the<sp/>socket.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>logging::get()-&gt;info(&quot;Bytes<sp/>read:<sp/>{}&quot;,<sp/>bytes_transferred);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>logging::get()-&gt;info(&quot;Message:<sp/>{}&quot;,<sp/>s-&gt;buf);</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">void<sp/>writeToSocket(std::shared_ptr&lt;asio::ip::tcp::socket&gt;<sp/>sock)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::shared_ptr&lt;Session&gt;<sp/>s(new<sp/>Session);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>4.<sp/>Allocating<sp/>and<sp/>filling<sp/>the<sp/>buffer.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;buf<sp/>=<sp/>std::string(&quot;Hello\n&quot;);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>s-&gt;sock<sp/>=<sp/>sock;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>5.<sp/>Initiating<sp/>asynchronous<sp/>write<sp/>operation.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>asio::async_write(*sock,<sp/>asio::buffer(s-&gt;buf),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::bind(callback,<sp/>std::placeholders::_1,<sp/>std::placeholders::_2,<sp/>s));</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">int<sp/>main()<sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>auto<sp/>console<sp/>=<sp/>logging::setup();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>raw_ip_address<sp/>=<sp/>&quot;127.0.0.1&quot;;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>unsigned<sp/>short<sp/>port_num<sp/>=<sp/>3333;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>try<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>asio::ip::tcp::endpoint<sp/>ep(asio::ip::address::from_string(raw_ip_address),<sp/>port_num);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>asio::io_service<sp/>ios;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>3.<sp/>Allocating,<sp/>opening<sp/>and<sp/>connecting<sp/>a<sp/>socket.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::shared_ptr&lt;asio::ip::tcp::socket&gt;<sp/>sock(new<sp/>asio::ip::tcp::socket(ios,<sp/>ep.protocol()));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sock-&gt;connect(ep);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>writeToSocket(sock);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>6.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ios.run();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>catch<sp/>(asio::system_error&amp;<sp/>e)<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>console-&gt;error(&quot;Error<sp/>occurred!<sp/>Error<sp/>code<sp/>=<sp/>{}.<sp/>Message:<sp/>{}&quot;,<sp/>e.code().value(),<sp/>e.what());</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>e.code().value();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;dataIntegrity&quot;&gt;&lt;h2&gt;<sp/>Data<sp/>integrity<sp/>&lt;/h2&gt;&lt;/a&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">If<sp/>talking<sp/>about<sp/>data<sp/>integrity<sp/>functions<sp/>such<sp/>as<sp/>```async_read```,<sp/>```async_write```<sp/>guarantees<sp/>that<sp/>all<sp/>of<sp/>the<sp/>requested<sp/>number</highlight></codeline>
+<codeline><highlight class="normal">of<sp/>bytes<sp/>will<sp/>be<sp/>read<sp/>to<sp/>the<sp/>stream<sp/>or<sp/>written<sp/>from<sp/>the<sp/>stream.<sp/>This<sp/>functions<sp/>will<sp/>wait<sp/>all<sp/>bytes<sp/>and<sp/>only<sp/>after<sp/>receiving/sending<sp/>all<sp/></highlight></codeline>
+<codeline><highlight class="normal">of<sp/>them<sp/>the<sp/>handler<sp/>will<sp/>be<sp/>called.<sp/>But<sp/>if<sp/>we<sp/>specify<sp/>the<sp/>completion<sp/>function,<sp/>reading/writing<sp/>transfering<sp/>may<sp/>be<sp/>stopped<sp/>and<sp/></highlight></codeline>
+<codeline><highlight class="normal">handler<sp/>called<sp/>when<sp/>the<sp/>completion<sp/>function<sp/>returns<sp/>0.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;errorHandling&quot;&gt;&lt;h2&gt;<sp/>[Error<sp/>and<sp/>exception<sp/>handling](#3)<sp/>&lt;/h2&gt;&lt;/a&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Boost::asio<sp/>gives<sp/>2<sp/>ways<sp/>of<sp/>handling<sp/>errors<sp/>and<sp/>exceptions:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>using<sp/>try-cath<sp/>block</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>using<sp/>error<sp/>codes</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">All<sp/>the<sp/>&lt;b&gt;synchronous<sp/>functions&lt;/b&gt;<sp/>have<sp/>overloads<sp/>that<sp/>either<sp/>throw<sp/>in<sp/>case<sp/>of<sp/>error<sp/>or<sp/>can<sp/>return<sp/>an<sp/>error<sp/>code.<sp/>In<sp/>case<sp/></highlight></codeline>
+<codeline><highlight class="normal">the<sp/>function<sp/>throws,<sp/>it<sp/>will<sp/>always<sp/>throw<sp/>a<sp/>```boost::system::system_error```<sp/>error.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">In<sp/>case<sp/>you&apos;re<sp/>using<sp/>&lt;b&gt;asynchronous<sp/>functions&lt;/b&gt;,<sp/>they<sp/>all<sp/>return<sp/>an<sp/>error<sp/>code,<sp/>which<sp/>you<sp/>can<sp/>examine<sp/>in<sp/>your<sp/>callback.<sp/></highlight></codeline>
+<codeline><highlight class="normal">Asynchronous<sp/>functions<sp/>never<sp/>throw<sp/>an<sp/>exception,<sp/>as<sp/>it<sp/>would<sp/>make<sp/>no<sp/>sense<sp/>to<sp/>do<sp/>so.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">In<sp/>your<sp/>synchronous<sp/>functions,<sp/>you<sp/>can<sp/>use<sp/>exceptions<sp/>or<sp/>error<sp/>codes<sp/>(whatever<sp/>you<sp/>wish),<sp/>but<sp/>do<sp/>it<sp/>consistently.<sp/></highlight></codeline>
+<codeline><highlight class="normal">Mixing<sp/>them<sp/>up<sp/>can<sp/>cause<sp/>problems<sp/>and<sp/>most<sp/>of<sp/>the<sp/>time<sp/>crashes<sp/>(when<sp/>you<sp/>forget<sp/>to<sp/>handle<sp/>a<sp/>thrown<sp/>exception,<sp/>by<sp/>mistake).<sp/></highlight></codeline>
+<codeline><highlight class="normal">If<sp/>your<sp/>code<sp/>is<sp/>complex<sp/>(socket<sp/>read/write<sp/>function<sp/>calls),<sp/>you<sp/>should<sp/>probably<sp/>prefer<sp/>exceptions<sp/>and<sp/>embody<sp/>your<sp/>reads/writes<sp/></highlight></codeline>
+<codeline><highlight class="normal">in<sp/>the<sp/>try<sp/>{}<sp/>catch<sp/>block<sp/>of<sp/>a<sp/>function.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">All<sp/>Boost.Asio<sp/>error<sp/>codes<sp/>are<sp/>in<sp/>namespace<sp/>```boost::asio::error```.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;h4&gt;<sp/>Code<sp/>example<sp/>&lt;/h4&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">//<sp/>throwing<sp/>exceptions</highlight></codeline>
+<codeline><highlight class="normal">try<sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>sock.connect(ep);</highlight></codeline>
+<codeline><highlight class="normal">}<sp/></highlight></codeline>
+<codeline><highlight class="normal">catch(boost::system::system_error<sp/>e)<sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>e.code()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//<sp/>using<sp/>error<sp/>codes</highlight></codeline>
+<codeline><highlight class="normal">boost::system::error_code<sp/>err;</highlight></codeline>
+<codeline><highlight class="normal">sock.connect(ep,<sp/>err);</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>(<sp/>err)<sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>err<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;a&gt;&lt;h3&gt;<sp/>[Delayed<sp/>processing<sp/>exceptions](#2)&lt;/h3&gt;&lt;/a&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Processing<sp/>exceptions<sp/>is<sp/>not<sp/>always<sp/>trivial<sp/>and<sp/>may<sp/>take<sp/>a<sp/>lot<sp/>of<sp/>time.<sp/>Consider<sp/>the<sp/>situation<sp/>where<sp/>an<sp/>exception<sp/>must<sp/>be<sp/></highlight></codeline>
+<codeline><highlight class="normal">serialized<sp/>and<sp/>sent<sp/>by<sp/>the<sp/>network.<sp/>This<sp/>may<sp/>take<sp/>milliseconds<sp/>and<sp/>a<sp/>few<sp/>thousand<sp/>lines<sp/>of<sp/>code.<sp/>After<sp/>the<sp/>exception<sp/>is<sp/>caught<sp/>is<sp/>not<sp/></highlight></codeline>
+<codeline><highlight class="normal">always<sp/>the<sp/>best<sp/>time<sp/>and<sp/>place<sp/>to<sp/>process<sp/>it.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>Boost.Exception<sp/>library<sp/>provides<sp/>an<sp/>ability<sp/>to<sp/>store<sp/>and<sp/>rethrow<sp/>exceptions.<sp/>The<sp/>```boost::current_exception()```<sp/>method<sp/></highlight></codeline>
+<codeline><highlight class="normal">must<sp/>be<sp/>called<sp/>from<sp/>inside<sp/>the<sp/>catch()<sp/>block,<sp/>and<sp/>it<sp/>returns<sp/>an<sp/>object<sp/>of<sp/>the<sp/>type<sp/>```boost::exception_ptr```.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>only<sp/>way<sp/>to<sp/>restore<sp/>the<sp/>exception<sp/>type<sp/>from<sp/>```boost::exception_ptr```<sp/>is<sp/>to<sp/>rethrow<sp/>it<sp/>using<sp/></highlight></codeline>
+<codeline><highlight class="normal">```boost::rethrow_exception(exc)```<sp/>and<sp/>then<sp/>catch<sp/>it<sp/>by<sp/>specifying<sp/>the<sp/>exception<sp/>type.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Usually,<sp/>exception_ptr<sp/>is<sp/>used<sp/>to<sp/>pass<sp/>exceptions<sp/>between<sp/>threads.<sp/>For<sp/>example:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>run_throw(boost::exception_ptr&amp;<sp/>ptr)<sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>try<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>A<sp/>lot<sp/>of<sp/>code<sp/>goes<sp/>here</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>catch<sp/>(...)<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ptr<sp/>=<sp/>boost::current_exception();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">int<sp/>main<sp/>()<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>boost::exception_ptr<sp/>ptr;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>//<sp/>Do<sp/>some<sp/>work<sp/>in<sp/>parallel</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>boost::thread<sp/>t(boost::bind(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;run_throw,<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>boost::ref(ptr)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>));</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>//<sp/>Some<sp/>code<sp/>goes<sp/>here</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>//<sp/>…</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>t.join();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>//<sp/>Checking<sp/>for<sp/>exception</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>if<sp/>(ptr)<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>Exception<sp/>occured<sp/>in<sp/>thread</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>boost::rethrow_exception(ptr);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;bigFileTransmissions&quot;&gt;&lt;h2&gt;Big<sp/>file<sp/>transmissions&lt;/h2&gt;&lt;/a&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;h3&gt;Algorithm&lt;/h3&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>Create<sp/>file<sp/>if<sp/>not<sp/>exists.</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>Open<sp/>file<sp/>in<sp/>reading/writing<sp/>mode.</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>Transfer<sp/>the<sp/>file<sp/>data<sp/>over<sp/>network<sp/>/<sp/>Get<sp/>data<sp/>and<sp/>write<sp/>it<sp/>into<sp/>the<sp/>file.</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>Close<sp/>file.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">What<sp/>we<sp/>can<sp/>use?</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;b&gt;<sp/>1.<sp/>Transferring<sp/>file<sp/>using<sp/>```async_read_some```,<sp/>```async_write_some```<sp/>functions<sp/>&lt;/b&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>way<sp/>how<sp/>to<sp/>transfer<sp/>data<sp/>using<sp/>```async_read_some```,<sp/>```async_write_some```<sp/>was<sp/>described<sp/>before<sp/>in<sp/>chapters<sp/></highlight></codeline>
+<codeline><highlight class="normal">about<sp/>asynchronous<sp/>[reading](#async_read_some)<sp/>and<sp/>[writing](#async_write_some).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">But<sp/>there<sp/>may<sp/>be<sp/>cases<sp/>when<sp/>data<sp/>size<sp/>is<sp/>too<sp/>big<sp/>for<sp/>creating<sp/>a<sp/>buffer<sp/>for<sp/>it.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;b&gt;<sp/>2.<sp/>Transferring<sp/>[composite<sp/>buffers](#1)<sp/>using<sp/>```async_read```,<sp/>```async_write```<sp/>functions<sp/>&lt;/b&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">A<sp/>composite<sp/>buffer<sp/>is<sp/>basically<sp/>a<sp/>complex<sp/>buffer<sp/>that<sp/>consists<sp/>of<sp/>two<sp/>or<sp/>more<sp/>simple<sp/>buffers<sp/>(contiguous<sp/>blocks<sp/>of<sp/>memory)<sp/>distributed<sp/>over<sp/>the<sp/>process&apos;<sp/>address<sp/>space.<sp/>Such<sp/>buffers<sp/>become<sp/>especially<sp/>handy<sp/>in<sp/>two<sp/>situations.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/>need<sp/>to<sp/>store<sp/>message<sp/>in<sp/>a<sp/>buffer,<sp/>but<sp/>message<sp/>is<sp/>so<sp/>huge<sp/>as<sp/>program<sp/>may<sp/>fail<sp/>due<sp/>to<sp/>the<sp/>process&apos;<sp/>address<sp/>space<sp/>fragmentation.<sp/></highlight></codeline>
+<codeline><highlight class="normal">In<sp/>this<sp/>case,<sp/>allocating<sp/>multiple<sp/>smaller<sp/>buffers,<sp/>whose<sp/>sizes<sp/>when<sp/>summed<sp/>would<sp/>be<sp/>enough<sp/>to<sp/>store<sp/>the<sp/>data,<sp/>and<sp/>combining<sp/>them<sp/></highlight></codeline>
+<codeline><highlight class="normal">in<sp/>a<sp/>single<sp/>composite<sp/>buffer<sp/>is<sp/>a<sp/>good<sp/>solution<sp/>to<sp/>the<sp/>problem.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/>due<sp/>to<sp/>specificity<sp/>of<sp/>the<sp/>design<sp/>of<sp/>the<sp/>application,<sp/>the<sp/>message<sp/>to<sp/>be<sp/>sent<sp/>to<sp/>the<sp/>remote<sp/>application<sp/>is<sp/>broken<sp/>into<sp/>several<sp/>parts<sp/></highlight></codeline>
+<codeline><highlight class="normal">and<sp/>stored<sp/>in<sp/>different<sp/>buffers,<sp/>or<sp/>if<sp/>the<sp/>message<sp/>to<sp/>be<sp/>received<sp/>from<sp/>the<sp/>remote<sp/>application<sp/>needs<sp/>to<sp/>be<sp/>broken<sp/>into<sp/>several<sp/>parts,<sp/></highlight></codeline>
+<codeline><highlight class="normal">each<sp/>of<sp/>which<sp/>should<sp/>be<sp/>stored<sp/>in<sp/>a<sp/>separate<sp/>buffer<sp/>for<sp/>further<sp/>processing.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;h3&gt;<sp/>Algorithm<sp/>&lt;/h3&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;h4&gt;<sp/>1.<sp/>Preparing<sp/>a<sp/>composite<sp/>buffer<sp/>for<sp/>gather<sp/>output<sp/>operations<sp/>&lt;/h4&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>following<sp/>is<sp/>the<sp/>algorithm<sp/>and<sp/>corresponding<sp/>code<sp/>sample<sp/>that<sp/>describe<sp/>how<sp/>to<sp/>prepare<sp/>the<sp/>composite<sp/>buffer<sp/>that<sp/>is<sp/>to<sp/>be<sp/>used<sp/></highlight></codeline>
+<codeline><highlight class="normal">with<sp/>the<sp/>socket&apos;s<sp/>method<sp/>that<sp/>performs<sp/>output<sp/>operations<sp/>such<sp/>as<sp/>```asio::ip::tcp::socket::send()```<sp/>or<sp/>a<sp/>free<sp/>function<sp/>such<sp/>as<sp/></highlight></codeline>
+<codeline><highlight class="normal">```asio::write()```:</highlight></codeline>
+<codeline><highlight class="normal"><sp/></highlight></codeline>
+<codeline><highlight class="normal">1.<sp/>Allocate<sp/>as<sp/>many<sp/>memory<sp/>buffers<sp/>as<sp/>needed<sp/>to<sp/>perform<sp/>the<sp/>task<sp/>at<sp/>hand.<sp/>Note<sp/>that<sp/>this<sp/>step<sp/>does<sp/>not<sp/>involve<sp/>any<sp/>functionality<sp/></highlight></codeline>
+<codeline><highlight class="normal">or<sp/>data<sp/>types<sp/>from<sp/>Boost.Asio.<sp/></highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>Fill<sp/>the<sp/>buffers<sp/>with<sp/>data<sp/>to<sp/>be<sp/>output.<sp/></highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>Create<sp/>an<sp/>instance<sp/>of<sp/>a<sp/>class<sp/>that<sp/>satisfies<sp/>the<sp/>ConstBufferSequence<sp/>or<sp/>MultipleBufferSequence<sp/>concept&apos;s<sp/>requirements,<sp/></highlight></codeline>
+<codeline><highlight class="normal">representing<sp/>a<sp/>composite<sp/>buffer.</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>Add<sp/>simple<sp/>buffers<sp/>to<sp/>the<sp/>composite<sp/>buffer.<sp/>Each<sp/>simple<sp/>buffer<sp/>should<sp/>be<sp/>represented<sp/>as<sp/>an<sp/>instance<sp/>of<sp/>the<sp/></highlight></codeline>
+<codeline><highlight class="normal">```asio::const_buffer```<sp/>or<sp/>```asio::mutable_buffer```<sp/>classes.<sp/></highlight></codeline>
+<codeline><highlight class="normal">5.<sp/>The<sp/>composite<sp/>buffer<sp/>is<sp/>ready<sp/>to<sp/>be<sp/>used<sp/>with<sp/>Boost.Asio<sp/>output<sp/>functions.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;h5&gt;<sp/>Code<sp/>Example<sp/>&lt;/h5&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;boost/asio.hpp&gt;</highlight></codeline>
+<codeline><highlight class="normal">using<sp/>namespace<sp/>boost;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">int<sp/>main()<sp/></highlight></codeline>
+<codeline><highlight class="normal">{<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Steps<sp/>1<sp/>and<sp/>2.<sp/>Create<sp/>and<sp/>fill<sp/>simple<sp/>buffers.<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>const<sp/>char*<sp/>part1<sp/>=<sp/>&quot;Hello<sp/>&quot;;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>const<sp/>char*<sp/>part2<sp/>=<sp/>&quot;my<sp/>&quot;;<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>const<sp/>char*<sp/>part3<sp/>=<sp/>&quot;friend!&quot;;<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>3.<sp/>Create<sp/>an<sp/>object<sp/>representing<sp/>a<sp/>composite<sp/>buffer.<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>composite_buffer;<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>4.<sp/>Add<sp/>simple<sp/>buffers<sp/>to<sp/>the<sp/>composite<sp/>buffer.<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>composite_buffer.push_back(asio::const_buffer(part1,<sp/>6));<sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>composite_buffer.push_back(asio::const_buffer(part2,<sp/>3));<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>composite_buffer.push_back(asio::const_buffer(part3,<sp/>7));<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>5.<sp/>Now<sp/>composite_buffer<sp/>can<sp/>be<sp/>used<sp/>with<sp/>Boost.Asio<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>output<sp/>operations<sp/>as<sp/>if<sp/>it<sp/>was<sp/>a<sp/>simple<sp/>buffer<sp/>represented<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>by<sp/>contiguous<sp/>block<sp/>of<sp/>memory.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>0;<sp/></highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;h4&gt;<sp/>2.<sp/>Preparing<sp/>a<sp/>composite<sp/>buffer<sp/>for<sp/>an<sp/>input<sp/>operation<sp/>&lt;/h4&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>following<sp/>is<sp/>the<sp/>algorithm<sp/>and<sp/>corresponding<sp/>code<sp/>sample<sp/>that<sp/>describe<sp/>how<sp/>to<sp/>prepare<sp/>the<sp/>composite<sp/>buffer<sp/>that<sp/>is<sp/>to<sp/>be<sp/>used<sp/></highlight></codeline>
+<codeline><highlight class="normal">with<sp/>the<sp/>socket&apos;s<sp/>method<sp/>that<sp/>performs<sp/>an<sp/>input<sp/>operation<sp/>such<sp/>as<sp/>```asio::ip::tcp::socket::receive()```<sp/>or<sp/>a<sp/>free<sp/>function<sp/>such<sp/>as<sp/></highlight></codeline>
+<codeline><highlight class="normal">```asio::read()```:<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>Allocate<sp/>as<sp/>many<sp/>memory<sp/>buffers<sp/>as<sp/>required<sp/>to<sp/>perform<sp/>the<sp/>task<sp/>at<sp/>hand.<sp/></highlight></codeline>
+<codeline><highlight class="normal">The<sp/>sum<sp/>of<sp/>the<sp/>sizes<sp/>of<sp/>the<sp/>buffers<sp/>must<sp/>be<sp/>equal<sp/>to<sp/>or<sp/>greater<sp/>than<sp/>the<sp/>size<sp/>of<sp/>the<sp/>expected<sp/>message<sp/>to<sp/>be<sp/>received<sp/>in<sp/>these<sp/>buffers.<sp/></highlight></codeline>
+<codeline><highlight class="normal">Note<sp/>that<sp/>this<sp/>step<sp/>does<sp/>not<sp/>involve<sp/>any<sp/>functionalities<sp/>or<sp/>data<sp/>types<sp/>from<sp/>Boost.Asio.<sp/></highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>Create<sp/>an<sp/>instance<sp/>of<sp/>a<sp/>class<sp/>that<sp/>satisfies<sp/>the<sp/>MutableBufferSequence<sp/>concept&apos;s<sp/>requirements<sp/>that<sp/>represents<sp/>a<sp/>composite<sp/>buffer.<sp/></highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>Add<sp/>simple<sp/>buffers<sp/>to<sp/>the<sp/>composite<sp/>buffer.<sp/>Each<sp/>simple<sp/>buffer<sp/>should<sp/>be<sp/>represented<sp/>as<sp/>an<sp/>instance<sp/>of<sp/></highlight></codeline>
+<codeline><highlight class="normal">the<sp/>```asio::mutable_buffer```<sp/>class.<sp/></highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>The<sp/>composite<sp/>buffer<sp/>is<sp/>ready<sp/>to<sp/>be<sp/>used<sp/>with<sp/>Boost.Asio<sp/>input<sp/>operations.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;h5&gt;<sp/>Code<sp/>Example<sp/>&lt;/h5&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Let&apos;s<sp/>imagine<sp/>a<sp/>hypothetical<sp/>situation,<sp/>where<sp/>we<sp/>want<sp/>to<sp/>receive<sp/>16<sp/>bytes<sp/>long<sp/>messages<sp/>from<sp/>the<sp/>server.<sp/>However,<sp/>we<sp/>do<sp/>not<sp/>have<sp/></highlight></codeline>
+<codeline><highlight class="normal">a<sp/>buffer<sp/>that<sp/>can<sp/>fit<sp/>the<sp/>entire<sp/>message.<sp/>Instead,<sp/>we<sp/>have<sp/>three<sp/>buffers:<sp/>6,<sp/>3,<sp/>and<sp/>7<sp/>bytes<sp/>long.<sp/>To<sp/>create<sp/>a<sp/>buffer<sp/>in<sp/>which<sp/>we<sp/></highlight></codeline>
+<codeline><highlight class="normal">can<sp/>receive<sp/>16<sp/>bytes<sp/>of<sp/>data,<sp/>we<sp/>can<sp/>join<sp/>our<sp/>three<sp/>small<sp/>buffers<sp/>into<sp/>a<sp/>composite<sp/>one.<sp/>This<sp/>is<sp/>how<sp/>we<sp/>do<sp/>it<sp/>in<sp/>the<sp/>following<sp/>code:<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;boost/asio.hpp&gt;</highlight></codeline>
+<codeline><highlight class="normal">using<sp/>namespace<sp/>boost;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">int<sp/>main()<sp/></highlight></codeline>
+<codeline><highlight class="normal">{<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>1.<sp/>Allocate<sp/>simple<sp/>buffers.<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>char<sp/>part1[6];<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>char<sp/>part2[3];<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>char<sp/>part3[7];<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>2.<sp/>Create<sp/>an<sp/>object<sp/>representing<sp/>a<sp/>composite<sp/>buffer.<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector<sp/>composite_buffer;<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>3.<sp/>Add<sp/>simple<sp/>buffers<sp/>to<sp/>the<sp/>composite<sp/>buffer<sp/>object.<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>composite_buffer.push_back(asio::mutable_buffer(part1,<sp/>sizeof(part1)));<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>composite_buffer.push_back(asio::mutable_buffer(part2,<sp/>sizeof(part2)));<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>composite_buffer.push_back(asio::mutable_buffer(part3,<sp/>sizeof(part3)));<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>Step<sp/>4.<sp/>Now<sp/>composite_buffer<sp/>can<sp/>be<sp/>used<sp/>with<sp/>Boost.Asio<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>input<sp/>operation<sp/>as<sp/>if<sp/>it<sp/>was<sp/>a<sp/>simple<sp/>buffer<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>//<sp/>represented<sp/>by<sp/>contiguous<sp/>block<sp/>of<sp/>memory.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>return<sp/>0;<sp/></highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;bigProjects&quot;&gt;&lt;h2&gt;Usage<sp/>in<sp/>Open<sp/>Source<sp/>projects&lt;/h2&gt;&lt;/a&gt;</highlight></codeline>
+<codeline><highlight class="normal">There<sp/>are<sp/>some<sp/>libraries<sp/>such<sp/>that<sp/>are<sp/>based<sp/>on<sp/>Boost.Asio.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/>[libpion](https://github.com/splunk/pion)<sp/>-<sp/>C++<sp/>framework<sp/>for<sp/>building<sp/>lightweight<sp/>HTTP<sp/>interfaces</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>[cpp-netlib](https://sourceforge.net/projects/cpp-netlib/)<sp/>-<sp/>a<sp/>collection<sp/>of<sp/>network-related<sp/>routines/implementations<sp/></highlight></codeline>
+<codeline><highlight class="normal">geared<sp/>towards<sp/>providing<sp/>a<sp/>robust<sp/>cross-platform<sp/>networking<sp/>library.<sp/>&lt;br&gt;</highlight></codeline>
+<codeline><highlight class="normal">Cpp-netlib<sp/>offers<sp/>the<sp/>following<sp/>implementations:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*<sp/>Common<sp/>Message<sp/>Type<sp/>-<sp/>a<sp/>generic<sp/>message<sp/>type<sp/>which<sp/>can<sp/>be<sp/>used<sp/>to<sp/>encapsulate<sp/>and<sp/>store<sp/>message-related<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>information,<sp/>used<sp/>by<sp/>all<sp/>network<sp/>implementations<sp/>as<sp/>the<sp/>primary<sp/>means<sp/>of<sp/>data<sp/>exchange.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*<sp/>Network<sp/>protocol<sp/>message<sp/>parsers<sp/>-<sp/>a<sp/>collection<sp/>of<sp/>parsers<sp/>which<sp/>generate<sp/>message<sp/>objects<sp/>from<sp/>strings.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*<sp/>Adapters<sp/>and<sp/>Wrappers<sp/>-<sp/>a<sp/>collection<sp/>of<sp/>Adapters<sp/>and<sp/>wrappers<sp/>aimed<sp/>towards<sp/>making<sp/>the<sp/>message<sp/>type<sp/>STL<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>friendly.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*<sp/>Network<sp/>protocol<sp/>client<sp/>and<sp/>server<sp/>implementations<sp/>-<sp/>a<sp/>collection<sp/>of<sp/>network<sp/>protocol<sp/>implementations<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>that<sp/>include<sp/>embeddable<sp/>client<sp/>and<sp/>server<sp/>types.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/>[libtorrent](https://www.rasterbar.com/products/libtorrent/)<sp/>-<sp/><sp/>a<sp/>feature<sp/>complete<sp/>C++<sp/>bittorrent<sp/>implementation<sp/></highlight></codeline>
+<codeline><highlight class="normal">focusing<sp/>on<sp/>efficiency<sp/>and<sp/>scalability.<sp/>It<sp/>runs<sp/>on<sp/>embedded<sp/>devices<sp/>as<sp/>well<sp/>as<sp/>desktops.<sp/>It<sp/>comes<sp/>with<sp/>a<sp/>simple<sp/>bittorrent<sp/>client<sp/>demonstrating<sp/>the<sp/>use<sp/>of<sp/>the<sp/>library.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;toRead&quot;&gt;&lt;h2&gt;To<sp/>read&lt;/h2&gt;&lt;/a&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;1&quot;&gt;1.<sp/>Dmytro<sp/>Radchuk.<sp/>Boost.Asio<sp/>C++<sp/>Network<sp/>Programming<sp/>Cookbook.<sp/>[repo](https://github.com/ct-clmsn/asio-network-programming-cookbook/tree/master/src/ch02)&lt;/a&gt;&lt;br&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;2&quot;&gt;2.<sp/>Antony<sp/>Polukhin.<sp/>Boost<sp/>C++<sp/>Application<sp/>Development<sp/>Cookbook<sp/>[(Chapter<sp/>6)](https://github.com/apolukhin/Boost-Cookbook/tree/second_edition/Chapter06).&lt;/a&gt;&lt;br&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;3&quot;&gt;3.<sp/>John<sp/>Torjo.<sp/>Boost.Asio<sp/>C++<sp/>Network<sp/>Programming.&lt;/a&gt;&lt;br&gt;</highlight></codeline>
+<codeline><highlight class="normal">&lt;a<sp/>name=&quot;4&quot;&gt;4.<sp/>[Boost<sp/>Documentation](https://www.boost.org)&lt;/a&gt;&lt;br&gt;</highlight></codeline>
+<codeline><highlight class="normal">5.<sp/>[Presentation](https://docs.google.com/presentation/d/16wfo8neJ2Y-g9KLuwEDjb6MxgsnPrpVa9FnWXQKSYAs/edit?usp=sharing)</highlight></codeline>
+    </programlisting>
+    <location file="Docs/Deeping intro ASIO.md"/>
+  </compounddef>
+</doxygen>

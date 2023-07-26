@@ -1,0 +1,279 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_app" kind="class" language="C++" prot="public">
+    <compoundname>App</compoundname>
+    <basecompoundref refid="class_network_1_1_client" prot="public" virt="non-virtual">Network::Client</basecompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_app_1acb8cbf3e285b91d0170ffe87df5989c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>App::App</definition>
+        <argsstring>()</argsstring>
+        <name>App</name>
+        <qualifiedname>App::App</qualifiedname>
+        <briefdescription>
+<para><ref refid="class_app" kindref="compound">App</ref>(Client.CLI) constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Connects to the server by address and port. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.CLI/App.hpp" line="17" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_app_1a34f1f253b1cef5f4ecbac66eaf6964ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>App::~App</definition>
+        <argsstring>()</argsstring>
+        <name>~App</name>
+        <qualifiedname>App::~App</qualifiedname>
+        <briefdescription>
+<para><ref refid="class_app" kindref="compound">App</ref>(Client.CLI) destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Disconnect client connection. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.CLI/App.hpp" line="23" column="5"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_app_1a8c8856796470a956e15dbba11511524c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void App::onServerAccepted</definition>
+        <argsstring>() override</argsstring>
+        <name>onServerAccepted</name>
+        <qualifiedname>App::onServerAccepted</qualifiedname>
+        <reimplements refid="class_network_1_1_client_1affc767c93ff417a063640dc6c749169b">onServerAccepted</reimplements>
+        <briefdescription>
+<para><ref refid="class_server" kindref="compound">Server</ref> accepted handler. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.CLI/App.hpp" line="27" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_app_1ae489a55b944cf93f7aab2bb7dfa3d531" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void App::onServerPing</definition>
+        <argsstring>(double timestamp) override</argsstring>
+        <name>onServerPing</name>
+        <qualifiedname>App::onServerPing</qualifiedname>
+        <reimplements refid="class_network_1_1_client_1a242df1a110f065bcf32fbc8c2cb7bf13">onServerPing</reimplements>
+        <param>
+          <type>double</type>
+          <declname>timestamp</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="class_server" kindref="compound">Server</ref> ping handler. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.CLI/App.hpp" line="29" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_app_1a5387ee5d220572e4cf9c342da5216f27" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void App::onServerMessage</definition>
+        <argsstring>(const uint64_t clientId) override</argsstring>
+        <name>onServerMessage</name>
+        <qualifiedname>App::onServerMessage</qualifiedname>
+        <reimplements refid="class_network_1_1_client_1a479d05d690162ad05ea93e733a428e2e">onServerMessage</reimplements>
+        <param>
+          <type>const uint64_t</type>
+          <declname>clientId</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="class_server" kindref="compound">Server</ref> message handler. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.CLI/App.hpp" line="31" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_app_1a0dc29282425e8782a84975d692290188" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void App::onChannelListRequest</definition>
+        <argsstring>(const std::vector&lt; Models::ChannelInfo &gt; &amp;channels) override</argsstring>
+        <name>onChannelListRequest</name>
+        <qualifiedname>App::onChannelListRequest</qualifiedname>
+        <reimplements refid="class_network_1_1_client_1a0f835b557eeeda02caa87cc0adf7a2ab">onChannelListRequest</reimplements>
+        <param>
+          <type>const std::vector&lt; <ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelInfo</ref> &gt; &amp;</type>
+          <declname>channels</declname>
+        </param>
+        <briefdescription>
+<para>Channel list request handler. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.CLI/App.hpp" line="33" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_app_1a936e8b81ea1cf5dbf8f1554211f755fc" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void App::onMessageStoreAnswer</definition>
+        <argsstring>(Utility::StoringMessageCodes storingMessageCode) override</argsstring>
+        <name>onMessageStoreAnswer</name>
+        <qualifiedname>App::onMessageStoreAnswer</qualifiedname>
+        <reimplements refid="class_network_1_1_client_1a254a4f78f332f2261b1a0a76431a7f11">onMessageStoreAnswer</reimplements>
+        <param>
+          <type>Utility::StoringMessageCodes</type>
+          <declname>storingMessageCode</declname>
+        </param>
+        <briefdescription>
+<para>Message store answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.CLI/App.hpp" line="35" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_app_1a5196e694c55677c4771e6e6facb3c437" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void App::onUserMessageDeleteAnswer</definition>
+        <argsstring>(const Utility::DeletingMessageCodes deletingState) override</argsstring>
+        <name>onUserMessageDeleteAnswer</name>
+        <qualifiedname>App::onUserMessageDeleteAnswer</qualifiedname>
+        <reimplements refid="class_network_1_1_client_1aae033942b37c2b914e0f0bb33190a010">onUserMessageDeleteAnswer</reimplements>
+        <param>
+          <type>const Utility::DeletingMessageCodes</type>
+          <declname>deletingState</declname>
+        </param>
+        <briefdescription>
+<para>Message delete answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.CLI/App.hpp" line="37" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_app_1a936bfc88e0e0b997be3782edd213deff" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void App::onMessageHistoryAnswer</definition>
+        <argsstring>(const std::vector&lt; Models::MessageInfo &gt; &amp;messages) override</argsstring>
+        <name>onMessageHistoryAnswer</name>
+        <qualifiedname>App::onMessageHistoryAnswer</qualifiedname>
+        <reimplements refid="class_network_1_1_client_1a2b7f8b0d101b6886b83e4667d06e8acd">onMessageHistoryAnswer</reimplements>
+        <param>
+          <type>const std::vector&lt; <ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref> &gt; &amp;</type>
+          <declname>messages</declname>
+        </param>
+        <briefdescription>
+<para>Message history answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.CLI/App.hpp" line="39" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_app_1a7b67645176d533b093954196cec31e52" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void App::onRegistrationAnswer</definition>
+        <argsstring>(Utility::RegistrationCodes registrationCode) override</argsstring>
+        <name>onRegistrationAnswer</name>
+        <qualifiedname>App::onRegistrationAnswer</qualifiedname>
+        <reimplements refid="class_network_1_1_client_1aee2fcb55fa84e71c379034707e2ad6ce">onRegistrationAnswer</reimplements>
+        <param>
+          <type>Utility::RegistrationCodes</type>
+          <declname>registrationCode</declname>
+        </param>
+        <briefdescription>
+<para>Registration answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.CLI/App.hpp" line="41" column="10"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="class_app" kindref="compound">App</ref>(Client.CLI) class which allows you to work with the console and process messages from the server. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>App</label>
+        <link refid="class_app"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Network::Client</label>
+        <link refid="class_network_1_1_client"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>App</label>
+        <link refid="class_app"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Network::Client</label>
+        <link refid="class_network_1_1_client"/>
+      </node>
+    </collaborationgraph>
+    <location file="Client/Client.CLI/App.hpp" line="10" column="1" bodyfile="Client/Client.CLI/App.hpp" bodystart="11" bodyend="42"/>
+    <listofallmembers>
+      <member refid="class_app_1acb8cbf3e285b91d0170ffe87df5989c5" prot="public" virt="non-virtual"><scope>App</scope><name>App</name></member>
+      <member refid="class_network_1_1_client_1a34695da617803db894baf53f3054c95d" prot="public" virt="non-virtual"><scope>App</scope><name>askForChannelList</name></member>
+      <member refid="class_network_1_1_client_1aed8e12023f5bd9fe1adf6febda4e3b63" prot="public" virt="non-virtual"><scope>App</scope><name>askForChannelSubscriptionList</name></member>
+      <member refid="class_network_1_1_client_1a41cd70c42eaa80488c40f12d86f1589e" prot="public" virt="non-virtual"><scope>App</scope><name>askForMessageHistory</name></member>
+      <member refid="class_network_1_1_client_1ad231b75d9adec41382a9d326296f584d" prot="public" virt="non-virtual"><scope>App</scope><name>askForReplyHistory</name></member>
+      <member refid="class_network_1_1_client_1a22a583f9447871a539ba614520902092" prot="public" virt="non-virtual"><scope>App</scope><name>connectToServer</name></member>
+      <member refid="class_network_1_1_client_1a0249236bf48c1ea56a76cc4732abc8c1" prot="public" virt="non-virtual"><scope>App</scope><name>createChannel</name></member>
+      <member refid="class_network_1_1_client_1a7147262877425c2f7a61527038cc74a3" prot="public" virt="non-virtual"><scope>App</scope><name>createDirectChat</name></member>
+      <member refid="class_network_1_1_client_1ad5171f7cf939b53fc5f9f4b9f42e41dc" prot="public" virt="non-virtual"><scope>App</scope><name>deleteChannel</name></member>
+      <member refid="class_network_1_1_client_1a2d2dad4544103a2a9e073d4eb78c2b1a" prot="public" virt="non-virtual"><scope>App</scope><name>disconnectFromServer</name></member>
+      <member refid="class_network_1_1_client_1a6d62f9b3d94f1b369ebaaf39ca373fc6" prot="public" virt="non-virtual"><scope>App</scope><name>incoming</name></member>
+      <member refid="class_network_1_1_client_1a336a20907c048fff41032146824912ec" prot="public" virt="non-virtual"><scope>App</scope><name>isConnected</name></member>
+      <member refid="class_network_1_1_client_1a05b736dd423cc02b3b0721c2e760da2e" prot="public" virt="non-virtual"><scope>App</scope><name>leaveChannel</name></member>
+      <member refid="class_network_1_1_client_1ab6967157fe329a8cf4f0cda9c37b390b" prot="public" virt="non-virtual"><scope>App</scope><name>loop</name></member>
+      <member refid="class_network_1_1_client_1aac511810872c49158ad24bc9f4835cab" prot="public" virt="non-virtual"><scope>App</scope><name>messageAll</name></member>
+      <member refid="class_network_1_1_client_1a8df31c555ad3b168080a0572b6b0e752" prot="protected" virt="virtual"><scope>App</scope><name>onChannelCreateAnswer</name></member>
+      <member refid="class_network_1_1_client_1a524cd832f8d533efd0d1c1c54cbe261d" prot="protected" virt="virtual"><scope>App</scope><name>onChannelDeleteAnswer</name></member>
+      <member refid="class_network_1_1_client_1a11ab48ab34cf2b5f7e60423f0a1adb96" prot="protected" virt="virtual"><scope>App</scope><name>onChannelLeaveAnswer</name></member>
+      <member refid="class_app_1a0dc29282425e8782a84975d692290188" prot="protected" virt="virtual"><scope>App</scope><name>onChannelListRequest</name></member>
+      <member refid="class_network_1_1_client_1ab6e884c3346a2175e23cbb7bc31ed755" prot="protected" virt="virtual"><scope>App</scope><name>onChannelSubscribingAnswer</name></member>
+      <member refid="class_network_1_1_client_1a8fa6b9e170c5bda64be07c91428a881c" prot="protected" virt="virtual"><scope>App</scope><name>onChannelSubscribingListAnswer</name></member>
+      <member refid="class_network_1_1_client_1a91916f5eee273291a7d26e6b668ac4fc" prot="protected" virt="virtual"><scope>App</scope><name>onDirectMessageCreateAnswer</name></member>
+      <member refid="class_network_1_1_client_1ae8f848bf80e913f495d9be332981fc25" prot="protected" virt="virtual"><scope>App</scope><name>onDisconnect</name></member>
+      <member refid="class_network_1_1_client_1a49ff3c4151ae1ac3be9786464117e674" prot="protected" virt="virtual"><scope>App</scope><name>onEditMessageAnswer</name></member>
+      <member refid="class_network_1_1_client_1a8c8884f69ed4cb7bcdec595ae6e5b488" prot="protected" virt="virtual"><scope>App</scope><name>onLoginAnswer</name></member>
+      <member refid="class_app_1a936bfc88e0e0b997be3782edd213deff" prot="protected" virt="virtual"><scope>App</scope><name>onMessageHistoryAnswer</name></member>
+      <member refid="class_network_1_1_client_1a15de402cf96349b27c6e14b8e452ada4" prot="protected" virt="virtual"><scope>App</scope><name>onMessageReactionAnswer</name></member>
+      <member refid="class_network_1_1_client_1aa80faff98fe07b9464dfff1cc94b86c5" prot="protected" virt="virtual"><scope>App</scope><name>onMessageSendFailed</name></member>
+      <member refid="class_app_1a936e8b81ea1cf5dbf8f1554211f755fc" prot="protected" virt="virtual"><scope>App</scope><name>onMessageStoreAnswer</name></member>
+      <member refid="class_app_1a7b67645176d533b093954196cec31e52" prot="protected" virt="virtual"><scope>App</scope><name>onRegistrationAnswer</name></member>
+      <member refid="class_network_1_1_client_1ad4ffdd06e7761f6761c29af809e2749e" prot="protected" virt="virtual"><scope>App</scope><name>onReplyHistoryAnswer</name></member>
+      <member refid="class_network_1_1_client_1aa767ec90c90b9d648eacbd0e50ef944d" prot="protected" virt="virtual"><scope>App</scope><name>onReplyStoreAnswer</name></member>
+      <member refid="class_app_1a8c8856796470a956e15dbba11511524c" prot="protected" virt="virtual"><scope>App</scope><name>onServerAccepted</name></member>
+      <member refid="class_app_1a5387ee5d220572e4cf9c342da5216f27" prot="protected" virt="virtual"><scope>App</scope><name>onServerMessage</name></member>
+      <member refid="class_app_1ae489a55b944cf93f7aab2bb7dfa3d531" prot="protected" virt="virtual"><scope>App</scope><name>onServerPing</name></member>
+      <member refid="class_app_1a5196e694c55677c4771e6e6facb3c437" prot="protected" virt="virtual"><scope>App</scope><name>onUserMessageDeleteAnswer</name></member>
+      <member refid="class_network_1_1_client_1ae6436b4a2b519be2be62b5745f93fc05" prot="public" virt="non-virtual"><scope>App</scope><name>pingServer</name></member>
+      <member refid="class_network_1_1_client_1a969324480a6f39a016c82921b8f2b132" prot="public" virt="non-virtual"><scope>App</scope><name>send</name></member>
+      <member refid="class_network_1_1_client_1afabb8e76a8ba09804558ce74d8f5e0ee" prot="public" virt="non-virtual"><scope>App</scope><name>storeMessage</name></member>
+      <member refid="class_network_1_1_client_1ae6c6809391307a9543d2668a5596c767" prot="public" virt="non-virtual"><scope>App</scope><name>storeReply</name></member>
+      <member refid="class_network_1_1_client_1ac2f25529256dfc492cf22a0d1d171998" prot="public" virt="non-virtual"><scope>App</scope><name>subscriptionChannel</name></member>
+      <member refid="class_network_1_1_client_1a594ba0121fcedff90282d79499e328ea" prot="public" virt="non-virtual"><scope>App</scope><name>userAuthorization</name></member>
+      <member refid="class_network_1_1_client_1a89356bf513bd32c331e30e21d0b209ea" prot="public" virt="non-virtual"><scope>App</scope><name>userMessageDelete</name></member>
+      <member refid="class_network_1_1_client_1a6d4be14a93b76be07ffc46869d54dd4c" prot="public" virt="non-virtual"><scope>App</scope><name>userMessageDelete</name></member>
+      <member refid="class_network_1_1_client_1a33e9ef1621935c50681c30e4fe716138" prot="public" virt="non-virtual"><scope>App</scope><name>userMessageReaction</name></member>
+      <member refid="class_network_1_1_client_1a427f72225af6756c7efdae76911ec4d5" prot="public" virt="non-virtual"><scope>App</scope><name>userRegistration</name></member>
+      <member refid="class_app_1a34f1f253b1cef5f4ecbac66eaf6964ec" prot="public" virt="non-virtual"><scope>App</scope><name>~App</name></member>
+      <member refid="class_network_1_1_client_1a1ef3315ee222dc3eb2af8201f405f847" prot="public" virt="virtual"><scope>App</scope><name>~Client</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

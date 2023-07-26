@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="md__docs_2_improved_01debugging" kind="page">
+    <compoundname>md__docs_2_improved_01debugging</compoundname>
+    <title>Improving debugging by bat files</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>If you do not want to use your terminal enormous amount of times while you are debugging or testing new features it can help you</para>
+<para>You can use .bat files to run server or server &amp; client on your own PC already with arguments and by 2 clicks of mouse</para>
+<sect3 id="md__docs_2_improved_01debugging_1autotoc_md10">
+<title>1. Creation of server.start .bat file</title>
+<para><orderedlist>
+<listitem><para>Create an empty .txt file where you wish</para>
+</listitem><listitem><para>Copy the next piece of text and paste it into already created .txt file</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal">++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>echo<sp/></highlight><highlight class="stringliteral">&quot;server.start&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>start<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;&lt;your_path&gt;&quot;</highlight><highlight class="normal"><sp/>-p<sp/>65001</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>exit</highlight></codeline>
+</programlisting></para>
+</listitem><listitem><para>Find place where your Server.Exec.exe exists and copy that path</para>
+</listitem><listitem><para>Replace &lt;your_path&gt; on yours</para>
+</listitem><listitem><para>File -&gt; Save as</para>
+</listitem><listitem><para>In the field of the file type change .txt type on any type</para>
+</listitem><listitem><para>Add to the end of file name &quot;.bat&quot;</para>
+</listitem><listitem><para>Save</para>
+</listitem></orderedlist>
+</para>
+</sect3>
+<sect3 id="md__docs_2_improved_01debugging_1autotoc_md11">
+<title>2. Creation of server &amp; client .bat file</title>
+<para><orderedlist>
+<listitem><para>Create an empty .txt file where you wish</para>
+</listitem><listitem><para>Copy the next piece of text and paste it into .txt file</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal">++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>echo<sp/></highlight><highlight class="stringliteral">&quot;server&amp;client&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>start<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;&lt;your_path_to_server.exec.exe&gt;&quot;</highlight><highlight class="normal"><sp/>-p<sp/>65001</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>echo<sp/>%time%</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>timeout<sp/>1<sp/>&gt;<sp/>NUL</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>echo<sp/>%time%</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>start<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;&lt;your_path_to_client.**.exe&gt;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>exit</highlight></codeline>
+</programlisting></para>
+</listitem><listitem><para>Find path to Server.Exec.exe and Client.**.exe and copy them</para>
+</listitem><listitem><para>Replace &lt;your_paths&gt; on yours</para>
+</listitem><listitem><para>All other points are the same as above </para>
+</listitem></orderedlist>
+</para>
+</sect3>
+    </detaileddescription>
+    <location file="Docs/Improved debugging.md"/>
+  </compounddef>
+</doxygen>

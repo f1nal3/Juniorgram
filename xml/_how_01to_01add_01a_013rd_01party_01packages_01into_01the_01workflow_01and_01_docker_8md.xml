@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_how_01to_01add_01a_013rd_01party_01packages_01into_01the_01workflow_01and_01_docker_8md" kind="file" language="Markdown">
+    <compoundname>How to add a 3rd party packages into the workflow and Docker.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">1.<sp/><sp/>[How<sp/>to<sp/>add<sp/>packages<sp/>into<sp/>the<sp/>workflow](#how-to-add-packages-into-the-workflow)</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/><sp/>[How<sp/>to<sp/>add<sp/>packages<sp/>into<sp/>Docker<sp/>image](#how-to-add-packages-into-docker-image)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>Workflow<sp/>and<sp/>GitHub<sp/>Actions.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">A<sp/>workflow<sp/>is<sp/>a<sp/>configurable<sp/>automated<sp/>process<sp/>made<sp/>up<sp/>of<sp/>one<sp/>or<sp/>more<sp/>jobs.<sp/>You<sp/>must<sp/>create<sp/>a<sp/>YAML<sp/>file<sp/>to<sp/>define<sp/>your<sp/>workflow<sp/>configuration.</highlight></codeline>
+<codeline><highlight class="normal">**If<sp/>you<sp/>might<sp/>need<sp/>it!**</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>About<sp/>YAML<sp/>syntax<sp/>for<sp/>workflows</highlight></codeline>
+<codeline><highlight class="normal">Workflow<sp/>files<sp/>use<sp/>YAML<sp/>syntax,<sp/>and<sp/>must<sp/>have<sp/>either<sp/>a<sp/>.yml<sp/>or<sp/>.yaml<sp/>file<sp/>extension.<sp/>If<sp/>you&apos;re<sp/>new<sp/>to<sp/>YAML<sp/>and<sp/>want<sp/>to<sp/>learn<sp/>more,<sp/>see<sp/>[&quot;Learn<sp/>YAML<sp/>in<sp/>five<sp/>minutes.&quot;](https://www.codeproject.com/Articles/1214409/Learn-YAML-in-five-minutes)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">In<sp/>our<sp/>repository<sp/>we<sp/>store<sp/>workflow<sp/>files<sp/>in<sp/>the<sp/>.github/workflows<sp/>directory.<sp/>(build.yml)</highlight></codeline>
+<codeline><highlight class="normal">***</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Here<sp/>is<sp/>an<sp/>example<sp/>of<sp/>how<sp/>to<sp/>write<sp/>such<sp/>a<sp/>file<sp/>and<sp/>how<sp/>to<sp/>include<sp/>the<sp/>packages<sp/>we<sp/>need:<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/>The<sp/>name<sp/>of<sp/>your<sp/>workflow.<sp/>GitHub<sp/>displays<sp/>the<sp/>names<sp/>of<sp/>your<sp/>workflows<sp/>on<sp/>your<sp/>repository&apos;s<sp/>actions<sp/>page.<sp/>If<sp/>you<sp/>omit<sp/>name,<sp/>GitHub<sp/>sets<sp/>it<sp/>to<sp/>the<sp/>workflow<sp/>file<sp/>path<sp/>relative<sp/>to<sp/>the<sp/>root<sp/>of<sp/>the<sp/>repository.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal">name:<sp/>Clang-Build</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Required.<sp/>The<sp/>name<sp/>of<sp/>the<sp/>GitHub<sp/>event<sp/>that<sp/>triggers<sp/>the<sp/>workflow.<sp/>You<sp/>can<sp/>provide<sp/>a<sp/>single<sp/>event<sp/>string,<sp/>array<sp/>of<sp/>events,<sp/>array<sp/>of<sp/>event<sp/>types,<sp/>or<sp/>an<sp/>event<sp/>configuration<sp/>map<sp/>that<sp/>schedules<sp/>a<sp/>workflow<sp/>or<sp/>restricts<sp/>the<sp/>execution<sp/>of<sp/>a<sp/>workflow<sp/>to<sp/>specific<sp/>files,<sp/>tags,<sp/>or<sp/>branch<sp/>changes.<sp/>For<sp/>a<sp/>list<sp/>of<sp/>available<sp/>events,<sp/>see<sp/>[&quot;Events<sp/>that<sp/>trigger<sp/>workflows.&quot;](https://docs.github.com/en/articles/events-that-trigger-workflows)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Example<sp/>using<sp/>a<sp/>single<sp/>event:</highlight></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>Triggered<sp/>when<sp/>code<sp/>is<sp/>pushed<sp/>to<sp/>any<sp/>branch<sp/>in<sp/>a<sp/>repository</highlight></codeline>
+<codeline><highlight class="normal">on:<sp/>push</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">Example<sp/>using<sp/>a<sp/>list<sp/>of<sp/>events</highlight></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>Triggers<sp/>the<sp/>workflow<sp/>on<sp/>push<sp/>or<sp/>pull<sp/>request<sp/>events</highlight></codeline>
+<codeline><highlight class="normal">on:<sp/>[push,<sp/>pull_request]</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">Another<sp/>example</highlight></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>Controls<sp/>when<sp/>the<sp/>action<sp/>will<sp/>run.<sp/>Triggers<sp/>the<sp/>workflow<sp/>on<sp/>push<sp/>or<sp/>pull<sp/>request</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>events<sp/>but<sp/>only<sp/>for<sp/>the<sp/>master<sp/>branch</highlight></codeline>
+<codeline><highlight class="normal">on:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>push:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>branches:<sp/>[<sp/>master,dev/develop,dev/coroutine,dev/clang_build]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>pull_request:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>branches:<sp/>[<sp/>master,dev/develop,dev/coroutine]</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/>A<sp/>workflow<sp/>run<sp/>is<sp/>made<sp/>up<sp/>of<sp/>one<sp/>or<sp/>more<sp/>jobs.<sp/>Jobs<sp/>run<sp/>in<sp/>parallel<sp/>by<sp/>default.<sp/>To<sp/>run<sp/>jobs<sp/>sequentially,<sp/>you<sp/>can<sp/>define<sp/>dependencies<sp/>on<sp/>other<sp/>jobs<sp/>using<sp/>the<sp/>jobs.&lt;job_id&gt;.needs<sp/>keyword.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Each<sp/>job<sp/>runs<sp/>in<sp/>a<sp/>runner<sp/>environment<sp/>specified<sp/>by<sp/>runs-on.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">You<sp/>can<sp/>run<sp/>an<sp/>unlimited<sp/>number<sp/>of<sp/>jobs<sp/>as<sp/>long<sp/>as<sp/>you<sp/>are<sp/>within<sp/>the<sp/>workflow<sp/>usage<sp/>limits.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Each<sp/>job<sp/>must<sp/>have<sp/>an<sp/>id<sp/>to<sp/>associate<sp/>with<sp/>the<sp/>job.<sp/>The<sp/>key<sp/>job_id<sp/>is<sp/>a<sp/>string<sp/>and<sp/>its<sp/>value<sp/>is<sp/>a<sp/>map<sp/>of<sp/>the<sp/>job&apos;s<sp/>configuration<sp/>data.<sp/>You<sp/>must<sp/>replace<sp/>&lt;job_id&gt;<sp/>with<sp/>a<sp/>string<sp/>that<sp/>is<sp/>unique<sp/>to<sp/>the<sp/>jobs<sp/>object.<sp/>The<sp/>&lt;job_id&gt;<sp/>must<sp/>start<sp/>with<sp/>a<sp/>letter<sp/>or<sp/>_<sp/>and<sp/>contain<sp/>only<sp/>alphanumeric<sp/>characters,<sp/>-,<sp/>or<sp/>_.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Example</highlight></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal">jobs:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>my_first_job:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>name:<sp/>My<sp/>first<sp/>job</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>my_second_job:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>name:<sp/>My<sp/>second<sp/>job</highlight></codeline>
+<codeline><highlight class="normal">jobs.&lt;job_id&gt;.name</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>name<sp/>of<sp/>the<sp/>job<sp/>displayed<sp/>on<sp/>GitHub.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">jobs.&lt;job_id&gt;.needs</highlight></codeline>
+<codeline><highlight class="normal">Identifies<sp/>any<sp/>jobs<sp/>that<sp/>must<sp/>complete<sp/>successfully<sp/>before<sp/>this<sp/>job<sp/>will<sp/>run.<sp/>It<sp/>can<sp/>be<sp/>a<sp/>string<sp/>or<sp/>array<sp/>of<sp/>strings.<sp/>If<sp/>a<sp/>job<sp/>fails,<sp/>all<sp/>jobs<sp/>that<sp/>need<sp/>it<sp/>are<sp/>skipped<sp/>unless<sp/>the<sp/>jobs<sp/>use<sp/>a<sp/>conditional<sp/>expression<sp/>that<sp/>causes<sp/>the<sp/>job<sp/>to<sp/>continue.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal">Example<sp/>requiring<sp/>dependent<sp/>jobs<sp/>to<sp/>be<sp/>successful</highlight></codeline>
+<codeline><highlight class="normal">jobs:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>job1:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>job2:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>needs:<sp/>job1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>job3:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>needs:<sp/>[job1,<sp/>job2]</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">In<sp/>this<sp/>example,<sp/>job1<sp/>must<sp/>complete<sp/>successfully<sp/>before<sp/>job2<sp/>begins,<sp/>and<sp/>job3<sp/>waits<sp/>for<sp/>both<sp/>job1<sp/>and<sp/>job2<sp/>to<sp/>complete.</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>jobs<sp/>in<sp/>this<sp/>example<sp/>run<sp/>sequentially:<sp/>job1,<sp/>job2,<sp/>job3.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/>GitHub-hosted<sp/>runners</highlight></codeline>
+<codeline><highlight class="normal">If<sp/>you<sp/>use<sp/>a<sp/>GitHub-hosted<sp/>runner,<sp/>each<sp/>job<sp/>runs<sp/>in<sp/>a<sp/>fresh<sp/>instance<sp/>of<sp/>a<sp/>virtual<sp/>environment<sp/>specified<sp/>by<sp/>runs-on.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Available<sp/>GitHub-hosted<sp/>runner<sp/>types<sp/>are:<sp/>\</highlight></codeline>
+<codeline><highlight class="normal">Windows<sp/>Server<sp/>2019<sp/>\</highlight></codeline>
+<codeline><highlight class="normal">Ubuntu<sp/>20.04<sp/>\</highlight></codeline>
+<codeline><highlight class="normal">Ubuntu<sp/>18.04<sp/>\</highlight></codeline>
+<codeline><highlight class="normal">Ubuntu<sp/>16.04<sp/>\</highlight></codeline>
+<codeline><highlight class="normal">macOS<sp/>Big<sp/>Sur<sp/>11.0<sp/>\</highlight></codeline>
+<codeline><highlight class="normal">macOS<sp/>Catalina<sp/>10.15<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Example</highlight></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal">runs-on:<sp/>ubuntu-latest</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**Self-hosted<sp/>runners**</highlight></codeline>
+<codeline><highlight class="normal">To<sp/>specify<sp/>a<sp/>self-hosted<sp/>runner<sp/>for<sp/>your<sp/>job,<sp/>configure<sp/>runs-on<sp/>in<sp/>your<sp/>workflow<sp/>file<sp/>with<sp/>self-hosted<sp/>runner<sp/>labels.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">All<sp/>self-hosted<sp/>runners<sp/>have<sp/>the<sp/>self-hosted<sp/>label,<sp/>and<sp/>you<sp/>can<sp/>select<sp/>any<sp/>self-hosted<sp/>runner<sp/>by<sp/>providing<sp/>only<sp/>the<sp/>self-hosted<sp/>label.<sp/>Alternatively,<sp/>you<sp/>can<sp/>use<sp/>self-hosted<sp/>in<sp/>an<sp/>array<sp/>with<sp/>additional<sp/>labels,<sp/>such<sp/>as<sp/>labels<sp/>for<sp/>a<sp/>specific<sp/>operating<sp/>system<sp/>or<sp/>system<sp/>architecture,<sp/>to<sp/>select<sp/>only<sp/>the<sp/>runner<sp/>types<sp/>you<sp/>specify.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Example</highlight></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal">runs-on:<sp/>[self-hosted,<sp/>linux]</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/>Workflow<sp/>dispatch<sp/>Allows<sp/>you<sp/>to<sp/>run<sp/>this<sp/>workflow<sp/>manually<sp/>from<sp/>the<sp/>Actions<sp/>tab.</highlight></codeline>
+<codeline><highlight class="normal">Example</highlight></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>workflow_dispatch:</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">Result<sp/>-<sp/>we<sp/>can<sp/>click<sp/>to<sp/>button<sp/>&apos;Run<sp/>workflow&apos;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">![](https://i2.wp.com/user-images.githubusercontent.com/1865328/86147571-2de93700-babf-11ea-8a08-e4beffd3abe9.png?ssl=1)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/><sp/>Steps<sp/>represent<sp/>a<sp/>sequence<sp/>of<sp/>tasks<sp/>that<sp/>will<sp/>be<sp/>executed<sp/>as<sp/>part<sp/>of<sp/>the<sp/>job.</highlight></codeline>
+<codeline><highlight class="normal">1.<sp/>All<sp/>config<sp/>is<sp/>written<sp/>in<sp/>yaml,<sp/>so<sp/>it<sp/>is<sp/>important<sp/>to<sp/>follow<sp/>the<sp/>syntax<sp/>and<sp/>indentation,<sp/>a<sp/>new<sp/>entity<sp/>in<sp/>the<sp/>list<sp/>starts<sp/>with<sp/>&quot;-&quot;<sp/></highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>The<sp/>steps<sp/>are<sp/>essentially<sp/>an<sp/>ordered<sp/>list.<sp/>They<sp/>will<sp/>be<sp/>executed<sp/>one<sp/>by<sp/>one<sp/>strictly<sp/>in<sp/>sequence<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Example</highlight></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>steps:</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/>Name.<sp/>Name<sp/>is<sp/>just<sp/>for<sp/>display<sp/>in<sp/>the<sp/>interface,<sp/>you<sp/>can<sp/>do<sp/>without<sp/>it<sp/>just<sp/>fine.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Example</highlight></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>name:<sp/>build</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/><sp/>Uses.<sp/>Specify<sp/>an<sp/>action<sp/>to<sp/>run<sp/>as<sp/>part<sp/>of<sp/>a<sp/>step<sp/>in<sp/>your<sp/>job.<sp/>You<sp/>can<sp/>use<sp/>an<sp/>action<sp/>defined<sp/>in<sp/>the<sp/>same<sp/>repository<sp/>as<sp/>the<sp/>workflow,<sp/>a<sp/>public<sp/>repository<sp/>elsewhere<sp/>on<sp/>GitHub,<sp/>or<sp/>in<sp/>a<sp/>published<sp/>Docker<sp/>container<sp/>image.<sp/>Here<sp/>we<sp/>specify<sp/>the<sp/>name<sp/>of<sp/>some<sp/>already<sp/>written<sp/>action,<sp/>if<sp/>we<sp/>want<sp/>to<sp/>use<sp/>it.<sp/>The<sp/>action<sp/>can<sp/>be<sp/>a<sp/>specific<sp/>branch<sp/>in<sp/>a<sp/>specific<sp/>repository<sp/>(any<sp/>repository),<sp/>it<sp/>can<sp/>be<sp/>code<sp/>stored<sp/>in<sp/>a<sp/>neighboring<sp/>folder,<sp/>or<sp/>it<sp/>can<sp/>be<sp/>a<sp/>docker-image<sp/>([full<sp/>list](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstepsuses))</highlight></codeline>
+<codeline><highlight class="normal">This<sp/>example<sp/>uses<sp/>```actions/checkout@v2```.<sp/>You<sp/>can<sp/>easily<sp/>find<sp/>them<sp/>[by<sp/>name<sp/>](https://github.com/marketplace/actions/checkout)<sp/>in<sp/>the<sp/>marketplace<sp/>and<sp/>look<sp/>at<sp/>the<sp/>source<sp/>code<sp/>of<sp/>a<sp/>specific<sp/>version<sp/>(it<sp/>comes<sp/>after<sp/>the<sp/>@<sp/>in<sp/>the<sp/>name)<sp/>to<sp/>see<sp/>what<sp/>they<sp/>do.<sp/>checkout<sp/>does<sp/>a<sp/>pull<sp/>of<sp/>the<sp/>repository<sp/>and<sp/>the<sp/>branch<sp/>in<sp/>which<sp/>it<sp/>is<sp/>running.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">tag<sp/>is<sp/>strongly<sp/>recommended:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">checks-out<sp/>your<sp/>repository<sp/>under<sp/>$GITHUB_WORKSPACE,<sp/>so<sp/>your<sp/>job<sp/>can<sp/>access<sp/>it</highlight></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal">uses:<sp/>actions/checkout@v2</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">for<sp/>actions<sp/>in<sp/>a<sp/>public<sp/>repository</highlight></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal">uses:<sp/>{owner}/{repo}@{ref}<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">for<sp/>actions<sp/>in<sp/>a<sp/>subdirectory<sp/>of<sp/>a<sp/>public<sp/>repository</highlight></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal">uses:<sp/>{owner}/{repo}/{path}@{ref}<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">for<sp/>actions<sp/>in<sp/>a<sp/>a<sp/>subdirectory<sp/>of<sp/>the<sp/>same<sp/>repository</highlight></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal">uses:<sp/>./path/to/dir<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">for<sp/>actions<sp/>on<sp/>Docker<sp/>Hub</highlight></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal">uses:<sp/>docker://{image}:{tag}<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">for<sp/>actions<sp/>in<sp/>a<sp/>public<sp/>registry</highlight></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal">uses:<sp/>docker://{host}/{image}:{tag}<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/>Run.<sp/>Runs<sp/>some<sp/>command<sp/>in<sp/>the<sp/>shell.<sp/>You<sp/>can&apos;t<sp/>use<sp/>a<sp/>shell<sp/>command<sp/>together<sp/>with<sp/>an<sp/>action,<sp/>they<sp/>must<sp/>live<sp/>in<sp/>different<sp/>steps</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal">run:<sp/>|</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>sudo<sp/>docker<sp/>build<sp/>.<sp/>-t<sp/>juniorgram:1.0</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>docker<sp/>run<sp/>--rm<sp/>--name<sp/>juniorgram-container<sp/>juniorgram:1.0</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>How<sp/>to<sp/>add<sp/>packages<sp/>into<sp/>the<sp/>workflow</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Let&apos;s<sp/>move<sp/>on<sp/>to<sp/>the<sp/>most<sp/>important<sp/>thing,<sp/>how<sp/>do<sp/>we<sp/>use<sp/>the<sp/>packages<sp/>that<sp/>we<sp/>need.<sp/>It<sp/>really<sp/>depends<sp/>on<sp/>the<sp/>environment<sp/>in<sp/>which<sp/>you<sp/>are<sp/>running<sp/>virtual<sp/>machine<sp/>on<sp/>Github<sp/>or<sp/>locally.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">If<sp/>you<sp/>want<sp/>to<sp/>use<sp/>the<sp/>packages<sp/>needed<sp/>to<sp/>implement<sp/>a<sp/>new<sp/>feature,<sp/>it<sp/>is<sp/>recommended<sp/>to<sp/>first<sp/>find<sp/>out<sp/>**if<sp/>they<sp/>are<sp/>included<sp/>in<sp/>the<sp/>standard<sp/>build<sp/>of<sp/>the<sp/>machine**<sp/>on<sp/>which<sp/>you<sp/>want<sp/>to<sp/>test<sp/>your<sp/>feature.<sp/>Take,<sp/>for<sp/>example,<sp/>ubuntu.We<sp/>need<sp/>cmake<sp/>for<sp/>the<sp/>build<sp/>but<sp/>we<sp/>have<sp/>it<sp/>in<sp/>the<sp/>standard<sp/>build,<sp/>then<sp/>we<sp/>know<sp/>that<sp/>ubuntu<sp/>has<sp/>the<sp/>apt<sp/>package<sp/>manager<sp/>and<sp/>we<sp/>can<sp/>use<sp/>it<sp/>to<sp/>install<sp/>our<sp/>cmake.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Example<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>-<sp/>name:<sp/>Setup<sp/>CMake</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>run:<sp/>|</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sudo<sp/>apt-get<sp/>-y<sp/>install<sp/>cmake</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cmake<sp/>--version<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">We<sp/>also<sp/>do<sp/>sudo<sp/>```sudo<sp/>apt<sp/>update```<sp/>to<sp/>get<sp/>the<sp/>latest<sp/>version<sp/>of<sp/>the<sp/>packages<sp/>we<sp/>need.<sp/></highlight></codeline>
+<codeline><highlight class="normal">The<sp/>following<sp/>example<sp/>shows<sp/>how<sp/>we<sp/>can<sp/>use<sp/>a<sp/>package<sp/>that<sp/>is<sp/>originally<sp/>in<sp/>the<sp/>ubuntu<sp/>distribution:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```yaml</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>name:<sp/>Build<sp/>Docker<sp/>image.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>run:<sp/>|</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sudo<sp/>docker<sp/>build<sp/>.<sp/>-t<sp/>juniorgram:1.0</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>docker<sp/>run<sp/>--rm<sp/>--name<sp/>juniorgram-container<sp/>juniorgram:1.0</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>following<sp/>examples<sp/>show<sp/>you<sp/>how<sp/>to<sp/>install<sp/>certain<sp/>packages:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```yaml<sp/></highlight></codeline>
+<codeline><highlight class="normal">-<sp/>name:<sp/>Setup<sp/>CLang<sp/>compiler</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>run:<sp/>|</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sudo<sp/>apt-get<sp/>update</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sudo<sp/>apt-get<sp/>-y<sp/>update</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sudo<sp/>bash<sp/>-c<sp/>&quot;$(wget<sp/>-O<sp/>-<sp/>https://apt.llvm.org/llvm.sh)&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>name:<sp/>Setup<sp/>CMake</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>run:<sp/>|</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sudo<sp/>apt-get<sp/>-y<sp/>install<sp/>cmake</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cmake<sp/>--version</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>name:<sp/>Setup<sp/>python</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>uses:<sp/>actions/setup-python@v2</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>with:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>python-version:<sp/>&apos;3.8&apos;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>name:<sp/>Install<sp/>pip<sp/>dependencies</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>uses:<sp/><sp/>BSFishy/pip-action@v1</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>with:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packages:<sp/>|</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>conan</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mako</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>name:<sp/>Setup<sp/>conan<sp/>dependencies</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>run:<sp/>|</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>conan<sp/>remote<sp/>add<sp/>bincrafters<sp/>https://api.bintray.com/conan/bincrafters/public-conan</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>name:<sp/>Download<sp/>libraries<sp/>from<sp/>Conan</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>run:<sp/>|</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>export<sp/>CC=/usr/bin/clang</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>export<sp/>CXX=/usr/bin/clang++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mkdir<sp/>${{<sp/>github.workspace<sp/>}}/Firmware/build<sp/>&amp;&amp;<sp/>cd<sp/>${{<sp/>github.workspace<sp/>}}/Firmware/build</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>conan<sp/>install<sp/>${{<sp/>github.workspace<sp/>}}/Firmware/conanfile.txt<sp/>--install-folder<sp/>${{<sp/>runner.workspace<sp/>}}/Firmware/build/<sp/><sp/>-s<sp/>compiler=clang<sp/>-s<sp/>compiler.version=10<sp/>--build=missing</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>How<sp/>to<sp/>add<sp/>packages<sp/>into<sp/>Docker<sp/>image</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Below<sp/>is<sp/>an<sp/>example<sp/>of<sp/>our<sp/>docker<sp/>file<sp/>and<sp/>how<sp/>it<sp/>looks<sp/>like<sp/>to<sp/>install<sp/>the<sp/>necessary<sp/>packages.<sp/>You<sp/>can<sp/>use<sp/>this<sp/>file<sp/>to<sp/>make<sp/>your<sp/>own<sp/>docker<sp/>file<sp/>with<sp/>the<sp/>packages<sp/>you<sp/>need.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Our<sp/>Dockerfile:<sp/></highlight></codeline>
+<codeline><highlight class="normal">```dockerfile</highlight></codeline>
+<codeline><highlight class="normal">FROM<sp/>alpine:latest<sp/>-<sp/>specifies<sp/>the<sp/>base<sp/>(parent)<sp/>image.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">COPY<sp/>.<sp/>/usr/src/build<sp/>-<sp/>copies<sp/>the<sp/>contents<sp/>of<sp/>the<sp/>current<sp/>directory<sp/>to<sp/>/usr/src/build.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">WORKDIR<sp/>/usr/src/build<sp/>-<sp/>sets<sp/>current<sp/>directory<sp/>as<sp/>working<sp/>directory.<sp/>All<sp/>commands<sp/>will<sp/>be<sp/>built<sp/>from<sp/>this<sp/>directory.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">RUN<sp/>apk<sp/>update<sp/>&amp;&amp;<sp/>apk<sp/>upgrade<sp/>&amp;&amp;<sp/>apk<sp/>add<sp/>--no-cache<sp/>cmake<sp/>make<sp/>gcc<sp/>g++<sp/>bash<sp/>git<sp/>python3<sp/>linux-headers<sp/>-<sp/>his<sp/>line<sp/>specifies<sp/>the<sp/>packages<sp/>you<sp/>need<sp/>to<sp/>run.<sp/>They<sp/>are<sp/>listed<sp/>with<sp/>a<sp/>space<sp/>after<sp/>the<sp/>--no-cache<sp/>flag.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">RUN<sp/>wget<sp/>-qO-<sp/>https://bootstrap.pypa.io/get-pip.py<sp/>|<sp/>python3<sp/>\</highlight></codeline>
+<codeline><highlight class="normal">&amp;&amp;<sp/>pip3<sp/>install<sp/>conan<sp/>-<sp/>in<sp/>this<sp/>line<sp/>we<sp/>use<sp/>wget<sp/>to<sp/>download<sp/>the<sp/>file<sp/>and<sp/>give<sp/>the<sp/>output<sp/>from<sp/>the<sp/>downloaded<sp/>file<sp/>to<sp/>the<sp/>python3<sp/>interpreter,<sp/>pip3<sp/>is<sp/>installed<sp/>and<sp/>conan<sp/>is<sp/>installed<sp/>to<sp/>install<sp/>the<sp/>libraries.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">RUN<sp/>cmake<sp/>-DCMAKE_BUILD_TYPE=Release<sp/>.<sp/>\</highlight></codeline>
+<codeline><highlight class="normal">&amp;&amp;<sp/>cmake<sp/>--build<sp/>.<sp/>-<sp/>run<sp/>build<sp/>project</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">Again,<sp/>since<sp/>we<sp/>are<sp/>using<sp/>the<sp/>alpine<sp/>distribution,<sp/>before<sp/>installing<sp/>the<sp/>necessary<sp/>packages,<sp/>it<sp/>is<sp/>worth<sp/>looking<sp/>to<sp/>see<sp/>if<sp/>they<sp/>are<sp/>in<sp/>the<sp/>apk<sp/>package<sp/>manager([packages<sp/>list<sp/>](https://pkgs.alpinelinux.org/packages)).<sp/>If<sp/>they<sp/>are<sp/>there,<sp/>you<sp/>can<sp/>install<sp/>them<sp/>as<sp/>shown<sp/>in<sp/>the<sp/>example.<sp/>If<sp/>not,<sp/>then<sp/>it<sp/>makes<sp/>sense<sp/>to<sp/>see<sp/>if<sp/>these<sp/>packages<sp/>are<sp/>in<sp/>pip.<sp/>If<sp/>not,<sp/>then<sp/>there<sp/>is<sp/>an<sp/>option<sp/>to<sp/>build<sp/>from<sp/>source<sp/>files<sp/>:)<sp/></highlight></codeline>
+    </programlisting>
+    <location file="Docs/Legacy/How to add a 3rd party packages into the workflow and Docker.md"/>
+  </compounddef>
+</doxygen>

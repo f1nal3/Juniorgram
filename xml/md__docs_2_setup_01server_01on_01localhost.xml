@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="md__docs_2_setup_01server_01on_01localhost" kind="page">
+    <compoundname>md__docs_2_setup_01server_01on_01localhost</compoundname>
+    <title>Setting up server on a local machine</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>In order to launch a server locally and connect to it you have to go over these 3 steps:</para>
+<sect1 id="md__docs_2_setup_01server_01on_01localhost_1autotoc_md39">
+<title>Setup database</title>
+<para>This is a generic algorithm, a more specific guide on pgAdmin is at the bottom of the document.<orderedlist>
+<listitem><para>Open the PostgreSQL Tool for you machine.(e.g. pgAdmin for Windows)</para>
+</listitem><listitem><para>Create a database with an arbitrary name.</para>
+</listitem><listitem><para>Go to (Scheme script)[<ulink url="https://github.com/f1nal3/Juniorgram/blob/master/Utility/SQL/Database_Scheme.sql">https://github.com/f1nal3/Juniorgram/blob/master/Utility/SQL/Database_Scheme.sql</ulink>]</para>
+</listitem><listitem><para>Execute the script from previous point on the created database.</para>
+</listitem></orderedlist>
+</para>
+</sect1>
+<sect1 id="md__docs_2_setup_01server_01on_01localhost_1autotoc_md40">
+<title>Setup server</title>
+<para><orderedlist>
+<listitem><para>Change the parameters in <ref refid="_data_base_options_8hpp_source" kindref="compound">DataBaseOptions.hpp</ref> <programlisting filename=".c"><codeline><highlight class="normal">++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;dbname<sp/>=<sp/>your_bdname<sp/>user<sp/>=<sp/>postgres<sp/>hostaddr<sp/>=<sp/>127.0.0.1<sp/>port<sp/>=<sp/>5432<sp/>password<sp/>=<sp/>your_password&quot;</highlight><highlight class="normal">;</highlight></codeline>
+</programlisting></para>
+</listitem><listitem><para>Then build the project.</para>
+</listitem><listitem><para>Go to the \ Juniorgram \ <ref refid="class_server" kindref="compound">Server</ref> \ bin \ <ref refid="class_server" kindref="compound">Server</ref> \ Debug folder and run cmd</para>
+</listitem><listitem><para>Run the command in the console: Server.Exec.exe -p 65001</para>
+</listitem></orderedlist>
+</para>
+<para>You can also launch it from the Visual Studio(or any other IDE) as long as you specify the arguments. The server will indicate that it&apos;s running correctly in the console.</para>
+</sect1>
+<sect1 id="md__docs_2_setup_01server_01on_01localhost_1autotoc_md41">
+<title>Setup client</title>
+<para><orderedlist>
+<listitem><para>In ServerInfo.cpp, specify the address of the local host</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal">++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>std::string_view<sp/>address<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;127.0.0.1&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//and</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>std::uint16_t<sp/>port<sp/>=<sp/>test_server;</highlight></codeline>
+</programlisting></para>
+</listitem><listitem><para>Build the Client</para>
+</listitem><listitem><para>Launch Client</para>
+</listitem></orderedlist>
+</para>
+<para>That&apos;s it, if the server is launched and setup correctly, the client will connect.</para>
+</sect1>
+<sect1 id="md__docs_2_setup_01server_01on_01localhost_1autotoc_md42">
+<title>Working with pgAdmin:</title>
+<para><orderedlist>
+<listitem><para>Go to pgAdmin after copying the (Scheme script)[<ulink url="https://github.com/f1nal3/Juniorgram/blob/master/Utility/SQL/Database_Scheme.sql">https://github.com/f1nal3/Juniorgram/blob/master/Utility/SQL/Database_Scheme.sql</ulink>].</para>
+</listitem><listitem><para>Right-click on Databases and then Create / Database .</para>
+</listitem><listitem><para>Create a table with an arbitrary name.</para>
+</listitem><listitem><para>Next, click on the created base and select the Query Tool.</para>
+</listitem><listitem><para>Paste the previously copied code and run F5. </para>
+</listitem></orderedlist>
+</para>
+</sect1>
+    </detaileddescription>
+    <location file="Docs/Setup server on localhost.md"/>
+  </compounddef>
+</doxygen>

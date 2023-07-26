@@ -1,0 +1,602 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_network_1_1_connection" kind="class" language="C++" prot="public">
+    <compoundname>Network::Connection</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::enable_shared_from_this&lt; Connection &gt;</basecompoundref>
+    <includes refid="_connection_8hpp" local="no">Connection.hpp</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_network_1_1_connection_1a3bcec583ab375ce8020a6d40d6cb1c96" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>OwnerType</name>
+        <qualifiedname>Network::Connection::OwnerType</qualifiedname>
+        <enumvalue id="class_network_1_1_connection_1a3bcec583ab375ce8020a6d40d6cb1c96a3d27c95bfdbea691b250894d96852844" prot="public">
+          <name>SERVER</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_network_1_1_connection_1a3bcec583ab375ce8020a6d40d6cb1c96aef10c650df47bffd6399e5e78da2a9b1" prot="public">
+          <name>CLIENT</name>
+          <briefdescription>
+<para>owner is server </para>
+          </briefdescription>
+          <detaileddescription>
+<para>owner is client </para>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>A connection is &quot;owned&quot; by either a server or a client. / And its behaviour is slightly different between the two. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="45" column="5" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="46" bodyend="49"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_network_1_1_connection_1add4f752cb27a09991af93e43868d5e28" prot="private" static="no" mutable="no">
+        <type><ref refid="class_network_1_1_connection_1a3bcec583ab375ce8020a6d40d6cb1c96" kindref="member">OwnerType</ref></type>
+        <definition>OwnerType Network::Connection::_owner</definition>
+        <argsstring></argsstring>
+        <name>_owner</name>
+        <qualifiedname>Network::Connection::_owner</qualifiedname>
+        <initializer>= OwnerType::SERVER</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="52" column="15" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_network_1_1_connection_1abcf3c7fe68fce2de29a6ec6340f02684" prot="private" static="no" mutable="no">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t Network::Connection::_connectionID</definition>
+        <argsstring></argsstring>
+        <name>_connectionID</name>
+        <qualifiedname>Network::Connection::_connectionID</qualifiedname>
+        <initializer>= uint64_t()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="54" column="19" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_network_1_1_connection_1ad0c8825f34791b1b3ee8c6704c825d09" prot="private" static="no" mutable="no">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t Network::Connection::_userID</definition>
+        <argsstring></argsstring>
+        <name>_userID</name>
+        <qualifiedname>Network::Connection::_userID</qualifiedname>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="55" column="19" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_network_1_1_connection_1aeceb1809c632c25dac89725564fa27d7" prot="private" static="no" mutable="no">
+        <type>asio::ip::tcp::socket</type>
+        <definition>asio::ip::tcp::socket Network::Connection::_socket</definition>
+        <argsstring></argsstring>
+        <name>_socket</name>
+        <qualifiedname>Network::Connection::_socket</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="58" column="27" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_network_1_1_connection_1a948ea190cefa9bb23c8b291eaee3064c" prot="private" static="no" mutable="no">
+        <type>asio::io_context &amp;</type>
+        <definition>asio::io_context&amp; Network::Connection::_contextLink</definition>
+        <argsstring></argsstring>
+        <name>_contextLink</name>
+        <qualifiedname>Network::Connection::_contextLink</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="60" column="22" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_network_1_1_connection_1a11a9d686aab8f9f286fa054568d7fae7" prot="private" static="no" mutable="no">
+        <type>asio::io_context::strand</type>
+        <definition>asio::io_context::strand Network::Connection::_readStrand</definition>
+        <argsstring></argsstring>
+        <name>_readStrand</name>
+        <qualifiedname>Network::Connection::_readStrand</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="62" column="30" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_network_1_1_connection_1a4f3c634d96ce628041335dce89c276f5" prot="private" static="no" mutable="no">
+        <type>asio::io_context::strand</type>
+        <definition>asio::io_context::strand Network::Connection::_writeStrand</definition>
+        <argsstring></argsstring>
+        <name>_writeStrand</name>
+        <qualifiedname>Network::Connection::_writeStrand</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="64" column="30" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_network_1_1_connection_1a174db59ba3028af2a103e20ab97b9297" prot="private" static="no" mutable="no">
+        <type><ref refid="class_utility_1_1_safe_queue" kindref="compound">Utility::SafeQueue</ref>&lt; <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &gt; &amp;</type>
+        <definition>Utility::SafeQueue&lt;Message&gt;&amp; Network::Connection::_incomingMessagesQueueLink</definition>
+        <argsstring></argsstring>
+        <name>_incomingMessagesQueueLink</name>
+        <qualifiedname>Network::Connection::_incomingMessagesQueueLink</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="66" column="24" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_network_1_1_connection_1aa78c22817ad53a345191d219858fea2c" prot="private" static="no" mutable="no">
+        <type><ref refid="class_utility_1_1_safe_queue" kindref="compound">Utility::SafeQueue</ref>&lt; <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &gt;</type>
+        <definition>Utility::SafeQueue&lt;Message&gt; Network::Connection::_outcomingMessagesQueue</definition>
+        <argsstring></argsstring>
+        <name>_outcomingMessagesQueue</name>
+        <qualifiedname>Network::Connection::_outcomingMessagesQueue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="68" column="24" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_network_1_1_connection_1a690d53f387fcd7bdd205a74417817e73" prot="private" static="no" mutable="no">
+        <type><ref refid="struct_network_1_1_message" kindref="compound">Message</ref></type>
+        <definition>Message Network::Connection::_messageBuffer</definition>
+        <argsstring></argsstring>
+        <name>_messageBuffer</name>
+        <qualifiedname>Network::Connection::_messageBuffer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="70" column="13" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_network_1_1_connection_1a9798108dc2a8734759f373ff76577eee" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Connection::writeHeader</definition>
+        <argsstring>()</argsstring>
+        <name>writeHeader</name>
+        <qualifiedname>Network::Connection::writeHeader</qualifiedname>
+        <briefdescription>
+<para>Method for sending message header. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Function asio::async_write is used to write the header of the message / to the socket. / If the writing header to the socket is successful and the message body isn&apos;t empty, / the body of the message is written (method writeBody()). If it is empty, / the current message is removed from message queue to send and next message header / from the message queue is sent. If the writing header to the socket failed, the error / message - &quot;[connection id] Write Header Fail.&quot; is displayed. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="82" column="10" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="82" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_connection_1a2397bbee6d32569aa8927f55baa7529e" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Connection::writeBody</definition>
+        <argsstring>(yas::shared_buffer buffer)</argsstring>
+        <name>writeBody</name>
+        <qualifiedname>Network::Connection::writeBody</qualifiedname>
+        <param>
+          <type>yas::shared_buffer</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+<para>Method for sending message body. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Function asio::async_write is used to write the body of the message / to the socket. / If the writing header to the socket is successful, the body of the message / is written and the current message is removed from message queue to send. / Then next message header from the message queue is sent (method writeHeader()). / If the writing message body to the socket failed, the error message - / &quot;[connection id] Write Body Fail.&quot; is displayed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- buffer that contains sent message body </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="137" column="10" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="137" bodyend="162"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_connection_1ab2ac0a87f5040120493e9f7670a40c5c" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Connection::readHeader</definition>
+        <argsstring>()</argsstring>
+        <name>readHeader</name>
+        <qualifiedname>Network::Connection::readHeader</qualifiedname>
+        <briefdescription>
+<para>Method for getting message header. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Function asio::async_read is used to read the header of the message / from the socket. / If the reading header from the socket is successful and the received / size of message body isn&apos;t null, the message body vector is resized according to / received body size and the body of the message is reading (method readBody()). / If the received size of message body is null, this message is added to / the connection incoming message queue. If the reading message header from the socket failed, the error message - / &quot;[connection id] Read Header Fail.&quot; is displayed. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="176" column="10" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="176" bodyend="203"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_connection_1ac5f69b92b921f306379ee9f930f43ca6" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Connection::readBody</definition>
+        <argsstring>(size_t bodySize)</argsstring>
+        <name>readBody</name>
+        <qualifiedname>Network::Connection::readBody</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>bodySize</declname>
+        </param>
+        <briefdescription>
+<para>Method for getting message body. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Function asio::async_read is used to read the body of the message / from the socket. / If the reading body from the socket is successful, this message / is added to the connection incoming message queue. If the reading message body from the socket failed, the error message - / &quot;[connection id] Read Body Fail.&quot; is displayed. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>bodySize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- size of message body </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="215" column="10" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="215" bodyend="243"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_connection_1adec57e800aab0a0be8012aac456de434" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Connection::addToIncomingMessageQueue</definition>
+        <argsstring>()</argsstring>
+        <name>addToIncomingMessageQueue</name>
+        <qualifiedname>Network::Connection::addToIncomingMessageQueue</qualifiedname>
+        <briefdescription>
+<para>Method for adding to the connection incoming message queue. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>When a full message is received, it is added to the incoming queue. / It is shoved in the queue, converting to an &quot;owned message&quot;, by initializing with / the a shared pointer from this connection object for <ref refid="class_server" kindref="compound">Server</ref> side / and without shared pointer from this for <ref refid="class_network_1_1_client" kindref="compound">Client</ref> side. / Next method readHeader() is called to read other messages. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="253" column="10" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="253" bodyend="266"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_network_1_1_connection_1a8bf09e9fe5450918701ecacb694601f7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Network::Connection::Connection</definition>
+        <argsstring>(const OwnerType &amp;owner, asio::io_context &amp;contextLink, asio::ip::tcp::socket socket, Utility::SafeQueue&lt; Message &gt; &amp;incomingMessagesQueueLink)</argsstring>
+        <name>Connection</name>
+        <qualifiedname>Network::Connection::Connection</qualifiedname>
+        <param>
+          <type>const <ref refid="class_network_1_1_connection_1a3bcec583ab375ce8020a6d40d6cb1c96" kindref="member">OwnerType</ref> &amp;</type>
+          <declname>owner</declname>
+        </param>
+        <param>
+          <type>asio::io_context &amp;</type>
+          <declname>contextLink</declname>
+        </param>
+        <param>
+          <type>asio::ip::tcp::socket</type>
+          <declname>socket</declname>
+        </param>
+        <param>
+          <type><ref refid="class_utility_1_1_safe_queue" kindref="compound">Utility::SafeQueue</ref>&lt; <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &gt; &amp;</type>
+          <declname>incomingMessagesQueueLink</declname>
+        </param>
+        <briefdescription>
+<para>Constructor for class <ref refid="class_network_1_1_connection" kindref="compound">Connection</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>It specifies owner, connects to context, transfers the socket and / provides reference to incoming message queue. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>owner</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- connection &quot;owner&quot; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>contextLink</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- context for the whole asio instance </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>socket</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- unique socket to remote </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>incomingMessagesQueueLink</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- reference to the incoming message queue </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="278" column="5" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="278" bodyend="287"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_connection_1ac8df5dc1d9073933158f18f68c250848" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t Network::Connection::getID</definition>
+        <argsstring>() const</argsstring>
+        <name>getID</name>
+        <qualifiedname>Network::Connection::getID</qualifiedname>
+        <briefdescription>
+<para>Method getting connection id. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This id is used system wide - it is how clients will understand other clients / whole system. <simplesect kind="return"><para>mId - connection id. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="295" column="19" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="295" bodyend="295"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_connection_1a8349acb199b04edff783cdcc7d62f352" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t Network::Connection::getUserID</definition>
+        <argsstring>() const</argsstring>
+        <name>getUserID</name>
+        <qualifiedname>Network::Connection::getUserID</qualifiedname>
+        <briefdescription>
+<para>Method for accessing userID associated with this connection. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>ID gets assigned to connection on successful login <simplesect kind="return"><para>userID as stored in repository </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="302" column="19" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="302" bodyend="302"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_connection_1a685612799889d4bc3799d63df9b93c7d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Connection::setUserID</definition>
+        <argsstring>(std::uint64_t id)</argsstring>
+        <name>setUserID</name>
+        <qualifiedname>Network::Connection::setUserID</qualifiedname>
+        <param>
+          <type>std::uint64_t</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+<para>Method for setting userID for this connection. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>userID from repository </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="308" column="10" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="308" bodyend="308"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_connection_1a6ea5f3b6872c149c5307b9a5c9061ff5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Connection::connectToClient</definition>
+        <argsstring>(const uint64_t uid=uint64_t())</argsstring>
+        <name>connectToClient</name>
+        <qualifiedname>Network::Connection::connectToClient</qualifiedname>
+        <param>
+          <type>const uint64_t</type>
+          <declname>uid</declname>
+          <defval>uint64_t()</defval>
+        </param>
+        <briefdescription>
+<para>Method for connection to clients from server side. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Only server side is allowed to connect to other clients. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>uid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- connection id </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="315" column="10" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="315" bodyend="322"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_connection_1aba3c8ad499e7931ee5508828a1cd4644" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Connection::connectToServer</definition>
+        <argsstring>(const asio::ip::tcp::resolver::results_type &amp;endpoint)</argsstring>
+        <name>connectToServer</name>
+        <qualifiedname>Network::Connection::connectToServer</qualifiedname>
+        <param>
+          <type>const asio::ip::tcp::resolver::results_type &amp;</type>
+          <declname>endpoint</declname>
+        </param>
+        <briefdescription>
+<para>Method for connection to server from client side. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Only clients can connect to servers and make a request asio attempts \ to connect to an endpoint. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>endpoint</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- result type returned by resolver </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="330" column="10" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="330" bodyend="343"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_connection_1ae7b55080c22585a37e4265c2e083c4b6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Connection::disconnect</definition>
+        <argsstring>()</argsstring>
+        <name>disconnect</name>
+        <qualifiedname>Network::Connection::disconnect</qualifiedname>
+        <briefdescription>
+<para>Method for closing connection if it is opened. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>It checks if there is a connection with smb/smth. \ If the connection is present, function asio::post is called, \ because the current context is holding locks and \ the function should be called after they have been released. This would allow \ the function to acquire those locks itself without causing a deadlock. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="353" column="10" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="353" bodyend="359"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_connection_1a4017296daa059f4568e9fc13c81c5556" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Network::Connection::isConnected</definition>
+        <argsstring>() const</argsstring>
+        <name>isConnected</name>
+        <qualifiedname>Network::Connection::isConnected</qualifiedname>
+        <briefdescription>
+<para>Method for checking if current socket is open. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>if current socket is open (true/false). </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="365" column="10" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="365" bodyend="365"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_connection_1ac2afc16ca62d67c832f11861993cf712" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Connection::send</definition>
+        <argsstring>(const Message &amp;message)</argsstring>
+        <name>send</name>
+        <qualifiedname>Network::Connection::send</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &amp;</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+<para>Method for sending messages. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The message is added to the queue of outcoming messages. If there are no messages / available to be written, then the process of writing the message at the front of the queue / is started. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- link on message for sending </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="374" column="10" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="374" bodyend="386"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="class_network_1_1_connection" kindref="compound">Connection</ref> management class. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>see <ulink url="https://github.com/f1nal3/Juniorgram/wiki/Legacy-Frontend-network">https://github.com/f1nal3/Juniorgram/wiki/Legacy-Frontend-network</ulink> \ for additional details </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Network::Connection</label>
+        <link refid="class_network_1_1_connection"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::enable_shared_from_this&lt; Connection &gt;</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Network::Connection</label>
+        <link refid="class_network_1_1_connection"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::enable_shared_from_this&lt; Connection &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="Network/Public/Include/Network/Connection.hpp" line="37" column="1" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="38" bodyend="387"/>
+    <listofallmembers>
+      <member refid="class_network_1_1_connection_1abcf3c7fe68fce2de29a6ec6340f02684" prot="private" virt="non-virtual"><scope>Network::Connection</scope><name>_connectionID</name></member>
+      <member refid="class_network_1_1_connection_1a948ea190cefa9bb23c8b291eaee3064c" prot="private" virt="non-virtual"><scope>Network::Connection</scope><name>_contextLink</name></member>
+      <member refid="class_network_1_1_connection_1a174db59ba3028af2a103e20ab97b9297" prot="private" virt="non-virtual"><scope>Network::Connection</scope><name>_incomingMessagesQueueLink</name></member>
+      <member refid="class_network_1_1_connection_1a690d53f387fcd7bdd205a74417817e73" prot="private" virt="non-virtual"><scope>Network::Connection</scope><name>_messageBuffer</name></member>
+      <member refid="class_network_1_1_connection_1aa78c22817ad53a345191d219858fea2c" prot="private" virt="non-virtual"><scope>Network::Connection</scope><name>_outcomingMessagesQueue</name></member>
+      <member refid="class_network_1_1_connection_1add4f752cb27a09991af93e43868d5e28" prot="private" virt="non-virtual"><scope>Network::Connection</scope><name>_owner</name></member>
+      <member refid="class_network_1_1_connection_1a11a9d686aab8f9f286fa054568d7fae7" prot="private" virt="non-virtual"><scope>Network::Connection</scope><name>_readStrand</name></member>
+      <member refid="class_network_1_1_connection_1aeceb1809c632c25dac89725564fa27d7" prot="private" virt="non-virtual"><scope>Network::Connection</scope><name>_socket</name></member>
+      <member refid="class_network_1_1_connection_1ad0c8825f34791b1b3ee8c6704c825d09" prot="private" virt="non-virtual"><scope>Network::Connection</scope><name>_userID</name></member>
+      <member refid="class_network_1_1_connection_1a4f3c634d96ce628041335dce89c276f5" prot="private" virt="non-virtual"><scope>Network::Connection</scope><name>_writeStrand</name></member>
+      <member refid="class_network_1_1_connection_1adec57e800aab0a0be8012aac456de434" prot="private" virt="non-virtual"><scope>Network::Connection</scope><name>addToIncomingMessageQueue</name></member>
+      <member refid="class_network_1_1_connection_1a8bf09e9fe5450918701ecacb694601f7" prot="public" virt="non-virtual"><scope>Network::Connection</scope><name>Connection</name></member>
+      <member refid="class_network_1_1_connection_1a6ea5f3b6872c149c5307b9a5c9061ff5" prot="public" virt="non-virtual"><scope>Network::Connection</scope><name>connectToClient</name></member>
+      <member refid="class_network_1_1_connection_1aba3c8ad499e7931ee5508828a1cd4644" prot="public" virt="non-virtual"><scope>Network::Connection</scope><name>connectToServer</name></member>
+      <member refid="class_network_1_1_connection_1ae7b55080c22585a37e4265c2e083c4b6" prot="public" virt="non-virtual"><scope>Network::Connection</scope><name>disconnect</name></member>
+      <member refid="class_network_1_1_connection_1ac8df5dc1d9073933158f18f68c250848" prot="public" virt="non-virtual"><scope>Network::Connection</scope><name>getID</name></member>
+      <member refid="class_network_1_1_connection_1a8349acb199b04edff783cdcc7d62f352" prot="public" virt="non-virtual"><scope>Network::Connection</scope><name>getUserID</name></member>
+      <member refid="class_network_1_1_connection_1a4017296daa059f4568e9fc13c81c5556" prot="public" virt="non-virtual"><scope>Network::Connection</scope><name>isConnected</name></member>
+      <member refid="class_network_1_1_connection_1a3bcec583ab375ce8020a6d40d6cb1c96" prot="public" virt="non-virtual"><scope>Network::Connection</scope><name>OwnerType</name></member>
+      <member refid="class_network_1_1_connection_1ac5f69b92b921f306379ee9f930f43ca6" prot="private" virt="non-virtual"><scope>Network::Connection</scope><name>readBody</name></member>
+      <member refid="class_network_1_1_connection_1ab2ac0a87f5040120493e9f7670a40c5c" prot="private" virt="non-virtual"><scope>Network::Connection</scope><name>readHeader</name></member>
+      <member refid="class_network_1_1_connection_1ac2afc16ca62d67c832f11861993cf712" prot="public" virt="non-virtual"><scope>Network::Connection</scope><name>send</name></member>
+      <member refid="class_network_1_1_connection_1a685612799889d4bc3799d63df9b93c7d" prot="public" virt="non-virtual"><scope>Network::Connection</scope><name>setUserID</name></member>
+      <member refid="class_network_1_1_connection_1a2397bbee6d32569aa8927f55baa7529e" prot="private" virt="non-virtual"><scope>Network::Connection</scope><name>writeBody</name></member>
+      <member refid="class_network_1_1_connection_1a9798108dc2a8734759f373ff76577eee" prot="private" virt="non-virtual"><scope>Network::Connection</scope><name>writeHeader</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

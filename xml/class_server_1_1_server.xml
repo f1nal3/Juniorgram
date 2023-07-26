@@ -1,0 +1,562 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_server_1_1_server" kind="class" language="C++" prot="public">
+    <compoundname>Server::Server</compoundname>
+    <basecompoundref refid="class_network_1_1i_a_p_i" prot="public" virt="non-virtual">Network::iAPI</basecompoundref>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_server_1_1_server_1afe1fb37f4c55aeacb8340ed81cc5fba8" prot="private" static="no" mutable="no">
+        <type>APPLY_API_METHODS uint64_t</type>
+        <definition>APPLY_API_METHODS uint64_t Server::Server::_idCounter</definition>
+        <argsstring></argsstring>
+        <name>_idCounter</name>
+        <qualifiedname>Server::Server::_idCounter</qualifiedname>
+        <initializer>= 10000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>This macros apply all method from api and avoid you from routine of handwriting </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="143" column="14" bodyfile="Server/Server.Core/Server.Core.Static/Server.hpp" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_server_1_1_server_1a2f8b74fc10dcd9f556fca71afce05f7b" prot="private" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t Server::Server::_criticalQueueSize</definition>
+        <argsstring></argsstring>
+        <name>_criticalQueueSize</name>
+        <qualifiedname>Server::Server::_criticalQueueSize</qualifiedname>
+        <initializer>= 100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="144" column="14" bodyfile="Server/Server.Core/Server.Core.Static/Server.hpp" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_server_1_1_server_1af277bfb846f6eb69373beed711584133" prot="private" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t Server::Server::_newThreadsCount</definition>
+        <argsstring></argsstring>
+        <name>_newThreadsCount</name>
+        <qualifiedname>Server::Server::_newThreadsCount</qualifiedname>
+        <initializer>= std::thread::hardware_concurrency()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="145" column="14" bodyfile="Server/Server.Core/Server.Core.Static/Server.hpp" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_server_1_1_server_1a9649d79050e71cf1dbacaaf53721a0b6" prot="private" static="no" mutable="no">
+        <type>asio::io_context</type>
+        <definition>asio::io_context Server::Server::_context</definition>
+        <argsstring></argsstring>
+        <name>_context</name>
+        <qualifiedname>Server::Server::_context</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="147" column="45" bodyfile="Server/Server.Core/Server.Core.Static/Server.hpp" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_server_1_1_server_1adc065b58d2e83b0f71da68a68645b41b" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; MessageResult &gt;</type>
+        <definition>std::vector&lt;MessageResult&gt; Server::Server::_messageResponce</definition>
+        <argsstring></argsstring>
+        <name>_messageResponce</name>
+        <qualifiedname>Server::Server::_messageResponce</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="148" column="30" bodyfile="Server/Server.Core/Server.Core.Static/Server.hpp" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_server_1_1_server_1afa9de227c3cff7e63705f46cb7156445" prot="private" static="no" mutable="no">
+        <type>std::deque&lt; std::shared_ptr&lt; <ref refid="class_network_1_1_connection" kindref="compound">Connection</ref> &gt; &gt;</type>
+        <definition>std::deque&lt;std::shared_ptr&lt;Connection&gt; &gt; Server::Server::_connectionsPointers</definition>
+        <argsstring></argsstring>
+        <name>_connectionsPointers</name>
+        <qualifiedname>Server::Server::_connectionsPointers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="149" column="16" bodyfile="Server/Server.Core/Server.Core.Static/Server.hpp" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_server_1_1_server_1ab1c42359465dc02bccbc57179c44b99d" prot="private" static="no" mutable="no">
+        <type><ref refid="class_utility_1_1_safe_queue" kindref="compound">SafeQueue</ref>&lt; <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &gt;</type>
+        <definition>SafeQueue&lt;Message&gt; Server::Server::_incomingMessagesQueue</definition>
+        <argsstring></argsstring>
+        <name>_incomingMessagesQueue</name>
+        <qualifiedname>Server::Server::_incomingMessagesQueue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="150" column="36" bodyfile="Server/Server.Core/Server.Core.Static/Server.hpp" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_server_1_1_server_1a166fac6d9027f943b76139ab338f020f" prot="private" static="no" mutable="no">
+        <type>std::deque&lt; std::thread &gt;</type>
+        <definition>std::deque&lt;std::thread&gt; Server::Server::_threads</definition>
+        <argsstring></argsstring>
+        <name>_threads</name>
+        <qualifiedname>Server::Server::_threads</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="151" column="32" bodyfile="Server/Server.Core/Server.Core.Static/Server.hpp" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_server_1_1_server_1ad615388badd6c0a51ab6a3ef71aa1062" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; tcp::acceptor &gt;</type>
+        <definition>std::unique_ptr&lt;tcp::acceptor&gt; Server::Server::_acceptor</definition>
+        <argsstring></argsstring>
+        <name>_acceptor</name>
+        <qualifiedname>Server::Server::_acceptor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="152" column="30" bodyfile="Server/Server.Core/Server.Core.Static/Server.hpp" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_server_1_1_server_1a5dc9c93755ca6eab259b40c0ec9628c1" prot="private" static="no" mutable="no">
+        <type>RepoManagerUPtr</type>
+        <definition>RepoManagerUPtr Server::Server::_repoManager</definition>
+        <argsstring></argsstring>
+        <name>_repoManager</name>
+        <qualifiedname>Server::Server::_repoManager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="153" column="45" bodyfile="Server/Server.Core/Server.Core.Static/Server.hpp" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_server_1_1_server_1a4cab0b7e6a547aa14f979a1d05ecb96f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Server::Server::~Server</definition>
+        <argsstring>()</argsstring>
+        <name>~Server</name>
+        <qualifiedname>Server::Server::~Server</qualifiedname>
+        <briefdescription>
+<para>Destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="56" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_server_1a5c830cfbb33273a728f81165c6ba3b7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Server::Server::start</definition>
+        <argsstring>()</argsstring>
+        <name>start</name>
+        <qualifiedname>Server::Server::start</qualifiedname>
+        <briefdescription>
+<para>Method to start the server. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="61" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_server_1aa5afa25ca847bf5153e145ad37e353d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Server::Server::stop</definition>
+        <argsstring>()</argsstring>
+        <name>stop</name>
+        <qualifiedname>Server::Server::stop</qualifiedname>
+        <briefdescription>
+<para>Method to stop the server. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="66" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_server_1a0389fce76334251866578f1e602e6c9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Server::Server::update</definition>
+        <argsstring>(std::size_t maxMessages=std::numeric_limits&lt; size_t &gt;::max(), bool wait=true)</argsstring>
+        <name>update</name>
+        <qualifiedname>Server::Server::update</qualifiedname>
+        <param>
+          <type>std::size_t</type>
+          <declname>maxMessages</declname>
+          <defval>std::numeric_limits&lt; size_t &gt;::max()</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>wait</declname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+<para>Method for updating messages. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>std::size_t</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>limit and bool for method wait() in SafeQueue. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="72" column="10"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_server_1_1_server_1ac276bc2de4bd2812a5ec0db582db8323" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Server::Server::waitForClientConnection</definition>
+        <argsstring>()</argsstring>
+        <name>waitForClientConnection</name>
+        <qualifiedname>Server::Server::waitForClientConnection</qualifiedname>
+        <briefdescription>
+<para>Method for connecting to a client, works asynchronously. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="78" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_server_1a5d94b412b479c73e65d37774ed5c210b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Server::Server::acceptingClientConnection</definition>
+        <argsstring>(const std::error_code &amp;error, asio::ip::tcp::socket &amp;socket)</argsstring>
+        <name>acceptingClientConnection</name>
+        <qualifiedname>Server::Server::acceptingClientConnection</qualifiedname>
+        <param>
+          <type>const std::error_code &amp;</type>
+          <declname>error</declname>
+        </param>
+        <param>
+          <type>asio::ip::tcp::socket &amp;</type>
+          <declname>socket</declname>
+        </param>
+        <briefdescription>
+<para>Method for accepting to a client, works asynchronously. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="83" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_server_1a3e59312c8aed875da3ce642a6816b197" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Server::Server::Server</definition>
+        <argsstring>()=default</argsstring>
+        <name>Server</name>
+        <qualifiedname>Server::Server::Server</qualifiedname>
+        <briefdescription>
+<para>Default constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Initialize <ref refid="class_server_1_1_server" kindref="compound">Server</ref> object. After you steel need to initialize network and database connection. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="89" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_server_1aec446bf2fa4fb2d5f3a15c4747555100" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Server::Server::initRepository</definition>
+        <argsstring>(RepoManagerUPtr repoManager)</argsstring>
+        <name>initRepository</name>
+        <qualifiedname>Server::Server::initRepository</qualifiedname>
+        <param>
+          <type>RepoManagerUPtr</type>
+          <declname>repoManager</declname>
+        </param>
+        <briefdescription>
+<para>Setter for purpose of initialize IRepository dependency. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>repoManager</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- pointer to instance of dependency repository </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="96" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_server_1a87cd619b19f5f97f8af43b6cc85c28f9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Server::Server::initConnection</definition>
+        <argsstring>(const uint16_t port)</argsstring>
+        <name>initConnection</name>
+        <qualifiedname>Server::Server::initConnection</qualifiedname>
+        <param>
+          <type>const uint16_t</type>
+          <declname>port</declname>
+        </param>
+        <briefdescription>
+<para>Setter for purpose of initialize host port. This is how the endpoint is configured. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>port</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- digital representation of port </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="103" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_server_1a522d8f1be3260161b82d86422a1f8685" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Server::Server::onMessage</definition>
+        <argsstring>(const std::shared_ptr&lt; Connection &gt; &amp;client, const Message &amp;message) const</argsstring>
+        <name>onMessage</name>
+        <qualifiedname>Server::Server::onMessage</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="class_network_1_1_connection" kindref="compound">Connection</ref> &gt; &amp;</type>
+          <declname>client</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &amp;</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+<para>Method used to process messages. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>client</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>management class as std::shared_ptr&lt;Network::Connection&gt;&amp; and <ref refid="struct_network_1_1_message" kindref="compound">Network::Message</ref>&amp; class. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>body of message </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="122" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_server_1a463195230520ee55cbdfe44ae089ea56" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Server::Server::checkMessageResult</definition>
+        <argsstring>(std::optional&lt; MessageResult &gt; result)</argsstring>
+        <name>checkMessageResult</name>
+        <qualifiedname>Server::Server::checkMessageResult</qualifiedname>
+        <param>
+          <type>std::optional&lt; MessageResult &gt;</type>
+          <declname>result</declname>
+        </param>
+        <briefdescription>
+<para>Method to check message result after that server answered to message. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="127" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_server_1aab43f4825199875d52182fc5f72487be" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; MessageResult &gt;</type>
+        <definition>std::vector&lt; MessageResult &gt; Server::Server::getMessageResult</definition>
+        <argsstring>() const</argsstring>
+        <name>getMessageResult</name>
+        <qualifiedname>Server::Server::getMessageResult</qualifiedname>
+        <briefdescription>
+<para>Method to get a container with the results of message processing. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The results of the messages may be as follows: InvalidBody - poorly formed message. / Success - correctly formed message. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="136" column="17"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_server_1_1_server_1a7feff1becdbd386f851710459206e9c1" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool Server::Server::onClientConnect</definition>
+        <argsstring>(const std::shared_ptr&lt; Connection &gt; &amp;client)</argsstring>
+        <name>onClientConnect</name>
+        <qualifiedname>Server::Server::onClientConnect</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="class_network_1_1_connection" kindref="compound">Connection</ref> &gt; &amp;</type>
+          <declname>client</declname>
+        </param>
+        <briefdescription>
+<para>Method for sending the message connecting to the server. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>management class as std::shared_ptr&lt;Network::Connection&gt;&amp;. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="109" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_server_1a2fc238b0f727157d3dbac3ea106ad712" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Server::Server::onClientDisconnect</definition>
+        <argsstring>(const std::shared_ptr&lt; Connection &gt; &amp;client)</argsstring>
+        <name>onClientDisconnect</name>
+        <qualifiedname>Server::Server::onClientDisconnect</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="class_network_1_1_connection" kindref="compound">Connection</ref> &gt; &amp;</type>
+          <declname>client</declname>
+        </param>
+        <briefdescription>
+<para>Method for sending the message disconnecting from the server. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Connection</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>management class as std::shared_ptr&lt;Network::Connection&gt;&amp;. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="115" column="17"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Network::iAPI</label>
+        <link refid="class_network_1_1i_a_p_i"/>
+      </node>
+      <node id="1">
+        <label>Server::Server</label>
+        <link refid="class_server_1_1_server"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Network::iAPI</label>
+        <link refid="class_network_1_1i_a_p_i"/>
+      </node>
+      <node id="1">
+        <label>Server::Server</label>
+        <link refid="class_server_1_1_server"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="48" column="1" bodyfile="Server/Server.Core/Server.Core.Static/Server.hpp" bodystart="49" bodyend="154"/>
+    <listofallmembers>
+      <member refid="class_server_1_1_server_1ad615388badd6c0a51ab6a3ef71aa1062" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>_acceptor</name></member>
+      <member refid="class_server_1_1_server_1afa9de227c3cff7e63705f46cb7156445" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>_connectionsPointers</name></member>
+      <member refid="class_server_1_1_server_1a9649d79050e71cf1dbacaaf53721a0b6" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>_context</name></member>
+      <member refid="class_server_1_1_server_1a2f8b74fc10dcd9f556fca71afce05f7b" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>_criticalQueueSize</name></member>
+      <member refid="class_server_1_1_server_1afe1fb37f4c55aeacb8340ed81cc5fba8" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>_idCounter</name></member>
+      <member refid="class_server_1_1_server_1ab1c42359465dc02bccbc57179c44b99d" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>_incomingMessagesQueue</name></member>
+      <member refid="class_server_1_1_server_1adc065b58d2e83b0f71da68a68645b41b" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>_messageResponce</name></member>
+      <member refid="class_server_1_1_server_1af277bfb846f6eb69373beed711584133" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>_newThreadsCount</name></member>
+      <member refid="class_server_1_1_server_1a5dc9c93755ca6eab259b40c0ec9628c1" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>_repoManager</name></member>
+      <member refid="class_server_1_1_server_1a166fac6d9027f943b76139ab338f020f" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>_threads</name></member>
+      <member refid="class_server_1_1_server_1a5d94b412b479c73e65d37774ed5c210b" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>acceptingClientConnection</name></member>
+      <member refid="class_network_1_1i_a_p_i_1a09661ee066bdf7b8fea61cc85454d387" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>channelCreateRequest</name></member>
+      <member refid="class_network_1_1i_a_p_i_1a33380e32ebd7d85a307bc8b26b2c28b6" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>channelDeleteRequest</name></member>
+      <member refid="class_network_1_1i_a_p_i_1abb05009a87b33e03b4b3a181605b1700" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>channelLeaveRequest</name></member>
+      <member refid="class_network_1_1i_a_p_i_1a21e463443cf817b027ba4942d60aaf14" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>channelListRequest</name></member>
+      <member refid="class_network_1_1i_a_p_i_1ab1620a7f8e1490daa129e1dca4135f1b" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>channelSubscribeRequest</name></member>
+      <member refid="class_network_1_1i_a_p_i_1a323705e801970f8c03d694bb909497d3" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>channelSubscriptionListRequest</name></member>
+      <member refid="class_server_1_1_server_1a463195230520ee55cbdfe44ae089ea56" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>checkMessageResult</name></member>
+      <member refid="class_network_1_1i_a_p_i_1af24582a286af71a8eacba36726398367" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>checkServerPing</name></member>
+      <member refid="class_network_1_1i_a_p_i_1a3d56453db22b55a0b366a6ee636ca7d0" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>defaultRequest</name></member>
+      <member refid="class_network_1_1i_a_p_i_1afff45903aef7e97569f21deb6ae7c834" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>directMessageCreateRequest</name></member>
+      <member refid="class_server_1_1_server_1aab43f4825199875d52182fc5f72487be" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>getMessageResult</name></member>
+      <member refid="class_server_1_1_server_1a87cd619b19f5f97f8af43b6cc85c28f9" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>initConnection</name></member>
+      <member refid="class_server_1_1_server_1aec446bf2fa4fb2d5f3a15c4747555100" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>initRepository</name></member>
+      <member refid="class_network_1_1i_a_p_i_1ad011402f5be6dc6e70d12aed8b77c607" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>loginRequest</name></member>
+      <member refid="class_network_1_1i_a_p_i_1a4b5007b4816dc33164fa98805de71419" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>messageAllClients</name></member>
+      <member refid="class_network_1_1i_a_p_i_1aed9a0f5ce10bbeb1351c0633f5782701" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>messageClient</name></member>
+      <member refid="class_network_1_1i_a_p_i_1a297367a02c0325f7fd5f0c51a2e964c7" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>messageDeleteRequest</name></member>
+      <member refid="class_network_1_1i_a_p_i_1adbfe8578fa2f9fa1c974bbf4c327e05a" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>messageEditRequest</name></member>
+      <member refid="class_network_1_1i_a_p_i_1a93d6a170b5d4653cb1e9779f6bfa8072" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>messageHistoryRequest</name></member>
+      <member refid="class_network_1_1i_a_p_i_1a15356321c5f03368adbdb31206cc64e9" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>messageReactionRequest</name></member>
+      <member refid="class_network_1_1i_a_p_i_1a76678ec2632fd05ee1c06aaa0935c55d" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>messageStoreRequest</name></member>
+      <member refid="class_server_1_1_server_1a7feff1becdbd386f851710459206e9c1" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>onClientConnect</name></member>
+      <member refid="class_server_1_1_server_1a2fc238b0f727157d3dbac3ea106ad712" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>onClientDisconnect</name></member>
+      <member refid="class_server_1_1_server_1a522d8f1be3260161b82d86422a1f8685" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>onMessage</name></member>
+      <member refid="class_network_1_1i_a_p_i_1ad9eff1dc9c7857819c62a2074eeb48ea" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>readAllMessage</name></member>
+      <member refid="class_network_1_1i_a_p_i_1aa7482114ef4ff6eab5e1fc68d35aad23" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>registrationRequest</name></member>
+      <member refid="class_network_1_1i_a_p_i_1a1a24cd0912abfec16da5f3c346cacebc" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>replyHistoryRequest</name></member>
+      <member refid="class_network_1_1i_a_p_i_1a22de7cc4357c7aae81e52e1500dc7336" prot="public" virt="pure-virtual"><scope>Server::Server</scope><name>replyStoreRequest</name></member>
+      <member refid="class_server_1_1_server_1a3e59312c8aed875da3ce642a6816b197" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>Server</name></member>
+      <member refid="class_server_1_1_server_1a5c830cfbb33273a728f81165c6ba3b7e" prot="public" virt="non-virtual"><scope>Server::Server</scope><name>start</name></member>
+      <member refid="class_server_1_1_server_1aa5afa25ca847bf5153e145ad37e353d2" prot="public" virt="non-virtual"><scope>Server::Server</scope><name>stop</name></member>
+      <member refid="class_server_1_1_server_1a0389fce76334251866578f1e602e6c9a" prot="public" virt="non-virtual"><scope>Server::Server</scope><name>update</name></member>
+      <member refid="class_server_1_1_server_1ac276bc2de4bd2812a5ec0db582db8323" prot="private" virt="non-virtual"><scope>Server::Server</scope><name>waitForClientConnection</name></member>
+      <member refid="class_network_1_1i_a_p_i_1ad6d45dc8df289d3fd7479f9990291d2b" prot="public" virt="virtual"><scope>Server::Server</scope><name>~iAPI</name></member>
+      <member refid="class_server_1_1_server_1a4cab0b7e6a547aa14f979a1d05ecb96f" prot="public" virt="non-virtual"><scope>Server::Server</scope><name>~Server</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_3422dc17e47de7255ed9d2edfb407b9a" kind="dir">
+    <compoundname>Base/Crypto</compoundname>
+    <innerdir refid="dir_02d1163fc32e813f131adc69c76e9afd">Base/Crypto/Crypto.Static</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Base/Crypto/"/>
+  </compounddef>
+</doxygen>

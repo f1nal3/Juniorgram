@@ -1,0 +1,484 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_client_8hpp" kind="file" language="C++">
+    <compoundname>Client.hpp</compoundname>
+    <includes refid="_connection_8hpp" local="yes">Network/Connection.hpp</includes>
+    <includes refid="_message_8hpp" local="yes">Network/Message.hpp</includes>
+    <includes refid="_safe_queue_8hpp" local="yes">Utility/SafeQueue.hpp</includes>
+    <includes refid="_primitives_8hpp" local="no">Models/Primitives.hpp</includes>
+    <includes refid="_file_logger_8hpp" local="no">FileLogger.hpp</includes>
+    <includedby refid="_app_8hpp" local="no">Client/Client.CLI/App.hpp</includedby>
+    <incdepgraph>
+      <node id="32">
+        <label>FileLogger.hpp</label>
+        <link refid="_file_logger_8hpp_source"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>Logger/ILogger.hpp</label>
+        <link refid="_i_logger_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>Models/Primitives.hpp</label>
+        <link refid="_primitives_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Client/Client.Core/Client.Core.Static/Client.hpp</label>
+        <link refid="_client_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>CombiningHandlers.hpp</label>
+        <link refid="_combining_handlers_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>Network/CompressionHandler.hpp</label>
+        <link refid="_compression_handler_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Network/Connection.hpp</label>
+        <link refid="_connection_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>Network/EncryptionHandler.hpp</label>
+        <link refid="_encryption_handler_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>Handler.hpp</label>
+        <link refid="_handler_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>Network/Message.hpp</label>
+        <link refid="_message_8hpp_source"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>Network/SerializationHandler.hpp</label>
+        <link refid="_serialization_handler_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>Network/YasSerializer.hpp</label>
+        <link refid="_yas_serializer_8hpp_source"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Utility/SafeQueue.hpp</label>
+        <link refid="_safe_queue_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>Utility/Utility.hpp</label>
+        <link refid="_utility_8hpp_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>Utility/UtilityTime.hpp</label>
+        <link refid="_utility_time_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>Utility/WarningSuppression.hpp</label>
+        <link refid="_warning_suppression_8hpp_source"/>
+      </node>
+      <node id="13">
+        <label>algorithm</label>
+      </node>
+      <node id="45">
+        <label>any</label>
+      </node>
+      <node id="3">
+        <label>asio.hpp</label>
+      </node>
+      <node id="15">
+        <label>cctype</label>
+      </node>
+      <node id="4">
+        <label>chrono</label>
+      </node>
+      <node id="8">
+        <label>condition_variable</label>
+      </node>
+      <node id="38">
+        <label>cstdint</label>
+      </node>
+      <node id="46">
+        <label>cstdlib</label>
+      </node>
+      <node id="39">
+        <label>cstring</label>
+      </node>
+      <node id="16">
+        <label>ctime</label>
+      </node>
+      <node id="9">
+        <label>deque</label>
+      </node>
+      <node id="18">
+        <label>filesystem</label>
+      </node>
+      <node id="35">
+        <label>fstream</label>
+      </node>
+      <node id="5">
+        <label>functional</label>
+      </node>
+      <node id="43">
+        <label>iomanip</label>
+      </node>
+      <node id="6">
+        <label>iostream</label>
+      </node>
+      <node id="40">
+        <label>map</label>
+      </node>
+      <node id="47">
+        <label>memory</label>
+      </node>
+      <node id="10">
+        <label>mutex</label>
+      </node>
+      <node id="36">
+        <label>queue</label>
+      </node>
+      <node id="34">
+        <label>sstream</label>
+      </node>
+      <node id="14">
+        <label>string</label>
+      </node>
+      <node id="11">
+        <label>thread</label>
+      </node>
+      <node id="17">
+        <label>type_traits</label>
+      </node>
+      <node id="41">
+        <label>vector</label>
+      </node>
+      <node id="23">
+        <label>yas/binary_iarchive.hpp</label>
+      </node>
+      <node id="24">
+        <label>yas/binary_oarchive.hpp</label>
+      </node>
+      <node id="25">
+        <label>yas/buffers.hpp</label>
+      </node>
+      <node id="26">
+        <label>yas/mem_streams.hpp</label>
+      </node>
+      <node id="27">
+        <label>yas/object.hpp</label>
+      </node>
+      <node id="28">
+        <label>yas/serialize.hpp</label>
+      </node>
+      <node id="29">
+        <label>yas/std_types.hpp</label>
+      </node>
+      <node id="30">
+        <label>yas/types/std/string.hpp</label>
+      </node>
+      <node id="31">
+        <label>yas/types/std/vector.hpp</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>Client/Client.CLI/App.hpp</label>
+        <link refid="_app_8hpp_source"/>
+      </node>
+      <node id="1">
+        <label>Client/Client.Core/Client.Core.Static/Client.hpp</label>
+        <link refid="_client_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_network_1_1_client" prot="public">Network::Client</innerclass>
+    <innernamespace refid="namespace_network">Network</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Network/Connection.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Network/Message.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Utility/SafeQueue.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Models/Primitives.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;FileLogger.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">Network</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="20" refid="class_network_1_1_client" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_network_1_1_client" kindref="compound">Client</ref></highlight></codeline>
+<codeline lineno="21"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="28" refid="class_network_1_1_client_1a1ef3315ee222dc3eb2af8201f405f847" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a1ef3315ee222dc3eb2af8201f405f847" kindref="member">~Client</ref>()<sp/>noexcept;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="class_network_1_1_client_1a22a583f9447871a539ba614520902092" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a22a583f9447871a539ba614520902092" kindref="member">connectToServer</ref>(const<sp/>std::string_view&amp;<sp/>host,<sp/>const<sp/>uint16_t<sp/>port);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="class_network_1_1_client_1a2d2dad4544103a2a9e073d4eb78c2b1a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a2d2dad4544103a2a9e073d4eb78c2b1a" kindref="member">disconnectFromServer</ref>();</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="class_network_1_1_client_1a336a20907c048fff41032146824912ec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>[[nodiscard]]<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a336a20907c048fff41032146824912ec" kindref="member">isConnected</ref>()<sp/>const;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="class_network_1_1_client_1a969324480a6f39a016c82921b8f2b132" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a969324480a6f39a016c82921b8f2b132" kindref="member">send</ref>(const<sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/>const;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="class_network_1_1_client_1a6d62f9b3d94f1b369ebaaf39ca373fc6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Utility::SafeQueue&lt;<ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&gt;&amp;<sp/><ref refid="class_network_1_1_client_1a6d62f9b3d94f1b369ebaaf39ca373fc6" kindref="member">incoming</ref>();</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="class_network_1_1_client_1ab6967157fe329a8cf4f0cda9c37b390b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1ab6967157fe329a8cf4f0cda9c37b390b" kindref="member">loop</ref>();</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79" refid="class_network_1_1_client_1ae6436b4a2b519be2be62b5745f93fc05" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1ae6436b4a2b519be2be62b5745f93fc05" kindref="member">pingServer</ref>()<sp/>const;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="class_network_1_1_client_1a7147262877425c2f7a61527038cc74a3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a7147262877425c2f7a61527038cc74a3" kindref="member">createDirectChat</ref>(uint64_t<sp/>receiverId)<sp/>const;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90" refid="class_network_1_1_client_1a34695da617803db894baf53f3054c95d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a34695da617803db894baf53f3054c95d" kindref="member">askForChannelList</ref>()<sp/>const;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95" refid="class_network_1_1_client_1aed8e12023f5bd9fe1adf6febda4e3b63" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1aed8e12023f5bd9fe1adf6febda4e3b63" kindref="member">askForChannelSubscriptionList</ref>()<sp/>const;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101" refid="class_network_1_1_client_1a41cd70c42eaa80488c40f12d86f1589e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a41cd70c42eaa80488c40f12d86f1589e" kindref="member">askForMessageHistory</ref>(uint64_t<sp/>channelID)<sp/>const;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="class_network_1_1_client_1ad231b75d9adec41382a9d326296f584d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1ad231b75d9adec41382a9d326296f584d" kindref="member">askForReplyHistory</ref>(uint64_t<sp/>channelID)<sp/>const;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113" refid="class_network_1_1_client_1aac511810872c49158ad24bc9f4835cab" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1aac511810872c49158ad24bc9f4835cab" kindref="member">messageAll</ref>()<sp/>const;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119" refid="class_network_1_1_client_1a89356bf513bd32c331e30e21d0b209ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a89356bf513bd32c331e30e21d0b209ea" kindref="member">userMessageDelete</ref>(const<sp/>std::uint64_t<sp/>messageID)<sp/>const;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126" refid="class_network_1_1_client_1a6d4be14a93b76be07ffc46869d54dd4c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a89356bf513bd32c331e30e21d0b209ea" kindref="member">userMessageDelete</ref>(const<sp/>std::</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">&amp;<sp/>messageText)<sp/>const;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132" refid="class_network_1_1_client_1ac2f25529256dfc492cf22a0d1d171998" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1ac2f25529256dfc492cf22a0d1d171998" kindref="member">subscriptionChannel</ref>(const<sp/>std::uint64_t<sp/>channelID)<sp/>const;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139" refid="class_network_1_1_client_1a05b736dd423cc02b3b0721c2e760da2e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a05b736dd423cc02b3b0721c2e760da2e" kindref="member">leaveChannel</ref>(const<sp/>std::string_view&amp;<sp/>channelName)<sp/>const;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146" refid="class_network_1_1_client_1ad5171f7cf939b53fc5f9f4b9f42e41dc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1ad5171f7cf939b53fc5f9f4b9f42e41dc" kindref="member">deleteChannel</ref>(const<sp/>std::string_view&amp;<sp/>channelName)<sp/>const;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153" refid="class_network_1_1_client_1a0249236bf48c1ea56a76cc4732abc8c1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a0249236bf48c1ea56a76cc4732abc8c1" kindref="member">createChannel</ref>(const<sp/>std::string_view&amp;<sp/>channelName)<sp/>const;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160" refid="class_network_1_1_client_1afabb8e76a8ba09804558ce74d8f5e0ee" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1afabb8e76a8ba09804558ce74d8f5e0ee" kindref="member">storeMessage</ref>(const<sp/>std::</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">&amp;<sp/>message,<sp/>uint64_t<sp/>channelID)<sp/>const;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168" refid="class_network_1_1_client_1ae6c6809391307a9543d2668a5596c767" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1ae6c6809391307a9543d2668a5596c767" kindref="member">storeReply</ref>(const<sp/>std::</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">&amp;<sp/>message,<sp/>uint64_t<sp/>channelID,<sp/>uint64_t<sp/>msgID)<sp/>const;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176" refid="class_network_1_1_client_1a427f72225af6756c7efdae76911ec4d5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a427f72225af6756c7efdae76911ec4d5" kindref="member">userRegistration</ref>(const<sp/>std::</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">&amp;<sp/>email,<sp/>const<sp/>std::</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">&amp;<sp/>login,<sp/>const<sp/>std::</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">&amp;<sp/>password)<sp/>const;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183" refid="class_network_1_1_client_1a594ba0121fcedff90282d79499e328ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a594ba0121fcedff90282d79499e328ea" kindref="member">userAuthorization</ref>(const<sp/>std::</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">&amp;<sp/>login,<sp/>const<sp/>std::</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">&amp;<sp/>password)<sp/>const;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190" refid="class_network_1_1_client_1a33e9ef1621935c50681c30e4fe716138" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a33e9ef1621935c50681c30e4fe716138" kindref="member">userMessageReaction</ref>(const<sp/>std::uint64_t<sp/>messageID,<sp/>const<sp/>std::uint32_t<sp/>reactionID)<sp/>const;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal">protected:</highlight></codeline>
+<codeline lineno="198" refid="class_network_1_1_client_1ae8f848bf80e913f495d9be332981fc25" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1ae8f848bf80e913f495d9be332981fc25" kindref="member">onDisconnect</ref>();</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205" refid="class_network_1_1_client_1aa80faff98fe07b9464dfff1cc94b86c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1aa80faff98fe07b9464dfff1cc94b86c5" kindref="member">onMessageSendFailed</ref>(const<sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/>const;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211" refid="class_network_1_1_client_1a8c8884f69ed4cb7bcdec595ae6e5b488" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a8c8884f69ed4cb7bcdec595ae6e5b488" kindref="member">onLoginAnswer</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>success);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218" refid="class_network_1_1_client_1affc767c93ff417a063640dc6c749169b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1affc767c93ff417a063640dc6c749169b" kindref="member">onServerAccepted</ref>();</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224" refid="class_network_1_1_client_1a242df1a110f065bcf32fbc8c2cb7bf13" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a242df1a110f065bcf32fbc8c2cb7bf13" kindref="member">onServerPing</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>timestamp);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230" refid="class_network_1_1_client_1a479d05d690162ad05ea93e733a428e2e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a479d05d690162ad05ea93e733a428e2e" kindref="member">onServerMessage</ref>(const<sp/>uint64_t<sp/>clientId);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236" refid="class_network_1_1_client_1a0f835b557eeeda02caa87cc0adf7a2ab" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a0f835b557eeeda02caa87cc0adf7a2ab" kindref="member">onChannelListRequest</ref>(const<sp/>std::vector&lt;Models::ChannelInfo&gt;&amp;<sp/>channels);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242" refid="class_network_1_1_client_1a2b7f8b0d101b6886b83e4667d06e8acd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a2b7f8b0d101b6886b83e4667d06e8acd" kindref="member">onMessageHistoryAnswer</ref>(const<sp/>std::vector&lt;Models::MessageInfo&gt;&amp;<sp/>messages);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248" refid="class_network_1_1_client_1a254a4f78f332f2261b1a0a76431a7f11" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a254a4f78f332f2261b1a0a76431a7f11" kindref="member">onMessageStoreAnswer</ref>(Utility::StoringMessageCodes<sp/>storingMessageCode);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254" refid="class_network_1_1_client_1aae033942b37c2b914e0f0bb33190a010" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1aae033942b37c2b914e0f0bb33190a010" kindref="member">onUserMessageDeleteAnswer</ref>(const<sp/>Utility::DeletingMessageCodes<sp/>deletingState);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260" refid="class_network_1_1_client_1aee2fcb55fa84e71c379034707e2ad6ce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1aee2fcb55fa84e71c379034707e2ad6ce" kindref="member">onRegistrationAnswer</ref>(Utility::RegistrationCodes<sp/>registrationCode);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266" refid="class_network_1_1_client_1ad4ffdd06e7761f6761c29af809e2749e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1ad4ffdd06e7761f6761c29af809e2749e" kindref="member">onReplyHistoryAnswer</ref>(const<sp/>std::vector&lt;Models::ReplyInfo&gt;&amp;<sp/>replies);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272" refid="class_network_1_1_client_1aa767ec90c90b9d648eacbd0e50ef944d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1aa767ec90c90b9d648eacbd0e50ef944d" kindref="member">onReplyStoreAnswer</ref>(Utility::StoringReplyCodes<sp/>storingReplyCode);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/></highlight></codeline>
+<codeline lineno="278" refid="class_network_1_1_client_1a11ab48ab34cf2b5f7e60423f0a1adb96" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a11ab48ab34cf2b5f7e60423f0a1adb96" kindref="member">onChannelLeaveAnswer</ref>(Utility::ChannelLeaveCodes<sp/>channelLeaveCode);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284" refid="class_network_1_1_client_1ab6e884c3346a2175e23cbb7bc31ed755" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1ab6e884c3346a2175e23cbb7bc31ed755" kindref="member">onChannelSubscribingAnswer</ref>(const<sp/>Utility::ChannelSubscribingCodes<sp/>subscribingChannelCode);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/></highlight></codeline>
+<codeline lineno="291" refid="class_network_1_1_client_1a8fa6b9e170c5bda64be07c91428a881c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a8fa6b9e170c5bda64be07c91428a881c" kindref="member">onChannelSubscribingListAnswer</ref>(const<sp/>std::vector&lt;uint64_t&gt;&amp;<sp/>subscribingChannelList);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297" refid="class_network_1_1_client_1a524cd832f8d533efd0d1c1c54cbe261d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a524cd832f8d533efd0d1c1c54cbe261d" kindref="member">onChannelDeleteAnswer</ref>(Utility::ChannelDeleteCode<sp/>channelDeleteCode);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303" refid="class_network_1_1_client_1a49ff3c4151ae1ac3be9786464117e674" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a49ff3c4151ae1ac3be9786464117e674" kindref="member">onEditMessageAnswer</ref>(Utility::EditingMessageCodes<sp/>reactionState)<sp/>const;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/></highlight></codeline>
+<codeline lineno="309" refid="class_network_1_1_client_1a8df31c555ad3b168080a0572b6b0e752" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a8df31c555ad3b168080a0572b6b0e752" kindref="member">onChannelCreateAnswer</ref>(Utility::ChannelCreateCodes<sp/>channelCreateCode);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315" refid="class_network_1_1_client_1a91916f5eee273291a7d26e6b668ac4fc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a91916f5eee273291a7d26e6b668ac4fc" kindref="member">onDirectMessageCreateAnswer</ref>(Utility::DirectMessageStatus<sp/>directMessageCreateAnswer);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321" refid="class_network_1_1_client_1a15de402cf96349b27c6e14b8e452ada4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1_client_1a15de402cf96349b27c6e14b8e452ada4" kindref="member">onMessageReactionAnswer</ref>(Utility::ReactionMessageCodes<sp/>reactionState);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="323"><highlight class="normal">private:</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>_serverAccept<sp/>=<sp/>false;</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/>asio::io_context<sp/>_context;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/>std::thread<sp/><sp/><sp/><sp/><sp/><sp/>_contextThread;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unique_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Connection</ref>&gt;<sp/>_connection;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/>Utility::SafeQueue&lt;<ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&gt;<sp/>_incomingMessagesQueue;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="331"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>Network</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="Client/Client.Core/Client.Core.Static/Client.hpp"/>
+  </compounddef>
+</doxygen>

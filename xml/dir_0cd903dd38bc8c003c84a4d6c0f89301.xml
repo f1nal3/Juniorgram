@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_0cd903dd38bc8c003c84a4d6c0f89301" kind="dir">
+    <compoundname>Base/Models/Public/Include/Models</compoundname>
+    <innerfile refid="_models_8hpp">Models.hpp</innerfile>
+    <innerfile refid="_primitives_8hpp">Primitives.hpp</innerfile>
+    <innerfile refid="_unified_model_8hpp">UnifiedModel.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Base/Models/Public/Include/Models/"/>
+  </compounddef>
+</doxygen>

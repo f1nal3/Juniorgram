@@ -1,0 +1,241 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_data_access_1_1_i_channels_repository" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>DataAccess::IChannelsRepository</compoundname>
+    <basecompoundref refid="struct_data_access_1_1_i_master_repository" prot="public" virt="non-virtual">DataAccess::IMasterRepository</basecompoundref>
+    <derivedcompoundref refid="struct_data_access_1_1_channels_repository" prot="public" virt="non-virtual">DataAccess::ChannelsRepository</derivedcompoundref>
+    <derivedcompoundref refid="struct_mock_object_1_1_mock_channels_repository" prot="public" virt="non-virtual">MockObject::MockChannelsRepository</derivedcompoundref>
+    <includes refid="_i_server_repositories_8hpp" local="no">IServerRepositories.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_data_access_1_1_i_channels_repository_1ad2d80ae97c71ebad537151e701a5ebed" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::vector&lt; <ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelInfo</ref> &gt;</type>
+        <definition>virtual std::vector&lt; Models::ChannelInfo &gt; DataAccess::IChannelsRepository::getAllChannelsList</definition>
+        <argsstring>()=0</argsstring>
+        <name>getAllChannelsList</name>
+        <qualifiedname>DataAccess::IChannelsRepository::getAllChannelsList</qualifiedname>
+        <reimplementedby refid="struct_mock_object_1_1_mock_channels_repository_1acdea37a30d4a56a13305a3f134ea7a3c">getAllChannelsList</reimplementedby>
+        <reimplementedby refid="struct_data_access_1_1_channels_repository_1ac97f3bfd2ab12cd66d9a7d0620fba8d9">getAllChannelsList</reimplementedby>
+        <briefdescription>
+<para>Virtual method for getting all channel list from the server. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>channels list as vector of ChannelInfo. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" line="115" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_i_channels_repository_1abfe97a6baaf5d91ea13ebeac50092174" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>Utility::ChannelDeleteCode</type>
+        <definition>virtual Utility::ChannelDeleteCode DataAccess::IChannelsRepository::deleteChannel</definition>
+        <argsstring>(const Models::ChannelDeleteInfo &amp;channel)=0</argsstring>
+        <name>deleteChannel</name>
+        <qualifiedname>DataAccess::IChannelsRepository::deleteChannel</qualifiedname>
+        <reimplementedby refid="struct_mock_object_1_1_mock_channels_repository_1ab5bca73d4225be7cf82ec09a9f57c7e6">deleteChannel</reimplementedby>
+        <reimplementedby refid="struct_data_access_1_1_channels_repository_1ab6c7a5e7cc4286f64332cb614dafc617">deleteChannel</reimplementedby>
+        <param>
+          <type>const <ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelDeleteInfo</ref> &amp;</type>
+          <declname>channel</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for deleting channel. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>special code for success or failed deleting. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" line="121" column="40"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_i_channels_repository_1a2e1b24ed29a6ba65bc9bf026fd75fc0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>Utility::ChannelCreateCodes</type>
+        <definition>virtual Utility::ChannelCreateCodes DataAccess::IChannelsRepository::createChannel</definition>
+        <argsstring>(const Models::ChannelInfo &amp;channel)=0</argsstring>
+        <name>createChannel</name>
+        <qualifiedname>DataAccess::IChannelsRepository::createChannel</qualifiedname>
+        <reimplementedby refid="struct_mock_object_1_1_mock_channels_repository_1ac20ca8704e291ab040fb1ed9c679aee5">createChannel</reimplementedby>
+        <reimplementedby refid="struct_data_access_1_1_channels_repository_1a26c59e6b6fa4da7543bf9322a93e588c">createChannel</reimplementedby>
+        <param>
+          <type>const <ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelInfo</ref> &amp;</type>
+          <declname>channel</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for creating channel. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Deprecated due to new method with same logic but new mechanics <simplesect kind="return"><para>special code for success or failed creating. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" line="129" column="41"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_i_channels_repository_1a40e680dcd48b1149962d27899788ced0" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>Utility::ChannelLeaveCodes</type>
+        <definition>virtual Utility::ChannelLeaveCodes DataAccess::IChannelsRepository::leaveChannel</definition>
+        <argsstring>(const Models::ChannelLeaveInfo &amp;channel)=0</argsstring>
+        <name>leaveChannel</name>
+        <qualifiedname>DataAccess::IChannelsRepository::leaveChannel</qualifiedname>
+        <reimplementedby refid="struct_mock_object_1_1_mock_channels_repository_1ae57afc75d079075def12b974a0d7cd39">leaveChannel</reimplementedby>
+        <reimplementedby refid="struct_data_access_1_1_channels_repository_1a5661565e06ef2e278429d38313b951c8">leaveChannel</reimplementedby>
+        <param>
+          <type>const <ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelLeaveInfo</ref> &amp;</type>
+          <declname>channel</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for leaving channel. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>special code for success or failed leaving. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" line="135" column="40"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_i_channels_repository_1a3fd573c4c7352f47cf2569d630a850b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>Utility::ChannelSubscribingCodes</type>
+        <definition>virtual Utility::ChannelSubscribingCodes DataAccess::IChannelsRepository::subscribeToChannel</definition>
+        <argsstring>(const Models::ChannelSubscriptionInfo &amp;channel)=0</argsstring>
+        <name>subscribeToChannel</name>
+        <qualifiedname>DataAccess::IChannelsRepository::subscribeToChannel</qualifiedname>
+        <reimplementedby refid="struct_mock_object_1_1_mock_channels_repository_1acce2a6b1580689a41b02550d221c7690">subscribeToChannel</reimplementedby>
+        <reimplementedby refid="struct_data_access_1_1_channels_repository_1a39e4386b4acb4612ab1754ed6b824b48">subscribeToChannel</reimplementedby>
+        <param>
+          <type>const <ref refid="struct_models_1_1_channel_subscription_info" kindref="compound">Models::ChannelSubscriptionInfo</ref> &amp;</type>
+          <declname>channel</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for subscribing to channel. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>special code for success or failed subscribing. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" line="141" column="46"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_i_channels_repository_1a3231716874e359c5a2034aa6f214be3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::vector&lt; uint64_t &gt;</type>
+        <definition>virtual std::vector&lt; uint64_t &gt; DataAccess::IChannelsRepository::getChannelSubscriptionList</definition>
+        <argsstring>(uint64_t userID)=0</argsstring>
+        <name>getChannelSubscriptionList</name>
+        <qualifiedname>DataAccess::IChannelsRepository::getChannelSubscriptionList</qualifiedname>
+        <reimplementedby refid="struct_mock_object_1_1_mock_channels_repository_1a0ebfdf7954c77b6f5742af1a68d4b805">getChannelSubscriptionList</reimplementedby>
+        <reimplementedby refid="struct_data_access_1_1_channels_repository_1aea6ebd419ed2fbeb65929ba1950ab70d">getChannelSubscriptionList</reimplementedby>
+        <param>
+          <type>uint64_t</type>
+          <declname>userID</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for getting channel subscription list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>channels list as vector of uint64_t. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" line="147" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_i_channels_repository_1ae435ffc575f27398926189fb9ff3e936" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>Utility::ChannelCreateCodes</type>
+        <definition>virtual Utility::ChannelCreateCodes DataAccess::IChannelsRepository::newCreateChannel</definition>
+        <argsstring>(const Models::V2::Channel&lt;&gt; &amp;channel)=0</argsstring>
+        <name>newCreateChannel</name>
+        <qualifiedname>DataAccess::IChannelsRepository::newCreateChannel</qualifiedname>
+        <reimplementedby refid="struct_mock_object_1_1_mock_channels_repository_1a459a26ce4d4b52ae9270df5568f7380e">newCreateChannel</reimplementedby>
+        <reimplementedby refid="struct_data_access_1_1_channels_repository_1a658d60e7979f516f16ff21de17d23236">newCreateChannel</reimplementedby>
+        <param>
+          <type>const <ref refid="class_models_1_1_v2_1_1_channel" kindref="compound">Models::V2::Channel</ref>&lt;&gt; &amp;</type>
+          <declname>channel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" line="154" column="41"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_i_channels_repository_1a3199c2dd4e3a8f56ef9542cbacbdc488" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual DataAccess::IChannelsRepository::~IChannelsRepository</definition>
+        <argsstring>()=default</argsstring>
+        <name>~IChannelsRepository</name>
+        <qualifiedname>DataAccess::IChannelsRepository::~IChannelsRepository</qualifiedname>
+        <briefdescription>
+<para>virtual destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" line="159" column="13"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements channels processing. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The class is similar to <ref refid="struct_data_access_1_1_i_messages_repository" kindref="compound">IMessagesRepository</ref>, but processing object is message channels (object of ChannelInfo class). </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>DataAccess::ChannelsRepository</label>
+        <link refid="struct_data_access_1_1_channels_repository"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>DataAccess::IChannelsRepository</label>
+        <link refid="struct_data_access_1_1_i_channels_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="4">
+        <label>MockObject::MockChannelsRepository</label>
+        <link refid="struct_mock_object_1_1_mock_channels_repository"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>DataAccess::IChannelsRepository</label>
+        <link refid="struct_data_access_1_1_i_channels_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" line="109" column="1" bodyfile="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" bodystart="110" bodyend="160"/>
+    <listofallmembers>
+      <member refid="struct_data_access_1_1_i_channels_repository_1a2e1b24ed29a6ba65bc9bf026fd75fc0c" prot="public" virt="pure-virtual"><scope>DataAccess::IChannelsRepository</scope><name>createChannel</name></member>
+      <member refid="struct_data_access_1_1_i_channels_repository_1abfe97a6baaf5d91ea13ebeac50092174" prot="public" virt="pure-virtual"><scope>DataAccess::IChannelsRepository</scope><name>deleteChannel</name></member>
+      <member refid="struct_data_access_1_1_i_channels_repository_1ad2d80ae97c71ebad537151e701a5ebed" prot="public" virt="pure-virtual"><scope>DataAccess::IChannelsRepository</scope><name>getAllChannelsList</name></member>
+      <member refid="struct_data_access_1_1_i_channels_repository_1a3231716874e359c5a2034aa6f214be3c" prot="public" virt="pure-virtual"><scope>DataAccess::IChannelsRepository</scope><name>getChannelSubscriptionList</name></member>
+      <member refid="struct_data_access_1_1_i_channels_repository_1a40e680dcd48b1149962d27899788ced0" prot="public" virt="pure-virtual"><scope>DataAccess::IChannelsRepository</scope><name>leaveChannel</name></member>
+      <member refid="struct_data_access_1_1_i_channels_repository_1ae435ffc575f27398926189fb9ff3e936" prot="public" virt="pure-virtual"><scope>DataAccess::IChannelsRepository</scope><name>newCreateChannel</name></member>
+      <member refid="struct_data_access_1_1_i_channels_repository_1a3fd573c4c7352f47cf2569d630a850b2" prot="public" virt="pure-virtual"><scope>DataAccess::IChannelsRepository</scope><name>subscribeToChannel</name></member>
+      <member refid="struct_data_access_1_1_i_channels_repository_1a3199c2dd4e3a8f56ef9542cbacbdc488" prot="public" virt="virtual"><scope>DataAccess::IChannelsRepository</scope><name>~IChannelsRepository</name></member>
+      <member refid="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" prot="public" virt="virtual"><scope>DataAccess::IChannelsRepository</scope><name>~IMasterRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

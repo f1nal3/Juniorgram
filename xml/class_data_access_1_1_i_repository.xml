@@ -1,0 +1,369 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_data_access_1_1_i_repository" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>DataAccess::IRepository</compoundname>
+    <derivedcompoundref refid="class_data_access_1_1_file_repository" prot="public" virt="non-virtual">DataAccess::FileRepository</derivedcompoundref>
+    <includes refid="_i_repository_8hpp" local="no">IRepository.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_1a119c064c3ede3a4c485c4cff39f9af75" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::vector&lt; <ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelInfo</ref> &gt;</type>
+        <definition>virtual std::vector&lt; Models::ChannelInfo &gt; DataAccess::IRepository::getAllChannelsList</definition>
+        <argsstring>()=0</argsstring>
+        <name>getAllChannelsList</name>
+        <qualifiedname>DataAccess::IRepository::getAllChannelsList</qualifiedname>
+        <reimplementedby refid="class_data_access_1_1_file_repository_1aa4dca0e8ba069b6445b9600ab586a156">getAllChannelsList</reimplementedby>
+        <briefdescription>
+<para>Draft method for getting all channel list from the server. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>channels list as vector of ChannelInfo. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IRepository.hpp" line="23" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_1a9865744036d75920a5d0bb8854d60c5a" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::vector&lt; <ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref> &gt;</type>
+        <definition>virtual std::vector&lt; Models::MessageInfo &gt; DataAccess::IRepository::getMessageHistoryForUser</definition>
+        <argsstring>(const std::uint64_t channelID)=0</argsstring>
+        <name>getMessageHistoryForUser</name>
+        <qualifiedname>DataAccess::IRepository::getMessageHistoryForUser</qualifiedname>
+        <reimplementedby refid="class_data_access_1_1_file_repository_1a6f10daf0f616c4128d69377a1e4ba189">getMessageHistoryForUser</reimplementedby>
+        <param>
+          <type>const std::uint64_t</type>
+          <declname>channelID</declname>
+        </param>
+        <briefdescription>
+<para>Draft method of getting history for a specific user. <linebreak/>
+History is all messages that a marked as &quot;non-delivered&quot; for this user. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>channelID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- channel&apos;s id from which we want to get message history. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>List of messages as vector of MessageInfo. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IRepository.hpp" line="31" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_1a1fdf7d4f7d11184e312863644a9b8e75" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::vector&lt; <ref refid="struct_models_1_1_reply_info" kindref="compound">Models::ReplyInfo</ref> &gt;</type>
+        <definition>virtual std::vector&lt; Models::ReplyInfo &gt; DataAccess::IRepository::getReplyHistoryForUser</definition>
+        <argsstring>(const std::uint64_t channelID)=0</argsstring>
+        <name>getReplyHistoryForUser</name>
+        <qualifiedname>DataAccess::IRepository::getReplyHistoryForUser</qualifiedname>
+        <param>
+          <type>const std::uint64_t</type>
+          <declname>channelID</declname>
+        </param>
+        <briefdescription>
+<para>Draft method of getting history for a specific user. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IRepository.hpp" line="36" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_1a7a34bb8134b58696ce2703457bfaead2" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>Utility::StoringMessageCodes</type>
+        <definition>virtual Utility::StoringMessageCodes DataAccess::IRepository::storeMessage</definition>
+        <argsstring>(const Models::MessageInfo &amp;messageInfo)=0</argsstring>
+        <name>storeMessage</name>
+        <qualifiedname>DataAccess::IRepository::storeMessage</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref> &amp;</type>
+          <declname>messageInfo</declname>
+        </param>
+        <briefdescription>
+<para>Method for storing message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Network::MessageInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>which contains message&apos;s data for storing in repository. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The return value of the method is one of the StoringMessageCodes (enum): <linebreak/>
+Storing successful - StoringMessageCodes::SUCCESS. <linebreak/>
+Storing failed - StoringMessageCodes::FAILED. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IRepository.hpp" line="45" column="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_1ab839a8b50a33a50e2bce291669eac706" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>Utility::StoringReplyCodes</type>
+        <definition>virtual Utility::StoringReplyCodes DataAccess::IRepository::storeReply</definition>
+        <argsstring>(const Models::ReplyInfo &amp;replyInfo)=0</argsstring>
+        <name>storeReply</name>
+        <qualifiedname>DataAccess::IRepository::storeReply</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_models_1_1_reply_info" kindref="compound">Models::ReplyInfo</ref> &amp;</type>
+          <declname>replyInfo</declname>
+        </param>
+        <briefdescription>
+<para>Method for store replying message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>replyInfo.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The return value of the method is one of the StoringMessageCodes (enum): <linebreak/>
+Storing successful - StoringMessageCodes::SUCCESS. <linebreak/>
+Storing failed - StoringMessageCodes::FAILED. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IRepository.hpp" line="54" column="40"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_1af0699db752921628835d27acd4aa7e47" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>Utility::DeletingMessageCodes</type>
+        <definition>virtual Utility::DeletingMessageCodes DataAccess::IRepository::deleteMessage</definition>
+        <argsstring>(const Models::MessageInfo &amp;messageInfo)=0</argsstring>
+        <name>deleteMessage</name>
+        <qualifiedname>DataAccess::IRepository::deleteMessage</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref> &amp;</type>
+          <declname>messageInfo</declname>
+        </param>
+        <briefdescription>
+<para>Method for deleting message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>messageInfo.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The return value of the method is one of the StoringMessageCodes (enum): <linebreak/>
+Deleting successful - StoringMessageCodes::SUCCESS. <linebreak/>
+Deleting failed - StoringMessageCodes::FAILED. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IRepository.hpp" line="63" column="43"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_1acf0bb6369dc216b9b7a22809a56ee40e" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>Utility::EditingMessageCodes</type>
+        <definition>virtual Utility::EditingMessageCodes DataAccess::IRepository::editMessage</definition>
+        <argsstring>(const Models::MessageInfo &amp;messageInfo)=0</argsstring>
+        <name>editMessage</name>
+        <qualifiedname>DataAccess::IRepository::editMessage</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref> &amp;</type>
+          <declname>messageInfo</declname>
+        </param>
+        <briefdescription>
+<para>Method for editing message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>emi</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>as MessageInfo which contains message&apos;s data. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The return value of the method is one of the StoringMessageCodes (enum): <linebreak/>
+Editing successful - StoringMessageCodes::SUCCESS. <linebreak/>
+Editing failed - StoringMessageCodes::FAILED. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IRepository.hpp" line="72" column="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_1a194a02ea8e52185be9fd481621ffb155" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>Utility::ReactionMessageCodes</type>
+        <definition>virtual Utility::ReactionMessageCodes DataAccess::IRepository::updateMessageReactions</definition>
+        <argsstring>(const Models::MessageInfo &amp;messageInfo)=0</argsstring>
+        <name>updateMessageReactions</name>
+        <qualifiedname>DataAccess::IRepository::updateMessageReactions</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref> &amp;</type>
+          <declname>messageInfo</declname>
+        </param>
+        <briefdescription>
+<para>Method for updating message reactions. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Network::MessageInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>which contains message&apos;s reaction map(id, count) with changed reaction count set to uint32_t max </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The return value of the method is one of the ReactionMessageCodes (enum): <linebreak/>
+Update successful - ReactionMessageCodes::SUCCESS. <linebreak/>
+Update failed - ReactionMessageCodes::FAILED. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IRepository.hpp" line="81" column="43"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_1a0f819bc5ed7f561389e28fb35f0757f2" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>Utility::RegistrationCodes</type>
+        <definition>virtual Utility::RegistrationCodes DataAccess::IRepository::registerUser</definition>
+        <argsstring>(const Models::RegistrationInfo &amp;regInfo) const =0</argsstring>
+        <name>registerUser</name>
+        <qualifiedname>DataAccess::IRepository::registerUser</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_models_1_1_registration_info" kindref="compound">Models::RegistrationInfo</ref> &amp;</type>
+          <declname>regInfo</declname>
+        </param>
+        <briefdescription>
+<para>Method for user registration. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RegistrationMessage</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>which contains user data for registration.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Generation password&apos;s hash in which login is a salt. It lets us to insert different users with the same passwords. <simplesect kind="return"><para>The return value of the method is one of the RegistrationCodes (enum). <linebreak/>
+Registration successful - RegistrationCodes::SUCCESS. <linebreak/>
+The user already exists - RegistrationCodes::EMAIL_ALREADY_EXISTS OR RegistrationCodes::LOGIN_ALREADY_EXISTS. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IRepository.hpp" line="93" column="40"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_1a1162586b0fe69fca0a2277ab91827cad" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::uint64_t</type>
+        <definition>virtual std::uint64_t DataAccess::IRepository::loginUser</definition>
+        <argsstring>(const std::string &amp;login, const std::string &amp;pwdHash)=0</argsstring>
+        <name>loginUser</name>
+        <qualifiedname>DataAccess::IRepository::loginUser</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>login</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>pwdHash</declname>
+        </param>
+        <briefdescription>
+<para>Attempts to login a user with the provided login by checking privided hash with the one stored. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>login</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>user login as string </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pwdHash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>password hash </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>userID if provided hash is the same as stored in repository, 0 stands for failed login </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IRepository.hpp" line="101" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_1affda42ed5ba6e5cbb5578b00fd572818" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual DataAccess::IRepository::~IRepository</definition>
+        <argsstring>()=default</argsstring>
+        <name>~IRepository</name>
+        <qualifiedname>DataAccess::IRepository::~IRepository</qualifiedname>
+        <briefdescription>
+<para>virtual destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IRepository.hpp" line="106" column="13"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>An interface for repository. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>see <ulink url="https://github.com/f1nal3/Juniorgram/wiki/IRepository-scheme">https://github.com/f1nal3/Juniorgram/wiki/IRepository-scheme</ulink> for additional details </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>DataAccess::FileRepository</label>
+        <link refid="class_data_access_1_1_file_repository"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>DataAccess::IRepository</label>
+        <link refid="class_data_access_1_1_i_repository"/>
+      </node>
+    </inheritancegraph>
+    <location file="DataAccess/Public/Include/DataAccess/IRepository.hpp" line="15" column="1" bodyfile="DataAccess/Public/Include/DataAccess/IRepository.hpp" bodystart="16" bodyend="107"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_i_repository_1af0699db752921628835d27acd4aa7e47" prot="public" virt="pure-virtual"><scope>DataAccess::IRepository</scope><name>deleteMessage</name></member>
+      <member refid="class_data_access_1_1_i_repository_1acf0bb6369dc216b9b7a22809a56ee40e" prot="public" virt="pure-virtual"><scope>DataAccess::IRepository</scope><name>editMessage</name></member>
+      <member refid="class_data_access_1_1_i_repository_1a119c064c3ede3a4c485c4cff39f9af75" prot="public" virt="pure-virtual"><scope>DataAccess::IRepository</scope><name>getAllChannelsList</name></member>
+      <member refid="class_data_access_1_1_i_repository_1a9865744036d75920a5d0bb8854d60c5a" prot="public" virt="pure-virtual"><scope>DataAccess::IRepository</scope><name>getMessageHistoryForUser</name></member>
+      <member refid="class_data_access_1_1_i_repository_1a1fdf7d4f7d11184e312863644a9b8e75" prot="public" virt="pure-virtual"><scope>DataAccess::IRepository</scope><name>getReplyHistoryForUser</name></member>
+      <member refid="class_data_access_1_1_i_repository_1a1162586b0fe69fca0a2277ab91827cad" prot="public" virt="pure-virtual"><scope>DataAccess::IRepository</scope><name>loginUser</name></member>
+      <member refid="class_data_access_1_1_i_repository_1a0f819bc5ed7f561389e28fb35f0757f2" prot="public" virt="pure-virtual"><scope>DataAccess::IRepository</scope><name>registerUser</name></member>
+      <member refid="class_data_access_1_1_i_repository_1a7a34bb8134b58696ce2703457bfaead2" prot="public" virt="pure-virtual"><scope>DataAccess::IRepository</scope><name>storeMessage</name></member>
+      <member refid="class_data_access_1_1_i_repository_1ab839a8b50a33a50e2bce291669eac706" prot="public" virt="pure-virtual"><scope>DataAccess::IRepository</scope><name>storeReply</name></member>
+      <member refid="class_data_access_1_1_i_repository_1a194a02ea8e52185be9fd481621ffb155" prot="public" virt="pure-virtual"><scope>DataAccess::IRepository</scope><name>updateMessageReactions</name></member>
+      <member refid="class_data_access_1_1_i_repository_1affda42ed5ba6e5cbb5578b00fd572818" prot="public" virt="virtual"><scope>DataAccess::IRepository</scope><name>~IRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,304 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_utility_1_1_safe_queue" kind="class" language="C++" prot="public">
+    <compoundname>Utility::SafeQueue</compoundname>
+    <includes refid="_safe_queue_8hpp" local="no">SafeQueue.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_utility_1_1_safe_queue_1a6f53ea176ecbc06adf9151b0297cf740" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex Utility::SafeQueue&lt; T &gt;::_scopedMutex</definition>
+        <argsstring></argsstring>
+        <name>_scopedMutex</name>
+        <qualifiedname>Utility::SafeQueue::_scopedMutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="18" column="29" bodyfile="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_utility_1_1_safe_queue_1a256c6c82c5549609b3f43113d03fceab" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex Utility::SafeQueue&lt; T &gt;::_uniqueMutex</definition>
+        <argsstring></argsstring>
+        <name>_uniqueMutex</name>
+        <qualifiedname>Utility::SafeQueue::_uniqueMutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="18" column="42" bodyfile="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_utility_1_1_safe_queue_1a679a78b9dd51072e53ba48e31e19649c" prot="private" static="no" mutable="no">
+        <type>std::condition_variable</type>
+        <definition>std::condition_variable Utility::SafeQueue&lt; T &gt;::_block</definition>
+        <argsstring></argsstring>
+        <name>_block</name>
+        <qualifiedname>Utility::SafeQueue::_block</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="19" column="29" bodyfile="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_utility_1_1_safe_queue_1ae9cb413f4a7be7e0f3a0bd2dcc66cc9f" prot="private" static="no" mutable="no">
+        <type>std::deque&lt; T &gt;</type>
+        <definition>std::deque&lt;T&gt; Utility::SafeQueue&lt; T &gt;::_rawQueue</definition>
+        <argsstring></argsstring>
+        <name>_rawQueue</name>
+        <qualifiedname>Utility::SafeQueue::_rawQueue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="21" column="16" bodyfile="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_utility_1_1_safe_queue_1a80190dd3ab1d113c162f178a133f11ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Utility::SafeQueue&lt; T &gt;::SafeQueue</definition>
+        <argsstring>()=default</argsstring>
+        <name>SafeQueue</name>
+        <qualifiedname>Utility::SafeQueue::SafeQueue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>@Default <ref refid="class_utility_1_1_safe_queue" kindref="compound">SafeQueue</ref> constructor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="27" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_utility_1_1_safe_queue_1aa6b95d13d46bd32192e16d680410934b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Utility::SafeQueue&lt; T &gt;::SafeQueue</definition>
+        <argsstring>(const SafeQueue&lt; T &gt; &amp;other)=delete</argsstring>
+        <name>SafeQueue</name>
+        <qualifiedname>Utility::SafeQueue::SafeQueue</qualifiedname>
+        <param>
+          <type>const <ref refid="class_utility_1_1_safe_queue" kindref="compound">SafeQueue</ref>&lt; T &gt; &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>@SafeQueue copy constructor delete </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="32" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_utility_1_1_safe_queue_1a927ee809c7bd5aeb21a729845a2cccfb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Utility::SafeQueue&lt; T &gt;::~SafeQueue</definition>
+        <argsstring>()</argsstring>
+        <name>~SafeQueue</name>
+        <qualifiedname>Utility::SafeQueue::~SafeQueue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>@SafeQueue destructor for clear method </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="37" column="5" bodyfile="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" bodystart="37" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="class_utility_1_1_safe_queue_1a7f3310c448278a77fb2a296e754b342a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const T &amp;</type>
+        <definition>const T &amp; Utility::SafeQueue&lt; T &gt;::front</definition>
+        <argsstring>()</argsstring>
+        <name>front</name>
+        <qualifiedname>Utility::SafeQueue::front</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>@Method for access to front value </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="42" column="13" bodyfile="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" bodystart="42" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="class_utility_1_1_safe_queue_1a75d7bfd4e665e910c42c513aef77ccdb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>const T &amp;</type>
+        <definition>const T &amp; Utility::SafeQueue&lt; T &gt;::back</definition>
+        <argsstring>()</argsstring>
+        <name>back</name>
+        <qualifiedname>Utility::SafeQueue::back</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>@Method for access to back value </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="51" column="13" bodyfile="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" bodystart="51" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="class_utility_1_1_safe_queue_1a27820de86603c25d6b7f63ef856e9b9e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>T Utility::SafeQueue&lt; T &gt;::pop_front</definition>
+        <argsstring>()</argsstring>
+        <name>pop_front</name>
+        <qualifiedname>Utility::SafeQueue::pop_front</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>@Method to remove front value </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="60" column="7" bodyfile="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" bodystart="60" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="class_utility_1_1_safe_queue_1ace91b0fac5606a8928e8f0aede2966ae" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>T Utility::SafeQueue&lt; T &gt;::pop_back</definition>
+        <argsstring>()</argsstring>
+        <name>pop_back</name>
+        <qualifiedname>Utility::SafeQueue::pop_back</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>@Method to remove back value </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="71" column="7" bodyfile="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" bodystart="71" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="class_utility_1_1_safe_queue_1a23b66bdb3614d6e37f0f93258321b15a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Utility::SafeQueue&lt; T &gt;::push_back</definition>
+        <argsstring>(const T &amp;item)</argsstring>
+        <name>push_back</name>
+        <qualifiedname>Utility::SafeQueue::push_back</qualifiedname>
+        <param>
+          <type>const T &amp;</type>
+          <declname>item</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>@Method for adding a value to the end </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="82" column="10" bodyfile="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" bodystart="82" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="class_utility_1_1_safe_queue_1a70203804ffce760925676f4b861e8dc5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Utility::SafeQueue&lt; T &gt;::push_front</definition>
+        <argsstring>(const T &amp;item)</argsstring>
+        <name>push_front</name>
+        <qualifiedname>Utility::SafeQueue::push_front</qualifiedname>
+        <param>
+          <type>const T &amp;</type>
+          <declname>item</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>@Method to add front value </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="94" column="10" bodyfile="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" bodystart="94" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="class_utility_1_1_safe_queue_1a21b77a8ecb235266d2b4facbace2a003" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Utility::SafeQueue&lt; T &gt;::empty</definition>
+        <argsstring>()</argsstring>
+        <name>empty</name>
+        <qualifiedname>Utility::SafeQueue::empty</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>@Method for checking if the <ref refid="class_utility_1_1_safe_queue" kindref="compound">SafeQueue</ref> is empty </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="106" column="10" bodyfile="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" bodystart="106" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="class_utility_1_1_safe_queue_1a75bbae536a61caf94d2f86b5fb0b5a4d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t Utility::SafeQueue&lt; T &gt;::size</definition>
+        <argsstring>()</argsstring>
+        <name>size</name>
+        <qualifiedname>Utility::SafeQueue::size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>@Method for return size </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="115" column="12" bodyfile="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" bodystart="115" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="function" id="class_utility_1_1_safe_queue_1af08fc7af06909d2ec7682a63f975e9ad" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Utility::SafeQueue&lt; T &gt;::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <qualifiedname>Utility::SafeQueue::clear</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>@Method for clear <ref refid="class_utility_1_1_safe_queue" kindref="compound">SafeQueue</ref> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="124" column="10" bodyfile="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" bodystart="124" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="class_utility_1_1_safe_queue_1acf46b2e832bec11b339a1f83968a86e4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Utility::SafeQueue&lt; T &gt;::wait</definition>
+        <argsstring>()</argsstring>
+        <name>wait</name>
+        <qualifiedname>Utility::SafeQueue::wait</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>@Method to wait which uses condition variable </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="133" column="10" bodyfile="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" bodystart="133" bodyend="137"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The template <ref refid="class_utility_1_1_safe_queue" kindref="compound">SafeQueue</ref> class. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" line="15" column="1" bodyfile="Utility/Utility.Public/Include/Utility/SafeQueue.hpp" bodystart="16" bodyend="138"/>
+    <listofallmembers>
+      <member refid="class_utility_1_1_safe_queue_1a679a78b9dd51072e53ba48e31e19649c" prot="private" virt="non-virtual"><scope>Utility::SafeQueue</scope><name>_block</name></member>
+      <member refid="class_utility_1_1_safe_queue_1ae9cb413f4a7be7e0f3a0bd2dcc66cc9f" prot="private" virt="non-virtual"><scope>Utility::SafeQueue</scope><name>_rawQueue</name></member>
+      <member refid="class_utility_1_1_safe_queue_1a6f53ea176ecbc06adf9151b0297cf740" prot="private" virt="non-virtual"><scope>Utility::SafeQueue</scope><name>_scopedMutex</name></member>
+      <member refid="class_utility_1_1_safe_queue_1a256c6c82c5549609b3f43113d03fceab" prot="private" virt="non-virtual"><scope>Utility::SafeQueue</scope><name>_uniqueMutex</name></member>
+      <member refid="class_utility_1_1_safe_queue_1a75d7bfd4e665e910c42c513aef77ccdb" prot="public" virt="non-virtual"><scope>Utility::SafeQueue</scope><name>back</name></member>
+      <member refid="class_utility_1_1_safe_queue_1af08fc7af06909d2ec7682a63f975e9ad" prot="public" virt="non-virtual"><scope>Utility::SafeQueue</scope><name>clear</name></member>
+      <member refid="class_utility_1_1_safe_queue_1a21b77a8ecb235266d2b4facbace2a003" prot="public" virt="non-virtual"><scope>Utility::SafeQueue</scope><name>empty</name></member>
+      <member refid="class_utility_1_1_safe_queue_1a7f3310c448278a77fb2a296e754b342a" prot="public" virt="non-virtual"><scope>Utility::SafeQueue</scope><name>front</name></member>
+      <member refid="class_utility_1_1_safe_queue_1ace91b0fac5606a8928e8f0aede2966ae" prot="public" virt="non-virtual"><scope>Utility::SafeQueue</scope><name>pop_back</name></member>
+      <member refid="class_utility_1_1_safe_queue_1a27820de86603c25d6b7f63ef856e9b9e" prot="public" virt="non-virtual"><scope>Utility::SafeQueue</scope><name>pop_front</name></member>
+      <member refid="class_utility_1_1_safe_queue_1a23b66bdb3614d6e37f0f93258321b15a" prot="public" virt="non-virtual"><scope>Utility::SafeQueue</scope><name>push_back</name></member>
+      <member refid="class_utility_1_1_safe_queue_1a70203804ffce760925676f4b861e8dc5" prot="public" virt="non-virtual"><scope>Utility::SafeQueue</scope><name>push_front</name></member>
+      <member refid="class_utility_1_1_safe_queue_1a80190dd3ab1d113c162f178a133f11ec" prot="public" virt="non-virtual"><scope>Utility::SafeQueue</scope><name>SafeQueue</name></member>
+      <member refid="class_utility_1_1_safe_queue_1aa6b95d13d46bd32192e16d680410934b" prot="public" virt="non-virtual"><scope>Utility::SafeQueue</scope><name>SafeQueue</name></member>
+      <member refid="class_utility_1_1_safe_queue_1a75bbae536a61caf94d2f86b5fb0b5a4d" prot="public" virt="non-virtual"><scope>Utility::SafeQueue</scope><name>size</name></member>
+      <member refid="class_utility_1_1_safe_queue_1acf46b2e832bec11b339a1f83968a86e4" prot="public" virt="non-virtual"><scope>Utility::SafeQueue</scope><name>wait</name></member>
+      <member refid="class_utility_1_1_safe_queue_1a927ee809c7bd5aeb21a729845a2cccfb" prot="public" virt="non-virtual"><scope>Utility::SafeQueue</scope><name>~SafeQueue</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

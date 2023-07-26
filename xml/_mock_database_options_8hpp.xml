@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_mock_database_options_8hpp" kind="file" language="C++">
+    <compoundname>MockDatabaseOptions.hpp</compoundname>
+    <includes local="no">string_view</includes>
+    <includedby refid="_mock_database_8hpp" local="yes">DataAccess/DataAccess.Mock/MockDatabase.hpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>DataAccess/DataAccess.Mock/MockDatabaseOptions.hpp</label>
+        <link refid="_mock_database_options_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>string_view</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>DataAccess/DataAccess.Mock/MockDatabase.hpp</label>
+        <link refid="_mock_database_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>DataAccess/DataAccess.Mock/MockDatabaseOptions.hpp</label>
+        <link refid="_mock_database_options_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess/DataAccess.Mock/MockQuery.hpp</label>
+        <link refid="_mock_query_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>DataAccess/DataAccess.Mock/MockRepositories.hpp</label>
+        <link refid="_mock_repositories_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>DataAccess/DataAccess.Mock/MockRepositoryManager.hpp</label>
+        <link refid="_mock_repository_manager_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innernamespace refid="namespace_mock_object">MockObject</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string_view&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">MockObject</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>std::string_view<sp/>TestProperties</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;hostaddr=127.0.0.1<sp/>port=5432<sp/>dbname=mockdb<sp/>user=tester&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">}<sp/></highlight></codeline>
+    </programlisting>
+    <location file="DataAccess/DataAccess.Mock/MockDatabaseOptions.hpp"/>
+  </compounddef>
+</doxygen>

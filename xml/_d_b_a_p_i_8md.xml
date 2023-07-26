@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_d_b_a_p_i_8md" kind="file" language="Markdown">
+    <compoundname>DBAPI.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">![](https://trello-attachments.s3.amazonaws.com/5f99a9ec82d4661c1df02e5e/600x499/ff8b9282467aaa8afcf0d3a529d2316a/DB.png)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">![](https://trello-attachments.s3.amazonaws.com/5f973f301211050c1336cefc/813x567/22531f32ad348b1bc3d0d46aae4c4406/image.png)<sp/><sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">![](https://trello-attachments.s3.amazonaws.com/5f973f301211050c1336cefc/989x80/6980af534204c41644c1c0076cf839cf/image.png)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Одна<sp/>из<sp/>идей,<sp/>как<sp/>может<sp/>выглядеть<sp/>API<sp/>к<sp/>БД<sp/>на<sp/>сервере:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">БД<sp/>содержит<sp/>в<sp/>себе<sp/>информацию<sp/>о<sp/>зарегистрированных<sp/>пользователях,<sp/>конкретно<sp/>login/email,<sp/>password<sp/>hash,<sp/>token,<sp/>refresh<sp/>token,<sp/>token_receipt_time.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">На<sp/>данный<sp/>момент<sp/>это<sp/>будет<sp/>сырая<sp/>версия<sp/>API,<sp/>при<sp/>помощи<sp/>которого<sp/>пользователь<sp/>сможешь<sp/>зарегистрироваться.<sp/>авторизоваться<sp/>в<sp/>нашем<sp/>приложении.</highlight></codeline>
+<codeline><highlight class="normal">Далее<sp/>БД<sp/>можно<sp/>будет<sp/>расширить<sp/>при<sp/>желании<sp/>как<sp/>угодно.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">API<sp/>будет,<sp/>примерно,<sp/>включать<sp/>следующие<sp/>функции<sp/>:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Response::ResponseCodes<sp/>authorizeUser(const<sp/>std::string<sp/>&amp;LoginOrEmail,const<sp/>std::string<sp/>&amp;PasswordHash,<sp/>std::string&amp;<sp/>Token,<sp/>std::string&amp;<sp/>RefreshToken)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">LoginOrEmail<sp/>-<sp/>параметр,<sp/>который<sp/>содержит<sp/>в<sp/>себе<sp/>либо<sp/>login,<sp/>либо<sp/>email<sp/>пользователя.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">PasswordHash<sp/>-<sp/>хэш-строка,<sp/>полученная<sp/>хэширования<sp/>пароля.<sp/>Функию<sp/>хэширования<sp/>можно<sp/>брать<sp/>любую(SHA1/SHA256/RIPEMD160<sp/>и<sp/>т.д.)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Token<sp/>-<sp/>хэш-строка,<sp/>предназначенная<sp/>для<sp/>удостоверения<sp/>личности.<sp/>Она<sp/>выдаётся<sp/>пользователю<sp/>после<sp/>успешной<sp/>авторизации<sp/>в<sp/>приложении.</highlight></codeline>
+<codeline><highlight class="normal">(https://ru.wikipedia.org/wiki/Токен_(авторизации)#:~:text=Часто<sp/>используется<sp/>для<sp/>несанкционированного<sp/>доступа,так<sp/>и<sp/>вместе<sp/>с<sp/>ним.)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">RefreshToken<sp/>-<sp/>хэш-строка,<sp/>предназначенная<sp/>для<sp/>обновления<sp/>токена<sp/>пользователя,<sp/>если<sp/>время<sp/>действия<sp/>токена<sp/>истекло.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Возвращаемое<sp/>значение<sp/>функции<sp/>один<sp/>из<sp/>кодов<sp/>ResponseCodes(enum).</highlight></codeline>
+<codeline><highlight class="normal">К<sp/>примеру,<sp/>при<sp/>успешной<sp/>авторизации<sp/>возвращает<sp/>Response::ResponseCodes::SUCCESS.<sp/>В<sp/>ином<sp/>случае<sp/>Response::ResponseCodes::INCORRECT_AUTH_DATA.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Response::ResponseCodes<sp/>registerUser(const<sp/>std::string<sp/>&amp;Email,<sp/>const<sp/>std::string<sp/>&amp;Login,<sp/>const<sp/>std::string<sp/>&amp;Password,<sp/>std::string&amp;<sp/>Token,<sp/>std::string&amp;<sp/>refreshToken)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Email<sp/>-<sp/>параметр,<sp/>содержащий<sp/>в<sp/>себе<sp/>email<sp/>пользователя.</highlight></codeline>
+<codeline><highlight class="normal">Login<sp/>-<sp/>логин<sp/>пользователя.</highlight></codeline>
+<codeline><highlight class="normal">Password<sp/>-<sp/>пароль<sp/>пользователя.</highlight></codeline>
+<codeline><highlight class="normal">Token<sp/>-<sp/>см.<sp/>выше.</highlight></codeline>
+<codeline><highlight class="normal">RefreshToken<sp/>-<sp/>см.<sp/>выше.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">При<sp/>успешной<sp/>регистрации<sp/>пользователя<sp/>ему<sp/>отдаются<sp/>его<sp/>Token<sp/>и<sp/>RefreshToken,<sp/>которые<sp/>присваиваются<sp/>в<sp/>передаваемые<sp/>переменные<sp/>Token<sp/>и<sp/>RefreshToken.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Возвращаемое<sp/>значение<sp/>функции<sp/>один<sp/>из<sp/>кодов<sp/>ResponseCodes(enum).</highlight></codeline>
+<codeline><highlight class="normal">Регистрация<sp/>успешна<sp/>-<sp/>Response::ResponseCodes::SUCCESS</highlight></codeline>
+<codeline><highlight class="normal">Пользователь<sp/>уже<sp/>существует<sp/>-<sp/>Response::ResponseCodes::USER_ALREADY_EXIST</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Response::ResponseCodes<sp/>validateToken(std::string<sp/>authToken);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Функция,<sp/>проверяющая<sp/>не<sp/>истёк<sp/>ли<sp/>Token,<sp/>содержащийся<sp/>в<sp/>параметре<sp/>authToken.</highlight></codeline>
+<codeline><highlight class="normal">Token<sp/>имеет<sp/>определённое<sp/>время,<sp/>в<sp/>течении<sp/>которого<sp/>он<sp/>валиден<sp/>и<sp/>мы<sp/>знаем,<sp/>что<sp/>именно<sp/>пользователь,<sp/>который<sp/>является<sp/>владельцем<sp/>токена<sp/>может<sp/>делать<sp/>запросы<sp/>на<sp/>сервер,<sp/>а<sp/>не<sp/>кто-то<sp/>другой.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Возвращаемое<sp/>значение<sp/>функции<sp/>один<sp/>из<sp/>кодов<sp/>ResponseCodes(enum).</highlight></codeline>
+<codeline><highlight class="normal">В<sp/>случае,<sp/>если<sp/>строка<sp/>с<sp/>токеном<sp/>пустая<sp/>Response::ResponseCodes::INVALID_TOKEN</highlight></codeline>
+<codeline><highlight class="normal">Если<sp/>токен<sp/>истёк<sp/>-<sp/>Response::ResponseCodes::SESSION_EXPIRED;</highlight></codeline>
+<codeline><highlight class="normal">Если<sp/>токен<sp/>валидный,<sp/>т.е.<sp/>время<sp/>его<sp/>жизни<sp/>не<sp/>истекло<sp/>-<sp/>return<sp/>Response::ResponseCodes::SUCCESS;</highlight></codeline>
+<codeline><highlight class="normal">В<sp/>любом<sp/>другом<sp/>случае<sp/>-<sp/>Response::ResponseCodes::INVALID_TOKEN;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Response::ResponseCodes<sp/>logout(std::string<sp/>Token)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Метод,<sp/>суть<sp/>которого<sp/>в<sp/>удалении<sp/>у<sp/>конкретного<sp/>пользователя<sp/>в<sp/>базе<sp/>поля<sp/>Token.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Возвращаемое<sp/>значение<sp/>-<sp/>Response::ResponseCodes::SUCCESS.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">int<sp/>refreshToken(std::string&amp;<sp/>Token,<sp/>std::string&amp;<sp/>RefreshToken)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Функция,<sp/>которая<sp/>обновляет<sp/>Token,<sp/>по<sp/>RefreshToken.</highlight></codeline>
+<codeline><highlight class="normal">Для<sp/>чего<sp/>эта<sp/>функция:<sp/>пользователь<sp/>решил<sp/>выйти<sp/>из<sp/>приложения,<sp/>вызывается<sp/>функция<sp/>logout<sp/>-<sp/>и<sp/>его<sp/>токен<sp/>перестаёт<sp/>быть<sp/>валидным<sp/>и<sp/>стирается<sp/>в<sp/>базе.</highlight></codeline>
+<codeline><highlight class="normal">Как<sp/>только<sp/>пользователь<sp/>снова<sp/>залогинился<sp/>ему<sp/>нужно<sp/>получить<sp/>Token<sp/>заново.<sp/>Берётся<sp/>его<sp/>Refresh_token(который<sp/>хранится<sp/>у<sp/>него<sp/>локально.<sp/>В<sp/>базе<sp/>отдельной,<sp/>или<sp/>ещё<sp/>каким<sp/>образом)<sp/>и<sp/>делается<sp/>автоматически<sp/>запрос<sp/>на<sp/>обновление<sp/>его<sp/>токена<sp/>на<sp/>сервер.<sp/>Сервер<sp/>делает<sp/>сравнение<sp/>в<sp/>базе<sp/>по<sp/>пришедшему<sp/>Refresh_token<sp/>и<sp/>содержащемуся<sp/>в<sp/>базе,<sp/>и<sp/>если<sp/>они<sp/>совпали,<sp/>то<sp/>выдаёт<sp/>новый<sp/>токен<sp/>пользователю.<sp/>Следовательно,<sp/>пользователь<sp/>прошёл<sp/>этап<sp/>авторизации.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Параметрами<sp/>передаются<sp/>хэш-строки.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Response::ResponseCodes<sp/>refresh(const<sp/>std::string<sp/>RefreshTokenDB,<sp/>std::string<sp/>newToken,<sp/>std::string<sp/>newRefreshToken)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Функция<sp/>для<sp/>инициализации/обновления<sp/>полей<sp/>RefreshToken,<sp/>Token,<sp/>TokenReceiptTime(поле<sp/>-<sp/>время<sp/>выдачи<sp/>токена.<sp/>Для<sp/>того,<sp/>чтобы<sp/>можно<sp/>было<sp/>отследить,<sp/>жив<sp/>ли<sp/>токен)<sp/>.<sp/>Инициализирует<sp/>в<sp/>базе<sp/>поля<sp/>Token<sp/>и<sp/>RefreshToken,<sp/>TokenReceiptTime<sp/>конкретного<sp/>пользователя.</highlight></codeline>
+    </programlisting>
+    <location file="Docs/Legacy/DBAPI.md"/>
+  </compounddef>
+</doxygen>

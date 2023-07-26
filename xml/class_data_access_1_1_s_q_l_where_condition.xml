@@ -1,0 +1,338 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_data_access_1_1_s_q_l_where_condition" kind="class" language="C++" prot="public">
+    <compoundname>DataAccess::SQLWhereCondition</compoundname>
+    <includes refid="_s_q_l_statements_8hpp" local="no">SQLStatements.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>class T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_data_access_1_1_s_q_l_where_condition_1a1962aa26d4e6f0e87a2d19bf68d58438" prot="private" static="no" mutable="no">
+        <type>T *</type>
+        <definition>T* DataAccess::SQLWhereCondition&lt; T &gt;::_statement</definition>
+        <argsstring></argsstring>
+        <name>_statement</name>
+        <qualifiedname>DataAccess::SQLWhereCondition::_statement</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="30" column="7" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_where_condition_1a146d89de7c30fa9accdb977dd9f91e8d" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLWhereCondition&lt; T &gt;::SQLWhereCondition</definition>
+        <argsstring>(T *statement)</argsstring>
+        <name>SQLWhereCondition</name>
+        <qualifiedname>DataAccess::SQLWhereCondition::SQLWhereCondition</qualifiedname>
+        <param>
+          <type>T *</type>
+          <declname>statement</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="33" column="14" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="33" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_where_condition_1adfb2b4ebdd0fbff64cd286be3fd2eaf4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual DataAccess::SQLWhereCondition&lt; T &gt;::~SQLWhereCondition</definition>
+        <argsstring>(void)=default</argsstring>
+        <name>~SQLWhereCondition</name>
+        <qualifiedname>DataAccess::SQLWhereCondition::~SQLWhereCondition</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="35" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_where_condition_1aa9521992047a16b7d9d24219f13c0cf3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T * DataAccess::SQLWhereCondition&lt; T &gt;::Where</definition>
+        <argsstring>(const std::string &amp;condition={})</argsstring>
+        <name>Where</name>
+        <qualifiedname>DataAccess::SQLWhereCondition::Where</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>condition</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Like common SQL &apos;where&apos; condition. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>condition</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- SQL condition, but it is not required </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current SQLStatement pointer object to continue SQL query. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="42" column="7" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="42" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_where_condition_1af6c905de10a010b7aea525d57b353fed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T * DataAccess::SQLWhereCondition&lt; T &gt;::And</definition>
+        <argsstring>(const std::string &amp;condition={})</argsstring>
+        <name>And</name>
+        <qualifiedname>DataAccess::SQLWhereCondition::And</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>condition</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Like common SQL &apos;and&apos; condition. This condition need for continue the SQL query after like: limit, between, etc. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>condition</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- SQL condition, but it is not required. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current SQLStatement pointer object to continue SQL query. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="57" column="7" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="57" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_where_condition_1ab31a5bb6911024c656b571d2ef58806b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T * DataAccess::SQLWhereCondition&lt; T &gt;::Or</definition>
+        <argsstring>(const std::string &amp;condition={})</argsstring>
+        <name>Or</name>
+        <qualifiedname>DataAccess::SQLWhereCondition::Or</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>condition</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Like common SQL &apos;or&apos; condition. This condition need for continue the SQL query after like: limit, between, etc. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>condition</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- SQL condition, but it is not required. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current SQLStatement pointer object to continue SQL query. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="72" column="7" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="72" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_where_condition_1ab5c076036d6ac3761defd53647e94225" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T * DataAccess::SQLWhereCondition&lt; T &gt;::In</definition>
+        <argsstring>(const std::string &amp;anotherStatement)</argsstring>
+        <name>In</name>
+        <qualifiedname>DataAccess::SQLWhereCondition::In</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>anotherStatement</declname>
+        </param>
+        <briefdescription>
+<para>In condition. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>anotherStatement</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- another SQL statement, that you can receive from &apos;getQuery()&apos; method. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current SQLStatement pointer object to continue SQL query. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="87" column="7" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="87" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_where_condition_1a09d8406259ba23bf78817f4aa0bde4d3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T * DataAccess::SQLWhereCondition&lt; T &gt;::In</definition>
+        <argsstring>(const std::initializer_list&lt; std::string &gt; &amp;valueList)</argsstring>
+        <name>In</name>
+        <qualifiedname>DataAccess::SQLWhereCondition::In</qualifiedname>
+        <param>
+          <type>const std::initializer_list&lt; std::string &gt; &amp;</type>
+          <declname>valueList</declname>
+        </param>
+        <briefdescription>
+<para>In condition. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>valueList</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- checking from list of values. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current SQLStatement pointer object to continue SQL query. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="101" column="7" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="101" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_where_condition_1ae88056b675b53556eb337859b112df5a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename ValueType</type>
+          </param>
+        </templateparamlist>
+        <type>T *</type>
+        <definition>T * DataAccess::SQLWhereCondition&lt; T &gt;::Between</definition>
+        <argsstring>(ValueType left, ValueType right)</argsstring>
+        <name>Between</name>
+        <qualifiedname>DataAccess::SQLWhereCondition::Between</qualifiedname>
+        <param>
+          <type>ValueType</type>
+          <declname>left</declname>
+        </param>
+        <param>
+          <type>ValueType</type>
+          <declname>right</declname>
+        </param>
+        <briefdescription>
+<para>Between condition. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>left</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- start of the range. <linebreak/>
+ right - end of the range. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current SQLStatement pointer object to continue SQL query. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="124" column="7" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="124" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_where_condition_1aa3168e6c775846fb80fb9fad099a3faa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T * DataAccess::SQLWhereCondition&lt; T &gt;::Like</definition>
+        <argsstring>(const std::string &amp;pattern)</argsstring>
+        <name>Like</name>
+        <qualifiedname>DataAccess::SQLWhereCondition::Like</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>pattern</declname>
+        </param>
+        <briefdescription>
+<para>Like condition. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pattern</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- see this for info: <linebreak/>
+<ulink url="https://www.w3schools.com/sql/sql_like.asp">https://www.w3schools.com/sql/sql_like.asp</ulink>, <linebreak/>
+<ulink url="https://www.w3schools.com/sql/sql_wildcards.asp">https://www.w3schools.com/sql/sql_wildcards.asp</ulink> </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current SQLStatement pointer object to continue SQL query. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="140" column="7" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="140" bodyend="147"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_where_condition_1a05421b1d3967c20d4ade2f059a76c505" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::SQLWhereCondition&lt; T &gt;::privateStatementCorrectness</definition>
+        <argsstring>(void)</argsstring>
+        <name>privateStatementCorrectness</name>
+        <qualifiedname>DataAccess::SQLWhereCondition::privateStatementCorrectness</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="150" column="10" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="150" bodyend="153"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interface for constructing conditions in SQL query. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This class is a secondary. It needs for <ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref>, <ref refid="class_data_access_1_1_s_q_l_update" kindref="compound">SQLUpdate</ref> and <ref refid="class_data_access_1_1_s_q_l_delete" kindref="compound">SQLDelete</ref>. This class using for &apos;where&apos; condition from SQL <simplesect kind="warning"><para>You shouldn&apos;t use it itself. Only from <ref refid="class_query_builder" kindref="compound">QueryBuilder</ref> class. </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="27" column="1" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="28" bodyend="154"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1a1962aa26d4e6f0e87a2d19bf68d58438" prot="private" virt="non-virtual"><scope>DataAccess::SQLWhereCondition</scope><name>_statement</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1af6c905de10a010b7aea525d57b353fed" prot="public" virt="non-virtual"><scope>DataAccess::SQLWhereCondition</scope><name>And</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1ae88056b675b53556eb337859b112df5a" prot="public" virt="non-virtual"><scope>DataAccess::SQLWhereCondition</scope><name>Between</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1ab5c076036d6ac3761defd53647e94225" prot="public" virt="non-virtual"><scope>DataAccess::SQLWhereCondition</scope><name>In</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1a09d8406259ba23bf78817f4aa0bde4d3" prot="public" virt="non-virtual"><scope>DataAccess::SQLWhereCondition</scope><name>In</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1aa3168e6c775846fb80fb9fad099a3faa" prot="public" virt="non-virtual"><scope>DataAccess::SQLWhereCondition</scope><name>Like</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1ab31a5bb6911024c656b571d2ef58806b" prot="public" virt="non-virtual"><scope>DataAccess::SQLWhereCondition</scope><name>Or</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1a05421b1d3967c20d4ade2f059a76c505" prot="private" virt="non-virtual"><scope>DataAccess::SQLWhereCondition</scope><name>privateStatementCorrectness</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1a146d89de7c30fa9accdb977dd9f91e8d" prot="public" virt="non-virtual"><scope>DataAccess::SQLWhereCondition</scope><name>SQLWhereCondition</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1aa9521992047a16b7d9d24219f13c0cf3" prot="public" virt="non-virtual"><scope>DataAccess::SQLWhereCondition</scope><name>Where</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1adfb2b4ebdd0fbff64cd286be3fd2eaf4" prot="public" virt="virtual"><scope>DataAccess::SQLWhereCondition</scope><name>~SQLWhereCondition</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

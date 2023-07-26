@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_data_access_1_1_s_q_l_delete" kind="class" language="C++" prot="public">
+    <compoundname>DataAccess::SQLDelete</compoundname>
+    <basecompoundref refid="class_data_access_1_1_s_q_l_base" prot="public" virt="non-virtual">DataAccess::SQLBase&lt; ResultType &gt;</basecompoundref>
+    <basecompoundref refid="class_data_access_1_1_s_q_l_where_condition" prot="public" virt="non-virtual">DataAccess::SQLWhereCondition&lt; SQLDelete&lt; ResultType &gt; &gt;</basecompoundref>
+    <includes refid="_s_q_l_statements_8hpp" local="no">SQLStatements.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename ResultType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_delete_1ad9cf5c0d77a41350dc5f47bf89480944" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLDelete&lt; ResultType &gt;::SQLDelete</definition>
+        <argsstring>(AbstractQueryBuilder&lt; ResultType &gt; &amp;table)</argsstring>
+        <name>SQLDelete</name>
+        <qualifiedname>DataAccess::SQLDelete::SQLDelete</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_abstract_query_builder" kindref="compound">AbstractQueryBuilder</ref>&lt; ResultType &gt; &amp;</type>
+          <declname>table</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="810" column="14" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="810" bodyend="813"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_delete_1a3e257b05f59c5d3e1ccd8e2b3c0b937c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual DataAccess::SQLDelete&lt; ResultType &gt;::~SQLDelete</definition>
+        <argsstring>(void)=default</argsstring>
+        <name>~SQLDelete</name>
+        <qualifiedname>DataAccess::SQLDelete::~SQLDelete</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="815" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_delete_1a249aef7eb0b5918a7e300c5d490ffb84" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLDelete&lt; ResultType &gt;::SQLDelete</definition>
+        <argsstring>(void)=delete</argsstring>
+        <name>SQLDelete</name>
+        <qualifiedname>DataAccess::SQLDelete::SQLDelete</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="818" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_delete_1aa8e4dc98e70fa31b81b8ca032f4955cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLDelete&lt; ResultType &gt;::SQLDelete</definition>
+        <argsstring>(const SQLDelete &amp;)=delete</argsstring>
+        <name>SQLDelete</name>
+        <qualifiedname>DataAccess::SQLDelete::SQLDelete</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_s_q_l_delete" kindref="compound">SQLDelete</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="820" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_delete_1af5474cd0dfe9d825716686ef0530a562" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_delete" kindref="compound">SQLDelete</ref> &amp;</type>
+        <definition>SQLDelete &amp; DataAccess::SQLDelete&lt; ResultType &gt;::operator=</definition>
+        <argsstring>(const SQLDelete &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::SQLDelete::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_s_q_l_delete" kindref="compound">SQLDelete</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="821" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_delete_1aefd2da1ba893ff4b011cfa3d14fd4c3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLDelete&lt; ResultType &gt;::SQLDelete</definition>
+        <argsstring>(SQLDelete &amp;&amp;)=delete</argsstring>
+        <name>SQLDelete</name>
+        <qualifiedname>DataAccess::SQLDelete::SQLDelete</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_s_q_l_delete" kindref="compound">SQLDelete</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="823" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_delete_1a3fbc78e1dfd4b107423fb3e7e248a1a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_delete" kindref="compound">SQLDelete</ref> &amp;</type>
+        <definition>SQLDelete &amp; DataAccess::SQLDelete&lt; ResultType &gt;::operator=</definition>
+        <argsstring>(SQLDelete &amp;&amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::SQLDelete::operator=</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_s_q_l_delete" kindref="compound">SQLDelete</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="824" column="15"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interface for deletion operations. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>It likes common SQL delete condition. This is singleton. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>DataAccess::SQLBase&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_base"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::SQLDelete&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_delete"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess::SQLWhereCondition&lt; SQLDelete&lt; ResultType &gt; &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_where_condition"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>DataAccess::SQLBase&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_base"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::SQLDelete&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_delete"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess::SQLWhereCondition&lt; SQLDelete&lt; ResultType &gt; &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_where_condition"/>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="807" column="1" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="808" bodyend="825"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_s_q_l_base_1aba9311d0ab264cee686f5b45909a07c4" prot="protected" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>_currentBuilder</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a9fee04b1953e779668c25cdd9bdeda8d" prot="protected" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>_queryStream</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a2d80d4c7df26b7fb487610e87c57f014" prot="protected" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>_statementType</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1af6c905de10a010b7aea525d57b353fed" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>And</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1ae88056b675b53556eb337859b112df5a" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>Between</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6b1042754338bd511e2ca9d0f0201b4d" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>getStatementType</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1ab5c076036d6ac3761defd53647e94225" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>In</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1a09d8406259ba23bf78817f4aa0bde4d3" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>In</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1aa3168e6c775846fb80fb9fad099a3faa" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>Like</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a30c597d39d45b4c30a6b817ad9394d2f" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>operator&lt;&lt;</name></member>
+      <member refid="class_data_access_1_1_s_q_l_delete_1af5474cd0dfe9d825716686ef0530a562" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_delete_1a3fbc78e1dfd4b107423fb3e7e248a1a2" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1afbfaf3b449cdca844c3545315f5e7890" prot="public" virt="non-virtual" ambiguityscope="DataAccess::SQLBase::"><scope>DataAccess::SQLDelete</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a992593dadbec2399881fcc14a0a3c47b" prot="public" virt="non-virtual" ambiguityscope="DataAccess::SQLBase::"><scope>DataAccess::SQLDelete</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1ab31a5bb6911024c656b571d2ef58806b" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>Or</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a8e7b49572e3fe99855d7cb26d35ff042" prot="protected" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>privateCheckForLastSymbol</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6de1f009d5bfae63c06e691b8087c75e" prot="protected" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>privateCorrectFormatting</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6444aee735ea7f6174e1669977d83fa8" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>rollback</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6ae75814a65cd9694ac4870deffedc58" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a298ac24cccd355046b6ac9bf98448e84" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a495d8c8ca8ee9b089f290111f5a0cc46" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a58e74cbedb1db27f9f738d841501e9c9" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_delete_1ad9cf5c0d77a41350dc5f47bf89480944" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>SQLDelete</name></member>
+      <member refid="class_data_access_1_1_s_q_l_delete_1a249aef7eb0b5918a7e300c5d490ffb84" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>SQLDelete</name></member>
+      <member refid="class_data_access_1_1_s_q_l_delete_1aa8e4dc98e70fa31b81b8ca032f4955cb" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>SQLDelete</name></member>
+      <member refid="class_data_access_1_1_s_q_l_delete_1aefd2da1ba893ff4b011cfa3d14fd4c3d" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>SQLDelete</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1a146d89de7c30fa9accdb977dd9f91e8d" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>SQLWhereCondition</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1aa9521992047a16b7d9d24219f13c0cf3" prot="public" virt="non-virtual"><scope>DataAccess::SQLDelete</scope><name>Where</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a88f9119149b1285a93929606992b8f99" prot="public" virt="virtual"><scope>DataAccess::SQLDelete</scope><name>~SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_delete_1a3e257b05f59c5d3e1ccd8e2b3c0b937c" prot="public" virt="virtual"><scope>DataAccess::SQLDelete</scope><name>~SQLDelete</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1adfb2b4ebdd0fbff64cd286be3fd2eaf4" prot="public" virt="virtual"><scope>DataAccess::SQLDelete</scope><name>~SQLWhereCondition</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

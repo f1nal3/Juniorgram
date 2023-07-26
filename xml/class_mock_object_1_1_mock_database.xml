@@ -1,0 +1,282 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_mock_object_1_1_mock_database" kind="class" language="C++" prot="public" final="yes">
+    <compoundname>MockObject::MockDatabase</compoundname>
+    <basecompoundref refid="class_data_access_1_1_i_adapter" prot="public" virt="non-virtual">DataAccess::IAdapter</basecompoundref>
+    <includes refid="_mock_database_8hpp" local="no">MockDatabase.hpp</includes>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_mock_object_1_1_mock_database_1a2851af025440a4ef51f161b8bcd89b14" prot="private" static="yes" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="class_mock_object_1_1_mock_database" kindref="compound">MockDatabase</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;MockDatabase&gt; MockObject::MockDatabase::_instance</definition>
+        <argsstring></argsstring>
+        <name>_instance</name>
+        <qualifiedname>MockObject::MockDatabase::_instance</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockDatabase.hpp" line="44" column="35" bodyfile="DataAccess/DataAccess.Mock/MockDatabase.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_mock_object_1_1_mock_database_1a57a29d861e818a7e0d147d003e493d63" prot="private" static="yes" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex MockObject::MockDatabase::_staticMutex</definition>
+        <argsstring></argsstring>
+        <name>_staticMutex</name>
+        <qualifiedname>MockObject::MockDatabase::_staticMutex</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockDatabase.hpp" line="45" column="49" bodyfile="DataAccess/DataAccess.Mock/MockDatabase.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_mock_object_1_1_mock_database_1af33617e8d08e5afc5ff01ed7fdd41563" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="struct_mock_object_1_1_mock_repository_instance" kindref="compound">MockRepositoryInstance</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;MockRepositoryInstance&gt; MockObject::MockDatabase::_connection</definition>
+        <argsstring></argsstring>
+        <name>_connection</name>
+        <qualifiedname>MockObject::MockDatabase::_connection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockDatabase.hpp" line="47" column="25" bodyfile="DataAccess/DataAccess.Mock/MockDatabase.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_mock_object_1_1_mock_database_1a065fc4501832cd2e12a18d60d9c620dd" prot="private" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockDatabase::MockDatabase</definition>
+        <argsstring>(const std::string_view &amp;options)</argsstring>
+        <name>MockDatabase</name>
+        <qualifiedname>MockObject::MockDatabase::MockDatabase</qualifiedname>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>options</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockDatabase.hpp" line="23" column="14" bodyfile="DataAccess/DataAccess.Mock/MockDatabase.hpp" bodystart="23" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mock_object_1_1_mock_database_1aa62b6eab5658fdbb7eb1e11cd27a250c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockDatabase::MockDatabase</definition>
+        <argsstring>(const MockDatabase &amp;other)=delete</argsstring>
+        <name>MockDatabase</name>
+        <qualifiedname>MockObject::MockDatabase::MockDatabase</qualifiedname>
+        <param>
+          <type>const <ref refid="class_mock_object_1_1_mock_database" kindref="compound">MockDatabase</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockDatabase.hpp" line="26" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mock_object_1_1_mock_database_1af1b26b8ec932c2a160e1b24bd4f73ba5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_mock_object_1_1_mock_database" kindref="compound">MockDatabase</ref> &amp;</type>
+        <definition>MockDatabase &amp; MockObject::MockDatabase::operator=</definition>
+        <argsstring>(const MockDatabase &amp;other)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>MockObject::MockDatabase::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="class_mock_object_1_1_mock_database" kindref="compound">MockDatabase</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockDatabase.hpp" line="27" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mock_object_1_1_mock_database_1ac82e45f80a14eb7b9989cfaf8d0edd02" prot="private" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockDatabase::MockDatabase</definition>
+        <argsstring>(MockDatabase &amp;&amp;other) noexcept=delete</argsstring>
+        <name>MockDatabase</name>
+        <qualifiedname>MockObject::MockDatabase::MockDatabase</qualifiedname>
+        <param>
+          <type><ref refid="class_mock_object_1_1_mock_database" kindref="compound">MockDatabase</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockDatabase.hpp" line="29" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mock_object_1_1_mock_database_1a514657a8b7f05d34ce68abf3b9cb73a4" prot="private" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="class_mock_object_1_1_mock_database" kindref="compound">MockDatabase</ref> &amp;</type>
+        <definition>MockDatabase &amp; MockObject::MockDatabase::operator=</definition>
+        <argsstring>(MockDatabase &amp;&amp;other) noexcept=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>MockObject::MockDatabase::operator=</qualifiedname>
+        <param>
+          <type><ref refid="class_mock_object_1_1_mock_database" kindref="compound">MockDatabase</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockDatabase.hpp" line="30" column="18"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_mock_object_1_1_mock_database_1a5a4a708be4a94b9063dae333e504a591" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_mock_object_1_1_mock_database" kindref="compound">MockDatabase</ref> &gt;</type>
+        <definition>static std::shared_ptr&lt; MockDatabase &gt; MockObject::MockDatabase::Instance</definition>
+        <argsstring>(const std::string_view &amp;options)</argsstring>
+        <name>Instance</name>
+        <qualifiedname>MockObject::MockDatabase::Instance</qualifiedname>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>options</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockDatabase.hpp" line="33" column="28"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_mock_object_1_1_mock_database_1ab904eca959a13560951dbb99b2bb68b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::optional&lt; std::any &gt;</type>
+        <definition>std::optional&lt; std::any &gt; MockObject::MockDatabase::query</definition>
+        <argsstring>(const std::string_view &amp;query) override</argsstring>
+        <name>query</name>
+        <qualifiedname>MockObject::MockDatabase::query</qualifiedname>
+        <reimplements refid="class_data_access_1_1_i_adapter_1aa49a912c05ddd502d1a1a05156b3f63d">query</reimplements>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>query</declname>
+        </param>
+        <briefdescription>
+<para>Method for executing SQL queries. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This method use raw SQL query, so it isn`t recommended to use this function, because every type of database has own interface for creating queries. Usage example you can see in <ref refid="_postgre_adapter_8hpp_source" kindref="compound">PostgreAdapter.hpp</ref>. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockDatabase.hpp" line="35" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mock_object_1_1_mock_database_1ad6fda9c944bbf2013ed270673c5b3f42" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool MockObject::MockDatabase::isConnected</definition>
+        <argsstring>() const override</argsstring>
+        <name>isConnected</name>
+        <qualifiedname>MockObject::MockDatabase::isConnected</qualifiedname>
+        <reimplements refid="class_data_access_1_1_i_adapter_1a12530850dcd116116accd6168b199376">isConnected</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockDatabase.hpp" line="37" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mock_object_1_1_mock_database_1ad4d787ab7c177097b3ab48408d49e96d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void MockObject::MockDatabase::closeConnection</definition>
+        <argsstring>() override</argsstring>
+        <name>closeConnection</name>
+        <qualifiedname>MockObject::MockDatabase::closeConnection</qualifiedname>
+        <reimplements refid="class_data_access_1_1_i_adapter_1a9025dabaecb816d9ee546c91756aba59">closeConnection</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockDatabase.hpp" line="39" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mock_object_1_1_mock_database_1abbf945ffee6008f3dffd893d9dab9f60" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockDatabase::~MockDatabase</definition>
+        <argsstring>() override</argsstring>
+        <name>~MockDatabase</name>
+        <qualifiedname>MockObject::MockDatabase::~MockDatabase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockDatabase.hpp" line="41" column="5" bodyfile="DataAccess/DataAccess.Mock/MockDatabase.hpp" bodystart="41" bodyend="41"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>class <ref refid="class_mock_object_1_1_mock_database" kindref="compound">MockDatabase</ref>. @detail This is a thread safe singleton. Inherited from IAdapter class - The abstract class controls / the connection to the mock database. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>DataAccess::IAdapter</label>
+        <link refid="class_data_access_1_1_i_adapter"/>
+      </node>
+      <node id="1">
+        <label>MockObject::MockDatabase</label>
+        <link refid="class_mock_object_1_1_mock_database"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>DataAccess::IAdapter</label>
+        <link refid="class_data_access_1_1_i_adapter"/>
+      </node>
+      <node id="1">
+        <label>MockObject::MockDatabase</label>
+        <link refid="class_mock_object_1_1_mock_database"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Mock/MockDatabase.hpp" line="20" column="1" bodyfile="DataAccess/DataAccess.Mock/MockDatabase.hpp" bodystart="21" bodyend="48"/>
+    <listofallmembers>
+      <member refid="class_mock_object_1_1_mock_database_1af33617e8d08e5afc5ff01ed7fdd41563" prot="private" virt="non-virtual"><scope>MockObject::MockDatabase</scope><name>_connection</name></member>
+      <member refid="class_mock_object_1_1_mock_database_1a2851af025440a4ef51f161b8bcd89b14" prot="private" virt="non-virtual"><scope>MockObject::MockDatabase</scope><name>_instance</name></member>
+      <member refid="class_mock_object_1_1_mock_database_1a57a29d861e818a7e0d147d003e493d63" prot="private" virt="non-virtual"><scope>MockObject::MockDatabase</scope><name>_staticMutex</name></member>
+      <member refid="class_mock_object_1_1_mock_database_1ad4d787ab7c177097b3ab48408d49e96d" prot="public" virt="virtual"><scope>MockObject::MockDatabase</scope><name>closeConnection</name></member>
+      <member refid="class_data_access_1_1_i_adapter_1aad3b189624e653c7917361c978b98d90" prot="public" virt="non-virtual"><scope>MockObject::MockDatabase</scope><name>getInstance</name></member>
+      <member refid="class_mock_object_1_1_mock_database_1a5a4a708be4a94b9063dae333e504a591" prot="public" virt="non-virtual"><scope>MockObject::MockDatabase</scope><name>Instance</name></member>
+      <member refid="class_mock_object_1_1_mock_database_1ad6fda9c944bbf2013ed270673c5b3f42" prot="public" virt="virtual"><scope>MockObject::MockDatabase</scope><name>isConnected</name></member>
+      <member refid="class_mock_object_1_1_mock_database_1a065fc4501832cd2e12a18d60d9c620dd" prot="private" virt="non-virtual"><scope>MockObject::MockDatabase</scope><name>MockDatabase</name></member>
+      <member refid="class_mock_object_1_1_mock_database_1aa62b6eab5658fdbb7eb1e11cd27a250c" prot="private" virt="non-virtual"><scope>MockObject::MockDatabase</scope><name>MockDatabase</name></member>
+      <member refid="class_mock_object_1_1_mock_database_1ac82e45f80a14eb7b9989cfaf8d0edd02" prot="private" virt="non-virtual"><scope>MockObject::MockDatabase</scope><name>MockDatabase</name></member>
+      <member refid="class_mock_object_1_1_mock_database_1af1b26b8ec932c2a160e1b24bd4f73ba5" prot="private" virt="non-virtual"><scope>MockObject::MockDatabase</scope><name>operator=</name></member>
+      <member refid="class_mock_object_1_1_mock_database_1a514657a8b7f05d34ce68abf3b9cb73a4" prot="private" virt="non-virtual"><scope>MockObject::MockDatabase</scope><name>operator=</name></member>
+      <member refid="class_mock_object_1_1_mock_database_1ab904eca959a13560951dbb99b2bb68b1" prot="public" virt="virtual"><scope>MockObject::MockDatabase</scope><name>query</name></member>
+      <member refid="class_data_access_1_1_i_adapter_1ac7d7587c1cf683508d2ce26d66a91731" prot="public" virt="virtual"><scope>MockObject::MockDatabase</scope><name>~IAdapter</name></member>
+      <member refid="class_mock_object_1_1_mock_database_1abbf945ffee6008f3dffd893d9dab9f60" prot="public" virt="non-virtual"><scope>MockObject::MockDatabase</scope><name>~MockDatabase</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_base_1_1_crypto" kind="namespace" language="C++">
+    <compoundname>Base::Crypto</compoundname>
+    <innerclass refid="struct_base_1_1_crypto_1_1_a_e_s_cipher" prot="public">Base::Crypto::AESCipher</innerclass>
+    <innerclass refid="struct_base_1_1_crypto_1_1_a_e_s_factory" prot="public">Base::Crypto::AESFactory</innerclass>
+    <innerclass refid="struct_base_1_1_crypto_1_1_i_cipher" prot="public">Base::Crypto::ICipher</innerclass>
+    <innerclass refid="struct_base_1_1_crypto_1_1_i_ciphers_factory" prot="public">Base::Crypto::ICiphersFactory</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Base/Crypto/Crypto.Static/Cryptography.hpp" line="10" column="1"/>
+  </compounddef>
+</doxygen>

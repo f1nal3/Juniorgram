@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="md__docs_2_getting_01_started" kind="page">
+    <compoundname>md__docs_2_getting_01_started</compoundname>
+    <title>Getting Started</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>There are a few steps to get up and running on own system:</para>
+<sect3 id="md__docs_2_getting_01_started_1autotoc_md3">
+<title>1. Software dependencies</title>
+<para><ulink url="https://conan.io/index.html">Conan</ulink></para>
+<para>This is an open source, decentralized and multi-platform package manager for C/C++.</para>
+<para>Recommended install:</para>
+<para><orderedlist>
+<listitem><para>Install Python:<itemizedlist>
+<listitem><para>Windows: <ulink url="https://www.python.org/ftp/python/3.8.7/python-3.8.7-amd64.exe">Python 3.8.7.exe</ulink></para>
+</listitem><listitem><para>Linux: <computeroutput>$ sudo apt-get update</computeroutput> <computeroutput>$ sudo apt-get install python3.8</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>Install Conan:<itemizedlist>
+<listitem><para>Windows/Linux: <computeroutput>$ pip install conan</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+</listitem></orderedlist>
+</para>
+<para><ulink url="https://cmake.org">CMake</ulink></para>
+<para>CMake is a cross-platform, open-source build system generator.</para>
+<para>Install CMake:</para>
+<para><itemizedlist>
+<listitem><para>Windows: <ulink url="https://github.com/Kitware/CMake/releases/download/v3.19.3/cmake-3.19.3-win32-x86.msi">cmake-3.19.3-win64-x64.msi</ulink></para>
+</listitem><listitem><para>Linux: <ulink url="https://github.com/Kitware/CMake/releases/download/v3.19.3/cmake-3.19.3-Linux-x86_64.sh">cmake-3.19.3-Linux-x86_64.sh</ulink></para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+<sect3 id="md__docs_2_getting_01_started_1autotoc_md4">
+<title>2. Installation process</title>
+</sect3>
+<sect1 id="md__docs_2_getting_01_started_1autotoc_md5">
+<title>Windows:</title>
+</sect1>
+<sect1 id="md__docs_2_getting_01_started_1autotoc_md6">
+<title>Visual Studio 2019/2022:</title>
+<para><orderedlist>
+<listitem><para>Clone this repository or download as Zip from Github.</para>
+</listitem><listitem><para>Run Visual Studio and open this repository as folder. It will automatically detect the root CMakeLists.txt and execute it, after which you can start/debug the server and client sides.</para>
+</listitem></orderedlist>
+</para>
+</sect1>
+<sect1 id="md__docs_2_getting_01_started_1autotoc_md7">
+<title>Linux:</title>
+<para><bold>Visual Code</bold>:</para>
+<para><orderedlist>
+<listitem><para>Clone this repository or download as Zip from Github.</para>
+</listitem><listitem><para>Run VS Code and open the root CMakeLists.txt. It will automatically detect the root CMakeLists.txt and execute it, after which you can start/debug the server and client sides.</para>
+</listitem></orderedlist>
+</para>
+<sect3 id="md__docs_2_getting_01_started_1autotoc_md8">
+<title>3. Workflows and guides</title>
+<para><orderedlist>
+<listitem><para><ref refid="md__docs_2_workflow" kindref="compound">Workflow</ref></para>
+</listitem><listitem><para><ref refid="md__docs_2_style__guide" kindref="compound">Style guide</ref></para>
+</listitem></orderedlist>
+</para>
+</sect3>
+<sect3 id="md__docs_2_getting_01_started_1autotoc_md9">
+<title>4. Various</title>
+<para><orderedlist>
+<listitem><para><ref refid="md__docs_2_setup_01server_01on_01localhost" kindref="compound">Local server setup</ref></para>
+</listitem><listitem><para><ref refid="md__docs_2_improved_01debugging" kindref="compound">Debugging</ref> </para>
+</listitem></orderedlist>
+</para>
+</sect3>
+</sect1>
+    </detaileddescription>
+    <location file="Docs/Getting Started.md"/>
+  </compounddef>
+</doxygen>

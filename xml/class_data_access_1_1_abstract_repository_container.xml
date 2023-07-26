@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_data_access_1_1_abstract_repository_container" kind="class" language="C++" prot="public">
+    <compoundname>DataAccess::AbstractRepositoryContainer</compoundname>
+    <derivedcompoundref refid="class_data_access_1_1_postgre_repository_container" prot="public" virt="non-virtual">DataAccess::PostgreRepositoryContainer</derivedcompoundref>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="class_data_access_1_1_abstract_repository_container_1a107eb6748a704080d54424a0b8260e83" prot="public" static="no">
+        <type>std::string</type>
+        <definition>using DataAccess::AbstractRepositoryContainer::RealType =  std::string</definition>
+        <argsstring></argsstring>
+        <name>RealType</name>
+        <qualifiedname>DataAccess::AbstractRepositoryContainer::RealType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp" line="26" column="5" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="class_data_access_1_1_abstract_repository_container_1a68ff1d3fa3ac17da0b465c68d8c67449" prot="public" static="no">
+        <type>std::shared_ptr&lt; <ref refid="struct_data_access_1_1_i_master_repository" kindref="compound">IMasterRepository</ref> &gt;</type>
+        <definition>using DataAccess::AbstractRepositoryContainer::IType =  std::shared_ptr&lt;IMasterRepository&gt;</definition>
+        <argsstring></argsstring>
+        <name>IType</name>
+        <qualifiedname>DataAccess::AbstractRepositoryContainer::IType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp" line="27" column="5" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_data_access_1_1_abstract_repository_container_1a00e9dc46b7ecc308e25e0ff7fc740e3c" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;IAdapter&gt; DataAccess::AbstractRepositoryContainer::_adapter</definition>
+        <argsstring></argsstring>
+        <name>_adapter</name>
+        <qualifiedname>DataAccess::AbstractRepositoryContainer::_adapter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp" line="70" column="21" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_data_access_1_1_abstract_repository_container_1a7e418163f8162de868fb8afa82fbbf69" prot="private" static="no" mutable="no">
+        <type>std::map&lt; RealType, IType &gt;</type>
+        <definition>std::map&lt;RealType, IType&gt; DataAccess::AbstractRepositoryContainer::_container</definition>
+        <argsstring></argsstring>
+        <name>_container</name>
+        <qualifiedname>DataAccess::AbstractRepositoryContainer::_container</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp" line="71" column="14" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_data_access_1_1_abstract_repository_container_1add5e7ed7307e8cb7b741f48c839f2234" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::AbstractRepositoryContainer::AbstractRepositoryContainer</definition>
+        <argsstring>(std::shared_ptr&lt; IAdapter &gt; adapter)</argsstring>
+        <name>AbstractRepositoryContainer</name>
+        <qualifiedname>DataAccess::AbstractRepositoryContainer::AbstractRepositoryContainer</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt;</type>
+          <declname>adapter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp" line="29" column="14" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp" bodystart="29" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_repository_container_1a191aad8880c45b7dbb4aedf0560a5ab6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename TInterface</type>
+          </param>
+          <param>
+            <type>typename TRepository</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void DataAccess::AbstractRepositoryContainer::registerRepository</definition>
+        <argsstring>()</argsstring>
+        <name>registerRepository</name>
+        <qualifiedname>DataAccess::AbstractRepositoryContainer::registerRepository</qualifiedname>
+        <briefdescription>
+<para>Method for register new repositories. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="warning"><para>You should pass, firstly, an interface and after an implementation of this repository </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp" line="37" column="10" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp" bodystart="37" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_repository_container_1a3a619e1bd2fb0647b3987908192c15e4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename TInterface</type>
+          </param>
+        </templateparamlist>
+        <type>std::shared_ptr&lt; TInterface &gt;</type>
+        <definition>std::shared_ptr&lt; TInterface &gt; DataAccess::AbstractRepositoryContainer::getRepository</definition>
+        <argsstring>()</argsstring>
+        <name>getRepository</name>
+        <qualifiedname>DataAccess::AbstractRepositoryContainer::getRepository</qualifiedname>
+        <briefdescription>
+<para>Method for get a repositories. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="warning"><para>You should pass an interface </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp" line="57" column="21" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp" bodystart="57" bodyend="67"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>DataAccess::AbstractRepositoryContainer</label>
+        <link refid="class_data_access_1_1_abstract_repository_container"/>
+      </node>
+      <node id="2">
+        <label>DataAccess::PostgreRepositoryContainer</label>
+        <link refid="class_data_access_1_1_postgre_repository_container"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp" line="23" column="1" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp" bodystart="24" bodyend="72"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_abstract_repository_container_1a00e9dc46b7ecc308e25e0ff7fc740e3c" prot="private" virt="non-virtual"><scope>DataAccess::AbstractRepositoryContainer</scope><name>_adapter</name></member>
+      <member refid="class_data_access_1_1_abstract_repository_container_1a7e418163f8162de868fb8afa82fbbf69" prot="private" virt="non-virtual"><scope>DataAccess::AbstractRepositoryContainer</scope><name>_container</name></member>
+      <member refid="class_data_access_1_1_abstract_repository_container_1add5e7ed7307e8cb7b741f48c839f2234" prot="public" virt="non-virtual"><scope>DataAccess::AbstractRepositoryContainer</scope><name>AbstractRepositoryContainer</name></member>
+      <member refid="class_data_access_1_1_abstract_repository_container_1a3a619e1bd2fb0647b3987908192c15e4" prot="public" virt="non-virtual"><scope>DataAccess::AbstractRepositoryContainer</scope><name>getRepository</name></member>
+      <member refid="class_data_access_1_1_abstract_repository_container_1a68ff1d3fa3ac17da0b465c68d8c67449" prot="public" virt="non-virtual"><scope>DataAccess::AbstractRepositoryContainer</scope><name>IType</name></member>
+      <member refid="class_data_access_1_1_abstract_repository_container_1a107eb6748a704080d54424a0b8260e83" prot="public" virt="non-virtual"><scope>DataAccess::AbstractRepositoryContainer</scope><name>RealType</name></member>
+      <member refid="class_data_access_1_1_abstract_repository_container_1a191aad8880c45b7dbb4aedf0560a5ab6" prot="public" virt="non-virtual"><scope>DataAccess::AbstractRepositoryContainer</scope><name>registerRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

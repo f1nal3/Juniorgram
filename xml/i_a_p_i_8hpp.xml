@@ -1,0 +1,484 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="i_a_p_i_8hpp" kind="file" language="C++">
+    <compoundname>iAPI.hpp</compoundname>
+    <includes local="no">memory</includes>
+    <includes refid="_connection_8hpp" local="yes">Network/Connection.hpp</includes>
+    <includes refid="_message_8hpp" local="yes">Network/Message.hpp</includes>
+    <includes refid="_safe_queue_8hpp" local="yes">Utility/SafeQueue.hpp</includes>
+    <includedby refid="_server_8hpp" local="yes">Server/Server.Core/Server.Core.Static/Server.hpp</includedby>
+    <incdepgraph>
+      <node id="33">
+        <label>FileLogger.hpp</label>
+        <link refid="_file_logger_8hpp_source"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>Logger/ILogger.hpp</label>
+        <link refid="_i_logger_8hpp_source"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>Models/Primitives.hpp</label>
+        <link refid="_primitives_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>CombiningHandlers.hpp</label>
+        <link refid="_combining_handlers_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>Network/CompressionHandler.hpp</label>
+        <link refid="_compression_handler_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Network/Connection.hpp</label>
+        <link refid="_connection_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>Network/EncryptionHandler.hpp</label>
+        <link refid="_encryption_handler_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>Handler.hpp</label>
+        <link refid="_handler_8hpp_source"/>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>Network/Message.hpp</label>
+        <link refid="_message_8hpp_source"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>Network/SerializationHandler.hpp</label>
+        <link refid="_serialization_handler_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>Network/YasSerializer.hpp</label>
+        <link refid="_yas_serializer_8hpp_source"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Network/Public/Include/Network/iAPI.hpp</label>
+        <link refid="i_a_p_i_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Utility/SafeQueue.hpp</label>
+        <link refid="_safe_queue_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>Utility/Utility.hpp</label>
+        <link refid="_utility_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>Utility/UtilityTime.hpp</label>
+        <link refid="_utility_time_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>Utility/WarningSuppression.hpp</label>
+        <link refid="_warning_suppression_8hpp_source"/>
+      </node>
+      <node id="14">
+        <label>algorithm</label>
+      </node>
+      <node id="46">
+        <label>any</label>
+      </node>
+      <node id="4">
+        <label>asio.hpp</label>
+      </node>
+      <node id="16">
+        <label>cctype</label>
+      </node>
+      <node id="5">
+        <label>chrono</label>
+      </node>
+      <node id="9">
+        <label>condition_variable</label>
+      </node>
+      <node id="39">
+        <label>cstdint</label>
+      </node>
+      <node id="47">
+        <label>cstdlib</label>
+      </node>
+      <node id="40">
+        <label>cstring</label>
+      </node>
+      <node id="17">
+        <label>ctime</label>
+      </node>
+      <node id="10">
+        <label>deque</label>
+      </node>
+      <node id="19">
+        <label>filesystem</label>
+      </node>
+      <node id="36">
+        <label>fstream</label>
+      </node>
+      <node id="6">
+        <label>functional</label>
+      </node>
+      <node id="44">
+        <label>iomanip</label>
+      </node>
+      <node id="7">
+        <label>iostream</label>
+      </node>
+      <node id="41">
+        <label>map</label>
+      </node>
+      <node id="2">
+        <label>memory</label>
+      </node>
+      <node id="11">
+        <label>mutex</label>
+      </node>
+      <node id="37">
+        <label>queue</label>
+      </node>
+      <node id="35">
+        <label>sstream</label>
+      </node>
+      <node id="15">
+        <label>string</label>
+      </node>
+      <node id="12">
+        <label>thread</label>
+      </node>
+      <node id="18">
+        <label>type_traits</label>
+      </node>
+      <node id="42">
+        <label>vector</label>
+      </node>
+      <node id="24">
+        <label>yas/binary_iarchive.hpp</label>
+      </node>
+      <node id="25">
+        <label>yas/binary_oarchive.hpp</label>
+      </node>
+      <node id="26">
+        <label>yas/buffers.hpp</label>
+      </node>
+      <node id="27">
+        <label>yas/mem_streams.hpp</label>
+      </node>
+      <node id="28">
+        <label>yas/object.hpp</label>
+      </node>
+      <node id="29">
+        <label>yas/serialize.hpp</label>
+      </node>
+      <node id="30">
+        <label>yas/std_types.hpp</label>
+      </node>
+      <node id="31">
+        <label>yas/types/std/string.hpp</label>
+      </node>
+      <node id="32">
+        <label>yas/types/std/vector.hpp</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>Network/Public/Include/Network/iAPI.hpp</label>
+        <link refid="i_a_p_i_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Server/Server.Core/Server.Core.Static/Server.hpp</label>
+        <link refid="_server_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Server/Server.Core/Server.Core.Static/ServerBuilder.hpp</label>
+        <link refid="_server_builder_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_network_1_1i_a_p_i" prot="public">Network::iAPI</innerclass>
+    <innernamespace refid="namespace_network">Network</innernamespace>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="i_a_p_i_8hpp_1afdcd6fea51cdc48a95c7ad35487a3cfb" prot="public" static="no">
+        <name>APPLY_API_METHODS</name>
+        <initializer>            std::optional&lt;Network::MessageResult&gt; messageClient                  (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection,   const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; messageAllClients              (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; exceptionConnection,const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; checkServerPing                (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection,   const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; readAllMessage                 (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection,   const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; messageHistoryRequest          (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection,   const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; messageStoreRequest            (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection,   const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; replyHistoryRequest            (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection,   const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; replyStoreRequest              (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection,   const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; messageDeleteRequest           (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection,   const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; messageEditRequest             (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection,   const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; messageReactionRequest         (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection,   const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; registrationRequest            (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection,   const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; loginRequest                   (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection,   const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; channelLeaveRequest            (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection,   const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; channelSubscribeRequest        (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection,   const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; channelDeleteRequest           (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection,   const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; channelCreateRequest           (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection,   const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; directMessageCreateRequest     (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection,   const Message&amp; message) const override;   \
+            std::optional&lt;Network::MessageResult&gt; channelListRequest             (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection) const override;                           \
+            std::optional&lt;Network::MessageResult&gt; channelSubscriptionListRequest (std::shared_ptr&lt;<ref refid="class_network_1_1_connection" kindref="compound">Network::Connection</ref>&gt; clientConnection) const override;                           \
+            std::optional&lt;Network::MessageResult&gt; defaultRequest() const override;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/iAPI.hpp" line="7" column="9" bodyfile="Network/Public/Include/Network/iAPI.hpp" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Network/Connection.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Network/Message.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Utility/SafeQueue.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>APPLY_API_METHODS<sp/>\</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>messageClient<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection,<sp/><sp/><sp/>const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>messageAllClients<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>exceptionConnection,const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>checkServerPing<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection,<sp/><sp/><sp/>const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>readAllMessage<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection,<sp/><sp/><sp/>const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>messageHistoryRequest<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection,<sp/><sp/><sp/>const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>messageStoreRequest<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection,<sp/><sp/><sp/>const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>replyHistoryRequest<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection,<sp/><sp/><sp/>const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>replyStoreRequest<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection,<sp/><sp/><sp/>const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>messageDeleteRequest<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection,<sp/><sp/><sp/>const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>messageEditRequest<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection,<sp/><sp/><sp/>const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>messageReactionRequest<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection,<sp/><sp/><sp/>const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>registrationRequest<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection,<sp/><sp/><sp/>const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>loginRequest<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection,<sp/><sp/><sp/>const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>channelLeaveRequest<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection,<sp/><sp/><sp/>const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>channelSubscribeRequest<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection,<sp/><sp/><sp/>const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>channelDeleteRequest<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection,<sp/><sp/><sp/>const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>channelCreateRequest<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection,<sp/><sp/><sp/>const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>directMessageCreateRequest<sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection,<sp/><sp/><sp/>const<sp/>Message&amp;<sp/>message)<sp/>const<sp/>override;<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>channelListRequest<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection)<sp/>const<sp/>override;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>channelSubscriptionListRequest<sp/>(std::shared_ptr&lt;Network::Connection&gt;<sp/>clientConnection)<sp/>const<sp/>override;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::optional&lt;Network::MessageResult&gt;<sp/>defaultRequest()<sp/>const<sp/>override;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">Network</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="32" refid="class_network_1_1i_a_p_i" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_network_1_1i_a_p_i" kindref="compound">iAPI</ref></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="39" refid="class_network_1_1i_a_p_i_1aed9a0f5ce10bbeb1351c0633f5782701" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1aed9a0f5ce10bbeb1351c0633f5782701" kindref="member">messageClient</ref>(std::shared_ptr&lt;Connection&gt;<sp/>clientConnection,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="class_network_1_1i_a_p_i_1a4b5007b4816dc33164fa98805de71419" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1a4b5007b4816dc33164fa98805de71419" kindref="member">messageAllClients</ref>(std::shared_ptr&lt;Connection&gt;<sp/>exceptionConnection,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="class_network_1_1i_a_p_i_1af24582a286af71a8eacba36726398367" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1af24582a286af71a8eacba36726398367" kindref="member">checkServerPing</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="class_network_1_1i_a_p_i_1ad9eff1dc9c7857819c62a2074eeb48ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1ad9eff1dc9c7857819c62a2074eeb48ea" kindref="member">readAllMessage</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="class_network_1_1i_a_p_i_1a21e463443cf817b027ba4942d60aaf14" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1a21e463443cf817b027ba4942d60aaf14" kindref="member">channelListRequest</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="class_network_1_1i_a_p_i_1a93d6a170b5d4653cb1e9779f6bfa8072" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1a93d6a170b5d4653cb1e9779f6bfa8072" kindref="member">messageHistoryRequest</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79" refid="class_network_1_1i_a_p_i_1a76678ec2632fd05ee1c06aaa0935c55d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1a76678ec2632fd05ee1c06aaa0935c55d" kindref="member">messageStoreRequest</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86" refid="class_network_1_1i_a_p_i_1a1a24cd0912abfec16da5f3c346cacebc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1a1a24cd0912abfec16da5f3c346cacebc" kindref="member">replyHistoryRequest</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93" refid="class_network_1_1i_a_p_i_1a22de7cc4357c7aae81e52e1500dc7336" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1a22de7cc4357c7aae81e52e1500dc7336" kindref="member">replyStoreRequest</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100" refid="class_network_1_1i_a_p_i_1a297367a02c0325f7fd5f0c51a2e964c7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1a297367a02c0325f7fd5f0c51a2e964c7" kindref="member">messageDeleteRequest</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107" refid="class_network_1_1i_a_p_i_1adbfe8578fa2f9fa1c974bbf4c327e05a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1adbfe8578fa2f9fa1c974bbf4c327e05a" kindref="member">messageEditRequest</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114" refid="class_network_1_1i_a_p_i_1a15356321c5f03368adbdb31206cc64e9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1a15356321c5f03368adbdb31206cc64e9" kindref="member">messageReactionRequest</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121" refid="class_network_1_1i_a_p_i_1aa7482114ef4ff6eab5e1fc68d35aad23" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1aa7482114ef4ff6eab5e1fc68d35aad23" kindref="member">registrationRequest</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128" refid="class_network_1_1i_a_p_i_1ad011402f5be6dc6e70d12aed8b77c607" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1ad011402f5be6dc6e70d12aed8b77c607" kindref="member">loginRequest</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135" refid="class_network_1_1i_a_p_i_1abb05009a87b33e03b4b3a181605b1700" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1abb05009a87b33e03b4b3a181605b1700" kindref="member">channelLeaveRequest</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142" refid="class_network_1_1i_a_p_i_1ab1620a7f8e1490daa129e1dca4135f1b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1ab1620a7f8e1490daa129e1dca4135f1b" kindref="member">channelSubscribeRequest</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148" refid="class_network_1_1i_a_p_i_1a323705e801970f8c03d694bb909497d3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1a323705e801970f8c03d694bb909497d3" kindref="member">channelSubscriptionListRequest</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155" refid="class_network_1_1i_a_p_i_1a33380e32ebd7d85a307bc8b26b2c28b6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1a33380e32ebd7d85a307bc8b26b2c28b6" kindref="member">channelDeleteRequest</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162" refid="class_network_1_1i_a_p_i_1a09661ee066bdf7b8fea61cc85454d387" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1a09661ee066bdf7b8fea61cc85454d387" kindref="member">channelCreateRequest</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169" refid="class_network_1_1i_a_p_i_1afff45903aef7e97569f21deb6ae7c834" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1afff45903aef7e97569f21deb6ae7c834" kindref="member">directMessageCreateRequest</ref>(std::shared_ptr&lt;Connection&gt;<sp/>client,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_network_1_1_message" kindref="compound">Message</ref>&amp;<sp/>message)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174" refid="class_network_1_1i_a_p_i_1a3d56453db22b55a0b366a6ee636ca7d0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::optional&lt;MessageResult&gt;<sp/><ref refid="class_network_1_1i_a_p_i_1a3d56453db22b55a0b366a6ee636ca7d0" kindref="member">defaultRequest</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_network_1_1i_a_p_i" kindref="compound">~iAPI</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="178"><highlight class="normal">}<sp/></highlight></codeline>
+    </programlisting>
+    <location file="Network/Public/Include/Network/iAPI.hpp"/>
+  </compounddef>
+</doxygen>

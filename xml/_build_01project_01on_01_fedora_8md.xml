@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_build_01project_01on_01_fedora_8md" kind="file" language="Markdown">
+    <compoundname>Build project on Fedora.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>To<sp/>build<sp/>via<sp/>docker:<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Install:<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">-<sp/>[docker](https://www.docker.com/get-started)<sp/></highlight></codeline>
+<codeline><highlight class="normal">-<sp/>[docker-compose](https://docs.docker.com/compose/install/)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Inside<sp/>container:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```sh</highlight></codeline>
+<codeline><highlight class="normal">docker-compose<sp/>run<sp/>shell</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>initial<sp/>setup</highlight></codeline>
+<codeline><highlight class="normal">rm<sp/>-rf<sp/>./build<sp/>&amp;&amp;<sp/>mkdir<sp/>build<sp/>&amp;&amp;<sp/>cd<sp/>./build<sp/>&amp;&amp;<sp/>cmake<sp/>..<sp/>-DCMAKE_BUILD_TYPE=Release</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>rebuild<sp/>changes</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>--build<sp/>.</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">In<sp/>the<sp/>host<sp/>system:</highlight></codeline>
+<codeline><highlight class="normal">```sh</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>Run<sp/>GUI<sp/>client:</highlight></codeline>
+<codeline><highlight class="normal">./build/bin/Client.**</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+    </programlisting>
+    <location file="Docs/Legacy/Build project on Fedora.md"/>
+  </compounddef>
+</doxygen>

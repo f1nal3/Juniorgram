@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_data_access_1_1_future_result" kind="struct" language="C++" prot="public">
+    <compoundname>DataAccess::FutureResult</compoundname>
+    <includes refid="_future_result_8hpp" local="no">FutureResult.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename TFromAny</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="struct_data_access_1_1_future_result_1a5107c449b829f97df4457657673c8d0f" prot="private" static="no" mutable="no">
+        <type>RawFuture</type>
+        <definition>RawFuture DataAccess::FutureResult&lt; TFromAny &gt;::_future</definition>
+        <argsstring></argsstring>
+        <name>_future</name>
+        <qualifiedname>DataAccess::FutureResult::_future</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/FutureResult.hpp" line="18" column="19" bodyfile="DataAccess/Public/Include/DataAccess/FutureResult.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_data_access_1_1_future_result_1a3f0a3debd86755d60022b15e3ca0c878" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::FutureResult&lt; TFromAny &gt;::FutureResult</definition>
+        <argsstring>(RawFuture &amp;&amp;future)</argsstring>
+        <name>FutureResult</name>
+        <qualifiedname>DataAccess::FutureResult::FutureResult</qualifiedname>
+        <param>
+          <type>RawFuture &amp;&amp;</type>
+          <declname>future</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/FutureResult.hpp" line="21" column="18" bodyfile="DataAccess/Public/Include/DataAccess/FutureResult.hpp" bodystart="21" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_future_result_1adec6393ff1b0e5145ed7f3055057a5f0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>TFromAny</type>
+        <definition>TFromAny DataAccess::FutureResult&lt; TFromAny &gt;::get</definition>
+        <argsstring>()</argsstring>
+        <name>get</name>
+        <qualifiedname>DataAccess::FutureResult::get</qualifiedname>
+        <briefdescription>
+<para>Like common std::future::get(). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The difference is that returns not a raw data (any). <simplesect kind="return"><para>Already known type value. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/FutureResult.hpp" line="28" column="18" bodyfile="DataAccess/Public/Include/DataAccess/FutureResult.hpp" bodystart="28" bodyend="30"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Custom future. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Uses like common wrapper for std::future. </para>
+    </detaileddescription>
+    <location file="DataAccess/Public/Include/DataAccess/FutureResult.hpp" line="15" column="5" bodyfile="DataAccess/Public/Include/DataAccess/FutureResult.hpp" bodystart="16" bodyend="31"/>
+    <listofallmembers>
+      <member refid="struct_data_access_1_1_future_result_1a5107c449b829f97df4457657673c8d0f" prot="private" virt="non-virtual"><scope>DataAccess::FutureResult</scope><name>_future</name></member>
+      <member refid="struct_data_access_1_1_future_result_1a3f0a3debd86755d60022b15e3ca0c878" prot="public" virt="non-virtual"><scope>DataAccess::FutureResult</scope><name>FutureResult</name></member>
+      <member refid="struct_data_access_1_1_future_result_1adec6393ff1b0e5145ed7f3055057a5f0" prot="public" virt="non-virtual"><scope>DataAccess::FutureResult</scope><name>get</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

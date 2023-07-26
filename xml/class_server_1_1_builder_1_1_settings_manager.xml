@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_server_1_1_builder_1_1_settings_manager" kind="class" language="C++" prot="public">
+    <compoundname>Server::Builder::SettingsManager</compoundname>
+    <includes refid="_settings_manager_8hpp" local="no">SettingsManager.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_server_1_1_builder_1_1_settings_manager_1aa5cbe08071eb11eb9c77a89299b9699c" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_server_1_1_builder_1_1_settings" kindref="compound">Settings</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;Settings&gt; Server::Builder::SettingsManager::_settings</definition>
+        <argsstring></argsstring>
+        <name>_settings</name>
+        <qualifiedname>Server::Builder::SettingsManager::_settings</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/SettingsManager.hpp" line="55" column="21" bodyfile="Server/Server.Core/Server.Core.Static/SettingsManager.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_server_1_1_builder_1_1_settings_manager_1aaeb98410cc1acde6dfbae10f6e322484" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Server::Builder::SettingsManager::SettingsManager</definition>
+        <argsstring>()=default</argsstring>
+        <name>SettingsManager</name>
+        <qualifiedname>Server::Builder::SettingsManager::SettingsManager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/SettingsManager.hpp" line="16" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_builder_1_1_settings_manager_1a59203b1e8f2cec5e0dcd008088f6283a" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Server::Builder::SettingsManager::SettingsManager</definition>
+        <argsstring>(std::unique_ptr&lt; Settings &gt; settings)</argsstring>
+        <name>SettingsManager</name>
+        <qualifiedname>Server::Builder::SettingsManager::SettingsManager</qualifiedname>
+        <param>
+          <type>std::unique_ptr&lt; <ref refid="class_server_1_1_builder_1_1_settings" kindref="compound">Settings</ref> &gt;</type>
+          <declname>settings</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/SettingsManager.hpp" line="18" column="14" bodyfile="Server/Server.Core/Server.Core.Static/SettingsManager.hpp" bodystart="18" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_builder_1_1_settings_manager_1a9161d02b9eee5944e3cb991cf2e329cf" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Server::Builder::SettingsManager::SettingsManager</definition>
+        <argsstring>(const ArgParser &amp;parser)</argsstring>
+        <name>SettingsManager</name>
+        <qualifiedname>Server::Builder::SettingsManager::SettingsManager</qualifiedname>
+        <param>
+          <type>const <ref refid="class_arg_parser" kindref="compound">ArgParser</ref> &amp;</type>
+          <declname>parser</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/SettingsManager.hpp" line="20" column="14" bodyfile="Server/Server.Core/Server.Core.Static/SettingsManager.hpp" bodystart="20" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_builder_1_1_settings_manager_1a6684bcbc6ab18e6d7e35e2101ffa7362" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Server::Builder::SettingsManager::reset</definition>
+        <argsstring>(std::unique_ptr&lt; Settings &gt; settings)</argsstring>
+        <name>reset</name>
+        <qualifiedname>Server::Builder::SettingsManager::reset</qualifiedname>
+        <param>
+          <type>std::unique_ptr&lt; <ref refid="class_server_1_1_builder_1_1_settings" kindref="compound">Settings</ref> &gt;</type>
+          <declname>settings</declname>
+        </param>
+        <briefdescription>
+<para>Method to set new <ref refid="class_server_1_1_builder_1_1_settings" kindref="compound">Settings</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets a new collection of the parameters. Note: Changes the owner of the argument resource <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>std::unique_ptr&lt;Settings&gt;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>settings </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/SettingsManager.hpp" line="28" column="10" bodyfile="Server/Server.Core/Server.Core.Static/SettingsManager.hpp" bodystart="28" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_builder_1_1_settings_manager_1ae55fa5ce5caffe7bcaa3ed7a7215ad40" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string Server::Builder::SettingsManager::getConnectionOptions</definition>
+        <argsstring>() const</argsstring>
+        <name>getConnectionOptions</name>
+        <qualifiedname>Server::Builder::SettingsManager::getConnectionOptions</qualifiedname>
+        <briefdescription>
+<para>Method to generate connection string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>It generates string to connect to the DB. In this case, for now, connection string to Postgre DB only. In the future, this may be a method template for connecting to different DB. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/SettingsManager.hpp" line="36" column="17" bodyfile="Server/Server.Core/Server.Core.Static/SettingsManager.hpp" bodystart="36" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_builder_1_1_settings_manager_1ae2fa02beed4efb506a66b0966bf47c09" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint16_t</type>
+        <definition>uint16_t Server::Builder::SettingsManager::getServerPort</definition>
+        <argsstring>() const</argsstring>
+        <name>getServerPort</name>
+        <qualifiedname>Server::Builder::SettingsManager::getServerPort</qualifiedname>
+        <briefdescription>
+<para>Method to get a server port. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>It provides a server port </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/SettingsManager.hpp" line="49" column="14" bodyfile="Server/Server.Core/Server.Core.Static/SettingsManager.hpp" bodystart="49" bodyend="52"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="class_server_1_1_builder_1_1_server_builder" kindref="compound">ServerBuilder</ref> settings class provider. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Contains the high-level logic to transformation of the base parameters. </para>
+    </detaileddescription>
+    <location file="Server/Server.Core/Server.Core.Static/SettingsManager.hpp" line="13" column="1" bodyfile="Server/Server.Core/Server.Core.Static/SettingsManager.hpp" bodystart="14" bodyend="56"/>
+    <listofallmembers>
+      <member refid="class_server_1_1_builder_1_1_settings_manager_1aa5cbe08071eb11eb9c77a89299b9699c" prot="private" virt="non-virtual"><scope>Server::Builder::SettingsManager</scope><name>_settings</name></member>
+      <member refid="class_server_1_1_builder_1_1_settings_manager_1ae55fa5ce5caffe7bcaa3ed7a7215ad40" prot="public" virt="non-virtual"><scope>Server::Builder::SettingsManager</scope><name>getConnectionOptions</name></member>
+      <member refid="class_server_1_1_builder_1_1_settings_manager_1ae2fa02beed4efb506a66b0966bf47c09" prot="public" virt="non-virtual"><scope>Server::Builder::SettingsManager</scope><name>getServerPort</name></member>
+      <member refid="class_server_1_1_builder_1_1_settings_manager_1a6684bcbc6ab18e6d7e35e2101ffa7362" prot="public" virt="non-virtual"><scope>Server::Builder::SettingsManager</scope><name>reset</name></member>
+      <member refid="class_server_1_1_builder_1_1_settings_manager_1aaeb98410cc1acde6dfbae10f6e322484" prot="public" virt="non-virtual"><scope>Server::Builder::SettingsManager</scope><name>SettingsManager</name></member>
+      <member refid="class_server_1_1_builder_1_1_settings_manager_1a59203b1e8f2cec5e0dcd008088f6283a" prot="public" virt="non-virtual"><scope>Server::Builder::SettingsManager</scope><name>SettingsManager</name></member>
+      <member refid="class_server_1_1_builder_1_1_settings_manager_1a9161d02b9eee5944e3cb991cf2e329cf" prot="public" virt="non-virtual"><scope>Server::Builder::SettingsManager</scope><name>SettingsManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

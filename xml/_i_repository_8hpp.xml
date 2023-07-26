@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_i_repository_8hpp" kind="file" language="C++">
+    <compoundname>IRepository.hpp</compoundname>
+    <includes local="no">string</includes>
+    <includes local="no">vector</includes>
+    <includes refid="_primitives_8hpp" local="no">Models/Primitives.hpp</includes>
+    <includes refid="_utility_8hpp" local="no">Utility/Utility.hpp</includes>
+    <includedby refid="_file_repository_8hpp" local="no">DataAccess/DataAccess.Debug/FileRepository.hpp</includedby>
+    <incdepgraph>
+      <node id="4">
+        <label>Models/Primitives.hpp</label>
+        <link refid="_primitives_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>DataAccess/Public/Include/DataAccess/IRepository.hpp</label>
+        <link refid="_i_repository_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>Utility/Utility.hpp</label>
+        <link refid="_utility_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>Utility/UtilityTime.hpp</label>
+        <link refid="_utility_time_8hpp_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>algorithm</label>
+      </node>
+      <node id="11">
+        <label>cctype</label>
+      </node>
+      <node id="5">
+        <label>chrono</label>
+      </node>
+      <node id="6">
+        <label>cstdint</label>
+      </node>
+      <node id="7">
+        <label>cstring</label>
+      </node>
+      <node id="12">
+        <label>ctime</label>
+      </node>
+      <node id="15">
+        <label>filesystem</label>
+      </node>
+      <node id="19">
+        <label>fstream</label>
+      </node>
+      <node id="18">
+        <label>iomanip</label>
+      </node>
+      <node id="17">
+        <label>iostream</label>
+      </node>
+      <node id="8">
+        <label>map</label>
+      </node>
+      <node id="13">
+        <label>mutex</label>
+      </node>
+      <node id="20">
+        <label>sstream</label>
+      </node>
+      <node id="2">
+        <label>string</label>
+      </node>
+      <node id="14">
+        <label>type_traits</label>
+      </node>
+      <node id="3">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>DataAccess/DataAccess.Debug/FileRepository.hpp</label>
+        <link refid="_file_repository_8hpp_source"/>
+      </node>
+      <node id="1">
+        <label>DataAccess/Public/Include/DataAccess/IRepository.hpp</label>
+        <link refid="_i_repository_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_data_access_1_1_i_repository" prot="public">DataAccess::IRepository</innerclass>
+    <innernamespace refid="namespace_data_access">DataAccess</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Models/Primitives.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Utility/Utility.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">DataAccess</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="15" refid="class_data_access_1_1_i_repository" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_data_access_1_1_i_repository" kindref="compound">IRepository</ref></highlight></codeline>
+<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="class_data_access_1_1_i_repository_1a119c064c3ede3a4c485c4cff39f9af75" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::vector&lt;Models::ChannelInfo&gt;<sp/><ref refid="class_data_access_1_1_i_repository_1a119c064c3ede3a4c485c4cff39f9af75" kindref="member">getAllChannelsList</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="class_data_access_1_1_i_repository_1a9865744036d75920a5d0bb8854d60c5a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::vector&lt;Models::MessageInfo&gt;<sp/><ref refid="class_data_access_1_1_i_repository_1a9865744036d75920a5d0bb8854d60c5a" kindref="member">getMessageHistoryForUser</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::uint64_t<sp/>channelID)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="class_data_access_1_1_i_repository_1a1fdf7d4f7d11184e312863644a9b8e75" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::vector&lt;Models::ReplyInfo&gt;<sp/><ref refid="class_data_access_1_1_i_repository_1a1fdf7d4f7d11184e312863644a9b8e75" kindref="member">getReplyHistoryForUser</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::uint64_t<sp/>channelID)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45" refid="class_data_access_1_1_i_repository_1a7a34bb8134b58696ce2703457bfaead2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::StoringMessageCodes<sp/><ref refid="class_data_access_1_1_i_repository_1a7a34bb8134b58696ce2703457bfaead2" kindref="member">storeMessage</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref>&amp;<sp/>messageInfo)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="class_data_access_1_1_i_repository_1ab839a8b50a33a50e2bce291669eac706" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::StoringReplyCodes<sp/><ref refid="class_data_access_1_1_i_repository_1ab839a8b50a33a50e2bce291669eac706" kindref="member">storeReply</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_reply_info" kindref="compound">Models::ReplyInfo</ref>&amp;<sp/>replyInfo)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="class_data_access_1_1_i_repository_1af0699db752921628835d27acd4aa7e47" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::DeletingMessageCodes<sp/><ref refid="class_data_access_1_1_i_repository_1af0699db752921628835d27acd4aa7e47" kindref="member">deleteMessage</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref>&amp;<sp/>messageInfo)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="class_data_access_1_1_i_repository_1acf0bb6369dc216b9b7a22809a56ee40e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::EditingMessageCodes<sp/><ref refid="class_data_access_1_1_i_repository_1acf0bb6369dc216b9b7a22809a56ee40e" kindref="member">editMessage</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref>&amp;<sp/>messageInfo)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="class_data_access_1_1_i_repository_1a194a02ea8e52185be9fd481621ffb155" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::ReactionMessageCodes<sp/><ref refid="class_data_access_1_1_i_repository_1a194a02ea8e52185be9fd481621ffb155" kindref="member">updateMessageReactions</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref>&amp;<sp/>messageInfo)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93" refid="class_data_access_1_1_i_repository_1a0f819bc5ed7f561389e28fb35f0757f2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::RegistrationCodes<sp/><ref refid="class_data_access_1_1_i_repository_1a0f819bc5ed7f561389e28fb35f0757f2" kindref="member">registerUser</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_registration_info" kindref="compound">Models::RegistrationInfo</ref>&amp;<sp/>regInfo)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101" refid="class_data_access_1_1_i_repository_1a1162586b0fe69fca0a2277ab91827cad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::uint64_t<sp/><ref refid="class_data_access_1_1_i_repository_1a1162586b0fe69fca0a2277ab91827cad" kindref="member">loginUser</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>login,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>pwdHash)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106" refid="class_data_access_1_1_i_repository_1affda42ed5ba6e5cbb5578b00fd572818" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="class_data_access_1_1_i_repository_1affda42ed5ba6e5cbb5578b00fd572818" kindref="member">~IRepository</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="108"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>DataAccess</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="DataAccess/Public/Include/DataAccess/IRepository.hpp"/>
+  </compounddef>
+</doxygen>

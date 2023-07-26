@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_network_1_1_message_1_1_message_header" kind="struct" language="C++" prot="public">
+    <compoundname>Network::Message::MessageHeader</compoundname>
+    <includes refid="_message_8hpp" local="no">Message.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_network_1_1_message_1_1_message_header_1aea142257fe540a4f88074945ca47cecb" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456d" kindref="member">MessageType</ref></type>
+        <definition>MessageType Network::Message::MessageHeader::mMessageType</definition>
+        <argsstring></argsstring>
+        <name>mMessageType</name>
+        <qualifiedname>Network::Message::MessageHeader::mMessageType</qualifiedname>
+        <initializer>= <ref refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456d" kindref="member">MessageType</ref>()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Message.hpp" line="73" column="37" bodyfile="Network/Public/Include/Network/Message.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_network_1_1_message_1_1_message_header_1a4a67e254959a494f9a16ae4458cf0982" prot="public" static="no" mutable="no">
+        <type>std::uint32_t</type>
+        <definition>std::uint32_t Network::Message::MessageHeader::mBodySize</definition>
+        <argsstring></argsstring>
+        <name>mBodySize</name>
+        <qualifiedname>Network::Message::MessageHeader::mBodySize</qualifiedname>
+        <initializer>= std::uint32_t()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Message.hpp" line="74" column="37" bodyfile="Network/Public/Include/Network/Message.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_network_1_1_message_1_1_message_header_1a9bd1e9f0991e5e956e179a4e7707faf0" prot="public" static="no" mutable="no">
+        <type>UtilityTime::timestamp_t</type>
+        <definition>UtilityTime::timestamp_t Network::Message::MessageHeader::mTimestamp</definition>
+        <argsstring></argsstring>
+        <name>mTimestamp</name>
+        <qualifiedname>Network::Message::MessageHeader::mTimestamp</qualifiedname>
+        <initializer>= duration_cast&lt;milliseconds&gt;(UtilityTime::RTC::now().time_since_epoch()).count()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Message.hpp" line="75" column="37" bodyfile="Network/Public/Include/Network/Message.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_network_1_1_message_1_1_message_header" kindref="compound">MessageHeader</ref> struct. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Contain <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> Type class, body size and timestamp. </para>
+    </detaileddescription>
+    <location file="Network/Public/Include/Network/Message.hpp" line="71" column="5" bodyfile="Network/Public/Include/Network/Message.hpp" bodystart="72" bodyend="76"/>
+    <listofallmembers>
+      <member refid="struct_network_1_1_message_1_1_message_header_1a4a67e254959a494f9a16ae4458cf0982" prot="public" virt="non-virtual"><scope>Network::Message::MessageHeader</scope><name>mBodySize</name></member>
+      <member refid="struct_network_1_1_message_1_1_message_header_1aea142257fe540a4f88074945ca47cecb" prot="public" virt="non-virtual"><scope>Network::Message::MessageHeader</scope><name>mMessageType</name></member>
+      <member refid="struct_network_1_1_message_1_1_message_header_1a9bd1e9f0991e5e956e179a4e7707faf0" prot="public" virt="non-virtual"><scope>Network::Message::MessageHeader</scope><name>mTimestamp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

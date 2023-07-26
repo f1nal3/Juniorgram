@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="md__docs_2_swaping_01old_01models_01with_01new_01ones" kind="page">
+    <compoundname>md__docs_2_swaping_01old_01models_01with_01new_01ones</compoundname>
+    <title>How to change old model dependency on the new model structure</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md__docs_2_swaping_01old_01models_01with_01new_01ones_1autotoc_md58"/> </para>
+<sect1 id="md__docs_2_swaping_01old_01models_01with_01new_01ones_1autotoc_md59">
+<title>1. You should find out exists or not the class which will change the old model</title>
+<para><blockquote><para><zwj/>You need to check it in &apos;Base/Models/Models.hpp&apos; </para>
+</blockquote></para>
+<sect2 id="md__docs_2_swaping_01old_01models_01with_01new_01ones_1autotoc_md60">
+<title>1.1 If this class does not exist.</title>
+<para><blockquote><para><zwj/>You <emphasis><bold>must</bold></emphasis> know the <emphasis><bold>name</bold></emphasis> of the model(table), <emphasis><bold>how many fields</bold></emphasis> it has and their names </para>
+</blockquote><blockquote><para><zwj/>While you are creating the model, everything you write should be located in file mentioned above </para>
+</blockquote><itemizedlist>
+<listitem><para>First of all you should create enum class in which all fields wiil be represented as enum</para>
+</listitem></itemizedlist>
+</para>
+<para>Example: <programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/>BookData</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>AUTHOR,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>NAME,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PAGES</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+</programlisting></para>
+<para><itemizedlist>
+<listitem><para>Create a template class with talking name, inherit the basic template class <bold>UnifiedModel</bold></para>
+</listitem><listitem><para>Make a template argument as a default one with enum class which you&apos;ve created</para>
+</listitem><listitem><para>Create two constructors - default and <bold>filling</bold>, which is going fill your class field with some data</para>
+</listitem><listitem><para>Follow the example</para>
+</listitem></itemizedlist>
+</para>
+<para><blockquote><para><zwj/>Defined template type(enum class) is the one which is in charge almost of everything at start level </para>
+</blockquote><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;TEnum<sp/>=<sp/>BookData&gt;</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Book:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>UnifiedModel&lt;TEnum&gt;</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Book(std::string_view<sp/>modelName<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;books&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Models::FieldNames&amp;<sp/>names<sp/>=<sp/>{<sp/></highlight><highlight class="stringliteral">&quot;author&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;name&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;pages&quot;</highlight><highlight class="normal"><sp/>})</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>UnifiedModel&lt;TEnum&gt;(modelName,<sp/>names.size())</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;init(names);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/>Book(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;std::pair&lt;TEnum,<sp/>std::string&gt;&gt;&amp;<sp/>insertData)<sp/>:<sp/>Book()</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;fillStartFields(insertData);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+</programlisting></para>
+<para><itemizedlist>
+<listitem><para>After that, inside <bold>protected</bold> scope, override method <bold>getNumEnum</bold></para>
+</listitem><listitem><para>Syntax -&gt; TEnum getNumEnum(size_t) const final</para>
+</listitem></itemizedlist>
+</para>
+<para><blockquote><para><zwj/>You <emphasis><bold>must</bold></emphasis> make the <emphasis><bold>order of names</bold></emphasis> that you put inside <emphasis><bold>default constructor and switch</bold></emphasis> below totally <emphasis><bold>equal</bold></emphasis>, the amount likewise </para>
+</blockquote><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline><highlight class="normal">TEnum<sp/>getNumEnum(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>num)</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">final</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal">(num)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>0:<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>BookData::AUTHOR;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>1:<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>BookData::NAME;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>2:<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>BookData::PAGES;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_base_1_1_logger_1_1_file_logger_1a027d30e79c1fca75712cb038374dbd94" kindref="member">Base::Logger::FileLogger::getInstance</ref>().</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error(</highlight><highlight class="stringliteral">&quot;Overrided<sp/>method<sp/>does<sp/>not<sp/>deal<sp/>with<sp/>this<sp/>amount<sp/>of<sp/>fields<sp/>given<sp/>in<sp/>constructor&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>
+</sect2>
+</sect1>
+<sect1 id="md__docs_2_swaping_01old_01models_01with_01new_01ones_1autotoc_md61">
+<title>2. When class exists, let&apos;s do the rest</title>
+<para><itemizedlist>
+<listitem><para>In DataAccess/Public/IServerRepository.hpp you should find every mention of old model and change it on the new one</para>
+</listitem><listitem><para>That was a start point, right now you have to change it everywhere in the interfaces</para>
+</listitem></itemizedlist>
+</para>
+<para><blockquote><para><zwj/>Right now is<itemizedlist>
+<listitem><para>DataAccess.Postgre/PostgreRepositories.hpp/cpp</para>
+</listitem><listitem><para>DataAccess.Mock/MockRepositories.hpp/cpp </para>
+</listitem></itemizedlist>
+</para>
+</blockquote>Example:</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::ChannelCreateCodes<sp/>createChannel(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelInfo</ref>&amp;<sp/>channel)<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>Utility::ChannelCreateCodes<sp/>createChannel(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="class_models_1_1_v2_1_1_channel" kindref="compound">Models::V2::Channel&lt;&gt;</ref>&amp;<sp/>channel)<sp/>=<sp/>0;</highlight></codeline>
+</programlisting></para>
+<para><blockquote><para><zwj/>Also you must change logic inside Mock, but that&apos;s simple one, rules will be described below </para>
+</blockquote></para>
+</sect1>
+<sect1 id="md__docs_2_swaping_01old_01models_01with_01new_01ones_1autotoc_md62">
+<title>3. Changing the repository method. Main improvements that you can do</title>
+<sect2 id="md__docs_2_swaping_01old_01models_01with_01new_01ones_1autotoc_md63">
+<title>- You don&apos;t need to write the hard-coded name of the table:</title>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>_pTable-&gt;changeTable(</highlight><highlight class="stringliteral">&quot;channels&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>_pTable-&gt;changeTable(channel.getModelName());</highlight></codeline>
+</programlisting></para>
+</sect2>
+<sect2 id="md__docs_2_swaping_01old_01models_01with_01new_01ones_1autotoc_md64">
+<title>- No more raw strings inside QueryBuilder methods:</title>
+<para>Before: <programlisting filename=".c"><codeline><highlight class="normal">++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>findChannel<sp/>=<sp/>_pTable-&gt;Select()</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;columns({</highlight><highlight class="stringliteral">&quot;channel_name&quot;</highlight><highlight class="normal">})</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;Where(</highlight><highlight class="stringliteral">&quot;channel_name<sp/>=<sp/>&apos;&quot;</highlight><highlight class="normal"><sp/>+<sp/>channel._channelName<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&apos;&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;execute();</highlight></codeline>
+</programlisting></para>
+<para>After: <programlisting filename=".c"><codeline><highlight class="normal">++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>findChannel<sp/>=<sp/>_pTable-&gt;Select()</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;columns({<sp/>channel.resolveName(ChannelData::CHANNEL_NAME)})</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;Where(channel.resolveName(ChannelData::CHANNEL_NAME)+<sp/></highlight><highlight class="stringliteral">&quot;=<sp/>&apos;&quot;</highlight><highlight class="normal"><sp/>+<sp/>channel[ChannelData::CHANNEL_NAME]<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;&apos;&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;execute();</highlight></codeline>
+</programlisting></para>
+</sect2>
+<sect2 id="md__docs_2_swaping_01old_01models_01with_01new_01ones_1autotoc_md65">
+<title>- No more any type of casts inside method logic</title>
+<para><blockquote><para><zwj/>This task has moved to the separate class - ModelFiller (That&apos;s a general name for this type of classes, right now only PGFiller exists) This class knows how to cast and what to cast, and fills model with it </para>
+</blockquote>Before(&apos;findChannel&apos; - is a returning object from _pTable-&gt;...-&gt;execute()): <programlisting filename=".c"><codeline><highlight class="normal">++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>creatorlID<sp/><sp/>=<sp/>findChannel.value()[0][0].as&lt;uint64_t&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>channelID<sp/><sp/><sp/>=<sp/>findChannel.value()[0][1].as&lt;uint64_t&gt;();</highlight></codeline>
+</programlisting></para>
+<para>After: <programlisting filename=".c"><codeline><highlight class="normal">++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>_filler-&gt;fill(findChannel-&gt;begin(),<sp/>&amp;channel);</highlight></codeline>
+</programlisting></para>
+<para><blockquote><para><zwj/>We use <bold>returningObjectName</bold>-&gt;begin() only when we need to fill only one model or returning value consists of one iterator Otherwise create a loop to fill a vector of models </para>
+</blockquote></para>
+</sect2>
+<sect2 id="md__docs_2_swaping_01old_01models_01with_01new_01ones_1autotoc_md66">
+<title>- No more tuples inside method logic</title>
+<para><blockquote><para><zwj/>Insert method can use the object itself to build the query </para>
+</blockquote>Before: <programlisting filename=".c"><codeline><highlight class="normal">++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>std::tuple<sp/>channelData{std::pair{</highlight><highlight class="stringliteral">&quot;channel_name&quot;</highlight><highlight class="normal">,<sp/>channel._channelName},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::pair{</highlight><highlight class="stringliteral">&quot;creator_id&quot;</highlight><highlight class="normal">,<sp/>channel._creatorID},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::pair{</highlight><highlight class="stringliteral">&quot;user_limit&quot;</highlight><highlight class="normal">,<sp/>1&apos;000&apos;000}};</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>_pTable-&gt;Insert()-&gt;columns(channelData)-&gt;execute();</highlight></codeline>
+</programlisting></para>
+<para>After: <programlisting filename=".c"><codeline><highlight class="normal">++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>result<sp/>=<sp/>_pTable-&gt;Insert()-&gt;columns(&amp;channel)-&gt;execute();</highlight></codeline>
+</programlisting></para>
+</sect2>
+</sect1>
+<sect1 id="md__docs_2_swaping_01old_01models_01with_01new_01ones_1autotoc_md67">
+<title>4. Changes at server side</title>
+<sect2 id="md__docs_2_swaping_01old_01models_01with_01new_01ones_1autotoc_md68">
+<title>You should find in Server.cpp the request which uses the old method from IServerRepositories</title>
+<para><blockquote><para><zwj/>If you&apos;ve created the new method based on the old one, everything that you must do is swap old model with new one and fill it and change names of methods </para>
+</blockquote><programlisting filename=".c"><codeline><highlight class="normal">++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><ref refid="class_models_1_1_v2_1_1_channel" kindref="compound">Models::V2::Channel&lt;&gt;</ref><sp/>newChannelInfo({</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{ChannelData::CHANNEL_NAME,<sp/>std::any_cast&lt;std::string&gt;(message.mBody)},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{ChannelData::CREATOR_ID,<sp/>std::to_string(client-&gt;getUserID())}});</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>futureResult<sp/>=<sp/>_repoManager-&gt;pushRequest(&amp;IChannelsRepository::newCreateChannel,<sp/>fmt(newChannelInfo));</highlight></codeline>
+</programlisting></para>
+<para><blockquote><para><zwj/>If you&apos;ve re-built a method, just swap a model like in example above and change model in fmt call, the name of method doesn&apos;t change </para>
+</blockquote></para>
+</sect2>
+</sect1>
+    </detaileddescription>
+    <location file="Docs/Swaping old models with new ones.md"/>
+  </compounddef>
+</doxygen>

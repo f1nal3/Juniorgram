@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_query_builder" kind="class" language="C++" prot="public">
+    <compoundname>QueryBuilder</compoundname>
+    <includes refid="_abstract_query_builder_8hpp" local="no">AbstractQueryBuilder.hpp</includes>
+    <briefdescription>
+<para>Supportive class for constructing SQL query. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The class forms and saves SQL query, current table and type of database. Class provides interface, which is as close as possible to the classical SQL queries. This is achieved by calling methods one by one. Examples for postgre database you can see in PostgreQueryBuilder.hpp </para>
+    </detaileddescription>
+    <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="12" column="1"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

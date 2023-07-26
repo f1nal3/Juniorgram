@@ -1,0 +1,355 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_data_access_1_1_postgre_adapter" kind="class" language="C++" prot="public" final="yes">
+    <compoundname>DataAccess::PostgreAdapter</compoundname>
+    <basecompoundref refid="class_data_access_1_1_i_adapter" prot="public" virt="non-virtual">DataAccess::IAdapter</basecompoundref>
+    <includes refid="_postgre_adapter_8hpp" local="no">PostgreAdapter.hpp</includes>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_data_access_1_1_postgre_adapter_1ae7c07f2e9512511d39e39cfd49f67582" prot="private" static="yes" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex DataAccess::PostgreAdapter::_staticMutex</definition>
+        <argsstring></argsstring>
+        <name>_staticMutex</name>
+        <qualifiedname>DataAccess::PostgreAdapter::_staticMutex</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" line="21" column="53" bodyfile="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_data_access_1_1_postgre_adapter_1ab81aadac2fdf708f6b2574f34400982f" prot="private" static="yes" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="class_data_access_1_1_postgre_adapter" kindref="compound">PostgreAdapter</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;PostgreAdapter&gt; DataAccess::PostgreAdapter::_instance</definition>
+        <argsstring></argsstring>
+        <name>_instance</name>
+        <qualifiedname>DataAccess::PostgreAdapter::_instance</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" line="22" column="37" bodyfile="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_data_access_1_1_postgre_adapter_1ad36bd77c7354e197fb1ab94bc01b8e72" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex DataAccess::PostgreAdapter::_queryMutex</definition>
+        <argsstring></argsstring>
+        <name>_queryMutex</name>
+        <qualifiedname>DataAccess::PostgreAdapter::_queryMutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" line="24" column="53" bodyfile="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_data_access_1_1_postgre_adapter_1a809730d56a4dff41c52213791fd88d9e" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; pqxx::connection &gt;</type>
+        <definition>std::unique_ptr&lt;pqxx::connection&gt; DataAccess::PostgreAdapter::_connection</definition>
+        <argsstring></argsstring>
+        <name>_connection</name>
+        <qualifiedname>DataAccess::PostgreAdapter::_connection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" line="25" column="35" bodyfile="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_data_access_1_1_postgre_adapter_1a8a647c481bf77de387be200a8155715c" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::PostgreAdapter::PostgreAdapter</definition>
+        <argsstring>(const std::string_view &amp;options)</argsstring>
+        <name>PostgreAdapter</name>
+        <qualifiedname>DataAccess::PostgreAdapter::PostgreAdapter</qualifiedname>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>options</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" line="28" column="5" bodyfile="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" bodystart="28" bodyend="29"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_data_access_1_1_postgre_adapter_1a10e6b636660ba981bd0c9e284ca52eb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::PostgreAdapter::PostgreAdapter</definition>
+        <argsstring>(const PostgreAdapter &amp;other)=delete</argsstring>
+        <name>PostgreAdapter</name>
+        <qualifiedname>DataAccess::PostgreAdapter::PostgreAdapter</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_postgre_adapter" kindref="compound">PostgreAdapter</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" line="33" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_postgre_adapter_1a88dda8ae55f0401fde8e9eb9f8697ed7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_postgre_adapter" kindref="compound">PostgreAdapter</ref> &amp;</type>
+        <definition>PostgreAdapter &amp; DataAccess::PostgreAdapter::operator=</definition>
+        <argsstring>(const PostgreAdapter &amp;other)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::PostgreAdapter::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_postgre_adapter" kindref="compound">PostgreAdapter</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" line="34" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_postgre_adapter_1a5e9a56a6dd685562cedb9e45fb321409" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::PostgreAdapter::PostgreAdapter</definition>
+        <argsstring>(PostgreAdapter &amp;&amp;other)=delete</argsstring>
+        <name>PostgreAdapter</name>
+        <qualifiedname>DataAccess::PostgreAdapter::PostgreAdapter</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_postgre_adapter" kindref="compound">PostgreAdapter</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" line="36" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_postgre_adapter_1a1cae00042acdb34339a94a44252cc481" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_postgre_adapter" kindref="compound">PostgreAdapter</ref> &amp;</type>
+        <definition>PostgreAdapter &amp; DataAccess::PostgreAdapter::operator=</definition>
+        <argsstring>(PostgreAdapter &amp;&amp;other)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::PostgreAdapter::operator=</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_postgre_adapter" kindref="compound">PostgreAdapter</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" line="37" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_postgre_adapter_1afb4bd00b8bac060bc03358299535ca80" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual DataAccess::PostgreAdapter::~PostgreAdapter</definition>
+        <argsstring>()</argsstring>
+        <name>~PostgreAdapter</name>
+        <qualifiedname>DataAccess::PostgreAdapter::~PostgreAdapter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" line="39" column="13" bodyfile="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" bodystart="39" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_postgre_adapter_1acb64a4195008520a7771e7e1ad92eb5e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::optional&lt; std::any &gt;</type>
+        <definition>std::optional&lt; std::any &gt; DataAccess::PostgreAdapter::query</definition>
+        <argsstring>(const std::string_view &amp;query) override</argsstring>
+        <name>query</name>
+        <qualifiedname>DataAccess::PostgreAdapter::query</qualifiedname>
+        <reimplements refid="class_data_access_1_1_i_adapter_1aa49a912c05ddd502d1a1a05156b3f63d">query</reimplements>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>query</declname>
+        </param>
+        <briefdescription>
+<para>Method for executing SQL queries. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>You shouldn&apos;t use this method because it&apos;s low level accessing the database. Use it if you want something specific from database, instead use PostgreQuery. If you want to insert some strings, big text or a timestamp you must wrap the string/text by single quotes. You don&apos;t have to put &apos;;&apos; at the end of query. <programlisting><codeline><highlight class="normal">...-&gt;<ref refid="class_data_access_1_1_postgre_adapter_1acb64a4195008520a7771e7e1ad92eb5e" kindref="member">query</ref>(</highlight><highlight class="stringliteral">&quot;SELECT<sp/>*<sp/>FROM<sp/>table_name<sp/>WHERE<sp/>name<sp/>=<sp/>&apos;username&apos;&quot;</highlight><highlight class="normal">);</highlight></codeline>
+</programlisting> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SQL</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>query in the form of string. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Optional result. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" line="63" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_postgre_adapter_1af600f7e5a24070cf4dea33785fa0e666" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>pqxx::connection &amp;</type>
+        <definition>pqxx::connection &amp; DataAccess::PostgreAdapter::getConnection</definition>
+        <argsstring>(void)</argsstring>
+        <name>getConnection</name>
+        <qualifiedname>DataAccess::PostgreAdapter::getConnection</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Method for getting connection object from pqxx. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This object using for low level accessing the database. You probably won&apos;t need it. <simplesect kind="return"><para>pqxx::Connection object. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" line="70" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_postgre_adapter_1a2b484c3491b7e54dc6d9ef143cc0cf1d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool DataAccess::PostgreAdapter::isConnected</definition>
+        <argsstring>(void) const override</argsstring>
+        <name>isConnected</name>
+        <qualifiedname>DataAccess::PostgreAdapter::isConnected</qualifiedname>
+        <reimplements refid="class_data_access_1_1_i_adapter_1a12530850dcd116116accd6168b199376">isConnected</reimplements>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" line="76" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_postgre_adapter_1a153059ebb2f3f413a5196183adc73a2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void DataAccess::PostgreAdapter::closeConnection</definition>
+        <argsstring>(void) override</argsstring>
+        <name>closeConnection</name>
+        <qualifiedname>DataAccess::PostgreAdapter::closeConnection</qualifiedname>
+        <reimplements refid="class_data_access_1_1_i_adapter_1a9025dabaecb816d9ee546c91756aba59">closeConnection</reimplements>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Method for closing connection. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Method for change connection to the database. <simplesect kind="warning"><para>Be careful to use it because if you have many instances of this class and after call this method, you may have &apos;dangling&apos; pointers. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" line="84" column="10"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_data_access_1_1_postgre_adapter_1a698eb7df48d7cdfb3f6e4b97cf3f2ffd" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_data_access_1_1_postgre_adapter" kindref="compound">PostgreAdapter</ref> &gt;</type>
+        <definition>static std::shared_ptr&lt; PostgreAdapter &gt; DataAccess::PostgreAdapter::Instance</definition>
+        <argsstring>(const std::string_view &amp;options={})</argsstring>
+        <name>Instance</name>
+        <qualifiedname>DataAccess::PostgreAdapter::Instance</qualifiedname>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Method that creates new instance of Adapter. It needs for technical purposes. Don&apos;t use it (it&apos;s because I designed the interface badly). Instead use getInstance method. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Connection options. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to current instance of Postgre adapter. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" line="48" column="28"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Adapter class for working with PostgreSQL. This is a thread safe singleton. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>DataAccess::IAdapter</label>
+        <link refid="class_data_access_1_1_i_adapter"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::PostgreAdapter</label>
+        <link refid="class_data_access_1_1_postgre_adapter"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>DataAccess::IAdapter</label>
+        <link refid="class_data_access_1_1_i_adapter"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::PostgreAdapter</label>
+        <link refid="class_data_access_1_1_postgre_adapter"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" line="18" column="1" bodyfile="DataAccess/DataAccess.Postgre/PostgreAdapter.hpp" bodystart="19" bodyend="85"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_postgre_adapter_1a809730d56a4dff41c52213791fd88d9e" prot="private" virt="non-virtual"><scope>DataAccess::PostgreAdapter</scope><name>_connection</name></member>
+      <member refid="class_data_access_1_1_postgre_adapter_1ab81aadac2fdf708f6b2574f34400982f" prot="private" virt="non-virtual"><scope>DataAccess::PostgreAdapter</scope><name>_instance</name></member>
+      <member refid="class_data_access_1_1_postgre_adapter_1ad36bd77c7354e197fb1ab94bc01b8e72" prot="private" virt="non-virtual"><scope>DataAccess::PostgreAdapter</scope><name>_queryMutex</name></member>
+      <member refid="class_data_access_1_1_postgre_adapter_1ae7c07f2e9512511d39e39cfd49f67582" prot="private" virt="non-virtual"><scope>DataAccess::PostgreAdapter</scope><name>_staticMutex</name></member>
+      <member refid="class_data_access_1_1_postgre_adapter_1a153059ebb2f3f413a5196183adc73a2f" prot="public" virt="virtual"><scope>DataAccess::PostgreAdapter</scope><name>closeConnection</name></member>
+      <member refid="class_data_access_1_1_postgre_adapter_1af600f7e5a24070cf4dea33785fa0e666" prot="public" virt="non-virtual"><scope>DataAccess::PostgreAdapter</scope><name>getConnection</name></member>
+      <member refid="class_data_access_1_1_i_adapter_1aad3b189624e653c7917361c978b98d90" prot="public" virt="non-virtual"><scope>DataAccess::PostgreAdapter</scope><name>getInstance</name></member>
+      <member refid="class_data_access_1_1_postgre_adapter_1a698eb7df48d7cdfb3f6e4b97cf3f2ffd" prot="public" virt="non-virtual"><scope>DataAccess::PostgreAdapter</scope><name>Instance</name></member>
+      <member refid="class_data_access_1_1_postgre_adapter_1a2b484c3491b7e54dc6d9ef143cc0cf1d" prot="public" virt="virtual"><scope>DataAccess::PostgreAdapter</scope><name>isConnected</name></member>
+      <member refid="class_data_access_1_1_postgre_adapter_1a88dda8ae55f0401fde8e9eb9f8697ed7" prot="public" virt="non-virtual"><scope>DataAccess::PostgreAdapter</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_postgre_adapter_1a1cae00042acdb34339a94a44252cc481" prot="public" virt="non-virtual"><scope>DataAccess::PostgreAdapter</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_postgre_adapter_1a8a647c481bf77de387be200a8155715c" prot="protected" virt="non-virtual"><scope>DataAccess::PostgreAdapter</scope><name>PostgreAdapter</name></member>
+      <member refid="class_data_access_1_1_postgre_adapter_1a10e6b636660ba981bd0c9e284ca52eb0" prot="public" virt="non-virtual"><scope>DataAccess::PostgreAdapter</scope><name>PostgreAdapter</name></member>
+      <member refid="class_data_access_1_1_postgre_adapter_1a5e9a56a6dd685562cedb9e45fb321409" prot="public" virt="non-virtual"><scope>DataAccess::PostgreAdapter</scope><name>PostgreAdapter</name></member>
+      <member refid="class_data_access_1_1_postgre_adapter_1acb64a4195008520a7771e7e1ad92eb5e" prot="public" virt="virtual"><scope>DataAccess::PostgreAdapter</scope><name>query</name></member>
+      <member refid="class_data_access_1_1_i_adapter_1ac7d7587c1cf683508d2ce26d66a91731" prot="public" virt="virtual"><scope>DataAccess::PostgreAdapter</scope><name>~IAdapter</name></member>
+      <member refid="class_data_access_1_1_postgre_adapter_1afb4bd00b8bac060bc03358299535ca80" prot="public" virt="virtual"><scope>DataAccess::PostgreAdapter</scope><name>~PostgreAdapter</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

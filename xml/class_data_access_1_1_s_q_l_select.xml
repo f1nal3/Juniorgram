@@ -1,0 +1,486 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_data_access_1_1_s_q_l_select" kind="class" language="C++" prot="public">
+    <compoundname>DataAccess::SQLSelect</compoundname>
+    <basecompoundref refid="class_data_access_1_1_s_q_l_base" prot="public" virt="non-virtual">DataAccess::SQLBase&lt; ResultType &gt;</basecompoundref>
+    <basecompoundref refid="class_data_access_1_1_s_q_l_where_condition" prot="public" virt="non-virtual">DataAccess::SQLWhereCondition&lt; SQLSelect&lt; ResultType &gt; &gt;</basecompoundref>
+    <includes refid="_s_q_l_statements_8hpp" local="no">SQLStatements.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename ResultType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_select_1a33e78297ad3834b18ef47c09b5b0fbdd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLSelect&lt; ResultType &gt;::SQLSelect</definition>
+        <argsstring>(AbstractQueryBuilder&lt; ResultType &gt; &amp;table)</argsstring>
+        <name>SQLSelect</name>
+        <qualifiedname>DataAccess::SQLSelect::SQLSelect</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_abstract_query_builder" kindref="compound">AbstractQueryBuilder</ref>&lt; ResultType &gt; &amp;</type>
+          <declname>table</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="307" column="5" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="307" bodyend="310"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_select_1af05ae4313b1411e755d294b56156b676" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual DataAccess::SQLSelect&lt; ResultType &gt;::~SQLSelect</definition>
+        <argsstring>(void)=default</argsstring>
+        <name>~SQLSelect</name>
+        <qualifiedname>DataAccess::SQLSelect::~SQLSelect</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="312" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_select_1ad58e0f6ae6acdd91e1c5bc22fea93eae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLSelect&lt; ResultType &gt;::SQLSelect</definition>
+        <argsstring>(void)=delete</argsstring>
+        <name>SQLSelect</name>
+        <qualifiedname>DataAccess::SQLSelect::SQLSelect</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="315" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_select_1a8781763d7bbe7948cb025b679fe4ea36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLSelect&lt; ResultType &gt;::SQLSelect</definition>
+        <argsstring>(const SQLSelect &amp;)=delete</argsstring>
+        <name>SQLSelect</name>
+        <qualifiedname>DataAccess::SQLSelect::SQLSelect</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="317" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_select_1aad2acaf20031571bc01070c88906e953" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> &amp;</type>
+        <definition>SQLSelect &amp; DataAccess::SQLSelect&lt; ResultType &gt;::operator=</definition>
+        <argsstring>(const SQLSelect &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::SQLSelect::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="318" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_select_1a4957144c82e7bcdab01c7142c42e5629" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLSelect&lt; ResultType &gt;::SQLSelect</definition>
+        <argsstring>(SQLSelect &amp;&amp;)=delete</argsstring>
+        <name>SQLSelect</name>
+        <qualifiedname>DataAccess::SQLSelect::SQLSelect</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="320" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_select_1a8c377a8aafff41275626a24542012558" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> &amp;</type>
+        <definition>SQLSelect &amp; DataAccess::SQLSelect&lt; ResultType &gt;::operator=</definition>
+        <argsstring>(SQLSelect &amp;&amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::SQLSelect::operator=</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="321" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_select_1aaa7a1f958f804caa59c6efb8f9ac630f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> *</type>
+        <definition>SQLSelect * DataAccess::SQLSelect&lt; ResultType &gt;::orderBy</definition>
+        <argsstring>(const std::initializer_list&lt; std::string &gt; &amp;columnList, bool desc=false)</argsstring>
+        <name>orderBy</name>
+        <qualifiedname>DataAccess::SQLSelect::orderBy</qualifiedname>
+        <param>
+          <type>const std::initializer_list&lt; std::string &gt; &amp;</type>
+          <declname>columnList</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>desc</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>  @brief Columns that you need to return from database.
+  @details You must point columns that you need, like:
+  @code
+     ...-&gt;columns({&quot;column1&quot;, &quot;column2&quot;, ...})-&gt;...;
+  @endcode
+  @details Or, for all columns from table use:
+  @code
+    ...-&gt;columns({&quot;*&quot;})-&gt;...;
+  @param Initializer_list&lt;string&gt; of columns that you need.
+  @return Current SQLSelect pointer object to continue SQL query.
+ /
+SQLSelect* columns(const std::initializer_list&lt;std::string&gt;&amp; columnList)
+{
+    for (auto&amp; column : columnList)
+    {
+        SQLBase&lt;ResultType&gt;::_queryStream &lt;&lt; column;
+        SQLBase&lt;ResultType&gt;::_queryStream &lt;&lt; (column != *(columnList.end() - 1) ? &quot;, &quot; : &quot;&quot;);
+    }
+    SQLBase&lt;ResultType&gt;::_queryStream &lt;&lt; &quot; from &quot; &lt;&lt; SQLBase&lt;ResultType&gt;::_currentBuilder.getCurrentTableName();
+
+    return this;
+}
+</verbatim> public: <verbatim>/**
+  @brief Method for limiting returned SQL rows.
+  @details For example limit 5 offset 2 return: \n
+     row3, row4, row5, row6, row7.
+  @param limit - how much rows that you need
+     offset - from what row start limit
+  @return Current SQLSelect pointer object to continue SQL query.
+ /
+SQLSelect* limit(std::uint32_t limit, std::uint32_t offset = {})
+{
+    SQLBase&lt;ResultType&gt;::privateCheckForLastSymbol();
+
+    SQLBase&lt;ResultType&gt;::_queryStream &lt;&lt; &quot;limit &quot; &lt;&lt; limit &lt;&lt; &quot; offset &quot; &lt;&lt; offset;
+
+    return this;
+}
+
+/**
+  @brief Method for selecting rows by columns in alphabetic order.
+  @details Use desc = true, if you wanna select in reverse order.
+  @param columnList - list of columns.
+  @param desc - reverse order.
+  @code
+     ...-&gt;orderBy({&quot;column1&quot;, &quot;column2&quot;, ...})-&gt;...;
+     ...-&gt;orderBy({&quot;*&quot;})-&gt;...;
+  @endcode
+  @return Current SQLSelect pointer object to continue SQL query
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="379" column="15" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="379" bodyend="393"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_select_1ad43c0c955c442b5b7d3805048d0c7cc7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> *</type>
+        <definition>SQLSelect * DataAccess::SQLSelect&lt; ResultType &gt;::distinct</definition>
+        <argsstring>(void)</argsstring>
+        <name>distinct</name>
+        <qualifiedname>DataAccess::SQLSelect::distinct</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Method that select only distinct(different) values. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="warning"><para>You must use it only before columns method! </para>
+</simplesect>
+<simplesect kind="return"><para>Current <ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> pointer object to continue SQL query </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="400" column="15" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="400" bodyend="405"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_select_1a94867c79e377b3433cf13b9499121f3c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> *</type>
+        <definition>SQLSelect * DataAccess::SQLSelect&lt; ResultType &gt;::join</definition>
+        <argsstring>(Utility::SQLJoinType join, const std::string &amp;secondTableName, const std::string &amp;onCondition)</argsstring>
+        <name>join</name>
+        <qualifiedname>DataAccess::SQLSelect::join</qualifiedname>
+        <param>
+          <type>Utility::SQLJoinType</type>
+          <declname>join</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>secondTableName</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>onCondition</declname>
+        </param>
+        <briefdescription>
+<para>Method that select join tables. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>join</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- join type (Check SQLJoinType enum) secondTableName - table with which will be join select onCondition - important condition for join tables </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current <ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> pointer object to continue SQL query </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="414" column="15" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="414" bodyend="450"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_select_1afda394b46df3a42022d93415fee7d815" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> *</type>
+        <definition>SQLSelect * DataAccess::SQLSelect&lt; ResultType &gt;::groupBy</definition>
+        <argsstring>(const std::initializer_list&lt; std::string &gt; &amp;columnList)</argsstring>
+        <name>groupBy</name>
+        <qualifiedname>DataAccess::SQLSelect::groupBy</qualifiedname>
+        <param>
+          <type>const std::initializer_list&lt; std::string &gt; &amp;</type>
+          <declname>columnList</declname>
+        </param>
+        <briefdescription>
+<para>Method for group result table. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>columnList</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- list of the columns. Use ...({&quot;*&quot;})-&gt;... for all columns </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current <ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> pointer object to continue SQL query </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="458" column="15" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="458" bodyend="471"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_select_1af58a892621326af6d0d88c49d42f8d79" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> *</type>
+        <definition>SQLSelect * DataAccess::SQLSelect&lt; ResultType &gt;::having</definition>
+        <argsstring>(const std::string &amp;condition)</argsstring>
+        <name>having</name>
+        <qualifiedname>DataAccess::SQLSelect::having</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>condition</declname>
+        </param>
+        <briefdescription>
+<para>Method for using instead of where with aggregate functions. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><programlisting><codeline><highlight class="normal">SELECT<sp/>Employees.LastName,<sp/>COUNT(Orders.OrderID)<sp/>AS<sp/>NumberOfOrders</highlight></codeline>
+<codeline><highlight class="normal">FROM<sp/>Orders</highlight></codeline>
+<codeline><highlight class="normal">INNER<sp/>JOIN<sp/>Employees<sp/>ON<sp/>Orders.EmployeeID<sp/>=<sp/>Employees.EmployeeID</highlight></codeline>
+<codeline><highlight class="normal">WHERE<sp/>LastName<sp/>=<sp/>&apos;LastName1&apos;<sp/>OR<sp/>LastName<sp/>=<sp/>&apos;Fuller&apos;</highlight></codeline>
+<codeline><highlight class="normal">GROUP<sp/>BY<sp/>LastName</highlight></codeline>
+<codeline><highlight class="normal">HAVING<sp/>COUNT(Orders.OrderID)<sp/>&gt;<sp/>25;</highlight></codeline>
+</programlisting> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>condition</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- string SQL condition </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current <ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> pointer object to continue SQL query </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="487" column="15" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="487" bodyend="494"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_select_1a64aafa1174f829333a852b2cf3e35b7c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> *</type>
+        <definition>SQLSelect * DataAccess::SQLSelect&lt; ResultType &gt;::Any</definition>
+        <argsstring>(const std::string &amp;subQuery)</argsstring>
+        <name>Any</name>
+        <qualifiedname>DataAccess::SQLSelect::Any</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>subQuery</declname>
+        </param>
+        <briefdescription>
+<para>Method for a condition between a single column and a range of other values (any of the values). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>It&apos;s equivalent of: x = ANY (a,b,c) -&gt; x = a OR b OR c <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SQL</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>subQuery string </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current <ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> pointer object to continue SQL query </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="504" column="15" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="504" bodyend="511"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_select_1a8116284547536f054c8a7c8b5c701027" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> *</type>
+        <definition>SQLSelect * DataAccess::SQLSelect&lt; ResultType &gt;::All</definition>
+        <argsstring>(const std::string &amp;subQuery)</argsstring>
+        <name>All</name>
+        <qualifiedname>DataAccess::SQLSelect::All</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>subQuery</declname>
+        </param>
+        <briefdescription>
+<para>Method for a condition between a single column and a range of other values (a of the values). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SQL</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>subQuery string </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current <ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> pointer object to continue SQL query </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="519" column="15" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="519" bodyend="526"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interface for selection operations. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>It likes common SQL select condition. This is singleton. <simplesect kind="warning"><para>After call it you must call the method &apos;columns&apos; (BUT distinct is exception) and give it columns that you need to return. OR you can give &apos;*&apos;. </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>DataAccess::SQLBase&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_base"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::SQLSelect&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_select"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess::SQLWhereCondition&lt; SQLSelect&lt; ResultType &gt; &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_where_condition"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>DataAccess::SQLBase&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_base"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::SQLSelect&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_select"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess::SQLWhereCondition&lt; SQLSelect&lt; ResultType &gt; &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_where_condition"/>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="304" column="1" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="305" bodyend="527"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_s_q_l_base_1aba9311d0ab264cee686f5b45909a07c4" prot="protected" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>_currentBuilder</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a9fee04b1953e779668c25cdd9bdeda8d" prot="protected" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>_queryStream</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a2d80d4c7df26b7fb487610e87c57f014" prot="protected" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>_statementType</name></member>
+      <member refid="class_data_access_1_1_s_q_l_select_1a8116284547536f054c8a7c8b5c701027" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>All</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1af6c905de10a010b7aea525d57b353fed" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>And</name></member>
+      <member refid="class_data_access_1_1_s_q_l_select_1a64aafa1174f829333a852b2cf3e35b7c" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>Any</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1ae88056b675b53556eb337859b112df5a" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>Between</name></member>
+      <member refid="class_data_access_1_1_s_q_l_select_1ad43c0c955c442b5b7d3805048d0c7cc7" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>distinct</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6b1042754338bd511e2ca9d0f0201b4d" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>getStatementType</name></member>
+      <member refid="class_data_access_1_1_s_q_l_select_1afda394b46df3a42022d93415fee7d815" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>groupBy</name></member>
+      <member refid="class_data_access_1_1_s_q_l_select_1af58a892621326af6d0d88c49d42f8d79" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>having</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1ab5c076036d6ac3761defd53647e94225" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>In</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1a09d8406259ba23bf78817f4aa0bde4d3" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>In</name></member>
+      <member refid="class_data_access_1_1_s_q_l_select_1a94867c79e377b3433cf13b9499121f3c" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>join</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1aa3168e6c775846fb80fb9fad099a3faa" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>Like</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a30c597d39d45b4c30a6b817ad9394d2f" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>operator&lt;&lt;</name></member>
+      <member refid="class_data_access_1_1_s_q_l_select_1aad2acaf20031571bc01070c88906e953" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_select_1a8c377a8aafff41275626a24542012558" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1afbfaf3b449cdca844c3545315f5e7890" prot="public" virt="non-virtual" ambiguityscope="DataAccess::SQLBase::"><scope>DataAccess::SQLSelect</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a992593dadbec2399881fcc14a0a3c47b" prot="public" virt="non-virtual" ambiguityscope="DataAccess::SQLBase::"><scope>DataAccess::SQLSelect</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1ab31a5bb6911024c656b571d2ef58806b" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>Or</name></member>
+      <member refid="class_data_access_1_1_s_q_l_select_1aaa7a1f958f804caa59c6efb8f9ac630f" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>orderBy</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a8e7b49572e3fe99855d7cb26d35ff042" prot="protected" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>privateCheckForLastSymbol</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6de1f009d5bfae63c06e691b8087c75e" prot="protected" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>privateCorrectFormatting</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6444aee735ea7f6174e1669977d83fa8" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>rollback</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6ae75814a65cd9694ac4870deffedc58" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a298ac24cccd355046b6ac9bf98448e84" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a495d8c8ca8ee9b089f290111f5a0cc46" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a58e74cbedb1db27f9f738d841501e9c9" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_select_1a33e78297ad3834b18ef47c09b5b0fbdd" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>SQLSelect</name></member>
+      <member refid="class_data_access_1_1_s_q_l_select_1ad58e0f6ae6acdd91e1c5bc22fea93eae" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>SQLSelect</name></member>
+      <member refid="class_data_access_1_1_s_q_l_select_1a8781763d7bbe7948cb025b679fe4ea36" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>SQLSelect</name></member>
+      <member refid="class_data_access_1_1_s_q_l_select_1a4957144c82e7bcdab01c7142c42e5629" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>SQLSelect</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1a146d89de7c30fa9accdb977dd9f91e8d" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>SQLWhereCondition</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1aa9521992047a16b7d9d24219f13c0cf3" prot="public" virt="non-virtual"><scope>DataAccess::SQLSelect</scope><name>Where</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a88f9119149b1285a93929606992b8f99" prot="public" virt="virtual"><scope>DataAccess::SQLSelect</scope><name>~SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_select_1af05ae4313b1411e755d294b56156b676" prot="public" virt="virtual"><scope>DataAccess::SQLSelect</scope><name>~SQLSelect</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1adfb2b4ebdd0fbff64cd286be3fd2eaf4" prot="public" virt="virtual"><scope>DataAccess::SQLSelect</scope><name>~SQLWhereCondition</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

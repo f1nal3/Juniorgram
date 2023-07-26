@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_models_1_1_login_info" kind="struct" language="C++" prot="public">
+    <compoundname>Models::LoginInfo</compoundname>
+    <includes refid="_primitives_8hpp" local="no">Primitives.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_models_1_1_login_info_1a9a9f25c8ddcbcf97123d3d628ff64a21" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Models::LoginInfo::_login</definition>
+        <argsstring></argsstring>
+        <name>_login</name>
+        <qualifiedname>Models::LoginInfo::_login</qualifiedname>
+        <briefdescription>
+<para>user&apos;s login as string variable </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="105" column="17" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_login_info_1a00e6960fb99fd49179ad1a0daab9f6f0" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Models::LoginInfo::_pwdHash</definition>
+        <argsstring></argsstring>
+        <name>_pwdHash</name>
+        <qualifiedname>Models::LoginInfo::_pwdHash</qualifiedname>
+        <briefdescription>
+<para>pwdHash hash of user&apos;s password as string variable </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="107" column="17" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_models_1_1_login_info_1a7fd70756960b4ddeb2bf0c88f02cfe24" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Models::LoginInfo::LoginInfo</definition>
+        <argsstring>()=default</argsstring>
+        <name>LoginInfo</name>
+        <qualifiedname>Models::LoginInfo::LoginInfo</qualifiedname>
+        <briefdescription>
+<para>Default <ref refid="struct_models_1_1_login_info" kindref="compound">LoginInfo</ref> constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="109" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_login_info_1aeadcb9d143d427428450026539459e30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Models::LoginInfo::LoginInfo</definition>
+        <argsstring>(const LoginInfo &amp;)=default</argsstring>
+        <name>LoginInfo</name>
+        <qualifiedname>Models::LoginInfo::LoginInfo</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_models_1_1_login_info" kindref="compound">LoginInfo</ref> &amp;</type>
+        </param>
+        <briefdescription>
+<para>Default <ref refid="struct_models_1_1_login_info" kindref="compound">LoginInfo</ref> copy constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="111" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_login_info_1a0ea931f2e033a1290444450eec411b6a" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Models::LoginInfo::LoginInfo</definition>
+        <argsstring>(const std::string &amp;login_, const std::string &amp;passwordHash_)</argsstring>
+        <name>LoginInfo</name>
+        <qualifiedname>Models::LoginInfo::LoginInfo</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>login_</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>passwordHash_</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="struct_models_1_1_login_info" kindref="compound">LoginInfo</ref> constructor with initializing list. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="113" column="14" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="113" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_login_info_1a16557448935a25e246c8a8105356c280" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Models::LoginInfo::~LoginInfo</definition>
+        <argsstring>()=default</argsstring>
+        <name>~LoginInfo</name>
+        <qualifiedname>Models::LoginInfo::~LoginInfo</qualifiedname>
+        <briefdescription>
+<para>Default <ref refid="struct_models_1_1_login_info" kindref="compound">LoginInfo</ref> destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="115" column="5"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Struct for storing and transmitting login information. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="102" column="1" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="103" bodyend="116"/>
+    <listofallmembers>
+      <member refid="struct_models_1_1_login_info_1a9a9f25c8ddcbcf97123d3d628ff64a21" prot="public" virt="non-virtual"><scope>Models::LoginInfo</scope><name>_login</name></member>
+      <member refid="struct_models_1_1_login_info_1a00e6960fb99fd49179ad1a0daab9f6f0" prot="public" virt="non-virtual"><scope>Models::LoginInfo</scope><name>_pwdHash</name></member>
+      <member refid="struct_models_1_1_login_info_1a7fd70756960b4ddeb2bf0c88f02cfe24" prot="public" virt="non-virtual"><scope>Models::LoginInfo</scope><name>LoginInfo</name></member>
+      <member refid="struct_models_1_1_login_info_1aeadcb9d143d427428450026539459e30" prot="public" virt="non-virtual"><scope>Models::LoginInfo</scope><name>LoginInfo</name></member>
+      <member refid="struct_models_1_1_login_info_1a0ea931f2e033a1290444450eec411b6a" prot="public" virt="non-virtual"><scope>Models::LoginInfo</scope><name>LoginInfo</name></member>
+      <member refid="struct_models_1_1_login_info_1a16557448935a25e246c8a8105356c280" prot="public" virt="non-virtual"><scope>Models::LoginInfo</scope><name>~LoginInfo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

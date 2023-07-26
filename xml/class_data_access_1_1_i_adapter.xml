@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_data_access_1_1_i_adapter" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>DataAccess::IAdapter</compoundname>
+    <derivedcompoundref refid="class_data_access_1_1_postgre_adapter" prot="public" virt="non-virtual">DataAccess::PostgreAdapter</derivedcompoundref>
+    <derivedcompoundref refid="class_mock_object_1_1_mock_database" prot="public" virt="non-virtual">MockObject::MockDatabase</derivedcompoundref>
+    <includes refid="_i_adapter_8hpp" local="no">IAdapter.hpp</includes>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_data_access_1_1_i_adapter_1aad3b189624e653c7917361c978b98d90" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>std::shared_ptr&lt; T &gt;</type>
+        <definition>static std::shared_ptr&lt; T &gt; DataAccess::IAdapter::getInstance</definition>
+        <argsstring>(const std::string_view &amp;options={})</argsstring>
+        <name>getInstance</name>
+        <qualifiedname>DataAccess::IAdapter::getInstance</qualifiedname>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>options</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Method for getting Adapter instances. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This method return the instance with your options. <linebreak/>
+ Like: dbname=... user=... hostaddr=... port=... ... . <linebreak/>
+ There are another options like: ssh, password, etc. This options must be passed as a single string. By default: (dbname=juniorgram user=postgres hostaddr=127.0.0.1 port=5432). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for connecting to the database. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Adapter instance: std::shared_ptr&lt;...&gt; </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IAdapter.hpp" line="32" column="28" bodyfile="DataAccess/Public/Include/DataAccess/IAdapter.hpp" bodystart="32" bodyend="32"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_data_access_1_1_i_adapter_1aa49a912c05ddd502d1a1a05156b3f63d" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::optional&lt; std::any &gt;</type>
+        <definition>virtual std::optional&lt; std::any &gt; DataAccess::IAdapter::query</definition>
+        <argsstring>(const std::string_view &amp;query)=0</argsstring>
+        <name>query</name>
+        <qualifiedname>DataAccess::IAdapter::query</qualifiedname>
+        <reimplementedby refid="class_mock_object_1_1_mock_database_1ab904eca959a13560951dbb99b2bb68b1">query</reimplementedby>
+        <reimplementedby refid="class_data_access_1_1_postgre_adapter_1acb64a4195008520a7771e7e1ad92eb5e">query</reimplementedby>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>query</declname>
+        </param>
+        <briefdescription>
+<para>Method for executing SQL queries. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This method use raw SQL query, so it isn`t recommended to use this function, because every type of database has own interface for creating queries. Usage example you can see in <ref refid="_postgre_adapter_8hpp_source" kindref="compound">PostgreAdapter.hpp</ref>. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IAdapter.hpp" line="40" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_adapter_1a12530850dcd116116accd6168b199376" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool DataAccess::IAdapter::isConnected</definition>
+        <argsstring>(void) const =0</argsstring>
+        <name>isConnected</name>
+        <qualifiedname>DataAccess::IAdapter::isConnected</qualifiedname>
+        <reimplementedby refid="class_mock_object_1_1_mock_database_1ad6fda9c944bbf2013ed270673c5b3f42">isConnected</reimplementedby>
+        <reimplementedby refid="class_data_access_1_1_postgre_adapter_1a2b484c3491b7e54dc6d9ef143cc0cf1d">isConnected</reimplementedby>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IAdapter.hpp" line="42" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_adapter_1a9025dabaecb816d9ee546c91756aba59" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void DataAccess::IAdapter::closeConnection</definition>
+        <argsstring>(void)=0</argsstring>
+        <name>closeConnection</name>
+        <qualifiedname>DataAccess::IAdapter::closeConnection</qualifiedname>
+        <reimplementedby refid="class_mock_object_1_1_mock_database_1ad4d787ab7c177097b3ab48408d49e96d">closeConnection</reimplementedby>
+        <reimplementedby refid="class_data_access_1_1_postgre_adapter_1a153059ebb2f3f413a5196183adc73a2f">closeConnection</reimplementedby>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IAdapter.hpp" line="44" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_adapter_1ac7d7587c1cf683508d2ce26d66a91731" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual DataAccess::IAdapter::~IAdapter</definition>
+        <argsstring>()</argsstring>
+        <name>~IAdapter</name>
+        <qualifiedname>DataAccess::IAdapter::~IAdapter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IAdapter.hpp" line="46" column="13" bodyfile="DataAccess/Public/Include/DataAccess/IAdapter.hpp" bodystart="46" bodyend="46"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>An abstract class manages the connection to database. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Class allows connect to database and disconnect from it, can return options, which are used for connecting to database. Every database have its own adapter, which is implementation of <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref>. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>DataAccess::IAdapter</label>
+        <link refid="class_data_access_1_1_i_adapter"/>
+      </node>
+      <node id="2">
+        <label>DataAccess::PostgreAdapter</label>
+        <link refid="class_data_access_1_1_postgre_adapter"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>MockObject::MockDatabase</label>
+        <link refid="class_mock_object_1_1_mock_database"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="DataAccess/Public/Include/DataAccess/IAdapter.hpp" line="17" column="1" bodyfile="DataAccess/Public/Include/DataAccess/IAdapter.hpp" bodystart="18" bodyend="47"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_i_adapter_1a9025dabaecb816d9ee546c91756aba59" prot="public" virt="pure-virtual"><scope>DataAccess::IAdapter</scope><name>closeConnection</name></member>
+      <member refid="class_data_access_1_1_i_adapter_1aad3b189624e653c7917361c978b98d90" prot="public" virt="non-virtual"><scope>DataAccess::IAdapter</scope><name>getInstance</name></member>
+      <member refid="class_data_access_1_1_i_adapter_1a12530850dcd116116accd6168b199376" prot="public" virt="pure-virtual"><scope>DataAccess::IAdapter</scope><name>isConnected</name></member>
+      <member refid="class_data_access_1_1_i_adapter_1aa49a912c05ddd502d1a1a05156b3f63d" prot="public" virt="pure-virtual"><scope>DataAccess::IAdapter</scope><name>query</name></member>
+      <member refid="class_data_access_1_1_i_adapter_1ac7d7587c1cf683508d2ce26d66a91731" prot="public" virt="virtual"><scope>DataAccess::IAdapter</scope><name>~IAdapter</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

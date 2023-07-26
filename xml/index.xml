@@ -1,0 +1,1464 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.7" xml:lang="en-US">
+  <compound refid="class_network_1_1_abstract_handler" kind="class"><name>Network::AbstractHandler</name>
+    <member refid="class_network_1_1_abstract_handler_1a7c44d70dfc1031f853a06487af2402fe" kind="variable"><name>nextHandler</name></member>
+    <member refid="class_network_1_1_abstract_handler_1ac08e0b26b9b6d954578ebedd433401e3" kind="function"><name>setNext</name></member>
+  </compound>
+  <compound refid="struct_data_access_1_1_abstract_postgre_repository" kind="struct"><name>DataAccess::AbstractPostgreRepository</name>
+    <member refid="struct_data_access_1_1_abstract_postgre_repository_1ad83909ce308fd3f8c006fe341247f86e" kind="variable"><name>_pTable</name></member>
+    <member refid="struct_data_access_1_1_abstract_postgre_repository_1a1d33ed6bc3a61773bdf111b1bc5bc772" kind="variable"><name>_filler</name></member>
+    <member refid="struct_data_access_1_1_abstract_postgre_repository_1a8629dc8a2dd6eaaa2de3f635a030e23f" kind="function"><name>AbstractPostgreRepository</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_abstract_query_builder" kind="class"><name>DataAccess::AbstractQueryBuilder</name>
+    <member refid="class_data_access_1_1_abstract_query_builder_1ae0cc6c69f2f91a8a00ceab8c22d6d37b" kind="variable"><name>_databaseType</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1a0f69e45cd1e983e624fc03d7d90eba30" kind="variable"><name>_tableName</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1a7e02fa948b07ff527f2b334e4d9bc112" kind="variable"><name>_statement</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1ac9f01271a4cdc3bdbb48e83681c3fcb1" kind="variable"><name>_adapter</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1a92e1ab287f9278a80a348772c25c054b" kind="function"><name>AbstractQueryBuilder</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1a8304b6404fc83465659fbdecb67dfe5f" kind="function"><name>~AbstractQueryBuilder</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1ae8ea712d708f1a6a44dfea87d9f11591" kind="function"><name>AbstractQueryBuilder</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1a521d213652735e3ca1844c7a51736445" kind="function"><name>AbstractQueryBuilder</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1a9f798e4583e5d63af6afcb4eb6cef1a9" kind="function"><name>AbstractQueryBuilder</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1ace49941851e7d0cda0309eb61a272d81" kind="function"><name>operator=</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1a10997c6c7af0fa8195fde097c3b1eca8" kind="function"><name>operator=</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1a5d7e400becf74e9542cf618acccb4c58" kind="function"><name>Select</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1a6fcea4209411daad1e1ae29c9ddc2594" kind="function"><name>Insert</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1a1ebbbdf8ad5af38da0a58e18af904095" kind="function"><name>Update</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1a9d686e8f8da08744933f7559e6c3438d" kind="function"><name>Delete</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1aa0960fa03bc3053d544fa955c1948419" kind="function"><name>changeTable</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1a674ce4f9a87fe93afce688d66b09b4e4" kind="function"><name>changeTable</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1a8c45b6248bd0646c16621052bf5f5632" kind="function"><name>getAdapter</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1ac12f601e567a069614822fe3a6e46c24" kind="function"><name>getDatabaseType</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1ac4d1178d08d3bce8cd2d62fa03592ff5" kind="function"><name>getCurrentTableName</name></member>
+    <member refid="class_data_access_1_1_abstract_query_builder_1a6e306d4a601128d3c8b0617e208dbc0a" kind="function"><name>clearStatement</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_abstract_repository_container" kind="class"><name>DataAccess::AbstractRepositoryContainer</name>
+    <member refid="class_data_access_1_1_abstract_repository_container_1a107eb6748a704080d54424a0b8260e83" kind="typedef"><name>RealType</name></member>
+    <member refid="class_data_access_1_1_abstract_repository_container_1a68ff1d3fa3ac17da0b465c68d8c67449" kind="typedef"><name>IType</name></member>
+    <member refid="class_data_access_1_1_abstract_repository_container_1a00e9dc46b7ecc308e25e0ff7fc740e3c" kind="variable"><name>_adapter</name></member>
+    <member refid="class_data_access_1_1_abstract_repository_container_1a7e418163f8162de868fb8afa82fbbf69" kind="variable"><name>_container</name></member>
+    <member refid="class_data_access_1_1_abstract_repository_container_1add5e7ed7307e8cb7b741f48c839f2234" kind="function"><name>AbstractRepositoryContainer</name></member>
+    <member refid="class_data_access_1_1_abstract_repository_container_1a191aad8880c45b7dbb4aedf0560a5ab6" kind="function"><name>registerRepository</name></member>
+    <member refid="class_data_access_1_1_abstract_repository_container_1a3a619e1bd2fb0647b3987908192c15e4" kind="function"><name>getRepository</name></member>
+  </compound>
+  <compound refid="struct_base_1_1_crypto_1_1_a_e_s_cipher" kind="struct"><name>Base::Crypto::AESCipher</name>
+    <member refid="struct_base_1_1_crypto_1_1_a_e_s_cipher_1a608a626c0d7a78993cce26ad5fad41c6" kind="variable"><name>encryptor</name></member>
+    <member refid="struct_base_1_1_crypto_1_1_a_e_s_cipher_1af2ae7d15ce509d3ca1890e22154b387e" kind="variable"><name>decryptor</name></member>
+    <member refid="struct_base_1_1_crypto_1_1_a_e_s_cipher_1aa306040785115b343b4121bbbd683226" kind="function"><name>generateKey</name></member>
+    <member refid="struct_base_1_1_crypto_1_1_a_e_s_cipher_1a31b1de0e3ce122acbdd28faa210f4302" kind="function"><name>encrypt</name></member>
+    <member refid="struct_base_1_1_crypto_1_1_a_e_s_cipher_1a86ca398d943a44926786584a1d9916a6" kind="function"><name>decrypt</name></member>
+  </compound>
+  <compound refid="struct_base_1_1_crypto_1_1_a_e_s_factory" kind="struct"><name>Base::Crypto::AESFactory</name>
+    <member refid="struct_base_1_1_crypto_1_1_a_e_s_factory_1ae4d7bc2f3dff663e9bd37d1dfc425ffd" kind="function"><name>create</name></member>
+  </compound>
+  <compound refid="class_app" kind="class"><name>App</name>
+    <member refid="class_app_1acb8cbf3e285b91d0170ffe87df5989c5" kind="function"><name>App</name></member>
+    <member refid="class_app_1a34f1f253b1cef5f4ecbac66eaf6964ec" kind="function"><name>~App</name></member>
+    <member refid="class_app_1a8c8856796470a956e15dbba11511524c" kind="function"><name>onServerAccepted</name></member>
+    <member refid="class_app_1ae489a55b944cf93f7aab2bb7dfa3d531" kind="function"><name>onServerPing</name></member>
+    <member refid="class_app_1a5387ee5d220572e4cf9c342da5216f27" kind="function"><name>onServerMessage</name></member>
+    <member refid="class_app_1a0dc29282425e8782a84975d692290188" kind="function"><name>onChannelListRequest</name></member>
+    <member refid="class_app_1a936e8b81ea1cf5dbf8f1554211f755fc" kind="function"><name>onMessageStoreAnswer</name></member>
+    <member refid="class_app_1a5196e694c55677c4771e6e6facb3c437" kind="function"><name>onUserMessageDeleteAnswer</name></member>
+    <member refid="class_app_1a936bfc88e0e0b997be3782edd213deff" kind="function"><name>onMessageHistoryAnswer</name></member>
+    <member refid="class_app_1a7b67645176d533b093954196cec31e52" kind="function"><name>onRegistrationAnswer</name></member>
+  </compound>
+  <compound refid="class_arg_parser" kind="class"><name>ArgParser</name>
+    <member refid="class_arg_parser_1a9e7baefce77cbd0bd5fb44a5e2905d60" kind="variable"><name>_argParser</name></member>
+    <member refid="class_arg_parser_1a959cb44737277272f8bf3156c03d1f77" kind="function"><name>ArgParser</name></member>
+    <member refid="class_arg_parser_1a3b6e3af8bac07f47195c6a153110d6c9" kind="function"><name>ArgParser</name></member>
+    <member refid="class_arg_parser_1a2e392c0d3a61696a4e9212691101938b" kind="function"><name>ArgParser</name></member>
+    <member refid="class_arg_parser_1aeed3fd0138afa44e0269f0c00cbca11d" kind="function"><name>getPair</name></member>
+    <member refid="class_arg_parser_1a521de38e1042eaf0d9f38c206710680f" kind="function"><name>getSettings</name></member>
+  </compound>
+  <compound refid="class_performance_test_1_1_argument_parser" kind="class"><name>PerformanceTest::ArgumentParser</name>
+    <member refid="class_performance_test_1_1_argument_parser_1ab3f3dcd31a64b6810d916f5a0a4eb9a4" kind="typedef"><name>argument</name></member>
+    <member refid="class_performance_test_1_1_argument_parser_1adcc5eab8d12b64db052196aa69fcc080" kind="typedef"><name>argumentValue</name></member>
+    <member refid="class_performance_test_1_1_argument_parser_1a1f4ea342c1c5b246ab2bd8f038e62e74" kind="variable"><name>_args</name></member>
+    <member refid="class_performance_test_1_1_argument_parser_1a7fef1d42813b6bea704f2831d13c5671" kind="function"><name>privateParseArgument</name></member>
+    <member refid="class_performance_test_1_1_argument_parser_1ac33147fd2a7d11aa6f5d51c35069a7c0" kind="function"><name>privateParseValue</name></member>
+    <member refid="class_performance_test_1_1_argument_parser_1abd1ff0a87692bce81696568ef878d539" kind="function"><name>ArgumentParser</name></member>
+    <member refid="class_performance_test_1_1_argument_parser_1a36fae7059f50dcd359a3aa5ed98b0e70" kind="function"><name>isArgumentDefind</name></member>
+    <member refid="class_performance_test_1_1_argument_parser_1af4b7cb4eb9a6e462cba6600c40ef2955" kind="function"><name>getPathArgument</name></member>
+    <member refid="class_performance_test_1_1_argument_parser_1aa9e7a3ec44d7ed1f19306395b027f31f" kind="function"><name>getCountArgument</name></member>
+    <member refid="class_performance_test_1_1_argument_parser_1a78a6af686b36ea6307f55c3ddaf01129" kind="function"><name>getTestArgument</name></member>
+  </compound>
+  <compound refid="class_models_1_1_v2_1_1_channel" kind="class"><name>Models::V2::Channel</name>
+    <member refid="class_models_1_1_v2_1_1_channel_1a07840b976bebe8dbb389988dd3ef64ec" kind="function"><name>Channel</name></member>
+    <member refid="class_models_1_1_v2_1_1_channel_1afacfdf48f2df62dd2312b4f7939d8b7c" kind="function"><name>Channel</name></member>
+    <member refid="class_models_1_1_v2_1_1_channel_1a0a6ed9cf00fcf03da5890bb44980e44b" kind="function"><name>getNumEnum</name></member>
+  </compound>
+  <compound refid="struct_models_1_1_channel_info" kind="struct"><name>Models::ChannelInfo</name>
+    <member refid="struct_models_1_1_channel_info_1a09fad2593a7cc2252185223b0f1ff366" kind="variable"><name>_creatorID</name></member>
+    <member refid="struct_models_1_1_channel_info_1ab1897c74db5b92748853fc1ce1234ae8" kind="variable"><name>_channelID</name></member>
+    <member refid="struct_models_1_1_channel_info_1a0717353b5a20d3e9a157875dd9722174" kind="variable"><name>_channelName</name></member>
+    <member refid="struct_models_1_1_channel_info_1a6274f34b77f99910787b332901e904a9" kind="function"><name>ChannelInfo</name></member>
+    <member refid="struct_models_1_1_channel_info_1ad01d620fd6dc2236838ccc56ff296251" kind="function"><name>ChannelInfo</name></member>
+    <member refid="struct_models_1_1_channel_info_1a41e2637cc20afd6d445a994e5051d99f" kind="function"><name>~ChannelInfo</name></member>
+    <member refid="struct_models_1_1_channel_info_1a2f5024f75de57efca1d51fa6c9fab9c7" kind="friend"><name>operator==</name></member>
+  </compound>
+  <compound refid="struct_data_access_1_1_channels_repository" kind="struct"><name>DataAccess::ChannelsRepository</name>
+    <member refid="struct_data_access_1_1_channels_repository_1a7443f95e5828f8f2a6bbe4af6be7bb78" kind="function"><name>ChannelsRepository</name></member>
+    <member refid="struct_data_access_1_1_channels_repository_1ac97f3bfd2ab12cd66d9a7d0620fba8d9" kind="function"><name>getAllChannelsList</name></member>
+    <member refid="struct_data_access_1_1_channels_repository_1a5661565e06ef2e278429d38313b951c8" kind="function"><name>leaveChannel</name></member>
+    <member refid="struct_data_access_1_1_channels_repository_1a39e4386b4acb4612ab1754ed6b824b48" kind="function"><name>subscribeToChannel</name></member>
+    <member refid="struct_data_access_1_1_channels_repository_1aea6ebd419ed2fbeb65929ba1950ab70d" kind="function"><name>getChannelSubscriptionList</name></member>
+    <member refid="struct_data_access_1_1_channels_repository_1ab6c7a5e7cc4286f64332cb614dafc617" kind="function"><name>deleteChannel</name></member>
+    <member refid="struct_data_access_1_1_channels_repository_1a26c59e6b6fa4da7543bf9322a93e588c" kind="function"><name>createChannel</name></member>
+    <member refid="struct_data_access_1_1_channels_repository_1a658d60e7979f516f16ff21de17d23236" kind="function"><name>newCreateChannel</name></member>
+    <member refid="struct_data_access_1_1_channels_repository_1a7d1eb572c8e69480ae04e2d629df7a3b" kind="function"><name>~ChannelsRepository</name></member>
+  </compound>
+  <compound refid="struct_models_1_1_channel_subscription_info" kind="struct"><name>Models::ChannelSubscriptionInfo</name>
+    <member refid="struct_models_1_1_channel_subscription_info_1af1f7a36df4fa2c938862bad3ee544109" kind="variable"><name>_channelID</name></member>
+    <member refid="struct_models_1_1_channel_subscription_info_1a6bd3747064f536ee7f31a9175e268a9e" kind="variable"><name>_userID</name></member>
+    <member refid="struct_models_1_1_channel_subscription_info_1a038c9a7f87c3e5794c6b7e85128ab48c" kind="function"><name>ChannelSubscriptionInfo</name></member>
+    <member refid="struct_models_1_1_channel_subscription_info_1a6117eb6cc2b4bfdb1c640ff8427b1be7" kind="function"><name>ChannelSubscriptionInfo</name></member>
+    <member refid="struct_models_1_1_channel_subscription_info_1aa5ee6ceb8184af64f0cabdf0506fbbce" kind="function"><name>~ChannelSubscriptionInfo</name></member>
+    <member refid="struct_models_1_1_channel_subscription_info_1a6d1b8fede0775d0911075e81bb0cb29f" kind="friend"><name>operator==</name></member>
+  </compound>
+  <compound refid="class_network_1_1_client" kind="class"><name>Network::Client</name>
+    <member refid="class_network_1_1_client_1a18733803dcdf9b3f5971d1c47b7f6aff" kind="variable"><name>_serverAccept</name></member>
+    <member refid="class_network_1_1_client_1a995f7dec0d1f70c1342d56c9a5cfe113" kind="variable"><name>_context</name></member>
+    <member refid="class_network_1_1_client_1a0f6cc2d0e52f2e4fc6cfe897db76027e" kind="variable"><name>_contextThread</name></member>
+    <member refid="class_network_1_1_client_1ae3f6d55f112c03cda263e8f59db27596" kind="variable"><name>_connection</name></member>
+    <member refid="class_network_1_1_client_1a25421c98cc58eae60cd39c3b64239d4f" kind="variable"><name>_incomingMessagesQueue</name></member>
+    <member refid="class_network_1_1_client_1a1ef3315ee222dc3eb2af8201f405f847" kind="function"><name>~Client</name></member>
+    <member refid="class_network_1_1_client_1a22a583f9447871a539ba614520902092" kind="function"><name>connectToServer</name></member>
+    <member refid="class_network_1_1_client_1a2d2dad4544103a2a9e073d4eb78c2b1a" kind="function"><name>disconnectFromServer</name></member>
+    <member refid="class_network_1_1_client_1a336a20907c048fff41032146824912ec" kind="function"><name>isConnected</name></member>
+    <member refid="class_network_1_1_client_1a969324480a6f39a016c82921b8f2b132" kind="function"><name>send</name></member>
+    <member refid="class_network_1_1_client_1a6d62f9b3d94f1b369ebaaf39ca373fc6" kind="function"><name>incoming</name></member>
+    <member refid="class_network_1_1_client_1ab6967157fe329a8cf4f0cda9c37b390b" kind="function"><name>loop</name></member>
+    <member refid="class_network_1_1_client_1ae6436b4a2b519be2be62b5745f93fc05" kind="function"><name>pingServer</name></member>
+    <member refid="class_network_1_1_client_1a7147262877425c2f7a61527038cc74a3" kind="function"><name>createDirectChat</name></member>
+    <member refid="class_network_1_1_client_1a34695da617803db894baf53f3054c95d" kind="function"><name>askForChannelList</name></member>
+    <member refid="class_network_1_1_client_1aed8e12023f5bd9fe1adf6febda4e3b63" kind="function"><name>askForChannelSubscriptionList</name></member>
+    <member refid="class_network_1_1_client_1a41cd70c42eaa80488c40f12d86f1589e" kind="function"><name>askForMessageHistory</name></member>
+    <member refid="class_network_1_1_client_1ad231b75d9adec41382a9d326296f584d" kind="function"><name>askForReplyHistory</name></member>
+    <member refid="class_network_1_1_client_1aac511810872c49158ad24bc9f4835cab" kind="function"><name>messageAll</name></member>
+    <member refid="class_network_1_1_client_1a89356bf513bd32c331e30e21d0b209ea" kind="function"><name>userMessageDelete</name></member>
+    <member refid="class_network_1_1_client_1a6d4be14a93b76be07ffc46869d54dd4c" kind="function"><name>userMessageDelete</name></member>
+    <member refid="class_network_1_1_client_1ac2f25529256dfc492cf22a0d1d171998" kind="function"><name>subscriptionChannel</name></member>
+    <member refid="class_network_1_1_client_1a05b736dd423cc02b3b0721c2e760da2e" kind="function"><name>leaveChannel</name></member>
+    <member refid="class_network_1_1_client_1ad5171f7cf939b53fc5f9f4b9f42e41dc" kind="function"><name>deleteChannel</name></member>
+    <member refid="class_network_1_1_client_1a0249236bf48c1ea56a76cc4732abc8c1" kind="function"><name>createChannel</name></member>
+    <member refid="class_network_1_1_client_1afabb8e76a8ba09804558ce74d8f5e0ee" kind="function"><name>storeMessage</name></member>
+    <member refid="class_network_1_1_client_1ae6c6809391307a9543d2668a5596c767" kind="function"><name>storeReply</name></member>
+    <member refid="class_network_1_1_client_1a427f72225af6756c7efdae76911ec4d5" kind="function"><name>userRegistration</name></member>
+    <member refid="class_network_1_1_client_1a594ba0121fcedff90282d79499e328ea" kind="function"><name>userAuthorization</name></member>
+    <member refid="class_network_1_1_client_1a33e9ef1621935c50681c30e4fe716138" kind="function"><name>userMessageReaction</name></member>
+    <member refid="class_network_1_1_client_1ae8f848bf80e913f495d9be332981fc25" kind="function"><name>onDisconnect</name></member>
+    <member refid="class_network_1_1_client_1aa80faff98fe07b9464dfff1cc94b86c5" kind="function"><name>onMessageSendFailed</name></member>
+    <member refid="class_network_1_1_client_1a8c8884f69ed4cb7bcdec595ae6e5b488" kind="function"><name>onLoginAnswer</name></member>
+    <member refid="class_network_1_1_client_1affc767c93ff417a063640dc6c749169b" kind="function"><name>onServerAccepted</name></member>
+    <member refid="class_network_1_1_client_1a242df1a110f065bcf32fbc8c2cb7bf13" kind="function"><name>onServerPing</name></member>
+    <member refid="class_network_1_1_client_1a479d05d690162ad05ea93e733a428e2e" kind="function"><name>onServerMessage</name></member>
+    <member refid="class_network_1_1_client_1a0f835b557eeeda02caa87cc0adf7a2ab" kind="function"><name>onChannelListRequest</name></member>
+    <member refid="class_network_1_1_client_1a2b7f8b0d101b6886b83e4667d06e8acd" kind="function"><name>onMessageHistoryAnswer</name></member>
+    <member refid="class_network_1_1_client_1a254a4f78f332f2261b1a0a76431a7f11" kind="function"><name>onMessageStoreAnswer</name></member>
+    <member refid="class_network_1_1_client_1aae033942b37c2b914e0f0bb33190a010" kind="function"><name>onUserMessageDeleteAnswer</name></member>
+    <member refid="class_network_1_1_client_1aee2fcb55fa84e71c379034707e2ad6ce" kind="function"><name>onRegistrationAnswer</name></member>
+    <member refid="class_network_1_1_client_1ad4ffdd06e7761f6761c29af809e2749e" kind="function"><name>onReplyHistoryAnswer</name></member>
+    <member refid="class_network_1_1_client_1aa767ec90c90b9d648eacbd0e50ef944d" kind="function"><name>onReplyStoreAnswer</name></member>
+    <member refid="class_network_1_1_client_1a11ab48ab34cf2b5f7e60423f0a1adb96" kind="function"><name>onChannelLeaveAnswer</name></member>
+    <member refid="class_network_1_1_client_1ab6e884c3346a2175e23cbb7bc31ed755" kind="function"><name>onChannelSubscribingAnswer</name></member>
+    <member refid="class_network_1_1_client_1a8fa6b9e170c5bda64be07c91428a881c" kind="function"><name>onChannelSubscribingListAnswer</name></member>
+    <member refid="class_network_1_1_client_1a524cd832f8d533efd0d1c1c54cbe261d" kind="function"><name>onChannelDeleteAnswer</name></member>
+    <member refid="class_network_1_1_client_1a49ff3c4151ae1ac3be9786464117e674" kind="function"><name>onEditMessageAnswer</name></member>
+    <member refid="class_network_1_1_client_1a8df31c555ad3b168080a0572b6b0e752" kind="function"><name>onChannelCreateAnswer</name></member>
+    <member refid="class_network_1_1_client_1a91916f5eee273291a7d26e6b668ac4fc" kind="function"><name>onDirectMessageCreateAnswer</name></member>
+    <member refid="class_network_1_1_client_1a15de402cf96349b27c6e14b8e452ada4" kind="function"><name>onMessageReactionAnswer</name></member>
+  </compound>
+  <compound refid="class_network_1_1_combining_handlers" kind="class"><name>Network::CombiningHandlers</name>
+    <member refid="class_network_1_1_combining_handlers_1a76512ee464219895207b210b5513ad8c" kind="function"><name>makeHandler</name></member>
+    <member refid="class_network_1_1_combining_handlers_1a6705c15751edb467b2e94d184291ab95" kind="function"><name>makeHandler</name></member>
+  </compound>
+  <compound refid="class_models_1_1_v2_1_1_comparator" kind="class"><name>Models::V2::Comparator</name>
+    <member refid="class_models_1_1_v2_1_1_comparator_1ac198d32a4d4abf3e797b2c25c74435c1" kind="function"><name>operator()</name></member>
+  </compound>
+  <compound refid="class_network_1_1_compression_handler" kind="class"><name>Network::CompressionHandler</name>
+    <member refid="class_network_1_1_compression_handler_1a29cba1eca737e1a16c926c86cca55617" kind="function"><name>handleOutcomingMessage</name></member>
+    <member refid="class_network_1_1_compression_handler_1a3910e3f038d8eb168ebe775c6a19520b" kind="function"><name>handleIncomingMessageBody</name></member>
+  </compound>
+  <compound refid="class_network_1_1_connection" kind="class"><name>Network::Connection</name>
+    <member refid="class_network_1_1_connection_1a3bcec583ab375ce8020a6d40d6cb1c96" kind="enum"><name>OwnerType</name></member>
+    <member refid="class_network_1_1_connection_1a3bcec583ab375ce8020a6d40d6cb1c96a3d27c95bfdbea691b250894d96852844" kind="enumvalue"><name>SERVER</name></member>
+    <member refid="class_network_1_1_connection_1a3bcec583ab375ce8020a6d40d6cb1c96aef10c650df47bffd6399e5e78da2a9b1" kind="enumvalue"><name>CLIENT</name></member>
+    <member refid="class_network_1_1_connection_1add4f752cb27a09991af93e43868d5e28" kind="variable"><name>_owner</name></member>
+    <member refid="class_network_1_1_connection_1abcf3c7fe68fce2de29a6ec6340f02684" kind="variable"><name>_connectionID</name></member>
+    <member refid="class_network_1_1_connection_1ad0c8825f34791b1b3ee8c6704c825d09" kind="variable"><name>_userID</name></member>
+    <member refid="class_network_1_1_connection_1aeceb1809c632c25dac89725564fa27d7" kind="variable"><name>_socket</name></member>
+    <member refid="class_network_1_1_connection_1a948ea190cefa9bb23c8b291eaee3064c" kind="variable"><name>_contextLink</name></member>
+    <member refid="class_network_1_1_connection_1a11a9d686aab8f9f286fa054568d7fae7" kind="variable"><name>_readStrand</name></member>
+    <member refid="class_network_1_1_connection_1a4f3c634d96ce628041335dce89c276f5" kind="variable"><name>_writeStrand</name></member>
+    <member refid="class_network_1_1_connection_1a174db59ba3028af2a103e20ab97b9297" kind="variable"><name>_incomingMessagesQueueLink</name></member>
+    <member refid="class_network_1_1_connection_1aa78c22817ad53a345191d219858fea2c" kind="variable"><name>_outcomingMessagesQueue</name></member>
+    <member refid="class_network_1_1_connection_1a690d53f387fcd7bdd205a74417817e73" kind="variable"><name>_messageBuffer</name></member>
+    <member refid="class_network_1_1_connection_1a9798108dc2a8734759f373ff76577eee" kind="function"><name>writeHeader</name></member>
+    <member refid="class_network_1_1_connection_1a2397bbee6d32569aa8927f55baa7529e" kind="function"><name>writeBody</name></member>
+    <member refid="class_network_1_1_connection_1ab2ac0a87f5040120493e9f7670a40c5c" kind="function"><name>readHeader</name></member>
+    <member refid="class_network_1_1_connection_1ac5f69b92b921f306379ee9f930f43ca6" kind="function"><name>readBody</name></member>
+    <member refid="class_network_1_1_connection_1adec57e800aab0a0be8012aac456de434" kind="function"><name>addToIncomingMessageQueue</name></member>
+    <member refid="class_network_1_1_connection_1a8bf09e9fe5450918701ecacb694601f7" kind="function"><name>Connection</name></member>
+    <member refid="class_network_1_1_connection_1ac8df5dc1d9073933158f18f68c250848" kind="function"><name>getID</name></member>
+    <member refid="class_network_1_1_connection_1a8349acb199b04edff783cdcc7d62f352" kind="function"><name>getUserID</name></member>
+    <member refid="class_network_1_1_connection_1a685612799889d4bc3799d63df9b93c7d" kind="function"><name>setUserID</name></member>
+    <member refid="class_network_1_1_connection_1a6ea5f3b6872c149c5307b9a5c9061ff5" kind="function"><name>connectToClient</name></member>
+    <member refid="class_network_1_1_connection_1aba3c8ad499e7931ee5508828a1cd4644" kind="function"><name>connectToServer</name></member>
+    <member refid="class_network_1_1_connection_1ae7b55080c22585a37e4265c2e083c4b6" kind="function"><name>disconnect</name></member>
+    <member refid="class_network_1_1_connection_1a4017296daa059f4568e9fc13c81c5556" kind="function"><name>isConnected</name></member>
+    <member refid="class_network_1_1_connection_1ac2afc16ca62d67c832f11861993cf712" kind="function"><name>send</name></member>
+  </compound>
+  <compound refid="struct_data_access_1_1_direct_message_repository" kind="struct"><name>DataAccess::DirectMessageRepository</name>
+    <member refid="struct_data_access_1_1_direct_message_repository_1a2364f89156c3b23a278637e7b1590300" kind="function"><name>DirectMessageRepository</name></member>
+    <member refid="struct_data_access_1_1_direct_message_repository_1a987a2e7d62626db899a9d2c629804608" kind="function"><name>addDirectChat</name></member>
+    <member refid="struct_data_access_1_1_direct_message_repository_1a7bfb0f97a3c1bc2ee672e826483e2db4" kind="function"><name>~DirectMessageRepository</name></member>
+  </compound>
+  <compound refid="class_network_1_1_encryption_handler" kind="class"><name>Network::EncryptionHandler</name>
+    <member refid="class_network_1_1_encryption_handler_1aa43ae93da073167184ad747034b168f7" kind="function"><name>handleOutcomingMessage</name></member>
+    <member refid="class_network_1_1_encryption_handler_1a71a57f955f7ab15b1921b9806f702250" kind="function"><name>handleIncomingMessageBody</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_file_d_b" kind="class"><name>DataAccess::FileDB</name>
+    <member refid="class_data_access_1_1_file_d_b_1a54d15271f9864436c21ba4e61b2b6b63" kind="variable"><name>_name</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1a18e48aa10cb356913c139baf8a039b15" kind="variable"><name>_path</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1aaf12fbf639298dd6b08521a53f364d89" kind="variable"><name>_mutex</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1a03e73a6c3d46d1736db71fd5c0bc8f3b" kind="variable"><name>_tableProperties</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1a8d7d6db837d4d36c0ca36e66509b2957" kind="variable"><name>_tableRowTemplates</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1a625a2398e2fa4120f1a78ee55836a832" kind="function"><name>FileDB</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1a5a603e19f712434b977372de742b87b8" kind="function"><name>~FileDB</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1ab9f7afff8b23755e6c14a7713ff1287f" kind="function"><name>FileDB</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1a8be4f73b456c75cf67d81ede490afe50" kind="function"><name>operator=</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1a8cef037fd52f46514be3e3c5e0197538" kind="function"><name>dropAllTables</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1adf86f7fe2ebdb6c0ee63fbbaf7368bb9" kind="function"><name>insert</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1a4db314fc1ce651b9d614a4e762865914" kind="function"><name>select</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1a77cf5ed14f44c4ae75167e35a1b618d0" kind="function"><name>update</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1aa6c434cbb3da5072b61a273cc4456d5f" kind="function"><name>remove</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1ae8057c78727ef9aee8efb4386bb24681" kind="function"><name>addColumn</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1aa11441ae0a4292600d2240712734f59d" kind="function"><name>removeColumn</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1ab83042c9e8dedf2636287b77719494f8" kind="function"><name>createTable</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1a6bab04a52ccca7ed30b924070330902f" kind="function"><name>removeTable</name></member>
+    <member refid="class_data_access_1_1_file_d_b_1a5fe7b507442fb57ab165401afeb58183" kind="function"><name>renumerateRowFiles</name></member>
+  </compound>
+  <compound refid="class_base_1_1_logger_1_1_file_logger" kind="class"><name>Base::Logger::FileLogger</name>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a4218db7fbf85c084939403a78fa4cf0b" kind="typedef"><name>BlockWrapper</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a48782f4544a8209504e3ee3d2fdce548" kind="variable"><name>_fileNamePrefix</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1af44161661446460008728f7fec1cec83" kind="variable"><name>_output</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1ab97c0714576b98ad45483fa36888d0d1" kind="variable"><name>_file</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a7c47def00c90db1987917e42a0860c05" kind="variable"><name>_blockWrapper</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a268fdefcc43f6c2003d517284da5b99d" kind="variable"><name>_isOpened</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a78cb4558a0c90301879283cacb1d3fa7" kind="variable"><name>_loggerThread</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1ad0e12fc59659878c779e2cfa0618a2d8" kind="variable"><name>_inputWait</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1adc414f089e7397fc35069b7d8f756ef6" kind="variable"><name>_mutex</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a463aa90bc106802183aa671d025d60e2" kind="variable"><name>_msgQueue</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1aa4d4180025e2f0475924160466ba1558" kind="variable"><name>_stop</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a027d30e79c1fca75712cb038374dbd94" kind="function"><name>getInstance</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a1cc1b989023255d98f6c8d6ae4a09ad5" kind="function"><name>stringifyLogLvl</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a22c42988710aca29d8b9cc195175dd92" kind="function"><name>init</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a14f120266747db9a061678430601b4c3" kind="function"><name>log</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a65e23d4546f3918ae346cace6552212c" kind="function"><name>log</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1af2bef7677032ede7b1af130b32e70883" kind="function"><name>FileLogger</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a26f5b1389cee9b5b10b8f09f2121d0fa" kind="function"><name>operator=</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a8680624cb2a594bf724e44846d0c5465" kind="function"><name>error</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1aa664e10474f1b49e2388e1eb07a0c755" kind="function"><name>warning</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a61a86e28c6c9e1017f6b04393df5fcaa" kind="function"><name>info</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a768d789db9c74012fcbbfecba6bdb02e" kind="function"><name>debug</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1aa3344fc843cdce5df2476e426c580be1" kind="function"><name>logAndThrow</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a9f93dc69e1b0e70fd26adb7a118c0c71" kind="function"><name>FileLogger</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a07cf38e326acb545ce748de4132c58b5" kind="function"><name>~FileLogger</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a811e20feceb2bae48ce1c4cded0559e2" kind="function"><name>fileSync</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1aeb0e33cf890d60e61e4fb2276aef681d" kind="function"><name>genDateTimeFileName</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1ad4b46a15dff84da2f76cc53617dcd087" kind="function"><name>run</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1abd26fca4ab25c4c8f5d8ca90353a5882" kind="function"><name>open</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a7abb410460ffa8f18e790496e53d8de7" kind="function"><name>close</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a3767a630a7504a4b701121cfabb86428" kind="function"><name>stop</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a743fe2a2861ba3c59f790bd2f0a2e9a3" kind="function"><name>timestamp</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1a73569b0f30f60b810cd6cac758c162e8" kind="function"><name>threadID</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1ac91f2a18964516183f2ead33bb7411cd" kind="function"><name>to_time_t</name></member>
+    <member refid="class_base_1_1_logger_1_1_file_logger_1acbe0d20de8f883b71047ecde06580e97" kind="function"><name>wrapValue</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_file_repository" kind="class"><name>DataAccess::FileRepository</name>
+    <member refid="class_data_access_1_1_file_repository_1a1b6a5b592d9355ee8253d128341e5fd3" kind="variable"><name>_database</name></member>
+    <member refid="class_data_access_1_1_file_repository_1a186354d343fc68628ab822483f5fbc87" kind="function"><name>FileRepository</name></member>
+    <member refid="class_data_access_1_1_file_repository_1a59dea174405cf1773a05696544fff407" kind="function"><name>~FileRepository</name></member>
+    <member refid="class_data_access_1_1_file_repository_1aa4dca0e8ba069b6445b9600ab586a156" kind="function"><name>getAllChannelsList</name></member>
+    <member refid="class_data_access_1_1_file_repository_1a6f10daf0f616c4128d69377a1e4ba189" kind="function"><name>getMessageHistoryForUser</name></member>
+  </compound>
+  <compound refid="struct_data_access_1_1_future_result" kind="struct"><name>DataAccess::FutureResult</name>
+    <member refid="struct_data_access_1_1_future_result_1a5107c449b829f97df4457657673c8d0f" kind="variable"><name>_future</name></member>
+    <member refid="struct_data_access_1_1_future_result_1a3f0a3debd86755d60022b15e3ca0c878" kind="function"><name>FutureResult</name></member>
+    <member refid="struct_data_access_1_1_future_result_1adec6393ff1b0e5145ed7f3055057a5f0" kind="function"><name>get</name></member>
+  </compound>
+  <compound refid="class_network_1_1_handler" kind="class"><name>Network::Handler</name>
+    <member refid="class_network_1_1_handler_1a5b0d27b200dca44a4fa12e76ad125e06" kind="function"><name>Handler</name></member>
+    <member refid="class_network_1_1_handler_1ae20002aef29f325c5102c9fa6f5b3a62" kind="function"><name>Handler</name></member>
+    <member refid="class_network_1_1_handler_1a14da12cf73099bce1bb5b09b57fae1a4" kind="function"><name>Handler</name></member>
+    <member refid="class_network_1_1_handler_1a89e439ca63d065b8d070a74848893f3a" kind="function"><name>operator=</name></member>
+    <member refid="class_network_1_1_handler_1aa2da68b7aeb4c5ba8b1c49024fd3c3fa" kind="function"><name>operator=</name></member>
+    <member refid="class_network_1_1_handler_1acedc859af138f19e1d8e9315cc233aaf" kind="function"><name>~Handler</name></member>
+    <member refid="class_network_1_1_handler_1a95d3091be58e0eaec6c6b2767b2de749" kind="function"><name>setNext</name></member>
+    <member refid="class_network_1_1_handler_1a52afad677d3cda18be5d424475b89cb2" kind="function"><name>handleOutcomingMessage</name></member>
+    <member refid="class_network_1_1_handler_1a3347420b2fb463aae3aadad8b1bfcc31" kind="function"><name>handleIncomingMessageBody</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_i_adapter" kind="class"><name>DataAccess::IAdapter</name>
+    <member refid="class_data_access_1_1_i_adapter_1aad3b189624e653c7917361c978b98d90" kind="function"><name>getInstance</name></member>
+    <member refid="class_data_access_1_1_i_adapter_1aa49a912c05ddd502d1a1a05156b3f63d" kind="function"><name>query</name></member>
+    <member refid="class_data_access_1_1_i_adapter_1a12530850dcd116116accd6168b199376" kind="function"><name>isConnected</name></member>
+    <member refid="class_data_access_1_1_i_adapter_1a9025dabaecb816d9ee546c91756aba59" kind="function"><name>closeConnection</name></member>
+    <member refid="class_data_access_1_1_i_adapter_1ac7d7587c1cf683508d2ce26d66a91731" kind="function"><name>~IAdapter</name></member>
+  </compound>
+  <compound refid="class_network_1_1i_a_p_i" kind="class"><name>Network::iAPI</name>
+    <member refid="class_network_1_1i_a_p_i_1aed9a0f5ce10bbeb1351c0633f5782701" kind="function"><name>messageClient</name></member>
+    <member refid="class_network_1_1i_a_p_i_1a4b5007b4816dc33164fa98805de71419" kind="function"><name>messageAllClients</name></member>
+    <member refid="class_network_1_1i_a_p_i_1af24582a286af71a8eacba36726398367" kind="function"><name>checkServerPing</name></member>
+    <member refid="class_network_1_1i_a_p_i_1ad9eff1dc9c7857819c62a2074eeb48ea" kind="function"><name>readAllMessage</name></member>
+    <member refid="class_network_1_1i_a_p_i_1a21e463443cf817b027ba4942d60aaf14" kind="function"><name>channelListRequest</name></member>
+    <member refid="class_network_1_1i_a_p_i_1a93d6a170b5d4653cb1e9779f6bfa8072" kind="function"><name>messageHistoryRequest</name></member>
+    <member refid="class_network_1_1i_a_p_i_1a76678ec2632fd05ee1c06aaa0935c55d" kind="function"><name>messageStoreRequest</name></member>
+    <member refid="class_network_1_1i_a_p_i_1a1a24cd0912abfec16da5f3c346cacebc" kind="function"><name>replyHistoryRequest</name></member>
+    <member refid="class_network_1_1i_a_p_i_1a22de7cc4357c7aae81e52e1500dc7336" kind="function"><name>replyStoreRequest</name></member>
+    <member refid="class_network_1_1i_a_p_i_1a297367a02c0325f7fd5f0c51a2e964c7" kind="function"><name>messageDeleteRequest</name></member>
+    <member refid="class_network_1_1i_a_p_i_1adbfe8578fa2f9fa1c974bbf4c327e05a" kind="function"><name>messageEditRequest</name></member>
+    <member refid="class_network_1_1i_a_p_i_1a15356321c5f03368adbdb31206cc64e9" kind="function"><name>messageReactionRequest</name></member>
+    <member refid="class_network_1_1i_a_p_i_1aa7482114ef4ff6eab5e1fc68d35aad23" kind="function"><name>registrationRequest</name></member>
+    <member refid="class_network_1_1i_a_p_i_1ad011402f5be6dc6e70d12aed8b77c607" kind="function"><name>loginRequest</name></member>
+    <member refid="class_network_1_1i_a_p_i_1abb05009a87b33e03b4b3a181605b1700" kind="function"><name>channelLeaveRequest</name></member>
+    <member refid="class_network_1_1i_a_p_i_1ab1620a7f8e1490daa129e1dca4135f1b" kind="function"><name>channelSubscribeRequest</name></member>
+    <member refid="class_network_1_1i_a_p_i_1a323705e801970f8c03d694bb909497d3" kind="function"><name>channelSubscriptionListRequest</name></member>
+    <member refid="class_network_1_1i_a_p_i_1a33380e32ebd7d85a307bc8b26b2c28b6" kind="function"><name>channelDeleteRequest</name></member>
+    <member refid="class_network_1_1i_a_p_i_1a09661ee066bdf7b8fea61cc85454d387" kind="function"><name>channelCreateRequest</name></member>
+    <member refid="class_network_1_1i_a_p_i_1afff45903aef7e97569f21deb6ae7c834" kind="function"><name>directMessageCreateRequest</name></member>
+    <member refid="class_network_1_1i_a_p_i_1a3d56453db22b55a0b366a6ee636ca7d0" kind="function"><name>defaultRequest</name></member>
+    <member refid="class_network_1_1i_a_p_i_1ad6d45dc8df289d3fd7479f9990291d2b" kind="function"><name>~iAPI</name></member>
+  </compound>
+  <compound refid="struct_data_access_1_1_i_channels_repository" kind="class"><name>DataAccess::IChannelsRepository</name>
+    <member refid="struct_data_access_1_1_i_channels_repository_1ad2d80ae97c71ebad537151e701a5ebed" kind="function"><name>getAllChannelsList</name></member>
+    <member refid="struct_data_access_1_1_i_channels_repository_1abfe97a6baaf5d91ea13ebeac50092174" kind="function"><name>deleteChannel</name></member>
+    <member refid="struct_data_access_1_1_i_channels_repository_1a2e1b24ed29a6ba65bc9bf026fd75fc0c" kind="function"><name>createChannel</name></member>
+    <member refid="struct_data_access_1_1_i_channels_repository_1a40e680dcd48b1149962d27899788ced0" kind="function"><name>leaveChannel</name></member>
+    <member refid="struct_data_access_1_1_i_channels_repository_1a3fd573c4c7352f47cf2569d630a850b2" kind="function"><name>subscribeToChannel</name></member>
+    <member refid="struct_data_access_1_1_i_channels_repository_1a3231716874e359c5a2034aa6f214be3c" kind="function"><name>getChannelSubscriptionList</name></member>
+    <member refid="struct_data_access_1_1_i_channels_repository_1ae435ffc575f27398926189fb9ff3e936" kind="function"><name>newCreateChannel</name></member>
+    <member refid="struct_data_access_1_1_i_channels_repository_1a3199c2dd4e3a8f56ef9542cbacbdc488" kind="function"><name>~IChannelsRepository</name></member>
+  </compound>
+  <compound refid="struct_base_1_1_crypto_1_1_i_cipher" kind="struct"><name>Base::Crypto::ICipher</name>
+    <member refid="struct_base_1_1_crypto_1_1_i_cipher_1a81c2fe7557240adec4152c12073b4922" kind="function"><name>generateKey</name></member>
+    <member refid="struct_base_1_1_crypto_1_1_i_cipher_1aee65486cf58e58725c7f6301e8b17e41" kind="function"><name>encrypt</name></member>
+    <member refid="struct_base_1_1_crypto_1_1_i_cipher_1aaefb0db00de3e2ea1c74a23b528f184c" kind="function"><name>decrypt</name></member>
+    <member refid="struct_base_1_1_crypto_1_1_i_cipher_1a73588bb60fd9b689b127a6b907235878" kind="function"><name>~ICipher</name></member>
+  </compound>
+  <compound refid="struct_base_1_1_crypto_1_1_i_ciphers_factory" kind="struct"><name>Base::Crypto::ICiphersFactory</name>
+    <member refid="struct_base_1_1_crypto_1_1_i_ciphers_factory_1a03a1783044c509a1b5042afb7515996f" kind="function"><name>create</name></member>
+    <member refid="struct_base_1_1_crypto_1_1_i_ciphers_factory_1ac90d1c84b8d8abc8b6feff2c3a681816" kind="function"><name>~ICiphersFactory</name></member>
+  </compound>
+  <compound refid="struct_data_access_1_1_i_direct_message_repository" kind="class"><name>DataAccess::IDirectMessageRepository</name>
+    <member refid="struct_data_access_1_1_i_direct_message_repository_1ad627a71cda95abd5cfdd0a72b338b84d" kind="function"><name>addDirectChat</name></member>
+    <member refid="struct_data_access_1_1_i_direct_message_repository_1aa5912ff67e8de4541093acbc9af09c4d" kind="function"><name>~IDirectMessageRepository</name></member>
+  </compound>
+  <compound refid="class_base_1_1_logger_1_1_i_logger" kind="class"><name>Base::Logger::ILogger</name>
+    <member refid="class_base_1_1_logger_1_1_i_logger_1aceca593feab614fdffe67cd196198f99" kind="function"><name>log</name></member>
+    <member refid="class_base_1_1_logger_1_1_i_logger_1ae8830a306efd52bac239b4f21879ff6c" kind="function"><name>~ILogger</name></member>
+  </compound>
+  <compound refid="struct_data_access_1_1_i_login_repository" kind="class"><name>DataAccess::ILoginRepository</name>
+    <member refid="struct_data_access_1_1_i_login_repository_1a2044aff1e4c541d5f95d47f063c140ac" kind="function"><name>loginUser</name></member>
+    <member refid="struct_data_access_1_1_i_login_repository_1ad9ab6939fb3654a08cc77c8548d2ea06" kind="function"><name>~ILoginRepository</name></member>
+  </compound>
+  <compound refid="struct_data_access_1_1_i_master_repository" kind="class"><name>DataAccess::IMasterRepository</name>
+    <member refid="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" kind="function"><name>~IMasterRepository</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_i_message_repository" kind="class"><name>DataAccess::IMessageRepository</name>
+    <member refid="class_data_access_1_1_i_message_repository_1a64ad59c0036d755d11b9da236ef2a63f" kind="function"><name>addMessages</name></member>
+    <member refid="class_data_access_1_1_i_message_repository_1a6f3da4bbc017e42835f970908c236759" kind="function"><name>editMessages</name></member>
+    <member refid="class_data_access_1_1_i_message_repository_1a6f0bbbaff0b5de8842438be1f340cad9" kind="function"><name>getMessages</name></member>
+    <member refid="class_data_access_1_1_i_message_repository_1aac4fb294099c71c208b9348c0ac8c918" kind="function"><name>getMessageSince</name></member>
+    <member refid="class_data_access_1_1_i_message_repository_1ac35795a30dd16a0a3b4c9f6313c9417b" kind="function"><name>getMessageBefore</name></member>
+    <member refid="class_data_access_1_1_i_message_repository_1a5d053ad15a2d76239f4216980894de87" kind="function"><name>removeMessages</name></member>
+  </compound>
+  <compound refid="struct_data_access_1_1_i_messages_repository" kind="class"><name>DataAccess::IMessagesRepository</name>
+    <member refid="struct_data_access_1_1_i_messages_repository_1a6082364cbb8ff63a96b43468ec650676" kind="function"><name>getMessageHistory</name></member>
+    <member refid="struct_data_access_1_1_i_messages_repository_1a095da3f629d3af9e728ad934e3591c62" kind="function"><name>storeMessage</name></member>
+    <member refid="struct_data_access_1_1_i_messages_repository_1a12b91f71dc1e67559dfe2f3c3dab9825" kind="function"><name>deleteMessage</name></member>
+    <member refid="struct_data_access_1_1_i_messages_repository_1a7fc72c43885c8bd1daa662f039125234" kind="function"><name>editMessage</name></member>
+    <member refid="struct_data_access_1_1_i_messages_repository_1a36ed0a5d818ff5d7887402587cc72502" kind="function"><name>updateMessageReactions</name></member>
+    <member refid="struct_data_access_1_1_i_messages_repository_1a18bdd2e309cb9d005b339706a7af6b8f" kind="function"><name>~IMessagesRepository</name></member>
+  </compound>
+  <compound refid="struct_data_access_1_1_i_register_repository" kind="class"><name>DataAccess::IRegisterRepository</name>
+    <member refid="struct_data_access_1_1_i_register_repository_1adf6fcc00a3422d4e7d38468349c5426e" kind="function"><name>registerUser</name></member>
+    <member refid="struct_data_access_1_1_i_register_repository_1a591f781f60fbb0fab8ac78b9bc3e21ea" kind="function"><name>~IRegisterRepository</name></member>
+  </compound>
+  <compound refid="struct_data_access_1_1_i_replies_repository" kind="class"><name>DataAccess::IRepliesRepository</name>
+    <member refid="struct_data_access_1_1_i_replies_repository_1ac08449b6412c2f984b0deefc46b92c81" kind="function"><name>getReplyHistory</name></member>
+    <member refid="struct_data_access_1_1_i_replies_repository_1aed5833f5d6fdb99f5d338e8b4a126d4e" kind="function"><name>storeReply</name></member>
+    <member refid="struct_data_access_1_1_i_replies_repository_1a22ac80294a2857cef2ffcfbb620ff8c2" kind="function"><name>~IRepliesRepository</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_i_repository" kind="class"><name>DataAccess::IRepository</name>
+    <member refid="class_data_access_1_1_i_repository_1a119c064c3ede3a4c485c4cff39f9af75" kind="function"><name>getAllChannelsList</name></member>
+    <member refid="class_data_access_1_1_i_repository_1a9865744036d75920a5d0bb8854d60c5a" kind="function"><name>getMessageHistoryForUser</name></member>
+    <member refid="class_data_access_1_1_i_repository_1a1fdf7d4f7d11184e312863644a9b8e75" kind="function"><name>getReplyHistoryForUser</name></member>
+    <member refid="class_data_access_1_1_i_repository_1a7a34bb8134b58696ce2703457bfaead2" kind="function"><name>storeMessage</name></member>
+    <member refid="class_data_access_1_1_i_repository_1ab839a8b50a33a50e2bce291669eac706" kind="function"><name>storeReply</name></member>
+    <member refid="class_data_access_1_1_i_repository_1af0699db752921628835d27acd4aa7e47" kind="function"><name>deleteMessage</name></member>
+    <member refid="class_data_access_1_1_i_repository_1acf0bb6369dc216b9b7a22809a56ee40e" kind="function"><name>editMessage</name></member>
+    <member refid="class_data_access_1_1_i_repository_1a194a02ea8e52185be9fd481621ffb155" kind="function"><name>updateMessageReactions</name></member>
+    <member refid="class_data_access_1_1_i_repository_1a0f819bc5ed7f561389e28fb35f0757f2" kind="function"><name>registerUser</name></member>
+    <member refid="class_data_access_1_1_i_repository_1a1162586b0fe69fca0a2277ab91827cad" kind="function"><name>loginUser</name></member>
+    <member refid="class_data_access_1_1_i_repository_1affda42ed5ba6e5cbb5578b00fd572818" kind="function"><name>~IRepository</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_i_repository_manager" kind="class"><name>DataAccess::IRepositoryManager</name>
+    <member refid="class_data_access_1_1_i_repository_manager_1a1c981b417a2933d7b3fed476a64916fa" kind="variable"><name>_repositories</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1adb819947df1d6c51fbf22b662c388da8" kind="variable"><name>_queue</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1aa09c15a304108748aae6f1f6a4ceb42e" kind="variable"><name>_queueMutex</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1a71844a694d49b741e21d10f4a05b527c" kind="variable"><name>_queueCV</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1a706808a95ad1fbc9af1825f0cb3a1e70" kind="variable"><name>_handlerState</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1a241318837d3eb7dad33b8084a92870a0" kind="variable"><name>_repositoryRequestsHandler</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1ada774e5ea0c7cc577df40196f0c307fe" kind="function"><name>IRepositoryManager</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1adebde6e2ed0c441a0342f573a02a63cb" kind="function"><name>init</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1ad02af3035b342cd4f1fad79c8fe46394" kind="function"><name>~IRepositoryManager</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1a728dc49922980137048bd58fef2fc4b5" kind="function"><name>IRepositoryManager</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1ac187f52db71543e10cbfe24ecfcdea63" kind="function"><name>IRepositoryManager</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1a02869d294c9ba1960de79658a40c59c0" kind="function"><name>operator=</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1aeff4cc329711a4ef8087194f538cb3cb" kind="function"><name>operator=</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1a81bd2f415129a4a429f729701086250a" kind="function"><name>pushRequest</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1a3df2aa618b2b68efa9053cec7c7ec92b" kind="function"><name>empty</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1ab81ebddb08e4dd5b00f6a1a03a1da90e" kind="function"><name>handleRequests</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1a38859f8067b2c360a17f52bd379b4768" kind="function"><name>stopHandler</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1a37b23b75c67474c943a0b18018cc0480" kind="function"><name>createRequest</name></member>
+    <member refid="class_data_access_1_1_i_repository_manager_1a16ae792c330431e1ed56f1b2ef172d2a" kind="function"><name>popRequest</name></member>
+  </compound>
+  <compound refid="struct_utility_1_1is__c__string" kind="struct"><name>Utility::is_c_string</name>
+  </compound>
+  <compound refid="struct_utility_1_1is__char" kind="struct"><name>Utility::is_char</name>
+  </compound>
+  <compound refid="struct_utility_1_1is__char__or__string" kind="struct"><name>Utility::is_char_or_string</name>
+  </compound>
+  <compound refid="struct_utility_1_1is__std__string" kind="struct"><name>Utility::is_std_string</name>
+  </compound>
+  <compound refid="struct_utility_1_1is__string" kind="struct"><name>Utility::is_string</name>
+  </compound>
+  <compound refid="class_utility_1_1_juniorgram_exception" kind="class"><name>Utility::JuniorgramException</name>
+    <member refid="class_utility_1_1_juniorgram_exception_1acec05e755d1a68471c42c5c912917d4b" kind="variable"><name>_msg</name></member>
+    <member refid="class_utility_1_1_juniorgram_exception_1a47bfdbb4e38672795cd2ed2e5d73c3ec" kind="variable"><name>_file</name></member>
+    <member refid="class_utility_1_1_juniorgram_exception_1a7d02dc676481a31b33b2a47c21eb08dc" kind="variable"><name>_line</name></member>
+    <member refid="class_utility_1_1_juniorgram_exception_1a220c631ba70051cdb71997fc6886e24f" kind="function"><name>JuniorgramException</name></member>
+    <member refid="class_utility_1_1_juniorgram_exception_1ab071bf8af52dbf1d447a6ac82d344e0e" kind="function"><name>JuniorgramException</name></member>
+    <member refid="class_utility_1_1_juniorgram_exception_1a5ec2c68f67a04d35bc7e6cf4204300b9" kind="function"><name>what</name></member>
+  </compound>
+  <compound refid="class_utility_1_1_logging_exception" kind="class"><name>Utility::LoggingException</name>
+    <member refid="class_utility_1_1_logging_exception_1ad3cc6776330838f8b58d50e8abe4a354" kind="function"><name>LoggingException</name></member>
+    <member refid="class_utility_1_1_logging_exception_1aaac6129a148619a3ca21b6fe855b7206" kind="function"><name>LoggingException</name></member>
+  </compound>
+  <compound refid="struct_models_1_1_login_info" kind="struct"><name>Models::LoginInfo</name>
+    <member refid="struct_models_1_1_login_info_1a9a9f25c8ddcbcf97123d3d628ff64a21" kind="variable"><name>_login</name></member>
+    <member refid="struct_models_1_1_login_info_1a00e6960fb99fd49179ad1a0daab9f6f0" kind="variable"><name>_pwdHash</name></member>
+    <member refid="struct_models_1_1_login_info_1a7fd70756960b4ddeb2bf0c88f02cfe24" kind="function"><name>LoginInfo</name></member>
+    <member refid="struct_models_1_1_login_info_1aeadcb9d143d427428450026539459e30" kind="function"><name>LoginInfo</name></member>
+    <member refid="struct_models_1_1_login_info_1a0ea931f2e033a1290444450eec411b6a" kind="function"><name>LoginInfo</name></member>
+    <member refid="struct_models_1_1_login_info_1a16557448935a25e246c8a8105356c280" kind="function"><name>~LoginInfo</name></member>
+  </compound>
+  <compound refid="struct_data_access_1_1_login_repository" kind="struct"><name>DataAccess::LoginRepository</name>
+    <member refid="struct_data_access_1_1_login_repository_1a12763d5db5c3c271a6dddacb7ae21cd7" kind="function"><name>LoginRepository</name></member>
+    <member refid="struct_data_access_1_1_login_repository_1a9969335837ae7dc8a06eb8b9ddf9eb92" kind="function"><name>loginUser</name></member>
+    <member refid="struct_data_access_1_1_login_repository_1ae90114d30dfb761cfc6eb7126ed95100" kind="function"><name>~LoginRepository</name></member>
+  </compound>
+  <compound refid="struct_network_1_1_message" kind="struct"><name>Network::Message</name>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456d" kind="enum"><name>MessageType</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da46d02400ff196f19b287bb2819accac7" kind="enumvalue"><name>ServerAccept</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da50a422f2f449ac4fa609d07408c11536" kind="enumvalue"><name>ServerPing</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dadbcbae06544d0948f8bede9ec0f6df34" kind="enumvalue"><name>MessageAll</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da0f9905bfad400628389930a755d5a532" kind="enumvalue"><name>ServerMessage</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dac1219168def15bf340522b1e51656e30" kind="enumvalue"><name>ChannelListRequest</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456daaf4b0e2dc453d4c516faa8a36712e051" kind="enumvalue"><name>MessageHistoryRequest</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456daceaaf79372706b5a2fb088abc9185d91" kind="enumvalue"><name>MessageHistoryAnswer</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da6b61e230b97f5e9596332fa058818a7e" kind="enumvalue"><name>MessageStoreRequest</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dac5763ccd87214b4fb63e75a1a8d1fdc3" kind="enumvalue"><name>MessageStoreAnswer</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da631743f63473fe269cbd01a9c9219e8f" kind="enumvalue"><name>RegistrationRequest</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dae3b023c404537b46353fa226b44f793f" kind="enumvalue"><name>RegistrationAnswer</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da2c0db2090a7c42a581b6bba549ae01b8" kind="enumvalue"><name>LoginRequest</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da74a821ced5917d4c61e6ab8916f7ec00" kind="enumvalue"><name>LoginAnswer</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da93cfa7e52e9be49bfa31932f26d5ec95" kind="enumvalue"><name>MessageDeleteRequest</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da07dce2241a8c98bad3139b81810aeb1e" kind="enumvalue"><name>MessageDeleteAnswer</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dae6b897c89bab34be021a93854a1baec6" kind="enumvalue"><name>MessageEditRequest</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da4525b0cb09179d318f3d4be4b4df9eba" kind="enumvalue"><name>MessageEditAnswer</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456daed304752778a0fda5a4c2bc85377aea7" kind="enumvalue"><name>ReplyHistoryRequest</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da5c23e28edb01393617fd50daa411147d" kind="enumvalue"><name>ReplyHistoryAnswer</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da01e0c0953008cfcec05369dcd263ce6d" kind="enumvalue"><name>ReplyStoreRequest</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da2e1e87d6d3031a0b11e323508d8f6965" kind="enumvalue"><name>ReplyStoreAnswer</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da9ed9eac4a4ef7716fa4980133dfeae81" kind="enumvalue"><name>ChannelLeaveRequest</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da7bdba18866add8b367b6617bc3400e97" kind="enumvalue"><name>ChannelLeaveAnswer</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dac44148e496d1499c58df9e97d395a99a" kind="enumvalue"><name>ChannelSubscribeRequest</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da5f4848bf5a94060f84df7a3b48c792e8" kind="enumvalue"><name>ChannelSubscribeAnswer</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dab3d4cb742a50cb2d795a91074ec7cb3b" kind="enumvalue"><name>ChannelSubscriptionListRequest</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da7a3920d092084561ff06294bcb8d689b" kind="enumvalue"><name>ChannelSubscriptionListAnswer</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dae65df7ab9be564c98d737484342234df" kind="enumvalue"><name>ChannelDeleteRequest</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da92abc9382b98cb0d87a6c865f3c03a50" kind="enumvalue"><name>ChannelDeleteAnswer</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da61a1cd6a1e444d2bfc82d78ef19954d8" kind="enumvalue"><name>ChannelCreateRequest</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da32883ecbc45483894e41ce6fa0ce2b21" kind="enumvalue"><name>ChannelCreateAnswer</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da5980849ca026855a396a231b6068bdb6" kind="enumvalue"><name>DirectMessageCreateRequest</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dadb2b4a41122de5b669d18526f6d026d1" kind="enumvalue"><name>DirectMessageCreateAnswer</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456da7769002e6b4a4bd8040d2f776eadf75c" kind="enumvalue"><name>MessageReactionRequest</name></member>
+    <member refid="struct_network_1_1_message_1a2abc218dd542978212948e20689d456dabe2f5aac7353865638a864c4b1ba6ea5" kind="enumvalue"><name>MessageReactionAnswer</name></member>
+    <member refid="struct_network_1_1_message_1afb4d988d987fcd7eab9921db8f6b83eb" kind="variable"><name>mRemote</name></member>
+    <member refid="struct_network_1_1_message_1abfbafaf33fdcf247818791f06dbd4d34" kind="variable"><name>mHeader</name></member>
+    <member refid="struct_network_1_1_message_1ad5767c08171fd8c7dc8d56f59079a0dc" kind="variable"><name>mBody</name></member>
+    <member refid="struct_network_1_1_message_1a37aeccd5b32352b4f33ad66005c0d4b6" kind="friend"><name>operator&lt;&lt;</name></member>
+    <member refid="struct_network_1_1_message_1af775604cd3222a2de9e9238bec0d3f45" kind="friend"><name>operator&lt;</name></member>
+    <member refid="struct_network_1_1_message_1a1d57e0d2e56e316e4d447dc8b2f08f44" kind="friend"><name>operator&gt;</name></member>
+  </compound>
+  <compound refid="struct_network_1_1_message_1_1_message_header" kind="struct"><name>Network::Message::MessageHeader</name>
+    <member refid="struct_network_1_1_message_1_1_message_header_1aea142257fe540a4f88074945ca47cecb" kind="variable"><name>mMessageType</name></member>
+    <member refid="struct_network_1_1_message_1_1_message_header_1a4a67e254959a494f9a16ae4458cf0982" kind="variable"><name>mBodySize</name></member>
+    <member refid="struct_network_1_1_message_1_1_message_header_1a9bd1e9f0991e5e956e179a4e7707faf0" kind="variable"><name>mTimestamp</name></member>
+  </compound>
+  <compound refid="struct_models_1_1_message_info" kind="struct"><name>Models::MessageInfo</name>
+    <member refid="struct_models_1_1_message_info_1abf05c5613f5e34f1be792d0cd08a2f3f" kind="variable"><name>_channelID</name></member>
+    <member refid="struct_models_1_1_message_info_1ac6e4b0ac3270221152e18690fa41f6ad" kind="variable"><name>_message</name></member>
+    <member refid="struct_models_1_1_message_info_1a897b88ac467f475f199522d97125b3de" kind="variable"><name>_msgID</name></member>
+    <member refid="struct_models_1_1_message_info_1a2ca9939602d1f638f72ca4d0361dad51" kind="variable"><name>_senderID</name></member>
+    <member refid="struct_models_1_1_message_info_1a248a9f2490a2e780f1a3803e9caf279b" kind="variable"><name>_userLogin</name></member>
+    <member refid="struct_models_1_1_message_info_1a4bd93f4f180fca37428ad9c6e02b122f" kind="variable"><name>_recipientID</name></member>
+    <member refid="struct_models_1_1_message_info_1a1148352244f5a7c1e244b049994bcf06" kind="variable"><name>_time</name></member>
+    <member refid="struct_models_1_1_message_info_1a772cf148d81c824709eac15bf158bdb0" kind="variable"><name>_reactions</name></member>
+    <member refid="struct_models_1_1_message_info_1a9f319fc4b80ccdb69e7adb7795ba5efb" kind="function"><name>MessageInfo</name></member>
+    <member refid="struct_models_1_1_message_info_1a17965a6b2e7f48c0fa8f09ba9a1ba80f" kind="function"><name>MessageInfo</name></member>
+    <member refid="struct_models_1_1_message_info_1a4553cf1030e73248b2a0d4c8d2a9205b" kind="function"><name>MessageInfo</name></member>
+    <member refid="struct_models_1_1_message_info_1a1c40e29627401db13b5cc5fcc2c21c9a" kind="function"><name>~MessageInfo</name></member>
+    <member refid="struct_models_1_1_message_info_1ad40885c31ab7b6e3e1f1d0cb3b0c34ee" kind="friend"><name>operator==</name></member>
+    <member refid="struct_models_1_1_message_info_1a3a3dbce163865b832275daef5a827b64" kind="friend"><name>operator&lt;</name></member>
+  </compound>
+  <compound refid="struct_data_access_1_1_messages_repository" kind="struct"><name>DataAccess::MessagesRepository</name>
+    <member refid="struct_data_access_1_1_messages_repository_1ab97a2ba90502fb4a7426a67d43fd9a56" kind="function"><name>MessagesRepository</name></member>
+    <member refid="struct_data_access_1_1_messages_repository_1a758b43576469ae4f54abc034a655e2b0" kind="function"><name>getMessageHistory</name></member>
+    <member refid="struct_data_access_1_1_messages_repository_1a8e02ece233133f7f90b7f2956f2e24e4" kind="function"><name>storeMessage</name></member>
+    <member refid="struct_data_access_1_1_messages_repository_1a33db313fa44b25588fb01549b3339247" kind="function"><name>deleteMessage</name></member>
+    <member refid="struct_data_access_1_1_messages_repository_1a8f4861e1f2a3630e830bbc2bc4357fc1" kind="function"><name>editMessage</name></member>
+    <member refid="struct_data_access_1_1_messages_repository_1a8f9bcce576a67b87149123742dc053bb" kind="function"><name>updateMessageReactions</name></member>
+    <member refid="struct_data_access_1_1_messages_repository_1a6abce1577f451db8e9663d33d54053a6" kind="function"><name>~MessagesRepository</name></member>
+    <member refid="struct_data_access_1_1_messages_repository_1a24263155dd032d2ac7ea9b1fa1406d54" kind="function"><name>insertMessageIntoMessagesTable</name></member>
+    <member refid="struct_data_access_1_1_messages_repository_1a3b40853a779cd8944fdfafe0bfa52cfb" kind="function"><name>insertIDsIntoChannelMessagesTable</name></member>
+    <member refid="struct_data_access_1_1_messages_repository_1a01c567d328771d1f0ae55ed2b2e29826" kind="function"><name>insertIDIntoMessageReactionsTable</name></member>
+  </compound>
+  <compound refid="struct_mock_object_1_1_mock_channels_repository" kind="struct"><name>MockObject::MockChannelsRepository</name>
+    <member refid="struct_mock_object_1_1_mock_channels_repository_1ac3862e007c741a8fe1f6c82d8d72da12" kind="variable"><name>_mockQuery</name></member>
+    <member refid="struct_mock_object_1_1_mock_channels_repository_1aef13a4ccd10b05eec56613d18ceab730" kind="function"><name>MockChannelsRepository</name></member>
+    <member refid="struct_mock_object_1_1_mock_channels_repository_1a684e7af6c1b3356f6e9cf05e6c3e855b" kind="function"><name>~MockChannelsRepository</name></member>
+    <member refid="struct_mock_object_1_1_mock_channels_repository_1ab5bca73d4225be7cf82ec09a9f57c7e6" kind="function"><name>deleteChannel</name></member>
+    <member refid="struct_mock_object_1_1_mock_channels_repository_1ac20ca8704e291ab040fb1ed9c679aee5" kind="function"><name>createChannel</name></member>
+    <member refid="struct_mock_object_1_1_mock_channels_repository_1ae57afc75d079075def12b974a0d7cd39" kind="function"><name>leaveChannel</name></member>
+    <member refid="struct_mock_object_1_1_mock_channels_repository_1acce2a6b1580689a41b02550d221c7690" kind="function"><name>subscribeToChannel</name></member>
+    <member refid="struct_mock_object_1_1_mock_channels_repository_1a459a26ce4d4b52ae9270df5568f7380e" kind="function"><name>newCreateChannel</name></member>
+    <member refid="struct_mock_object_1_1_mock_channels_repository_1a0ebfdf7954c77b6f5742af1a68d4b805" kind="function"><name>getChannelSubscriptionList</name></member>
+    <member refid="struct_mock_object_1_1_mock_channels_repository_1acdea37a30d4a56a13305a3f134ea7a3c" kind="function"><name>getAllChannelsList</name></member>
+  </compound>
+  <compound refid="class_mock_object_1_1_mock_database" kind="class"><name>MockObject::MockDatabase</name>
+    <member refid="class_mock_object_1_1_mock_database_1a2851af025440a4ef51f161b8bcd89b14" kind="variable"><name>_instance</name></member>
+    <member refid="class_mock_object_1_1_mock_database_1a57a29d861e818a7e0d147d003e493d63" kind="variable"><name>_staticMutex</name></member>
+    <member refid="class_mock_object_1_1_mock_database_1af33617e8d08e5afc5ff01ed7fdd41563" kind="variable"><name>_connection</name></member>
+    <member refid="class_mock_object_1_1_mock_database_1a065fc4501832cd2e12a18d60d9c620dd" kind="function"><name>MockDatabase</name></member>
+    <member refid="class_mock_object_1_1_mock_database_1aa62b6eab5658fdbb7eb1e11cd27a250c" kind="function"><name>MockDatabase</name></member>
+    <member refid="class_mock_object_1_1_mock_database_1af1b26b8ec932c2a160e1b24bd4f73ba5" kind="function"><name>operator=</name></member>
+    <member refid="class_mock_object_1_1_mock_database_1ac82e45f80a14eb7b9989cfaf8d0edd02" kind="function"><name>MockDatabase</name></member>
+    <member refid="class_mock_object_1_1_mock_database_1a514657a8b7f05d34ce68abf3b9cb73a4" kind="function"><name>operator=</name></member>
+    <member refid="class_mock_object_1_1_mock_database_1a5a4a708be4a94b9063dae333e504a591" kind="function"><name>Instance</name></member>
+    <member refid="class_mock_object_1_1_mock_database_1ab904eca959a13560951dbb99b2bb68b1" kind="function"><name>query</name></member>
+    <member refid="class_mock_object_1_1_mock_database_1ad6fda9c944bbf2013ed270673c5b3f42" kind="function"><name>isConnected</name></member>
+    <member refid="class_mock_object_1_1_mock_database_1ad4d787ab7c177097b3ab48408d49e96d" kind="function"><name>closeConnection</name></member>
+    <member refid="class_mock_object_1_1_mock_database_1abbf945ffee6008f3dffd893d9dab9f60" kind="function"><name>~MockDatabase</name></member>
+  </compound>
+  <compound refid="struct_mock_object_1_1_mock_direct_message_repository" kind="struct"><name>MockObject::MockDirectMessageRepository</name>
+    <member refid="struct_mock_object_1_1_mock_direct_message_repository_1a5c7316cc657f52c995f5be259278a423" kind="variable"><name>_mockQuery</name></member>
+    <member refid="struct_mock_object_1_1_mock_direct_message_repository_1a0a82f99ab281953dee09e9b05884cf55" kind="function"><name>MockDirectMessageRepository</name></member>
+    <member refid="struct_mock_object_1_1_mock_direct_message_repository_1af80b13eb00ab23c1e5d0a21d20d26b47" kind="function"><name>~MockDirectMessageRepository</name></member>
+    <member refid="struct_mock_object_1_1_mock_direct_message_repository_1a269db192cfb009bd87291410cda612a9" kind="function"><name>addDirectChat</name></member>
+  </compound>
+  <compound refid="struct_mock_object_1_1_mock_login_repository" kind="struct"><name>MockObject::MockLoginRepository</name>
+    <member refid="struct_mock_object_1_1_mock_login_repository_1a291fba687dd21623eafec068dd0ec320" kind="variable"><name>_mockQuery</name></member>
+    <member refid="struct_mock_object_1_1_mock_login_repository_1a0ca25f34645212a519ae76aeac48e889" kind="function"><name>MockLoginRepository</name></member>
+    <member refid="struct_mock_object_1_1_mock_login_repository_1a7e2e611879938ca4f20abf20978fc71a" kind="function"><name>~MockLoginRepository</name></member>
+    <member refid="struct_mock_object_1_1_mock_login_repository_1a6bdc65970a4a73f0794494240260e868" kind="function"><name>loginUser</name></member>
+  </compound>
+  <compound refid="struct_mock_object_1_1_mock_messages_repository" kind="struct"><name>MockObject::MockMessagesRepository</name>
+    <member refid="struct_mock_object_1_1_mock_messages_repository_1a442878ffb35c3d65497fee7241e212d0" kind="variable"><name>_mockQuery</name></member>
+    <member refid="struct_mock_object_1_1_mock_messages_repository_1aac74c30dedfea2a44256f4ef6a3faded" kind="function"><name>MockMessagesRepository</name></member>
+    <member refid="struct_mock_object_1_1_mock_messages_repository_1a26c76057803efe39e8b8c5dd21a9d987" kind="function"><name>~MockMessagesRepository</name></member>
+    <member refid="struct_mock_object_1_1_mock_messages_repository_1ae198ce3cf5b1714b6c854a4e97259672" kind="function"><name>deleteMessage</name></member>
+    <member refid="struct_mock_object_1_1_mock_messages_repository_1af2619ce7822ceaf28fbce94ec523eb60" kind="function"><name>updateMessageReactions</name></member>
+    <member refid="struct_mock_object_1_1_mock_messages_repository_1a37b4dd65675894f6e3b8d8fd2186957c" kind="function"><name>editMessage</name></member>
+    <member refid="struct_mock_object_1_1_mock_messages_repository_1ac3e87a410abab5f8984201d0fc34ee3f" kind="function"><name>storeMessage</name></member>
+    <member refid="struct_mock_object_1_1_mock_messages_repository_1a1d1b98d4b18dafbb461e3da2e274b4bc" kind="function"><name>getMessageHistory</name></member>
+  </compound>
+  <compound refid="class_mock_object_1_1_mock_query" kind="class"><name>MockObject::MockQuery</name>
+    <member refid="class_mock_object_1_1_mock_query_1a4142da18c5e775dd66a5246f1e647834" kind="function"><name>MockQuery</name></member>
+  </compound>
+  <compound refid="class_mock_object_1_1_mock_query_builder" kind="class"><name>MockObject::MockQueryBuilder</name>
+    <member refid="class_mock_object_1_1_mock_query_builder_1a588b8a7df65228e8ab1344bf7bd3364b" kind="variable"><name>_storage</name></member>
+    <member refid="class_mock_object_1_1_mock_query_builder_1a4501895557657c4f819fe2c19a3138cd" kind="variable"><name>_adapter</name></member>
+    <member refid="class_mock_object_1_1_mock_query_builder_1a6be2e9da1ac105718ec0e6bf744ac5e4" kind="variable"><name>_tableName</name></member>
+    <member refid="class_mock_object_1_1_mock_query_builder_1ac7d7e35262bf8d747feb8b07aeca30fb" kind="variable"><name>_databaseType</name></member>
+    <member refid="class_mock_object_1_1_mock_query_builder_1a73cba586521aed641ebce6936767be5e" kind="function"><name>MockQueryBuilder</name></member>
+    <member refid="class_mock_object_1_1_mock_query_builder_1aee4080dc71c32cf9ca7b8fa7413f00e8" kind="function"><name>~MockQueryBuilder</name></member>
+    <member refid="class_mock_object_1_1_mock_query_builder_1af49df5b28dc648f683e17f060eb89256" kind="function"><name>MockQueryBuilder</name></member>
+    <member refid="class_mock_object_1_1_mock_query_builder_1a57c39aa5db60f341b8e1c4c614e69403" kind="function"><name>MockQueryBuilder</name></member>
+    <member refid="class_mock_object_1_1_mock_query_builder_1a01b9973a7a784c95920bf02a4a966652" kind="function"><name>MockQueryBuilder</name></member>
+    <member refid="class_mock_object_1_1_mock_query_builder_1a1a0faa63756e81147214f1a730091790" kind="function"><name>operator=</name></member>
+    <member refid="class_mock_object_1_1_mock_query_builder_1a62a7d8055a9b571dc000462a139f1fd7" kind="function"><name>operator=</name></member>
+    <member refid="class_mock_object_1_1_mock_query_builder_1af16283c15bd6540fc61c6cc35bcc2b68" kind="function"><name>SelectRepoAndQueryPush</name></member>
+    <member refid="class_mock_object_1_1_mock_query_builder_1ad0d2da9398358f0c0391fc74d4e9d5a8" kind="function"><name>getAdapter</name></member>
+    <member refid="class_mock_object_1_1_mock_query_builder_1a7791e8bd0929f230e57953278fa93c7b" kind="function"><name>getStorage</name></member>
+  </compound>
+  <compound refid="struct_mock_object_1_1_mock_register_repository" kind="struct"><name>MockObject::MockRegisterRepository</name>
+    <member refid="struct_mock_object_1_1_mock_register_repository_1a5fde58be29b2c125a580a4da8fa4f769" kind="variable"><name>_mockQuery</name></member>
+    <member refid="struct_mock_object_1_1_mock_register_repository_1a7856bb556487492b8fd11e7b3ca039a0" kind="function"><name>MockRegisterRepository</name></member>
+    <member refid="struct_mock_object_1_1_mock_register_repository_1af279814add14f763bfdb8eba2f2b1028" kind="function"><name>~MockRegisterRepository</name></member>
+    <member refid="struct_mock_object_1_1_mock_register_repository_1afec81d05ab7bb0f54c6e9682d3bb0da9" kind="function"><name>registerUser</name></member>
+  </compound>
+  <compound refid="struct_mock_object_1_1_mock_replies_repository" kind="struct"><name>MockObject::MockRepliesRepository</name>
+    <member refid="struct_mock_object_1_1_mock_replies_repository_1abbaffd9a0985874eb220d501f21fcfde" kind="variable"><name>_mockQuery</name></member>
+    <member refid="struct_mock_object_1_1_mock_replies_repository_1a3fd9567205d7db59736a6adc19e458de" kind="function"><name>MockRepliesRepository</name></member>
+    <member refid="struct_mock_object_1_1_mock_replies_repository_1aab2d20117e5f7f9e1e64fb64843008dc" kind="function"><name>~MockRepliesRepository</name></member>
+    <member refid="struct_mock_object_1_1_mock_replies_repository_1a0fe2feffdbb94d5a50eee2362a0081f3" kind="function"><name>getReplyHistory</name></member>
+    <member refid="struct_mock_object_1_1_mock_replies_repository_1a40bf0b4225bade55fad58421648f6e85" kind="function"><name>storeReply</name></member>
+  </compound>
+  <compound refid="struct_mock_object_1_1_mock_repository_instance" kind="struct"><name>MockObject::MockRepositoryInstance</name>
+    <member refid="struct_mock_object_1_1_mock_repository_instance_1a78d01f69a997d541505d2ccd87ae4c7c" kind="variable"><name>_repoProperties</name></member>
+    <member refid="struct_mock_object_1_1_mock_repository_instance_1ae61877129880fd376e0fcb31d45819b7" kind="function"><name>MockRepositoryInstance</name></member>
+  </compound>
+  <compound refid="class_mock_object_1_1_mock_repository_manager" kind="class"><name>MockObject::MockRepositoryManager</name>
+    <member refid="class_mock_object_1_1_mock_repository_manager_1aacd31a7122ab823f741f52feda997fc6" kind="function"><name>MockRepositoryManager</name></member>
+  </compound>
+  <compound refid="struct_mock_object_1_1_mock_repository_storage" kind="struct"><name>MockObject::MockRepositoryStorage</name>
+    <member refid="struct_mock_object_1_1_mock_repository_storage_1a6c60e19544489069e84873e8f6630bbc" kind="variable"><name>_channelData</name></member>
+    <member refid="struct_mock_object_1_1_mock_repository_storage_1a4643a732d81672ef6c7b7bd0ee32ff12" kind="variable"><name>_repliesData</name></member>
+    <member refid="struct_mock_object_1_1_mock_repository_storage_1a1287e9ff65bfa9e35214687d1df3db68" kind="variable"><name>_messgData</name></member>
+    <member refid="struct_mock_object_1_1_mock_repository_storage_1a820c85cf51dc7b306e51f63d70c23fbc" kind="variable"><name>_regData</name></member>
+    <member refid="struct_mock_object_1_1_mock_repository_storage_1a3bc6a59c22df51348fb601f178cb2cbe" kind="variable"><name>_loginData</name></member>
+    <member refid="struct_mock_object_1_1_mock_repository_storage_1a0e48faad42fe2037ccdc4c48a112ed93" kind="function"><name>MockRepositoryStorage</name></member>
+    <member refid="struct_mock_object_1_1_mock_repository_storage_1aa554f01815e5f68989df182912b07e49" kind="function"><name>~MockRepositoryStorage</name></member>
+    <member refid="struct_mock_object_1_1_mock_repository_storage_1acb355af45d1d27ff2eecb6ce6678755c" kind="function"><name>getChannelsRepoData</name></member>
+    <member refid="struct_mock_object_1_1_mock_repository_storage_1a67c9c2d55177ea42b8ec4029cbef8a37" kind="function"><name>getRepliesRepoData</name></member>
+    <member refid="struct_mock_object_1_1_mock_repository_storage_1a247f4c764ec99fecfd2a308c35177ed9" kind="function"><name>getMessageRepoData</name></member>
+    <member refid="struct_mock_object_1_1_mock_repository_storage_1a43835e72ad7a9e2b3c6f795e0a142c30" kind="function"><name>getRegisterRepoData</name></member>
+    <member refid="struct_mock_object_1_1_mock_repository_storage_1a9d9e21527a020e4751724734c775c8b0" kind="function"><name>getLoginRepoData</name></member>
+    <member refid="struct_mock_object_1_1_mock_repository_storage_1a4d1c54a17acd0a8c7525d09e849d2335" kind="function"><name>checkChannelTable</name></member>
+    <member refid="struct_mock_object_1_1_mock_repository_storage_1a3e7be0165155d5a47220f3b23fe7e49e" kind="function"><name>checkRepliesTable</name></member>
+    <member refid="struct_mock_object_1_1_mock_repository_storage_1a269f8a51ef4b0c4a90c3fec943e1fd5d" kind="function"><name>checkMessagesTable</name></member>
+    <member refid="struct_mock_object_1_1_mock_repository_storage_1a9409f219ee3e596d4b37513efcfa9487" kind="function"><name>checkRegistrationTable</name></member>
+    <member refid="struct_mock_object_1_1_mock_repository_storage_1a9db3d3837479da4aa783c712fdaa3a5b" kind="function"><name>checkLoginTable</name></member>
+  </compound>
+  <compound refid="class_utility_1_1_not_implemented_exception" kind="class"><name>Utility::NotImplementedException</name>
+    <member refid="class_utility_1_1_not_implemented_exception_1a220c631ba70051cdb71997fc6886e24f" kind="function"><name>JuniorgramException</name></member>
+    <member refid="class_utility_1_1_not_implemented_exception_1ab071bf8af52dbf1d447a6ac82d344e0e" kind="function"><name>JuniorgramException</name></member>
+  </compound>
+  <compound refid="class_utility_1_1_operation_d_b_exception" kind="class"><name>Utility::OperationDBException</name>
+    <member refid="class_utility_1_1_operation_d_b_exception_1a220c631ba70051cdb71997fc6886e24f" kind="function"><name>JuniorgramException</name></member>
+    <member refid="class_utility_1_1_operation_d_b_exception_1ab071bf8af52dbf1d447a6ac82d344e0e" kind="function"><name>JuniorgramException</name></member>
+  </compound>
+  <compound refid="struct_server_1_1_builder_1_1_param_type" kind="struct"><name>Server::Builder::ParamType</name>
+    <member refid="struct_server_1_1_builder_1_1_param_type_1a3765e5761312b652d03d06e3b8233aac" kind="variable"><name>ServerPort</name></member>
+    <member refid="struct_server_1_1_builder_1_1_param_type_1a837ace5518c05e83a10808b1dd8a26d3" kind="variable"><name>HostAddress</name></member>
+    <member refid="struct_server_1_1_builder_1_1_param_type_1a55ad4e0652c94e21dea6b9dc21d14f52" kind="variable"><name>DBName</name></member>
+    <member refid="struct_server_1_1_builder_1_1_param_type_1a6c2adc77459f8fb867faf8bd663f4754" kind="variable"><name>DBPort</name></member>
+    <member refid="struct_server_1_1_builder_1_1_param_type_1ae4a641926f63898ff7543903848f3c48" kind="variable"><name>DBUser</name></member>
+    <member refid="struct_server_1_1_builder_1_1_param_type_1a2472bccb24b8b4475ff04b8335453e2e" kind="variable"><name>DBPassword</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_p_g_model_filler" kind="class"><name>DataAccess::PGModelFiller</name>
+    <member refid="class_data_access_1_1_p_g_model_filler_1a7b401686568c76968fa0571cc5ad5eb1" kind="function"><name>PGModelFiller</name></member>
+    <member refid="class_data_access_1_1_p_g_model_filler_1a5405f07ebcf56d7a239a711b30ba2e82" kind="function"><name>fill</name></member>
+    <member refid="class_data_access_1_1_p_g_model_filler_1a2e2956000508444db5b83fcbeeb25d0a" kind="function"><name>~PGModelFiller</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_p_g_query_builder" kind="class"><name>DataAccess::PGQueryBuilder</name>
+    <member refid="class_data_access_1_1_p_g_query_builder_1ad831b46fef88274c664d369a02d67f8a" kind="function"><name>PGQueryBuilder</name></member>
+    <member refid="class_data_access_1_1_p_g_query_builder_1a6b1588133e033f40e20f27f076a3c08f" kind="function"><name>PGQueryBuilder</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_postgre_adapter" kind="class"><name>DataAccess::PostgreAdapter</name>
+    <member refid="class_data_access_1_1_postgre_adapter_1ae7c07f2e9512511d39e39cfd49f67582" kind="variable"><name>_staticMutex</name></member>
+    <member refid="class_data_access_1_1_postgre_adapter_1ab81aadac2fdf708f6b2574f34400982f" kind="variable"><name>_instance</name></member>
+    <member refid="class_data_access_1_1_postgre_adapter_1ad36bd77c7354e197fb1ab94bc01b8e72" kind="variable"><name>_queryMutex</name></member>
+    <member refid="class_data_access_1_1_postgre_adapter_1a809730d56a4dff41c52213791fd88d9e" kind="variable"><name>_connection</name></member>
+    <member refid="class_data_access_1_1_postgre_adapter_1a8a647c481bf77de387be200a8155715c" kind="function"><name>PostgreAdapter</name></member>
+    <member refid="class_data_access_1_1_postgre_adapter_1a10e6b636660ba981bd0c9e284ca52eb0" kind="function"><name>PostgreAdapter</name></member>
+    <member refid="class_data_access_1_1_postgre_adapter_1a88dda8ae55f0401fde8e9eb9f8697ed7" kind="function"><name>operator=</name></member>
+    <member refid="class_data_access_1_1_postgre_adapter_1a5e9a56a6dd685562cedb9e45fb321409" kind="function"><name>PostgreAdapter</name></member>
+    <member refid="class_data_access_1_1_postgre_adapter_1a1cae00042acdb34339a94a44252cc481" kind="function"><name>operator=</name></member>
+    <member refid="class_data_access_1_1_postgre_adapter_1afb4bd00b8bac060bc03358299535ca80" kind="function"><name>~PostgreAdapter</name></member>
+    <member refid="class_data_access_1_1_postgre_adapter_1acb64a4195008520a7771e7e1ad92eb5e" kind="function"><name>query</name></member>
+    <member refid="class_data_access_1_1_postgre_adapter_1af600f7e5a24070cf4dea33785fa0e666" kind="function"><name>getConnection</name></member>
+    <member refid="class_data_access_1_1_postgre_adapter_1a2b484c3491b7e54dc6d9ef143cc0cf1d" kind="function"><name>isConnected</name></member>
+    <member refid="class_data_access_1_1_postgre_adapter_1a153059ebb2f3f413a5196183adc73a2f" kind="function"><name>closeConnection</name></member>
+    <member refid="class_data_access_1_1_postgre_adapter_1a698eb7df48d7cdfb3f6e4b97cf3f2ffd" kind="function"><name>Instance</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_postgre_repository_container" kind="class"><name>DataAccess::PostgreRepositoryContainer</name>
+    <member refid="class_data_access_1_1_postgre_repository_container_1afb77ada79e1c526e1d9b6f31670c87e3" kind="function"><name>PostgreRepositoryContainer</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_postgre_repository_manager" kind="class"><name>DataAccess::PostgreRepositoryManager</name>
+    <member refid="class_data_access_1_1_postgre_repository_manager_1a2f83341f307f1e710322e0782e7fa20c" kind="function"><name>PostgreRepositoryManager</name></member>
+  </compound>
+  <compound refid="class_query_builder" kind="class"><name>QueryBuilder</name>
+  </compound>
+  <compound refid="struct_data_access_1_1_register_repository" kind="struct"><name>DataAccess::RegisterRepository</name>
+    <member refid="struct_data_access_1_1_register_repository_1a895dff2607c66f856a6c1b7fcad1a8a0" kind="function"><name>RegisterRepository</name></member>
+    <member refid="struct_data_access_1_1_register_repository_1abe843088eb8493c0ed2c6a0cb8945268" kind="function"><name>registerUser</name></member>
+    <member refid="struct_data_access_1_1_register_repository_1a752276c462536d1f4d8c6afd39e86798" kind="function"><name>~RegisterRepository</name></member>
+  </compound>
+  <compound refid="struct_models_1_1_registration_info" kind="struct"><name>Models::RegistrationInfo</name>
+    <member refid="struct_models_1_1_registration_info_1a65fff04a4de921a4f0ab856eaa82ddd6" kind="variable"><name>_email</name></member>
+    <member refid="struct_models_1_1_registration_info_1aab8a9e6d43bfd2a2ca27212c61d396cf" kind="variable"><name>_login</name></member>
+    <member refid="struct_models_1_1_registration_info_1aa64856fffeb309d18518bed0585e2dda" kind="variable"><name>_passwordHash</name></member>
+    <member refid="struct_models_1_1_registration_info_1a2a529a45cc1edb514cc4fd686dcf3457" kind="function"><name>RegistrationInfo</name></member>
+    <member refid="struct_models_1_1_registration_info_1a037487f0fcd7174e60c7527213723541" kind="function"><name>RegistrationInfo</name></member>
+    <member refid="struct_models_1_1_registration_info_1a3086bd8c31a12ff19f1ef2c239a2af19" kind="function"><name>RegistrationInfo</name></member>
+    <member refid="struct_models_1_1_registration_info_1a2552a868c8c7e5c0e4ffd1dd68c937d3" kind="function"><name>~RegistrationInfo</name></member>
+    <member refid="struct_models_1_1_registration_info_1a95eff58ae7a5b2c20cd3077bc14cb872" kind="function"><name>operator=</name></member>
+    <member refid="struct_models_1_1_registration_info_1a21d7b9fc362dc8fa56e93343ffcb3a6f" kind="friend"><name>operator==</name></member>
+  </compound>
+  <compound refid="struct_data_access_1_1_replies_repository" kind="struct"><name>DataAccess::RepliesRepository</name>
+    <member refid="struct_data_access_1_1_replies_repository_1a068f9ddf1ca02c11c691c1ad289a53f2" kind="function"><name>RepliesRepository</name></member>
+    <member refid="struct_data_access_1_1_replies_repository_1a1d660e6bdab961836e279b76c933121d" kind="function"><name>getReplyHistory</name></member>
+    <member refid="struct_data_access_1_1_replies_repository_1a838601d435e7a33db8f10a9cfa246994" kind="function"><name>storeReply</name></member>
+    <member refid="struct_data_access_1_1_replies_repository_1afdcfb12ab896a09c040f071342d0ba67" kind="function"><name>~RepliesRepository</name></member>
+    <member refid="struct_data_access_1_1_replies_repository_1a7801ad5df265f8a300617bdaa2fb1ed2" kind="function"><name>insertIDsIntoChannelRepliesTable</name></member>
+    <member refid="struct_data_access_1_1_replies_repository_1a9391c8723c62a9588f4c3bed0c8cc7c2" kind="function"><name>insertReplyIntoRepliesTable</name></member>
+  </compound>
+  <compound refid="struct_models_1_1_reply_info" kind="struct"><name>Models::ReplyInfo</name>
+    <member refid="struct_models_1_1_reply_info_1aa9e1aee7fa708bdb7b31b9f8cf42e9cd" kind="variable"><name>_channelID</name></member>
+    <member refid="struct_models_1_1_reply_info_1a90491ad89c1d1efe97c0889af3e279ee" kind="variable"><name>_message</name></member>
+    <member refid="struct_models_1_1_reply_info_1ab4825771af50dad05220c2ffa7530fb0" kind="variable"><name>_msgID</name></member>
+    <member refid="struct_models_1_1_reply_info_1a2fa913e50020f73a95dd1898874fcdfa" kind="variable"><name>_msgIdOwner</name></member>
+    <member refid="struct_models_1_1_reply_info_1a7b4b40da9dc9dec5885c60402fc6d5c7" kind="variable"><name>_senderID</name></member>
+    <member refid="struct_models_1_1_reply_info_1a41cbe346844e5c690c3a75adb4273aef" kind="variable"><name>_userLogin</name></member>
+    <member refid="struct_models_1_1_reply_info_1adf0ec8471c70520351096d1972bc01e9" kind="function"><name>ReplyInfo</name></member>
+    <member refid="struct_models_1_1_reply_info_1af6b03bc06ca4592c9751b5b2ae1e0223" kind="function"><name>ReplyInfo</name></member>
+    <member refid="struct_models_1_1_reply_info_1afedcd9dcaf23d03a99eedb5e71484b78" kind="function"><name>ReplyInfo</name></member>
+    <member refid="struct_models_1_1_reply_info_1ae8a350e925a7e39b30df990ff8f26959" kind="function"><name>~ReplyInfo</name></member>
+    <member refid="struct_models_1_1_reply_info_1a095d9043d2133991bed0a5e402ec004b" kind="friend"><name>operator==</name></member>
+  </compound>
+  <compound refid="struct_data_access_1_1_repository_request" kind="struct"><name>DataAccess::RepositoryRequest</name>
+    <member refid="struct_data_access_1_1_repository_request_1a8bfc24f673e58010338f0f0d0ac27023" kind="variable"><name>_priority</name></member>
+    <member refid="struct_data_access_1_1_repository_request_1ac9a0fa3cce983a5271b55b6fc06caca9" kind="variable"><name>_task</name></member>
+    <member refid="struct_data_access_1_1_repository_request_1a245ab948119da4207dc37ba51ab2d669" kind="function"><name>RepositoryRequest</name></member>
+    <member refid="struct_data_access_1_1_repository_request_1aa8a778ebfaeaba9f92d2c2609abd4dd0" kind="function"><name>RepositoryRequest</name></member>
+    <member refid="struct_data_access_1_1_repository_request_1a80889a6edd5bdc22d7958e304aa81665" kind="function"><name>operator=</name></member>
+    <member refid="struct_data_access_1_1_repository_request_1a11bf0a57c325490656aaafc87263e741" kind="function"><name>getPriority</name></member>
+    <member refid="struct_data_access_1_1_repository_request_1a06cdfdfa4595b2875b3a98c0096effd5" kind="function"><name>getFutureFromTask</name></member>
+    <member refid="struct_data_access_1_1_repository_request_1a9f6f647f51ec3c9ea0234415a5e8fbf4" kind="function"><name>operator&gt;</name></member>
+    <member refid="struct_data_access_1_1_repository_request_1a171fbd14f2c428de1381a5d094a266ce" kind="function"><name>operator&lt;</name></member>
+    <member refid="struct_data_access_1_1_repository_request_1aa30f95c7d6eefb3e09fe7f0d5c37c5f0" kind="function"><name>operator==</name></member>
+    <member refid="struct_data_access_1_1_repository_request_1a156df1db52f72876b4cb76c44e85e3de" kind="function"><name>operator!=</name></member>
+    <member refid="struct_data_access_1_1_repository_request_1a5a5a2480057d515b50e1af8aff6556dc" kind="function"><name>operator()</name></member>
+  </compound>
+  <compound refid="class_utility_1_1_safe_queue" kind="class"><name>Utility::SafeQueue</name>
+    <member refid="class_utility_1_1_safe_queue_1a6f53ea176ecbc06adf9151b0297cf740" kind="variable"><name>_scopedMutex</name></member>
+    <member refid="class_utility_1_1_safe_queue_1a256c6c82c5549609b3f43113d03fceab" kind="variable"><name>_uniqueMutex</name></member>
+    <member refid="class_utility_1_1_safe_queue_1a679a78b9dd51072e53ba48e31e19649c" kind="variable"><name>_block</name></member>
+    <member refid="class_utility_1_1_safe_queue_1ae9cb413f4a7be7e0f3a0bd2dcc66cc9f" kind="variable"><name>_rawQueue</name></member>
+    <member refid="class_utility_1_1_safe_queue_1a80190dd3ab1d113c162f178a133f11ec" kind="function"><name>SafeQueue</name></member>
+    <member refid="class_utility_1_1_safe_queue_1aa6b95d13d46bd32192e16d680410934b" kind="function"><name>SafeQueue</name></member>
+    <member refid="class_utility_1_1_safe_queue_1a927ee809c7bd5aeb21a729845a2cccfb" kind="function"><name>~SafeQueue</name></member>
+    <member refid="class_utility_1_1_safe_queue_1a7f3310c448278a77fb2a296e754b342a" kind="function"><name>front</name></member>
+    <member refid="class_utility_1_1_safe_queue_1a75d7bfd4e665e910c42c513aef77ccdb" kind="function"><name>back</name></member>
+    <member refid="class_utility_1_1_safe_queue_1a27820de86603c25d6b7f63ef856e9b9e" kind="function"><name>pop_front</name></member>
+    <member refid="class_utility_1_1_safe_queue_1ace91b0fac5606a8928e8f0aede2966ae" kind="function"><name>pop_back</name></member>
+    <member refid="class_utility_1_1_safe_queue_1a23b66bdb3614d6e37f0f93258321b15a" kind="function"><name>push_back</name></member>
+    <member refid="class_utility_1_1_safe_queue_1a70203804ffce760925676f4b861e8dc5" kind="function"><name>push_front</name></member>
+    <member refid="class_utility_1_1_safe_queue_1a21b77a8ecb235266d2b4facbace2a003" kind="function"><name>empty</name></member>
+    <member refid="class_utility_1_1_safe_queue_1a75bbae536a61caf94d2f86b5fb0b5a4d" kind="function"><name>size</name></member>
+    <member refid="class_utility_1_1_safe_queue_1af08fc7af06909d2ec7682a63f975e9ad" kind="function"><name>clear</name></member>
+    <member refid="class_utility_1_1_safe_queue_1acf46b2e832bec11b339a1f83968a86e4" kind="function"><name>wait</name></member>
+  </compound>
+  <compound refid="class_network_1_1_serialization_handler" kind="class"><name>Network::SerializationHandler</name>
+    <member refid="class_network_1_1_serialization_handler_1ade45ce4419fd156d7f4128cab751ed24" kind="function"><name>handleOutcomingMessage</name></member>
+    <member refid="class_network_1_1_serialization_handler_1a3258518735a9c86da2bf9332d874c469" kind="function"><name>handleIncomingMessageBody</name></member>
+    <member refid="class_network_1_1_serialization_handler_1a47819bebded753fa3022cf9b2c9dd0c0" kind="function"><name>processOutcomingMessageBody</name></member>
+    <member refid="class_network_1_1_serialization_handler_1aba696088b62e83ee38477370ca612732" kind="function"><name>processIncomingMessageBody</name></member>
+  </compound>
+  <compound refid="class_server" kind="class"><name>Server</name>
+    <member refid="class_server_1a1fb9742c80c0354ece8754298dd7b4ab" kind="typedef"><name>RepoManagerUPtr</name></member>
+  </compound>
+  <compound refid="class_server_1_1_server" kind="class"><name>Server::Server</name>
+    <member refid="class_server_1_1_server_1afe1fb37f4c55aeacb8340ed81cc5fba8" kind="variable"><name>_idCounter</name></member>
+    <member refid="class_server_1_1_server_1a2f8b74fc10dcd9f556fca71afce05f7b" kind="variable"><name>_criticalQueueSize</name></member>
+    <member refid="class_server_1_1_server_1af277bfb846f6eb69373beed711584133" kind="variable"><name>_newThreadsCount</name></member>
+    <member refid="class_server_1_1_server_1a9649d79050e71cf1dbacaaf53721a0b6" kind="variable"><name>_context</name></member>
+    <member refid="class_server_1_1_server_1adc065b58d2e83b0f71da68a68645b41b" kind="variable"><name>_messageResponce</name></member>
+    <member refid="class_server_1_1_server_1afa9de227c3cff7e63705f46cb7156445" kind="variable"><name>_connectionsPointers</name></member>
+    <member refid="class_server_1_1_server_1ab1c42359465dc02bccbc57179c44b99d" kind="variable"><name>_incomingMessagesQueue</name></member>
+    <member refid="class_server_1_1_server_1a166fac6d9027f943b76139ab338f020f" kind="variable"><name>_threads</name></member>
+    <member refid="class_server_1_1_server_1ad615388badd6c0a51ab6a3ef71aa1062" kind="variable"><name>_acceptor</name></member>
+    <member refid="class_server_1_1_server_1a5dc9c93755ca6eab259b40c0ec9628c1" kind="variable"><name>_repoManager</name></member>
+    <member refid="class_server_1_1_server_1a4cab0b7e6a547aa14f979a1d05ecb96f" kind="function"><name>~Server</name></member>
+    <member refid="class_server_1_1_server_1a5c830cfbb33273a728f81165c6ba3b7e" kind="function"><name>start</name></member>
+    <member refid="class_server_1_1_server_1aa5afa25ca847bf5153e145ad37e353d2" kind="function"><name>stop</name></member>
+    <member refid="class_server_1_1_server_1a0389fce76334251866578f1e602e6c9a" kind="function"><name>update</name></member>
+    <member refid="class_server_1_1_server_1ac276bc2de4bd2812a5ec0db582db8323" kind="function"><name>waitForClientConnection</name></member>
+    <member refid="class_server_1_1_server_1a5d94b412b479c73e65d37774ed5c210b" kind="function"><name>acceptingClientConnection</name></member>
+    <member refid="class_server_1_1_server_1a3e59312c8aed875da3ce642a6816b197" kind="function"><name>Server</name></member>
+    <member refid="class_server_1_1_server_1aec446bf2fa4fb2d5f3a15c4747555100" kind="function"><name>initRepository</name></member>
+    <member refid="class_server_1_1_server_1a87cd619b19f5f97f8af43b6cc85c28f9" kind="function"><name>initConnection</name></member>
+    <member refid="class_server_1_1_server_1a522d8f1be3260161b82d86422a1f8685" kind="function"><name>onMessage</name></member>
+    <member refid="class_server_1_1_server_1a463195230520ee55cbdfe44ae089ea56" kind="function"><name>checkMessageResult</name></member>
+    <member refid="class_server_1_1_server_1aab43f4825199875d52182fc5f72487be" kind="function"><name>getMessageResult</name></member>
+    <member refid="class_server_1_1_server_1a7feff1becdbd386f851710459206e9c1" kind="function"><name>onClientConnect</name></member>
+    <member refid="class_server_1_1_server_1a2fc238b0f727157d3dbac3ea106ad712" kind="function"><name>onClientDisconnect</name></member>
+  </compound>
+  <compound refid="class_server_1_1_builder_1_1_server_builder" kind="class"><name>Server::Builder::ServerBuilder</name>
+    <member refid="class_server_1_1_builder_1_1_server_builder_1a33c04dbd6e486105440cd7a0d081335d" kind="variable"><name>_settingsManager</name></member>
+    <member refid="class_server_1_1_builder_1_1_server_builder_1a368f1b3316b357f524559fb406c76dd5" kind="variable"><name>_repository</name></member>
+    <member refid="class_server_1_1_builder_1_1_server_builder_1aad100d6bdc7101ced528668e2928da2b" kind="function"><name>ServerBuilder</name></member>
+    <member refid="class_server_1_1_builder_1_1_server_builder_1a6f81a41c898d9b2fc6e36b81cb771635" kind="function"><name>ServerBuilder</name></member>
+    <member refid="class_server_1_1_builder_1_1_server_builder_1a8412e4a769234aac0ec95f9787389f82" kind="function"><name>~ServerBuilder</name></member>
+    <member refid="class_server_1_1_builder_1_1_server_builder_1a7cbaf468c008719326ee1eb69c532599" kind="function"><name>setRepoManager</name></member>
+    <member refid="class_server_1_1_builder_1_1_server_builder_1ac6569e27a7c494b3be945abc251afe4d" kind="function"><name>makeServer</name></member>
+    <member refid="class_server_1_1_builder_1_1_server_builder_1a9216267591554256d1a318989cf0fb9e" kind="function"><name>make</name></member>
+  </compound>
+  <compound refid="class_server_1_1_builder_1_1_settings" kind="class"><name>Server::Builder::Settings</name>
+    <member refid="class_server_1_1_builder_1_1_settings_1a58ad1405752036ba01c28d9640dd29d6" kind="variable"><name>_settings</name></member>
+    <member refid="class_server_1_1_builder_1_1_settings_1a92d9fa39225b135d9757b30ed619321c" kind="function"><name>Settings</name></member>
+    <member refid="class_server_1_1_builder_1_1_settings_1a38ae203047447957d0f9519bfea6bd69" kind="function"><name>setValue</name></member>
+    <member refid="class_server_1_1_builder_1_1_settings_1ab6aeb4af9d4b2afc6ae8699f8823df93" kind="function"><name>getValue</name></member>
+  </compound>
+  <compound refid="class_server_1_1_builder_1_1_settings_manager" kind="class"><name>Server::Builder::SettingsManager</name>
+    <member refid="class_server_1_1_builder_1_1_settings_manager_1aa5cbe08071eb11eb9c77a89299b9699c" kind="variable"><name>_settings</name></member>
+    <member refid="class_server_1_1_builder_1_1_settings_manager_1aaeb98410cc1acde6dfbae10f6e322484" kind="function"><name>SettingsManager</name></member>
+    <member refid="class_server_1_1_builder_1_1_settings_manager_1a59203b1e8f2cec5e0dcd008088f6283a" kind="function"><name>SettingsManager</name></member>
+    <member refid="class_server_1_1_builder_1_1_settings_manager_1a9161d02b9eee5944e3cb991cf2e329cf" kind="function"><name>SettingsManager</name></member>
+    <member refid="class_server_1_1_builder_1_1_settings_manager_1a6684bcbc6ab18e6d7e35e2101ffa7362" kind="function"><name>reset</name></member>
+    <member refid="class_server_1_1_builder_1_1_settings_manager_1ae55fa5ce5caffe7bcaa3ed7a7215ad40" kind="function"><name>getConnectionOptions</name></member>
+    <member refid="class_server_1_1_builder_1_1_settings_manager_1ae2fa02beed4efb506a66b0966bf47c09" kind="function"><name>getServerPort</name></member>
+  </compound>
+  <compound refid="class_performance_test_1_1_simple_timer" kind="class"><name>PerformanceTest::SimpleTimer</name>
+    <member refid="class_performance_test_1_1_simple_timer_1a4acc27e4bbb7d4363efdcc5a741c7179" kind="typedef"><name>hsc</name></member>
+    <member refid="class_performance_test_1_1_simple_timer_1ae2d97520da5f11a71254ceb49a298764" kind="variable"><name>_start</name></member>
+    <member refid="class_performance_test_1_1_simple_timer_1aae9e7e96d97dd06cb361a39101082dbc" kind="variable"><name>_end</name></member>
+    <member refid="class_performance_test_1_1_simple_timer_1a5f216424290d60703e74c16b5367bc2d" kind="function"><name>SimpleTimer</name></member>
+    <member refid="class_performance_test_1_1_simple_timer_1a3c08a8aed49b9a3e0b4dace75005ada9" kind="function"><name>~SimpleTimer</name></member>
+    <member refid="class_performance_test_1_1_simple_timer_1af4628a09ad05fe91eb680f99b3948d0f" kind="function"><name>start</name></member>
+    <member refid="class_performance_test_1_1_simple_timer_1a12aa5f69aff037f685dd7affd973fe36" kind="function"><name>stop</name></member>
+    <member refid="class_performance_test_1_1_simple_timer_1a774bd8a0baf341ef17ff8dbf1d3eabb2" kind="function"><name>reset</name></member>
+    <member refid="class_performance_test_1_1_simple_timer_1a53df5f543cff15c11bc1badc9d8ea2d0" kind="function"><name>elapsed</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_s_q_l_base" kind="class"><name>DataAccess::SQLBase</name>
+    <member refid="class_data_access_1_1_s_q_l_base_1a2d80d4c7df26b7fb487610e87c57f014" kind="variable"><name>_statementType</name></member>
+    <member refid="class_data_access_1_1_s_q_l_base_1aba9311d0ab264cee686f5b45909a07c4" kind="variable"><name>_currentBuilder</name></member>
+    <member refid="class_data_access_1_1_s_q_l_base_1a9fee04b1953e779668c25cdd9bdeda8d" kind="variable"><name>_queryStream</name></member>
+    <member refid="class_data_access_1_1_s_q_l_base_1a6ae75814a65cd9694ac4870deffedc58" kind="function"><name>SQLBase</name></member>
+    <member refid="class_data_access_1_1_s_q_l_base_1a298ac24cccd355046b6ac9bf98448e84" kind="function"><name>SQLBase</name></member>
+    <member refid="class_data_access_1_1_s_q_l_base_1a495d8c8ca8ee9b089f290111f5a0cc46" kind="function"><name>SQLBase</name></member>
+    <member refid="class_data_access_1_1_s_q_l_base_1afbfaf3b449cdca844c3545315f5e7890" kind="function"><name>operator=</name></member>
+    <member refid="class_data_access_1_1_s_q_l_base_1a58e74cbedb1db27f9f738d841501e9c9" kind="function"><name>SQLBase</name></member>
+    <member refid="class_data_access_1_1_s_q_l_base_1a992593dadbec2399881fcc14a0a3c47b" kind="function"><name>operator=</name></member>
+    <member refid="class_data_access_1_1_s_q_l_base_1a88f9119149b1285a93929606992b8f99" kind="function"><name>~SQLBase</name></member>
+    <member refid="class_data_access_1_1_s_q_l_base_1a30c597d39d45b4c30a6b817ad9394d2f" kind="function"><name>operator&lt;&lt;</name></member>
+    <member refid="class_data_access_1_1_s_q_l_base_1a6b1042754338bd511e2ca9d0f0201b4d" kind="function"><name>getStatementType</name></member>
+    <member refid="class_data_access_1_1_s_q_l_base_1a6444aee735ea7f6174e1669977d83fa8" kind="function"><name>rollback</name></member>
+    <member refid="class_data_access_1_1_s_q_l_base_1a8e7b49572e3fe99855d7cb26d35ff042" kind="function"><name>privateCheckForLastSymbol</name></member>
+    <member refid="class_data_access_1_1_s_q_l_base_1a6de1f009d5bfae63c06e691b8087c75e" kind="function"><name>privateCorrectFormatting</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_s_q_l_delete" kind="class"><name>DataAccess::SQLDelete</name>
+    <member refid="class_data_access_1_1_s_q_l_delete_1ad9cf5c0d77a41350dc5f47bf89480944" kind="function"><name>SQLDelete</name></member>
+    <member refid="class_data_access_1_1_s_q_l_delete_1a3e257b05f59c5d3e1ccd8e2b3c0b937c" kind="function"><name>~SQLDelete</name></member>
+    <member refid="class_data_access_1_1_s_q_l_delete_1a249aef7eb0b5918a7e300c5d490ffb84" kind="function"><name>SQLDelete</name></member>
+    <member refid="class_data_access_1_1_s_q_l_delete_1aa8e4dc98e70fa31b81b8ca032f4955cb" kind="function"><name>SQLDelete</name></member>
+    <member refid="class_data_access_1_1_s_q_l_delete_1af5474cd0dfe9d825716686ef0530a562" kind="function"><name>operator=</name></member>
+    <member refid="class_data_access_1_1_s_q_l_delete_1aefd2da1ba893ff4b011cfa3d14fd4c3d" kind="function"><name>SQLDelete</name></member>
+    <member refid="class_data_access_1_1_s_q_l_delete_1a3fbc78e1dfd4b107423fb3e7e248a1a2" kind="function"><name>operator=</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_s_q_l_insert" kind="class"><name>DataAccess::SQLInsert</name>
+    <member refid="class_data_access_1_1_s_q_l_insert_1a4469db30cdab83eb6d051128ff853182" kind="function"><name>SQLInsert</name></member>
+    <member refid="class_data_access_1_1_s_q_l_insert_1ac9a8f85aeb0350248bc3fea98dbbfda3" kind="function"><name>~SQLInsert</name></member>
+    <member refid="class_data_access_1_1_s_q_l_insert_1a315d7c1cb49a8d012f1509442e8e5160" kind="function"><name>SQLInsert</name></member>
+    <member refid="class_data_access_1_1_s_q_l_insert_1a92db928ffc4146ac2393616b13f34936" kind="function"><name>SQLInsert</name></member>
+    <member refid="class_data_access_1_1_s_q_l_insert_1ac6dcab763a812b684a3d3b2a519a4c48" kind="function"><name>operator=</name></member>
+    <member refid="class_data_access_1_1_s_q_l_insert_1a9134916b9020771d62e71a94266bccf4" kind="function"><name>SQLInsert</name></member>
+    <member refid="class_data_access_1_1_s_q_l_insert_1acc6a93aef39d3ae28d523594d25cf15c" kind="function"><name>operator=</name></member>
+    <member refid="class_data_access_1_1_s_q_l_insert_1a81f205544eb21e0485dd6263be34ad06" kind="function"><name>field</name></member>
+    <member refid="class_data_access_1_1_s_q_l_insert_1a9b642a1992ac2315bf7a59c93a2ed7a9" kind="function"><name>field</name></member>
+    <member refid="class_data_access_1_1_s_q_l_insert_1af093307c65e03c701bc371b9b033fdb2" kind="function"><name>columns</name></member>
+    <member refid="class_data_access_1_1_s_q_l_insert_1a00257dddc73eb032cceae2f1ac73ab51" kind="function"><name>columns</name></member>
+    <member refid="class_data_access_1_1_s_q_l_insert_1a3eb64b20a0460bb411813563bdede60c" kind="function"><name>columns</name></member>
+    <member refid="class_data_access_1_1_s_q_l_insert_1a8d53eef9610768a067d4ae0d8d3934f9" kind="function"><name>returning</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_s_q_l_select" kind="class"><name>DataAccess::SQLSelect</name>
+    <member refid="class_data_access_1_1_s_q_l_select_1a33e78297ad3834b18ef47c09b5b0fbdd" kind="function"><name>SQLSelect</name></member>
+    <member refid="class_data_access_1_1_s_q_l_select_1af05ae4313b1411e755d294b56156b676" kind="function"><name>~SQLSelect</name></member>
+    <member refid="class_data_access_1_1_s_q_l_select_1ad58e0f6ae6acdd91e1c5bc22fea93eae" kind="function"><name>SQLSelect</name></member>
+    <member refid="class_data_access_1_1_s_q_l_select_1a8781763d7bbe7948cb025b679fe4ea36" kind="function"><name>SQLSelect</name></member>
+    <member refid="class_data_access_1_1_s_q_l_select_1aad2acaf20031571bc01070c88906e953" kind="function"><name>operator=</name></member>
+    <member refid="class_data_access_1_1_s_q_l_select_1a4957144c82e7bcdab01c7142c42e5629" kind="function"><name>SQLSelect</name></member>
+    <member refid="class_data_access_1_1_s_q_l_select_1a8c377a8aafff41275626a24542012558" kind="function"><name>operator=</name></member>
+    <member refid="class_data_access_1_1_s_q_l_select_1aaa7a1f958f804caa59c6efb8f9ac630f" kind="function"><name>orderBy</name></member>
+    <member refid="class_data_access_1_1_s_q_l_select_1ad43c0c955c442b5b7d3805048d0c7cc7" kind="function"><name>distinct</name></member>
+    <member refid="class_data_access_1_1_s_q_l_select_1a94867c79e377b3433cf13b9499121f3c" kind="function"><name>join</name></member>
+    <member refid="class_data_access_1_1_s_q_l_select_1afda394b46df3a42022d93415fee7d815" kind="function"><name>groupBy</name></member>
+    <member refid="class_data_access_1_1_s_q_l_select_1af58a892621326af6d0d88c49d42f8d79" kind="function"><name>having</name></member>
+    <member refid="class_data_access_1_1_s_q_l_select_1a64aafa1174f829333a852b2cf3e35b7c" kind="function"><name>Any</name></member>
+    <member refid="class_data_access_1_1_s_q_l_select_1a8116284547536f054c8a7c8b5c701027" kind="function"><name>All</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_s_q_l_update" kind="class"><name>DataAccess::SQLUpdate</name>
+    <member refid="class_data_access_1_1_s_q_l_update_1ac3690ca9a7970662b251a2d032338b3e" kind="function"><name>SQLUpdate</name></member>
+    <member refid="class_data_access_1_1_s_q_l_update_1a1bc1cc23d59faf15cc344d9a386dd51f" kind="function"><name>~SQLUpdate</name></member>
+    <member refid="class_data_access_1_1_s_q_l_update_1a01b3192313b0e83d58b26492b3bf81ea" kind="function"><name>SQLUpdate</name></member>
+    <member refid="class_data_access_1_1_s_q_l_update_1a31709e355b69bf71a23b5a9669838414" kind="function"><name>SQLUpdate</name></member>
+    <member refid="class_data_access_1_1_s_q_l_update_1a1baacd9b428721a5661d3c05a7f1bdd4" kind="function"><name>operator=</name></member>
+    <member refid="class_data_access_1_1_s_q_l_update_1a80518d9d0aaf41f5605fb68241a0c5ce" kind="function"><name>SQLUpdate</name></member>
+    <member refid="class_data_access_1_1_s_q_l_update_1ac104950d550cd7f8f417a1571b0d257f" kind="function"><name>operator=</name></member>
+    <member refid="class_data_access_1_1_s_q_l_update_1a08d14ac91fe213ed52bb77e1b3cd877e" kind="function"><name>fields</name></member>
+    <member refid="class_data_access_1_1_s_q_l_update_1a723ea508e6c1aeed7f0be5c1f19d43e6" kind="function"><name>fields</name></member>
+  </compound>
+  <compound refid="class_data_access_1_1_s_q_l_where_condition" kind="class"><name>DataAccess::SQLWhereCondition</name>
+    <member refid="class_data_access_1_1_s_q_l_where_condition_1a1962aa26d4e6f0e87a2d19bf68d58438" kind="variable"><name>_statement</name></member>
+    <member refid="class_data_access_1_1_s_q_l_where_condition_1a146d89de7c30fa9accdb977dd9f91e8d" kind="function"><name>SQLWhereCondition</name></member>
+    <member refid="class_data_access_1_1_s_q_l_where_condition_1adfb2b4ebdd0fbff64cd286be3fd2eaf4" kind="function"><name>~SQLWhereCondition</name></member>
+    <member refid="class_data_access_1_1_s_q_l_where_condition_1aa9521992047a16b7d9d24219f13c0cf3" kind="function"><name>Where</name></member>
+    <member refid="class_data_access_1_1_s_q_l_where_condition_1af6c905de10a010b7aea525d57b353fed" kind="function"><name>And</name></member>
+    <member refid="class_data_access_1_1_s_q_l_where_condition_1ab31a5bb6911024c656b571d2ef58806b" kind="function"><name>Or</name></member>
+    <member refid="class_data_access_1_1_s_q_l_where_condition_1ab5c076036d6ac3761defd53647e94225" kind="function"><name>In</name></member>
+    <member refid="class_data_access_1_1_s_q_l_where_condition_1a09d8406259ba23bf78817f4aa0bde4d3" kind="function"><name>In</name></member>
+    <member refid="class_data_access_1_1_s_q_l_where_condition_1ae88056b675b53556eb337859b112df5a" kind="function"><name>Between</name></member>
+    <member refid="class_data_access_1_1_s_q_l_where_condition_1aa3168e6c775846fb80fb9fad099a3faa" kind="function"><name>Like</name></member>
+    <member refid="class_data_access_1_1_s_q_l_where_condition_1a05421b1d3967c20d4ade2f059a76c505" kind="function"><name>privateStatementCorrectness</name></member>
+  </compound>
+  <compound refid="class_performance_test_1_1_tester" kind="class"><name>PerformanceTest::Tester</name>
+    <member refid="class_performance_test_1_1_tester_1ad5fc4d00c0413d6b5f495e68bf1be09d" kind="variable"><name>_testsCount</name></member>
+    <member refid="class_performance_test_1_1_tester_1ac550336105454444337172b6d464db6a" kind="variable"><name>_instancePath</name></member>
+    <member refid="class_performance_test_1_1_tester_1a1027eac6c2efa824793a4df17a0ad8c2" kind="variable"><name>_timestamps</name></member>
+    <member refid="class_performance_test_1_1_tester_1a500fd9b02800cae3e8faac5a6fecbb0c" kind="variable"><name>_timer</name></member>
+    <member refid="class_performance_test_1_1_tester_1a29ed3bffa1ed11ac336d4bbe23b93c90" kind="function"><name>privateCreateArgs</name></member>
+    <member refid="class_performance_test_1_1_tester_1a294aa4fc2d30d913ebc505b4cf2f02cb" kind="function"><name>Tester</name></member>
+    <member refid="class_performance_test_1_1_tester_1acf2bf65002eecef70ddc86807de6c806" kind="function"><name>run</name></member>
+    <member refid="class_performance_test_1_1_tester_1a3eea1b9114f60ac06357a835e35da66c" kind="function"><name>printResult</name></member>
+  </compound>
+  <compound refid="class_models_1_1_v2_1_1_unified_model" kind="class"><name>Models::V2::UnifiedModel</name>
+    <member refid="class_models_1_1_v2_1_1_unified_model_1af5e65c5b149075d9cc088151c7e3824a" kind="variable"><name>_modelName</name></member>
+    <member refid="class_models_1_1_v2_1_1_unified_model_1a2478888290412b4ced11575af6ce9a70" kind="variable"><name>_amountOfFields</name></member>
+    <member refid="class_models_1_1_v2_1_1_unified_model_1aed60ff765da8936b79c75e36f4d3103a" kind="variable"><name>_data</name></member>
+    <member refid="class_models_1_1_v2_1_1_unified_model_1a0dd97508d26a00649ad0c36c9162e406" kind="function"><name>UnifiedModel</name></member>
+    <member refid="class_models_1_1_v2_1_1_unified_model_1a303c285c209733be4d085a821e085478" kind="function"><name>getModelName</name></member>
+    <member refid="class_models_1_1_v2_1_1_unified_model_1ad70e5326910d81365776ac50600b51b4" kind="function"><name>resolveName</name></member>
+    <member refid="class_models_1_1_v2_1_1_unified_model_1a6f8c5ed7b61bbffc3fe06d288c8c2c79" kind="function"><name>operator[]</name></member>
+    <member refid="class_models_1_1_v2_1_1_unified_model_1ad4dddf46212ec2954dab4fbeb7f97002" kind="function"><name>toEnum</name></member>
+    <member refid="class_models_1_1_v2_1_1_unified_model_1a315ebb9492ccc41f8517fc9c918da577" kind="function"><name>makeColumnDataPair</name></member>
+    <member refid="class_models_1_1_v2_1_1_unified_model_1a053d4ad45d3d948411a5fa74e197eee7" kind="function"><name>~UnifiedModel</name></member>
+    <member refid="class_models_1_1_v2_1_1_unified_model_1a469f6f4b3c9d29053e31fdaf52bb18be" kind="function"><name>fillStartFields</name></member>
+    <member refid="class_models_1_1_v2_1_1_unified_model_1a425c7239061d7c89d67691deedf12fb7" kind="function"><name>init</name></member>
+    <member refid="class_models_1_1_v2_1_1_unified_model_1a2c607c4060982065f818a1900c47dbfb" kind="function"><name>getNumEnum</name></member>
+  </compound>
+  <compound refid="class_models_1_1_v2_1_1_user" kind="class"><name>Models::V2::User</name>
+    <member refid="class_models_1_1_v2_1_1_user_1a52a109df950f87505834c1a9cc41c925" kind="function"><name>User</name></member>
+    <member refid="class_models_1_1_v2_1_1_user_1a0aa6521a51b183ce3320f548582e222a" kind="function"><name>User</name></member>
+    <member refid="class_models_1_1_v2_1_1_user_1a842290123c719ff15afc45172526c289" kind="function"><name>getNumEnum</name></member>
+  </compound>
+  <compound refid="class_models_1_1_v2_1_1_user_channels" kind="class"><name>Models::V2::UserChannels</name>
+    <member refid="class_models_1_1_v2_1_1_user_channels_1acb31c7d4e86ddbd5ba652b20180604b2" kind="function"><name>UserChannels</name></member>
+    <member refid="class_models_1_1_v2_1_1_user_channels_1aa841d0aa74312056e4352f2c8c48139a" kind="function"><name>UserChannels</name></member>
+    <member refid="class_models_1_1_v2_1_1_user_channels_1a41bd3faebb5bd5a834c515f9ae061b2a" kind="function"><name>getNumEnum</name></member>
+  </compound>
+  <compound refid="class_users_amount_finder" kind="class"><name>UsersAmountFinder</name>
+    <member refid="class_users_amount_finder_1aac86c248e8cd487f16b20612d48cff0d" kind="typedef"><name>Table</name></member>
+    <member refid="class_users_amount_finder_1af0a3b2a3e94d5f2d9c42706255c3985c" kind="variable"><name>_pTable</name></member>
+    <member refid="class_users_amount_finder_1aa0855e5fbf3f48e8bcc4c02979fe4738" kind="function"><name>UsersAmountFinder</name></member>
+    <member refid="class_users_amount_finder_1a24b46f49225b72c94d31bef07ae4af89" kind="function"><name>UsersAmountFinder</name></member>
+    <member refid="class_users_amount_finder_1a6a18e9c619727d5cfb29799cfcb35d78" kind="function"><name>~UsersAmountFinder</name></member>
+    <member refid="class_users_amount_finder_1abbecfced62623d06e64a7b4425911386" kind="function"><name>findUsersAmountWithSameTableAttribute</name></member>
+    <member refid="class_users_amount_finder_1aeb82ced63127e67612272b98e15fe3ec" kind="function"><name>findUsersAmountWithSameLogin</name></member>
+    <member refid="class_users_amount_finder_1a4f037ecbc1a60f360bc11f886668167b" kind="function"><name>findUsersAmountWithSameEmail</name></member>
+    <member refid="class_users_amount_finder_1addd7616ed446121968c768552c88f6b5" kind="function"><name>findUsersAmountWithAllSameData</name></member>
+  </compound>
+  <compound refid="class_performance_test_1_1_argument_parser_1_1_validator" kind="class"><name>PerformanceTest::ArgumentParser::Validator</name>
+    <member refid="class_performance_test_1_1_argument_parser_1_1_validator_1abc9363dbd49dfc2484c42d8503096c94" kind="variable"><name>_MAX_COUNT</name></member>
+    <member refid="class_performance_test_1_1_argument_parser_1_1_validator_1a0da6f5ecebc3951826fdb27bb6880e2f" kind="function"><name>isArgument</name></member>
+    <member refid="class_performance_test_1_1_argument_parser_1_1_validator_1a53334841eba2d87a9589b1e00bc0ff5f" kind="function"><name>isArgumentValid</name></member>
+    <member refid="class_performance_test_1_1_argument_parser_1_1_validator_1adaed6293cae9032db8652b3d08e766c8" kind="function"><name>isValueValid</name></member>
+  </compound>
+  <compound refid="class_network_1_1_yas_serializer" kind="class"><name>Network::YasSerializer</name>
+    <member refid="class_network_1_1_yas_serializer_1abce41b979ba3df7ec68cc9344d17d553" kind="variable"><name>flags</name></member>
+    <member refid="class_network_1_1_yas_serializer_1aa9dc8d5435697f3dc3f22f24ce4304e6" kind="function"><name>YasSerializer</name></member>
+    <member refid="class_network_1_1_yas_serializer_1a6c1defbddd4349fac3e27ed157d275c1" kind="function"><name>YasSerializer</name></member>
+    <member refid="class_network_1_1_yas_serializer_1acf4f71bfed14e7c1d8e4b07ea4ce607b" kind="function"><name>YasSerializer</name></member>
+    <member refid="class_network_1_1_yas_serializer_1ac5ac390665e5a280192a157021ed221e" kind="function"><name>operator=</name></member>
+    <member refid="class_network_1_1_yas_serializer_1a6a6f065bb1b2c806cb5d1870d3d4f08c" kind="function"><name>operator=</name></member>
+    <member refid="class_network_1_1_yas_serializer_1a44f2ef4e9aa39e7e5e2754e7ee2618a5" kind="function"><name>serialize</name></member>
+    <member refid="class_network_1_1_yas_serializer_1a99609c811b7515e0d3766422b6f674a9" kind="function"><name>deserialize</name></member>
+  </compound>
+  <compound refid="namespace_base" kind="namespace"><name>Base</name>
+  </compound>
+  <compound refid="namespace_base_1_1_crypto" kind="namespace"><name>Base::Crypto</name>
+  </compound>
+  <compound refid="namespace_base_1_1_hashing" kind="namespace"><name>Base::Hashing</name>
+    <member refid="_cryptography_8hpp_1a2530d1ee541dbc4809697db97ad939e5" kind="function"><name>SHA_256</name></member>
+  </compound>
+  <compound refid="namespace_base_1_1_logger" kind="namespace"><name>Base::Logger</name>
+    <member refid="_i_logger_8hpp_1a81164f798797c22cb5d5e95a598280ce" kind="enum"><name>LogLevel</name></member>
+    <member refid="_i_logger_8hpp_1a81164f798797c22cb5d5e95a598280ceacd22bad976363fdd1bfbf6759fede482" kind="enumvalue"><name>ERR</name></member>
+    <member refid="_i_logger_8hpp_1a81164f798797c22cb5d5e95a598280cea059e9861e0400dfbe05c98a841f3f96b" kind="enumvalue"><name>WARNING</name></member>
+    <member refid="_i_logger_8hpp_1a81164f798797c22cb5d5e95a598280cea551b723eafd6a31d444fcb2f5920fbd3" kind="enumvalue"><name>INFO</name></member>
+    <member refid="_i_logger_8hpp_1a81164f798797c22cb5d5e95a598280ceadc30ec20708ef7b0f641ef78b7880a15" kind="enumvalue"><name>DEBUG</name></member>
+    <member refid="_i_logger_8hpp_1a1eb71c863009d881077aa2f47203e4d8" kind="enum"><name>LogOutput</name></member>
+    <member refid="_i_logger_8hpp_1a1eb71c863009d881077aa2f47203e4d8a4695859f52d337ca3d7020b2c8f7882a" kind="enumvalue"><name>CONSOLE</name></member>
+    <member refid="_i_logger_8hpp_1a1eb71c863009d881077aa2f47203e4d8a9fc5887c030f7a3e19821ebec457e719" kind="enumvalue"><name>FILE</name></member>
+    <member refid="_i_logger_8hpp_1a1eb71c863009d881077aa2f47203e4d8a5963db1a462151a72edb08f80e732cbe" kind="enumvalue"><name>EVERYWHERE</name></member>
+    <member refid="_i_logger_8hpp_1a9722bce81d2d7bc061e31c0fc9591f6e" kind="variable"><name>lifeTime</name></member>
+  </compound>
+  <compound refid="namespace_data_access" kind="namespace"><name>DataAccess</name>
+    <member refid="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2" kind="enum"><name>ePriority</name></member>
+    <member refid="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a5d98ec0427152056397e9e35f357be87" kind="enumvalue"><name>_1</name></member>
+    <member refid="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a26e3d8bac39f9313d584a6025bd7544d" kind="enumvalue"><name>_2</name></member>
+    <member refid="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2af806252045a28179caaf0ec8f0b5f298" kind="enumvalue"><name>_3</name></member>
+    <member refid="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2ab49511be6fca00a500dc7cd69ecc6c58" kind="enumvalue"><name>_4</name></member>
+    <member refid="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2afc85e0e9e785e1ac37df34f744769c5f" kind="enumvalue"><name>_5</name></member>
+    <member refid="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2adfbfc4a9ddfbf50d6b3349e7a97f0101" kind="enumvalue"><name>_6</name></member>
+    <member refid="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a56bb8449aba0e83c4cd30e57fab20c9d" kind="enumvalue"><name>_7</name></member>
+    <member refid="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2add494b805517113d9d15b8adf0a09b5c" kind="enumvalue"><name>_8</name></member>
+    <member refid="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a9748632a03a999f14fd0c94056c4aa24" kind="enumvalue"><name>_9</name></member>
+    <member refid="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2af3e698f88ff5b6ae938c2f132de7cbaa" kind="enumvalue"><name>_10</name></member>
+    <member refid="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a65ebaa601921630a636201c50f9db5cf" kind="enumvalue"><name>_11</name></member>
+    <member refid="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a5dc05b6bd3d21df6ab11045c6338f2ae" kind="enumvalue"><name>_12</name></member>
+    <member refid="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a20621213404294b8df68e3d1a01f7e84" kind="enumvalue"><name>_13</name></member>
+    <member refid="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a05927382bcdb4de1da41ce1a3ea8b7ab" kind="enumvalue"><name>_14</name></member>
+    <member refid="_repository_request_8hpp_1a99f9d5a2aaca63de42e27a6f06f65eb2a6accb40a7152ce9a3de6d04c7a6768c5" kind="enumvalue"><name>_15</name></member>
+    <member refid="_abstract_repository_manager_8hpp_1ae6e883ecc0c96c1f80fab8f52c55d3da" kind="typedef"><name>MethodReference</name></member>
+    <member refid="_future_result_8hpp_1ab89b4791f475a5cdda3f55e7e27703b1" kind="typedef"><name>RawFuture</name></member>
+    <member refid="_repository_request_8hpp_1aba36626f8bb0a07bf22b2e9ac452abe7" kind="typedef"><name>RequestTask</name></member>
+    <member refid="_abstract_repository_manager_8hpp_1ad7eecab880df29c1d032ceb959d15273" kind="function"><name>fmt</name></member>
+  </compound>
+  <compound refid="namespace_d_b_options" kind="namespace"><name>DBOptions</name>
+    <member refid="_data_base_options_8hpp_1aedc53a8a574cabf9ce7432be6d0b7294" kind="variable"><name>real</name></member>
+    <member refid="_data_base_options_8hpp_1a69d116a430e15f8e1cfdf63016e078dd" kind="variable"><name>test</name></member>
+  </compound>
+  <compound refid="namespace_mock_object" kind="namespace"><name>MockObject</name>
+    <member refid="_mock_tables_8hpp_1a6942c6b798fcf5ffd97d1a763772486f" kind="enum"><name>TableChannelRepository</name></member>
+    <member refid="_mock_tables_8hpp_1a6942c6b798fcf5ffd97d1a763772486fa57c7869106fd3be06d0e273a1fd8bbd3" kind="enumvalue"><name>UserID</name></member>
+    <member refid="_mock_tables_8hpp_1a6942c6b798fcf5ffd97d1a763772486fa2b2dbda9be732ab05a77e4ca77304e0d" kind="enumvalue"><name>ChanneName</name></member>
+    <member refid="_mock_tables_8hpp_1a6942c6b798fcf5ffd97d1a763772486fad19844db34efb6b4ede16be3fd6156f2" kind="enumvalue"><name>ChannelID</name></member>
+    <member refid="_mock_tables_8hpp_1a3e736974c3cda0da43023191da509fc2" kind="enum"><name>TableRepliesRepository</name></member>
+    <member refid="_mock_tables_8hpp_1a3e736974c3cda0da43023191da509fc2ad19844db34efb6b4ede16be3fd6156f2" kind="enumvalue"><name>ChannelID</name></member>
+    <member refid="_mock_tables_8hpp_1a3e736974c3cda0da43023191da509fc2a4c2a8fe7eaf24721cc7a9f0175115bd4" kind="enumvalue"><name>Message</name></member>
+    <member refid="_mock_tables_8hpp_1a3e736974c3cda0da43023191da509fc2a8a090d9f5db3878c13a459772e51a146" kind="enumvalue"><name>MessageID</name></member>
+    <member refid="_mock_tables_8hpp_1a3e736974c3cda0da43023191da509fc2af8aa43728abb46f0cf92bbb09fa77ffc" kind="enumvalue"><name>UserLogin</name></member>
+    <member refid="_mock_tables_8hpp_1af8573056d6a57bf842b430b37f268d5f" kind="enum"><name>TableMessagesRepository</name></member>
+    <member refid="_mock_tables_8hpp_1af8573056d6a57bf842b430b37f268d5fa57c7869106fd3be06d0e273a1fd8bbd3" kind="enumvalue"><name>UserID</name></member>
+    <member refid="_mock_tables_8hpp_1af8573056d6a57bf842b430b37f268d5fad19844db34efb6b4ede16be3fd6156f2" kind="enumvalue"><name>ChannelID</name></member>
+    <member refid="_mock_tables_8hpp_1af8573056d6a57bf842b430b37f268d5fa4c2a8fe7eaf24721cc7a9f0175115bd4" kind="enumvalue"><name>Message</name></member>
+    <member refid="_mock_tables_8hpp_1af8573056d6a57bf842b430b37f268d5fa8a090d9f5db3878c13a459772e51a146" kind="enumvalue"><name>MessageID</name></member>
+    <member refid="_mock_tables_8hpp_1af8573056d6a57bf842b430b37f268d5fae3fecd9ec868c8c581c3a4b477f15a62" kind="enumvalue"><name>Reactions</name></member>
+    <member refid="_mock_tables_8hpp_1af8573056d6a57bf842b430b37f268d5fa0fa0816a2a1680f7cfdfe69f4a67756f" kind="enumvalue"><name>RecipientID</name></member>
+    <member refid="_mock_tables_8hpp_1af8573056d6a57bf842b430b37f268d5faf8aa43728abb46f0cf92bbb09fa77ffc" kind="enumvalue"><name>UserLogin</name></member>
+    <member refid="_mock_tables_8hpp_1a65bcb3607f5feaf0337c61133d0df4aa" kind="enum"><name>TableRegistrationRepository</name></member>
+    <member refid="_mock_tables_8hpp_1a65bcb3607f5feaf0337c61133d0df4aaaf8aa43728abb46f0cf92bbb09fa77ffc" kind="enumvalue"><name>UserLogin</name></member>
+    <member refid="_mock_tables_8hpp_1a65bcb3607f5feaf0337c61133d0df4aaace8ae9da5b7cd6c3df2929543a9af92d" kind="enumvalue"><name>Email</name></member>
+    <member refid="_mock_tables_8hpp_1a65bcb3607f5feaf0337c61133d0df4aaadc647eb65e6711e155375218212b3964" kind="enumvalue"><name>Password</name></member>
+    <member refid="_mock_tables_8hpp_1a73fa292224bab91b1fc794f2d44e97e0" kind="enum"><name>TableLoginRepository</name></member>
+    <member refid="_mock_tables_8hpp_1a73fa292224bab91b1fc794f2d44e97e0af8aa43728abb46f0cf92bbb09fa77ffc" kind="enumvalue"><name>UserLogin</name></member>
+    <member refid="_mock_tables_8hpp_1a73fa292224bab91b1fc794f2d44e97e0a91a29d1b095c80bed9137e041a067e74" kind="enumvalue"><name>PasswordHash</name></member>
+    <member refid="_mock_query_8hpp_1aafc90e78fc2a8cb523b81b2f1d7caab0" kind="typedef"><name>Database</name></member>
+    <member refid="_mock_query_8hpp_1ac1cbad793762e3b7ca1dd413bc03a16b" kind="typedef"><name>QueryBuilder</name></member>
+    <member refid="_mock_repositories_8hpp_1a5f5016011495b2ea28a7d861e00e5138" kind="typedef"><name>IAdapter</name></member>
+    <member refid="_mock_repositories_8hpp_1a6c23b2f0e809a6c59281f75b5b12db36" kind="typedef"><name>IChannelRepository</name></member>
+    <member refid="_mock_repositories_8hpp_1aebe7b4cf99f6e353c476ac5bf7bb5822" kind="typedef"><name>IDirectMessageRepository</name></member>
+    <member refid="_mock_repositories_8hpp_1ae31d95933715a1d4d64fe4769430d508" kind="typedef"><name>ILoginRepository</name></member>
+    <member refid="_mock_repositories_8hpp_1a2080d2fe94481a87327044a2b9fa34c7" kind="typedef"><name>IMessagesRepository</name></member>
+    <member refid="_mock_repositories_8hpp_1a20ce9e56f764daed490540913fb3d979" kind="typedef"><name>IRegisterRepository</name></member>
+    <member refid="_mock_repositories_8hpp_1a15cf338827364f37d33a6314d9c1e771" kind="typedef"><name>IRepliesRepository</name></member>
+    <member refid="_mock_repositories_8hpp_1aafc2ddc76884e29c1037dedbf93a62a9" kind="typedef"><name>LoginInfo</name></member>
+    <member refid="_mock_repositories_8hpp_1a3012ea992694ec223fd49e74c4aa94a9" kind="typedef"><name>ReplyInfo</name></member>
+    <member refid="_mock_repositories_8hpp_1aaf6299ca71e55447811fa69481d225e8" kind="typedef"><name>MessageInfo</name></member>
+    <member refid="_mock_repositories_8hpp_1aa06850a5a4116051490c8bd7d3b06268" kind="typedef"><name>RegistrationInfo</name></member>
+    <member refid="_mock_repositories_8hpp_1a68f2bb3210a16fdc7ff6bd850423c578" kind="typedef"><name>ChannelInfo</name></member>
+    <member refid="_mock_repositories_8hpp_1ad8118cb34c4c59ccfe81d92299bb8611" kind="typedef"><name>ChannelDeleteInfo</name></member>
+    <member refid="_mock_repositories_8hpp_1a56ede9e9b5c8a455575e388bdcdd582b" kind="typedef"><name>ChannelLeaveInfo</name></member>
+    <member refid="_mock_repositories_8hpp_1a7eaa5037f81f103ba289b12a6d26c659" kind="typedef"><name>ChannelSubscriptionInfo</name></member>
+    <member refid="_mock_database_options_8hpp_1abbe0e4820db24cb409e28a53f6b6153a" kind="variable"><name>TestProperties</name></member>
+  </compound>
+  <compound refid="namespace_models" kind="namespace"><name>Models</name>
+    <member refid="_primitives_8hpp_1af94c4d5c159d095d2f3f208839cd2bd3" kind="typedef"><name>ChannelDeleteInfo</name></member>
+    <member refid="_primitives_8hpp_1a97b9bf3f75c235fa9371d270415eacbc" kind="typedef"><name>ChannelLeaveInfo</name></member>
+    <member refid="_primitives_8hpp_1a41cd58d3ebe1782a7b489188d065ffb3" kind="variable"><name>reactionNames</name></member>
+    <member refid="_primitives_8hpp_1a2bc8eecdac5a65d47909a714a3b91207" kind="function"><name>serialize</name></member>
+    <member refid="_primitives_8hpp_1aa56d16dd1eab4c1e44d7cdfb847abcd9" kind="function"><name>serialize</name></member>
+    <member refid="_primitives_8hpp_1a163508b8357bf45800651ae6d0ebc58e" kind="function"><name>serialize</name></member>
+    <member refid="_primitives_8hpp_1a9852d5b92ea97e9c04dbaf2759ebc363" kind="function"><name>serialize</name></member>
+    <member refid="_primitives_8hpp_1a155e63143b067c631df7e08b6185491b" kind="function"><name>serialize</name></member>
+    <member refid="_primitives_8hpp_1a3899170bcd710a8c451f077e26dd42f5" kind="function"><name>serialize</name></member>
+  </compound>
+  <compound refid="namespace_models_1_1_v2" kind="namespace"><name>Models::V2</name>
+    <member refid="_models_8hpp_1aea0b2b49eeddec54d11ebcb1d3976194" kind="enum"><name>UserInfo</name></member>
+    <member refid="_models_8hpp_1aea0b2b49eeddec54d11ebcb1d3976194ab718adec73e04ce3ec720dd11a06a308" kind="enumvalue"><name>ID</name></member>
+    <member refid="_models_8hpp_1aea0b2b49eeddec54d11ebcb1d3976194a61a649a33f2869e5e35fbb7aff3a80d9" kind="enumvalue"><name>EMAIL</name></member>
+    <member refid="_models_8hpp_1aea0b2b49eeddec54d11ebcb1d3976194a4976d7ca80f2cb54c1c7d5c87fb0c7ef" kind="enumvalue"><name>LOGIN</name></member>
+    <member refid="_models_8hpp_1aea0b2b49eeddec54d11ebcb1d3976194a7999f7c631d421f6f2ec094004bf3c9e" kind="enumvalue"><name>PASSHASH</name></member>
+    <member refid="_models_8hpp_1acce7a547c5b111e9d104f65fdc0ecf0a" kind="enum"><name>ChannelData</name></member>
+    <member refid="_models_8hpp_1acce7a547c5b111e9d104f65fdc0ecf0aaf2f9f6189ea89474c712f93d7e688f4b" kind="enumvalue"><name>CHANNEL_ID</name></member>
+    <member refid="_models_8hpp_1acce7a547c5b111e9d104f65fdc0ecf0aa04bbb92289a162e7076babba47d69ded" kind="enumvalue"><name>CHANNEL_NAME</name></member>
+    <member refid="_models_8hpp_1acce7a547c5b111e9d104f65fdc0ecf0aa3a8f3060f2e38be808f49fe4ef188925" kind="enumvalue"><name>CREATOR_ID</name></member>
+    <member refid="_models_8hpp_1acce7a547c5b111e9d104f65fdc0ecf0aaba856c4657d0ccdc1f5634dbbefdea50" kind="enumvalue"><name>CHANNEL_USER_LIMIT</name></member>
+    <member refid="_models_8hpp_1a1f399a288607b773a5d024ea10edb712" kind="enum"><name>UserChannelsData</name></member>
+    <member refid="_models_8hpp_1a1f399a288607b773a5d024ea10edb712a1b9efbab658fbd15557cf1c43bb89ff2" kind="enumvalue"><name>USER_ID</name></member>
+    <member refid="_models_8hpp_1a1f399a288607b773a5d024ea10edb712af2f9f6189ea89474c712f93d7e688f4b" kind="enumvalue"><name>CHANNEL_ID</name></member>
+    <member refid="_unified_model_8hpp_1a75c8e4ffde0ea224a3d9364c0a9d9e33" kind="typedef"><name>FieldNames</name></member>
+    <member refid="_unified_model_8hpp_1ae183ce643a0f8df8abc78ea31d4c40bd" kind="typedef"><name>InsertData</name></member>
+    <member refid="_unified_model_8hpp_1a6dec69bf6c0fb734c3a099a670dcf651" kind="typedef"><name>Map</name></member>
+  </compound>
+  <compound refid="namespace_network" kind="namespace"><name>Network</name>
+    <member refid="_connection_8hpp_1af4daee7c3c54232f048025bbd1b01c81" kind="enum"><name>MessageResult</name></member>
+    <member refid="_connection_8hpp_1af4daee7c3c54232f048025bbd1b01c81ae01eb350d8cbf3af3eda4650e977649d" kind="enumvalue"><name>InvalidBody</name></member>
+    <member refid="_connection_8hpp_1af4daee7c3c54232f048025bbd1b01c81a505a83f220c02df2f85c3810cd9ceb38" kind="enumvalue"><name>Success</name></member>
+    <member refid="_handler_8hpp_1a0e6f75ddf048c324a92fc7731497d611" kind="enum"><name>MessageProcessingState</name></member>
+    <member refid="_handler_8hpp_1a0e6f75ddf048c324a92fc7731497d611ad0749aaba8b833466dfcbb0428e4f89c" kind="enumvalue"><name>SUCCESS</name></member>
+    <member refid="_handler_8hpp_1a0e6f75ddf048c324a92fc7731497d611a36fc6065a3e970bc3e6b2e59da52bf2a" kind="enumvalue"><name>FAILURE</name></member>
+    <member refid="_yas_serializer_8hpp_1a30e66450d50d0cb1f85a89ddace514c7" kind="enum"><name>SerializedState</name></member>
+    <member refid="_yas_serializer_8hpp_1a30e66450d50d0cb1f85a89ddace514c7ad0749aaba8b833466dfcbb0428e4f89c" kind="enumvalue"><name>SUCCESS</name></member>
+    <member refid="_yas_serializer_8hpp_1a30e66450d50d0cb1f85a89ddace514c7a36fc6065a3e970bc3e6b2e59da52bf2a" kind="enumvalue"><name>FAILURE</name></member>
+    <member refid="_message_8hpp_1aa6b6f3ac1059ed06f6c795e5dad2aa05" kind="function"><name>serialize</name></member>
+  </compound>
+  <compound refid="namespace_performance_test" kind="namespace"><name>PerformanceTest</name>
+    <member refid="_argument_parser_8hpp_1aa829654d00eba860fcda3f65370a5791" kind="enum"><name>eKeys</name></member>
+    <member refid="_argument_parser_8hpp_1aa829654d00eba860fcda3f65370a5791ad6fe1d0be6347b8ef2427fa629c04485" kind="enumvalue"><name>path</name></member>
+    <member refid="_argument_parser_8hpp_1aa829654d00eba860fcda3f65370a5791ae2942a04780e223b215eb8b663cf5353" kind="enumvalue"><name>count</name></member>
+  </compound>
+  <compound refid="namespace_server" kind="namespace"><name>Server</name>
+  </compound>
+  <compound refid="namespace_server_1_1_builder" kind="namespace"><name>Server::Builder</name>
+  </compound>
+  <compound refid="namespace_server_info" kind="namespace"><name>ServerInfo</name>
+  </compound>
+  <compound refid="namespace_server_info_1_1_address" kind="namespace"><name>ServerInfo::Address</name>
+    <member refid="namespace_server_info_1_1_address_1a7bd7dbd86a118ea93394037fcd7b22cb" kind="variable"><name>remote</name></member>
+  </compound>
+  <compound refid="namespace_server_info_1_1_port" kind="namespace"><name>ServerInfo::Port</name>
+    <member refid="namespace_server_info_1_1_port_1a43d10f936de5e781251d5e2ce78f6951" kind="variable"><name>test</name></member>
+    <member refid="namespace_server_info_1_1_port_1a970150f865675e8f81897cfa183a635d" kind="variable"><name>production</name></member>
+  </compound>
+  <compound refid="namespacestd" kind="namespace"><name>std</name>
+  </compound>
+  <compound refid="namespace_user_data_validation" kind="namespace"><name>UserDataValidation</name>
+    <member refid="_user_data_validation_8hpp_1a437158f09f1fcf17d0ea1ffd9218cf50" kind="function"><name>isLoginValid</name></member>
+    <member refid="_user_data_validation_8hpp_1abdacff79042f9c16819a200555580c5f" kind="function"><name>isEmailValid</name></member>
+    <member refid="_user_data_validation_8hpp_1a1430d1a1274ad58df9174ed704e72f99" kind="function"><name>isPasswordValid</name></member>
+  </compound>
+  <compound refid="namespace_utility" kind="namespace"><name>Utility</name>
+    <member refid="_s_q_l_utility_8hpp_1a467fc2b21b5a9d8b92c9453facf14c86" kind="enum"><name>DatabaseType</name></member>
+    <member refid="_s_q_l_utility_8hpp_1a467fc2b21b5a9d8b92c9453facf14c86a622979844bb414ee85d4395d70d3b922" kind="enumvalue"><name>DB_POSTGRE</name></member>
+    <member refid="_s_q_l_utility_8hpp_1a467fc2b21b5a9d8b92c9453facf14c86af2ded1a980faf2e0c0275ed758d80b3e" kind="enumvalue"><name>DB_LITE</name></member>
+    <member refid="_s_q_l_utility_8hpp_1afb8952ae7d96c1b937bdde787841d9c8" kind="enum"><name>SQLStatement</name></member>
+    <member refid="_s_q_l_utility_8hpp_1afb8952ae7d96c1b937bdde787841d9c8ae35036fa36e04f4be37e18787bc033be" kind="enumvalue"><name>ST_SELECT</name></member>
+    <member refid="_s_q_l_utility_8hpp_1afb8952ae7d96c1b937bdde787841d9c8a1250cac29ce337afeb4aa55f2b5eb9a0" kind="enumvalue"><name>ST_INSERT</name></member>
+    <member refid="_s_q_l_utility_8hpp_1afb8952ae7d96c1b937bdde787841d9c8ae6b86466220f765c91340584d6a2f21c" kind="enumvalue"><name>ST_UPDATE</name></member>
+    <member refid="_s_q_l_utility_8hpp_1afb8952ae7d96c1b937bdde787841d9c8a7851f520169d337c45fe224eacc1dfb0" kind="enumvalue"><name>ST_DELETE</name></member>
+    <member refid="_s_q_l_utility_8hpp_1a246dfab9cc6e95146431c447849a4bb2" kind="enum"><name>SQLJoinType</name></member>
+    <member refid="_s_q_l_utility_8hpp_1a246dfab9cc6e95146431c447849a4bb2acb42922ef4cf9dc59b3dc3f64cc850c0" kind="enumvalue"><name>J_INNER</name></member>
+    <member refid="_s_q_l_utility_8hpp_1a246dfab9cc6e95146431c447849a4bb2a1b090181c77aba4816260c2ed7be5f37" kind="enumvalue"><name>J_LEFT</name></member>
+    <member refid="_s_q_l_utility_8hpp_1a246dfab9cc6e95146431c447849a4bb2af892fe0405cbee7e60e34278a5a356ea" kind="enumvalue"><name>J_RIGHT</name></member>
+    <member refid="_s_q_l_utility_8hpp_1a246dfab9cc6e95146431c447849a4bb2a08500b15249eefdf6b00c1a264a4a149" kind="enumvalue"><name>J_FULL</name></member>
+    <member refid="_utility_8hpp_1a471f96b2c0eaaea73543cea5a140def8" kind="enum"><name>RegistrationCodes</name></member>
+    <member refid="_utility_8hpp_1a471f96b2c0eaaea73543cea5a140def8a2806d3c9c75bf59fbaa5775b2ca45820" kind="enumvalue"><name>EMAIL_ALREADY_EXISTS</name></member>
+    <member refid="_utility_8hpp_1a471f96b2c0eaaea73543cea5a140def8a66a88097c8bcfee61f61b37c643e1968" kind="enumvalue"><name>LOGIN_ALREADY_EXISTS</name></member>
+    <member refid="_utility_8hpp_1a471f96b2c0eaaea73543cea5a140def8ad0749aaba8b833466dfcbb0428e4f89c" kind="enumvalue"><name>SUCCESS</name></member>
+    <member refid="_utility_8hpp_1a05aafe6bf281bd8f3b980cb595ee371d" kind="enum"><name>GeneralCodes</name></member>
+    <member refid="_utility_8hpp_1a05aafe6bf281bd8f3b980cb595ee371dad0749aaba8b833466dfcbb0428e4f89c" kind="enumvalue"><name>SUCCESS</name></member>
+    <member refid="_utility_8hpp_1a05aafe6bf281bd8f3b980cb595ee371dab9e14d9b2886bcff408b85aefa780419" kind="enumvalue"><name>FAILED</name></member>
+    <member refid="_utility_8hpp_1a763d24b2dfa20cc3e77c31b3be47e6b8" kind="enum"><name>ChannelSubscribingCodes</name></member>
+    <member refid="_utility_8hpp_1a763d24b2dfa20cc3e77c31b3be47e6b8a0505d852034227a9b0034f526e98a29f" kind="enumvalue"><name>CHANNEL_HAS_ALREADY_BEEN_SIGNED</name></member>
+    <member refid="_utility_8hpp_1a763d24b2dfa20cc3e77c31b3be47e6b8ad0749aaba8b833466dfcbb0428e4f89c" kind="enumvalue"><name>SUCCESS</name></member>
+    <member refid="_utility_8hpp_1a763d24b2dfa20cc3e77c31b3be47e6b8ab9e14d9b2886bcff408b85aefa780419" kind="enumvalue"><name>FAILED</name></member>
+    <member refid="_utility_8hpp_1a3aff0d532c69272a3b5dacf508275569" kind="enum"><name>ChannelLeaveCodes</name></member>
+    <member refid="_utility_8hpp_1a3aff0d532c69272a3b5dacf508275569a95cd0a4586c842b746f776a1d99d941a" kind="enumvalue"><name>CHANNEL_NOT_FOUND</name></member>
+    <member refid="_utility_8hpp_1a3aff0d532c69272a3b5dacf508275569ad0749aaba8b833466dfcbb0428e4f89c" kind="enumvalue"><name>SUCCESS</name></member>
+    <member refid="_utility_8hpp_1a3aff0d532c69272a3b5dacf508275569ab9e14d9b2886bcff408b85aefa780419" kind="enumvalue"><name>FAILED</name></member>
+    <member refid="_utility_8hpp_1ab40041e61f9a37b7b26de0477139515f" kind="enum"><name>ChannelDeleteCode</name></member>
+    <member refid="_utility_8hpp_1ab40041e61f9a37b7b26de0477139515fa95cd0a4586c842b746f776a1d99d941a" kind="enumvalue"><name>CHANNEL_NOT_FOUND</name></member>
+    <member refid="_utility_8hpp_1ab40041e61f9a37b7b26de0477139515fa186759a9f30f6a4821d0e5144b24d3c7" kind="enumvalue"><name>CHANNEL_IS_NOT_USER</name></member>
+    <member refid="_utility_8hpp_1ab40041e61f9a37b7b26de0477139515fad0749aaba8b833466dfcbb0428e4f89c" kind="enumvalue"><name>SUCCESS</name></member>
+    <member refid="_utility_8hpp_1ab40041e61f9a37b7b26de0477139515fab9e14d9b2886bcff408b85aefa780419" kind="enumvalue"><name>FAILED</name></member>
+    <member refid="_utility_8hpp_1abff81c7980ed6a36c8e2107e38947386" kind="enum"><name>ChannelCreateCodes</name></member>
+    <member refid="_utility_8hpp_1abff81c7980ed6a36c8e2107e38947386ad3be884d6eb5733102d97d957185dd7c" kind="enumvalue"><name>CHANNEL_ALREADY_CREATED</name></member>
+    <member refid="_utility_8hpp_1abff81c7980ed6a36c8e2107e38947386ad0749aaba8b833466dfcbb0428e4f89c" kind="enumvalue"><name>SUCCESS</name></member>
+    <member refid="_utility_8hpp_1abff81c7980ed6a36c8e2107e38947386ab9e14d9b2886bcff408b85aefa780419" kind="enumvalue"><name>FAILED</name></member>
+    <member refid="_utility_8hpp_1ab3474797cbf0cc52533503b182a49040" kind="typedef"><name>StoringMessageCodes</name></member>
+    <member refid="_utility_8hpp_1a83ee27969cbcdc0d43b9532662db3937" kind="typedef"><name>StoringReplyCodes</name></member>
+    <member refid="_utility_8hpp_1a918010c00c6da4960fee2edae6b40bf6" kind="typedef"><name>DeletingMessageCodes</name></member>
+    <member refid="_utility_8hpp_1aa9f77647b490610b85fe38e5ca214497" kind="typedef"><name>EditingMessageCodes</name></member>
+    <member refid="_utility_8hpp_1a4d8b15943b23b61b37edb14f3bdc256c" kind="typedef"><name>DirectMessageStatus</name></member>
+    <member refid="_utility_8hpp_1af302a4b1e90e4b15de6d5610af61bc54" kind="typedef"><name>ReactionMessageCodes</name></member>
+    <member refid="_s_q_l_utility_8hpp_1a5c59b13b33b29580e6f1b0ce41bd5da4" kind="variable"><name>is_char_v</name></member>
+    <member refid="_s_q_l_utility_8hpp_1ac79b948144e04346c7404100b6ade9fa" kind="variable"><name>is_string_v</name></member>
+    <member refid="_s_q_l_utility_8hpp_1a48d741c307f497ab5dd5e0fe2b15e477" kind="variable"><name>is_char_or_string_v</name></member>
+    <member refid="_j_g_exceptions_8hpp_1a49995d09f01834df439a95d9b2576844" kind="function"><name>formatExceptionMessage</name></member>
+    <member refid="_s_q_l_utility_8hpp_1a509a45956dc2719e837086103e780f46" kind="function"><name>make_statement</name></member>
+    <member refid="_s_q_l_utility_8hpp_1a70bcfdcab03e964f5bd96d2631f7b51d" kind="function"><name>suppressWarning</name></member>
+    <member refid="_s_q_l_utility_8hpp_1aa73e8b9ffe918debfa3fec41739205ea" kind="function"><name>wrapStringByQuotes</name></member>
+    <member refid="_s_q_l_utility_8hpp_1a1356dfb0c52760c856e9e51863eaca65" kind="function"><name>CheckForSQLSingleQuotesProblem</name></member>
+    <member refid="_utility_8hpp_1a13b58f90357d7a5419164dedef8a82ed" kind="function"><name>removeSpaces</name></member>
+    <member refid="_utility_8hpp_1a77c4b25535930ac13ea8599382477c82" kind="function"><name>getFldPath</name></member>
+  </compound>
+  <compound refid="namespace_utility_time" kind="namespace"><name>UtilityTime</name>
+    <member refid="_utility_time_8hpp_1abe53661259dce8c3f7ddad961d306760" kind="typedef"><name>RTC</name></member>
+    <member refid="_utility_time_8hpp_1a556bb4342c8bc41919d984db4dc2b110" kind="typedef"><name>timestamp_t</name></member>
+    <member refid="_utility_time_8hpp_1a20f975ce6823dd78582762ef63c8876b" kind="function"><name>safe_localtime</name></member>
+    <member refid="_utility_time_8hpp_1afb596527dfc0d52056a2d449fa6fa60a" kind="function"><name>consoleLogTimestamp</name></member>
+    <member refid="_utility_time_8hpp_1a997854701311a29a9463adbf144b143f" kind="function"><name>getTimeNow</name></member>
+    <member refid="_utility_time_8hpp_1a34765d389f47566e16f183ea8c8373fd" kind="function"><name>millisecondsSinceEpoch</name></member>
+    <member refid="_utility_time_8hpp_1ac9b08a725c385d4b043839a43a6f4cea" kind="function"><name>getStringifiedCurrentDate</name></member>
+  </compound>
+  <compound refid="_cryptography_8hpp" kind="file"><name>Cryptography.hpp</name>
+  </compound>
+  <compound refid="_file_logger_8hpp" kind="file"><name>FileLogger.hpp</name>
+  </compound>
+  <compound refid="_i_logger_8hpp" kind="file"><name>ILogger.hpp</name>
+  </compound>
+  <compound refid="_models_8hpp" kind="file"><name>Models.hpp</name>
+  </compound>
+  <compound refid="_primitives_8hpp" kind="file"><name>Primitives.hpp</name>
+  </compound>
+  <compound refid="_unified_model_8hpp" kind="file"><name>UnifiedModel.hpp</name>
+  </compound>
+  <compound refid="_app_8hpp" kind="file"><name>App.hpp</name>
+  </compound>
+  <compound refid="_client_8hpp" kind="file"><name>Client.hpp</name>
+  </compound>
+  <compound refid="_server_info_8hpp" kind="file"><name>ServerInfo.hpp</name>
+  </compound>
+  <compound refid="_file_d_b_8hpp" kind="file"><name>FileDB.hpp</name>
+  </compound>
+  <compound refid="_file_repository_8hpp" kind="file"><name>FileRepository.hpp</name>
+  </compound>
+  <compound refid="_mock_database_8hpp" kind="file"><name>MockDatabase.hpp</name>
+  </compound>
+  <compound refid="_mock_database_options_8hpp" kind="file"><name>MockDatabaseOptions.hpp</name>
+  </compound>
+  <compound refid="_mock_query_8hpp" kind="file"><name>MockQuery.hpp</name>
+  </compound>
+  <compound refid="_mock_query_builder_8hpp" kind="file"><name>MockQueryBuilder.hpp</name>
+  </compound>
+  <compound refid="_mock_repositories_8hpp" kind="file"><name>MockRepositories.hpp</name>
+  </compound>
+  <compound refid="_mock_repository_instance_8hpp" kind="file"><name>MockRepositoryInstance.hpp</name>
+  </compound>
+  <compound refid="_mock_repository_manager_8hpp" kind="file"><name>MockRepositoryManager.hpp</name>
+  </compound>
+  <compound refid="_mock_repository_storage_8hpp" kind="file"><name>MockRepositoryStorage.hpp</name>
+  </compound>
+  <compound refid="_mock_tables_8hpp" kind="file"><name>MockTables.hpp</name>
+  </compound>
+  <compound refid="_data_base_options_8hpp" kind="file"><name>DataBaseOptions.hpp</name>
+  </compound>
+  <compound refid="_p_g_model_filler_8hpp" kind="file"><name>PGModelFiller.hpp</name>
+  </compound>
+  <compound refid="_postgre_adapter_8hpp" kind="file"><name>PostgreAdapter.hpp</name>
+  </compound>
+  <compound refid="_postgre_query_8hpp" kind="file"><name>PostgreQuery.hpp</name>
+  </compound>
+  <compound refid="_postgre_repositories_8hpp" kind="file"><name>PostgreRepositories.hpp</name>
+  </compound>
+  <compound refid="_postgre_repository_container_8hpp" kind="file"><name>PostgreRepositoryContainer.hpp</name>
+  </compound>
+  <compound refid="_postgre_repository_manager_8hpp" kind="file"><name>PostgreRepositoryManager.hpp</name>
+  </compound>
+  <compound refid="_users_amount_finder_8hpp" kind="file"><name>UsersAmountFinder.hpp</name>
+  </compound>
+  <compound refid="_abstract_query_builder_8hpp" kind="file"><name>AbstractQueryBuilder.hpp</name>
+  </compound>
+  <compound refid="_abstract_repository_container_8hpp" kind="file"><name>AbstractRepositoryContainer.hpp</name>
+  </compound>
+  <compound refid="_abstract_repository_manager_8hpp" kind="file"><name>AbstractRepositoryManager.hpp</name>
+  </compound>
+  <compound refid="_future_result_8hpp" kind="file"><name>FutureResult.hpp</name>
+  </compound>
+  <compound refid="_i_adapter_8hpp" kind="file"><name>IAdapter.hpp</name>
+  </compound>
+  <compound refid="_i_client_repositories_8hpp" kind="file"><name>IClientRepositories.hpp</name>
+  </compound>
+  <compound refid="_i_master_repository_8hpp" kind="file"><name>IMasterRepository.hpp</name>
+  </compound>
+  <compound refid="_i_repository_8hpp" kind="file"><name>IRepository.hpp</name>
+  </compound>
+  <compound refid="_i_server_repositories_8hpp" kind="file"><name>IServerRepositories.hpp</name>
+  </compound>
+  <compound refid="_repository_request_8hpp" kind="file"><name>RepositoryRequest.hpp</name>
+  </compound>
+  <compound refid="_s_q_l_statements_8hpp" kind="file"><name>SQLStatements.hpp</name>
+  </compound>
+  <compound refid="_cryptography_8md" kind="file"><name>Cryptography.md</name>
+  </compound>
+  <compound refid="_deeping_01intro_01_a_s_i_o_8md" kind="file"><name>Deeping intro ASIO.md</name>
+  </compound>
+  <compound refid="_getting_01_started_8md" kind="file"><name>Getting Started.md</name>
+  </compound>
+  <compound refid="_improved_01debugging_8md" kind="file"><name>Improved debugging.md</name>
+  </compound>
+  <compound refid="_i_repository_01scheme_8md" kind="file"><name>IRepository scheme.md</name>
+  </compound>
+  <compound refid="_build_01project_01on_01_fedora_8md" kind="file"><name>Build project on Fedora.md</name>
+  </compound>
+  <compound refid="_d_b_a_p_i_8md" kind="file"><name>DBAPI.md</name>
+  </compound>
+  <compound refid="_frontend_01network_8md" kind="file"><name>Frontend network.md</name>
+  </compound>
+  <compound refid="_how_01to_01add_01a_013rd_01party_01packages_01into_01the_01workflow_01and_01_docker_8md" kind="file"><name>How to add a 3rd party packages into the workflow and Docker.md</name>
+  </compound>
+  <compound refid="_server_tests_start_up_8md" kind="file"><name>ServerTestsStartUp.md</name>
+  </compound>
+  <compound refid="_setup_01server_01on_01localhost_8md" kind="file"><name>Setup server on localhost.md</name>
+  </compound>
+  <compound refid="_style__guide_8md" kind="file"><name>Style_guide.md</name>
+  </compound>
+  <compound refid="_swaping_01old_01models_01with_01new_01ones_8md" kind="file"><name>Swaping old models with new ones.md</name>
+  </compound>
+  <compound refid="_workflow_8md" kind="file"><name>Workflow.md</name>
+  </compound>
+  <compound refid="_combining_handlers_8hpp" kind="file"><name>CombiningHandlers.hpp</name>
+  </compound>
+  <compound refid="_compression_handler_8hpp" kind="file"><name>CompressionHandler.hpp</name>
+  </compound>
+  <compound refid="_connection_8hpp" kind="file"><name>Connection.hpp</name>
+    <member refid="_connection_8hpp_1ac50762666aa00bd3a4308158510f1748" kind="define"><name>_WIN32_WINNT</name></member>
+  </compound>
+  <compound refid="_encryption_handler_8hpp" kind="file"><name>EncryptionHandler.hpp</name>
+  </compound>
+  <compound refid="_handler_8hpp" kind="file"><name>Handler.hpp</name>
+  </compound>
+  <compound refid="i_a_p_i_8hpp" kind="file"><name>iAPI.hpp</name>
+    <member refid="i_a_p_i_8hpp_1afdcd6fea51cdc48a95c7ad35487a3cfb" kind="define"><name>APPLY_API_METHODS</name></member>
+  </compound>
+  <compound refid="_message_8hpp" kind="file"><name>Message.hpp</name>
+  </compound>
+  <compound refid="_serialization_handler_8hpp" kind="file"><name>SerializationHandler.hpp</name>
+  </compound>
+  <compound refid="_yas_serializer_8hpp" kind="file"><name>YasSerializer.hpp</name>
+    <member refid="_yas_serializer_8hpp_1a0bd2e0cb0fb257d97bb5edcfc6d662fb" kind="function"><name>suppressWarning</name></member>
+  </compound>
+  <compound refid="_r_e_a_d_m_e_8md" kind="file"><name>README.md</name>
+  </compound>
+  <compound refid="_arg_parser_8hpp" kind="file"><name>ArgParser.hpp</name>
+  </compound>
+  <compound refid="_server_8hpp" kind="file"><name>Server.hpp</name>
+  </compound>
+  <compound refid="_server_builder_8hpp" kind="file"><name>ServerBuilder.hpp</name>
+  </compound>
+  <compound refid="_settings_8hpp" kind="file"><name>Settings.hpp</name>
+  </compound>
+  <compound refid="_settings_manager_8hpp" kind="file"><name>SettingsManager.hpp</name>
+  </compound>
+  <compound refid="_argument_parser_8hpp" kind="file"><name>ArgumentParser.hpp</name>
+  </compound>
+  <compound refid="_simple_timer_8hpp" kind="file"><name>SimpleTimer.hpp</name>
+  </compound>
+  <compound refid="_tester_8hpp" kind="file"><name>Tester.hpp</name>
+  </compound>
+  <compound refid="_j_g_exceptions_8hpp" kind="file"><name>JGExceptions.hpp</name>
+  </compound>
+  <compound refid="_safe_queue_8hpp" kind="file"><name>SafeQueue.hpp</name>
+  </compound>
+  <compound refid="_s_q_l_utility_8hpp" kind="file"><name>SQLUtility.hpp</name>
+  </compound>
+  <compound refid="_user_data_validation_8hpp" kind="file"><name>UserDataValidation.hpp</name>
+  </compound>
+  <compound refid="_utility_8hpp" kind="file"><name>Utility.hpp</name>
+  </compound>
+  <compound refid="_utility_time_8hpp" kind="file"><name>UtilityTime.hpp</name>
+  </compound>
+  <compound refid="_warning_suppression_8hpp" kind="file"><name>WarningSuppression.hpp</name>
+  </compound>
+  <compound refid="md__docs_2_cryptography" kind="page"><name>md__docs_2_cryptography</name>
+  </compound>
+  <compound refid="md__docs_2_deeping_01intro_01_a_s_i_o" kind="page"><name>md__docs_2_deeping_01intro_01_a_s_i_o</name>
+  </compound>
+  <compound refid="md__docs_2_getting_01_started" kind="page"><name>md__docs_2_getting_01_started</name>
+  </compound>
+  <compound refid="md__docs_2_improved_01debugging" kind="page"><name>md__docs_2_improved_01debugging</name>
+  </compound>
+  <compound refid="md__docs_2_i_repository_01scheme" kind="page"><name>md__docs_2_i_repository_01scheme</name>
+  </compound>
+  <compound refid="md__docs_2_legacy_2_build_01project_01on_01_fedora" kind="page"><name>md__docs_2_legacy_2_build_01project_01on_01_fedora</name>
+  </compound>
+  <compound refid="md__docs_2_legacy_2_d_b_a_p_i" kind="page"><name>md__docs_2_legacy_2_d_b_a_p_i</name>
+  </compound>
+  <compound refid="md__docs_2_legacy_2_frontend_01network" kind="page"><name>md__docs_2_legacy_2_frontend_01network</name>
+  </compound>
+  <compound refid="md__docs_2_legacy_2_how_01to_01add_01a_013rd_01party_01packages_01into_01the_01workflow_01and_01_docker" kind="page"><name>md__docs_2_legacy_2_how_01to_01add_01a_013rd_01party_01packages_01into_01the_01workflow_01and_01_docker</name>
+  </compound>
+  <compound refid="md__docs_2_server_tests_start_up" kind="page"><name>md__docs_2_server_tests_start_up</name>
+  </compound>
+  <compound refid="md__docs_2_setup_01server_01on_01localhost" kind="page"><name>md__docs_2_setup_01server_01on_01localhost</name>
+  </compound>
+  <compound refid="md__docs_2_style__guide" kind="page"><name>md__docs_2_style__guide</name>
+  </compound>
+  <compound refid="md__docs_2_swaping_01old_01models_01with_01new_01ones" kind="page"><name>md__docs_2_swaping_01old_01models_01with_01new_01ones</name>
+  </compound>
+  <compound refid="md__docs_2_workflow" kind="page"><name>md__docs_2_workflow</name>
+  </compound>
+  <compound refid="dir_628593db0cdce5a76fb85526ae5aa762" kind="dir"><name>Base</name>
+  </compound>
+  <compound refid="dir_922c588100a187620fdc1533bc178f73" kind="dir"><name>Client</name>
+  </compound>
+  <compound refid="dir_96649bd689d69b039a3f536cb5d602eb" kind="dir"><name>Client/Client.CLI</name>
+  </compound>
+  <compound refid="dir_8c1237df319ab3dd9c71614a135b3593" kind="dir"><name>Client/Client.Core</name>
+  </compound>
+  <compound refid="dir_2a172f0de0b461ab7a77068cc3759309" kind="dir"><name>Client/Client.Core/Client.Core.Static</name>
+  </compound>
+  <compound refid="dir_3422dc17e47de7255ed9d2edfb407b9a" kind="dir"><name>Base/Crypto</name>
+  </compound>
+  <compound refid="dir_02d1163fc32e813f131adc69c76e9afd" kind="dir"><name>Base/Crypto/Crypto.Static</name>
+  </compound>
+  <compound refid="dir_a365b83f7d3f101459a51b7d83a2ceb4" kind="dir"><name>DataAccess</name>
+  </compound>
+  <compound refid="dir_0751806b607b4e026453f34d49394775" kind="dir"><name>DataAccess/Public/Include/DataAccess</name>
+  </compound>
+  <compound refid="dir_0cd236d0cb9fad23e40d5f123f4e8240" kind="dir"><name>DataAccess/DataAccess.Debug</name>
+  </compound>
+  <compound refid="dir_b70fc2509127050d299058f2c03ed8d8" kind="dir"><name>DataAccess/DataAccess.Mock</name>
+  </compound>
+  <compound refid="dir_b17db6ddfbacc8e948e7369a0209812c" kind="dir"><name>DataAccess/DataAccess.Postgre</name>
+  </compound>
+  <compound refid="dir_5baf679cf4943df8904dce5d41d4d3dc" kind="dir"><name>Docs</name>
+  </compound>
+  <compound refid="dir_e6101a089d9f160b69ea28873c59ae4b" kind="dir"><name>Base/Logger/Public/Include</name>
+  </compound>
+  <compound refid="dir_10d2400dee1078b16a852b5e5138ad78" kind="dir"><name>Base/Models/Public/Include</name>
+  </compound>
+  <compound refid="dir_54234ad60ed639a4c5f264362eafcffb" kind="dir"><name>DataAccess/Public/Include</name>
+  </compound>
+  <compound refid="dir_bc60041d79534be9e9add60e8c71c326" kind="dir"><name>Network/Public/Include</name>
+  </compound>
+  <compound refid="dir_0b707b25e988bb2d2b58ea57e3335e9e" kind="dir"><name>Utility/Utility.Public/Include</name>
+  </compound>
+  <compound refid="dir_7b231ab8f6496bdba3a2693ccab077b0" kind="dir"><name>Docs/Legacy</name>
+  </compound>
+  <compound refid="dir_99b16b1d518695d06512ebb3a7e5eefa" kind="dir"><name>Base/Logger</name>
+  </compound>
+  <compound refid="dir_e528dfb15f3ea67351f7ae31fbc85546" kind="dir"><name>Base/Logger/Public/Include/Logger</name>
+  </compound>
+  <compound refid="dir_5c7ac13dd71de633d7c5e80d058a00e5" kind="dir"><name>Base/Logger/Logger.Static</name>
+  </compound>
+  <compound refid="dir_4e33e56646060e6ab6bf4c8ec9e96df4" kind="dir"><name>Base/Models</name>
+  </compound>
+  <compound refid="dir_0cd903dd38bc8c003c84a4d6c0f89301" kind="dir"><name>Base/Models/Public/Include/Models</name>
+  </compound>
+  <compound refid="dir_356d85c7fe3a31f6238a1e4b453e8aed" kind="dir"><name>Network</name>
+  </compound>
+  <compound refid="dir_7b126d69a5a83e937c863a714c4b10c5" kind="dir"><name>Network/Public/Include/Network</name>
+  </compound>
+  <compound refid="dir_9e1ea97ac7f0c54542edef39ed7cdbca" kind="dir"><name>Test/PerformanceTest</name>
+  </compound>
+  <compound refid="dir_fa89e0e2be2276d401480dfd9fc63d21" kind="dir"><name>Base/Logger/Public</name>
+  </compound>
+  <compound refid="dir_017aad3e2920a6e01af778a255b54751" kind="dir"><name>Base/Models/Public</name>
+  </compound>
+  <compound refid="dir_c6471fbc1d8c342ecbbfcc698e662d42" kind="dir"><name>DataAccess/Public</name>
+  </compound>
+  <compound refid="dir_711f0490f041f4544126c79a4b6a298c" kind="dir"><name>Network/Public</name>
+  </compound>
+  <compound refid="dir_1a445cb237d74f7a5f8d11ec3b0585cc" kind="dir"><name>Server</name>
+  </compound>
+  <compound refid="dir_2d4e699de1a66d41e9a3db139bb18a6c" kind="dir"><name>Server/Server.Core</name>
+  </compound>
+  <compound refid="dir_91bf7e73ba0b778c71ba6c9a5c08a1af" kind="dir"><name>Server/Server.Core/Server.Core.Static</name>
+  </compound>
+  <compound refid="dir_37618a71d99bdfed5979e976980d5eec" kind="dir"><name>Test</name>
+  </compound>
+  <compound refid="dir_45512b4d464edf1241bf27d9b61f7c89" kind="dir"><name>Utility</name>
+  </compound>
+  <compound refid="dir_c983f5a4968685a1b4a576ad7ca07486" kind="dir"><name>Utility/Utility.Public/Include/Utility</name>
+  </compound>
+  <compound refid="dir_c97b38f8d5f4747a62110537cf9894fe" kind="dir"><name>Utility/Utility.Public</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

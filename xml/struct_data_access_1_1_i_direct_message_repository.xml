@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_data_access_1_1_i_direct_message_repository" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>DataAccess::IDirectMessageRepository</compoundname>
+    <basecompoundref refid="struct_data_access_1_1_i_master_repository" prot="public" virt="non-virtual">DataAccess::IMasterRepository</basecompoundref>
+    <derivedcompoundref refid="struct_data_access_1_1_direct_message_repository" prot="public" virt="non-virtual">DataAccess::DirectMessageRepository</derivedcompoundref>
+    <derivedcompoundref refid="struct_mock_object_1_1_mock_direct_message_repository" prot="public" virt="non-virtual">MockObject::MockDirectMessageRepository</derivedcompoundref>
+    <includes refid="_i_server_repositories_8hpp" local="no">IServerRepositories.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_data_access_1_1_i_direct_message_repository_1ad627a71cda95abd5cfdd0a72b338b84d" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>Utility::DirectMessageStatus</type>
+        <definition>virtual Utility::DirectMessageStatus DataAccess::IDirectMessageRepository::addDirectChat</definition>
+        <argsstring>(uint64_t user_id, uint64_t directMessageInfo)=0</argsstring>
+        <name>addDirectChat</name>
+        <qualifiedname>DataAccess::IDirectMessageRepository::addDirectChat</qualifiedname>
+        <reimplementedby refid="struct_data_access_1_1_direct_message_repository_1a987a2e7d62626db899a9d2c629804608">addDirectChat</reimplementedby>
+        <reimplementedby refid="struct_mock_object_1_1_mock_direct_message_repository_1a269db192cfb009bd87291410cda612a9">addDirectChat</reimplementedby>
+        <param>
+          <type>uint64_t</type>
+          <declname>user_id</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>directMessageInfo</declname>
+        </param>
+        <briefdescription>
+<para>Save a direct message from <emphasis>user_id</emphasis> to <emphasis>receiverID</emphasis> </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>user_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sender id </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>directMessageInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>receiver info </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" line="174" column="42"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_i_direct_message_repository_1aa5912ff67e8de4541093acbc9af09c4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual DataAccess::IDirectMessageRepository::~IDirectMessageRepository</definition>
+        <argsstring>()=default</argsstring>
+        <name>~IDirectMessageRepository</name>
+        <qualifiedname>DataAccess::IDirectMessageRepository::~IDirectMessageRepository</qualifiedname>
+        <briefdescription>
+<para>virtual destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" line="179" column="13"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements personal chat processing. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The class is similar to <ref refid="struct_data_access_1_1_i_messages_repository" kindref="compound">IMessagesRepository</ref>, but processing object is message in personal chat. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>DataAccess::DirectMessageRepository</label>
+        <link refid="struct_data_access_1_1_direct_message_repository"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>DataAccess::IDirectMessageRepository</label>
+        <link refid="struct_data_access_1_1_i_direct_message_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="4">
+        <label>MockObject::MockDirectMessageRepository</label>
+        <link refid="struct_mock_object_1_1_mock_direct_message_repository"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>DataAccess::IDirectMessageRepository</label>
+        <link refid="struct_data_access_1_1_i_direct_message_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" line="167" column="1" bodyfile="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" bodystart="168" bodyend="180"/>
+    <listofallmembers>
+      <member refid="struct_data_access_1_1_i_direct_message_repository_1ad627a71cda95abd5cfdd0a72b338b84d" prot="public" virt="pure-virtual"><scope>DataAccess::IDirectMessageRepository</scope><name>addDirectChat</name></member>
+      <member refid="struct_data_access_1_1_i_direct_message_repository_1aa5912ff67e8de4541093acbc9af09c4d" prot="public" virt="virtual"><scope>DataAccess::IDirectMessageRepository</scope><name>~IDirectMessageRepository</name></member>
+      <member refid="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" prot="public" virt="virtual"><scope>DataAccess::IDirectMessageRepository</scope><name>~IMasterRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

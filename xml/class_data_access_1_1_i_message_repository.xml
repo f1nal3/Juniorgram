@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_data_access_1_1_i_message_repository" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>DataAccess::IMessageRepository</compoundname>
+    <basecompoundref refid="struct_data_access_1_1_i_master_repository" prot="public" virt="non-virtual">DataAccess::IMasterRepository</basecompoundref>
+    <includes refid="_i_client_repositories_8hpp" local="no">IClientRepositories.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_data_access_1_1_i_message_repository_1a64ad59c0036d755d11b9da236ef2a63f" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void DataAccess::IMessageRepository::addMessages</definition>
+        <argsstring>(std::vector&lt; MessageInfo &gt; &amp;messages)=0</argsstring>
+        <name>addMessages</name>
+        <qualifiedname>DataAccess::IMessageRepository::addMessages</qualifiedname>
+        <param>
+          <type>std::vector&lt; MessageInfo &gt; &amp;</type>
+          <declname>messages</declname>
+        </param>
+        <briefdescription>
+<para>Function for adding message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If message doesn&apos;t exist it will be created <linebreak/>
+If message exist a new one will be ignored </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IClientRepositories.hpp" line="24" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_message_repository_1a6f3da4bbc017e42835f970908c236759" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void DataAccess::IMessageRepository::editMessages</definition>
+        <argsstring>(std::vector&lt; MessageInfo &gt; &amp;messages)=0</argsstring>
+        <name>editMessages</name>
+        <qualifiedname>DataAccess::IMessageRepository::editMessages</qualifiedname>
+        <param>
+          <type>std::vector&lt; MessageInfo &gt; &amp;</type>
+          <declname>messages</declname>
+        </param>
+        <briefdescription>
+<para>Function for editing message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If message doesn&apos;t exist it will be created<linebreak/>
+If message exist it will be overridden </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IClientRepositories.hpp" line="31" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_message_repository_1a6f0bbbaff0b5de8842438be1f340cad9" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::vector&lt; MessageInfo &gt;</type>
+        <definition>virtual std::vector&lt; MessageInfo &gt; DataAccess::IMessageRepository::getMessages</definition>
+        <argsstring>(std::uint64_t channelID)=0</argsstring>
+        <name>getMessages</name>
+        <qualifiedname>DataAccess::IMessageRepository::getMessages</qualifiedname>
+        <param>
+          <type>std::uint64_t</type>
+          <declname>channelID</declname>
+        </param>
+        <briefdescription>
+<para>Get all messages from channel in local storage. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IClientRepositories.hpp" line="36" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_message_repository_1aac4fb294099c71c208b9348c0ac8c918" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::vector&lt; MessageInfo &gt;</type>
+        <definition>virtual std::vector&lt; MessageInfo &gt; DataAccess::IMessageRepository::getMessageSince</definition>
+        <argsstring>(std::uint64_t channelID, std::uint64_t since)=0</argsstring>
+        <name>getMessageSince</name>
+        <qualifiedname>DataAccess::IMessageRepository::getMessageSince</qualifiedname>
+        <param>
+          <type>std::uint64_t</type>
+          <declname>channelID</declname>
+        </param>
+        <param>
+          <type>std::uint64_t</type>
+          <declname>since</declname>
+        </param>
+        <briefdescription>
+<para>Get all messages in time period [&amp;since; now]. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IClientRepositories.hpp" line="41" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_message_repository_1ac35795a30dd16a0a3b4c9f6313c9417b" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::vector&lt; MessageInfo &gt;</type>
+        <definition>virtual std::vector&lt; MessageInfo &gt; DataAccess::IMessageRepository::getMessageBefore</definition>
+        <argsstring>(std::uint64_t channelID, std::uint64_t before, std::uint64_t amount)=0</argsstring>
+        <name>getMessageBefore</name>
+        <qualifiedname>DataAccess::IMessageRepository::getMessageBefore</qualifiedname>
+        <param>
+          <type>std::uint64_t</type>
+          <declname>channelID</declname>
+        </param>
+        <param>
+          <type>std::uint64_t</type>
+          <declname>before</declname>
+        </param>
+        <param>
+          <type>std::uint64_t</type>
+          <declname>amount</declname>
+        </param>
+        <briefdescription>
+<para>Get &amp;amount messages in time period before &amp;before. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IClientRepositories.hpp" line="46" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_message_repository_1a5d053ad15a2d76239f4216980894de87" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void DataAccess::IMessageRepository::removeMessages</definition>
+        <argsstring>(std::vector&lt; MessageInfo &gt; &amp;messages)=0</argsstring>
+        <name>removeMessages</name>
+        <qualifiedname>DataAccess::IMessageRepository::removeMessages</qualifiedname>
+        <param>
+          <type>std::vector&lt; MessageInfo &gt; &amp;</type>
+          <declname>messages</declname>
+        </param>
+        <briefdescription>
+<para>Remove specified messages. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IClientRepositories.hpp" line="51" column="18"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Client message repository. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Class determines functions, which client can execute. It will be used in future. <linebreak/>
+Implementation of methods for each type of database is individual. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::IMessageRepository</label>
+        <link refid="class_data_access_1_1_i_message_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::IMessageRepository</label>
+        <link refid="class_data_access_1_1_i_message_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/Public/Include/DataAccess/IClientRepositories.hpp" line="15" column="1" bodyfile="DataAccess/Public/Include/DataAccess/IClientRepositories.hpp" bodystart="16" bodyend="52"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_i_message_repository_1a64ad59c0036d755d11b9da236ef2a63f" prot="public" virt="pure-virtual"><scope>DataAccess::IMessageRepository</scope><name>addMessages</name></member>
+      <member refid="class_data_access_1_1_i_message_repository_1a6f3da4bbc017e42835f970908c236759" prot="public" virt="pure-virtual"><scope>DataAccess::IMessageRepository</scope><name>editMessages</name></member>
+      <member refid="class_data_access_1_1_i_message_repository_1ac35795a30dd16a0a3b4c9f6313c9417b" prot="public" virt="pure-virtual"><scope>DataAccess::IMessageRepository</scope><name>getMessageBefore</name></member>
+      <member refid="class_data_access_1_1_i_message_repository_1a6f0bbbaff0b5de8842438be1f340cad9" prot="public" virt="pure-virtual"><scope>DataAccess::IMessageRepository</scope><name>getMessages</name></member>
+      <member refid="class_data_access_1_1_i_message_repository_1aac4fb294099c71c208b9348c0ac8c918" prot="public" virt="pure-virtual"><scope>DataAccess::IMessageRepository</scope><name>getMessageSince</name></member>
+      <member refid="class_data_access_1_1_i_message_repository_1a5d053ad15a2d76239f4216980894de87" prot="public" virt="pure-virtual"><scope>DataAccess::IMessageRepository</scope><name>removeMessages</name></member>
+      <member refid="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" prot="public" virt="virtual"><scope>DataAccess::IMessageRepository</scope><name>~IMasterRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

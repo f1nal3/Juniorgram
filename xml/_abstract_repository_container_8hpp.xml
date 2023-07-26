@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_abstract_repository_container_8hpp" kind="file" language="C++">
+    <compoundname>AbstractRepositoryContainer.hpp</compoundname>
+    <includes local="no">map</includes>
+    <includes local="no">memory</includes>
+    <includes local="no">stdexcept</includes>
+    <includes local="no">string</includes>
+    <includes local="no">typeinfo</includes>
+    <includes local="no">utility</includes>
+    <includes refid="_i_adapter_8hpp" local="yes">IAdapter.hpp</includes>
+    <includes refid="_i_master_repository_8hpp" local="yes">IMasterRepository.hpp</includes>
+    <includedby refid="_postgre_repository_container_8hpp" local="yes">DataAccess/DataAccess.Postgre/PostgreRepositoryContainer.hpp</includedby>
+    <includedby refid="_abstract_repository_manager_8hpp" local="yes">DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp</label>
+        <link refid="_abstract_repository_container_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>IAdapter.hpp</label>
+        <link refid="_i_adapter_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>IMasterRepository.hpp</label>
+        <link refid="_i_master_repository_8hpp_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>any</label>
+      </node>
+      <node id="13">
+        <label>iostream</label>
+      </node>
+      <node id="2">
+        <label>map</label>
+      </node>
+      <node id="3">
+        <label>memory</label>
+      </node>
+      <node id="10">
+        <label>optional</label>
+      </node>
+      <node id="4">
+        <label>stdexcept</label>
+      </node>
+      <node id="5">
+        <label>string</label>
+      </node>
+      <node id="11">
+        <label>string_view</label>
+      </node>
+      <node id="6">
+        <label>typeinfo</label>
+      </node>
+      <node id="7">
+        <label>utility</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>DataAccess/DataAccess.Mock/MockRepositoryManager.hpp</label>
+        <link refid="_mock_repository_manager_8hpp_source"/>
+      </node>
+      <node id="2">
+        <label>DataAccess/DataAccess.Postgre/PostgreRepositoryContainer.hpp</label>
+        <link refid="_postgre_repository_container_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>DataAccess/DataAccess.Postgre/PostgreRepositoryManager.hpp</label>
+        <link refid="_postgre_repository_manager_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp</label>
+        <link refid="_abstract_repository_container_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp</label>
+        <link refid="_abstract_repository_manager_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Server/Server.Core/Server.Core.Static/Server.hpp</label>
+        <link refid="_server_8hpp_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Server/Server.Core/Server.Core.Static/ServerBuilder.hpp</label>
+        <link refid="_server_builder_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_data_access_1_1_abstract_repository_container" prot="public">DataAccess::AbstractRepositoryContainer</innerclass>
+    <innernamespace refid="namespace_data_access">DataAccess</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdexcept&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;typeinfo&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;utility&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;IAdapter.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;IMasterRepository.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">DataAccess</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>@class<sp/>AbstractRepositoryContainer</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>@brief<sp/>An<sp/>abstract<sp/>class<sp/>for<sp/>server<sp/>and<sp/>client<sp/>global<sp/>repositories.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*<sp/>@details<sp/>Consists<sp/>of<sp/>adapter<sp/>to<sp/>chosen<sp/>database,<sp/>and<sp/>map<sp/>of<sp/>registered<sp/>repositories.</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>This<sp/>class<sp/>provide<sp/>registration<sp/>of<sp/>repositories,<sp/>and<sp/>getting<sp/>them.<sp/>Requirement<sp/>for<sp/>repository<sp/>registration:</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>interface<sp/>for<sp/>your<sp/>repository<sp/>is<sp/>exists<sp/>(e.g.<sp/>you<sp/>have<sp/>LoginRepository<sp/>that<sp/>inherit<sp/>its<sp/>interface<sp/>-<sp/>ILoginRepository,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>so<sp/>you<sp/>can<sp/>register<sp/>LoginRepository).<sp/>You<sp/>can<sp/>get<sp/>the<sp/>repository<sp/>by<sp/>specifying<sp/>its<sp/>interface.</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>(e.g.<sp/>getRepository&lt;ILoginRepository&gt;()).</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="class_data_access_1_1_abstract_repository_container" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_data_access_1_1_abstract_repository_container" kindref="compound">AbstractRepositoryContainer</ref></highlight></codeline>
+<codeline lineno="24"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">RealType<sp/>=<sp/>std::string;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">IType<sp/><sp/><sp/><sp/>=<sp/>std::shared_ptr&lt;IMasterRepository&gt;;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="class_data_access_1_1_abstract_repository_container" kindref="compound">AbstractRepositoryContainer</ref>(std::shared_ptr&lt;IAdapter&gt;<sp/>adapter)<sp/>:</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_adapter(std::move(adapter)),<sp/>_container()<sp/>{}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>TInterface,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>TRepository&gt;</highlight></codeline>
+<codeline lineno="37" refid="class_data_access_1_1_abstract_repository_container_1a191aad8880c45b7dbb4aedf0560a5ab6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_data_access_1_1_abstract_repository_container_1a191aad8880c45b7dbb4aedf0560a5ab6" kindref="member">registerRepository</ref>()</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//TODO<sp/>check<sp/>that<sp/>they<sp/>are<sp/>all<sp/>child<sp/>of<sp/>IMasterRepository</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_assert</highlight><highlight class="normal">(std::is_base_of_v&lt;TInterface,<sp/>TRepository&gt;,<sp/></highlight><highlight class="stringliteral">&quot;Repository<sp/>does<sp/>not<sp/>implement<sp/>current<sp/>Interface!&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>typeInfo<sp/>=<sp/></highlight><highlight class="keyword">typeid</highlight><highlight class="normal">(TInterface).name();</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(_container.find(typeInfo)<sp/>!=<sp/>_container.end())</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(std::string(</highlight><highlight class="stringliteral">&quot;This<sp/>interface<sp/>has<sp/>already<sp/>registered!<sp/>-<sp/>&quot;</highlight><highlight class="normal">)<sp/>+<sp/>typeInfo);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_container.emplace(typeInfo,<sp/>std::make_shared&lt;TRepository&gt;(_adapter));</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>TInterface&gt;</highlight></codeline>
+<codeline lineno="57" refid="class_data_access_1_1_abstract_repository_container_1a3a619e1bd2fb0647b3987908192c15e4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;TInterface&gt;<sp/><ref refid="class_data_access_1_1_abstract_repository_container_1a3a619e1bd2fb0647b3987908192c15e4" kindref="member">getRepository</ref>()</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>typeInfo<sp/>=<sp/></highlight><highlight class="keyword">typeid</highlight><highlight class="normal">(TInterface).name();</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(_container.find(typeInfo)<sp/>==<sp/>_container.end())</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(std::string(</highlight><highlight class="stringliteral">&quot;This<sp/>repository<sp/>was<sp/>not<sp/>registered!<sp/>-<sp/>&quot;</highlight><highlight class="normal">)<sp/>+<sp/>typeInfo);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::dynamic_pointer_cast&lt;TInterface&gt;(_container[typeInfo]);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;IAdapter&gt;<sp/>_adapter;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>std::map&lt;RealType,<sp/>IType&gt;<sp/>_container;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>DataAccess</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryContainer.hpp"/>
+  </compounddef>
+</doxygen>

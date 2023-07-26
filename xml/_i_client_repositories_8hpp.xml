@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_i_client_repositories_8hpp" kind="file" language="C++">
+    <compoundname>IClientRepositories.hpp</compoundname>
+    <includes local="no">vector</includes>
+    <includes refid="_i_master_repository_8hpp" local="yes">IMasterRepository.hpp</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>DataAccess/Public/Include/DataAccess/IClientRepositories.hpp</label>
+        <link refid="_i_client_repositories_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>IMasterRepository.hpp</label>
+        <link refid="_i_master_repository_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>iostream</label>
+      </node>
+      <node id="5">
+        <label>memory</label>
+      </node>
+      <node id="2">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="class_data_access_1_1_i_message_repository" prot="public">DataAccess::IMessageRepository</innerclass>
+    <innernamespace refid="namespace_data_access">DataAccess</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;IMasterRepository.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">DataAccess</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">MessageInfo;</highlight></codeline>
+<codeline lineno="15" refid="class_data_access_1_1_i_message_repository" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_data_access_1_1_i_message_repository" kindref="compound">IMessageRepository</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="struct_data_access_1_1_i_master_repository" kindref="compound">IMasterRepository</ref></highlight></codeline>
+<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24" refid="class_data_access_1_1_i_message_repository_1a64ad59c0036d755d11b9da236ef2a63f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_data_access_1_1_i_message_repository_1a64ad59c0036d755d11b9da236ef2a63f" kindref="member">addMessages</ref>(std::vector&lt;MessageInfo&gt;&amp;<sp/>messages)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="class_data_access_1_1_i_message_repository_1a6f3da4bbc017e42835f970908c236759" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_data_access_1_1_i_message_repository_1a6f3da4bbc017e42835f970908c236759" kindref="member">editMessages</ref>(std::vector&lt;MessageInfo&gt;&amp;<sp/>messages)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="class_data_access_1_1_i_message_repository_1a6f0bbbaff0b5de8842438be1f340cad9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::vector&lt;MessageInfo&gt;<sp/><ref refid="class_data_access_1_1_i_message_repository_1a6f0bbbaff0b5de8842438be1f340cad9" kindref="member">getMessages</ref>(std::uint64_t<sp/>channelID)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="class_data_access_1_1_i_message_repository_1aac4fb294099c71c208b9348c0ac8c918" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::vector&lt;MessageInfo&gt;<sp/><ref refid="class_data_access_1_1_i_message_repository_1aac4fb294099c71c208b9348c0ac8c918" kindref="member">getMessageSince</ref>(std::uint64_t<sp/>channelID,<sp/>std::uint64_t<sp/>since)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="class_data_access_1_1_i_message_repository_1ac35795a30dd16a0a3b4c9f6313c9417b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::vector&lt;MessageInfo&gt;<sp/><ref refid="class_data_access_1_1_i_message_repository_1ac35795a30dd16a0a3b4c9f6313c9417b" kindref="member">getMessageBefore</ref>(std::uint64_t<sp/>channelID,<sp/>std::uint64_t<sp/>before,<sp/>std::uint64_t<sp/>amount)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="class_data_access_1_1_i_message_repository_1a5d053ad15a2d76239f4216980894de87" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_data_access_1_1_i_message_repository_1a5d053ad15a2d76239f4216980894de87" kindref="member">removeMessages</ref>(std::vector&lt;MessageInfo&gt;&amp;<sp/>messages)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>DataAccess</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="DataAccess/Public/Include/DataAccess/IClientRepositories.hpp"/>
+  </compounddef>
+</doxygen>

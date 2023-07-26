@@ -1,0 +1,298 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_data_access_1_1_s_q_l_update" kind="class" language="C++" prot="public">
+    <compoundname>DataAccess::SQLUpdate</compoundname>
+    <basecompoundref refid="class_data_access_1_1_s_q_l_base" prot="public" virt="non-virtual">DataAccess::SQLBase&lt; ResultType &gt;</basecompoundref>
+    <basecompoundref refid="class_data_access_1_1_s_q_l_where_condition" prot="public" virt="non-virtual">DataAccess::SQLWhereCondition&lt; SQLUpdate&lt; ResultType &gt; &gt;</basecompoundref>
+    <includes refid="_s_q_l_statements_8hpp" local="no">SQLStatements.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename ResultType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_update_1ac3690ca9a7970662b251a2d032338b3e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLUpdate&lt; ResultType &gt;::SQLUpdate</definition>
+        <argsstring>(AbstractQueryBuilder&lt; ResultType &gt; &amp;table)</argsstring>
+        <name>SQLUpdate</name>
+        <qualifiedname>DataAccess::SQLUpdate::SQLUpdate</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_abstract_query_builder" kindref="compound">AbstractQueryBuilder</ref>&lt; ResultType &gt; &amp;</type>
+          <declname>table</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="740" column="5" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="740" bodyend="743"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_update_1a1bc1cc23d59faf15cc344d9a386dd51f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual DataAccess::SQLUpdate&lt; ResultType &gt;::~SQLUpdate</definition>
+        <argsstring>(void)=default</argsstring>
+        <name>~SQLUpdate</name>
+        <qualifiedname>DataAccess::SQLUpdate::~SQLUpdate</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="745" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_update_1a01b3192313b0e83d58b26492b3bf81ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLUpdate&lt; ResultType &gt;::SQLUpdate</definition>
+        <argsstring>(void)=delete</argsstring>
+        <name>SQLUpdate</name>
+        <qualifiedname>DataAccess::SQLUpdate::SQLUpdate</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="748" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_update_1a31709e355b69bf71a23b5a9669838414" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLUpdate&lt; ResultType &gt;::SQLUpdate</definition>
+        <argsstring>(const SQLUpdate &amp;)=delete</argsstring>
+        <name>SQLUpdate</name>
+        <qualifiedname>DataAccess::SQLUpdate::SQLUpdate</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_s_q_l_update" kindref="compound">SQLUpdate</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="750" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_update_1a1baacd9b428721a5661d3c05a7f1bdd4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_update" kindref="compound">SQLUpdate</ref> &amp;</type>
+        <definition>SQLUpdate &amp; DataAccess::SQLUpdate&lt; ResultType &gt;::operator=</definition>
+        <argsstring>(const SQLUpdate &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::SQLUpdate::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_s_q_l_update" kindref="compound">SQLUpdate</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="751" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_update_1a80518d9d0aaf41f5605fb68241a0c5ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::SQLUpdate&lt; ResultType &gt;::SQLUpdate</definition>
+        <argsstring>(SQLUpdate &amp;&amp;)=delete</argsstring>
+        <name>SQLUpdate</name>
+        <qualifiedname>DataAccess::SQLUpdate::SQLUpdate</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_s_q_l_update" kindref="compound">SQLUpdate</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="753" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_update_1ac104950d550cd7f8f417a1571b0d257f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_update" kindref="compound">SQLUpdate</ref> &amp;</type>
+        <definition>SQLUpdate &amp; DataAccess::SQLUpdate&lt; ResultType &gt;::operator=</definition>
+        <argsstring>(SQLUpdate &amp;&amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::SQLUpdate::operator=</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_s_q_l_update" kindref="compound">SQLUpdate</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="754" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_update_1a08d14ac91fe213ed52bb77e1b3cd877e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename ColumnType</type>
+            <defval>const char*</defval>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="class_data_access_1_1_s_q_l_update" kindref="compound">SQLUpdate</ref> *</type>
+        <definition>SQLUpdate * DataAccess::SQLUpdate&lt; ResultType &gt;::fields</definition>
+        <argsstring>(const std::pair&lt; ColumnType, Args &gt; &amp;... columnData)</argsstring>
+        <name>fields</name>
+        <qualifiedname>DataAccess::SQLUpdate::fields</qualifiedname>
+        <param>
+          <type>const std::pair&lt; ColumnType, Args &gt; &amp;...</type>
+          <declname>columnData</declname>
+        </param>
+        <briefdescription>
+<para>Updating fields with new data. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>columnData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- pairs with column names by first and the data by second. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current <ref refid="class_data_access_1_1_s_q_l_update" kindref="compound">SQLUpdate</ref> pointer object to continue SQL query. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="764" column="15" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="764" bodyend="775"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_s_q_l_update_1a723ea508e6c1aeed7f0be5c1f19d43e6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename ColumnType</type>
+            <defval>const char*</defval>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="class_data_access_1_1_s_q_l_update" kindref="compound">SQLUpdate</ref> *</type>
+        <definition>SQLUpdate * DataAccess::SQLUpdate&lt; ResultType &gt;::fields</definition>
+        <argsstring>(const std::tuple&lt; std::pair&lt; ColumnType, Args &gt;... &gt; &amp;columnData)</argsstring>
+        <name>fields</name>
+        <qualifiedname>DataAccess::SQLUpdate::fields</qualifiedname>
+        <param>
+          <type>const std::tuple&lt; std::pair&lt; ColumnType, Args &gt;... &gt; &amp;</type>
+          <declname>columnData</declname>
+        </param>
+        <briefdescription>
+<para>Updating fields with new data. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>columnData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- tuple of pairs. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current <ref refid="class_data_access_1_1_s_q_l_update" kindref="compound">SQLUpdate</ref> pointer object to continue SQL query. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="783" column="15" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="783" bodyend="798"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interface for updating operations. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>It likes common SQL update condition. This is singleton. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>DataAccess::SQLBase&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_base"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::SQLUpdate&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_update"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess::SQLWhereCondition&lt; SQLUpdate&lt; ResultType &gt; &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_where_condition"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>DataAccess::SQLBase&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_base"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::SQLUpdate&lt; ResultType &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_update"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess::SQLWhereCondition&lt; SQLUpdate&lt; ResultType &gt; &gt;</label>
+        <link refid="class_data_access_1_1_s_q_l_where_condition"/>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" line="737" column="1" bodyfile="DataAccess/Public/Include/DataAccess/SQLStatements.hpp" bodystart="738" bodyend="799"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_s_q_l_base_1aba9311d0ab264cee686f5b45909a07c4" prot="protected" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>_currentBuilder</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a9fee04b1953e779668c25cdd9bdeda8d" prot="protected" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>_queryStream</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a2d80d4c7df26b7fb487610e87c57f014" prot="protected" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>_statementType</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1af6c905de10a010b7aea525d57b353fed" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>And</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1ae88056b675b53556eb337859b112df5a" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>Between</name></member>
+      <member refid="class_data_access_1_1_s_q_l_update_1a08d14ac91fe213ed52bb77e1b3cd877e" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>fields</name></member>
+      <member refid="class_data_access_1_1_s_q_l_update_1a723ea508e6c1aeed7f0be5c1f19d43e6" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>fields</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6b1042754338bd511e2ca9d0f0201b4d" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>getStatementType</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1ab5c076036d6ac3761defd53647e94225" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>In</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1a09d8406259ba23bf78817f4aa0bde4d3" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>In</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1aa3168e6c775846fb80fb9fad099a3faa" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>Like</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a30c597d39d45b4c30a6b817ad9394d2f" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>operator&lt;&lt;</name></member>
+      <member refid="class_data_access_1_1_s_q_l_update_1a1baacd9b428721a5661d3c05a7f1bdd4" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_update_1ac104950d550cd7f8f417a1571b0d257f" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1afbfaf3b449cdca844c3545315f5e7890" prot="public" virt="non-virtual" ambiguityscope="DataAccess::SQLBase::"><scope>DataAccess::SQLUpdate</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a992593dadbec2399881fcc14a0a3c47b" prot="public" virt="non-virtual" ambiguityscope="DataAccess::SQLBase::"><scope>DataAccess::SQLUpdate</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1ab31a5bb6911024c656b571d2ef58806b" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>Or</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a8e7b49572e3fe99855d7cb26d35ff042" prot="protected" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>privateCheckForLastSymbol</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6de1f009d5bfae63c06e691b8087c75e" prot="protected" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>privateCorrectFormatting</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6444aee735ea7f6174e1669977d83fa8" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>rollback</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a6ae75814a65cd9694ac4870deffedc58" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a298ac24cccd355046b6ac9bf98448e84" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a495d8c8ca8ee9b089f290111f5a0cc46" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a58e74cbedb1db27f9f738d841501e9c9" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_update_1ac3690ca9a7970662b251a2d032338b3e" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>SQLUpdate</name></member>
+      <member refid="class_data_access_1_1_s_q_l_update_1a01b3192313b0e83d58b26492b3bf81ea" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>SQLUpdate</name></member>
+      <member refid="class_data_access_1_1_s_q_l_update_1a31709e355b69bf71a23b5a9669838414" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>SQLUpdate</name></member>
+      <member refid="class_data_access_1_1_s_q_l_update_1a80518d9d0aaf41f5605fb68241a0c5ce" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>SQLUpdate</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1a146d89de7c30fa9accdb977dd9f91e8d" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>SQLWhereCondition</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1aa9521992047a16b7d9d24219f13c0cf3" prot="public" virt="non-virtual"><scope>DataAccess::SQLUpdate</scope><name>Where</name></member>
+      <member refid="class_data_access_1_1_s_q_l_base_1a88f9119149b1285a93929606992b8f99" prot="public" virt="virtual"><scope>DataAccess::SQLUpdate</scope><name>~SQLBase</name></member>
+      <member refid="class_data_access_1_1_s_q_l_update_1a1bc1cc23d59faf15cc344d9a386dd51f" prot="public" virt="virtual"><scope>DataAccess::SQLUpdate</scope><name>~SQLUpdate</name></member>
+      <member refid="class_data_access_1_1_s_q_l_where_condition_1adfb2b4ebdd0fbff64cd286be3fd2eaf4" prot="public" virt="virtual"><scope>DataAccess::SQLUpdate</scope><name>~SQLWhereCondition</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

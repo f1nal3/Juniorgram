@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_data_access_1_1_p_g_model_filler" kind="class" language="C++" prot="public">
+    <compoundname>DataAccess::PGModelFiller</compoundname>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_data_access_1_1_p_g_model_filler_1a7b401686568c76968fa0571cc5ad5eb1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::PGModelFiller::PGModelFiller</definition>
+        <argsstring>()=default</argsstring>
+        <name>PGModelFiller</name>
+        <qualifiedname>DataAccess::PGModelFiller::PGModelFiller</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PGModelFiller.hpp" line="15" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_p_g_model_filler_1a5405f07ebcf56d7a239a711b30ba2e82" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename TEnum</type>
+          </param>
+          <param>
+            <type>class TResult</type>
+            <defval>pqxx::const_result_iterator</defval>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void DataAccess::PGModelFiller::fill</definition>
+        <argsstring>(const TResult &amp;response, const Models::V2::UnifiedModel&lt; TEnum &gt; *model) const</argsstring>
+        <name>fill</name>
+        <qualifiedname>DataAccess::PGModelFiller::fill</qualifiedname>
+        <param>
+          <type>const TResult &amp;</type>
+          <declname>response</declname>
+        </param>
+        <param>
+          <type>const <ref refid="class_models_1_1_v2_1_1_unified_model" kindref="compound">Models::V2::UnifiedModel</ref>&lt; TEnum &gt; *</type>
+          <declname>model</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PGModelFiller.hpp" line="18" column="10" bodyfile="DataAccess/DataAccess.Postgre/PGModelFiller.hpp" bodystart="18" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_p_g_model_filler_1a2e2956000508444db5b83fcbeeb25d0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::PGModelFiller::~PGModelFiller</definition>
+        <argsstring>()=default</argsstring>
+        <name>~PGModelFiller</name>
+        <qualifiedname>DataAccess::PGModelFiller::~PGModelFiller</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PGModelFiller.hpp" line="27" column="5"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="DataAccess/DataAccess.Postgre/PGModelFiller.hpp" line="12" column="1" bodyfile="DataAccess/DataAccess.Postgre/PGModelFiller.hpp" bodystart="13" bodyend="28"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_p_g_model_filler_1a5405f07ebcf56d7a239a711b30ba2e82" prot="public" virt="non-virtual"><scope>DataAccess::PGModelFiller</scope><name>fill</name></member>
+      <member refid="class_data_access_1_1_p_g_model_filler_1a7b401686568c76968fa0571cc5ad5eb1" prot="public" virt="non-virtual"><scope>DataAccess::PGModelFiller</scope><name>PGModelFiller</name></member>
+      <member refid="class_data_access_1_1_p_g_model_filler_1a2e2956000508444db5b83fcbeeb25d0a" prot="public" virt="non-virtual"><scope>DataAccess::PGModelFiller</scope><name>~PGModelFiller</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

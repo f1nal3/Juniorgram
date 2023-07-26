@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_data_access_1_1_channels_repository" kind="struct" language="C++" prot="public" final="yes">
+    <compoundname>DataAccess::ChannelsRepository</compoundname>
+    <basecompoundref refid="struct_data_access_1_1_i_channels_repository" prot="public" virt="non-virtual">DataAccess::IChannelsRepository</basecompoundref>
+    <basecompoundref refid="struct_data_access_1_1_abstract_postgre_repository" prot="public" virt="non-virtual">DataAccess::AbstractPostgreRepository</basecompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_data_access_1_1_channels_repository_1a7443f95e5828f8f2a6bbe4af6be7bb78" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::ChannelsRepository::ChannelsRepository</definition>
+        <argsstring>(const std::shared_ptr&lt; IAdapter &gt; &amp;adapter)</argsstring>
+        <name>ChannelsRepository</name>
+        <qualifiedname>DataAccess::ChannelsRepository::ChannelsRepository</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt; &amp;</type>
+          <declname>adapter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="29" column="14" bodyfile="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" bodystart="29" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_channels_repository_1ac97f3bfd2ab12cd66d9a7d0620fba8d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::vector&lt; <ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelInfo</ref> &gt;</type>
+        <definition>std::vector&lt; Models::ChannelInfo &gt; DataAccess::ChannelsRepository::getAllChannelsList</definition>
+        <argsstring>() override</argsstring>
+        <name>getAllChannelsList</name>
+        <qualifiedname>DataAccess::ChannelsRepository::getAllChannelsList</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_channels_repository_1ad2d80ae97c71ebad537151e701a5ebed">getAllChannelsList</reimplements>
+        <briefdescription>
+<para>Virtual method for getting all channel list from the server. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>channels list as vector of ChannelInfo. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="34" column="23"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_channels_repository_1a5661565e06ef2e278429d38313b951c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::ChannelLeaveCodes</type>
+        <definition>Utility::ChannelLeaveCodes DataAccess::ChannelsRepository::leaveChannel</definition>
+        <argsstring>(const Models::ChannelLeaveInfo &amp;channel) override</argsstring>
+        <name>leaveChannel</name>
+        <qualifiedname>DataAccess::ChannelsRepository::leaveChannel</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_channels_repository_1a40e680dcd48b1149962d27899788ced0">leaveChannel</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelLeaveInfo</ref> &amp;</type>
+          <declname>channel</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for leaving channel. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>special code for success or failed leaving. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="35" column="44"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_channels_repository_1a39e4386b4acb4612ab1754ed6b824b48" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::ChannelSubscribingCodes</type>
+        <definition>Utility::ChannelSubscribingCodes DataAccess::ChannelsRepository::subscribeToChannel</definition>
+        <argsstring>(const Models::ChannelSubscriptionInfo &amp;channel) override</argsstring>
+        <name>subscribeToChannel</name>
+        <qualifiedname>DataAccess::ChannelsRepository::subscribeToChannel</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_channels_repository_1a3fd573c4c7352f47cf2569d630a850b2">subscribeToChannel</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_channel_subscription_info" kindref="compound">Models::ChannelSubscriptionInfo</ref> &amp;</type>
+          <declname>channel</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for subscribing to channel. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>special code for success or failed subscribing. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="36" column="44"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_channels_repository_1aea6ebd419ed2fbeb65929ba1950ab70d" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::vector&lt; uint64_t &gt;</type>
+        <definition>std::vector&lt; uint64_t &gt; DataAccess::ChannelsRepository::getChannelSubscriptionList</definition>
+        <argsstring>(uint64_t userID) override</argsstring>
+        <name>getChannelSubscriptionList</name>
+        <qualifiedname>DataAccess::ChannelsRepository::getChannelSubscriptionList</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_channels_repository_1a3231716874e359c5a2034aa6f214be3c">getChannelSubscriptionList</reimplements>
+        <param>
+          <type>uint64_t</type>
+          <declname>userID</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for getting channel subscription list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>channels list as vector of uint64_t. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="37" column="34"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_channels_repository_1ab6c7a5e7cc4286f64332cb614dafc617" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::ChannelDeleteCode</type>
+        <definition>Utility::ChannelDeleteCode DataAccess::ChannelsRepository::deleteChannel</definition>
+        <argsstring>(const Models::ChannelDeleteInfo &amp;channel) override</argsstring>
+        <name>deleteChannel</name>
+        <qualifiedname>DataAccess::ChannelsRepository::deleteChannel</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_channels_repository_1abfe97a6baaf5d91ea13ebeac50092174">deleteChannel</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelDeleteInfo</ref> &amp;</type>
+          <declname>channel</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for deleting channel. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>special code for success or failed deleting. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="39" column="33"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_channels_repository_1a26c59e6b6fa4da7543bf9322a93e588c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::ChannelCreateCodes</type>
+        <definition>Utility::ChannelCreateCodes DataAccess::ChannelsRepository::createChannel</definition>
+        <argsstring>(const Models::ChannelInfo &amp;channel) override</argsstring>
+        <name>createChannel</name>
+        <qualifiedname>DataAccess::ChannelsRepository::createChannel</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_channels_repository_1a2e1b24ed29a6ba65bc9bf026fd75fc0c">createChannel</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelInfo</ref> &amp;</type>
+          <declname>channel</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for creating channel. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Deprecated due to new method with same logic but new mechanics <simplesect kind="return"><para>special code for success or failed creating. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="40" column="33"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_channels_repository_1a658d60e7979f516f16ff21de17d23236" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::ChannelCreateCodes</type>
+        <definition>Utility::ChannelCreateCodes DataAccess::ChannelsRepository::newCreateChannel</definition>
+        <argsstring>(const Models::V2::Channel&lt;&gt; &amp;channel) override</argsstring>
+        <name>newCreateChannel</name>
+        <qualifiedname>DataAccess::ChannelsRepository::newCreateChannel</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_channels_repository_1ae435ffc575f27398926189fb9ff3e936">newCreateChannel</reimplements>
+        <param>
+          <type>const <ref refid="class_models_1_1_v2_1_1_channel" kindref="compound">Models::V2::Channel</ref>&lt;&gt; &amp;</type>
+          <declname>channel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="41" column="33"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_channels_repository_1a7d1eb572c8e69480ae04e2d629df7a3b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::ChannelsRepository::~ChannelsRepository</definition>
+        <argsstring>() override=default</argsstring>
+        <name>~ChannelsRepository</name>
+        <qualifiedname>DataAccess::ChannelsRepository::~ChannelsRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="43" column="5"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>DataAccess::AbstractPostgreRepository</label>
+        <link refid="struct_data_access_1_1_abstract_postgre_repository"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::ChannelsRepository</label>
+        <link refid="struct_data_access_1_1_channels_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DataAccess::IChannelsRepository</label>
+        <link refid="struct_data_access_1_1_i_channels_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>DataAccess::AbstractPostgreRepository</label>
+        <link refid="struct_data_access_1_1_abstract_postgre_repository"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::ChannelsRepository</label>
+        <link refid="struct_data_access_1_1_channels_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DataAccess::IChannelsRepository</label>
+        <link refid="struct_data_access_1_1_i_channels_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="27" column="1" bodyfile="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" bodystart="28" bodyend="44"/>
+    <listofallmembers>
+      <member refid="struct_data_access_1_1_abstract_postgre_repository_1a1d33ed6bc3a61773bdf111b1bc5bc772" prot="protected" virt="non-virtual"><scope>DataAccess::ChannelsRepository</scope><name>_filler</name></member>
+      <member refid="struct_data_access_1_1_abstract_postgre_repository_1ad83909ce308fd3f8c006fe341247f86e" prot="protected" virt="non-virtual"><scope>DataAccess::ChannelsRepository</scope><name>_pTable</name></member>
+      <member refid="struct_data_access_1_1_abstract_postgre_repository_1a8629dc8a2dd6eaaa2de3f635a030e23f" prot="public" virt="non-virtual"><scope>DataAccess::ChannelsRepository</scope><name>AbstractPostgreRepository</name></member>
+      <member refid="struct_data_access_1_1_channels_repository_1a7443f95e5828f8f2a6bbe4af6be7bb78" prot="public" virt="non-virtual"><scope>DataAccess::ChannelsRepository</scope><name>ChannelsRepository</name></member>
+      <member refid="struct_data_access_1_1_channels_repository_1a26c59e6b6fa4da7543bf9322a93e588c" prot="public" virt="virtual"><scope>DataAccess::ChannelsRepository</scope><name>createChannel</name></member>
+      <member refid="struct_data_access_1_1_channels_repository_1ab6c7a5e7cc4286f64332cb614dafc617" prot="public" virt="virtual"><scope>DataAccess::ChannelsRepository</scope><name>deleteChannel</name></member>
+      <member refid="struct_data_access_1_1_channels_repository_1ac97f3bfd2ab12cd66d9a7d0620fba8d9" prot="public" virt="virtual"><scope>DataAccess::ChannelsRepository</scope><name>getAllChannelsList</name></member>
+      <member refid="struct_data_access_1_1_channels_repository_1aea6ebd419ed2fbeb65929ba1950ab70d" prot="public" virt="virtual"><scope>DataAccess::ChannelsRepository</scope><name>getChannelSubscriptionList</name></member>
+      <member refid="struct_data_access_1_1_channels_repository_1a5661565e06ef2e278429d38313b951c8" prot="public" virt="virtual"><scope>DataAccess::ChannelsRepository</scope><name>leaveChannel</name></member>
+      <member refid="struct_data_access_1_1_channels_repository_1a658d60e7979f516f16ff21de17d23236" prot="public" virt="virtual"><scope>DataAccess::ChannelsRepository</scope><name>newCreateChannel</name></member>
+      <member refid="struct_data_access_1_1_channels_repository_1a39e4386b4acb4612ab1754ed6b824b48" prot="public" virt="virtual"><scope>DataAccess::ChannelsRepository</scope><name>subscribeToChannel</name></member>
+      <member refid="struct_data_access_1_1_channels_repository_1a7d1eb572c8e69480ae04e2d629df7a3b" prot="public" virt="non-virtual"><scope>DataAccess::ChannelsRepository</scope><name>~ChannelsRepository</name></member>
+      <member refid="struct_data_access_1_1_i_channels_repository_1a3199c2dd4e3a8f56ef9542cbacbdc488" prot="public" virt="virtual"><scope>DataAccess::ChannelsRepository</scope><name>~IChannelsRepository</name></member>
+      <member refid="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" prot="public" virt="virtual"><scope>DataAccess::ChannelsRepository</scope><name>~IMasterRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

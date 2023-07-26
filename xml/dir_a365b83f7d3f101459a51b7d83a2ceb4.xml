@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_a365b83f7d3f101459a51b7d83a2ceb4" kind="dir">
+    <compoundname>DataAccess</compoundname>
+    <innerdir refid="dir_0cd236d0cb9fad23e40d5f123f4e8240">DataAccess/DataAccess.Debug</innerdir>
+    <innerdir refid="dir_b70fc2509127050d299058f2c03ed8d8">DataAccess/DataAccess.Mock</innerdir>
+    <innerdir refid="dir_b17db6ddfbacc8e948e7369a0209812c">DataAccess/DataAccess.Postgre</innerdir>
+    <innerdir refid="dir_c6471fbc1d8c342ecbbfcc698e662d42">DataAccess/Public</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="DataAccess/"/>
+  </compounddef>
+</doxygen>

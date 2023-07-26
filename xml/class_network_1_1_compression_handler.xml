@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_network_1_1_compression_handler" kind="class" language="C++" prot="public">
+    <compoundname>Network::CompressionHandler</compoundname>
+    <basecompoundref refid="class_network_1_1_abstract_handler" prot="public" virt="non-virtual">Network::AbstractHandler</basecompoundref>
+    <includes refid="_compression_handler_8hpp" local="no">CompressionHandler.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_network_1_1_compression_handler_1a29cba1eca737e1a16c926c86cca55617" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>MessageProcessingState</type>
+        <definition>MessageProcessingState Network::CompressionHandler::handleOutcomingMessage</definition>
+        <argsstring>(const Message &amp;source, yas::shared_buffer &amp;destination) override</argsstring>
+        <name>handleOutcomingMessage</name>
+        <qualifiedname>Network::CompressionHandler::handleOutcomingMessage</qualifiedname>
+        <reimplements refid="class_network_1_1_handler_1a52afad677d3cda18be5d424475b89cb2">handleOutcomingMessage</reimplements>
+        <param>
+          <type>const <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &amp;</type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type>yas::shared_buffer &amp;</type>
+          <declname>destination</declname>
+        </param>
+        <briefdescription>
+<para>Method for compression of outcoming messages. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- variable that contains data that should be compressed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>destination</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- buffer that will contain compressed message body. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/CompressionHandler.hpp" line="18" column="28" bodyfile="Network/Public/Include/Network/CompressionHandler.hpp" bodystart="18" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_compression_handler_1a3910e3f038d8eb168ebe775c6a19520b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>MessageProcessingState</type>
+        <definition>MessageProcessingState Network::CompressionHandler::handleIncomingMessageBody</definition>
+        <argsstring>(const yas::shared_buffer &amp;source, Message &amp;destination) override</argsstring>
+        <name>handleIncomingMessageBody</name>
+        <qualifiedname>Network::CompressionHandler::handleIncomingMessageBody</qualifiedname>
+        <reimplements refid="class_network_1_1_handler_1a3347420b2fb463aae3aadad8b1bfcc31">handleIncomingMessageBody</reimplements>
+        <param>
+          <type>const yas::shared_buffer &amp;</type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &amp;</type>
+          <declname>destination</declname>
+        </param>
+        <briefdescription>
+<para>Method for decompression of incoming message bodies. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- buffer that contains data that should be decompressed. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>destination</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- variable that will contain decompressed message body. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>body decompression</para>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/CompressionHandler.hpp" line="32" column="28" bodyfile="Network/Public/Include/Network/CompressionHandler.hpp" bodystart="32" bodyend="41"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>handler class for messages compression. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Network::AbstractHandler</label>
+        <link refid="class_network_1_1_abstract_handler"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Network::CompressionHandler</label>
+        <link refid="class_network_1_1_compression_handler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Network::Handler</label>
+        <link refid="class_network_1_1_handler"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Network::AbstractHandler</label>
+        <link refid="class_network_1_1_abstract_handler"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>nextHandler</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Network::CompressionHandler</label>
+        <link refid="class_network_1_1_compression_handler"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Network::Handler</label>
+        <link refid="class_network_1_1_handler"/>
+      </node>
+    </collaborationgraph>
+    <location file="Network/Public/Include/Network/CompressionHandler.hpp" line="10" column="1" bodyfile="Network/Public/Include/Network/CompressionHandler.hpp" bodystart="11" bodyend="42"/>
+    <listofallmembers>
+      <member refid="class_network_1_1_compression_handler_1a3910e3f038d8eb168ebe775c6a19520b" prot="public" virt="virtual"><scope>Network::CompressionHandler</scope><name>handleIncomingMessageBody</name></member>
+      <member refid="class_network_1_1_compression_handler_1a29cba1eca737e1a16c926c86cca55617" prot="public" virt="virtual"><scope>Network::CompressionHandler</scope><name>handleOutcomingMessage</name></member>
+      <member refid="class_network_1_1_handler_1a5b0d27b200dca44a4fa12e76ad125e06" prot="public" virt="non-virtual"><scope>Network::CompressionHandler</scope><name>Handler</name></member>
+      <member refid="class_network_1_1_handler_1ae20002aef29f325c5102c9fa6f5b3a62" prot="public" virt="non-virtual"><scope>Network::CompressionHandler</scope><name>Handler</name></member>
+      <member refid="class_network_1_1_handler_1a14da12cf73099bce1bb5b09b57fae1a4" prot="public" virt="non-virtual"><scope>Network::CompressionHandler</scope><name>Handler</name></member>
+      <member refid="class_network_1_1_abstract_handler_1a7c44d70dfc1031f853a06487af2402fe" prot="protected" virt="non-virtual"><scope>Network::CompressionHandler</scope><name>nextHandler</name></member>
+      <member refid="class_network_1_1_handler_1a89e439ca63d065b8d070a74848893f3a" prot="public" virt="non-virtual"><scope>Network::CompressionHandler</scope><name>operator=</name></member>
+      <member refid="class_network_1_1_handler_1aa2da68b7aeb4c5ba8b1c49024fd3c3fa" prot="public" virt="non-virtual"><scope>Network::CompressionHandler</scope><name>operator=</name></member>
+      <member refid="class_network_1_1_abstract_handler_1ac08e0b26b9b6d954578ebedd433401e3" prot="public" virt="virtual"><scope>Network::CompressionHandler</scope><name>setNext</name></member>
+      <member refid="class_network_1_1_handler_1acedc859af138f19e1d8e9315cc233aaf" prot="public" virt="virtual"><scope>Network::CompressionHandler</scope><name>~Handler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

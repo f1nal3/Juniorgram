@@ -1,0 +1,270 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_mock_object_1_1_mock_messages_repository" kind="struct" language="C++" prot="public" final="yes">
+    <compoundname>MockObject::MockMessagesRepository</compoundname>
+    <basecompoundref refid="struct_data_access_1_1_i_messages_repository" prot="public" virt="non-virtual">DataAccess::IMessagesRepository</basecompoundref>
+    <includes refid="_mock_repositories_8hpp" local="no">MockRepositories.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="struct_mock_object_1_1_mock_messages_repository_1a442878ffb35c3d65497fee7241e212d0" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_mock_object_1_1_mock_query" kindref="compound">MockQuery</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;MockQuery&gt; MockObject::MockMessagesRepository::_mockQuery</definition>
+        <argsstring></argsstring>
+        <name>_mockQuery</name>
+        <qualifiedname>MockObject::MockMessagesRepository::_mockQuery</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="122" column="21" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_messages_repository_1aac74c30dedfea2a44256f4ef6a3faded" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockMessagesRepository::MockMessagesRepository</definition>
+        <argsstring>(const std::shared_ptr&lt; IAdapter &gt; &amp;adapter)</argsstring>
+        <name>MockMessagesRepository</name>
+        <qualifiedname>MockObject::MockMessagesRepository::MockMessagesRepository</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt; &amp;</type>
+          <declname>adapter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="108" column="14" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="108" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_messages_repository_1a26c76057803efe39e8b8c5dd21a9d987" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockMessagesRepository::~MockMessagesRepository</definition>
+        <argsstring>() override=default</argsstring>
+        <name>~MockMessagesRepository</name>
+        <qualifiedname>MockObject::MockMessagesRepository::~MockMessagesRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="113" column="5"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_messages_repository_1ae198ce3cf5b1714b6c854a4e97259672" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::DeletingMessageCodes</type>
+        <definition>Utility::DeletingMessageCodes MockObject::MockMessagesRepository::deleteMessage</definition>
+        <argsstring>(const MessageInfo &amp;messageInfo) override</argsstring>
+        <name>deleteMessage</name>
+        <qualifiedname>MockObject::MockMessagesRepository::deleteMessage</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_messages_repository_1a12b91f71dc1e67559dfe2f3c3dab9825">deleteMessage</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref> &amp;</type>
+          <declname>messageInfo</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for deleting message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>messageInfo.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The return value of the method is one of the StoringMessageCodes (enum): <linebreak/>
+Deleting successful - StoringMessageCodes::SUCCESS. <linebreak/>
+Deleting failed - StoringMessageCodes::FAILED. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="116" column="38"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_messages_repository_1af2619ce7822ceaf28fbce94ec523eb60" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::ReactionMessageCodes</type>
+        <definition>Utility::ReactionMessageCodes MockObject::MockMessagesRepository::updateMessageReactions</definition>
+        <argsstring>(const MessageInfo &amp;messageInfo) override</argsstring>
+        <name>updateMessageReactions</name>
+        <qualifiedname>MockObject::MockMessagesRepository::updateMessageReactions</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_messages_repository_1a36ed0a5d818ff5d7887402587cc72502">updateMessageReactions</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref> &amp;</type>
+          <declname>messageInfo</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for updating message reactions. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Network::MessageInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>which contains message&apos;s reaction map(id, count) with changed reaction count set to uint32_t max </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The return value of the method is one of the ReactionMessageCodes (enum): <linebreak/>
+Update successful - ReactionMessageCodes::SUCCESS. <linebreak/>
+Update failed - ReactionMessageCodes::FAILED. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="117" column="38"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_messages_repository_1a37b4dd65675894f6e3b8d8fd2186957c" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::EditingMessageCodes</type>
+        <definition>Utility::EditingMessageCodes MockObject::MockMessagesRepository::editMessage</definition>
+        <argsstring>(const MessageInfo &amp;messageInfo) override</argsstring>
+        <name>editMessage</name>
+        <qualifiedname>MockObject::MockMessagesRepository::editMessage</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_messages_repository_1a7fc72c43885c8bd1daa662f039125234">editMessage</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref> &amp;</type>
+          <declname>messageInfo</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for editing message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>emi</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>as MessageInfo which contains message&apos;s data. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The return value of the method is one of the StoringMessageCodes (enum): <linebreak/>
+Editing successful - StoringMessageCodes::SUCCESS. <linebreak/>
+Editing failed - StoringMessageCodes::FAILED. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="118" column="38"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_messages_repository_1ac3e87a410abab5f8984201d0fc34ee3f" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::StoringMessageCodes</type>
+        <definition>Utility::StoringMessageCodes MockObject::MockMessagesRepository::storeMessage</definition>
+        <argsstring>(const MessageInfo &amp;messageInfo) override</argsstring>
+        <name>storeMessage</name>
+        <qualifiedname>MockObject::MockMessagesRepository::storeMessage</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_messages_repository_1a095da3f629d3af9e728ad934e3591c62">storeMessage</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref> &amp;</type>
+          <declname>messageInfo</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for storing message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Network::MessageInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>which contains message&apos;s data for storing in repository. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The return value of the method is one of the StoringMessageCodes (enum): <linebreak/>
+Storing successful - StoringMessageCodes::SUCCESS. <linebreak/>
+Storing failed - StoringMessageCodes::FAILED. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="119" column="38"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_messages_repository_1a1d1b98d4b18dafbb461e3da2e274b4bc" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref> &gt;</type>
+        <definition>std::vector&lt; Models::MessageInfo &gt; MockObject::MockMessagesRepository::getMessageHistory</definition>
+        <argsstring>(const uint64_t channelID) override</argsstring>
+        <name>getMessageHistory</name>
+        <qualifiedname>MockObject::MockMessagesRepository::getMessageHistory</qualifiedname>
+        <param>
+          <type>const uint64_t</type>
+          <declname>channelID</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="120" column="17"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>struct <ref refid="struct_mock_object_1_1_mock_messages_repository" kindref="compound">MockMessagesRepository</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Inherited from IMessagesRepository struct / (for overriding methods related to this repository). </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="2">
+        <label>IMessagesRepository</label>
+        <link refid="struct_data_access_1_1_i_messages_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>MockObject::MockMessagesRepository</label>
+        <link refid="struct_mock_object_1_1_mock_messages_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="2">
+        <label>IMessagesRepository</label>
+        <link refid="struct_data_access_1_1_i_messages_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>MockObject::MockMessagesRepository</label>
+        <link refid="struct_mock_object_1_1_mock_messages_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="105" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="106" bodyend="123"/>
+    <listofallmembers>
+      <member refid="struct_mock_object_1_1_mock_messages_repository_1a442878ffb35c3d65497fee7241e212d0" prot="private" virt="non-virtual"><scope>MockObject::MockMessagesRepository</scope><name>_mockQuery</name></member>
+      <member refid="struct_mock_object_1_1_mock_messages_repository_1ae198ce3cf5b1714b6c854a4e97259672" prot="private" virt="virtual"><scope>MockObject::MockMessagesRepository</scope><name>deleteMessage</name></member>
+      <member refid="struct_mock_object_1_1_mock_messages_repository_1a37b4dd65675894f6e3b8d8fd2186957c" prot="private" virt="virtual"><scope>MockObject::MockMessagesRepository</scope><name>editMessage</name></member>
+      <member refid="struct_mock_object_1_1_mock_messages_repository_1a1d1b98d4b18dafbb461e3da2e274b4bc" prot="private" virt="non-virtual"><scope>MockObject::MockMessagesRepository</scope><name>getMessageHistory</name></member>
+      <member refid="struct_data_access_1_1_i_messages_repository_1a6082364cbb8ff63a96b43468ec650676" prot="public" virt="pure-virtual" ambiguityscope="DataAccess::IMessagesRepository::"><scope>MockObject::MockMessagesRepository</scope><name>getMessageHistory</name></member>
+      <member refid="struct_mock_object_1_1_mock_messages_repository_1aac74c30dedfea2a44256f4ef6a3faded" prot="public" virt="non-virtual"><scope>MockObject::MockMessagesRepository</scope><name>MockMessagesRepository</name></member>
+      <member refid="struct_mock_object_1_1_mock_messages_repository_1ac3e87a410abab5f8984201d0fc34ee3f" prot="private" virt="virtual"><scope>MockObject::MockMessagesRepository</scope><name>storeMessage</name></member>
+      <member refid="struct_mock_object_1_1_mock_messages_repository_1af2619ce7822ceaf28fbce94ec523eb60" prot="private" virt="virtual"><scope>MockObject::MockMessagesRepository</scope><name>updateMessageReactions</name></member>
+      <member refid="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" prot="public" virt="virtual"><scope>MockObject::MockMessagesRepository</scope><name>~IMasterRepository</name></member>
+      <member refid="struct_data_access_1_1_i_messages_repository_1a18bdd2e309cb9d005b339706a7af6b8f" prot="public" virt="virtual"><scope>MockObject::MockMessagesRepository</scope><name>~IMessagesRepository</name></member>
+      <member refid="struct_mock_object_1_1_mock_messages_repository_1a26c76057803efe39e8b8c5dd21a9d987" prot="public" virt="non-virtual"><scope>MockObject::MockMessagesRepository</scope><name>~MockMessagesRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

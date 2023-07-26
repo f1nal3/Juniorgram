@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_i_repository_01scheme_8md" kind="file" language="Markdown">
+    <compoundname>IRepository scheme.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">##<sp/>Introduction</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">IRepository<sp/>is<sp/>an<sp/>interface<sp/>for<sp/>a<sp/>more<sp/>abstract<sp/>approach<sp/>to<sp/>Databases.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Reasoning</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">We<sp/>need<sp/>a<sp/>constant<sp/>way<sp/>to<sp/>access<sp/>any<sp/>data<sp/>storage<sp/>that<sp/>we<sp/>might<sp/>use.</highlight></codeline>
+<codeline><highlight class="normal">So<sp/>far<sp/>the<sp/>use<sp/>cases<sp/>are:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>PostgreSQL<sp/>for<sp/>storing<sp/>data<sp/>on<sp/>the<sp/>server<sp/>side</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>MySQLite<sp/>for<sp/>storing<sp/>data<sp/>on<sp/>the<sp/>client<sp/>side</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>File<sp/>Database<sp/>Mock<sp/>used<sp/>for<sp/>debug<sp/>purposes</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Since<sp/>we<sp/>mirror<sp/>the<sp/>way<sp/>the<sp/>data<sp/>is<sp/>stored<sp/>-<sp/>all<sp/>of<sp/>those<sp/>points<sp/>can<sp/>share<sp/>the<sp/>same<sp/>interface.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Description</highlight></codeline>
+<codeline><highlight class="normal">IRepository<sp/>dictates<sp/>all<sp/>possible<sp/>cases<sp/>for<sp/>storing<sp/>or<sp/>getting<sp/>data.</highlight></codeline>
+<codeline><highlight class="normal">Each<sp/>counterpart<sp/>described<sp/>above<sp/>implements<sp/>IRepository<sp/>via<sp/>corresponding<sp/>adapters.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Schema<sp/>for<sp/>PostgreSQL<sp/>case</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">![Basic<sp/>Repository<sp/>schema](https://i.ibb.co/54yzrzw/Screenshot-2021-03-15-at-23-49-42.png)</highlight></codeline>
+    </programlisting>
+    <location file="Docs/IRepository scheme.md"/>
+  </compounddef>
+</doxygen>

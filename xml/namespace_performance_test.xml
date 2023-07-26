@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_performance_test" kind="namespace" language="C++">
+    <compoundname>PerformanceTest</compoundname>
+    <innerclass refid="class_performance_test_1_1_argument_parser" prot="public">PerformanceTest::ArgumentParser</innerclass>
+    <innerclass refid="class_performance_test_1_1_simple_timer" prot="public">PerformanceTest::SimpleTimer</innerclass>
+    <innerclass refid="class_performance_test_1_1_tester" prot="public">PerformanceTest::Tester</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="_argument_parser_8hpp_1aa829654d00eba860fcda3f65370a5791" prot="public" static="no" strong="yes">
+        <type>char</type>
+        <name>eKeys</name>
+        <qualifiedname>PerformanceTest::eKeys</qualifiedname>
+        <enumvalue id="_argument_parser_8hpp_1aa829654d00eba860fcda3f65370a5791ad6fe1d0be6347b8ef2427fa629c04485" prot="public">
+          <name>path</name>
+          <initializer>= &apos;p&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_argument_parser_8hpp_1aa829654d00eba860fcda3f65370a5791ae2942a04780e223b215eb8b663cf5353" prot="public">
+          <name>count</name>
+          <initializer>= &apos;c&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/ArgumentParser.hpp" line="13" column="5" bodyfile="Test/PerformanceTest/ArgumentParser.hpp" bodystart="14" bodyend="17"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Test/PerformanceTest/ArgumentParser.hpp" line="9" column="1"/>
+  </compounddef>
+</doxygen>

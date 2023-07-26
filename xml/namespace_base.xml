@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_base" kind="namespace" language="C++">
+    <compoundname>Base</compoundname>
+    <innernamespace refid="namespace_base_1_1_crypto">Base::Crypto</innernamespace>
+    <innernamespace refid="namespace_base_1_1_hashing">Base::Hashing</innernamespace>
+    <innernamespace refid="namespace_base_1_1_logger">Base::Logger</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Base/Crypto/Crypto.Static/Cryptography.hpp" line="10" column="1"/>
+  </compounddef>
+</doxygen>

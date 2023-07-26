@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="md__docs_2_legacy_2_build_01project_01on_01_fedora" kind="page">
+    <compoundname>md__docs_2_legacy_2_build_01project_01on_01_fedora</compoundname>
+    <title>To build via docker:</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md__docs_2_legacy_2_build_01project_01on_01_fedora_1autotoc_md16"/> Install: <linebreak/>
+<itemizedlist>
+<listitem><para><ulink url="https://www.docker.com/get-started">docker</ulink></para>
+</listitem><listitem><para><ulink url="https://docs.docker.com/compose/install/">docker-compose</ulink></para>
+</listitem></itemizedlist>
+</para>
+<para>Inside container:</para>
+<para><programlisting filename=".sh"><codeline><highlight class="normal">docker-compose<sp/>run<sp/>shell</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>initial<sp/>setup</highlight></codeline>
+<codeline><highlight class="normal">rm<sp/>-rf<sp/>./build<sp/>&amp;&amp;<sp/>mkdir<sp/>build<sp/>&amp;&amp;<sp/>cd<sp/>./build<sp/>&amp;&amp;<sp/>cmake<sp/>..<sp/>-DCMAKE_BUILD_TYPE=Release</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>rebuild<sp/>changes</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>--build<sp/>.</highlight></codeline>
+</programlisting></para>
+<para>In the host system: <programlisting filename=".sh"><codeline><highlight class="normal">#<sp/>Run<sp/>GUI<sp/>client:</highlight></codeline>
+<codeline><highlight class="normal">./build/bin/Client.**</highlight></codeline>
+</programlisting> </para>
+    </detaileddescription>
+    <location file="Docs/Legacy/Build project on Fedora.md"/>
+  </compounddef>
+</doxygen>

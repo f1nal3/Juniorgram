@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_network_1_1_yas_serializer" kind="class" language="C++" prot="public">
+    <compoundname>Network::YasSerializer</compoundname>
+    <includes refid="_yas_serializer_8hpp" local="no">YasSerializer.hpp</includes>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_network_1_1_yas_serializer_1abce41b979ba3df7ec68cc9344d17d553" prot="private" static="yes" constexpr="yes" mutable="no">
+        <type>constexpr std::size_t</type>
+        <definition>constexpr std::size_t Network::YasSerializer::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <qualifiedname>Network::YasSerializer::flags</qualifiedname>
+        <initializer>= yas::mem | yas::binary | yas::no_header</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/YasSerializer.hpp" line="44" column="38" bodyfile="Network/Public/Include/Network/YasSerializer.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_network_1_1_yas_serializer_1aa9dc8d5435697f3dc3f22f24ce4304e6" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Network::YasSerializer::YasSerializer</definition>
+        <argsstring>()=delete</argsstring>
+        <name>YasSerializer</name>
+        <qualifiedname>Network::YasSerializer::YasSerializer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/YasSerializer.hpp" line="38" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_yas_serializer_1a6c1defbddd4349fac3e27ed157d275c1" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Network::YasSerializer::YasSerializer</definition>
+        <argsstring>(const YasSerializer &amp;)=delete</argsstring>
+        <name>YasSerializer</name>
+        <qualifiedname>Network::YasSerializer::YasSerializer</qualifiedname>
+        <param>
+          <type>const <ref refid="class_network_1_1_yas_serializer" kindref="compound">YasSerializer</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/YasSerializer.hpp" line="39" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_yas_serializer_1acf4f71bfed14e7c1d8e4b07ea4ce607b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Network::YasSerializer::YasSerializer</definition>
+        <argsstring>(YasSerializer &amp;&amp;)=delete</argsstring>
+        <name>YasSerializer</name>
+        <qualifiedname>Network::YasSerializer::YasSerializer</qualifiedname>
+        <param>
+          <type><ref refid="class_network_1_1_yas_serializer" kindref="compound">YasSerializer</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/YasSerializer.hpp" line="40" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_yas_serializer_1ac5ac390665e5a280192a157021ed221e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_network_1_1_yas_serializer" kindref="compound">YasSerializer</ref> &amp;</type>
+        <definition>YasSerializer &amp; Network::YasSerializer::operator=</definition>
+        <argsstring>(const YasSerializer &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>Network::YasSerializer::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="class_network_1_1_yas_serializer" kindref="compound">YasSerializer</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/YasSerializer.hpp" line="41" column="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_yas_serializer_1a6a6f065bb1b2c806cb5d1870d3d4f08c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_network_1_1_yas_serializer" kindref="compound">YasSerializer</ref> &amp;</type>
+        <definition>YasSerializer &amp; Network::YasSerializer::operator=</definition>
+        <argsstring>(YasSerializer &amp;&amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>Network::YasSerializer::operator=</qualifiedname>
+        <param>
+          <type><ref refid="class_network_1_1_yas_serializer" kindref="compound">YasSerializer</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/YasSerializer.hpp" line="42" column="23"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_network_1_1_yas_serializer_1a44f2ef4e9aa39e7e5e2754e7ee2618a5" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>SerializedState</type>
+        <definition>static SerializedState Network::YasSerializer::serialize</definition>
+        <argsstring>(yas::shared_buffer &amp;destination, const T &amp;source)</argsstring>
+        <name>serialize</name>
+        <qualifiedname>Network::YasSerializer::serialize</qualifiedname>
+        <param>
+          <type>yas::shared_buffer &amp;</type>
+          <declname>destination</declname>
+        </param>
+        <param>
+          <type>const T &amp;</type>
+          <declname>source</declname>
+        </param>
+        <briefdescription>
+<para>Method for binary serialization of messages. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>destination</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- buffer that will contain serialized message body. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- variable that contains data that should be serialized. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/YasSerializer.hpp" line="52" column="32" bodyfile="Network/Public/Include/Network/YasSerializer.hpp" bodystart="52" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_yas_serializer_1a99609c811b7515e0d3766422b6f674a9" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>SerializedState</type>
+        <definition>static SerializedState Network::YasSerializer::deserialize</definition>
+        <argsstring>(const yas::shared_buffer &amp;source, T &amp;destination)</argsstring>
+        <name>deserialize</name>
+        <qualifiedname>Network::YasSerializer::deserialize</qualifiedname>
+        <param>
+          <type>const yas::shared_buffer &amp;</type>
+          <declname>source</declname>
+        </param>
+        <param>
+          <type>T &amp;</type>
+          <declname>destination</declname>
+        </param>
+        <briefdescription>
+<para>Method for binary deserialization of messages. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- buffer that contains data that should be deserialized. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>destination</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- variable that will contain deserialized message body. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/YasSerializer.hpp" line="79" column="32" bodyfile="Network/Public/Include/Network/YasSerializer.hpp" bodystart="79" bodyend="97"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>binary serialization class using YAS library. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Network/Public/Include/Network/YasSerializer.hpp" line="36" column="5" bodyfile="Network/Public/Include/Network/YasSerializer.hpp" bodystart="37" bodyend="98"/>
+    <listofallmembers>
+      <member refid="class_network_1_1_yas_serializer_1a99609c811b7515e0d3766422b6f674a9" prot="public" virt="non-virtual"><scope>Network::YasSerializer</scope><name>deserialize</name></member>
+      <member refid="class_network_1_1_yas_serializer_1abce41b979ba3df7ec68cc9344d17d553" prot="private" virt="non-virtual"><scope>Network::YasSerializer</scope><name>flags</name></member>
+      <member refid="class_network_1_1_yas_serializer_1ac5ac390665e5a280192a157021ed221e" prot="private" virt="non-virtual"><scope>Network::YasSerializer</scope><name>operator=</name></member>
+      <member refid="class_network_1_1_yas_serializer_1a6a6f065bb1b2c806cb5d1870d3d4f08c" prot="private" virt="non-virtual"><scope>Network::YasSerializer</scope><name>operator=</name></member>
+      <member refid="class_network_1_1_yas_serializer_1a44f2ef4e9aa39e7e5e2754e7ee2618a5" prot="public" virt="non-virtual"><scope>Network::YasSerializer</scope><name>serialize</name></member>
+      <member refid="class_network_1_1_yas_serializer_1aa9dc8d5435697f3dc3f22f24ce4304e6" prot="private" virt="non-virtual"><scope>Network::YasSerializer</scope><name>YasSerializer</name></member>
+      <member refid="class_network_1_1_yas_serializer_1a6c1defbddd4349fac3e27ed157d275c1" prot="private" virt="non-virtual"><scope>Network::YasSerializer</scope><name>YasSerializer</name></member>
+      <member refid="class_network_1_1_yas_serializer_1acf4f71bfed14e7c1d8e4b07ea4ce607b" prot="private" virt="non-virtual"><scope>Network::YasSerializer</scope><name>YasSerializer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

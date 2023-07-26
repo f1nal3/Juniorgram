@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="md__docs_2_cryptography" kind="page">
+    <compoundname>md__docs_2_cryptography</compoundname>
+    <title>Cryptography system</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md__docs_2_cryptography_1autotoc_md0"/></para>
+<sect2 id="md__docs_2_cryptography_1autotoc_md1">
+<title>Authentication</title>
+<para>The main idea of the architecture is the ability to configure the connection at the stage of its creation.</para>
+<para>All subsequent statements work for the following cryptography configuration:<itemizedlist>
+<listitem><para>Encryption: AES GCM</para>
+</listitem><listitem><para>Key exchange protocol: ECDH</para>
+</listitem></itemizedlist>
+</para>
+<para>Also, this architecture will work for any symmetric encryption algorithm if the generated shared key is used as the key encryption key.</para>
+<para>The diagram below shows how the parts of the cryptographic system interact with each other and with the server.</para>
+<para><image type="html" name="crypto_authentication.svg">Crypto authentication</image>
+ <image type="latex" name="crypto_authentication.svg">Crypto authentication</image>
+ <image type="rtf" name="crypto_authentication.svg">Crypto authentication</image>
+ <image type="docbook" name="crypto_authentication.svg">Crypto authentication</image>
+ <image type="xml" name="crypto_authentication.svg">Crypto authentication</image>
+</para>
+<para>The dependencies shown in the diagram make it possible to configure the security elements separately: the encryption method, the key creation protocol, the key confirmation protocol, the connection verification algorithm - which allows you to configure the connection in a variety of ways.</para>
+</sect2>
+<sect2 id="md__docs_2_cryptography_1autotoc_md2">
+<title>Connection</title>
+<para>The diagram below shows how the application sides will be connected.</para>
+<para><image type="html" name="crypto_connection.svg">Crypto connection</image>
+ <image type="latex" name="crypto_connection.svg">Crypto connection</image>
+ <image type="rtf" name="crypto_connection.svg">Crypto connection</image>
+ <image type="docbook" name="crypto_connection.svg">Crypto connection</image>
+ <image type="xml" name="crypto_connection.svg">Crypto connection</image>
+</para>
+<para>Connection stages:</para>
+<para><orderedlist>
+<listitem><para>Setting up an anonymous connection.</para>
+</listitem><listitem><para>Connection verification. If it fails, the server cannot be sure that it is working with a real client.</para>
+</listitem><listitem><para>If the client has confirmed that he is the one the server knows, a shared key is generated (used for symmetric encryption).</para>
+</listitem><listitem><para>As a result of generation, both the client and the server have a key, but they cannot be sure that the other side has exactly the same one. To do this, the client sends an encrypted message with known content. If the server decrypted and received the correct values, it is assumed that both parties received the same key. </para>
+</listitem></orderedlist>
+</para>
+</sect2>
+    </detaileddescription>
+    <location file="Docs/Cryptography.md"/>
+  </compounddef>
+</doxygen>

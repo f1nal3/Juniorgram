@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_mock_object_1_1_mock_repository_instance" kind="struct" language="C++" prot="public">
+    <compoundname>MockObject::MockRepositoryInstance</compoundname>
+    <basecompoundref refid="struct_mock_object_1_1_mock_repository_storage" prot="public" virt="non-virtual">MockObject::MockRepositoryStorage</basecompoundref>
+    <includes refid="_mock_repository_instance_8hpp" local="no">MockRepositoryInstance.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="struct_mock_object_1_1_mock_repository_instance_1a78d01f69a997d541505d2ccd87ae4c7c" prot="private" static="no" mutable="no">
+        <type>std::string_view</type>
+        <definition>std::string_view MockObject::MockRepositoryInstance::_repoProperties</definition>
+        <argsstring></argsstring>
+        <name>_repoProperties</name>
+        <qualifiedname>MockObject::MockRepositoryInstance::_repoProperties</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryInstance.hpp" line="17" column="22" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryInstance.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_repository_instance_1ae61877129880fd376e0fcb31d45819b7" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockRepositoryInstance::MockRepositoryInstance</definition>
+        <argsstring>(const std::string_view &amp;options)</argsstring>
+        <name>MockRepositoryInstance</name>
+        <qualifiedname>MockObject::MockRepositoryInstance::MockRepositoryInstance</qualifiedname>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>options</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositoryInstance.hpp" line="13" column="14" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryInstance.hpp" bodystart="13" bodyend="14"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="struct_mock_object_1_1_mock_repository_instance" kindref="compound">MockRepositoryInstance</ref> class. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Designed to emulate initialize database options and tables to store repository data. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>MockObject::MockRepositoryInstance</label>
+        <link refid="struct_mock_object_1_1_mock_repository_instance"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>MockObject::MockRepositoryStorage</label>
+        <link refid="struct_mock_object_1_1_mock_repository_storage"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>MockObject::MockRepositoryInstance</label>
+        <link refid="struct_mock_object_1_1_mock_repository_instance"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>MockObject::MockRepositoryStorage</label>
+        <link refid="struct_mock_object_1_1_mock_repository_storage"/>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Mock/MockRepositoryInstance.hpp" line="11" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositoryInstance.hpp" bodystart="12" bodyend="18"/>
+    <listofallmembers>
+      <member refid="struct_mock_object_1_1_mock_repository_instance_1a78d01f69a997d541505d2ccd87ae4c7c" prot="private" virt="non-virtual"><scope>MockObject::MockRepositoryInstance</scope><name>_repoProperties</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a4d1c54a17acd0a8c7525d09e849d2335" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryInstance</scope><name>checkChannelTable</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a9db3d3837479da4aa783c712fdaa3a5b" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryInstance</scope><name>checkLoginTable</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a269f8a51ef4b0c4a90c3fec943e1fd5d" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryInstance</scope><name>checkMessagesTable</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a9409f219ee3e596d4b37513efcfa9487" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryInstance</scope><name>checkRegistrationTable</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a3e7be0165155d5a47220f3b23fe7e49e" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryInstance</scope><name>checkRepliesTable</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1acb355af45d1d27ff2eecb6ce6678755c" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryInstance</scope><name>getChannelsRepoData</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a9d9e21527a020e4751724734c775c8b0" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryInstance</scope><name>getLoginRepoData</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a247f4c764ec99fecfd2a308c35177ed9" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryInstance</scope><name>getMessageRepoData</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a43835e72ad7a9e2b3c6f795e0a142c30" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryInstance</scope><name>getRegisterRepoData</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a67c9c2d55177ea42b8ec4029cbef8a37" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryInstance</scope><name>getRepliesRepoData</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_instance_1ae61877129880fd376e0fcb31d45819b7" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryInstance</scope><name>MockRepositoryInstance</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1a0e48faad42fe2037ccdc4c48a112ed93" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryInstance</scope><name>MockRepositoryStorage</name></member>
+      <member refid="struct_mock_object_1_1_mock_repository_storage_1aa554f01815e5f68989df182912b07e49" prot="public" virt="non-virtual"><scope>MockObject::MockRepositoryInstance</scope><name>~MockRepositoryStorage</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

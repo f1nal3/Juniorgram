@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_e6101a089d9f160b69ea28873c59ae4b" kind="dir">
+    <compoundname>Base/Logger/Public/Include</compoundname>
+    <innerdir refid="dir_e528dfb15f3ea67351f7ae31fbc85546">Base/Logger/Public/Include/Logger</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Base/Logger/Public/Include/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,483 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_mock_object" kind="namespace" language="C++">
+    <compoundname>MockObject</compoundname>
+    <innerclass refid="struct_mock_object_1_1_mock_channels_repository" prot="public">MockObject::MockChannelsRepository</innerclass>
+    <innerclass refid="class_mock_object_1_1_mock_database" prot="public">MockObject::MockDatabase</innerclass>
+    <innerclass refid="struct_mock_object_1_1_mock_direct_message_repository" prot="public">MockObject::MockDirectMessageRepository</innerclass>
+    <innerclass refid="struct_mock_object_1_1_mock_login_repository" prot="public">MockObject::MockLoginRepository</innerclass>
+    <innerclass refid="struct_mock_object_1_1_mock_messages_repository" prot="public">MockObject::MockMessagesRepository</innerclass>
+    <innerclass refid="class_mock_object_1_1_mock_query" prot="public">MockObject::MockQuery</innerclass>
+    <innerclass refid="class_mock_object_1_1_mock_query_builder" prot="public">MockObject::MockQueryBuilder</innerclass>
+    <innerclass refid="struct_mock_object_1_1_mock_register_repository" prot="public">MockObject::MockRegisterRepository</innerclass>
+    <innerclass refid="struct_mock_object_1_1_mock_replies_repository" prot="public">MockObject::MockRepliesRepository</innerclass>
+    <innerclass refid="struct_mock_object_1_1_mock_repository_instance" prot="public">MockObject::MockRepositoryInstance</innerclass>
+    <innerclass refid="class_mock_object_1_1_mock_repository_manager" prot="public">MockObject::MockRepositoryManager</innerclass>
+    <innerclass refid="struct_mock_object_1_1_mock_repository_storage" prot="public">MockObject::MockRepositoryStorage</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="_mock_tables_8hpp_1a6942c6b798fcf5ffd97d1a763772486f" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>TableChannelRepository</name>
+        <qualifiedname>MockObject::TableChannelRepository</qualifiedname>
+        <enumvalue id="_mock_tables_8hpp_1a6942c6b798fcf5ffd97d1a763772486fa57c7869106fd3be06d0e273a1fd8bbd3" prot="public">
+          <name>UserID</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_mock_tables_8hpp_1a6942c6b798fcf5ffd97d1a763772486fa2b2dbda9be732ab05a77e4ca77304e0d" prot="public">
+          <name>ChanneName</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_mock_tables_8hpp_1a6942c6b798fcf5ffd97d1a763772486fad19844db34efb6b4ede16be3fd6156f2" prot="public">
+          <name>ChannelID</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockTables.hpp" line="5" column="1" bodyfile="DataAccess/DataAccess.Mock/MockTables.hpp" bodystart="6" bodyend="10"/>
+      </memberdef>
+      <memberdef kind="enum" id="_mock_tables_8hpp_1a3e736974c3cda0da43023191da509fc2" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>TableRepliesRepository</name>
+        <qualifiedname>MockObject::TableRepliesRepository</qualifiedname>
+        <enumvalue id="_mock_tables_8hpp_1a3e736974c3cda0da43023191da509fc2ad19844db34efb6b4ede16be3fd6156f2" prot="public">
+          <name>ChannelID</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_mock_tables_8hpp_1a3e736974c3cda0da43023191da509fc2a4c2a8fe7eaf24721cc7a9f0175115bd4" prot="public">
+          <name>Message</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_mock_tables_8hpp_1a3e736974c3cda0da43023191da509fc2a8a090d9f5db3878c13a459772e51a146" prot="public">
+          <name>MessageID</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_mock_tables_8hpp_1a3e736974c3cda0da43023191da509fc2af8aa43728abb46f0cf92bbb09fa77ffc" prot="public">
+          <name>UserLogin</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockTables.hpp" line="12" column="1" bodyfile="DataAccess/DataAccess.Mock/MockTables.hpp" bodystart="13" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="enum" id="_mock_tables_8hpp_1af8573056d6a57bf842b430b37f268d5f" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>TableMessagesRepository</name>
+        <qualifiedname>MockObject::TableMessagesRepository</qualifiedname>
+        <enumvalue id="_mock_tables_8hpp_1af8573056d6a57bf842b430b37f268d5fa57c7869106fd3be06d0e273a1fd8bbd3" prot="public">
+          <name>UserID</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_mock_tables_8hpp_1af8573056d6a57bf842b430b37f268d5fad19844db34efb6b4ede16be3fd6156f2" prot="public">
+          <name>ChannelID</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_mock_tables_8hpp_1af8573056d6a57bf842b430b37f268d5fa4c2a8fe7eaf24721cc7a9f0175115bd4" prot="public">
+          <name>Message</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_mock_tables_8hpp_1af8573056d6a57bf842b430b37f268d5fa8a090d9f5db3878c13a459772e51a146" prot="public">
+          <name>MessageID</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_mock_tables_8hpp_1af8573056d6a57bf842b430b37f268d5fae3fecd9ec868c8c581c3a4b477f15a62" prot="public">
+          <name>Reactions</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_mock_tables_8hpp_1af8573056d6a57bf842b430b37f268d5fa0fa0816a2a1680f7cfdfe69f4a67756f" prot="public">
+          <name>RecipientID</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_mock_tables_8hpp_1af8573056d6a57bf842b430b37f268d5faf8aa43728abb46f0cf92bbb09fa77ffc" prot="public">
+          <name>UserLogin</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockTables.hpp" line="20" column="1" bodyfile="DataAccess/DataAccess.Mock/MockTables.hpp" bodystart="21" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="enum" id="_mock_tables_8hpp_1a65bcb3607f5feaf0337c61133d0df4aa" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>TableRegistrationRepository</name>
+        <qualifiedname>MockObject::TableRegistrationRepository</qualifiedname>
+        <enumvalue id="_mock_tables_8hpp_1a65bcb3607f5feaf0337c61133d0df4aaaf8aa43728abb46f0cf92bbb09fa77ffc" prot="public">
+          <name>UserLogin</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_mock_tables_8hpp_1a65bcb3607f5feaf0337c61133d0df4aaace8ae9da5b7cd6c3df2929543a9af92d" prot="public">
+          <name>Email</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_mock_tables_8hpp_1a65bcb3607f5feaf0337c61133d0df4aaadc647eb65e6711e155375218212b3964" prot="public">
+          <name>Password</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockTables.hpp" line="31" column="1" bodyfile="DataAccess/DataAccess.Mock/MockTables.hpp" bodystart="32" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="enum" id="_mock_tables_8hpp_1a73fa292224bab91b1fc794f2d44e97e0" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>TableLoginRepository</name>
+        <qualifiedname>MockObject::TableLoginRepository</qualifiedname>
+        <enumvalue id="_mock_tables_8hpp_1a73fa292224bab91b1fc794f2d44e97e0af8aa43728abb46f0cf92bbb09fa77ffc" prot="public">
+          <name>UserLogin</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_mock_tables_8hpp_1a73fa292224bab91b1fc794f2d44e97e0a91a29d1b095c80bed9137e041a067e74" prot="public">
+          <name>PasswordHash</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockTables.hpp" line="38" column="1" bodyfile="DataAccess/DataAccess.Mock/MockTables.hpp" bodystart="39" bodyend="42"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="_mock_query_8hpp_1aafc90e78fc2a8cb523b81b2f1d7caab0" prot="public" static="no">
+        <type><ref refid="class_mock_object_1_1_mock_database" kindref="compound">MockObject::MockDatabase</ref></type>
+        <definition>using MockObject::Database = typedef MockObject::MockDatabase</definition>
+        <argsstring></argsstring>
+        <name>Database</name>
+        <qualifiedname>MockObject::Database</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockQuery.hpp" line="10" column="1" bodyfile="DataAccess/DataAccess.Mock/MockQuery.hpp" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_mock_query_8hpp_1ac1cbad793762e3b7ca1dd413bc03a16b" prot="public" static="no">
+        <type><ref refid="class_mock_object_1_1_mock_query_builder" kindref="compound">MockObject::MockQueryBuilder</ref>&lt; <ref refid="struct_mock_object_1_1_mock_repository_instance" kindref="compound">MockRepositoryInstance</ref> &gt;</type>
+        <definition>using MockObject::QueryBuilder = typedef MockObject::MockQueryBuilder&lt;MockRepositoryInstance&gt;</definition>
+        <argsstring></argsstring>
+        <name>QueryBuilder</name>
+        <qualifiedname>MockObject::QueryBuilder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockQuery.hpp" line="11" column="1" bodyfile="DataAccess/DataAccess.Mock/MockQuery.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_mock_repositories_8hpp_1a5f5016011495b2ea28a7d861e00e5138" prot="public" static="no">
+        <type><ref refid="class_data_access_1_1_i_adapter" kindref="compound">DataAccess::IAdapter</ref></type>
+        <definition>using MockObject::IAdapter = typedef DataAccess::IAdapter</definition>
+        <argsstring></argsstring>
+        <name>IAdapter</name>
+        <qualifiedname>MockObject::IAdapter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="14" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_mock_repositories_8hpp_1a6c23b2f0e809a6c59281f75b5b12db36" prot="public" static="no">
+        <type><ref refid="struct_data_access_1_1_i_channels_repository" kindref="compound">DataAccess::IChannelsRepository</ref></type>
+        <definition>using MockObject::IChannelRepository = typedef DataAccess::IChannelsRepository</definition>
+        <argsstring></argsstring>
+        <name>IChannelRepository</name>
+        <qualifiedname>MockObject::IChannelRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="15" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_mock_repositories_8hpp_1aebe7b4cf99f6e353c476ac5bf7bb5822" prot="public" static="no">
+        <type><ref refid="struct_data_access_1_1_i_direct_message_repository" kindref="compound">DataAccess::IDirectMessageRepository</ref></type>
+        <definition>using MockObject::IDirectMessageRepository = typedef DataAccess::IDirectMessageRepository</definition>
+        <argsstring></argsstring>
+        <name>IDirectMessageRepository</name>
+        <qualifiedname>MockObject::IDirectMessageRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="16" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_mock_repositories_8hpp_1ae31d95933715a1d4d64fe4769430d508" prot="public" static="no">
+        <type><ref refid="struct_data_access_1_1_i_login_repository" kindref="compound">DataAccess::ILoginRepository</ref></type>
+        <definition>using MockObject::ILoginRepository = typedef DataAccess::ILoginRepository</definition>
+        <argsstring></argsstring>
+        <name>ILoginRepository</name>
+        <qualifiedname>MockObject::ILoginRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="17" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_mock_repositories_8hpp_1a2080d2fe94481a87327044a2b9fa34c7" prot="public" static="no">
+        <type><ref refid="struct_data_access_1_1_i_messages_repository" kindref="compound">DataAccess::IMessagesRepository</ref></type>
+        <definition>using MockObject::IMessagesRepository = typedef DataAccess::IMessagesRepository</definition>
+        <argsstring></argsstring>
+        <name>IMessagesRepository</name>
+        <qualifiedname>MockObject::IMessagesRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="18" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_mock_repositories_8hpp_1a20ce9e56f764daed490540913fb3d979" prot="public" static="no">
+        <type><ref refid="struct_data_access_1_1_i_register_repository" kindref="compound">DataAccess::IRegisterRepository</ref></type>
+        <definition>using MockObject::IRegisterRepository = typedef DataAccess::IRegisterRepository</definition>
+        <argsstring></argsstring>
+        <name>IRegisterRepository</name>
+        <qualifiedname>MockObject::IRegisterRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="19" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_mock_repositories_8hpp_1a15cf338827364f37d33a6314d9c1e771" prot="public" static="no">
+        <type><ref refid="struct_data_access_1_1_i_replies_repository" kindref="compound">DataAccess::IRepliesRepository</ref></type>
+        <definition>using MockObject::IRepliesRepository = typedef DataAccess::IRepliesRepository</definition>
+        <argsstring></argsstring>
+        <name>IRepliesRepository</name>
+        <qualifiedname>MockObject::IRepliesRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="20" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_mock_repositories_8hpp_1aafc2ddc76884e29c1037dedbf93a62a9" prot="public" static="no">
+        <type><ref refid="struct_models_1_1_login_info" kindref="compound">Models::LoginInfo</ref></type>
+        <definition>typedef Models::LoginInfo MockObject::LoginInfo</definition>
+        <argsstring></argsstring>
+        <name>LoginInfo</name>
+        <qualifiedname>MockObject::LoginInfo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="22" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_mock_repositories_8hpp_1a3012ea992694ec223fd49e74c4aa94a9" prot="public" static="no">
+        <type><ref refid="struct_models_1_1_reply_info" kindref="compound">Models::ReplyInfo</ref></type>
+        <definition>typedef Models::ReplyInfo MockObject::ReplyInfo</definition>
+        <argsstring></argsstring>
+        <name>ReplyInfo</name>
+        <qualifiedname>MockObject::ReplyInfo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="23" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_mock_repositories_8hpp_1aaf6299ca71e55447811fa69481d225e8" prot="public" static="no">
+        <type><ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref></type>
+        <definition>typedef Models::MessageInfo MockObject::MessageInfo</definition>
+        <argsstring></argsstring>
+        <name>MessageInfo</name>
+        <qualifiedname>MockObject::MessageInfo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="24" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_mock_repositories_8hpp_1aa06850a5a4116051490c8bd7d3b06268" prot="public" static="no">
+        <type><ref refid="struct_models_1_1_registration_info" kindref="compound">Models::RegistrationInfo</ref></type>
+        <definition>typedef Models::RegistrationInfo MockObject::RegistrationInfo</definition>
+        <argsstring></argsstring>
+        <name>RegistrationInfo</name>
+        <qualifiedname>MockObject::RegistrationInfo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="25" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_mock_repositories_8hpp_1a68f2bb3210a16fdc7ff6bd850423c578" prot="public" static="no">
+        <type><ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelInfo</ref></type>
+        <definition>typedef Models::ChannelInfo MockObject::ChannelInfo</definition>
+        <argsstring></argsstring>
+        <name>ChannelInfo</name>
+        <qualifiedname>MockObject::ChannelInfo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="26" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_mock_repositories_8hpp_1ad8118cb34c4c59ccfe81d92299bb8611" prot="public" static="no">
+        <type><ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelDeleteInfo</ref></type>
+        <definition>using MockObject::ChannelDeleteInfo = typedef Models::ChannelDeleteInfo</definition>
+        <argsstring></argsstring>
+        <name>ChannelDeleteInfo</name>
+        <qualifiedname>MockObject::ChannelDeleteInfo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="27" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_mock_repositories_8hpp_1a56ede9e9b5c8a455575e388bdcdd582b" prot="public" static="no">
+        <type><ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelLeaveInfo</ref></type>
+        <definition>using MockObject::ChannelLeaveInfo = typedef Models::ChannelLeaveInfo</definition>
+        <argsstring></argsstring>
+        <name>ChannelLeaveInfo</name>
+        <qualifiedname>MockObject::ChannelLeaveInfo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="28" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_mock_repositories_8hpp_1a7eaa5037f81f103ba289b12a6d26c659" prot="public" static="no">
+        <type><ref refid="struct_models_1_1_channel_subscription_info" kindref="compound">Models::ChannelSubscriptionInfo</ref></type>
+        <definition>using MockObject::ChannelSubscriptionInfo = typedef Models::ChannelSubscriptionInfo</definition>
+        <argsstring></argsstring>
+        <name>ChannelSubscriptionInfo</name>
+        <qualifiedname>MockObject::ChannelSubscriptionInfo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="29" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="_mock_database_options_8hpp_1abbe0e4820db24cb409e28a53f6b6153a" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::string_view</type>
+        <definition>constexpr std::string_view MockObject::TestProperties</definition>
+        <argsstring></argsstring>
+        <name>TestProperties</name>
+        <qualifiedname>MockObject::TestProperties</qualifiedname>
+        <initializer>{
+	&quot;hostaddr=127.0.0.1 port=5432 dbname=mockdb user=tester&quot;
+}</initializer>
+        <briefdescription>
+<para>Mock properties for connecting to database. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockDatabaseOptions.hpp" line="10" column="28" bodyfile="DataAccess/DataAccess.Mock/MockDatabaseOptions.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="DataAccess/DataAccess.Mock/MockDatabase.hpp" line="9" column="1"/>
+  </compounddef>
+</doxygen>

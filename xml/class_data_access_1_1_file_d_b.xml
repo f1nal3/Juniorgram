@@ -1,0 +1,526 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_data_access_1_1_file_d_b" kind="class" language="C++" prot="public">
+    <compoundname>DataAccess::FileDB</compoundname>
+    <includes refid="_file_d_b_8hpp" local="no">FileDB.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_data_access_1_1_file_d_b_1a54d15271f9864436c21ba4e61b2b6b63" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string DataAccess::FileDB::_name</definition>
+        <argsstring></argsstring>
+        <name>_name</name>
+        <qualifiedname>DataAccess::FileDB::_name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Name of the database </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="124" column="17" bodyfile="DataAccess/DataAccess.Debug/FileDB.hpp" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_data_access_1_1_file_d_b_1a18e48aa10cb356913c139baf8a039b15" prot="private" static="no" mutable="no">
+        <type>std::filesystem::path</type>
+        <definition>std::filesystem::path DataAccess::FileDB::_path</definition>
+        <argsstring></argsstring>
+        <name>_path</name>
+        <qualifiedname>DataAccess::FileDB::_path</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Path to folder containing tables </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="129" column="27" bodyfile="DataAccess/DataAccess.Debug/FileDB.hpp" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_data_access_1_1_file_d_b_1aaf12fbf639298dd6b08521a53f364d89" prot="private" static="no" mutable="yes">
+        <type>std::mutex</type>
+        <definition>std::mutex DataAccess::FileDB::_mutex</definition>
+        <argsstring></argsstring>
+        <name>_mutex</name>
+        <qualifiedname>DataAccess::FileDB::_mutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Mutex used to protect class resources (both files and members) Needs to be mutable to use in const functions that can read files </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="135" column="24" bodyfile="DataAccess/DataAccess.Debug/FileDB.hpp" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_data_access_1_1_file_d_b_1a03e73a6c3d46d1736db71fd5c0bc8f3b" prot="private" static="no" mutable="no">
+        <type>std::map&lt; std::string, nlohmann::ordered_json &gt;</type>
+        <definition>std::map&lt;std::string, nlohmann::ordered_json&gt; DataAccess::FileDB::_tableProperties</definition>
+        <argsstring></argsstring>
+        <name>_tableProperties</name>
+        <qualifiedname>DataAccess::FileDB::_tableProperties</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Contains table names as keys and their layout with number of rows as values </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="140" column="14" bodyfile="DataAccess/DataAccess.Debug/FileDB.hpp" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_data_access_1_1_file_d_b_1a8d7d6db837d4d36c0ca36e66509b2957" prot="private" static="no" mutable="no">
+        <type>std::map&lt; std::string, nlohmann::ordered_json &gt;</type>
+        <definition>std::map&lt;std::string, nlohmann::ordered_json&gt; DataAccess::FileDB::_tableRowTemplates</definition>
+        <argsstring></argsstring>
+        <name>_tableRowTemplates</name>
+        <qualifiedname>DataAccess::FileDB::_tableRowTemplates</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Contains table names as keys and an empty JSON with fields preset to corresponding C++ types </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="145" column="14" bodyfile="DataAccess/DataAccess.Debug/FileDB.hpp" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_data_access_1_1_file_d_b_1a625a2398e2fa4120f1a78ee55836a832" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::FileDB::FileDB</definition>
+        <argsstring>(const std::string &amp;instanceName)</argsstring>
+        <name>FileDB</name>
+        <qualifiedname>DataAccess::FileDB::FileDB</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>instanceName</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="class_data_access_1_1_file_d_b" kindref="compound">FileDB</ref> constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Constructor looks for &quot;instanceName&quot; folder and loads existing tables, creates new folder otherwise <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Database</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>instance name as string </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="38" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_file_d_b_1a5a603e19f712434b977372de742b87b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::FileDB::~FileDB</definition>
+        <argsstring>()</argsstring>
+        <name>~FileDB</name>
+        <qualifiedname>DataAccess::FileDB::~FileDB</qualifiedname>
+        <briefdescription>
+<para><ref refid="class_data_access_1_1_file_d_b" kindref="compound">FileDB</ref> destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Removes database folder if database has no tables </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="43" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_file_d_b_1ab9f7afff8b23755e6c14a7713ff1287f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::FileDB::FileDB</definition>
+        <argsstring>(const FileDB &amp;)=delete</argsstring>
+        <name>FileDB</name>
+        <qualifiedname>DataAccess::FileDB::FileDB</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_file_d_b" kindref="compound">FileDB</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Prohibit copy operations </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="48" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_file_d_b_1a8be4f73b456c75cf67d81ede490afe50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_file_d_b" kindref="compound">FileDB</ref> &amp;</type>
+        <definition>FileDB &amp; DataAccess::FileDB::operator=</definition>
+        <argsstring>(const FileDB &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::FileDB::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_file_d_b" kindref="compound">FileDB</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="49" column="12"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_file_d_b_1a8cef037fd52f46514be3e3c5e0197538" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::FileDB::dropAllTables</definition>
+        <argsstring>()</argsstring>
+        <name>dropAllTables</name>
+        <qualifiedname>DataAccess::FileDB::dropAllTables</qualifiedname>
+        <briefdescription>
+<para>Database cleanup method. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Removes all tables from database </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="55" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_file_d_b_1adf86f7fe2ebdb6c0ee63fbbaf7368bb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::FileDB::insert</definition>
+        <argsstring>(const std::string &amp;tableName, const std::vector&lt; std::string &gt; &amp;columnData, const std::vector&lt; std::string &gt; &amp;columnNames={})</argsstring>
+        <name>insert</name>
+        <qualifiedname>DataAccess::FileDB::insert</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>tableName</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>columnData</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>columnNames</declname>
+          <defval>{}</defval>
+        </param>
+        <briefdescription>
+<para>Method for inserting new rows into tables. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Inserts &quot;columnData&quot; into &quot;columnNames&quot; of &quot;tableName&quot;. If &quot;columnNames&quot; were not provided, method tries to insert data in order of columns creation (oldest to newest) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Table</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name as &quot;tableName&quot; string, column data as vector of strings &quot;columnData&quot;, column names as vector of strings &quot;columnNames&quot; </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="63" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_file_d_b_1a4db314fc1ce651b9d614a4e762865914" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; nlohmann::ordered_json &gt;</type>
+        <definition>std::vector&lt; nlohmann::ordered_json &gt; DataAccess::FileDB::select</definition>
+        <argsstring>(const std::string &amp;tableName, std::function&lt; bool(const nlohmann::ordered_json &amp;)&gt; condition=[](const nlohmann::ordered_json &amp;){ return true;}) const</argsstring>
+        <name>select</name>
+        <qualifiedname>DataAccess::FileDB::select</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>tableName</declname>
+        </param>
+        <param>
+          <type>std::function&lt; bool(const nlohmann::ordered_json &amp;)&gt;</type>
+          <declname>condition</declname>
+          <defval>[](const nlohmann::ordered_json &amp;){ return true;}</defval>
+        </param>
+        <briefdescription>
+<para>Method for retrieving data that satisfies condition from a table. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Applies &quot;condition&quot; to all rows in &quot;tableName&quot; and returns rows for which &quot;condition&quot; returns true. Default argument will result in returning all rows <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Table</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name as &quot;tableName&quot; string, condition as function with bool(const nlohmann::json&amp;) signature </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="71" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_file_d_b_1a77cf5ed14f44c4ae75167e35a1b618d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::FileDB::update</definition>
+        <argsstring>(const std::string &amp;tableName, const std::vector&lt; std::string &gt; &amp;columnData, const std::vector&lt; std::string &gt; &amp;columnNames, std::function&lt; bool(const nlohmann::ordered_json &amp;)&gt; condition=[](const nlohmann::ordered_json &amp;){ return true;})</argsstring>
+        <name>update</name>
+        <qualifiedname>DataAccess::FileDB::update</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>tableName</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>columnData</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>columnNames</declname>
+        </param>
+        <param>
+          <type>std::function&lt; bool(const nlohmann::ordered_json &amp;)&gt;</type>
+          <declname>condition</declname>
+          <defval>[](const nlohmann::ordered_json &amp;){ return true;}</defval>
+        </param>
+        <briefdescription>
+<para>Method for updating rows that satisfy specified condition. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Applies &quot;condition&quot; to all rows in &quot;tableName&quot; and sets data to &quot;columnData&quot; in &quot;columnNames&quot; if &quot;condition&quot; returns true <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Table</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name as &quot;tableName&quot; string, column data as vector of strings &quot;columnData&quot;, column names as vector of strings &quot;columnNames&quot;, condition as function with bool(const nlohmann::json&amp;) signature </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="80" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_file_d_b_1aa6c434cbb3da5072b61a273cc4456d5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::FileDB::remove</definition>
+        <argsstring>(const std::string &amp;tableName, std::function&lt; bool(const nlohmann::ordered_json &amp;)&gt; condition=[](const nlohmann::ordered_json &amp;){ return true;})</argsstring>
+        <name>remove</name>
+        <qualifiedname>DataAccess::FileDB::remove</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>tableName</declname>
+        </param>
+        <param>
+          <type>std::function&lt; bool(const nlohmann::ordered_json &amp;)&gt;</type>
+          <declname>condition</declname>
+          <defval>[](const nlohmann::ordered_json &amp;){ return true;}</defval>
+        </param>
+        <briefdescription>
+<para>Method for removing rows that satisfy specified condition. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Applies &quot;condition&quot; to all rows in &quot;tableName&quot; and removes row for which &quot;condition&quot; returns true. Renumerates row files afterwards. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Table</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name as &quot;tableName&quot; string, condition as function with bool(const nlohmann::json&amp;) signature </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="89" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_file_d_b_1ae8057c78727ef9aee8efb4386bb24681" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::FileDB::addColumn</definition>
+        <argsstring>(const std::string &amp;tableName, const std::string &amp;columnName, const std::string &amp;columnType)</argsstring>
+        <name>addColumn</name>
+        <qualifiedname>DataAccess::FileDB::addColumn</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>tableName</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>columnName</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>columnType</declname>
+        </param>
+        <briefdescription>
+<para>Method for adding new columns to a table. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Creates new column with &quot;columnName&quot; name and &quot;columnType&quot; type <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Table</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name as &quot;tableName&quot; string, column name as &quot;columnName&quot; string&quot;, column type as &quot;columnType" </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="96" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_file_d_b_1aa11441ae0a4292600d2240712734f59d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::FileDB::removeColumn</definition>
+        <argsstring>(const std::string &amp;tableName, const std::string columnName)</argsstring>
+        <name>removeColumn</name>
+        <qualifiedname>DataAccess::FileDB::removeColumn</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>tableName</declname>
+        </param>
+        <param>
+          <type>const std::string</type>
+          <declname>columnName</declname>
+        </param>
+        <briefdescription>
+<para>Method for removing columns from a table. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Removes column with &quot;columnName&quot; name from specified table <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Table</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name as &quot;tableName&quot; string, column name as &quot;columnName&quot; string" </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="103" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_file_d_b_1ab83042c9e8dedf2636287b77719494f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::FileDB::createTable</definition>
+        <argsstring>(const std::string &amp;tableName, const std::vector&lt; std::string &gt; &amp;columnNames, const std::vector&lt; std::string &gt; &amp;columnTypes)</argsstring>
+        <name>createTable</name>
+        <qualifiedname>DataAccess::FileDB::createTable</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>tableName</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>columnNames</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; std::string &gt; &amp;</type>
+          <declname>columnTypes</declname>
+        </param>
+        <briefdescription>
+<para>Method for creating new tables. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Creates a new table with a name specified in &quot;tableName&quot;, column names specified in &quot;columnNames&quot;, column types specified in &quot;columntypes&quot; <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Table</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name as &quot;tableName&quot; string, column names as vector of strings &quot;columnNames&quot;, column types as vector of strings &quot;columnTypes&quot; </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="111" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_file_d_b_1a6bab04a52ccca7ed30b924070330902f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::FileDB::removeTable</definition>
+        <argsstring>(const std::string &amp;tableName)</argsstring>
+        <name>removeTable</name>
+        <qualifiedname>DataAccess::FileDB::removeTable</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>tableName</declname>
+        </param>
+        <briefdescription>
+<para>Method for removing tables. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Removes table with a name specified in &quot;tableName&quot; <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Table</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name as string </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="118" column="10"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_data_access_1_1_file_d_b_1a5fe7b507442fb57ab165401afeb58183" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::FileDB::renumerateRowFiles</definition>
+        <argsstring>(const std::string &amp;tableName) const</argsstring>
+        <name>renumerateRowFiles</name>
+        <qualifiedname>DataAccess::FileDB::renumerateRowFiles</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>tableName</declname>
+        </param>
+        <briefdescription>
+<para>Method for renumerating row files. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Renames row files, maintaining their order. Unsafe to call ouside non-locking methods since it doesn&apos;t lock any mutex <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Table</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name as string </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="153" column="10"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A simple file database for debugging. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Each database instance is constructed with a name as constructor&apos;s argument. This name is used as a name for working directory of database (subdirectory of executable&apos;s folder). Implementation provides no check for names already in use. Each table is stored in a subdirectory named after the table. Table directory contains &quot;properties.json&quot; file with column type information, and &quot;row_N.json&quot; files that store actual data. Database is thread-safe, but can only serve one thread at a time.</para>
+<para>@syntax Valid indentifier (instance/table/column name) can&apos;t start with a digit, and can only contain letters, digits and underscores (as in Postgre, but without &apos;$&apos;) Suppored types are : int, unsigned, bool, float and string. All numeric types are internally 64-bit by default. </para>
+    </detaileddescription>
+    <location file="DataAccess/DataAccess.Debug/FileDB.hpp" line="30" column="1" bodyfile="DataAccess/DataAccess.Debug/FileDB.hpp" bodystart="31" bodyend="154"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_file_d_b_1aaf12fbf639298dd6b08521a53f364d89" prot="private" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>_mutex</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1a54d15271f9864436c21ba4e61b2b6b63" prot="private" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>_name</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1a18e48aa10cb356913c139baf8a039b15" prot="private" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>_path</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1a03e73a6c3d46d1736db71fd5c0bc8f3b" prot="private" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>_tableProperties</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1a8d7d6db837d4d36c0ca36e66509b2957" prot="private" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>_tableRowTemplates</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1ae8057c78727ef9aee8efb4386bb24681" prot="public" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>addColumn</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1ab83042c9e8dedf2636287b77719494f8" prot="public" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>createTable</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1a8cef037fd52f46514be3e3c5e0197538" prot="public" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>dropAllTables</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1a625a2398e2fa4120f1a78ee55836a832" prot="public" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>FileDB</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1ab9f7afff8b23755e6c14a7713ff1287f" prot="public" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>FileDB</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1adf86f7fe2ebdb6c0ee63fbbaf7368bb9" prot="public" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>insert</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1a8be4f73b456c75cf67d81ede490afe50" prot="public" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1aa6c434cbb3da5072b61a273cc4456d5f" prot="public" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>remove</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1aa11441ae0a4292600d2240712734f59d" prot="public" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>removeColumn</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1a6bab04a52ccca7ed30b924070330902f" prot="public" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>removeTable</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1a5fe7b507442fb57ab165401afeb58183" prot="private" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>renumerateRowFiles</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1a4db314fc1ce651b9d614a4e762865914" prot="public" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>select</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1a77cf5ed14f44c4ae75167e35a1b618d0" prot="public" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>update</name></member>
+      <member refid="class_data_access_1_1_file_d_b_1a5a603e19f712434b977372de742b87b8" prot="public" virt="non-virtual"><scope>DataAccess::FileDB</scope><name>~FileDB</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_server_1_1_builder" kind="namespace" language="C++">
+    <compoundname>Server::Builder</compoundname>
+    <innerclass refid="struct_server_1_1_builder_1_1_param_type" prot="public">Server::Builder::ParamType</innerclass>
+    <innerclass refid="class_server_1_1_builder_1_1_server_builder" prot="public">Server::Builder::ServerBuilder</innerclass>
+    <innerclass refid="class_server_1_1_builder_1_1_settings" prot="public">Server::Builder::Settings</innerclass>
+    <innerclass refid="class_server_1_1_builder_1_1_settings_manager" prot="public">Server::Builder::SettingsManager</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Server/Server.Core/Server.Core.Static/Server.hpp" line="33" column="1"/>
+  </compounddef>
+</doxygen>

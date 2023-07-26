@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_0751806b607b4e026453f34d49394775" kind="dir">
+    <compoundname>DataAccess/Public/Include/DataAccess</compoundname>
+    <innerfile refid="_abstract_query_builder_8hpp">AbstractQueryBuilder.hpp</innerfile>
+    <innerfile refid="_abstract_repository_container_8hpp">AbstractRepositoryContainer.hpp</innerfile>
+    <innerfile refid="_abstract_repository_manager_8hpp">AbstractRepositoryManager.hpp</innerfile>
+    <innerfile refid="_future_result_8hpp">FutureResult.hpp</innerfile>
+    <innerfile refid="_i_adapter_8hpp">IAdapter.hpp</innerfile>
+    <innerfile refid="_i_client_repositories_8hpp">IClientRepositories.hpp</innerfile>
+    <innerfile refid="_i_master_repository_8hpp">IMasterRepository.hpp</innerfile>
+    <innerfile refid="_i_repository_8hpp">IRepository.hpp</innerfile>
+    <innerfile refid="_i_server_repositories_8hpp">IServerRepositories.hpp</innerfile>
+    <innerfile refid="_repository_request_8hpp">RepositoryRequest.hpp</innerfile>
+    <innerfile refid="_s_q_l_statements_8hpp">SQLStatements.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="DataAccess/Public/Include/DataAccess/"/>
+  </compounddef>
+</doxygen>

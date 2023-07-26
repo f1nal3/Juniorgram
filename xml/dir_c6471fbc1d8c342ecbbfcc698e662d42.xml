@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_c6471fbc1d8c342ecbbfcc698e662d42" kind="dir">
+    <compoundname>DataAccess/Public</compoundname>
+    <innerdir refid="dir_54234ad60ed639a4c5f264362eafcffb">DataAccess/Public/Include</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="DataAccess/Public/"/>
+  </compounddef>
+</doxygen>

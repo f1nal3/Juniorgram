@@ -1,0 +1,340 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_data_access_1_1_messages_repository" kind="struct" language="C++" prot="public" final="yes">
+    <compoundname>DataAccess::MessagesRepository</compoundname>
+    <basecompoundref refid="struct_data_access_1_1_i_messages_repository" prot="public" virt="non-virtual">DataAccess::IMessagesRepository</basecompoundref>
+    <basecompoundref refid="struct_data_access_1_1_abstract_postgre_repository" prot="public" virt="non-virtual">DataAccess::AbstractPostgreRepository</basecompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_data_access_1_1_messages_repository_1ab97a2ba90502fb4a7426a67d43fd9a56" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::MessagesRepository::MessagesRepository</definition>
+        <argsstring>(const std::shared_ptr&lt; IAdapter &gt; &amp;adapter)</argsstring>
+        <name>MessagesRepository</name>
+        <qualifiedname>DataAccess::MessagesRepository::MessagesRepository</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt; &amp;</type>
+          <declname>adapter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="72" column="14" bodyfile="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" bodystart="72" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_messages_repository_1a758b43576469ae4f54abc034a655e2b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::vector&lt; <ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref> &gt;</type>
+        <definition>std::vector&lt; Models::MessageInfo &gt; DataAccess::MessagesRepository::getMessageHistory</definition>
+        <argsstring>(const std::uint64_t channelID) override</argsstring>
+        <name>getMessageHistory</name>
+        <qualifiedname>DataAccess::MessagesRepository::getMessageHistory</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_messages_repository_1a6082364cbb8ff63a96b43468ec650676">getMessageHistory</reimplements>
+        <param>
+          <type>const std::uint64_t</type>
+          <declname>channelID</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for getting history. /. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>channelID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- channel&apos;s id from which we want to get message history. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>List of messages as vector of MessageInfo. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="77" column="23"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_messages_repository_1a8e02ece233133f7f90b7f2956f2e24e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::StoringMessageCodes</type>
+        <definition>Utility::StoringMessageCodes DataAccess::MessagesRepository::storeMessage</definition>
+        <argsstring>(const Models::MessageInfo &amp;messageInfo) override</argsstring>
+        <name>storeMessage</name>
+        <qualifiedname>DataAccess::MessagesRepository::storeMessage</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_messages_repository_1a095da3f629d3af9e728ad934e3591c62">storeMessage</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref> &amp;</type>
+          <declname>messageInfo</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for storing message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Network::MessageInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>which contains message&apos;s data for storing in repository. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The return value of the method is one of the StoringMessageCodes (enum): <linebreak/>
+Storing successful - StoringMessageCodes::SUCCESS. <linebreak/>
+Storing failed - StoringMessageCodes::FAILED. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="78" column="44"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_messages_repository_1a33db313fa44b25588fb01549b3339247" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::DeletingMessageCodes</type>
+        <definition>Utility::DeletingMessageCodes DataAccess::MessagesRepository::deleteMessage</definition>
+        <argsstring>(const Models::MessageInfo &amp;messageInfo) override</argsstring>
+        <name>deleteMessage</name>
+        <qualifiedname>DataAccess::MessagesRepository::deleteMessage</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_messages_repository_1a12b91f71dc1e67559dfe2f3c3dab9825">deleteMessage</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref> &amp;</type>
+          <declname>messageInfo</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for deleting message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>messageInfo.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The return value of the method is one of the StoringMessageCodes (enum): <linebreak/>
+Deleting successful - StoringMessageCodes::SUCCESS. <linebreak/>
+Deleting failed - StoringMessageCodes::FAILED. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="79" column="44"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_messages_repository_1a8f4861e1f2a3630e830bbc2bc4357fc1" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::EditingMessageCodes</type>
+        <definition>Utility::EditingMessageCodes DataAccess::MessagesRepository::editMessage</definition>
+        <argsstring>(const Models::MessageInfo &amp;messageInfo) override</argsstring>
+        <name>editMessage</name>
+        <qualifiedname>DataAccess::MessagesRepository::editMessage</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_messages_repository_1a7fc72c43885c8bd1daa662f039125234">editMessage</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref> &amp;</type>
+          <declname>messageInfo</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for editing message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>emi</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>as MessageInfo which contains message&apos;s data. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The return value of the method is one of the StoringMessageCodes (enum): <linebreak/>
+Editing successful - StoringMessageCodes::SUCCESS. <linebreak/>
+Editing failed - StoringMessageCodes::FAILED. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="80" column="44"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_messages_repository_1a8f9bcce576a67b87149123742dc053bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::ReactionMessageCodes</type>
+        <definition>Utility::ReactionMessageCodes DataAccess::MessagesRepository::updateMessageReactions</definition>
+        <argsstring>(const Models::MessageInfo &amp;messageInfo) override</argsstring>
+        <name>updateMessageReactions</name>
+        <qualifiedname>DataAccess::MessagesRepository::updateMessageReactions</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_messages_repository_1a36ed0a5d818ff5d7887402587cc72502">updateMessageReactions</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref> &amp;</type>
+          <declname>messageInfo</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for updating message reactions. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Network::MessageInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>which contains message&apos;s reaction map(id, count) with changed reaction count set to uint32_t max </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The return value of the method is one of the ReactionMessageCodes (enum): <linebreak/>
+Update successful - ReactionMessageCodes::SUCCESS. <linebreak/>
+Update failed - ReactionMessageCodes::FAILED. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="81" column="44"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_messages_repository_1a6abce1577f451db8e9663d33d54053a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::MessagesRepository::~MessagesRepository</definition>
+        <argsstring>() override=default</argsstring>
+        <name>~MessagesRepository</name>
+        <qualifiedname>DataAccess::MessagesRepository::~MessagesRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="83" column="5"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="struct_data_access_1_1_messages_repository_1a24263155dd032d2ac7ea9b1fa1406d54" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::optional&lt; pqxx::result &gt;</type>
+        <definition>std::optional&lt; pqxx::result &gt; DataAccess::MessagesRepository::insertMessageIntoMessagesTable</definition>
+        <argsstring>(const Models::MessageInfo &amp;messageInfo)</argsstring>
+        <name>insertMessageIntoMessagesTable</name>
+        <qualifiedname>DataAccess::MessagesRepository::insertMessageIntoMessagesTable</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref> &amp;</type>
+          <declname>messageInfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="86" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_messages_repository_1a3b40853a779cd8944fdfafe0bfa52cfb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::optional&lt; pqxx::result &gt;</type>
+        <definition>std::optional&lt; pqxx::result &gt; DataAccess::MessagesRepository::insertIDsIntoChannelMessagesTable</definition>
+        <argsstring>(const std::uint64_t channelID, const std::uint64_t messageID)</argsstring>
+        <name>insertIDsIntoChannelMessagesTable</name>
+        <qualifiedname>DataAccess::MessagesRepository::insertIDsIntoChannelMessagesTable</qualifiedname>
+        <param>
+          <type>const std::uint64_t</type>
+          <declname>channelID</declname>
+        </param>
+        <param>
+          <type>const std::uint64_t</type>
+          <declname>messageID</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="87" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_messages_repository_1a01c567d328771d1f0ae55ed2b2e29826" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::optional&lt; pqxx::result &gt;</type>
+        <definition>std::optional&lt; pqxx::result &gt; DataAccess::MessagesRepository::insertIDIntoMessageReactionsTable</definition>
+        <argsstring>(const std::uint64_t messageID)</argsstring>
+        <name>insertIDIntoMessageReactionsTable</name>
+        <qualifiedname>DataAccess::MessagesRepository::insertIDIntoMessageReactionsTable</qualifiedname>
+        <param>
+          <type>const std::uint64_t</type>
+          <declname>messageID</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="88" column="19"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>DataAccess::AbstractPostgreRepository</label>
+        <link refid="struct_data_access_1_1_abstract_postgre_repository"/>
+      </node>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="2">
+        <label>DataAccess::IMessagesRepository</label>
+        <link refid="struct_data_access_1_1_i_messages_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>DataAccess::MessagesRepository</label>
+        <link refid="struct_data_access_1_1_messages_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>DataAccess::AbstractPostgreRepository</label>
+        <link refid="struct_data_access_1_1_abstract_postgre_repository"/>
+      </node>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="2">
+        <label>DataAccess::IMessagesRepository</label>
+        <link refid="struct_data_access_1_1_i_messages_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>DataAccess::MessagesRepository</label>
+        <link refid="struct_data_access_1_1_messages_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="70" column="1" bodyfile="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" bodystart="71" bodyend="89"/>
+    <listofallmembers>
+      <member refid="struct_data_access_1_1_abstract_postgre_repository_1a1d33ed6bc3a61773bdf111b1bc5bc772" prot="protected" virt="non-virtual"><scope>DataAccess::MessagesRepository</scope><name>_filler</name></member>
+      <member refid="struct_data_access_1_1_abstract_postgre_repository_1ad83909ce308fd3f8c006fe341247f86e" prot="protected" virt="non-virtual"><scope>DataAccess::MessagesRepository</scope><name>_pTable</name></member>
+      <member refid="struct_data_access_1_1_abstract_postgre_repository_1a8629dc8a2dd6eaaa2de3f635a030e23f" prot="public" virt="non-virtual"><scope>DataAccess::MessagesRepository</scope><name>AbstractPostgreRepository</name></member>
+      <member refid="struct_data_access_1_1_messages_repository_1a33db313fa44b25588fb01549b3339247" prot="public" virt="virtual"><scope>DataAccess::MessagesRepository</scope><name>deleteMessage</name></member>
+      <member refid="struct_data_access_1_1_messages_repository_1a8f4861e1f2a3630e830bbc2bc4357fc1" prot="public" virt="virtual"><scope>DataAccess::MessagesRepository</scope><name>editMessage</name></member>
+      <member refid="struct_data_access_1_1_messages_repository_1a758b43576469ae4f54abc034a655e2b0" prot="public" virt="virtual"><scope>DataAccess::MessagesRepository</scope><name>getMessageHistory</name></member>
+      <member refid="struct_data_access_1_1_messages_repository_1a01c567d328771d1f0ae55ed2b2e29826" prot="private" virt="non-virtual"><scope>DataAccess::MessagesRepository</scope><name>insertIDIntoMessageReactionsTable</name></member>
+      <member refid="struct_data_access_1_1_messages_repository_1a3b40853a779cd8944fdfafe0bfa52cfb" prot="private" virt="non-virtual"><scope>DataAccess::MessagesRepository</scope><name>insertIDsIntoChannelMessagesTable</name></member>
+      <member refid="struct_data_access_1_1_messages_repository_1a24263155dd032d2ac7ea9b1fa1406d54" prot="private" virt="non-virtual"><scope>DataAccess::MessagesRepository</scope><name>insertMessageIntoMessagesTable</name></member>
+      <member refid="struct_data_access_1_1_messages_repository_1ab97a2ba90502fb4a7426a67d43fd9a56" prot="public" virt="non-virtual"><scope>DataAccess::MessagesRepository</scope><name>MessagesRepository</name></member>
+      <member refid="struct_data_access_1_1_messages_repository_1a8e02ece233133f7f90b7f2956f2e24e4" prot="public" virt="virtual"><scope>DataAccess::MessagesRepository</scope><name>storeMessage</name></member>
+      <member refid="struct_data_access_1_1_messages_repository_1a8f9bcce576a67b87149123742dc053bb" prot="public" virt="virtual"><scope>DataAccess::MessagesRepository</scope><name>updateMessageReactions</name></member>
+      <member refid="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" prot="public" virt="virtual"><scope>DataAccess::MessagesRepository</scope><name>~IMasterRepository</name></member>
+      <member refid="struct_data_access_1_1_i_messages_repository_1a18bdd2e309cb9d005b339706a7af6b8f" prot="public" virt="virtual"><scope>DataAccess::MessagesRepository</scope><name>~IMessagesRepository</name></member>
+      <member refid="struct_data_access_1_1_messages_repository_1a6abce1577f451db8e9663d33d54053a6" prot="public" virt="non-virtual"><scope>DataAccess::MessagesRepository</scope><name>~MessagesRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

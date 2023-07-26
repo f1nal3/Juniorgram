@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="md__docs_2_server_tests_start_up" kind="page">
+    <compoundname>md__docs_2_server_tests_start_up</compoundname>
+    <title>Server integration testing</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md__docs_2_server_tests_start_up_1autotoc_md32"/> </para>
+<sect2 id="md__docs_2_server_tests_start_up_1autotoc_md33">
+<title>Introduction:</title>
+<para>The basic idea of testing is to test the functionality of the object under test.</para>
+<para>There are a sufficient number of types of testing, such as unit tests, integration tests, functional tests, and so on.</para>
+</sect2>
+<sect2 id="md__docs_2_server_tests_start_up_1autotoc_md34">
+<title>The main rule when writing tests:</title>
+<para><emphasis>Write tests for functionality, not write functionality for tests. Don&apos;t forget this.</emphasis></para>
+</sect2>
+<sect2 id="md__docs_2_server_tests_start_up_1autotoc_md35">
+<title>The example we&apos;re looking at is integration testing of a server.</title>
+<para>Integration testing is a type of testing where software modules are combined logically and tested as a group. In our case the group is: server, client, database.</para>
+<para><image type="html" name="ServerTestModules.svg">Server Test Modules</image>
+ <image type="latex" name="ServerTestModules.svg">Server Test Modules</image>
+ <image type="rtf" name="ServerTestModules.svg">Server Test Modules</image>
+ <image type="docbook" name="ServerTestModules.svg">Server Test Modules</image>
+ <image type="xml" name="ServerTestModules.svg">Server Test Modules</image>
+</para>
+<para>As shown in the graph the modules are interconnected. In fact: we have to test their interconnection.</para>
+<para>It is too resource consuming to use &quot;full&quot; objects, that&apos;s why mocs come to the rescue.</para>
+</sect2>
+<sect2 id="md__docs_2_server_tests_start_up_1autotoc_md36">
+<title>Mock object:</title>
+<para>Mock is &quot;parody&quot; , &quot;imitation&quot;. Creating a mock-object is a simplified analog of the object under test. The object has the necessary functionality to be tested, as well as being a simplified version of itself.</para>
+<para>By creating mock objects, you reduce the complexity of the object itself and also simplify testing.</para>
+</sect2>
+<sect2 id="md__docs_2_server_tests_start_up_1autotoc_md37">
+<title>Preparing for testing:</title>
+<para><itemizedlist>
+<listitem><para>First, you need to connect to the mock database. The <ulink url="https://github.com/f1nal3/Juniorgram/blob/dev/Server/Server.Test/Utilities/TestUtility.hpp">TestUtility.hpp file</ulink> has a getTestDatabase() method to initialize the database and work with it further.</para>
+</listitem><listitem><para>Connect the test client to the ip address of your server in the <ulink url="https://github.com/f1nal3/Juniorgram/blob/dev/Client/Client.TestObject/TestServerInfo.hpp">TestServerInfo.hpp</ulink> file.</para>
+</listitem><listitem><para>Make sure that your client connects to the server.</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="md__docs_2_server_tests_start_up_1autotoc_md38">
+<title>Testing:</title>
+<para>Testing takes place as follows:</para>
+<para><image type="html" name="SequenceOfTesting.svg">Sequence of Server Testing</image>
+ <image type="latex" name="SequenceOfTesting.svg">Sequence of Server Testing</image>
+ <image type="rtf" name="SequenceOfTesting.svg">Sequence of Server Testing</image>
+ <image type="docbook" name="SequenceOfTesting.svg">Sequence of Server Testing</image>
+ <image type="xml" name="SequenceOfTesting.svg">Sequence of Server Testing</image>
+</para>
+<para>Test Order:<itemizedlist>
+<listitem><para>The client sends a message to the server.</para>
+</listitem><listitem><para>The server processes the message coming from the client side.</para>
+</listitem><listitem><para>The server sends the message to the database to check the data for correctness and subsequent data storage.</para>
+</listitem><listitem><para>The server generates a response to the client.</para>
+</listitem><listitem><para>The client receives and gives its response to the message.</para>
+</listitem></itemizedlist>
+</para>
+<para>The task of the tests is to check the correctness of the routing of data packets from the client to the server side, as well as their further processing in the mock database. </para>
+</sect2>
+    </detaileddescription>
+    <location file="Docs/ServerTestsStartUp.md"/>
+  </compounddef>
+</doxygen>

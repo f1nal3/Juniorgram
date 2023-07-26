@@ -1,0 +1,291 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_mock_object_1_1_mock_query_builder" kind="class" language="C++" prot="public">
+    <compoundname>MockObject::MockQueryBuilder</compoundname>
+    <derivedcompoundref refid="class_mock_object_1_1_mock_query" prot="public" virt="non-virtual">MockObject::MockQuery</derivedcompoundref>
+    <includes refid="_mock_query_builder_8hpp" local="no">MockQueryBuilder.hpp</includes>
+    <templateparamlist>
+      <param>
+        <type>typename QueryType</type>
+        <defval><ref refid="struct_mock_object_1_1_mock_repository_storage" kindref="compound">MockRepositoryStorage</ref></defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_mock_object_1_1_mock_query_builder_1a588b8a7df65228e8ab1344bf7bd3364b" prot="private" static="yes" mutable="no">
+        <type><ref refid="struct_mock_object_1_1_mock_repository_storage" kindref="compound">MockRepositoryStorage</ref></type>
+        <definition>MockRepositoryStorage MockObject::MockQueryBuilder&lt; QueryType &gt;::_storage</definition>
+        <argsstring></argsstring>
+        <name>_storage</name>
+        <qualifiedname>MockObject::MockQueryBuilder::_storage</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" line="68" column="41" bodyfile="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_mock_object_1_1_mock_query_builder_1a4501895557657c4f819fe2c19a3138cd" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;IAdapter&gt; MockObject::MockQueryBuilder&lt; QueryType &gt;::_adapter</definition>
+        <argsstring></argsstring>
+        <name>_adapter</name>
+        <qualifiedname>MockObject::MockQueryBuilder::_adapter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" line="70" column="21" bodyfile="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_mock_object_1_1_mock_query_builder_1a6be2e9da1ac105718ec0e6bf744ac5e4" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MockObject::MockQueryBuilder&lt; QueryType &gt;::_tableName</definition>
+        <argsstring></argsstring>
+        <name>_tableName</name>
+        <qualifiedname>MockObject::MockQueryBuilder::_tableName</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" line="71" column="31" bodyfile="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_mock_object_1_1_mock_query_builder_1ac7d7e35262bf8d747feb8b07aeca30fb" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string MockObject::MockQueryBuilder&lt; QueryType &gt;::_databaseType</definition>
+        <argsstring></argsstring>
+        <name>_databaseType</name>
+        <qualifiedname>MockObject::MockQueryBuilder::_databaseType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" line="72" column="31" bodyfile="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_mock_object_1_1_mock_query_builder_1a73cba586521aed641ebce6936767be5e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockQueryBuilder&lt; QueryType &gt;::MockQueryBuilder</definition>
+        <argsstring>()=delete</argsstring>
+        <name>MockQueryBuilder</name>
+        <qualifiedname>MockObject::MockQueryBuilder::MockQueryBuilder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" line="24" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mock_object_1_1_mock_query_builder_1aee4080dc71c32cf9ca7b8fa7413f00e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual MockObject::MockQueryBuilder&lt; QueryType &gt;::~MockQueryBuilder</definition>
+        <argsstring>()=default</argsstring>
+        <name>~MockQueryBuilder</name>
+        <qualifiedname>MockObject::MockQueryBuilder::~MockQueryBuilder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" line="25" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mock_object_1_1_mock_query_builder_1af49df5b28dc648f683e17f060eb89256" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockQueryBuilder&lt; QueryType &gt;::MockQueryBuilder</definition>
+        <argsstring>(std::shared_ptr&lt; IAdapter &gt; adapter, const std::string &amp;type, const std::string &amp;tableName)</argsstring>
+        <name>MockQueryBuilder</name>
+        <qualifiedname>MockObject::MockQueryBuilder::MockQueryBuilder</qualifiedname>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt;</type>
+          <declname>adapter</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>tableName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" line="27" column="5" bodyfile="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" bodystart="27" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mock_object_1_1_mock_query_builder_1a57c39aa5db60f341b8e1c4c614e69403" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockQueryBuilder&lt; QueryType &gt;::MockQueryBuilder</definition>
+        <argsstring>(const MockQueryBuilder &amp;other)=delete</argsstring>
+        <name>MockQueryBuilder</name>
+        <qualifiedname>MockObject::MockQueryBuilder::MockQueryBuilder</qualifiedname>
+        <param>
+          <type>const <ref refid="class_mock_object_1_1_mock_query_builder" kindref="compound">MockQueryBuilder</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" line="30" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mock_object_1_1_mock_query_builder_1a01b9973a7a784c95920bf02a4a966652" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockQueryBuilder&lt; QueryType &gt;::MockQueryBuilder</definition>
+        <argsstring>(MockQueryBuilder &amp;&amp;other)=delete</argsstring>
+        <name>MockQueryBuilder</name>
+        <qualifiedname>MockObject::MockQueryBuilder::MockQueryBuilder</qualifiedname>
+        <param>
+          <type><ref refid="class_mock_object_1_1_mock_query_builder" kindref="compound">MockQueryBuilder</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" line="31" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mock_object_1_1_mock_query_builder_1a1a0faa63756e81147214f1a730091790" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="class_mock_object_1_1_mock_query_builder" kindref="compound">MockQueryBuilder</ref> &amp;</type>
+        <definition>MockQueryBuilder &amp; MockObject::MockQueryBuilder&lt; QueryType &gt;::operator=</definition>
+        <argsstring>(const MockQueryBuilder &amp;other) noexcept=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>MockObject::MockQueryBuilder::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="class_mock_object_1_1_mock_query_builder" kindref="compound">MockQueryBuilder</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" line="33" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mock_object_1_1_mock_query_builder_1a62a7d8055a9b571dc000462a139f1fd7" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type><ref refid="class_mock_object_1_1_mock_query_builder" kindref="compound">MockQueryBuilder</ref> &amp;</type>
+        <definition>MockQueryBuilder &amp; MockObject::MockQueryBuilder&lt; QueryType &gt;::operator=</definition>
+        <argsstring>(MockQueryBuilder &amp;&amp;other) noexcept=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>MockObject::MockQueryBuilder::operator=</qualifiedname>
+        <param>
+          <type><ref refid="class_mock_object_1_1_mock_query_builder" kindref="compound">MockQueryBuilder</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" line="34" column="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mock_object_1_1_mock_query_builder_1af16283c15bd6540fc61c6cc35bcc2b68" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::any</type>
+        <definition>std::any MockObject::MockQueryBuilder&lt; QueryType &gt;::SelectRepoAndQueryPush</definition>
+        <argsstring>(const std::string_view repoName, std::any table, const std::any &amp;repoInfo) const</argsstring>
+        <name>SelectRepoAndQueryPush</name>
+        <qualifiedname>MockObject::MockQueryBuilder::SelectRepoAndQueryPush</qualifiedname>
+        <param>
+          <type>const std::string_view</type>
+          <declname>repoName</declname>
+        </param>
+        <param>
+          <type>std::any</type>
+          <declname>table</declname>
+        </param>
+        <param>
+          <type>const std::any &amp;</type>
+          <declname>repoInfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" line="36" column="14" bodyfile="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" bodystart="36" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mock_object_1_1_mock_query_builder_1ad0d2da9398358f0c0391fc74d4e9d5a8" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt; &amp;</type>
+        <definition>std::shared_ptr&lt; IAdapter &gt; &amp; MockObject::MockQueryBuilder&lt; QueryType &gt;::getAdapter</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>getAdapter</name>
+        <qualifiedname>MockObject::MockQueryBuilder::getAdapter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" line="63" column="22" bodyfile="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" bodystart="63" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="class_mock_object_1_1_mock_query_builder_1a7791e8bd0929f230e57953278fa93c7b" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="struct_mock_object_1_1_mock_repository_storage" kindref="compound">MockRepositoryStorage</ref> &amp;</type>
+        <definition>MockRepositoryStorage &amp; MockObject::MockQueryBuilder&lt; QueryType &gt;::getStorage</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>getStorage</name>
+        <qualifiedname>MockObject::MockQueryBuilder::getStorage</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" line="65" column="28" bodyfile="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" bodystart="65" bodyend="65"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="class_mock_object_1_1_mock_query_builder" kindref="compound">MockQueryBuilder</ref> class. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This class is designed to manage requests coming from repositories. The SelectRepoAndQueryPush method checks for the correct repository data table and / adds it for storage (database table emulation), / as well as the data can be taken from the table. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>MockObject::MockQuery&lt; MockRepositoryInstance &gt;</label>
+        <link refid="class_mock_object_1_1_mock_query"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>MockObject::MockQueryBuilder&lt; QueryType &gt;</label>
+        <link refid="class_mock_object_1_1_mock_query_builder"/>
+      </node>
+    </inheritancegraph>
+    <location file="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" line="21" column="1" bodyfile="DataAccess/DataAccess.Mock/MockQueryBuilder.hpp" bodystart="22" bodyend="73"/>
+    <listofallmembers>
+      <member refid="class_mock_object_1_1_mock_query_builder_1a4501895557657c4f819fe2c19a3138cd" prot="private" virt="non-virtual"><scope>MockObject::MockQueryBuilder</scope><name>_adapter</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1ac7d7e35262bf8d747feb8b07aeca30fb" prot="private" virt="non-virtual"><scope>MockObject::MockQueryBuilder</scope><name>_databaseType</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1a588b8a7df65228e8ab1344bf7bd3364b" prot="private" virt="non-virtual"><scope>MockObject::MockQueryBuilder</scope><name>_storage</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1a6be2e9da1ac105718ec0e6bf744ac5e4" prot="private" virt="non-virtual"><scope>MockObject::MockQueryBuilder</scope><name>_tableName</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1ad0d2da9398358f0c0391fc74d4e9d5a8" prot="public" virt="non-virtual"><scope>MockObject::MockQueryBuilder</scope><name>getAdapter</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1a7791e8bd0929f230e57953278fa93c7b" prot="public" virt="non-virtual"><scope>MockObject::MockQueryBuilder</scope><name>getStorage</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1a73cba586521aed641ebce6936767be5e" prot="public" virt="non-virtual"><scope>MockObject::MockQueryBuilder</scope><name>MockQueryBuilder</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1af49df5b28dc648f683e17f060eb89256" prot="public" virt="non-virtual"><scope>MockObject::MockQueryBuilder</scope><name>MockQueryBuilder</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1a57c39aa5db60f341b8e1c4c614e69403" prot="public" virt="non-virtual"><scope>MockObject::MockQueryBuilder</scope><name>MockQueryBuilder</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1a01b9973a7a784c95920bf02a4a966652" prot="public" virt="non-virtual"><scope>MockObject::MockQueryBuilder</scope><name>MockQueryBuilder</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1a1a0faa63756e81147214f1a730091790" prot="public" virt="non-virtual"><scope>MockObject::MockQueryBuilder</scope><name>operator=</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1a62a7d8055a9b571dc000462a139f1fd7" prot="public" virt="non-virtual"><scope>MockObject::MockQueryBuilder</scope><name>operator=</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1af16283c15bd6540fc61c6cc35bcc2b68" prot="public" virt="non-virtual"><scope>MockObject::MockQueryBuilder</scope><name>SelectRepoAndQueryPush</name></member>
+      <member refid="class_mock_object_1_1_mock_query_builder_1aee4080dc71c32cf9ca7b8fa7413f00e8" prot="public" virt="virtual"><scope>MockObject::MockQueryBuilder</scope><name>~MockQueryBuilder</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

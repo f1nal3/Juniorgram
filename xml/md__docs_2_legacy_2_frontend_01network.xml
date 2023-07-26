@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="md__docs_2_legacy_2_frontend_01network" kind="page">
+    <compoundname>md__docs_2_legacy_2_frontend_01network</compoundname>
+    <title>Description of several classes:</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md__docs_2_legacy_2_frontend_01network_1autotoc_md17"/> </para>
+<sect1 id="md__docs_2_legacy_2_frontend_01network_1autotoc_md18">
+<title>Connection</title>
+<sect3 id="md__docs_2_legacy_2_frontend_01network_1autotoc_md19">
+<title>Attributes:</title>
+<para><hruler/>
+</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal">OwnerType<sp/>mOwner<sp/>=<sp/>OwnerType::SERVER<sp/></highlight></codeline>
+</programlisting> the &quot;owner&quot; decides how some of the connection behaves.</para>
+<para><hruler/>
+</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal">++</highlight></codeline>
+<codeline><highlight class="normal">uint64_t<sp/>mID<sp/>=<sp/>uint64_t()</highlight></codeline>
+</programlisting> connection ID.</para>
+<para><hruler/>
+</para>
+<para><programlisting><codeline><highlight class="normal">asio::ip::tcp::socket<sp/>mSocket<sp/></highlight></codeline>
+</programlisting> Each connection has a unique socket to a remote.</para>
+<para><hruler/>
+</para>
+<para>asio::io_context&amp; mContextLink - this context is shared with the whole asio instance.</para>
+<para><hruler/>
+</para>
+<para>SafeQueue&lt;Message&gt;&amp; mIncomingMessagesQueueLink - this references the incoming queue of the parent object.</para>
+<para><hruler/>
+</para>
+<para>SafeQueue&lt;Message&gt; mOutcomingMessagesQueue - this queue holds all messages to be sent to the remote side of this connection.</para>
+<para><hruler/>
+</para>
+<para>Message mMessageBuffer - incoming messages are constructed asynchronously, so we will store the part assembled message here, until it is ready</para>
+</sect3>
+<sect2 id="md__docs_2_legacy_2_frontend_01network_1autotoc_md20">
+<title>Methods:</title>
+<para><hruler/>
+</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>writeHeader()<sp/></highlight></codeline>
+</programlisting> this func. suggests that we have messages we want to send. And we use the function asio::async_write(mSocket, asio::buffer(&amp;mOutcomingMessagesQueue.front().mHeader, sizeof(Message::MessageHeader)) to write the header of the message to the socket.</para>
+<para>if the writing header to the socket failed, we display an error message - &quot;[&lt;clientID&gt; ] Write Header Fail.&quot; Otherwise, we try to write the body of the message if it is not empty. If it is empty, then we remove the current message from the message queue to send and take the following header from queue and then write the body.</para>
+<para><hruler/>
+</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>writeBody()<sp/></highlight></codeline>
+</programlisting> if the writing body to the socket failed, we display an error message - &quot;[&lt;clientID&gt; ] Write Body Fail.&quot; Otherwise, we remove the message from queue using mOutcomingMessagesQueue.pop_front(), and if queue isn&apos;t empty - try to write the header of the message.</para>
+<para><hruler/>
+</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>readHeader()<sp/></highlight></codeline>
+</programlisting> using this func we are getting header from socket. If it possible - further we resize the messages body vector and call ReadBody(). Otherwise, we have header.size &lt;= 0 and add the bodyless message to the connections incoming message queue. if reading body from socket failed, we display an error message - &quot;[&lt;clientID&gt; ] Read Header Fail.&quot;</para>
+<para><hruler/>
+</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>readBody()</highlight></codeline>
+</programlisting> If this function is called, a header has been read, and that header request we read a body, The space for that body has already been allocated in the temporary message object, so just wait for the bytes to arrive. Next we call AddToIncomingMessageQueue() for adding message in queue. If we can&apos;t read the body from the socket we display an error message - &quot;[&lt;clientID&gt; ] Read Body Fail.&quot;</para>
+<para><hruler/>
+</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>addToIncomingMessageQueue()<sp/></highlight></codeline>
+</programlisting> once a full message is received, add it to the incoming queue. Shove it in queue, converting it to an &quot;owned message&quot;, by initializing with the a shared pointer from this connection object for <ref refid="class_server" kindref="compound">Server</ref> side and without shared pointer from this for Client side. Next we call ReadHeader() to read other messages.</para>
+<para><hruler/>
+</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal">Connection(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>OwnerType&amp;<sp/>owner,<sp/>asio::io_context&amp;<sp/>contextLink,<sp/>asio::ip::tcp::socket<sp/>socket,<sp/>SafeQueue&lt;Message&gt;&amp;<sp/>incomingMessagesQueueLink)</highlight></codeline>
+</programlisting> specify owner, connect to context, transfer the socket provide reference to incoming message queue.</para>
+<para><hruler/>
+</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint64_t&amp;<sp/>getID()<sp/>const<sp/></highlight></codeline>
+</programlisting> this ID is used system wide - its how clients will understand other clients whole system.</para>
+<para><hruler/>
+</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>connectToClient(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint64_t&amp;<sp/>uid<sp/>=<sp/>uint64_t())<sp/></highlight></codeline>
+</programlisting> this func allows only <ref refid="class_server" kindref="compound">Server</ref> side connect to other Clients.</para>
+<para><hruler/>
+</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>connectToServer(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>asio::ip::tcp::resolver::results_type&amp;<sp/>endpoint)<sp/></highlight></codeline>
+</programlisting> only clients can connect to servers. And make a request asio attempts to connect to an endpoint.</para>
+<para><hruler/>
+</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>disconnect()<sp/></highlight></codeline>
+</programlisting> check if we have connection with smb/smth. If we have connection we call asio::post, because the current context is holding locks and you want the function to be called after they have been released. This would allow the function to acquire those locks itself without causing a deadlock.</para>
+<para><hruler/>
+</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>isConnected()<sp/>const<sp/></highlight></codeline>
+</programlisting> check if current socket is open.</para>
+<para><hruler/>
+</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>send(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Message&amp;<sp/>message)<sp/></highlight></codeline>
+</programlisting> send a message, connections are one-to-one so no need to specifiy the target, for a Client, the target is the <ref refid="class_server" kindref="compound">Server</ref> and vice versa.</para>
+<para>If the queue has a message in it, then we must assume that it is in the process of asynchronously being written. Either way add the message to the queue to be output. If no messages were available to be written, then start the process of writing the message at the front of the queue.</para>
+</sect2>
+</sect1>
+<sect1 id="md__docs_2_legacy_2_frontend_01network_1autotoc_md21">
+<title>Message</title>
+<sect2 id="md__docs_2_legacy_2_frontend_01network_1autotoc_md22">
+<title>Attributes:</title>
+<para>std::shared_ptr&lt;Connection&gt; mRemote = nullptr - on a server, the owner would be the client that sent the message, on a client the owner would be the server.</para>
+<para>MessageHeader mHeader - header of the message.</para>
+<para>std::vector&lt;uint8_t&gt; mBody - contain a raw bytes information. <hruler/>
+</para>
+</sect2>
+<sect2 id="md__docs_2_legacy_2_frontend_01network_1autotoc_md23">
+<title>Methods:</title>
+<para>size_t size() const - returns size of entire message packet in bytes.</para>
+<para><hruler/>
+</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/>std::ostream&amp;<sp/>operator<sp/>&lt;&lt;(std::ostream&amp;<sp/>os,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Message&amp;<sp/>message)<sp/></highlight></codeline>
+</programlisting> override for std::cout compatibility - produces friendly description of message</para>
+<para><hruler/>
+</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/>Message&amp;<sp/>operator<sp/>&lt;&lt;(Message&amp;<sp/>message,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>T&amp;<sp/>data)<sp/></highlight></codeline>
+</programlisting> pushes any POD-like data into the message buffer.</para>
+<para>Check that the type of the data being pushed is trivially copyable. Check that the type of the data being pushed is trivially copyable. Resize the vector by the size of the data being pushed. Physically copy the data into the newly allocated vector space. Recalculate the message size. Recalculate the message size.</para>
+<para><hruler/>
+</para>
+<para><programlisting filename=".c"><codeline><highlight class="normal"><sp/>++</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/>Message&amp;<sp/>operator<sp/>&gt;&gt;(Message&amp;<sp/>message,<sp/>T&amp;<sp/>data)<sp/></highlight></codeline>
+</programlisting> pulls any POD-like data form the message buffer.</para>
+<para>Check that the type of the data being pushed is trivially copyable. Cache the location towards the end of the vector where the pulled data starts. Physically copy the data from the vector into the user variable. Shrink the vector to remove read bytes, and reset end position. Recalculate the message size. Return the target message so it can be &quot;chained&quot;.</para>
+<para>Message::MessageHeader</para>
+</sect2>
+</sect1>
+<sect1 id="md__docs_2_legacy_2_frontend_01network_1autotoc_md24">
+<title>Message Header is sent at start of all messages.</title>
+<sect2 id="md__docs_2_legacy_2_frontend_01network_1autotoc_md25">
+<title>Attributes</title>
+<para>MessageType mID = MessageType() - message ID</para>
+<para>uint32_t mBodySize = uint32_t() - current size of message part.</para>
+</sect2>
+<sect2 id="md__docs_2_legacy_2_frontend_01network_1autotoc_md26">
+<title>MessageType</title>
+<para>ServerAccept - server has accepted a connection.</para>
+<para>ServerPing - the time response from server.</para>
+<para>MessageAll - to send a message to all clients.</para>
+<para>ServerMessage - (plug) some message for server.</para>
+</sect2>
+</sect1>
+<sect1 id="md__docs_2_legacy_2_frontend_01network_1autotoc_md27">
+<title>Diagrams</title>
+<para><image type="html" name="../images/image%20(1).png" inline="yes"></image>
+ <linebreak/>
+ <image type="html" name="../images/image.png" inline="yes"></image>
+ <linebreak/>
+ <image type="html" name="../images/image%20(6).png" inline="yes"></image>
+ <linebreak/>
+ </para>
+</sect1>
+    </detaileddescription>
+    <location file="Docs/Legacy/Frontend network.md"/>
+  </compounddef>
+</doxygen>

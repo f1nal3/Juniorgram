@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_base_1_1_crypto_1_1_a_e_s_factory" kind="struct" language="C++" prot="public">
+    <compoundname>Base::Crypto::AESFactory</compoundname>
+    <basecompoundref refid="struct_base_1_1_crypto_1_1_i_ciphers_factory" prot="public" virt="non-virtual">Base::Crypto::ICiphersFactory</basecompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_base_1_1_crypto_1_1_a_e_s_factory_1ae4d7bc2f3dff663e9bd37d1dfc425ffd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>std::shared_ptr&lt; <ref refid="struct_base_1_1_crypto_1_1_i_cipher" kindref="compound">ICipher</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; ICipher &gt; Base::Crypto::AESFactory::create</definition>
+        <argsstring>() override</argsstring>
+        <name>create</name>
+        <qualifiedname>Base::Crypto::AESFactory::create</qualifiedname>
+        <reimplements refid="struct_base_1_1_crypto_1_1_i_ciphers_factory_1a03a1783044c509a1b5042afb7515996f">create</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Crypto/Crypto.Static/Cryptography.hpp" line="38" column="21" bodyfile="Base/Crypto/Crypto.Static/Cryptography.hpp" bodystart="38" bodyend="38"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Base::Crypto::AESFactory</label>
+        <link refid="struct_base_1_1_crypto_1_1_a_e_s_factory"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Base::Crypto::ICiphersFactory</label>
+        <link refid="struct_base_1_1_crypto_1_1_i_ciphers_factory"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Base::Crypto::AESFactory</label>
+        <link refid="struct_base_1_1_crypto_1_1_a_e_s_factory"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Base::Crypto::ICiphersFactory</label>
+        <link refid="struct_base_1_1_crypto_1_1_i_ciphers_factory"/>
+      </node>
+    </collaborationgraph>
+    <location file="Base/Crypto/Crypto.Static/Cryptography.hpp" line="36" column="1" bodyfile="Base/Crypto/Crypto.Static/Cryptography.hpp" bodystart="37" bodyend="39"/>
+    <listofallmembers>
+      <member refid="struct_base_1_1_crypto_1_1_a_e_s_factory_1ae4d7bc2f3dff663e9bd37d1dfc425ffd" prot="public" virt="virtual"><scope>Base::Crypto::AESFactory</scope><name>create</name></member>
+      <member refid="struct_base_1_1_crypto_1_1_i_ciphers_factory_1ac90d1c84b8d8abc8b6feff2c3a681816" prot="public" virt="virtual"><scope>Base::Crypto::AESFactory</scope><name>~ICiphersFactory</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

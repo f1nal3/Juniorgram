@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_performance_test_1_1_argument_parser_1_1_validator" kind="class" language="C++" prot="private">
+    <compoundname>PerformanceTest::ArgumentParser::Validator</compoundname>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_performance_test_1_1_argument_parser_1_1_validator_1abc9363dbd49dfc2484c42d8503096c94" prot="private" static="yes" mutable="no">
+        <type>const std::uint8_t</type>
+        <definition>const std::uint8_t PerformanceTest::ArgumentParser::Validator::_MAX_COUNT</definition>
+        <argsstring></argsstring>
+        <name>_MAX_COUNT</name>
+        <qualifiedname>PerformanceTest::ArgumentParser::Validator::_MAX_COUNT</qualifiedname>
+        <initializer>= 255</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/ArgumentParser.hpp" line="30" column="46" bodyfile="Test/PerformanceTest/ArgumentParser.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_performance_test_1_1_argument_parser_1_1_validator_1a0da6f5ecebc3951826fdb27bb6880e2f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool PerformanceTest::ArgumentParser::Validator::isArgument</definition>
+        <argsstring>(const std::string_view &amp;arg)</argsstring>
+        <name>isArgument</name>
+        <qualifiedname>PerformanceTest::ArgumentParser::Validator::isArgument</qualifiedname>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>arg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/ArgumentParser.hpp" line="34" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_performance_test_1_1_argument_parser_1_1_validator_1a53334841eba2d87a9589b1e00bc0ff5f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool PerformanceTest::ArgumentParser::Validator::isArgumentValid</definition>
+        <argsstring>(const std::string_view &amp;arg)</argsstring>
+        <name>isArgumentValid</name>
+        <qualifiedname>PerformanceTest::ArgumentParser::Validator::isArgumentValid</qualifiedname>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>arg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/ArgumentParser.hpp" line="36" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_performance_test_1_1_argument_parser_1_1_validator_1adaed6293cae9032db8652b3d08e766c8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool PerformanceTest::ArgumentParser::Validator::isValueValid</definition>
+        <argsstring>(argument arg, const std::string_view &amp;value)</argsstring>
+        <name>isValueValid</name>
+        <qualifiedname>PerformanceTest::ArgumentParser::Validator::isValueValid</qualifiedname>
+        <param>
+          <type>argument</type>
+          <declname>arg</declname>
+        </param>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Test/PerformanceTest/ArgumentParser.hpp" line="38" column="25"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Test/PerformanceTest/ArgumentParser.hpp" line="26" column="9" bodyfile="Test/PerformanceTest/ArgumentParser.hpp" bodystart="27" bodyend="40"/>
+    <listofallmembers>
+      <member refid="class_performance_test_1_1_argument_parser_1_1_validator_1abc9363dbd49dfc2484c42d8503096c94" prot="private" virt="non-virtual"><scope>PerformanceTest::ArgumentParser::Validator</scope><name>_MAX_COUNT</name></member>
+      <member refid="class_performance_test_1_1_argument_parser_1_1_validator_1a0da6f5ecebc3951826fdb27bb6880e2f" prot="public" virt="non-virtual"><scope>PerformanceTest::ArgumentParser::Validator</scope><name>isArgument</name></member>
+      <member refid="class_performance_test_1_1_argument_parser_1_1_validator_1a53334841eba2d87a9589b1e00bc0ff5f" prot="public" virt="non-virtual"><scope>PerformanceTest::ArgumentParser::Validator</scope><name>isArgumentValid</name></member>
+      <member refid="class_performance_test_1_1_argument_parser_1_1_validator_1adaed6293cae9032db8652b3d08e766c8" prot="public" virt="non-virtual"><scope>PerformanceTest::ArgumentParser::Validator</scope><name>isValueValid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_d_b_options" kind="namespace" language="C++">
+    <compoundname>DBOptions</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="_data_base_options_8hpp_1aedc53a8a574cabf9ce7432be6d0b7294" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::string_view</type>
+        <definition>constexpr std::string_view DBOptions::real</definition>
+        <argsstring></argsstring>
+        <name>real</name>
+        <qualifiedname>DBOptions::real</qualifiedname>
+        <initializer>= 
+        &quot;dbname=juniorgram user=postgres hostaddr=127.0.0.1 port=5432&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/DataBaseOptions.hpp" line="6" column="32" bodyfile="DataAccess/DataAccess.Postgre/DataBaseOptions.hpp" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_data_base_options_8hpp_1a69d116a430e15f8e1cfdf63016e078dd" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr std::string_view</type>
+        <definition>constexpr std::string_view DBOptions::test</definition>
+        <argsstring></argsstring>
+        <name>test</name>
+        <qualifiedname>DBOptions::test</qualifiedname>
+        <initializer>=
+        &quot;hostaddr=127.0.0.1 port=5432 dbname=testdb user=postgres&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/DataBaseOptions.hpp" line="9" column="32" bodyfile="DataAccess/DataAccess.Postgre/DataBaseOptions.hpp" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="DataAccess/DataAccess.Postgre/DataBaseOptions.hpp" line="4" column="1"/>
+  </compounddef>
+</doxygen>

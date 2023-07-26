@@ -1,0 +1,523 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_primitives_8hpp" kind="file" language="C++">
+    <compoundname>Primitives.hpp</compoundname>
+    <includes local="no">chrono</includes>
+    <includes local="no">cstdint</includes>
+    <includes local="no">cstring</includes>
+    <includes local="no">map</includes>
+    <includes local="no">string</includes>
+    <includes local="no">vector</includes>
+    <includes refid="_utility_8hpp" local="no">Utility/Utility.hpp</includes>
+    <includes refid="_utility_time_8hpp" local="no">Utility/UtilityTime.hpp</includes>
+    <includedby refid="_client_8hpp" local="no">Client/Client.Core/Client.Core.Static/Client.hpp</includedby>
+    <includedby refid="_mock_repositories_8hpp" local="yes">DataAccess/DataAccess.Mock/MockRepositories.hpp</includedby>
+    <includedby refid="_mock_repository_storage_8hpp" local="no">DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp</includedby>
+    <includedby refid="_users_amount_finder_8hpp" local="no">DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp</includedby>
+    <includedby refid="_i_repository_8hpp" local="no">DataAccess/Public/Include/DataAccess/IRepository.hpp</includedby>
+    <includedby refid="_i_server_repositories_8hpp" local="no">DataAccess/Public/Include/DataAccess/IServerRepositories.hpp</includedby>
+    <includedby refid="_yas_serializer_8hpp" local="no">Network/Public/Include/Network/YasSerializer.hpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>Base/Models/Public/Include/Models/Primitives.hpp</label>
+        <link refid="_primitives_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Utility/Utility.hpp</label>
+        <link refid="_utility_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>Utility/UtilityTime.hpp</label>
+        <link refid="_utility_time_8hpp_source"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>algorithm</label>
+      </node>
+      <node id="10">
+        <label>cctype</label>
+      </node>
+      <node id="2">
+        <label>chrono</label>
+      </node>
+      <node id="3">
+        <label>cstdint</label>
+      </node>
+      <node id="4">
+        <label>cstring</label>
+      </node>
+      <node id="11">
+        <label>ctime</label>
+      </node>
+      <node id="14">
+        <label>filesystem</label>
+      </node>
+      <node id="18">
+        <label>fstream</label>
+      </node>
+      <node id="17">
+        <label>iomanip</label>
+      </node>
+      <node id="16">
+        <label>iostream</label>
+      </node>
+      <node id="5">
+        <label>map</label>
+      </node>
+      <node id="12">
+        <label>mutex</label>
+      </node>
+      <node id="19">
+        <label>sstream</label>
+      </node>
+      <node id="6">
+        <label>string</label>
+      </node>
+      <node id="13">
+        <label>type_traits</label>
+      </node>
+      <node id="7">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>Base/Models/Public/Include/Models/Primitives.hpp</label>
+        <link refid="_primitives_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Client/Client.CLI/App.hpp</label>
+        <link refid="_app_8hpp_source"/>
+      </node>
+      <node id="2">
+        <label>Client/Client.Core/Client.Core.Static/Client.hpp</label>
+        <link refid="_client_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>DataAccess/DataAccess.Debug/FileRepository.hpp</label>
+        <link refid="_file_repository_8hpp_source"/>
+      </node>
+      <node id="8">
+        <label>DataAccess/DataAccess.Mock/MockDatabase.hpp</label>
+        <link refid="_mock_database_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>DataAccess/DataAccess.Mock/MockQuery.hpp</label>
+        <link refid="_mock_query_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>DataAccess/DataAccess.Mock/MockQueryBuilder.hpp</label>
+        <link refid="_mock_query_builder_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>DataAccess/DataAccess.Mock/MockRepositories.hpp</label>
+        <link refid="_mock_repositories_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>DataAccess/DataAccess.Mock/MockRepositoryInstance.hpp</label>
+        <link refid="_mock_repository_instance_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>DataAccess/DataAccess.Mock/MockRepositoryManager.hpp</label>
+        <link refid="_mock_repository_manager_8hpp_source"/>
+      </node>
+      <node id="6">
+        <label>DataAccess/DataAccess.Mock/MockRepositoryStorage.hpp</label>
+        <link refid="_mock_repository_storage_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>DataAccess/DataAccess.Postgre/PostgreRepositories.hpp</label>
+        <link refid="_postgre_repositories_8hpp_source"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>DataAccess/DataAccess.Postgre/PostgreRepositoryManager.hpp</label>
+        <link refid="_postgre_repository_manager_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>DataAccess/DataAccess.Postgre/UsersAmountFinder.hpp</label>
+        <link refid="_users_amount_finder_8hpp_source"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>DataAccess/Public/Include/DataAccess/IRepository.hpp</label>
+        <link refid="_i_repository_8hpp_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>DataAccess/Public/Include/DataAccess/IServerRepositories.hpp</label>
+        <link refid="_i_server_repositories_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>Network/Public/Include/Network/CombiningHandlers.hpp</label>
+        <link refid="_combining_handlers_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>Network/Public/Include/Network/CompressionHandler.hpp</label>
+        <link refid="_compression_handler_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>Network/Public/Include/Network/Connection.hpp</label>
+        <link refid="_connection_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>Network/Public/Include/Network/EncryptionHandler.hpp</label>
+        <link refid="_encryption_handler_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>Network/Public/Include/Network/Handler.hpp</label>
+        <link refid="_handler_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>Network/Public/Include/Network/Message.hpp</label>
+        <link refid="_message_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>Network/Public/Include/Network/SerializationHandler.hpp</label>
+        <link refid="_serialization_handler_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>Network/Public/Include/Network/YasSerializer.hpp</label>
+        <link refid="_yas_serializer_8hpp_source"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>Network/Public/Include/Network/iAPI.hpp</label>
+        <link refid="i_a_p_i_8hpp_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>Server/Server.Core/Server.Core.Static/Server.hpp</label>
+        <link refid="_server_8hpp_source"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>Server/Server.Core/Server.Core.Static/ServerBuilder.hpp</label>
+        <link refid="_server_builder_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_models_1_1_channel_info" prot="public">Models::ChannelInfo</innerclass>
+    <innerclass refid="struct_models_1_1_channel_subscription_info" prot="public">Models::ChannelSubscriptionInfo</innerclass>
+    <innerclass refid="struct_models_1_1_login_info" prot="public">Models::LoginInfo</innerclass>
+    <innerclass refid="struct_models_1_1_registration_info" prot="public">Models::RegistrationInfo</innerclass>
+    <innerclass refid="struct_models_1_1_message_info" prot="public">Models::MessageInfo</innerclass>
+    <innerclass refid="struct_models_1_1_reply_info" prot="public">Models::ReplyInfo</innerclass>
+    <innernamespace refid="namespace_models">Models</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;chrono&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstdint&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstring&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Utility/Utility.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Utility/UtilityTime.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">Models</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;std::string&gt;<sp/>reactionNames<sp/>=<sp/>{</highlight><highlight class="stringliteral">&quot;likes&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;dislikes&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;fires&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;cats&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;smiles&quot;</highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="struct_models_1_1_channel_info" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelInfo</ref></highlight></codeline>
+<codeline lineno="23"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="25" refid="struct_models_1_1_channel_info_1a09fad2593a7cc2252185223b0f1ff366" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uint64_t<sp/><ref refid="struct_models_1_1_channel_info_1a09fad2593a7cc2252185223b0f1ff366" kindref="member">_creatorID</ref>;</highlight></codeline>
+<codeline lineno="27" refid="struct_models_1_1_channel_info_1ab1897c74db5b92748853fc1ce1234ae8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uint64_t<sp/><ref refid="struct_models_1_1_channel_info_1ab1897c74db5b92748853fc1ce1234ae8" kindref="member">_channelID</ref>;</highlight></codeline>
+<codeline lineno="29" refid="struct_models_1_1_channel_info_1a0717353b5a20d3e9a157875dd9722174" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="struct_models_1_1_channel_info_1a0717353b5a20d3e9a157875dd9722174" kindref="member">_channelName</ref>;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32" refid="struct_models_1_1_channel_info_1a6274f34b77f99910787b332901e904a9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_channel_info_1a6274f34b77f99910787b332901e904a9" kindref="member">ChannelInfo</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="struct_models_1_1_channel_info_1ad01d620fd6dc2236838ccc56ff296251" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_channel_info_1ad01d620fd6dc2236838ccc56ff296251" kindref="member">ChannelInfo</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::uint64_t<sp/>creatorID_,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::uint64_t<sp/>channelID_,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>channelName_)</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="struct_models_1_1_channel_info_1a09fad2593a7cc2252185223b0f1ff366" kindref="member">_creatorID</ref>(creatorID_),<sp/><ref refid="struct_models_1_1_channel_info_1ab1897c74db5b92748853fc1ce1234ae8" kindref="member">_channelID</ref>(channelID_),<sp/><ref refid="struct_models_1_1_channel_info_1a0717353b5a20d3e9a157875dd9722174" kindref="member">_channelName</ref>(channelName_)</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="40" refid="struct_models_1_1_channel_info_1a41e2637cc20afd6d445a994e5051d99f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_channel_info_1a41e2637cc20afd6d445a994e5051d99f" kindref="member">~ChannelInfo</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="struct_models_1_1_channel_info_1a2f5024f75de57efca1d51fa6c9fab9c7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_channel_info_1a2f5024f75de57efca1d51fa6c9fab9c7" kindref="member">operator==</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelInfo</ref>&amp;<sp/>first,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelInfo</ref>&amp;<sp/>second)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>first.<ref refid="struct_models_1_1_channel_info_1ab1897c74db5b92748853fc1ce1234ae8" kindref="member">_channelID</ref><sp/><sp/><sp/>==<sp/>second.<ref refid="struct_models_1_1_channel_info_1ab1897c74db5b92748853fc1ce1234ae8" kindref="member">_channelID</ref><sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>first.<ref refid="struct_models_1_1_channel_info_1a09fad2593a7cc2252185223b0f1ff366" kindref="member">_creatorID</ref><sp/><sp/><sp/>==<sp/>second.<ref refid="struct_models_1_1_channel_info_1a09fad2593a7cc2252185223b0f1ff366" kindref="member">_creatorID</ref><sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>first.<ref refid="struct_models_1_1_channel_info_1a0717353b5a20d3e9a157875dd9722174" kindref="member">_channelName</ref><sp/>==<sp/>second.<ref refid="struct_models_1_1_channel_info_1a0717353b5a20d3e9a157875dd9722174" kindref="member">_channelName</ref>;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Archive&gt;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serialize(Archive&amp;<sp/>ar,<sp/><ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelInfo</ref>&amp;<sp/>o)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>ar&amp;<sp/>o.<ref refid="struct_models_1_1_channel_info_1a09fad2593a7cc2252185223b0f1ff366" kindref="member">_creatorID</ref>&amp;<sp/>o.<ref refid="struct_models_1_1_channel_info_1ab1897c74db5b92748853fc1ce1234ae8" kindref="member">_channelID</ref>&amp;<sp/>o.<ref refid="struct_models_1_1_channel_info_1a0717353b5a20d3e9a157875dd9722174" kindref="member">_channelName</ref>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">ChannelDeleteInfo<sp/>=<sp/>ChannelInfo;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">ChannelLeaveInfo<sp/><sp/>=<sp/>ChannelInfo;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66" refid="struct_models_1_1_channel_subscription_info" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_models_1_1_channel_subscription_info" kindref="compound">ChannelSubscriptionInfo</ref></highlight></codeline>
+<codeline lineno="67"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="69" refid="struct_models_1_1_channel_subscription_info_1af1f7a36df4fa2c938862bad3ee544109" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uint64_t<sp/><ref refid="struct_models_1_1_channel_subscription_info_1af1f7a36df4fa2c938862bad3ee544109" kindref="member">_channelID</ref>;</highlight></codeline>
+<codeline lineno="71" refid="struct_models_1_1_channel_subscription_info_1a6bd3747064f536ee7f31a9175e268a9e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uint64_t<sp/><ref refid="struct_models_1_1_channel_subscription_info_1a6bd3747064f536ee7f31a9175e268a9e" kindref="member">_userID</ref>;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="struct_models_1_1_channel_subscription_info_1a038c9a7f87c3e5794c6b7e85128ab48c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_channel_subscription_info_1a038c9a7f87c3e5794c6b7e85128ab48c" kindref="member">ChannelSubscriptionInfo</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="struct_models_1_1_channel_subscription_info_1a6117eb6cc2b4bfdb1c640ff8427b1be7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_channel_subscription_info_1a6117eb6cc2b4bfdb1c640ff8427b1be7" kindref="member">ChannelSubscriptionInfo</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::uint64_t<sp/>channelID_)<sp/>:<sp/><ref refid="struct_models_1_1_channel_subscription_info_1af1f7a36df4fa2c938862bad3ee544109" kindref="member">_channelID</ref>(channelID_)<sp/>{}</highlight></codeline>
+<codeline lineno="79" refid="struct_models_1_1_channel_subscription_info_1aa5ee6ceb8184af64f0cabdf0506fbbce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_channel_subscription_info_1aa5ee6ceb8184af64f0cabdf0506fbbce" kindref="member">~ChannelSubscriptionInfo</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82" refid="struct_models_1_1_channel_subscription_info_1a6d1b8fede0775d0911075e81bb0cb29f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_channel_subscription_info_1a6d1b8fede0775d0911075e81bb0cb29f" kindref="member">operator==</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_channel_subscription_info" kindref="compound">ChannelSubscriptionInfo</ref>&amp;<sp/>first,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_channel_subscription_info" kindref="compound">ChannelSubscriptionInfo</ref>&amp;<sp/>second)</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>first.<ref refid="struct_models_1_1_channel_subscription_info_1af1f7a36df4fa2c938862bad3ee544109" kindref="member">_channelID</ref><sp/>==<sp/>second.<ref refid="struct_models_1_1_channel_subscription_info_1af1f7a36df4fa2c938862bad3ee544109" kindref="member">_channelID</ref><sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>first.<ref refid="struct_models_1_1_channel_subscription_info_1a6bd3747064f536ee7f31a9175e268a9e" kindref="member">_userID</ref><sp/><sp/><sp/><sp/>==<sp/>second.<ref refid="struct_models_1_1_channel_subscription_info_1a6bd3747064f536ee7f31a9175e268a9e" kindref="member">_userID</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Archive&gt;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serialize(Archive&amp;<sp/>ar,<sp/><ref refid="struct_models_1_1_channel_subscription_info" kindref="compound">Models::ChannelSubscriptionInfo</ref>&amp;<sp/>o)</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>ar&amp;<sp/>o.<ref refid="struct_models_1_1_channel_subscription_info_1af1f7a36df4fa2c938862bad3ee544109" kindref="member">_channelID</ref>;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102" refid="struct_models_1_1_login_info" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_models_1_1_login_info" kindref="compound">LoginInfo</ref></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="105" refid="struct_models_1_1_login_info_1a9a9f25c8ddcbcf97123d3d628ff64a21" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="struct_models_1_1_login_info_1a9a9f25c8ddcbcf97123d3d628ff64a21" kindref="member">_login</ref>;</highlight></codeline>
+<codeline lineno="107" refid="struct_models_1_1_login_info_1a00e6960fb99fd49179ad1a0daab9f6f0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="struct_models_1_1_login_info_1a00e6960fb99fd49179ad1a0daab9f6f0" kindref="member">_pwdHash</ref>;</highlight></codeline>
+<codeline lineno="109" refid="struct_models_1_1_login_info_1a7fd70756960b4ddeb2bf0c88f02cfe24" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_login_info_1a7fd70756960b4ddeb2bf0c88f02cfe24" kindref="member">LoginInfo</ref>()<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="111" refid="struct_models_1_1_login_info_1aeadcb9d143d427428450026539459e30" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_login_info_1aeadcb9d143d427428450026539459e30" kindref="member">LoginInfo</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_login_info" kindref="compound">LoginInfo</ref>&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="113" refid="struct_models_1_1_login_info_1a0ea931f2e033a1290444450eec411b6a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_login_info_1a0ea931f2e033a1290444450eec411b6a" kindref="member">LoginInfo</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>login_,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>passwordHash_)<sp/>:<sp/><ref refid="struct_models_1_1_login_info_1a9a9f25c8ddcbcf97123d3d628ff64a21" kindref="member">_login</ref>(login_),<sp/><ref refid="struct_models_1_1_login_info_1a00e6960fb99fd49179ad1a0daab9f6f0" kindref="member">_pwdHash</ref>(passwordHash_)<sp/>{}</highlight></codeline>
+<codeline lineno="115" refid="struct_models_1_1_login_info_1a16557448935a25e246c8a8105356c280" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_login_info_1a16557448935a25e246c8a8105356c280" kindref="member">~LoginInfo</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Archive&gt;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serialize(Archive&amp;<sp/>ar,<sp/><ref refid="struct_models_1_1_login_info" kindref="compound">Models::LoginInfo</ref>&amp;<sp/>o)</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/>ar&amp;<sp/>o.<ref refid="struct_models_1_1_login_info_1a9a9f25c8ddcbcf97123d3d628ff64a21" kindref="member">_login</ref>&amp;<sp/>o.<ref refid="struct_models_1_1_login_info_1a00e6960fb99fd49179ad1a0daab9f6f0" kindref="member">_pwdHash</ref>;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131" refid="struct_models_1_1_registration_info" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref></highlight></codeline>
+<codeline lineno="132"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="134" refid="struct_models_1_1_registration_info_1a65fff04a4de921a4f0ab856eaa82ddd6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="struct_models_1_1_registration_info_1a65fff04a4de921a4f0ab856eaa82ddd6" kindref="member">_email</ref>;</highlight></codeline>
+<codeline lineno="136" refid="struct_models_1_1_registration_info_1aab8a9e6d43bfd2a2ca27212c61d396cf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="struct_models_1_1_registration_info_1aab8a9e6d43bfd2a2ca27212c61d396cf" kindref="member">_login</ref>;</highlight></codeline>
+<codeline lineno="138" refid="struct_models_1_1_registration_info_1aa64856fffeb309d18518bed0585e2dda" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="struct_models_1_1_registration_info_1aa64856fffeb309d18518bed0585e2dda" kindref="member">_passwordHash</ref>;</highlight></codeline>
+<codeline lineno="140" refid="struct_models_1_1_registration_info_1a2a529a45cc1edb514cc4fd686dcf3457" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_registration_info_1a2a529a45cc1edb514cc4fd686dcf3457" kindref="member">RegistrationInfo</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143" refid="struct_models_1_1_registration_info_1a037487f0fcd7174e60c7527213723541" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_registration_info_1a037487f0fcd7174e60c7527213723541" kindref="member">RegistrationInfo</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>email_,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>login_,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>passwordHash_)</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="struct_models_1_1_registration_info_1a65fff04a4de921a4f0ab856eaa82ddd6" kindref="member">_email</ref>(email_),<sp/><ref refid="struct_models_1_1_registration_info_1aab8a9e6d43bfd2a2ca27212c61d396cf" kindref="member">_login</ref>(login_),<sp/><ref refid="struct_models_1_1_registration_info_1aa64856fffeb309d18518bed0585e2dda" kindref="member">_passwordHash</ref>(passwordHash_)</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149" refid="struct_models_1_1_registration_info_1a3086bd8c31a12ff19f1ef2c239a2af19" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_registration_info_1a3086bd8c31a12ff19f1ef2c239a2af19" kindref="member">RegistrationInfo</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref>&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="151" refid="struct_models_1_1_registration_info_1a2552a868c8c7e5c0e4ffd1dd68c937d3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_registration_info_1a2552a868c8c7e5c0e4ffd1dd68c937d3" kindref="member">~RegistrationInfo</ref>()<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154" refid="struct_models_1_1_registration_info_1a95eff58ae7a5b2c20cd3077bc14cb872" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref>&amp;<sp/><ref refid="struct_models_1_1_registration_info_1a95eff58ae7a5b2c20cd3077bc14cb872" kindref="member">operator=</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref>&amp;<sp/>other)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157" refid="struct_models_1_1_registration_info_1a21d7b9fc362dc8fa56e93343ffcb3a6f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_registration_info_1a21d7b9fc362dc8fa56e93343ffcb3a6f" kindref="member">operator==</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref>&amp;<sp/>first,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_registration_info" kindref="compound">RegistrationInfo</ref>&amp;<sp/>second)</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>first.<ref refid="struct_models_1_1_registration_info_1a65fff04a4de921a4f0ab856eaa82ddd6" kindref="member">_email</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>==<sp/>second.<ref refid="struct_models_1_1_registration_info_1a65fff04a4de921a4f0ab856eaa82ddd6" kindref="member">_email</ref><sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>first.<ref refid="struct_models_1_1_registration_info_1aab8a9e6d43bfd2a2ca27212c61d396cf" kindref="member">_login</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>==<sp/>second.<ref refid="struct_models_1_1_registration_info_1aab8a9e6d43bfd2a2ca27212c61d396cf" kindref="member">_login</ref><sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>first.<ref refid="struct_models_1_1_registration_info_1aa64856fffeb309d18518bed0585e2dda" kindref="member">_passwordHash</ref><sp/>==<sp/>second.<ref refid="struct_models_1_1_registration_info_1aa64856fffeb309d18518bed0585e2dda" kindref="member">_passwordHash</ref>;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Archive&gt;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serialize(Archive&amp;<sp/>ar,<sp/><ref refid="struct_models_1_1_registration_info" kindref="compound">Models::RegistrationInfo</ref>&amp;<sp/>o)</highlight></codeline>
+<codeline lineno="168"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/>ar&amp;<sp/>o.<ref refid="struct_models_1_1_registration_info_1a65fff04a4de921a4f0ab856eaa82ddd6" kindref="member">_email</ref>&amp;<sp/>o.<ref refid="struct_models_1_1_registration_info_1aab8a9e6d43bfd2a2ca27212c61d396cf" kindref="member">_login</ref>&amp;<sp/>o.<ref refid="struct_models_1_1_registration_info_1aa64856fffeb309d18518bed0585e2dda" kindref="member">_passwordHash</ref>;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177" refid="struct_models_1_1_message_info" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref></highlight></codeline>
+<codeline lineno="178"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="180" refid="struct_models_1_1_message_info_1abf05c5613f5e34f1be792d0cd08a2f3f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uint64_t<sp/><ref refid="struct_models_1_1_message_info_1abf05c5613f5e34f1be792d0cd08a2f3f" kindref="member">_channelID</ref>;</highlight></codeline>
+<codeline lineno="182" refid="struct_models_1_1_message_info_1ac6e4b0ac3270221152e18690fa41f6ad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="struct_models_1_1_message_info_1ac6e4b0ac3270221152e18690fa41f6ad" kindref="member">_message</ref>;</highlight></codeline>
+<codeline lineno="184" refid="struct_models_1_1_message_info_1a897b88ac467f475f199522d97125b3de" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uint64_t<sp/><ref refid="struct_models_1_1_message_info_1a897b88ac467f475f199522d97125b3de" kindref="member">_msgID</ref>{0};</highlight></codeline>
+<codeline lineno="186" refid="struct_models_1_1_message_info_1a2ca9939602d1f638f72ca4d0361dad51" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uint64_t<sp/><ref refid="struct_models_1_1_message_info_1a2ca9939602d1f638f72ca4d0361dad51" kindref="member">_senderID</ref>;</highlight></codeline>
+<codeline lineno="188" refid="struct_models_1_1_message_info_1a248a9f2490a2e780f1a3803e9caf279b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="struct_models_1_1_message_info_1a248a9f2490a2e780f1a3803e9caf279b" kindref="member">_userLogin</ref>;</highlight></codeline>
+<codeline lineno="190" refid="struct_models_1_1_message_info_1a4bd93f4f180fca37428ad9c6e02b122f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uint64_t<sp/><ref refid="struct_models_1_1_message_info_1a4bd93f4f180fca37428ad9c6e02b122f" kindref="member">_recipientID</ref>{0};</highlight></codeline>
+<codeline lineno="192" refid="struct_models_1_1_message_info_1a1148352244f5a7c1e244b049994bcf06" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>UtilityTime::timestamp_t<sp/><ref refid="struct_models_1_1_message_info_1a1148352244f5a7c1e244b049994bcf06" kindref="member">_time</ref><sp/>=<sp/>UtilityTime::millisecondsSinceEpoch();</highlight></codeline>
+<codeline lineno="194" refid="struct_models_1_1_message_info_1a772cf148d81c824709eac15bf158bdb0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::map&lt;std::uint32_t,<sp/>std::uint32_t&gt;<sp/><ref refid="struct_models_1_1_message_info_1a772cf148d81c824709eac15bf158bdb0" kindref="member">_reactions</ref><sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197" refid="struct_models_1_1_message_info_1a9f319fc4b80ccdb69e7adb7795ba5efb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_message_info_1a9f319fc4b80ccdb69e7adb7795ba5efb" kindref="member">MessageInfo</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="199" refid="struct_models_1_1_message_info_1a17965a6b2e7f48c0fa8f09ba9a1ba80f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info_1a17965a6b2e7f48c0fa8f09ba9a1ba80f" kindref="member">MessageInfo</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint64_t<sp/>channelID_,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>message_)<sp/>:<sp/><ref refid="struct_models_1_1_message_info_1abf05c5613f5e34f1be792d0cd08a2f3f" kindref="member">_channelID</ref>(channelID_),<sp/><ref refid="struct_models_1_1_message_info_1ac6e4b0ac3270221152e18690fa41f6ad" kindref="member">_message</ref>(message_)<sp/>{}</highlight></codeline>
+<codeline lineno="201" refid="struct_models_1_1_message_info_1a4553cf1030e73248b2a0d4c8d2a9205b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_message_info_1a4553cf1030e73248b2a0d4c8d2a9205b" kindref="member">MessageInfo</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref>&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="203" refid="struct_models_1_1_message_info_1a1c40e29627401db13b5cc5fcc2c21c9a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_message_info_1a1c40e29627401db13b5cc5fcc2c21c9a" kindref="member">~MessageInfo</ref>()<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206" refid="struct_models_1_1_message_info_1ad40885c31ab7b6e3e1f1d0cb3b0c34ee" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info_1ad40885c31ab7b6e3e1f1d0cb3b0c34ee" kindref="member">operator==</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref>&amp;<sp/>first,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref>&amp;<sp/>second)</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>first.<ref refid="struct_models_1_1_message_info_1ac6e4b0ac3270221152e18690fa41f6ad" kindref="member">_message</ref><sp/><sp/><sp/>==<sp/>second.<ref refid="struct_models_1_1_message_info_1ac6e4b0ac3270221152e18690fa41f6ad" kindref="member">_message</ref><sp/><sp/><sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>first.<ref refid="struct_models_1_1_message_info_1abf05c5613f5e34f1be792d0cd08a2f3f" kindref="member">_channelID</ref><sp/>==<sp/>second.<ref refid="struct_models_1_1_message_info_1abf05c5613f5e34f1be792d0cd08a2f3f" kindref="member">_channelID</ref><sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>first.<ref refid="struct_models_1_1_message_info_1a1148352244f5a7c1e244b049994bcf06" kindref="member">_time</ref><sp/><sp/><sp/><sp/><sp/><sp/>==<sp/>second.<ref refid="struct_models_1_1_message_info_1a1148352244f5a7c1e244b049994bcf06" kindref="member">_time</ref><sp/><sp/><sp/><sp/><sp/><sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>first.<ref refid="struct_models_1_1_message_info_1a897b88ac467f475f199522d97125b3de" kindref="member">_msgID</ref><sp/><sp/><sp/><sp/><sp/>==<sp/>second.<ref refid="struct_models_1_1_message_info_1a897b88ac467f475f199522d97125b3de" kindref="member">_msgID</ref><sp/><sp/><sp/><sp/><sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>first.<ref refid="struct_models_1_1_message_info_1a248a9f2490a2e780f1a3803e9caf279b" kindref="member">_userLogin</ref><sp/>==<sp/>second.<ref refid="struct_models_1_1_message_info_1a248a9f2490a2e780f1a3803e9caf279b" kindref="member">_userLogin</ref>;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216" refid="struct_models_1_1_message_info_1a3a3dbce163865b832275daef5a827b64" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info_1a3a3dbce163865b832275daef5a827b64" kindref="member">operator&lt;</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref>&amp;<sp/>lhs,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref>&amp;<sp/>rhs)<sp/></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>lhs.<ref refid="struct_models_1_1_message_info_1a1148352244f5a7c1e244b049994bcf06" kindref="member">_time</ref><sp/>&lt;<sp/>rhs.<ref refid="struct_models_1_1_message_info_1a1148352244f5a7c1e244b049994bcf06" kindref="member">_time</ref>;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="220"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Archive&gt;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serialize(Archive&amp;<sp/>ar,<sp/><ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref>&amp;<sp/>o)</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/>ar&amp;<sp/>o.<ref refid="struct_models_1_1_message_info_1abf05c5613f5e34f1be792d0cd08a2f3f" kindref="member">_channelID</ref>&amp;<sp/>o.<ref refid="struct_models_1_1_message_info_1a2ca9939602d1f638f72ca4d0361dad51" kindref="member">_senderID</ref>&amp;<sp/>o.<ref refid="struct_models_1_1_message_info_1a897b88ac467f475f199522d97125b3de" kindref="member">_msgID</ref>&amp;<sp/>o.<ref refid="struct_models_1_1_message_info_1ac6e4b0ac3270221152e18690fa41f6ad" kindref="member">_message</ref>&amp;<sp/>o.<ref refid="struct_models_1_1_message_info_1a772cf148d81c824709eac15bf158bdb0" kindref="member">_reactions</ref>&amp;<sp/>o.<ref refid="struct_models_1_1_message_info_1a1148352244f5a7c1e244b049994bcf06" kindref="member">_time</ref>&amp;<sp/>o.<ref refid="struct_models_1_1_message_info_1a248a9f2490a2e780f1a3803e9caf279b" kindref="member">_userLogin</ref>;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234" refid="struct_models_1_1_reply_info" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_models_1_1_reply_info" kindref="compound">ReplyInfo</ref></highlight></codeline>
+<codeline lineno="235"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="237" refid="struct_models_1_1_reply_info_1aa9e1aee7fa708bdb7b31b9f8cf42e9cd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uint64_t<sp/><ref refid="struct_models_1_1_reply_info_1aa9e1aee7fa708bdb7b31b9f8cf42e9cd" kindref="member">_channelID</ref>;</highlight></codeline>
+<codeline lineno="239" refid="struct_models_1_1_reply_info_1a90491ad89c1d1efe97c0889af3e279ee" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="struct_models_1_1_reply_info_1a90491ad89c1d1efe97c0889af3e279ee" kindref="member">_message</ref>;</highlight></codeline>
+<codeline lineno="241" refid="struct_models_1_1_reply_info_1ab4825771af50dad05220c2ffa7530fb0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uint64_t<sp/><ref refid="struct_models_1_1_reply_info_1ab4825771af50dad05220c2ffa7530fb0" kindref="member">_msgID</ref>{0};</highlight></codeline>
+<codeline lineno="243" refid="struct_models_1_1_reply_info_1a2fa913e50020f73a95dd1898874fcdfa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uint64_t<sp/><ref refid="struct_models_1_1_reply_info_1a2fa913e50020f73a95dd1898874fcdfa" kindref="member">_msgIdOwner</ref>{0};</highlight></codeline>
+<codeline lineno="245" refid="struct_models_1_1_reply_info_1a7b4b40da9dc9dec5885c60402fc6d5c7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::uint64_t<sp/><ref refid="struct_models_1_1_reply_info_1a7b4b40da9dc9dec5885c60402fc6d5c7" kindref="member">_senderID</ref>{0};</highlight></codeline>
+<codeline lineno="247" refid="struct_models_1_1_reply_info_1a41cbe346844e5c690c3a75adb4273aef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="struct_models_1_1_reply_info_1a41cbe346844e5c690c3a75adb4273aef" kindref="member">_userLogin</ref>;</highlight></codeline>
+<codeline lineno="249" refid="struct_models_1_1_reply_info_1adf0ec8471c70520351096d1972bc01e9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_reply_info_1adf0ec8471c70520351096d1972bc01e9" kindref="member">ReplyInfo</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252" refid="struct_models_1_1_reply_info_1af6b03bc06ca4592c9751b5b2ae1e0223" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_reply_info_1af6b03bc06ca4592c9751b5b2ae1e0223" kindref="member">ReplyInfo</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::uint64_t&amp;<sp/>channelID_,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>message_)<sp/>:<sp/><ref refid="struct_models_1_1_reply_info_1aa9e1aee7fa708bdb7b31b9f8cf42e9cd" kindref="member">_channelID</ref>(channelID_),<sp/><ref refid="struct_models_1_1_reply_info_1a90491ad89c1d1efe97c0889af3e279ee" kindref="member">_message</ref>(message_)<sp/>{}</highlight></codeline>
+<codeline lineno="254" refid="struct_models_1_1_reply_info_1afedcd9dcaf23d03a99eedb5e71484b78" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_reply_info_1afedcd9dcaf23d03a99eedb5e71484b78" kindref="member">ReplyInfo</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_reply_info" kindref="compound">ReplyInfo</ref>&amp;)<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="256" refid="struct_models_1_1_reply_info_1ae8a350e925a7e39b30df990ff8f26959" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_models_1_1_reply_info_1ae8a350e925a7e39b30df990ff8f26959" kindref="member">~ReplyInfo</ref>()<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259" refid="struct_models_1_1_reply_info_1a095d9043d2133991bed0a5e402ec004b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_reply_info_1a095d9043d2133991bed0a5e402ec004b" kindref="member">operator==</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_reply_info" kindref="compound">ReplyInfo</ref>&amp;<sp/>first,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_models_1_1_reply_info" kindref="compound">ReplyInfo</ref>&amp;<sp/>second)</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>first.<ref refid="struct_models_1_1_reply_info_1a90491ad89c1d1efe97c0889af3e279ee" kindref="member">_message</ref><sp/><sp/><sp/><sp/>==<sp/>second.<ref refid="struct_models_1_1_reply_info_1a90491ad89c1d1efe97c0889af3e279ee" kindref="member">_message</ref><sp/><sp/><sp/><sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>first.<ref refid="struct_models_1_1_reply_info_1ab4825771af50dad05220c2ffa7530fb0" kindref="member">_msgID</ref><sp/><sp/><sp/><sp/><sp/><sp/>==<sp/>second.<ref refid="struct_models_1_1_reply_info_1ab4825771af50dad05220c2ffa7530fb0" kindref="member">_msgID</ref><sp/><sp/><sp/><sp/><sp/><sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>first.<ref refid="struct_models_1_1_reply_info_1a7b4b40da9dc9dec5885c60402fc6d5c7" kindref="member">_senderID</ref><sp/><sp/><sp/>==<sp/>second.<ref refid="struct_models_1_1_reply_info_1a7b4b40da9dc9dec5885c60402fc6d5c7" kindref="member">_senderID</ref><sp/><sp/><sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>first.<ref refid="struct_models_1_1_reply_info_1a2fa913e50020f73a95dd1898874fcdfa" kindref="member">_msgIdOwner</ref><sp/>==<sp/>second.<ref refid="struct_models_1_1_reply_info_1a2fa913e50020f73a95dd1898874fcdfa" kindref="member">_msgIdOwner</ref><sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>first.<ref refid="struct_models_1_1_reply_info_1aa9e1aee7fa708bdb7b31b9f8cf42e9cd" kindref="member">_channelID</ref><sp/><sp/>==<sp/>second.<ref refid="struct_models_1_1_reply_info_1aa9e1aee7fa708bdb7b31b9f8cf42e9cd" kindref="member">_channelID</ref><sp/><sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>first.<ref refid="struct_models_1_1_reply_info_1a41cbe346844e5c690c3a75adb4273aef" kindref="member">_userLogin</ref><sp/><sp/>==<sp/>second.<ref refid="struct_models_1_1_reply_info_1a41cbe346844e5c690c3a75adb4273aef" kindref="member">_userLogin</ref>;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Archive&gt;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>serialize(Archive&amp;<sp/>ar,<sp/><ref refid="struct_models_1_1_reply_info" kindref="compound">Models::ReplyInfo</ref>&amp;<sp/>o)</highlight></codeline>
+<codeline lineno="273"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/>ar&amp;<sp/>o.<ref refid="struct_models_1_1_reply_info_1aa9e1aee7fa708bdb7b31b9f8cf42e9cd" kindref="member">_channelID</ref>&amp;<sp/>o.<ref refid="struct_models_1_1_reply_info_1a90491ad89c1d1efe97c0889af3e279ee" kindref="member">_message</ref>&amp;<sp/>o.<ref refid="struct_models_1_1_reply_info_1ab4825771af50dad05220c2ffa7530fb0" kindref="member">_msgID</ref>&amp;<sp/>o.<ref refid="struct_models_1_1_reply_info_1a7b4b40da9dc9dec5885c60402fc6d5c7" kindref="member">_senderID</ref>&amp;<sp/>o.<ref refid="struct_models_1_1_reply_info_1a2fa913e50020f73a95dd1898874fcdfa" kindref="member">_msgIdOwner</ref>&amp;<sp/>o.<ref refid="struct_models_1_1_reply_info_1a41cbe346844e5c690c3a75adb4273aef" kindref="member">_userLogin</ref>;</highlight></codeline>
+<codeline lineno="275"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal">}<sp/><sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>Models</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="Base/Models/Public/Include/Models/Primitives.hpp"/>
+  </compounddef>
+</doxygen>

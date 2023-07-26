@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_data_access_1_1_i_login_repository" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>DataAccess::ILoginRepository</compoundname>
+    <basecompoundref refid="struct_data_access_1_1_i_master_repository" prot="public" virt="non-virtual">DataAccess::IMasterRepository</basecompoundref>
+    <derivedcompoundref refid="struct_data_access_1_1_login_repository" prot="public" virt="non-virtual">DataAccess::LoginRepository</derivedcompoundref>
+    <derivedcompoundref refid="struct_mock_object_1_1_mock_login_repository" prot="public" virt="non-virtual">MockObject::MockLoginRepository</derivedcompoundref>
+    <includes refid="_i_server_repositories_8hpp" local="no">IServerRepositories.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_data_access_1_1_i_login_repository_1a2044aff1e4c541d5f95d47f063c140ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::uint64_t</type>
+        <definition>virtual std::uint64_t DataAccess::ILoginRepository::loginUser</definition>
+        <argsstring>(const Models::LoginInfo &amp;loginInfo)=0</argsstring>
+        <name>loginUser</name>
+        <qualifiedname>DataAccess::ILoginRepository::loginUser</qualifiedname>
+        <reimplementedby refid="struct_mock_object_1_1_mock_login_repository_1a6bdc65970a4a73f0794494240260e868">loginUser</reimplementedby>
+        <reimplementedby refid="struct_data_access_1_1_login_repository_1a9969335837ae7dc8a06eb8b9ddf9eb92">loginUser</reimplementedby>
+        <param>
+          <type>const <ref refid="struct_models_1_1_login_info" kindref="compound">Models::LoginInfo</ref> &amp;</type>
+          <declname>loginInfo</declname>
+        </param>
+        <briefdescription>
+<para>Attempts to login a user with the provided login by checking privided hash with the one stored. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>login</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>user login as string </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pwdHash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>password hash </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>userID if provided hash is the same as stored in repository, 0 stands for failed login </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" line="222" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_i_login_repository_1ad9ab6939fb3654a08cc77c8548d2ea06" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual DataAccess::ILoginRepository::~ILoginRepository</definition>
+        <argsstring>()=default</argsstring>
+        <name>~ILoginRepository</name>
+        <qualifiedname>DataAccess::ILoginRepository::~ILoginRepository</qualifiedname>
+        <briefdescription>
+<para>virtual destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" line="227" column="13"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements user authorization. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The class is similar to <ref refid="struct_data_access_1_1_i_messages_repository" kindref="compound">IMessagesRepository</ref>, but it handles logining (object of LoginInfo class). </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>DataAccess::ILoginRepository</label>
+        <link refid="struct_data_access_1_1_i_login_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="3">
+        <label>DataAccess::LoginRepository</label>
+        <link refid="struct_data_access_1_1_login_repository"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>MockObject::MockLoginRepository</label>
+        <link refid="struct_mock_object_1_1_mock_login_repository"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>DataAccess::ILoginRepository</label>
+        <link refid="struct_data_access_1_1_i_login_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" line="214" column="1" bodyfile="DataAccess/Public/Include/DataAccess/IServerRepositories.hpp" bodystart="215" bodyend="228"/>
+    <listofallmembers>
+      <member refid="struct_data_access_1_1_i_login_repository_1a2044aff1e4c541d5f95d47f063c140ac" prot="public" virt="pure-virtual"><scope>DataAccess::ILoginRepository</scope><name>loginUser</name></member>
+      <member refid="struct_data_access_1_1_i_login_repository_1ad9ab6939fb3654a08cc77c8548d2ea06" prot="public" virt="virtual"><scope>DataAccess::ILoginRepository</scope><name>~ILoginRepository</name></member>
+      <member refid="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" prot="public" virt="virtual"><scope>DataAccess::ILoginRepository</scope><name>~IMasterRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

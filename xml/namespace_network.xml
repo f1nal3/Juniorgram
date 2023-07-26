@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_network" kind="namespace" language="C++">
+    <compoundname>Network</compoundname>
+    <innerclass refid="class_network_1_1_abstract_handler" prot="public">Network::AbstractHandler</innerclass>
+    <innerclass refid="class_network_1_1_client" prot="public">Network::Client</innerclass>
+    <innerclass refid="class_network_1_1_combining_handlers" prot="public">Network::CombiningHandlers</innerclass>
+    <innerclass refid="class_network_1_1_compression_handler" prot="public">Network::CompressionHandler</innerclass>
+    <innerclass refid="class_network_1_1_connection" prot="public">Network::Connection</innerclass>
+    <innerclass refid="class_network_1_1_encryption_handler" prot="public">Network::EncryptionHandler</innerclass>
+    <innerclass refid="class_network_1_1_handler" prot="public">Network::Handler</innerclass>
+    <innerclass refid="class_network_1_1i_a_p_i" prot="public">Network::iAPI</innerclass>
+    <innerclass refid="struct_network_1_1_message" prot="public">Network::Message</innerclass>
+    <innerclass refid="class_network_1_1_serialization_handler" prot="public">Network::SerializationHandler</innerclass>
+    <innerclass refid="class_network_1_1_yas_serializer" prot="public">Network::YasSerializer</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="_connection_8hpp_1af4daee7c3c54232f048025bbd1b01c81" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>MessageResult</name>
+        <qualifiedname>Network::MessageResult</qualifiedname>
+        <enumvalue id="_connection_8hpp_1af4daee7c3c54232f048025bbd1b01c81ae01eb350d8cbf3af3eda4650e977649d" prot="public">
+          <name>InvalidBody</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_connection_8hpp_1af4daee7c3c54232f048025bbd1b01c81a505a83f220c02df2f85c3810cd9ceb38" prot="public">
+          <name>Success</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Connection.hpp" line="25" column="1" bodyfile="Network/Public/Include/Network/Connection.hpp" bodystart="26" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="enum" id="_handler_8hpp_1a0e6f75ddf048c324a92fc7731497d611" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>MessageProcessingState</name>
+        <qualifiedname>Network::MessageProcessingState</qualifiedname>
+        <enumvalue id="_handler_8hpp_1a0e6f75ddf048c324a92fc7731497d611ad0749aaba8b833466dfcbb0428e4f89c" prot="public">
+          <name>SUCCESS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_handler_8hpp_1a0e6f75ddf048c324a92fc7731497d611a36fc6065a3e970bc3e6b2e59da52bf2a" prot="public">
+          <name>FAILURE</name>
+          <briefdescription>
+<para>successful message processing </para>
+          </briefdescription>
+          <detaileddescription>
+<para>unsuccessful message processing </para>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Flag showing the result of message processing. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If the message processing result is successful / SUCCESS will be returned. / Else will be returned FAILURE. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Handler.hpp" line="14" column="1" bodyfile="Network/Public/Include/Network/Handler.hpp" bodystart="15" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="enum" id="_yas_serializer_8hpp_1a30e66450d50d0cb1f85a89ddace514c7" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>SerializedState</name>
+        <qualifiedname>Network::SerializedState</qualifiedname>
+        <enumvalue id="_yas_serializer_8hpp_1a30e66450d50d0cb1f85a89ddace514c7ad0749aaba8b833466dfcbb0428e4f89c" prot="public">
+          <name>SUCCESS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_yas_serializer_8hpp_1a30e66450d50d0cb1f85a89ddace514c7a36fc6065a3e970bc3e6b2e59da52bf2a" prot="public">
+          <name>FAILURE</name>
+          <briefdescription>
+<para>successful serialization/deserialization </para>
+          </briefdescription>
+          <detaileddescription>
+<para>unsuccessful serialization/deserialization </para>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Successful or not result of serialization/deserialization. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/YasSerializer.hpp" line="26" column="5" bodyfile="Network/Public/Include/Network/YasSerializer.hpp" bodystart="27" bodyend="30"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_message_8hpp_1aa6b6f3ac1059ed06f6c795e5dad2aa05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Archive</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Network::serialize</definition>
+        <argsstring>(Archive &amp;ar, Message::MessageHeader &amp;o)</argsstring>
+        <name>serialize</name>
+        <qualifiedname>Network::serialize</qualifiedname>
+        <param>
+          <type>Archive &amp;</type>
+          <declname>ar</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_network_1_1_message_1_1_message_header" kindref="compound">Message::MessageHeader</ref> &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+<para>Serialize method for MessageHeader which serialize each field. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Network/Public/Include/Network/Message.hpp" line="105" column="6" bodyfile="Network/Public/Include/Network/Message.hpp" bodystart="105" bodyend="108"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="9" column="1"/>
+  </compounddef>
+</doxygen>

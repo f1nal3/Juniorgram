@@ -1,0 +1,891 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_style__guide_8md" kind="file" language="Markdown">
+    <compoundname>Style_guide.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">1.<sp/>#<sp/>Как<sp/>писать<sp/>код<sp/>на<sp/>C++<sp/>{#styleguide}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Общее</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**1.**<sp/>Этот<sp/>текст<sp/>носит<sp/>рекомендательный<sp/>характер.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**2.**<sp/>Стиль<sp/>нужен<sp/>для<sp/>единообразия.<sp/>Единообразие<sp/>нужно,<sp/>чтобы<sp/>было<sp/>проще<sp/>(удобнее)<sp/>читать<sp/>код.<sp/>А<sp/>также,<sp/>чтобы<sp/>было<sp/>легче<sp/>осуществлять<sp/>поиск<sp/>по<sp/>коду.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Форматирование<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**1.**<sp/>Большую<sp/>часть<sp/>форматирования<sp/>сделает<sp/>автоматически<sp/>`clang-format`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**2.**<sp/>Отступы<sp/>—<sp/>4<sp/>пробела.<sp/>Настройте<sp/>среду<sp/>разработки<sp/>так,<sp/>чтобы<sp/>при<sp/>нажатии<sp/>на<sp/>Tab,<sp/>происходило<sp/>добавление<sp/>четырёх<sp/>пробелов.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**3.**<sp/>Открывающая<sp/>и<sp/>закрывающие<sp/>фигурные<sp/>скобки<sp/>на<sp/>отдельной<sp/>строке.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">inline<sp/>void<sp/>readBoolText(bool&amp;<sp/>x,<sp/>ReadBuffer&amp;<sp/>buf)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>char<sp/>tmp<sp/>=<sp/>&apos;0&apos;;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>readChar(tmp,<sp/>buf);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>x<sp/>=<sp/>tmp<sp/>!=<sp/>&apos;0&apos;;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**4.**<sp/>Если<sp/>всё<sp/>тело<sp/>функции<sp/>—<sp/>один<sp/>`statement`,<sp/>то<sp/>его<sp/>можно<sp/>разместить<sp/>на<sp/>одной<sp/>строке.<sp/>При<sp/>этом,<sp/>вокруг<sp/>фигурных<sp/>скобок<sp/>ставятся<sp/>пробелы<sp/>(кроме<sp/>пробела<sp/>на<sp/>конце<sp/>строки).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">inline<sp/>size_t<sp/>mask()<sp/>const<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>return<sp/>buf_size()<sp/>-<sp/>1;<sp/>}</highlight></codeline>
+<codeline><highlight class="normal">inline<sp/>size_t<sp/>place(HashValue<sp/>x)<sp/>const<sp/><sp/><sp/><sp/>{<sp/>return<sp/>x<sp/>&amp;<sp/>mask();<sp/>}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**5.**<sp/>Для<sp/>функций.<sp/>Пробелы<sp/>вокруг<sp/>скобок<sp/>не<sp/>ставятся.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>reinsert(const<sp/>Value&amp;<sp/>x)</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">memcpy(&amp;buf[place_value],<sp/>&amp;x,<sp/>sizeof(x));</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**6.**<sp/>В<sp/>выражениях<sp/>`if`,<sp/>`for`,<sp/>`while`<sp/>и<sp/>т.д.<sp/>перед<sp/>открывающей<sp/>скобкой<sp/>ставится<sp/>пробел<sp/>(в<sp/>отличие<sp/>от<sp/>вызовов<sp/>функций).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">for<sp/>(size_t<sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>rows;<sp/>i<sp/>+=<sp/>storage.index_granularity)</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**7.**<sp/>Вокруг<sp/>бинарных<sp/>операторов<sp/>(`+`,<sp/>`-`,<sp/>`*`,<sp/>`/`,<sp/>`%`,<sp/>…),<sp/>а<sp/>также<sp/>тернарного<sp/>оператора<sp/>`?:`<sp/>ставятся<sp/>пробелы.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">UInt16<sp/>year<sp/>=<sp/>(s[0]<sp/>-<sp/>&apos;0&apos;)<sp/>*<sp/>1000<sp/>+<sp/>(s[1]<sp/>-<sp/>&apos;0&apos;)<sp/>*<sp/>100<sp/>+<sp/>(s[2]<sp/>-<sp/>&apos;0&apos;)<sp/>*<sp/>10<sp/>+<sp/>(s[3]<sp/>-<sp/>&apos;0&apos;);</highlight></codeline>
+<codeline><highlight class="normal">UInt8<sp/>month<sp/>=<sp/>(s[5]<sp/>-<sp/>&apos;0&apos;)<sp/>*<sp/>10<sp/>+<sp/>(s[6]<sp/>-<sp/>&apos;0&apos;);</highlight></codeline>
+<codeline><highlight class="normal">UInt8<sp/>day<sp/>=<sp/>(s[8]<sp/>-<sp/>&apos;0&apos;)<sp/>*<sp/>10<sp/>+<sp/>(s[9]<sp/>-<sp/>&apos;0&apos;);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**8.**<sp/>Если<sp/>ставится<sp/>перенос<sp/>строки,<sp/>то<sp/>оператор<sp/>пишется<sp/>на<sp/>новой<sp/>строке,<sp/>и<sp/>перед<sp/>ним<sp/>увеличивается<sp/>отступ.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>(elapsed_ns)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>message<sp/>&lt;&lt;<sp/>&quot;<sp/>(&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>rows_read_on_server<sp/>*<sp/>1000000000<sp/>/<sp/>elapsed_ns<sp/>&lt;&lt;<sp/>&quot;<sp/>rows/s.,<sp/>&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>bytes_read_on_server<sp/>*<sp/>1000.0<sp/>/<sp/>elapsed_ns<sp/>&lt;&lt;<sp/>&quot;<sp/>MB/s.)<sp/>&quot;;</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**9.**<sp/>Внутри<sp/>строки<sp/>можно,<sp/>выполнять<sp/>выравнивание<sp/>с<sp/>помощью<sp/>пробелов.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">dst.ClickLogID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>click.LogID;</highlight></codeline>
+<codeline><highlight class="normal">dst.ClickEventID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>click.EventID;</highlight></codeline>
+<codeline><highlight class="normal">dst.ClickGoodEvent<sp/><sp/><sp/><sp/><sp/>=<sp/>click.GoodEvent;</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**10.**<sp/>Вокруг<sp/>операторов<sp/>`.`,<sp/>`-&gt;`<sp/>не<sp/>ставятся<sp/>пробелы.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">При<sp/>необходимости,<sp/>оператор<sp/>может<sp/>быть<sp/>перенесён<sp/>на<sp/>новую<sp/>строку.<sp/>В<sp/>этом<sp/>случае,<sp/>перед<sp/>ним<sp/>увеличивается<sp/>отступ.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**11.**<sp/>Унарные<sp/>операторы<sp/>`--`,<sp/>`++`,<sp/>`*`,<sp/>`&amp;`,<sp/>…<sp/>не<sp/>отделяются<sp/>от<sp/>аргумента<sp/>пробелом.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**12.**<sp/>После<sp/>запятой<sp/>ставится<sp/>пробел,<sp/>а<sp/>перед<sp/>—<sp/>нет.<sp/>Аналогично<sp/>для<sp/>точки<sp/>с<sp/>запятой<sp/>внутри<sp/>выражения<sp/>`for`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**13.**<sp/>Оператор<sp/>`[]`<sp/>не<sp/>отделяется<sp/>пробелами.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**14.**<sp/>В<sp/>выражении<sp/>`template<sp/>&lt;...&gt;`,<sp/>между<sp/>`template`<sp/>и<sp/>`&lt;`<sp/>ставится<sp/>пробел,<sp/>а<sp/>после<sp/>`&lt;`<sp/>и<sp/>до<sp/>`&gt;`<sp/>не<sp/>ставится.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">template<sp/>&lt;typename<sp/>TKey,<sp/>typename<sp/>TValue&gt;</highlight></codeline>
+<codeline><highlight class="normal">struct<sp/>AggregatedStatElement</highlight></codeline>
+<codeline><highlight class="normal">{}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**15.**<sp/>В<sp/>классах<sp/>и<sp/>структурах,<sp/>`public`,<sp/>`private`,<sp/>`protected`<sp/>пишется<sp/>на<sp/>том<sp/>же<sp/>уровне,<sp/>что<sp/>и<sp/>`class/struct`,<sp/>а<sp/>остальной<sp/>код<sp/>с<sp/>отступом.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">template<sp/>&lt;typename<sp/>T&gt;</highlight></codeline>
+<codeline><highlight class="normal">class<sp/>MultiVersion</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal">public:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>///<sp/>Version<sp/>of<sp/>object<sp/>for<sp/>usage.<sp/>shared_ptr<sp/>manage<sp/>lifetime<sp/>of<sp/>version.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>using<sp/>Version<sp/>=<sp/>std::shared_ptr&lt;const<sp/>T&gt;;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>...</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**16.**<sp/>Если<sp/>на<sp/>весь<sp/>файл<sp/>один<sp/>`namespace`<sp/>и<sp/>кроме<sp/>него<sp/>ничего<sp/>существенного<sp/>нет,<sp/>то<sp/>отступ<sp/>внутри<sp/>`namespace`<sp/>не<sp/>нужен.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**17.**<sp/>Если<sp/>блок<sp/>для<sp/>выражения<sp/>`if`,<sp/>`for`,<sp/>`while`,<sp/>…<sp/>состоит<sp/>из<sp/>одного<sp/>`statement`,<sp/>то<sp/>фигурные<sp/>скобки<sp/>не<sp/>обязательны.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Если<sp/>внутренний<sp/>`statement`<sp/>содержит<sp/>фигурные<sp/>скобки<sp/>или<sp/>`else`,<sp/>то<sp/>внешний<sp/>блок<sp/>следует<sp/>писать<sp/>в<sp/>фигурных<sp/>скобках.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">///<sp/>Finish<sp/>write.</highlight></codeline>
+<codeline><highlight class="normal">for<sp/>(auto&amp;<sp/>stream<sp/>:<sp/>streams)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>stream.second-&gt;finalize();</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**18.**<sp/>Не<sp/>должно<sp/>быть<sp/>пробелов<sp/>на<sp/>концах<sp/>строк.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**19.**<sp/>Исходники<sp/>в<sp/>кодировке<sp/>UTF-8.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**20.**<sp/>В<sp/>строковых<sp/>литералах<sp/>можно<sp/>использовать<sp/>не-ASCII.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">&lt;&lt;<sp/>&quot;,<sp/>&quot;<sp/>&lt;&lt;<sp/>(timer.elapsed()<sp/>/<sp/>chunks_stats.hits)<sp/>&lt;&lt;<sp/>&quot;<sp/>μsec/hit.&quot;;</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**21.**<sp/>Не<sp/>пишите<sp/>несколько<sp/>выражений<sp/>в<sp/>одной<sp/>строке.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**22.**<sp/>Внутри<sp/>функций<sp/>группируйте<sp/>блоки<sp/>кода,<sp/>отделяя<sp/>их<sp/>не<sp/>более,<sp/>чем<sp/>одной<sp/>пустой<sp/>строкой.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**23.**<sp/>Функции,<sp/>классы,<sp/>и<sp/>т.<sp/>п.<sp/>отделяются<sp/>друг<sp/>от<sp/>друга<sp/>одной<sp/>или<sp/>двумя<sp/>пустыми<sp/>строками.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**24.**<sp/>`const`<sp/>(относящийся<sp/>к<sp/>значению)<sp/>пишется<sp/>до<sp/>имени<sp/>типа.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">//correct</highlight></codeline>
+<codeline><highlight class="normal">const<sp/>char*<sp/>pos</highlight></codeline>
+<codeline><highlight class="normal">const<sp/>std::string&amp;<sp/>s</highlight></codeline>
+<codeline><highlight class="normal">//incorrect</highlight></codeline>
+<codeline><highlight class="normal">char<sp/>const*<sp/>pos</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**25.**<sp/>При<sp/>объявлении<sp/>указателя<sp/>или<sp/>ссылки,<sp/>символы<sp/>`*`<sp/>и<sp/>`&amp;`<sp/>не<sp/>отделяются<sp/>пробелами<sp/>с<sp/>обеих<sp/>сторон.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">//correct</highlight></codeline>
+<codeline><highlight class="normal">const<sp/>char*<sp/>pos</highlight></codeline>
+<codeline><highlight class="normal">//incorrect</highlight></codeline>
+<codeline><highlight class="normal">const<sp/>char<sp/>*<sp/>pos</highlight></codeline>
+<codeline><highlight class="normal">const<sp/>char<sp/>*pos</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**26.**<sp/>При<sp/>использовании<sp/>шаблонных<sp/>типов,<sp/>пишите<sp/>`using`<sp/>(кроме,<sp/>возможно,<sp/>простейших<sp/>случаев).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">То<sp/>есть,<sp/>параметры<sp/>шаблона<sp/>указываются<sp/>только<sp/>в<sp/>`using`<sp/>и<sp/>затем<sp/>не<sp/>повторяются<sp/>в<sp/>коде.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">`using`<sp/>может<sp/>быть<sp/>объявлен<sp/>локально,<sp/>например,<sp/>внутри<sp/>функции.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">//correct</highlight></codeline>
+<codeline><highlight class="normal">using<sp/>FileStreams<sp/>=<sp/>std::map&lt;std::string,<sp/>std::shared_ptr&lt;Stream&gt;&gt;;</highlight></codeline>
+<codeline><highlight class="normal">FileStreams<sp/>streams;</highlight></codeline>
+<codeline><highlight class="normal">//incorrect</highlight></codeline>
+<codeline><highlight class="normal">std::map&lt;std::string,<sp/>std::shared_ptr&lt;Stream&gt;&gt;<sp/>streams;</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**27.**<sp/>Нельзя<sp/>объявлять<sp/>несколько<sp/>переменных<sp/>разных<sp/>типов<sp/>в<sp/>одном<sp/>выражении.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">//incorrect</highlight></codeline>
+<codeline><highlight class="normal">int<sp/>x,<sp/>*y;</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**28.**<sp/>C-style<sp/>cast<sp/>не<sp/>используется.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">//incorrect</highlight></codeline>
+<codeline><highlight class="normal">std::cerr<sp/>&lt;&lt;<sp/>(int)c<sp/>&lt;&lt;;<sp/>std::endl;</highlight></codeline>
+<codeline><highlight class="normal">//correct</highlight></codeline>
+<codeline><highlight class="normal">std::cerr<sp/>&lt;&lt;<sp/>static_cast&lt;int&gt;(c)<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**29.**<sp/>В<sp/>классах<sp/>и<sp/>структурах,<sp/>группируйте<sp/>отдельно<sp/>методы<sp/>и<sp/>отдельно<sp/>члены,<sp/>внутри<sp/>каждой<sp/>области<sp/>видимости.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**30.**<sp/>Для<sp/>не<sp/>очень<sp/>большого<sp/>класса/структуры,<sp/>можно<sp/>не<sp/>отделять<sp/>объявления<sp/>методов<sp/>от<sp/>реализации.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Аналогично<sp/>для<sp/>маленьких<sp/>методов<sp/>в<sp/>любых<sp/>классах/структурах.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Для<sp/>шаблонных<sp/>классов/структур,<sp/>лучше<sp/>не<sp/>отделять<sp/>объявления<sp/>методов<sp/>от<sp/>реализации<sp/>(так<sp/>как<sp/>иначе<sp/>они<sp/>всё<sp/>равно<sp/>должны<sp/>быть<sp/>определены<sp/>в<sp/>той<sp/>же<sp/>единице<sp/>трансляции).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**31.**<sp/>Не<sp/>обязательно<sp/>умещать<sp/>код<sp/>по<sp/>ширине<sp/>в<sp/>80<sp/>символов.<sp/>Можно<sp/>в<sp/>140.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**32.**<sp/>Всегда<sp/>используйте<sp/>префиксный<sp/>инкремент/декремент,<sp/>если<sp/>постфиксный<sp/>не<sp/>нужен.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">for<sp/>(Names::const_iterator<sp/>it<sp/>=<sp/>column_names.begin();<sp/>it<sp/>!=<sp/>column_names.end();<sp/>++it)</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Комментарии</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**1.**<sp/>Необходимо<sp/>обязательно<sp/>писать<sp/>комментарии<sp/>во<sp/>всех<sp/>нетривиальных<sp/>местах.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Это<sp/>очень<sp/>важно.<sp/>При<sp/>написании<sp/>комментария,<sp/>можно<sp/>успеть<sp/>понять,<sp/>что<sp/>код<sp/>не<sp/>нужен<sp/>вообще,<sp/>или<sp/>что<sp/>всё<sp/>сделано<sp/>неверно.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">/**<sp/>Part<sp/>of<sp/>piece<sp/>of<sp/>memory,<sp/>that<sp/>can<sp/>be<sp/>used.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*<sp/>For<sp/>example,<sp/>if<sp/>internal_buffer<sp/>is<sp/>1MB,<sp/>and<sp/>there<sp/>was<sp/>only<sp/>10<sp/>bytes<sp/>loaded<sp/>to<sp/>buffer<sp/>from<sp/>file<sp/>for<sp/>reading,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>*<sp/>then<sp/>working_buffer<sp/>will<sp/>have<sp/>size<sp/>of<sp/>only<sp/>10<sp/>bytes</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*<sp/>(working_buffer.end()<sp/>will<sp/>point<sp/>to<sp/>position<sp/>right<sp/>after<sp/>those<sp/>10<sp/>bytes<sp/>available<sp/>for<sp/>read).</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*/</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**2.**<sp/>Комментарии<sp/>могут<sp/>быть<sp/>сколь<sp/>угодно<sp/>подробными.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**3.**<sp/>Комментарии<sp/>пишутся<sp/>до<sp/>соответствующего<sp/>кода.<sp/>В<sp/>редких<sp/>случаях<sp/>после,<sp/>на<sp/>той<sp/>же<sp/>строке.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">/**<sp/>Parses<sp/>and<sp/>executes<sp/>the<sp/>query.</highlight></codeline>
+<codeline><highlight class="normal">*/</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>executeQuery(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ReadBuffer&amp;<sp/>istr,<sp/>///<sp/>Where<sp/>to<sp/>read<sp/>the<sp/>query<sp/>from<sp/>(and<sp/>data<sp/>for<sp/>INSERT,<sp/>if<sp/>applicable)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>WriteBuffer&amp;<sp/>ostr,<sp/>///<sp/>Where<sp/>to<sp/>write<sp/>the<sp/>result</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Context&amp;<sp/>context,<sp/>///<sp/>DB,<sp/>tables,<sp/>data<sp/>types,<sp/>engines,<sp/>functions,<sp/>aggregate<sp/>functions...</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>BlockInputStreamPtr&amp;<sp/>query_plan,<sp/>///<sp/>Here<sp/>could<sp/>be<sp/>written<sp/>the<sp/>description<sp/>on<sp/>how<sp/>query<sp/>was<sp/>executed</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>QueryProcessingStage::Enum<sp/>stage<sp/>=<sp/>QueryProcessingStage::Complete<sp/>///<sp/>Up<sp/>to<sp/>which<sp/>stage<sp/>process<sp/>the<sp/>SELECT<sp/>query</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**4.**<sp/>Комментарии<sp/>следует<sp/>писать<sp/>только<sp/>на<sp/>английском<sp/>языке.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**5.**<sp/>При<sp/>написании<sp/>библиотеки,<sp/>разместите<sp/>подробный<sp/>комментарий<sp/>о<sp/>том,<sp/>что<sp/>это<sp/>такое,<sp/>в<sp/>самом<sp/>главном<sp/>заголовочном<sp/>файле.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**6.**<sp/>Нельзя<sp/>писать<sp/>комментарии,<sp/>которые<sp/>не<sp/>дают<sp/>дополнительной<sp/>информации.<sp/>В<sp/>частности,<sp/>нельзя<sp/>писать<sp/>пустые<sp/>комментарии<sp/>вроде<sp/>этого:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">/*</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Procedure<sp/>Name:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Original<sp/>procedure<sp/>name:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Author:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Date<sp/>of<sp/>creation:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Dates<sp/>of<sp/>modification:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Modification<sp/>authors:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Original<sp/>file<sp/>name:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Purpose:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Intent:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Designation:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Classes<sp/>used:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Constants:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Local<sp/>variables:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Parameters:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Date<sp/>of<sp/>creation:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Purpose:</highlight></codeline>
+<codeline><highlight class="normal">*/</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**7.**<sp/>Нельзя<sp/>писать<sp/>мусорные<sp/>комментарии<sp/>(автор,<sp/>дата<sp/>создания…)<sp/>в<sp/>начале<sp/>каждого<sp/>файла.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**8.**<sp/>Однострочные<sp/>комментарии<sp/>начинаются<sp/>с<sp/>трёх<sp/>слешей:<sp/>`///`<sp/>,<sp/>многострочные<sp/>с<sp/>`/**`.<sp/>Такие<sp/>комментарии<sp/>считаются<sp/>«документирующими».</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Замечание:<sp/>такие<sp/>комментарии<sp/>могут<sp/>использоваться<sp/>для<sp/>генерации<sp/>документации<sp/>с<sp/>помощью<sp/>Doxygen.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**9.**<sp/>В<sp/>начале<sp/>и<sp/>конце<sp/>многострочного<sp/>комментария,<sp/>не<sp/>должно<sp/>быть<sp/>пустых<sp/>строк<sp/>(кроме<sp/>строки,<sp/>на<sp/>которой<sp/>закрывается<sp/>многострочный<sp/>комментарий).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**10.**<sp/>Для<sp/>закомментированных<sp/>кусков<sp/>кода,<sp/>используются<sp/>обычные,<sp/>не<sp/>«документирующие»<sp/>комментарии.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**11.**<sp/>Удаляйте<sp/>закомментированные<sp/>куски<sp/>кода<sp/>перед<sp/>коммитом.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**12.**<sp/>Не<sp/>нужно<sp/>писать<sp/>нецензурную<sp/>брань<sp/>в<sp/>комментариях<sp/>или<sp/>коде<sp/>;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**13.**<sp/>Не<sp/>пишите<sp/>прописными<sp/>буквами.<sp/>Не<sp/>используйте<sp/>излишнее<sp/>количество<sp/>знаков<sp/>препинания.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">///<sp/>WHAT<sp/>THE<sp/>FAIL???</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**14.**<sp/>Не<sp/>составляйте<sp/>из<sp/>комментариев<sp/>строки-разделители.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">///******************************************************</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**15.**<sp/>Не<sp/>нужно<sp/>писать<sp/>в<sp/>комментарии<sp/>диалог<sp/>(лучше<sp/>сказать<sp/>устно).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">///<sp/>Why<sp/>did<sp/>you<sp/>do<sp/>this<sp/>stuff?</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**16.**<sp/>Не<sp/>нужно<sp/>писать<sp/>комментарий<sp/>в<sp/>конце<sp/>блока<sp/>о<sp/>том,<sp/>что<sp/>представлял<sp/>собой<sp/>этот<sp/>блок.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">///<sp/>for</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Имена<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**1.**<sp/>В<sp/>именах<sp/>локальных<sp/>переменных<sp/>используйте<sp/>camelCase.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">size_t<sp/>maxBlockSize;</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">**2.**<sp/>В<sp/>именах<sp/>членов<sp/>класса<sp/>используйте<sp/>underscore.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">private:</highlight></codeline>
+<codeline><highlight class="normal">size_t<sp/>_maxBlockSize;</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**3.**<sp/>Имена<sp/>функций<sp/>(методов)<sp/>camelCase<sp/>с<sp/>маленькой<sp/>буквы.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">std::string<sp/>getName()<sp/>const<sp/>override<sp/>{<sp/>return<sp/>&quot;Memory&quot;;<sp/>}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**4.**<sp/>Имена<sp/>классов<sp/>(структур)<sp/>-<sp/>CamelCase<sp/>с<sp/>большой<sp/>буквы.<sp/>Префиксы<sp/>кроме<sp/>I<sp/>для<sp/>интерфейсов<sp/>-<sp/>не<sp/>используются.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">class<sp/>StorageMemory<sp/>:<sp/>public<sp/>IStorage</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**5.**<sp/>`using`<sp/>называются<sp/>также,<sp/>как<sp/>классы,<sp/>либо<sp/>с<sp/>`_t`<sp/>на<sp/>конце.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**6.**<sp/>Имена<sp/>типов<sp/>—<sp/>параметров<sp/>шаблонов:<sp/>в<sp/>простых<sp/>случаях<sp/>-<sp/>`T`;<sp/>`T`,<sp/>`U`;<sp/>`T1`,<sp/>`T2`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>более<sp/>сложных<sp/>случаях<sp/>-<sp/>либо<sp/>также,<sp/>как<sp/>имена<sp/>классов,<sp/>либо<sp/>можно<sp/>добавить<sp/>в<sp/>начало<sp/>букву<sp/>`T`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">template<sp/>&lt;typename<sp/>TKey,<sp/>typename<sp/>TValue&gt;</highlight></codeline>
+<codeline><highlight class="normal">struct<sp/>AggregatedStatElement</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**7.**<sp/>Имена<sp/>констант<sp/>—<sp/>параметров<sp/>шаблонов:<sp/>либо<sp/>также,<sp/>как<sp/>имена<sp/>переменных,<sp/>либо<sp/>`N`<sp/>в<sp/>простом<sp/>случае.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">template<sp/>&lt;bool<sp/>without_www&gt;</highlight></codeline>
+<codeline><highlight class="normal">struct<sp/>ExtractDomain</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**8.**<sp/>Для<sp/>абстрактных<sp/>классов<sp/>(интерфейсов)<sp/>можно<sp/>добавить<sp/>в<sp/>начало<sp/>имени<sp/>букву<sp/>`I`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">class<sp/>IBlockInputStream</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**9.**<sp/>Если<sp/>переменная<sp/>используется<sp/>достаточно<sp/>локально,<sp/>то<sp/>можно<sp/>использовать<sp/>короткое<sp/>имя.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>остальных<sp/>случаях<sp/>используйте<sp/>имя,<sp/>описывающее<sp/>смысл.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">bool<sp/>info_successfully_loaded<sp/>=<sp/>false;</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**10.**<sp/>В<sp/>именах<sp/>`define`<sp/>и<sp/>глобальных<sp/>констант<sp/>используется<sp/>ALL_CAPS<sp/>с<sp/>подчёркиванием.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">#define<sp/>MAX_SRC_TABLE_NAMES_TO_STORE<sp/>1000</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**11.**<sp/>Имена<sp/>файлов<sp/>с<sp/>кодом<sp/>называйте<sp/>по<sp/>стилю<sp/>соответственно<sp/>тому,<sp/>что<sp/>в<sp/>них<sp/>находится.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Если<sp/>в<sp/>файле<sp/>находится<sp/>один<sp/>класс,<sp/>назовите<sp/>файл,<sp/>как<sp/>класс<sp/>(CamelCase).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Если<sp/>в<sp/>файле<sp/>находится<sp/>одна<sp/>функция,<sp/>назовите<sp/>файл,<sp/>как<sp/>функцию<sp/>(CamelCase).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**12.**<sp/>Если<sp/>имя<sp/>содержит<sp/>сокращение,<sp/>то:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/><sp/><sp/>для<sp/>имён<sp/>переменных,<sp/>всё<sp/>сокращение<sp/>пишется<sp/>маленькими<sp/>буквами<sp/>`mysql_connection`<sp/>(не<sp/>`mySQL_connection`).</highlight></codeline>
+<codeline><highlight class="normal">-<sp/><sp/><sp/>для<sp/>имён<sp/>классов<sp/>и<sp/>функций,<sp/>сохраняются<sp/>большие<sp/>буквы<sp/>в<sp/>сокращении<sp/>`MySQLConnection`<sp/>(не<sp/>`MySqlConnection`).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**13.**<sp/>Параметры<sp/>конструктора,<sp/>использующиеся<sp/>сразу<sp/>же<sp/>для<sp/>инициализации<sp/>соответствующих<sp/>членов<sp/>класса,<sp/>следует<sp/>назвать<sp/>также,<sp/>как<sp/>и<sp/>члены<sp/>класса,<sp/>добавив<sp/>подчёркивание<sp/>в<sp/>конец.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">FileQueueProcessor(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>const<sp/>std::string&amp;<sp/>path_,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>const<sp/>std::string&amp;<sp/>prefix_,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;FileHandler&gt;<sp/>handler_)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>path(path_),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>prefix(prefix_),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>handler(handler_),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>log(&amp;Logger::get(&quot;FileQueueProcessor&quot;))</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Также<sp/>можно<sp/>называть<sp/>параметры<sp/>конструктора<sp/>так<sp/>же,<sp/>как<sp/>и<sp/>члены<sp/>класса<sp/>(не<sp/>добавлять<sp/>подчёркивание),<sp/>но<sp/>только<sp/>если<sp/>этот<sp/>параметр<sp/>не<sp/>используется<sp/>в<sp/>теле<sp/>конструктора.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**14.**<sp/>Именование<sp/>локальных<sp/>переменных<sp/>и<sp/>членов<sp/>класса<sp/>никак<sp/>не<sp/>отличается<sp/>(никакие<sp/>префиксы<sp/>не<sp/>нужны).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">timer<sp/>(not<sp/>timer_)</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**15.**<sp/>Константы<sp/>в<sp/>`enum`<sp/>—<sp/>CamelCase<sp/>с<sp/>большой<sp/>буквы.<sp/>Также<sp/>допустим<sp/>ALL_CAPS.<sp/>Если<sp/>`enum`<sp/>не<sp/>локален,<sp/>то<sp/>используйте<sp/>`enum<sp/>class`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">enum<sp/>class<sp/>CompressionMethod</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>QuickLZ<sp/>=<sp/>0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LZ4<sp/><sp/><sp/><sp/><sp/>=<sp/>1,</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**16.**<sp/>Все<sp/>имена<sp/>-<sp/>по-английски.<sp/>Транслит<sp/>с<sp/>русского<sp/>использовать<sp/>нельзя.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>text</highlight></codeline>
+<codeline><highlight class="normal">не<sp/>Stroka</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**17.**<sp/>Сокращения<sp/>(из<sp/>нескольких<sp/>букв<sp/>разных<sp/>слов)<sp/>в<sp/>именах<sp/>можно<sp/>использовать<sp/>только<sp/>если<sp/>они<sp/>являются<sp/>общепринятыми<sp/>(если<sp/>для<sp/>сокращения<sp/>можно<sp/>найти<sp/>расшифровку<sp/>в<sp/>английской<sp/>википедии<sp/>или<sp/>сделав<sp/>поисковый<sp/>запрос).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>text</highlight></codeline>
+<codeline><highlight class="normal">`AST`,<sp/>`SQL`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Не<sp/>`NVDH`<sp/>(что-то<sp/>неведомое)</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Сокращения<sp/>в<sp/>виде<sp/>обрезанного<sp/>слова<sp/>можно<sp/>использовать,<sp/>только<sp/>если<sp/>такое<sp/>сокращение<sp/>является<sp/>широко<sp/>используемым.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Впрочем,<sp/>сокращения<sp/>также<sp/>можно<sp/>использовать,<sp/>если<sp/>расшифровка<sp/>находится<sp/>рядом<sp/>в<sp/>комментарии.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**18.**<sp/>Имена<sp/>файлов<sp/>с<sp/>исходниками<sp/>на<sp/>C++<sp/>должны<sp/>иметь<sp/>расширение<sp/>только<sp/>`.cpp`.<sp/>Заголовочные<sp/>файлы<sp/>-<sp/>только<sp/>`.hpp`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Как<sp/>писать<sp/>код</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**1.**<sp/>Управление<sp/>памятью.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Ручное<sp/>освобождение<sp/>памяти<sp/>(`delete`)<sp/>можно<sp/>использовать<sp/>только<sp/>в<sp/>библиотечном<sp/>коде.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>свою<sp/>очередь,<sp/>в<sp/>библиотечном<sp/>коде,<sp/>оператор<sp/>`delete`<sp/>можно<sp/>использовать<sp/>только<sp/>в<sp/>деструкторах.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>прикладном<sp/>коде<sp/>следует<sp/>делать<sp/>так,<sp/>что<sp/>память<sp/>освобождается<sp/>каким-либо<sp/>объектом,<sp/>который<sp/>владеет<sp/>ей.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Примеры:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/><sp/><sp/>проще<sp/>всего<sp/>разместить<sp/>объект<sp/>на<sp/>стеке,<sp/>или<sp/>сделать<sp/>его<sp/>членом<sp/>другого<sp/>класса.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/><sp/><sp/>для<sp/>большого<sp/>количества<sp/>маленьких<sp/>объектов<sp/>используйте<sp/>контейнеры.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/><sp/><sp/>для<sp/>автоматического<sp/>освобождения<sp/>маленького<sp/>количества<sp/>объектов,<sp/>выделенных<sp/>на<sp/>куче,<sp/>используйте<sp/>`shared_ptr/unique_ptr`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**2.**<sp/>Управление<sp/>ресурсами.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Используйте<sp/>`RAII`<sp/>и<sp/>см.<sp/>пункт<sp/>выше.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**3.**<sp/>Обработка<sp/>ошибок.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Используйте<sp/>исключения.<sp/>В<sp/>большинстве<sp/>случаев,<sp/>нужно<sp/>только<sp/>кидать<sp/>исключения,<sp/>а<sp/>ловить<sp/>-<sp/>не<sp/>нужно<sp/>(потому<sp/>что<sp/>`RAII`).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>программах<sp/>офлайн<sp/>обработки<sp/>данных,<sp/>зачастую,<sp/>можно<sp/>не<sp/>ловить<sp/>исключения.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>серверах,<sp/>обрабатывающих<sp/>пользовательские<sp/>запросы,<sp/>как<sp/>правило,<sp/>достаточно<sp/>ловить<sp/>исключения<sp/>на<sp/>самом<sp/>верху<sp/>обработчика<sp/>соединения.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>функциях<sp/>потока,<sp/>следует<sp/>ловить<sp/>и<sp/>запоминать<sp/>все<sp/>исключения,<sp/>чтобы<sp/>выкинуть<sp/>их<sp/>в<sp/>основном<sp/>потоке<sp/>после<sp/>`join`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">///<sp/>Если<sp/>вычислений<sp/>ещё<sp/>не<sp/>было<sp/>-<sp/>вычислим<sp/>первый<sp/>блок<sp/>синхронно</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>(!started)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>calculate();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>started<sp/>=<sp/>true;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">else<sp/><sp/><sp/><sp/>///<sp/>Если<sp/>вычисления<sp/>уже<sp/>идут<sp/>-<sp/>подождём<sp/>результата</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>pool.wait();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">if<sp/>(exception)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>exception-&gt;rethrow();</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Ни<sp/>в<sp/>коем<sp/>случае<sp/>не<sp/>«проглатывайте»<sp/>исключения<sp/>без<sp/>разбора.<sp/>Ни<sp/>в<sp/>коем<sp/>случае,<sp/>не<sp/>превращайте<sp/>все<sp/>исключения<sp/>без<sp/>разбора<sp/>в<sp/>сообщения<sp/>в<sp/>логе.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">//Not<sp/>correct</highlight></codeline>
+<codeline><highlight class="normal">catch<sp/>(...)<sp/>{}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Если<sp/>вам<sp/>нужно<sp/>проигнорировать<sp/>какие-то<sp/>исключения,<sp/>то<sp/>игнорируйте<sp/>только<sp/>конкретные,<sp/>а<sp/>остальные<sp/>кидайте<sp/>обратно.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">catch<sp/>(const<sp/>DB::Exception<sp/>&amp;<sp/>e)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>(e.code()<sp/>==<sp/>ErrorCodes::UNKNOWN_AGGREGATE_FUNCTION)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>nullptr;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>else</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>throw;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">При<sp/>использовании<sp/>функций,<sp/>использующих<sp/>коды<sp/>возврата<sp/>или<sp/>`errno`,<sp/>проверяйте<sp/>результат<sp/>и<sp/>кидайте<sp/>исключение.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>(0<sp/>!=<sp/>close(fd))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>throwFromErrno(&quot;Cannot<sp/>close<sp/>file<sp/>&quot;<sp/>+<sp/>file_name,<sp/>ErrorCodes::CANNOT_CLOSE_FILE);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">`assert`<sp/>не<sp/>используются.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**4.**<sp/>Типы<sp/>исключений.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>прикладном<sp/>коде<sp/>не<sp/>требуется<sp/>использовать<sp/>сложную<sp/>иерархию<sp/>исключений.<sp/>Желательно,<sp/>чтобы<sp/>текст<sp/>исключения<sp/>был<sp/>понятен.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**5.**<sp/>Исключения,<sp/>вылетающие<sp/>из<sp/>деструкторов.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Использовать<sp/>не<sp/>рекомендуется,<sp/>но<sp/>допустимо.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Используйте<sp/>следующие<sp/>варианты:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/><sp/><sp/>Сделайте<sp/>функцию<sp/>(`done()`<sp/>или<sp/>`finalize()`),<sp/>которая<sp/>позволяет<sp/>заранее<sp/>выполнить<sp/>всю<sp/>работу,<sp/>в<sp/>процессе<sp/>которой<sp/>может<sp/>возникнуть<sp/>исключение.<sp/>Если<sp/>эта<sp/>функция<sp/>была<sp/>вызвана,<sp/>то<sp/>затем<sp/>в<sp/>деструкторе<sp/>не<sp/>должно<sp/>возникать<sp/>исключений.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/><sp/><sp/>Слишком<sp/>сложную<sp/>работу<sp/>(например,<sp/>отправку<sp/>данных<sp/>по<sp/>сети)<sp/>можно<sp/>вообще<sp/>не<sp/>делать<sp/>в<sp/>деструкторе,<sp/>рассчитывая,<sp/>что<sp/>пользователь<sp/>заранее<sp/>позовёт<sp/>метод<sp/>для<sp/>завершения<sp/>работы.</highlight></codeline>
+<codeline><highlight class="normal">-<sp/><sp/><sp/>Если<sp/>в<sp/>деструкторе<sp/>возникло<sp/>исключение,<sp/>желательно<sp/>не<sp/>«проглатывать»<sp/>его,<sp/>а<sp/>вывести<sp/>информацию<sp/>в<sp/>лог<sp/>(если<sp/>в<sp/>этом<sp/>месте<sp/>доступен<sp/>логгер).</highlight></codeline>
+<codeline><highlight class="normal">-<sp/><sp/><sp/>В<sp/>простых<sp/>программах,<sp/>если<sp/>соответствующие<sp/>исключения<sp/>не<sp/>ловятся,<sp/>и<sp/>приводят<sp/>к<sp/>завершению<sp/>работы<sp/>с<sp/>записью<sp/>информации<sp/>в<sp/>лог,<sp/>можно<sp/>не<sp/>беспокоиться<sp/>об<sp/>исключениях,<sp/>вылетающих<sp/>из<sp/>деструкторов,<sp/>так<sp/>как<sp/>вызов<sp/>`std::terminate`<sp/>(в<sp/>случае<sp/>`noexcept`<sp/>по<sp/>умолчанию<sp/>в<sp/>C++11),<sp/>является<sp/>приемлемым<sp/>способом<sp/>обработки<sp/>исключения.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**6.**<sp/>Отдельные<sp/>блоки<sp/>кода.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Внутри<sp/>одной<sp/>функции,<sp/>можно<sp/>создать<sp/>отдельный<sp/>блок<sp/>кода,<sp/>для<sp/>того,<sp/>чтобы<sp/>сделать<sp/>некоторые<sp/>переменные<sp/>локальными<sp/>в<sp/>нём,<sp/>и<sp/>для<sp/>того,<sp/>чтобы<sp/>соответствующие<sp/>деструкторы<sp/>были<sp/>вызваны<sp/>при<sp/>выходе<sp/>из<sp/>блока.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">Block<sp/>block<sp/>=<sp/>data.in-&gt;read();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lock(mutex);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>data.ready<sp/>=<sp/>true;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>data.block<sp/>=<sp/>block;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">ready_any.set();</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**7.**<sp/>Многопоточность.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>программах<sp/>офлайн<sp/>обработки<sp/>данных:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/><sp/><sp/>cначала<sp/>добейтесь<sp/>более-менее<sp/>максимальной<sp/>производительности<sp/>на<sp/>одном<sp/>процессорном<sp/>ядре,<sp/>потом<sp/>можно<sp/>распараллеливать<sp/>код,<sp/>но<sp/>только<sp/>если<sp/>есть<sp/>необходимость.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>программах<sp/>-<sp/>серверах:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/><sp/><sp/>используйте<sp/>пул<sp/>потоков<sp/>для<sp/>обработки<sp/>запросов.<sp/>На<sp/>данный<sp/>момент,<sp/>у<sp/>нас<sp/>не<sp/>было<sp/>задач,<sp/>в<sp/>которых<sp/>была<sp/>бы<sp/>необходимость<sp/>использовать<sp/>userspace<sp/>context<sp/>switching.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Fork<sp/>для<sp/>распараллеливания<sp/>не<sp/>используется.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**8.**<sp/>Синхронизация<sp/>потоков.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Часто<sp/>можно<sp/>сделать<sp/>так,<sp/>чтобы<sp/>отдельные<sp/>потоки<sp/>писали<sp/>данные<sp/>в<sp/>разные<sp/>ячейки<sp/>памяти<sp/>(лучше<sp/>в<sp/>разные<sp/>кэш-линии),<sp/>и<sp/>не<sp/>использовать<sp/>синхронизацию<sp/>потоков<sp/>(кроме<sp/>`joinAll`).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Если<sp/>синхронизация<sp/>нужна,<sp/>то<sp/>в<sp/>большинстве<sp/>случаев,<sp/>достаточно<sp/>использовать<sp/>mutex<sp/>под<sp/>`lock_guard`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>остальных<sp/>случаях,<sp/>используйте<sp/>системные<sp/>примитивы<sp/>синхронизации.<sp/>Не<sp/>используйте<sp/>busy<sp/>wait.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Атомарные<sp/>операции<sp/>можно<sp/>использовать<sp/>только<sp/>в<sp/>простейших<sp/>случаях.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Не<sp/>нужно<sp/>писать<sp/>самостоятельно<sp/>lock-free<sp/>структуры<sp/>данных.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**9.**<sp/>Ссылки<sp/>и<sp/>указатели.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>большинстве<sp/>случаев,<sp/>предпочитайте<sp/>ссылки.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**10.**<sp/>const.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Используйте<sp/>константные<sp/>ссылки,<sp/>указатели<sp/>на<sp/>константу,<sp/>`const_iterator`,<sp/>константные<sp/>методы.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Считайте,<sp/>что<sp/>`const`<sp/>—<sp/>вариант<sp/>написания<sp/>«по<sp/>умолчанию»,<sp/>а<sp/>отсутствие<sp/>`const`<sp/>только<sp/>при<sp/>необходимости.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Для<sp/>переменных,<sp/>передающихся<sp/>по<sp/>значению,<sp/>использовать<sp/>`const`<sp/>обычно<sp/>не<sp/>имеет<sp/>смысла.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**11.**<sp/>unsigned.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Используйте<sp/>`unsigned`,<sp/>если<sp/>нужно.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**12.**<sp/>Числовые<sp/>типы.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Используйте<sp/>типы<sp/>`UInt8`,<sp/>`UInt16`,<sp/>`UInt32`,<sp/>`UInt64`,<sp/>`Int8`,<sp/>`Int16`,<sp/>`Int32`,<sp/>`Int64`,<sp/>а<sp/>также<sp/>`size_t`,<sp/>`ssize_t`,<sp/>`ptrdiff_t`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Не<sp/>используйте<sp/>для<sp/>чисел<sp/>типы<sp/>`signed/unsigned<sp/>long`,<sp/>`long<sp/>long`,<sp/>`short`,<sp/>`signed/unsigned<sp/>char`,<sp/>`char`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**13.**<sp/>Передача<sp/>аргументов.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Сложные<sp/>значения<sp/>передавайте<sp/>по<sp/>ссылке<sp/>(включая<sp/>`std::string`).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Если<sp/>функция<sp/>захватывает<sp/>владение<sp/>объектом,<sp/>созданным<sp/>на<sp/>куче,<sp/>то<sp/>сделайте<sp/>типом<sp/>аргумента<sp/>`shared_ptr`<sp/>или<sp/>`unique_ptr`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**14.**<sp/>Возврат<sp/>значений.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>большинстве<sp/>случаев,<sp/>просто<sp/>возвращайте<sp/>значение<sp/>с<sp/>помощью<sp/>`return`.<sp/>Не<sp/>пишите<sp/>`return<sp/>std::move(res)`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Если<sp/>внутри<sp/>функции<sp/>создаётся<sp/>объект<sp/>на<sp/>куче<sp/>и<sp/>отдаётся<sp/>наружу,<sp/>то<sp/>возвращайте<sp/>`shared_ptr`<sp/>или<sp/>`unique_ptr`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>некоторых<sp/>редких<sp/>случаях,<sp/>может<sp/>потребоваться<sp/>возвращать<sp/>значение<sp/>через<sp/>аргумент<sp/>функции.<sp/>В<sp/>этом<sp/>случае,<sp/>аргументом<sp/>будет<sp/>ссылка.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">using<sp/>AggregateFunctionPtr<sp/>=<sp/>std::shared_ptr&lt;IAggregateFunction&gt;;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">/**<sp/>Позволяет<sp/>создать<sp/>агрегатную<sp/>функцию<sp/>по<sp/>её<sp/>имени.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*/</highlight></codeline>
+<codeline><highlight class="normal">class<sp/>AggregateFunctionFactory</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal">public:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>AggregateFunctionFactory();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>AggregateFunctionPtr<sp/>get(const<sp/>String<sp/>&amp;<sp/>name,<sp/>const<sp/>DataTypes<sp/>&amp;<sp/>argument_types)<sp/>const;</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**15.**<sp/>namespace.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Для<sp/>прикладного<sp/>кода<sp/>отдельный<sp/>`namespace`<sp/>использовать<sp/>не<sp/>нужно.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Для<sp/>маленьких<sp/>библиотек<sp/>-<sp/>не<sp/>требуется.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Для<sp/>не<sp/>совсем<sp/>маленьких<sp/>библиотек<sp/>-<sp/>поместите<sp/>всё<sp/>в<sp/>`namespace`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Внутри<sp/>библиотеки<sp/>в<sp/>`.hpp`<sp/>файле<sp/>можно<sp/>использовать<sp/>`namespace<sp/>detail`<sp/>для<sp/>деталей<sp/>реализации,<sp/>не<sp/>нужных<sp/>прикладному<sp/>коду.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>`.cpp`<sp/>файле<sp/>можно<sp/>использовать<sp/>`static`<sp/>или<sp/>анонимный<sp/>namespace<sp/>для<sp/>скрытия<sp/>символов.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Используйте<sp/>`enum<sp/>class`<sp/>вместо<sp/>`enum`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**16.**<sp/>Отложенная<sp/>инициализация.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Обычно,<sp/>если<sp/>для<sp/>инициализации<sp/>требуются<sp/>аргументы,<sp/>то<sp/>не<sp/>пишите<sp/>конструктор<sp/>по<sp/>умолчанию.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Если<sp/>потом<sp/>вам<sp/>потребовалась<sp/>отложенная<sp/>инициализация,<sp/>то<sp/>вы<sp/>можете<sp/>дописать<sp/>конструктор<sp/>по<sp/>умолчанию<sp/>(который<sp/>создаст<sp/>объект<sp/>с<sp/>некорректным<sp/>состоянием).<sp/>Или,<sp/>для<sp/>небольшого<sp/>количества<sp/>объектов,<sp/>можно<sp/>использовать<sp/>`shared_ptr/unique_ptr`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">Loader(DB::Connection*<sp/>connection_,<sp/>const<sp/>std::string&amp;<sp/>query,<sp/>size_t<sp/>max_block_size_);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">///<sp/>Для<sp/>отложенной<sp/>инициализации</highlight></codeline>
+<codeline><highlight class="normal">Loader()<sp/>{}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**17.**<sp/>Виртуальные<sp/>функции.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Если<sp/>класс<sp/>не<sp/>предназначен<sp/>для<sp/>полиморфного<sp/>использования,<sp/>то<sp/>не<sp/>нужно<sp/>делать<sp/>функции<sp/>виртуальными<sp/>зря.<sp/>Это<sp/>относится<sp/>и<sp/>к<sp/>деструктору.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**18.**<sp/>Кодировки.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Везде<sp/>используется<sp/>UTF-8.<sp/>Используется<sp/>`std::string`,<sp/>`char*`.<sp/>Не<sp/>используется<sp/>`std::wstring`,<sp/>`wchar_t`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**19.**<sp/>Логирование.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">См.<sp/>примеры<sp/>везде<sp/>в<sp/>коде.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Перед<sp/>коммитом,<sp/>удалите<sp/>всё<sp/>бессмысленное<sp/>и<sp/>отладочное<sp/>логирование,<sp/>и<sp/>другие<sp/>виды<sp/>отладочного<sp/>вывода.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Не<sp/>должно<sp/>быть<sp/>логирования<sp/>на<sp/>каждую<sp/>итерацию<sp/>внутреннего<sp/>цикла,<sp/>даже<sp/>уровня<sp/>Trace.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">При<sp/>любом<sp/>уровне<sp/>логирования,<sp/>логи<sp/>должно<sp/>быть<sp/>возможно<sp/>читать.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Логирование<sp/>следует<sp/>использовать,<sp/>в<sp/>основном,<sp/>только<sp/>в<sp/>прикладном<sp/>коде.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Сообщения<sp/>в<sp/>логе<sp/>должны<sp/>быть<sp/>написаны<sp/>на<sp/>английском<sp/>языке.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Желательно,<sp/>чтобы<sp/>лог<sp/>был<sp/>как<sp/>можно<sp/>понятнее.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Не<sp/>нужно<sp/>писать<sp/>ругательства<sp/>в<sp/>лог.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>логе<sp/>используется<sp/>кодировка<sp/>UTF-8.<sp/>Изредка<sp/>можно<sp/>использовать<sp/>в<sp/>логе<sp/>не-ASCII<sp/>символы.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**20.**<sp/>include.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>заголовочном<sp/>файле<sp/>используется<sp/>только<sp/>`#pragma<sp/>once`,<sp/>а<sp/>include<sp/>guards<sp/>писать<sp/>не<sp/>нужно.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">В<sp/>первую<sp/>очередь<sp/>подключайте<sp/>внешние<sp/>зависимости,<sp/>и<sp/>только<sp/>потом<sp/>внутренние.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Разделяйте<sp/>подключаемые<sp/>модули<sp/>на<sp/>группы:</highlight></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;external_module1&gt;</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;external_module1&gt;</highlight></codeline>
+<codeline><highlight class="normal">//...</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#include<sp/>&quot;internal_module1&quot;</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&quot;internal_module2&quot;</highlight></codeline>
+<codeline><highlight class="normal">//...</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**21.**<sp/>using.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">`using<sp/>namespace`<sp/>не<sp/>используется.<sp/>Можно<sp/>использовать<sp/>`using`<sp/>что-то<sp/>конкретное.<sp/>Лучше<sp/>локально,<sp/>внутри<sp/>класса<sp/>или<sp/>функции.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**22.**<sp/>Не<sp/>нужно<sp/>использовать<sp/>`trailing<sp/>return<sp/>type`<sp/>для<sp/>функций,<sp/>если<sp/>в<sp/>этом<sp/>нет<sp/>необходимости.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">auto<sp/>f()<sp/>-&gt;<sp/>void</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**23.**<sp/>Объявление<sp/>и<sp/>инициализация<sp/>переменных.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">//right<sp/>way</highlight></codeline>
+<codeline><highlight class="normal">std::string<sp/>s<sp/>=<sp/>&quot;Hello&quot;;</highlight></codeline>
+<codeline><highlight class="normal">std::string<sp/>s{&quot;Hello&quot;};</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//wrong<sp/>way</highlight></codeline>
+<codeline><highlight class="normal">auto<sp/>s<sp/>=<sp/>std::string{&quot;Hello&quot;};</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**24.**<sp/>Для<sp/>виртуальных<sp/>функций,<sp/>пишите<sp/>`virtual`<sp/>в<sp/>базовом<sp/>классе,<sp/>а<sp/>в<sp/>классах-наследниках,<sp/>пишите<sp/>`override`<sp/>и<sp/>не<sp/>пишите<sp/>`virtual`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Неиспользуемые<sp/>возможности<sp/>языка<sp/>C++<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**25.**<sp/>Спецификаторы<sp/>исключений<sp/>из<sp/>C++03<sp/>не<sp/>используются.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Сообщения<sp/>об<sp/>ошибках</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Сообщения<sp/>об<sp/>ошибках<sp/>--<sp/>это<sp/>часть<sp/>пользовательского<sp/>интерфейса<sp/>программы,<sp/>предназначенная<sp/>для<sp/>того,<sp/>чтобы<sp/>позволить<sp/>пользователю:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/>замечать<sp/>ошибочные<sp/>ситуации,</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>понимать<sp/>их<sp/>смысл<sp/>и<sp/>причины,</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>устранять<sp/>эти<sp/>ситуации.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Форма<sp/>и<sp/>содержание<sp/>сообщений<sp/>об<sp/>ошибках<sp/>должны<sp/>способствовать<sp/>достижению<sp/>этих<sp/>целей.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Есть<sp/>два<sp/>основных<sp/>вида<sp/>ошибок:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/>пользовательская<sp/>или<sp/>системная<sp/>ошибка,</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>внутренняя<sp/>программная<sp/>ошибка.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Пользовательская<sp/>ошибка</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Такая<sp/>ошибка<sp/>вызвана<sp/>действиями<sp/>пользователя<sp/>(неверный<sp/>синтаксис<sp/>запроса)<sp/>или<sp/>конфигурацией<sp/>внешних<sp/>систем<sp/>(кончилось<sp/>место<sp/>на<sp/>диске).<sp/>Предполагается,<sp/>что<sp/>пользователь<sp/>может<sp/>устранить<sp/>её<sp/>самостоятельно.<sp/>Для<sp/>этого<sp/>в<sp/>сообщении<sp/>об<sp/>ошибке<sp/>должна<sp/>содержаться<sp/>следующая<sp/>информация:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/>что<sp/>произошло.<sp/>Это<sp/>должно<sp/>объясняться<sp/>в<sp/>пользовательских<sp/>терминах<sp/>(`Function<sp/>pow()<sp/>is<sp/>not<sp/>supported<sp/>for<sp/>data<sp/>type<sp/>UInt128`),<sp/>а<sp/>не<sp/>загадочными<sp/>конструкциями<sp/>из<sp/>кода<sp/>(`runtime<sp/>overload<sp/>resolution<sp/>failed<sp/>in<sp/>DB::BinaryOperationBuilder&lt;FunctionAdaptor&lt;pow&gt;::Impl,<sp/>UInt128,<sp/>Int8&gt;::kaboongleFastPath()`).</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>почему/где/когда<sp/>--<sp/>любой<sp/>контекст,<sp/>который<sp/>помогает<sp/>отладить<sp/>проблему.<sp/>Представьте,<sp/>как<sp/>бы<sp/>её<sp/>отлаживали<sp/>вы<sp/>(программировать<sp/>и<sp/>пользоваться<sp/>отладчиком<sp/>нельзя).</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>что<sp/>можно<sp/>предпринять<sp/>для<sp/>устранения<sp/>ошибки.<sp/>Здесь<sp/>можно<sp/>перечислить<sp/>типичные<sp/>причины<sp/>проблемы,<sp/>настройки,<sp/>влияющие<sp/>на<sp/>это<sp/>поведение,<sp/>и<sp/>так<sp/>далее.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Пример<sp/>нормального<sp/>сообщения:</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">No<sp/>alias<sp/>for<sp/>subquery<sp/>or<sp/>table<sp/>function<sp/>in<sp/>JOIN<sp/>(set<sp/>joined_subquery_requires_alias=0<sp/>to<sp/>disable<sp/>restriction).</highlight></codeline>
+<codeline><highlight class="normal">While<sp/>processing<sp/>&apos;(SELECT<sp/>2<sp/>AS<sp/>a)&apos;.</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">Сказано<sp/>что<sp/>не<sp/>хватает<sp/>алиаса,<sp/>показано,<sp/>для<sp/>какой<sp/>части<sp/>запроса,<sp/>и<sp/>предложена<sp/>настройка,<sp/>позволяющая<sp/>ослабить<sp/>это<sp/>требование.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Пример<sp/>катастрофически<sp/>плохого<sp/>сообщения:</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">The<sp/>dictionary<sp/>is<sp/>configured<sp/>incorrectly.</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">Из<sp/>него<sp/>не<sp/>понятно:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>какой<sp/>словарь?</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>в<sp/>чём<sp/>ошибка<sp/>конфигурации?</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Что<sp/>может<sp/>сделать<sp/>пользователь<sp/>в<sp/>такой<sp/>ситуации:<sp/>применять<sp/>внешние<sp/>отладочные<sp/>инструменты,<sp/>спрашивать<sp/>совета<sp/>на<sp/>форумах,<sp/>гадать<sp/>на<sp/>кофейной<sp/>гуще,<sp/>и,<sp/>конечно<sp/>же,<sp/>ненавидеть<sp/>софт,<sp/>который<sp/>над<sp/>ним<sp/>так<sp/>издевается.<sp/>Не<sp/>нужно<sp/>издеваться<sp/>над<sp/>пользователями,<sp/>это<sp/>плохой<sp/>UX.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Внутренняя<sp/>программная<sp/>ошибка</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Такая<sp/>ошибка<sp/>вызвана<sp/>нарушением<sp/>внутренних<sp/>инвариантов<sp/>программы:<sp/>например,<sp/>внутренняя<sp/>функция<sp/>вызвана<sp/>с<sp/>неверными<sp/>параметрами,<sp/>не<sp/>совпадают<sp/>размеры<sp/>колонок<sp/>в<sp/>блоке,<sp/>произошло<sp/>разыменование<sp/>нулевого<sp/>указателя,<sp/>и<sp/>так<sp/>далее.<sp/>Сигналы<sp/>типа<sp/>`SIGSEGV`<sp/>относятся<sp/>к<sp/>этой<sp/>же<sp/>категории.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Появление<sp/>такой<sp/>ошибки<sp/>всегда<sp/>свидетельствует<sp/>о<sp/>наличии<sp/>бага<sp/>в<sp/>программе.<sp/>Пользователь<sp/>не<sp/>может<sp/>исправить<sp/>такую<sp/>ошибку<sp/>самостоятельно,<sp/>и<sp/>должен<sp/>сообщить<sp/>о<sp/>ней<sp/>разработчикам.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Есть<sp/>два<sp/>основных<sp/>варианта<sp/>проверки<sp/>на<sp/>такие<sp/>ошибки:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/>Исключение<sp/>с<sp/>кодом<sp/>`LOGICAL_ERROR`.<sp/>Его<sp/>можно<sp/>использовать<sp/>для<sp/>важных<sp/>проверок,<sp/>которые<sp/>делаются<sp/>в<sp/>том<sp/>числе<sp/>в<sp/>релизной<sp/>сборке.</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>`assert`.<sp/>Такие<sp/>условия<sp/>не<sp/>проверяются<sp/>в<sp/>релизной<sp/>сборке,<sp/>можно<sp/>использовать<sp/>для<sp/>тяжёлых<sp/>и<sp/>опциональных<sp/>проверок.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Пример<sp/>сообщения,<sp/>у<sp/>которого<sp/>должен<sp/>быть<sp/>код<sp/>`LOGICAL_ERROR`:</highlight></codeline>
+<codeline><highlight class="normal">`Block<sp/>header<sp/>is<sp/>inconsistent<sp/>with<sp/>Chunk<sp/>in<sp/>ICompicatedProcessor::munge().<sp/>It<sp/>is<sp/>a<sp/>bug!`</highlight></codeline>
+<codeline><highlight class="normal">По<sp/>каким<sp/>признакам<sp/>можно<sp/>заметить,<sp/>что<sp/>здесь<sp/>говорится<sp/>о<sp/>внутренней<sp/>программной<sp/>ошибке?</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">*<sp/>в<sp/>сообщении<sp/>упоминаются<sp/>внутренние<sp/>сущности<sp/>из<sp/>кода,</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>в<sp/>сообщении<sp/>написано<sp/>it&apos;s<sp/>a<sp/>bug,</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>непосредственные<sp/>действия<sp/>пользователя<sp/>не<sp/>могут<sp/>исправить<sp/>эту<sp/>ошибку.<sp/>Мы<sp/>ожидаем,<sp/>что<sp/>пользователь<sp/>зарепортит<sp/>её<sp/>как<sp/>баг,<sp/>и<sp/>будем<sp/>исправлять<sp/>в<sp/>коде.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Как<sp/>выбрать<sp/>код<sp/>ошибки?</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Код<sp/>ошибки<sp/>предназначен<sp/>для<sp/>автоматической<sp/>обработки<sp/>некоторых<sp/>видов<sp/>ошибок,<sp/>подобно<sp/>кодам<sp/>HTTP.<sp/>Можно<sp/>использовать<sp/>общие<sp/>коды<sp/>типа<sp/>`BAD_ARGUMENTS`<sp/>или<sp/>`TYPE_MISMATCH`.<sp/>Заводить<sp/>новый<sp/>код<sp/>нужно,<sp/>если<sp/>вы<sp/>чётко<sp/>понимаете,<sp/>что<sp/>вам<sp/>нужна<sp/>специальная<sp/>автоматическая<sp/>обработка<sp/>конкретно<sp/>этой<sp/>ошибки.<sp/>Для<sp/>внутренних<sp/>программных<sp/>ошибок<sp/>используется<sp/>код<sp/>`LOGICAL_ERROR`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Как<sp/>добавить<sp/>новое<sp/>сообщение<sp/>об<sp/>ошибке?<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Когда<sp/>добавляете<sp/>сообщение<sp/>об<sp/>ошибке:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>Опишите,<sp/>что<sp/>произошло,<sp/>в<sp/>пользовательских<sp/>терминах,<sp/>а<sp/>не<sp/>кусками<sp/>кода.</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>Добавьте<sp/>максимум<sp/>контекста<sp/>(с<sp/>чем<sp/>произошло,<sp/>когда,<sp/>почему,<sp/>и<sp/>т.д.).</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>Добавьте<sp/>типичные<sp/>причины.</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>Добавьте<sp/>варианты<sp/>исправления<sp/>(настройки,<sp/>ссылки<sp/>на<sp/>документацию).</highlight></codeline>
+<codeline><highlight class="normal">5.<sp/>Вообразите<sp/>дальнейшие<sp/>действия<sp/>пользователя.<sp/>Ваше<sp/>сообщение<sp/>должно<sp/>помочь<sp/>ему<sp/>решить<sp/>проблему<sp/>без<sp/>использования<sp/>отладочных<sp/>инструментов<sp/>и<sp/>без<sp/>чужой<sp/>помощи.</highlight></codeline>
+<codeline><highlight class="normal">6.<sp/>Если<sp/>сообщение<sp/>об<sp/>ошибке<sp/>не<sp/>формулируется<sp/>в<sp/>пользовательских<sp/>терминах,<sp/>и<sp/>действия<sp/>пользователя<sp/>не<sp/>могут<sp/>исправить<sp/>проблему<sp/>--<sp/>это<sp/>внутренняя<sp/>программная<sp/>ошибка,<sp/>используйте<sp/>код<sp/>LOGICAL_ERROR<sp/>или<sp/>assert.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Платформа</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**1.**<sp/>Мы<sp/>пишем<sp/>код<sp/>под<sp/>конкретные<sp/>платформы.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Хотя,<sp/>при<sp/>прочих<sp/>равных<sp/>условиях,<sp/>предпочитается<sp/>более-менее<sp/>кроссплатформенный<sp/>или<sp/>портируемый<sp/>код.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**2.**<sp/>ОС<sp/>-<sp/>Linux,<sp/>[Mac<sp/>OS],<sp/>Windows.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**3.**<sp/>Используются<sp/>флаги<sp/>компиляции<sp/>`-Wall<sp/>-Wextra<sp/>-Werror`<sp/>и<sp/>`-Weverything`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Инструментарий<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**1.**<sp/>Cреда<sp/>разработки<sp/>-<sp/>[VS2019,<sp/>Clion,<sp/>Qt]</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**2.**<sp/>Исходники<sp/>в<sp/>Git.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**3.**<sp/>Сборка<sp/>с<sp/>помощью<sp/>`CMake`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**4.**<sp/>Коммиты<sp/>только<sp/>в<sp/>вашу<sp/>ветку,<sp/>исключая<sp/>специфичные<sp/>случаи<sp/>;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">А<sp/>работоспособность<sp/>собранных<sp/>программ<sp/>гарантируется<sp/>только<sp/>для<sp/>отдельных<sp/>ревизий.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**8.**<sp/>Коммитьте<sp/>как<sp/>можно<sp/>чаще,<sp/>в<sp/>том<sp/>числе<sp/>и<sp/>нерабочий<sp/>код.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Для<sp/>этого<sp/>следует<sp/>использовать<sp/>бранчи.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**9.**<sp/>Для<sp/>нетривиальных<sp/>изменений,<sp/>используются<sp/>бранчи.<sp/>Следует<sp/>загружать<sp/>бранчи<sp/>на<sp/>сервер.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**10.**<sp/>Ненужный<sp/>код<sp/>удаляется<sp/>из<sp/>исходников.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Библиотеки</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**1.**<sp/>При<sp/>необходимости,<sp/>можно<sp/>использовать<sp/>любые<sp/>известные<sp/>библиотеки,<sp/>доступные<sp/>в<sp/>ОС<sp/>из<sp/>пакетов.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Если<sp/>есть<sp/>хорошее<sp/>готовое<sp/>решение,<sp/>то<sp/>оно<sp/>используется,<sp/>даже<sp/>если<sp/>для<sp/>этого<sp/>придётся<sp/>установить<sp/>ещё<sp/>одну<sp/>библиотеку.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">(Будьте<sp/>готовы<sp/>к<sp/>тому,<sp/>что<sp/>иногда<sp/>вам<sp/>придётся<sp/>выкидывать<sp/>плохие<sp/>библиотеки<sp/>из<sp/>кода.)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**2.**<sp/>Если<sp/>в<sp/>пакетах<sp/>нет<sp/>нужной<sp/>библиотеки,<sp/>или<sp/>её<sp/>версия<sp/>достаточно<sp/>старая,<sp/>или<sp/>если<sp/>она<sp/>собрана<sp/>не<sp/>так,<sp/>как<sp/>нужно,<sp/>то<sp/>можно<sp/>использовать<sp/>библиотеку,<sp/>устанавливаемую<sp/>не<sp/>из<sp/>пакетов.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**3.**<sp/>Если<sp/>библиотека<sp/>достаточно<sp/>маленькая<sp/>и<sp/>у<sp/>неё<sp/>нет<sp/>своей<sp/>системы<sp/>сборки,<sp/>то<sp/>следует<sp/>включить<sp/>её<sp/>файлы<sp/>в<sp/>проект,<sp/>в<sp/>директорию<sp/>`contrib`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**4.**<sp/>Предпочтение<sp/>всегда<sp/>отдаётся<sp/>уже<sp/>использующимся<sp/>библиотекам.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Общее<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**1.**<sp/>Пробуйте<sp/>самое<sp/>простое<sp/>решение.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**2.**<sp/>Не<sp/>нужно<sp/>писать<sp/>код,<sp/>если<sp/>вы<sp/>ещё<sp/>не<sp/>знаете,<sp/>что<sp/>будет<sp/>делать<sp/>ваша<sp/>программа,<sp/>и<sp/>как<sp/>будет<sp/>работать<sp/>её<sp/>внутренний<sp/>цикл.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**3.**<sp/>В<sp/>простейших<sp/>случаях,<sp/>используйте<sp/>`using`<sp/>вместо<sp/>классов/структур.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**4.**<sp/>Если<sp/>есть<sp/>возможность<sp/>-<sp/>не<sp/>пишите<sp/>конструкторы<sp/>копирования,<sp/>операторы<sp/>присваивания,<sp/>деструктор<sp/>(кроме<sp/>виртуального,<sp/>если<sp/>класс<sp/>содержит<sp/>хотя<sp/>бы<sp/>одну<sp/>виртуальную<sp/>функцию),<sp/>move-конструкторы<sp/>и<sp/>move-присваивания.<sp/>То<sp/>есть,<sp/>чтобы<sp/>соответствующие<sp/>функции,<sp/>генерируемые<sp/>компилятором,<sp/>работали<sp/>правильно.<sp/>Можно<sp/>использовать<sp/>`default`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**5.**<sp/>Приветствуется<sp/>упрощение<sp/>и<sp/>уменьшение<sp/>объёма<sp/>кода.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Дополнительно<sp/>{#dopolnitelno}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**1.**<sp/>Явное<sp/>указание<sp/>`std::`<sp/>для<sp/>типов<sp/>`std::size_t`<sp/>вместо<sp/>`size_t`,<sp/>это<sp/>короче<sp/>хорошо</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**2.**<sp/>Явное<sp/>указание<sp/>`std::`<sp/>для<sp/>функций<sp/>из<sp/>стандартной<sp/>библиотеки<sp/>C.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">То<sp/>есть,<sp/>пишите<sp/>`std::memcpy`<sp/>вместо<sp/>`memcpy`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**3.**<sp/>Использование<sp/>функций<sp/>из<sp/>C<sp/>при<sp/>наличии<sp/>аналогов<sp/>в<sp/>стандартной<sp/>библиотеке<sp/>C++.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Допустимо,<sp/>если<sp/>это<sp/>использование<sp/>эффективнее.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Опционально.<sp/>Для<sp/>примера,<sp/>для<sp/>копирования<sp/>длинных<sp/>кусков<sp/>памяти,<sp/>используйте<sp/>`memcpy`<sp/>вместо<sp/>`std::copy`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">**4.**<sp/>Перенос<sp/>длинных<sp/>аргументов<sp/>функций.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Допустимо<sp/>использовать<sp/>любой<sp/>стиль<sp/>переноса,<sp/>похожий<sp/>на<sp/>приведённые<sp/>ниже:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">function(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>T1<sp/>x1,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>T2<sp/>x2)</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">function(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>size_t<sp/>left,<sp/>size_t<sp/>right,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>const<sp/>&amp;<sp/>RangesInDataParts<sp/>ranges,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>size_t<sp/>limit)</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">function(size_t<sp/>left,<sp/>size_t<sp/>right,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>const<sp/>&amp;<sp/>RangesInDataParts<sp/>ranges,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>size_t<sp/>limit)</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">function(size_t<sp/>left,<sp/>size_t<sp/>right,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>&amp;<sp/>RangesInDataParts<sp/>ranges,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>size_t<sp/>limit)</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```<sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">function(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>size_t<sp/>left,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>size_t<sp/>right,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>&amp;<sp/>RangesInDataParts<sp/>ranges,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>size_t<sp/>limit)</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">[Оригинальная<sp/>статья](https://clickhouse.tech/docs/ru/development/style/)<sp/>&lt;!--hide--&gt;</highlight></codeline>
+    </programlisting>
+    <location file="Docs/Style_guide.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['iadapter_0',['IAdapter',['../class_data_access_1_1_i_adapter.html',1,'DataAccess']]],
+  ['iapi_1',['iAPI',['../class_network_1_1i_a_p_i.html',1,'Network']]],
+  ['ichannelsrepository_2',['IChannelsRepository',['../struct_data_access_1_1_i_channels_repository.html',1,'DataAccess']]],
+  ['icipher_3',['ICipher',['../struct_base_1_1_crypto_1_1_i_cipher.html',1,'Base::Crypto']]],
+  ['iciphersfactory_4',['ICiphersFactory',['../struct_base_1_1_crypto_1_1_i_ciphers_factory.html',1,'Base::Crypto']]],
+  ['idirectmessagerepository_5',['IDirectMessageRepository',['../struct_data_access_1_1_i_direct_message_repository.html',1,'DataAccess']]],
+  ['ilogger_6',['ILogger',['../class_base_1_1_logger_1_1_i_logger.html',1,'Base::Logger']]],
+  ['iloginrepository_7',['ILoginRepository',['../struct_data_access_1_1_i_login_repository.html',1,'DataAccess']]],
+  ['imasterrepository_8',['IMasterRepository',['../struct_data_access_1_1_i_master_repository.html',1,'DataAccess']]],
+  ['imessagerepository_9',['IMessageRepository',['../class_data_access_1_1_i_message_repository.html',1,'DataAccess']]],
+  ['imessagesrepository_10',['IMessagesRepository',['../struct_data_access_1_1_i_messages_repository.html',1,'DataAccess']]],
+  ['iregisterrepository_11',['IRegisterRepository',['../struct_data_access_1_1_i_register_repository.html',1,'DataAccess']]],
+  ['irepliesrepository_12',['IRepliesRepository',['../struct_data_access_1_1_i_replies_repository.html',1,'DataAccess']]],
+  ['irepository_13',['IRepository',['../class_data_access_1_1_i_repository.html',1,'DataAccess']]],
+  ['irepositorymanager_14',['IRepositoryManager',['../class_data_access_1_1_i_repository_manager.html',1,'DataAccess']]],
+  ['is_5fc_5fstring_15',['is_c_string',['../struct_utility_1_1is__c__string.html',1,'Utility']]],
+  ['is_5fchar_16',['is_char',['../struct_utility_1_1is__char.html',1,'Utility']]],
+  ['is_5fchar_5for_5fstring_17',['is_char_or_string',['../struct_utility_1_1is__char__or__string.html',1,'Utility']]],
+  ['is_5fstd_5fstring_18',['is_std_string',['../struct_utility_1_1is__std__string.html',1,'Utility']]],
+  ['is_5fstring_19',['is_string',['../struct_utility_1_1is__string.html',1,'Utility']]]
+];

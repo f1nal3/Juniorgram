@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_data_access_1_1_direct_message_repository" kind="struct" language="C++" prot="public" final="yes">
+    <compoundname>DataAccess::DirectMessageRepository</compoundname>
+    <basecompoundref refid="struct_data_access_1_1_i_direct_message_repository" prot="public" virt="non-virtual">DataAccess::IDirectMessageRepository</basecompoundref>
+    <basecompoundref refid="struct_data_access_1_1_abstract_postgre_repository" prot="public" virt="non-virtual">DataAccess::AbstractPostgreRepository</basecompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_data_access_1_1_direct_message_repository_1a2364f89156c3b23a278637e7b1590300" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::DirectMessageRepository::DirectMessageRepository</definition>
+        <argsstring>(const std::shared_ptr&lt; IAdapter &gt; &amp;adapter)</argsstring>
+        <name>DirectMessageRepository</name>
+        <qualifiedname>DataAccess::DirectMessageRepository::DirectMessageRepository</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt; &amp;</type>
+          <declname>adapter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="48" column="14" bodyfile="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" bodystart="48" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_direct_message_repository_1a987a2e7d62626db899a9d2c629804608" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::DirectMessageStatus</type>
+        <definition>Utility::DirectMessageStatus DataAccess::DirectMessageRepository::addDirectChat</definition>
+        <argsstring>(uint64_t user_id, uint64_t receiverID) override</argsstring>
+        <name>addDirectChat</name>
+        <qualifiedname>DataAccess::DirectMessageRepository::addDirectChat</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_direct_message_repository_1ad627a71cda95abd5cfdd0a72b338b84d">addDirectChat</reimplements>
+        <param>
+          <type>uint64_t</type>
+          <declname>user_id</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>directMessageInfo</declname>
+        </param>
+        <briefdescription>
+<para>Save a direct message from <emphasis>user_id</emphasis> to <emphasis>receiverID</emphasis> </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>user_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sender id </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>directMessageInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>receiver info </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="53" column="34"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_direct_message_repository_1a7bfb0f97a3c1bc2ee672e826483e2db4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::DirectMessageRepository::~DirectMessageRepository</definition>
+        <argsstring>() override=default</argsstring>
+        <name>~DirectMessageRepository</name>
+        <qualifiedname>DataAccess::DirectMessageRepository::~DirectMessageRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="55" column="5"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>DataAccess::AbstractPostgreRepository</label>
+        <link refid="struct_data_access_1_1_abstract_postgre_repository"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::DirectMessageRepository</label>
+        <link refid="struct_data_access_1_1_direct_message_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DataAccess::IDirectMessageRepository</label>
+        <link refid="struct_data_access_1_1_i_direct_message_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>DataAccess::AbstractPostgreRepository</label>
+        <link refid="struct_data_access_1_1_abstract_postgre_repository"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::DirectMessageRepository</label>
+        <link refid="struct_data_access_1_1_direct_message_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>DataAccess::IDirectMessageRepository</label>
+        <link refid="struct_data_access_1_1_i_direct_message_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="46" column="1" bodyfile="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" bodystart="47" bodyend="56"/>
+    <listofallmembers>
+      <member refid="struct_data_access_1_1_abstract_postgre_repository_1a1d33ed6bc3a61773bdf111b1bc5bc772" prot="protected" virt="non-virtual"><scope>DataAccess::DirectMessageRepository</scope><name>_filler</name></member>
+      <member refid="struct_data_access_1_1_abstract_postgre_repository_1ad83909ce308fd3f8c006fe341247f86e" prot="protected" virt="non-virtual"><scope>DataAccess::DirectMessageRepository</scope><name>_pTable</name></member>
+      <member refid="struct_data_access_1_1_abstract_postgre_repository_1a8629dc8a2dd6eaaa2de3f635a030e23f" prot="public" virt="non-virtual"><scope>DataAccess::DirectMessageRepository</scope><name>AbstractPostgreRepository</name></member>
+      <member refid="struct_data_access_1_1_direct_message_repository_1a987a2e7d62626db899a9d2c629804608" prot="public" virt="virtual"><scope>DataAccess::DirectMessageRepository</scope><name>addDirectChat</name></member>
+      <member refid="struct_data_access_1_1_direct_message_repository_1a2364f89156c3b23a278637e7b1590300" prot="public" virt="non-virtual"><scope>DataAccess::DirectMessageRepository</scope><name>DirectMessageRepository</name></member>
+      <member refid="struct_data_access_1_1_direct_message_repository_1a7bfb0f97a3c1bc2ee672e826483e2db4" prot="public" virt="non-virtual"><scope>DataAccess::DirectMessageRepository</scope><name>~DirectMessageRepository</name></member>
+      <member refid="struct_data_access_1_1_i_direct_message_repository_1aa5912ff67e8de4541093acbc9af09c4d" prot="public" virt="virtual"><scope>DataAccess::DirectMessageRepository</scope><name>~IDirectMessageRepository</name></member>
+      <member refid="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" prot="public" virt="virtual"><scope>DataAccess::DirectMessageRepository</scope><name>~IMasterRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

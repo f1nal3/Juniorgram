@@ -1,0 +1,440 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_data_access_1_1_i_repository_manager" kind="class" language="C++" prot="public">
+    <compoundname>DataAccess::IRepositoryManager</compoundname>
+    <derivedcompoundref refid="class_data_access_1_1_postgre_repository_manager" prot="public" virt="non-virtual">DataAccess::PostgreRepositoryManager</derivedcompoundref>
+    <derivedcompoundref refid="class_mock_object_1_1_mock_repository_manager" prot="public" virt="non-virtual">MockObject::MockRepositoryManager</derivedcompoundref>
+    <includes refid="_abstract_repository_manager_8hpp" local="no">AbstractRepositoryManager.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_data_access_1_1_i_repository_manager_1a1c981b417a2933d7b3fed476a64916fa" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_data_access_1_1_abstract_repository_container" kindref="compound">AbstractRepositoryContainer</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;AbstractRepositoryContainer&gt; DataAccess::IRepositoryManager::_repositories</definition>
+        <argsstring></argsstring>
+        <name>_repositories</name>
+        <qualifiedname>DataAccess::IRepositoryManager::_repositories</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="146" column="21" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_data_access_1_1_i_repository_manager_1adb819947df1d6c51fbf22b662c388da8" prot="private" static="no" mutable="no">
+        <type>std::priority_queue&lt; <ref refid="struct_data_access_1_1_repository_request" kindref="compound">RepositoryRequest</ref> &gt;</type>
+        <definition>std::priority_queue&lt;RepositoryRequest&gt; DataAccess::IRepositoryManager::_queue</definition>
+        <argsstring></argsstring>
+        <name>_queue</name>
+        <qualifiedname>DataAccess::IRepositoryManager::_queue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="147" column="31" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_data_access_1_1_i_repository_manager_1aa09c15a304108748aae6f1f6a4ceb42e" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex DataAccess::IRepositoryManager::_queueMutex</definition>
+        <argsstring></argsstring>
+        <name>_queueMutex</name>
+        <qualifiedname>DataAccess::IRepositoryManager::_queueMutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="149" column="29" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_data_access_1_1_i_repository_manager_1a71844a694d49b741e21d10f4a05b527c" prot="private" static="no" mutable="no">
+        <type>std::condition_variable</type>
+        <definition>std::condition_variable DataAccess::IRepositoryManager::_queueCV</definition>
+        <argsstring></argsstring>
+        <name>_queueCV</name>
+        <qualifiedname>DataAccess::IRepositoryManager::_queueCV</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="150" column="29" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_data_access_1_1_i_repository_manager_1a706808a95ad1fbc9af1825f0cb3a1e70" prot="private" static="no" mutable="no">
+        <type>std::atomic&lt; bool &gt;</type>
+        <definition>std::atomic&lt;bool&gt; DataAccess::IRepositoryManager::_handlerState</definition>
+        <argsstring></argsstring>
+        <name>_handlerState</name>
+        <qualifiedname>DataAccess::IRepositoryManager::_handlerState</qualifiedname>
+        <initializer>= true</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="152" column="17" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_data_access_1_1_i_repository_manager_1a241318837d3eb7dad33b8084a92870a0" prot="private" static="no" mutable="no">
+        <type>std::thread</type>
+        <definition>std::thread DataAccess::IRepositoryManager::_repositoryRequestsHandler</definition>
+        <argsstring></argsstring>
+        <name>_repositoryRequestsHandler</name>
+        <qualifiedname>DataAccess::IRepositoryManager::_repositoryRequestsHandler</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="153" column="23" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_manager_1ada774e5ea0c7cc577df40196f0c307fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::IRepositoryManager::IRepositoryManager</definition>
+        <argsstring>()=default</argsstring>
+        <name>IRepositoryManager</name>
+        <qualifiedname>DataAccess::IRepositoryManager::IRepositoryManager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="40" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_manager_1adebde6e2ed0c441a0342f573a02a63cb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::IRepositoryManager::init</definition>
+        <argsstring>(std::unique_ptr&lt; AbstractRepositoryContainer &gt; repositories)</argsstring>
+        <name>init</name>
+        <qualifiedname>DataAccess::IRepositoryManager::init</qualifiedname>
+        <param>
+          <type>std::unique_ptr&lt; <ref refid="class_data_access_1_1_abstract_repository_container" kindref="compound">AbstractRepositoryContainer</ref> &gt;</type>
+          <declname>repositories</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="42" column="10" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" bodystart="42" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_manager_1ad02af3035b342cd4f1fad79c8fe46394" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual DataAccess::IRepositoryManager::~IRepositoryManager</definition>
+        <argsstring>()</argsstring>
+        <name>~IRepositoryManager</name>
+        <qualifiedname>DataAccess::IRepositoryManager::~IRepositoryManager</qualifiedname>
+        <briefdescription>
+<para>Destroy the <ref refid="class_data_access_1_1_i_repository_manager" kindref="compound">IRepositoryManager</ref> object but before synchronize all threads. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="47" column="13" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" bodystart="47" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_manager_1a728dc49922980137048bd58fef2fc4b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::IRepositoryManager::IRepositoryManager</definition>
+        <argsstring>(const IRepositoryManager &amp;)=delete</argsstring>
+        <name>IRepositoryManager</name>
+        <qualifiedname>DataAccess::IRepositoryManager::IRepositoryManager</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_i_repository_manager" kindref="compound">IRepositoryManager</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="49" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_manager_1ac187f52db71543e10cbfe24ecfcdea63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::IRepositoryManager::IRepositoryManager</definition>
+        <argsstring>(IRepositoryManager &amp;&amp;)=delete</argsstring>
+        <name>IRepositoryManager</name>
+        <qualifiedname>DataAccess::IRepositoryManager::IRepositoryManager</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_i_repository_manager" kindref="compound">IRepositoryManager</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="50" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_manager_1a02869d294c9ba1960de79658a40c59c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_i_repository_manager" kindref="compound">IRepositoryManager</ref> &amp;</type>
+        <definition>IRepositoryManager &amp; DataAccess::IRepositoryManager::operator=</definition>
+        <argsstring>(const IRepositoryManager &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::IRepositoryManager::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_i_repository_manager" kindref="compound">IRepositoryManager</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="51" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_manager_1aeff4cc329711a4ef8087194f538cb3cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_i_repository_manager" kindref="compound">IRepositoryManager</ref> &amp;</type>
+        <definition>IRepositoryManager &amp; DataAccess::IRepositoryManager::operator=</definition>
+        <argsstring>(IRepositoryManager &amp;&amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::IRepositoryManager::operator=</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_i_repository_manager" kindref="compound">IRepositoryManager</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="52" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_manager_1a81bd2f415129a4a429f729701086250a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>ePriority</type>
+            <declname>priority</declname>
+            <defname>priority</defname>
+            <defval>ePriority::_15</defval>
+          </param>
+          <param>
+            <type>typename TIRepository</type>
+          </param>
+          <param>
+            <type>typename TReturn</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>TArgs</declname>
+            <defname>TArgs</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="struct_data_access_1_1_future_result" kindref="compound">FutureResult</ref>&lt; TReturn &gt;</type>
+        <definition>FutureResult&lt; TReturn &gt; DataAccess::IRepositoryManager::pushRequest</definition>
+        <argsstring>(const MethodReference&lt; TIRepository, TReturn, TArgs... &gt; &amp;methodRef, TArgs &amp;&amp;... args)</argsstring>
+        <name>pushRequest</name>
+        <qualifiedname>DataAccess::IRepositoryManager::pushRequest</qualifiedname>
+        <param>
+          <type>const MethodReference&lt; TIRepository, TReturn, TArgs... &gt; &amp;</type>
+          <declname>methodRef</declname>
+        </param>
+        <param>
+          <type>TArgs &amp;&amp;...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+<para>Exists for add methods in the queue. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="warning"><para>Pass all arguments (args) through &apos;fmt()&apos; function </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>(Template</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>arg) priority - priority of request. By default, this is equal to the maximum priority. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MethodReference</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- just a pointer to member function needed to add to the queue. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- list of args that passing to member function. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return future object from repository member function. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="63" column="18" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" bodystart="63" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_manager_1a3df2aa618b2b68efa9053cec7c7ec92b" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool DataAccess::IRepositoryManager::empty</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>empty</name>
+        <qualifiedname>DataAccess::IRepositoryManager::empty</qualifiedname>
+        <briefdescription>
+<para>Predicate for checking: is queue empty? </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>if empty - true, else - false. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="85" column="10" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" bodystart="85" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_manager_1ab81ebddb08e4dd5b00f6a1a03a1da90e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::IRepositoryManager::handleRequests</definition>
+        <argsstring>()</argsstring>
+        <name>handleRequests</name>
+        <qualifiedname>DataAccess::IRepositoryManager::handleRequests</qualifiedname>
+        <briefdescription>
+<para>Requests handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Creates inside itself a thread that handle all requests in queue. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="94" column="10" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" bodystart="94" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_manager_1a38859f8067b2c360a17f52bd379b4768" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::IRepositoryManager::stopHandler</definition>
+        <argsstring>()</argsstring>
+        <name>stopHandler</name>
+        <qualifiedname>DataAccess::IRepositoryManager::stopHandler</qualifiedname>
+        <briefdescription>
+<para>Stops handler. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="108" column="10" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" bodystart="108" bodyend="112"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_manager_1a37b23b75c67474c943a0b18018cc0480" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>ePriority</type>
+            <declname>priority</declname>
+            <defname>priority</defname>
+          </param>
+          <param>
+            <type>typename TIRepository</type>
+          </param>
+          <param>
+            <type>typename TReturn</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>TArgs</declname>
+            <defname>TArgs</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="struct_data_access_1_1_repository_request" kindref="compound">RepositoryRequest</ref></type>
+        <definition>RepositoryRequest DataAccess::IRepositoryManager::createRequest</definition>
+        <argsstring>(const MethodReference&lt; TIRepository, TReturn, TArgs... &gt; &amp;methodRef, TArgs &amp;&amp;... args)</argsstring>
+        <name>createRequest</name>
+        <qualifiedname>DataAccess::IRepositoryManager::createRequest</qualifiedname>
+        <param>
+          <type>const MethodReference&lt; TIRepository, TReturn, TArgs... &gt; &amp;</type>
+          <declname>methodRef</declname>
+        </param>
+        <param>
+          <type>TArgs &amp;&amp;...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="116" column="23" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" bodystart="116" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_i_repository_manager_1a16ae792c330431e1ed56f1b2ef172d2a" prot="private" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>std::optional&lt; <ref refid="struct_data_access_1_1_repository_request" kindref="compound">RepositoryRequest</ref> &gt;</type>
+        <definition>std::optional&lt; RepositoryRequest &gt; DataAccess::IRepositoryManager::popRequest</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>popRequest</name>
+        <qualifiedname>DataAccess::IRepositoryManager::popRequest</qualifiedname>
+        <briefdescription>
+<para>Extract request from queue. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Repository request. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="131" column="19" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" bodystart="131" bodyend="143"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="class_data_access_1_1_i_repository_manager" kindref="compound">IRepositoryManager</ref> is template class, which realization controls handler for repository requests. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Class controls pushing to queue and further processing of requests (have own thread for it). Requests with the highest priority are at the top of the queue. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>DataAccess::IRepositoryManager</label>
+        <link refid="class_data_access_1_1_i_repository_manager"/>
+      </node>
+      <node id="2">
+        <label>DataAccess::PostgreRepositoryManager</label>
+        <link refid="class_data_access_1_1_postgre_repository_manager"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>MockObject::MockRepositoryManager</label>
+        <link refid="class_mock_object_1_1_mock_repository_manager"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" line="37" column="1" bodyfile="DataAccess/Public/Include/DataAccess/AbstractRepositoryManager.hpp" bodystart="38" bodyend="154"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_i_repository_manager_1a706808a95ad1fbc9af1825f0cb3a1e70" prot="private" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>_handlerState</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1adb819947df1d6c51fbf22b662c388da8" prot="private" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>_queue</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a71844a694d49b741e21d10f4a05b527c" prot="private" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>_queueCV</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1aa09c15a304108748aae6f1f6a4ceb42e" prot="private" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>_queueMutex</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a1c981b417a2933d7b3fed476a64916fa" prot="private" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>_repositories</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a241318837d3eb7dad33b8084a92870a0" prot="private" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>_repositoryRequestsHandler</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a37b23b75c67474c943a0b18018cc0480" prot="private" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>createRequest</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a3df2aa618b2b68efa9053cec7c7ec92b" prot="public" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>empty</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1ab81ebddb08e4dd5b00f6a1a03a1da90e" prot="public" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>handleRequests</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1adebde6e2ed0c441a0342f573a02a63cb" prot="public" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>init</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1ada774e5ea0c7cc577df40196f0c307fe" prot="public" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>IRepositoryManager</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a728dc49922980137048bd58fef2fc4b5" prot="public" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>IRepositoryManager</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1ac187f52db71543e10cbfe24ecfcdea63" prot="public" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>IRepositoryManager</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a02869d294c9ba1960de79658a40c59c0" prot="public" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1aeff4cc329711a4ef8087194f538cb3cb" prot="public" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a16ae792c330431e1ed56f1b2ef172d2a" prot="private" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>popRequest</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a81bd2f415129a4a429f729701086250a" prot="public" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>pushRequest</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a38859f8067b2c360a17f52bd379b4768" prot="public" virt="non-virtual"><scope>DataAccess::IRepositoryManager</scope><name>stopHandler</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1ad02af3035b342cd4f1fad79c8fe46394" prot="public" virt="virtual"><scope>DataAccess::IRepositoryManager</scope><name>~IRepositoryManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

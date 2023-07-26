@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_base_1_1_crypto_1_1_i_cipher" kind="struct" language="C++" prot="public" abstract="yes">
+    <compoundname>Base::Crypto::ICipher</compoundname>
+    <derivedcompoundref refid="struct_base_1_1_crypto_1_1_a_e_s_cipher" prot="public" virt="non-virtual">Base::Crypto::AESCipher</derivedcompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_base_1_1_crypto_1_1_i_cipher_1a81c2fe7557240adec4152c12073b4922" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string Base::Crypto::ICipher::generateKey</definition>
+        <argsstring>()=0</argsstring>
+        <name>generateKey</name>
+        <qualifiedname>Base::Crypto::ICipher::generateKey</qualifiedname>
+        <reimplementedby refid="struct_base_1_1_crypto_1_1_a_e_s_cipher_1aa306040785115b343b4121bbbd683226">generateKey</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Crypto/Crypto.Static/Cryptography.hpp" line="14" column="26"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_base_1_1_crypto_1_1_i_cipher_1aee65486cf58e58725c7f6301e8b17e41" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string Base::Crypto::ICipher::encrypt</definition>
+        <argsstring>(const std::string &amp;data, const std::string &amp;cipherKey)=0</argsstring>
+        <name>encrypt</name>
+        <qualifiedname>Base::Crypto::ICipher::encrypt</qualifiedname>
+        <reimplementedby refid="struct_base_1_1_crypto_1_1_a_e_s_cipher_1a31b1de0e3ce122acbdd28faa210f4302">encrypt</reimplementedby>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>cipherKey</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Crypto/Crypto.Static/Cryptography.hpp" line="15" column="26"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_base_1_1_crypto_1_1_i_cipher_1aaefb0db00de3e2ea1c74a23b528f184c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string Base::Crypto::ICipher::decrypt</definition>
+        <argsstring>(const std::string &amp;cipherData, const std::string &amp;cipherKey)=0</argsstring>
+        <name>decrypt</name>
+        <qualifiedname>Base::Crypto::ICipher::decrypt</qualifiedname>
+        <reimplementedby refid="struct_base_1_1_crypto_1_1_a_e_s_cipher_1a86ca398d943a44926786584a1d9916a6">decrypt</reimplementedby>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>cipherData</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>cipherKey</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Crypto/Crypto.Static/Cryptography.hpp" line="16" column="26"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_base_1_1_crypto_1_1_i_cipher_1a73588bb60fd9b689b127a6b907235878" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual Base::Crypto::ICipher::~ICipher</definition>
+        <argsstring>()=default</argsstring>
+        <name>~ICipher</name>
+        <qualifiedname>Base::Crypto::ICipher::~ICipher</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Crypto/Crypto.Static/Cryptography.hpp" line="17" column="13"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Base::Crypto::AESCipher</label>
+        <link refid="struct_base_1_1_crypto_1_1_a_e_s_cipher"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Base::Crypto::ICipher</label>
+        <link refid="struct_base_1_1_crypto_1_1_i_cipher"/>
+      </node>
+    </inheritancegraph>
+    <location file="Base/Crypto/Crypto.Static/Cryptography.hpp" line="12" column="1" bodyfile="Base/Crypto/Crypto.Static/Cryptography.hpp" bodystart="13" bodyend="18"/>
+    <listofallmembers>
+      <member refid="struct_base_1_1_crypto_1_1_i_cipher_1aaefb0db00de3e2ea1c74a23b528f184c" prot="public" virt="pure-virtual"><scope>Base::Crypto::ICipher</scope><name>decrypt</name></member>
+      <member refid="struct_base_1_1_crypto_1_1_i_cipher_1aee65486cf58e58725c7f6301e8b17e41" prot="public" virt="pure-virtual"><scope>Base::Crypto::ICipher</scope><name>encrypt</name></member>
+      <member refid="struct_base_1_1_crypto_1_1_i_cipher_1a81c2fe7557240adec4152c12073b4922" prot="public" virt="pure-virtual"><scope>Base::Crypto::ICipher</scope><name>generateKey</name></member>
+      <member refid="struct_base_1_1_crypto_1_1_i_cipher_1a73588bb60fd9b689b127a6b907235878" prot="public" virt="virtual"><scope>Base::Crypto::ICipher</scope><name>~ICipher</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

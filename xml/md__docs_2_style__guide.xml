@@ -1,0 +1,657 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="md__docs_2_style__guide" kind="page">
+    <compoundname>md__docs_2_style__guide</compoundname>
+    <title>Style_guide</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><orderedlist>
+<listitem><para># Как писать код на C++ {#styleguide}</para>
+</listitem></orderedlist>
+</para>
+<sect2 id="md__docs_2_style__guide_1autotoc_md43">
+<title>Общее</title>
+<para><bold>1.</bold> Этот текст носит рекомендательный характер.</para>
+<para><bold>2.</bold> Стиль нужен для единообразия. Единообразие нужно, чтобы было проще (удобнее) читать код. А также, чтобы было легче осуществлять поиск по коду.</para>
+</sect2>
+<sect2 id="md__docs_2_style__guide_1autotoc_md44">
+<title>Форматирование</title>
+<para><bold>1.</bold> Большую часть форматирования сделает автоматически <computeroutput>clang-format</computeroutput>.</para>
+<para><bold>2.</bold> Отступы — 4 пробела. Настройте среду разработки так, чтобы при нажатии на Tab, происходило добавление четырёх пробелов.</para>
+<para><bold>3.</bold> Открывающая и закрывающие фигурные скобки на отдельной строке.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">inline<sp/>void<sp/>readBoolText(bool&amp;<sp/>x,<sp/>ReadBuffer&amp;<sp/>buf)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>char<sp/>tmp<sp/>=<sp/>&apos;0&apos;;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>readChar(tmp,<sp/>buf);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>x<sp/>=<sp/>tmp<sp/>!=<sp/>&apos;0&apos;;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>
+<para><bold>4.</bold> Если всё тело функции — один <computeroutput>statement</computeroutput>, то его можно разместить на одной строке. При этом, вокруг фигурных скобок ставятся пробелы (кроме пробела на конце строки).</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">inline<sp/>size_t<sp/>mask()<sp/>const<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>return<sp/>buf_size()<sp/>-<sp/>1;<sp/>}</highlight></codeline>
+<codeline><highlight class="normal">inline<sp/>size_t<sp/>place(HashValue<sp/>x)<sp/>const<sp/><sp/><sp/><sp/>{<sp/>return<sp/>x<sp/>&amp;<sp/>mask();<sp/>}</highlight></codeline>
+</programlisting></para>
+<para><bold>5.</bold> Для функций. Пробелы вокруг скобок не ставятся.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>reinsert(const<sp/>Value&amp;<sp/>x)</highlight></codeline>
+</programlisting></para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">memcpy(&amp;buf[place_value],<sp/>&amp;x,<sp/>sizeof(x));</highlight></codeline>
+</programlisting></para>
+<para><bold>6.</bold> В выражениях <computeroutput>if</computeroutput>, <computeroutput>for</computeroutput>, <computeroutput>while</computeroutput> и т.д. перед открывающей скобкой ставится пробел (в отличие от вызовов функций).</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">for<sp/>(size_t<sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>rows;<sp/>i<sp/>+=<sp/>storage.index_granularity)</highlight></codeline>
+</programlisting></para>
+<para><bold>7.</bold> Вокруг бинарных операторов (<computeroutput>+</computeroutput>, <computeroutput>-</computeroutput>, <computeroutput>*</computeroutput>, <computeroutput>/</computeroutput>, <computeroutput>%</computeroutput>, …), а также тернарного оператора <computeroutput>?:</computeroutput> ставятся пробелы.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">UInt16<sp/>year<sp/>=<sp/>(s[0]<sp/>-<sp/>&apos;0&apos;)<sp/>*<sp/>1000<sp/>+<sp/>(s[1]<sp/>-<sp/>&apos;0&apos;)<sp/>*<sp/>100<sp/>+<sp/>(s[2]<sp/>-<sp/>&apos;0&apos;)<sp/>*<sp/>10<sp/>+<sp/>(s[3]<sp/>-<sp/>&apos;0&apos;);</highlight></codeline>
+<codeline><highlight class="normal">UInt8<sp/>month<sp/>=<sp/>(s[5]<sp/>-<sp/>&apos;0&apos;)<sp/>*<sp/>10<sp/>+<sp/>(s[6]<sp/>-<sp/>&apos;0&apos;);</highlight></codeline>
+<codeline><highlight class="normal">UInt8<sp/>day<sp/>=<sp/>(s[8]<sp/>-<sp/>&apos;0&apos;)<sp/>*<sp/>10<sp/>+<sp/>(s[9]<sp/>-<sp/>&apos;0&apos;);</highlight></codeline>
+</programlisting></para>
+<para><bold>8.</bold> Если ставится перенос строки, то оператор пишется на новой строке, и перед ним увеличивается отступ.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>(elapsed_ns)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>message<sp/>&lt;&lt;<sp/>&quot;<sp/>(&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>rows_read_on_server<sp/>*<sp/>1000000000<sp/>/<sp/>elapsed_ns<sp/>&lt;&lt;<sp/>&quot;<sp/>rows/s.,<sp/>&quot;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>bytes_read_on_server<sp/>*<sp/>1000.0<sp/>/<sp/>elapsed_ns<sp/>&lt;&lt;<sp/>&quot;<sp/>MB/s.)<sp/>&quot;;</highlight></codeline>
+</programlisting></para>
+<para><bold>9.</bold> Внутри строки можно, выполнять выравнивание с помощью пробелов.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">dst.ClickLogID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>click.LogID;</highlight></codeline>
+<codeline><highlight class="normal">dst.ClickEventID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>click.EventID;</highlight></codeline>
+<codeline><highlight class="normal">dst.ClickGoodEvent<sp/><sp/><sp/><sp/><sp/>=<sp/>click.GoodEvent;</highlight></codeline>
+</programlisting></para>
+<para><bold>10.</bold> Вокруг операторов <computeroutput>.</computeroutput>, <computeroutput>-&gt;</computeroutput> не ставятся пробелы.</para>
+<para>При необходимости, оператор может быть перенесён на новую строку. В этом случае, перед ним увеличивается отступ.</para>
+<para><bold>11.</bold> Унарные операторы <computeroutput>--</computeroutput>, <computeroutput>++</computeroutput>, <computeroutput>*</computeroutput>, <computeroutput>&amp;</computeroutput>, … не отделяются от аргумента пробелом.</para>
+<para><bold>12.</bold> После запятой ставится пробел, а перед — нет. Аналогично для точки с запятой внутри выражения <computeroutput>for</computeroutput>.</para>
+<para><bold>13.</bold> Оператор <computeroutput>[]</computeroutput> не отделяется пробелами.</para>
+<para><bold>14.</bold> В выражении <computeroutput>template &lt;...&gt;</computeroutput>, между <computeroutput>template</computeroutput> и <computeroutput>&lt;</computeroutput> ставится пробел, а после <computeroutput>&lt;</computeroutput> и до <computeroutput>&gt;</computeroutput> не ставится.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">template<sp/>&lt;typename<sp/>TKey,<sp/>typename<sp/>TValue&gt;</highlight></codeline>
+<codeline><highlight class="normal">struct<sp/>AggregatedStatElement</highlight></codeline>
+<codeline><highlight class="normal">{}</highlight></codeline>
+</programlisting></para>
+<para><bold>15.</bold> В классах и структурах, <computeroutput>public</computeroutput>, <computeroutput>private</computeroutput>, <computeroutput>protected</computeroutput> пишется на том же уровне, что и <computeroutput>class/struct</computeroutput>, а остальной код с отступом.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">template<sp/>&lt;typename<sp/>T&gt;</highlight></codeline>
+<codeline><highlight class="normal">class<sp/>MultiVersion</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal">public:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>///<sp/>Version<sp/>of<sp/>object<sp/>for<sp/>usage.<sp/>shared_ptr<sp/>manage<sp/>lifetime<sp/>of<sp/>version.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>using<sp/>Version<sp/>=<sp/>std::shared_ptr&lt;const<sp/>T&gt;;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>...</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>
+<para><bold>16.</bold> Если на весь файл один <computeroutput>namespace</computeroutput> и кроме него ничего существенного нет, то отступ внутри <computeroutput>namespace</computeroutput> не нужен.</para>
+<para><bold>17.</bold> Если блок для выражения <computeroutput>if</computeroutput>, <computeroutput>for</computeroutput>, <computeroutput>while</computeroutput>, … состоит из одного <computeroutput>statement</computeroutput>, то фигурные скобки не обязательны.</para>
+<para>Если внутренний <computeroutput>statement</computeroutput> содержит фигурные скобки или <computeroutput>else</computeroutput>, то внешний блок следует писать в фигурных скобках.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">///<sp/>Finish<sp/>write.</highlight></codeline>
+<codeline><highlight class="normal">for<sp/>(auto&amp;<sp/>stream<sp/>:<sp/>streams)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>stream.second-&gt;finalize();</highlight></codeline>
+</programlisting></para>
+<para><bold>18.</bold> Не должно быть пробелов на концах строк.</para>
+<para><bold>19.</bold> Исходники в кодировке UTF-8.</para>
+<para><bold>20.</bold> В строковых литералах можно использовать не-ASCII.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">&lt;&lt;<sp/>&quot;,<sp/>&quot;<sp/>&lt;&lt;<sp/>(timer.elapsed()<sp/>/<sp/>chunks_stats.hits)<sp/>&lt;&lt;<sp/>&quot;<sp/>μsec/hit.&quot;;</highlight></codeline>
+</programlisting></para>
+<para><bold>21.</bold> Не пишите несколько выражений в одной строке.</para>
+<para><bold>22.</bold> Внутри функций группируйте блоки кода, отделяя их не более, чем одной пустой строкой.</para>
+<para><bold>23.</bold> Функции, классы, и т. п. отделяются друг от друга одной или двумя пустыми строками.</para>
+<para><bold>24.</bold> <computeroutput>const</computeroutput> (относящийся к значению) пишется до имени типа.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">//correct</highlight></codeline>
+<codeline><highlight class="normal">const<sp/>char*<sp/>pos</highlight></codeline>
+<codeline><highlight class="normal">const<sp/>std::string&amp;<sp/>s</highlight></codeline>
+<codeline><highlight class="normal">//incorrect</highlight></codeline>
+<codeline><highlight class="normal">char<sp/>const*<sp/>pos</highlight></codeline>
+</programlisting></para>
+<para><bold>25.</bold> При объявлении указателя или ссылки, символы <computeroutput>*</computeroutput> и <computeroutput>&amp;</computeroutput> не отделяются пробелами с обеих сторон.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">//correct</highlight></codeline>
+<codeline><highlight class="normal">const<sp/>char*<sp/>pos</highlight></codeline>
+<codeline><highlight class="normal">//incorrect</highlight></codeline>
+<codeline><highlight class="normal">const<sp/>char<sp/>*<sp/>pos</highlight></codeline>
+<codeline><highlight class="normal">const<sp/>char<sp/>*pos</highlight></codeline>
+</programlisting></para>
+<para><bold>26.</bold> При использовании шаблонных типов, пишите <computeroutput>using</computeroutput> (кроме, возможно, простейших случаев).</para>
+<para>То есть, параметры шаблона указываются только в <computeroutput>using</computeroutput> и затем не повторяются в коде.</para>
+<para><computeroutput>using</computeroutput> может быть объявлен локально, например, внутри функции.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">//correct</highlight></codeline>
+<codeline><highlight class="normal">using<sp/>FileStreams<sp/>=<sp/>std::map&lt;std::string,<sp/>std::shared_ptr&lt;Stream&gt;&gt;;</highlight></codeline>
+<codeline><highlight class="normal">FileStreams<sp/>streams;</highlight></codeline>
+<codeline><highlight class="normal">//incorrect</highlight></codeline>
+<codeline><highlight class="normal">std::map&lt;std::string,<sp/>std::shared_ptr&lt;Stream&gt;&gt;<sp/>streams;</highlight></codeline>
+</programlisting></para>
+<para><bold>27.</bold> Нельзя объявлять несколько переменных разных типов в одном выражении.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">//incorrect</highlight></codeline>
+<codeline><highlight class="normal">int<sp/>x,<sp/>*y;</highlight></codeline>
+</programlisting></para>
+<para><bold>28.</bold> C-style cast не используется.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">//incorrect</highlight></codeline>
+<codeline><highlight class="normal">std::cerr<sp/>&lt;&lt;<sp/>(int)c<sp/>&lt;&lt;;<sp/>std::endl;</highlight></codeline>
+<codeline><highlight class="normal">//correct</highlight></codeline>
+<codeline><highlight class="normal">std::cerr<sp/>&lt;&lt;<sp/>static_cast&lt;int&gt;(c)<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+</programlisting></para>
+<para><bold>29.</bold> В классах и структурах, группируйте отдельно методы и отдельно члены, внутри каждой области видимости.</para>
+<para><bold>30.</bold> Для не очень большого класса/структуры, можно не отделять объявления методов от реализации.</para>
+<para>Аналогично для маленьких методов в любых классах/структурах.</para>
+<para>Для шаблонных классов/структур, лучше не отделять объявления методов от реализации (так как иначе они всё равно должны быть определены в той же единице трансляции).</para>
+<para><bold>31.</bold> Не обязательно умещать код по ширине в 80 символов. Можно в 140.</para>
+<para><bold>32.</bold> Всегда используйте префиксный инкремент/декремент, если постфиксный не нужен.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">for<sp/>(Names::const_iterator<sp/>it<sp/>=<sp/>column_names.begin();<sp/>it<sp/>!=<sp/>column_names.end();<sp/>++it)</highlight></codeline>
+</programlisting></para>
+</sect2>
+<sect2 id="md__docs_2_style__guide_1autotoc_md45">
+<title>Комментарии</title>
+<para><bold>1.</bold> Необходимо обязательно писать комментарии во всех нетривиальных местах.</para>
+<para>Это очень важно. При написании комментария, можно успеть понять, что код не нужен вообще, или что всё сделано неверно.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">/**<sp/>Part<sp/>of<sp/>piece<sp/>of<sp/>memory,<sp/>that<sp/>can<sp/>be<sp/>used.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*<sp/>For<sp/>example,<sp/>if<sp/>internal_buffer<sp/>is<sp/>1MB,<sp/>and<sp/>there<sp/>was<sp/>only<sp/>10<sp/>bytes<sp/>loaded<sp/>to<sp/>buffer<sp/>from<sp/>file<sp/>for<sp/>reading,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>*<sp/>then<sp/>working_buffer<sp/>will<sp/>have<sp/>size<sp/>of<sp/>only<sp/>10<sp/>bytes</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*<sp/>(working_buffer.end()<sp/>will<sp/>point<sp/>to<sp/>position<sp/>right<sp/>after<sp/>those<sp/>10<sp/>bytes<sp/>available<sp/>for<sp/>read).</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*/</highlight></codeline>
+</programlisting></para>
+<para><bold>2.</bold> Комментарии могут быть сколь угодно подробными.</para>
+<para><bold>3.</bold> Комментарии пишутся до соответствующего кода. В редких случаях после, на той же строке.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">/**<sp/>Parses<sp/>and<sp/>executes<sp/>the<sp/>query.</highlight></codeline>
+<codeline><highlight class="normal">*/</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>executeQuery(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ReadBuffer&amp;<sp/>istr,<sp/>///<sp/>Where<sp/>to<sp/>read<sp/>the<sp/>query<sp/>from<sp/>(and<sp/>data<sp/>for<sp/>INSERT,<sp/>if<sp/>applicable)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>WriteBuffer&amp;<sp/>ostr,<sp/>///<sp/>Where<sp/>to<sp/>write<sp/>the<sp/>result</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Context&amp;<sp/>context,<sp/>///<sp/>DB,<sp/>tables,<sp/>data<sp/>types,<sp/>engines,<sp/>functions,<sp/>aggregate<sp/>functions...</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>BlockInputStreamPtr&amp;<sp/>query_plan,<sp/>///<sp/>Here<sp/>could<sp/>be<sp/>written<sp/>the<sp/>description<sp/>on<sp/>how<sp/>query<sp/>was<sp/>executed</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>QueryProcessingStage::Enum<sp/>stage<sp/>=<sp/>QueryProcessingStage::Complete<sp/>///<sp/>Up<sp/>to<sp/>which<sp/>stage<sp/>process<sp/>the<sp/>SELECT<sp/>query</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>)</highlight></codeline>
+</programlisting></para>
+<para><bold>4.</bold> Комментарии следует писать только на английском языке.</para>
+<para><bold>5.</bold> При написании библиотеки, разместите подробный комментарий о том, что это такое, в самом главном заголовочном файле.</para>
+<para><bold>6.</bold> Нельзя писать комментарии, которые не дают дополнительной информации. В частности, нельзя писать пустые комментарии вроде этого:</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">/*</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Procedure<sp/>Name:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Original<sp/>procedure<sp/>name:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Author:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Date<sp/>of<sp/>creation:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Dates<sp/>of<sp/>modification:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Modification<sp/>authors:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Original<sp/>file<sp/>name:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Purpose:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Intent:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Designation:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Classes<sp/>used:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Constants:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Local<sp/>variables:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Parameters:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Date<sp/>of<sp/>creation:</highlight></codeline>
+<codeline><highlight class="normal">*<sp/>Purpose:</highlight></codeline>
+<codeline><highlight class="normal">*/</highlight></codeline>
+</programlisting></para>
+<para><bold>7.</bold> Нельзя писать мусорные комментарии (автор, дата создания…) в начале каждого файла.</para>
+<para><bold>8.</bold> Однострочные комментарии начинаются с трёх слешей: <computeroutput>///</computeroutput> , многострочные с <computeroutput>/**</computeroutput>. Такие комментарии считаются «документирующими».</para>
+<para>Замечание: такие комментарии могут использоваться для генерации документации с помощью Doxygen.</para>
+<para><bold>9.</bold> В начале и конце многострочного комментария, не должно быть пустых строк (кроме строки, на которой закрывается многострочный комментарий).</para>
+<para><bold>10.</bold> Для закомментированных кусков кода, используются обычные, не «документирующие» комментарии.</para>
+<para><bold>11.</bold> Удаляйте закомментированные куски кода перед коммитом.</para>
+<para><bold>12.</bold> Не нужно писать нецензурную брань в комментариях или коде ;)</para>
+<para><bold>13.</bold> Не пишите прописными буквами. Не используйте излишнее количество знаков препинания.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">///<sp/>WHAT<sp/>THE<sp/>FAIL???</highlight></codeline>
+</programlisting></para>
+<para><bold>14.</bold> Не составляйте из комментариев строки-разделители.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">///******************************************************</highlight></codeline>
+</programlisting></para>
+<para><bold>15.</bold> Не нужно писать в комментарии диалог (лучше сказать устно).</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">///<sp/>Why<sp/>did<sp/>you<sp/>do<sp/>this<sp/>stuff?</highlight></codeline>
+</programlisting></para>
+<para><bold>16.</bold> Не нужно писать комментарий в конце блока о том, что представлял собой этот блок.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">///<sp/>for</highlight></codeline>
+</programlisting></para>
+</sect2>
+<sect2 id="md__docs_2_style__guide_1autotoc_md46">
+<title>Имена</title>
+<para><bold>1.</bold> В именах локальных переменных используйте camelCase.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">size_t<sp/>maxBlockSize;</highlight></codeline>
+</programlisting> <bold>2.</bold> В именах членов класса используйте underscore.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">private:</highlight></codeline>
+<codeline><highlight class="normal">size_t<sp/>_maxBlockSize;</highlight></codeline>
+</programlisting></para>
+<para><bold>3.</bold> Имена функций (методов) camelCase с маленькой буквы.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">std::string<sp/>getName()<sp/>const<sp/>override<sp/>{<sp/>return<sp/>&quot;Memory&quot;;<sp/>}</highlight></codeline>
+</programlisting></para>
+<para><bold>4.</bold> Имена классов (структур) - CamelCase с большой буквы. Префиксы кроме I для интерфейсов - не используются.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">class<sp/>StorageMemory<sp/>:<sp/>public<sp/>IStorage</highlight></codeline>
+</programlisting></para>
+<para><bold>5.</bold> <computeroutput>using</computeroutput> называются также, как классы, либо с <computeroutput>_t</computeroutput> на конце.</para>
+<para><bold>6.</bold> Имена типов — параметров шаблонов: в простых случаях - <computeroutput>T</computeroutput>; <computeroutput>T</computeroutput>, <computeroutput>U</computeroutput>; <computeroutput>T1</computeroutput>, <computeroutput>T2</computeroutput>.</para>
+<para>В более сложных случаях - либо также, как имена классов, либо можно добавить в начало букву <computeroutput>T</computeroutput>.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">template<sp/>&lt;typename<sp/>TKey,<sp/>typename<sp/>TValue&gt;</highlight></codeline>
+<codeline><highlight class="normal">struct<sp/>AggregatedStatElement</highlight></codeline>
+</programlisting></para>
+<para><bold>7.</bold> Имена констант — параметров шаблонов: либо также, как имена переменных, либо <computeroutput>N</computeroutput> в простом случае.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">template<sp/>&lt;bool<sp/>without_www&gt;</highlight></codeline>
+<codeline><highlight class="normal">struct<sp/>ExtractDomain</highlight></codeline>
+</programlisting></para>
+<para><bold>8.</bold> Для абстрактных классов (интерфейсов) можно добавить в начало имени букву <computeroutput>I</computeroutput>.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">class<sp/>IBlockInputStream</highlight></codeline>
+</programlisting></para>
+<para><bold>9.</bold> Если переменная используется достаточно локально, то можно использовать короткое имя.</para>
+<para>В остальных случаях используйте имя, описывающее смысл.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">bool<sp/>info_successfully_loaded<sp/>=<sp/>false;</highlight></codeline>
+</programlisting></para>
+<para><bold>10.</bold> В именах <computeroutput>define</computeroutput> и глобальных констант используется ALL_CAPS с подчёркиванием.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">#define<sp/>MAX_SRC_TABLE_NAMES_TO_STORE<sp/>1000</highlight></codeline>
+</programlisting></para>
+<para><bold>11.</bold> Имена файлов с кодом называйте по стилю соответственно тому, что в них находится.</para>
+<para>Если в файле находится один класс, назовите файл, как класс (CamelCase).</para>
+<para>Если в файле находится одна функция, назовите файл, как функцию (CamelCase).</para>
+<para><bold>12.</bold> Если имя содержит сокращение, то:</para>
+<para><itemizedlist>
+<listitem><para>для имён переменных, всё сокращение пишется маленькими буквами <computeroutput>mysql_connection</computeroutput> (не <computeroutput>mySQL_connection</computeroutput>).</para>
+</listitem><listitem><para>для имён классов и функций, сохраняются большие буквы в сокращении <computeroutput>MySQLConnection</computeroutput> (не <computeroutput>MySqlConnection</computeroutput>).</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>13.</bold> Параметры конструктора, использующиеся сразу же для инициализации соответствующих членов класса, следует назвать также, как и члены класса, добавив подчёркивание в конец.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">FileQueueProcessor(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>const<sp/>std::string&amp;<sp/>path_,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>const<sp/>std::string&amp;<sp/>prefix_,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::shared_ptr&lt;FileHandler&gt;<sp/>handler_)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>path(path_),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>prefix(prefix_),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>handler(handler_),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>log(&amp;Logger::get(&quot;FileQueueProcessor&quot;))</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>
+<para>Также можно называть параметры конструктора так же, как и члены класса (не добавлять подчёркивание), но только если этот параметр не используется в теле конструктора.</para>
+<para><bold>14.</bold> Именование локальных переменных и членов класса никак не отличается (никакие префиксы не нужны).</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">timer<sp/>(not<sp/>timer_)</highlight></codeline>
+</programlisting></para>
+<para><bold>15.</bold> Константы в <computeroutput>enum</computeroutput> — CamelCase с большой буквы. Также допустим ALL_CAPS. Если <computeroutput>enum</computeroutput> не локален, то используйте <computeroutput>enum class</computeroutput>.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">enum<sp/>class<sp/>CompressionMethod</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>QuickLZ<sp/>=<sp/>0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>LZ4<sp/><sp/><sp/><sp/><sp/>=<sp/>1,</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+</programlisting></para>
+<para><bold>16.</bold> Все имена - по-английски. Транслит с русского использовать нельзя.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>text</highlight></codeline>
+<codeline><highlight class="normal">не<sp/>Stroka</highlight></codeline>
+</programlisting></para>
+<para><bold>17.</bold> Сокращения (из нескольких букв разных слов) в именах можно использовать только если они являются общепринятыми (если для сокращения можно найти расшифровку в английской википедии или сделав поисковый запрос).</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>text</highlight></codeline>
+<codeline><highlight class="normal">`AST`,<sp/>`SQL`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Не<sp/>`NVDH`<sp/>(что-то<sp/>неведомое)</highlight></codeline>
+</programlisting></para>
+<para>Сокращения в виде обрезанного слова можно использовать, только если такое сокращение является широко используемым.</para>
+<para>Впрочем, сокращения также можно использовать, если расшифровка находится рядом в комментарии.</para>
+<para><bold>18.</bold> Имена файлов с исходниками на C++ должны иметь расширение только <computeroutput>.cpp</computeroutput>. Заголовочные файлы - только <computeroutput>.hpp</computeroutput>.</para>
+</sect2>
+<sect2 id="md__docs_2_style__guide_1autotoc_md47">
+<title>Как писать код</title>
+<para><bold>1.</bold> Управление памятью.</para>
+<para>Ручное освобождение памяти (<computeroutput>delete</computeroutput>) можно использовать только в библиотечном коде.</para>
+<para>В свою очередь, в библиотечном коде, оператор <computeroutput>delete</computeroutput> можно использовать только в деструкторах.</para>
+<para>В прикладном коде следует делать так, что память освобождается каким-либо объектом, который владеет ей.</para>
+<para>Примеры:</para>
+<para><itemizedlist>
+<listitem><para>проще всего разместить объект на стеке, или сделать его членом другого класса.</para>
+</listitem><listitem><para>для большого количества маленьких объектов используйте контейнеры.</para>
+</listitem><listitem><para>для автоматического освобождения маленького количества объектов, выделенных на куче, используйте <computeroutput>shared_ptr/unique_ptr</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>2.</bold> Управление ресурсами.</para>
+<para>Используйте <computeroutput>RAII</computeroutput> и см. пункт выше.</para>
+<para><bold>3.</bold> Обработка ошибок.</para>
+<para>Используйте исключения. В большинстве случаев, нужно только кидать исключения, а ловить - не нужно (потому что <computeroutput>RAII</computeroutput>).</para>
+<para>В программах офлайн обработки данных, зачастую, можно не ловить исключения.</para>
+<para>В серверах, обрабатывающих пользовательские запросы, как правило, достаточно ловить исключения на самом верху обработчика соединения.</para>
+<para>В функциях потока, следует ловить и запоминать все исключения, чтобы выкинуть их в основном потоке после <computeroutput>join</computeroutput>.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">///<sp/>Если<sp/>вычислений<sp/>ещё<sp/>не<sp/>было<sp/>-<sp/>вычислим<sp/>первый<sp/>блок<sp/>синхронно</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>(!started)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>calculate();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>started<sp/>=<sp/>true;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">else<sp/><sp/><sp/><sp/>///<sp/>Если<sp/>вычисления<sp/>уже<sp/>идут<sp/>-<sp/>подождём<sp/>результата</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>pool.wait();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">if<sp/>(exception)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>exception-&gt;rethrow();</highlight></codeline>
+</programlisting></para>
+<para>Ни в коем случае не «проглатывайте» исключения без разбора. Ни в коем случае, не превращайте все исключения без разбора в сообщения в логе.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">//Not<sp/>correct</highlight></codeline>
+<codeline><highlight class="normal">catch<sp/>(...)<sp/>{}</highlight></codeline>
+</programlisting></para>
+<para>Если вам нужно проигнорировать какие-то исключения, то игнорируйте только конкретные, а остальные кидайте обратно.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">catch<sp/>(const<sp/>DB::Exception<sp/>&amp;<sp/>e)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>if<sp/>(e.code()<sp/>==<sp/>ErrorCodes::UNKNOWN_AGGREGATE_FUNCTION)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>nullptr;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>else</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>throw;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>
+<para>При использовании функций, использующих коды возврата или <computeroutput>errno</computeroutput>, проверяйте результат и кидайте исключение.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>(0<sp/>!=<sp/>close(fd))</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>throwFromErrno(&quot;Cannot<sp/>close<sp/>file<sp/>&quot;<sp/>+<sp/>file_name,<sp/>ErrorCodes::CANNOT_CLOSE_FILE);</highlight></codeline>
+</programlisting></para>
+<para><computeroutput>assert</computeroutput> не используются.</para>
+<para><bold>4.</bold> Типы исключений.</para>
+<para>В прикладном коде не требуется использовать сложную иерархию исключений. Желательно, чтобы текст исключения был понятен.</para>
+<para><bold>5.</bold> Исключения, вылетающие из деструкторов.</para>
+<para>Использовать не рекомендуется, но допустимо.</para>
+<para>Используйте следующие варианты:</para>
+<para><itemizedlist>
+<listitem><para>Сделайте функцию (<computeroutput>done()</computeroutput> или <computeroutput>finalize()</computeroutput>), которая позволяет заранее выполнить всю работу, в процессе которой может возникнуть исключение. Если эта функция была вызвана, то затем в деструкторе не должно возникать исключений.</para>
+</listitem><listitem><para>Слишком сложную работу (например, отправку данных по сети) можно вообще не делать в деструкторе, рассчитывая, что пользователь заранее позовёт метод для завершения работы.</para>
+</listitem><listitem><para>Если в деструкторе возникло исключение, желательно не «проглатывать» его, а вывести информацию в лог (если в этом месте доступен логгер).</para>
+</listitem><listitem><para>В простых программах, если соответствующие исключения не ловятся, и приводят к завершению работы с записью информации в лог, можно не беспокоиться об исключениях, вылетающих из деструкторов, так как вызов <computeroutput>std::terminate</computeroutput> (в случае <computeroutput>noexcept</computeroutput> по умолчанию в C++11), является приемлемым способом обработки исключения.</para>
+</listitem></itemizedlist>
+</para>
+<para><bold>6.</bold> Отдельные блоки кода.</para>
+<para>Внутри одной функции, можно создать отдельный блок кода, для того, чтобы сделать некоторые переменные локальными в нём, и для того, чтобы соответствующие деструкторы были вызваны при выходе из блока.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">Block<sp/>block<sp/>=<sp/>data.in-&gt;read();</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::lock_guard&lt;std::mutex&gt;<sp/>lock(mutex);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>data.ready<sp/>=<sp/>true;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>data.block<sp/>=<sp/>block;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">ready_any.set();</highlight></codeline>
+</programlisting></para>
+<para><bold>7.</bold> Многопоточность.</para>
+<para>В программах офлайн обработки данных:</para>
+<para><itemizedlist>
+<listitem><para>cначала добейтесь более-менее максимальной производительности на одном процессорном ядре, потом можно распараллеливать код, но только если есть необходимость.</para>
+</listitem></itemizedlist>
+</para>
+<para>В программах - серверах:</para>
+<para><itemizedlist>
+<listitem><para>используйте пул потоков для обработки запросов. На данный момент, у нас не было задач, в которых была бы необходимость использовать userspace context switching.</para>
+</listitem></itemizedlist>
+</para>
+<para>Fork для распараллеливания не используется.</para>
+<para><bold>8.</bold> Синхронизация потоков.</para>
+<para>Часто можно сделать так, чтобы отдельные потоки писали данные в разные ячейки памяти (лучше в разные кэш-линии), и не использовать синхронизацию потоков (кроме <computeroutput>joinAll</computeroutput>).</para>
+<para>Если синхронизация нужна, то в большинстве случаев, достаточно использовать mutex под <computeroutput>lock_guard</computeroutput>.</para>
+<para>В остальных случаях, используйте системные примитивы синхронизации. Не используйте busy wait.</para>
+<para>Атомарные операции можно использовать только в простейших случаях.</para>
+<para>Не нужно писать самостоятельно lock-free структуры данных.</para>
+<para><bold>9.</bold> Ссылки и указатели.</para>
+<para>В большинстве случаев, предпочитайте ссылки.</para>
+<para><bold>10.</bold> const.</para>
+<para>Используйте константные ссылки, указатели на константу, <computeroutput>const_iterator</computeroutput>, константные методы.</para>
+<para>Считайте, что <computeroutput>const</computeroutput> — вариант написания «по умолчанию», а отсутствие <computeroutput>const</computeroutput> только при необходимости.</para>
+<para>Для переменных, передающихся по значению, использовать <computeroutput>const</computeroutput> обычно не имеет смысла.</para>
+<para><bold>11.</bold> unsigned.</para>
+<para>Используйте <computeroutput>unsigned</computeroutput>, если нужно.</para>
+<para><bold>12.</bold> Числовые типы.</para>
+<para>Используйте типы <computeroutput>UInt8</computeroutput>, <computeroutput>UInt16</computeroutput>, <computeroutput>UInt32</computeroutput>, <computeroutput>UInt64</computeroutput>, <computeroutput>Int8</computeroutput>, <computeroutput>Int16</computeroutput>, <computeroutput>Int32</computeroutput>, <computeroutput>Int64</computeroutput>, а также <computeroutput>size_t</computeroutput>, <computeroutput>ssize_t</computeroutput>, <computeroutput>ptrdiff_t</computeroutput>.</para>
+<para>Не используйте для чисел типы <computeroutput>signed/unsigned long</computeroutput>, <computeroutput>long long</computeroutput>, <computeroutput>short</computeroutput>, <computeroutput>signed/unsigned char</computeroutput>, <computeroutput>char</computeroutput>.</para>
+<para><bold>13.</bold> Передача аргументов.</para>
+<para>Сложные значения передавайте по ссылке (включая <computeroutput>std::string</computeroutput>).</para>
+<para>Если функция захватывает владение объектом, созданным на куче, то сделайте типом аргумента <computeroutput>shared_ptr</computeroutput> или <computeroutput>unique_ptr</computeroutput>.</para>
+<para><bold>14.</bold> Возврат значений.</para>
+<para>В большинстве случаев, просто возвращайте значение с помощью <computeroutput>return</computeroutput>. Не пишите <computeroutput>return std::move(res)</computeroutput>.</para>
+<para>Если внутри функции создаётся объект на куче и отдаётся наружу, то возвращайте <computeroutput>shared_ptr</computeroutput> или <computeroutput>unique_ptr</computeroutput>.</para>
+<para>В некоторых редких случаях, может потребоваться возвращать значение через аргумент функции. В этом случае, аргументом будет ссылка.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">using<sp/>AggregateFunctionPtr<sp/>=<sp/>std::shared_ptr&lt;IAggregateFunction&gt;;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">/**<sp/>Позволяет<sp/>создать<sp/>агрегатную<sp/>функцию<sp/>по<sp/>её<sp/>имени.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*/</highlight></codeline>
+<codeline><highlight class="normal">class<sp/>AggregateFunctionFactory</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal">public:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>AggregateFunctionFactory();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>AggregateFunctionPtr<sp/>get(const<sp/>String<sp/>&amp;<sp/>name,<sp/>const<sp/>DataTypes<sp/>&amp;<sp/>argument_types)<sp/>const;</highlight></codeline>
+</programlisting></para>
+<para><bold>15.</bold> namespace.</para>
+<para>Для прикладного кода отдельный <computeroutput>namespace</computeroutput> использовать не нужно.</para>
+<para>Для маленьких библиотек - не требуется.</para>
+<para>Для не совсем маленьких библиотек - поместите всё в <computeroutput>namespace</computeroutput>.</para>
+<para>Внутри библиотеки в <computeroutput>.hpp</computeroutput> файле можно использовать <computeroutput>namespace detail</computeroutput> для деталей реализации, не нужных прикладному коду.</para>
+<para>В <computeroutput>.cpp</computeroutput> файле можно использовать <computeroutput>static</computeroutput> или анонимный namespace для скрытия символов.</para>
+<para>Используйте <computeroutput>enum class</computeroutput> вместо <computeroutput>enum</computeroutput>.</para>
+<para><bold>16.</bold> Отложенная инициализация.</para>
+<para>Обычно, если для инициализации требуются аргументы, то не пишите конструктор по умолчанию.</para>
+<para>Если потом вам потребовалась отложенная инициализация, то вы можете дописать конструктор по умолчанию (который создаст объект с некорректным состоянием). Или, для небольшого количества объектов, можно использовать <computeroutput>shared_ptr/unique_ptr</computeroutput>.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">Loader(DB::Connection*<sp/>connection_,<sp/>const<sp/>std::string&amp;<sp/>query,<sp/>size_t<sp/>max_block_size_);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">///<sp/>Для<sp/>отложенной<sp/>инициализации</highlight></codeline>
+<codeline><highlight class="normal">Loader()<sp/>{}</highlight></codeline>
+</programlisting></para>
+<para><bold>17.</bold> Виртуальные функции.</para>
+<para>Если класс не предназначен для полиморфного использования, то не нужно делать функции виртуальными зря. Это относится и к деструктору.</para>
+<para><bold>18.</bold> Кодировки.</para>
+<para>Везде используется UTF-8. Используется <computeroutput>std::string</computeroutput>, <computeroutput>char*</computeroutput>. Не используется <computeroutput>std::wstring</computeroutput>, <computeroutput>wchar_t</computeroutput>.</para>
+<para><bold>19.</bold> Логирование.</para>
+<para>См. примеры везде в коде.</para>
+<para>Перед коммитом, удалите всё бессмысленное и отладочное логирование, и другие виды отладочного вывода.</para>
+<para>Не должно быть логирования на каждую итерацию внутреннего цикла, даже уровня Trace.</para>
+<para>При любом уровне логирования, логи должно быть возможно читать.</para>
+<para>Логирование следует использовать, в основном, только в прикладном коде.</para>
+<para>Сообщения в логе должны быть написаны на английском языке.</para>
+<para>Желательно, чтобы лог был как можно понятнее.</para>
+<para>Не нужно писать ругательства в лог.</para>
+<para>В логе используется кодировка UTF-8. Изредка можно использовать в логе не-ASCII символы.</para>
+<para><bold>20.</bold> include.</para>
+<para>В заголовочном файле используется только <computeroutput>#pragma once</computeroutput>, а include guards писать не нужно.</para>
+<para>В первую очередь подключайте внешние зависимости, и только потом внутренние.</para>
+<para>Разделяйте подключаемые модули на группы: <programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;external_module1&gt;</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&lt;external_module1&gt;</highlight></codeline>
+<codeline><highlight class="normal">//...</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#include<sp/>&quot;internal_module1&quot;</highlight></codeline>
+<codeline><highlight class="normal">#include<sp/>&quot;internal_module2&quot;</highlight></codeline>
+<codeline><highlight class="normal">//...</highlight></codeline>
+</programlisting></para>
+<para><bold>21.</bold> using.</para>
+<para><computeroutput>using namespace</computeroutput> не используется. Можно использовать <computeroutput>using</computeroutput> что-то конкретное. Лучше локально, внутри класса или функции.</para>
+<para><bold>22.</bold> Не нужно использовать <computeroutput>trailing return type</computeroutput> для функций, если в этом нет необходимости.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">auto<sp/>f()<sp/>-&gt;<sp/>void</highlight></codeline>
+</programlisting></para>
+<para><bold>23.</bold> Объявление и инициализация переменных.</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">//right<sp/>way</highlight></codeline>
+<codeline><highlight class="normal">std::string<sp/>s<sp/>=<sp/>&quot;Hello&quot;;</highlight></codeline>
+<codeline><highlight class="normal">std::string<sp/>s{&quot;Hello&quot;};</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">//wrong<sp/>way</highlight></codeline>
+<codeline><highlight class="normal">auto<sp/>s<sp/>=<sp/>std::string{&quot;Hello&quot;};</highlight></codeline>
+</programlisting></para>
+<para><bold>24.</bold> Для виртуальных функций, пишите <computeroutput>virtual</computeroutput> в базовом классе, а в классах-наследниках, пишите <computeroutput>override</computeroutput> и не пишите <computeroutput>virtual</computeroutput>.</para>
+</sect2>
+<sect2 id="md__docs_2_style__guide_1autotoc_md48">
+<title>Неиспользуемые возможности языка C++</title>
+<para><bold>25.</bold> Спецификаторы исключений из C++03 не используются.</para>
+</sect2>
+<sect2 id="md__docs_2_style__guide_1autotoc_md49">
+<title>Сообщения об ошибках</title>
+<para>Сообщения об ошибках <ndash/> это часть пользовательского интерфейса программы, предназначенная для того, чтобы позволить пользователю:</para>
+<para><itemizedlist>
+<listitem><para>замечать ошибочные ситуации,</para>
+</listitem><listitem><para>понимать их смысл и причины,</para>
+</listitem><listitem><para>устранять эти ситуации.</para>
+</listitem></itemizedlist>
+</para>
+<para>Форма и содержание сообщений об ошибках должны способствовать достижению этих целей.</para>
+<para>Есть два основных вида ошибок:</para>
+<para><itemizedlist>
+<listitem><para>пользовательская или системная ошибка,</para>
+</listitem><listitem><para>внутренняя программная ошибка.</para>
+</listitem></itemizedlist>
+</para>
+<sect3 id="md__docs_2_style__guide_1autotoc_md50">
+<title>Пользовательская ошибка</title>
+<para>Такая ошибка вызвана действиями пользователя (неверный синтаксис запроса) или конфигурацией внешних систем (кончилось место на диске). Предполагается, что пользователь может устранить её самостоятельно. Для этого в сообщении об ошибке должна содержаться следующая информация:</para>
+<para><itemizedlist>
+<listitem><para>что произошло. Это должно объясняться в пользовательских терминах (<computeroutput>Function pow() is not supported for data type UInt128</computeroutput>), а не загадочными конструкциями из кода (<computeroutput>runtime overload resolution failed in DB::BinaryOperationBuilder&lt;FunctionAdaptor&lt;pow&gt;::Impl, UInt128, Int8&gt;::kaboongleFastPath()</computeroutput>).</para>
+</listitem><listitem><para>почему/где/когда <ndash/> любой контекст, который помогает отладить проблему. Представьте, как бы её отлаживали вы (программировать и пользоваться отладчиком нельзя).</para>
+</listitem><listitem><para>что можно предпринять для устранения ошибки. Здесь можно перечислить типичные причины проблемы, настройки, влияющие на это поведение, и так далее.</para>
+</listitem></itemizedlist>
+</para>
+<para>Пример нормального сообщения: <programlisting><codeline><highlight class="normal">No<sp/>alias<sp/>for<sp/>subquery<sp/>or<sp/>table<sp/>function<sp/>in<sp/>JOIN<sp/>(set<sp/>joined_subquery_requires_alias=0<sp/>to<sp/>disable<sp/>restriction).</highlight></codeline>
+<codeline><highlight class="normal">While<sp/>processing<sp/>&apos;(SELECT<sp/>2<sp/>AS<sp/>a)&apos;.</highlight></codeline>
+</programlisting> Сказано что не хватает алиаса, показано, для какой части запроса, и предложена настройка, позволяющая ослабить это требование.</para>
+<para>Пример катастрофически плохого сообщения: <programlisting><codeline><highlight class="normal">The<sp/>dictionary<sp/>is<sp/>configured<sp/>incorrectly.</highlight></codeline>
+</programlisting> Из него не понятно:</para>
+<para><itemizedlist>
+<listitem><para>какой словарь?</para>
+</listitem><listitem><para>в чём ошибка конфигурации?</para>
+</listitem></itemizedlist>
+</para>
+<para>Что может сделать пользователь в такой ситуации: применять внешние отладочные инструменты, спрашивать совета на форумах, гадать на кофейной гуще, и, конечно же, ненавидеть софт, который над ним так издевается. Не нужно издеваться над пользователями, это плохой UX.</para>
+</sect3>
+<sect3 id="md__docs_2_style__guide_1autotoc_md51">
+<title>Внутренняя программная ошибка</title>
+<para>Такая ошибка вызвана нарушением внутренних инвариантов программы: например, внутренняя функция вызвана с неверными параметрами, не совпадают размеры колонок в блоке, произошло разыменование нулевого указателя, и так далее. Сигналы типа <computeroutput>SIGSEGV</computeroutput> относятся к этой же категории.</para>
+<para>Появление такой ошибки всегда свидетельствует о наличии бага в программе. Пользователь не может исправить такую ошибку самостоятельно, и должен сообщить о ней разработчикам.</para>
+<para>Есть два основных варианта проверки на такие ошибки:</para>
+<para><itemizedlist>
+<listitem><para>Исключение с кодом <computeroutput>LOGICAL_ERROR</computeroutput>. Его можно использовать для важных проверок, которые делаются в том числе в релизной сборке.</para>
+</listitem><listitem><para><computeroutput>assert</computeroutput>. Такие условия не проверяются в релизной сборке, можно использовать для тяжёлых и опциональных проверок.</para>
+</listitem></itemizedlist>
+</para>
+<para>Пример сообщения, у которого должен быть код <computeroutput>LOGICAL_ERROR</computeroutput>: <computeroutput>Block header is inconsistent with Chunk in ICompicatedProcessor::munge(). It is a bug!</computeroutput> По каким признакам можно заметить, что здесь говорится о внутренней программной ошибке?</para>
+<para><itemizedlist>
+<listitem><para>в сообщении упоминаются внутренние сущности из кода,</para>
+</listitem><listitem><para>в сообщении написано it&apos;s a bug,</para>
+</listitem><listitem><para>непосредственные действия пользователя не могут исправить эту ошибку. Мы ожидаем, что пользователь зарепортит её как баг, и будем исправлять в коде.</para>
+</listitem></itemizedlist>
+</para>
+</sect3>
+<sect3 id="md__docs_2_style__guide_1autotoc_md52">
+<title>Как выбрать код ошибки?</title>
+<para>Код ошибки предназначен для автоматической обработки некоторых видов ошибок, подобно кодам HTTP. Можно использовать общие коды типа <computeroutput>BAD_ARGUMENTS</computeroutput> или <computeroutput>TYPE_MISMATCH</computeroutput>. Заводить новый код нужно, если вы чётко понимаете, что вам нужна специальная автоматическая обработка конкретно этой ошибки. Для внутренних программных ошибок используется код <computeroutput>LOGICAL_ERROR</computeroutput>.</para>
+</sect3>
+<sect3 id="md__docs_2_style__guide_1autotoc_md53">
+<title>Как добавить новое сообщение об ошибке?</title>
+<para>Когда добавляете сообщение об ошибке:</para>
+<para><orderedlist>
+<listitem><para>Опишите, что произошло, в пользовательских терминах, а не кусками кода.</para>
+</listitem><listitem><para>Добавьте максимум контекста (с чем произошло, когда, почему, и т.д.).</para>
+</listitem><listitem><para>Добавьте типичные причины.</para>
+</listitem><listitem><para>Добавьте варианты исправления (настройки, ссылки на документацию).</para>
+</listitem><listitem><para>Вообразите дальнейшие действия пользователя. Ваше сообщение должно помочь ему решить проблему без использования отладочных инструментов и без чужой помощи.</para>
+</listitem><listitem><para>Если сообщение об ошибке не формулируется в пользовательских терминах, и действия пользователя не могут исправить проблему <ndash/> это внутренняя программная ошибка, используйте код LOGICAL_ERROR или assert.</para>
+</listitem></orderedlist>
+</para>
+</sect3>
+</sect2>
+<sect2 id="md__docs_2_style__guide_1autotoc_md54">
+<title>Платформа</title>
+<para><bold>1.</bold> Мы пишем код под конкретные платформы.</para>
+<para>Хотя, при прочих равных условиях, предпочитается более-менее кроссплатформенный или портируемый код.</para>
+<para><bold>2.</bold> ОС - Linux, [Mac OS], Windows.</para>
+<para><bold>3.</bold> Используются флаги компиляции <computeroutput>-Wall -Wextra -Werror</computeroutput> и <computeroutput>-Weverything</computeroutput>.</para>
+</sect2>
+<sect2 id="md__docs_2_style__guide_1autotoc_md55">
+<title>Инструментарий</title>
+<para><bold>1.</bold> Cреда разработки - [VS2019, Clion, Qt]</para>
+<para><bold>2.</bold> Исходники в Git.</para>
+<para><bold>3.</bold> Сборка с помощью <computeroutput>CMake</computeroutput>.</para>
+<para><bold>4.</bold> Коммиты только в вашу ветку, исключая специфичные случаи ;)</para>
+<para>А работоспособность собранных программ гарантируется только для отдельных ревизий.</para>
+<para><bold>8.</bold> Коммитьте как можно чаще, в том числе и нерабочий код.</para>
+<para>Для этого следует использовать бранчи.</para>
+<para><bold>9.</bold> Для нетривиальных изменений, используются бранчи. Следует загружать бранчи на сервер.</para>
+<para><bold>10.</bold> Ненужный код удаляется из исходников.</para>
+</sect2>
+<sect2 id="md__docs_2_style__guide_1autotoc_md56">
+<title>Библиотеки</title>
+<para><bold>1.</bold> При необходимости, можно использовать любые известные библиотеки, доступные в ОС из пакетов.</para>
+<para>Если есть хорошее готовое решение, то оно используется, даже если для этого придётся установить ещё одну библиотеку.</para>
+<para>(Будьте готовы к тому, что иногда вам придётся выкидывать плохие библиотеки из кода.)</para>
+<para><bold>2.</bold> Если в пакетах нет нужной библиотеки, или её версия достаточно старая, или если она собрана не так, как нужно, то можно использовать библиотеку, устанавливаемую не из пакетов.</para>
+<para><bold>3.</bold> Если библиотека достаточно маленькая и у неё нет своей системы сборки, то следует включить её файлы в проект, в директорию <computeroutput>contrib</computeroutput>.</para>
+<para><bold>4.</bold> Предпочтение всегда отдаётся уже использующимся библиотекам.</para>
+</sect2>
+<sect2 id="md__docs_2_style__guide_1autotoc_md57">
+<title>Общее</title>
+<para><bold>1.</bold> Пробуйте самое простое решение.</para>
+<para><bold>2.</bold> Не нужно писать код, если вы ещё не знаете, что будет делать ваша программа, и как будет работать её внутренний цикл.</para>
+<para><bold>3.</bold> В простейших случаях, используйте <computeroutput>using</computeroutput> вместо классов/структур.</para>
+<para><bold>4.</bold> Если есть возможность - не пишите конструкторы копирования, операторы присваивания, деструктор (кроме виртуального, если класс содержит хотя бы одну виртуальную функцию), move-конструкторы и move-присваивания. То есть, чтобы соответствующие функции, генерируемые компилятором, работали правильно. Можно использовать <computeroutput>default</computeroutput>.</para>
+<para><bold>5.</bold> Приветствуется упрощение и уменьшение объёма кода.</para>
+</sect2>
+<sect2 id="md__docs_2_style__guide_1dopolnitelno">
+<title>Дополнительно</title>
+<para><bold>1.</bold> Явное указание <computeroutput>std::</computeroutput> для типов <computeroutput>std::size_t</computeroutput> вместо <computeroutput>size_t</computeroutput>, это короче хорошо</para>
+<para><bold>2.</bold> Явное указание <computeroutput>std::</computeroutput> для функций из стандартной библиотеки C.</para>
+<para>То есть, пишите <computeroutput>std::memcpy</computeroutput> вместо <computeroutput>memcpy</computeroutput>.</para>
+<para><bold>3.</bold> Использование функций из C при наличии аналогов в стандартной библиотеке C++.</para>
+<para>Допустимо, если это использование эффективнее.</para>
+<para>Опционально. Для примера, для копирования длинных кусков памяти, используйте <computeroutput>memcpy</computeroutput> вместо <computeroutput>std::copy</computeroutput>.</para>
+<para><bold>4.</bold> Перенос длинных аргументов функций.</para>
+<para>Допустимо использовать любой стиль переноса, похожий на приведённые ниже:</para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">function(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>T1<sp/>x1,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>T2<sp/>x2)</highlight></codeline>
+</programlisting></para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">function(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>size_t<sp/>left,<sp/>size_t<sp/>right,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>const<sp/>&amp;<sp/>RangesInDataParts<sp/>ranges,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>size_t<sp/>limit)</highlight></codeline>
+</programlisting></para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">function(size_t<sp/>left,<sp/>size_t<sp/>right,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>const<sp/>&amp;<sp/>RangesInDataParts<sp/>ranges,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>size_t<sp/>limit)</highlight></codeline>
+</programlisting></para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">function(size_t<sp/>left,<sp/>size_t<sp/>right,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>&amp;<sp/>RangesInDataParts<sp/>ranges,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>size_t<sp/>limit)</highlight></codeline>
+</programlisting></para>
+<para><programlisting><codeline><highlight class="normal"><sp/>cpp</highlight></codeline>
+<codeline><highlight class="normal">function(</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>size_t<sp/>left,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>size_t<sp/>right,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>&amp;<sp/>RangesInDataParts<sp/>ranges,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>size_t<sp/>limit)</highlight></codeline>
+</programlisting></para>
+<para><ulink url="https://clickhouse.tech/docs/ru/development/style/">Оригинальная статья</ulink> </para>
+</sect2>
+    </detaileddescription>
+    <location file="Docs/Style_guide.md"/>
+  </compounddef>
+</doxygen>

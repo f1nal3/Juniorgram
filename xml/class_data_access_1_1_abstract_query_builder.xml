@@ -1,0 +1,411 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_data_access_1_1_abstract_query_builder" kind="class" language="C++" prot="public">
+    <compoundname>DataAccess::AbstractQueryBuilder</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename ResultType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_data_access_1_1_abstract_query_builder_1ae0cc6c69f2f91a8a00ceab8c22d6d37b" prot="private" static="no" mutable="no">
+        <type>Utility::DatabaseType</type>
+        <definition>Utility::DatabaseType DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::_databaseType</definition>
+        <argsstring></argsstring>
+        <name>_databaseType</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::_databaseType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="23" column="31" bodyfile="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_data_access_1_1_abstract_query_builder_1a0f69e45cd1e983e624fc03d7d90eba30" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::_tableName</definition>
+        <argsstring></argsstring>
+        <name>_tableName</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::_tableName</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="24" column="31" bodyfile="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_data_access_1_1_abstract_query_builder_1a7e02fa948b07ff527f2b334e4d9bc112" prot="private" static="no" mutable="no">
+        <type><ref refid="class_data_access_1_1_s_q_l_base" kindref="compound">SQLBase</ref>&lt; ResultType &gt; *</type>
+        <definition>SQLBase&lt;ResultType&gt;* DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::_statement</definition>
+        <argsstring></argsstring>
+        <name>_statement</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::_statement</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="25" column="18" bodyfile="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_data_access_1_1_abstract_query_builder_1ac9f01271a4cdc3bdbb48e83681c3fcb1" prot="private" static="no" mutable="no">
+        <type>std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt;</type>
+        <definition>std::shared_ptr&lt;IAdapter&gt; DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::_adapter</definition>
+        <argsstring></argsstring>
+        <name>_adapter</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::_adapter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="26" column="21" bodyfile="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_data_access_1_1_abstract_query_builder_1a92e1ab287f9278a80a348772c25c054b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::AbstractQueryBuilder</definition>
+        <argsstring>(Utility::DatabaseType type, const std::string &amp;tableName, std::shared_ptr&lt; IAdapter &gt; adapter)</argsstring>
+        <name>AbstractQueryBuilder</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::AbstractQueryBuilder</qualifiedname>
+        <param>
+          <type>Utility::DatabaseType</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>tableName</declname>
+        </param>
+        <param>
+          <type>std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt;</type>
+          <declname>adapter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="29" column="5" bodyfile="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" bodystart="29" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_query_builder_1a8304b6404fc83465659fbdecb67dfe5f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::~AbstractQueryBuilder</definition>
+        <argsstring>()</argsstring>
+        <name>~AbstractQueryBuilder</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::~AbstractQueryBuilder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="34" column="13" bodyfile="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" bodystart="34" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_query_builder_1ae8ea712d708f1a6a44dfea87d9f11591" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::AbstractQueryBuilder</definition>
+        <argsstring>()=delete</argsstring>
+        <name>AbstractQueryBuilder</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::AbstractQueryBuilder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="37" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_query_builder_1a521d213652735e3ca1844c7a51736445" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::AbstractQueryBuilder</definition>
+        <argsstring>(const AbstractQueryBuilder &amp;)=delete</argsstring>
+        <name>AbstractQueryBuilder</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::AbstractQueryBuilder</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_abstract_query_builder" kindref="compound">AbstractQueryBuilder</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="39" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_query_builder_1a9f798e4583e5d63af6afcb4eb6cef1a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::AbstractQueryBuilder</definition>
+        <argsstring>(AbstractQueryBuilder &amp;&amp;)=delete</argsstring>
+        <name>AbstractQueryBuilder</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::AbstractQueryBuilder</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_abstract_query_builder" kindref="compound">AbstractQueryBuilder</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="40" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_query_builder_1ace49941851e7d0cda0309eb61a272d81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_abstract_query_builder" kindref="compound">AbstractQueryBuilder</ref> &amp;</type>
+        <definition>AbstractQueryBuilder &amp; DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::operator=</definition>
+        <argsstring>(const AbstractQueryBuilder &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="class_data_access_1_1_abstract_query_builder" kindref="compound">AbstractQueryBuilder</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="42" column="26"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_query_builder_1a10997c6c7af0fa8195fde097c3b1eca8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_abstract_query_builder" kindref="compound">AbstractQueryBuilder</ref> &amp;</type>
+        <definition>AbstractQueryBuilder &amp; DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::operator=</definition>
+        <argsstring>(AbstractQueryBuilder &amp;&amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::operator=</qualifiedname>
+        <param>
+          <type><ref refid="class_data_access_1_1_abstract_query_builder" kindref="compound">AbstractQueryBuilder</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="43" column="26"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_query_builder_1a5d7e400becf74e9542cf618acccb4c58" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref>&lt; ResultType &gt; *</type>
+        <definition>SQLSelect&lt; ResultType &gt; * DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::Select</definition>
+        <argsstring>()</argsstring>
+        <name>Select</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::Select</qualifiedname>
+        <briefdescription>
+<para>SQL select query. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="class_data_access_1_1_s_q_l_select" kindref="compound">SQLSelect</ref> pointer. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="50" column="15" bodyfile="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" bodystart="50" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_query_builder_1a6fcea4209411daad1e1ae29c9ddc2594" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref>&lt; ResultType &gt; *</type>
+        <definition>SQLInsert&lt; ResultType &gt; * DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::Insert</definition>
+        <argsstring>()</argsstring>
+        <name>Insert</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::Insert</qualifiedname>
+        <briefdescription>
+<para>SQL insert query. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="class_data_access_1_1_s_q_l_insert" kindref="compound">SQLInsert</ref> pointer. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="72" column="15" bodyfile="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" bodystart="72" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_query_builder_1a1ebbbdf8ad5af38da0a58e18af904095" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_update" kindref="compound">SQLUpdate</ref>&lt; ResultType &gt; *</type>
+        <definition>SQLUpdate&lt; ResultType &gt; * DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::Update</definition>
+        <argsstring>()</argsstring>
+        <name>Update</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::Update</qualifiedname>
+        <briefdescription>
+<para>SQL update query. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="class_data_access_1_1_s_q_l_update" kindref="compound">SQLUpdate</ref> pointer. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="94" column="15" bodyfile="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" bodystart="94" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_query_builder_1a9d686e8f8da08744933f7559e6c3438d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_data_access_1_1_s_q_l_delete" kindref="compound">SQLDelete</ref>&lt; ResultType &gt; *</type>
+        <definition>SQLDelete&lt; ResultType &gt; * DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::Delete</definition>
+        <argsstring>()</argsstring>
+        <name>Delete</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::Delete</qualifiedname>
+        <briefdescription>
+<para>SQL delete query. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="class_data_access_1_1_s_q_l_delete" kindref="compound">SQLDelete</ref> pointer. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="116" column="15" bodyfile="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" bodystart="116" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_query_builder_1aa0960fa03bc3053d544fa955c1948419" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::changeTable</definition>
+        <argsstring>(const char *newTableName) noexcept</argsstring>
+        <name>changeTable</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::changeTable</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>newTableName</declname>
+        </param>
+        <briefdescription>
+<para>Changing table. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>newTableName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- new name of the table. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="139" column="10" bodyfile="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" bodystart="139" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_query_builder_1a674ce4f9a87fe93afce688d66b09b4e4" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::changeTable</definition>
+        <argsstring>(const std::string &amp;newTableName) noexcept</argsstring>
+        <name>changeTable</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::changeTable</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>newTableName</declname>
+        </param>
+        <briefdescription>
+<para>Changing table. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>newTableName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- new name of the table. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="153" column="10" bodyfile="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" bodystart="153" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_query_builder_1a8c45b6248bd0646c16621052bf5f5632" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt;</type>
+        <definition>std::shared_ptr&lt; IAdapter &gt; DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::getAdapter</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>getAdapter</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::getAdapter</qualifiedname>
+        <briefdescription>
+<para>Get postgreAdapter object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="class_data_access_1_1_postgre_adapter" kindref="compound">PostgreAdapter</ref>. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="160" column="22" bodyfile="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" bodystart="160" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_query_builder_1ac12f601e567a069614822fe3a6e46c24" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>Utility::DatabaseType</type>
+        <definition>Utility::DatabaseType DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::getDatabaseType</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>getDatabaseType</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::getDatabaseType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="162" column="28" bodyfile="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" bodystart="162" bodyend="162"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_query_builder_1ac4d1178d08d3bce8cd2d62fa03592ff5" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>const std::string &amp;</type>
+        <definition>const std::string &amp; DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::getCurrentTableName</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>getCurrentTableName</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::getCurrentTableName</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="164" column="24" bodyfile="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" bodystart="164" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="class_data_access_1_1_abstract_query_builder_1a6e306d4a601128d3c8b0617e208dbc0a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DataAccess::AbstractQueryBuilder&lt; ResultType &gt;::clearStatement</definition>
+        <argsstring>()</argsstring>
+        <name>clearStatement</name>
+        <qualifiedname>DataAccess::AbstractQueryBuilder::clearStatement</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="166" column="10" bodyfile="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" bodystart="166" bodyend="170"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" line="20" column="1" bodyfile="DataAccess/Public/Include/DataAccess/AbstractQueryBuilder.hpp" bodystart="21" bodyend="171"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_abstract_query_builder_1ac9f01271a4cdc3bdbb48e83681c3fcb1" prot="private" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>_adapter</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1ae0cc6c69f2f91a8a00ceab8c22d6d37b" prot="private" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>_databaseType</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1a7e02fa948b07ff527f2b334e4d9bc112" prot="private" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>_statement</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1a0f69e45cd1e983e624fc03d7d90eba30" prot="private" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>_tableName</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1a92e1ab287f9278a80a348772c25c054b" prot="public" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>AbstractQueryBuilder</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1ae8ea712d708f1a6a44dfea87d9f11591" prot="public" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>AbstractQueryBuilder</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1a521d213652735e3ca1844c7a51736445" prot="public" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>AbstractQueryBuilder</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1a9f798e4583e5d63af6afcb4eb6cef1a9" prot="public" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>AbstractQueryBuilder</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1aa0960fa03bc3053d544fa955c1948419" prot="public" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>changeTable</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1a674ce4f9a87fe93afce688d66b09b4e4" prot="public" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>changeTable</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1a6e306d4a601128d3c8b0617e208dbc0a" prot="public" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>clearStatement</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1a9d686e8f8da08744933f7559e6c3438d" prot="public" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>Delete</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1a8c45b6248bd0646c16621052bf5f5632" prot="public" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>getAdapter</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1ac4d1178d08d3bce8cd2d62fa03592ff5" prot="public" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>getCurrentTableName</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1ac12f601e567a069614822fe3a6e46c24" prot="public" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>getDatabaseType</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1a6fcea4209411daad1e1ae29c9ddc2594" prot="public" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>Insert</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1ace49941851e7d0cda0309eb61a272d81" prot="public" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1a10997c6c7af0fa8195fde097c3b1eca8" prot="public" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1a5d7e400becf74e9542cf618acccb4c58" prot="public" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>Select</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1a1ebbbdf8ad5af38da0a58e18af904095" prot="public" virt="non-virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>Update</name></member>
+      <member refid="class_data_access_1_1_abstract_query_builder_1a8304b6404fc83465659fbdecb67dfe5f" prot="public" virt="virtual"><scope>DataAccess::AbstractQueryBuilder</scope><name>~AbstractQueryBuilder</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

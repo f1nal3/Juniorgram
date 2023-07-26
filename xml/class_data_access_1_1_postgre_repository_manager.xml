@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_data_access_1_1_postgre_repository_manager" kind="class" language="C++" prot="public">
+    <compoundname>DataAccess::PostgreRepositoryManager</compoundname>
+    <basecompoundref refid="class_data_access_1_1_i_repository_manager" prot="public" virt="non-virtual">DataAccess::IRepositoryManager</basecompoundref>
+    <includes refid="_postgre_repository_manager_8hpp" local="no">PostgreRepositoryManager.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_data_access_1_1_postgre_repository_manager_1a2f83341f307f1e710322e0782e7fa20c" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::PostgreRepositoryManager::PostgreRepositoryManager</definition>
+        <argsstring>(const std::shared_ptr&lt; IAdapter &gt; repositoryContainer)</argsstring>
+        <name>PostgreRepositoryManager</name>
+        <qualifiedname>DataAccess::PostgreRepositoryManager::PostgreRepositoryManager</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt;</type>
+          <declname>repositoryContainer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositoryManager.hpp" line="17" column="14" bodyfile="DataAccess/DataAccess.Postgre/PostgreRepositoryManager.hpp" bodystart="17" bodyend="28"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The specific(Postgre) instance of <ref refid="class_data_access_1_1_i_repository_manager" kindref="compound">IRepositoryManager</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Controls push to queue and further processing of requests (have own thread for it). </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>DataAccess::IRepositoryManager</label>
+        <link refid="class_data_access_1_1_i_repository_manager"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::PostgreRepositoryManager</label>
+        <link refid="class_data_access_1_1_postgre_repository_manager"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>DataAccess::IRepositoryManager</label>
+        <link refid="class_data_access_1_1_i_repository_manager"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::PostgreRepositoryManager</label>
+        <link refid="class_data_access_1_1_postgre_repository_manager"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Postgre/PostgreRepositoryManager.hpp" line="14" column="1" bodyfile="DataAccess/DataAccess.Postgre/PostgreRepositoryManager.hpp" bodystart="15" bodyend="29"/>
+    <listofallmembers>
+      <member refid="class_data_access_1_1_i_repository_manager_1a3df2aa618b2b68efa9053cec7c7ec92b" prot="public" virt="non-virtual"><scope>DataAccess::PostgreRepositoryManager</scope><name>empty</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1ab81ebddb08e4dd5b00f6a1a03a1da90e" prot="public" virt="non-virtual"><scope>DataAccess::PostgreRepositoryManager</scope><name>handleRequests</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1adebde6e2ed0c441a0342f573a02a63cb" prot="public" virt="non-virtual"><scope>DataAccess::PostgreRepositoryManager</scope><name>init</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1ada774e5ea0c7cc577df40196f0c307fe" prot="public" virt="non-virtual"><scope>DataAccess::PostgreRepositoryManager</scope><name>IRepositoryManager</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a728dc49922980137048bd58fef2fc4b5" prot="public" virt="non-virtual"><scope>DataAccess::PostgreRepositoryManager</scope><name>IRepositoryManager</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1ac187f52db71543e10cbfe24ecfcdea63" prot="public" virt="non-virtual"><scope>DataAccess::PostgreRepositoryManager</scope><name>IRepositoryManager</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a02869d294c9ba1960de79658a40c59c0" prot="public" virt="non-virtual"><scope>DataAccess::PostgreRepositoryManager</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1aeff4cc329711a4ef8087194f538cb3cb" prot="public" virt="non-virtual"><scope>DataAccess::PostgreRepositoryManager</scope><name>operator=</name></member>
+      <member refid="class_data_access_1_1_postgre_repository_manager_1a2f83341f307f1e710322e0782e7fa20c" prot="public" virt="non-virtual"><scope>DataAccess::PostgreRepositoryManager</scope><name>PostgreRepositoryManager</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a81bd2f415129a4a429f729701086250a" prot="public" virt="non-virtual"><scope>DataAccess::PostgreRepositoryManager</scope><name>pushRequest</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1a38859f8067b2c360a17f52bd379b4768" prot="public" virt="non-virtual"><scope>DataAccess::PostgreRepositoryManager</scope><name>stopHandler</name></member>
+      <member refid="class_data_access_1_1_i_repository_manager_1ad02af3035b342cd4f1fad79c8fe46394" prot="public" virt="virtual"><scope>DataAccess::PostgreRepositoryManager</scope><name>~IRepositoryManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,235 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_models" kind="namespace" language="C++">
+    <compoundname>Models</compoundname>
+    <innerclass refid="struct_models_1_1_channel_info" prot="public">Models::ChannelInfo</innerclass>
+    <innerclass refid="struct_models_1_1_channel_subscription_info" prot="public">Models::ChannelSubscriptionInfo</innerclass>
+    <innerclass refid="struct_models_1_1_login_info" prot="public">Models::LoginInfo</innerclass>
+    <innerclass refid="struct_models_1_1_message_info" prot="public">Models::MessageInfo</innerclass>
+    <innerclass refid="struct_models_1_1_registration_info" prot="public">Models::RegistrationInfo</innerclass>
+    <innerclass refid="struct_models_1_1_reply_info" prot="public">Models::ReplyInfo</innerclass>
+    <innernamespace refid="namespace_models_1_1_v2">Models::V2</innernamespace>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="_primitives_8hpp_1af94c4d5c159d095d2f3f208839cd2bd3" prot="public" static="no">
+        <type><ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelInfo</ref></type>
+        <definition>using Models::ChannelDeleteInfo = typedef ChannelInfo</definition>
+        <argsstring></argsstring>
+        <name>ChannelDeleteInfo</name>
+        <qualifiedname>Models::ChannelDeleteInfo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="58" column="1" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_primitives_8hpp_1a97b9bf3f75c235fa9371d270415eacbc" prot="public" static="no">
+        <type><ref refid="struct_models_1_1_channel_info" kindref="compound">ChannelInfo</ref></type>
+        <definition>using Models::ChannelLeaveInfo = typedef ChannelInfo</definition>
+        <argsstring></argsstring>
+        <name>ChannelLeaveInfo</name>
+        <qualifiedname>Models::ChannelLeaveInfo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="59" column="1" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="_primitives_8hpp_1a41cd58d3ebe1782a7b489188d065ffb3" prot="public" static="no" mutable="no">
+        <type>const std::vector&lt; std::string &gt;</type>
+        <definition>const std::vector&lt;std::string&gt; Models::reactionNames</definition>
+        <argsstring></argsstring>
+        <name>reactionNames</name>
+        <qualifiedname>Models::reactionNames</qualifiedname>
+        <initializer>= {&quot;likes&quot;, &quot;dislikes&quot;, &quot;fires&quot;, &quot;cats&quot;, &quot;smiles&quot;}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="15" column="19" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_primitives_8hpp_1a2bc8eecdac5a65d47909a714a3b91207" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Archive</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Models::serialize</definition>
+        <argsstring>(Archive &amp;ar, Models::ChannelInfo &amp;o)</argsstring>
+        <name>serialize</name>
+        <qualifiedname>Models::serialize</qualifiedname>
+        <param>
+          <type>Archive &amp;</type>
+          <declname>ar</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelInfo</ref> &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+<para>Serialize method which serialize each field. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="53" column="6" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="53" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="_primitives_8hpp_1aa56d16dd1eab4c1e44d7cdfb847abcd9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Archive</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Models::serialize</definition>
+        <argsstring>(Archive &amp;ar, Models::ChannelSubscriptionInfo &amp;o)</argsstring>
+        <name>serialize</name>
+        <qualifiedname>Models::serialize</qualifiedname>
+        <param>
+          <type>Archive &amp;</type>
+          <declname>ar</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_models_1_1_channel_subscription_info" kindref="compound">Models::ChannelSubscriptionInfo</ref> &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+<para>helper function for serializing <ref refid="struct_models_1_1_channel_subscription_info" kindref="compound">ChannelSubscriptionInfo</ref> structure </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="94" column="6" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="94" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="_primitives_8hpp_1a163508b8357bf45800651ae6d0ebc58e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Archive</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Models::serialize</definition>
+        <argsstring>(Archive &amp;ar, Models::LoginInfo &amp;o)</argsstring>
+        <name>serialize</name>
+        <qualifiedname>Models::serialize</qualifiedname>
+        <param>
+          <type>Archive &amp;</type>
+          <declname>ar</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_models_1_1_login_info" kindref="compound">Models::LoginInfo</ref> &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+<para>helper function for serializing <ref refid="struct_models_1_1_login_info" kindref="compound">LoginInfo</ref> structure </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="122" column="6" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="122" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="_primitives_8hpp_1a9852d5b92ea97e9c04dbaf2759ebc363" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Archive</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Models::serialize</definition>
+        <argsstring>(Archive &amp;ar, Models::RegistrationInfo &amp;o)</argsstring>
+        <name>serialize</name>
+        <qualifiedname>Models::serialize</qualifiedname>
+        <param>
+          <type>Archive &amp;</type>
+          <declname>ar</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_models_1_1_registration_info" kindref="compound">Models::RegistrationInfo</ref> &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+<para>Serialize method for serialize registration info for each field. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="167" column="6" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="167" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="function" id="_primitives_8hpp_1a155e63143b067c631df7e08b6185491b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Archive</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Models::serialize</definition>
+        <argsstring>(Archive &amp;ar, Models::MessageInfo &amp;o)</argsstring>
+        <name>serialize</name>
+        <qualifiedname>Models::serialize</qualifiedname>
+        <param>
+          <type>Archive &amp;</type>
+          <declname>ar</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref> &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+<para>Serialize method for serialize Message Info for each field. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="224" column="6" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="224" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="_primitives_8hpp_1a3899170bcd710a8c451f077e26dd42f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Archive</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void Models::serialize</definition>
+        <argsstring>(Archive &amp;ar, Models::ReplyInfo &amp;o)</argsstring>
+        <name>serialize</name>
+        <qualifiedname>Models::serialize</qualifiedname>
+        <param>
+          <type>Archive &amp;</type>
+          <declname>ar</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_models_1_1_reply_info" kindref="compound">Models::ReplyInfo</ref> &amp;</type>
+          <declname>o</declname>
+        </param>
+        <briefdescription>
+<para>Serialize method for serialize <ref refid="struct_models_1_1_reply_info" kindref="compound">ReplyInfo</ref> for each field. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="272" column="6" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="272" bodyend="275"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Base/Models/Public/Include/Models/Models.hpp" line="10" column="1"/>
+  </compounddef>
+</doxygen>

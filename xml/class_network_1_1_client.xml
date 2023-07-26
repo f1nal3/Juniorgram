@@ -1,0 +1,1199 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_network_1_1_client" kind="class" language="C++" prot="public">
+    <compoundname>Network::Client</compoundname>
+    <derivedcompoundref refid="class_app" prot="public" virt="non-virtual">App</derivedcompoundref>
+    <includes refid="_client_8hpp" local="no">Client.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_network_1_1_client_1a18733803dcdf9b3f5971d1c47b7f6aff" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Network::Client::_serverAccept</definition>
+        <argsstring></argsstring>
+        <name>_serverAccept</name>
+        <qualifiedname>Network::Client::_serverAccept</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="324" column="10" bodyfile="Client/Client.Core/Client.Core.Static/Client.hpp" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_network_1_1_client_1a995f7dec0d1f70c1342d56c9a5cfe113" prot="private" static="no" mutable="no">
+        <type>asio::io_context</type>
+        <definition>asio::io_context Network::Client::_context</definition>
+        <argsstring></argsstring>
+        <name>_context</name>
+        <qualifiedname>Network::Client::_context</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="326" column="22" bodyfile="Client/Client.Core/Client.Core.Static/Client.hpp" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_network_1_1_client_1a0f6cc2d0e52f2e4fc6cfe897db76027e" prot="private" static="no" mutable="no">
+        <type>std::thread</type>
+        <definition>std::thread Network::Client::_contextThread</definition>
+        <argsstring></argsstring>
+        <name>_contextThread</name>
+        <qualifiedname>Network::Client::_contextThread</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="327" column="22" bodyfile="Client/Client.Core/Client.Core.Static/Client.hpp" bodystart="327" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_network_1_1_client_1ae3f6d55f112c03cda263e8f59db27596" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_network_1_1_connection" kindref="compound">Connection</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;Connection&gt; Network::Client::_connection</definition>
+        <argsstring></argsstring>
+        <name>_connection</name>
+        <qualifiedname>Network::Client::_connection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="328" column="21" bodyfile="Client/Client.Core/Client.Core.Static/Client.hpp" bodystart="328" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_network_1_1_client_1a25421c98cc58eae60cd39c3b64239d4f" prot="private" static="no" mutable="no">
+        <type><ref refid="class_utility_1_1_safe_queue" kindref="compound">Utility::SafeQueue</ref>&lt; <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &gt;</type>
+        <definition>Utility::SafeQueue&lt;Message&gt; Network::Client::_incomingMessagesQueue</definition>
+        <argsstring></argsstring>
+        <name>_incomingMessagesQueue</name>
+        <qualifiedname>Network::Client::_incomingMessagesQueue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="329" column="24" bodyfile="Client/Client.Core/Client.Core.Static/Client.hpp" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_network_1_1_client_1a1ef3315ee222dc3eb2af8201f405f847" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="virtual">
+        <type></type>
+        <definition>virtual Network::Client::~Client</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>~Client</name>
+        <qualifiedname>Network::Client::~Client</qualifiedname>
+        <briefdescription>
+<para><ref refid="class_network_1_1_client" kindref="compound">Client</ref> virtual destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The virtual destructor calls the disconnectFromServer method, \ which checks the connection to the server. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="28" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a22a583f9447871a539ba614520902092" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Network::Client::connectToServer</definition>
+        <argsstring>(const std::string_view &amp;host, const uint16_t port)</argsstring>
+        <name>connectToServer</name>
+        <qualifiedname>Network::Client::connectToServer</qualifiedname>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>host</declname>
+        </param>
+        <param>
+          <type>const uint16_t</type>
+          <declname>port</declname>
+        </param>
+        <briefdescription>
+<para>Connect to server with IP(host) and Port(port). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>const</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>std::string_view&amp; host - for identifying and accepting ip address, \ </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>const</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>uint16_t port - for accepting &amp; identifying of port. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="35" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a2d2dad4544103a2a9e073d4eb78c2b1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::disconnectFromServer</definition>
+        <argsstring>()</argsstring>
+        <name>disconnectFromServer</name>
+        <qualifiedname>Network::Client::disconnectFromServer</qualifiedname>
+        <briefdescription>
+<para>Disconnect from server. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This method stop connection to remote host. \ Also, it reset all context and jobs that related with <ref refid="class_network_1_1_client" kindref="compound">Client</ref>. \ This method call in destructor, so in general way it is not used. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="43" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a336a20907c048fff41032146824912ec" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Network::Client::isConnected</definition>
+        <argsstring>() const</argsstring>
+        <name>isConnected</name>
+        <qualifiedname>Network::Client::isConnected</qualifiedname>
+        <briefdescription>
+<para>Checking the server connection. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns true if connection is established. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="49" column="11"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a969324480a6f39a016c82921b8f2b132" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::send</definition>
+        <argsstring>(const Message &amp;message) const</argsstring>
+        <name>send</name>
+        <qualifiedname>Network::Client::send</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &amp;</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+<para>Sends an initialized header message to the server. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>You can see the message types in the <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> header file. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="55" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a6d62f9b3d94f1b369ebaaf39ca373fc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_utility_1_1_safe_queue" kindref="compound">Utility::SafeQueue</ref>&lt; <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &gt; &amp;</type>
+        <definition>Utility::SafeQueue&lt; Message &gt; &amp; Network::Client::incoming</definition>
+        <argsstring>()</argsstring>
+        <name>incoming</name>
+        <qualifiedname>Network::Client::incoming</qualifiedname>
+        <briefdescription>
+<para>Incoming message queue. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Stores the queue of incoming messages that arrive \ to the client after processing and performing a certain action. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="62" column="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1ab6967157fe329a8cf4f0cda9c37b390b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::loop</definition>
+        <argsstring>()</argsstring>
+        <name>loop</name>
+        <qualifiedname>Network::Client::loop</qualifiedname>
+        <briefdescription>
+<para>Loop that handle incoming messages. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><ref refid="class_network_1_1_handler" kindref="compound">Handler</ref> function to process the server response message \ for the subsequent response from the client. (You can see the message types in the <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> header file). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="70" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1ae6436b4a2b519be2be62b5745f93fc05" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::pingServer</definition>
+        <argsstring>() const</argsstring>
+        <name>pingServer</name>
+        <qualifiedname>Network::Client::pingServer</qualifiedname>
+        <briefdescription>
+<para>Checking the server network transmission delay status. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The central method in which most of the work of the client kernel takes place. The function is an infinite loop that waits for messages to appear in the message queue. Messages are divided into types and a different handler is called for each type. In the case of a non-registered type, an issue is logged and the work continues. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="79" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a7147262877425c2f7a61527038cc74a3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::createDirectChat</definition>
+        <argsstring>(uint64_t receiverId) const</argsstring>
+        <name>createDirectChat</name>
+        <qualifiedname>Network::Client::createDirectChat</qualifiedname>
+        <param>
+          <type>uint64_t</type>
+          <declname>receiverId</declname>
+        </param>
+        <briefdescription>
+<para>Sends a request to create direct chat. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>receiverID is necessary for proper chat creation. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="85" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a34695da617803db894baf53f3054c95d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::askForChannelList</definition>
+        <argsstring>() const</argsstring>
+        <name>askForChannelList</name>
+        <qualifiedname>Network::Client::askForChannelList</qualifiedname>
+        <briefdescription>
+<para>Sends a request to ask for channel list. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="90" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1aed8e12023f5bd9fe1adf6febda4e3b63" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::askForChannelSubscriptionList</definition>
+        <argsstring>() const</argsstring>
+        <name>askForChannelSubscriptionList</name>
+        <qualifiedname>Network::Client::askForChannelSubscriptionList</qualifiedname>
+        <briefdescription>
+<para>Sends a request to ask for channel subscription list. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="95" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a41cd70c42eaa80488c40f12d86f1589e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::askForMessageHistory</definition>
+        <argsstring>(uint64_t channelID) const</argsstring>
+        <name>askForMessageHistory</name>
+        <qualifiedname>Network::Client::askForMessageHistory</qualifiedname>
+        <param>
+          <type>uint64_t</type>
+          <declname>channelID</declname>
+        </param>
+        <briefdescription>
+<para>Sends a request to ask for message history. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>channelID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for the correct answer to getting the story. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="101" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1ad231b75d9adec41382a9d326296f584d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::askForReplyHistory</definition>
+        <argsstring>(uint64_t channelID) const</argsstring>
+        <name>askForReplyHistory</name>
+        <qualifiedname>Network::Client::askForReplyHistory</qualifiedname>
+        <param>
+          <type>uint64_t</type>
+          <declname>channelID</declname>
+        </param>
+        <briefdescription>
+<para>Sends a request to ask for reply history. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>channelID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is needed to get a response \ from a particular channel. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="108" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1aac511810872c49158ad24bc9f4835cab" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::messageAll</definition>
+        <argsstring>() const</argsstring>
+        <name>messageAll</name>
+        <qualifiedname>Network::Client::messageAll</qualifiedname>
+        <briefdescription>
+<para>Sends a request for output all messages. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="113" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a89356bf513bd32c331e30e21d0b209ea" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::userMessageDelete</definition>
+        <argsstring>(const std::uint64_t messageID) const</argsstring>
+        <name>userMessageDelete</name>
+        <qualifiedname>Network::Client::userMessageDelete</qualifiedname>
+        <param>
+          <type>const std::uint64_t</type>
+          <declname>messageID</declname>
+        </param>
+        <briefdescription>
+<para>Delete user&apos;s message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>messageID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is his number at which the message will be deleted. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="119" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a6d4be14a93b76be07ffc46869d54dd4c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::userMessageDelete</definition>
+        <argsstring>(const std::string &amp;messageText) const</argsstring>
+        <name>userMessageDelete</name>
+        <qualifiedname>Network::Client::userMessageDelete</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>messageText</declname>
+        </param>
+        <briefdescription>
+<para>Delete user&apos;s message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>messageText</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is message that will be deleted.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Overloading a function with the messageID parameter. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="126" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1ac2f25529256dfc492cf22a0d1d171998" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::subscriptionChannel</definition>
+        <argsstring>(const std::uint64_t channelID) const</argsstring>
+        <name>subscriptionChannel</name>
+        <qualifiedname>Network::Client::subscriptionChannel</qualifiedname>
+        <param>
+          <type>const std::uint64_t</type>
+          <declname>channelID</declname>
+        </param>
+        <briefdescription>
+<para>Sends a request to subscription channel. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ChannelID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for the correct action of the subscription. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="132" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a05b736dd423cc02b3b0721c2e760da2e" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::leaveChannel</definition>
+        <argsstring>(const std::string_view &amp;channelName) const</argsstring>
+        <name>leaveChannel</name>
+        <qualifiedname>Network::Client::leaveChannel</qualifiedname>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>channelName</declname>
+        </param>
+        <briefdescription>
+<para>Sends a request to leave channel. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>channelName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is necessary to correctly exit the channel with the correct name. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="139" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1ad5171f7cf939b53fc5f9f4b9f42e41dc" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::deleteChannel</definition>
+        <argsstring>(const std::string_view &amp;channelName) const</argsstring>
+        <name>deleteChannel</name>
+        <qualifiedname>Network::Client::deleteChannel</qualifiedname>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>channelName</declname>
+        </param>
+        <briefdescription>
+<para>Sends a request to delete channel. <linebreak/>
+ </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>channelName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is necessary to correctly delete a channel with the desired name. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="146" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a0249236bf48c1ea56a76cc4732abc8c1" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::createChannel</definition>
+        <argsstring>(const std::string_view &amp;channelName) const</argsstring>
+        <name>createChannel</name>
+        <qualifiedname>Network::Client::createChannel</qualifiedname>
+        <param>
+          <type>const std::string_view &amp;</type>
+          <declname>channelName</declname>
+        </param>
+        <briefdescription>
+<para>Sends a request to create channel. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>channelName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is necessary to correctly create a channel with the desired name. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="153" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1afabb8e76a8ba09804558ce74d8f5e0ee" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::storeMessage</definition>
+        <argsstring>(const std::string &amp;message, uint64_t channelID) const</argsstring>
+        <name>storeMessage</name>
+        <qualifiedname>Network::Client::storeMessage</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>channelID</declname>
+        </param>
+        <briefdescription>
+<para>Sends a request to store message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>channelID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>and it&apos;s message are necessary \ to correctly request message storage. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="160" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1ae6c6809391307a9543d2668a5596c767" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::storeReply</definition>
+        <argsstring>(const std::string &amp;message, uint64_t channelID, uint64_t msgID) const</argsstring>
+        <name>storeReply</name>
+        <qualifiedname>Network::Client::storeReply</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>channelID</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>msgID</declname>
+        </param>
+        <briefdescription>
+<para>Sends a request to store reply. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>channelID</parametername>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>and its msgID are necessary needed \ to properly request a response from the database \ to retrieve a stored message. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="168" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a427f72225af6756c7efdae76911ec4d5" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::userRegistration</definition>
+        <argsstring>(const std::string &amp;email, const std::string &amp;login, const std::string &amp;password) const</argsstring>
+        <name>userRegistration</name>
+        <qualifiedname>Network::Client::userRegistration</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>email</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>login</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>password</declname>
+        </param>
+        <briefdescription>
+<para>Sends a request to registration of user. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>login</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>and password are needed to hash the password to a certain user. \ Email is necessary to assign a user to it and to restore the account \ in case the password is lost. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="176" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a594ba0121fcedff90282d79499e328ea" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::userAuthorization</definition>
+        <argsstring>(const std::string &amp;login, const std::string &amp;password) const</argsstring>
+        <name>userAuthorization</name>
+        <qualifiedname>Network::Client::userAuthorization</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>login</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>password</declname>
+        </param>
+        <briefdescription>
+<para>Sends a request to authorization of user. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>login</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>and password are needed to hash the password to a certain user.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+Allows us to enter different users with the same password. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="183" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a33e9ef1621935c50681c30e4fe716138" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Network::Client::userMessageReaction</definition>
+        <argsstring>(const std::uint64_t messageID, const std::uint32_t reactionID) const</argsstring>
+        <name>userMessageReaction</name>
+        <qualifiedname>Network::Client::userMessageReaction</qualifiedname>
+        <param>
+          <type>const std::uint64_t</type>
+          <declname>messageID</declname>
+        </param>
+        <param>
+          <type>const std::uint32_t</type>
+          <declname>reactionID</declname>
+        </param>
+        <briefdescription>
+<para>A method that sends a query to the database to change the reaction state. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Supported reaction IDs are 0(likes), 1(dislikes), 2(fires), 3(cats), 4(smiles). \ (You can see a list of reactions in the header file Primitives). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="190" column="10"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_network_1_1_client_1ae8f848bf80e913f495d9be332981fc25" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onDisconnect</definition>
+        <argsstring>()</argsstring>
+        <name>onDisconnect</name>
+        <qualifiedname>Network::Client::onDisconnect</qualifiedname>
+        <briefdescription>
+<para>Disconnect handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs the response \ to the disconnect from the server. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="198" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1aa80faff98fe07b9464dfff1cc94b86c5" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onMessageSendFailed</definition>
+        <argsstring>(const Message &amp;message) const</argsstring>
+        <name>onMessageSendFailed</name>
+        <qualifiedname>Network::Client::onMessageSendFailed</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> &amp;</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="struct_network_1_1_message" kindref="compound">Message</ref> send failure handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs the response \ to an incorrect message being sent. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="205" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a8c8884f69ed4cb7bcdec595ae6e5b488" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onLoginAnswer</definition>
+        <argsstring>(bool success)</argsstring>
+        <name>onLoginAnswer</name>
+        <qualifiedname>Network::Client::onLoginAnswer</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>success</declname>
+        </param>
+        <briefdescription>
+<para>Login Answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs the authorization response. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="211" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1affc767c93ff417a063640dc6c749169b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onServerAccepted</definition>
+        <argsstring>()</argsstring>
+        <name>onServerAccepted</name>
+        <qualifiedname>Network::Client::onServerAccepted</qualifiedname>
+        <reimplementedby refid="class_app_1a8c8856796470a956e15dbba11511524c">onServerAccepted</reimplementedby>
+        <briefdescription>
+<para><ref refid="class_server" kindref="compound">Server</ref> Accepted handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs the response \ on accepting the connection to the server. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="218" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a242df1a110f065bcf32fbc8c2cb7bf13" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onServerPing</definition>
+        <argsstring>(double timestamp)</argsstring>
+        <name>onServerPing</name>
+        <qualifiedname>Network::Client::onServerPing</qualifiedname>
+        <reimplementedby refid="class_app_1ae489a55b944cf93f7aab2bb7dfa3d531">onServerPing</reimplementedby>
+        <param>
+          <type>double</type>
+          <declname>timestamp</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="class_server" kindref="compound">Server</ref> Ping handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs the ping status response. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="224" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a479d05d690162ad05ea93e733a428e2e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onServerMessage</definition>
+        <argsstring>(const uint64_t clientId)</argsstring>
+        <name>onServerMessage</name>
+        <qualifiedname>Network::Client::onServerMessage</qualifiedname>
+        <reimplementedby refid="class_app_1a5387ee5d220572e4cf9c342da5216f27">onServerMessage</reimplementedby>
+        <param>
+          <type>const uint64_t</type>
+          <declname>clientId</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="class_server" kindref="compound">Server</ref> <ref refid="struct_network_1_1_message" kindref="compound">Message</ref> handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs the message response from the server. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="230" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a0f835b557eeeda02caa87cc0adf7a2ab" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onChannelListRequest</definition>
+        <argsstring>(const std::vector&lt; Models::ChannelInfo &gt; &amp;channels)</argsstring>
+        <name>onChannelListRequest</name>
+        <qualifiedname>Network::Client::onChannelListRequest</qualifiedname>
+        <reimplementedby refid="class_app_1a0dc29282425e8782a84975d692290188">onChannelListRequest</reimplementedby>
+        <param>
+          <type>const std::vector&lt; <ref refid="struct_models_1_1_channel_info" kindref="compound">Models::ChannelInfo</ref> &gt; &amp;</type>
+          <declname>channels</declname>
+        </param>
+        <briefdescription>
+<para>Channel List Request handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs channel list request response. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="236" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a2b7f8b0d101b6886b83e4667d06e8acd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onMessageHistoryAnswer</definition>
+        <argsstring>(const std::vector&lt; Models::MessageInfo &gt; &amp;messages)</argsstring>
+        <name>onMessageHistoryAnswer</name>
+        <qualifiedname>Network::Client::onMessageHistoryAnswer</qualifiedname>
+        <reimplementedby refid="class_app_1a936bfc88e0e0b997be3782edd213deff">onMessageHistoryAnswer</reimplementedby>
+        <param>
+          <type>const std::vector&lt; <ref refid="struct_models_1_1_message_info" kindref="compound">Models::MessageInfo</ref> &gt; &amp;</type>
+          <declname>messages</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="struct_network_1_1_message" kindref="compound">Message</ref> History Answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs message history answer response. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="242" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a254a4f78f332f2261b1a0a76431a7f11" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onMessageStoreAnswer</definition>
+        <argsstring>(Utility::StoringMessageCodes storingMessageCode)</argsstring>
+        <name>onMessageStoreAnswer</name>
+        <qualifiedname>Network::Client::onMessageStoreAnswer</qualifiedname>
+        <reimplementedby refid="class_app_1a936e8b81ea1cf5dbf8f1554211f755fc">onMessageStoreAnswer</reimplementedby>
+        <param>
+          <type>Utility::StoringMessageCodes</type>
+          <declname>storingMessageCode</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="struct_network_1_1_message" kindref="compound">Message</ref> Store Answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs message store answer response. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="248" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1aae033942b37c2b914e0f0bb33190a010" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onUserMessageDeleteAnswer</definition>
+        <argsstring>(const Utility::DeletingMessageCodes deletingState)</argsstring>
+        <name>onUserMessageDeleteAnswer</name>
+        <qualifiedname>Network::Client::onUserMessageDeleteAnswer</qualifiedname>
+        <reimplementedby refid="class_app_1a5196e694c55677c4771e6e6facb3c437">onUserMessageDeleteAnswer</reimplementedby>
+        <param>
+          <type>const Utility::DeletingMessageCodes</type>
+          <declname>deletingState</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="struct_network_1_1_message" kindref="compound">Message</ref> Delete Answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs message delete answer response. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="254" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1aee2fcb55fa84e71c379034707e2ad6ce" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onRegistrationAnswer</definition>
+        <argsstring>(Utility::RegistrationCodes registrationCode)</argsstring>
+        <name>onRegistrationAnswer</name>
+        <qualifiedname>Network::Client::onRegistrationAnswer</qualifiedname>
+        <reimplementedby refid="class_app_1a7b67645176d533b093954196cec31e52">onRegistrationAnswer</reimplementedby>
+        <param>
+          <type>Utility::RegistrationCodes</type>
+          <declname>registrationCode</declname>
+        </param>
+        <briefdescription>
+<para>Registration Answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs registration answer response. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="260" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1ad4ffdd06e7761f6761c29af809e2749e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onReplyHistoryAnswer</definition>
+        <argsstring>(const std::vector&lt; Models::ReplyInfo &gt; &amp;replies)</argsstring>
+        <name>onReplyHistoryAnswer</name>
+        <qualifiedname>Network::Client::onReplyHistoryAnswer</qualifiedname>
+        <param>
+          <type>const std::vector&lt; <ref refid="struct_models_1_1_reply_info" kindref="compound">Models::ReplyInfo</ref> &gt; &amp;</type>
+          <declname>replies</declname>
+        </param>
+        <briefdescription>
+<para>Reply History Answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs reply history answer response. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="266" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1aa767ec90c90b9d648eacbd0e50ef944d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onReplyStoreAnswer</definition>
+        <argsstring>(Utility::StoringReplyCodes storingReplyCode)</argsstring>
+        <name>onReplyStoreAnswer</name>
+        <qualifiedname>Network::Client::onReplyStoreAnswer</qualifiedname>
+        <param>
+          <type>Utility::StoringReplyCodes</type>
+          <declname>storingReplyCode</declname>
+        </param>
+        <briefdescription>
+<para>Reply Store Answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs reply store answer response. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="272" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a11ab48ab34cf2b5f7e60423f0a1adb96" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onChannelLeaveAnswer</definition>
+        <argsstring>(Utility::ChannelLeaveCodes channelLeaveCode)</argsstring>
+        <name>onChannelLeaveAnswer</name>
+        <qualifiedname>Network::Client::onChannelLeaveAnswer</qualifiedname>
+        <param>
+          <type>Utility::ChannelLeaveCodes</type>
+          <declname>channelLeaveCode</declname>
+        </param>
+        <briefdescription>
+<para>Channel leave Answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs of channel leave answer response. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="278" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1ab6e884c3346a2175e23cbb7bc31ed755" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onChannelSubscribingAnswer</definition>
+        <argsstring>(const Utility::ChannelSubscribingCodes subscribingChannelCode)</argsstring>
+        <name>onChannelSubscribingAnswer</name>
+        <qualifiedname>Network::Client::onChannelSubscribingAnswer</qualifiedname>
+        <param>
+          <type>const Utility::ChannelSubscribingCodes</type>
+          <declname>subscribingChannelCode</declname>
+        </param>
+        <briefdescription>
+<para>Channel subscription Answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs of channel subscribing answer response. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="284" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a8fa6b9e170c5bda64be07c91428a881c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onChannelSubscribingListAnswer</definition>
+        <argsstring>(const std::vector&lt; uint64_t &gt; &amp;subscribingChannelList)</argsstring>
+        <name>onChannelSubscribingListAnswer</name>
+        <qualifiedname>Network::Client::onChannelSubscribingListAnswer</qualifiedname>
+        <param>
+          <type>const std::vector&lt; uint64_t &gt; &amp;</type>
+          <declname>subscribingChannelList</declname>
+        </param>
+        <briefdescription>
+<para>Channel subscription list Answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs message of channel \ subscribing list answer response. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="291" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a524cd832f8d533efd0d1c1c54cbe261d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onChannelDeleteAnswer</definition>
+        <argsstring>(Utility::ChannelDeleteCode channelDeleteCode)</argsstring>
+        <name>onChannelDeleteAnswer</name>
+        <qualifiedname>Network::Client::onChannelDeleteAnswer</qualifiedname>
+        <param>
+          <type>Utility::ChannelDeleteCode</type>
+          <declname>channelDeleteCode</declname>
+        </param>
+        <briefdescription>
+<para>Channel delete Answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs message of delete answer response. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="297" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a49ff3c4151ae1ac3be9786464117e674" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onEditMessageAnswer</definition>
+        <argsstring>(Utility::EditingMessageCodes reactionState) const</argsstring>
+        <name>onEditMessageAnswer</name>
+        <qualifiedname>Network::Client::onEditMessageAnswer</qualifiedname>
+        <param>
+          <type>Utility::EditingMessageCodes</type>
+          <declname>reactionState</declname>
+        </param>
+        <briefdescription>
+<para>Channel edit Answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs message of edit answer response. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="303" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a8df31c555ad3b168080a0572b6b0e752" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onChannelCreateAnswer</definition>
+        <argsstring>(Utility::ChannelCreateCodes channelCreateCode)</argsstring>
+        <name>onChannelCreateAnswer</name>
+        <qualifiedname>Network::Client::onChannelCreateAnswer</qualifiedname>
+        <param>
+          <type>Utility::ChannelCreateCodes</type>
+          <declname>channelCreateCode</declname>
+        </param>
+        <briefdescription>
+<para>Channel create Answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs message of channel create answer response. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="309" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a91916f5eee273291a7d26e6b668ac4fc" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onDirectMessageCreateAnswer</definition>
+        <argsstring>(Utility::DirectMessageStatus directMessageCreateAnswer)</argsstring>
+        <name>onDirectMessageCreateAnswer</name>
+        <qualifiedname>Network::Client::onDirectMessageCreateAnswer</qualifiedname>
+        <param>
+          <type>Utility::DirectMessageStatus</type>
+          <declname>directMessageCreateAnswer</declname>
+        </param>
+        <briefdescription>
+<para>Direct message create Answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs message of direct answer response. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="315" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_network_1_1_client_1a15de402cf96349b27c6e14b8e452ada4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Network::Client::onMessageReactionAnswer</definition>
+        <argsstring>(Utility::ReactionMessageCodes reactionState)</argsstring>
+        <name>onMessageReactionAnswer</name>
+        <qualifiedname>Network::Client::onMessageReactionAnswer</qualifiedname>
+        <param>
+          <type>Utility::ReactionMessageCodes</type>
+          <declname>reactionState</declname>
+        </param>
+        <briefdescription>
+<para>Reaction Answer handler. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>This function handler outputs message of reaction answer response. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="321" column="18"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Class for handling connection. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The application core, which is a typical client in a client-server architecture. \ The class manages the connection and provides a communication interface to the server side by providing a set of methods (API). \ Each such function defines the data and order of actions that are needed to perform some functionality. \ However, an option is provided to send messages manually.(<simplesect kind="see"><para><ref refid="class_network_1_1_client_1a969324480a6f39a016c82921b8f2b132" kindref="member">send</ref>) \ See the list of API functions and their descriptions in the class methods. </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>App</label>
+        <link refid="class_app"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Network::Client</label>
+        <link refid="class_network_1_1_client"/>
+      </node>
+    </inheritancegraph>
+    <location file="Client/Client.Core/Client.Core.Static/Client.hpp" line="20" column="1" bodyfile="Client/Client.Core/Client.Core.Static/Client.hpp" bodystart="21" bodyend="330"/>
+    <listofallmembers>
+      <member refid="class_network_1_1_client_1ae3f6d55f112c03cda263e8f59db27596" prot="private" virt="non-virtual"><scope>Network::Client</scope><name>_connection</name></member>
+      <member refid="class_network_1_1_client_1a995f7dec0d1f70c1342d56c9a5cfe113" prot="private" virt="non-virtual"><scope>Network::Client</scope><name>_context</name></member>
+      <member refid="class_network_1_1_client_1a0f6cc2d0e52f2e4fc6cfe897db76027e" prot="private" virt="non-virtual"><scope>Network::Client</scope><name>_contextThread</name></member>
+      <member refid="class_network_1_1_client_1a25421c98cc58eae60cd39c3b64239d4f" prot="private" virt="non-virtual"><scope>Network::Client</scope><name>_incomingMessagesQueue</name></member>
+      <member refid="class_network_1_1_client_1a18733803dcdf9b3f5971d1c47b7f6aff" prot="private" virt="non-virtual"><scope>Network::Client</scope><name>_serverAccept</name></member>
+      <member refid="class_network_1_1_client_1a34695da617803db894baf53f3054c95d" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>askForChannelList</name></member>
+      <member refid="class_network_1_1_client_1aed8e12023f5bd9fe1adf6febda4e3b63" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>askForChannelSubscriptionList</name></member>
+      <member refid="class_network_1_1_client_1a41cd70c42eaa80488c40f12d86f1589e" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>askForMessageHistory</name></member>
+      <member refid="class_network_1_1_client_1ad231b75d9adec41382a9d326296f584d" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>askForReplyHistory</name></member>
+      <member refid="class_network_1_1_client_1a22a583f9447871a539ba614520902092" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>connectToServer</name></member>
+      <member refid="class_network_1_1_client_1a0249236bf48c1ea56a76cc4732abc8c1" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>createChannel</name></member>
+      <member refid="class_network_1_1_client_1a7147262877425c2f7a61527038cc74a3" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>createDirectChat</name></member>
+      <member refid="class_network_1_1_client_1ad5171f7cf939b53fc5f9f4b9f42e41dc" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>deleteChannel</name></member>
+      <member refid="class_network_1_1_client_1a2d2dad4544103a2a9e073d4eb78c2b1a" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>disconnectFromServer</name></member>
+      <member refid="class_network_1_1_client_1a6d62f9b3d94f1b369ebaaf39ca373fc6" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>incoming</name></member>
+      <member refid="class_network_1_1_client_1a336a20907c048fff41032146824912ec" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>isConnected</name></member>
+      <member refid="class_network_1_1_client_1a05b736dd423cc02b3b0721c2e760da2e" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>leaveChannel</name></member>
+      <member refid="class_network_1_1_client_1ab6967157fe329a8cf4f0cda9c37b390b" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>loop</name></member>
+      <member refid="class_network_1_1_client_1aac511810872c49158ad24bc9f4835cab" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>messageAll</name></member>
+      <member refid="class_network_1_1_client_1a8df31c555ad3b168080a0572b6b0e752" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onChannelCreateAnswer</name></member>
+      <member refid="class_network_1_1_client_1a524cd832f8d533efd0d1c1c54cbe261d" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onChannelDeleteAnswer</name></member>
+      <member refid="class_network_1_1_client_1a11ab48ab34cf2b5f7e60423f0a1adb96" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onChannelLeaveAnswer</name></member>
+      <member refid="class_network_1_1_client_1a0f835b557eeeda02caa87cc0adf7a2ab" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onChannelListRequest</name></member>
+      <member refid="class_network_1_1_client_1ab6e884c3346a2175e23cbb7bc31ed755" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onChannelSubscribingAnswer</name></member>
+      <member refid="class_network_1_1_client_1a8fa6b9e170c5bda64be07c91428a881c" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onChannelSubscribingListAnswer</name></member>
+      <member refid="class_network_1_1_client_1a91916f5eee273291a7d26e6b668ac4fc" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onDirectMessageCreateAnswer</name></member>
+      <member refid="class_network_1_1_client_1ae8f848bf80e913f495d9be332981fc25" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onDisconnect</name></member>
+      <member refid="class_network_1_1_client_1a49ff3c4151ae1ac3be9786464117e674" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onEditMessageAnswer</name></member>
+      <member refid="class_network_1_1_client_1a8c8884f69ed4cb7bcdec595ae6e5b488" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onLoginAnswer</name></member>
+      <member refid="class_network_1_1_client_1a2b7f8b0d101b6886b83e4667d06e8acd" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onMessageHistoryAnswer</name></member>
+      <member refid="class_network_1_1_client_1a15de402cf96349b27c6e14b8e452ada4" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onMessageReactionAnswer</name></member>
+      <member refid="class_network_1_1_client_1aa80faff98fe07b9464dfff1cc94b86c5" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onMessageSendFailed</name></member>
+      <member refid="class_network_1_1_client_1a254a4f78f332f2261b1a0a76431a7f11" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onMessageStoreAnswer</name></member>
+      <member refid="class_network_1_1_client_1aee2fcb55fa84e71c379034707e2ad6ce" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onRegistrationAnswer</name></member>
+      <member refid="class_network_1_1_client_1ad4ffdd06e7761f6761c29af809e2749e" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onReplyHistoryAnswer</name></member>
+      <member refid="class_network_1_1_client_1aa767ec90c90b9d648eacbd0e50ef944d" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onReplyStoreAnswer</name></member>
+      <member refid="class_network_1_1_client_1affc767c93ff417a063640dc6c749169b" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onServerAccepted</name></member>
+      <member refid="class_network_1_1_client_1a479d05d690162ad05ea93e733a428e2e" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onServerMessage</name></member>
+      <member refid="class_network_1_1_client_1a242df1a110f065bcf32fbc8c2cb7bf13" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onServerPing</name></member>
+      <member refid="class_network_1_1_client_1aae033942b37c2b914e0f0bb33190a010" prot="protected" virt="virtual"><scope>Network::Client</scope><name>onUserMessageDeleteAnswer</name></member>
+      <member refid="class_network_1_1_client_1ae6436b4a2b519be2be62b5745f93fc05" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>pingServer</name></member>
+      <member refid="class_network_1_1_client_1a969324480a6f39a016c82921b8f2b132" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>send</name></member>
+      <member refid="class_network_1_1_client_1afabb8e76a8ba09804558ce74d8f5e0ee" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>storeMessage</name></member>
+      <member refid="class_network_1_1_client_1ae6c6809391307a9543d2668a5596c767" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>storeReply</name></member>
+      <member refid="class_network_1_1_client_1ac2f25529256dfc492cf22a0d1d171998" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>subscriptionChannel</name></member>
+      <member refid="class_network_1_1_client_1a594ba0121fcedff90282d79499e328ea" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>userAuthorization</name></member>
+      <member refid="class_network_1_1_client_1a89356bf513bd32c331e30e21d0b209ea" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>userMessageDelete</name></member>
+      <member refid="class_network_1_1_client_1a6d4be14a93b76be07ffc46869d54dd4c" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>userMessageDelete</name></member>
+      <member refid="class_network_1_1_client_1a33e9ef1621935c50681c30e4fe716138" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>userMessageReaction</name></member>
+      <member refid="class_network_1_1_client_1a427f72225af6756c7efdae76911ec4d5" prot="public" virt="non-virtual"><scope>Network::Client</scope><name>userRegistration</name></member>
+      <member refid="class_network_1_1_client_1a1ef3315ee222dc3eb2af8201f405f847" prot="public" virt="virtual"><scope>Network::Client</scope><name>~Client</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

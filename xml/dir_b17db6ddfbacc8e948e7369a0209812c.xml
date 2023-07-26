@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="dir_b17db6ddfbacc8e948e7369a0209812c" kind="dir">
+    <compoundname>DataAccess/DataAccess.Postgre</compoundname>
+    <innerfile refid="_data_base_options_8hpp">DataBaseOptions.hpp</innerfile>
+    <innerfile refid="_p_g_model_filler_8hpp">PGModelFiller.hpp</innerfile>
+    <innerfile refid="_postgre_adapter_8hpp">PostgreAdapter.hpp</innerfile>
+    <innerfile refid="_postgre_query_8hpp">PostgreQuery.hpp</innerfile>
+    <innerfile refid="_postgre_repositories_8hpp">PostgreRepositories.hpp</innerfile>
+    <innerfile refid="_postgre_repository_container_8hpp">PostgreRepositoryContainer.hpp</innerfile>
+    <innerfile refid="_postgre_repository_manager_8hpp">PostgreRepositoryManager.hpp</innerfile>
+    <innerfile refid="_users_amount_finder_8hpp">UsersAmountFinder.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="DataAccess/DataAccess.Postgre/"/>
+  </compounddef>
+</doxygen>

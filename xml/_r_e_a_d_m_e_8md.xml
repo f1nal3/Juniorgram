@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_r_e_a_d_m_e_8md" kind="file" language="Markdown">
+    <compoundname>README.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">[![Clang<sp/>Linux<sp/>Build](https://github.com/f1nal3/Juniorgram/actions/workflows/Clang%20Linux%20Build.yml/badge.svg)](https://github.com/f1nal3/Juniorgram/actions/workflows/Clang%20Linux%20Build.yml)</highlight></codeline>
+<codeline><highlight class="normal">[![Windows<sp/>Build](https://github.com/f1nal3/Juniorgram/actions/workflows/Windows%20Build.yml/badge.svg?branch=master)](https://github.com/f1nal3/Juniorgram/actions/workflows/Windows%20Build.yml)</highlight></codeline>
+<codeline><highlight class="normal">[![GCC<sp/>Linux<sp/>Build](https://github.com/f1nal3/Juniorgram/actions/workflows/GCC%20Linux%20Build.yml/badge.svg)](https://github.com/f1nal3/Juniorgram/actions/workflows/GCC%20Linux%20Build.yml)</highlight></codeline>
+<codeline><highlight class="normal">[![Documentation](https://github.com/f1nal3/Juniorgram/actions/workflows/documentation.yml/badge.svg?branch=master)](https://github.com/f1nal3/Juniorgram/actions/workflows/documentation.yml)</highlight></codeline>
+<codeline><highlight class="normal">[![Quality<sp/>Gate<sp/>Status](https://sonarcloud.io/api/project_badges/measure?project=f1nal3_Juniorgram&amp;metric=alert_status)](https://sonarcloud.io/summary/new_code?id=f1nal3_Juniorgram)</highlight></codeline>
+<codeline><highlight class="normal">[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=f1nal3_Juniorgram&amp;metric=coverage)](https://sonarcloud.io/summary/new_code?id=f1nal3_Juniorgram)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">![](https://i.ibb.co/sC8WJQs/logo2.png)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>Introduction</highlight></codeline>
+<codeline><highlight class="normal">A<sp/>C++<sp/>messenger<sp/>for<sp/>learning<sp/>purposes<sp/>in<sp/>EPAM<sp/>Brest<sp/>C++<sp/>R&amp;D<sp/>Lab</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">---</highlight></codeline>
+<codeline><highlight class="normal">##<sp/>Contents:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">[Documentation<sp/>main<sp/>page](https://f1nal3.github.io/Juniorgram/)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Getting<sp/>started</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">See<sp/>@ref<sp/>gettingstarted<sp/>for<sp/>more<sp/>info<sp/>on<sp/>build<sp/>setup<sp/>and<sp/>installation.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Setting<sp/>server<sp/>on<sp/>a<sp/>local<sp/>machine</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>See<sp/>@ref<sp/>localserversetup<sp/>for<sp/>a<sp/>guide<sp/>on<sp/>running<sp/>the<sp/>server<sp/>on<sp/>your<sp/>local<sp/>machine.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">[Documentation<sp/>Coverage](https://f1nal3.github.io/Juniorgram/doc_coverage/index.html)</highlight></codeline>
+    </programlisting>
+    <location file="README.md"/>
+  </compounddef>
+</doxygen>

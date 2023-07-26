@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_cryptography_8md" kind="file" language="Markdown">
+    <compoundname>Cryptography.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>Cryptography<sp/>system</highlight></codeline>
+<codeline><highlight class="normal">###<sp/>Authentication</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>main<sp/>idea<sp/>of<sp/>the<sp/>architecture<sp/>is<sp/>the<sp/>ability<sp/>to<sp/>configure<sp/>the<sp/>connection<sp/>at<sp/>the<sp/>stage<sp/>of<sp/>its<sp/>creation.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">All<sp/>subsequent<sp/>statements<sp/>work<sp/>for<sp/>the<sp/>following<sp/>cryptography<sp/>configuration:</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Encryption:<sp/>AES<sp/>GCM</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>Key<sp/>exchange<sp/>protocol:<sp/>ECDH</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Also,<sp/>this<sp/>architecture<sp/>will<sp/>work<sp/>for<sp/>any<sp/>symmetric<sp/>encryption<sp/>algorithm<sp/>if<sp/>the<sp/>generated<sp/>shared<sp/>key<sp/>is<sp/>used<sp/>as<sp/>the<sp/>key<sp/>encryption<sp/>key.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>diagram<sp/>below<sp/>shows<sp/>how<sp/>the<sp/>parts<sp/>of<sp/>the<sp/>cryptographic<sp/>system<sp/>interact<sp/>with<sp/>each<sp/>other<sp/>and<sp/>with<sp/>the<sp/>server.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">![crypto_one](./images/crypto_authentication.svg<sp/>&quot;Crypto<sp/>authentication&quot;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>dependencies<sp/>shown<sp/>in<sp/>the<sp/>diagram<sp/>make<sp/>it<sp/>possible<sp/>to<sp/>configure<sp/>the<sp/>security<sp/>elements<sp/>separately:<sp/>the<sp/>encryption<sp/>method,<sp/>the<sp/>key<sp/>creation<sp/>protocol,<sp/>the<sp/>key<sp/>confirmation<sp/>protocol,<sp/>the<sp/>connection<sp/>verification<sp/>algorithm<sp/>-<sp/>which<sp/>allows<sp/>you<sp/>to<sp/>configure<sp/>the<sp/>connection<sp/>in<sp/>a<sp/>variety<sp/>of<sp/>ways.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Connection</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>diagram<sp/>below<sp/>shows<sp/>how<sp/>the<sp/>application<sp/>sides<sp/>will<sp/>be<sp/>connected.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">![crypto_two](./images/crypto_connection.svg<sp/>&quot;Crypto<sp/>connection&quot;)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Connection<sp/>stages:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>Setting<sp/>up<sp/>an<sp/>anonymous<sp/>connection.</highlight></codeline>
+<codeline><highlight class="normal">2.<sp/>Connection<sp/>verification.<sp/>If<sp/>it<sp/>fails,<sp/>the<sp/>server<sp/>cannot<sp/>be<sp/>sure<sp/>that<sp/>it<sp/>is<sp/>working<sp/>with<sp/>a<sp/>real<sp/>client.</highlight></codeline>
+<codeline><highlight class="normal">3.<sp/>If<sp/>the<sp/>client<sp/>has<sp/>confirmed<sp/>that<sp/>he<sp/>is<sp/>the<sp/>one<sp/>the<sp/>server<sp/>knows,<sp/>a<sp/>shared<sp/>key<sp/>is<sp/>generated<sp/>(used<sp/>for<sp/>symmetric<sp/>encryption).</highlight></codeline>
+<codeline><highlight class="normal">4.<sp/>As<sp/>a<sp/>result<sp/>of<sp/>generation,<sp/>both<sp/>the<sp/>client<sp/>and<sp/>the<sp/>server<sp/>have<sp/>a<sp/>key,<sp/>but<sp/>they<sp/>cannot<sp/>be<sp/>sure<sp/>that<sp/>the<sp/>other<sp/>side<sp/>has<sp/>exactly<sp/>the<sp/>same<sp/>one.<sp/>To<sp/>do<sp/>this,<sp/>the<sp/>client<sp/>sends<sp/>an<sp/>encrypted<sp/>message<sp/>with<sp/>known<sp/>content.<sp/>If<sp/>the<sp/>server<sp/>decrypted<sp/>and<sp/>received<sp/>the<sp/>correct<sp/>values,<sp/>it<sp/>is<sp/>assumed<sp/>that<sp/>both<sp/>parties<sp/>received<sp/>the<sp/>same<sp/>key.</highlight></codeline>
+    </programlisting>
+    <location file="Docs/Cryptography.md"/>
+  </compounddef>
+</doxygen>

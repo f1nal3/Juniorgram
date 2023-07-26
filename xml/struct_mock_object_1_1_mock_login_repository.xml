@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_mock_object_1_1_mock_login_repository" kind="struct" language="C++" prot="public" final="yes">
+    <compoundname>MockObject::MockLoginRepository</compoundname>
+    <basecompoundref refid="struct_data_access_1_1_i_login_repository" prot="public" virt="non-virtual">DataAccess::ILoginRepository</basecompoundref>
+    <includes refid="_mock_repositories_8hpp" local="no">MockRepositories.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="struct_mock_object_1_1_mock_login_repository_1a291fba687dd21623eafec068dd0ec320" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_mock_object_1_1_mock_query" kindref="compound">MockQuery</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;MockQuery&gt; MockObject::MockLoginRepository::_mockQuery</definition>
+        <argsstring></argsstring>
+        <name>_mockQuery</name>
+        <qualifiedname>MockObject::MockLoginRepository::_mockQuery</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="97" column="21" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_login_repository_1a0ca25f34645212a519ae76aeac48e889" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockLoginRepository::MockLoginRepository</definition>
+        <argsstring>(const std::shared_ptr&lt; IAdapter &gt; &amp;adapter)</argsstring>
+        <name>MockLoginRepository</name>
+        <qualifiedname>MockObject::MockLoginRepository::MockLoginRepository</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt; &amp;</type>
+          <declname>adapter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="87" column="14" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="87" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_login_repository_1a7e2e611879938ca4f20abf20978fc71a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockLoginRepository::~MockLoginRepository</definition>
+        <argsstring>() override=default</argsstring>
+        <name>~MockLoginRepository</name>
+        <qualifiedname>MockObject::MockLoginRepository::~MockLoginRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="92" column="5"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_login_repository_1a6bdc65970a4a73f0794494240260e868" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t MockObject::MockLoginRepository::loginUser</definition>
+        <argsstring>(const LoginInfo &amp;loginInfo) override</argsstring>
+        <name>loginUser</name>
+        <qualifiedname>MockObject::MockLoginRepository::loginUser</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_login_repository_1a2044aff1e4c541d5f95d47f063c140ac">loginUser</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_login_info" kindref="compound">LoginInfo</ref> &amp;</type>
+          <declname>loginInfo</declname>
+        </param>
+        <briefdescription>
+<para>Attempts to login a user with the provided login by checking privided hash with the one stored. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>login</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>user login as string </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pwdHash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>password hash </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>userID if provided hash is the same as stored in repository, 0 stands for failed login </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="95" column="19"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>struct <ref refid="struct_mock_object_1_1_mock_login_repository" kindref="compound">MockLoginRepository</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Inherited from ILoginRepository struct / (for overriding methods related to this repository). </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="2">
+        <label>ILoginRepository</label>
+        <link refid="struct_data_access_1_1_i_login_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>MockObject::MockLoginRepository</label>
+        <link refid="struct_mock_object_1_1_mock_login_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="2">
+        <label>ILoginRepository</label>
+        <link refid="struct_data_access_1_1_i_login_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>MockObject::MockLoginRepository</label>
+        <link refid="struct_mock_object_1_1_mock_login_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="84" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="85" bodyend="98"/>
+    <listofallmembers>
+      <member refid="struct_mock_object_1_1_mock_login_repository_1a291fba687dd21623eafec068dd0ec320" prot="private" virt="non-virtual"><scope>MockObject::MockLoginRepository</scope><name>_mockQuery</name></member>
+      <member refid="struct_mock_object_1_1_mock_login_repository_1a6bdc65970a4a73f0794494240260e868" prot="private" virt="virtual"><scope>MockObject::MockLoginRepository</scope><name>loginUser</name></member>
+      <member refid="struct_mock_object_1_1_mock_login_repository_1a0ca25f34645212a519ae76aeac48e889" prot="public" virt="non-virtual"><scope>MockObject::MockLoginRepository</scope><name>MockLoginRepository</name></member>
+      <member refid="struct_data_access_1_1_i_login_repository_1ad9ab6939fb3654a08cc77c8548d2ea06" prot="public" virt="virtual"><scope>MockObject::MockLoginRepository</scope><name>~ILoginRepository</name></member>
+      <member refid="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" prot="public" virt="virtual"><scope>MockObject::MockLoginRepository</scope><name>~IMasterRepository</name></member>
+      <member refid="struct_mock_object_1_1_mock_login_repository_1a7e2e611879938ca4f20abf20978fc71a" prot="public" virt="non-virtual"><scope>MockObject::MockLoginRepository</scope><name>~MockLoginRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

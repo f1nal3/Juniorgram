@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_mock_object_1_1_mock_replies_repository" kind="struct" language="C++" prot="public" final="yes">
+    <compoundname>MockObject::MockRepliesRepository</compoundname>
+    <basecompoundref refid="struct_data_access_1_1_i_replies_repository" prot="public" virt="non-virtual">DataAccess::IRepliesRepository</basecompoundref>
+    <includes refid="_mock_repositories_8hpp" local="no">MockRepositories.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="struct_mock_object_1_1_mock_replies_repository_1abbaffd9a0985874eb220d501f21fcfde" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_mock_object_1_1_mock_query" kindref="compound">MockQuery</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;MockQuery&gt; MockObject::MockRepliesRepository::_mockQuery</definition>
+        <argsstring></argsstring>
+        <name>_mockQuery</name>
+        <qualifiedname>MockObject::MockRepliesRepository::_mockQuery</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="164" column="21" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_replies_repository_1a3fd9567205d7db59736a6adc19e458de" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockRepliesRepository::MockRepliesRepository</definition>
+        <argsstring>(const std::shared_ptr&lt; IAdapter &gt; &amp;adapter)</argsstring>
+        <name>MockRepliesRepository</name>
+        <qualifiedname>MockObject::MockRepliesRepository::MockRepliesRepository</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt; &amp;</type>
+          <declname>adapter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="154" column="14" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="154" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_replies_repository_1aab2d20117e5f7f9e1e64fb64843008dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MockObject::MockRepliesRepository::~MockRepliesRepository</definition>
+        <argsstring>() override=default</argsstring>
+        <name>~MockRepliesRepository</name>
+        <qualifiedname>MockObject::MockRepliesRepository::~MockRepliesRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="158" column="5"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_replies_repository_1a0fe2feffdbb94d5a50eee2362a0081f3" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="struct_models_1_1_reply_info" kindref="compound">Models::ReplyInfo</ref> &gt;</type>
+        <definition>std::vector&lt; Models::ReplyInfo &gt; MockObject::MockRepliesRepository::getReplyHistory</definition>
+        <argsstring>(const uint64_t channelID) override</argsstring>
+        <name>getReplyHistory</name>
+        <qualifiedname>MockObject::MockRepliesRepository::getReplyHistory</qualifiedname>
+        <param>
+          <type>const uint64_t</type>
+          <declname>channelID</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="161" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_mock_object_1_1_mock_replies_repository_1a40bf0b4225bade55fad58421648f6e85" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>Utility::StoringReplyCodes</type>
+        <definition>Utility::StoringReplyCodes MockObject::MockRepliesRepository::storeReply</definition>
+        <argsstring>(const ReplyInfo &amp;replyInfo) override</argsstring>
+        <name>storeReply</name>
+        <qualifiedname>MockObject::MockRepliesRepository::storeReply</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_replies_repository_1aed5833f5d6fdb99f5d338e8b4a126d4e">storeReply</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_reply_info" kindref="compound">ReplyInfo</ref> &amp;</type>
+          <declname>replyInfo</declname>
+        </param>
+        <briefdescription>
+<para>Virtual method for store reply. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>replyInfo.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The return value of the method is one of the StoringMessageCodes (enum): <linebreak/>
+Storing successful - StoringMessageCodes::SUCCESS. <linebreak/>
+Storing failed - StoringMessageCodes::FAILED. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="162" column="36"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>struct <ref refid="struct_mock_object_1_1_mock_replies_repository" kindref="compound">MockRepliesRepository</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Inherited from IRepliesRepository struct / (for overriding methods related to this repository). </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="2">
+        <label>IRepliesRepository</label>
+        <link refid="struct_data_access_1_1_i_replies_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>MockObject::MockRepliesRepository</label>
+        <link refid="struct_mock_object_1_1_mock_replies_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="2">
+        <label>IRepliesRepository</label>
+        <link refid="struct_data_access_1_1_i_replies_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>MockObject::MockRepliesRepository</label>
+        <link refid="struct_mock_object_1_1_mock_replies_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Mock/MockRepositories.hpp" line="151" column="1" bodyfile="DataAccess/DataAccess.Mock/MockRepositories.hpp" bodystart="152" bodyend="165"/>
+    <listofallmembers>
+      <member refid="struct_mock_object_1_1_mock_replies_repository_1abbaffd9a0985874eb220d501f21fcfde" prot="private" virt="non-virtual"><scope>MockObject::MockRepliesRepository</scope><name>_mockQuery</name></member>
+      <member refid="struct_mock_object_1_1_mock_replies_repository_1a0fe2feffdbb94d5a50eee2362a0081f3" prot="private" virt="non-virtual"><scope>MockObject::MockRepliesRepository</scope><name>getReplyHistory</name></member>
+      <member refid="struct_data_access_1_1_i_replies_repository_1ac08449b6412c2f984b0deefc46b92c81" prot="public" virt="pure-virtual" ambiguityscope="DataAccess::IRepliesRepository::"><scope>MockObject::MockRepliesRepository</scope><name>getReplyHistory</name></member>
+      <member refid="struct_mock_object_1_1_mock_replies_repository_1a3fd9567205d7db59736a6adc19e458de" prot="public" virt="non-virtual"><scope>MockObject::MockRepliesRepository</scope><name>MockRepliesRepository</name></member>
+      <member refid="struct_mock_object_1_1_mock_replies_repository_1a40bf0b4225bade55fad58421648f6e85" prot="private" virt="virtual"><scope>MockObject::MockRepliesRepository</scope><name>storeReply</name></member>
+      <member refid="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" prot="public" virt="virtual"><scope>MockObject::MockRepliesRepository</scope><name>~IMasterRepository</name></member>
+      <member refid="struct_data_access_1_1_i_replies_repository_1a22ac80294a2857cef2ffcfbb620ff8c2" prot="public" virt="virtual"><scope>MockObject::MockRepliesRepository</scope><name>~IRepliesRepository</name></member>
+      <member refid="struct_mock_object_1_1_mock_replies_repository_1aab2d20117e5f7f9e1e64fb64843008dc" prot="public" virt="non-virtual"><scope>MockObject::MockRepliesRepository</scope><name>~MockRepliesRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

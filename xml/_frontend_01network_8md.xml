@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_frontend_01network_8md" kind="file" language="Markdown">
+    <compoundname>Frontend network.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>Description<sp/>of<sp/>several<sp/>classes:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>Connection</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Attributes:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">OwnerType<sp/>mOwner<sp/>=<sp/>OwnerType::SERVER<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">the<sp/>&quot;owner&quot;<sp/>decides<sp/>how<sp/>some<sp/>of<sp/>the<sp/>connection<sp/>behaves.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal"><sp/>uint64_t<sp/>mID<sp/>=<sp/>uint64_t()</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">connection<sp/>ID.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal"><sp/>asio::ip::tcp::socket<sp/>mSocket<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/>```</highlight></codeline>
+<codeline><highlight class="normal">Each<sp/>connection<sp/>has<sp/>a<sp/>unique<sp/>socket<sp/>to<sp/>a<sp/>remote.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>asio::io_context&amp;<sp/>mContextLink<sp/>-<sp/>this<sp/>context<sp/>is<sp/>shared<sp/>with<sp/>the<sp/>whole<sp/>asio<sp/>instance.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>SafeQueue&lt;Message&gt;&amp;<sp/>mIncomingMessagesQueueLink<sp/>-<sp/>this<sp/>references<sp/>the<sp/>incoming<sp/>queue<sp/>of<sp/>the<sp/>parent<sp/>object.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">SafeQueue&lt;Message&gt;<sp/>mOutcomingMessagesQueue<sp/>-<sp/>this<sp/>queue<sp/>holds<sp/>all<sp/>messages<sp/>to<sp/>be<sp/>sent<sp/>to<sp/>the<sp/>remote<sp/>side<sp/>of<sp/>this<sp/>connection.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Message<sp/>mMessageBuffer<sp/>-<sp/>incoming<sp/>messages<sp/>are<sp/>constructed<sp/>asynchronously,<sp/>so<sp/>we<sp/>will<sp/>store<sp/>the<sp/>part<sp/>assembled<sp/>message<sp/>here,<sp/>until<sp/>it<sp/>is<sp/>ready</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Methods:</highlight></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>writeHeader()<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">this<sp/>func.<sp/>suggests<sp/>that<sp/>we<sp/>have<sp/>messages<sp/>we<sp/>want<sp/>to<sp/>send.<sp/>And<sp/>we<sp/>use<sp/>the<sp/>function<sp/>asio::async_write(mSocket,<sp/>asio::buffer(&amp;mOutcomingMessagesQueue.front().mHeader,<sp/>sizeof(Message::MessageHeader))<sp/>to<sp/>write<sp/>the<sp/>header<sp/>of<sp/>the<sp/>message<sp/>to<sp/>the<sp/>socket.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">if<sp/>the<sp/>writing<sp/>header<sp/>to<sp/>the<sp/>socket<sp/>failed,<sp/>we<sp/>display<sp/>an<sp/>error<sp/>message<sp/>-<sp/>&quot;[&lt;clientID&gt;<sp/>]<sp/>Write<sp/>Header<sp/>Fail.&quot;</highlight></codeline>
+<codeline><highlight class="normal">Otherwise,<sp/>we<sp/>try<sp/>to<sp/>write<sp/>the<sp/>body<sp/>of<sp/>the<sp/>message<sp/>if<sp/>it<sp/>is<sp/>not<sp/>empty.<sp/>If<sp/>it<sp/>is<sp/>empty,<sp/>then<sp/>we<sp/>remove<sp/>the<sp/>current<sp/>message<sp/>from<sp/>the<sp/>message<sp/>queue<sp/>to<sp/>send<sp/>and<sp/>take<sp/>the<sp/>following<sp/>header<sp/>from<sp/>queue<sp/>and<sp/>then<sp/>write<sp/>the<sp/>body.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>writeBody()<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>the<sp/>writing<sp/>body<sp/>to<sp/>the<sp/>socket<sp/>failed,<sp/>we<sp/>display<sp/>an<sp/>error<sp/>message<sp/>-<sp/>&quot;[&lt;clientID&gt;<sp/>]<sp/>Write<sp/>Body<sp/>Fail.&quot;</highlight></codeline>
+<codeline><highlight class="normal">Otherwise,<sp/>we<sp/>remove<sp/>the<sp/>message<sp/>from<sp/>queue<sp/>using<sp/>mOutcomingMessagesQueue.pop_front(),<sp/>and<sp/>if<sp/>queue<sp/>isn&apos;t<sp/>empty<sp/>-<sp/>try<sp/>to<sp/>write<sp/>the<sp/>header<sp/>of<sp/>the<sp/>message.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>readHeader()<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">using<sp/>this<sp/>func<sp/>we<sp/>are<sp/>getting<sp/>header<sp/>from<sp/>socket.<sp/>If<sp/>it<sp/>possible<sp/>-<sp/>further<sp/>we<sp/>resize<sp/>the<sp/>messages<sp/>body<sp/>vector<sp/>and<sp/>call<sp/>ReadBody().</highlight></codeline>
+<codeline><highlight class="normal">Otherwise,<sp/>we<sp/>have<sp/>header.size<sp/>&lt;=<sp/>0<sp/>and<sp/>add<sp/>the<sp/>bodyless<sp/>message<sp/>to<sp/>the<sp/>connections<sp/>incoming<sp/>message<sp/>queue.</highlight></codeline>
+<codeline><highlight class="normal">if<sp/>reading<sp/>body<sp/>from<sp/>socket<sp/>failed,<sp/>we<sp/>display<sp/>an<sp/>error<sp/>message<sp/>-<sp/>&quot;[&lt;clientID&gt;<sp/>]<sp/>Read<sp/>Header<sp/>Fail.&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>readBody()</highlight></codeline>
+<codeline><highlight class="normal">```<sp/></highlight></codeline>
+<codeline><highlight class="normal">If<sp/>this<sp/>function<sp/>is<sp/>called,<sp/>a<sp/>header<sp/>has<sp/>been<sp/>read,<sp/>and<sp/>that<sp/>header<sp/>request<sp/>we<sp/>read<sp/>a<sp/>body,<sp/>The<sp/>space<sp/>for<sp/>that<sp/>body<sp/>has<sp/>already<sp/>been<sp/>allocated<sp/>in<sp/>the<sp/>temporary<sp/>message<sp/>object,<sp/>so<sp/>just<sp/>wait<sp/>for<sp/>the<sp/>bytes<sp/>to<sp/>arrive.<sp/>Next<sp/>we<sp/>call<sp/>AddToIncomingMessageQueue()<sp/>for<sp/>adding<sp/>message<sp/>in<sp/>queue.</highlight></codeline>
+<codeline><highlight class="normal">If<sp/>we<sp/>can&apos;t<sp/>read<sp/>the<sp/>body<sp/>from<sp/>the<sp/>socket<sp/>we<sp/>display<sp/>an<sp/>error<sp/>message<sp/>-<sp/>&quot;[&lt;clientID&gt;<sp/>]<sp/>Read<sp/>Body<sp/>Fail.&quot;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>addToIncomingMessageQueue()<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">once<sp/>a<sp/>full<sp/>message<sp/>is<sp/>received,<sp/>add<sp/>it<sp/>to<sp/>the<sp/>incoming<sp/>queue.<sp/>Shove<sp/>it<sp/>in<sp/>queue,<sp/>converting<sp/>it<sp/>to<sp/>an<sp/>&quot;owned<sp/>message&quot;,<sp/>by<sp/>initializing<sp/>with<sp/>the<sp/>a<sp/>shared<sp/>pointer<sp/>from<sp/>this<sp/>connection<sp/>object<sp/>for<sp/>Server<sp/>side<sp/>and<sp/>without<sp/>shared<sp/>pointer<sp/>from<sp/>this<sp/>for<sp/>Client<sp/>side.<sp/>Next<sp/>we<sp/>call<sp/>ReadHeader()<sp/>to<sp/>read<sp/>other<sp/>messages.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">Connection(const<sp/>OwnerType&amp;<sp/>owner,<sp/>asio::io_context&amp;<sp/>contextLink,<sp/>asio::ip::tcp::socket<sp/>socket,<sp/>SafeQueue&lt;Message&gt;&amp;<sp/>incomingMessagesQueueLink)</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">specify<sp/>owner,<sp/>connect<sp/>to<sp/>context,<sp/>transfer<sp/>the<sp/>socket<sp/>provide<sp/>reference<sp/>to<sp/>incoming<sp/>message<sp/>queue.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">const<sp/>uint64_t&amp;<sp/>getID()<sp/>const<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">this<sp/>ID<sp/>is<sp/>used<sp/>system<sp/>wide<sp/>-<sp/>its<sp/>how<sp/>clients<sp/>will<sp/>understand<sp/>other<sp/>clients<sp/>whole<sp/>system.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>connectToClient(const<sp/>uint64_t&amp;<sp/>uid<sp/>=<sp/>uint64_t())<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">this<sp/>func<sp/>allows<sp/>only<sp/>Server<sp/>side<sp/>connect<sp/>to<sp/>other<sp/>Clients.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>connectToServer(const<sp/>asio::ip::tcp::resolver::results_type&amp;<sp/>endpoint)<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">only<sp/>clients<sp/>can<sp/>connect<sp/>to<sp/>servers.<sp/>And<sp/>make<sp/>a<sp/>request<sp/>asio<sp/>attempts<sp/>to<sp/>connect<sp/>to<sp/>an<sp/>endpoint.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>disconnect()<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">check<sp/>if<sp/>we<sp/>have<sp/>connection<sp/>with<sp/>smb/smth.<sp/>If<sp/>we<sp/>have<sp/>connection<sp/>we<sp/>call<sp/>asio::post,<sp/>because<sp/>the<sp/>current<sp/>context<sp/>is<sp/>holding<sp/>locks<sp/>and<sp/>you<sp/>want<sp/>the<sp/>function<sp/>to<sp/>be<sp/>called<sp/>after<sp/>they<sp/>have<sp/>been<sp/>released.<sp/>This<sp/>would<sp/>allow<sp/>the<sp/>function<sp/>to<sp/>acquire<sp/>those<sp/>locks<sp/>itself<sp/>without<sp/>causing<sp/>a<sp/>deadlock.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">const<sp/>bool<sp/>isConnected()<sp/>const<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">check<sp/>if<sp/>current<sp/>socket<sp/>is<sp/>open.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">void<sp/>send(const<sp/>Message&amp;<sp/>message)<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">send<sp/>a<sp/>message,<sp/>connections<sp/>are<sp/>one-to-one<sp/>so<sp/>no<sp/>need<sp/>to<sp/>specifiy<sp/>the<sp/>target,<sp/>for<sp/>a<sp/>Client,<sp/>the<sp/>target<sp/>is<sp/>the<sp/>Server<sp/>and<sp/>vice<sp/>versa.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">If<sp/>the<sp/>queue<sp/>has<sp/>a<sp/>message<sp/>in<sp/>it,<sp/>then<sp/>we<sp/>must<sp/>assume<sp/>that<sp/>it<sp/>is<sp/>in<sp/>the<sp/>process<sp/>of<sp/>asynchronously<sp/>being<sp/>written.<sp/>Either<sp/>way<sp/>add<sp/>the<sp/>message<sp/>to<sp/>the<sp/>queue<sp/>to<sp/>be<sp/>output.<sp/>If<sp/>no<sp/>messages<sp/>were<sp/>available<sp/>to<sp/>be<sp/>written,<sp/>then<sp/>start<sp/>the<sp/>process<sp/>of<sp/>writing<sp/>the<sp/>message<sp/>at<sp/>the<sp/>front<sp/>of<sp/>the<sp/>queue.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>Message</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Attributes:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">std::shared_ptr&lt;Connection&gt;<sp/>mRemote<sp/>=<sp/>nullptr<sp/>-<sp/>on<sp/>a<sp/>server,<sp/>the<sp/>owner<sp/>would<sp/>be<sp/>the<sp/>client<sp/>that<sp/>sent<sp/>the<sp/>message,<sp/>on<sp/>a<sp/>client<sp/>the<sp/>owner<sp/>would<sp/>be<sp/>the<sp/>server.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">MessageHeader<sp/>mHeader<sp/>-<sp/>header<sp/>of<sp/>the<sp/>message.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">std::vector&lt;uint8_t&gt;<sp/>mBody<sp/>-<sp/>contain<sp/>a<sp/>raw<sp/>bytes<sp/>information.</highlight></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Methods:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">size_t<sp/>size()<sp/>const<sp/>-<sp/>returns<sp/>size<sp/>of<sp/>entire<sp/>message<sp/>packet<sp/>in<sp/>bytes.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">friend<sp/>std::ostream&amp;<sp/>operator<sp/>&lt;&lt;(std::ostream&amp;<sp/>os,<sp/>const<sp/>Message&amp;<sp/>message)<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">override<sp/>for<sp/>std::cout<sp/>compatibility<sp/>-<sp/>produces<sp/>friendly<sp/>description<sp/>of<sp/>message</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">template&lt;typename<sp/>T&gt;</highlight></codeline>
+<codeline><highlight class="normal">friend<sp/>Message&amp;<sp/>operator<sp/>&lt;&lt;(Message&amp;<sp/>message,<sp/>const<sp/>T&amp;<sp/>data)<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">pushes<sp/>any<sp/>POD-like<sp/>data<sp/>into<sp/>the<sp/>message<sp/>buffer.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Check<sp/>that<sp/>the<sp/>type<sp/>of<sp/>the<sp/>data<sp/>being<sp/>pushed<sp/>is<sp/>trivially<sp/>copyable.<sp/>Check<sp/>that<sp/>the<sp/>type<sp/>of<sp/>the<sp/>data<sp/>being<sp/>pushed<sp/>is<sp/>trivially<sp/>copyable.<sp/>Resize<sp/>the<sp/>vector<sp/>by<sp/>the<sp/>size<sp/>of<sp/>the<sp/>data<sp/>being<sp/>pushed.<sp/>Physically<sp/>copy<sp/>the<sp/>data<sp/>into<sp/>the<sp/>newly<sp/>allocated<sp/>vector<sp/>space.<sp/>Recalculate<sp/>the<sp/>message<sp/>size.<sp/>Recalculate<sp/>the<sp/>message<sp/>size.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&lt;hr&gt;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">template&lt;typename<sp/>T&gt;</highlight></codeline>
+<codeline><highlight class="normal">friend<sp/>Message&amp;<sp/>operator<sp/>&gt;&gt;(Message&amp;<sp/>message,<sp/>T&amp;<sp/>data)<sp/></highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">pulls<sp/>any<sp/>POD-like<sp/>data<sp/>form<sp/>the<sp/>message<sp/>buffer.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Check<sp/>that<sp/>the<sp/>type<sp/>of<sp/>the<sp/>data<sp/>being<sp/>pushed<sp/>is<sp/>trivially<sp/>copyable.<sp/>Cache<sp/>the<sp/>location<sp/>towards<sp/>the<sp/>end<sp/>of<sp/>the<sp/>vector<sp/>where<sp/>the<sp/>pulled<sp/>data<sp/>starts.<sp/>Physically<sp/>copy<sp/>the<sp/>data<sp/>from<sp/>the<sp/>vector<sp/>into<sp/>the<sp/>user<sp/>variable.<sp/>Shrink<sp/>the<sp/>vector<sp/>to<sp/>remove<sp/>read<sp/>bytes,<sp/>and<sp/>reset<sp/>end<sp/>position.<sp/>Recalculate<sp/>the<sp/>message<sp/>size.<sp/>Return<sp/>the<sp/>target<sp/>message<sp/>so<sp/>it<sp/>can<sp/>be<sp/>&quot;chained&quot;.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Message::MessageHeader</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>Message<sp/>Header<sp/>is<sp/>sent<sp/>at<sp/>start<sp/>of<sp/>all<sp/>messages.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Attributes</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">MessageType<sp/>mID<sp/>=<sp/>MessageType()<sp/>-<sp/>message<sp/>ID</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">uint32_t<sp/>mBodySize<sp/>=<sp/>uint32_t()<sp/>-<sp/>current<sp/>size<sp/>of<sp/>message<sp/>part.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>MessageType</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">ServerAccept<sp/>-<sp/>server<sp/>has<sp/>accepted<sp/>a<sp/>connection.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">ServerPing<sp/>-<sp/>the<sp/>time<sp/>response<sp/>from<sp/>server.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">MessageAll<sp/>-<sp/>to<sp/>send<sp/>a<sp/>message<sp/>to<sp/>all<sp/>clients.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">ServerMessage<sp/>-<sp/>(plug)<sp/>some<sp/>message<sp/>for<sp/>server.</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>Diagrams</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">![](../images/image%20(1).png)<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">![](../images/image.png)<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">![](../images/image%20(6).png)<sp/><sp/></highlight></codeline>
+    </programlisting>
+    <location file="Docs/Legacy/Frontend network.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,277 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_models_1_1_message_info" kind="struct" language="C++" prot="public">
+    <compoundname>Models::MessageInfo</compoundname>
+    <includes refid="_primitives_8hpp" local="no">Primitives.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_models_1_1_message_info_1abf05c5613f5e34f1be792d0cd08a2f3f" prot="public" static="no" mutable="no">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t Models::MessageInfo::_channelID</definition>
+        <argsstring></argsstring>
+        <name>_channelID</name>
+        <qualifiedname>Models::MessageInfo::_channelID</qualifiedname>
+        <briefdescription>
+<para>channel ID uint64_t variable </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="180" column="19" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_message_info_1ac6e4b0ac3270221152e18690fa41f6ad" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Models::MessageInfo::_message</definition>
+        <argsstring></argsstring>
+        <name>_message</name>
+        <qualifiedname>Models::MessageInfo::_message</qualifiedname>
+        <briefdescription>
+<para>message string variable </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="182" column="17" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_message_info_1a897b88ac467f475f199522d97125b3de" prot="public" static="no" mutable="no">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t Models::MessageInfo::_msgID</definition>
+        <argsstring></argsstring>
+        <name>_msgID</name>
+        <qualifiedname>Models::MessageInfo::_msgID</qualifiedname>
+        <initializer>{0}</initializer>
+        <briefdescription>
+<para>msg ID uint64_t variable </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="184" column="19" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_message_info_1a2ca9939602d1f638f72ca4d0361dad51" prot="public" static="no" mutable="no">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t Models::MessageInfo::_senderID</definition>
+        <argsstring></argsstring>
+        <name>_senderID</name>
+        <qualifiedname>Models::MessageInfo::_senderID</qualifiedname>
+        <briefdescription>
+<para>sender ID uint64_t variable </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="186" column="19" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_message_info_1a248a9f2490a2e780f1a3803e9caf279b" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string Models::MessageInfo::_userLogin</definition>
+        <argsstring></argsstring>
+        <name>_userLogin</name>
+        <qualifiedname>Models::MessageInfo::_userLogin</qualifiedname>
+        <briefdescription>
+<para>user Login string variable </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="188" column="17" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_message_info_1a4bd93f4f180fca37428ad9c6e02b122f" prot="public" static="no" mutable="no">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t Models::MessageInfo::_recipientID</definition>
+        <argsstring></argsstring>
+        <name>_recipientID</name>
+        <qualifiedname>Models::MessageInfo::_recipientID</qualifiedname>
+        <initializer>{0}</initializer>
+        <briefdescription>
+<para>recipient ID uint64_t variable </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="190" column="19" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_message_info_1a1148352244f5a7c1e244b049994bcf06" prot="public" static="no" mutable="no">
+        <type>UtilityTime::timestamp_t</type>
+        <definition>UtilityTime::timestamp_t Models::MessageInfo::_time</definition>
+        <argsstring></argsstring>
+        <name>_time</name>
+        <qualifiedname>Models::MessageInfo::_time</qualifiedname>
+        <initializer>= UtilityTime::millisecondsSinceEpoch()</initializer>
+        <briefdescription>
+<para>time in milliseconds since Epoch (1970-01-01 00:00:00 UTC) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="192" column="30" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_models_1_1_message_info_1a772cf148d81c824709eac15bf158bdb0" prot="public" static="no" mutable="no">
+        <type>std::map&lt; std::uint32_t, std::uint32_t &gt;</type>
+        <definition>std::map&lt;std::uint32_t, std::uint32_t&gt; Models::MessageInfo::_reactions</definition>
+        <argsstring></argsstring>
+        <name>_reactions</name>
+        <qualifiedname>Models::MessageInfo::_reactions</qualifiedname>
+        <initializer>= {}</initializer>
+        <briefdescription>
+<para>reactions (reaction_id, reaction_count) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="194" column="14" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_models_1_1_message_info_1a9f319fc4b80ccdb69e7adb7795ba5efb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Models::MessageInfo::MessageInfo</definition>
+        <argsstring>()=default</argsstring>
+        <name>MessageInfo</name>
+        <qualifiedname>Models::MessageInfo::MessageInfo</qualifiedname>
+        <briefdescription>
+<para>Default MessageIndo constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="197" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_message_info_1a17965a6b2e7f48c0fa8f09ba9a1ba80f" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Models::MessageInfo::MessageInfo</definition>
+        <argsstring>(const uint64_t channelID_, const std::string &amp;message_)</argsstring>
+        <name>MessageInfo</name>
+        <qualifiedname>Models::MessageInfo::MessageInfo</qualifiedname>
+        <param>
+          <type>const uint64_t</type>
+          <declname>channelID_</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>message_</declname>
+        </param>
+        <briefdescription>
+<para>MessageIndo constructor with initializing list. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="199" column="14" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="199" bodyend="199"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_message_info_1a4553cf1030e73248b2a0d4c8d2a9205b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Models::MessageInfo::MessageInfo</definition>
+        <argsstring>(const MessageInfo &amp;)=default</argsstring>
+        <name>MessageInfo</name>
+        <qualifiedname>Models::MessageInfo::MessageInfo</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref> &amp;</type>
+        </param>
+        <briefdescription>
+<para>Default MessageIndo copy constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="201" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_models_1_1_message_info_1a1c40e29627401db13b5cc5fcc2c21c9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Models::MessageInfo::~MessageInfo</definition>
+        <argsstring>()=default</argsstring>
+        <name>~MessageInfo</name>
+        <qualifiedname>Models::MessageInfo::~MessageInfo</qualifiedname>
+        <briefdescription>
+<para>Default MessageIndo destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="203" column="5"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="struct_models_1_1_message_info_1ad40885c31ab7b6e3e1f1d0cb3b0c34ee" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool operator==</definition>
+        <argsstring>(const MessageInfo &amp;first, const MessageInfo &amp;second)</argsstring>
+        <name>operator==</name>
+        <qualifiedname>Models::MessageInfo::operator==</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref> &amp;</type>
+          <declname>first</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref> &amp;</type>
+          <declname>second</declname>
+        </param>
+        <briefdescription>
+<para>Operator == to compare Message Info. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="206" column="17" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="206" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="friend" id="struct_models_1_1_message_info_1a3a3dbce163865b832275daef5a827b64" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool operator&lt;</definition>
+        <argsstring>(const MessageInfo &amp;lhs, const MessageInfo &amp;rhs)</argsstring>
+        <name>operator&lt;</name>
+        <qualifiedname>Models::MessageInfo::operator&lt;</qualifiedname>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref> &amp;</type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref> &amp;</type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+<para>Operator &lt; to compare <ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="216" column="12" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="216" bodyend="219"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_models_1_1_message_info" kindref="compound">MessageInfo</ref> struct. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Message Info contains channel ID, message, message ID, sender ID, recipient ID and time. </para>
+    </detaileddescription>
+    <location file="Base/Models/Public/Include/Models/Primitives.hpp" line="177" column="1" bodyfile="Base/Models/Public/Include/Models/Primitives.hpp" bodystart="178" bodyend="220"/>
+    <listofallmembers>
+      <member refid="struct_models_1_1_message_info_1abf05c5613f5e34f1be792d0cd08a2f3f" prot="public" virt="non-virtual"><scope>Models::MessageInfo</scope><name>_channelID</name></member>
+      <member refid="struct_models_1_1_message_info_1ac6e4b0ac3270221152e18690fa41f6ad" prot="public" virt="non-virtual"><scope>Models::MessageInfo</scope><name>_message</name></member>
+      <member refid="struct_models_1_1_message_info_1a897b88ac467f475f199522d97125b3de" prot="public" virt="non-virtual"><scope>Models::MessageInfo</scope><name>_msgID</name></member>
+      <member refid="struct_models_1_1_message_info_1a772cf148d81c824709eac15bf158bdb0" prot="public" virt="non-virtual"><scope>Models::MessageInfo</scope><name>_reactions</name></member>
+      <member refid="struct_models_1_1_message_info_1a4bd93f4f180fca37428ad9c6e02b122f" prot="public" virt="non-virtual"><scope>Models::MessageInfo</scope><name>_recipientID</name></member>
+      <member refid="struct_models_1_1_message_info_1a2ca9939602d1f638f72ca4d0361dad51" prot="public" virt="non-virtual"><scope>Models::MessageInfo</scope><name>_senderID</name></member>
+      <member refid="struct_models_1_1_message_info_1a1148352244f5a7c1e244b049994bcf06" prot="public" virt="non-virtual"><scope>Models::MessageInfo</scope><name>_time</name></member>
+      <member refid="struct_models_1_1_message_info_1a248a9f2490a2e780f1a3803e9caf279b" prot="public" virt="non-virtual"><scope>Models::MessageInfo</scope><name>_userLogin</name></member>
+      <member refid="struct_models_1_1_message_info_1a9f319fc4b80ccdb69e7adb7795ba5efb" prot="public" virt="non-virtual"><scope>Models::MessageInfo</scope><name>MessageInfo</name></member>
+      <member refid="struct_models_1_1_message_info_1a17965a6b2e7f48c0fa8f09ba9a1ba80f" prot="public" virt="non-virtual"><scope>Models::MessageInfo</scope><name>MessageInfo</name></member>
+      <member refid="struct_models_1_1_message_info_1a4553cf1030e73248b2a0d4c8d2a9205b" prot="public" virt="non-virtual"><scope>Models::MessageInfo</scope><name>MessageInfo</name></member>
+      <member refid="struct_models_1_1_message_info_1a3a3dbce163865b832275daef5a827b64" prot="public" virt="non-virtual"><scope>Models::MessageInfo</scope><name>operator&lt;</name></member>
+      <member refid="struct_models_1_1_message_info_1ad40885c31ab7b6e3e1f1d0cb3b0c34ee" prot="public" virt="non-virtual"><scope>Models::MessageInfo</scope><name>operator==</name></member>
+      <member refid="struct_models_1_1_message_info_1a1c40e29627401db13b5cc5fcc2c21c9a" prot="public" virt="non-virtual"><scope>Models::MessageInfo</scope><name>~MessageInfo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

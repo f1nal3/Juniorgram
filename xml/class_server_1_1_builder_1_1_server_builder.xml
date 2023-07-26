@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="class_server_1_1_builder_1_1_server_builder" kind="class" language="C++" prot="public">
+    <compoundname>Server::Builder::ServerBuilder</compoundname>
+    <includes refid="_server_builder_8hpp" local="no">ServerBuilder.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_server_1_1_builder_1_1_server_builder_1a33c04dbd6e486105440cd7a0d081335d" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_server_1_1_builder_1_1_settings_manager" kindref="compound">SettingsManager</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;SettingsManager&gt; Server::Builder::ServerBuilder::_settingsManager</definition>
+        <argsstring></argsstring>
+        <name>_settingsManager</name>
+        <qualifiedname>Server::Builder::ServerBuilder::_settingsManager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/ServerBuilder.hpp" line="71" column="24" bodyfile="Server/Server.Core/Server.Core.Static/ServerBuilder.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_server_1_1_builder_1_1_server_builder_1a368f1b3316b357f524559fb406c76dd5" prot="private" static="no" mutable="no">
+        <type>RepoManagerUPtr</type>
+        <definition>RepoManagerUPtr Server::Builder::ServerBuilder::_repository</definition>
+        <argsstring></argsstring>
+        <name>_repository</name>
+        <qualifiedname>Server::Builder::ServerBuilder::_repository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/ServerBuilder.hpp" line="72" column="41" bodyfile="Server/Server.Core/Server.Core.Static/ServerBuilder.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_server_1_1_builder_1_1_server_builder_1aad100d6bdc7101ced528668e2928da2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Server::Builder::ServerBuilder::ServerBuilder</definition>
+        <argsstring>()=default</argsstring>
+        <name>ServerBuilder</name>
+        <qualifiedname>Server::Builder::ServerBuilder::ServerBuilder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/ServerBuilder.hpp" line="21" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_builder_1_1_server_builder_1a6f81a41c898d9b2fc6e36b81cb771635" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Server::Builder::ServerBuilder::ServerBuilder</definition>
+        <argsstring>(std::unique_ptr&lt; SettingsManager &gt; settingsManager)</argsstring>
+        <name>ServerBuilder</name>
+        <qualifiedname>Server::Builder::ServerBuilder::ServerBuilder</qualifiedname>
+        <param>
+          <type>std::unique_ptr&lt; <ref refid="class_server_1_1_builder_1_1_settings_manager" kindref="compound">SettingsManager</ref> &gt;</type>
+          <declname>settingsManager</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/ServerBuilder.hpp" line="22" column="14" bodyfile="Server/Server.Core/Server.Core.Static/ServerBuilder.hpp" bodystart="22" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_builder_1_1_server_builder_1a8412e4a769234aac0ec95f9787389f82" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Server::Builder::ServerBuilder::~ServerBuilder</definition>
+        <argsstring>()=default</argsstring>
+        <name>~ServerBuilder</name>
+        <qualifiedname>Server::Builder::ServerBuilder::~ServerBuilder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/ServerBuilder.hpp" line="24" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_builder_1_1_server_builder_1a7cbaf468c008719326ee1eb69c532599" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_server_1_1_builder_1_1_server_builder" kindref="compound">ServerBuilder</ref> &amp;</type>
+        <definition>ServerBuilder &amp; Server::Builder::ServerBuilder::setRepoManager</definition>
+        <argsstring>(std::unique_ptr&lt; DataAccess::IRepositoryManager &gt; repoManager)</argsstring>
+        <name>setRepoManager</name>
+        <qualifiedname>Server::Builder::ServerBuilder::setRepoManager</qualifiedname>
+        <param>
+          <type>std::unique_ptr&lt; <ref refid="class_data_access_1_1_i_repository_manager" kindref="compound">DataAccess::IRepositoryManager</ref> &gt;</type>
+          <declname>repoManager</declname>
+        </param>
+        <briefdescription>
+<para>Sets up a specific RepositoryManager. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Allows to set a specific RepositoryManager Note: Changes the owner of the argument resource <simplesect kind="warning"><para>For now, this method is only used for MockTest! This may be changed in the future. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/ServerBuilder.hpp" line="32" column="19" bodyfile="Server/Server.Core/Server.Core.Static/ServerBuilder.hpp" bodystart="32" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="class_server_1_1_builder_1_1_server_builder_1ac6569e27a7c494b3be945abc251afe4d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::unique_ptr&lt; <ref refid="class_server_1_1_server" kindref="compound">Server</ref> &gt;</type>
+        <definition>std::unique_ptr&lt; Server &gt; Server::Builder::ServerBuilder::makeServer</definition>
+        <argsstring>()</argsstring>
+        <name>makeServer</name>
+        <qualifiedname>Server::Builder::ServerBuilder::makeServer</qualifiedname>
+        <briefdescription>
+<para>Creates a server according to specific settings @datails Uses private method. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/ServerBuilder.hpp" line="42" column="21" bodyfile="Server/Server.Core/Server.Core.Static/ServerBuilder.hpp" bodystart="42" bodyend="46"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_server_1_1_builder_1_1_server_builder_1a9216267591554256d1a318989cf0fb9e" prot="private" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="class_server_1_1_server" kindref="compound">Server</ref> *</type>
+        <definition>Server * Server::Builder::ServerBuilder::make</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>make</name>
+        <qualifiedname>Server::Builder::ServerBuilder::make</qualifiedname>
+        <briefdescription>
+<para>Creates a server according to specific settings @datails It first creates a RepositoryManager and then a server with it. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Server/Server.Core/Server.Core.Static/ServerBuilder.hpp" line="53" column="12" bodyfile="Server/Server.Core/Server.Core.Static/ServerBuilder.hpp" bodystart="53" bodyend="69"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Class builder of <ref refid="class_server_1_1_server" kindref="compound">Server</ref>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Class based on builder pattern for creation instances of <ref refid="class_server" kindref="compound">Server</ref>. </para>
+    </detaileddescription>
+    <location file="Server/Server.Core/Server.Core.Static/ServerBuilder.hpp" line="18" column="1" bodyfile="Server/Server.Core/Server.Core.Static/ServerBuilder.hpp" bodystart="19" bodyend="73"/>
+    <listofallmembers>
+      <member refid="class_server_1_1_builder_1_1_server_builder_1a368f1b3316b357f524559fb406c76dd5" prot="private" virt="non-virtual"><scope>Server::Builder::ServerBuilder</scope><name>_repository</name></member>
+      <member refid="class_server_1_1_builder_1_1_server_builder_1a33c04dbd6e486105440cd7a0d081335d" prot="private" virt="non-virtual"><scope>Server::Builder::ServerBuilder</scope><name>_settingsManager</name></member>
+      <member refid="class_server_1_1_builder_1_1_server_builder_1a9216267591554256d1a318989cf0fb9e" prot="private" virt="non-virtual"><scope>Server::Builder::ServerBuilder</scope><name>make</name></member>
+      <member refid="class_server_1_1_builder_1_1_server_builder_1ac6569e27a7c494b3be945abc251afe4d" prot="public" virt="non-virtual"><scope>Server::Builder::ServerBuilder</scope><name>makeServer</name></member>
+      <member refid="class_server_1_1_builder_1_1_server_builder_1aad100d6bdc7101ced528668e2928da2b" prot="public" virt="non-virtual"><scope>Server::Builder::ServerBuilder</scope><name>ServerBuilder</name></member>
+      <member refid="class_server_1_1_builder_1_1_server_builder_1a6f81a41c898d9b2fc6e36b81cb771635" prot="public" virt="non-virtual"><scope>Server::Builder::ServerBuilder</scope><name>ServerBuilder</name></member>
+      <member refid="class_server_1_1_builder_1_1_server_builder_1a7cbaf468c008719326ee1eb69c532599" prot="public" virt="non-virtual"><scope>Server::Builder::ServerBuilder</scope><name>setRepoManager</name></member>
+      <member refid="class_server_1_1_builder_1_1_server_builder_1a8412e4a769234aac0ec95f9787389f82" prot="public" virt="non-virtual"><scope>Server::Builder::ServerBuilder</scope><name>~ServerBuilder</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

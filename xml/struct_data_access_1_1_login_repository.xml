@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="struct_data_access_1_1_login_repository" kind="struct" language="C++" prot="public">
+    <compoundname>DataAccess::LoginRepository</compoundname>
+    <basecompoundref refid="struct_data_access_1_1_i_login_repository" prot="public" virt="non-virtual">DataAccess::ILoginRepository</basecompoundref>
+    <basecompoundref refid="struct_data_access_1_1_abstract_postgre_repository" prot="public" virt="non-virtual">DataAccess::AbstractPostgreRepository</basecompoundref>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="struct_data_access_1_1_login_repository_1a12763d5db5c3c271a6dddacb7ae21cd7" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::LoginRepository::LoginRepository</definition>
+        <argsstring>(const std::shared_ptr&lt; IAdapter &gt; &amp;adapter)</argsstring>
+        <name>LoginRepository</name>
+        <qualifiedname>DataAccess::LoginRepository::LoginRepository</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; <ref refid="class_data_access_1_1_i_adapter" kindref="compound">IAdapter</ref> &gt; &amp;</type>
+          <declname>adapter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="60" column="14" bodyfile="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" bodystart="60" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_login_repository_1a9969335837ae7dc8a06eb8b9ddf9eb92" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>std::uint64_t</type>
+        <definition>std::uint64_t DataAccess::LoginRepository::loginUser</definition>
+        <argsstring>(const Models::LoginInfo &amp;loginInfo) override</argsstring>
+        <name>loginUser</name>
+        <qualifiedname>DataAccess::LoginRepository::loginUser</qualifiedname>
+        <reimplements refid="struct_data_access_1_1_i_login_repository_1a2044aff1e4c541d5f95d47f063c140ac">loginUser</reimplements>
+        <param>
+          <type>const <ref refid="struct_models_1_1_login_info" kindref="compound">Models::LoginInfo</ref> &amp;</type>
+          <declname>loginInfo</declname>
+        </param>
+        <briefdescription>
+<para>Attempts to login a user with the provided login by checking privided hash with the one stored. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>login</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>user login as string </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pwdHash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>password hash </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>userID if provided hash is the same as stored in repository, 0 stands for failed login </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="65" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="struct_data_access_1_1_login_repository_1ae90114d30dfb761cfc6eb7126ed95100" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DataAccess::LoginRepository::~LoginRepository</definition>
+        <argsstring>()=default</argsstring>
+        <name>~LoginRepository</name>
+        <qualifiedname>DataAccess::LoginRepository::~LoginRepository</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="67" column="5"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>DataAccess::AbstractPostgreRepository</label>
+        <link refid="struct_data_access_1_1_abstract_postgre_repository"/>
+      </node>
+      <node id="2">
+        <label>DataAccess::ILoginRepository</label>
+        <link refid="struct_data_access_1_1_i_login_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::LoginRepository</label>
+        <link refid="struct_data_access_1_1_login_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>DataAccess::AbstractPostgreRepository</label>
+        <link refid="struct_data_access_1_1_abstract_postgre_repository"/>
+      </node>
+      <node id="2">
+        <label>DataAccess::ILoginRepository</label>
+        <link refid="struct_data_access_1_1_i_login_repository"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>DataAccess::IMasterRepository</label>
+        <link refid="struct_data_access_1_1_i_master_repository"/>
+      </node>
+      <node id="1">
+        <label>DataAccess::LoginRepository</label>
+        <link refid="struct_data_access_1_1_login_repository"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" line="58" column="1" bodyfile="DataAccess/DataAccess.Postgre/PostgreRepositories.hpp" bodystart="59" bodyend="68"/>
+    <listofallmembers>
+      <member refid="struct_data_access_1_1_abstract_postgre_repository_1a1d33ed6bc3a61773bdf111b1bc5bc772" prot="protected" virt="non-virtual"><scope>DataAccess::LoginRepository</scope><name>_filler</name></member>
+      <member refid="struct_data_access_1_1_abstract_postgre_repository_1ad83909ce308fd3f8c006fe341247f86e" prot="protected" virt="non-virtual"><scope>DataAccess::LoginRepository</scope><name>_pTable</name></member>
+      <member refid="struct_data_access_1_1_abstract_postgre_repository_1a8629dc8a2dd6eaaa2de3f635a030e23f" prot="public" virt="non-virtual"><scope>DataAccess::LoginRepository</scope><name>AbstractPostgreRepository</name></member>
+      <member refid="struct_data_access_1_1_login_repository_1a12763d5db5c3c271a6dddacb7ae21cd7" prot="public" virt="non-virtual"><scope>DataAccess::LoginRepository</scope><name>LoginRepository</name></member>
+      <member refid="struct_data_access_1_1_login_repository_1a9969335837ae7dc8a06eb8b9ddf9eb92" prot="public" virt="virtual"><scope>DataAccess::LoginRepository</scope><name>loginUser</name></member>
+      <member refid="struct_data_access_1_1_i_login_repository_1ad9ab6939fb3654a08cc77c8548d2ea06" prot="public" virt="virtual"><scope>DataAccess::LoginRepository</scope><name>~ILoginRepository</name></member>
+      <member refid="struct_data_access_1_1_i_master_repository_1a7f04b7df7482816d4de0c504f432fb5f" prot="public" virt="virtual"><scope>DataAccess::LoginRepository</scope><name>~IMasterRepository</name></member>
+      <member refid="struct_data_access_1_1_login_repository_1ae90114d30dfb761cfc6eb7126ed95100" prot="public" virt="non-virtual"><scope>DataAccess::LoginRepository</scope><name>~LoginRepository</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="_swaping_01old_01models_01with_01new_01ones_8md" kind="file" language="Markdown">
+    <compoundname>Swaping old models with new ones.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>How<sp/>to<sp/>change<sp/>old<sp/>model<sp/>dependency<sp/>on<sp/>the<sp/>new<sp/>model<sp/>structure</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>1.<sp/>You<sp/>should<sp/>find<sp/>out<sp/>exists<sp/>or<sp/>not<sp/>the<sp/>class<sp/>which<sp/>will<sp/>change<sp/>the<sp/>old<sp/>model</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&gt;<sp/>You<sp/>need<sp/>to<sp/>check<sp/>it<sp/>in<sp/>&apos;Base/Models/Models.hpp&apos;</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>1.1<sp/>If<sp/>this<sp/>class<sp/>does<sp/>not<sp/>exist.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&gt;<sp/>You<sp/>***must***<sp/>know<sp/>the<sp/>***name***<sp/>of<sp/>the<sp/>model(table),<sp/>***how<sp/>many<sp/>fields***<sp/>it<sp/>has<sp/>and<sp/>their<sp/>names</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&gt;<sp/>While<sp/>you<sp/>are<sp/>creating<sp/>the<sp/>model,<sp/>everything<sp/>you<sp/>write<sp/>should<sp/>be<sp/>located<sp/>in<sp/>file<sp/>mentioned<sp/>above</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>First<sp/>of<sp/>all<sp/>you<sp/>should<sp/>create<sp/>enum<sp/>class<sp/>in<sp/>which<sp/>all<sp/>fields<sp/>wiil<sp/>be<sp/>represented<sp/>as<sp/>enum</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Example:</highlight></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">enum<sp/>class<sp/>BookData</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>AUTHOR,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>NAME,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>PAGES</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>Create<sp/>a<sp/>template<sp/>class<sp/>with<sp/>talking<sp/>name,<sp/>inherit<sp/>the<sp/>basic<sp/>template<sp/>class<sp/>**UnifiedModel**</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Make<sp/>a<sp/>template<sp/>argument<sp/>as<sp/>a<sp/>default<sp/>one<sp/>with<sp/>enum<sp/>class<sp/>which<sp/>you&apos;ve<sp/>created</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Create<sp/>two<sp/>constructors<sp/>-<sp/>default<sp/>and<sp/>__filling__,<sp/>which<sp/>is<sp/>going<sp/>fill<sp/>your<sp/>class<sp/>field<sp/>with<sp/>some<sp/>data</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Follow<sp/>the<sp/>example</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&gt;<sp/>Defined<sp/>template<sp/>type(enum<sp/>class)<sp/>is<sp/>the<sp/>one<sp/>which<sp/>is<sp/>in<sp/>charge<sp/>almost<sp/>of<sp/>everything<sp/>at<sp/>start<sp/>level</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">template<sp/>&lt;TEnum<sp/>=<sp/>BookData&gt;</highlight></codeline>
+<codeline><highlight class="normal">class<sp/>Book:<sp/>public<sp/>UnifiedModel&lt;TEnum&gt;</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal">public:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Book(std::string_view<sp/>modelName<sp/>=<sp/>&quot;books&quot;,<sp/>const<sp/>Models::FieldNames&amp;<sp/>names<sp/>=<sp/>{<sp/>&quot;author&quot;,<sp/>&quot;name&quot;,<sp/>&quot;pages&quot;<sp/>})</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>UnifiedModel&lt;TEnum&gt;(modelName,<sp/>names.size())</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;init(names);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>explicit<sp/>Book(const<sp/>std::vector&lt;std::pair&lt;TEnum,<sp/>std::string&gt;&gt;&amp;<sp/>insertData)<sp/>:<sp/>Book()</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;fillStartFields(insertData);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">};</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>After<sp/>that,<sp/>inside<sp/>**protected**<sp/>scope,<sp/>override<sp/>method<sp/>**getNumEnum**</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Syntax<sp/>-&gt;<sp/>TEnum<sp/>getNumEnum(size_t)<sp/>const<sp/>final</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&gt;<sp/>You<sp/>***must***<sp/>make<sp/>the<sp/>***order<sp/>of<sp/>names***<sp/>that<sp/>you<sp/>put<sp/>inside<sp/>***default<sp/>constructor<sp/>and<sp/>switch***<sp/>below<sp/>totally<sp/>***equal***,<sp/>the<sp/>amount<sp/>likewise</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">protected:</highlight></codeline>
+<codeline><highlight class="normal">TEnum<sp/>getNumEnum(size_t<sp/>num)const<sp/>final</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>switch(num)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>0:<sp/>return<sp/>BookData::AUTHOR;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>1:<sp/>return<sp/>BookData::NAME;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/>2:<sp/>return<sp/>BookData::PAGES;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>default:<sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Base::Logger::FileLogger::getInstance().</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error(&quot;Overrided<sp/>method<sp/>does<sp/>not<sp/>deal<sp/>with<sp/>this<sp/>amount<sp/>of<sp/>fields<sp/>given<sp/>in<sp/>constructor&quot;);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>2.<sp/>When<sp/>class<sp/>exists,<sp/>let&apos;s<sp/>do<sp/>the<sp/>rest</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>In<sp/>DataAccess/Public/IServerRepository.hpp<sp/>you<sp/>should<sp/>find<sp/>every<sp/>mention<sp/>of<sp/>old<sp/>model<sp/>and<sp/>change<sp/>it<sp/>on<sp/>the<sp/>new<sp/>one</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>That<sp/>was<sp/>a<sp/>start<sp/>point,<sp/>right<sp/>now<sp/>you<sp/>have<sp/>to<sp/>change<sp/>it<sp/>everywhere<sp/>in<sp/>the<sp/>interfaces</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&gt;<sp/>Right<sp/>now<sp/>is</highlight></codeline>
+<codeline><highlight class="normal">&gt;<sp/>-<sp/>DataAccess.Postgre/PostgreRepositories.hpp/cpp</highlight></codeline>
+<codeline><highlight class="normal">&gt;<sp/>-<sp/>DataAccess.Mock/MockRepositories.hpp/cpp</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Example:</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">///<sp/>Before</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/>Utility::ChannelCreateCodes<sp/>createChannel(const<sp/>Models::ChannelInfo&amp;<sp/>channel)<sp/>=<sp/>0;</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">///<sp/>After</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>virtual<sp/>Utility::ChannelCreateCodes<sp/>createChannel(const<sp/>Models::V2::Channel&lt;&gt;&amp;<sp/>channel)<sp/>=<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&gt;<sp/>Also<sp/>you<sp/>must<sp/>change<sp/>logic<sp/>inside<sp/>Mock,<sp/>but<sp/>that&apos;s<sp/>simple<sp/>one,<sp/>rules<sp/>will<sp/>be<sp/>described<sp/>below</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>3.<sp/>Changing<sp/>the<sp/>repository<sp/>method.<sp/>Main<sp/>improvements<sp/>that<sp/>you<sp/>can<sp/>do</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>-<sp/>You<sp/>don&apos;t<sp/>need<sp/>to<sp/>write<sp/>the<sp/>hard-coded<sp/>name<sp/>of<sp/>the<sp/>table:</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal">///<sp/>Before</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>_pTable-&gt;changeTable(&quot;channels&quot;);</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">///<sp/>After</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>_pTable-&gt;changeTable(channel.getModelName());</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>-<sp/>No<sp/>more<sp/>raw<sp/>strings<sp/>inside<sp/>QueryBuilder<sp/>methods:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Before:</highlight></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>auto<sp/>findChannel<sp/>=<sp/>_pTable-&gt;Select()</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;columns({&quot;channel_name&quot;})</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;Where(&quot;channel_name<sp/>=<sp/>&apos;&quot;<sp/>+<sp/>channel._channelName<sp/>+<sp/>&quot;&apos;&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;execute();</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">After:</highlight></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>auto<sp/>findChannel<sp/>=<sp/>_pTable-&gt;Select()</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;columns({<sp/>channel.resolveName(ChannelData::CHANNEL_NAME)})</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;Where(channel.resolveName(ChannelData::CHANNEL_NAME)+<sp/>&quot;=<sp/>&apos;&quot;<sp/>+<sp/>channel[ChannelData::CHANNEL_NAME]<sp/>+<sp/>&quot;&apos;&quot;)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;execute();</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>-<sp/>No<sp/>more<sp/>any<sp/>type<sp/>of<sp/>casts<sp/>inside<sp/>method<sp/>logic</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&gt;<sp/>This<sp/>task<sp/>has<sp/>moved<sp/>to<sp/>the<sp/>separate<sp/>class<sp/>-<sp/>ModelFiller<sp/>(That&apos;s<sp/>a<sp/>general<sp/>name<sp/>for<sp/>this<sp/>type<sp/>of<sp/>classes,<sp/>right<sp/>now<sp/>only<sp/>PGFiller<sp/>exists)</highlight></codeline>
+<codeline><highlight class="normal">&gt;<sp/>This<sp/>class<sp/>knows<sp/>how<sp/>to<sp/>cast<sp/>and<sp/>what<sp/>to<sp/>cast,<sp/>and<sp/>fills<sp/>model<sp/>with<sp/>it</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Before(&apos;findChannel&apos;<sp/>-<sp/>is<sp/>a<sp/>returning<sp/>object<sp/>from<sp/>_pTable-&gt;...-&gt;execute()):</highlight></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>auto<sp/>creatorlID<sp/><sp/>=<sp/>findChannel.value()[0][0].as&lt;uint64_t&gt;();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>auto<sp/>channelID<sp/><sp/><sp/>=<sp/>findChannel.value()[0][1].as&lt;uint64_t&gt;();</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">After:</highlight></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>_filler-&gt;fill(findChannel-&gt;begin(),<sp/>&amp;channel);</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&gt;<sp/>We<sp/>use<sp/>__returningObjectName__-&gt;begin()<sp/>only<sp/>when<sp/>we<sp/>need<sp/>to<sp/>fill<sp/>only<sp/>one<sp/>model<sp/>or<sp/>returning<sp/>value<sp/>consists<sp/>of<sp/>one<sp/>iterator</highlight></codeline>
+<codeline><highlight class="normal">&gt;<sp/>Otherwise<sp/>create<sp/>a<sp/>loop<sp/>to<sp/>fill<sp/>a<sp/>vector<sp/>of<sp/>models</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>-<sp/>No<sp/>more<sp/>tuples<sp/>inside<sp/>method<sp/>logic</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&gt;<sp/>Insert<sp/>method<sp/>can<sp/>use<sp/>the<sp/>object<sp/>itself<sp/>to<sp/>build<sp/>the<sp/>query</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Before:</highlight></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>std::tuple<sp/>channelData{std::pair{&quot;channel_name&quot;,<sp/>channel._channelName},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::pair{&quot;creator_id&quot;,<sp/>channel._creatorID},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::pair{&quot;user_limit&quot;,<sp/>1&apos;000&apos;000}};</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>auto<sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>_pTable-&gt;Insert()-&gt;columns(channelData)-&gt;execute();</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">After:</highlight></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>auto<sp/>result<sp/>=<sp/>_pTable-&gt;Insert()-&gt;columns(&amp;channel)-&gt;execute();</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>4.<sp/>Changes<sp/>at<sp/>server<sp/>side</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>You<sp/>should<sp/>find<sp/>in<sp/>Server.cpp<sp/>the<sp/>request<sp/>which<sp/>uses<sp/>the<sp/>old<sp/>method<sp/>from<sp/>IServerRepositories</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&gt;<sp/>If<sp/>you&apos;ve<sp/>created<sp/>the<sp/>new<sp/>method<sp/>based<sp/>on<sp/>the<sp/>old<sp/>one,<sp/>everything<sp/>that<sp/>you<sp/>must<sp/>do<sp/>is<sp/>swap<sp/>old<sp/>model<sp/>with<sp/>new<sp/>one<sp/>and<sp/>fill<sp/>it<sp/>and<sp/>change<sp/>names<sp/>of<sp/>methods</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```c++</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Models::V2::Channel&lt;&gt;<sp/>newChannelInfo({</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{ChannelData::CHANNEL_NAME,<sp/>std::any_cast&lt;std::string&gt;(message.mBody)},</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{ChannelData::CREATOR_ID,<sp/>std::to_string(client-&gt;getUserID())}});</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>auto<sp/>futureResult<sp/>=<sp/>_repoManager-&gt;pushRequest(&amp;IChannelsRepository::newCreateChannel,<sp/>fmt(newChannelInfo));</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">&gt;<sp/>If<sp/>you&apos;ve<sp/>re-built<sp/>a<sp/>method,<sp/>just<sp/>swap<sp/>a<sp/>model<sp/>like<sp/>in<sp/>example<sp/>above<sp/>and<sp/>change<sp/>model<sp/>in<sp/>fmt<sp/>call,<sp/>the<sp/>name<sp/>of<sp/>method<sp/>doesn&apos;t<sp/>change</highlight></codeline>
+    </programlisting>
+    <location file="Docs/Swaping old models with new ones.md"/>
+  </compounddef>
+</doxygen>

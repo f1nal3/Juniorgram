@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.7" xml:lang="en-US">
+  <compounddef id="namespace_utility_time" kind="namespace" language="C++">
+    <compoundname>UtilityTime</compoundname>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="_utility_time_8hpp_1abe53661259dce8c3f7ddad961d306760" prot="public" static="no">
+        <type>std::chrono::system_clock</type>
+        <definition>using UtilityTime::RTC = typedef std::chrono::system_clock</definition>
+        <argsstring></argsstring>
+        <name>RTC</name>
+        <qualifiedname>UtilityTime::RTC</qualifiedname>
+        <briefdescription>
+<para>RTC - real time clock. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/UtilityTime.hpp" line="19" column="1" bodyfile="Utility/Utility.Public/Include/Utility/UtilityTime.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="_utility_time_8hpp_1a556bb4342c8bc41919d984db4dc2b110" prot="public" static="no">
+        <type>std::uint64_t</type>
+        <definition>using UtilityTime::timestamp_t = typedef std::uint64_t</definition>
+        <argsstring></argsstring>
+        <name>timestamp_t</name>
+        <qualifiedname>UtilityTime::timestamp_t</qualifiedname>
+        <briefdescription>
+<para>timestamp_t - alias that make more understandable format of keeping server-client timestamp representation. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/UtilityTime.hpp" line="24" column="1" bodyfile="Utility/Utility.Public/Include/Utility/UtilityTime.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_utility_time_8hpp_1a20f975ce6823dd78582762ef63c8876b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::tm</type>
+        <definition>std::tm UtilityTime::safe_localtime</definition>
+        <argsstring>(const std::time_t &amp;time)</argsstring>
+        <name>safe_localtime</name>
+        <qualifiedname>UtilityTime::safe_localtime</qualifiedname>
+        <param>
+          <type>const std::time_t &amp;</type>
+          <declname>time</declname>
+        </param>
+        <briefdescription>
+<para>Wrapper for OS implementations of thread-safe std::localtime. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>std::localtime return static internal std::tm internally, / so it is not thread-safe and we use platform-dependant versions. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/UtilityTime.hpp" line="31" column="16" bodyfile="Utility/Utility.Public/Include/Utility/UtilityTime.hpp" bodystart="31" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="_utility_time_8hpp_1afb596527dfc0d52056a2d449fa6fa60a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void UtilityTime::consoleLogTimestamp</definition>
+        <argsstring>()</argsstring>
+        <name>consoleLogTimestamp</name>
+        <qualifiedname>UtilityTime::consoleLogTimestamp</qualifiedname>
+        <briefdescription>
+<para>Current time display function. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>MinGW will warning if we put this string directly</para>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/UtilityTime.hpp" line="52" column="13" bodyfile="Utility/Utility.Public/Include/Utility/UtilityTime.hpp" bodystart="52" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="_utility_time_8hpp_1a997854701311a29a9463adbf144b143f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string UtilityTime::getTimeNow</definition>
+        <argsstring>()</argsstring>
+        <name>getTimeNow</name>
+        <qualifiedname>UtilityTime::getTimeNow</qualifiedname>
+        <briefdescription>
+<para>Returns the current time in formatted form. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>std::strftime converts the date and time information / from a given calendar time time to a null-terminated multibyte / character string timeStampStr according to format string format. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/UtilityTime.hpp" line="70" column="20" bodyfile="Utility/Utility.Public/Include/Utility/UtilityTime.hpp" bodystart="70" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="_utility_time_8hpp_1a34765d389f47566e16f183ea8c8373fd" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>timestamp_t</type>
+        <definition>timestamp_t UtilityTime::millisecondsSinceEpoch</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>millisecondsSinceEpoch</name>
+        <qualifiedname>UtilityTime::millisecondsSinceEpoch</qualifiedname>
+        <briefdescription>
+<para>Returns time in milliseconds since Epoch (1970-01-01 00:00:00 UTC). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/UtilityTime.hpp" line="84" column="20" bodyfile="Utility/Utility.Public/Include/Utility/UtilityTime.hpp" bodystart="84" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="_utility_time_8hpp_1ac9b08a725c385d4b043839a43a6f4cea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string UtilityTime::getStringifiedCurrentDate</definition>
+        <argsstring>()</argsstring>
+        <name>getStringifiedCurrentDate</name>
+        <qualifiedname>UtilityTime::getStringifiedCurrentDate</qualifiedname>
+        <briefdescription>
+<para>Converts and returns the current time to the date format (&quot;%d.%m.%Y&quot;). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>std::strftime converts the date and time information / from a given calendar time time to a null-terminated multibyte / character string stringifyDate according to format string format. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Utility/Utility.Public/Include/Utility/UtilityTime.hpp" line="96" column="20" bodyfile="Utility/Utility.Public/Include/Utility/UtilityTime.hpp" bodystart="96" bodyend="107"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Utility/Utility.Public/Include/Utility/UtilityTime.hpp" line="14" column="1"/>
+  </compounddef>
+</doxygen>
