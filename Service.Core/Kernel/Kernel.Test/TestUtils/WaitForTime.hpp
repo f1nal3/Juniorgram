@@ -4,8 +4,8 @@
 
 /**
 * @brief class waiting for a certain amount of time.
-* @details Emulates the "normal behavior" of client-kernel interaction. /
-*          Used in testing to temporarily process actions on the client/kernel side. /
+* @details Emulates the "normal behavior" of the user when interacting with services. /
+*          Used in testing to create delays in operation on both sides. /
 *          It is a template designed to work with different types of time, for example: seconds, milliseconds... /
 *          By default, the template works with milliseconds.
 */

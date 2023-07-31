@@ -1,6 +1,6 @@
 #include <string_view>
 
-namespace TestKernelInfo
+namespace TestServiceInfo
 {
 	namespace Address
 	{

@@ -70,7 +70,7 @@ void Kernel::initConnection(const uint16_t port) { _acceptor = std::make_unique<
 bool Kernel::onClientConnect(const std::shared_ptr<Connection>& client)
 {
     Message message;
-    message.mHeader.mMessageType = Message::MessageType::KernelAccept;
+    message.mHeader.mMessageType = Message::MessageType::ServiceAccept;
     client->send(message);
     return true;
 }
@@ -90,7 +90,7 @@ void Kernel::acceptingClientConnection(const std::error_code& error, tcp::socket
         FileLogger::getInstance().log("[KERNEL] New Connection: " + outputPoint.str(), LogLevel::INFO);
 
         auto newConnection =
-            std::make_shared<Connection>(Connection::OwnerType::SERVICE, _context, std::move(socket), _incomingMessagesQueue);
+            std::make_shared<Connection>(Connection::OwnerType::BACKEND, _context, std::move(socket), _incomingMessagesQueue);
 
         if (onClientConnect(newConnection))
         {
@@ -122,9 +122,9 @@ void Kernel::onMessage(const std::shared_ptr<Connection>& client, const Message&
 
     switch (message.mHeader.mMessageType)
     {
-        case Message::MessageType::KernelPing:
+        case Message::MessageType::ServicePing:
         {
-            Result = checkKernelPing(client, message);
+            Result = checkServicePing(client, message);
             break;
         }
         case Message::MessageType::MessageAll:
@@ -291,14 +291,14 @@ std::optional<MessageResult> Kernel::messageAllClients(std::shared_ptr<Connectio
     }
 }
 
-std::optional<Network::MessageResult> Kernel::checkKernelPing(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::checkServicePing(std::shared_ptr<Connection> client, const Message& message) const
 {
     std::tm formattedTimestamp = UtilityTime::safe_localtime(message.mHeader.mTimestamp);
 
     std::ostringstream timeOutput;
     timeOutput << std::put_time(&formattedTimestamp, "%F %T");
 
-    if (message.mHeader.mMessageType == Message::MessageType::KernelPing)
+    if (message.mHeader.mMessageType == Message::MessageType::ServicePing)
     {
         FileLogger::getInstance().log
         (
@@ -331,7 +331,7 @@ std::optional<Network::MessageResult> Kernel::readAllMessage(std::shared_ptr<Con
         );
 
         Message answerForClient;
-        answerForClient.mHeader.mMessageType = Message::MessageType::KernelMessage;    
+        answerForClient.mHeader.mMessageType = Message::MessageType::ServiceMessage;    
 
         messageAllClients(client, answerForClient);
 

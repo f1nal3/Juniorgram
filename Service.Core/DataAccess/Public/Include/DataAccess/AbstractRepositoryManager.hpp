@@ -85,8 +85,8 @@ public:
     bool empty() const noexcept { return _queue.empty(); }
 
     // \todo: Do better handler
-    // (Probably, will be better to create thread pool
-    // and use it for service and manager).
+    // (Pay attention, lack of performance.
+    // Consider using a thread pool).
     /**
      * @brief   Requests handler.
      * @details Creates inside itself a thread that handle all requests in queue.

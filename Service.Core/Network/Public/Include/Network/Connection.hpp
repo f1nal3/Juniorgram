@@ -42,17 +42,16 @@ class Connection : public std::enable_shared_from_this<Connection>
 {
 public:
     /** @enum OwnerType
-     *  @brief A connection is "owned" by either a service or a client. /
-        And its behaviour is slightly different between the two.
+     *  @brief It is used to separate parts of code depending on the execution side.
      */
     enum class OwnerType
     {
-        SERVICE, /// owner is service
-        CLIENT   /// owner is client
+        BACKEND,
+        FRONTEND
     };
 
 private:
-    OwnerType _owner = OwnerType::SERVICE;
+    OwnerType _owner = OwnerType::BACKEND;
 
     std::uint64_t _connectionID  = uint64_t();
     std::uint64_t _userID        = 1;
@@ -253,13 +252,13 @@ private:
      * @brief Method for adding to the connection incoming message queue.
      * @details When a full message is received, it is added to the incoming queue. /
      * It is shoved in the queue, converting to an "owned message", by initializing with /
-     * the a shared pointer from this connection object for Service side /
-     * and without shared pointer from this for Client side. /
+     * the a shared pointer from this connection object for backend side /
+     * and without shared pointer from this for frontend side. /
      * Next method readHeader() is called to read other messages.
      */
     void addToIncomingMessageQueue()
     {
-        if (_owner == OwnerType::SERVICE)
+        if (_owner == OwnerType::BACKEND)
         {
             _messageBuffer.mRemote = this->shared_from_this();
             _incomingMessagesQueueLink.push_back(_messageBuffer);
@@ -321,7 +320,7 @@ public:
      */
     void connectToClient(const uint64_t uid = uint64_t())
     {
-        if (_owner == OwnerType::SERVICE)
+        if (_owner == OwnerType::BACKEND)
         {
             if (_socket.is_open())
             {
@@ -332,14 +331,13 @@ public:
     }
 
     /**
-     * @brief Method for connection to service from client side.
-     * @details Only clients can connect to service and make a request asio attempts \
-     * to connect to endpoint.
+     * @brief Mthod that initiates the connection of clients to the service.
+     * @details When you try to call it on the backend side, do nothing.
      * @param endpoint - result type returned by resolver
      */
     void connectToService(const asio::ip::tcp::resolver::results_type& endpoint)
     {
-        if (_owner == OwnerType::CLIENT)
+        if (_owner == OwnerType::FRONTEND)
         {
             asio::async_connect(_socket, endpoint, [this](std::error_code ec, 
                 [[maybe_unused]] asio::ip::tcp::endpoint epoint) 
