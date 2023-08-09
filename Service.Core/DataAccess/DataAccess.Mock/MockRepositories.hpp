@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include <DataAccess/IAdapter.hpp>
 #include <DataAccess/IServerRepositories.hpp>
@@ -56,7 +56,7 @@ private:
 /**
 * @brief struct MockDirectMessageRepository.
 * @details Inherited from IDirectMessageRepository struct /
-*    (for overriding methods related to this repository). 
+*    (for overriding methods related to this repository).
 */
 struct MockDirectMessageRepository final : IDirectMessageRepository
 {
@@ -83,8 +83,8 @@ struct MockLoginRepository final : ILoginRepository
 {
 public:
     explicit MockLoginRepository(const std::shared_ptr<IAdapter>& adapter)
-    { 
-        _mockQuery = std::make_unique<MockQuery>("user_login", adapter); 
+    {
+        _mockQuery = std::make_unique<MockQuery>("user_login", adapter);
     }
 
     ~MockLoginRepository() override = default;
@@ -98,7 +98,7 @@ private:
 /**
 * @brief struct MockMessagesRepository.
 * @details Inherited from IMessagesRepository struct /
-*   (for overriding methods related to this repository). 
+*   (for overriding methods related to this repository).
 */
 struct MockMessagesRepository final : IMessagesRepository
 {
@@ -123,7 +123,7 @@ private:
 /**
 * @brief struct MockRegisterRepository.
 * @details Inherited from IRegisterRepository struct /
-*   (for overriding methods related to this repository). 
+*   (for overriding methods related to this repository).
 */
 struct MockRegisterRepository final : IRegisterRepository
 {
@@ -150,8 +150,8 @@ struct MockRepliesRepository final : IRepliesRepository
 {
 public:
     explicit MockRepliesRepository(const std::shared_ptr<IAdapter>& adapter)
-    { 
-        _mockQuery = std::make_unique<MockQuery>("replies", adapter); 
+    {
+        _mockQuery = std::make_unique<MockQuery>("replies", adapter);
     }
     ~MockRepliesRepository() override = default;
 

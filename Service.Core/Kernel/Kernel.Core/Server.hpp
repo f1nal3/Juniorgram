@@ -19,7 +19,7 @@ namespace DataAccess
 class PostgreRepositoryManager;
 }
 
-namespace Server
+namespace Kernel
 {
 using asio::ip::tcp;
 using Network::Connection;
@@ -28,40 +28,40 @@ using Utility::SafeQueue;
 using Network::MessageResult;
 using RepoManagerUPtr = std::unique_ptr<DataAccess::IRepositoryManager>;
 /*
-* @brief Declaration of ServerBuilder.
+* @brief Declaration of KernelBuilder.
 */
 namespace Builder
 {
-class ServerBuilder;
+class KernelBuilder;
 }
 
 /**
-*  @class Server
-*  @brief This class does all logic which is needed to run the server.
+*  @class Kernel
+*  @brief This class does all logic which is needed to run the kernel.
 *  @details This object is directly the root of the back-end. The main task
 *           is to communicate with clients, accepting messages from them, processing
 *           them according to certain logic prescribed in the handler functions (there is a
 *           handler for each type of message), and returning the result back to the client.
 *           See the API documentation in a file "Network/iAPI.h".
-*           The Server object is created through a special helper class, see ServerBuilder.
+*           The Kernel object is created through a special helper class, see KernelBuilder.
 */
-class Server : public Network::iAPI
+class Kernel : public Network::iAPI
 {
-    friend Builder::ServerBuilder;
+    friend Builder::KernelBuilder;
 
 public:
     /**
     * @brief Destructor
     */
-    ~Server();
+    ~Kernel();
 
     /**
-    * @brief Method to start the server.
+    * @brief Method to start the kernel.
     */
     void start();
 
     /**
-    * @brief Method to stop the server.
+    * @brief Method to stop the kernel.
     */
     void stop();
 
@@ -84,9 +84,9 @@ private:
 
     /**
     * @brief Default constructor.
-    * @details Initialize Server object. After you steel need to initialize network and database connection.
+    * @details Initialize Kernel object. After you steel need to initialize network and database connection.
     */
-    Server() = default;
+    Kernel() = default;
 
     /**
     * @brief Setter for purpose of initialize IRepository dependency
@@ -103,13 +103,13 @@ private:
     void initConnection(const uint16_t port);
 
     /**
-    * @brief Method for sending the message connecting to the server.
+    * @brief Method for sending the message connecting to the kernel.
     * @param Connection management class as std::shared_ptr<Network::Connection>&.
     */
     static bool onClientConnect(const std::shared_ptr<Connection>& client);
 
     /**
-    * @brief Method for sending the message disconnecting from the server.
+    * @brief Method for sending the message disconnecting from the kernel.
     * @param Connection management class as std::shared_ptr<Network::Connection>&.
     */
     static void onClientDisconnect(const std::shared_ptr<Connection>& client);
@@ -122,7 +122,7 @@ private:
     void onMessage(const std::shared_ptr<Connection>& client, const Message& message) const;
 
     /**
-     * @brief Method to check message result after that server answered to message.
+     * @brief Method to check message result after that kernel answered to message.
      */
     void checkMessageResult(std::optional<MessageResult> result);
 
@@ -152,4 +152,4 @@ private:
     std::unique_ptr<tcp::acceptor>          _acceptor;
     RepoManagerUPtr                         _repoManager;
 };
-}  /// namespace Server
+}  /// namespace Kernel

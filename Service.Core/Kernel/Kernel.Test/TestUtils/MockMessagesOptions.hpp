@@ -12,7 +12,7 @@ const std::string testPSWD{"password"};
 const std::string testPWDHash{Base::Hashing::SHA_256(testPSWD, testLogin)};
 
 constexpr std::string_view testEmail{"test@epam.com"};
-constexpr std::string_view testChannelName{"testServer"};
+constexpr std::string_view testChannelName{"testChannel"};
 constexpr std::string_view testMessage{"Hello, juniorgram!"};
 
 constexpr uint16_t    testReactionID{1};

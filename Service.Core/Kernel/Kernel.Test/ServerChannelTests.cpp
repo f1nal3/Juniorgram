@@ -5,13 +5,13 @@
 using namespace TestUtility;
 using TestUtility::MessageBody;
 
-TEST_CASE("Channel request procedures", "[Server][Success]")
+TEST_CASE("Channel request procedures", "[Kernel][Success]")
 {
-    auto testServer = makeTestServer();
-    testServer->start();
+    auto testKernel = makeTestKernel();
+    testKernel->start();
 
     TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+    client.connectToKernel(TestKernelInfo::Address::local, TestKernelInfo::Port::test);
 
     SECTION("Successful request to create a channel")
     {
@@ -20,14 +20,14 @@ TEST_CASE("Channel request procedures", "[Server][Success]")
             MessageType::ChannelCreateRequest, MessageBody::ValidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::Success);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Successful request subscription to channel")
@@ -37,14 +37,14 @@ TEST_CASE("Channel request procedures", "[Server][Success]")
             MessageType::ChannelSubscribeRequest, MessageBody::ValidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::Success);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Successful request subscription list from channel ")
@@ -54,14 +54,14 @@ TEST_CASE("Channel request procedures", "[Server][Success]")
             MessageType::ChannelSubscriptionListRequest, MessageBody::ValidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::Success);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Successful request channel list")
@@ -71,14 +71,14 @@ TEST_CASE("Channel request procedures", "[Server][Success]")
             MessageType::ChannelListRequest, MessageBody::ValidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::Success);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Successful request to leave from channel")
@@ -88,14 +88,14 @@ TEST_CASE("Channel request procedures", "[Server][Success]")
             MessageType::ChannelLeaveRequest, MessageBody::ValidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::Success);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Successful request to delete a channel")
@@ -105,24 +105,24 @@ TEST_CASE("Channel request procedures", "[Server][Success]")
             MessageType::ChannelDeleteRequest, MessageBody::ValidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::Success);
-        testServer->stop();
+        testKernel->stop();
     }
 }
 
-TEST_CASE("Channel request procedures [Server][Failed]")
+TEST_CASE("Channel request procedures", "[Kernel][Failed]")
 {
-    auto testServer = makeTestServer();
-    testServer->start();
+    auto testKernel = makeTestKernel();
+    testKernel->start();
 
     TestClient client;
-    client.connectToServer(TestServerInfo::Address::local, TestServerInfo::Port::test);
+    client.connectToKernel(TestKernelInfo::Address::local, TestKernelInfo::Port::test);
 
     SECTION("Failed request to create a channel")
     {
@@ -131,14 +131,14 @@ TEST_CASE("Channel request procedures [Server][Failed]")
             MessageType::ChannelCreateRequest, MessageBody::InvalidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::InvalidBody);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Failed request subscription to channel")
@@ -148,14 +148,14 @@ TEST_CASE("Channel request procedures [Server][Failed]")
             MessageType::ChannelSubscribeRequest, MessageBody::InvalidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
             Client::TestObject::MessageResult::InvalidBody);
-        testServer->stop();
+        testKernel->stop();
     }
     
     SECTION("Failed request to leave from channel")
@@ -165,14 +165,14 @@ TEST_CASE("Channel request procedures [Server][Failed]")
             MessageType::ChannelLeaveRequest, MessageBody::InvalidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::InvalidBody);
-        testServer->stop();
+        testKernel->stop();
     }
 
     SECTION("Failed request to delete a channel")
@@ -182,13 +182,13 @@ TEST_CASE("Channel request procedures [Server][Failed]")
             MessageType::ChannelDeleteRequest, MessageBody::InvalidBody);
 
         client.send(messageInstance);
-        testServer->update();
+        testKernel->update();
 
         WaitForTime waiter(std::chrono::milliseconds(1000));
         waiter.wait();
 
         REQUIRE(client.getMessageResult().back() == 
              Client::TestObject::MessageResult::InvalidBody);
-        testServer->stop();
+        testKernel->stop();
     }
 }

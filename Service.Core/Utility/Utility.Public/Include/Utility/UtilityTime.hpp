@@ -19,7 +19,7 @@ namespace UtilityTime
 using RTC = std::chrono::system_clock; 
 
 /**
- * @brief timestamp_t - alias that make more understandable format of keeping server-client timestamp representation.
+ * @brief timestamp_t - alias that make more understandable format of keeping service-client timestamp representation.
  */
 using timestamp_t = std::uint64_t;
 

@@ -24,16 +24,16 @@ public:
         {
             switch (message.mHeader.mMessageType)
             {
-                case Message::MessageType::ServerAccept:
+                case Message::MessageType::ServiceAccept:
                     break;
 
-                case Message::MessageType::ServerPing:
+                case Message::MessageType::ServicePing:
                     break;
 
                 case Message::MessageType::MessageAll:
                     break;
 
-                case Message::MessageType::ServerMessage:
+                case Message::MessageType::ServiceMessage:
                     break;
 
                 case Message::MessageType::ChannelListRequest:
@@ -186,13 +186,13 @@ public:
 
         switch (message.mHeader.mMessageType)
         {
-            case Message::MessageType::ServerAccept:
+            case Message::MessageType::ServiceAccept:
                 break;
-            case Message::MessageType::ServerPing:
+            case Message::MessageType::ServicePing:
                 break;
             case Message::MessageType::MessageAll:
                 break;
-            case Message::MessageType::ServerMessage:
+            case Message::MessageType::ServiceMessage:
                 break;
             case Message::MessageType::ChannelListRequest:
             {

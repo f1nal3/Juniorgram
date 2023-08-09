@@ -10,7 +10,7 @@
 
 namespace Builder
 {
-class ServerBuilder;
+class KernelBuilder;
 }
 
 namespace MockDataAccess
@@ -20,7 +20,7 @@ class MockRepositoryManager;
 
 /**
 * @brief namespace Test Utility.
-* @details This namespace is for testing the server.
+* @details This namespace is for testing the kernel.
 */
 namespace TestUtility
 {
@@ -28,10 +28,10 @@ using RTC              = std::chrono::system_clock;
 using TestClient       = Client::TestObject::TestClient;
 using Message          = Network::Message;
 using TestDatabase     = MockObject::MockDatabase;
-using TestServer       = std::unique_ptr<Server::Server>;
+using TestKernel       = std::unique_ptr<Kernel::Kernel>;
 using TestRepoManager  = MockObject::MockRepositoryManager;
 using MessageType      = Message::MessageType;
-using ServerBuilder    = Server::Builder::ServerBuilder;
+using KernelBuilder    = Kernel::Builder::KernelBuilder;
 using PairArguments    = std::pair<std::string, std::string>;
 
 /**
@@ -60,7 +60,7 @@ enum class MessageBody
 
 /**
 * @brief struct ConfigArguments.
-* @details Designed to receive arguments from the ServerBuilder.
+* @details Designed to receive arguments from the KernelBuilder.
 *          This structure has only get methods. If you want to change the values of the arguments, /
 *                                                  you can do it manually in the private section.
 */
@@ -69,8 +69,8 @@ struct ConfigArguments
     ConfigArguments() = default;
     ~ConfigArguments() = default;
 
-    const PairArguments& getServerPortArguments() const { return serverPortPair; }
-    const PairArguments& getBadServerPortArguments() const { return badServerPortPair; }
+    const PairArguments& getKernelPortArguments() const { return KernelPortPair; }
+    const PairArguments& getBadKernelPortArguments() const { return badKernelPortPair; }
     const PairArguments& getDatabaseArguments() const { return dbnamePair; }
     const PairArguments& getHostAddrArguments() const { return hostPair; }
     const PairArguments& getDatabasePortArguments() const { return dbportPair; }
@@ -78,8 +78,8 @@ struct ConfigArguments
     const PairArguments& getDatabasePasswordArguments() const { return passwordPair; }
 
 private:
-    const PairArguments serverPortPair{"--serverport", "65001"};
-    const PairArguments badServerPortPair{"--serverport", "666666"};
+    const PairArguments kernelPortPair{"--kernelport", "65001"};
+    const PairArguments badKernelPortPair{"--kernelport", "666666"};
     const PairArguments dbnamePair{"--dbname", "mockdb"};
     const PairArguments hostPair{"--hostaddr", "127.0.0.1"};
     const PairArguments dbportPair{"--port", "5432"};
@@ -330,22 +330,22 @@ inline auto getTestDatabase() noexcept
 }
 
 /**
-* @brief Method for configuring the test server.
-* @details The server is configured through the ServerBuilder. /
+* @brief Method for configuring the test kernel.
+* @details The kernel is configured through the KernelBuilder. /
 *          The arguments that we set for testing are in the ConfigArguments structure. /
 *          If you need to set other arguments, you can do so in the ConfigArguments structure.
 */
-inline auto makeTestServer() noexcept
+inline auto makeTestKernel() noexcept
 {
-    TestServer testServer = ServerBuilder()
-                                .setValue(configArgs.getServerPortArguments())
+    TestKernel testKernel = KernelBuilder()
+                                .setValue(configArgs.getKernelPortArguments())
                                 .setValue(configArgs.getDatabaseArguments())
                                 .setValue(configArgs.getHostAddrArguments())
                                 .setValue(configArgs.getDatabasePortArguments())
                                 .setValue(configArgs.getDatabaseUserArguments())
                                 .setValue(configArgs.getDatabasePasswordArguments())
                                 .setValue(getTestDatabase().release())
-                                .makeServer();
-    return testServer;
+                                .makeKernel();
+    return testKernel;
 }
 }  /// namespace TestUtility

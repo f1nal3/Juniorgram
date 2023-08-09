@@ -524,7 +524,7 @@ Utility::ReactionMessageCodes MessagesRepository::updateMessageReactions(const M
         Base::Logger::FileLogger::getInstance().log
         (
             "Reaction with id: " + std::to_string(reactionID) +
-            " is not supported by server\n",
+            " is not supported\n",
             Base::Logger::LogLevel::ERR
         );
 

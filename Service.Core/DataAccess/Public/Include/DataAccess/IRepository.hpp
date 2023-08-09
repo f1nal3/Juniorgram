@@ -17,7 +17,7 @@ class IRepository
 public:
 
     /**
-    * @brief Draft method for getting all channel list from the server.
+    * @brief Draft method for getting entire list of channels from the data storage.
     * @return channels list as vector of ChannelInfo.
     */
     virtual std::vector<Models::ChannelInfo> getAllChannelsList() = 0;

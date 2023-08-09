@@ -18,13 +18,13 @@ using Network::Connection;
 *        after they have been processed on the client side.
 * @details The results of the messages may be as follows: 
 *          InvalidBody  - poorly formed message. /
-*          ServerAccept - signals the result of the connection to the server. /
+*          ServiceAccept - signals the result of the connection to the service. /
 *          Success      - correctly formed message.
 */
 enum class MessageResult
 {
     InvalidBody,
-    ServerAccept,
+    ServiceAccept,
     Success
 };
 
@@ -35,22 +35,22 @@ class TestClient
 {
 public:
     /**
-    * @brief Connect to server with IP(host) and Port(port).
+    * @brief Connect to service with IP(host) and Port(port).
     * @param const std::string_view& host - for identifying and accepting ip address, /
     * @param const uint16_t port - for accepting & identifying of port.
     */
-    bool connectToServer(const std::string_view& host, const uint16_t port);
+    bool connectToService(const std::string_view& host, const uint16_t port);
     
     /**
-    * @brief Disconnect from server.
+    * @brief Disconnect from service.
     * @details This method stop connection to remote host. /
     *   Also, it reset all context and jobs that related with TestClient. /
     *   This method call in destructor, so in general way it is not used.
     */ 
-    void disconnectFromServer();
+    void disconnectFromService();
 
     /**
-    * @brief Sends an initialized header message to the server.
+    * @brief Sends an initialized header message to the service.
     * @details You can see the message types in the Message header file.
     */ 
     void send(const Message& message) const;
@@ -59,7 +59,7 @@ public:
     * @brief Method to get a container with the results of message processing.
     * @details The results of the messages may be as follows: /
     *          InvalidBody  - poorly formed message. /
-    *          ServerAccept - signals the result of the connection to the server. /
+    *          ServiceAccept - signals the result of the connection to the service. /
     *          Success      - correctly formed message.
     */
     std::vector<MessageResult> getMessageResult() const;
@@ -71,19 +71,19 @@ public:
 
     /**
     * @brief TestClient virtual destructor.
-    * @details The virtual destructor calls the disconnectFromServer method, /
-    *    which checks the connection to the server. 
+    * @details The virtual destructor calls the disconnectFromService method, /
+    *    which checks the connection to the service. 
     */
     virtual ~TestClient() noexcept;
 
 protected:
     /**
-    * @brief Method for signaling of disconnect from server.
+    * @brief Method for signaling of disconnect from service.
     */
     void onDisconnect() const;
 
     /**
-    * @brief Method for signaling of sending message to server.
+    * @brief Method for signaling of sending message to service.
     */
     void onMessageSendFailed(const Message& message) const;
 
@@ -93,19 +93,19 @@ protected:
     std::optional<MessageResult> onLoginAnswer(bool success) const;
 
     /**
-    * @brief Method for signaling of server accepting.
+    * @brief Method for signaling of service accepting.
     */
-    std::optional<MessageResult> onServerAccepted() const;
+    std::optional<MessageResult> onServiceAccepted() const;
 
     /**
-    * @brief Method for signaling of server ping.
+    * @brief Method for signaling of service ping.
     */
-    std::optional<MessageResult> onServerPing(double timestamp) const;
+    std::optional<MessageResult> onServicePing(double timestamp) const;
 
     /**
-    * @brief Method for signaling of server message.
+    * @brief Method for signaling of service message.
     */
-    std::optional<MessageResult> onServerMessage(const uint64_t clientID) const;
+    std::optional<MessageResult> onServiceMessage(const uint64_t clientID) const;
 
     /**
     * @brief Method for signaling of channel list request.
@@ -190,14 +190,14 @@ protected:
 private:
     /**
     * @brief Noose that handle incoming messages.
-    * @details Handler function to process the server response message /
+    * @details Handler function to process the service response message /
     *   for the subsequent response from the client.
     *   (You can see the message types in the Message header file).
     */ 
     void noose();
 
     /**
-    * @brief Checking the server connection.
+    * @brief Checking the service connection.
     * @details Returns true if connection is established.
     */ 
     [[nodiscard]] bool isConnected() const;
@@ -212,20 +212,20 @@ private:
     void MessageResultIsError(std::optional<MessageResult> result);
 
     /**
-    * @brief Method checks the connection to the server. 
+    * @brief Method checks the connection to the service. 
     * @defails Until the connection is established, /
     *          no further work will be done.
     */
-    bool checkServerAcception();
+    bool checkServiceAcception();
 
     /**
-    * @brief Method checks if the received arguments to connect to the server are correct.
+    * @brief Method checks if the received arguments to connect to the service are correct.
     * @param const std::string_view& host - for identifying and accepting ip address, /
     * @param const uint16_t port - for accepting & identifying of port.
     */
     bool checkConnectionArguments(const std::string_view& host, const uint16_t port) const;
 
-    bool                                 _serverAccept = false;
+    bool                                 _serviceAccept = false;
     uint8_t                              _countOfError; 
     asio::io_context                     _context;
     std::unique_ptr<Network::Connection> _connection;

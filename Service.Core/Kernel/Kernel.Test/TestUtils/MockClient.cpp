@@ -6,29 +6,29 @@ using MessageType = Network::Message::MessageType;
 using UtilityTime::RTC;
 using UtilityTime::timestamp_t;
 
-TestClient::~TestClient() noexcept { disconnectFromServer(); }
+TestClient::~TestClient() noexcept { disconnectFromService(); }
 
-bool TestClient::connectToServer(const std::string_view& host, const uint16_t port)
+bool TestClient::connectToService(const std::string_view& host, const uint16_t port)
 {
     checkConnectionArguments(host, port);
 
     using OwnerType = Connection::OwnerType;
-    _connection     = std::make_unique<Connection>(OwnerType::CLIENT, _context, asio::ip::tcp::socket(_context), _incomingMessagesQueue);
+    _connection     = std::make_unique<Connection>(OwnerType::FRONTEND, _context, asio::ip::tcp::socket(_context), _incomingMessagesQueue);
     asio::ip::tcp::resolver resolver(_context);
 
     try
     {
         auto endpoints = resolver.resolve(host, std::to_string(port));
-        _connection->connectToServer(endpoints);
+        _connection->connectToService(endpoints);
 
-        checkServerAcception();
+        checkServiceAcception();
 
         _contextThread = std::thread([this]() {
             while (_context.run_one())
             {
                 noose();
             }
-            _serverAccept = false;
+            _serviceAccept = false;
             onDisconnect();
         });
     }
@@ -40,7 +40,7 @@ bool TestClient::connectToServer(const std::string_view& host, const uint16_t po
     return true;
 }
 
-void TestClient::disconnectFromServer()
+void TestClient::disconnectFromService()
 {
     if (isConnected())
     {
@@ -62,7 +62,7 @@ bool TestClient::isConnected() const
 {
     if (_connection != nullptr)
     {
-        return _connection->isConnected() && _serverAccept;
+        return _connection->isConnected() && _serviceAccept;
     }
     return false;
 }
@@ -96,7 +96,7 @@ void TestClient::countOfErrorResults()
 
 bool TestClient::checkConnectionArguments(const std::string_view& host, const uint16_t port) const
 {
-    if (host != TestServerInfo::Address::local || port != TestServerInfo::Port::test)
+    if (host != TestServiceInfo::Address::local || port != TestServiceInfo::Port::test)
     {
         Base::Logger::FileLogger::getInstance().log("Bad arguments", Base::Logger::LogLevel::ERR);
         return false;
@@ -104,14 +104,14 @@ bool TestClient::checkConnectionArguments(const std::string_view& host, const ui
     return true;
 }
 
-bool TestClient::checkServerAcception()
+bool TestClient::checkServiceAcception()
 {
-    while (_serverAccept == false)
+    while (_serviceAccept == false)
     {
         _context.run_one();
         noose();
     }
-    return _serverAccept;
+    return _serviceAccept;
 }
 
 void TestClient::MessageResultIsError(std::optional<MessageResult> result)
@@ -137,10 +137,10 @@ void TestClient::noose()
 
         switch (message.mHeader.mMessageType)
         {
-            case MessageType::ServerAccept:
+            case MessageType::ServiceAccept:
             {
-                _serverAccept = true;
-                Result        = onServerAccepted();
+                _serviceAccept = true;
+                Result        = onServiceAccepted();
             }
             break;
 
@@ -158,18 +158,18 @@ void TestClient::noose()
             }
             break;
 
-            case MessageType::ServerPing:
+            case MessageType::ServicePing:
             {
                 timestamp_t timeNow  = RTC::to_time_t(RTC::now());
                 timestamp_t timeThen = message.mHeader.mTimestamp;
-                Result               = onServerPing(std::chrono::duration<double>(timeNow - timeThen).count());
+                Result               = onServicePing(std::chrono::duration<double>(timeNow - timeThen).count());
             }
             break;
 
-            case MessageType::ServerMessage:
+            case MessageType::ServiceMessage:
             {
                 uint64_t clientID = 0;
-                Result            = onServerMessage(clientID);
+                Result            = onServiceMessage(clientID);
             }
             break;
 
@@ -292,18 +292,18 @@ std::optional<MessageResult> TestClient::onLoginAnswer(bool success) const
     return MessageResult::InvalidBody;
 }
 
-std::optional<MessageResult> TestClient::onServerAccepted() const
+std::optional<MessageResult> TestClient::onServiceAccepted() const
 {
-    if (_serverAccept != true)
+    if (_serviceAccept != true)
     {
-        Base::Logger::FileLogger::getInstance().log("[TestClient] Server didn't accept the connection!", Base::Logger::LogLevel::ERR);
+        Base::Logger::FileLogger::getInstance().log("[TestClient] Service didn't accept the connection!", Base::Logger::LogLevel::ERR);
         return MessageResult::InvalidBody;
     }
-    Base::Logger::FileLogger::getInstance().log("[TestClient] Server accepted the connection!", Base::Logger::LogLevel::INFO);
-    return MessageResult::ServerAccept;
+    Base::Logger::FileLogger::getInstance().log("[TestClient] Service accepted the connection!", Base::Logger::LogLevel::INFO);
+    return MessageResult::ServiceAccept;
 }
 
-std::optional<MessageResult> TestClient::onServerPing(double timestamp) const
+std::optional<MessageResult> TestClient::onServicePing(double timestamp) const
 {
     if (timestamp < 0)
     {
@@ -315,7 +315,7 @@ std::optional<MessageResult> TestClient::onServerPing(double timestamp) const
     return MessageResult::Success;
 }
 
-std::optional<MessageResult> TestClient::onServerMessage(const uint64_t clientID) const
+std::optional<MessageResult> TestClient::onServiceMessage(const uint64_t clientID) const
 {
     if (clientID > 0)
     {
@@ -413,7 +413,7 @@ std::optional<MessageResult> TestClient::defaultAnswer() const
 
 void TestClient::onDisconnect() const
 {
-    Base::Logger::FileLogger::getInstance().log("[TestClient] You've been disconnected from server!", Base::Logger::LogLevel::INFO);
+    Base::Logger::FileLogger::getInstance().log("[TestClient] You've been disconnected from service!", Base::Logger::LogLevel::INFO);
 }
 
 void TestClient::onMessageSendFailed(const Message& message) const
