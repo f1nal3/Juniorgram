@@ -17,7 +17,7 @@ TEST_CASE("Default request procedures", "[Kernel][Success]")
     {
         Message     validMessage;
         const auto& messageInstance = makeMessage(validMessage, 
-            MessageType::KernelPing, MessageBody::ValidBody);
+            MessageType::ServicePing, MessageBody::ValidBody);
         
         client.send(messageInstance);
         testKernel->update();

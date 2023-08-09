@@ -7,7 +7,7 @@
 #define APPLY_API_METHODS \
             std::optional<Network::MessageResult> messageClient                  (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
             std::optional<Network::MessageResult> messageAllClients              (std::shared_ptr<Network::Connection> exceptionConnection,const Message& message) const override;   \
-            std::optional<Network::MessageResult> checkServicePing                (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
+            std::optional<Network::MessageResult> checkEndpointPing                (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
             std::optional<Network::MessageResult> readAllMessage                 (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
             std::optional<Network::MessageResult> messageHistoryRequest          (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
             std::optional<Network::MessageResult> messageStoreRequest            (std::shared_ptr<Network::Connection> clientConnection,   const Message& message) const override;   \
@@ -45,11 +45,11 @@ namespace Network
         virtual std::optional<MessageResult> messageAllClients(std::shared_ptr<Connection> exceptionConnection, const Message& message) const = 0;
 
         /**
-         * @brief The method for checking of service ping.
+         * @brief The method for checking of endpoint ping.
          * @param const std::shared_ptr<Connection>& client - sender context.
          * @param Message& message - for use the message header functionality.
          */
-        virtual std::optional<MessageResult> checkServicePing(std::shared_ptr<Connection> client, const Message& message) const = 0;
+        virtual std::optional<MessageResult> checkEndpointPing(std::shared_ptr<Connection> client, const Message& message) const = 0;
 
         /**
          * @brief The method for checking of receiving all messages by the client.

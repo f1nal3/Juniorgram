@@ -124,7 +124,7 @@ void Kernel::onMessage(const std::shared_ptr<Connection>& client, const Message&
     {
         case Message::MessageType::ServicePing:
         {
-            Result = checkServicePing(client, message);
+            Result = checkEndpointPing(client, message);
             break;
         }
         case Message::MessageType::MessageAll:
@@ -291,7 +291,7 @@ std::optional<MessageResult> Kernel::messageAllClients(std::shared_ptr<Connectio
     }
 }
 
-std::optional<Network::MessageResult> Kernel::checkServicePing(std::shared_ptr<Connection> client, const Message& message) const
+std::optional<Network::MessageResult> Kernel::checkEndpointPing(std::shared_ptr<Connection> client, const Message& message) const
 {
     std::tm formattedTimestamp = UtilityTime::safe_localtime(message.mHeader.mTimestamp);
 
